@@ -703,7 +703,58 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (j) LATEST -- *** DAY 7 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (k) LATEST -- *** DAY 8 OF THE BB
+STUDY: NOBODY IN THIS VALLEY USED TO BE ANYBODY. Twenty-eight BB- rows routed.
+Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_8_WHAT_YOU_USED_TO_BE_8_28_26.md
+
+THE LAST BIG BB SYSTEM NOBODY HAD OPENED IS THE ROSTER, and in that game THE
+BACKGROUND *IS* THE CHARACTER: a former job that carries his skills, his daily
+wage, what he eats, what traits he can grow, and "opens up specific events and
+dialog choices". The story engine is in the VARIANCE -- cheap backgrounds have
+wide ranges, so a lucky labourer rivals a professional, which is where "the beggar
+who became a legend" comes from.
+
+*** MEASURED HERE, AND IT IS THE STARKEST NUMBER IN EIGHT DAYS: THE ENTIRE
+OCCUPATIONAL VOCABULARY OF LAS VEGAS IS FOUR WORDS. *** `ROLE_WORDS = { worker,
+scav, keeper, watch }`, verified on the walked surface, AND NOBODY HAS A PAST AT
+ALL -- no former trade, no "used to be", no history field anywhere. POSITIVE
+CONTROL, stated because it nearly fooled me: `background` appears 115 times in the
+walked city and EVERY ONE IS CSS; `job` appears 167 times and every one is the
+DAY'S JOB (jobSite, jobCell), a place to work, never a trade somebody has.
+
+THE FINDING: the obvious copy is a stat package with a name. We cannot do that
+anyway (NO DAMAGE BEFORE THE DIAL) and the research says we should not want to --
+55% of American workers and 70% of college graduates take their self-identity from
+their job, losing the work role is a STATUS PASSAGE, and people who lose a job
+BUILD AN ALTERNATIVE WORK IDENTITY rather than call themselves unemployed. **A
+BACKGROUND IS NOT WHAT SOMEBODY CAN DO, IT IS WHAT THEY STILL THINK THEY ARE.**
+Ten years on, the valley is full of people introducing themselves by a job that has
+not existed for a decade. It is a WORD on a person, not a number, so it ships under
+every law we have.
+
+AND IT IS BOHEMIA'S INSTEAD OF GENERIC BECAUSE THE REAL CITY IS: leisure and
+hospitality was ~29% of ALL Las Vegas metro nonfarm employment, 370,000+ jobs in
+Clark County, and the top employer list is casino properties one after another.
+*** THE FRONT OF HOUSE IS USELESS AND THE BACK OF HOUSE RUNS THE VALLEY. *** A
+dealer's trade died with the money, but a Strip casino is a SMALL CITY: industrial
+laundry, kitchens feeding tens of thousands, boiler and chiller techs, high-voltage
+electricians, water and pool plant, refrigeration, docks, and the people who know
+where the deep dry stores are -- which engine/bohemia_economy.js ALREADY calls "the
+reason downtown matters". WE BUILT THE BUILDING AND NEVER ASKED WHO WORKED IN IT.
+
+AND IT PLUGS A HOLE THE PEOPLE LANE ALREADY DOCUMENTED AND COULD NOT FILL: across
+every canon quest, faction=X is 53 uses and "THE WORLD CAN ANSWER THIS", while ~60
+one-off predicates (keeps_the_tunnel, reads_the_sky, found_the_stairwell) get 1 use
+each and "NOTHING IN THE SIM COMPUTES" them. The cause is that a person has exactly
+two dimensions. A FORMER TRADE IS THE MISSING ONE. Not all sixty, and nothing is
+relaxed to make a hit.
+
+Four rows: PEOPLE BB-WHAT-YOU-WERE (the one that unblocks the others), WORDS
+BB-STILL-SAYS-IT, QUESTS BB-PREDICATE-ANSWER, WORLD BB-BACK-OF-HOUSE.
+
+COORDINATOR: 8/28 (j) -- *** DAY 7 OF THE BB
 STUDY: THE MOTOR IS PAYROLL, NOT SURVIVAL, AND ITS PUNISHMENT IS LONELINESS. We
 already built the right mechanic and hid it. Twenty-four BB- rows routed. Nothing
 to judge. ***

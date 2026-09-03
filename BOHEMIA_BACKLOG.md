@@ -2341,6 +2341,16 @@ BB-SUPPLY-FIRST. *** QUEUED (BB study day 6). ***
    THE VALLEY'S SUPPLY LINES ARE ALREADY MODELLED AND NOTHING CAN CUT ONE.
    Start with ONE cuttable supply line, not a war.
 
+BB-BACK-OF-HOUSE. *** DAY 8, AND IT IS WHERE DAYS 6, 7 AND 8 MEET. ***
+   THE CASINO IS A SMALL CITY AND WE ONLY BUILT ITS FRONT. Laundry, kitchens,
+   boilers and chillers, high-voltage, water and pool plant, refrigeration, the
+   loading docks, the deep dry stores. engine/bohemia_economy.js already makes
+   those dry stores "the reason downtown matters" -- the machines that filled them
+   are not in the world yet.
+   THIS IS THE SAME GROUND AS DAY 7'S BB-SUPPLY-FIRST (you take a place by taking
+   what feeds it) AND DAY 6'S TERRITORY (a circuit's owner is who holds the
+   block). A back of house is a supply line with a door on it.
+
 BB-DAYS-LEFT. *** QUEUED (BB study day 7). ***
    THE VALLEY ALREADY KNOWS HOW MANY DAYS OF A THING ARE LEFT AND THE PLAYER
    CANNOT SEE IT ANYWHERE. `BohemiaEconomy.daysLeft(ledger, good)` exists and
@@ -5399,6 +5409,38 @@ BB-UNPAID-TURNS-PREDATORY. *** QUEUED (BB study day 7, and it closes day 6). ***
    TAKE A FACTION'S LIGHTS AND YOU HAVE NOT WEAKENED THEM, YOU HAVE RELEASED
    THEM. That turns a free win into a decision.
 
+BB-WHAT-YOU-WERE. *** DAY 8. NOBODY IN THIS VALLEY USED TO BE ANYBODY. ***
+   MEASURED: the entire occupational vocabulary of Las Vegas is FOUR WORDS --
+   `ROLE_WORDS = { worker:'WORKER', scav:'SCAVENGER', keeper:'KEEPER',
+   watch:'WATCH' }` -- and there is no former trade, no "used to be", no history
+   field anywhere. (Positive control, because it nearly fooled me: `background`
+   appears 115 times in the walked city and EVERY ONE IS CSS; `job` appears 167
+   times and every one is the DAY'S JOB -- jobSite, jobCell -- a place to work,
+   never a trade somebody has.)
+   IN THE GAME HE NAMED, THE BACKGROUND *IS* THE CHARACTER: a former job that
+   carries what he is good at, his daily wage, how much he eats, what traits he
+   can develop, and "opens up specific events and dialog choices."
+   THE ROW: every derived person gets a FORMER TRADE beside their current role,
+   derived from (blockSeed, house, slot) exactly like the rest of that module, so
+   it costs no storage and survives every load. IT IS A WORD, NOT A STAT --
+   NO DAMAGE BEFORE THE DIAL, and the research says the word is the better half
+   anyway (see below). WHO the named people are stays HIS.
+   WEIGHT IT TO THE REAL CITY: leisure and hospitality was ~29% OF ALL NONFARM
+   EMPLOYMENT in the Las Vegas metro, 370,000+ jobs in Clark County, and the top
+   employers list is casino properties one after another. The valley's survivors
+   are not a random draw of humanity.
+   *** AND THE INVERSION THAT MAKES IT GOOD: THE FRONT OF HOUSE IS USELESS AND
+   THE BACK OF HOUSE RUNS THE VALLEY. A dealer's trade died with the money. But a
+   Strip casino is a small city -- industrial laundry, kitchens feeding tens of
+   thousands, boiler and chiller techs, high-voltage electricians, water and pool
+   plant, refrigeration, docks, and the people who know where the deep dry stores
+   are. Every one of those is now the most valuable person alive, and
+   engine/bohemia_economy.js ALREADY makes the deep casino dry stores "the reason
+   downtown matters." We built the building and never asked who worked in it. ***
+   COVERAGE BEATS COUNT: do not cook sixty trades at once. SHARED -8 measured what
+   a big undifferentiated batch does to his keep rate.
+   Read: records/BOHEMIA_BB_STUDY_DAY_8_WHAT_YOU_USED_TO_BE_8_28_26.md.
+
 BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
    MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
@@ -7984,6 +8026,22 @@ BB-TERRITORY-FLAG. *** QUEUED (BB study day 6). TEN QUESTS SAY THE MAP CHANGES
    Either it moves ground, or those ten quests are telling the player something
    that does not happen. Depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
 
+BB-PREDICATE-ANSWER. *** DAY 8. SIXTY TIMES A QUEST HAS ASKED FOR SOMEBODY BY
+   WHAT THEY CAN DO AND THE VALLEY HAS HAD NO WAY TO ANSWER. ***
+   The people module already counted it across every canon quest: "faction=X --
+   53 uses -- THE WORLD CAN ANSWER THIS. ~60 other predicates, 1 use each:
+   keeps_the_tunnel, reads_the_sky, found_the_stairwell, speaks_for_the_crew...
+   The one-off predicates are the quest DESCRIBING THE PERSON IT NEEDS, and
+   NOTHING IN THE SIM COMPUTES [them]."
+   The cause is that a person has exactly two dimensions: which outfit they run
+   with, and one of four role words. A FORMER TRADE IS THE MISSING DIMENSION --
+   "reads the sky" is a pool tech or a groundskeeper, "keeps the tunnel" is
+   somebody who worked the service level.
+   NOT ALL SIXTY, AND NOTHING IS RELAXED TO MAKE A HIT: no honest match still
+   returns NULL, per that module's own rule, because a stranger handed an
+   insider's part is worse than an unplaced quest. Depends on PEOPLE
+   BB-WHAT-YOU-WERE.
+
 BB-OFFER-GATE. *** QUEUED BEHIND THE DEMO (BB study day 1, composes with day 2). ***
    THE FEED GATES OFFERS ON WHO VOUCHES FOR YOU -- not only on who owns a phone.
    Measured: the ONE thing that currently decides a quest's channel is PHONELESS.
@@ -8118,6 +8176,25 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-STILL-SAYS-IT. *** DAY 8, AND IT IS THE HALF THAT MAKES IT WORTH DOING. ***
+   A PERSON'S LINES KEY OFF WHAT THEY USED TO BE, not only which outfit they run
+   with.
+   THE FINDING, and it is why a background here must NOT be a stat package: 55% of
+   American workers and 70% of college graduates derive their self-identity from
+   their job; losing the work role is a STATUS PASSAGE that breaks a person's
+   picture of themselves; and people who lose a job BUILD AN ALTERNATIVE WORK
+   IDENTITY rather than call themselves unemployed. **THE OCCUPATIONAL IDENTITY
+   OUTLIVES THE OCCUPATION.**
+   SO: a background is not what somebody can do, IT IS WHAT THEY STILL THINK THEY
+   ARE. Ten years on, in a city where a third of everybody worked hospitality, the
+   valley is full of people introducing themselves by a job that has not existed
+   for a decade. The pit boss who still runs a room that way. The line cook who
+   still calls tickets to nobody. Funny and sad in the same breath, TRUE, and it
+   costs nothing but words.
+   Voice card applies, NOBODY IN BOHEMIA IS WISE, ships draft:true, and this does
+   NOT reopen the language work -- the 8/26 cap stands and that feature is
+   FINISHED. Depends on PEOPLE BB-WHAT-YOU-WERE.
+
 BB-RESPONSIVE. *** QUEUED BEHIND THE DEMO (BB study day 4). ***
    THE ONLY PERSON WHO FIGHTS BESIDE YOU SAYS FOUR THINGS AND NONE OF THEM ARE
    ABOUT YOU. Measured in the decoded combat source: CLEAR / GOT THE BLADE / ON

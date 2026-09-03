@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: SEVEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: EIGHT DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -267,7 +267,28 @@ research partner. He DECIDES, you PRODUCE.
   which is what has blocked every stakes conversation since NO DAMAGE BEFORE THE
   DIAL.** Day 7 also closes day 6: cut an armed group's income and it does not
   fade out, IT GOES ROVING, so taking somebody's lights is not a free win.
-  ROUTED: twenty-four rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 8 OPENED THE LAST BIG BB SYSTEM, THE ROSTER: A BACKGROUND IS NOT
+  WHAT SOMEBODY CAN DO, IT IS WHAT THEY STILL THINK THEY ARE. *** In the game he
+  named, the BACKGROUND IS THE CHARACTER -- a former job carrying skills, daily
+  wage, food, traits, and which events and dialogue exist for that person. HERE,
+  THE ENTIRE OCCUPATIONAL VOCABULARY OF LAS VEGAS IS FOUR WORDS (`ROLE_WORDS` =
+  worker, scav, keeper, watch) AND NOBODY HAS A PAST AT ALL. (Positive control,
+  because it nearly fooled me: `background` appears 115 times in the walked city
+  and every one is CSS; `job` appears 167 times and every one is the day's job, a
+  place to work, never a trade somebody has.) THE RESEARCH SAYS THE COPY TO MAKE
+  IS THE WORD, NOT A STAT PACKAGE: most people take their identity from their job
+  and KEEP IT after the job is gone, building an alternative work identity rather
+  than saying unemployed. So it ships under NO DAMAGE BEFORE THE DIAL. AND IT IS
+  BOHEMIA-SPECIFIC BECAUSE THE REAL CITY IS: leisure and hospitality was ~29% of
+  ALL Las Vegas metro nonfarm employment, 370,000+ jobs in Clark County. **THE
+  FRONT OF HOUSE IS USELESS AND THE BACK OF HOUSE RUNS THE VALLEY** -- a Strip
+  casino is a small city with industrial laundry, kitchens, boilers and chillers,
+  high-voltage, water and pool plant, docks and the deep dry stores our economy
+  module ALREADY calls "the reason downtown matters". We built the building and
+  never asked who worked in it. It also plugs a hole PEOPLE documented and could
+  not fill: ~60 quest role predicates (keeps_the_tunnel, reads_the_sky) that
+  NOTHING IN THE SIM COMPUTES, because a person had only two dimensions.
+  ROUTED: twenty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

@@ -5,13 +5,14 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-SEVEN days, seven records, driven by his own two-word trigger "bb study,
+EIGHT days, eight records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
-STUDYING BATTLE BROTHERS"), AND DAYS 6 AND 7 EACH FOUND A PILLAR THE PLAN
-HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of Vegas
-as different faction holdings", which days 1 and 2 never covered. Day 7:
-the motor, meaning why a player gets up tomorrow at all. A PLAN IS NOT A
-LAW.
+STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
+PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
+Vegas as different faction holdings", which days 1 and 2 never covered.
+Day 7: the motor, meaning why a player gets up tomorrow at all. Day 8: the
+roster, meaning who these people are and what they used to be. A PLAN IS
+NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -66,7 +67,17 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **AND CUTTING A FACTION'S INCOME RELEASES IT (day 7, closing day 6).**
   An armed group that stops being paid does not disappear, it goes
   roving. Taking somebody's lights is not a free win.
-- **ROUTED:** twenty-four rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **A BACKGROUND IS NOT WHAT SOMEBODY CAN DO, IT IS WHAT THEY STILL THINK
+  THEY ARE (day 8).** In BB the background IS the character. Here the whole
+  occupational vocabulary is FOUR WORDS and nobody has a past. The research
+  says the copy to make is the WORD, not a stat package: most people take
+  their identity from their job and keep it after the job is gone. Weighted
+  to the real city, where leisure and hospitality was ~29% of all
+  employment, and **THE FRONT OF HOUSE IS USELESS WHILE THE BACK OF HOUSE
+  RUNS THE VALLEY** (laundries, kitchens, boilers, high-voltage, water
+  plant). It also answers ~60 quest role predicates nothing in the sim
+  could compute.
+- **ROUTED:** twenty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

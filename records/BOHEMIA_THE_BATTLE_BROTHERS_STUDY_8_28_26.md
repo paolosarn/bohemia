@@ -53,8 +53,11 @@ HIS AND ONLY HIS — Battle Brothers, Rogue Fable 4, Final Fantasy XII.
 Research anything; bring back a MECHANIC in plain words; never add a
 reference game he has not named. ***
 
-## 3. THE DAYS, ONE QUESTION EACH (FIVE WERE PLANNED; HE ASKED FOR A
-## SIXTH AND IT FOUND THE PILLAR THE PLAN MISSED — SEE DAY 6)
+## 3. THE DAYS, ONE QUESTION EACH
+## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
+## WITH STUDYING BATTLE BROTHERS"), AND DAYS 6, 7 AND 8 EACH FOUND A
+## PILLAR THIS PLAN HAD MISSED: THE GROUND, THE MOTOR, AND THE ROSTER.
+## A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -184,6 +187,32 @@ DISMISSES THE CARD THAT COULD HAVE TOLD YOU, WITH ITS RETURN VALUE THROWN
 AWAY. THE UNLOCK: a social burn is NOT DAMAGE, so the whole motor ships
 without him ruling one number. Four more rows; BB-WHAT-YOU-OWE is the best
 effort-to-effect row in the study.**
+
+**DAY 8 — WHAT YOU USED TO BE. *** DONE: records/BOHEMIA_BB_STUDY_DAY_8_
+WHAT_YOU_USED_TO_BE_8_28_26.md. THE LAST BIG BB SYSTEM NOBODY HAD OPENED:
+THE ROSTER. *** In BB the BACKGROUND IS THE CHARACTER -- a former job that
+carries his skills, his daily wage, what he eats, what traits he can grow,
+and which events and dialogue exist for him. And the story engine is in
+the VARIANCE: cheap backgrounds have wide ranges, so a lucky labourer
+rivals a professional, which is where "the beggar who became a legend"
+comes from.
+MEASURED HERE: the entire occupational vocabulary of Las Vegas is FOUR
+WORDS (worker, scav, keeper, watch) and NOBODY HAS A PAST AT ALL. Positive
+control stated: `background` appears 115 times in the walked city and every
+one is CSS.
+THE CHALLENGE: the obvious copy is a stat package with a name. The research
+says otherwise -- 55% of workers derive their identity from their job, and
+people who lose one BUILD AN ALTERNATIVE WORK IDENTITY rather than say
+unemployed. **A BACKGROUND IS NOT WHAT SOMEBODY CAN DO, IT IS WHAT THEY
+STILL THINK THEY ARE.** So it is a WORD, not a number, and it ships under
+NO DAMAGE BEFORE THE DIAL.
+AND IT IS BOHEMIA-SPECIFIC BECAUSE OF REAL DATA: leisure and hospitality
+was ~29% of all Las Vegas metro nonfarm employment, 370,000+ jobs. THE
+FRONT OF HOUSE IS USELESS AND THE BACK OF HOUSE RUNS THE VALLEY -- the
+laundries, kitchens, boilers, electricians and water plant inside the
+casinos. It also plugs a documented hole: ~60 quest role predicates that
+NOTHING IN THE SIM CAN COMPUTE, because a person had only two dimensions.
+Four more rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it
