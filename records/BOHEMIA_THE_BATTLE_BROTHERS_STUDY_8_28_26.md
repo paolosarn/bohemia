@@ -98,7 +98,17 @@ really about and what stops it. **LANDS ON:** RF4's five archetypes and
 our 120 BPM beat. THE DESIGN TEST: the gambit handles the obvious, the
 player handles the decision, and a fight must never be winnable with the
 phone face-down.
-**DAY 4 — ATTACHMENT WITHOUT PERMADEATH.** BB's people matter because
+**DAY 4 — ATTACHMENT WITHOUT PERMADEATH. *** DONE: records/BOHEMIA_BB_
+STUDY_DAY_4_ATTACHMENT_WITHOUT_PERMADEATH_8_28_26.md. *** THE HEADLINE:
+permadeath does not CREATE attachment, it CASHES IT IN — the measured
+effect runs through grief and is stronger for players who were ALREADY
+attached, so it is an amplifier, not a source. His ruling is safe and the
+bill is unpaid. And the mechanic was found already built ON THE WRONG
+SIDE: the enemy medic breaks cover to get a downed man back up and to talk
+a broken man round, while your companion lies there for 99 turns because
+picking her up is not built. Also measured: she is rebuilt from scratch at
+every bell, says four lines and all four are about the enemy.** BB's
+people matter because
 they can die forever and you cannot reload. We ruled permadeath out and
 ruled the REWIND in. So: what else creates attachment to a person in a
 squad? Injuries that persist, names, history, mutual knowledge, being
@@ -114,7 +124,11 @@ gets routed as work.
    and move on.
 2. **A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT** until you have
    shown the instrument could have seen a positive one. Ran into this
-   twice this month.
+   twice this month, and a third time on day 4. **CONCRETE, FOR ANYBODY
+   AUDITING THE BUILD: A PLAIN SEARCH OF THE ALPHA CANNOT SEE THE FIGHT.**
+   The combat demo is base64 inside `COMBAT_B64` and decoded into an
+   iframe by `ensureCombatFrame()`; every combat token reads as ZERO until
+   you decode it. Decode first, then measure.
 3. **BOTH AISLES, EVERY DAY.** What the best games did, AND where the
    problem lives in the real world. A caravan is a real logistics problem;
    a reputation is a real sociology problem.

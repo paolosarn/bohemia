@@ -703,7 +703,44 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (c) LATEST -- *** THE DYNASTY
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (g) LATEST -- *** THE BATTLE
+BROTHERS STUDY, DAYS 1-4 ARE DONE. Day 5 (synthesis + routing) is the only one
+left, and NOTHING ROUTES AS WORK UNTIL IT LANDS -- his order. Nothing to judge. ***
+
+Plan + standing rules: records/BOHEMIA_THE_BATTLE_BROTHERS_STUDY_8_28_26.md.
+He drives it with the two words "bb study, next day". THE STUDY IS THE
+COORDINATOR'S OWN WORK, not a lane's.
+- DAY 1 CONTRACT ECONOMY: renown gates the OFFER, not the difficulty.
+- DAY 2 THE MAP AS AN ECONOMY: we have prices without geography.
+- DAY 3 ORDERS + GUNS: his "go, slow down" order set is mission command, and it
+  is the STRONGER design at speed, not the dumbed-down one; cover would make
+  fights LONGER (turtling), so guns must be bad up close.
+- DAY 4 ATTACHMENT WITHOUT PERMADEATH: permadeath does not CREATE attachment, it
+  CASHES IT IN (the measured effect runs through grief and is stronger for
+  already-attached players). His no-permadeath ruling is safe; the bill is
+  unpaid.
+
+*** TWO THINGS FROM DAY 4 THAT OTHER LANES SHOULD KNOW NOW, AS FACTS, NOT AS
+WORK ORDERS (day 5 routes): ***
+1. **COMBAT: THE ATTACHMENT MECHANIC IS ALREADY BUILT ON THE WRONG SIDE.** Their
+   medic breaks cover for a downed man ("A BODY ON THE FLOOR OUTRANKS HIS OWN
+   SKIN"), gets him back up, and TALKS A BROKEN MAN ROUND. Your companion has
+   `ALLY_DOWN_TURNS=99` and the code says picking her up is not built. She is
+   also rebuilt at full health at every bell, cannot lose her nerve, does not
+   ride the save, and says exactly FOUR lines -- CLEAR / GOT THE BLADE / ON THE
+   SPOTTER / FIRING -- none of which are about you, her, or the world.
+2. **A PLAIN SEARCH OF THE ALPHA CANNOT SEE THE FIGHT.** `gunsOnTile`,
+   `ENC_SIZES`, `ALLY_NAME`, `BohemiaArena` all read ZERO in both slices. The
+   combat demo is base64 in `COMBAT_B64`, decoded into an iframe by
+   `ensureCombatFrame()` (1,343,843 chars decoded). DECODE BEFORE YOU MEASURE.
+   This nearly produced a false finding that the 8/31 companion was never
+   shipped. She is shipped.
+ALSO FLAGGED, AND IT IS A REAL COLLISION BETWEEN TWO OF HIS OWN LAWS: **THE
+REWIND CAN UNDO A SCAR.** ~200 moves of take-back (8/15) versus a persistent
+injury as the replacement for permadeath. Three shapes exist, none is chosen,
+it is a day-5 routing item and the dial is his.
+
+COORDINATOR: 8/28 (c) -- *** THE DYNASTY
 LIVES. He answered the sweep-23 question in one line and it is law. Nothing to
 judge. ***
 
