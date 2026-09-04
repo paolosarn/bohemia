@@ -5,6 +5,33 @@
 
 ---
 
+## *** STALE HEADER CORRECTED 8/28 (coordinator, BB study day 9). READ THIS
+## BEFORE THE TAGS BELOW. ***
+The line above says "NOTHING here is built." **THAT WAS TRUE ON 7/1 AND IT IS
+NOT TRUE NOW**, and a live law that describes the build wrongly is exactly the
+rot the truth hierarchy exists to kill, so it is corrected at the source rather
+than left for the next session to trip over.
+**A PERK TREE IS SHIPPED, INSIDE THE FIGHT.** Measured 8/28 in the decoded
+`COMBAT_B64` payload: `const TREE={xp:0,spent:[]}`, `XP_PER_LEVEL=120`,
+`treeLevel()`, a spend UI reading XP / LEVEL / POINTS, written to
+`localStorage['bohemia.tree']`, read back on load and applied at the top of every
+fight. **NINE perks, THREE branches (BODY / EYE / HAND), three rungs each**, every
+name `[draft:true]` because what a perk is CALLED is his.
+**IT IS NOT THIS CATALOGUE.** None of the abilities below were built; the shipped
+nine are their own list. So there are now TWO perk lists plus the 53 written boss
+grants, and CLAUDE.md says the tree, the abilities and the bosses are ONE system,
+not three. That reconciliation is routed as COMBAT / SHARED **BB-ONE-LADDER**.
+**AND THE SHAPE IS DRIFTING.** The shipped tree's own comment: *"seven of these
+nine perks need no new mechanic at all. They move a number a shipped system
+already reads."* Seven stats, two verbs. His ruling is 60 mini bosses that each
+hand you A NEW WAY TO INTERACT WITH BOHEMIA, which is a HORIZONTAL tree, and the
+expertise research agrees with him: mastery is seeing more, not being more. Routed
+as COMBAT **BB-VERB-TREE**.
+Full finding: records/BOHEMIA_BB_STUDY_DAY_9_WHAT_A_HUNDRED_HOURS_OF_GETTING_
+BETTER_IS_8_28_26.md
+
+---
+
 ## WHY THIS FILE EXISTS
 
 The perk/ability system is Bohemia's **build-variety axis** — the RF4 DNA doc (6.30.26) flagged "build variety" as the single biggest [PENDING] question, because RF4's depth leans on many viable builds and Bohemia's equivalent is *this*: perks + abilities + weapon types. But the catalogue was living as loose tags inside a combat-mechanics doc, which is where ideas go to get lost in a compaction. This file is the home now. Every power Paolo names goes here the same session, tagged, never mistaken for a built mechanic.

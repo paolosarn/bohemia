@@ -703,7 +703,56 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (k) LATEST -- *** DAY 8 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (l) LATEST -- *** DAY 9 OF THE BB
+STUDY: GROWTH HAS TO GO SIDEWAYS, AND HIS OWN TWO REFERENCES ONLY AGREE THAT WAY.
+Thirty-one BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_9_WHAT_A_HUNDRED_HOURS_OF_GETTING_BETTER_IS_
+8_28_26.md
+
+*** THE FINDING TOUCHES A LOCKED PILLAR, SO EVERY LANE SHOULD KNOW IT. *** Two
+things are locked at the top of CLAUDE.md and they are opposite philosophies of
+progression: a PERSISTENT experience tree on the Cyberpunk / Elder Scrolls model
+across ~100 HOURS (a POWER tree), and BATTLE BROTHERS, whose progression is ELEVEN
+choices and a hard stop and whose whole feel is that a veteran is still killable.
+A HUNDRED HOURS OF BONUSES AND A FIGHT WHERE A GOOD MAN STILL DIES CANNOT BOTH
+SURVIVE IF GROWTH IS VERTICAL. That is arithmetic, and NO DAMAGE BEFORE THE DIAL
+means we are not allowed to tune the numbers that would hold it together.
+HIS OWN SENTENCE IN THE SAME PARAGRAPH RESOLVES IT: **60 MINI BOSSES THAT EACH
+HAND YOU A NEW WAY TO INTERACT WITH BOHEMIA.** That is a HORIZONTAL tree. Sixty
+new VERBS, not +8% sixty times, and a new option does not make a bullet hurt less.
+53 are already written out in his ladder and the game already parses that file.
+
+AND THE REAL AISLE AGREES: chess masters have ORDINARY working memory. Their edge
+is thousands of learned patterns, and IT VANISHES ON RANDOM BOARDS. Expertise is
+not being more, IT IS SEEING MORE. TEST FOR ANY RUNG: something new to see or do
+is mastery; a number going up is a stat.
+
+MEASURED (and I nearly filed a false negative before decoding the fight again):
+A PERK TREE IS SHIPPED. TREE={xp,spent}, XP_PER_LEVEL=120, treeLevel(), a spend UI
+reading XP / LEVEL / POINTS, saved to localStorage['bohemia.tree'], applied at the
+top of every fight, names draft:true. NINE perks, THREE branches, three rungs each.
+The 7/1 perks-and-abilities law said "NOTHING here is built" over that shipped
+tree; CORRECTED AT THE SOURCE this turn with a dated note.
+AND THE TREE'S OWN COMMENT IS THE DIAGNOSIS: "seven of these nine perks need no new
+mechanic at all. THEY MOVE A NUMBER A SHIPPED SYSTEM ALREADY READS." Seven stats,
+two verbs. It is drifting vertical.
+
+SEVENTH INSTANCE OF THIS STUDY'S SHAPE, and the smallest yet: THE BOSS VERBS ARE
+BROADCAST INTO AN EMPTY ROOM. The keys are published twice on purpose, with a
+comment naming CITY, RUN and QUESTS as the readers, and `bohemiaKeys` has ZERO
+hits in the walked city and ZERO in the alpha shell. Positive control: the alpha
+handles TWENTY message types, so the listener works; the keys message carries NO
+`type` field at all, so no type-based handler could pick it up. Until SHARED
+BB-KEYS-LAND lands, A BOSS HANDS YOU A VERB is only true inside the arena.
+
+A MEASUREMENT CAUTION, recorded because it nearly caught me: `myLvl()` in the
+fight is a FLOOR, not a character level. It sits beside `deckSlabAt` and
+`underDeckMe`. Do not read it as progression.
+
+Three rows: COMBAT BB-VERB-TREE, COMBAT/SHARED BB-ONE-LADDER, SHARED BB-KEYS-LAND.
+
+COORDINATOR: 8/28 (k) -- *** DAY 8 OF THE BB
 STUDY: NOBODY IN THIS VALLEY USED TO BE ANYBODY. Twenty-eight BB- rows routed.
 Nothing to judge. ***
 

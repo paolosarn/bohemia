@@ -5,14 +5,15 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-EIGHT days, eight records, driven by his own two-word trigger "bb study,
+NINE days, nine records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
 Vegas as different faction holdings", which days 1 and 2 never covered.
 Day 7: the motor, meaning why a player gets up tomorrow at all. Day 8: the
-roster, meaning who these people are and what they used to be. A PLAN IS
-NOT A LAW.
+roster, meaning who these people are and what they used to be. Day 9:
+progression, meaning what a hundred hours of getting better is made of.
+A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -77,7 +78,17 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   RUNS THE VALLEY** (laundries, kitchens, boilers, high-voltage, water
   plant). It also answers ~60 quest role predicates nothing in the sim
   could compute.
-- **ROUTED:** twenty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **GROWTH GOES SIDEWAYS, AND HIS OWN TWO REFERENCES ONLY AGREE THAT WAY
+  (day 9).** A persistent Cyberpunk/Elder-Scrolls-style tree across ~100
+  hours and a Battle-Brothers fight where a veteran still dies cannot both
+  survive if growth is VERTICAL, and NO DAMAGE BEFORE THE DIAL means we
+  cannot tune the numbers that would hold it together. His own sentence
+  resolves it: **60 mini bosses that each hand you A NEW WAY TO INTERACT
+  WITH BOHEMIA.** A verb tree grows for a hundred hours without ending the
+  danger. The shipped tree is drifting the other way (its own comment:
+  seven of nine perks "move a number a shipped system already reads"), and
+  the boss keys it should be made of are published to nobody.
+- **ROUTED:** thirty-one rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

@@ -55,9 +55,9 @@ reference game he has not named. ***
 
 ## 3. THE DAYS, ONE QUESTION EACH
 ## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
-## WITH STUDYING BATTLE BROTHERS"), AND DAYS 6, 7 AND 8 EACH FOUND A
-## PILLAR THIS PLAN HAD MISSED: THE GROUND, THE MOTOR, AND THE ROSTER.
-## A PLAN IS NOT A LAW. ***
+## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
+## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
+## AND PROGRESSION (9). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -213,6 +213,35 @@ laundries, kitchens, boilers, electricians and water plant inside the
 casinos. It also plugs a documented hole: ~60 quest role predicates that
 NOTHING IN THE SIM CAN COMPUTE, because a person had only two dimensions.
 Four more rows.**
+
+**DAY 9 — WHAT A HUNDRED HOURS OF GETTING BETTER IS MADE OF. *** DONE:
+records/BOHEMIA_BB_STUDY_DAY_9_WHAT_A_HUNDRED_HOURS_OF_GETTING_BETTER_IS_
+8_28_26.md. IT LANDS ON A LOCKED PILLAR. *** BB's progression DELIBERATELY
+STOPS: one perk point a level, a soft cap at 11, veteran levels awarding
+NO perk point. Eleven choices in a whole career, and its own players say
+the cap "feels so final". BB survives that by REPLACING THE PERSON, which
+our one-character dynasty forbids.
+*** THE FINDING: HIS TWO REFERENCE SETS DISAGREE AND NOBODY HAD FLAGGED
+IT. Both locked at the top of CLAUDE.md: a PERSISTENT tree on the
+Cyberpunk / Elder Scrolls model across ~100 hours (a POWER tree), and
+Battle Brothers (eleven choices, a veteran still dies). Those cannot both
+survive if growth is VERTICAL, and NO DAMAGE BEFORE THE DIAL means we
+cannot tune the numbers that would hold it together. THE RESOLUTION IS
+HIS OWN SENTENCE IN THE SAME PARAGRAPH: 60 mini bosses that each hand you
+A NEW WAY TO INTERACT WITH BOHEMIA. THAT IS A HORIZONTAL TREE, and 53 are
+already written. ***
+MEASURED, after nearly filing a false negative: a perk tree IS shipped
+inside the fight (nine perks, three branches, XP_PER_LEVEL=120, saved to
+storage) even though the 7/1 law says "NOTHING here is built" -- that
+header is now corrected at the source. And its own comment gives the
+diagnosis: "seven of these nine perks... move a number a shipped system
+already reads." SEVEN STATS, TWO VERBS.
+SEVENTH INSTANCE: the boss keys are published TWICE with a comment naming
+CITY, RUN and QUESTS as the readers, and `bohemiaKeys` has ZERO readers in
+either surface. The verbs do not leave the fight.
+REAL AISLE: chess masters have ORDINARY working memory and their advantage
+VANISHES ON RANDOM BOARDS. Expertise is not being more, it is SEEING MORE.
+Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

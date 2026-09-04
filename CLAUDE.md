@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: EIGHT DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: NINE DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -288,7 +288,27 @@ research partner. He DECIDES, you PRODUCE.
   never asked who worked in it. It also plugs a hole PEOPLE documented and could
   not fill: ~60 quest role predicates (keeps_the_tunnel, reads_the_sky) that
   NOTHING IN THE SIM COMPUTES, because a person had only two dimensions.
-  ROUTED: twenty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 9 IS THE ONE THAT TOUCHES A LOCKED PILLAR: GROWTH HAS TO GO
+  SIDEWAYS, BECAUSE HIS OWN TWO REFERENCES ONLY AGREE THAT WAY. *** A PERSISTENT
+  Cyberpunk / Elder Scrolls style tree across ~100 HOURS and a Battle Brothers
+  fight where a veteran is still killable CANNOT BOTH SURVIVE IF GROWTH IS
+  VERTICAL -- that is arithmetic, and NO DAMAGE BEFORE THE DIAL means we are not
+  allowed to tune the numbers that would hold it together. HIS OWN SENTENCE IN THE
+  SAME PARAGRAPH RESOLVES IT: 60 MINI BOSSES THAT EACH HAND YOU A NEW WAY TO
+  INTERACT WITH BOHEMIA. That is a HORIZONTAL tree, 53 are already written out in
+  his ladder, and a new option does not make a bullet hurt less. THE REAL-WORLD
+  AISLE AGREES: chess masters have ORDINARY working memory, their edge is
+  thousands of learned patterns, and it VANISHES ON RANDOM BOARDS -- expertise is
+  not being more, IT IS SEEING MORE. TEST: a perk that gives you something new to
+  see or do is mastery; a perk that raises a number is a stat. AND THE SHIPPED
+  TREE IS DRIFTING THE OTHER WAY -- a nine-perk tree really is built inside the
+  fight (the 7/1 perks law said "NOTHING here is built" until this turn corrected
+  it at the source), and its own comment reads "seven of these nine perks... move
+  a number a shipped system already reads". SEVEN STATS, TWO VERBS. Plus the
+  seventh instance: the boss keys are published TWICE with a comment naming CITY,
+  RUN and QUESTS as the intended readers and `bohemiaKeys` has ZERO readers in
+  either surface, so the verbs never leave the fight.
+  ROUTED: thirty-one rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

@@ -5018,6 +5018,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-VERB-TREE. *** DAY 9. THE TREE IS GROWING THE WRONG KIND OF RUNG, AND ITS
+   OWN COMMENT SAYS SO. ***
+   MEASURED 8/28 in the decoded fight: a perk tree IS shipped -- TREE={xp,spent},
+   XP_PER_LEVEL=120, treeLevel(), a spend UI reading XP / LEVEL / POINTS, saved to
+   localStorage['bohemia.tree'], applied at the top of every fight, names
+   draft:true. NINE perks, THREE branches (BODY / EYE / HAND), three rungs each.
+   AND ITS OWN COMMENT: "seven of these nine perks need no new mechanic at all.
+   THEY MOVE A NUMBER A SHIPPED SYSTEM ALREADY READS." As engineering that is a
+   virtue, seven perks for free. As design it is the diagnosis: SEVEN STATS, TWO
+   VERBS.
+   *** THE COLLISION IT SITS IN, AND BOTH SIDES ARE LOCKED AT THE TOP OF
+   CLAUDE.md: a PERSISTENT experience tree on the Cyberpunk / Elder Scrolls model
+   across ~100 HOURS, and BATTLE BROTHERS, whose progression is ELEVEN choices and
+   a hard stop and whose whole feel is that a veteran is still killable. A hundred
+   hours of bonuses and a fight where a good man still dies cannot both survive if
+   growth is VERTICAL. That is arithmetic, not taste, and NO DAMAGE BEFORE THE
+   DIAL means we are not allowed to tune the numbers that would hold it together.
+   THE RESOLUTION IS ALREADY HIS, IN THE SAME PARAGRAPH: "60 MINI BOSSES that each
+   hand you A NEW WAY TO INTERACT WITH BOHEMIA." THAT IS A HORIZONTAL TREE. Sixty
+   new VERBS, not +8% sixty times. A new option does not make a bullet hurt less,
+   so it grows for a hundred hours without ending the danger. 53 are already
+   written out in his ladder and the game already parses that file at build. ***
+   AND THE REAL-WORLD TEST: chess masters have ORDINARY working memory; their edge
+   is thousands of learned patterns, and IT DISAPPEARS ON RANDOM BOARDS. Expertise
+   is not being more, IT IS SEEING MORE. So: A PERK THAT GIVES YOU SOMETHING NEW
+   TO SEE OR DO IS MASTERY; A PERK THAT RAISES A NUMBER IS A STAT. Invert the
+   ratio. Read: records/BOHEMIA_BB_STUDY_DAY_9_WHAT_A_HUNDRED_HOURS_OF_GETTING_
+   BETTER_IS_8_28_26.md
+
+BB-ONE-LADDER. *** DAY 9. ONE SYSTEM, THREE LISTS. ***
+   CLAUDE.md says the tree, the abilities and the bosses are ONE system, not
+   three. Today they are: the SHIPPED nine-perk tree inside the fight, the 7/1
+   abilities-and-perks catalogue in laws/ (whose header said "NOTHING here is
+   built" over a shipped tree until it was corrected 8/28), and the 53 written
+   boss grants in the ladder record.
+   MAKE THE BOSS GRANT AND THE TREE RUNG THE SAME KIND OF OBJECT BEFORE EITHER
+   GROWS FURTHER, so nobody has to reconcile two progressions later. Pairs with
+   BB-VERB-TREE: if a rung is a verb and a grant is a verb, this is nearly free.
+
 BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
    IT IS A CONSTRAINT, NOT A FEATURE, IT COSTS NOTHING TODAY, AND EVERY WEAPON
    WRITTEN BEFORE IT IS WRITTEN IS REWORK. ***
@@ -8803,6 +8842,22 @@ BB-MIGRATION-AUDIT. *** DAY 6, AND THE STANDING RULE IT PRODUCED: A MIGRATION
    design, not a hole; recorded so nobody re-raises it). Already checked and
    BROKEN: the faction world, the casting bridge. UNCHECKED, do not guess:
    bohemia_crypt, bohemia_rooms, bohemia_overmap_bridge.
+
+BB-KEYS-LAND. *** DAY 9. THE BOSS VERBS ARE BROADCAST INTO AN EMPTY ROOM. ***
+   The keys are published TWICE, deliberately, with the reason written beside
+   them: "PUBLISHED to the parent window so CITY, RUN and QUESTS can read what you
+   hold without knowing a thing about combat." `window.bohemiaKeys = ...` and
+   `parent.postMessage({bohemiaKeys:...})`.
+   MEASURED 8/28: `bohemiaKeys` is ZERO HITS in the walked city and ZERO in the
+   alpha shell. NOTHING READS EITHER ONE.
+   POSITIVE CONTROL, so this is not another instrument failure: the alpha handles
+   TWENTY message types (BOHEMIA_COMBAT_END, BOHEMIA_STEP, BOHEMIA_STANDING_FACTS
+   and seventeen more), so the listener is real and works. AND THE KEYS MESSAGE
+   CARRIES NO `type` FIELD AT ALL, so no type-based handler could ever pick it up
+   -- whoever takes this row needs to add one or write a dedicated listener.
+   UNTIL THIS LANDS, A BOSS'S GRANT DOES NOT EXIST OUTSIDE THE FIGHT, and A BOSS
+   HANDS YOU A VERB (8/27) is only true inside the arena. Seventh instance of this
+   study's shape and the smallest one yet.
 
 BB-ALPHA-DECODE. *** A PLAIN SEARCH OF THE ALPHA CANNOT SEE THE FIGHT. Write
    this into whatever audits or documents the build, because it has now nearly
