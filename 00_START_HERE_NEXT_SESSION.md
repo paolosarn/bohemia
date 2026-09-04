@@ -703,7 +703,56 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (s) LATEST -- *** DAY 16 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (t) LATEST -- *** DAY 17 OF THE BB
+STUDY: WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS CHANCE ON YOU.
+Fifty-eight BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_17_HOW_MUCH_DO_YOU_SHOW_8_28_26.md
+
+THE SECOND COLLISION BETWEEN HIS OWN TWO NAMED GAMES (day 9 found the first, about
+growth). BATTLE BROTHERS SHOWS YOU THE MATH: hover an enemy and a tooltip gives
+the hit chance, and the numbers are public arithmetic -- attack minus defence,
++10% from higher ground, -10% per level below, shields adding defence, a 75%
+penalty on a blocked ranged shot. ROGUE FABLE 4 DOES THE OPPOSITE, and our own
+dossier already quotes it: "deliberately free of stat and formula bloat, most of
+the critical information presented in the world and on the field of battle
+itself." AND HIS OWN LINE SITS ON THE RF4 SIDE: "spreadsheet simulators and I'm
+not a fan." Both references are locked and nobody had written down which way we go.
+
+*** WE ALREADY BUILT THE ANSWER AND NOBODY WROTE IT DOWN. *** The fight's readout
+line prints: DARK / UNDER THE DECK / HE IS ABOVE YOU / no cover counts / [RANGE
+TIER] / his dial: [NAME] / HE HITS YOU 62%, with that number coloured
+green-amber-red by threat. THE WORLD IN WORDS, AND EXACTLY ONE NUMBER.
+AND IT IS NOT THE NUMBER THE OTHER GAME SHOWS. Theirs answers "WHAT IS MY BEST
+MOVE" (your chance to hit him). OURS ANSWERS "HOW MUCH TROUBLE AM I IN". ONE IS AN
+EFFICIENCY DISPLAY; OURS IS A DANGER DISPLAY -- and that is correct for a game
+whose whole tactical design is exposure (day 3 refused cover-and-hold; V180
+measured 56% of open-ground turns with a gun that can reach you). A DANGER DISPLAY
+MAKES THE PLAYER MOVE. AN EFFICIENCY DISPLAY MAKES HIM CALCULATE.
+
+THE FINDING, AND I EXPECTED THE OPPOSITE: I opened the day expecting to conclude
+"show less". THE RISK IS NOT THAT WE SHOW TOO MUCH TODAY, IT IS THAT SOMEBODY ADDS
+A SECOND NUMBER. One number is a READING; two numbers is a COMPARISON, and a
+comparison invites optimisation -- the moment a player holds "he hits me 62%"
+against "I hit him 71%", the turn stops being about ground and becomes a sum,
+which is the 40-minute chess match arriving THROUGH THE INTERFACE instead of
+through the rules.
+*** AND THIS STUDY IS THE THREAT. Six routed rows all want to say something on
+that screen: the heat/pip budget (15), the standing web (1), the circuit owner
+(6), who you owe (7), BB-WHY (3), and the act buildup (11). Together they would
+undo the thing we already got right. ***
+BACKING IT UP: working memory holds about FOUR CHUNKS of novel information; the
+interface rule is RECOGNITION RATHER THAN RECALL; and day 9's chess result says a
+chunk is BIGGER FOR AN EXPERT, so a line made of words you RECOGNISE grows with
+the player automatically. Ours is 4-6 chunks, almost all words.
+
+Three rows: UI/COMBAT BB-ONE-NUMBER (read this before taking any UI row), UI
+BB-READ-LINE-AUDIT (`setRead` is called 160 TIMES -- a MEASUREMENT, not a fix; do
+not change a word before counting what actually reaches the screen), COMBAT
+BB-NO-BREAKDOWN (a refusal: no hover tooltip decomposing a roll into factors; if a
+factor matters it becomes a WORD in the line or a thing you can see on the ground).
+
+COORDINATOR: 8/28 (s) -- *** DAY 16 OF THE BB
 STUDY: THE PLAYER ONLY LIVES ONCE, SO THREE OF THIS STUDY'S OWN FINDINGS MUST NOT
 BE BUILT. Fifty-five BB- rows routed. Nothing to judge. ***
 

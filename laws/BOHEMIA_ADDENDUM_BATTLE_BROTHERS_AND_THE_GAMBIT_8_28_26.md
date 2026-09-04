@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-SIXTEEN days, sixteen records, driven by his own two-word trigger "bb study,
+SEVENTEEN days, seventeen records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -19,7 +19,8 @@ morale and the rout, meaning what makes a fight END. Day 13: the time
 between fights, meaning why the city feels dead. Day 14: the first five
 minutes, and the one thing we must NOT copy. Day 15: fatigue, meaning what
 makes a single turn interesting. Day 16: what it means that the player only
-lives once, which audits the study itself. A PLAN IS NOT A LAW.
+lives once, which audits the study itself. Day 17: how much you show.
+A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -184,7 +185,19 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   man who lives to tell people. The warning is the inverse: **anything
   that makes an encounter one-shot tells the player to defect**, and a man
   who breaks is currently DELETED.
-- **ROUTED:** fifty-five rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS CHANCE ON YOU
+  (day 17, the second collision between his two named games).** BB shows
+  the math in a tooltip; RF4 keeps "most of the critical information in
+  the world and on the field of battle itself", and his own line is
+  "spreadsheet simulators and I'm not a fan". **We already built the
+  answer:** the readout line gives the world in words and exactly one
+  number, and it is not the number BB shows — theirs answers "what is my
+  best move", ours answers "how much trouble am I in". A DANGER DISPLAY
+  MAKES THE PLAYER MOVE; AN EFFICIENCY DISPLAY MAKES HIM CALCULATE. **The
+  risk is a SECOND number**: one number is a reading, two is a comparison,
+  and a comparison invites the optimisation that becomes the 40-minute
+  chess match through the interface.
+- **ROUTED:** fifty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

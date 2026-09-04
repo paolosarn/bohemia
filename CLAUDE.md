@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: SIXTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: SEVENTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -462,7 +462,27 @@ research partner. He DECIDES, you PRODUCE.
   ANYTHING THAT MAKES AN ENCOUNTER ONE-SHOT IS TELLING THE PLAYER TO DEFECT, and
   we already measured one -- a man who breaks runs to distance 30 and is DELETED.
   WE BUILT THE SHADOW OF THE FUTURE AND THEN DESPAWNED IT.
-  ROUTED: fifty-five rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 17 FOUND THE SECOND COLLISION BETWEEN HIS OWN TWO NAMED GAMES, THIS
+  ONE ABOUT INFORMATION, AND WE HAD ALREADY SOLVED IT WITHOUT WRITING IT DOWN. ***
+  BATTLE BROTHERS SHOWS YOU THE MATH (hover an enemy for the hit chance; +10% from
+  higher ground, -10% per level below, shields adding defence, 75% on a blocked
+  ranged shot) while ROGUE FABLE 4 keeps "most of the critical information
+  presented in the world and on the field of battle itself" -- and his own line is
+  "spreadsheet simulators and I'm not a fan". MEASURED: our readout line gives the
+  world in WORDS (DARK, UNDER THE DECK, HE IS ABOVE YOU, no cover counts, range as
+  a TIER, his dial by NAME) and EXACTLY ONE NUMBER, coloured by threat -- and IT IS
+  NOT THE NUMBER THE OTHER GAME SHOWS. Theirs answers "what is my best move";
+  **ours answers "HOW MUCH TROUBLE AM I IN" -- he hits you 62%.** ONE IS AN
+  EFFICIENCY DISPLAY, OURS IS A DANGER DISPLAY, and a danger display MAKES THE
+  PLAYER MOVE while an efficiency display makes him CALCULATE. THE STANDING RULE:
+  **WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS THEIRS ON YOU.** The risk is
+  not that we show too much today, it is that somebody adds a SECOND number: one
+  number is a reading, TWO IS A COMPARISON, and a comparison invites the
+  optimisation that becomes the 40-minute chess match through the interface instead
+  of the rules. Backed by working memory holding about FOUR CHUNKS, by RECOGNITION
+  RATHER THAN RECALL, and by day 9's chunking result -- a line made of words you
+  RECOGNISE grows with the player automatically.
+  ROUTED: fifty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

@@ -5271,6 +5271,19 @@ BB-ONE-LADDER. *** DAY 9. ONE SYSTEM, THREE LISTS. ***
    GROWS FURTHER, so nobody has to reconcile two progressions later. Pairs with
    BB-VERB-TREE: if a rung is a verb and a grant is a verb, this is nearly free.
 
+BB-NO-BREAKDOWN. *** DAY 17. A REFUSAL, WRITTEN DOWN SO IT DOES NOT ARRIVE BY
+   ACCIDENT. ***
+   NO HOVER TOOLTIP THAT DECOMPOSES A ROLL INTO FACTORS. In the game he named you
+   can hover an enemy and read the hit chance, and the community discusses the
+   whole formula because it is public arithmetic. That is a real virtue there and
+   it is the wrong medicine here.
+   IF A FACTOR MATTERS IT BECOMES A WORD IN THE READ LINE OR A THING YOU CAN SEE ON
+   THE GROUND -- HIGH GROUND, no cover counts, DARK, UNDER THE DECK. That is the
+   RF4 lift applied to the INTERFACE rather than to the rules: "most of the
+   critical information presented in the world and on the field of battle itself."
+   Pairs with UI BB-ONE-NUMBER. His own sentence on this exact question:
+   "spreadsheet simulators and I'm not a fan."
+
 BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
    IT IS A CONSTRAINT, NOT A FEATURE, IT COSTS NOTHING TODAY, AND EVERY WEAPON
    WRITTEN BEFORE IT IS WRITTEN IS REWORK. ***
@@ -8707,6 +8720,55 @@ BB-SIXTY-SECONDS. *** DAY 14. A GUARD, NOT A BUILD. ***
    THIS ROW EXISTS SO THAT THE NEXT THING SOMEBODY WANTS TO PUT IN FRONT OF THE
    GAME HAS TO ARGUE AGAINST A NUMBER. No settings screen, no options wall, no
    tutorial sequence, nothing between the tap and the first real moment.
+
+BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
+   IS HOW IT WILL GET LOST. WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS
+   CHANCE ON YOU. ***
+   THE COLLISION: his two named tactical references answer "how much do you show?"
+   in opposite directions and both are locked. BATTLE BROTHERS SHOWS YOU THE MATH
+   -- hover an enemy and a tooltip gives the hit chance, and the numbers are public
+   arithmetic (attack minus defence, +10% from higher ground, -10% per level below,
+   shields adding defence, a 75% penalty on a blocked ranged shot). ROGUE FABLE 4
+   DOES THE OPPOSITE and we already wrote it down: "deliberately free of stat and
+   formula bloat, most of the critical information presented in the world and on
+   the field of battle itself." AND HIS OWN LINE SITS ON THE RF4 SIDE: "spreadsheet
+   simulators and I'm not a fan."
+   MEASURED, and the answer is already built: the fight's readout line prints
+   "DARK / UNDER THE DECK / HE IS ABOVE YOU / no cover counts / [RANGE TIER] / his
+   dial: [NAME] / HE HITS YOU 62%", coloured green-amber-red by threat. THE WORLD
+   IN WORDS, AND EXACTLY ONE NUMBER.
+   *** AND IT IS NOT THE NUMBER THE OTHER GAME SHOWS. Theirs answers "what is my
+   best move?" (your chance to hit him). OURS ANSWERS "HOW MUCH TROUBLE AM I IN?"
+   ONE IS AN EFFICIENCY DISPLAY; OURS IS A DANGER DISPLAY -- and that is correct
+   for a game whose whole tactical design is exposure (day 3 refused cover-and-hold,
+   V180 measured 56% of open-ground turns with a gun that can reach you). A DANGER
+   DISPLAY MAKES THE PLAYER MOVE. AN EFFICIENCY DISPLAY MAKES HIM CALCULATE. ***
+   THE RISK IS NOT THAT WE SHOW TOO MUCH TODAY, IT IS THAT SOMEBODY ADDS A SECOND
+   NUMBER. One number is a reading; TWO NUMBERS IS A COMPARISON, and a comparison
+   invites optimisation -- the moment a player holds "he hits me 62%" against "I
+   hit him 71%", the turn stops being about ground and becomes a sum, which is the
+   40-minute chess match arriving through the interface instead of the rules.
+   AND THIS STUDY IS THE THREAT: the heat budget (day 15), the standing web (day
+   1), the circuit owner (day 6), who you owe (day 7), BB-WHY (day 3) and the act
+   buildup (day 11) are all candidates for a number on the fight screen.
+   BACKING IT UP: working memory holds about FOUR CHUNKS of novel information, the
+   interface rule is RECOGNITION RATHER THAN RECALL, and day 9's chess finding says
+   a chunk is BIGGER FOR AN EXPERT -- so a line made of words you recognise grows
+   with the player automatically. Ours is 4-6 chunks and almost all words.
+   Read: records/BOHEMIA_BB_STUDY_DAY_17_HOW_MUCH_DO_YOU_SHOW_8_28_26.md
+
+BB-READ-LINE-AUDIT. *** DAY 17. A MEASUREMENT, NOT A FIX. DO NOT CHANGE A WORD
+   BEFORE RUNNING IT. ***
+   `setRead(...)` -- the plain-words line that says what just happened, with a
+   subtitle -- is called 160 TIMES in the fight. NERVE BROKE, "he drops the gun,
+   hands up". PLATE CRACKED, "that one is spent, 2 left". SECOND WIND, "the clock
+   came round, your legs are back". The fight explains itself in SENTENCES rather
+   than a log of numbers, and keeps the last six.
+   That is a lot of sentences competing for one line, AND I HAVE NOT MEASURED how
+   many a player actually sees, whether two fire in the same beat, or whether the
+   important ones get overwritten by cosmetic ones. COUNT WHAT ACTUALLY REACHES THE
+   SCREEN IN A REAL FIGHT FIRST. (Precedent: the caption dedupe bug has been found
+   three separate times in this repo because a repaint is not a new line.)
 
 BB-WHY. *** QUEUED BEHIND THE DEMO (BB study day 3). ***
    THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE DID WHAT IT DID.

@@ -59,8 +59,8 @@ reference game he has not named. ***
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
 ## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
 ## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
-## INTERESTING (15) AND WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16).
-## A PLAN IS NOT A LAW. ***
+## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16) AND
+## HOW MUCH YOU SHOW (17). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -432,6 +432,35 @@ THE WARNING IS THE INVERSE: anything that makes an encounter one-shot is
 telling the player to defect -- and day 12 already measured one, A MAN WHO
 BREAKS IS DELETED. We built the shadow of the future and then despawned
 it. *** Three rows.**
+
+**DAY 17 — HOW MUCH DO YOU SHOW? *** DONE: records/BOHEMIA_BB_STUDY_
+DAY_17_HOW_MUCH_DO_YOU_SHOW_8_28_26.md. THE SECOND COLLISION BETWEEN HIS
+OWN TWO NAMED GAMES; day 9 found the first, about growth. ***
+BATTLE BROTHERS SHOWS YOU THE MATH: hover an enemy and a tooltip gives
+the hit chance, and the numbers are public arithmetic (+10% from higher
+ground, -10% per level below, shields adding defence, 75% on a blocked
+ranged shot). ROGUE FABLE 4 DOES THE OPPOSITE, and our own dossier
+already quotes it: "deliberately free of stat and formula bloat, most of
+the critical information presented in the world and on the field of
+battle itself." HIS OWN LINE SITS ON THE RF4 SIDE: "spreadsheet
+simulators and I'm not a fan."
+*** AND WE ALREADY BUILT THE ANSWER AND NOBODY WROTE IT DOWN. *** The
+readout line prints the world in WORDS (DARK, UNDER THE DECK, HE IS ABOVE
+YOU, no cover counts, the range as a TIER, his dial by NAME) and EXACTLY
+ONE NUMBER -- "he hits you 62%", coloured by threat. AND IT IS NOT THE
+NUMBER THE OTHER GAME SHOWS: theirs answers "what is my best move",
+OURS ANSWERS "HOW MUCH TROUBLE AM I IN". ONE IS AN EFFICIENCY DISPLAY;
+OURS IS A DANGER DISPLAY, which is correct for a game built on exposure.
+A DANGER DISPLAY MAKES THE PLAYER MOVE; AN EFFICIENCY DISPLAY MAKES HIM
+CALCULATE.
+THE FINDING, and I expected the opposite: the risk is NOT that we show too
+much, it is that somebody ADDS A SECOND NUMBER. One number is a reading;
+two is a COMPARISON, and a comparison invites optimisation -- the
+40-minute chess match arriving through the interface instead of the rules.
+AND THIS STUDY IS THE THREAT: six routed rows all want to say something on
+that screen. Backed by working memory holding about FOUR CHUNKS and by
+day 9's chunking result, which says a line made of WORDS grows with the
+player. Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it
