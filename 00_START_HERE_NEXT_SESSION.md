@@ -703,7 +703,81 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (v) LATEST -- *** DAY 19 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (w) LATEST -- *** DAY 20 OF THE BB
+STUDY: NOBODY IN BOHEMIA HAS EVER BEEN PAID FOR A JOB, AND HE ALREADY RULED THE
+FIX ON 8/15. Sixty-eight BB- rows routed, and one of them is ON THE DEMO PATH.
+Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_20_NOBODY_HAS_EVER_BEEN_PAID_8_28_26.md
+
+Day 1 studied the OFFER -- what work exists and what gates it. Nineteen days later
+nobody had asked the next question: ONCE YOU SAY YES, WHAT HAVE YOU AGREED TO?
+
+MEASURED across all 27 playable canon quests -- every `@DO` call, counted: 203
+set_stage, 110 complete_objective, 93 learn, 82 faction, 58 bond, 51
+show_objective, 50 set_flag, 17 faction_posture, 10 advance_territory, 9 cast, 4
+play. **687 CALLS AND `@DO pay` APPEARS ZERO TIMES.** The verb EXISTS and was
+built 8/11 on HIS OWN ruling ("whatever currency the quest decides to give");
+nobody has ever written one. Also zero: `@DEADLINE`, `@EXPIRE`, `@DAYS`, `@PAY`,
+`@REWARD`, `@TIMER` -- in the language AND in the corpus -- plus zero haggle,
+counter-offer, advance or retainer anywhere in the walked city. **A JOB IN
+BOHEMIA HAS NO PRICE, NO CLOCK AND NO TERMS.**
+
+*** AND THE PIPE IS NOT MISSING. IT IS BUILT, WIRED, GATED, CALLED ON THE REAL
+SURFACE -- AND EMPTY. *** RUN, not read (node probe against the real modules):
+finishing a #notable job the way all 27 canon quests finish one returns
+`{"applied":false,"reason":"NO_RULING","table":"PAYOUT"}` with balances 0/0/0.
+POSITIVE CONTROL, same call with a reward declared: `{"applied":true,
+"paid":{"resources":1}}`. `payForToday()` on the walked surface calls
+`BohemiaPayday.payForQuest`, which credits a real ledger, and `payday_gate.js`
+proves it. THE INSTRUMENT WORKS. IT PAYS NOTHING BECAUSE THERE IS NOTHING TO PAY.
+
+*** THE FINDING, AND IT IS AN AUDIT OF US, NOT OF THE GAME: HE SENT THE NUMBER ON
+8/15 AND IT WAS NEVER BUILT. *** laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_
+26.md, his words: "just make everything cost one. Just start off with one and then
+I'll move from there." It names PAYOUT, PRICES and PRODUCTION BY NAME and says they
+"fill with ones TODAY". Its own closing line: "the pipe is finished and the valve
+is his, ONE LETTER OPENS IT -- he sent the letter, and the letter is 1."
+TODAY ALL THREE ARE STILL `{}` AND ALL THREE STILL CARRY `[PENDING Paolo]` -- in
+engine/bohemia_purse.js, in slices/BOHEMIA_CITY_WORLD.html and in
+slices/BOHEMIA_RUN_CURRENT.html. Backlog row E1 says DO THIS FIRST and is still
+open; a banner near the top of the same file says "GET PAID and SPEND are both
+live". BOTH CANNOT BE TRUE.
+
+*** AND THE GATES NEVER LIED -- WHICH IS THE STRUCTURAL FINDING. *** Both say it
+out loud in their own summary line, every run: placeholder_number_gate, "the three
+tables are still EMPTY"; demo_blockers_gate, "22 passed, 0 failed (0 blockers · 3
+RULED-BUT-EMPTY TABLES)". The machine has been telling us for twenty days, INSIDE
+A GREEN PASS. **OUR GATES CAN SAY BROKEN OR FINE AND THEY HAVE NO WORD FOR OWED.**
+So A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED gets a twin nobody had written:
+**A RULING IS NOT SHIPPED UNTIL SOMETHING RUNS IT.**
+
+THE COLLISION UNDERNEATH, and it is the reason no single lane could have caught
+this: demo_blockers_gate carries a CORRECT comment saying a ruling can retire a
+blocker without filling its table, because 8/11 moved the reward ONTO THE QUEST.
+8/15 is NEWER and fills the FALLBACK TABLE. They do not conflict -- a quest
+declares its own reward, anything undeclared falls through to a table of ones --
+but they hand the same job to two different lanes, so QUESTS and WORLD can each
+correctly believe it is the other's. Nobody is wrong and nothing gets built.
+
+REAL AISLE: with no paper and no courts, an informal deal is enforced by the fact
+that you will do business again -- day 16's shadow of the future arriving from a
+second direction. And Hart and Holmstrom (Nobel 2016): NO CONTRACT CAN SPECIFY
+EVERY EVENTUALITY, so what actually matters is WHO DECIDES in the cases nobody
+wrote down. *** AND WE ALREADY GAVE THAT TO THE PLAYER, WHICH IS THE ONE PART OF
+THE CONTRACT WE BUILT BETTER THAN THE GAME WE ARE STUDYING: *** every quest
+completes at three or four TIERS (#quiet 25, #notable 24, #risky 16, #reckless
+21) -- the job says what somebody needs and THE PLAYER PICKS THE MANNER, which is
+what gets recorded. And all 27 FAIL branches are reached BY SAYING NO IN A
+CONVERSATION, never by a clock running out. **DO NOT PUT A TIMER ON A QUEST.**
+
+Four rows: SHARED BB-THE-LETTER-IS-ONE (on the demo path -- the demo cut's own
+"GET PAID then spend at a hub" beat cannot happen without it), SHARED
+BB-A-GATE-CAN-SAY-OWED, QUESTS BB-THE-JOB-PAYS, QUESTS/WORDS BB-ASK-FOR-MORE
+(haggling with a rising cost: free once, risky twice, and the third time they are
+done with you -- an @OPT on a @TALK node, no new screen, no balance number).
+
+COORDINATOR: 8/28 (v) -- *** DAY 19 OF THE BB
 STUDY: THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP, AND A STREET THAT IS NOT FASTER
 IS A PICTURE OF A STREET. Sixty-four BB- rows routed. Nothing to judge. ***
 

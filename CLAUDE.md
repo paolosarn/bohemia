@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: NINETEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: TWENTY DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -529,11 +529,49 @@ research partner. He DECIDES, you PRODUCE.
   SIDEWALK SANCTITY, the drivable law and his LEGO-streets ruling, and A STREET
   COSTS EXACTLY THE SAME TIME AS BROKEN GROUND. A STREET THAT IS NOT FASTER IS A
   PICTURE OF A STREET, and fixing it needs NO new art.
-  ROUTED: sixty-four rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 20 IS THE ONE THAT AUDITED HIM INSTEAD OF THE GAME, AND FOUND A
+  RULING OF HIS THAT IS TWENTY DAYS OLD AND WAS NEVER BUILT: NOBODY IN BOHEMIA
+  HAS EVER BEEN PAID FOR A JOB. *** Day 1 studied the OFFER; nineteen days later
+  nobody had asked what you have agreed to once you SAY YES. MEASURED across all
+  27 playable canon quests: **687 `@DO` calls and `@DO pay` appears ZERO TIMES**,
+  though the verb exists and was built 8/11 on HIS OWN ruling ("whatever currency
+  the quest decides to give"). Zero deadline directives in the language AND the
+  corpus; zero haggle, counter-offer, advance or retainer anywhere. A JOB HERE HAS
+  NO PRICE, NO CLOCK AND NO TERMS. *** AND THE PIPE IS NOT MISSING -- IT IS BUILT,
+  WIRED, GATED, CALLED ON THE WALKED SURFACE, AND EMPTY. *** RUN not read:
+  finishing a #notable job the way all 27 quests finish one answers
+  `{"applied":false,"reason":"NO_RULING"}` with balances 0/0/0, and the positive
+  control (same call, reward declared) pays `{resources:1}` correctly. *** THE
+  FINDING: HE SENT THE NUMBER ON 8/15. *** EVERYTHING COSTS ONE names PAYOUT,
+  PRICES and PRODUCTION BY NAME and says they "fill with ones TODAY"; its own
+  words are "the pipe is finished and the valve is his, ONE LETTER OPENS IT -- he
+  sent the letter, and the letter is 1". ALL THREE ARE STILL `{}` AND STILL SAY
+  `[PENDING Paolo]`, in three files, while backlog row E1 says DO THIS FIRST and a
+  banner in the same file says GET PAID is live. AND THE GATES NEVER LIED: both
+  print it in their own summary line, every run -- "the three tables are still
+  EMPTY" and "3 ruled-but-empty tables" -- INSIDE A GREEN PASS. **WHICH IS THE
+  STRUCTURAL FINDING, AND IT IS THE COORDINATOR'S OWN FAILURE: OUR GATES CAN SAY
+  BROKEN OR FINE AND HAVE NO WORD FOR *OWED*. A LAW WITHOUT A MACHINE GATE IS NOT
+  ENFORCED HAS A TWIN NOBODY WROTE DOWN -- A RULING IS NOT SHIPPED UNTIL SOMETHING
+  RUNS IT.** The collision underneath is why no lane could catch it: 8/11 put the
+  reward ON THE QUEST, 8/15 fills the FALLBACK TABLE, they compose fine and are
+  not in conflict, and they hand the same job to two different lanes, so QUESTS
+  and WORLD can each correctly believe it is the other's. **AND THE HALF WE DID
+  BUILD IS THE DEEPER HALF:** the Nobel result is that no contract can specify
+  every eventuality, so what matters is WHO DECIDES in the cases nobody wrote
+  down -- and every one of our 27 quests already hands that to the PLAYER, who
+  picks the MANNER (#quiet 25 / #notable 24 / #risky 16 / #reckless 21), and all
+  27 fail by somebody being told no to their face rather than by a clock running
+  out. DO NOT PUT A TIMER ON A QUEST. Real aisle also confirms day 16 from a
+  second direction: with no paper and no courts the enforcement IS repeat
+  business.
+  ROUTED: sixty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
-  the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,
-  because nothing in the study is demo-critical.
+  the best effort-to-effect row in the study). TWO ARE ON THE DEMO PATH -- day
+  14's COLD HAND and day 20's BB-THE-LETTER-IS-ONE, which is one already-ruled
+  table standing between the demo cut and its own GET PAID beat -- and the rest
+  queue BEHIND THE DEMO.
   AND A MEASUREMENT NOTE THAT WILL SAVE SOMEBODY A FALSE FINDING: **A PLAIN
   SEARCH OF THE ALPHA CANNOT SEE THE FIGHT.** The combat demo is base64 inside
   `COMBAT_B64`, decoded into an iframe by `ensureCombatFrame()`, so `gunsOnTile`,

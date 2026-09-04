@@ -60,8 +60,10 @@ reference game he has not named. ***
 ## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
 ## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
 ## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16),
-## HOW MUCH YOU SHOW (17), THE MIDDLE HORIZON (18) AND WHAT IT COSTS TO GO
-## SOMEWHERE (19). A PLAN IS NOT A LAW. ***
+## HOW MUCH YOU SHOW (17), THE MIDDLE HORIZON (18), WHAT IT COSTS TO GO
+## SOMEWHERE (19) AND WHAT A JOB IS ONCE YOU TAKE IT (20). A PLAN IS NOT A
+## LAW -- AND DAY 20 IS THE ONE THAT FOUND A RULING OF HIS, TWENTY DAYS
+## OLD, THAT NOBODY EVER BUILT. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -569,3 +571,40 @@ here.
 I have not benchmarked Fable 5.1 against Opus 5 on this task and I am not
 going to pretend otherwise; what I can say is that this is the highest
 judgement work in the whole project and it should get the top model.
+
+## 8. DAY 20, ADDED AFTER THE FACT LIKE THE FIFTEEN BEFORE IT
+
+**DAY 20 -- WHAT A JOB IS ONCE YOU TAKE IT. *** DONE: records/BOHEMIA_BB_
+STUDY_DAY_20_NOBODY_HAS_EVER_BEEN_PAID_8_28_26.md. Day 1 studied the
+OFFER. Nobody asked what you have agreed to once you say yes. ***
+MEASURED across all 27 playable canon quests: 687 @DO calls and @DO pay
+appears ZERO TIMES, though the verb exists and was built 8/11 on his own
+ruling. Zero deadline directives in the language AND the corpus; zero
+haggle, advance or retainer anywhere. A JOB HERE HAS NO PRICE, NO CLOCK
+AND NO TERMS.
+*** AND THE PIPE IS NOT MISSING -- IT IS BUILT, WIRED, GATED, CALLED ON
+THE REAL SURFACE, AND EMPTY. *** RUN, not read: finishing a #notable job
+the way all 27 quests finish one returns {"applied":false,"reason":
+"NO_RULING"} with balances 0/0/0, and the positive control (the same call
+with a reward declared) pays correctly.
+*** THE FINDING: HE ALREADY SENT THE NUMBER, ON 8/15, AND IT WAS NEVER
+BUILT. *** EVERYTHING COSTS ONE names the three tables by name and says
+they fill with ones TODAY. All three are still {} and still carry
+[PENDING Paolo], in three files. Backlog row E1 is still open while a
+banner in the same file says GET PAID is live.
+AND THE GATES NEVER LIED -- both print the truth inside a green pass, every
+run, for twenty days. WHICH IS THE STRUCTURAL FINDING: **OUR GATES CAN SAY
+BROKEN OR FINE AND HAVE NO WORD FOR OWED**, so A LAW WITHOUT A MACHINE
+GATE IS NOT ENFORCED gets a twin -- **A RULING IS NOT SHIPPED UNTIL
+SOMETHING RUNS IT.**
+THE COLLISION NO LANE COULD SEE: 8/11 put the reward ON THE QUEST and 8/15
+fills the FALLBACK TABLE. Not in conflict, but they hand the job to two
+lanes, so QUESTS and WORLD can each correctly believe it is the other's.
+REAL AISLE: informal contracts are enforced by repeat business, not paper
+(day 16's shadow of the future, second aisle); and Hart and Holmstrom's
+incomplete-contracts result -- no contract can specify every eventuality,
+so what matters is WHO DECIDES in the cases nobody wrote down. **WE
+ALREADY GAVE THOSE RIGHTS TO THE PLAYER**: every quest completes at three
+or four tiers (#quiet/#notable/#risky/#reckless) and all 27 fail by
+somebody being told no in a conversation, never by a clock. Four rows, and
+one of them is on the demo path.

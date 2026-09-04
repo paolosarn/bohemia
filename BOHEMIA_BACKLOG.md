@@ -8528,6 +8528,38 @@ BB-TERRITORY-FLAG. *** QUEUED (BB study day 6). TEN QUESTS SAY THE MAP CHANGES
    Either it moves ground, or those ten quests are telling the player something
    that does not happen. Depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
 
+BB-THE-JOB-PAYS. *** DAY 20. 687 THINGS A JOB CAN DO AND NONE OF THEM IS PAY. ***
+   MEASURED across all 27 playable canon quests: 687 @DO calls -- 203 set_stage,
+   110 complete_objective, 93 learn, 82 faction, 58 bond, 51 show_objective, 50
+   set_flag, 17 faction_posture, 10 advance_territory, 9 cast, 4 play. @DO pay
+   appears ZERO TIMES. The verb exists in the .bq language and was built 8/11 on
+   HIS OWN RULING ("whatever currency the quest decides to give"); nobody has ever
+   written one.
+   THIS ROW IS THE 8/11 HALF and it rides BEHIND SHARED BB-THE-LETTER-IS-ONE:
+   once the fallback table is on, every quest that should pay something SPECIFIC
+   says so in its own file, his shape -- a water run pays water, a courier job
+   pays clout, a salvage job pays salvage. One line per quest. AMOUNTS STAY 1
+   until he tunes (EVERYTHING COSTS ONE), and WHICH currency a job pays is a
+   CONTENTS question the quest's own canon already answers in words. | at least
+   one canon quest credits the purse end to end on the walked surface | the
+   amounts are his | no. ***
+
+BB-ASK-FOR-MORE. *** DAY 20. ASKING FOR MORE SHOULD BE FREE ONCE AND EXPENSIVE
+   AFTER. QUEUED BEHIND THE DEMO. ***
+   Measured: zero hits for haggle, negotiate-a-fee, counter-offer, advance or
+   retainer anywhere in the walked city. A job here has no price and no terms.
+   THE MECHANISM WORTH COPYING, and it needs no balance number: in the game he
+   named, every haggle adds a random 3-6 to an ANNOYANCE counter and at 9 you are
+   thrown out with a real standing hit -- so it is safe once, risky twice, nearly
+   impossible three times. Asking for more becomes a decision with a rising cost
+   instead of a free button you press until it stops giving.
+   NO NEW SCREEN: this is an @OPT on the @TALK node where the job is offered,
+   which the .bq language already has, and the words ship draft:true per 8/11.
+   Pairs with advance pay as a TRADE (taking some up front raises what walking
+   away costs you). Passes day 16's test: it pays off the first time. | a haggle
+   that can succeed, can be pushed too far, and leaves a standing mark | who gets
+   angry at what is contents | no. ***
+
 BB-INSIDE-A-DAY. *** DAY 19. THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP AND
    NOTHING ON THE OFFER SAYS SO. THIS ROW IS DISCLOSURE, NOT RELOCATION. ***
    The QUESTS lane's own measurement, from the block he wakes up on: "within 3
@@ -9403,6 +9435,50 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
+   BUILT. ON THE DEMO PATH -- ONLY THE SECOND STUDY ROW THAT IS. ***
+   MEASURED AND RUN 9/4, not read: finish a #notable job the way all 27 canon
+   quests finish one and the purse answers
+   {"applied":false,"reason":"NO_RULING","table":"PAYOUT"} -- balances stay
+   0/0/0. POSITIVE CONTROL: the same call with a reward declared pays correctly
+   ({"applied":true,"paid":{"resources":1}}), so the pipe is built, wired, gated
+   (payday_gate.js) and CALLED on the walked surface by payForToday(). IT PAYS
+   NOTHING BECAUSE THERE IS NOTHING TO PAY.
+   HIS RULING, 8/15, LOCKED: "just make everything cost one. Just start off with
+   one and then I'll move from there." The law names the three tables BY NAME and
+   says they "fill with ones TODAY". Today all three are still {} and all three
+   still carry the comment [PENDING Paolo] -- in engine/bohemia_purse.js, in
+   slices/BOHEMIA_CITY_WORLD.html and in slices/BOHEMIA_RUN_CURRENT.html. Row E1
+   in this file is still open and says DO THIS FIRST; the demo banner near the
+   top of this file says "GET PAID and SPEND are both live". BOTH CANNOT BE TRUE.
+   AND THE GATES NEVER LIED: placeholder_number_gate says "the three tables are
+   still EMPTY" and demo_blockers_gate prints "3 ruled-but-empty tables" -- both
+   INSIDE A GREEN PASS, every run, for twenty days.
+   THE COLLISION, which is why no single lane could have caught it: 8/11 put the
+   reward ON THE QUEST ("whatever currency the quest decides to give") and 8/15
+   fills the FALLBACK TABLE. They compose fine and they are not in conflict, but
+   they hand the job to two different lanes, so QUESTS and WORLD can each
+   correctly believe it is the other's. SETTLE THE OWNER IN ONE LINE, then fill
+   the three tables with TAGGED ones and keep the NO_RULING path for uncovered
+   keys (law section 4). | a finished job credits the purse on the real surface,
+   and the placeholder gate still goes red on an untagged number | the real
+   amounts are HIS, after he plays to the end (law section 1) | no. ***
+
+BB-A-GATE-CAN-SAY-OWED. *** DAY 20. OUR GATES HAVE TWO WORDS AND NEED A THIRD. ***
+   A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED has a twin nobody wrote down:
+   A RULING IS NOT SHIPPED UNTIL SOMETHING RUNS IT. "He ruled it and nobody built
+   it" is not BROKEN -- nothing fails -- so it rides along inside a green pass
+   forever, which is exactly how BB-THE-LETTER-IS-ONE sat for twenty days while
+   two gates printed the truth in their own summary lines.
+   THE SHAPE: read the laws for a ruling that names a TARGET in the code (a table,
+   a const, a flag), assert the target actually carries it, and report OWED
+   separately from FAILED so a green run cannot swallow it. Start with the ones
+   already known -- EVERYTHING COSTS ONE's three tables -- and it would have
+   caught this on 8/16. Sibling of canon_rot_gate, which reads laws against each
+   other; this one reads a law against the build. | an unexecuted dated ruling
+   goes OWED, and a mutation that quietly executes it flips the row | nothing |
+   no. ***
+
 BB-THE-ACT-IS-A-STATE. *** DAY 11. TEN QUESTS ARE LABELLED ACT 2 IN A GAME WITH
    NO ACT. NINTH INSTANCE, AND IT RIDES ALONG WITH BB-LOOPLESS. ***
    MEASURED 8/28: `act1` appears 931 times in the walked city AND EVERY ONE IS A

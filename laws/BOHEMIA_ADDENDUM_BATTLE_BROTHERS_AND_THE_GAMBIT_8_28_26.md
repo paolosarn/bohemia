@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-NINETEEN days, nineteen records, driven by his own two-word trigger "bb study,
+TWENTY days, twenty records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -225,12 +225,35 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   GIVES THE MAP A GRAIN WITHOUT FLATTENING IT**, and a street currently
   costs the same as broken ground: a street that is not faster is a
   picture of a street.
-- **ROUTED:** sixty-four rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **NOBODY HAS EVER BEEN PAID FOR A JOB, AND HE ALREADY FIXED IT ON 8/15
+  (day 20).** Measured across all 27 playable canon quests: 687 `@DO` calls
+  and `@DO pay` appears **zero times**, plus zero deadline, haggle, advance
+  or retainer anywhere. **And the pipe is not missing -- it is built, wired,
+  gated, called on the walked surface, and empty**: finishing a job the way
+  all 27 quests finish one returns `NO_RULING` with balances 0/0/0, while
+  the same call with a reward declared pays correctly. **EVERYTHING COSTS
+  ONE (8/15) names the three tables and says they fill with ones TODAY, and
+  all three are still `{}` and still marked `[PENDING Paolo]` in three
+  files.** Both gates print that truth inside a GREEN PASS, every run --
+  which is the structural finding: **our gates can say BROKEN or FINE and
+  have no word for OWED**, so A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED
+  gets a twin, **A RULING IS NOT SHIPPED UNTIL SOMETHING RUNS IT.** The
+  collision underneath it is why no lane could see it: 8/11 put the reward
+  ON THE QUEST, 8/15 fills the FALLBACK TABLE, they do not conflict, and
+  they hand the same job to two lanes. **AND THE HALF WE BUILT IS THE
+  DEEPER HALF:** contracts cannot specify every eventuality, so what
+  matters is who decides in the cases nobody wrote down -- and every one of
+  our quests already lets the PLAYER pick the manner (#quiet / #notable /
+  #risky / #reckless) and fails only by somebody being told no to their
+  face, never by a clock. **Do not put a timer on a quest.**
+- **ROUTED:** sixty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.
-  The rest queue behind the demo, because none of the study is
-  demo-critical.
+  **TWO ARE ON THE DEMO PATH: day 14's cold hand, and day 20's
+  BB-THE-LETTER-IS-ONE, which is one already-ruled table standing between
+  the demo cut and its own "GET PAID then spend at a hub" beat.** The rest
+  queue behind the demo.
 - **COLLISIONS FLAGGED, HIS DIALS:** the rewind can undo a scar (§5.1 of
   the synthesis), and "one system drives everybody" versus the companion's
   fixed ladder, which reconcile cleanly (§5.2) and are written down once.
