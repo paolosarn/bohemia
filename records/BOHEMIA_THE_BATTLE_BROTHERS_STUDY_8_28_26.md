@@ -60,7 +60,8 @@ reference game he has not named. ***
 ## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
 ## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
 ## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16),
-## HOW MUCH YOU SHOW (17), AND THE MIDDLE HORIZON (18). A PLAN IS NOT A LAW. ***
+## HOW MUCH YOU SHOW (17), THE MIDDLE HORIZON (18) AND WHAT IT COSTS TO GO
+## SOMEWHERE (19). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -489,6 +490,35 @@ so it has to be ACCESS. SAME HERE -- A RUNG'S GRANT CAN BE A DOOR, and the
 door is ALREADY WRITTEN in the rung's own words ("you can build in a
 district whose local faction does not love you"). The pending only blocked
 because everybody assumed the grant had to be a DIAL. Three rows.**
+
+**DAY 19 — WHAT IT COSTS TO GO SOMEWHERE. *** DONE: records/BOHEMIA_BB_
+STUDY_DAY_19_WHAT_IT_COSTS_TO_GO_SOMEWHERE_8_28_26.md. The last untouched
+campaign system: TRAVEL, and the verb the player performs most. ***
+MEASURED AND CROSS-CHECKED (I verified the walked scale and the overmap
+scale agree rather than trusting either): a fine tile is 0.75 m, the walk
+ticks 0.084 min per fine cell so TWELVE WALKED CELLS COST ONE MINUTE, and
+a zoomed-out press is "ninety-six metres and TEN MINUTES". Both come to
+about NINE METRES A MINUTE. The day is 960 minutes, so A DAY OF WALKING IS
+~8.6 KM and the valley is ~9.2 KM ACROSS. Crossing it is a little over a
+day. THAT IS A GOOD NUMBER.
+*** AND THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP. *** The QUESTS lane
+measured the nearest TRADES at 5 blocks (~1.9 km) from the block he wakes
+on, and day one's quest demands faction=TRADES for its one REQUIRED role.
+1.9 km at nine metres a minute is ~211 minutes each way: 44% OF THE FIRST
+DAY A PLAYER EVER PLAYS. Nobody had multiplied the two numbers.
+REAL AISLE: von Thunen (transport cost with distance is what organises
+land use) and the isochrone written into law -- the City of London
+controlled markets within 6 2/3 miles, "the distance a person could be
+expected to walk to market, sell his produce and return in a day". OUR
+VALLEY IS EXACTLY ONE MARKET TOWN'S CATCHMENT.
+THE FINDING, and it corrects half of day 2: FRICTION IS PROTECTED still
+stands, but BB protects friction AND makes roads fast AND has a speed
+control. *** THE COST IS REAL, THE WATCHING IS NOT: distance should spend
+the DAY, not the player's attention. *** And ROADS ARE THE ONLY LEVER THAT
+GIVES THE MAP A GRAIN WITHOUT FLATTENING IT -- we have a harmonised street
+bank, SIDEWALK SANCTITY, the drivable law and his LEGO-streets ruling, and
+a street costs exactly the same time as broken ground. A STREET THAT IS
+NOT FASTER IS A PICTURE OF A STREET. Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

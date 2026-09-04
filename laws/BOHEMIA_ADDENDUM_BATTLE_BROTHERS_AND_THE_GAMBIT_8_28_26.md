@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-EIGHTEEN days, eighteen records, driven by his own two-word trigger "bb study,
+NINETEEN days, nineteen records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -21,7 +21,7 @@ minutes, and the one thing we must NOT copy. Day 15: fatigue, meaning what
 makes a single turn interesting. Day 16: what it means that the player only
 lives once, which audits the study itself. Day 17: how much you show.
 Day 18: the middle horizon, meaning what you are working on this week.
-A PLAN IS NOT A LAW.
+Day 19: travel, meaning what it costs to go somewhere. A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -211,7 +211,21 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   dial** (day 10), and the door is already written in the rung's own
   words. Also taken: **you CHOOSE the week's goal**, and its reward is an
   identity object rather than a number.
-- **ROUTED:** sixty-one rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **THE COST IS REAL, THE WATCHING IS NOT (day 19, and it corrects half of
+  day 2).** FRICTION IS PROTECTED still stands, but BB protects friction
+  AND makes roads fast AND ships a speed control. **Distance should spend
+  the DAY, not the player's attention.** Measured and cross-checked: twelve
+  walked cells cost one minute, a zoomed-out press is 96 m and ten
+  minutes, both about nine metres a minute — so a day buys ~8.6 km and the
+  valley is ~9.2 km across, **exactly one market town's catchment** (the
+  real isochrone: markets were controlled within the distance you could
+  walk there, sell, and return in a day). **AND THE FIRST JOB IS A
+  SEVEN-HOUR ROUND TRIP** — day one's required TRADES person is 1.9 km
+  away and nothing on the offer says so. **ROADS ARE THE ONLY LEVER THAT
+  GIVES THE MAP A GRAIN WITHOUT FLATTENING IT**, and a street currently
+  costs the same as broken ground: a street that is not faster is a
+  picture of a street.
+- **ROUTED:** sixty-four rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

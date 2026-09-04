@@ -703,7 +703,64 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (u) LATEST -- *** DAY 18 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (v) LATEST -- *** DAY 19 OF THE BB
+STUDY: THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP, AND A STREET THAT IS NOT FASTER
+IS A PICTURE OF A STREET. Sixty-four BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_19_WHAT_IT_COSTS_TO_GO_SOMEWHERE_8_28_26.md
+
+The last untouched campaign system, and the verb the player performs most: WALKING.
+
+MEASURED AND CROSS-CHECKED -- I verified the walked scale and the overmap scale
+against each other rather than trusting either, and they agree. A fine tile is
+0.75 m (`CELL_M`); the walk ticks 0.084 MINUTES PER FINE CELL, described in the
+city's own words as "time per CELL, distance-honest", with the day loop stating
+the consequence plainly: "TWELVE WALKED CELLS COST ONE MINUTE". And the pad's own
+comment: "a press is not a step -- it is NINETY-SIX METRES AND TEN MINUTES". Both
+come out at ABOUT NINE METRES A MINUTE.
+WHAT THAT BUYS: the day runs 06:00-22:00 = 960 minutes, so A FULL DAY OF WALKING
+IS ABOUT 8.6 KM, and the valley is 96 cells x 96 m = ABOUT 9.2 KM ACROSS.
+CROSSING THE VALLEY ON FOOT IS A LITTLE MORE THAN ONE ENTIRE DAY. That is a GOOD
+number and the whole travel design should be built on it.
+
+*** AND THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP. *** The QUESTS lane's own
+measurement from the block he wakes up on: nearest TRADES 5 blocks (~1.9 km), the
+TRADES BASE 7 blocks (~2.7 km). And day one's quest demands `faction=TRADES` for
+its ONE REQUIRED role. At nine metres a minute that is ~211 MINUTES EACH WAY --
+SEVEN HOURS THERE AND BACK, FORTY-FOUR PERCENT OF THE FIRST DAY A PLAYER EVER
+PLAYS. NOBODY HAD MULTIPLIED THE TWO NUMBERS TOGETHER. (To be fair to the lane:
+the casting bridge FINDS that person and gives them a real address, which is the
+hard part and it is done. This is about the DISTANCE, not the finding.)
+
+REAL AISLE: von Thunen -- transport cost rises with distance and THAT ALONE
+determines what happens where. And the isochrone was written into law: the City of
+London controlled markets within SIX AND TWO-THIRDS MILES, "the distance a person
+could be expected to walk to market, sell his produce and return in a day". OUR
+VALLEY IS EXACTLY ONE MARKET TOWN'S CATCHMENT -- the map is already the right SIZE
+for its clock.
+
+*** THE FINDING, AND IT CORRECTS HALF OF DAY 2. *** FRICTION IS PROTECTED still
+stands. It is also HALF the rule, and this study has quoted only that half for
+seventeen days: the game we are studying protects friction AND makes ROADS FAST
+AND ships a pause/normal/fast SPEED CONTROL. Those are two halves of one rule --
+**THE COST IS REAL, THE WATCHING IS NOT. DISTANCE SHOULD SPEND THE DAY, NOT THE
+PLAYER'S ATTENTION.** Our long walk correctly costs in-game hours; it also costs
+the player twenty real taps, and that second cost buys nothing.
+AND THE LEVER WE ARE NOT USING AT ALL: ROADS ARE THE ONLY THING THAT CHANGES THE
+SHAPE OF THE MAP WITHOUT REMOVING THE FRICTION -- a fast road does not flatten the
+valley, it gives it a GRAIN. We own a harmonised street bank, SIDEWALK SANCTITY,
+the street-aware/drivable law and his 8/25 LEGO-streets ruling, AND A STREET COSTS
+EXACTLY THE SAME TIME AS BROKEN GROUND. Every one of those streets is mechanically
+scenery. A STREET THAT IS NOT FASTER IS A PICTURE OF A STREET, and fixing it needs
+NO NEW ART.
+
+Three rows: WORLD/RUN BB-ROADS-ARE-FAST, RUN/UI BB-THE-TIME-NOT-THE-TAPS (measure
+it with day 14's COLD HAND before anybody calls the demo ready -- twenty identical
+presses is exactly what a cold hand does), QUESTS BB-INSIDE-A-DAY (DISCLOSURE, not
+relocation: a job says how far it is before you take it, because where people are
+is his and MAP LAW holds).
+
+COORDINATOR: 8/28 (u) -- *** DAY 18 OF THE BB
 STUDY: THE MIDDLE HORIZON EXISTS, IT IS HIS, IT IS ON THE WALKED SURFACE, AND
 CROSSING IT PAYS NOTHING YOU CAN USE. Sixty-one BB- rows routed. Nothing to
 judge. ***

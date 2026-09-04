@@ -1475,6 +1475,24 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 ## RUN
 *** BATTLE BROTHERS STUDY ROW, ROUTED 8/28 BY THE COORDINATOR (DAY 7).
     READ FIRST: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md ***
+BB-THE-TIME-NOT-THE-TAPS. *** DAY 19. THE COST IS REAL. THE WATCHING IS NOT.
+   MEASURE THIS ONE WITH DAY 14's COLD HAND BEFORE ANYBODY CALLS THE DEMO
+   READY. ***
+   Day 2 concluded FRICTION IS PROTECTED -- no fast, safe, universal route, ever --
+   and that stands. IT IS ALSO HALF THE RULE, and this study has been quoting only
+   that half for seventeen days. The game we are studying protects friction AND
+   makes roads fast AND gives you a pause/normal/FAST speed control. Those are not
+   contradictions, they are two halves of one rule:
+   *** DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER'S ATTENTION. ***
+   Our long walk correctly costs in-game hours. It ALSO costs the player however
+   long it takes to press the pad twenty times, and THAT SECOND COST BUYS NOTHING
+   -- it is not friction, not tension and not realism, it is time out of a person's
+   evening.
+   THE ROW: a route you set and let run, or a held press that keeps going. THIS IS
+   NOT FAST TRAVEL and it removes no cost; IT REMOVES THE WATCHING.
+   PAIRS WITH DAY 14: a cold hand presses the loudest thing on screen and never
+   reads, and twenty identical presses is exactly what it will do.
+
 BB-THIS-WEEK. *** DAY 18. A GOAL YOU HAVE TO GO FIND IS NOT A GOAL. RIDES WITH
    BB-WHAT-YOU-OWE AND BB-THE-END -- THREE DAYS OF THIS STUDY NOW WANT THE SAME
    CARD. ***
@@ -2470,6 +2488,32 @@ BB-SHADE-IS-A-RESOURCE. *** DAY 15. THE CITY ALREADY HAS SHADE AND IT BUYS
    a flat street into ground worth choosing. Pairs with COMBAT
    BB-THE-HEAT-IS-THE-CLOCK (shade is where the pips come back) and with WORLD
    BB-TURF (a seam you can only hold in the morning is a different kind of block).
+
+BB-ROADS-ARE-FAST. *** DAY 19. A STREET THAT IS NOT FASTER IS A PICTURE OF A
+   STREET, AND WE HAVE MORE STREET THAN ALMOST ANYTHING ELSE IN THIS PROJECT. ***
+   MEASURED, and the two scales cross-check: a fine tile is 0.75 m, the walk ticks
+   0.084 minutes per fine cell ("time per CELL, distance-honest") so TWELVE WALKED
+   CELLS COST ONE MINUTE, and the pad's own comment says a zoomed-out press is
+   "ninety-six metres and TEN MINUTES". Those agree at about NINE METRES A MINUTE.
+   The day is 06:00 to 22:00, so A FULL DAY OF WALKING IS ABOUT 8.6 KM, and the
+   valley is about 9.2 KM ACROSS. Crossing it on foot is a little more than one
+   entire day. THAT IS A GOOD NUMBER, not a bug.
+   WHAT THE GAME HE NAMED DOES: terrain costs you (forest and swamp slow you,
+   forest cuts vision, hills and mountains are slow, open ground is free), a SCOUT
+   in your company speeds you through bad terrain, chases can take DAYS -- and
+   *** ROADS ARE FAST. Everybody, player included, moves at high speed along a
+   road. ***
+   ROADS ARE THE ONLY LEVER THAT CHANGES THE SHAPE OF THE MAP WITHOUT REMOVING THE
+   FRICTION. A fast road does not flatten the valley, it gives it a GRAIN -- some
+   places near in time and far in metres -- which is exactly the structure von
+   Thunen says organises everything: transport cost rises with distance, and that
+   alone determines what happens where.
+   AND WE ALREADY OWN THE STREETS: the harmonised street bank, SIDEWALK SANCTITY,
+   the street-aware/drivable law, and his own 8/25 ruling that streets must connect
+   LIKE LEGO with art and path as ONE contract. AND A STREET COSTS EXACTLY THE SAME
+   TIME AS BROKEN GROUND. Every one of them is mechanically scenery.
+   NEEDS NO NEW ART. The streets are drawn and already know what they are.
+   Read: records/BOHEMIA_BB_STUDY_DAY_19_WHAT_IT_COSTS_TO_GO_SOMEWHERE_8_28_26.md
 
 BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
    WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
@@ -8483,6 +8527,30 @@ BB-TERRITORY-FLAG. *** QUEUED (BB study day 6). TEN QUESTS SAY THE MAP CHANGES
    that flag lives in the RETIRED slice. The flag is set and dropped on the floor.
    Either it moves ground, or those ten quests are telling the player something
    that does not happen. Depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
+
+BB-INSIDE-A-DAY. *** DAY 19. THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP AND
+   NOTHING ON THE OFFER SAYS SO. THIS ROW IS DISCLOSURE, NOT RELOCATION. ***
+   The QUESTS lane's own measurement, from the block he wakes up on: "within 3
+   blocks, 23 people, ZERO of them running with anybody. nearest TRADES 5 blocks
+   (~1.9 km). the TRADES BASE 7 blocks (~2.7 km)." And day one's quest demands
+   `faction=TRADES` for its ONE REQUIRED role.
+   AT NINE METRES A MINUTE (measured, see BB-ROADS-ARE-FAST), 1.9 KM IS ABOUT 211
+   MINUTES. THREE AND A HALF HOURS THERE. SEVEN HOURS THERE AND BACK -- FORTY-FOUR
+   PERCENT OF THE FIRST DAY THE PLAYER EVER PLAYS, WALKING TO THE PERSON THE FIRST
+   JOB IS ABOUT. Nobody had multiplied the two numbers together.
+   TO BE FAIR TO THE LANE: the casting bridge now FINDS that person and gives them
+   a real address, which is the hard part and it is DONE. This is about the
+   distance the world puts between you and the job.
+   *** THE ROW IS THAT A JOB SAYS HOW FAR IT IS BEFORE YOU TAKE IT. WHERE PEOPLE
+   ARE IS HIS AND MAP LAW HOLDS -- Claude never designs map layouts. *** The
+   real-world standard to measure against is the isochrone that markets were
+   actually built on: the City of London controlled markets within 6 2/3 miles,
+   "the distance a person could be expected to walk to market, sell his produce and
+   return in a day". A DAY THERE AND BACK IS THE REACHABLE SET, and an offer
+   outside it should announce itself.
+   (And the pleasing number: our valley is 9.2 km across and a day buys 8.6 km --
+   THE WHOLE VALLEY IS EXACTLY ONE MARKET TOWN'S CATCHMENT. The map is already the
+   right SIZE for its clock.)
 
 BB-PREDICATE-ANSWER. *** DAY 8. SIXTY TIMES A QUEST HAS ASKED FOR SOMEBODY BY
    WHAT THEY CAN DO AND THE VALLEY HAS HAD NO WAY TO ANSWER. ***

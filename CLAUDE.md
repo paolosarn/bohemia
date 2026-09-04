@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: EIGHTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: NINETEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -505,7 +505,31 @@ research partner. He DECIDES, you PRODUCE.
   can is not a dial. MAYOR_SHARE stays his and stays pending. Also taken from BB's
   ambitions, and neither half needs canon: YOU CHOOSE the week's goal from a short
   list, and its reward is an IDENTITY OBJECT rather than a number.
-  ROUTED: sixty-one rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 19 TOOK THE LAST UNTOUCHED CAMPAIGN SYSTEM, TRAVEL, WHICH IS THE VERB
+  THE PLAYER PERFORMS MOST. *** MEASURED AND CROSS-CHECKED (both scales verified
+  against each other, not trusted): a fine tile is 0.75 m and the walk ticks 0.084
+  minutes per fine cell, so TWELVE WALKED CELLS COST ONE MINUTE, and the pad's own
+  comment says a zoomed-out press is "ninety-six metres and TEN MINUTES" -- both
+  about NINE METRES A MINUTE. The day is 960 minutes, so A DAY OF WALKING IS ~8.6
+  KM and the valley is ~9.2 KM ACROSS: crossing it is a little over one whole day,
+  which is a GOOD number. *** AND THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP: the
+  nearest TRADES is 5 blocks (~1.9 km) from the block he wakes on and day one's
+  quest demands faction=TRADES for its one REQUIRED role, which is ~211 minutes
+  each way, 44% OF THE FIRST DAY A PLAYER EVER PLAYS. Nobody had multiplied the two
+  numbers. *** REAL AISLE: von Thunen (transport cost with distance is what
+  organises land use) plus the isochrone written into law -- the City of London
+  controlled markets within 6 2/3 miles, "the distance a person could be expected
+  to walk to market, sell his produce and return in a day" -- so OUR VALLEY IS
+  EXACTLY ONE MARKET TOWN'S CATCHMENT and the map is already the right SIZE for its
+  clock. THE FINDING CORRECTS HALF OF DAY 2: FRICTION IS PROTECTED still stands,
+  but BB protects friction AND makes roads fast AND ships a pause/normal/fast speed
+  control, because **THE COST IS REAL AND THE WATCHING IS NOT -- distance should
+  spend the DAY, not the player's attention.** And ROADS ARE THE ONLY LEVER THAT
+  GIVES THE MAP A GRAIN WITHOUT FLATTENING IT: we own a harmonised street bank,
+  SIDEWALK SANCTITY, the drivable law and his LEGO-streets ruling, and A STREET
+  COSTS EXACTLY THE SAME TIME AS BROKEN GROUND. A STREET THAT IS NOT FASTER IS A
+  PICTURE OF A STREET, and fixing it needs NO new art.
+  ROUTED: sixty-four rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,
