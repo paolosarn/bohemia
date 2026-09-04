@@ -1489,6 +1489,60 @@ BB-THE-END. *** DAY 13. THE LAST THING HE SEES EVERY DAY IS CARRYING HALF THE
    not its inventory. Two days of this study converge on this one surface and it
    is the cheapest in the game.
 
+BB-COLD-HAND. *** DAY 14. THE FIRST DEMO-CRITICAL ROW THIS STUDY HAS PRODUCED,
+   AND IT IS A METHOD WE ALREADY OWN AND RAN EXACTLY ONCE. THIS ONE IS ON THE
+   DEMO PATH, NOT BEHIND IT. ***
+   Written into the walked surface on 8/25: "MEASURED with a cold hand that
+   presses the loudest control on screen and never reads: from a cold boot it went
+   WATCH, GET UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped.
+   PHONE OPENED 0. JOB TAKEN 0. CLOCK 06:00 AT THE FIRST TAP AND 06:00 AT THE
+   TWELFTH." A simulated stranger pressed the biggest button twelve times and the
+   game's clock never moved. The cause was found and fixed properly (the phone had
+   rung as "a dark chip with a hairline and a 14px dot, and the dot is a sign on a
+   door -- Norman: when you have to put a sign on a door, the design already
+   failed"), so the ring now wears the same fill as the WATCH button the player
+   has already been taught to press.
+   *** THE FIX IS NOT THE FINDING. THE TEST IS. *** It is not a gate, it is not
+   repeatable, and nothing has run it since -- not on the cold open, the first
+   morning, the job offer, the first fight or the reckoning. It found a total dead
+   end in the first minute of the game the one time it ran, and NOBODY HAS ASKED
+   WHAT A SECOND RUN WOULD FIND.
+   THE ROW: promote it to a repeatable harness. Press the loudest control on
+   screen, never read, and assert THE GAME ADVANCES -- clock moves, a job gets
+   taken, a day ends.
+   THE TEST IN ONE SENTENCE, for anybody designing a screen: A COLD HAND PRESSES
+   THE LOUDEST THING ON SCREEN AND NEVER READS. If doing that repeatedly does not
+   advance the game, the screen is broken however good the systems behind it are.
+   Read: records/BOHEMIA_BB_STUDY_DAY_14_THE_FIRST_FIVE_MINUTES_8_28_26.md
+
+BB-NOT-LOSE-TO-LEARN. *** DAY 14. WRITTEN AS A REFUSAL SO NO LANE QUIETLY IMPORTS
+   IT. AFTER THIRTEEN DAYS OF TAKING, THIS IS THE DAY THE STUDY SAYS NO. ***
+   THE GAME HE NAMED IS A BAD TEACHER AND ITS OWN PLAYERS SAY SO: "a rather steep
+   learning curve, and many players end up getting lost or stuck halfway through",
+   and the standard advice to a beginner is play on Beginner, do not play ironman,
+   save often, and expect your men to die a lot. "The most difficult part of the
+   game is the start." "The first 10 days are the hardest."
+   THAT IS A REASONABLE DESIGN FOR A DEEP STRATEGY GAME SOMEBODY DELIBERATELY
+   BOUGHT. IT IS FATAL FOR A LINK HANDED TO A FRIEND. Median day-one retention
+   runs about 22-26%, roughly three of four people decide against you inside 24
+   hours and MOST OF THAT DECISION HAPPENS IN THE FIRST SESSION, and STRATEGY IS
+   THE WORST-HIT GENRE (~25%) "because their depth takes longer to hook new
+   players". That is us, precisely.
+   SO: THE FIRST HOUR DOES NOT TEACH BY KILLING YOU. The cold open is already the
+   right answer and it is HIS (8/8, "build a tutorial-tier family-defense
+   encounter"): `hostiles: 2, /* tutorial tier */` with the comment "IT TEACHES BY
+   STRUCTURE, NOT BY A TUTORIAL BOX: the threat walks toward you." THAT STAYS.
+   AND HIS OWN RULING ALREADY COVERS IT: 8/25, "WE NEED TO MAKE THIS GAME FUCKING
+   FUN", and FUN CARRIES THE TIE. A brutal opening is the most realistic thing we
+   could build and it is the wrong trade, made by the person allowed to make it.
+   *** AND A WARNING THIS STUDY OWES ITSELF: three rows it already routed touch
+   the first fight and none was written with a stranger in mind. BB-NERVE-ON
+   (shorter fights, helps, keep), BB-GUNS-CLOSE (pushes bodies toward you --
+   probably good in a two-hostile cold open, but MEASURE IT THERE, do not assume),
+   and BB-THE-ROUT (a decision after the fight, which in the FIRST fight is one
+   more thing to understand at the worst moment). NOTHING FROM THIS STUDY LANDS IN
+   THE COLD OPEN WITHOUT A COLD-HAND RUN. ***
+
 BB-WHAT-YOU-OWE. *** THE SMALLEST ROW IN SEVEN DAYS OF STUDY AND THE BEST
    EFFORT-TO-EFFECT ONE ON THE WHOLE BB BOARD. IT IS ONE LINE ON A CARD HE IS
    ALREADY READING. ***
@@ -8532,6 +8586,18 @@ BB-FORETOLD. *** DAY 11. A CRISIS ANNOUNCED IN ADVANCE IS THE DESIGN, NOT A
    can perceive, which day 6 already named as the way this kind of work gets
    wasted. An escalation the player cannot see coming is not tension, it is an
    ambush.
+
+BB-SIXTY-SECONDS. *** DAY 14. A GUARD, NOT A BUILD. ***
+   The practitioners' operational rule for a first session: "Get to playable inside
+   60 seconds. No account creation, no settings, no extended tutorial before the
+   first gameplay moment."
+   WE ALREADY MEET IT: the RUN lane measured 24.2 SECONDS TO FIRST PLAY on
+   throttled 4G. Against a 60-second budget that is INSIDE it, which is worth
+   saying out loud -- THE LOADING IS NOT WHAT LOSES THE FRIEND. (Performance stays
+   on the board as its own row and should.)
+   THIS ROW EXISTS SO THAT THE NEXT THING SOMEBODY WANTS TO PUT IN FRONT OF THE
+   GAME HAS TO ARGUE AGAINST A NUMBER. No settings screen, no options wall, no
+   tutorial sequence, nothing between the tap and the first real moment.
 
 BB-WHY. *** QUEUED BEHIND THE DEMO (BB study day 3). ***
    THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE DID WHAT IT DID.

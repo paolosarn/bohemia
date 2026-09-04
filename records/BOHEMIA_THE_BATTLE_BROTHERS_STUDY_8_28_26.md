@@ -57,8 +57,9 @@ reference game he has not named. ***
 ## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
-## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12) AND
-## THE TIME BETWEEN FIGHTS (13). A PLAN IS NOT A LAW. ***
+## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
+## TIME BETWEEN FIGHTS (13) AND THE FIRST FIVE MINUTES (14). A PLAN IS NOT
+## A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -349,6 +350,33 @@ Density raises the floor and moves the peak by nothing.
 SECOND HALF, FREE: the END is half the memory, and our day already ends on
 the reckoning card, which currently reads as a receipt. Day 7 and day 13
 converge on the same card. Three rows.**
+
+**DAY 14 — THE FIRST FIVE MINUTES, AND THE ONE THING WE MUST NOT COPY.
+*** DONE: records/BOHEMIA_BB_STUDY_DAY_14_THE_FIRST_FIVE_MINUTES_8_28_26.md.
+THE FIRST DAY OF THIS STUDY THAT PRODUCES A DEMO-CRITICAL ROW, AFTER
+THIRTEEN DAYS OF SAYING NONE OF IT WAS. ***
+Thirteen days took things. Day 14 asks what the game he named gets WRONG,
+and it is the thing our demo lives on. ITS OWN PLAYERS SAY IT: "a rather
+steep learning curve, and many players end up getting lost or stuck
+halfway through", and the standard beginner advice is play on Beginner,
+do not play ironman, save often, expect your men to die a lot. Reasonable
+for a deep strategy game somebody bought. FATAL FOR A LINK HANDED TO A
+FRIEND: median day-one retention is ~22-26%, three of four decide against
+you inside 24 hours and most of it happens in the FIRST SESSION, and
+STRATEGY IS THE WORST-HIT GENRE because its depth takes longer to hook.
+THE GOOD NEWS IS REAL: the cold open is ALREADY designed as a teacher and
+not a tutorial box (his 8/8 order; `hostiles: 2, /* tutorial tier */`,
+"IT TEACHES BY STRUCTURE... the threat walks toward you"), and time to
+first play is 24.2 SECONDS against a 60-second practitioner rule, so THE
+LOADING IS NOT WHAT LOSES THE FRIEND.
+*** AND SOMEBODY ALREADY BUILT THE ONE TEST THAT MATTERS AND RAN IT ONCE:
+"MEASURED with a cold hand that presses the loudest control on screen and
+never reads... DROP IN / CITY ten times and stopped. PHONE OPENED 0. JOB
+TAKEN 0. CLOCK 06:00 AT THE FIRST TAP AND 06:00 AT THE TWELFTH." A
+simulated stranger pressed the biggest button twelve times and the clock
+never moved. THE FIX IS NOT THE FINDING, THE TEST IS -- it is not a gate,
+not repeatable, and has never been run on anything else. ***
+Three rows, and BB-COLD-HAND goes ON the demo path rather than behind it.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-THIRTEEN days, thirteen records, driven by his own two-word trigger "bb study,
+FOURTEEN days, fourteen records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -16,7 +16,8 @@ progression, meaning what a hundred hours of getting better is made of.
 Day 10: gear and loot, which is day 9's other half. Day 11: escalation,
 meaning how a hundred hours gets worse without a difficulty number. Day 12:
 morale and the rout, meaning what makes a fight END. Day 13: the time
-between fights, meaning why the city feels dead. A PLAN IS NOT A LAW.
+between fights, meaning why the city feels dead. Day 14: the first five
+minutes, and the one thing we must NOT copy. A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -139,7 +140,20 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   neglects duration, so density raises the floor and never the peak. The
   second half of that is free: the reckoning card is the last thing seen
   every day and it currently reads as a receipt.
-- **ROUTED:** forty-five rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **WE DO NOT COPY ITS FIRST HOUR (day 14, and it is the study's one
+  refusal of the thing BB is most known for).** Its own players' advice to
+  a beginner is play on Beginner, do not play ironman, save often, expect
+  your men to die a lot. Reasonable for a deep strategy game somebody
+  bought; fatal for a link handed to a friend, where median day-one
+  retention is ~22-26%, most of the decision happens in the FIRST SESSION,
+  and strategy is the worst-hit genre. **THE FIRST HOUR DOES NOT TEACH BY
+  KILLING YOU** — the cold open already teaches by structure, which is his
+  8/8 design, and FUN CARRIES THE TIE is his own ruling. AND THE STUDY'S
+  ONE DEMO-CRITICAL FINDING IS A METHOD WE ALREADY OWN: the COLD HAND
+  test, run once, which found a simulated stranger pressing the loudest
+  button twelve times while the clock never moved. It is not a gate and
+  has never been run on anything else.
+- **ROUTED:** forty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

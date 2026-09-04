@@ -703,7 +703,61 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (p) LATEST -- *** DAY 13 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (q) LATEST -- *** DAY 14 OF THE BB
+STUDY: THE DAY THE STUDY SAYS NO, AND THE ONLY DEMO-CRITICAL ROW IT HAS PRODUCED.
+Forty-eight BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_14_THE_FIRST_FIVE_MINUTES_8_28_26.md
+
+Thirteen days took things from the game he named. Day 14 asked what it gets WRONG,
+and it is the exact thing our demo lives or dies on: THE FIRST FIVE MINUTES.
+
+*** IT IS A BAD TEACHER AND ITS OWN PLAYERS SAY SO: "a rather steep learning
+curve, and many players end up getting lost or stuck halfway through", and the
+standard beginner advice is play on Beginner, do not play ironman, save often,
+expect your men to die a lot. "The first 10 days are the hardest." THAT IS A
+REASONABLE DESIGN FOR A DEEP STRATEGY GAME SOMEBODY DELIBERATELY BOUGHT. IT IS
+FATAL FOR A LINK HANDED TO A FRIEND: median day-one retention runs ~22-26%, three
+of four decide against you inside 24 hours with MOST OF THAT IN THE FIRST SESSION,
+and STRATEGY IS THE WORST-HIT GENRE (~25%) "because their depth takes longer to
+hook new players". That is us, precisely. SO THE FIRST HOUR DOES NOT TEACH BY
+KILLING YOU -- and his own 8/25 ruling, FUN CARRIES THE TIE, already covers it. ***
+
+THE GOOD NEWS IS REAL AND SHOULD BE SAID: the cold open is ALREADY designed as a
+teacher rather than a tutorial box -- his 8/8 order, `hostiles: 2, /* tutorial tier
+*/`, and the comment "IT TEACHES BY STRUCTURE, NOT BY A TUTORIAL BOX: the threat
+walks toward you." And time to first play is 24.2 SECONDS on throttled 4G against
+the practitioners' "get to playable inside 60 seconds" rule, so THE LOADING IS NOT
+WHAT LOSES THE FRIEND.
+
+*** AND THE ONE DEMO-CRITICAL FINDING IS A METHOD WE ALREADY OWN AND RAN EXACTLY
+ONCE. *** From the walked surface, 8/25: "MEASURED with a cold hand that presses
+the loudest control on screen and never reads: from a cold boot it went WATCH, GET
+UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped. PHONE OPENED 0.
+JOB TAKEN 0. CLOCK 06:00 AT THE FIRST TAP AND 06:00 AT THE TWELFTH." A simulated
+stranger pressed the biggest button twelve times and the clock never moved. It was
+fixed properly (the phone ring now wears the same fill as the WATCH button the
+player was already taught to press).
+THE FIX IS NOT THE FINDING, THE TEST IS. It is not a gate, not repeatable, and has
+never been run on the cold open, the first morning, the job offer, the first fight
+or the reckoning. THE TEST IN ONE SENTENCE: A COLD HAND PRESSES THE LOUDEST THING
+ON SCREEN AND NEVER READS -- if that does not advance the game, the screen is
+broken however good the systems behind it are.
+
+*** A WARNING THIS STUDY OWES ITSELF, FOR COMBAT ESPECIALLY: three rows it already
+routed touch the first fight and none was written with a stranger in mind.
+BB-NERVE-ON makes fights shorter, so keep it. BB-GUNS-CLOSE pushes bodies toward
+you, which is probably good in a two-hostile cold open, but MEASURE IT THERE
+rather than assuming. BB-THE-ROUT adds a decision after the fight, which in the
+FIRST fight is one more thing to understand at the worst moment. NOTHING FROM THIS
+STUDY LANDS IN THE COLD OPEN WITHOUT A COLD-HAND RUN. ***
+
+Three rows: SHARED/RUN BB-COLD-HAND (ON the demo path, not behind it), RUN
+BB-NOT-LOSE-TO-LEARN (a refusal, written down so nobody imports it), UI
+BB-SIXTY-SECONDS (a guard so the next thing put in front of the game has to argue
+against a number).
+
+COORDINATOR: 8/28 (p) -- *** DAY 13 OF THE BB
 STUDY: THE DESIGN ASKS FOR 70% OF ITS MOMENTS OUT OF 25% OF ITS CONTENT, AND
 DENSITY CANNOT FIX "DEAD". Forty-five BB- rows routed. Nothing to judge. ***
 

@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: THIRTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: FOURTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -392,7 +392,28 @@ research partner. He DECIDES, you PRODUCE.
   money: THE END IS HALF THE MEMORY, our day already ends on the reckoning card,
   and that card currently reads as a receipt -- which is where day 7 and day 13
   converge on one cheap surface.
-  ROUTED: forty-five rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 14 IS THE DAY THE STUDY SAYS NO, AND THE ONLY DAY THAT PRODUCED A
+  DEMO-CRITICAL ROW. *** Thirteen days took things; day 14 asked what the game he
+  named gets WRONG. Its own players' advice to a beginner is play on Beginner, do
+  not play ironman, save often, expect your men to die a lot -- reasonable for a
+  deep strategy game somebody deliberately bought, FATAL FOR A LINK HANDED TO A
+  FRIEND. Median day-one retention runs ~22-26%, three of four decide against you
+  inside 24 hours with most of that in the FIRST SESSION, and STRATEGY IS THE
+  WORST-HIT GENRE because its depth takes longer to hook. So THE FIRST HOUR DOES
+  NOT TEACH BY KILLING YOU, and FUN CARRIES THE TIE (his own 8/25 ruling) already
+  covers it. THE GOOD NEWS IS REAL: the cold open is ALREADY a teacher and not a
+  tutorial box (his 8/8 order, `hostiles: 2 /* tutorial tier */`, "IT TEACHES BY
+  STRUCTURE... the threat walks toward you"), and time to first play is 24.2
+  SECONDS against the practitioners' 60-second rule, so THE LOADING IS NOT WHAT
+  LOSES THE FRIEND. AND THE ONE DEMO-CRITICAL FINDING IS A METHOD WE ALREADY OWN
+  AND RAN ONCE: **THE COLD HAND** -- "a cold hand that presses the loudest control
+  on screen and never reads... DROP IN / CITY ten times and stopped. PHONE OPENED
+  0. JOB TAKEN 0. CLOCK 06:00 AT THE FIRST TAP AND 06:00 AT THE TWELFTH." THE FIX
+  IS NOT THE FINDING, THE TEST IS: it is not a gate, not repeatable, and has never
+  been run on the cold open, the first morning, the first fight or the reckoning.
+  A COLD HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS; if that does
+  not advance the game, the screen is broken however good the systems behind it.
+  ROUTED: forty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,
