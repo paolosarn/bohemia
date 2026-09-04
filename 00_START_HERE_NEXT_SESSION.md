@@ -703,7 +703,55 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (l) LATEST -- *** DAY 9 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (m) LATEST -- *** DAY 10 OF THE BB
+STUDY: YOU LOOT THE DEAD AND YOU KEEP NOTHING. Thirty-five BB- rows routed.
+Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_10_LOOT_IS_A_COUNTDOWN_8_28_26.md
+
+Day 9 ruled growth cannot be levels. Day 10 is its other half: the genre's answer
+is GEAR, and he ruled LOOT EXISTS himself on 8/25.
+
+*** MEASURED, AND IT IS THE EIGHTH INSTANCE OF THIS STUDY'S SHAPE: LOOT IS BUILT
+AND CANNOT LEAVE THE ROOM. *** On every death the fight drops rounds, XP worth a
+quarter of the body, an item at LOOT_CHANCE 0.55 from an eight-item draft:true
+table, a plate at PLATE_CHANCE 0.22, and a boss key -- all lying where he fell so
+you have to walk to it, which is his own ruling ("you get experience and loot OFF
+THEIR BODIES"). The code even caught its own first mistake in its own words:
+"nobody walks into a firing line for half a pack of smokes", which is why the
+plate exists. A REWARD HAS TO BE WORTH THE GROUND YOU CROSS FOR IT.
+AND `BOHEMIA_COMBAT_END` CARRIES NONE OF IT: victory, result, reason, kills,
+dead, spared, fled, alive, fates, playerHP, turns and three ids. NO LOOT, NO XP,
+NO PLATES, NO KEYS. POSITIVE CONTROL: exactly TWO things persist out of the arena,
+both by localStorage ('bohemia.tree', 'bohemia.keys'), so the pipe exists and loot
+is not on it -- it goes into G.ledger.loot, gets a read line, and dies.
+ALSO: armour is a CONSUMABLE, not a possession. `G.pp = PLATE_START` at every
+bell. Nothing in this game is an object you own, maintain and can lose -- EXCEPT
+ONE LINE, in the walked city's medical kit: `tweezers: { durable:true, note:'THE
+DURABLE. Sterilised, never consumed. The one piece you keep.' }`.
+
+THE FINDING: NOTHING IN THIS VALLEY IS MANUFACTURED. Every object was made before
+the collapse and the stock only goes DOWN, so a thing you take is a thing somebody
+else no longer has. **LOOT IS NOT A REWARD, IT IS A COUNTDOWN.** It cannot be
+power (no damage dial, and day 9 refused vertical growth), so it has to be ACCESS
+-- and THAT IS ALREADY SHIPPED WHILE WE KEEP CALLING IT MISSING: a boss key is an
+object that opens a DOOR instead of adding a number.
+BB'S BEST GEAR IDEA, which nobody copies: A WEAPON WEARS OUT ON ARMOUR, NOT ON
+FLESH, and at zero durability it is permanently destroyed. So every exchange costs
+BOTH sides material, and the question before a fight becomes "is this worth what
+winning will cost me."
+REAL AISLE: Cuba's Special Period, the documented case of an economy that lost its
+supplier overnight -- INVENTAR Y RESOLVER, cars kept alive with parts from other
+cars, state-printed repair manuals, street repair as an industry. THE REAL SKILL
+IN A COLLAPSED ECONOMY IS NOT SCAVENGING, IT IS FIXING, so the fixer is worth more
+than the thing -- already a boss in his ladder, THE SMITH.
+
+Four rows: COMBAT/SHARED BB-LOOT-LEAVES (same pipe as day 9's BB-KEYS-LAND, do
+both in one afternoon and two of this study's "built but goes nowhere" findings
+disappear at once), COMBAT BB-LOOT-IS-ACCESS, WORLD BB-ONE-WAY, PEOPLE/QUESTS
+BB-WHO-FIXES-IT.
+
+COORDINATOR: 8/28 (l) -- *** DAY 9 OF THE BB
 STUDY: GROWTH HAS TO GO SIDEWAYS, AND HIS OWN TWO REFERENCES ONLY AGREE THAT WAY.
 Thirty-one BB- rows routed. Nothing to judge. ***
 

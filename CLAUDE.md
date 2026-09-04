@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: NINE DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: TEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -308,7 +308,28 @@ research partner. He DECIDES, you PRODUCE.
   seventh instance: the boss keys are published TWICE with a comment naming CITY,
   RUN and QUESTS as the intended readers and `bohemiaKeys` has ZERO readers in
   either surface, so the verbs never leave the fight.
-  ROUTED: thirty-one rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 10 IS DAY 9'S OTHER HALF: IF GROWTH IS NOT LEVELS, THE GENRE'S
+  ANSWER IS GEAR -- AND OURS CANNOT BE. *** Nothing in this valley is
+  manufactured, so every object was made before the collapse and the stock only
+  goes DOWN: LOOT IS NOT A REWARD, IT IS A COUNTDOWN. It cannot be power (no
+  damage dial, and day 9 refused vertical growth), so it has to be ACCESS -- and
+  THAT IS ALREADY SHIPPED WHILE WE KEEP CALLING IT MISSING: a boss key lies on a
+  body, you cross ground under fire for it, and it gives you a DOOR, not a number.
+  MEASURED: loot really is built (an eight-item draft table at 0.55, a plate at
+  0.22, rounds, XP and the key, all off bodies per his 8/25 ruling) AND NOTHING
+  YOU PICK UP LEAVES THE FIGHT -- `BOHEMIA_COMBAT_END` carries a body count and a
+  health number and nothing else, while exactly TWO things persist out of the
+  arena by localStorage, so the pipe exists and loot is not on it. Armour is a
+  CONSUMABLE too (`G.pp=PLATE_START` every bell), so nothing in this game is an
+  object you own, maintain and can lose -- except one line, a pair of tweezers
+  marked `durable:true`, "the one piece you keep". BB'S BEST GEAR IDEA, which
+  nobody copies: a weapon wears out ON ARMOUR, not on flesh, and at zero it is
+  destroyed, so every exchange costs BOTH sides material. AND THE REAL AISLE SAYS
+  THE SKILL IS FIXING, NOT SCAVENGING (Cuba's Special Period: "inventar y
+  resolver", cars rebuilt out of other cars, state-printed repair manuals), so
+  THE FIXER IS WORTH MORE THAN THE THING -- already a boss in his own ladder,
+  THE SMITH.
+  ROUTED: thirty-five rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

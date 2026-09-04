@@ -57,7 +57,7 @@ reference game he has not named. ***
 ## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
-## AND PROGRESSION (9). A PLAN IS NOT A LAW. ***
+## PROGRESSION (9) AND GEAR (10). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -242,6 +242,32 @@ either surface. The verbs do not leave the fight.
 REAL AISLE: chess masters have ORDINARY working memory and their advantage
 VANISHES ON RANDOM BOARDS. Expertise is not being more, it is SEEING MORE.
 Three rows.**
+
+**DAY 10 — LOOT IS NOT A REWARD, IT IS A COUNTDOWN. *** DONE:
+records/BOHEMIA_BB_STUDY_DAY_10_LOOT_IS_A_COUNTDOWN_8_28_26.md. The direct
+continuation of day 9: if growth is not levels, BB's answer is GEAR. ***
+BB'S BEST GEAR IDEA IS THE ONE NOBODY COPIES: a weapon wears out ON
+ARMOUR, not on flesh, and at zero durability it is PERMANENTLY DESTROYED.
+So every exchange costs BOTH sides material, and the question before a
+fight is not "can I win" but "is this worth what winning will cost me."
+MEASURED: loot IS built (lootRoll at 0.55 over eight draft items, a plate
+at 0.22, rounds, XP, and a boss key, all lying on the body per his 8/25
+ruling) AND NOTHING YOU PICK UP LEAVES THE FIGHT. BOHEMIA_COMBAT_END
+carries a body count and a health number: no loot, no XP, no plates, no
+keys. Positive control: exactly TWO things persist out of the arena, both
+by localStorage, so the pipe exists and loot is not on it. EIGHTH
+INSTANCE. Also: armour is a CONSUMABLE (G.pp=PLATE_START every bell), so
+nothing here is an object you own and maintain -- except one line, a pair
+of tweezers marked `durable:true`, "the one piece you keep".
+REAL AISLE: Cuba's Special Period, the documented case of an economy that
+lost its supplier overnight. INVENTAR Y RESOLVER, Frankenstein cars built
+from other cars' parts, state-printed repair manuals. THE REAL SKILL IN A
+COLLAPSED ECONOMY IS NOT SCAVENGING, IT IS FIXING.
+THE FINDING: nothing in this valley is manufactured, so the stock only
+goes down and loot is a COUNTDOWN. Loot cannot be power (no damage dial,
+and day 9 refused vertical growth), so it has to be ACCESS -- and THAT IS
+ALREADY SHIPPED AND WE KEEP CALLING IT MISSING: a boss key is an object
+that opens a door instead of adding a number. Four rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

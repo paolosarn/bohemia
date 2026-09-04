@@ -2362,6 +2362,23 @@ BB-DAYS-LEFT. *** QUEUED (BB study day 7). ***
    knows which one it is.
    Read: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md.
 
+BB-ONE-WAY. *** DAY 10. NOTHING IN THIS VALLEY IS MANUFACTURED. ***
+   Ten years after the collapse every object that exists was made BEFORE it, and
+   the total stock only goes DOWN. So a thing you take is a thing somewhere else
+   no longer has, and LOOT IS NOT A REWARD, IT IS A COUNTDOWN.
+   THE REAL ANALOGUE IS DOCUMENTED AND IT IS CUBA'S SPECIAL PERIOD: an economy
+   that lost its supplier overnight, declared a "Special Period in a Time of
+   Peace", brought wartime rationing into peacetime, and survived on REPAIR. The
+   operative words were "INVENTAR Y RESOLVER" -- invent and resolve. With no
+   replacement parts for decades, engines were kept alive with parts pulled from
+   entirely different vehicles ("Frankenstein" cars), THE GOVERNMENT PRINTED
+   REPAIR MANUALS FOR CITIZENS, and street-side repair became an industry.
+   SO THE REAL SKILL IN A COLLAPSED ECONOMY IS NOT SCAVENGING, IT IS FIXING.
+   This is the frame the market model (day 2) and the supply lines (day 7) both
+   want and it needs NO new economics. Note the two verbs are already Spanish and
+   already in this valley's mouth, so nothing here reopens the language work --
+   the 8/26 cap is untouched.
+
 BB-PRICE-PLACE. *** QUEUED BEHIND THE DEMO (BB study day 2). ***
    PRICE GETS A PLACE. engine/bohemia_economy.js is already serious, grounded
    work -- fiat dies, barter, then commodity money; hyperbolic scarcity pricing
@@ -5018,6 +5035,41 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-LOOT-LEAVES. *** DAY 10. YOU LOOT THE DEAD AND YOU KEEP NOTHING. EIGHTH
+   INSTANCE OF THIS STUDY'S SHAPE, AND IT IS THE SAME PIPE AS BB-KEYS-LAND -- DO
+   BOTH IN ONE AFTERNOON. ***
+   Loot IS built, and it is his own 8/25 ruling implemented ("you get experience
+   and loot OFF THEIR BODIES"): on every death, dropRounds, XP worth a quarter of
+   the body, lootRoll() at LOOT_CHANCE 0.55 over eight draft:true items, a plate
+   at PLATE_CHANCE 0.22, and a boss key on his body -- all lying where he fell so
+   you have to walk to it. The code even caught its own first mistake in its own
+   words: "nobody walks into a firing line for half a pack of smokes", which is
+   why the plate exists. A REWARD HAS TO BE WORTH THE GROUND YOU CROSS FOR IT.
+   AND THE FIGHT'S ONE MESSAGE OUT CARRIES NONE OF IT. BOHEMIA_COMBAT_END is
+   victory / result / reason / kills / dead / spared / fled / alive / fates /
+   playerHP / turns / encounterId / questId / stepId. NO LOOT, NO XP, NO PLATES,
+   NO KEYS. A body count and a health number.
+   POSITIVE CONTROL: exactly TWO things persist out of the arena, both by
+   localStorage -- 'bohemia.tree' and 'bohemia.keys' -- so the carrying mechanism
+   exists and is used. Loot is not on it: it goes into G.ledger.loot, gets a read
+   line saying OFF THE BODY, and dies with the fight.
+   ALSO MEASURED: armour is a CONSUMABLE, not a possession. `G.pp = PLATE_START`
+   runs at the top of every fight, so plates crack and come back full at the next
+   bell. Nothing in this game is an object you own, maintain, and can lose.
+   Read: records/BOHEMIA_BB_STUDY_DAY_10_LOOT_IS_A_COUNTDOWN_8_28_26.md
+
+BB-LOOT-IS-ACCESS. *** DAY 10. LOOT OPENS DOORS, IT DOES NOT ADD NUMBERS. ***
+   The default loot loop is kill, take, get stronger, kill bigger. THAT IS THE
+   VERTICAL GROWTH DAY 9 REFUSED, WEARING A BACKPACK, and we cannot build it
+   anyway because it needs a damage dial we do not have.
+   LOOT THAT IS NOT POWER HAS ONLY ONE OTHER THING TO BE: ACCESS. A thing that
+   OPENS something rather than adding to something.
+   *** AND THAT IS ALREADY SHIPPED AND WE KEEP DESCRIBING IT AS MISSING. A BOSS
+   KEY IS EXACTLY THAT OBJECT: it lies on a body, you cross ground under fire for
+   it, and what it gives you is a DOOR, not a number -- the 8/27 law's own words,
+   a boss hands you a VERB. *** Build the rest of the loot table in that shape.
+   Ships under NO DAMAGE BEFORE THE DIAL because it sets no damage value.
+
 BB-VERB-TREE. *** DAY 9. THE TREE IS GROWING THE WRONG KIND OF RUNG, AND ITS
    OWN COMMENT SAYS SO. ***
    MEASURED 8/28 in the decoded fight: a perk tree IS shipped -- TREE={xp,spent},
@@ -5447,6 +5499,19 @@ BB-UNPAID-TURNS-PREDATORY. *** QUEUED (BB study day 7, and it closes day 6). ***
    only while it is yours AND lit AND patrolled) is ALSO THE AGGRESSION RULE.
    TAKE A FACTION'S LIGHTS AND YOU HAVE NOT WEAKENED THEM, YOU HAVE RELEASED
    THEM. That turns a free win into a decision.
+
+BB-WHO-FIXES-IT. *** DAY 10. THE PERSON WHO CAN FIX IT IS WORTH MORE THAN THE
+   THING. ***
+   In a world that cannot manufacture, the fixer outlives whatever they fixed.
+   That is day 8's back of house pointed at objects, and IT IS ALREADY A BOSS IN
+   HIS OWN LADDER: THE SMITH -- "run a WORKSHOP at base: scrap becomes resource
+   currency, weapons get customised."
+   THE DESIGN MOVE: a quest that needs a working generator should be a quest
+   about a PERSON, not a fetch. Uses BB-WHAT-YOU-WERE's former trades directly.
+   AND THE SEED IS ALREADY WRITTEN, one line, in the walked city's medical kit:
+   `tweezers: { durable:true, note:'THE DURABLE. Sterilised, never consumed. The
+   one piece you keep.' }` -- ONE OBJECT IN THE WHOLE VALLEY is written as a thing
+   you keep rather than a thing you use up. The distinction exists; extend it.
 
 BB-WHAT-YOU-WERE. *** DAY 8. NOBODY IN THIS VALLEY USED TO BE ANYBODY. ***
    MEASURED: the entire occupational vocabulary of Las Vegas is FOUR WORDS --
