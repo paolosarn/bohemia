@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-TEN days, ten records, driven by his own two-word trigger "bb study,
+ELEVEN days, eleven records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -13,7 +13,9 @@ Vegas as different faction holdings", which days 1 and 2 never covered.
 Day 7: the motor, meaning why a player gets up tomorrow at all. Day 8: the
 roster, meaning who these people are and what they used to be. Day 9:
 progression, meaning what a hundred hours of getting better is made of.
-Day 10: gear and loot, which is day 9's other half. A PLAN IS NOT A LAW.
+Day 10: gear and loot, which is day 9's other half. Day 11: escalation,
+meaning how a hundred hours gets worse without a difficulty number.
+A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -99,7 +101,20 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   SCAVENGING (Cuba's Special Period: inventar y resolver, cars rebuilt from
   other cars, state-printed repair manuals) -- so the fixer is worth more
   than the thing, which is already a boss in his ladder, THE SMITH.
-- **ROUTED:** thirty-five rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **THE WORLD ESCALATES BY COALITION, NOT BY NUMBERS (day 11).** BB's
+  late-game crisis works because factions that normally fight each other
+  STOP: orcs and goblins combine, the independent undead factions combine.
+  Nobody's stat block changes, the RELATIONSHIP GRAPH does. We already own
+  a 14-faction graph with directional relations, war states and a wrapped
+  writer, so escalation is a graph edit and **NO DAMAGE BEFORE THE DIAL is
+  not a blocker here, it is the specification.** A crisis is also FORETOLD
+  (announced 20-50 days out, with a readable buildup) and NOT OPTIONAL.
+  And the real science says the act turn should announce itself through
+  **CRITICAL SLOWING DOWN** -- the valley taking longer to recover from
+  small shocks as resilience drains -- built from quantities we already
+  compute. The opposite of a difficulty slider: the world does not hit
+  harder, it stops bouncing back.
+- **ROUTED:** thirty-nine rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

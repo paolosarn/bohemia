@@ -57,7 +57,7 @@ reference game he has not named. ***
 ## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
-## PROGRESSION (9) AND GEAR (10). A PLAN IS NOT A LAW. ***
+## PROGRESSION (9), GEAR (10) AND ESCALATION (11). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -268,6 +268,33 @@ goes down and loot is a COUNTDOWN. Loot cannot be power (no damage dial,
 and day 9 refused vertical growth), so it has to be ACCESS -- and THAT IS
 ALREADY SHIPPED AND WE KEEP CALLING IT MISSING: a boss key is an object
 that opens a door instead of adding a number. Four rows.**
+
+**DAY 11 — HOW A LONG GAME GETS WORSE. *** DONE: records/BOHEMIA_BB_STUDY_
+DAY_11_HOW_A_LONG_GAME_GETS_WORSE_8_28_26.md. The last big campaign
+system: ESCALATION. *** A hundred hours and three acts, and NO DAMAGE
+BEFORE THE DIAL forbids turning anything up, so how does the world get
+worse? BB's crisis is FORETOLD (announced day 50-70, starts day 80-100),
+arrives in two phases with a readable buildup, and IS NOT OPTIONAL.
+*** AND ITS MECHANISM IS THE FINDING: THE WORLD DOES NOT GET STRONGER, IT
+GETS ORGANISED. Orcs and goblins stop fighting each other and combine; the
+independent undead factions combine. NOBODY'S STAT BLOCK CHANGED, THE
+RELATIONSHIP GRAPH DID -- escalation with zero balance numbers, and we
+already own a 14-faction graph with relations and war states. NO DAMAGE
+BEFORE THE DIAL is not a blocker here, IT IS THE SPECIFICATION. ***
+MEASURED, ninth instance: `act1` appears 931 times in the walked city and
+EVERY ONE IS A TILE MATERIAL TAG; `act2` appears ZERO times. The act state
+(`act: 1..3`) lives in the engine behind BohemiaLoop, which the walked
+city does not load. AND `@ACT 1` is in 17 canon quests and `@ACT 2` in 10,
+the parser stores it in `Q.act`, and `Q.act` HAS EXACTLY ONE MENTION IN
+THE FILE -- the line that sets it. Ten written quests are labelled for a
+chapter that cannot arrive.
+REAL AISLE: complex systems emit generic EARLY WARNING SIGNALS before a
+tipping point, above all CRITICAL SLOWING DOWN -- recovery from small
+shocks takes longer as resilience drains. So an act turn should be
+foretold by THE VALLEY GETTING SLOWER TO COME BACK, built from quantities
+already computed (relight time, daysLeft, whether a holding still pays).
+The opposite of a difficulty slider: the world does not hit harder, IT
+STOPS BOUNCING BACK. Four rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

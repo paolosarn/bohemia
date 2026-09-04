@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: TEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: ELEVEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -329,7 +329,28 @@ research partner. He DECIDES, you PRODUCE.
   resolver", cars rebuilt out of other cars, state-printed repair manuals), so
   THE FIXER IS WORTH MORE THAN THE THING -- already a boss in his own ladder,
   THE SMITH.
-  ROUTED: thirty-five rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 11 CLOSED THE CAMPAIGN LAYER WITH THE ONE MECHANIC THAT MAKES
+  ESCALATION LEGAL UNDER OUR OWN LAWS: THE WORLD DOES NOT GET STRONGER, IT GETS
+  ORGANISED. *** In BB's late-game crises the factions that normally fight each
+  other STOP -- orcs and goblins combine into mixed units, the independent undead
+  factions combine. Nobody's stat block changes; THE RELATIONSHIP GRAPH DOES. We
+  already own that graph (14 factions, directional relations, war states, a
+  wrapped writer), so escalation is a GRAPH EDIT and NO DAMAGE BEFORE THE DIAL is
+  not a blocker, IT IS THE SPECIFICATION. A crisis is also FORETOLD 20-50 days out
+  with a readable buildup, and it is NOT OPTIONAL. AND THE REAL SCIENCE GIVES THE
+  WARNING SYSTEM FOR FREE: complex systems approaching a tipping point show
+  CRITICAL SLOWING DOWN -- they take longer and longer to recover from small
+  shocks as resilience drains -- so the act turn announces itself by the valley
+  being slower to come back, built out of quantities we already compute (relight
+  time, daysLeft, whether a holding still pays). THE OPPOSITE OF A DIFFICULTY
+  SLIDER: THE WORLD DOES NOT HIT HARDER, IT STOPS BOUNCING BACK.
+  NINTH INSTANCE, measured the same day: `act1` appears 931 times in the walked
+  city and EVERY ONE IS A TILE MATERIAL TAG while `act2` appears ZERO times; the
+  real act state (`act: 1..3`) sits in the engine behind BohemiaLoop; and `@ACT 1`
+  is declared by 17 canon quests and `@ACT 2` by 10, the parser stores it in
+  `Q.act`, and `Q.act` has exactly ONE mention in the file, the line that sets it.
+  TEN WRITTEN QUESTS ARE LABELLED FOR A CHAPTER THAT CANNOT ARRIVE.
+  ROUTED: thirty-nine rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

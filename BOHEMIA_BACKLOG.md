@@ -2310,6 +2310,41 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-COALITION. *** DAY 11. THE WORLD DOES NOT GET STRONGER, IT GETS ORGANISED. ***
+   THE BEST ESCALATION MECHANIC IN THE GAME HE NAMED, AND IT COSTS ZERO BALANCE
+   NUMBERS: in its late-game crises, factions that normally fight each other STOP.
+   Orcs and goblins combine and start appearing in mixed units; the ancient dead,
+   necromancers and wiedergangers, normally independent, combine. NOBODY'S STAT
+   BLOCK CHANGED. THE RELATIONSHIP GRAPH DID. The enemies who were spending their
+   strength on each other point all of it at you.
+   WE ALREADY OWN THE GRAPH: engine/BOHEMIA_faction_graph.json is 14 factions with
+   directional relations and canon constraints, engine/bohemia_between.js carries
+   the war states including `permanent-war`, and every write goes through a
+   wrapped shiftStanding so nothing can break canon.
+   SO ESCALATION IS A GRAPH EDIT. **NO DAMAGE BEFORE THE DIAL IS NOT A BLOCKER
+   HERE, IT IS THE SPECIFICATION.** WHO allies with whom, and when, is HIS.
+   Pairs with BB-TURF and BB-UNPAID-TURNS-PREDATORY: an outfit that loses its
+   income goes roving, and a roving outfit is who somebody else recruits.
+
+BB-SLOWER-EVERY-TIME. *** DAY 11. THE ACT TURN IS FORETOLD BY THE VALLEY GETTING
+   SLOWER TO RECOVER, AND EVERY QUANTITY IT NEEDS IS ALREADY COMPUTED. ***
+   THE REAL SCIENCE, and it is a gift to a game whose stated identity is the most
+   realistic economic crash simulator: complex systems have TIPPING POINTS, the
+   flip is fast, and the approach to it is not. Approaching one, a system emits
+   generic EARLY WARNING SIGNALS, the headline one being CRITICAL SLOWING DOWN --
+   it takes longer and longer to recover from small shocks, because the feedbacks
+   that used to pull it back are weakening. Rising variance and autocorrelation
+   come with it. The underlying quantity is RESILIENCE and it drains quietly long
+   before anything visibly breaks.
+   SO A COLLAPSE IS ONLY A SURPRISE TO SOMEBODY WHO WAS NOT WATCHING RECOVERY
+   TIMES. Before an act turns, the valley takes longer to come back: a dark block
+   that used to relight in a day takes three, a shortage that used to clear does
+   not. BUILT OUT OF WHAT EXISTS -- relight time (LIGHT=TERRITORY),
+   BohemiaEconomy.daysLeft, and whether a holding still pays (yours + lit +
+   patrolled). NO new economics and NO numbers from him.
+   IT IS THE OPPOSITE OF A DIFFICULTY SLIDER: THE WORLD DOES NOT HIT HARDER, IT
+   STOPS BOUNCING BACK. Needs UI BB-FORETOLD or it is a simulation nobody sees.
+
 BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
    WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
    He asked for "different parts of Vegas as different faction holdings" by name.
@@ -8379,6 +8414,19 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-FORETOLD. *** DAY 11. A CRISIS ANNOUNCED IN ADVANCE IS THE DESIGN, NOT A
+   COURTESY. ***
+   In the game he named, a late-game crisis is FORETOLD around day 50-70 and
+   begins around day 80-100, and the first of its two phases is a BUILDUP the
+   player can read: more sightings, camps creeping closer to settlements, more
+   contracts about the thing that is coming. IT IS ALSO NOT OPTIONAL -- the world
+   turns whether you were interested or not.
+   THE ROW: the player has to be able to SEE the buildup. This is the display half
+   of WORLD BB-SLOWER-EVERY-TIME, and without it that row is a simulation nobody
+   can perceive, which day 6 already named as the way this kind of work gets
+   wasted. An escalation the player cannot see coming is not tension, it is an
+   ambush.
+
 BB-WHY. *** QUEUED BEHIND THE DEMO (BB study day 3). ***
    THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE DID WHAT IT DID.
    This is the documented failure mode that actually kills automated-ally
@@ -8877,6 +8925,26 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-THE-ACT-IS-A-STATE. *** DAY 11. TEN QUESTS ARE LABELLED ACT 2 IN A GAME WITH
+   NO ACT. NINTH INSTANCE, AND IT RIDES ALONG WITH BB-LOOPLESS. ***
+   MEASURED 8/28: `act1` appears 931 times in the walked city AND EVERY ONE IS A
+   MATERIAL DESCRIPTION ON A TILE ("dead-dirt front/back yard, no grass,
+   cracked") -- the district dossier law's act-1 material field doing its job.
+   `act2` appears ZERO times. The three acts are an ART TIER on the surface he
+   walks, plus 23 law files.
+   THE ACT STATE EXISTS AND IT IS BEHIND THE SAME WALL AS THE FACTION WORLD:
+   engine/bohemia_engine.js carries `act: 1, // 1..3 (the three dynasty
+   generations)` and a note that the act "affects hub count / recovery". It lives
+   behind BohemiaLoop, which the walked city does not load.
+   AND THE QUEST LANGUAGE ALREADY SPEAKS IT: `@ACT 1` in 17 canon quests, `@ACT 2`
+   in 10. The walked parser reads it into `Q.act` -- AND `Q.act` HAS EXACTLY ONE
+   MENTION IN THE WHOLE FILE, THE LINE THAT SETS IT. Nothing reads it, nothing can
+   gate on it. Same shape as `advance_territory`: the language can say it, the
+   parser stores it, and there is nobody on the other end.
+   EITHER THE ACT BECOMES REAL WHERE HE WALKS, OR TEN WRITTEN QUESTS ARE LABELLED
+   FOR A CHAPTER THAT CANNOT ARRIVE. One afternoon with BB-LOOPLESS.
+   Read: records/BOHEMIA_BB_STUDY_DAY_11_HOW_A_LONG_GAME_GETS_WORSE_8_28_26.md
+
 BB-LOOPLESS. *** DAY 6. THE ROW THE OTHER BB- ROWS DEPEND ON, AND IT IS AN
    EXPLICIT DECISION SOMEBODY HAS TO MAKE, NOT A BUG TO FIX QUIETLY. ***
    THE WALKED SURFACE DOES NOT LOAD BohemiaLoop, SO THE FACTION WORLD, THE

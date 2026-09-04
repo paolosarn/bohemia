@@ -703,7 +703,55 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (m) LATEST -- *** DAY 10 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (n) LATEST -- *** DAY 11 OF THE BB
+STUDY: THE WORLD DOES NOT GET STRONGER, IT GETS ORGANISED. Thirty-nine BB- rows
+routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_11_HOW_A_LONG_GAME_GETS_WORSE_8_28_26.md
+
+THE LAST BIG CAMPAIGN SYSTEM: ESCALATION. A hundred hours and three acts, and NO
+DAMAGE BEFORE THE DIAL forbids turning anything up. That sounds like a dead end.
+It is not.
+
+*** BB'S LATE-GAME CRISIS WORKS BY CHANGING THE RELATIONSHIP GRAPH, NOT THE STAT
+BLOCK. *** Orcs and goblins stop fighting each other and start appearing in mixed
+units; the ancient dead, necromancers and wiedergangers, normally independent,
+combine. NOBODY GOT STRONGER. The enemies who were spending their strength on each
+other stopped. That is escalation at ZERO balance numbers, and WE ALREADY OWN THE
+GRAPH: 14 factions, directional relations, war states including permanent-war, and
+a wrapped writer that cannot break canon. **NO DAMAGE BEFORE THE DIAL IS NOT A
+BLOCKER HERE, IT IS THE SPECIFICATION.**
+A crisis there is also FORETOLD (announced around day 50-70, starts around 80-100)
+with a two-phase buildup the player can read, and IT IS NOT OPTIONAL.
+
+REAL AISLE, and it is a gift to "the most realistic economic crash simulator, but
+fun": complex systems approaching a TIPPING POINT emit generic EARLY WARNING
+SIGNALS, above all CRITICAL SLOWING DOWN -- recovery from small shocks takes longer
+and longer as resilience drains, with rising variance and autocorrelation
+alongside. A COLLAPSE IS ONLY A SURPRISE TO SOMEBODY WHO WAS NOT WATCHING RECOVERY
+TIMES. So the act turn should announce itself by THE VALLEY BEING SLOWER TO COME
+BACK -- a dark block that used to relight in a day taking three, a shortage that
+used to clear not clearing -- built out of quantities WE ALREADY COMPUTE (relight
+time, BohemiaEconomy.daysLeft, whether a holding still pays). THE OPPOSITE OF A
+DIFFICULTY SLIDER: THE WORLD DOES NOT HIT HARDER, IT STOPS BOUNCING BACK.
+
+*** NINTH INSTANCE, MEASURED: TEN QUESTS ARE LABELLED ACT 2 IN A GAME WITH NO
+ACT. *** `act1` appears 931 times in the walked city AND EVERY ONE IS A TILE
+MATERIAL TAG (the dossier law's act-1 material field); `act2` appears ZERO times.
+The real act state (`act: 1, // 1..3 (the three dynasty generations)`) sits in
+engine/bohemia_engine.js, behind BohemiaLoop, which the walked city does not load
+-- the same wall as the faction world. And the quest language already speaks it:
+`@ACT 1` in 17 canon quests, `@ACT 2` in 10, parsed into `Q.act` -- AND `Q.act` HAS
+EXACTLY ONE MENTION IN THE FILE, THE LINE THAT SETS IT. Same shape as
+advance_territory: the language says it, the parser stores it, nobody is on the
+other end.
+
+Four rows: SHARED/WORLD BB-THE-ACT-IS-A-STATE (rides with BB-LOOPLESS, unblocks
+ten written quests), WORLD BB-COALITION, WORLD BB-SLOWER-EVERY-TIME, UI/RUN
+BB-FORETOLD (the display half, or BB-SLOWER-EVERY-TIME is a simulation nobody can
+see).
+
+COORDINATOR: 8/28 (m) -- *** DAY 10 OF THE BB
 STUDY: YOU LOOT THE DEAD AND YOU KEEP NOTHING. Thirty-five BB- rows routed.
 Nothing to judge. ***
 
