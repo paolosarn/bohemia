@@ -57,7 +57,8 @@ reference game he has not named. ***
 ## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
-## PROGRESSION (9), GEAR (10) AND ESCALATION (11). A PLAN IS NOT A LAW. ***
+## PROGRESSION (9), GEAR (10), ESCALATION (11) AND HOW A FIGHT ENDS (12).
+## A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -295,6 +296,30 @@ foretold by THE VALLEY GETTING SLOWER TO COME BACK, built from quantities
 already computed (relight time, daysLeft, whether a holding still pays).
 The opposite of a difficulty slider: the world does not hit harder, IT
 STOPS BOUNCING BACK. Four rows.**
+
+**DAY 12 — A FIGHT ENDS WHEN SOMEBODY DECIDES TO LEAVE. *** DONE:
+records/BOHEMIA_BB_STUDY_DAY_12_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_8_28_26.md.
+Eleven days asked what a fight is made of; NOBODY ASKED WHAT MAKES ONE
+END, which is his own loudest requirement. ***
+BB'S MORALE IS THE PACING SYSTEM, not flavour: six described states from
+Confident to Fleeing, checks driven by what is happening, RALLY THE TROOPS
+to steady a wavering man, and a fleeing unit that cannot fight and goes
+last. The losing side stops being a side before it stops being alive.
+REAL AISLE, and it is harder than the game: WINNERS rarely lost more than
+5% while LOSERS averaged 10-15%, AND MUCH OF THAT WAS IN THE ROUT AND
+PURSUIT. A battle is decided by a decision to leave and the killing
+happens after it. WINNING IS CHEAP, LOSING IS EXPENSIVE.
+MEASURED: our nerve system is the best-built thing in this study -- half
+the enemy down, a per-turn break roll, elites at half, the last man puts
+his hands up (HIS ruling), the break lands ON THE BEAT, and a break really
+does end the fight early. *** AND IT IS SWITCHED OFF: `const
+FEAR_ON=false; /* until the perk exists, nothing switches this on */`. THE
+PERK NOW EXISTS. So the mechanic that ends fights early is off by default
+and sold as a level-2 upgrade, while his acceptance test is that a fight
+not be a forty-minute chess match. THE FIX IS A CONST. ***
+Also: a man who breaks is a DESPAWN (no pursuit, no body, no loot), and
+the PLAYER CANNOT LEAVE AT ALL -- the only abort is "the quest pulls you
+out". Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

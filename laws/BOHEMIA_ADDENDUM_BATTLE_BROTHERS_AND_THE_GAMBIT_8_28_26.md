@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-ELEVEN days, eleven records, driven by his own two-word trigger "bb study,
+TWELVE days, twelve records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -14,8 +14,8 @@ Day 7: the motor, meaning why a player gets up tomorrow at all. Day 8: the
 roster, meaning who these people are and what they used to be. Day 9:
 progression, meaning what a hundred hours of getting better is made of.
 Day 10: gear and loot, which is day 9's other half. Day 11: escalation,
-meaning how a hundred hours gets worse without a difficulty number.
-A PLAN IS NOT A LAW.
+meaning how a hundred hours gets worse without a difficulty number. Day 12:
+morale and the rout, meaning what makes a fight END. A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -114,7 +114,18 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   small shocks as resilience drains -- built from quantities we already
   compute. The opposite of a difficulty slider: the world does not hit
   harder, it stops bouncing back.
-- **ROUTED:** thirty-nine rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **MORALE IS THE PACING SYSTEM, AND OURS IS SWITCHED OFF (day 12).** The
+  only mechanism that can end a fight before the body count does is the
+  nerve break, and `FEAR_ON=false` gates the whole thing behind a level-2
+  perk whose own comment says the gate was written "until the perk
+  exists". THE PERK EXISTS. Meanwhile a man who breaks is a DESPAWN and
+  the player cannot withdraw at all. History says the rout is where
+  everything happens: winners rarely lost 5%, losers averaged 10-15%, and
+  most of that came in the pursuit. **WINNING IS CHEAP, LOSING IS
+  EXPENSIVE**, and the real question in a fight is "they are running, do I
+  chase?" -- pursuit is where the material is, and letting them go is the
+  cleanest input the what-you-are-known-to-do axis will ever get.
+- **ROUTED:** forty-two rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

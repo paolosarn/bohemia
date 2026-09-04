@@ -5163,6 +5163,59 @@ BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
    never a number. Read: records/BOHEMIA_BB_STUDY_DAY_3_DUMB_ORDERS_AND_THE_GUN_
    PROBLEM_8_28_26.md.
 
+BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
+   SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.
+   THE FIX IS ONE CONST. ***
+   His acceptance test: "every time it's ONE FUCKING BATTLE, it's not a 40 MINUTE
+   LONG CHESS MATCH." NOBODY HAD ASKED WHAT MAKES A FIGHT END. If the only way one
+   can finish is every body on one side being on the floor, a fight is exactly as
+   long as the enemy count, forever.
+   THE NERVE SYSTEM IS ALREADY BUILT AND IT IS GOOD: once HALF the enemy are down,
+   each standing man rolls every turn at 0.10 + 0.05 per body past half, elites at
+   HALF that chance; not-the-last-man PANICS AND RUNS, and the last man PUTS HIS
+   HANDS UP -- his own ruling, in the code's words: "nobody surrenders while his
+   people are still shooting -- he either holds or FLEES." The break lands ON THE
+   BEAT, and the fight ends "the instant nobody can fight -- nerve breaks and
+   downings included", so a break really does end it early.
+   AND: `const FEAR_ON=false; /* [DIAL] until the perk exists, nothing switches
+   this on -- which is the ruling */`. THE PERK NOW EXISTS (THEY KNOW YOU, EYE
+   branch, level 2). So flip the default: MORALE IS DEFAULT BEHAVIOUR, NOT AN
+   UPGRADE, and the perk goes on to do something BETTER (they break sooner, or at
+   the sight of you) instead of being the thing that makes breaking exist.
+   Read: records/BOHEMIA_BB_STUDY_DAY_12_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_8_28_26.md
+
+BB-THE-ROUT. *** DAY 12. THE MOST DECISIVE MOMENT IN A REAL BATTLE IS CURRENTLY
+   A DESPAWN. ***
+   MEASURED: a fleeing man runs one tile a turn straight away, out to a distance
+   of 30, and that is the end of him. No pursuit, no decision, no body -- so no
+   loot and no XP either (day 10).
+   THE REAL AISLE SAYS THAT IS WHERE EVERYTHING HAPPENS: in pre-modern battle the
+   WINNERS rarely suffered more than 5% fatalities while the LOSERS averaged
+   10-15%, AND MUCH OF THAT WAS INFLICTED DURING THE ROUT AND PURSUIT, not during
+   the fighting. A battle is decided by a decision to leave, and the killing
+   happens after the decision. WINNING IS CHEAP AND LOSING IS EXPENSIVE.
+   SO THE INTERESTING QUESTION IN OUR FIGHT IS NOT "can I kill all eight", IT IS
+   "THEY ARE RUNNING -- DO I CHASE?" And that question is free content landing on
+   rulings we already have: CHASING IS WHERE THE MATERIAL IS (loot is on bodies,
+   and a man who runs off the edge takes his with him), and NOT CHASING IS A
+   CHARACTER STATEMENT that feeds day 1's second axis, what you are KNOWN TO DO --
+   the man who lives is the one who tells people.
+   The mercy verb already half-exists: `spared` is a real outcome in the end
+   payload, and last-man-only surrender is his ruling. MUST NOT be automatic: the
+   whole value is that it is a CHOICE.
+
+BB-YOU-CAN-LEAVE. *** DAY 12. THEY CANNOT BREAK UNLESS YOU BOUGHT A PERK, AND YOU
+   CANNOT BREAK AT ALL. ***
+   There is an abort path and its trigger is `BOHEMIA_ENCOUNTER_ABORT`, commented
+   "the quest pulls you out". THERE IS NO WITHDRAW. (Positive control, because
+   this study has been burned twice: I found a RUN button and checked it first --
+   `doRun()` arms a movement mode, "tap a direction, you go that way as far as it
+   is clear". It moves you inside the arena. It does not leave.)
+   So a loss costs the last twenty minutes and nothing else, because death is a
+   reload (7/26). A WITHDRAWAL THAT COSTS SOMETHING REAL -- ground, standing, what
+   you dropped -- IS A BETTER LOSS THAN A RELOAD, and it is the only way a fight
+   can be lost without being replayed.
+
 BB-PICKUP. *** JUMPS THE QUEUE. THE SMALLEST ROW IN THE STUDY AND THE HIGHEST
    FEELING PER LINE, AND THE MACHINERY IS ALREADY WRITTEN ON THE OTHER SIDE OF
    THE BOARD. ***

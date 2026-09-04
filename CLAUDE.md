@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: ELEVEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: TWELVE DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -350,7 +350,27 @@ research partner. He DECIDES, you PRODUCE.
   is declared by 17 canon quests and `@ACT 2` by 10, the parser stores it in
   `Q.act`, and `Q.act` has exactly ONE mention in the file, the line that sets it.
   TEN WRITTEN QUESTS ARE LABELLED FOR A CHAPTER THAT CANNOT ARRIVE.
-  ROUTED: thirty-nine rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 12 ASKED THE QUESTION ELEVEN DAYS HAD SKIPPED: WHAT MAKES A FIGHT
+  END? IT IS HIS LOUDEST REQUIREMENT AND THE ANSWER IS SWITCHED OFF. *** Morale is
+  the only mechanism in the build that can end a fight before the body count does,
+  and OUR NERVE SYSTEM IS THE BEST-BUILT THING IN THIS STUDY: half the enemy down,
+  a per-turn break roll rising with each body, elites at half the chance, the last
+  man PUTS HIS HANDS UP (his own ruling: "nobody surrenders while his people are
+  still shooting"), the break lands ON THE BEAT, and a break really does end the
+  fight early. AND `const FEAR_ON=false` gates all of it behind a level-2 perk,
+  with its own comment saying the gate was written "until the perk exists" -- THE
+  PERK EXISTS. So every fight before he buys it is to the last man, which is
+  exactly the forty-minute shape he said he did not want, and THE FIX IS A CONST.
+  Two more measured: a man who breaks is a DESPAWN (runs to distance 30 and is
+  gone, so no body, no loot, no XP), and THE PLAYER CANNOT LEAVE AT ALL -- the only
+  abort is `BOHEMIA_ENCOUNTER_ABORT`, "the quest pulls you out". HISTORY SAYS THE
+  ROUT IS WHERE EVERYTHING HAPPENS: winners rarely lost more than 5%, losers
+  averaged 10-15%, AND MOST OF IT CAME IN THE PURSUIT. WINNING IS CHEAP, LOSING IS
+  EXPENSIVE, and the real question in a fight is "they are running, DO I CHASE?" --
+  pursuit is where the material is (loot is on bodies), and letting them go is the
+  cleanest input the what-you-are-known-to-do axis will ever get, because the man
+  who lives is the one who tells people.
+  ROUTED: forty-two rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

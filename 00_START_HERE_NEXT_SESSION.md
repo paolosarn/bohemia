@@ -703,7 +703,49 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (n) LATEST -- *** DAY 11 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (o) LATEST -- *** DAY 12 OF THE BB
+STUDY: THE THING THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND SOLD AS A PERK.
+Forty-two BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_12_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_8_28_26.md
+
+Eleven days asked what a fight is MADE OF. Nobody asked what makes one END -- and
+that is his loudest stated requirement: "every time it's ONE FUCKING BATTLE, it's
+not a 40 MINUTE LONG CHESS MATCH." If the only way a fight can finish is every
+body on one side being on the floor, a fight is exactly as long as the enemy count,
+forever.
+
+*** OUR NERVE SYSTEM IS THE BEST-BUILT THING I HAVE FOUND IN TWELVE DAYS, AND IT
+IS OFF. *** Once HALF the enemy are down, each standing man rolls every turn at
+0.10 + 0.05 per body past half, elites at HALF that; not-the-last-man PANICS AND
+RUNS, and the LAST man PUTS HIS HANDS UP -- his own ruling, in the code's words:
+"nobody surrenders while his people are still shooting, he either holds or FLEES."
+The break lands ON THE BEAT. And the fight ends "the instant nobody can fight,
+nerve breaks and downings included", so a break really does end it early.
+AND: `const FEAR_ON=false; /* [DIAL] until the perk exists, nothing switches this
+on -- which is the ruling */`. THE PERK NOW EXISTS (THEY KNOW YOU, EYE branch,
+level 2). So the mechanic that ends fights early is off by default and sold as an
+upgrade. THE FIX IS A CONST. That is COMBAT BB-NERVE-ON.
+
+TWO MORE, MEASURED: a man who breaks is a DESPAWN -- one tile a turn straight out
+to distance 30 and gone, so no body, no loot, no XP. AND THE PLAYER CANNOT LEAVE:
+the only abort is `BOHEMIA_ENCOUNTER_ABORT`, commented "the quest pulls you out".
+(Positive control stated in the record: I found a RUN button and checked it first;
+doRun arms a movement mode inside the arena, it does not leave.)
+
+REAL AISLE, and it is harder than the game: in pre-modern battle the WINNERS rarely
+suffered more than 5% fatalities while the LOSERS averaged 10-15%, AND MUCH OF THAT
+WAS INFLICTED IN THE ROUT AND PURSUIT rather than the fighting. A battle is decided
+by a decision to leave and the killing happens after it. WINNING IS CHEAP, LOSING
+IS EXPENSIVE. So the real question in our fight is not "can I kill all eight", it
+is "THEY ARE RUNNING -- DO I CHASE?" Chasing is where the material is (day 10:
+loot is on bodies); not chasing is the cleanest input day 1's what-you-are-known-
+to-do axis will ever get, and the man who lives is the one who tells people.
+
+Three rows: COMBAT BB-NERVE-ON (smallest row in the study that touches his loudest
+requirement), COMBAT BB-THE-ROUT, COMBAT/RUN BB-YOU-CAN-LEAVE.
+
+COORDINATOR: 8/28 (n) -- *** DAY 11 OF THE BB
 STUDY: THE WORLD DOES NOT GET STRONGER, IT GETS ORGANISED. Thirty-nine BB- rows
 routed. Nothing to judge. ***
 
