@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-SEVENTEEN days, seventeen records, driven by his own two-word trigger "bb study,
+EIGHTEEN days, eighteen records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -20,6 +20,7 @@ between fights, meaning why the city feels dead. Day 14: the first five
 minutes, and the one thing we must NOT copy. Day 15: fatigue, meaning what
 makes a single turn interesting. Day 16: what it means that the player only
 lives once, which audits the study itself. Day 17: how much you show.
+Day 18: the middle horizon, meaning what you are working on this week.
 A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
@@ -197,7 +198,20 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   risk is a SECOND number**: one number is a reading, two is a comparison,
   and a comparison invites the optimisation that becomes the 40-minute
   chess match through the interface.
-- **ROUTED:** fifty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **THE MIDDLE HORIZON EXISTS AND IT DOES NOT PAY (day 18).** The mandate
+  ladder is his (6/30), is INLINED on the walked surface, is reachable
+  behind a real "◆ STANDING" button, and reads live standings — three
+  rungs mapping onto the three acts. But `MAYOR_SHARE` is null [PENDING]
+  so it tops out at two of three, and `grantsAt` answers NO_RULING because
+  the grants are canon nobody ruled. Meanwhile the evidence on goal
+  distance is blunt: proximal sub-goals produce mastery and interest, and
+  **DISTAL GOALS HAD NO DEMONSTRABLE EFFECTS** — so a two-month-old
+  pending is sitting on the only part of the structure that works.
+  **THE UNLOCK IS THIS STUDY'S OWN: a rung's grant can be a DOOR, not a
+  dial** (day 10), and the door is already written in the rung's own
+  words. Also taken: **you CHOOSE the week's goal**, and its reward is an
+  identity object rather than a number.
+- **ROUTED:** sixty-one rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

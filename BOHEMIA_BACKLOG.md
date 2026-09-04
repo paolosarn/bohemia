@@ -1475,6 +1475,25 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 ## RUN
 *** BATTLE BROTHERS STUDY ROW, ROUTED 8/28 BY THE COORDINATOR (DAY 7).
     READ FIRST: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md ***
+BB-THIS-WEEK. *** DAY 18. A GOAL YOU HAVE TO GO FIND IS NOT A GOAL. RIDES WITH
+   BB-WHAT-YOU-OWE AND BB-THE-END -- THREE DAYS OF THIS STUDY NOW WANT THE SAME
+   CARD. ***
+   THE GAP: day 7 found the DAILY motor (why you get up tomorrow) and days 9 and 11
+   found the HUNDRED-HOUR arc. NOBODY ASKED WHAT YOU ARE WORKING ON THIS WEEK.
+   THE EVIDENCE IS BLUNT. The foundational study: 40 children behind and
+   uninterested in arithmetic, in self-directed learning under three conditions --
+   PROXIMAL SUB-GOALS (finish one set this session), A DISTAL GOAL (finish
+   everything by the last session), or "work productively". Under proximal
+   sub-goals they progressed rapidly, reached substantial mastery, and developed
+   BOTH self-efficacy AND genuine interest in a subject that had held no
+   attraction. *** DISTAL GOALS HAD NO DEMONSTRABLE EFFECTS. Not weaker. NONE. ***
+   A GOAL A HUNDRED HOURS AWAY DOES NOT MOTIVATE ANYBODY.
+   TODAY our middle horizon lives behind a "◆ STANDING" button you have to notice
+   and press, and day 14's COLD HAND never presses anything it does not need to.
+   PUT IT WHERE HE PASSES ANYWAY. CHEAPEST PLACE: THE RECKONING CARD -- the last
+   thing seen every day, which currently says nothing about what you are working
+   toward. Depends on WORLD BB-THE-RUNG-PAYS for the thing to work toward.
+
 BB-THE-END. *** DAY 13. THE LAST THING HE SEES EVERY DAY IS CARRYING HALF THE
    MEMORY OF THE DAY, AND IT IS A RECEIPT. MERGE THIS WITH BB-WHAT-YOU-OWE --
    SAME CARD, SAME AFTERNOON, TWO FINDINGS. ***
@@ -2520,6 +2539,36 @@ BB-ONE-WAY. *** DAY 10. NOTHING IN THIS VALLEY IS MANUFACTURED. ***
    want and it needs NO new economics. Note the two verbs are already Spanish and
    already in this valley's mouth, so nothing here reopens the language work --
    the 8/26 cap is untouched.
+
+BB-THE-RUNG-PAYS. *** DAY 18. THIS ROW UNBLOCKS A TWO-MONTH-OLD PENDING WITHOUT
+   ASKING HIM ANYTHING, BY APPLYING DAY 10's OWN CONCLUSION. ***
+   GOOD NEWS FIRST: THE MIDDLE HORIZON EXISTS, IT IS HIS, AND IT IS ON THE SURFACE
+   HE WALKS. engine/bohemia_mandate.js is INLINED in the walked city (not stranded
+   behind the loop like the faction world), carrying his 6/30 ruling as its header,
+   built as THREE RUNGS mapping onto the three acts: TERRITORY (build where you are
+   loved) -> MANDATE (the city backs you, so you can build where the locals do not)
+   -> MAYOR (you are governing). "Negotiation gives way to mandate gives way to
+   rule." It is REACHABLE (a real on-screen "◆ STANDING" button, bottom-left, on a
+   card that shows your rung, your share and how many more factions you need) and
+   its INPUT IS LIVE (`rungStandings()` reads DQ.shared.faction, which day 7 showed
+   is genuinely written by `@DO faction` and the daily neglect charge). The rung is
+   DERIVED every time it is asked, so losing favour drops you by construction.
+   *** AND CROSSING A RUNG PAYS YOU NOTHING YOU CAN USE. *** `MANDATE_SHARE = 0.49`
+   (his number, flagged "starting instinct, not final"); `MAYOR_SHARE = null`
+   [PENDING Paolo: "enough done, enough love" is not a number], so THE LADDER HAS
+   THREE RUNGS AND TOPS OUT AT TWO; and `grantsAt` answers NO_RULING BY NAME,
+   because "what specifically 'easier' grants at each rung" is canon nobody ruled.
+   The module is RIGHT to refuse to invent a cost multiplier.
+   *** THE UNLOCK: THE PENDING ONLY BLOCKS BECAUSE EVERYBODY ASSUMED THE GRANT HAD
+   TO BE A DIAL. Day 10 concluded that loot cannot be power so it has to be ACCESS.
+   Same here: A RUNG'S GRANT CAN BE A DOOR. And the door is ALREADY WRITTEN, in the
+   rung's own words: "The city backs you. You can build in a district whose local
+   faction does not love you, because the whole city has your back and the locals
+   do not have to." A place you could not build in and now can is not a dial, it is
+   a door, and NO DAMAGE BEFORE THE DIAL is not violated by opening one. ***
+   SHIP THAT AS RUNG TWO'S MECHANICAL GRANT. MAYOR_SHARE and the rung-three grant
+   STAY HIS AND STAY PENDING; they do not block rung two.
+   Read: records/BOHEMIA_BB_STUDY_DAY_18_THE_MIDDLE_HORIZON_8_28_26.md
 
 BB-PRICE-PLACE. *** QUEUED BEHIND THE DEMO (BB study day 2). ***
    PRICE GETS A PLACE. engine/bohemia_economy.js is already serious, grounded
@@ -8450,6 +8499,24 @@ BB-PREDICATE-ANSWER. *** DAY 8. SIXTY TIMES A QUEST HAS ASKED FOR SOMEBODY BY
    returns NULL, per that module's own rule, because a stranger handed an
    insider's part is worse than an unplaced quest. Depends on PEOPLE
    BB-WHAT-YOU-WERE.
+
+BB-YOU-PICK-IT. *** DAY 18. THE HALF OF BB'S AMBITIONS THAT COSTS NO CANON. ***
+   In the game he named, when you have no ambition running you PICK ONE FROM THREE
+   OR FOUR. Early ones are small and frankly tutorial-ish (get the company to a
+   dozen men; gather crowns to have a battle standard made), then they become
+   mid-term, then campaign-scale. The reward is renown, a lift in the company's
+   mood, and "OFTEN UNIQUE REWARDS YOU CAN'T OTHERWISE ATTAIN" -- the banner
+   ambition gives you a unique item based on your own banner; another CHANGES HOW
+   YOU LOOK ON THE WORLD MAP. And drifting costs: leave one unfulfilled too long
+   and the men lose confidence.
+   TWO THINGS TRANSFER AND NEITHER NEEDS A RULING:
+   (1) YOU CHOOSE IT. A self-set goal off a short menu, not an assigned quest --
+       THAT IS THE DIFFERENCE BETWEEN AN ERRAND AND AN INTENTION.
+   (2) THE REWARD IS AN IDENTITY OBJECT, NOT A NUMBER. A banner. A different
+       silhouette. SOMETHING THAT SAYS WHO YOU ARE NOW -- which is day 10's
+       "loot is access" arriving from a different direction.
+   AND THE COST OF ABANDONING ONE IS ALREADY BUILT IN A BETTER FORM THAN MOOD: day
+   7's obligations to people. WHO you let down, not a bar going down.
 
 BB-OFFER-GATE. *** QUEUED BEHIND THE DEMO (BB study day 1, composes with day 2). ***
    THE FEED GATES OFFERS ON WHO VOUCHES FOR YOU -- not only on who owns a phone.

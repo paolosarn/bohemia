@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: SEVENTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: EIGHTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -482,7 +482,30 @@ research partner. He DECIDES, you PRODUCE.
   of the rules. Backed by working memory holding about FOUR CHUNKS, by RECOGNITION
   RATHER THAN RECALL, and by day 9's chunking result -- a line made of words you
   RECOGNISE grows with the player automatically.
-  ROUTED: fifty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 18 FOUND THE GAP IN THE STUDY ITSELF: WHAT ARE YOU WORKING ON THIS
+  WEEK? *** Day 7 found the DAILY motor and days 9 and 11 found the HUNDRED-HOUR
+  arc; nobody asked about the middle. THE EVIDENCE IS BLUNT -- 40 children under
+  proximal sub-goals vs a distal goal vs "work productively": the proximal group
+  reached mastery and developed real interest in a subject they disliked, and
+  **DISTAL GOALS HAD NO DEMONSTRABLE EFFECTS. Not weaker. NONE.** A goal a hundred
+  hours away does not motivate anybody. AND THE GOOD NEWS IS BIG: THE MIDDLE
+  HORIZON ALREADY EXISTS, IT IS HIS (6/30), AND IT IS INLINED ON THE WALKED
+  SURFACE -- three rungs onto the three acts, TERRITORY -> MANDATE -> MAYOR
+  ("negotiation gives way to mandate gives way to rule"), reachable behind a real
+  "◆ STANDING" button, reading LIVE standings out of the shared quest ledger, with
+  the rung DERIVED every time so losing favour drops you by construction. *** AND
+  CROSSING A RUNG PAYS NOTHING YOU CAN USE: `MAYOR_SHARE = null` [PENDING Paolo]
+  so the ladder tops out at two of three, and `grantsAt` answers NO_RULING because
+  "what specifically easier grants at each rung" is canon nobody ruled -- the
+  module is RIGHT to refuse to invent a cost multiplier. *** THE UNLOCK IS THIS
+  STUDY'S OWN AND IT ASKS HIM FOR NOTHING: day 10 said loot cannot be power so it
+  must be ACCESS, and the same applies here -- A RUNG'S GRANT CAN BE A DOOR, and
+  the door is ALREADY WRITTEN in the rung's own words, "you can build in a district
+  whose local faction does not love you". A place you could not build in and now
+  can is not a dial. MAYOR_SHARE stays his and stays pending. Also taken from BB's
+  ambitions, and neither half needs canon: YOU CHOOSE the week's goal from a short
+  list, and its reward is an IDENTITY OBJECT rather than a number.
+  ROUTED: sixty-one rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

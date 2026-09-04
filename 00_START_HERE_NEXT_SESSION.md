@@ -703,7 +703,64 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (t) LATEST -- *** DAY 17 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (u) LATEST -- *** DAY 18 OF THE BB
+STUDY: THE MIDDLE HORIZON EXISTS, IT IS HIS, IT IS ON THE WALKED SURFACE, AND
+CROSSING IT PAYS NOTHING YOU CAN USE. Sixty-one BB- rows routed. Nothing to
+judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_18_THE_MIDDLE_HORIZON_8_28_26.md
+
+A GAP IN THE STUDY ITSELF: day 7 found the DAILY motor (why you get up tomorrow),
+days 9 and 11 found the HUNDRED-HOUR arc, and NOBODY ASKED WHAT YOU ARE WORKING ON
+THIS WEEK.
+
+THE REAL AISLE IS BLUNT. 40 children, behind and uninterested in arithmetic, in
+self-directed learning under three conditions: PROXIMAL SUB-GOALS (finish one set
+this session), A DISTAL GOAL (finish everything by the last session), or "work
+productively". Under proximal sub-goals they progressed rapidly, reached
+substantial mastery, and developed BOTH self-efficacy AND real interest in a
+subject that had held no attraction. *** DISTAL GOALS HAD NO DEMONSTRABLE EFFECTS.
+Not weaker. NONE. *** A GOAL A HUNDRED HOURS AWAY DOES NOT MOTIVATE ANYBODY.
+
+*** AND THE GOOD NEWS IS BIG: THE MIDDLE HORIZON ALREADY EXISTS AND IT IS HIS. ***
+engine/bohemia_mandate.js is INLINED in the walked city -- NOT stranded behind the
+loop like the faction world -- carrying his 6/30 ruling as its header and built as
+THREE RUNGS onto the three acts: TERRITORY (build where you are loved) -> MANDATE
+(the city backs you, so you can build where the locals do not) -> MAYOR (you are
+governing). "Negotiation gives way to mandate gives way to rule."
+IT IS REACHABLE: a real on-screen "◆ STANDING" button, bottom-left, on a card that
+shows your rung, your share, and how many more factions you need. AND ITS INPUT IS
+LIVE: rungStandings() reads DQ.shared.faction, which day 7 showed is genuinely
+written by `@DO faction` and the daily neglect charge. The rung is DERIVED every
+time it is asked, so losing favour drops you by construction.
+
+*** AND CROSSING A RUNG PAYS YOU NOTHING YOU CAN USE. *** `MANDATE_SHARE = 0.49`
+(his number, flagged "starting instinct, not final"); `MAYOR_SHARE = null` [PENDING
+Paolo: "enough done, enough love" is not a number], so THE LADDER HAS THREE RUNGS
+AND TOPS OUT AT TWO; and `grantsAt` answers NO_RULING BY NAME because the grants
+are canon nobody ruled. THE MODULE IS RIGHT TO REFUSE TO INVENT A COST MULTIPLIER.
+
+*** THE UNLOCK IS THIS STUDY'S OWN AND IT ASKS HIM FOR NOTHING. *** Day 10
+concluded that loot cannot be power so it has to be ACCESS. SAME HERE: A RUNG'S
+GRANT CAN BE A DOOR, NOT A DIAL -- and the door is ALREADY WRITTEN in the rung's
+own words: "The city backs you. You can build in a district whose local faction
+does not love you." A place you could not build in and now can is not a dial, and
+NO DAMAGE BEFORE THE DIAL is not violated by opening one. MAYOR_SHARE and the
+rung-three grant STAY HIS AND STAY PENDING; they do not block rung two.
+
+ALSO TAKEN FROM BB'S AMBITIONS, and neither half needs canon: YOU CHOOSE the
+week's goal from a short list (the difference between an errand and an intention),
+and its reward is an IDENTITY OBJECT rather than a number (their banner ambition
+gives a unique item made from your own banner; another changes how you look on the
+world map).
+
+Three rows: WORLD BB-THE-RUNG-PAYS, RUN/UI BB-THIS-WEEK (a goal you have to go
+find is not a goal -- put it on the reckoning card), QUESTS/PEOPLE BB-YOU-PICK-IT.
+*** NOTE: BB-THIS-WEEK is now the THIRD day of this study to want the reckoning
+card, with BB-WHAT-YOU-OWE (day 7) and BB-THE-END (day 13). One card, one
+afternoon, three findings. ***
+
+COORDINATOR: 8/28 (t) -- *** DAY 17 OF THE BB
 STUDY: WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS CHANCE ON YOU.
 Fifty-eight BB- rows routed. Nothing to judge. ***
 

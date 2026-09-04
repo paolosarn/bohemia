@@ -59,8 +59,8 @@ reference game he has not named. ***
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
 ## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
 ## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
-## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16) AND
-## HOW MUCH YOU SHOW (17). A PLAN IS NOT A LAW. ***
+## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16),
+## HOW MUCH YOU SHOW (17), AND THE MIDDLE HORIZON (18). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -461,6 +461,34 @@ AND THIS STUDY IS THE THREAT: six routed rows all want to say something on
 that screen. Backed by working memory holding about FOUR CHUNKS and by
 day 9's chunking result, which says a line made of WORDS grows with the
 player. Three rows.**
+
+**DAY 18 — THE MIDDLE HORIZON: WHAT ARE YOU WORKING ON THIS WEEK?
+*** DONE: records/BOHEMIA_BB_STUDY_DAY_18_THE_MIDDLE_HORIZON_8_28_26.md.
+A GAP IN THIS STUDY ITSELF: day 7 found the DAILY motor, days 9 and 11
+found the HUNDRED-HOUR arc, and nobody asked about the week. ***
+BB's answer is AMBITIONS: you PICK one from three or four, early ones are
+small and tutorial-ish (a dozen men; crowns for a battle standard), they
+scale to campaign size, and the reward is renown, mood, and OFTEN A UNIQUE
+THING YOU CANNOT GET ANY OTHER WAY -- a banner item, a changed look on the
+world map. Drifting costs confidence. TWO PARTS TRANSFER AND NEITHER NEEDS
+CANON: YOU CHOOSE IT, and THE REWARD IS AN IDENTITY OBJECT, NOT A NUMBER.
+THE REAL AISLE IS BLUNT: 40 children, proximal sub-goals vs a distal goal
+vs "work productively". Proximal sub-goals produced rapid progress,
+mastery, self-efficacy AND interest in a subject they disliked. *** DISTAL
+GOALS HAD NO DEMONSTRABLE EFFECTS. Not weaker. NONE. ***
+MEASURED, AND THE GOOD NEWS IS BIG: the middle horizon EXISTS, is HIS
+(6/30), and is INLINED ON THE WALKED SURFACE -- three rungs mapping onto
+the three acts, TERRITORY -> MANDATE -> MAYOR, reachable behind a real
+"◆ STANDING" button, reading LIVE standings out of the shared quest
+ledger, with the rung DERIVED every time so it cannot get stuck high.
+*** AND CROSSING A RUNG PAYS NOTHING YOU CAN USE: MAYOR_SHARE is null
+[PENDING Paolo] so the ladder tops out at two of three, and `grantsAt`
+answers NO_RULING because the grants are canon nobody ruled. ***
+THE UNLOCK, AND IT IS THIS STUDY'S OWN: day 10 said loot cannot be power
+so it has to be ACCESS. SAME HERE -- A RUNG'S GRANT CAN BE A DOOR, and the
+door is ALREADY WRITTEN in the rung's own words ("you can build in a
+district whose local faction does not love you"). The pending only blocked
+because everybody assumed the grant had to be a DIAL. Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it
