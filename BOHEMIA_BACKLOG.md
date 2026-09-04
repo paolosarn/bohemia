@@ -2440,6 +2440,18 @@ BB-MORE-KEYS. *** DAY 13. THE DESIGN ASKS FOR 70% OF ITS MOMENTS OUT OF 25% OF
    A THIRTEENTH ENCOUNTER IS HIS TO NAME ANY TIME AND NOTHING IS BLOCKED ON IT.
    Read: records/BOHEMIA_BB_STUDY_DAY_13_THE_TIME_BETWEEN_FIGHTS_8_28_26.md
 
+BB-SHADE-IS-A-RESOURCE. *** DAY 15. THE CITY ALREADY HAS SHADE AND IT BUYS
+   NOTHING. ***
+   The walked surface already carries a "Mojave midday shelter" in canon, outdoor
+   labour scheduled EARLY because of "summer 40C+ afternoons", a per-person
+   `heatTol`, and the word shade in 38 places. What it does not have is any reason
+   to stand in it.
+   MAKE STANDING IN SHADE MEAN SOMETHING and the heat stops being a fact about the
+   setting and becomes a MAP FEATURE -- which is the cheapest possible way to make
+   a flat street into ground worth choosing. Pairs with COMBAT
+   BB-THE-HEAT-IS-THE-CLOCK (shade is where the pips come back) and with WORLD
+   BB-TURF (a seam you can only hold in the morning is a different kind of block).
+
 BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
    WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
    He asked for "different parts of Vegas as different faction holdings" by name.
@@ -5165,6 +5177,26 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-THE-FIGHT-KNOWS-THE-DAY. *** DAY 15. EVERY PIPE FINDING IN THIS STUDY SO FAR
+   HAS BEEN OUTBOUND. THIS IS THE FIRST INBOUND ONE: NOTHING GOES IN EITHER. ***
+   MEASURED: `enter(G,d,env)` receives the player's HP, a roster, a package id and
+   a stamina max. NO HOUR. NO TEMPERATURE. NO WEATHER. No memory that you just
+   walked three kilometres to get there. And the first thing it does is
+   `cleanSlate(G)` -- "nothing from the last fight survives."
+   MEANWHILE THE WALKED CITY ORGANISES ITS ENTIRE DAY AROUND THE HEAT: outdoor
+   labour runs EARLY because of "summer 40C+ afternoons", the canon includes a
+   "Mojave midday shelter", and every person carries a `heatTol`. THE DESERT IS
+   THE SETTING OF THIS WHOLE GAME AND THE FIGHT TAKES PLACE IN A CLIMATE-
+   CONTROLLED ROOM.
+   POSITIVE CONTROL, because it nearly fooled me: `heat` appears 42 times in the
+   decoded fight and EVERY ONE is MUZZLE heat (shots stacking within 2.5s) or a
+   CAR cooking off. Not one is temperature.
+   THE ROW: the encounter payload carries the world with it -- the hour, the heat,
+   whether you are in shade. *** SAME PIPE FAMILY AS BB-LOOT-LEAVES (day 10) AND
+   BB-KEYS-LAND (day 9), OPPOSITE DIRECTION. THREE FINDINGS ON ONE MESSAGE.
+   Whoever opens that file should do all three. ***
+   Read: records/BOHEMIA_BB_STUDY_DAY_15_THE_FIGHT_DOES_NOT_KNOW_IT_IS_HOT_8_28_26.md
+
 BB-LOOT-LEAVES. *** DAY 10. YOU LOOT THE DEAD AND YOU KEEP NOTHING. EIGHTH
    INSTANCE OF THIS STUDY'S SHAPE, AND IT IS THE SAME PIPE AS BB-KEYS-LAND -- DO
    BOTH IN ONE AFTERNOON. ***
@@ -5257,6 +5289,45 @@ BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
    holds -- the gate asserts the SHAPE (a gun's effectiveness falls off close),
    never a number. Read: records/BOHEMIA_BB_STUDY_DAY_3_DUMB_ORDERS_AND_THE_GUN_
    PROBLEM_8_28_26.md.
+
+BB-THE-HEAT-IS-THE-CLOCK. *** DAY 15. HE ALREADY DESIGNED A WORK/REST CYCLE AND
+   DID NOT CALL IT THAT. ***
+   `const STAM_MAX=3;` and its comment: "V54 STAMINA (Paolo, Fable model): stamina
+   actions DON'T end your turn." A sprint spends a pip AND YOUR TURN KEEPS GOING,
+   and the pips come back on the clock as SECOND WIND -- "the clock came round,
+   your legs are back." THAT IS A WORK/REST CYCLE, ON THE BEAT, AND IT IS HIS.
+   THE REAL RULE FOR WORKING HARD IN THIS VALLEY'S HEAT IS THE SAME SHAPE: at the
+   relevant band, heavy work runs 20 MINUTES ON, 40 MINUTES OFF, with a litre of
+   water an hour; core temperature hits its 38C limit at about 165 minutes in a
+   28.5C environment while wearing armour; and the finding that matters most,
+   "INTERMITTENT WORK AND LOW INTENSITY WORK PREVENTED EXCESSIVE HEAT STRAIN FROM
+   DEVELOPING" even above 30C. YOU SURVIVE THE HEAT BY GOING HARD AND THEN
+   STOPPING.
+   THE ROW: let the hour and the temperature set how many pips you get and how
+   fast they come back. A FIGHT AT 06:00 AND A FIGHT AT 14:00 SHOULD NOT BE THE
+   SAME FIGHT.
+   *** AND IT COSTS NO DAMAGE NUMBER: fewer pips is a BUDGET, not damage, so NO
+   DAMAGE BEFORE THE DIAL is untouched. *** It also makes day 3's conclusion
+   concrete -- THE CLOCK IS OUR PLINKER, and the thing that says HURRY UP is the
+   sun. REFUSED: a heat METER on the player. Day 7 settled that survival meters
+   are the genre's most reliably hated mechanic. The desert sets the budget; it
+   does not drain a bar. Depends on BB-THE-FIGHT-KNOWS-THE-DAY.
+
+BB-ARMOUR-COSTS. *** DAY 15. THE ONE PIECE OF GEAR WE HAVE IS THE ONE THAT SHOULD
+   COST THE MOST, AND IT COSTS NOTHING. ***
+   IN BOTH AISLES ARMOUR IS A TRADE. In the game he named, every armour piece
+   carries a FATIGUE PENALTY that lowers your maximum stamina, and accumulated
+   fatigue lowers INITIATIVE, so "someone in light armour will act before someone
+   in heavy armour, and someone fresh will act before someone fatigued" -- an
+   exhausted man is a liability, not a soldier. PROTECTION COSTS YOU TEMPO.
+   IN THE REAL WORLD IT IS WORSE AND MORE LITERAL: wearing body armour ADDS ABOUT
+   5F TO THE HEAT YOUR BODY ACTUALLY EXPERIENCES (a 3C+ offset in the more recent
+   work for moderate and heavy effort). The plate does not just weigh something,
+   IT MAKES THE DAY HOTTER.
+   OURS IS PURE UPSIDE: `G.pp = PLATE_START` at every bell, plates crack and come
+   back full, and a perk simply gives you another one.
+   PAIRS WITH DAY 10's BB-LOOT-IS-ACCESS: a plate you must DECIDE whether to wear
+   is an object; a plate that is always on is a stat.
 
 BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
    SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.

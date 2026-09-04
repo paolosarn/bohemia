@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: FOURTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: FIFTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -413,7 +413,31 @@ research partner. He DECIDES, you PRODUCE.
   been run on the cold open, the first morning, the first fight or the reckoning.
   A COLD HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS; if that does
   not advance the game, the screen is broken however good the systems behind it.
-  ROUTED: forty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 15 TOOK THE LAST BIG BB SYSTEM, FATIGUE, AND FOUND THAT THE DESERT
+  IS THE SETTING OF THIS WHOLE GAME AND THE FIGHT TAKES PLACE IN A
+  CLIMATE-CONTROLLED ROOM. *** BB's rule is that PROTECTION COSTS YOU TEMPO: every
+  armour piece lowers max fatigue and fatigue lowers initiative, so "someone in
+  light armour will act before someone in heavy armour, and someone fresh will act
+  before someone fatigued". THE REAL AISLE SAYS IT MORE LITERALLY IN HIS OWN
+  SETTING: body armour ADDS ABOUT 5F to the heat your body experiences, heavy work
+  in that band runs 20 MINUTES ON AND 40 OFF with a litre of water an hour, and
+  "intermittent work and low intensity work prevented excessive heat strain from
+  developing" -- YOU SURVIVE THE HEAT BY GOING HARD AND THEN STOPPING. WE ALREADY
+  HAVE THAT CYCLE AND IT IS HIS: `STAM_MAX=3`, "V54 STAMINA (Paolo, Fable model):
+  stamina actions DON'T end your turn", a sprint spends a pip and your turn keeps
+  going, and SECOND WIND brings them back on the clock. AND THE WALKED CITY
+  ALREADY ORGANISES ITS WHOLE DAY AROUND THE HEAT (40C afternoons, a "Mojave
+  midday shelter", a per-person `heatTol`) WHILE `enter()` RECEIVES HP, A ROSTER
+  AND A PACKAGE ID -- no hour, no temperature, no weather -- AND OPENS WITH
+  `cleanSlate`. Every pipe finding in this study before day 15 was OUTBOUND (the
+  keys, the loot, the player cannot leave); THIS IS THE FIRST INBOUND ONE, and
+  BB-THE-FIGHT-KNOWS-THE-DAY, BB-LOOT-LEAVES and BB-KEYS-LAND are THREE FINDINGS
+  ON ONE MESSAGE. A FIGHT AT 06:00 AND A FIGHT AT 14:00 SHOULD NOT BE THE SAME
+  FIGHT, and it costs NO damage number: fewer pips is a BUDGET. It also makes day
+  3's "the clock is our plinker" concrete -- the thing that says HURRY UP is the
+  sun. (Instrument note: `heat` appears 42 times in the decoded fight and every
+  one is MUZZLE heat or a car cooking off. Not one is temperature.)
+  ROUTED: fifty-two rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

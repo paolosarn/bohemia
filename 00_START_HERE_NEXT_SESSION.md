@@ -703,7 +703,60 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (q) LATEST -- *** DAY 14 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (r) LATEST -- *** DAY 15 OF THE BB
+STUDY: THE DESERT IS THE SETTING OF THIS WHOLE GAME AND THE FIGHT TAKES PLACE IN A
+CLIMATE-CONTROLLED ROOM. Fifty-two BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_15_THE_FIGHT_DOES_NOT_KNOW_IT_IS_HOT_8_28_26.md
+
+The last big BB system: FATIGUE. Day 3 asked how you give orders, day 12 asked what
+makes a fight END, and nobody asked what makes a single TURN interesting.
+
+BB'S ANSWER IS THAT PROTECTION COSTS YOU TEMPO. Every armour piece carries a
+FATIGUE PENALTY that lowers your maximum stamina, and accumulated fatigue lowers
+INITIATIVE, so "someone in light armour will act before someone in heavy armour,
+and someone fresh will act before someone fatigued". A man too tired to act is a
+liability, not a soldier.
+THE REAL AISLE SAYS THE SAME THING, MORE LITERALLY, IN HIS OWN SETTING: wearing
+body armour ADDS ABOUT 5F to the heat your body actually experiences; the standard
+answer to heavy work in that band is a WORK/REST CYCLE of 20 MINUTES ON AND 40 OFF
+with a litre of water an hour; core temperature hits its 38C limit at about 165
+minutes in a 28.5C environment while armoured; and "INTERMITTENT WORK AND LOW
+INTENSITY WORK PREVENTED EXCESSIVE HEAT STRAIN FROM DEVELOPING" even above 30C.
+YOU SURVIVE THE HEAT BY GOING HARD AND THEN STOPPING.
+
+*** WE HAVE BOTH HALVES AND THEY HAVE NEVER MET. *** The fight already HAS a
+work/rest cycle and it is HIS: `const STAM_MAX=3` with the comment "V54 STAMINA
+(Paolo, Fable model): stamina actions DON'T end your turn" -- a sprint spends a pip
+and your turn keeps going, and the pips come back on the clock as SECOND WIND, "the
+clock came round, your legs are back". AND THE WALKED CITY ALREADY ORGANISES ITS
+ENTIRE DAY AROUND THE HEAT: outdoor labour runs EARLY because of "summer 40C+
+afternoons", the canon has a "Mojave midday shelter", and every person carries a
+`heatTol`.
+AND `enter(G,d,env)` RECEIVES THE PLAYER'S HP, A ROSTER, A PACKAGE ID AND A STAMINA
+MAX. No hour. No temperature. No weather. No memory that you just walked three
+kilometres. Then it opens with `cleanSlate(G)`, "nothing from the last fight
+survives."
+INSTRUMENT NOTE, because it nearly fooled me: `heat` appears 42 times in the
+decoded fight and EVERY ONE is MUZZLE heat (shots stacking within 2.5s) or a CAR
+cooking off. Not one is temperature.
+
+THE FINDING: every pipe finding in this study so far has been OUTBOUND -- the boss
+keys published to nobody (day 9), the loot that never leaves (day 10), the player
+who cannot leave (day 12). THIS IS THE FIRST INBOUND ONE: nothing goes IN either.
+A FIGHT AT 06:00 AND A FIGHT AT 14:00 SHOULD NOT BE THE SAME FIGHT, and making that
+true costs no new system, no art, and NO DAMAGE NUMBER -- fewer pips is a BUDGET,
+not damage. It also makes day 3's conclusion concrete: THE CLOCK IS OUR PLINKER,
+and the thing that says HURRY UP is the sun.
+
+Four rows: COMBAT/RUN BB-THE-FIGHT-KNOWS-THE-DAY, COMBAT BB-THE-HEAT-IS-THE-CLOCK,
+COMBAT BB-ARMOUR-COSTS (ours is pure upside: G.pp = PLATE_START every bell), WORLD
+BB-SHADE-IS-A-RESOURCE.
+*** AND A NOTE FOR WHOEVER OPENS THE ENCOUNTER MESSAGE: BB-THE-FIGHT-KNOWS-THE-DAY,
+BB-LOOT-LEAVES (day 10) and BB-KEYS-LAND (day 9) ARE THREE FINDINGS ON ONE MESSAGE.
+Do all three. ***
+
+COORDINATOR: 8/28 (q) -- *** DAY 14 OF THE BB
 STUDY: THE DAY THE STUDY SAYS NO, AND THE ONLY DEMO-CRITICAL ROW IT HAS PRODUCED.
 Forty-eight BB- rows routed. Nothing to judge. ***
 

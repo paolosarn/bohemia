@@ -58,8 +58,8 @@ reference game he has not named. ***
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
 ## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
-## TIME BETWEEN FIGHTS (13) AND THE FIRST FIVE MINUTES (14). A PLAN IS NOT
-## A LAW. ***
+## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14) AND WHAT MAKES ONE
+## TURN INTERESTING (15). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -377,6 +377,33 @@ simulated stranger pressed the biggest button twelve times and the clock
 never moved. THE FIX IS NOT THE FINDING, THE TEST IS -- it is not a gate,
 not repeatable, and has never been run on anything else. ***
 Three rows, and BB-COLD-HAND goes ON the demo path rather than behind it.**
+
+**DAY 15 — WHAT MAKES ONE TURN INTERESTING, AND WHY HERE IT IS HEAT.
+*** DONE: records/BOHEMIA_BB_STUDY_DAY_15_THE_FIGHT_DOES_NOT_KNOW_IT_IS_
+HOT_8_28_26.md. The last big BB system: FATIGUE. ***
+BB'S ANSWER IS THAT PROTECTION COSTS YOU TEMPO: every armour piece lowers
+your MAX fatigue, and accumulated fatigue lowers INITIATIVE, so "someone
+in light armour will act before someone in heavy armour, and someone fresh
+will act before someone fatigued". An exhausted man is a liability.
+THE REAL AISLE SAYS THE SAME THING IN HIS OWN SETTING: body armour ADDS
+ABOUT 5F to the heat your body actually experiences; heavy work in that
+band runs 20 MINUTES ON, 40 OFF with a litre of water an hour; and
+"intermittent work and low intensity work prevented excessive heat strain
+from developing". YOU SURVIVE THE HEAT BY GOING HARD AND THEN STOPPING.
+MEASURED, AND WE HAVE BOTH HALVES AND THEY HAVE NEVER MET: the fight
+already has a work/rest cycle and it is HIS (`STAM_MAX=3`, "Paolo, Fable
+model", a sprint spends a pip and your turn keeps going, SECOND WIND
+brings them back on the clock). The walked city already organises its
+whole day around the heat (40C afternoons, a "Mojave midday shelter",
+`heatTol` per person). *** AND `enter()` RECEIVES HP, A ROSTER AND A
+PACKAGE ID -- NO HOUR, NO TEMPERATURE, NO WEATHER, and it opens with
+`cleanSlate`. THE DESERT IS THE SETTING OF THIS WHOLE GAME AND THE FIGHT
+TAKES PLACE IN A CLIMATE-CONTROLLED ROOM. ***
+THE FINDING: every pipe finding in this study has been OUTBOUND (keys,
+loot, the player cannot leave). THIS IS THE FIRST INBOUND ONE. And it
+costs no damage number -- fewer pips is a BUDGET, not damage -- while
+making day 3's "the clock is our plinker" concrete: the thing that says
+HURRY UP is the sun. Four rows, three of which are one message.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it
