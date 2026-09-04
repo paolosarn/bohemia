@@ -61,9 +61,9 @@ reference game he has not named. ***
 ## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
 ## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16),
 ## HOW MUCH YOU SHOW (17), THE MIDDLE HORIZON (18), WHAT IT COSTS TO GO
-## SOMEWHERE (19) AND WHAT A JOB IS ONCE YOU TAKE IT (20). A PLAN IS NOT A
-## LAW -- AND DAY 20 IS THE ONE THAT FOUND A RULING OF HIS, TWENTY DAYS
-## OLD, THAT NOBODY EVER BUILT. ***
+## SOMEWHERE (19), WHAT A JOB IS ONCE YOU TAKE IT (20) AND WHAT SURVIVES
+## WHEN YOU CLOSE THE TAB (21). A PLAN IS NOT A LAW -- AND DAY 20 FOUND A
+## RULING OF HIS, TWENTY DAYS OLD, THAT NOBODY EVER BUILT. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -608,3 +608,37 @@ ALREADY GAVE THOSE RIGHTS TO THE PLAYER**: every quest completes at three
 or four tiers (#quiet/#notable/#risky/#reckless) and all 27 fail by
 somebody being told no in a conversation, never by a clock. Four rows, and
 one of them is on the demo path.
+
+## 9. DAY 21
+
+**DAY 21 -- WHAT SURVIVES WHEN YOU CLOSE THE TAB. *** DONE:
+records/BOHEMIA_BB_STUDY_DAY_21_WHAT_SURVIVES_WHEN_YOU_CLOSE_THE_TAB_
+8_28_26.md. A hundred-hour game, in a browser tab, on a phone, and twenty
+days never asked whether it remembers you. ***
+THE GOOD NEWS FIRST BECAUSE IT IS RARE HERE: the save is the
+SECOND-BEST-BUILT THING IN THE STUDY. Two slots and a generation counter
+writing to the OLDER one, an FNV-1a checksum, a probe the SIZE of the real
+save, poisoning on failure so a stale save cannot be resurrected, a version
+chain with migrations, and the phone path. Gate run today: 44/0. The
+snapshot carries the day, the clock, your position, the day loop, the quest
+runtime, the purse and the market.
+*** THE FINDING: THE WORLD IS INSIDE THE WALLS AND THE PEOPLE ARE OUTSIDE
+THEM. *** Five raw localStorage keys -- minds, known, met, belong,
+deedweight -- with one slot, no checksum, no migration on four of five and
+a silent catch on failure, and ALL FIVE APPEAR ZERO TIMES IN citySnapshot.
+So export does not carry the people, a restore gives you yesterday's world
+with today's population, and the two-slot rollback DESYNCS them. The gate's
+44 checks mention none of the five; a clean slate wipes two of five under a
+comment that already says a wipe leaving half the save is not a wipe.
+Days 4, 7, 16 and 20 all concluded the people are the point.
+REAL AISLE, AND IT IS A HARD PLATFORM FACT: WebKit deletes ALL
+script-writable storage after seven days without a visit. **THE FIRST LINE
+OF CLAUDE.md SAYS THERE ARE NO RUNS AND SAFARI SCHEDULES ONE.** The single
+exemption is a Home Screen install, which keeps its own use counter -- so
+ADD TO HOME SCREEN IS NOT A CONVENIENCE FEATURE, IT IS THE SAVE. The code
+already computes evictionRisk and already asks, once, on the reckoning
+card. That is a judgement to make deliberately, not a bug.
+NEAR-MISS RECORDED: the first measurement said the demo carried none of the
+five, which would have been a big wrong demo-critical finding. The positive
+control killed it -- both the demo and the alpha load the walked city by
+src. Third time this discipline has saved a day. Four rows.

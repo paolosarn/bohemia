@@ -1475,6 +1475,31 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 ## RUN
 *** BATTLE BROTHERS STUDY ROW, ROUTED 8/28 BY THE COORDINATOR (DAY 7).
     READ FIRST: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md ***
+BB-HOME-SCREEN-IS-THE-SAVE. *** DAY 21. THE PLATFORM PUT A RUN TIMER ON A GAME
+   WHOSE FIRST LAW IS THAT THERE ARE NO RUNS. ***
+   Since iOS 13.4 / Safari 13.1, WebKit DELETES ALL of a site's script-writable
+   storage -- localStorage, sessionStorage, IndexedDB, service worker
+   registrations -- after seven days of browser use without interaction on that
+   site. No amount of code beats it; there is no version of our save that wins.
+   THE FIRST LINE OF CLAUDE.md SAYS THERE ARE NO RUNS AND SAFARI SCHEDULES ONE, ON
+   A ONE-WEEK CLOCK.
+   THERE IS EXACTLY ONE EXEMPTION AND WE ALREADY BUILT THE DOOR: a web app added to
+   the HOME SCREEN is not part of Safari and keeps its own counter of days of use,
+   which resets every time it is used. SO ADD TO HOME SCREEN IS NOT A CONVENIENCE
+   FEATURE, IT IS THE SAVE.
+   WHAT EXISTS TODAY AND IS ALL CORRECT: BohemiaSave.status() computes evictionRisk
+   off navigator.standalone and says the true sentence ("Safari erases it after 7
+   days without a visit -- add Bohemia to your Home Screen, or EXPORT SAVE"), and
+   __KEEP_THIS_RUN__ puts the ask on the reckoning card he already reads, ONCE,
+   with installAsked riding in the save so it stays once across reloads, under its
+   own comment "a prompt that comes back every night is an ad".
+   THE ROW IS A JUDGEMENT, NOT A BUG: one line, asked one time, on the one night he
+   happens to read that card, is what stands between a hundred hours and a platform
+   rule. Decide its weight deliberately instead of by default. RE-CHECK THE RULE
+   FIRST -- it is WebKit's published behaviour from 13.4 and I did not find a
+   2025-26 source confirming it is unchanged. | the ask is sized on purpose and the
+   eviction sentence is reachable when it is true | how loud to be is his | no. ***
+
 BB-THE-TIME-NOT-THE-TAPS. *** DAY 19. THE COST IS REAL. THE WATCHING IS NOT.
    MEASURE THIS ONE WITH DAY 14's COLD HAND BEFORE ANYBODY CALLS THE DEMO
    READY. ***
@@ -5434,6 +5459,19 @@ BB-ARMOUR-COSTS. *** DAY 15. THE ONE PIECE OF GEAR WE HAVE IS THE ONE THAT SHOUL
    back full, and a perk simply gives you another one.
    PAIRS WITH DAY 10's BB-LOOT-IS-ACCESS: a plate you must DECIDE whether to wear
    is an object; a plate that is always on is a stat.
+
+BB-SAVE-BEFORE-THE-BELL. *** DAY 21. THE GAME HE NAMED AUTOSAVES BEFORE EVERY
+   BATTLE. OURS IS COVERED BY ACCIDENT. ***
+   In Battle Brothers the fight is the moment worth protecting and it is protected
+   ON PURPOSE: an autosave before every battle, and another when you leave a town.
+   MEASURED HERE: CITYSAVE.save fires only when the city posts state, and NOTHING
+   fires it at the moment combat opens. Opening the fight blurs the city iframe,
+   which fires flushState, so in practice it is probably saved -- BY A SIDE EFFECT,
+   NOT BY INTENT. A protection nobody wrote down is a protection nobody is
+   maintaining, and it disappears the first time the frame stops blurring.
+   Make it deliberate. Pairs with the 8/15 REWIND ruling, which already assumes a
+   known-good point to come back to. | a save exists at the bell whether or not the
+   frame blurs | nothing | no. ***
 
 BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
    SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.
@@ -9435,6 +9473,51 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
+   AND THE PEOPLE ARE OUTSIDE IT. ***
+   THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found
+   in 21 days of study -- two slots with a generation counter, an FNV-1a checksum,
+   a probe the SIZE of the real save, poisoning on write failure so a stale save
+   can never be resurrected, a version chain with migrations, and the phone path
+   (pagehide/freeze/blur/visibilitychange). save_iphone_gate.js drives it against a
+   hostile fake browser: 44 passed, 0 failed. citySnapshot carries seed, day,
+   minute, POSITION, the day loop, the quest runtime, the day's cast, the purse and
+   the market ledger. Nothing here is broken.
+   THE GAP: the walked city makes TEN localStorage writes. Four are dev tools. THE
+   OTHER FIVE ARE THE GAME'S MEMORY OF PEOPLE and every one goes to raw
+   localStorage AROUND the hardened save -- boh.city.minds, boh.city.known,
+   boh.city.met, boh.city.belong, boh.city.deedweight. One slot, no checksum, no
+   migration on four of five, and a silent catch(_e){} on write failure: the exact
+   four failure modes bohemia_save.js was written to kill, reproduced outside its
+   walls. MEASURED: met/minds/known/belong/deedweight appear ZERO times in
+   citySnapshot.
+   SO: EXPORT SAVE does not carry the people; a restore gives you yesterday's world
+   with today's population; and the two-slot rollback DESYNCS -- the world rolls
+   back one generation and the people do not. A TORN SAVE ACROSS TWO SYSTEMS IS
+   WORSE THAN A LOST ONE BECAUSE YOU CANNOT SEE THAT IT IS WRONG, which is the
+   belonging code's OWN comment one function above the break.
+   AND A CLEAN SLATE ONLY CLEANS TWO OF FIVE: __CT.wipe removes met and belong;
+   minds, known and deedweight survive it, under a comment that already reads "A
+   WIPE THAT LEAVES HALF THE SAVE IS NOT A WIPE".
+   WHY IT IS THE WORST PLACE FOR THE GAP: day 4 (attachment is marks that persist),
+   day 7 (the motor is obligations to people), day 16 (every relationship here is a
+   repeated game because we never reset) and day 20 (with no courts the contract IS
+   repeat business) all concluded the people are the point. ENGINE SYNC LAW, one
+   canonical body: fold the five into citySnapshot or route them through
+   BohemiaSave. They already serialise themselves; this is wiring, not invention.
+   | export, import, restore, rollback and wipe all cover the people | nothing |
+   no. ***
+
+BB-THE-GATE-WALKS-THE-PEOPLE. *** DAY 21. 44 CHECKS AND NONE OF THEM TOUCHES THE
+   FIVE. RIDES WITH BB-THE-PEOPLE-RIDE-THE-SAVE. ***
+   MEASURED: met, minds, known, belong and deedweight appear ZERO times in
+   gates/save_iphone_gate.js. The hostile-browser harness is good and it is
+   pointed at half the save. Extend it over whatever the previous row lands, and
+   include the case that harness was built for: force a torn write, roll the world
+   back one generation, and assert THE PEOPLE CAME WITH IT. A gate that proves
+   half a save survives an iPhone is proving the wrong half survives. | the
+   desync case goes red before the fix and green after | nothing | no. ***
+
 BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
    BUILT. ON THE DEMO PATH -- ONLY THE SECOND STUDY ROW THAT IS. ***
    MEASURED AND RUN 9/4, not read: finish a #notable job the way all 27 canon

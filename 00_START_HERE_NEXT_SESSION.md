@@ -703,7 +703,97 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (w) LATEST -- *** DAY 20 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (x) LATEST -- *** DAY 21 OF THE BB
+STUDY: THE SAVE IS THE SECOND-BEST-BUILT THING IN THE PROJECT AND THE PEOPLE ARE
+STANDING OUTSIDE IT. Seventy-two BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_21_WHAT_SURVIVES_WHEN_YOU_CLOSE_THE_TAB_8_28_26.md
+
+A HUNDRED-HOUR GAME, IN A BROWSER TAB, ON A PHONE, AND TWENTY DAYS NEVER ASKED
+WHETHER IT REMEMBERS YOU. THERE ARE NO RUNS, three generations that INHERIT, and
+nobody had checked what is still there tomorrow.
+
+*** THE GOOD NEWS FIRST, BECAUSE IT IS RARE IN THIS STUDY: I EXPECTED A HOLE AND
+THERE IS NOT ONE. *** engine/bohemia_save.js (8/11) is 330 lines written against a
+hostile iPhone and its header lists the four ways v1 lost runs and kills each:
+THE PROBE LIED (a one-byte test write succeeds exactly where a real 200KB save
+throws quota, so v2 probes with a blob THE SIZE OF THE REAL SAVE and reads it
+back); THE TIME MACHINE (v1 fell to memory and left the OLD save on disk, so the
+next launch silently sent you backwards -- v2 POISONS the slot and writes a
+tombstone the instant a write fails); ONE SLOT (v2 keeps TWO with a generation
+counter and ALWAYS writes the OLDER one, so a torn write costs the newest state,
+never everything); NO INTEGRITY (every envelope carries a byte length and an FNV-1a
+checksum, and load takes the highest generation that VERIFIES). Plus a version
+chain with migrations, a refusal that is REPORTED rather than looking like an empty
+save, and THE PHONE PATH -- pagehide, freeze, blur and visibilitychange all flush.
+gates/save_iphone_gate.js drives all of it against a fake hostile browser: RUN
+TODAY, 44 PASSED, 0 FAILED.
+AND THE SNAPSHOT CARRIES THE RIGHT LIST: seed, day, minute, WHERE YOU ARE
+STANDING, the city cell, mode, riding, zoom, the whole day loop, the whole quest
+runtime, the day's cast, the purse and the market ledger. Its own comments are some
+of the best design writing in this repo: "a day loop that does not survive a reload
+is a session toy, not a loop"; "a day's pay that dies with the tab is not pay".
+
+*** THE FINDING: THE WORLD IS INSIDE THE WALLS AND THE PEOPLE ARE OUTSIDE THEM. ***
+The walked city makes TEN localStorage writes. Four are dev tools. THE OTHER FIVE
+ARE THE GAME'S MEMORY OF PEOPLE, and every one goes to raw localStorage AROUND the
+hardened save: boh.city.minds (what a mind holds), boh.city.known (what you
+overheard), boh.city.met (who you have met and whose name you know), boh.city.belong
+(whether an outfit counts you and what you owe), boh.city.deedweight.
+ONE SLOT. NO CHECKSUM. NO MIGRATION ON FOUR OF FIVE. SILENT catch(_e){} ON FAILURE.
+That is the exact four failure modes the save module exists to kill, rebuilt
+outside its walls. AND MEASURED: met, minds, known, belong and deedweight appear
+ZERO TIMES in citySnapshot. So EXPORT SAVE DOES NOT CARRY THE PEOPLE; a restore
+hands you yesterday's world with TODAY'S population; and the two-slot rollback
+DESYNCS THEM -- the world rolls back a generation and the people do not. A TORN
+SAVE ACROSS TWO SYSTEMS IS WORSE THAN A LOST ONE BECAUSE YOU CANNOT SEE THAT IT IS
+WRONG, which is the belonging code's OWN comment, one function above the break.
+The 44-check gate mentions none of the five. And a clean slate cleans TWO of five
+-- __CT.wipe takes met and belong, minds/known/deedweight survive it -- under a
+comment that already reads "A WIPE THAT LEAVES HALF THE SAVE IS NOT A WIPE".
+WHY IT IS THE WORST PLACE FOR THE GAP: day 4 (attachment is marks that persist),
+day 7 (the motor is obligations to people), day 16 (because we never reset, every
+relationship here is a REPEATED GAME) and day 20 (with no paper and no courts the
+contract IS repeat business) all landed on the same conclusion independently: THE
+PEOPLE ARE THE POINT, and the people are the one thing not in the save.
+
+*** AND THE OTHER HALF IS A PLATFORM FACT WE DO NOT GET A VOTE ON. *** Since iOS
+13.4 / Safari 13.1, WebKit DELETES ALL of a site's script-writable storage --
+localStorage, sessionStorage, IndexedDB, service worker registrations -- after
+SEVEN DAYS of browser use without interaction on that site. No code beats it.
+**THE FIRST LINE OF CLAUDE.md SAYS THERE ARE NO RUNS. SAFARI SCHEDULES ONE, ON A
+ONE-WEEK CLOCK.** There is EXACTLY ONE exemption and we already built the door: a
+web app added to the HOME SCREEN is not part of Safari and keeps its own counter of
+days of use, which resets every time it is used. **SO ADD TO HOME SCREEN IS NOT A
+CONVENIENCE FEATURE. IT IS THE SAVE.** status() already computes evictionRisk off
+navigator.standalone and says the true sentence, and __KEEP_THIS_RUN__ already puts
+the ask on the reckoning card he is already reading, ONCE, with installAsked riding
+in the save. All correct -- and it is one line, asked one time, on the one night he
+happens to read that card, defending a hundred hours. Right shape, possibly wrong
+weight, and that is a judgement to make on purpose. RE-CHECK THE RULE before the
+demo goes wide: it is WebKit's published 13.4 behaviour and I did NOT find a
+2025-26 source confirming it is unchanged.
+
+THE NEAR-MISS, RECORDED BECAUSE IT IS THE THIRD OF ITS KIND: my first measurement
+said slices/BOHEMIA_DEMO.html carried NONE of the five people keys, which reads as
+a big demo-critical finding. THE POSITIVE CONTROL KILLED IT -- applyRestore and
+__DAY_LOOP__ are zero in the demo AND zero in the alpha, because BOTH load the
+walked city by `src` as a separate file. The demo carries the save exactly as the
+workshop does. Same lesson as the base64 fight (day 4) and the muzzle heat (day
+15): A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE
+INSTRUMENT COULD HAVE SEEN A POSITIVE ONE.
+
+ALSO MEASURED: Battle Brothers autosaves BEFORE EVERY BATTLE and again on leaving a
+town -- the fight is protected ON PURPOSE. Ours: CITYSAVE.save fires only when the
+city posts state and NOTHING fires it when combat opens; opening the fight blurs
+the city iframe, which fires flushState, so it is probably saved BY A SIDE EFFECT,
+NOT BY INTENT. A protection nobody wrote down is a protection nobody is maintaining.
+
+Four rows: SHARED BB-THE-PEOPLE-RIDE-THE-SAVE (take this one first in its lane),
+SHARED BB-THE-GATE-WALKS-THE-PEOPLE, RUN/UI BB-HOME-SCREEN-IS-THE-SAVE,
+COMBAT/SHARED BB-SAVE-BEFORE-THE-BELL.
+
+COORDINATOR: 8/28 (w) -- *** DAY 20 OF THE BB
 STUDY: NOBODY IN BOHEMIA HAS EVER BEEN PAID FOR A JOB, AND HE ALREADY RULED THE
 FIX ON 8/15. Sixty-eight BB- rows routed, and one of them is ON THE DEMO PATH.
 Nothing to judge. ***

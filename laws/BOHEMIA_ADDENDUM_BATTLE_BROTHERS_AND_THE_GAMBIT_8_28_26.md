@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-TWENTY days, twenty records, driven by his own two-word trigger "bb study,
+TWENTY-ONE days, twenty-one records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -246,7 +246,28 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   our quests already lets the PLAYER pick the manner (#quiet / #notable /
   #risky / #reckless) and fails only by somebody being told no to their
   face, never by a clock. **Do not put a timer on a quest.**
-- **ROUTED:** sixty-eight rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **THE WORLD IS INSIDE THE SAVE AND THE PEOPLE ARE OUTSIDE IT (day 21).**
+  The save itself is the second-best-built thing in this study: two slots
+  with a generation counter, an FNV-1a checksum, a size-honest probe,
+  poisoning on write failure, a migration chain, the phone path, and a
+  hostile-browser gate at 44/0. It carries the day, the clock, your
+  position, the day loop, the quest runtime and the purse. **But the game's
+  memory of PEOPLE is five raw `localStorage` keys written around it** --
+  minds, known, met, belong, deedweight -- one slot, no checksum, silent on
+  failure, **and all five appear zero times in the snapshot.** So export
+  does not carry the people, a restore hands you yesterday's world with
+  today's population, and the two-slot rollback desyncs them; the gate's 44
+  checks touch none of them; a clean slate cleans two of five. Days 4, 7,
+  16 and 20 all concluded the people are the point.
+- **ADD TO HOME SCREEN IS NOT A CONVENIENCE FEATURE, IT IS THE SAVE (day
+  21).** WebKit deletes **all** script-writable storage after seven days
+  without a visit, and no code beats it. **The first line of CLAUDE.md says
+  THERE ARE NO RUNS and the platform schedules one, on a one-week clock.**
+  The single exemption is a Home Screen install, which keeps its own
+  counter of days of use. The build already computes `evictionRisk` and
+  already asks once, on the reckoning card, which is the right shape and
+  possibly the wrong weight.
+- **ROUTED:** seventy-two rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

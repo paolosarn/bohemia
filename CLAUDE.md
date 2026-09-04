@@ -194,8 +194,8 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: TWENTY DAYS, WRITTEN AND ROUTED (8/28), AND HE
-  MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
+- *** THE BATTLE BROTHERS STUDY: TWENTY-ONE DAYS, WRITTEN AND ROUTED (8/28), AND
+  HE MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
   records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
@@ -565,7 +565,52 @@ research partner. He DECIDES, you PRODUCE.
   out. DO NOT PUT A TIMER ON A QUEST. Real aisle also confirms day 16 from a
   second direction: with no paper and no courts the enforcement IS repeat
   business.
-  ROUTED: sixty-eight rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 21 IS THE ONE WHERE I EXPECTED A HOLE AND FOUND THE SECOND-BEST-BUILT
+  THING IN THE PROJECT, WITH THE PEOPLE STANDING OUTSIDE IT. *** A hundred-hour
+  game, in a browser tab, on a phone, and twenty days never asked what is still
+  there tomorrow. SAY THE GOOD NEWS FIRST: `engine/bohemia_save.js` is written
+  against a hostile iPhone and kills the four ways a save is lost -- a probe the
+  SIZE of the real save (a one-byte write succeeds exactly where a 200KB one
+  throws), POISONING the disk slot on failure so a stale save can never be
+  resurrected (v1 promised "never a time machine" and then built one), TWO SLOTS
+  with a generation counter always writing to the OLDER one, and an FNV-1a checksum
+  so load takes the highest generation that VERIFIES. Plus a migration chain, and
+  the phone path (pagehide/freeze/blur/visibilitychange). Gate run: 44/0. The
+  snapshot carries the day, the clock, WHERE YOU ARE STANDING, the day loop, the
+  quest runtime, the day's cast, the purse and the market, and its own comments are
+  the best design writing in the repo: "a day loop that does not survive a reload is
+  a session toy, not a loop". *** THE FINDING: THE WORLD IS INSIDE THE WALLS AND THE
+  PEOPLE ARE OUTSIDE THEM. *** The walked city makes TEN localStorage writes; four
+  are dev tools and THE OTHER FIVE ARE THE GAME'S MEMORY OF PEOPLE, every one
+  written raw AROUND the hardened save -- minds, known, met, belong, deedweight --
+  one slot, no checksum, no migration on four of five, silent `catch(_e){}` on
+  failure: THE EXACT FOUR FAILURE MODES THE SAVE MODULE EXISTS TO KILL, REPRODUCED
+  OUTSIDE ITS WALLS. Measured: all five appear ZERO times in `citySnapshot`. So
+  EXPORT SAVE DOES NOT CARRY THE PEOPLE, a restore hands you yesterday's world with
+  today's population, and the two-slot rollback DESYNCS -- the world rolls back a
+  generation and the people do not, which is worse than losing the save because you
+  cannot see that it is wrong (THE BELONGING CODE'S OWN COMMENT, one function above
+  the break). The 44-check gate mentions none of the five, and a clean slate wipes
+  two of five under a comment already reading "A WIPE THAT LEAVES HALF THE SAVE IS
+  NOT A WIPE". IT IS THE WORST PLACE TO HAVE THE GAP: days 4, 7, 16 and 20 each
+  concluded independently that THE PEOPLE ARE THE POINT.
+  *** AND THE OTHER HALF IS A PLATFORM FACT WE DO NOT GET A VOTE ON: WEBKIT DELETES
+  ALL SCRIPT-WRITABLE STORAGE AFTER SEVEN DAYS WITHOUT A VISIT. *** localStorage,
+  sessionStorage, IndexedDB, service workers, the lot, and no version of our save
+  beats it. **THE FIRST LINE OF THIS FILE SAYS THERE ARE NO RUNS AND SAFARI
+  SCHEDULES ONE, ON A ONE-WEEK CLOCK.** There is exactly ONE exemption and we
+  already built the door: a HOME SCREEN install is not part of Safari and keeps its
+  own counter of days of use, which resets every time it is used. **SO ADD TO HOME
+  SCREEN IS NOT A CONVENIENCE FEATURE, IT IS THE SAVE.** `status()` already
+  computes `evictionRisk` and says the true sentence, and `__KEEP_THIS_RUN__`
+  already asks ONCE on the reckoning card ("a prompt that comes back every night is
+  an ad"), which is the right shape and possibly the wrong weight -- one line, one
+  night, defending a hundred hours. THIRD NEAR-MISS OF THIS CLASS, RECORDED: the
+  first measurement said the DEMO carried none of the five, a big wrong
+  demo-critical finding, and the positive control killed it -- the demo and the
+  alpha BOTH load the walked city by `src`, so neither file contains its tokens.
+  A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT.
+  ROUTED: seventy-two rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study). TWO ARE ON THE DEMO PATH -- day
