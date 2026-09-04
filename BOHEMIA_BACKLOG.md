@@ -1475,6 +1475,20 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 ## RUN
 *** BATTLE BROTHERS STUDY ROW, ROUTED 8/28 BY THE COORDINATOR (DAY 7).
     READ FIRST: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md ***
+BB-THE-END. *** DAY 13. THE LAST THING HE SEES EVERY DAY IS CARRYING HALF THE
+   MEMORY OF THE DAY, AND IT IS A RECEIPT. MERGE THIS WITH BB-WHAT-YOU-OWE --
+   SAME CARD, SAME AFTERNOON, TWO FINDINGS. ***
+   The peak-end rule has two halves and we have only ever thought about the peak.
+   THE END IS THE OTHER HALF, and our day already has one: the reckoning card is
+   the last thing a player sees every single day. Measured (day 7): it lists steps
+   taken, districts stood in, buildings entered, the job outcome and what you were
+   paid.
+   THE RESEARCH SAYS THAT CARD IS CARRYING HALF THE EMOTIONAL WEIGHT OF THE WHOLE
+   DAY -- the landmark experiment had people PREFER a longer unpleasant experience
+   because it ENDED slightly better. So the card should be the day's best MOMENT,
+   not its inventory. Two days of this study converge on this one surface and it
+   is the cheapest in the game.
+
 BB-WHAT-YOU-OWE. *** THE SMALLEST ROW IN SEVEN DAYS OF STUDY AND THE BEST
    EFFORT-TO-EFFECT ONE ON THE WHOLE BB BOARD. IT IS ONE LINE ON A CARD HE IS
    ALREADY READING. ***
@@ -2344,6 +2358,33 @@ BB-SLOWER-EVERY-TIME. *** DAY 11. THE ACT TURN IS FORETOLD BY THE VALLEY GETTING
    patrolled). NO new economics and NO numbers from him.
    IT IS THE OPPOSITE OF A DIFFICULTY SLIDER: THE WORLD DOES NOT HIT HARDER, IT
    STOPS BOUNCING BACK. Needs UI BB-FORETOLD or it is a simulation nobody sees.
+
+BB-MORE-KEYS. *** DAY 13. THE DESIGN ASKS FOR 70% OF ITS MOMENTS OUT OF 25% OF
+   ITS CONTENT, AND THE FIX COSTS HIM NOTHING. ***
+   MEASURED in engine/bohemia_encounters.js: the roster is TWELVE approved
+   encounters -- ambient 3 (coyote shadow, ghost robotaxi, patrols collide),
+   interactive 5, forced 4 -- against `var MIX = { ambient:0.70, interactive:0.20,
+   forced:0.10 }`. A measured run came out 40/42/18 instead of 70/20/10, and the
+   lane's own comment says that off the road the coyote was the ONLY ambient beat,
+   so a district without one "went silent for seven beats in ten".
+   THE MODULE IS RIGHT TO REFUSE A SUBSTITUTE ("if the story wants an ambient beat
+   and no ambient token is available here, the answer is that NOTHING fires"),
+   because a forced fight standing in for an ambient beat breaks the promise the
+   mix makes. And it was right to refuse to invent a thirteenth encounter, because
+   canon is his.
+   *** SO STOP COUNTING CONTENT AND COUNT COMBINATIONS. *** In the game he named
+   they did not fix a thin event bench by writing more events, they gave events
+   more to KEY OFF: "a lot of events will change depending on what backgrounds or
+   traits your Battle Brothers have... beyond just their different stats."
+   GIVE THE TWELVE MORE KEYS, all of which we have or have routed: WHO IS THERE
+   (the former trade, PEOPLE BB-WHAT-YOU-WERE), WHOSE BLOCK IT IS (the circuit
+   owner, WORLD BB-TURF), WHEN (the hour, on the clock the director already
+   spends), and WHAT YOU ARE KNOWN FOR (PEOPLE BB-KNOWN-FOR). A ghost robotaxi
+   rolling past a man who used to park them for a living is a different moment.
+   TWELVE STAYS TWELVE. MECHANISM MINE, CONTENTS HIS. Baseline to beat: ambient
+   silent seven beats in ten, and 40/42/18 against a 70/20/10 target.
+   A THIRTEENTH ENCOUNTER IS HIS TO NAME ANY TIME AND NOTHING IS BLOCKED ON IT.
+   Read: records/BOHEMIA_BB_STUDY_DAY_13_THE_TIME_BETWEEN_FIGHTS_8_28_26.md
 
 BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
    WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
@@ -8368,6 +8409,18 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-THE-SMALL-MOMENT. *** DAY 13. A BEAT NOBODY REMEMBERS DID NOT HAPPEN. ***
+   The twelve approved roadside encounters get written as PEAKS, not as wallpaper.
+   THE REASON IS THE BEST-ESTABLISHED FINDING ABOUT HOW PEOPLE REMEMBER ANYTHING:
+   the PEAK-END RULE. People evaluate a past experience on a small number of
+   emotionally intense snapshots -- the most intense moment and the FINAL moment
+   -- and neglect the rest. Ratings "correlate almost perfectly with the average
+   of the peak moment and the final moment, and correlate NEAR-ZERO with total
+   duration." That is DURATION NEGLECT, and it means ambience that is merely
+   present is worth approximately nothing.
+   So a roadside moment gets the same craft as a quest line: voice card, draft:true,
+   and NOBODY IN BOHEMIA IS WISE. Depends on WORLD BB-MORE-KEYS for the variants.
+
 BB-STILL-SAYS-IT. *** DAY 8, AND IT IS THE HALF THAT MAKES IT WORTH DOING. ***
    A PERSON'S LINES KEY OFF WHAT THEY USED TO BE, not only which outfit they run
    with.

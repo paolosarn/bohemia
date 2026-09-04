@@ -703,7 +703,57 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (o) LATEST -- *** DAY 12 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (p) LATEST -- *** DAY 13 OF THE BB
+STUDY: THE DESIGN ASKS FOR 70% OF ITS MOMENTS OUT OF 25% OF ITS CONTENT, AND
+DENSITY CANNOT FIX "DEAD". Forty-five BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_13_THE_TIME_BETWEEN_FIGHTS_8_28_26.md
+
+His loudest playtest line was "THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING
+THE DEFAULT." Day 13 went at what fills the time between fights.
+
+THE SHELF IS BETTER BUILT THAN EXPECTED, WHICH MAKES THE NUMBER WORSE. The walked
+surface has a real roadside director: per-district tables, a repeat lockout of an
+hour of WALKING (~700 cells), NO GLOBAL SPAWNS EVER, pulled from the walked step
+"with the seconds that step cost, which is the same clock everything else in this
+game spends", and it refuses to announce an animal that is not actually drawn on
+the glass. Careful work.
+*** AND THE ROSTER IS TWELVE, OF WHICH THREE ARE AMBIENT (coyote shadow, ghost
+robotaxi, patrols collide), AGAINST `MIX = {ambient:0.70, interactive:0.20,
+forced:0.10}`. *** A measured run came out 40/42/18 instead of 70/20/10, and the
+lane's own comment says a district without a coyote "went silent for seven beats
+in ten". It refused to invent a thirteenth encounter because canon is his, WHICH
+WAS RIGHT -- and is a dead end if more canon is the only way out.
+
+THE WAY OUT COSTS HIM NOTHING. BB did not fix a thin event bench by writing more
+events; it gave events more to KEY OFF: "a lot of events will change depending on
+what backgrounds or traits your Battle Brothers have... BEYOND JUST THEIR
+DIFFERENT STATS." SO STOP COUNTING CONTENT AND COUNT COMBINATIONS. The twelve stay
+twelve, multiplied by the FORMER TRADE of whoever is nearby (day 8), the CIRCUIT
+OWNER of the block (day 6), the HOUR, and WHAT YOU ARE KNOWN FOR (day 1). A ghost
+robotaxi rolling past a man who used to park them for a living is a different
+moment. MECHANISM MINE, CONTENTS HIS, and a thirteenth encounter is his to name
+any time with nothing blocked on it.
+
+*** THE CHALLENGE, AND IT IS AIMED AT A LINE IN HIS OWN DISPATCH, SO READ IT
+CAREFULLY: item 5 says the default population goes up and THAT RULING STANDS. But
+density cannot be the ANSWER to "dead", because the PEAK-END RULE says people
+evaluate an experience on the most intense moment and the FINAL moment and neglect
+duration almost entirely -- ratings "correlate almost perfectly with the average of
+the peak moment and the final moment, and correlate NEAR-ZERO with total
+duration". DENSITY RAISES THE FLOOR AND MOVES THE PEAK BY NOTHING. A city feels
+alive because things HAPPEN in it, not because people are standing in it. ***
+
+AND THE SECOND HALF OF THAT IS FREE MONEY: THE END IS HALF THE MEMORY, and our day
+already ends on the reckoning card -- which day 7 measured as a receipt (steps,
+districts, buildings entered, the job, the pay). DAY 7 AND DAY 13 CONVERGE ON THE
+SAME CARD, and it is the cheapest surface in the game.
+
+Three rows: WORLD/PEOPLE BB-MORE-KEYS (depends on day 8's BB-WHAT-YOU-WERE, one
+thread), WORDS BB-THE-SMALL-MOMENT, RUN/UI BB-THE-END (merge with BB-WHAT-YOU-OWE,
+same card, same afternoon).
+
+COORDINATOR: 8/28 (o) -- *** DAY 12 OF THE BB
 STUDY: THE THING THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND SOLD AS A PERK.
 Forty-two BB- rows routed. Nothing to judge. ***
 

@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-TWELVE days, twelve records, driven by his own two-word trigger "bb study,
+THIRTEEN days, thirteen records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -15,7 +15,8 @@ roster, meaning who these people are and what they used to be. Day 9:
 progression, meaning what a hundred hours of getting better is made of.
 Day 10: gear and loot, which is day 9's other half. Day 11: escalation,
 meaning how a hundred hours gets worse without a difficulty number. Day 12:
-morale and the rout, meaning what makes a fight END. A PLAN IS NOT A LAW.
+morale and the rout, meaning what makes a fight END. Day 13: the time
+between fights, meaning why the city feels dead. A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -125,7 +126,20 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   EXPENSIVE**, and the real question in a fight is "they are running, do I
   chase?" -- pursuit is where the material is, and letting them go is the
   cleanest input the what-you-are-known-to-do axis will ever get.
-- **ROUTED:** forty-two rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **COUNT COMBINATIONS, NOT CONTENT (day 13).** The roadside director is
+  good work and its roster is TWELVE, only THREE of them ambient, against a
+  target mix of 70% ambient: **the design asks for 70% of its moments out
+  of 25% of its content**, and a district without a coyote went silent
+  seven beats in ten. BB did not fix that by writing more events, it gave
+  events more to KEY OFF (backgrounds and traits, "beyond just their
+  different stats"). So the twelve stay twelve and the former trade, the
+  circuit owner, the hour and what you are known for multiply them.
+  **AND DENSITY IS NOT THE ANSWER TO "DEAD"** -- his population ruling
+  stands, but the PEAK-END RULE says memory keeps the peak and the END and
+  neglects duration, so density raises the floor and never the peak. The
+  second half of that is free: the reckoning card is the last thing seen
+  every day and it currently reads as a receipt.
+- **ROUTED:** forty-five rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

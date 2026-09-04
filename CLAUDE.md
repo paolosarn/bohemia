@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: TWELVE DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: THIRTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -370,7 +370,29 @@ research partner. He DECIDES, you PRODUCE.
   pursuit is where the material is (loot is on bodies), and letting them go is the
   cleanest input the what-you-are-known-to-do axis will ever get, because the man
   who lives is the one who tells people.
-  ROUTED: forty-two rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 13 WENT AT HIS LOUDEST PLAYTEST COMPLAINT, "THE CITY SEEMS DEAD
+  ASF", AND FOUND THAT DENSITY CANNOT FIX IT. *** The roadside director is careful
+  work (per-district tables, an hour-of-walking repeat lockout, NO GLOBAL SPAWNS
+  EVER, and it will not announce an animal that is not drawn on the glass) and its
+  roster is TWELVE approved encounters of which only THREE ARE AMBIENT, against
+  `MIX = {ambient:0.70, interactive:0.20, forced:0.10}`. THE DESIGN ASKS FOR 70%
+  OF ITS MOMENTS OUT OF 25% OF ITS CONTENT: a measured run came out 40/42/18, and
+  a district without a coyote "went silent for seven beats in ten". The lane
+  refused to invent a thirteenth encounter because canon is his, which was RIGHT.
+  THE WAY OUT COSTS HIM NOTHING: BB did not fix a thin bench by writing more
+  events, IT GAVE EVENTS MORE TO KEY OFF ("a lot of events will change depending
+  on what backgrounds or traits your Battle Brothers have... beyond just their
+  different stats"). So STOP COUNTING CONTENT AND COUNT COMBINATIONS -- the twelve
+  stay twelve, multiplied by the former trade (day 8), the circuit owner (day 6),
+  the hour, and what you are known for (day 1). AND THE CHALLENGE, stated
+  carefully: his dispatch item 5 (the default population goes up) STANDS, but it
+  is not sufficient, because the PEAK-END RULE says people remember the most
+  intense moment and the FINAL moment and neglect duration almost entirely.
+  DENSITY RAISES THE FLOOR AND MOVES THE PEAK BY NOTHING. The second half is free
+  money: THE END IS HALF THE MEMORY, our day already ends on the reckoning card,
+  and that card currently reads as a receipt -- which is where day 7 and day 13
+  converge on one cheap surface.
+  ROUTED: forty-five rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

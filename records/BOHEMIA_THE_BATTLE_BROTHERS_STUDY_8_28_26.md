@@ -57,8 +57,8 @@ reference game he has not named. ***
 ## *** FIVE WERE PLANNED. HE KEPT SENDING THE TRIGGER ("YOU ARE NOT DONE
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
-## PROGRESSION (9), GEAR (10), ESCALATION (11) AND HOW A FIGHT ENDS (12).
-## A PLAN IS NOT A LAW. ***
+## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12) AND
+## THE TIME BETWEEN FIGHTS (13). A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -320,6 +320,35 @@ not be a forty-minute chess match. THE FIX IS A CONST. ***
 Also: a man who breaks is a DESPAWN (no pursuit, no body, no loot), and
 the PLAYER CANNOT LEAVE AT ALL -- the only abort is "the quest pulls you
 out". Three rows.**
+
+**DAY 13 — THE TIME BETWEEN FIGHTS. *** DONE: records/BOHEMIA_BB_STUDY_
+DAY_13_THE_TIME_BETWEEN_FIGHTS_8_28_26.md. It lands on his loudest
+playtest complaint: "THE CITY SEEMS DEAD ASF." ***
+MEASURED: the roadside director is careful work (a per-district table, an
+hour-of-walking repeat lockout, NO GLOBAL SPAWNS EVER, and it refuses to
+announce an animal that is not drawn on the glass) AND THE ROSTER IS
+TWELVE, of which only THREE ARE AMBIENT, against a target mix of
+`{ambient:0.70, interactive:0.20, forced:0.10}`. THE DESIGN ASKS FOR 70%
+OF ITS MOMENTS OUT OF 25% OF ITS CONTENT. A measured run came out 40/42/18,
+and the lane's own comment says a district without a coyote "went silent
+for seven beats in ten". It refused to invent a thirteenth encounter
+because canon is his, which was CORRECT and is also a dead end if more
+canon is the only way out.
+THE FINDING: BB did not fix a thin bench by writing more events, IT GAVE
+EVENTS MORE TO KEY OFF ("a lot of events will change depending on what
+backgrounds or traits your Battle Brothers have... beyond just their
+different stats"). So STOP COUNTING CONTENT AND COUNT COMBINATIONS: the
+twelve stay twelve, and what multiplies them is the former trade (day 8),
+the circuit owner (day 6), the hour, and what you are known for (day 1).
+Nothing is asked of him.
+AND THE CHALLENGE TO HIS OWN DISPATCH, carefully: item 5 says the default
+population goes up and THAT RULING STANDS. But density cannot be the
+answer to "dead", because the PEAK-END RULE says memory keeps the most
+intense moment and the FINAL moment and neglects duration entirely.
+Density raises the floor and moves the peak by nothing.
+SECOND HALF, FREE: the END is half the memory, and our day already ends on
+the reckoning card, which currently reads as a receipt. Day 7 and day 13
+converge on the same card. Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it
