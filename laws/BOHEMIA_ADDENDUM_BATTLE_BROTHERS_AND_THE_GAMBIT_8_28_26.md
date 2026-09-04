@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-FIFTEEN days, fifteen records, driven by his own two-word trigger "bb study,
+SIXTEEN days, sixteen records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -18,7 +18,8 @@ meaning how a hundred hours gets worse without a difficulty number. Day 12:
 morale and the rout, meaning what makes a fight END. Day 13: the time
 between fights, meaning why the city feels dead. Day 14: the first five
 minutes, and the one thing we must NOT copy. Day 15: fatigue, meaning what
-makes a single turn interesting. A PLAN IS NOT A LAW.
+makes a single turn interesting. Day 16: what it means that the player only
+lives once, which audits the study itself. A PLAN IS NOT A LAW.
 WHAT IT SETTLED, in one block, so nobody re-derives it:
 - **RENOWN GATES THE OFFER, NOT THE DIFFICULTY.** Reputation changes what
   work you are offered and what it pays, never how hard the world hits
@@ -168,7 +169,22 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   one. **Fewer pips is a budget, not damage**, so NO DAMAGE BEFORE THE
   DIAL is untouched, and it makes day 3's "the clock is our plinker"
   concrete: the thing that says HURRY UP is the sun.
-- **ROUTED:** fifty-two rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **THE PLAYER ONLY LIVES ONCE, SO THREE OF THESE MUST NOT BE BUILT (day
+  16).** BB is a REPLAY MACHINE -- eleven origins with rules that change
+  the whole campaign, a world generated fresh each time, a crisis you
+  choose, permadeath, wide stat ranges on cheap recruits. Ours is one
+  seed forever, no runs, one continuous life across three generations. So
+  DO NOT BUILD: variance-as-a-story-engine, a rolled or chosen crisis, or
+  origins. **AND THE OTHER HALF IS AN ADVANTAGE BB CANNOT HAVE:** in a
+  one-shot encounter the rational move is to defect and in a repeated one
+  cooperation wins, through **THE SHADOW OF THE FUTURE** — "if the players
+  expect to meet again, they are more likely to cooperate". Because we
+  never reset, **every relationship in Bohemia is a repeated game**, which
+  is the real payoff behind the reputation web, the known-for axis and the
+  man who lives to tell people. The warning is the inverse: **anything
+  that makes an encounter one-shot tells the player to defect**, and a man
+  who breaks is currently DELETED.
+- **ROUTED:** fifty-five rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

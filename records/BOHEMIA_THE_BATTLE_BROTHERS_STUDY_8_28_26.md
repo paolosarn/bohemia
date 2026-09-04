@@ -58,8 +58,9 @@ reference game he has not named. ***
 ## WITH STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR
 ## THIS PLAN HAD MISSED: THE GROUND (6), THE MOTOR (7), THE ROSTER (8),
 ## PROGRESSION (9), GEAR (10), ESCALATION (11), HOW A FIGHT ENDS (12), THE
-## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14) AND WHAT MAKES ONE
-## TURN INTERESTING (15). A PLAN IS NOT A LAW. ***
+## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
+## INTERESTING (15) AND WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16).
+## A PLAN IS NOT A LAW. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -404,6 +405,33 @@ loot, the player cannot leave). THIS IS THE FIRST INBOUND ONE. And it
 costs no damage number -- fewer pips is a BUDGET, not damage -- while
 making day 3's "the clock is our plinker" concrete: the thing that says
 HURRY UP is the sun. Four rows, three of which are one message.**
+
+**DAY 16 — THE PLAYER ONLY LIVES ONCE. *** DONE: records/BOHEMIA_BB_STUDY_
+DAY_16_THE_PLAYER_ONLY_LIVES_ONCE_8_28_26.md. THIS DAY AUDITS THE STUDY
+ITSELF, which is the coordinator's job and not a lane's. ***
+Fifteen days took mechanisms out of a game built to be PLAYED AGAIN and
+put them into a game played ONCE. BB is a REPLAY MACHINE: eleven ORIGINS
+with different starting characters, equipment, resources and special rules
+that "impact it from beginning to end"; a world generated fresh each
+campaign; a crisis you choose or randomise; permadeath with no reloading;
+and wide stat ranges on cheap recruits. EVERY ONE OF THOSE MAKES THE
+SECOND CAMPAIGN DIFFERENT FROM THE FIRST, AND WE DO NOT HAVE A SECOND
+CAMPAIGN. Measured: `const BOH_SEED_TEXT='bohemia'`, zero ways to change
+it, plus NO RUNS, death is a reload, and three generations that INHERIT.
+THE AUDIT: three things must NOT be built because they need a second
+playthrough -- wide stat variance as a story engine, a rolled or chosen
+crisis, and origins. Three items out of fifty-two rows; the study holds.
+*** AND THE OTHER HALF IS A STRUCTURAL ADVANTAGE NOBODY HAD NOTICED. In a
+ONE-SHOT encounter the rational move is to DEFECT; in a REPEATED one,
+cooperation wins -- Axelrod's tournament was won by the simplest entry,
+TIT FOR TAT, and the mechanism is THE SHADOW OF THE FUTURE: "if the
+players expect to meet again, they are more likely to cooperate."
+BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME,
+and BB structurally cannot have that because it throws the world away.
+THE WARNING IS THE INVERSE: anything that makes an encounter one-shot is
+telling the player to defect -- and day 12 already measured one, A MAN WHO
+BREAKS IS DELETED. We built the shadow of the future and then despawned
+it. *** Three rows.**
 
 ## 4. THE STANDING RULES FOR EVERY DAY OF THIS STUDY
 1. **CHECK THE SHELF FIRST** (§2). If it is already in the repo, cite it

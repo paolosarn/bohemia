@@ -703,7 +703,65 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (r) LATEST -- *** DAY 15 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (s) LATEST -- *** DAY 16 OF THE BB
+STUDY: THE PLAYER ONLY LIVES ONCE, SO THREE OF THIS STUDY'S OWN FINDINGS MUST NOT
+BE BUILT. Fifty-five BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_16_THE_PLAYER_ONLY_LIVES_ONCE_8_28_26.md
+
+Day 16 audits the study itself, which is this seat's job and not a lane's.
+FIFTEEN DAYS TOOK MECHANISMS OUT OF A GAME BUILT TO BE PLAYED AGAIN AND PUT THEM
+INTO A GAME PLAYED ONCE, and nobody had checked which ones need a second
+playthrough to pay off.
+
+BB IS A REPLAY MACHINE: ELEVEN ORIGINS, each with "different starting characters,
+equipment, resources, and special rules" that "impact it from beginning to end"; a
+world generated fresh each campaign; a crisis you choose or randomise; permadeath
+plus no reloading; and wide stat ranges on cheap recruits (the lucky farmhand).
+Every one of those is a machine for making the SECOND campaign different from the
+first.
+OURS: `const BOH_SEED_TEXT='bohemia'` with ZERO ways to change it (one valley
+forever, already routed as WORLD SEED-1/SEED-2), plus THERE ARE NO RUNS, death is
+a reload not a reset, and the dynasty INHERITS across three generations.
+
+*** DO NOT BUILD THESE THREE. Their payoff is a second playthrough:
+(1) WIDE STAT VARIANCE AS A STORY ENGINE -- "the beggar who became a legend" is
+    told across many rosters; roll once and it is a dice result. Day 8's real half
+    (a background is WHAT SOMEBODY STILL THINKS THEY ARE) is untouched.
+(2) A ROLLED OR CHOSEN CRISIS -- variety across campaigns is worth nothing when
+    there is one. Day 11's SHAPE survives (foretold, buildup, not optional,
+    escalation by coalition); the act turn is AUTHORED and it is his.
+(3) ORIGINS / STARTING SCENARIOS, entirely.
+THE STANDING QUESTION FOR ANY NEW BB- ROW: DOES THIS PAY OFF THE FIRST TIME? ***
+
+*** AND THE OTHER HALF IS A STRUCTURAL ADVANTAGE NOBODY HAD NOTICED WE HAVE. ***
+In a ONE-SHOT encounter the rational move is to DEFECT; in a REPEATED one,
+cooperation emerges and wins. Axelrod's tournament was won by the SIMPLEST entry,
+TIT FOR TAT -- open nice, then copy what the other side did last time, four lines
+of code -- and the mechanism is THE SHADOW OF THE FUTURE: "if the players expect
+to meet again, they are more likely to cooperate than when dealing with a 'one
+time only' counterpart."
+BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME. One
+valley forever, one continuous life, three generations inheriting standings,
+territory and unhealed wounds. THE SHADOW OF THE FUTURE IS NOT A METAPHOR HERE, IT
+IS THE ARCHITECTURE -- and BB structurally cannot have it, because it throws the
+world away. That is the real payoff behind day 1's reputation web, day 6's turf,
+and day 12's man-who-lives-is-the-one-who-tells-people.
+
+THE WARNING IS THE INVERSE, AND IT IS ALREADY MEASURED: ANYTHING THAT MAKES AN
+ENCOUNTER ONE-SHOT IS TELLING THE PLAYER TO DEFECT. Day 12 found that a man who
+breaks runs to distance 30 and IS DELETED -- the single person who would have
+carried your reputation out of that fight is removed from the world. WE BUILT THE
+SHADOW OF THE FUTURE AND THEN DESPAWNED IT. The same test applies to a district
+you clear and never revisit, a person who exists only inside one quest, and a
+faction whose memory resets at a day boundary.
+
+Three rows: SHARED BB-ONE-LIFE-AUDIT (ten minutes, bookkeeping, stops a lane
+building a replay feature by accident), PEOPLE BB-THE-SHADOW (cheapest first
+version: THE MAN YOU SPARED TURNS UP), RUN/COMBAT BB-NOBODY-DESPAWNS (rides with
+BB-THE-ROUT, same behaviour, same file).
+
+COORDINATOR: 8/28 (r) -- *** DAY 15 OF THE BB
 STUDY: THE DESERT IS THE SETTING OF THIS WHOLE GAME AND THE FIGHT TAKES PLACE IN A
 CLIMATE-CONTROLLED ROOM. Fifty-two BB- rows routed. Nothing to judge. ***
 

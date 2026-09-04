@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: FIFTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
+- *** THE BATTLE BROTHERS STUDY: SIXTEEN DAYS, WRITTEN AND ROUTED (8/28), AND HE
   MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -437,7 +437,32 @@ research partner. He DECIDES, you PRODUCE.
   3's "the clock is our plinker" concrete -- the thing that says HURRY UP is the
   sun. (Instrument note: `heat` appears 42 times in the decoded fight and every
   one is MUZZLE heat or a car cooking off. Not one is temperature.)
-  ROUTED: fifty-two rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 16 AUDITED THE STUDY ITSELF, WHICH IS THE COORDINATOR'S JOB AND NOT
+  A LANE'S: FIFTEEN DAYS TOOK MECHANISMS OUT OF A GAME BUILT TO BE PLAYED AGAIN
+  AND PUT THEM IN A GAME PLAYED ONCE. *** BB is a REPLAY MACHINE -- eleven ORIGINS
+  whose special rules "impact it from beginning to end", a world generated fresh
+  every campaign, a crisis you choose or randomise, permadeath with no reloading,
+  and wide stat ranges on cheap recruits. Ours is `const BOH_SEED_TEXT='bohemia'`
+  with ZERO ways to change it, plus NO RUNS, death is a reload, and three
+  generations that INHERIT. SO THREE THINGS MUST NOT BE BUILT because their payoff
+  is a second playthrough: variance-as-a-story-engine, a rolled or chosen crisis,
+  and origins. Three items out of fifty-five rows; the rest all land on one life.
+  THE STANDING QUESTION FOR ANY NEW BB- ROW: DOES THIS PAY OFF THE FIRST TIME?
+  *** AND THE OTHER HALF IS A STRUCTURAL ADVANTAGE NOBODY HAD NOTICED WE HAVE. ***
+  In a ONE-SHOT encounter the rational move is to DEFECT; in a REPEATED one,
+  cooperation emerges and wins -- Axelrod's tournament was won by the SIMPLEST
+  entry, TIT FOR TAT (open nice, copy what they did last), and the mechanism is
+  THE SHADOW OF THE FUTURE: "if the players expect to meet again, they are more
+  likely to cooperate than when dealing with a 'one time only' counterpart."
+  BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME -- one
+  valley forever, one continuous life, three generations inheriting standings,
+  territory and unhealed wounds. That is the real payoff behind day 1's reputation
+  web, day 6's turf and day 12's man-who-lives-tells-people, and BB structurally
+  CANNOT have it because it throws the world away. THE WARNING IS THE INVERSE:
+  ANYTHING THAT MAKES AN ENCOUNTER ONE-SHOT IS TELLING THE PLAYER TO DEFECT, and
+  we already measured one -- a man who breaks runs to distance 30 and is DELETED.
+  WE BUILT THE SHADOW OF THE FUTURE AND THEN DESPAWNED IT.
+  ROUTED: fifty-five rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study) and the rest queue BEHIND THE DEMO,

@@ -5350,6 +5350,22 @@ BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
    the sight of you) instead of being the thing that makes breaking exist.
    Read: records/BOHEMIA_BB_STUDY_DAY_12_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_8_28_26.md
 
+BB-NOBODY-DESPAWNS. *** DAY 16. WE BUILT THE SHADOW OF THE FUTURE AND THEN
+   DESPAWNED IT. RIDES WITH BB-THE-ROUT -- SAME BEHAVIOUR, SAME FILE. ***
+   Measured on day 12: a man who breaks runs one tile a turn straight out to a
+   distance of 30 and is deleted. THE SINGLE PERSON WHO WOULD HAVE CARRIED YOUR
+   REPUTATION OUT OF THAT FIGHT -- the one who tells people what you did -- is
+   removed from the world.
+   IN A GAME THAT NEVER RESETS, A DESPAWN IS NOT A CLEANUP. IT IS THROWING AWAY
+   THE ONLY WITNESS, and it quietly converts a repeated game into a one-shot one,
+   which is the thing that tells a player to defect.
+   THE ROW: a man who leaves an encounter goes back INTO the world carrying what
+   happened, and is somewhere later. THE SAME TEST APPLIES EVERYWHERE: a district
+   you clear and never revisit, a person who exists only inside one quest, a
+   faction whose memory resets at a day boundary (found on day 7 and already fixed
+   once by PEOPLE). Anything that makes an encounter one-shot is telling the
+   player to defect.
+
 BB-THE-ROUT. *** DAY 12. THE MOST DECISIVE MOMENT IN A REAL BATTLE IS CURRENTLY
    A DESPAWN. ***
    MEASURED: a fleeing man runs one tile a turn straight away, out to a distance
@@ -5812,6 +5828,28 @@ BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    "did my bar go up" but "who will vouch for me now."
    MUST GO THROUGH THE WRAPPED WRITER. Canon constraints untouched. Adding a node
    must not let this lane invent a standing he never ruled.
+
+BB-THE-SHADOW. *** DAY 16, AND IT IS A STRUCTURAL ADVANTAGE WE HAVE NOT NOTICED
+   WE HAVE. ***
+   THE HARD RESULT: in a ONE-SHOT encounter the rational move is to defect; in a
+   REPEATED one, cooperation emerges and wins. Axelrod's tournament was won by the
+   SIMPLEST entry, TIT FOR TAT -- open nice, then copy what the other side did last
+   time, four lines of code. The mechanism has a name, THE SHADOW OF THE FUTURE:
+   "if the players expect to meet again, they are more likely to cooperate than
+   when dealing with a 'one time only' counterpart."
+   *** BECAUSE WE NEVER RESET, EVERY RELATIONSHIP IN BOHEMIA IS A REPEATED GAME.
+   One valley forever, one continuous life, three generations that inherit
+   standings, territory and unhealed wounds. THE SHADOW OF THE FUTURE IS NOT A
+   METAPHOR HERE, IT IS THE ARCHITECTURE -- and the game he named structurally
+   cannot have it, because it throws the world away. ***
+   That is also why day 1 (the reputation web), day 6 (turf) and day 12 (the man
+   who lives is the one who tells people) all landed on the same thing without
+   knowing it. Those are the PAYOFF OF NOT RESETTING.
+   THE ROW: make the future visible. A faction responds in the winning shape --
+   open nice, copy what you did last time, forgive when you cooperate again -- and
+   the player must be able to SEE that this is somebody they will meet again.
+   CHEAPEST FIRST VERSION: THE MAN YOU SPARED TURNS UP. Pairs with BB-KNOWN-FOR
+   and with COMBAT BB-THE-ROUT, and it is the reason both of those matter.
 
 BB-KNOWN-FOR. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    TWO AXES, NOT ONE. Who TRUSTS you is separate from what you are KNOWN TO DO.
@@ -9234,6 +9272,27 @@ BB-KEYS-LAND. *** DAY 9. THE BOSS VERBS ARE BROADCAST INTO AN EMPTY ROOM. ***
    UNTIL THIS LANDS, A BOSS'S GRANT DOES NOT EXIST OUTSIDE THE FIGHT, and A BOSS
    HANDS YOU A VERB (8/27) is only true inside the arena. Seventh instance of this
    study's shape and the smallest one yet.
+
+BB-ONE-LIFE-AUDIT. *** DAY 16. THE STUDY AUDITS ITSELF: THREE THINGS IT SURFACED
+   ONLY PAY OFF IF YOU START THE GAME OVER, AND WE NEVER DO. DO NOT BUILD THEM. ***
+   Fifteen days took mechanisms out of a game built to be PLAYED AGAIN and put them
+   into a game played ONCE. Measured: `const BOH_SEED_TEXT='bohemia'` and ZERO ways
+   to change it -- ONE VALLEY FOREVER (already routed as WORLD SEED-1/SEED-2; this
+   row is not re-routing it). Plus THERE ARE NO RUNS, death is a reload not a
+   reset, and the dynasty INHERITS across three generations.
+   DO NOT BUILD, because the payoff is a second playthrough:
+   (1) WIDE STAT VARIANCE AS A STORY ENGINE. "The beggar who became a legend" is a
+       story told across many rosters; roll once and it is a dice result. KEEP day
+       8's background as WHAT SOMEBODY STILL THINKS THEY ARE; drop the
+       variance-as-story justification.
+   (2) A ROLLED OR CHOSEN CRISIS. Variety across campaigns is worth nothing when
+       there is one campaign. What survives from day 11 is the SHAPE -- foretold,
+       a readable buildup, not optional, escalation by coalition. The act turn is
+       AUTHORED, and it is his.
+   (3) ORIGINS / STARTING SCENARIOS, entirely. Eleven different openings is a pure
+       replay feature; our opening is a fixed authored scene he already ruled.
+   THE STANDING QUESTION FOR ANY NEW BB- ROW: DOES THIS PAY OFF THE FIRST TIME?
+   Read: records/BOHEMIA_BB_STUDY_DAY_16_THE_PLAYER_ONLY_LIVES_ONCE_8_28_26.md
 
 BB-ALPHA-DECODE. *** A PLAIN SEARCH OF THE ALPHA CANNOT SEE THE FIGHT. Write
    this into whatever audits or documents the build, because it has now nearly
