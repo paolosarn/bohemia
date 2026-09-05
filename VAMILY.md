@@ -259,7 +259,7 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 ## UI  (11.)
 MODE: BUILD
 STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen, any onboarding, the city-screen feed. Unverified: the round-7 look, which is his to thumb.
-- CLAIMED 9/5 ui-kmqmrf  [danger visible]  YOU-CAN-SEE-IT-COMING -- THE MANAGER'S OWN CALL (9/5): a fight that arrives with no warning on a phone is a rage quit. Before you walk into a dangerous block you can SEE it: colour is already territory, so the tell rides the colour (the block reads hot, the people read wrong, one glance is enough). No numbers, no meter, no text box. Pairs with FACTIONS [crossing costs].
+- SHIPPED 9/5 86da925d  [danger visible]  YOU-CAN-SEE-IT-COMING -- THE MANAGER'S OWN CALL (9/5): a fight that arrives with no warning on a phone is a rage quit. Before you walk into a dangerous block you can SEE it: colour is already territory, so the tell rides the colour (the block reads hot, the people read wrong, one glance is enough). No numbers, no meter, no text box. Pairs with FACTIONS [crossing costs].
 - SHIPPED 9/5 1d5137d3  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
 - OPEN  [one number]  BB-ONE-NUMBER
 - OPEN  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
