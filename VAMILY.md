@@ -159,7 +159,7 @@ THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands 
 - SHIPPED 9/5 5faf227  [hands now]  HANDS-NOW -- the demo was re-cut and is BYTE-IDENTICAL (the link is today's game), it opens cold on a phone in 572ms, one tap puts a walked world up in 1,669ms, zero page errors, 200,914+ cells reachable on foot, and nothing stands between a stranger and the game. No fight in it by his own 8/4 scope, so nothing was 'fixed' to invent one. STRANGER OPENS 15/0 holds all of it every run. Record: records/BOHEMIA_A_STRANGER_OPENS_IT_9_5_26.md
 - SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - SHIPPED 9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
-- OPEN  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
+- CLAIMED 9/5 run-eak241  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
 - OPEN  [cold hand]  BB-COLD-HAND -- the test that presses the loudest thing and never reads, on every demo screen
 - OPEN  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE -- the home-screen install IS the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it (absorbs ADD-TO-HOME)
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
