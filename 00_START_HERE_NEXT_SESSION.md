@@ -1,3 +1,65 @@
+EYES AND EARS (eyes-5vql33): 9/5 (c) LATEST -- *** E4 [audio tells] SHIPPED. THE LANE HAS
+EARS NOW: all 65 approved events and all 185 approved picks rendered through the real
+factory and measured. Nothing clips, nothing is over -1 dBTP, nothing has a phase problem
+-- and the quietest approved sound is 48 dB under the loudest. ***
+MODE: RESEARCH plus this lane's own instruments. TAB: NOT IN A TAB YET (research). No game
+code touched, no sound edited, no verdict of his re-opened.
+
+THE GOOD NEWS IS REAL AND IT IS THE FACTORY'S: zero clipped samples in 185 renders, hottest
+true peak -4.44 dBTP against a -1 limit, lowest stereo correlation +0.28 so nothing hollows
+out when a phone sums it to mono, DC offset effectively zero everywhere.
+
+THE WEAK LIST, ALL MEASURED, NONE OF IT TASTE:
+ * 22 events lose MORE THAN HALF THEIR ENERGY BELOW 500 Hz, which a phone speaker cannot
+   reproduce (heartbeat 92%, air_night 88%, power_on 83%). On his phone half those sounds
+   are simply not there.
+ * 32 of 65 events are DEAD CENTRE (correlation > 0.995, footsteps excluded because the
+   factory says they stay dry and close on purpose) -- on a factory whose own header says
+   FFX moved its effects off mono and that this one builds space as SOURCES.
+ * 12 events are A SPIKE WITH NOTHING BEHIND IT (crest over 20 dB) and 5 are SQUASHED
+   (under 6 dB). 7 are shorter than 50 ms: a click, with no room for transient, body, tail.
+ * 4 are INAUDIBLE ON A PHONE: lungs_burn -59.7 dBFS RMS, sign_alive -55.3, come_up -49.6,
+   boots_go -47.8.
+ * THE PATTERN UNDERNEATH: the flags land overwhelmingly on the `_more` SIBLING sounds --
+   nine of the twelve spikes, most of the dead-centre set, three of the four inaudible ones.
+   The parent sounds measure well; the variants cooked to stand beside them are quieter,
+   thinner, more centred and spikier than what they were cooked for.
+
+AND ONE NOBODY EXPECTED: 128 OF THE 185 APPROVED SOUNDS ARE SHORTER THAN 400 ms, which is
+one loudness block, so the broadcast instrument cannot measure most of our library at all.
+That is why the industry measures a game's MIX in LUFS and its assets in peak and RMS. Any
+future claim that "our sounds sit at -18 LUFS" is measuring something that does not exist.
+The standard we are judged against on a phone is ASWG-R001: -18 LUFS integrated for
+PORTABLE titles, -1 dBTP ceiling, loudness range under 20 LU. Our approved set spans 48 dB
+of RMS on its own.
+
+THE THING I DID NOT REPORT, AND WHY. The obvious next question is which of the 65 he ever
+hears in play. It CANNOT be answered by reading code: the footstep caller builds its name
+by concatenation ('step_' + surface) and three call sites pass a variable, so one grep said
+50 events are never called, a better grep said 56, AND BOTH ARE WRONG. So a live probe was
+built that wraps BOH_SFX.render itself -- the hook no caller can route around -- walks the
+city and counts. Its first run: 80 step messages posted by the city, the picture moved
+34.3%, ZERO sounds rendered. That looks like a headline. IT IS NOT ONE, because the same
+run reported the parent's music engine had no AudioContext, and a clean run proves the
+context is running immediately after the splash tap. A zero measured while the audio engine
+was down is a fact about my harness. E3 taught this lane that lesson at its own expense
+five hours ago. The probe ships, the finding waits for a harness that can prove audio was
+alive for the whole walk.
+
+STILL CANNOT: hear a MIX (this measures assets, not the game playing them together), judge
+whether a sound is right for its moment, or see a canvas defect. Next: finish the live
+probe so E5 [missing sound] has a measurement instead of a guess, then E2 [glitch list].
+
+FOR THE COORDINATOR: the STATE line of this lane's VAMILY section still says "nothing
+exists. No screenshot pass, no golden images, no audio measurement, no glitch checklist."
+Three of those four now exist. Lanes may only change the status word, so it is left alone
+and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E4_THE_EARS_9_5_26.md, BOHEMIA_EYES_EARS_MEASURED_9_5_26.json
+(185 rows), BOHEMIA_EYES_EARS_WEAK_LIST_9_5_26.json. Instruments: tools/bohemia_eyes_ears.js,
+tools/bohemia_eyes_ears_live.js. E0 and E3 above still stand: gates/eyes_gate.js is in the
+suite, 49s, green, and it tests itself every run.
+
 LIFE + CITY (city-1eztay): 9/5 (d) LATEST -- *** [century memory] CENTURY-RECORD:
 SHIPPED. THE CITY REMEMBERS WHAT YOUR FAMILY DID, PER GENERATION, AND A LATER
 GENERATION CANNOT ERASE IT. *** MODE: BUILD. TAB: CITY (the line is on the end-of-day
@@ -953,88 +1015,6 @@ WHAT IS PENDING HIM: nothing new. Moving a seat is his, as the row says.
 AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
-
-EYES AND EARS (eyes-5vql33): 9/5 (b) LATEST -- *** E3 [screenshot diffs] SHIPPED, AND E0'S
-LOUDEST FINDING IS WITHDRAWN BY THE INSTRUMENT E3 BUILT. The game now has a machine that
-looks at the player's screen on every ship, and the first thing it caught was me. ***
-MODE: RESEARCH plus this lane's own instruments. TAB: NOT IN A TAB YET for the research;
-the round-one pictures are their own page in the slices (EYES AND EARS ROUND 1). No game
-code was touched and no approved pixel moved.
-
-*** THE WITHDRAWAL, FIRST, BECAUSE A CHECKER THAT CRIES WOLF IS WORSE THAN NO CHECKER ***
-E0 said: "THE DEMO'S CONTROLS RUN OFF THE BOTTOM OF AN IPHONE -- SLEEP and the bottom arrow
-of the ring are cut by the edge of the glass." IT IS FALSE. Measured in the phone's own
-coordinates: the demo's game frame is top 0 height 844 and SLEEP's box is 788-832, TWELVE
-PIXELS CLEAR; the workshop's frame is top 42 height 802 and the same chip lands at 801-832,
-also clear. Brightening the same screenshot 3x shows the chip's cut corner fully drawn above
-a black band. Dark chips on a dark ground above a black letterbox, read at page scale,
-called clipped without measuring. It is withdrawn AT THE TOP of the page he opens, not
-buried, and the sixth finding is now the map pasting one block eight times down a column.
-
-WHAT E3 ASKED FOR AND WHY THE ANSWER CONTRADICTS IT. E3 wanted golden images diffed on
-every ship. MEASURED FIRST: the same screenshot pass run TWICE, same build, nothing changed,
-disagrees on 12 OF 27 SCREENS -- the character bench by 5.95% with whole 64px blocks 100%
-different, because it shuffles a citizen, a fit and a facing on every load; ANIMATION 1.67%,
-the demo 1.09-2.21%, the front door 0.06%. Fifteen screens are byte-identical; twelve are
-not. A pixel diff wired to a red light would flag half the game on a build nobody touched,
-every run, which is precisely how teams lose visual testing (the documented cause is
-false-positive fatigue: "the tests scream that a page is broken, but to the human eye
-nothing has changed... within weeks the team mutes the alerts"). And we have NO approvals
-queue to absorb it, because EVERYTHING IS A THUMB killed it on purpose.
-
-SO THE RED LIGHT WENT TO THE QUESTIONS WITH NO BASELINE AND NO NOISE FLOOR.
-gates/eyes_gate.js, registered in the suite, 49 seconds, green, proven to bite:
- 1 the front door opens onto a LIVE CANVAS (a black rectangle is the classic false success)
- 2 nothing hangs below or right of the phone's edge IN THE PHONE'S COORDINATES
- 3 no text is wider than the box it is printed in
- 4 nothing threw, on either surface
- 5 AND THE CHECKER STILL BITES: every run it probes a copy of the demo with one control
-   parked 80px below the phone, and a green that misses it FAILS THE GATE.
-Check 5 exists because this lane shipped a blind probe TWICE in one afternoon: the first
-version asked only the main document and reported a spotless demo -- THE GAME IS A CANVAS
-INSIDE AN IFRAME, its chips are DOM in that frame, and a frame 802 tall inside an 844 phone
-has its own idea of where the bottom is. Frames must be walked and the frame's offset added.
-
-AND IT ALREADY CAUGHT TWO REAL ONES, with no baseline and no human: the CHARACTER bench's
-SHOULDERS label is cut by 14px, and the MAP caption is cut by 484px inside the game frame.
-Both are UI's. Both were also on my eye-list from round one, which is the point: the machine
-agrees with the true findings and disagrees with the false one.
-
-BOTH AISLES, NAMED SO THE NEXT CHAT CAN CHECK THEM. Unity's graphics test framework compares
-with THREE thresholds (per-pixel deltaE, incorrect-pixel ratio, average correctness); Unreal
-carries a GLOBAL and a LOCAL error ("chunks... to locate hot spots that would be ignored by
-the global error") and disables its own noisy rendering features BEFORE comparing; NVIDIA's
-FLIP is the perceptual metric graphics people use when a number must mean "a person would
-notice". On the web, Playwright ships pixelmatch in YIQ at threshold 0.2 with animations
-disabled by default. WHAT WE TOOK: two numbers not one (the diff tool now reports the worst
-64px block beside the global share), kill the noise before comparing rather than tuning a
-threshold to tolerate it, and never confuse "different" with "worse".
-
-THE PASS, AS BUILT: RED every ship = the five checks above. REPORT every round = 27 screens,
-diffed against the last round, each screen judged against ITS OWN measured floor
-(records/BOHEMIA_EYES_NOISE_FLOOR_9_5_26.json). HUMAN = does this art belong to this world,
-and the machine's only job is to put the right picture in front of him. Ten checks split
-RED/REPORT/HUMAN are in banks/eyes/BOHEMIA_EYES_CHECKS_9_5_26.json, every line draft:true,
-none of it wired into the game. NO GOLDEN STORE ON PURPOSE: a baseline nobody may approve
-rots, the last round's pictures are the baseline, and if one is ever wanted it goes in
-records/ (not published) so it cannot eat the site's 235 MB of its 260 MB cap.
-
-STILL CANNOT: hear anything (E4 buys the ears); see a canvas defect -- a sprite clipping a
-wall, a seam between tiles, a popping frame are invisible to a DOM probe and a pixel diff
-can only say something moved (that is E2, then E1); or judge whether anything is good.
-
-NOTHING IS PENDING HIM IN THIS LANE. The FF question came back locked ("Ff12 is combat
-only") and is written up as a law: a reference game belongs to ONE department -- FF12 combat
-gambits, ROGUE FABLE 4 combat on the beat, BATTLE BROTHERS the campaign, FF10 the INTERFACE
-(so the UI tab was legal all along), Las Vegas the city.
-
-NEXT IN THIS LANE: E4 [audio tells] -- render all 65 approved sounds and measure them, which
-is the round that buys the ears. Then E2 [glitch list], which is what turns a moved pixel
-into a named fault.
-Records: records/BOHEMIA_EYES_E3_HOW_TO_CATCH_A_VISUAL_REGRESSION_9_5_26.md,
-records/BOHEMIA_EYES_ROUND_1_WHAT_THE_MACHINE_SAW_9_5_26.md (corrected),
-records/BOHEMIA_EYES_NOISE_FLOOR_9_5_26.json. Gate: gates/eyes_gate.js. Instruments:
-tools/bohemia_eyes_probe.js, bohemia_eyes_shots.js, bohemia_eyes_diff.py, bohemia_eyes_sheet.py.
 
 SOUND (sound-xk7pjp): 9/5 (c) LATEST -- *** THE STRIP SOUNDS BUSY AND THE DESERT
 SOUNDS EMPTY, AND NOT ONE NEW SOUND WAS COOKED TO DO IT.
