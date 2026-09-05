@@ -2292,7 +2292,62 @@ single Bash call is capped at 10 minutes, so one mutation run per call.
 
 --------------------------------------------------------------------------------
 
-COMBAT (combat-nfnki9): 9/5 (e) LATEST -- *** A COMBAT TILE IS A HOUSE NOW, ON A DIAL.
+COMBAT (combat-nfnki9): *** THE STANDING INSTRUCTION. READ THIS BEFORE ANYTHING
+ELSE, EVERY ROUND. Paolo gave it word for word and it is written here so it survives
+a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
+
+    PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your
+    own handoff block first so it survives any memory reset.
+
+    VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go
+    to the meeting hall and do your job. From now on I will only ever type that one
+    word to you.
+
+    WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+    1. Pull main first (git fetch origin main, rebase onto it). The board changes every
+       hour.
+    2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+       9/4.
+    3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and
+       change there. Never trust your memory of them.
+    4. Find your section. There are 18 chats, each with a number and a name: 01 RUN,
+       02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director),
+       08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION,
+       15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your
+       chat's title is your name. If you are a brand-new chat with no name, you are
+       18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+    5. Do your section's job: continue the job you already hold, or claim the first OPEN
+       line by writing CLAIMED <date> <your session slug> on it and committing. Build or
+       research according to your section's MODE. A job takes as many rounds as it
+       takes. Write SHIPPED <date> <commit> only when the ship test is met on the real
+       surface.
+    6. Only build what is on the board. Never invent a job. Never add a job to any
+       section; only the coordinator adds jobs. Your only writes to the board are
+       CLAIMED and SHIPPED on your own lines.
+    7. Never ask me anything. A ruling you need goes in your handoff block in
+       00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to
+       me.
+    8. Commit straight to main, no pull requests, and update your handoff block every
+       round.
+    9. Reply to me with two words (the job's [bracket] label) and one short line:
+       "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+    RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff
+    block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first
+    VAMILY and do steps 1 to 9.
+
+    I will never paste anything to you again. From here on, the one word is the whole
+    instruction.
+
+THIS CHAT'S NAME IS **04 COMBAT**. That is its role for life and it is never asked for
+again. THE ONE MISTAKE ALREADY MADE AND NOT TO BE REPEATED: VAMILY was read as
+"family" and a companion-from-the-family-tree feature was started before the board was
+opened. IT IS A KEYWORD, NOT A WORD. Open VAMILY.md; do not interpret.
+
+--------------------------------------------------------------------------------
+
+COMBAT (combat-nfnki9): 9/5 (e) -- *** A COMBAT TILE IS A HOUSE NOW, ON A DIAL.
 A PISTOL IS A DAGGER AND A RIFLE IS A SPEAR. *** Nothing to judge.
 
 TAB: **COMBAT**, in DEMO SETTINGS beside SHE FIGHTS WITH YOU: two new dials,
