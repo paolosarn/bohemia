@@ -103,14 +103,16 @@ const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
    own canon names, and NOTHING ABOUT BELONGING HAD CHANGED.
 
    Eight is the smallest dial at which all fourteen outfits are present, which is
-   the property this gate actually needs. It is still pinned, still far below the
+   the property this gate actually needs -- and the smallest is the point: at
+   sixteen the roster is 4486 and every scan in this file walks it, which took
+   the whole run past its ten-minute budget. It is still pinned, still far below the
    shipped density, and the stability that dial 1 was really protecting -- "the
    FIRST affiliated person in the valley" being the same person every run -- is
    now supplied properly by __pickAffiliated below, which chooses deliberately
    instead of taking whoever comes first.
    ========================================================================== */
 const SPARSE = `(function(){
-  try { BohemiaPopulation.setDial(16); } catch (e) {}
+  try { BohemiaPopulation.setDial(8); } catch (e) {}
   try { PPL_PEOPLE.clear(); } catch (e) {}
 })()`;
 
@@ -154,15 +156,32 @@ const STAND_BESIDE = `window.__standBeside = function (who) {
    This prefers somebody with nobody else within two cells, and falls back to
    first-found so an empty answer still means "the valley has nobody", which is a
    real finding rather than a skipped test. */
-window.__pickAffiliated = function () {
+window.__pickAffiliated = function (wantFid) {
+  /* AN OPTIONAL PREDICATE ON THE OUTFIT, because several walks are ABOUT a
+     property only some outfits have. B10 is "the outfit GIVES as well as takes,
+     and taking it puts you in their debt" -- that is his they-give-first
+     shape (Cartel, Church, Network), and the step's own comment says so: "for a
+     debt outfit this is the same button that did the climbing, which is his own
+     Cartel canon". Drawing a you-give-first outfit and reporting that nothing
+     was owed measures the draw, not the game. Selecting for the property under
+     test is the same thing the Homeless and Colorful walks already do. */
   var bases = ctBases() || {}, fb = null, fbF = null;
+  var ok = (typeof wantFid === 'function') ? wantFid : function () { return true; };
+  var tries = 0;
   for (var k in bases) {
     var b = bases[k];
     hx = b.x * FN + 2; hy = b.y * FN + 2;
+    tries = 0;
     var all = ctEveryone();
     for (var i = 0; i < all.length; i++) {
       var f = ctFactionOf(all[i]); if (!f) continue;
       if (!fb) { fb = all[i]; fbF = f; }
+      if (!ok(f)) continue;
+      /* BOUNDED, because verifying is not free: __standBeside asks ctAdjacent up
+         to eight times and ctAdjacent walks everybody, so verifying every
+         candidate at every base is cubic and timed this gate out at ten minutes.
+         Forty per base finds somebody standable and stays inside the budget. */
+      if (++tries > 40) break;
       /* AND IT PROVES IT CAN STAND THERE BEFORE HANDING THE SUBJECT OVER.
          (9/5, second pass.) This used to accept anybody with nobody within two
          cells, which is a MODEL of what ctAdjacent does rather than a question
@@ -175,6 +194,25 @@ window.__pickAffiliated = function () {
     }
   }
   return fb ? { who: fb, fid: fbF } : null;
+};
+/* AND A MEMBER OF A NAMED OUTFIT THAT CAN ACTUALLY BE READ. (9/5.) Three scans
+   took R.filter(...)[0] -- the first member of that outfit in the roster -- and
+   reported the whole outfit unreachable if that one person happened to be hemmed
+   in by neighbours. R1 said so in its own output: "CHURCH(cannot stand beside),
+   HOMELESS(cannot stand beside)". One person you cannot get alone is not an
+   outfit that fails to pay what it declares, and a scan that cannot tell those
+   apart is measuring the crowd. */
+window.__standableOf = function (R, norm) {
+  var pool = R.filter(function (a) { return String(a.faction || '').toUpperCase() === norm; });
+  for (var i = 0; i < pool.length; i++) {
+    var row = pool[i];
+    var q = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
+    hx = (+q[0]) * span + 4; hy = (+q[1]) * span + 4; CT_SPAWN = null; ctSpawn();
+    var rec = ctEveryone().filter(function (x) { return x.id === row.__id; })[0];
+    if (!rec) continue;
+    if (__standBeside(rec)) return { rec: rec, tried: i + 1, pool: pool.length };
+  }
+  return { rec: null, tried: pool.length, pool: pool.length };
 };`;
 
 function ok(claim, cond, detail) {
@@ -218,27 +256,20 @@ function requirePlaywright() {
          the ground each faction's canon names put the first base in a busy one
          and twenty-nine claims went red about a stack that works.
          SO THE SUBJECT IS CHOSEN FOR ISOLATION, not for being first. */
-      const bases = ctBases() || {};
-      let who = null, fid = null, fallback = null, fbFid = null;
-      for (const b of Object.values(bases)) {
-        hx = b.x * FN + 2; hy = b.y * FN + 2;
-        const all = ctEveryone();
-        for (const p of all) {
-          const f = ctFactionOf(p); if (!f) continue;
-          if (!fallback) { fallback = p; fbFid = f; }
-          const a = ctAt(p);
-          let crowd = 0;
-          for (const q of all) {
-            if (q === p) continue;
-            const c = ctAt(q);
-            if (Math.abs(c[0] - a[0]) + Math.abs(c[1] - a[1]) <= 2) crowd++;
-          }
-          if (crowd === 0) { who = p; fid = f; break; }
-        }
-        if (who) break;
-      }
-      if (!who) { who = fallback; fid = fbFid; }   /* nobody alone: say so by trying anyway */
-      if (!who) return { nobody: true };
+      /* AND FROM A DEBT OUTFIT IF THE VALLEY HAS ONE. This walk ends on B10,
+         "the outfit GIVES as well as takes, and taking it puts you in their
+         debt", and that is his `they-give-first` shape -- Cartel, Church,
+         Network -- which the step's own comment already names as Cartel canon.
+         On a you-give-first outfit there is no favour to take and B10 reports
+         nothing owed, which measures the draw rather than the game. Falls back
+         to any affiliated person, so a valley with no debt outfit still runs. */
+      const DEBT = (f) => {
+        try { const r = BohemiaBelonging.RULES[String(f).toUpperCase()];
+              return !!r && r.firstMove === 'they-give-first'; } catch (_e) { return false; }
+      };
+      const pick = __pickAffiliated(DEBT) || __pickAffiliated();
+      if (!pick) return { nobody: true };
+      const who = pick.who, fid = pick.fid;
 
       __standBeside(who);
       const sv = ctBelongSave();
@@ -1952,19 +1983,10 @@ function requirePlaywright() {
             if (!rule || !rule.pays) continue;
             out.declared.push(k);
             const norm = String(k).toUpperCase();
-            const row = R.filter(a => String(a.faction || '').toUpperCase() === norm)[0];
-            if (!row) { out.noMembers.push(k); continue; }
-            const q = String(row.__id).split(':'), span = BohemiaPopulation.NB * FN;
-            hx = (+q[0]) * span + 4; hy = (+q[1]) * span + 4; CT_SPAWN = null; ctSpawn();
-            const rec = ctEveryone().filter(x => x.id === row.__id)[0];
-            if (!rec) { out.missing.push(k + '(not drawable)'); continue; }
-            const at = ctAt(rec);
-            let stood = false;
-            for (const d of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
-              hx = at[0] + d[0]; hy = at[1] + d[1];
-              const a = ctAdjacent(); if (a && a.id === rec.id) { stood = true; break; }
-            }
-            if (!stood) { out.missing.push(k + '(cannot stand beside)'); continue; }
+            const got = __standableOf(R, norm);
+            if (!got.pool) { out.noMembers.push(k); continue; }
+            if (!got.rec) { out.missing.push(k + '(none of ' + got.pool + ' could be read alone)'); continue; }
+            const rec = got.rec;
             const fid = ctFactionOf(rec), sv = ctBelongSave();
             let hit = null;
             for (const gave of [3, 6, 9, 12]) {
