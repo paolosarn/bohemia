@@ -184,14 +184,14 @@ MODE: BUILD
 - OPEN  BB-FORETOLD
 - OPEN  ROUND-7-LOOK -- needs Paolo
 
-## DIRECTION  (first word "direction"; the look half of the UI chat, its own word as of 9/4)
+## DIRECTION  (HIS EXISTING ART DIRECTION CHAT. Decides the look, judges every cook. Does not cook.)
 MODE: BUILD
 - OPEN  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 - OPEN  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
 
-## ART  (never idles; the last line is permanent)
+## COOK  (NEW 9/4: the art cook-up chat. Cooks garments, hair, districts, tiles, props, combat ground. Never idles; the last line is permanent.)
 MODE: BUILD
 STANDING DUTY (9/4 law): EVERY COOK CARRIES A REFERENCE CHECK. Compare it side by side to real work of its kind online before calling it done; document what it was compared to, which structural rules were taken, what changed. Structure from reference, style from us. No shots in the dark.
 - OPEN  WARDROBE-REMAKE -- every garment to the card, NEW SHAPES ONLY (structure law), graveyard stays dead, 10% coat cap stands, colour stays territory; batches through the existing kill/approve pipeline

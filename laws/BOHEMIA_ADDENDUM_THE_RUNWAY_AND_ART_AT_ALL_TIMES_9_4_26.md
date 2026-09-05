@@ -87,3 +87,12 @@ keeps improving it without being asked.
   cook; DIRECTION's card gets a gate of its own (style_card_gate) that
   fails a cook outside the card's palette and value bands, the same shape
   as target_match_gate.
+
+## CORRECTED THE SAME DAY (Paolo 9/4): DIRECTION ALREADY EXISTS. THE NEW CHAT IS COOK.
+"We already have an art direction chat. We need an art cook-up chat." The
+coordinator wrote DIRECTION as a new lane; wrong. His art direction chat
+exists and keeps the DIRECTION lane; no fresh chat claims it. The NEW lane
+is **COOK**: the always-cooking art chat, which takes over the old ART
+(tiles) lane's queue as well, so there is ONE cooking chat for garments,
+hair, districts, tiles, props and the combat ground. DIRECTION rules and
+judges; COOK cooks. Nothing else in this law changes.

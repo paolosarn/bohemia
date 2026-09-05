@@ -703,7 +703,15 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ap) LATEST -- *** CORRECTED: HE TYPES
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aq) LATEST -- *** CORRECTED: DIRECTION
+ALREADY EXISTS (his art direction chat). THE NEW CHAT IS COOK, and it absorbs the
+old ART tiles lane. Nothing to judge. ***
+Paolo 9/4: "We already have an art direction chat. We need an art cook-up chat." In
+VAMILY's THE LANES: DIRECTION is marked EXISTING (no fresh chat claims it); COOK is
+UNCLAIMED at 6; the ART section is renamed COOK and keeps its queue. Runway law and
+CLAUDE.md corrected. LAST FEEDBACK RECEIVED: this -> the lane list.
+
+COORDINATOR: 9/4 (ap) -- *** CORRECTED: HE TYPES
 ONLY VAMILY, NOTHING ELSE, EVER. A FRESH CHAT CLAIMS ITS OWN LANE. Nothing to judge. ***
 Paolo 9/4: "I'm literally only going to say VAMILY. I'm not going to be customizing
 the VAMILY shit, that's the whole point." My "lane VAMILY" list was wrong and is

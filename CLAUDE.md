@@ -1603,10 +1603,11 @@ FACTION GIVES THE COLOUR: COLOUR IS TERRITORY stands, the 10% long-coat cap stan
 the cap is one word from him), STRUCTURE-NOT-COLOR and the GRAVEYARD stand (a
 remake cooks NEW shapes, revives nothing). "we should always be having art made at
 all times": THE ART LANE NEVER IDLES, its VAMILY section ends in a permanent line.
-TWO LANES, ONE SEAM: DIRECTION (first word "direction", the look half of the 8/25
-UI chat) writes the STYLE CARD in pixel terms and judges every batch before it
-reaches him; ART (first word "art") cooks under the card and never decides the
-look; CHARACTER wires what ART cooks. His words on VAMILY, recorded: "I'm kind of
+TWO LANES, ONE SEAM: DIRECTION (HIS EXISTING ART DIRECTION CHAT, corrected 9/4:
+"we already have an art direction chat") writes the STYLE CARD in pixel terms and
+judges every batch before it reaches him; COOK (NEW 9/4, "we need an art cook-up
+chat", which absorbs the old ART tiles lane so there is ONE cooking chat) cooks
+under the card and never decides the look; CHARACTER wires what COOK cooks. His words on VAMILY, recorded: "I'm kind of
 content a little bit with it. It could be a lot better, but honestly, it's not
 terrible." Law: laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md
 
@@ -1676,7 +1677,7 @@ failed - stop and say so instead of fixing the attempt.
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
 short form: the FIRST word of a new session names its lane (run/world/city/
-combat/character/animation/quests/people/sound/ui/direction/words/economy/dynasty/art/lab/coordinator) and means GO; after that his entire
+combat/character/animation/quests/people/sound/ui/direction/cook/words/economy/dynasty/lab/coordinator) and means GO; after that his entire
 vocabulary is "go" / "verdicts in" / "status" —
 any other word from him is a RULING to record, never a discussion to have.
 On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's
