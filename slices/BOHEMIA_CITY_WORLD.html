@@ -8866,7 +8866,6 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
 /* ==== engine/bohemia_purse.js ==== */
-/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA PURSE — the player's three currencies, and the ledger that proves them.
 // (7/31/26, WORLD lane. Paolo: "WE HAVE 11 months of forward motion work we need to
 // complete. Do what you have to do next and know what comes after.")
@@ -8919,10 +8918,17 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 //      by accident — debt would be canon, and canon is Paolo's.
 //
 // MECHANISM-MINE / CONTENTS-PAOLO'S, HELD IN CODE AND NOT IN A COMMENT. The machine
-// moves money. WHAT ANYTHING IS WORTH IS HIS. So PAYOUT, PRICES and PRODUCTION ship
-// EMPTY, and with an empty table the answer is NO_RULING — never a guessed number, never
-// a placeholder that quietly becomes canon by shipping. This is the same shape as the
-// faction beat predicate in bohemia_world_resolve.js, which is DEFAULT OFF structurally.
+// moves money. WHAT ANYTHING IS WORTH IS HIS — AND HE RULED IT, TWICE, AND FOR TWENTY
+// DAYS NOBODY WROTE IT DOWN. 8/15: "just make everything cost one. Just start off with
+// one and then I'll move from there." 9/4: "i dont want there to be money money maybe
+// electronics like batteries are the currency. For one aa battery a bag of rice."
+// So PAYOUT and PRICES carry his ONE, denominated in his BATTERY, and every value is
+// TAGGED with the ruling behind it and `tuned:false`, which is the 8/15 law's own
+// section 5: one generated list holds every number in the game and he tunes from it
+// after a full playthrough. An uncovered key is still NO_RULING — never a guessed
+// number, never a placeholder that quietly becomes canon by shipping. PRODUCTION is
+// still empty and says why. This is the same shape as the faction beat predicate in
+// bohemia_world_resolve.js, which is DEFAULT OFF structurally.
 //
 // ACT ONE ONLY (Paolo 7/28). The CENTURY RULE — dynasty choices compounding across three
 // acts — is in the same locked addendum as the currencies, and it is deliberately NOT
@@ -8942,14 +8948,77 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 
   var NO_RULING = 'NO_RULING';
 
+  /* THE GOODS COME FROM THE SIM THAT OWNS THEM. In the browser the economy is
+     inlined above this file; under node it is a sibling require. Either way the
+     price table's KEYS cannot drift from the goods that exist. */
+  var ECON = (typeof module !== 'undefined' && typeof require !== 'undefined')
+    ? (function () { try { return require('./bohemia_economy.js'); } catch (e) { return null; } })()
+    : (typeof BohemiaEconomy !== 'undefined' ? BohemiaEconomy
+       : (root && root.BohemiaEconomy) || null);
+
   /* ---------------------------------------------------------------------------
-     THE TABLES. ALL THREE SHIP EMPTY. They are the CONTENTS half of the law and
-     they are Paolo's alone. Do not fill these in. Do not add "sensible defaults".
-     A placeholder number that ships is canon nobody ruled.
+     THE TABLES. THEY SHIPPED EMPTY FOR TWENTY DAYS AND HE HAD ALREADY RULED THEM.
+
+     THE OLD COMMENT HERE SAID "ALL THREE SHIP EMPTY ... do not add sensible
+     defaults", and it was right on 8/11 and wrong from 8/15 onward. He ruled the
+     number on 8/15 -- "just make everything cost one. Just start off with one and
+     then I'll move from there" -- and the ruling never reached the tables. For
+     twenty days a finished job answered
+     {"applied":false,"reason":"NO_RULING","table":"PAYOUT"} while placeholder_
+     number_gate printed "the three tables are still EMPTY" INSIDE A GREEN PASS.
+     MECHANISM-MINE / CONTENTS-PAOLO'S is not violated by filling these; it was
+     violated by leaving a ruling of his unimplemented and calling that caution.
+
+     AND 9/4 SAID WHAT THE ONE IS DENOMINATED IN: "i dont want there to be money
+     money maybe electronics like batteries are the currency. For one aa battery a
+     bag of rice and so on so forth." There is no abstract money. ELECTRICITY IS
+     THE MEDIUM OF EXCHANGE -- food and tape are what you buy, batteries are what
+     you buy them with, clout is what you cannot buy. No fourth currency; the three
+     stand and one of them changed job.
+
+     EVERY VALUE BELOW CARRIES `ruling` AND `tuned:false`, which is the 8/15 law's
+     section 5 in code: one generated list holds every number in the game and he
+     tunes from it after a full playthrough. placeholder_number_gate goes RED on an
+     untagged number, so a hand-typed 7 with nothing behind it still cannot ship.
      --------------------------------------------------------------------------- */
-  var PAYOUT = {};        // questOutcome/tag -> {resources, electricity, clout}  [PENDING Paolo]
-  var PRICES = {};        // goodId           -> {currency, amount}               [PENDING Paolo]
-  var PRODUCTION = {};    // buildingId       -> per-day yield                    [PENDING Paolo]
+  var RULED_ONE = '8/15 EVERYTHING COSTS ONE + 9/4 BATTERIES ARE THE MONEY';
+
+  /* THE OWNER, SETTLED IN ONE LINE, because 8/11 and 8/15 handed this to two lanes
+     and each could correctly believe it was the other's. 8/11: "whatever currency
+     the quest decida to give" -- THE QUEST OWNS ITS OWN REWARD. 8/15: everything
+     costs one -- THIS TABLE IS THE FALLBACK FOR A QUEST THAT DECLARES NOTHING.
+     They compose and always did: payday.payForQuest prefers the quest's reward and
+     falls through to here. Nothing changes in the code; the ownership is written
+     down so the next lane does not wait for the other one again. */
+  var PAYOUT = {
+    /* a day's work pays a battery. FAIL is deliberately absent: what a failed job
+       pays is not something he has said, and the honest answer to a question
+       nobody asked is still NO_RULING (8/15 law section 4). */
+    COMPLETE: { electricity: 1, ruling: RULED_ONE, tuned: false }
+  };
+
+  /* PRICES IS BUILT FROM THE GOODS THAT ACTUALLY EXIST, NEVER FROM A LIST TYPED
+     HERE. engine/bohemia_economy.js already holds the goods -- water, food,
+     salvage, meds, fuel, power and the field-surgery kit -- and a second list in
+     this file would be a second system that drifts the day somebody adds a good.
+     Same reason the street contract measures its connectors off the built tiles
+     instead of a declaration. WHICH GOODS EXIST STAYS HIS; this reads them.
+     The scarcity sim is untouched and still quotes: payday.buy() prefers this
+     table, so the moment he takes a good out of it the sim prices it again. */
+  var PRICES = (function () {
+    var out = {}, g = ECON && ECON.GOODS, id;
+    if (!g) return out;                       // no economy loaded: honest NO_RULING
+    for (id in g) if (Object.prototype.hasOwnProperty.call(g, id))
+      out[id] = { currency: 'electricity', amount: 1, ruling: RULED_ONE, tuned: false };
+    return out;
+  })();
+
+  /* PRODUCTION STAYS EMPTY AND IT IS NOT AN OVERSIGHT. Measured 9/5: `produce()`
+     has ZERO callers anywhere in the engine or the walked surface, so there is no
+     buildingId vocabulary to key on and every row I could write here would be dead
+     data nobody reads. A number with no consumer is not content, it is decoration.
+     It fills the day something calls it and the ids are real. */
+  var PRODUCTION = {};    // buildingId       -> per-day yield   [no caller yet, 9/5]
 
   function isCurrency(c) { return CURRENCIES.indexOf(c) >= 0; }
 
@@ -9041,12 +9110,20 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     var row = key && Object.prototype.hasOwnProperty.call(PAYOUT, key) ? PAYOUT[key] : null;
     if (!row) return { applied: false, reason: NO_RULING, table: 'PAYOUT', key: key,
                        about: 'what a quest outcome pays is Paolo\'s ruling' };
-    var done = [];
+    /* ONE SHAPE FOR `paid`, WHICHEVER PATH PAID IT. This returned the raw ledger
+       entries while payday's quest-declared path returns a {currency: amount} MAP, and
+       the reckoning card on the walked surface renders `paid` with a for-in -- so the
+       table path would have printed the ledger's guts at the player. It never showed
+       because this branch had never once applied: the table was empty for twenty days.
+       A branch that has never executed is not code, it is an intention (second one
+       found in this pipe today, after payday.price returning a whole row). */
+    var done = [], paid = {};
     for (var i = 0; i < CURRENCIES.length; i++) {
       var c = CURRENCIES[i];
-      if (row[c]) done.push(credit(purse, c, row[c], 'quest:' + key, ev.questId || null, day));
+      if (row[c]) { done.push(credit(purse, c, row[c], 'quest:' + key, ev.questId || null, day));
+                    paid[c] = row[c]; }
     }
-    return { applied: done.length > 0, paid: done, balances: balances(purse) };
+    return { applied: done.length > 0, paid: paid, entries: done, balances: balances(purse) };
   }
 
   /* Buy something. An empty price table means the shop is real and the tag on the shelf
@@ -9152,9 +9229,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaPurse = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
-
 /* ==== engine/bohemia_payday.js ==== */
-/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA PAYDAY — the circulatory link between a finished quest, the player's purse,
 // and a place to spend it. (8/9/26, WORLD lane.)
 //
@@ -9390,9 +9465,16 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 
   function price(purse, ledger, goodId) {
     if (!PURSE) return { reason: 'NO_PURSE' };
-    // his own table always wins, whether or not the valve was ever turned
+    /* HIS OWN TABLE ALWAYS WINS, whether or not the valve was ever turned.
+       AND THIS BRANCH HAD NEVER RUN. It returned the whole ROW -- {currency, amount,
+       ruling, tuned} -- where every caller wants a NUMBER, so the shelf on the walked
+       surface would have rendered "[object Object] res". Written when PRICES was empty
+       and exercised for the first time the day it was filled (9/5). A branch that has
+       never executed is not code, it is an intention. */
     if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
-      return { source: 'ruled', price: PURSE.PRICES[goodId] };
+      var rr = PURSE.PRICES[goodId];
+      return { source: 'ruled', price: rr.amount, currency: rr.currency,
+               ruling: rr.ruling || null };
     }
     if (PRICE_SOURCE === 'economy' && ECON && ledger) {
       return { source: 'economy', price: ECON.price(ledger, goodId) };
@@ -9405,34 +9487,49 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   /* Buy. Goes through the purse's own debit so the ledger records a HARD SINK -- the
      thing that actually fights inflation, and the reason the purse is a ledger and not
      three counters. */
-  /* WHICH CURRENCY A GOOD IS BOUGHT WITH. The economy quotes everything in SALVAGE-KG --
-     "the one thing everyone on a dead grid can produce and everyone needs" (its own words,
-     7/19) -- and of his three ruled currencies that IS resources: physical goods you carry.
-     Electricity is a service off the 12% live grid and clout is reputation; neither buys a
-     litre of water. This is a mapping between two things he already ruled, not a new table. */
-  var SALVAGE_CURRENCY = 'resources';
+  /* WHICH CURRENCY A GOOD IS BOUGHT WITH -- AND HE ANSWERED IT ON 9/4.
+     THIS SAID `resources` AND THE REASONING WAS GOOD AND IS NOW OVERRULED. It read:
+     the economy quotes everything in SALVAGE-KG, of his three currencies that IS
+     resources, "electricity is a service off the 12% live grid and clout is
+     reputation; neither buys a litre of water." Correct on 8/11 with no money ruled.
+     PAOLO 9/4, LOCKED: "i dont want there to be money money maybe electronics like
+     batteries are the currency. For one aa battery a bag of rice and so on so forth."
+     A BATTERY BUYS THE RICE. Electricity stops being only a service and becomes the
+     MEDIUM OF EXCHANGE: food and tape are what you buy, batteries are what you buy
+     them with, clout is what you cannot buy. No fourth currency -- the three stand
+     and one of them changed job, which is the whole reason the anti-spreadsheet
+     ruling survives this.
+     AND IT DOUBLES THE DRAIN, free: "the night eats power" now means YOUR LIGHTS
+     BURN YOUR MONEY. Holding a lit block costs what a bag of rice costs. */
+  var SALVAGE_CURRENCY = 'electricity';
 
   function buy(purse, hubOrNull, goodId, day, ledger) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
-    // his own named price wins, and his table is still empty
-    if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
-      return PURSE.spend(purse, goodId, day);
-    }
     var p = price(purse, ledger, goodId);
+    /* ONE SHAPE OUT OF THIS FUNCTION, WHATEVER PRICED IT. The ruled branch used to
+       return PURSE.spend() raw -- a ledger entry, not a purchase -- so a shop that
+       could not afford something answered in a different vocabulary from the one the
+       card reads (`reason`, `price`, `have`). The shelf quotes price() and the till
+       charges through the same price(), so THE TAG AND THE TILL CANNOT DISAGREE. That
+       is the same rule the street contract lives under: measure it off the one thing,
+       never off two. */
     if (p.reason) return { applied: false, reason: p.reason, table: p.table, key: goodId,
                            about: p.about };
     if (p.source === 'barter') return { applied: false, reason: 'BARTER_ONLY', key: goodId };
     if (p.price == null) return { applied: false, reason: 'NO_PRICE', key: goodId };
-    if (PURSE.balance(purse, SALVAGE_CURRENCY) < p.price) {
+    /* WHICH POCKET IT COMES OUT OF. A ruled row names its own currency; the sim's
+       quote does not, and falls back to the money of the day. */
+    var cur = p.currency || SALVAGE_CURRENCY;
+    if (PURSE.balance(purse, cur) < p.price) {
       return { applied: false, reason: 'CANNOT_AFFORD', key: goodId, price: p.price,
-               have: PURSE.balance(purse, SALVAGE_CURRENCY) };
+               currency: cur, have: PURSE.balance(purse, cur) };
     }
     /* A HARD SINK, on purpose: the goods leave the world when you consume them, so the
        value is DESTROYED rather than moved. That is the half of a faucet-and-drain economy
        that actually fights inflation, and the reason the purse is a ledger not a counter. */
-    var e = PURSE.debit(purse, SALVAGE_CURRENCY, p.price, 'buy:' + goodId, goodId, day);
+    var e = PURSE.debit(purse, cur, p.price, 'buy:' + goodId, goodId, day);
     return { applied: true, good: goodId, paid: p.price, source: p.source,
-             currency: SALVAGE_CURRENCY, entry: e, balances: PURSE.balances(purse) };
+             currency: cur, entry: e, balances: PURSE.balances(purse) };
   }
 
   /* ---------------------------------------------------------------------------
@@ -9473,7 +9570,6 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   if (HASREQ) module.exports = API;
   root.BohemiaPayday = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
-
 /* ==== engine/bohemia_daycycle.js ==== */
 /* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA DAY CYCLE — ambient light over the day (7/14/26)
@@ -40253,7 +40349,14 @@ function showReckoning(){
      Amounts are CONTENTS (ALWAYS MAKE AN ATTEMPT, 8/11: "numbers, dials, rates,
      prices" still wait for him), so this never fakes one. It says who has not
      ruled yet, in the place he will see it. */
-  if(PAID_TODAY){ var pd=[]; for(var cc in PAID_TODAY) pd.push(PAID_TODAY[cc]+' '+cc);
+  /* AND IT SAYS BATTERIES, BECAUSE THAT IS WHAT HE GETS (9/5). Paolo 9/4: "batteries
+     are the currency. For one aa battery a bag of rice." The word `electricity` is the
+     ledger's name for the pocket; the thing in his hand is a battery, and the card is
+     the place he reads it. The refusal line stays for anything genuinely unruled -- a
+     failed job still says so, because what a failed job pays is not something he has
+     said and silence is the honest answer to a question nobody asked. */
+  if(PAID_TODAY){ var pd=[]; for(var cc in PAID_TODAY){ var amt=PAID_TODAY[cc];
+      pd.push(cc==='electricity'?battWord(amt):(amt+' '+cc)); }
     h+='<li>paid: '+esc(pd.join(', '))+'</li>'; }
   else if(PAY_REFUSED==='NO_RULING')
     h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': nobody has ruled what this pays</li>';
@@ -41144,6 +41247,9 @@ function mktShelf(){
     var dl=null; try{ dl=BohemiaEconomy.daysLeft(L, sh[i].good); }catch(_e){}
     out.push({ good:sh[i].good, unit:sh[i].unit, note:sh[i].note,
                price:(q&&q.price!=null)?q.price:null,
+               /* WHICH POCKET IT COMES OUT OF, carried from the quote so the tag on the
+                  shelf and the till cannot name different money (9/5). */
+               cur:(q&&q.currency)||'electricity',
                source:(q&&q.source)||null, reason:(q&&q.reason)||null,
                daysLeft:(dl===Infinity||dl==null)?null:dl });
   }
@@ -41167,14 +41273,25 @@ function mktBuy(good){
 }
 /* THE SHELF ON SCREEN. Reuses the day card, because a second card system is a second
    thing to keep in step with the first. */
+/* THE SHELF SPEAKS IN BATTERIES NOW (9/5). Paolo 9/4: "i dont want there to be money
+   money maybe electronics like batteries are the currency. For one aa battery a bag of
+   rice and so on so forth." This card said "you have N resources" and priced everything
+   in "res" -- the money of the day before his ruling -- while the till underneath it had
+   already moved to electricity. A shop whose tag and till name different money is worse
+   than one with no prices at all. */
+function battWord(n){ return n===1?'1 battery':(n+' batteries'); }
 function showMarket(){
   var h=mktHub(), rows=mktShelf(), bal=purseBalances()||{};
+  var pocket=(bal.electricity==null?0:bal.electricity);
   var s='<h2>'+esc(((h&&h.kind==='truckstop')?'TRUCK STOP':'SWAP MEET'))+'</h2>'
        +'<div class="sub">'+esc(DAY.hhmm(DAY.min))+' \u00b7 you have '
-       +esc(String(bal.resources==null?0:bal.resources))+' resources</div>';
+       +esc(battWord(pocket))+'</div>';
   for(var i=0;i<rows.length;i++){
-    var r=rows[i], can=(r.price!=null)&&((bal.resources||0)>=r.price);
-    var right=(r.price!=null)?(r.price+' res'):(r.reason==='NO_RULING'?'unpriced':'\u2014');
+    var r=rows[i], have=(bal[r.cur]==null?0:bal[r.cur]);
+    var can=(r.price!=null)&&(have>=r.price);
+    var right=(r.price!=null)
+        ?(r.cur==='electricity'?battWord(r.price):(r.price+' '+r.cur))
+        :(r.reason==='NO_RULING'?'unpriced':'\u2014');
     s+='<div class="mrow'+(can?'':' no')+'" data-act="buy:'+esc(r.good)+'">'
       +'<div><div class="mgood">'+esc(r.good.toUpperCase())+' \u00b7 1 '+esc(r.unit)+'</div>'
       +'<div class="mnote">'+esc(r.daysLeft==null?String(r.note||'')
@@ -41183,8 +41300,8 @@ function showMarket(){
   }
   if(MKT_LAST&&!MKT_LAST.applied)
     s+='<div class="sub" style="margin-top:8px">'+esc(
-        MKT_LAST.reason==='CANNOT_AFFORD'?('not enough resources: that is '+MKT_LAST.price
-          +' and you have '+MKT_LAST.have)
+        MKT_LAST.reason==='CANNOT_AFFORD'?('that is '+battWord(MKT_LAST.price)
+          +' and you have '+battWord(MKT_LAST.have||0))
         :MKT_LAST.reason==='NO_RULING'?'nobody has ruled what that costs'
         :String(MKT_LAST.reason||''))+'</div>';
   s+='<div class="dcgo" data-act="close">LEAVE</div>';
