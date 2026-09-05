@@ -1,3 +1,57 @@
+WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. The eighteen blocks are 14 answers + 4 reusable refusals,
+and here are all four: worker "I work. I do not keep track of who is doing what to who." /
+scav "Ask somebody who stands still for a living." / keeper "I hear things across this
+counter all day. That is not one of them." / watch "I watch this street. That is not this
+street." EVERY ONE IS A COMPETENCE DISCLAIMER. Different jobs, identical move: wrong person,
+try elsewhere. Under Grice that is a maximally COOPERATIVE reply -- it hides nothing and
+therefore implies nothing. It is a routing message wearing a character's clothes. Four
+reusable refusals is good economy; four that are the same MOVE is one refusal with four skins.
+
+WHY A REFUSAL TEACHES AT ALL: it has to BREAK a rule of conversation, and which rule breaks
+decides what the player learns.
+  says too little            -> there is more and it is being kept from me
+  answers a different question-> the real subject is dangerous to touch
+  goes vague, having been clear-> they are covering, and are bad at it
+  says something false        -> they lied, and he finds out LATER, not now
+"Not my department" breaks none of them, so it carries no payload.
+
+MEASURED ACROSS ALL 1,669 SPOKEN LINES: any refusal move at all, 5.5%. flat no 1.9%, silence
+1.1%, do-not-know 0.7%, changes-the-subject 0.7%, NAMES A COST 0.7%, not-my-domain 0.4%.
+AND THE GOOD ONE ALREADY EXISTS: the eleven lines that NAME A COST ("I've got a kid", "it's
+your face they'll remember", "you'd be asking in front of people") withhold AND explain why,
+which teaches the subject is dangerous without answering it. Those are hand-written into
+quest scenes and NONE of it reached the system that handles refusal at scale. OUR BEST
+REFUSAL WRITING AND OUR REFUSAL MECHANISM HAVE NEVER MET.
+
+BOTH ANGLES. Disco Elysium: a failed check is a DIFFERENT ROUTE, not a closed door -- it
+returns a new lead, a revealing scene, or a joke. A refusal must return a payload, never a
+null; ours return a null with an apology attached. Oxenfree: silence is first-class and the
+world does not wait for you. Pentiment: disagreeing accounts are the subject, not the
+obstacle. Real world: Grice on flouting, and conversation analysis on dispreferred responses
+being marked by delay, preface, account and mitigation BEFORE the content arrives.
+
+RECORD: records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the same subject refused five ways, the same
+refusal instant vs arriving late, and a dead end that still pays. All draft:true, NONE in
+the game.
+VAMILY: Q5 SHIPPED. Next open is Q6 [power talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row FOUR-KINDS-OF-NO: rewrite the asking module's four refusals as four
+   different rule-breaks instead of four trades. Any trade can speak any of them, so the
+   economy improves rather than costing more. Held until MODE: BUILD.
+ - PEOPLE / QUESTS  a lie is only worth writing if the world can later catch it. Whether a
+   lie is discoverable is a memory-organ question, theirs not mine.
+ - UI  a refusal should ARRIVE LATE. One held beat before a refusal line is the same cheap
+   fix Q2 and Q4 both asked for, now with a third reason behind it.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
 DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
 VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
 ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
@@ -231,7 +285,7 @@ your own complete block to it. Then grep for stray markers before you commit.
 ================================================================================
 
 
-WORDS (words-8dqrnq): 9/5 (a) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
+WORDS (words-8dqrnq): 9/5 (a) -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
 SURVIVES A MEMORY RESET. IT REPLACES THE ONE IN THE 9/4 (d) BLOCK BELOW. THEN VAMILY Q5
 [refusing answers]. *** MODE: RESEARCH. TAB: NOT IN A TAB YET. Nothing to judge.
 
