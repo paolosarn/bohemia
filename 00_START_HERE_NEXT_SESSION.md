@@ -2025,7 +2025,24 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (bc) LATEST -- *** HIS BLIND SPOTS: TWO
+COORDINATOR (coordinator-checkin-1y6dtv): 9/5 (bd) LATEST -- *** THE DEMO GOES INTO HANDS
+NOW; GATEKEEPER EXPLAINED IN PLAIN WORDS; ITS NAME IS HIS TO PICK. Nothing to judge. ***
+Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's
+so much to do." RULING RECORDED: the demo is never held for more content; what exists
+today is the demo. RELEASE got a lane rule and a new FIRST job [hands now] HANDS-NOW:
+walk today's demo on a phone, fix only what stops a stranger reaching the first fight,
+hand the link to one friend this round, write down what they did. Everything else in
+RELEASE queues behind it. GATEKEEPER: he asked what its main role is ("fucking up the
+files even more? cleaning code? the plumber of all plumbers?"). Header rewritten in
+plain words: the checker of the checkers; touches gates/ and the two pile files only;
+never engine, slices, tools, laws or art; a red gate in another lane's work becomes one
+line in that lane's section, never a fix by this chat. He asked for five other names:
+offered in the reply (INSPECTOR, REFEREE, PLUMBER, MECHANIC, WARDEN); the name is his
+and stays GATEKEEPER on the board until he says. Duplicate BB-COLD-HAND removed from
+SHARED (it lives in RELEASE). LAST FEEDBACK RECEIVED: this -> RELEASE rule + HANDS-NOW,
+GATEKEEPER plain header, names offered.
+
+COORDINATOR: 9/4 (bc) -- *** HIS BLIND SPOTS: TWO
 NEW LANES, RELEASE (18) AND GATEKEEPER (19), PLUS THREE JOBS FOLDED INTO EXISTING CHATS.
 Nothing to judge. ***
 Paolo 9/4: "are there any other angles other than quests that are completely left
