@@ -213,7 +213,7 @@ STATE: talking on foot with nine verbs, a real witness memory, schedules and hom
 ## FACTIONS  (10.)
 MODE: BUILD
 STATE: 18 factions in the graph (14 selectable plus four more), every one with act1_power and act3_power, wrapped writes protecting canon. NOT built: the player is not a node; zero of 34 people near spawn wear an outfit; nobody holds ground; the non-selectable factions have no verified presence on the map.
-- OPEN  [faction homes]  FACTION-SEATS -- every selectable faction has a seat placed on its generated district, and the seat is where its town grows (with WORLD FACTION-TOWNS); moving a seat is his
+- CLAIMED 9/5 factions-ovkjpf  [faction homes]  FACTION-SEATS -- every selectable faction has a seat placed on its generated district, and the seat is where its town grows (with WORLD FACTION-TOWNS); moving a seat is his
 - OPEN  [hidden factions]  THE-OTHER-FOUR -- the four non-selectable factions: do they exist anywhere a player can meet them? measure, then place a presence or write [PENDING Paolo]
 - OPEN  [colours fixed]  COLOUR-AUDIT -- every faction's colour is coordinated, saturated and nobody else's (COLOUR IS TERRITORY); the gate holds contradictions, this row fixes them
 - OPEN  [town sizes]  TOWN-TIERS-ARE-HIS -- needs Paolo: the draft tiers off act1_power ship; he moves any faction he likes; with WORLD FACTION-TOWNS
