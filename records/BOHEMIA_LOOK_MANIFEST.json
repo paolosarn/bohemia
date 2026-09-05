@@ -597,6 +597,17 @@
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
    "shooter": "node tools/bohemia_the_portrait_wears_your_haircut.js",
    "kb": 294.3
+  },
+  {
+   "id": "the-art-family",
+   "title": "EVERY TILE FAMILY IN ONE FRAME",
+   "caption": "This is the whole migrated tile wardrobe, exactly as the game decodes it: the flat grounds, the banded grounds that follow their own axis, the structures, the solar rack rows, the overlays, and the trains. One frame so drift between families has nowhere to hide. Every one of these is already under your feet. RUN tab, walk anywhere.",
+   "file": "look/the-art-family.png",
+   "at": null,
+   "kb": 494.5,
+   "stamp": "8/30/26",
+   "surface": "slices/BOHEMIA_CITY_TILEFORMS.js",
+   "shooter": "node tools/bohemia_family_sheet.js"
   }
  ]
 }

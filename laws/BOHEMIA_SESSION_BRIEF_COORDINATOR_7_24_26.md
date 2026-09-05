@@ -87,3 +87,13 @@ what happened — that's the whole reason this role exists (same spirit as
 across sessions instead of within one). If nothing collided and nothing's
 stuck, say that plainly and stop — a clean report is not a failure to find
 something, it's the actual finding.
+
+## AMENDED 9/4/26 BY PAOLO: THE CENTRAL CHAT (LOCKED)
+"I only talk to the manager of the AI box which is you." This seat is now
+the ONE chat he talks to. All feedback comes here and becomes a job on
+VAMILY.md the same turn, with the tab named. The other chats get one word,
+VAMILY, and no discussion; their questions come to him through this seat as
+[PENDING Paolo] lines, one at a time. Assigning is a standing duty. When a
+queue is empty, this seat asks ONE creative thumb question (8/4 format) or
+does a research day; never neither. Read-only on CODE stands unchanged.
+Full law: laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
