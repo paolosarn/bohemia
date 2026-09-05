@@ -231,13 +231,17 @@ ok('and every ACCRETED hub is REACHABLE -- the drive network gets to it from the
    everyReach);
 /* ONLY EVER DOWN. Closing these is FACTION-TOWNS' remaining work and this is the
    number that says whether it moved. */
-/* MEASURED, and it moved this round: 7 across this seed set before the towns module
-   excluded ground that never carries a building (airbase, airport, solar, strip) and
-   required a seat to front a road; 2 after. The remaining two are golf and farm plots
-   that happen to have no buildings on that seed -- a per-cell fact a kind list cannot
-   see, and the honest test for it needs w.plot(), which the walked surface has no
-   equivalent of. Closing them is FACTION-TOWNS' remaining work. ONLY EVER DOWN. */
-const SEAT_UNREACH_DEBT = 2;
+/* MEASURED, AND IT IS CLOSED. 7 across this seed set when faction seats were first
+   added; 2 once the towns module required a seat to front a road and excluded the
+   kinds that are ALWAYS empty; 0 once that measurement was asked the right question.
+   THE RIGHT QUESTION WAS NOT "which kinds are always empty" BUT "which kinds can EVER
+   be" -- a seat lands on ONE cell, so a kind that is usually built and sometimes not
+   will eventually put a market on nothing. Asked exhaustively over every buildable
+   kind across two seeds, eight can be empty and forty-nine cannot; all eight are out.
+   Re-measured after: 84 seats over six seeds, ZERO unreachable.
+   THE CEILING IS ZERO AND ONLY EVER GOES DOWN, so a kind that starts generating an
+   empty plot shows up here rather than as a shop nobody can reach. */
+const SEAT_UNREACH_DEBT = 0;
 ok('and no MORE faction seats are unreachable than the ' + SEAT_UNREACH_DEBT + ' already'
    + ' measured (found ' + seatUnreach + ') -- a market you cannot get to is not a market',
    seatUnreach <= SEAT_UNREACH_DEBT);

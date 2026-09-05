@@ -1,5 +1,5 @@
 # EVERY PART OF VEGAS HAS AN OWNER, AND THE VALLEY HAD TWO SHOPS
-# 9/5/26, WORLD lane. VAMILY [faction towns] — FACTION-TOWNS. **NOT SHIPPED YET.**
+# 9/5/26, WORLD lane. VAMILY [faction towns] — FACTION-TOWNS. **SHIPPED.**
 
 > "each part of Vegas is owned by a faction and that's where you can do all your trading or
 > whatever they'll have different buildings supporting them... there's different sizes of
@@ -105,18 +105,38 @@ Two fixes, both computable on **both** surfaces so the drift cannot come back:
 
 **7 unreachable seats → 2.**
 
-## WHAT IS NOT DONE, WHICH IS WHY THIS ROW IS STILL OPEN
+## THE GAP THAT KEPT THIS ROW OPEN A ROUND, AND WHAT CLOSED IT
 
-**Two seats across the gate's seed set still land on plots with no buildings** — golf and farm
-cells that are *sometimes* empty, which a kind list cannot see. The honest per-cell test needs
-`w.plot()`, and the walked surface has no equivalent.
+Adding 14 seats broke `payday_gate`'s reachability check, which had been green. Good.
 
-I could have filtered in the caller instead. **That is the wrong fix and I did not take it**:
-`reachable()` needs `plot()`, so the loop would nudge those seats and the city could not, and
-the two would disagree again — the exact drift this round exists to end.
+Diagnosed rather than assumed: the failing seats were on **solar arrays, golf courses and
+farms** — plots with **zero buildings**. Not a road problem. **A solar field is not a town**,
+and his own law says in its own words that *what supports a town is buildings*.
 
-So it is **counted against a ceiling in `payday_gate` that only goes down**, and the row stays
-CLAIMED. A market you cannot get to is not a market, and the ship test says *reachable*.
+**MY FIRST MEASUREMENT ASKED THE WRONG QUESTION.** I asked which district kinds are *always*
+empty and got four — airbase, airport, solar, strip — excluded them, and the count went 7 → 2.
+Two seats were still standing on nothing.
+
+**A seat lands on ONE cell.** So what matters is not whether a kind is always empty but whether
+it can **ever** be: a kind that is usually built and sometimes not will eventually put a market
+on nothing. Asked again, exhaustively, over every buildable kind across two seeds:
+
+| | |
+|---|---|
+| kinds with at least one empty plot | **8** — airbase, airport, datafort, farm, golf, solar, speedway, strip |
+| kinds built on every plot examined | **49** |
+
+All eight are out. Re-measured: **84 seats across six seeds, ZERO unreachable.** The ceiling in
+`payday_gate` is now **0** and only ever goes down, so a kind that starts generating an empty
+plot shows up as a red gate rather than as a shop nobody can reach.
+
+It is also the reading that matches his ruling in plain words: **a runway, a solar field, a
+fairway and a farm are not parts of a city you trade in.**
+
+And the fix stayed where it had to. I could have filtered in the caller instead. **That is the
+wrong fix and I did not take it**: `reachable()` needs `plot()`, so the loop would nudge those
+seats and the walked surface could not, and the two would disagree again — the exact drift this
+work exists to end.
 
 ## THE GATE — `gates/faction_towns_gate.js`, 32 checks, registered as FACTION TOWNS
 
@@ -142,9 +162,10 @@ use is the broken one** — 8/1 law, third time this repo has paid for it. It as
 | | |
 |---|---|
 | walked surface | 16 markets; stand in Caravans' fortress and buy water for a battery; Colorful's camp carries half the goods |
-| demo, through the splash | 14 seats; nearest is **NETWORK · FORTRESS**, 13 cells out; market opens; water bought for 1 battery |
+| demo, through the splash | 14 seats; nearest is **HOMELESS · CAMP**, **7 cells** out; market opens; water bought for 1 battery |
+| seat reachability | **0 unreachable across 84 seats on 6 seeds** (was 7) |
 | the two surfaces | **identical fourteen seats**, asked through the shipped module |
-| gates | faction towns 32, payday 38, demo build 25, purse 28, day pays 18, economy 13, demo blockers 22, four verbs 32, lights bill 30, placeholder 14, pages publish 18, loop faction bridge 68 — **338 checks, 0 failed** |
+| gates | faction towns 33, payday 38, demo build 25, purse 28, day pays 18, economy 13, demo blockers 22, four verbs 32, lights bill 30, placeholder 14, pages publish 18, loop faction bridge 68 — **338 checks, 0 failed** |
 
 Two gates were **already red on main before this round and still are**: `market_gate` 22/10
 (a stale ruler another lane has flagged for three rounds) and `faction_outfit_gate` 16/2 (two

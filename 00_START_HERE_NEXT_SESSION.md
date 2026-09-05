@@ -3137,35 +3137,32 @@ SURVIVES ANY MEMORY RESET. READ IT BEFORE ANYTHING ELSE IN THIS BLOCK. ***
 MY LANE: 02 WORLD MODEL. MODE: BUILD.
 MY SESSION SLUG: world-9lfjtf.
 
-*** NOTE FOR WHOEVER RESOLVES THIS FILE: this block was found reverted to an
-older round's text after a rebase, with two shipped rounds missing from it. If
-you resolve conflicts here, keep the NEWEST block; a resolver that re-applies
-only what it remembers eats everything else. ***
+*** NOTE FOR WHOEVER RESOLVES THIS FILE: keep the NEWEST block. This one was found
+reverted to an older round's text after a rebase once already, with two shipped
+rounds missing from it. A resolver that re-applies only what it remembers eats
+everything else. ***
 
-HOLDING: [faction towns] FACTION-TOWNS. CLAIMED 9/5. ABOUT 3 OF 4.
-*** DO NOT MARK IT SHIPPED YET. *** Ship test: "every selectable faction has a
-seat, a derived tier and a market reachable on the walked surface; the demo's
-first day reaches one." Three of those four are met. REACHABLE is not, for two
-seats, and that is written down below rather than waved through.
+HOLDING: nothing. [faction towns] FACTION-TOWNS is SHIPPED 9/5.
+All four clauses of its ship test are met: every selectable faction has a seat, a
+derived tier, and a market reachable on the walked surface, and the demo's first
+day reaches one (7 cells).
 
-WHAT SHIPPED THIS ROUND
-  MEASURED FIRST, AND IT DECIDED EVERYTHING: the whole 96x96 valley carried TWO
-  markets, a swap meet at (44,10) and a truck stop at (56,88), and the game opens
-  the player at (48,48) -- 38 cells from the nearer one. Now 16 markets and the
-  nearest is 9 cells.
-  THE TIER IS DERIVED off his own act1_power, thirds, top rounds up (5/4/5).
-  Colorful -- the faction HE named as the small one -- comes out CAMP off a graph
-  he wrote months earlier with nothing tuned. act3_power flips four factions
-  between acts, so the CENTURY RULE costs no new field. SEATS and TIER ship EMPTY.
-  A SEAT IS A HUB, because his ruling says a seat is where you trade. So
-  nearestHub, mktAt, the shelf, the till and the card all work on a seat with
-  nothing changed. The card says CARAVANS - FORTRESS / COLORFUL - CAMP.
-  A CAMP IS THINNER, NEVER DEARER. shelf() had taken a hub since it was written
-  and ignored it, and the city never passed one, so every market carried identical
-  goods. Depth is the only axis his words give; everything is one battery.
+WHAT SHIPPED
+  MEASURED FIRST AND IT DECIDED EVERYTHING: the whole 96x96 valley carried TWO
+  markets and the game opens the player 38 cells from the nearer one. Now 16
+  markets, nearest 7.
+  TIER DERIVED off his own act1_power, thirds, top rounds up (5/4/5). Colorful --
+  the faction HE named as the small one -- comes out CAMP off a graph he wrote
+  months earlier with nothing tuned. act3_power flips four factions between acts,
+  so the CENTURY RULE costs no new field. SEATS and TIER both ship EMPTY.
+  A SEAT IS A HUB, so nearestHub, mktAt, the shelf, the till and the card all work
+  on a seat unchanged. The card says HOMELESS - CAMP, CARAVANS - FORTRESS.
+  A CAMP IS THINNER, NEVER DEARER. shelf() had taken a hub since it was written and
+  ignored it, and the city never passed one, so every market carried identical
+  goods.
   NEW: engine/bohemia_towns.js, tools/bohemia_city_towns_patch.py (splices HIS
   graph verbatim + the module into the walked surface, idempotent),
-  gates/faction_towns_gate.js (32 checks, registered as FACTION TOWNS).
+  gates/faction_towns_gate.js (33 checks, registered as FACTION TOWNS).
   RECORD: records/BOHEMIA_EVERY_PART_OF_VEGAS_HAS_AN_OWNER_9_5_26.md
 
 THE BUG THIS FOUND, BIGGER THAN THE FEATURE, AND IT IS FIXED
@@ -3175,51 +3172,48 @@ THE BUG THIS FOUND, BIGGER THAN THE FEATURE, AND IT IS FIXED
   cat()=='sand'. Same seed, ninety cells apart, two answers to where the Mob lives.
   Nobody had noticed because nobody had ever asked the walked surface -- its
   FACTION_ASSIGN is {} and says so. One rule in bohemia_towns.js now; bootFactions
-  rewired to it; measured after: IDENTICAL, all fourteen.
+  rewired to it; measured after: IDENTICAL, all fourteen, and the gate re-asks both
+  surfaces through the SHIPPED module every run.
 
-WHAT THE NEXT ROUND MUST FINISH BEFORE SHIPPED
-  TWO SEATS ARE STILL UNREACHABLE across payday_gate's seed set (ceiling
-  SEAT_UNREACH_DEBT = 2, only ever down). They are golf and farm cells that happen
-  to carry no buildings -- a per-cell fact a kind list cannot see. Adding 14 seats
-  broke payday_gate's reachability check (it was green), which is how this was
-  found; the diagnosis was solar arrays, golf and farms with ZERO buildings, not a
-  road problem. Two fixes took 7 down to 2: a seat must front a road, and ground
-  that never carries a building is excluded (NOT_A_TOWN, MEASURED by asking the
-  district kit, and the gate re-measures it).
-  *** DO NOT FIX THE REMAINING TWO IN THE CALLER. *** reachable() needs w.plot()
-  and the walked surface has no plot API, so the loop would nudge those seats and
-  the city could not, and the two would disagree again -- the exact drift this
-  round existed to end. The fix has to be computable on BOTH surfaces.
-
-THREE THINGS THE NEXT ROUND MUST NOT RE-LEARN
-  1. DO NOT ANCHOR A SPLICE INSIDE A MODULE'S CANON BODY. My first towns patcher
-     anchored on `root.BohemiaCityEdit=API;`, which is inside cityedit's body;
+FOUR THINGS THE NEXT ROUND MUST NOT RE-LEARN
+  1. ASK THE RIGHT QUESTION OF A MEASUREMENT. I excluded the district kinds that are
+     ALWAYS empty and two seats still stood on nothing. A seat lands on ONE cell, so
+     the question is which kinds can EVER be empty: eight, not four. 7 -> 2 -> 0
+     unreachable, re-measured at 84 seats over six seeds. NOT_A_TOWN is that list
+     and faction_towns_gate re-measures it in BOTH directions.
+  2. DO NOT ANCHOR A SPLICE INSIDE A MODULE'S CANON BODY. My first towns patcher
+     anchored on `root.BohemiaCityEdit=API;`, inside cityedit's body;
      bohemia_city_module_resync.py replaces a body by finding it as a substring, so
      the next resync swallowed the block and killed the page -- every global came
      back undefined. Anchor on the NEXT module's banner.
-  2. AND DO NOT GIVE A DATA SPLICE THE `/* ==== engine/x ==== */` BANNER FORM. That
+  3. AND DO NOT GIVE A DATA SPLICE THE `/* ==== engine/x ==== */` BANNER FORM. That
      tool collects every such banner whose file exists, so the faction graph JSON
      went into its module list and came back UNRECOGNISED.
-  3. bohemia_loop.js RESOLVES DEPENDENCIES AS FACTORY PARAMETERS. A const added in
+  4. bohemia_loop.js RESOLVES DEPENDENCIES AS FACTORY PARAMETERS. A const added in
      the wrapper is not in the factory's scope, which is where bootFactions lives.
      The file's own 8/21 note says this and I hit it anyway.
 
-NEXT AFTER THIS ROW: [held ground] BB-TURF, then [faster roads], [rung unlocks],
-[enemies unite], [shelves premise], [batteries mined], [own power], [rice clock],
-[debt carried]. [century stayed] is [PENDING Paolo] and blocks nothing.
+NEXT: the first OPEN line is [held ground] BB-TURF -- which is the row that decides
+whether anything OTHER than a placed building makes ground yours, and it plugs
+straight into heldCircuits() and into the seats that now exist. After it:
+[faster roads], [rung unlocks], [enemies unite], [shelves premise],
+[batteries mined], [own power], [rice clock], [debt carried]. [century stayed] is
+[PENDING Paolo] and blocks nothing.
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
-refused rather than paid on day one.
+refused rather than paid on day one. The purse has had an atomic convert() since
+7/31 with zero callers; a bag of rice for one battery is
+convert(electricity 1 -> resources 1).
 ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds (a
 stale ruler another lane flagged) and faction_outfit_gate is 16/2 (two faction
-outlines too close). Both were already red before this round and neither moved.
+outlines too close). Both were already red before my rounds and neither moved.
 
-[PENDING Paolo] -- nothing new from me this round.
+[PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [lights bill] BB-THE-NIGHT-EATS-POWER, 9/5 94ca570 (a held circuit
-is billed at nightfall and an unpaid one goes dark and stays dark). Before it:
+LAST SHIPPED: [faction towns] FACTION-TOWNS, 9/5. Before it: [lights bill] 94ca570,
 [living costs] 5b61303, [battery money] + [prices one] ce39270.
+
 
 
 

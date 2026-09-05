@@ -25028,6 +25028,10 @@ const BEAT=500; // 120BPM law
 
 
 
+
+
+
+
 /* ===== BOHEMIA FACTION GRAPH (generated, verbatim) ===== */
 /* Paolo's own faction graph, spliced verbatim by
    tools/bohemia_city_towns_patch.py. ONE COPY OF HIS NUMBERS: edit
@@ -25202,16 +25206,23 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
   /* GROUND THAT NEVER CARRIES A BUILDING IS NOT A TOWN. His ruling says in its own
      words that WHAT SUPPORTS A TOWN IS BUILDINGS, and a solar array supports nothing:
      you cannot trade on a photovoltaic field or a runway.
-     THIS LIST IS MEASURED, NOT IMAGINED. Sampled across two seeds, asking the district
-     kit itself how many buildings each kind's plots carry: airbase, airport, solar and
-     strip came back with ZERO on every plot examined, and they are the only kinds that
-     did. faction_towns_gate re-measures it and goes red if a kind's answer changes, so
-     it cannot rot into a list somebody once believed.
-     IT DOES NOT CLOSE THE WHOLE GAP AND DOES NOT PRETEND TO: golf and farm plots are
-     SOMETIMES empty, which a kind list cannot see, and the honest per-cell test needs
-     w.plot() -- an API the walked surface does not have. That remainder is counted
-     against a ceiling in payday_gate rather than hidden. */
-  var NOT_A_TOWN = { airbase: 1, airport: 1, solar: 1, strip: 1 };
+     THIS LIST IS MEASURED, NOT IMAGINED, AND THE MEASUREMENT WAS WIDENED ONCE BECAUSE
+     THE FIRST QUESTION WAS THE WRONG ONE.
+     The first cut asked which kinds are ALWAYS empty and got four: airbase, airport,
+     solar, strip. That still left two seats on ground with nothing on it -- because a
+     seat lands on ONE cell, so what matters is not whether a kind is always empty but
+     whether it can EVER be. A kind that is usually built and sometimes not will
+     eventually put a market on nothing.
+     Asked again, exhaustively, over every buildable kind across two seeds: EIGHT kinds
+     have at least one plot with zero buildings and FORTY-NINE are built on every plot
+     examined. All eight are out, and the unreachable-seat count went 7 -> 2 -> 0,
+     re-measured at 84 seats over six seeds.
+     It is also the reading that matches his ruling in plain words: a runway, a solar
+     field, a fairway and a farm are not parts of a city you trade in.
+     faction_towns_gate RE-MEASURES this and goes red naming the kind if any answer
+     changes in either direction, so it cannot rot into a list somebody once believed. */
+  var NOT_A_TOWN = { airbase: 1, airport: 1, datafort: 1, farm: 1,
+                     golf: 1, solar: 1, speedway: 1, strip: 1 };
 
   function districtsOf(m, cat) {
     var out = [];
