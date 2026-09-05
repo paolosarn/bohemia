@@ -250,7 +250,6 @@ THIS ROUND: read the VAMILY front page (it had been rewritten as THE MEETING HAL
 last round, which is exactly why rule 1 says read it every time and never trust memory).
 Q1, Q2 and Q3 are SHIPPED. Claimed Q4 [beat speech] and worked it. See the block below for
 where it got to.
-=======
 ECONOMY (economy-knxaeh): 9/5 (c) LATEST -- *** [rebuild order] SHIPPED. NOBODY
 REBUILDS A BUILDING FIRST, AND THE CENTURY RULE COUNTS THE WRONG THING. MODE:
 RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
