@@ -1,3 +1,10 @@
+DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
+VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
+ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
+INSTRUCTION. ***
+
+--- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
+
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** FAMILY. THE GENERATION TURNS, AND THE
 VALLEY REMEMBERS WHAT GOT REPEATED. *** Nothing to judge.
 
@@ -126,6 +133,20 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
+TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
+so the next round does not repeat them:
+  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
+    is the records convention, but the front page says plainly: it is one VAMILY,
+    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
+    called it a research day. Stop.
+  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
+    this block says I stopped. A job takes as many rounds as it takes and nobody
+    expects one round. Only if I hold nothing do I take the first OPEN line.
+
+
 === END OF HIS WORDS ===
 
 THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
