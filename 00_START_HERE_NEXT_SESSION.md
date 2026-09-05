@@ -1,3 +1,288 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
+FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
+
+MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
+economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
+standing loses 25% a generation. Territory, builds, economy capacity, investment,
+karma and virtues carry at 100% FOREVER with no decay at all.
+THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
+generation and takes ten to fifteen generations, three to four centuries, to
+fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
+NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+So we decay the thing that really lasts and preserve perfectly the things that
+really go.
+
+AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
+STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
+persistence of status is 0.79. A constant our own comment calls "tunable" and
+nobody ever checked landed within 0.04 of the best figure in the literature.
+NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
+
+AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
+ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
+three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
+whether it was settled. Reported surveys put 64% of older adults ranking
+heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
+than sentiment: an object somebody USED is valued more than one they merely
+OWNED. Our model records no use, no name and no memory, so it cannot express any
+of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
+AND LOSES EVERYTHING IT SAYS THEY DO.
+
+THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
+up, which reads as deleting a high-level character; and the game that carries
+items, skills, money and shops straight across is the one whose players say the
+biggest thing you lose is your family. Carrying everything material and losing
+the people is a known, shipped, complained-about outcome, and it is the shape of
+our fold.
+
+HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
+generation hands the next one zeroes). Round 3 finds that even for a HUMAN
+generation it carries the wrong things. Round 2 found that in a real coyote's
+life a territory is a VACANCY, never an inheritance, which contradicts territory
+being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
+AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
+onto the asset ledgers, give a tree node a name, give a wound a who and a when;
+pure engine, headless, no player surface). Inside this lane: Q8 [inherited
+memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
+death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
+
+[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
+to start. Which fields decay and how fast, every name, who dies, what the wound
+was, and what generation two is told on its first morning are all his.
+
+NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
+If a later round disagrees with that ordering, take Q4; the board's order is the
+default and this is a recommendation, not a change to the board.
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
+TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
+so the next round does not repeat them:
+  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
+    is the records convention, but the front page says plainly: it is one VAMILY,
+    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
+    called it a research day. Stop.
+  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
+    this block says I stopped. A job takes as many rounds as it takes and nobody
+    expects one round. Only if I hold nothing do I take the first OPEN line.
+
+
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply]. Next OPEN is Q8 [battery value].
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+=== ROUND 7 REPORT: [water supply] SHIPPED ===
+*** LAS VEGAS IS NOT SHORT OF WATER. IT IS A THOUSAND FEET ABOVE ITS WATER.
+MODE: RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_7_THE_CITY_SITS_ABOVE_ITS_OWN_WATER_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections II-MM (11 lines)
+Board:  Q7 SHIPPED. Q1-Q7 shipped; next OPEN is Q8 [battery value].
+
+THE REAL NUMBERS. Las Vegas valley floor ~2,028 ft; Lake Mead at record low
+1,040.5 ft. Intake No. 3 sits at 860 ft, about 35 ft BELOW the 895 ft "dead pool"
+where Hoover Dam can no longer pass water downstream at all -- the city
+deliberately put its straw below the level where the river stops being a river.
+The lift: 275 ft from intake to land by 22 VERTICAL PUMPS, each ~20 ft tall,
+3,000 to 4,600 horsepower, then two booster stations, then 11 miles to a plant
+1,000 ft above the lake. ABOUT $4,000 A DAY TO POWER ONE PUMP; ~$38 MILLION A
+YEAR ON ELECTRICITY. EVERY DROP IN LAS VEGAS IS A CONTINUOUS ACT OF ELECTRICITY.
+
+SO THE ANSWER TO "WHERE DOES WATER COME FROM WHEN THE PUMPS STOP" IS: NOWHERE,
+AND THE LAKE IS STILL FULL. THE WATER DOES NOT RUN OUT. IT STOPS CLIMBING.
+
+MEASURED ON OUR BUILD:
+  - NOTHING IN THIS GAME PRODUCES WATER. YIELD.site water 0, YIELD.scav water 0,
+    against a need of 4.0 L/person/day. Round 1 measured the result across six
+    seeds: water gone between day 51 and day 60 in every one, regardless of
+    population or how hard anybody works.
+  - That is NOT a bug in the module: it models a block's standing water honestly
+    (a ~200 L heater plus containers per house). THE HOLE IS THAT THERE IS NO
+    SECOND SOURCE AT ALL. No well, no spring, no rain catch, no still.
+  - THE ENTIRE WATER SYSTEM IS PAINTED SCENERY: dam, water, reservoir, intake,
+    watertreat, basin, reclaim and springs are all SKELETON (never buildable,
+    never demolishable), and `intake`, `watertreat`, `reservoir`, `pumpstation`
+    and `springs` are each referenced EXACTLY ONCE outside their own art module,
+    and every one of those references IS THE ENUM DECLARATION ITSELF. Names on a
+    map with art attached and no behaviour.
+  - AND THE TWO WATER THINGS YOU CAN BUILD ARE A PUMP STATION AND A WATERPARK.
+    The pump station is the single most important building in the valley by the
+    real record, and it currently does nothing.
+
+*** THE FINDING THAT PROVES US WRONG: WE MODELLED WATER AS A PUDDLE THAT RUNS
+OUT. IT IS A HEIGHT YOU HAVE TO LIFT IT TO. *** Using our own 4 L/day figure: a
+valley of 3,000 people needs TWELVE CUBIC METRES A DAY, which is 0.00035% of what
+the real low-lake station can move. The springs that dried up in 1962 (~5,000
+acre-ft/yr) would have covered 3,000 people 1,408 TIMES OVER. The 360,000+
+acre-feet banked underground since 1987 is ABOUT 101,000 YEARS of drinking water
+for 3,000 people. WE KILL THE VALLEY OF THIRST ON DAY 53 WHILE IT SITS ON A
+HUNDRED THOUSAND YEARS OF WATER. The scarcity is entirely in 280 feet of lift,
+and 280 feet is amps.
+
+THAT MAKES THE WHOLE LANE LINE UP: round 2 said the money is the CHARGE; round 6
+said a fortress produces what it can power and a high-rise has no water above the
+ground floor without pumps; LIGHT IS TERRITORY; THE NIGHT EATS POWER. SO THE
+BATTERY IS NOT JUST MONEY, IT IS THIRST. Spending charge on light tonight spends
+tomorrow's water, and nobody has to explain it once, because the pump is a
+building you can stand in front of.
+
+AND THE PART NOBODY EXPECTS: Nevada's allocation is 300,000 acre-ft/yr, the
+SMALLEST of any Colorado River state, and it copes because it recycles NEARLY 99%
+OF INDOOR WATER back to Lake Mead and takes RETURN-FLOW CREDITS -- every gallon
+returned lets it draw another out. So showers, laundry and dishwashing are
+effectively free, and only what goes on the ground is truly spent. WASHING IS
+CHEAP AND GARDENS ARE DEAR, the inverse of the intuition, and it lands straight
+on round 6's laundry and round 3's farm.
+
+THE SPRINGS DIED OF PUMPING, NOT DROUGHT: the valley is "the meadows" for
+artesian springs of ~5,000 acre-ft/yr that DRIED UP IN 1962, because by 1960 a
+population of 110,000 was pulling ~50,000 acre-ft/yr against recharge; pumping
+peaked ~88,000 acre-ft in 1968. USGS: groundwater down AS MUCH AS 280 FEET since
+1912, with land subsidence UP TO 5 FEET. The city drank its own springs dry and
+the ground sank five feet doing it. We already have a `springs` district.
+
+A CORRECTION TO MY OWN HYPOTHESIS, WRITTEN DOWN BECAUSE THE VERSION I NEARLY
+SHIPPED WAS MORE FLATTERING AND LESS TRUE: I expected the water table to rebound
+once pumping stopped. IT DOES NOT. Las Vegas is a rare groundwater RECOVERY case
+and the recovery is ARTIFICIAL -- more than 360,000 acre-feet of treated Colorado
+River water INJECTED since 1987, with groundwater deliberately cut to ~10% of
+supply. Even the aquifer is electricity that was pumped uphill and put back down.
+
+ROUTED: WORLD ECON-WATER-IS-A-LIFT-NOT-A-STOCK (the finding),
+ECON-THE-PUMP-STATION-DOES-SOMETHING (already buildable, already inert, and it
+answers round 3's need-driven order and round 4's "make a placement feel like
+something" at the same time -- three rounds converge on one row),
+ECON-A-WELL-IS-THE-SECOND-SOURCE. FACTIONS ECON-WHOEVER-PUMPS-DRINKS (same shape
+as round 2's "whoever holds the light is the mint"). LIFE + CITY
+ECON-WASHING-IS-CHEAP-AND-GARDENS-ARE-DEAR. COOK/DIRECTION
+ECON-THE-SPRINGS-ARE-A-STORY.
+
+REFUSED: a thirst meter, rebalancing the water yield so the valley survives (the
+drought gets REPORTED, not tuned away, and it may be his premise), deciding who
+owns the intake or the wash (MAP LAW), inventing a litres-per-turn well yield,
+and any implementation.
+
+GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0.
+
+*** CANON ROT WENT 13/0 -> 12/1 THIS ROUND AND THE DRIFT IS NOT MINE. ***
+  FAIL C1: laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md
+  cites `gates/ui_study_gate.py`; the real file is `gates/ui_study_gate.js`.
+Pre-existing on main, landed with commit b52e6aa (another lane's law, written
+this round). ONE CHARACTER FIX: change .py to .js in that citation. Flagged and
+NOT fixed, because it is another lane's law file and they may still be mid-round;
+editing it under them risks a conflict on their in-flight work. Whoever owns that
+law: it is red on shared main right now.
+
+AND MARKET GATE IS STILL 22/10 ON MAIN, FOURTH ROUND RUNNING, STILL NOT A CODE
+BUG: the real buy path gives applied:true, paid:1, kind:"drain", electricity
+500 -> 499. The gate watches the `resources` balance while the debit lands in
+`electricity`, and four checks assert his price table is still empty. FIX THE
+RULER, NEVER THE TARGET (8/1). Four rounds of flagging has not moved it, which is
+worth somebody's attention on its own. Also still red and not this lane's: engine
+sync (BOH_FLOORPLAN, 2 bodies), banks-used, dialogue catalogue.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten in-game days and runs dry around
+     fifty. Premise or bug? (Now sharper: the water half is a LIFT problem, and
+     a working pump ends it forever.)
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS?
+  3. The century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one? (Round 7's answer, if he wants one:
+     the pump station. But which building a player should want is his.)
+
+NEXT IN THIS LANE: Q8 [battery value], what a AA is really worth in energy and
+what the denominations should be.
+
+================================================================================
+
+
 WORDS (words-8dqrnq): 9/5 (e) LATEST -- *** VAMILY Q8 [grief talk] SHIPPED. THE FIVE STAGES
 ARE NOT A FINDING ABOUT GRIEVING PEOPLE, AND A DINNER WHERE EVERYBODY IS SAD THROUGHOUT IS
 NOT DULL, IT IS WRONG. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.

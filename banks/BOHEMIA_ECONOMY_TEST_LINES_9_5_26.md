@@ -525,3 +525,65 @@ GG3 somebody who cannot                                draft:true
 - No line names a faction or says who holds the building. That is his.
 - No line explains the mechanic. GG1 is the whole finding and it never says
   laundry, power, or economy.
+
+# ============================================================================
+# ROUND 7 [water supply] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_7_THE_CITY_SITS_ABOVE_ITS_OWN_WATER_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THE POINT: the valley is a thousand feet above its own water and there is a
+# hundred thousand years of drinking water under it. Nobody says that. They say
+# the pump is off.
+# ============================================================================
+
+## II. THE PUMP (the one building that needs no tutorial)
+
+II1 somebody at the pump house                       draft:true
+    "It's not broken. That's the thing I can't get anybody to understand. It
+     works. It just needs feeding."
+
+II2 the first time it runs                           draft:true
+    "Listen. No, stop talking, listen."
+
+II3 somebody who has done the maths                  draft:true
+    "Two hundred and eighty feet. That's all that's between us and as much as we
+     want, and it might as well be the moon on a bad week."
+
+II4 a trade, stated plainly                          draft:true
+    "You want the lights on or you want to drink. Not both tonight, hermano."
+
+## JJ. THE LAKE YOU CANNOT REACH
+
+JJ1 somebody who walked out to look at it            draft:true
+    "It's right there. You can see it from the ridge. All of it, just sitting
+     there being lower than us."
+
+JJ2 an old man, flatly                               draft:true
+    "Water doesn't climb, boss. That's the entire problem and people keep
+     wanting it to be a different one."
+
+## KK. THE SPRINGS (named for water that a city drank dry in 1962)
+
+KK1 somebody who heard it from their grandmother     draft:true
+    "She said you could hear it. Out past where the school is. Running, all year,
+     for nothing, and everybody just walked past it."
+
+KK2 somebody who does not believe it                 draft:true
+    "In the desert. Sure. And the ground was five feet higher too, I suppose."
+
+## LL. WASHING IS CHEAP, GARDENS ARE DEAR (the inverse of the guess)
+
+LL1 somebody explaining the rule                     draft:true
+    "Wash all you like. It comes back. Put it on a plant and it's gone, that's
+     it, that's the whole difference."
+
+LL2 somebody who learned it the hard way             draft:true
+    "I had tomatoes. For about a month I had tomatoes."
+
+## MM. WHAT IS NOT HERE, ON PURPOSE
+- No line gives litres, a rate, or a yield. II3 says two hundred and eighty feet
+  because a person who had thought about it would say it, not because anything
+  reads a number.
+- No line names who owns the pump, the wash or the intake. That is his.
+- No line explains that water is downstream of power. II4 IS that finding and it
+  never uses the word power or economy.
