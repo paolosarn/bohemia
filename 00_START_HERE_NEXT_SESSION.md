@@ -3783,7 +3783,136 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/5 LATEST -- *** [demo current] SHIPPED, AND IT CAUGHT
+RUN (run-eak241): 9/5 LATEST -- *** [cold hand] SHIPPED. The test that found a
+dead end in the first minute of the game, run ONCE by hand on 8/25 and never
+since, is a harness now and it runs every time. A cold hand today gets in, gets
+to the street, finds the walk pad and walks; the clock moves and keeps moving.
+TAB: RUN. Nothing to judge. ***
+
+THE ROW: promote the cold hand to a repeatable harness. Its own sentence: A COLD
+HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS, and if doing that
+repeatedly does not advance the game the screen is broken however good the
+systems behind it are. On 8/25 it went WATCH, GET UP, then DROP IN / CITY ten
+times and stopped; PHONE OPENED 0, JOB TAKEN 0, clock 06:00 at the first tap and
+06:00 at the twelfth. THE FIX WAS NOT THE FINDING, THE TEST WAS, and nothing had
+run it since.
+
+SHIPPED: gates/cold_hand_gate.js, 6 checks, COLD HAND, served not opened.
+LOUDNESS IS COMPUTED, not pointed at -- ink area first, then contrast, a cluster
+of controls scored as ONE control because that is what an eye sees -- and NO TEXT
+IS MATCHED ANYWHERE, because a harness that picks the button saying GO has
+stopped simulating somebody who does not know the game. It asserts the game
+advances AND that it is still advancing at the END, not only at the start, and it
+prints the whole press trail every run.
+
+*** AND THREE TIMES MY OWN HAND WAS THE BROKEN THING. The first three runs of
+this gate ALL reported the 8/25 dead end and ALL THREE WERE WRONG. *** (1) every
+button scored on its own, so eight 44x44 walk arrows came out quieter than one
+104x31 info chip -- nobody sees eight buttons where a d-pad is. (2) grouped by
+the parent's bounding BOX, so a column of four buttons spread down the left edge
+(73,284) beat the d-pad (32,400) ON THE EMPTY SPACE BETWEEN THEM; empty space is
+not loud, so sum the ink. (3) pressed with a synthetic el.click(), AND THE WALK
+PAD DOES NOT LISTEN FOR CLICK -- it listens for pointer/touch -- so the hand
+mashed the d-pad thirty-eight times and the clock never moved.
+THE THIRD IS THE DANGEROUS ONE: IT PRODUCED A FALSE POSITIVE THAT AGREED WITH A
+KNOWN HISTORICAL BUG, which is the single easiest thing in this repo to believe
+without checking. The finding was pre-written, the trail matched, and every
+instinct said ship it. Tenth broken ruler on this lane in two weeks and the
+pattern has never varied: the instrument agreed with the fear, and checking the
+instrument was the whole job.
+
+AND ONE ASSERTION THAT WAS WRONG ON ITS MERITS: the first loop check counted how
+many DIFFERENT controls the last twelve presses touched. Wrong in both
+directions -- a stranger who found the walk pad presses ONE control for the rest
+of the session and that is the game working, while a screen cycling two buttons
+over a world that advances on a timer would sail through. Replaced with the thing
+the proxy stood for: over the last twelve presses ON THEIR OWN, is the game still
+moving. The distinct count is still printed, as a number rather than a verdict.
+
+  COLD HAND 6/0 (new) - ENEMIES EXIST 27/0 - STRANGER OPENS 18/0 - DEMO CURRENT 16/0
+  MUTATION: freeze the clock -> both advance claims red; make the walk pad
+  unpressable -> both red AND THE TRAIL REPRODUCES THE 8/25 SHAPE EXACTLY,
+  blstack / dcgo / blstack / dcgo thirty-eight times, clock stuck at 06:00.
+A cold hand today: front > pad > dcgo > pad x37. THE SCREEN IS NOT BROKEN.
+No game code changed. No approved pixel moved.
+Record: records/BOHEMIA_THE_COLD_HAND_9_5_26.md
+
+--------------------------------------------------------------------------------
+*** AND A BLOCK OF MINE WAS EATEN OFF MAIN BETWEEN ROUNDS AND IS RESTORED BELOW.
+The [enemies exist] handoff block was pushed in bb2057b and is absent from
+origin/main now; somebody's rebase resolution dropped it. Recovered verbatim from
+my own commit rather than rewritten from memory. Every lane: CHECK THE FILE, NOT
+THE EXIT CODE -- "Successfully rebased" has now eaten a lane block more than once
+in this repo. ***
+
+RUN (run-eak241): 9/5 LATEST -- *** [enemies exist] SHIPPED. THERE ARE PEOPLE ON
+THE STREET NOW WHO MEAN IT. They stand on a corner, they clock you while they are
+still on screen, and they come at you. Walk out of your block and you will meet
+one. TAB: RUN. Nothing to judge. ***
+
+HIS BUG, top of the lane: "Awesome I just played the run. Where the enemies at
+bro." The ruling had already measured the sentence -- THE GAME KNOWS WHO YOUR
+ENEMIES ARE AND HAS NEVER ONCE PUT ONE IN FRONT OF YOU. Every hostile string in
+all three files was PROSE; hostility lived in bohemia_between as a sign on a
+relationship. A ledger, not a body.
+
+SHIPPED: engine/bohemia_hostiles.js, inlined verbatim (ENGINE SYNC), drawn with
+the bodies that already exist so NOTHING WAS COOKED, wired into the same pass as
+the residents and the animals. SHAPED LIKE THE PACKS MODULE ON PURPOSE -- that
+one already solved "a group that stands somewhere, has seen you, closes on you,
+and an alley is a real out" and he approved it 8/30; a second differently-shaped
+answer to the same question is how two things that should agree drift apart.
+NO DAMAGE BEFORE THE DIAL, asserted off the module's surface AND its code rather
+than promised in a comment. COMBAT owns contact, PEOPLE owns the crowd, UI owns
+the block tell.
+
+*** THE FINDING: THE OBVIOUS DESIGN SHIPS THIS INVISIBLE. *** The natural rule is
+"crews for whoever is hostile to me". Measured first: the canon graph holds NINE
+edges, FOUR hostile, and NOT ONE touches Custom -- watchers('Custom') is EMPTY on
+day one. That design puts NOBODY on the street he just played and complained
+about. Inventing "everybody hates you" is canon and canon is his, so the rule is
+derived from what is already ruled, and it is MY CALL, correct-after: AN OUTFIT
+ALREADY AT ODDS WITH SOMEBODY PUTS CREWS OUT, and to an unaligned stranger those
+crews are the danger. Cartel, Caravans and Remnants on day one; it grows itself
+the moment the ledger says somebody hates YOU; a valley at peace has none.
+
+THREE BUGS OF MINE, all found by measuring: (a) my first ownership rule borrowed
+the agents module's REACH_CELLS as a hard cutoff and PUT EVERY ENEMY THOUSANDS OF
+CELLS FROM THE SPAWN -- nearest at-odds base is 26 overmap cells, about 3,300
+walked cells, so I would have shipped his own bug back to him; (b) hostDanger
+cached whatever the first call produced, and the first call lands while the page
+is still parsing, so it could cache "the dependency was not loaded yet" as a
+permanent fact; (c) HOST_DREW under-counting is the record-only-what-hit-the-glass
+discipline working, not failing.
+
+*** AND THE ONE THAT COST MOST OF THE ROUND, WHICH EVERY LANE SHOULD READ: MY
+READINESS CHECK WAS A LIE. *** Four probes waited for DAY.day>=1 before reading
+the city. THAT IS TRUE PART WAY THROUGH THE CITY'S SCRIPT -- BohemiaBetween and
+ctBases are defined near the END of that file. So four measurements ran against a
+half-parsed city, reported "BohemiaBetween is not defined", and I was one step
+from writing up "the ledger of who hates you is missing from the walked surface",
+which would have been a large, confident, completely false finding about another
+lane's work. IT IS NOT MISSING: loaded directly the city has it, 97 globals, zero
+errors. A READINESS CHECK THAT IS TRUE BEFORE THE FILE HAS FINISHED IS NOT A
+READINESS CHECK. Eighth broken ruler on this lane in two weeks, same pattern every
+time: the instrument agreed with the fear, and checking the instrument was the job.
+DAY.day>=1 IS A COMMON WAIT IN THIS REPO'S GATES. Any gate using it to mean "the
+city is up" may be reading a half-loaded city.
+
+  ENEMIES EXIST 27/0 (new) - DEMO CURRENT 16/0 - STRANGER OPENS 18/0
+  - WHOLE DEMO 23/0 - DEMO BUILD 25/0 - WILDLIFE 30/0
+  MUTATION: never call hostilePass -> 2 red; drop the at-odds half of the rule ->
+  "somebody is still dangerous on day one (0: )" red, AND engine sync red on its
+  own because it edited engine/ and not the inlined copy.
+NOT THIS LANE'S, both verified against the unpatched city: PACK GATE 1 red,
+DAY LOOP 57/2.
+STILL OPEN AND NOT MINE: nothing happens when you touch them. That is COMBAT
+[street fight], routed the same round, and this module deliberately cannot start
+a fight.
+Record: records/BOHEMIA_THERE_ARE_ENEMIES_ON_THE_STREET_9_5_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [demo current] SHIPPED, AND IT CAUGHT
 SOMETHING BIGGER THAN ITSELF: EVERY GATE THAT OPENS THE DEMO OFF DISK IS TESTING
 A BUILD NO PLAYER GETS. On that surface the builder drawer is sitting in plain
 view, and its REROLL regenerates the world under a stranger's own session. TAB:

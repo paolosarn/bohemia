@@ -910,6 +910,19 @@ GATES = [
      'the same instance, got day 2, and read as a failure of the module when it was a failure '
      'of the harness. It models a relaunch now. Mutation-tested: the snapshot dropping the '
      'people turns 5 claims red', True),
+    ('COLD HAND',      ['node', 'gates/cold_hand_gate.js'],
+     'BB-COLD-HAND, promoted from a one-off to a harness. THE TEST IN ONE SENTENCE: A COLD '
+     'HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS -- if doing that repeatedly '
+     'does not advance the game, the screen is broken however good the systems behind it are. '
+     'It was run ONCE by hand on 8/25 and found a total dead end in the first minute (WATCH, '
+     'GET UP, then DROP IN / CITY ten times, PHONE OPENED 0, JOB TAKEN 0, clock 06:00 at the '
+     'first tap and 06:00 at the twelfth). The cause was fixed; THE FIX IS NOT THE FINDING, '
+     'THE TEST IS, and nothing had run it since. Loudness is COMPUTED -- ink area first, then '
+     'contrast, clusters scored as one control -- and NO TEXT IS EVER MATCHED, because a '
+     'harness that picks the button saying GO has stopped simulating somebody who does not '
+     'know the game. Served, not opened. Mutation-tested: freezing the clock turns both '
+     'advance claims red, and making the walk pad unpressable REPRODUCES THE 8/25 SHAPE '
+     'EXACTLY -- a two-control cycle with a frozen clock -- and prints the press trail', True),
     ('ENEMIES EXIST',  ['node', 'gates/there_are_enemies_gate.js'],
      'PAOLO PLAYED THE RUN AND ASKED "where the enemies at bro" (9/5). The ruling measured the '
      'honest sentence: THE GAME KNOWS WHO YOUR ENEMIES ARE AND HAS NEVER ONCE PUT ONE IN FRONT '
