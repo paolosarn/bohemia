@@ -1,3 +1,133 @@
+ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LANE'S FIRST SHIP. THE WHOLE
+VALLEY WAS A STILL PHOTOGRAPH WHENEVER HE STOPPED WALKING, AND ALL 105 CLIPS ARE
+NOW AUDITED ON THE REAL SURFACE. TAB: RUN. Nothing to judge yet -- the clip
+verdicts are the next row and they are HIS. ***
+
+TAB: RUN. Build 9/5a - THE VALLEY KEEPS BREATHING.
+Stand still in the city and watch. It used to be a photograph.
+
+TWO ROWS SHIPPED: THE-63-CLIP-AUDIT and ANIMATE-THE-CROWD.
+
+=== ROW 1: THE CLIP AUDIT (his 8/25 dispatch item 10, untouched since) ===
+"ALOT OF THEM ARE KINDA FUCKED. WE NEED NEW ONES." AUDIT FIRST, COOK SECOND.
+NOTHING WAS RECOOKED. Which survive is his.
+
+THE SET IS 105, NOT 63: 64 in the CLIPS array plus 41 candidates pushed at load,
+every one drawable, none carrying a verdict. Anything scoped as "the 63" was
+scoped against a stale number. The queue row is renamed in place.
+
+*** THE STRUCTURAL FINDING. clip_health_gate (throws/still/empty) and
+loop_seam_gate (snap at the wrap) are BOTH GREEN on all 105, re-run this turn,
+while he looks at the same set and calls it fucked. OUR ANIMATION GATES COULD SAY
+CRASHES OR MOVES AND HAD NO WORD FOR MOVES WRONG -- day 20's "no word for OWED",
+in the animation lane. ***
+
+HEAD-ON IS A FIFTH OF PROFILE. Median clip's head-on view carries 41% of its
+profile view's motion; 40 of 105 under 35%. run 16%, walk 18%, tired-walk 14%.
+
+AND THE FIRST READING OF THAT WAS WRONG, which is the part worth keeping: the
+weakest facing is N for 77 of 105, which reads as "THE BACK VIEW IS DEAD" and is
+not. S is only 1.1-1.7x of N and BOTH sit 5-8x below profile -- N wins the count
+by a photo finish between two quiet views. Reporting it the other way would have
+sent a recook at the wrong half of the rig. Then I rendered the strips and LOOKED:
+head-on walk reads in both N and S. Weaker, not dead. Whether the N/S crunch law
+compensates enough is HIS call, and it is a recook, so it waits.
+
+THE LEGS ARE THE QUIETEST THING ON THE BODY. Work index (a region's share of the
+motion / its share of the body): arms carry 58 of 105 clips, head 33, legs 14,
+torso 0. Median legs 0.36 while legs are the BIGGEST region (32.6% vs arms 26.8%),
+so it is not an area artifact.
+
+THE RULER FOR THAT WAS BROKEN FIRST: ranking regions by RAW changed pixels failed
+`taunt` on 33.0% head against 32.9% arms -- a coin flip reported as a defect --
+and INVERTED three clips (smoke, pickup, carry). Fixed the ruler, not the target.
+
+AND THE NAME TEST FOUND MY OWN TABLE WRONG MORE OFTEN THAN A CLIP. 14 of 46
+flagged; looking settled most AGAINST THE TABLE (a whistle IS fingers to the
+mouth, a push IS driven from the legs, people DO talk with their hands). Treat
+that list as questions, never verdicts. WHAT SURVIVED LOOKING: `jump` does not
+jump (legs 0.65, arms 1.45, no crouch, the body translates as one piece) and
+`whistle` is a static hold -- a shape this repo already ruled on in the salute
+graveyard note.
+
+POSITIVE CONTROLS CLEAN: nothing throws; no two of the 105 render the same motion
+(with 105 hand-authored pose functions a copy-paste twin was a real risk).
+
+=== ROW 2: THE VALLEY KEEPS BREATHING ===
+*** THE ROW'S PREMISE WAS WRONG AND THE TRUTH WAS WORSE. *** It said "the bake
+already sends walk frames for the city cast; the decoder keeps only idle".
+Measured: alpha:8629 CITY cast is {idle:...} ONLY, alpha:8680 RUN cast has the
+walk frames. BOTH HALVES are idle-only where he walks. Fixing the decoder alone
+would have changed NOTHING -- a duplicate nothing reads is where your fix goes to
+die, and the ONE WALKED SURFACE migration left behind everything not on its list.
+
+AND PEOPLE NEVER WALK ANYWAY: pplAt() returns one of three fixed spots and
+residents TELEPORT between them, so a walk cycle on a standing body is moonwalking
+in place. What they needed was the BREATH, and the cast was baked as ONE STILL at
+phase 0.25 of a clip that does move (idle peaks 6.9% on S).
+
+*** AND THE BIGGEST ONE, WHICH NOBODY HAD MEASURED: STANDING STILL FOR THREE
+SECONDS, THE WALKED CITY CALLED render() ONCE. *** animate() runs a rAF loop for
+one BEAT after a step and cancels itself; nothing else asks for a frame. So the
+whole valley is a photograph the moment he stops -- INCLUDING THE 19 ANIMALS ON
+SCREEN, whose pass has computed its positions from performance.now()/500 since
+8/26. The motion was built, correct, and never asked for. THE SEVENTEEN INVISIBLE
+HATS, IN THE RENDER LOOP. This is a third direction on "THE CITY SEEMS DEAD ASF":
+day 13 answered it with content density, day 22 with sound, and neither asked
+whether the city was DRAWING.
+
+SHIPPED: a beat-locked heartbeat (120 BPM, four guards -- human mode only, never
+while animate() owns the frame, never hidden); the city cast baked with a 4-phase
+breath (ANIMBEATS.idle is 4, so one frame per beat); decoder + ctBody picking on
+the beat, staggered per person.
+COST, MEASURED: render() is ~1ms, so the heartbeat is 2ms/sec = 0.2% OF ONE CORE,
+against the 60fps the city already spends for a whole beat after every step.
+AFTER: renders while standing 1 -> 7 per 3s. Breath frames 0 -> 4 per facing. The
+screen changes every beat (4 of 4 distinct). 289 people spread 69/75/76/69 across
+the four phases. Zero page errors.
+
+*** THE BUG I NEARLY SHIPPED, AND THE TWO GATES THAT WOULD NOT HAVE CAUGHT IT. ***
+The first offset was (p.id>>>0). personFields gives `id` as a STRING ("nx:ny:i"),
+so it is 0 FOR EVERY PERSON IN THE VALLEY: the whole crowd on the same frame on
+the same beat, nothing throwing, the code reading as though it staggered them.
+Then the gate written to hold that claim FAILED TO CATCH IT TWICE:
+  1. v1 counted distinct frames over the whole roster -- the six cast LOOKS are six
+     different bodies, so it read 6 and passed with the breath cycle DELETED. THE
+     LOOK SUPPLIED THE VARIETY, NOT THE BREATH.
+  2. v2 still passed against the real bug: the sweep over 289 people takes longer
+     than a 500ms BEAT, so `beat` changed part way through the loop and TIME
+     supplied the variety -- the 8/30 shape where the answer depends on where the
+     test stopped. Pinned performance.now() and only then did it go red.
+BOTH WRONG VERSIONS WERE GREEN AND BOTH LOOKED REASONABLE. A CLAIM ABOUT VARIETY
+HAS TO NAME EVERY SOURCE OF VARIETY IT IS NOT ASKING ABOUT.
+
+FILES
+  tools/bohemia_clip_audit.js        the sweep, on buildFrame at FRAME_CACHE.buckets
+  tools/bohemia_clip_strips.js       the looking half; nothing written down unlooked-at
+  gates/clip_audit_gate.js           set size, no twins, the head-on floor. 5/0, 88s
+  gates/valley_breathes_gate.js      8 claims, 3 mutations caught
+  records/BOHEMIA_THE_63_CLIP_AUDIT_9_5_26.md
+  records/BOHEMIA_THE_VALLEY_KEEPS_BREATHING_9_5_26.md
+  records/clipstrips/                the pictures the findings were checked against
+
+*** WHAT COMES NEXT FOR THIS LANE ***
+1. SHOW-HIM-THE-LIST is the next row and it NEEDS HIM: no clip has carried a
+   verdict since the 7/26 reset, and the audit deliberately judged nothing. The
+   VOTE tab already holds faces in strips (8/28); clips want the same treatment and
+   that surface is the obvious host. DO NOT RECOOK BEFORE HE HAS SEEN THE LIST --
+   his 8/25 order says so in those words.
+2. RECOOK-WHAT-HE-KILLS then has a queue: `jump` (no crouch, arms carry it), the
+   head-on amplitude question, `whistle` as a static hold, and the four quiet ones
+   worth his eye (pray, eat, smoke, whistle). pistol/two-hand are DESIGN, not
+   defects -- do not "fix" a man holding a gun steady.
+3. THE 41 CANDIDATES have never been judged and several are combat verbs
+   (crouch-aim-1h/2h, cover-fire, take-cover, shiv-jab, bat-arc, spear-drive).
+   Worth asking whether COMBAT wants them before this lane spends a turn on them.
+4. NOT MINE BUT NOW MEASURED, hand to WORLD/RUN: only ONE person was drawn on
+   screen at the default population dial while 289 exist around the player. That
+   is his dispatch item 5 (the default population goes up), and the heartbeat
+   means anything added there will now actually move.
+
 SOUND (sound-xk7pjp): 9/5 (b) LATEST -- *** THE GAME WAS SILENT FOR TEN SECONDS
 AT ITS OWN FRONT DOOR, AND THE MUSIC WAS NOT LATE, IT WAS STARVED.
 TAB: RUN (from the splash). Nothing to judge -- no sound was cooked. ***

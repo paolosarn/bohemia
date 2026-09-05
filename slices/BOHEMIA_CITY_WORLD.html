@@ -31145,6 +31145,46 @@ function endHold(){ held=null; heldBeats=0; }
 // ---- WORLD MOVERS LAW (Paolo 7/5/26): NOTHING moves until you do, cars and
 // planes included. Movers advance ONLY on player steps, then TWEEN fluidly over
 // one beat window so multi-cell movement reads smooth (the sprinting-dog answer:
+/* ==== __THE_VALLEY_KEEPS_BREATHING__ (ANIMATION lane, 9/5/26) ==============
+   MEASURED ON THE REAL SURFACE BEFORE ANYTHING WAS WRITTEN: standing still in
+   the walked city for three seconds, render() was called ONCE. Not "the crowd is
+   frozen" -- THE WHOLE VALLEY IS A STILL PHOTOGRAPH the moment you stop walking.
+
+   The city redraws on input and then stops: animate() runs a rAF loop for exactly
+   one BEAT after a step and cancels itself. Everything written to move off the
+   clock is therefore only alive while the player is moving. That includes the 19
+   animals on screen in the measurement, whose whole pass already computes its
+   positions from performance.now()/500 and has done since 8/26 -- the motion was
+   built and nothing was asking for it. Same shape as the seventeen invisible hats.
+
+   So this is the heartbeat, and it is deliberately the cheapest thing that can
+   work: ONE render on the beat, and only when there is somebody to see it.
+
+   120 BPM LAW: it ticks on BEAT, the same clock the metronome, the footsteps and
+   the animals are on, so nothing in the valley is on a second clock.
+
+   FOUR GUARDS, because his dispatch item 7 is PERFORMANCE and a heartbeat that
+   redraws a hidden tab is a battery bug:
+     - human mode only. At city zoom the animal pass already refuses to draw, and
+       a 2px mark up there is a dirty screen, not life.
+     - not while animate() owns the frame. ANIM runs its own rAF for a beat after
+       every step; rendering underneath it would double the work at exactly the
+       moment the city is busiest.
+     - not while the document is hidden.
+     - not while a full-screen surface is over the map.
+   The cost when all four pass is two renders a second, against the sixty a second
+   the city already spends for a whole beat after every single step. */
+const HEARTBEAT_MS = BEAT;
+setInterval(function(){
+  try{
+    if (typeof MODE === 'undefined' || MODE !== 'human') return;
+    if (typeof ANIM !== 'undefined' && ANIM) return;
+    if (document.hidden) return;
+    render();
+  }catch(_e){}
+}, HEARTBEAT_MS);
+/* ==== /__THE_VALLEY_KEEPS_BREATHING__ ==== */
+
 // same tween window, faster things sweep farther).
 let cargo={t:0.2, vis:0.2}, plane=null, stepCount=0;
 function moversAdvance(){
@@ -42648,7 +42688,14 @@ window.addEventListener('message',function(ev){
   var out=[];
   for(var i=0;i<m.looks.length;i++){
     var L=m.looks[i], set={};
-    for(var d in L.dirs){ var f=decodePlayerFrame(L.dirs[d].idle); if(f) set[d]={idle:f}; }
+    for(var d in L.dirs){ var f=decodePlayerFrame(L.dirs[d].idle); if(f){
+      set[d]={idle:f};
+      /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): the breath cycle, if the bake sent
+         one. Falls back to the single still, so an older bake still draws a
+         person rather than a hole. */
+      var br=(L.dirs[d].breathe||[]).map(decodePlayerFrame).filter(Boolean);
+      if(br.length) set[d].breathe=br;
+    } }
     if(Object.keys(set).length) out.push(set);
   }
   if(out.length){ CAST_CV=out; if(MODE==='human')render(); }
@@ -42656,11 +42703,40 @@ window.addEventListener('message',function(ev){
 /* WHICH BODY THIS PERSON WEARS. Null until the bake lands, and the people pass
    falls back to the old tinted body in that window so nobody ever vanishes
    waiting for a message. */
+/* THE OFFSET HAS TO BE A HASH, AND THE FIRST CUT OF IT WAS A SILENT NO-OP.
+   personFields gives every person `id: nx+':'+ny+':'+i` -- A STRING -- so the
+   obvious `(p.id>>>0)` is 0 for EVERY person in the valley, and the whole crowd
+   would have breathed on the same frame on the same beat while the code read as
+   though it staggered them. Nothing would have thrown and nothing would have
+   looked broken except the thing this offset exists to prevent.
+   Hashed once and parked on the person, because pplPeople caches the roster so
+   the object survives between renders. */
+function ctPhase(p){
+  if(p.__bph===undefined){
+    var h=2166136261>>>0, t=String(p.id);
+    for(var i=0;i<t.length;i++){ h^=t.charCodeAt(i); h=Math.imul(h,16777619)>>>0; }
+    p.__bph=h>>>0;
+  }
+  return p.__bph;
+}
 function ctBody(p,dir){
   if(!CAST_CV||!CAST_CV.length) return null;
   var set=CAST_CV[(p.look>>>0)%CAST_CV.length];
   var s=set&&(set[dir]||set.S);
-  return s?s.idle:null;
+  if(!s) return null;
+  /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): pick the breath frame for this beat.
+     120 BPM LAW -- floor(now/BEAT) is the beat index, and ANIMBEATS.idle is 4, so
+     the four baked phases advance one per beat and the cycle closes every 2s.
+     AND NOBODY BREATHES IN UNISON. A crowd stepping through the same frame on the
+     same beat reads as one animated object, not as people -- the same failure the
+     face work calls shimmer. The offset is the person's OWN id, so it is
+     deterministic (they do not resample as you walk past) and every body is on its
+     own part of the cycle. */
+  if(s.breathe&&s.breathe.length){
+    var beat=Math.floor(performance.now()/BEAT);
+    return s.breathe[(beat+ctPhase(p))%s.breathe.length];
+  }
+  return s.idle;
 }
 /* ==== /CITY CAST (city side) ==== */
 // ask the parent for the current character as soon as we boot
