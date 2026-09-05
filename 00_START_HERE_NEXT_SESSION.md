@@ -703,7 +703,21 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (af) LATEST -- *** TWO RULINGS: FACTION
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ag) LATEST -- *** THE RUNWAY: EVERY
+GARMENT AND HAIRCUT MODELLED ON BALENCIAGA AND RICK OWENS, NO MATTER THE FACTION.
+ART AT ALL TIMES. TWO LANES, ONE SEAM: DIRECTION RULES, ART COOKS. Nothing to judge. ***
+laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md. The runway gives
+the CUT, the faction gives the COLOUR; the 10% coat cap and the graveyard stand; a
+remake cooks NEW shapes only. DIRECTION (first word "direction", the look half of
+the UI chat) writes THE STYLE CARD first and judges every batch before VOTE; ART
+never idles (permanent last line in VAMILY); CHARACTER wires what ART cooks.
+VAMILY: new DIRECTION section, ART gets WARDROBE-REMAKE / HAIR-TO-THE-CARD /
+FORTRESS-BUILDINGS on top, CHARACTER gets WIRE-THE-REMAKE. CLAUDE.md section added,
+lane list gains "direction". His words on VAMILY recorded: "kind of content... could
+be a lot better... not terrible." LAST FEEDBACK RECEIVED: the runway -> DIRECTION
+THE-STYLE-CARD, ART WARDROBE-REMAKE.
+
+COORDINATOR: 9/4 (af) -- *** TWO RULINGS: FACTION
 TOWNS (fortress / town / camp), AND THE CENTRAL CHAT (he talks only to this seat;
 every other chat gets one word). Nothing to judge. ***
 FACTION TOWNS, laws/BOHEMIA_ADDENDUM_FACTION_TOWNS_9_4_26.md: every part of Vegas

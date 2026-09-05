@@ -1534,6 +1534,24 @@ danger; wardrobe + LIFE + COMBAT in parallel = the design). Stay inside your
 session's systems; a rebase conflict inside the alpha means a boundary was
 crossed -- stop and check before pushing.
 
+## THE RUNWAY, AND ART AT ALL TIMES (Paolo 9/4/26, LOCKED)
+"every piece of clothing and every hairstyle should be modeled after like fashion
+brands... Balenciaga, Rick Owens... no matter their faction... I want everyone to
+look like they could be in a Balenciaga or Rick Owens show." EVERY GARMENT AND
+HAIRCUT IS MODELLED ON HIGH FASHION; the named houses are BALENCIAGA and RICK
+OWENS and no third gets added until he names it. THE RUNWAY GIVES THE CUT, THE
+FACTION GIVES THE COLOUR: COLOUR IS TERRITORY stands, the 10% long-coat cap stands
+(the heat has not changed; the look is reached by cut and proportion, and lifting
+the cap is one word from him), STRUCTURE-NOT-COLOR and the GRAVEYARD stand (a
+remake cooks NEW shapes, revives nothing). "we should always be having art made at
+all times": THE ART LANE NEVER IDLES, its VAMILY section ends in a permanent line.
+TWO LANES, ONE SEAM: DIRECTION (first word "direction", the look half of the 8/25
+UI chat) writes the STYLE CARD in pixel terms and judges every batch before it
+reaches him; ART (first word "art") cooks under the card and never decides the
+look; CHARACTER wires what ART cooks. His words on VAMILY, recorded: "I'm kind of
+content a little bit with it. It could be a lot better, but honestly, it's not
+terrible." Law: laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md
+
 ## THE CENTRAL CHAT (Paolo 9/4/26, LOCKED, AMENDS THE COORDINATOR SESSION BELOW)
 "I should have a central chat... the only time I'm in other chats is to write
 VAMILY... I only talk to the manager of the AI box which is you." HE TALKS TO ONE
@@ -1590,7 +1608,7 @@ failed - stop and say so instead of fixing the attempt.
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
 short form: the FIRST word of a new session names its lane (run/world/city/
-combat/character/animation/quests/people/sound/ui/words/art/lab/coordinator) and means GO; after that his entire
+combat/character/animation/quests/people/sound/ui/direction/words/art/lab/coordinator) and means GO; after that his entire
 vocabulary is "go" / "verdicts in" / "status" —
 any other word from him is a RULING to record, never a discussion to have.
 On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's

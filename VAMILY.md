@@ -107,6 +107,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  LEAF-GATE-EVERY-RECOOK
 
 ## CHARACTER
+- OPEN  WIRE-THE-REMAKE -- as ART batches pass DIRECTION, wire them into the picker and the wardrobe data; ART makes pixels, CHARACTER makes them worn
 - OPEN  HAIR-REF-EIGHT-FACINGS -- his 8/25 order, still open
 - OPEN  ROUND-7-LOOK -- needs Paolo
 - OPEN  WARDROBE-VOLUME -- new garment shapes behind the structure law
@@ -142,12 +143,21 @@ everything; rewrite your handoff block before you end.
 - OPEN  BB-FORETOLD
 - OPEN  ROUND-7-LOOK -- needs Paolo
 
-## ART
+## DIRECTION  (first word "direction"; the look half of the UI chat, its own word as of 9/4)
+- OPEN  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
+- OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
+- OPEN  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
+
+## ART  (never idles; the last line is permanent)
+- OPEN  WARDROBE-REMAKE -- every garment to the card, NEW SHAPES ONLY (structure law), graveyard stays dead, 10% coat cap stands, colour stays territory; batches through the existing kill/approve pipeline
+- OPEN  HAIR-TO-THE-CARD -- every haircut to the card; all eight facings; the hair, hairline, graveyard and leaf gates hold
+- OPEN  FORTRESS-BUILDINGS -- the buildings a faction fortress needs that nobody has drawn, in tier order (FACTION-TOWNS)
 - OPEN  MAP-ONLY-DISTRICTS -- about 20 places the overmap names and nothing draws; audit, then build or cut
 - OPEN  STRIP-FAMILY-RULING -- needs Paolo: cut or build the strip / casino / resort family
 - OPEN  THE-19-CODES -- authored legend codes never placed
 - OPEN  BOXCAR-ORDER
 - OPEN  LANDMARK-RE-PROBE
+- OPEN  COOK-THE-NEXT-THING-THE-CARD-ASKS-FOR -- permanent; this line is never marked shipped
 
 ## LAB
 - OPEN  REOPEN-OR-RETIRE -- needs Paolo; its RF4 spec goes to COMBAT either way
