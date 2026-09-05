@@ -8502,7 +8502,11 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [style card] SHIPPED 468fbcb -- the runway in pixel
+ROUND LOG 9/5 (latest): [builder references] SHIPPED 30c01de -- block, street
+and lot rules from the best builders, annotated at our own measured scale, in
+reference/library/city-builder/ (7 entries; index now 51 refs / 11 kinds).
+NEXT OPEN: [opening references], then [style checker], [batch judging],
+[fortress look], [feed look], [tile ground]. PREVIOUS: [style card] SHIPPED 468fbcb -- the runway in pixel
 terms, measured off the corpus (24x50 body, 112 grid, 280-garment canon at
 only 32% monochrome: the remake's gap, quantified). Two poles: WIDE AT THE
 TOP and TALL AND STACKED, every rule citing its RNWY shape, JSON machine
