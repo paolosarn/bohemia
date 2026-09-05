@@ -1,0 +1,170 @@
+[
+  {
+    "name": "alpha",
+    "file": "BOHEMIA_ALPHA_0_9.html",
+    "stamp": "BUILD 8/31d - THE REFERENCE SITS BESIDE THE ART",
+    "tabs": 18,
+    "shots": [
+      {
+        "file": "alpha-00-splash.png",
+        "tab": "(the front door)",
+        "ms": 5113
+      },
+      {
+        "file": "alpha-01-after-the-tap.png",
+        "tab": "(first screen after one tap)",
+        "ms": 9219
+      },
+      {
+        "file": "alpha-02-vote.png",
+        "tab": "VOTE",
+        "p": "vote"
+      },
+      {
+        "file": "alpha-03-ui.png",
+        "tab": "UI",
+        "p": "ui"
+      },
+      {
+        "file": "alpha-04-looks.png",
+        "tab": "3D",
+        "p": "looks"
+      },
+      {
+        "file": "alpha-05-look.png",
+        "tab": "LOOK",
+        "p": "look"
+      },
+      {
+        "file": "alpha-06-words.png",
+        "tab": "WORDS",
+        "p": "words"
+      },
+      {
+        "file": "alpha-07-cutscene.png",
+        "tab": "CUTSCENE",
+        "p": "cutscene"
+      },
+      {
+        "file": "alpha-08-direct.png",
+        "tab": "DIRECT",
+        "p": "direct"
+      },
+      {
+        "file": "alpha-09-run.png",
+        "tab": "RUN",
+        "p": "run"
+      },
+      {
+        "file": "alpha-10-char.png",
+        "tab": "CHARACTER",
+        "p": "char"
+      },
+      {
+        "file": "alpha-11-clothes.png",
+        "tab": "CLOTHES",
+        "p": "clothes"
+      },
+      {
+        "file": "alpha-12-anim.png",
+        "tab": "ANIMATION",
+        "p": "anim"
+      },
+      {
+        "file": "alpha-13-rig.png",
+        "tab": "RIG",
+        "p": "rig"
+      },
+      {
+        "file": "alpha-14-combat.png",
+        "tab": "COMBAT",
+        "p": "combat"
+      },
+      {
+        "file": "alpha-15-music.png",
+        "tab": "MUSIC",
+        "p": "music"
+      },
+      {
+        "file": "alpha-16-map.png",
+        "tab": "MAP",
+        "p": "map"
+      },
+      {
+        "file": "alpha-17-slice.png",
+        "tab": "SLICE",
+        "p": "slice"
+      },
+      {
+        "file": "alpha-18-life.png",
+        "tab": "LIFE",
+        "p": "life"
+      },
+      {
+        "file": "alpha-19-art.png",
+        "tab": "ART",
+        "p": "art"
+      },
+      {
+        "file": "alpha-99-back-on-the-game.png",
+        "tab": "(back on the game after the sweep)"
+      }
+    ],
+    "log": [
+      {
+        "at": "request",
+        "text": "css2?family=VT323&family=Space+Grotesk:wght@400;500;700&display=swap -> net::ERR_CONNECTION_RESET"
+      },
+      {
+        "at": "console",
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_CONNECTION_RESET"
+      }
+    ]
+  },
+  {
+    "name": "demo",
+    "file": "BOHEMIA_DEMO.html",
+    "stamp": "DEMO - BUILD 8/31b - THE STREET HAS THINGS HAPPENING IN IT",
+    "tabs": 1,
+    "shots": [
+      {
+        "file": "demo-00-splash.png",
+        "tab": "(the front door)",
+        "ms": 4498
+      },
+      {
+        "file": "demo-01-after-the-tap.png",
+        "tab": "(first screen after one tap)",
+        "ms": 9213
+      },
+      {
+        "file": "demo-02-t15s.png",
+        "tab": "(the game, 15s after the tap)"
+      },
+      {
+        "file": "demo-03-t21s.png",
+        "tab": "(the game, 21s after the tap)"
+      },
+      {
+        "file": "demo-04-t29s.png",
+        "tab": "(the game, 29s after the tap)"
+      },
+      {
+        "file": "demo-05-t39s.png",
+        "tab": "(the game, 39s after the tap)"
+      }
+    ],
+    "log": [
+      {
+        "at": "request",
+        "text": "css2?family=VT323&family=Space+Grotesk:wght@400;500;700&display=swap -> net::ERR_CONNECTION_RESET"
+      },
+      {
+        "at": "console",
+        "type": "error",
+        "text": "Failed to load resource: net::ERR_CONNECTION_RESET"
+      }
+    ]
+  }
+]
