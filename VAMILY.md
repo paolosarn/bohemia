@@ -85,7 +85,7 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - SHIPPED 9/5 5b61303  [living costs]  BB-FOUR-VERBS-THREE-CURRENCIES  (all four verbs post on the walked surface and in the demo, the reckoning names each one; records/BOHEMIA_THE_FOUR_VERBS_EAT_9_5_26.md)
 - SHIPPED 9/5 94ca570  [lights bill]  BB-THE-NIGHT-EATS-POWER  (a held circuit is billed at nightfall and an unpaid one goes dark and stays dark; what makes a circuit his is a building HE placed; records/BOHEMIA_THE_NIGHT_EATS_POWER_9_5_26.md)
 - SHIPPED 9/5 fd484b9  [faction towns]  FACTION-TOWNS  (14 seats, each a market on the walked surface and in the demo; FORTRESS/TOWN/CAMP derived from his act1_power, draft:true; the loop and the walked surface now name the same seats; records/BOHEMIA_EVERY_PART_OF_VEGAS_HAS_AN_OWNER_9_5_26.md)
-- OPEN  [held ground]  BB-TURF
+- CLAIMED 9/5 world-9lfjtf  [held ground]  BB-TURF
 - OPEN  [faster roads]  BB-ROADS-ARE-FAST
 - OPEN  [rung unlocks]  BB-THE-RUNG-PAYS
 - OPEN  [enemies unite]  BB-COALITION
