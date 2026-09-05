@@ -3593,6 +3593,22 @@ GATES = [
      'reproduces 1213 / 53.0% exactly and fires three legs. B3 is stated ORDER-INDEPENDENTLY '
      'because the first version assumed the rooms array came back in rank order -- it does '
      'not, so that leg PASSED the mutation and was decoration until the mutation caught it.', False),
+    ('BUILDER ON A PHONE', ['node', 'gates/builder_on_a_phone_gate.js'],
+     'VAMILY [builder works] / BUILDER-ON-A-PHONE: prove the aerial build panel works by '
+     'TOUCH, or fix it -- the backlog said its touch path crashed once and nobody re-checked. '
+     'The panel is built at tap time and wired with .onclick, sitting inside #stage next to a '
+     'canvas that calls setPointerCapture, so it is exactly the shape where a MOUSE works and '
+     'a FINGER does not -- the 7/18 law, "the wheel worked, which is exactly how a '
+     'desktop-verified feature ships broken to his hand". Runs an iPhone profile (390x844, '
+     'hasTouch, isMobile) and drives page.tap(), real touch events, along the PLAYER path: '
+     'GET UP clears the cold open, the CITY button goes up, tap around until a DESERT plot '
+     'opens the panel, pick a type, TAP BUILD, and count the edit in the model afterwards -- '
+     'never "the panel is visible". MEASURED GREEN: GET UP -> CITY -> a buildable plot in 4 '
+     'taps -> placed an airbase, edits 0 -> 1, then DEMOLISH by thumb, nothing thrown. The '
+     'first version of the entry leg went red on an innocent button because it never tapped '
+     'GET UP -- the CITY button is not on screen until the cold open clears -- so the gate '
+     'walks the game rather than my memory of it. Mutation-tested by making the BUILD button '
+     'ignore pointers: red at 0 -> 0 edits.', False),
     ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
      'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
      'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '
