@@ -1,3 +1,80 @@
+SOUND (sound-xk7pjp): 9/5 (e) LATEST -- *** WHAT THE GAME PLAYS IS NOW A
+MEASUREMENT, NOT A GREP. NINE of 65 approved sounds, heard.
+TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
+
+Build 9/5ah - WHAT THE GAME ACTUALLY PLAYS.
+VAMILY: [unused sounds] THE-OTHER-51 is CLAIMED AND CONTINUING, round 1 of N.
+The census is built and green; the wiring it points at is not done. Front page
+rule 6: a half-done job marked SHIPPED is worse than an open one.
+
+THE BRIEF'S NUMBER ("51 of 65 have none") CAME FROM A GREP AND A GREP CANNOT
+ANSWER THIS. EYES E4 proved it the same round: one text search said 50 events
+are never called, a better one said 56, BOTH WRONG, because the footstep caller
+builds its name by concatenation ('step_'+surface) and a name assembled at run
+time is invisible to every grep ever written. This lane's own census in
+silent_moments_gate is the LOOSER kind and admits it: "the id appears as a
+string in the game code". An id in a table, a comment or a dead branch reads as
+called.
+
+SO THE GATE PLAYS THE GAME AND COUNTS. It wraps BOH_SFX.render (the one hook
+nothing routes around) for LIVENESS, records names at playSFX, at the bed's own
+pick(), at STING.play and at the city's messages, then drives the walk, the
+door, the phone, the bed at day/night/indoors and the clock. AND IT PROVES THE
+AUDIO ENGINE WAS RUNNING FOR EVERY SAMPLE, which is what EYES' first run could
+not, and they were right to withhold a headline without it.
+
+MEASURED, audio alive every sample, 144 renders:
+  step_dirt 115  air_day 53  air_inside 40  air_night 14  wind_gust 13
+  time_pass 6  door_drag 4  step_concrete 2  ui_tap 2
+NINE OF SIXTY-FIVE. The other 56 each carry a written reason this drive cannot
+reach them: a fight, a verb, a payday, a night slept through, a ground you
+happen not to stand on, or a sibling pool drawn from inside its parent.
+
+FOUR INSTRUMENT MISTAKES, ALL MINE, EACH A REAL DEFECT:
+ 1. THE INSTRUMENT MOVED THE THING IT WAS MEASURING. The first drive walked 200
+    blind steps and THEN sampled the bed, reporting air_inside forty times on
+    what looked like a street. The game was right: 200 steps cycling four
+    directions in a suburb walks you through a door. The bed is sampled first.
+ 2. A GATE THAT UNDER-WAITS WRITES ITS OWN EXCUSE LIST. time_pass was on the
+    "cannot drive" list because I advanced the clock and looked 1.2s later,
+    before the four-second heartbeat that carries it. It is reachable.
+ 3. A HOOK THAT MISSES A PATH IS A GATE THAT INVENTS AN EXCUSE. strikeHours
+    calls BOH_SFX.render DIRECTLY and never playSFX, so a name hook is blind to
+    the hour chime. The shell keeps a per-call ledger; the gate reads it.
+ 4. A CHECK THAT READS ITS OWN COPY OF THE ANSWER IS NOT A CHECK. Fixing the hum
+    gate's distance claim I published a SECOND function computing the same
+    distance, and a mutation changing the real one in tick() left the published
+    one agreeing with itself -- 20 PASSED on a build where every live circuit
+    sounded the same distance away. One formula now; tick() calls it; the
+    mutation goes red.
+
+AND THE HUM'S DISTANCE IS CHECKED AS A NUMBER, WITH A PRECEDENT. Four attempts
+to measure it as loudness each found a real defect: the master's brickwall
+limiter squashing both ends to one ceiling, candidate variance (placeSound draws
+a random candidate and two of his differ by more than a block does), then long
+tails bleeding across windows. The shell solved this once already for the room
+transform and says so: "measuring the room by playing playSFX twice proves
+nothing." So the computed distance is asserted exactly and AUDIBILITY IS STILL
+MEASURED ON REAL AUDIO.
+
+GATE: every_sound_is_reachable_gate.py, 10 claims. Mutations: the city stops
+posting footsteps RED (and it names them), the hour chime never strikes RED x2.
+
+NOTE ON THE SUITE: BEAT FIRST went red inside a fifteen-gate back-to-back run
+and is GREEN run alone. That is the suite's own documented behaviour (a gate
+that fails in the pack may have failed for LOAD) and it re-confirms reds alone.
+
+FILES  gates/every_sound_is_reachable_gate.py,
+       records/BOHEMIA_WHAT_THE_GAME_ACTUALLY_PLAYS_9_5_26.md,
+       tools/bohemia_a_lit_block_hums.py (one distance formula, published)
+
+NEXT IN THIS LANE: finish THE-OTHER-51 -- take the events whose moment
+demonstrably exists and wire them, write a reason for the ones whose moment does
+not. NOT a wire invented for a moment that does not exist. Then [music owned]
+THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
 COOK (cook-mce6r5): *** HIS PERMANENT INSTRUCTION, WORD FOR WORD (9/5). It is here
 because he said to write it into this lane's own handoff block so it survives a
 memory reset. IT WAS LOST ONCE ALREADY -- another lane's rebase dropped this block
@@ -1441,7 +1518,7 @@ TAB: CITY. Walk out and the sign is on the bodies.
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/5 (d) LATEST -- *** YOU CAN HEAR WHOSE BLOCK STILL HAS
+SOUND (sound-xk7pjp): 9/5 (d) -- *** YOU CAN HEAR WHOSE BLOCK STILL HAS
 POWER FROM THE NEXT STREET, AND A DEAD ONE IS DEAD.
 TAB: RUN (the walked city). Nothing to judge -- nothing entered the bank. ***
 
