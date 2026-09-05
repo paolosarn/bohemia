@@ -10,7 +10,7 @@ CLAIMED, in flight: LIFE+CITY [buildings produce]; CHARACTER [clothes wired]; EC
 NO ROUND YET (no claim, no commit since the primer): SOUNDS, ANIMATION, FACTIONS, UI, COOK, EYES AND EARS, PLUMBER (new, unclaimed).
 
 ## 3. ONE CHAT IS STILL LOST
-UI (ui-kmqmrf) committed at 06:28 today with the handoff line "HE SAID ONE WORD, VAMILY, WHICH IS FAMILY" and built family-theme work (a door-button fix and a thumb_gate scope fix, both real and useful, but not from the board). It never received the primer; a session started before 9/4 carries the OLD CLAUDE.md in its context and never sees the new top block. The primer paste is the only fix for a session that old. Its board section has 8 OPEN, 0 CLAIMED.
+UI (ui-kmqmrf) committed at 06:28 today with the handoff line "HE SAID ONE WORD, VAMILY, WHICH IS FAMILY" and built family-theme work (a door-button fix and a thumb_gate scope fix, both real and useful, but not from the board). It never received the primer (Paolo said the same hour that the primer was never sent to ANY chat; the lanes that found the board did so from the 9/4 CLAUDE.md top block); a session started before 9/4 carries the OLD CLAUDE.md in its context and never sees the new top block. The primer paste is the only fix for a session that old. Its board section has 8 OPEN, 0 CLAIMED.
 
 ## 4. TOPPED UP (lanes under six)
 - CHARACTER 3 -> 6: [runway hair], [animal rig], [faction colour].

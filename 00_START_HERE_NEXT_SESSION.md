@@ -2578,7 +2578,12 @@ carried out of lane handoffs: decided shelves=premise (WORLD [shelves premise]),
 =both (WORLD [charging exists], the one question to him this round), weights shape (PEOPLE
 [weights shape]), repeat interval (FACTIONS [repeat interval]); century-stayed changes a
 LOCKED law so it waits for him (WORLD [century stayed]). Board: 167 OPEN, 18 chats. LAST
-FEEDBACK RECEIVED: this -> the round.
+FEEDBACK RECEIVED: this -> the round. THEN (bg): "I never did that copy and paste to the other
+chats... give that to me, this my last mass chat paste" -> VAMILY_PRIMER.md rewritten as v2
+with what we know now (18 chats named, pull main first, re-read CLAUDE.md from disk, a
+fresh chat is 18 PLUMBER, only CLAIMED/SHIPPED writes, no PRs, two-word reply); the chats
+that found the board did it from the new CLAUDE.md top block, not the primer; UI never
+saw either.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
