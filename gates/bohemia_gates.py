@@ -897,6 +897,20 @@ GATES = [
      'the same instance, got day 2, and read as a failure of the module when it was a failure '
      'of the harness. It models a relaunch now. Mutation-tested: the snapshot dropping the '
      'people turns 5 claims red', True),
+    ('ENEMIES EXIST',  ['node', 'gates/there_are_enemies_gate.js'],
+     'PAOLO PLAYED THE RUN AND ASKED "where the enemies at bro" (9/5). The ruling measured the '
+     'honest sentence: THE GAME KNOWS WHO YOUR ENEMIES ARE AND HAS NEVER ONCE PUT ONE IN FRONT '
+     'OF YOU -- every "hostile" string in the alpha, the city and the demo was PROSE, and '
+     'hostility existed only as a sign on a relationship in bohemia_between. This holds the '
+     'BODY: crews that stand on a corner, are seen while still on screen, and close on you, '
+     'drawn with the people who already exist so no art was cooked. NO DAMAGE BEFORE THE DIAL '
+     'is asserted off the module surface AND its code, not promised in a comment; COMBAT owns '
+     'contact. THE RULE FOR WHO IS DANGEROUS IS THE FINDING: watchers(Custom) is EMPTY on day '
+     'one -- the canon graph holds 9 edges, 4 hostile, none touching the player -- so the '
+     'obvious design ships this invisible on the exact surface he complained about. An outfit '
+     'that is already at odds with somebody puts crews out, and to an unaligned stranger those '
+     'are the danger. Served, not opened, and it waits for the END of the city file rather '
+     'than DAY.day, which is true half way through it', True),
     ('DEMO CURRENT',   ['node', 'gates/demo_is_current_gate.js'],
      'VAMILY [demo current]: "prove the demo cut carries the same city file as the workshop on '
      'every ship, by hash, in a gate". The SHELL half was already held (demo_build_gate re-runs '
