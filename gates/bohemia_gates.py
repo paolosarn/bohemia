@@ -222,6 +222,22 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('SETTINGS',       ['node', 'gates/settings_gate.js'],
+     'Board row [settings pause]: "volume, mute, quit, save; nothing exists", and measured '
+     'before building it was exactly true -- ZERO settings surfaces in the walked city, no '
+     'volume control anywhere, no mute. The save DOES exist, so the screen reaches the '
+     'city\'s own save panel rather than building a second one (two save doors is two save '
+     'bugs). It lives in the SHELL because the shell owns the one AudioContext (the city\'s '
+     'own comment: "ONE AUDIOCONTEXT, THE PARENT\'S") and because quitting means leaving the '
+     'game, which only the shell can do -- which also puts it on the walked surface AND the '
+     'demo from one place. THERE IS NO PAUSE BUTTON AND THAT IS THE GAME\'S OWN RULE: this '
+     'valley runs on I-MOVE-YOU-MOVE, so there is no clock to stop and opening the screen IS '
+     'the pause; a PAUSE button would be a control that does nothing. Volume and mute ride '
+     'MUS.OUT, the output bus every path to the speakers already ends at, so the gate asserts '
+     'THE BUS MOVES rather than that some sound got quieter. Also holds: the gear is off the '
+     'splash (that screen has one job), it covers nothing in either mode, every control '
+     'clears the 44px thumb, unmuting restores the level rather than a default, QUIT is not a '
+     'dead end, and the choice survives a reload.', True),
     ('ONE NUMBER',     ['node', 'gates/one_number_gate.js'],
      'BB-ONE-NUMBER is a GUARD, not a build, and its own first line says why: "we already '
      'got this right and it is UNDEFENDED, which is how it will get lost." His two locked '

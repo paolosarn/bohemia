@@ -11455,6 +11455,58 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/5 (f) LATEST -- *** [settings pause] SHIPPED. VOLUME, MUTE, SAVE AND
+QUIT, AND NO PAUSE BUTTON ON PURPOSE. ***
+
+SHIPPED 9/5  [settings pause]  SETTINGS-AND-PAUSE
+The row said "nothing exists" and measuring first proved it: ZERO settings surfaces in
+the walked city, no volume control anywhere in the shell or the city, no mute. The SAVE
+does exist (the city's own #savepanel behind its floppy chip), so the screen REACHES it
+instead of building a second one -- two save doors is two save bugs.
+
+IT LIVES IN THE SHELL, NOT THE CITY, for two measured reasons: the shell owns the one
+AudioContext (the city's own comment says "ONE AUDIOCONTEXT, THE PARENT'S"), and
+quitting means leaving the game, which only the shell can do. That also puts it on the
+walked surface AND the demo from one place, which is what rule 7 asks for.
+
+*** THERE IS NO PAUSE BUTTON AND THAT IS THE GAME'S OWN RULE, NOT AN OMISSION. *** This
+valley runs on I-MOVE-YOU-MOVE -- "time moves when you move" -- so there is no clock to
+stop. Opening the screen already IS the pause. A PAUSE button beside it would be a
+control that does nothing, which is worse than no control, so the gate does not look for
+one and would be wrong to.
+
+VOLUME AND MUTE RIDE MUS.OUT, which is already the one place everything meets: every
+path to the speakers in the shell ends `sfxBus() || MUS.OUT || MUS.MAST ||
+AC.destination`, and MUS.OUT is the output bus the 8/2 note created precisely so the SFX
+bus would stop plugging into the music master. One gain moves music and effects
+together. MUS.MAST is the MUSIC master and is deliberately untouched -- a volume control
+that only moved the music would be a lie on its own label.
+Mute is not volume-zero in disguise: it remembers the level and puts it back.
+
+TWO THINGS I GOT WRONG AND CAUGHT BY MEASURING:
+  1. THE GAIN NEVER MOVED and the reading could not tell me why. setTargetAtTime
+     SCHEDULES a curve and never assigns .value, so the bus read 0.8 at every setting
+     including mute, and "my code never ran" looked identical to "the ramp does not show
+     up in .value". Cancel what is scheduled, pin the current value, ramp to the new
+     one, AND leave .value where it lands, so the node's own reading is the truth.
+  2. THE GEAR COVERED THE CITY'S STATUS STRIP. Top-right at 8px cut "SUBURB . ON FOOT"
+     in half. Measured the real surface: the strip owns y6-29 full width, the chip row
+     y37-81, the button stack the left edge from y438, the walk pad the bottom right,
+     and the feed the RIGHT side in city mode. THE LEFT EDGE BETWEEN THE CHIP ROW AND
+     THE STACK IS FREE IN BOTH MODES. And the top is read off the real chip row every
+     beat, because that row carries the music TRACK NAME and a long title wraps it --
+     the same trap that moved the feed two rounds ago.
+
+GATE: gates/settings_gate.js, 16 claims, registered SETTINGS. Mutation-proved four ways:
+cut the bus (sound and mute legs fail), show the gear on the splash (two legs fail),
+drop a control to 26px (thumb leg fails), stop SAVE reaching the city's save (save leg
+fails). All restored.
+
+STILL FILED, NOT MINE: the page freezes 4-6 beats in city mode (PLUMBER); the city
+fetches fonts.googleapis.com every run (the cold-boot font shape, never swept here).
+
+------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 9/5 (e) LATEST -- *** [one number] SHIPPED. A GUARD, NOT A BUILD, AND
 THE THING IT GUARDS WAS ALREADY CORRECT AND HAD NOTHING HOLDING IT. ***
 
