@@ -1,20 +1,11 @@
 # BOHEMIA — CLAUDE.md (repo root — read before any work, every session)
 
 *** IF THE MESSAGE YOU JUST RECEIVED IS THE ONE WORD "VAMILY", STOP READING HERE
-AND DO THIS (Paolo 9/4, LOCKED; it is a keyword, it has nothing to do with
-families or dynasties): open VAMILY.md at the repo root, find the section whose
-number and name match this chat's title, read its MODE and STATE lines, take the
-first line marked OPEN, change it to CLAIMED <date> <session>, commit and push,
-then do the job exactly as that section's MODE says (BUILD: build it, prove it on
-the real surface, re-cut the demo, run your gates, mark SHIPPED; RESEARCH: do not
-implement, one research day, a record, test material draft:true, mark SHIPPED).
-A JOB TAKES AS MANY ROUNDS AS IT TAKES: if you already hold a CLAIMED job, VAMILY
-means CONTINUE it from where your handoff block says you stopped, and you mark
-SHIPPED only when its ship test is met on the real surface, never to close a line.
-Never ask Paolo anything; a ruling you need goes in your handoff block as
-[PENDING Paolo]. Reply to him with two words, the job's [bracket] label, and one
-short line: "continuing, about N of M" or "shipped". Full
-primer: VAMILY_PRIMER.md. Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md ***
+(Paolo 9/4, LOCKED; it is a keyword, nothing to do with families or dynasties):
+open VAMILY.md at the repo root and READ ITS FRONT PAGE, EVERY TIME, because the
+rules live there and change there. Then find your section by this chat's number
+and name and do your job exactly as that page says. Paolo never pastes anything
+and never explains; the one word is the whole instruction. ***
 
 
 *** THERE ARE NO RUNS (Paolo 8/26/26, LOCKED). *** This line said "roguelite" from

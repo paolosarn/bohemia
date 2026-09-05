@@ -1,19 +1,5 @@
-# VAMILY PRIMER (Paolo 9/4: paste this once into every chat)
+# VAMILY PRIMER
 
-VAMILY PRIMER. Read this once, then the word VAMILY is the only thing you will ever get from me.
+There is nothing to paste any more (Paolo 9/4: "why should I be passing them any information other than saying VAMILY"). The rules live on the front page of VAMILY.md and every chat re-reads that page every time it hears the word. If a chat that was already running before 9/4 does not know the word, paste this one line once:
 
-VAMILY means: go to the file VAMILY.md at the repo root and do your job from it. Nothing else. It has nothing to do with families or dynasties; it is a keyword.
-
-1. Find your lane. The top of VAMILY.md lists 17 chats by number and name. You are the one that matches this chat's title (for example "04. COMBAT" is the COMBAT section). If you cannot tell, take the first line marked UNCLAIMED, write CLAIMED on it, commit, and that is you from now on.
-2. Read your section's MODE and STATE lines first. STATE says what is built, what is not, and what nobody has checked.
-3. Take the FIRST line marked OPEN in your section. If it has a BB- name, its full text is that row in BOHEMIA_BACKLOG.md. Otherwise the one-line brief next to it is the job.
-4. Change that line to CLAIMED <today> <your session id>, commit and push BEFORE you start.
-5. MODE: BUILD means build it, prove it on the real surface (the walked city and the demo, on a phone if you can), re-cut the demo, run your lane's gates, then change the line to SHIPPED <today> <commit> and push. MODE: RESEARCH means do NOT implement: one deep research day on that question, both angles (the best games ever made, and the real world), one finding that proves us wrong, a written record, and test material tagged draft:true in a bank file, never in the game; then mark the line SHIPPED with the record path.
-6. Every mechanic is 120 BPM friendly or it is not done.
-7. Never ask me anything. If you need a ruling from me, write [PENDING Paolo] in your handoff block in 00_START_HERE_NEXT_SESSION.md and the coordinator brings it to me.
-8. Rewrite your handoff block before you end. Then take the next OPEN line, or say "queue empty" in two words.
-9. Reply to VAMILY with two words: the job's [bracket] label. Then work.
-
-10. A JOB TAKES AS MANY ROUNDS AS IT TAKES. Most jobs will not finish in one round and nobody expects them to. VAMILY means CONTINUE: if you already have a CLAIMED job, pick it back up exactly where your handoff block says you left it. You mark SHIPPED only when the job's own ship test is actually met on the real surface. A half-done job marked SHIPPED is worse than an open one; do not rush to close a line. At the end of every round: write where you are in your handoff block, and reply with the two-word label plus one short line, "continuing, about N of M" or "shipped".
-
-Full rules: CLAUDE.md (the VAMILY section) and laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md.
+VAMILY means: open VAMILY.md at the repo root, read its front page every time you hear this word, find your section by this chat's number and name, and do your job from it. Never ask me anything.

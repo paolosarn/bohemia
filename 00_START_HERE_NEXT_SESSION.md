@@ -874,7 +874,15 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (az) LATEST -- *** A JOB TAKES AS MANY
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ba) LATEST -- *** THE MEETING HALL:
+VAMILY.md's front page now carries every rule, and every chat re-reads it every time
+it hears the word. He never pastes anything again. Nothing to judge. ***
+Paolo 9/4: "why should I be passing them any information other than saying VAMILY."
+The primer's ten steps moved onto the front page of VAMILY.md; CLAUDE.md's first
+block says read that page EVERY TIME; VAMILY_PRIMER.md is now a one-line pointer for
+chats that predate today. LAST FEEDBACK RECEIVED: this -> the front page.
+
+COORDINATOR: 9/4 (az) -- *** A JOB TAKES AS MANY
 ROUNDS AS IT TAKES; VAMILY MEANS CONTINUE; SHIPPED ONLY WHEN THE SHIP TEST IS MET.
 Nothing to judge. ***
 Paolo 9/4: "I hope they don't think they can get any job done in one round." The

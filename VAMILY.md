@@ -1,47 +1,56 @@
-# VAMILY -- THE ONE WORD (Paolo 9/4/26, LOCKED)
-# "Make the key word vamily for all of the jobs u assign to it ever in the
-# history itll search if it has a job assigned for its role and yeah."
-# Rebuilt 9/4 (later the same day) as the FULL-GAME queue for every lane,
-# from records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
+# VAMILY -- THE MEETING HALL (Paolo 9/4/26, LOCKED)
+# "the chats should have a place like a meeting hall in the files, a job board,
+# a center of a room where they start off and pick up their jobs... why should I
+# be passing them any information other than saying VAMILY."
+# THIS FILE IS THAT ROOM. THE RULES LIVE HERE, NOT IN ANY CHAT'S MEMORY.
 
-## HOW IT WORKS
-0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator, THE MANAGER.
-   EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions.
-   Word vomit procedure: for each thing, is there a line already? If yes, grow it
-   with his words. If not, make one now for the right chat, tab named. Every other chat
-   gets one word, VAMILY, and no discussion. A lane that needs a ruling writes
-   [PENDING Paolo] in its handoff block; the coordinator carries it to him.
-1. Paolo types **VAMILY**. That is the whole instruction. HE NEVER TYPES ANYTHING
-   ELSE IN A LANE CHAT. No lane word, no customising, ever (Paolo 9/4).
-2. The chat works out its ROLE by itself: if it already has one, it keeps it;
-   if it is fresh, it takes the first UNCLAIMED lane from THE LANES below and
-   claims it. He never assigns a role by hand.
-3. Find your lane below. Every job carries a TWO-WORD label in [brackets], for him;
-   the name after it is the job. Take the **first line marked OPEN**. If the job has
-   a `BB-` name its full text is that row in BOHEMIA_BACKLOG.md; otherwise
-   the one-line brief here plus the lane section in the 9/4 plan record IS
-   the job.
-4. Change the line to `CLAIMED <date> <session>` and commit BEFORE building.
-5. When it is in the walked surface AND the demo (re-cut it), change the
-   line to `SHIPPED <date> <commit>` and commit. That is the history.
-6. Then the next OPEN one, or stop and say so.
-6b. A JOB TAKES AS MANY ROUNDS AS IT TAKES (Paolo 9/4). VAMILY means CONTINUE: a chat
-   with a CLAIMED job picks it back up where its handoff block says it stopped. Mark
-   SHIPPED only when the ship test is met on the real surface; a half-done job
-   marked SHIPPED is worse than an open one. End every round by writing where you
-   are in your handoff block and replying "continuing, about N of M" or "shipped".
-7. EVERY LANE SECTION CARRIES A MODE (9/4). MODE: BUILD is the above. MODE:
-   RESEARCH means DO NOT IMPLEMENT: take the first OPEN question, do one research
-   day in the BB-study shape (both aisles, one finding that challenges us,
-   measured against our repo, a record, test lines tagged draft:true in a bank
-   file never in the game, and a ROUTED section), mark the question SHIPPED
-   with the record's path. Big swings; a day that only confirms us has failed.
-   A section marked PARKED is not claimed by anybody until he reopens it.
-Only the coordinator adds jobs. Lanes change the status word and nothing
-else. STANDING DUTIES, every turn, every lane: VAMILY first; play it on the
-real surface before calling it shipped and re-cut the demo; his bugs beat
-your queue; run your lane's gates, never ship red; 120 BPM friendly for
-everything; rewrite your handoff block before you end.
+## READ THIS FRONT PAGE EVERY SINGLE TIME YOU HEAR THE WORD VAMILY
+Not once. Every time. Rules change on this page and nowhere else, so a chat that
+remembers last week's rules is wrong. Paolo never pastes anything; he types the
+one word, and this page is the briefing.
+
+0. VAMILY is a keyword. It has nothing to do with families or dynasties. It means:
+   read this page, find your section below, do your job from it.
+1. Paolo talks ONLY to the coordinator (00 MASTER COORDINATOR, the manager). Every
+   other chat gets the one word and nothing else. Never ask him anything. A ruling
+   you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as
+   [PENDING Paolo]; the coordinator carries it to him.
+2. FIND YOUR SECTION by this chat's number and name (the list is right below). A
+   fresh chat with no name takes the first line marked UNCLAIMED, writes CLAIMED on
+   it, commits, and that is its role for life.
+3. READ YOUR SECTION'S MODE AND STATE LINES FIRST. STATE says what is built, what
+   is not, and what nobody has checked, so you know what you do not know.
+4. Every job carries a TWO-WORD label in [brackets], for him. The name after it is
+   the job. A BB- name's full text is that row in BOHEMIA_BACKLOG.md; any other
+   job's one-line brief here IS the job.
+5. IF YOU ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT, from where your
+   handoff block says you stopped. A job takes as many rounds as it takes; nobody
+   expects one round. Otherwise take the FIRST line marked OPEN in your section,
+   change it to CLAIMED <date> <session>, commit and push BEFORE you start.
+6. MODE: BUILD means build it, prove it on the real surface (the walked city and
+   the demo, on a phone if you can), re-cut the demo, run your lane's gates, then
+   change the line to SHIPPED <date> <commit> and push. Mark SHIPPED only when the
+   job's own ship test is met; a half-done job marked SHIPPED is worse than an open
+   one, never rush to close a line.
+   MODE: RESEARCH means DO NOT IMPLEMENT: one research day on the question, both
+   angles (the best games ever made, and the real world), one finding that proves
+   us wrong, measured against our repo, a written record, test material tagged
+   draft:true in a bank file never in the game, a ROUTED section; mark SHIPPED
+   with the record path.
+   MODE: PARKED means nobody touches it until Paolo reopens it.
+7. Every mechanic is 120 BPM friendly or it is not done. A row is not shipped
+   until it is in the walked surface AND the demo.
+8. STANDING DUTIES, every round: VAMILY first; play it before you call it shipped;
+   his bugs beat your queue; run your gates, never ship red; rewrite your handoff
+   block before you end.
+9. END EVERY ROUND by replying to him with the two-word label and one short line:
+   "continuing, about N of M" or "shipped" or "queue empty".
+10. Only the coordinator adds jobs here (one exception: EYES AND EARS may add a
+    single [eyes: two words] bounce-back line on a defect it found in a SHIPPED
+    item). Lanes change status words and nothing else. The SHIPPED lines are the
+    history.
+Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md and
+laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 
 ## THE SEVENTEEN CHATS (his list, 9/4). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name

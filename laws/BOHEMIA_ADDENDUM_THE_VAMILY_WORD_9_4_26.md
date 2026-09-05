@@ -55,3 +55,13 @@ met on the real surface; a half-done job marked SHIPPED is worse than an
 open one and is the one thing this board cannot afford. Every round ends
 with the handoff updated and a two-word label plus "continuing, about N of
 M" or "shipped".
+
+## THE MEETING HALL (Paolo 9/4, same day)
+"do the chats not have a place like a meeting hall in the files, a job board,
+a center of a room where they start off and pick up their jobs... why should I
+be passing them any information other than saying VAMILY." VAMILY.md IS that
+room, and as of now its FRONT PAGE carries every rule a chat needs, and every
+chat re-reads that page every time it hears the word. Rules change on that
+page and nowhere else. He never pastes anything again. The one-time paste
+today happened only because chats already mid-conversation do not re-read
+files unless told; that is now told, by the page itself.
