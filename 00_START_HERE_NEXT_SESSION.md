@@ -1,3 +1,168 @@
+CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
+Anything below this block is state. THIS block is the standing order, and it is copied
+here on his direct order so it survives a memory reset. Read it before anything else.
+
+================================ HIS WORDS, VERBATIM ===========================
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
+WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. The eighteen blocks are 14 answers + 4 reusable refusals,
+and here are all four: worker "I work. I do not keep track of who is doing what to who." /
+scav "Ask somebody who stands still for a living." / keeper "I hear things across this
+counter all day. That is not one of them." / watch "I watch this street. That is not this
+street." EVERY ONE IS A COMPETENCE DISCLAIMER. Different jobs, identical move: wrong person,
+try elsewhere. Under Grice that is a maximally COOPERATIVE reply -- it hides nothing and
+therefore implies nothing. It is a routing message wearing a character's clothes. Four
+reusable refusals is good economy; four that are the same MOVE is one refusal with four skins.
+
+WHY A REFUSAL TEACHES AT ALL: it has to BREAK a rule of conversation, and which rule breaks
+decides what the player learns.
+  says too little            -> there is more and it is being kept from me
+  answers a different question-> the real subject is dangerous to touch
+  goes vague, having been clear-> they are covering, and are bad at it
+  says something false        -> they lied, and he finds out LATER, not now
+"Not my department" breaks none of them, so it carries no payload.
+
+MEASURED ACROSS ALL 1,669 SPOKEN LINES: any refusal move at all, 5.5%. flat no 1.9%, silence
+1.1%, do-not-know 0.7%, changes-the-subject 0.7%, NAMES A COST 0.7%, not-my-domain 0.4%.
+AND THE GOOD ONE ALREADY EXISTS: the eleven lines that NAME A COST ("I've got a kid", "it's
+your face they'll remember", "you'd be asking in front of people") withhold AND explain why,
+which teaches the subject is dangerous without answering it. Those are hand-written into
+quest scenes and NONE of it reached the system that handles refusal at scale. OUR BEST
+REFUSAL WRITING AND OUR REFUSAL MECHANISM HAVE NEVER MET.
+
+BOTH ANGLES. Disco Elysium: a failed check is a DIFFERENT ROUTE, not a closed door -- it
+returns a new lead, a revealing scene, or a joke. A refusal must return a payload, never a
+null; ours return a null with an apology attached. Oxenfree: silence is first-class and the
+world does not wait for you. Pentiment: disagreeing accounts are the subject, not the
+obstacle. Real world: Grice on flouting, and conversation analysis on dispreferred responses
+being marked by delay, preface, account and mitigation BEFORE the content arrives.
+
+RECORD: records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the same subject refused five ways, the same
+refusal instant vs arriving late, and a dead end that still pays. All draft:true, NONE in
+the game.
+VAMILY: Q5 SHIPPED. Next open is Q6 [power talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row FOUR-KINDS-OF-NO: rewrite the asking module's four refusals as four
+   different rule-breaks instead of four trades. Any trade can speak any of them, so the
+   economy improves rather than costing more. Held until MODE: BUILD.
+ - PEOPLE / QUESTS  a lie is only worth writing if the world can later catch it. Whether a
+   lie is discoverable is a memory-organ question, theirs not mine.
+ - UI  a refusal should ARRIVE LATE. One held beat before a refusal line is the same cheap
+   fix Q2 and Q4 both asked for, now with a third reason behind it.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
+DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
+VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
+ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
+INSTRUCTION. ***
+
+--- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
+
+FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** FAMILY. THE GENERATION TURNS, AND THE
+VALLEY REMEMBERS WHAT GOT REPEATED. *** Nothing to judge.
+
+TAB: **RUN** -> the OUTFIT board, under the outfits (what they still say about your
+family). TAB: **DIRECT** -> STANDING -> FOLD A GENERATION (the instrument).
+
+WHY THIS WAS THE WORK. CLAUDE.md's own top, his 8/28 ruling that the dynasty lives,
+says a handoff INHERITS EVERYTHING the last life built and names the list: "compound,
+STANDINGS, territory, the family tree, and the unhealed wounds". Standings are named
+and they are this lane's. bohemia_standing.js has carried inherit() and legendOf()
+since 8/20 and organ_reach has reported both reached by NOTHING ANYWHERE on every run
+since. NEITHER COULD HAVE MEANT ANYTHING SOONER: inherit keeps only deeds with hops>0,
+the ones somebody RETOLD, and a deed's loudness did not decide its hop budget on the
+walked surface until 8/28 when the quest corpus started filling DEED_WEIGHT. The
+dynasty half was waiting on the reputation half and nothing said so.
+
+MEASURED THROUGH THE REAL ORGANS. 400 people over 40x40, one deed of each loudness,
+gossiped ten rounds, then a generation folds:
+    CLOUT       saw  gossiped   held  retold  CARRIED   died
+      quiet       33        20     53      20       20     33
+      notable     86        25    111      25       25     86
+      risky      154        71    225      71       71    154
+      reckless   285        60    345      60       60    285
+*** AND THE RUN BEFORE THAT SAID inherit() CARRIED NOTHING AT ALL, at every loudness,
+in every valley size. *** I had placed the valley with x=(i*7919)%W, y=(i*104729)%W,
+which collapses onto a LATTICE LINE instead of filling the square, so almost nobody had
+a gossip neighbour, so nothing was ever retold, so nothing could cross. I WAS ONE STEP
+FROM FILING "the louder the deed the less survives" AS AN ENGINE BUG IN THE DYNASTY'S
+OWN PREMISE. The tell was that the answer was TOO DRAMATIC: an organ whose every unit
+test passes does not usually fail totally. WHEN A MEASUREMENT INDICTS SOMETHING THIS
+OLD, MEASURE THE MEASUREMENT FIRST.
+ONE OBSERVATION KEPT RATHER THAN FIXED: reckless (60) carries less than risky (71)
+because at reach 24 nearly everybody is an EYEWITNESS, and an eyewitness cannot be told
+what they already saw (gossip dedupes on actor+kind+turn). Saturation shrinks the pool
+who can carry the story. The ordering quiet << notable < risky ~ reckless holds and the
+7/21 CLOUT_WEIGHTS are HIS, so this is written down and NOT retuned.
+
+WHAT SHIPPED: ctFold folds every mind through inherit. THE HEIR IS ALSO '@', which is
+the ruling and not a shortcut -- a run resets you to nothing, a handoff is the opposite,
+so keeping the id means every card and rung keeps working and reads the family history
+as the player's own, which is exactly "you are born owing what your father owed".
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

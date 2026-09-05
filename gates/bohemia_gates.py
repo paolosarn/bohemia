@@ -1849,6 +1849,19 @@ GATES = [
      'Every len>=0.70 coat must carry hard:true, so the NEXT cook cannot quietly '
      'climb back to 20%. Mutation lives inside the gate: it re-walks with the flags '
      'stripped and asserts 1.4% -> 14.4%.', False),
+    ('RUNWAY',         ['node', 'gates/runway_gate.js'],
+     'THE RUNWAY (Paolo 9/4) and THE STYLE CARD (DIRECTION 9/5). It cannot judge '
+     'taste; it holds the bar the wardrobe already failed in writing -- three V-NECK '
+     'tees are dead for reading "visually IDENTICAL to a plain crew neck", so THE '
+     'DEAD GARMENT IS THE RULER and runs live as a control, as does his approved DUST '
+     'MASK for the face rule. THE RULER WAS WRONG THREE TIMES: by AREA the corpse '
+     'outscores the oversized shoulder 6.74 to 5.71; on the OUTLINE a WRAP COAT '
+     'scored zero because a front slit is INSIDE the per-row span, so a fourth axis '
+     'counts HOLES at three times the corpse; and the face check would have condemned '
+     'his approved mask until it read the eye band the way the drawing code does. '
+     'Eighteen shapes on four axes, all eight facings, the default garment '
+     'byte-identical, every shape reachable, every garment inside the card\'s '
+     'palette, and the card\'s headline number reported every run.', False),
     ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
      'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
      'of their own, chosen by searching 880 rendered fits rather than by eye, and '
