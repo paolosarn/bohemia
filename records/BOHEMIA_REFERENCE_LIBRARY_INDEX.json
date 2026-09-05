@@ -258,6 +258,46 @@
    "kind": "real",
    "teaches": "this valley's camp tier is not canvas - it is trailers, tarps over frames, dead cars as walls, a fire barrel plaza; the approved trailer/swapmeet art already carries the material palette, so a camp cook is mostly ARRANGEMENT (rows melting into courtyards) on art that exists."
   },
+  "FEED-01": {
+   "name": "The post anatomy (the timeline standard)",
+   "folder": "feed",
+   "file": "reference/library/feed/INDEX.md",
+   "where": "https://picsart.com/sizes/x-twitter/",
+   "kind": "real",
+   "teaches": "a feed post is four stacked parts and never more - identity line (avatar + name + time, the avatar 48 px against 15 px body text, about THREE text lines tall), body, optional media, meta row; every feed people actually read keeps that order, so ours does."
+  },
+  "FEED-02": {
+   "name": "The rhythm (why a feed feels alive)",
+   "folder": "feed",
+   "file": "reference/library/feed/INDEX.md",
+   "where": "https://createbytes.com/insights/Twitter-UI-UX-Review-Design-experience-analysis",
+   "kind": "real",
+   "teaches": "the scroll reads alive because post heights VARY (one-liner, three-liner, media card) under an unvarying skeleton - same gutters, same identity line, one hairline divider; uniform post heights read as a table, and a table is not a feed."
+  },
+  "FEED-03": {
+   "name": "The ratios at our pixel scale",
+   "folder": "feed",
+   "file": "reference/library/feed/INDEX.md",
+   "where": "this sheet, derived from FEED-01 on our measured surface (390 px viewport, 10-13 px monospace UI)",
+   "kind": "pixel",
+   "teaches": "hold the standard's ratios - avatar = 3 body lines tall, gutter = half a body line, divider = 1 px - so at 11 px body the avatar is 32 px, the gutter 6 px, a post 3 to 6 lines; body text never drops below 11 px on a phone (the eighth-grade law is also a type-size law)."
+  },
+  "FEED-04": {
+   "name": "Three kinds, one mark each",
+   "folder": "feed",
+   "file": "reference/library/feed/INDEX.md",
+   "where": "laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md + the one-number rule (day 17)",
+   "kind": "real",
+   "teaches": "the three post kinds (your deeds / the world's moves / generated life) are told apart by ONE mark on the identity line - a glyph or a single accent, never a layout change per kind; three layouts would make three feeds, and the law says one."
+  },
+  "FEED-05": {
+   "name": "The phone is a phone",
+   "folder": "feed",
+   "file": "reference/library/feed/INDEX.md",
+   "where": "https://developer.apple.com/design/human-interface-guidelines",
+   "kind": "real",
+   "teaches": "the on-screen phone keeps a real phone's proportion (about 9:19.5) and sits where the thumb lives; if it cannot afford 11 px body text at that proportion it is a WIDGET, not a phone - shrink the world view, not the type."
+  },
   "FH-01": {
    "name": "World 1-1 (the canonical teaching level)",
    "folder": "first-hour",
