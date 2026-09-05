@@ -1,0 +1,254 @@
+{
+ "law": "COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26 \u2014 the gate ruler",
+ "format": "a REFERENCE CHECK cites entries by these ids",
+ "refs": {
+  "BLDG-01": {
+   "name": "UNLV \"Dreaming the Skyline\" architecture archive",
+   "folder": "building",
+   "file": "reference/library/building/INDEX.md",
+   "where": "https://www.library.unlv.edu/speccol/collecting_strengths/architecture",
+   "kind": "real",
+   "teaches": "real Vegas buildings from drawings to construction; a building's massing comes from its PROGRAM (what happens inside), so draw the use first and the walls around it."
+  },
+  "BLDG-02": {
+   "name": "Antoine Predock's Las Vegas Library (already canon: the library district is built on it)",
+   "folder": "building",
+   "file": "reference/library/building/INDEX.md",
+   "where": "https://www.e-architect.com/lasvegas/architecture-behind-the-las-vegas-wonder",
+   "kind": "real",
+   "teaches": "desert civic architecture is MASS + SHADOW, sandstone and concrete; colour comes from the desert, and glazing is small and deep because of the sun."
+  },
+  "BLDG-03": {
+   "name": "SLYNYRD Pixelblog catalogue (buildings series)",
+   "folder": "building",
+   "file": "reference/library/building/INDEX.md",
+   "where": "https://www.slynyrd.com/pixelblog-catalogue",
+   "kind": "pixel",
+   "teaches": "a pixel building is drawn in three planes (front face, side face, roof) with ONE light direction; windows sit IN the wall plane on a shared grid line, never floating between floors."
+  },
+  "BLDG-04": {
+   "name": "The Strip's three races (pool, sign, porte-cochere \u2014 Stefan Al)",
+   "folder": "building",
+   "file": "reference/library/building/INDEX.md",
+   "where": "https://www.stefanal.com/the-strip",
+   "kind": "real",
+   "teaches": "a casino is a SMALL CITY with a giant forecourt; the front is theatre and the back of house (laundry, kitchens, docks) is where the building actually works \u2014 draw both or the building is a facade."
+  },
+  "BLDG-05": {
+   "name": "Structural sanity list (the 9/4 law's own words)",
+   "folder": "building",
+   "file": "reference/library/building/INDEX.md",
+   "where": "laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md",
+   "kind": "real",
+   "teaches": "windows sit in a wall plane; a wall meets a roof; a door is on the ground; a street meets a curb \u2014 the four checks every building cook runs before calling itself done."
+  },
+  "CGRD-01": {
+   "name": "Into the Breach interface (Game UI Database)",
+   "folder": "combat-ground",
+   "file": "reference/library/combat-ground/INDEX.md",
+   "where": "https://www.gameuidatabase.com/gameData.php?id=483",
+   "kind": "pixel",
+   "teaches": "every tile state must read from silhouette and value alone at a glance; if a player has to hover to know whether ground is dangerous, the floor has failed."
+  },
+  "CGRD-02": {
+   "name": "\"Sacrifice cool ideas for the sake of clarity every time\" (the ItB dev interview)",
+   "folder": "combat-ground",
+   "file": "reference/library/combat-ground/INDEX.md",
+   "where": "https://www.gamedeveloper.com/design/-i-into-the-breach-i-dev-on-ui-design-sacrifice-cool-ideas-for-the-sake-of-clarity-every-time-",
+   "kind": "pixel",
+   "teaches": "on a tactical floor, clarity outranks beauty on every collision; a gorgeous tile that hides its walkability is a worse tile than a plain one that shows it."
+  },
+  "CGRD-03": {
+   "name": "A Vegas block from the air (satellite, any residential mile)",
+   "folder": "combat-ground",
+   "file": "reference/library/combat-ground/INDEX.md",
+   "where": "https://www.google.com/maps/@36.1699,-115.1398,500m (satellite)",
+   "kind": "real",
+   "teaches": "at house-per-tile scale the ground alphabet is HOUSE / YARD / STREET / LOT and almost nothing else; a backyard is as big as its house (the 9/4 1x2 ruling is what the air actually shows)."
+  },
+  "DIST-01": {
+   "name": "SimCity 2000 building sprites",
+   "folder": "district",
+   "file": "reference/library/district/INDEX.md",
+   "where": "https://frontiernerds.com/simcity-2000-sprite-extraction",
+   "kind": "pixel",
+   "teaches": "at map zoom a district reads by SILHOUETTE and ROOF PATTERN, not by wall detail; every sprite sits on the 2:1 isometric diamond and never breaks its own tile bounds."
+  },
+  "DIST-02": {
+   "name": "Learning From Las Vegas (Venturi/Scott Brown)",
+   "folder": "district",
+   "file": "reference/library/district/INDEX.md",
+   "where": "https://www.udg.org.uk/publications/udlibrary/learning-las-vegas",
+   "kind": "real",
+   "teaches": "a Vegas commercial plot is SIGN + SHED + PARKING IN FRONT; the building hides behind its lot, so a district that puts the building on the street edge is drawn from the wrong city."
+  },
+  "DIST-03": {
+   "name": "Las Vegas aerial (any mapping satellite view)",
+   "folder": "district",
+   "file": "reference/library/district/INDEX.md",
+   "where": "https://www.google.com/maps/@36.1146,-115.1728,2000m (satellite)",
+   "kind": "real",
+   "teaches": "a Sun Belt subdivision is a CUL-DE-SAC BULB ringed by one continuous block wall; an industrial plot is one big roof plus yard; the grain of the valley is the arterial mile grid."
+  },
+  "DIST-04": {
+   "name": "Stardew Valley town map (extracted sheets)",
+   "folder": "district",
+   "file": "reference/library/district/INDEX.md",
+   "where": "https://www.spriters-resource.com/pc_computer/stardewvalley/",
+   "kind": "pixel",
+   "teaches": "in 3/4 top-down a building is FRONT FACE + ROOF BAND stacked, the door always touches the ground row, and paths read because they are one value lighter than the grass, not a different hue."
+  },
+  "DIST-05": {
+   "name": "Faux urbanism on the Strip (Themerica)",
+   "folder": "district",
+   "file": "reference/library/district/INDEX.md",
+   "where": "https://www.themerica.org/blog/2021/05/23/viva-las-vegas",
+   "kind": "real",
+   "teaches": "real urban texture is LAYERED BY TIME (mismatched frontages, patched surfaces); a district where every building matches reads as a theme park, which is the exact wrongness Bohemia's dead world must avoid."
+  },
+  "FACE-01": {
+   "name": "Portraits \u2014 Pedro Medeiros (saint11)",
+   "folder": "face",
+   "file": "reference/library/face/INDEX.md",
+   "where": "https://lospec.com/pixel-art-tutorials/portraits-by-pedro-medeiros",
+   "kind": "pixel",
+   "teaches": "at portrait scale the eyes carry the face; one pixel of eye spacing changes identity more than any amount of shading."
+  },
+  "FACE-02": {
+   "name": "The vertical thirds (classical construction, any figure-drawing text)",
+   "folder": "face",
+   "file": "reference/library/face/INDEX.md",
+   "where": "search \"facial proportions thirds construction\" (structure only)",
+   "kind": "real",
+   "teaches": "hairline-brow, brow-nose, nose-chin are equal thirds; the eye line is halfway down the skull; a face that breaks the thirds reads as a caricature whether you meant it or not."
+  },
+  "FACE-03": {
+   "name": "The repo's own face law (identity at 64px)",
+   "folder": "face",
+   "file": "reference/library/face/INDEX.md",
+   "where": "laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md",
+   "kind": "real",
+   "teaches": "identity at small sizes is SIZE AND SPACING, not detail \u2014 the same channel face recognition uses; cheeks widest, jaw inside them, chin inside the jaw."
+  },
+  "GARM-01": {
+   "name": "Lospec clothing tutorials (curated)",
+   "folder": "garment",
+   "file": "reference/library/garment/INDEX.md",
+   "where": "https://lospec.com/pixel-art-tutorials/tags/clothing",
+   "kind": "pixel",
+   "teaches": "at sprite scale fabric is VALUE BANDS, not drawn fold lines; one shadow band under every overhang (hem, cuff, collar) is what makes cloth read as layered."
+  },
+  "GARM-02": {
+   "name": "Pixel Logic, ch. readability + anti-aliasing (Michael Azzi)",
+   "folder": "garment",
+   "file": "reference/library/garment/INDEX.md",
+   "where": "https://lospec.com/pixel-art-tutorials/pixel-logic-a-guide-to-pixel-art-by-michael-azzi (buy: pixellogicbook.com \u2014 standing debt, ART row -1c)",
+   "kind": "pixel",
+   "teaches": "a garment's silhouette must read at 100% zoom with no outline help; interior detail that breaks the silhouette read is subtraction, not addition."
+  },
+  "GARM-03": {
+   "name": "The wardrobe's own locked laws",
+   "folder": "garment",
+   "file": "reference/library/garment/INDEX.md",
+   "where": "laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md + laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md",
+   "kind": "real",
+   "teaches": "a garment costs something to wear (the heat) or it signals nothing; the cut belongs to the register, the colour belongs to the faction \u2014 a cook never spends both channels on one idea."
+  },
+  "HAIR-01": {
+   "name": "Pedro Medeiros (saint11) tutorials \u2014 hair and character heads",
+   "folder": "haircut",
+   "file": "reference/library/haircut/INDEX.md",
+   "where": "https://saint11.org/blog/pixel-art-tutorials/",
+   "kind": "pixel",
+   "teaches": "hair is ONE MASS with a silhouette, clumps drawn as little off shapes; single-strand lines at sprite scale read as scratches, not hair."
+  },
+  "HAIR-02": {
+   "name": "The repo's own hair laws (the deepest reference we hold)",
+   "folder": "haircut",
+   "file": "reference/library/haircut/INDEX.md",
+   "where": "laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md + laws/BOHEMIA_LAW_THE_HAIRLINE_IN_PROFILE_8_27_26.md + laws/BOHEMIA_LAW_A_HAIRCUT_READS_FROM_EVERY_ANGLE_8_28_26.md",
+   "kind": "real",
+   "teaches": "the hairline crosses the FOREHEAD, TEMPLE and EAR in profile; a haircut is one haircut from all eight directions; no straight runs longer than six rows."
+  },
+  "HAIR-03": {
+   "name": "Real barbering taxonomy (any barber's chart)",
+   "folder": "haircut",
+   "file": "reference/library/haircut/INDEX.md",
+   "where": "search \"haircut names chart barber\" (structure only)",
+   "kind": "real",
+   "teaches": "every real cut is LENGTH ON TOP x LENGTH ON SIDES x HOW IT FALLS; naming a cook against that grid catches a shape that is not actually a haircut anybody has."
+  },
+  "PROP-01": {
+   "name": "SLYNYRD Pixelblog catalogue (props and objects series)",
+   "folder": "prop",
+   "file": "reference/library/prop/INDEX.md",
+   "where": "https://www.slynyrd.com/pixelblog-catalogue",
+   "kind": "pixel",
+   "teaches": "a prop is SILHOUETTE FIRST; its ground shadow is what anchors it to the world, and a prop with no contact shadow floats however well it is drawn."
+  },
+  "PROP-02": {
+   "name": "Real object typology (manufacturer photos of the actual thing)",
+   "folder": "prop",
+   "file": "reference/library/prop/INDEX.md",
+   "where": "search the real object by name (a 500-gallon propane tank, a CRAC unit, a guyed mast)",
+   "kind": "real",
+   "teaches": "real utility objects are ONE material and TWO or three readable parts (tank + saddle + valve); a prop cook that invents a fourth part is decorating, not observing."
+  },
+  "PROP-03": {
+   "name": "The 45-degree law (ours, locked)",
+   "folder": "prop",
+   "file": "reference/library/prop/INDEX.md",
+   "where": "laws (45 DEGREE ART LAW 7/17) + gates/art_45_gate.py",
+   "kind": "real",
+   "teaches": "every prop is seen from the world's three-quarter view \u2014 ellipse cross-sections, visible sky-lit tops; a flat side-on prop is from a different game."
+  },
+  "UI-01": {
+   "name": "Into the Breach (Interface In Game gallery)",
+   "folder": "ui",
+   "file": "reference/library/ui/INDEX.md",
+   "where": "https://interfaceingame.com/games/into-the-breach/",
+   "kind": "pixel",
+   "teaches": "the game states everything it is about to do before it does it; a UI that makes the player remember instead of recognise is spending working memory the fight needs (our day-17 rule: words for the world, ONE number)."
+  },
+  "UI-02": {
+   "name": "Game UI principles (Kukshtel)",
+   "folder": "ui",
+   "file": "reference/library/ui/INDEX.md",
+   "where": "https://kylekukshtel.com/game-ui-principles",
+   "kind": "pixel",
+   "teaches": "UI is a conversation with one voice: every panel that invents its own layout grammar makes the player relearn the screen."
+  },
+  "UI-03": {
+   "name": "The phone itself (Apple Human Interface Guidelines, touch targets)",
+   "folder": "ui",
+   "file": "reference/library/ui/INDEX.md",
+   "where": "https://developer.apple.com/design/human-interface-guidelines",
+   "kind": "real",
+   "teaches": "a touch target is 44pt minimum and the thumb lives at the bottom; anything he must reach for at the top of a portrait screen is a desktop habit wearing a phone costume."
+  },
+  "WALK-01": {
+   "name": "Walk Cycle \u2014 Pedro Medeiros (saint11)",
+   "folder": "walk-cycle",
+   "file": "reference/library/walk-cycle/INDEX.md",
+   "where": "https://lospec.com/pixel-art-tutorials/walk-cycle-by-pedro-medeiros",
+   "kind": "pixel",
+   "teaches": "a sprite walk is CONTACT-DOWN-PASS-UP; the head bobs one pixel on pass, and losing the bob kills the weight before anything else does."
+  },
+  "WALK-02": {
+   "name": "Walk Cycles \u2014 Sandy Gordon",
+   "folder": "walk-cycle",
+   "file": "reference/library/walk-cycle/INDEX.md",
+   "where": "https://lospec.com/pixel-art-tutorials/walk-cycles-by-sandy-gordon",
+   "kind": "pixel",
+   "teaches": "at small sizes arms read by their SWING SILHOUETTE, not their pixels; opposite arm to leg or the walk reads as a march."
+  },
+  "WALK-03": {
+   "name": "The Animator's Survival Kit (Richard Williams)",
+   "folder": "walk-cycle",
+   "file": "reference/library/walk-cycle/INDEX.md",
+   "where": "book (ISBN 978-0571238347)",
+   "kind": "real",
+   "teaches": "the walk is a controlled fall; the body is always leaving balance and catching it, so a cycle where the torso never leans is a treadmill, not a walk."
+  }
+ }
+}

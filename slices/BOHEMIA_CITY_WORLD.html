@@ -39445,7 +39445,15 @@ function citySnapshot(){
     vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
     installAsked:!!INSTALL_ASKED,   /* __KEEP_THIS_RUN__ -- a prompt that comes back every night is an ad */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
-    market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */ };
+    market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null,   /* __THE_TRADING_HUB__ */
+    /* __THE_PEOPLE_RIDE_THE_SAVE__ -- THE WORLD WAS INSIDE THE HARDENED SAVE AND THE PEOPLE
+       WERE OUTSIDE IT. Five keys -- minds, known, met, belong, deedweight -- wrote
+       to raw localStorage AROUND bohemia_save.js: one slot each, no checksum, no
+       migration on four of five, and a silent catch on write failure, which is the
+       exact four failure modes that module was written to kill. They appeared ZERO
+       times here. So export did not carry the people, a restore gave yesterday's
+       world with today's population, and the two-slot rollback DESYNCED. */
+    people:(function(){ try{ return ctPeopleSave(); }catch(_e){ return null; } })() };
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
@@ -39921,7 +39929,10 @@ window.addEventListener('message', function(ev){
      already answering this exact question, so it carries the answer rather than
      opening a second channel that can rot on its own. */
   try { if (ev && ev.data && typeof ev.data.bohemiaBuild === 'string')
-          CT_BUILD = ev.data.bohemiaBuild; } catch(_e){}
+          CT_BUILD = ev.data.bohemiaBuild;
+    /* __THE_FAMILY_IS_IN_THE_GAME__: and who his family is, on the same reply. */
+    if (ev && ev.data && ev.data.bohemiaFamily && ev.data.bohemiaFamily.length)
+          famSet(ev.data.bohemiaFamily); } catch(_e){}
 });
 /* *** AND THE CITY ASKS, BECAUSE WAITING TO BE TOLD DOES NOT WORK. *** The first
    cut had the shell push this on the frame's `load` event, and MEASURED ON THE
@@ -39958,6 +39969,52 @@ function ctDemoOver(day){ return CT_IS_DEMO && (day|0) >= CT_DEMO_DAYS; }
    because the recorder going quiet must never be able to take the game with it.
    ============================================================================ */
 var CT_BUILD = null;
+
+/* ============================================================================
+   __THE_FAMILY_IS_IN_THE_GAME__ (9/4) -- THE RUN HAS A FAMILY NOW.
+
+   MEASURED BEFORE THIS EXISTED: runDynasty 0, selectHeir 0, family.tree 0, in
+   BOTH files that make up the game. A full dynasty engine has existed since 7/2
+   -- family tree, heir selection, three generational folds -- and the game he
+   plays had never referenced it once. FAMILY IS THE CORE THEME (7/19, LOCKED)
+   and there was no family in the game.
+
+   NOTHING HERE IS INVENTED. The cast, the names and the ruling about which
+   sibling is lost all shipped with the cold open; the shell knew all of it and
+   the walked world had never been told. This holds what the shell sends.
+
+   NOT ONE NAME IS TYPED IN THIS FILE. They arrive from FAMILY_CAST, which is
+   his and drafted, so renaming her there renames her everywhere -- the mistake
+   the alpha's own fillNames note documents.
+   ========================================================================== */
+var FAMILY = null;
+var FAM_KEY = 'boh.city.family';
+
+function famSet(list){
+  if(!list || !list.length) return;
+  FAMILY = list;
+  try{ localStorage.setItem(FAM_KEY, JSON.stringify(list)); }catch(_e){}
+}
+/* AN UNREADABLE BLOB IS DISCARDED WHOLE, never half applied -- the rule the
+   belonging save already sets, because a partly restored family is worse than
+   no family: you cannot see that it is wrong. */
+function famHydrate(){
+  if(FAMILY) return FAMILY;
+  try{
+    var raw = JSON.parse(localStorage.getItem(FAM_KEY) || 'null');
+    if(raw && raw.length && raw[0] && raw[0].role) FAMILY = raw;
+  }catch(_e){ FAMILY = null; }
+  return FAMILY;
+}
+function famLost(){
+  var f = famHydrate() || [];
+  for(var i=0;i<f.length;i++) if(!f[i].alive) return f[i];
+  return null;
+}
+function famLiving(){
+  var f = famHydrate() || [];
+  return f.filter(function(m){ return m.alive; });
+}
 var FB_KEY  = 'boh.demo.card';
 var FB      = null;      /* the record */
 var FB_T0   = 0;         /* wall clock this sitting started */
@@ -41241,6 +41298,9 @@ function applyRestore(st){
   if(st.vistaSeen){ try{ VISTA_SEEN=true; }catch(_e){} }
   /* __KEEP_THIS_RUN__ */
   if(st.installAsked){ try{ INSTALL_ASKED=true; }catch(_e){} }
+  /* __THE_PEOPLE_RIDE_THE_SAVE__ -- AND THE PEOPLE COME WITH IT. Absent on any save written
+     before today, which is correct: that save never had them. */
+  if(st.people){ try{ ctPeopleLoad(st.people); }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     /* __CITY_ADDRESS__ -- WHO THE JOB IS ABOUT SURVIVES A RELOAD. Restored
@@ -43864,6 +43924,67 @@ function ctCardToBottom(){
 function ctSave(){
   try{ localStorage.setItem('boh.city.met', JSON.stringify(CT_MET.serialize())); }catch(_e){}
   ctBelongPersist();          /* __CITY_BELONGSAVE__ */
+}
+
+/* ============================================================================
+   __THE_PEOPLE_RIDE_THE_SAVE__ (9/4) -- THE FIVE, GATHERED IN ONE PLACE.
+
+   WIRING, NOT INVENTION: every one of these already serialises itself and keeps
+   its own key. This reads the LIVE objects and hands them to the hardened save,
+   and the restore writes both the live object AND its key so the two systems can
+   never disagree -- which is the desync the row is about.
+
+   EACH ONE IS GUARDED ON ITS OWN. A blob that cannot be read is skipped, never
+   half-applied: "a partially restored standing is worse than a fresh one because
+   you cannot see that it is wrong" is the belonging code's own rule and it holds
+   for all five.
+   ========================================================================== */
+function ctPeopleSave(){
+  var out = {}, n = 0;
+  try{ out.met    = CT_MET.serialize();                              n++; }catch(_e){}
+  try{ out.minds  = CT_MINDS;                                        n++; }catch(_e){}
+  try{ var k = knownLoad(); out.known = k ? k.serialize() : null;    n++; }catch(_e){}
+  try{ var b = window.__CT_BELONG; out.belong = (b && b.meta) ? b.meta : null; n++; }catch(_e){}
+  try{ out.deed   = BohemiaStanding.DEED_WEIGHT;                     n++; }catch(_e){}
+  return n ? out : null;
+}
+
+function ctPeopleLoad(p){
+  if(!p || typeof p !== 'object') return 0;
+  var n = 0;
+  /* THE LIVE OBJECT AND ITS KEY MOVE TOGETHER. Setting only the live object
+     would leave the key holding yesterday's people, and the next ctSave would
+     write the restored one back over it -- a race whose loser is invisible. */
+  try{ if(p.met){ CT_MET = BohemiaPeople.makeLedger(p.met);
+        localStorage.setItem('boh.city.met', JSON.stringify(p.met)); n++; } }catch(_e){}
+  try{ if(p.minds && typeof p.minds === 'object'){ CT_MINDS = p.minds;
+        localStorage.setItem('boh.city.minds', JSON.stringify(CT_MINDS)); n++; } }catch(_e){}
+  try{ if(p.known){ KNOWN = BohemiaKnown.make(p.known);
+        localStorage.setItem('boh.city.known', JSON.stringify(KNOWN.serialize())); n++; } }catch(_e){}
+  try{ if(p.belong && typeof p.belong === 'object'){
+        window.__CT_BELONG = window.__CT_BELONG || {};
+        window.__CT_BELONG.meta = p.belong;
+        ctBelongPersist(); n++; } }catch(_e){}
+  /* THE DEED TABLE RIDES TOO, and that is deliberate: a save that cannot
+     reproduce the numbers it was played under cannot reproduce the bug it was
+     sent to show. His live tuning re-lands the moment he touches the DIRECT tab,
+     which pushes across the frame. */
+  try{ if(p.deed && typeof p.deed === 'object'){ ctDialApply(p.deed, true); n++; } }catch(_e){}
+  window.__PEOPLE_RESTORED = n;
+  return n;
+}
+
+/* A WIPE THAT LEAVES HALF THE SAVE IS NOT A WIPE -- the comment was already
+   there and it was already true of three of the five. __THE_PEOPLE_RIDE_THE_SAVE__ */
+function ctPeopleWipe(){
+  var keys = ['boh.city.met','boh.city.minds','boh.city.known',
+              'boh.city.belong','boh.city.deedweight'];
+  for(var i=0;i<keys.length;i++){ try{ localStorage.removeItem(keys[i]); }catch(_e){} }
+  try{ CT_MET = BohemiaPeople.makeLedger(null); }catch(_e){}
+  try{ CT_MINDS = {}; }catch(_e){}
+  try{ KNOWN = null; }catch(_e){}
+  try{ window.__CT_BELONG = null; }catch(_e){}
+  return keys.length;
 }
 /* __CITY_BELONGSAVE__ -- THE BELONGING SYSTEM HAD NO MEMORY.
    window.__CT_BELONG was a plain object: nothing wrote it, nothing read it back.
@@ -50502,13 +50623,13 @@ window.__CT={ everyone:function(){ return ctEveryone().map(function(p){
               adjacent:function(){ var p=ctAdjacent(); return p?ctPerson(p).key:null; },
               open:function(){ ctOpen(); return !!CT_OPEN; },
               nameCount:function(){ return CT_MET.namesKnown(); },
-              wipe:function(){ try{localStorage.removeItem('boh.city.met');}catch(_e){}
-                /* __CITY_BELONGSAVE__ -- A WIPE THAT LEAVES HALF THE SAVE IS NOT A
-                   WIPE. This removed only the met-ledger, which would have left a
-                   player's standing and commitments behind after they asked for a
-                   clean slate. */
-                try{localStorage.removeItem(CT_BELONG_KEY); window.__CT_BELONG=null;}catch(_e){}
-                               CT_MET=BohemiaPeople.makeLedger(null); } };
+              /* __THE_PEOPLE_RIDE_THE_SAVE__ (9/4) -- AND IT CLEANS ALL FIVE NOW.
+                 __CITY_BELONGSAVE__ wrote "A WIPE THAT LEAVES HALF THE SAVE IS NOT
+                 A WIPE" and then fixed two of five: met and belong went, and MINDS,
+                 KNOWN and DEEDWEIGHT survived a clean slate. The comment was right
+                 and it was describing itself. One list, so there is no sixth key to
+                 forget next time. */
+              wipe:function(){ try{ return ctPeopleWipe(); }catch(_e){ return 0; } } };
 /* ==== /CITY TALK ==== */
 
 window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot:INSIDE.foot,
@@ -50614,6 +50735,25 @@ function showStanding(){
     return;
   }
   var h = '';
+  /* __THE_FAMILY_IS_IN_THE_GAME__ (9/4): FAMILY GOES ABOVE THE FACTIONS, because in this game
+     family comes before factions and this card is already called WHERE YOU STAND.
+     He never digs, so it goes on a card he already opens rather than behind a new
+     button nobody finds.
+     AND IT NAMES WHO IS GONE, not only who is left. The 7/19 law: "Grief is the
+     proof it was real." A family card that lists only survivors is the
+     counterfeit family the whole story is against. */
+  try{
+    var _liv = famLiving(), _lost = famLost();
+    if(_liv.length || _lost){
+      if(_liv.length)
+        h += '<div class="rrow"><span class="rk">YOUR PEOPLE</span><span class="rv">'
+           + esc(_liv.map(function(m){ return m.name; }).join(' \u00b7 '))
+           + '</span></div>';
+      if(_lost)
+        h += '<div class="rrow"><span class="rk">WHO YOU LOST</span><span class="rv">'
+           + esc(_lost.name) + '</span></div>';
+    }
+  }catch(_e){}
   h += '<div class="rrow"><span class="rk">YOUR RUNG</span>'
      + '<span class="rv">' + r.rung + '</span></div>';
   h += '<div class="rrow"><span class="rk">THE VALLEY</span><span class="rv">'

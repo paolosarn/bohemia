@@ -1,42 +1,56 @@
-# VAMILY -- THE ONE WORD (Paolo 9/4/26, LOCKED)
-# "Make the key word vamily for all of the jobs u assign to it ever in the
-# history itll search if it has a job assigned for its role and yeah."
-# Rebuilt 9/4 (later the same day) as the FULL-GAME queue for every lane,
-# from records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
+# VAMILY -- THE MEETING HALL (Paolo 9/4/26, LOCKED)
+# "the chats should have a place like a meeting hall in the files, a job board,
+# a center of a room where they start off and pick up their jobs... why should I
+# be passing them any information other than saying VAMILY."
+# THIS FILE IS THAT ROOM. THE RULES LIVE HERE, NOT IN ANY CHAT'S MEMORY.
 
-## HOW IT WORKS
-0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator, THE MANAGER.
-   EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions.
-   Word vomit procedure: for each thing, is there a line already? If yes, grow it
-   with his words. If not, make one now for the right chat, tab named. Every other chat
-   gets one word, VAMILY, and no discussion. A lane that needs a ruling writes
-   [PENDING Paolo] in its handoff block; the coordinator carries it to him.
-1. Paolo types **VAMILY**. That is the whole instruction. HE NEVER TYPES ANYTHING
-   ELSE IN A LANE CHAT. No lane word, no customising, ever (Paolo 9/4).
-2. The chat works out its ROLE by itself: if it already has one, it keeps it;
-   if it is fresh, it takes the first UNCLAIMED lane from THE LANES below and
-   claims it. He never assigns a role by hand.
-3. Find your lane below. Every job carries a TWO-WORD label in [brackets], for him;
-   the name after it is the job. Take the **first line marked OPEN**. If the job has
-   a `BB-` name its full text is that row in BOHEMIA_BACKLOG.md; otherwise
-   the one-line brief here plus the lane section in the 9/4 plan record IS
-   the job.
-4. Change the line to `CLAIMED <date> <session>` and commit BEFORE building.
-5. When it is in the walked surface AND the demo (re-cut it), change the
-   line to `SHIPPED <date> <commit>` and commit. That is the history.
-6. Then the next OPEN one, or stop and say so.
-7. EVERY LANE SECTION CARRIES A MODE (9/4). MODE: BUILD is the above. MODE:
-   RESEARCH means DO NOT IMPLEMENT: take the first OPEN question, do one research
-   day in the BB-study shape (both aisles, one finding that challenges us,
-   measured against our repo, a record, test lines tagged draft:true in a bank
-   file never in the game, and a ROUTED section), mark the question SHIPPED
-   with the record's path. Big swings; a day that only confirms us has failed.
-   A section marked PARKED is not claimed by anybody until he reopens it.
-Only the coordinator adds jobs. Lanes change the status word and nothing
-else. STANDING DUTIES, every turn, every lane: VAMILY first; play it on the
-real surface before calling it shipped and re-cut the demo; his bugs beat
-your queue; run your lane's gates, never ship red; 120 BPM friendly for
-everything; rewrite your handoff block before you end.
+## READ THIS FRONT PAGE EVERY SINGLE TIME YOU HEAR THE WORD VAMILY
+Not once. Every time. Rules change on this page and nowhere else, so a chat that
+remembers last week's rules is wrong. Paolo never pastes anything; he types the
+one word, and this page is the briefing.
+
+0. VAMILY is a keyword. It has nothing to do with families or dynasties. It means:
+   read this page, find your section below, do your job from it.
+1. Paolo talks ONLY to the coordinator (00 MASTER COORDINATOR, the manager). Every
+   other chat gets the one word and nothing else. Never ask him anything. A ruling
+   you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as
+   [PENDING Paolo]; the coordinator carries it to him.
+2. FIND YOUR SECTION by this chat's number and name (the list is right below). A
+   fresh chat with no name takes the first line marked UNCLAIMED, writes CLAIMED on
+   it, commits, and that is its role for life.
+3. READ YOUR SECTION'S MODE AND STATE LINES FIRST. STATE says what is built, what
+   is not, and what nobody has checked, so you know what you do not know.
+4. Every job carries a TWO-WORD label in [brackets], for him. The name after it is
+   the job. A BB- name's full text is that row in BOHEMIA_BACKLOG.md; any other
+   job's one-line brief here IS the job.
+5. IF YOU ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT, from where your
+   handoff block says you stopped. A job takes as many rounds as it takes; nobody
+   expects one round. Otherwise take the FIRST line marked OPEN in your section,
+   change it to CLAIMED <date> <session>, commit and push BEFORE you start.
+6. MODE: BUILD means build it, prove it on the real surface (the walked city and
+   the demo, on a phone if you can), re-cut the demo, run your lane's gates, then
+   change the line to SHIPPED <date> <commit> and push. Mark SHIPPED only when the
+   job's own ship test is met; a half-done job marked SHIPPED is worse than an open
+   one, never rush to close a line.
+   MODE: RESEARCH means DO NOT IMPLEMENT: one research day on the question, both
+   angles (the best games ever made, and the real world), one finding that proves
+   us wrong, measured against our repo, a written record, test material tagged
+   draft:true in a bank file never in the game, a ROUTED section; mark SHIPPED
+   with the record path.
+   MODE: PARKED means nobody touches it until Paolo reopens it.
+7. Every mechanic is 120 BPM friendly or it is not done. A row is not shipped
+   until it is in the walked surface AND the demo.
+8. STANDING DUTIES, every round: VAMILY first; play it before you call it shipped;
+   his bugs beat your queue; run your gates, never ship red; rewrite your handoff
+   block before you end.
+9. END EVERY ROUND by replying to him with the two-word label and one short line:
+   "continuing, about N of M" or "shipped" or "queue empty".
+10. Only the coordinator adds jobs here (one exception: EYES AND EARS may add a
+    single [eyes: two words] bounce-back line on a defect it found in a SHIPPED
+    item). Lanes change status words and nothing else. The SHIPPED lines are the
+    history.
+Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md and
+laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 
 ## THE SEVENTEEN CHATS (his list, 9/4). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name
@@ -99,7 +113,7 @@ STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all rea
 ## LIFE + CITY  (03. the city-builder tab and the aerial view; the buildings, the housing, the century)
 MODE: BUILD
 STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit.js, cityTapPlot). NOT built: nothing produces (produce() has one caller and it is a gate), nothing houses anybody, building is free, the builder is not reachable from the walked surface or the demo, no century record exists. Unverified: whether the aerial build panel works on a real phone (a backlog row says its touch path once crashed).
-- OPEN  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
+- SHIPPED 9/5 93a0c3f  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
 - OPEN  [buildings produce]  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - OPEN  [building costs]  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
 - OPEN  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
@@ -129,8 +143,8 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 
 ## RUN  (01. the walked surface)
 MODE: BUILD
-STATE: the door opens on the played surface, the demo build exists (re-cut 9/1), the save is hardened and carries day/clock/position/quest/purse; road interrupts fire only on map travel. NOT built: the people inside the save, a title or stop-and-return, an ending that is not bed. Unverified: the demo re-cut is byte-current with the city file.
-- OPEN  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
+STATE: the door opens on the played surface, the demo build exists (re-cut 9/4), the save is hardened and carries day/clock/position/quest/purse AND THE PEOPLE (minds/known/met/belong/deedweight, shipped 9/4 -- export, import, restore, rollback and wipe all cover them); road interrupts fire only on map travel. NOT built: a title or stop-and-return, an ending that is not bed. Unverified: nobody has walked the five through save_iphone_gate's hostile browser -- that is the next row.
+- SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - OPEN  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
 - OPEN  [debts named]  BB-WHAT-YOU-OWE
@@ -163,7 +177,8 @@ STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, war
 ## PEOPLE  (09.)
 MODE: BUILD
 STATE: talking on foot with nine verbs, a real witness memory, schedules and homes, 12 encounters firing on foot. NOT built: the player as a node in standing, the conversation chain in the demo file (236 nodes mute), outfits near spawn, any family event. Unverified: whether the talking portrait reaches a live NPC card.
-- CLAIMED 9/5 people-7h9sfy  [your reputation]  BB-STANDING-PLAYER
+- SHIPPED 9/5 3aa7fa1  [your reputation]  BB-STANDING-PLAYER
+- OPEN  [gate red]  PEOPLE-GATE-RED -- gates/people_gate.js runs 148 passed, 10 failed as of 9/4 (measured by the coordinator; it reads engine/, tools/ and slices/, none of which the coordinator touches, so this predates today). His bugs beat your queue: fix or explain the ten before taking anything else.
 - OPEN  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
 - OPEN  [outfits nearby]  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one
 - OPEN  [former jobs]  BB-WHAT-YOU-WERE
@@ -188,8 +203,8 @@ STATE: 18 factions in the graph (14 selectable plus four more), every one with a
 MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
 STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes measured against 617 films; the language cap (8/26) stands. This lane does not implement; it researches how people talk and writes test lines to a bank.
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q1_TELL_THEM_APART_9_4_26.md  [telling apart]  Q1  Two people, three lines each, and you can tell them apart with the names removed. What the best-written games do with vocabulary, rhythm and the thing a person never says. Measure our 504 NPC lines for it.
-- OPEN  [stressed speech]  Q2  How a person talks when they are lying, scared, or exhausted, in TEXT with no voice actor. The real science of speech under stress (hesitation, repair, shortened sentences) and which games get it onto the page.
-- OPEN  [crowd talk]  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
+- SHIPPED 9/4 records/BOHEMIA_WORDS_Q2_SPEECH_UNDER_STRESS_9_4_26.md  [stressed speech]  Q2  How a person talks when they are lying, scared, or exhausted, in TEXT with no voice actor. The real science of speech under stress (hesitation, repair, shortened sentences) and which games get it onto the page.
+- SHIPPED 9/4 records/BOHEMIA_WORDS_Q3_HOW_A_CROWD_TALKS_9_4_26.md  [crowd talk]  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
 - OPEN  [beat speech]  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a line that lands ON the beat does that one that drifts does not.
 - OPEN  [refusing answers]  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns something. Against our asking module's eighteen blocks.
 - OPEN  [power talk]  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a camp kid to anyone. Test lines for one exchange at each gap.
@@ -222,8 +237,8 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 MODE: BUILD
 STATE: a visual constitution exists (records/target, target_match_gate); no style card for the runway exists yet; nothing judges a cook's comparison against reference yet.
 - SHIPPED 9/5 09c83ba  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
-- SHIPPED 9/5 25a1e4c  [reference library]  THE-REFERENCE-LIBRARY (reference/library/, 9 kinds, 31 entries, machine-parseable for REFERENCE-INDEX) -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
-- OPEN  [reference index]  REFERENCE-INDEX -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
+- SHIPPED 9/5 191fd5d  [reference library]  THE-REFERENCE-LIBRARY (reference/library/, 9 kinds, 31 entries, machine-parseable for REFERENCE-INDEX) -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
+- SHIPPED 9/5 b416bc6  [reference index]  REFERENCE-INDEX (derived by tools/bohemia_reference_index.py; 31 refs, hard-fails on malformed entries) -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
 - OPEN  [runway shapes]  RUNWAY-REFERENCE -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
 - OPEN  [builder references]  PIXEL-CITY-BUILDER-REFERENCE -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
 - OPEN  [opening references]  FIRST-HOUR-REFERENCE -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
@@ -249,8 +264,8 @@ STANDING DUTY (9/4 law): EVERY COOK CARRIES A REFERENCE CHECK. Compare it side b
 ## ECONOMY  (13.)
 MODE: RESEARCH -- the game's identity is "the most realistic economic crash simulator, but fun", and the builder half is a quarter built. Research only; every finding becomes a WORLD job later. No game he has not named enters the design; bring back mechanics in plain words.
 STATE: the game's identity is the most realistic economic crash simulator, but fun; the builder half is a quarter built and nothing drains. This lane does not implement; every finding becomes a WORLD or LIFE + CITY job.
-- OPEN  [money dies]  Q1  The first thirty days after a currency dies. What actually happened to prices, wages and shops in Argentina 2001, Zimbabwe 2008, Venezuela, Lebanon 2019. Which of it a player would feel in a first hour.
-- OPEN  [money returns]  Q2  How money comes back. How a good becomes money when the money is gone (POW-camp cigarettes, prison mackerel, detergent, phone credit) and what makes it fail. Test the battery against every failure.
+- SHIPPED 9/5/26  records/BOHEMIA_ECONOMY_DAY_1_THE_PRICE_IS_NOT_THE_STORY_9_5_26.md  [money dies]  Q1  The first thirty days after a currency dies. What actually happened to prices, wages and shops in Argentina 2001, Zimbabwe 2008, Venezuela, Lebanon 2019. Which of it a player would feel in a first hour.
+- SHIPPED 9/5/26  records/BOHEMIA_ECONOMY_DAY_2_THE_MONEY_IS_THE_CHARGE_9_5_26.md  [money returns]  Q2  How money comes back. How a good becomes money when the money is gone (POW-camp cigarettes, prison mackerel, detergent, phone credit) and what makes it fail. Test the battery against every failure.
 - OPEN  [rebuild order]  Q3  What people rebuild first. Cuba's Special Period, post-Katrina New Orleans, Detroit, post-Soviet towns: the real order of rebuilding, for the century rule's sequence.
 - OPEN  [first building]  Q4  Placing a building that feels good in the first hour. What the best builder games ever made do in the first ten minutes of building, and what makes a placed building feel like it did something.
 - OPEN  [numberless economy]  Q5  An economy with no numbers on screen. How the best games show scarcity, price and wealth without a spreadsheet. Against our one-number rule.
@@ -281,6 +296,7 @@ STATE: Gen 1 Animal, the fold, Gen 3 Angel: nothing on any player surface; selec
 ## EYES AND EARS  (17. his second pair of eyes and ears. Checks that every shipped visual and sound is correct and not weak. Never decides taste; that is DIRECTION.)
 MODE: RESEARCH, turning to a STANDING DUTY once the checklists exist. THIS LANE MAY BUILD ITS OWN CHECKING INSTRUMENTS (screenshot passes, audio measurement, tools/ and gates/ that only check); it never writes game code. Paolo 9/4 asked how long until it is worth having: useful for visuals after E3, for sound after E4, decent after about eight rounds, so the queue is ordered fastest-to-useful.
 STATE: nothing exists. No screenshot pass, no golden images, no audio measurement, no glitch checklist. Today the only pair of eyes and ears on shipped art and sound is Paolo. The 9/4 compare law and the runway law give this lane its bar; the 7/18 VERIFY ON THE REAL SURFACE law is its religion.
+- OPEN  [first pictures]  E0  FIRST ROUND, BEFORE ANY RESEARCH: take a real screenshot of every tab of the alpha and the demo at iPhone size with the Chromium that is installed here, save them in one folder with a one-line note under each saying what looks wrong to you, commit it, and tell him where to look. He must SEE something on round one (Paolo 9/4: "I hope it's not a massive let down"). Then E3 builds the machine that does this every ship.
 - OPEN  [screenshot diffs]  E3  How studios catch visual regressions by machine: golden images, screenshot diffing, per-tab captures at phone size. Design the pass for every tab of the alpha and the demo, on every ship, with Chromium (it is installed here).
 - OPEN  [audio tells]  E4  How game audio is judged: loudness standards, clipping, phase, noise floor, the tells of a weak sound effect. Render all 65 approved sounds and measure them; list which are weak against the best sounds of their kind.
 - OPEN  [glitch list]  E2  A glitch taxonomy for OUR game: floating windows, wall gaps, wrong draw order, sprites clipping through walls, text overflowing a card, a frame popping, a seam between tiles. One line each: what it looks like and how to find it on a screenshot.
@@ -293,6 +309,8 @@ STATE: nothing exists. No screenshot pass, no golden images, no audio measuremen
 
 ## SHARED (any chat with nothing open in its own lane)
 MODE: BUILD
+- OPEN  [handoff cut]  HANDOFF-CUT -- the handoff file is 5.2 MB, 79,379 lines, ~1.3 MILLION tokens, and every session is told to read it first; only 14 lane blocks are live (61 KB). gates/handoff_gate.js forbids shrinking it by more than 20% in one write (written after an accidental truncation). Amend that gate so a DELIBERATE archive passes: when archive/handoffs/HANDOFF_ARCHIVE_<date>.md holds every byte removed, the bulk check is satisfied. Then replace 00_START_HERE_NEXT_SESSION.md with archive/handoffs/HANDOFF_SLIM_READY_9_4_26.md (already prepared: the newest block per lane, the gate's own lane definition). The coordinator cannot touch gates; whoever takes this lands a 98% cut in one commit. Also add to the front of the slim file: "older blocks live in archive/handoffs/". (Paolo 9/4: "I don't want a bunch of tokens being used just for the uplifting of this work structure.")
+- OPEN  [backlog archive]  BACKLOG-ARCHIVE -- BOHEMIA_BACKLOG.md is 10,716 lines, ~193K tokens. Move every row marked done, dead, or superseded into records/backlog/ARCHIVE_<date>.md verbatim, keep the live rows, and add a one-line pointer. Same shape as the handoff cut; do it after.
 - OPEN  [cold hand]  BB-COLD-HAND
 - OPEN  [owed checker]  BB-A-GATE-CAN-SAY-OWED
 - OPEN  [board checker]  VAMILY-GATE

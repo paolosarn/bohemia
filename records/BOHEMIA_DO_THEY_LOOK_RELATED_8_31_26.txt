@@ -1,0 +1,23 @@
+DO THEY LOOK RELATED? -- the family in the cold open, measured
+8/31/26, CHARACTER lane. Written BEFORE anything was changed.
+
+Paolo, 8/31: "VAMILY". He had just watched the opening. The word is FAMILY.
+
+THE FOUR, AS THE GAME ROLLS THEM (via famFaceKey, the key the game itself uses)
+
+  FATHER/RAY      adult  hair 20,18,22       eyes 80,110,150    parents: -
+  MOTHER/DENISE   adult  hair 150,120,80     eyes 80,110,150    parents: -
+  BROTHER/MARCO   teen   hair 20,18,22       eyes 80,110,150    parents: FATHER:RAY + MOTHER:DENISE
+  SISTER/NINA     child  hair 150,120,80     eyes 80,110,150    parents: FATHER:RAY + MOTHER:DENISE
+
+AGREEMENT WITHIN THE FAMILY, AGAINST FOUR STRANGERS OFF THE STREET
+(50 control groups of four, same function, unrelated ids)
+
+                        family      strangers
+  same skin tone         16.7%      9.0%
+  same hair colour       33.3%      25.0%
+  same eye colour       100.0%      17.3%
+  skull difference        1.47      2.06   (mean px per measurement; lower = more alike)
+
+The family scores above the control on at least one trait. Read the rows.
+

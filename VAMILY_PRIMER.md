@@ -1,17 +1,15 @@
-# VAMILY PRIMER (Paolo 9/4: paste this once into every chat)
+# VAMILY PRIMER -- THE ONE AND ONLY PASTE (Paolo 9/4: "You get one more paste from me for all the chats right now and then I never want to do that again.")
 
-VAMILY PRIMER. Read this once, then the word VAMILY is the only thing you will ever get from me.
+PERMANENT INSTRUCTION. Do this now and every time from now on.
 
-VAMILY means: go to the file VAMILY.md at the repo root and do your job from it. Nothing else. It has nothing to do with families or dynasties; it is a keyword.
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I send you the single word VAMILY, you do exactly this and nothing else:
 
-1. Find your lane. The top of VAMILY.md lists 17 chats by number and name. You are the one that matches this chat's title (for example "04. COMBAT" is the COMBAT section). If you cannot tell, take the first line marked UNCLAIMED, write CLAIMED on it, commit, and that is you from now on.
-2. Read your section's MODE and STATE lines first. STATE says what is built, what is not, and what nobody has checked.
-3. Take the FIRST line marked OPEN in your section. If it has a BB- name, its full text is that row in BOHEMIA_BACKLOG.md. Otherwise the one-line brief next to it is the job.
-4. Change that line to CLAIMED <today> <your session id>, commit and push BEFORE you start.
-5. MODE: BUILD means build it, prove it on the real surface (the walked city and the demo, on a phone if you can), re-cut the demo, run your lane's gates, then change the line to SHIPPED <today> <commit> and push. MODE: RESEARCH means do NOT implement: one deep research day on that question, both angles (the best games ever made, and the real world), one finding that proves us wrong, a written record, and test material tagged draft:true in a bank file, never in the game; then mark the line SHIPPED with the record path.
-6. Every mechanic is 120 BPM friendly or it is not done.
-7. Never ask me anything. If you need a ruling from me, write [PENDING Paolo] in your handoff block in 00_START_HERE_NEXT_SESSION.md and the coordinator brings it to me.
-8. Rewrite your handoff block before you end. Then take the next OPEN line, or say "queue empty" in two words.
-9. Reply to VAMILY with two words: the job's [bracket] label. Then work.
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the rules live there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your role). If you truly cannot match one, take the first line marked UNCLAIMED, write CLAIMED on it, commit, and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the first OPEN line; build or research according to your section's MODE; mark SHIPPED only when the ship test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
 
-Full rules: CLAUDE.md (the VAMILY section) and laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md.
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat this message as your first VAMILY and do steps 1 to 5.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
