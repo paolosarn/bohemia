@@ -2248,6 +2248,64 @@ WORLD's gate. FOR THE COORDINATOR TO ROUTE.
   THE STANDING NOTE: A CACHE'S LIFETIME IS A PROMISE ABOUT WHO WILL END IT. This one
 named a frame that, on half the game's surfaces, never comes.
   NEXT OPEN LINE IN THIS LANE: [people housed] HOUSING.
+
+*** [people housed] HOUSING: SHIPPED. SOMEBODY LIVES IN WHAT YOU BUILT, AND HOUSING
+DOES NOT CREATE PEOPLE. *** MODE: BUILD. TAB: CITY (tap a plot; the morning card carries
+the number).
+  MEASURED FIRST: build a suburb on empty desert and the valley census does not move.
+297 before, 297 after, and headsAt() on the plot you just built answers 0 both times.
+Not a bug in the population module -- everything it knows comes from the SEED (zoneAt
+surveys a 4x4 neighbourhood, rolls his ruled three-zone share against a hash, a quarter
+of the map is empty on purpose). THE POPULATION WAS A FUNCTION OF THE SEED, NOT OF WHAT
+THE PLAYER BUILT, with no path from "I built a house" to "somebody lives in it".
+  THE DESIGN DECISION, AND IT IS THE REALISTIC ONE: HOUSING DOES NOT CREATE PEOPLE, IT
+HOUSES THEM. His 7/29 ruling is LOCKED -- the population IS the food carrying capacity,
+~65,000 valley / ~300 walkable, and the research found the food supply cannot
+meaningfully grow in a lifetime. A city builder where flats make new people appear
+breaks that law quietly, in the direction every city builder drifts. So CAPACITY grows
+when he builds and RESIDENTS are capped by the valley; people move in from the valley
+they were already in. That costs the food ceiling nothing and it hands the century rule
+the number it has been missing.
+  NOTHING IS TYPED: which types house anybody is BohemiaPopulation.RESIDENTIAL, how many
+is its own researched HOUSEHOLD_MEAN 2.2, and what counts as ONE building is borrowed
+whole from production so a 4-lot block is one household exactly as it is one payout. The
+mean lands on the TOTAL -- ten homes house 22, not 20 -- because rounding 2.2 down at
+every plot would quietly delete a fifth of everybody.
+  [PENDING Paolo] SHOULD AN APARTMENT BLOCK HOLD MORE THAN A TRAILER? Today every home
+is one household whatever it is. Per-type capacity is a balance call and balance is his.
+  WHAT HE SEES: on empty desert "houses about 2 people"; on a plot he built "2 people
+live here, in what you built"; on generated ground "one person lives on this block"; and
+the morning card "2 people sleep under a roof you put up." The morning line is a
+STANDING fact, not a change -- a roof is not an event, and a line that only appeared the
+morning after a build would make him think they left.
+  A NUMBER IS NOT HONEST UNTIL ITS UNIT IS: headsAt resolves a cell to its 4x4 BLOCK, so
+reporting it as "people on this plot" would claim one settlement of thirteen sixteen
+times over. The scope is carried with the number and the panel says which.
+  GATE: gates/housing_gate.js, 18/0, walked surface AND cut demo, registered.
+  IT CAUGHT TWO THINGS IN MY OWN WORK, both worth keeping:
+    (1) THE LAW WAS BREAKABLE BY A MEASUREMENT FAILURE. The first cut returned 0 for
+      "the valley is empty" AND for "I cannot see a valley", so with no world to census
+      the cap fell through and 400 blocks of flats housed 88 people out of a valley of
+      none. An unmeasurable valley now houses NOBODY rather than everybody, and says so.
+    (2) A MUTATION SLIPPED THROUGH AND THE LEG THAT LET IT WAS MINE. Flipping generated
+      ground's scope to 'plot' left the browser leg green, because that leg decided what
+      to expect FROM THE ANSWER IT WAS CHECKING. It now takes its expectation from an
+      independent fact, and a headless leg was added beside it. A TEST THAT GRADES A
+      CLAIM AGAINST ITSELF IS DECORATION.
+  Mutation-tested three ways: remove the food-ceiling cap (A6, A6c red), round the mean
+per plot (A4, A5 red), report generated ground as a plot (A7b, B1 red -- neither, before
+the fix above).
+  RECORD: records/BOHEMIA_SOMEBODY_LIVES_IN_WHAT_YOU_BUILT_9_5_26.md
+  STILL RED ON MAIN AND STILL NOT MINE: demo_day_gate 23/1, "the money really left the
+purse (500 -> 500)". Fourth round carrying it: the leg's own fixture credits and reads
+`resources` while WORLD's battery ship moved buying to `electricity`. A broken ruler in
+WORLD's gate. FOR THE COORDINATOR TO ROUTE.
+  THE STANDING NOTE: A LAW YOU CAN BREAK BY FAILING TO MEASURE IS NOT ENFORCED. The food
+ceiling held in every case I had thought about and fell over in the one I had not, where
+the answer was not "no" but "I don't know". Zero and unknown are different numbers, and
+a system that returns the same value for both will pick the wrong one exactly when it
+matters.
+  NEXT OPEN LINE IN THIS LANE: [century memory] CENTURY-RECORD.
 WORLD (02 WORLD MODEL, session world-9lfjtf)
 
 *** PERMANENT INSTRUCTION FROM PAOLO, 9/5, WORD FOR WORD. IT LIVES HERE SO IT
