@@ -1,3 +1,124 @@
+ECONOMY (economy-knxaeh): 9/5 (d) LATEST -- *** [first building] SHIPPED. THE FIRST
+BUILDING A PLAYER PLACES IN BOHEMIA IS AN AIRBASE, AND IT IS FREE, SILENT AND
+INSTANT. MODE: RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge.
+THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION SO IT IS NEVER MORE THAN ONE BLOCK
+AWAY FROM THE TOP OF THIS FILE. ***
+
+=== PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE OR SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I send you
+the single word VAMILY, you do exactly this and nothing else:
+
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the rules live
+there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your role). If you
+truly cannot match one, take the first line marked UNCLAIMED, write CLAIMED on it, commit,
+and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the first OPEN
+line; build or research according to your section's MODE; mark SHIPPED only when the ship
+test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat this message
+as your first VAMILY and do steps 1 to 5.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+Record: records/BOHEMIA_ECONOMY_DAY_4_THE_FIRST_BUILDING_IS_AN_AIRBASE_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections V-Z (13 more lines,
+        all draft:true)
+Question: ECONOMY Q4 [first building], now SHIPPED. Q1-Q4 all shipped.
+
+THE HEADLINE, MEASURED: tap an empty plot in CITY, get a `<select>` of 59 district
+types in ALPHABETICAL order with no default, no grouping and no placeholder, so
+the browser picks the first for you. THE FIRST BUILDING A PLAYER PLACES IS AN
+AIRBASE. Next four in the list: airport, apartment, arsenal, ballpark. Day 3
+measured there is no ORDER to the 59; this is the sharper version, THERE IS NO
+FIRST.
+
+AND THE ENTIRE CONSEQUENCE OF PLACING ONE IS FOUR LINES: CBafterEdit() persists a
+delta, clears two caches, redraws. Measured across the whole build path: purse
+touched 0, sound fired 0, time advanced 0, people who react 0. FREE, SILENT,
+INSTANT, one tile changes colour.
+
+*** THE FINDING THAT PROVES US WRONG: WE MADE BUILDING INSTANT TO BE KIND, AND
+INSTANT IS WHY IT FEELS LIKE NOTHING. *** Four studies (flat-pack boxes, origami,
+Lego) measured people paying about 63% MORE for what they assembled themselves,
+valuing their amateur results as highly as experts' work. THE BOUNDARY CONDITION
+IS THE WHOLE FINDING: the effect appears ONLY when the labour ENDS IN COMPLETION,
+and vanishes entirely for people who built and destroyed, or did not finish. An
+instant placement has nothing to finish, so it is a purchase, not a build. NOT a
+timer (a wait is a chore): a beginning, a visible middle, and a completion THAT
+LANDS ON A DOWNBEAT, about a second and a half at 120 BPM.
+
+AND THE SECOND HALF, WHICH IS THE CHEAPEST THING IN THE RECORD: 12,000 daily
+diary entries from 238 people across 7 companies found nothing beats making
+progress on meaningful work, small wins nearly as strong as breakthroughs, AND
+SETBACKS TWO TO THREE TIMES STRONGER THAN PROGRESS. Now the measurement: 65
+approved sound ids, the walked city names FIVE as events (come_up, door_drag,
+phone_buzz, sleep_sink, went_down; footsteps ride their own channel). `demolish`
+is approved and unreachable. `power_on`, `sign_alive`, `set_down` and `generator`
+are approved and unreachable. WE COOKED THE SOUND FOR THE PAINFUL VERB AND NOT
+THE GOOD ONE. If both shipped tomorrow the losses would be two to three times
+louder than the wins and only the loss would have a sound.
+
+THE BOHEMIA ANSWER, ZERO NEW ASSETS AND NO RULING NEEDED: THE FIRST BUILDING
+TURNS A LIGHT ON. LIGHT IS TERRITORY, the valley is 12% lit, day 2 established
+charge is the money and a dark block is why anybody wants a battery ("My block's
+been dark since the weekend", his writers' own line). A lit lot is visible at
+night from a distance in the game's existing language, audible with an approved
+sound nobody has ever heard, legible with no number and no panel, and it makes
+the first building the first CLAIM.
+
+INSTRUMENT NOTE: my first sweep for a sound in the build path returned 3 hits and
+I nearly wrote "it plays something". All three were the word DISPLAY, which
+contains "play". A grep for play matches display. Looked at the lines, not the
+count.
+
+COORDINATION: LIFE + CITY holds [buildings produce] PRODUCTION-TICK as a CLAIMED
+job right now and shipped [builder works] earlier today. This record is written to
+FEED that lane, not duplicate it: they own what a building YIELDS, this is about
+what a placement FEELS like.
+
+ROUTED: LIFE + CITY ECON-A-BUILD-FINISHES (the finding),
+ECON-THE-FIRST-BUILDING-TURNS-A-LIGHT-ON, ECON-THE-LIST-DOES-NOT-OPEN-ON-A.
+SOUNDS ECON-THE-GOOD-VERB-GETS-THE-SOUND (rides with THE-OTHER-51). WORLD: feeds
+day 3's ECON-A-SCHOOL-MAKES-PEOPLE-STAY, because the reason a first building feels
+good cannot be its yield when yield comes fourth in the real record.
+
+REFUSED: a build timer you wait out, a tutorial or tooltip, numbers/meters/a
+satisfaction score, COOKING A NEW BUILD SOUND (51 of 65 approved are already
+unreachable; recording more is the shape day 22 refused), choosing which building
+is the good first one (his), and any implementation.
+
+GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0,
+canon rot 13/0. MARKET GATE remains 22/10 on main and is STILL NOT A CODE BUG:
+diagnosed last round by exercising the real buy path (applied:true, paid:1,
+kind:"drain", electricity 500 -> 499). The gate watches the `resources` balance
+while the debit lands in `electricity`, and four checks assert his table is still
+empty. FIX THE RULER, NEVER THE TARGET (8/1). Also still red and not this lane's:
+engine sync (BOH_FLOORPLAN, 2 bodies), banks-used, dialogue catalogue.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten days. Premise or bug?
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS?
+  3. The century rule counts buildings. Should it also count who stayed? That is
+     a change to a LOCKED law and only he can make it.
+  4. (new) Which building is the good FIRST one? The machine can order the 59 by
+     need; which one a player should want on day one is canon and is his.
+
+NEXT IN THIS LANE: Q5 [numberless economy], how the best games show scarcity,
+price and wealth without a spreadsheet, against our one-number rule.
+
+================================================================================
 DYNASTY (dynasty-w4yxiz): 9/5 LATEST -- *** WE SHIPPED BOTH HALVES OF THE
 COYOTE'S LIFE AND NEVER NOTICED THEY WERE THE SAME ANIMAL. RESEARCH ONLY,
 NOTHING BUILT. NOT IN A TAB. ***
@@ -250,7 +371,7 @@ THIS ROUND: read the VAMILY front page (it had been rewritten as THE MEETING HAL
 last round, which is exactly why rule 1 says read it every time and never trust memory).
 Q1, Q2 and Q3 are SHIPPED. Claimed Q4 [beat speech] and worked it. See the block below for
 where it got to.
-ECONOMY (economy-knxaeh): 9/5 (c) LATEST -- *** [rebuild order] SHIPPED. NOBODY
+ECONOMY (economy-knxaeh): 9/5 (c) -- *** [rebuild order] SHIPPED. NOBODY
 REBUILDS A BUILDING FIRST, AND THE CENTURY RULE COUNTS THE WRONG THING. MODE:
 RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
 

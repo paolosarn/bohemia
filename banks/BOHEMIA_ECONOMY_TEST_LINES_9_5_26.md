@@ -345,3 +345,68 @@ T3  somebody who came back and found it built        draft:true
 - No line states the lesson. T3 is the whole finding of day 3 and it never says
   the word "social" or "capital", it says a man does not know anybody.
 - No numbers, no meters, no build costs.
+
+# ============================================================================
+# DAY 4 [first building] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_4_THE_FIRST_BUILDING_IS_AN_AIRBASE_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THESE ARE NOT UI STRINGS AND NOT BUTTON LABELS. They are what a person says
+# when something gets built on their block, which is the feedback channel we
+# already own and never use: a person notices.
+# ============================================================================
+
+## V. SOMEBODY NOTICES THE FIRST ONE (the small win, said by a human)
+
+V1  a neighbour, the night it lights up             draft:true
+    "That's you? That's you who did that. Huh."
+
+V2  somebody who watched the whole thing            draft:true
+    "I stood there the entire time like an idiot. Took what, a minute? I
+     watched all of it."
+
+V3  a kid, unimpressed and lying                    draft:true
+    "It's alright. Is it going to stay on?"
+
+V4  somebody who has seen people try before         draft:true
+    "Third person to put something up on this corner. First one to finish it."
+
+## W. THE LIGHT COMING ON (the completion, in the game's own language)
+
+W1  from across the block                           draft:true
+    "Somebody's got power on the corner. Somebody's got power ON, hermano,
+     come look."
+
+W2  a woman who has been counting                   draft:true
+    "Four lit. It was three for two years."
+
+W3  somebody wary about it                          draft:true
+    "You know what a light does at night. It says here we are. I'm not saying
+     don't. I'm saying you know."
+
+## X. THE UNFINISHED ONE (labour only leads to love if it finishes)
+
+X1  somebody about a half-built thing               draft:true
+    "It's been like that since spring. At this point it's just a shape."
+
+X2  the person who started it                       draft:true
+    "I'll get back to it. Don't look at me like that, I will."
+
+X3  somebody blunt                                  draft:true
+    "Finish one. One finished thing is worth six of those."
+
+## Y. THE ONE THAT CAME DOWN (setbacks land two to three times harder)
+
+Y1  somebody the morning after                      draft:true
+    "Don't. I know. I heard it come down from my bed and I knew what it was."
+
+Y2  a neighbour trying to be kind and failing       draft:true
+    "You can build it again. That came out wrong. I'm sorry, that came out
+     wrong."
+
+## Z. WHAT IS NOT HERE, ON PURPOSE
+- No line names a building type. Which building is the good first one is his.
+- No line is a UI string, a button, a tooltip or a confirmation. If the game
+  needs a label, that is UI's job and this is not it.
+- No numbers. W2 counts to four because a person counts lit windows, not
+  because anything reads a number.
