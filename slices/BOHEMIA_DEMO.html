@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/31e - YOUR FAMILY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 8/31f - THEY LOOK RELATED NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4013,6 +4013,33 @@ var FAMILY_CAST = [
 ];
 window.FAMILY_CAST = FAMILY_CAST;
 
+/* WHO IS WHOSE, AND ONE PLACE THAT SAYS SO (8/31, "VAMILY").
+   Two surfaces draw this family -- the cards in the CHARACTER tab and the portrait
+   that pops up when somebody speaks in the opening -- and until today each built its
+   own faceFor key. They happened to agree. TWO PLACES THAT HAPPEN TO AGREE IS THE
+   SETUP FOR THE 8/27 BUG, where the portrait and the body drifted into being
+   different people, so the key is written once here and both call it.
+
+   THE GRAPH IS READ, NOT TYPED: a parent is a cast member whose `survivesIf` is
+   'always' (the cast's own field, which is how famNames already tells the siblings
+   apart), and a child is anybody else. Nothing about who is related to whom is
+   invented -- FAMILY_CAST has said it since the cast shipped.
+   WHO THEY ARE STAYS HIS: an explicit `face` block on a member beats all of this. */
+function famParents(){
+  return (window.FAMILY_CAST||[]).filter(function(m){ return m.survivesIf==='always'; })
+    .map(function(m){ return m.role+':'+m.name; });
+}
+function famFaceKey(m){
+  if(!m) return { id:'speaker:nobody', over:null };
+  var parent = m.survivesIf === 'always';
+  var over = { age: m.age || 'adult' };
+  /* a child inherits; a parent of small children is not old enough to be grey */
+  if (parent) over.young = true;
+  else { var ps = famParents(); if (ps.length) over.kin = ps; }
+  return { id: m.role+':'+m.name, over: Object.assign(over, m.face || null) };
+}
+window.famFaceKey = famFaceKey;
+
 /* ===== THE THIRTEEN OUTFITS ==================================================
    Paolo 7/19 STRUCTURE-NOT-COLOR, amended 8/15 to govern IDENTITY: a faction is
    told apart by its OUTLINE, with colour as the back-up channel and never the
@@ -4231,9 +4258,14 @@ function famPaintBody(cv, member, dir, clip, ph){
     /* THE FAMILY WEAR THEIR OWN FACES TOO (8/27), keyed the same way the cold
        open keys them, so RAY's eyes on the CHARACTER tab are RAY's eyes in the
        portrait that pops up when he speaks in the opening scene. */
-    try { G.faceAs = (typeof faceFor === 'function')
-        ? faceFor(member.role + ':' + member.name, Object.assign({age: member.age || 'adult'}, member.face || null))
-        : null; } catch(_e){ G.faceAs = null; }
+    /* ONE KEY, SHARED WITH THE OPENING (8/31). This used to build its own; so did
+       openFaceFor. They agreed by luck, and two places that agree by luck is the
+       setup for the 8/27 drift. famFaceKey carries the kinship too. */
+    try { var _fk = (typeof famFaceKey === 'function')
+        ? famFaceKey(member)
+        : { id: member.role + ':' + member.name, over: {age: member.age||'adult'} };
+      G.faceAs = (typeof faceFor === 'function') ? faceFor(_fk.id, _fk.over) : null;
+    } catch(_e){ G.faceAs = null; }
     /* THE BODY IS REBUILT, NOT JUST RE-DRAWN, and this was the real bug in v1.
        rebuildFromRig() runs ONCE AT BOOT and sets the global RIG; G.age and
        G.bodyVar reach the renderer ONLY through it. Setting them and calling
@@ -4765,9 +4797,53 @@ function faceFor(id, over){
   var ck = id + '#' + (over ? JSON.stringify(over) : '');
   if (FACE_CACHE[ck]) return FACE_CACHE[ck];
   var sp = JSON.parse(JSON.stringify(PUNK));
-  var R = function(salt){ return faceRollHash(id, salt); };
-  var B = function(salt){ return faceBell(id, salt); };
-  var pick = function(arr, salt){ return arr[(R(salt) * arr.length) | 0]; };
+  /* *** A FAMILY IS NOT FOUR STRANGERS WHO SAT DOWN TOGETHER. (8/31.) ***
+     Paolo, one word: "VAMILY", straight after watching the opening. MEASURED before
+     anything was touched, against 50 control groups of four random citizens:
+         same hair colour     family 16.7%   strangers 25.0%
+         same eye colour      family 16.7%   strangers 17.3%
+         skull difference     family  2.19   strangers  2.06   (lower = more alike)
+     THE FAMILY WAS LESS ALIKE THAN FOUR PEOPLE OFF THE STREET, because the four are
+     keyed 'FATHER:RAY', 'MOTHER:DENISE', 'BROTHER:MARCO', 'SISTER:NINA' -- four
+     independent hashes, and nothing in the pipeline had ever been told they were
+     related.
+
+     *** HEREDITY GOES ON THE ROLL, NOT ON THE RESULT, and that is the whole trick. ***
+     The obvious version -- take the child's finished face and pull its numbers toward
+     the parents' finished numbers -- quietly destroys A CHILD IS NOT A SMALL ADULT
+     (8/27): the parents' numbers already have ADULT baked into them, so blending
+     toward them un-does every child adjustment below. The rolls are the GENES and the
+     age is the EXPRESSION, so the child inherits the dice and then grows into its own
+     body. One wrapper, and every dial downstream inherits for free -- no second face
+     generator, which is how the portrait and the body became different people on 8/27.
+     h = 0.62: the child sits most of the way to its parents' mean and keeps a third of
+     its own draw. Real facial morphology is high-heritability but not a copy. */
+  var kin = (over && over.kin && over.kin.length) ? over.kin : null;
+  var kinMix = function(fn){
+    if (!kin) return function(salt){ return fn(id, salt); };
+    return function(salt){
+      var own = fn(id, salt), s = 0;
+      for (var i = 0; i < kin.length; i++) s += fn(kin[i], salt);
+      var pm = s / kin.length;
+      return pm + (own - pm) * 0.38;
+    };
+  };
+  var R = kinMix(faceRollHash);
+  var B = kinMix(faceBell);
+  /* A COLOUR IS NOT AN AVERAGE. You get your mother's eyes or your father's, not the
+     midpoint of a list whose order means nothing -- averaging index 1 (brown) and
+     index 3 (green) would hand a child grey, which is neither parent and is not how
+     anything is inherited. So a categorical trait is COPIED from one parent, with a
+     small share left over for the grandparents nobody drew. */
+  var pick = function(arr, salt){
+    if (kin) {
+      if (faceRollHash(id, salt + '|which') < 0.86) {
+        var pi = kin[(faceRollHash(id, salt + '|from') * kin.length) | 0];
+        return arr[(faceRollHash(pi, salt) * arr.length) | 0];
+      }
+    }
+    return arr[(R(salt) * arr.length) | 0];
+  };
 
   /* AGE FIRST, because it moves the skull and everything else hangs off that. */
   var age = (over && over.age) || (R('age') < 0.16 ? 'child' : (R('age') < 0.28 ? 'teen' : 'adult'));
@@ -4877,6 +4953,49 @@ function faceFor(id, over){
     for (var ti = 0; ti < SKIN_TONES.length; ti++)
       if (SKIN_TONES[ti][0] === _np.skinToneName) tone = SKIN_TONES[ti];
   if (!tone) tone = SKIN_TONES[(R('skin') * SKIN_TONES.length) | 0];   /* only if the factory is absent */
+
+  /* *** SKIN IS THE FIRST THING ANYBODY SEES, AND THE FAMILY HAD FOUR OF THEM. (8/31.) ***
+     MEASURED, once the ruler could see the field at all: the family agreed on skin tone
+     0.0% of the time against 9.0% for four strangers -- NOT ONE PAIR IN THAT HOUSE
+     MATCHED. It went unnoticed because the report read `spec.skin`, which faceFor has
+     never set (the tone lives on `_tone`), so it compared undefined to undefined and
+     printed 100% AGREEMENT for everybody. A METRIC THAT READS A FIELD THAT DOES NOT
+     EXIST REPORTS PERFECT AGREEMENT, confidently, forever. Rendering the four and
+     LOOKING is what caught it -- the picture showed four different colours of person at
+     one table while the number said they were identical.
+
+     AND IT IS A BLEND, NOT A COPY, WHICH IS THE OPPOSITE OF THE EYES ABOVE. Eye colour
+     is close to categorical: you get your mother's or your father's. Skin is additive
+     and polygenic, so a child of a light parent and a dark one lands BETWEEN them --
+     that is the actual biology and it is also the only version that looks like a family
+     rather than a coincidence.
+     ON LIGHTNESS, NOT ON LIST POSITION: SKIN_TONES is nearly but not exactly ordered
+     (pale sits darker than fair), so blending the INDEX would quietly mis-rank two
+     tones. Blend the thing the eye is actually reading, then snap to the nearest tone
+     the palette has. WHO THE FAMILY IS STAYS HIS -- a `face` block on a cast member
+     still overrides everything here. */
+  if (kin) {
+    try {
+      var _lum = function (t) { var c = t[1][0]; return (c[0] + c[1] + c[2]) / 3; };
+      var _sum = 0, _n = 0;
+      for (var _k = 0; _k < kin.length; _k++) {
+        var _pn = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY.npcFrom(kin[_k]) : null;
+        if (!_pn || !_pn.skinToneName) continue;
+        for (var _t = 0; _t < SKIN_TONES.length; _t++)
+          if (SKIN_TONES[_t][0] === _pn.skinToneName) { _sum += _lum(SKIN_TONES[_t]); _n++; }
+      }
+      if (_n) {
+        /* a child is not exactly the midpoint of its parents; siblings differ */
+        var _want = _sum / _n + faceBell(id, 'skinkin') * 14;
+        var _best = tone, _bd = 1e9;
+        for (var _u = 0; _u < SKIN_TONES.length; _u++) {
+          var _d = Math.abs(_lum(SKIN_TONES[_u]) - _want);
+          if (_d < _bd) { _bd = _d; _best = SKIN_TONES[_u]; }
+        }
+        tone = _best;
+      }
+    } catch (_e5) {}
+  }
   sp._tone = tone;
   if (_np && _np.hairColor) {
     sp.hair.color = _np.hairColor.slice();
@@ -4899,6 +5018,69 @@ function faceFor(id, over){
         sp._hairFromArt = true;
       }
     } catch (_e2) {}
+  }
+
+  /* HAIR COLOUR IS INHERITED TOO, and it could not ride the kinMix above because it
+     does not come from a roll at all -- it comes from NPCFactory, which owns skin and
+     hair for the whole valley and knows nothing about who anybody's parents are. So
+     the child is handed a parent's, by the same copy-one-parent rule the eyes use. */
+  if (kin) {
+    try {
+      var _pk = kin[(faceRollHash(id, 'haircol|from') * kin.length) | 0];
+      if (faceRollHash(id, 'haircol|which') < 0.86) {
+        var _pp = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY.npcFrom(_pk) : null;
+        if (_pp && _pp.hairColor) {
+          sp.hair.color = _pp.hairColor.slice();
+          sp.hair.roots = _pp.hairColor.map(function (c) { return c * 0.4 | 0; });
+          sp._hairFromArt = false;
+        }
+      }
+    } catch (_e3) {}
+  }
+
+  /* *** GREY IS AN AGE, NOT A COLOUR. (8/31.) ***
+     MEASURED over 400 people at each age, asking the game for the age explicitly:
+         child 29.8%   teen 24.3%   adult 26.0% grey or white
+     A CHILD IN THIS VALLEY WAS AS LIKELY TO HAVE GREY HAIR AS AN ADULT. The age dial
+     moves the skull, the eye height, the brow, the nose and the mouth, and had never
+     touched the hair -- which is how NINA, a child at a pre-apocalypse family dinner,
+     came out grey, and how a mother young enough to have a small child came out white.
+     THE FIX IS NOT A SECOND PICKER. NPCFactory owns hair colour for the whole game
+     (ENGINE SYNC, and this file already deleted one duplicate picker on 8/27), so this
+     asks the SAME picker for another draw rather than inventing a palette -- the
+     population's weighting is untouched, only the age constraint is new. It is the
+     same division of labour the skull already uses: the RANGE makes people different,
+     the CLAMPS keep them people.
+     `young` covers the parents of small children, who are not old either. */
+  var _grey = function (c) {
+    if (!c) return false;
+    var mx = Math.max(c[0], c[1], c[2]), mn = Math.min(c[0], c[1], c[2]);
+    return (mx - mn) < 26 && mx > 70;            /* washed out and not black */
+  };
+  /* *** ONLY WHERE THE AGE IS REALLY KNOWN, AND THAT LIMIT IS NOT TIMIDITY. ***
+     The first cut gated on the ROLLED age, which fires for the anonymous crowd too --
+     and talking_portrait_gate caught it immediately: the portrait's hair stopped
+     matching the body's, 100% -> 94.0%, which is ONE ID ONE WHOLE PERSON (8/27) broken
+     by the very fix that was citing it. The reason is worth writing down: A CROWD
+     CITIZEN'S AGE IS A PORTRAIT-ONLY FICTION. faceFor rolls one; the BODY standing in
+     the street has no age at all, and its hair colour comes straight from NPCFactory.
+     So re-picking for a "child" only the portrait believes in makes the head and the
+     body two different people again.
+     THE AGE GATE THEREFORE APPLIES WHERE A CALLER ASSERTED AN AGE -- which today is
+     FAMILY_CAST, where the ages are authored and the body is drawn from the same cast.
+     Fixing it for the crowd means giving the crowd real ages, which is a system, not a
+     clamp, and it is a NAMED ROW rather than something to fake here. */
+  var _ageKnown = !!(over && over.age);
+  if (_ageKnown && (child || teen || (over && over.young)) && _grey(sp.hair.color)) {
+    try {
+      for (var _g = 0; _g < 8 && _grey(sp.hair.color); _g++) {
+        var _alt = (typeof NPC_FACTORY !== 'undefined')
+          ? NPC_FACTORY.npcFrom(id + '#notgrey' + _g) : null;
+        if (!_alt || !_alt.hairColor) break;
+        sp.hair.color = _alt.hairColor.slice();
+        sp.hair.roots = _alt.hairColor.map(function (c) { return c * 0.4 | 0; });
+      }
+    } catch (_e4) {}
   }
 
   /* ONLY VALUES THE RENDERER ACTUALLY HONOURS. The first cut rolled five style
@@ -29531,6 +29713,10 @@ function openFaceFor(role){
   var castRole = map[key] || key;
   var m=null, C=window.FAMILY_CAST||[];
   for(var i=0;i<C.length;i++) if(C[i].role===castRole) m=C[i];
+  /* ONE KEY, SHARED WITH THE CHARACTER TAB'S CARDS (8/31). famFaceKey also carries
+     WHO IS WHOSE, so the brother the player watches speak in the opening has his
+     parents' face and not a stranger's. */
+  if (m && typeof famFaceKey === 'function') return famFaceKey(m);
   return { id: m ? (m.role+':'+m.name) : ('speaker:'+key),
            over: m ? Object.assign({age:m.age||'adult'}, m.face||null) : null };
 }

@@ -1575,6 +1575,24 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('FAMILY', ['node', 'gates/family_gate.js'],
+     'A FAMILY LOOKS LIKE A FAMILY (Paolo 8/31, one word: "VAMILY", straight after '
+     'watching the opening). MEASURED FIRST WITH A CONTROL, before anything was '
+     'touched: against 50 groups of four random citizens the family agreed on skin '
+     '0.0% vs 9.0%, hair 16.7% vs 25.0%, eyes 16.7% vs 17.3%, and their skulls were '
+     'FURTHER APART than strangers -- THE FAMILY WAS LESS ALIKE THAN FOUR PEOPLE OFF '
+     'THE STREET, on every trait, because they were four independent hashes and '
+     'nothing had ever been told they were related. HEREDITY RIDES THE ROLL, NOT THE '
+     'FINISHED FACE: blending a child toward its adult parents would erase every age '
+     'adjustment, so the rolls are the genes and the age is the expression -- one '
+     'wrapper, no second face generator. Eyes are COPIED from a parent (averaging two '
+     'entries of a list whose order means nothing hands a child a colour neither '
+     'parent has); skin is BLENDED on lightness because it is additive and polygenic. '
+     'Every claim in the gate carries its own control, so it cannot pass on the day '
+     'heredity is deleted. Also: GREY IS AN AGE -- a child was as likely to be grey as '
+     'an adult (29.8% vs 26.0%) -- gated only where an age was really asserted, '
+     'because a crowd citizen\'s age is a portrait-only fiction and gating it there '
+     'broke portrait-to-body agreement 100%% -> 94.0%%.', False),
     ('BECOME', ['node', 'gates/become_gate.js'],
      'THE CUT ASKS WHO YOU BECAME (8/30). The face maker shipped 8/28 answering item 10 '
      'of his own playtest dispatch -- 14 shape sliders, every haircut the city wears -- '

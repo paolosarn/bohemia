@@ -1109,6 +1109,47 @@ research partner. He DECIDES, you PRODUCE.
   changed -- THIRD BROKEN RULER IN A WEEK, so the gate reads RENDERED PIXELS and never a
   spec field. Tab: RUN (talk to anybody) / CHARACTER / LOOK. Full law:
   laws/BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_28_26.md  Gate: portrait_haircut_gate.js
+- A FAMILY LOOKS LIKE A FAMILY (Paolo 8/31, one word: "VAMILY", straight after watching the
+  opening): MEASURED FIRST, WITH A CONTROL, before anything was touched -- against 50 groups
+  of four random citizens the family agreed on SKIN 0.0% vs 9.0%, HAIR 16.7% vs 25.0%, EYES
+  16.7% vs 17.3%, and their skulls sat FURTHER APART than strangers' (2.19 vs 2.06). THE
+  FAMILY WAS LESS ALIKE THAN FOUR PEOPLE OFF THE STREET, on every single trait, because they
+  are keyed FATHER:RAY / MOTHER:DENISE / BROTHER:MARCO / SISTER:NINA -- four independent
+  hashes -- and nothing in the pipeline had ever been told they were related. *** HEREDITY
+  RIDES THE ROLL, NOT THE FINISHED FACE, and that is the whole trick: blending a child's
+  finished numbers toward its ADULT parents' numbers destroys A CHILD IS NOT A SMALL ADULT
+  (8/27), because their numbers already have adult baked in. THE ROLLS ARE THE GENES AND THE
+  AGE IS THE EXPRESSION -- one wrapper over faceRollHash/faceBell, and every dial downstream
+  inherits for free with NO second face generator (which is how the portrait and the body
+  became different people on 8/27). *** AND NOT EVERYTHING BLENDS: eye colour is COPIED from
+  one parent, because averaging index 1 (brown) and index 3 (green) in a list whose order
+  means nothing hands a child GREY, a colour neither parent has; skin is BLENDED, because it
+  is additive and polygenic, and blended on LIGHTNESS rather than list position since
+  SKIN_TONES is not exactly ordered (pale sits darker than fair). Result: skin 16.7%, hair
+  33.3%, eyes 100%, skulls 1.47 -- every one now beating the control. Approved player face
+  BYTE-IDENTICAL (c9856a89), crowd untouched, heredity opt-in through `kin`. *** GREY IS AN
+  AGE, NOT A COLOUR: measured 400 per age, a CHILD was as likely to be grey or white as an
+  adult (29.8% vs 26.0%) -- the age dial moved the skull, the brow, the nose and the mouth
+  and had never touched the hair, which is how a child at a pre-apocalypse dinner came out
+  grey. Fixed by asking the SAME picker for another draw, never a new palette, and gated ONLY
+  where a caller asserted an age: gating it on the ROLLED age fired for the crowd and dropped
+  portrait-to-body hair agreement 100% -> 94.0%, breaking ONE ID ONE WHOLE PERSON with the
+  very fix that cited it -- A CROWD CITIZEN'S AGE IS A PORTRAIT-ONLY FICTION, the body has no
+  age at all. Real ages for the crowd is a SYSTEM, not a clamp, and is a named row. ***
+  TWO MORE BROKEN RULERS, eleventh and twelfth this month: the report read `spec.skin`, a
+  field faceFor has NEVER set, so it compared undefined to undefined and printed 100% SKIN
+  AGREEMENT for everybody while the rendered picture showed four different colours of person
+  at one table -- A METRIC THAT READS A FIELD THAT DOES NOT EXIST REPORTS PERFECT AGREEMENT,
+  confidently and forever, about the thing you care most about; only LOOKING caught it. And
+  the same report built its OWN copy of the face key instead of calling the game's, so when
+  heredity landed the numbers did not move by a thousandth -- A RULER THAT BUILDS ITS OWN
+  COPY OF WHAT IT MEASURES IS MEASURING ITS OWN COPY. WHO THEY ARE STAYS HIS: the kinship
+  graph is READ from the cast's own survivesIf field, never typed, and an explicit `face`
+  block on a member overrides all of it.
+  Tab: RUN (the opening) / CHARACTER (the family cards, all eight facings). Full law:
+  laws/BOHEMIA_LAW_A_FAMILY_LOOKS_LIKE_A_FAMILY_8_31_26.md  Gate: family_gate.js (every
+  claim carries its own control; deleting heredity turns it red and reproduces the original
+  numbers exactly)
 - THE CUT ASKS WHO YOU BECAME (8/30/26, finishing his 8/25 dispatch item 10): the face maker
   shipped on 8/28 and A PLAYER COULD NOT REACH IT. It went into the CHARACTER tab, which is a
   DEV tab, and tools/bohemia_cut_the_demo.js strips all seventeen of them out of the demo --

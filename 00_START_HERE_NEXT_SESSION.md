@@ -1,3 +1,89 @@
+CHARACTER (character-0lurbs): 8/31 (f) LATEST -- *** HE SAID ONE WORD, "VAMILY". THE
+FAMILY IN THE COLD OPEN WAS LESS ALIKE THAN FOUR PEOPLE OFF THE STREET, ON EVERY
+SINGLE TRAIT, AND I MEASURED IT BEFORE I TOUCHED ANYTHING. ***
+
+READ-BACK: from the handoff I took that the opening plays end to end and that the
+face maker now sits inside it at the match-cut (8/30). NOTE FOR THE COORDINATOR:
+the RUN lane read the same word the same way and shipped
+tools/bohemia_the_family_is_in_the_game_patch.py -- they wired the DYNASTY (family
+tree, heir selection, the sibling's death) off FAMILY_CAST. I checked before
+starting: they touch no faces, I touch no dynasty. Complementary, not a collision.
+
+THE NUMBER, WITH A CONTROL, WRITTEN BEFORE THE FIX.
+"The family resembles each other" is not checkable on its own -- everybody comes out
+of one generator, so any four faces share something. The only claim that means
+anything is MORE ALIKE THAN STRANGERS, so 50 control groups of four random citizens
+were measured from the same function alongside them:
+
+                        family    four strangers
+    same skin tone        0.0%        9.0%
+    same hair colour     16.7%       25.0%
+    same eye colour      16.7%       17.3%
+    skull difference      2.19        2.06   (lower = more alike)
+
+NOT ONE PAIR IN THAT HOUSE SHARED A SKIN TONE. They are keyed FATHER:RAY /
+MOTHER:DENISE / BROTHER:MARCO / SISTER:NINA -- four independent hashes -- and nothing
+in the pipeline had ever been told they were related.
+
+*** HEREDITY RIDES THE ROLL, NOT THE FINISHED FACE. *** The obvious version -- pull a
+child's finished numbers toward its parents' -- DESTROYS A CHILD IS NOT A SMALL ADULT
+(8/27), because the parents' numbers already have adult baked into them. THE ROLLS ARE
+THE GENES AND THE AGE IS THE EXPRESSION: one wrapper over faceRollHash/faceBell, and
+every dial downstream inherits for free with NO second face generator, which is how the
+portrait and the body became different people on 8/27.
+AND NOT EVERYTHING BLENDS. Eyes are COPIED from one parent -- averaging index 1 (brown)
+and index 3 (green) in a list whose order means nothing hands a child GREY, which is
+neither parent. Skin is BLENDED, because it is additive and polygenic, and blended on
+LIGHTNESS not list position, since SKIN_TONES is not exactly ordered (pale sits darker
+than fair). After: skin 16.7%, hair 33.3%, eyes 100%, skulls 1.47 -- all four beating
+the control. Approved player face BYTE-IDENTICAL (c9856a89), crowd untouched.
+
+*** GREY IS AN AGE, NOT A COLOUR. *** Measured 400 people per age: a CHILD was as
+likely to have grey or white hair as an adult, 29.8% vs 26.0%. The age dial moves the
+skull, the brow, the nose and the mouth and had NEVER touched the hair -- which is how
+NINA, a child at a pre-apocalypse family dinner, came out grey. Fixed by asking the SAME
+picker for another draw, never a new palette.
+AND THE LIMIT ON IT IS THE INTERESTING PART: gating on the ROLLED age fired for the
+anonymous crowd and dropped portrait-to-body hair agreement 100% -> 94.0%, breaking ONE
+ID ONE WHOLE PERSON with the very fix that cited it. A CROWD CITIZEN'S AGE IS A
+PORTRAIT-ONLY FICTION -- faceFor rolls one, the BODY in the street has no age at all. So
+it applies only where a caller asserted an age, which today is FAMILY_CAST.
+
+TWO MORE BROKEN RULERS, ELEVENTH AND TWELFTH THIS MONTH, BOTH IN MY OWN REPORT.
+1. It read `spec.skin`, a field faceFor has NEVER set (the tone lives on `_tone`), so it
+   compared undefined to undefined and printed 100% SKIN AGREEMENT for the family AND
+   the strangers -- while the rendered picture showed four different colours of person
+   sitting at one table. A METRIC THAT READS A FIELD THAT DOES NOT EXIST REPORTS PERFECT
+   AGREEMENT, confidently, forever, about the thing you care most about. Only rendering
+   the four and LOOKING caught it.
+2. It built its OWN copy of the face key instead of calling the game's, so when heredity
+   landed the numbers did not move by a thousandth. A RULER THAT BUILDS ITS OWN COPY OF
+   WHAT IT MEASURES IS MEASURING ITS OWN COPY.
+
+WHAT IS ON THE BOARD FOR THE NEXT CHARACTER SESSION
+1. THE CROWD HAS NO AGE. faceFor rolls one for a portrait and the body has none, so
+   there are no children in the valley, only heads that think they are children. Giving
+   the crowd real ages is a SYSTEM, and until it exists the grey clamp cannot reach
+   them. Top row, and it is the honest reason a fix stopped where it did today.
+2. YOU CAN SHAPE A HEAD BUT NOT A BODY. Leg length vs torso, frame/bulk, posture, neck
+   -- on his 7/30 board, still unbuilt, and now conspicuous because a player meets the
+   face maker in the opening.
+3. THE PLAYER IS NOT IN THE FAMILY YET. RAY and DENISE are your parents too, and the
+   creator opens on PUNK rather than on their child. One button in the creator ("LOOK
+   LIKE YOUR FAMILY") would close it without moving any approved art.
+4. 24 haircuts and 16 faces still waiting on his thumb in VOTE. None judged.
+
+Proof: family_gate 15/15 (every claim carries its own control; deleting heredity turns
+it red and reproduces the original numbers exactly), talking_portrait 27/27,
+portrait_haircut 12/12, become 28/28, opening 63/63, coldopen 45/45, face_maker 13/13,
+face_thumb 23/23, hair_graveyard 9/9.
+Law: laws/BOHEMIA_LAW_A_FAMILY_LOOKS_LIKE_A_FAMILY_8_31_26.md
+Record: records/BOHEMIA_DO_THEY_LOOK_RELATED_8_31_26.txt
+Report: node tools/bohemia_do_they_look_related.js
+Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the cards)
+
+================================================================================
+
 ECONOMY (economy-knxaeh): 9/5 LATEST -- *** THE ECONOMY LANE IS OPEN AND ITS
 FIRST DAY MEASURED SOMETHING NOBODY HAD RUN: OUR VALLEY STARVES ON DAY 10 AND
 EVERY PRICE IN THE GAME IS A CONSTANT FROM ABOUT WEEK NINE UNTIL THE END OF A
