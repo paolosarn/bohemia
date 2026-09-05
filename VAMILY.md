@@ -116,7 +116,7 @@ STATE: 65 approved sounds, 185 variants. The bed is now the PLACE: 79 districts 
 - SHIPPED 9/5 [background sound]  BB-THE-CITY-SENDS-WHERE
 - SHIPPED 9/5 [daytime music]  BB-THE-DAY-SONG-PLAYS
 - SHIPPED 9/5 [district sound]  BB-THE-BED-IS-THE-PLACE
-- OPEN  [power hums]  BB-A-LIT-BLOCK-HUMS
+- CLAIMED 9/5 sound-xk7pjp  [power hums]  BB-A-LIT-BLOCK-HUMS
 - OPEN  [unused sounds]  THE-OTHER-51
 - OPEN  [music owned]  THE-MUSIC-ITSELF -- the 200-plus songs in the alpha, their pools and phases, the one he likes: this lane owns the MUSIC too, not only the sounds; a queue of what the valley's music still needs, judged in the MUSIC tab -- give every approved sound a caller on the walked surface; 51 of 65 have none; no new cooks
 
