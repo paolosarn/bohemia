@@ -5649,7 +5649,22 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-ART (art-f3eu53): 8/30 (j) LATEST -- *** PHASE 2F: THE BATHTUB RING IS COOKED
+DIRECTION (art-f3eu53): 9/5 (k) LATEST -- *** THIS CHAT IS THE DIRECTION LANE
+NOW: Paolo typed "ART DIRECTION VAMILY" into it, and the ledger's DIRECTION row
+is its queue. SHIPPED 9/5 (09c83ba): REFERENCE-BESIDE-EVERY-CANDIDATE -- the
+VOTE tab has a MATCHED TO button; tap it, tap any tile, and the panel says what
+that piece was compared against (71 icons carry their real match prose out of
+the hero factory; the 40 faces/haircuts say honestly that nothing was recorded
+because they predate the 9/4 compare law -- the forcing function for the next
+batch). Registry DERIVED by tools/bohemia_reference_checks.py; future cooks
+write records/BOHEMIA_REFERENCE_SIDECAR.json. Rode along: face candidate bank
+rebaked (was 164.8h stale, face_thumb green), 28 LOOK photos retaken after the
+9/4 main-merge (look 24/24), THE ART FAMILY SHEET added to the LOOK tab (every
+migrated tile family in one frame; the one drift is the farm group's bright
+flecks -- approved bank, his call, flagged in the sitting record). NEXT OPEN in
+the lane: THE-REFERENCE-LIBRARY, then REFERENCE-INDEX, RUNWAY-REFERENCE,
+THE-STYLE-CARD. PREVIOUS:
+ART (art-f3eu53): 8/30 (j) -- *** PHASE 2F: THE BATHTUB RING IS COOKED
 AND THE MIGRATION HAS NO ART-LESS LEFTOVERS. TF-ART-033 (form + cook + bank,
 board row 108): 108K shoreline cells + the intake's structure band draw the
 ring - crust from the approved kerb pale lifted one step, rock from the
