@@ -3695,7 +3695,14 @@ family before the paste, BUILT THE GENERATION FOLD in the DIRECT tab (60c9b44), 
 work. SWING: the heir pays (records/BOHEMIA_COORDINATOR_RESEARCH_THE_HEIR_PAYS_9_5_26.md):
 formal law kills debt with the estate; informal economies pass it to the child; my
 "every debt in full" default stands with its reason. Routed WORLD [debt carried],
-FACTIONS [collector heir], DYNASTY Q11 [what carries].
+FACTIONS [collector heir], DYNASTY Q11 [what carries]. THEN (bm) HE PLAYED IT: "where the
+enemies at bro" -> the biggest hole in the game, measured not guessed: every hostile/enemy
+string in the alpha, city and demo is PROSE; hostility lives in engine/bohemia_between.js
+as a SIGN ON A RELATIONSHIP (they charge you more, they watch you) and never as a body;
+roadInterrupt still has one caller inside MODE==='city'. The game knows who your enemies
+are and has never put one in front of you. Record: records/BOHEMIA_RULING_WHERE_THE_
+ENEMIES_AT_9_5_26.md. Routed to the TOP of four lanes: RUN [enemies exist], COMBAT
+[street fight], PEOPLE [who is hostile], and my own UI [danger visible].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
