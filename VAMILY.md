@@ -83,7 +83,7 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - SHIPPED 9/5 ce39270  [battery money]  BB-BATTERIES-ARE-THE-MONEY  (with BB-THE-LETTER-IS-ONE, one job)
 - SHIPPED 9/5 ce39270  [prices one]  BB-THE-LETTER-IS-ONE  (shipped inside [battery money]; the queue marks them one job)
 - SHIPPED 9/5 5b61303  [living costs]  BB-FOUR-VERBS-THREE-CURRENCIES  (all four verbs post on the walked surface and in the demo, the reckoning names each one; records/BOHEMIA_THE_FOUR_VERBS_EAT_9_5_26.md)
-- SHIPPED 9/5 (see log)  [lights bill]  BB-THE-NIGHT-EATS-POWER  (a held circuit is billed at nightfall and an unpaid one goes dark and stays dark; what makes a circuit his is a building HE placed; records/BOHEMIA_THE_NIGHT_EATS_POWER_9_5_26.md)
+- SHIPPED 9/5 94ca570  [lights bill]  BB-THE-NIGHT-EATS-POWER  (a held circuit is billed at nightfall and an unpaid one goes dark and stays dark; what makes a circuit his is a building HE placed; records/BOHEMIA_THE_NIGHT_EATS_POWER_9_5_26.md)
 - OPEN  [faction towns]  FACTION-TOWNS -- every faction has a seat that is its market, buildings and quests; FORTRESS / TOWN / CAMP derived from act1_power, draft:true; who sits where is his (9/4 law)
 - OPEN  [held ground]  BB-TURF
 - OPEN  [faster roads]  BB-ROADS-ARE-FAST
