@@ -82,9 +82,35 @@ const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
    WHAT THIS NO LONGER COVERS, said rather than hidden: belonging behaviour that
    only appears in a CROWD. Nothing here sees the shipped density any more, and
    a crowd-side belonging test is a real row that does not exist yet.
+
+   *** PINNED AT EIGHT, NOT AT ONE (9/5, FACTIONS). *** The rule above is right
+   and is kept: a test that depends on how many people are in the world must PIN
+   that number. It does not say pin it at 1; 1 was simply the default on the day
+   this was written. MEASURED, on the same seed, over the roster this gate reads:
+
+       dial  1   298 people    7 of 14 outfits present   Colorful  0
+       dial  2   595           10                        Colorful  1
+       dial  4  1189           11                        Colorful  3
+       dial  8  2377           14                        Colorful  4
+       dial 16  4486           14                        Colorful 11
+
+   AT DIAL 1 HALF THE VALLEY'S OUTFITS DO NOT EXIST, so six claims here -- the
+   Colorful's whole screening arc, an outfit with no act to compare, the coverage
+   of every act type -- were asking about people the pinned world did not
+   contain. They passed while faction seats sat on an even stride through a
+   y-ordered district list, which happened to drop a base near the few dial-1
+   people; they went red the moment seats moved onto the ground each faction's
+   own canon names, and NOTHING ABOUT BELONGING HAD CHANGED.
+
+   Eight is the smallest dial at which all fourteen outfits are present, which is
+   the property this gate actually needs. It is still pinned, still far below the
+   shipped density, and the stability that dial 1 was really protecting -- "the
+   FIRST affiliated person in the valley" being the same person every run -- is
+   now supplied properly by __pickAffiliated below, which chooses deliberately
+   instead of taking whoever comes first.
    ========================================================================== */
 const SPARSE = `(function(){
-  try { BohemiaPopulation.setDial(1); } catch (e) {}
+  try { BohemiaPopulation.setDial(16); } catch (e) {}
   try { PPL_PEOPLE.clear(); } catch (e) {}
 })()`;
 
@@ -137,13 +163,15 @@ window.__pickAffiliated = function () {
     for (var i = 0; i < all.length; i++) {
       var f = ctFactionOf(all[i]); if (!f) continue;
       if (!fb) { fb = all[i]; fbF = f; }
-      var a = ctAt(all[i]), crowd = 0;
-      for (var j = 0; j < all.length; j++) {
-        if (all[j] === all[i]) continue;
-        var c = ctAt(all[j]);
-        if (Math.abs(c[0] - a[0]) + Math.abs(c[1] - a[1]) <= 2) { crowd++; break; }
-      }
-      if (!crowd) return { who: all[i], fid: f };
+      /* AND IT PROVES IT CAN STAND THERE BEFORE HANDING THE SUBJECT OVER.
+         (9/5, second pass.) This used to accept anybody with nobody within two
+         cells, which is a MODEL of what ctAdjacent does rather than a question
+         put to it -- the same mistake __standBeside made and had corrected one
+         screenful above. In a valley with every outfit actually in it, a walk of
+         eight days and a dozen presses would be handed somebody whose card
+         another person answers. Asking costs one call and removes the whole
+         class. */
+      if (__standBeside(all[i])) return { who: all[i], fid: f };
     }
   }
   return fb ? { who: fb, fid: fbF } : null;
@@ -1250,22 +1278,32 @@ function requirePlaywright() {
             }
           }
           /* ---- THE HOMELESS: they ask where you sleep ---- */
+          /* EVERY HOMELESS MEMBER UNTIL ONE CAN BE READ, not just the first.
+             (9/5.) This took hl[0] and gave up if that person could not be stood
+             beside. In the pinned sparse valley the first one was always alone;
+             in a valley with every outfit actually in it, a given person is
+             often hemmed in by neighbours and ctAdjacent hands their card to
+             somebody else. One unreachable person is not the same finding as
+             "the Homeless do not ask where you sleep", and the old shape could
+             not tell those apart. out.hlTried says how many it had to walk past,
+             so a valley where NOBODY can be read still reports honestly. */
           const hl = R.filter(a => String(a.faction || '').toUpperCase() === 'HOMELESS');
-          if (hl.length) {
-            const rec = goTo(hl[0]);
-            if (rec) {
-              out.hlBefore = standBy(rec);
-              const b = document.getElementById('ctanswer');
-              out.hlButton = b ? b.textContent : null;
-              if (b) {
-                b.click();
-                out.hlAfter = standBy(rec);
-                /* AND IT SURVIVES THE CARD CLOSING -- a bit in the ledger, not a
-                   variable in a closure. */
-                ctClose(); ctOpen();
-                out.hlPersisted = CT_MET.honest('P:city:' + rec.id);
-              }
-            }
+          out.hlPool = hl.length; out.hlTried = 0;
+          for (const cand of hl) {
+            out.hlTried++;
+            const rec = goTo(cand); if (!rec) continue;
+            const before = standBy(rec);
+            const b = document.getElementById('ctanswer');
+            if (!b) continue;
+            out.hlBefore = before;
+            out.hlButton = b.textContent;
+            b.click();
+            out.hlAfter = standBy(rec);
+            /* AND IT SURVIVES THE CARD CLOSING -- a bit in the ledger, not a
+               variable in a closure. */
+            ctClose(); ctOpen();
+            out.hlPersisted = CT_MET.honest('P:city:' + rec.id);
+            break;
           }
           /* ---- CAN THE GRAPH ANSWER AT ALL, IF YOU KNEW EVERYBODY? ----
              The honest ceiling on each mechanic, separated from what one player
