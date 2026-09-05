@@ -90,7 +90,7 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - OPEN  [rung unlocks]  BB-THE-RUNG-PAYS
 - OPEN  [enemies unite]  BB-COALITION
 - OPEN  [shelves premise]  THE-VALLEY-RUNS-OUT -- RULED by the coordinator 9/5 (correct-after): the valley eating its last shelves in ten days is THE PREMISE, not a bug; this is an economic crash simulator and a place that is running out is the whole point. Make it visible: the shelves emptying is something the player can SEE happen day by day in CITY and on the walked street, and the day-10 moment is a beat, not a silent zero. (pending from ECONOMY since day 1)
-- OPEN  [charging exists]  A-BATTERY-CAN-BE-CHARGED -- RULED by the coordinator 9/5 (correct-after, realism first, Paolo may overrule): BOTH. A player can charge slowly at home (a hand crank, a scavenged solar panel: hours per battery) and a faction that holds a generator or a substation SELLS fast charging, which is what makes a power plant worth fighting over. Build the slow home charge first; the faction charger is a FACTIONS row when the towns land. (pending from ECONOMY, day 1)
+- OPEN  [batteries mined]  BUILDINGS-MAKE-BATTERIES -- RULED by Paolo 9/5 (LOCKED, this replaces the coordinator's charging guess): nobody sells currency. Batteries are MADE by buildings you set up: "there could be ways where you auto-mine batteries, set up certain buildings wherever you're doing and that's just more batteries." Define the short list of power buildings (a generator, a solar rack, a wind rig; real things that make electricity in a desert), what each yields (start at ONE battery per day per building, everything costs one), and put the yield in PRODUCTION so LIFE+CITY's tick (shipped c9504be) pays it into the purse. Batteries are money ONLY: no action ever needs a battery to happen (his words: "do you need batteries to turn a laptop on? no"). Tab: CITY.
 - OPEN  [century stayed]  WHO-STAYED-COUNTS -- [PENDING Paolo] ECONOMY asks whether the century rule should count who STAYED, not only buildings. That changes a LOCKED law and only he can; the coordinator carries it. Nothing to build until he rules.
 
 ## QUESTS  (first word "quests")
@@ -128,6 +128,7 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 - OPEN  [combat floor]  THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR -- with COMBAT: the zoomed-out city render is what the fight stands on (9/4 tile law 3b); expose it as a drawable layer COMBAT can centre on a block
 - OPEN  [more people]  POPULATION-DEFAULT -- dispatch item 5, "dead is not the default"; the number is his, the mechanism (a default that is not zero) is ours
 - OPEN  [buildings appear]  A-BUILDING-YOU-PLACED-SHOWS-UP-ON-FOOT -- what you build in the aerial view is standing there when you walk to it; INTERIOR = EXTERIOR holds
+- OPEN  [power buildings]  PLACE-A-POWER-BUILDING -- the player can place a battery-making building on their land in CITY and watch it pay one battery a day into the purse on the tick; the building is on the map, the number goes up, the first one is placeable in the demo's first hour (Paolo 9/5: "set up certain buildings wherever you're doing and that's just more batteries"). Needs WORLD [batteries mined] for the yield table; build the placement now with the table's first row.
 
 ## COMBAT  (04.)
 MODE: BUILD
@@ -214,6 +215,7 @@ STATE: 18 factions in the graph (14 selectable plus four more), every one with a
 - OPEN  [enemies unite]  BB-COALITION  (with WORLD)
 - OPEN  [broke raiders]  BB-UNPAID-TURNS-PREDATORY
 - OPEN  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- DECIDED by the coordinator 9/5 (a number is never his question): the same encounter does not repeat for the same player inside THREE in-game days, and never twice on the same street in one day. Put it on a dial in DEMO SETTINGS with that default. (pending from FACTIONS Q3)
+- OPEN  [power territory]  A-FACTION-MINES-ITS-LAND -- every faction's territory carries its own battery-making buildings, so what a faction is worth is what its land makes; a fortress makes more than a camp (9/4 towns law); the numbers flow from WORLD [batteries mined]; losing a block loses its output
 
 ## WORDS  (12.)
 MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
@@ -296,6 +298,7 @@ STATE: the game's identity is the most realistic economic crash simulator, but f
 - OPEN  [market day]  Q10 The market day. How real periodic markets work (who comes, from how far, how often) and what the best games do with a trading trip, for the faction towns.
 - OPEN  [inflation feeling]  Q11 Inflation as a feeling. What runaway prices do to behaviour (spend today, hoard, barter) and how a game could make a player feel it in a week of play without a single chart.
 - OPEN  [who's housed]  Q12 Housing. How people actually house themselves after a collapse (squatting, doubling up, who gets the good buildings) for the other half of the economy law.
+- OPEN  [printed money]  Q13 When anyone who owns a building can make money, what happens? The real history of money that anybody could produce (silver rushes, private banknotes, cigarettes in camps, mining crypto), how fast it stopped being worth anything, and what the best builder games do to keep a farmable currency worth having (sinks, caps, decay, upkeep). Measured against our repo: how many buildings could a player place in an hour, at one battery a day each, and does the price ladder (everything costs one) survive that. Paolo 9/5 ruled buildings auto-mine batteries and that gamified is fine ("it's a fucking game"); this round finds what it breaks and what real fix keeps it fun.
 
 ## DYNASTY  (15.)
 MODE: RESEARCH -- Gen 1 Animal, the fold, Gen 3 Angel, the heir: not started on any surface and never owned. Research only; findings become PEOPLE, QUESTS and RUN jobs when those open. Canon (who marries whom, who the Angel is) stays his; the lane brings shapes.

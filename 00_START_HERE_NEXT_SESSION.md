@@ -2876,7 +2876,14 @@ that found the board did it from the new CLAUDE.md top block, not the primer; UI
 saw either. THEN (bh): "why do you keep referring to it as days, yesterday... are you
 tweaking?" -> NO CALENDAR TALK, LOCKED: never yesterday/today/tomorrow/overnight/day N to
 him; rounds, minutes, hours. CLAUDE.md HOW PAOLO WORKS line, talk-law amendment, VAMILY
-front page says a research "day" is a round. Root cause: I read the date off commits.
+front page says a research "day" is a round. Root cause: I read the date off commits. THEN (bi): "do you need batteries to
+turn a laptop on?... if it's electricity it's the new currency... gamifying it a little
+bit and that's OK... you asked me do groups sell currency... auto-mine batteries, set up
+certain buildings and that's just more batteries" -> batteries law sec 4 (LOCKED): money
+only, no power meter, nobody sells currency, buildings make batteries on the tick, one a
+day each to start, gamified is fine. Charging question WITHDRAWN. WORLD [charging exists]
+replaced by [batteries mined]; LIFE+CITY [power buildings]; FACTIONS [power territory];
+ECONOMY Q13 [printed money].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

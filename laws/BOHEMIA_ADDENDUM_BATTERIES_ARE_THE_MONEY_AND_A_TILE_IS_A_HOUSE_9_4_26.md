@@ -153,6 +153,31 @@ a single tile could be instead of a 2x2 maybe a little smaller than that."*
   real canvas on the 45-degree corpus: the house, the yard, the street,
   cover that reads. DIRECTION's style card covers it; ART cooks it.
 
+## 4. RULED 9/5: BATTERIES ARE MONEY ONLY, AND BUILDINGS MAKE THEM (Paolo, LOCKED)
+"This game is hardcore but it's also fun and simplified... do you need batteries to
+turn a laptop on, or do you need batteries to do things? Normally I have nothing to
+do with batteries, but if it's electricity, it's the new currency, so we're gamifying
+it a little bit and that's OK because it's a fucking game... you kind of asked me do
+groups or people sell currency... there could be ways where you auto-mine batteries,
+maybe set up certain buildings wherever you're doing and that's just more batteries."
+- **BATTERIES ARE MONEY AND NOTHING ELSE.** No action needs a battery to happen. A
+  laptop turns on. A light is on. There is no power meter, no fuel gauge, no
+  "out of charge" state anywhere in the game. A battery is spent only the way a coin
+  is spent: to buy, to pay, to be owed.
+- **NOBODY SELLS CURRENCY.** The coordinator's 9/5 question ("does the player charge
+  it or does a faction sell it") was the wrong shape and is withdrawn. Money is not
+  sold; money is MADE.
+- **BUILDINGS MAKE BATTERIES.** A player who sets up a power building on their land
+  auto-mines batteries: the building sits on the map and pays into the purse on the
+  production tick, one battery per day per building to start (everything costs one).
+  More buildings, more batteries. A faction's territory does the same for the faction,
+  which is what makes land worth fighting for. The list of power buildings, their
+  yields and any cap are WORLD's to define and ECONOMY's to stress-test (a currency
+  anyone can farm is the oldest way money dies; Q13).
+- **GAMIFIED IS FINE.** "It's a fucking game." Realism first still holds for how the
+  economy behaves; the fact that a battery is the coin is a chosen simplification and
+  is never re-litigated.
+
 ## ROUTING
 - WORLD: BB-BATTERIES-ARE-THE-MONEY, top of the lane, folded into
   BB-THE-LETTER-IS-ONE's work (PRICES are in `electricity`, at 1).
