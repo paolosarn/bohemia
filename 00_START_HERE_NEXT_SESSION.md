@@ -384,8 +384,101 @@ interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO N
 TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
 your own complete block to it. Then grep for stray markers before you commit.
 
-================================================================================
+=== ROUND 5 REPORT: [numberless economy] SHIPPED ===
+*** THE MARKET CARD HAS FIFTEEN NUMBERS ON IT AND FOUR OF THEM ARE DECIMALS.
+MODE: RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
 
+Record: records/BOHEMIA_ECONOMY_DAY_5_FIFTEEN_NUMBERS_ON_THE_SHOP_CARD_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections AA-CC (deliberately
+        thin; the replacement vocabulary is WORDS' job and is routed to them)
+Board:  Q5 [numberless economy] SHIPPED. Q1-Q5 now shipped; next OPEN is Q6
+        [casino backstage].
+
+MEASURED, by rebuilding the exact string showMarket() composes from the real
+modules rather than reading the source and guessing:
+  SWAP MEET
+  08:00 · you have 3 batteries
+  WATER · 1 L      |  52.4 days of it left in the valley  |  1 battery
+  FOOD  · 1 ration |   8.6 days of it left in the valley  |  1 battery
+  MEDS  · 1 dose   |  33.3 days of it left in the valley  |  1 battery
+  FUEL  · 1 L      |  66.7 days of it left in the valley  |  1 battery
+Fifteen numbers: 08, 00, 3, 1, 52.4, 1, 1, 8.6, 1, 1, 33.3, 1, 1, 66.7, 1.
+Roughly five more on the reckoning card, so about twenty across the two screens a
+player reads about the economy.
+
+*** THE FINDING: THE FIFTEEN ARE NOT TOO MANY, THEY ARE BACKWARDS. *** The four
+PRICES are all "1 battery" -- invariant, because everything costs one, so four
+copies of an unchanging fact carry zero information. The four DAYS-LEFT are the
+only real signal on the card and they are rendered as DECIMALS TO ONE PLACE, the
+least readable form available. The science is unambiguous: SUBITIZING means one to
+four items are read instantly, exactly, with no counting; above about four the
+brain switches to ratio-only estimation (Weber), and nobody can tell 12 from 15.
+So "52.4 days" is not a feeling and cannot be one, while "8.6 against 52.4" IS
+readable because it is a ratio of six to one.
+
+AND HIS OWN LOCKED RULING IS ALREADY HALF THE ANSWER: EVERYTHING COSTS ONE (8/15)
+puts every price inside the subitizing range. A game where things cost 7 and 13
+and 240 must print digits. OURS DOES NOT HAVE TO. His anti-balance ruling is what
+makes a numberless price possible at all, and nobody had noticed.
+
+SECOND FINDING, ABOUT A LAW AND NOT A CARD: BB-ONE-NUMBER (day 17) is written
+ENTIRELY about the fight readout and defines its number's job as "how much trouble
+am I in". Everyone in this repo, me included until I read it this round, quotes it
+as "one number" full stop. IT IS UNDEFENDED OUTSIDE COMBAT, and the shop card is
+what that costs. Nobody did anything wrong; no rule reached there.
+
+FIFTEEN DOWN TO TWO, cheapest first, no ruling needed, no information lost:
+  1. "a battery" instead of "1 battery" -- one function (battWord already exists
+     and is the only place this is composed). Four numbers gone, nothing lost.
+  2. days-left becomes a comparison in the note line the card already has. Four
+     decimals gone, the only real signal becomes readable. WORDS owns the words.
+  3. the pocket becomes drawn batteries (subitizable up to four). THIS ONE COSTS
+     ART: there is NO battery icon anywhere in the build (bohemia_battery.js is a
+     district; `battery` in bohemia_utility.js is a row of grain silos). COOK ask,
+     and it follows 1 and 2 rather than leading them.
+  4. the clock stays. It is the pressure and it is one number.
+
+CREDIT WHERE IT LANDED THIS ROUND: another lane added battWord() and rewrote the
+card so the tag and the till name the same money, with the right reason in its own
+comment ("a shop whose tag and till name different money is worse than one with no
+prices at all"). That is step one of this question already taken. It names the
+unit; it still prints the digit.
+
+ROUTED: UI ECON-THE-PRICE-IS-NOT-A-DIGIT (cheapest item in five rounds of this
+lane), ECON-DAYS-ARE-A-SHAPE-NOT-A-DECIMAL, and a measurement for the existing
+[one number] row. COOK ECON-A-BATTERY-YOU-CAN-SEE. WORDS
+ECON-THE-WORDS-FOR-HOW-MUCH-IS-LEFT.
+
+REFUSED: cutting to zero numbers (a removed number with nothing in its place is
+missing, not diegetic; the clock earns its place), a bar or meter or gauge (a bar
+is a number in a costume), writing the replacement words (WORDS owns them),
+touching the fight readout (settled and correct there), deciding whether the
+reckoning card should stop saying DAY N (in-game fiction is not the same as
+talking to him; UI and the coordinator own that), and any implementation.
+
+GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0,
+canon rot 13/0. MARKET GATE IS STILL 22/10 ON MAIN, NOW RED ACROSS TWO ROUNDS,
+AND IT IS STILL NOT A CODE BUG: diagnosed by exercising the real buy path
+(applied:true, paid:1, kind:"drain", electricity 500 -> 499). The gate watches the
+`resources` balance while the debit lands in `electricity`, and four of its checks
+assert his price table is still empty. FIX THE RULER, NEVER THE TARGET (8/1).
+Whoever owns market_gate: rebaseline it, leave bohemia_payday.js alone. Also still
+red and not this lane's: engine sync (BOH_FLOORPLAN, 2 bodies), banks-used,
+dialogue catalogue.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten in-game days. Premise or bug?
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS?
+  3. The century rule counts buildings. Should it also count who stayed? A change
+     to a LOCKED law, so only he can make it.
+  4. Which building is the good FIRST one? The machine can order the 59 by need;
+     which one a player should want at the start is canon and is his.
+
+NEXT IN THIS LANE: Q6 [casino backstage], who runs a casino when the money is
+gone, and what a fortress actually produces.
+
+================================================================================
 
 WORDS (words-8dqrnq): 9/5 (a) -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
 SURVIVES A MEMORY RESET. IT REPLACES THE ONE IN THE 9/4 (d) BLOCK BELOW. THEN VAMILY Q5
