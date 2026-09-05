@@ -82,7 +82,7 @@ MODE: BUILD
 STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES carry his 8/15 ONE denominated in his 9/4 BATTERY, every value tagged and untuned, so a day's work pays one battery and a bag of rice costs one on the walked surface and in the demo (9/5); PRODUCTION is still empty because produce() has zero callers; ELECTRICITY now moves both ways and CLOUT still has never moved; the only drain is shopping; the map is 35 districts with 18 factions placed. Unverified: whether the faction world's territory AI drives anything visible on the walked surface.
 - SHIPPED 9/5 ce39270  [battery money]  BB-BATTERIES-ARE-THE-MONEY  (with BB-THE-LETTER-IS-ONE, one job)
 - SHIPPED 9/5 ce39270  [prices one]  BB-THE-LETTER-IS-ONE  (shipped inside [battery money]; the queue marks them one job)
-- OPEN  [living costs]  BB-FOUR-VERBS-THREE-CURRENCIES
+- CLAIMED 9/5 world-9lfjtf  [living costs]  BB-FOUR-VERBS-THREE-CURRENCIES
 - OPEN  [lights bill]  BB-THE-NIGHT-EATS-POWER
 - OPEN  [faction towns]  FACTION-TOWNS -- every faction has a seat that is its market, buildings and quests; FORTRESS / TOWN / CAMP derived from act1_power, draft:true; who sits where is his (9/4 law)
 - OPEN  [held ground]  BB-TURF
