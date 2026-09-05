@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 BOHEMIA CITY FAMILY PATCH -- THE FOLD, AND WHAT THE VALLEY STILL SAYS ABOUT YOU.
-(8/31/26, FACTIONS lane. Paolo: "FAMILY".)
+(9/5/26, FACTIONS lane. Paolo: "FAMILY".)
 
 Patches slices/BOHEMIA_CITY_WORLD.html. Idempotent; marker __CITY_FAMILY__.
 

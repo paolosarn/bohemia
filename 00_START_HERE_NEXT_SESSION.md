@@ -1,3 +1,107 @@
+FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** FAMILY. THE GENERATION TURNS, AND THE
+VALLEY REMEMBERS WHAT GOT REPEATED. *** Nothing to judge.
+
+TAB: **RUN** -> the OUTFIT board, under the outfits (what they still say about your
+family). TAB: **DIRECT** -> STANDING -> FOLD A GENERATION (the instrument).
+
+WHY THIS WAS THE WORK. CLAUDE.md's own top, his 8/28 ruling that the dynasty lives,
+says a handoff INHERITS EVERYTHING the last life built and names the list: "compound,
+STANDINGS, territory, the family tree, and the unhealed wounds". Standings are named
+and they are this lane's. bohemia_standing.js has carried inherit() and legendOf()
+since 8/20 and organ_reach has reported both reached by NOTHING ANYWHERE on every run
+since. NEITHER COULD HAVE MEANT ANYTHING SOONER: inherit keeps only deeds with hops>0,
+the ones somebody RETOLD, and a deed's loudness did not decide its hop budget on the
+walked surface until 8/28 when the quest corpus started filling DEED_WEIGHT. The
+dynasty half was waiting on the reputation half and nothing said so.
+
+MEASURED THROUGH THE REAL ORGANS. 400 people over 40x40, one deed of each loudness,
+gossiped ten rounds, then a generation folds:
+    CLOUT       saw  gossiped   held  retold  CARRIED   died
+      quiet       33        20     53      20       20     33
+      notable     86        25    111      25       25     86
+      risky      154        71    225      71       71    154
+      reckless   285        60    345      60       60    285
+*** AND THE RUN BEFORE THAT SAID inherit() CARRIED NOTHING AT ALL, at every loudness,
+in every valley size. *** I had placed the valley with x=(i*7919)%W, y=(i*104729)%W,
+which collapses onto a LATTICE LINE instead of filling the square, so almost nobody had
+a gossip neighbour, so nothing was ever retold, so nothing could cross. I WAS ONE STEP
+FROM FILING "the louder the deed the less survives" AS AN ENGINE BUG IN THE DYNASTY'S
+OWN PREMISE. The tell was that the answer was TOO DRAMATIC: an organ whose every unit
+test passes does not usually fail totally. WHEN A MEASUREMENT INDICTS SOMETHING THIS
+OLD, MEASURE THE MEASUREMENT FIRST.
+ONE OBSERVATION KEPT RATHER THAN FIXED: reckless (60) carries less than risky (71)
+because at reach 24 nearly everybody is an EYEWITNESS, and an eyewitness cannot be told
+what they already saw (gossip dedupes on actor+kind+turn). Saturation shrinks the pool
+who can carry the story. The ordering quiet << notable < risky ~ reckless holds and the
+7/21 CLOUT_WEIGHTS are HIS, so this is written down and NOT retuned.
+
+WHAT SHIPPED: ctFold folds every mind through inherit. THE HEIR IS ALSO '@', which is
+the ruling and not a shortcut -- a run resets you to nothing, a handoff is the opposite,
+so keeping the id means every card and rung keeps working and reads the family history
+as the player's own, which is exactly "you are born owing what your father owed".
+legendOf tells the two apart again because it counts ONLY deeds carrying `inherited`.
+AND IT IS READABLE, on the OUTFIT board:
+    WHAT THEY STILL SAY ABOUT YOUR FAMILY
+      YOUR FATHER            2 STILL TELL IT
+        Handed the tap to the trades. Daylight patch, every name on the work order.
+The sentence is the quest's own @LOG line out of BohemiaDeeds.labels(), the same source
+the card's reasons use, so the family's history and the day's gossip are never two
+different voices. A row with no sentence is DROPPED rather than shown as a raw id. The
+generation is written down (boh.city.gen): a dynasty that forgets which life it is on
+when you close the tab is not a dynasty.
+
+AND HE CAN TURN IT HIMSELF (8/12). DIRECT -> STANDING -> FOLD A GENERATION. How a
+reputation crosses a generation is mine and built; WHEN one turns is a story decision
+and HIS, and the game has no such beat yet, so without this the answer to "where does
+he change this himself" is "he tells me and I edit a file", which is not shipped.
+Proved end to end: first tap arms and warns, second tap folds, and the city answers
+with what it COST -- "generation 2 - 2 still told, 2 died with the people who saw
+them". IT ASKS TWICE ON PURPOSE: a fold cannot be undone and what it destroys is the
+only record of what the player did. NOTHING FOLDS ON ITS OWN -- no timer, no act
+boundary, no death.
+
+THREE BROKEN RULERS IN ONE TURN, all producing a confident wrong number about somebody
+else's code: the lattice-line valley above; the fold button measuring 0px tall (which
+would have failed THE THUMB -- #app is display:none behind the front splash, so every
+DIRECT element measures zero until it is tapped, and the button was 44x174 the whole
+time, so the gate now dismisses the splash before it measures); and last turn's cast
+read one level too shallow.
+
+GATES: FACTION BETWEEN 163/0 (was 149) - DIRECT 33/0 - STANDING 35/0 - THE WHOLE DEMO
+23/0 - DEMO BUILD 25/0 - ALPHA LOADS 20/0.
+THREE MUTATIONS, ALL BITE: make the fold carry everything and T6/T7 die; show raw
+machine ids and T9 dies alone; stop writing the generation down and T8 dies alone.
+T1 AND T6 ARE THE CLAIMS THAT MATTER AND BOTH ARE ABOUT WHAT MUST NOT SURVIVE -- a gate
+that only checked that something crossed would pass just as happily on a fold that
+carried everything, which is the version that quietly turns a dynasty into a save file.
+The demo carries only the `run` tab, so the dev fold control is unreachable there.
+
+RECORD: records/BOHEMIA_FAMILY_THE_GENERATION_TURNS_9_5_26.md
+
+STILL DEAD: BohemiaPeople.peopleOf and BohemiaDeeds.sayWhy (sayWhy is now superseded by
+the surface reading labels() directly -- collapse to one path next time this is opened).
+*** AND THE BIGGEST THING HOLDING THIS LANE DOWN IS NOT THIS LANE'S: THE DEMO DRAWS ONE
+PERSON AT A TIME (measured 8/30, maxDrewAtOnce 1 with 34 people within six cells). That
+caps EVERY witness set in the game at one person, so the whole loudness model -- reach,
+hops, RECKLESS BEATS QUIET -- cannot express itself in play. RUN/WORLD's. ***
+
+AND THERE IS A DYNASTY LANE (dynasty-w4yxiz) WORKING THE SAME PREMISE FROM THE OTHER
+END, which this session did not know about until the rebase: it is RESEARCH ONLY on
+what GEN 1 IS (the coyote's life, day 2 of it shipped 9/5). No collision -- they are
+writing what a first generation's life looks like, this built the MECHANISM a handoff
+needs, and the two meet at the moment the story finally turns a generation. Whoever
+picks that beat up should read both records together.
+
+WHAT IS PENDING HIM: nothing new. AFFILIATED_RATE (0.30), REACH_CELLS (12) and the 7/21
+CLOUT_WEIGHTS remain his.
+
+CONTAINER WARNING: this container has REWOUND THE WHOLE REPO to an older snapshot twice
+in one session, remote refs included. Recovery is `git fetch origin main` (slow) then
+`git checkout -B <branch> origin/main`. COMMIT EARLY AND OFTEN. Run gates in the
+FOREGROUND, and a single Bash call is capped at 10 minutes, so one mutation per call.
+
+--------------------------------------------------------------------------------
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
