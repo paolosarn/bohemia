@@ -6,7 +6,9 @@
 
 ## HOW IT WORKS
 0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator, THE MANAGER.
-   EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions. Every other chat
+   EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions.
+   Word vomit procedure: for each thing, is there a line already? If yes, grow it
+   with his words. If not, make one now for the right chat, tab named. Every other chat
    gets one word, VAMILY, and no discussion. A lane that needs a ruling writes
    [PENDING Paolo] in its handoff block; the coordinator carries it to him.
 1. Paolo types **VAMILY**. That is the whole instruction.

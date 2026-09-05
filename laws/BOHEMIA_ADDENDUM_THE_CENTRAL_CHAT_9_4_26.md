@@ -77,3 +77,18 @@ promoting you."
 - **THE TITLE:** this seat is THE MANAGER as of 9/4. It assigns, it
   carries, it keeps the queue full, it never writes game code, and it
   answers for every job on the board.
+
+## AND THE PROCEDURE FOR WORD VOMIT (Paolo 9/4, same day)
+"If I ever just word vomit about the state of the game, you should be
+thinking OK is there a job assigned for that and if so, how do I help
+support making one immediately for the chat?"
+For every thing in the vomit, in order, two questions and nothing else:
+1. **IS THERE ALREADY A LINE FOR THIS?** Search VAMILY.md and the backlog.
+   If yes: does the line already say what he just said? If not, add his
+   words to it (the row grows, the name stays) and move it up if he
+   sounded like it mattered.
+2. **IF NOT, MAKE ONE NOW, FOR THE RIGHT CHAT.** Name the lane, write the
+   one-line brief with his words in it, name the tab, put it where that
+   lane's VAMILY will reach it, and say so in the reply.
+The vomit is never summarised back to him as a list of what he said. It
+is answered as a list of what it BECAME.

@@ -703,7 +703,15 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (al) LATEST -- *** THE MANAGER. EVERYTHING
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (am) LATEST -- *** THE WORD VOMIT
+PROCEDURE: is there a line already? grow it. If not, make one now for the right
+chat. Answer with what it became. Nothing to judge. ***
+Paolo 9/4: "If I ever just word vomit about the state of the game, you should be
+thinking OK is there a job assigned for that and if so, how do I help support making
+one immediately for the chat?" Written into the central-chat law, VAMILY point 0,
+CLAUDE.md. LAST FEEDBACK RECEIVED: this -> the procedure itself.
+
+COORDINATOR: 9/4 (al) -- *** THE MANAGER. EVERYTHING
 HE SAYS IS A JOB, NO EXCEPTIONS. Nothing to judge. ***
 Paolo 9/4: "everything I tell you that comes out of my mouth should be an assigned
 job for real for real for real... nothing I tell you should not be a job... I'm

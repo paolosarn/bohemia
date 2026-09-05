@@ -1608,7 +1608,10 @@ RULE IS ABSOLUTE: every sentence he sends this chat becomes a VAMILY line before
 reply ends (a job, a research question, a ruling with a row, or a [PENDING Paolo]
 line). A thought in passing is a job. The test, every reply: name the line each
 thing he said became; a sentence with no line means the reply is not finished. THE
-COORDINATOR IS THE MANAGER as of 9/4.
+COORDINATOR IS THE MANAGER as of 9/4. WORD VOMIT PROCEDURE (same day): for each
+thing, is there a line already? If yes, grow it with his words. If not, make one
+now for the right chat, tab named. Answer with what it BECAME, never a summary of
+what he said.
 Law: laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 - FACTION TOWNS (Paolo 9/4, LOCKED): every part of Vegas is owned by a faction and
   the faction's seat is where you trade; big factions are FORTRESSES with many
