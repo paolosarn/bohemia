@@ -35054,9 +35054,21 @@ function ctDialApply(w, save){
     var raw = JSON.parse(localStorage.getItem('boh.city.deedweight') || 'null');
     if (raw && typeof raw === 'object') ctDialApply(raw, false);
   } catch(_e){}
+  try { ctGenLoad(); } catch(_e){}     /* __CITY_FAMILY__ */
   /* and the DIRECT tab pushes it across the frame the moment he turns it */
+  /* __CITY_FAMILY__ -- HE MUST BE ABLE TO DIRECT IT (8/12). WHEN a generation
+     turns is a STORY decision and it is his; nothing in this file folds on its
+     own -- no timer, no act boundary, no death. This is the door, on the same
+     postMessage seam the STANDING dial already uses, so he can turn a life into
+     a legend and watch what survives instead of being told it works. */
   window.addEventListener('message', function(ev){
     var d = ev && ev.data;
+    if (d && d.type === 'BOHEMIA_FOLD_GENERATION'){
+      var r = ctFold();
+      try { if (ev.source) ev.source.postMessage(
+        { type:'BOHEMIA_FOLDED', result:r }, '*'); } catch(_e){}
+      return;
+    }
     if (d && d.type === 'BOHEMIA_DEED_WEIGHTS' && d.weights)
       ctDialApply(d.weights, true);
     /* *** THE DIAL CANNOT READ THIS MODULE, SO THIS MODULE ANSWERS IT. ***
@@ -49329,7 +49341,7 @@ function ctOutfitHtml(){
     return h + '<div class="obempty">NOBODY IN THIS VALLEY HAS A POSITION ON YOU'
       + ' YET.<br><br>You have not thrown in with anybody far enough for it to'
       + ' reach the people they are at odds with. The day you do, this fills up'
-      + ' and it does not empty again.</div>' + ctSeenByHtml() + ctWhoVouchesHtml() + ctVouchedHtml()
+      + ' and it does not empty again.</div>' + ctSeenByHtml() + ctLegendHtml() + ctWhoVouchesHtml() + ctVouchedHtml()
       + ctValleyHtml();
   }
   for(var i=0;i<d.rows.length;i++){
@@ -49352,7 +49364,7 @@ function ctOutfitHtml(){
   /* __CITY_YOURPROBLEM__ -- the people you put up sit between your own positions
      and the valley, because they are the one part of this board that is about
      what you DID rather than about where anybody is. */
-  return h + ctSeenByHtml() + ctWhoVouchesHtml() + ctVouchedHtml() + ctValleyHtml();
+  return h + ctSeenByHtml() + ctLegendHtml() + ctWhoVouchesHtml() + ctVouchedHtml() + ctValleyHtml();
 }
 
 function ctOutfitOpen(){
@@ -49376,6 +49388,88 @@ function ctOutfitBadge(){
   var b = document.getElementById('outfitbtn'); if(b) b.classList.add('ring');
 }
 
+/* __CITY_FAMILY__ -- THE GENERATION TURNS, AND THE VALLEY REMEMBERS.
+   Paolo 8/28, ruling the dynasty alive: a handoff "INHERITS EVERYTHING the last
+   life built (compound, STANDINGS, territory, the family tree, and the unhealed
+   wounds)". Standings are named in that list and they are this lane's.
+
+   bohemia_standing.js has carried inherit() since 8/20 and organ_reach reported
+   it reached by NOTHING ANYWHERE every single run. It could not have meant
+   anything sooner: it keeps only deeds with hops > 0, the ones somebody RETOLD,
+   and a deed's loudness did not decide its hop budget on the walked surface
+   until the quest corpus started filling DEED_WEIGHT on 8/28. The dynasty half
+   was waiting on the reputation half without either one saying so. */
+var CT_GEN = 1;
+function ctGenLoad(){
+  try { var g = parseInt(localStorage.getItem('boh.city.gen') || '1', 10);
+        if (g > 0) CT_GEN = g; } catch(_e){}
+  return CT_GEN;
+}
+function ctGenSave(){
+  try { localStorage.setItem('boh.city.gen', String(CT_GEN)); } catch(_e){}
+}
+/* THE HEIR IS ALSO '@', AND THAT IS THE RULING RATHER THAN A SHORTCUT. The
+   player is '@' on every surface in this city, and the whole point is that the
+   heir INHERITS rather than starts over -- a run resets you to nothing, a
+   handoff is the opposite. Keeping the id means every card, every rung and
+   every outfit view keeps working and now reads the family's history as the
+   player's own, which is exactly "you are born owing what your father owed".
+   legendOf() is what tells the two apart again: it counts ONLY deeds carrying
+   `inherited`, so what your father did is still nameable as his. */
+function ctFold(){
+  if (typeof BohemiaStanding === 'undefined') return null;
+  var minds = ctMindsList();
+  var res;
+  try { res = BohemiaStanding.inherit(minds, '@', '@', ctMinuteNow()); }
+  catch(_e){
+    console.error('BOHEMIA: the generation could not be folded, so nothing your '
+      + 'family did survives it. ' + _e.message);
+    return null;
+  }
+  CT_GEN = (CT_GEN | 0) + 1;
+  ctGenSave();
+  try { ctMindSave(); } catch(_e){}
+  try { if (CT_OPEN) ctDraw(); } catch(_e){}
+  return { gen: CT_GEN, carried: res.carried, died: res.died };
+}
+/* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY, IN HIS OWN SENTENCES.
+   legendOf returns deed KINDS, which are machine ids nobody can read. The line
+   is the quest's own @LOG out of BohemiaDeeds.labels() -- the same source the
+   card's reasons already use, so the family's history and the day's gossip are
+   never two different voices. Nothing is authored here. */
+function ctLegendRows(limit){
+  if (typeof BohemiaStanding === 'undefined') return [];
+  var minds = ctMindsList(); if (!minds.length) return [];
+  var rows = [];
+  try { rows = BohemiaStanding.legendOf(minds, '@', ctMinuteNow()) || []; }
+  catch(_e){ return []; }
+  var labels = {};
+  try { labels = BohemiaDeeds.labels() || {}; } catch(_e){}
+  var out = [];
+  for (var i = 0; i < rows.length && out.length < (limit || 4); i++){
+    var r = rows[i], say = labels[r.kind];
+    if (!say) continue;                 /* no sentence, no row: never a raw id */
+    out.push({ kind: r.kind, tellers: r.tellers, force: r.force,
+               generations: r.generations, say: say });
+  }
+  return out;
+}
+function ctLegendHtml(){
+  var rows = ctLegendRows(4);
+  if (!rows.length) return '';
+  var h = '<div class="obhead2">WHAT THEY STILL SAY ABOUT YOUR FAMILY</div>';
+  for (var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    /* HOW MANY LIVES BACK, said in words rather than a number nobody can place */
+    var ago = r.generations >= 3 ? 'THREE LIVES BACK'
+            : (r.generations === 2 ? 'YOUR GRANDFATHER' : 'YOUR FATHER');
+    h += '<div class="obv"><span class="obvwho">' + ago + '</span>'
+       + '<span class="obvwhere">' + r.tellers + ' STILL '
+       + (r.tellers === 1 ? 'TELLS IT' : 'TELL IT') + '</span></div>'
+       + ctNote(r.say);
+  }
+  return h;
+}
 /* __CITY_THEIRVIEW__ -- A FACTION'S VIEW IS ITS MEMBERS' VIEWS.
    Rule 4 of bohemia_standing.js, quoted from its own header, and the only one
    of its four that nothing on this surface had ever called. standingOf and
