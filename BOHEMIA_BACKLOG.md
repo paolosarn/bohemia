@@ -5554,6 +5554,14 @@ BB-A-TILE-IS-A-HOUSE. *** PAOLO 9/4, LOCKED: "instead of each combat tile being
    dagger and RELIABLE at one tile, a rifle is a spear at two, reliability drops
    with the tile the way melee skill would, still ONE NUMBER on the readout (day
    17). A perk that extends a weapon's reliable tile is a VERB not a stat (day 9).
+   AND THE TILE IS WIDER THAN THE PERSON (same day): the sprite stays its size and
+   stands in the MIDDLE of its tile; the tile on screen is about 1.5 to 2
+   sprite-widths across so the ground reads as a house, a yard, a street; a house
+   with a big backyard is 1x2 tiles, a fortress more (INTERIOR = EXTERIOR in a
+   third place); more space between bodies is what makes one tile read as close
+   and two as reach. THE RATIO IS BY EYE, HIS: a second dial, TILE WIDTH in
+   sprite-widths, default about 1.75, beside the TILE dial. The ground tile at
+   that size is ART's canvas under DIRECTION's card (ART COMBAT-GROUND-TILES).
    HOW IT SHIPS (HE MUST BE ABLE TO DIRECT IT, 8/12): NOT by removing the
    human-scale board. AS A DIAL in the COMBAT tab's DEMO SETTINGS beside SHE FIGHTS
    WITH YOU -- `TILE: A BODY / A HOUSE` -- so he plays both. NO accuracy or damage

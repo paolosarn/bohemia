@@ -127,6 +127,32 @@ it's like one tile away and shit reliably."*
   tile is a VERB, not a stat (day 9): you can now do a thing at two tiles
   you could not. That is how the perk tree touches this without a number.
 
+### 3d. THE TILE IS WIDER THAN THE PERSON, SO THE GROUND CAN SHOW WHAT IT IS
+His words: *"tiles are actually wider now... to give the art more room to
+cook with... even if the player character stays the same... the length and
+width of a single tile could be bigger so it gives more room for the art
+to show what the fuck is underneath... a house with a large backyard is now
+one by two tiles big... when the player character is standing in the
+middle of a tile... there's more space between characters because of it...
+a single tile could be instead of a 2x2 maybe a little smaller than that."*
+- **THE TILE IS DRAWN WIDER THAN THE SPRITE.** The sprite stays its normal
+  size and stands in the MIDDLE of its tile. The tile on screen is about
+  one and a half to two sprite-widths across, so the ground under and
+  around a body has room to read as a house, a yard, a street, a lot.
+- **BUILDINGS SPAN TILES.** A house with a big backyard is 1 by 2 tiles.
+  A fortress is more. The town's footprint on the combat board is the
+  same footprint it has on the map (INTERIOR = EXTERIOR, 7/19, now in a
+  third place).
+- **MORE SPACE BETWEEN BODIES.** Which is exactly what makes a pistol at
+  one tile read as close and a rifle at two read as reach: the distance
+  is visible.
+- **THE EXACT RATIO IS BY EYE, HIS.** It ships as a DIAL beside the TILE
+  dial in COMBAT's DEMO SETTINGS (TILE WIDTH, in sprite-widths, default
+  about 1.75) so he moves it by looking, never by a number in a file.
+- **THIS IS ART'S ROOM TO COOK.** A combat ground tile at that size is a
+  real canvas on the 45-degree corpus: the house, the yard, the street,
+  cover that reads. DIRECTION's style card covers it; ART cooks it.
+
 ## ROUTING
 - WORLD: BB-BATTERIES-ARE-THE-MONEY, top of the lane, folded into
   BB-THE-LETTER-IS-ONE's work (PRICES are in `electricity`, at 1).

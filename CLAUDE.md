@@ -1322,7 +1322,11 @@ research partner. He DECIDES, you PRODUCE.
   MELEE, ranges read like reach, a pistol is a dagger and RELIABLE at one tile, a
   rifle a spear at two, reliability dropping with the tile the way melee skill
   would, still one number on the readout, and a perk that extends a weapon's
-  reliable tile is a verb not a stat. And his 9/4 order on all
+  reliable tile is a verb not a stat. AND THE TILE IS WIDER THAN THE PERSON: the
+  sprite stays its size in the MIDDLE of its tile and the tile is about 1.5 to 2
+  sprite-widths across so the ground reads as a house, a yard, a street; a house
+  with a big backyard is 1x2 tiles; the ratio is by eye and his, a TILE WIDTH dial
+  beside the TILE dial; the ground tile at that size is ART's canvas. And his 9/4 order on all
   of it: 120 BPM FRIENDLY FOR EVERYTHING -- a step is one beat, and a step is now
   one house. Full law: laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_
   A_HOUSE_9_4_26.md  Rows: WORLD BB-BATTERIES-ARE-THE-MONEY, COMBAT BB-A-TILE-IS-A-

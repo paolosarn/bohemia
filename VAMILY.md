@@ -151,6 +151,7 @@ everything; rewrite your handoff block before you end.
 ## ART  (never idles; the last line is permanent)
 - OPEN  WARDROBE-REMAKE -- every garment to the card, NEW SHAPES ONLY (structure law), graveyard stays dead, 10% coat cap stands, colour stays territory; batches through the existing kill/approve pipeline
 - OPEN  HAIR-TO-THE-CARD -- every haircut to the card; all eight facings; the hair, hairline, graveyard and leaf gates hold
+- OPEN  COMBAT-GROUND-TILES -- the combat floor tile at 1.5 to 2 sprite-widths, on the 45-degree corpus: house, yard, street, lot, cover that reads; a house with a backyard spans 1x2 (9/4 tile law 3d)
 - OPEN  FORTRESS-BUILDINGS -- the buildings a faction fortress needs that nobody has drawn, in tier order (FACTION-TOWNS)
 - OPEN  MAP-ONLY-DISTRICTS -- about 20 places the overmap names and nothing draws; audit, then build or cut
 - OPEN  STRIP-FAMILY-RULING -- needs Paolo: cut or build the strip / casino / resort family

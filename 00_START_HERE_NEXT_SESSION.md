@@ -703,7 +703,14 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ah) LATEST -- *** COMBAT SHARPENED:
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ai) LATEST -- *** THE COMBAT TILE IS
+WIDER THAN THE PERSON: about 1.5 to 2 sprite-widths, sprite in the middle, a house
+with a backyard is 1x2, the ratio is a dial by eye. Nothing to judge. ***
+Section 3d of the 9/4 tile law; COMBAT's top row; ART gets COMBAT-GROUND-TILES (the
+floor tile at that size is a real canvas under DIRECTION's card); CLAUDE.md. LAST
+FEEDBACK RECEIVED: this -> COMBAT BB-A-TILE-IS-A-HOUSE, ART COMBAT-GROUND-TILES.
+
+COORDINATOR: 9/4 (ah) -- *** COMBAT SHARPENED:
 NO SINGLE-ENTITY FIGHTS, ALWAYS A GROUP; RULES UNCHANGED, ONLY THE GROUND; GUNS ARE
 THE NEW MELEE, A PISTOL IS A DAGGER RELIABLE AT ONE TILE. Nothing to judge. ***
 Written into the 9/4 tile law (section 3c), COMBAT's top row BB-A-TILE-IS-A-HOUSE,
