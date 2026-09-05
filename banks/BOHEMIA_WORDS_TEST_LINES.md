@@ -274,3 +274,41 @@ KID                  I said have you got anything in the bag.
 SERGEANT             No.
 # The kid's two lines are IDENTICAL. Only the answers change, and the sergeant's
 # held beat does more work than any adjective would.
+
+## Q7 -- THE SECOND CONVERSATION  (9/5/26)
+# The finding, and it is backwards from the instinct: a second conversation is
+# SHORTER, not warmer. Clark and Wilkes-Gibbs -- once two people settle on what to
+# call a thing, they reuse the label and stop explaining, and the expression gets
+# shorter every time. The proof that somebody remembers you is COMPRESSION.
+# So every set below is ONE scene at three familiarities. Nothing gets friendlier.
+# Things only get dropped.
+
+### THE COLD ROOM KEEPER, three meetings   draft:true
+FIRST   It's on. That's what I keep telling people, and that's what makes me sound
+        stupid. On, wet, and hotter in there than out here. Feel it.
+SECOND  It's on. Still on. Still hot.
+THIRD   Same room.
+# 26 words, then 6, then 2. Nothing warm was added. The explaining was removed,
+# and the removal is the entire relationship.
+
+### THE LINE, three meetings   draft:true
+FIRST   There's a feed, there's always a feed. Do you want this room on a list?
+SECOND  Same question as before. Same list.
+THIRD   Well?
+# By the third he does not name the room, the list or the question, because both
+# of them know which one it is. That settled shorthand IS their history.
+
+### AND THE ONE THAT MUST NOT HAPPEN   draft:true
+# The standard failure: you have done three jobs for this man and he greets you
+# exactly as he greeted a stranger.
+WRONG   You're new. I haven't seen you on this block.
+# We have ELEVEN first-meeting lines in the build and effectively ONE that knows
+# it has met you. This is the shape of the hole.
+
+### RECOGNITION WITHOUT WARMTH, which is the register this valley wants   draft:true
+  You again. That's not a complaint.
+  Back. Alright.
+  I know your walk before I know your face.
+  Don't tell me the whole thing again. Start where you stopped.
+# Nobody says "good to see you". They say a shorter version of what they said
+# before, which in this valley IS affection.

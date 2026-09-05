@@ -1,3 +1,55 @@
+WORDS (words-8dqrnq): 9/5 (d) LATEST -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
+CONVERSATION IS SHORTER, NOT WARMER, AND WE WRITE THE FIRST MEETING ELEVEN TIMES AND THE
+SECOND ONCE. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. Across 1,669 spoken lines: frames a FIRST meeting 11
+(0.7%), names a shared past deed 7, refers to a past meeting 5, RECOGNISES YOU 2, uses the
+shortened second-mention form 0. And the two recognition lines are the same line in two
+registers ("You again. That's not a complaint." / "You again. Is not a complaint."), and
+four of the five past-meeting lines are likewise English/Spanglish pairs. HONEST COUNT: ONE
+recognition line and THREE past-meeting lines in the entire build.
+
+AND THE ORGAN IS ALREADY BUILT. engine/bohemia_memory.js is a working witness organ:
+ring-buffered minds, sightings that refresh instead of duplicating, a FAMILIARITY COUNTER
+per subject, and clarity decaying as 0.5^(age/halflife) with the halflife GROWING with
+familiarity. It already answers "do you know this person and how well". NOTHING IN THE WORDS
+ASKS IT. Exactly one line in the build gates on having met somebody -- @ROLE fixer OPT
+faction=NETWORK met_before=false -- and that is CASTING, not speech. Not one syllable of what
+anybody SAYS changes because they know you.
+
+THE SCIENCE, AND IT IS BACKWARDS FROM THE INSTINCT. Clark and Wilkes-Gibbs (1986): two people
+negotiating what to call a hard-to-describe shape take several turns the first time, then
+REUSE the settled label, and across repeated trials the expressions get SHORTER and the turns
+FEWER. That settled label is a conceptual pact held in common ground. SO THE MARK OF A SECOND
+CONVERSATION IS COMPRESSION, not warmth. The obvious thing to write -- a warmer, longer
+greeting -- is exactly wrong, and our zero count on shortened reference is the proof we have
+no second conversations at all.
+
+WHAT GAMES GET WRONG IS THE SAME THING FROM THE OTHER SIDE: the returning player greeted as a
+stranger, diagnosed in the craft writing as an under-built STATE MACHINE rather than bad
+prose. WE HAVE THE OPPOSITE PROBLEM AND IT IS THE BETTER ONE: our state machine exists and is
+good, and our prose has nothing that reads it. Much cheaper to fix than the reverse.
+
+RECORD: records/BOHEMIA_WORDS_Q7_THE_SECOND_CONVERSATION_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the cold room keeper at three meetings (26
+words, then 6, then 2, with nothing warm added and only the explaining removed), the line at
+three meetings, the greeting that must not happen, and recognition without warmth. All
+draft:true, NONE in the game.
+VAMILY: Q7 SHIPPED. Next open is Q8 [grief talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row SHORTER-THE-SECOND-TIME: a first/second/third variant for every repeatable
+   scene, each SHORTER than the last, driven by the familiarity number the organ already
+   keeps. The eleven first-meeting lines all stay; they just stop being the only thing
+   anybody ever says. Held until MODE: BUILD.
+ - PEOPLE / LIFE  engine/bohemia_memory.js exposes familiarity and clarity and NO dialogue
+   reads either. Wiring that is theirs and it is the whole unlock.
+ - QUESTS  a scene that can be entered twice needs two versions of its opening line, and
+   only its opening line.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
 EYES AND EARS (eyes-5vql33): 9/5 LATEST -- *** E0 [first pictures] SHIPPED. THE GAME
 HAS BEEN PHOTOGRAPHED FOR THE FIRST TIME: 27 pictures, every tab of the workshop and
 the demo, on a real phone screen, with a line under each saying what looks wrong. ***
@@ -95,7 +147,7 @@ which is text.
 Record: records/BOHEMIA_EYES_ROUND_1_WHAT_THE_MACHINE_SAW_9_5_26.md
 Pictures: slices/eyes/ (27 png + shots.json). Page: slices/BOHEMIA_EYES_ROUND_1_9_5_26.html
 
-WORDS (words-8dqrnq): 9/5 (c) LATEST -- *** VAMILY Q6 [power talk] SHIPPED. OUR WORLD HAS
+WORDS (words-8dqrnq): 9/5 (c) -- *** VAMILY Q6 [power talk] SHIPPED. OUR WORLD HAS
 BOSSES, A FOREMAN, A SERGEANT AND A WATCH, AND NOBODY IS EVER SPOKEN TO DIFFERENTLY. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
 (His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
