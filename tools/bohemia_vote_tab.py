@@ -67,6 +67,61 @@ if os.path.exists(FACEBANK):
     except Exception:
         faces = []
 
+# ---- THE DIRECTION CHECKPOINT (9/5, VAMILY [batch judging]) ---------------------
+# The 9/4 compare law, clause 5: DIRECTION judges the comparison BEFORE he does;
+# nothing from a cook reaches VOTE without passing the card. Two teeth:
+#
+# 1. THE CARD GATE RUNS FIRST. If style_card_gate is red, this build ABORTS -- a
+#    judging surface built on a wardrobe that violates the card would be asking
+#    him to thumb work DIRECTION already knows is out of register.
+# 2. AN UNREGISTERED CANDIDATE IS REFUSED. The reference registry
+#    (records/BOHEMIA_REFERENCE_CHECKS.json) is the baseline: every id in it is
+#    either pre-law (honestly 'unrecorded') or carries its comparison. A queued
+#    candidate whose id the registry has NEVER SEEN is a post-law cook that
+#    skipped its REFERENCE CHECK -- it is dropped from the queue and named in
+#    records/BOHEMIA_VOTE_REFUSALS.txt with the fix (write the sidecar entry,
+#    re-run tools/bohemia_reference_checks.py). Pre-law candidates keep flowing:
+#    grandfathering the 40 existing faces is honest; admitting a NEW cook with no
+#    named comparison is the exact thing the law ends.
+import subprocess
+_g = subprocess.run(['python3', 'gates/style_card_gate.py'], capture_output=True)
+if _g.returncode != 0:
+    import sys as _sys
+    _sys.exit('VOTE BUILD ABORTED: style_card_gate is red -- nothing reaches VOTE '
+              'without passing the card (9/5 batch-judging seam).\n'
+              + _g.stdout.decode(errors='replace'))
+_REG = {}
+_RF0 = os.path.join(RECORDS, 'BOHEMIA_REFERENCE_CHECKS.json')
+if os.path.exists(_RF0):
+    _REG = json.load(open(_RF0, encoding='utf8')).get('refs', {})
+_refused = []
+if _REG:
+    _known = set(_REG)
+    _f2 = []
+    for x in faces:
+        if x['id'] in _known:
+            _f2.append(x)
+        else:
+            _refused.append('%s (face bank): no reference entry -- write '
+                            'records/BOHEMIA_REFERENCE_SIDECAR.json and re-run '
+                            'tools/bohemia_reference_checks.py' % x['id'])
+    faces = _f2
+    _h2 = [h for h in heroes if h['district'] in _known]
+    for h in heroes:
+        if h['district'] not in _known:
+            _refused.append('%s (hero bank): no reference entry -- same fix' % h['district'])
+    heroes = _h2
+_RFOUT = os.path.join(RECORDS, 'BOHEMIA_VOTE_REFUSALS.txt')
+if _refused:
+    open(_RFOUT, 'w', encoding='utf8').write(
+        'BOHEMIA - REFUSED AT THE DIRECTION CHECKPOINT (9/5 batch-judging seam)\n'
+        'These candidates never reached VOTE because their cook skipped the\n'
+        'REFERENCE CHECK the 9/4 compare law demands. Fix and rebuild.\n\n'
+        + '\n'.join(_refused) + '\n')
+    print('DIRECTION CHECKPOINT: %d candidate(s) REFUSED -> %s' % (len(_refused), _RFOUT))
+elif os.path.exists(_RFOUT):
+    os.remove(_RFOUT)
+
 # ---- WHO HAS ALREADY BEEN JUDGED, read off his own verdict files ----------------
 # Any district named in a file with VERDICT in its name has had its say. This is
 # deliberately generous: a false "judged" only ever hides something from the queue, and he
