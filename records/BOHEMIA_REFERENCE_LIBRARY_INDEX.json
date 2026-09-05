@@ -42,6 +42,62 @@
    "kind": "real",
    "teaches": "windows sit in a wall plane; a wall meets a roof; a door is on the ground; a street meets a curb \u2014 the four checks every building cook runs before calling itself done."
   },
+  "CB-01": {
+   "name": "SimCity 2000's density ladder",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "https://frontiernerds.com/simcity-2000-sprite-extraction",
+   "kind": "pixel",
+   "teaches": "a block's density tier reads at zoom from ROOF PATTERN alone (small pitched, big flat, tower); a town that wants to read as denser than a camp must change its roofscape, not its wall detail."
+  },
+  "CB-02": {
+   "name": "The Impressions housing block (Caesar III / Pharaoh / Zeus)",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "https://game-wisdom.com/guest/of-walkers-and-men-city-building-by-design",
+   "kind": "pixel",
+   "teaches": "a LOT is road-adjacent or it is dead \u2014 every working building faces the street that serves it; the BLOCK is simply what the road loop encloses. A lot placed without street frontage is a bug in any city, theirs or ours (our own drivable-access gate already says so)."
+  },
+  "CB-03": {
+   "name": "The block sized by the errand (the roadblock discipline)",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "https://caesar3.heavengames.com/cgi-bin/caeforumscgi/display.cgi?action=ct&f=25,6105,2075,all",
+   "kind": "pixel",
+   "teaches": "a block's SIZE comes from how far a service can walk before turning back; a town reads as one place when its whole loop is one errand long, and a fortress compound is a block whose loop closes inside the wall."
+  },
+  "CB-04": {
+   "name": "OpenTTD's road grain",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "https://wiki.openttd.org/en/Manual/Towns",
+   "kind": "pixel",
+   "teaches": "the road grid is the first thing legible at every zoom, and every building inherits its orientation from its road; a lot that ignores its street's direction breaks the block's grain more than any wrong colour."
+  },
+  "CB-05": {
+   "name": "Songs of Syx at far zoom",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "https://steamcommunity.com/app/1162750/discussions/0/4031350196519773213/",
+   "kind": "pixel",
+   "teaches": "zoomed out, a city stops being tiles and becomes COLOUR MASSES by function; a district's identity must survive that switch (our icon law already holds it: every map square its own place), so a faction town needs one dominant roof-and-ground colour statement, not thirty small ones."
+  },
+  "CB-06": {
+   "name": "The valley's own grain (ours, measured and gated)",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "laws (STREET-AWARE / DRIVABLE ACCESS, gate district_kit_gate.js) + the arterial mile grid on the walked map",
+   "kind": "real",
+   "teaches": "Vegas blocks hang off arterial miles, subdivisions close into cul-de-sac loops behind block walls, and every plot is enterable by a vehicle; a faction town cooked here obeys the same three or it reads as dropped onto the map instead of grown from it."
+  },
+  "CB-07": {
+   "name": "Learning From Las Vegas, the builder half",
+   "folder": "city-builder",
+   "file": "reference/library/city-builder/INDEX.md",
+   "where": "https://www.udg.org.uk/publications/udlibrary/learning-las-vegas",
+   "kind": "real",
+   "teaches": "on a commercial street the LOT's front is parking and the SIGN is taller than the building; a market street in this valley puts its stalls where the parking was, and the sign pole is the cheapest tallest thing a faction can claim."
+  },
   "CGRD-01": {
    "name": "Into the Breach interface (Game UI Database)",
    "folder": "combat-ground",
