@@ -48,7 +48,7 @@ list; nobody else touches it except to write CLAIMED on their own line.
  3. COMBAT     -- UNCLAIMED
  4. ANIMATION  -- UNCLAIMED
  5. RUN        -- UNCLAIMED
- 6. COOK       -- UNCLAIMED  (NEW: the art cook-up chat; always cooking)
+ 6. COOK       -- UNCLAIMED  (NEW: the PRODUCTION ARTIST; environment, character and prop art to DIRECTION's bible; always cooking)
  7. PEOPLE     -- UNCLAIMED
  8. UI         -- UNCLAIMED
  9. ECONOMY    -- UNCLAIMED  (research)
@@ -56,7 +56,7 @@ list; nobody else touches it except to write CLAIMED on their own line.
 11. WORDS      -- UNCLAIMED  (research)
 12. CHARACTER  -- UNCLAIMED
 13. FACTIONS   -- UNCLAIMED
-    DIRECTION  -- EXISTING (his art direction chat keeps it; no fresh chat claims it)
+    DIRECTION  -- EXISTING (the ART DIRECTOR; his art direction chat keeps it; no fresh chat claims it)
     QUESTS     -- PARKED by Paolo 9/4, never claimed until he reopens it
     LAB        -- his call, not claimed
     (ART, the old tiles lane, is folded into COOK. One cooking chat.)
@@ -203,7 +203,7 @@ MODE: BUILD
 - OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
 
-## COOK  (NEW 9/4: the art cook-up chat. Cooks garments, hair, districts, tiles, props, combat ground. Never idles; the last line is permanent.)
+## COOK  (NEW 9/4: the PRODUCTION ARTIST. Environment art: districts, tiles, buildings. Character art: garments, hair. Prop art: objects, the combat ground. Makes finished assets to DIRECTION's style bible. Never idles; the last line is permanent.)
 MODE: BUILD
 STANDING DUTY (9/4 law): EVERY COOK CARRIES A REFERENCE CHECK. Compare it side by side to real work of its kind online before calling it done; document what it was compared to, which structural rules were taken, what changed. Structure from reference, style from us. No shots in the dark.
 - OPEN  WARDROBE-REMAKE -- every garment to the card, NEW SHAPES ONLY (structure law), graveyard stays dead, 10% coat cap stands, colour stays territory; batches through the existing kill/approve pipeline

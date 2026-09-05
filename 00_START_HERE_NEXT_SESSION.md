@@ -703,7 +703,13 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aq) LATEST -- *** CORRECTED: DIRECTION
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ar) LATEST -- *** THE COOK IS THE
+PRODUCTION ARTIST; DIRECTION IS THE ART DIRECTOR. Titles on the lanes. Nothing to judge. ***
+Paolo 9/4: "What's the art cook called, professionally?" Production Artist (environment,
+character and prop art to the art director's bible). Written on the COOK and
+DIRECTION lines in VAMILY. LAST FEEDBACK RECEIVED: this -> those two lines.
+
+COORDINATOR: 9/4 (aq) -- *** CORRECTED: DIRECTION
 ALREADY EXISTS (his art direction chat). THE NEW CHAT IS COOK, and it absorbs the
 old ART tiles lane. Nothing to judge. ***
 Paolo 9/4: "We already have an art direction chat. We need an art cook-up chat." In
