@@ -703,7 +703,16 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ag) LATEST -- *** THE RUNWAY: EVERY
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ah) LATEST -- *** COMBAT SHARPENED:
+NO SINGLE-ENTITY FIGHTS, ALWAYS A GROUP; RULES UNCHANGED, ONLY THE GROUND; GUNS ARE
+THE NEW MELEE, A PISTOL IS A DAGGER RELIABLE AT ONE TILE. Nothing to judge. ***
+Written into the 9/4 tile law (section 3c), COMBAT's top row BB-A-TILE-IS-A-HOUSE,
+and CLAUDE.md. A tile is one grid square of the zoomed-out city, about one medium
+house. Reliability drops with the tile the way melee skill would; still one number
+on the readout (day 17); a perk that extends a reliable tile is a verb (day 9). LAST
+FEEDBACK RECEIVED: this -> COMBAT BB-A-TILE-IS-A-HOUSE.
+
+COORDINATOR: 9/4 (ag) -- *** THE RUNWAY: EVERY
 GARMENT AND HAIRCUT MODELLED ON BALENCIAGA AND RICK OWENS, NO MATTER THE FACTION.
 ART AT ALL TIMES. TWO LANES, ONE SEAM: DIRECTION RULES, ART COOKS. Nothing to judge. ***
 laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md. The runway gives

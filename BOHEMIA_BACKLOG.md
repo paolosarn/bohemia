@@ -5546,6 +5546,14 @@ BB-A-TILE-IS-A-HOUSE. *** PAOLO 9/4, LOCKED: "instead of each combat tile being
    standing on -- ONE SEED, same coordinates, the fight happens on the streets you
    walked to get there. Cover is the buildings that are really there; step onto a
    house tile and you go inside it (INTERIOR = EXTERIOR).
+   SHARPENED, SAME DAY: THERE ARE NO SINGLE-ENTITY FIGHTS -- a fight is always
+   against a GROUP (ENC_SIZES [3,4,5,6] already; a boss is a man with a job inside
+   a group; the director and @DO never spawn a fight of one). THE RULES DO NOT
+   CHANGE, ONLY THE GROUND: a tile is one grid square of the zoomed-out city, about
+   one medium house. GUNS ARE THE NEW MELEE: ranges read like reach, a pistol is a
+   dagger and RELIABLE at one tile, a rifle is a spear at two, reliability drops
+   with the tile the way melee skill would, still ONE NUMBER on the readout (day
+   17). A perk that extends a weapon's reliable tile is a VERB not a stat (day 9).
    HOW IT SHIPS (HE MUST BE ABLE TO DIRECT IT, 8/12): NOT by removing the
    human-scale board. AS A DIAL in the COMBAT tab's DEMO SETTINGS beside SHE FIGHTS
    WITH YOU -- `TILE: A BODY / A HOUSE` -- so he plays both. NO accuracy or damage

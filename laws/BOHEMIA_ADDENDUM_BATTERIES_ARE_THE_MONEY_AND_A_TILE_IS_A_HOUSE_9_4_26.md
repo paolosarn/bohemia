@@ -99,6 +99,34 @@ when its a combat shit."*
   there. Interiors stay INTERIOR = EXTERIOR (7/19): step onto a house
   tile and you go inside it.
 
+### 3c. ALWAYS A GROUP, AND GUNS ARE THE NEW MELEE (same day, sharpened)
+His words: *"I can't imagine anyway that there's no more like a little
+small individual battles with just like single entities... I think that's
+for the better... I still want combat to still play out the same just the
+tiles are zoomed out... each house could be the size of like a medium
+house, the size of one grid... you're always either fighting a group of
+something... and guns are just like the new melee shit... realistically
+like skill levels with ranges... a pistol that becomes like a dagger and
+it's like one tile away and shit reliably."*
+- **THERE ARE NO SINGLE-ENTITY FIGHTS.** A fight is always against a GROUP.
+  ENC_SIZES already ships [3,4,5,6] and a boss is a man with a job inside
+  a group; a lone-enemy encounter is not a thing this game has. Encounter
+  authoring (PEOPLE's roadside director, QUESTS' @DO) never spawns a fight
+  of one.
+- **THE RULES DO NOT CHANGE. ONLY THE GROUND.** RF4 on the beat, the
+  companion, the bosses, the nerve roll, the perk tree: all identical. A
+  tile is one grid square of the zoomed-out city, about one medium house.
+- **GUNS ARE THE NEW MELEE.** Ranges read like a fighter's reach, not a
+  ballistics table: a PISTOL IS A DAGGER, one tile, RELIABLE at one. A
+  rifle is a spear or a bow, two tiles. Reliability drops with the tile,
+  the way melee skill would, and the readout still shows ONE NUMBER, theirs
+  on you (day 17). No accuracy or damage number moves (NO DAMAGE BEFORE THE
+  DIAL); what changes is the distance a weapon's existing accuracy applies
+  over.
+- "Skill levels with ranges": a perk that extends a weapon's reliable
+  tile is a VERB, not a stat (day 9): you can now do a thing at two tiles
+  you could not. That is how the perk tree touches this without a number.
+
 ## ROUTING
 - WORLD: BB-BATTERIES-ARE-THE-MONEY, top of the lane, folded into
   BB-THE-LETTER-IS-ONE's work (PRICES are in `electricity`, at 1).

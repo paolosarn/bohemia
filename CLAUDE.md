@@ -1316,7 +1316,13 @@ research partner. He DECIDES, you PRODUCE.
   zoomed out city so it really feels like war is spilling in the streets." The floor
   is the walked city's own zoomed-out CITY render centred on the block you stand on,
   one seed, same coordinates; a person stands bigger than the houses. Figures on a
-  war map. And his 9/4 order on all
+  war map. AND SHARPENED THE SAME DAY: THERE ARE NO SINGLE-ENTITY FIGHTS, a fight
+  is always against a GROUP; the rules do not change, only the ground, a tile is one
+  grid square of the zoomed-out city, about one medium house; GUNS ARE THE NEW
+  MELEE, ranges read like reach, a pistol is a dagger and RELIABLE at one tile, a
+  rifle a spear at two, reliability dropping with the tile the way melee skill
+  would, still one number on the readout, and a perk that extends a weapon's
+  reliable tile is a verb not a stat. And his 9/4 order on all
   of it: 120 BPM FRIENDLY FOR EVERYTHING -- a step is one beat, and a step is now
   one house. Full law: laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_
   A_HOUSE_9_4_26.md  Rows: WORLD BB-BATTERIES-ARE-THE-MONEY, COMBAT BB-A-TILE-IS-A-
