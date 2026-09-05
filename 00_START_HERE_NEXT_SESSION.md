@@ -988,13 +988,23 @@ A TIME SKIP IN GAMES IS AN ART JOB. IN LIFE IT IS A CAST CHANGE. If half a
 neighbourhood's renters move every two years, about THREE IN A HUNDRED are still
 there after ten. The buildings stand; the people are gone. Residents asked what
 changed name institutions, safety, and who lives here, never the frontages.
-THE FINDING: bohemia_engine.js (the fold) references bohemia_standing ZERO times.
-At the cut the fold decays an abstract faction number by 25% and THE WITNESS WEB,
-the organ that models a deed being seen, told, distorted and forgotten at
-clarity = 0.5^(age/halflife), IS NOT ADVANCED AT ALL. Nothing anywhere (no
-advanceYears, no generationPass) drives it across a gap, though its own comment
-already specifies our scene: "Thirty years pass. EVERY PERSON WHO WATCHED YOU DO
-ANYTHING IS DEAD... A QUIET GOOD DEED DIES WITH THE WITNESS."
+*** CORRECTED BY ROUND 7, AND I PUBLISHED THIS WRONG. *** Round 6 said nothing
+anywhere advances the witness web across a gap. FALSE, and false when I wrote it.
+slices/BOHEMIA_CITY_WORLD.html carries ctFold(), which calls
+BohemiaStanding.inherit(minds,'@','@',now), advances CT_GEN and carries a
+parent's RETOLD deeds forward (hops > 0 only), marked `inherited` so legendOf()
+can still name what your father did as his, behind a door HE controls
+(BOHEMIA_FOLD_GENERATION) because when a generation turns is a story decision.
+FACTIONS shipped it as 383219e and git confirms it was already on main before my
+round-6 push, so this was a bad search, not a race: I grepped engine/*.js for
+advanceYears and generationPass, two names I INVENTED, and never grepped the
+SLICES for inherit(), the real name in the file where the walked game lives.
+WHAT SURVIVES AND IS SHARPER: bohemia_engine.js still references bohemia_standing
+ZERO times, so THERE ARE TWO FOLDS IN TWO FILES DOING TWO HALVES -- the engine's
+foldGeneration carries the LEDGER, the city's ctFold carries the MEMORY -- and
+neither knows the other exists. The routed row is not "build the wire", it is
+"there are two folds and there should be one". AND FACTIONS BUILT THE HARDER
+HALF BEFORE I ASKED, CORRECTLY.
 ALSO: nothing replaces or ages out the population at a generation boundary
 (control: "cohort" appears once in the engine, in the comment REFUSING a
 birth-year generator), so 100% of the cast survives our fold. And round 4 showed
