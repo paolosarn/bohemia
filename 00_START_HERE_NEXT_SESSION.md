@@ -1,3 +1,290 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
+FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
+
+MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
+economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
+standing loses 25% a generation. Territory, builds, economy capacity, investment,
+karma and virtues carry at 100% FOREVER with no decay at all.
+THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
+generation and takes ten to fifteen generations, three to four centuries, to
+fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
+NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+So we decay the thing that really lasts and preserve perfectly the things that
+really go.
+
+AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
+STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
+persistence of status is 0.79. A constant our own comment calls "tunable" and
+nobody ever checked landed within 0.04 of the best figure in the literature.
+NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
+
+AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
+ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
+three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
+whether it was settled. Reported surveys put 64% of older adults ranking
+heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
+than sentiment: an object somebody USED is valued more than one they merely
+OWNED. Our model records no use, no name and no memory, so it cannot express any
+of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
+AND LOSES EVERYTHING IT SAYS THEY DO.
+
+THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
+up, which reads as deleting a high-level character; and the game that carries
+items, skills, money and shops straight across is the one whose players say the
+biggest thing you lose is your family. Carrying everything material and losing
+the people is a known, shipped, complained-about outcome, and it is the shape of
+our fold.
+
+HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
+generation hands the next one zeroes). Round 3 finds that even for a HUMAN
+generation it carries the wrong things. Round 2 found that in a real coyote's
+life a territory is a VACANCY, never an inheritance, which contradicts territory
+being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
+AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
+onto the asset ledgers, give a tree node a name, give a wound a who and a when;
+pure engine, headless, no player surface). Inside this lane: Q8 [inherited
+memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
+death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
+
+[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
+to start. Which fields decay and how fast, every name, who dies, what the wound
+was, and what generation two is told on its first morning are all his.
+
+NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
+If a later round disagrees with that ordering, take Q4; the board's order is the
+default and this is a recommendation, not a change to the board.
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
+TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
+so the next round does not repeat them:
+  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
+    is the records convention, but the front page says plainly: it is one VAMILY,
+    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
+    called it a research day. Stop.
+  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
+    this block says I stopped. A job takes as many rounds as it takes and nobody
+    expects one round. Only if I hold nothing do I take the first OPEN line.
+
+
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit]. Next OPEN is Q10 [market day].
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+=== ROUND 9 REPORT: [trust credit] SHIPPED ===
+*** WE BUILT THE COURTHOUSE AND NEVER ISSUED A LOAN. A DEBT IN THIS GAME IS NOT A
+NUMBER, IT IS A PERSON WHO REMEMBERS. MODE: RESEARCH, nothing implemented.
+NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_9_A_DEBT_IS_A_PERSON_WHO_REMEMBERS_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections SS-WW (14 lines)
+Board:  Q9 SHIPPED. Q1-Q9 shipped; next OPEN is Q10 [market day].
+
+MEASURED: Bohemia already runs, LIVE ON THE WALKED SURFACE, every mechanism that
+real courtless credit is enforced by.
+  whoHears()  news of what you did walks a REAL acquaintance graph, 3 hops,
+              breadth-first, nothing rolled, and the first person of another
+              outfit it touches means that outfit has heard. CALLED TWICE IN LIVE
+              PLAY against the real valley roster (lines 52232 and 52434).
+  memory      people remember SEEING you, clarity decaying, and it decays SLOWER
+              for somebody familiar. Live, 15 references, real calls.
+  commitment  a wall on favours, with stages, and who finds out.
+  belonging   what an outfit wants from you and what it is worth.
+  deeds       the ledger of what you did.
+AND NOTHING ANYWHERE RECORDS THAT ONE PARTY OWES ANOTHER. No debt, no tab, no
+IOU. Every hit for owes/tab/borrow/lend in the engine is an unrelated word (a UI
+tab, a borrowed audio voice).
+
+THE PURSE REFUSES DEBT ON PURPOSE AND ITS REASONING IS RIGHT: "Balances never go
+negative, so no hidden debt system exists by accident -- debt would be canon, and
+canon is Paolo's." THAT IS CORRECT AND IT IS ALSO WHY THIS HAS BEEN STUCK.
+
+*** THE FINDING THAT PROVES US WRONG: WE HAVE BEEN WAITING ON A RULING FOR A DEBT
+TABLE THAT SHOULD NEVER BE A TABLE. *** Over a BILLION people run credit with no
+contracts and no courts, in rotating savings circles: no credit score, no minimum
+balance, no fees, no approval, NO LEGAL FOUNDATION WHATSOEVER. What enforces it
+is not law. "If a member fails to make their payment, there is no legal recourse.
+Instead, the failure is met with social disapproval, leading to a loss of standing
+and reduced or eliminated access to future loans." The named tools are mutual
+trust, gossip, social pressure, isolation and embarrassment, and the decisive one
+is EXCLUSION. Who gets into a circle at all is decided by reputation reaching the
+organisers through their social connections, WHICH IS whoHears WITH A DIFFERENT
+NAME.
+
+THE THREAT IS NOT THAT SOMEBODY TAKES YOUR STUFF. THE THREAT IS THAT THE GAME
+STOPS DEALING YOU IN. Courtless credit needs exactly two conditions and we
+already run both: YOU WILL SEE THESE PEOPLE AGAIN, and WHAT YOU DID WILL BE HEARD
+ABOUT.
+
+THE BEST MECHANIC IN THE ROUND, AND IT IS THE STRUCTURAL WEAKNESS OF EVERY
+SAVINGS CIRCLE: members whose turn to collect HAS ALREADY PASSED have the
+incentive to default. SO THE INTERESTING MOMENT IS NEVER THE LENDING, IT IS THE
+ROUND AFTER SOMEBODY HAS BEEN HELPED. That is day 7's obligations motor with a
+shape, and it is a better scene than any repayment screen: the person who owes
+you is the person who already got what they wanted.
+
+AND FROM HAWALA, A COMPLETE GAME OBJECT: value moves with no promissory notes, no
+statements and no central entity. A broker gives you A CODE, A TOKEN OR A
+PASSWORD; somebody says it to a different broker in another country and is paid,
+often within hours; the brokers settle later between themselves. A cheat "is
+tagged as someone who has lost their honor and will be excommunicated from the
+network". A WORD THAT A STRANGER HONOURS is a thing you carry, costs nothing,
+worthless to anybody else, CAN BE REFUSED TO YOUR FACE, and the refusal is a
+scene.
+
+SO THE OBLIGATION BOHEMIA NEEDS IS NOT A FIELD ON THE PURSE. It is AN OPEN ITEM
+ATTACHED TO A PERSON: created when somebody does something for you that does not
+settle on the spot; carried by `memory` (they remember you, and longer now you are
+familiar); enforced by `whoHears`; punished by EXCLUSION, which `belonging` and
+`commitment` already model as stages and a wall. EVERY PART IS BUILT AND LIVE. The
+only missing piece is the open item, and IT NEEDS NO NUMBER BECAUSE EVERYTHING
+COSTS ONE.
+
+AND HIS 8/15 RULING HAS NOW SOLVED THREE SEPARATE HARD PROBLEMS IN THIS LANE
+WITHOUT ANYBODY NOTICING: the small-change problem (round 2), the numberless price
+(round 5), and now the entire arithmetic of debt. No interest, no schedule, no
+partial payment, no rollover. A debt is always ONE THING.
+
+ROUTED: PEOPLE ECON-AN-OPEN-ITEM-HAS-A-FACE (the finding),
+ECON-THE-DANGER-IS-AFTER-YOU-WERE-HELPED. FACTIONS ECON-EXCLUSION-IS-THE-
+PUNISHMENT (not seizure; the wall stops moving and doors stop opening). QUESTS
+(parked) ECON-A-WORD-SOMEBODY-HONOURS. WORDS ECON-THE-WORDS-FOR-BEING-OWED.
+WORLD: NOTHING NEW -- this round explicitly does NOT ask for a purse change, it
+says the purse was right.
+
+REFUSED: inventing the obligation table or what a broken promise costs, putting
+debt on the purse as a negative balance, interest or schedules or partial payment,
+a reputation number or trust meter, writing the collection scenes (WORDS and
+QUESTS own those), and any implementation.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, demo blockers 22/0,
+canon rot 13/0 (my one-character fix from last round held).
+
+*** MARKET GATE: 22/10 FOR A SIXTH ROUND. I HAVE STOPPED JUST FLAGGING IT AND
+WRITTEN A LINE-LEVEL WORK ORDER instead, in section 7b of this round's record, so
+whoever picks it up has no investigation left. Short version: the gate was written
+8/14 to lock in the 8/11 ruling, AND ITS OWN HEADER ANTICIPATED ITS OBSOLESCENCE
+-- "but the DAY HE NAMES ONE it beats the sim, with no other change". THAT DAY
+ARRIVED when the 9/4 batteries ruling filled PURSE.PRICES. Four assertions (lines
+52, 78, 84, 87, 163) assert the table is still empty and that prices refuse; they
+are now false BY DESIGN. Four more (lines 101, 102, 184, 255) watch the
+`resources` balance while the debit lands in `electricity`, and line 182 reads
+r.price where the result now carries `paid`. PROOF THE CODE IS RIGHT, re-run this
+round: PD.buy returns {applied:true, paid:1, currency:'electricity', kind:'drain'}
+and the purse goes electricity 500 -> 499. FIX THE RULER, NEVER THE TARGET (8/1).
+DO NOT TOUCH bohemia_payday.js. I did not make the change myself: it is ten
+assertions of test logic in another lane's file and this lane is MODE: RESEARCH. ***
+
+Also still red and not this lane's: engine sync (BOH_FLOORPLAN, 2 bodies),
+banks-used, dialogue catalogue.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten in-game days and runs dry around
+     fifty. Premise or bug? (The water half is a LIFT problem; a pump ends it.)
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS?
+  3. The century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one? (This lane's answer if he wants one:
+     the pump station or a solar array. Which one a player should want is his.)
+  5. How many cells are in the valley at the start? That is the entire money
+     supply of the game.
+  6. (new) What does a broken promise cost? Round 9 says the punishment is
+     EXCLUSION rather than seizure, and the machinery is already built, but how
+     hard a door shuts is canon and is his.
+
+NEXT IN THIS LANE: Q10 [market day], how real periodic markets work and what the
+best games do with a trading trip.
+
+================================================================================
+
 FACTIONS (factions-ovkjpf): 9/5 (round 2) LATEST -- *** [faction homes] STILL IN
 PROGRESS. THE ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY, AND THE GATE
 THAT CAUGHT ME WAS PINNED TO A WORLD MISSING HALF ITS OUTFITS. NOT PUSHED TO
@@ -655,281 +942,6 @@ block). READ THIS COPY. IGNORE THE OTHERS. ***
 
 --- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
 
-ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
-HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
-EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
-
-=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
-PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
-
-VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
-
-
-WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
-
-1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
-2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
-3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
-4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
-5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
-6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
-7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
-8. Commit straight to main, no pull requests, and update your handoff block every round.
-9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
-
-RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
-
-I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
-
-THIS ROUND (round 2 of [clothes wired], still CLAIMED)
-- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
-  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
-  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
-  line stays CLAIMED, not SHIPPED.
-- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
-  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
-  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
-  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
-  across the two benches. Added that to the gate as a UNION check, so neither bench can
-  quietly lose a category. Gate now 11/11.
-- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
-  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
-  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
-  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
-  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
-  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
-  into the gate.
-- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
-  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
-- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
-  job is whether a garment's colour survives the picker onto the body at 112 (the
-  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
-  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
-
-CHARACTER'S OWN NOTES ON RUNNING IT
-- My section is 05 CHARACTER. My session slug is character-0lurbs.
-- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
-  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
-  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
-- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
-  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
-  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
-  goes red on a stale bank.
-- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
-  / day N to him. Rounds, minutes, hours.
-
---- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
-
-ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
-FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
-  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
-  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
-
-MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
-economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
-standing loses 25% a generation. Territory, builds, economy capacity, investment,
-karma and virtues carry at 100% FOREVER with no decay at all.
-THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
-generation and takes ten to fifteen generations, three to four centuries, to
-fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
-NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
-So we decay the thing that really lasts and preserve perfectly the things that
-really go.
-
-AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
-STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
-persistence of status is 0.79. A constant our own comment calls "tunable" and
-nobody ever checked landed within 0.04 of the best figure in the literature.
-NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
-
-AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
-ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
-three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
-whether it was settled. Reported surveys put 64% of older adults ranking
-heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
-than sentiment: an object somebody USED is valued more than one they merely
-OWNED. Our model records no use, no name and no memory, so it cannot express any
-of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
-AND LOSES EVERYTHING IT SAYS THEY DO.
-
-THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
-up, which reads as deleting a high-level character; and the game that carries
-items, skills, money and shops straight across is the one whose players say the
-biggest thing you lose is your family. Carrying everything material and losing
-the people is a known, shipped, complained-about outcome, and it is the shape of
-our fold.
-
-HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
-generation hands the next one zeroes). Round 3 finds that even for a HUMAN
-generation it carries the wrong things. Round 2 found that in a real coyote's
-life a territory is a VACANCY, never an inheritance, which contradicts territory
-being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
-AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
-
-ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
-onto the asset ledgers, give a tree node a name, give a wound a who and a when;
-pure engine, headless, no player surface). Inside this lane: Q8 [inherited
-memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
-death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
-
-[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
-to start. Which fields decay and how fast, every name, who dies, what the wound
-was, and what generation two is told on its first morning are all his.
-
-NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
-If a later round disagrees with that ordering, take Q4; the board's order is the
-default and this is a recommendation, not a change to the board.
-
-WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
-TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
-so the next round does not repeat them:
-  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
-    is the records convention, but the front page says plainly: it is one VAMILY,
-    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
-    called it a research day. Stop.
-  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
-    this block says I stopped. A job takes as many rounds as it takes and nobody
-    expects one round. Only if I hold nothing do I take the first OPEN line.
-
-
-=== END OF HIS WORDS ===
-
-THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
-returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
-backstage], Q7 [water supply], Q8 [battery value].
-Next OPEN is Q9 [trust credit].
-
-AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
-(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
-you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
-minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
-that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
-BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
-reading the date off commits and repeating it back to him.
-
-A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
-conflict at the TOP of this file, because every lane prepends its newest block
-there and several of us are now pasting the same long verbatim instruction into
-it. Twice that produced a stray marker or a duplicated header on main, and once it
-interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
-TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
-your own complete block to it. Then grep for stray markers before you commit.
-
-=== ROUND 8 REPORT: [battery value] SHIPPED ===
-*** THE MONEY SUPPLY IS THE CELLS, NOT THE CHARGE, AND IT ONLY EVER GOES DOWN.
-MODE: RESEARCH, nothing implemented (one exception, below, and it is a typo).
-NOT IN A TAB YET. Nothing to judge. ***
-
-Record: records/BOHEMIA_ECONOMY_DAY_8_THE_MONEY_SUPPLY_IS_THE_CELLS_9_5_26.md
-Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections NN-RR (12 lines)
-Board:  Q8 SHIPPED. Q1-Q8 shipped; next OPEN is Q9 [trust credit].
-
-THE NUMBERS. An alkaline AA holds about 3.75 Wh (2,500 mAh x 1.5 V; measured
-range 2-4 Wh). A rechargeable NiMH AA about 2.4 Wh. In AA-equivalents: a phone
-charge is 1.5, an LED lamp at 3 W runs 1.3 hours on one, a kWh is 267, a
-12V 105Ah deep-cycle is 336, A DAY OF FOOD (2,000 kcal = 2.32 kWh) IS 620, and a
-50 kWh car battery is 13,333.
-
-*** AND THE ELECTRICITY IN A AA IS WORTH SIX HUNDREDTHS OF A CENT. *** At about
-$0.15/kWh, 3.75 Wh = $0.00056, while the cell retails around fifty cents, so a
-buyer pays ROUGHLY 889 TIMES the value of the electricity inside it. YOU ARE NOT
-BUYING THE ENERGY, YOU ARE BUYING THE CONTAINER. That is exactly why a battery is
-a bad way to buy energy and a superb way to CARRY it, and why it becomes money
-when the grid dies and would be absurd money in a live city. His ruling is sound
-for a reason nobody had written down.
-
-*** THE FINDING THAT PROVES US WRONG: WE HAVE BEEN ASKING WHAT A BATTERY IS
-WORTH, AND THE REAL QUESTION IS HOW MANY EXIST. *** Las Vegas gets 6.3 peak sun
-hours; ONE 400 W PANEL MAKES ABOUT 2.52 kWh A DAY, WHICH CAN FILL ABOUT 788
-RECHARGEABLE CELLS. Energy is not scarce in this valley, it is abundant. CELLS
-ARE SCARCE, AND NOTHING IN A DEAD CITY MANUFACTURES A AA. Every cell was on a
-shelf when the lights went out and the count only falls: lost, corroded,
-punctured, left in things. So Bohemia's currency has a shape almost nothing else
-has: THE SUPPLY IS FIXED AND SHRINKING (cells) WHILE THE VALUE INSIDE EACH ONE IS
-RENEWABLE (charge). The money gets scarcer while staying just as useful, which is
-the exact inverse of every collapse in round 1, where money got plentiful and
-useless.
-
-AND IT RETIRES A WORRY FROM ROUND 2. Gresham said everyone spends flat cells and
-hoards full ones. THAT IS NOW CORRECT BEHAVIOUR, NOT A DEFECT: a flat cell is
-still money, an empty wallet somebody will refill. THE BAD MONEY DOES NOT DRIVE
-OUT THE GOOD, IT QUEUES AT THE PANEL.
-
-MEASURED ON OUR BUILD, AND THERE IS A MONEY PUMP IN THE SHOP: every good is
-priced at one battery, which is his 8/15 ruling applied uniformly and is correct.
-But `power` has unit 'kWh', SO THE SHOP SELLS 267 CELLS OF ENERGY FOR ONE CELL.
-Buy power, get 267x. THIS IS NOT A FAULT IN HIS RULING, IT IS THE UNIT: 'kWh' was
-chosen when power was a utility abstraction and the 9/4 battery ruling arrived
-later and made that unit enormous.
-
-SO THE ANSWER TO "DENOMINATIONS FOR THE BATTERY" IS THAT EVERYTHING COSTS ONE
-ALREADY REMOVED THE DENOMINATIONS OF PRICE, AND ALL THE DESIGN WORK MOVED INTO
-THE SIZE OF ONE UNIT OF EACH GOOD. A unit should be ONE PERSON, ONE USE, ONE
-MOMENT. A ration (one person, one day) is right and is his own pairing. A litre
-is right. A dose is right. A kWh (one household, a whole day) is wrong. The unit
-should be A CHARGE: what one cell holds. THE DENOMINATIONS ARE NOT IN THE MONEY,
-THEY ARE IN THE GOODS, and exactly one row is wrong today.
-If he ever wants physical denominations, the record says BODY-SCALE not numeric:
-a cell in a pocket, a car battery two people carry, a bank on a cart. Never 1/5/25.
-
-AND THE REAL WORLD ALREADY SELLS ELECTRICITY THIS WAY: pay-as-you-go solar across
-East and West Africa rents a household a panel, a battery, a controller, LED
-bulbs and a phone charger, paid DAILY by mobile, and prices it at ROUGHLY WHAT
-THE HOUSEHOLD ALREADY SPENT ON KEROSENE AND CANDLES. Not cost, not energy
-content: WHAT THE THING IT REPLACES USED TO COST. And prepayment is what makes it
-work: a Mali trial moved payment rates from 82% to 99%.
-
-ROUTED: WORLD ECON-A-CHARGE-IS-THE-UNIT-NOT-A-KWH (one string in
-GOODS.power.unit; the cheapest correctness fix in eight rounds and NOT a price
-change, so it needs no ruling), ECON-THE-CELLS-ARE-THE-MONEY-SUPPLY,
-ECON-A-FLAT-CELL-IS-STILL-MONEY. FACTIONS: round 7's whoever-pumps-drinks and
-round 2's whoever-holds-the-light now have a number, ONE PANEL IS ~788 CELLS A
-DAY, so an array is a mint. UI ECON-A-CELL-IS-A-THING-NOT-A-COUNT (feeds round
-5). LIFE + CITY / COOK: feeds round 4's first-building-turns-a-light-on and round
-7's pump station; a solar array is the mint, a pump is the thirst, and both are
-already in the enum.
-
-REFUSED: repricing anything (prices are his, EVERYTHING COSTS ONE is locked; this
-proposes changing a UNIT, which is mechanism, and even that is routed not done),
-inventing a starting cell count for the valley, a battery meter or charge bar or
-percentage (round 5: a bar is a number in a costume), numeric denominations, and
-any implementation.
-
-*** ONE THING I DID FIX, AND IT IS A TYPO, NOT A RULING. *** canon_rot went 13/0
-to 12/1 last round and stayed red this round with the same drift: the law
-BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md cited
-`gates/ui_study_gate.py` where the real file is `gates/ui_study_gate.js` (which
-itself passes 52/52). I flagged it last round and it did not move, so I changed
-.py to .js: ONE CHARACTER, no ruling touched, no meaning altered, the citation now
-points at the file it names. CANON ROT IS 13/0 AGAIN. If the lane that owns that
-law wanted the .py spelling for some reason I cannot see, revert me and say so.
-
-GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0,
-canon rot 13/0 (green again, see above). MARKET GATE STILL 22/10 ON MAIN, FIFTH
-ROUND RUNNING, STILL NOT A CODE BUG: the real buy path gives applied:true,
-paid:1, kind:"drain", electricity 500 -> 499. The gate watches the `resources`
-balance while the debit lands in `electricity`, and four checks assert his price
-table is still empty. FIX THE RULER, NEVER THE TARGET (8/1). Five rounds of
-flagging has not moved it. Also still red and not this lane's: engine sync
-(BOH_FLOORPLAN, 2 bodies), banks-used, dialogue catalogue.
-
-[PENDING Paolo] -- for the coordinator, one at a time:
-  1. The valley eats its last shelves in ten in-game days and runs dry around
-     fifty. Premise or bug? (The water half is a LIFT problem; a working pump
-     ends it forever.)
-  2. Nothing charges a battery anywhere in the build. Is charging something the
-     player DOES or something a faction SELLS? (Round 8 sharpens it: whoever owns
-     a panel owns a mint that makes ~788 cells a day.)
-  3. The century rule counts buildings. Should it also count who stayed?
-  4. Which building is the good FIRST one? (This lane's answer, if he wants one:
-     the pump station or a solar array. Which one a player should want is his.)
-  5. (new) HOW MANY CELLS ARE IN THE VALLEY AT THE START? That is the entire money
-     supply of the game and it is exactly the kind of number that is his.
-
-NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
-
-================================================================================
 
 PLUMBER (plumber-ont6t5): 9/5 (a) LATEST -- *** CHAT 18. THE LANE IS CLAIMED, AND THE FIRST SPEED
 NUMBERS IN THE HISTORY OF THIS REPO ARE ON DISK. [sixty fps] FPS-ON-A-PHONE stays CLAIMED, not

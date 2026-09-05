@@ -654,3 +654,71 @@ QQ2 somebody spending one on a phone                 draft:true
 - No line says how many cells exist in the valley. That number is his.
 - No line explains that the supply is deflationary. NN2 and NN4 ARE that finding
   and neither uses a word longer than "factory".
+
+# ============================================================================
+# ROUND 9 [trust credit] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_9_A_DEBT_IS_A_PERSON_WHO_REMEMBERS_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THE POINT: a debt with no court is enforced by being dealt out of the next
+# round, not by anybody taking anything. Nobody says "obligation". They say
+# they remember.
+# ============================================================================
+
+## SS. BEING OWED, SAID WITHOUT A NUMBER AND WITHOUT MENACE
+
+SS1 somebody who has not forgotten                   draft:true
+    "I'm not asking. I want to be clear I'm not asking. I'm just saying I know
+     what month it is."
+
+SS2 the quiet version                                draft:true
+    "You know what you've got of mine."
+
+SS3 somebody who will never mention it again          draft:true
+    "Forget it. No, genuinely, forget it, I'd rather have it this way."
+
+SS4 the one that is actually a threat and never says so  draft:true
+    "It's fine. I told them it's fine. They asked and I said it's fine."
+
+## TT. AFTER YOU WERE HELPED (the real fault line: the one who already collected)
+
+TT1 somebody avoiding a street                       draft:true
+    "I go round the long way now. It's nine minutes. I've timed it."
+
+TT2 the person who helped, to somebody else          draft:true
+    "He was here every day for a week. Haven't seen him since the day it
+     worked out."
+
+TT3 caught                                            draft:true
+    "I was going to come by. I know how that sounds. I was, though."
+
+## UU. BEING DEALT OUT (the punishment is exclusion, not seizure)
+
+UU1 a refusal that costs everything                  draft:true
+    "Nobody's angry with you, boss. You just won't be in the next one."
+
+UU2 somebody explaining the rule to a newcomer       draft:true
+    "You don't get thrown out. It's worse. You get asked less."
+
+UU3 the person it happened to                         draft:true
+    "They still say hello. Every one of them still says hello."
+
+## VV. A WORD SOMEBODY HONOURS (the code, and the right to refuse it)
+
+VV1 handing it over                                  draft:true
+    "Say 'the short fence' to the woman with the grey van. Don't say it to
+     anybody else, it stops working."
+
+VV2 the stranger honouring it                        draft:true
+    "Huh. Alright. Yeah, alright, wait here."
+
+VV3 the stranger refusing it                         draft:true
+    "I know the word. I'm not doing it. Ask me why and I'll tell you something
+     about your friend you'd rather not know."
+
+## WW. WHAT IS NOT HERE, ON PURPOSE
+- No line says a quantity, a due date, or interest. Everything costs one, so a
+  debt is one thing and nobody needs to say how much.
+- No line names the obligation system, and none uses the word obligation, debt,
+  credit or reputation. UU2 is the whole enforcement finding in nine words.
+- No line decides what a broken promise costs. That is canon and it is his.
