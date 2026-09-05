@@ -11494,7 +11494,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [feed look] SHIPPED 4aa52d6 -- the city-screen phone
+ROUND LOG 9/5 (latest): [tile ground] SHIPPED 6a29c84 -- the combat floor
+sheet for COOK (house tile = roof planes, yard tile = its block wall, street
+tile = half a street with the kerb as the lane marker, lot stripes = a free
+tactical grid, rubble reuses approved grammar, cover breaks the silhouette
+at the edge it blocks). The 1x2 house-and-yard ruling checks out against
+real Vegas lot numbers (3,300-6,100 sq ft under 2,000+ sq ft homes). THE
+DIRECTION QUEUE IS NOW EMPTY: all 11 lines SHIPPED (reference seam, library,
+index, runway shapes, style card, card gate, batch judging, fortress/town/
+camp, feed look, tile ground, plus the ratchet click for COOK). Standing
+duties continue: judge every batch, keep the card current, click the ratchet
+as batches land. Index 78 refs / 15 kinds. PREVIOUS: [feed look] SHIPPED 4aa52d6 -- the city-screen phone
 feed's look as one sheet for UI (post anatomy, varied heights under one
 skeleton, avatar = 3 body lines / gutter = half a line / body never below
 11px, ONE mark per post kind, phone proportion 9:19.5). Index 71 refs / 14
