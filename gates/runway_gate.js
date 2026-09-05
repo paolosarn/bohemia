@@ -194,6 +194,11 @@ const SHAPES = [
          measured against the canon face piece nearest it. */
   ['shield visor',       () => G.genAcc(g, { ramp: R, kind: 'visor' }),            G.genAcc(g, { ramp: R, kind: 'shades' })],
   ['face wrap',          () => G.genAcc(g, { ramp: R, kind: 'facewrap' }),         G.genAcc(g, { ramp: R, kind: 'mask' })],
+  /* --- BATCH 5 (9/5): the two shapes the card names and the wardrobe did not have.
+         The arc is measured against the SQUARE shoulder, not a plain top, because
+         the card offers them as alternatives and they must not be each other. */
+  ['arc shoulder',       () => G.genTop(g, { ramp: R, sleeves: true, shoulder: 'arc' }),  G.genTop(g, { ramp: R, sleeves: true, shoulder: 'wide' })],
+  ['layered hem',        () => G.genTop(g, { ramp: R, sleeves: true, cut: 'layered' }),   G.genTop(g, { ramp: R, sleeves: true, cut: 'long' })],
 ];
 console.log('  --- every new shape against the shape it sits next to ---');
 for (const [name, mk, ref] of SHAPES) {
@@ -253,7 +258,9 @@ for (const d of DIRS) {
                ['wrapbelt', () => gd.genAcc(g, { ramp: R, kind: 'wrapbelt' })],
                ['oneShoulder', () => gd.genCape(g, { ramp: R, oneShoulder: true })],
                ['visor', () => gd.genAcc(g, { ramp: R, kind: 'visor' })],
-               ['facewrap', () => gd.genAcc(g, { ramp: R, kind: 'facewrap' })]];
+               ['facewrap', () => gd.genAcc(g, { ramp: R, kind: 'facewrap' })],
+               ['arc', () => gd.genTop(g, { ramp: R, sleeves: true, shoulder: 'arc' })],
+               ['layered', () => gd.genTop(g, { ramp: R, sleeves: true, cut: 'layered' })]];
   for (const [n, mk] of set) {
     let o = null; try { o = mk(); } catch (e) { angleFail.push(n + '@' + d + ' threw ' + e.message); continue; }
     if (!o || Object.keys(o).length === 0) angleFail.push(n + '@' + d + ' rendered nothing');
@@ -367,11 +374,12 @@ const BATCH = ['DROP RISE TROUSER', 'BONE DROP TROUSER', 'WIDE PLEAT TROUSER', '
   'SLATE COCOON COAT', 'DRAPED COWL', 'ASH COWL', 'HAND WRAPS', 'SOOT HAND WRAPS',
   'BONE HEAD WRAP', 'SOOT HEAD WRAP', 'WIDE WAIST WRAP', 'LEAD WAIST WRAP',
   'ONE-SHOULDER DRAPE', 'BONE SHOULDER DRAPE',
-  'SHIELD VISOR', 'ASH SHIELD', 'FACE WRAP', 'ASH FACE WRAP'];
+  'SHIELD VISOR', 'ASH SHIELD', 'FACE WRAP', 'ASH FACE WRAP',
+  'ARC SHOULDER TEE', 'ASH ARC SHIRT', 'LAYERED JERSEY', 'ASH LAYERED TEE', 'ARC LAYERED SHIRT'];
 const missing = BATCH.filter(n => CAT.indexOf("n:'" + n + "'") < 0);
-ok('all forty runway garments are in the wardrobe' + (missing.length ? ' (missing ' + missing[0] + ')' : ''), missing.length === 0);
+ok('all forty-five runway garments are in the wardrobe' + (missing.length ? ' (missing ' + missing[0] + ')' : ''), missing.length === 0);
 const notCanon = BATCH.filter(n => { const i = CAT.indexOf("n:'" + n + "'"); return i < 0 || CAT.slice(i, i + 200).indexOf("st:'canon'") < 0; });
-ok('all forty are canon, so the picker can actually reach them', notCanon.length === 0);
+ok('all forty-five are canon, so the picker can actually reach them', notCanon.length === 0);
 /* every new SHAPE has at least one garment wearing it -- an option nothing calls
    is a dial that cannot move the pixels */
 const OPTS = [["cut:'drop'", 'drop rise'], ["cut:'wide'", 'wide pleat'], ["cut:'stack'", 'stacked hem'],
@@ -384,7 +392,8 @@ const OPTS = [["cut:'drop'", 'drop rise'], ["cut:'wide'", 'wide pleat'], ["cut:'
      and asked for by NOBODY. This row exists so it can never go unreached again --
      the seventeen invisible hats is the failure this repo repeats most. */
   ["kind:'wrap'", 'head wrap, which the engine could always draw and nothing wore'],
-  ["kind:'visor'", 'shield visor'], ["kind:'facewrap'", 'face wrap']];
+  ["kind:'visor'", 'shield visor'], ["kind:'facewrap'", 'face wrap'],
+  ["shoulder:'arc'", 'arc shoulder (RNWY-02)'], ["cut:'layered'", 'layered hem (RNWY-05/08)']];
 for (const [o, nm] of OPTS) ok('somebody in the wardrobe actually wears the ' + nm, CAT.indexOf(o) >= 0);
 
 /* ---------- 7a. THE CARD'S SHAPE RULES, SECTION 2 -------------------------- */
@@ -429,6 +438,38 @@ for (const [o, nm] of OPTS) ok('somebody in the wardrobe actually wears the ' + 
     for (const k in o) { const i = +k, x = i % CW, y = (i / CW) | 0; if (y <= torsoBot) continue; if (bot[x] === undefined || y > bot[x]) bot[x] = y; }
     const xs = Object.keys(bot).map(Number); if (!xs.length) return 0;
     const ys = xs.map(x => bot[x]); return Math.max.apply(null, ys) - Math.min.apply(null, ys); };
+  /* RNWY-02: pole A's OTHER shoulder -- "a full cocoon arc, one curve neck to elbow
+     with NO shoulder point". A POINT is a step: the outer edge jumping more than a
+     cell between adjacent rows. An arc never does; a plain top does, where the
+     torso's edge meets the arm's. The PLAIN TOP is the control and must FAIL. */
+  const biggestStep = (o, y0, y1) => { let worst = 0, prev = null;
+    for (let y = y0; y <= y1; y++) { const sp = rowSpan(o, y); if (!sp) { prev = null; continue; }
+      if (prev) worst = Math.max(worst, Math.abs(sp[0] - prev[0]), Math.abs(sp[1] - prev[1]));
+      prev = sp; }
+    return worst; };
+  let torsoTop = 1e9;
+  for (let i = 0; i < g.length; i++) if (g[i] === 4) { const y = (i / CW) | 0; if (y < torsoTop) torsoTop = y; }
+  const arcStep   = biggestStep(G.genTop(g, { ramp: R, sleeves: true, shoulder: 'arc' }), torsoTop, armTop + 6);
+  const plainStep = biggestStep(G.genTop(g, { ramp: R, sleeves: true }), torsoTop, armTop + 6);
+  ok('RNWY-02: the ARC shoulder has NO shoulder point (biggest edge step ' + arcStep + ' px, an arc allows 1)', arcStep <= 1);
+  ok('CONTROL: a PLAIN top DOES have a shoulder point (' + plainStep + ' px) -- a ruler that finds none is not looking at the shoulder', plainStep >= 2);
+
+  /* RNWY-05/08: two visible hem lines, >= 2 cells apart at 56, lower layer longer.
+     Counted as SILHOUETTE STEPS below the waist that belong to the garment -- the
+     first cut of this shape put its two hems ONE row apart and the only visible step
+     was the ARMS ending, which is not a hem. The plain top is the control again: one
+     hem, no stack. */
+  const hemSteps = (o) => { const steps = []; let prev = null;
+    for (let y = torsoBot; y <= torsoBot + 10; y++) { const sp = rowSpan(o, y); const wd = sp ? sp[1] - sp[0] + 1 : 0;
+      if (prev !== null && wd !== prev) steps.push(y); prev = wd; }
+    return steps; };
+  const layS = hemSteps(G.genTop(g, { ramp: R, sleeves: true, cut: 'layered' }));
+  const plnS = hemSteps(G.genTop(g, { ramp: R, sleeves: true }));
+  const laySpread = layS.length >= 2 ? layS[layS.length - 1] - layS[0] : 0;
+  ok('RNWY-05/08: the LAYERED top shows two hem lines at least 2 cells apart (steps at rows ' + layS.join(',') + ')',
+     layS.length >= 3 && laySpread >= 2 * S);
+  ok('CONTROL: a PLAIN top has no stack (steps at rows ' + plnS.join(',') + ')', plnS.length < 3);
+
   const asymRange  = hemRange(G.genCoat(g, { ramp: R, asym: true, len: 0.56 }));
   const asymShort  = hemRange(G.genCoat(g, { ramp: R, asym: true, len: 0.34 }));
   const plainRange = hemRange(G.genCoat(g, { ramp: R, len: 0.56 }));

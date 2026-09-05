@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5z - THE CROWD CARRIES THE SIGN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5ab - THE SHOULDER HAS NO CORNER</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -23690,6 +23690,17 @@ window.CLO=(function(){
                           trousers. Every top in this wardrobe stopped dead at the
                           torso, which is why the whole cast reads waist-high. */
     var wideSh=(opt.shoulder==='wide'), longline=(opt.cut==='long');
+    /* THE CARD ASKS FOR BOTH SHOULDERS AND WE HAD BUILT ONE (9/5, batch 5).
+       RNWY-02: pole A is reached EITHER by a square cut OR by "a full cocoon arc,
+       one curve neck to elbow with NO shoulder point". The pad above is the square
+       one. This is the arc: the outer edge leaves the neck, swells over the
+       shoulder and comes back in at the elbow as a single curve, so there is no
+       corner anywhere on it. A dome, not a box.
+       RNWY-05/08: pole B wants two visible hem lines, lower layer longer. A fit
+       stacks -- a shirt over trousers -- but NO SINGLE GARMENT in this wardrobe
+       carries its own second hem, and a stack you can only get by putting two
+       things on is not what the card is describing. */
+    var arcSh=(opt.shoulder==='arc'), layered=(opt.cut==='layered');
     var w={}; for(i=0;i<g.length;i++){var p=g[i],y=(i/CW)|0;
       if(p===4)w[i]=1;
       else if(p===5&&sleeves!=='none'&&y<=scutL)w[i]=1;
@@ -23704,6 +23715,52 @@ window.CLO=(function(){
        pixel with no body under it and no garment beside it is not an oversized
        shoulder, it is a bug that measured fine. */
     var aTop=CH; for(i=0;i<g.length;i++){var pB=g[i];if((pB===5||pB===6)){var yB=(i/CW)|0;if(yB<aTop)aTop=yB;}}
+    /* THE ARC. Its swell follows a half-ellipse over the shoulder rows, so the
+       outline has a continuous curve and never a step: e(y) = round(peak *
+       sqrt(1 - t^2)) with t running -1 to 1 across the band. Derived per row off
+       the body's OWN edge, the fix this lane already paid for once when a square
+       pad grown off the arm's widest row floated in mid-air. */
+    var arcTopY=tTop, arcBotY=aTop+6*S, arcPeak=2*S;
+    if(arcSh&&aMx>=0){
+      /* *** THE FIRST CUT STILL HAD A POINT, AND THE GATE MEASURED IT AT 4 PX. ***
+         A swell added to each row's own edge cannot remove a corner, because THE
+         CORNER IS IN THE BODY: the torso is 10 cells across and the arms make it
+         16, so the outline jumps three cells each side on the row the arms begin.
+         Adding fabric outboard of that jump keeps the jump.
+         SO THE ARC IS BUILT AS AN ABSOLUTE TARGET EDGE PER ROW, ramping IN above
+         the shoulder so the outline has arrived at the arm's width before the arms
+         do, then swelling and closing below it -- and the whole column is smoothed
+         so no two neighbouring rows differ by more than one cell. That is what "no
+         shoulder point" means as a measurement: no step. */
+      var tgtL=[],tgtR=[],rowsA=[];
+      for(var yA=arcTopY;yA<=arcBotY;yA++){
+        var rMnA=CW,rMxA=-1;
+        for(var xA=0;xA<CW;xA++){var gA=g[yA*CW+xA]; if(gA===4||gA===5||gA===6){if(xA<rMnA)rMnA=xA;if(xA>rMxA)rMxA=xA;}}
+        if(rMxA<0)continue;
+        rowsA.push(yA);
+        if(yA<aTop){
+          /* ABOVE THE SHOULDER THE RAMP IS EXPLICIT, not left to the clamp. The
+             clamp only FORBIDS a step bigger than one cell; it does not MAKE the
+             outline widen, so the rows above the arms stayed at torso width and the
+             jump simply moved down a row. Here each row above the arms sits exactly
+             one cell inside the row below it, so the outline has arrived at the
+             arm's width by the time the arms do. The neck row is left alone: a bar
+             of cloth up there is a collar shelf, not a shoulder. */
+          tgtL.push(aMn+(aTop-yA)); tgtR.push(aMx-(aTop-yA)); continue; }
+        var tA=((yA-arcTopY)/Math.max(1,(arcBotY-arcTopY)))*2-1;         /* -1 .. 1 */
+        var eA=Math.round(arcPeak*Math.sqrt(Math.max(0,1-tA*tA)));
+        tgtL.push(rMnA-eA); tgtR.push(rMxA+eA); }
+      /* smooth: walk down, then back up, clamping every neighbour to one cell */
+      for(var q=1;q<tgtL.length;q++){ if(tgtL[q]<tgtL[q-1]-S)tgtL[q]=tgtL[q-1]-S; if(tgtR[q]>tgtR[q-1]+S)tgtR[q]=tgtR[q-1]+S; }
+      /* THE BACKWARD PASS HAD THE FORWARD PASS'S COMPARISON and so did nothing: it
+         is the one that must WIDEN the rows ABOVE the shoulder, so the outline has
+         already reached the arm's width before the arms arrive. Without it the body
+         still jumped and the gate still measured a point. */
+      for(var q2=tgtL.length-2;q2>=0;q2--){ if(tgtL[q2]>tgtL[q2+1]+S)tgtL[q2]=tgtL[q2+1]+S; if(tgtR[q2]<tgtR[q2+1]-S)tgtR[q2]=tgtR[q2+1]-S; }
+      for(var q3=0;q3<rowsA.length;q3++){ var yR=rowsA[q3];
+        for(var xR=tgtL[q3];xR<=tgtR[q3];xR++){
+          if(xR<0||xR>=CW)continue; var iR=yR*CW+xR, gR=g[iR];
+          if(gR===1||gR===2||gR===7||gR===8)continue; w[iR]=1; } } }
     var shBotY=aTop+3*S;
     /* THE PAD GROWS OUT OF *THIS ROW'S* EDGE, NOT THE ARM'S WIDEST ROW, AND THAT
        IS THE SECOND LOOKING FIX ON THIS ONE GARMENT. Measuring aMn/aMx over the
@@ -23725,6 +23782,35 @@ window.CLO=(function(){
         if(rMx+dH<CW){var iR2=yH*CW+(rMx+dH);if(g[iR2]!==1&&g[iR2]!==2)w[iR2]=1;} } } }
     /* LONGLINE: the hem carries past the hip. It covers the top of the legs and the
        gap between them, so the silhouette below the waist is ONE mass, not two. */
+    /* THE SECOND HEM. The outer layer stops just past the waist and a NARROWER,
+       LONGER under-layer shows below it, so the body carries two horizontal lines
+       two cells apart instead of one. Narrower on purpose: if both hems were the
+       same width the upper one would sit on the lower one's silhouette and vanish,
+       which is the card's own warning that a stack "stays readable or it is a blob".
+       AND IT NEVER RUNS DOWN AN ARM -- the lesson the longline cost this lane. */
+    var layBot=tBot, layMid=tBot;
+    if(layered){ var leY=pExt(g,9),reY=pExt(g,10);
+      /* THE OUTER HEM SITS AT THE WAIST, NOT BELOW IT, and the gate is why: with the
+         outer at tBot+2 and the under at 0.35 of the leg, this garment's OUTLINE was
+         within 14% of the LONGLINE's, which is the dead V-NECK's failure between two
+         of my own shapes. A layered top is a SHORT outer over a LONG under; a
+         longline is one long hem. Making the outer shorter and the under longer is
+         what makes them two garments instead of two names. */
+      layMid=tBot+2*S;                                                   /* the outer hem: it needs a BAND to be a hem. Set flush to the waist
+                                                                            it had no rows of its own, so the only steps in the outline were the
+                                                                            arms ending and the under layer ending -- two, where a stack is three. */
+      /* 0.35, NOT 0.22, AND MEASURING SAID SO. At 0.22 the two hems landed on rows
+         34 and 35 -- ONE ROW APART -- and the only visible step in the silhouette
+         was the ARMS ending, not either hem. The card wants the lines >= 2 cells
+         apart at 56 and the stack "readable or it is a blob". At 0.35 they sit on
+         34 and 37 with the under layer a cell narrower each side, so the outline
+         steps twice and both steps belong to the garment. */
+      layBot=tBot+fr(Math.min(leY.mn,reY.mn),Math.max(leY.mx,reY.mx),0.50);   /* the under hem, well past the longline's 0.30 */
+      for(var yV=tBot+1;yV<=layBot;yV++){
+        var insV=(yV>layMid)?S:0;                                        /* the under layer is a cell narrower each side */
+        for(var xV=tMn+insV;xV<=tMx-insV;xV++){
+          if(xV<0||xV>=CW)continue; var gV=g[yV*CW+xV];
+          if(gV===1||gV===2||gV===5||gV===6||gV===7||gV===8)continue; w[yV*CW+xV]=1; } } }
     var llBot=tBot;
     if(longline){ var leL=pExt(g,9),reL=pExt(g,10);
       llBot=tBot+fr(Math.min(leL.mn,reL.mn),Math.max(leL.mx,reL.mx),0.30);
@@ -23768,6 +23854,18 @@ window.CLO=(function(){
          the shading it always had. */
       if(wideSh&&y<=shBotY&&(g[ii]!==4&&g[ii]!==5&&g[ii]!==6)){ if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;   /* the pad's hard vertical edge -- the pad IS the cells with no body under them, which is true per row */
         else if(y>=shBotY-(S-1))c=r.dk;                                  /* and the hard horizontal one it drops off */
+        else if(x<cx)c=r.lt; }
+      /* THE ARC IS SHADED AS ONE CURVED MASS: its edge dark, its crown lit, and NO
+         hard horizontal anywhere -- a drop line would put back the corner the shape
+         exists to remove. */
+      if(arcSh&&y<=arcBotY&&(g[ii]!==4&&g[ii]!==5&&g[ii]!==6)){
+        if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
+        else if(x<cx)c=r.lt; }
+      /* THE TWO HEMS, each drawn as its own line so both read */
+      if(layered&&y>tb){ if(y>=layMid-(S-1)&&y<=layMid)c=r.dk;           /* the outer hem */
+        else if(!inG(x,y+1))c=r.dk;                                      /* the under hem */
+        else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
+        else if(y>layMid)c=mix(r.mid,0.85);                              /* the under layer sits back in shadow */
         else if(x<cx)c=r.lt; }
       if(longline&&y>tb){ if(!inG(x,y+1))c=r.dk;                         /* the long hem */
         else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
@@ -26743,6 +26841,16 @@ window.CLO=(function(){
     {n:'ASH SHIELD',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'visor'}),ASHGREY,10);}},
     {n:'FACE WRAP',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'facewrap'}),CHARCLOTH,12);}},
     {n:'ASH FACE WRAP',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'facewrap'}),ASHGREY,12);}},
+    /* ---- THE RUNWAY, BATCH 5 (9/5/26) -- THE TWO SHAPES THE CARD ASKS FOR BY NAME
+       AND THE WARDROBE DID NOT HAVE. RNWY-02: pole A offers a square shoulder OR a
+       cocoon ARC, and we had built only the square one. RNWY-05/08: pole B wants two
+       visible hem lines with the lower layer longer, and while a FIT stacks, no
+       single garment carried its own second hem. ---- */
+    {n:'ARC SHOULDER TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:'short',neck:'crew',shoulder:'arc'}),CHARCLOTH,12);}},
+    {n:'ASH ARC SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:ASHGREY,sleeves:'long',neck:'crew',shoulder:'arc'}),ASHGREY,12);}},
+    {n:'LAYERED JERSEY',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:FADEDBLK,sleeves:'long',neck:'crew',cut:'layered'}),FADEDBLK,12);}},
+    {n:'ASH LAYERED TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:ASHGREY,sleeves:'short',neck:'crew',cut:'layered'}),ASHGREY,12);}},
+    {n:'ARC LAYERED SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:'long',neck:'crew',shoulder:'arc',cut:'layered'}),CHARCLOTH,12);}},
   ];
   /* THUMBS PERSIST (Paolo 7/19: "some of the previous ones already thumbed up
      didn't get transferred"): his taps were memory-only and died on reload.
