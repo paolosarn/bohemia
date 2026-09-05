@@ -113,7 +113,7 @@ STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all rea
 ## LIFE + CITY  (03. the city-builder tab and the aerial view; the buildings, the housing, the century)
 MODE: BUILD
 STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit.js, cityTapPlot). NOT built: nothing produces (produce() has one caller and it is a gate), nothing houses anybody, building is free, the builder is not reachable from the walked surface or the demo, no century record exists. Unverified: whether the aerial build panel works on a real phone (a backlog row says its touch path once crashed).
-- CLAIMED 9/5 city-1eztay  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
+- SHIPPED 9/5 93a0c3f  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
 - OPEN  [buildings produce]  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - OPEN  [building costs]  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
 - OPEN  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
@@ -144,7 +144,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 ## RUN  (01. the walked surface)
 MODE: BUILD
 STATE: the door opens on the played surface, the demo build exists (re-cut 9/1), the save is hardened and carries day/clock/position/quest/purse; road interrupts fire only on map travel. NOT built: the people inside the save, a title or stop-and-return, an ending that is not bed. Unverified: the demo re-cut is byte-current with the city file.
-- OPEN  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
+- CLAIMED 9/4 run-eak241  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - OPEN  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
 - OPEN  [debts named]  BB-WHAT-YOU-OWE
@@ -203,7 +203,7 @@ MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't impl
 STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes measured against 617 films; the language cap (8/26) stands. This lane does not implement; it researches how people talk and writes test lines to a bank.
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q1_TELL_THEM_APART_9_4_26.md  [telling apart]  Q1  Two people, three lines each, and you can tell them apart with the names removed. What the best-written games do with vocabulary, rhythm and the thing a person never says. Measure our 504 NPC lines for it.
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q2_SPEECH_UNDER_STRESS_9_4_26.md  [stressed speech]  Q2  How a person talks when they are lying, scared, or exhausted, in TEXT with no voice actor. The real science of speech under stress (hesitation, repair, shortened sentences) and which games get it onto the page.
-- CLAIMED 9/4 words-8dqrnq  [crowd talk]  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
+- SHIPPED 9/4 records/BOHEMIA_WORDS_Q3_HOW_A_CROWD_TALKS_9_4_26.md  [crowd talk]  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
 - OPEN  [beat speech]  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a line that lands ON the beat does that one that drifts does not.
 - OPEN  [refusing answers]  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns something. Against our asking module's eighteen blocks.
 - OPEN  [power talk]  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a camp kid to anyone. Test lines for one exchange at each gap.
@@ -264,7 +264,7 @@ STANDING DUTY (9/4 law): EVERY COOK CARRIES A REFERENCE CHECK. Compare it side b
 MODE: RESEARCH -- the game's identity is "the most realistic economic crash simulator, but fun", and the builder half is a quarter built. Research only; every finding becomes a WORLD job later. No game he has not named enters the design; bring back mechanics in plain words.
 STATE: the game's identity is the most realistic economic crash simulator, but fun; the builder half is a quarter built and nothing drains. This lane does not implement; every finding becomes a WORLD or LIFE + CITY job.
 - SHIPPED 9/5/26  records/BOHEMIA_ECONOMY_DAY_1_THE_PRICE_IS_NOT_THE_STORY_9_5_26.md  [money dies]  Q1  The first thirty days after a currency dies. What actually happened to prices, wages and shops in Argentina 2001, Zimbabwe 2008, Venezuela, Lebanon 2019. Which of it a player would feel in a first hour.
-- OPEN  [money returns]  Q2  How money comes back. How a good becomes money when the money is gone (POW-camp cigarettes, prison mackerel, detergent, phone credit) and what makes it fail. Test the battery against every failure.
+- CLAIMED 9/5/26 economy-knxaeh  [money returns]  Q2  How money comes back. How a good becomes money when the money is gone (POW-camp cigarettes, prison mackerel, detergent, phone credit) and what makes it fail. Test the battery against every failure.
 - OPEN  [rebuild order]  Q3  What people rebuild first. Cuba's Special Period, post-Katrina New Orleans, Detroit, post-Soviet towns: the real order of rebuilding, for the century rule's sequence.
 - OPEN  [first building]  Q4  Placing a building that feels good in the first hour. What the best builder games ever made do in the first ten minutes of building, and what makes a placed building feel like it did something.
 - OPEN  [numberless economy]  Q5  An economy with no numbers on screen. How the best games show scarcity, price and wealth without a spreadsheet. Against our one-number rule.
