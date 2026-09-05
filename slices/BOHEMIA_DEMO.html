@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5h - THE GENERATION TURNS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5g - A BUILDING COSTS A BATTERY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -29358,75 +29358,6 @@ function dirExport(){
 }
 
 
-/* ================= __DIR_FAMILY__ : TURN A LIFE INTO A LEGEND ================
-   HE MUST BE ABLE TO DIRECT IT (8/12): every system he has to make decisions
-   about ships with an instrument for making them, IN A TAB, the same turn.
-
-   WHAT HE IS DIRECTING HERE IS NOT THE MECHANISM, IT IS THE MOMENT. How a
-   reputation crosses a generation is mine and it is built -- only what somebody
-   RETOLD survives, and everything an eyewitness alone knew dies with them. WHEN
-   a generation turns is a story decision and it is his, and the game has no such
-   beat yet, so without this the answer to "where does he change this himself"
-   would be "he tells me and I edit a file", which the law says is not shipped.
-
-   IT IS DESTRUCTIVE AND IT SAYS SO. A fold kills every eyewitness memory in the
-   valley and cannot be undone from here, so it asks twice. That is not timidity
-   about a dev control: the thing it destroys is the only record of what the
-   player did, and a button that quietly eats a life the first time it is tapped
-   is a button he stops trusting -- the lesson the VOTE tab paid for on 8/28,
-   when three weeks of verdicts turned out never to have been written down. */
-function dirFoldRow(){
-  var host=document.getElementById('dirList'); if(!host) return;
-  var w=document.createElement('div');
-  w.style.cssText='margin-top:14px;padding-top:12px;border-top:1px solid #2a2a2a';
-  var h=document.createElement('div');
-  h.style.cssText='font:11px ui-monospace,monospace;letter-spacing:1px;color:#8a7a5a;margin-bottom:6px';
-  h.textContent='THE GENERATION TURNS';
-  w.appendChild(h);
-  var p=document.createElement('div');
-  p.style.cssText='font:12px/1.5 system-ui,sans-serif;color:#9a9a9a;margin-bottom:8px';
-  p.textContent='Everyone who only WATCHED what you did takes it to the grave. '
-    + 'What people repeated is what your heir gets judged for. This cannot be undone.';
-  w.appendChild(p);
-  var b=document.createElement('button');
-  /* 44px: THE THUMB, and the UI lane measured twelve of thirteen demo controls
-     under it on 8/30 because nothing in ~453 gates had ever checked one. */
-  b.style.cssText='min-height:44px;padding:0 16px;font:12px ui-monospace,monospace;'
-    + 'letter-spacing:1px;background:#241c14;color:#d8b45a;border:1px solid #4a3a22;'
-    + 'border-radius:6px';
-  b.textContent='FOLD A GENERATION';
-  var armed=false;
-  b.addEventListener('click', function(){
-    var n=document.getElementById('dirNote');
-    if(!armed){ armed=true; b.textContent='TAP AGAIN TO FOLD';
-      if(n) n.innerHTML='<b>this kills every eyewitness memory in the valley</b>'
-        + ' · tap again if you mean it';
-      return; }
-    armed=false; b.textContent='FOLD A GENERATION';
-    var fr=document.getElementById('cityFrame');
-    /* A FRAME THAT WAS NOT FOUND IS NOT SILENTLY SKIPPED (8/21, RUN lane): the
-       note above promises something happened, and on a miss he would get the
-       promise and nothing else. */
-    if(!fr||!fr.contentWindow){
-      if(n) n.innerHTML='<b>the city is not open</b> · open RUN once, then fold';
-      return; }
-    fr.contentWindow.postMessage({type:'BOHEMIA_FOLD_GENERATION'},'*');
-    if(n) n.innerHTML='<b>folding…</b>';
-  });
-  w.appendChild(b);
-  host.appendChild(w);
-}
-/* the city answers with what actually survived, because a control that says it
-   worked is worth less than one that says what it cost. */
-window.addEventListener('message', function(ev){
-  var d=ev&&ev.data; if(!d||d.type!=='BOHEMIA_FOLDED') return;
-  var n=document.getElementById('dirNote'); if(!n) return;
-  var r=d.result;
-  n.innerHTML = r
-    ? '<b>generation '+r.gen+'</b> · '+r.carried+' still told, '
-      + r.died+' died with the people who saw them'
-    : '<b>nothing folded</b> · the city could not run it';
-});
 /* ================= __DIR_STANDING__ : THE DIAL FOR WHAT A DEED IS WORTH ======
    *** WHERE DOES HE CHANGE THIS HIMSELF? *** (HE MUST BE ABLE TO DIRECT IT, 8/12.)
    The PEOPLE lane shipped a reputation system over three turns -- people witness
@@ -29553,7 +29484,6 @@ function dirRender(){
       var e=document.getElementById(id); if(e){ e.innerHTML=''; }
     });
     dirDial();
-    dirFoldRow();          /* __DIR_FAMILY__ */
     var n=document.getElementById('dirNote');
     var set=Object.keys(DIR_W).length;
     n.innerHTML = set

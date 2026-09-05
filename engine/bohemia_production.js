@@ -161,8 +161,97 @@
              made: made, refused: refused, balances: P.balances(purse) };
   }
 
+  /* ---------------------------------------------------------------------------
+     5. WHAT A BUILDING COSTS TO PUT DOWN. (VAMILY job [building costs] /
+        BUILD-COSTS-ITS-PRICE: "CE.build debits PRICES; building is free today and
+        the 8/15 law says the pipe must be exercised".)
+
+     MEASURED BEFORE WRITING IT: the whole consequence of placing a building was
+     CBafterEdit() -- persist a delta, clear two caches, redraw. Purse touched 0.
+     Free, silent, instant. So section 4 above had made the BUILD button a pure
+     faucet: place a plot, get paid every wake beat, forever, for nothing. A
+     faucet with no drain is the exact failure the purse's own header exists to
+     measure, and I built half of it last round. This is the other half.
+
+     THE PRICE IS HIS, TWICE OVER, AND NEITHER HALF IS A GUESS.
+       8/15 LOCKED: "just make everything cost one."
+       9/4  LOCKED: "i dont want there to be money money maybe electronics like
+                     batteries are the currency."
+     So a building costs ONE BATTERY. Buying is already denominated in electricity
+     on the walked surface (payday's SALVAGE_CURRENCY, 9/5), and building is
+     buying, so this uses the money the shop already uses rather than inventing a
+     second till.
+
+     ONE BUILDING, ONE BATTERY -- NOT ONE PER LOT. A 2x2 spans four lots and is
+     still ONE building, the same unit demolish and produce() already count. Per-
+     lot pricing would make a stadium cost four while producing one, which is a
+     BALANCE decision with a real design consequence, and balance is his.
+     [PENDING Paolo: whether a 2x2 building should cost more than a 1x1.]
+
+     A SEPARATE TABLE FROM PURSE.PRICES, DELIBERATELY. The job's brief says "debits
+     PRICES", and the debit goes through the purse's own debit() so it lands as a
+     HARD SINK in the same ledger -- but the rows live here rather than in
+     PURSE.PRICES, because that table is keyed on GOODS (water, food, meds) and
+     mixing two vocabularies in one table is how a list that reads it starts
+     getting 59 districts it never asked for. One table, one vocabulary.
+
+     NO REFUND ON DEMOLISH. Nobody ruled what knocking a building down gives back,
+     and the honest answer to a question nobody asked is silence, not 50%.
+     --------------------------------------------------------------------------- */
+  var COST_RULING = '8/15 EVERYTHING COSTS ONE + 9/4 BATTERIES ARE THE MONEY';
+  var COST_CURRENCY = 'electricity';
+  var COST_AMOUNT = 1;
+  var COST = {};                       /* buildingId -> {currency, amount, ...} */
+
+  function installCost(DISTRICT) {
+    var CE = EDIT();
+    if (!CE) return { installed: 0, kept: 0, types: 0 };
+    var t = CE.buildableTypes(DISTRICT) || [], added = 0, kept = 0;
+    for (var i = 0; i < t.length; i++) {
+      if (has(COST, t[i])) { kept++; continue; }        /* his ruling always wins */
+      COST[t[i]] = { currency: COST_CURRENCY, amount: COST_AMOUNT,
+                     ruling: COST_RULING, tuned: false };
+      added++;
+    }
+    return { installed: added, kept: kept, types: t.length };
+  }
+
+  function priceOf(type) { return has(COST, type) ? COST[type] : null; }
+
+  /* CAN HE AFFORD IT. Answered separately from charging it, because the panel has
+     to say the price and the refusal BEFORE he taps, not only after. */
+  function canAfford(purse, type) {
+    var P = PURSE(), row = priceOf(type);
+    if (!P || !purse) return { ok: false, reason: 'NO_PURSE' };
+    if (!row) return { ok: false, reason: 'NO_RULING', key: type,
+                       about: 'what this costs to build is Paolo\'s ruling' };
+    var have = P.balance(purse, row.currency);
+    return { ok: have >= row.amount, have: have, price: row.amount,
+             currency: row.currency,
+             reason: have >= row.amount ? null : 'CANNOT_AFFORD' };
+  }
+
+  /* THE CHARGE. A HARD SINK through the purse's own debit(), so the batteries are
+     DESTROYED rather than moved -- the half of a faucet-and-drain economy that
+     actually fights inflation, and the reason section 4's yield is safe to exist.
+     THE ORDER MATTERS AND IT IS CHECK -> BUILD -> CHARGE. Charging first and
+     unwinding on a refused build would put a debit and a refund in the ledger for
+     a building that never existed, and the ledger is the record a save is read
+     back from. Checking first means the debit's only failure mode (INSUFFICIENT)
+     has already been ruled out, so a built plot can never end up free. */
+  function charge(purse, type, day, ref) {
+    var P = PURSE(), row = priceOf(type);
+    if (!P || !purse) return { applied: false, reason: 'NO_PURSE' };
+    if (!row) return { applied: false, reason: 'NO_RULING', table: 'COST', key: type };
+    return P.debit(purse, row.currency, row.amount, 'build:' + type,
+                   ref == null ? null : ref, day);
+  }
+
   var API = { RULING: RULING, DEFAULT_CURRENCY: DEFAULT_CURRENCY,
-              install: install, placed: placed, producedOn: producedOn, tick: tick };
+              COST: COST, COST_RULING: COST_RULING, COST_CURRENCY: COST_CURRENCY,
+              install: install, placed: placed, producedOn: producedOn, tick: tick,
+              installCost: installCost, priceOf: priceOf, canAfford: canAfford,
+              charge: charge };
   if (HASREQ) module.exports = API;
   root.BohemiaProduction = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

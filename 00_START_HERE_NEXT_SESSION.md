@@ -585,6 +585,60 @@ round and folded into THE RUN, and 18 PLUMBER is the pipe fixer. My section is 0
 CITY, MODE BUILD. [buildings produce] PRODUCTION-TICK is SHIPPED, so I hold no claimed job
 and took the first OPEN line: [building costs] BUILD-COSTS-ITS-PRICE. Claimed, committed and
 pushed BEFORE starting, per front-page rule 5 and his step 5.
+
+*** [building costs] BUILD-COSTS-ITS-PRICE: SHIPPED. NOTHING GOES DOWN FOR FREE, AND THE
+FAUCET I SHIPPED LAST ROUND NOW HAS ITS DRAIN. *** Measured before writing a line: the whole
+consequence of placing a building was persist a delta, clear two caches, redraw. Purse
+touched ZERO. So last round's wake-beat yield had made the BUILD button a PURE FAUCET --
+place a plot, get paid every morning, forever, for nothing. That is the inflation failure
+the purse's own header exists to measure, and I built half of it in this lane's name.
+  WHAT SHIPPED: the same module now holds what a building MAKES and what it COSTS, in one
+file on purpose, because the faucet and the drain are one economy and putting them in two
+places is how one of them gets forgotten. 59 cost rows read off the BUILD button's own type
+list. canAfford answers BEFORE the tap so the price is on the plot, not just the refusal
+after it. charge goes through the purse's own debit so it lands as a HARD SINK -- value
+destroyed, not moved; a transfer looks identical in the balance and is wrong in the
+measurement, which is the whole reason the purse is a ledger and not three counters.
+  THE PRICE IS HIS TWICE OVER: 8/15 "everything costs one" and 9/4 "batteries are the
+currency". ONE BATTERY, out of the same pocket the shop already charges -- a gate leg goes
+red if the build till and the shop till ever name different money.
+  [PENDING Paolo] SHOULD A 2x2 BUILDING COST MORE THAN A 1x1? Today one building is one
+battery whatever its footprint, the same unit demolish and produce() count. Per-lot pricing
+would make a stadium cost four and produce one, which is a balance decision with a real
+design consequence, and balance is his.
+  NO REFUND ON DEMOLISH: nobody ruled what knocking one down gives back, and the honest
+answer to a question nobody asked is silence, not 50%.
+  THE ORDER IS THE CORRECTNESS ARGUMENT: CHECK -> BUILD -> CHARGE. Charging first and
+unwinding a refused build would put a debit and a refund in the ledger for a building that
+never existed, and the ledger is what a save is read back from. Checking first means the
+debit's only failure has already been ruled out, so a plot that went down can never be free.
+  WHAT HE SEES: broke -- "that costs one battery and you have none. Finish a job and come
+back." Funded -- "costs one battery, you have one." AND THE FIRST CUT SAID IT TWICE: the
+refusal was appended UNDER the standing price line, so the panel carried the price in two
+sentences -- the shelf's own 9/5 lesson repeated inside one panel. Caught it in a phone shot
+before it shipped, which is the only reason it did not.
+  GATE: gates/build_costs_its_price_gate.js, 14/0, registered. Mutation-tested three ways:
+remove the charge (2 legs red), remove the affordability check (3 red), make it a transfer
+instead of a drain (1 red). The leg worth pointing at is A9 -- a building can never pay its
+own price back, because it costs batteries and makes resources. That arithmetic is what
+keeps last round's yield safe, and it is a gate rather than a comment.
+  AND IT TURNED TWO OF MY OWN GATES RED, WHICH WAS CORRECT. builder_on_a_phone 5/1 and
+production_tick 10/4 the moment it landed, because both build a plot and building had just
+stopped being free. THE GAME CHANGED UNDER GATES THAT WERE STILL TRUE ABOUT THE OLD GAME.
+Both fixed with a FIXTURE (a battery in the pocket, which is what a finished job pays),
+never a softer assertion, each carrying a comment saying why the line is there so the next
+reader does not tidy it away.
+  IN THE DEMO, PROVEN NOT ASSUMED: booted the real cut demo, clicked through the splash,
+asked the city frame -- module present, cost row present, price line reads. Rule 7 met.
+  RECORD: records/BOHEMIA_A_BUILDING_COSTS_A_BATTERY_9_5_26.md
+  STILL RED ON MAIN AND STILL NOT MINE: demo_day_gate 23/1, "the money really left the purse
+(500 -> 500)". Same diagnosis as last round and unchanged by this work: the leg's own fixture
+credits and reads `resources` while WORLD's battery ship moved buying to `electricity`. A
+broken ruler in WORLD's gate. For the coordinator to route.
+  THE STANDING NOTE, SHARPER THAN LAST ROUND'S BECAUSE THE DANGER WAS MINE: WHEN YOU SHIP A
+FAUCET, THE DRAIN IS NOT THE NEXT JOB, IT IS THE SECOND HALF OF THIS ONE. The board happened
+to have them adjacent. It will not always.
+  NEXT OPEN LINE IN THIS LANE: [builder reachable] BUILDER-WHERE-HE-WALKS.
 WORLD (02 WORLD MODEL, session world-9lfjtf)
 
 *** PERMANENT INSTRUCTION FROM PAOLO, 9/5, WORD FOR WORD. IT LIVES HERE SO IT

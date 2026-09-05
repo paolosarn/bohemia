@@ -141,6 +141,18 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   if (found) {
     const before = await page.evaluate(() => (typeof CE !== 'undefined' && typeof EDITS !== 'undefined')
       ? CE.count(EDITS) : -1);
+    /* A BATTERY IN THE POCKET FIRST, AND THAT LINE IS NEW ON 9/5 FOR A GOOD REASON.
+       When this gate was written, building was FREE. The [building costs] job landed
+       a day later and BUILD now debits one battery, so this leg went red -- correctly:
+       the game changed under a gate that was still true about the old game. The fix is
+       a FIXTURE, not a softer assertion. The day loop pays a battery for a finished
+       job; this puts one in the pocket so the TOUCH path can be exercised without
+       playing a whole quest, which is the only thing this gate is about. Whether the
+       charge itself is right is gates/build_costs_its_price_gate.js's claim, not this
+       one's -- one job, one gate. */
+    await page.evaluate(() => {
+      try { BohemiaPurse.credit(purseGet(), 'electricity', 1, 'gate fixture', null, DAY.day);
+            CBpanel(); } catch (e) {} });
     const chose = await page.evaluate(() => {
       const s = document.getElementById('cbtype');
       if (!s || !s.options.length) return null;

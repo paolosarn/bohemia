@@ -166,6 +166,16 @@ ok('A8 production does not mint the money -- electricity and clout are untouched
     }
   }
   if (found) {
+    /* A BATTERY IN THE POCKET FIRST, NEW ON 9/5. When this gate was written, building
+       was free; the [building costs] job landed the same day and BUILD now debits one
+       battery, so B1 went red -- correctly, because the game changed under a gate that
+       was still true about the old game. A FIXTURE fixes that, never a softer
+       assertion: the day pays a battery for a finished job, and this puts one in the
+       pocket so the WAKE BEAT can be exercised without playing a whole quest. Whether
+       the charge is right belongs to gates/build_costs_its_price_gate.js. */
+    await page.evaluate(() => {
+      try { BohemiaPurse.credit(purseGet(), 'electricity', 1, 'gate fixture', null, DAY.day);
+            CBpanel(); } catch (e) {} });
     await page.evaluate(() => { const s = document.getElementById('cbtype');
       if (s && s.options.length) s.selectedIndex = 0; });
     const btn = await page.evaluate(() => { const b = document.getElementById('cbbuild');
