@@ -149,7 +149,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 MODE: BUILD
 STATE: the door opens on the played surface, the demo build exists (re-cut 9/4), the save is hardened and carries day/clock/position/quest/purse AND THE PEOPLE (minds/known/met/belong/deedweight, shipped 9/4), and as of 9/5 the five are walked through every one of the hostile browser's seven iOS failure modes plus the torn-write rollback, in Node and on the real page (SAVE IPHONE 44 -> 78); road interrupts fire only on map travel. MEASURED 9/5: the save is 3,683 bytes and 3,170 of them are the people, 2,928 of that the deed table. NOT built: a title or stop-and-return, an ending that is not bed. Unverified: roadInterrupt still has one caller and it is inside MODE==='city', so nothing fires on the walked street -- that is the next row.
 - SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
-- SHIPPED 9/5 PENDINGSHA  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
+- SHIPPED 9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
 - OPEN  [debts named]  BB-WHAT-YOU-OWE
 - OPEN  [drains shown]  BB-THE-SHADOW-OF-WHAT-YOU-DID
