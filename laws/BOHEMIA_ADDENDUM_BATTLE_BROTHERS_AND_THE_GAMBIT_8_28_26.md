@@ -296,6 +296,13 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   POWER, ASKING EATS CLOUT**, every amount 1, and having a resource grants
   ACCESS rather than a stat. Refused: a fourth currency, any meter on the
   body, ammunition as a purse line.
+- **EVERY ONE OF THESE IS 120 BPM FRIENDLY OR IT IS NOT DONE (Paolo 9/4,
+  LOCKED):** *"whatever mechanic u implement just make sure its 120 bpm
+  friendly for everything."* The 120 BPM LAW already binds the whole game
+  (BEAT=0.5s, everything quantizes); this applies it by name to all eighty
+  rows. A drain lands on the wake beat, the nightfall beat or the bell; a
+  claim is asked on the tap's beat; the ambience heartbeat is eight beats;
+  nothing ticks on wall-clock time.
 - **ROUTED:** eighty rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best

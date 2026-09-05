@@ -703,7 +703,17 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aa) LATEST -- *** DAY 23, ON HIS OWN
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ab) LATEST -- *** HE IS STARTING THE
+OTHER CHATS NOW, AND EVERY BB ROW IS 120 BPM FRIENDLY OR IT IS NOT DONE. ***
+Paolo 9/4: "Can I start telling the other chats to do shit now" -- yes, the top
+row of every lane is a BB row and GO pops it. And LOCKED, on every row: "whatever
+mechanic u implement just make sure its 120 bpm friendly for everything." Written
+into all eight lane banners and the 8/28 BB law. The 120 BPM LAW already binds the
+game; this names it on the eighty rows. A drain lands on the wake beat, the
+nightfall beat or the bell; a claim is asked on the tap's beat; the ambience
+heartbeat is eight beats; nothing ticks on wall-clock time.
+
+COORDINATOR: 9/4 (aa) -- *** DAY 23, ON HIS OWN
 DIRECTION: YOU NEVER SPEND A RESOURCE, WHAT YOU DID SPENDS IT. AND NOTHING YOU DO
 IN BOHEMIA COSTS ANYTHING. Eighty BB- rows. Nothing to judge. ***
 

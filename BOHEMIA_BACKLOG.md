@@ -1482,7 +1482,13 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
    AND THE PEOPLE ARE OUTSIDE IT. ***
    THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found
@@ -2477,7 +2483,13 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
    BUILT. ON THE DEMO PATH -- ONLY THE SECOND STUDY ROW THAT IS. ***
    MEASURED AND RUN 9/4, not read: finish a #notable job the way all 27 canon
@@ -5421,7 +5433,13 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
    SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.
    THE FIX IS ONE CONST. ***
@@ -5986,7 +6004,13 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
    MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
@@ -7763,7 +7787,13 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-THE-CITY-SENDS-WHERE. *** DAY 22. ONE MESSAGE, FOUR SYSTEMS, AND THE SURFACE
    HE WALKS DOES NOT SEND IT. THE FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
    SMALLEST FIX IN THE WHOLE STUDY. TAKE IT FIRST. ***
@@ -8782,7 +8812,13 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-THE-JOB-PAYS. *** DAY 20. 687 THINGS A JOB CAN DO AND NONE OF THEM IS PAY. ***
    MEASURED across all 27 playable canon quests: 687 @DO calls -- 203 set_stage,
    110 complete_objective, 93 learn, 82 faction, 58 bond, 51 show_objective, 50
@@ -9127,7 +9163,13 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
    IS HOW IT WILL GET LOST. WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS
    CHANCE ON YOU. ***
@@ -9700,7 +9742,13 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
 *** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
     first. None of the top rows waits on the demo build. Latest record:
     records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
-    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md
+    PAOLO 9/4, LOCKED, ON EVERY ROW BELOW: "whatever mechanic u implement just make
+    sure its 120 bpm friendly for everything." Every drain, every save, every sound,
+    every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
+    eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
+    tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
+    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
 BB-COLD-HAND. *** DAY 14. THE FIRST DEMO-CRITICAL ROW THIS STUDY HAS PRODUCED,
    AND IT IS A METHOD WE ALREADY OWN AND RAN EXACTLY ONCE. THIS ONE IS ON THE
    DEMO PATH, NOT BEHIND IT. ***
