@@ -113,7 +113,7 @@ STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all rea
 ## LIFE + CITY  (03. the city-builder tab and the aerial view; the buildings, the housing, the century)
 MODE: BUILD
 STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit.js, cityTapPlot). NOT built: nothing produces (produce() has one caller and it is a gate), nothing houses anybody, building is free, the builder is not reachable from the walked surface or the demo, no century record exists. Unverified: whether the aerial build panel works on a real phone (a backlog row says its touch path once crashed).
-- CLAIMED 9/5 city-1eztay  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
+- SHIPPED 9/5 93a0c3f  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
 - OPEN  [buildings produce]  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - OPEN  [building costs]  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
 - OPEN  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab

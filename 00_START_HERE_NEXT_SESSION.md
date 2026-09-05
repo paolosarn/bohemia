@@ -1,3 +1,38 @@
+LIFE + CITY (city-1eztay): 9/5 (a) LATEST -- *** VAMILY [builder works]
+BUILDER-ON-A-PHONE: SHIPPED. THE AERIAL BUILDER ANSWERS A THUMB. *** The job was
+prove-it-or-fix-it and it did not need fixing. Proven on an iPhone profile
+(390x844, hasTouch, isMobile) with page.tap() -- REAL touch events, not a
+synthesised click: GET UP -> "CITY" -> MODE=city -> a buildable DESERT plot found
+in 4 taps at (31,23) -> picked a type, TAPPED BUILD -> an airbase, EDITS 0 -> 1 ->
+tapped the plot again and DEMOLISH answered -> nothing thrown start to finish.
+Gate: gates/builder_on_a_phone_gate.js, 7/0, registered in the suite,
+mutation-tested by making BUILD ignore pointers (red at 0 -> 0 edits).
+  WHY TOUCH AND NOT A CLICK: the panel is built at tap time, wired with .onclick,
+and sits inside #stage beside a canvas whose handlers call setPointerCapture --
+the exact shape where a mouse works and a finger does not (7/18: "the wheel
+worked, which is exactly how a desktop-verified feature ships broken to his
+hand").
+  AND THE FIRST ENTRY LEG WENT RED ON AN INNOCENT BUTTON. It went straight for the
+CITY button and got MODE=human. The button was fine: the game opens on the COLD
+OPEN card and THE CITY BUTTON IS NOT ON SCREEN UNTIL GET UP IS TAPPED -- at boot
+the only reachable things are the card, the pad and MUSIC. Split before believing
+it: calling transition() directly moved human -> city, so the transition was
+healthy and my ENTRY PATH was wrong. The gate walks the game now, not my memory
+of it.
+  *** THE FINDING FOR THE NEXT LINE, MEASURED AND NOT ABSORBED INTO THIS ONE: THE
+BUILDER NEVER REACHES THE PLAYER. *** BOHEMIA_RUN_CURRENT.html -- the file the
+alpha's RUN tab AND the demo both load -- contains `cityTapPlot` 0 times,
+`buildpanel` 0, `cbbuild` 0, while BOHEMIA_CITY_WORLD.html has all three. The
+build verbs exist only in the walked city page. That is its own line further down this
+queue -- [builder reachable] BUILDER-WHERE-HE-WALKS, the fourth OPEN one, not the
+next -- and this section's STATE line already said it. Failing this job's gate on
+another job's work is how a red stops meaning anything, so it is measured and
+recorded rather than quietly folded in.
+  NEXT OPEN LINE IS [buildings produce] PRODUCTION-TICK: on the wake beat, walk
+every placed building and call produce(), which today has exactly ONE caller and
+it is a gate.
+  NO [PENDING Paolo] from this lane this turn.
+
 WORDS (words-8dqrnq): 9/4 (c) LATEST -- *** VAMILY Q3 [crowd talk]. OUR DIRECTOR CANNOT
 REPEAT ITSELF, AND THAT IS THE BUG. *** MODE: RESEARCH, nothing implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
