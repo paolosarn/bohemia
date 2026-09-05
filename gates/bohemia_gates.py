@@ -1631,6 +1631,8 @@ GATES = [
      'Paolo 8/1 the back of my outfits are the exact same when Im facing south: 19 generators read curDir and only the CLOTHES preview ever set it, so every garment rendered front-facing everywhere. The composite now feeds the frame direction and hands it back', False),
     ('CLIP HEALTH',   ['node', 'gates/clip_health_gate.js'],
      'the net under the whole animation lane: all 102 clips x 8 facings x the ENGINE\'s own bucket count -- nothing throws, nothing renders an empty body, nothing has gone still. Samples FRAME_CACHE.buckets so a coarse probe cannot invent a regression (a 4-phase sweep reported brace and winded frozen; at 24 they show 20 and 16 distinct frames)', True),
+    ('CLIP AUDIT',    ['node', 'gates/clip_audit_gate.js'],
+     'the vocabulary clip_health and loop_seam did not have: those two say CRASHES or MOVES and were green on all 105 clips while he called the set fucked. Holds the SET SIZE (105 = 64 canon + 41 candidates, a clip that stops being registered is invisible to every check that iterates CLIPS), NO TWO CLIPS THE SAME MOTION (two names one cycle is ONE ID ONE WHOLE PERSON with a different noun), and the HEAD-ON FLOOR -- head-on carries a median 41% of profile motion and must not decay while nobody looks. Prints the head-on gap and jump as AWAITING HIS VERDICT rather than burying a debt inside a green pass', True),
     ('MOTION VISIBLE',['node', 'gates/motion_visible_gate.js'],
      'a clip whose name promises movement actually moves PIXELS: pray and winded rendered zero changed pixels while "animating" at 0.2px on a 56px sprite', False),
     ('RIG CHECK',      ['python3', 'gates/rig_check_gate.py'],
