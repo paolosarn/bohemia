@@ -222,6 +222,19 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('THE FEED',       ['node', 'gates/feed_gate.js'],
+     'Paolo 9/4 LOCKED: in the zoomed-out city view a phone screen is part of the UI and it '
+     'scrolls a social feed -- what you did, what the world did, and auto-generated life -- '
+     'and reading it teaches the world. The law names this gate: a finished quest must reach '
+     'the feed within a beat and the feed must be present in CITY mode IN THE DEMO. It also '
+     'checks the feed is ABSENT while walking (he asked for it zoomed out, not over the game), '
+     'that the post quotes the quest\'s OWN reason line rather than prose about it (the 8/11 '
+     'catalogue rule), that the panel carries NO control so it can never become a tap target '
+     'under the thumb, and that it covers nothing. Timed in BEATS THE PAGE ACTUALLY RAN, not '
+     'on a stopwatch: posts are beat-quantised, so a 500ms stopwatch demands zero render time '
+     'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
+     'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
+     'lane, so they cannot hide inside this lane\'s green.', True),
     ('THE THUMB',      ['node', 'gates/thumb_gate.js'],
      'THE THUMB (44px, iPhone portrait) has been a standing law with NO GATE, and the day one '
      'was written TWELVE OF THIRTEEN tappable controls on the demo\'s first city screen were '

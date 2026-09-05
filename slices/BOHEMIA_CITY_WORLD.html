@@ -389,6 +389,22 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   <div id="keypanel"></div>
   <div id="pfpanel"></div>
   <div id="outfitpanel"></div>
+  <!-- __THE_FEED_ON_THE_CITY_SCREEN__ (Paolo 9/4, LOCKED; UI lane 9/5, board row
+       [city feed]). "when it's in zoomed out city mode, I do want part of the UI to
+       show like a phone screen and then the social post just like scrolling ... if you
+       read it you'll be able to learn more about the world and then you'll see your
+       quests that you've done."
+       A PHONE SCREEN THAT IS PART OF THE UI, not the full-screen phone. #phonewrap is
+       the job-offer phone from 8/12 and it covers the world; this one sits beside the
+       world and is only ever read. Read-only ON PURPOSE: it carries no control, so it
+       cannot become a tap target smaller than a thumb.
+       ARIA: aria-live so a screen reader announces a post instead of a stranger having
+       to notice a silent panel. -->
+  <div id="cityfeed" aria-hidden="true">
+    <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedclock">--:--</span></div>
+    <div id="cityfeedlist" role="log" aria-live="polite"></div>
+    <div id="cityfeedfade"></div>
+  </div>
   <div id="nav"><div id="pad"></div><div id="mode"><canvas id="modeFace" width="64" height="64"></canvas><span id="modeLbl">⤓ DROP IN</span></div></div>
 </div>
 </div>
@@ -505,6 +521,33 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        TAKEOVER PANELS    50 ..     things that own the screen while up
    Only this one covers the stage today, so only this one moves. The gate sweeps
    the general case so the next one is caught by the machine, not by my guessing. */
+/* __THE_FEED_ON_THE_CITY_SCREEN__ -- the phone screen that is part of the UI.
+   WHERE IT SITS is his by eye (9/4). Placed on the right edge because that column is
+   the only one free in city mode: the top bar owns the top, #blstack owns the left,
+   and #nav owns the bottom centre. Measured before choosing, not guessed.
+   It never covers the pad and it carries no control, so it cannot fail the thumb.
+   HIDDEN IN HUMAN MODE. The module toggles .on by polling MODE on the beat, so this
+   panel adds nothing to the city's own render path and cannot break it. */
+#cityfeed{position:absolute;right:7px;top:92px;width:132px;max-height:44%;z-index:26;
+  display:none;flex-direction:column;overflow:hidden;
+  border-radius:9px;background:linear-gradient(#12100c,#0b0a07);
+  border:1px solid #2c2418;box-shadow:0 6px 18px rgba(0,0,0,.6),inset 0 1px 0 rgba(226,210,160,.14);
+  font:10px/1.42 var(--fmono,ui-monospace,monospace);pointer-events:none;}
+#cityfeed.on{display:flex}
+#cityfeedbar{flex:0 0 auto;display:flex;align-items:center;gap:5px;padding:4px 7px;
+  border-bottom:1px solid #241d13;color:#8d8168;font-size:8px;letter-spacing:1px;}
+#cityfeedsig{color:#6f6a52;letter-spacing:0}
+#cityfeedname{flex:1;color:#c8b681;letter-spacing:1.5px}
+#cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative}
+#cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
+  transition:opacity .28s linear,transform .28s linear}
+#cityfeed .fp.in{opacity:1;transform:none}
+#cityfeed .fp .who{color:#c8b681;letter-spacing:.6px;font-size:9px}
+#cityfeed .fp .txt{color:#a99e86;margin-top:1px}
+#cityfeed .fp.mine .who{color:#9adfd0}
+#cityfeed .fp.world .who{color:#cfa96a}
+#cityfeedfade{position:absolute;left:0;right:0;bottom:0;height:22px;pointer-events:none;
+  background:linear-gradient(rgba(11,10,7,0),#0b0a07)}
 #phonewrap{position:absolute;inset:0;z-index:50;display:none;flex-direction:column;
   background:#070605}
 #phonewrap.on{display:flex}
@@ -51827,6 +51870,7 @@ document.getElementById('phonebtn').addEventListener('click',function(){
 });
 document.getElementById('phoneclose').addEventListener('click',phoneClose);
 
+<<<<<<< HEAD
 /* __THE_CITY_SENDS_WHERE__ (9/5, SOUNDS lane) -- ONE MESSAGE, FOUR SYSTEMS.
    MEASURED before this line existed, on the surface he walks: __AMB.seen was 0
    after 25 seconds of walking, __AMB.kind was null, __musicPhase() said NIGHT
@@ -51882,6 +51926,210 @@ function ctWhere(){
 window.__ctWhere=ctWhere;          /* so a gate can ask, and so a crossing can call */
 setInterval(ctWhere,4000);
 ctWhere();                         /* and once now, so the bed does not wait four seconds */
+=======
+/* ============================================================================
+   __THE_FEED_ON_THE_CITY_SCREEN__  (UI lane, 9/5/26, VAMILY board row [city feed])
+   Law: laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md
+
+   HIS WORDS: "when it's in zoomed out city mode, I do want part of the UI to show
+   like a phone screen and then the social post just like scrolling ... if you read
+   it you'll be able to learn more about the world and then you'll see your quests
+   that you've done."
+
+   WHAT THIS IS AND WHAT IT IS NOT. The law routes the SURFACE here and the STREAM to
+   WORLD/PEOPLE (THE-FEED-STREAM). So this is a reader, not a source: it owns the
+   phone screen, the scroll and the beat, and it consumes whatever the game already
+   writes. It invents no memory of its own.
+
+   REUSE-FIRST, and here is exactly what it reuses rather than rebuilding:
+     WHAT YOU DID    DQ.shared.log -- the deed ledger that already exists. THE VALLEY'S
+                     MEMORY OF WHAT YOU DID TO IT pushes {kind,who,d,why,quest} and
+                     KEEPS THE REASON: the completing stage's own @LOG line. So a post
+                     about your standing can quote the quest's own words and never
+                     prose written about it, which is the 8/11 catalogue rule.
+     WHAT THE WORLD  window.BOHEMIA_FEED.push(post) -- the seam. WORLD/PEOPLE own the
+     DID             faction event stream; when it lands it calls this and the surface
+                     is already here. Until then that source is EMPTY, on purpose: the
+                     mechanism is mine, the contents are not.
+     LIFE            LIFE[] below -- ambient posts so the valley reads as alive when
+                     nothing is happening. TEXT, so ALWAYS MAKE AN ATTEMPT (8/11)
+                     applies: real attempts, draft:true, WORDS edits them later.
+
+   120 BPM: BEAT is 500ms and every post lands on one. Nothing here animates off-beat.
+
+   IT TOUCHES NOTHING. The panel shows and hides by POLLING MODE on the beat rather
+   than hooking the city's own mode swap, so this module adds zero lines to a render
+   path another lane owns and cannot break one. Same reasoning the demo cut uses.
+   ============================================================================ */
+window.BOHEMIA_FEED = (function(){
+  var LIST, PANEL, CLOCK, on=false, seen=0, posts=[], MAX=14, t=0;
+  var FEED_BEAT = (typeof BEAT==='number'? BEAT : 500);
+
+  /* AMBIENT LIFE. draft:true -- these are a real attempt, not filler, and WORDS owns
+     the voice. They are deliberately small and unheroic: a feed that only announces
+     your deeds reads as a scoreboard, and he asked to LEARN THE WORLD from it. */
+  var LIFE = [
+    {who:'@waterline',  txt:'queue at the standpipe is round the block again. bring something to sit on.', draft:true},
+    {who:'@nobodysgas', txt:'two batteries for a full can. that is the price now, stop asking me.', draft:true},
+    {who:'@eastwardEve',txt:'somebody swept the whole block on Sahara. no idea who. it was not us.', draft:true},
+    {who:'@thecircuit', txt:'lights held all night on the west side. first time in a while.', draft:true},
+    {who:'@marisol_v',  txt:'mi hermano says the meters are running again. no se, pero ojala.', draft:true},
+    {who:'@duststop',   txt:'wind off the dry lake all afternoon. tape your windows.', draft:true},
+    {who:'@nightcount', txt:'four fires visible from the ridge tonight. that is one more than yesterday.', draft:true},
+    {who:'@tradesnitch',txt:'rice went up again. whoever is holding it, we see you.', draft:true},
+    {who:'@oldstripped',txt:'they stripped the copper out of the school. of course they did.', draft:true},
+    {who:'@quietblock', txt:'nothing happened here today and that is the good news.', draft:true}
+  ];
+
+  function el(id){ return document.getElementById(id); }
+
+  /* ONE NODE IN, ONE NODE OUT. The first cut rebuilt the WHOLE list on every push,
+     which meant every post already on screen was destroyed and recreated at opacity 0
+     and re-animated -- so the entire feed flickered every time a new post landed, and
+     a screenshot taken mid-push caught an EMPTY BLACK PANEL. Found by looking at it,
+     not by a number: the count said four posts while the screen showed none.
+     A feed only ever changes at the top, so only the top should change. */
+  function render(post){
+    if(!LIST||!post) return;
+    var d=document.createElement('div');
+    d.className='fp'+(post.kind?' '+post.kind:'');
+    var w=document.createElement('div'); w.className='who'; w.textContent=post.who;
+    var x=document.createElement('div'); x.className='txt'; x.textContent=post.txt;
+    d.appendChild(w); d.appendChild(x);
+    LIST.insertBefore(d, LIST.firstChild);        /* newest at the top */
+    while(LIST.children.length>MAX) LIST.removeChild(LIST.lastChild);
+    /* the arrival is the only motion, and it lands ON the beat */
+    setTimeout(function(){ d.classList.add('in'); }, 10);
+  }
+
+  function push(post){
+    if(!post||!post.txt) return;
+    var rec={who:post.who||'@thevalley', txt:String(post.txt),
+             kind:post.kind||'world', draft:post.draft!==false};
+    posts.push(rec);
+    while(posts.length>MAX) posts.shift();
+    render(rec);
+    return true;
+  }
+
+  /* WHAT YOU DID. Reads the deed ledger and turns each new entry into a post,
+     QUOTING THE QUEST'S OWN REASON when the ledger kept one. */
+  function drainLedger(){
+    var log=null;
+    try{ if(typeof DQ!=='undefined'&&DQ&&DQ.shared&&DQ.shared.log) log=DQ.shared.log; }catch(_e){}
+    if(!log) return;
+    /* the ledger is capped at 200 and SHIFTS, so an index is not a safe cursor once
+       it wraps. Clamp instead of reading off the front of a rotated array. */
+    if(seen>log.length) seen=0;
+    while(seen<log.length){
+      var e=log[seen++]; if(!e) continue;
+      var who=e.who||'somebody';
+      var why=e.why||null;
+      var q=e.quest||null;
+      var up=(e.d>0);
+      var txt = why ? String(why)
+                    : (up? ('word is you did right by '+who+'.')
+                         : ('word is you burned '+who+'.'));
+      push({who:'@'+String(who).toLowerCase().replace(/[^a-z0-9]+/g,''),
+            txt: txt + (q? ('  ['+q+']') : ''),
+            kind:'mine', draft:true});
+    }
+  }
+
+  var lifeAt=0, seedAt=0, lastTop=-1;
+  function tick(){
+    var isCity=false;
+    try{ isCity = (typeof MODE!=='undefined' && MODE==='city'); }catch(_e){}
+    if(!PANEL) PANEL=el('cityfeed');
+    if(!LIST)  LIST =el('cityfeedlist');
+    if(!CLOCK) CLOCK=el('cityfeedclock');
+    if(PANEL){
+      if(isCity!==on){
+        on=isCity;
+        PANEL.classList.toggle('on',on);
+        PANEL.setAttribute('aria-hidden', on?'false':'true');
+        /* SEED IT THE MOMENT IT OPENS. Measured before this existed: the first life
+           post was sixteen beats out, so a player who zoomed out met an EMPTY PHONE
+           for eight seconds. A feed that teaches the world teaches nothing while it
+           is blank, and blank also reads as broken. Three posts land immediately so
+           there is something to read the instant the panel appears. */
+        if(on && !posts.length) for(var k=0;k<3;k++){
+          var sp=LIFE[(seedAt++)%LIFE.length];
+          push({who:sp.who, txt:sp.txt, kind:'life', draft:true});
+        }
+      }
+    }
+    if(!on) return;
+    /* SIT UNDER THE TOP BAR, WHEREVER IT ENDS. A fixed top:92px passed most runs and
+       failed some, which is worse than failing every time: #topbar is a flex row and
+       ITS HEIGHT IS NOT FIXED -- the music chip shows the CURRENT TRACK NAME, so a long
+       title widens the row, the row wraps to two lines, and the bar grows down onto
+       anything parked at a constant offset. Measured against the bar itself instead,
+       every beat, so no track name can ever push it underneath. */
+    try{
+      var bar=document.getElementById('topbar');
+      if(bar){
+        var br=bar.getBoundingClientRect(), pr=PANEL.offsetParent
+          ? PANEL.offsetParent.getBoundingClientRect() : {top:0};
+        var want=Math.round(br.bottom-pr.top)+11;
+        if(want>0 && want!==lastTop){ lastTop=want; PANEL.style.top=want+'px'; }
+      }
+    }catch(_e){}
+    if(CLOCK){
+      try{ var hh=(typeof HH!=='undefined')?HH:null, mm=(typeof MM!=='undefined')?MM:null;
+        CLOCK.textContent = (hh!=null&&mm!=null)
+          ? (String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0')) : ''; }catch(_e){}
+    }
+    drainLedger();
+    /* then one every 8 beats (4s) so it reads as a feed rather than a ticker */
+    if(++lifeAt%8===0 && LIFE.length){
+      var p=LIFE[(seedAt++)%LIFE.length];
+      push({who:p.who, txt:p.txt, kind:'life', draft:true});
+    }
+  }
+
+  /* THE BEAT COMES FROM THE CLOCK, NOT FROM COUNTING INTERVALS. A plain
+     setInterval(tick, 500) drifts under load: measured worst case 561ms from a ledger
+     write to the post appearing, against a 500ms beat, which failed this lane's own
+     gate. The fix is not to loosen the gate -- that is an exemption written for
+     yourself -- it is to stop accumulating error. The timer now runs at a QUARTER
+     beat and the work happens only when the beat NUMBER, derived from a fixed epoch,
+     actually changes. Latency stays bounded by one beat no matter how the timer
+     drifts, and a post still lands ON a beat, which is the 120 BPM law. */
+  var EPOCH = (typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  var lastBeat = -1;
+  function nowBeat(){
+    var ms=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+    return Math.floor((ms-EPOCH)/FEED_BEAT);
+  }
+  /* COUNT THE BEATS THAT ACTUALLY RAN, AND THE ONES THE PAGE ATE. Measured on the
+     demo: one probe in about forty took 4105ms -- EIGHT BEATS -- while every other
+     probe in the same run took under one. That is not the feed being slow, it is the
+     whole page frozen: the timer did not fire at all, so nothing in the document ran,
+     feed included. Recording it makes the difference visible instead of leaving a
+     gate to flake once in eight runs with no explanation.
+     THE FEED'S OWN CONTRACT IS "the next beat it runs". Whether the page runs its
+     beats on time is the page's contract and another lane's row; naming the stall
+     here keeps that honest rather than hiding it inside this lane's green. */
+  var ran=0, stalls=0, worstGap=0;
+  function pulse(){
+    var bt=nowBeat();
+    if(bt===lastBeat) return;
+    if(lastBeat>=0 && bt-lastBeat>1){ stalls++; if(bt-lastBeat>worstGap) worstGap=bt-lastBeat; }
+    lastBeat=bt;
+    ran++;
+    tick();
+  }
+  try{ t=setInterval(pulse, Math.max(60, FEED_BEAT/4)); tick(); }catch(_e){}
+
+  return { push:push, tick:tick, beat:nowBeat,
+           ran:function(){ return ran; },
+           stalls:function(){ return {count:stalls, worstGapBeats:worstGap}; },
+           count:function(){ return posts.length; },
+           posts:function(){ return posts.slice(); },
+           isOn:function(){ return on; } };
+})();
+>>>>>>> 9527659a ([city feed] THE-FEED-ON-THE-CITY-SCREEN: the phone screen on the city screen)
 
 </script>
 </body></html>
