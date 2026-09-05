@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5ad - THE VALLEY TALKS ON YOUR PHONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5ae - THE LIST YOU CAN ACTUALLY JUDGE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -16369,8 +16369,63 @@ function buildUI(){
     var btn = document.getElementById('judgeAllBtn'), host = document.getElementById('judgeAll');
     if (!btn || !host) return;
     var KEY = 'bohemia_cand_votes_b1';           /* the SAME store as the per-clip thumbs */
+
+    /* THE AUDIT ON EACH ROW (ANIMATION 9/5) -- generated from
+       records/BOHEMIA_THE_63_CLIP_AUDIT_RAW_9_5_26.txt, never typed by hand. */
+    const CLIP_NOTE={'air-guitar':'moves 43%','argue':'moves 45%','balance':'moves 62%','bat-arc':'moves 100%','beckon':'moves 15%','bow':'moves 96%; head-on only 12% of side-on','brace':'moves 22%','carry':'moves 15%','cheer':'moves 44%','chest-thump':'moves 30%','cough':'moves 41%; head-on only 16% of side-on','cover-drop':'moves 97%','cover-fire':'moves 59%','cover-rise':'moves 124%','cower':'moves 38%','crack-neck':'moves 18%','crawl-dying':'moves 47%','crouch-aim-1h':'moves 35%; head-on only 15% of side-on','crouch-aim-2h':'moves 45%','dance':'moves 73%','dash':'moves 132%','deadeye':'moves 53%','dig':'moves 74%','dizzy':'moves 65%','dodge':'moves 124%','drink':'moves 11%','drunk':'moves 82%','duck':'moves 63%','eat':'moves 5%; QUIET','fistpump':'moves 53%','flee-scramble':'moves 90%','flee-sprint':'moves 96%; head-on only 17% of side-on','floor-rise':'moves 172%','get-shoved':'moves 113%','greet':'moves 50%','gun-walk':'moves 66%; head-on only 20% of side-on','haggle':'moves 60%','hail':'moves 71%','hands-up':'moves 14%','headbang':'moves 45%','headshot':'moves 55%','headshot-2':'moves 30%','heave':'moves 96%','howl':'moves 48%','idle':'moves 9%','inject':'moves 14%','inspect-ground':'moves 67%','jump':'moves 106%; ARMS carry it, legs do not; no crouch first','jumping-jacks':'moves 74%','kick':'moves 123%','laugh':'moves 19%','lean':'moves 9%','look-around':'moves 16%','lunge-stretch':'moves 107%','nod':'moves 17%','overwatch':'moves 16%','pat-pockets':'moves 29%','pickup':'moves 68%','pistol':'moves 3%; steady on purpose (aiming)','point':'moves 13%','pour':'moves 26%','pray':'moves 5%; QUIET','preach':'moves 45%','psych-up':'moves 22%','punch-heavy':'moves 87%','push':'moves 32%','rage':'moves 17%','retch':'moves 55%','run':'moves 131%; head-on only 16% of side-on','scratch-back':'moves 36%','search':'moves 26%','shadowbox':'moves 48%','shiv-jab':'moves 57%','shiver':'moves 14%','shout':'moves 101%','shove':'moves 103%','shrug':'moves 17%','sigh':'moves 37%','sit-chair':'moves 8%','sit-ground':'moves 22%','sleep':'moves 9%','slump':'moves 13%','smoke':'moves 9%','sneak':'moves 52%','spear-drive':'moves 79%; head-on only 14% of side-on','stagger-hit':'moves 126%','startle':'moves 100%','stomp':'moves 81%','stretch':'moves 54%','stretch-back':'moves 49%','stumble':'moves 97%; head-on only 20% of side-on','swagger':'moves 70%','take-cover':'moves 12%','talk':'moves 18%','taunt':'moves 37%','throw':'moves 114%; head-on only 18% of side-on','tired-walk':'moves 60%; head-on only 14% of side-on','tweeze':'moves 40%','twist-stretch':'moves 68%','two-hand':'moves 3%; steady on purpose (aiming)','walk':'moves 108%; head-on only 18% of side-on','wander':'moves 41%','weave':'moves 81%','whistle':'moves 7%; QUIET; head-on only 16% of side-on; STATIC HOLD, not a cycle','winded':'moves 43%'};
+
+    /* *** WHY THIS LIST NOW MOVES (ANIMATION lane, 9/5). ***
+       MEASURED on the real surface before touching it: 105 clips, 105 UNJUDGED,
+       and every row was A WORD AND TWO THUMBS. To judge one he had to tap the
+       name, scroll 1,464 PX UP to watch the character, then scroll back down to
+       press a thumb -- a hundred and five times. That is the BOTTOM-UP law
+       (7/26) exactly: anything he has to scroll up for does not exist. The
+       surface has been here since 7/19 and not one clip carries a verdict, and
+       this is why. A judging page that shows WORDS is asking him to judge from
+       memory.
+       So every row plays its own clip, next to its own thumbs, and carries what
+       the audit measured about it so he is judging informed instead of blind.
+
+       REUSE CHECK (7/22 law): the loop is the CLOTHES tab's, which already runs
+       hundreds of live rigs on one scrolling page -- ~12fps rather than 60,
+       viewport culling, and RELEASING THE BACKING STORE of anything well off
+       screen (its 8/20 lesson: refusing to render off-screen is not the same as
+       letting go of the pixels, and 258 garments held 96.8 MB until it did).
+       Drawing is drawChar, the same call the CHARACTER tab makes, already
+       HD_CACHE-backed so a repeated frame is a map hit.
+       120 BPM LAW: phase comes off G.t0 and BEAT_MS, the one clock, so a row
+       animates on the same beat as the big canvas above it. */
     function votes(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
     function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+    var JA_FILTER = 'all', jaRaf = 0, jaLast = 0;
+    function jaFlagged(c){ var n = CLIP_NOTE[c] || ''; return /QUIET|STATIC HOLD|ARMS carry|head-on only/.test(n); }
+    function jaList(){
+      /* ALPHABETICAL (Paolo 7/30, standing) -- a COPY, CLIPS keeps authoring order */
+      var L = CLIPS.slice().sort(function(a,b){ return a.localeCompare(b); });
+      var V = votes();
+      if (JA_FILTER === 'unjudged') L = L.filter(function(c){ return !V[c]; });
+      if (JA_FILTER === 'flagged')  L = L.filter(jaFlagged);
+      return L;
+    }
+    function jaTick(){
+      var host = document.getElementById('judgeAll');
+      if (!host || host.style.display === 'none' || !document.getElementById('p-anim').classList.contains('on')) { jaRaf = 0; return; }
+      var now = performance.now();
+      if (now - jaLast >= 80) {            /* ~12fps, the clothes tab's rate */
+        jaLast = now;
+        var bm = (typeof BEAT_MS !== 'undefined' ? BEAT_MS : 500), vh = window.innerHeight || 900;
+        var cvs = host.querySelectorAll('canvas.jaCv');
+        for (var i = 0; i < cvs.length; i++) {
+          var cv = cvs[i], rc = cv.getBoundingClientRect();
+          if (cv.offsetParent === null || rc.bottom < -vh || rc.top > vh * 2) { if (cv.width) { cv.width = 0; cv.height = 0; } continue; }
+          if (rc.bottom < -40 || rc.top > vh + 40) continue;      /* on the page but off the glass: keep the pixels, skip the paint */
+          var c = cv.__clip, beats = (typeof ANIMBEATS !== 'undefined' && ANIMBEATS[c]) || 2;
+          var ph = ((now - (G.t0 || now)) / (bm * beats)) % 1;
+          try { drawChar(cv, G.dir, c, ph); } catch (e) {}
+        }
+      }
+      jaRaf = requestAnimationFrame(jaTick);
+    }
     function build(){
       var V = votes(); host.innerHTML = '';
       var un = CLIPS.filter(function(c){ return !V[c]; }).length;
@@ -16379,15 +16434,39 @@ function buildUI(){
       head.innerHTML = '<b>JUDGE ALL</b><span class="mini">' + CLIPS.length +
                        ' clips &middot; <span style="color:#e2b877">' + un + ' unjudged</span></span>';
       host.appendChild(head);
-      /* ALPHABETICAL (Paolo 7/30, standing) -- a COPY, CLIPS keeps authoring order */
-      CLIPS.slice().sort(function(a,b){ return a.localeCompare(b); }).forEach(function(c){
+      /* THE FILTER, because 105 rows is four screens and the ones worth his eye
+         are a short list. UNJUDGED shrinks as he works; FLAGGED is only the clips
+         the audit actually measured something wrong about. */
+      var fr = document.createElement('div'); fr.className = 'row';
+      [['all','ALL'],['unjudged','UNJUDGED'],['flagged','THE AUDIT FLAGGED']].forEach(function(f){
+        var bt = document.createElement('button');
+        bt.className = 'opt' + (JA_FILTER === f[0] ? ' on' : '');
+        bt.textContent = f[1] + (f[0] === 'flagged' ? ' (' + CLIPS.filter(jaFlagged).length + ')' : '');
+        bt.style.fontSize = '10px';
+        bt.onclick = function(){ JA_FILTER = f[0]; build(); };
+        fr.appendChild(bt);
+      });
+      host.appendChild(fr);
+
+      jaList().forEach(function(c){
         var r = document.createElement('div');
         r.className = 'row';
-        r.style.cssText = 'padding:2px 0;align-items:center';
+        /* ONE ROW IS ONE GLANCE. The first cut let the note wrap to its own full
+           line, which pushed a row to ~200px and put FOUR clips on a phone screen
+           -- 26 screens for the set. Canvas left, everything else in a tight
+           column beside it: ~80px a row, ten to a screen. */
+        r.style.cssText = 'padding:2px 0;align-items:center;gap:8px;flex-wrap:nowrap';
+        var cv = document.createElement('canvas');
+        cv.className = 'jaCv';
+        cv.__clip = c;
+        /* ABOVE the size the game draws it (8/28: judging art below its shipping
+           size is judging a thumbnail). The rig is 56 and ships upscaled; this is
+           72 css px of it. */
+        cv.style.cssText = 'width:72px;height:72px;image-rendering:pixelated;background:#20242a;border:1px solid #3a4048;flex:0 0 auto';
         var nm = document.createElement('button');
         nm.className = 'opt' + (G.clip === c ? ' on' : '');
         nm.textContent = c;
-        nm.style.cssText = 'min-width:120px;text-align:left;font-size:10px';
+        nm.style.cssText = 'min-width:96px;text-align:left;font-size:10px';
         nm.onclick = function(){ G.clip = c; G.t0 = performance.now(); build(); };
         var up = document.createElement('button');
         up.className = 'opt' + (V[c] === 'up' ? ' on' : '');
@@ -16397,11 +16476,22 @@ function buildUI(){
         dn.className = 'opt' + (V[c] === 'down' ? ' on' : '');
         dn.textContent = '\u{1F44E}';
         dn.onclick = function(){ var v = votes(); v[c] = (v[c] === 'down' ? '' : 'down'); save(v); build(); };
+        var nt = document.createElement('div');
+        nt.className = 'mini';
+        nt.style.cssText = 'opacity:.7;font-size:9px;line-height:1.25;margin-top:2px;text-align:left';
+        nt.textContent = CLIP_NOTE[c] || '';
+        var top = document.createElement('div');
+        top.style.cssText = 'display:flex;align-items:center;gap:4px';
+        top.appendChild(nm); top.appendChild(up); top.appendChild(dn);
         var st = document.createElement('span');
         st.className = 'mini';
-        st.style.marginLeft = '6px';
+        st.style.cssText = 'font-size:9px;margin-left:2px;color:' + (V[c] === 'up' ? '#8fd08f' : V[c] === 'down' ? '#d08f8f' : '#7a6f5c');
         st.textContent = V[c] === 'up' ? 'KEEP' : V[c] === 'down' ? 'KILL' : '';
-        r.appendChild(nm); r.appendChild(up); r.appendChild(dn); r.appendChild(st);
+        top.appendChild(st);
+        var col = document.createElement('div');
+        col.style.cssText = 'flex:1 1 auto;min-width:0';
+        col.appendChild(top); col.appendChild(nt);
+        r.appendChild(cv); r.appendChild(col);
         host.appendChild(r);
       });
       var ex = document.createElement('button');
@@ -16424,7 +16514,9 @@ function buildUI(){
         document.body.appendChild(a); a.click(); a.remove();
       };
       host.appendChild(ex);
+      if (!jaRaf) jaRaf = requestAnimationFrame(jaTick);
     }
+
     btn.onclick = function(){
       var open = host.style.display === 'none';
       host.style.display = open ? '' : 'none';

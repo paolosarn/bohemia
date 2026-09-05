@@ -1,3 +1,77 @@
+ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
+NOW MOVES. Every one of the 105 animations plays on its own row, next to its own
+thumbs, with what the audit measured about it. TAB: ANIMATION, the JUDGE ALL
+button. His thumbs are the next thing and nothing recooks until he presses them. ***
+
+TAB: ANIMATION. Build 9/5ad - THE LIST YOU CAN ACTUALLY JUDGE.
+Open ANIMATION, tap JUDGE ALL, and every row is a little person doing that clip.
+
+ROW SHIPPED: [your verdicts] SHOW-HIM-THE-LIST.
+
+*** THE SURFACE ALREADY EXISTED AND HAD NEVER TAKEN A SINGLE VERDICT. *** JUDGE ALL
+has been in the ANIMATION tab since 7/19. Opened this round it read "105 clips, 105
+UNJUDGED" -- not some, ALL. So the job was never "build him a judging page"; one was
+there. The job was finding out why it has never once been used.
+
+BECAUSE EVERY ROW WAS A WORD AND TWO THUMBS. Measured: the judge list starts 1,464 PX
+BELOW THE CANVAS. To judge `beckon` he tapped the word, scrolled up nearly two phone
+screens to watch it, scrolled back down to press a thumb. A hundred and five times.
+That is the BOTTOM-UP law exactly -- anything he has to scroll up for does not exist
+-- and the empty verdict count is the proof that nobody can judge from memory.
+
+SHIPPED: a live canvas per row playing that clip on the beat (G.t0 + BEAT_MS, the one
+clock) at 72px, above the size the game draws it; the audit's finding on each row so
+he judges informed ("moves 15%", "QUIET", "head-on only 12% of side-on", "STATIC
+HOLD"); filters ALL / UNJUDGED / THE AUDIT FLAGGED (15); the .txt export untouched.
+The notes are GENERATED from the audit raw file, never typed, so a number on his
+screen always came from a measurement.
+
+REUSE, NOT A NEW RENDERER: the loop is the CLOTHES tab's -- ~12fps not 60, viewport
+culling, and RELEASING THE BACKING STORE well off screen (its 8/20 lesson: refusing
+to render off-screen is not the same as letting go of the pixels; 258 garments held
+96.8 MB until it did). Drawing is drawChar, HD_CACHE-backed.
+
+THE FIRST LAYOUT WAS WRONG AND THE PICTURE IS WHAT SAID SO: letting the note wrap to
+its own line made rows ~200px, FOUR clips a screen, 26 screens for the set. Every
+number passed. Canvas left, everything else in a tight column: ~80px, ten a screen.
+
+*** THREE RULERS BROKE ON THE WAY, ALL THREE INSIDE MY OWN GATE. *** Each would have
+been a green gate lying:
+  1. It asked for the CLIP_NOTE global and got ZERO -- the table is const inside the
+     panel's closure. It was measuring SCOPE, and would have gone red with the notes
+     rendering perfectly. Now it reads the notes off the rendered rows; the DOM is the
+     surface, the table is an implementation detail.
+  2. It grepped the raw file for the literal percentage and found 8 strays. They were
+     not strays: 100.89 rounds to 101 and "101" is nowhere in a file storing 100.89.
+     IT WAS TESTING MY ROUNDING, NOT THE DATA.
+  3. Then it failed two HONEST notes on a half-cent: drunk is 82.50% and flee-scramble
+     90.50%. The notes are generated in Python (%.0f rounds half to EVEN -> 82, 90);
+     the gate re-rounded in JS (Math.round rounds half UP -> 83, 91). Two rounding
+     modes met on an exact .5 and the gate called his screen a liar.
+
+GATE: gates/judge_list_moves_gate.js, 10 claims, 3 MUTATIONS CAUGHT -- the canvas
+removed, A STILL FRAME per row, and a fabricated number. The still-frame case is the
+one that matters: it satisfies "has a picture" and "has a body" and is STILL a list
+he cannot judge from.
+
+FILES
+  slices/BOHEMIA_ALPHA_0_9.html      the judge rows (in the p-anim panel's JUDGE ALL)
+  gates/judge_list_moves_gate.js     10 claims, 3 mutations caught
+  records/BOHEMIA_SHOW_HIM_THE_LIST_9_5_26.md
+
+*** WHAT COMES NEXT FOR THIS LANE ***
+1. HIS THUMBS. [clips redone] RECOOK-WHAT-HE-KILLS is the next OPEN row and it waits
+   on what he presses. Do NOT recook before that: his 8/25 order says show him the
+   list first, in those words, and now there is a list worth showing.
+2. THE AUDIT FLAGGED 15 and that filter is the short path: jump (arms carry it, no
+   crouch), whistle (a static hold), the quiet four (pray, eat, smoke, whistle), and
+   the head-on amplitude question. pistol/two-hand are DESIGN, not defects -- the note
+   on their row says "steady on purpose (aiming)" so he is not asked to kill a man
+   holding a gun still.
+3. THE 41 CANDIDATES have never been judged and several are combat verbs
+   (crouch-aim-1h/2h, cover-fire, take-cover, shiv-jab, bat-arc, spear-drive). Worth
+   asking whether COMBAT wants them before this lane spends a turn on them.
+
 WORDS (words-8dqrnq): 9/5 (h) LATEST -- *** VAMILY Q11 [face carries] SHIPPED. 94.5% OF
 EVERY LINE IN THIS GAME IS DELIVERED BY A FLAT FACE, AND THE MOOD IT NEEDS IS ALREADY
 SITTING IN THE SHIPPED DEMO ON 229 LINES WITH NO WIRE TO IT. *** Nothing to judge,
