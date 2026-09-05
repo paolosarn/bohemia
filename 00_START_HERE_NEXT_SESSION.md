@@ -1,3 +1,152 @@
+PEOPLE (people-7h9sfy): 9/5 LATEST -- *** [who is hostile] SHIPPED. THE CROWD
+CARRIES THE SIGN NOW: they watch, they follow, they get in your way, they refuse.
+ALL FOUR ARE ON THE STREET AND ALL FOUR ARE PROVEN ON THE REAL DEMO. TAB: CITY.
+THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION VERBATIM, BECAUSE HE ASKED FOR IT
+TO LIVE HERE SO IT SURVIVES A MEMORY RESET, AND BECAUSE A REBASE ONTO MAIN
+DROPPED THE LAST COPY OF THIS LANE'S BLOCK ENTIRELY. ***
+
+=============================================================================
+PAOLO'S PERMANENT INSTRUCTION, WORD FOR WORD (9/5). HE SAID: write it into your
+own handoff block first so it survives any memory reset. DO NOT EDIT, SUMMARISE
+OR "IMPROVE" THIS TEXT. It is his, verbatim.
+=============================================================================
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=============================================================================
+END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
+=============================================================================
+
+THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
+THE JOB JUST SHIPPED: [who is hostile] THE-CROWD-CARRIES-THE-SIGN.
+
+WHAT THE ROW ASKED: the between-ledger already works out who is hostile to you
+and none of it reached the street. Make the sign visible in the crowd: they
+watch, they follow, they block a door, they refuse. All four are there now.
+
+*** THE MEASUREMENT MOVED THIS JOB THREE TIMES AND THAT IS THE STORY. ***
+  1. TWO CHANNELS, NOT ONE. Their outfit against yours (bohemia_between) and
+     their own opinion of you (the deed ledger). Built on BOTH, because either
+     one alone ships dark where a demo player actually walks.
+  2. THE SPAWN IS EMPTY OF BOTH, AND THAT IS THE MAP, NOT A BUG. Cold start,
+     real surface: 0 of 61 people within three neighbourhoods run with ANYBODY.
+     Nearest base 29 cells; a base's pull reaches 12. Only 3 of 14 outfits can
+     ever be at odds with you and their bases are 48, 60 and 62 cells out. Both
+     dials are [PENDING Paolo]; the map is MAP LAW. Neither touched.
+  3. THE MAP HAS ALMOST NO DOORS. stepOnce's own measurement, already written
+     in the city: "39,706 solid cells admit you, 7 painted doors exist ... TEN
+     OF FOURTEEN district types have zero of either", and there is NO door
+     within forty cells of the ground the Cartel live on. So a doorway is the
+     special case and the general one is the cell you are about to walk into.
+     Same sentence, and it is the OCCUPANCY LAW this game already has.
+
+*** AND I FOUND A BUG THAT WAS ALREADY SHIPPED, BY RUNNING IT. *** THE SEAT BUG:
+between(theirOutfit, myOutfit) is NULL for every enemy the player EARNED, because
+an earned edge is written in ONE seat while his authored pairs happen to be
+written in both. The person card's own row "AND THEY ARE UP AGAINST YOU" was
+asking from the wrong seat -- the one case its own comment describes. Fixed at
+the root: both callers go through ctRelToMine -> BohemiaBetween.myRipples, which
+walks both seats. myRipples had ZERO CALLERS in the whole repo until today.
+
+SHIPPED THIS ROUND
+  engine/bohemia_against.js            the question and the ladder, PURE
+  tools/bohemia_city_against_patch.py  13 anchored steps into the walked city
+  gates/against_gate.js                66 claims, 0 red
+  records/BOHEMIA_THE_CROWD_CARRIES_THE_SIGN_9_5_26.txt
+
+THE LADDER, EVERY WORD OF IT ALREADY IN THE REPO:
+  cold -> WATCH | hostile -> WATCH FOLLOW REFUSE | war -> and BLOCK
+The worse of the two reasons wins. Nothing here chooses a magnitude: the rungs
+are BohemiaStanding's, the war flag is BohemiaBetween's, sight is SEE_RANGE (9),
+and the follow distance is the gossip pass's own "two cells is arm's length plus
+one". Every sentence draft:true. WORLD MOVERS LAW: one step of theirs per step
+of yours, called from stepOnce and nowhere else, no timer anywhere.
+
+PROVEN ON THE REAL SURFACE, THROUGH stepOnce (what a d-pad press runs):
+  0 of 61 near the spawn are against you, and nobody follows   (dark = honest)
+  one weight on his STANDING dial + one real deed -> the witness reads
+    hostile/you and their head turns to the player
+  side with the Remnants, walk onto Cartel ground -> 3 of 3 read war/them, all
+    three facing the player exactly, 3 followers on 300 of 300 steps, distances
+    2/3/4 with none closer than 2, ZERO occupancy collisions
+  the card leads with THEY ARE AGAINST YOU + AT WAR and both offer buttons gone
+  a war body steps into the cell you face, stepOnce returns false, the street
+    says so, and six other directions still walk (it cannot trap you)
+
+THREE MISTAKES OF MINE THIS ROUND, WRITTEN DOWN:
+  1. I BROKE OCCUPANCY LAW IN FRONT OF MYSELF: three Cartel bodies in ONE cell
+     for 600 steps, because each followed with no idea the others existed.
+     Guarding the cell they STEPPED to fixed four of six; the last two were the
+     cell they HELD. 6 -> 2 -> 0.
+  2. A CHECK THAT WAS BACKWARDS. "They stop at two cells" asked that every
+     follower be WITHIN two, went red on 2/3/2, and the 3 was the code being
+     right: KEEP is where they stop closing, not a leash.
+  3. A COMMENT IS A BLOCK, NOT A LINE, AND A -1 IS NOT A RUNG. Two claims
+     grepped the raw module and went red on its own header comment and on a
+     step's `-1`. Third time this lane has hit that shape.
+
+LANE GREEN: AGAINST 66/0, DEMO TALKS 14/0, PEOPLE 158/0, WHO VOUCHES 19/0,
+PACK 47/0, WALK ENCOUNTER 15/0, CITY PEOPLE 18/0, DEMO IS CURRENT 16/0,
+DEMO BUILD 25/0, ORGAN REACH rule 3 green.
+
+THE SUITE, IN FOUR SHARDS, AND EVERY RED CLASSIFIED AGAINST A CLEAN origin/main
+WORKTREE RATHER THAN ASSUMED. Forty-odd reds are identical on clean main and
+belong to other lanes. walk_feel is FLAKY ON BOTH TREES (three runs each: 20/0,
+19/1, 20/0 either way) -- a pixel-timing claim, not a regression. THREE WERE
+MINE AND ALL THREE ARE FIXED:
+  organ reach rule 3   I wired myRipples to the street and left its tooling-only
+                       exemption standing. Entry deleted. The gate caught it one
+                       round after the wiring, which is the argument for rule 3.
+                       AND the same sweep had never heard of bohemia_against --
+                       registered now, and the first sweep with it in cost an
+                       export (rankOf had no caller anywhere). 4 fns, surface 4,
+                       dead 0.
+  demo is current      I changed the build stamp and did not re-cut the demo.
+  demo build           same six bytes. node tools/bohemia_cut_the_demo.js.
+                       It is step four of this lane's own instructions.
+ONE SHARED PROBLEM WORTH NAMING, NOT MINE TO FIX: face_thumb_gate compares FILE
+MTIMES (the candidate bank must be within six hours of the alpha). Every ship
+updates the build stamp, so every ship trips it unless that lane rebakes its art
+bank -- and it passes vacuously on a fresh clone where every file has the same
+mtime. Flagged, not papered over.
+
+NEXT OPEN LINE FOR THIS LANE: [outfits nearby] OUTFITS-AT-SPAWN -- zero of 34
+people within six cells wear one.
+
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+  1. THE 82 DEED WEIGHTS need a ruling on SHAPE: which handful of things a
+     person repeats about a stranger, and roughly how much worse a betrayal is
+     than a kindness is good. ONE SENTENCE unblocks all 82. Until then the four
+     STREET deeds (met, refused, commit, favour) are worth nothing, so the
+     personal half of hostility only lights from his STANDING dial.
+  2. AFFILIATED_RATE (0.30) and REACH_CELLS (12) in bohemia_agents.js are both
+     already marked [PENDING Paolo]. They are WHY a seventeen-cell ring round
+     the spawn cannot hold one affiliated body. Not touched by this lane.
+
+FEEDS: RUN [enemies exist] and COMBAT [street fight] can call
+BohemiaAgainst.read({rel, rung}) with their own facts and get the same answer
+the street gives, instead of growing a second idea of who is hostile.
+
+TAB: CITY. Walk out and the sign is on the bodies.
+
+------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 9/5 (d) LATEST -- *** YOU CAN HEAR WHOSE BLOCK STILL HAS
 POWER FROM THE NEXT STREET, AND A DEAD ONE IS DEAD.
 TAB: RUN (the walked city). Nothing to judge -- nothing entered the bank. ***
