@@ -1628,6 +1628,152 @@ async function onYourProblem() {
   } finally { await browser.close(); }
 }
 
+async function onTheFamily() {
+  console.log('\nT. THE GENERATION TURNS, AND THE VALLEY REMEMBERS.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+
+  /* THE ORGAN'S OWN RULE, CHECKED IN NODE BEFORE THE SURFACE IS ASKED ANYTHING.
+     inherit() keeps only what was RETOLD, which is the whole dynasty premise:
+       A QUIET GOOD DEED DIES WITH THE WITNESS.
+       A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR. */
+  const S = require(path.join(ROOT, 'engine/bohemia_standing.js'));
+  const eyeOnly = [{ owner: 'a', deeds: [{ actor: '@', kind: 'k', turn: 1, x: 0, y: 0, hops: 0 }] }];
+  const retold = [{ owner: 'b', deeds: [{ actor: '@', kind: 'k', turn: 1, x: 0, y: 0, hops: 1 }] }];
+  const rEye = S.inherit(eyeOnly, '@', '@', 9);
+  const rTold = S.inherit(retold, '@', '@', 9);
+
+  ok('T1 *** AN EYEWITNESS MEMORY DIES WITH THE EYEWITNESS. *** Thirty years '
+    + 'pass and everybody who watched you is dead; the only trace of a life is '
+    + 'what got REPEATED. This is the rule the whole dynasty rests on and it is '
+    + 'the organ\'s own, not one this gate invented',
+    rEye.carried === 0 && rEye.died === 1 && eyeOnly[0].deeds.length === 0,
+    JSON.stringify(rEye));
+
+  ok('T2 AND A RETOLD ONE CROSSES, CARRYING WHOSE IT WAS. `of` is the parent and '
+    + '`inherited` counts the folds, which is what lets a legend still be named '
+    + 'as your father\'s rather than blurred into your own record',
+    rTold.carried === 1 && retold[0].deeds[0].inherited === 1
+      && retold[0].deeds[0].of === '@' && retold[0].deeds[0].actor === '@',
+    JSON.stringify(retold[0].deeds[0]));
+
+  ok('T3 GEN_LOSS is less than half, so a legend has to have been LOUD to survive '
+    + 'one fold and by the third generation only the very loudest thing your '
+    + 'grandfather did still registers',
+    S.GEN_LOSS > 0 && S.GEN_LOSS < 0.5, 'GEN_LOSS=' + S.GEN_LOSS);
+
+  const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const errs = [], warns = [];
+  page.on('console', m => { if (/BOHEMIA:/.test(m.text())) warns.push(m.text()); });
+  page.on('pageerror', e => errs.push(String(e.message).slice(0, 160)));
+  try {
+    await page.goto('file://' + ALPHA);
+    await SETTLE(page, 10000);
+    await page.evaluate(() => {
+      const t = [...document.querySelectorAll('[data-tab],.tab,button')]
+        .find(e => (e.textContent || '').trim() === 'RUN');
+      if (t) t.click();
+    });
+    await SETTLE(page, 12000);
+    let city = null;
+    for (const f of page.frames()) {
+      try { if (await f.evaluate(() => typeof ctFold === 'function')) { city = f; break; } }
+      catch (_e) {}
+    }
+    ok('T4 *** THE FOLD IS ON THE WALKED SURFACE. *** inherit and legendOf have '
+      + 'been in the engine since 8/20 and organ_reach reported both reached by '
+      + 'NOTHING ANYWHERE every run since', !!city);
+    if (!city) return;
+
+    await city.evaluate(() => { const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click(); });
+    await SETTLE(page, 700);
+    await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
+    await SETTLE(page, 900);
+
+    const R = await city.evaluate(() => {
+      const out = {};
+      /* A LIFE HAPPENS: real people, real minds, one deed of his that was WATCHED
+         and one that was only HEARD. Built through ctMind so it is the same store
+         every other surface reads, never a fixture handed to the function. */
+      const kinds = Object.keys(BohemiaStanding.DEED_WEIGHT);
+      out.kindsAvailable = kinds.length;
+      const kind = kinds[0]; out.kind = kind;
+      const now = ctMinuteNow();
+      const ids = [];
+      let n = 0;
+      for (const p of ctEveryone()) { ids.push(String(p.id)); if (++n >= 6) break; }
+      out.ids = ids.length;
+      /* three watched it, three only heard it */
+      ids.forEach((id, i) => {
+        const m = ctMind(id);
+        m.deeds = m.deeds || [];
+        m.deeds.push({ actor: '@', kind: kind, turn: now, x: hx, y: hy,
+                       hops: (i < 3 ? 0 : 1), maxHops: 3 });
+        m.fid = m.fid || null;
+      });
+      out.beforeGen = CT_GEN;
+      out.beforeLegend = ctLegendRows(4).length;
+      out.heldBefore = ids.reduce((a, id) => a + (CT_MINDS[id].deeds || [])
+        .filter(d => d.actor === '@').length, 0);
+
+      out.fold = ctFold();
+
+      out.afterGen = CT_GEN;
+      out.heldAfter = ids.reduce((a, id) => a + (CT_MINDS[id].deeds || [])
+        .filter(d => d.actor === '@').length, 0);
+      out.inheritedAfter = ids.reduce((a, id) => a + (CT_MINDS[id].deeds || [])
+        .filter(d => d.inherited).length, 0);
+      out.legend = ctLegendRows(4);
+      ctOutfitOpen(); out.board = document.getElementById('outfitpanel').innerText || ''; ctOutfitClose();
+
+      /* AND IT SURVIVES CLOSING THE TAB */
+      out.savedGen = localStorage.getItem('boh.city.gen');
+      return out;
+    });
+
+    ok('T5 there are real deed kinds to inherit, because his quest corpus fills '
+      + 'the table on this surface', R.kindsAvailable > 0, 'kinds=' + R.kindsAvailable);
+
+    ok('T6 *** THE FOLD RUNS AND HALF THE LIFE DIES. *** Three people watched it '
+      + 'and three only heard it; the three who watched take it to the grave and '
+      + 'the three who repeated it are why the child is judged for it',
+      R.fold && R.fold.carried === 3 && R.fold.died === 3,
+      JSON.stringify(R.fold) + ' held ' + R.heldBefore + ' -> ' + R.heldAfter);
+
+    ok('T7 AND THE SURVIVORS ARE MARKED AS INHERITED, which is what stops a '
+      + 'father\'s reputation from being silently laundered into his son\'s own '
+      + 'record. legendOf reads exactly this mark',
+      R.inheritedAfter === 3, 'inherited=' + R.inheritedAfter);
+
+    ok('T8 THE GENERATION COUNTER MOVED AND IT IS WRITTEN DOWN. A dynasty that '
+      + 'forgets which life it is on when you close the tab is not a dynasty',
+      R.afterGen === R.beforeGen + 1 && String(R.savedGen) === String(R.afterGen),
+      'gen ' + R.beforeGen + ' -> ' + R.afterGen + ' saved=' + R.savedGen);
+
+    ok('T9 *** AND HE CAN READ IT. *** Before the fold there was no legend at all; '
+      + 'after it the valley says what your family is known for, in the quest\'s '
+      + 'own @LOG sentence rather than a machine id. The module\'s own comment '
+      + 'says a legend you cannot hear is a legend that is not doing any work',
+      R.beforeLegend === 0 && R.legend.length > 0 && !!R.legend[0].say
+        && !/^q:/.test(R.legend[0].say),
+      JSON.stringify(R.legend[0] || null));
+
+    ok('T10 AND IT IS ON THE BOARD HE OPENS, saying which life back it was and '
+      + 'how many people still tell it',
+      /WHAT THEY STILL SAY ABOUT YOUR FAMILY/.test(R.board)
+        && /YOUR FATHER|YOUR GRANDFATHER|THREE LIVES BACK/.test(R.board)
+        && /STILL TELLS? IT|STILL TELL IT/.test(R.board),
+      JSON.stringify((R.board || '').match(/WHAT THEY STILL SAY ABOUT YOUR FAMILY[\s\S]{0,150}/)));
+
+    ok('T11 NOTHING THREW AND NOTHING WAS SWALLOWED',
+      errs.length === 0 && warns.filter(w => /could not be folded/.test(w)).length === 0,
+      JSON.stringify(errs.slice(0, 2)) + JSON.stringify(warns.slice(0, 2)));
+
+  } finally { await browser.close(); }
+}
+
 async function onTheJobWitness() {
   console.log('\nS. THE MAN WHO GAVE YOU THE JOB FINDS OUT HOW YOU DID IT.');
   const { chromium } = requirePlaywright();
@@ -2276,6 +2422,7 @@ onTheCard()
   .then(onTheirView)
   .then(onQuestDeeds)
   .then(onTheJobWitness)
+  .then(onTheFamily)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
