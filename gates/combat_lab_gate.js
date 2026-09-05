@@ -624,7 +624,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
        see, shoot, or be shot. He was a rumour with a health bar. The law is
        unchanged and still checked: ALWAYS THE FARTHEST MAN, never the close
        one. He is now the farthest man Paolo can actually SEE. */
-    /\(i===sniperIdx\) \? Math\.min\(SIGHT_TILES, contentR\(\), Math\.max\(_hi, contentR\(\)\*0\.90\)\)/.test(demo));   /* V140: still always the farthest and never the close man -- now pinned to the edge of the world AND to the far end of the spawn band, whichever is further out */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
+    /\(i===sniperIdx\) \? Math\.min\(sightTiles\(\), contentR\(\), Math\.max\(_hi, contentR\(\)\*0\.90\)\)/.test(demo));   /* V198 RE-POINTED */   /* V140: still always the farthest and never the close man -- now pinned to the edge of the world AND to the far end of the spawn band, whichever is further out */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
   // v40: streak momentum joins the real JUICE verdict menu, AU's dead toggle retired
   ok('V40 STREAK MOMENTUM IS A REAL JUICE TOGGLE: gated by JUICE.AW in the same slot the visible band formula reads, so on/off never lies',
     demo.includes('V40 JUICE MENU') &&
@@ -2627,8 +2627,11 @@ ok('V140 THE SPAWN BAND IS MEASURED IN **YOUR GUN**, NEVER IN TILES: a fixed til
      MEASURED THEY DID NOT -- 1.65 x 16 is 26 tiles against 17.5 of sight, so
      20% of every fight began off screen, invisible AND unreachable, which is
      not an approach, it is a rumour. */
-  /const _lo=Math\.min\(SIGHT_TILES, contentR\(\), Math\.max\(PT_BLANK\+2, _R\*SPAWN_NEAR\)\);/.test(demo) &&
-  /const _hi=Math\.min\(SIGHT_TILES, contentR\(\), Math\.max\(_lo\+1, _R\*SPAWN_FAR\)\);/.test(demo));
+  /* V198 RE-POINTED: the band is still "multiples of YOUR max range" -- which is
+     why compressing the guns compressed the approach for free -- and only the
+     two absolute distances are now read on the current ruler. */
+  /const _lo=Math\.min\(sightTiles\(\), contentR\(\), Math\.max\(hd\(PT_BLANK\+2\), _R\*SPAWN_NEAR\)\);/.test(demo) &&
+  /const _hi=Math\.min\(sightTiles\(\), contentR\(\), Math\.max\(_lo\+hd\(1\), _R\*SPAWN_FAR\)\);/.test(demo));
 
 /* ===== V145 THE GAP WAS TOO WIDE, MEASURED ========================
    60 arenas pressing only WAIT: 14.9 TURNS before anything was shootable and
@@ -2804,7 +2807,8 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
   ok('V139 THE WORLD IS BUILT AS FAR AS HE CAN SEE, AND THAT IS ONE NUMBER NOT TWO: cover used to stop at a hardcoded 28 while the visible board moved with the zoom, so a ring of bare desert appeared at the edge BY CONSTRUCTION the moment the zoom passed it. contentR() is derived from the pitch, so they cannot drift apart -- the giants bug in a third costume, closed',
     gen.includes('d0=2.2+Math.random()*(contentR()-2.2);') &&
     gen.includes('if(Math.hypot(nx2,ny2)>contentR())continue;') &&
-    demo.includes('function contentR(){ return 0.85/FIELD_PITCH + 2; }') &&
+    /* V198 RE-POINTED: the world is still built to what the screen shows; a wider tile builds fewer of them */
+    /function contentR\(\)\{ return 0\.85\/\(FIELD_PITCH\*/.test(demo) &&
     !gen.includes('d0=2.2+Math.random()*7.5;'));
   ok('COVER HAS A SIZE: r was 0.55 for EVERY piece ever placed. Now 0.45-1.15, so some is a crate you duck behind and some is a block you go around',
     gen.includes('const r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') &&
@@ -3230,10 +3234,10 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
   ok('V98 NIGHT IS NOT AN ACCURACY PENALTY. A symmetric penalty changes no decision and just makes the fight longer, which is the tally mistake. Darkness shrinks the RANGE at which anyone shoots well, through the one function every range read already runs on',
     demo.includes('V98 THE DARK SHRINKS THE RANGE') &&
     demo.includes('const NIGHT_RANGE={morning:1.00,dusk:0.72,night:0.50};') &&
-    demo.includes('function farTile(){ return Math.max(PT_BLANK+2, FAR_TILE*rangeMult()); }') &&
+    demo.includes('function farTile(){ return Math.max(hd(PT_BLANK+2), hd(FAR_TILE)*rangeMult()); }') &&   /* V198 RE-POINTED */
     /function rangeT\(d,R\)\{[\s\S]{0,120}rangeMult\(\)/.test(demo));
   ok('V98 GOT STRONGER, NOT WEAKER, WHEN GUNS GAINED RANGES: it used to run through ONE shared far end because there was only ever one range in the game. Now the SAME NIGHT_RANGE number scales every weapon individually -- a shotgun\'s reach shortens after dark too, which a single shared far end could never express. And the MAX shrinks with it, so lit really does mean hittable from across the lot and dark really does mean they have to come to you',
-    /const F=Math\.max\(PT_BLANK\+2,R\.eff\*1\.6\*rangeMult\(\)\);/.test(demo) &&
+    /const F=Math\.max\(hd\(PT_BLANK\+2\),R\.eff\*1\.6\*rangeMult\(\)\);/.test(demo) &&   /* V198 RE-POINTED */
     /* V160 RE-POINTED: maxRange gained the SIGHT ceiling. The night scaling is
        byte-identical inside it -- R.max*rangeMult() is untouched -- so V98's law
        is unchanged; it is now wrapped by a ceiling that binds in daylight and
@@ -3242,16 +3246,16 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
        BOOK can ask it for the rule instead of tonight's weather. V98's law is
        still byte-identical -- with no argument it is rangeMult(), exactly as
        before -- and the ceiling still wraps it. */
-    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(REACH_CEIL, Math\.max\(PT_BLANK\+2, R\.max\*k\)\); \}/.test(demo) &&
+    /function maxRange\(R,mult\)\{ const k=\(mult==null\)\?rangeMult\(\):mult; return Math\.min\(reachCeil\(\), Math\.max\(hd\(PT_BLANK\+2\), R\.max\*k\)\); \}/.test(demo) &&   /* V198 RE-POINTED */
     /inMyRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(myRange\(\)\); \}/.test(demo));
 
   ok('V160 THE CEILING IS ONE DOOR: every reach in the game -- yours, theirs, the sniper\'s and the V151 floor that hands him the edge over the field -- comes through maxRange, so a number added anywhere else cannot route around sight. His V151 ruling still stands underneath it: he outranges the field, he just cannot outrange his own eyes',
     (demo.match(/function maxRange\(R,mult\)\{/g) || []).length === 1 &&
-    /Math\.min\(REACH_CEIL,/.test(demo) &&
+    /Math\.min\(reachCeil\(\),/.test(demo) &&   /* V198 RE-POINTED: still ONE ceiling, read on the current board */
     /function inHisRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(foeRange\(e\)\); \}/.test(demo));
 
   ok('V98 AND POINT BLANK IS EXACTLY UNTOUCHED AT NIGHT, not approximately: distT subtracts PT_BLANK before dividing, so it is 0 for any d <= PT_BLANK whatever the far end is. His 7/27 point-blank ruling gets LOUDER after dark rather than taxed flat',
-    demo.includes('return Math.min(1,Math.max(0,(d-PT_BLANK)/(F-PT_BLANK))); }') &&
+    demo.includes('return Math.min(1,Math.max(0,(d-hd(PT_BLANK))/(F-hd(PT_BLANK)))); }') &&   /* V198 RE-POINTED: still subtracts the point-blank band before dividing, so it is still exactly 0 inside it */
     demo.includes('const PT_BLANK=4, FAR_TILE=26'));
 
   ok('V98 IT MOVES BOTH SIDES OFF ONE NUMBER: my dial (distPkg), their hit chance (distAccuracy) and the range words+colour all read distT, so there is no second accuracy system to keep in step',
@@ -3950,7 +3954,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V121 IT SPIRALS TO THE NEAREST FREE CELL, never teleports across the lot, never onto the player, and if the lot is packed he is pushed OUTWARD rather than left standing in a wreck',
     /for\(let r=1;r<=4&&!placed;r\+\+\)/.test(demo) &&
     demo.includes('if(Math.hypot(nx,ny)<2.2)continue;') &&
-    demo.includes('if(!placed){ e.edist=Math.min(MAX_RANGE,e.edist+2.5); }'));
+    demo.includes('if(!placed){ e.edist=Math.min(hd(MAX_RANGE),e.edist+hd(2.5)); }'));   /* V198 RE-POINTED: a 2.5-tile shove is 2.5 HOUSES on the house board */
 
   ok('V121 DIFFICULTY FINALLY REACHES THE ENEMY. Paolo: "I am really concerned how easy this game could be unless I throw 8+ enemies at a player." MEASURED: EASY and BOHEMIAN both killed me in 6 turns at 16.7 HP/turn -- IDENTICAL -- because G.pkgDiff only ever fed THE DIAL. Every difficulty in this game meant one thing, how hard is it for YOU to shoot, and nothing ever made THEM better',
     demo.includes('V121 DIFFICULTY FINALLY TOUCHES THE ENEMY') &&
@@ -4595,7 +4599,11 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
 
   ok('V156 AND THE PROXIMITY HALF IS BACK, AT THE SAME REACH EVERY ENEMY BODY IS HELD TO. realCoverPillar has demanded a stone within 1.8 tiles of a man since V108; the player had NO proximity test at all, so the rule ran one way exactly like V153. COVER_REACH is that same number, not a new one',
     demo.includes('const COVER_REACH=1.8;') &&
-    /P\.edist<COVER_REACH/.test(demo) &&
+    /* V198 RE-POINTED: read through hd(), the tile-scale door -- 1.8 body-tiles
+       is 1.8 HOUSES on the house board, and a rock two houses away is not the
+       rock you are behind. THE CLAIM IS UNCHANGED: the player is held to the
+       same reach every enemy body is held to, and it is still COVER_REACH. */
+    /P\.edist<hd\(COVER_REACH\)/.test(demo) &&
     /Math\.hypot\(pxy\[0\]-exy\[0\],pxy\[1\]-exy\[1\]\)<1\.8/.test(demo));
 
   { /* MEASURED, not read: put a man out there, put a rock on the line at
@@ -4604,9 +4612,15 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     const b = demo.indexOf('\n', demo.indexOf('function inRealCover()', a));
     if (a > 0 && b > a) {
       const src = demo.slice(a, b);
-      const ask = (rockDist) => new Function('G', 'coverPillarAgainst',
+      /* V198 RE-POINTED: the slice now calls hd(), the tile-scale door, so the
+         harness has to supply it exactly as it already supplies G and
+         coverPillarAgainst. THE SLICE RULE, again: any helper a sliced function
+         calls is undefined inside this harness unless it is bound here, and the
+         failure looks like a broken feature rather than a broken test. Bound to
+         the BODY-scale identity, which is what this claim is about. */
+      const ask = (rockDist) => new Function('G', 'coverPillarAgainst', 'hd',
         src + ';return inRealCover();'
-      )({ e: [{ ea: 0, edist: 12, lvl: 0 }] }, () => ({ edist: rockDist }));
+      )({ e: [{ ea: 0, edist: 12, lvl: 0 }] }, () => ({ edist: rockDist }), (n) => n);
       ok('V156 THE BUTTON STOPS OFFERING TO POP HIM OUT OF OPEN GROUND: a stone he is standing at is cover, the same stone three tiles up the lot is scenery -- which is his report, "in the middle of nowhere and it will still tell me to pop out"',
         ask(0.9) === true && ask(1.7) === true && ask(2.8) === false && ask(6.0) === false);
     }
@@ -4900,7 +4914,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
 
   ok('V175 AND IT RUNS INSIDE visionTick, BEFORE the routine shout, so ONE function decides who knows what. Awareness split across two places is how a man ends up told twice and counted once',
     demo.indexOf('if(seers.length)firstSightAlarm(seers);') > 0 &&
-    demo.indexOf('if(seers.length)firstSightAlarm(seers);') < demo.indexOf('if(Math.hypot(sx,sy)<=SHOUT_TILES)'));
+    demo.indexOf('if(seers.length)firstSightAlarm(seers);') < demo.indexOf('if(Math.hypot(sx,sy)<=hd(SHOUT_TILES))'));   /* V198 RE-POINTED: the ORDERING is the claim, and it is unchanged */
 
   ok('V175 AND A NEW LOT IS A ROOM NOBODY HAS FOUND YOU IN YET: _everSaw clears on setup, so the alarm cannot arrive already spent from the last fight',
     /e\._everSaw=false;/.test(demo));
@@ -5006,12 +5020,12 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     (demo.match(/squadRead\(\)/g) || []).length === 2);
 
   ok('V171 AND IT LANDS ON THE ONE NUMBER THAT ALREADY DECIDED HOW CLOSE A MAN WILL GET. pressAI\'s `standoff` was already the single variable governing that, so the group\'s read modulates it and writes no new geometry of its own. A second distance rule beside the first one is how two copies of a rule start disagreeing',
-    /let standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
-    /if\(_sq\.bladeClosing\)standoff=Math\.max\(standoff,SQ_ANVIL\);/.test(demo) &&
-    /if\(_sq\.marksmanUp&&!\(e\.E&&e\.E\.spotter\)\)standoff=Math\.max\(standoff,SQ_LANE\);/.test(demo));
+    /let standoff=\(_aim\|\|G\.hold\)\?hd\(HOLD_PASS\):hd\(PRESS_STANDOFF\);/.test(demo) &&
+    /if\(_sq\.bladeClosing\)standoff=Math\.max\(standoff,hd\(SQ_ANVIL\)\);/.test(demo) &&
+    /if\(_sq\.marksmanUp&&!\(e\.E&&e\.E\.spotter\)\)standoff=Math\.max\(standoff,hd\(SQ_LANE\)\);/.test(demo));   /* V198 RE-POINTED */
 
   ok('V171 IT READS THE LIVING ROOM, not the roster it started with. Both conditions go through the predicates the fight already owns -- a blade must be CLOSING (within SQ_HAMMER, not merely present) and the marksman must be able to SEE you (seesMe, so cover and V170\'s smoke both switch him off) -- so the feature turns itself off exactly when the player has earned it',
-    /const bladeClosing=live\.some\(e=>e\.melee&&\(e\.edist\|\|99\)<=SQ_HAMMER\);/.test(demo) &&
+    /const bladeClosing=live\.some\(e=>e\.melee&&\(e\.edist\|\|99\)<=hd\(SQ_HAMMER\)\);/.test(demo) &&   /* V198 RE-POINTED */
     /const marksmanUp=live\.some\(e=>e\.E&&e\.E\.spotter&&seesMe\(e\)\);/.test(demo) &&
     /const live=\(G\.e\|\|\[\]\)\.filter\(e=>e&&!e\.dead&&!e\.downed&&!e\.broken&&!e\.fleeing\);/.test(demo));
 
@@ -5130,7 +5144,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
 
   ok('V168 AND THE FIRST VERSION WAS CUT RATHER THAN SHIPPED AS FLAVOUR. Giving his SHOUT infinite reach measured 22.5% of turns with the board blind against a 20.8% control -- inside the noise, because a long shout only matters when he is the ONLY man who can see you and in a group of three to six somebody else almost always can. A DEAD DIAL IS WORSE THAN NO DIAL',
     !/function shoutReach\(/.test(demo) &&
-    /if\(Math\.hypot\(sx,sy\)<=SHOUT_TILES\)\{ markSeen\(e\); e\.told=true; break; \}/.test(demo));
+    /if\(Math\.hypot\(sx,sy\)<=hd\(SHOUT_TILES\)\)\{ markSeen\(e\); e\.told=true; break; \}/.test(demo));   /* V198 RE-POINTED: a yell still carries SHOUT_TILES, read on the board it is shouted across */
 
   ok('V168 AND HE CAN TELL WHY, WITHOUT THE GAME GROWING A TUTORIAL ARROW: the readout he already reads names the problem and both halves of the answer, and only when it is true',
     /setRead\('PINNED BY THE SPOTTER','break his line or put him down'/.test(demo));
@@ -5272,7 +5286,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
   ok('V165 THERE IS ONE VARIABLE AND IT IS A FUNCTION, not a flag anybody can set: seesMe(e) asks the same four questions every time -- is he able to look, is he on my deck, is he inside the end of his own eyes, and is there stone in the way',
     /function seesMe\(e\)\{/.test(demo) &&
     /if\(\(e\.lvl\|0\)!==myLvl\(\)\)return false;/.test(demo) &&
-    /if\(\(e\.edist\|\|0\)>SIGHT_TILES\)return false;/.test(demo) &&
+    /if\(\(e\.edist\|\|0\)>sightTiles\(\)\)return false;/.test(demo) &&   /* V198 RE-POINTED */
     /return !myConcealAgainst\(e\.ea,e\.edist,e\.lvl\); \}/.test(demo));
 
   { /* FIVE SYSTEMS, COUNTED. The spec's whole argument is the FAN-OUT -- one
@@ -5308,7 +5322,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /if\(aim\)return -PRESS_PULL\*Math\.hypot\(x-aim\[0\],y-aim\[1\]\);/.test(demo));
 
   ok('V165 THE SEARCHING STANDOFF IS REUSED, NOT INVENTED: at PRESS_STANDOFF 3.2 a searching man would stop three tiles short of the tile he is walking to and circle it forever, so he uses HOLD_PASS -- V137\'s own number for a man running an objective rather than shopping for a firing angle',
-    /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+    /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?hd\(HOLD_PASS\):hd\(PRESS_STANDOFF\);/.test(demo) &&
     !/const SEARCH_STANDOFF=/.test(demo));
 
   ok('V165 VISION RESOLVES BEFORE THE BEAD, because the bead reads it. Run it after and every man on the board spends his turn acting on last turn\'s eyes',
@@ -5402,10 +5416,16 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     const src = grab('maxRange') + '\n' + grab('effRange');
     let rifle = null, sniper = null, pistol = null, dark = null;
     try {
-      const f = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult',
-        src + '; return effRange;')(16, 4, () => 1);
-      const fDark = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult',
-        src + '; return effRange;')(16, 4, () => 0.5);
+      /* V198 RE-POINTED: maxRange/effRange now read the tile-scale door, so the
+         harness supplies it -- THE SLICE RULE, which cost this file a crash
+         earlier in the same turn when a sliced function called hd() and the
+         binding list did not have it. Bound to the BODY-scale identity
+         (hd = n => n, reachCeil = () => 16), which is exactly the board this
+         claim has always been about. */
+      const f = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult', 'hd', 'reachCeil',
+        src + '; return effRange;')(16, 4, () => 1, n => n, () => 16);
+      const fDark = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult', 'hd', 'reachCeil',
+        src + '; return effRange;')(16, 4, () => 0.5, n => n, () => 16);
       rifle = f({ eff: 20, max: 16 }); sniper = f({ eff: 30, max: 16 });
       pistol = f({ eff: 6, max: 12 }); dark = fDark({ eff: 20, max: 16 });
     } catch (e) {}
@@ -5761,7 +5781,7 @@ ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a sho
      cannot see keeps no firing distance from him, so he uses the same HOLD_PASS
      V137 already wrote for a man running an objective. Both original numbers are
      untouched and both original cases still read exactly as they did. */
-  /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?hd\(HOLD_PASS\):hd\(PRESS_STANDOFF\);/.test(demo) &&
   /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\}/.test(demo) &&
   /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
 
@@ -5842,7 +5862,7 @@ ok('V137 AND THEY ARE ALLOWED PAST, which is the number the whole feature lives 
   /const HOLD_PASS=1\.8;/.test(demo) &&
   /* V165 RE-POINTED: same line, same numbers, one more case on it -- a searching
      man is running an objective in exactly the sense V137 meant. */
-  /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /(?:const|let) standoff=\(_aim\|\|G\.hold\)\?hd\(HOLD_PASS\):hd\(PRESS_STANDOFF\);/.test(demo) &&
   /putCell\(e,Math\.round\(p\.x\),Math\.round\(p\.y\)\); snapBody\(e\);/.test(demo));
 
 ok('V137 THE ARC ALONE COULD NEVER CARRY HIM ROUND IN TIME (0.9 rad at range 6 is a 5.4-tile walk against a 1.8-tile step), so a defending fight also offers the straight line at the place -- and those candidates run the SAME body and pillar rejections as every other one, with no shortcuts',

@@ -91,6 +91,11 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
      about companions. The arms that ARE about her turn her on themselves.
      A DEFAULT IS NOT A WORKAROUND WHEN IT IS THE THING BEING MEASURED. */
   try { await frame.evaluate(() => { G.allyOff = true; G.ally = null; }); } catch (e) {}
+
+  /* AND EVERY ARM WRITTEN BEFORE V198 MEASURES THE BODY BOARD, which is also
+     the shipped default. V198 changes what a tile IS, so it moves every
+     distance in this file and none of those arms are about tile scale. */
+  try { await frame.evaluate(() => { G.houseTile = false; }); } catch (e) {}
   if (!frame) {
     console.log('  FAIL could not reach the combat frame');
     console.log('=== FIGHT MOVES YOU GATE: 0 passed, 1 failed ===');
@@ -4092,6 +4097,203 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' times a frame and every one of them sits above the head (' + two.labelAboveHead
     + '). *** AND LOOKING AT HERS IS WHAT CAUGHT V196\'S: that label shipped yesterday at er*1.9, which is 0.65 of a ring when a head top is 2.3 rings up, SO IT WAS PAINTED ON THE MAN\'S CHEST. Same derived anchor, fixed in the same pass ***',
     two.paintedHerName > 0 && two.labelAboveHead === true);
+
+  /* ================= V198 A TILE IS A HOUSE ===========================
+     VAMILY job BB-A-TILE-IS-A-HOUSE. Paolo 9/4: "instead of each combat tile
+     being the size a human maybe each combat tile is the same size as the house
+     and a pistol is like a dagger compared to the range of battle brothers and
+     a rifle can do two tiles." The row's own acceptance test is three things:
+     THE DIAL EXISTS, A PISTOL REACHES ONE HOUSE AND A RIFLE TWO, AND THE SEEDED
+     BOARDS ARE UNCHANGED AT THE OLD SETTING. */
+  const house = await frame.evaluate(() => {
+    const o = {};
+    G.bossOff = true; G.bossPick = null; G.allyOff = true; G.ally = null;
+    try { keysForget(); } catch (e) {}
+    /* THE DAY IS NOT IN THE SEEDED STREAM -- pickDayPhase is a bare
+       Math.random, so one build on one seed deals morning, dusk or night at
+       random, and night halves every range. The first run of this measurement
+       reported "the boards changed" and was reading THAT. Pinned here so the
+       two settings are compared and nothing else is. */
+    const realDay = window.pickDayPhase;
+    window.pickDayPhase = function () { G.dayPhase = 'morning'; };
+
+    o.dial = !!document.getElementById('housebtn');
+    o.widthDial = !!document.getElementById('widebtn');
+
+    /* --- hd() IS A DIVISION BY ONE ON THE OLD BOARD --- */
+    G.houseTile = false;
+    o.tileKBody = tileK();
+    o.hdExact = [4, 26, 16, 1.8, 3.2, 9.5, 0.1, 1e-7].every(v => hd(v) === v);
+
+    /* --- THE SEEDED BOARD IS UNCHANGED. Fingerprint every card the arena
+       deals, flip the dial on and back off, deal again, compare. --- */
+    const fp = () => { const out = [];
+      for (let f = 1; f <= 25; f++) { BohemiaArena.set(4000 + f); setupCombat();
+        out.push(G.numEnemies + '/' + (G.e || []).map(x =>
+          x.arch + '|' + x.ea.toFixed(4) + '|' + x.edist.toFixed(4) + '|' + x.hp).join(',')
+          + '/' + (G.pillars || []).map(p => p.ea.toFixed(4) + '|' + p.edist.toFixed(4)).join(',')); }
+      return out.join('\n'); };
+    G.houseTile = false; const before = fp();
+    G.houseTile = true; fp();
+    G.houseTile = false; const after = fp();
+    o.boardsUnchanged = (before === after);
+    o.boardChars = before.length;
+
+    /* --- HIS RULING: a pistol is a dagger, a rifle reaches two --- */
+    const reach = () => ({ shotgun: +maxRange(wpnRange('shotgun')).toFixed(2),
+      pistol: +maxRange(wpnRange('pistol')).toFixed(2),
+      smg: +maxRange(wpnRange('smg')).toFixed(2),
+      rifle: +maxRange(wpnRange('rifle')).toFixed(2),
+      sniper: +maxRange(wpnRange('sniper')).toFixed(2) });
+    const curve = w => { const R2 = wpnRange(w), mx = maxRange(R2), s = [];
+      for (let i = 0; i <= 4; i++) s.push(+rangeT(mx * i / 4, R2).toFixed(4));
+      return s; };
+
+    G.houseTile = false; BohemiaArena.set(4007); setupCombat(); G.dayPhase = 'morning';
+    o.bodyReach = reach(); o.bodyRifleCurve = curve('rifle');
+    o.bodySprite = +(112 * bodyScale()).toFixed(3);
+    o.bodyDark = isDark(); o.bodySight = sightTiles();
+
+    G.houseTile = true; BohemiaArena.set(4007); setupCombat(); G.dayPhase = 'morning';
+    o.houseReach = reach(); o.houseRifleCurve = curve('rifle');
+    o.houseSprite = +(112 * bodyScale()).toFixed(3);
+    /* AND THE HOUSE BOARD IS NOT SECRETLY NIGHT. rangeMult() is the DARKNESS
+       door and isDark() is literally rangeMult()<0.999, so putting scale in it
+       would have told the whole game it was night -- V98's dark, V191's LIGHT
+       IT, the spotter's night band -- silently, with every check green. */
+    o.houseDark = isDark(); o.houseSight = sightTiles();
+
+    /* --- THE BLADES CAME WITH THE GUNS. Hunted for, because a board with no
+       melee body on it would pass this vacuously. --- */
+    const blades = h => { G.houseTile = h;
+      for (let f = 1; f <= 40; f++) { BohemiaArena.set(4000 + f); setupCombat();
+        const mm = (G.e || []).filter(e => e.melee);
+        if (mm.length) return mm.map(e => e.reach + '/' + e.adv); }
+      return []; };
+    o.bodyBlades = blades(false); o.houseBlades = blades(true);
+
+    /* --- NO DAMAGE BEFORE THE DIAL --- */
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+    o.arch = ARCH.sniper.dmg.join('-') + '/' + ARCH.sniper.acc + ' ' + ARCH.human.dmg.join('-') + '/' + ARCH.human.acc;
+    o.bodyTableUntouched = (WEAPON_RANGE.pistol.max === 12 && WEAPON_RANGE.rifle.max === 16
+      && WEAPON_RANGE.shotgun.max === 9 && WEAPON_RANGE.smg.max === 15);
+
+    /* --- BOTH SETTINGS RUN. Shoot what is in reach, else walk at the nearest
+       man. NO ABILITY SPAM: the first cut of this fired any charged ability
+       before shooting, and at house scale every verb charges faster because
+       everybody is adjacent, so the house arm spent its turns on abilities and
+       never shot. It reported 70% of house fights STUCK. That was an instrument
+       BIASED BETWEEN THE TWO ARMS IT WAS COMPARING, which is worse than a noisy
+       one, and it is why four separate "fixes" were chased before the harness
+       was suspected. --- */
+    const play = (h, boards) => {
+      let fights = 0, cleared = 0, stuck = 0; const turns = [], dmg = [];
+      for (let f = 1; f <= boards; f++) {
+        G.houseTile = h; BohemiaArena.set(4000 + f); setupCombat();
+        G.over = false; G.phase = 'cover'; G.inc = null;
+        G.pMax = 300; G.pHP = 300; G.stam = STAM_MAX; G.kit = {};
+        fights++; const hp0 = G.pHP;
+        let t = 0, ok2 = false;
+        for (; t < 50; t++) {
+          const live = (G.e || []).filter(e => e && !e.dead && !e.downed);
+          if (!live.length) { ok2 = true; break; }
+          if (G.pHP <= 0) break;
+          const shoot = live.filter(e => inMyRange(e));
+          if (shoot.length) {
+            const tg = shoot.reduce((a, e) => (!a || e.edist < a.edist) ? e : a, null);
+            try { kitVerb('shot'); } catch (e) {}
+            applyDamage(tg, 24);
+            if (tg.hp <= 0) { tg.dead = true; try { bodyFell(tg); } catch (e) {} }
+          } else {
+            const n = live.reduce((a, e) => (!a || e.edist < a.edist) ? e : a, null);
+            const nx = Math.cos(n.ea) * n.edist, ny = Math.sin(n.ea) * n.edist;
+            const L = Math.hypot(nx, ny) || 1;
+            G.stam = Math.max(G.stam || 0, 2);
+            try { spendMove(1); } catch (e) {}
+            try { worldShift(Math.round(nx / L), Math.round(ny / L)); } catch (e) {}
+          }
+          G.mTurn++; G._spotKey = null; G._alKey = null;
+          try { visionTick(); } catch (e) {}
+          (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+          G._sq = null;
+          try { tickTurnEnd(); } catch (e) {}
+          try { updateGeomCover(); } catch (e) {}
+        }
+        if (ok2) { cleared++; turns.push(t); dmg.push(hp0 - G.pHP); }
+        else if (G.pHP > 0) stuck++;
+      }
+      const mean = a => a.length ? +(a.reduce((x, y) => x + y, 0) / a.length).toFixed(1) : 0;
+      return { pct: +(100 * cleared / fights).toFixed(1), stuck: +(100 * stuck / fights).toFixed(1),
+               turns: mean(turns), dmg: mean(dmg), fights }; };
+    o.bodyPlay = play(false, 20);
+    o.housePlay = play(true, 20);
+
+    window.pickDayPhase = realDay;
+    G.houseTile = false; G.pMax = 100; G.pHP = 100;
+    return o;
+  });
+
+  console.log('  V198 a tile is a house:'
+    + '\n    reach          ' + JSON.stringify(house.bodyReach)
+    + '\n      at house     ' + JSON.stringify(house.houseReach)
+    + '\n    rifle curve    ' + JSON.stringify(house.bodyRifleCurve)
+    + '\n      at house     ' + JSON.stringify(house.houseRifleCurve)
+    + '\n    blades r/adv   ' + JSON.stringify(house.bodyBlades) + ' -> ' + JSON.stringify(house.houseBlades)
+    + '\n    sprite px      ' + house.bodySprite + ' -> ' + house.houseSprite
+    + '\n    sight / dark   ' + house.bodySight + '/' + house.bodyDark + ' -> ' + house.houseSight + '/' + house.houseDark
+    + '\n    boards         unchanged ' + house.boardsUnchanged + ' (' + house.boardChars + ' chars fingerprinted)'
+    + '\n    plays          body ' + house.bodyPlay.pct + '% in ' + house.bodyPlay.turns + ' turns for ' + house.bodyPlay.dmg + ' (stuck ' + house.bodyPlay.stuck + '%)'
+    + '\n                   house ' + house.housePlay.pct + '% in ' + house.housePlay.turns + ' turns for ' + house.housePlay.dmg + ' (stuck ' + house.housePlay.stuck + '%)'
+    + '\n                   [REPORTED, NOT ASSERTED -- swings 20+ points run to run here; a clean page reads 100/100]');
+
+  ok('V198 *** THE SEEDED BOARDS ARE UNCHANGED AT THE OLD SETTING, WHICH IS THE CLAUSE THAT COULD HAVE COST HIM EVERY ARENA HE HAS WRITTEN DOWN. *** The job\'s own row names the 8/27 lesson: a feature that costs a seeded stream ONE DRAW re-deals every board in the game, with no crash and every new check green. So the dial adds no draw, and hd(n) at body scale is n/1 -- EXACTLY n for every double, which is IEEE 754 rather than an argument (' + house.hdExact
+    + ', tileK ' + house.tileKBody + '). Fingerprinted over 25 arenas, every man and every rock: flip the dial on, flip it back, deal again, and the cards are identical (' + house.boardsUnchanged + ')',
+    house.boardsUnchanged === true && house.hdExact === true && house.tileKBody === 1);
+
+  ok('V198 AND HIS RULING IS THE RULING: A PISTOL IS A DAGGER AND A RIFLE REACHES TWO. Paolo 9/4: "a pistol is like a dagger compared to the range of battle brothers and a rifle can do two tiles." Body board ' + JSON.stringify(house.bodyReach)
+    + ', house board ' + JSON.stringify(house.houseReach)
+    + '. GUNS ARE THE NEW MELEE, and the blades had to come with them or a knife at 1.8 would OUT-RANGE the pistol and invert the whole ruling: ' + JSON.stringify(house.bodyBlades)
+    + ' becomes ' + JSON.stringify(house.houseBlades)
+    + ' (reach/advance). [PENDING Paolo] where a scoped rifle stops -- it ships at ' + house.houseReach.sniper + ' as an attempt, not a decision',
+    house.dial === true && house.widthDial === true
+    && house.houseReach.pistol === 1 && house.houseReach.rifle === 2
+    && house.houseReach.shotgun === 1
+    && house.bodyReach.pistol === 12 && house.bodyReach.rifle === 16
+    && house.houseBlades.length > 0 && house.houseBlades.every(b => b === '1/1' || b === '2/1'));
+
+  ok('V198 AND NO ACCURACY NUMBER MOVES, WHICH IS PROVED AND NOT PROMISED. rangeT is a RATIO -- (d - blank) / (far - blank) -- so the MAX is his ruling and the EFF is DERIVED, carrying across each gun\'s own body-scale eff/max. A house table with eff picked by hand would have quietly bent the curve while I claimed it could not: measured, a rifle at its own maximum read 0.556 against 0.429 before that was fixed. Sampled at matched fractions of reach the rifle is now IDENTICAL: '
+    + JSON.stringify(house.bodyRifleCurve) + ' and ' + JSON.stringify(house.houseRifleCurve)
+    + '. applyDamage is ' + house.damage + ', the archetypes are untouched (' + house.arch
+    + ') and the body-scale WEAPON_RANGE table is not touched by one byte (' + house.bodyTableUntouched + ')',
+    JSON.stringify(house.bodyRifleCurve) === JSON.stringify(house.houseRifleCurve)
+    && house.damage === 40 && house.bodyTableUntouched === true
+    && /32-48\/0.72 14-26\/0.55/.test(house.arch));
+
+  ok('V198 AND THE SPRITE DOES NOT SHRINK -- his sentence: "the size of the GROUND changes but the player is the same size just what they walk on is a more zoomed out city so it really feels like war is spilling in the streets." The drawn body is ' + house.bodySprite
+    + 'px at both settings (' + house.houseSprite + '), because the multiplier is on the FLOOR PITCH and bodyScale is never touched. *** AND THE HOUSE BOARD IS NOT SECRETLY NIGHT: *** rangeMult() calls itself "the ONE DOOR every reach passes through" and scale obviously belongs in it, except isDark() is literally rangeMult()<0.999 -- so a house board would have told V98\'s dark, V191\'s LIGHT IT and the spotter\'s night band that the sun had gone down, silently. That is the DARKNESS door. Dark reads ' + house.bodyDark + ' and ' + house.houseDark
+    + ' at the two settings, and sight goes ' + house.bodySight + ' body-tiles to ' + house.houseSight + ' houses',
+    house.bodySprite === house.houseSprite
+    && house.bodyDark === false && house.houseDark === false
+    && house.bodySight === 17 && house.houseSight < house.bodySight);
+
+  ok('V198 AND BOTH SETTINGS RUN, which the row requires in its own words -- the human-scale board is NOT removed, he plays both. Same ' + house.bodyPlay.fights
+    + ' boards, same policy: body clears ' + house.bodyPlay.pct + '% in ' + house.bodyPlay.turns + ' turns for ' + house.bodyPlay.dmg
+    + ' damage, house clears ' + house.housePlay.pct + '% in ' + house.housePlay.turns + ' turns for ' + house.housePlay.dmg
+    + '. *** AND THE HARNESS THAT FIRST MEASURED THIS WAS BIASED BETWEEN ITS OWN TWO ARMS, WHICH IS WORSE THAN NOISY. *** It fired any charged ability before shooting; at house scale every verb charges faster because everybody is adjacent, so the house arm spent its turns on abilities and never shot, and it reported 70% of house fights STUCK. Four separate "fixes" were chased before the instrument was suspected. This one only shoots and walks',
+    /* *** AND THE CLEAR RATE IS REPORTED, NOT ASSERTED, BECAUSE IT IS NOT
+       STABLE ENOUGH IN THIS ENVIRONMENT TO CARRY A CLAIM. *** Two runs of
+       identical code on identical seeds gave body 55% then 35%, and house 45%
+       then 60%. The fight AI draws on unseeded randomness inside the turn, and
+       by this point in the file the page carries a perk tree and more of the
+       kit -- V197's arm names the same effect. On a CLEAN page, both settings
+       read 100% cleared, 0% stuck, over 30 boards each. Loosening a pass mark
+       until a swing fits under it is the mistake this file has caught itself
+       making five times, so the swing is printed instead.
+       WHAT IS ASSERTED IS THE CLAIM THE ROW ACTUALLY MAKES -- both settings
+       RUN: every fight starts, both boards finish fights, and nothing throws. */
+    house.bodyPlay.fights === 20 && house.housePlay.fights === 20
+    && house.bodyPlay.pct > 0 && house.housePlay.pct > 0);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
