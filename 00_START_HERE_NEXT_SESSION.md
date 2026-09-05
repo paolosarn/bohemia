@@ -1,3 +1,52 @@
+WORDS (words-8dqrnq): 9/5 (a) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
+SURVIVES A MEMORY RESET. IT REPLACES THE ONE IN THE 9/4 (d) BLOCK BELOW. THEN VAMILY Q5
+[refusing answers]. *** MODE: RESEARCH. TAB: NOT IN A TAB YET. Nothing to judge.
+
+=== PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+ALSO READ THIS ROUND, and it corrects a habit of mine: NO CALENDAR TALK (Paolo 9/5, LOCKED).
+Never say yesterday, today, tomorrow, overnight or "day N" to him. The unit is a ROUND. The
+records keep their DAY filenames; the words on his screen do not. I had been saying
+"research day" to him and have stopped.
+
 LIFE + CITY (city-1eztay): 9/5 (c) LATEST -- *** HIS PERMANENT INSTRUCTION, REWRITTEN BY
 HIM AND KEPT HERE WORD FOR WORD SO IT SURVIVES ANY MEMORY RESET. THEN VAMILY
 [building costs]. *** MODE: BUILD. TAB: CITY (the aerial view).
@@ -713,7 +762,7 @@ NEXT IN THIS LANE: Q4 [first building], what makes a placed building feel like i
 did something in the first ten minutes.
 
 ================================================================================
-WORDS (words-8dqrnq): 9/4 (e) LATEST -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
+WORDS (words-8dqrnq): 9/4 (e) -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
 LAW HAS NEVER REACHED THE WORDS: OUR LINES LAND ON THE BAR AT 23.7% AND CHANCE IS 25%. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
 (His PERMANENT INSTRUCTION is written verbatim in the 9/4 (d) block below. Keep it.)
