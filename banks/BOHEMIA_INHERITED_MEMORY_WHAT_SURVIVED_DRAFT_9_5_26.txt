@@ -1,0 +1,89 @@
+BOHEMIA -- INHERITED MEMORY: WHAT SURVIVED AND WHAT DIED WITH THE WITNESS
+BANK, 9/5/26, DYNASTY lane, Q8 [inherited memory]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+anywhere. What the monument is, what it is called, what any of them did, and
+every name are HIS.
+Record: records/BOHEMIA_DYNASTY_DAY_8_INHERITED_MEMORY_9_5_26.md
+
+WHY THIS SHAPE
+Spoken memory has a measured lifespan: 80 to 110 years, three to four
+generations, and then the FLOATING GAP, after which only what was written,
+ritualised or built survives. BOHEMIA IS A HUNDRED YEARS AND THREE GENERATIONS,
+so the game is exactly as long as a family's spoken memory and ends precisely
+where people stop being able to tell you about it.
+The forgetting is faster than anybody expects: more than half of people cannot
+name all four grandparents, one in five cannot name a single great-grandparent,
+and yet 84% say knowing where they came from matters. THE GAP BETWEEN CARING A
+LOT AND KNOWING ALMOST NOTHING IS THE FEELING THE HEIR SHOULD HAVE.
+We already model the fading half properly: a deed has to be seen from nine
+tiles, can be retold at most twice, weakens 55% each retelling, loses 45%
+crossing a generation, and only a deed somebody RETOLD survives the death of the
+eyewitness at all. The machine even counts what carried and what died.
+What we do not model is the other half. The only thing that crosses the hundred
+years is one function that turns two numbers into one of three words.
+
+---- THE TWO STATES, AS A SHAPE ONLY ----------------------------------- draft:true
+Structure is ours. Every deed, name and shape is his.
+
+  STILL TOLD    somebody retold it, so it survived the witness dying.
+                the game knows who still tells it and how many generations.
+  DIED          nobody retold it. it is gone, and the game knows it is gone.
+  THE MONUMENT  the only thing that crosses a hundred years. it should be made
+                of what survived, not of a final score.
+
+---- WHAT THE HEIR IS TOLD, WHICH IS NEVER A SUMMARY -------------------- draft:true
+  THREE PEOPLE STILL TELL THIS ONE.
+  ONE PERSON STILL TELLS THIS ONE. SHE IS OLD.
+  THIS HAS LASTED TWO GENERATIONS.
+  THEY TELL IT WRONG NOW.
+  THAT IS YOUR FATHER THEY ARE TALKING ABOUT. THEY DO NOT KNOW IT IS YOU.
+
+---- THE SILENCE, WHICH IS THE OTHER HALF AND THE HONEST ONE ------------ draft:true
+  NOBODY KEPT THIS.
+  ELEVEN THINGS HE DID. TWO OF THEM SURVIVED.
+  YOU WILL NEVER KNOW WHAT HE DID HERE.
+  THE ONLY MAN WHO SAW IT DIED FIRST.
+  IT WAS THE BEST THING HE EVER DID AND HE DID IT ALONE.
+
+---- FOUND, NEVER TOLD -------------------------------------------------- draft:true
+(the craft's answer and the heirloom research agree: an object somebody USED
+beats one they owned, and you assemble the person yourself. no diary that
+explains, no summary screen.)
+  THIS IS WHERE HE KEPT IT.
+  IT IS WORN ON ONE SIDE. HE WAS LEFT HANDED.
+  SOMEBODY MENDED THIS BADLY AND KEPT USING IT.
+  THERE ARE TWO NAMES SCRATCHED HERE. YOU KNOW ONE.
+  HE NEVER FINISHED THIS.
+
+---- WHAT THE THIRD ONE GETS, STANDING ON THE GAP ----------------------- draft:true
+  NOBODY ALIVE SAW ANY OF IT.
+  THERE IS A THING WITH HIS NAME ON IT AND NOBODY KNOWS WHY.
+  THEY STILL DO THIS EVERY YEAR. THEY DO NOT REMEMBER WHO STARTED IT.
+  YOU ARE THE LAST ONE WHO COULD HAVE ASKED.
+
+---- THE MONUMENT, WHICH SHOULD BE MADE OF DEEDS ----------------------- draft:true
+today:  two numbers in, one of three words out, for a hundred years
+draft:  built from the deeds that actually survived, which the machine already
+        lists with how many people still tell each one
+  THIS IS HERE BECAUSE OF SOMETHING HE DID.
+  THIS IS HERE BECAUSE OF SOMETHING THEY ALL DID.
+  NOBODY BUILT ANYTHING. THAT IS ALSO AN ANSWER.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No summary screen of your father's life. That is the exposition failure, and it
+contradicts the measured amnesia: real second generations get fragments and a
+lot of missing, never a briefing.
+No complete family history. One in five people cannot name a single
+great-grandparent. An heir who knows everything is a fantasy about memory.
+No rewrite of the standing web. It is the best modelled thing in this repo and
+this is not a criticism of it.
+No fourth memory system. There are already two folds; the answer is fewer.
+No damage, health or armour numbers.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+What the monument is and what it is called. What any of them actually did. Which
+deeds are worth surviving. What the third generation is allowed to find out, and
+what is gone for good. Every name.

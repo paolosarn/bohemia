@@ -1243,6 +1243,63 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 8 [inherited memory], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_8_INHERITED_MEMORY_9_5_26.md
+  banks/BOHEMIA_INHERITED_MEMORY_WHAT_SURVIVED_DRAFT_9_5_26.txt (draft:true)
+SPOKEN MEMORY HAS A MEASURED LIFESPAN AND IT IS OURS. Communicative memory
+(lived, told person to person) lasts 80 to 110 years, THREE TO FOUR GENERATIONS.
+Then comes the FLOATING GAP, the empty space between what people still remember
+and what a group has formalised, and past it only CULTURAL memory survives: what
+was written down, ritualised, or built. BOHEMIA IS A HUNDRED YEARS AND THREE
+GENERATIONS. THE GAME IS EXACTLY AS LONG AS A FAMILY'S SPOKEN MEMORY AND ENDS
+PRECISELY WHERE PEOPLE STOP BEING ABLE TO TELL YOU ABOUT IT.
+And real forgetting is faster than anyone expects: 53% of Americans cannot name
+all four grandparents, 21% cannot name a single great-grandparent, 10% of Brits
+know basic details about theirs, AND 84% SAY KNOWING THEIR HERITAGE MATTERS. The
+gap between caring a lot and knowing almost nothing is the feeling the heir
+should have.
+
+SAY THE GOOD PART FIRST: WE BUILT THE FADING HALF BEAUTIFULLY. The PEOPLE lane's
+standing web is the best modelled organ in this repo. SEE_RANGE 9 (you had to be
+near enough to see it), MAX_HOPS 2 (a story is retold at most twice),
+HEARSAY_LOSS 0.55, GOSSIP_WINDOW 45, GEN_LOSS 0.45. inherit() keeps ONLY deeds
+with hops > 0, under its own comment "the eyewitness is dead. Only what was
+RETOLD is still in the valley", re-attributes them to the child, increments
+`inherited`, records `of: parentId` so it stays nameable as the father's, and
+RETURNS {carried, died}. legendOf() then reports, per deed kind, how many people
+still tell it, how much force it carries, and how many generations it survived.
+
+*** THE FINDING. THE ONLY THING THAT CROSSES THE FLOATING GAP IS THREE WORDS. ***
+monumentForm takes the FINAL fold's karma plus a summed sacrifice virtue and
+returns one of THREE strings ('light', 'stone', 'organic') for a hundred years
+and three generations. It cannot see a single deed, name or event, while
+legendOf one repo away knows exactly which deeds survived and who still tells
+them. WE MODELLED THE HALF THAT FADES WITH FIVE CONSTANTS AND A HOP COUNTER, AND
+THE HALF THAT LASTS FOREVER WITH AN IF-ELSE. And a hundred years of behaviour
+collapsing to whatever the LAST karma number happened to be is worse than the
+line count suggests.
+
+FIFTH ROUND OF THE SAME PATTERN, IN A NEW FORM. Rounds 1, 2, 5 and 6: the right
+mechanism attached to the wrong subject. Round 7: the answer filed under the
+wrong department. Round 8: the two halves of one idea built at WILDLY DIFFERENT
+RESOLUTIONS, with the temporary thing in fine grain and the permanent thing as a
+coin flip.
+
+THE CRAFT AGREES WITH THE HEIRLOOM RESEARCH, FROM A DIFFERENT DIRECTION: games
+show a life you did not live through letters, photographs and objects left where
+they were used, and the failure is always exposition. Round 3 measured that an
+object somebody USED beats one they merely OWNED. Two aisles, one instruction:
+DO NOT TELL THE HEIR WHO THEIR PARENT WAS, LEAVE THE THINGS THEY USED WHERE THEY
+USED THEM.
+
+ROUTED (proposals only): WORLD THE-MONUMENT-IS-THREE-WORDS (build it from the
+deeds that actually survived, which legendOf already lists; every shape and name
+his). WORDS WHAT-THE-VALLEY-STILL-SAYS (legendOf returns machine ids; the city
+already maps them through the quest corpus's own lines, so getting that to the
+heir is a words job). PEOPLE: NOTHING NEW, and saying so is the point.
+Inside this lane: Q9 [century town] is the same question about a place instead of
+a person; Q12 [heir's hour] inherits {carried, died} directly.
+
 ROUND 7 [family arrives], SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_7_A_PARTNER_AND_A_CHILD_9_5_26.md
   banks/BOHEMIA_FAMILY_WHO_TURNS_UP_DRAFT_9_5_26.txt (draft:true)
