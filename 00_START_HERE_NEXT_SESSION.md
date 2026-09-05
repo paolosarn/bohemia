@@ -8304,7 +8304,12 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [runway shapes] SHIPPED 32338e1 -- the Balenciaga /
+ROUND LOG 9/5 (latest): [style card] SHIPPED 468fbcb -- the runway in pixel
+terms, measured off the corpus (24x50 body, 112 grid, 280-garment canon at
+only 32% monochrome: the remake's gap, quantified). Two poles: WIDE AT THE
+TOP and TALL AND STACKED, every rule citing its RNWY shape, JSON machine
+block parses and waits for [style checker] STYLE-CARD-GATE, which is my
+next OPEN line. PREVIOUS ROUND: [runway shapes] SHIPPED 32338e1 -- the Balenciaga /
 Rick Owens silhouette library at shape level, 13 entries in
 reference/library/runway/ (shoulder, drape, hem, leg-and-boot, and the two
 whole-figure poles: WIDE AT THE TOP vs TALL AND STACKED, commit to one).
