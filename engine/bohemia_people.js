@@ -1933,11 +1933,32 @@
   /* WHAT THE GAME CALLS THEM TO YOUR FACE. A stranger is their trade; somebody
      you asked is their first name, because that is how you would actually think
      of a neighbour once you had it. */
+  /* *** WHAT SOMEBODY DOES, AND IT HAS NEVER ONCE REACHED A PLAYER. ***
+     MEASURED 9/5 on the real surface: 52 of 52 people within six cells of the
+     spawn have `role` UNDEFINED, so every reader of ROLE_WORDS[person.role] has
+     been answering SOMEBODY for every stranger in the valley since the day it
+     was written. The four trades are real and they are on every person -- the
+     population module calls the field `archetype` (worker / scav / keeper /
+     watch), which is the SAME four keys ROLE_WORDS holds. One field, two names,
+     and nobody noticed because 'SOMEBODY' is a perfectly good-looking answer.
+
+     THE SAME SHAPE AS THE SEAT BUG THIS LANE FOUND LAST ROUND: a finished organ
+     reaching nobody because the question was asked in the wrong words.
+
+     ONE PLACE OWNS THE TRADE WORD NOW. `role` is read FIRST so a caller that
+     really carries one (a quest cast member does) keeps working exactly as it
+     did; `archetype` is the fallback, which is every actual person in the city.
+     Five call sites used to each do this lookup themselves; a sixth would have
+     been a sixth chance to get it wrong. */
+  function tradeOf(person) {
+    if (!person) return null;
+    return ROLE_WORDS[person.role] || ROLE_WORDS[person.archetype] || null;
+  }
   function headingOf(person) {
     if (!person) return 'SOMEBODY';
     var n = nameOf(person);
     if (n) return String(n).split(' ')[0].toUpperCase();
-    return ROLE_WORDS[person.role] || 'SOMEBODY';
+    return tradeOf(person) || 'SOMEBODY';
   }
   /* ---- CASTING: A QUEST ROLE BECOMES A REAL PERSON -----------------------
      Paolo 8/25, THE PLAYTEST DISPATCH item 2:
@@ -2414,6 +2435,7 @@
     traitWords: traitWords,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
+    tradeOf: tradeOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
     makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,

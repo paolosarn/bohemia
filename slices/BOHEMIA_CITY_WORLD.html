@@ -6116,11 +6116,32 @@ global.BohemiaOvermap=API;
   /* WHAT THE GAME CALLS THEM TO YOUR FACE. A stranger is their trade; somebody
      you asked is their first name, because that is how you would actually think
      of a neighbour once you had it. */
+  /* *** WHAT SOMEBODY DOES, AND IT HAS NEVER ONCE REACHED A PLAYER. ***
+     MEASURED 9/5 on the real surface: 52 of 52 people within six cells of the
+     spawn have `role` UNDEFINED, so every reader of ROLE_WORDS[person.role] has
+     been answering SOMEBODY for every stranger in the valley since the day it
+     was written. The four trades are real and they are on every person -- the
+     population module calls the field `archetype` (worker / scav / keeper /
+     watch), which is the SAME four keys ROLE_WORDS holds. One field, two names,
+     and nobody noticed because 'SOMEBODY' is a perfectly good-looking answer.
+
+     THE SAME SHAPE AS THE SEAT BUG THIS LANE FOUND LAST ROUND: a finished organ
+     reaching nobody because the question was asked in the wrong words.
+
+     ONE PLACE OWNS THE TRADE WORD NOW. `role` is read FIRST so a caller that
+     really carries one (a quest cast member does) keeps working exactly as it
+     did; `archetype` is the fallback, which is every actual person in the city.
+     Five call sites used to each do this lookup themselves; a sixth would have
+     been a sixth chance to get it wrong. */
+  function tradeOf(person) {
+    if (!person) return null;
+    return ROLE_WORDS[person.role] || ROLE_WORDS[person.archetype] || null;
+  }
   function headingOf(person) {
     if (!person) return 'SOMEBODY';
     var n = nameOf(person);
     if (n) return String(n).split(' ')[0].toUpperCase();
-    return ROLE_WORDS[person.role] || 'SOMEBODY';
+    return tradeOf(person) || 'SOMEBODY';
   }
   /* ---- CASTING: A QUEST ROLE BECOMES A REAL PERSON -----------------------
      Paolo 8/25, THE PLAYTEST DISPATCH item 2:
@@ -6597,6 +6618,7 @@ global.BohemiaOvermap=API;
     traitWords: traitWords,
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
+    tradeOf: tradeOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
     makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
@@ -6657,6 +6679,7 @@ global.BohemiaOvermap=API;
   if (HASREQ) module.exports = API;
   root.BohemiaPeople = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_people.js (CITY TALK) ==== */
 /* ==== engine/bohemia_powergrid.js (canon, married 7/20) ==== */
 // BOHEMIA POWER GRID (7/14/26) — CLUSTERED POWER LAW as engine code.
 // Streetlights fail by CIRCUIT (feeder death + copper theft), never
@@ -45218,11 +45241,49 @@ window.addEventListener('message',ev=>{
    personFields already gives them, so it is deterministic and a body keeps its
    clothes instead of flickering as you watch. */
 var CAST_CV = null;
+/* __CITY_TRADEFIT__ -- the NAME of each baked body, parallel to CAST_CV. Null
+   until a bake that sends ids lands; an older bake leaves it null and the fit
+   picker falls straight back to the hash it used before. */
+var CAST_ID = null;
+/* ==== __CITY_FACTIONBODY__ : THE OUTFIT REACHES THE STREET ================
+   FACTION_LOOKS has carried thirteen canon outfits since 8/18 and no body on
+   this street has ever worn one. They arrive one at a time, the first time
+   somebody who runs with that outfit has to be drawn -- baking all thirteen at
+   boot is a measured 4,579ms of frozen page to dress people who, near the
+   spawn, do not exist (0 of 61 affiliated).
+   ASKED ONCE PER FACTION, EVER. A render runs sixty times a second and every
+   one of them would otherwise post another request for the same body. */
+var CAST_FID = {}, CAST_FID_ASKED = {};
+function ctNeedFaction(name){
+  if(!name || CAST_FID[name] || CAST_FID_ASKED[name]) return false;
+  CAST_FID_ASKED[name] = 1;
+  try{ if(window.parent && window.parent !== window)
+    window.parent.postMessage({type:'BOHEMIA_CITY_NEED_FACTION',faction:String(name)},'*'); }
+  catch(_e){ return false; }
+  return true;
+}
+window.addEventListener('message',function(ev){
+  var m=ev&&ev.data;
+  if(!m||m.type!=='BOHEMIA_CITY_FACTION_CAST'||!m.faction||!m.dirs) return;
+  var set={};
+  for(var d in m.dirs){
+    var f=decodePlayerFrame(m.dirs[d].idle);
+    if(!f) continue;
+    set[d]={idle:f};
+    var br=(m.dirs[d].breathe||[]).map(decodePlayerFrame).filter(Boolean);
+    if(br.length) set[d].breathe=br;
+  }
+  if(Object.keys(set).length){ CAST_FID[m.faction]=set; if(MODE==='human')render(); }
+});
 window.addEventListener('message',function(ev){
   var m=ev&&ev.data; if(!m||m.type!=='BOHEMIA_CITY_CAST'||!m.looks) return;
-  var out=[];
+  var out=[], ids=[];
   for(var i=0;i<m.looks.length;i++){
     var L=m.looks[i], set={};
+    /* __CITY_TRADEFIT__ -- KEEP THE NAME THE BAKE SENT. A position in an array
+       is a guess; reorder the table upstairs and every binding below would
+       quietly mean something else. */
+    ids.push(L.id || null);
     for(var d in L.dirs){ var f=decodePlayerFrame(L.dirs[d].idle); if(f){
       set[d]={idle:f};
       /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): the breath cycle, if the bake sent
@@ -45233,7 +45294,7 @@ window.addEventListener('message',function(ev){
     } }
     if(Object.keys(set).length) out.push(set);
   }
-  if(out.length){ CAST_CV=out; if(MODE==='human')render(); }
+  if(out.length){ CAST_CV=out; CAST_ID=ids; if(MODE==='human')render(); }
 });
 /* WHICH BODY THIS PERSON WEARS. Null until the bake lands, and the people pass
    falls back to the old tinted body in that window so nobody ever vanishes
@@ -45254,9 +45315,81 @@ function ctPhase(p){
   }
   return p.__bph;
 }
+/* ==== __CITY_TRADEFIT__ : WHAT YOU WEAR SAYS WHAT YOU DO ===================
+   Six fits, four trades, and until now the two had nothing to do with each
+   other: ctBody picked CAST_CV[p.look % 6], so a Watch and a Scavenger were
+   equally likely to be wearing the same coat and nobody's clothes said a word
+   about them.
+
+   EVERY BINDING BELOW IS QUOTED FROM THE FIT'S OWN `why` LINE, which the cast
+   table has carried since 8/3. Nothing here is invented about the shapes; what
+   is decided is which trade each shape belongs to, and that decision is
+   draft:true because "which shape belongs to whom is taste" is the table's own
+   sentence.
+
+     longcoat  "tallest, narrowest column -- a floor-length duster"
+               -> WATCH. A coat you stand outside in all night.
+     barearms  "short and broad, bare arms, no coat to hide the shoulders",
+               suspenders, cargos, ranch boots
+               -> WORKER.
+     pack      "a bulk on the back nobody else has"
+               -> SCAV. You carry what you find.
+     skirt     "the only one whose lower half is not two legs", tee, sneakers
+               -> KEEPER. Somebody who holds a place rather than crosses one.
+     widebrim  "a hat you can identify from across the street", scav tool belt,
+               sandwalkers -> SCAV or WORKER, both outdoors all day.
+     cape      "a hanging cape, the only trailing hem", road cape, scarf
+               -> WATCH or KEEPER, the two trades that stand still in the wind.
+
+   FOUR SHAPES ARE ONE TRADE'S ALONE and two are shared by two trades. That is
+   deliberate: all-unique would put twenty scavengers near the spawn in one
+   silhouette, which reads as a uniform, not a crowd. Every trade gets two, so
+   the street varies and still tells you something.
+   ========================================================================== */
+var TRADE_FIT = {
+  watch:  ['longcoat', 'cape'],       /* draft:true */
+  worker: ['barearms', 'widebrim'],   /* draft:true */
+  scav:   ['pack', 'widebrim'],       /* draft:true */
+  keeper: ['skirt', 'cape']           /* draft:true */
+};
+/* WHICH BAKED BODY THIS PERSON WEARS. Their trade picks the pair; their own
+   `look` picks within it, so a body still never flickers as you watch it.
+   IT FALLS BACK TO WHAT IT DID BEFORE, on purpose: an unknown trade, a renamed
+   fit, or a bake that sent no ids all land on CAST_CV[look % n] rather than on
+   nothing. A person with no clothes is worse than a person in the wrong ones,
+   and this table is his to rename. */
+function ctFitIndex(p){
+  var n = CAST_CV ? CAST_CV.length : 0;
+  var fallback = n ? ((p.look >>> 0) % n) : 0;
+  if (!n || !CAST_ID || !CAST_ID.length) return fallback;
+  var trade = null;
+  try { trade = p.role || p.archetype || null; } catch (_e) {}
+  var want = trade ? TRADE_FIT[String(trade)] : null;
+  if (!want || !want.length) return fallback;
+  /* the fits this bake actually delivered, in the order the table names them */
+  var have = [];
+  for (var w = 0; w < want.length; w++) {
+    var at = CAST_ID.indexOf(want[w]);
+    if (at >= 0 && at < n) have.push(at);
+  }
+  if (!have.length) return fallback;
+  return have[(p.look >>> 0) % have.length];
+}
 function ctBody(p,dir){
   if(!CAST_CV||!CAST_CV.length) return null;
-  var set=CAST_CV[(p.look>>>0)%CAST_CV.length];
+  /* __CITY_FACTIONBODY__ -- WHO YOU RUN WITH BEATS WHAT YOU DO. An outfit is a
+     stronger fact about somebody than their trade: it is the thing they chose
+     and the thing that gets them killed. Their trade is what they wear until
+     they have one.
+     NO HOLE WHILE IT BAKES. The request goes out and this frame keeps drawing
+     the trade fit, so the swap is a body getting MORE specific, never a person
+     appearing out of nothing. */
+  var set=null;
+  try{
+    var fid=ctFactionOf(p);
+    if(fid){ set=CAST_FID[fid]||null; if(!set) ctNeedFaction(fid); }
+  }catch(_e){}
+  if(!set) set=CAST_CV[ctFitIndex(p)];
   var s=set&&(set[dir]||set.S);
   if(!s) return null;
   /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): pick the breath frame for this beat.
@@ -53426,7 +53559,11 @@ function ctDraw(){
   if(typeof BohemiaIntros !== 'undefined'){
     var iRule = BohemiaIntros.ruleOf(ctFid);
     var iCtx  = { full: BohemiaPeople.generatedName(who.key),
-                  trade: BohemiaPeople.ROLE_WORDS[who.role]||null, work:null };
+                  /* __CITY_TRADE__ -- ASK THE ONE FUNCTION. This read
+                     ROLE_WORDS[who.role] and role is UNDEFINED on every person
+                     in the valley (measured: 52 of 52 near the spawn), so the
+                     trade half of an introduction has never once fired. */
+                  trade: BohemiaPeople.tradeOf(who), work:null };
     /* __CITY_THIRDPARTY__ -- AND THE OTHER FOUR CONDITIONS earned() SWITCHES ON.
        This line used to be the whole state, so `vouched`, `overheard`,
        `standing` and `honest` were permanently false and FIVE of his sixteen
@@ -53499,7 +53636,8 @@ function ctDraw(){
      the loop was driven end to end. ROLE_WORDS is the module's own answer. */
   /* __CITY_CARDFOLD__ -- the heading above IS the trade word, so this row said
      the same thing twice. A duplicate is not disclosure. */
-  var ctTradeWord = BohemiaPeople.ROLE_WORDS[who.role]||'SOMEBODY';
+  /* __CITY_TRADE__ -- same bug, same fix: the field is called archetype. */
+  var ctTradeWord = BohemiaPeople.tradeOf(who)||'SOMEBODY';
   if(String(ctTradeWord).toUpperCase() !== String(nm?nm:BohemiaPeople.headingOf(who)).toUpperCase())
     body+=ctRow('TRADE', ctTradeWord);
   /* __CITY_SPEAKS__ -- WHAT THEY SPEAK (8/25). THEY SPEAK SPANGLISH (Paolo

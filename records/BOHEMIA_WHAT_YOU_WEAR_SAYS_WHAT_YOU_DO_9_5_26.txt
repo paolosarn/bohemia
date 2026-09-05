@@ -1,0 +1,121 @@
+BOHEMIA -- WHAT YOU WEAR SAYS WHAT YOU DO (9/5/26, PEOPLE lane)
+VAMILY job [outfits nearby], row OUTFITS-AT-SPAWN
+
+THE ROW, WORD FOR WORD
+  "zero of 34 people within six cells wear one."
+
+================================================================================
+MEASURED FIRST, AND THE ONE-LINE ROW WAS THREE SEPARATE BREAKS
+================================================================================
+
+1. THE BODY WAS A HASH, NOT A FACT ABOUT ANYBODY.
+   ctBody picked CAST_CV[p.look % 6] -- six anonymous townsfolk fits chosen by
+   three bits of a seed. Measured within six cells of the spawn: 52 people,
+   bodies spread 16/13/5/7/6/5 across the six, with no relation to who any of
+   them is. A Watch and a Scavenger were equally likely to be in the same coat.
+
+2. THE TRADE WORD HAD NEVER FIRED, FOR ANYBODY, EVER.
+   All 52 of those people have `role` UNDEFINED. The population module calls the
+   field `archetype` and it IS populated -- scav 20, worker 14, keeper 7,
+   watch 11 -- and it holds THE SAME FOUR KEYS ROLE_WORDS holds
+   (worker/scav/keeper/watch). So every reader of ROLE_WORDS[person.role]
+   answered 'SOMEBODY' for every stranger in the valley since the day it was
+   written. One field, two names, and nobody noticed because SOMEBODY is a
+   perfectly good-looking answer.
+   >>> THE SAME SHAPE AS THE SEAT BUG THIS LANE FOUND LAST ROUND: a finished
+       organ reaching nobody because the question was asked in the wrong words.
+
+3. NOBODY NEAR THE SPAWN RUNS WITH ANYBODY, AND THAT IS THE MAP.
+   0 of 61 affiliated across three neighbourhoods. Nearest base 29 cells; a
+   base's pull (REACH_CELLS) reaches 12. AFFILIATED_RATE and REACH_CELLS are
+   both marked [PENDING Paolo] and the map is MAP LAW. Not this lane's to move.
+   SO THE FACT A PERSON NEAR THE SPAWN ACTUALLY HAS IS THEIR TRADE, and that is
+   what their clothes say now.
+
+AND A FOURTH, FOUND ON THE WAY IN: the city's inlined copy of the identity
+module had NO CLOSING FENCE, so tools/bohemia_people_resync.py refused to run
+("1 start and 0 end markers ... refusing to guess"). The guard rail was right and
+it had left the block with no maintainer: the inlined copy was 111,294 bytes
+against the engine's 112,593. Fence written, module resynced.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_people.js              tradeOf(), the ONE owner of the trade word
+tools/bohemia_city_trade_fit_patch.py the trade -> shape binding
+tools/bohemia_faction_body_patch.py   the outfit itself, baked lazily
+gates/trade_fit_gate.js               41 claims, 0 red
+
+THE BINDING, AND EVERY LINE OF IT IS QUOTED FROM THE FIT'S OWN `why`
+  longcoat  "tallest, narrowest column -- a floor-length duster"      -> WATCH
+  barearms  "short and broad, bare arms", suspenders, ranch boots     -> WORKER
+  pack      "a bulk on the back nobody else has"                      -> SCAV
+  skirt     "the only one whose lower half is not two legs"           -> KEEPER
+  widebrim  "a hat you can identify from across the street", tool belt-> SCAV/WORKER
+  cape      "a hanging cape, the only trailing hem", road cape        -> WATCH/KEEPER
+FOUR SHAPES BELONG TO ONE TRADE ALONE and two are shared by two trades. That is
+deliberate: all-unique would put twenty scavengers near the spawn in ONE
+silhouette, which reads as a uniform, not a crowd. Every trade gets two, so the
+street varies and still tells you something. All four bindings draft:true --
+"which shape belongs to whom is taste" is the cast table's own sentence.
+
+THE NAME TRAVELS WITH THE BODY. The bake now sends each look's id, because a
+POSITION IN AN ARRAY IS A GUESS: reorder the table upstairs and every binding
+would silently mean something else. An id is a fact.
+
+AND THE OUTFIT ITSELF, LAZILY, WITH THE NUMBER THAT DECIDED IT
+FACTION_LOOKS has carried thirteen canon faction outfits since 8/18 -- every
+selectable faction, draft:true, gated at thirteen distinguishable silhouettes --
+and no body on the walked street had ever worn one.
+  MEASURED: bake56 costs 6.02ms; a look is 40 bakes (8 directions x 1 idle + 4
+  breath frames). The six anonymous fits cost 1,446ms of BLOCKING page today.
+  Nineteen would cost 4,579ms.
+Four and a half seconds of frozen boot, to dress people who near the spawn do
+not exist. So a faction body is baked THE FIRST TIME ONE IS ACTUALLY NEEDED:
+walk onto Cartel ground, the city asks for the Cartel once, the alpha bakes that
+one look and posts it back, cached for the session. Where nobody is affiliated
+nothing is baked and boot is exactly what it was.
+WHO YOU RUN WITH BEATS WHAT YOU DO, because an outfit is the thing you chose and
+the thing that gets you killed. Your trade is what you wear until you have one.
+NO HOLE WHILE IT BAKES: the person keeps their trade fit, so the swap is a body
+getting MORE specific, never a person appearing out of nothing.
+
+================================================================================
+PROVEN ON THE REAL DEMO
+================================================================================
+  WITHIN SIX CELLS OF THE SPAWN   52 people. 52 of 52 now have a trade word
+                                  (was 0 of 52). 52 of 52 wear a fit from their
+                                  own trade, 0 off-pair. Both of every trade's
+                                  two shapes are actually on the street
+                                  (scav 2, worker 2, keeper 2, watch 2).
+                                  0 lost their body. 0 flicker across three asks.
+  THE BAKE                        sends the name of every body it makes:
+                                  longcoat, barearms, pack, skirt, widebrim, cape
+  ON CARTEL GROUND                25 Cartel live near the base, 3 on the glass.
+                                  The city asks for ONE faction, not thirteen.
+                                  3 of 3 still drawn mid-bake (no hole).
+                                  The outfit arrives and 3 of 3 put it on.
+                                  0 unaffiliated leaked into somebody's outfit.
+
+================================================================================
+ONE MISTAKE OF MINE, AND IT IS THE THIRD TIME
+================================================================================
+A COMMENT IS A BLOCK, NOT A LINE. The claim "the city no longer does this lookup
+itself" grepped the raw file and went red on THREE legitimate hits: two comments
+explaining the bug and tradeOf's OWN BODY, which is the one place that is
+supposed to do it. Comments are stripped first now and the owner is excluded by
+position. Third time this lane has written a check that measured its own prose.
+(A second claim went stale the same way and was REPOINTED, NOT LOOSENED: it
+demanded a literal line that the faction half legitimately turned into a
+fallback under the outfit.)
+
+================================================================================
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+================================================================================
+- AFFILIATED_RATE (0.30) and REACH_CELLS (12) in bohemia_agents.js are why a
+  seventeen-cell ring round the spawn cannot hold one affiliated body. Both are
+  already marked [PENDING Paolo]. Until one moves, or FACTIONS lands
+  [who holds], the faction outfit is only visible on a faction's own ground.
+- The four trade bindings above are draft:true. He corrects them by playing.
+
+TAB: CITY. Walk out of the front door and the street tells you what people do.

@@ -1440,9 +1440,9 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/5 LATEST -- *** [who is hostile] SHIPPED. THE CROWD
-CARRIES THE SIGN NOW: they watch, they follow, they get in your way, they refuse.
-ALL FOUR ARE ON THE STREET AND ALL FOUR ARE PROVEN ON THE REAL DEMO. TAB: CITY.
+PEOPLE (people-7h9sfy): 9/5 LATEST -- *** [outfits nearby] SHIPPED. WHAT SOMEBODY
+WEARS NOW SAYS WHAT THEY DO: 52 of 52 people near the front door, where it was
+ZERO. And on a faction's own ground they wear the outfit itself. TAB: CITY.
 THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION VERBATIM, BECAUSE HE ASKED FOR IT
 TO LIVE HERE SO IT SURVIVES A MEMORY RESET, AND BECAUSE A REBASE ONTO MAIN
 DROPPED THE LAST COPY OF THIS LANE'S BLOCK ENTIRELY. ***
@@ -1476,116 +1476,89 @@ END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
 =============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
-THE JOB JUST SHIPPED: [who is hostile] THE-CROWD-CARRIES-THE-SIGN.
+THE JOB JUST SHIPPED: [outfits nearby] OUTFITS-AT-SPAWN.
 
-WHAT THE ROW ASKED: the between-ledger already works out who is hostile to you
-and none of it reached the street. Make the sign visible in the crowd: they
-watch, they follow, they block a door, they refuse. All four are there now.
+THE ROW WAS ONE LINE -- "zero of 34 people within six cells wear one" -- AND IT
+WAS THREE SEPARATE BREAKS.
+  1. THE BODY WAS A HASH. ctBody picked CAST_CV[look % 6]: six anonymous fits
+     chosen by three bits of a seed. Measured: 52 people within six cells,
+     bodies spread 16/13/5/7/6/5, with no relation to who any of them is.
+  2. THE TRADE WORD HAD NEVER FIRED FOR ANYBODY, EVER. All 52 have `role`
+     UNDEFINED. The population module calls the field `archetype`, it IS
+     populated (scav 20, worker 14, keeper 7, watch 11), and it holds THE SAME
+     FOUR KEYS ROLE_WORDS holds. So every reader answered 'SOMEBODY' for every
+     stranger in the valley since the day it was written. SAME SHAPE AS THE SEAT
+     BUG I FOUND LAST ROUND: a finished organ asked in the wrong words.
+  3. NOBODY NEAR THE SPAWN RUNS WITH ANYBODY -- 0 of 61, nearest base 29 cells,
+     reach 12. MAP LAW plus two [PENDING Paolo] dials. Not mine.
+  AND A FOURTH ON THE WAY IN: the city's inlined identity module had NO CLOSING
+  FENCE, so the resync tool refused to run and the copy had drifted 1.3 KB
+  behind the engine. Fence written, module resynced.
 
-*** THE MEASUREMENT MOVED THIS JOB THREE TIMES AND THAT IS THE STORY. ***
-  1. TWO CHANNELS, NOT ONE. Their outfit against yours (bohemia_between) and
-     their own opinion of you (the deed ledger). Built on BOTH, because either
-     one alone ships dark where a demo player actually walks.
-  2. THE SPAWN IS EMPTY OF BOTH, AND THAT IS THE MAP, NOT A BUG. Cold start,
-     real surface: 0 of 61 people within three neighbourhoods run with ANYBODY.
-     Nearest base 29 cells; a base's pull reaches 12. Only 3 of 14 outfits can
-     ever be at odds with you and their bases are 48, 60 and 62 cells out. Both
-     dials are [PENDING Paolo]; the map is MAP LAW. Neither touched.
-  3. THE MAP HAS ALMOST NO DOORS. stepOnce's own measurement, already written
-     in the city: "39,706 solid cells admit you, 7 painted doors exist ... TEN
-     OF FOURTEEN district types have zero of either", and there is NO door
-     within forty cells of the ground the Cartel live on. So a doorway is the
-     special case and the general one is the cell you are about to walk into.
-     Same sentence, and it is the OCCUPANCY LAW this game already has.
-
-*** AND I FOUND A BUG THAT WAS ALREADY SHIPPED, BY RUNNING IT. *** THE SEAT BUG:
-between(theirOutfit, myOutfit) is NULL for every enemy the player EARNED, because
-an earned edge is written in ONE seat while his authored pairs happen to be
-written in both. The person card's own row "AND THEY ARE UP AGAINST YOU" was
-asking from the wrong seat -- the one case its own comment describes. Fixed at
-the root: both callers go through ctRelToMine -> BohemiaBetween.myRipples, which
-walks both seats. myRipples had ZERO CALLERS in the whole repo until today.
+SO CLOTHES SAY THE FACT A PERSON NEAR THE SPAWN ACTUALLY HAS: their trade.
 
 SHIPPED THIS ROUND
-  engine/bohemia_against.js            the question and the ladder, PURE
-  tools/bohemia_city_against_patch.py  13 anchored steps into the walked city
-  gates/against_gate.js                66 claims, 0 red
-  records/BOHEMIA_THE_CROWD_CARRIES_THE_SIGN_9_5_26.txt
+  engine/bohemia_people.js              tradeOf(), the ONE owner of the trade word
+  tools/bohemia_city_trade_fit_patch.py the trade -> shape binding
+  tools/bohemia_faction_body_patch.py   the outfit itself, baked lazily
+  gates/trade_fit_gate.js               41 claims, 0 red
+  records/BOHEMIA_WHAT_YOU_WEAR_SAYS_WHAT_YOU_DO_9_5_26.txt
 
-THE LADDER, EVERY WORD OF IT ALREADY IN THE REPO:
-  cold -> WATCH | hostile -> WATCH FOLLOW REFUSE | war -> and BLOCK
-The worse of the two reasons wins. Nothing here chooses a magnitude: the rungs
-are BohemiaStanding's, the war flag is BohemiaBetween's, sight is SEE_RANGE (9),
-and the follow distance is the gossip pass's own "two cells is arm's length plus
-one". Every sentence draft:true. WORLD MOVERS LAW: one step of theirs per step
-of yours, called from stepOnce and nowhere else, no timer anywhere.
+THE BINDING, EVERY LINE QUOTED FROM THE FIT'S OWN `why`:
+  longcoat -> WATCH | barearms -> WORKER | pack -> SCAV | skirt -> KEEPER
+  widebrim -> SCAV or WORKER | cape -> WATCH or KEEPER
+Four shapes are one trade's alone, two are shared. All-unique would put twenty
+scavengers in ONE silhouette, which reads as a uniform, not a crowd. All four
+bindings draft:true -- "which shape belongs to whom is taste" is the cast
+table's own sentence. And the bake now sends each look's ID, because a position
+in an array is a guess and an id is a fact.
 
-PROVEN ON THE REAL SURFACE, THROUGH stepOnce (what a d-pad press runs):
-  0 of 61 near the spawn are against you, and nobody follows   (dark = honest)
-  one weight on his STANDING dial + one real deed -> the witness reads
-    hostile/you and their head turns to the player
-  side with the Remnants, walk onto Cartel ground -> 3 of 3 read war/them, all
-    three facing the player exactly, 3 followers on 300 of 300 steps, distances
-    2/3/4 with none closer than 2, ZERO occupancy collisions
-  the card leads with THEY ARE AGAINST YOU + AT WAR and both offer buttons gone
-  a war body steps into the cell you face, stepOnce returns false, the street
-    says so, and six other directions still walk (it cannot trap you)
+AND THE OUTFIT ITSELF, LAZILY, WITH THE NUMBER THAT DECIDED IT. FACTION_LOOKS
+has carried 13 canon faction outfits since 8/18 and no body on the street had
+ever worn one. MEASURED: bake56 is 6.02ms, a look is 40 bakes, so the six cost
+1,446ms of BLOCKING page today and nineteen would cost 4,579ms. Four and a half
+seconds of frozen boot to dress people who near the spawn do not exist. So a
+faction body bakes THE FIRST TIME ONE IS NEEDED: walk onto Cartel ground, the
+city asks for the Cartel ONCE, the alpha bakes that one look and posts it back.
+Who you run with beats what you do; your trade is what you wear until you have
+an outfit; and there is no hole while it bakes.
 
-THREE MISTAKES OF MINE THIS ROUND, WRITTEN DOWN:
-  1. I BROKE OCCUPANCY LAW IN FRONT OF MYSELF: three Cartel bodies in ONE cell
-     for 600 steps, because each followed with no idea the others existed.
-     Guarding the cell they STEPPED to fixed four of six; the last two were the
-     cell they HELD. 6 -> 2 -> 0.
-  2. A CHECK THAT WAS BACKWARDS. "They stop at two cells" asked that every
-     follower be WITHIN two, went red on 2/3/2, and the 3 was the code being
-     right: KEEP is where they stop closing, not a leash.
-  3. A COMMENT IS A BLOCK, NOT A LINE, AND A -1 IS NOT A RUNG. Two claims
-     grepped the raw module and went red on its own header comment and on a
-     step's `-1`. Third time this lane has hit that shape.
+PROVEN ON THE REAL DEMO
+  within six cells   52 of 52 have a trade word (was 0). 52 of 52 wear a fit
+                     from their own trade, 0 off-pair. Both of every trade's two
+                     shapes are on the street. 0 lost a body. 0 flicker.
+  the bake           sends every body's name: longcoat, barearms, pack, skirt,
+                     widebrim, cape
+  on Cartel ground   25 live near the base, 3 on the glass. ONE faction asked
+                     for, not thirteen. 3 of 3 still drawn mid-bake. The outfit
+                     arrives and 3 of 3 put it on. 0 unaffiliated leaked.
 
-LANE GREEN: AGAINST 66/0, DEMO TALKS 14/0, PEOPLE 158/0, WHO VOUCHES 19/0,
-PACK 47/0, WALK ENCOUNTER 15/0, CITY PEOPLE 18/0, DEMO IS CURRENT 16/0,
-DEMO BUILD 25/0, ORGAN REACH rule 3 green.
+ONE MISTAKE OF MINE, AND IT IS THE THIRD TIME: A COMMENT IS A BLOCK, NOT A LINE.
+My "the city no longer does this lookup itself" claim grepped the raw file and
+went red on three legitimate hits -- two comments explaining the bug and
+tradeOf's OWN BODY. Comments stripped first now, owner excluded by position. A
+second claim went stale the same way and was REPOINTED, NOT LOOSENED.
 
-THE SUITE, IN FOUR SHARDS, AND EVERY RED CLASSIFIED AGAINST A CLEAN origin/main
-WORKTREE RATHER THAN ASSUMED. Forty-odd reds are identical on clean main and
-belong to other lanes. walk_feel is FLAKY ON BOTH TREES (three runs each: 20/0,
-19/1, 20/0 either way) -- a pixel-timing claim, not a regression. THREE WERE
-MINE AND ALL THREE ARE FIXED:
-  organ reach rule 3   I wired myRipples to the street and left its tooling-only
-                       exemption standing. Entry deleted. The gate caught it one
-                       round after the wiring, which is the argument for rule 3.
-                       AND the same sweep had never heard of bohemia_against --
-                       registered now, and the first sweep with it in cost an
-                       export (rankOf had no caller anywhere). 4 fns, surface 4,
-                       dead 0.
-  demo is current      I changed the build stamp and did not re-cut the demo.
-  demo build           same six bytes. node tools/bohemia_cut_the_demo.js.
-                       It is step four of this lane's own instructions.
-ONE SHARED PROBLEM WORTH NAMING, NOT MINE TO FIX: face_thumb_gate compares FILE
-MTIMES (the candidate bank must be within six hours of the alpha). Every ship
-updates the build stamp, so every ship trips it unless that lane rebakes its art
-bank -- and it passes vacuously on a fresh clone where every file has the same
-mtime. Flagged, not papered over.
+LANE GREEN: TRADE FIT 41/0, PEOPLE 158/0, CITY PEOPLE 18/0, AGAINST 66/0,
+WHO VOUCHES 19/0, DEMO TALKS 14/0, LANGUAGE 81/0, TALKING PORTRAIT 27/0,
+DRESS 46/0, ALPHA LOADS 20/0. city_cast 7/1, city_cast_silhouette 5/1,
+personlook 21/1 and face_thumb 22/1 are all IDENTICAL on clean origin/main.
+(dress went 44/2 -> 46/0 this round, but the canon item count went 280 -> 320:
+that is another lane's wardrobe work arriving in my rebase, not my fix.)
 
-NEXT OPEN LINE FOR THIS LANE: [outfits nearby] OUTFITS-AT-SPAWN -- zero of 34
-people within six cells wear one.
+NEXT OPEN LINE FOR THIS LANE: [former jobs] BB-WHAT-YOU-WERE.
 
 [PENDING Paolo] -- CARRIED, NOT DECIDED HERE
-  1. THE 82 DEED WEIGHTS need a ruling on SHAPE: which handful of things a
-     person repeats about a stranger, and roughly how much worse a betrayal is
-     than a kindness is good. ONE SENTENCE unblocks all 82. Until then the four
-     STREET deeds (met, refused, commit, favour) are worth nothing, so the
-     personal half of hostility only lights from his STANDING dial.
-  2. AFFILIATED_RATE (0.30) and REACH_CELLS (12) in bohemia_agents.js are both
-     already marked [PENDING Paolo]. They are WHY a seventeen-cell ring round
-     the spawn cannot hold one affiliated body. Not touched by this lane.
+  1. AFFILIATED_RATE (0.30) and REACH_CELLS (12) in bohemia_agents.js are why a
+     seventeen-cell ring round the spawn cannot hold one affiliated body. Both
+     already marked [PENDING Paolo]. Until one moves, or FACTIONS lands
+     [who holds], the faction outfit is only visible on a faction's own ground.
+  2. The four trade bindings are draft:true. He corrects them by playing.
+  3. STILL OPEN FROM LAST ROUND, and the coordinator has since RULED it on the
+     board as [weights shape]: the 82 deed weights need his shape. Until then
+     the four STREET deeds are worth nothing.
 
-FEEDS: RUN [enemies exist] and COMBAT [street fight] can call
-BohemiaAgainst.read({rel, rung}) with their own facts and get the same answer
-the street gives, instead of growing a second idea of who is hostile.
-
-TAB: CITY. Walk out and the sign is on the bodies.
+TAB: CITY. Walk out of the front door and the street tells you what people do.
 
 ------------------------------------------------------------------------
 
