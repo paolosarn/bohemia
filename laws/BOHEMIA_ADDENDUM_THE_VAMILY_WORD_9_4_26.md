@@ -45,3 +45,13 @@ THE LANES list at the top of VAMILY.md, marks it CLAIMED, commits, and that
 is its role for life. He opens as many fresh chats as he likes and types
 the same word in each; they sort themselves. The coordinator keeps that
 list ordered by what matters most.
+
+## A JOB TAKES AS MANY ROUNDS AS IT TAKES (Paolo 9/4, same day)
+"I hope they don't think they can get any job done in one round unless it's a
+really easy one... I already know the pace of this coding shit and your
+capabilities." VAMILY means CONTINUE. A chat holding a CLAIMED job resumes
+it from its own handoff block. SHIPPED is written only when the ship test is
+met on the real surface; a half-done job marked SHIPPED is worse than an
+open one and is the one thing this board cannot afford. Every round ends
+with the handoff updated and a two-word label plus "continuing, about N of
+M" or "shipped".

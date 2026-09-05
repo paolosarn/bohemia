@@ -14,4 +14,6 @@ VAMILY means: go to the file VAMILY.md at the repo root and do your job from it.
 8. Rewrite your handoff block before you end. Then take the next OPEN line, or say "queue empty" in two words.
 9. Reply to VAMILY with two words: the job's [bracket] label. Then work.
 
+10. A JOB TAKES AS MANY ROUNDS AS IT TAKES. Most jobs will not finish in one round and nobody expects them to. VAMILY means CONTINUE: if you already have a CLAIMED job, pick it back up exactly where your handoff block says you left it. You mark SHIPPED only when the job's own ship test is actually met on the real surface. A half-done job marked SHIPPED is worse than an open one; do not rush to close a line. At the end of every round: write where you are in your handoff block, and reply with the two-word label plus one short line, "continuing, about N of M" or "shipped".
+
 Full rules: CLAUDE.md (the VAMILY section) and laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md.

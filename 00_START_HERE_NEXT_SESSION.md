@@ -809,7 +809,14 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ay) LATEST -- *** EYES AND EARS gets an
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (az) LATEST -- *** A JOB TAKES AS MANY
+ROUNDS AS IT TAKES; VAMILY MEANS CONTINUE; SHIPPED ONLY WHEN THE SHIP TEST IS MET.
+Nothing to judge. ***
+Paolo 9/4: "I hope they don't think they can get any job done in one round." The
+primer, VAMILY.md point 6b, the top block of CLAUDE.md and the VAMILY law now say
+it. LAST FEEDBACK RECEIVED: this -> those four.
+
+COORDINATOR: 9/4 (ay) -- *** EYES AND EARS gets an
 E0: real screenshots of every tab on round one, so he sees something. Nothing to judge. ***
 Paolo 9/4, opening the chat: "I hope it's not a massive let down." E0 [first pictures]
 now leads its queue. LAST FEEDBACK RECEIVED: this -> E0.

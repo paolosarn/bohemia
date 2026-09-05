@@ -25,6 +25,11 @@
 5. When it is in the walked surface AND the demo (re-cut it), change the
    line to `SHIPPED <date> <commit>` and commit. That is the history.
 6. Then the next OPEN one, or stop and say so.
+6b. A JOB TAKES AS MANY ROUNDS AS IT TAKES (Paolo 9/4). VAMILY means CONTINUE: a chat
+   with a CLAIMED job picks it back up where its handoff block says it stopped. Mark
+   SHIPPED only when the ship test is met on the real surface; a half-done job
+   marked SHIPPED is worse than an open one. End every round by writing where you
+   are in your handoff block and replying "continuing, about N of M" or "shipped".
 7. EVERY LANE SECTION CARRIES A MODE (9/4). MODE: BUILD is the above. MODE:
    RESEARCH means DO NOT IMPLEMENT: take the first OPEN question, do one research
    day in the BB-study shape (both aisles, one finding that challenges us,
