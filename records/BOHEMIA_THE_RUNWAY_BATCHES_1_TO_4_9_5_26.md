@@ -478,3 +478,67 @@ pole. Nothing here needs re-cutting; what needs settling is one number in the ca
 **Wardrobe after four batches: 256 -> 296 garments, 79 -> 104 shapes.** All forty of
 this lane's garments sit inside the card's palette, and the card's headline number
 is **42%**, from the 32% it shipped at. Gate: 61 checks, 0 failed.
+
+---
+---
+
+# THE CARD'S SHAPE RULES, MEASURED AND HELD (round after batch 4)
+
+The style card does not only govern colour, and until this round the gate held none
+of its SHAPE rules. Section 2 gives pixel numbers for the two poles. Three are
+testable on our rig; two are now held by machine and one cannot be.
+
+## RNWY-01 -- THE SQUARE SHOULDER. HELD.
+
+```
+    plain top        row 18  20..35   row 19  20..35   corner rounding 0 px
+    WIDE SHOULDER    row 18  18..37   row 19  18..37   corner rounding 0 px   SQUARE
+```
+
+**THE FIRST RULER MEASURED THE WRONG THING AND WOULD HAVE FAILED THE PAD.** It took
+how far the edge moved across FIVE rows and reported 2 px. Those 2 px are the pad
+*ending* -- its deliberate hard drop off the shoulder -- not a rounded corner. A
+corner is the top two rows. Measured there, the pad is perfectly square.
+
+## RNWY-07 -- THE ASYMMETRIC HEM. HELD, WITH A CONTROL.
+
+```
+    plain coat 0.56    skirt hem spans 0 px across the body   level
+    ASYMMETRIC COAT    skirt hem spans 8 px                   A DIAGONAL EVENT
+    ASH ASYM 0.34      skirt hem spans 5 px                   A DIAGONAL EVENT
+    plain coat 0.34    skirt hem spans 0 px                   level
+```
+
+**THE FIRST RULER SCORED A PLAIN COAT AT 22 PX -- IDENTICAL TO AN ASYMMETRIC ONE.**
+It took the lowest painted row per column across the WHOLE garment, sleeves and
+collar included, so it was measuring the coat's height and calling it a hem. Now it
+reads the skirt hem only, and it discriminates: symmetric coats score 0, the
+asymmetric ones 5 and 8. **THE PLAIN COAT IS KEPT AS A LIVE CONTROL THAT MUST SCORE
+ZERO** -- a ruler that cannot tell them apart is measuring the wrong thing, and this
+gate now catches that automatically.
+
+## THE ONE THAT CANNOT BE HELD, AND WHY IT IS REPORTED RATHER THAN ENFORCED
+
+The card's POLE A / POLE B **shoulder span** rule is written against the PAPERDOLL
+body, whose shoulder and hip are both torso. A DRESSED SPRITE'S shoulder is its
+ARMS -- 16 px across before any cloth, against a hip of 8. So a plain t-shirt is
+pole A and pole B is unreachable by any garment ever cooked. That number is
+DIRECTION's to settle; this lane measured it and left the card alone.
+
+## THE COUNT THAT MATTERS MOST IN THIS WHOLE JOB
+
+**Six rulers have been wrong in this job, and not one shape was ever changed to fit
+a bar.**
+
+1. AREA scored the dead V-NECK above the oversized shoulder.
+2. The OUTLINE ruler scored the wrap coat at zero (a slit is a hole).
+3. The FACE check would have condemned his approved dust mask.
+4. The SHOULDER CORNER ruler measured the pad's drop, not its corner.
+5. The ASYMMETRY ruler measured the coat's height, not its hem.
+6. And the one that was NOT a ruler bug: the asymmetric coat really was too weak,
+   and was fixed as a SHAPE (rise 0.34 -> 0.55), not by moving the bar.
+
+Every fix was to measure what the player sees or what the drawing code does. The
+gate now carries three live controls that must FAIL their own rules -- the dead
+V-NECK for shape, his approved DUST MASK for the face rule, a PLAIN COAT for the
+hem rule -- because a check nothing can fail is not a check. Gate: 65, 0 failed.

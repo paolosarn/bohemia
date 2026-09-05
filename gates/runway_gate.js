@@ -387,6 +387,56 @@ const OPTS = [["cut:'drop'", 'drop rise'], ["cut:'wide'", 'wide pleat'], ["cut:'
   ["kind:'visor'", 'shield visor'], ["kind:'facewrap'", 'face wrap']];
 for (const [o, nm] of OPTS) ok('somebody in the wardrobe actually wears the ' + nm, CAT.indexOf(o) >= 0);
 
+/* ---------- 7a. THE CARD'S SHAPE RULES, SECTION 2 -------------------------- */
+/* The card does not only govern colour. Section 2 gives PIXEL rules for the two
+   poles, and until now this gate held none of them. Two are testable on our rig and
+   are held here. THE THIRD IS NOT, and saying so is part of the job: the card's
+   POLE A / POLE B SHOULDER SPAN is written against the PAPERDOLL body (24x50,
+   module 13), whose shoulder and hip are both torso -- but a DRESSED SPRITE'S
+   shoulder is its ARMS, 16 px across before any cloth, against a hip of 8. Measured
+   on the alpha's own generators, a PLAIN T-SHIRT is pole A and pole B cannot be
+   reached by any garment ever cooked. That is a number for DIRECTION to settle, not
+   for this lane to pick, so it is reported in the record and NOT enforced here.
+   BOTH RULES BELOW CARRY A LIVE CONTROL THAT MUST FAIL THEM. That is this gate's
+   signature by now -- the dead V-NECK for shape, his approved DUST MASK for the
+   face rule -- and it exists because a check nothing can fail is not a check. */
+{
+  const rowSpan = (o, y) => { let a = 1e9, b = -1;
+    for (const k in o) { const i = +k; if (((i / CW) | 0) !== y) continue; const x = i % CW; if (x < a) a = x; if (x > b) b = x; }
+    return b < 0 ? null : [a, b]; };
+  let armTop = 1e9;
+  for (let i = 0; i < g.length; i++) { const p = g[i]; if (p === 5 || p === 6) { const y = (i / CW) | 0; if (y < armTop) armTop = y; } }
+
+  /* RNWY-01: a pole-A shoulder is cut SQUARE, corner rounding <= 1 px.
+     THE FIRST RULER MEASURED THE WRONG THING and would have failed the pad: it took
+     how far the edge moved over FIVE rows, which is the pad ENDING -- its deliberate
+     hard drop -- and called that a rounded corner. A CORNER IS THE TOP TWO ROWS. */
+  const cornerRound = (o) => { const r0 = rowSpan(o, armTop), r1 = rowSpan(o, armTop + 1);
+    if (!r0 || !r1) return 99;
+    return Math.max(Math.abs(r1[0] - r0[0]), Math.abs(r1[1] - r0[1])); };
+  const padRound = cornerRound(G.genTop(g, { ramp: R, sleeves: true, shoulder: 'wide' }));
+  ok('RNWY-01: the oversized shoulder is cut SQUARE (corner rounding ' + padRound + ' px, card allows 1)', padRound <= 1);
+
+  /* RNWY-07: a garment that declares an asymmetric hem crosses >= 6 px of height at
+     112, >= 3 at 56 -- "a diagonal event, not a wobble". Measured on the SKIRT HEM
+     only. THE FIRST RULER TOOK THE LOWEST PAINTED ROW PER COLUMN OVER THE WHOLE
+     COAT, sleeves and collar included, so a PLAIN coat scored 22 px -- the same as
+     an asymmetric one. A ruler that cannot tell them apart measures the garment's
+     height, not its hem. */
+  let torsoBot = -1;
+  for (let i = 0; i < g.length; i++) if (g[i] === 4) { const y = (i / CW) | 0; if (y > torsoBot) torsoBot = y; }
+  const hemRange = (o) => { const bot = {};
+    for (const k in o) { const i = +k, x = i % CW, y = (i / CW) | 0; if (y <= torsoBot) continue; if (bot[x] === undefined || y > bot[x]) bot[x] = y; }
+    const xs = Object.keys(bot).map(Number); if (!xs.length) return 0;
+    const ys = xs.map(x => bot[x]); return Math.max.apply(null, ys) - Math.min.apply(null, ys); };
+  const asymRange  = hemRange(G.genCoat(g, { ramp: R, asym: true, len: 0.56 }));
+  const asymShort  = hemRange(G.genCoat(g, { ramp: R, asym: true, len: 0.34 }));
+  const plainRange = hemRange(G.genCoat(g, { ramp: R, len: 0.56 }));
+  ok('RNWY-07: the asymmetric coat is a DIAGONAL EVENT (' + asymRange + ' px of hem across the body, card wants 3)', asymRange >= 3);
+  ok('RNWY-07: the short asymmetric coat too (' + asymShort + ' px)', asymShort >= 3);
+  ok('CONTROL: a PLAIN coat\'s hem is level (' + plainRange + ' px) -- a ruler that scores it the same as an asymmetric one is measuring height, not hem', plainRange === 0);
+}
+
 /* ---------- 7b. THE STYLE CARD, WHICH LANDED AFTER THIS BATCH WAS COOKED --- */
 /* DIRECTION shipped records/BOHEMIA_STYLE_CARD_9_5_26.md and it turns the register
    into numbers: CLOTH MID SATURATION <= 0.25 (monochrome and dust), outer mid VALUE
