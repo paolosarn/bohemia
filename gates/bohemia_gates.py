@@ -222,6 +222,19 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('SEE IT COMING',  ['node', 'gates/danger_gate.js'],
+     'The manager 9/5: "a fight that arrives with no warning on a phone is a rage quit. '
+     'Before you walk into a dangerous block you can SEE it ... no numbers, no meter, no '
+     'text box." Holds the TELL, and says plainly it is not holding the threat: there are '
+     'no dangerous blocks yet (a cell knows no owner, FACTION_ASSIGN ships empty, FACTIONS\' '
+     'own board state says "nobody holds ground", and RUN still holds [enemies exist]), so '
+     'the source is a seam that ships EMPTY and this proves the mark. It checks the tell '
+     'appears only when a source is installed, that it SURVIVES GREYSCALE (COLOUR IS '
+     'TERRITORY keeps colour as the second channel, so danger rides VALUE first), that the '
+     'EDGE reads stronger than the middle so you see the line from outside it, and that no '
+     'DOM node is added. Measured on the mark\'s own rim colour rather than a whole-frame '
+     'diff, because an ambient speech bubble is several per cent of the picture and a '
+     'frame diff cannot tell one from the other.', True),
     ('THE FEED',       ['node', 'gates/feed_gate.js'],
      'Paolo 9/4 LOCKED: in the zoomed-out city view a phone screen is part of the UI and it '
      'scrolls a social feed -- what you did, what the world did, and auto-generated life -- '

@@ -32892,6 +32892,77 @@ function _hzStep(col,mag){
   const h=v=>{ v=Math.max(0,Math.min(255,Math.round(v))); return (v<16?'0':'')+v.toString(16); };
   return '#'+h(((n>>16)&255)+d)+h(((n>>8)&255)+d)+h((n&255)+d);
 }
+/* ============================================================================
+   __YOU_CAN_SEE_IT_COMING__  (UI lane, 9/5/26, VAMILY board row [danger visible])
+
+   THE MANAGER'S CALL, 9/5: "a fight that arrives with no warning on a phone is a rage
+   quit. Before you walk into a dangerous block you can SEE it ... the block reads hot,
+   the people read wrong, one glance is enough. No numbers, no meter, no text box."
+
+   WHAT IS ACTUALLY TRUE TODAY, MEASURED BEFORE BUILDING ANYTHING, because the row says
+   the tell rides territory colour and territory is not what I assumed:
+     - a CELL knows {g, s, walk, q}. No owner, no district, no faction.
+     - FACTION_ASSIGN ships EMPTY by law; who sits where is Paolo's.
+     - FACTIONS' own board STATE says it in four words: "nobody holds ground", and
+       [light owners] NAME-THE-CIRCUIT-OWNER is marked needs Paolo.
+     - BohemiaBetween, which knows who is hostile to you, is ABSENT from this frame.
+     - RUN holds [enemies exist]: there are no hostile bodies on the street yet.
+   SO THERE IS NO DANGEROUS BLOCK TO SEE YET, and inventing one would be authoring
+   territory that is explicitly his -- the empty-table-behind-a-built-pipe move this
+   repo has been burned by before.
+
+   THEREFORE: THE TELL IS BUILT AND PROVEN, AND ITS SOURCE IS A SEAM THAT SHIPS EMPTY.
+   window.BOHEMIA_DANGER.at(gx,gy) -> 0..1. RUN, FACTIONS or PEOPLE install it the day
+   they have hostile bodies or held ground, and the valley starts reading hot with
+   nothing here to change. With no source installed this draws NOTHING and the picture
+   is byte-identical to the one before it existed, which the gate proves.
+
+   HOW IT READS, and why it is not a colour swatch:
+     COLOUR IS THE SECOND CHANNEL, NEVER THE ONLY ONE (8/26 law: silhouette carries
+     identity and the greyscale test still governs). So danger is carried by VALUE
+     first -- the ground goes DOWN in luminance, away from its own material -- with a
+     hot cast on top. Kill the colour and it still reads, which the gate checks by
+     measuring the greyscale difference, not the hue.
+     AND THE EDGE IS THE WARNING. A cell that is dangerous next to one that is not gets
+     a hot rim on the boundary, so what you see from outside is a LINE you are about to
+     cross rather than a wash you only notice once you are standing in it. That is the
+     "before you walk into it" half, and it is the half a flat tint would miss.
+     No number, no meter, no text: it is ground, at ground's weight.
+   ============================================================================ */
+window.BOHEMIA_DANGER = window.BOHEMIA_DANGER || { at:null };
+function __dangerAt(gx,gy){
+  var src=window.BOHEMIA_DANGER;
+  if(!src||typeof src.at!=='function') return 0;
+  var v;
+  try{ v=+src.at(gx,gy); }catch(_e){ return 0; }
+  if(!(v>0)) return 0;
+  return v>1?1:v;
+}
+function dangerMark(x,px,py,T,gx,gy,d){
+  /* VALUE FIRST: pull the ground down, away from its own material, so the block is
+     darker than its neighbours before any hue is involved. */
+  x.globalAlpha=0.30*d+0.14;
+  x.fillStyle='#140a06';
+  x.fillRect(px,py,T,T);
+  /* THEN THE HEAT, as a cast rather than a paint: an ember tone at low alpha so the
+     grain of the material still shows through. Deliberately not any faction's
+     saturated colour -- this is a STATE, and a state that impersonated an identity
+     would break COLOUR IS TERRITORY the moment a faction owned red. */
+  x.globalAlpha=0.22*d;
+  x.fillStyle='#c2401c';
+  x.fillRect(px,py,T,T);
+  x.globalAlpha=1;
+  /* THE EDGE YOU ARE ABOUT TO CROSS. Only where the neighbour is NOT dangerous, so a
+     whole hot block reads as one block with a line around it and not as a grid of
+     outlined tiles. */
+  var w=Math.max(1,Math.round(T*0.09));
+  x.fillStyle='#e8702c';
+  if(__dangerAt(gx,gy-1)<=0) x.fillRect(px,py,T,w);
+  if(__dangerAt(gx,gy+1)<=0) x.fillRect(px,py+T-w,T,w);
+  if(__dangerAt(gx-1,gy)<=0) x.fillRect(px,py,w,T);
+  if(__dangerAt(gx+1,gy)<=0) x.fillRect(px+T-w,py,w,T);
+}
+
 function hazMark(x,px,py,c,gx,gy,variant){
   const T=TPX, base=c.g||c.s||'#8a8478';
   /* A DROP: THE RIM IS THE WHOLE THING. The void already draws darker than the rock it is
@@ -33037,6 +33108,7 @@ function chunkCanvas(cx,cy){
        explain something the floor could have shown). Drawn AFTER the ground texture and
        BEFORE everything else, so lamps, props and structures still sit on top. */
     if(c.haz||c['void']) hazMark(x,i2*TPX,y*TPX,c,gx,gy,v);
+
     /* the approved grain carries the FORM; the district's palette carries the MATERIAL.
        Same two-step the structure branch below uses, at the weight ground needs -- at
        0.16 a sand tile and a gravel tile are the same picture. */
@@ -40087,6 +40159,8 @@ function renderHuman(){
   const _gc=camCell(hx,hy);
   const ox=Math.round(cv.width/2-_gc[0]*C), oy=Math.round(cv.height/2-_gc[1]*C);   /* PIXEL FIX: whole-pixel camera - an odd canvas height put every tile on a half pixel */
   const night=isNight();
+  /* decided ONCE a frame, not once a cell: see the danger pass below */
+  const __DANGER_ON = !!(window.BOHEMIA_DANGER && typeof window.BOHEMIA_DANGER.at==='function');
   g.fillStyle=night?'#141c28':'#20303e'; g.fillRect(0,0,cv.width,cv.height);
   g.imageSmoothingEnabled=false;
   // visible chunk window -> blit baked 128x128 texture canvases, scaled
@@ -40103,6 +40177,26 @@ function renderHuman(){
       g.fillStyle='rgba(10,14,26,0.48)'; g.fillRect(bx,by,cs,cs);
       g.fillStyle='rgba(255,220,120,0.85)';
       for(const [lx,ly] of ch.lamps){ g.fillRect(bx+lx*C+C*0.35,by+ly*C+C*0.4,Math.max(2,C*0.14),Math.max(2,C*0.14)); }
+    }
+    /* __YOU_CAN_SEE_IT_COMING__ -- THE DANGER PASS, AND IT HAS TO BE HERE.
+       The first cut put it inside chunkCanvas beside hazMark, which is where hazard
+       ground is drawn and looked like the obvious home. IT NEVER RAN ONCE: chunkCanvas
+       BAKES a 16x16 chunk into an offscreen canvas and returns the cache forever after,
+       so anything painted there is frozen at first paint. Hazard ground can live there
+       because a drained pool does not stop being a drained pool. DANGER MOVES. Painting
+       it into the cache would have shown yesterday's threat on today's street and needed
+       cache invalidation on somebody else's cache to fix.
+       So it draws in the LIVE pass, over the baked ground, in the same slot the night
+       tint uses -- which is the proof that a per-chunk overlay here is cheap enough.
+       AND IT COSTS NOTHING WHEN EMPTY: one property read per chunk decides whether the
+       cell loop runs at all, so with no danger source installed this is not 256 calls a
+       chunk, it is one. 60 on a phone is somebody's row and this does not spend it. */
+    if(__DANGER_ON){
+      for(let dy2=0;dy2<CHK;dy2++)for(let dx2=0;dx2<CHK;dx2++){
+        const _gx=(cx<<4)+dx2, _gy=(cy<<4)+dy2;
+        const _d=__dangerAt(_gx,_gy);
+        if(_d>0) dangerMark(g,bx+dx2*C,by+dy2*C,C,_gx,_gy,_d);
+      }
     }
     if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar,pw,ph] of ch.posts){
       /* __A_VERTICAL_IS_A_FAMILY_DRAW__ -- one draw for every standing object in the game.
