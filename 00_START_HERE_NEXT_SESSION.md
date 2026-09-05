@@ -1688,7 +1688,75 @@ the map now shows where. NONE OF THAT MAKES IT NEAR. Three ways out:
 
 --------------------------------------------------------------------------------
 
-COMBAT (combat-nfnki9): 8/28 (c) LATEST -- *** FIFTY-THREE MINI BOSSES ARE IN
+COMBAT (combat-nfnki9): 9/5 (u) LATEST -- *** BUMPING SOMEBODY WHO IS COMING FOR YOU
+ON THE STREET NOW STARTS THE FIGHT WHERE YOU STAND. *** Nothing to judge.
+
+TAB: **RUN into COMBAT**. Walk until a crew clocks you and closes.
+
+*** THE STANDING INSTRUCTION (Paolo 9/5, LOCKED, given word for word). VAMILY is a
+KEYWORD, nothing to do with families. It means: pull main, re-read CLAUDE.md FROM DISK,
+open VAMILY.md and READ ITS FRONT PAGE EVERY TIME (the rules live and change there,
+never trust memory of them), find your section among the eighteen, CONTINUE the job you
+hold or CLAIM the first OPEN line and commit before building, build only what is on the
+board, NEVER ask him anything ([PENDING Paolo] in this block; the coordinator carries
+it), commit straight to main, rewrite this block every round, and reply with the
+two-word label plus one short line. THIS CHAT IS 04 COMBAT, for life. The mistake that
+made the instruction necessary: this chat once read VAMILY as "family" and started
+building a companion out of FAMILY_CAST before opening the board. OPEN THE FILE; DO NOT
+INTERPRET. ***
+
+LAST ROUND: THE-FIGHT-STARTS-WHERE-YOU-STAND [street fight] SHIPPED (f572532), then the
+crew half (d18f244). Paolo played it and said "where the enemies at bro". The ruling's
+sentence: THE GAME KNOWS WHO YOUR ENEMIES ARE, IT HAS NEVER ONCE PUT ONE IN FRONT OF
+YOU. Bumping a hostile crew on the walked street now starts the fight where you stand,
+through the DOOR'S OWN MESSAGE with NO ROOM -- so it lands on a street board, because
+V200 made the board depend on whether a room was sent. ONE FIELD DECIDES WHICH BOARD.
+
+*** AND THE TWO HALVES OF ONE RULING NEARLY DID NOT MEET, WHICH IS THE THING TO
+REMEMBER. *** RUN shipped [enemies exist] in the same round, and their hostiles are a
+CREW standing at a cell (BohemiaHostiles.near, stateOf -> idle/watch/close). IT NEVER
+DECORATES A ctAdjacent() PERSON, so the p.hostile path this entry shipped with would
+never have been set by it. CHECKING RATHER THAN ASSUMING is the only reason they meet.
+The entry reads HOST_DREW -- what their own draw computed -- and fires on a crew that is
+CLOSING; a crew only WATCHING is not a fight; the roster is THEIR crew's count.
+
+NO HOSTILITY IS AUTHORED IN THIS LANE, deliberately: RUN owns the bodies, PEOPLE owns
+the sign, COMBAT owns the ENTRY.
+
+THREE INSTRUMENT LESSONS, all of which cost a run:
+  * A harness that loads BOHEMIA_CITY_WORLD.html DIRECTLY cannot test any entry: a
+    top-level page has window.parent === window and the entry correctly refuses to post
+    to itself. Drive the ALPHA, where the city is a real iframe.
+  * A gate CANNOT intercept postMessage from inside the city frame -- file:// origins
+    are "null" and cross-origin. Catch the message where it LANDS, on the shell.
+  * stepOnce is REASSIGNED by the interiors wrapper, so String(stepOnce) reads the
+    wrapper. A hook check written that way GOES RED ON WORKING CODE. Check the source.
+
+AND THE FLAKE, HUNTED PROPERLY: fight_moves_you went 168/2 once right after the city
+slice changed, then 170/0 on FOUR consecutive CAPTURED runs. Not reproduced, still
+uncaught, but bounded. NEXT TIME IT GOES RED, CAPTURE BEFORE RE-RUNNING.
+
+NOT BUILT, IN ORDER: the door as a fighting RETREAT (you start on it, so it would be an
+instant win -- a mechanic, not a wire); the room's ground/hazard channel and retreat
+analysis, both sent and still unread; doorways as CHOKEPOINTS; and THE GROUP IS DRAWN
+FROM ARCHETYPES, NOT FROM THE PEOPLE ACTUALLY STANDING THERE -- the man you bumped
+becomes a roster slot rather than himself.
+
+AND A PRE-EXISTING BUG FOUND ON THE WAY, NOT THIS ROW: the city says how many men are
+in a building and the fight rolls its own number (enter() sets numEnemies from the
+roster, setupEnemies overrides it with rollEncounterSize()).
+
+Records: BOHEMIA_COMBAT_THE_FIGHT_STARTS_WHERE_YOU_STAND_9_5_26.md,
+BOHEMIA_COMBAT_THE_FIGHT_IS_THE_ROOM_9_5_26.md,
+BOHEMIA_COMBAT_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_9_5_26.md,
+BOHEMIA_COMBAT_A_TILE_IS_A_HOUSE_9_5_26.md
+Gates: combat_entry 31/0, fight_moves_you 170/0, combat_lab 931/1 (the red is another
+lane's, pre-existing), one_engine 3/0, boss_ladder 87/0, there_are_enemies 27/0 (RUN's,
+still green with this consuming their model), 0 page errors.
+
+--------------------------------------------------------------------------------
+
+COMBAT (combat-nfnki9): 8/28 (c) -- *** FIFTY-THREE MINI BOSSES ARE IN
 THE GAME AND NOT ONE OF THEM WAS INVENTED. HIS LADDER HAS BEEN A DOCUMENT FOR
 THREE WEEKS; THE GAME PARSES IT NOW. *** Nothing to judge.
 
