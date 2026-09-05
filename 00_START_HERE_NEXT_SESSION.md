@@ -754,7 +754,16 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aw) LATEST -- *** EYES AND EARS: useful
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ax) LATEST -- *** THE VAMILY PRIMER. He
+typed VAMILY into the other chats and they had no idea what it meant ("they started
+going off on family dynasty shit"). Nothing to judge. ***
+ROOT CAUSE, MINE: existing chats never re-read CLAUDE.md, and fresh ones found the
+VAMILY section 1,500 lines down. FIX: VAMILY_PRIMER.md at repo root (a one-time paste
+for every chat, nine numbered steps), and the VAMILY instruction is now THE FIRST
+BLOCK OF CLAUDE.md, before anything else, with "stop reading here and do this".
+LAST FEEDBACK RECEIVED: this -> the primer and the top-of-file block.
+
+COORDINATOR: 9/4 (aw) -- *** EYES AND EARS: useful
 after 3 rounds (visuals), 4 (sound), decent after 8 to 10; queue reordered
 fastest-to-useful; it may build its own checking instruments. Nothing to judge. ***
 Paolo 9/4: "how many rounds of research until eyes and ears is worth having around?"
