@@ -1,0 +1,97 @@
+ONE ACCENT ONLY -- the style card's wearing rule, measured on the real picker
+9/5/26, CHARACTER lane. [clothes wired] WIRE-THE-REMAKE.
+
+THE CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md, DIRECTION, 9/5) says:
+    "accent_max_pieces": 1
+    "banned": [... "second saturated piece" ...]
+    "accent_sat_min": 0.55   <- the threshold, read from the card, not typed here
+
+A cook decides what one garment looks like. NOTHING BUT THE PICKER DECIDES HOW
+MANY A PERSON WEARS AT ONCE, so this rule lands on CHARACTER, not on COOK.
+
+EVERY GARMENT'S SATURATION, read by rendering it ALONE and diffing against the
+bare body, because garments are gen functions and not a table of hexes.
+
+  canon garments                 280
+  at or above the accent line    50
+
+  THE ACCENT PIECES
+    base    SIGNAL RED SHIRT          0.841
+    feet    SIGNAL RED BOOTS          0.804
+    base    TEAL STRIPED TEE          0.774
+    base    TEAL WORK SHIRT           0.773
+    base    MOB PINSTRIPE SHIRT       0.762
+    base    COBALT SHIRT              0.756
+    outer   COBALT CHORE COAT         0.747
+    legs    COBALT WORK PANTS         0.746
+    outer   COBALT COAT               0.731
+    outer   COBALT DUSTER             0.729
+    feet    COBALT BOOTS              0.714
+    feet    COBALT SNEAKERS           0.714
+    face    ROSE BANDANA              0.681
+    base    MOSS GREEN SHIRT          0.678
+    head    COBALT KNIT CAP           0.676
+    outer   GRASS CAR COAT            0.662
+    outer   GRASS DUSTER              0.654
+    base    VESTMENT GOLD SHIRT       0.643
+    feet    GRASS SNEAKERS            0.642
+    outer   ROSE DUSTER               0.642
+    base    RED SHIRT                 0.629
+    head    ROSE KNIT CAP             0.597
+    base    SCAVENGER FLANNEL         0.574
+    base    RUST HENLEY               0.574
+    base    RUST HOODIE               0.574
+    face    RUST DUST MASK            0.574
+    gear    RUST GORGET               0.574
+    base    RUST STRIPED TEE          0.573
+    base    RUST TANK                 0.573
+    gear    SCRAP PAULDRON            0.572
+    (+20 more)
+
+WHAT THE PICKER ACTUALLY PUTS ON 3000 PEOPLE
+
+  0 accent piece(s)    1124   37.47%
+  1 accent piece(s)    1302   43.40%
+  2 accent piece(s)     491   16.37%
+  3 accent piece(s)      74   2.47%
+  4 accent piece(s)       8   0.27%
+  5 accent piece(s)       1   0.03%
+
+  people wearing MORE than 1   574   (19.13%)
+  worst case on one person      5
+
+  EXAMPLES
+    crowd:2  base/ROLLED FLANNEL + legs/RUST CARGOS
+    crowd:10  feet/SIGNAL RED BOOTS + gear/SCRAP PAULDRON
+    crowd:12  base/BRICK HOODIE + feet/BROWN BOOTS
+    crowd:21  base/MOSS GREEN SHIRT + feet/VESTMENT GOLD BOOTS
+    crowd:25  head/SCRAP HELM + outer/RUST VEST
+    crowd:28  base/RUST HOODIE + feet/BROWN BOOTS + outer/RUST WORK COAT
+    crowd:32  feet/GRASS SNEAKERS + outer/COBALT CHORE COAT
+    crowd:33  base/BRICK HOODIE + feet/VESTMENT GOLD BOOTS
+
+WHAT THIS NUMBER IS AND IS NOT
+
+  It is NOT a verdict on the card. Brown reads as highly saturated in HSV (a mid
+  brown is about 0.59), so this count calls ordinary leather boots an accent --
+  and the card explicitly lists dust, ash, bone, lead and oxblood-grey as LEGAL
+  cloth. A NUMBER IS NOT A FINDING UNTIL YOU KNOW WHAT IT IS COUNTING.
+
+  What it honestly says: THE WARDROBE PREDATES THE CARD. That is COOK's
+  WARDROBE-REMAKE, still OPEN, and not a defect for CHARACTER to fix.
+
+  THE REAL HOLE, AND IT IS THIS LANE'S: not one of the 280 garments carries
+  any mark saying it is a faction accent. Fields on a canon garment are
+  n, st, layer, lux, gen, hard, cw, fresh, hoodDefaultUp -- and nothing else.
+  So "at most ONE piece per body carries the faction's saturated colour" was
+  UNENFORCEABLE BY ANYTHING, whatever the pixels said.
+
+  FIXED THIS ROUND: engine/bohemia_personlook.js now honours an `accent` flag
+  and will never put a second one on a body -- data, not names, exactly like
+  the `lux` and `hard` flags beside it, so COOK tags a piece as it cooks it and
+  no code changes. IT SHIPS WITH NOTHING TAGGED (MECHANISM-MINE /
+  CONTENTS-PAOLO'S): measured, 0 of 4000 people's looks changed. Held by
+  gates/wardrobe_wired_gate.js, which drives the mechanism on a synthetic
+  wardrobe rather than on the empty one, and by stripping the flag proves it is
+  the RULE holding and not a pool that cannot break it.
+

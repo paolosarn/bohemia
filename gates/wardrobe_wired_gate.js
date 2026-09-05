@@ -210,6 +210,63 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
            : '(' + bench.canon + ' across the CLOTHES rail and the face maker)')
        : '(could not reach the benches)');
 
+  /* *** ONE ACCENT PER BODY, WHICH IS THE ONE CARD RULE COOK CANNOT KEEP. (9/5.) ***
+     DIRECTION's style card (records/BOHEMIA_STYLE_CARD_9_5_26.md) says
+     `"accent_max_pieces": 1` and bans "a second saturated piece" outright. A cook
+     decides what ONE garment looks like; NOTHING BUT THE PICKER DECIDES HOW MANY OF
+     THEM A PERSON WEARS AT ONCE. So however well every piece is cooked, that line
+     breaks on the street unless the picker holds it.
+     IT SHIPS INERT AND THAT IS CORRECT. No garment carries an `accent` flag yet --
+     MECHANISM-MINE / CONTENTS-PAOLO'S, the mechanism is this lane's and WHICH pieces
+     carry a faction's colour is COOK's and DIRECTION's. Measured: 0 of 4000 people's
+     looks changed when the rule landed. So the check cannot be "nobody wears two"
+     (vacuously true with nothing tagged, and it would stay green the day the rule was
+     deleted). IT DRIVES THE MECHANISM INSTEAD, on a synthetic wardrobe where several
+     categories carry both an accent and a plain piece -- which is exactly the shape
+     the remake will land in.
+     The threshold and the cap are READ FROM THE CARD, never typed here: a second copy
+     of a value DIRECTION owns is a copy that goes stale the day they move it. */
+  const cardTxt = fs.readFileSync(path.join(REPO, 'records/BOHEMIA_STYLE_CARD_9_5_26.md'), 'utf8');
+  const cardJson = JSON.parse((cardTxt.match(/```json\s*([\s\S]*?)```/) || [, '{}'])[1]);
+  const MAXP = cardJson.accent_max_pieces;
+  ok('the style card still names an accent cap, so this rule is still the card\'s',
+     MAXP === 1, '(accent_max_pieces = ' + MAXP + ')');
+
+  const vm = require('vm');
+  const look = (() => {
+    const ctx = { module: { exports: {} } }; ctx.window = ctx; ctx.globalThis = ctx;
+    vm.createContext(ctx);
+    vm.runInContext(fs.readFileSync(PICKER, 'utf8'), ctx);
+    return ctx.BOH_PERSONLOOK;
+  })();
+  const synth = [];
+  for (const L of ['base', 'legs', 'feet', 'outer', 'head']) {
+    synth.push({ n: L.toUpperCase() + ' ACCENT', st: 'canon', layer: L, accent: true });
+    synth.push({ n: L.toUpperCase() + ' PLAIN', st: 'canon', layer: L });
+  }
+  const count = (pool) => { let worst = 0, over = 0;
+    for (let i = 0; i < 3000; i++) {
+      const w = look.lookFor('t:' + i, pool).worn; let a = 0;
+      for (const s in w) if (String(w[s]).indexOf('ACCENT') >= 0) a++;
+      if (a > worst) worst = a; if (a > MAXP) over++;
+    } return { worst, over }; };
+  const guarded = count(synth);
+  /* THE SAME WARDROBE WITH THE FLAG STRIPPED, so the check proves the RULE and not the
+     pool. Without this the test could pass on a wardrobe that simply cannot produce
+     two accents, which proves nothing at all. */
+  const naked = count(synth.map(g => ({ n: g.n, st: g.st, layer: g.layer })));
+
+  ok('*** the picker never puts a second accent on one body ***',
+     guarded.over === 0 && guarded.worst <= MAXP,
+     '(worst ' + guarded.worst + ' of ' + MAXP + ' allowed, ' + guarded.over + ' over in 3000)');
+  ok('and that is the RULE holding, not a pool that cannot break it',
+     naked.worst > MAXP,
+     '(same wardrobe, flag stripped: worst ' + naked.worst + ')');
+  ok('it drops the second accent without leaving anybody undressed',
+     (() => { for (let i = 0; i < 500; i++) {
+       const w = look.lookFor('t:' + i, synth).worn;
+       if (!w.base || !w.legs) return false; } return true; })());
+
   /* *** A KNOWN GAP, REPORTED AND NOT FAILED, BECAUSE IT IS NOT THIS LANE'S SURFACE. ***
      slices/BOHEMIA_CITY_WORLD.html -- the walked city -- simulates about 5,027 agents
      with homes, schedules and movement, and has ZERO calls to buildFrame or drawChar.

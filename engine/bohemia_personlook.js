@@ -128,6 +128,10 @@
        reordered -- invisible to the eye, fatal to any equality check or save
        comparison. The gate caught it by shuffling the pool. */
     var cats = Object.keys(byCat).sort();
+    /* what this body has already put on, for rules that span categories. The order is
+       the SORTED category order above, so which piece wins the one accent is stable and
+       does not follow the input array. */
+    var _worn = { accent: false };
     for (var ci = 0; ci < cats.length; ci++) {
       var cat = cats[ci];
       var odds = WEAR_ODDS[cat];
@@ -167,7 +171,35 @@
       pool = (_soft.length && unit(id, 'hard:' + cat) > _hardOdds) ? _soft : pool;
       var _plain = pool.filter(function (x) { return !x.lux; });
       var _use = (_plain.length && unit(id, 'lux:' + cat) > _luxOdds) ? _plain : pool;
-      out[cat] = _use[Math.floor(unit(id, 'pick:' + cat) * _use.length) % _use.length].n;
+      /* *** ONE ACCENT PER BODY (DIRECTION's style card, 9/5). ***
+         The card's machine block says `"accent_max_pieces": 1` and bans "a second
+         saturated piece" outright:
+             "at most ONE piece per body carries the faction's saturated colour
+              (saturation >= 0.55) -- COLOUR IS TERRITORY (8/26): the cut belongs to
+              the register, the colour belongs to the faction, and wearing it is a
+              choice with a cost. A second saturated piece is a violation, not an
+              outfit."
+         *** AND THIS IS THE ONE RULE ON THAT CARD THAT COOK CANNOT KEEP. *** A cook
+         decides what ONE garment looks like. NOTHING BUT THE PICKER DECIDES HOW MANY
+         OF THEM A PERSON WEARS AT ONCE -- so however well every piece is cooked, the
+         card breaks on the street unless it is held right here.
+         DATA, NOT NAMES, exactly like `lux` and `hard` above: an `accent` flag on the
+         garment, so this module still contains no garment name anywhere and COOK can
+         tag a piece as it cooks it without touching code. It SHIPS WITH NOTHING TAGGED
+         (MECHANISM-MINE / CONTENTS-PAOLO'S) -- the mechanism is mine, which pieces
+         carry a faction's colour is COOK's and DIRECTION's, and until they say so this
+         costs the street nothing.
+         IT DROPS THE SECOND ACCENT, IT DOES NOT DROP THE PERSON. Once somebody is
+         wearing one, later categories fall back to their non-accent pieces; a category
+         whose whole pool is accents is left alone rather than left bare, because a
+         missing shirt is a worse violation than a second colour. */
+      if (_worn.accent) {
+        var _noAcc = _use.filter(function (x) { return !x.accent; });
+        if (_noAcc.length) _use = _noAcc;
+      }
+      var _got = _use[Math.floor(unit(id, 'pick:' + cat) * _use.length) % _use.length];
+      if (_got.accent) _worn.accent = true;
+      out[cat] = _got.n;
     }
     return out;
   }
