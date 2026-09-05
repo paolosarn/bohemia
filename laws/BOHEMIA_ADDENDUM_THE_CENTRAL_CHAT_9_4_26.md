@@ -106,8 +106,10 @@ that explain the job best."
 - **EVERY REPLY THAT CREATES JOBS LISTS THEM, BY CHAT, TWO WORDS EACH.**
   Nothing else about a new job needs to reach him unless he asks.
 - **VAMILY TYPED TO THE COORDINATOR MEANS A MANAGER'S ROUND:** (1) turn
-  anything he said into jobs; (2) read every lane's newest handoff block
-  and commits since the last round, and move SHIPPED lines; (3) top up any
+  anything he said into jobs; (2) read EVERY lane's newest handoff block
+  and commits since the last round, move SHIPPED lines, and send a reader
+  into every lane that shipped or moved (his 9/4 ask: every round is a
+  full sweep, sized to what changed); (3) top up any
   lane under six OPEN lines; (4) if the board is thin or a lane is stuck,
   run one research day and route it; (5) reply with the new jobs, two
   words each, by chat, and the shipped ones the same way.

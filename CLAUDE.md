@@ -1589,6 +1589,20 @@ an animal, inheritance, ageing, the time skip, the Angel's shape). The 8/28 rule
 holds hardest in research mode: mechanics in plain words, no unnamed game enters
 the design. Law: laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md
 
+## EYES AND EARS (Paolo 9/4/26, LOCKED): LANE 17, HIS DOUBLE
+"a double checking set of eyes and a double checking set of ears for any visual and
+audio work... I need another free pair of eyeballs and another free pair of ears."
+Lane 17 checks that every shipped visual and sound is CORRECT and NOT WEAK: nothing
+glitches, it matches its reference (the compare law), it is not worse than the best
+of its kind. It never decides taste (that is DIRECTION). It learns the job first
+(research queue E1 to E8: pixel tells, a glitch taxonomy, screenshot diffs against
+golden images, audio measurement, walk-cycle tells, a reference scoring sheet), then
+runs the pass on the REAL SURFACE on every ship and posts a two-word verdict. THE ONE
+EXCEPTION to "only the coordinator adds jobs": on a defect in something marked
+SHIPPED it writes one [eyes: two words] line into that lane's section. And every
+coordinator round is a full sweep sized to what changed: every lane read, readers
+into every lane that moved. Law: laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md
+
 ## THE RUNWAY, AND ART AT ALL TIMES (Paolo 9/4/26, LOCKED)
 "every piece of clothing and every hairstyle should be modeled after like fashion
 brands... Balenciaga, Rick Owens... no matter their faction... I want everyone to
@@ -1679,7 +1693,7 @@ failed - stop and say so instead of fixing the attempt.
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
 short form: the FIRST word of a new session names its lane (run/world/city/
-combat/character/animation/quests/people/sound/ui/direction/cook/words/economy/dynasty/coordinator; the reference lab was retired 9/4) and means GO; after that his entire
+combat/character/animation/quests/people/sound/ui/direction/cook/words/economy/dynasty/eyes-and-ears/coordinator; the reference lab was retired 9/4) and means GO; after that his entire
 vocabulary is "go" / "verdicts in" / "status" —
 any other word from him is a RULING to record, never a discussion to have.
 On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's

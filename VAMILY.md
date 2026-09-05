@@ -38,7 +38,7 @@ real surface before calling it shipped and re-cut the demo; his bugs beat
 your queue; run your lane's gates, never ship red; 120 BPM friendly for
 everything; rewrite your handoff block before you end.
 
-## THE SIXTEEN CHATS (his list, 9/4). Every one has a queue below. He types VAMILY, nothing else.
+## THE SEVENTEEN CHATS (his list, 9/4). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name
 takes the first line marked UNCLAIMED, writes CLAIMED, commits, and that is its
 role. Every section carries MODE and a STATE line (what is built, what is not,
@@ -59,6 +59,7 @@ what nobody has verified) so the chat knows what it does not know.
  14 ANIMATION        -> ANIMATION
  15 DYNASTY          -> DYNASTY     (research)
  16 ART COOK         -> COOK        (the Production Artist)
+ 17 EYES AND EARS    -> EYES AND EARS  (his double: checks every shipped visual and sound)
     QUESTS           -> PARKED by Paolo 9/4; no chat, nothing claimed until he reopens it
 
 ## WORLD  (02. the economy, the map, the towns)
@@ -276,6 +277,19 @@ STATE: Gen 1 Animal, the fold, Gen 3 Angel: nothing on any player surface; selec
 - OPEN  [final act]  Q10 The transcendent last act. Not the lore, the SHAPE: how the best games handle a final act where the rules change (a new kind of body, a new kind of power) without breaking the game that came before. For the Angel.
 - OPEN  [lasting death]  Q11 Death that is not the end. How games without permadeath and without a run still make a death matter across generations (the wounds that carry, day 4's scar).
 - OPEN  [heir's hour]  Q12 The heir's first hour. When the fold happens, what the first ten minutes of the next life must do so the player does not feel they lost everything.
+
+## EYES AND EARS  (17. his second pair of eyes and ears. Checks that every shipped visual and sound is correct and not weak. Never decides taste; that is DIRECTION.)
+MODE: RESEARCH, turning to a STANDING DUTY once the checklists exist
+STATE: nothing exists. No screenshot pass, no golden images, no audio measurement, no glitch checklist. Today the only pair of eyes and ears on shipped art and sound is Paolo. The 9/4 compare law and the runway law give this lane its bar; the 7/18 VERIFY ON THE REAL SURFACE law is its religion.
+- OPEN  [pixel tells]  E1  How the best pixel art is judged: the objective tells of bad pixel art (banding, pillow shading, jaggies, orphan pixels, inconsistent light direction, mixed resolutions). Build a checklist a machine can partly run against our 45-degree corpus.
+- OPEN  [glitch list]  E2  A glitch taxonomy for OUR game: floating windows, wall gaps, wrong draw order, sprites clipping through walls, text overflowing a card, a frame popping, a seam between tiles. One line each: what it looks like and how to find it on a screenshot.
+- OPEN  [screenshot diffs]  E3  How studios catch visual regressions by machine: golden images, screenshot diffing, per-tab captures at phone size. Design the pass for every tab of the alpha and the demo, on every ship, with Chromium (it is installed here).
+- OPEN  [audio tells]  E4  How game audio is judged: loudness standards, clipping, phase, noise floor, the tells of a weak sound effect. Render all 65 approved sounds and measure them; list which are weak against the best sounds of their kind.
+- OPEN  [missing sound]  E5  What we are missing against the best-sounding games: occlusion, reverb by space, distance colour, the bed (day 22), stings. A gap list with a two-word verdict each.
+- OPEN  [walk tells]  E6  What makes a walk or idle cycle read wrong: foot sliding, popping, off-beat timing, a limb that snaps. A checklist, then run it on the 63 clips.
+- OPEN  [reference score]  E7  A scoring sheet for the compare-to-the-world law: given a cook and its reference side by side, ten yes/no questions a machine or a fresh chat can answer, so a comparison is a measurement not an opinion.
+- OPEN  [first minute]  E8  What a human art reviewer does in the first sixty seconds with a new asset, and what a human audio reviewer does in the first ten seconds with a new sound. Turn both into the order this lane checks things in.
+- OPEN  [every ship]  E9  STANDING DUTY, once E1 to E8 exist: on every SHIPPED line from any lane that touches pixels or sound, run the pass on the real surface, write a one-page verdict record with the screenshots and measurements, and post the two-word verdict to the coordinator; on a defect, write ONE [eyes: two words] line into that lane's section (the only exception to "only the coordinator adds jobs").
 
 ## SHARED (any chat with nothing open in its own lane)
 MODE: BUILD

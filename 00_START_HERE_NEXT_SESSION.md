@@ -754,7 +754,20 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (au) LATEST -- *** TWO WORDS PER JOB, ON
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (av) LATEST -- *** LANE 17, EYES AND
+EARS: HIS DOUBLE FOR EVERY SHIPPED VISUAL AND SOUND. AND EVERY ROUND IS A FULL SWEEP
+SIZED TO WHAT CHANGED. Nothing to judge. ***
+laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md. Seam: DIRECTION decides the look, EYES
+AND EARS checks correct-and-not-weak on the real surface, by machine where it can. It
+learns first (E1 pixel tells, E2 glitch list, E3 screenshot diffs, E4 audio tells, E5
+missing sound, E6 walk tells, E7 reference score, E8 first minute) then E9 every ship
+as a standing duty. One exception to the add-jobs rule: an [eyes: two words]
+bounce-back line on a defect. His other question, why not a full sweep every round:
+it is now; every lane read every round, readers into every lane that moved, none
+into a lane that did not (a re-read of an unchanged lane puts the same things on the
+board twice). LAST FEEDBACK RECEIVED: this -> lane 17 and the sweep rule.
+
+COORDINATOR: 9/4 (au) -- *** TWO WORDS PER JOB, ON
 ALL 156 LINES, AND WHAT VAMILY MEANS IN THIS SEAT. Nothing to judge. ***
 Paolo 9/4: "anytime you make a job... maximum two words... don't be artistic." Every
 job line on VAMILY.md now opens with a [two-word] label (156 lines, zero missing,
