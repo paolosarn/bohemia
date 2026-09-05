@@ -11980,7 +11980,11 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): QUEUE EMPTY - the round ran the standing duties:
+ROUND LOG 9/5 (latest): queue still empty; patrol round. Batch 5 judged PASS
+(the cocoon arc and double hem, cooked to the card's named shapes, sats
+0.037-0.077). The card gate caught the bank five garments stale on arrival,
+the extract fixed it, 45 post-card garments all pass (100 checks), ratchet
+clicked 41% -> 42%. LOOK 24/24. PREVIOUS: QUEUE EMPTY - the round ran the standing duties:
 COOK's batches 1-4 comparison JUDGED (pass; the record re-measures RNWY-01
 and RNWY-07 with pixel rows and holds the card's Pole A numbers), the card
 gate 90/90 on the fresh bank, the ratchet holds at 41%, and the 31 LOOK
