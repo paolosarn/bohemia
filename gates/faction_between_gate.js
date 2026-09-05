@@ -1767,6 +1767,56 @@ async function onTheFamily() {
         && /STILL TELLS? IT|STILL TELL IT/.test(R.board),
       JSON.stringify((R.board || '').match(/WHAT THEY STILL SAY ABOUT YOUR FAMILY[\s\S]{0,150}/)));
 
+    /* ---- AND HE CAN TURN IT HIMSELF (8/12) ---------------------------- */
+    /* THE SPLASH HAS TO BE DISMISSED FIRST AND THAT IS NOT A DETAIL. #app is
+       display:none behind the front splash, so every DIRECT element measures
+       zero height until it is tapped -- the first cut of this claim read h=0 and
+       would have reported the button as failing THE THUMB while the button was
+       fine. Same broken-ruler shape as the fold harness earlier in this turn. */
+    await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+    await SETTLE(page, 3000);
+    await page.evaluate(() => {
+      const t = [...document.querySelectorAll('.tab')].find(e => e.dataset && e.dataset.p === 'direct');
+      if (t) t.click();
+    });
+    await SETTLE(page, 1200);
+    await page.evaluate(() => { try { DIR_MODE = 'standing'; dirRender(); } catch (_e) {} });
+    await SETTLE(page, 900);
+
+    const I = await page.evaluate(() => {
+      const out = {};
+      const btn = [...document.querySelectorAll('#dirList button')]
+        .find(x => /FOLD A GENERATION/.test(x.textContent));
+      out.found = !!btn;
+      if (!btn) return out;
+      const r = btn.getBoundingClientRect();
+      out.h = Math.round(r.height); out.w = Math.round(r.width);
+      btn.click();                       /* first tap must only ARM it */
+      out.armedText = btn.textContent;
+      out.armedNote = (document.getElementById('dirNote') || {}).innerText || '';
+      return out;
+    });
+
+    ok('T12 *** HE CAN TURN IT HIMSELF, IN A TAB. *** HE MUST BE ABLE TO DIRECT '
+      + 'IT (8/12): how a reputation crosses a generation is mine and it is '
+      + 'built, but WHEN one turns is a story decision and his, and the game has '
+      + 'no such beat yet -- so without this the answer to "where does he change '
+      + 'this himself" is "he tells me and I edit a file", which is not shipped',
+      I.found === true);
+
+    ok('T13 AND IT MEETS THE THUMB. 44px, iPhone portrait, a standing law -- and '
+      + 'the UI lane measured twelve of thirteen demo controls under it on 8/30 '
+      + 'because nothing in ~453 gates had ever checked a control',
+      I.h >= 44, 'button ' + I.h + 'x' + I.w);
+
+    ok('T14 AND IT ASKS TWICE, BECAUSE A FOLD CANNOT BE UNDONE. What it destroys '
+      + 'is the only record of what the player did, and a control that quietly '
+      + 'eats a life on the first tap is one he stops trusting -- the lesson the '
+      + 'VOTE tab paid for when three weeks of verdicts turned out never to have '
+      + 'been written down',
+      /TAP AGAIN/.test(I.armedText) && /cannot be undone|mean it|kills every/i.test(I.armedNote),
+      JSON.stringify(I.armedText) + ' / ' + JSON.stringify(I.armedNote.slice(0, 70)));
+
     ok('T11 NOTHING THREW AND NOTHING WAS SWALLOWED',
       errs.length === 0 && warns.filter(w => /could not be folded/.test(w)).length === 0,
       JSON.stringify(errs.slice(0, 2)) + JSON.stringify(warns.slice(0, 2)));
