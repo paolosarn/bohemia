@@ -139,7 +139,7 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 MODE: BUILD
 STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree saved, a COMPANION who takes her own turn and splits the incoming fire, THE HOUSE-SCALE BOARD ON A DIAL (pistol reaches 1 house, rifle 2, seeded boards byte-identical at the old setting), the door from the city works (gate 26/0). NOT built: the indoor entry, loot leaving, armour all zero, picking the companion up. MORALE IS NOW DEFAULT (FEAR_ON true; measured 4-8% of men leave, NOT the rout he rejected) and THEY KNOW YOU became a sharper roll instead of the on-switch; measured, nerve buys only ~1.2 turns, so THE LENGTH OF A FIGHT DOES NOT LIVE THERE and no row names where it does. Unverified: gate colours; and AN ARENA SEED DOES NOT REPRODUCE THE TIME OF DAY (pickDayPhase is unseeded, night halves every range) which weakens V88 for anybody pinning a board.
 - SHIPPED 9/5 91cbd15  [house tiles]  BB-A-TILE-IS-A-HOUSE
-- SHIPPED 9/5  [fights end]  BB-NERVE-ON
+- SHIPPED 9/5 0d5b24d  [fights end]  BB-NERVE-ON
 - OPEN  [indoor fights]  THE-INDOOR-FIGHT -- the door from the city works (gate 26/0); the indoor entry is the missing half (day-14 row)
 - OPEN  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
 - OPEN  [guns close]  BB-GUNS-CLOSE

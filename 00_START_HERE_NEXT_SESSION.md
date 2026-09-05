@@ -3156,6 +3156,35 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+LAST ROUND: BB-NERVE-ON [fights end] SHIPPED (0d5b24d). MORALE IS DEFAULT BEHAVIOUR
+NOW and THEY KNOW YOU became a sharper roll instead of the on-switch for the whole
+system. Before it, the ONLY way a fight could end was every body on one side on the
+floor; now 30% of fights end because somebody left, 47% with the perk.
+
+*** AND THE ROW'S HEADLINE WAS HALF RIGHT, WHICH THE NEXT CHAT NEEDS MORE THAN THE
+FEATURE. *** "The mechanic that ENDS FIGHTS EARLY" buys 1.2 TURNS. Measured at three
+player paces before anything was flipped: 18.0->16.9 fast, 30.7->29.3 realistic,
+39.5->39.1 slow. The trigger is HALF THE ROOM DOWN, and by then the rest fall within a
+couple of turns anyway. SO IF SHORT FIGHTS ARE THE REQUIREMENT, NERVE IS NOT THE LEVER
+-- a fight is ~31 turns at a realistic pace and no row on the board names where the
+length actually lives. FOR THE COORDINATOR; this chat does not add rows.
+
+AND THE SAFETY CHECK THAT LET IT SHIP: his 8/26 words were "I don't wanna see anyone
+run away anymore... I don't know why SO MANY PEOPLE ARE RUNNING AWAY", and at the
+untouched rates 4-8% of men leave -- one in twenty, not "so many". If it had
+reinstated his complaint it would not have shipped. His FICTION also survives: by
+default men break because HALF THEIR FRIENDS ARE DEAD (not about you); the perk is the
+part that is about you.
+
+[PENDING Paolo] Where a scoped rifle stops on the house-scale board. It ships at 3
+houses as an attempt (rifle is 2). From BB-A-TILE-IS-A-HOUSE.
+
+KNOWN AND NOT YET CAUGHT: fight_moves_you_gate flakes about one run in four -- seen at
+159/1, 164/1, then 165/0 on the same tree, and the failing arm has never been captured
+because the runs that fail were not the ones being logged. NEXT TIME IT GOES RED,
+CAPTURE THE OUTPUT BEFORE RE-RUNNING. A gate that flakes is a broken ruler and this
+lane has fixed five of those already; do not let a green re-run close it.
+
 THIS CHAT'S NAME IS **04 COMBAT**. That is its role for life and it is never asked for
 again. THE ONE MISTAKE ALREADY MADE AND NOT TO BE REPEATED: VAMILY was read as
 "family" and a companion-from-the-family-tree feature was started before the board was
