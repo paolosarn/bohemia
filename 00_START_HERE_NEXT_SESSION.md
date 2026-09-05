@@ -1,3 +1,103 @@
+FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
+ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO
+MAIN, THE ROW STAYS CLAIMED. *** Nothing to judge.
+
+VAMILY row: FACTION-SEATS [faction homes], MODE: BUILD, CLAIMED 9/5.
+Work is on the session branch only. MAIN IS GREEN AND STAYS GREEN.
+
+THE DEFECT, MEASURED ON THE REAL BOOT:
+    correlation(alphabetical rank, seat y) = 0.9966
+bootFactions zipped SORTED faction ids to an evenly-strided sample of the
+district list, and that list is 100% ordered by y. So the initials picked the
+latitude: Anarchists at y=2, Volunteers at y=83, for no reason except A comes
+before V. The kinds were nobody's home either -- the Church on a suburb, the
+Cartel on a solar farm -- while the generated map holds a chapel, an arsenal, a
+police station, six dataforts and 118 resorts that nothing ever used.
+
+AND worldMap.factionSlots IS A GHOST. bohemia_engine.js computes
+_spreadPoints(14, beltway, ...) under a comment calling it "Faction base
+placements", and TWO files (bohemia_agents.js and the walked city) assert that
+bootFactions seats factions on it. It never did, and the live worldMap does not
+carry the key: measured, factionSlots is 0. Both comments are corrected in place
+rather than deleted -- same defect as __CITY_DIAL__ on 8/28.
+
+WHAT IS BUILT: FACTION_HOMES in engine/bohemia_loop.js maps each faction to the
+district kinds ITS OWN NOTE names, every row quoting the words it rests on --
+the Mob "Controls the Strip", the Homeless "Sewer/tunnel HQ", the Remnants
+"survivors incl Nellis", the Trades "Best for vehicle/solar/construction". A
+wrong seat is therefore a MISREADING of his file that somebody can check.
+WHERE HIS NOTE NAMES NO PLACE, NOTHING IS INVENTED: Anarchists ("territorially
+inconsistent"), Colorful ("Community-based not territorial") and Custom ("No
+preset philosophy") get no home and fall back to spread. Strongest picks first
+using act1_power, which is his number. Seats prefer inland ground (a boundary
+capital is clipped in the map render) and populated ground, but HIS CANON WINS
+over both: the valley has ONE arsenal, ONE truckstop, ONE intake.
+    11 of 14 sit on ground their own note names
+    correlation 0.9966 -> 0.0552
+    deterministic across boots, no two seats stacked
+Baked into the walked city with the same rule (one rule, two surfaces).
+
+*** AND IT IS NOT DONE, BECAUSE IT BROKE faction_arc_gate AND THAT IS MINE. ***
+Measured rather than assumed: origin/main runs it 91/0 and my tree ran it 57/29.
+It is now 74/8. Every claim I fixed was the same shape, and THE GATE'S OWN
+COMMENT ALREADY KNEW IT: "ctOpen() shows whoever is actually NEAREST, which is
+not always who you picked... The card was somebody else's." That lesson had been
+applied in section F and nowhere else; eight other sites stood at `person.x + 1`
+and assumed. It passed for weeks only because the old seats put every capital in
+a dense suburb.
+  __standBeside now ASKS ctAdjacent whether the subject is the one that opens,
+  instead of reimplementing its rule (my first version modelled the rule and was
+  still wrong at half the sites -- a second copy of a rule is a second chance to
+  be wrong about it). __pickAffiliated is one shared subject picker that prefers
+  somebody standing alone. Three call sites were hiding behind different variable
+  names (`back`, `c`, an inline walkBack) and each reopened a stranger after a
+  day roll.
+
+THE REMAINING 8, AND WHY, SO THE NEXT ROUND DOES NOT START COLD:
+C1, D3, F2 (coverage: an outfit with no act to compare, every act type pressed,
+the Church's name mechanic) and N1-N3 (the Colorful's second question). All the
+same shape: the walk must reach members of a SPECIFIC faction, and three seats
+now sit where the city sim loads almost nobody.
+    SEAT        people near it   its own members
+      Trades          1500              435
+      Blues           1400              375
+      Church           205               65
+      Cartel             5                0
+      Reds               5                0
+      Homeless           5                0
+Cartel and Reds have THIRTY dense districts within eight cells and still load
+five people, so DISTRICT DATA DOES NOT PREDICT THE CITY'S POPULATION and I
+stopped tuning placement against a proxy that does not correlate. Custom reads 0
+by design: ctOtherBases strips the player's own outfit.
+NEXT ROUND SHOULD EITHER (a) find what actually drives local population in the
+city sim and score seats on that, or (b) accept that some canon seats are thinly
+populated and give the arc gate's coverage scans a way to reach a named faction
+directly rather than by walking outward from base centres.
+
+MY OWN GATE IS GREEN THROUGHOUT: FACTION BETWEEN 174/0 (was 160), including 11
+new seat claims (U1-U11) and three biting mutations -- ignore the canon homes and
+U3/U4/U5/U6/U9 die; drop the edge inset and M2 dies; make seats non-deterministic
+and U7/U9 die.
+
+AND THREE OLD CLAIMS WERE REWRITTEN RATHER THAN LOOSENED, because the world they
+asserted no longer exists:
+  K0 used to assert the DEAD ZONE was real (837 people near the spawn, none
+  affiliated). The spawn zone now measures thousands affiliated, so it guards the
+  CURE instead -- and keeps the anti-artifact half, empty cells must still be 0.
+  S4 was MY OWN TRIPWIRE from 8/30 and it fired because the game got better: it
+  asserted a demo player could reach ZERO affiliated people, and said in its own
+  note that if that stopped being true somebody should know. Seats on canon
+  ground put a chapel three cells from the spawn. My FIRST rewrite of it was
+  still wrong (I asserted "nearest base >= 5", the same mistake in a smaller
+  font); it now measures the distance to the faction THIS DAY'S DEED ACTUALLY
+  PAYS, which is the property that justifies the cast-witness.
+  K1's prose carried stale numbers and was corrected.
+
+WHAT IS PENDING HIM: nothing new. Moving a seat is his, as the row says.
+AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
+
+--------------------------------------------------------------------------------
+
 EYES AND EARS (eyes-5vql33): 9/5 (b) LATEST -- *** E3 [screenshot diffs] SHIPPED, AND E0'S
 LOUDEST FINDING IS WITHDRAWN BY THE INSTRUMENT E3 BUILT. The game now has a machine that
 looks at the player's screen on every ship, and the first thing it caught was me. ***
