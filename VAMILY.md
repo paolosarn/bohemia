@@ -52,12 +52,12 @@ one word, and this page is the briefing.
 Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md and
 laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 
-## THE NINETEEN CHATS (his list, 9/4, plus two blind spots found 9/4). Every one has a queue below. He types VAMILY, nothing else.
+## THE EIGHTEEN CHATS (his list, 9/4; RELEASE lived one day and was folded into THE RUN by Paolo 9/5; the pipe fixer is chat 18). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name
 takes the first line marked UNCLAIMED, writes CLAIMED, commits, and that is its
 role. Every section carries MODE and a STATE line (what is built, what is not,
 what nobody has verified) so the chat knows what it does not know.
- 01 THE RUN          -> RUN
+ 01 THE RUN          -> RUN         (the thing you play, from the front door to a friend's phone; Paolo is renaming it, RUN until he picks)
  02 WORLD MODEL      -> WORLD
  03 LIFE + CITY      -> LIFE + CITY
  04 COMBAT           -> COMBAT
@@ -74,8 +74,7 @@ what nobody has verified) so the chat knows what it does not know.
  15 DYNASTY          -> DYNASTY     (research)
  16 ART COOK         -> COOK        (the Production Artist)
  17 EYES AND EARS    -> EYES AND EARS  (his double: checks every shipped visual and sound)
- 18 RELEASE          -> RELEASE     (UNCLAIMED: the demo as a product; performance, the cut, playtest rounds, telemetry)
- 19 GATEKEEPER       -> GATEKEEPER  (UNCLAIMED: the checking machine itself; the suite, dead gates, the OWED checker)
+ 18 THE PLUMBER      -> PLUMBER     (UNCLAIMED: the permanent pipe fixer; keeps the game small, fast, 60 on a phone, and every checker honest)
     QUESTS           -> PARKED by Paolo 9/4; no chat, nothing claimed until he reopens it
 
 ## WORLD  (02. the economy, the map, the towns)
@@ -145,19 +144,26 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - OPEN  [RF4 checklist]  RF4-SPEC-DIFF -- close the 68-item RF4 teardown spec's diff column (from LAB)
 - OPEN  [BB checklist]  BB-SPEC -- the Battle Brothers study's 23 records folded into one spec of the same shape as the RF4 one, so COMBAT and WORLD have one reference document per named game
 
-## RUN  (01. the walked surface)
+## RUN  (01. THE THING YOU PLAY, from the front door to a friend's phone. Paolo 9/5: "release sounds like it does the same thing I thought THE RUN did." Correct; it did. The one-day RELEASE lane is folded in here. This chat owns the walked surface, the save, the demo cut, and GETTING THAT DEMO INTO A FRIEND'S HANDS and learning what they did. Paolo is renaming this chat; it is RUN until he picks.)
 MODE: BUILD
-STATE: the door opens on the played surface, the demo build exists (re-cut 9/4), the save is hardened and carries day/clock/position/quest/purse AND THE PEOPLE (minds/known/met/belong/deedweight, shipped 9/4), and as of 9/5 the five are walked through every one of the hostile browser's seven iOS failure modes plus the torn-write rollback, in Node and on the real page (SAVE IPHONE 44 -> 78); road interrupts fire only on map travel. MEASURED 9/5: the save is 3,683 bytes and 3,170 of them are the people, 2,928 of that the deed table. NOT built: a title or stop-and-return, an ending that is not bed. Unverified: roadInterrupt still has one caller and it is inside MODE==='city', so nothing fires on the walked street -- that is the next row.
+STATE: the door opens on the played surface, the demo build exists (re-cut 9/4), the save is hardened and carries day/clock/position/quest/purse AND THE PEOPLE (minds/known/met/belong/deedweight, shipped 9/4), and as of 9/5 the five are walked through every one of the hostile browser's seven iOS failure modes plus the torn-write rollback, in Node and on the real page (SAVE IPHONE 44 -> 78); road interrupts fire only on map travel. MEASURED 9/5: the save is 3,683 bytes and 3,170 of them are the people, 2,928 of that the deed table. Nobody has ever put the demo in a stranger's hands; load time and frame rate on a real phone are the PLUMBER's to measure. NOT built: a title or stop-and-return, an ending that is not bed. Unverified: roadInterrupt still has one caller and it is inside MODE==='city', so nothing fires on the walked street -- that is the next row.
+THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's so much to do"): the demo is never held for more content. What exists today is the demo. Every round of this lane ends with a link that works on a phone and, once a friend has it, a written note of what the last friend did.
+- OPEN  [hands now]  HANDS-NOW -- FIRST, before anything below: take the demo as it is today, open it on a real phone, walk it once end to end, fix only what stops a stranger from getting to the first fight, and hand the link to ONE friend this round. Write down what they did in a record. Do not add content. Do not wait for any other lane. (Paolo 9/5)
 - SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - SHIPPED 9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
+- OPEN  [friend did]  WHAT-A-FRIEND-DID -- a way to see a friend's session without watching over their shoulder: taps, screens reached, minutes, where they stopped; written to something we can read; no accounts, no tracking beyond the demo
+- OPEN  [friend round]  FRIEND-ROUND-ONE -- run the 8/11 protocol (records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md) for real with three friends, collect what they said and what [friend did] showed, and turn every finding into a job on this board through the coordinator
+- OPEN  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
+- OPEN  [cold hand]  BB-COLD-HAND -- the test that presses the loudest thing and never reads, on every demo screen
+- OPEN  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE -- the home-screen install IS the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it (absorbs ADD-TO-HOME)
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
 - OPEN  [debts named]  BB-WHAT-YOU-OWE
 - OPEN  [drains shown]  BB-THE-SHADOW-OF-WHAT-YOU-DID
 - OPEN  [auto walk]  BB-THE-TIME-NOT-THE-TAPS
-- OPEN  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE
 - OPEN  [title screen]  STOP-AND-COME-BACK -- a title / resume surface; nothing exists (record item H)
 - OPEN  [real ending]  AN-ENDING-THAT-IS-NOT-BED -- the demo's last thirty seconds is the only ending in code (record item G)
 - OPEN  [weekly goal]  BB-THIS-WEEK
+HISTORY: RELEASE (18) existed from 9/4 to 9/5 as "the demo as a product"; Paolo folded it into this chat because it was the same job. PERFORMANCE went to the PLUMBER.
 
 ## ANIMATION  (14.)
 MODE: BUILD
@@ -312,22 +318,13 @@ STATE: nothing exists. No screenshot pass, no golden images, no audio measuremen
 - OPEN  [first minute]  E8  What a human art reviewer does in the first sixty seconds with a new asset, and what a human audio reviewer does in the first ten seconds with a new sound. Turn both into the order this lane checks things in.
 - OPEN  [every ship]  E9  STANDING DUTY, once E1 to E8 exist: on every SHIPPED line from any lane that touches pixels or sound, run the pass on the real surface, write a one-page verdict record with the screenshots and measurements, and post the two-word verdict to the coordinator; on a defect, write ONE [eyes: two words] line into that lane's section (the only exception to "only the coordinator adds jobs").
 
-## RELEASE  (18. GET THE DEMO INTO PEOPLE'S HANDS. In plain words: this chat's whole job is that a real friend is playing the demo on their phone this week, and that what they did comes back to us. It does not wait for the game to be finished. It ships what exists, watches, and reports.)
+## PLUMBER  (18. THE PERMANENT PIPE FIXER. Paolo 9/5: "we can have a permanent pipe fixer always working... helping make the game as slimmest it can be, fastest it can be, 60 fps." That is the job, in three parts: (1) the game runs at 60 on a real phone, loads fast and stays small; (2) every rule has a working checker (about 230 small test programs, called gates) and the whole set finishes in one command in under ten minutes; (3) the two pile files that eat everyone's tokens get archived. It never builds features, never touches art, never cleans other chats' game code for style. It measures, sets a budget, and builds the checker that holds the budget, so the other chats find out the moment they break it.)
 MODE: BUILD
-STATE: slices/BOHEMIA_DEMO.html exists (4.6 MB, re-cut 9/1) and a closed playtest protocol was written 8/11 (records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md). Nobody has ever put it in a stranger's hands. NOT owned by anybody until now: performance (dispatch item 7, never picked up), whether the demo is byte-current with the city, any way to see what a friend did in their session, and running the friend rounds. Unverified: load time and frame rate on a real iPhone today.
-THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's so much to do"): the demo is never held for more content. What exists today is the demo. Every round of this lane ends with a link that works on a phone and a written note of what the last friend did.
-- OPEN  [hands now]  HANDS-NOW -- FIRST, before anything below: take the demo as it is today, open it on a real phone, walk it once end to end, fix only what stops a stranger from getting to the first fight, and hand the link to ONE friend this round. Write down what they did in a record. Do not add content. Do not wait for any other lane. (Paolo 9/5)
-- OPEN  [phone speed]  PERFORMANCE -- measure the demo on a real phone: time to first play, frame rate walking, frame rate in a fight, battery in ten minutes, the 4.6 MB load; set a budget for each and a gate that holds it (dispatch item 7, unowned since 8/25)
-- OPEN  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
-- OPEN  [friend telemetry]  WHAT-A-FRIEND-DID -- a way to see a friend's session without watching over their shoulder: taps, screens reached, minutes, where they stopped; written to something we can read; no accounts, no tracking beyond the demo
-- OPEN  [cold hand]  BB-COLD-HAND  (moved from SHARED: the test that presses the loudest thing and never reads, on every demo screen)
-- OPEN  [friend round]  FRIEND-ROUND-ONE -- run the 8/11 protocol for real with three friends, collect what they said and what the telemetry showed, and turn every finding into a job on this board through the coordinator
-- OPEN  [install path]  ADD-TO-HOME -- the home-screen install is the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it
-
-## GATEKEEPER  (19. THE CHECKER OF THE CHECKERS. In plain words: every rule in this game is enforced by a small test program called a gate. There are about 230 of them. This chat keeps THOSE running, fast, honest and complete. It does not touch game files. It does not clean game code. It does not build features. It builds and repairs the tests that catch everybody else. The plumber of all plumbers is close: it fixes the pipes that the other chats' water runs through, and nothing else. Name not final; Paolo picks.)
-MODE: BUILD
-STATE: ~230 gates; the full suite cannot finish in its time budget (LAB, 8/31); 82 gates never ran last attempt; gate colours are per-lane guesses. A law without a machine gate is not enforced, so this chat is what makes every other rule real.
-WHAT THIS CHAT MAY TOUCH: gates/ and the two pile files it is told to archive (the handoff and the backlog), verbatim moves only. WHAT IT MAY NOT TOUCH: engine/, slices/, tools/, laws/, any art. A red gate it finds in another lane's work becomes ONE line in that lane's section, never a fix by this chat.
+STATE: ~230 gates; the full suite cannot finish in its time budget (LAB, 8/31); 82 gates never ran last attempt; gate colours are per-lane guesses. Frame rate, load time and size on a real phone have NEVER been measured (dispatch item 7, unowned since 8/25). The alpha is ~11 MB of HTML plus a base64 fight; the demo is 4.6 MB. A law without a machine gate is not enforced, so this chat is what makes every other rule real.
+WHAT THIS CHAT MAY TOUCH: gates/, the build/cut tooling, and the two pile files it is told to archive (the handoff and the backlog), verbatim moves only. It may also shrink or speed up ENGINE code, but only where a measurement says so, only where no gate changes colour, and it writes the number before and after in the commit. WHAT IT MAY NOT TOUCH: slices/ content, laws/, any art, any feature. A red gate it finds in another lane's work becomes ONE line in that lane's section, never a fix by this chat.
+- OPEN  [sixty fps]  FPS-ON-A-PHONE -- measure the demo and the alpha on a real phone: time to first play, frame rate walking, frame rate in a fight, battery in ten minutes; set a budget for each (60 walking, 60 in the fight at 120 BPM, first play under 5 seconds on a phone) and a gate that holds it. Write the numbers before touching anything. (was PERFORMANCE, dispatch item 7)
+- OPEN  [slim build]  SLIM-THE-BUILD -- the size of the demo and the alpha, byte by byte: what is in the 4.6 MB and the 11 MB, what is dead, what is duplicated, what could load later; a size budget and a gate that holds it; nothing removed without a record of what it was
+- OPEN  [hot path]  THE-BEAT-LOOP-IS-CLEAN -- profile one beat at 120 BPM in the fight and one frame on the walked street; name the five most expensive things; fix them where a measurement says so; the gate keeps the beat under budget
 - OPEN  [suite runs]  SUITE-FINISHES -- make the full suite finish inside its budget again: measure every gate's time, split the slow ones, retire dead ones (with a record), run in parallel; the target is one command, green or red, in under ten minutes
 - OPEN  [dead gates]  GATE-CENSUS -- every gate names what law it enforces and what would make it red; a gate that cannot say either is retired to archive/ with a record
 - OPEN  [handoff cut]  HANDOFF-CUT -- the handoff file is 5.2 MB, 79,379 lines, ~1.3 MILLION tokens, and every session is told to read it first; only 14 lane blocks are live (61 KB). gates/handoff_gate.js forbids shrinking it by more than 20% in one write (written after an accidental truncation). Amend that gate so a DELIBERATE archive passes: when archive/handoffs/HANDOFF_ARCHIVE_<date>.md holds every byte removed, the bulk check is satisfied. Then replace 00_START_HERE_NEXT_SESSION.md with archive/handoffs/HANDOFF_SLIM_READY_9_4_26.md (already prepared: the newest block per lane, the gate's own lane definition). The coordinator cannot touch gates; whoever takes this lands a 98% cut in one commit. Also add to the front of the slim file: "older blocks live in archive/handoffs/". (Paolo 9/4: "I don't want a bunch of tokens being used just for the uplifting of this work structure.")

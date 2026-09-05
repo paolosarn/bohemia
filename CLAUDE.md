@@ -22,7 +22,7 @@ VAMILY and re-reads the front page of VAMILY.md every time; the rules live there
 sentence he says becomes a job there before the reply ends, two words per job. Lanes:
 run, world, life+city, combat, character, direction (the art director), cook (the
 production artist), sounds, people, factions, ui, words, economy, dynasty, animation,
-eyes-and-ears, release (the demo as a product), gatekeeper (the checking machine); quests is PARKED; the lab is retired. Laws:
+eyes-and-ears, plumber (the permanent pipe fixer: small, fast, 60 on a phone, every checker honest); quests is PARKED; the lab is retired; RUN owns the demo into a friend's hands (9/5, laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md). Laws:
 laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md, laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md,
 laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md, laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md,
 laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md,

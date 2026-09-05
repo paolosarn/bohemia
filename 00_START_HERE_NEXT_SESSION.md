@@ -2290,7 +2290,23 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/5 (bd) LATEST -- *** THE DEMO GOES INTO HANDS
+COORDINATOR (coordinator-checkin-1y6dtv): 9/5 (be) LATEST -- *** RELEASE FOLDED INTO THE
+RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
+RENAMED BY PAOLO. Nothing to judge. ***
+Paolo 9/5: "Release sounds like it does the same thing I thought THE RUN did... why can't
+it be in THE RUN" -> he was right; RELEASE (one day old) is closed and its jobs are in
+RUN, HANDS-NOW first, PERFORMANCE to the PLUMBER. "I lowkey want to change the name of
+the run... it was your name not mine" -> [PENDING Paolo] the new name; offered in the
+reply; section stays RUN, chat finds itself by number 01. "we can have a permanent pipe
+fixer always working... slimmest, fastest, 60 fps" -> chat 18 is PLUMBER (his word,
+NOTES ARE RULINGS), three jobs only: small and fast on a phone with budgets and gates;
+every rule has a working checker and the suite finishes in one command; the two piles
+archived. New jobs [sixty fps] [slim build] [hot path] ahead of the gate jobs. Eighteen
+chats. Law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md. CLAUDE.md
+lane list updated. LAST FEEDBACK RECEIVED: this -> RELEASE folded, PLUMBER named, RUN
+rename pending.
+
+COORDINATOR: 9/5 (bd) -- *** THE DEMO GOES INTO HANDS
 NOW; GATEKEEPER EXPLAINED IN PLAIN WORDS; ITS NAME IS HIS TO PICK. Nothing to judge. ***
 Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's
 so much to do." RULING RECORDED: the demo is never held for more content; what exists
