@@ -163,7 +163,7 @@ THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands 
 - SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - SHIPPED 9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
 - SHIPPED 9/5 b2db8ca  [demo current]  DEMO-IS-CURRENT -- DEMO CURRENT 16/0. Both surfaces name ONE world and it is the same name; the city's own code is hashed live out of both running frames (not the DOM, which the demo is supposed to change) and matches. *** AND IT UNCOVERED THAT EVERY GATE OPENING THE DEMO OFF DISK TESTS A BUILD NO PLAYER GETS: the demo's safety layer is injected into the city frame same-origin, so on file:// it silently no-ops -- the walk pad reads 42 instead of 44 and THE BUILDER DRAWER IS VISIBLE, whose REROLL regenerates the world under a stranger's own session. My own STRANGER OPENS was doing exactly that; it is served now, 15 -> 18. *** Record: records/BOHEMIA_DEMO_IS_CURRENT_AND_THE_GATES_WERE_TESTING_THE_WRONG_BUILD_9_5_26.md
-- OPEN  [cold hand]  BB-COLD-HAND -- the test that presses the loudest thing and never reads, on every demo screen
+- CLAIMED 9/5 run-eak241  [cold hand]  BB-COLD-HAND -- the test that presses the loudest thing and never reads, on every demo screen
 - OPEN  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE -- the home-screen install IS the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it (absorbs ADD-TO-HOME)
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
 - OPEN  [debts named]  BB-WHAT-YOU-OWE
