@@ -1,3 +1,67 @@
+CHARACTER (character-0lurbs): 9/5 -- VAMILY [clothes wired] WIRE-THE-REMAKE, CLAIMED,
+continuing. *** THE WARDROBE IS CLEAN AND THE WIRE STOPS AT THE DOOR OF THE SURFACE HE
+ACTUALLY WALKS. ***
+
+VAMILY: read the front page, found 05 CHARACTER, took the first OPEN line
+([clothes wired] WIRE-THE-REMAKE), marked it CLAIMED 9/5 and pushed before starting.
+
+WHY IT IS STILL CLAIMED AND NOT SHIPPED. The job is "as ART batches pass DIRECTION,
+wire them into the picker and the wardrobe data". COOK's WARDROBE-REMAKE has not been
+cooked and DIRECTION's style card does not exist yet, so THERE IS NO BATCH TO WIRE. The
+front page says a half-done job marked SHIPPED is worse than an open one, so the line
+stays CLAIMED and I built the half that can be done now.
+
+WHAT I DID INSTEAD, AND IT IS THE HALF THAT MATTERS MOST.
+This lane's most expensive recurring failure is THE MATERIAL EXISTED AND NEVER REACHED
+THE PLAYER -- four times in six weeks: the seventeen invisible hats, four bright
+garments with three worn by nobody for five weeks, a VOTE tab that held no faces for
+three weeks, a face maker shipped into a tab the demo strips out. Every one shipped
+green. So the first question was whether anything is unworn RIGHT NOW.
+
+MEASURED, by asking the real picker for 4000 citizens rather than reading the table:
+    280 canon garments across 12 layers
+    0 layers with no odds
+    0 non-reserved garments worn by nobody
+    reserved coats 1.13% of citizens (the 8/27 10% cap holding)
+THE WARDROBE IS CLEAN TODAY. That is a good answer and it is not a finished job, because
+nothing was stopping the next batch from being invisible.
+
+*** AND THE HOLE IS STRUCTURAL, NOT STATISTICAL. *** engine/bohemia_personlook.js says,
+verbatim, `if (odds === undefined) continue;` -- so a garment cooked into a LAYER nobody
+added to WEAR_ODDS is canon, drawn in the wardrobe, and UNWEARABLE FOREVER, with no
+error and every other gate green. That is one line away at all times and it is exactly
+the shape of the seventeen hats. gates/wardrobe_wired_gate.js (10 checks, registered)
+holds it, holds the demo as well as the workshop, and lets reserved garments be rare but
+not gone -- a share cap alone is satisfied by DELETING the thing, which is the lesson
+from the trenchcoat cap. MUTATION TESTED: a garment in an unwired layer turns it red and
+names the layer.
+
+*** THE FINDING, AND IT IS NOT MINE TO FIX -- FOR THE COORDINATOR TO ROUTE. ***
+The wardrobe reaches the alpha and the demo. It does not reach the walked city, and the
+reason is bigger than clothes:
+    slices/BOHEMIA_CITY_WORLD.html   GARMENTS undefined, BOH_PERSONLOOK undefined,
+                                     buildFrame undefined, drawChar undefined
+    and in 3.7 MB of source, ZERO calls to buildFrame or drawChar
+That file simulates about 5,027 agents with homes, bed spots, schedules and movement and
+NOT ONE OF THEM IS EVER DRAWN AS A BODY. No garment and no haircut can reach the surface
+Paolo actually walks, not because the wardrobe is unwired but because THERE IS NOBODY
+THERE TO DRESS. Drawing bodies in the walked city is RUN / LIFE+CITY, so my gate REPORTS
+it every run and deliberately does NOT go red -- failing there would block another lane
+for a hole they own. ROUTE TO: 01 THE RUN and 03 LIFE + CITY.
+
+NEXT ROUND ON THIS JOB: check whether a COOK batch has landed; if it has, wire it and
+mark SHIPPED. If not, the standing wiring duty continues and the next useful piece is
+whether every canon garment is reachable in the CLOTHES tab so he can try it on, which
+is the same invisible-material question on the surface he judges from.
+
+Proof: wardrobe_wired 10/10 (mutation tested), family 15/15, become 28/28,
+talking_portrait 27/27, hair_graveyard 9/9, portrait_haircut 12/12, face_maker 13/13.
+Record: records/BOHEMIA_WHAT_NOBODY_WEARS_9_5_26.txt
+Tool: node tools/bohemia_what_nobody_wears.js
+Tab: RUN (the crowd) / CLOTHES / CHARACTER
+
+================================================================================
+
 ECONOMY (economy-knxaeh): 9/5 (b) LATEST -- *** [money returns] SHIPPED. THE GAME
 ALREADY KNOWS WHAT A BATTERY IS WORTH, IT SAYS SO IN A QUEST LINE SOMEBODY WROTE
 MONTHS AGO, AND NO SYSTEM IN THE BUILD CAN HEAR IT. MODE: RESEARCH -- nothing
