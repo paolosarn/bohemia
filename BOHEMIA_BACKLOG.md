@@ -5496,6 +5496,16 @@ BB-A-TILE-IS-A-HOUSE. *** PAOLO 9/4, LOCKED: "instead of each combat tile being
    pistol = adjacent lot is realistic; a real rifle reaches ten lots or more. HIS
    TWO IS A LEGIBILITY TRADE, MADE ON PURPOSE, and REALISM FIRST says that trade
    is his. It is made.
+   AND HIS FOLLOW-UP, SAME DAY: "the size of the 'ground' changes but the player
+   is the same size just what they 'walk' on is a more zoomed out city so it
+   really feels like war is spilling in the streets." THE SPRITE DOES NOT SHRINK.
+   The floor under it is the CITY AT A ZOOMED-OUT SCALE, so a person stands bigger
+   than the houses they are fighting over: figures on a war map. REUSE-FIRST: the
+   walked city already has a zoomed-out CITY mode (the pad's ninety-six-metre
+   press, day 19). THE COMBAT FLOOR IS THAT RENDER, centred on the block you are
+   standing on -- ONE SEED, same coordinates, the fight happens on the streets you
+   walked to get there. Cover is the buildings that are really there; step onto a
+   house tile and you go inside it (INTERIOR = EXTERIOR).
    HOW IT SHIPS (HE MUST BE ABLE TO DIRECT IT, 8/12): NOT by removing the
    human-scale board. AS A DIAL in the COMBAT tab's DEMO SETTINGS beside SHE FIGHTS
    WITH YOU -- `TILE: A BODY / A HOUSE` -- so he plays both. NO accuracy or damage

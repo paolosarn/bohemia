@@ -725,6 +725,11 @@ HOUSE), never by deleting the old board; no damage number moves; a seeded arena
 must not re-deal when the dial flips. His two-tile rifle is a legibility trade
 made on purpose and it is his. COMBAT's top row: BB-A-TILE-IS-A-HOUSE.
 All three: 120 BPM friendly, per his 9/4 order. A step is one beat and one house.
+FOLLOW-UP, SAME DAY, ON (3): "the player is the same size just what they 'walk'
+on is a more zoomed out city so it really feels like war is spilling in the
+streets." THE SPRITE DOES NOT SHRINK; the floor is the city's own zoomed-out
+render centred on where you stand, one seed, same coordinates. Figures on a war
+map. Written into the law (section 3b), the COMBAT row and CLAUDE.md.
 
 COORDINATOR: 9/4 (ab) -- *** HE IS STARTING THE
 OTHER CHATS NOW, AND EVERY BB ROW IS 120 BPM FRIENDLY OR IT IS NOT DONE. ***

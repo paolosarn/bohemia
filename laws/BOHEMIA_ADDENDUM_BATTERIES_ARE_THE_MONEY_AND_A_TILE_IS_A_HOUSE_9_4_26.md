@@ -79,6 +79,25 @@
   DIAL); only distances change.
 - 120 BPM (his 9/4 order on every row): a step is still one beat. A step
   is now one house.
+### 3b. THE PLAYER STAYS THE SAME SIZE. ONLY THE GROUND ZOOMS OUT.
+His follow-up, same day: *"the size of the 'ground' changes but the
+player is the same size just what they 'walk' on is a more zoomed out
+city so it really feels like war is spilling in the streets type shit
+when its a combat shit."*
+- The character sprite is drawn at its normal size (the 56 rig, 112 on
+  screen). **The FLOOR under it is the city at a zoomed-out scale**, so a
+  person stands bigger than the houses they are fighting over. Figures on
+  a war map. That is the look: **war spilling into the streets.**
+- REUSE-FIRST, and it is already built: the walked city has a zoomed-out
+  CITY mode (the same surface the pad moves across at "ninety-six metres
+  and ten minutes" a press, day 19). **The combat floor is that render,
+  centred on the block you are standing on**, not a new board. ONE SEED,
+  same coordinates, so the fight happens on the actual streets you walked
+  to get there.
+- What this settles for the COMBAT lane: the board is a VIEW of the city,
+  the sprites do not shrink, and cover is the buildings that are really
+  there. Interiors stay INTERIOR = EXTERIOR (7/19): step onto a house
+  tile and you go inside it.
 
 ## ROUTING
 - WORLD: BB-BATTERIES-ARE-THE-MONEY, top of the lane, folded into

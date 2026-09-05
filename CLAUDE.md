@@ -1311,7 +1311,12 @@ research partner. He DECIDES, you PRODUCE.
   house a tile you go INTO. His two-tile rifle is a legibility trade made on purpose
   (a real rifle reaches ten lots), and REALISM FIRST says that trade is his. SHIPS AS
   A DIAL in the COMBAT tab's DEMO SETTINGS (TILE: A BODY / A HOUSE), never by
-  deleting the human-scale board; no damage number moves. And his 9/4 order on all
+  deleting the human-scale board; no damage number moves. AND THE SPRITE DOES NOT
+  SHRINK (same day): "the player is the same size just what they 'walk' on is a more
+  zoomed out city so it really feels like war is spilling in the streets." The floor
+  is the walked city's own zoomed-out CITY render centred on the block you stand on,
+  one seed, same coordinates; a person stands bigger than the houses. Figures on a
+  war map. And his 9/4 order on all
   of it: 120 BPM FRIENDLY FOR EVERYTHING -- a step is one beat, and a step is now
   one house. Full law: laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_
   A_HOUSE_9_4_26.md  Rows: WORLD BB-BATTERIES-ARE-THE-MONEY, COMBAT BB-A-TILE-IS-A-
