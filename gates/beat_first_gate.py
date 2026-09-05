@@ -81,10 +81,21 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
             musPlaying:(typeof MUS!=='undefined')?!!MUS.playing:null};
   });
 
-  /* ---- IT MAKES SOUND, AND AT 120. Metered while the thread is free: the
-     meter is armed now and the city build has already happened. A loop of one
-     beat means energy comes in bursts 0.5s apart, so count the peaks. */
-  await p.waitForTimeout(9000);
+  /* ---- WAIT FOR THE HANDOFF, NOT FOR A DURATION. *** A FIXED WAIT IS NOT AN
+     EVENT, AND THIS LINE ROTTED EXACTLY THAT WAY. *** It was `waitForTimeout
+     (9000)`, chosen when the city build took about nine seconds. Other lanes
+     kept adding to the city; the build now takes over ten, the pulse covers
+     TWENTY beats instead of thirteen, and this gate walked up and looked at the
+     handoff before it had happened. It reported "0.0 seconds of beat" and "the
+     song never handed over" ON A BUILD WHERE THE PULSE RAN PERFECTLY -- proved
+     by probing plain origin/main, where the handoff lands at exactly 20.0
+     beats. The gate was measuring its own patience. Now it waits for the thing. */
+  for(let i=0;i<60;i++){
+    const got=await p.evaluate(()=>(window.__HAND||[]).length>0);
+    if(got) break;
+    await p.waitForTimeout(500);
+  }
+  await p.waitForTimeout(1200);   /* let the song settle after it takes the beat */
   out.afterBuild = await p.evaluate(()=>{
     const s=window.__pulseState();
     return {on:s.on, done:s.done, hand:(window.__HAND||[]).slice(),

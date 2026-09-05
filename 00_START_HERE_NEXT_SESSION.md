@@ -1,3 +1,72 @@
+SOUND (sound-xk7pjp): 9/5 (d) LATEST -- *** YOU CAN HEAR WHOSE BLOCK STILL HAS
+POWER FROM THE NEXT STREET, AND A DEAD ONE IS DEAD.
+TAB: RUN (the walked city). Nothing to judge -- nothing entered the bank. ***
+
+Build 9/5y - A LIT BLOCK HUMS.
+VAMILY: SHIPPED [power hums] BB-A-LIT-BLOCK-HUMS. Its ship test is one line and
+both halves are built: "a live circuit is audible AND A DEAD ONE IS NOT".
+
+MEASURED FIRST:
+  the shell's mentions of the power grid    0
+  callers of `generator` tied to power      0
+  callers of `power_on` (2 of 5, 8/20)      0
+The bed picked `generator` on a die roll, so a machine could hum on a
+pitch-black dead street while a live circuit -- 12% of the valley, every one
+OWNED -- sounded exactly like the dark. Meanwhile POWER.at() is finished code
+with TEN readers on that surface. THE SOUND WAS THE ELEVENTH AND NEVER ASKED.
+
+WHAT IT DOES: the city, on the report it already sends, scans the 7x7 block of
+overmap cells and reports the distance to the nearest LIVE circuit (-1 = none
+within three). The bed places the hum at that real distance instead of the
+random "6 to 15 tiles" it used for everything: on the block ~2.5, next street
+~11, two streets ~20, three ~29, and placeSound's inverse law plus its distance
+lowpass make a block away quiet AND dull. With nothing live within three cells
+THE HUM DOES NOT PLAY AT ALL -- not less often, never.
+THE LIT SIGN RIDES IT, and that is not scope creep: sign_alive is a neon sign
+that is ON and it cannot be on a circuit nobody feeds. Without that a dead
+street would still advertise, which is what LIGHT=TERRITORY says it cannot do.
+AND A DEAD BLOCK IS NOT SILENT, IT IS MACHINE-LESS: wind and air still play.
+
+NOT WIRED, WITH A REASON: power_on ("THE BLOCK LIGHTS") still has no moment.
+POWER.douse() has a caller (the night bill); POWER.relight() has NONE, by the
+grid's own written decision that the price of getting your lights back is his.
+
+GATE: lit_block_hums_gate.py, 19 claims, and it counts the grid first as a
+control. Mutations: a dead block hums anyway RED x3, the distance back to the
+taste dial RED, the city stops reporting it RED.
+
+TWO BROKEN RULERS OF MINE, and the second is written into this repo already:
+  * I MEASURED THE LIMITER, NOT THE DISTANCE. On the master bus the hum on your
+    block and a block away both read 0.057, identical to three decimals, while
+    placeSound was being handed 2.5 and 11 -- the brickwall limiter (threshold
+    -5, ratio 20, from the 7/8 screech) squashing both to the same ceiling.
+    Measured on the bed's own bus now.
+  * MAX OF THREE PLAYS IS NOT A MEASUREMENT, and the SPACES block in the same
+    file says it: "the difference between two of his candidates is bigger than
+    the difference a room makes". Ten plays and the mean.
+
+AND TWO OF MY OWN EARLIER GATES WENT RED THIS ROUND:
+  * BEAT FIRST WAS RED ON PLAIN origin/main BEFORE I TOUCHED ANYTHING. Not a
+    regression: A FIXED WAIT ROTTED. It waited 9000ms after the tap, chosen when
+    the city build took nine seconds. Other lanes kept adding to the city, the
+    build now takes over ten, the pulse covers TWENTY beats instead of thirteen,
+    and the gate looked at the handoff before it happened -- reporting "the song
+    never handed over" on a build where the pulse was perfect. Proved against
+    plain main, where the handoff lands at exactly 20.0 beats. A FIXED WAIT IS
+    NOT AN EVENT; it waits for the handoff now.
+  * BED IS PLACE went red for a real interaction and the GATE was at fault: it
+    rolls pick() to test the DISTRICT lever and never set litD, so a spawn on a
+    dead block had a second variable doing all the talking. A MEASUREMENT OF ONE
+    LEVER HAS TO HOLD THE OTHER ONE STILL. It pins litD=0 now.
+
+FILES  tools/bohemia_a_lit_block_hums.py, gates/lit_block_hums_gate.py,
+       records/BOHEMIA_A_LIT_BLOCK_HUMS_9_5_26.md
+
+NEXT IN THIS LANE (VAMILY order): [unused sounds] THE-OTHER-51, then
+[music owned] THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
 EYES AND EARS (eyes-5vql33): 9/5 (c) LATEST -- *** E4 [audio tells] SHIPPED. THE LANE HAS
 EARS NOW: all 65 approved events and all 185 approved picks rendered through the real
 factory and measured. Nothing clips, nothing is over -1 dBTP, nothing has a phase problem
@@ -1016,7 +1085,7 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/5 (c) LATEST -- *** THE STRIP SOUNDS BUSY AND THE DESERT
+SOUND (sound-xk7pjp): 9/5 (c) -- *** THE STRIP SOUNDS BUSY AND THE DESERT
 SOUNDS EMPTY, AND NOT ONE NEW SOUND WAS COOKED TO DO IT.
 TAB: RUN (the walked city). Nothing to judge -- nothing entered the bank. ***
 

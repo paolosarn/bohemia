@@ -102,8 +102,18 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
      which is exactly the one variable the feature is about. ---- */
   out.draws = await p.evaluate(()=>{
     const A=window.AMB||window.__AMB; if(!A) return null;
-    const was=A.place, wasInside=A.inside, wasKind=A.kind;
+    const was=A.place, wasInside=A.inside, wasKind=A.kind, wasLit=A.litD;
     A.inside=false; A.kind='air_day';
+    /* *** PIN THE POWER, BECAUSE THIS GATE IS ABOUT THE DISTRICT. *** When
+       BB-A-LIT-BLOCK-HUMS landed, the generator and the lit sign stopped firing
+       on a block with no live circuit -- correctly, that is that row's whole
+       ship test -- and this gate went red reporting "a machine district is
+       where the generator lives: 0% against 0%". Nothing about the district
+       lever had changed: the run happened to spawn on a dead block, so a SECOND
+       variable this gate never controlled was doing all the talking.
+       A MEASUREMENT OF ONE LEVER HAS TO HOLD THE OTHER ONE STILL. litD 0 means
+       "standing on a live circuit", pinned for every roll below. */
+    A.litD=0; A.litDx=0;
     const roll=(pl)=>{ A.place=pl; const c={};
       for(let i=0;i<3000;i++){ const e=A.pick(); c[e]=(c[e]||0)+1; }
       return c; };
@@ -115,7 +125,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       const k=pl||'(ungrouped)';
       r.counts[k]=roll(pl); r.gap[k]=gaps(pl);
     }
-    A.place=was; A.inside=wasInside; A.kind=wasKind;
+    A.place=was; A.inside=wasInside; A.kind=wasKind; A.litD=wasLit;
     r.approved={}; const AP=(window.__SFX_APPROVED||{});
     for(const e of ['generator','wind_gust','sign_alive','air_day','air_night','air_inside'])
       r.approved[e]=(AP[e]||[]).length;

@@ -1556,6 +1556,22 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('LIT BLOCK HUMS',['python3', 'gates/lit_block_hums_gate.py'],
+     "A LIVE CIRCUIT IS AUDIBLE AND A DEAD ONE IS NOT -- BB-A-LIT-BLOCK-HUMS's "
+     "own ship test, and the second half is the one that gets skipped. Measured "
+     "before the work: the shell had ZERO mentions of the power grid and the "
+     "bed picked `generator` on a die roll, so a machine could hum on a "
+     "pitch-black dead street while a live circuit -- 12% of the valley, every "
+     "one OWNED -- sounded exactly like the dark. The grid was finished code "
+     "with ten readers on the walked surface; the sound was the eleventh and "
+     "never asked. Now a dead block NEVER hums and never advertises (a neon "
+     "sign that is ON cannot be on a circuit nobody feeds), the wind and the "
+     "air still play so a dead street is a place and not a hole, and the "
+     "distance is the GRID'S answer rather than a taste dial. Measured on the "
+     "bed's own bus, upstream of the brickwall limiter that was squashing both "
+     "distances to the same ceiling, and averaged over ten plays because "
+     "placeSound draws a random candidate and two of his candidates differ by "
+     "more than a block of distance does", True),
     ('BED IS PLACE',  ['python3', 'gates/bed_is_the_place_gate.py'],
      "A DISTRICT THAT SOUNDS DIFFERENT IS DIFFERENT, at zero art cost. "
      "BB-THE-BED-IS-THE-PLACE, and Schafer's keynote sounds are the aisle: a "

@@ -53647,8 +53647,29 @@ function ctWhere(){
     var dist=null;
     try{ if(!inside){ var _t=om.at(Math.floor(hx/FN),Math.floor(hy/FN));
                       dist=_t?_t.district:null; } }catch(_d){}
+    /* __A_LIT_BLOCK_HUMS__ -- HOW FAR IS THE NEAREST BLOCK WITH POWER.
+       LIGHT=TERRITORY through the ear. The grid is finished code on this
+       surface and ten readers already ask POWER.at(); the sound was the
+       eleventh and never asked, so a live circuit sounded exactly like the
+       dark. Chebyshev distance in overmap cells, out to three; -1 means
+       nothing live within three, which is a DIFFERENT FACT from not looking.
+       49 cells once every four seconds. */
+    var litD=-1, litDx=0;
+    try{
+      if(!inside){
+        var _cx=(hx/FN)|0, _cy=(hy/FN)|0, _bd=99, _bx=0, _ox, _oy, _pw, _dd;
+        for(_ox=-3;_ox<=3;_ox++) for(_oy=-3;_oy<=3;_oy++){
+          _pw=null; try{ _pw=POWER.at(_cx+_ox,_cy+_oy); }catch(_p){ _pw=null; }
+          if(!(_pw&&_pw.live)) continue;
+          _dd=Math.max(Math.abs(_ox),Math.abs(_oy));
+          if(_dd<_bd){ _bd=_dd; _bx=_ox; }
+        }
+        if(_bd<99){ litD=_bd; litDx=_bx; }
+      }
+    }catch(_l){}
     window.parent.postMessage({type:'BOHEMIA_WHERE', from:'city',
-      inside:inside, night:night, min:min, space:space, district:dist},'*');
+      inside:inside, night:night, min:min, space:space, district:dist,
+      litD:litD, litDx:litDx},'*');
   }catch(_e){}
 }
 window.__ctWhere=ctWhere;          /* so a gate can ask, and so a crossing can call */
