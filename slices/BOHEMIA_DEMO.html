@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5q - THE VALLEY GETS A NEW SILHOUETTE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5r - THE BED IS THE PLACE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -23147,13 +23147,74 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 
      IT ONLY RUNS WHILE THE RUN IS ON SCREEN. If the reports stop, the ambience
      stops, so it can never play over him judging sounds in the MUSIC tab. */
+  /* === THE BED IS THE PLACE (9/5) ======================================
+     BB-THE-BED-IS-THE-PLACE. Schafer's KEYNOTE SOUNDS are the background bed
+     -- not listened to consciously, but they imprint a sense of place -- and
+     this game shipped only signals. Now that the walked surface reports where
+     you stand, the bed can be a keynote.
+     FOUR GROUPS, NOT SEVENTY-NINE RULES. Seventy-nine rules is a table
+     nobody can hold in their head; four is a thing you can hear. Counted:
+     machine 25, lit 19, open 18, lived 17, and nothing left over.
+     *** WHICH PLACE SOUNDS LIKE WHAT IS HIS (the row says so). This table is
+     an ATTEMPT and it ships instead of waiting because EVERYTHING IS A THUMB
+     -- he meets it while playing and moves whatever he wants. One word per
+     district, published below so it can be read and changed in one place. */
+  var PLACE_OF = {
+    /* MACHINE -- something here still runs, or ran until recently. A working
+       generator in a dead valley is loud: the 2020 lockdowns cut human ground
+       noise by up to half and buried signals became clearly audible. */
+    industrial:'machine', substation:'machine', battery:'machine',
+    watertreat:'machine', pumpstation:'machine', robofactory:'machine',
+    fueldepot:'machine', dam:'machine', solar:'machine', intake:'machine',
+    reclaim:'machine', datafort:'machine', radio:'machine', terminal:'machine',
+    airport:'machine', airbase:'machine', railyard:'machine', rail:'machine',
+    quarry:'machine', gypsum:'machine', landfill:'machine', warehouse:'machine',
+    truckstop:'machine', storage:'machine', arsenal:'machine',
+    /* LIT -- the 12% with power, clustered and owned. LIGHT=TERRITORY through
+       the ear: a sign you can hear from the next street is whose block it is. */
+    strip:'lit', casino:'lit', resort:'lit', highroller:'lit', luxor:'lit',
+    sign:'lit', strat:'lit', downtown:'lit', mall:'lit', commercial:'lit',
+    convention:'lit', drivein:'lit', sphere:'lit', waterpark:'lit',
+    minigp:'lit', speedway:'lit', stadium:'lit', ballpark:'lit', swapmeet:'lit',
+    /* OPEN -- the desert moves the air and nothing else does. */
+    desert:'open', mountain:'open', wash:'open', basin:'open', boneyard:'open',
+    cemetery:'open', farm:'open', granary:'open', golf:'open', park:'open',
+    reservoir:'open', springs:'open', water:'open', freeway:'open',
+    beltway:'open', arterial:'open', interchange:'open', fort:'open',
+    /* LIVED -- people sleep here, and the point is that it is quiet. */
+    suburb:'lived', gated:'lived', estate:'lived', trailer:'lived',
+    apartment:'lived', town:'lived', campus:'lived', school:'lived',
+    medical:'lived', chapel:'lived', library:'lived', cityhall:'lived',
+    courthouse:'lived', jail:'lived', prison:'lived', policestation:'lived',
+    firestation:'lived'
+  };
+  /* WHAT EACH KIND OF PLACE SOUNDS LIKE. `gap` is the seconds between one bed
+     sound and the next and it is the lever a person can actually hear: the
+     bed speaks every 40-95 seconds, so a player crossing three districts in
+     ninety seconds hears ONE sound, and re-weighting that one sound is a
+     change nobody can perceive. The strip speaks often; the desert almost
+     never. The weights are cumulative thresholds on one roll, the same shape
+     pick() already used.
+     UNKNOWN IS UNTOUCHED: no district, or a district nobody grouped, keeps the
+     odds and the gap he has been hearing since 8/12. */
+  var PLACE = {
+    machine: {gen:0.34, wind:0.44, sign:0.50, dog:0.52, metal:0.60, gap:[30,70]},
+    lit:     {gen:0.16, wind:0.22, sign:0.52, dog:0.55, metal:0.58, gap:[25,60]},
+    open:    {gen:0.02, wind:0.42, sign:0.42, dog:0.46, metal:0.54, gap:[60,130]},
+    lived:   {gen:0.06, wind:0.20, sign:0.24, dog:0.34, metal:0.38, gap:[45,100]}
+  };
+  try{ window.__ambPlaces=function(){ return {of:PLACE_OF, is:PLACE}; }; }catch(_e){}
+
   var AMB={
-    kind:null, next:0, bus:null, seen:0,
+    kind:null, next:0, bus:null, seen:0, place:null,
     where:function(d){
       this.seen=Date.now();
       var was=this.inside, t=Date.now();
       this.inside = !!d.inside;
       this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+      /* __THE_BED_IS_THE_PLACE__ -- which KIND of ground you are standing on.
+         Indoors has no place: a room is a room whatever block it is on. */
+      this.place = d.inside ? null : (PLACE_OF[d.district] || null);
       /* ---- THE THRESHOLD IS THE MOMENT (8/20) ------------------------------
          YOU STEP INSIDE was offered to him TEN TIMES under two ids and all ten
          died. His own brief said why, and it was right all along: "crossing
@@ -23203,6 +23264,34 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
       if(this.inside) return this.kind;
       var A=(window.__SFX_APPROVED||{});
       var r=Math.random();
+      /* __THE_BED_IS_THE_PLACE__ -- THE PLACE ANSWERS FIRST. Same three
+         approved names the list below already draws from, same guard (an
+         unapproved name is skipped and the air plays), different odds by where
+         you are standing. Falls straight through when the place is unknown, so
+         the run slice's report and any ungrouped district hear exactly what
+         they heard yesterday. */
+      var _p = this.place && PLACE[this.place];
+      if(_p){
+        if(r < _p.gen  && (A.generator  ||[]).length) return 'generator';
+        if(r < _p.wind && (A.wind_gust  ||[]).length) return 'wind_gust';
+        if(r < _p.sign && (A.sign_alive ||[]).length) return 'sign_alive';
+        /* AND THE FOUR THAT ARE NOT APPROVED YET GET THEIR ROW ANYWAY. The
+           list below this branch carries dog_far, dog_cry, dog_calls,
+           neon_buzz, neon_hum and metal_ticks, none of them in the bank, all
+           of them guarded so an unapproved name is skipped and the air plays.
+           Without these two lines a place-aware bed would SKIP that list, so
+           the day he approves a dog it would be silent everywhere -- a new
+           feature quietly deleting an old wire, which is the exact shape this
+           repo keeps finding. A dog belongs where people are; sheet metal
+           cooling belongs where there is metal to cool. */
+        if(r < _p.dog){
+          if((A.dog_far  ||[]).length) return 'dog_far';
+          if((A.dog_cry  ||[]).length) return 'dog_cry';
+          if((A.dog_calls||[]).length) return 'dog_calls';
+        }
+        if(r < _p.metal && (A.metal_ticks||[]).length) return 'metal_ticks';
+        return this.kind;
+      }
       if(r<0.125 && (A.generator||[]).length) return 'generator';
       if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
       /* A DOG AND THE NEON (8/20). Both are written for exactly this slot --
@@ -23235,7 +23324,14 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
       if(r<0.56 && (A.metal_ticks||[]).length) return 'metal_ticks';
       return this.kind;
     },
-    gap:function(){ return 40 + Math.random()*55; },
+    /* __THE_BED_IS_THE_PLACE__ -- HOW OFTEN THE VALLEY SPEAKS TO YOU. This is
+       the lever a person can hear. A lit block is busy; open desert is not. An
+       unknown place keeps his 40-to-95. */
+    gap:function(){
+      var p = this.place && PLACE[this.place];
+      var lo = p ? p.gap[0] : 40, hi = p ? p.gap[1] : 95;
+      return lo + Math.random()*(hi-lo);
+    },
     tick:function(){
       if(!this.kind) return;
       /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
