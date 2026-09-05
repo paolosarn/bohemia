@@ -1,3 +1,54 @@
+WORDS (words-8dqrnq): 9/4 LATEST -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+ITSELF IS IMPOSSIBLE AS REALISM. *** MODE: RESEARCH, so nothing was implemented.
+TAB: NOT IN A TAB YET (research day). Nothing to judge.
+
+Q1 asked: two people, three lines each, names removed, can you tell them apart? I ran that
+exact test. FILM, two people in one movie: 54.7%. BOHEMIA: 59.6%. KOTOR's nine-companion
+party: 68.0%. Chance is 50%.
+
+THE CHALLENGE, from the forensic aisle: authorship attribution NEEDS MORE THAN 1,000 WORDS,
+at 1,000 it can only give "indications", and binary accuracy on very short texts tops out
+near 0.8 even with 40,000-word profiles. THREE LINES IS ABOUT THIRTY WORDS, three per cent
+of that floor. So real idiolect is undetectable at the length a player actually reads. Film
+sits at 54.7% because film characters differ the way real people differ, which is barely.
+KOTOR's 68% IS MANUFACTURE, not observation. STOP WRITING NATURAL DIFFERENCE AND PLANT IT,
+in the first three lines, because that is all anybody gets.
+
+THE THING A PERSON NEVER SAYS, MEASURED, and it is the headline. Same test scored ONLY on
+what a sample AVOIDS, nothing about what they say: BOHEMIA 58.4% against its own 59.6%,
+KOTOR 65.6% against 68.0%. **97% OF OUR SIGNAL AND 96% OF THEIRS IS NEGATIVE SPACE.** At
+volume you can feel it: KOTOR's droid never says get, want, maybe, can't, people in 5,824
+words; the Wookiee never says master, dark, side, force. So the strongest field in a
+character bible is the BAN LIST, and it is five words long and machine-checkable.
+
+WHAT THE BEST GAMES DO IS A TYPED SPEC, and it comes from LOCALISATION, the discipline that
+must reproduce a voice in a language the writer does not speak: a CHARACTER BIBLE fixing
+tone, formality, vocabulary, verbal tics, swearing level and sentence length per character
+so translators cannot drift. Six fields, FACTORY LAW shaped. Our voice card governs the
+HOUSE voice; NOTHING in this repo governs one person's.
+
+FOURTEENTH BROKEN RULER, CAUGHT BEFORE PUBLISHING. My first negative-space number said our
+speakers avoid 55.9 of the cast's 120 commonest words and KOTOR's avoid 15.7, reading as us
+being four times more distinctive than BioWare. Nonsense: our speakers hold 120-170 words
+and theirs hold 3,894-13,167, and you cannot use 120 common words inside 150 words of
+speech. It was measuring corpus size. At a FIXED 120-word budget the sign flips: BOHEMIA
+76.2, KOTOR 81.0. Any per-speaker number gets a fixed budget before it is written down.
+
+AND IT REFRAMES AN OLD FINDING OF MINE: some of the "27 of 51 speakers score zero" are not
+weak voices, THEY HAVE ALMOST NO LINES. A voice cannot be built out of 150 words.
+
+RECORD: records/BOHEMIA_WORDS_Q1_TELL_THEM_APART_9_4_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md, four pairs, all draft:true, NONE in the game.
+VAMILY: lane 11 WORDS claimed; Q1 SHIPPED. Next open is Q2, speech under stress.
+
+ROUTED OUT OF THIS DAY:
+ - WORDS  new row THE-BAN-LIST: five words each named speaker never says, in a character
+   bible, machine-checkable. Held until the lane returns to MODE: BUILD.
+ - PEOPLE a named person needs 400+ words before they read as a person. Volume, not phrasing.
+ - QUESTS fewer named speakers per scene, deeper. Spreading the cast thinner costs voices.
+
+WHAT IS PENDING HIM: nothing from this lane.
+
 PEOPLE (people-7h9sfy): 8/31 LATEST -- *** HIS TWELVE APPROVED STREET ENCOUNTERS
 FIRE ON FOOT FOR THE FIRST TIME, AND WHERE ONE NAMES AN ANIMAL IT POINTS AT THE
 ANIMAL THAT IS ACTUALLY THERE. TAB: RUN. Nothing to judge. ***
@@ -2333,7 +2384,7 @@ Law: laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.m
 Record: records/BOHEMIA_SEVEN_HAIRCUTS_SEVEN_REMAKES_8_30_26.txt
 Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
 
-WORDS (words-8dqrnq): 8/28 (y) LATEST -- *** THE DEMO'S FIVE SCENES NO LONGER WRITE LIKE A
+WORDS (words-8dqrnq): 8/28 (y) -- *** THE DEMO'S FIVE SCENES NO LONGER WRITE LIKE A
 MACHINE, AND FOR THE FIRST TIME THAT IS A MEASURED CLAIM AGAINST REAL WRITING. ***
 TAB: RUN (play the demo, days 1-5) / WORDS (the before-and-after). Nothing to judge.
 
