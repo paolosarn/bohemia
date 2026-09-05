@@ -25479,22 +25479,55 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
         if (Math.abs(seats[j][0] - d.x) + Math.abs(seats[j][1] - d.y) < MIN_APART) return false;
       return true;
     }
+    /* AND A CAPITAL WITH NOBODY AROUND IS NOT A CAPITAL. (9/5, second pass.)
+       The first cut picked the right KIND of ground and stopped there, which put
+       the Homeless on the only intake in the valley and the Caravans on the only
+       truckstop -- both real canon reads, both in empty corners. Who belongs to a
+       faction is computed from proximity to its base, so a seat where nobody
+       lives is a faction with no members, and faction_arc's coverage claims went
+       red: five act mechanics have members in the valley and the walk could only
+       reach three.
+       So a candidate is scored by HOW MUCH CITY IS AROUND IT -- the count of
+       districts within eight cells, which is the same number on both surfaces
+       because it is read off the very list the caller passed. The loop's own
+       districts carry a `zone` and the first version of this scored on that, but
+       zone comes out of bohemia_world.js, which the walked surface cannot load at
+       all -- scoring on it would have rebuilt the two-surfaces-disagree defect
+       this whole file exists to stop. Cells are the shared currency.
+       THIS DOES NOT OVERRIDE HIS NOTE. It chooses BETWEEN the sites his note
+       allows, which is exactly the part he left open. Where a kind is unique
+       there is nothing to choose and the faction still goes there. */
+    var dens = {};
+    function density(d) {
+      if (dens[d.id] != null) return dens[d.id];
+      var c = 0;
+      for (var j = 0; j < list.length; j++) {
+        var o = list[j];
+        if (Math.abs(o.x - d.x) + Math.abs(o.y - d.y) <= 8) c++;
+      }
+      dens[d.id] = c;
+      return c;
+    }
     /* DETERMINISTIC AND NOT ALPHABETICAL: the same faction lands on the same
        ground in the same world every boot, but its initials have nothing to do
-       with where. A capital that moves when you reload is not a capital. */
+       with where. A capital that moves when you reload is not a capital. The
+       hash only breaks ties between sites that are equally good. */
     function pickFrom(cands, fid) {
       if (!cands || !cands.length) return null;
       var h = 2166136261;
       for (var j = 0; j < fid.length; j++) { h ^= fid.charCodeAt(j); h = Math.imul(h, 16777619); }
-      var start = (h >>> 0) % cands.length, loose = null, edge = null;
+      var salt = (h >>> 0);
+      var best = null, bestScore = -1, edge = null, loose = null;
       for (var n = 0; n < cands.length; n++) {
-        var d = cands[(start + n) % cands.length];
+        var d = cands[n];
         if (taken[d.id]) continue;
-        if (farEnough(d) && inland(d)) return d;  /* what we want */
-        if (!edge && farEnough(d)) edge = d;      /* right kind, on the boundary */
-        if (!loose) loose = d;                    /* right kind, too close */
+        if (!farEnough(d)) { if (!loose) loose = d; continue; }
+        if (!inland(d)) { if (!edge) edge = d; continue; }
+        var score = density(d) * 16
+          + ((salt ^ Math.imul(d.x, 73856093) ^ Math.imul(d.y, 19349663)) & 15);
+        if (score > bestScore) { bestScore = score; best = d; }
       }
-      return edge || loose;                       /* his canon beats both of my rules */
+      return best || edge || loose;               /* his canon beats both of my rules */
     }
 
     roster.sort(function (a, b) {
@@ -51862,7 +51895,7 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
    second one invented here, or the Cartel would live in two places depending on
    which surface you were standing on. Booted once, lazily, on the first card you
    open -- never at load, so the cold-boot budget is untouched. */
-var CT_BASES_BAKED = {"Anarchists": {"x": 50, "y": 8}, "Blues": {"x": 10, "y": 29}, "Caravans": {"x": 56, "y": 88}, "Cartel": {"x": 42, "y": 23}, "Church": {"x": 47, "y": 50}, "Colorful": {"x": 25, "y": 11}, "Custom": {"x": 57, "y": 12}, "Homeless": {"x": 8, "y": 89}, "Mob": {"x": 42, "y": 56}, "Network": {"x": 67, "y": 70}, "Reds": {"x": 47, "y": 24}, "Remnants": {"x": 47, "y": 34}, "Trades": {"x": 79, "y": 62}, "Volunteers": {"x": 37, "y": 24}};
+var CT_BASES_BAKED = {"Anarchists":{"x":50,"y":8},"Blues":{"x":10,"y":29},"Caravans":{"x":56,"y":88},"Cartel":{"x":42,"y":23},"Church":{"x":47,"y":50},"Colorful":{"x":25,"y":11},"Custom":{"x":57,"y":12},"Homeless":{"x":8,"y":89},"Mob":{"x":41,"y":61},"Network":{"x":69,"y":69},"Reds":{"x":48,"y":23},"Remnants":{"x":47,"y":34},"Trades":{"x":22,"y":28},"Volunteers":{"x":37,"y":24}};
 var CT_BASES_SEED  = "bohemia";
 /* THE BASES ARE THE RUN'S OWN, BAKED AT BUILD TIME. bohemia_loop.js is inlined in
    this file but never reaches the global scope here, so booting it at runtime is

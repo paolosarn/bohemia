@@ -91,6 +91,37 @@ const SPARSE = `(function(){
 const VIEW = { width: 390, height: 844 };
 
 let pass = 0, fail = 0;
+/* ---- STAND WHERE THE CARD WILL ACTUALLY OPEN ON THEM --------------------
+   (9/5.) ctOpen() shows whoever ctAdjacent() returns, and ctAdjacent takes the
+   CLOSEST person within one cell, first-wins on ties. Every site in this gate
+   stood at `person.x + 1` and assumed that person's card would open. It usually
+   did, and it stopped being true the moment faction seats moved onto the ground
+   each faction's canon names: at the Anarchists' new seat the chosen person was
+   affiliated, the person who actually opened was not, and TWENTY-NINE claims
+   went red about a stack that was working.
+
+   THE ASSUMPTION WAS ALWAYS WRONG, the old geography just hid it. This stands on
+   the neighbour where the target is the ONLY person within a cell, so the card
+   that opens is the card the claim is about. It returns false when no such cell
+   exists, which is a real answer -- a person hemmed in by a crowd is somebody
+   you genuinely cannot read alone -- rather than a silent wrong subject. */
+const STAND_BESIDE = `window.__standBeside = function (who) {
+  if (!who) return false;
+  var at = ctAt(who);
+  var around = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]];
+  /* IT ASKS THE GAME, IT DOES NOT MODEL THE GAME. The first cut of this
+     reimplemented ctAdjacent's rule -- "stand where nobody else is within a
+     cell" -- and was still wrong at half the sites, because a second copy of a
+     rule is a second chance to be wrong about it. ctAdjacent IS the function
+     that decides whose card opens, so this stands and then ASKS IT. */
+  for (var i = 0; i < around.length; i++) {
+    hx = at[0] + around[i][0]; hy = at[1] + around[i][1];
+    if (typeof ctAdjacent === 'function' && ctAdjacent() === who) return true;
+  }
+  hx = at[0] + 1; hy = at[1];          /* no side works: the old behaviour */
+  return false;
+};`;
+
 function ok(claim, cond, detail) {
   if (cond) { pass++; console.log('  ok  ' + claim); }
   else { fail++; console.log('  FAIL ' + claim + (detail ? '\n       ' + detail : '')); }
@@ -108,6 +139,7 @@ function requirePlaywright() {
   const { chromium } = requirePlaywright();
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: VIEW });
+  await page.addInitScript(STAND_BESIDE);
   const errors = [];
   page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
 
@@ -120,16 +152,40 @@ function requirePlaywright() {
       /* ---- FIND A REAL ONE. No stub. If the valley has nobody who runs with
          anybody, that is a FAILURE of the walked surface, not a reason to skip:
          it is exactly the state the game was silently in for thirteen days. */
+      /* AND PICK SOMEBODY STANDING SOMEWHERE QUIET. (9/5.) This used to take the
+         first affiliated person at the first base, and the whole walk after it --
+         eight days, a dozen button presses, a day roll between each -- assumes
+         the card stays THEIRS. In a crowd it does not: ctAdjacent takes the
+         closest person within a cell, so a neighbour drifting past between days
+         hands the next press to a stranger, and the ladder reads "stopped at 1
+         of 5" while nothing is wrong with the ladder. It passed for weeks
+         because the old seats happened to sit in thin crowds; moving them onto
+         the ground each faction's canon names put the first base in a busy one
+         and twenty-nine claims went red about a stack that works.
+         SO THE SUBJECT IS CHOSEN FOR ISOLATION, not for being first. */
       const bases = ctBases() || {};
-      let who = null, fid = null;
+      let who = null, fid = null, fallback = null, fbFid = null;
       for (const b of Object.values(bases)) {
         hx = b.x * FN + 2; hy = b.y * FN + 2;
-        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        const all = ctEveryone();
+        for (const p of all) {
+          const f = ctFactionOf(p); if (!f) continue;
+          if (!fallback) { fallback = p; fbFid = f; }
+          const a = ctAt(p);
+          let crowd = 0;
+          for (const q of all) {
+            if (q === p) continue;
+            const c = ctAt(q);
+            if (Math.abs(c[0] - a[0]) + Math.abs(c[1] - a[1]) <= 2) crowd++;
+          }
+          if (crowd === 0) { who = p; fid = f; break; }
+        }
         if (who) break;
       }
+      if (!who) { who = fallback; fid = fbFid; }   /* nobody alone: say so by trying anyway */
       if (!who) return { nobody: true };
 
-      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      __standBeside(who);
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
 
@@ -155,7 +211,12 @@ function requirePlaywright() {
          walk does what a player does: sleep, then go and find them. */
       const nextDay = () => {
         DAY.nextDay(); daySync();
-        const back = ctAt(who); hx = back[0] + 1; hy = back[1];
+        /* AND STAND WHERE THE CARD OPENS ON THEM, not merely next to them.
+           This said `hx = back[0] + 1` and was the last survivor of that idiom:
+           after every day roll the walk reopened whoever ctAdjacent happened to
+           pick, so from B5 onward the presses were landing on a stranger's card
+           and the ladder "stopped at 1 of 5". */
+        __standBeside(who);
         ctClose(); ctOpen();
       };
       const txt = () => document.getElementById('ctcard').innerText;
@@ -356,8 +417,8 @@ function requirePlaywright() {
             const slot = ctHasLadder(rule) ? 'withAct' : 'noAct';
             if (slot === 'noAct' && noAct) continue;
             if (slot === 'withAct' && withAct) continue;
-            const at = ctAt(q); const keepx = hx, keepy = hy;
-            hx = at[0] + 1; hy = at[1];
+            const keepx = hx, keepy = hy;
+            __standBeside(q);
             const sv = ctBelongSave();
             sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
             ctSawCell(); ctClose(); ctOpen();
@@ -420,6 +481,7 @@ function requirePlaywright() {
        not against two different histories. */
     async function answerClaim(said) {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await SETTLE(pg, 6000);
@@ -433,7 +495,7 @@ function requirePlaywright() {
             if (who) break;
           }
           if (!who) return { nobody: true };
-          const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+          __standBeside(who);
           const sv = ctBelongSave();
           sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
           /* COUNTED, so they are entitled to ask. Built through the real writer,
@@ -508,10 +570,20 @@ function requirePlaywright() {
       };
       const nameRow = () => row('NAME') || row('KNOWN AS');
       for (const b of Object.values(bases)) {
-        for (const d of [2, 4, 6, 8, 10, 12]) {
+        /* A WIDER RING, BECAUSE THE CAPITALS MOVED. (9/5.) Six offsets down one
+             diagonal from the base centre was enough while seats sat on an even
+             stride through the district list, which put every one of them in a
+             dense suburb. Seats now sit on the ground each faction's own note
+             names -- an arsenal, an intake, a boneyard -- and three of those
+             have NOBODY affiliated within the old six samples, so the walk
+             could reach twelve outfits and press only some of them. This
+             samples a ring instead of a line. It is a change to the PROBE, not
+             to the game: a scan that only finds members when every capital sits
+             in a suburb was always measuring the suburb. */
+            for (const d of [2, 4, 6, 8, 10, 12, -2, -4, -6, -8, -10, -12]) {
           hx = b.x * FN + d; hy = b.y * FN + d;
           for (const q of ctEveryone()) {
-            const at = ctAt(q); hx = at[0] + 1; hy = at[1];
+            __standBeside(q);
             ctSawCell(); ctClose(); ctOpen();
             const fid = row('RUNS WITH');           /* the CARD's answer, not mine */
             if (!fid || seen[fid]) { ctClose(); continue; }
@@ -591,7 +663,7 @@ function requirePlaywright() {
             if (!rule || !rule.wants || rule.wants === 'nothing') continue;
             if (found[rule.wants]) continue;
             if (!ctHasLadder(rule)) { found[rule.wants] = { fid: f, noLadder: true }; continue; }
-            const at = ctAt(q); hx = at[0] + 1; hy = at[1];
+            __standBeside(q);
             const sv = ctBelongSave();
             sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
             ctSawCell(); ctClose(); ctOpen();
@@ -702,6 +774,7 @@ function requirePlaywright() {
        answer from a cold start is 18. A measurement of "where he starts" taken
        after you have walked him somewhere is a measurement of nothing. */
     const spawnPage = await browser.newPage({ viewport: VIEW });
+    await spawnPage.addInitScript(STAND_BESIDE);
     await spawnPage.goto('file://' + CITY);
     await spawnPage.waitForTimeout(6000);
     await spawnPage.evaluate(SPARSE);
@@ -787,6 +860,7 @@ function requirePlaywright() {
        Stage index, derived, never typed. */
     const neg = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -800,7 +874,7 @@ function requirePlaywright() {
             if (who) break;
           }
           if (!who) return { nobody: true };
-          const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+          __standBeside(who);
           const sv = ctBelongSave();
           sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
           sv.meta.commit = {}; sv.meta.neglectDay = {};
@@ -839,7 +913,7 @@ function requirePlaywright() {
              screenful after writing it. */
           sv.meta.gave = {}; for (let i = 0; i < 6; i++) BohemiaBelonging.record(sv, fid, 0);
           BohemiaCommitment.setState(sv, fid, 'sided');
-          const back = ctAt(who); hx = back[0] + 1; hy = back[1];
+          __standBeside(who);   /* 9/5: was hx = back[0] + 1, which reopened a stranger */
           ctSawCell(); ctClose(); ctOpen();
           r.card = document.getElementById('ctcard').innerText;
           return r;
@@ -887,6 +961,7 @@ function requirePlaywright() {
        on it. The day the count could fall, both broke. */
     const deep = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -900,11 +975,11 @@ function requirePlaywright() {
             if (who) break;
           }
           if (!who) return { nobody: true };
-          const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+          __standBeside(who);
           const sv = ctBelongSave();
           sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
           sv.meta.commit = {}; sv.meta.neglectDay = {};
-          const walkBack = () => { const c = ctAt(who); hx = c[0] + 1; hy = c[1]; ctClose(); ctOpen(); };
+          const walkBack = () => { __standBeside(who); ctClose(); ctOpen(); };
           ctSawCell(); ctOpen();
           const r = { fid, offers: [] };
           /* CLIMB THE WHOLE LADDER BY PLAYING -- no setState anywhere. */
@@ -1016,6 +1091,7 @@ function requirePlaywright() {
        the consequence is printed before the button, never after. */
     const askc = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -1029,10 +1105,20 @@ function requirePlaywright() {
             return r ? r.querySelector('.v').textContent.trim() : null;
           };
           for (const b of Object.values(bases)) {
-            for (const d of [2, 4, 6, 8, 10, 12]) {
+            /* A WIDER RING, BECAUSE THE CAPITALS MOVED. (9/5.) Six offsets down one
+             diagonal from the base centre was enough while seats sat on an even
+             stride through the district list, which put every one of them in a
+             dense suburb. Seats now sit on the ground each faction's own note
+             names -- an arsenal, an intake, a boneyard -- and three of those
+             have NOBODY affiliated within the old six samples, so the walk
+             could reach twelve outfits and press only some of them. This
+             samples a ring instead of a line. It is a change to the PROBE, not
+             to the game: a scan that only finds members when every capital sits
+             in a suburb was always measuring the suburb. */
+            for (const d of [2, 4, 6, 8, 10, 12, -2, -4, -6, -8, -10, -12]) {
               hx = b.x * FN + d; hy = b.y * FN + d;
               for (const q of ctEveryone()) {
-                const at = ctAt(q); hx = at[0] + 1; hy = at[1];
+                __standBeside(q);
                 ctSawCell(); ctClose(); ctOpen();
                 const fid = row('RUNS WITH');
                 if (!fid || seen[fid]) { ctClose(); continue; }
@@ -1089,6 +1175,7 @@ function requirePlaywright() {
        whether theirs arrives WITHOUT ASKING, which is their anchor verbatim. */
     const third = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -1287,6 +1374,7 @@ function requirePlaywright() {
        nothing. A ROW ADDED AFTER AN EARLY RETURN IS NOT ADDED. */
     const tert = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -1486,6 +1574,7 @@ function requirePlaywright() {
        community's own graph, and every ingredient already in the save. */
     const onw = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -1668,6 +1757,7 @@ function requirePlaywright() {
        system with no memory looked perfectly healthy for a week. */
     const persist = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -1737,6 +1827,7 @@ function requirePlaywright() {
        because you cannot see that it is wrong. */
     const corrupt = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       const errs = [];
       pg.on('pageerror', e => errs.push(e.message));
       try {
@@ -1796,6 +1887,7 @@ function requirePlaywright() {
        ONE POSTURE REPORTS THE OTHER AS A DEFECT. */
     const pays = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);
@@ -1885,6 +1977,7 @@ function requirePlaywright() {
        stay invisible. */
     const orphanFactions = await (async () => {
       const pg = await browser.newPage({ viewport: VIEW });
+      await pg.addInitScript(STAND_BESIDE);
       try {
         await pg.goto('file://' + CITY);
         await pg.waitForTimeout(6000);

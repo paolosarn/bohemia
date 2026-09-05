@@ -342,22 +342,55 @@
         if (Math.abs(seats[j][0] - d.x) + Math.abs(seats[j][1] - d.y) < MIN_APART) return false;
       return true;
     }
+    /* AND A CAPITAL WITH NOBODY AROUND IS NOT A CAPITAL. (9/5, second pass.)
+       The first cut picked the right KIND of ground and stopped there, which put
+       the Homeless on the only intake in the valley and the Caravans on the only
+       truckstop -- both real canon reads, both in empty corners. Who belongs to a
+       faction is computed from proximity to its base, so a seat where nobody
+       lives is a faction with no members, and faction_arc's coverage claims went
+       red: five act mechanics have members in the valley and the walk could only
+       reach three.
+       So a candidate is scored by HOW MUCH CITY IS AROUND IT -- the count of
+       districts within eight cells, which is the same number on both surfaces
+       because it is read off the very list the caller passed. The loop's own
+       districts carry a `zone` and the first version of this scored on that, but
+       zone comes out of bohemia_world.js, which the walked surface cannot load at
+       all -- scoring on it would have rebuilt the two-surfaces-disagree defect
+       this whole file exists to stop. Cells are the shared currency.
+       THIS DOES NOT OVERRIDE HIS NOTE. It chooses BETWEEN the sites his note
+       allows, which is exactly the part he left open. Where a kind is unique
+       there is nothing to choose and the faction still goes there. */
+    var dens = {};
+    function density(d) {
+      if (dens[d.id] != null) return dens[d.id];
+      var c = 0;
+      for (var j = 0; j < list.length; j++) {
+        var o = list[j];
+        if (Math.abs(o.x - d.x) + Math.abs(o.y - d.y) <= 8) c++;
+      }
+      dens[d.id] = c;
+      return c;
+    }
     /* DETERMINISTIC AND NOT ALPHABETICAL: the same faction lands on the same
        ground in the same world every boot, but its initials have nothing to do
-       with where. A capital that moves when you reload is not a capital. */
+       with where. A capital that moves when you reload is not a capital. The
+       hash only breaks ties between sites that are equally good. */
     function pickFrom(cands, fid) {
       if (!cands || !cands.length) return null;
       var h = 2166136261;
       for (var j = 0; j < fid.length; j++) { h ^= fid.charCodeAt(j); h = Math.imul(h, 16777619); }
-      var start = (h >>> 0) % cands.length, loose = null, edge = null;
+      var salt = (h >>> 0);
+      var best = null, bestScore = -1, edge = null, loose = null;
       for (var n = 0; n < cands.length; n++) {
-        var d = cands[(start + n) % cands.length];
+        var d = cands[n];
         if (taken[d.id]) continue;
-        if (farEnough(d) && inland(d)) return d;  /* what we want */
-        if (!edge && farEnough(d)) edge = d;      /* right kind, on the boundary */
-        if (!loose) loose = d;                    /* right kind, too close */
+        if (!farEnough(d)) { if (!loose) loose = d; continue; }
+        if (!inland(d)) { if (!edge) edge = d; continue; }
+        var score = density(d) * 16
+          + ((salt ^ Math.imul(d.x, 73856093) ^ Math.imul(d.y, 19349663)) & 15);
+        if (score > bestScore) { bestScore = score; best = d; }
       }
-      return edge || loose;                       /* his canon beats both of my rules */
+      return best || edge || loose;               /* his canon beats both of my rules */
     }
 
     roster.sort(function (a, b) {
