@@ -251,6 +251,54 @@ NEXT IN THIS LANE (VAMILY order): [power hums] BB-A-LIT-BLOCK-HUMS, then
 
 SOUND (sound-xk7pjp): 9/5 (b) -- *** THE GAME WAS SILENT FOR TEN SECONDS
 
+CHARACTER (character-0lurbs): 9/5 -- *** [clothes wired] WIRE-THE-REMAKE IS SHIPPED.
+A REAL BATCH LANDED AND THE WIRE CARRIED IT WITH NOTHING TO DO BY HAND. ***
+(NOTE: a merge dropped my round-4 block from this file. Its substance is folded in
+below rather than lost. The permanent instruction follows, unchanged.)
+
+ROUND 5 -- SHIPPED
+- COOK's WARDROBE-REMAKE batches 1-4 landed: 18 new SHAPES, 40 garments, wardrobe 79 ->
+  104 shapes, all 40 inside the style card palette. That is the trigger this job existed
+  for ("as ART batches pass DIRECTION, wire them into the picker and the wardrobe data").
+- THE RATCHET DID ITS JOB AND THERE WAS NOTHING LEFT TO DO BY HAND. Canon 280 -> 320 and
+  every claim green: 0 non-reserved unworn over 4000 citizens, every layer wired, all 320
+  reachable on a bench, present in the DEMO, reserved still rare at 1.03%. The wire was
+  built generic four rounds ago (layers + odds, DATA NOT NAMES) and absorbed a 40-garment
+  batch without a line of new code. THAT IS THE JOB WORKING, NOT THE JOB BEING SKIPPED.
+- LOOKED AT IT, NOT JUST MEASURED IT: eight citizens each wearing 2+ new pieces -- hip
+  sashes, wrap skirts, wide pleat trousers, asymmetric coats, face wraps, stacked jersey
+  pants, leg wraps. Real new silhouettes, muted palette, no purple, reads as dressed people.
+- THE ACCENT FLAG IS STILL EMPTY AND THAT IS CORRECT, NOT A GAP. 0 of 320 tagged, because
+  engine/bohemia_dress.js ships FACTION_COLOR EMPTY on purpose ("which faction gets which
+  color ... are his rulings alone"). No faction has a colour, so no garment can carry one,
+  so the card's one-accent rule has nothing to bite on yet. The mechanism is built, inert
+  and mutation-proven; it starts working the moment he rules a faction colour and COOK tags
+  a piece. Nothing here is blocked on me.
+
+ROUND 4, FOLDED IN (the block a merge dropped)
+- Measured whether a garment's RAMP survives onto the body, because the card asks for 4-6
+  steps and COOK was about to cook 280 pieces to it. ANSWER: the wire carries what it is
+  sent -- 75.4% already in band, up to 9 tones survive, the remake was safe to run.
+  Record: records/BOHEMIA_DOES_THE_RAMP_SURVIVE_9_5_26.txt
+- FOR DIRECTION AND COOK: the 4-6 step rule may not be physically achievable on a small
+  piece. Median px IN band 751, UNDER band 168; of 59 garments at 200 px or fewer, 44% miss
+  it. A belt is 56 px. REPORTED, NOT DECIDED.
+- *** AND I WITHDREW MY OWN GATE CHECK FOR IT THE SAME ROUND. *** Two mutations of the
+  render path (every put() site, then the garment's gen output at _stampG) left the numbers
+  BYTE IDENTICAL across three builds. A CHECK I CANNOT MAKE GO RED IS NOT A CHECK, IT IS A
+  GREEN LIGHT I DO NOT TRUST. Removed, reasoning kept in the gate, first suspect named (a
+  cache the gate is not clearing). A REPORT HAS TO BE HONEST, A GATE HAS TO BE FALSIFIABLE.
+
+STILL ROUTED TO 01 RUN AND 03 LIFE+CITY, unchanged: the walked city draws NO bodies
+(0 buildFrame/drawChar for ~5,027 agents), so no garment reaches the surface he walks. My
+gate reports it every run and deliberately does not go red over another lane's hole.
+
+NEXT FOR THIS LANE: [hair sheet] HAIR-REF-EIGHT-FACINGS, his 8/25 order, still open.
+
+Gates this round: wardrobe_wired 15/15, family 15/15, become 28/28, talking_portrait 27/27,
+portrait_haircut 12/12, face_maker 13/13, hair_graveyard 9/9, trenchcoat 12/12. Demo re-cut.
+
+
 CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
