@@ -383,6 +383,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   <div id="packline"></div>
   <div id="packbtn">✋ BACK OFF</div>
   <div id="mktbtn">🧺 MARKET</div><!-- __THE_TRADING_HUB__ -->
+  <div id="buildbtn">⚖ BUILD HERE</div><!-- __BUILDER_WHERE_HE_WALKS__ -->
   <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">✕</span></div><div id="phoneslot"></div></div>
   <div id="savepanel"></div>
   <div id="keypanel"></div>
@@ -530,6 +531,17 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   background:var(--face);border:1px solid var(--acc);color:var(--acc);
   font-size:11px;font-weight:700;letter-spacing:1px;display:none}
 #mktbtn:active{background:#2a251d;color:#fff}
+/* __BUILDER_WHERE_HE_WALKS__ -- THE BUILD VERB WHERE HIS FEET ARE. Measured 9/5:
+   cityTapPlot is guarded by `MODE==='city'`, so the ONLY way to put a building down
+   was to leave the street and go up to the aerial view. The city he is rebuilding was
+   a thing he could only touch from a helicopter. This chip is the same panel, for the
+   cell he is standing in, and it borrows #mktbtn's shape rather than copying it so the
+   two can never drift apart. */
+#buildbtn{position:absolute;left:6px;bottom:40px;z-index:7;padding:7px 11px;border-radius:9px;
+  background:var(--face);border:1px solid var(--acc);color:var(--acc);
+  font-size:11px;font-weight:700;letter-spacing:1px;display:none}
+#buildbtn:active{background:#2a251d;color:#fff}
+#buildbtn.on{background:#2a251d;color:#fff}
 /* ==== mandate face css ==== */
 /* __WHERE_YOU_STAND__ -- sits in the same left column as SLEEP and MARKET, above both,
    and borrows #mktbtn's rule rather than copying it so the two can never drift apart. */
@@ -25186,6 +25198,23 @@ const CB={_tapStart:null,_tapMoved:0,sel:null};
 function CBdistAt(x,y){ const t=om.at(x,y); return t&&t.district; }
 function CBafterEdit(){
   CBpersist();
+  /* __THE_SEAM_CACHE_OUTLIVED_ITS_FRAME__ -- AN EDIT ENDS THE SNAPSHOT, WHICHEVER
+     MODE IS DRAWING. The frame cache above argues it is safe because "within a single
+     frame the map cannot change", and that is true -- but the only thing that ADVANCES
+     CITY_FRAME is the city render, and the walked surface never runs one. So on foot
+     the "one frame" lifetime quietly became FOREVER: the first demolish landed in the
+     delta and om.at kept answering SUBURB, so the panel offered DEMOLISH again and the
+     next BUILD was refused as "build only on empty desert" for a plot that was already
+     desert. The cache was never wrong about its rule, only about who was keeping it.
+     MEASURED 9/5 the first time a build was driven from the street, which is the only
+     reason it was ever visible: until this round the ONLY way to edit was in city mode,
+     where render() bumps the counter one line later. A new door found an old hole.
+     Bumping here makes the stated lifetime true again instead of adding a fourth cache
+     with a fourth argument about when it dies. */
+  CITY_FRAME++;
+  /* __BUILDER_WHERE_HE_WALKS__ -- the chip's lit state is decided in ONE place
+     (buildBtnSync) and refreshed here, so it can never disagree with the panel. */
+  try{ buildBtnSync(); }catch(_e){}
   try{metaCache.clear();}catch(e){}     // the walked streets regenerate from the edited plot
   try{chunkCache.clear();}catch(e){}
   CBpanel(); render();
@@ -25241,13 +25270,26 @@ function CBpanel(){
   let el=document.getElementById('buildpanel');
   if(!el){ el=document.createElement('div'); el.id='buildpanel';
     (document.getElementById('stage')||document.body).appendChild(el); }
-  if(MODE!=='city'||!CB.sel){ el.style.display='none'; return; }
+  /* __BUILDER_WHERE_HE_WALKS__ -- THIS LINE USED TO READ `MODE!=='city'` AND THAT
+     GUARD WAS THE WHOLE DEFECT. Measured 9/5: the build panel and every verb behind
+     it were unreachable from the street, so the only way to put a building down in
+     the city he is rebuilding was to leave it and look at it from above. The panel
+     opens in HUMAN mode too now; nothing else about it changes, so the rules the
+     aerial builder holds (the skeleton is sacred, desert only, one battery) are the
+     same rules on foot BECAUSE THEY ARE THE SAME CODE. */
+  if(!CB.sel){ el.style.display='none'; return; }
   const x=CB.sel[0], y=CB.sel[1], d=CBdistAt(x,y), sp=CE.spanAt(EDITS,x,y);
   el.style.display='block';
   const what = sp ? (d.toUpperCase()+' &middot; big building '+sp.w+'x'+sp.h+' ('+(sp.w*sp.h)+' lots)')
     : (String(d).toUpperCase()+(CE.isSkeleton(d)?' &middot; protected'
         :(d==='desert'?' &middot; empty desert':' &middot; plot')));
-  let html='<div class="cbrow"><b>('+x+','+y+')</b> '+what+'</div><div class="cbrow" id="cbacts">';
+  /* ON FOOT THERE IS NO SECOND TAP TO CLOSE WITH. In the aerial view you dismiss the
+     panel by tapping the same plot again; a walker never taps the plot at all, so the
+     panel would be a thing he could open and not put down. One X, in human mode only,
+     rather than a second dismissal idiom in the mode that already has one. */
+  let html='<div class="cbrow"><b>('+x+','+y+')</b> '+what
+    +(MODE==='human'?'<span id="cbclose" style="margin-left:auto;padding:0 8px;cursor:pointer">\u2715</span>':'')
+    +'</div><div class="cbrow" id="cbacts">';
   if(CE.isSkeleton(d)) html+='<span class="cbnote">the skeleton is sacred: streets, water, rail and mountains cannot be touched</span>';
   else if(d!=='desert') html+='<button id="cbdem">&#10005; '+(sp?'DEMOLISH THE WHOLE BUILDING':'DEMOLISH TO DESERT')+'</button>';
   else html+='<select id="cbtype"></select><button id="cbbuild">&#9878; BUILD</button><button id="cbbig">&#9965; BUILD BIG 2&times;2</button>';
@@ -25259,6 +25301,8 @@ function CBpanel(){
   if(d==='desert') html+='<div class="cbrow"><span class="cbnote" id="cbprice">'
     +esc(cbPriceLine())+'</span></div>';
   el.innerHTML=html;
+  { const cx2=el.querySelector('#cbclose');
+    if(cx2) cx2.onclick=function(){ CB.sel=null; CBpanel(); buildBtnSync(); }; }
   const ty=el.querySelector('#cbtype');
   if(ty) CE.buildableTypes(OM.DISTRICT).forEach(function(t){
     const o=document.createElement('option'); o.value=t; o.textContent=t.toUpperCase(); ty.appendChild(o); });
@@ -32827,7 +32871,9 @@ function blStack(){
      AND MY OWN GATE SAID IT WAS FINE, because its claim read the chip's TEXT and
      never asked whether a thumb could get to it. A control is not offered because
      it exists; it is offered because it can be pressed. */
-  ['sleepbtn','bikebtn','fitbtn','modechip','mktbtn','rungbtn','note'].forEach(function(id){
+  /* __BUILDER_WHERE_HE_WALKS__ -- #buildbtn JOINS THE COLUMN THE DAY IT IS BORN,
+     because every chip that did not is a bug this function has a paragraph about. */
+  ['sleepbtn','bikebtn','fitbtn','modechip','mktbtn','buildbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
     /* NEVER DETACH A HIDDEN CHIP, AND THE FIRST CUT OF THIS DID. It said "a
@@ -39479,6 +39525,7 @@ function updHud(){
     ? 'move on the streets. time moves when you move.'
     : 'walking your own block.';
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
+  try{ buildBtnSync(); }catch(_e){}  /* __BUILDER_WHERE_HE_WALKS__ */
 }
 
 // ---- mode switch: the zoom seam (button proof) ----
@@ -42014,6 +42061,37 @@ function showMarket(){
     if(act==='close'){ MKT_LAST=null; cardHide(); return; }
     if(act&&act.indexOf('buy:')===0){ mktBuy(act.slice(4)); showMarket(); }
   });
+}
+/* __BUILDER_WHERE_HE_WALKS__ -- THE VERB, WHERE HIS FEET ARE.
+   MEASURED BEFORE IT WAS WRITTEN, on the real cut demo and not from memory: the CITY
+   button works there, the panel opens there, and BUILD is live there. So HALF of this
+   job's brief was already false -- "they do not reach the demo" was measuring
+   BOHEMIA_RUN_CURRENT.html, and the demo does not load the builder from that file, it
+   loads THIS page in an iframe. What is really missing is the other half of the name:
+   WHERE HE WALKS. cityTapPlot is guarded by MODE==='city', so a player on the street
+   could not touch the city he is rebuilding without first leaving it.
+   THE SAME PANEL, THE SAME VERBS, THE SAME PRICE -- for the cell under his feet. A
+   second builder for the street would be a second set of rules to keep in step with
+   the first, which is the bug this file has fixed six times. */
+function walkCell(){                     /* the overmap cell he is standing in */
+  return [ (hx/FN)|0, (hy/FN)|0 ];
+}
+function buildHere(){
+  if(MODE!=='human') return false;
+  const c=walkCell();
+  /* A TOGGLE, because the chip is the only way in and it has to be the way out too. */
+  CB.sel=(CB.sel&&CB.sel[0]===c[0]&&CB.sel[1]===c[1])?null:c;
+  CBpanel(); buildBtnSync(); render();
+  return true;
+}
+function buildBtnSync(){
+  var el=document.getElementById('buildbtn'); if(!el)return;
+  /* AWAKE AND ON FOOT. Not while the day is closing (the reckoning owns the screen)
+     and not in the aerial view, where tapping a plot already does this. */
+  var on=(MODE==='human'&&DAY.phase==='awake');
+  el.style.display=on?'block':'none';
+  var c=walkCell();
+  el.classList.toggle('on', !!(CB.sel&&CB.sel[0]===c[0]&&CB.sel[1]===c[1]));
 }
 function mktBtnSync(){
   var el=document.getElementById('mktbtn'); if(!el)return;
@@ -51481,6 +51559,8 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+/* __BUILDER_WHERE_HE_WALKS__ BOOT */
+document.getElementById('buildbtn').addEventListener('click',function(){ buildHere(); });
 
 
 
