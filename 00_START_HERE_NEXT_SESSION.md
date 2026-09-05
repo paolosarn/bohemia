@@ -1,3 +1,127 @@
+LIFE + CITY (city-1eztay): 9/5 (d) LATEST -- *** [century memory] CENTURY-RECORD:
+SHIPPED. THE CITY REMEMBERS WHAT YOUR FAMILY DID, PER GENERATION, AND A LATER
+GENERATION CANNOT ERASE IT. *** MODE: BUILD. TAB: CITY (the line is on the end-of-day
+card). Nothing to judge.
+
+*** HIS PERMANENT INSTRUCTION, WORD FOR WORD, IN THIS ROUND'S BLOCK AS HE ASKED. ***
+
+=== PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+*** ONE OF THIS LANE'S BLOCKS IS GONE FROM THIS FILE, MEASURED AND STATED EXACTLY.
+Commit 6c584c6 (EYES AND EARS, "EYES E3") removed 8,673 lines from
+00_START_HERE_NEXT_SESSION.md in one commit. LIFE + CITY's [people housed] block was among
+them and is still absent from main. THE LANE'S EARLIER (c) BLOCK SURVIVED, so his permanent
+instruction was never actually lost -- I checked before saying so, having nearly written the
+stronger claim. The file is back to ~84,000 lines because other lanes have written into it
+since, so this is one block missing, not a file that stayed short.
+I have NOT restored the other 8,600 lines: the trim may well be deliberate, the file is
+enormous, and warring over a shared file is worse than losing a block. The lost round is
+summarised in three lines below so the next reader is not missing it.
+FOR THE COORDINATOR: if the prune was intended, lanes should know the handoff is
+short-lived and the durable record is the commit message plus records/; if it was not, EYES
+should know. Git history is the archive either way (CLAUDE.md says so), so nothing is
+destroyed -- but a live lane's newest block vanishing without a note is how a round gets
+repeated. ***
+
+THE ROUND THAT WAS LOST, IN THREE LINES SO THE NEXT READER IS NOT MISSING IT:
+[people housed] HOUSING SHIPPED 24eb078. Building a suburb never moved the valley census
+(297 before, 297 after) because the population was a function of the SEED, not of what the
+player built. HOUSING DOES NOT CREATE PEOPLE, IT HOUSES THEM -- capacity grows when he
+builds, residents are capped by the valley, because his 7/29 food ceiling is LOCKED and a
+city builder where flats make new people appear breaks it quietly. Gate 18/0. Two things it
+caught in my own work: the law was breakable by a MEASUREMENT FAILURE (0 meant both "empty
+valley" and "cannot see a valley"), and a mutation slipped through a leg that decided what
+to expect FROM THE ANSWER IT WAS CHECKING. Full record:
+records/BOHEMIA_SOMEBODY_LIVES_IN_WHAT_YOU_BUILT_9_5_26.md
+
+*** THIS ROUND: [century memory] CENTURY-RECORD, SHIPPED. ***
+  THE LAW'S LAST SENTENCE IS THE BRIEF. The 7/26 century rule is LOCKED and ends "MECHANISM
+TO BE DESIGNED; NUMBERS ARE PAOLO'S WHEN THE MECHANISM IS RULED." So this round is the
+mechanism and NOTHING ELSE.
+  [PENDING Paolo] WHAT A POOR CITY AND A REBUILT CITY ARE. TIERS ships EMPTY and tierOf()
+answers NO_RULING by name while still handing over the totals. A sensible default there
+would be canon nobody wrote, and a gate leg goes red the day one appears.
+  WHY A LEDGER AND NOT THREE COUNTERS: the delta is the city AS IT STANDS and cannot answer
+the century question, because a generation that built forty homes and one that built none
+look identical the moment a later generation knocks them down -- and "the dynasty that built
+and lost it" is exactly the story the rule exists to tell. THE DELTA IS THE CITY; THIS IS
+WHAT THE FAMILY DID.
+  ONE MEANING PER FIELD, and the first cut had two in one object: byType counts BUILDS and
+never decrements, housing is a NET change allowed to go NEGATIVE (a generation that tore
+down housing really did reduce it, and clamping that to zero hides the exact story the rule
+is for), net is how much more city there is than when the act began.
+  THE ACT IS NOT INVENTED EITHER. Measured: the walked city carries no act -- act 1..3 lives
+in bohemia_engine.js's save, which the walked surface does not load -- and the generation
+handoff is the quests queue's PARKED [generation handoff] THE-FOLD-IN-THE-RUNTIME. So the
+record defaults to act 1, offers ONE setter for the fold, and refuses to run backwards.
+Inventing a generation handoff to make my own record look finished would be building
+somebody else's job badly.
+  WHAT HE SEES: one line on the reckoning card -- "this generation: one building up, one
+down". The GENERATION's tally, not the day's. Absent when the family has built nothing.
+  GATE: gates/century_record_gate.js, 18/0, walked surface AND cut demo, registered. B4
+drives the REAL save path, both ends: citySnapshot() then applyRestore() with the memory
+forgotten in between. A9 proves the past is not rewritten. A8b proves a broken or future
+blob loads as an empty memory rather than a crash.
+  Mutation-tested three ways: make totals a view over what still stands (A2, A3, A5, A7
+red), give TIERS a sensible default (A7 red), record the demolition after the redraw (B2
+red, "recorded desert").
+  *** THE MUTATION THAT DID NOT WORK IS THE FINDING. *** My first attempt at the B2 mutation
+-- just move the type read to AFTER CE.demolish -- did not go red, because the edit-seam
+frame cache had not been bumped yet, so both orders answered "suburb". THE TWO ORDERS WERE
+EQUIVALENT ONLY BY ACCIDENT OF A CACHE. The mutation that reflects the real bug (record
+after CBafterEdit, which bumps the cache) goes red instantly. So the leg is written against
+the FACT -- the record names what was standing, never 'desert' -- rather than against the
+line ordering that currently produces it.
+  RECORD: records/BOHEMIA_THE_CITY_IS_THE_LONG_MEMORY_9_5_26.md
+  STILL RED ON MAIN AND STILL NOT MINE, both proved pre-existing by stashing:
+demo_day_gate 23/1 (WORLD's own gate fixture credits and reads `resources` while buying
+moved to `electricity`) and bohemia_sync_gate BOH_POWERGRID, 2 bodies across 6 carriers
+(the graphics-engine masters and BOHEMIA_RUN_CURRENT.html carry an older body than canon).
+FOR THE COORDINATOR TO ROUTE, to WORLD and RUN.
+  THE STANDING NOTE: ACCIDENTAL CORRECTNESS IS THE KIND THAT ROTS. Code that is right
+because of something two systems away stays right exactly until that something moves, and
+nothing in the file will say why it broke. A test aimed at the fact survives the refactor;
+a test aimed at the line ordering ships a false green the day somebody tidies it.
+  NEXT OPEN LINE IN THIS LANE: [feed posts] THE-FEED-STREAM.
+
 WORDS (words-8dqrnq): 9/5 (f) LATEST -- *** VAMILY Q9 [trade talk] SHIPPED. FOUR OF OUR
 SIX TRADES NEVER SAY A SINGLE WORD FROM THEIR OWN TRADE, AND NOBODY IN THE BUILD
 USES THEIR JOB AS A WAY OF SEEING ANYTHING ELSE. *** Nothing to judge, MODE:

@@ -25410,6 +25410,218 @@ const BEAT=500; // 120BPM law
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== engine/bohemia_housing.js ==== */
 
+/* ==== engine/bohemia_century.js (inlined verbatim) ==== */
+// BOHEMIA CENTURY — the city is the game's long memory, so it needs one.
+// (9/5/26, LIFE + CITY lane. VAMILY job [century memory] / CENTURY-RECORD:
+//  "persist per-act build totals so act 3's city can differ; mechanism ours, every
+//   number his".)
+//
+// THE LAW THIS SERVES IS LOCKED AND ITS LAST SENTENCE IS THE BRIEF.
+// laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md, clause 4:
+//   "THE CENTURY RULE: dynasty building choices COMPOUND across the three acts
+//    (~100 years). Neglect production/power/clout and act three's city is visibly
+//    poorer; invest and it's visibly rebuilt. The city is the game's long memory.
+//    MECHANISM TO BE DESIGNED; NUMBERS ARE PAOLO'S WHEN THE MECHANISM IS RULED."
+// So this file is the mechanism and NOTHING ELSE. It stores what each generation
+// did. What counts as poor, what counts as rebuilt, and what act 3 does about it
+// are his, and TIERS below is empty and says so.
+//
+// WHY A LEDGER AND NOT THREE COUNTERS, WHICH IS THE SAME ARGUMENT THE PURSE MAKES
+// AND IT IS RIGHT AGAIN HERE. The delta (bohemia_cityedit.js) is the city AS IT
+// STANDS. It cannot answer the century question, because a generation that built
+// forty homes and a generation that built none look identical the moment a later
+// generation knocks them down -- and "the dynasty that built and lost it" is
+// exactly the story the century rule exists to tell. THE DELTA IS THE CITY; THIS
+// IS WHAT THE FAMILY DID. Entries are the truth and totals are their fold, so no
+// number here can drift from the events behind it.
+//
+// EVERY ENTRY CARRIES ITS ACT, and the act is not invented here either. The walked
+// city carries no act today (measured 9/5: its save has no such field; `act: 1..3`
+// lives in bohemia_engine.js's save, which the walked surface does not load), and
+// THE FOLD FROM ONE GENERATION TO THE NEXT IS ANOTHER LINE'S JOB -- the quests
+// queue's [generation handoff] THE-FOLD-IN-THE-RUNTIME, which is PARKED. So this
+// defaults to act 1 and offers ONE setter for the fold to call when it exists.
+// Inventing a generation handoff to make my own record look finished would be
+// building somebody else's job badly.
+//
+// REUSE CHECK: cooks NO pixels, invents NO district, and does not decide what a
+// building is -- a caller hands it the same {type,x,y,w,h} shape
+// BohemiaProduction.placed() already returns, which is the unit demolish, produce()
+// and housing all count with. Four systems, one idea of a building.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  function HOUSE() {
+    if (HASREQ) { try { return require('./bohemia_housing.js'); } catch (e) { return null; } }
+    return root.BohemiaHousing || (typeof BohemiaHousing !== 'undefined' ? BohemiaHousing : null);
+  }
+
+  var NO_RULING = 'NO_RULING';
+  var ACT_MIN = 1, ACT_MAX = 3;              /* three generations, his 7/26 law */
+
+  /* WHAT COUNTS AS A POOR CITY OR A REBUILT ONE IS HIS, AND THIS SHIPS EMPTY.
+     Each row would be {act, need:{built:N, housed:N}, look:'...'} and the moment he
+     rules one, tierOf() starts answering. A sensible default here would be canon
+     nobody wrote, which is the one thing the mechanism/contents split exists to
+     stop -- and the law itself says the numbers are his WHEN THE MECHANISM IS
+     RULED, which is now, not before. */
+  var TIERS = {};
+
+  function make(opts) {
+    opts = opts || {};
+    return { V: 1, act: clampAct(opts.act || ACT_MIN), entries: [] };
+  }
+
+  function clampAct(a) {
+    a = a | 0;
+    if (a < ACT_MIN) return ACT_MIN;
+    if (a > ACT_MAX) return ACT_MAX;
+    return a;
+  }
+
+  /* THE ONE SETTER, FOR THE FOLD THAT DOES NOT EXIST YET. It refuses to go
+     BACKWARDS, because a century that can run in reverse is not a memory. */
+  function setAct(rec, a) {
+    if (!rec) return ACT_MIN;
+    var want = clampAct(a);
+    if (want > rec.act) rec.act = want;
+    return rec.act;
+  }
+
+  /* ---------------------------------------------------------------------------
+     THE LEDGER. One entry per thing the family did to the city.
+     --------------------------------------------------------------------------- */
+  function note(rec, kind, building, day) {
+    if (!rec || !rec.entries) return { applied: false, reason: 'NO_RECORD' };
+    if (kind !== 'build' && kind !== 'demolish')
+      return { applied: false, reason: 'NOT_A_DEED', kind: kind };
+    if (!building || !building.type) return { applied: false, reason: 'NOT_A_BUILDING' };
+    var H = HOUSE();
+    var e = {
+      act: rec.act, kind: kind, type: building.type,
+      x: building.x | 0, y: building.y | 0,
+      w: building.w || 1, h: building.h || 1,
+      /* THE HOUSEHOLD IS RECORDED AT THE TIME IT HAPPENED, not looked up later.
+         If he ever rules that an apartment holds more than a trailer, the past
+         does not silently rewrite itself -- what the family built is what it built
+         under the rules of the day, which is what a memory means. */
+      people: H ? H.capacityOf(building.type) : 0,
+      day: day == null ? 0 : (day | 0),
+      seq: rec.entries.length
+    };
+    rec.entries.push(e);
+    return { applied: true, entry: e };
+  }
+
+  /* ---------------------------------------------------------------------------
+     THE FOLD. Totals are derived, never stored, so they cannot drift.
+     --------------------------------------------------------------------------- */
+  /* ONE MEANING PER FIELD, AND THE FIRST CUT HAD TWO IN ONE OBJECT.
+       built / demolished  what this generation put up and took down
+       net                 how much MORE city there is than when the act began
+       housing             the NET change in household capacity this generation made,
+                           and it is allowed to be NEGATIVE. A generation that tore
+                           down housing really did reduce it, and clamping that to
+                           zero would hide exactly the story the century rule is for.
+       byType              WHAT THIS GENERATION BUILT, by kind. BUILDS ONLY: it never
+                           decrements. The first cut had it going down on a demolish,
+                           which made "the dynasty built one suburb" and "there is one
+                           suburb standing" the same field wearing one name -- and they
+                           are different questions with different answers. What is
+                           STANDING is the delta's job (bohemia_cityedit.js); this file
+                           only ever answers what the family DID. */
+  function blank() {
+    return { built: 0, demolished: 0, net: 0, housing: 0, byType: {} };
+  }
+
+  function totals(rec, act) {
+    var t = blank();
+    if (!rec || !rec.entries) return t;
+    for (var i = 0; i < rec.entries.length; i++) {
+      var e = rec.entries[i];
+      if (act != null && e.act !== act) continue;
+      if (e.kind === 'build') {
+        t.built++; t.net++; t.housing += e.people || 0;
+        t.byType[e.type] = (t.byType[e.type] || 0) + 1;
+      } else {
+        t.demolished++; t.net--; t.housing -= e.people || 0;
+      }
+    }
+    return t;
+  }
+
+  /* WHAT THE DYNASTY HAS DONE UP TO AND INCLUDING AN ACT -- the number the century
+     rule actually asks for, because the law says choices COMPOUND. */
+  function through(rec, act) {
+    var t = blank();
+    if (!rec) return t;
+    var upto = act == null ? rec.act : clampAct(act);
+    for (var a = ACT_MIN; a <= upto; a++) {
+      var p = totals(rec, a);
+      t.built += p.built; t.demolished += p.demolished;
+      t.net += p.net; t.housing += p.housing;
+      for (var k in p.byType) if (Object.prototype.hasOwnProperty.call(p.byType, k))
+        t.byType[k] = (t.byType[k] || 0) + p.byType[k];
+    }
+    return t;
+  }
+
+  /* ONE ROW PER ACT, for a surface that wants to show the whole century. */
+  function acts(rec) {
+    var out = [];
+    for (var a = ACT_MIN; a <= ACT_MAX; a++) {
+      var t = totals(rec, a);
+      t.act = a; t.lived = (rec ? a <= rec.act : a === ACT_MIN);
+      out.push(t);
+    }
+    return out;
+  }
+
+  /* ---------------------------------------------------------------------------
+     THE VALVE THAT IS HIS. Asked what act 3's city should LOOK like given what the
+     dynasty built, this answers NO_RULING by name until he fills TIERS. The pipe
+     is finished and connected and it carries nothing.
+     --------------------------------------------------------------------------- */
+  function tierOf(rec, act) {
+    var t = through(rec, act);
+    var key = String(act == null ? (rec ? rec.act : ACT_MIN) : clampAct(act));
+    if (!Object.prototype.hasOwnProperty.call(TIERS, key))
+      return { reason: NO_RULING, table: 'TIERS', key: key, totals: t,
+               about: 'what a poor city and a rebuilt city are is Paolo\'s ruling' };
+    return { tier: TIERS[key], totals: t };
+  }
+
+  /* SAVE IS THE ENTRIES, because the entries are the truth. */
+  function save(rec) {
+    if (!rec) return null;
+    return { V: 1, act: rec.act, entries: rec.entries.slice() };
+  }
+  function load(blob) {
+    var r = make({ act: (blob && blob.act) || ACT_MIN });
+    /* AN OLDER OR BROKEN BLOB IS AN EMPTY MEMORY, NEVER A CRASH. The century is the
+       one thing in the game that must survive every migration it will ever meet. */
+    if (blob && Array.isArray(blob.entries)) {
+      for (var i = 0; i < blob.entries.length; i++) {
+        var e = blob.entries[i];
+        if (!e || !e.type || (e.kind !== 'build' && e.kind !== 'demolish')) continue;
+        r.entries.push({ act: clampAct(e.act || ACT_MIN), kind: e.kind, type: e.type,
+                         x: e.x | 0, y: e.y | 0, w: e.w || 1, h: e.h || 1,
+                         people: typeof e.people === 'number' ? e.people : 0,
+                         day: e.day | 0, seq: r.entries.length });
+      }
+    }
+    return r;
+  }
+
+  var API = { NO_RULING: NO_RULING, ACT_MIN: ACT_MIN, ACT_MAX: ACT_MAX, TIERS: TIERS,
+              make: make, setAct: setAct, note: note,
+              totals: totals, through: through, acts: acts, tierOf: tierOf,
+              save: save, load: load };
+  if (HASREQ) module.exports = API;
+  root.BohemiaCentury = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== engine/bohemia_century.js ==== */
+
 /* ONE MAP (Paolo 7/27, LOCKED) + his 7/28 order to make the run and the city
    the same place. This frame used to hardcode `seed=2026` while the GAME
    boots the text seed 'bohemia' -> hashSeed -> 2691674296, so the builder
@@ -25643,7 +25855,14 @@ function CBpanel(){
   if(ty) CE.buildableTypes(OM.DISTRICT).forEach(function(t){
     const o=document.createElement('option'); o.value=t; o.textContent=t.toUpperCase(); ty.appendChild(o); });
   const dem=el.querySelector('#cbdem');
-  if(dem) dem.onclick=function(){ const r=CE.demolish(EDITS,x,y,CBdistAt(x,y)); if(r.ok)CBafterEdit(); };
+  if(dem) dem.onclick=function(){
+    /* __THE_CITY_IS_THE_LONG_MEMORY__ -- the TYPE is read BEFORE the verb runs, because
+       after it the plot is desert and the thing that came down is gone from the world.
+       A record written after the fact would remember every demolition as "desert". */
+    const was=CBdistAt(x,y), span=CE.spanAt(EDITS,x,y);
+    const r=CE.demolish(EDITS,x,y,was);
+    if(r.ok){ centuryNote('demolish',was,span?span.ax:x,span?span.ay:y,
+                          span?span.w:1,span?span.h:1); CBafterEdit(); } };
   const bd=el.querySelector('#cbbuild');
   /* PAOLO 8/25: "some buildings by their size will naturally be 2x2 instead of
      1. for example the stadium or moto speedway. probably even the casinos."
@@ -25674,9 +25893,12 @@ function CBpanel(){
     if(say){ if(pl) pl.textContent=say; else cbRefuse(say); }
     return false;
   }
-  function cbPaid(type){                   /* the plot is down: now take the battery */
+  function cbPaid(type,w,h){               /* the plot is down: now take the battery */
     let r=null; try{ r=BohemiaProduction.charge(purseGet(),type,DAY.day,x+','+y); }catch(_e){}
     if(r&&r.applied) window.__BUILD_PAID=(window.__BUILD_PAID||0)+1;
+    /* AND THE FAMILY REMEMBERS IT. One call, at the one place every build path already
+       lands, so a new build verb cannot be added without going through the memory. */
+    centuryNote('build',type,x,y,w||1,h||1);
     try{ phonePush(true); }catch(_e){}
     CBafterEdit();
   }
@@ -25684,7 +25906,7 @@ function CBpanel(){
     if(!cbTill()) return;
     if(NATURAL_2X2[ty.value]){
       const r2=CE.buildBig(EDITS,x,y,2,2,ty.value,OM.DISTRICT,CBdistAt);
-      if(r2.ok)cbPaid(ty.value);
+      if(r2.ok)cbPaid(ty.value,2,2);
       else cbRefuse('a '+ty.value+' is a 2x2 building: '+r2.why+' (needs a clear 2x2 down-right)');
       return;
     }
@@ -25694,7 +25916,7 @@ function CBpanel(){
   if(bg) bg.onclick=function(){
     if(!cbTill()) return;
     const r=CE.buildBig(EDITS,x,y,2,2,ty.value,OM.DISTRICT,CBdistAt);
-    if(r.ok)cbPaid(ty.value);
+    if(r.ok)cbPaid(ty.value,2,2);
     else cbRefuse(r.why+' (needs a clear 2x2 down-right)'); };
   /* AND THE TAG UPDATES WHEN HE CHANGES THE TYPE, because a price that is right for
      the type that was showing when the panel opened is a price that lies the moment
@@ -40957,6 +41179,11 @@ function citySnapshot(){
     vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
     installAsked:!!INSTALL_ASKED,   /* __KEEP_THIS_RUN__ -- a prompt that comes back every night is an ad */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
+    /* __THE_CITY_IS_THE_LONG_MEMORY__ -- the century is the ONE thing in the game that
+       has to survive every migration it will ever meet, so it saves as its entries and
+       loads back through a reader that treats a broken blob as an empty memory rather
+       than a crash. A dynasty record that a bad save can delete is not a memory. */
+    century:(function(){ try{ return BohemiaCentury.save(centuryGet()); }catch(_e){ return null; } })(),
     market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null,   /* __THE_TRADING_HUB__ */
     /* __THE_PEOPLE_RIDE_THE_SAVE__ -- THE WORLD WAS INSIDE THE HARDENED SAVE AND THE PEOPLE
        WERE OUTSIDE IT. Five keys -- minds, known, met, belong, deedweight -- wrote
@@ -41867,6 +42094,17 @@ function showReckoning(){
      the place he reads it. The refusal line stays for anything genuinely unruled -- a
      failed job still says so, because what a failed job pays is not something he has
      said and silence is the honest answer to a question nobody asked. */
+  /* __THE_CITY_IS_THE_LONG_MEMORY__ -- one line on the card he already reads at the end
+     of a day, because a ledger belongs where he reviews the day and nowhere else. It is
+     the GENERATION's tally, not the day's: the century rule is about what the family did
+     across a hundred years, so a per-day count would be the wrong unit for the one thing
+     this record exists to answer. Absent entirely when the family has built nothing,
+     which is the honest empty state rather than a zero. draft:true. */
+  { var _ct=null; try{ _ct=BohemiaCentury.totals(centuryGet(),centuryGet().act); }catch(_e){}
+    if(_ct&&(_ct.built||_ct.demolished)){
+      var _up=_ct.built===1?'one building up':(_ct.built+' buildings up');
+      var _dn=_ct.demolished?(', '+(_ct.demolished===1?'one down':(_ct.demolished+' down'))):'';
+      h+='<li>this generation: '+esc(_up+_dn)+'</li>'; } }        /* draft:true */
   if(PAID_TODAY){ var pd=[]; for(var cc in PAID_TODAY){ var amt=PAID_TODAY[cc];
       pd.push(cc==='electricity'?battWord(amt):(amt+' '+cc)); }
     h+='<li>paid: '+esc(pd.join(', '))+'</li>'; }
@@ -42865,6 +43103,28 @@ try{ BohemiaProduction.installCost(OM.DISTRICT); }catch(_e){}
    counted from -- and how many is its own researched HOUSEHOLD_MEAN. Nothing new is
    typed here, which is why the three installs sit together: they are one economy. */
 try{ BohemiaHousing.installCap(); }catch(_e){}
+/* __THE_CITY_IS_THE_LONG_MEMORY__ (job [century memory]). The DELTA is the city as it
+   stands; this is what the FAMILY DID, per act, and the two are different questions --
+   a generation that built forty homes and one that built none look identical the
+   moment a later generation knocks them down, and "the dynasty that built and lost it"
+   is exactly the story the century rule exists to tell. Restored from the save below;
+   made empty here so a first boot has a memory to write into.
+   var, not let, for the same temporal-dead-zone reason as HOME and PURSEV. */
+var CENTURY=null;
+function centuryGet(){
+  if(CENTURY) return CENTURY;
+  try{ CENTURY=BohemiaCentury.make(); }catch(_e){ CENTURY=null; }
+  return CENTURY;
+}
+/* ONE PLACE THE DEED IS WRITTEN DOWN, called from the two verbs and nowhere else.
+   A second writer for one fact is the bug this file has fixed six times. */
+function centuryNote(kind,type,x,y,w,h){
+  var r=centuryGet(); if(!r) return null;
+  var out=null;
+  try{ out=BohemiaCentury.note(r,kind,{type:type,x:x,y:y,w:w||1,h:h||1},DAY.day); }catch(_e){}
+  if(out&&out.applied) window.__CENTURY=(window.__CENTURY||0)+1;
+  return out;
+}
 /* THE WAKE BEAT ITSELF. DAY.on('wake') is the day loop's own hook, so this fires
    wherever the day turns over and nowhere else -- never a second timer beside it.
    It is registered here rather than at DAY's construction on purpose: the boot's
@@ -43112,6 +43372,7 @@ function applyRestore(st){
      rides with it, so resuming puts you back mid-job, not back at the wake. */
   /* __THE_DAY_PAYS__ -- a day's pay that dies with the tab is not pay. */
   if(st.purse){ try{ PURSEV=BohemiaPurse.load(st.purse); }catch(_e){} }
+  if(st.century){ try{ CENTURY=BohemiaCentury.load(st.century); }catch(_e){} }
   /* __THE_TRADING_HUB__ -- the valley's stocks are the price, so a market that forgets
      them resets every price to base on every reload. */
   if(st.market){ try{ MKT_LEDGER=st.market.ledger||null; MKT_BOUGHT=st.market.bought||null; }catch(_e){} }
