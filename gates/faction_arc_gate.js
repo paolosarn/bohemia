@@ -120,6 +120,33 @@ const STAND_BESIDE = `window.__standBeside = function (who) {
   }
   hx = at[0] + 1; hy = at[1];          /* no side works: the old behaviour */
   return false;
+};
+/* AND ONE PLACE THAT PICKS THE SUBJECT, for the same reason. Every walk in this
+   gate used to take the first affiliated person at the first base. That person
+   is often standing in a crowd, and a long walk -- eight days, a dozen presses,
+   a day roll between each -- only holds together if the card keeps being THEIRS.
+   This prefers somebody with nobody else within two cells, and falls back to
+   first-found so an empty answer still means "the valley has nobody", which is a
+   real finding rather than a skipped test. */
+window.__pickAffiliated = function () {
+  var bases = ctBases() || {}, fb = null, fbF = null;
+  for (var k in bases) {
+    var b = bases[k];
+    hx = b.x * FN + 2; hy = b.y * FN + 2;
+    var all = ctEveryone();
+    for (var i = 0; i < all.length; i++) {
+      var f = ctFactionOf(all[i]); if (!f) continue;
+      if (!fb) { fb = all[i]; fbF = f; }
+      var a = ctAt(all[i]), crowd = 0;
+      for (var j = 0; j < all.length; j++) {
+        if (all[j] === all[i]) continue;
+        var c = ctAt(all[j]);
+        if (Math.abs(c[0] - a[0]) + Math.abs(c[1] - a[1]) <= 2) { crowd++; break; }
+      }
+      if (!crowd) return { who: all[i], fid: f };
+    }
+  }
+  return fb ? { who: fb, fid: fbF } : null;
 };`;
 
 function ok(claim, cond, detail) {
@@ -487,14 +514,9 @@ function requirePlaywright() {
         await SETTLE(pg, 6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate((say) => {
-          const bases = ctBases() || {};
-          let who = null, fid = null;
-          for (const b of Object.values(bases)) {
-            hx = b.x * FN + 2; hy = b.y * FN + 2;
-            for (const q of ctEveryone()) { const f = ctFactionOf(q); if (f) { who = q; fid = f; break; } }
-            if (who) break;
-          }
-          if (!who) return { nobody: true };
+          const pick = __pickAffiliated();
+          if (!pick) return { nobody: true };
+          const who = pick.who, fid = pick.fid;
           __standBeside(who);
           const sv = ctBelongSave();
           sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
@@ -866,14 +888,9 @@ function requirePlaywright() {
         await pg.waitForTimeout(6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
-          const bases = ctBases() || {};
-          let who = null, fid = null;
-          for (const b of Object.values(bases)) {
-            hx = b.x * FN + 2; hy = b.y * FN + 2;
-            for (const q of ctEveryone()) { const f = ctFactionOf(q); if (f) { who = q; fid = f; break; } }
-            if (who) break;
-          }
-          if (!who) return { nobody: true };
+          const pick = __pickAffiliated();
+          if (!pick) return { nobody: true };
+          const who = pick.who, fid = pick.fid;
           __standBeside(who);
           const sv = ctBelongSave();
           sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
@@ -967,14 +984,9 @@ function requirePlaywright() {
         await pg.waitForTimeout(6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
-          const bases = ctBases() || {};
-          let who = null, fid = null;
-          for (const b of Object.values(bases)) {
-            hx = b.x * FN + 2; hy = b.y * FN + 2;
-            for (const q of ctEveryone()) { const f = ctFactionOf(q); if (f) { who = q; fid = f; break; } }
-            if (who) break;
-          }
-          if (!who) return { nobody: true };
+          const pick = __pickAffiliated();
+          if (!pick) return { nobody: true };
+          const who = pick.who, fid = pick.fid;
           __standBeside(who);
           const sv = ctBelongSave();
           sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
