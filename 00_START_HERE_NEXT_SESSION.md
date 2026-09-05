@@ -1685,7 +1685,79 @@ anything is heard a third time, and one moment every 90 seconds means 40 moments
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 
 --------------------------------------------------------------------------------
-RUN (run-eak241): 9/5 LATEST -- *** VAMILY [save checked] SHIPPED. The harness
+RUN (run-eak241): 9/5 LATEST -- *** [hands now] SHIPPED. THE LINK IS READY TO
+HAND TO ANYONE. It opens cold on a phone in half a second, one tap puts you in
+the world, nothing errors, and the file on disk is today's game. TAB: RUN.
+Nothing to judge. ***
+
+THE ROW: HANDS-NOW, the one the coordinator put at the top of this lane when
+RELEASE was folded in. Claimed and pushed before starting.
+
+THE COLD WALK, MEASURED -- phone-sized screen, touch only, no saved game, no dev
+knowledge, pressing only what the screen offered:
+    loads in                             572 ms
+    one tap puts a walked world up in    1,669 ms
+    page errors on the way in            0
+    what the front door says             "TAP TO ENTER", and nothing else
+    ground reachable on foot from spawn  200,914+ cells
+    the demo on disk vs a fresh cut      BYTE-IDENTICAL
+That last line is the one that could have ruined a handoff and did not: the demo
+was re-cut and compared byte for byte, so THE LINK A FRIEND OPENS IS TODAY'S
+GAME. The shell is cut from the alpha and the walked city is LOADED at runtime
+rather than embedded, so the city half is current by construction.
+THE OPENING IS HEALTHY. Nothing stands between a stranger and the game.
+
+THREE THINGS THAT LOOKED LIKE FINDINGS AND WERE NOT, which is most of the value:
+  * THERE IS NO FIGHT IN THE DEMO. It is scoped (Paolo 8/4) to the origin, the
+    vista and one good day. Failing on a missing fight would enforce a scope he
+    never set.
+  * THE WALK PAD IS 42x42 AGAINST A PLATFORM MINIMUM OF 44, and the map pad is
+    already 46 so the layout would carry it -- but all 160 taps registered, so
+    there is no evidence it stops anybody, and growing an approved circle is an
+    art call, not a gate's. Reported every run and floored so it cannot get
+    worse, with the 2px gap named in the message.
+  * THE CLOCK READ ZERO MINUTES OVER 160 PRESSES. Looks exactly like a stopped
+    clock. It is not: a human step costs 0.084 minutes because it is one small
+    cell, distance-honest, on purpose.
+
+*** AND TWO BROKEN RULERS OF MY OWN, BOTH CAUGHT BEFORE THEY WERE REPORTED. ***
+The first cold walk PRESSED ALL EIGHT DIRECTIONS IN TURN, measured three cells of
+net displacement over two hundred taps, and nearly got written up as "the player
+cannot move". It was walking a circle: the harness was measuring itself. The
+second read city.x, WHICH HUMAN MODE DOES NOT USE AT ALL -- the walked position
+is hx/hy -- and would have reported a totally frozen player. Fifth and sixth time
+in two weeks on this lane. CHECK THE RULER BEFORE YOU REPORT THE READING. The
+gate presses ONE direction for exactly that reason and says so in its header.
+
+SHIPPED: gates/a_stranger_opens_it_gate.js, 15 checks, registered as STRANGER
+OPENS. Deliberately NOT the whole-demo gate: that one walks the demo end to end
+as somebody who KNOWS THE WAY, pressing the right thing because it was told which
+thing is right. Correct for "does the day work", wrong for "can a person who has
+never seen this get in". It holds the door, the tap, the ground, the thumb and
+the first press, and it REPORTS every number rather than only asserting it,
+because a stranger's patience is a real budget.
+MUTATION: a transparent scrim over the walk pad -- the exact bug this lane
+shipped and caught once before -- turns 2 red AND NAMES THE CULPRIT BY ID;
+deleting "TAP TO ENTER" turns 1 red.
+
+  STRANGER OPENS 15/0 (new) - WHOLE DEMO 23/0 - DEMO BUILD 25/0
+  the demo cut re-run and byte-identical
+No game code changed. No approved pixel moved.
+
+*** AND A RULING LANDED ON MAIN WHILE THIS WAS BEING BUILT, so read it before
+touching this row again: PAOLO KILLED THE FRIEND-WATCHING IDEA, 9/5, LOCKED --
+telemetry, friend rounds, notes on what a friend did, all of it: "I don't give a
+fuck about that", never propose it again. The row used to end with "hand the link
+to ONE friend and write down what they did"; it now ends with THE LINK IS READY
+TO HAND TO ANYONE. So the ship test is the one that was met, and the row is
+SHIPPED. My first draft of this block held it back as half-done for a half that
+no longer exists -- caught on the rebase, corrected here rather than shipped. ***
+Nothing was "fixed" to invent a first fight, because his own 8/4 scope says there
+is not one in the demo.
+Record: records/BOHEMIA_A_STRANGER_OPENS_IT_9_5_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** VAMILY [save checked] SHIPPED. The harness
 that proves the save survives an iPhone had never been shown the people. TAB:
 RUN. Nothing to judge. ***
 
