@@ -148,8 +148,20 @@ dialogue system for Gen 1 with zero new art and zero new canon.
    ONLY NOSE IN THIS GAME IS A THING YOU PAINT ON A PORTRAIT. *** (Second
    control, same shape: `paw` returned 52 hits inside the fight and 100% of
    them are the word `spawn`.)
-6. **THERE IS NO ANIMAL BODY AND NO ANIMAL ON ANY BOARD.** No renderer for a
-   four-legged thing exists anywhere. In the fight (decoded from `COMBAT_B64`
+6. **[CORRECTED 9/5 BY Q2 -- THE FIRST HALF OF THIS ROW WAS FALSE. A
+   four-legged renderer DOES exist: `draw_beast` in
+   tools/bohemia_wildlife_factory.py, 16x16, three frames (rest / look / go),
+   at the 45 degree law, shared on purpose by the coyote and all three dogs and
+   baked into banks/BOHEMIA_WILDLIFE_SPRITES.js. I grepped for `drawCoyote`,
+   `drawDog`, `drawRaven` and four other names I INVENTED, found nothing, and
+   wrote down that the thing did not exist. CLAUDE.md already carries this
+   lesson from 8/28 and I paid it again: WHEN YOU WRITE DOWN THAT SOMETHING
+   DOES NOT EXIST, SAY WHERE YOU LOOKED. What is actually true is narrower and
+   still matters: there is no coyote at THE PLAYER'S scale and no facings --
+   the ambient body is 16 pixels with three frames and no direction, while the
+   player rig is 56 with eight. So gen 1 needs a life stage and a rig pass, not
+   a new animal.]**
+   **NO ANIMAL IS ON ANY FIGHT BOARD.** In the fight (decoded from `COMBAT_B64`
    first -- a plain search of the alpha cannot see it) the archetype list is
    GOON / SPEAR / SNIPER / MEDIC / BREACHER, **and all five carry
    `bot:false`, meaning all five are people.** Four of the five are ranged
@@ -265,9 +277,11 @@ seen from two ends,** which is the argument for RUN's BB-THE-PEOPLE-RIDE-THE
 - **PEOPLE -- THE-ANIMAL-READS-THE-BROW.** The portrait performs and the
   words are withheld: a person's face carries the meaning when you cannot
   hear the sentence. Reuses renderFace exactly as approved, adds nothing.
-- **COMBAT / CHARACTER -- A-BODY-WITH-NO-HANDS.** There is no four-legged
-  renderer anywhere. Whatever Gen 1 is, ART has never drawn it, and the
-  9/4 compare law says it gets compared to real work of its kind first.
+- **COMBAT / CHARACTER -- A-BODY-WITH-NO-HANDS.** [REWRITTEN 9/5 by Q2 after
+  the correction above.] The four-legged body EXISTS at 16 pixels in three
+  frames and is already good. What is missing is the same animal at the
+  player's scale with the rig's eight facings, under the 9/4 compare law and
+  the 8/28 every-angle law. That is a smaller job than the row first said.
 - **SOUNDS -- THE-CALL-CARRIES-FURTHER-THAN-YOU-WALK.** The one verb that
   reaches past the animal's own body. The distance/pan/occlusion model is
   already built and 51 approved sounds already have no caller.
