@@ -462,22 +462,15 @@ WHAT THIS ROUND COULD NOT SEE, so nobody reads it as a clean bill: nothing was H
 screen, the market, the phone, the reckoning), no motion between frames, and no real
 glass in real sun.
 
-[PENDING Paolo] WHICH FINAL FANTASY IS OURS? The UI tab ships a button called FF10 and a
-whole study of Final Fantasy X findings, and the UI study law says round 01 is Final
-Fantasy X "because he named it". Two days later the 8/28 law and CLAUDE.md say the
-reference set is ROGUE FABLE 4, BATTLE BROTHERS and FINAL FANTASY XII. Newest date wins
-would put FFX outside the set, and the 8/28 law is the one that says never let a game he
-did not name into the vocabulary. Two live files, two different games, one of them
-printed on a button he can tap. Nothing touched until he rules.
-
-AND TWO GATES ARE MEASURING THE CLOCK INSTEAD OF THE ART, which is this lane's own kind
-of finding: look_gate ("no picture is more than six hours behind the surface it
-photographs") and face_thumb_gate ("the candidates are not older than the build they
-photograph") both compare FILE MODIFICATION TIMES, and git does not store those. On this
-container the alpha landed on disk 7.8 hours after the picture banks, so both go red with
-nobody having changed a byte; on a fresh worktree of the same commit both are green. A
-check that can flip on a clone is measuring the checkout, not the work. Reported, not
-fixed -- they belong to other lanes.
+ANSWERED 9/5, and it is a LOCK: "Ff12 is combat only." A REFERENCE GAME BELONGS TO ONE
+DEPARTMENT. FF12 = combat gambits only; ROGUE FABLE 4 = combat on the beat; BATTLE
+BROTHERS = the campaign layer; FF10 = the INTERFACE study (his 8/26 naming, so the UI tab
+was legal all along); Las Vegas = the city. Citing one outside its department is the same
+violation as citing a game he never named. The 8/28 law was already scoped right ("combat
+and campaign"); the rot was in CLAUDE.md's ONE-LINE INDEX, which dropped the scope, and an
+index that drops a scope is how every chat that only reads the index gets it wrong. That
+line now carries the split. Law: laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_
+DEPARTMENT_9_5_26.md. NOTHING IS PENDING HIM IN THIS LANE.
 
 NEXT IN THIS LANE: E3 [screenshot diffs] -- golden images and a per-tab diff on every
 ship, which is this round's pass plus a baseline. E4 [audio tells] is what buys the ears.
