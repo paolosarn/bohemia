@@ -847,7 +847,48 @@ END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
 =============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
-THE JOB IN HAND: [demo talks] TALK-REACHES-THE-DEMO, CLAIMED on the board.
+THE JOB JUST SHIPPED: [demo talks] TALK-REACHES-THE-DEMO (baab7c5).
+
+ROUND 2, AND [demo talks] IS SHIPPED (baab7c5). Gate: gates/demo_talks_gate.js,
+14 claims, 3 mutations caught.
+
+THE ROW SAID THE TALK WAS MUTE. IT IS NOT, AND HERE IS THE NUMBER:
+  the corpus                       236 @TALK, 504 @SAY, 27 quests   (board exact)
+  the demo opens                   FIVE days, five quests
+  reachable in those five          43 nodes, 88 spoken lines = 18%
+  the other 193                    22 quests this demo never opens. That is the
+                                   demo being five days long, NOT a defect, and
+                                   the gate pins it so nobody re-files it as one.
+  orphan speakers                  ZERO: every speaker has a castable role
+  all five days                    open, cast somebody, and somebody TALKS
+  later speakers                   day-1 fixer is SILENT at stage 10 and TALKS at
+                                   stage 20 -- entry conditions, not a hole
+
+THE WHOLE CHAIN, ON THE REAL DEMO: the phone rings, answering it starts the
+quest, the day casts its roles onto real blocks, standing on one makes ctCast()
+return them, and ctConvNode() hands back a node.
+
+*** FIVE TIMES IN THIS JOB I GUESSED INSTEAD OF READING, AND EVERY GUESS
+PRODUCED A CONFIDENT WRONG FINDING. *** probed `BohemiaBQ` when the file
+publishes `BQ`; called offerAccept() without offerRing(), which returns false on
+!OFFER; teleported with hx = block*FN when A BLOCK IS NB*FN = 512 FINE CELLS;
+walked one direction into a wall and called the feature dead; and asserted
+offerRing() returns true when it returns nothing at all. Every number in the gate
+is read off the running game now. THE LESSON FOR THE NEXT ROUND IS THE WHOLE JOB:
+A NAME, A CONSTANT OR A RETURN VALUE YOU GUESSED IS NOT A MEASUREMENT.
+
+AND ONE OF MY OWN GATES WENT RED FROM SOMEBODY ELSE'S GOOD WORK: who_vouches
+demanded ctSeenByHtml() and ctWhoVouchesHtml() be LITERALLY ADJACENT, and another
+lane slid ctLegendHtml() between them. Nothing moved the panel or gave it a door
+of its own, so the claim was red over a thing it was never about. REPOINTED, NOT
+LOOSENED: both call sites must build both, in that order. It still fails if the
+panel is dropped or moved before the seen-by list; both mutations caught.
+
+LANE GREEN ON THE SHIPPED TREE: DEMO TALKS 14/0, PEOPLE 158/0, WHO VOUCHES 19/0,
+PACK 47/0, WALK ENCOUNTER 15/0, ALIVE 16/0, CITY MEMORY 34/0.
+
+NEXT OPEN LINE FOR THIS LANE: [outfits nearby] OUTFITS-AT-SPAWN -- zero of 34
+people within six cells wear one.
 
 ROUND 1 OF [demo talks], MEASURED ON THE REAL SURFACE. THE PIPE IS NOT BROKEN.
 
