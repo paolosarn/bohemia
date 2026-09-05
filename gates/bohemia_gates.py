@@ -979,6 +979,18 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('ROAD ON FOOT',   ['node', 'gates/road_interrupts_on_foot_gate.js'],
+     'VAMILY [street encounters]. THE ROAD INTERRUPTS shipped 8/27 -- twelve approved road '
+     'moments, the director on the clock, 70/20/10 held, the card, the leavings, the choices -- '
+     'AND ALL OF IT FIRED ONLY WHEN YOU WERE LOOKING AT THE MAP. roadInterrupt had one caller '
+     'and it sat inside MODE===city, so the surface he actually walks had never produced one. '
+     'TWO THINGS WERE WRONG AND ONLY ONE WAS THE MISSING CALL: the interrupt also read the '
+     'district and the power grid off city.x/city.y, which only move in city mode, so wired to '
+     'the street unchanged it would have decided what happens to you from wherever the map was '
+     'last left sitting. roadWhere() answers which cell the PLAYER is in, once, per mode. '
+     'Measured first: 39.4% of the valley is a road district and the nearest is ONE cell from '
+     'the spawn. Mutation: remove the foot call -> 4 red; put roadWhere back on the map cursor '
+     '-> the player walks into arterial and the director is told SUBURB ninety-nine times', True),
     ('COLD HAND',      ['node', 'gates/cold_hand_gate.js'],
      'BB-COLD-HAND, promoted from a one-off to a harness. THE TEST IN ONE SENTENCE: A COLD '
      'HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS -- if doing that repeatedly '

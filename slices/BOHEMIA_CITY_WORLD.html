@@ -31910,14 +31910,31 @@ function roadBail(){
 /* THE PRECONDITIONS THE ROSTER STATES OUTRIGHT. Answered off systems that
    already exist; anything this cannot prove returns false, and the director's
    own rule is that an unproven need is not a spawn. */
+/* ==== __ROAD_INTERRUPTS_ON_FOOT__ (9/5) : WHERE THE PLAYER ACTUALLY IS =============
+   The road interrupt read city.x / city.y for the district AND for the power
+   grid. Those are OVERMAP cells and they only move in city mode, so on foot it
+   was reading whatever cell the map cursor was last left on -- not the ground
+   under the player. One function answers this now, per mode, and every reader
+   uses it, because two places both claiming to be "where you are" is the bug
+   this file has already fixed five times under five different names.
+   ========================================================================== */
+function roadWhere(){
+  try{
+    if(typeof MODE!=='undefined' && MODE!=='city' && typeof hx!=='undefined')
+      return [Math.floor(hx/FN), Math.floor(hy/FN)];
+  }catch(_e){}
+  try{ return [city.x, city.y]; }catch(_e){ return [0,0]; }
+}
+
 function roadCan(need){
   try{
-    if(need==='lit') return !!(POWER.at(city.x,city.y)||{}).live;
+    var _w = roadWhere();   /* __ROAD_INTERRUPTS_ON_FOOT__ */
+    if(need==='lit') return !!(POWER.at(_w[0],_w[1])||{}).live;
     if(need==='seam'){
       /* A SEAM IS TWO OWNERS TOUCHING. LIGHT=TERRITORY: a live circuit's owner
          is who holds that ground, so a seam is where two different live owners
          are adjacent. Not a metaphor, the grid's own data. */
-      var me=POWER.at(city.x,city.y)||{};
+      var me=POWER.at(_w[0],_w[1])||{};
       if(!me.live||!me.owner) return false;
       /* __WHO_HOLDS_THE_GROUND__ -- AND IT COMPARES THE NAME WHERE THERE IS ONE.
          BB-TURF: the owner used to be a CATEGORY, so two circuits held by two
@@ -31928,7 +31945,11 @@ function roadCan(need){
       var mine=me.faction||me.owner;
       var d=[[1,0],[-1,0],[0,1],[0,-1]];
       for(var i=0;i<d.length;i++){
-        var n=POWER.at(city.x+d[i][0],city.y+d[i][1])||{};
+        /* WORLD's BB-TURF seam logic (the NAMED holder beats the category, so
+           the Mob's block and the Cartel's block are not the same block), asked
+           about the cell the PLAYER is standing in rather than the map cursor.
+           Both changes are kept: theirs is what a seam IS, mine is only WHERE. */
+        var n=POWER.at(_w[0]+d[i][0],_w[1]+d[i][1])||{};
         if(!n.live) continue;
         var theirs=n.faction||n.owner;
         if(theirs&&theirs!==mine) return true;
@@ -32112,7 +32133,9 @@ function roadInterrupt(spentSeconds){
   var dir = roadDirector();
   if(!dir) return { fired:false, reason:'NO_DIRECTOR' };
   var cell = null;
-  try{ cell = om.at(city.x, city.y); }catch(_e){}
+  /* __ROAD_INTERRUPTS_ON_FOOT__: the district under the PLAYER, in either mode. */
+  var _w = roadWhere();
+  try{ cell = om.at(_w[0], _w[1]); }catch(_e){}
   var world = {
     district: cell && cell.district,
     phase: (typeof isNight==='function' && isNight()) ? 'night' : 'day',
@@ -32322,7 +32345,19 @@ function stepOnce(di){
          not be merged into one call. */
       try { ctFollowStep(); } catch(_e){}
     }
-    if(moved){ HFACE=dirOf(dx,dy); return true; }
+    if(moved){ HFACE=dirOf(dx,dy);
+      /* __ROAD_INTERRUPTS_ON_FOOT__ -- AND THE WALKED STREET GETS THE SAME SAY.
+         A walked cell already spends 0.084 minutes, distance-honest: 5.04
+         seconds, and moved is how many cells this beat actually covered (a bike
+         covers four). THE TIME WAS ALWAYS BEING SPENT, IT JUST NEVER BOUGHT
+         ANYTHING -- the city branch's own sentence from 8/27, and it was just as
+         true one branch down.
+         No new pacing and no second director: the approved 90-second gap now
+         means about eighteen walked cells between moments. A district with no
+         table still produces nothing, because NO GLOBAL SPAWNS EVER. */
+      ROAD_LASTDIR = di;
+      try{ roadInterrupt(moved * 5.04); }catch(_e){}
+      return true; }
   }
   return false;
 }
