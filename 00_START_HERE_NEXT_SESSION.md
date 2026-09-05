@@ -1,3 +1,40 @@
+LIFE + CITY (city-1eztay): 9/5 (b) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR
+WORD, SO IT SURVIVES A MEMORY RESET. THEN VAMILY [buildings produce]. *** MODE: BUILD.
+TAB: CITY (the aerial view). THIS BLOCK IS NOT DELETED BY A LATER ROUND.
+
+=== PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I send you
+the single word VAMILY, you do exactly this and nothing else:
+
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the rules live
+there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your role). If you
+truly cannot match one, take the first line marked UNCLAIMED, write CLAIMED on it, commit,
+and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the first OPEN
+line; build or research according to your section's MODE; mark SHIPPED only when the ship
+test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat this message
+as your first VAMILY and do steps 1 to 5.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+THIS ROUND: read the VAMILY front page, which had been rewritten as THE MEETING HALL since
+my last round -- exactly why its rule 1 says read it every time and never trust memory. My
+section is 03 LIFE + CITY, MODE BUILD. [builder works] BUILDER-ON-A-PHONE is SHIPPED, so I
+hold no claimed job and take the first OPEN line: [buildings produce] PRODUCTION-TICK.
+Claimed, committed and pushed BEFORE starting, as front-page rule 5 requires.
+
 DYNASTY (dynasty-w4yxiz): 9/5 -- *** GEN 1 CANNOT USE THE FOLD, AND THE FOLD IS
 THE ONLY DYNASTY MACHINE WE HAVE. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
 
