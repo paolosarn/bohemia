@@ -154,6 +154,62 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
   ok('and nothing is unworn there either', demo.ok && demo.unworn === 0,
      demo.ok ? '(' + demo.unworn + ' unworn)' : '');
 
+  /* *** AND HE HAS TO BE ABLE TO PUT IT ON. *** The job is "wire them into the picker
+     AND THE WARDROBE DATA". A garment the crowd wears but he cannot find on a bench is
+     a garment he cannot judge, and UNJUDGED IS DEAD (7/26). So the second half of the
+     wire is the surface he judges from.
+     MEASURED: every canon garment is named on one of the two benches -- 256 clothes in
+     the CLOTHES tab, and all 24 haircuts in the face maker in CHARACTER, because hair
+     is not clothing and has never been in the clothes rail. That split is fine and it
+     is checked as a UNION, so neither bench can quietly lose a category.
+
+     *** AND THE FIRST MUTATION OF THIS CHECK WAS VACUOUS, WHICH IS WORTH KEEPING. ***
+     Adding a fake garment to GARMENTS did NOT turn it red -- because the CLOTHES rail
+     is BUILT FROM GARMENTS, so anything added to the list appears on the bench by
+     construction. A CHECK WHOSE SUBJECT IS GENERATED FROM ITS OWN YARDSTICK CANNOT
+     FAIL THAT WAY. The failure it really guards is a BENCH THAT STOPS RENDERING A
+     CATEGORY, which is exactly how hair would vanish if the face maker's haircut row
+     were ever dropped. Mutating THAT -- emptying the face maker's CUTS list -- turns
+     it red and names all 24 haircuts. Test the mutation the check is for, not the
+     first one that comes to hand. */
+  const b3 = await chromium.launch();
+  const p3 = await b3.newPage({ viewport: { width: 390, height: 844 } });
+  let bench = { ok: false };
+  try {
+    await p3.goto('file://' + ALPHA, { waitUntil: 'load' });
+    await p3.waitForFunction(() => window.GARMENTS && typeof buildFaceEditor === 'function',
+      { timeout: 60000 });
+    /* tap the splash the way a finger taps it: hiding #front leaves #app display:none
+       and everything renders into a hidden tree (this repo's own documented lie) */
+    await p3.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+    await p3.waitForTimeout(1200);
+    await p3.evaluate(() => { const t = document.querySelector('.tab[data-p=clothes]'); if (t) t.click(); });
+    await p3.waitForTimeout(4000);
+    const cloTxt = await p3.evaluate(() => {
+      const el = document.getElementById('p-clothes'); return el ? el.textContent.toUpperCase() : ''; });
+    await p3.evaluate(() => { const t = document.querySelector('.tab[data-p=char]'); if (t) t.click(); });
+    await p3.waitForTimeout(2500);
+    await p3.evaluate(() => { const c = document.getElementById('portraitCv'); if (c) c.click(); });
+    await p3.waitForTimeout(2500);
+    bench = await p3.evaluate((cloTxt) => {
+      const fe = document.getElementById('faceEd');
+      const all = (cloTxt + ' ' + (fe ? fe.textContent.toUpperCase() : ''));
+      const canon = GARMENTS.filter(g => g && g.st === 'canon' && g.layer);
+      const missing = canon.filter(g => all.indexOf(String(g.n).toUpperCase()) < 0);
+      return { ok: true, canon: canon.length, missing: missing.map(g => g.layer + '/' + g.n) };
+    }, cloTxt);
+  } catch (_e) {}
+  await b3.close();
+
+  ok('he can find every garment on a bench and put it on', bench.ok && bench.missing.length === 0,
+     bench.ok
+       ? (bench.missing.length
+           ? '\n         ON NOBODY\'S BENCH: ' + bench.missing.slice(0, 12).join(', ') +
+             '\n         Worn by the crowd and unreachable by him is still unjudged, and' +
+             '\n         UNJUDGED IS DEAD (7/26).'
+           : '(' + bench.canon + ' across the CLOTHES rail and the face maker)')
+       : '(could not reach the benches)');
+
   /* *** A KNOWN GAP, REPORTED AND NOT FAILED, BECAUSE IT IS NOT THIS LANE'S SURFACE. ***
      slices/BOHEMIA_CITY_WORLD.html -- the walked city -- simulates about 5,027 agents
      with homes, schedules and movement, and has ZERO calls to buildFrame or drawChar.
