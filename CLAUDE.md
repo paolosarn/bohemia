@@ -1519,11 +1519,14 @@ Law: laws/BOHEMIA_ADDENDUM_WHAT_EVERY_CHAT_DOES_9_4_26.md
 ## THE VAMILY WORD (Paolo 9/4/26, LOCKED)
 "Make the key word vamily for all of the jobs u assign to it ever in the
 history itll search if it has a job assigned for its role." **VAMILY** is the
-one word. He types it in any chat; the chat finds its role's section in
-`VAMILY.md` at repo root, takes the first job marked OPEN, marks it CLAIMED and
-commits before building, marks it SHIPPED and commits when it is in the walked
-surface AND the demo. A chat with no role takes the top of THE ORDER in that
-file. Only the coordinator adds jobs there; lanes change the status word and
+one word, AND THE ONLY WORD HE EVER TYPES IN A LANE CHAT ("I'm literally only going
+to say VAMILY. I'm not going to be customizing it, that's the whole point", 9/4). A
+FRESH chat with no role takes the first UNCLAIMED lane from THE LANES list at the
+top of `VAMILY.md`, marks it CLAIMED, commits, and that is its role for life; a chat
+that has a role keeps it. Then it finds its role's section, takes the first job
+marked OPEN, marks it CLAIMED and commits before building, marks it SHIPPED and
+commits when it is in the walked surface AND the demo. Never ask him what lane
+you are. Only the coordinator adds jobs there; lanes change the status word and
 nothing else; the job's full text is its named row in BOHEMIA_BACKLOG.md. The
 SHIPPED lines are the history. Every job is 120 BPM friendly or it is not done,
 and not shipped until the demo is re-cut. Law:

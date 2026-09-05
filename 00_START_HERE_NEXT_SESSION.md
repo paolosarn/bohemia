@@ -703,7 +703,17 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ao) LATEST -- *** THE CHATS-TO-OPEN
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ap) LATEST -- *** CORRECTED: HE TYPES
+ONLY VAMILY, NOTHING ELSE, EVER. A FRESH CHAT CLAIMS ITS OWN LANE. Nothing to judge. ***
+Paolo 9/4: "I'm literally only going to say VAMILY. I'm not going to be customizing
+the VAMILY shit, that's the whole point." My "lane VAMILY" list was wrong and is
+gone. VAMILY.md now opens with THE LANES, in order, each UNCLAIMED: a fresh chat
+that hears VAMILY takes the first UNCLAIMED lane, writes CLAIMED, commits, and that
+is its role for life. Fourteen lanes ordered by what matters most; QUESTS parked;
+LAB his call. Law amended, CLAUDE.md corrected. LAST FEEDBACK RECEIVED: this -> the
+lane-claim ledger.
+
+COORDINATOR: 9/4 (ao) -- *** THE CHATS-TO-OPEN
 LIST IS AT THE TOP OF VAMILY.md. Nothing to judge. ***
 Paolo 9/4: "give me an easy copy and paste list of chats that I need to create right
 now." Four new (animation, direction, economy, dynasty), ten existing, two not to

@@ -35,3 +35,13 @@ handoff_gate should assert `VAMILY.md` exists, parses (every job line is
 OPEN / CLAIMED <date> / SHIPPED <date>), and every job name resolves to a
 row in BOHEMIA_BACKLOG.md. A law without a machine gate is not enforced;
 this one is routed to SHARED as a one-line gate row until it lands.
+
+## CORRECTED THE SAME DAY: HE TYPES ONLY VAMILY. NOTHING ELSE. EVER. (Paolo 9/4)
+"I'm literally only going to say VAMILY. I'm not going to be customizing the
+VAMILY shit, that's the whole point." The coordinator had handed him a list
+of "lane VAMILY" pairs. Wrong. A lane chat receives ONE word, and a FRESH
+chat with no role works out its own: it takes the first UNCLAIMED lane from
+THE LANES list at the top of VAMILY.md, marks it CLAIMED, commits, and that
+is its role for life. He opens as many fresh chats as he likes and types
+the same word in each; they sort themselves. The coordinator keeps that
+list ordered by what matters most.

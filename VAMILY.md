@@ -4,26 +4,6 @@
 # Rebuilt 9/4 (later the same day) as the FULL-GAME queue for every lane,
 # from records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
 
-## THE CHATS TO OPEN (Paolo 9/4: "an easy copy and paste list")
-Open a fresh chat and paste the two words. The first word names the chat's role.
-NEW (do not exist yet):
-  animation VAMILY
-  direction VAMILY
-  economy VAMILY
-  dynasty VAMILY
-EXISTING (open one, or a fresh one, and paste):
-  world VAMILY
-  combat VAMILY
-  sound VAMILY
-  run VAMILY
-  people VAMILY
-  ui VAMILY
-  art VAMILY
-  character VAMILY
-  factions VAMILY
-  words VAMILY
-DO NOT OPEN: quests (parked by him 9/4). lab (reopen or retire is his call).
-
 ## HOW IT WORKS
 0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator, THE MANAGER.
    EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions.
@@ -31,9 +11,11 @@ DO NOT OPEN: quests (parked by him 9/4). lab (reopen or retire is his call).
    with his words. If not, make one now for the right chat, tab named. Every other chat
    gets one word, VAMILY, and no discussion. A lane that needs a ruling writes
    [PENDING Paolo] in its handoff block; the coordinator carries it to him.
-1. Paolo types **VAMILY**. That is the whole instruction.
-2. The chat knows its ROLE (the lane its first word named). No role yet?
-   Take the top of THE ORDER; that lane is now your role.
+1. Paolo types **VAMILY**. That is the whole instruction. HE NEVER TYPES ANYTHING
+   ELSE IN A LANE CHAT. No lane word, no customising, ever (Paolo 9/4).
+2. The chat works out its ROLE by itself: if it already has one, it keeps it;
+   if it is fresh, it takes the first UNCLAIMED lane from THE LANES below and
+   claims it. He never assigns a role by hand.
 3. Find your lane below. Take the **first line marked OPEN**. If the job has
    a `BB-` name its full text is that row in BOHEMIA_BACKLOG.md; otherwise
    the one-line brief here plus the lane section in the 9/4 plan record IS
