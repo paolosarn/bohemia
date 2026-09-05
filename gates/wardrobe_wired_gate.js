@@ -267,6 +267,29 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
        const w = look.lookFor('t:' + i, synth).worn;
        if (!w.base || !w.legs) return false; } return true; })());
 
+  /* *** A RAMP CHECK WAS WRITTEN HERE AND WITHDRAWN THE SAME ROUND. READ THIS BEFORE
+     WRITING IT AGAIN. (9/5.) ***
+     The claim was worth having: the card asks for `"ramp_steps": [4, 6]` and COOK is
+     about to re-cook 280 garments to it, so if the pipeline FLATTENED a six-step ramp on
+     the way to the body, every one would land wrong and the cook would be blamed for a
+     loss that happened downstream. The measurement is real and it is in
+     records/BOHEMIA_DOES_THE_RAMP_SURVIVE_9_5_26.txt: 75.4% of the wardrobe already
+     lands inside the band and up to 9 tones survive, so the wire carries what it is sent.
+     THE CHECK COULD NOT BE MADE TO FAIL. Two separate mutations of the render path --
+     posterising every put() site, then posterising the garment's own gen output at the
+     _stampG call -- left the numbers BYTE IDENTICAL: ceiling 6, median 5, 32 sampled,
+     three different builds. Whatever that check was reading, it was not reading the thing
+     those mutations changed.
+     A CHECK I CANNOT MAKE GO RED IS NOT A CHECK, IT IS A GREEN LIGHT I DO NOT TRUST, and
+     shipping one is worse than shipping nothing because the next session believes it.
+     Same family as the two rulers this lane broke earlier the same round: a metric that
+     read a field that did not exist reported 100% agreement, and a bench check whose
+     subject was generated from its own yardstick could not fail either.
+     WHAT WOULD MAKE IT REAL: find why the sampled render is insensitive to _stampG (a
+     cache the gate is not clearing is the first suspect), prove a posterise turns it red,
+     and only then pin it. The REPORT stands on its own in the meantime -- a report has to
+     be honest, a gate has to be falsifiable, and they are not the same bar. */
+
   /* *** A KNOWN GAP, REPORTED AND NOT FAILED, BECAUSE IT IS NOT THIS LANE'S SURFACE. ***
      slices/BOHEMIA_CITY_WORLD.html -- the walked city -- simulates about 5,027 agents
      with homes, schedules and movement, and has ZERO calls to buildFrame or drawChar.

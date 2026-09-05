@@ -1,0 +1,71 @@
+DOES THE RAMP SURVIVE? -- a garment's tones, counted on the body the game draws
+9/5/26, CHARACTER lane. [clothes wired] WIRE-THE-REMAKE.
+
+THE CARD asks for 4-6 hue-shifted steps per garment
+("ramp_steps", records/BOHEMIA_STYLE_CARD_9_5_26.md). COOK is about to re-cook 280
+garments to that number. IF THE PIPELINE FLATTENS A SIX-STEP RAMP ON THE WAY TO
+THE BODY, every one of them lands wrong and the cook gets blamed for a loss that
+happened downstream. Nobody had ever checked. Rig width: 112 px.
+
+Each garment rendered ALONE and diffed against the bare body; a step counts when
+a tone holds at least 3% of that garment's own pixels, so one-pixel strays and
+dither seams cannot inflate a crushed ramp into a rich one.
+
+  garments measured              280
+  inside the card's 4-6 band        211   (75.4%)
+  FEWER than 4 steps           43
+  more than 6 steps            26
+
+STEPS THAT SURVIVE, ACROSS THE WARDROBE
+
+   2 step(s)      5   1.8%
+   3 step(s)     38   13.6%
+   4 step(s)     65   23.2%
+   5 step(s)    107   38.2%
+   6 step(s)     39   13.9%
+   7 step(s)     22   7.9%
+   8 step(s)      3   1.1%
+   9 step(s)      1   0.4%
+
+  THE FLATTEST (fewest tones surviving onto the body)
+    face    WRAPAROUND SHADES         2 step(s), 76 px, 2 distinct
+    face    GREY WRAPAROUNDS          2 step(s), 76 px, 2 distinct
+    gear    WORK SUSPENDERS           2 step(s), 132 px, 2 distinct
+    face    RUBBER GAS MASK           2 step(s), 308 px, 3 distinct
+    gear    BRICK SUSPENDERS          2 step(s), 132 px, 2 distinct
+    hair    WOLF CUT                  3 step(s), 492 px, 6 distinct
+    hair    COIL CROWN                3 step(s), 310 px, 4 distinct
+    base    BLACK TANK                3 step(s), 512 px, 3 distinct
+    outer   LEATHER VEST              3 step(s), 326 px, 4 distinct
+    outer   TACTICAL VEST             3 step(s), 326 px, 4 distinct
+    outer   QUILTED VEST              3 step(s), 326 px, 4 distinct
+    neck    DUST SCARF                3 step(s), 92 px, 3 distinct
+    neck    OXBLOOD SCARF             3 step(s), 92 px, 3 distinct
+    face    BONE DUST MASK            3 step(s), 168 px, 3 distinct
+    face    OXBLOOD DUST MASK         3 step(s), 168 px, 3 distinct
+    waist   LEATHER BELT              3 step(s), 56 px, 3 distinct
+    outer   DENIM VEST                3 step(s), 326 px, 4 distinct
+    neck    COPPER SCARF              3 step(s), 92 px, 3 distinct
+    face    CHARCOAL DUST MASK        3 step(s), 168 px, 3 distinct
+    outer   STORM VEST                3 step(s), 326 px, 4 distinct
+
+IS THE BAND ACHIEVABLE ON A SMALL PIECE?
+
+  median pixels, garments IN the band      751
+  median pixels, garments UNDER the band   168
+  garments of 200 px or fewer              59, of which 26 are under the band (44%)
+
+FOR DIRECTION AND COOK, BEFORE 280 PIECES ARE COOKED AGAINST THE CARD: a belt is
+56 pixels and a pair of shades is 76. Four to six hue-shifted steps on 56 pixels
+is nine pixels a tone. The step count may need a floor by garment SIZE, or the
+small pieces will fail a rule they cannot physically pass. Reported, not decided
+-- the card is DIRECTION's and the cooking is COOK's.
+
+READ THIS BEFORE DRAWING A CONCLUSION. The wardrobe PREDATES the card, so a
+garment outside the band is not a defect -- it has simply never been cooked to
+that number. WHAT THIS MEASURES IS THE PIPELINE: if garments with rich ramps in
+their gen functions arrive on the body with the same richness, the wire carries
+what COOK sends and the remake is safe to run. A NUMBER IS NOT A FINDING UNTIL
+YOU KNOW WHAT IT IS COUNTING (9/5, the round the brown boots were called an
+accent).
+

@@ -654,6 +654,39 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
+THIS ROUND (round 4 of [clothes wired], still CLAIMED)
+- COOK's WARDROBE-REMAKE still OPEN, so still no batch. Did the last unmeasured link in
+  the wire: DOES A GARMENT'S RAMP SURVIVE ONTO THE BODY? The card asks for 4-6 hue-shifted
+  steps and COOK is about to re-cook 280 pieces to that number -- if the pipeline flattened
+  a six-step ramp on the way to the body, every one would land wrong and the COOK would be
+  blamed for a loss that happened downstream. Nobody had ever checked.
+  ANSWER: THE WIRE CARRIES WHAT IT IS SENT. 75.4% of the wardrobe already lands inside the
+  band, up to 9 tones survive, and the flattest pieces are the SMALL ones. THE REMAKE IS
+  SAFE TO RUN. Record: records/BOHEMIA_DOES_THE_RAMP_SURVIVE_9_5_26.txt
+- FOR DIRECTION AND COOK, BEFORE 280 PIECES ARE COOKED AGAINST THE CARD: the 4-6 step rule
+  may not be physically achievable on a small piece. Median pixels IN the band 751, UNDER
+  the band 168; of the 59 garments at 200 px or fewer, 44% miss it. A belt is 56 px and a
+  pair of shades is 76 -- six tones on 56 pixels is nine pixels a tone. The rule may need a
+  floor by garment SIZE. REPORTED, NOT DECIDED: the card is DIRECTION's, the cooking COOK's.
+- *** AND I WITHDREW MY OWN GATE CHECK THE SAME ROUND. *** I pinned that finding as a gate
+  ratchet, then could not make it fail: posterising every put() site, and then posterising
+  the garment's own gen output at the _stampG call, left the numbers BYTE IDENTICAL across
+  three builds (ceiling 6, median 5, 32 sampled). Whatever it was reading, it was not
+  reading what those mutations changed. A CHECK I CANNOT MAKE GO RED IS NOT A CHECK, IT IS
+  A GREEN LIGHT I DO NOT TRUST, and shipping one is worse than shipping nothing because the
+  next session believes it. Removed, with the full reasoning left in the gate so nobody
+  rewrites it blind. A REPORT HAS TO BE HONEST, A GATE HAS TO BE FALSIFIABLE, AND THOSE ARE
+  NOT THE SAME BAR. Gate back to 15/15, all of them mutation-proven.
+  FIRST SUSPECT FOR WHOEVER PICKS IT UP: a cache the gate is not clearing.
+- Third broken ruler of this job, and the family is consistent: a metric reading a field
+  that did not exist reported 100% agreement; a bench check whose subject was generated
+  from its own yardstick could not fail; and now a render check insensitive to the render.
+- NEXT ROUND: check for a COOK batch first. The wire is now checked for reachability, for
+  the bench, for the card's one wearing rule, and reported for ramps -- I believe it is as
+  ready as it can be without a batch. If there is still no batch, say so plainly rather
+  than inventing a fifth piece, and this lane's next real work is [hair sheet]
+  HAIR-REF-EIGHT-FACINGS, his 8/25 order, still open.
+
 THIS ROUND (round 3 of [clothes wired], still CLAIMED)
 - DIRECTION SHIPPED THE STYLE CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md, 9/5). COOK's
   WARDROBE-REMAKE is still OPEN, so still no batch to wire -- but the card's machine block
