@@ -1,3 +1,129 @@
+WORDS (words-8dqrnq): 9/5 (h) LATEST -- *** VAMILY Q11 [face carries] SHIPPED. 94.5% OF
+EVERY LINE IN THIS GAME IS DELIVERED BY A FLAT FACE, AND THE MOOD IT NEEDS IS ALREADY
+SITTING IN THE SHIPPED DEMO ON 229 LINES WITH NO WIRE TO IT. *** Nothing to judge,
+MODE: RESEARCH, nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q11 [face carries], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q11_WHAT_THE_FACE_CAN_CARRY_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q11, all draft:true.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE PIXELS WERE NEVER THE PROBLEM:
+Du and Martinez measured expression recognition down the resolution scale. It holds
+until the image drops BELOW ABOUT 20 BY 30 PIXELS. Our portrait canvas is 64 by 64.
+64 px is three times the floor. Nothing to cook, nothing to ask COOK for.
+
+WHAT THE FACE IS ACTUALLY BEING TOLD. facePerform has three channels:
+    mouth   the LETTERS of the line (visemes). No emotion at all.
+    blink   whether a line is playing. One axis: talking or listening.
+    brow    opts.mood if a caller passes a number, ELSE punctuation:
+            "?" lifts to +0.6, "!" drops to -0.5, otherwise 0.
+The brow is the ONLY emotional channel in the face. Counted across 1,669 NPC lines:
+    carries "?"  brow lifts        90 lines     5.4%
+    carries "!"  brow drops         1 line      0.1%
+    NO CUE, brow pinned at 0    1,578 lines    94.5%
+THERE IS EXACTLY ONE LINE IN THE GAME THAT CAN MAKE A FACE FROWN:
+    neighbor: "Hey. HEY. I told you the back was mine, I told you plain!
+               Get away from that door!"
+AND THE CAUSE IS OUR OWN GOOD WRITING. This lane spent rounds killing shouty,
+exclamation-heavy dialogue and it worked. The face was reading emotion off the
+exact punctuation the voice work was removing. THE BETTER THE WORDS GOT, THE
+DEADER THE FACES GOT. Nobody did anything wrong.
+
+AND THE MOOD IS ALREADY WRITTEN. NOBODY TELLS THE FACE:
+    504 SAY lines carry a mood field, 229 with a real value
+        dread 66   wary 66   flat 41   tired 40   cold 10   hope 6
+    e.g. quests/bq/S01: "@SAY ...I've got a kid. #dread"
+I counted them inside DEMO_BQ in the city file: 504 SAY lines, 229 mood tags,
+ALREADY ON THE PLAYER'S PHONE. facePerform documents opts.mood as the override and
+ITS ONLY CALL SITES PASS {}. An empty object.
+*** THIRD TIME THIS LANE HAS FOUND A BUILT ORGAN WITH NO NERVE TO IT: Q7 the memory
+organ tracks familiarity and no dialogue reads it; Q10 the voice engine has
+moodOf(text) the face does not use; now this. WE KEEP BUILDING THE HARD HALF AND
+SKIPPING THE WIRE. ***
+
+WHERE EMOTION LIVES ON A SMALL FACE (Smith and Schyns, Bubbles):
+HAPPINESS and SURPRISE are carried by the MOUTH at LOW spatial frequency, so they
+survive blur, distance and small size. FEAR is carried by the WIDE-OPEN EYE at
+mid-to-high frequency and is the first thing lost when a face gets small. At 64 px
+on a phone the mouth and brow are the reliable channels and the eye is not.
+And the brow is not minor: Sadr, Jarudi and Sinha found removing the EYEBROWS costs
+face recognition MORE than removing the eyes. We picked the strongest channel by
+accident, then fed it punctuation.
+
+THE SECOND CHANNEL IS ALREADY BUILT AND FREE:
+Five of our six moods are the same quadrant (low energy, negative), so one valence
+dial shows one expression for 96% of tagged lines. THE BLINK IS THE FIX AND IT IS
+ALREADY IMPLEMENTED. Real baseline is one blink every 3 to 5 s, about 20/min,
+RISING with anxiety and FALLING as visual attention demand rises. Ours runs
+BLINK_MIN_MS 2000 / BLINK_MAX_MS 9000, talking about 7/min and listening about
+11/min, both slower than a resting face and neither knowing how the person feels.
+BROW CARRIES VALENCE, BLINK CARRIES AROUSAL, and that separates all six:
+    dread  brow down, fast short blinks      something is coming
+    wary   brow slightly down, fast tracking watching your hands
+    flat   level, resting rate               nothing to give you
+    tired  slack, slow long closures         no fuel left
+    cold   down and still, slow and few      already decided about you
+    hope   slightly up, a touch quick        a small opening
+Exact pixel values are DIRECTION's and CHARACTER's by eye. The six-word to
+two-channel mapping is the part that is mine.
+
+WHAT THE BEST GAMES DO: ACE ATTORNEY is our exact shape (a talking loop and an idle
+loop per emotion, switched by a TAG IN THE SCRIPT; the writer never types "he said
+angrily"). DISCO ELYSIUM goes the other way on purpose with fully static portraits,
+which proves the split is a CHOICE: if the face does nothing the words must do
+everything, and ours were written flat. HADES swaps whole portrait variants per
+beat. All three land on: THE FACE CARRIES HOW, THE TEXT CARRIES WHAT.
+
+THE PART THAT IS OURS: only 6 lines in 1,669 name a feeling, and FOUR ARE DENIALS.
+    "I'm fine. I ate yesterday."   "I'm not angry. I'm just done taking your word."
+Those lines are BROKEN without a face. "I'm fine" is a person covering, and it only
+lands if the portrait disagrees with the sentence. SO THE FACE'S FIRST JOB IN
+BOHEMIA IS NOT TO ILLUSTRATE THE LINE, IT IS TO CONTRADICT IT.
+
+ROUTED OUT OF THIS ROUND:
+- CHARACTER: the one that matters. facePerform is called with {} and 229 moods are
+  already in the shipped data. Pass the tag. This is a wire, not a feature.
+- DIRECTION: exact brow and lid values per mood by eye; mouth and brow are the
+  reliable channels at 64 px, the eye is not.
+- UI: a portrait that never changes is furniture, and it needs to sit on screen
+  long enough to be read.
+- WORDS, held until MODE: BUILD: MOOD-ON-EVERY-LINE. Widen the palette past one
+  quadrant (nobody in this city is ever warm, amused or sharp) and tag all 1,669
+  lines, INCLUDING the ones where the tag contradicts the sentence.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- UI has now been asked SIX rounds running for the same cheap thing: hold one beat
+  before a line (Q2, Q4, Q5, Q9, Q10, Q11).
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0,
+    talking portrait 27/0, handoff 7/0
+
+NEXT: Q12 [naming people]. How a collapsed city names its people and places.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -372,7 +498,7 @@ three sources into one stream and gave all three the cadence of the slowest, bec
 cadence lived in the caller where it was invisible.
   NEXT OPEN LINE IN THIS LANE: [combat floor] THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR.
 
-WORDS (words-8dqrnq): 9/5 (g) LATEST -- *** VAMILY Q10 [threat talk] SHIPPED. OUR CITY
+WORDS (words-8dqrnq): 9/5 (g) -- *** VAMILY Q10 [threat talk] SHIPPED. OUR CITY
 CAN ORDER YOU AND WARN YOU AND CANNOT THREATEN YOU, AND NOBODY IN THE BUILD SAYS
 ONE WORD INSIDE A FIGHT. *** Nothing to judge, MODE: RESEARCH, nothing entered the
 game.
