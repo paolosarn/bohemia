@@ -37,17 +37,29 @@ real surface before calling it shipped and re-cut the demo; his bugs beat
 your queue; run your lane's gates, never ship red; 120 BPM friendly for
 everything; rewrite your handoff block before you end.
 
-## THE ORDER (what a chat with no role takes first)
-1. WORLD      BB-BATTERIES-ARE-THE-MONEY + BB-THE-LETTER-IS-ONE (one job)
-2. QUESTS     the main-quest spine as .bq stubs
-3. SOUNDS     BB-THE-CITY-SENDS-WHERE
-4. COMBAT     BB-A-TILE-IS-A-HOUSE
-5. ANIMATION  the 63-clip audit
-6. RUN        BB-THE-PEOPLE-RIDE-THE-SAVE
-7. WORLD      the daily production tick
-8. PEOPLE     BB-STANDING-PLAYER
-9. UI         settings and pause panel
-10. COMBAT    BB-NERVE-ON
+## THE LANES, IN ORDER (a fresh chat that hears only VAMILY takes the first UNCLAIMED one)
+A chat with no role: take the first UNCLAIMED lane below, change it to CLAIMED <date>,
+commit, and that lane is your role for the life of the chat. Then work that lane's
+section. A chat that already has a role skips this. If every lane is claimed, take
+the claimed lane with the most OPEN lines and say so. The coordinator reorders this
+list; nobody else touches it except to write CLAIMED on their own line.
+ 1. WORLD      -- UNCLAIMED
+ 2. SOUNDS     -- UNCLAIMED
+ 3. COMBAT     -- UNCLAIMED
+ 4. ANIMATION  -- UNCLAIMED
+ 5. RUN        -- UNCLAIMED
+ 6. COOK       -- UNCLAIMED  (NEW: the art cook-up chat; always cooking)
+ 7. PEOPLE     -- UNCLAIMED
+ 8. UI         -- UNCLAIMED
+ 9. ECONOMY    -- UNCLAIMED  (research)
+10. DYNASTY    -- UNCLAIMED  (research)
+11. WORDS      -- UNCLAIMED  (research)
+12. CHARACTER  -- UNCLAIMED
+13. FACTIONS   -- UNCLAIMED
+    DIRECTION  -- EXISTING (his art direction chat keeps it; no fresh chat claims it)
+    QUESTS     -- PARKED by Paolo 9/4, never claimed until he reopens it
+    LAB        -- his call, not claimed
+    (ART, the old tiles lane, is folded into COOK. One cooking chat.)
 
 ## WORLD
 MODE: BUILD
