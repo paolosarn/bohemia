@@ -11271,7 +11271,12 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [fortress look] SHIPPED 6c25769 -- the three faction
+ROUND LOG 9/5 (latest): [feed look] SHIPPED 4aa52d6 -- the city-screen phone
+feed's look as one sheet for UI (post anatomy, varied heights under one
+skeleton, avatar = 3 body lines / gutter = half a line / body never below
+11px, ONE mark per post kind, phone proportion 9:19.5). Index 71 refs / 14
+kinds. NEXT OPEN: [tile ground] HOUSE-TILE-GROUND-REFERENCE, my queue's last
+line. PREVIOUS: [fortress look] SHIPPED 6c25769 -- the three faction
 seat tiers as three annotated sheets (fortress = perimeter + baffled gate +
 tower, and ours are CLAIMED podiums not built walls; town = one street, two
 storefront faces, a visible end; camp = UNHCR rows melting into Za'atari
