@@ -1,4 +1,71 @@
-PEOPLE (people-7h9sfy): 8/31 (b) LATEST -- *** FAMILY: THE FINDING, MEASURED. YOUR
+PEOPLE (people-7h9sfy): 9/5 LATEST -- *** VAMILY [your reputation]. THE STANDING
+WEB CAN NAME A PERSON WHO WOULD SPEAK FOR YOU, AND SAY WHO TOLD THEM. Nothing to
+judge. ***
+
+TAB: RUN. Build 9/5a - WHO WOULD VOUCH FOR YOU.
+Walk, let people see you, open the standing panel: under WHO HAS LAID EYES ON
+YOU there is now WHO WOULD VOUCH FOR YOU.
+
+THE ROW: BB-STANDING-PLAYER, in its own words -- "it is A WEB, NOT A BAR. A job
+comes from a PERSON, and that person heard about you from someone. The question a
+favour answers is not 'did my bar go up' but 'who will vouch for me now.'"
+
+*** MEASURED BEFORE BUILDING, AND THE MEASUREMENT MOVED THE JOB. *** The row says
+the player is not a node in the standing graph. TWO standing mechanisms exist and
+both were checked before a line was written:
+  1. engine/bohemia_standing.js, the PERSON-level web. THE PLAYER IS ALREADY IN
+     IT -- the walked city calls witness(), opinionOf() and standingOf() with
+     actor '@' in 25 places.
+  2. engine/bohemia_engine.js, the FACTION world, where playerMandate(playerId)
+     ALREADY reads a faction's standing TOWARD the player. The walked city does
+     not build that world at all, and playerMandate has NO CALLERS ANYWHERE.
+So the player was not missing from the web. WHAT WAS MISSING WAS THE WEB'S
+ANSWER. Building a third standing thing would have been the two-mechanisms
+mistake for the fourth time this month.
+
+THE GAP WAS ONE FIELD: this web recorded HOW FAR a story travelled (hops) and
+never WHO CARRIED IT. gossip() now stamps `from`; whoVouches() returns PEOPLE --
+who is warm on you, the deed that did it, whether they saw it, and who told them.
+whoWont() returns the other side, because showing one side of a web is a bar.
+Proved live on the walked surface: eyewitness FWU "SAW IT", next person WARM
+"HEARD IT FROM" her by name, force decaying 3.00 -> 1.65 -> 0.91 down the chain.
+
+IT CANNOT INVENT A STANDING HE NEVER RULED (the row's own constraint): forceOf
+returns 0 for an unweighted deed, so an unruled deed vouches for nobody however
+many people watched it. The module still ships DEED_WEIGHT EMPTY; the city loads
+82 from the deed corpus AT RUNTIME, which the real-surface probe found and my
+first reading of the bare module had wrong.
+
+A NAME IS EARNED, NEVER GIVEN. The first cut printed the mind's owner id and read
+"12:12:900 FWU SAW IT" -- machine output, not a person. BohemiaPeople.headingOf
+already owns that grammar, so the panel asks it. A mind restored from storage has
+no person to resolve and the city's own comment says why that must not be
+guessed: "an id cannot be turned back into a person, and guessing one from a seat
+string is how this lane collapsed a whole population onto a dozen draws on 8/11."
+
+TOOL LESSON: the inlined module's fence is an OPEN/CLOSE PAIR WITH DIFFERENT
+TEXT, not the same banner twice. The first cut assumed they matched, refreshed
+nothing, printed success, and left the panel calling a function the city's own
+inlined copy did not have. A FENCE YOU GUESSED IS NOT A FENCE.
+
+FILES
+  engine/bohemia_standing.js                   whoVouches, whoWont, the teller
+  tools/bohemia_city_who_vouches_patch.py      the panel and the fence fix
+  gates/who_vouches_gate.js                    19 claims, 3 mutations caught
+
+[PENDING Paolo] THE WEIGHTS ARE THE WHOLE GAME HERE AND THEY ARE HIS. The corpus
+carries 82 deed rows. Until each one is worth something, every person in the
+valley can watch you and form no opinion, so this panel correctly says nobody.
+The mechanism is finished and dark. What is needed is not a number per row from
+him one at a time -- it is a RULING ON THE SHAPE: which handful of things a
+person actually repeats about a stranger, and roughly how much worse a betrayal
+is than a kindness is good. One sentence unblocks all 82.
+
+ALSO STILL TRUE AND NOT DONE (from 8/31): the FAMILY_CAST is 23 references in the
+shell and ZERO in the walked city, so Ray, Denise and the surviving sibling exist
+at the table and nowhere in the world you walk into.
+
+PEOPLE (people-7h9sfy): 8/31 (b) -- *** FAMILY: THE FINDING, MEASURED. YOUR
 FAMILY IS REAL FOR NINETY SECONDS AND THEN THEY ARE NOT IN THE GAME. Nothing to
 judge; this is a finding and a named next row, not a shipped feature. ***
 
