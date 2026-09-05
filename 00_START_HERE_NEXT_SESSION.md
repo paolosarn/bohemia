@@ -1931,9 +1931,6 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
-
---------------------------------------------------------------------------------
 RUN (run-eak241): 9/5 LATEST -- *** [hands now] SHIPPED. THE LINK IS READY TO
 HAND TO ANYONE. It opens cold on a phone in half a second, one tap puts you in
 the world, nothing errors, and the file on disk is today's game. TAB: RUN.
