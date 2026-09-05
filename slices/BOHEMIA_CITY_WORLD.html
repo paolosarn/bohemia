@@ -2203,7 +2203,17 @@ global.BohemiaOvermap=API;
   //   THE CONTENTS (which faction holds which ground) are his, and they are NOT
   //   here. factionOf reads the bases the CALLER supplies - the loop already seats
   //   every faction on real worldMap.factionSlots coordinates via bootFactions, so
-  //   the geography is canon plumbing that already existed. Called with no bases,
+  //   the geography is canon plumbing that already existed.
+  //   *** CORRECTED 9/5: THAT SENTENCE WAS NEVER TRUE. bootFactions has never
+  //   read worldMap.factionSlots, and the live worldMap does not even carry the
+  //   key (measured: factionSlots is 0). bohemia_engine.js computes
+  //   _spreadPoints(14, beltway, ...) and NOTHING reads the result. What
+  //   bootFactions actually did was zip SORTED faction ids to an evenly-strided
+  //   sample of a y-ordered district list, which made the alphabet decide the
+  //   latitude of every capital in the valley: correlation 0.9966. It now seats
+  //   each faction on the ground its own note in BOHEMIA_faction_graph.json
+  //   names. The sentence above is left standing rather than deleted because a
+  //   comment that promised wiring it did not have is worth one warning. *** Called with no bases,
   //   every agent is unaffiliated exactly as before. Zero invention, zero regression.
   //
   // MOST PEOPLE BELONG TO NOBODY, and that is the grounded answer, not a placeholder.
@@ -25406,6 +25416,17 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
   };
 
   var MIN_APART = 6;          /* cells; two capitals on one block is not two capitals */
+  /* AND OFF THE BOUNDARY ROWS, WHICH THE MAP GATE CAUGHT. The first cut of this
+     put four capitals on the literal edge of the valley (y=0, y=3, y=89) and
+     faction_between's own M2 went red: a base marker at the boundary is clipped
+     by the map edge and painted 14 pixels against a floor of 20, which is
+     "present" rather than "legible" -- the exact distinction that claim was
+     written for. A capital on the boundary row is also just odd ground for a
+     capital. INSET IS A PREFERENCE, NEVER A VETO: several kinds are unique in the
+     whole valley (one arsenal, one truckstop, one granary), so if the only ground
+     his note names is at the edge, HIS CANON WINS and the seat goes there. Same
+     precedence as the spacing rule. */
+  var EDGE_INSET = 5;
 
   /* TAKES EITHER SHAPE OF DISTRICT LIST. districtsOf() answers {x,y,kind} and the
      loop's own worldMap carries {pos:[x,y],id,kind}; one normaliser here beats two
@@ -25438,7 +25459,21 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
       byKind[k].push(list[i]);
     }
 
+    /* THE VALLEY'S EDGE, ASKED OF THE LIST RATHER THAN TYPED. Callers hold the
+       map; this only ever sees cells, so the boundary is the largest coordinate
+       any district reached. Wrong only if a whole edge of the map generated no
+       districts at all, in which case there is nothing there to sit on anyway. */
+    var size = 0;
+    for (i = 0; i < list.length; i++) {
+      if (list[i].x + 1 > size) size = list[i].x + 1;
+      if (list[i].y + 1 > size) size = list[i].y + 1;
+    }
+
     var taken = {}, seats = [];
+    function inland(d) {
+      return d.x >= EDGE_INSET && d.y >= EDGE_INSET
+          && d.x <= size - 1 - EDGE_INSET && d.y <= size - 1 - EDGE_INSET;
+    }
     function farEnough(d) {
       for (var j = 0; j < seats.length; j++)
         if (Math.abs(seats[j][0] - d.x) + Math.abs(seats[j][1] - d.y) < MIN_APART) return false;
@@ -25451,14 +25486,15 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
       if (!cands || !cands.length) return null;
       var h = 2166136261;
       for (var j = 0; j < fid.length; j++) { h ^= fid.charCodeAt(j); h = Math.imul(h, 16777619); }
-      var start = (h >>> 0) % cands.length, loose = null;
+      var start = (h >>> 0) % cands.length, loose = null, edge = null;
       for (var n = 0; n < cands.length; n++) {
         var d = cands[(start + n) % cands.length];
         if (taken[d.id]) continue;
-        if (farEnough(d)) return d;
-        if (!loose) loose = d;                   /* right kind, too close */
+        if (farEnough(d) && inland(d)) return d;  /* what we want */
+        if (!edge && farEnough(d)) edge = d;      /* right kind, on the boundary */
+        if (!loose) loose = d;                    /* right kind, too close */
       }
-      return loose;                              /* his canon beats my spacing rule */
+      return edge || loose;                       /* his canon beats both of my rules */
     }
 
     roster.sort(function (a, b) {
@@ -25484,7 +25520,7 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
       if (!d) {                                  /* no home in his note, or all taken */
         for (var n2 = 0; n2 < list.length && !d; n2++) {
           var c = list[(n2 * 7919) % list.length];
-          if (!taken[c.id] && farEnough(c)) d = c;
+          if (!taken[c.id] && farEnough(c) && inland(c)) d = c;
         }
         why = d ? 'spread' : null;
       }
@@ -51826,7 +51862,7 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
    second one invented here, or the Cartel would live in two places depending on
    which surface you were standing on. Booted once, lazily, on the first card you
    open -- never at load, so the cold-boot budget is untouched. */
-var CT_BASES_BAKED = {"Anarchists": {"x": 7, "y": 0}, "Blues": {"x": 46, "y": 3}, "Caravans": {"x": 22, "y": 12}, "Cartel": {"x": 79, "y": 19}, "Church": {"x": 37, "y": 26}, "Colorful": {"x": 34, "y": 33}, "Custom": {"x": 24, "y": 39}, "Homeless": {"x": 19, "y": 46}, "Mob": {"x": 22, "y": 52}, "Network": {"x": 16, "y": 58}, "Reds": {"x": 8, "y": 65}, "Remnants": {"x": 74, "y": 70}, "Trades": {"x": 30, "y": 77}, "Volunteers": {"x": 40, "y": 83}};
+var CT_BASES_BAKED = {"Anarchists": {"x": 50, "y": 8}, "Blues": {"x": 10, "y": 29}, "Caravans": {"x": 56, "y": 88}, "Cartel": {"x": 42, "y": 23}, "Church": {"x": 47, "y": 50}, "Colorful": {"x": 25, "y": 11}, "Custom": {"x": 57, "y": 12}, "Homeless": {"x": 8, "y": 89}, "Mob": {"x": 42, "y": 56}, "Network": {"x": 67, "y": 70}, "Reds": {"x": 47, "y": 24}, "Remnants": {"x": 47, "y": 34}, "Trades": {"x": 79, "y": 62}, "Volunteers": {"x": 37, "y": 24}};
 var CT_BASES_SEED  = "bohemia";
 /* THE BASES ARE THE RUN'S OWN, BAKED AT BUILD TIME. bohemia_loop.js is inlined in
    this file but never reaches the global scope here, so booting it at runtime is

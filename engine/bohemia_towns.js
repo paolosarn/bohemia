@@ -279,6 +279,17 @@
   };
 
   var MIN_APART = 6;          /* cells; two capitals on one block is not two capitals */
+  /* AND OFF THE BOUNDARY ROWS, WHICH THE MAP GATE CAUGHT. The first cut of this
+     put four capitals on the literal edge of the valley (y=0, y=3, y=89) and
+     faction_between's own M2 went red: a base marker at the boundary is clipped
+     by the map edge and painted 14 pixels against a floor of 20, which is
+     "present" rather than "legible" -- the exact distinction that claim was
+     written for. A capital on the boundary row is also just odd ground for a
+     capital. INSET IS A PREFERENCE, NEVER A VETO: several kinds are unique in the
+     whole valley (one arsenal, one truckstop, one granary), so if the only ground
+     his note names is at the edge, HIS CANON WINS and the seat goes there. Same
+     precedence as the spacing rule. */
+  var EDGE_INSET = 5;
 
   /* TAKES EITHER SHAPE OF DISTRICT LIST. districtsOf() answers {x,y,kind} and the
      loop's own worldMap carries {pos:[x,y],id,kind}; one normaliser here beats two
@@ -311,7 +322,21 @@
       byKind[k].push(list[i]);
     }
 
+    /* THE VALLEY'S EDGE, ASKED OF THE LIST RATHER THAN TYPED. Callers hold the
+       map; this only ever sees cells, so the boundary is the largest coordinate
+       any district reached. Wrong only if a whole edge of the map generated no
+       districts at all, in which case there is nothing there to sit on anyway. */
+    var size = 0;
+    for (i = 0; i < list.length; i++) {
+      if (list[i].x + 1 > size) size = list[i].x + 1;
+      if (list[i].y + 1 > size) size = list[i].y + 1;
+    }
+
     var taken = {}, seats = [];
+    function inland(d) {
+      return d.x >= EDGE_INSET && d.y >= EDGE_INSET
+          && d.x <= size - 1 - EDGE_INSET && d.y <= size - 1 - EDGE_INSET;
+    }
     function farEnough(d) {
       for (var j = 0; j < seats.length; j++)
         if (Math.abs(seats[j][0] - d.x) + Math.abs(seats[j][1] - d.y) < MIN_APART) return false;
@@ -324,14 +349,15 @@
       if (!cands || !cands.length) return null;
       var h = 2166136261;
       for (var j = 0; j < fid.length; j++) { h ^= fid.charCodeAt(j); h = Math.imul(h, 16777619); }
-      var start = (h >>> 0) % cands.length, loose = null;
+      var start = (h >>> 0) % cands.length, loose = null, edge = null;
       for (var n = 0; n < cands.length; n++) {
         var d = cands[(start + n) % cands.length];
         if (taken[d.id]) continue;
-        if (farEnough(d)) return d;
-        if (!loose) loose = d;                   /* right kind, too close */
+        if (farEnough(d) && inland(d)) return d;  /* what we want */
+        if (!edge && farEnough(d)) edge = d;      /* right kind, on the boundary */
+        if (!loose) loose = d;                    /* right kind, too close */
       }
-      return loose;                              /* his canon beats my spacing rule */
+      return edge || loose;                       /* his canon beats both of my rules */
     }
 
     roster.sort(function (a, b) {
@@ -357,7 +383,7 @@
       if (!d) {                                  /* no home in his note, or all taken */
         for (var n2 = 0; n2 < list.length && !d; n2++) {
           var c = list[(n2 * 7919) % list.length];
-          if (!taken[c.id] && farEnough(c)) d = c;
+          if (!taken[c.id] && farEnough(c) && inland(c)) d = c;
         }
         why = d ? 'spread' : null;
       }

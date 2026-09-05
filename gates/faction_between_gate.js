@@ -942,22 +942,32 @@ async function onTheValley() {
             + (R.nearestBase.d * R.FN) + ' fine tiles'
           : 'none'));
 
-    ok('K0 THE DEAD ZONE IS REAL AND IT IS NOT A MEASUREMENT ARTIFACT. The '
-      + 'obvious objection to "169 empty cells" is that the sweep is hitting '
-      + 'world that has not generated yet. It is not: every one of those cells '
-      + 'is populated, there are EIGHT HUNDRED AND THIRTY SEVEN PEOPLE standing '
-      + 'in them, and not one of them runs with anybody. This claim exists so '
-      + 'the objection cannot be raised again without the numbers answering it',
-      R.zone.people > 400 && R.zone.emptyCells === 0 && R.zone.affiliated === 0,
+    /* *** THIS CLAIM USED TO ASSERT THE DEFECT AND NOW GUARDS THE CURE, AND
+       THAT REVERSAL IS WORTH READING. *** Until 9/5 it said: the dead zone is
+       REAL, 837 people within six cells of the spawn and NOT ONE of them runs
+       with anybody, and it existed so nobody could dismiss the hole as a sweep
+       hitting ungenerated world. That hole is closed. Faction seats used to be
+       placed by zipping SORTED ids to an evenly-strided sample of a y-ordered
+       district list -- the alphabet picked every capital's latitude, correlation
+       0.9966 -- and no seat landed near the player. Seats now sit on the ground
+       each faction's own note names, and the spawn zone went from 0 affiliated
+       to thousands. The anti-artifact half is KEPT: emptyCells must still be 0,
+       so a future regression cannot pass this by measuring an empty world. */
+    ok('K0 THE SPAWN IS NOT A DEAD ZONE ANY MORE, AND THIS IS NOT A MEASUREMENT '
+      + 'ARTIFACT. Every cell in the sweep is populated (empty cells must be '
+      + 'zero, or the sweep is measuring world that has not generated) and the '
+      + 'people standing in them DO run with somebody. The number this claim '
+      + 'guards is the one that was zero for two weeks',
+      R.zone.people > 400 && R.zone.emptyCells === 0 && R.zone.affiliated > 0,
       JSON.stringify(R.zone));
 
     ok('K1 THE BOARD LISTS EVERY OUTFIT THE VALLEY HOLDS, not only the ones '
-      + 'with a position on you. MEASURED FIRST, and it is the reason this '
-      + 'exists: from the player\'s real spawn there is not one affiliated '
-      + 'person within SIX cells, the nearest is nine cells out, and the '
-      + 'nearest base is twenty-nine. Two weeks of faction machinery sat '
-      + 'behind that walk and no surface in the game had ever mentioned that '
-      + 'any of it was there',
+      + 'with a position on you. IT WAS BUILT FOR A WORLD THAT NO LONGER EXISTS '
+      + 'and it still earns its place: when it shipped, the nearest affiliated '
+      + 'person was nine cells out and the nearest base twenty-nine, so two '
+      + 'weeks of faction machinery sat behind a walk nothing mentioned. The '
+      + 'seats moved on 9/5 and the near ones are reachable now, but an outfit '
+      + 'on the far side of the valley is still an outfit you cannot see',
       Array.isArray(R.rows) && R.rows.length === R.baseCount,
       JSON.stringify({ rows: R.rows && R.rows.length, bases: R.baseCount }));
 
@@ -1628,6 +1638,145 @@ async function onYourProblem() {
   } finally { await browser.close(); }
 }
 
+async function onFactionSeats() {
+  console.log('\nU. A FACTION SITS WHERE ITS OWN CANON SAYS IT LIVES.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const fs2 = require('fs');
+
+  /* HIS FILE FIRST. Every claim below about "what his note says" is read out of
+     BOHEMIA_faction_graph.json here, never typed into this gate. */
+  const graph = JSON.parse(fs2.readFileSync(path.join(ROOT, 'engine/BOHEMIA_faction_graph.json'), 'utf8'));
+  const F = graph.factions || {};
+  const api = require(path.join(ROOT, 'engine/bohemia_loop.js'));
+  const boot = (api.BohemiaLoop || api).boot;
+  const ctx = boot({ seed: 'bohemia' });
+  const bases = ctx.factionBases || {};
+  const why = ctx.factionSeatWhy || {};
+  const ids = Object.keys(bases);
+
+  ok('U1 EVERY SELECTABLE FACTION HAS A SEAT. The row asks for exactly this and '
+    + 'the STATE line said nobody held ground',
+    ids.length > 0 && ids.every(f => bases[f] && Number.isFinite(bases[f].x)),
+    ids.length + ' seated');
+
+  ok('U2 AND NO TWO SIT ON THE SAME GROUND. Two capitals on one block is not two '
+    + 'capitals',
+    new Set(ids.map(f => bases[f].x + ',' + bases[f].y)).size === ids.length);
+
+  /* *** THE DEFECT THIS ROW EXISTS FOR *** */
+  const alpha = [...ids].sort();
+  const ys = alpha.map(f => bases[f].y);
+  const n = ys.length, mx = (n - 1) / 2, my = ys.reduce((a, b) => a + b, 0) / n;
+  let num = 0, dx = 0, dy = 0;
+  ys.forEach((y, i) => { num += (i - mx) * (y - my); dx += (i - mx) ** 2; dy += (y - my) ** 2; });
+  const corr = Math.abs(num / Math.sqrt(dx * dy));
+
+  ok('U3 *** THE ALPHABET NO LONGER DECIDES THE GEOGRAPHY OF THE VALLEY. *** The '
+    + 'old placer zipped SORTED ids to an evenly-strided sample of a district '
+    + 'list that is 100% ordered by y, so the initials picked the latitude: '
+    + 'Anarchists at y=2 and Volunteers at y=83, correlation 0.9966. This is the '
+    + 'number that must stay small, and it is measured, not remembered',
+    corr < 0.5, 'correlation(alphabetical rank, seat y) = ' + corr.toFixed(4) + ' (was 0.9966)');
+
+  /* his note names a place; the seat is on it */
+  const placed = ids.filter(f => why[f] && why[f].why && why[f].why !== 'spread');
+  const spread = ids.filter(f => !why[f] || why[f].why === 'spread');
+  ok('U4 *** MOST FACTIONS SIT ON THE GROUND THEIR OWN NOTE NAMES. *** The Mob '
+    + '"Controls the Strip", the Homeless have a "Sewer/tunnel HQ", the Remnants '
+    + 'are "survivors incl Nellis", the Trades are "Best for vehicle/solar/'
+    + 'construction". The table is a READING of his file, so a wrong seat is a '
+    + 'misreading somebody can check rather than a taste I have to argue',
+    placed.length >= Math.ceil(ids.length * 0.6),
+    placed.length + ' of ' + ids.length + ' on canon ground: '
+      + placed.slice(0, 5).map(f => f + '=' + why[f].kind).join(' '));
+
+  /* AND THE ONES THAT ARE NOT ARE THE ONES HE SAID ARE NOT */
+  const nonTerritorial = ids.filter(f => /not territorial|territorially inconsistent|No preset philosophy/i
+    .test((F[f] || {}).note || ''));
+  ok('U5 *** AND WHERE HIS NOTE NAMES NO PLACE, NOTHING WAS INVENTED. *** The '
+    + 'factions placed by spread alone are exactly the ones his own canon calls '
+    + 'non-territorial -- "territorially inconsistent", "Community-based not '
+    + 'territorial", "No preset philosophy". Handing one of those a capital '
+    + 'would be filling in canon he reserved',
+    nonTerritorial.length > 0
+      && nonTerritorial.every(f => spread.indexOf(f) >= 0)
+      && spread.every(f => nonTerritorial.indexOf(f) >= 0),
+    'spread: ' + spread.join(',') + '   his non-territorial: ' + nonTerritorial.join(','));
+
+  ok('U6 STRONGEST PICKS FIRST, USING HIS NUMBER. act1_power is canon, so the '
+    + 'order is his: a faction with a home in its note and high power is never '
+    + 'displaced onto spread by a weaker one',
+    ids.filter(f => ((F[f] || {}).act1_power || 0) >= 9)
+       .every(f => !spread.length || spread.indexOf(f) < 0),
+    'top-power factions: ' + ids.filter(f => ((F[f] || {}).act1_power || 0) >= 9).join(','));
+
+  const again = boot({ seed: 'bohemia' }).factionBases;
+  ok('U7 AND IT IS THE SAME VALLEY EVERY BOOT. A capital that moves when you '
+    + 'reload is not a capital, and the walked city BAKES these, so a wobble here '
+    + 'would put the bake and the boot in different worlds',
+    JSON.stringify(again) === JSON.stringify(bases));
+
+  /* ---- AND IT IS TRUE ON THE FILE A STRANGER OPENS ---------------------- */
+  const DEMO = path.join(ROOT, 'slices/BOHEMIA_DEMO.html');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const errs = [];
+  page.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
+  try {
+    await page.goto('file://' + DEMO);
+    await SETTLE(page, 12000);
+    await page.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+    await SETTLE(page, 14000);
+    let city = null;
+    for (const f of page.frames()) {
+      try { if (await f.evaluate(() => typeof ctBases === 'function')) { city = f; break; } } catch (_e) {}
+    }
+    ok('U8 the demo opens on the walked world', !!city);
+    if (!city) return;
+    await city.evaluate(() => { const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click(); });
+    await SETTLE(page, 900);
+    await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
+    await SETTLE(page, 1200);
+
+    const D = await city.evaluate(() => {
+      const out = {};
+      const b = ctBases();
+      out.baked = b ? Object.keys(b).length : 0;
+      out.bases = b;
+      const cell = [Math.floor(hx / FN), Math.floor(hy / FN)];
+      let nearest = 1e9, who = null;
+      for (const [k, v] of Object.entries(b || {})) {
+        const d = Math.abs(v.x - cell[0]) + Math.abs(v.y - cell[1]);
+        if (d < nearest) { nearest = d; who = k; }
+      }
+      out.nearest = { faction: who, cells: nearest };
+      let loaded = 0, aff = 0;
+      for (const p of ctEveryone()) { loaded++; if (ctFactionOf(p)) aff++; }
+      out.valley = { loaded: loaded, affiliated: aff };
+      return out;
+    });
+
+    ok('U9 THE WALKED CITY CARRIES THE SAME SEATS THE BOOT PLACED. The city BAKES '
+      + 'them, so one rule for both surfaces or the bake and the engine describe '
+      + 'different valleys -- the drift that cost this lane thirteen days in August',
+      D.baked === ids.length
+        && ids.every(f => D.bases[f] && D.bases[f].x === bases[f].x && D.bases[f].y === bases[f].y),
+      'baked ' + D.baked + ' of ' + ids.length);
+
+    ok('U10 *** AND A DEMO PLAYER CAN FINALLY REACH SOMEBODY WHO RUNS WITH AN '
+      + 'OUTFIT. *** Measured on this same file on 8/30: 61 people loaded, ZERO '
+      + 'affiliated, nearest base 30 cells. This was not the goal of the row and '
+      + 'it is not a number I aimed at -- the Church\'s canon home is a chapel and '
+      + 'the shipped seed puts one near the spawn -- but everything this lane '
+      + 'built for three rounds was unreachable until it happened',
+      D.valley.affiliated > 0 && D.nearest.cells < 30,
+      JSON.stringify(D.valley) + ' nearest ' + D.nearest.faction + ' at ' + D.nearest.cells + ' cells');
+
+    ok('U11 NOTHING THREW', errs.length === 0, JSON.stringify(errs.slice(0, 2)));
+  } finally { await browser.close(); }
+}
+
 async function onTheFamily() {
   console.log('\nT. THE GENERATION TURNS, AND THE VALLEY REMEMBERS.');
   const { chromium } = requirePlaywright();
@@ -1906,6 +2055,19 @@ async function onTheJobWitness() {
       for (const b of Object.values(ctBases() || {}))
         nearest = Math.min(nearest, Math.abs(b.x - cellOf[0]) + Math.abs(b.y - cellOf[1]));
       out.nearestBaseCells = nearest === 1e9 ? null : nearest;
+      /* AND THE DISTANCE THAT ACTUALLY MATTERS: how far the outfit THIS DAY'S
+         DEED PAYS is from the player who just earned it. The nearest base of
+         ANY faction is not the question -- a chapel next door says nothing
+         about where the Trades keep their people. */
+      out.deedFactionCells = null;
+      try {
+        const rows0 = BohemiaDeeds.scanQuest(DEMO_BQ[DQ.spec.file], DQ.spec.id);
+        const want = rows0[0] && rows0[0].faction;
+        for (const [k, b] of Object.entries(ctBases() || {}))
+          if (String(k).toUpperCase() === String(want).toUpperCase())
+            out.deedFactionCells = Math.abs(b.x - cellOf[0]) + Math.abs(b.y - cellOf[1]);
+        out.deedFaction = want;
+      } catch (_e) {}
 
       const rows = BohemiaDeeds.scanQuest(DEMO_BQ[DQ.spec.file], DQ.spec.id);
       const pick = rows[0]; if (!pick) return out;
@@ -1940,12 +2102,33 @@ async function onTheJobWitness() {
     ok('S3 the demo really does open a day of his with a faction consequence on it',
       R.haveQ === true && !!R.deed, R.quest + ' ' + JSON.stringify(R.deed));
 
-    ok('S4 *** AND THE DEMO PLAYER CANNOT REACH A SINGLE AFFILIATED PERSON ON '
-      + 'THEIR OWN. *** This is the measurement the turn is built on and it is '
-      + 'asserted rather than remembered: if it ever stops being true the reason '
-      + 'for the cast-witness goes away and somebody should know',
-      R.valley.affiliated === 0 && R.nearestBaseCells >= 12,
-      JSON.stringify(R.valley) + ' nearest base ' + R.nearestBaseCells + ' cells');
+    /* *** THIS TRIPWIRE FIRED, AND IT FIRED BECAUSE THE GAME GOT BETTER. ***
+       On 8/30 this asserted that a demo player could reach ZERO affiliated
+       people and that the nearest base was thirty cells, and it said in its own
+       note: "if it ever stops being true the reason for the cast-witness goes
+       away and somebody should know". On 9/5 the faction seats moved onto the
+       ground each faction's own canon names, the Church's home is a chapel, the
+       shipped seed puts one three cells from the spawn, and this went red.
+       That is a gate working exactly as designed and it is why the note was
+       written into the claim instead of a record.
+
+       AND THE CAST-WITNESS SURVIVES THE NEWS, for a reason that is not
+       sentiment. The Church being near the spawn says nothing about the Trades,
+       whose home is nineteen cells away in the shipped seed. A quest that pays
+       an outfit whose people are nowhere near the job still needs the man who
+       HIRED you to find out how you did it, and his own @ROLE line still marks
+       that person REQUIRED. So the claim is rewritten to the property that
+       actually justifies the feature -- that a quest can name an outfit you
+       cannot reach -- rather than to the number that happened to be zero. */
+    ok('S4 *** A QUEST CAN STILL PAY AN OUTFIT THE PLAYER CANNOT REACH. *** This '
+      + 'is what the cast-witness is for: not that the valley is empty, but that '
+      + 'the outfit a job is FOR may hold ground nowhere near the job. The '
+      + 'measurement is which faction the day\'s deed names and how far its '
+      + 'people are from the player who just did it',
+      R.deedFactionCells !== null && R.deedFactionCells >= 5,
+      'day one pays ' + R.deedFaction + ', whose people are '
+        + R.deedFactionCells + ' cells away; nearest base of ANY outfit is '
+        + R.nearestBaseCells + ' cells (' + JSON.stringify(R.valley) + ')');
 
     ok('S5 THE CASTING LAYER FILLS HIS ROLES WITH REAL PEOPLE. ctDayCast searches '
       + 'the outfit\'s own ground because searching outward from the player finds '
@@ -2473,6 +2656,7 @@ onTheCard()
   .then(onQuestDeeds)
   .then(onTheJobWitness)
   .then(onTheFamily)
+  .then(onFactionSeats)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');

@@ -196,7 +196,17 @@
   //   THE CONTENTS (which faction holds which ground) are his, and they are NOT
   //   here. factionOf reads the bases the CALLER supplies - the loop already seats
   //   every faction on real worldMap.factionSlots coordinates via bootFactions, so
-  //   the geography is canon plumbing that already existed. Called with no bases,
+  //   the geography is canon plumbing that already existed.
+  //   *** CORRECTED 9/5: THAT SENTENCE WAS NEVER TRUE. bootFactions has never
+  //   read worldMap.factionSlots, and the live worldMap does not even carry the
+  //   key (measured: factionSlots is 0). bohemia_engine.js computes
+  //   _spreadPoints(14, beltway, ...) and NOTHING reads the result. What
+  //   bootFactions actually did was zip SORTED faction ids to an evenly-strided
+  //   sample of a y-ordered district list, which made the alphabet decide the
+  //   latitude of every capital in the valley: correlation 0.9966. It now seats
+  //   each faction on the ground its own note in BOHEMIA_faction_graph.json
+  //   names. The sentence above is left standing rather than deleted because a
+  //   comment that promised wiring it did not have is worth one warning. *** Called with no bases,
   //   every agent is unaffiliated exactly as before. Zero invention, zero regression.
   //
   // MOST PEOPLE BELONG TO NOBODY, and that is the grounded answer, not a placeholder.
