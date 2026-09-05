@@ -1,3 +1,61 @@
+WORDS (words-8dqrnq): 9/5 (c) LATEST -- *** VAMILY Q6 [power talk] SHIPPED. OUR WORLD HAS
+BOSSES, A FOREMAN, A SERGEANT AND A WATCH, AND NOBODY IS EVER SPOKEN TO DIFFERENTLY. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. Across all 1,669 spoken lines: upward address 0.1%,
+downward 0.7%, politeness markers 1.0%, bare commands 2.6%, softened requests 0.3%. THERE
+ARE EXACTLY TWO UPWARD-ADDRESS LINES IN THE ENTIRE BUILD and one of them I wrote myself in
+the demo pass. Nobody has ever said sir, ma'am, mister or jefe. Everyone speaks to everyone
+as an exact equal.
+
+AND THE WORLD IS NOT FLAT. The cast already carries the hierarchy: keeper 43, watch 27,
+sergeant 21, owner 16, pastor 15, foreman 11, holder 9, boss 8, blue_boss 8, red_boss 6,
+elder 6 on the power side; worker 20, hauler 20, neighbor 20, scav 19, tenant 10, busker 10,
+canvasser 8, runner 5 on the hand side. The world model has the gap. The language does not.
+
+THE REFRAME, AND IT CHANGES HOW THIS LANE WORKS. Brown and Gilman (1960): a power gap is
+NON-RECIPROCAL -- the superior gives the familiar form and receives the polite one, while
+EQUALS EXCHANGE THE SAME FORM. Solidarity is symmetrical, power is asymmetrical. So A POWER
+GAP CANNOT BE WRITTEN INTO A LINE, ONLY INTO A PAIR. Every previous round here measured
+single lines; this one cannot. If a scene only ever ships the NPC's half, there is no rank
+in it at all. Our `exchange` kind holds 148 lines and ZERO address terms in either
+direction -- that is where this work goes.
+
+AND THERE IS A FORMULA, WHICH MAKES IT A DIAL RATHER THAN A TABLE. Brown and Levinson:
+the weight of an imposition W = D + P + R (social Distance + relative Power + Rank of the
+ask). Heavier sum, more indirect phrasing, running bald-on-record ("Move") -> positive
+politeness ("Do me a favour, move") -> negative politeness ("Sorry, could you move?") ->
+off-record hint ("I can't get past"). Distance and power live in the world model and the
+ask belongs to the quest, so the bend can be COMPUTED.
+
+THE FREE ONE: a camp kid who addresses everybody identically makes every adult's asymmetry
+visible by contrast, and costs one character. Test lines show it -- the kid's two lines are
+byte-identical to a scav and to a sergeant, and only the answers change.
+
+FIFTEENTH BROKEN RULER. My first address counter read 7.2% upward address and printed a
+list of hits that were all things like "Don't touch that, it's live." The pattern carried
+Spanish `don` as a title and \bdon\b MATCHES THE "don" INSIDE "don't", so every contraction
+in the game scored as deference. Fixed by requiring an address term to sit in ADDRESS
+POSITION (after a comma, before a comma, or standing alone). Honest figure: 7.2% -> 0.1%.
+Caught by reading the printed lines, not the percentage. PRINT THE HITS, NEVER JUST THE RATE.
+
+RECORD: records/BOHEMIA_WORDS_Q6_TALKING_ACROSS_A_POWER_GAP_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- a boss/hand exchange, the SAME exchange
+between equals with two words removed so you can see what carries it, a stranger at a
+fortress, and the camp kid. All draft:true, NONE in the game.
+VAMILY: Q6 SHIPPED. Next open is Q7 [second meeting].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row THE-PAIR-IS-THE-UNIT: rank lines get written as EXCHANGES, and the 148
+   existing exchange lines are the target. Held until MODE: BUILD.
+ - PEOPLE / FACTIONS  relative power and social distance between two speakers is the input
+   this needs. If those two numbers are already computed this is a dial; if not it is a
+   hand-written table and much worse. Worth an answer before I build anything.
+ - QUESTS  a scene that only ships the NPC's half can never show rank.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
 SOUND (sound-xk7pjp): 9/5 (a) LATEST -- *** THE VALLEY WAS SILENT WHEN YOU STOOD
 STILL, AND NOTHING WAS BROKEN. One message feeds four finished systems and the
 walked surface never sent it. Every step in the game was also the dirt one.
@@ -73,7 +131,7 @@ is now unblocked -- it rode behind this one and the message it needed exists.
 
 ------------------------------------------------------------------------
 
-WORDS (words-8dqrnq): 9/4 LATEST -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+WORDS (words-8dqrnq): 9/4 -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
 
 CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
 Anything below this block is state. THIS block is the standing order, and it is copied
@@ -139,7 +197,7 @@ CHARACTER'S OWN NOTES ON RUNNING IT
   / day N to him. Rounds, minutes, hours.
 
 
-WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+WORDS (words-8dqrnq): 9/5 (b) -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
 REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
 (His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
