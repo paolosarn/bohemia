@@ -113,7 +113,7 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 ## COMBAT  (04.)
 MODE: BUILD
 STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree saved, the companion measured, the door from the city works (gate 26/0). NOT built: the indoor entry, loot leaving, FEAR_ON is false with its perk shipped, armour all zero, the house-scale board. Unverified: gate colours (the suite cannot finish in budget).
-- OPEN  [house tiles]  BB-A-TILE-IS-A-HOUSE
+- CLAIMED 9/5 session_01C6Fn6dDgMUy725zJqieinK  [house tiles]  BB-A-TILE-IS-A-HOUSE
 - OPEN  [fights end]  BB-NERVE-ON
 - OPEN  [indoor fights]  THE-INDOOR-FIGHT -- the door from the city works (gate 26/0); the indoor entry is the missing half (day-14 row)
 - OPEN  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
