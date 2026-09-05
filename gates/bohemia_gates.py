@@ -1049,7 +1049,15 @@ GATES = [
      'read as no save and the game quietly started over), and a stale-save TIME MACHINE '
      'under a comment promising there was none. Driven against a hostile fake browser -- '
      'full device, silent write, torn write, refused delete, ITP eviction, no localStorage '
-     'at all -- and then driven again on the real alpha in a real browser', True),
+     'at all -- and then driven again on the real alpha in a real browser. EXTENDED 9/5 '
+     '(BB-THE-GATE-WALKS-THE-PEOPLE): every one of those hostile modes had only ever been '
+     'walked with the WORLD in the save -- met, minds, known, belong and deedweight '
+     'appeared ZERO times here -- so all seven are now walked with the people aboard, plus '
+     'THE DESYNC CASE this harness was built for: force a torn write, roll the world back '
+     'one generation, and assert the population came back at the SAME generation, in Node '
+     'and again on the real page. Mutation-proved: the pre-9/4 architecture, world '
+     'versioned per slot and people in one shared place beside it, turns exactly ONE check '
+     'red and leaves every other one green, which is why it lived for a month', True),
     ('EVERY DOOR',     ['node', 'gates/everydoor_gate.js'],
      'Paolo: "WY IS IT WHEN IM IN THE OUTSIDE OF A BUILDING I CAN ENTER IT FROM JUST WALKING TO ANY WALL" -- the 8/2 rule was right and covered 11% of buildings because buildings had no doors; a RATCHET on real door coverage, measured in a browser, that cannot be won by deleting buildings', True),
     ('STEP INSIDE',    ['node', 'gates/stepinside_gate.js'],

@@ -953,7 +953,9 @@ anything is heard a third time, and one moment every 90 seconds means 40 moments
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 
 --------------------------------------------------------------------------------
-RUN (run-eak241): 9/4 LATEST -- *** VAMILY [save checked] CLAIMED. ***
+RUN (run-eak241): 9/5 LATEST -- *** VAMILY [save checked] SHIPPED. The harness
+that proves the save survives an iPhone had never been shown the people. TAB:
+RUN. Nothing to judge. ***
 
 ============================ READ THIS FIRST, EVERY TIME ======================
 PERMANENT INSTRUCTION FROM PAOLO, 9/4/26, WORD FOR WORD. It lives here so it
@@ -991,6 +993,65 @@ whole instruction."
 THIS LANE IS 01 THE RUN. MODE: BUILD. Never ask him which lane. Never ask him
 anything at all. Two words back, then work.
 ===============================================================================
+
+THIS ROUND: BB-THE-GATE-WALKS-THE-PEOPLE, the row straight after the last one,
+claimed and pushed before starting per the front page.
+
+THE GAP, RE-CONFIRMED: met, minds, known, belong and deedweight appeared ZERO
+times in gates/save_iphone_gate.js. That gate drives the save against a hostile
+fake browser through the seven ways iOS really loses one, then drives it again
+on the real page -- and every one of those seven ran on a save that was the
+WORLD and nothing else. A gate that proves half a save survives an iPhone is
+proving the wrong half survives.
+
+WHAT THE PEOPLE COST, measured off citySnapshot() in the running city, not
+estimated: the whole save is 3,683 bytes and 3,170 of them are the people, of
+which 2,928 is the DEED TABLE. The save is 86% people and 79% deed table. That
+is not a bug -- the deed table riding was yesterday's deliberate call -- but THE
+PROBE WRITES A PROBE THE SIZE OF THE REAL SAVE, which is the design that killed
+the 1-byte-probe bug, so the save getting several times bigger moves the line
+between a device called disk and a device called memory, and nobody had measured
+it. 3.7KB against a ~5MB quota is not close to anything. There is a 64KB ceiling
+on it now so a future row cannot quietly put a roster in there.
+
+ADDED, 44 checks -> 78: L, the five walk every hostile mode (tiny writes, silent
+store, eviction, no storage, and the save that predates them; the eviction claim
+is carefully the CLEAN loss, never half a population on a fresh world). M, THE
+DESYNC CASE in the row's own words -- torn write, roll the world back one
+generation, assert the people came with it -- plus M2, the time machine asked
+about the population. N, the new edge the people created: a store that fits the
+world and not its people must say MEMORY out loud, because a silent half-save is
+the exact bug that was fixed yesterday. O, all of it again on the surface he
+plays, through the real snapshot, the real CITYSAVE and the real localStorage,
+modelling a RELAUNCH not a next call. J2, the demo, because the save has to
+survive on a player's phone and not on his bench.
+
+*** THE MUTATION IS THE FINDING. *** Three were run. The engine dropping people
+turns 9 red; the snapshot blanking people turns all 7 of O red; and THE PRE-9/4
+ARCHITECTURE ITSELF -- world versioned per slot, people in one shared place
+beside it -- turns EXACTLY ONE CHECK RED and leaves every other one in the file
+green. The world came back at generation 1 and the belonging came back at
+generation 9. THAT IS WHY THIS LIVED FOR A MONTH: IT IS INVISIBLE FROM INSIDE
+EITHER SYSTEM. The save is fine, the ledgers are fine, and only a check that
+reads the world and the population off the SAME loaded blob and asks whether
+they agree can see it.
+
+AND ONE LESSON ABOUT THE GATE, found by the mutation and worth keeping: the
+second mutation first made section O THROW out of the page and killed the run
+before a single claim printed, which reads as a broken gate rather than a broken
+game and sends the next reader after the harness instead of the bug. A GATE MUST
+GO RED, NEVER EXPLODE. Same family as the broken rulers this lane keeps finding,
+sign flipped: a ruler that cannot read hides the reading.
+
+  SAVE IPHONE 78/0 (was 44/0) · PEOPLE SAVED 14/0 · SAVE COMPAT 16/0
+  · WHOLE DEMO 23/0
+No game code changed. slices/ is byte-identical, so no demo re-cut was needed and
+no approved pixel moved.
+Record: records/BOHEMIA_THE_GATE_WALKS_THE_PEOPLE_9_5_26.md
+
+NEXT: the RUN queue's next OPEN row is [street encounters] ROAD-INTERRUPTS-ON-
+FOOT -- roadInterrupt has one caller and it sits inside MODE==='city', so the
+twelve road moments never fire on the walked street.
 
 PREVIOUS SHIP, kept because its finding is still live: *** VAMILY [people saved]
 SHIPPED. The world was inside the hardened save and the people were outside it.
