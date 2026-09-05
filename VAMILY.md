@@ -219,8 +219,8 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 
 ## DIRECTION  (06. the Art Director. Decides the look, judges every cook. Does not cook.)
 MODE: BUILD
-STATE: a visual constitution exists (records/target, target_match_gate); no style card for the runway exists yet; nothing judges a cook's comparison against reference yet.
-- CLAIMED 9/5 session_015Wm1PKCubu8WUBgmB9eXKK  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
+STATE: a visual constitution exists (records/target, target_match_gate); no style card for the runway exists yet; the VOTE tab now shows what each candidate was matched against (MATCHED TO, 9/5).
+- SHIPPED 9/5 55c0147  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 - OPEN  THE-REFERENCE-LIBRARY -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
 - OPEN  REFERENCE-INDEX -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
 - OPEN  RUNWAY-REFERENCE -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
