@@ -2746,7 +2746,16 @@ of three things the world had already decided about them. <b>Nothing to judge.</
          is a ghost valley and that has to include his own street, or the bottom
          of the slider is a lie. So the COUNT is dialled the same way a rate is:
          four families at 1, two at 0.5, none at 0, eight at 2. */
-      var want=Math.round(opts.households * (opts.preDialled ? 1 : dialOf(opts.cell)));
+      var __d = (opts.preDialled ? 1 : dialOf(opts.cell));
+      var __base = 1;
+      if(!opts.preDialled){
+        try{
+          var __POP=(typeof BohemiaPopulation!=='undefined')?BohemiaPopulation
+                   :(root&&root.BohemiaPopulation)||null;
+          if(__POP&&__POP.LANDMARK&&__POP.LANDMARK.story>0) __base=__POP.LANDMARK.story;
+        }catch(_e){}
+      }
+      var want=Math.round(opts.households * (__d / __base));
       if(want<=0) return out;
       want=Math.min(want, feet.length);
       chosen={};
