@@ -2305,6 +2305,16 @@ ceiling held in every case I had thought about and fell over in the one I had no
 the answer was not "no" but "I don't know". Zero and unknown are different numbers, and
 a system that returns the same value for both will pick the wrong one exactly when it
 matters.
+  A SECOND RED CAME IN ON MAIN DURING THIS ROUND'S REBASE AND IT IS NOT MINE EITHER:
+bohemia_sync_gate, BOH_POWERGRID, 2 bodies across 6 carriers. Canon and the walked city
+agree; the STALE copies are engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js,
+engine/bohemia_engine_graphics_7_14_26.js and slices/BOHEMIA_RUN_CURRENT.html. Somebody
+edited engine/bohemia_powergrid.js and did not resync the run slice. Proved
+pre-existing by stashing and re-running. I DID NOT FIX IT, deliberately: those are the
+RUN lane's carriers and BOHEMIA_RUN_CURRENT.html is a 21 MB generated file that lane may
+be mid-flight in, and ONE SYSTEM, ONE SESSION says stay out. (Contrast the floorplan
+drift two rounds ago, which I DID fix on sight because it was mine.) FOR THE COORDINATOR
+TO ROUTE TO RUN.
   NEXT OPEN LINE IN THIS LANE: [century memory] CENTURY-RECORD.
 WORLD (02 WORLD MODEL, session world-9lfjtf)
 
