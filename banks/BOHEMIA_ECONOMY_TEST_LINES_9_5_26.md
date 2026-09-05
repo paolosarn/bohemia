@@ -587,3 +587,70 @@ LL2 somebody who learned it the hard way             draft:true
 - No line names who owns the pump, the wash or the intake. That is his.
 - No line explains that water is downstream of power. II4 IS that finding and it
   never uses the word power or economy.
+
+# ============================================================================
+# ROUND 8 [battery value] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_8_THE_MONEY_SUPPLY_IS_THE_CELLS_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THE POINT: the valley can make charge all day and cannot make one cell. The
+# money supply only ever goes down. Nobody says that sentence. They say they
+# found four in a drawer.
+# ============================================================================
+
+## NN. THE COUNT ONLY GOES DOWN
+
+NN1 somebody who found some                          draft:true
+    "Four. In a drawer, in a kitchen, in a house everybody's already been
+     through twice. Four."
+
+NN2 an older trader                                  draft:true
+    "When I started you'd see a hundred in a week. Now it's a good week if I see
+     a hundred all season."
+
+NN3 somebody who lost one                            draft:true
+    "It went down the grate. I stood there about ten minutes looking at the
+     grate."
+
+NN4 explaining it to a kid                           draft:true
+    "Nobody's making more. That's it, that's the whole lesson, there isn't a
+     factory."
+
+## OO. A FLAT ONE IS STILL MONEY (an empty wallet, not rubbish)
+
+OO1 a trader taking dead cells                       draft:true
+    "I'll take them flat. Of course I'll take them flat, what do you think I do
+     all day?"
+
+OO2 somebody who did not know                        draft:true
+    "I've been throwing them away. Don't. Don't say anything. I've been throwing
+     them away."
+
+OO3 the queue at the panel                           draft:true
+    "That's the line. Everybody in it is holding nothing and waiting for it to
+     be worth something."
+
+## PP. THE PANEL IS A MINT
+
+PP1 somebody who understands what they are guarding   draft:true
+    "It's not a roof. It's not a roof, it's a printing press, and you left one
+     man on it."
+
+PP2 the owner, casually                               draft:true
+    "Sun comes up, I'm rich. Sun goes down, I'm whoever's holding a fence."
+
+## QQ. WHAT ONE CELL ACTUALLY DOES (never stated as a number to the player)
+
+QQ1 measuring a night by it                          draft:true
+    "One'll get you through to about two in the morning if you're careful with
+     it and you're not careful with it."
+
+QQ2 somebody spending one on a phone                 draft:true
+    "It's a call. That's what that is, that's one call, so think about who."
+
+## RR. WHAT IS NOT HERE, ON PURPOSE
+- No line says watt-hours, percentages, or a charge level. QQ1 measures a cell
+  in HOURS OF NIGHT, which is how a person would.
+- No line says how many cells exist in the valley. That number is his.
+- No line explains that the supply is deflationary. NN2 and NN4 ARE that finding
+  and neither uses a word longer than "factory".
