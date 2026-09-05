@@ -1290,6 +1290,32 @@ research partner. He DECIDES, you PRODUCE.
   the corner-rounding Scale2x was silently doing -- the head renders as a BOX,
   straight into the 8/1 "no straight lines" law. Twice the pixels means PAINTING at
   112. Full finding: records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt
+- BATTERIES ARE THE MONEY, AND A COMBAT TILE IS A HOUSE (Paolo 9/4, LOCKED, three
+  rulings in one message): (1) "i dont want there to be money money maybe electronics
+  like batteries are the currency. For one aa battery a bag of rice." NO abstract
+  currency, ever. The three currencies stand (7/26); ELECTRICITY IS THE MEDIUM OF
+  EXCHANGE, prices are stated in batteries, and under EVERYTHING COSTS ONE a bag of
+  rice is one battery. The market moves from trading in `resources` to trading in
+  `electricity`, and "the night eats power" now means your lights burn your money.
+  REALISM FIRST: cigarettes in the POW camps, bottle caps -- a dead economy settles
+  on something durable, divisible, universal and unfakeable, and a battery is all
+  four. (2) "a simple shortcut where they know what they are supposed to do and be
+  incorporated into the beta and run": the lane word IS the shortcut (type `world`,
+  `sound`, `run`, `combat`... and the chat pops its top row), AND A ROW IS NOT
+  SHIPPED UNTIL IT IS IN THE DEMO BUILD -- re-cut the demo when you ship, on every
+  lane banner. (3) "instead of each combat tile being the size a human maybe each
+  combat tile is the same size as the house and a pistol is like a dagger... and a
+  rifle can do two tiles": THE RULES STAY (RF4 on the beat), THE BOARD ZOOMS OUT. A
+  tile is a building lot. A PISTOL IS A DAGGER (adjacent only), A RIFLE REACHES TWO.
+  It makes guns-bad-in-close true by geometry, gives the map a grain, and makes a
+  house a tile you go INTO. His two-tile rifle is a legibility trade made on purpose
+  (a real rifle reaches ten lots), and REALISM FIRST says that trade is his. SHIPS AS
+  A DIAL in the COMBAT tab's DEMO SETTINGS (TILE: A BODY / A HOUSE), never by
+  deleting the human-scale board; no damage number moves. And his 9/4 order on all
+  of it: 120 BPM FRIENDLY FOR EVERYTHING -- a step is one beat, and a step is now
+  one house. Full law: laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_
+  A_HOUSE_9_4_26.md  Rows: WORLD BB-BATTERIES-ARE-THE-MONEY, COMBAT BB-A-TILE-IS-A-
+  HOUSE, both at the top of their lanes.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)

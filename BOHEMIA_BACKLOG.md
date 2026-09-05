@@ -1488,7 +1488,10 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
 BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
    AND THE PEOPLE ARE OUTSIDE IT. ***
    THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found
@@ -2489,7 +2492,37 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
+BB-BATTERIES-ARE-THE-MONEY. *** PAOLO 9/4, LOCKED: "i dont want there to be money
+   money maybe electronics like batteries are the currency. For one aa battery a
+   bag of rice and so on so forth." TOP OF THE LANE. DO THIS AND BB-THE-LETTER-IS-
+   ONE AS ONE JOB. ***
+   THERE IS NO ABSTRACT MONEY. The thing you trade with is a BATTERY, and prices
+   are stated in batteries: one AA battery, a bag of rice. Under EVERYTHING COSTS
+   ONE that is literally the first PRICES table -- every good costs 1 in
+   `electricity` -- and the tagged ones go in exactly as the 8/15 law says.
+   THIS ADDS NO FOURTH CURRENCY. The three stand; what changes is electricity's
+   ROLE: it is the medium of exchange. Food and tape are what you BUY, batteries are
+   what you buy them WITH, clout is what you cannot buy. MEASURED: the market's
+   SALVAGE_CURRENCY is 'resources' today (engine/bohemia_payday.js and the walked
+   city); it moves to 'electricity'. Day 23's "the night eats power" now means
+   YOUR LIGHTS BURN YOUR MONEY -- holding a lit block costs what a bag of rice
+   costs, the tightest loop in the design, no new mechanism.
+   REALISM FIRST and it is very real: cigarettes in the 1945 POW camps, bottle
+   caps, detergent -- when money dies, people settle on something durable,
+   divisible, universal and unfakeable, and a battery is all four. It even
+   self-discharges a few percent a year, the old "rusting money" that keeps people
+   spending.
+   HIS, NOT DECIDED HERE: which goods exist, any price above 1, whether battery
+   SIZES are denominations. 120 BPM: a purchase lands on the tap's beat. RE-CUT THE
+   DEMO when it ships. Law: laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_
+   TILE_IS_A_HOUSE_9_4_26.md | a bag of rice costs one battery on the walked
+   surface and in the demo, and the purse ledger shows it | goods and prices above
+   1 are his | no. ***
+
 BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
    BUILT. ON THE DEMO PATH -- ONLY THE SECOND STUDY ROW THAT IS. ***
    MEASURED AND RUN 9/4, not read: finish a #notable job the way all 27 canon
@@ -5439,7 +5472,42 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
+BB-A-TILE-IS-A-HOUSE. *** PAOLO 9/4, LOCKED: "instead of each combat tile being
+   the size a human maybe each combat tile is the same size as the house and a
+   pistol is like a dagger compared to the range of battle brothers and a rifle
+   can do two tiles." TOP OF THE LANE. ***
+   THE RULES STAY -- Rogue Fable 4 on the beat, and every BB take below. THE BOARD
+   ZOOMS OUT: a combat tile is a building lot, not a body. Ranges compress with
+   it: A PISTOL IS A DAGGER (adjacent tile only), A RIFLE REACHES TWO. Shotgun and
+   SMG sit between; where a scoped rifle stops is his.
+   MEASURED TODAY in the decoded fight: WEAPON_RANGE has pistol eff 6 / max 12,
+   rifle eff 20 / max 16, SNIPER_RANGE eff 30, on human-scale tiles. Under the
+   ruling those become 1 and 2 on house-scale tiles.
+   WHY IT IS GOOD, in the study's own words: GUNS ARE BAD IN CLOSE (day 3) becomes
+   true by geometry; the map gets a GRAIN (day 19) because streets are lanes and
+   buildings are cover; INTERIOR = EXTERIOR (7/19) becomes a combat verb because a
+   house is a tile you go INTO; and 2v8 (8/31) reads, because every body is on a
+   lot. THE CLIMB's stairs and THE CHARGE's grenade (8/27) live inside a lot now.
+   REALISM NOTE, on the record: a real pistol fight is inside 3-7 yards, so
+   pistol = adjacent lot is realistic; a real rifle reaches ten lots or more. HIS
+   TWO IS A LEGIBILITY TRADE, MADE ON PURPOSE, and REALISM FIRST says that trade
+   is his. It is made.
+   HOW IT SHIPS (HE MUST BE ABLE TO DIRECT IT, 8/12): NOT by removing the
+   human-scale board. AS A DIAL in the COMBAT tab's DEMO SETTINGS beside SHE FIGHTS
+   WITH YOU -- `TILE: A BODY / A HOUSE` -- so he plays both. NO accuracy or damage
+   number moves (NO DAMAGE BEFORE THE DIAL); only distances. A seeded arena must
+   not re-deal when the dial flips (the 8/27 lesson: one extra draw rewrites every
+   board he has written down). 120 BPM: a step is one beat, and a step is now one
+   house. RE-CUT THE DEMO when it ships. fight_moves_you_gate asserts the dial
+   exists and both settings run. Law: laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_
+   MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md | the dial exists, a pistol reaches one
+   house and a rifle two, the seeded boards are unchanged at the old setting |
+   where a scoped rifle stops | no. ***
+
 BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
    SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.
    THE FIX IS ONE CONST. ***
@@ -6010,7 +6078,10 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
 BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
    MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
@@ -7793,7 +7864,10 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
 BB-THE-CITY-SENDS-WHERE. *** DAY 22. ONE MESSAGE, FOUR SYSTEMS, AND THE SURFACE
    HE WALKS DOES NOT SEND IT. THE FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
    SMALLEST FIX IN THE WHOLE STUDY. TAKE IT FIRST. ***
@@ -8818,7 +8892,10 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
 BB-THE-JOB-PAYS. *** DAY 20. 687 THINGS A JOB CAN DO AND NONE OF THEM IS PAY. ***
    MEASURED across all 27 playable canon quests: 687 @DO calls -- 203 set_stage,
    110 complete_objective, 93 learn, 82 faction, 58 bond, 51 show_objective, 50
@@ -9169,7 +9246,10 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
 BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
    IS HOW IT WILL GET LOST. WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS
    CHANCE ON YOU. ***
@@ -9748,7 +9828,10 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     every card lands ON A BEAT (BEAT=0.5s): the day eats at the wake beat, the night
     eats at the nightfall beat, the fight eats at the bell, a claim is asked on the
     tap's beat, the ambience bed's 4s heartbeat is 8 beats, and nothing here ticks on
-    wall-clock time. If it cannot say which beat it happens on, it is not done. ***
+    wall-clock time. If it cannot say which beat it happens on, it is not done.
+    AND PAOLO 9/4: it has to "be incorporated into the beta and run" -- a row is not
+    shipped until it is in the walked surface AND the demo build. WHEN YOU SHIP,
+    RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js). ***
 BB-COLD-HAND. *** DAY 14. THE FIRST DEMO-CRITICAL ROW THIS STUDY HAS PRODUCED,
    AND IT IS A METHOD WE ALREADY OWN AND RAN EXACTLY ONCE. THIS ONE IS ON THE
    DEMO PATH, NOT BEHIND IT. ***

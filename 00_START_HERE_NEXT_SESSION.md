@@ -703,7 +703,30 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ab) LATEST -- *** HE IS STARTING THE
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ac) LATEST -- *** THREE RULINGS IN ONE
+MESSAGE, RECORDED AS LAW: BATTERIES ARE THE MONEY, ONE WORD STARTS A CHAT AND IT
+LANDS IN THE BETA, AND A COMBAT TILE IS A HOUSE. Nothing to judge. ***
+laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md
+(1) "i dont want there to be money money maybe electronics like batteries are the
+currency. For one aa battery a bag of rice." No abstract currency. The three stand;
+ELECTRICITY IS THE MEDIUM OF EXCHANGE. Measured: the market's SALVAGE_CURRENCY is
+'resources' today; it moves to 'electricity', prices at 1 (EVERYTHING COSTS ONE).
+Your lights now burn your money. WORLD's top row: BB-BATTERIES-ARE-THE-MONEY, done
+as one job with BB-THE-LETTER-IS-ONE.
+(2) "a simple shortcut where they know what they are supposed to do and be
+incorporated into the beta and run": the lane word is the shortcut, and every lane
+banner now says RE-CUT THE DEMO WHEN YOU SHIP -- a row is not shipped until it is
+in the demo build.
+(3) "each combat tile is the same size as the house and a pistol is like a dagger
+... and a rifle can do two tiles": rules stay, board zooms out. Measured: pistol
+eff 6, rifle eff 20 on body-scale tiles today; under the ruling 1 and 2 on
+house-scale tiles. Ships as a DIAL in COMBAT's DEMO SETTINGS (TILE: A BODY / A
+HOUSE), never by deleting the old board; no damage number moves; a seeded arena
+must not re-deal when the dial flips. His two-tile rifle is a legibility trade
+made on purpose and it is his. COMBAT's top row: BB-A-TILE-IS-A-HOUSE.
+All three: 120 BPM friendly, per his 9/4 order. A step is one beat and one house.
+
+COORDINATOR: 9/4 (ab) -- *** HE IS STARTING THE
 OTHER CHATS NOW, AND EVERY BB ROW IS 120 BPM FRIENDLY OR IT IS NOT DONE. ***
 Paolo 9/4: "Can I start telling the other chats to do shit now" -- yes, the top
 row of every lane is a BB row and GO pops it. And LOCKED, on every row: "whatever
