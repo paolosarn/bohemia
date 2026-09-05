@@ -16,15 +16,21 @@
    stops us sliding back into.
 
    *** THE ONE THING THIS GATE REFUSES TO DO IS INVENT OWNERSHIP. *** night:power
-   bills a lit circuit you HOLD, and nothing in this game stamps a circuit
-   `player` yet -- that is BB-THE-NIGHT-EATS-POWER's ruling and BB-TURF's. So the
-   real count is zero, and check 4c proves the mechanism by MUTATION instead: stamp
-   one live circuit `player` in memory and the same call must bill it. A NEGATIVE
-   RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT
-   COULD HAVE SEEN A POSITIVE ONE -- this lane has paid for that lesson four times
-   and one of them was last round, when it reported "there is no fight hook on the
-   walked surface" while the fight hook had been sitting there since 8/21 under a
-   name the search did not try.
+   bills a lit circuit you HOLD. When this gate was written nothing in the game
+   said a circuit was his, so it refused to stamp one and proved the mechanism by
+   faking an owner for one call.
+   THAT IS NO LONGER THE MECHANISM, AND THIS GATE MOVED RATHER THAN THE CODE BEING
+   BENT BACK TO FIT IT (A GATE MUST NEVER OUTRANK A RULING, Paolo 8/1).
+   BB-THE-NIGHT-EATS-POWER shipped the real answer: a plot HE BUILT fronts a
+   feeder, and that feeder is his -- ownership he performed with his thumb rather
+   than a flag anybody minted. So the surface run puts a building down, which is
+   what a player does, and check 2's "nothing stamps a circuit `player`" still
+   stands guard over the thing that was actually forbidden.
+   A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE
+   INSTRUMENT COULD HAVE SEEN A POSITIVE ONE -- this lane has paid for that lesson
+   four times, one of them being the round that reported "there is no fight hook on
+   the walked surface" while the fight hook had been sitting there since 8/21 under
+   a name the search did not try.
 
    node gates/four_verbs_gate.js
    ========================================================================== */
@@ -175,19 +181,26 @@ const done = () => {
                            outcome: { victory: true }, at: 'the door' }, '*');
       setTimeout(() => {
         R.afterFight = SPENT_TODAY.map(s => s.verb);
-        /* POWER -- the mutation. Nothing is stamped `player`, so the checker has
-           to be shown it could have seen a positive. */
-        const _at = POWER.at;
-        let m = null;
-        for (let y = 0; y < om.n && !m; y++) for (let x = 0; x < om.n && !m; x++) {
-          const p = _at(x, y); if (p && p.live) m = [x, y];
-        }
+        /* POWER -- and the way he really comes to hold a circuit, which is to
+           PUT A BUILDING DOWN. This used to fake `owner:'player'` on a cell,
+           which was right while nothing in the game said a circuit was his and
+           is a lie now that something does: BB-THE-NIGHT-EATS-POWER shipped the
+           real answer (a plot he built fronts a feeder, and that feeder is his).
+           A GATE MUST NEVER OUTRANK A RULING, so the gate moved rather than the
+           mechanism being bent back to fit it. It keeps its whole tooth: zero
+           before, one after, and the drain proved by a positive either way. */
         R.zeroBefore = heldCircuits().length;
-        POWER.at = (x, y) => (m && x === m[0] && y === m[1])
-          ? { live: true, owner: 'player' } : _at(x, y);
+        let spot = null;
+        for (let y = 1; y < om.n - 1 && !spot; y++) for (let x = 1; x < om.n - 1 && !spot; x++) {
+          if ((om.at(x, y) || {}).district !== 'desert') continue;
+          for (const [nx, ny] of [[x+1,y],[x-1,y],[x,y+1],[x,y-1]])
+            if ((POWER.at(nx, ny) || {}).live) { spot = [x, y]; break; }
+        }
+        R.builtOn = spot;
+        if (spot) { CE.build(EDITS, spot[0], spot[1], 'desert',
+                             (CE.buildableTypes(OM.DISTRICT) || [])[0], OM.DISTRICT); CBpersist(); }
         R.oneAfter = heldCircuits().length;
         advance(20 * 60);
-        POWER.at = _at;
         R.spent = SPENT_TODAY.map(s => s.verb);
         R.card = (document.getElementById('daycardIn') || {}).textContent || '';
         res(R);
@@ -199,10 +212,9 @@ const done = () => {
      all.afterAsk.indexOf('ask:leaned') >= 0);
   ok('THE FIGHT EATS TAPE -- and the hook is the one combat really sends',
      all.afterFight.indexOf('fight:plate') >= 0);
-  ok('THE MUTATION: with nothing stamped `player` the night bills nothing',
-     all.zeroBefore === 0);
-  ok('AND THE SAME CALL BILLS A CIRCUIT THE MOMENT ONE IS HIS -- the instrument'
-     + ' could have seen a positive', all.oneAfter === 1);
+  ok('with nothing built the night bills him for no circuit', all.zeroBefore === 0);
+  ok('AND THE SAME CALL BILLS A CIRCUIT THE MOMENT ONE IS HIS -- he put a building'
+     + ' down, so the instrument has seen a positive', all.oneAfter >= 1);
   ok('SO ALL FOUR VERBS POST A DRAIN ON THE WALKED SURFACE, which is the row\'s'
      + ' own ship test',
      ['day:ate', 'fight:plate', 'night:power', 'ask:leaned']

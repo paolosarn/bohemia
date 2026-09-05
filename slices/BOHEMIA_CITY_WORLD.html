@@ -6663,7 +6663,29 @@ global.BohemiaOvermap=API;
 // alternating. 12% of circuits live (tunable). Every live circuit is
 // OWNED: settlement / faction / network / solar_lone. Light = territory.
 // WHERE network zones sit = Paolo's map call; this module is mechanics.
-const BOH_POWERGRID=(()=>{ 
+//
+// 9/5/26 — BB-THE-NIGHT-EATS-POWER. A CIRCUIT CAN NOW BE PUT OUT, AND THE GRID
+// OWNS WHETHER A LIGHT IS ON.
+//   Holding a lit block was free. The row makes it a bill: every lit circuit you
+//   hold costs one battery a night, and a circuit you cannot pay for GOES DARK.
+//   The going-dark had to live HERE and nowhere else. Ten places on the walked
+//   surface ask `POWER.at(x,y).live` — the lamp pass, the two "is it black inside"
+//   checks, the fire barrel, the music's own night test — and darkening a circuit
+//   by patching ten readers is nine chances to miss one and a tenth to disagree.
+//   So `at()` answers the question and `douse()` changes the answer, which is the
+//   same rule the purse lives under: balances are DERIVED, there is no setter.
+//
+//   TWO THINGS A CELL NEEDED THAT IT DID NOT HAVE:
+//   1. AN ID. status carried {live,owner} and no way to say WHICH circuit, so
+//      "these two buildings are on the same feeder, that is one bill" could not
+//      be expressed and "put THIS circuit out" had no subject. Cells now carry
+//      the circuit index they belong to.
+//   2. A WAY BACK. `dark` is a separate set from `live`, never a write into it,
+//      because a circuit that was never lit and a circuit somebody could not pay
+//      for are different facts and the day one of them comes back on you need to
+//      know which was which. serialize()/restore() carry only the doused set —
+//      the grid itself is a pure function of the seed and must never be saved.
+const BOH_POWERGRID=(()=>{
   function rng(seed){let s=seed>>>0;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;}}
   const STREETS=['arterial','street','strip','downtown','freeway','residential','beltway'];
   // circuits = contiguous same-axis street RUNS on the overmap (a feeder run).
@@ -6687,8 +6709,9 @@ const BOH_POWERGRID=(()=>{
     const weights=opts.ownerWeights||{settlement:0.55,faction:0.2,network:0.15,solar_lone:0.1};
     const r=rng((seed^0x11FE)>>>0);
     const circuits=buildCircuits(m,opts.N||96);
-    const status={}; // "x,y" -> {live,owner}
-    for(const c of circuits){
+    const status={}; // "x,y" -> {live,owner,id}
+    for(let ci=0;ci<circuits.length;ci++){
+      const c=circuits[ci];
       const live=r()<litFraction;
       let owner=null;
       if(live){
@@ -6696,11 +6719,53 @@ const BOH_POWERGRID=(()=>{
         for(const k in weights){acc+=weights[k];if(roll<acc){owner=k;break;}}
         owner=owner||'settlement';
       }
-      for(const [x,y] of c)status[x+','+y]={live,owner};
+      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci};
+    }
+    /* THE CIRCUITS SOMEBODY COULD NOT PAY FOR. Empty at boot, because a valley
+       where the lights are already out is a different game and that is not the
+       seed's business. */
+    const dark=Object.create(null);
+    const DEAD={live:false,owner:null,id:-1};
+    function raw(x,y){ return status[x+','+y]||DEAD; }
+    /* THE ONE ANSWER. A doused circuit reports NOT LIVE and KEEPS ITS OWNER,
+       because whose block went dark is exactly the thing you want to know when
+       it does — the light went out, the claim did not. */
+    function at(x,y){
+      const s=raw(x,y);
+      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,id:s.id,doused:true};
+      return s;
     }
     return {circuits:circuits.length,
-      liveCircuits:Object.values(status).filter(s=>s.live).length,
-      at:(x,y)=>status[x+','+y]||{live:false,owner:null}};
+      liveCircuits:Object.values(status).filter(s=>s.live).length,  /* live CELLS; the name predates the id */
+      at:at,
+      /* the circuit a cell belongs to, or -1 for ground no feeder runs down */
+      idAt:(x,y)=>raw(x,y).id,
+      /* PUT ONE OUT. Only a circuit that is actually lit can go dark, so an
+         unpaid bill on a block that was never lit is not a punishment. */
+      douse:function(id){
+        if(!(id>=0)||id>=circuits.length) return false;
+        const c=circuits[id]; if(!c||!c.length) return false;
+        if(!raw(c[0][0],c[0][1]).live) return false;
+        if(dark[id]) return false;
+        dark[id]=1; return true;
+      },
+      /* AND BACK ON. Nothing calls this yet: what it costs to get your lights
+         back is a price, and prices are Paolo's. It exists so that going dark is
+         a state and not a one-way door nobody thought about. */
+      relight:function(id){ if(dark[id]){ delete dark[id]; return true; } return false; },
+      isDark:(id)=>!!dark[id],
+      dark:()=>Object.keys(dark).map(Number),
+      /* ONLY THE DOUSED SET RIDES THE SAVE. The grid is a pure function of the
+         seed; saving it would let a stale copy outlive a seed change. */
+      serialize:()=>Object.keys(dark).map(Number),
+      restore:function(list){
+        for(const k in dark) delete dark[k];
+        if(!list||!list.length) return 0;
+        let n=0;
+        for(let i=0;i<list.length;i++){ const id=list[i]|0;
+          if(id>=0&&id<circuits.length){ dark[id]=1; n++; } }
+        return n;
+      }};
   }
   return {buildCircuits,powerMap};
 })();
@@ -40529,6 +40594,7 @@ function showWake(){
      the reckoning wiped both before it drew the card. A buffer emptied where it is
      read instead of where it is filled works exactly until it has a second writer. */
   SPENT_TODAY=[];
+  DARK_TONIGHT=[];
   offerRing();
   updQline();
   const o=OFFER;
@@ -41077,6 +41143,15 @@ function showReckoning(){
     h+='<li'+(g.paid?'':' style="color:#c98a5a"')+'>'+esc(g.about)
       +(g.paid?'' : ' \u2014 and you could not pay it')
       +(g.n>1?' \u00d7'+g.n:'')+'</li>'; }
+  /* __THE_NIGHT_EATS_POWER__ -- AND THE BLOCK THAT WENT OUT GETS SAID OUT LOUD.
+     A light going off is the loudest consequence in this game and the only one the
+     player can walk into tomorrow, so it does not get discovered by accident. The
+     district is named because that is the word he navigates by; the circuit number
+     is not his business. draft:true -- real words, his to overwrite. */
+  for(var dk=0;dk<DARK_TONIGHT.length;dk++){ var dc=DARK_TONIGHT[dk], dn='a block';
+    try{ dn=(om.at(dc.at[0],dc.at[1])||{}).district||dn; }catch(_e){}
+    h+='<li style="color:#c98a5a">the lights went out on '+esc(dn)
+      +' \u2014 nobody patrols the dark</li>'; }
   h+='</ul>';
   /* __KEEP_THIS_RUN__ -- ONE LINE ON A CARD HE IS ALREADY READING, and that shape
      is a correction. The first cut was its own modal between the SLEEP tap and the
@@ -41898,45 +41973,100 @@ function upkeepPost(verb,ref){
   else window.__SPENT_SHORT=(window.__SPENT_SHORT||0)+1;
   return r;
 }
-/* __WHAT_TODAY_COST__ -- WHICH LIT CIRCUITS ARE YOURS, AND THE ANSWER IS ALLOWED
-   TO BE NONE.
-   The power grid is real code on this surface and has been since 7/20: it splits
-   the valley's streets into feeder-sized circuits, lights 12% of them, and stamps
-   an OWNER on every live one -- settlement, faction, network, or solar_lone. That
-   owner field is the ONLY thing in this game that says who a light belongs to.
-   *** THERE IS NO `player` OWNER IN IT, SO TODAY YOU HOLD NOTHING, AND THAT IS THE
-   HONEST ANSWER RATHER THAN A HOLE. *** The temptation was to bill him for the
-   circuit under his own front door so the drain would fire on camera. That would
-   be inventing ownership to make a mechanism look alive, which is the exact move
-   that put an empty table behind a "built, wired and gated" pipe for twenty days.
-   Who holds what is BB-THE-NIGHT-EATS-POWER's row ("which circuits are his is
-   still his") and BB-TURF's. The moment either one stamps a circuit `player`, this
-   bills it, with nothing else to change.
-   ONE PASS OVER THE OVERMAP, ONCE A NIGHT, on 96x96 cells -- the same sweep the
-   walk gate does, and nowhere near a frame budget. */
-var HELD_OWNER = 'player';   /* nothing sets this yet, and nothing here may */
+/* __THE_NIGHT_EATS_POWER__ -- WHICH LIT CIRCUITS ARE YOURS.
+   BB-THE-NIGHT-EATS-POWER. LIGHT=TERRITORY has been live code since 7/20 -- the
+   valley's streets split into feeder-sized circuits, 12% of them lit, an owner
+   stamped on every live one -- AND HOLDING A LIT BLOCK WAS FREE. This is the bill.
+
+   *** WHAT MAKES A CIRCUIT YOURS, AND IT IS NOT A FLAG I INVENTED. ***
+   Last round this looked for `owner === 'player'` and correctly found nothing,
+   because the grid's owners are settlement, faction, network and solar_lone and
+   none of them is him. The row says "which circuits are his is still his", so I
+   would not stamp one.
+   The answer was already in the game and another lane had built it: THE BUILDINGS
+   HE PUT DOWN HIMSELF. LIFE+CITY's builder writes a delta of placed plots and the
+   production tick already walks it to pay him. A plot he chose, paid a battery for
+   and can demolish is the one piece of ground in this valley that is unambiguously
+   his, and nobody had to rule it -- he did it with his thumb. That is reading
+   ownership somebody performed, not minting it.
+
+   *** AND A BUILDING IS NOT ON ITS OWN CIRCUIT, IT IS ON THE STREET'S. ***
+   Measured, and it is the whole shape of this: the grid only builds circuits along
+   STREET cells, so POWER.at() on a building's own cell returns the dead default
+   forever. A first version that billed `POWER.at(building)` would have found zero
+   lit circuits on a valley full of his buildings and reported it as "he holds
+   nothing" -- the instrument answering about itself again.
+   REALISM FIRST, and it is also simply how power works: a building takes a service
+   drop off the feeder running down the street it fronts. So a placed plot holds the
+   circuit of the lit street cell beside it.
+
+   *** DEDUPED BY CIRCUIT, NEVER BY BUILDING. *** Four shops on one street are ONE
+   feeder and ONE bill; four shops spread across the valley are four. That is what
+   makes spreading out cost something and is the entire reason the drain is per
+   circuit instead of a flat "you have lights" charge. */
 function heldCircuits(){
-  var out=[];
+  var out=[], seen={};
   try{
-    var n=(om&&om.n)|0; if(!n) return out;
-    for(var y=0;y<n;y++) for(var x=0;x<n;x++){
-      var p=POWER.at(x,y);
-      if(p&&p.live&&p.owner===HELD_OWNER) out.push([x,y]);
+    var b=[]; try{ b=BohemiaProduction.placed(EDITS)||[]; }catch(_e){ b=[]; }
+    for(var i=0;i<b.length;i++){
+      var w=b[i].w||1, h=b[i].h||1;
+      for(var dy=0;dy<h;dy++) for(var dx=0;dx<w;dx++){
+        var cx=b[i].x+dx, cy=b[i].y+dy;
+        /* the four streets a plot can front. A corner plot fronts two and holds
+           both, which is right: it is lit from two feeders. */
+        var n4=[[cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]];
+        for(var k=0;k<4;k++){
+          var p=null; try{ p=POWER.at(n4[k][0],n4[k][1]); }catch(_e){ p=null; }
+          if(!p||!p.live||!(p.id>=0)||seen[p.id]) continue;
+          seen[p.id]=1;
+          out.push({id:p.id, at:n4[k], owner:p.owner, by:b[i].id});
+        }
+      }
     }
   }catch(_e){}
   return out;
 }
-/* THE NIGHT TAKES ONE PER CIRCUIT. Not one for "having lights" -- the bill scales
-   with the ground you hold, which is what turns territory into something you can
-   fail to afford. A circuit you cannot pay for is a circuit that goes dark, and
-   the dark is where nobody patrols; the going-dark is BB-THE-NIGHT-EATS-POWER's
-   half, so this records the shortfall and does not put a light out on its own. */
+/* THE NIGHT TAKES ONE PER CIRCUIT, AND A CIRCUIT YOU CANNOT PAY FOR GOES DARK.
+   That is the row's ship test in one function. The dark is where nobody patrols,
+   so this is the thing that turns territory from a colour into a cost.
+   IT PUTS OUT THE ONE IT COULD NOT PAY FOR, NOT ALL OF THEM. The bill is per
+   circuit and so is the failure: run out halfway down the list and the blocks you
+   already paid for stay lit. Anything else would be a wipe, and a wipe is a
+   punishment nobody ruled.
+   AND IT STAYS DARK. douse() lives in the grid, so every reader on this surface --
+   the lamp pass, both "is it black in here" checks, the fire barrel -- sees it
+   without one of them being patched. It rides the save. Getting the lights back
+   is a price, and prices are his, so nothing here calls relight(). */
 function nightPower(){
   var held=heldCircuits();
   window.__HELD_CIRCUITS=held.length;
-  for(var i=0;i<held.length;i++) upkeepPost('night:power', held[i][0]+','+held[i][1]);
+  var doused=[];
+  for(var i=0;i<held.length;i++){
+    var r=upkeepPost('night:power', 'circuit '+held[i].id);
+    if(r&&r.applied) continue;
+    var went=false; try{ went=POWER.douse(held[i].id); }catch(_e){}
+    if(went){ doused.push(held[i].id); DARK_TONIGHT.push(held[i]); }
+  }
+  window.__DOUSED=(window.__DOUSED||0)+doused.length;
+  if(doused.length) powerPersist();
   return held.length;
 }
+/* WHAT WENT OUT TONIGHT, so the reckoning can say it in words rather than leaving
+   him to notice a street is darker. Cleared with the day's spend list. */
+var DARK_TONIGHT=[];
+/* THE DOUSED SET RIDES THE SAVE, on its own key. Not in the build delta: a light
+   that is off is not an edit to the world, and merging the two would mean a
+   valley reset also silently paid everybody's power bill. */
+var PWR_LS='boh.city.dark';
+function powerPersist(){
+  try{ localStorage.setItem(PWR_LS, JSON.stringify(POWER.serialize())); }catch(_e){}
+}
+function powerRestore(){
+  try{ var v=JSON.parse(localStorage.getItem(PWR_LS)||'null');
+       if(v&&v.length) return POWER.restore(v); }catch(_e){}
+  return 0;
+}
+try{ powerRestore(); }catch(_e){}
 function purseGet(){
   if(PURSEV) return PURSEV;
   try{ PURSEV=BohemiaPurse.create(); }catch(_e){ PURSEV=null; }
@@ -42202,7 +42332,13 @@ function applyRestore(st){
   }
   st = _m.st;
   window.__RESTORE_OK = (window.__RESTORE_OK||0) + 1;
-  if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear(); }
+  if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear();
+    /* __THE_NIGHT_EATS_POWER__ -- A DIFFERENT SEED IS A DIFFERENT VALLEY, so the
+       circuit ids somebody could not pay for last time point at other streets now.
+       Carrying them over would put out lights at random in a place the player has
+       never been. The lights come back on with the new valley and the saved set is
+       thrown away rather than left to be restored later against the wrong map. */
+    try{ POWER.restore([]); localStorage.removeItem(PWR_LS); }catch(_e){} }
   T.day=st.day||1; T.min=(typeof st.min==='number')?st.min:8*60;
   /* __DAY_LOOP__ -- a day loop that does not survive a reload is a session
      toy, not a loop. The quest's own state (stage, bonds, faction, objectives)
@@ -42501,6 +42637,10 @@ document.getElementById('reroll').addEventListener('click',()=>{
   seed=(seed*1103515245+12345)>>>0;
   EDITS=CE.makeEdits(); CBpersist(); CB.sel=null;   /* ZOOM-BUILD: new valley, edits reset */
   om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed);
+  /* __THE_NIGHT_EATS_POWER__ -- the edits reset one line above and the unpaid
+     circuits go with them. A new valley he has never built in cannot owe anybody
+     a power bill, and the ids would point at other streets anyway. */
+  try{ POWER.restore([]); localStorage.removeItem(PWR_LS); DARK_TONIGHT=[]; }catch(_e){}
   placeWorkingDistrict();          // the SAME placement boot uses: a cell you can live in
   /* *** NEW VALLEY, NEW LIFE (Paolo 8/15: "I pressed re-roll the seed button on
      the run tab and now I can't find the house I'm supposed to be at"). ***

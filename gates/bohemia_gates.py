@@ -272,6 +272,24 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('LIGHTS BILL',    ['node', 'gates/lights_bill_gate.js'],
+     'BB-THE-NIGHT-EATS-POWER, and the ship test is its own sentence: a held circuit debits '
+     'power at nightfall and an unpaid one goes dark. LIGHT=TERRITORY has been live code '
+     'since 7/20 -- feeder circuits, 12% lit, an owner on every live one, nobody patrolling '
+     'the dark -- AND HOLDING A LIT BLOCK WAS FREE, so territory was a colour. What makes a '
+     'circuit HIS is not a flag anybody minted: it is the buildings he put down himself, '
+     'which is ground he chose and paid a battery for, so no ruling was needed. A building '
+     'sits on the feeder of the STREET IT FRONTS -- the grid only lays circuits along street '
+     'cells, so a version that billed the building\'s own cell would have found zero on a '
+     'valley full of his buildings and called it "he holds nothing" (check 2c is the one '
+     'that catches that). Held circuits are deduped by FEEDER, so four shops on one street '
+     'are one bill and four spread across the valley are four. The darkening lives inside '
+     'the grid because ten places on the walked surface ask POWER.at().live and patching ten '
+     'readers is nine chances to miss one; `status` is private to the closure so at() is the '
+     'ONLY door out. A circuit that was never lit cannot be put out, a light he lost is a '
+     'light he stops being billed for (no debt spiral -- debt would be canon), the doused '
+     'set rides the save on its own key, a seed change throws it away rather than darkening '
+     'a stranger\'s street, and the reckoning names the block that went out', True),
     ('FOUR VERBS',     ['node', 'gates/four_verbs_gate.js'],
      'BB-FOUR-VERBS-THREE-CURRENCIES, on Paolo 9/4 ("battle brothers has 3-4 currencies '
      'too... how they manage it is superb"). What is superb about it is one sentence: YOU '
