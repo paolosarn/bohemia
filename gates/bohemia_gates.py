@@ -259,6 +259,22 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('FOUR VERBS',     ['node', 'gates/four_verbs_gate.js'],
+     'BB-FOUR-VERBS-THREE-CURRENCIES, on Paolo 9/4 ("battle brothers has 3-4 currencies '
+     'too... how they manage it is superb"). What is superb about it is one sentence: YOU '
+     'NEVER SPEND A RESOURCE, WHAT YOU DID SPENDS IT, and there is no screen where any of '
+     'it is managed. MEASURED 9/4: the only debit in the whole game was buying at a market, '
+     'so walking was free, fighting was free, holding ground was free and asking was free. '
+     'This holds the four verbs frozen the way the three currencies are (a fifth is '
+     'REFUSED), holds one verb per currency so you can always tell what took it, holds the '
+     'amount OUT of the signature because EVERYTHING COSTS ONE (8/15), and proves all four '
+     'really fire on the walked surface through the hooks the game itself uses -- the ask '
+     'card, the message combat really posts, and nightfall. night:power is proved by '
+     'MUTATION because nothing stamps a circuit `player` yet and this gate refuses to '
+     'invent ownership to make a drain fire: that ruling is BB-THE-NIGHT-EATS-POWER\'s. '
+     'It also pins the ask drain into the GENERATOR rather than the generated copy, and '
+     'pins the day\'s spend list to being cleared where it is FILLED -- it was cleared at '
+     'nightfall, which was silently correct until a verb started firing at 11am', True),
     ('MARKET',         ['node', 'gates/market_gate.js'],
      'The other half of that same demo row -- "SPEND AT A TRADING HUB" -- and my own '
      'handoff said it was blocked on Paolo because "a price is a number, and numbers are '

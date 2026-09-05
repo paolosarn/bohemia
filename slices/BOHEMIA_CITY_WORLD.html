@@ -37931,6 +37931,18 @@ function askOffer(key){
    kind of person always gets the same reply -- a world where the answer depends
    on which body you clicked is not a world with information in it. */
 function askAbout(person, key, subject){
+  /* __WHAT_TODAY_COST__ -- ASKING EATS CLOUT (BB-FOUR-VERBS-THREE-CURRENCIES).
+     "you leaned on somebody", and the leaning happens when the question leaves
+     your mouth, not when they decide to answer -- so this posts FIRST, above the
+     branch that finds out whether they knew anything. A cost you only pay when
+     you get what you wanted is not a cost, it is a receipt.
+     IT POSTS AND IT DOES NOT GATE. Nothing in this game credits clout yet
+     (measured 9/4 and still true: clout has never moved in either direction), so
+     a gate here would take the 7/31 YOU HAVE TO ASK feature off the surface
+     entirely on the first tap. The refusal is recorded and the reckoning names
+     it; "run out and they are done being asked" needs a clout FAUCET first, and
+     that is not this row. */
+  try { upkeepPost('ask:leaned', subject); } catch (_e) {}
   var trade = person && (person.archetype || person.role) || 'worker';
   var a = null;
   try { a = BohemiaAsking.answerFor(subject, trade); } catch (_e) {}
@@ -40375,6 +40387,13 @@ function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','
    OVER THE PHONE right now"). No objective exists until he accepts it. */
 function showWake(){
   DAYOPEN=null;
+  /* __WHAT_TODAY_COST__ -- THE DAY'S SPEND LIST STARTS WHEN THE DAY STARTS.
+     It used to be cleared at nightfall, one line above the first drain, which was
+     correct while the only drain was posted at nightfall and silently WRONG the
+     moment a verb fired during the day: asking and fighting happen at 11am, and
+     the reckoning wiped both before it drew the card. A buffer emptied where it is
+     read instead of where it is filled works exactly until it has a second writer. */
+  SPENT_TODAY=[];
   offerRing();
   updQline();
   const o=OFFER;
@@ -40864,8 +40883,10 @@ function onNightfall(){
      you earn the battery, then the day takes what it takes. Running out is not a
      failure state here, it is a refusal the ledger records -- what it COSTS you is
      BB-OBLIGATION-BURN's row, not this one. */
-  SPENT_TODAY=[];
   try{ upkeepPost('day:ate', (DAYOPEN&&DAYOPEN.title)||'the day'); }catch(_e){}
+  /* __WHAT_TODAY_COST__ -- THE NIGHT EATS POWER. One drain per lit circuit you
+     HOLD, at nightfall, in the order the night takes them. */
+  try{ nightPower(); }catch(_e){}
   try{ mktAdvanceDay(); }catch(_e){}   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
      what water at thirty days costs, and that is the whole point of ruling A. */
@@ -40906,9 +40927,21 @@ function showReckoning(){
      VERB and never a category: "the people who depend on you ate", not "-1 food".
      A refusal gets its own line, because "you could not pay" is the loudest thing
      that can happen on this card and it is not an error. */
+  /* ONE LINE PER VERB, NOT ONE PER POST. A verb can fire many times in a day --
+     you ask six people, you hold four lit circuits -- and six identical sentences
+     is a wall, not a reckoning. Grouped by verb AND by whether it was paid, so
+     "you leaned on somebody x4" and "and you could not pay it x2" are two honest
+     lines instead of one averaged lie. Order is first-happened-first, because the
+     card is a record of the day and a day has an order. */
+  var _sk=[], _sg={};
   for(var si=0;si<SPENT_TODAY.length;si++){ var sp=SPENT_TODAY[si];
-    h+='<li'+(sp.paid?'':' style="color:#c98a5a"')+'>'+esc(sp.about)
-      +(sp.paid?'' : ' \u2014 and you could not pay it')+'</li>'; }
+    var gk=sp.verb+'|'+(sp.paid?'1':'0');
+    if(!_sg[gk]){ _sg[gk]={about:sp.about,paid:sp.paid,n:0}; _sk.push(gk); }
+    _sg[gk].n++; }
+  for(var sj=0;sj<_sk.length;sj++){ var g=_sg[_sk[sj]];
+    h+='<li'+(g.paid?'':' style="color:#c98a5a"')+'>'+esc(g.about)
+      +(g.paid?'' : ' \u2014 and you could not pay it')
+      +(g.n>1?' \u00d7'+g.n:'')+'</li>'; }
   h+='</ul>';
   /* __KEEP_THIS_RUN__ -- ONE LINE ON A CARD HE IS ALREADY READING, and that shape
      is a correction. The first cut was its own modal between the SLEEP tap and the
@@ -41682,6 +41715,20 @@ window.addEventListener('message',function(ev){
   /* AND HE SEES IT NOW, not only at the reckoning: the objective line is the one
      piece of text on the walked surface he is already reading. */
   try{ var q=document.getElementById('qline'); if(q) q.textContent=line; }catch(_e){}
+  /* __WHAT_TODAY_COST__ -- THE FIGHT EATS TAPE (BB-FOUR-VERBS-THREE-CURRENCIES).
+     "the plate you wore at the bell is spent", and it is spent whether you walked
+     out or went down, because the plate does not care who won.
+     LAST ROUND SAID THERE WAS NO FIGHT HOOK ON THIS SURFACE. There is; it is this
+     handler, and it has been here since 8/21. The search that missed it looked for
+     FIGHT_DONE and a bell event, which is not what the shell calls it. A NEGATIVE
+     RESULT IS A CLAIM ABOUT YOUR INSTRUMENT UNTIL YOU HAVE SHOWN THE INSTRUMENT
+     COULD HAVE SEEN A POSITIVE ONE -- fourth time this lane has paid for that.
+     AND IT STILL DOES NOT PUNISH. This handler's own 8/21 note refuses to charge
+     time for a fight because "a figure for a fight would be a dial I do not get to
+     set". The amount here is not a dial: upkeep() cannot be passed a number, it is
+     his 8/15 ONE, and NO DAMAGE BEFORE THE DIAL is about the damage dial, not about
+     a ruled cost of one. */
+  try{ upkeepPost('fight:plate', (d.at||null)); }catch(_e){}
   try{ window.__FIGHT_CAME_HOME={won:won,at:d.at||null,line:line}; }catch(_e){}
 });
 
@@ -41715,6 +41762,45 @@ function upkeepPost(verb,ref){
   if(r&&r.applied) window.__SPENT=(window.__SPENT||0)+1;
   else window.__SPENT_SHORT=(window.__SPENT_SHORT||0)+1;
   return r;
+}
+/* __WHAT_TODAY_COST__ -- WHICH LIT CIRCUITS ARE YOURS, AND THE ANSWER IS ALLOWED
+   TO BE NONE.
+   The power grid is real code on this surface and has been since 7/20: it splits
+   the valley's streets into feeder-sized circuits, lights 12% of them, and stamps
+   an OWNER on every live one -- settlement, faction, network, or solar_lone. That
+   owner field is the ONLY thing in this game that says who a light belongs to.
+   *** THERE IS NO `player` OWNER IN IT, SO TODAY YOU HOLD NOTHING, AND THAT IS THE
+   HONEST ANSWER RATHER THAN A HOLE. *** The temptation was to bill him for the
+   circuit under his own front door so the drain would fire on camera. That would
+   be inventing ownership to make a mechanism look alive, which is the exact move
+   that put an empty table behind a "built, wired and gated" pipe for twenty days.
+   Who holds what is BB-THE-NIGHT-EATS-POWER's row ("which circuits are his is
+   still his") and BB-TURF's. The moment either one stamps a circuit `player`, this
+   bills it, with nothing else to change.
+   ONE PASS OVER THE OVERMAP, ONCE A NIGHT, on 96x96 cells -- the same sweep the
+   walk gate does, and nowhere near a frame budget. */
+var HELD_OWNER = 'player';   /* nothing sets this yet, and nothing here may */
+function heldCircuits(){
+  var out=[];
+  try{
+    var n=(om&&om.n)|0; if(!n) return out;
+    for(var y=0;y<n;y++) for(var x=0;x<n;x++){
+      var p=POWER.at(x,y);
+      if(p&&p.live&&p.owner===HELD_OWNER) out.push([x,y]);
+    }
+  }catch(_e){}
+  return out;
+}
+/* THE NIGHT TAKES ONE PER CIRCUIT. Not one for "having lights" -- the bill scales
+   with the ground you hold, which is what turns territory into something you can
+   fail to afford. A circuit you cannot pay for is a circuit that goes dark, and
+   the dark is where nobody patrols; the going-dark is BB-THE-NIGHT-EATS-POWER's
+   half, so this records the shortfall and does not put a light out on its own. */
+function nightPower(){
+  var held=heldCircuits();
+  window.__HELD_CIRCUITS=held.length;
+  for(var i=0;i<held.length;i++) upkeepPost('night:power', held[i][0]+','+held[i][1]);
+  return held.length;
 }
 function purseGet(){
   if(PURSEV) return PURSEV;

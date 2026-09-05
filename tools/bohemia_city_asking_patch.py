@@ -80,6 +80,18 @@ function askOffer(key){
    kind of person always gets the same reply -- a world where the answer depends
    on which body you clicked is not a world with information in it. */
 function askAbout(person, key, subject){
+  /* __WHAT_TODAY_COST__ -- ASKING EATS CLOUT (BB-FOUR-VERBS-THREE-CURRENCIES).
+     "you leaned on somebody", and the leaning happens when the question leaves
+     your mouth, not when they decide to answer -- so this posts FIRST, above the
+     branch that finds out whether they knew anything. A cost you only pay when
+     you get what you wanted is not a cost, it is a receipt.
+     IT POSTS AND IT DOES NOT GATE. Nothing in this game credits clout yet
+     (measured 9/4 and still true: clout has never moved in either direction), so
+     a gate here would take the 7/31 YOU HAVE TO ASK feature off the surface
+     entirely on the first tap. The refusal is recorded and the reckoning names
+     it; "run out and they are done being asked" needs a clout FAUCET first, and
+     that is not this row. */
+  try { upkeepPost('ask:leaned', subject); } catch (_e) {}
   var trade = person && (person.archetype || person.role) || 'worker';
   var a = null;
   try { a = BohemiaAsking.answerFor(subject, trade); } catch (_e) {}
