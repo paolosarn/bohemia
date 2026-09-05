@@ -813,6 +813,42 @@ four carriers that hold a copy (ENGINE SYNC).
 
 YOU there is now WHO WOULD VOUCH FOR YOU.
 
+--- 9/5 (c), SAME SESSION: [demo talks] CLAIMED, MEASURED, NOT YET BUILT ---
+
+TALK-REACHES-THE-DEMO. The board says "236 @TALK nodes and 504 @SAY lines are
+parsed and mute in the demo file". THE NUMBERS ARE EXACT: 236 @TALK across 27
+.bq files, 504 @SAY, and all 27 files ARE in the running page as DEMO_BQ.
+
+WHAT IS ACTUALLY TRUE, MEASURED ON THE REAL SURFACE:
+  BQ (parser)              live in the page
+  BQRuntime                live in the page
+  BohemiaConversation      live in the page
+  DEMO_BQ                  27 files, 236 @TALK, 504 @SAY, all loaded
+  DQ.Q / DQ.rt             NULL on a fresh boot
+  ctCast()                 0
+ctConvNode() returns null on its first guard (`if (!DQ.rt || !DQ.Q) return null`),
+so on a fresh boot NOT ONE quest line can be spoken. The container is there and
+it is empty.
+
+*** AND THAT IS PROBABLY NOT THE BUG. *** DQ.openDay() is what fills DQ.Q and
+DQ.rt, and it is called from exactly two places: the save-restore path, and THE
+MOMENT THE PLAYER TAKES THE DAY'S OFFER on the phone. So a fresh game with no
+offer taken SHOULD have a null runtime -- you have to accept the job before
+anybody talks to you about it. My probe never took the offer, which is why it
+measured null.
+
+TWO BROKEN RULERS OF MY OWN ON THE WAY HERE, BOTH THE SAME MISTAKE: I probed for
+`BohemiaBQ` and `BohemiaQuestRuntime` and reported both ABSENT and the corpus
+missing. The file publishes `BQ` and `BQRuntime`. A NAME YOU GUESSED IS NOT A
+NAME -- same shape as the patch tool's fence earlier today, twice in one session.
+
+THE NEXT STEP, EXACTLY: take the day's offer on the real surface (the phone
+offer path that sets window.__OFFER_TAKEN), THEN walk to the cast and measure how
+many of the day's @TALK nodes actually reach the player and how many are
+unreachable. Only that number can say whether these lines are mute. Do not
+"fix" DQ starting empty -- that is the design.
+
+
 THE ROW: BB-STANDING-PLAYER, in its own words -- "it is A WEB, NOT A BAR. A job
 comes from a PERSON, and that person heard about you from someone. The question a
 favour answers is not 'did my bar go up' but 'who will vouch for me now.'"
