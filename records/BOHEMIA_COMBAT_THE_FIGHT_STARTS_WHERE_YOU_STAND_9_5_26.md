@@ -139,8 +139,9 @@ fires on a crew that is **closing**:
 `BohemiaHostiles.near()` again here would have been.*
 
 ## WHAT COMES AFTER
-2. **PEOPLE `[who is hostile]`** puts the sign on the crowd, so you can see it
+
+1. **PEOPLE `[who is hostile]`** puts the sign on the crowd, so you can see it
    coming — and UI `[danger visible]` is the coordinator's own row for the same
    reason: *a fight that arrives with no warning on a phone is a rage quit.*
-3. **The group is drawn from archetypes, not from the people actually standing
+2. **The group is drawn from archetypes, not from the people actually standing
    there.** The man you bumped becomes a roster slot rather than himself.
