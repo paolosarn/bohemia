@@ -50,29 +50,54 @@ const BOH_POWERGRID=(()=>{
     const r=rng((seed^0x11FE)>>>0);
     const circuits=buildCircuits(m,opts.N||96);
     const status={}; // "x,y" -> {live,owner,id}
+    /* WHO HOLDS IT, BY NAME (9/5, BB-TURF). The owner has always been a CATEGORY --
+       settlement / faction / network / solar_lone -- so one circuit in five came back
+       owned by the generic word "faction" and the game could not say WHICH. The seam
+       test on the walked surface compares those words, which means a Mob block and a
+       Cartel block were the same block.
+       `opts.holders` is a list of {faction,x,y,tier,power} seats and a `name(x,y)`
+       that turns a cell into one of them. THIS MODULE TAKES DATA, NOT A MODULE: the
+       grid stays a pure function of the map and the seed, and the caller supplies the
+       geography. Handed nothing, every owner stays exactly the category it was.
+       ONLY THE `faction` CATEGORY IS NAMED. settlement is a neighbourhood holding its
+       own lights and solar_lone is one holdout with a panel; naming those would be
+       inventing canon the row did not ask for.
+       AND `network` IS LEFT ALONE ON PURPOSE, even though the graph has a faction
+       called Network: the category predates the roster and treating the two as the
+       same thing is a guess about his canon, not a reading of it. Written down rather
+       than silently resolved. */
+    const name = opts.holderAt || null;
     for(let ci=0;ci<circuits.length;ci++){
       const c=circuits[ci];
       const live=r()<litFraction;
-      let owner=null;
+      let owner=null, faction=null;
       if(live){
         const roll=r(); let acc=0;
         for(const k in weights){acc+=weights[k];if(roll<acc){owner=k;break;}}
         owner=owner||'settlement';
+        if(owner==='faction'&&name){
+          /* named off the circuit's FIRST cell, so every cell of one feeder answers
+             with one holder -- a circuit that changed hands halfway down its own run
+             would be a border drawn through a wire. */
+          const h=name(c[0][0],c[0][1]);
+          if(h&&h.faction) faction=h.faction;
+        }
       }
-      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci};
+      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci,faction};
     }
     /* THE CIRCUITS SOMEBODY COULD NOT PAY FOR. Empty at boot, because a valley
        where the lights are already out is a different game and that is not the
        seed's business. */
     const dark=Object.create(null);
-    const DEAD={live:false,owner:null,id:-1};
+    const DEAD={live:false,owner:null,id:-1,faction:null};
     function raw(x,y){ return status[x+','+y]||DEAD; }
     /* THE ONE ANSWER. A doused circuit reports NOT LIVE and KEEPS ITS OWNER,
        because whose block went dark is exactly the thing you want to know when
        it does — the light went out, the claim did not. */
     function at(x,y){
       const s=raw(x,y);
-      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,id:s.id,doused:true};
+      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,faction:s.faction,
+                                       id:s.id,doused:true};
       return s;
     }
     return {circuits:circuits.length,
@@ -80,6 +105,19 @@ const BOH_POWERGRID=(()=>{
       at:at,
       /* the circuit a cell belongs to, or -1 for ground no feeder runs down */
       idAt:(x,y)=>raw(x,y).id,
+      /* WHO HOLDS THIS BLOCK, BY NAME, or null where nobody is named. A doused
+         circuit keeps its holder: the light went out, the claim did not. */
+      holderAt:(x,y)=>at(x,y).faction||null,
+      /* how many live circuits each named faction holds -- the owner map as a
+         number, which is what BB-TERRITORY-FLAG will read. */
+      holdings:function(){
+        const out={};
+        for(const k in status){ const s=status[k];
+          if(s.live&&s.faction&&!dark[s.id]) (out[s.faction]=out[s.faction]||{cells:0,circuits:{}}),
+            out[s.faction].cells++, out[s.faction].circuits[s.id]=1; }
+        for(const f in out) out[f].circuits=Object.keys(out[f].circuits).length;
+        return out;
+      },
       /* PUT ONE OUT. Only a circuit that is actually lit can go dark, so an
          unpaid bill on a block that was never lit is not a punishment. */
       douse:function(id){

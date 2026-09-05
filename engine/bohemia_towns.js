@@ -272,12 +272,52 @@
     return out;
   }
 
+  /* ---------------------------------------------------------------------------
+     WHO HOLDS THIS GROUND (9/5, BB-TURF).
+     LIGHT=TERRITORY has been live code since 7/20 and the grid stamps an OWNER on
+     every lit circuit -- but the owner is a CATEGORY, not a name. One circuit in
+     five comes back owned by the generic word "faction", so the game already knew
+     somebody held that block and could not say who. The seam test on the walked
+     surface compares those words, which means today a Mob block and a Cartel block
+     are the same block.
+     THE NAME IS DERIVED FROM THE SEATS, WHICH ARE GEOGRAPHY THAT ALREADY EXISTS.
+     A faction holds the ground around its own town, which is what "different parts
+     of Vegas as different faction holdings" means in plain words, and it needs no
+     canon: FACTION-TOWNS put the fourteen seats on the map and this reads them.
+     A FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table already above --
+     his own "the more prominent factions feel like strong fortress parts", as a
+     divisor rather than a new number. Ties go to the stronger faction, then to the
+     name, so the answer is the same on every device and every load.
+     WHO HOLDS WHAT IS STILL HIS: HOLDS ships EMPTY and an entry in it wins. */
+  var HOLDS = {};        /* HOLDS['48,57'] = 'Mob';  -- empty, and it stays empty */
+
+  function holderOf(towns, x, y) {
+    var k = x + ',' + y;
+    if (Object.prototype.hasOwnProperty.call(HOLDS, k))
+      return { faction: HOLDS[k], ruled: true, cells: 0, draft: false };
+    var best = null, bs = Infinity, bd = 0;
+    for (var i = 0; i < (towns || []).length; i++) {
+      var t = towns[i];
+      var d = Math.max(Math.abs(t.x - x), Math.abs(t.y - y));
+      var r = Object.prototype.hasOwnProperty.call(REACH, t.tier) ? REACH[t.tier] : 1;
+      var sc = d / r;
+      if (sc < bs
+          || (sc === bs && best && ((t.power || 0) > (best.power || 0)
+              || ((t.power || 0) === (best.power || 0) && t.faction < best.faction)))) {
+        bs = sc; best = t; bd = d;
+      }
+    }
+    return best ? { faction: best.faction, tier: best.tier, ruled: false,
+                    cells: bd, draft: true } : null;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
     frontsRoad: frontsRoad,
-    goodsFor: goodsFor, nearest: nearest, townCells: townCells
+    goodsFor: goodsFor, nearest: nearest, townCells: townCells,
+    HOLDS: HOLDS, holderOf: holderOf
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaTowns = API;

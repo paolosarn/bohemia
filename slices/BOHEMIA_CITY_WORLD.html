@@ -6710,29 +6710,54 @@ const BOH_POWERGRID=(()=>{
     const r=rng((seed^0x11FE)>>>0);
     const circuits=buildCircuits(m,opts.N||96);
     const status={}; // "x,y" -> {live,owner,id}
+    /* WHO HOLDS IT, BY NAME (9/5, BB-TURF). The owner has always been a CATEGORY --
+       settlement / faction / network / solar_lone -- so one circuit in five came back
+       owned by the generic word "faction" and the game could not say WHICH. The seam
+       test on the walked surface compares those words, which means a Mob block and a
+       Cartel block were the same block.
+       `opts.holders` is a list of {faction,x,y,tier,power} seats and a `name(x,y)`
+       that turns a cell into one of them. THIS MODULE TAKES DATA, NOT A MODULE: the
+       grid stays a pure function of the map and the seed, and the caller supplies the
+       geography. Handed nothing, every owner stays exactly the category it was.
+       ONLY THE `faction` CATEGORY IS NAMED. settlement is a neighbourhood holding its
+       own lights and solar_lone is one holdout with a panel; naming those would be
+       inventing canon the row did not ask for.
+       AND `network` IS LEFT ALONE ON PURPOSE, even though the graph has a faction
+       called Network: the category predates the roster and treating the two as the
+       same thing is a guess about his canon, not a reading of it. Written down rather
+       than silently resolved. */
+    const name = opts.holderAt || null;
     for(let ci=0;ci<circuits.length;ci++){
       const c=circuits[ci];
       const live=r()<litFraction;
-      let owner=null;
+      let owner=null, faction=null;
       if(live){
         const roll=r(); let acc=0;
         for(const k in weights){acc+=weights[k];if(roll<acc){owner=k;break;}}
         owner=owner||'settlement';
+        if(owner==='faction'&&name){
+          /* named off the circuit's FIRST cell, so every cell of one feeder answers
+             with one holder -- a circuit that changed hands halfway down its own run
+             would be a border drawn through a wire. */
+          const h=name(c[0][0],c[0][1]);
+          if(h&&h.faction) faction=h.faction;
+        }
       }
-      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci};
+      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci,faction};
     }
     /* THE CIRCUITS SOMEBODY COULD NOT PAY FOR. Empty at boot, because a valley
        where the lights are already out is a different game and that is not the
        seed's business. */
     const dark=Object.create(null);
-    const DEAD={live:false,owner:null,id:-1};
+    const DEAD={live:false,owner:null,id:-1,faction:null};
     function raw(x,y){ return status[x+','+y]||DEAD; }
     /* THE ONE ANSWER. A doused circuit reports NOT LIVE and KEEPS ITS OWNER,
        because whose block went dark is exactly the thing you want to know when
        it does — the light went out, the claim did not. */
     function at(x,y){
       const s=raw(x,y);
-      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,id:s.id,doused:true};
+      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,faction:s.faction,
+                                       id:s.id,doused:true};
       return s;
     }
     return {circuits:circuits.length,
@@ -6740,6 +6765,19 @@ const BOH_POWERGRID=(()=>{
       at:at,
       /* the circuit a cell belongs to, or -1 for ground no feeder runs down */
       idAt:(x,y)=>raw(x,y).id,
+      /* WHO HOLDS THIS BLOCK, BY NAME, or null where nobody is named. A doused
+         circuit keeps its holder: the light went out, the claim did not. */
+      holderAt:(x,y)=>at(x,y).faction||null,
+      /* how many live circuits each named faction holds -- the owner map as a
+         number, which is what BB-TERRITORY-FLAG will read. */
+      holdings:function(){
+        const out={};
+        for(const k in status){ const s=status[k];
+          if(s.live&&s.faction&&!dark[s.id]) (out[s.faction]=out[s.faction]||{cells:0,circuits:{}}),
+            out[s.faction].cells++, out[s.faction].circuits[s.id]=1; }
+        for(const f in out) out[f].circuits=Object.keys(out[f].circuits).length;
+        return out;
+      },
       /* PUT ONE OUT. Only a circuit that is actually lit can go dark, so an
          unpaid bill on a block that was never lit is not a punishment. */
       douse:function(id){
@@ -25032,6 +25070,7 @@ const BEAT=500; // 120BPM law
 
 
 
+
 /* ===== BOHEMIA FACTION GRAPH (generated, verbatim) ===== */
 /* Paolo's own faction graph, spliced verbatim by
    tools/bohemia_city_towns_patch.py. ONE COPY OF HIS NUMBERS: edit
@@ -25314,12 +25353,52 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
     return out;
   }
 
+  /* ---------------------------------------------------------------------------
+     WHO HOLDS THIS GROUND (9/5, BB-TURF).
+     LIGHT=TERRITORY has been live code since 7/20 and the grid stamps an OWNER on
+     every lit circuit -- but the owner is a CATEGORY, not a name. One circuit in
+     five comes back owned by the generic word "faction", so the game already knew
+     somebody held that block and could not say who. The seam test on the walked
+     surface compares those words, which means today a Mob block and a Cartel block
+     are the same block.
+     THE NAME IS DERIVED FROM THE SEATS, WHICH ARE GEOGRAPHY THAT ALREADY EXISTS.
+     A faction holds the ground around its own town, which is what "different parts
+     of Vegas as different faction holdings" means in plain words, and it needs no
+     canon: FACTION-TOWNS put the fourteen seats on the map and this reads them.
+     A FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table already above --
+     his own "the more prominent factions feel like strong fortress parts", as a
+     divisor rather than a new number. Ties go to the stronger faction, then to the
+     name, so the answer is the same on every device and every load.
+     WHO HOLDS WHAT IS STILL HIS: HOLDS ships EMPTY and an entry in it wins. */
+  var HOLDS = {};        /* HOLDS['48,57'] = 'Mob';  -- empty, and it stays empty */
+
+  function holderOf(towns, x, y) {
+    var k = x + ',' + y;
+    if (Object.prototype.hasOwnProperty.call(HOLDS, k))
+      return { faction: HOLDS[k], ruled: true, cells: 0, draft: false };
+    var best = null, bs = Infinity, bd = 0;
+    for (var i = 0; i < (towns || []).length; i++) {
+      var t = towns[i];
+      var d = Math.max(Math.abs(t.x - x), Math.abs(t.y - y));
+      var r = Object.prototype.hasOwnProperty.call(REACH, t.tier) ? REACH[t.tier] : 1;
+      var sc = d / r;
+      if (sc < bs
+          || (sc === bs && best && ((t.power || 0) > (best.power || 0)
+              || ((t.power || 0) === (best.power || 0) && t.faction < best.faction)))) {
+        bs = sc; best = t; bd = d;
+      }
+    }
+    return best ? { faction: best.faction, tier: best.tier, ruled: false,
+                    cells: bd, draft: true } : null;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
     frontsRoad: frontsRoad,
-    goodsFor: goodsFor, nearest: nearest, townCells: townCells
+    goodsFor: goodsFor, nearest: nearest, townCells: townCells,
+    HOLDS: HOLDS, holderOf: holderOf
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaTowns = API;
@@ -26293,7 +26372,69 @@ function BOH_HASH_SEED(str){ str=String(str);
 const BOH_SEED_TEXT='bohemia';
 function BOH_ONE_SEED(){ return BOH_HASH_SEED(BOH_SEED_TEXT); }
 let seed=BOH_ONE_SEED(), om=OM.buildOvermap(seed);
-let POWER=BOH_POWERGRID.powerMap(om,seed);
+/* __WHO_HOLDS_THE_GROUND__ -- ONE PLACE THAT KNOWS HOW A POWER MAP IS MADE.
+   BB-TURF. The grid stamps an owner on every lit circuit and one in five came back
+   as the generic word "faction", so the game knew somebody held that block and could
+   not say who -- and the seam test on this page compares those words, which made a
+   Mob block and a Cartel block the same block.
+   THE NAME COMES OFF THE SEATS FACTION-TOWNS ALREADY PUT ON THE MAP: a faction holds
+   the ground around its own town, which is what "different parts of Vegas as
+   different faction holdings" means in plain words and needs no canon from anybody.
+   BUILT IN ONE FUNCTION because the page constructs a power map in THREE places
+   (boot, a save restored on a different seed, and a re-rolled valley) and a naming
+   step added to two of them is a valley where a third of the time nobody has a name.
+   Handed no seats it degrades to exactly the old behaviour rather than throwing. */
+/* IT READS THE GLOBALS, NEVER THE `const` ALIASES. `const CE` is declared THREE
+   LINES BELOW the boot call to this, so touching CE here lands in the temporal dead
+   zone -- and `typeof` on a const in TDZ THROWS rather than returning 'undefined',
+   so the guard I wrote first was not a guard and the try/catch silently returned an
+   empty seat list. Measured: every circuit came back unnamed and nothing said why.
+   Same trap this file already carries a note about for HOME (8/11). A property read
+   off window has no dead zone. */
+function powerSeats(m){
+  try{
+    var G=window.BOHEMIA_FACTION_GRAPH||null;
+    var TW=window.BohemiaTowns||null;
+    var ED=window.BohemiaCityEdit||null;
+    if(!G||!TW||!ED) return [];
+    var ds=TW.districtsOf(m, ED.cat);
+    if(!ds.length) return [];
+    return TW.derive(G, ds, 1)||[];
+  }catch(_e){ return []; }
+}
+/* __WHO_HOLDS_THE_GROUND__ -- WHOSE GROUND IS THIS, FOR ANY CELL, LIT OR NOT.
+   Paolo 9/4, LOCKED: "EVERY PART OF THE VALLEY IS OWNED BY A FACTION." The lit
+   circuits are the TELL, not the territory: only 12% of feeders are live, so a map
+   made only of lit ground would leave nine cells in ten belonging to nobody.
+   MEASURED, and it is why this exists next to the grid rather than inside it: across
+   five seeds every lit-circuit border in the valley is a CATEGORY border, and two
+   NAMED factions never once end up adjacent -- because neighbouring circuits fall in
+   the same town's catchment and therefore share a holder. The lit border between two
+   outfits is rare; the border itself is not, and it runs through unlit ground.
+   ONE CACHE, REBUILT WHEN THE VALLEY IS. Fourteen seats, a distance each: cheap
+   enough to ask per step, and asked nowhere in a draw loop anyway. */
+var TURF_SEATS=null, TURF_KEY=null;
+function turfSeats(){
+  var k=seed+':'+((om&&om.n)|0);
+  if(TURF_KEY===k&&TURF_SEATS) return TURF_SEATS;
+  TURF_SEATS=powerSeats(om); TURF_KEY=k; return TURF_SEATS;
+}
+function turfAt(x,y){
+  try{
+    var seats=turfSeats(); if(!seats||!seats.length) return null;
+    return window.BohemiaTowns.holderOf(seats,x,y);
+  }catch(_e){ return null; }
+}
+function buildPower(m,sd){
+  var seats=powerSeats(m);
+  var opts={};
+  if(seats.length) opts.holderAt=function(x,y){
+    try{ return window.BohemiaTowns.holderOf(seats,x,y); }catch(_e){ return null; } };
+  var pm=BOH_POWERGRID.powerMap(m,sd,opts);
+  try{ window.__POWER_SEATS=seats.length; }catch(_e){}
+  return pm;
+}
+let POWER=buildPower(om,seed);
 
 // ---- ZOOM-BUILD state: the delta over the generator (never the generator) ----
 const CE=window.BohemiaCityEdit;
@@ -31778,10 +31919,19 @@ function roadCan(need){
          are adjacent. Not a metaphor, the grid's own data. */
       var me=POWER.at(city.x,city.y)||{};
       if(!me.live||!me.owner) return false;
+      /* __WHO_HOLDS_THE_GROUND__ -- AND IT COMPARES THE NAME WHERE THERE IS ONE.
+         BB-TURF: the owner used to be a CATEGORY, so two circuits held by two
+         DIFFERENT factions both answered "faction" and this said there was no seam
+         between them. The Mob's block and the Cartel's block were the same block.
+         The named holder is the truer answer and the category is the fallback for
+         ground nobody is named on. */
+      var mine=me.faction||me.owner;
       var d=[[1,0],[-1,0],[0,1],[0,-1]];
       for(var i=0;i<d.length;i++){
         var n=POWER.at(city.x+d[i][0],city.y+d[i][1])||{};
-        if(n.live&&n.owner&&n.owner!==me.owner) return true;
+        if(!n.live) continue;
+        var theirs=n.faction||n.owner;
+        if(theirs&&theirs!==mine) return true;
       }
       return false;
     }
@@ -42543,8 +42693,19 @@ let DAYOPEN=null;
 function dayWhere(){
   try{
     const t=(MODE==='human')?om.at((hx/FN)|0,(hy/FN)|0):om.at(city.x,city.y);
+    /* __WHO_HOLDS_THE_GROUND__ -- and note WHOSE ground it was while we are here.
+       Recorded on the same call that already asks where you are, so walking costs
+       one extra lookup and nothing new runs in a draw loop. */
+    try{ turfNote((MODE==='human')?(hx/FN)|0:city.x, (MODE==='human')?(hy/FN)|0:city.y); }catch(_e){}
     return t?t.district:null;
   }catch(_e){ return null; }
+}
+/* WHOSE GROUND YOU CROSSED TODAY, in the order you crossed it. Cleared with the
+   day's spend list at the wake, so the reckoning reports a day and not a session. */
+var TURF_TODAY=[];
+function turfNote(cx,cy){
+  var t=turfAt(cx,cy); if(!t||!t.faction) return;
+  if(TURF_TODAY.indexOf(t.faction)<0) TURF_TODAY.push(t.faction);
 }
 /* is the block you are standing on dark? The world's real 12% clustered power
    grid answers this, so "an unlit block" is a place you can actually find. */
@@ -42661,6 +42822,7 @@ function showWake(){
      read instead of where it is filled works exactly until it has a second writer. */
   SPENT_TODAY=[];
   DARK_TONIGHT=[];
+  TURF_TODAY=[];
   offerRing();
   updQline();
   const o=OFFER;
@@ -43170,6 +43332,14 @@ function showReckoning(){
   h+='<h3>THE DAY</h3><ul>';
   h+='<li>'+s.steps+' steps</li>';
   if(s.districts.length)h+='<li>'+esc(s.districts.map(d=>d.name).join(', '))+'</li>';
+  /* __WHO_HOLDS_THE_GROUND__ -- AND WHOSE VALLEY YOU WERE IN. BB-TURF, on his 9/4
+     ruling that EVERY part of the valley is owned by a faction. He asked for
+     "different parts of Vegas as different faction holdings" by name; this is the
+     line that tells him he crossed one. Silent on a day you never left one block,
+     because a name you already knew is not news. draft:true. */
+  if(TURF_TODAY.length===1) h+='<li>'+esc(TURF_TODAY[0])+' ground</li>';
+  else if(TURF_TODAY.length>1)
+    h+='<li>you crossed '+esc(TURF_TODAY.join(' into '))+'</li>';
   if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
   const oc=OFFER_TAKEN?DQ.outcome():null;
   if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)
@@ -43229,7 +43399,13 @@ function showReckoning(){
      is not his business. draft:true -- real words, his to overwrite. */
   for(var dk=0;dk<DARK_TONIGHT.length;dk++){ var dc=DARK_TONIGHT[dk], dn='a block';
     try{ dn=(om.at(dc.at[0],dc.at[1])||{}).district||dn; }catch(_e){}
-    h+='<li style="color:#c98a5a">the lights went out on '+esc(dn)
+    /* __WHO_HOLDS_THE_GROUND__ -- AND WHOSE BLOCK IT WAS. BB-TURF gave the grid's
+       owner a real name, so a light going out can say who just lost it. You can be
+       paying the bill on ground somebody else holds -- you built there, they hold
+       it -- and that is the sentence that makes territory mean something.
+       draft:true. Silent where nobody is named, which is most of the valley. */
+    var dh=null; try{ dh=POWER.holderAt(dc.at[0],dc.at[1]); }catch(_e){}
+    h+='<li style="color:#c98a5a">the lights went out on '+esc(dh?(dh+'\u2019s '+dn):dn)
       +' \u2014 nobody patrols the dark</li>'; }
   h+='</ul>';
   /* __KEEP_THIS_RUN__ -- ONE LINE ON A CARD HE IS ALREADY READING, and that shape
@@ -44464,7 +44640,7 @@ function applyRestore(st){
   }
   st = _m.st;
   window.__RESTORE_OK = (window.__RESTORE_OK||0) + 1;
-  if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear();
+  if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=buildPower(om,seed); metaCache.clear(); chunkCache.clear();
     /* __THE_NIGHT_EATS_POWER__ -- A DIFFERENT SEED IS A DIFFERENT VALLEY, so the
        circuit ids somebody could not pay for last time point at other streets now.
        Carrying them over would put out lights at random in a place the player has
@@ -44769,7 +44945,7 @@ document.getElementById('reroll').addEventListener('click',()=>{
   const _wasWalking = (MODE === 'human');
   seed=(seed*1103515245+12345)>>>0;
   EDITS=CE.makeEdits(); CBpersist(); CB.sel=null;   /* ZOOM-BUILD: new valley, edits reset */
-  om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed);
+  om=CBinstall(OM.buildOvermap(seed));POWER=buildPower(om,seed);
   /* __THE_NIGHT_EATS_POWER__ -- the edits reset one line above and the unpaid
      circuits go with them. A new valley he has never built in cannot owe anybody
      a power bill, and the ids would point at other streets anyway. */

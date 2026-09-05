@@ -300,6 +300,26 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('TURF',           ['node', 'gates/turf_gate.js'],
+     'BB-TURF. He asked for "different parts of Vegas as different faction holdings" by '
+     'name, and ruled 9/4 that EVERY part of the valley is owned by a faction. The walked '
+     'city has had an ownership map since 7/20 and it is made of electricity -- '
+     'LIGHT=TERRITORY, an owner on every live circuit, and the director\'s seam test '
+     'already reads it -- but the owner was a CATEGORY, not a name. One circuit in five '
+     'came back owned by the generic word "faction", so the game knew somebody held that '
+     'block and could not say who, AND THE SEAM TEST COMPARED THOSE WORDS, which made the '
+     'Mob\'s block and the Cartel\'s block the same block. The name now comes off the '
+     'fourteen seats FACTION-TOWNS put on the map: a faction holds the ground around its '
+     'own town and a FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table that '
+     'already sized a town rather than a new number. Nothing is authored -- HOLDS ships '
+     'empty and an entry in it wins -- and only the `faction` category is renamed, with '
+     '`network` deliberately left alone even though the roster has a faction of that name, '
+     'because treating the two as one is a guess about his canon. MEASURED, and it shaped '
+     'the design: across five seeds every lit-circuit border is a CATEGORY border and two '
+     'NAMED factions are never adjacent, because neighbouring circuits share a catchment. '
+     'So the lit circuits are the TELL and the territory is the catchment, which covers '
+     'all 9,216 cells -- which is what his ruling actually says. The reckoning card tells '
+     'him he crossed one, by name', True),
     ('FACTION TOWNS',  ['node', 'gates/faction_towns_gate.js'],
      'FACTION-TOWNS, Paolo 9/4 LOCKED: "each part of Vegas is owned by a faction and that\'s '
      'where you can do all your trading... the more prominent factions kind of feel like '
