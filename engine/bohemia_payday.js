@@ -233,9 +233,16 @@
 
   function price(purse, ledger, goodId) {
     if (!PURSE) return { reason: 'NO_PURSE' };
-    // his own table always wins, whether or not the valve was ever turned
+    /* HIS OWN TABLE ALWAYS WINS, whether or not the valve was ever turned.
+       AND THIS BRANCH HAD NEVER RUN. It returned the whole ROW -- {currency, amount,
+       ruling, tuned} -- where every caller wants a NUMBER, so the shelf on the walked
+       surface would have rendered "[object Object] res". Written when PRICES was empty
+       and exercised for the first time the day it was filled (9/5). A branch that has
+       never executed is not code, it is an intention. */
     if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
-      return { source: 'ruled', price: PURSE.PRICES[goodId] };
+      var rr = PURSE.PRICES[goodId];
+      return { source: 'ruled', price: rr.amount, currency: rr.currency,
+               ruling: rr.ruling || null };
     }
     if (PRICE_SOURCE === 'economy' && ECON && ledger) {
       return { source: 'economy', price: ECON.price(ledger, goodId) };
@@ -248,34 +255,49 @@
   /* Buy. Goes through the purse's own debit so the ledger records a HARD SINK -- the
      thing that actually fights inflation, and the reason the purse is a ledger and not
      three counters. */
-  /* WHICH CURRENCY A GOOD IS BOUGHT WITH. The economy quotes everything in SALVAGE-KG --
-     "the one thing everyone on a dead grid can produce and everyone needs" (its own words,
-     7/19) -- and of his three ruled currencies that IS resources: physical goods you carry.
-     Electricity is a service off the 12% live grid and clout is reputation; neither buys a
-     litre of water. This is a mapping between two things he already ruled, not a new table. */
-  var SALVAGE_CURRENCY = 'resources';
+  /* WHICH CURRENCY A GOOD IS BOUGHT WITH -- AND HE ANSWERED IT ON 9/4.
+     THIS SAID `resources` AND THE REASONING WAS GOOD AND IS NOW OVERRULED. It read:
+     the economy quotes everything in SALVAGE-KG, of his three currencies that IS
+     resources, "electricity is a service off the 12% live grid and clout is
+     reputation; neither buys a litre of water." Correct on 8/11 with no money ruled.
+     PAOLO 9/4, LOCKED: "i dont want there to be money money maybe electronics like
+     batteries are the currency. For one aa battery a bag of rice and so on so forth."
+     A BATTERY BUYS THE RICE. Electricity stops being only a service and becomes the
+     MEDIUM OF EXCHANGE: food and tape are what you buy, batteries are what you buy
+     them with, clout is what you cannot buy. No fourth currency -- the three stand
+     and one of them changed job, which is the whole reason the anti-spreadsheet
+     ruling survives this.
+     AND IT DOUBLES THE DRAIN, free: "the night eats power" now means YOUR LIGHTS
+     BURN YOUR MONEY. Holding a lit block costs what a bag of rice costs. */
+  var SALVAGE_CURRENCY = 'electricity';
 
   function buy(purse, hubOrNull, goodId, day, ledger) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
-    // his own named price wins, and his table is still empty
-    if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
-      return PURSE.spend(purse, goodId, day);
-    }
     var p = price(purse, ledger, goodId);
+    /* ONE SHAPE OUT OF THIS FUNCTION, WHATEVER PRICED IT. The ruled branch used to
+       return PURSE.spend() raw -- a ledger entry, not a purchase -- so a shop that
+       could not afford something answered in a different vocabulary from the one the
+       card reads (`reason`, `price`, `have`). The shelf quotes price() and the till
+       charges through the same price(), so THE TAG AND THE TILL CANNOT DISAGREE. That
+       is the same rule the street contract lives under: measure it off the one thing,
+       never off two. */
     if (p.reason) return { applied: false, reason: p.reason, table: p.table, key: goodId,
                            about: p.about };
     if (p.source === 'barter') return { applied: false, reason: 'BARTER_ONLY', key: goodId };
     if (p.price == null) return { applied: false, reason: 'NO_PRICE', key: goodId };
-    if (PURSE.balance(purse, SALVAGE_CURRENCY) < p.price) {
+    /* WHICH POCKET IT COMES OUT OF. A ruled row names its own currency; the sim's
+       quote does not, and falls back to the money of the day. */
+    var cur = p.currency || SALVAGE_CURRENCY;
+    if (PURSE.balance(purse, cur) < p.price) {
       return { applied: false, reason: 'CANNOT_AFFORD', key: goodId, price: p.price,
-               have: PURSE.balance(purse, SALVAGE_CURRENCY) };
+               currency: cur, have: PURSE.balance(purse, cur) };
     }
     /* A HARD SINK, on purpose: the goods leave the world when you consume them, so the
        value is DESTROYED rather than moved. That is the half of a faucet-and-drain economy
        that actually fights inflation, and the reason the purse is a ledger not a counter. */
-    var e = PURSE.debit(purse, SALVAGE_CURRENCY, p.price, 'buy:' + goodId, goodId, day);
+    var e = PURSE.debit(purse, cur, p.price, 'buy:' + goodId, goodId, day);
     return { applied: true, good: goodId, paid: p.price, source: p.source,
-             currency: SALVAGE_CURRENCY, entry: e, balances: PURSE.balances(purse) };
+             currency: cur, entry: e, balances: PURSE.balances(purse) };
   }
 
   /* ---------------------------------------------------------------------------

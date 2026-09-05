@@ -97,18 +97,43 @@ ok('the event is built from the quest runtime\'s OWN shape, with no third format
             return ev && ev.outcome === 'COMPLETE' && ev.tags[0] === '#notable'; })());
 
 // ---- 3. AND IT PAYS NOTHING, BY NAME ------------------------------------------------
-ok('what a quest pays is STILL Paolo\'s: PAYOUT is empty',
-   Object.keys(PURSE.PAYOUT || {}).length === 0);
-ok('what a thing costs is STILL Paolo\'s: PRICES is empty',
-   Object.keys(PURSE.PRICES || {}).length === 0);
+/* *** HE RULED THESE AND FOR TWENTY DAYS NOTHING WROTE IT DOWN (9/5). ***
+   This asserted both tables are EMPTY, which was the truth on 8/11 and stopped being it
+   on 8/15 -- "just make everything cost one. Just start off with one and then I'll move
+   from there" -- and again on 9/4, which named the denomination: a battery.
+   THIS FILE ALREADY CARRIES THE PRECEDENT, twenty lines down, for his 8/11 price ruling:
+   "A GATE MUST NEVER OUTRANK A RULING (8/1). This read 'the valve is SHUT' until he
+   answered." Same move, same reason. The teeth stay: a value may exist, ONLY tagged. */
+const taggedRow = v => !!(v && typeof v === 'object' &&
+  (v.placeholder === true || typeof v.tuned === 'boolean' ||
+   (typeof v.ruling === 'string' && v.ruling.trim() !== '')));
+ok('what a quest pays is HIS AND IS WRITTEN DOWN: every PAYOUT row is tagged with the ' +
+   'ruling behind it (' + Object.keys(PURSE.PAYOUT || {}).length + ' row(s))',
+   Object.keys(PURSE.PAYOUT || {}).length > 0 &&
+   Object.keys(PURSE.PAYOUT).every(k => taggedRow(PURSE.PAYOUT[k])));
+ok('and every PRICES row too (' + Object.keys(PURSE.PRICES || {}).length + ' row(s))',
+   Object.keys(PURSE.PRICES || {}).length > 0 &&
+   Object.keys(PURSE.PRICES).every(k => taggedRow(PURSE.PRICES[k])));
+ok('and the price table\'s KEYS are the economy\'s own goods, never a list typed into ' +
+   'the purse -- a second list drifts the day somebody adds a good',
+   (() => { const E = require(path.join(ROOT, 'engine/bohemia_economy.js'));
+            return Object.keys(PURSE.PRICES).every(k => !!E.GOODS[k]); })());
 ok('what a building yields is STILL Paolo\'s: PRODUCTION is empty',
    Object.keys(PURSE.PRODUCTION || {}).length === 0);
-ok('the payout refuses OUT LOUD, naming the table and whose call it is',
-   paid.reason === 'NO_RULING' && paid.table === 'PAYOUT' && /Paolo/.test(paid.about || ''));
-const pw = PD.price(purse, null, 'water');
-ok('and so does a price', pw.reason === 'NO_RULING' && pw.table === 'PRICES');
-ok('nothing was credited: every balance is still zero',
-   PURSE.CURRENCIES.every(c => PURSE.balance(purse, c) === 0));
+/* THE REFUSAL IS THE HALF OF THE 8/15 LAW THAT DID NOT MOVE -- section 4, verbatim:
+   "Keep the NO_RULING behaviour for anything genuinely uncovered by a table." So it is
+   asked about something genuinely uncovered rather than about COMPLETE, which is ruled. */
+const unruled = PD.payForQuest(PURSE.create({}), { done: true, outcome: 'FAIL' }, 1, 'S01');
+ok('an UNCOVERED payout still refuses OUT LOUD, naming the table and whose call it is',
+   unruled.reason === 'NO_RULING' && unruled.table === 'PAYOUT' &&
+   /Paolo/.test(unruled.about || ''));
+const pw = PD.price(purse, null, '__nothing_he_has_ruled__');
+ok('and so does an unruled price', pw.reason === 'NO_RULING' && pw.table === 'PRICES');
+ok('while a RULED outcome pays his one battery on the surface of this module -- the ' +
+   'positive control, without which the refusals above prove only that nothing is wired',
+   (() => { const p3 = PURSE.create({});
+            const r3 = PD.payForQuest(p3, { done: true, outcome: 'COMPLETE' }, 1, 'S01');
+            return r3.applied === true && PURSE.balance(p3, 'electricity') === 1; })());
 // A GATE MUST NEVER OUTRANK A RULING (8/1). This read "the valve is SHUT" until he
 // answered: @RULING PRICES A (8/11) = "Three goods, priced off the scarcity sim we already
 // have." So the valve is OPEN, and what the gate must now hold is that the price is READ
@@ -117,19 +142,37 @@ ok('the price comes off the scarcity sim, as he ruled 8/11 (PRICE_SOURCE economy
    PD.PRICE_SOURCE === 'economy');
 const ECON = require(path.join(ROOT, 'engine/bohemia_economy.js'));
 const led = ECON.makeLedger(12345, 900, 300);
+/* AND HIS TABLE BEATS THE SIM, WHICH IS WHAT NEWEST-DATE-WINS MEANS. 8/11 ruled prices
+   come off the scarcity sim; 9/4 ruled everything is one battery. Both are his and the
+   later one is the price today. THE SIM IS NOT DEAD AND MUST BE PROVED NOT DEAD: take a
+   good out of his table for one call and the sim prices it again, which is exactly what
+   happens the day he tunes a good off the one. */
 const pw2 = PD.price(purse, led, 'water');
-ok('and it really prices off it, moving with scarcity instead of a typed constant',
-   pw2.source === 'economy' && typeof pw2.price === 'number' && pw2.price > 0);
+ok('his own table beats the sim, because 9/4 is newer than 8/11 (source=' + pw2.source + ')',
+   pw2.source === 'ruled' && pw2.price === 1 && pw2.currency === 'electricity');
+ok('AND THE SIM IS STILL ALIVE UNDERNEATH IT -- lift one good out of his table and the ' +
+   'scarcity price comes back, so tuning a good off the one costs nothing',
+   (() => { const keep = PURSE.PRICES.water; delete PURSE.PRICES.water;
+            const back = PD.price(purse, led, 'water');
+            PURSE.PRICES.water = keep;
+            return back.source === 'economy' && typeof back.price === 'number' && back.price > 0;
+          })());
 ok('the shelf is priced end to end (' +
    PD.shelf().map(s => s.good + ' ' + PD.price(purse, led, s.good).price).join(', ') + ')',
    PD.shelf().every(s => typeof PD.price(purse, led, s.good).price === 'number'));
 // buying is a HARD SINK, which is the half of a faucet-and-drain economy that fights inflation
 const buyer = PURSE.create({});
 ok('you cannot buy what you cannot afford', PD.buy(buyer, null, 'water', 1, led).reason === 'CANNOT_AFFORD');
-PURSE.credit(buyer, 'resources', 20, 'test', 't', 1);
+/* IN BATTERIES, BECAUSE THAT IS THE MONEY NOW (9/4). This credited `resources` and would
+   now leave him standing at a shelf priced in electricity with a pocket full of the wrong
+   thing -- which is the bug, not the test. */
+PURSE.credit(buyer, 'electricity', 20, 'test', 't', 1);
 const bought = PD.buy(buyer, null, 'water', 1, led);
-ok('and with a purse you can: the hub is SPENDABLE', bought.applied === true && bought.paid > 0);
-ok('the spend is recorded as a HARD SINK, not a transfer', PURSE.flow(buyer).resources.drain > 0);
+ok('and with a purse you can: the hub is SPENDABLE, in batteries (' +
+   bought.paid + ' ' + bought.currency + ')',
+   bought.applied === true && bought.paid > 0 && bought.currency === 'electricity');
+ok('the spend is recorded as a HARD SINK, not a transfer',
+   PURSE.flow(buyer).electricity.drain > 0);
 
 // WHAT A QUEST PAYS IS THE QUEST'S OWN BUSINESS -- ruled 8/11: "Whatever currency the quest
 // decida to give." Not a global table keyed on outcome tier; the reward rides with the job.
@@ -139,8 +182,15 @@ const declared = PD.payForQuest(rq, { done: true, outcome: 'COMPLETE',
 ok('a quest that declares its own reward is paid exactly that (Paolo 8/11)',
    declared.applied === true && declared.source === 'quest' &&
    PURSE.balance(rq, 'resources') === 6 && PURSE.balance(rq, 'clout') === 2);
-ok('and a quest that declares nothing still refuses out loud, table empty as ever',
-   PD.payForQuest(PURSE.create({}), { done: true, outcome: 'COMPLETE' }, 1).reason === 'NO_RULING');
+/* AND A QUEST THAT DECLARES NOTHING FALLS THROUGH TO HIS TABLE. The two rulings compose
+   and always did: 8/11 put the reward on the quest, 8/15 filled the fallback, and they
+   hand the job to two different lanes -- which is why each could correctly believe it was
+   the other's and nobody filled anything for twenty days. THE OWNER, IN ONE LINE: the
+   quest owns its reward; this table is what answers when the quest says nothing. */
+ok('and a quest that declares nothing falls through to his table and is paid a battery',
+   (() => { const p4 = PURSE.create({});
+            const r4 = PD.payForQuest(p4, { done: true, outcome: 'COMPLETE' }, 1);
+            return r4.applied === true && PURSE.balance(p4, 'electricity') === 1; })());
 // a default number smuggled in as "sensible" is the whole failure mode
 const code = payBody.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 ok('the bridge contains NO payout or price number of its own',
@@ -175,11 +225,16 @@ ok('the shelf is the economy module\'s own researched goods, not a list invented
 const rep = PD.dayReport(W.world(12345), purse, null);
 ok('the day report says the purse exists and names the three ruled currencies',
    rep.purseExists && rep.currencies.length === 3);
-ok('and it names exactly what is blocking, so nobody has to guess (' +
-   rep.blocking.join(', ') + ')',
-   rep.blocking.indexOf('PAYOUT') >= 0 && rep.blocking.indexOf('PRICES') >= 0);
+/* AND NOW IT NAMES NOTHING, WHICH IS THE POINT. This asserted PAYOUT and PRICES are in
+   the blocking list -- the honest report of a ruling nobody had implemented. Both are
+   filled, so the list is empty, and an empty blocking list is the thing the row was
+   asking for. */
+ok('and NOTHING is blocking the day any more -- both tables carry his ruling (' +
+   (rep.blocking.length ? rep.blocking.join(', ') : 'nothing') + ')',
+   rep.blocking.indexOf('PAYOUT') < 0 && rep.blocking.indexOf('PRICES') < 0);
 
 console.log('PAYDAY GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
             'the money is on the walked surface · hubs read from the overmap · ' +
-            'every amount still [PENDING Paolo])');
+            'a day of work pays one battery and a bag of rice costs one, his 8/15 and ' +
+            '9/4 rulings, every value tagged and untuned)');
 process.exit(fail ? 1 : 0);

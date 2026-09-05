@@ -78,8 +78,27 @@ const emptyTables = [];
 const RE = /^\s*var\s+([A-Z_]+)\s*=\s*\{\s*\}\s*;.*?\[PENDING Paolo\]/gm;
 let m;
 while ((m = RE.exec(purse))) emptyTables.push(m[1]);
-ok('the purse still has ruled-but-empty tables to derive from (' + emptyTables.join(', ') + ')',
-   emptyTables.length > 0);
+/* *** THIS ASKED FOR A HOLE TO EXIST, AND THE HOLE IS FILLED NOW (9/5). ***
+   It read "the purse still has ruled-but-empty tables to derive from" and required at
+   least one, which was a fair guard while PAYOUT and PRICES were empty: a deriver with
+   nothing to derive proves nothing. Then his 8/15 ruling ("everything costs one") and
+   his 9/4 ruling ("batteries are the currency") went into the tables and the count went
+   to zero -- which is the state this whole gate exists to reach.
+   A GATE MUST NEVER OUTRANK A RULING (8/1). So the guard keeps its tooth by MUTATION
+   instead of by demanding the repo stay broken: the same regex is run over a synthetic
+   purse that does have such a table, and it must find it. If the deriver ever stops
+   working, this goes red on a clean repo -- which is the only time it matters. */
+console.log('       ruled-but-empty [PENDING Paolo] tables in the purse: ' +
+            (emptyTables.length ? emptyTables.join(', ') : 'none, and that is the point'));
+{
+  const probe = '  var FAKETABLE = {};    // whatever -> whatever   [PENDING Paolo]\n';
+  const found = [];
+  const RE2 = /^\s*var\s+([A-Z_]+)\s*=\s*\{\s*\}\s*;.*?\[PENDING Paolo\]/gm;
+  let mm2; while ((mm2 = RE2.exec(probe))) found.push(mm2[1]);
+  ok('THE DERIVER STILL WORKS -- plant an empty [PENDING Paolo] table and it is found, ' +
+     'so an empty list above means the tables are filled and not that nothing is looking',
+     found.length === 1 && found[0] === 'FAKETABLE');
+}
 const keys = new Set(B.map(b => b.key));
 // A RULING RETIRES A BLOCKER WITHOUT FILLING ITS TABLE, and two of his three 8/11
 // answers do exactly that on purpose: PAYOUT moved the reward onto the quest itself,

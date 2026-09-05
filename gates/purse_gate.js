@@ -40,19 +40,54 @@ ok('EXACTLY THREE CURRENCIES, and they are the locked ones — resources, electr
    P.CURRENCIES.length === 3 &&
    ['resources', 'electricity', 'clout'].every(c => P.CURRENCIES.indexOf(c) >= 0));
 
-/* ---- THE TABLES ARE EMPTY ------------------------------------------------ */
+/* ---- THE TABLES CARRY HIS RULING, AND EVERY VALUE WEARS ITS LABEL --------
+   THIS BLOCK USED TO ASSERT ALL THREE TABLES SHIP EMPTY, and it was right on 8/11
+   and wrong from 8/15 onward. He ruled the number that day -- "just make everything
+   cost one. Just start off with one and then I'll move from there" -- and 9/4 named
+   what the one is denominated in: a battery. For twenty days this check held the
+   pre-ruling world in place and went green doing it.
+   A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1). So the invariant moves to what the
+   law actually asks for and keeps every tooth: a value may exist, but ONLY tagged. */
 for (const t of ['PAYOUT', 'PRICES', 'PRODUCTION']) {
-  ok(`${t} SHIPS EMPTY — what things are worth is Paolo's ruling, and a placeholder that ` +
-     `ships is canon nobody made (found ${Object.keys(P[t]).length} row(s))`,
-     Object.keys(P[t]).length === 0);
+  const rows = Object.keys(P[t]);
+  const untagged = rows.filter(k => {
+    const v = P[t][k];
+    return !(v && typeof v === 'object' &&
+             (v.placeholder === true || typeof v.tuned === 'boolean' ||
+              (typeof v.ruling === 'string' && v.ruling.trim() !== '')));
+  });
+  ok(`${t} CARRIES ONLY TAGGED VALUES — a number with no ruling behind it is canon ` +
+     `nobody made (${rows.length} row(s), ${untagged.length} untagged` +
+     (untagged.length ? ': ' + untagged.slice(0, 3).join(', ') : '') + ')',
+     untagged.length === 0);
 }
+ok('and PRODUCTION is still empty, because produce() has no caller to key on — ' +
+   'a number with no consumer is decoration, not content (' +
+   Object.keys(P.PRODUCTION).length + ' row(s))',
+   Object.keys(P.PRODUCTION).length === 0);
 {
   const p = P.create();
-  const q = P.payQuest(p, { outcome: 'COMPLETE', questId: 'Q021' });
+  /* THE PROBE MOVED, NOT THE LAW. `COMPLETE` is a RULED outcome now, so asking about it
+     no longer tests the refusal path -- it tests the payout. The refusal path is the half
+     of the 8/15 law that survives unchanged ("keep the NO_RULING behaviour for anything
+     genuinely uncovered by a table"), so it is asked about something genuinely uncovered.
+     FAIL is deliberately not in the table: what a failed job pays is not something he has
+     said, and the honest answer to a question nobody asked is still silence. */
+  const q = P.payQuest(p, { outcome: 'FAIL', questId: 'Q021' });
   const s = P.spend(p, 'anything');
   const b = P.produce(p, 'anything');
-  ok('an unruled payout says NO_RULING and pays NOTHING — silence, never a guessed number',
+  ok('an UNCOVERED payout says NO_RULING and pays NOTHING — silence, never a guessed number',
      q.applied === false && q.reason === P.NO_RULING && P.balance(p, 'resources') === 0);
+  {
+    /* and the ruled one really does pay, or the line above proves only that the table
+       is unreachable. A refusal test with no positive control is a claim about nothing. */
+    const p2 = P.create();
+    const r2 = P.payQuest(p2, { outcome: 'COMPLETE', questId: 'Q021' }, 1);
+    ok('while a RULED outcome pays his one battery — the positive control, without which ' +
+       'the refusal above would pass on a table nobody can reach ' +
+       '(electricity=' + P.balance(p2, 'electricity') + ')',
+       r2.applied === true && P.balance(p2, 'electricity') === 1);
+  }
   ok('an unruled price says NO_RULING and is NOT free', s.applied === false && s.reason === P.NO_RULING);
   ok('an unruled building produces NO_RULING, not zero', b.applied === false && b.reason === P.NO_RULING);
 }
