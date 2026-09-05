@@ -11770,7 +11770,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [tile ground] SHIPPED 6a29c84 -- the combat floor
+ROUND LOG 9/5 (latest): QUEUE EMPTY - the round ran the standing duties:
+COOK's batches 1-4 comparison JUDGED (pass; the record re-measures RNWY-01
+and RNWY-07 with pixel rows and holds the card's Pole A numbers), the card
+gate 90/90 on the fresh bank, the ratchet holds at 41%, and the 31 LOOK
+photos the remake made stale were retaken (31/31 shooters exit 0, look_gate
+24/24). Standing duties continue every round: judge every batch, keep the
+card current, click the ratchet, retake what a batch makes stale. PREVIOUS: [tile ground] SHIPPED 6a29c84 -- the combat floor
 sheet for COOK (house tile = roof planes, yard tile = its block wall, street
 tile = half a street with the kerb as the lane marker, lot stripes = a free
 tactical grid, rubble reuses approved grammar, cover breaks the silhouette
