@@ -3073,7 +3073,17 @@ certain buildings and that's just more batteries" -> batteries law sec 4 (LOCKED
 only, no power meter, nobody sells currency, buildings make batteries on the tick, one a
 day each to start, gamified is fine. Charging question WITHDRAWN. WORLD [charging exists]
 replaced by [batteries mined]; LIFE+CITY [power buildings]; FACTIONS [power territory];
-ECONOMY Q13 [printed money].
+ECONOMY Q13 [printed money]. THEN (bj), "are you doing big brain research or just
+reporting? another round. VAMILY" -> LOCKED: every round carries one research swing
+(central-chat law amendment). THE SWEEP: the paste landed; since the last round ten
+chats claimed: PLUMBER claimed by plumber-ont6t5 [sixty fps], UI [city feed], DIRECTION
+[style card], WORDS Q5, ECONOMY Q5, LIFE+CITY [building costs], COMBAT [fights end],
+WORLD [living costs], PEOPLE [demo talks]; LIFE+CITY shipped [buildings produce]
+c9504be and resynced the walked city. THE SWING: the generator mafia (Lebanon, Iraq): the
+faction that owns a block's generator charges every household monthly by the ampere and
+cuts them off; 44% of income. Record: records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_
+MAFIA_9_5_26.md. Routed: FACTIONS [block rent], WORLD [own power], ECONOMY Q14 [rent
+share], WORDS Q16 [cut off].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
