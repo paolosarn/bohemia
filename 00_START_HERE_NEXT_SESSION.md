@@ -1,3 +1,70 @@
+WORDS (words-8dqrnq): 9/5 (e) LATEST -- *** VAMILY Q8 [grief talk] SHIPPED. THE FIVE STAGES
+ARE NOT A FINDING ABOUT GRIEVING PEOPLE, AND A DINNER WHERE EVERYBODY IS SAD THROUGHOUT IS
+NOT DULL, IT IS WRONG. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG, AND IT WOULD HAVE CAUGHT ME. Kubler-Ross's five stages
+came from watching people who were DYING, not people who were BEREAVED, and have never been
+empirically supported as stages of grief. Bonanno's longitudinal work finds five bereavement
+patterns of which "common grief" is relatively INFREQUENT and RESILIENCE IS THE MOST FREQUENT
+-- stable low distress, about 46% in the 2002 study. Left to instinct I would have written
+the dinner as a slow build toward a break. That is the television version, and writing
+everyone as visibly destroyed also flattens the person who genuinely IS.
+
+THE MECHANISM, AND IT IS THE USEFUL PART. Stroebe and Schut's Dual Process Model: grieving is
+an OSCILLATION, not a direction. People swing minute to minute between LOSS-oriented
+attention (yearning, her things, what she would have said) and RESTORATION-oriented attention
+(who does her job now, the door, the room, the money), and the model explicitly includes TIME
+OFF FROM GRIEF as healthy rather than avoidant. SO THE DINNER OSCILLATES, IT DOES NOT BUILD:
+cross the subject and leave it three or four times, and THE LEAVING IS THE ACCURATE PART.
+And Bonanno on laughter: over half of bereaved subjects show positive emotion recounting the
+loss, and those who genuinely laugh do BETTER and draw warmth from listeners. A laugh at that
+table is not a relief valve, it is the most accurate thing in the scene.
+
+THREE TIMESCALES. First hour: LOGISTICS, small and flat -- who is told, what happens to the
+body, where the keys are. Not denial, and must not be written as denial; same short shape Q2
+measured for any acute stress. First day: oscillation becomes visible, and tense slips. First
+month: the practical strains outlast the shock, most people are functioning, and that is
+exactly when everybody else stops asking.
+
+MEASURED AGAINST OUR BUILD, THE HONEST ANSWER IS "IT IS NOT WRITTEN". Stage-of-grief words 0,
+logistics after a death 0, present tense about the dead 6, laughter 4, sister 2. A death word
+matches 26 lines but READING THEM shows most are dead batteries, dead storefronts, a dead
+payphone and a dead band; about five concern a person dying and roughly ONE is a grief line
+("She died with the words still in her mouth. I'll wonder about that for a long time"). Both
+sister lines are self-introductions in the belonging bank. THE GRIEF DINNER DOES NOT EXIST
+YET, so this round is a spec, not a critique.
+
+AND THE ONE GOOD NEGATIVE: WE HAVE IMPORTED ZERO STAGE-OF-GRIEF VOCABULARY. Nobody says
+closure, denial, processing or moving on. That is the hardest habit to avoid and we have
+never had it. Worth protecting.
+
+(The ruler wobbled again -- 26 matched, about five were real -- caught by printing the hits.
+PRINT THE HITS, NEVER JUST THE RATE is now this lane's standing rule.)
+
+RECORD: records/BOHEMIA_WORDS_Q8_GRIEF_SPEECH_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the grief dinner with its oscillation marked
+(four at the table, three crossings, one laugh), the first hour as logistics, THE ONE WHO IS
+FINE, the slipped tense, and the banned pamphlet vocabulary. All draft:true, NONE in the game.
+VAMILY: Q8 SHIPPED. Next open is Q9 [trade talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row THE-GRIEF-DINNER: write it as an oscillation with a laugh in it and one
+   person who is fine. Held until MODE: BUILD.
+ - QUESTS  the cold open kills the sister and there are two sister lines in the build, both
+   self-introductions. Unwritten, not miswritten.
+ - PEOPLE  "present tense about the dead" is a per-character trait, not a scene effect: who
+   slips and who corrects themselves is characterisation.
+
+HOUSEKEEPING FOR WHOEVER OWNS IT: a stray dangling >>>>>>> marker sits at line 190 of
+records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md (UI
+lane, 8/27). Harmless in markdown so nothing is broken, and it is not my file to edit.
+Found by sweeping every tracked file for conflict markers after another lane's FIX MAIN
+commit, because my own rebase loop uses the same 'git add -A then --continue' pattern that
+staged markers into the walked city. My lane's files are clean.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LANE'S FIRST SHIP. THE WHOLE
 VALLEY WAS A STILL PHOTOGRAPH WHENEVER HE STOPPED WALKING, AND ALL 105 CLIPS ARE
 NOW AUDITED ON THE REAL SURFACE. TAB: RUN. Nothing to judge yet -- the clip
@@ -474,7 +541,7 @@ thousand actually needs when the pumps stop.
 ================================================================================
 
 
-WORDS (words-8dqrnq): 9/5 (d) LATEST -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
+WORDS (words-8dqrnq): 9/5 (d) -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
 CONVERSATION IS SHORTER, NOT WARMER, AND WE WRITE THE FIRST MEETING ELEVEN TIMES AND THE
 SECOND ONCE. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
 (His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)

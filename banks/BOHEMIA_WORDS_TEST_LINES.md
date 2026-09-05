@@ -312,3 +312,58 @@ WRONG   You're new. I haven't seen you on this block.
   Don't tell me the whole thing again. Start where you stopped.
 # Nobody says "good to see you". They say a shorter version of what they said
 # before, which in this valley IS affection.
+
+## Q8 -- THE GRIEF DINNER  (9/5/26)
+# The finding: the five stages are not a finding about bereaved people, and the
+# most common real trajectory is RESILIENCE, not collapse. Grief OSCILLATES
+# (Stroebe and Schut) rather than building, over half of real bereaved people
+# laugh while recounting the loss (Bonanno), and the first hour is LOGISTICS.
+# So the scene below crosses the subject and leaves it four times, somebody
+# laughs, and one person at the table is fine. That last one is the hardest line
+# to write and the most honest.
+
+### THE GRIEF DINNER, first night. Four at the table.   draft:true
+# The oscillation is marked so the structure is visible. It is not in the words.
+MOTHER   Sit down. It's going cold.                                   [restoration]
+BROTHER  Who's telling the block?
+MOTHER   I told the block.
+BROTHER  All of it?
+MOTHER   The part that needed telling.                                 [logistics]
+YOU      ...
+FATHER   She'd have hated this. All of us sitting round looking at food. [loss]
+BROTHER  She'd have eaten yours and hers.
+FATHER   She would. She absolutely would.                              [the laugh]
+MOTHER   Eat.
+BROTHER  I'm eating.
+FATHER   Who's got the key to her room? Somebody's got to have it.     [restoration]
+MOTHER   It's on the hook. It's been on the hook the whole time.
+FATHER   Right.
+BROTHER  Pass the salt.                                                [time off]
+# Nobody says "I can't believe she's gone." The scene crosses the loss three
+# times and leaves it three times, and the leaving is the accurate part.
+
+### THE FIRST HOUR, and it is not denial   draft:true
+  Who has to be told before morning.
+  Not the whole block. The three houses either side.
+  Somebody get her boots off the step before it rains.
+  I'll do it. Sit down.
+# Short, flat, practical. Q2's rung-2 shape exactly. A person doing the only
+# tasks that exist is not a person in denial, and must not be written as one.
+
+### THE ONE WHO IS FINE, which is the hardest line in the round   draft:true
+  I ate. I slept. I know how that sounds.
+  I keep waiting to feel the thing everybody's waiting for me to feel.
+  Don't look at me like that. I'm not pretending.
+# Resilience is the MOST common trajectory and the least written. Putting one of
+# these at the table is what makes the person who is NOT fine visible.
+
+### THE SLIPPED TENSE, the cheapest tool we have   draft:true
+  She keeps the good knife in the drawer. Kept.
+  Ask her, she'll — no.
+  That's her chair. That's just where the chair is.
+# One tense slipped and corrected does more than a paragraph of description.
+
+### AND THE VOCABULARY THAT NEVER APPEARS HERE   draft:true
+# BANNED, and we have never once used it, which is worth protecting:
+# closure, denial, acceptance, bargaining, the stages, processing it, moving on.
+# Unsupported by the evidence and it reads like a pamphlet, not a valley.
