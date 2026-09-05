@@ -182,7 +182,7 @@ STATE: 63 named clips; the walked PLAYER is animated (idle, four walk, four run,
 STANDING DUTY (9/4 law): every clip compared side by side to the best pixel walk/idle/hit cycles online before it is called done; REFERENCE CHECK documented.
 - SHIPPED 9/5  [clip audit]  THE-63-CLIP-AUDIT -- all 105 clips (not 63: 64 canon + 41 candidates) played on the real surface and listed. records/BOHEMIA_THE_63_CLIP_AUDIT_9_5_26.md, gates/clip_audit_gate.js. Nothing recooked: which survive is his.
 - OPEN  [your verdicts]  SHOW-HIM-THE-LIST -- needs Paolo: verdicts on the 63; no clip carries one since the 7/26 reset
-- OPEN  [crowd moves]  ANIMATE-THE-CROWD -- the bake already sends walk frames for the city cast; the decoder keeps only idle, so every resident is a frozen sprite
+- CLAIMED 9/5 (animation-lr9y9i)  [crowd moves]  ANIMATE-THE-CROWD -- the row's premise is wrong and the real cause is worse: BOTH halves are idle-only on the walked surface (the RUN cast has the walk frames, the CITY cast never did), the cast is baked as ONE still of a clip that breathes, and the city calls render() ONCE in three seconds of standing still, so nothing in it moves at all
 - OPEN  [clips redone]  RECOOK-WHAT-HE-KILLS
 - OPEN  [hurt death]  HURT-AND-DEATH -- killed 7/2 with no replacement. DECIDED by the coordinator 9/5 (correct-after): hurt and death EXIST, behind the dial (NO DAMAGE BEFORE THE DIAL holds); death is never a reload, it is RUN [death handoff]. Build hurt as a visible state on the body and death as the call into the handoff.
 - OPEN  [clips checked]  LEAF-GATE-EVERY-RECOOK
