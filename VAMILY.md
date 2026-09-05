@@ -89,6 +89,9 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - OPEN  [faster roads]  BB-ROADS-ARE-FAST
 - OPEN  [rung unlocks]  BB-THE-RUNG-PAYS
 - OPEN  [enemies unite]  BB-COALITION
+- OPEN  [shelves premise]  THE-VALLEY-RUNS-OUT -- RULED by the coordinator 9/5 (correct-after): the valley eating its last shelves in ten days is THE PREMISE, not a bug; this is an economic crash simulator and a place that is running out is the whole point. Make it visible: the shelves emptying is something the player can SEE happen day by day in CITY and on the walked street, and the day-10 moment is a beat, not a silent zero. (pending from ECONOMY since day 1)
+- OPEN  [charging exists]  A-BATTERY-CAN-BE-CHARGED -- RULED by the coordinator 9/5 (correct-after, realism first, Paolo may overrule): BOTH. A player can charge slowly at home (a hand crank, a scavenged solar panel: hours per battery) and a faction that holds a generator or a substation SELLS fast charging, which is what makes a power plant worth fighting over. Build the slow home charge first; the faction charger is a FACTIONS row when the towns land. (pending from ECONOMY, day 1)
+- OPEN  [century stayed]  WHO-STAYED-COUNTS -- [PENDING Paolo] ECONOMY asks whether the century rule should count who STAYED, not only buildings. That changes a LOCKED law and only he can; the coordinator carries it. Nothing to build until he rules.
 
 ## QUESTS  (first word "quests")
 MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on experiencing it." Nothing below is claimed until he reopens it.
@@ -144,15 +147,13 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - OPEN  [RF4 checklist]  RF4-SPEC-DIFF -- close the 68-item RF4 teardown spec's diff column (from LAB)
 - OPEN  [BB checklist]  BB-SPEC -- the Battle Brothers study's 23 records folded into one spec of the same shape as the RF4 one, so COMBAT and WORLD have one reference document per named game
 
-## RUN  (01. THE THING YOU PLAY, from the front door to a friend's phone. Paolo 9/5: "release sounds like it does the same thing I thought THE RUN did." Correct; it did. The one-day RELEASE lane is folded in here. This chat owns the walked surface, the save, the demo cut, and GETTING THAT DEMO INTO A FRIEND'S HANDS and learning what they did. Paolo is renaming this chat; it is RUN until he picks.)
+## RUN  (01. THE THING YOU PLAY, from the front door to the demo link. Paolo 9/5: "release sounds like it does the same thing I thought THE RUN did." Correct; it did. The one-day RELEASE lane is folded in here. This chat owns the walked surface, the save, and the demo cut that goes into people's hands. Paolo 9/5, LOCKED: the friend-watching idea (telemetry, friend rounds, notes on what a friend did) is DEAD, "I don't give a fuck about that"; never propose it again. The name stays RUN.)
 MODE: BUILD
 STATE: the door opens on the played surface, the demo build exists (re-cut 9/4), the save is hardened and carries day/clock/position/quest/purse AND THE PEOPLE (minds/known/met/belong/deedweight, shipped 9/4), and as of 9/5 the five are walked through every one of the hostile browser's seven iOS failure modes plus the torn-write rollback, in Node and on the real page (SAVE IPHONE 44 -> 78); road interrupts fire only on map travel. MEASURED 9/5: the save is 3,683 bytes and 3,170 of them are the people, 2,928 of that the deed table. Nobody has ever put the demo in a stranger's hands; load time and frame rate on a real phone are the PLUMBER's to measure. NOT built: a title or stop-and-return, an ending that is not bed. Unverified: roadInterrupt still has one caller and it is inside MODE==='city', so nothing fires on the walked street -- that is the next row.
-THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's so much to do"): the demo is never held for more content. What exists today is the demo. Every round of this lane ends with a link that works on a phone and, once a friend has it, a written note of what the last friend did.
-- CLAIMED 9/5 run-eak241  [hands now]  HANDS-NOW -- FIRST, before anything below: take the demo as it is today, open it on a real phone, walk it once end to end, fix only what stops a stranger from getting to the first fight, and hand the link to ONE friend this round. Write down what they did in a record. Do not add content. Do not wait for any other lane. (Paolo 9/5)
+THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's so much to do"): the demo is never held for more content. What exists today is the demo. Every round of this lane ends with a link that works on a phone.
+- CLAIMED 9/5 run-eak241  [hands now]  HANDS-NOW -- (claimed with the old text; the friend part of it is DEAD, Paolo 9/5, do not hand it to anyone or write notes on them; the job is the link works on a phone) FIRST, before anything below: take the demo as it is today, open it on a real phone, walk it once end to end, and fix only what stops a stranger from getting to the first fight. The link is ready to hand to anyone. Do not add content. Do not wait for any other lane. (Paolo 9/5)
 - SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - SHIPPED 9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
-- OPEN  [friend did]  WHAT-A-FRIEND-DID -- a way to see a friend's session without watching over their shoulder: taps, screens reached, minutes, where they stopped; written to something we can read; no accounts, no tracking beyond the demo
-- OPEN  [friend round]  FRIEND-ROUND-ONE -- run the 8/11 protocol (records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md) for real with three friends, collect what they said and what [friend did] showed, and turn every finding into a job on this board through the coordinator
 - OPEN  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
 - OPEN  [cold hand]  BB-COLD-HAND -- the test that presses the loudest thing and never reads, on every demo screen
 - OPEN  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE -- the home-screen install IS the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it (absorbs ADD-TO-HOME)
@@ -163,7 +164,7 @@ THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands 
 - OPEN  [title screen]  STOP-AND-COME-BACK -- a title / resume surface; nothing exists (record item H)
 - OPEN  [real ending]  AN-ENDING-THAT-IS-NOT-BED -- the demo's last thirty seconds is the only ending in code (record item G)
 - OPEN  [weekly goal]  BB-THIS-WEEK
-HISTORY: RELEASE (18) existed from 9/4 to 9/5 as "the demo as a product"; Paolo folded it into this chat because it was the same job. PERFORMANCE went to the PLUMBER.
+HISTORY: RELEASE (18) existed from 9/4 to 9/5 as "the demo as a product"; Paolo folded it into this chat because it was the same job. PERFORMANCE went to the PLUMBER. GRAVEYARD 9/5: WHAT-A-FRIEND-DID and FRIEND-ROUND-ONE, killed by Paolo ("dogshit"); post-mortem: I built a playtest programme he never asked for around one sentence about getting the demo out.
 
 ## ANIMATION  (14.)
 MODE: BUILD
@@ -183,6 +184,9 @@ STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, war
 - OPEN  [hair sheet]  HAIR-REF-EIGHT-FACINGS -- his 8/25 order, still open
 - OPEN  [look verdict]  ROUND-7-LOOK -- needs Paolo
 - OPEN  [more clothes]  WARDROBE-VOLUME -- new garment shapes behind the structure law
+- OPEN  [runway hair]  HAIR-TO-THE-CARD -- once DIRECTION's style card exists: the haircut set re-read against the runway silhouettes (reference/library/runway/), new shapes only, dead shapes stay dead, through the existing hair gates
+- OPEN  [animal rig]  THE-FOUR-LEGGED-RIG-WORKS -- DYNASTY found (9/5) that a four-legged renderer exists and nobody knew; prove it runs through the rig pipeline at 56 and 112, in all eight facings, on the real surface, or record exactly where it stops (Gen 1 is an Animal)
+- OPEN  [faction colour]  THE-BODY-WEARS-THE-TERRITORY -- on the walked surface, every dressed person's dominant colour matches the faction that owns the block they stand on (COLOUR IS TERRITORY, 8/26); measure the miss rate and fix the picker where it misses
 
 ## PEOPLE  (09.)
 MODE: BUILD
@@ -197,6 +201,7 @@ STATE: talking on foot with nine verbs, a real witness memory, schedules and hom
 - OPEN  [enemies remember]  BB-THE-SHADOW
 - OPEN  [heir moment]  SUCCESSION-BEAT -- needs Paolo: who you can marry, what an heir inherits
 - OPEN  [walking companion]  A-COMPANION-ON-FOOT -- needs Paolo: ROSA is a draft he has not ruled on
+- OPEN  [weights shape]  WHAT-PEOPLE-REPEAT-ABOUT-YOU -- RULED by the coordinator 9/5 (correct-after, from the research, Paolo may overrule): people repeat a HANDFUL of things about a stranger and nothing else: did you hurt someone, did you steal, did you help someone who needed it, did you keep your word, did you pay what you owed. Everything else in the 82-row deed table weighs near zero. A betrayal is worth about five kindnesses (negativity bias is the best-replicated finding in the field), it is remembered longer, and it travels further. Weight the table to that shape, then watch the WHO WILL VOUCH panel light up. (pending from PEOPLE, 9/5)
 
 ## FACTIONS  (10.)
 MODE: BUILD
@@ -208,6 +213,7 @@ STATE: 18 factions in the graph (14 selectable plus four more), every one with a
 - OPEN  [light owners]  NAME-THE-CIRCUIT-OWNER -- needs Paolo (who holds what)
 - OPEN  [enemies unite]  BB-COALITION  (with WORLD)
 - OPEN  [broke raiders]  BB-UNPAID-TURNS-PREDATORY
+- OPEN  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- DECIDED by the coordinator 9/5 (a number is never his question): the same encounter does not repeat for the same player inside THREE in-game days, and never twice on the same street in one day. Put it on a dial in DEMO SETTINGS with that default. (pending from FACTIONS Q3)
 
 ## WORDS  (12.)
 MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
@@ -251,11 +257,14 @@ STATE: a visual constitution exists (records/target, target_match_gate); no styl
 - SHIPPED 9/5 191fd5d  [reference library]  THE-REFERENCE-LIBRARY (reference/library/, 9 kinds, 31 entries, machine-parseable for REFERENCE-INDEX) -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
 - SHIPPED 9/5 b416bc6  [reference index]  REFERENCE-INDEX (derived by tools/bohemia_reference_index.py; 31 refs, hard-fails on malformed entries) -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
 - SHIPPED 9/5 32338e1  [runway shapes]  RUNWAY-REFERENCE (reference/library/runway/, 13 shapes: shoulder x3, drape x3, hem x3, leg-and-boot x3, the two whole-figure poles) -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
+- OPEN  [style card]  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  [builder references]  PIXEL-CITY-BUILDER-REFERENCE -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
 - OPEN  [opening references]  FIRST-HOUR-REFERENCE -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
-- OPEN  [style card]  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  [style checker]  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  [batch judging]  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
+- OPEN  [fortress look]  FORTRESS-TOWN-CAMP-REFERENCE -- what a fortress, a town and a camp LOOK like at our tile size, from real places (a walled compound, a main street, a tent field) and the best games' versions of each; three annotated sheets for COOK, so the faction-towns ruling (9/4) can be cooked to a card, not a guess
+- OPEN  [feed look]  THE-FEED-LOOK -- what the phone feed on the city screen looks like: a real phone feed's spacing, type and rhythm at our pixel scale, one reference sheet, so UI builds it once (9/4 feed law)
+- OPEN  [tile ground]  HOUSE-TILE-GROUND-REFERENCE -- the combat ground now that a tile is a house: what a house-sized square of Vegas street, yard, lot and rubble looks like from 45 degrees, from real aerial photos, one sheet for COOK (9/4 tile law)
 
 ## COOK  (16. the Production Artist. Environment, character and prop art to DIRECTION's bible. Never idles; the last line is permanent.)
 MODE: BUILD

@@ -2493,7 +2493,24 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/5 (be) LATEST -- *** RELEASE FOLDED INTO THE
+COORDINATOR (coordinator-checkin-1y6dtv): 9/5 (bf) LATEST -- *** THE MANAGER'S ROUND:
+FRIEND JOBS KILLED, SEVEN LANES SHIPPED, UI CHAT STILL READS VAMILY AS FAMILY, FIVE
+PENDING RULINGS DECIDED OR CARRIED. Nothing to judge. ***
+Paolo 9/5: "the friend shit... dogshit... I'll leave it the run" -> WHAT-A-FRIEND-DID and
+FRIEND-ROUND-ONE graveyarded (law 9/5 sec 1b), HANDS-NOW rewritten, RUN keeps its name.
+"let's do a round of VAMILY" -> records/BOHEMIA_COORDINATOR_ROUND_9_5_26.md: what moved
+(21 SHIPPED lines across WORLD, LIFE+CITY, RUN, COMBAT, PEOPLE, WORDS, DIRECTION,
+ECONOMY, DYNASTY), who has had no round (SOUNDS, ANIMATION, FACTIONS, UI, COOK, EYES AND
+EARS, PLUMBER), UI (ui-kmqmrf) at 06:28 today still "VAMILY, which is family" because a
+pre-9/4 session never sees the new CLAUDE.md top block; only the primer fixes it. Topped
+up CHARACTER 3->6 and DIRECTION 5->8 ([style card] first). Five [PENDING Paolo] lines
+carried out of lane handoffs: decided shelves=premise (WORLD [shelves premise]), charging
+=both (WORLD [charging exists], the one question to him this round), weights shape (PEOPLE
+[weights shape]), repeat interval (FACTIONS [repeat interval]); century-stayed changes a
+LOCKED law so it waits for him (WORLD [century stayed]). Board: 167 OPEN, 18 chats. LAST
+FEEDBACK RECEIVED: this -> the round.
+
+COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
 RENAMED BY PAOLO. Nothing to judge. ***
 Paolo 9/5: "Release sounds like it does the same thing I thought THE RUN did... why can't

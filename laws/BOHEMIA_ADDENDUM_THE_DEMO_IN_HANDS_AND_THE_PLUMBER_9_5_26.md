@@ -10,9 +10,17 @@ What exists today is the demo. It goes into a friend's hands now, not when the
 game is finished. "There's so much to do" is the reason, not the excuse: every
 other chat keeps building while the demo that exists is walked, handed over,
 and watched. The RUN lane's first job is HANDS-NOW: walk today's demo on a real
-phone, fix only what stops a stranger reaching the first fight, hand the link
-to one friend, write down what they did. Nothing waits behind it and it waits
-for nothing.
+phone, fix only what stops a stranger reaching the first fight; the link is
+ready to hand to anyone. Nothing waits behind it and it waits for nothing.
+
+## 1b. CORRECTED THE SAME HOUR: THE FRIEND-WATCHING IDEA IS DEAD
+"Bro wtf do you mean by the friend shit, I don't give a fuck about that,
+that's dogshit." The coordinator had turned "get the demo into people's hands"
+into a playtest programme: telemetry on what a friend did, friend rounds,
+written notes. None of that was asked for. WHAT-A-FRIEND-DID and
+FRIEND-ROUND-ONE are graveyarded; no lane proposes friend telemetry or friend
+rounds again. Getting the demo out means the link works on a phone. That is
+the whole of it. THE RUN keeps its name ("I'll leave it the run for now").
 
 ## 2. RELEASE IS FOLDED INTO THE RUN
 The coordinator opened a RELEASE lane on 9/4 (the demo as a product). Paolo
@@ -45,4 +53,4 @@ line in that lane's section, never a fix by this chat.
   PLUMBER section with [sixty fps], [slim build], [hot path] ahead of the gate
   jobs. Eighteen chats.
 - CLAUDE.md lane list: run, plumber; no release, no gatekeeper.
-- Pending Paolo: the new name for THE RUN.
+- THE RUN keeps its name (Paolo 9/5).
