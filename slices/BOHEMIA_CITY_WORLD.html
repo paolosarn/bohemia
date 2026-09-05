@@ -25326,21 +25326,185 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
     return out;
   }
 
-  /* THE SPREAD. Evenly strided, exactly as bootFactions has done since it was
-     written, so this is the rule that already existed rather than a new one. */
+  /* ===========================================================================
+     WHERE A FACTION LIVES. HIS OWN NOTES, READ.
+     (9/5/26, FACTIONS lane, VAMILY row [faction homes] FACTION-SEATS, landing in
+     THIS file because FACTION-TOWNS already moved "which cells count" here and a
+     second placer somewhere else is the exact drift this file's header is about.)
+
+     *** WHAT THIS REPLACED, AND IT IS WORSE THAN IT LOOKS. *** The old rule was
+     "evenly strided, exactly as bootFactions has done since it was written". The
+     district list is 100% ordered by y, so an even stride marches straight down
+     the map, and the ids were SORTED. Measured on the real boot before this
+     changed:
+
+         correlation(alphabetical rank, seat y) = 0.9966
+
+     Anarchists sat at y=2 and Volunteers at y=83 FOR NO REASON EXCEPT THEIR
+     INITIALS. The alphabet was deciding the geography of the valley. And the
+     kinds it landed on were nobody's home: the Church on a suburb, the Cartel on
+     a solar farm, while the generated map holds a chapel, an arsenal, a police
+     station, six dataforts and a hundred and eighteen resorts that nothing ever
+     used. "It is the rule that already existed" was true and was not a defence.
+
+     *** HIS NOTES ARE THE PLACEMENT AND THIS IS ONLY READING THEM. *** Every
+     faction in BOHEMIA_faction_graph.json carries an authored `note`, and the
+     notes name places outright: the Mob "Controls the Strip", the Homeless have a
+     "Sewer/tunnel HQ", the Remnants are "Military/law-enforcement survivors incl
+     Nellis", the Trades are "Best for vehicle/solar/construction". HOMES is that
+     reading and nothing else -- every row quotes the words it rests on, so a
+     wrong seat is a MISREADING somebody can check against his file, not a taste
+     that has to be argued. MAP LAW is intact: this picks WHICH KIND of generated
+     ground an outfit belongs on, it does not design a layout, and one line in
+     SEATS still overrides any of it.
+
+     WHERE HIS NOTE NAMES NO PLACE, THIS INVENTS NONE. Three factions say in his
+     own words that they do not hold ground -- the Anarchists are "territorially
+     inconsistent", the Colorful are "community-based not territorial", the Custom
+     faction has "no preset philosophy" because it is the player's. They are
+     absent from HOMES on purpose and fall through to spread, and the record lists
+     them [PENDING Paolo]: a faction his canon calls non-territorial probably
+     should not hold ground the way the Mob does, and that is a ruling.
+
+     STRONGEST PICKS FIRST, USING HIS NUMBER. act1_power is canon, so the order is
+     his too: the Remnants (14), Mob (13), Cartel (12) and Network (11) take their
+     homes before the Volunteers (3) do, and a weak faction takes what is left.
+     =========================================================================== */
+  var HOMES = {
+    // "Controls the Strip. Ownership/protection/tribute."
+    Mob:        ['resort', 'casino', 'convention', 'downtown'],
+    // "Military/law-enforcement survivors incl Nellis. The floor of civilization."
+    Remnants:   ['arsenal', 'policestation', 'prison', 'firestation'],
+    // "Only faction with a manufactured origin" / psyop
+    Network:    ['datafort', 'radio', 'substation'],
+    /* "Organized human predation. SUPPLY CHAINS MIRROR CARAVAN ROUTES."
+       The scavenging ground first, then the SAME KINDS the Caravans want,
+       because that second sentence says so in as many words. Measured on the
+       shipped seed: not one boneyard, landfill, quarry or railyard in the valley
+       fronts a road, so on the first four alone the Cartel -- his third-strongest
+       faction, power 12 -- fell through to a random suburb. Loosening the road
+       rule to rescue it would have cost the thing the WORLD lane measured
+       (unreachable seats 7 -> 2 -> 0); reading his next sentence costs nothing.
+       The Cartel outranks the Caravans, so it picks off that shared list first
+       and the Caravans take the next one, which is what "mirror" looks like. */
+    Cartel:     ['boneyard', 'landfill', 'quarry', 'railyard',
+                 'storage', 'warehouse', 'terminal', 'swapmeet'],
+    // "Neutral outside-world trade."
+    Caravans:   ['truckstop', 'terminal', 'swapmeet', 'warehouse'],
+    // "Best crisis organization." / evangelical
+    Church:     ['chapel', 'cemetery', 'school'],
+    // "Economic engine, compound-interest faction. Not military."
+    Reds:       ['downtown', 'cityhall', 'courthouse', 'mall'],
+    // "Environmentalist."
+    Blues:      ['reservoir', 'watertreat', 'farm', 'park'],
+    // "Skilled-worker guild... Best for vehicle/solar/construction."
+    Trades:     ['industrial', 'solar', 'battery', 'warehouse'],
+    // "Healthcare/education/food/knowledge."
+    Volunteers: ['medical', 'campus', 'granary', 'school'],
+    // "Sewer/tunnel HQ under the King Hobo."
+    Homeless:   ['intake', 'pumpstation', 'reclaim', 'basin', 'wash'],
+  };
+
+  var MIN_APART = 6;          /* cells; two capitals on one block is not two capitals */
+
+  /* TAKES EITHER SHAPE OF DISTRICT LIST. districtsOf() answers {x,y,kind} and the
+     loop's own worldMap carries {pos:[x,y],id,kind}; one normaliser here beats two
+     callers each remembering which one they hold. */
+  function normSeat(d) {
+    if (!d) return null;
+    var p = d.pos || [d.x, d.y];
+    if (p[0] == null || p[1] == null) return null;
+    return { x: p[0], y: p[1], kind: d.kind || '?',
+             id: (d.id != null) ? d.id : (p[0] + ',' + p[1]) };
+  }
+
+  /* THE ONE PLACER. Callers pass the map's districts and get back a seat per
+     faction; nobody re-implements the choice. `ids` lets the loop seat every
+     faction it loaded rather than only the selectable ones, without this function
+     having two opinions about who exists. */
+  function placeHomes(graph, districts, act, ids) {
+    var out = {}, list = [], i;
+    for (i = 0; i < (districts || []).length; i++) {
+      var s = normSeat(districts[i]); if (s) list.push(s);
+    }
+    if (!list.length) return out;
+    var fs = (graph && graph.factions) || {};
+    var roster = (ids && ids.length) ? ids.slice() : selectable(graph);
+
+    var byKind = {};
+    for (i = 0; i < list.length; i++) {
+      var k = list[i].kind;
+      if (!byKind[k]) byKind[k] = [];
+      byKind[k].push(list[i]);
+    }
+
+    var taken = {}, seats = [];
+    function farEnough(d) {
+      for (var j = 0; j < seats.length; j++)
+        if (Math.abs(seats[j][0] - d.x) + Math.abs(seats[j][1] - d.y) < MIN_APART) return false;
+      return true;
+    }
+    /* DETERMINISTIC AND NOT ALPHABETICAL: the same faction lands on the same
+       ground in the same world every boot, but its initials have nothing to do
+       with where. A capital that moves when you reload is not a capital. */
+    function pickFrom(cands, fid) {
+      if (!cands || !cands.length) return null;
+      var h = 2166136261;
+      for (var j = 0; j < fid.length; j++) { h ^= fid.charCodeAt(j); h = Math.imul(h, 16777619); }
+      var start = (h >>> 0) % cands.length, loose = null;
+      for (var n = 0; n < cands.length; n++) {
+        var d = cands[(start + n) % cands.length];
+        if (taken[d.id]) continue;
+        if (farEnough(d)) return d;
+        if (!loose) loose = d;                   /* right kind, too close */
+      }
+      return loose;                              /* his canon beats my spacing rule */
+    }
+
+    roster.sort(function (a, b) {
+      var pa = powerOf(fs[a], act) || 0, pb = powerOf(fs[b], act) || 0;
+      if (pb !== pa) return pb - pa;             /* strongest picks first, his number */
+      return a < b ? -1 : 1;                     /* tie-break only */
+    });
+
+    for (i = 0; i < roster.length; i++) {
+      var fid = roster[i];
+      /* HIS OVERRIDE WINS OVER EVERYTHING, including his own notes. */
+      if (Object.prototype.hasOwnProperty.call(SEATS, fid)) {
+        var sx = SEATS[fid].x | 0, sy = SEATS[fid].y | 0;
+        out[fid] = { x: sx, y: sy, kind: null, why: 'ruled', id: sx + ',' + sy, ruled: true };
+        seats.push([sx, sy]);
+        continue;
+      }
+      var wants = HOMES[fid] || [], d = null, why = null;
+      for (var w = 0; w < wants.length && !d; w++) {
+        d = pickFrom(byKind[wants[w]], fid);
+        if (d) why = wants[w];
+      }
+      if (!d) {                                  /* no home in his note, or all taken */
+        for (var n2 = 0; n2 < list.length && !d; n2++) {
+          var c = list[(n2 * 7919) % list.length];
+          if (!taken[c.id] && farEnough(c)) d = c;
+        }
+        why = d ? 'spread' : null;
+      }
+      if (!d) continue;
+      taken[d.id] = 1; seats.push([d.x, d.y]);
+      out[fid] = { x: d.x, y: d.y, kind: d.kind, why: why, id: d.id };
+    }
+    return out;
+  }
+
+  /* THE TOWN ROW: a seat from placeHomes, a tier from his power column. */
   function derive(graph, districts, act) {
     var ids = selectable(graph), ts = tiers(graph, act), out = [];
+    var placed = placeHomes(graph, districts, act, ids);
     for (var i = 0; i < ids.length; i++) {
-      var id = ids[i], seat = null, ruled = false;
-      if (Object.prototype.hasOwnProperty.call(SEATS, id)) {
-        seat = { x: SEATS[id].x | 0, y: SEATS[id].y | 0 }; ruled = true;
-      } else if (districts && districts.length) {
-        var d = districts[Math.floor(i * districts.length / ids.length)];
-        if (d) seat = { x: d.x, y: d.y, kind: d.kind };
-      }
-      if (!seat) continue;
+      var id = ids[i], p = placed[id];
+      if (!p) continue;
+      var ruled = !!p.ruled;
       var t = ts[id] || { tier: 'camp', draft: true };
-      out.push({ faction: id, x: seat.x, y: seat.y, kind: seat.kind || null,
+      out.push({ faction: id, x: p.x, y: p.y, kind: p.kind || null, why: p.why || null,
                  tier: t.tier, rank: t.rank, power: t.power, act: t.act,
                  seatRuled: ruled, draft: !ruled || t.draft });
     }
@@ -25442,6 +25606,7 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
+    HOMES: HOMES, placeHomes: placeHomes, MIN_APART: MIN_APART,
     frontsRoad: frontsRoad,
     goodsFor: goodsFor, nearest: nearest, townCells: townCells,
     HOLDS: HOLDS, holderOf: holderOf

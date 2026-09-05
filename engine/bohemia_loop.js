@@ -365,6 +365,14 @@
   //    the old abstract scaffold's dormant slot system did with fake points).
   //    A faction's founding territory IS its base district — no separate
   //    nearest-neighbor search needed now that bases are real districts.
+  /* ---- WHERE EACH FACTION LIVES: bohemia_towns.js HOMES ------------------
+     (9/5/26.) The table that used to sit here moved into bohemia_towns.js beside
+     districtsOf, because the walked surface reads its seats through
+     BohemiaTowns.derive() and a copy here would have put the two surfaces back
+     to disagreeing -- the exact defect FACTION-TOWNS had just spent a round
+     killing. Every row there quotes the words in BOHEMIA_faction_graph.json that
+     it rests on. */
+
   function bootFactions(ctx, opts) {
     ctx.factions = new E.Factions.FactionWorld(ctx.rng.branch('factions'));
     // real canon by default (DEFAULT_GRAPH, GDD v2 §9) — an explicit
@@ -396,32 +404,86 @@
     };
     world._canonWired = true;
 
-    // base placement: zip sorted faction ids to an evenly-strided sample of
-    // the real district list.
-    /* ONE SEAT RULE, ASKED FOR RATHER THAN REPEATED. bohemia_towns.js reads the
-       overmap through bohemia_cityedit's cat(), which is the definition BOTH this
-       loop and the walked surface can reach, so the two agree by construction
-       instead of by coincidence. The spread itself is unchanged -- sorted ids
-       zipped to an evenly-strided sample of whatever the map already generated,
-       which this file's own comment above already argues is plumbing and not a
-       layout decision. What changed is WHICH cells count, and now only one
-       answer to that exists.
-       FALLS BACK TO THE OLD LIST if the towns module is not carried, so a browser
-       bundle that has not inlined it boots exactly as it did before. */
+    /* ---- FACTION SEATS: A FACTION SITS WHERE ITS OWN CANON SAYS IT LIVES ----
+       (9/5/26, FACTIONS lane, VAMILY row [faction homes] FACTION-SEATS.)
+
+       *** THE RULE ITSELF IS NOT HERE, AND THAT IS THE POINT. *** The old line
+       was "zip sorted faction ids to an evenly-strided sample of the real
+       district list", and the district list is 100% ordered by y, so an even
+       stride marches straight down the map while the ids were SORTED. Measured
+       on the real boot before this changed:
+
+           correlation(alphabetical rank, seat y) = 0.9966
+
+       Anarchists sat at y=2 and Volunteers at y=83 for no reason except their
+       initials. The fix -- read his own notes, strongest picks first by his
+       act1_power -- lives in bohemia_towns.js next to districtsOf, because
+       FACTION-TOWNS (9/5) had just finished moving the OTHER half of this
+       question there for exactly the reason its header gives: the loop and the
+       walked surface each had their own idea of a district and were ninety cells
+       apart. Fixing the placement HERE would have rebuilt that same defect one
+       layer up -- ctBases() saying the Mob lives on a resort while the walked
+       surface's turfAt(), which reads BohemiaTowns.derive(), still answered by
+       the alphabet. ONE BODY, TWO CALLERS.
+
+       AND worldMap.factionSlots IS A GHOST. bohemia_engine.js computes
+       _spreadPoints(14, beltway, ...) under a comment calling it "Faction base
+       placements", and TWO files (bohemia_agents.js and the walked city) carried
+       a comment asserting that bootFactions seats factions on it. It never did,
+       and the live worldMap does not carry the key -- measured, factionSlots: 0.
+       Both comments are corrected rather than deleted, so the next reader gets
+       the warning instead of the promise.
+
+       MOVING A SEAT IS HIS: one line in BohemiaTowns.SEATS overrides any of this
+       and needs nothing else changed. */
     ctx.factionBases = {};
+    ctx.factionSeatWhy = {};
+    /* WHICH CELLS COUNT is FACTION-TOWNS' answer: districtsOf reads the overmap
+       through bohemia_cityedit's cat(), the one definition BOTH this loop and the
+       walked surface can reach. Falls back to the loop's own district list when
+       the towns module is not carried, so a browser bundle that has not inlined
+       it still boots. */
     const realOvermap = ctx.worldMap && ctx.worldMap.real;
     let seatList = null;
     if (TOWNS && CITYEDIT && realOvermap) {
       const ds = TOWNS.districtsOf(realOvermap, CITYEDIT.cat);
-      if (ds.length) seatList = ds.map(function (d) { return { pos: [d.x, d.y], id: d.x + ',' + d.y }; });
+      /* KIND IS CARRIED, not dropped: it is the whole basis of the placement. */
+      if (ds.length) seatList = ds.map(function (d) {
+        return { pos: [d.x, d.y], id: d.x + ',' + d.y, kind: d.kind };
+      });
     }
     if (!seatList && ctx.worldMap && ctx.worldMap.districts) seatList = ctx.worldMap.districts;
     if (seatList && seatList.length) {
-      const ids = [...ctx.factions.factions.keys()].sort();
-      ids.forEach(function (fid, i) {
-        const d = seatList[Math.floor(i * seatList.length / ids.length)];
-        ctx.factionBases[fid] = { x: d.pos[0], y: d.pos[1] };
+      const ids = [...ctx.factions.factions.keys()];
+      const placed = (TOWNS && TOWNS.placeHomes)
+        ? TOWNS.placeHomes(graph, seatList, (ctx.save && ctx.save.act) || 1, ids)
+        : null;
+      /* the placer answers a CELL; the territory AI keys off the map's own
+         district id, so the cell is looked back up rather than renamed. */
+      const byPos = new Map();
+      seatList.forEach(function (d) {
+        const p = d.pos || [d.x, d.y];
+        byPos.set(p[0] + ',' + p[1], d);
+      });
+      const strided = ids.slice().sort();
+      ids.forEach(function (fid) {
+        let d = null, why = null;
+        const P = placed && placed[fid];
+        if (P) {
+          d = byPos.get(P.x + ',' + P.y)
+            || { pos: [P.x, P.y], id: P.x + ',' + P.y, kind: P.kind };
+          why = P.why;
+        } else {
+          /* THE OLD STRIDE, kept ONLY as the no-module path. */
+          d = seatList[Math.floor(strided.indexOf(fid) * seatList.length / ids.length)];
+          why = 'spread';
+        }
+        if (!d) return;
+        const pos = d.pos || [d.x, d.y];
+        ctx.factionBases[fid] = { x: pos[0], y: pos[1] };
+        ctx.factionSeatWhy[fid] = { kind: d.kind || (P && P.kind) || '?', why: why };
         const f = ctx.factions.factions.get(fid);
+        if (!f) return;
         f.territory.add(d.id);
         ctx.factions.owner.set(d.id, fid);
       });
