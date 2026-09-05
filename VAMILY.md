@@ -261,7 +261,7 @@ MODE: BUILD
 STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen, any onboarding, the city-screen feed. Unverified: the round-7 look, which is his to thumb.
 - SHIPPED 9/5 86da925d  [danger visible]  YOU-CAN-SEE-IT-COMING -- THE MANAGER'S OWN CALL (9/5): a fight that arrives with no warning on a phone is a rage quit. Before you walk into a dangerous block you can SEE it: colour is already territory, so the tell rides the colour (the block reads hot, the people read wrong, one glance is enough). No numbers, no meter, no text box. Pairs with FACTIONS [crossing costs].
 - SHIPPED 9/5 1d5137d3  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
-- CLAIMED 9/5 ui-kmqmrf  [one number]  BB-ONE-NUMBER
+- SHIPPED 9/5 fa34aebc  [one number]  BB-ONE-NUMBER
 - OPEN  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
 - OPEN  [first teaching]  FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists; measure with the cold hand
 - OPEN  [phone readable]  ACCESSIBLE-ON-A-PHONE -- text size, tap targets, colour-blind safety on faction colours, motion; the Game Accessibility Guidelines basic tier that the sound and colour rules already cite, applied to the whole surface
