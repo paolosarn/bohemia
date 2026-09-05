@@ -1876,7 +1876,7 @@ block). READ THIS COPY. IGNORE THE OTHERS. ***
 --- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
 
 
-PLUMBER (plumber-ont6t5): 9/5 (a) LATEST -- *** CHAT 18. THE LANE IS CLAIMED, AND THE FIRST SPEED
+PLUMBER (plumber-ont6t5): 9/5 (b) LATEST -- *** CHAT 18. ROUND 2. THE FIRST SPEED
 NUMBERS IN THE HISTORY OF THIS REPO ARE ON DISK. [sixty fps] FPS-ON-A-PHONE stays CLAIMED, not
 SHIPPED: everything the row asked for is measured and gated EXCEPT the one thing a container
 cannot do, which is a real handset. *** MODE: BUILD. TAB: NOT IN A TAB YET (this lane builds
@@ -2332,9 +2332,73 @@ measurement is 30 days stale and wants a fresh bare clone, and REUSE FIRST is re
 COOK's cook tools missing their REUSE CHECK block. The suite number itself is the case for
 [suite runs] SUITE-FINISHES, which is now measured rather than remembered.
 
-NEXT IN THIS LANE (VAMILY order, and the measurement agrees with it): [slim build]
-SLIM-THE-BUILD, then [hot path] THE-BEAT-LOOP-IS-CLEAN. The 16.5 second block is the same
-finding from both ends.
+THIS ROUND (round 2 of [sixty fps], still CLAIMED). Pulled main and rebased, re-read
+CLAUDE.md from disk, re-read the VAMILY front page, confirmed 18 PLUMBER, continued the job
+I hold. Round 1 left three things owed that do NOT need a handset. All three are now closed.
+
+1. THE REAL NETWORK, which was the biggest unknown. Same demo, same box, same build, run
+through Chromium's slow-4G profile (1.6 Mbit down, 150 ms round trip):
+    the logo appears     8.4 s   (0.5 s on the local server)
+    the city is drawn   25.4 s   (1.9 s)
+    you can MOVE        33.0 s   (14.1 s)
+  A stranger on a bad signal stares at a blank screen for eight seconds before the logo
+  arrives and thirty-three seconds before a thumb does anything. Seven times the five second
+  goal. AND ONE THING GETS BETTER ON THE SLOW LINK, which is the diagnosis: the beat is
+  perfect through the boot there (0% of beats swallowed instead of 11.8%), because when the
+  network is the bottleneck the art dribbles in and the thread gets gaps. THE JAM IS NOT THE
+  DOWNLOAD. It is parsing and baking the art once it lands, which is why a FASTER connection
+  makes that part worse. That is the single most useful thing measured this round.
+
+2. THE BEAT, AND IT IS THE 120 BPM LAW'S FIRST REAL CHECK IN THIS REPO. Every gate that
+touches that law asserts the number 500 is in the code, or that a step happened. None ever
+asked whether the step happened WHEN IT WAS DUE. The witness now wraps setInterval before any
+page script runs and records the real firing times of the metronome (picked by its 500 ms
+period; the first draft picked a 400 ms UI ticker and reported a perfect beat off the wrong
+clock, which is in the header).
+    through the boot   33.3% of beats late, 11.8% SWALLOWED WHOLE, worst gap ate 4.1 beats
+    once settled       13.8% late, 3.1% swallowed, median gap exactly 500 ms
+  Settled is much better and it is NOT clean. The median being perfect with a ragged tail is
+  a thread that is mostly free and occasionally busy. The settled figure is now a gate line;
+  the boot figure is printed and not asserted, because fixing it is [slim build] and
+  [hot path], not something a checker gets to demand.
+
+3. BATTERY IN TEN MINUTES, which is what the row literally asked for, and it is now ten real
+minutes each way rather than a thirty second sample multiplied up:
+    standing still, 10 min   8.3% of one core
+    walking, 10 min          9.9% of one core  ->  0.99 CPU-minutes per ten minutes
+  THE INTERESTING NUMBER IS THE FIRST ONE. Doing nothing costs 84% of what playing costs. The
+  game open and untouched in a pocket burns 0.83 CPU-minutes every ten minutes, and that is a
+  far cheaper thing to fix than a frame rate. Milliamp-hours are still owed and always will be
+  from here: the bill also has a screen, a radio and a thermal throttle on it.
+
+AND ONE BUG IN MY OWN WORK, FOUND AND FIXED THIS ROUND. THE RATCHET COULD LOOSEN. Both headers
+promised the budget "only ever comes down", and the arithmetic did not: the budget was derived
+from whatever the latest sample happened to be, so a slow afternoon on a busy box would have
+REWRITTEN THE BUDGET UPWARDS and baked the regression in as the new normal. Measured on one
+tree hours apart: the settled walk read 39.6 fps in one sample and 24.9 in the next, which
+would have moved the floor from 24 down to 18 with nothing in the game having changed. A
+refresh now takes the STRICTER of the old budget and the new one, line by line, and records
+which lines it tightened and which it held. This refresh tightened three (first play 26,500 ->
+19,500 ms, fight 12 -> 17 fps, bytes 33.8 -> 30.5 MB) and HELD two against a looser sample
+(walking held at 24 fps when the sample wanted 18; main thread held at 52% when it wanted 56).
+Loosening a line is now a deliberate act somebody does by hand, with a reason.
+
+THE GATE IS GREEN at 29 passed, 0 failed, up from 25, and still one command.
+
+WHAT IS LEFT ON THIS ROW, AND IT IS ONLY THE HANDSET. Every number the row named is now
+measured, budgeted and gated: time to first play (local and on a phone network), frame rate
+walking (first minute and settled), frame rate in a fight, the beat itself, and battery over
+ten minutes. What no container can do is open the link on an actual phone. The row stays
+CLAIMED for that reason and nothing else.
+[PENDING Paolo, carried by the coordinator]: is a phone-shaped Chromium enough to call this
+row shipped, or does he want somebody to open the link on a real phone and time it? I did not
+decide it, and it is the only thing standing between this row and SHIPPED.
+
+NEXT IN THIS LANE (VAMILY order, and every measurement this round agrees with it):
+[slim build] SLIM-THE-BUILD, then [hot path] THE-BEAT-LOOP-IS-CLEAN. The 12.5 second block,
+the 11.8% of swallowed beats and the 33 second wait on a real network are all the same finding
+seen from three sides: 19.4 MB of sprite banks parsed and baked on the thread the game draws
+on.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO
