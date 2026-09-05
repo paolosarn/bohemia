@@ -64,3 +64,47 @@ B3  Barrel out back. Look in the barrel.
 ## HOW TO USE THIS FILE
 Cover the ban lines. Read three lines. If you cannot tell A from B without them,
 the pair failed and the fix is a sharper ban, never a fancier sentence.
+
+## Q2 -- SPEECH UNDER STRESS, IN TEXT, WITH NO VOICE ACTOR  (9/4/26)
+# The finding: pitch, rate and pause length are the strongest real markers of
+# stress and a PAGE HAS NONE OF THEM. Text owns four channels only: sentence
+# length, complexity, repair, and word-finding failure. So each set below is the
+# SAME MAN saying the SAME THING at three rungs, and nothing changes except those
+# four. Written dialogue keeps ~3% of real disfluency, so the reader feels the
+# JUMP between rungs, never the rate.
+
+### THE LINEMAN, one fact, three rungs   draft:true
+RUNG 0 calm
+  Somebody upstream is on my feed, and I checked it twice before I came to you.
+RUNG 1 pressed
+  Somebody's on my feed. Upstream. I checked it twice, I did check it.
+RUNG 2 frightened
+  It's warm. The cable, it's. Somebody's drinking it and I don't want to be the
+  one who. I checked it twice.
+# Only length, complexity, repair and word-search move. Same fact, same man.
+
+### THE KEEPER, exhausted rather than afraid   draft:true
+# The science treats exhaustion as the same machinery at low fuel: short,
+# repetitive, and REPEATING THE OTHER PERSON'S WORDS instead of finding its own.
+YOU  The pads are scaled shut.
+HER  Scaled shut. Yeah. Scaled shut.
+YOU  I can fix it tonight.
+HER  Tonight. Good. That's. Good.
+# She has stopped generating language and is handing yours back.
+
+### A MAN LYING, and it is the opposite of the instinct   draft:true
+# Newman and Pennebaker: liars use FEWER "I", FEWER exclusive words (but, except),
+# FEWER references to other people, MORE negative emotion, and tell a story with
+# LESS detail. The instinct to write a stammering over-explainer is backwards.
+TRUE   I took it. I was going to bring it back before the water run, but my kid
+       was up all night and I forgot it was in my bag.
+LIE    Nobody took anything off that shelf. Things go missing on this block all
+       the time. It's an ugly street and it always has been.
+# The true one is full of "I" and one "but". The lie has no "I" at all, no other
+# person named, no detail, and one sour general remark that nobody asked for.
+
+### THE SAME REFUSAL AT THREE RUNGS   draft:true
+RUNG 0  I'm not going to answer that.
+RUNG 1  I'm not answering that. Ask me something else.
+RUNG 2  No. No, ask me. Ask me something else.
+# The frightened one repeats, drops the clause, and never says the word "answer".

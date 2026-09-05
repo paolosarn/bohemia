@@ -1,4 +1,59 @@
-WORDS (words-8dqrnq): 9/4 LATEST -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+WORDS (words-8dqrnq): 9/4 (b) LATEST -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
+LINES AND IT NEVER REACHES THE WORDS. *** MODE: RESEARCH, nothing implemented.
+TAB: NOT IN A TAB YET (research day). Nothing to judge.
+
+Q2 asked how a person talks when lying, scared or exhausted, in TEXT with no voice actor.
+
+THE MEASUREMENT THAT MATTERS, and it is about us. 229 quest lines carry a hand-written
+state tag (#dread 66, #wary 66, #flat 41, #tired 40, #cold 10, #hope 6). Shown five lines
+of one state and five of another, can a machine place a sixth? #dread vs #tired 49.2%,
+#dread vs #wary 50.1%, #wary vs #flat 45.2%, #tired vs #flat 47.0%. CHANCE IS 50. ALL FOUR
+AT OR BELOW IT. Somebody wrote #dread beside a line and the line did not change.
+
+EXCEPT ONE CHANNEL IS WORKING AND IT DESERVES CREDIT: sentence LENGTH tracks state without
+being asked. #dread 15.3 words a line and 37% fragments; #flat 20.6 and 23%. One-word
+sentences: #cold 30%, #tired 20%, #dread 18%, #flat 7%. Frightened people get short and
+flat people run long, which is the right direction and matches the science.
+
+EVERY OTHER PRINTABLE CHANNEL IS AT ZERO. Of 229 lines written to be frightened, exhausted
+or cold, SIX carry any disfluency at all (2.6%). Zero filled pauses, zero word searches,
+zero unfinished sentences, in every state. Nobody in this game has ever hunted for a word
+while afraid.
+
+THE CHALLENGE FROM THE SCIENCE: the strongest measured markers of stress are pitch,
+intensity, rate and PAUSE DURATION, and a page carries NONE of them. The most robust
+indicator, pause time, is exactly the channel text does not have. Text owns four channels
+only: sentence length, complexity, repair, word-finding failure. Everything else is a stage
+direction. Dose-response from the literature, usable as a ladder: 0% disfluent calm, 2%
+under time pressure, 4% under time pressure plus cognitive load.
+
+AND THE LIAR IS BACKWARDS FROM THE INSTINCT. Newman and Pennebaker: liars use FEWER
+first-person pronouns, FEWER exclusive words (but, except), FEWER references to other
+people, MORE negative emotion words, and LOWER complexity. Not a stammering over-explainer:
+a flatter, simpler, less self-involved account. And the effect sizes are SMALL, which lands
+where Q1 landed -- real difference is invisible at the length a player reads, so a written
+liar must be AMPLIFIED or the scene teaches nothing.
+
+HARD FLOOR CARRIED FORWARD: written dialogue keeps ~3% of real disfluency (film 0.12 per
+100 words vs real speech 3.80). A frightened character does NOT go to the real 4%; he goes
+up against HIS OWN baseline and the reader feels the jump, never the rate.
+
+RECORD: records/BOHEMIA_WORDS_Q2_SPEECH_UNDER_STRESS_9_4_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the same man at three rungs, an exhausted
+keeper handing your words back, and a true/lie pair. All draft:true, NONE in the game.
+VAMILY: Q2 SHIPPED. Next open is Q3, how a crowd talks without repeating itself.
+
+ROUTED OUT OF THIS DAY:
+ - WORDS  new row THE-STRESS-LADDER: three rungs per state in the four printable channels,
+   so the tags stop being decoration. Held until MODE: BUILD.
+ - QUESTS the state tags on 229 lines are a good idea nobody cashed. Keep them.
+ - PEOPLE #hope has six lines and every one contains a negation. Worth one look.
+ - UI / SOUNDS the unprintable channels are exactly what a BEAT or a sound cue could carry.
+   A longer beat before a frightened line gives the page back the channel it lacks.
+
+WHAT IS PENDING HIM: nothing from this lane.
+
+WORDS (words-8dqrnq): 9/4 (a) -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
 ITSELF IS IMPOSSIBLE AS REALISM. *** MODE: RESEARCH, so nothing was implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
