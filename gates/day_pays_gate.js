@@ -78,12 +78,33 @@ const DECLARES = ['@QUEST t_pay  A Job That Says What It Pays', '@ACT 1',
   rt.start(10); rt.setStage(31);
   const purse = PURSE.create();
   const r = PAYDAY.payForQuest(purse, rt.state, 1, 'bq_meter_reader', Q);
-  ok('a quest that declares NOTHING is refused, not guessed at',
-     r && r.applied === false && r.reason === 'NO_RULING');
-  ok('and nothing is credited on a refusal',
-     PURSE.balances(purse).resources === 0 && PURSE.balances(purse).clout === 0);
-  ok('the refusal says whose ruling it is waiting on',
-     typeof r.about === 'string' && /Paolo/.test(r.about));
+  /* *** THIS BLOCK USED TO PROVE THE OPPOSITE, AND IT WAS RIGHT UNTIL HE RULED (9/5).
+     *** It asserted that a quest declaring no reward is REFUSED -- true only because the
+     PAYOUT table was empty, which it was for twenty days after he filled it in words:
+     "just make everything cost one" (8/15), "batteries are the currency" (9/4).
+     THE TWO RULINGS COMPOSE AND ALWAYS DID: 8/11 put the reward ON THE QUEST, 8/15 fills
+     the FALLBACK. A quest that declares its own reward gets it; a quest that declares
+     nothing falls through to the table, which is exactly what a fallback is for.
+     A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1), so the assertion moves -- and the
+     refusal it used to guard is proved below on something genuinely uncovered, because a
+     law that says "keep the NO_RULING behaviour" needs a test that still exercises it. */
+  ok('A QUEST THAT DECLARES NOTHING FALLS THROUGH TO HIS TABLE AND IS PAID -- the ' +
+     'fallback the 8/15 ruling exists to be (' + JSON.stringify(r && r.paid) + ')',
+     r && r.applied === true && r.paid && r.paid.electricity === 1);
+  ok('and it is paid in BATTERIES, which is the money he named on 9/4',
+     PURSE.balances(purse).electricity === 1);
+  {
+    /* THE REFUSAL, STILL. FAIL is deliberately absent from the table: what a failed job
+       pays is not something he has said, and silence is the honest answer. */
+    const p2 = PURSE.create();
+    const r2 = PAYDAY.payForQuest(p2, { done: true, outcome: 'FAIL' }, 1, 'x', null);
+    ok('an outcome he has NOT ruled is still refused, not guessed at',
+       r2 && r2.applied === false && r2.reason === 'NO_RULING');
+    ok('nothing is credited on that refusal',
+       PURSE.balances(p2).resources === 0 && PURSE.balances(p2).electricity === 0);
+    ok('and the refusal still says whose ruling it is waiting on',
+       typeof r2.about === 'string' && /Paolo/.test(r2.about));
+  }
 }
 
 /* ---- 3. THE RUN ACTUALLY CALLS IT -------------------------------------- */
@@ -125,10 +146,14 @@ const DECLARES = ['@QUEST t_pay  A Job That Says What It Pays', '@ACT 1',
   ok('FINISHING A JOB REACHES THE PURSE -- the bridge that was never called is called'
      + ' now (' + (day.paid ? 'paid' : 'refused: ' + day.reason) + ')',
      day.paid >= 1 || day.refused >= 1);
-  ok('and with nothing ruled it pays NOTHING rather than inventing a number',
-     day.bal.resources === 0 && day.bal.clout === 0 && day.reason === 'NO_RULING');
-  ok('THE RECKONING SAYS SO, and names the job it is waiting on',
-     /nobody has ruled what this pays/i.test(day.card) && /Meter Reader/.test(day.card));
+  /* AND THE SAME MOVE ON THE REAL SURFACE. This asserted 0/0/0 and a card reading
+     "nobody has ruled what this pays" -- the honest report of a ruling nobody had
+     implemented. A DAY'S WORK PAYS A BATTERY NOW, on the surface he walks. */
+  ok('A DAY OF WORK CREDITS THE PURSE ON THE SURFACE HE WALKS -- one battery, his ' +
+     'money, for the first time (electricity=' + day.bal.electricity + ')',
+     day.bal.electricity === 1 && day.paid >= 1);
+  ok('THE RECKONING SAYS SO, in his own word for it, on the card he is already reading',
+     /paid:/i.test(day.card) && /batter/i.test(day.card));
 
   /* and the phone carries the balance, so a purse is a thing he can look at */
   await pg.$eval('#daycardIn .dcgo', el => el.click());       /* SLEEP -> DAY 2 */

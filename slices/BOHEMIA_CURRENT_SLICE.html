@@ -9019,6 +9019,21 @@ root.BQRuntime=API;
     for(i=1;i<bw;i++) lane(i*K.SZ-1, 30, i*K.SZ+1, H-9);
     for(j=1;j<bh;j++) lane(7, j*K.SZ-1, W-8, j*K.SZ+1);
     lane(7, H-14, W-8, H-11);                                   // the lane along the front fence
+    /* POLE LIGHTS, WHICH THE CLUSTER PATH DROPPED (8/28). The lone plant plants five of them
+       and this path planted NONE -- measured 5 -> 0 on a 2x2 blob -- so code 9 was declared in
+       this district's legend and never built anywhere a plant happens to span more than one
+       cell. legend_kept_gate calls that class "a promise the world does not keep", and it is
+       the invisible-hats shape again: the art exists, the author wrote it down, and nothing
+       put it on the ground.
+       A BIGGER SITE HAS MORE OF THEM, and on the same reasoning as the haul roads: lighting a
+       yard is a per-area job, not a per-plant one. Corners of the whole plant, then one at
+       each internal cell junction, which is where a real yard puts them -- at the crossings,
+       not in the middle of a basin. Placed on soft surface only so a mast never stands inside
+       a clarifier wall. */
+    function pole(px,py){ var c=G.get(px,py); if(c===0||c===3||c===4||c===1) G.set(px,py,9); }
+    pole(8,32); pole(W-9,32); pole(8,H-12); pole(W-9,H-12); pole((W>>1)|0,(H>>1)|0);
+    for(i=1;i<bw;i++) for(j=1;j<=bh;j++) pole(i*K.SZ, Math.min(j*K.SZ-8, H-12));
+    for(j=1;j<bh;j++) pole(Math.min(8, W-9), j*K.SZ);
     // ONE car gate, on the DISTRICT's south edge
     var gx=(W>>1)|0;
     for(i=-2;i<=2;i++) G.set(gx+i,H-1,5);
@@ -9649,6 +9664,30 @@ root.BQRuntime=API;
       for(var fx=A.firstAt(f.x0+16,CW,A.c.x0-CW); fx<=Math.min(f.x1-24,A.c.x1+CW); fx+=CW){
         A.vrect(fx,fy,fx+CW-8,fy+CH-8,7);               // the berm
         A.vrect(fx+3,fy+3,fx+CW-11,fy+CH-11,6);         // the waste inside it
+        /* AND THE WASTE IS SPECKLED, WHICH IS THE WHOLE POINT OF A LANDFILL (8/28).
+           The lone build fills every compartment with a chaotic multicolour sea -- cover
+           soil, dark rot, blue junk, rust junk, scum, pale debris -- because that is what
+           makes this district read as GARBAGE from above rather than as grey compartments.
+           This path drew the flat block and stopped. MEASURED: a 2x2 landfill had 298 tiles
+           of `debris (plastic/appliance)` and 289 of `debris (rust/wood)` in the lone build
+           and ZERO as a blob. A LANDFILL WITH NO RUBBISH IN IT.
+           legend_kept_gate had been calling codes 14 and 15 "promises the world does not
+           keep" the whole time, and it was right about the cause being here.
+           A.rnd IS THE BLOB'S HASH, NOT THE CELL'S, which matters more here than anywhere: a
+           compartment straddles cell boundaries by construction, so the speckle has to give
+           the same answer from either side or the seam appears as a colour change down the
+           middle of a heap.
+           0.34 and not the lone build's 0.42: that loop throws 42% of the area as ATTEMPTS
+           with repeats, which lands about 34% of the tiles. Same look, stated as coverage. */
+        (function(){ var wx0=fx+3, wy0=fy+3, wx1=fx+CW-11, wy1=fy+CH-11, px, py;
+          for(py=Math.max(wy0,A.c.y0); py<=Math.min(wy1,A.c.y1); py++)
+            for(px=Math.max(wx0,A.c.x0); px<=Math.min(wx1,A.c.x1); px++){
+              if(A.vget(px,py)!==6) continue;
+              var q=A.rnd(px,py); if(q>=0.34) continue;
+              var d=A.rnd(px*7+1,py*13+5);
+              A.vset(px,py, d<0.34?4 : d<0.52?3 : d<0.68?14 : d<0.82?15 : d<0.92?8 : 11);
+            }
+        })();
         if(A.rnd(fx,fy)<0.55) A.vset(fx+((CW-8)>>1),fy+((CH-8)>>1),13);   // a gas well in the cap
       }
 
@@ -9857,8 +9896,37 @@ root.BQRuntime=API;
        line up with the neighbour's, and a single tumbleweed on the boundary row is enough to
        make one cell's ballast meet the next cell's desert -- the same thing that broke seven
        of the wash's forty-four seams before it was inset. */
-    for(i=0;i<14;i++){ var bx2=cx+1+Math.floor(r()*(W-2)), by2=cy+1+Math.floor(r()*(H-2));
-      if(vget(bx2,by2)===12) vset(bx2,by2,3); }
+    /* FOURTEEN DARTS AT A TARGET THAT IS 1.5% OF THE CELL (8/28). This threw 14 points into
+       16384 tiles and kept only the ones landing on the fence line -- about 255 tiles -- so
+       the expected number of tumbleweeds per cell was 0.22, and MEASURED ACROSS A 2x2 BLOB IT
+       PLACED NONE AT ALL. legend_kept_gate had `railyard(3)` listed as a promise the world
+       does not keep, and this loop is why: not a missing call, a call whose odds were never
+       run. A COUNT THAT WAS TUNED AGAINST A WHOLE CELL DOES NOT SURVIVE BEING AIMED AT A LINE.
+       Walk the fence instead of throwing at it, and decide each tile with the BLOB's hash so
+       two cells sharing a fence run agree about which tiles have weeds -- brush that
+       disagreed across a seam is exactly what the inset note below was written for. */
+    /* AND THIS PASS DOES NOT INSET, WHICH IS THE OPPOSITE OF THE NOTE BELOW AND DELIBERATE.
+       The inset exists so scattered confetti does not disagree across a seam. THE DISTRICT
+       FENCE IS ITSELF ON THE SEAM -- measured: the 255 fence tiles in an edge cell are its
+       row 0 and column 0 -- so an inset-1 loop can never touch it, which is why the previous
+       version placed nothing and why my first fix placed nothing either. I wrote the inset
+       loop, diagnosed that exact trap in the speedway ten minutes earlier, and then walked
+       into it again. What makes it safe here is the blob hash: both cells sharing a fence
+       tile ask the SAME valley coordinate and get the SAME answer, so the agreement the inset
+       was protecting is guaranteed by construction instead of by avoidance. */
+    for(var wy=cy; wy<=cy+H-1; wy++) for(var wx=cx; wx<=cx+W-1; wx++){
+      if(vget(wx,wy)!==12) continue;
+      if(yrnd(wx*3+7,wy*5+2)<0.06) vset(wx,wy,3);
+    }
+    /* AND POLE LIGHTS ALONG THE FENCE, not only on the four district corners. Four points
+       across a whole blob is one light per cell at best and MEASURED ZERO in every cell of a
+       2x2 -- a yard this size is lit from a line of masts, not from its corners. Every 40
+       tiles down the fence, off the blob hash so the spacing continues across a seam instead
+       of restarting at each cell. */
+    for(var py2=cy; py2<=cy+H-1; py2++) for(var px2=cx; px2<=cx+W-1; px2++){
+      if(vget(px2,py2)!==12) continue;
+      if((px2%40===0 && py2%7===0) || (py2%40===0 && px2%7===0)) vset(px2,py2,9);
+    }
 
     /* ---- THE SERVICE ROADS, AND WHY THERE IS A RING ----
        The first cut ran ONE lane along the yard's south front, which is what a single-cell
@@ -18337,7 +18405,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     }
 
     A.dress(14, 30, 1);                                                // dead race cars in the lots
-    A.dress(3, 200, 0);                                                // dead brush on the margins
+    /* DEAD BRUSH ON THE FENCE LINE, not "on the margins" (8/28). `A.dress(3, 200, 0)` was a
+       GUARANTEED NO-OP here and had been since this district was clustered: dress throws its
+       darts one tile in from the cell edge -- deliberately, so confetti never lands on a seam
+       -- and MEASURED, the only code-0 ground left in a blob speedway is EXACTLY that one-tile
+       border, 255 tiles of it and not one inside. 200 darts, 0 hits, in all four cells of a
+       2x2. Two correct rules pointing at each other: the dressing keeps off the seam, and the
+       only thing left to dress is the seam.
+       At blob scale that is the right layout -- an interior cell of a mile-round speedway IS
+       all apron, and desert scrub in the middle of it would be wrong. What a speedway in the
+       Mojave really collects is tumbleweed piled against the PERIMETER FENCE, which is ground
+       that exists here, so the brush goes there. Off the blob hash, so two cells sharing a
+       fence run agree on which tiles have weeds without needing the inset to keep them apart. */
+    (function(){ var bx, by;
+      for(by=A.c.y0; by<=A.c.y1; by++) for(bx=A.c.x0; bx<=A.c.x1; bx++){
+        if(A.vget(bx,by)!==12) continue;
+        if(A.rnd(bx*3+11,by*5+4)<0.07) A.vset(bx,by,3);
+      }
+    })();
 
     var gates = A.gates(streets, 5, 1, [0, 3, 1], 12);
     return { g: A.g, W: A.W, H: A.H, streets: streets, gates: gates, bounds: b,

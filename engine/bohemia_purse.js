@@ -50,10 +50,17 @@
 //      by accident — debt would be canon, and canon is Paolo's.
 //
 // MECHANISM-MINE / CONTENTS-PAOLO'S, HELD IN CODE AND NOT IN A COMMENT. The machine
-// moves money. WHAT ANYTHING IS WORTH IS HIS. So PAYOUT, PRICES and PRODUCTION ship
-// EMPTY, and with an empty table the answer is NO_RULING — never a guessed number, never
-// a placeholder that quietly becomes canon by shipping. This is the same shape as the
-// faction beat predicate in bohemia_world_resolve.js, which is DEFAULT OFF structurally.
+// moves money. WHAT ANYTHING IS WORTH IS HIS — AND HE RULED IT, TWICE, AND FOR TWENTY
+// DAYS NOBODY WROTE IT DOWN. 8/15: "just make everything cost one. Just start off with
+// one and then I'll move from there." 9/4: "i dont want there to be money money maybe
+// electronics like batteries are the currency. For one aa battery a bag of rice."
+// So PAYOUT and PRICES carry his ONE, denominated in his BATTERY, and every value is
+// TAGGED with the ruling behind it and `tuned:false`, which is the 8/15 law's own
+// section 5: one generated list holds every number in the game and he tunes from it
+// after a full playthrough. An uncovered key is still NO_RULING — never a guessed
+// number, never a placeholder that quietly becomes canon by shipping. PRODUCTION is
+// still empty and says why. This is the same shape as the faction beat predicate in
+// bohemia_world_resolve.js, which is DEFAULT OFF structurally.
 //
 // ACT ONE ONLY (Paolo 7/28). The CENTURY RULE — dynasty choices compounding across three
 // acts — is in the same locked addendum as the currencies, and it is deliberately NOT
@@ -73,14 +80,77 @@
 
   var NO_RULING = 'NO_RULING';
 
+  /* THE GOODS COME FROM THE SIM THAT OWNS THEM. In the browser the economy is
+     inlined above this file; under node it is a sibling require. Either way the
+     price table's KEYS cannot drift from the goods that exist. */
+  var ECON = (typeof module !== 'undefined' && typeof require !== 'undefined')
+    ? (function () { try { return require('./bohemia_economy.js'); } catch (e) { return null; } })()
+    : (typeof BohemiaEconomy !== 'undefined' ? BohemiaEconomy
+       : (root && root.BohemiaEconomy) || null);
+
   /* ---------------------------------------------------------------------------
-     THE TABLES. ALL THREE SHIP EMPTY. They are the CONTENTS half of the law and
-     they are Paolo's alone. Do not fill these in. Do not add "sensible defaults".
-     A placeholder number that ships is canon nobody ruled.
+     THE TABLES. THEY SHIPPED EMPTY FOR TWENTY DAYS AND HE HAD ALREADY RULED THEM.
+
+     THE OLD COMMENT HERE SAID "ALL THREE SHIP EMPTY ... do not add sensible
+     defaults", and it was right on 8/11 and wrong from 8/15 onward. He ruled the
+     number on 8/15 -- "just make everything cost one. Just start off with one and
+     then I'll move from there" -- and the ruling never reached the tables. For
+     twenty days a finished job answered
+     {"applied":false,"reason":"NO_RULING","table":"PAYOUT"} while placeholder_
+     number_gate printed "the three tables are still EMPTY" INSIDE A GREEN PASS.
+     MECHANISM-MINE / CONTENTS-PAOLO'S is not violated by filling these; it was
+     violated by leaving a ruling of his unimplemented and calling that caution.
+
+     AND 9/4 SAID WHAT THE ONE IS DENOMINATED IN: "i dont want there to be money
+     money maybe electronics like batteries are the currency. For one aa battery a
+     bag of rice and so on so forth." There is no abstract money. ELECTRICITY IS
+     THE MEDIUM OF EXCHANGE -- food and tape are what you buy, batteries are what
+     you buy them with, clout is what you cannot buy. No fourth currency; the three
+     stand and one of them changed job.
+
+     EVERY VALUE BELOW CARRIES `ruling` AND `tuned:false`, which is the 8/15 law's
+     section 5 in code: one generated list holds every number in the game and he
+     tunes from it after a full playthrough. placeholder_number_gate goes RED on an
+     untagged number, so a hand-typed 7 with nothing behind it still cannot ship.
      --------------------------------------------------------------------------- */
-  var PAYOUT = {};        // questOutcome/tag -> {resources, electricity, clout}  [PENDING Paolo]
-  var PRICES = {};        // goodId           -> {currency, amount}               [PENDING Paolo]
-  var PRODUCTION = {};    // buildingId       -> per-day yield                    [PENDING Paolo]
+  var RULED_ONE = '8/15 EVERYTHING COSTS ONE + 9/4 BATTERIES ARE THE MONEY';
+
+  /* THE OWNER, SETTLED IN ONE LINE, because 8/11 and 8/15 handed this to two lanes
+     and each could correctly believe it was the other's. 8/11: "whatever currency
+     the quest decida to give" -- THE QUEST OWNS ITS OWN REWARD. 8/15: everything
+     costs one -- THIS TABLE IS THE FALLBACK FOR A QUEST THAT DECLARES NOTHING.
+     They compose and always did: payday.payForQuest prefers the quest's reward and
+     falls through to here. Nothing changes in the code; the ownership is written
+     down so the next lane does not wait for the other one again. */
+  var PAYOUT = {
+    /* a day's work pays a battery. FAIL is deliberately absent: what a failed job
+       pays is not something he has said, and the honest answer to a question
+       nobody asked is still NO_RULING (8/15 law section 4). */
+    COMPLETE: { electricity: 1, ruling: RULED_ONE, tuned: false }
+  };
+
+  /* PRICES IS BUILT FROM THE GOODS THAT ACTUALLY EXIST, NEVER FROM A LIST TYPED
+     HERE. engine/bohemia_economy.js already holds the goods -- water, food,
+     salvage, meds, fuel, power and the field-surgery kit -- and a second list in
+     this file would be a second system that drifts the day somebody adds a good.
+     Same reason the street contract measures its connectors off the built tiles
+     instead of a declaration. WHICH GOODS EXIST STAYS HIS; this reads them.
+     The scarcity sim is untouched and still quotes: payday.buy() prefers this
+     table, so the moment he takes a good out of it the sim prices it again. */
+  var PRICES = (function () {
+    var out = {}, g = ECON && ECON.GOODS, id;
+    if (!g) return out;                       // no economy loaded: honest NO_RULING
+    for (id in g) if (Object.prototype.hasOwnProperty.call(g, id))
+      out[id] = { currency: 'electricity', amount: 1, ruling: RULED_ONE, tuned: false };
+    return out;
+  })();
+
+  /* PRODUCTION STAYS EMPTY AND IT IS NOT AN OVERSIGHT. Measured 9/5: `produce()`
+     has ZERO callers anywhere in the engine or the walked surface, so there is no
+     buildingId vocabulary to key on and every row I could write here would be dead
+     data nobody reads. A number with no consumer is not content, it is decoration.
+     It fills the day something calls it and the ids are real. */
+  var PRODUCTION = {};    // buildingId       -> per-day yield   [no caller yet, 9/5]
 
   function isCurrency(c) { return CURRENCIES.indexOf(c) >= 0; }
 
@@ -172,12 +242,20 @@
     var row = key && Object.prototype.hasOwnProperty.call(PAYOUT, key) ? PAYOUT[key] : null;
     if (!row) return { applied: false, reason: NO_RULING, table: 'PAYOUT', key: key,
                        about: 'what a quest outcome pays is Paolo\'s ruling' };
-    var done = [];
+    /* ONE SHAPE FOR `paid`, WHICHEVER PATH PAID IT. This returned the raw ledger
+       entries while payday's quest-declared path returns a {currency: amount} MAP, and
+       the reckoning card on the walked surface renders `paid` with a for-in -- so the
+       table path would have printed the ledger's guts at the player. It never showed
+       because this branch had never once applied: the table was empty for twenty days.
+       A branch that has never executed is not code, it is an intention (second one
+       found in this pipe today, after payday.price returning a whole row). */
+    var done = [], paid = {};
     for (var i = 0; i < CURRENCIES.length; i++) {
       var c = CURRENCIES[i];
-      if (row[c]) done.push(credit(purse, c, row[c], 'quest:' + key, ev.questId || null, day));
+      if (row[c]) { done.push(credit(purse, c, row[c], 'quest:' + key, ev.questId || null, day));
+                    paid[c] = row[c]; }
     }
-    return { applied: done.length > 0, paid: done, balances: balances(purse) };
+    return { applied: done.length > 0, paid: paid, entries: done, balances: balances(purse) };
   }
 
   /* Buy something. An empty price table means the shop is real and the tag on the shelf
