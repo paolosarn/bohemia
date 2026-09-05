@@ -60,7 +60,402 @@ Record: records/BOHEMIA_WHAT_NOBODY_WEARS_9_5_26.txt
 Tool: node tools/bohemia_what_nobody_wears.js
 Tab: RUN (the crowd) / CLOTHES / CHARACTER
 
+
+
+=======
+LIFE + CITY (city-1eztay): 9/5 (b) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR
+WORD, SO IT SURVIVES A MEMORY RESET. THEN VAMILY [buildings produce]. *** MODE: BUILD.
+TAB: CITY (the aerial view). THIS BLOCK IS NOT DELETED BY A LATER ROUND.
+
+=== PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I send you
+the single word VAMILY, you do exactly this and nothing else:
+
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the rules live
+there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your role). If you
+truly cannot match one, take the first line marked UNCLAIMED, write CLAIMED on it, commit,
+and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the first OPEN
+line; build or research according to your section's MODE; mark SHIPPED only when the ship
+test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat this message
+as your first VAMILY and do steps 1 to 5.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+THIS ROUND: read the VAMILY front page, which had been rewritten as THE MEETING HALL since
+my last round -- exactly why its rule 1 says read it every time and never trust memory. My
+section is 03 LIFE + CITY, MODE BUILD. [builder works] BUILDER-ON-A-PHONE is SHIPPED, so I
+hold no claimed job and take the first OPEN line: [buildings produce] PRODUCTION-TICK.
+Claimed, committed and pushed BEFORE starting, as front-page rule 5 requires.
+
+DYNASTY (dynasty-w4yxiz): 9/5 -- *** GEN 1 CANNOT USE THE FOLD, AND THE FOLD IS
+THE ONLY DYNASTY MACHINE WE HAVE. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
+
+MODE: RESEARCH. The lane was UNCLAIMED; this chat claimed DYNASTY and Q1 and
+committed before doing any work, per the VAMILY procedure.
+
+Q1 SHIPPED: records/BOHEMIA_DYNASTY_DAY_1_WHAT_YOU_CAN_DO_WITH_NO_HANDS_9_5_26.md
+Draft bank (test lines, NOT in the game):
+  banks/BOHEMIA_GEN1_ANIMAL_READOUT_DRAFT_9_5_26.txt
+
+THE ONE SENTENCE A LANE CAN BUILD FROM: AN ANIMAL IS NOT A HUMAN WITH FEWER
+BUTTONS. IT IS A DIFFERENT SET OF FACTS ABOUT THE SAME STREET. The version that
+fails subtracts (no hands, no talking, buttons greyed out). The version that
+works substitutes: you give up the hands and you get a sense nobody else in the
+game has.
+
+THE VERB SET IS EIGHT AND IT IS THE SAME EVERY TIME anybody builds one: move
+(run costs, resting pays it back), bite and HOLD, carry one thing in the mouth,
+call, mark, smell, feed something smaller, rest. NOT ONE NEEDS A HAND.
+
+WHERE IT GETS BORING, ALL THREE DOCUMENTED: a smell mode that draws a coloured
+line to the objective (the most copied and most criticised mechanic in the
+aisle, and it converts a sense into a quest marker); a body with no system under
+it; and length -- the well-reviewed ones run two to six hours and reviewers still
+say there is little reason to go back. EIGHT VERBS IS A FIVE-HOUR GAME. That is
+a ceiling, not an insult, and it is the most useful number on the page.
+
+THE REPLACEMENT FOR THE GLOWING LINE, FROM THE REAL AISLE: a tracking dog needs
+three to five consecutive footprints and three to five seconds to decide WHICH
+WAY somebody went, by comparing how strong the smell is between adjacent prints.
+A TRACK HAS A DIRECTION BECAUSE IT HAS AN AGE. So the nose is a READOUT under
+day 17's rule (words for the world, one number) and the number is HOW OLD.
+Also: smell is STEREO (each nostril takes a separate sample), the exhale goes out
+the side slits backwards so you never blow away what you are smelling, and the
+eyes trade down while the dark trades up (no colour, no detail, motion and dark
+free -- which fits a valley that opens at 06:00 in the dark).
+AND THE ONE NOBODY EXPECTS: the real superpower is READING PEOPLE. A pet dog
+follows a human point; hand-raised wolves and chimpanzees do worse. THE ANIMAL'S
+DIALOGUE SYSTEM IS NOT TALKING, IT IS THE BROW -- and renderFace already
+performs, so it is the words withheld, not new art.
+
+MEASURED IN OUR OWN REPO, 9/5
+  1. The word ANIMAL appears in the dynasty engine EXACTLY ONCE and it is in a
+     comment: `const GEN_COUNT = 3;  // Animal / Human / Angel`.
+  2. THE FOLD IS GENERATION-BLIND. Across the whole fold block `gen` is compared
+     in exactly two places and both are bookkeeping. Nothing branches. A coyote
+     inherits a productive economy.
+  3. selectHeir still has ZERO callers (three mentions: one definition, two
+     inlined copies of the export line).
+  4. AND selectHeir CANNOT DO THE ONE FOLD GEN 1 EXISTS FOR: it picks a child,
+     else a sibling's child, else returns null. The gen 1 to gen 2 handoff is
+     Animal to Human. Under our only heir function, an animal's heir is its cub.
+  5. THERE IS NO SMELL IN BOHEMIA: olfact 0, sniff 2, and every smell/scent/odour
+     hit is prose, a music track called FLUORESCENT DAWN, or base64.
+  6. No animal body renderer anywhere. All five fight archetypes carry
+     bot:false, so all five are people; the only one that fights without a gun
+     is SPEAR, which is a man holding a stick.
+  7. AND THE ANIMAL WORLD IS ONE OF THE BEST-RESEARCHED THINGS WE OWN: the
+     wildlife module ships five sourced species with TWO distances each (alert
+     and flush) and a crow-measured feeding discount, AND THE COYOTE IS THE ONLY
+     ROW WITH reacts:false -- "it has already decided you are not worth it."
+  8. The one animal verb that exists is aimed the wrong way: boss 15 THE DOGS is
+     built as the ability SEND HIM. The only animal you can act through today is
+     one you throw at somebody.
+
+*** THE FINDING THAT CHALLENGES US. *** The fold's whole content is standings,
+territory, builds, economy capacity, investment, karma, virtues. An animal has no
+standing with a faction, holds no territory, builds nothing and has no economy.
+Run gen 1 through the fold as written and it hands gen 2 A BLOCK OF ZEROES --
+and A HANDOFF THAT INHERITS NOTHING IS A RUN, which is the first line of
+CLAUDE.md. The answer this project already found twice: AN ANIMAL LEAVES
+BEHAVIOUR IN OTHER ANIMALS AND MEMORY IN PEOPLE (ground it knows, people who saw
+it, a pack it made, a body carrying what happened). The fold has NO FIELD for any
+of the four, and the walked city already half-models all four in the five
+person-memory writes day 21 found sitting OUTSIDE the hardened save. THE GEN-1
+INHERITANCE HOLE AND THE PEOPLE-SAVE HOLE ARE THE SAME HOLE FROM TWO ENDS.
+
+TWO POSITIVE CONTROLS THAT SAVED FALSE FINDINGS, BOTH WORTH KEEPING
+  `nose` returned 210 hits and every one is the FACE MAKER (noseY, NOSE). THE
+  ONLY NOSE IN THIS GAME IS A THING YOU PAINT. And `paw` returned 52 hits inside
+  the decoded fight, 100% of them the word `spawn`. Measure the token, then
+  measure what the token actually matched.
+  INSTRUMENT NOTE, restated because it cost time: a plain search of the alpha
+  CANNOT see the fight. Decode COMBAT_B64 first.
+
+ROUTED (proposals only -- ONLY THE COORDINATOR ADDS JOBS)
+  WORLD GEN1-INHERITANCE-HAS-NO-FIELDS; PEOPLE THE-ANIMAL-READS-THE-BROW;
+  COMBAT/CHARACTER A-BODY-WITH-NO-HANDS; SOUNDS THE-CALL-CARRIES-FURTHER-THAN-
+  YOU-WALK; UI THE-NOSE-IS-A-READOUT; QUESTS (parked) THE-FOLD-IN-THE-RUNTIME.
+
+[PENDING Paolo] Nothing is blocking this lane. Q2 through Q12 are all still OPEN
+and none of them needs a ruling to start. Whether gen 1 is a coyote at all, how
+long it runs, and what happens at the fold are HIS and were not decided here.
+
+NEXT FOR THIS LANE: Q2, the coyote's actual life. Q1 deliberately stopped at the
+senses and left the ethology to it.
+WORDS (words-8dqrnq): 9/4 (d) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
+SURVIVES A MEMORY RESET. THEN VAMILY Q4 [beat speech]. *** MODE: RESEARCH.
+TAB: NOT IN A TAB YET (research day). Nothing to judge.
+
+=== PAOLO 9/4/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I send you
+the single word VAMILY, you do exactly this and nothing else:
+
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the rules live
+there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your role). If you
+truly cannot match one, take the first line marked UNCLAIMED, write CLAIMED on it, commit,
+and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the first OPEN
+line; build or research according to your section's MODE; mark SHIPPED only when the ship
+test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat this message
+as your first VAMILY and do steps 1 to 5.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+THIS ROUND: read the VAMILY front page (it had been rewritten as THE MEETING HALL since my
+last round, which is exactly why rule 1 says read it every time and never trust memory).
+Q1, Q2 and Q3 are SHIPPED. Claimed Q4 [beat speech] and worked it. See the block below for
+where it got to.
+
+ECONOMY (economy-knxaeh): PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS, VERBATIM,
+KEPT HERE SO IT SURVIVES ANY MEMORY RESET. THIS BLOCK IS NOT DELETED BY A LATER ROUND.
+
+--- BEGIN PAOLO'S WORDS, WORD FOR WORD ---
+PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I send you the single word VAMILY, you do exactly this and nothing else:
+
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the rules live there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your role). If you truly cannot match one, take the first line marked UNCLAIMED, write CLAIMED on it, commit, and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the first OPEN line; build or research according to your section's MODE; mark SHIPPED only when the ship test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat this message as your first VAMILY and do steps 1 to 5.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+--- END PAOLO'S WORDS ---
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). Claimed 9/5/26, session economy-knxaeh.
+SHIPPED SO FAR: Q1 [money dies], Q2 [money returns]. See the dated blocks below.
+
 ================================================================================
+
+PEOPLE (people-7h9sfy): 9/5 LATEST -- *** VAMILY [your reputation]. THE STANDING
+WEB CAN NAME A PERSON WHO WOULD SPEAK FOR YOU, AND SAY WHO TOLD THEM. Nothing to
+judge. ***
+
+TAB: RUN. Build 9/5a - WHO WOULD VOUCH FOR YOU.
+Walk, let people see you, open the standing panel: under WHO HAS LAID EYES ON
+YOU there is now WHO WOULD VOUCH FOR YOU.
+
+THE ROW: BB-STANDING-PLAYER, in its own words -- "it is A WEB, NOT A BAR. A job
+comes from a PERSON, and that person heard about you from someone. The question a
+favour answers is not 'did my bar go up' but 'who will vouch for me now.'"
+
+*** MEASURED BEFORE BUILDING, AND THE MEASUREMENT MOVED THE JOB. *** The row says
+the player is not a node in the standing graph. TWO standing mechanisms exist and
+both were checked before a line was written:
+  1. engine/bohemia_standing.js, the PERSON-level web. THE PLAYER IS ALREADY IN
+     IT -- the walked city calls witness(), opinionOf() and standingOf() with
+     actor '@' in 25 places.
+  2. engine/bohemia_engine.js, the FACTION world, where playerMandate(playerId)
+     ALREADY reads a faction's standing TOWARD the player. The walked city does
+     not build that world at all, and playerMandate has NO CALLERS ANYWHERE.
+So the player was not missing from the web. WHAT WAS MISSING WAS THE WEB'S
+ANSWER. Building a third standing thing would have been the two-mechanisms
+mistake for the fourth time this month.
+
+THE GAP WAS ONE FIELD: this web recorded HOW FAR a story travelled (hops) and
+never WHO CARRIED IT. gossip() now stamps `from`; whoVouches() returns PEOPLE --
+who is warm on you, the deed that did it, whether they saw it, and who told them.
+whoWont() returns the other side, because showing one side of a web is a bar.
+Proved live on the walked surface: eyewitness FWU "SAW IT", next person WARM
+"HEARD IT FROM" her by name, force decaying 3.00 -> 1.65 -> 0.91 down the chain.
+
+IT CANNOT INVENT A STANDING HE NEVER RULED (the row's own constraint): forceOf
+returns 0 for an unweighted deed, so an unruled deed vouches for nobody however
+many people watched it. The module still ships DEED_WEIGHT EMPTY; the city loads
+82 from the deed corpus AT RUNTIME, which the real-surface probe found and my
+first reading of the bare module had wrong.
+
+A NAME IS EARNED, NEVER GIVEN. The first cut printed the mind's owner id and read
+"12:12:900 FWU SAW IT" -- machine output, not a person. BohemiaPeople.headingOf
+already owns that grammar, so the panel asks it. A mind restored from storage has
+no person to resolve and the city's own comment says why that must not be
+guessed: "an id cannot be turned back into a person, and guessing one from a seat
+string is how this lane collapsed a whole population onto a dozen draws on 8/11."
+
+TOOL LESSON: the inlined module's fence is an OPEN/CLOSE PAIR WITH DIFFERENT
+TEXT, not the same banner twice. The first cut assumed they matched, refreshed
+nothing, printed success, and left the panel calling a function the city's own
+inlined copy did not have. A FENCE YOU GUESSED IS NOT A FENCE.
+
+FILES
+  engine/bohemia_standing.js                   whoVouches, whoWont, the teller
+  tools/bohemia_city_who_vouches_patch.py      the panel and the fence fix
+  gates/who_vouches_gate.js                    19 claims, 3 mutations caught
+
+[PENDING Paolo] THE WEIGHTS ARE THE WHOLE GAME HERE AND THEY ARE HIS. The corpus
+carries 82 deed rows. Until each one is worth something, every person in the
+valley can watch you and form no opinion, so this panel correctly says nobody.
+The mechanism is finished and dark. What is needed is not a number per row from
+him one at a time -- it is a RULING ON THE SHAPE: which handful of things a
+person actually repeats about a stranger, and roughly how much worse a betrayal
+is than a kindness is good. One sentence unblocks all 82.
+
+ALSO STILL TRUE AND NOT DONE (from 8/31): the FAMILY_CAST is 23 references in the
+shell and ZERO in the walked city, so Ray, Denise and the surviving sibling exist
+at the table and nowhere in the world you walk into.
+
+PEOPLE (people-7h9sfy): 8/31 (b) -- *** FAMILY: THE FINDING, MEASURED. YOUR
+FAMILY IS REAL FOR NINETY SECONDS AND THEN THEY ARE NOT IN THE GAME. Nothing to
+judge; this is a finding and a named next row, not a shipped feature. ***
+
+Paolo said one word: FAMILY (transcribed "VAMILY"). Measured rather than guessed.
+
+WHAT ALREADY EXISTS, AND IT IS GOOD -- I CHECKED BEFORE BUILDING AND ALMOST
+BUILT A SECOND ONE. FAMILY_CAST is a complete, canon-sourced family: RAY the
+father, DENISE the mother, MARCO the brother, NINA the sister. Draft names under
+the 8/11 rule, body dials on the one rig, every garment st==='canon', and the
+7/19 gender mirror encoded as `survivesIf` -- a male player keeps the older
+brother, a female player keeps the older sister, and the other is the one taken.
+Both parents are `survivesIf:'always'`. The opening scene resolves {sibling_lost}
+against that table and owns no names of its own. There is a gate on it.
+I WAS ONE STEP FROM WRITING A SECOND FAMILY REGISTER. The question that stopped
+it is the one this repo has paid for all month: DOES SOMETHING ALREADY PICK THIS?
+
+THE GAP, AND IT IS ONE NUMBER:
+    FAMILY_CAST references in slices/BOHEMIA_ALPHA_0_9.html   23
+    FAMILY_CAST references in slices/BOHEMIA_DEMO.html        23
+    FAMILY_CAST references in slices/BOHEMIA_CITY_WORLD.html   0
+    RAY / DENISE / MARCO / NINA in the walked city             0 / 0 / 0 / 0
+The family lives in the SHELL, where the opening scene plays. The walked world
+has never heard of them. You sit at that table, the cut takes ten years, you
+walk out into a valley of ~96,885 people and NOT ONE OF THEM IS RELATED TO YOU.
+By the cast's own flags THREE OF THEM ARE ALIVE -- both parents always, plus the
+sibling who matches your gender -- and all three are absent from the world.
+
+AND THE DYNASTY IS THE WHOLE GAME. "Three generations, ~100 years. Gen 1 Animal,
+Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE" is locked canon and the Act
+3 ending is the gen-3 Angel heir going one-way. A generational handoff INHERITS
+the family tree. There is no family tree in the walked game to inherit.
+engine/bohemia_succession.js exists but is FACTION SEATS -- who holds a post when
+somebody dies -- not the player's blood.
+
+THE NEXT ROW (FAMILY-1): the surviving family are PEOPLE IN THE VALLEY. They
+already have ids, faces (faceFor takes an id), and a full `worn` list, so this is
+placement and persistence, not invention -- the same ONE ID ONE WHOLE PERSON rule
+that made the portrait match the body. Default location is YOUR OWN HOUSE, which
+the demo already starts you in; that is not designing a map, it is putting your
+mother in the house the game opens in. WHO IS ALIVE TEN YEARS LATER beyond the
+cast's own flags, and WHAT THE LOST ONE'S REAL NAME IS, stay his: the scene line
+is literally "{sibling_lost}. Green ones too." with a hole where the name goes.
+
+[PENDING, Paolo's call] the sibling's EMPTY CHAIR motif at family meals is marked
+[PENDING] in the scene file itself and is NOT built.
+
+PEOPLE (people-7h9sfy): 8/31 -- *** HIS TWELVE APPROVED STREET ENCOUNTERS
+CHARACTER (character-0lurbs): 8/31 (f) LATEST -- *** HE SAID ONE WORD, "VAMILY". THE
+FAMILY IN THE COLD OPEN WAS LESS ALIKE THAN FOUR PEOPLE OFF THE STREET, ON EVERY
+SINGLE TRAIT, AND I MEASURED IT BEFORE I TOUCHED ANYTHING. ***
+
+READ-BACK: from the handoff I took that the opening plays end to end and that the
+face maker now sits inside it at the match-cut (8/30). NOTE FOR THE COORDINATOR:
+the RUN lane read the same word the same way and shipped
+tools/bohemia_the_family_is_in_the_game_patch.py -- they wired the DYNASTY (family
+tree, heir selection, the sibling's death) off FAMILY_CAST. I checked before
+starting: they touch no faces, I touch no dynasty. Complementary, not a collision.
+
+THE NUMBER, WITH A CONTROL, WRITTEN BEFORE THE FIX.
+"The family resembles each other" is not checkable on its own -- everybody comes out
+of one generator, so any four faces share something. The only claim that means
+anything is MORE ALIKE THAN STRANGERS, so 50 control groups of four random citizens
+were measured from the same function alongside them:
+
+                        family    four strangers
+    same skin tone        0.0%        9.0%
+    same hair colour     16.7%       25.0%
+    same eye colour      16.7%       17.3%
+    skull difference      2.19        2.06   (lower = more alike)
+
+NOT ONE PAIR IN THAT HOUSE SHARED A SKIN TONE. They are keyed FATHER:RAY /
+MOTHER:DENISE / BROTHER:MARCO / SISTER:NINA -- four independent hashes -- and nothing
+in the pipeline had ever been told they were related.
+
+*** HEREDITY RIDES THE ROLL, NOT THE FINISHED FACE. *** The obvious version -- pull a
+child's finished numbers toward its parents' -- DESTROYS A CHILD IS NOT A SMALL ADULT
+(8/27), because the parents' numbers already have adult baked into them. THE ROLLS ARE
+THE GENES AND THE AGE IS THE EXPRESSION: one wrapper over faceRollHash/faceBell, and
+every dial downstream inherits for free with NO second face generator, which is how the
+portrait and the body became different people on 8/27.
+AND NOT EVERYTHING BLENDS. Eyes are COPIED from one parent -- averaging index 1 (brown)
+and index 3 (green) in a list whose order means nothing hands a child GREY, which is
+neither parent. Skin is BLENDED, because it is additive and polygenic, and blended on
+LIGHTNESS not list position, since SKIN_TONES is not exactly ordered (pale sits darker
+than fair). After: skin 16.7%, hair 33.3%, eyes 100%, skulls 1.47 -- all four beating
+the control. Approved player face BYTE-IDENTICAL (c9856a89), crowd untouched.
+
+*** GREY IS AN AGE, NOT A COLOUR. *** Measured 400 people per age: a CHILD was as
+likely to have grey or white hair as an adult, 29.8% vs 26.0%. The age dial moves the
+skull, the brow, the nose and the mouth and had NEVER touched the hair -- which is how
+NINA, a child at a pre-apocalypse family dinner, came out grey. Fixed by asking the SAME
+picker for another draw, never a new palette.
+AND THE LIMIT ON IT IS THE INTERESTING PART: gating on the ROLLED age fired for the
+anonymous crowd and dropped portrait-to-body hair agreement 100% -> 94.0%, breaking ONE
+ID ONE WHOLE PERSON with the very fix that cited it. A CROWD CITIZEN'S AGE IS A
+PORTRAIT-ONLY FICTION -- faceFor rolls one, the BODY in the street has no age at all. So
+it applies only where a caller asserted an age, which today is FAMILY_CAST.
+
+TWO MORE BROKEN RULERS, ELEVENTH AND TWELFTH THIS MONTH, BOTH IN MY OWN REPORT.
+1. It read `spec.skin`, a field faceFor has NEVER set (the tone lives on `_tone`), so it
+   compared undefined to undefined and printed 100% SKIN AGREEMENT for the family AND
+   the strangers -- while the rendered picture showed four different colours of person
+   sitting at one table. A METRIC THAT READS A FIELD THAT DOES NOT EXIST REPORTS PERFECT
+   AGREEMENT, confidently, forever, about the thing you care most about. Only rendering
+   the four and LOOKING caught it.
+2. It built its OWN copy of the face key instead of calling the game's, so when heredity
+   landed the numbers did not move by a thousandth. A RULER THAT BUILDS ITS OWN COPY OF
+   WHAT IT MEASURES IS MEASURING ITS OWN COPY.
+
+WHAT IS ON THE BOARD FOR THE NEXT CHARACTER SESSION
+1. THE CROWD HAS NO AGE. faceFor rolls one for a portrait and the body has none, so
+   there are no children in the valley, only heads that think they are children. Giving
+   the crowd real ages is a SYSTEM, and until it exists the grey clamp cannot reach
+   them. Top row, and it is the honest reason a fix stopped where it did today.
+2. YOU CAN SHAPE A HEAD BUT NOT A BODY. Leg length vs torso, frame/bulk, posture, neck
+   -- on his 7/30 board, still unbuilt, and now conspicuous because a player meets the
+   face maker in the opening.
+3. THE PLAYER IS NOT IN THE FAMILY YET. RAY and DENISE are your parents too, and the
+   creator opens on PUNK rather than on their child. One button in the creator ("LOOK
+   LIKE YOUR FAMILY") would close it without moving any approved art.
+4. 24 haircuts and 16 faces still waiting on his thumb in VOTE. None judged.
+
+Proof: family_gate 15/15 (every claim carries its own control; deleting heredity turns
+it red and reproduces the original numbers exactly), talking_portrait 27/27,
+portrait_haircut 12/12, become 28/28, opening 63/63, coldopen 45/45, face_maker 13/13,
+face_thumb 23/23, hair_graveyard 9/9.
+Law: laws/BOHEMIA_LAW_A_FAMILY_LOOKS_LIKE_A_FAMILY_8_31_26.md
+Record: records/BOHEMIA_DO_THEY_LOOK_RELATED_8_31_26.txt
+Report: node tools/bohemia_do_they_look_related.js
+Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the cards)
+
+
 
 ECONOMY (economy-knxaeh): 9/5 (b) LATEST -- *** [money returns] SHIPPED. THE GAME
 ALREADY KNOWS WHAT A BATTERY IS WORTH, IT SAYS SO IN A QUEST LINE SOMEBODY WROTE
@@ -208,7 +603,7 @@ every placed building and call produce(), which today has exactly ONE caller and
 it is a gate.
   NO [PENDING Paolo] from this lane this turn.
 
-WORDS (words-8dqrnq): 9/4 (c) LATEST -- *** VAMILY Q3 [crowd talk]. OUR DIRECTOR CANNOT
+WORDS (words-8dqrnq): 9/4 (c) -- *** VAMILY Q3 [crowd talk]. OUR DIRECTOR CANNOT
 REPEAT ITSELF, AND THAT IS THE BUG. *** MODE: RESEARCH, nothing implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
@@ -262,9 +657,48 @@ anything is heard a third time, and one moment every 90 seconds means 40 moments
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 
 --------------------------------------------------------------------------------
-RUN (run-eak241): 9/4 LATEST -- *** VAMILY [people saved] SHIPPED. The world was
-inside the hardened save and the people were outside it. TAB: RUN. Nothing to
-judge. ***
+RUN (run-eak241): 9/4 LATEST -- *** VAMILY [save checked] CLAIMED. ***
+
+============================ READ THIS FIRST, EVERY TIME ======================
+PERMANENT INSTRUCTION FROM PAOLO, 9/4/26, WORD FOR WORD. It lives here so it
+survives any memory reset. It outranks everything else in this block. He said:
+"I will never paste anything to you again. From here on, the one word is the
+whole instruction."
+
+  PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+  VAMILY is a keyword. It has nothing to do with families or dynasties.
+  Whenever I send you the single word VAMILY, you do exactly this and nothing
+  else:
+
+  1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because
+     the rules live there and change there. Never rely on your memory of the
+     rules.
+  2. Find your section by this chat's number and name (this chat's title is
+     your role). If you truly cannot match one, take the first line marked
+     UNCLAIMED, write CLAIMED on it, commit, and that is your role for life.
+  3. Do what the front page says: continue the job you already hold, or claim
+     the first OPEN line; build or research according to your section's MODE;
+     mark SHIPPED only when the ship test is met on the real surface.
+  4. Never ask me anything. A ruling you need goes in your handoff block in
+     00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+  5. Reply to me with two words (the job's [bracket] label) and one short line:
+     "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+  RIGHT NOW: (a) write this instruction, word for word, into your own handoff
+  block in 00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b)
+  then treat this message as your first VAMILY and do steps 1 to 5.
+
+  I will never paste anything to you again. From here on, the one word is the
+  whole instruction.
+
+THIS LANE IS 01 THE RUN. MODE: BUILD. Never ask him which lane. Never ask him
+anything at all. Two words back, then work.
+===============================================================================
+
+PREVIOUS SHIP, kept because its finding is still live: *** VAMILY [people saved]
+SHIPPED. The world was inside the hardened save and the people were outside it.
+TAB: RUN. Nothing to judge. ***
 
 JOB: BB-THE-PEOPLE-RIDE-THE-SAVE, first OPEN row in the RUN queue, claimed and
 pushed before starting per the front page.
@@ -577,7 +1011,6 @@ Record: records/BOHEMIA_FAMILY_IS_THE_CORE_THEME_AND_THERE_WAS_NONE_IN_IT_9_4_26
 
 --------------------------------------------------------------------------------
 
-=======
 WORLD (world-9lfjtf): 9/5 LATEST -- *** A DAY OF WORK PAYS ONE BATTERY AND A BAG
 OF RICE COSTS ONE. He ruled the number on 8/15 and the money on 9/4, and the
 tables were still empty. VAMILY [battery money] + [prices one] SHIPPED. ***
@@ -1500,7 +1933,21 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (bb) LATEST -- *** THE TOKEN DIET:
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (bc) LATEST -- *** HIS BLIND SPOTS: TWO
+NEW LANES, RELEASE (18) AND GATEKEEPER (19), PLUS THREE JOBS FOLDED INTO EXISTING CHATS.
+Nothing to judge. ***
+Paolo 9/4: "are there any other angles other than quests that are completely left
+empty... what are my blind spots?" Checked every chat against the twenty pillars and
+what a shipped game needs. UNOWNED: the demo as a PRODUCT (performance, dispatch item
+7, never picked up; whether the cut is current; any way to see what a friend did; the
+friend rounds) -> RELEASE, six jobs. The CHECKING MACHINE itself (the suite cannot
+finish in budget, 82 gates never ran, no gate can say OWED) -> GATEKEEPER, which takes
+the gate jobs out of SHARED. HALF-OWNED: creatures and danger by place (dispatch 8)
+-> COMBAT [what lives]; accessibility on a phone -> UI [phone readable]; the music
+itself -> SOUNDS [music owned]. Still parked by him: QUESTS, the biggest hole. LAST
+FEEDBACK RECEIVED: this -> lanes 18 and 19 and the three lines.
+
+COORDINATOR: 9/4 (bb) -- *** THE TOKEN DIET:
 CLAUDE.md folded from ~34K tokens a message to ~6K, verbatim into a laws master; the
 handoff cut is prepared and queued (the gate forbids it; the coordinator does not
 write gates). Nothing to judge. ***
@@ -6533,7 +6980,39 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-DIRECTION (art-f3eu53): 9/5 (l) LATEST -- *** THE REFERENCE LIBRARY AND ITS
+DIRECTION (art-f3eu53): PERMANENT INSTRUCTION FROM PAOLO (9/5, verbatim, survives
+any memory reset):
+"PERMANENT INSTRUCTION. Do this now and every time from now on.
+VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I
+send you the single word VAMILY, you do exactly this and nothing else:
+1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the
+rules live there and change there. Never rely on your memory of the rules.
+2. Find your section by this chat's number and name (this chat's title is your
+role). If you truly cannot match one, take the first line marked UNCLAIMED, write
+CLAIMED on it, commit, and that is your role for life.
+3. Do what the front page says: continue the job you already hold, or claim the
+first OPEN line; build or research according to your section's MODE; mark SHIPPED
+only when the ship test is met on the real surface.
+4. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+5. Reply to me with two words (the job's [bracket] label) and one short line:
+"continuing, about N of M", "shipped", or "queue empty". Then work.
+RIGHT NOW: (a) write this instruction, word for word, into your own handoff block
+in 00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat
+this message as your first VAMILY and do steps 1 to 5.
+I will never paste anything to you again. From here on, the one word is the whole
+instruction."
+THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 9/5 (latest): [runway shapes] SHIPPED 32338e1 -- the Balenciaga /
+Rick Owens silhouette library at shape level, 13 entries in
+reference/library/runway/ (shoulder, drape, hem, leg-and-boot, and the two
+whole-figure poles: WIDE AT THE TOP vs TALL AND STACKED, commit to one).
+Index re-derived, 44 refs / 10 kinds. NEXT OPEN: [builder references], then
+[opening references], [style card], [style checker], [batch judging].
+[PENDING Paolo] (for the coordinator to carry): the farm tile group is the
+one drift in the art family sheet (LOOK tab) -- approved bank; leave as-is
+or calm it to match the family, A or B.
+DIRECTION (art-f3eu53): 9/5 (l) -- *** THE REFERENCE LIBRARY AND ITS
 INDEX ARE SHIPPED (VAMILY rows 2 and 3 of the DIRECTION lane, after row 1's
 MATCHED TO button earlier today). reference/library/ holds 9 kinds x 31
 entries (real + pixel, each with the ONE structural rule it teaches, REF-ID

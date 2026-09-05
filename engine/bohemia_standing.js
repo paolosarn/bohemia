@@ -198,7 +198,14 @@
           if(e.actor===d.actor&&e.kind===d.kind&&e.turn===d.turn){ known=true; break; }
         }
         if(known) continue;
-        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1};
+        /* *** AND WHO TOLD THEM TRAVELS WITH IT (9/5, BB-STANDING-PLAYER). ***
+           This web has always recorded HOW FAR a story went -- hops -- and never
+           WHO CARRIED IT. So the game could count your reputation and could not
+           answer the only question the row says matters: "who will vouch for me
+           now." A number is a bar; a name and the person who vouched for you to
+           them is a WEB. One field. */
+        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1,
+               from:from.owner};
         if(d.maxHops!=null) r.maxHops=d.maxHops;     // the budget travels with the story
         if(d.inherited) r.inherited=d.inherited;     // so does whose deed it originally was
         if(d.of) r.of=d.of;
@@ -255,6 +262,61 @@
     return out.slice(0, limit||5);
   }
 
+
+  /* ---- WHO WILL VOUCH FOR YOU (9/5/26, BB-STANDING-PLAYER) ----------------
+     THE ROW'S OWN SHAPE, IN ITS OWN WORDS: "it is A WEB, NOT A BAR. A job comes
+     from a PERSON, and that person heard about you from someone. The question a
+     favour answers is not 'did my bar go up' but 'who will vouch for me now.'"
+
+     Everything this needs already existed -- witness, gossip, opinionOf, hops,
+     the rung ladder -- except the one field above, so this ADDS NO SECOND
+     OPINION MECHANISM. It asks the same minds the same question and returns
+     PEOPLE instead of a number: who is warm on you, the single deed that did it,
+     whether they saw it themselves, and who told them if they did not.
+
+     IT CANNOT INVENT A STANDING HE NEVER RULED. Every force runs through
+     forceOf, which returns 0 for a deed with no weight, and DEED_WEIGHT ships
+     EMPTY. So on today's build this correctly returns NOBODY, and the surface
+     says so out loud rather than drawing a neutral bar. */
+  function whoVouches(minds, actorId, now, opts){
+    opts=opts||{};
+    var min=(opts.min==null?0:opts.min), out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m||!m.deeds||m.owner===actorId) continue;
+      var v=opinionOf(m, actorId, now);
+      if(v<=min) continue;
+      var best=null, bf=0;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId) continue;
+        var fo=forceOf(m,d,now);
+        if(fo>bf){ bf=fo; best=d; }
+      }
+      if(!best) continue;
+      out.push({ who:m.owner, value:v, rung:rungFor(v), kind:best.kind,
+                 turn:best.turn, hops:best.hops||0,
+                 sawIt:!(best.hops>0),
+                 from:(best.from==null?null:best.from) });
+    }
+    out.sort(function(a,b){ return b.value-a.value; });
+    return opts.limit? out.slice(0,opts.limit) : out;
+  }
+
+  /* AND THE OTHER HALF, BECAUSE A WEB HAS TWO SIDES AND SHOWING ONE IS A BAR. */
+  function whoWont(minds, actorId, now, opts){
+    opts=opts||{};
+    var max=(opts.max==null?0:opts.max), out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m||!m.deeds||m.owner===actorId) continue;
+      var v=opinionOf(m, actorId, now);
+      if(v>=max) continue;
+      out.push({ who:m.owner, value:v, rung:rungFor(v) });
+    }
+    out.sort(function(a,b){ return a.value-b.value; });
+    return opts.limit? out.slice(0,opts.limit) : out;
+  }
 
   /* ---- 5. A REPUTATION OUTLIVES THE PERSON WHO EARNED IT ------------------
      (8/2/26. The thing the twelve-gap list did not have, and the game's own premise.)
@@ -337,6 +399,7 @@
   var API={ DEED_WEIGHT:DEED_WEIGHT, SEE_RANGE:SEE_RANGE, HEARSAY_LOSS:HEARSAY_LOSS,
     MAX_HOPS:MAX_HOPS, GOSSIP_WINDOW:GOSSIP_WINDOW, RUNGS:RUNGS,
     witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
+    whoVouches:whoVouches, whoWont:whoWont,
     becauseOf:becauseOf, rungFor:rungFor,
     inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
     DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };

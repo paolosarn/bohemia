@@ -1,0 +1,96 @@
+BOHEMIA -- GEN 1 ANIMAL: THE NOSE AS A READOUT
+BANK, 9/5/26, DYNASTY lane, Q1. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+Research mode ships test lines to a bank, never to a surface. Every line below
+is draft:true under ALWAYS MAKE AN ATTEMPT (8/11) -- a real attempt, written as
+if it ships, so he has something to edit instead of a blank page. He has ruled
+nothing about generation one. Not a word here is his.
+
+WHY THESE LINES EXIST
+Day 1's refusal is a smell mode that paints a coloured line to the objective.
+That is the most copied and most criticised mechanic in the whole animal-game
+aisle, and it turns a sense into a quest marker. The replacement comes from the
+real aisle: a tracking dog needs three to five consecutive footprints and about
+three to five seconds to work out WHICH WAY somebody went, by comparing how
+strong the smell is between adjacent prints. Scent decays, so the older print is
+weaker.
+  A TRACK HAS A DIRECTION BECAUSE IT HAS AN AGE.
+So the nose is a READOUT, not an overlay. It obeys day 17's standing rule --
+WORDS FOR THE WORLD, ONE NUMBER -- and the one number is HOW OLD.
+Record: records/BOHEMIA_DYNASTY_DAY_1_WHAT_YOU_CAN_DO_WITH_NO_HANDS_9_5_26.md
+
+SHAPE
+  [ WHO ]  [ WHICH WAY ]  [ HOW OLD ]      <- the only number on screen
+The words never say where anybody IS. They say what was here and when.
+
+---- THE READING ITSELF ------------------------------------------------ draft:true
+A MAN. WENT EAST. 20 MIN
+TWO MEN. WENT EAST. 20 MIN
+A MAN. WENT EAST. 3 HRS
+A WOMAN AND A DOG. NORTH. 1 HR
+FOUR OF THEM. SOUTH, TOGETHER. 40 MIN
+A MAN, CARRYING SOMETHING HEAVY. WEST. 2 HRS
+A DOG, ALONE. NO DIRECTION. 6 HRS
+BLOOD. NOBODY WALKED OUT. 8 HRS
+
+---- WHEN THE READING WILL NOT COME ------------------------------------ draft:true
+NOTHING. THE GROUND IS CLEAN.
+TOO OLD. IT IS GONE.
+TOO MANY. THEY ALL WALKED HERE.
+THE WIND IS WRONG.
+IT RAINED ON THIS.
+HOT GROUND. IT BURNED OFF.
+
+---- STANDING IN IT, WHICH IS WHAT THE READING COSTS -------------------- draft:true
+(three to five seconds, and you are still standing there)
+YOU HAVE IT. WHICH WAY?
+ONE MORE PRINT.
+KEEP YOUR HEAD DOWN.
+SOMETHING IS COMING. LEAVE IT.
+
+---- LEFT AND RIGHT, BECAUSE THE NOSE IS STEREO ------------------------- draft:true
+(each nostril takes a separate sample; the difference is what locates it)
+STRONGER ON YOUR LEFT.
+STRONGER ON YOUR RIGHT.
+IT IS EVEN. TURN YOUR HEAD.
+BEHIND YOU.
+
+---- THE EYES, WHICH ARE WORSE AND DO NOT CARE -------------------------- draft:true
+(two cones, about 20/75, rod-heavy: colour and detail nearly gone, motion and
+dark for free. Our valley opens at 06:00 in the dark and nobody patrols it.)
+YOU CANNOT SEE WHAT COLOUR IT IS.
+IT IS TOO FAR TO SEE. IT IS NOT TOO FAR TO SMELL.
+IT MOVED.
+THE DARK IS FINE.
+
+---- READING A PERSON, WHICH IS THE ONE THING YOU ARE BEST AT ----------- draft:true
+(a pet dog follows a human point to hidden food; hand-raised wolves and
+chimpanzees do worse. The portrait already performs. Withhold the sentence,
+keep the brow. NOTHING BELOW IS A LINE ANYBODY SAYS -- it is what you get
+INSTEAD of the words.)
+HE IS TALKING TO YOU. YOU DO NOT KNOW THE WORDS.
+HE POINTED. THAT WAY.
+HE IS LOOKING PAST YOU AT SOMETHING.
+HIS HANDS ARE DOWN.
+SHE SAID YOUR NAME. YOU KNOW THAT SOUND.
+HE HAS DONE THIS BEFORE. HE IS WAITING.
+
+---- THE CALL, WHICH GOES FURTHER THAN YOU WALK ------------------------- draft:true
+NOTHING CAME BACK.
+ONE ANSWERED. WEST, A LONG WAY.
+THREE ANSWERED.
+SOMETHING ANSWERED THAT IS NOT ONE OF YOURS.
+A DOOR OPENED.
+
+---- WHAT THE READING NEVER SAYS --------------------------------------- (the refusals)
+No objective marker. No coloured trail on the ground. No arrow.
+No distance in metres. No "he is 40m north east".
+No hunger number, no thirst number, no bar of any kind on the body.
+No damage number anywhere. NO DAMAGE BEFORE THE DIAL.
+No dialogue menu, ever. An animal that picks a reply off a list is a person
+in fur, and it throws away the only mechanic on this page that is ours.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Whether generation one is a coyote at all. How long it runs. Whose animal it
+is, and whose people those are. What happens at the fold. Every name.
