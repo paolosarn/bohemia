@@ -1,0 +1,560 @@
+{
+"law": "COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26, clause 4",
+"refs": {
+"arsenal": {
+"source": "ARSENAL",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"basin": {
+"source": "DETENTION BASIN",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"datafort": {
+"source": "DATA FORT",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"fueldepot": {
+"source": "TANK FARM",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"granary": {
+"source": "GRAIN ELEVATOR",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"gypsum": {
+"source": "GYPSUM WORKS",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"intake": {
+"source": "LAKE INTAKE",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"pumpstation": {
+"source": "PUMP STATION",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"quarry": {
+"source": "QUARRY",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"radio": {
+"source": "ANTENNA FARM",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"reclaim": {
+"source": "RECLAMATION PONDS",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"reservoir": {
+"source": "RESERVOIR",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"cityhall": {
+"source": "City Hall \u2014 matched to the walkable district: an admin BLOCK + a CLOCK TOWER over the entrance + a forecourt PLAZA with a DRY FOUNTAIN + flagpoles. Same palette as the tile you walk.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"battery": {
+"source": "Battery \u2014 matched to the walkable district: a grid BATTERY-STORAGE yard (control building + rows of BATTERY CONTAINERS with HVAC + an INVERTER/TRANSFORMER rack + gravel + fence). Not a smokestack plant.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"terminal": {
+"source": "Transit terminal (1x1) \u2014 matched to the walkable district: a waiting HALL + a SCHEDULE-BOARD CLOCK over the doors + a gray boarding CANOPY over a ROW of dead BUSES + a kiss-and-ride.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"downtown": {
+"source": "Downtown \u2014 matched: a podium base filling the block + two slender TOWERS with rooftop mech + a SKYBRIDGE. The dense core.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"industrial": {
+"source": "Industrial \u2014 matched: one big distribution WAREHOUSE + a row of DOCK DOORS + parked TRAILERS in the truck court + a front office + guard shack.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"medical": {
+"source": "Medical \u2014 matched: a hospital BLOCK with a RED CROSS + an entrance drop-off canopy + a decked PARKING GARAGE.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"mall": {
+"source": "Mall \u2014 matched: the DUMBBELL \u2014 a long concourse with a big-box ANCHOR at each end + a food-court bump + a parking field.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"park": {
+"source": "Park \u2014 matched: open dead TURF + a winding PATH + a small SHELTER/restroom + a dead shade tree + benches.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"warehouse": {
+"source": "Warehouse \u2014 matched: rows of flex/tenant UNITS (one burned) with roll-up doors + a leasing office + a fortress fence.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"commercial": {
+"source": "Commercial \u2014 matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"school": {
+"source": "High school \u2014 matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark \u2014 an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl \u2014 plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, the AUTO SHOP under its sawtooth roof with a roll-up bay standing open over an oiled yard (Paolo 7/30 killed the tennis courts and gave the ground to it), and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground and no tennis: both were rulings, both are held at zero by the gate.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"courthouse": {
+"source": "Courthouse \u2014 matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"apartment": {
+"source": "Garden apartments \u2014 matched: three walk-up BLOCKS around a court, their circulation on the OUTSIDE the way Sun Belt walk-ups build it (open WALKWAY DECKS on two levels and the stair run at the end), the DRAINED POOL in the middle of the court, the clubhouse, and the perimeter fence.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"arterial": {
+"source": "Arterial \u2014 THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls \u2014 nothing stops on a run.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"convention": {
+"source": "Convention centre \u2014 matched to the walkable district: TWO ENORMOUS COLUMN-FREE BOXES, which is what the building is from a mile up. The older hall flat-roofed and the newer WEST HALL taller beside it (the LVCC's halls were built decades apart and read as different buildings), a glazed CONCOURSE spine threading them, roof plant and SKYLIGHT bands the only texture on the roofs, and the WALL OF LOADING DOCKS with the trailers still backed into it \u2014 because a hall's real job is swallowing a hundred semi-trailers of freight in two days.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"prison": {
+"source": "Prison \u2014 matched, and the silhouette is not a building, it is a PERIMETER WITH TOWERS ON IT. A double wire ringing the compound with a GUARD TOWER standing above everything at each of the four corners, four low housing units and their exercise yards inside it, the services core between them, and the ADMINISTRATION BLOCK OUTSIDE THE LINE \u2014 which is the tell that separates a prison from any other institutional campus. Nevada desert facility (High Desert / Southern Desert, Indian Springs).",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"dam": {
+"source": "Dam \u2014 matched, and nothing else in the valley is a CURVE HOLDING BACK A LAKE. The arch-gravity wall wedged across the canyon bowing upstream, the reservoir stacked behind it with the white BATHTUB RING where the water used to reach, FOUR INTAKE TOWERS standing out of the water, a spillway cut into each canyon wall, the POWERHOUSE in its U at the downstream toe with the tailrace below, and transmission towers climbing the walls at angles nothing else is built at. Hoover.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"minigp": {
+"source": "Kart circuit \u2014 matched: a closed LOOP that comes back to itself, which no other district in the valley is. The course with its infield kink, the TYRE WALL running the whole outside of it, the pit lane down the inside of the main straight with the paddock behind, the TIMING TOWER over the start line, and the karts left on the grid.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"fort": {
+"source": "Old Mormon Fort \u2014 matched: an ADOBE SQUARE with a bastion at one corner, on Las Vegas Creek. The only walled courtyard in the valley and the only thing you can see INTO over a low wall, which is what makes it read at map zoom against sixty districts of roofs. The original adobe building stands inside it. 1855, and the spring beside it is the reason a city is here at all.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"resort": {
+"source": "Strip mega-resort \u2014 matched to the walkable district: PODIUM + TOWER, off real Las Vegas site plans (Encore/Wynn, Paris Las Vegas, Circa). A low podium filling the block wall to wall with the casino floor, roof plant and SKYLIGHTS over it, and ONE ENORMOUS GUEST TOWER standing on it \u2014 a long thin double-loaded slab, the tallest thing in the valley \u2014 plus the COLONNADED ARRIVAL -- a double row of piers down the drive and a raised entry platform at the doors, which is what replaced the porte cochere when Paolo banned canopies on 8/2 -- the open-deck parking garage on one end and the DRY POOL basin behind. No fence, no wall, no bollards anywhere (Paolo 8/16): the podium meeting the sidewalk is the edge, which is what the real building does.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"casino": {
+"source": "Downtown casino \u2014 matched, and its whole job is to NOT be the Strip resort. Fremont Street: NO SETBACK, one enormous LOW WIDE floor meeting the pavement on a block platted before anybody parked a car, a SLENDER HOTEL WING on the back rather than a tower across the front, and THE FRONTAGE IS SIGN \u2014 MARQUEE PYLONS floor to roof, the brightest things on the block, with the marquee band running between them ABOVE the doors -- never out over the pavement, because Paolo banned canopies on 8/2 and the Fremont canopy is still a canopy. The car is banished to a self-park deck on the alley. Marquee faces BLANK: whose casino it is stays Paolo's.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"strip": {
+"source": "Las Vegas Boulevard \u2014 THE RUN, and it is a street cell, not a lot: eight lanes filling the cell end to end, the wide LANDSCAPED PALM MEDIAN down the middle (the county lifted those palms out during construction and re-planted them \u2014 the median is not decoration, it is the street), the PROMENADE at the back of curb running out to the property line on both sides with no amenity strip and NO WALL, a marquee pylon at the building face, and the ENCLOSED PEDESTRIAN BRIDGE flying over the traffic on its two stair towers. The bridge is the tell: nothing else in the valley has one.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"strip_x": {
+"source": "Las Vegas Boulevard Crossing \u2014 THE CROSSING, a different item from the run (same ruling as arterial vs arterial_x, Paolo 8/11): the boulevard with LADDER CROSSWALKS on the approaches, the SIGNAL MASTS reaching their arms out over eight lanes, and the PEDESTRIAN BRIDGE standing over all of it. Out there you do not cross this street at grade at all \u2014 you go up a tower, across the span and down the other side, which is exactly what this icon shows.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"arterial_x": {
+"source": "Arterial Intersection \u2014 THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"boneyard": {
+"source": "Wrecking yard \u2014 matched: six CRUSHED-CAR STACKS, flattened bodies piled six and eight high in leaning towers \u2014 a shape nothing else makes \u2014 with the CRANE and its grapple standing over them, loose wrecks in three faded colours filling the dirt aisles, tyre piles and the parts office.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"cemetery": {
+"source": "Memorial park \u2014 matched: the MAUSOLEUM with its colonnade front (the only building with height on a cemetery), the HEADSTONE FIELD gridded around it, the OBELISK monument, a columbarium wall and the dead trees in their grates.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"desert": {
+"source": "Open desert \u2014 LOW BY NATURE and named as such: there is no building in open Mojave and inventing one would be a lie about the map. What it has is TEXTURE \u2014 varnished desert pavement, rock lag, CREOSOTE in its evenly spaced grid (they poison each other's roots, which is why the spacing is even), bursage between them, a dry rill, rock outcrops, dead yucca, dumped debris and a burned car.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"drivein": {
+"source": "Drive-in theater \u2014 matched: the SCREEN TOWER, a flat wall four storeys high standing alone with its back bracing and nothing behind it, which is the most recognisable silhouette the American roadside has. Seven RAMPED ROWS of earth with speaker poles and the cars that never left, and the projection booth.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"freeway": {
+"source": "Freeway \u2014 matched: the ELEVATED DECK on its columns crossing the lanes, a SIGN GANTRY over them with its panels blank, sound walls the length of both embankments, the median barrier and a dead semi in the slow lane. The deck and the gantry are SPANS, not canopies (8/2) \u2014 infrastructure carrying something across a gap.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"golf": {
+"source": "Golf course \u2014 matched: three GREENS each ringed by its SAND BUNKER with the pin and flag standing in it \u2014 in act 1 the fairways are dead brown and only the sand still reads bright, so the bunkers do the work. Plus the dry water hazard, the tee boxes, the CLUBHOUSE under its gable and a cart left mid-round.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"jail": {
+"source": "Detention center \u2014 matched, on the CLARK COUNTY DETENTION CENTER (JMA with HOK, 1981-84): a twelve-storey TOWER with narrow horizontal window bands, designed on a brief to NOT LOOK LIKE A JAIL because it sits blocks from Fremont. The walled SECURE YARD with razor wire and four GUARD TOWERS at its feet is what gives it away.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"landfill": {
+"source": "Landfill \u2014 matched, on APEX REGIONAL (2,200 acres, the largest in the world by area and volume): the TERRACED MOUND, four stepped benches with waste layered under each like a sheet cake, GAS WELLS piped down the face, a FLARE STACK burning what the methane plant does not take, the scale house and a leachate pond.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"mountain": {
+"source": "Mountain \u2014 matched: a limestone RIDGE on the valley rim, a stepped massif rising to one summit with CLIFF BANDS across its sunward face, TALUS fans off the foot, a ravine cut into the flank and boulders on the apron. The tallest thing in the valley and it reads that way at map zoom.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"railyard": {
+"source": "Rail yard \u2014 matched: the TRACK FAN spreading out of one throat (a shape nothing else in the valley makes), the ENGINE SHED at its head with a locomotive standing in the shed road, boxcars down the body roads, and the GANTRY CRANE straddling the container aisle.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"substation": {
+"source": "Transmission substation \u2014 matched: a YARD OF FRAMES, not a building. Three lattice SWITCHGEAR structures carrying BUSBARS overhead on insulators, six TRANSFORMER BANKS with radiator fins and bushings under them, and the small control house. The open steel frame against sky is the only one in the valley.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"suburb": {
+"source": "Subdivision \u2014 matched: a CUL-DE-SAC bulb with eight houses shoulder to shoulder around it, gabled roofs, GARAGE doors facing the street, and the continuous BLOCK WALL that rings the whole thing \u2014 the defining feature of a Sun Belt subdivision from the air (7/21 Vegas urbanism research).",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"trailer": {
+"source": "Mobile home park \u2014 matched: fifteen SINGLE-WIDES on their pads, all the same way round, skirted, with a ridge cap, a SHED and a PROPANE BOTTLE beside each one \u2014 and the one BURNED-OUT unit that stopped a row. A trailer park reads as a barcode from above and this one does.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"wash": {
+"source": "Flood channel \u2014 matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL cut straight across the plot, sloped concrete walls down to a flat invert with the low-flow trickle in it, riprap on the banks, a road BRIDGE on piers over it, and the SEWER TUNNEL MOUTH in the wall \u2014 which is the way IN, and why this district matters at all.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"water": {
+"source": "Lake shore \u2014 LOW BY NATURE and named as such: the subject is a horizontal. What makes it legible is the BATHTUB RING, the white mineral band the water left on the rock as it dropped over twenty years, with the exposed lakebed cracking below it, shore rock above, and a LAUNCH RAMP that now ends a long way short of the water. The sunken boat is the punchline.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"waterpark": {
+"source": "Water park \u2014 matched, on the dead WET'N'WILD (27 acres on the Strip, 1985-2004): the SLIDE TOWER, four stacked platforms with FLUMES spiralling off all four corners, the drained WAVE POOL with its wave wall and shallow end, a splash pool, the locker building, the snack bar and the lounger row.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"watertreat": {
+"source": "Water reclamation plant \u2014 matched: CIRCLES, which no other industrial site has. Four CLARIFIER drums with the rotating bridge across each one and crusted sludge in the floor, the baffled AERATION CHANNEL beside them making the circles read as circles, the blower house and the pipe gallery.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"chapel": {
+"source": "Church \u2014 matched: the CRUCIFORM plan (nave crossed by the transepts, a rounded APSE at the head, the NARTHEX porch at the foot) under its roof RIDGE, the BELL TOWER with its belfry and cross finial, the walled MEMORIAL COURT with its columbarium and dead planting, and a forecourt with the churchyard cross, the fallen bell and the dry font. There was no chapel icon at all until 8/2, and Paolo scored the empty panel 0%.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"library": {
+"source": "Library \u2014 matched to the rebuilt district, which is built on the real reference: Antoine Predock's Las Vegas Library and Lied Discovery Museum (1986-90, Las Vegas Blvd). The DRUM with its oculus ring and lantern, the giant concrete TOWER, and the long reading wing under a clerestory that runs its whole length, all on a raised terrace above the plaza \u2014 sandstone and concrete, because in Predock's words the colour scheme is provided by the desert. The old icon was a classical COLONNADE, which is a library from a different country and a different century.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"farm": {
+"source": "Farm \u2014 matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"firestation": {
+"source": "Fire station \u2014 matched: quarters + a bay block with RED apparatus doors + a HOSE TOWER + a red fire engine + staff car.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"policestation": {
+"source": "Police station \u2014 matched: a station building + a SALLY PORT + a PATROL-CAR fleet + an impound wreck + a roof antenna + a fence.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"solar": {
+"source": "Solar \u2014 matched: a FIELD of tilted PV panel rows + a control building + inverter pads + substation switchgear.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"stadium": {
+"source": "Stadium \u2014 matched: the oval seating BOWL + facade + a field + four LIGHT TOWERS + a scoreboard + a parking field.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"storage": {
+"source": "Self-storage \u2014 matched: unit rows wall-to-wall with ORANGE roll-up doors + a leasing office + a fortress fence.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"truckstop": {
+"source": "Truck stop \u2014 matched: a store/diner + a big FUEL CANOPY over pumps + a wash bay + a tall PYLON sign + parked rigs.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"swapmeet": {
+"source": "Swap meet \u2014 matched: a food hall + rows of colorful STALL TENTS (the market) + a pylon sign + gravel lot.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"rail": {
+"source": "Railway \u2014 matched to the walkable corridor: two ballasted TRACKS with a dead LOCOMOTIVE and FREIGHT WAGONS standing on them + a wayside SIGNAL and its RELAY HUT + the at-grade CROSSING with the GATE ARM still down + the ROW fence + the rail-served LOADING DOCK and stacked relay steel.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"interchange": {
+"source": "Interchange \u2014 matched: two carriageways crossing on TWO LEVELS, the upper one on a piered DECK, with a connector RAMP curving up to it + a HIGH-MAST light + the sound wall + the retention basin + the jam that never moved.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"airport": {
+"source": "Airport \u2014 matched: the RUNWAY and its centreline + the amber TAXIWAY + the TERMINAL + a JET BRIDGE still docked to a dead AIRLINER on the stand + a floodlight mast + the perimeter fence.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"campus": {
+"source": "Campus \u2014 matched to the walkable district: the QUAD with its diagonal walks and DRY FOUNTAIN, the academic halls turned to FACE it, the colonnaded LIBRARY as the biggest mass, a residence hall set apart, dead quad trees.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"speedway": {
+"source": "Speedway \u2014 matched: the banked OVAL with its painted apron, the GRANDSTAND on the front stretch only, the GARAGE ROW and pit lane inside, the spectator TUNNEL mouth, a catch fence and one light tower.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"town": {
+"source": "Town \u2014 matched to the walkable district: the STREET WALL of attached FALSE-FRONT storefronts on both sides of one wide main street, the covered BOARDWALK between the shopfronts and the kerb, the SALOON and the HALL as the anchors, the one CROSS STREET that makes it a block instead of a corridor, angle bays, houses on dirt lots out back, the fuel CANOPY at the town's mouth, and the WATER TOWER standing over all of it.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"ballpark": {
+"source": "Ballpark \u2014 matched: the ninety-degree DIAMOND seen from behind home plate, the skinned infield with its MOUND and bases, the chalked FOUL LINES, dead outfield turf inside a WARNING TRACK and the outfield WALL, a raked GRANDSTAND bowl that wraps the plate and stops at the poles, the CONCOURSE behind it, DUGOUTS and BULLPENS down both lines, and six LIGHT TOWERS.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"airbase": {
+"source": "Air base \u2014 matched: the same field with the military landside \u2014 two arch-roofed HANGARS with their doors open + a dead FIGHTER on its alert pad between two concrete blast REVETMENTS + the blast pad off the runway threshold.",
+"kind": "icon",
+"derived_from": "tools/bohemia_district_hero_factory.py LABEL"
+},
+"hair_sun_crop": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_dusk_shag": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_temple_taper": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_ash_sweep": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_salt_crown": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_buzz_cut": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_crop": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_slick_back": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_bowl_cut": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_fringe": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_shag": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_shoulder_length": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_long_loose": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_wolf_cut": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_grey_wisps": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_rope_locks": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_short_ropes": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_dust_weave": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_coil_crown": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_layered_fall": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_curtain_cut": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_heavy_fringe": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_dry_taper": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"hair_deep_taper": {
+"source": null,
+"kind": "haircut",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_1": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_2": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_3": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_4": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_5": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_6": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_7": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_8": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_9": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_10": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_11": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_12": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_13": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_14": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_15": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+},
+"face_16": {
+"source": null,
+"kind": "face",
+"unrecorded": "cooked before the compare rule (9/4); new batches must name one"
+}
+}
+}

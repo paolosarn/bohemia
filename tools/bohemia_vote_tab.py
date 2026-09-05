@@ -349,10 +349,18 @@ HTML = '''<!doctype html><meta charset="utf-8">
   .bnote{width:100%;background:transparent;color:var(--ink);border:1px solid var(--line);
     border-radius:5px;padding:6px;font:inherit;resize:vertical}
   .proof{font-size:10px;opacity:.4;margin-top:6px;word-break:break-all}
+  #refbar{margin:0 0 14px;padding:8px;border:1px solid var(--gold);border-radius:6px;
+          background:var(--card)}
+  #reffor{display:block;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:5px}
+  #reftxt{font-size:12px;line-height:1.45}
+  #reftxt .noref{opacity:.65;font-style:italic}
+  #refb.on{background:var(--gold);color:#0d0d12;border-color:var(--gold)}
+  body.refmode .cel{outline:1px dashed rgba(200,168,72,.4);outline-offset:-1px}
 </style>
 <header>
   <h1>VOTE</h1>
   <span class="count" id="count"></span>
+  <button id="refb" title="see what each one was matched against">MATCHED TO</button>
   <button id="sun">SUN</button>
   <button id="exp">EXPORT</button>
 </header>
@@ -365,6 +373,12 @@ HTML = '''<!doctype html><meta charset="utf-8">
   <div id="notebar" hidden><span id="notefor"></span>
     <textarea class="note" id="tilenote" rows="2" placeholder="what is wrong with it (optional)"></textarea>
   </div>
+  <!-- THE REFERENCE SITS BESIDE THE CANDIDATE (9/4 compare law, clause 4;
+       DIRECTION lane 9/5). Tap MATCHED TO up top, then tap any tile: this
+       panel says what that piece was compared against, in plain words --
+       or says honestly that nothing was written down, because it was made
+       before the rule. Voting taps are untouched outside that mode. -->
+  <div id="refbar" hidden><span id="reffor"></span><div id="reftxt"></div></div>
   <div id="facelist">__FACES__</div>
   <div id="newlist">__NEW__</div>
   <div id="oldwrap"><h2>ALREADY JUDGED &mdash; here so you can change your mind</h2>__OLDFACES____OLD__</div>
@@ -421,6 +435,17 @@ HTML = '''<!doctype html><meta charset="utf-8">
     // panels. A corner flag shows where he is; nothing is added around the art.
     var cel=e.target.closest('.cel'); if(!cel) return;
     var d=cel.getAttribute('data-d');
+    /* MATCHED TO mode (9/4 compare law): the tap ASKS instead of voting. */
+    if(document.body.classList.contains('refmode')){
+      var rb=document.getElementById('refbar');
+      document.getElementById('reffor').textContent=d.toUpperCase()+' - MATCHED AGAINST';
+      var r=(window.REFS||{})[d];
+      document.getElementById('reftxt').innerHTML = (r&&r.source)
+        ? r.source.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        : '<span class="noref">Nothing was written down for this one. It was made before the compare rule (9/4). New batches have to name what they were compared against.</span>';
+      rb.removeAttribute('hidden'); rb.scrollIntoView({block:'nearest'});
+      return;
+    }
     var order=['up','cbb','down',null], cur=V[d]||null;
     var nxt=order[(order.indexOf(cur)+1)%order.length];
     cel.classList.remove('v-up','v-cbb','v-down');
@@ -455,6 +480,12 @@ HTML = '''<!doctype html><meta charset="utf-8">
       (bt? bd+' / '+bt+' decided  \\u00b7  ' : '')+done+' / '+total+' voted';
   }
   document.getElementById('sun').onclick=function(){document.body.classList.toggle('sun');};
+  window.REFS=__REFS__;
+  document.getElementById('refb').onclick=function(){
+    var on=document.body.classList.toggle('refmode');
+    this.classList.toggle('on',on);
+    if(!on)document.getElementById('refbar').setAttribute('hidden','');
+  };
   function exp(){
     var L=['BOHEMIA - VOTE','__STAMP__','',
            'YES = ship it.  COULD BE BETTER = ships frozen, fix later.  NO = kill it.',''];
@@ -495,6 +526,16 @@ HTML = '''<!doctype html><meta charset="utf-8">
 </script>
 '''
 
+# THE REFERENCE SITS BESIDE THE CANDIDATE (9/4 compare law, clause 4). The
+# registry is DERIVED by tools/bohemia_reference_checks.py -- the icon prose
+# comes out of the hero factory's own per-district match text, faces are
+# honestly UNRECORDED until a cook names one in the sidecar.
+_REFS = {}
+_RF = os.path.join(RECORDS, 'BOHEMIA_REFERENCE_CHECKS.json')
+if os.path.exists(_RF):
+    _REFS = json.load(open(_RF, encoding='utf8')).get('refs', {})
+HTML = HTML.replace('__REFS__', json.dumps(
+    {k: {'source': v.get('source')} for k, v in _REFS.items()}))
 HTML = HTML.replace('__BLOCKERS__', blockers_html)
 HTML = HTML.replace('__FACES__', faces_html)
 HTML = HTML.replace('__OLDFACES__', faces_done)
