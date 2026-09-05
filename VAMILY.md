@@ -217,8 +217,8 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 
 ## DIRECTION  (06. the Art Director. Decides the look, judges every cook. Does not cook.)
 MODE: BUILD
-- CLAIMED 9/5 session_015Wm1PKCubu8WUBgmB9eXKK  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 STATE: a visual constitution exists (records/target, target_match_gate); no style card for the runway exists yet; nothing judges a cook's comparison against reference yet.
+- CLAIMED 9/5 session_015Wm1PKCubu8WUBgmB9eXKK  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 - OPEN  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 - OPEN  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
