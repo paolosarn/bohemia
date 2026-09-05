@@ -61,9 +61,10 @@ reference game he has not named. ***
 ## TIME BETWEEN FIGHTS (13), THE FIRST FIVE MINUTES (14), WHAT MAKES ONE TURN
 ## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16),
 ## HOW MUCH YOU SHOW (17), THE MIDDLE HORIZON (18), WHAT IT COSTS TO GO
-## SOMEWHERE (19), WHAT A JOB IS ONCE YOU TAKE IT (20) AND WHAT SURVIVES
-## WHEN YOU CLOSE THE TAB (21). A PLAN IS NOT A LAW -- AND DAY 20 FOUND A
-## RULING OF HIS, TWENTY DAYS OLD, THAT NOBODY EVER BUILT. ***
+## SOMEWHERE (19), WHAT A JOB IS ONCE YOU TAKE IT (20), WHAT SURVIVES WHEN
+## YOU CLOSE THE TAB (21) AND WHAT THE PLACE SOUNDS LIKE (22). A PLAN IS NOT
+## A LAW -- AND DAY 20 FOUND A RULING OF HIS, TWENTY DAYS OLD, THAT NOBODY
+## EVER BUILT. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -642,3 +643,40 @@ NEAR-MISS RECORDED: the first measurement said the demo carried none of the
 five, which would have been a big wrong demo-critical finding. The positive
 control killed it -- both the demo and the alpha load the walked city by
 src. Third time this discipline has saved a day. Four rows.
+
+## 10. DAY 22
+
+**DAY 22 -- THE CITY MAKES NO SOUND WHEN NOTHING IS HAPPENING. *** DONE:
+records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md. The last
+big untouched system: 3 incidental mentions in 21 records, on a game whose
+spine is the 120 BPM law. ***
+TWO THINGS I EXPECTED WERE WRONG AND BOTH ARE RECORDED. "Walking is silent"
+(three records, 8/20-8/21) is STALE -- footsteps are built, six surfaces,
+ported not reinvented. And my first sweep for the RUN slice's message names
+returned zero in the walked city, which reads as a catastrophe; the positive
+control killed it, because the city uses `bohemiaCitySfx` and `BOHEMIA_STEP`
+instead. FOURTH TIME THAT DISCIPLINE HAS SAVED A FALSE FINDING.
+MEASURED: 65 approved sounds, 185 variants, and the walked city can produce
+FOURTEEN -- **and every one is a reaction to something the player did.**
+Stand still and there is nothing.
+*** THE BED IS BUILT AND HE GAVE IT A PERFECT SWEEP. *** air_day, air_night
+and air_inside are 5 of 5 each, fifteen of fifteen, labelled "what you hear
+when nothing is happening" and "this one is the horror". The AMB bed that
+plays them is finished and tuned. ITS ONLY FEED IS `BOHEMIA_WHERE`, posted
+by the RUN slice every four seconds, WHICH THE WALKED CITY NEVER POSTS --
+its only two hits are filenames in comments. FOUR SYSTEMS RIDE THAT ONE
+MESSAGE: the bed, the occlusion listener, the music phase and the time cue.
+FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
+AND THE MUSIC IS PERMANENTLY NIGHT: CITYMUS.phase is hardcoded 'NIGHT' and
+musicPhase is the only assignment in the build, so the 8/4 fix that rescued
+the one song he has ever said he likes DOES NOT REACH THE SURFACE HE WALKS.
+BOTH AISLES: BB's ambience is per-terrain and per-settlement, which is day
+13's "count combinations, not content" at zero art cost. Schafer's KEYNOTE
+SOUNDS are not consciously heard yet imprint a sense of PLACE -- we ship
+only signals and have no keynote. And the 2020 lockdown measurement (human
+ground noise down up to 50%, largest in the densest cities, buried signals
+becoming audible) settles the design question: **DEAD IS NOT SILENT, DEAD IS
+A DIFFERENT BED.**
+THE CHALLENGE: day 13 answered "the city seems dead asf" entirely in the
+visual domain. Nobody asked whether it is dead because you cannot hear it.
+Four rows, and the first is the smallest fix in the study.

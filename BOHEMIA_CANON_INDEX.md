@@ -1,4 +1,4 @@
-# BOHEMIA CANON INDEX — regenerated 09/04/26
+# BOHEMIA CANON INDEX — regenerated 09/05/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.

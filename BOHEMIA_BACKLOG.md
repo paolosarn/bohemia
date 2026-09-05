@@ -2475,6 +2475,71 @@ BB-SLOWER-EVERY-TIME. *** DAY 11. THE ACT TURN IS FORETOLD BY THE VALLEY GETTING
    IT IS THE OPPOSITE OF A DIFFICULTY SLIDER: THE WORLD DOES NOT HIT HARDER, IT
    STOPS BOUNCING BACK. Needs UI BB-FORETOLD or it is a simulation nobody sees.
 
+BB-THE-CITY-SENDS-WHERE. *** DAY 22. ONE MESSAGE, FOUR SYSTEMS, AND THE SURFACE
+   HE WALKS DOES NOT SEND IT. THE FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
+   SMALLEST FIX IN THE WHOLE STUDY. TAKE IT FIRST. ***
+   MEASURED, mention-vs-use, name by name: the walked city can produce FOURTEEN of
+   the bank's 65 approved sounds (come_up, phone_buzz, went_down, door_drag,
+   sleep_sink, three derived ui_* and six footstep surfaces) AND EVERY ONE OF THEM
+   IS A REACTION TO SOMETHING THE PLAYER DID. Stand still and the valley makes no
+   sound at all.
+   THE BED IS BUILT AND HE GAVE IT A PERFECT SWEEP: air_day, air_night and
+   air_inside are FIVE VARIANTS OF FIVE, THUMBS UP, FIFTEEN OF FIFTEEN, and the
+   MUSIC tab's own labels call them "THE VALLEY AT MIDDAY -- what you hear when
+   nothing is happening", "THE VALLEY AT NIGHT -- this one is the horror" and
+   "INSIDE A BUILDING -- a room with nobody in it but you". The AMB bed that plays
+   them is finished, tuned (a 40-95s gap, its own bus at 0.4 of the judged level)
+   and documented ("a rare sound so the valley is not dead air... it makes the
+   place feel occupied by nothing").
+   THE CAUSE: AMB.where has exactly ONE caller, the BOHEMIA_WHERE handler, and that
+   handler also sets LISTENER.inside (occlusion), musicPhase (the day/night music
+   pool) and timePass in the same line. BOHEMIA_WHERE is posted by
+   slices/BOHEMIA_RUN_CURRENT.html every four seconds. THE WALKED CITY NEVER POSTS
+   IT -- positive control: its only two hits for that string are FILENAMES INSIDE
+   COMMENTS. Same shape as day 6's stranded faction world; A MIGRATION LIST IS A
+   DELETION LIST FOR EVERYTHING NOT ON IT, and this is what it deletes when nothing
+   crashes.
+   THE WORK: post BOHEMIA_WHERE with `inside` and `night` on a four-second
+   heartbeat, the way the run has since 8/1. No new sound, no new art, no ruling
+   from him, and it turns four systems back on at once. | the bed audibly runs on
+   the walked surface and occlusion can fire | nothing | no. ***
+
+BB-THE-BED-IS-THE-PLACE. *** DAY 22. A DISTRICT THAT SOUNDS DIFFERENT IS
+   DIFFERENT, AT ZERO ART COST. RIDES BEHIND BB-THE-CITY-SENDS-WHERE. ***
+   In the game he named, ambience is PER-TERRAIN and PER-SETTLEMENT and the stated
+   goal is that you feel immersed in the ground your figure stands on: seagulls and
+   waves on the coast, insects and frogs in swamp, icy wind in snow, wolves howling
+   at night in forest, crickets in the steppe; and settlements carry people, dogs,
+   cats, chickens, smithy hammering, temple sermons, tavern laughter. THE PLACE
+   TELLS YOU WHAT IT IS BEFORE YOU LOOK AT IT.
+   THIS IS DAY 13'S OWN CONCLUSION IN A CHEAPER DOMAIN: stop counting content and
+   count COMBINATIONS. Sound needs no new pixels and passes no art gate. Once the
+   heartbeat exists the bed picks by WHERE YOU ARE STANDING, not just
+   day/night/inside.
+   REAL AISLE: Schafer's KEYNOTE SOUNDS -- the background bed, named for the key of
+   a piece of music -- are NOT LISTENED TO CONSCIOUSLY BUT DEEPLY IMPRINT A SENSE OF
+   PLACE. We ship only signals and have no keynote.
+   MECHANISM-MINE / CONTENTS-PAOLO'S: WHICH place sounds like WHAT is canon and is
+   his. | the bed varies by district on the walked surface | which district sounds
+   like what | no. ***
+
+BB-A-LIT-BLOCK-HUMS. *** DAY 22. LIGHT=TERRITORY, THROUGH THE EAR, AND IT NEEDS
+   NO NAME. QUEUED BEHIND THE DEMO. ***
+   generator (4 variants of 5 approved) and power_on (2 of 5) are in the bank and
+   are NEVER SENT by anything. Meanwhile LIGHT=TERRITORY is live code on the walked
+   surface, every circuit carries an owner, and the game already computes seams.
+   A BLOCK WITH POWER SHOULD BE AUDIBLE FROM THE NEXT STREET. That is day 6's "name
+   the circuit owner" arriving through the ear, and unlike the naming row it needs
+   NO canon from him at all -- a hum is not a name.
+   GROUNDING, and it is the day's best real-world result: the 2020 lockdowns cut
+   human-generated high-frequency ground noise BY UP TO 50%, the largest such drop
+   ever recorded and largest in the DENSEST cities -- and signals that had always
+   been there, previously buried, BECAME CLEARLY AUDIBLE. DEAD IS NOT SILENT, DEAD
+   IS A DIFFERENT BED: when the machines stop you do not lose sound, you lose the
+   layer that was masking everything else. A working generator four blocks away in
+   a dead valley is LOUD. | a live circuit is audible and a dead one is not |
+   nothing | no. ***
+
 BB-MORE-KEYS. *** DAY 13. THE DESIGN ASKS FOR 70% OF ITS MOMENTS OUT OF 25% OF
    ITS CONTENT, AND THE FIX COSTS HIM NOTHING. ***
    MEASURED in engine/bohemia_encounters.js: the roster is TWELVE approved
@@ -9473,6 +9538,25 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
     POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
     THE_ROUTING_8_28_26.md ***
+BB-THE-DAY-SONG-PLAYS. *** DAY 22. THE WALKED CITY IS PERMANENTLY NIGHT, AND
+   THIS EXACT BUG WAS FIXED ONCE ALREADY AND THE MIGRATION UNDID IT. ***
+   MEASURED: CITYMUS.phase ships hardcoded 'NIGHT' and musicPhase(d) is THE ONLY
+   ASSIGNMENT TO IT IN THE BUILD. musicPhase is called from exactly one place, the
+   BOHEMIA_WHERE handler, which the walked city never sends (see
+   BB-THE-CITY-SENDS-WHERE). So on the surface he actually walks, phaseCat() returns
+   OVERWORLD NIGHT forever and the day and dusk/dawn pools are unreachable.
+   THE ALPHA'S OWN 8/4 BLOCK ALREADY FOUND AND FIXED THIS, FOR THE RUN: "CITYMUS.
+   phase shipped hardcoded to 'NIGHT'... The clock landed. Nobody set it... over
+   200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one song in this
+   entire project he has ever said he likes ('now one of my new favorite songs that
+   you've made'), tagged OVERWORLD DAY by his own hand, unplayable in the run since
+   the day he tagged it." It is tagged OVERWORLD DAY and the walked city can never
+   be in day.
+   RIDES BB-THE-CITY-SENDS-WHERE. VERIFY BY OBSERVED PHASE, NOT BY READING THE CODE
+   -- a fix that has already been undone once by a surface change is exactly the
+   thing to gate. | the phase changes with the clock on the walked surface and a
+   day-tagged song can be drawn | nothing | no. ***
+
 BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
    AND THE PEOPLE ARE OUTSIDE IT. ***
    THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found

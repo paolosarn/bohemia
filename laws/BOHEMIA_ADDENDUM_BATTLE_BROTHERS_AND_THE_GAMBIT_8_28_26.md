@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-TWENTY-ONE days, twenty-one records, driven by his own two-word trigger "bb study,
+TWENTY-TWO days, twenty-two records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -267,7 +267,22 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   counter of days of use. The build already computes `evictionRisk` and
   already asks once, on the reckoning card, which is the right shape and
   possibly the wrong weight.
-- **ROUTED:** seventy-two rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **THE VALLEY MAKES NO SOUND WHEN NOTHING IS HAPPENING (day 22).** 65
+  approved sounds, 185 variants, and the walked city can produce
+  **fourteen** -- **every one of them a reaction to something the player
+  did.** The keynote bed is built and he gave it a perfect sweep (air_day,
+  air_night, air_inside, five variants of five each, labelled *"what you
+  hear when nothing is happening"* and *"this one is the horror"*), and its
+  only feed is a four-second `BOHEMIA_WHERE` heartbeat **the walked city
+  never sends** -- the fifth system the 8/14 migration stranded, and it
+  carries the ambience bed, the occlusion listener, the music phase and the
+  time cue on one message. **The music is therefore permanently NIGHT on the
+  surface he walks**, which un-does the 8/4 fix that rescued the one song he
+  has ever said he likes. **Dead is not silent: the 2020 measurement of a
+  world with its machines off found human ground noise down up to 50% and
+  buried signals becoming audible.** Sound is day 13's combination
+  multiplier at zero art cost, and this is the smallest fix in the study.
+- **ROUTED:** seventy-six rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

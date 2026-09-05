@@ -703,7 +703,106 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (x) LATEST -- *** DAY 21 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (y) LATEST -- *** DAY 22 OF THE BB
+STUDY: THE VALLEY MAKES NO SOUND WHEN NOTHING IS HAPPENING, AND THE FIX IS ONE
+MESSAGE. Seventy-six BB- rows routed. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+
+SOUND WAS THE LAST BIG UNTOUCHED SYSTEM -- three incidental mentions across 21
+records, on a game whose spine is the 120 BPM LAW. The question: what does Bohemia
+sound like when you are just standing in it?
+
+*** TWO THINGS I EXPECTED TO FIND WERE WRONG. BOTH ARE RECORDED. *** (a) "WALKING
+IS SILENT", which three records dated 8/20-8/21 still say, is STALE: footsteps are
+built, __surfaceOf classifies SIX surfaces, ported from the run's classifier rather
+than reinvented, with a fallback so an unapproved surface plays the old sound
+instead of going quiet. (b) My first sweep looked for the RUN slice's message names
+and got ZERO in the walked city, which reads as a catastrophe. THE POSITIVE CONTROL
+KILLED IT: the city speaks a different vocabulary, bohemiaCitySfx and BOHEMIA_STEP.
+FOURTH TIME THIS DISCIPLINE HAS SAVED A FALSE FINDING.
+AND THERE IS A SOUND LANE AND IT HAS BEEN WORKING. The architecture is right: ONE
+AudioContext, the parent's, because the city is an iframe and must never build a
+second audio graph; placeSound does real distance, pan and occlusion; UI sounds are
+DERIVED from the button's state so a withheld verb plays ui_deny "never by reading
+a label"; stings get their own channel because "a sting is not a playSFX, it is a
+figure in the score". None of that is the problem.
+
+*** THE MEASUREMENT: 14 OF 65, AND EVERY ONE IS A REACTION. *** The bank holds 65
+named sounds and 185 approved variants after eight thumb sweeps. Counted by what
+the walked city SENDS, not what its text mentions (block appears 25 times and every
+one is a city block; eat appears inside "heat"): come_up, phone_buzz, went_down,
+door_drag, sleep_sink, three derived ui_*, and BOHEMIA_STEP mapping to six footstep
+surfaces. FOURTEEN. **AND EVERY SINGLE ONE IS A REACTION TO SOMETHING THE PLAYER
+DID. STAND STILL AND THE VALLEY MAKES NO SOUND AT ALL.**
+
+*** THE BED IS BUILT AND HE GAVE IT HIS CLEANEST SWEEP IN THE BANK. *** air_day,
+air_night and air_inside are FIVE VARIANTS OF FIVE, THUMBS UP -- fifteen of fifteen
+-- and the MUSIC tab's own labels say what they are: "THE VALLEY AT MIDDAY, outside
+in the heat, WHAT YOU HEAR WHEN NOTHING IS HAPPENING"; "THE VALLEY AT NIGHT,
+outside after dark, THIS ONE IS THE HORROR"; "INSIDE A BUILDING, a room with nobody
+in it but you". The AMB bed that plays them is finished, tuned (a random 40-95s
+gap, its own bus at 0.4 of the judged level, stops entirely when reports stop so it
+can never play over him judging candidates) and documented: "a rare sound so the
+valley is not dead air... it makes the place feel occupied by nothing."
+THE CAUSE IS ONE MESSAGE. AMB.where has exactly ONE caller: the BOHEMIA_WHERE
+handler, which in the same line also sets LISTENER.inside (occlusion), musicPhase
+(the day/dusk/night music pool) and timePass. BOHEMIA_WHERE is posted by
+slices/BOHEMIA_RUN_CURRENT.html EVERY FOUR SECONDS. THE WALKED CITY NEVER POSTS IT
+-- positive control: its only two hits for that string are FILENAMES INSIDE
+COMMENTS. **FOUR SYSTEMS ON ONE HEARTBEAT, AND IT IS THE FIFTH SYSTEM THE 8/14
+ONE-WALKED-SURFACE MIGRATION STRANDED** (day 6 found the faction world). A
+MIGRATION LIST IS A DELETION LIST FOR EVERYTHING NOT ON IT, and this is what that
+looks like when nothing crashes.
+
+*** AND THE MUSIC IS PERMANENTLY NIGHT. *** CITYMUS.phase ships hardcoded 'NIGHT'
+and musicPhase(d) is THE ONLY ASSIGNMENT TO IT IN THE BUILD, so on the surface he
+walks phaseCat() returns OVERWORLD NIGHT forever. The alpha's own 8/4 block already
+found and fixed this once, for the RUN: "the clock landed. Nobody set it... over
+200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one song in this entire
+project he has ever said he likes, tagged OVERWORLD DAY by his own hand, unplayable
+in the run since the day he tagged it." IT WAS FIXED ON 8/4 AND THE MIGRATION
+UNFIXED IT. A fix a later migration undoes is not a fix, it is a gap with a record.
+
+BOTH AISLES POINT THE SAME WAY. Battle Brothers' ambience is PER-TERRAIN and
+PER-SETTLEMENT -- seagulls and waves on the coast, insects and frogs in swamp, icy
+wind in snow, wolves howling at night in forest, crickets in the steppe; and inside
+a town, people, dogs, cats, chickens, smithy hammering, temple sermons, tavern
+laughter. THE PLACE TELLS YOU WHAT IT IS BEFORE YOU LOOK AT IT, and that is day
+13's "stop counting content and count COMBINATIONS" at ZERO ART COST.
+Schafer's acoustic ecology names the missing thing exactly: KEYNOTE SOUNDS are the
+background bed, "not listened to consciously, but may deeply imprint a person's
+sense of PLACE", as against SIGNALS meant to be noticed. WE SHIP ONLY SIGNALS. WE
+HAVE NO KEYNOTE.
+And the 2020 lockdowns are the largest measurement ever taken of a world with its
+machines off: human-generated high-frequency ground noise fell BY UP TO 50%, the
+longest and most prominent drop in recorded history, LARGEST IN THE DENSEST CITIES
+-- and signals that had always been there, previously buried, BECAME CLEARLY
+AUDIBLE. **DEAD IS NOT SILENT. DEAD IS A DIFFERENT BED.** When the machines stop
+you do not lose sound, you lose the layer that was masking everything else: wind
+gets loud, a generator four blocks away gets loud, a dog gets loud. Post-collapse
+Las Vegas should be the most sonically distinctive place we could have picked and
+it is currently the quietest room in the build.
+
+THE CHALLENGE: day 13 took his loudest complaint, "THE CITY SEEMS DEAD ASF", and
+answered it entirely in the visual and content domain, because we assumed the
+feeling came from what he could SEE. AND THIS IS THE CHEAPEST UNFINISHED THING IN
+THE STUDY: the sounds are recorded, the three bed sounds got a perfect sweep, the
+bed logic is written and tuned, the bus and limiter and placement model all exist
+and are correct. WHAT IS MISSING IS ONE MESSAGE, EVERY FOUR SECONDS, FROM THE
+SURFACE HE WALKS.
+REFUSED: cooking more sounds. 51 of 65 approved sounds are unreachable already, and
+recording more while the approved ones cannot play is the seventeen-invisible-hats
+shape for the fourth time.
+
+Four rows: SOUND/RUN BB-THE-CITY-SENDS-WHERE (take this first -- one message, four
+systems, no art, no ruling), MUSIC/SHARED BB-THE-DAY-SONG-PLAYS (verify by observed
+phase, not by reading the code, because this bug has already been undone once),
+SOUND/WORLD BB-THE-BED-IS-THE-PLACE (per-district ambience; WHICH place sounds like
+WHAT is his), SOUND/WORLD BB-A-LIT-BLOCK-HUMS (generator and power_on are approved
+and never sent, and a hum is not a name so it needs no canon).
+
+COORDINATOR: 8/28 (x) -- *** DAY 21 OF THE BB
 STUDY: THE SAVE IS THE SECOND-BEST-BUILT THING IN THE PROJECT AND THE PEOPLE ARE
 STANDING OUTSIDE IT. Seventy-two BB- rows routed. Nothing to judge. ***
 

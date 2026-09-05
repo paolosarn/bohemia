@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: TWENTY-ONE DAYS, WRITTEN AND ROUTED (8/28), AND
+- *** THE BATTLE BROTHERS STUDY: TWENTY-TWO DAYS, WRITTEN AND ROUTED (8/28), AND
   HE MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -610,7 +610,57 @@ research partner. He DECIDES, you PRODUCE.
   demo-critical finding, and the positive control killed it -- the demo and the
   alpha BOTH load the walked city by `src`, so neither file contains its tokens.
   A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT.
-  ROUTED: seventy-two rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 22 WENT AT HIS LOUDEST COMPLAINT FROM THE ONE DIRECTION NOBODY TRIED:
+  THE VALLEY MAKES NO SOUND WHEN NOTHING IS HAPPENING. *** Sound was the last big
+  untouched system, 3 incidental mentions in 21 records, on a game whose spine is
+  the 120 BPM law. TWO EXPECTATIONS DIED FIRST AND BOTH ARE THE LESSON: "walking is
+  silent" (three records, 8/20-8/21) IS STALE -- footsteps are built, six surfaces,
+  ported from the run's classifier not reinvented -- and my first sweep for the RUN
+  slice's message names returned ZERO in the walked city, which reads as a
+  catastrophe until the positive control shows the city speaks a different
+  vocabulary (`bohemiaCitySfx`, `BOHEMIA_STEP`). FOURTH TIME THAT SAVED A FALSE
+  FINDING. THERE IS A SOUND LANE AND IT HAS BEEN WORKING: one AudioContext (the
+  parent's, because an iframe must never build a second audio graph), a real
+  distance/pan/occlusion model, and UI sounds DERIVED from the button's state so a
+  withheld verb plays ui_deny "never by reading a label". *** MEASURED: 65 approved
+  sounds, 185 variants, and the walked city can produce FOURTEEN -- AND EVERY ONE
+  IS A REACTION TO SOMETHING THE PLAYER DID. STAND STILL AND THERE IS NOTHING. ***
+  AND THE BED IS BUILT AND HE GAVE IT HIS CLEANEST SWEEP IN THE BANK: air_day,
+  air_night and air_inside are FIVE VARIANTS OF FIVE, FIFTEEN OF FIFTEEN, and the
+  MUSIC tab's own labels read "THE VALLEY AT MIDDAY -- what you hear when nothing is
+  happening", "THE VALLEY AT NIGHT -- THIS ONE IS THE HORROR" and "INSIDE A BUILDING
+  -- a room with nobody in it but you". The AMB bed is finished, tuned and
+  documented ("a rare sound so the valley is not dead air... it makes the place feel
+  occupied by nothing"). ITS ONLY FEED IS `BOHEMIA_WHERE`, POSTED BY THE RUN SLICE
+  EVERY FOUR SECONDS, AND THE WALKED CITY NEVER POSTS IT -- positive control, its
+  only two hits are FILENAMES IN COMMENTS. **FOUR SYSTEMS RIDE THAT ONE MESSAGE:
+  the ambience bed, the occlusion listener, the music phase and the time cue.**
+  FIFTH SYSTEM THE 8/14 ONE-WALKED-SURFACE MIGRATION STRANDED, and A MIGRATION LIST
+  IS A DELETION LIST FOR EVERYTHING NOT ON IT is what it looks like when nothing
+  crashes. *** AND THE MUSIC IS PERMANENTLY NIGHT: `CITYMUS.phase` is hardcoded
+  'NIGHT' and `musicPhase` is THE ONLY ASSIGNMENT TO IT IN THE BUILD, so the 8/4 fix
+  that rescued THE MARKER ON THE DOOR -- tagged OVERWORLD DAY by his own hand, the
+  one song he has ever said he likes -- DOES NOT REACH THE SURFACE HE WALKS. A FIX
+  THAT A LATER MIGRATION UNDOES IS NOT A FIX, IT IS A GAP WITH A RECORD. *** BOTH
+  AISLES POINT THE SAME WAY: BB's ambience is PER-TERRAIN AND PER-SETTLEMENT
+  (seagulls, frogs, icy wind, wolves at night, and smithies and sermons and tavern
+  laughter inside a town), which is day 13's "count COMBINATIONS not content" at
+  ZERO ART COST; Schafer's KEYNOTE SOUNDS "are not listened to consciously but
+  deeply imprint a person's sense of PLACE", and WE SHIP ONLY SIGNALS AND HAVE NO
+  KEYNOTE; and the 2020 lockdown is the largest measurement ever taken of a world
+  with its machines off -- human ground noise down UP TO 50%, largest in the DENSEST
+  cities, and buried signals BECOMING CLEARLY AUDIBLE. **DEAD IS NOT SILENT. DEAD IS
+  A DIFFERENT BED** -- you do not lose sound when the machines stop, you lose the
+  layer that was masking everything else, which makes post-collapse Vegas the most
+  sonically distinctive place we could have picked and currently the quietest room
+  in the build. THE CHALLENGE: day 13 answered "THE CITY SEEMS DEAD ASF" entirely in
+  the visual and content domain because we assumed the feeling came from what he
+  could SEE. AND THIS IS THE CHEAPEST UNFINISHED THING IN THE STUDY -- the sounds
+  are recorded, the bed is written and tuned, the bus and the limiter exist; what is
+  missing is ONE MESSAGE, EVERY FOUR SECONDS, FROM THE SURFACE HE WALKS. REFUSED:
+  cooking more sounds. 51 of 65 approved are already unreachable, and recording more
+  while the approved ones cannot play is the seventeen-invisible-hats shape again.
+  ROUTED: seventy-six rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study). TWO ARE ON THE DEMO PATH -- day
