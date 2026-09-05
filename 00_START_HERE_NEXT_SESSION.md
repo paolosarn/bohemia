@@ -61,6 +61,60 @@ CHARACTER'S OWN NOTES ON RUNNING IT
 - NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
   / day N to him. Rounds, minutes, hours.
 
+WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. The eighteen blocks are 14 answers + 4 reusable refusals,
+and here are all four: worker "I work. I do not keep track of who is doing what to who." /
+scav "Ask somebody who stands still for a living." / keeper "I hear things across this
+counter all day. That is not one of them." / watch "I watch this street. That is not this
+street." EVERY ONE IS A COMPETENCE DISCLAIMER. Different jobs, identical move: wrong person,
+try elsewhere. Under Grice that is a maximally COOPERATIVE reply -- it hides nothing and
+therefore implies nothing. It is a routing message wearing a character's clothes. Four
+reusable refusals is good economy; four that are the same MOVE is one refusal with four skins.
+
+WHY A REFUSAL TEACHES AT ALL: it has to BREAK a rule of conversation, and which rule breaks
+decides what the player learns.
+  says too little            -> there is more and it is being kept from me
+  answers a different question-> the real subject is dangerous to touch
+  goes vague, having been clear-> they are covering, and are bad at it
+  says something false        -> they lied, and he finds out LATER, not now
+"Not my department" breaks none of them, so it carries no payload.
+
+MEASURED ACROSS ALL 1,669 SPOKEN LINES: any refusal move at all, 5.5%. flat no 1.9%, silence
+1.1%, do-not-know 0.7%, changes-the-subject 0.7%, NAMES A COST 0.7%, not-my-domain 0.4%.
+AND THE GOOD ONE ALREADY EXISTS: the eleven lines that NAME A COST ("I've got a kid", "it's
+your face they'll remember", "you'd be asking in front of people") withhold AND explain why,
+which teaches the subject is dangerous without answering it. Those are hand-written into
+quest scenes and NONE of it reached the system that handles refusal at scale. OUR BEST
+REFUSAL WRITING AND OUR REFUSAL MECHANISM HAVE NEVER MET.
+
+BOTH ANGLES. Disco Elysium: a failed check is a DIFFERENT ROUTE, not a closed door -- it
+returns a new lead, a revealing scene, or a joke. A refusal must return a payload, never a
+null; ours return a null with an apology attached. Oxenfree: silence is first-class and the
+world does not wait for you. Pentiment: disagreeing accounts are the subject, not the
+obstacle. Real world: Grice on flouting, and conversation analysis on dispreferred responses
+being marked by delay, preface, account and mitigation BEFORE the content arrives.
+
+RECORD: records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the same subject refused five ways, the same
+refusal instant vs arriving late, and a dead end that still pays. All draft:true, NONE in
+the game.
+VAMILY: Q5 SHIPPED. Next open is Q6 [power talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row FOUR-KINDS-OF-NO: rewrite the asking module's four refusals as four
+   different rule-breaks instead of four trades. Any trade can speak any of them, so the
+   economy improves rather than costing more. Held until MODE: BUILD.
+ - PEOPLE / QUESTS  a lie is only worth writing if the world can later catch it. Whether a
+   lie is discoverable is a memory-organ question, theirs not mine.
+ - UI  a refusal should ARRIVE LATE. One held beat before a refusal line is the same cheap
+   fix Q2 and Q4 both asked for, now with a third reason behind it.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
 DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
 VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
 ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
@@ -333,7 +387,7 @@ your own complete block to it. Then grep for stray markers before you commit.
 ================================================================================
 
 
-WORDS (words-8dqrnq): 9/5 (a) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
+WORDS (words-8dqrnq): 9/5 (a) -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
 SURVIVES A MEMORY RESET. IT REPLACES THE ONE IN THE 9/4 (d) BLOCK BELOW. THEN VAMILY Q5
 [refusing answers]. *** MODE: RESEARCH. TAB: NOT IN A TAB YET. Nothing to judge.
 
@@ -3373,7 +3427,13 @@ c9504be and resynced the walked city. THE SWING: the generator mafia (Lebanon, I
 faction that owns a block's generator charges every household monthly by the ampere and
 cuts them off; 44% of income. Record: records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_
 MAFIA_9_5_26.md. Routed: FACTIONS [block rent], WORLD [own power], ECONOMY Q14 [rent
-share], WORDS Q16 [cut off].
+share], WORDS Q16 [cut off]. THEN (bk): "you're not being creative and being your own
+person... you go on the deep end until I say something else, I don't like that
+relationship" -> LOCKED: THE MANAGER HAS HIS OWN MIND (central-chat law amendment).
+records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md: my own five, on the board as jobs: RUN
+[animal first] [death handoff], SOUNDS [heartbeat first], FACTIONS [crossing costs],
+WORLD [rice clock]; and two "needs Paolo" lines decided with defaults: COMBAT [hurt
+death], PEOPLE [heir moment] (marriage stays his).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -8604,7 +8664,11 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [style card] SHIPPED 468fbcb -- the runway in pixel
+ROUND LOG 9/5 (latest): [builder references] SHIPPED 30c01de -- block, street
+and lot rules from the best builders, annotated at our own measured scale, in
+reference/library/city-builder/ (7 entries; index now 51 refs / 11 kinds).
+NEXT OPEN: [opening references], then [style checker], [batch judging],
+[fortress look], [feed look], [tile ground]. PREVIOUS: [style card] SHIPPED 468fbcb -- the runway in pixel
 terms, measured off the corpus (24x50 body, 112 grid, 280-garment canon at
 only 32% monochrome: the remake's gap, quantified). Two poles: WIDE AT THE
 TOP and TALL AND STACKED, every rule citing its RNWY shape, JSON machine

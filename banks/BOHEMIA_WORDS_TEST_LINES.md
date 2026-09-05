@@ -186,3 +186,44 @@ reckless  I know what you did. You can stand.
   [beat]  The cable, it's. Somebody's drinking it.
           I checked it twice.
 # Nothing in the prose signals fear. The two held beats do all of it.
+
+## Q5 -- FOUR KINDS OF NO  (9/5/26)
+# The finding: a refusal only teaches when it BREAKS a rule of conversation, and
+# all four refusals in the asking module break none of them ("not my department").
+# Below, the SAME subject refused four ways. Each breaks a different rule, so each
+# hands the player a different fact. Any trade can speak any of them.
+
+### THE SUBJECT: who is collecting names   draft:true
+
+SAYS TOO LITTLE (breaks: say enough)
+  Somebody is. I'm not the one to ask about it.
+# Learns: there IS an answer and it is being kept from him.
+
+ANSWERS A DIFFERENT QUESTION (breaks: be relevant)
+  You want to know about the water instead. The water I'll talk about all day.
+# Learns: the real subject is the dangerous one, and this person knows which.
+
+GOES VAGUE, HAVING BEEN CLEAR (breaks: be clear)
+  There's a book. There's usually a book. People write in books.
+# Learns: they are covering, and they are not good at it, which is its own tell.
+
+NAMES THE COST INSTEAD (the one we already write well, 11 lines in the build)
+  I've got a kid on this block. Ask me that one somewhere else.
+# Learns: the subject is dangerous, without a word of the answer.
+
+LIES (breaks: be truthful -- only write this if the world can catch it later)
+  Nobody's collecting anything. That's a story people tell.
+# Learns nothing NOW. Everything later, when the list turns up with his name on it.
+
+### THE SAME REFUSAL, ARRIVING LATE INSTEAD OF INSTANTLY   draft:true
+# A real refusal is a dispreferred response: delayed, prefaced, mitigated. Ours
+# arrive instantly and fully formed, which reads as a menu entry.
+INSTANT   That is not this street.
+MARKED    [beat] ...That's not this street. You'd want the other end.
+# Nothing in the words changed except a held beat and a trailing preface, and the
+# second one is a man deciding not to tell you.
+
+### AND THE DEAD END THAT STILL PAYS   draft:true
+# Disco Elysium's rule: a failure returns a DIFFERENT route, never a null.
+  I don't know. I know who'd know, and you won't like what he charges.
+# Refuses the question, hands over the next thread and a price in one line.

@@ -93,6 +93,7 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - OPEN  [batteries mined]  BUILDINGS-MAKE-BATTERIES -- RULED by Paolo 9/5 (LOCKED, this replaces the coordinator's charging guess): nobody sells currency. Batteries are MADE by buildings you set up: "there could be ways where you auto-mine batteries, set up certain buildings wherever you're doing and that's just more batteries." Define the short list of power buildings (a generator, a solar rack, a wind rig; real things that make electricity in a desert), what each yields (start at ONE battery per day per building, everything costs one), and put the yield in PRODUCTION so LIFE+CITY's tick (shipped c9504be) pays it into the purse. Batteries are money ONLY: no action ever needs a battery to happen (his words: "do you need batteries to turn a laptop on? no"). Tab: CITY.
 - OPEN  [century stayed]  WHO-STAYED-COUNTS -- [PENDING Paolo] ECONOMY asks whether the century rule should count who STAYED, not only buildings. That changes a LOCKED law and only he can; the coordinator carries it. Nothing to build until he rules.
 - OPEN  [own power]  YOUR-OWN-POWER-IS-YOUR-WAY-OUT -- from the 9/5 generator-mafia research: the Lebanese families who built their own rooftop solar were buying their way out of the block's owner. In our game, a power building you place on your land takes you OFF the block's line: the monthly cut stops, your batteries are yours, and the faction that owned the line notices (a standing hit, a visit). This is what "set up buildings and auto-mine batteries" (Paolo 9/5) means in the world. Needs [batteries mined] and FACTIONS [block rent].
+- OPEN  [rice clock]  THE-BAG-OF-RICE-IS-THE-TUTORIAL -- THE MANAGER'S OWN CALL (9/5): everything costs one and a day of work pays one; the one thing you must buy every day is the whole economy in miniature. Hunger is the clock: a day without the bag shows on the body and the purse, and the first purchase of the game is rice, taught by wanting it, not by a text box. Tab: CITY and the walked street.
 
 ## QUESTS  (first word "quests")
 MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on experiencing it." Nothing below is claimed until he reopens it.
@@ -109,6 +110,8 @@ MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on
 ## SOUNDS  (08.)
 MODE: BUILD
 STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all reactions; the ambience bed is built and fed only by a message the city never sends; music phase stuck on NIGHT. Unverified: where the music engine module lives (not in engine/).
+- OPEN  [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
+
 - OPEN  [background sound]  BB-THE-CITY-SENDS-WHERE
 - OPEN  [daytime music]  BB-THE-DAY-SONG-PLAYS
 - OPEN  [district sound]  BB-THE-BED-IS-THE-PLACE
@@ -167,6 +170,8 @@ THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands 
 - OPEN  [real ending]  AN-ENDING-THAT-IS-NOT-BED -- the demo's last thirty seconds is the only ending in code (record item G)
 - OPEN  [weekly goal]  BB-THIS-WEEK
 HISTORY: RELEASE (18) existed from 9/4 to 9/5 as "the demo as a product"; Paolo folded it into this chat because it was the same job. PERFORMANCE went to the PLUMBER. GRAVEYARD 9/5: WHAT-A-FRIEND-DID and FRIEND-ROUND-ONE, killed by Paolo ("dogshit"); post-mortem: I built a playtest programme he never asked for around one sentence about getting the demo out.
+- OPEN  [animal first]  THE-GAME-OPENS-AS-THE-ANIMAL -- THE MANAGER'S OWN CALL (9/5, records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md; Paolo may kill it): Gen 1 is an Animal by his pillar and the demo opens as a human family at a table. Make the first sixty seconds of the demo the coyote: the four-legged renderer exists (CHARACTER [animal rig] proves it), DYNASTY's day 1 and day 2 say what a coyote can do with no hands. One minute, on the beat, no text, that ends at the family table we already have. Tab: RUN.
+- OPEN  [death handoff]  DEATH-HANDS-YOU-YOUR-HEIR -- THE MANAGER'S OWN CALL (9/5): there are no runs, so death is the handoff, never a reload. When you die (behind the dial, NO DAMAGE BEFORE THE DIAL holds), one scene: the heir takes the house, the purse, every debt in full, half the standing, the wardrobe; the day continues as them. selectHeir exists with zero callers; give it one. Tab: RUN.
 
 ## ANIMATION  (14.)
 MODE: BUILD
@@ -176,7 +181,7 @@ STANDING DUTY (9/4 law): every clip compared side by side to the best pixel walk
 - OPEN  [your verdicts]  SHOW-HIM-THE-LIST -- needs Paolo: verdicts on the 63; no clip carries one since the 7/26 reset
 - OPEN  [crowd moves]  ANIMATE-THE-CROWD -- the bake already sends walk frames for the city cast; the decoder keeps only idle, so every resident is a frozen sprite
 - OPEN  [clips redone]  RECOOK-WHAT-HE-KILLS
-- OPEN  [hurt death]  HURT-AND-DEATH -- killed 7/2 with no replacement; a game needs them; needs Paolo
+- OPEN  [hurt death]  HURT-AND-DEATH -- killed 7/2 with no replacement. DECIDED by the coordinator 9/5 (correct-after): hurt and death EXIST, behind the dial (NO DAMAGE BEFORE THE DIAL holds); death is never a reload, it is RUN [death handoff]. Build hurt as a visible state on the body and death as the call into the handoff.
 - OPEN  [clips checked]  LEAF-GATE-EVERY-RECOOK
 
 ## CHARACTER  (05.)
@@ -201,7 +206,7 @@ STATE: talking on foot with nine verbs, a real witness memory, schedules and hom
 - OPEN  [family events]  FAMILY-EVENTS -- something writes a child, a marriage, an ageing into family.tree; selectHeir has zero callers
 - OPEN  [neglect costs]  BB-OBLIGATION-BURN
 - OPEN  [enemies remember]  BB-THE-SHADOW
-- OPEN  [heir moment]  SUCCESSION-BEAT -- needs Paolo: who you can marry, what an heir inherits
+- OPEN  [heir moment]  SUCCESSION-BEAT -- DECIDED by the coordinator 9/5 (correct-after): an heir inherits the house, the purse, every debt in full, half the standing, and the wardrobe. WHO YOU CAN MARRY stays Paolo's (identity). Build the inheritance; leave marriage a stub with his name on it.
 - OPEN  [walking companion]  A-COMPANION-ON-FOOT -- needs Paolo: ROSA is a draft he has not ruled on
 - OPEN  [weights shape]  WHAT-PEOPLE-REPEAT-ABOUT-YOU -- RULED by the coordinator 9/5 (correct-after, from the research, Paolo may overrule): people repeat a HANDFUL of things about a stranger and nothing else: did you hurt someone, did you steal, did you help someone who needed it, did you keep your word, did you pay what you owed. Everything else in the 82-row deed table weighs near zero. A betrayal is worth about five kindnesses (negativity bias is the best-replicated finding in the field), it is remembered longer, and it travels further. Weight the table to that shape, then watch the WHO WILL VOUCH panel light up. (pending from PEOPLE, 9/5)
 
@@ -218,6 +223,7 @@ STATE: 18 factions in the graph (14 selectable plus four more), every one with a
 - OPEN  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- DECIDED by the coordinator 9/5 (a number is never his question): the same encounter does not repeat for the same player inside THREE in-game days, and never twice on the same street in one day. Put it on a dial in DEMO SETTINGS with that default. (pending from FACTIONS Q3)
 - OPEN  [power territory]  A-FACTION-MINES-ITS-LAND -- every faction's territory carries its own battery-making buildings, so what a faction is worth is what its land makes; a fortress makes more than a camp (9/4 towns law); the numbers flow from WORLD [batteries mined]; losing a block loses its output
 - OPEN  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- from the coordinator's 9/5 research (records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_MAFIA_9_5_26.md): in Lebanon and Iraq the faction that owns a neighbourhood's generator charges every household on it monthly, by the ampere, sets the price, and cuts you off without warning; it was 44% of an average family's income. Build it: living or working on a faction's block costs a monthly cut in batteries paid to that faction; a fortress charges more than a camp; a faction can cut a block off (its services stop) when a block does not pay; the cut lands in the purse ledger as PAY (day 23 verbs). Tab: CITY, then the walked street.
+- OPEN  [crossing costs]  THE-WRONG-COLOUR-REACTS -- THE MANAGER'S OWN CALL (9/5): colour is territory and nothing happens when you walk into the wrong colour. The moment you cross into a faction's block that does not know you: a look, then a tail, then a stop, on the beat, before any fight; the block's colour is the only warning. Tab: RUN.
 
 ## WORDS  (12.)
 MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
@@ -226,7 +232,7 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q2_SPEECH_UNDER_STRESS_9_4_26.md  [stressed speech]  Q2  How a person talks when they are lying, scared, or exhausted, in TEXT with no voice actor. The real science of speech under stress (hesitation, repair, shortened sentences) and which games get it onto the page.
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q3_HOW_A_CROWD_TALKS_9_4_26.md  [crowd talk]  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q4_SPEECH_ON_A_BEAT_9_4_26.md  [beat speech]  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a line that lands ON the beat does that one that drifts does not.
-- CLAIMED 9/5 words-8dqrnq  [refusing answers]  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns something. Against our asking module's eighteen blocks.
+- SHIPPED 9/5 records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md  [refusing answers]  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns something. Against our asking module's eighteen blocks.
 - OPEN  [power talk]  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a camp kid to anyone. Test lines for one exchange at each gap.
 - OPEN  [second meeting]  Q7  The second conversation. How speech changes when a person REMEMBERS you (our memory organ already tracks it). What the best games do with a returning player, and what they do wrong.
 - OPEN  [grief talk]  Q8  Grief speech. The cold open kills the sister. How real people talk in the first hour, the first day, the first month, and which games wrote it honestly. Test lines for the grief dinner.
@@ -263,7 +269,7 @@ STATE: a visual constitution exists (records/target, target_match_gate); THE STY
 - SHIPPED 9/5 b416bc6  [reference index]  REFERENCE-INDEX (derived by tools/bohemia_reference_index.py; 31 refs, hard-fails on malformed entries) -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
 - SHIPPED 9/5 32338e1  [runway shapes]  RUNWAY-REFERENCE (reference/library/runway/, 13 shapes: shoulder x3, drape x3, hem x3, leg-and-boot x3, the two whole-figure poles) -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
 - SHIPPED 9/5 468fbcb  [style card]  THE-STYLE-CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md: palette measured off the 280-garment canon, the two poles in px at 56/112, machine block for the gate) -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
-- CLAIMED 9/5 session_015Wm1PKCubu8WUBgmB9eXKK  [builder references]  PIXEL-CITY-BUILDER-REFERENCE -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
+- SHIPPED 9/5 30c01de  [builder references]  PIXEL-CITY-BUILDER-REFERENCE (reference/library/city-builder/, 7 entries annotated at our 44px cell / house-tile / mile-grid scale) -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
 - OPEN  [opening references]  FIRST-HOUR-REFERENCE -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
 - OPEN  [style checker]  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  [batch judging]  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
