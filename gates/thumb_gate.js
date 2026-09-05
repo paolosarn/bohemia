@@ -206,7 +206,22 @@ function serve() {
   /* THE ARROWS ARE THE GAME'S ONLY MOVEMENT INPUT. Growing them is worthless if
      it moved the hit target off the handler, so prove the world still responds --
      against a still control, because a world that animates on its own would make
-     any two frames differ and the check would pass no matter what. */
+     any two frames differ and the check would pass no matter what.
+
+     *** AND AS OF 9/5 THE WORLD DOES ANIMATE ON ITS OWN, ON PURPOSE. *** The
+     ANIMATION lane's heartbeat (__THE_VALLEY_KEEPS_BREATHING__) redraws the city
+     once a BEAT while the player stands still, because standing still used to
+     leave the whole valley -- crowd and animals alike -- a still photograph. That
+     is exactly the situation the comment above was written to fear, and it makes a
+     screenshot pair the wrong instrument: the stillness precondition goes red and
+     the walked check goes trivially green, which is worse.
+
+     SO BOTH CLAIMS NOW ASK THE QUESTION THEY WERE ALWAYS ABOUT: DID THE PLAYER
+     MOVE. `__proof.getPos()` is the city's own test hook and reports hx,hy. That
+     is strictly stronger than a pixel diff -- a screenshot could differ because a
+     rat crossed a doorway, and could match while the player slid a cell under a
+     redraw -- and it is immune to any ambient life added later. The gate was not
+     weakened to fit a feature; it was pointed at its own subject. */
   const fe = await p.$('iframe#cityFrame');
   const fb = await fe.boundingBox();
   const clip = { x: fb.x + 40, y: fb.y + 230, width: 300, height: 330 };
@@ -217,11 +232,16 @@ function serve() {
   }
   const crypto = require('crypto');
   const md5 = bb => crypto.createHash('md5').update(bb).digest('hex');
-  const a1 = md5(await p.screenshot({ clip }));
+  const posOf = async () => { try { return await city.evaluate(() => {
+      const q = window.__proof && window.__proof.getPos ? window.__proof.getPos() : null;
+      return q ? (q.hx + ',' + q.hy) : null; }); } catch (e) { return null; } };
+  const p1 = await posOf();
   await p.waitForTimeout(1400);
-  const a2 = md5(await p.screenshot({ clip }));
-  ok('the world holds still when nothing is pressed, so the next check means something',
-     a1 === a2);
+  const p2 = await posOf();
+  ok('the city exposes where the player is standing, so the next checks can be about him',
+     p1 !== null && p2 !== null);
+  ok('the player holds still when nothing is pressed, so the next check means something',
+     p1 === p2);
   const arrow = await city.evaluate(() => {
     const n = [...document.querySelectorAll('.pb')].find(x => x.dataset.walk === '→');
     if (!n) return null;
@@ -233,9 +253,9 @@ function serve() {
     await p.mouse.move(fb.x + arrow.x, fb.y + arrow.y);
     await p.mouse.down(); await p.waitForTimeout(2600); await p.mouse.up();
     await p.waitForTimeout(700);
-    const held = md5(await p.screenshot({ clip }));
+    const p3 = await posOf();
     ok('holding an arrow still walks him -- the resize did not move the hit target '
-       + 'off the handler', held !== a2);
+       + 'off the handler (' + p2 + ' -> ' + p3 + ')', p3 !== null && p3 !== p2);
   }
 
   /* AND NO CONTROL MAY DRAW TWO ARROWS. The city already carries the drawn-triangle
