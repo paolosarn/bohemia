@@ -3348,3 +3348,152 @@ line like a poster.
 - Danescu-Niculescu-Mizil, Cheng, Kleinberg and Lee, "You had me at hello: How
   phrasing affects memorability", ACL 2012. 2,197 matched pairs, fetched from a
   GitHub mirror of the Cornell Movie-Quotes Corpus.
+
+# THE HUNDRED YEARS ROUND -- 8/31/26
+# He ruled the dynasty back in on 8/28: "yeah three generations bro cmon." Gen 1
+# Animal, Gen 2 Human, Gen 3 Angel, THE PLAYER LIVES ALL THREE, across ~100 years.
+# Nobody has asked the WORDS question that ruling creates: what does a hundred
+# years do to how people talk, and how should a grandchild sound?
+
+## 143. THERE IS A LINGUISTICS MODEL OF EXACTLY THIS, AND IT IS ALSO THREE GENERATIONS
+Trudgill's model of NEW-DIALECT FORMATION describes what happens when people
+speaking different varieties are thrown together in one place and cut off. It runs
+in three stages, and the stages are **generations**:
+
+    STAGE 1  the adult survivors        RUDIMENTARY LEVELLING. The most extreme
+                                        and least common forms get dropped. Nobody
+                                        has a new dialect yet; they have a soup.
+    STAGE 2  the first children born     EXTREME VARIABILITY. This is the loud one:
+             in the new place            the children pick from everything in the
+                                        soup, and SIBLINGS DO NOT SOUND ALIKE.
+    STAGE 3  their children              FOCUSING. The majority forms win, the
+                                        variation collapses, and a NEW dialect
+                                        exists that is nobody's original one.
+
+Read that against his ruling and it lands on the dynasty exactly: **Gen 1 is a
+mixture, Gen 2 is the widest spread of voices the game will ever have, and Gen 3
+is the first generation who all sound like each other and none of them sound like
+their grandparents.** I did not go looking for a three-stage model. It is the
+standard one.
+
+WHAT THAT BUYS THE GAME, concretely: Gen 2 is where a writer is ALLOWED to make
+two people from the same house sound different, because that is what actually
+happens. And Gen 3 sounding uniform is not a failure of variety, it is the
+mechanism finishing.
+
+## 144. THEN I MEASURED WHAT A CENTURY ACTUALLY CHANGES, IN DIALOGUE
+The film corpus carries release years, so 617 films split into eight decades,
+1930s to 2000s. **8,000 lines sampled per decade**, equal, so film volume cannot
+manufacture a trend.
+
+    feature           1930   1940   1950   1960   1970   1980   1990   2000
+    swearing           0.0%   0.1%   0.1%   1.2%   3.2%   3.0%   4.8%   4.4%
+    address term       9.7%  10.8%   6.1%   8.4%   7.6%   5.0%   5.5%   4.7%
+    exclamation       16.8%   9.8%  14.4%   8.0%   8.6%   9.8%   8.6%   7.5%
+    politeness         4.2%   3.1%   2.4%   3.8%   2.7%   3.2%   3.0%   2.9%
+    "gonna/wanna"      0.9%   2.3%   2.1%   1.6%   2.4%   1.9%   3.1%   2.5%
+    ------------------------------------------------------------------------
+    QUESTION          30.5%  28.2%  31.8%  32.8%  31.9%  30.1%  30.9%  31.3%
+    CONTRACTION       45.2%  47.8%  46.9%  44.3%  42.3%  43.9%  44.7%  42.8%
+    negation          28.9%  31.6%  28.1%  27.9%  25.2%  26.2%  27.0%  25.9%
+    "you know"         2.5%   2.8%   2.9%   3.2%   3.1%   2.7%   3.3%   2.5%
+    words per line     11.3   11.6   10.8   10.4   10.6    9.7   10.6   10.3
+
+Seventy years, and **the question rate moves 0.8 of a percentage point.** The
+contraction rate moves two. Sentence length moves one word. Meanwhile what people
+call each other HALVES and the taboo words go from zero to one line in twenty.
+
+## 145. AND I RAN THE CONTROL, BECAUSE "IT DID NOT MOVE" IS EASY TO FAKE
+A feature can look time-invariant simply by being invariant to everything. So I
+measured the same features split by GENRE instead of decade, 8,000 lines each
+again, and compared the two spreads:
+
+    feature        spread across DECADES   spread across GENRES   moved by
+    question               1.40                   1.48            neither
+    contraction            1.87                   1.88            neither
+    negation               2.01                   1.35            TIME
+    swearing               1.96                   1.42            TIME
+    address term           2.09                   1.08            TIME
+    exclamation            3.16                   2.30            TIME
+
+**Questions and contractions are flat against time AND against genre.** They are
+not sleepy numbers, they are structural constants of English conversation. The
+other four are genuinely moved by the decade and not by the kind of story.
+
+## 146. AND ONE OF MY BIGGEST NUMBERS IS NOT LANGUAGE CHANGE AT ALL
+Swearing goes 0.0% to 4.4% and it is the largest movement in the table. **It is
+mostly censorship, not speech.** The Motion Picture Production Code was enforced
+from 1934 and abandoned in 1968, and the curve does exactly that: flat at zero
+through the 1950s, 1.2% in the 1960s, 3.2% the moment the code is gone.
+
+People swore in 1935. The screen did not. **I am measuring what was allowed to be
+printed, not what was said**, and had I written that up as "language got coarser
+over a century" it would have been the most confident wrong sentence in this whole
+file. Same warning applies to the exclamation halving, which is at least partly a
+screenwriting convention going out of fashion.
+
+The address-term collapse, 9.7% to 4.7%, is the one I believe is real: declining
+formality in American English is documented outside film, and it is the surface
+layer that dialect models predict moves first.
+
+## 147. SO HOW THE THREE GENERATIONS SHOULD SOUND, AS A SPEC
+The amateur move is to give the future generation different GRAMMAR. The data says
+that is exactly backwards.
+
+    DO NOT CHANGE ACROSS THE HUNDRED YEARS -- these are the structure, and moving
+    them makes a character sound alien rather than younger:
+      how often they ask questions       contraction rate
+      sentence length                    how often they negate
+      "you know" and the hedging rate
+
+    DO CHANGE -- this is where a century actually lives:
+      WHAT THEY CALL EACH OTHER   the single most reliable drifting feature.
+                                   Gen 1 says one thing, Gen 3 says another, and
+                                   Gen 3 using Gen 1's address term is a costume.
+      WHAT IS TABOO                not "more swearing", but a DIFFERENT taboo. The
+                                   thing you cannot say out loud changes; a valley
+                                   that lost its power grid will have a word about
+                                   the dark that gen 1 will not say.
+      HOW FORMAL                   politeness routines are surface and they erode.
+      CONTRACTED SLANG FORMS       gonna, wanna: new ones appear, old ones date a
+                                   speaker instantly.
+      WHAT A WORD REFERS TO        gen 1 remembers the referent, gen 3 inherited
+                                   only the word. This is the richest one for us
+                                   and it is free: gen 3 says "the meter" about a
+                                   thing that has not metered anything in ninety
+                                   years.
+
+**AND TRUDGILL SETS THE VARIANCE, WHICH IS THE PART I COULD NOT HAVE GUESSED:**
+gen 2 should have the WIDEST spread of voices in the game and gen 3 the NARROWEST.
+That is the opposite of the instinct to make the far future the exotic one, and it
+happens to be the fix for §139, where our problem was measured as too little
+spread. **The dynasty is a licence to write one generation loud and one generation
+uniform, and the science says which is which.**
+
+## 148. WHAT I NOW KNOW I DIDN'T KNOW
+76. **The standard model of new-dialect formation is three generations** and it
+    maps onto his ruling without being bent. (§143)
+77. **Question rate and contraction rate are invariant across seventy years AND
+    across genre.** They are structure, not style. (§144, §145)
+78. **What people call each other halved in seventy years** and is the most
+    reliable time-marker in dialogue. (§144)
+79. **My biggest measured change is a censorship artifact.** The Hays Code, not
+    the language. (§146)
+80. **Gen 2 should be the most varied generation and Gen 3 the most uniform**,
+    which is backwards from instinct and fixes our spread problem. (§147)
+
+## 149. STILL OPEN
+- Film is a proxy for speech and a censored one. The invariants are the safe part
+  of this round; every "what changed" number carries a convention risk.
+- 617 films is 1930-2009. A hundred years of a COLLAPSED society is not seventy
+  years of Hollywood, and nothing I can fetch measures the former.
+- WHO the generations are and what they call each other is HIS. I can supply the
+  mechanism and the rates; the address term Gen 3 uses is a name, and names are
+  rulings.
+
+## SOURCES, THIS ROUND
+- Peter Trudgill, *New-Dialect Formation: The Inevitability of Colonial Englishes*
+  (2004), the three-stage generational model.
+- Cornell Movie-Dialogs Corpus with title metadata: 617 films, 1930-2009, eight
+  decades at 8,000 sampled lines each, plus a genre-split control.
+- The Motion Picture Production Code, enforced 1934, abandoned 1968.
