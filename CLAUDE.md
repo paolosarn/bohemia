@@ -98,6 +98,14 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
   gameplay or genuine interest, and that trade is HIS. The game's identity:
   "the most realistic economic crash simulator, but fun." Full law:
   laws/BOHEMIA_ADDENDUM_REALISM_FIRST_AND_THE_QUESTION_FORMAT_8_4_26.md
+- NO CALENDAR TALK (Paolo 9/5, LOCKED): "why do you keep referring to it as days,
+  yesterday... the action that happened like 10 minutes ago... yesterday, the day and
+  tomorrow always confuse me." To him the work is ONE continuous stream; the calendar
+  date changing means nothing. NEVER say yesterday, today, tomorrow, overnight, this
+  morning, or "day N" to him. Say "since your last VAMILY", "this round", "last round",
+  "an hour ago", "the round before". A research unit is a ROUND, not a day (the files
+  keep their DAY names; the words on his screen do not). Dates stay in commits, laws
+  and records, which are for the machine.
 - TALK TO HIM LIKE A PERSON (Paolo 8/24, LOCKED): "every time the chats try to
   talk to me [it's college] level language... can we still find a way to ask
   EIGHTH GRADE READING about the development... I want to repeat this." EVERY

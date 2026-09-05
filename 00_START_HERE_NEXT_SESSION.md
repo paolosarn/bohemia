@@ -2583,7 +2583,10 @@ chats... give that to me, this my last mass chat paste" -> VAMILY_PRIMER.md rewr
 with what we know now (18 chats named, pull main first, re-read CLAUDE.md from disk, a
 fresh chat is 18 PLUMBER, only CLAIMED/SHIPPED writes, no PRs, two-word reply); the chats
 that found the board did it from the new CLAUDE.md top block, not the primer; UI never
-saw either.
+saw either. THEN (bh): "why do you keep referring to it as days, yesterday... are you
+tweaking?" -> NO CALENDAR TALK, LOCKED: never yesterday/today/tomorrow/overnight/day N to
+him; rounds, minutes, hours. CLAUDE.md HOW PAOLO WORKS line, talk-law amendment, VAMILY
+front page says a research "day" is a round. Root cause: I read the date off commits.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

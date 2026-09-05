@@ -44,3 +44,16 @@ weeks of them.
 The records, the laws and the commit messages stay as detailed as they
 are. They are written for the machine and the next session, not for him.
 This law is about the words on HIS screen.
+
+
+## AMENDED 9/5/26: NO CALENDAR TALK (Paolo, LOCKED)
+"Bro, why do you keep referring to it as days, to yesterday? The action that happened
+like 10 minutes ago maximum. Yesterday, the day and tomorrow always confuse me."
+To him the work is one continuous stream and the calendar date changing means nothing.
+Never say yesterday, today, tomorrow, overnight, this morning, or "day N" in a reply to
+him. Time is measured in ROUNDS ("since your last VAMILY", "this round", "last round")
+or in minutes and hours ("an hour ago"). A research unit is a ROUND when spoken to him;
+the record files keep their DAY names because they are for the machine. Dates stay in
+commits, laws and records. Root cause of the 9/5 slip: the coordinator read the
+calendar date off the commits and called a one-hour burst "overnight" and "since
+yesterday".

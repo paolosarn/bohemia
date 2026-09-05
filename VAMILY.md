@@ -32,7 +32,7 @@ one word, and this page is the briefing.
    change the line to SHIPPED <date> <commit> and push. Mark SHIPPED only when the
    job's own ship test is met; a half-done job marked SHIPPED is worse than an open
    one, never rush to close a line.
-   MODE: RESEARCH means DO NOT IMPLEMENT: one research day on the question, both
+   MODE: RESEARCH means DO NOT IMPLEMENT: one research round on the question (the records call it a "day"; it is one VAMILY, not a calendar day, and you never call it a day to Paolo), both
    angles (the best games ever made, and the real world), one finding that proves
    us wrong, measured against our repo, a written record, test material tagged
    draft:true in a bank file never in the game, a ROUTED section; mark SHIPPED
