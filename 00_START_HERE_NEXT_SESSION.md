@@ -682,30 +682,76 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND (round 2 of [clothes wired], still CLAIMED)
-- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
-  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
-  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
-  line stays CLAIMED, not SHIPPED.
-- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
-  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
-  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
-  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
-  across the two benches. Added that to the gate as a UNION check, so neither bench can
-  quietly lose a category. Gate now 11/11.
-- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
-  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
-  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
-  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
-  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
-  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
-  into the gate.
-- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
-  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
-- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
-  job is whether a garment's colour survives the picker onto the body at 112 (the
-  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
-  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+THIS ROUND -- *** [hair sheet] HAIR-REF-EIGHT-FACINGS SHIPPED. His 8/25 order, open on
+the board since August, is closed. Tab: CHARACTER, and every person in the game. ***
+- Claimed the line, committed and pushed BEFORE starting, as the front page says.
+- THE ORDER: "LOOK ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND WE CAN GO FROM
+  FUCKING THERE", which the playtest dispatch turned into REFERENCE FIRST, BEFORE ANY
+  MORE COOKING: study what those artists do AT THE BACK and AT THE THREE-QUARTER.
+- WHAT WAS ACTUALLY WRONG, and nobody had ever measured it: the hair generator had
+  THREE facings -- front, back, profile -- and the game has eight. NE, N and NW took the
+  same branch at every line and came out as ONE PICTURE PUT IN THREE PLACES.
+      NE was the same picture as NW on 23 of 24 canon cuts
+      18 of 24 cuts showed SIX different pictures out of eight
+      18 of 24 cuts put ZERO hair below the base of the skull -- DEEP TAPER, DRY TAPER,
+        TEMPLE TAPER, CROP, BOWL CUT, cuts a barber names BY THEIR NECKLINE, all ending
+        at the bone with a bare slab of neck under them
+  The front three-quarters escaped only by accident: SE and SW have FACE pixels, so the
+  generator could read which way he was looking off the art. Turn away from the camera
+  and it had nothing left to tell left from right.
+- WHY THE OLD GATE NEVER CAUGHT IT: it asked that every cut renders NON-EMPTY in all
+  eight and that the front and back shapes differ ACROSS THE SET. Both were green the
+  whole time and both are a low bar. A GREEN CHECK IS NOT THE SAME AS A CHECKED THING.
+- FIXED, both halves, at 56 and 112: a three-quarter reads the turn off the FACING when
+  there is no face left to read it off the art and gets HALF the profile's silhouette on
+  the away side; a cut that ends at the skull carries ONE CELL of hair onto the neck,
+  inset to the neck's width. AFTER: 8 different pictures of 8 on all 24, 0 without a
+  nape. On the SHIPPED DEMO: 281 citizens with hair, all 24 cuts, 281 of 281 turn and
+  carry a nape. I rendered the eight facings before and after and looked at them.
+- THE NUMBER IS HIS, NOT THE INTERNET'S. Measured off hair/curtain-bob, the one style he
+  painted and has never criticised: 0 px past the skull head-on, 2 px side-on, so a
+  three-quarter is 1. Reference gives the SHAPE of the rule, his art gives the NUMBER.
+- HIS APPROVED FRONT VIEW DID NOT MOVE. The 56 pin rebaselined 314 of 1744, ALL genHair:
+  SE 68, SW 68, NE 68, NW 68, N 42, and S, E and W ZERO. Logged in that file's own
+  rebaseline log with the reason, as the file requires.
+- REFERENCE LANDED: five entries on the haircut shelf (HAIR-04..HAIR-08), all about the
+  eight facings, which the three already there did not cover at all. One of them,
+  HAIR-05, is kept BECAUSE IT ARGUES AGAINST US: shipped top-down games routinely draw
+  four directions and reuse them for the diagonals. It is still wrong here, because we
+  already pay to render eight AND because mirroring is exactly what ours were not doing.
+- *** TWO RULERS BROKE THIS ROUND AND BOTH WERE CAUGHT BY LOOKING AT THE TABLE. ***
+  (1) Hashing RAW PIXEL INDICES said 24 of 24 cuts had eight distinct shapes -- a clean
+  sweep -- while the pixel COUNTS printed underneath were identical to the pixel across
+  NE, N and NW. A shape cannot be distinct three ways and weigh the same three times.
+  It was measuring POSITION, not shape. (2) Taking the base of the skull from the rig's
+  NECK JOINT put the landmark three rows inside the neck; it read 18-of-24 bad BEFORE
+  AND AFTER a fix that demonstrably worked. A NUMBER THAT DOES NOT MOVE WHEN THE THING
+  IT MEASURES MOVES IS A BROKEN RULER.
+- *** AND A THIRD CHECK WAS WRITTEN AND WITHDRAWN. *** The reference says a side view is
+  normally MIRRORED, so I asserted NE should resemble NW-mirrored more than the flat
+  back. Red on four cuts. Then the control: THE BARE BODY WEARING NO HAIR fails it by
+  the same margin (0.849 against 0.862). The ruler was measuring THE RIG, not the
+  haircut -- arms, hands and their layer order resolve per facing, so a three-quarter
+  body is not a mirror of the other one. NOT a rig bug. The claim is dead, the reasoning
+  is kept in the gate so nobody rebuilds it. A TEST WHOSE SUBJECT FAILS IT WITH THE
+  THING BEING TESTED REMOVED IS TESTING THE SUBSTRATE.
+- THE CONTROL ON WHAT SURVIVED: hair_gate now takes ALPHA=, and the three new checks go
+  RED on origin/main from before the fix and GREEN here. Same ruler both times.
+- Record: records/BOHEMIA_DOES_THE_HAIRCUT_TURN_9_5_26.txt. Tool:
+  tools/bohemia_the_haircut_turns.js. Gate: hair_gate 38/38 (was 35).
+- STILL ROUTED, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment or haircut reaches the surface he walks. RUN / LIFE+CITY
+  own it. The demo DOES draw them, which is where the 281 citizens above were counted.
+- [FOR THE PLUMBER / COORDINATOR] THIS HANDOFF FILE IS BADLY DUPLICATED, and it is not
+  only my lane: my own CHARACTER block appears FOUR times verbatim, and older blocks from
+  many lanes repeat a dozen times or more, in a file now past 72,000 lines. CLAUDE.md says
+  there is only ever ONE handoff. I updated the FIRST copy, which is the one a reader
+  hits, and did NOT mass-delete, because deleting other lanes' blocks is not my lane's
+  call. Somebody who owns the whole file should collapse it.
+- NEXT FOR THIS LANE: the next OPEN line is [look verdict] ROUND-7-LOOK, which needs
+  Paolo, so the first one I can actually take is [more clothes] WARDROBE-VOLUME, then
+  [runway hair] HAIR-TO-THE-CARD -- and HAIR-TO-THE-CARD is cheaper now, because the
+  eight-facing ruler and its control already exist.
 
 CHARACTER'S OWN NOTES ON RUNNING IT
 - My section is 05 CHARACTER. My session slug is character-0lurbs.

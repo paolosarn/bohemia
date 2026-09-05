@@ -1,0 +1,150 @@
+DOES THE HAIRCUT ACTUALLY TURN? -- our hair read against reference, in all eight
+9/5/26, CHARACTER lane. [hair sheet] HAIR-REF-EIGHT-FACINGS.
+
+HIS ORDER, 8/25, still open on the board: "LOOK ONLINE FOR PIXEL HAIRSTYLES IN
+ALL 8 DIRECTIONS AND WE CAN GO FROM FUCKING THERE." The dispatch turned that into
+REFERENCE FIRST, BEFORE ANY MORE COOKING: study what those artists do at the back
+and the three-quarter, put the reference beside our styles, THEN cook.
+
+WHAT WAS ALREADY HELD, and why it was not enough. The hair gate proves every cut
+renders NON-EMPTY in all eight and that the front and back shapes differ ACROSS
+the set. Both are true. Both are a low bar: "non-empty" is satisfied by a scalp
+painted on a head, and "they differ from each other" is satisfied by 24 equally
+flat cuts as long as they are flat in different places. Neither asks whether a
+cut does what a haircut does when the person turns around.
+
+  canon cuts measured   24        rig width 112 px
+
+RULE 1 -- VOLUME IN PROFILE. Hair sits ON the skull, so from E and W a cut with
+any length grows the head OUTLINE: it paints where the bare head had nothing.
+  cuts that add ZERO pixels outside the bare skull in profile   0 of 24   (0%)
+
+RULE 2 -- THE FACE-FRAME IS GONE FROM BEHIND. From the front the face punches a
+hole in the mass; from the back there is no face, so the same cut covers MORE.
+  cuts with LESS hair from behind than from the front            0 of 24   (0%)
+
+RULE 3 -- THE NAPE. Every real cut is defined at the back by where it STOPS on
+the neck. Measured BELOW the base of the skull on the N facing -- the row where
+the silhouette pinches before it widens into the shoulders, read off the art.
+  cuts with NOTHING on the neck from behind                      0 of 24   (0%)
+
+RULE 4 -- THREE-QUARTER IS NOT FRONT. A three-quarter is its own drawing. If a
+cut's 3/4 picture is the FRONT or the BACK picture slid sideways, the head
+never turned; the body swapped underneath the same hair.
+  cuts whose SE/SW/NE/NW picture IS the front or back picture    0 of 24   (0%)
+
+RULE 5 -- EIGHT FACINGS, NOT TWO. How many of ONE cut's eight pictures actually
+differ from each other, comparing the PICTURE and not where it sits.
+  8 different picture(s) of 8    24 cut(s)   100%
+
+  Comparing RAW PIXEL POSITIONS instead, the way the first version of this tool
+  did, 24 of 24 cuts come back with eight different shapes. That number is
+  a lie and the counts in the table below are what expose it: the rig puts the
+  head at a different x for NE, N and NW, so ONE picture drawn in three places
+  hashes three ways while weighing exactly the same to the pixel.
+
+EVERY CUT, EVERY FACING (hair pixels / of those, pixels OUTSIDE the bare skull)
+
+  cut                           S       SE        E       NE        N       NW        W       SW
+  WOLF CUT                492/117  572/161  675/188 1034/166  985/132 1032/165  685/202  575/159
+  COIL CROWN              310/133  352/169  392/185  651/194  607/153  650/195  394/186  351/169
+  LAYERED FALL            404/118  459/161  467/171  772/170  728/134  769/169  458/184  458/162
+  LONG LOOSE               502/63  557/102  664/164  892/100   844/64   894/98  641/129  558/102
+  SHAG                     285/99  337/139  363/146  573/135   520/91  568/131  363/146  335/139
+  SALT CROWN               192/77  234/104  335/137  540/119   487/84  539/121  348/150  232/104
+  SHOULDER LENGTH          369/55   425/93  455/126   689/95   638/61   687/94  461/136   424/94
+  ASH SWEEP                237/54  313/102  403/130   628/96   575/59   628/98  406/130  312/101
+  HEAVY FRINGE             214/56   257/87  352/122   521/96   466/58   516/98  365/138   253/88
+  SUN CROP                 204/54   239/81  327/127  525/106   476/70  526/107  334/133   240/81
+  BOWL CUT                 214/50   264/85  338/118   509/87   453/50   504/90  356/136   259/86
+  CROP                     195/54   227/78  348/131  520/104   471/68  519/104  339/123   225/78
+  SLICK BACK               156/44   195/72  313/132   503/90   455/55   509/91  303/121   201/71
+  DEEP TAPER               137/43   169/63  325/133   506/95   456/59   510/96  309/119   169/62
+  DRY TAPER                182/45   216/68  317/124   510/89   454/49   507/88  323/128   212/68
+  DUSK SHAG                223/55   271/91  330/125   510/95   456/55   505/89  326/121   268/89
+  ROPE LOCKS               339/61   384/95  405/124   615/90   572/57   625/99  398/116  397/102
+  TEMPLE TAPER             156/27   188/50  303/110   486/74   436/39   482/75  313/120   186/51
+  GREY WISPS               142/26   189/58  289/106   477/67   424/29   476/67  294/111   186/57
+  BUZZ CUT                 135/19   163/39  282/103   471/69   415/32   466/68  288/110   163/39
+  FRINGE                   171/25   212/56  336/110   464/63   414/27   469/64  325/100   215/57
+  CURTAIN CUT              191/26   247/66  341/106   463/60   409/22   463/58  337/102   250/66
+  SHORT ROPES              138/15   181/47   286/93   448/52   396/16   444/54  300/103   186/53
+  DUST WEAVE               199/36   233/58   288/97   426/35   395/16   437/49   277/87   250/76
+
+THE REFERENCE HALF OF THE ORDER, because he said LOOK ONLINE FIRST
+
+  Five entries landed in the haircut shelf this round (HAIR-04..HAIR-08), all
+  about the eight facings, which the three entries already there did not cover:
+    HAIR-04  the canonical pixel turnaround is EIGHT SEPARATE DRAWINGS laid out
+             as one sheet; a facing you cannot tell from its neighbour is not one.
+    HAIR-05  THE FINDING THAT ARGUES AGAINST US, kept on purpose. Shipped
+             top-down games routinely draw FOUR directions and let the diagonals
+             reuse them, and a side view is normally MIRRORED, not redrawn. So
+             "the back three-quarters reuse the back" is a normal trade in the
+             craft. It is wrong HERE for two reasons: we already pay to render
+             eight, and mirroring is exactly what ours were NOT doing -- NE and
+             NW were the SAME picture, not reflections. We were not even taking
+             the cheap correct answer.
+    HAIR-06  head anatomy: the neck emerges from UNDER the occipital bone and the
+             skull tapers toward the spine before the neck starts. THAT TAPER IS
+             THE LANDMARK the hairline is placed from, and hair overlaps the ear
+             and the neck. This is what corrected the nape ruler below.
+    HAIR-07  from behind the hairline is a GRADIENT, thicker at the nape, finer at
+             the crown; the edge that reads is the bottom one, on the neck.
+    HAIR-08  a three-quarter shows depth a head-on view hides completely, so its
+             silhouette sits BETWEEN head-on and side-on and is asymmetric.
+
+  AND THE NUMBER CAME FROM HIS OWN ART, NOT FROM THE INTERNET. Measured off
+  hair/curtain-bob, the one style he painted and has never criticised: hair leaves
+  the skull by 0 px head-on and 2 px side-on, so a three-quarter is 1. Reference
+  gives the SHAPE of the rule; his art gives the NUMBER (8/3, standing).
+
+WHAT CHANGED IN THE GENERATOR, and the control that proves it
+
+  ROOT CAUSE: genHair had THREE facings -- front, back, profile -- and the game
+  has eight. NE, N and NW took the same branch at every line. The front
+  three-quarters escaped only by accident: SE and SW have FACE pixels, so the
+  generator could read which way he was looking off the art. Turn away from the
+  camera, the face is gone, and it had nothing left to tell left from right.
+
+  TWO FIXES. A three-quarter reads the turn off the FACING when there is no face
+  to read it off the art, and gets HALF the profile's silhouette on the away side.
+  A cut that ends at the skull carries ONE CELL of hair down onto the neck, inset
+  to the neck's width, so the nape is where the nape is.
+
+  THE CONTROL, and without it none of the numbers above mean anything, because
+  one of the rulers moved this round. The SAME corrected ruler, run against the
+  build on origin/main from before the fix:
+        no nape                18 of 24  ->  0 of 24
+        3/4 is the front/back  19 of 24  ->  0 of 24
+        pictures out of eight    6 or 7  ->  8 on all 24
+  Red then, green now, same ruler. Held by gates/hair_gate.js, which takes ALPHA=
+  so anyone can re-run that control.
+
+  ON THE SHIPPED DEMO, not only the workshop: 300 citizens asked of the real
+  picker, 281 wear hair, all 24 cuts appear, and 281 of 281 both turn between N
+  and NE and carry a nape.
+
+A CHECK THAT WAS WRITTEN THIS ROUND AND WITHDRAWN
+
+  HAIR-05 says a side view is normally MIRRORED, so the obvious next check was
+  that NE should resemble NW-mirrored more than it resembles the flat back. It
+  went red on four cuts by a whisker (WOLF CUT 0.83 against 0.95). THEN THE
+  CONTROL KILLED IT: run the identical test on the BARE BODY WEARING NO HAIR --
+        bare NE vs mirrored NW  0.849      bare NE vs N  0.862
+        bare SE vs mirrored SW  0.837      bare SE vs S  0.851
+  The naked rig fails it by the same margin, so the ruler was measuring THE RIG,
+  not the haircut: a three-quarter body is not a mirror of the other three-quarter
+  body because the arms, hands and their layer order resolve per facing. NOT A RIG
+  BUG -- a body holding its arms differently on two facings should not mirror.
+  What is dead is the claim that hair can be judged that way. A TEST WHOSE SUBJECT
+  FAILS IT WITH THE THING BEING TESTED REMOVED IS TESTING THE SUBSTRATE.
+
+READ THIS BEFORE DRAWING A CONCLUSION. A BUZZ CUT CORRECTLY SCORES ZERO ON RULE
+1 -- shaved hair does not leave the skull, and a rule that fails a buzz cut is a
+broken rule, not a broken cut. What matters is the SHAPE OF THE WHOLE SET: if
+nearly every cut scores zero, the wardrobe has no volume in it anywhere, and
+that is the thing he has been looking at since August. A NUMBER IS NOT A FINDING
+UNTIL YOU KNOW WHAT IT IS COUNTING (9/5, the round the brown boots were called
+an accent).
+

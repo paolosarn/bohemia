@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5z - THE CROWD CARRIES THE SIGN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5aa - THE HAIRCUT TURNS ALL EIGHT WAYS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -24280,6 +24280,29 @@ window.CLO=(function(){
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW'), back=(dir==='N'||dir==='NE'||dir==='NW');
     var prof=(dir==='E'||dir==='W');   /* true profile: you look ALONG midline features */
+    /* *** THIS GENERATOR HAD THREE FACINGS AND THE GAME HAS EIGHT. (Paolo 8/25:
+       "THESE HAIRSTYLES ARE NOT FUCKING CUTTING IT ... LOOK ONLINE FOR PIXEL
+       HAIRSTYLES IN ALL 8 DIRECTIONS AND WE CAN GO FROM FUCKING THERE".) ***
+       Every decision below keys off front / back / prof, so NE, N and NW take the
+       SAME branch at every single line and come out as one drawing put in three
+       places. MEASURED, all 24 canon cuts, 9/5:
+           NE is the same picture as NW   23 of 24 cuts
+           N  is the same picture as NW   19 of 24
+           NE is the same picture as N    18 of 24
+           SIX different pictures out of eight on 18 of 24 cuts, seven on the rest.
+       The front three-quarters escaped it by accident: SE and SW have FACE pixels,
+       so _bias below reads which way he is looking off the art and the two come out
+       as mirrors. Turn away from the camera and the face is gone, _bias falls to
+       zero, and the generator has no way left to tell left from right.
+       WHY hair_gate never caught it: it asks that all eight render NON-EMPTY and
+       that the front and back shapes differ ACROSS THE SET. Both were true the
+       whole time. Neither asks whether ONE cut changes when its wearer turns.
+       THE TURN, read off the facing, because when the face is not visible the
+       facing is the only thing that still knows which way the head went. Used ONLY
+       as the fallback for _bias -- side-on, _bias is read off the painted art, and
+       an 8/2 ruling on this generator says to trust the art over the facing name. */
+    var _turn=(dir==='SE'||dir==='E'||dir==='NE')?1:(dir==='SW'||dir==='W'||dir==='NW')?-1:0;
+    var three=(dir==='SE'||dir==='SW'||dir==='NE'||dir==='NW');
     /* HAIR WAVE 2 (Paolo 8/1). FLOOR, NOT ROUND: Math.round breaks .5 upward, so on
        an even-width skull the centre landed one pixel right and every strip style
        sat off-centre. "Mohawk is good, but ... You kinda have it like off to the
@@ -24743,7 +24766,40 @@ window.CLO=(function(){
     /* --- the mass ------------------------------------------------------- */
     var topRow=hTop-vol*S, _spikeTop=(opt.spiky&&opt.strip)?S:0;
     if(strip&&prof)topRow=hTop-Math.max(3*S,(vol+3)*S);   /* the crest has real height lengthwise */
-    for(var y=topRow-_spikeTop;y<=sideBot+backEx;y++){
+    /* *** THE NAPE IS ON THE NECK, AND OURS STOPPED AT THE BONE. ***
+       This is the other half of the same 8/25 order -- "study what those artists
+       actually do AT THE BACK" -- and it is the one number in the 9/5 measurement that
+       came back bad on three quarters of the wardrobe:
+           18 of 24 canon cuts put ZERO hair below the BASE OF THE SKULL facing N.
+       AND THE LANDMARK IN THAT SENTENCE IS THE POINT, because the first version of the
+       measurement used the rig's own `neck` JOINT and was wrong. A joint is a PIVOT:
+       this rig puts it at y=32 on a head whose skull ends at y=30, three pixel rows
+       down inside the neck. Measured from there the test asks "does the hair run a
+       third of the way down the neck", which no haircut does, and it read 18-of-24 bad
+       both BEFORE and AFTER a fix that demonstrably worked. The base of the skull is
+       read off the ART -- the row where the silhouette pinches before it widens into
+       the shoulders -- which is the landmark head anatomy actually names
+       (reference/library/haircut/INDEX.md HAIR-06). Do not reach for the joint again.
+       Read the list and it names itself: DEEP TAPER, DRY TAPER, TEMPLE TAPER, CROP,
+       BOWL CUT, BUZZ CUT. Every one of those is a cut a barber names BY ITS NECKLINE.
+       A taper with no hair on the neck is not a taper, it is a bowl that ends at the
+       skull, and that is true of a buzz cut too -- shaved hair still grows down the
+       nape, which is precisely the line the clippers make.
+       WHY IT HAPPENED: sideBot is the bottom of the HEAD PART, and span() only knows
+       the head and face parts, so there was never a row below the jaw for a short cut
+       to draw on. The 8/1 nape taper drew a nape SHAPE on the last two rows of the
+       skull, above the neck, and nobody asked where the neck was.
+       ONE CELL, and that is the whole change: at 56 it is a single pixel, so the
+       wardrobe he approved is very nearly untouched, and at 112 it is the two pixels
+       the four-times law is for. LONG STYLES ARE NOT TOUCHED -- they already run past
+       the neck, and _napeStop is the same predicate the 8/27 fix used to stop drawing
+       a waist in the middle of long hair. Reused rather than re-derived, so the two
+       can never disagree about what "the hair ends here" means. */
+    var _napeStop=(sideBot+backEx)<=hBot+S;
+    var napeDrop=(back&&_napeStop)?S:0;
+    for(var y=topRow-_spikeTop;y<=sideBot+backEx+napeDrop;y++){
+      /* the nape rows are ON THE NECK, not hanging in air: no fall, no sway. */
+      var _onNape=(napeDrop>0&&y>hBot&&y<=hBot+napeDrop);
       var s=span(Math.max(hTop,Math.min(y,hBot)));
       if(!s)continue;
       var mn=s[0],mx=s[1];
@@ -24752,7 +24808,13 @@ window.CLO=(function(){
          than the skull. Every row was clamped to span(y), which IS the skull, so
          the hair was a skin-tight cap with no silhouette. N/S read as a hairline
          and survived; nothing else did. Piles at the BACK, held off the face. */
-      var _bias=(fsc2? (fcx>hcx?-1:1) : 0);
+      /* WHICH SIDE THE MASS SWINGS TO: away from wherever he is looking. Read off the
+         art first (the face centroid against the head centre, an 8/2 ruling on this
+         generator), and only when there is NO face in the picture -- which is every
+         back facing -- fall back to the turn the facing itself carries. Without the
+         fallback a back three-quarter has zero left/right information and comes out
+         as the plain back view, which is exactly the defect measured 9/5. */
+      var _bias=(fsc2? (fcx>hcx?-1:1) : (_turn?-_turn:0));
       if(!strip&&y>=hTop&&y<=hBot){
         /* CALM DOWN ON THE SHAPING (Paolo 8/2: "Oompa Loompa's ... calm down on the
            shaping"). 2px past a 12px skull is a third again of the head in hair. */
@@ -24768,7 +24830,18 @@ window.CLO=(function(){
            silhouette he named, and it was measurable the whole time against art
            already in this repo.
            A rule from the internet does not outrank the reference he painted. */
-        var _th=prof?2*S:0;
+        /* *** AND A THREE-QUARTER IS BETWEEN, WHICH IS THE WHOLE REASON IT IS ITS OWN
+           DRAWING. (8/25, all eight facings.) ***
+           The numbers here are HIS, not a tutorial's -- measured off hair/curtain-bob,
+           the one hairstyle he painted and has never criticised: 0 pixels past the
+           skull head-on, 2 pixels past it side-on. A three-quarter is halfway between
+           head-on and side-on, so it gets HALF: one cell, on the away side only.
+           That is what stops NE, N and NW being one picture, and it is a fact about
+           projection rather than a shape anybody invented -- turn a head 45 degrees and
+           you start to see the depth of the hair that a head-on view hides completely.
+           A rule from the internet does not outrank the reference he painted (8/3), so
+           the ceiling stays HIS 2 pixels and the three-quarter never exceeds profile. */
+        var _th=prof?2*S:(three?S:0);
         if(_th){ mn-=(_bias<0?_th:0); mx+=(_bias>0?_th:0); } }
       if(y<hTop){ mn+=S; mx-=S; }                                  /* the crown tapers as it rises */
       var grow=Math.round(flare*Math.max(0,y-hTop));
@@ -24812,7 +24885,13 @@ window.CLO=(function(){
            both cases its centre is exactly the head's. */
         var _d2=s[0]+s[1];
         mn=Math.ceil(_d2/2)-strip*S; mx=Math.floor(_d2/2)+strip*S; }
-      if(y>hBot){                                                  /* past the jaw: the fall narrows */
+      if(_onNape){
+        /* THE NECK IS NARROWER THAN THE JAW. span() clamps to the last skull row above,
+           which is the jaw, so a nape drawn at that width is a shelf of hair sticking
+           out past the neck on both sides. Inset to about the neck: two cells in from
+           the jaw, which is what the head-to-neck step actually is on this rig. */
+        mn+=2*S; mx-=2*S;
+      } else if(y>hBot){                                           /* past the jaw: the fall narrows */
         var t=y-hBot, _nw=Math.min(2*S,((t/(3*S))|0)*S); mn+=_nw; mx-=_nw;
         var _sw=_sway(y); mn+=_sw; mx+=_sw;                        /* and it sways */
         /* THE FALL HANGS BEHIND THE HEAD, NOT DOWN THE MIDDLE (Paolo 8/2). Below the
@@ -24846,7 +24925,7 @@ window.CLO=(function(){
            and it sways. Applied here as well as in the front-curtain branch, so the
            back and the profile get the same treatment the front does and the three
            branches stop disagreeing about what a fall looks like. */
-        if(y>hBot){ mn-=_fall(y,0); mx+=_fall(y,1); } }
+        if(y>hBot&&!_onNape){ mn-=_fall(y,0); mx+=_fall(y,1); } }
       if(front&&y>frontLine){
         /* front facing, below the front line: the mass is only at the SIDES --
            never across the face, and never a sheet down the chest. Two curtains,

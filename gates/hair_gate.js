@@ -31,7 +31,11 @@ const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
 //                        warp it, so it must still sit on the head at the extremes.
 const path = require('path'), fs = require('fs');
 const ROOT = path.join(__dirname, '..');
-const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
+/* ALPHA= points this gate at another copy of the alpha, for ONE purpose: running the
+   control. A check that has never been seen red is not a check, and the 9/5 eight-facings
+   section below is only meaningful because the same code goes red on the build from
+   before its fix. Defaults to the real alpha, so nothing about a normal run changes. */
+const ALPHA = process.env.ALPHA || path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
 const src = fs.readFileSync(ALPHA, 'utf8');
 let p = 0, f = 0;
 const ok = (n, c) => { c ? p++ : (f++, console.log('  > FAIL ' + n)); };
@@ -547,6 +551,153 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
   ok('8/1 + 8/2 ON THE RENDERED PIXELS: from behind and side-on the hair reaches the jaw ' +
      '(' + (NAT.shortSide.length ? NAT.shortSide.slice(0, 6).join(', ') : 'all 15, all 5 facings') + ')',
      NAT.shortSide.length === 0);
+
+  /* ======================================================================== *
+   *  EIGHT FACINGS, NOT SIX  (9/5/26, [hair sheet] HAIR-REF-EIGHT-FACINGS)
+   *
+   *  HIS ORDER, 8/25, open on the board since: "THESE HAIRSTYLES ARE NOT FUCKING
+   *  CUTTING IT ... LOOK ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND WE
+   *  CAN GO FROM FUCKING THERE."
+   *
+   *  WHY THIS SECTION EXISTS WHEN THE GATE ABOVE ALREADY CHECKS EIGHT FACINGS, and
+   *  it is the whole lesson of the round. The checks above ask that every shape
+   *  renders NON-EMPTY in all eight, and that the front and back footprints differ
+   *  ACROSS THE SET. Both were green every single day while the generator had THREE
+   *  facings and the game had eight: NE, N and NW took one branch at every line and
+   *  came out as ONE PICTURE PUT IN THREE PLACES. Measured 9/5 on origin/main --
+   *      NE is the same picture as NW on 23 of 24 canon cuts,
+   *      18 of 24 cuts show SIX different pictures out of eight,
+   *      18 of 24 cuts put ZERO hair below the base of the skull from behind.
+   *  A GREEN CHECK IS NOT THE SAME AS A CHECKED THING. "Non-empty" is satisfied by a
+   *  scalp painted on a head; "they differ from each other" is satisfied by 24 cuts
+   *  that are all equally flat as long as they are flat in different places. Neither
+   *  ever asked whether ONE cut changes when its wearer turns around, which is the
+   *  only question he asked.
+   *
+   *  AND THE RULER HAD TO BE FIXED TWICE BEFORE IT COULD SEE ANY OF IT:
+   *    1. Hashing RAW PIXEL INDICES reported 24 of 24 cuts with eight distinct
+   *       shapes -- a clean sweep -- because the rig puts the head at a different x
+   *       for NE, N and NW, so ONE picture drawn in three places hashes three ways.
+   *       Every shape here is translated to its own bounding box before hashing.
+   *    2. Taking the base of the skull from the rig's `neck` JOINT put the landmark
+   *       three rows down inside the neck, which no haircut reaches. It read 18 of 24
+   *       bad BEFORE and AFTER a fix that demonstrably worked. The skull's base is
+   *       read off the art -- the row where the silhouette pinches before it widens
+   *       into the shoulders -- which is the landmark head anatomy actually names
+   *       (reference/library/haircut/INDEX.md HAIR-06).
+   *  A NUMBER THAT DOES NOT MOVE WHEN THE THING IT MEASURES MOVES IS A BROKEN RULER.
+   *
+   *  THE MIRROR CHECK IS THE REFERENCE'S OWN RULE (HAIR-05). Shipped top-down games
+   *  routinely reuse four drawings for eight facings, and a side view is normally
+   *  MIRRORED rather than redrawn. That reference argues against redrawing -- and it
+   *  is exactly what our back three-quarters were not doing. They were the same
+   *  picture, not reflections. Mirroring is the cheapest correct answer and we were
+   *  not even doing that.
+   * ======================================================================== */
+  const TURN = await pg.evaluate(() => {
+    const DIRS = ['S','SE','E','NE','N','NW','W','SW'];
+    const keepW = window.G_WORN, keepE = G.equipped;
+    const clear = () => { try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {} };
+    const shot = (worn, d) => {
+      const eq = {}; for (const k in keepE) eq[k] = keepE[k];
+      for (const s of ['hat','glasses','hair','shirt','jacket','pants','shoes']) eq[s] = '';
+      G.equipped = eq; window.G_WORN = worn; clear();
+      return buildFrame(d, 'idle', 0);
+    };
+    /* translated, so the SAME PICTURE IN A DIFFERENT PLACE hashes the same */
+    const cellsOf = (set, CW, flip) => {
+      if (!set.length) return [];
+      let mnX = 1e9, mxX = -1, mnY = 1e9;
+      for (const i of set) { const y = (i / CW) | 0, x = i % CW;
+        if (x < mnX) mnX = x; if (x > mxX) mxX = x; if (y < mnY) mnY = y; }
+      const w = mxX - mnX;
+      return set.map(i => { const y = ((i / CW) | 0) - mnY, x = (i % CW) - mnX;
+        return (y * 4096) + (flip ? (w - x) : x); }).sort((a, c) => a - c);
+    };
+    const hashOf = (cells) => { if (!cells.length) return 'empty';
+      let s = 2166136261 >>> 0;
+      for (const v of cells) { s ^= v; s = Math.imul(s, 16777619) >>> 0; }
+      return s.toString(36); };
+    const bare = {}; for (const d of DIRS) bare[d] = shot({}, d);
+    const CW = bare.S.CW, CH = bare.S.px.length / CW;
+    /* the base of the skull, read off the art: the narrowest row between the crown and
+       the rig's neck joint, i.e. the head-and-neck pinch before the shoulders widen. */
+    const skullBot = {};
+    for (const d of DIRS) {
+      const fr = bare[d]; let top = null; const wide = [];
+      for (let y = 0; y < CH; y++) { let n = 0;
+        for (let x = 0; x < CW; x++) if (fr.px[y * CW + x]) n++;
+        wide.push(n); if (n && top === null) top = y; }
+      let joint = null;
+      try { joint = BAKED.skeleton[d] && BAKED.skeleton[d].neck ? BAKED.skeleton[d].neck[1] : null; } catch (e) {}
+      const hi = (joint == null ? (top || 0) + 24 : joint);
+      let best = null, bw = 1e9;
+      for (let y = (top || 0) + 2; y <= hi && y < CH; y++) if (wide[y] && wide[y] <= bw) { bw = wide[y]; best = y; }
+      skullBot[d] = best;
+    }
+    const cuts = GARMENTS.filter(g => g && g.layer === 'hair' && g.st === 'canon');
+    const flat = [], sameAsFrontBack = [], noNape = [];
+    for (const h of cuts) {
+      const sh = {}, cells = {}; let nape = 0;
+      for (const d of DIRS) {
+        let fr; try { fr = shot({ hair: h.n }, d); } catch (e) { continue; }
+        const bz = bare[d], set = [];
+        for (let i = 0; i < fr.px.length; i++) {
+          const a = fr.px[i], z = bz.px[i];
+          if ((!!a !== !!z) || (a && z && (a[0] !== z[0] || a[1] !== z[1] || a[2] !== z[2]))) {
+            set.push(i);
+            if (d === 'N' && a && skullBot[d] != null && ((i / CW) | 0) > skullBot[d]) nape++;
+          }
+        }
+        cells[d] = cellsOf(set, CW, false);
+        sh[d] = hashOf(cells[d]);
+      }
+      const n = new Set(DIRS.map(d => sh[d]).filter(Boolean)).size;
+      if (n < 8) flat.push(h.n + ' (' + n + '/8)');
+      if (['SE','SW','NE','NW'].some(d => sh[d] && (sh[d] === sh.S || sh[d] === sh.N))) sameAsFrontBack.push(h.n);
+      if (!nape) noNape.push(h.n);
+      /* *** A MIRROR CHECK WAS WRITTEN HERE AND WITHDRAWN. THE CONTROL KILLED IT, AND
+         THAT IS WHY THE REASONING STAYS INSTEAD OF THE CODE. ***
+         HAIR-05 in the reference index says a side view is normally MIRRORED rather
+         than redrawn, so the claim looked obvious: NE should resemble NW-mirrored
+         more than it resembles the flat back. Two versions were tried.
+           1. EXACT REFLECTION. Red on four cuts, and the check was wrong, not the
+              cuts: wob() hashes the left and right edges off different bits ON
+              PURPOSE so the two sides of a head never move together, which is his
+              LOCKED clause 3 ("hair is little off shapes ... a lot of straight lines
+              and that's not realistic"). A check that can only pass by undoing a
+              ruling is not a check, it is a second ruling.
+           2. OVERLAP, intersection over union on the translated pictures, asking only
+              that the mirror beat the back. Red on four cuts by a hair: FRINGE 0.87
+              vs 0.87, WOLF CUT 0.83 vs 0.95.
+         THEN THE CONTROL, and it ended the idea. Run the identical test on the BARE
+         BODY WEARING NO HAIR AT ALL:
+              bare NE vs mirrored NW  0.849      bare NE vs N  0.862
+              bare SE vs mirrored SW  0.837      bare SE vs S  0.851
+         The naked rig fails it by the same margin. THIS RULER WAS MEASURING THE RIG,
+         NOT THE HAIRCUT -- a three-quarter body is not a mirror of the other
+         three-quarter body, because the arms, the hands and their layer order are
+         resolved per facing, and none of that is hair. A test whose subject fails it
+         with the thing being tested removed is testing the substrate.
+         NOT A RIG BUG EITHER, said plainly so nobody chases it: a body holding its
+         arms differently on two facings SHOULD not mirror. What is dead is the claim
+         that hair can be judged this way, and the three checks that survive below are
+         the ones with a control behind them (red on origin/main, green here). */
+    }
+    window.G_WORN = keepW; G.equipped = keepE; clear();
+    return { n: cuts.length, flat, sameAsFrontBack, noNape, skullBot };
+  });
+  ok('*** EIGHT FACINGS, NOT SIX: every canon cut is EIGHT different pictures across the ' +
+     'eight, comparing the picture and not where it sits (' + TURN.n + ' cuts, ' +
+     (TURN.flat.length ? TURN.flat.slice(0, 6).join(', ') : 'all eight, all cuts') + ') ***',
+     TURN.flat.length === 0);
+  ok('a THREE-QUARTER is its own drawing, never the front or back picture slid sideways ' +
+     '(' + (TURN.sameAsFrontBack.length ? TURN.sameAsFrontBack.slice(0, 6).join(', ') : 'none') + ')',
+     TURN.sameAsFrontBack.length === 0);
+  ok('THE NAPE IS ON THE NECK: every cut puts hair below the base of the skull from behind ' +
+     '(the pinch row read off the art, not the rig\'s neck pivot; ' +
+     (TURN.noNape.length ? TURN.noNape.slice(0, 6).join(', ') : 'all ' + TURN.n) + ')',
+     TURN.noNape.length === 0);
 
   await b.close();
   done();
