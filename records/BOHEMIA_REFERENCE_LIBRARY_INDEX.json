@@ -522,6 +522,62 @@
    "kind": "real",
    "teaches": "the register has exactly two whole-figure poles \u2014 WIDE AT THE TOP (square or cocoon shoulder, narrow leg, Balenciaga) and TALL AND STACKED (soft shoulder, staggered hems, heavy base, Rick Owens); every crowd body should commit to one pole, because a figure that mixes both reads as neither."
   },
+  "TG-01": {
+   "name": "The lot's real proportions (the tile law's own numbers)",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "https://www.reviewjournal.com/business/las-vegas-neighborhoods-are-gaining-more-elbow-room/ + https://files.lasvegasnevada.gov/planning/Title-19-Development-Standards.pdf",
+   "kind": "real",
+   "teaches": "a Vegas lot is barely bigger than its house - measured 3,300-6,100 sq ft lots under 2,000+ sq ft homes - so the HOUSE TILE is mostly roof with a thin apron, and a fat margin of ground around a house is a scale lie."
+  },
+  "TG-02": {
+   "name": "The house tile from 45 degrees",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "https://www.google.com/maps/@36.1146,-115.1728,120m (satellite, any block)",
+   "kind": "real",
+   "teaches": "from above-at-an-angle a house is ROOF PLANES FIRST (two or four pitched planes, one ridge), then the front face; at combat range the roof IS the house's ground read, and its ridge line gives the tile its orientation."
+  },
+  "TG-03": {
+   "name": "The yard tile",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "the same satellite anchor + the walked suburb (decorative gravel front yards, 8/8; TAN WALL 85/15 law)",
+   "kind": "real",
+   "teaches": "a Vegas yard is GRAVEL OR HARDPAN inside a block wall - no lawn in act 1 - with one or two large objects (a dead tree well, a shed, a pool now empty); the wall runs the tile's full edge, so a yard tile's cover story is its WALL, not its middle."
+  },
+  "TG-04": {
+   "name": "The street tile",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "the walked arterials (double yellow, parkway mulch, SIDEWALK SANCTITY law)",
+   "kind": "real",
+   "teaches": "at house scale one street tile carries HALF the street - kerb, sidewalk band, parking lane, one travel lane - never the whole road; the kerb line is the tile's strongest edge and the fight's cleanest lane marker."
+  },
+  "TG-05": {
+   "name": "The lot tile (commercial ground)",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "https://www.udg.org.uk/publications/udlibrary/learning-las-vegas",
+   "kind": "real",
+   "teaches": "a commercial lot tile is STRIPED ASPHALT with seal-coat patches and stop bars - the most readable man-made ground there is; its stall stripes give a free tactical grid the fight can read without any overlay."
+  },
+  "TG-06": {
+   "name": "The rubble tile",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "banks/tileforms (the approved waste fill TF-ART-026 and riprap TF-ART-023 families)",
+   "kind": "pixel",
+   "teaches": "our rubble already has approved grammar - earth base, worn-through patches, bleached flecks, off-shape clusters, never dot stipple; a combat rubble tile REUSES that grammar denser, and its walkability must read from silhouette alone (the clarity rule, CGRD-01)."
+  },
+  "TG-07": {
+   "name": "Cover that reads (the 45-degree test)",
+   "folder": "tile-ground",
+   "file": "reference/library/tile-ground/INDEX.md",
+   "where": "reference/library/combat-ground/INDEX.md (CGRD-01, CGRD-02) + the 45 DEGREE ART LAW",
+   "kind": "pixel",
+   "teaches": "at one house per tile, cover is HOUSE-PART SIZED - a block wall segment, a dead car, a dumpster, a porch pier - and each must break the ground's silhouette at the tile edge where it blocks; cover that only reads by its colour is not cover."
+  },
   "UI-01": {
    "name": "Into the Breach (Interface In Game gallery)",
    "folder": "ui",
