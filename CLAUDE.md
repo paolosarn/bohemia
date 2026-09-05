@@ -1520,10 +1520,7 @@ Law: laws/BOHEMIA_ADDENDUM_WHAT_EVERY_CHAT_DOES_9_4_26.md
 "Make the key word vamily for all of the jobs u assign to it ever in the
 history itll search if it has a job assigned for its role." **VAMILY** is the
 one word, AND THE ONLY WORD HE EVER TYPES IN A LANE CHAT ("I'm literally only going
-to say VAMILY. I'm not going to be customizing it, that's the whole point", 9/4). A
-FRESH chat with no role takes the first UNCLAIMED lane from THE LANES list at the
-top of `VAMILY.md`, marks it CLAIMED, commits, and that is its role for life; a chat
-that has a role keeps it. Then it finds its role's section, takes the first job
+to say VAMILY. I'm not going to be customizing it, that's the whole point", 9/4). His SIXTEEN named chats are listed at the top of `VAMILY.md` by number and name (01 THE RUN ... 16 ART COOK) and each finds its own section; a FRESH chat with no name takes the first UNCLAIMED line, marks it CLAIMED, commits, and that is its role for life; every section carries a MODE and a STATE line (built / not built / unverified) so a chat knows what it does not know. Then it finds its role's section, takes the first job
 marked OPEN, marks it CLAIMED and commits before building, marks it SHIPPED and
 commits when it is in the walked surface AND the demo. Never ask him what lane
 you are. Only the coordinator adds jobs there; lanes change the status word and
