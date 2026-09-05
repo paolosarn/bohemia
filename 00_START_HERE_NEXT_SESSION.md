@@ -1,3 +1,98 @@
+LIFE + CITY (city-1eztay): 9/5 (e) LATEST -- *** [feed posts] THE-FEED-STREAM: SHIPPED.
+THE VALLEY TALKS ON THE CITY PHONE, AND IT IS ONE STREAM NOW. *** MODE: BUILD.
+TAB: CITY (the phone panel on the right, in the zoomed-out view). Nothing to judge.
+
+=== PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+*** THIS ROUND: [feed posts] THE-FEED-STREAM, SHIPPED. ***
+  THE LAW SPLIT THIS IN TWO AND UI HAD ALREADY SHIPPED THE OTHER HALF. The 9/4 feed law
+routes the SURFACE to UI (the phone screen in CITY mode, the scroll, the beat) and the
+STREAM here, and UI's own header says "this is a reader, not a source" while naming the
+seam it left open: "WORLD/PEOPLE own the faction event stream ... Until then that source
+is EMPTY, on purpose."
+  MEASURED BEFORE A LINE WAS WRITTEN: BOHEMIA_FACTION_GRAPH present, BohemiaTowns present
+WITH ZERO CALLERS, 358 live grid cells, real shop prices -- and the world source had
+produced 0 posts, ever. Everything the world needed to talk about was in the page and
+nothing read it. The stream is the first thing on the walked surface ever to call
+BohemiaTowns: 14 faction seats, fortress/town/camp, straight off WORLD's graph.
+  AN EVENT STREAM MEANS DIFFS, NOT A DESCRIPTION. Every world source keeps its last-seen
+value and speaks only when it moves; the first drain is a silent baseline. "The grid is at
+358" is not news, "the grid just lost a block" is. Four things really move here: the
+lights, what things cost, who holds what, and what you put up.
+  THREE THINGS THIS ROUND CAUGHT IN MY OWN WORK, all worth keeping:
+    (1) THE CAP DROPPED EVENTS. The drain capped its RETURN at three while the sources had
+      already advanced their cursors, so on a busy beat the fourth thing that happened was
+      gone for good. AN EVENT STREAM THAT LOSES EVENTS IS A STATUS BAR WITH EXTRA STEPS.
+      It delays into a pending queue now and never drops.
+    (2) THE SECOND PRODUCER HID BEHIND A RENAME. I replaced the every-8-beats life call,
+      opened the panel, and the first three posts were STILL the old fixed list -- a
+      seed-on-open batch, written for a good reason and therefore not where I was looking.
+      TWO PRODUCERS IS THE BUG; TWO PRODUCERS WHERE ONE HAS BEEN QUIETLY RENAMED IS THE
+      SAME BUG WEARING A DISGUISE. Found by reading the panel, not the diff.
+    (3) I BROKE UI'S GATE. Routing deeds through the stream put them behind the ambient
+      cadence, so a finished quest waited up to seven beats and their published next-beat
+      contract went red. THE CADENCE BELONGS TO THE SOURCE, NOT THE CALLER: events every
+      beat, ambient one in eight (inside the stream now), and filling an empty panel is a
+      third case that obeys neither. Their gate is back to 15/0 and A10/A11 in MY gate hold
+      it there, because fixing their gate is not enough.
+  AND THE FIRST AMBIENT SET READ AS A LOOP: at six in the morning exactly two lines were
+true, so it alternated the same two sentences forever -- worse than a fixed list, because
+it is a fixed list that took an hour to build. The fix was not more lines, it was more of
+the world (seats, the size of the grid), which differs between one valley and another.
+  GATE: gates/feed_stream_gate.js, 19/0, walked surface AND cut demo, registered. Mutation-
+tested three ways: make the cap drop instead of delay (A3b red), remove the baseline so the
+world is described rather than reported (A1 red), point the seed back at the retired list
+(B2 red, 3 leaked).
+  RECORD: records/BOHEMIA_ONE_STREAM_THREE_SOURCES_9_5_26.md
+  STILL RED ON MAIN AND STILL NOT MINE, proved pre-existing by stashing in an earlier
+round and unchanged since: bohemia_sync_gate BOH_POWERGRID, 2 bodies across 6 carriers --
+canon and the walked city agree, the graphics-engine masters and BOHEMIA_RUN_CURRENT.html
+carry an older body. RUN's carriers, and their run slice is a 21 MB generated file they may
+be mid-flight in, so ONE SYSTEM ONE SESSION applies. FOR THE COORDINATOR TO ROUTE TO RUN.
+  THE STANDING NOTES: A REPLACEMENT IS NOT DONE UNTIL YOU LOOK AT THE THING, NOT THE DIFF.
+And WHEN YOU TAKE OVER A SOURCE, YOU INHERIT ITS TIMING, NOT JUST ITS CONTENT -- I moved
+three sources into one stream and gave all three the cadence of the slowest, because the
+cadence lived in the caller where it was invisible.
+  NEXT OPEN LINE IN THIS LANE: [combat floor] THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR.
+
 WORDS (words-8dqrnq): 9/5 (g) LATEST -- *** VAMILY Q10 [threat talk] SHIPPED. OUR CITY
 CAN ORDER YOU AND WARN YOU AND CANNOT THREATEN YOU, AND NOBODY IN THE BUILD SAYS
 ONE WORD INSIDE A FIGHT. *** Nothing to judge, MODE: RESEARCH, nothing entered the
