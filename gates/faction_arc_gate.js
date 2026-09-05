@@ -667,7 +667,7 @@ function requirePlaywright() {
             __standBeside(q);
             ctSawCell(); ctClose(); ctOpen();
             const fid = row('RUNS WITH');           /* the CARD's answer, not mine */
-            if (!fid || seen[fid]) { ctClose(); continue; }
+            if (!fid || (seen[fid] && !seen[fid].__empty)) { ctClose(); continue; }
             const rule = BohemiaIntros.ruleOf(fid);
             const ctx = { full: 'X Y', trade: 'WATCH' }, st = { asked: false };
             const rec = { organButton: BohemiaIntros.buttonFor(rule, ctx, st),
@@ -680,10 +680,57 @@ function requirePlaywright() {
             if (btn) btn.click();
             ctClose(); ctOpen();
             rec.after = nameRow();
-            seen[fid] = rec; ctClose();
+            /* A READING THAT READ NOTHING DOES NOT LOCK THE OUTFIT IN. (9/5.)
+               This recorded the FIRST card it saw per outfit, and if that card
+               came up with no NAME row and no ask button it stayed the outfit's
+               answer forever -- so F2 reported the CHURCH's authored mechanic
+               wrong off a card that had told it nothing. cardButton and cardRest
+               both null against an organ that names a button is the signature of
+               a card that did not read, not of a mechanic that disagrees. A
+               later, fuller reading now replaces an empty one. */
+            const empty = rec.cardButton === null && rec.before === null;
+            if (!seen[fid] || (!empty && seen[fid].__empty)) {
+              rec.__empty = empty; seen[fid] = rec;
+            }
+            ctClose();
           }
         }
       }
+      /* AND A TARGETED PASS FOR ANY OUTFIT THE WANDER MISSED. (9/5.) The scan
+         above is opportunistic: it walks out from every base and records
+         whichever outfits it happens to stand alone beside. That is the right
+         way round -- the CARD's own RUNS WITH row decides the subject, never my
+         pick -- but it means an outfit whose members all happen to be hemmed in
+         is simply absent, and F2 then reports the CHURCH's authored mechanic as
+         wrong when nothing was ever read. Measured before this existed:
+         cardButton and cardRest both null, which is the signature of a card that
+         never opened rather than one that opened and disagreed.
+         So anything still missing is looked for BY NAME, through the same
+         __standableOf R1 uses. Still the card's answer that gets recorded. */
+      try {
+        const R2 = ctValleyRoster();
+        for (const k of Object.keys(BohemiaBelonging.RULES || {})) {
+          if (seen[k] && !seen[k].__empty) continue;
+          const got = __standableOf(R2, String(k).toUpperCase());
+          if (!got.rec) continue;
+          ctSawCell(); ctClose(); ctOpen();
+          const fid = row('RUNS WITH');
+          if (!fid || seen[fid]) { ctClose(); continue; }
+          const rule = BohemiaIntros.ruleOf(fid);
+          const ctx = { full: 'X Y', trade: 'WATCH' }, st = { asked: false };
+          const rec = { organButton: BohemiaIntros.buttonFor(rule, ctx, st),
+                        organGives: (BohemiaIntros.askOutcome(rule, ctx, st) || {}).got,
+                        ruleNext: rule.next,
+                        cardRest: row('HOW YOU GET THE REST'),
+                        cardButton: (document.getElementById('ctask') || {}).textContent || null,
+                        before: nameRow(), byName: true };
+          const btn = document.getElementById('ctask');
+          if (btn) btn.click();
+          ctClose(); ctOpen();
+          rec.after = nameRow();
+          seen[fid] = rec; ctClose();
+        }
+      } catch (_e) { seen.__targetedError = String(_e.message); }
       return seen;
     });
 
@@ -1054,17 +1101,34 @@ function requirePlaywright() {
           ctSawCell(); ctOpen();
           const r = { fid, offers: [] };
           /* CLIMB THE WHOLE LADDER BY PLAYING -- no setState anywhere. */
+          /* THE ROUNDS REPORT THEMSELVES. (9/5.) This printed only the state and
+             whether a commit was offered, so "reached sided and stopped" could
+             not be told apart from "never climbed at all after siding". */
+          r.rounds = [];
           for (let round = 0; round < 3; round++) {
-            let n = 0;
-            while (n < 15) {
+            /* SIXTY PRESSES, NOT FIFTEEN, AND THE REASON IS IN THE NUMBERS THIS
+               LOOP NOW PRINTS. Round 1 reported presses:15, why:"ranOut",
+               gave:"5 -> 8" -- it hit the cap having climbed three rungs, because
+               every press is followed by a day roll and a day roll applies
+               neglect decay, so the climb is a net grind rather than one rung per
+               press. The ceiling after siding is FURTHER than the first one, which
+               is B8's whole claim, so a cap tuned to the first wall cannot reach
+               the second. Fifteen was measuring the cap. */
+            let n = 0, why = 'ranOut';
+            const start = BohemiaBelonging.gaveOf(sv, fid);
+            while (n < 60) {
               const was = BohemiaBelonging.gaveOf(sv, fid);
               const btn = document.getElementById('ctgive') || document.getElementById('ctfavour');
-              if (!btn) break;
+              if (!btn) { why = n ? 'buttonWentAway' : 'noButtonAtAll'; break; }
               btn.click(); ctClose(); ctOpen(); n++;
-              if (BohemiaBelonging.gaveOf(sv, fid) === was) break;
+              if (BohemiaBelonging.gaveOf(sv, fid) === was) { why = 'stoppedMoving'; break; }
               DAY.nextDay(); daySync(); walkBack();
             }
             const c = document.getElementById('ctcommit');
+            r.rounds.push({ round, presses: n, why,
+                            gave: start + ' -> ' + BohemiaBelonging.gaveOf(sv, fid),
+                            card: (document.getElementById('ctcard') || {}).innerText
+                                  ? (document.getElementById('ctcard').innerText.split('\n')[0] || '') : '(closed)' });
             r.offers.push({ state: BohemiaCommitment.stateOf(sv, fid),
                             offered: c ? c.textContent : null });
             if (!c) break;
@@ -1073,8 +1137,20 @@ function requirePlaywright() {
           r.deepest = BohemiaCommitment.stateOf(sv, fid);
           r.rungAtDeepest = (BohemiaBelonging.bargain(BohemiaBelonging.ruleOf(fid),
                               BohemiaBelonging.gaveOf(sv, fid)).rung || {}).word;
-          /* NOW STAY AWAY UNTIL THE COUNT IS GONE. */
-          for (let d = 0; d < 20; d++) { ctNeglectFor(sv, T.day); DAY.nextDay(); daySync(); }
+          /* NOW STAY AWAY UNTIL THE COUNT IS GONE -- AND "UNTIL" MEANS UNTIL.
+             (9/5.) This was a fixed twenty days, which emptied a count of five
+             and could not empty a count of twenty-nine. The claim is that a
+             standing DECAYS TO NOTHING while a burned bridge is still remembered;
+             a fixed loop turns that into a claim about whether twenty days
+             happens to be enough for whatever the climb reached, which is a
+             different and much weaker thing. It now stays away until the count is
+             actually zero, with a stop so a count that will NEVER drain reports
+             that honestly instead of hanging. */
+          let stayed = 0;
+          while (BohemiaBelonging.gaveOf(sv, fid) > 0 && stayed < 400) {
+            ctNeglectFor(sv, T.day); DAY.nextDay(); daySync(); stayed++;
+          }
+          r.daysAway = stayed;
           walkBack();
           r.drainedGave = BohemiaBelonging.gaveOf(sv, fid);
           r.drainedState = BohemiaCommitment.stateOf(sv, fid);
@@ -1088,7 +1164,7 @@ function requirePlaywright() {
       + 'each one offered by the card at the wall, no setState anywhere. Nobody '
       + 'had ever reached it',
       deep.deepest === 'burned',
-      JSON.stringify(deep.offers));
+      JSON.stringify({ offers: deep.offers, rounds: deep.rounds, fid: deep.fid }));
 
     ok('J2 …and the ladder actually lands you INSIDE, which is what the third '
       + 'commitment buys and the only thing turning up can never reach',
@@ -1112,6 +1188,7 @@ function requirePlaywright() {
       && !/YOU ARE\nA STRANGER/.test(deep.card)
       && /THEY KNOW WHAT YOU DID/.test(deep.card),
       JSON.stringify({ gave: deep.drainedGave, state: deep.drainedState,
+                       daysAway: deep.daysAway,
                        card: (deep.card || '').slice(0, 220) }));
 
     ok('J5 …and the terms stay FOLDED on history rather than on the count. A '
