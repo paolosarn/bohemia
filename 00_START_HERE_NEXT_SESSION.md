@@ -9032,7 +9032,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [opening references] SHIPPED 1a06017 -- six great
+ROUND LOG 9/5 (latest): [style checker] SHIPPED 5e6ef42 -- the card has a
+machine gate (suite-registered): new cooks are register-or-accent (the muddy
+middle ends), new outers wear runway black, the canon rides the 82/256
+ratchet, purple stays banned, and the bank must match the shipped alpha or
+the gate names the regenerate command. Proven to bite with a fake muddy
+jacket before registering. NEXT OPEN: [batch judging], then [fortress look],
+[feed look], [tile ground]. PREVIOUS: [opening references] SHIPPED 1a06017 -- six great
 openings written as beats in reference/library/first-hour/ (safe first
 screen, the earned reveal, powerless-first, one errand, full-information
 first fight, and the Vegas porte-cochere as the real-world arrival machine).
