@@ -410,3 +410,49 @@ Y2  a neighbour trying to be kind and failing       draft:true
   needs a label, that is UI's job and this is not it.
 - No numbers. W2 counts to four because a person counts lit windows, not
   because anything reads a number.
+
+# ============================================================================
+# ROUND 5 [numberless economy] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_5_FIFTEEN_NUMBERS_ON_THE_SHOP_CARD_9_5_26.md
+# DELIBERATELY THIN. The vocabulary that replaces four decimals on the market
+# card is WORDS' job, not this lane's; the record routes it to them as a need.
+# What is below is only the SHAPE the measurement asks for, so nobody has to
+# guess what "a ratio, not a decimal" meant. All draft:true, none in the game.
+# The science underneath: 1 to 4 is read instantly and exactly; above that,
+# people read ratios only, and cannot tell 12 from 15.
+# ============================================================================
+
+## AA. HOW MUCH IS LEFT, SAID AS A SHAPE (never a decimal)
+## Not final words. WORDS owns these. The point is the FORM: a comparison a
+## person could make standing in front of the shelf.
+
+AA1 plenty, nobody is worried                        draft:true
+    "there's a wall of it"
+
+AA2 enough, but somebody is counting                 draft:true
+    "he keeps it behind him now"
+
+AA3 getting thin                                     draft:true
+    "one crate, and it isn't a full one"
+
+AA4 nearly gone                                      draft:true
+    "what's on the table is what there is"
+
+AA5 gone                                             draft:true
+    "he doesn't have it. he'll tell you who might."
+
+## BB. THE PRICE, WITHOUT A DIGIT
+## Everything costs one, and one is inside the range a person reads instantly.
+
+BB1 the plain quote                                  draft:true
+    "a battery"
+
+BB2 the same quote, from somebody who is sick of saying it  draft:true
+    "a battery. same as the rice, same as everything, a battery."
+
+## CC. WHAT IS NOT HERE, ON PURPOSE
+- No replacement vocabulary. Five shapes, not a wordlist. WORDS writes the real
+  ones and this bank should not be mistaken for them.
+- No line puts a number back in through the side door ("about fifty days" is the
+  same decimal with a hedge on it).
+- Nothing for the fight readout. That screen is settled and correct.
