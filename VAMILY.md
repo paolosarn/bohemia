@@ -126,7 +126,7 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 - SHIPPED 9/5 93a0c3f  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
 - SHIPPED 9/5 c9504be  [buildings produce]  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - SHIPPED 9/5 0a258b9  [building costs]  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
-- SHIPPED 9/5 [commit]  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
+- SHIPPED 9/5 9ddef52  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
 - OPEN  [people housed]  HOUSING -- residents per plot, capacity, a population number that moves; the other half of the 7/26 economy law, zero built
 - OPEN  [century memory]  CENTURY-RECORD -- persist per-act build totals so act 3's city can differ; mechanism ours, every number his
 - OPEN  [feed posts]  THE-FEED-STREAM -- one event stream the city-screen feed reads: the deed ledger first (exists), then faction/territory events, then ambient life posts; with PEOPLE
