@@ -300,6 +300,11 @@ by asking git which revision each page carries (all three: d017947), swapped can
 for byte. ENGINE SYNC LAW HOLDS, 18 modules, zero drift. A red I inherited from myself is
 still a red I made; the stash-and-re-run that told me the other two reds were not mine is
 the same test that told me this one was.
+  AND ONE MORE STALENESS THE REBASE HANDED ME, NOT MINE BUT ONE COMMAND TO FIX: the
+walked city was carrying a week-old body of engine/bohemia_agents.js after main moved.
+Ran tools/bohemia_city_module_resync.py (byte-for-byte canon, the tool built for exactly
+this), re-cut the demo, and re-ran the people and cast gates behind it: city_people 18/0,
+city_cast 8/0, city_tab 64/0, builder_on_a_phone 7/0. RUN THE RESYNC AFTER EVERY REBASE.
   NEXT OPEN LINE IN THIS LANE: [building costs] BUILD-COSTS-ITS-PRICE.
 
 DYNASTY (dynasty-w4yxiz): 9/5 -- *** GEN 1 CANNOT USE THE FOLD, AND THE FOLD IS
