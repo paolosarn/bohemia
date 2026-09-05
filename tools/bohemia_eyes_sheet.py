@@ -24,7 +24,7 @@ NOTES = {
  'alpha-00-splash.png': "This one got fixed while I was looking at it: at six in the morning the build line said 8/31, five days old, running edge to edge. The sound lane shipped and now it says 9/5k and it fits. The line still has no side margin, so a longer headline will run off a smaller phone.",
  'alpha-01-after-the-tap.png': "One tap in and there are TWO things asking you for something at once: WATCH at the top, GET UP in the middle, and somebody talking underneath both.",
  'alpha-02-vote.png': "The button at the top loses its own last word, and the name of each haircut is printed on top of the picture it belongs to.",
- 'alpha-03-ui.png': "A button here says FF10 and the law file says the game we compare to is Final Fantasy TWELVE. Two files, two different games. Somebody has to say which.",
+ 'alpha-03-ui.png': "The FF10 button looked like the wrong game on the wrong screen. You settled it: 12 is combat only, 10 is the interface. So this page was right all along, and the rules file now says the split out loud.",
  'alpha-04-looks.png': "The tab says 3D and the page says THE THIRD ONE. The name on the door does not match the room.",
  'alpha-05-look.png': "It is called WHAT IS NEW and it is dated 8/8, four weeks ago, and the little labels under the tiles are too small to read on a phone.",
  'alpha-06-words.png': "Cleanest page in the build. The only wrong thing is a file path printed next to the quest name, which you should never have to see.",

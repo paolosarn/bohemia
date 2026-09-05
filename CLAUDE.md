@@ -51,7 +51,12 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER
 - PURPLE RESERVATION
 - *** THE BATTLE BROTHERS STUDY -> laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md
-- NEVER ADD A REFERENCE GAME HE HAS NOT NAMED -> laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md
+- NEVER ADD A REFERENCE GAME HE HAS NOT NAMED, AND A REFERENCE BELONGS TO ONE DEPARTMENT
+  (Paolo 9/5: "Ff12 is combat only"): FINAL FANTASY XII = combat gambits ONLY; ROGUE FABLE 4 =
+  combat on the beat; BATTLE BROTHERS = the campaign layer; FINAL FANTASY X = the INTERFACE
+  study (8/26, round 01); Las Vegas = the city. Citing one outside its department is the same
+  violation as citing a game he never named -> laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md,
+  laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md
 - MECHANISM-MINE / CONTENTS-PAOLO'S, AMENDED 8/11 FOR WORDS: tables and whitelists ship EMPTY except what has a ruling, BUT every piece of player-facing text ships as a real attempt tagged draft:true (words get an attempt, decisions wait) -> laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | gate attempt_gate.js
 - HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT -> laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md | gate direct_gate.js
 - DIALOGUE ALWAYS REFERS TO THE CATALOGUE -> laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md | gate dialogue_catalogue_gate.js

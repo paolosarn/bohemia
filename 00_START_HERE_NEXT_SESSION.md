@@ -1,3 +1,651 @@
+CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
+Anything below this block is state. THIS block is the standing order, and it is copied
+here on his direct order so it survives a memory reset. Read it before anything else.
+
+================================ HIS WORDS, VERBATIM ===========================
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
+WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. The eighteen blocks are 14 answers + 4 reusable refusals,
+and here are all four: worker "I work. I do not keep track of who is doing what to who." /
+scav "Ask somebody who stands still for a living." / keeper "I hear things across this
+counter all day. That is not one of them." / watch "I watch this street. That is not this
+street." EVERY ONE IS A COMPETENCE DISCLAIMER. Different jobs, identical move: wrong person,
+try elsewhere. Under Grice that is a maximally COOPERATIVE reply -- it hides nothing and
+therefore implies nothing. It is a routing message wearing a character's clothes. Four
+reusable refusals is good economy; four that are the same MOVE is one refusal with four skins.
+
+WHY A REFUSAL TEACHES AT ALL: it has to BREAK a rule of conversation, and which rule breaks
+decides what the player learns.
+  says too little            -> there is more and it is being kept from me
+  answers a different question-> the real subject is dangerous to touch
+  goes vague, having been clear-> they are covering, and are bad at it
+  says something false        -> they lied, and he finds out LATER, not now
+"Not my department" breaks none of them, so it carries no payload.
+
+MEASURED ACROSS ALL 1,669 SPOKEN LINES: any refusal move at all, 5.5%. flat no 1.9%, silence
+1.1%, do-not-know 0.7%, changes-the-subject 0.7%, NAMES A COST 0.7%, not-my-domain 0.4%.
+AND THE GOOD ONE ALREADY EXISTS: the eleven lines that NAME A COST ("I've got a kid", "it's
+your face they'll remember", "you'd be asking in front of people") withhold AND explain why,
+which teaches the subject is dangerous without answering it. Those are hand-written into
+quest scenes and NONE of it reached the system that handles refusal at scale. OUR BEST
+REFUSAL WRITING AND OUR REFUSAL MECHANISM HAVE NEVER MET.
+
+BOTH ANGLES. Disco Elysium: a failed check is a DIFFERENT ROUTE, not a closed door -- it
+returns a new lead, a revealing scene, or a joke. A refusal must return a payload, never a
+null; ours return a null with an apology attached. Oxenfree: silence is first-class and the
+world does not wait for you. Pentiment: disagreeing accounts are the subject, not the
+obstacle. Real world: Grice on flouting, and conversation analysis on dispreferred responses
+being marked by delay, preface, account and mitigation BEFORE the content arrives.
+
+RECORD: records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the same subject refused five ways, the same
+refusal instant vs arriving late, and a dead end that still pays. All draft:true, NONE in
+the game.
+VAMILY: Q5 SHIPPED. Next open is Q6 [power talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row FOUR-KINDS-OF-NO: rewrite the asking module's four refusals as four
+   different rule-breaks instead of four trades. Any trade can speak any of them, so the
+   economy improves rather than costing more. Held until MODE: BUILD.
+ - PEOPLE / QUESTS  a lie is only worth writing if the world can later catch it. Whether a
+   lie is discoverable is a memory-organ question, theirs not mine.
+ - UI  a refusal should ARRIVE LATE. One held beat before a refusal line is the same cheap
+   fix Q2 and Q4 both asked for, now with a third reason behind it.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
+DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
+VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
+ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
+INSTRUCTION. ***
+
+--- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
+
+FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** FAMILY. THE GENERATION TURNS, AND THE
+VALLEY REMEMBERS WHAT GOT REPEATED. *** Nothing to judge.
+
+TAB: **RUN** -> the OUTFIT board, under the outfits (what they still say about your
+family). TAB: **DIRECT** -> STANDING -> FOLD A GENERATION (the instrument).
+
+WHY THIS WAS THE WORK. CLAUDE.md's own top, his 8/28 ruling that the dynasty lives,
+says a handoff INHERITS EVERYTHING the last life built and names the list: "compound,
+STANDINGS, territory, the family tree, and the unhealed wounds". Standings are named
+and they are this lane's. bohemia_standing.js has carried inherit() and legendOf()
+since 8/20 and organ_reach has reported both reached by NOTHING ANYWHERE on every run
+since. NEITHER COULD HAVE MEANT ANYTHING SOONER: inherit keeps only deeds with hops>0,
+the ones somebody RETOLD, and a deed's loudness did not decide its hop budget on the
+walked surface until 8/28 when the quest corpus started filling DEED_WEIGHT. The
+dynasty half was waiting on the reputation half and nothing said so.
+
+MEASURED THROUGH THE REAL ORGANS. 400 people over 40x40, one deed of each loudness,
+gossiped ten rounds, then a generation folds:
+    CLOUT       saw  gossiped   held  retold  CARRIED   died
+      quiet       33        20     53      20       20     33
+      notable     86        25    111      25       25     86
+      risky      154        71    225      71       71    154
+      reckless   285        60    345      60       60    285
+*** AND THE RUN BEFORE THAT SAID inherit() CARRIED NOTHING AT ALL, at every loudness,
+in every valley size. *** I had placed the valley with x=(i*7919)%W, y=(i*104729)%W,
+which collapses onto a LATTICE LINE instead of filling the square, so almost nobody had
+a gossip neighbour, so nothing was ever retold, so nothing could cross. I WAS ONE STEP
+FROM FILING "the louder the deed the less survives" AS AN ENGINE BUG IN THE DYNASTY'S
+OWN PREMISE. The tell was that the answer was TOO DRAMATIC: an organ whose every unit
+test passes does not usually fail totally. WHEN A MEASUREMENT INDICTS SOMETHING THIS
+OLD, MEASURE THE MEASUREMENT FIRST.
+ONE OBSERVATION KEPT RATHER THAN FIXED: reckless (60) carries less than risky (71)
+because at reach 24 nearly everybody is an EYEWITNESS, and an eyewitness cannot be told
+what they already saw (gossip dedupes on actor+kind+turn). Saturation shrinks the pool
+who can carry the story. The ordering quiet << notable < risky ~ reckless holds and the
+7/21 CLOUT_WEIGHTS are HIS, so this is written down and NOT retuned.
+
+WHAT SHIPPED: ctFold folds every mind through inherit. THE HEIR IS ALSO '@', which is
+the ruling and not a shortcut -- a run resets you to nothing, a handoff is the opposite,
+so keeping the id means every card and rung keeps working and reads the family history
+as the player's own, which is exactly "you are born owing what your father owed".
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
+FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
+
+MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
+economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
+standing loses 25% a generation. Territory, builds, economy capacity, investment,
+karma and virtues carry at 100% FOREVER with no decay at all.
+THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
+generation and takes ten to fifteen generations, three to four centuries, to
+fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
+NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+So we decay the thing that really lasts and preserve perfectly the things that
+really go.
+
+AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
+STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
+persistence of status is 0.79. A constant our own comment calls "tunable" and
+nobody ever checked landed within 0.04 of the best figure in the literature.
+NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
+
+AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
+ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
+three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
+whether it was settled. Reported surveys put 64% of older adults ranking
+heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
+than sentiment: an object somebody USED is valued more than one they merely
+OWNED. Our model records no use, no name and no memory, so it cannot express any
+of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
+AND LOSES EVERYTHING IT SAYS THEY DO.
+
+THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
+up, which reads as deleting a high-level character; and the game that carries
+items, skills, money and shops straight across is the one whose players say the
+biggest thing you lose is your family. Carrying everything material and losing
+the people is a known, shipped, complained-about outcome, and it is the shape of
+our fold.
+
+HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
+generation hands the next one zeroes). Round 3 finds that even for a HUMAN
+generation it carries the wrong things. Round 2 found that in a real coyote's
+life a territory is a VACANCY, never an inheritance, which contradicts territory
+being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
+AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
+onto the asset ledgers, give a tree node a name, give a wound a who and a when;
+pure engine, headless, no player surface). Inside this lane: Q8 [inherited
+memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
+death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
+
+[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
+to start. Which fields decay and how fast, every name, who dies, what the wound
+was, and what generation two is told on its first morning are all his.
+
+NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
+If a later round disagrees with that ordering, take Q4; the board's order is the
+default and this is a recommendation, not a change to the board.
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
+TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
+so the next round does not repeat them:
+  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
+    is the records convention, but the front page says plainly: it is one VAMILY,
+    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
+    called it a research day. Stop.
+  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
+    this block says I stopped. A job takes as many rounds as it takes and nobody
+    expects one round. Only if I hold nothing do I take the first OPEN line.
+
+
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply]. Next OPEN is Q8 [battery value].
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+=== ROUND 7 REPORT: [water supply] SHIPPED ===
+*** LAS VEGAS IS NOT SHORT OF WATER. IT IS A THOUSAND FEET ABOVE ITS WATER.
+MODE: RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_7_THE_CITY_SITS_ABOVE_ITS_OWN_WATER_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections II-MM (11 lines)
+Board:  Q7 SHIPPED. Q1-Q7 shipped; next OPEN is Q8 [battery value].
+
+THE REAL NUMBERS. Las Vegas valley floor ~2,028 ft; Lake Mead at record low
+1,040.5 ft. Intake No. 3 sits at 860 ft, about 35 ft BELOW the 895 ft "dead pool"
+where Hoover Dam can no longer pass water downstream at all -- the city
+deliberately put its straw below the level where the river stops being a river.
+The lift: 275 ft from intake to land by 22 VERTICAL PUMPS, each ~20 ft tall,
+3,000 to 4,600 horsepower, then two booster stations, then 11 miles to a plant
+1,000 ft above the lake. ABOUT $4,000 A DAY TO POWER ONE PUMP; ~$38 MILLION A
+YEAR ON ELECTRICITY. EVERY DROP IN LAS VEGAS IS A CONTINUOUS ACT OF ELECTRICITY.
+
+SO THE ANSWER TO "WHERE DOES WATER COME FROM WHEN THE PUMPS STOP" IS: NOWHERE,
+AND THE LAKE IS STILL FULL. THE WATER DOES NOT RUN OUT. IT STOPS CLIMBING.
+
+MEASURED ON OUR BUILD:
+  - NOTHING IN THIS GAME PRODUCES WATER. YIELD.site water 0, YIELD.scav water 0,
+    against a need of 4.0 L/person/day. Round 1 measured the result across six
+    seeds: water gone between day 51 and day 60 in every one, regardless of
+    population or how hard anybody works.
+  - That is NOT a bug in the module: it models a block's standing water honestly
+    (a ~200 L heater plus containers per house). THE HOLE IS THAT THERE IS NO
+    SECOND SOURCE AT ALL. No well, no spring, no rain catch, no still.
+  - THE ENTIRE WATER SYSTEM IS PAINTED SCENERY: dam, water, reservoir, intake,
+    watertreat, basin, reclaim and springs are all SKELETON (never buildable,
+    never demolishable), and `intake`, `watertreat`, `reservoir`, `pumpstation`
+    and `springs` are each referenced EXACTLY ONCE outside their own art module,
+    and every one of those references IS THE ENUM DECLARATION ITSELF. Names on a
+    map with art attached and no behaviour.
+  - AND THE TWO WATER THINGS YOU CAN BUILD ARE A PUMP STATION AND A WATERPARK.
+    The pump station is the single most important building in the valley by the
+    real record, and it currently does nothing.
+
+*** THE FINDING THAT PROVES US WRONG: WE MODELLED WATER AS A PUDDLE THAT RUNS
+OUT. IT IS A HEIGHT YOU HAVE TO LIFT IT TO. *** Using our own 4 L/day figure: a
+valley of 3,000 people needs TWELVE CUBIC METRES A DAY, which is 0.00035% of what
+the real low-lake station can move. The springs that dried up in 1962 (~5,000
+acre-ft/yr) would have covered 3,000 people 1,408 TIMES OVER. The 360,000+
+acre-feet banked underground since 1987 is ABOUT 101,000 YEARS of drinking water
+for 3,000 people. WE KILL THE VALLEY OF THIRST ON DAY 53 WHILE IT SITS ON A
+HUNDRED THOUSAND YEARS OF WATER. The scarcity is entirely in 280 feet of lift,
+and 280 feet is amps.
+
+THAT MAKES THE WHOLE LANE LINE UP: round 2 said the money is the CHARGE; round 6
+said a fortress produces what it can power and a high-rise has no water above the
+ground floor without pumps; LIGHT IS TERRITORY; THE NIGHT EATS POWER. SO THE
+BATTERY IS NOT JUST MONEY, IT IS THIRST. Spending charge on light tonight spends
+tomorrow's water, and nobody has to explain it once, because the pump is a
+building you can stand in front of.
+
+AND THE PART NOBODY EXPECTS: Nevada's allocation is 300,000 acre-ft/yr, the
+SMALLEST of any Colorado River state, and it copes because it recycles NEARLY 99%
+OF INDOOR WATER back to Lake Mead and takes RETURN-FLOW CREDITS -- every gallon
+returned lets it draw another out. So showers, laundry and dishwashing are
+effectively free, and only what goes on the ground is truly spent. WASHING IS
+CHEAP AND GARDENS ARE DEAR, the inverse of the intuition, and it lands straight
+on round 6's laundry and round 3's farm.
+
+THE SPRINGS DIED OF PUMPING, NOT DROUGHT: the valley is "the meadows" for
+artesian springs of ~5,000 acre-ft/yr that DRIED UP IN 1962, because by 1960 a
+population of 110,000 was pulling ~50,000 acre-ft/yr against recharge; pumping
+peaked ~88,000 acre-ft in 1968. USGS: groundwater down AS MUCH AS 280 FEET since
+1912, with land subsidence UP TO 5 FEET. The city drank its own springs dry and
+the ground sank five feet doing it. We already have a `springs` district.
+
+A CORRECTION TO MY OWN HYPOTHESIS, WRITTEN DOWN BECAUSE THE VERSION I NEARLY
+SHIPPED WAS MORE FLATTERING AND LESS TRUE: I expected the water table to rebound
+once pumping stopped. IT DOES NOT. Las Vegas is a rare groundwater RECOVERY case
+and the recovery is ARTIFICIAL -- more than 360,000 acre-feet of treated Colorado
+River water INJECTED since 1987, with groundwater deliberately cut to ~10% of
+supply. Even the aquifer is electricity that was pumped uphill and put back down.
+
+ROUTED: WORLD ECON-WATER-IS-A-LIFT-NOT-A-STOCK (the finding),
+ECON-THE-PUMP-STATION-DOES-SOMETHING (already buildable, already inert, and it
+answers round 3's need-driven order and round 4's "make a placement feel like
+something" at the same time -- three rounds converge on one row),
+ECON-A-WELL-IS-THE-SECOND-SOURCE. FACTIONS ECON-WHOEVER-PUMPS-DRINKS (same shape
+as round 2's "whoever holds the light is the mint"). LIFE + CITY
+ECON-WASHING-IS-CHEAP-AND-GARDENS-ARE-DEAR. COOK/DIRECTION
+ECON-THE-SPRINGS-ARE-A-STORY.
+
+REFUSED: a thirst meter, rebalancing the water yield so the valley survives (the
+drought gets REPORTED, not tuned away, and it may be his premise), deciding who
+owns the intake or the wash (MAP LAW), inventing a litres-per-turn well yield,
+and any implementation.
+
+GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0.
+
+*** CANON ROT WENT 13/0 -> 12/1 THIS ROUND AND THE DRIFT IS NOT MINE. ***
+  FAIL C1: laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md
+  cites `gates/ui_study_gate.py`; the real file is `gates/ui_study_gate.js`.
+Pre-existing on main, landed with commit b52e6aa (another lane's law, written
+this round). ONE CHARACTER FIX: change .py to .js in that citation. Flagged and
+NOT fixed, because it is another lane's law file and they may still be mid-round;
+editing it under them risks a conflict on their in-flight work. Whoever owns that
+law: it is red on shared main right now.
+
+AND MARKET GATE IS STILL 22/10 ON MAIN, FOURTH ROUND RUNNING, STILL NOT A CODE
+BUG: the real buy path gives applied:true, paid:1, kind:"drain", electricity
+500 -> 499. The gate watches the `resources` balance while the debit lands in
+`electricity`, and four checks assert his price table is still empty. FIX THE
+RULER, NEVER THE TARGET (8/1). Four rounds of flagging has not moved it, which is
+worth somebody's attention on its own. Also still red and not this lane's: engine
+sync (BOH_FLOORPLAN, 2 bodies), banks-used, dialogue catalogue.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten in-game days and runs dry around
+     fifty. Premise or bug? (Now sharper: the water half is a LIFT problem, and
+     a working pump ends it forever.)
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS?
+  3. The century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one? (Round 7's answer, if he wants one:
+     the pump station. But which building a player should want is his.)
+
+NEXT IN THIS LANE: Q8 [battery value], what a AA is really worth in energy and
+what the denominations should be.
+
+================================================================================
+
+
+WORDS (words-8dqrnq): 9/5 (e) LATEST -- *** VAMILY Q8 [grief talk] SHIPPED. THE FIVE STAGES
+ARE NOT A FINDING ABOUT GRIEVING PEOPLE, AND A DINNER WHERE EVERYBODY IS SAD THROUGHOUT IS
+NOT DULL, IT IS WRONG. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG, AND IT WOULD HAVE CAUGHT ME. Kubler-Ross's five stages
+came from watching people who were DYING, not people who were BEREAVED, and have never been
+empirically supported as stages of grief. Bonanno's longitudinal work finds five bereavement
+patterns of which "common grief" is relatively INFREQUENT and RESILIENCE IS THE MOST FREQUENT
+-- stable low distress, about 46% in the 2002 study. Left to instinct I would have written
+the dinner as a slow build toward a break. That is the television version, and writing
+everyone as visibly destroyed also flattens the person who genuinely IS.
+
+THE MECHANISM, AND IT IS THE USEFUL PART. Stroebe and Schut's Dual Process Model: grieving is
+an OSCILLATION, not a direction. People swing minute to minute between LOSS-oriented
+attention (yearning, her things, what she would have said) and RESTORATION-oriented attention
+(who does her job now, the door, the room, the money), and the model explicitly includes TIME
+OFF FROM GRIEF as healthy rather than avoidant. SO THE DINNER OSCILLATES, IT DOES NOT BUILD:
+cross the subject and leave it three or four times, and THE LEAVING IS THE ACCURATE PART.
+And Bonanno on laughter: over half of bereaved subjects show positive emotion recounting the
+loss, and those who genuinely laugh do BETTER and draw warmth from listeners. A laugh at that
+table is not a relief valve, it is the most accurate thing in the scene.
+
+THREE TIMESCALES. First hour: LOGISTICS, small and flat -- who is told, what happens to the
+body, where the keys are. Not denial, and must not be written as denial; same short shape Q2
+measured for any acute stress. First day: oscillation becomes visible, and tense slips. First
+month: the practical strains outlast the shock, most people are functioning, and that is
+exactly when everybody else stops asking.
+
+MEASURED AGAINST OUR BUILD, THE HONEST ANSWER IS "IT IS NOT WRITTEN". Stage-of-grief words 0,
+logistics after a death 0, present tense about the dead 6, laughter 4, sister 2. A death word
+matches 26 lines but READING THEM shows most are dead batteries, dead storefronts, a dead
+payphone and a dead band; about five concern a person dying and roughly ONE is a grief line
+("She died with the words still in her mouth. I'll wonder about that for a long time"). Both
+sister lines are self-introductions in the belonging bank. THE GRIEF DINNER DOES NOT EXIST
+YET, so this round is a spec, not a critique.
+
+AND THE ONE GOOD NEGATIVE: WE HAVE IMPORTED ZERO STAGE-OF-GRIEF VOCABULARY. Nobody says
+closure, denial, processing or moving on. That is the hardest habit to avoid and we have
+never had it. Worth protecting.
+
+(The ruler wobbled again -- 26 matched, about five were real -- caught by printing the hits.
+PRINT THE HITS, NEVER JUST THE RATE is now this lane's standing rule.)
+
+RECORD: records/BOHEMIA_WORDS_Q8_GRIEF_SPEECH_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the grief dinner with its oscillation marked
+(four at the table, three crossings, one laugh), the first hour as logistics, THE ONE WHO IS
+FINE, the slipped tense, and the banned pamphlet vocabulary. All draft:true, NONE in the game.
+VAMILY: Q8 SHIPPED. Next open is Q9 [trade talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row THE-GRIEF-DINNER: write it as an oscillation with a laugh in it and one
+   person who is fine. Held until MODE: BUILD.
+ - QUESTS  the cold open kills the sister and there are two sister lines in the build, both
+   self-introductions. Unwritten, not miswritten.
+ - PEOPLE  "present tense about the dead" is a per-character trait, not a scene effect: who
+   slips and who corrects themselves is characterisation.
+
+HOUSEKEEPING FOR WHOEVER OWNS IT: a stray dangling >>>>>>> marker sits at line 190 of
+records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md (UI
+lane, 8/27). Harmless in markdown so nothing is broken, and it is not my file to edit.
+Found by sweeping every tracked file for conflict markers after another lane's FIX MAIN
+commit, because my own rebase loop uses the same 'git add -A then --continue' pattern that
+staged markers into the walked city. My lane's files are clean.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
+ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LANE'S FIRST SHIP. THE WHOLE
+VALLEY WAS A STILL PHOTOGRAPH WHENEVER HE STOPPED WALKING, AND ALL 105 CLIPS ARE
+NOW AUDITED ON THE REAL SURFACE. TAB: RUN. Nothing to judge yet -- the clip
+verdicts are the next row and they are HIS. ***
+
+TAB: RUN. Build 9/5p - THE VALLEY KEEPS BREATHING. Landed on main as da246eb;
+the pages run on that sha concluded SUCCESS, so the link is true.
+Stand still in the city and watch. It used to be a photograph.
+
+TWO ROWS SHIPPED: THE-63-CLIP-AUDIT and ANIMATE-THE-CROWD.
+
+=== ROW 1: THE CLIP AUDIT (his 8/25 dispatch item 10, untouched since) ===
+"ALOT OF THEM ARE KINDA FUCKED. WE NEED NEW ONES." AUDIT FIRST, COOK SECOND.
+NOTHING WAS RECOOKED. Which survive is his.
+
+THE SET IS 105, NOT 63: 64 in the CLIPS array plus 41 candidates pushed at load,
+every one drawable, none carrying a verdict. Anything scoped as "the 63" was
+scoped against a stale number. The queue row is renamed in place.
+
+*** THE STRUCTURAL FINDING. clip_health_gate (throws/still/empty) and
+loop_seam_gate (snap at the wrap) are BOTH GREEN on all 105, re-run this turn,
+while he looks at the same set and calls it fucked. OUR ANIMATION GATES COULD SAY
+CRASHES OR MOVES AND HAD NO WORD FOR MOVES WRONG -- day 20's "no word for OWED",
+in the animation lane. ***
+
+HEAD-ON IS A FIFTH OF PROFILE. Median clip's head-on view carries 41% of its
+profile view's motion; 40 of 105 under 35%. run 16%, walk 18%, tired-walk 14%.
+
+AND THE FIRST READING OF THAT WAS WRONG, which is the part worth keeping: the
+weakest facing is N for 77 of 105, which reads as "THE BACK VIEW IS DEAD" and is
+not. S is only 1.1-1.7x of N and BOTH sit 5-8x below profile -- N wins the count
+by a photo finish between two quiet views. Reporting it the other way would have
+sent a recook at the wrong half of the rig. Then I rendered the strips and LOOKED:
+head-on walk reads in both N and S. Weaker, not dead. Whether the N/S crunch law
+compensates enough is HIS call, and it is a recook, so it waits.
+
+THE LEGS ARE THE QUIETEST THING ON THE BODY. Work index (a region's share of the
+motion / its share of the body): arms carry 58 of 105 clips, head 33, legs 14,
+torso 0. Median legs 0.36 while legs are the BIGGEST region (32.6% vs arms 26.8%),
+so it is not an area artifact.
+
+THE RULER FOR THAT WAS BROKEN FIRST: ranking regions by RAW changed pixels failed
+`taunt` on 33.0% head against 32.9% arms -- a coin flip reported as a defect --
+and INVERTED three clips (smoke, pickup, carry). Fixed the ruler, not the target.
+
+AND THE NAME TEST FOUND MY OWN TABLE WRONG MORE OFTEN THAN A CLIP. 14 of 46
+flagged; looking settled most AGAINST THE TABLE (a whistle IS fingers to the
+mouth, a push IS driven from the legs, people DO talk with their hands). Treat
+that list as questions, never verdicts. WHAT SURVIVED LOOKING: `jump` does not
+jump (legs 0.65, arms 1.45, no crouch, the body translates as one piece) and
+`whistle` is a static hold -- a shape this repo already ruled on in the salute
+graveyard note.
+
+POSITIVE CONTROLS CLEAN: nothing throws; no two of the 105 render the same motion
+(with 105 hand-authored pose functions a copy-paste twin was a real risk).
+
+=== ROW 2: THE VALLEY KEEPS BREATHING ===
+*** THE ROW'S PREMISE WAS WRONG AND THE TRUTH WAS WORSE. *** It said "the bake
+already sends walk frames for the city cast; the decoder keeps only idle".
+Measured: alpha:8629 CITY cast is {idle:...} ONLY, alpha:8680 RUN cast has the
+walk frames. BOTH HALVES are idle-only where he walks. Fixing the decoder alone
+would have changed NOTHING -- a duplicate nothing reads is where your fix goes to
+die, and the ONE WALKED SURFACE migration left behind everything not on its list.
+
+AND PEOPLE NEVER WALK ANYWAY: pplAt() returns one of three fixed spots and
+residents TELEPORT between them, so a walk cycle on a standing body is moonwalking
+in place. What they needed was the BREATH, and the cast was baked as ONE STILL at
+phase 0.25 of a clip that does move (idle peaks 6.9% on S).
+
+*** AND THE BIGGEST ONE, WHICH NOBODY HAD MEASURED: STANDING STILL, THE WALKED
+CITY CALLED render() ONCE ACROSS A THREE-SECOND WAIT (5.6s of wall time). *** animate() runs a rAF loop for
+one BEAT after a step and cancels itself; nothing else asks for a frame. So the
+whole valley is a photograph the moment he stops -- INCLUDING THE 19 ANIMALS ON
+SCREEN, whose pass has computed its positions from performance.now()/500 since
+8/26. The motion was built, correct, and never asked for. THE SEVENTEEN INVISIBLE
+HATS, IN THE RENDER LOOP. This is a third direction on "THE CITY SEEMS DEAD ASF":
+day 13 answered it with content density, day 22 with sound, and neither asked
+whether the city was DRAWING.
+
+SHIPPED: a beat-locked heartbeat (120 BPM, four guards -- human mode only, never
+while animate() owns the frame, never hidden); the city cast baked with a 4-phase
+breath (ANIMBEATS.idle is 4, so one frame per beat); decoder + ctBody picking on
+the beat, staggered per person.
+COST, MEASURED: render() is ~1ms, so the heartbeat is 2ms/sec = 0.2% OF ONE CORE,
+against the 60fps the city already spends for a whole beat after every step.
+AFTER: renders while standing 1 -> 7 per 3s. Breath frames 0 -> 4 per facing. The
+screen changes every beat (4 of 4 distinct). 289 people spread 69/75/76/69 across
+the four phases. Zero page errors.
+
+*** THE BUG I NEARLY SHIPPED, AND THE TWO GATES THAT WOULD NOT HAVE CAUGHT IT. ***
+The first offset was (p.id>>>0). personFields gives `id` as a STRING ("nx:ny:i"),
+so it is 0 FOR EVERY PERSON IN THE VALLEY: the whole crowd on the same frame on
+the same beat, nothing throwing, the code reading as though it staggered them.
+Then the gate written to hold that claim FAILED TO CATCH IT TWICE:
+  1. v1 counted distinct frames over the whole roster -- the six cast LOOKS are six
+     different bodies, so it read 6 and passed with the breath cycle DELETED. THE
+     LOOK SUPPLIED THE VARIETY, NOT THE BREATH.
+  2. v2 still passed against the real bug: the sweep over 289 people takes longer
+     than a 500ms BEAT, so `beat` changed part way through the loop and TIME
+     supplied the variety -- the 8/30 shape where the answer depends on where the
+     test stopped. Pinned performance.now() and only then did it go red.
+BOTH WRONG VERSIONS WERE GREEN AND BOTH LOOKED REASONABLE. A CLAIM ABOUT VARIETY
+HAS TO NAME EVERY SOURCE OF VARIETY IT IS NOT ASKING ABOUT.
+
+FILES
+  tools/bohemia_clip_audit.js        the sweep, on buildFrame at FRAME_CACHE.buckets
+  tools/bohemia_clip_strips.js       the looking half; nothing written down unlooked-at
+  gates/clip_audit_gate.js           set size, no twins, the head-on floor. 5/0, 88s
+  gates/valley_breathes_gate.js      8 claims, 3 mutations caught
+  records/BOHEMIA_THE_63_CLIP_AUDIT_9_5_26.md
+  records/BOHEMIA_THE_VALLEY_KEEPS_BREATHING_9_5_26.md
+  records/clipstrips/                the pictures the findings were checked against
+
+*** WHAT COMES NEXT FOR THIS LANE ***
+1. SHOW-HIM-THE-LIST is the next row and it NEEDS HIM: no clip has carried a
+   verdict since the 7/26 reset, and the audit deliberately judged nothing. The
+   VOTE tab already holds faces in strips (8/28); clips want the same treatment and
+   that surface is the obvious host. DO NOT RECOOK BEFORE HE HAS SEEN THE LIST --
+   his 8/25 order says so in those words.
+2. RECOOK-WHAT-HE-KILLS then has a queue: `jump` (no crouch, arms carry it), the
+   head-on amplitude question, `whistle` as a static hold, and the four quiet ones
+   worth his eye (pray, eat, smoke, whistle). pistol/two-hand are DESIGN, not
+   defects -- do not "fix" a man holding a gun steady.
+3. THE 41 CANDIDATES have never been judged and several are combat verbs
+   (crouch-aim-1h/2h, cover-fire, take-cover, shiv-jab, bat-arc, spear-drive).
+   Worth asking whether COMBAT wants them before this lane spends a turn on them.
+4. NOT MINE BUT NOW MEASURED, hand to WORLD/RUN: only ONE person was drawn on
+   screen at the default population dial while 289 exist around the player. That
+   is his dispatch item 5 (the default population goes up), and the heartbeat
+   means anything added there will now actually move.
+
 SOUND (sound-xk7pjp): 9/5 (b) LATEST -- *** THE GAME WAS SILENT FOR TEN SECONDS
 AT ITS OWN FRONT DOOR, AND THE MUSIC WAS NOT LATE, IT WAS STARVED.
 TAB: RUN (from the splash). Nothing to judge -- no sound was cooked. ***
@@ -343,7 +991,7 @@ thousand actually needs when the pumps stop.
 ================================================================================
 
 
-WORDS (words-8dqrnq): 9/5 (d) LATEST -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
+WORDS (words-8dqrnq): 9/5 (d) -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
 CONVERSATION IS SHORTER, NOT WARMER, AND WE WRITE THE FIRST MEETING ELEVEN TIMES AND THE
 SECOND ONCE. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
 (His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
@@ -462,22 +1110,15 @@ WHAT THIS ROUND COULD NOT SEE, so nobody reads it as a clean bill: nothing was H
 screen, the market, the phone, the reckoning), no motion between frames, and no real
 glass in real sun.
 
-[PENDING Paolo] WHICH FINAL FANTASY IS OURS? The UI tab ships a button called FF10 and a
-whole study of Final Fantasy X findings, and the UI study law says round 01 is Final
-Fantasy X "because he named it". Two days later the 8/28 law and CLAUDE.md say the
-reference set is ROGUE FABLE 4, BATTLE BROTHERS and FINAL FANTASY XII. Newest date wins
-would put FFX outside the set, and the 8/28 law is the one that says never let a game he
-did not name into the vocabulary. Two live files, two different games, one of them
-printed on a button he can tap. Nothing touched until he rules.
-
-AND TWO GATES ARE MEASURING THE CLOCK INSTEAD OF THE ART, which is this lane's own kind
-of finding: look_gate ("no picture is more than six hours behind the surface it
-photographs") and face_thumb_gate ("the candidates are not older than the build they
-photograph") both compare FILE MODIFICATION TIMES, and git does not store those. On this
-container the alpha landed on disk 7.8 hours after the picture banks, so both go red with
-nobody having changed a byte; on a fresh worktree of the same commit both are green. A
-check that can flip on a clone is measuring the checkout, not the work. Reported, not
-fixed -- they belong to other lanes.
+ANSWERED 9/5, and it is a LOCK: "Ff12 is combat only." A REFERENCE GAME BELONGS TO ONE
+DEPARTMENT. FF12 = combat gambits only; ROGUE FABLE 4 = combat on the beat; BATTLE
+BROTHERS = the campaign layer; FF10 = the INTERFACE study (his 8/26 naming, so the UI tab
+was legal all along); Las Vegas = the city. Citing one outside its department is the same
+violation as citing a game he never named. The 8/28 law was already scoped right ("combat
+and campaign"); the rot was in CLAUDE.md's ONE-LINE INDEX, which dropped the scope, and an
+index that drops a scope is how every chat that only reads the index gets it wrong. That
+line now carries the split. Law: laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_
+DEPARTMENT_9_5_26.md. NOTHING IS PENDING HIM IN THIS LANE.
 
 NEXT IN THIS LANE: E3 [screenshot diffs] -- golden images and a per-tab diff on every
 ship, which is this round's pass plus a baseline. E4 [audio tells] is what buys the ears.
@@ -990,6 +1631,71 @@ CHARACTER'S OWN NOTES ON RUNNING IT
   / day N to him. Rounds, minutes, hours.
 
 --- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+ROUND 5, 9/5 LATEST -- *** WE ALREADY BUILT THE AGEING EQUATION AND POINTED IT AT
+MEMORIES INSTEAD OF BODIES. [growing old] Q5 SHIPPED. RESEARCH ONLY, NOTHING
+BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_5_GROWING_OLD_ON_SCREEN_9_5_26.md
+  banks/BOHEMIA_GROWING_OLD_THE_CROSSOVER_DRAFT_9_5_26.txt  (draft:true)
+
+AGEING IS A CROSSOVER, NOT A SLOPE. What falls: reaction time peaks in the
+early-to-mid twenties and is 20 to 30 percent slower by sixty; muscle goes 3 to 5
+percent a decade from thirty; grip peaks in the early thirties. What does NOT
+fall, and this is the half the genre ignores: anticipation, decision-making and
+pattern recognition RESIST age and keep growing with experience, and expert older
+performers beat younger novices at reading their own domain. THE NUMBER THAT
+FALLS IS SPEED. THE NUMBER THAT RISES IS KNOWING WHAT HAPPENS NEXT.
+AN OLD FIGHTER DOES NOT GET WEAKER. HE GETS FEWER CHANCES AND HE STOPS NEEDING AS
+MANY. On a 120 BPM game that is directly expressible with no number he has not
+ruled: fewer inputs inside the bar, and a better read of which beat matters.
+The one cost with NO compensation is HEALING (two weeks becomes three or four),
+and it is time rather than power, so it needs no damage number.
+
+MEASURED, AND BOUNDED PROPERLY THIS TIME BECAUSE ROUND 2 COST ME A CONFIDENT
+NEGATIVE: a person's age takes EXACTLY TWO VALUES in the whole engine, age:'child'
+and age:'adult' in story_surface, used only to pick which sprite to paint in a
+cutscene. CONTROL 1: the same search returns age:'industrial' three times, which
+is a BUILDING STYLE. CONTROL 2: the decoded fight has 39 raw hits for
+age/old/young/elder and every one is hold, holds, gold, bold, damage, wager, two
+elapsed-time variables, or one game title inside a comment, so there is NO age in
+the fight at all. And EVERYWHERE ELSE in this engine `age` means ELAPSED TIME:
+days a claim is overdue, turns since a sighting, turns since a deed.
+
+*** THE FINDING. bohemia_memory.js already runs clarity = 0.5^(age/halflife) with
+halflife = BASE * (1 + log2(1 + familiarity)), commented "familiarity slows the
+fog". THAT IS THE AGEING CURVE, EXACTLY: something decays with time, and
+experience extends the halflife with diminishing returns. We own the mathematics
+of growing old and it is running on what the city remembers about you instead of
+on what your body can do. ***
+THIRD TIME THIS LANE HAS FOUND THAT SHAPE. Round 1: material exists and never
+reaches the player. Round 2: both halves of the coyote's life shipped as unrelated
+tiers. Round 5: the ageing curve itself, aimed at the wrong noun. THE PATTERN IS
+NOT THAT WE ARE MISSING THINGS, IT IS THAT WE BUILD THE RIGHT MECHANISM AND
+ATTACH IT TO THE WRONG SUBJECT.
+
+AND SAY THE GOOD PART: bohemia_standing.js already ages across generations in the
+right direction, written before anybody asked. "Thirty years pass. EVERY PERSON
+WHO WATCHED YOU DO ANYTHING IS DEAD... A QUIET GOOD DEED DIES WITH THE WITNESS. A
+NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR." That is round 3's "the
+name outlasts the money" reached independently from anthropology, already built.
+
+A PRIOR REFUSAL I AM NOT OVERTURNING: bohemia_people.js says "NO CALENDAR YEAR IS
+ASSUMED -- the game has never locked one, and a cohort-by-birth-year generator
+would be inventing canon to do arithmetic on." That lane was right. Any ageing we
+do must run on BEATS, not dates, the way memory already does.
+
+ROUTED (proposals only): COMBAT THE-OLD-HAND (fewer inputs inside the bar, earlier
+read of the tell; no damage number; the only row here that touches play). WORLD
+THE-FOLD-CARRIES-THE-WRONG-THINGS gains a small third item, a tree node has no
+born and no died and can have them WITHOUT a calendar by storing beats. PEOPLE:
+NOTHING NEW, and saying so is the finding. Inside this lane: Q6 [time skip]
+inherits the crossover directly; Q11 [lasting death] inherits healing.
+
+[PENDING Paolo] Nothing blocking. Seven questions still OPEN, none needs a ruling
+to start. Where the curves cross, whether anybody ages inside a generation or
+only between them, how long a wound takes, and every name are his.
+
+NEXT FOR THIS LANE: the first line marked OPEN, which is Q6 [time skip].
 
 ROUND 4, 9/5 LATEST -- *** OUR THIRD GENERATION CANNOT GET WORSE, AND THE ROW'S
 OWN PREMISE IS FOLKLORE. [third generation] Q4 SHIPPED. RESEARCH ONLY, NOTHING
@@ -9905,7 +10611,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [style checker] SHIPPED 5e6ef42 -- the card has a
+ROUND LOG 9/5 (latest): [batch judging] SHIPPED bb04050 -- the DIRECTION
+checkpoint lives inside the VOTE build: a red style card aborts the build, a
+candidate the reference registry has never seen is refused by name into
+records/BOHEMIA_VOTE_REFUSALS.txt (self-cleans when the queue is clean),
+pre-law faces and icons grandfathered. Both teeth proven with fakes before
+shipping. NEXT OPEN: [fortress look], then [feed look], [tile ground].
+PREVIOUS: [style checker] SHIPPED 5e6ef42 -- the card has a
 machine gate (suite-registered): new cooks are register-or-accent (the muddy
 middle ends), new outers wear runway black, the canon rides the 82/256
 ratchet, purple stays banned, and the bank must match the shipped alpha or

@@ -254,14 +254,24 @@ every failing gate was re-run on a clean checkout of origin/main and compared.
   both are green. A check that can flip on a `git clone` is measuring the checkout, not
   the work. Reported, not fixed: gates that belong to other lanes are not this lane's.
 
-## [PENDING Paolo] ONE RULING, AND IT IS ON A SCREEN HE TAPS
+## ANSWERED THE SAME ROUND (9/5): A REFERENCE GAME BELONGS TO ONE DEPARTMENT
 
-The UI tab ships a button called **FF10** and a whole study of **Final Fantasy X**
-findings, and `laws/BOHEMIA_ADDENDUM_THE_UI_STUDY_LAW_8_26_26.md` says round 01 is
-Final Fantasy X "because he named it". Two days later
-`laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md` and CLAUDE.md say the reference set
-is ROGUE FABLE 4, BATTLE BROTHERS and **FINAL FANTASY XII**. Newest date wins would put
-FFX outside the set, and the 8/28 law is the one that says never let a game he did not
-name into the design, the prompt or the vocabulary. Two live files, two different games,
-one of them printed on a button. **Which Final Fantasy is ours?** Mechanical fix if he
-says XII: the UI round is relabelled at its source. Nothing is touched until he rules.
+The question this round raised -- the UI tab ships a button called FF10 and a study of
+Final Fantasy X, while CLAUDE.md's index line read as though the reference set were three
+games with FINAL FANTASY XII among them -- went to him and came back locked:
+
+> "Ff12 is combat only"
+
+FF12 is the COMBAT reference (the gambits) and nothing else. FF10 is the INTERFACE
+reference, which he named on 8/26, so the UI tab was legal all along. ROGUE FABLE 4 is
+combat on the beat, BATTLE BROTHERS is the campaign layer, Las Vegas is the city. Citing
+a reference outside its department is the same violation as citing a game he never named.
+The 8/28 law was already scoped correctly ("combat and campaign"); the rot was in the
+one-line index in CLAUDE.md, which dropped the scope. That line now carries the split, and
+the ruling is written down in
+`laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md`.
+
+**The lane's own lesson: the finding was half right and that was still worth raising.**
+Nothing in the build had to change, one line of the index did, and the cost of asking was
+one sentence from him.
+

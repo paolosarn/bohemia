@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5o - BUILD WHERE YOU ARE STANDING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5q - THE VALLEY GETS A NEW SILHOUETTE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8751,6 +8751,7 @@ function citySendPlayer(){
    else, so this is 48 frames rather than 288. */
 let CCAST=null;                                   /* bake in flight */
 const CITY_LOOKS=6;                               /* the same six the run gets */
+const CAST_PHS=[0,0.25,0.5,0.75];                 /* __THE_VALLEY_KEEPS_BREATHING__: ANIMBEATS.idle is 4, so this is one frame per beat */
 /* ===== SIX SHAPES, NOT SIX COLOURS (Paolo 7/19 STRUCTURE-NOT-COLOR, amended 8/15
    to govern IDENTITY; Paolo 8/3 "have it not be a copy of me") ==================
    MEASURED BEFORE IT WAS CHANGED: the six residents were the player's body in the
@@ -8827,7 +8828,17 @@ function citySendCast(){
   };
   try{
     plan.forEach(L=>{ for(const d of DIRS) withLook(L,()=>{
-      L.dirs[d]={idle:bake56(d,'idle',0.25,true)};   /* borderless: the city borders after scaling */
+      /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): the cast used to be ONE still of a
+         clip that moves. idle peaks at 6.9% of the body on S, and every resident
+         in the valley was frozen at phase 0.25 of it -- not because the clip is
+         dead but because nobody ever asked for a second frame.
+         FOUR PHASES, because ANIMBEATS.idle is 4: the idle cycle spans four beats,
+         so four samples is exactly ONE FRAME PER BEAT and the crowd breathes on
+         the same clock as his footsteps (120 BPM LAW). Not walk frames: pplAt()
+         returns one of three fixed spots and people TELEPORT between them, so a
+         walk cycle on a standing body is moonwalking in place. */
+      L.dirs[d]={idle:bake56(d,'idle',0.25,true),                     /* borderless: the city borders after scaling */
+                 breathe:CAST_PHS.map(ph=>bake56(d,'idle',ph,true))};
     }); });
     fr.contentWindow.postMessage(out,'*');
   }catch(_e){ CCAST=null; return false; }
@@ -23541,10 +23552,64 @@ window.CLO=(function(){
        cut mid-forearm with a light rolled-cuff bulge. Shape, not paint. */
     var scutL=(sleeves==='short')?aL.mn+fr(aL.mn,aL.mx,0.45):(sleeves==='rolled')?aL.mn+fr(aL.mn,aL.mx,0.68):aL.mx;
     var scutR=(sleeves==='short')?aR.mn+fr(aR.mn,aR.mx,0.45):(sleeves==='rolled')?aR.mn+fr(aR.mn,aR.mx,0.68):aR.mx;
+    /* THE RUNWAY, 9/5 -- TWO PROPORTION OPTIONS ON THE TOP, and they are the two
+       halves of the same signature: BIG UP TOP, SMALL DOWN BELOW.
+         shoulder:'wide'  the shoulder line runs PAST the arms and squares off for
+                          the first rows, then drops. The widest line in the whole
+                          wardrobe, and it is the one thing a sprite this size can
+                          say about proportion in a single glance.
+         cut:'long'       a longline top that carries on past the hip over the
+                          trousers. Every top in this wardrobe stopped dead at the
+                          torso, which is why the whole cast reads waist-high. */
+    var wideSh=(opt.shoulder==='wide'), longline=(opt.cut==='long');
     var w={}; for(i=0;i<g.length;i++){var p=g[i],y=(i/CW)|0;
       if(p===4)w[i]=1;
       else if(p===5&&sleeves!=='none'&&y<=scutL)w[i]=1;
       else if(p===6&&sleeves!=='none'&&y<=scutR)w[i]=1; }
+    var tTop=CH,tBot=-1,tMn=CW,tMx=-1;
+    for(i=0;i<g.length;i++)if(g[i]===4){var xT=i%CW,yT=(i/CW)|0;if(yT<tTop)tTop=yT;if(yT>tBot)tBot=yT;if(xT<tMn)tMn=xT;if(xT>tMx)tMx=xT;}
+    var aMn=CW,aMx=-1; for(i=0;i<g.length;i++){var pA=g[i];if(pA===5||pA===6){var xA=i%CW;if(xA<aMn)aMn=xA;if(xA>aMx)aMx=xA;}}
+    /* THE SHOULDER STARTS AT THE ARM, NOT AT THE TORSO, AND THAT WAS A LOOKING FIX.
+       The first cut ran the pad from the top of the TORSO, which at this rig is two
+       rows ABOVE where the arms begin -- so it painted four loose blocks of fabric
+       floating in the air either side of the head, attached to nothing. A garment
+       pixel with no body under it and no garment beside it is not an oversized
+       shoulder, it is a bug that measured fine. */
+    var aTop=CH; for(i=0;i<g.length;i++){var pB=g[i];if((pB===5||pB===6)){var yB=(i/CW)|0;if(yB<aTop)aTop=yB;}}
+    var shBotY=aTop+3*S;
+    /* THE PAD GROWS OUT OF *THIS ROW'S* EDGE, NOT THE ARM'S WIDEST ROW, AND THAT
+       IS THE SECOND LOOKING FIX ON THIS ONE GARMENT. Measuring aMn/aMx over the
+       whole arm gives the widest row -- the ELBOW -- and on the real rig the
+       shoulder rows are narrower than that, so the pad was painted two cells out
+       from a column the body does not occupy up there. Result on the real surface:
+       two small dark tabs floating in the air with a gap of background between
+       them and the man. Every number in the gate was green.
+       A GARMENT PIXEL WITH NOTHING UNDER IT AND NOTHING BESIDE IT IS NOT A
+       SHOULDER, and the mannequin the harness uses could not show it because its
+       arms are perfect rectangles. Per row, off the body's own edge, so it stays
+       attached in all eight facings and on any rig. */
+    if(wideSh&&aMx>=0){ for(var yH=aTop;yH<=shBotY;yH++){
+      var rMn=CW,rMx=-1;
+      for(var xR=0;xR<CW;xR++){ var gR=g[yH*CW+xR]; if(gR===4||gR===5||gR===6){ if(xR<rMn)rMn=xR; if(xR>rMx)rMx=xR; } }
+      if(rMx<0)continue;
+      for(var dH=1;dH<=2*S;dH++){
+        if(rMn-dH>=0){var iL2=yH*CW+(rMn-dH);if(g[iL2]!==1&&g[iL2]!==2)w[iL2]=1;}
+        if(rMx+dH<CW){var iR2=yH*CW+(rMx+dH);if(g[iR2]!==1&&g[iR2]!==2)w[iR2]=1;} } } }
+    /* LONGLINE: the hem carries past the hip. It covers the top of the legs and the
+       gap between them, so the silhouette below the waist is ONE mass, not two. */
+    var llBot=tBot;
+    if(longline){ var leL=pExt(g,9),reL=pExt(g,10);
+      llBot=tBot+fr(Math.min(leL.mn,reL.mn),Math.max(leL.mx,reL.mx),0.30);
+      /* AND IT NEVER RUNS DOWN AN ARM, which one_garment_per_slot caught: the torso's
+         column range overlaps the arms at the shoulder seam, so the first cut painted
+         one extra arm row per side below the waist -- and HOW MANY depended on the
+         facing, which made the garment's SLEEVE LENGTH change when the body turned a
+         single notch (0.501 body-heights against a pinned 0.11). That is clause 1,
+         the rule four haircuts were cut for on 8/28, in a shirt. A hem hangs over the
+         body and the legs; it does not hang off a forearm. */
+      for(var yL2=tBot+1;yL2<=llBot;yL2++)for(var xL2=tMn;xL2<=tMx;xL2++){
+        if(xL2<0||xL2>=CW)continue; var gL2=g[yL2*CW+xL2];
+        if(gL2===1||gL2===2||gL2===5||gL2===6||gL2===7||gL2===8)continue; w[yL2*CW+xL2]=1; } }
     var inG=function(x,y){return !!w[y*CW+x];}, E=ext(w), o={}, k;
     var sx=0,sc=0,ttop=CH,tb=-1; for(k in w){var q=+k; if(g[q]===4){var qx=q%CW,qy=(q/CW)|0; sx+=qx;sc++; if(qy<ttop)ttop=qy; if(qy>tb)tb=qy;}} var cx=sc?Math.round(sx/sc):(CW>>1), cxL=cx-((S-1)>>1);
     function patc(c,x,y){ if(pat==='plaid'){ var vx=(((x-cx)%(5*S))+5*S)%(5*S), hy=(((y-ttop)%(5*S))+5*S)%(5*S), vs=vx<2*S, hs=hy<S;
@@ -23568,6 +23633,17 @@ window.CLO=(function(){
         if(pocket&&y>tb-5*S&&y<=tb-S&&x>=cx-3*S&&x<cx+4*S)c=(y<=tb-4*S)?r.dk:mix(c,0.9); /* kangaroo pocket */ }
       if(p===5){ if(sleeves==='long'&&y>=aL.mx-(2*S-1))c=r.dk; else if(sleeves==='short'&&y>=scutL-(2*S-1))c=r.dk; else if(sleeves==='rolled'&&y>=scutL-(2*S-1))c=r.lt; }  /* cuff / short hem / rolled bulge */
       if(p===6){ if(sleeves==='long'&&y>=aR.mx-(2*S-1))c=r.dk; else if(sleeves==='short'&&y>=scutR-(2*S-1))c=r.dk; else if(sleeves==='rolled'&&y>=scutR-(2*S-1))c=r.lt; }
+      /* --- THE RUNWAY (9/5): the new outlines get drawn, not just filled. */
+      /* AND THE SHADING ONLY BELONGS TO THE PAD. The first cut ran the drop line
+         across the whole chest and put a black bar through the middle of every
+         shirt. The pad is the pixels OUTSIDE the arms; the body under it keeps
+         the shading it always had. */
+      if(wideSh&&y<=shBotY&&(g[ii]!==4&&g[ii]!==5&&g[ii]!==6)){ if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;   /* the pad's hard vertical edge -- the pad IS the cells with no body under them, which is true per row */
+        else if(y>=shBotY-(S-1))c=r.dk;                                  /* and the hard horizontal one it drops off */
+        else if(x<cx)c=r.lt; }
+      if(longline&&y>tb){ if(!inG(x,y+1))c=r.dk;                         /* the long hem */
+        else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
+        else if(x<cx)c=r.lt; }
       o[ii]=c; }
     if(neck==='turtle'){ for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.dk; }   /* TURTLENECK: the high rolled collar wraps the whole neck, every facing */
     /* HOOD = REAL GEOMETRY, not paint (Paolo 7/18: "a hood is additional pixels
@@ -23641,10 +23717,78 @@ window.CLO=(function(){
        mid-shin -- the between-legs gap closes, a diagonal overlap fold crosses
        the front. A different silhouette, not a colorway. */
     var isSkirt=(opt.cut==='skirt'||opt.cut==='longskirt');
+    /* THE RUNWAY, 9/5 -- FOUR NEW CUTS, AND ALL FOUR ARE OUTLINE. The leg rail had
+       four shapes for twenty-six trousers, which is the wardrobe's thinnest rail and
+       also the loudest one in the register he named. Every cut here changes what the
+       sprite looks like BLACKED OUT, because that is the only kind of change 56
+       pixels can carry.
+         drop   the crotch seam sits low -- one wide yoke from the waist to mid-thigh,
+                then the legs come back narrow. Widest at the hip, narrowest at the
+                floor, which is the taken rule verbatim.
+         wide   the opposite pole: a high waistband and a leg that opens all the way
+                to the floor, pleated. A-shape.
+         stack  a leg cut LONGER than the leg. It pools over the boot: a flare past
+                the ankle and hard horizontal fold bands in the bottom third.
+         crop   cut above the ankle so a band of shin shows over the shoe, and NOT
+                tapered -- a straight tube that stops early. Proportional contrast.
+       Cut and hem only; no ramp, no faction colour, nothing that is his. */
+    var isDrop=(opt.cut==='drop'), isWide=(opt.cut==='wide'),
+        isStack=(opt.cut==='stack'), isCrop=(opt.cut==='crop');
     /* LONG SKIRT (7/20, wave 7): the wrap panel falls to the ANKLE -- a real
        third length on the leg rail (knee shorts / mid-shin wrap / ankle). */
-    var cutY=isShort?legT+fr(legT,legB,0.42)+S-1:(opt.cut==='longskirt')?legB-S:isSkirt?legT+fr(legT,legB,0.72)+S-1:1e9;
-    var w={}; for(i=0;i<g.length;i++){var p=g[i],yy=(i/CW)|0; if((p===9||p===10)&&yy<=cutY)w[i]=1; else if(p===4&&yy>tb-5*S)w[i]=1;}   /* 4X: FIVE waist rows at 56, so 5*S rows -- `>=tb-4` is inclusive and scaling the 4 loses a row */
+    /* CROP sits at 0.68 of the leg on purpose and not higher: at 0.80 the hem
+       lands one row above the shoe and the whole idea -- a BAND of shin -- is a
+       single pixel nobody can see. 0.68 leaves three rows at 56 and six at 112,
+       and it is still four rows clear of the knee, so it can never be mistaken
+       for the shorts beside it. (The V-NECK is dead for exactly the mistake this
+       number avoids.) */
+    var cutY=isShort?legT+fr(legT,legB,0.42)+S-1:isCrop?legT+fr(legT,legB,0.68)+S-1:(opt.cut==='longskirt')?legB-S:isSkirt?legT+fr(legT,legB,0.72)+S-1:1e9;
+    /* the leg's own columns -- every new cut is measured off the body, never off a
+       hardcoded x, so a wider or narrower rig still wears them */
+    var lgMn=CW,lgMx=-1; for(i=0;i<g.length;i++){var pL=g[i];if(pL===9||pL===10){var xL=i%CW;if(xL<lgMn)lgMn=xL;if(xL>lgMx)lgMx=xL;}}
+    /* 0.58, AND THAT NUMBER IS A LOOKING FIX. At 0.45 the yoke stopped at the hip
+       and the legs below it were ordinary, so on the real rig it did not read as a
+       low crotch at all -- it read as a POUCH strapped round the hips, with the
+       hands sitting on top of it. The whole idea is that the gap between the legs
+       STARTS LOW, so the yoke has to reach past the middle of the thigh before the
+       legs are allowed to separate. */
+    var dropY=legT+fr(legT,legB,0.58), stackTop=legB-fr(legT,legB,0.38);
+    var waistRows=(isWide?8:5)*S;                                        /* WIDE is HIGH-WAISTED: the band climbs three more rows up the torso */
+    var w={}; for(i=0;i<g.length;i++){var p=g[i],yy=(i/CW)|0; if((p===9||p===10)&&yy<=cutY)w[i]=1; else if(p===4&&yy>tb-waistRows)w[i]=1;}   /* 4X: FIVE waist rows at 56, so 5*S rows -- `>=tb-4` is inclusive and scaling the 4 loses a row */
+    /* DROP RISE: the yoke. One panel across BOTH legs and a cell past each side,
+       from the waist to mid-thigh -- so the inner-leg gap closes up top and opens
+       again below, which is the whole silhouette. Never the hands. */
+    /* ONE CELL PAST THE LEG, NOT TWO -- also from looking. At two the yoke reached
+       out under the HANDS and the sprite grew a slab either side of the wrists;
+       drape hangs off a body, it does not stick out past the arms. The silhouette
+       it needs comes from the gap closing, not from the trouser being enormous. */
+    if(isDrop){ for(var yD=tb-2*S+1;yD<=dropY;yD++)for(var xD=lgMn-S;xD<=lgMx+S;xD++){
+      if(xD<0||xD>=CW)continue; var gD=g[yD*CW+xD]; if(gD===1||gD===2||gD===7||gD===8)continue; w[yD*CW+xD]=1; }
+      /* AND THE OTHER HALF OF THE RULE, WHICH THE FIRST CUT LEFT OUT AND LOOKING
+         CAUGHT: a low yoke over a NORMAL leg is a sack, not a drop rise. The taken
+         rule is widest at the hip AND NARROWEST AT THE FLOOR, so the leg has to
+         actually close. The bottom third loses a cell off each outer edge. */
+      for(var yT2=legB-fr(legT,legB,0.30);yT2<=legB;yT2++)for(var dT=0;dT<S;dT++){
+        delete w[yT2*CW+(lgMn+dT)]; delete w[yT2*CW+(lgMx-dT)]; } }
+    /* CROP: a wide TURN-UP at the hem. Without it a cropped trouser and a pair of
+       shorts are the same rectangle ending at two different heights, and the dead
+       V-NECK is what that costs. The cuff is the shape; the height is the styling. */
+    /* AND THE TURN-UP IS TWO CELLS, NOT ONE, because on the real rig the shin under
+       a cropped trouser is DARK -- the break in tone is quiet, so the hem itself has
+       to be the thing you see. */
+    if(isCrop){ for(var yC=cutY-2*S+1;yC<=cutY;yC++)for(var dC=1;dC<=2*S;dC++){
+      if(lgMn-dC>=0)w[yC*CW+(lgMn-dC)]=1; if(lgMx+dC<CW)w[yC*CW+(lgMx+dC)]=1; } }
+    /* WIDE LEG: opens with distance from the hip, three cells past the body by the
+       floor. Real pixels into the background, the way the poncho does it. */
+    if(isWide){ var spanW=Math.max(1,legB-legT);
+      for(var yW=legT;yW<=legB;yW++){ var gw=Math.round((yW-legT)/spanW*3)*S;
+        for(var d1=1;d1<=gw;d1++){ if(lgMn-d1>=0)w[yW*CW+(lgMn-d1)]=1; if(lgMx+d1<CW)w[yW*CW+(lgMx+d1)]=1; } } }
+    /* STACK: the pool of extra length. Flares over the boot and hangs one cell
+       BELOW the ankle at the sides, where the shoe (drawn after the legs) cannot
+       cover it -- the shoe only ever paints leg and foot pixels, never background. */
+    if(isStack){ for(var yS3=stackTop;yS3<=legB+S;yS3++){
+        var fl=(yS3>=legB-2*S+1)?2*S:(yS3>=stackTop+2*S?S:0);
+        for(var d2=1;d2<=fl;d2++){ if(lgMn-d2>=0)w[yS3*CW+(lgMn-d2)]=1; if(lgMx+d2<CW)w[yS3*CW+(lgMx+d2)]=1; } } }
     if(isSkirt){ var mnX=CW,mxX=-1; for(i=0;i<g.length;i++){var pS=g[i]; if(pS===9||pS===10){var xS=i%CW; if(xS<mnX)mnX=xS; if(xS>mxX)mxX=xS;}}
       if(mxX>=0)for(var yS=legT;yS<=cutY;yS++)for(var xS2=mnX-S;xS2<=mxX+S;xS2++){ if(xS2<0||xS2>=CW)continue; var gvS=g[yS*CW+xS2]; if(gvS===0||gvS===9||gvS===10)w[yS*CW+xS2]=1; } }   /* the panel spans the gap + a px past each side */
     var inG=function(x,y){return !!w[y*CW+x];}, E=ext(w), o={}, k;
@@ -23658,8 +23802,31 @@ window.CLO=(function(){
         else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;                         /* panel side seams */
         else if(((((x-cx)-(y-wb))%(6*S))+6*S)%(6*S)<S)c=mix(r.dk,0.75);  /* the wrap's diagonal overlap fold: 6px pitch at 56 */
         else if(x<cx)c=r.lt; }                                           /* 45-degree: sky-lit side */
-      else { if(p===9&&y>=le.mx-(2*S-1))c=r.lt;                          /* rolled hem L */
+      else if(!isDrop&&!isWide&&!isStack&&!isCrop){ if(p===9&&y>=le.mx-(2*S-1))c=r.lt;   /* rolled hem L */
         if(p===10&&y>=re.mx-(2*S-1))c=r.lt; }                            /* rolled hem R */
+      /* --- THE RUNWAY HEMS (9/5). Each one is read as SHAPE first and shaded
+             second: the side test (!inG left/right) is what draws the new outline. */
+      if(isDrop&&y>wb+3*S){ if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;          /* the yoke's own sides -- the widest line on the sprite */
+        else if(y<=dropY&&((((x-cx)%(4*S))+4*S)%(4*S))<S)c=mix(r.mid,0.8);/* DRAPE. Without it the yoke's lit flank is one flat five-cell block
+                                                                            of highlight, which is a shape with nothing happening inside it.
+                                                                            Same 4-cell pitch the coat skirt's folds already use, so the two
+                                                                            garments hang like the same cloth. */
+        else if(y<=dropY&&x<cx)c=r.lt;                                   /* 45-degree: sky-lit flank of the yoke */
+        if(y>=legB-(2*S-1))c=r.dk; }                                     /* the ankle closes: tapered cuff */
+      if(isWide&&y>wb+3*S){ if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;          /* the opening leg line */
+        else if(!inG(x,y+1))c=r.dk;                                      /* floor hem */
+        else if(((((x-cx)%(4*S))+4*S)%(4*S))<S)c=mix(r.mid,0.8);         /* pleats, 4px pitch at 56 -- the same pitch the coat's folds use */
+        else if(x<cx)c=r.lt; }
+      /* THE FOLD PITCH IS TWO CELLS, NOT ONE, AND THAT WAS A LOOKING FIX. A band
+         one cell tall alternating over six rows is not a fold, it is a dither --
+         it reads as noise on cloth rather than as cloth. Two cells gives three
+         real creases down the pool, which is what the reference actually shows. */
+      if(isStack&&y>=stackTop){ var band=(((y-stackTop)/(2*S))|0)%2;
+        c=band?r.mid:mix(r.dk,0.85);                                     /* the pooled folds */
+        if(!inG(x,y+1))c=r.dk;
+        if(!inG(x-1,y)||!inG(x+1,y))c=r.dk; }
+      if(isCrop&&y>=cutY-(2*S-1)){ c=(y>=cutY-(S-1))?r.dk:r.lt;          /* the turn-up: a lit face with a dark edge under it */
+        if(!inG(x-1,y)||!inG(x+1,y))c=r.dk; }
       o[ii]=c; }
     return o; }
   /* SHOES: dark sole, light midsole, laces on the tongue, ankle collar */
@@ -23671,7 +23838,25 @@ window.CLO=(function(){
     /* 4X: count the ROWS the shaft occupies, not the offset. `>=lb-rise` is
        inclusive, so rise=1 is TWO rows -- scaling the offset gives 3 rows at S=2
        where the boot needs 4, and the shoe quietly shrinks up the shin. */
-    var tall=(opt.shaft==='tall'), riseRows=(tall?7:2)*S, rise=riseRows-1;
+    /* THE RUNWAY, 9/5 -- THREE NEW FOOT SHAPES. Twenty-two pairs of shoes shared
+       TWO shapes (ankle shoe, tall boot), the worst rail in the wardrobe at 9%.
+         shaft:'mid'     FILL THE MIDDLE. Four rows of shin, between the two-row
+                         ankle shoe and the seven-row knee boot. This is the
+                         trenchcoat lesson applied to a boot: reserving the ends of
+                         a rail without filling its middle is how a wardrobe with a
+                         hole in it starts picking for the player (8/27).
+         shaft:'slouch'  a tall shaft that COLLAPSES instead of standing rigid -- one
+                         cell wider than the leg, creased in bands, and cut higher on
+                         one side than the other so the top line is asymmetric.
+         sole:'stack'    the thick stacked sole. It LIFTS the whole shoe (two more
+                         rows of shin) and OVERHANGS the foot by a cell each side.
+                         This is the loudest single change in the batch: it moves the
+                         bottom outline of the sprite, which is the line a player
+                         reads first because it sits against the ground. */
+    var slouch=(opt.shaft==='slouch'), midShaft=(opt.shaft==='mid');
+    var stackSole=(opt.sole==='stack');
+    var tall=(opt.shaft==='tall'||slouch);
+    var riseRows=(slouch?7:midShaft?4:tall?7:2)*S+(stackSole?2*S:0), rise=riseRows-1;
     /* RAMP FALLBACKS (7/19, caught on the real surface): cloth palettes have no
        .sole/.mid2 -- an undefined color detonates the whole frame the moment
        the wear pass lands on a sole pixel (probabilistic per facing: S looked
@@ -23689,6 +23874,22 @@ window.CLO=(function(){
     var _sd=(typeof curDir!=='undefined')?curDir:'S';
     var shBack=(_sd==='N'||_sd==='NE'||_sd==='NW');
     var w={}; for(i=0;i<g.length;i++){var p=g[i]; if(p===11||p===12)w[i]=1; else if((p===9||p===10)&&((i/CW)|0)>=lb[p]-rise)w[i]=1;}
+    /* the foot's own columns and floor row, measured off the body */
+    var ftMn=CW,ftMx=-1,ftBot=-1; for(i=0;i<g.length;i++){var pF=g[i];if(pF===11||pF===12){var xF=i%CW,yF=(i/CW)|0;if(xF<ftMn)ftMn=xF;if(xF>ftMx)ftMx=xF;if(yF>ftBot)ftBot=yF;}}
+    /* STACKED SOLE: the slab. It overhangs the foot a cell each side and adds a
+       row under it, so the shoe sits ON something instead of ending at the ankle. */
+    var soleTop=ftBot-2*S+1;
+    if(stackSole&&ftMx>=0){ for(var yQ=soleTop;yQ<=ftBot;yQ++)for(var xQ=ftMn-S;xQ<=ftMx+S;xQ++){
+      if(xQ<0||xQ>=CW)continue; var gQ=g[yQ*CW+xQ]; if(gQ===1||gQ===2||gQ===7||gQ===8)continue; w[yQ*CW+xQ]=1; } }
+    /* SLOUCH: the collapsed shaft is WIDER than the leg it hangs on, and it is not
+       level -- one side is cut a cell higher. A rigid boot has a straight top line;
+       a slouched one does not, and that is the whole difference at this size. */
+    if(slouch&&lb[9]>=0){ var shTop=Math.min(lb[9],lb[10])-rise;
+      var slMn=CW,slMx=-1; for(i=0;i<g.length;i++){var pS2=g[i];if(pS2===9||pS2===10){var xS2=i%CW;if(xS2<slMn)slMn=xS2;if(xS2>slMx)slMx=xS2;}}
+      for(var yR=shTop;yR<=Math.max(lb[9],lb[10]);yR++){
+        for(var dR=1;dR<=S;dR++){
+          if(slMn-dR>=0&&yR>=shTop+S)w[yR*CW+(slMn-dR)]=1;
+          if(slMx+dR<CW&&yR>=shTop)w[yR*CW+(slMx+dR)]=1; } } }
     var inG=function(x,y){return !!w[y*CW+x];}, E=ext(w), o={}, k;
     var fL=pExt(g,11),fR=pExt(g,12);
     /* pExt reports ROW extents; the centre-back seam needs COLUMN extents, so
@@ -23700,9 +23901,13 @@ window.CLO=(function(){
       /* HOW FAR OFF THE GROUND THIS PIXEL IS. Sole and midsole are one row each at
          56 and must be S rows each at any scale, so measure the depth instead of
          probing a fixed +1/+2. */
-      var db=0; while(db<3*S&&inG(x,y+db+1))db++;
-      if(db<S)c=soleC;                                                   /* sole */
-      else if(db<2*S)c=r.lt;                                             /* midsole stripe */
+      var db=0; while(db<4*S&&inG(x,y+db+1))db++;
+      /* A STACKED SOLE IS A THICKER SOLE, not merely a wider one. The first cut only
+         widened the slab and the shoe still read as an ordinary shoe with a lip; the
+         sole has to own a real share of the shoe's height or the word means nothing.
+         Two cells of sole and one of midsole, against the ordinary one and one. */
+      if(db<(stackSole?2*S:S))c=soleC;                                   /* sole */
+      else if(db<(stackSole?3*S:2*S))c=r.lt;                             /* midsole stripe */
       else if((p===11||p===12)){ var ft=(p===11?fL.mn:fR.mn);
         var fx=(p===11?fL:fR);
         if(shBack){
@@ -23721,7 +23926,25 @@ window.CLO=(function(){
         else if(!tall&&y<ft+3*S&&((y%(2*S))<S))c=r.lt;
         else if(!tall&&y<ft+3*S)c=midC; } /* laces on tongue (low shoes only; a tall boot is smooth leather) */
       else if(p===9||p===10){ var lt2=lb[p]-rise;
-        if(tall)c=(y<lt2+S)?r.lt:(y<lt2+2*S)?r.dk:bshade(inG,x,y,r);     /* shaft: light fold-over cuff + dark seam, then leather */
+        /* ONE bshade CALL SITE, NOT THREE, AND THE GATE IS WHY. shading_separation
+           FREEZES the number of places this file bakes light -- "no NEW cook bakes
+           light: bshade call sites never increase" -- and the first cut of these
+           three branches each called it, taking the file from 7 sites to 9. The
+           shading is identical either way; what the law is protecting is that
+           lighting stays a pass and does not spread through the wardrobe one cook
+           at a time. Computed once here and branched on below: net zero. */
+        var _lit=bshade(inG,x,y,r), _boot=(y<lt2+S)?r.lt:(y<lt2+2*S)?r.dk:_lit;
+        if(slouch){                                                      /* SLOUCH: leather that has given up. A crease every three cells down
+                                                                            the shaft, and NO clean cuff line at the top -- a rigid boot has a
+                                                                            straight top edge and this one must not, or it is the tall boot. */
+          c=_lit;
+          if((((y-lt2)%(3*S))+3*S)%(3*S)<S)c=mix(r.dk,0.9);
+          if(!inG(x,y-1))c=r.dk; }
+        else if(tall)c=_boot;                                            /* shaft: light fold-over cuff + dark seam, then leather */
+        else if(midShaft||stackSole)c=_boot;   /* THE MIDDLE OF THE RAIL GETS THE BOOT TREATMENT, and that was a
+                                                                            looking fix too: with no line of its own the mid shaft fell through
+                                                                            to the padded-collar fill below and rendered as ONE FLAT DARK TUBE.
+                                                                            A new length with no shape in it is the dead V-NECK again. */
         else c=midC; }                                                   /* ankle collar (padded) */
       /* @SUBCELL-DETAIL -- THE WELT STITCH (8/22, row 2X step 5). A boot is stitched
          where the upper meets the sole, and that stitch is ONE PIXEL with a gap either
@@ -24805,6 +25028,60 @@ window.CLO=(function(){
         for(var tq=S;tq<3*S;tq++)for(var qc=0;qc<S;qc++){ var ip=(tTop+tq)*CW+(hcxL+bsX*S+qc);
           if(ip>=0&&ip<g.length&&g[ip]===4)o[ip]=(tq>=2*S)?r.dk:r.mid; } }                                            /* tail behind, in profile */
       return o; }
+    /* COWL (9/5, batch 2). The neck rail had ONE shape -- a scarf, and the same
+       scarf with a longer tail -- for seven garments. A cowl is not a bigger scarf:
+       a scarf is a ring ON the neck and a cowl is a mass ON THE SHOULDERS, which
+       is a different outline from every angle and the thing the house he named is
+       known for. It is drawn off the torso and the neck, never the face. */
+    if(kind==='cowl'){
+      for(i=0;i<g.length;i++)if(g[i]===3)o[i]=r.mid;                     /* the neck is wrapped, every facing */
+      /* THE FIRST CUT WAS A BOX ON HIS SHOULDERS, and looking is the only thing
+         that said so: a flat trapezoid, widest at the top, cut off level at the
+         bottom. That is a yoke, or a small cape -- it is not cloth. THREE THINGS
+         FIX IT AND ALL THREE ARE SHAPE: it starts at the NECK'S OWN WIDTH and
+         only spreads onto the shoulders a row or two down; it is four rows deep
+         instead of five, so it sits on the collarbone and not on the chest; and
+         its bottom edge is UNEVEN, because a hem that is dead level is the one
+         thing hanging fabric never is (8/1: little off shapes, never straight
+         lines). */
+      var cwBot=tTop+4*S;
+      for(var yw=tTop;yw<=cwBot;yw++){
+        var rowMn=CW,rowMx=-1;
+        for(var xw2=0;xw2<CW;xw2++){var gw=g[yw*CW+xw2]; if(gw===4||gw===5||gw===6){if(xw2<rowMn)rowMn=xw2;if(xw2>rowMx)rowMx=xw2;}}
+        if(rowMx<0)continue;
+        /* row 0 is the neck's width; it opens out to the shoulders by row 2 */
+        var t=(yw-tTop)/Math.max(1,(cwBot-tTop)), open=t<0.5?(t/0.5):1;
+        var half=Math.round((nMx-nMn)/2)+S, want=Math.round(((rowMx-rowMn)/2+S-half)*open)+half;
+        var mid=Math.round((rowMn+rowMx)/2);
+        for(var xw3=mid-want;xw3<=mid+want;xw3++){
+          if(xw3<0||xw3>=CW)continue; var iw=yw*CW+xw3, gv=g[iw];
+          if(gv===1||gv===2||gv===7||gv===8)continue;
+          /* THE UNEVEN HEM IS HASHED, NOT ALTERNATED. Every other cell is a
+             REGULAR comb and at this size it reads as a crown, which is ornament
+             -- 8/1: little off shapes, never straight lines, and a repeating
+             notch is a straight line with holes in it. Deterministic off the
+             column so nobody in a crowd shimmers. */
+          if(yw>cwBot-S&&((((((xw3/S)|0)*2654435761)>>>0)%3)===0))continue;
+          o[iw]=(yw>=cwBot-(2*S-1))?r.dk
+               :((xw3<=mid-want+(S-1)||xw3>=mid+want-(S-1))?r.dk
+               :((((((xw3-mid)%(3*S))+3*S)%(3*S))<S)?mix(r.mid,0.82)      /* drape folds off the neck */
+               :((yw<tTop+S)?r.lt:r.mid))); } }
+      return o; }
+    /* HAND WRAPS (9/5, batch 2). Four gloves, ONE shape, and every one of them
+       stops dead at the hand. Strapping runs PAST THE WRIST, so the wrist is where
+       the new outline is -- and it is a working-aisle garment, not a runway one,
+       which is the point: the register is the CUT, and a wrap is a cut. */
+    if(kind==='handwrap'){ var wL=pExt(g,7),wR=pExt(g,8);
+      for(i=0;i<g.length;i++){var pw=g[i];
+        if(pw===7||pw===8){ var edw=false;
+          for(var ew=1;ew<=S;ew++){ var a1=g[i-ew],a2=g[i+ew],a3=g[i-ew*CW],a4=g[i+ew*CW];
+            if(!((a1===7||a1===8)&&(a2===7||a2===8)&&(a3===7||a3===8)&&(a4===7||a4===8))){edw=true;break;} }
+          o[i]=edw?r.dk:r.mid; continue; }
+        if(pw===5||pw===6){ var yw4=(i/CW)|0, hb=(pw===5?wL.mn:wR.mn);
+          /* four rows of forearm above the hand, banded like real strapping */
+          if(yw4<hb-4*S||yw4>=hb)continue;
+          o[i]=((((yw4-hb)%(2*S))+2*S)%(2*S))<S?r.dk:r.mid; } }
+      return o; }
     if(kind==='mask'){                                                   /* dust bandana: nose+mouth down, NEVER at/above the eyes */
       if(!back){ for(i=0;i<g.length;i++){var pm=g[i],xm=i%CW,ym=(i/CW)|0;
         if((pm===1||pm===2)&&ym>=mouthY&&ym<=hBot){ o[i]=(ym<mouthY+S)?r.dk:((xm<hMn+S||xm>hMx-S)?r.dk:r.mid);
@@ -24821,6 +25098,50 @@ window.CLO=(function(){
         else { var bs2=(fcx>hcx)?-1:1, kx=hcxL+bs2*3*S;
           for(var mr=0;mr<S;mr++)for(var mc=0;mc<S;mc++){ if(kx+mc<0||kx+mc>=CW)continue;
             o[(ky+mr)*CW+kx+mc]=r.dk; if(ky+S+mr<CH)o[(ky+S+mr)*CW+kx+mc]=r.mid; } } }
+      return o; }
+    /* THE SHIELD (9/5, batch 4). Both pairs of canon shades sit INSIDE the head's
+       outline -- they are a dark band on a face. A shield is a band that runs PAST
+       the head on both sides, so the blacked-out head is WIDER at the eye line than
+       a bare one, and that is the only kind of change a face can make at this size.
+       It keeps the eye band the calibrated shades already found, so it never drifts
+       onto the brow the way fraction math used to. */
+    if(kind==='visor'){
+      var vTop=Math.max(hTop+S,eyeA-S), vBot=Math.min(hBot,eyeB+S);
+      if(back){                                                          /* from behind: the strap, so the garment is never ABSENT from a facing */
+        for(var ys=vTop;ys<=vBot;ys++)for(var xs=hMn;xs<=hMx;xs++){
+          var isb=ys*CW+xs; if(g[isb]!==1&&g[isb]!==2)continue;
+          o[isb]=(ys<=vTop+(S-1))?r.lt:mix(r.dk,0.9); }
+        return o; }
+      for(var yv=vTop;yv<=vBot;yv++)for(var xv=hMn-2*S;xv<=hMx+2*S;xv++){
+        if(xv<0||xv>=CW)continue; var iv=yv*CW+xv, gv=g[iv];
+        if(gv!==1&&gv!==2&&gv!==0)continue;                              /* head, face, or the air beside them -- never a shoulder */
+        if(gv===0&&(yv<vTop||yv>vBot))continue;
+        o[iv]=(yv<=vTop+(S-1))?r.lt                                      /* lit top edge of the shield */
+             :((xv<hMn||xv>hMx)?r.dk                                     /* the overhang: the new outline */
+             :((yv>=vBot-(S-1))?r.dk:mix(r.mid,0.85))); }                /* the lens face, and its shadowed lower rim */
+      return o; }
+    /* THE FACE WRAP (9/5, batch 4). The dust mask is a flat plane, drawn only on
+       head and face pixels, so by construction it can never change the head's
+       outline -- it is paint on a jaw. A wrap goes ROUND the jaw: it takes the same
+       rows the mask does, and adds a cell of cloth OUTSIDE the head on each side of
+       them, so the jaw reads THICKER than the skull. Same rows as the mask, so it
+       inherits the mask class's below-the-eyes rule and never touches the eyes. */
+    if(kind==='facewrap'){
+      for(var yw=mouthY;yw<=hBot;yw++){
+        var wMn=CW,wMx=-1;
+        for(var xw=0;xw<CW;xw++){var gw=g[yw*CW+xw]; if(gw===1||gw===2){if(xw<wMn)wMn=xw;if(xw>wMx)wMx=xw;}}
+        if(wMx<0)continue;
+        for(var xw2=wMn-S;xw2<=wMx+S;xw2++){
+          if(xw2<0||xw2>=CW)continue; var iw2=yw*CW+xw2, gv2=g[iw2];
+          if(gv2!==1&&gv2!==2&&gv2!==0)continue;
+          o[iw2]=(xw2<wMn||xw2>wMx)?r.dk                                 /* the bulk, outside the head: the new outline */
+                :((yw<=mouthY+(S-1))?r.dk                                /* the top edge where the cloth folds over */
+                :((((((yw-mouthY)/S)|0)%2)===0)?r.mid:mix(r.mid,0.82))); }  /* wrapped layers, two cells apart */ }
+      for(i=0;i<g.length;i++)if(g[i]===3)o[i]=mix(r.mid,0.9);            /* it carries on down onto the neck, every facing */
+      if(!front){                                                        /* the tail of the wrap, tucked at the side or nape */
+        var kx=(dir==='E'||dir==='NE'||dir==='SE')?hMn-S:hMx+S;
+        for(var kt=0;kt<2*S;kt++){ var ik=(hBot-kt)*CW+kx;
+          if(kx>=0&&kx<CW&&(g[ik]===0||g[ik]===1))o[ik]=r.dk; } }
       return o; }
     if(kind==='shades'){ if(back)return o;                               /* invisible from behind */
       /* SHADES v2 (post-calibration): anchor to the TRUE eyes -- the facial
@@ -24891,6 +25212,32 @@ window.CLO=(function(){
          is a mark that did not exist. S>1 only, so the 56 wardrobe is byte-identical. */
       if(S>1&&!edge){ var yk=(i/CW)|0, xk=i%CW, hx=(pg2===7?hL:hR);
         if(!_noStitch&&yk===hx.mn+S&&(xk%2)===1)o[i]=r.dk; } } return o; }
+    /* THE WIDE WAIST WRAP (9/5, batch 3). The waist rail is a belt, a toolbelt and
+       a sash -- three shapes, five garments, and the belt is TWO ROWS. A wrap is not
+       a thicker belt: it climbs the ribs, stands a cell off the body so the waist
+       has a WIDTH, and is knotted off-centre. At 56 pixels a line and a mass are
+       different objects, and this rail only had lines. */
+    if(kind==='wrapbelt'){ var wbTop=tb-6*S+1, wbCx=0, wbC=0;
+      for(i=0;i<g.length;i++)if(g[i]===4){wbCx+=i%CW;wbC++;}
+      var wcx=wbC?Math.round(wbCx/wbC):(CW>>1);
+      for(var yb3=wbTop;yb3<=tb;yb3++){
+        var rMn=CW,rMx=-1;
+        for(var xb=0;xb<CW;xb++){var gb=g[yb3*CW+xb]; if(gb===4){if(xb<rMn)rMn=xb;if(xb>rMx)rMx=xb;}}
+        if(rMx<0)continue;
+        for(var xb2=rMn-S;xb2<=rMx+S;xb2++){
+          if(xb2<0||xb2>=CW)continue; var ib=yb3*CW+xb2, gv2=g[ib];
+          if(gv2===1||gv2===2||gv2===7||gv2===8)continue;
+          /* the wrap's own edges dark, a lit top fold, and the diagonal of the
+             wrapping visible across the front */
+          o[ib]=(yb3<=wbTop+(S-1)||yb3>=tb-(S-1)||xb2<rMn||xb2>rMx)?r.dk
+               :((((((xb2-wcx)+(yb3-wbTop))%(4*S))+4*S)%(4*S))<S?mix(r.mid,0.8)
+               :((yb3<wbTop+2*S)?r.lt:r.mid)); } }
+      /* THE KNOT, and it sits OFF CENTRE on purpose: a wrap tied dead centre reads
+         as a buckle, which is the belt this shape exists to not be. */
+      var knX=wcx+2*S;
+      for(var ky=tb-4*S;ky<=tb-2*S;ky++)for(var kx=knX;kx<knX+2*S;kx++){
+        if(kx<0||kx>=CW||ky<0)continue; var ik=ky*CW+kx; if(g[ik]===4||g[ik]===0)o[ik]=r.dk; }
+      return o; }
     if(kind==='belt'){ for(i=0;i<g.length;i++)if(g[i]===4){var yb2=(i/CW)|0; if(yb2>tb-2*S)o[i]=r.dk;
         /* @SUBCELL-DETAIL -- EDGE STITCHING (8/22, row 2X step 5). A leather belt is
            stitched a hair in from each edge, one pixel, dotted. At 56 the band is two
@@ -24923,7 +25270,22 @@ window.CLO=(function(){
        trenchcoat is a SOLID silhouette -- a slit down a profile = wrong (Paolo). */
     var dir=(typeof curDir!=='undefined')?curDir:((opt&&opt.dir)||'S');
     var frontFacing=(dir==='S'||dir==='SE'||dir==='SW');
-    var isOpen=function(x,y){ return frontFacing && x>=cx-ohw && x<cx+ohw+S && y>openTop; };
+    /* THE RUNWAY, 9/5 batch 2 -- THREE NEW COATS, AND NOT ONE OF THEM IS A LENGTH.
+       Eleven of this rail's fifteen "shapes" were the same coat stretched, so a
+       twelfth length would have been a colourway with a ruler.
+         wrap    NO FRONT OPENING. One panel crosses the body and a belt holds it.
+                 On this rig the slit is the coat's entire front signature, so
+                 taking it away and running a diagonal across instead is the
+                 biggest front-view change the garment has available.
+         asym    the hem is cut on a SLANT -- one side long, one side short. The
+                 first thing in this wardrobe whose bottom edge is not level.
+         cocoon  widest around the body, NARROWING to the hem: the exact inverse
+                 of the A-line skirt every coat here already flares into.
+       All three ship at HIP and THIGH length, which is the 8/27 heat ruling and
+       not a compromise -- the look is reached by cut, and cut is what these are. */
+    var wrapC=!!opt.wrap, asymC=!!opt.asym, cocoon=!!opt.cocoon;
+    var isOpen=function(x,y){ if(wrapC)return false;                     /* a wrap coat has no opening to be open */
+      return frontFacing && x>=cx-ohw && x<cx+ohw+S && y>openTop; };
     /* body flaps: torso (+arms, unless a VEST which is sleeveless) minus the slit */
     var vest=!!opt.vest, jacket=!!opt.jacket;   /* JACKET (7/19, structure-not-color): sleeves + open front like a coat, but the hem STOPS at the waist -- no skirt. A real different garment, not a short coat recolor. */
     var w={}; for(i=0;i<g.length;i++){var p=g[i],y=(i/CW)|0,x=i%CW;
@@ -24933,13 +25295,32 @@ window.CLO=(function(){
     var hipMn=CW,hipMx=-1; for(var hx=0;hx<CW;hx++){ if(g[tb*CW+hx]===4){if(hx<hipMn)hipMn=hx;if(hx>hipMx)hipMx=hx;} }
     if(hipMx<0){hipMn=cx-3*S;hipMx=cx+3*S;}
     var halfW=Math.max(3*S,Math.ceil((hipMx-hipMn)/2)+S), span=hemY-tb+1, skirt={};
+    /* ASYM: the hem per COLUMN, not one number for the whole garment. It rises
+       across the body so the left side hangs and the right side is cut away --
+       the amount is a third of the skirt's own depth, which is enough to read at
+       56 and not so much that the coat looks torn. */
+    /* 0.55 OF THE SKIRT, FLOOR OF FOUR CELLS, AND THE GATE IS WHY. At 0.34 of the
+       span the two sides differed by two rows on a thigh-length coat, which
+       measured 12% of the outline against the dead V-NECK's 0% -- technically
+       above the corpse and nowhere near enough to see. An asymmetric hem whose
+       asymmetry you have to be told about is the V-NECK with a new name. The two
+       sides now differ by more than half the skirt: one hip, one thigh. */
+    var asymRise=asymC?Math.max(4*S,Math.round(span*0.55)):0;
+    var hemAt=function(x){ if(!asymC)return hemY;
+      var t=(x-(cx-halfW-3*S))/Math.max(1,(2*(halfW+3*S)));
+      t=t<0?0:t>1?1:t; return hemY-Math.round(t*asymRise); };
     /* SPLIT-TAIL (wave 6, structure-not-color): a riding vent up the back of
        the skirt -- on back views the tail splits at center, widening to the
        hem, so the duster reads as a real different silhouette in motion. */
     var backV=(dir==='N'||dir==='NE'||dir==='NW');
     var ventY=opt.split?tb+Math.round(span*0.35):1e9;
-    if(!vest&&!jacket)for(var y2=tb+1;y2<=hemY;y2++){ var hw=halfW+Math.round((y2-tb)/span*3*S);
+    if(!vest&&!jacket)for(var y2=tb+1;y2<=hemY;y2++){
+      /* COCOON runs the flare BACKWARDS: it starts wider than the hip and closes
+         toward the hem. Same one line that makes every other coat an A-line. */
+      var hw=cocoon?(halfW+3*S-Math.round((y2-tb)/span*4*S)):(halfW+Math.round((y2-tb)/span*3*S));
+      if(hw<2*S)hw=2*S;
       for(var xx=cx-hw;xx<=cx+hw;xx++){ if(xx<0||xx>=CW)continue; if(isOpen(xx,y2))continue;
+        if(y2>hemAt(xx))continue;                                        /* the slanted hem cuts here */
         if(opt.split&&backV&&y2>ventY&&Math.abs(xx-cx)<=Math.round((y2-ventY)/(hemY-ventY+1)*3*S))continue;   /* the vent */
         skirt[y2*CW+xx]=1; } }
     var E=ext(w);
@@ -24954,13 +25335,36 @@ window.CLO=(function(){
       if(p===6&&by>=aR.mx-(2*S-1))c=r.dk;                                /* cuff */
       if(frontFacing&&p===4&&((bx>=cx-ohw-S&&bx<cx-ohw)||(bx>=cx+ohw+S&&bx<cx+ohw+2*S))&&by>openTop)c=r.dk; /* lapel: dark inner edge of each flap (front views only) */
       if(jacket&&p===4&&by>tb-2*S)c=r.dk;                                /* jacket: ribbed waist hem band */
+      /* --- THE RUNWAY, batch 2 --- */
+      if(wrapC&&p===4){ if(by>tb-2*S)c=r.dk;                             /* the belt that holds it shut */
+        else if(frontFacing&&Math.abs((bx-cx)+((by-openTop)>>1))<S&&by>openTop)c=r.dk; }  /* the overlap edge, crossing the chest */
+      /* THE ROUND SHOULDER IS AN EDGE, NOT A FILL, AND THAT WAS A LOOKING FIX.
+         The first cut lit every arm pixel that was not on the edge, which put a
+         pale vertical slab down each sleeve -- it read as two objects tacked to
+         the man rather than as a coat standing off his ribs. The width is what
+         makes a cocoon; the sleeve keeps the shading it already had. */
+      if(cocoon&&(p===5||p===6)&&by>ttop+2*S&&by<tb-2*S){
+        if(!inG(bx-S,by)||!inG(bx+S,by))c=r.dk; }
       o[ii]=c; }
+    /* COCOON, the other half: the body stands one cell OFF the arms between the
+       shoulder cap and the waist, so the coat is widest at the ribs. Painted after
+       the flaps because it is background, not body. */
+    if(cocoon){ var cMn=CW,cMx=-1;
+      for(i=0;i<g.length;i++){var pC=g[i];if(pC===5||pC===6){var xC=i%CW;if(xC<cMn)cMn=xC;if(xC>cMx)cMx=xC;}}
+      if(cMx>=0)for(var yC=ttop+3*S;yC<=tb;yC++){
+        var rMnC=CW,rMxC=-1;
+        for(var xC2=0;xC2<CW;xC2++){var gC=g[yC*CW+xC2]; if(gC===4||gC===5||gC===6){if(xC2<rMnC)rMnC=xC2;if(xC2>rMxC)rMxC=xC2;}}
+        if(rMxC<0)continue;
+        for(var dC=1;dC<=S;dC++){
+          if(rMnC-dC>=0){var iCL=yC*CW+(rMnC-dC); if(g[iCL]!==1&&g[iCL]!==2){o[iCL]=r.dk; w[iCL]=1;} }
+          if(rMxC+dC<CW){var iCR=yC*CW+(rMxC+dC); if(g[iCR]!==1&&g[iCR]!==2){o[iCR]=r.dk; w[iCR]=1;} } } } }
     /* skirt flaps */
     for(k in skirt){ var jj=+k,jx=jj%CW,jy=(jj/CW)|0, c2=r.mid, sq;
       var sSide=false; for(sq=1;sq<=S;sq++){ if(!inG(jx-sq,jy)||!inG(jx+sq,jy))sSide=true; }
       var sb=0; while(sb<S&&inG(jx,jy+sb+1))sb++;
       if(sSide)c2=r.dk;                                                  /* panel side + inner-slit edges */
       else if(sb<S)c2=r.dk;                                              /* hem */
+      else if(asymC&&jy>=hemAt(jx)-(S-1))c2=r.dk;                        /* the slanted hem draws its own edge, or the cut reads as a crop */
       else if(((((jx-cx)%(4*S))+4*S)%(4*S))>=2*S&&((((jx-cx)%(4*S))+4*S)%(4*S))<3*S)c2=mix(r.mid,0.8);   /* cloth-fold shadow, 4px pitch at 56 */
       else if(jx<cx)c2=r.lt;                                             /* sky-lit side */
       o[jj]=c2; }
@@ -25440,6 +25844,42 @@ window.CLO=(function(){
     var hemY=Math.min(CH-1,(opt.mantle?(ttop+fr(ttop,tb,0.45)):(legT+fr(legT,legB,0.55)))+S-1);
     var dir=(typeof curDir!=='undefined')?curDir:'S';
     var front=(dir==='S'||dir==='SE'||dir==='SW'), back=(dir==='N'||dir==='NE'||dir==='NW');
+    /* THE ONE-SHOULDER DRAPE (9/5, batch 3). The cape and the mantle are both
+       MIRROR-SYMMETRIC, so nothing on this rail has a left that differs from its
+       right. This one covers ONE shoulder and crosses the body diagonally to the
+       opposite hip, which is the asymmetry rule from batch 2 applied to the back --
+       and unlike the coat's hem it is visible from the FRONT, where the player
+       spends most of the game looking at people. */
+    /* IT OWNS EVERY FACING, AND ONE_GARMENT_PER_SLOT IS WHY. The first cut sat
+       BELOW genCape's early `if(back){ ... return o; }`, so from the north the
+       ORIGINAL symmetric cape drew instead -- turn one notch from E to NE and the
+       man was wearing a different garment. Measured: the hem moved 0.188
+       body-heights against a pinned ceiling of 0.09. THAT IS CLAUSE 1, the rule
+       four haircuts were cut for on 8/28 ("a ponytail that exists from the side
+       and does not exist head-on"), in a cape. It is placed before the back branch
+       now and returns for all eight. */
+    if(opt.oneShoulder){
+      var osHem=Math.min(CH-1,ttop+fr(ttop,tb,0.95)+S-1);
+      var osW={}, side=1;                                                /* over the LEFT shoulder as drawn, consistently in every facing */
+      for(var yo=ttop;yo<=osHem;yo++){
+        var t=(yo-ttop)/Math.max(1,(osHem-ttop));
+        /* the covered edge walks across the body as it falls: shoulder to opposite hip */
+        var x0=cx-Math.ceil((tMx-tMn)/2)-S, x1=Math.round(cx-Math.ceil((tMx-tMn)/2)-S+((tMx-tMn)+2*S)*(0.45+0.55*t));
+        for(var xo=x0;xo<=x1;xo++){ if(xo<0||xo>=CW)continue; var gvo=g[yo*CW+xo];
+          if(gvo===1||gvo===2||gvo===7||gvo===8)continue;
+          if(gvo===0&&yo>tb)continue;                                    /* no cloth flapping past the hip in mid-air */
+          osW[yo*CW+xo]=1; } }
+      var inO=function(x,y){return !!osW[y*CW+x];};
+      for(var ko in osW){ var io=+ko,ix=io%CW,iy=(io/CW)|0,c3=r.mid, qq;
+        var ob=0; while(ob<S&&inO(ix,iy+ob+1))ob++;
+        var oside=false; for(qq=1;qq<=S;qq++){ if(!inO(ix-qq,iy)||!inO(ix+qq,iy))oside=true; }
+        if(ob<S)c3=r.dk;                                                 /* hem */
+        else if(oside)c3=r.dk;                                           /* the diagonal edge, which is the whole garment */
+        else if(((((ix-cx+8*S)%(4*S))+4*S)%(4*S))<S)c3=mix(r.mid,0.82);  /* folds, same pitch as the cape */
+        else if(ix<cx-S)c3=r.lt;
+        o[io]=c3; }
+      for(i=0;i<g.length;i++)if(g[i]===3){var xn=i%CW; if(xn<cx)o[i]=r.dk;}   /* it wraps one side of the neck only */
+      return o; }
     if(back){ /* the full drape: covers the body and a widening panel of background */
       var w={};
       for(var y2=ttop;y2<=hemY;y2++){ var hw=Math.ceil((((tMx-tMn+1)/S)-1)/2)*S+S+((y2>tb)?S:0);   /* half a body span is a CELL count: ceil on the raw pixel span rounds differently at 112 */
@@ -26086,6 +26526,95 @@ window.CLO=(function(){
        bohemia_graveyard.txt; the neck:'v' carve itself stays in genTop
        (other callers may use it), just never fronted as a headline shape
        again without a real visual fix. */
+    /* ---- THE RUNWAY, BATCH 1 (9/5/26, COOK lane) ---------------------------
+       Paolo 9/4, LOCKED: "every piece of clothing and every hairstyle should be
+       modeled after like fashion brands... Balenciaga, Rick Owens... no matter
+       their faction... I want everyone to look like they could be in a
+       Balenciaga or Rick Owens show."
+       THE MEASUREMENT THAT PICKED THIS BATCH, taken before a pixel moved: strip
+       the RAMP out of every canon garment's generator call and two entries that
+       differ only in colour collapse into one shape. 256 garments, 79 shapes,
+       31%. LEGS were 26 garments and FOUR shapes. FEET were 22 and TWO. Those are
+       the two thinnest rails in the wardrobe AND the two the named register is
+       loudest in, which is why the first runway batch is trousers and boots and
+       not another coat.
+       NINE NEW SHAPES AND EVERY ONE IS AN OUTLINE, because at 56 pixels the
+       outline is all there is: drop rise, wide pleat, stacked hem, crop; a mid
+       shaft, a slouched shaft, a stacked sole; an oversized shoulder, a longline
+       hem. Nothing here is a seam, a topstitch or a texture.
+       WHAT THIS BATCH DOES NOT DO: no new colour is invented (every ramp below is
+       already in the file -- COLOUR IS TERRITORY, and a faction's colour is not
+       this lane's to spend), no outer coat is added (the 10% cap, untouched), and
+       nobody is dressed in any of it (who wears what is CHARACTER's wiring and
+       his ruling). ---- */
+    {n:'DROP RISE TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'drop'}),CHARCLOTH,12);}},
+    {n:'BONE DROP TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:BONECLO,cut:'drop'}),BONECLO,14);}},
+    {n:'WIDE PLEAT TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:STORMGRY,cut:'wide'}),STORMGRY,10);}},
+    {n:'BONE WIDE TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:BONECLO,cut:'wide'}),BONECLO,14);}},
+    {n:'STACKED JERSEY PANT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:FADEDBLK,cut:'stack'}),FADEDBLK,12);}},
+    {n:'SLATE STACK PANT',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:SLATEW,cut:'stack'}),SLATEW,15);}},
+    {n:'CROPPED WORK TROUSER',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:CARGO,cut:'crop'}),CARGO,12);}},
+    {n:'CROPPED BLACK DENIM',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:BLKDENIM,cut:'crop'}),BLKDENIM,13);}},
+    {n:'STACKED SOLE BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:CHARCLOTH,sole:'stack'}),CHARCLOTH,12);}},
+    {n:'BONE STACK BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:BONECLO,sole:'stack'}),BONECLO,14);}},
+    {n:'MID SHAFT BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:BLKBOOT,shaft:'mid'}),BLKBOOT,12);}},
+    {n:'COAL MID BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:CHARCLOTH,shaft:'mid'}),CHARCLOTH,12);}},
+    {n:'SLOUCH BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:CHARC,shaft:'slouch'}),CHARC,14);}},
+    {n:'ASH SLOUCH BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:ASHGREY,shaft:'slouch'}),ASHGREY,12);}},
+    {n:'WIDE SHOULDER TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:'short',neck:'crew',shoulder:'wide'}),CHARCLOTH,12);}},
+    {n:'BONE SHOULDER SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:BONECLO,sleeves:'long',neck:'crew',shoulder:'wide'}),BONECLO,13);}},
+    {n:'LONGLINE JERSEY',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:FADEDBLK,sleeves:'long',neck:'crew',cut:'long'}),FADEDBLK,12);}},
+    {n:'ASH LONGLINE TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:ASHGREY,sleeves:'short',neck:'crew',cut:'long'}),ASHGREY,12);}},
+    /* TWO DELIBERATE COMBINATIONS, because the cheapest new silhouette in any
+       wardrobe is two shapes worn at once -- and because the pair IS the taken
+       rule: big up top against small down below, and a boot that is both taller
+       and thicker than anything the valley owns. */
+    {n:'SHOULDER LONGLINE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:STORMGRY,sleeves:'long',neck:'crew',shoulder:'wide',cut:'long'}),STORMGRY,12);}},
+    {n:'STACKED MID BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genShoes(g,{ramp:CHARCLOTH,shaft:'mid',sole:'stack'}),CHARCLOTH,13);}},
+    /* ---- THE RUNWAY, BATCH 2 (9/5/26, COOK lane) -- THE OUTER RAIL AND THE TWO
+       FLAT ONES. The rail had 55 garments and 15 "shapes", ELEVEN of which were the
+       same coat at eleven lengths: open down the middle, level hem, A-line skirt.
+       These three are not lengths. And NECK and HANDS had one shape each, for
+       eleven garments between them, which made them the flattest rails in the game.
+       Cut at HIP and THIGH on purpose: the 10% long-coat cap (8/27, "no matter
+       what", and the reason is the heat) cannot move by one person, because this
+       batch adds no coat at or past 0.70. ---- */
+    {n:'WRAP COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:CHARCLOTH,wrap:true,len:0.56}),CHARCLOTH,13);}},
+    {n:'ASH WRAP COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ASHGREY,wrap:true,len:0.56}),ASHGREY,15);}},
+    {n:'ASYMMETRIC COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:FADEDBLK,asym:true,len:0.56}),FADEDBLK,13);}},
+    {n:'ASH ASYM COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:ASHGREY,asym:true,len:0.34}),ASHGREY,13);}},
+    {n:'COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,cocoon:true,len:0.56}),STORMGRY,12);}},
+    {n:'SLATE COCOON COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SLATEW,cocoon:true,len:0.34}),SLATEW,14);}},
+    {n:'DRAPED COWL',st:'canon',fresh:true,layer:'neck',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'cowl'}),CHARCLOTH,12);}},
+    {n:'ASH COWL',st:'canon',fresh:true,layer:'neck',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'cowl'}),ASHGREY,12);}},
+    {n:'HAND WRAPS',st:'canon',fresh:true,layer:'hands',gen:function(g){return wear(genAcc(g,{ramp:BONECLO,kind:'handwrap'}),BONECLO,14);}},
+    {n:'SOOT HAND WRAPS',st:'canon',fresh:true,layer:'hands',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'handwrap'}),CHARCLOTH,12);}},
+    /* ---- THE RUNWAY, BATCH 3 (9/5/26) -- THE WAIST, THE BACK, AND ONE HAT NOBODY
+       HAS EVER WORN. The waist rail was three shapes for five garments and its belt
+       is TWO ROWS; the back rail's cape and mantle are both mirror-symmetric.
+       *** AND `genHat kind:'wrap'` HAS BEEN BUILT, DRAWABLE AND UNREACHED THIS WHOLE
+       TIME -- it knots at the nape from behind and ties at the side in profile, and
+       not one garment has ever asked for it. Found by diffing every kind the
+       generators can DRAW against every kind the wardrobe ASKS FOR. It costs two
+       entries and no pixels: the seventeen-invisible-hats shape, closed. *** ---- */
+    {n:'BONE HEAD WRAP',st:'canon',fresh:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:BONECLO,kind:'wrap'}),BONECLO,14);}},
+    {n:'SOOT HEAD WRAP',st:'canon',fresh:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:CHARCLOTH,kind:'wrap'}),CHARCLOTH,12);}},
+    {n:'WIDE WAIST WRAP',st:'canon',fresh:true,layer:'waist',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'wrapbelt'}),CHARCLOTH,12);}},
+    {n:'LEAD WAIST WRAP',st:'canon',fresh:true,layer:'waist',gen:function(g){return wear(genAcc(g,{ramp:SLATEW,kind:'wrapbelt'}),SLATEW,14);}},
+    {n:'ONE-SHOULDER DRAPE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:ASHGREY,oneShoulder:true}),ASHGREY,12);}},
+    {n:'BONE SHOULDER DRAPE',st:'canon',fresh:true,layer:'back',gen:function(g){return wear(genCape(g,{ramp:BONECLO,oneShoulder:true}),BONECLO,14);}},
+    /* ---- THE RUNWAY, BATCH 4 (9/5/26) -- THE FACE, THE LAST RAIL WITH ROOM.
+       GEAR was measured and left alone: all 13 of its kinds pass 78 of 78 pairs
+       against each other, so it is the healthiest rail in the wardrobe and padding
+       it would be volume for its own sake. FACE is thin in COUNT (10 garments over
+       4 shapes) while every shape it has is real -- so it gets shapes, not
+       colourways. Both of these change the BLACKED-OUT HEAD, which is the only
+       kind of change a face can make at 56 pixels: the shield runs past the head
+       at the eye line, the wrap thickens the jaw past the skull. ---- */
+    {n:'SHIELD VISOR',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'visor'}),CHARCLOTH,10);}},
+    {n:'ASH SHIELD',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'visor'}),ASHGREY,10);}},
+    {n:'FACE WRAP',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'facewrap'}),CHARCLOTH,12);}},
+    {n:'ASH FACE WRAP',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'facewrap'}),ASHGREY,12);}},
   ];
   /* THUMBS PERSIST (Paolo 7/19: "some of the previous ones already thumbed up
      didn't get transferred"): his taps were memory-only and died on reload.

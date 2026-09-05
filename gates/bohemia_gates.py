@@ -1631,6 +1631,10 @@ GATES = [
      'Paolo 8/1 the back of my outfits are the exact same when Im facing south: 19 generators read curDir and only the CLOTHES preview ever set it, so every garment rendered front-facing everywhere. The composite now feeds the frame direction and hands it back', False),
     ('CLIP HEALTH',   ['node', 'gates/clip_health_gate.js'],
      'the net under the whole animation lane: all 102 clips x 8 facings x the ENGINE\'s own bucket count -- nothing throws, nothing renders an empty body, nothing has gone still. Samples FRAME_CACHE.buckets so a coarse probe cannot invent a regression (a 4-phase sweep reported brace and winded frozen; at 24 they show 20 and 16 distinct frames)', True),
+    ('VALLEY BREATHES',['node', 'gates/valley_breathes_gate.js'],
+     'MEASURED: standing still in the walked city, render() was called ONCE in three seconds -- the crowd AND the 19 animals already written to move off performance.now()/500 were a still photograph whenever the player was not walking. Holds the beat-locked heartbeat, the city cast being baked with a breath cycle instead of ONE still, and that the crowd does not breathe in unison. That last claim took three cuts: v1 was satisfied by the six cast LOOKS supplying the variety, v2 by the sampling loop crossing a BEAT boundary so TIME supplied it. It pins the instant now. 3 mutations caught', True),
+    ('CLIP AUDIT',    ['node', 'gates/clip_audit_gate.js'],
+     'the vocabulary clip_health and loop_seam did not have: those two say CRASHES or MOVES and were green on all 105 clips while he called the set fucked. Holds the SET SIZE (105 = 64 canon + 41 candidates, a clip that stops being registered is invisible to every check that iterates CLIPS), NO TWO CLIPS THE SAME MOTION (two names one cycle is ONE ID ONE WHOLE PERSON with a different noun), and the HEAD-ON FLOOR -- head-on carries a median 41% of profile motion and must not decay while nobody looks. Prints the head-on gap and jump as AWAITING HIS VERDICT rather than burying a debt inside a green pass', True),
     ('MOTION VISIBLE',['node', 'gates/motion_visible_gate.js'],
      'a clip whose name promises movement actually moves PIXELS: pray and winded rendered zero changed pixels while "animating" at 0.2px on a 56px sprite', False),
     ('RIG CHECK',      ['python3', 'gates/rig_check_gate.py'],
@@ -1845,6 +1849,19 @@ GATES = [
      'Every len>=0.70 coat must carry hard:true, so the NEXT cook cannot quietly '
      'climb back to 20%. Mutation lives inside the gate: it re-walks with the flags '
      'stripped and asserts 1.4% -> 14.4%.', False),
+    ('RUNWAY',         ['node', 'gates/runway_gate.js'],
+     'THE RUNWAY (Paolo 9/4) and THE STYLE CARD (DIRECTION 9/5). It cannot judge '
+     'taste; it holds the bar the wardrobe already failed in writing -- three V-NECK '
+     'tees are dead for reading "visually IDENTICAL to a plain crew neck", so THE '
+     'DEAD GARMENT IS THE RULER and runs live as a control, as does his approved DUST '
+     'MASK for the face rule. THE RULER WAS WRONG THREE TIMES: by AREA the corpse '
+     'outscores the oversized shoulder 6.74 to 5.71; on the OUTLINE a WRAP COAT '
+     'scored zero because a front slit is INSIDE the per-row span, so a fourth axis '
+     'counts HOLES at three times the corpse; and the face check would have condemned '
+     'his approved mask until it read the eye band the way the drawing code does. '
+     'Eighteen shapes on four axes, all eight facings, the default garment '
+     'byte-identical, every shape reachable, every garment inside the card\'s '
+     'palette, and the card\'s headline number reported every run.', False),
     ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
      'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
      'of their own, chosen by searching 880 rendered fits rather than by eye, and '
