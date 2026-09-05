@@ -66,8 +66,8 @@ residents TELEPORT between them, so a walk cycle on a standing body is moonwalki
 in place. What they needed was the BREATH, and the cast was baked as ONE STILL at
 phase 0.25 of a clip that does move (idle peaks 6.9% on S).
 
-*** AND THE BIGGEST ONE, WHICH NOBODY HAD MEASURED: STANDING STILL FOR THREE
-SECONDS, THE WALKED CITY CALLED render() ONCE. *** animate() runs a rAF loop for
+*** AND THE BIGGEST ONE, WHICH NOBODY HAD MEASURED: STANDING STILL, THE WALKED
+CITY CALLED render() ONCE ACROSS A THREE-SECOND WAIT (5.6s of wall time). *** animate() runs a rAF loop for
 one BEAT after a step and cancels itself; nothing else asks for a frame. So the
 whole valley is a photograph the moment he stops -- INCLUDING THE 19 ANIMALS ON
 SCREEN, whose pass has computed its positions from performance.now()/500 since

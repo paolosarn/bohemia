@@ -33,7 +33,8 @@ nobody ever asked for a second frame.
 
 ## THE BIGGEST ONE, AND NOBODY HAD MEASURED IT
 
-**Standing still in the walked city for three seconds, `render()` was called ONCE.**
+**Standing still in the walked city, `render()` was called ONCE across a
+three-second wait (5.6 s of wall time).**
 
 `animate()` runs a rAF loop for exactly one BEAT after a step, then cancels itself.
 Nothing else asks for a frame. So the whole valley is a still photograph the moment

@@ -31163,7 +31163,7 @@ function endHold(){ held=null; heldBeats=0; }
    120 BPM LAW: it ticks on BEAT, the same clock the metronome, the footsteps and
    the animals are on, so nothing in the valley is on a second clock.
 
-   FOUR GUARDS, because his dispatch item 7 is PERFORMANCE and a heartbeat that
+   THREE GUARDS, because his dispatch item 7 is PERFORMANCE and a heartbeat that
    redraws a hidden tab is a battery bug:
      - human mode only. At city zoom the animal pass already refuses to draw, and
        a 2px mark up there is a dirty screen, not life.
@@ -31171,7 +31171,12 @@ function endHold(){ held=null; heldBeats=0; }
        every step; rendering underneath it would double the work at exactly the
        moment the city is busiest.
      - not while the document is hidden.
-     - not while a full-screen surface is over the map.
+   AND IT ADVANCES NOTHING. render() opens on dayDistrictCheck(), which is the one
+   place this could have gone wrong: both it and dayAddressTick() return early
+   unless the district or the block CHANGED, so standing still they are no-ops and
+   the heartbeat draws without touching the clock, the quest runtime or the purse.
+   Checked before shipping, because a heartbeat that quietly advanced the day
+   would look exactly like this one.
    The cost when all four pass is two renders a second, against the sixty a second
    the city already spends for a whole beat after every single step. */
 const HEARTBEAT_MS = BEAT;

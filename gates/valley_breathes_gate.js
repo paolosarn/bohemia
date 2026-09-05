@@ -3,7 +3,8 @@
  * FACTORY LAW: new law, new gate, same turn.
  *
  * WHAT IT PROTECTS. Measured on the real surface before any of this was written:
- * standing still in the walked city for three seconds, render() was called ONCE.
+ * standing still in the walked city, render() was called ONCE across a three-second
+ * wait (5.6s of wall time).
  * The whole valley -- the crowd, and the 19 animals already written to move off
  * performance.now()/500 -- was a still photograph the moment the player stopped
  * walking. animate() runs a rAF loop for exactly one BEAT after a step and then
@@ -70,7 +71,7 @@ const done = () => { console.log(`\n=== VALLEY BREATHES GATE: ${p} passed, ${f} 
     window.render = orig;
     return { calls: n, mode: MODE };
   });
-  ok(`the valley redraws while the player stands still (${beatR.calls} renders in 2.2s of no input, was 1 in 3s)`,
+  ok(`the valley redraws while the player stands still (${beatR.calls} renders in 2.2s of no input; before this shipped it was 1)`,
      beatR.calls >= 3);
 
   /* 2 + 3. THE CROWD, read off the DECODED cast and the REAL roster. */
