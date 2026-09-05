@@ -2,8 +2,65 @@ CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WO
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
 
+================================ HIS WORDS, VERBATIM ===========================
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
-=======
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
 DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
 VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
 ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
@@ -139,7 +196,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-<<<<<<< HEAD
 ================================ END, VERBATIM =================================
 
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
@@ -178,7 +234,7 @@ CHARACTER'S OWN NOTES ON RUNNING IT
   goes red on a stale bank.
 - NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
   / day N to him. Rounds, minutes, hours.
-=======
+
 --- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
 
 ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
@@ -548,7 +604,6 @@ opens. The number that matters is HOW MANY of the 236 a player can reach across
 the days the demo actually ships, and which roles are never cast. Only that says
 what "mute" means here and whether anything needs building.
 
->>>>>>> origin/main
 
 ECONOMY (economy-knxaeh): 9/5 (d) LATEST -- *** [first building] SHIPPED. THE FIRST
 BUILDING A PLAYER PLACES IN BOHEMIA IS AN AIRBASE, AND IT IS FREE, SILENT AND
