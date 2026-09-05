@@ -703,7 +703,24 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ae) LATEST -- *** THE FULL-GAME PLAN:
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (af) LATEST -- *** TWO RULINGS: FACTION
+TOWNS (fortress / town / camp), AND THE CENTRAL CHAT (he talks only to this seat;
+every other chat gets one word). Nothing to judge. ***
+FACTION TOWNS, laws/BOHEMIA_ADDENDUM_FACTION_TOWNS_9_4_26.md: every part of Vegas
+is owned by a faction and its seat is where you trade; big factions are fortresses
+(many buildings, most goods, best quests), small ones are camps. Tier DERIVED from
+his own act1_power/act3_power in engine/BOHEMIA_faction_graph.json (measured: every
+faction carries both), draft:true; who sits where is his. Row: WORLD FACTION-TOWNS,
+right behind the drains in VAMILY; FACTIONS TOWN-TIERS-ARE-HIS.
+THE CENTRAL CHAT, laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md: he talks ONLY to
+the coordinator; other chats get VAMILY and no discussion; lane questions reach him
+through this seat as [PENDING Paolo], one at a time; feedback becomes a VAMILY line
+the same turn with the tab named; assigning is a standing duty (code stays
+read-only); when a queue is empty this seat asks ONE creative thumb question (8/4
+format) or does a research day, never neither. The 7/24 brief carries a dated
+amendment. LAST FEEDBACK RECEIVED: the towns ruling -> WORLD FACTION-TOWNS.
+
+COORDINATOR: 9/4 (ae) -- *** THE FULL-GAME PLAN:
 WHAT EVERY CHAT DOES FOR THE REST OF THE GAME. TWO NEW CHATS: QUESTS AND ANIMATION.
 VAMILY.md IS NOW THE WHOLE QUEUE. Nothing to judge. ***
 READ: records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md

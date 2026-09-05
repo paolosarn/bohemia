@@ -2621,6 +2621,31 @@ BB-THE-NIGHT-EATS-POWER. *** DAY 23. THE ONE DRAIN WITH THE MOST GAME IN IT, AND
    this game; this is its first verb. | a held circuit debits power at nightfall
    and an unpaid one goes dark | which circuits are his is still his | no. ***
 
+FACTION-TOWNS. *** PAOLO 9/4, LOCKED: every part of Vegas is owned by a faction
+   and the faction's seat is where you trade; big factions are FORTRESSES with
+   many buildings, the most goods and the best quests; small ones ("like the
+   colorful") are CAMPS with little of any of it. ***
+   THREE TIERS, THE WAY THE GAME HE NAMED DOES IT: FORTRESS / TOWN / CAMP. THE
+   TIER IS DERIVED, NOT TYPED: his own faction graph already carries act1_power
+   and act3_power for every faction (engine/BOHEMIA_faction_graph.json, GDD s9),
+   so top third fortress, middle town, bottom camp, tagged draft:true, and a
+   fortress in act 1 can be a camp by act 3 (the CENTURY RULE with no new field).
+   WHICH FACTION SITS WHERE IS HIS (MAP LAW); the 14 selectable factions are
+   already placed on generated districts and the town grows around that seat.
+   WHAT SUPPORTS A TOWN IS BUILDINGS: the district kit's 49 registered modules
+   are the smithy/tavern/temple/market of it -- a fortress has the deep dry
+   stores and the plant (BB-BACK-OF-HOUSE, day 8), a camp has a stall. WHAT A
+   TOWN SELLS AND WANTS COMES FROM ITS BUILDINGS, so two towns are two markets
+   with no invented number (BB-PRICE-PLACE, BB-WANTS, day 2), and batteries are
+   the money at every one of them. A fortress offers better work than a camp
+   (BB-OFFER-GATE, day 1, second axis: WHERE you ask). 120 BPM: a town is a
+   place, arriving is a beat. DEMO: the first town a stranger reaches is inside
+   the first day (day 19: the first required person was a seven-hour round trip).
+   Composes with BB-TURF (the lights as the owner map). Law:
+   laws/BOHEMIA_ADDENDUM_FACTION_TOWNS_9_4_26.md | every selectable faction has
+   a seat, a derived tier and a market reachable on the walked surface; the
+   demo's first day reaches one | who sits where, and any tier he moves | no. ***
+
 BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
    WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
    He asked for "different parts of Vegas as different faction holdings" by name.

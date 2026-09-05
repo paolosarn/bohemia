@@ -1534,6 +1534,30 @@ danger; wardrobe + LIFE + COMBAT in parallel = the design). Stay inside your
 session's systems; a rebase conflict inside the alpha means a boundary was
 crossed -- stop and check before pushing.
 
+## THE CENTRAL CHAT (Paolo 9/4/26, LOCKED, AMENDS THE COORDINATOR SESSION BELOW)
+"I should have a central chat... the only time I'm in other chats is to write
+VAMILY... I only talk to the manager of the AI box which is you." HE TALKS TO ONE
+CHAT, THE COORDINATOR. Every piece of feedback, every ruling, every "this tab needs
+X" comes here; the other chats get ONE WORD, VAMILY, and no discussion. A lane
+that needs a ruling writes [PENDING Paolo] in its handoff block and the
+coordinator carries it to him, one at a time, in his format. THE COORDINATOR TURNS
+FEEDBACK INTO JOBS THE SAME TURN (a VAMILY line for the right lane, the tab named)
+and NOW ASSIGNS AS A STANDING DUTY, not on request; it still never writes engine,
+tools, gates or slices code. THE QUEUE NEVER RUNS DRY, BY LAW: when a lane's queue
+is empty the coordinator's next turn either asks him ONE thumbs-up/down creative
+question in the 8/4 format (about the GAME, never about how to build it) or does a
+research day on the games he named and the best games ever made, ending as jobs.
+Law: laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
+- FACTION TOWNS (Paolo 9/4, LOCKED): every part of Vegas is owned by a faction and
+  the faction's seat is where you trade; big factions are FORTRESSES with many
+  buildings, the most goods and the best quests, small ones ("like the colorful")
+  are CAMPS with little. Three tiers, FORTRESS / TOWN / CAMP, DERIVED from his own
+  act1_power / act3_power in the faction graph, draft:true, so a fortress in act 1
+  can be a camp by act 3. Who sits where is his (MAP LAW). What a town sells comes
+  from its buildings (the district kit), so two towns are two markets with no
+  invented number, and batteries are the money at every one. Law:
+  laws/BOHEMIA_ADDENDUM_FACTION_TOWNS_9_4_26.md  Row: WORLD FACTION-TOWNS.
+
 ## THE COORDINATOR SESSION (Paolo 7/24/26, "master coordinator of all the
 ## sessions"): if Paolo tells a session "you are the coordinator" (or
 ## similar), that session is DIFFERENT from every lane above — it does not

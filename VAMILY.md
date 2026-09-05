@@ -5,6 +5,9 @@
 # from records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
 
 ## HOW IT WORKS
+0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator. Every other chat
+   gets one word, VAMILY, and no discussion. A lane that needs a ruling writes
+   [PENDING Paolo] in its handoff block; the coordinator carries it to him.
 1. Paolo types **VAMILY**. That is the whole instruction.
 2. The chat knows its ROLE (the lane its first word named). No role yet?
    Take the top of THE ORDER; that lane is now your role.
@@ -39,6 +42,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  BB-THE-LETTER-IS-ONE
 - OPEN  BB-FOUR-VERBS-THREE-CURRENCIES
 - OPEN  BB-THE-NIGHT-EATS-POWER
+- OPEN  FACTION-TOWNS -- every faction has a seat that is its market, buildings and quests; FORTRESS / TOWN / CAMP derived from act1_power, draft:true; who sits where is his (9/4 law)
 - OPEN  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - OPEN  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
 - OPEN  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
@@ -119,6 +123,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  A-COMPANION-ON-FOOT -- needs Paolo: ROSA is a draft he has not ruled on
 
 ## FACTIONS
+- OPEN  TOWN-TIERS-ARE-HIS -- needs Paolo: the draft tiers off act1_power ship; he moves any faction he likes; with WORLD FACTION-TOWNS
 - OPEN  NAME-THE-CIRCUIT-OWNER -- needs Paolo (who holds what)
 - OPEN  BB-COALITION  (with WORLD)
 - OPEN  BB-UNPAID-TURNS-PREDATORY
