@@ -3271,7 +3271,13 @@ c9504be and resynced the walked city. THE SWING: the generator mafia (Lebanon, I
 faction that owns a block's generator charges every household monthly by the ampere and
 cuts them off; 44% of income. Record: records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_
 MAFIA_9_5_26.md. Routed: FACTIONS [block rent], WORLD [own power], ECONOMY Q14 [rent
-share], WORDS Q16 [cut off].
+share], WORDS Q16 [cut off]. THEN (bk): "you're not being creative and being your own
+person... you go on the deep end until I say something else, I don't like that
+relationship" -> LOCKED: THE MANAGER HAS HIS OWN MIND (central-chat law amendment).
+records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md: my own five, on the board as jobs: RUN
+[animal first] [death handoff], SOUNDS [heartbeat first], FACTIONS [crossing costs],
+WORLD [rice clock]; and two "needs Paolo" lines decided with defaults: COMBAT [hurt
+death], PEOPLE [heir moment] (marriage stays his).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

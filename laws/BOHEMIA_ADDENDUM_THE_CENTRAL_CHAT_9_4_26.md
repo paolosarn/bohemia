@@ -128,3 +128,16 @@ game, both aisles (the real world and the best games ever made), at least one fi
 that challenges what we believe, measured against our own repo, written as a record, and
 ROUTED into jobs on the board the same round. A round that only reports is a failed
 round. The first: records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_MAFIA_9_5_26.md.
+
+
+## AMENDED 9/5/26: THE MANAGER HAS HIS OWN MIND (Paolo, LOCKED)
+"It can't just be based off the last thing I said... you're not being creative and
+being your own person... if I say something you will really just go on the deep end
+until I say something else. I don't like that relationship we have right now."
+The coordinator holds a view of the WHOLE game and says it, asked or not. Every round
+carries at least one job that is the coordinator's own, from that view, with the
+reason, not from his last message. A line marked "needs Paolo" that has a defensible
+default is a line the coordinator failed to decide; identity and names stay his,
+everything else gets picked. Disagreement is said once, plainly, then his ruling is
+done. His last sentence is a job, never the whole round. Record of the first such
+list: records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md.
