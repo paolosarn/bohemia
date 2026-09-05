@@ -222,6 +222,21 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('ONE NUMBER',     ['node', 'gates/one_number_gate.js'],
+     'BB-ONE-NUMBER is a GUARD, not a build, and its own first line says why: "we already '
+     'got this right and it is UNDEFENDED, which is how it will get lost." His two locked '
+     'tactical references disagree -- BATTLE BROTHERS shows you the math, ROGUE FABLE 4 is '
+     '"deliberately free of stat and formula bloat" -- and his own line sits on the RF4 '
+     'side ("spreadsheet simulators and I\'m not a fan"). What is built is THE WORLD IN '
+     'WORDS AND EXACTLY ONE NUMBER, and it is not the number the other game shows: theirs '
+     'answers "what is my best move?", ours answers "how much trouble am I in?" One is an '
+     'efficiency display, ours is a DANGER display, and a danger display makes the player '
+     'MOVE. The risk is not today, it is somebody adding a SECOND number -- one number is '
+     'a reading, two is a COMPARISON, and a comparison invites optimisation. The backlog '
+     'names six live candidates for that second number. So this reads the real fight '
+     'screen, for EVERY enemy on the board rather than one lucky sample, and holds: the '
+     'line fills, it carries exactly one number, "he hits you" sits immediately before it, '
+     'no rival reading appears, and the rest is words.', True),
     ('SEE IT COMING',  ['node', 'gates/danger_gate.js'],
      'The manager 9/5: "a fight that arrives with no warning on a phone is a rage quit. '
      'Before you walk into a dangerous block you can SEE it ... no numbers, no meter, no '
@@ -285,6 +300,26 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('TURF',           ['node', 'gates/turf_gate.js'],
+     'BB-TURF. He asked for "different parts of Vegas as different faction holdings" by '
+     'name, and ruled 9/4 that EVERY part of the valley is owned by a faction. The walked '
+     'city has had an ownership map since 7/20 and it is made of electricity -- '
+     'LIGHT=TERRITORY, an owner on every live circuit, and the director\'s seam test '
+     'already reads it -- but the owner was a CATEGORY, not a name. One circuit in five '
+     'came back owned by the generic word "faction", so the game knew somebody held that '
+     'block and could not say who, AND THE SEAM TEST COMPARED THOSE WORDS, which made the '
+     'Mob\'s block and the Cartel\'s block the same block. The name now comes off the '
+     'fourteen seats FACTION-TOWNS put on the map: a faction holds the ground around its '
+     'own town and a FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table that '
+     'already sized a town rather than a new number. Nothing is authored -- HOLDS ships '
+     'empty and an entry in it wins -- and only the `faction` category is renamed, with '
+     '`network` deliberately left alone even though the roster has a faction of that name, '
+     'because treating the two as one is a guess about his canon. MEASURED, and it shaped '
+     'the design: across five seeds every lit-circuit border is a CATEGORY border and two '
+     'NAMED factions are never adjacent, because neighbouring circuits share a catchment. '
+     'So the lit circuits are the TELL and the territory is the catchment, which covers '
+     'all 9,216 cells -- which is what his ruling actually says. The reckoning card tells '
+     'him he crossed one, by name', True),
     ('FACTION TOWNS',  ['node', 'gates/faction_towns_gate.js'],
      'FACTION-TOWNS, Paolo 9/4 LOCKED: "each part of Vegas is owned by a faction and that\'s '
      'where you can do all your trading... the more prominent factions kind of feel like '
@@ -929,6 +964,21 @@ GATES = [
      'the same instance, got day 2, and read as a failure of the module when it was a failure '
      'of the harness. It models a relaunch now. Mutation-tested: the snapshot dropping the '
      'people turns 5 claims red', True),
+    ('INSTALL PATH',   ['node', 'gates/home_screen_is_the_save_gate.js'],
+     'BB-HOME-SCREEN-IS-THE-SAVE. THE PLATFORM PUT A RUN TIMER ON A GAME WHOSE FIRST LAW IS '
+     'THAT THERE ARE NO RUNS: WebKit deletes ALL script-writable storage after seven days '
+     'without interaction, re-checked 9/5 and still current through Safari 17. The ONE '
+     'exemption is a web app on the HOME SCREEN, which is not part of Safari and keeps its own '
+     'counter -- SO ADD TO HOME SCREEN IS NOT A CONVENIENCE, IT IS THE SAVE. AND THE INSTALL '
+     'PATH LANDED A FRIEND IN THE WORKSHOP: the demo linked the ALPHA\'s manifest, whose '
+     'start_url and id are BOHEMIA_ALPHA_0_9.html, so adding the demo to a home screen made an '
+     'icon that opened the seventeen-tab dev bench -- and made the two surfaces ONE app, so '
+     'installing either blocked the other. Nothing read the manifest, so nothing went red, for '
+     'months. The demo now has its own manifest, GENERATED by the cut and covered by its '
+     '--check. Holds both surfaces, the browser\'s own fetch of the manifest rather than the '
+     'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
+     'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
+     'the workshop manifest -> 4 red', True),
     ('COLD HAND',      ['node', 'gates/cold_hand_gate.js'],
      'BB-COLD-HAND, promoted from a one-off to a harness. THE TEST IN ONE SENTENCE: A COLD '
      'HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS -- if doing that repeatedly '
@@ -1751,6 +1801,8 @@ GATES = [
      'Paolo 8/1 the back of my outfits are the exact same when Im facing south: 19 generators read curDir and only the CLOTHES preview ever set it, so every garment rendered front-facing everywhere. The composite now feeds the frame direction and hands it back', False),
     ('CLIP HEALTH',   ['node', 'gates/clip_health_gate.js'],
      'the net under the whole animation lane: all 102 clips x 8 facings x the ENGINE\'s own bucket count -- nothing throws, nothing renders an empty body, nothing has gone still. Samples FRAME_CACHE.buckets so a coarse probe cannot invent a regression (a 4-phase sweep reported brace and winded frozen; at 24 they show 20 and 16 distinct frames)', True),
+    ('JUDGE LIST MOVES',['node', 'gates/judge_list_moves_gate.js'],
+     'the JUDGE ALL panel has existed since 7/19 and read "105 clips, 105 UNJUDGED" because every row was A WORD AND TWO THUMBS: to judge one he tapped the name, scrolled 1,464px UP to watch it, and scrolled back to press a thumb, 105 times -- the BOTTOM-UP law exactly. Holds that every row PLAYS ITS OWN CLIP beside its own thumbs, that the canvases carry a body and are ANIMATING rather than a still (the case that satisfies every cheaper check and is still unjudgeable), and that every "moves N%" on his screen is a number the audit file actually measured. 3 mutations caught', True),
     ('VALLEY BREATHES',['node', 'gates/valley_breathes_gate.js'],
      'MEASURED: standing still in the walked city, render() was called ONCE in three seconds -- the crowd AND the 19 animals already written to move off performance.now()/500 were a still photograph whenever the player was not walking. Holds the beat-locked heartbeat, the city cast being baked with a breath cycle instead of ONE still, and that the crowd does not breathe in unison. That last claim took three cuts: v1 was satisfied by the six cast LOOKS supplying the variety, v2 by the sampling loop crossing a BEAT boundary so TIME supplied it. It pins the instant now. 3 mutations caught', True),
     ('CLIP AUDIT',    ['node', 'gates/clip_audit_gate.js'],
@@ -4091,6 +4143,36 @@ GATES = [
      'The two were equivalent ONLY BY ACCIDENT OF A CACHE, so the leg is written against '
      'the fact (the record names what was standing, never "desert") rather than against '
      'the line ordering that currently produces it.', False),
+    ('FEED STREAM', ['node', 'gates/feed_stream_gate.js'],
+     'VAMILY [feed posts] / THE-FEED-STREAM: one stream, three sources, and the '
+     'city-screen phone just reads it. The 9/4 law splits the feed in two -- the '
+     'SURFACE to UI (shipped) and the STREAM here -- and UI\'s own header says "this '
+     'is a reader, not a source" while naming the seam it left open: "WORLD/PEOPLE own '
+     'the faction event stream ... Until then that source is EMPTY, on purpose." '
+     'MEASURED BEFORE ANYTHING WAS WRITTEN: BOHEMIA_FACTION_GRAPH present, '
+     'BohemiaTowns present WITH ZERO CALLERS, 358 live grid cells, real shop prices -- '
+     'and the world source had produced 0 posts, ever. Everything the world needed to '
+     'talk about was in the page and nothing read it. A1/A2: A FEED IS THINGS THAT '
+     'HAPPENED, so every world source keeps its last-seen value and the first drain is '
+     'a silent baseline -- "the grid is at 358" is not news, "the grid just lost a '
+     'block" is. A3 IS THE LEG THAT CAUGHT A REAL BUG IN THE FIRST CUT: the drain '
+     'capped its RETURN at three while the sources had already advanced their cursors, '
+     'so on a busy beat the fourth event was gone for good -- a faction taking a seat, '
+     'eaten by a price change and two blackouts. AN EVENT STREAM THAT LOSES EVENTS IS A '
+     'STATUS BAR WITH EXTRA STEPS; the cap delays now and never drops. A5 holds the '
+     '8/11 catalogue rule (a deed post QUOTES the quest\'s own @LOG line, never prose '
+     'written about it), A6/A7 hold ambient life keyed off what EXISTS -- a dark '
+     'midnight valley and a lit morning one must not say the same thing, and it never '
+     'repeats back to back. A8: every line draft:true. A9: faction names come from the '
+     'graph handed in, never typed in the module. B2 IS THE ONE THAT MATTERS MOST: ONE '
+     'feed with TWO producers is the bug this repo keeps writing up, so it proves no '
+     'post on the real panel still comes from the retired fixed list -- and the second '
+     'producer HID BEHIND A RENAME the first time (the seed-on-open path, missed on the '
+     'first pass and found by reading the panel rather than the diff). MEASURED GREEN '
+     '16/0 on the walked surface and in the cut demo. Mutation-tested three ways: make '
+     'the cap drop instead of delay (A3b red), remove the baseline so the world is '
+     'described rather than reported (A1 red), point the seed back at the retired list '
+     '(B2 red, 3 leaked).', False),
     ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
      'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
      'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '

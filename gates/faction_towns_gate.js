@@ -215,23 +215,40 @@ const done = () => {
   /* NOT_A_TOWN was derived by asking the district kit how many buildings each kind
      carries, not by taste. If a kind's answer changes, this goes red rather than
      letting a list somebody once measured rot into a list somebody believes. */
+  /* NOT_A_TOWN IS A MEASUREMENT, SO IT GETS RE-MEASURED. The question is not "is this
+     kind always empty" -- that was the first cut and it left two markets on ground with
+     nothing on it. A seat lands on ONE cell, so what matters is whether a kind can EVER
+     be empty. Every kind that can is excluded; a kind that stops being able to should
+     come OFF the list, and a kind that starts should go ON it, and both show up here. */
   const w = W.world(12345);
   const seen = {};
-  for (let y = 0; y < w.n; y += 3) for (let x = 0; x < w.n; x += 3) {
+  for (let y = 0; y < w.n; y++) for (let x = 0; x < w.n; x++) {
     const c = w.at(x, y);
     if (!c || !c.district || CE.cat(c.district) !== 'sand') continue;
-    let p = null; try { p = w.plot(x, y); } catch (e) { continue; }
-    if (!p) continue;
     const k = c.district;
-    seen[k] = seen[k] || { some: 0 };
-    if (p.buildings && p.buildings.length) seen[k].some++;
+    seen[k] = seen[k] || { cells: [], checked: 0, empty: 0 };
+    seen[k].cells.push([x, y]);
   }
-  const stillEmpty = Object.keys(T.NOT_A_TOWN).filter(k => seen[k] && seen[k].some === 0);
-  const wrongly = Object.keys(T.NOT_A_TOWN).filter(k => seen[k] && seen[k].some > 0);
-  ok('NOT_A_TOWN IS STILL TRUE: every kind on it really carries no buildings'
-     + (wrongly.length ? ' -- now built on: ' + wrongly.join(', ') : ''), wrongly.length === 0);
-  ok('and it is not empty, so the exclusion is doing something (' + stillEmpty.length + ')',
-     stillEmpty.length >= 1);
+  Object.keys(seen).forEach(k => {
+    const cells = seen[k].cells, step = Math.max(1, Math.floor(cells.length / 40));
+    for (let i = 0; i < cells.length; i += step) {
+      let p = null; try { p = w.plot(cells[i][0], cells[i][1]); } catch (e) { continue; }
+      if (!p) continue;
+      seen[k].checked++;
+      if (!(p.buildings && p.buildings.length)) seen[k].empty++;
+    }
+  });
+  const canBeEmpty = Object.keys(seen).filter(k => seen[k].checked && seen[k].empty > 0).sort();
+  const listed = Object.keys(T.NOT_A_TOWN).sort();
+  const missing = canBeEmpty.filter(k => !T.NOT_A_TOWN[k]);
+  const stale = listed.filter(k => seen[k] && seen[k].checked && seen[k].empty === 0);
+  ok('EVERY KIND THAT CAN BE EMPTY IS EXCLUDED -- a kind that is usually built and'
+     + ' sometimes not will eventually put a market on nothing'
+     + (missing.length ? ' -- missing: ' + missing.join(', ') : ''), missing.length === 0);
+  ok('and nothing is excluded that no longer needs to be'
+     + (stale.length ? ' -- stale: ' + stale.join(', ') : ''), stale.length === 0);
+  ok('the list is not empty, so the exclusion is doing something ('
+     + listed.length + ' kinds)', listed.length >= 1);
 
   done();
 })();

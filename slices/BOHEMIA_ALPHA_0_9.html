@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5aa - THE HAIRCUT TURNS ALL EIGHT WAYS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5ah - THE HAIRCUT TURNS ALL EIGHT WAYS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -16369,8 +16369,63 @@ function buildUI(){
     var btn = document.getElementById('judgeAllBtn'), host = document.getElementById('judgeAll');
     if (!btn || !host) return;
     var KEY = 'bohemia_cand_votes_b1';           /* the SAME store as the per-clip thumbs */
+
+    /* THE AUDIT ON EACH ROW (ANIMATION 9/5) -- generated from
+       records/BOHEMIA_THE_63_CLIP_AUDIT_RAW_9_5_26.txt, never typed by hand. */
+    const CLIP_NOTE={'air-guitar':'moves 43%','argue':'moves 45%','balance':'moves 62%','bat-arc':'moves 100%','beckon':'moves 15%','bow':'moves 96%; head-on only 12% of side-on','brace':'moves 22%','carry':'moves 15%','cheer':'moves 44%','chest-thump':'moves 30%','cough':'moves 41%; head-on only 16% of side-on','cover-drop':'moves 97%','cover-fire':'moves 59%','cover-rise':'moves 124%','cower':'moves 38%','crack-neck':'moves 18%','crawl-dying':'moves 47%','crouch-aim-1h':'moves 35%; head-on only 15% of side-on','crouch-aim-2h':'moves 45%','dance':'moves 73%','dash':'moves 132%','deadeye':'moves 53%','dig':'moves 74%','dizzy':'moves 65%','dodge':'moves 124%','drink':'moves 11%','drunk':'moves 82%','duck':'moves 63%','eat':'moves 5%; QUIET','fistpump':'moves 53%','flee-scramble':'moves 90%','flee-sprint':'moves 96%; head-on only 17% of side-on','floor-rise':'moves 172%','get-shoved':'moves 113%','greet':'moves 50%','gun-walk':'moves 66%; head-on only 20% of side-on','haggle':'moves 60%','hail':'moves 71%','hands-up':'moves 14%','headbang':'moves 45%','headshot':'moves 55%','headshot-2':'moves 30%','heave':'moves 96%','howl':'moves 48%','idle':'moves 9%','inject':'moves 14%','inspect-ground':'moves 67%','jump':'moves 106%; ARMS carry it, legs do not; no crouch first','jumping-jacks':'moves 74%','kick':'moves 123%','laugh':'moves 19%','lean':'moves 9%','look-around':'moves 16%','lunge-stretch':'moves 107%','nod':'moves 17%','overwatch':'moves 16%','pat-pockets':'moves 29%','pickup':'moves 68%','pistol':'moves 3%; steady on purpose (aiming)','point':'moves 13%','pour':'moves 26%','pray':'moves 5%; QUIET','preach':'moves 45%','psych-up':'moves 22%','punch-heavy':'moves 87%','push':'moves 32%','rage':'moves 17%','retch':'moves 55%','run':'moves 131%; head-on only 16% of side-on','scratch-back':'moves 36%','search':'moves 26%','shadowbox':'moves 48%','shiv-jab':'moves 57%','shiver':'moves 14%','shout':'moves 101%','shove':'moves 103%','shrug':'moves 17%','sigh':'moves 37%','sit-chair':'moves 8%','sit-ground':'moves 22%','sleep':'moves 9%','slump':'moves 13%','smoke':'moves 9%','sneak':'moves 52%','spear-drive':'moves 79%; head-on only 14% of side-on','stagger-hit':'moves 126%','startle':'moves 100%','stomp':'moves 81%','stretch':'moves 54%','stretch-back':'moves 49%','stumble':'moves 97%; head-on only 20% of side-on','swagger':'moves 70%','take-cover':'moves 12%','talk':'moves 18%','taunt':'moves 37%','throw':'moves 114%; head-on only 18% of side-on','tired-walk':'moves 60%; head-on only 14% of side-on','tweeze':'moves 40%','twist-stretch':'moves 68%','two-hand':'moves 3%; steady on purpose (aiming)','walk':'moves 108%; head-on only 18% of side-on','wander':'moves 41%','weave':'moves 81%','whistle':'moves 7%; QUIET; head-on only 16% of side-on; STATIC HOLD, not a cycle','winded':'moves 43%'};
+
+    /* *** WHY THIS LIST NOW MOVES (ANIMATION lane, 9/5). ***
+       MEASURED on the real surface before touching it: 105 clips, 105 UNJUDGED,
+       and every row was A WORD AND TWO THUMBS. To judge one he had to tap the
+       name, scroll 1,464 PX UP to watch the character, then scroll back down to
+       press a thumb -- a hundred and five times. That is the BOTTOM-UP law
+       (7/26) exactly: anything he has to scroll up for does not exist. The
+       surface has been here since 7/19 and not one clip carries a verdict, and
+       this is why. A judging page that shows WORDS is asking him to judge from
+       memory.
+       So every row plays its own clip, next to its own thumbs, and carries what
+       the audit measured about it so he is judging informed instead of blind.
+
+       REUSE CHECK (7/22 law): the loop is the CLOTHES tab's, which already runs
+       hundreds of live rigs on one scrolling page -- ~12fps rather than 60,
+       viewport culling, and RELEASING THE BACKING STORE of anything well off
+       screen (its 8/20 lesson: refusing to render off-screen is not the same as
+       letting go of the pixels, and 258 garments held 96.8 MB until it did).
+       Drawing is drawChar, the same call the CHARACTER tab makes, already
+       HD_CACHE-backed so a repeated frame is a map hit.
+       120 BPM LAW: phase comes off G.t0 and BEAT_MS, the one clock, so a row
+       animates on the same beat as the big canvas above it. */
     function votes(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
     function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+    var JA_FILTER = 'all', jaRaf = 0, jaLast = 0;
+    function jaFlagged(c){ var n = CLIP_NOTE[c] || ''; return /QUIET|STATIC HOLD|ARMS carry|head-on only/.test(n); }
+    function jaList(){
+      /* ALPHABETICAL (Paolo 7/30, standing) -- a COPY, CLIPS keeps authoring order */
+      var L = CLIPS.slice().sort(function(a,b){ return a.localeCompare(b); });
+      var V = votes();
+      if (JA_FILTER === 'unjudged') L = L.filter(function(c){ return !V[c]; });
+      if (JA_FILTER === 'flagged')  L = L.filter(jaFlagged);
+      return L;
+    }
+    function jaTick(){
+      var host = document.getElementById('judgeAll');
+      if (!host || host.style.display === 'none' || !document.getElementById('p-anim').classList.contains('on')) { jaRaf = 0; return; }
+      var now = performance.now();
+      if (now - jaLast >= 80) {            /* ~12fps, the clothes tab's rate */
+        jaLast = now;
+        var bm = (typeof BEAT_MS !== 'undefined' ? BEAT_MS : 500), vh = window.innerHeight || 900;
+        var cvs = host.querySelectorAll('canvas.jaCv');
+        for (var i = 0; i < cvs.length; i++) {
+          var cv = cvs[i], rc = cv.getBoundingClientRect();
+          if (cv.offsetParent === null || rc.bottom < -vh || rc.top > vh * 2) { if (cv.width) { cv.width = 0; cv.height = 0; } continue; }
+          if (rc.bottom < -40 || rc.top > vh + 40) continue;      /* on the page but off the glass: keep the pixels, skip the paint */
+          var c = cv.__clip, beats = (typeof ANIMBEATS !== 'undefined' && ANIMBEATS[c]) || 2;
+          var ph = ((now - (G.t0 || now)) / (bm * beats)) % 1;
+          try { drawChar(cv, G.dir, c, ph); } catch (e) {}
+        }
+      }
+      jaRaf = requestAnimationFrame(jaTick);
+    }
     function build(){
       var V = votes(); host.innerHTML = '';
       var un = CLIPS.filter(function(c){ return !V[c]; }).length;
@@ -16379,15 +16434,39 @@ function buildUI(){
       head.innerHTML = '<b>JUDGE ALL</b><span class="mini">' + CLIPS.length +
                        ' clips &middot; <span style="color:#e2b877">' + un + ' unjudged</span></span>';
       host.appendChild(head);
-      /* ALPHABETICAL (Paolo 7/30, standing) -- a COPY, CLIPS keeps authoring order */
-      CLIPS.slice().sort(function(a,b){ return a.localeCompare(b); }).forEach(function(c){
+      /* THE FILTER, because 105 rows is four screens and the ones worth his eye
+         are a short list. UNJUDGED shrinks as he works; FLAGGED is only the clips
+         the audit actually measured something wrong about. */
+      var fr = document.createElement('div'); fr.className = 'row';
+      [['all','ALL'],['unjudged','UNJUDGED'],['flagged','THE AUDIT FLAGGED']].forEach(function(f){
+        var bt = document.createElement('button');
+        bt.className = 'opt' + (JA_FILTER === f[0] ? ' on' : '');
+        bt.textContent = f[1] + (f[0] === 'flagged' ? ' (' + CLIPS.filter(jaFlagged).length + ')' : '');
+        bt.style.fontSize = '10px';
+        bt.onclick = function(){ JA_FILTER = f[0]; build(); };
+        fr.appendChild(bt);
+      });
+      host.appendChild(fr);
+
+      jaList().forEach(function(c){
         var r = document.createElement('div');
         r.className = 'row';
-        r.style.cssText = 'padding:2px 0;align-items:center';
+        /* ONE ROW IS ONE GLANCE. The first cut let the note wrap to its own full
+           line, which pushed a row to ~200px and put FOUR clips on a phone screen
+           -- 26 screens for the set. Canvas left, everything else in a tight
+           column beside it: ~80px a row, ten to a screen. */
+        r.style.cssText = 'padding:2px 0;align-items:center;gap:8px;flex-wrap:nowrap';
+        var cv = document.createElement('canvas');
+        cv.className = 'jaCv';
+        cv.__clip = c;
+        /* ABOVE the size the game draws it (8/28: judging art below its shipping
+           size is judging a thumbnail). The rig is 56 and ships upscaled; this is
+           72 css px of it. */
+        cv.style.cssText = 'width:72px;height:72px;image-rendering:pixelated;background:#20242a;border:1px solid #3a4048;flex:0 0 auto';
         var nm = document.createElement('button');
         nm.className = 'opt' + (G.clip === c ? ' on' : '');
         nm.textContent = c;
-        nm.style.cssText = 'min-width:120px;text-align:left;font-size:10px';
+        nm.style.cssText = 'min-width:96px;text-align:left;font-size:10px';
         nm.onclick = function(){ G.clip = c; G.t0 = performance.now(); build(); };
         var up = document.createElement('button');
         up.className = 'opt' + (V[c] === 'up' ? ' on' : '');
@@ -16397,11 +16476,22 @@ function buildUI(){
         dn.className = 'opt' + (V[c] === 'down' ? ' on' : '');
         dn.textContent = '\u{1F44E}';
         dn.onclick = function(){ var v = votes(); v[c] = (v[c] === 'down' ? '' : 'down'); save(v); build(); };
+        var nt = document.createElement('div');
+        nt.className = 'mini';
+        nt.style.cssText = 'opacity:.7;font-size:9px;line-height:1.25;margin-top:2px;text-align:left';
+        nt.textContent = CLIP_NOTE[c] || '';
+        var top = document.createElement('div');
+        top.style.cssText = 'display:flex;align-items:center;gap:4px';
+        top.appendChild(nm); top.appendChild(up); top.appendChild(dn);
         var st = document.createElement('span');
         st.className = 'mini';
-        st.style.marginLeft = '6px';
+        st.style.cssText = 'font-size:9px;margin-left:2px;color:' + (V[c] === 'up' ? '#8fd08f' : V[c] === 'down' ? '#d08f8f' : '#7a6f5c');
         st.textContent = V[c] === 'up' ? 'KEEP' : V[c] === 'down' ? 'KILL' : '';
-        r.appendChild(nm); r.appendChild(up); r.appendChild(dn); r.appendChild(st);
+        top.appendChild(st);
+        var col = document.createElement('div');
+        col.style.cssText = 'flex:1 1 auto;min-width:0';
+        col.appendChild(top); col.appendChild(nt);
+        r.appendChild(cv); r.appendChild(col);
         host.appendChild(r);
       });
       var ex = document.createElement('button');
@@ -16424,7 +16514,9 @@ function buildUI(){
         document.body.appendChild(a); a.click(); a.remove();
       };
       host.appendChild(ex);
+      if (!jaRaf) jaRaf = requestAnimationFrame(jaTick);
     }
+
     btn.onclick = function(){
       var open = host.style.display === 'none';
       host.style.display = open ? '' : 'none';
@@ -23684,6 +23776,17 @@ window.CLO=(function(){
                           trousers. Every top in this wardrobe stopped dead at the
                           torso, which is why the whole cast reads waist-high. */
     var wideSh=(opt.shoulder==='wide'), longline=(opt.cut==='long');
+    /* THE CARD ASKS FOR BOTH SHOULDERS AND WE HAD BUILT ONE (9/5, batch 5).
+       RNWY-02: pole A is reached EITHER by a square cut OR by "a full cocoon arc,
+       one curve neck to elbow with NO shoulder point". The pad above is the square
+       one. This is the arc: the outer edge leaves the neck, swells over the
+       shoulder and comes back in at the elbow as a single curve, so there is no
+       corner anywhere on it. A dome, not a box.
+       RNWY-05/08: pole B wants two visible hem lines, lower layer longer. A fit
+       stacks -- a shirt over trousers -- but NO SINGLE GARMENT in this wardrobe
+       carries its own second hem, and a stack you can only get by putting two
+       things on is not what the card is describing. */
+    var arcSh=(opt.shoulder==='arc'), layered=(opt.cut==='layered');
     var w={}; for(i=0;i<g.length;i++){var p=g[i],y=(i/CW)|0;
       if(p===4)w[i]=1;
       else if(p===5&&sleeves!=='none'&&y<=scutL)w[i]=1;
@@ -23698,6 +23801,52 @@ window.CLO=(function(){
        pixel with no body under it and no garment beside it is not an oversized
        shoulder, it is a bug that measured fine. */
     var aTop=CH; for(i=0;i<g.length;i++){var pB=g[i];if((pB===5||pB===6)){var yB=(i/CW)|0;if(yB<aTop)aTop=yB;}}
+    /* THE ARC. Its swell follows a half-ellipse over the shoulder rows, so the
+       outline has a continuous curve and never a step: e(y) = round(peak *
+       sqrt(1 - t^2)) with t running -1 to 1 across the band. Derived per row off
+       the body's OWN edge, the fix this lane already paid for once when a square
+       pad grown off the arm's widest row floated in mid-air. */
+    var arcTopY=tTop, arcBotY=aTop+6*S, arcPeak=2*S;
+    if(arcSh&&aMx>=0){
+      /* *** THE FIRST CUT STILL HAD A POINT, AND THE GATE MEASURED IT AT 4 PX. ***
+         A swell added to each row's own edge cannot remove a corner, because THE
+         CORNER IS IN THE BODY: the torso is 10 cells across and the arms make it
+         16, so the outline jumps three cells each side on the row the arms begin.
+         Adding fabric outboard of that jump keeps the jump.
+         SO THE ARC IS BUILT AS AN ABSOLUTE TARGET EDGE PER ROW, ramping IN above
+         the shoulder so the outline has arrived at the arm's width before the arms
+         do, then swelling and closing below it -- and the whole column is smoothed
+         so no two neighbouring rows differ by more than one cell. That is what "no
+         shoulder point" means as a measurement: no step. */
+      var tgtL=[],tgtR=[],rowsA=[];
+      for(var yA=arcTopY;yA<=arcBotY;yA++){
+        var rMnA=CW,rMxA=-1;
+        for(var xA=0;xA<CW;xA++){var gA=g[yA*CW+xA]; if(gA===4||gA===5||gA===6){if(xA<rMnA)rMnA=xA;if(xA>rMxA)rMxA=xA;}}
+        if(rMxA<0)continue;
+        rowsA.push(yA);
+        if(yA<aTop){
+          /* ABOVE THE SHOULDER THE RAMP IS EXPLICIT, not left to the clamp. The
+             clamp only FORBIDS a step bigger than one cell; it does not MAKE the
+             outline widen, so the rows above the arms stayed at torso width and the
+             jump simply moved down a row. Here each row above the arms sits exactly
+             one cell inside the row below it, so the outline has arrived at the
+             arm's width by the time the arms do. The neck row is left alone: a bar
+             of cloth up there is a collar shelf, not a shoulder. */
+          tgtL.push(aMn+(aTop-yA)); tgtR.push(aMx-(aTop-yA)); continue; }
+        var tA=((yA-arcTopY)/Math.max(1,(arcBotY-arcTopY)))*2-1;         /* -1 .. 1 */
+        var eA=Math.round(arcPeak*Math.sqrt(Math.max(0,1-tA*tA)));
+        tgtL.push(rMnA-eA); tgtR.push(rMxA+eA); }
+      /* smooth: walk down, then back up, clamping every neighbour to one cell */
+      for(var q=1;q<tgtL.length;q++){ if(tgtL[q]<tgtL[q-1]-S)tgtL[q]=tgtL[q-1]-S; if(tgtR[q]>tgtR[q-1]+S)tgtR[q]=tgtR[q-1]+S; }
+      /* THE BACKWARD PASS HAD THE FORWARD PASS'S COMPARISON and so did nothing: it
+         is the one that must WIDEN the rows ABOVE the shoulder, so the outline has
+         already reached the arm's width before the arms arrive. Without it the body
+         still jumped and the gate still measured a point. */
+      for(var q2=tgtL.length-2;q2>=0;q2--){ if(tgtL[q2]>tgtL[q2+1]+S)tgtL[q2]=tgtL[q2+1]+S; if(tgtR[q2]<tgtR[q2+1]-S)tgtR[q2]=tgtR[q2+1]-S; }
+      for(var q3=0;q3<rowsA.length;q3++){ var yR=rowsA[q3];
+        for(var xR=tgtL[q3];xR<=tgtR[q3];xR++){
+          if(xR<0||xR>=CW)continue; var iR=yR*CW+xR, gR=g[iR];
+          if(gR===1||gR===2||gR===7||gR===8)continue; w[iR]=1; } } }
     var shBotY=aTop+3*S;
     /* THE PAD GROWS OUT OF *THIS ROW'S* EDGE, NOT THE ARM'S WIDEST ROW, AND THAT
        IS THE SECOND LOOKING FIX ON THIS ONE GARMENT. Measuring aMn/aMx over the
@@ -23719,6 +23868,35 @@ window.CLO=(function(){
         if(rMx+dH<CW){var iR2=yH*CW+(rMx+dH);if(g[iR2]!==1&&g[iR2]!==2)w[iR2]=1;} } } }
     /* LONGLINE: the hem carries past the hip. It covers the top of the legs and the
        gap between them, so the silhouette below the waist is ONE mass, not two. */
+    /* THE SECOND HEM. The outer layer stops just past the waist and a NARROWER,
+       LONGER under-layer shows below it, so the body carries two horizontal lines
+       two cells apart instead of one. Narrower on purpose: if both hems were the
+       same width the upper one would sit on the lower one's silhouette and vanish,
+       which is the card's own warning that a stack "stays readable or it is a blob".
+       AND IT NEVER RUNS DOWN AN ARM -- the lesson the longline cost this lane. */
+    var layBot=tBot, layMid=tBot;
+    if(layered){ var leY=pExt(g,9),reY=pExt(g,10);
+      /* THE OUTER HEM SITS AT THE WAIST, NOT BELOW IT, and the gate is why: with the
+         outer at tBot+2 and the under at 0.35 of the leg, this garment's OUTLINE was
+         within 14% of the LONGLINE's, which is the dead V-NECK's failure between two
+         of my own shapes. A layered top is a SHORT outer over a LONG under; a
+         longline is one long hem. Making the outer shorter and the under longer is
+         what makes them two garments instead of two names. */
+      layMid=tBot+2*S;                                                   /* the outer hem: it needs a BAND to be a hem. Set flush to the waist
+                                                                            it had no rows of its own, so the only steps in the outline were the
+                                                                            arms ending and the under layer ending -- two, where a stack is three. */
+      /* 0.35, NOT 0.22, AND MEASURING SAID SO. At 0.22 the two hems landed on rows
+         34 and 35 -- ONE ROW APART -- and the only visible step in the silhouette
+         was the ARMS ending, not either hem. The card wants the lines >= 2 cells
+         apart at 56 and the stack "readable or it is a blob". At 0.35 they sit on
+         34 and 37 with the under layer a cell narrower each side, so the outline
+         steps twice and both steps belong to the garment. */
+      layBot=tBot+fr(Math.min(leY.mn,reY.mn),Math.max(leY.mx,reY.mx),0.50);   /* the under hem, well past the longline's 0.30 */
+      for(var yV=tBot+1;yV<=layBot;yV++){
+        var insV=(yV>layMid)?S:0;                                        /* the under layer is a cell narrower each side */
+        for(var xV=tMn+insV;xV<=tMx-insV;xV++){
+          if(xV<0||xV>=CW)continue; var gV=g[yV*CW+xV];
+          if(gV===1||gV===2||gV===5||gV===6||gV===7||gV===8)continue; w[yV*CW+xV]=1; } } }
     var llBot=tBot;
     if(longline){ var leL=pExt(g,9),reL=pExt(g,10);
       llBot=tBot+fr(Math.min(leL.mn,reL.mn),Math.max(leL.mx,reL.mx),0.30);
@@ -23762,6 +23940,18 @@ window.CLO=(function(){
          the shading it always had. */
       if(wideSh&&y<=shBotY&&(g[ii]!==4&&g[ii]!==5&&g[ii]!==6)){ if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;   /* the pad's hard vertical edge -- the pad IS the cells with no body under them, which is true per row */
         else if(y>=shBotY-(S-1))c=r.dk;                                  /* and the hard horizontal one it drops off */
+        else if(x<cx)c=r.lt; }
+      /* THE ARC IS SHADED AS ONE CURVED MASS: its edge dark, its crown lit, and NO
+         hard horizontal anywhere -- a drop line would put back the corner the shape
+         exists to remove. */
+      if(arcSh&&y<=arcBotY&&(g[ii]!==4&&g[ii]!==5&&g[ii]!==6)){
+        if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
+        else if(x<cx)c=r.lt; }
+      /* THE TWO HEMS, each drawn as its own line so both read */
+      if(layered&&y>tb){ if(y>=layMid-(S-1)&&y<=layMid)c=r.dk;           /* the outer hem */
+        else if(!inG(x,y+1))c=r.dk;                                      /* the under hem */
+        else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
+        else if(y>layMid)c=mix(r.mid,0.85);                              /* the under layer sits back in shadow */
         else if(x<cx)c=r.lt; }
       if(longline&&y>tb){ if(!inG(x,y+1))c=r.dk;                         /* the long hem */
         else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
@@ -23856,6 +24046,22 @@ window.CLO=(function(){
        Cut and hem only; no ramp, no faction colour, nothing that is his. */
     var isDrop=(opt.cut==='drop'), isWide=(opt.cut==='wide'),
         isStack=(opt.cut==='stack'), isCrop=(opt.cut==='crop');
+    /* RNWY-10, THE COLUMN (9/5, batch 6). "The leg is a SINGLE COLUMN, ANKLE
+       BREAK-FREE (pant-boot)." Every fit in this wardrobe breaks at the ankle: the
+       trouser stops, the boot starts, and the two have different widths and
+       different tones. This one runs the same width and the same cloth from the
+       waist to the floor, over the foot, so the eye reads a column standing on the
+       ground rather than a leg wearing a shoe.
+       IT IS THE ONLY SHAPE IN SIX BATCHES THAT WORKS BY REMOVING A LINE RATHER THAN
+       ADDING ONE, which is why it is the strongest thing available down there: at 56
+       pixels the ankle break is one of very few horizontals the lower body has.
+       *** AND IT SITS IN THE FEET SLOT, NOT THE LEGS SLOT, WHICH LOOKING CAUGHT. ***
+       The composite draws base, then legs, then FEET -- so a column in the legs slot
+       is painted over by whatever boot the person is wearing, and the ankle break
+       survives in the one garment that exists to remove it. A pant-boot IS the boot;
+       it occupies the boot's slot and covers the leg on its way up. The generator
+       stays genPants because the geometry is a trouser's; only the slot moves. */
+    var isColumn=(opt.cut==='column');
     /* LONG SKIRT (7/20, wave 7): the wrap panel falls to the ANKLE -- a real
        third length on the leg rail (knee shorts / mid-shin wrap / ankle). */
     /* CROP sits at 0.68 of the leg on purpose and not higher: at 0.80 the hem
@@ -23900,6 +24106,29 @@ window.CLO=(function(){
        to be the thing you see. */
     if(isCrop){ for(var yC=cutY-2*S+1;yC<=cutY;yC++)for(var dC=1;dC<=2*S;dC++){
       if(lgMn-dC>=0)w[yC*CW+(lgMn-dC)]=1; if(lgMx+dC<CW)w[yC*CW+(lgMx+dC)]=1; } }
+    /* THE COLUMN: one constant-width mass from the waist over the foot. It takes the
+       foot's own cells too, so nothing of the shoe's outline survives underneath --
+       an ankle break you can still see is not break-free. */
+    /* *** ONE COLUMN PER LEG, NOT ONE COLUMN FOR BOTH, AND LOOKING CAUGHT IT. ***
+       The first cut filled everything between the outermost leg columns and produced
+       a solid slab from hip to floor -- which does remove the ankle break, and also
+       removes the legs. It read as a skirt. The card says "THE LEG is a single
+       column", and a leg that has merged with the other leg is not a leg. Each side
+       is now its own column, from the top of its own leg over its own foot, at that
+       leg's own width, with the gap between them left alone. What goes is the ANKLE
+       LINE; what stays is the man having two legs. */
+    var colSeam=-99;
+    if(isColumn){ for(i=0;i<g.length;i++)if(g[i]===9){var xS9=i%CW; if(xS9>colSeam)colSeam=xS9;}
+      colSeam=colSeam+1-((S-1)>>1);                                      /* the boundary between the two legs */
+      [[9,11],[10,12]].forEach(function(pr){
+      var lg=pr[0],ft=pr[1],cMn=CW,cMx=-1,cBot=-1,cTop=CH;
+      for(var q=0;q<g.length;q++){ var pq=g[q]; if(pq!==lg&&pq!==ft)continue;
+        var xq=q%CW,yq=(q/CW)|0;
+        if(xq<cMn)cMn=xq; if(xq>cMx)cMx=xq; if(yq>cBot)cBot=yq; if(yq<cTop)cTop=yq; }
+      if(cMx<0)return;
+      for(var yK=cTop;yK<=cBot;yK++)for(var xK=cMn;xK<=cMx;xK++){
+        if(xK<0||xK>=CW)continue; var iK=yK*CW+xK, gK=g[iK];
+        if(gK===1||gK===2||gK===7||gK===8)continue; w[iK]=1; } }); }
     /* WIDE LEG: opens with distance from the hip, three cells past the body by the
        floor. Real pixels into the background, the way the poncho does it. */
     if(isWide){ var spanW=Math.max(1,legB-legT);
@@ -23949,6 +24178,20 @@ window.CLO=(function(){
         if(!inG(x-1,y)||!inG(x+1,y))c=r.dk; }
       if(isCrop&&y>=cutY-(2*S-1)){ c=(y>=cutY-(S-1))?r.dk:r.lt;          /* the turn-up: a lit face with a dark edge under it */
         if(!inG(x-1,y)||!inG(x+1,y))c=r.dk; }
+      /* THE COLUMN IS SHADED AS ONE PIECE: edges dark, sky-lit flank, a sole line at
+         the very bottom, and NO HORIZONTAL ANYWHERE ELSE. A cuff, a hem or an ankle
+         line would put back the break the shape exists to remove. */
+      /* AND THE INNER SEAM STAYS, WHICH LOOKING CAUGHT TWICE. On this rig the two
+         legs are ADJACENT -- there is no gap between them, only a seam -- so filling
+         each leg's own box still produces one contiguous mass, and shading that mass
+         as a single piece deleted the only thing saying "two legs". It read as a
+         skirt both times. THE CARD FORBIDS A HORIZONTAL BREAK AT THE ANKLE; a
+         VERTICAL seam between the legs is not that break, it is the legs. */
+      if(isColumn&&y>wb+3*S){ if(!inG(x,y+1))c=r.dk;                      /* the ground line */
+        else if(!inG(x-1,y)||!inG(x+1,y))c=r.dk;
+        else if(x>=colSeam&&x<colSeam+S)c=mix(r.dk,0.85);                 /* the inner seam: two columns, not one slab */
+        else if(x<cx)c=r.lt;
+        else c=r.mid; }
       o[ii]=c; }
     return o; }
   /* SHOES: dark sole, light midsole, laces on the tongue, ankle collar */
@@ -25485,6 +25728,16 @@ window.CLO=(function(){
        All three ship at HIP and THIGH length, which is the 8/27 heat ruling and
        not a compromise -- the look is reached by cut, and cut is what these are. */
     var wrapC=!!opt.wrap, asymC=!!opt.asym, cocoon=!!opt.cocoon;
+    /* RNWY-09, THE COMMA (9/5, batch 6). "The cocoon hem falls in an arc, LONGER
+       BEHIND THAN IN FRONT -- the profile reads as a comma, not a rectangle." Every
+       coat in this wardrobe has a dead level hem, which side on is exactly the
+       rectangle the card names as the failure.
+       ITS FACING RAMP IS A BUDGET, NOT A GUESS: one_garment_per_slot pins hem
+       movement across ONE NOTCH at 0.09 body-heights and this lane already blew
+       that once at 0.188 with the one-shoulder drape. One row on a 56 rig is 0.018,
+       so a one-row-per-notch ramp costs a fifth of the pin and the card still gets
+       four rows of difference between facing you and facing away. */
+    var commaC=!!opt.comma;
     var isOpen=function(x,y){ if(wrapC)return false;                     /* a wrap coat has no opening to be open */
       return frontFacing && x>=cx-ohw && x<cx+ohw+S && y>openTop; };
     /* body flaps: torso (+arms, unless a VEST which is sleeveless) minus the slit */
@@ -25507,7 +25760,12 @@ window.CLO=(function(){
        asymmetry you have to be told about is the V-NECK with a new name. The two
        sides now differ by more than half the skirt: one hip, one thigh. */
     var asymRise=asymC?Math.max(4*S,Math.round(span*0.55)):0;
-    var hemAt=function(x){ if(!asymC)return hemY;
+    /* how much lower the hem hangs, by how far the body has turned away */
+    var _cd=(typeof curDir!=='undefined')?curDir:((opt&&opt.dir)||'S');
+    var commaDrop=0;
+    if(commaC){ commaDrop=(_cd==='S')?0:((_cd==='SE'||_cd==='SW')?S:((_cd==='E'||_cd==='W')?2*S:((_cd==='NE'||_cd==='NW')?3*S:4*S))); }
+    var hemAt=function(x){ if(commaC&&!asymC)return Math.min(CH-1,hemY+commaDrop);
+      if(!asymC)return hemY;
       var t=(x-(cx-halfW-3*S))/Math.max(1,(2*(halfW+3*S)));
       t=t<0?0:t>1?1:t; return hemY-Math.round(t*asymRise); };
     /* SPLIT-TAIL (wave 6, structure-not-color): a riding vent up the back of
@@ -25515,7 +25773,8 @@ window.CLO=(function(){
        hem, so the duster reads as a real different silhouette in motion. */
     var backV=(dir==='N'||dir==='NE'||dir==='NW');
     var ventY=opt.split?tb+Math.round(span*0.35):1e9;
-    if(!vest&&!jacket)for(var y2=tb+1;y2<=hemY;y2++){
+    var hemLim=hemY+(commaC?commaDrop:0); if(hemLim>CH-1)hemLim=CH-1;
+    if(!vest&&!jacket)for(var y2=tb+1;y2<=hemLim;y2++){
       /* COCOON runs the flare BACKWARDS: it starts wider than the hip and closes
          toward the hem. Same one line that makes every other coat an A-line. */
       var hw=cocoon?(halfW+3*S-Math.round((y2-tb)/span*4*S)):(halfW+Math.round((y2-tb)/span*3*S));
@@ -26816,6 +27075,26 @@ window.CLO=(function(){
     {n:'ASH SHIELD',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'visor'}),ASHGREY,10);}},
     {n:'FACE WRAP',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:CHARCLOTH,kind:'facewrap'}),CHARCLOTH,12);}},
     {n:'ASH FACE WRAP',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ASHGREY,kind:'facewrap'}),ASHGREY,12);}},
+    /* ---- THE RUNWAY, BATCH 5 (9/5/26) -- THE TWO SHAPES THE CARD ASKS FOR BY NAME
+       AND THE WARDROBE DID NOT HAVE. RNWY-02: pole A offers a square shoulder OR a
+       cocoon ARC, and we had built only the square one. RNWY-05/08: pole B wants two
+       visible hem lines with the lower layer longer, and while a FIT stacks, no
+       single garment carried its own second hem. ---- */
+    {n:'ARC SHOULDER TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:'short',neck:'crew',shoulder:'arc'}),CHARCLOTH,12);}},
+    {n:'ASH ARC SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:ASHGREY,sleeves:'long',neck:'crew',shoulder:'arc'}),ASHGREY,12);}},
+    {n:'LAYERED JERSEY',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:FADEDBLK,sleeves:'long',neck:'crew',cut:'layered'}),FADEDBLK,12);}},
+    {n:'ASH LAYERED TEE',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:ASHGREY,sleeves:'short',neck:'crew',cut:'layered'}),ASHGREY,12);}},
+    {n:'ARC LAYERED SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:CHARCLOTH,sleeves:'long',neck:'crew',shoulder:'arc',cut:'layered'}),CHARCLOTH,12);}},
+    /* ---- THE RUNWAY, BATCH 6 (9/5/26) -- THE LAST TWO SHAPES THE CARD NAMES.
+       RNWY-09, the comma: the hem hangs LOWER BEHIND than in front, so side on the
+       coat reads as a comma instead of the rectangle the card names as the failure.
+       RNWY-10, the column: one unbroken mass from waist to floor, over the foot --
+       the only shape in six batches that works by REMOVING a line. ---- */
+    {n:'COMMA COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:CHARCLOTH,cocoon:true,comma:true,len:0.56}),CHARCLOTH,12);}},
+    {n:'SLATE COMMA COAT',st:'canon',fresh:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:SLATEW,comma:true,len:0.56}),SLATEW,13);}},
+    {n:'COLUMN PANT-BOOT',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:CHARCLOTH,cut:'column'}),CHARCLOTH,12);}},
+    {n:'COAL COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:FADEDBLK,cut:'column'}),FADEDBLK,12);}},
+    {n:'ASH COLUMN',st:'canon',fresh:true,layer:'feet',gen:function(g){return wear(genPants(g,{ramp:ASHGREY,cut:'column'}),ASHGREY,13);}},
   ];
   /* THUMBS PERSIST (Paolo 7/19: "some of the previous ones already thumbed up
      didn't get transferred"): his taps were memory-only and died on reload.

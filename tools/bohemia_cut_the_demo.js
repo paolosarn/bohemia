@@ -312,8 +312,50 @@ function cut(src) {
   ].join('\n');
   src = src.replace(BODY, epilogue + BODY);
 
+  /* ---- 4. THE DEMO GETS ITS OWN MANIFEST (9/5) -------------------------------
+     BB-HOME-SCREEN-IS-THE-SAVE. On iOS, a home-screen web app is the ONE
+     exemption from WebKit's seven-day deletion of script-writable storage, so
+     ADD TO HOME SCREEN IS NOT A CONVENIENCE, IT IS THE SAVE.
+
+     AND THE INSTALL PATH LANDED A FRIEND IN THE WORKSHOP. Measured 9/5: the demo
+     linked bohemia.webmanifest, the SAME file the alpha links, whose start_url
+     and id are BOHEMIA_ALPHA_0_9.html. So a stranger who opened the demo link,
+     added it to their home screen and tapped the icon got the seventeen-tab dev
+     bench. Chrome honours start_url outright; Safari has honoured manifests
+     since iOS 16.4. And because `id` was the alpha's too, the two surfaces were
+     ONE app to the browser -- installing either one blocked the other.
+     Nothing anywhere read the manifest, so nothing went red for months.
+
+     The cut owns this the same way it owns the tabs: it is a REACHABILITY
+     change, not a rewrite. One generated file, one rewritten href. */
+  src = src.replace('rel="manifest" href="bohemia.webmanifest"',
+                    'rel="manifest" href="bohemia-demo.webmanifest"');
+  notes.manifest = 'bohemia-demo.webmanifest';
+
   return { src, notes };
 }
+
+/* The demo's own manifest. Same name and look as the workshop's -- it is the same
+   game -- but its own start_url and its own id, which is what makes it its own
+   installable app rather than a second door onto the bench. */
+const MANIFEST = path.join(path.dirname(DEMO), 'bohemia-demo.webmanifest');
+const DEMO_MANIFEST = JSON.stringify({
+  name: 'BOHEMIA',
+  short_name: 'BOHEMIA',
+  id: '/bohemia/slices/BOHEMIA_DEMO.html',
+  start_url: 'BOHEMIA_DEMO.html',
+  scope: './',
+  display: 'standalone',
+  orientation: 'portrait',
+  background_color: '#0c0a08',
+  theme_color: '#0c0a08',
+  description: 'A roguelite city-builder in post-economic-apocalypse Las Vegas.',
+  icons: [
+    { src: 'icons/bohemia-192.png', sizes: '192x192', type: 'image/png' },
+    { src: 'icons/bohemia-512.png', sizes: '512x512', type: 'image/png' },
+    { src: 'icons/bohemia-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+  ]
+}, null, 2) + '\n';
 
 const alpha = fs.readFileSync(ALPHA, 'utf8');
 const { src, notes } = cut(alpha);
@@ -328,15 +370,25 @@ if (process.argv.includes('--check')) {
       + 'Run: node tools/bohemia_cut_the_demo.js');
     process.exit(1);
   }
+  let haveMan = null;
+  try { haveMan = fs.readFileSync(MANIFEST, 'utf8'); } catch (_e) { }
+  if (haveMan !== DEMO_MANIFEST) {
+    console.error('THE DEMO MANIFEST IS NOT WHAT THIS TOOL GENERATES. Without it the '
+      + 'home-screen install launches the workshop, and on iOS the home screen IS the '
+      + 'save. Run: node tools/bohemia_cut_the_demo.js');
+    process.exit(1);
+  }
   console.log('the committed demo is exactly what the workshop cuts to (' + src.length + ' bytes)');
   process.exit(0);
 }
 
 fs.writeFileSync(DEMO, src);
+fs.writeFileSync(MANIFEST, DEMO_MANIFEST);
 console.log('=== CUT THE DEMO ===');
 console.log('  workshop : ' + (alpha.length / 1048576).toFixed(2) + ' MB, ' + (notes.removedTabs.length + notes.keptTabs.length) + ' tabs');
 console.log('  removed  : ' + notes.removedTabs.length + ' dev tab(s) -- ' + notes.removedTabs.join(' '));
 console.log('  kept     : ' + notes.keptTabs.join(' ') + ' (never shown; the splash clicks it to open the game)');
 console.log('  hidden   : the tab bar, and the city\'s 🛠 builder drawer');
 console.log('  wrote    : ' + path.relative(ROOT, DEMO) + '  (' + (src.length / 1048576).toFixed(2) + ' MB)');
+console.log('  manifest : ' + path.relative(ROOT, MANIFEST) + '  (start_url is the DEMO, not the workshop)');
 console.log('  the workshop file was not touched.');

@@ -119,7 +119,8 @@ for (const k of ['measured', 'budget', 'goal', 'owed', 'takenOn', 'refreshComman
    and "we did not get to it" is a fact the record has to carry rather than a
    silence the gate lets through. */
 for (const k of ['timeToFirstPlayMs', 'walkFpsSettled', 'walkFpsFirstMinute',
-                 'fightFps', 'mainThreadBusyWalkingPercent', 'bytesToFirstPlay'])
+                 'fightFps', 'mainThreadBusyWalkingPercent', 'bytesToFirstPlay',
+                 'beatMissedPercentDuringBoot', 'beatMissedPercentSettled'])
   ok('the record measured ' + k + ' -- the row asked for it by name', R.measured[k] != null);
 ok('and it says out loud what is still owed on a real handset, rather than ' +
    'letting an emulated number pass for a phone', Array.isArray(R.owed) && R.owed.length > 0);
@@ -208,6 +209,39 @@ if (process.argv.includes('--record-only')) {
   hold('bytes to first play', r.transfer.bytesToFirstPlay, B.bytesToFirstPlay, ' bytes', true,
        'Everything a stranger has to download before they can move. On a slow 4G ' +
        'link this is seconds of staring at a logo.');
+
+  /* --- THE BEAT, WHICH IS A LAW AND NOT A PREFERENCE --- */
+  if (r.beatSettled && r.beatSettled.watched) {
+    console.log('    the beat, settled: ' + r.beatSettled.latePercent + '% late, ' +
+                r.beatSettled.missedBeatPercent + '% swallowed whole, median gap ' +
+                r.beatSettled.gapMs.med + ' ms against ' + r.beatSettled.beatMs +
+                ' (timer picked by ' + r.beatSettled.pickedBy + ')');
+    ok('THE 120 BPM BEAT LANDS ON TIME ONCE THE WORLD HAS SETTLED (' +
+       r.beatSettled.missedBeatPercent + '% of beats swallowed whole, budget <= ' +
+       B.beatMissedPercentSettled + '%). This is the 120 BPM LAW\'s first real check in ' +
+       'this repo: every other gate that touches it asserts that the number 500 is in the ' +
+       'code or that a step happened, never that the step happened WHEN IT WAS DUE. A ' +
+       'metronome is a setInterval, and a setInterval on a blocked main thread does not ' +
+       'run late by a little -- it runs when the thread is free, and the game is then ' +
+       'playing to a clock the music is not on',
+       r.beatSettled.missedBeatPercent <= B.beatMissedPercentSettled,
+       r.beatSettled.missedBeatPercent + '%');
+    ok('...and the metronome was found by its 500ms period rather than by being the ' +
+       'busiest timer around. The first draft of this check picked a 400ms UI ticker and ' +
+       'reported a perfect beat off the wrong clock',
+       /500ms period/.test(r.beatSettled.pickedBy), r.beatSettled.pickedBy);
+  } else {
+    ok('THE BEAT WAS WATCHED AT ALL. A speed gate on a game whose whole combat law is ' +
+       '120 BPM cannot shrug about the metronome', false,
+       (r.beatSettled && r.beatSettled.why) || 'no beat sample');
+  }
+  if (r.beatDuringBoot && r.beatDuringBoot.watched) {
+    console.log('    the beat, through the boot: ' + r.beatDuringBoot.latePercent + '% late, ' +
+                r.beatDuringBoot.missedBeatPercent + '% SWALLOWED WHOLE, worst gap ate ' +
+                r.beatDuringBoot.worstBeatsSwallowed + ' beats (recorded: ' +
+                M.beatMissedPercentDuringBoot + '% swallowed). REPORTED, NOT ASSERTED -- ' +
+                'fixing it is [slim build] and [hot path], not this gate\'s to demand.');
+  }
 
   if (r.fight && r.fight.reached) {
     hold('frames in a fight', r.fight.rafFramesPerSecond, B.fightFps, ' fps', false,

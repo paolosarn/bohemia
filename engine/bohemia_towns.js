@@ -164,16 +164,23 @@
   /* GROUND THAT NEVER CARRIES A BUILDING IS NOT A TOWN. His ruling says in its own
      words that WHAT SUPPORTS A TOWN IS BUILDINGS, and a solar array supports nothing:
      you cannot trade on a photovoltaic field or a runway.
-     THIS LIST IS MEASURED, NOT IMAGINED. Sampled across two seeds, asking the district
-     kit itself how many buildings each kind's plots carry: airbase, airport, solar and
-     strip came back with ZERO on every plot examined, and they are the only kinds that
-     did. faction_towns_gate re-measures it and goes red if a kind's answer changes, so
-     it cannot rot into a list somebody once believed.
-     IT DOES NOT CLOSE THE WHOLE GAP AND DOES NOT PRETEND TO: golf and farm plots are
-     SOMETIMES empty, which a kind list cannot see, and the honest per-cell test needs
-     w.plot() -- an API the walked surface does not have. That remainder is counted
-     against a ceiling in payday_gate rather than hidden. */
-  var NOT_A_TOWN = { airbase: 1, airport: 1, solar: 1, strip: 1 };
+     THIS LIST IS MEASURED, NOT IMAGINED, AND THE MEASUREMENT WAS WIDENED ONCE BECAUSE
+     THE FIRST QUESTION WAS THE WRONG ONE.
+     The first cut asked which kinds are ALWAYS empty and got four: airbase, airport,
+     solar, strip. That still left two seats on ground with nothing on it -- because a
+     seat lands on ONE cell, so what matters is not whether a kind is always empty but
+     whether it can EVER be. A kind that is usually built and sometimes not will
+     eventually put a market on nothing.
+     Asked again, exhaustively, over every buildable kind across two seeds: EIGHT kinds
+     have at least one plot with zero buildings and FORTY-NINE are built on every plot
+     examined. All eight are out, and the unreachable-seat count went 7 -> 2 -> 0,
+     re-measured at 84 seats over six seeds.
+     It is also the reading that matches his ruling in plain words: a runway, a solar
+     field, a fairway and a farm are not parts of a city you trade in.
+     faction_towns_gate RE-MEASURES this and goes red naming the kind if any answer
+     changes in either direction, so it cannot rot into a list somebody once believed. */
+  var NOT_A_TOWN = { airbase: 1, airport: 1, datafort: 1, farm: 1,
+                     golf: 1, solar: 1, speedway: 1, strip: 1 };
 
   function districtsOf(m, cat) {
     var out = [];
@@ -265,12 +272,52 @@
     return out;
   }
 
+  /* ---------------------------------------------------------------------------
+     WHO HOLDS THIS GROUND (9/5, BB-TURF).
+     LIGHT=TERRITORY has been live code since 7/20 and the grid stamps an OWNER on
+     every lit circuit -- but the owner is a CATEGORY, not a name. One circuit in
+     five comes back owned by the generic word "faction", so the game already knew
+     somebody held that block and could not say who. The seam test on the walked
+     surface compares those words, which means today a Mob block and a Cartel block
+     are the same block.
+     THE NAME IS DERIVED FROM THE SEATS, WHICH ARE GEOGRAPHY THAT ALREADY EXISTS.
+     A faction holds the ground around its own town, which is what "different parts
+     of Vegas as different faction holdings" means in plain words, and it needs no
+     canon: FACTION-TOWNS put the fourteen seats on the map and this reads them.
+     A FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table already above --
+     his own "the more prominent factions feel like strong fortress parts", as a
+     divisor rather than a new number. Ties go to the stronger faction, then to the
+     name, so the answer is the same on every device and every load.
+     WHO HOLDS WHAT IS STILL HIS: HOLDS ships EMPTY and an entry in it wins. */
+  var HOLDS = {};        /* HOLDS['48,57'] = 'Mob';  -- empty, and it stays empty */
+
+  function holderOf(towns, x, y) {
+    var k = x + ',' + y;
+    if (Object.prototype.hasOwnProperty.call(HOLDS, k))
+      return { faction: HOLDS[k], ruled: true, cells: 0, draft: false };
+    var best = null, bs = Infinity, bd = 0;
+    for (var i = 0; i < (towns || []).length; i++) {
+      var t = towns[i];
+      var d = Math.max(Math.abs(t.x - x), Math.abs(t.y - y));
+      var r = Object.prototype.hasOwnProperty.call(REACH, t.tier) ? REACH[t.tier] : 1;
+      var sc = d / r;
+      if (sc < bs
+          || (sc === bs && best && ((t.power || 0) > (best.power || 0)
+              || ((t.power || 0) === (best.power || 0) && t.faction < best.faction)))) {
+        bs = sc; best = t; bd = d;
+      }
+    }
+    return best ? { faction: best.faction, tier: best.tier, ruled: false,
+                    cells: bd, draft: true } : null;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
     frontsRoad: frontsRoad,
-    goodsFor: goodsFor, nearest: nearest, townCells: townCells
+    goodsFor: goodsFor, nearest: nearest, townCells: townCells,
+    HOLDS: HOLDS, holderOf: holderOf
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaTowns = API;

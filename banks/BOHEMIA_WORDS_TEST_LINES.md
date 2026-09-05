@@ -457,3 +457,206 @@ BROTHER  Pass the salt.                                                [time off
 # The lineman does not describe a debt in blood.
 # Cross-contamination reads as a writer with a metaphor list, not a person with
 # a past. One domain per mouth, for the whole game.
+
+## Q10 -- THREATS THAT ESCALATE AND THREATS THAT DE-ESCALATE  (9/5/26)
+# The finding: measured across 1,669 NPC lines, our build has 242 orders, 5
+# warnings, ZERO first-person threats, ZERO identity attacks, and ZERO words
+# spoken inside a fight (0 combat sources of 45). Felson's coded staircase is
+# identity attack, failed influence attempt, threat, attack. We built rung 2 and
+# nothing else, so every fight in Bohemia starts without a sentence.
+#
+# THE RULES EVERY LINE BELOW OBEYS:
+# 1. A threat is the LAST line before the fight, never the first.
+# 2. A warning (the consequence is not from me) de-escalates. A threat (I tie my
+#    own hands) escalates. Schelling: turn your threats into warnings.
+# 3. In front of the group there is no de-escalating sentence. The de-escalating
+#    line is the one that gets the other person off the stage.
+# 4. Nobody ever says "that isn't a threat" again. Five quests use that tell.
+
+### THE SAME STANDOFF, FOUR RUNGS. One pair of people, one street.   draft:true
+# Rung 1 IDENTITY ATTACK. We have zero of these and need a few, because the
+# staircase does not stand up without its bottom step.
+  THEM  You're the one who takes the easy end of everything, aren't you.
+  THEM  I know exactly what you are. I've known since the first week.
+# Rung 2 INFLUENCE ATTEMPT, which is an ORDER. We already have 242 of these.
+  THEM  Put it down and walk up the street.
+  THEM  Go home. I'm asking once and I'm asking nicely.
+# Rung 3 THREAT. First person, and notice what it costs the speaker: he has just
+# taken away his own choice in front of witnesses.
+  THEM  I'll be on this corner every night this week and you'll get tired first.
+  THEM  Then I'm the one who has to do something about it, and I don't want to be.
+# Rung 4 is not a line. It is the fight.
+
+### THE WARNING, WHICH IS THE STRONGER FORM AND COSTS THE SPEAKER NOTHING   draft:true
+# The consequence belongs to the world, the rules, or a third party. The speaker
+# keeps his choice, which is why it is credible.
+  The road shuts in November. That's not me, that's November.
+  Whoever's already taking from that line notices new people. I'd notice you.
+  There's a man who comes for these on Fridays. I don't decide what he's like.
+  Two houses on this block did what you're about to do. Ask either of them.
+# BANNED FOREVER, and we have five of them in the build: "that isn't a threat",
+# "I'm not threatening you", "that's arithmetic". The form is right. The tell dies.
+
+### THE AUDIENCE IS THE WHOLE DIAL. Same question, two temperatures.   draft:true
+# Already in the build and it is our best line on this subject, kept as the anchor:
+#   sergeant: "Ask me that again in front of my crew and you'll find out what we're
+#              actually like. Ask me here and I'll tell you it keeps me up."
+# The pattern, three more times:
+  PUBLIC   You said that out loud, so now I've got to answer it out loud.
+  PRIVATE  Say it again round the back and I'll give you a real answer.
+  PUBLIC   Everybody heard you. That's the part you should be worrying about.
+  PRIVATE  Nobody's listening now. Start again.
+  PUBLIC   I can't take that back in front of them, and neither can you.
+  PRIVATE  Just us. Nothing you say here gets carried anywhere.
+
+### THE GOLDEN BRIDGE. Backing down that does not look like backing down.   draft:true
+# Ury: people reject a deal rather than lose face. The line is not a better offer,
+# it is a better exit.
+  Say you changed your mind about the weather and we'll both let that be true.
+  You came up here to check on me. That's what happened. That's what I'll say.
+  Do me the favour instead. Then it's a favour and not whatever this was.
+  Walk out first. I'll wait a minute so it doesn't look like anything.
+  You were right about the count. I was right about the day. Call it that.
+
+### VOICE. The de-escalation that costs a whole turn.   draft:true
+# The negotiator move that measures best is letting the other person finish and
+# saying their position back to them accurately. It is expensive on the page and
+# that expense IS the de-escalation.
+  Say the rest of it. I'll wait.
+  So the way you see it, I've been taking and calling it borrowing.
+  You're not angry about the crate. You're angry it was the second one.
+  Finish. I've got nowhere to be and you've been holding that a while.
+
+### THE CLOCK IS WHAT MAKES IT A THREAT. Same demand, clock on and off.   draft:true
+  CLOCK ON   By dark or I do it my way.
+  CLOCK OFF  Whenever you've worked it out. I'm not going anywhere.
+  CLOCK ON   Last chance to be smart.
+  CLOCK OFF  There's still a smart way to do this and it's still on the table.
+# We only have two lines in the whole build that put a clock on the listener.
+# That is a lever we have not used in either direction.
+
+### THE GAMBIT ORDERS, THREE TEMPERATURES. Two or three words, one beat.  draft:true
+# One beat at 120 BPM is about two words (Q4). One system drives everybody, so
+# the enemy says these too, and hearing them is how you read the enemy.
+#   intent        cool (converge)              flat            hot (diverge)
+    hold          give it a second             hold            nobody moves
+    slow down     easy. easy.                  slow down       stop pushing
+    fall back     we're done here              fall back       out. now.
+    get behind    go around, I'll keep him     get behind them cut him off
+    stay with me  stay where I can see you     stay with me    on me
+    go            when you're ready            go              now now now
+
+### THE COMPANION SPEAKS FIRST, BECAUSE THE THIRD PARTY SETS THE TEMPERATURE  draft:true
+# Filmed-fight studies: third parties mirror the antagonists. A calm intervention
+# lowers the level, an aggressive one raises it. Ours is automated and silent.
+  COOLING  They're four and we're two. Say the thing that ends this.
+  COOLING  I've got your back either way. I'd rather have it walking.
+  COOLING  He hasn't decided yet. Neither have you.
+  HEATING  Nobody here is walking away clean, so pick.
+  HEATING  You want me to say it for you?
+  HEATING  They already made up their minds. Look at their hands.
+
+### THE LANGUAGE IS THE TEMPERATURE, AND ONLY THIS GAME HAS IT   draft:true
+# Accommodation theory: convergence puts at ease, divergence makes unwelcome, and
+# it runs from a few borrowed words to a whole language. Bilinguals switch into
+# L1 to turn emotion UP and into L2 to turn it DOWN.
+# A SWAP, NEVER AN ADDITION. The valley's totals do not move (the 8/26 cap).
+  DIVERGE, HOT   Ya te dije. I'm not saying it again in your language.
+  DIVERGE, HOT   Entonces we're finished talking.
+  CONVERGE, COOL Okay. Okay. In English, so we both hear it the same.
+  CONVERGE, COOL Dímelo otra vez. Slower. I want to get it right.
+  CONVERGE, COOL You say it however it comes out. I'll keep up.
+# The player never gets a lesson. He just learns that when somebody stops meeting
+# him halfway, the temperature went up.
+
+### AND THE LINE THAT ENDS A STANDOFF WITHOUT ANYBODY WINNING   draft:true
+# The best of these do not resolve the dispute. They resolve the audience.
+  Alright. Everybody's seen everybody. We can all go in now.
+  You've said it. It's said. That's the whole thing done.
+  I'm going to go stand over there and be wrong about this by myself.
+
+## Q11 -- WHAT THE FACE CAN CARRY  (9/5/26)
+# The finding: 64 px is three times the resolution floor for reading an emotion
+# (Du and Martinez: impaired only below about 20 by 30). The pixels were never the
+# problem. Our face has ONE emotional channel, the brow, driven off punctuation:
+# of 1,669 NPC lines, 90 carry "?" and exactly ONE carries "!", so 94.5% are
+# delivered with a flat brow. Meanwhile 229 lines already carry a mood tag, those
+# tags ride into the shipped demo, and facePerform is called with {}.
+#
+# THE RULE EVERY LINE BELOW OBEYS: the face carries HOW, the text carries WHAT.
+# A line that carries both says the same thing twice and the second time is worse.
+# And the face's FIRST job here is to CONTRADICT the line, not illustrate it.
+
+### THE SAME INFORMATION, WITH AND WITHOUT A FACE   draft:true
+# Left is what a line has to do when the portrait is dead. Right is what it can
+# be once the mood tag reaches the brow. Same content, less freight.
+  FACE DEAD  I'm worried about him, and I don't want to say it in front of her.
+  FACE ALIVE He's not back.                                             #dread
+  FACE DEAD  I'm so tired I can barely stand here talking to you about this.
+  FACE ALIVE Ask me tomorrow.                                           #tired
+  FACE DEAD  I don't trust you and I'm watching what your hands are doing.
+  FACE ALIVE Sit where I can see you.                                   #wary
+  FACE DEAD  I've already decided about you and nothing you say will change it.
+  FACE ALIVE Say it anyway.                                             #cold
+  FACE DEAD  I'm hopeful for the first time in a long while, honestly.
+  FACE ALIVE Twice this week the light came on at six.                  #hope
+# Every ALIVE line is shorter, and at 120 BPM shorter is on the beat (Q4: one
+# beat is about two words). The face buys us rhythm as well as truth.
+
+### THE CONTRADICTION, WHICH IS THE BEST TOOL ON THIS LIST   draft:true
+# The tag disagreeing with the sentence is not an error. It is the whole point of
+# having a face. We already ship four lines that are broken without it.
+  I'm fine. I ate yesterday.                                            #dread
+  I'm not angry. I'm just done taking your word.                        #cold
+  Take it, I don't need it back.                                        #tired
+  Everybody's alright. Everybody's where they should be.                #wary
+  It's a good day. It's a good day, that's all I said.                  #flat
+  Go on then. Nothing here for you.                                     #hope
+# The player is never told. They just see a mouth and a brow that do not agree,
+# and they learn something nobody said out loud.
+
+### THE MOODS WE DO NOT HAVE, AND THE FACE HAS NOTHING TO DO WITHOUT THEM  draft:true
+# Measured: dread 66, wary 66, flat 41, tired 40, cold 10, hope 6. FIVE of six are
+# low-energy and negative. Nobody in this city is ever amused, warm, or sharp.
+# Q8 found over half of real bereaved people laugh while telling the story.
+  WARM   Sit down, you're letting the heat out. Both of you.            #warm
+  WARM   You came back. I told her you'd come back and she owes me.     #warm
+  WARM   That's my chair, but go on.                                    #warm
+  AMUSED You walked the whole way round. There's a gate.                #amused
+  AMUSED He's been telling that one for nine years and it gets shorter. #amused
+  AMUSED I'd have paid to watch you try it.                             #amused
+  SHARP  Don't. Not that one.                                           #sharp
+  SHARP  Say the number again. Slowly.                                  #sharp
+  SHARP  You knew before you knocked.                                   #sharp
+# Three new moods, nine lines, and the brow gets to move in the other direction
+# for the first time in the game's life.
+
+### THE ONE-BEAT LINE THE FACE MAKES POSSIBLE   draft:true
+# When the face carries HOW, a whole answer can be two words. Q14 [one-word
+# answers] is still open and this is the groundwork for it.
+  Not tonight.                                                          #tired
+  Around back.                                                          #wary
+  He's not.                                                             #dread
+  Try me.                                                               #sharp
+  Still here.                                                           #flat
+  Come in.                                                              #warm
+# Two words is one beat at 120 BPM. None of these read as terse or rude with a
+# face attached, and all of them do without one.
+
+### WHAT THE BLINK SAYS THAT THE BROW CANNOT   draft:true
+# Real blink baseline is one every 3 to 5 seconds, about 20 a minute. It RISES
+# with anxiety, FALLS as visual attention demand rises. Brow carries valence,
+# blink carries arousal, and that is what separates our five negative moods.
+# These are not lines, they are what a player should be able to read off the face
+# while the SAME flat sentence is being said:
+  fast blink, brow down      something is coming and he knows it       #dread
+  fast blink, brow level     he is watching your hands, not your face  #wary
+  slow long closures         there is nothing left in him              #tired
+  slow and few, brow down    he made his mind up before you spoke      #cold
+  resting rate, brow level   he has nothing to give you either way     #flat
+
+### AND THE STAGE DIRECTION WE WILL NEVER WRITE AGAIN   draft:true
+# BANNED, in every line this lane ships from here:
+# he said angrily / she looked away sadly / his face fell / with a tired smile /
+# eyes narrowing / voice shaking.
+# The tag does it, the face does it, and the sentence does not say it twice.

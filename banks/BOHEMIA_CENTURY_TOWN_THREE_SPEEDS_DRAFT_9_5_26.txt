@@ -1,0 +1,91 @@
+BOHEMIA -- A PLACE ACROSS A HUNDRED YEARS: THREE SPEEDS
+BANK, 9/5/26, DYNASTY lane, Q9 [century town]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+anywhere. NOT ONE STREET NAME, DISTRICT NAME OR PLACE NAME IS INVENTED HERE:
+contents are his, and this file is layers and rates only.
+Record: records/BOHEMIA_DYNASTY_DAY_9_A_PLACE_ACROSS_A_HUNDRED_YEARS_9_5_26.md
+
+WHY THIS SHAPE
+His CENTURY RULE (7/26, LOCKED) says dynasty building choices compound across
+~100 years, that neglect makes act three's city visibly POORER and investment
+makes it visibly rebuilt, that the city is the game's long memory, and that the
+mechanism was still to be designed with research commissioned. This is that
+research.
+The real answer is that a town does not change at one speed, it changes at three.
+The STREET PATTERN is the most persistent thing in a town and stays legible for
+centuries, steering everything built after it. The PLOT lines go slower than
+buildings and faster than streets. The BUILDING FABRIC turns over in decades. And
+what a place is FOR is the least resistant of all: it flips without a brick
+moving.
+THE THING THAT LASTS A HUNDRED YEARS IS THE SHAPE. THE THING THAT CHANGES
+FASTEST IS WHAT THE ROOMS ARE FOR.
+And renaming is rarer than anyone guesses: after a total regime collapse, studies
+of five cities found between 6.6% and 26% of streets renamed, usually under a
+tenth. NINE NAMES IN TEN SURVIVE. What goes is the politicised and the central.
+So the forgetting is not a deleted name. It is a name nobody can explain.
+
+---- THE THREE SPEEDS, AS A SHAPE ONLY --------------------------------- draft:true
+Structure is ours. Every name, every rate and every threshold is his.
+
+  THE PLAN     does not move in a hundred years. already true in our engine,
+               because the world is regenerated from a seed.
+  THE PLOTS    the lines between one holding and the next. outlive the walls.
+  THE FABRIC   turns over. our act texture law already graduates these skins.
+  THE USE      changes fastest and costs the least to change. NOT MODELLED AT
+               ALL TODAY, and it is the cheapest legible century of all.
+
+---- WHAT STAYS ---------------------------------------------------------- draft:true
+  THE ROAD STILL BENDS THE SAME WAY.
+  SAME CORNER. NOTHING ELSE THE SAME.
+  THE WALL IS NEW. THE LINE IT SITS ON IS NOT.
+  SOMEBODY BUILT ALONG A FENCE THAT IS NOT THERE ANY MORE.
+  YOU COULD WALK THIS BLIND.
+
+---- WHAT GETS RENAMED, WHICH IS THE MIDDLE AND NOT THE EDGE ------------ draft:true
+  THEY CHANGED WHAT THE SQUARE IS CALLED.
+  THEY CHANGED IT BACK.
+  NOBODY BOTHERED WITH THE BACK LANES.
+  THE SIGN IS NEW AND THE OLD ONE IS UNDER IT.
+
+---- WHAT IS FORGOTTEN, WHICH IS THE REASON AND NOT THE NAME ------------ draft:true
+  IT IS NAMED AFTER SOMEBODY. THAT IS ALL ANYONE KNOWS.
+  THERE WAS A MAN. THERE IS NOT A STORY ANY MORE.
+  EVERYBODY CALLS IT THAT. NOBODY KNOWS WHY.
+  THE NAME OUTLIVED THE MAN AND THEN IT OUTLIVED HIM AGAIN.
+  ASK THE REMNANTS. THEY WRITE IT DOWN.
+
+---- WHAT A PLACE IS FOR, THE FASTEST LAYER AND THE ONE WE NEVER BUILT -- draft:true
+  THIS WAS A SCHOOL.
+  IT IS NOT A SCHOOL NOW.
+  THEY SLEEP IN IT.
+  IT WENT BACK TO BEING WHAT IT WAS.
+  NOBODY USES IT FOR ANYTHING AND NOBODY HAS TAKEN IT DOWN.
+
+---- GOING BACKWARDS, WHICH THE MACHINE CANNOT SAY TODAY ---------------- draft:true
+(his own law says NEGLECT AND ACT THREE'S CITY IS VISIBLY POORER. our invest
+number only ever rises and the texture ladder only ever climbs, so half of a
+locked law is arithmetically impossible right now. this is that half, in words.)
+  THIS WAS REBUILT ONCE.
+  NOBODY KEPT IT UP.
+  IT IS GOING BACK TO WHAT IT WAS.
+  IT IS WORSE THAN WHEN YOUR FATHER FOUND IT.
+  YOU HAD THIS. YOU HAVE IT LESS.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No street plan that changes across acts. It is the most persistent layer in life
+and it is seed-fixed in our engine, so moving it would be wrong twice.
+No decay on a timer. The law says NEGLECT, which is a player not acting, and a
+bar that drains while you watch was killed already.
+No mass renaming at a regime change. The measured top end is about a quarter of
+streets and it is usually under a tenth.
+No fourth texture tier. Three is not the problem; three read off ONE NUMBER THAT
+ONLY RISES is the problem.
+Not one invented street name, district name, or record the Remnants kept.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Every name. Which places change use and into what. Whether anything is allowed to
+go backwards, and how far. What the Remnants actually kept. What act three's city
+looks like when a family did nothing for a hundred years.

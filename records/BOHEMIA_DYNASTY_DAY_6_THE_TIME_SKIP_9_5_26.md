@@ -7,6 +7,48 @@
 # Game titles appear in SOURCES only, never in the design, and never attached to
 # a department they do not own (the 8/28 law as amended 9/5).
 
+## 0. *** CORRECTION, ADDED BY ROUND 7. SECTION 5 PUBLISHED A FALSE NEGATIVE. ***
+This record claimed **"NOTHING DRIVES THE WITNESS WEB FORWARD ACROSS A GAP...
+no advanceYears, no generationPass, no call that moves it ten or thirty years"**
+and that "nothing calls it". **THAT WAS WRONG, AND IT WAS WRONG WHEN I PUBLISHED
+IT.**
+`slices/BOHEMIA_CITY_WORLD.html` carries `ctFold()`, which calls
+`BohemiaStanding.inherit(minds, '@', '@', ctMinuteNow())`, advances `CT_GEN`,
+and carries a parent's deeds forward -- keeping only the ones with `hops > 0`,
+the deeds somebody actually RETOLD, and marking them `inherited` so `legendOf()`
+can still name what your father did as his. It is reachable, through a
+deliberate door (`BOHEMIA_FOLD_GENERATION` over the postMessage seam) because
+its own comment rules that *"WHEN a generation turns is a STORY decision and it
+is his; nothing in this file folds on its own -- no timer, no act boundary, no
+death."*
+It shipped as commit `383219e` (FACTIONS lane, "FAMILY: the generation folds,
+and the valley remembers what got repeated"), and **git confirms it was already
+an ancestor of my round-6 push.** So this was not a race. It was a bad search.
+### HOW I GOT IT WRONG, BECAUSE THE METHOD IS THE REUSABLE PART
+I grepped `engine/*.js` for `advanceYears` and `generationPass` -- **two names I
+invented** -- and never grepped the SLICES for `inherit(`, which is the real
+name of the real function, in the file where the walked game actually lives.
+> **SECOND CONFIDENT NEGATIVE OF THIS LANE. ROUND 2 CAUGHT THE FIRST ONE ONE
+> ROUND LATER; THIS ONE I PUBLISHED. THE RULE I KEEP RE-LEARNING IS THE SAME:
+> SEARCH FOR THE THING'S REAL NAME, IN EVERY PLACE THE GAME LIVES, NOT FOR THE
+> NAME I WOULD HAVE GIVEN IT IN ONE FOLDER.**
+### WHAT SURVIVES, AND IT IS SHARPER THAN WHAT I WROTE
+- `bohemia_engine.js` still references `bohemia_standing` **zero** times.
+  **MEASURED AGAIN TODAY.**
+- So there are **TWO FOLDS, IN TWO FILES, DOING TWO HALVES**: the engine's
+  `foldGeneration` carries the LEDGER (standings, territory, builds, economy),
+  and the city's `ctFold` carries the MEMORY (who retold what about you).
+  **Neither one knows the other exists.**
+- The routed row changes name but not substance: it is no longer "build the
+  wire", it is **"there are two folds and there should be one."**
+- **And FACTIONS built the harder half before I asked for it, correctly, with
+  the door under his control.** That belongs in the record more than my error
+  does. Section 6's claim that the memory half was missing is withdrawn; the
+  claim that the two halves are unaware of each other stands.
+Everything below this section is the record as originally written, unedited, so
+the mistake stays visible.
+
+
 ## 1. THE REAL AISLE -- A DECADE IS A CAST CHANGE, NOT A SET CHANGE
 The thing a ten-year gap actually does to a place is not architectural.
 > **IF ABOUT HALF OF A NEIGHBOURHOOD'S RENTERS MOVE EVERY TWO YEARS, THE CHANCE

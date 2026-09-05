@@ -6710,29 +6710,54 @@ const BOH_POWERGRID=(()=>{
     const r=rng((seed^0x11FE)>>>0);
     const circuits=buildCircuits(m,opts.N||96);
     const status={}; // "x,y" -> {live,owner,id}
+    /* WHO HOLDS IT, BY NAME (9/5, BB-TURF). The owner has always been a CATEGORY --
+       settlement / faction / network / solar_lone -- so one circuit in five came back
+       owned by the generic word "faction" and the game could not say WHICH. The seam
+       test on the walked surface compares those words, which means a Mob block and a
+       Cartel block were the same block.
+       `opts.holders` is a list of {faction,x,y,tier,power} seats and a `name(x,y)`
+       that turns a cell into one of them. THIS MODULE TAKES DATA, NOT A MODULE: the
+       grid stays a pure function of the map and the seed, and the caller supplies the
+       geography. Handed nothing, every owner stays exactly the category it was.
+       ONLY THE `faction` CATEGORY IS NAMED. settlement is a neighbourhood holding its
+       own lights and solar_lone is one holdout with a panel; naming those would be
+       inventing canon the row did not ask for.
+       AND `network` IS LEFT ALONE ON PURPOSE, even though the graph has a faction
+       called Network: the category predates the roster and treating the two as the
+       same thing is a guess about his canon, not a reading of it. Written down rather
+       than silently resolved. */
+    const name = opts.holderAt || null;
     for(let ci=0;ci<circuits.length;ci++){
       const c=circuits[ci];
       const live=r()<litFraction;
-      let owner=null;
+      let owner=null, faction=null;
       if(live){
         const roll=r(); let acc=0;
         for(const k in weights){acc+=weights[k];if(roll<acc){owner=k;break;}}
         owner=owner||'settlement';
+        if(owner==='faction'&&name){
+          /* named off the circuit's FIRST cell, so every cell of one feeder answers
+             with one holder -- a circuit that changed hands halfway down its own run
+             would be a border drawn through a wire. */
+          const h=name(c[0][0],c[0][1]);
+          if(h&&h.faction) faction=h.faction;
+        }
       }
-      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci};
+      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci,faction};
     }
     /* THE CIRCUITS SOMEBODY COULD NOT PAY FOR. Empty at boot, because a valley
        where the lights are already out is a different game and that is not the
        seed's business. */
     const dark=Object.create(null);
-    const DEAD={live:false,owner:null,id:-1};
+    const DEAD={live:false,owner:null,id:-1,faction:null};
     function raw(x,y){ return status[x+','+y]||DEAD; }
     /* THE ONE ANSWER. A doused circuit reports NOT LIVE and KEEPS ITS OWNER,
        because whose block went dark is exactly the thing you want to know when
        it does — the light went out, the claim did not. */
     function at(x,y){
       const s=raw(x,y);
-      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,id:s.id,doused:true};
+      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,faction:s.faction,
+                                       id:s.id,doused:true};
       return s;
     }
     return {circuits:circuits.length,
@@ -6740,6 +6765,19 @@ const BOH_POWERGRID=(()=>{
       at:at,
       /* the circuit a cell belongs to, or -1 for ground no feeder runs down */
       idAt:(x,y)=>raw(x,y).id,
+      /* WHO HOLDS THIS BLOCK, BY NAME, or null where nobody is named. A doused
+         circuit keeps its holder: the light went out, the claim did not. */
+      holderAt:(x,y)=>at(x,y).faction||null,
+      /* how many live circuits each named faction holds -- the owner map as a
+         number, which is what BB-TERRITORY-FLAG will read. */
+      holdings:function(){
+        const out={};
+        for(const k in status){ const s=status[k];
+          if(s.live&&s.faction&&!dark[s.id]) (out[s.faction]=out[s.faction]||{cells:0,circuits:{}}),
+            out[s.faction].cells++, out[s.faction].circuits[s.id]=1; }
+        for(const f in out) out[f].circuits=Object.keys(out[f].circuits).length;
+        return out;
+      },
       /* PUT ONE OUT. Only a circuit that is actually lit can go dark, so an
          unpaid bill on a block that was never lit is not a punishment. */
       douse:function(id){
@@ -25028,6 +25066,11 @@ const BEAT=500; // 120BPM law
 
 
 
+
+
+
+
+
 /* ===== BOHEMIA FACTION GRAPH (generated, verbatim) ===== */
 /* Paolo's own faction graph, spliced verbatim by
    tools/bohemia_city_towns_patch.py. ONE COPY OF HIS NUMBERS: edit
@@ -25202,16 +25245,23 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
   /* GROUND THAT NEVER CARRIES A BUILDING IS NOT A TOWN. His ruling says in its own
      words that WHAT SUPPORTS A TOWN IS BUILDINGS, and a solar array supports nothing:
      you cannot trade on a photovoltaic field or a runway.
-     THIS LIST IS MEASURED, NOT IMAGINED. Sampled across two seeds, asking the district
-     kit itself how many buildings each kind's plots carry: airbase, airport, solar and
-     strip came back with ZERO on every plot examined, and they are the only kinds that
-     did. faction_towns_gate re-measures it and goes red if a kind's answer changes, so
-     it cannot rot into a list somebody once believed.
-     IT DOES NOT CLOSE THE WHOLE GAP AND DOES NOT PRETEND TO: golf and farm plots are
-     SOMETIMES empty, which a kind list cannot see, and the honest per-cell test needs
-     w.plot() -- an API the walked surface does not have. That remainder is counted
-     against a ceiling in payday_gate rather than hidden. */
-  var NOT_A_TOWN = { airbase: 1, airport: 1, solar: 1, strip: 1 };
+     THIS LIST IS MEASURED, NOT IMAGINED, AND THE MEASUREMENT WAS WIDENED ONCE BECAUSE
+     THE FIRST QUESTION WAS THE WRONG ONE.
+     The first cut asked which kinds are ALWAYS empty and got four: airbase, airport,
+     solar, strip. That still left two seats on ground with nothing on it -- because a
+     seat lands on ONE cell, so what matters is not whether a kind is always empty but
+     whether it can EVER be. A kind that is usually built and sometimes not will
+     eventually put a market on nothing.
+     Asked again, exhaustively, over every buildable kind across two seeds: EIGHT kinds
+     have at least one plot with zero buildings and FORTY-NINE are built on every plot
+     examined. All eight are out, and the unreachable-seat count went 7 -> 2 -> 0,
+     re-measured at 84 seats over six seeds.
+     It is also the reading that matches his ruling in plain words: a runway, a solar
+     field, a fairway and a farm are not parts of a city you trade in.
+     faction_towns_gate RE-MEASURES this and goes red naming the kind if any answer
+     changes in either direction, so it cannot rot into a list somebody once believed. */
+  var NOT_A_TOWN = { airbase: 1, airport: 1, datafort: 1, farm: 1,
+                     golf: 1, solar: 1, speedway: 1, strip: 1 };
 
   function districtsOf(m, cat) {
     var out = [];
@@ -25303,12 +25353,52 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
     return out;
   }
 
+  /* ---------------------------------------------------------------------------
+     WHO HOLDS THIS GROUND (9/5, BB-TURF).
+     LIGHT=TERRITORY has been live code since 7/20 and the grid stamps an OWNER on
+     every lit circuit -- but the owner is a CATEGORY, not a name. One circuit in
+     five comes back owned by the generic word "faction", so the game already knew
+     somebody held that block and could not say who. The seam test on the walked
+     surface compares those words, which means today a Mob block and a Cartel block
+     are the same block.
+     THE NAME IS DERIVED FROM THE SEATS, WHICH ARE GEOGRAPHY THAT ALREADY EXISTS.
+     A faction holds the ground around its own town, which is what "different parts
+     of Vegas as different faction holdings" means in plain words, and it needs no
+     canon: FACTION-TOWNS put the fourteen seats on the map and this reads them.
+     A FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table already above --
+     his own "the more prominent factions feel like strong fortress parts", as a
+     divisor rather than a new number. Ties go to the stronger faction, then to the
+     name, so the answer is the same on every device and every load.
+     WHO HOLDS WHAT IS STILL HIS: HOLDS ships EMPTY and an entry in it wins. */
+  var HOLDS = {};        /* HOLDS['48,57'] = 'Mob';  -- empty, and it stays empty */
+
+  function holderOf(towns, x, y) {
+    var k = x + ',' + y;
+    if (Object.prototype.hasOwnProperty.call(HOLDS, k))
+      return { faction: HOLDS[k], ruled: true, cells: 0, draft: false };
+    var best = null, bs = Infinity, bd = 0;
+    for (var i = 0; i < (towns || []).length; i++) {
+      var t = towns[i];
+      var d = Math.max(Math.abs(t.x - x), Math.abs(t.y - y));
+      var r = Object.prototype.hasOwnProperty.call(REACH, t.tier) ? REACH[t.tier] : 1;
+      var sc = d / r;
+      if (sc < bs
+          || (sc === bs && best && ((t.power || 0) > (best.power || 0)
+              || ((t.power || 0) === (best.power || 0) && t.faction < best.faction)))) {
+        bs = sc; best = t; bd = d;
+      }
+    }
+    return best ? { faction: best.faction, tier: best.tier, ruled: false,
+                    cells: bd, draft: true } : null;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
     frontsRoad: frontsRoad,
-    goodsFor: goodsFor, nearest: nearest, townCells: townCells
+    goodsFor: goodsFor, nearest: nearest, townCells: townCells,
+    HOLDS: HOLDS, holderOf: holderOf
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaTowns = API;
@@ -25972,6 +26062,301 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== engine/bohemia_century.js ==== */
 
+/* ==== engine/bohemia_feedstream.js (inlined verbatim) ==== */
+// BOHEMIA FEED STREAM — one stream, three sources, and the surface just reads it.
+// (9/5/26, LIFE + CITY lane. VAMILY job [feed posts] / THE-FEED-STREAM: "one event
+//  stream the city-screen feed reads: the deed ledger first (exists), then
+//  faction/territory events, then ambient life posts".)
+//
+// THE LAW ROUTES THIS EXPLICITLY AND THE UI LANE ALREADY BUILT THE OTHER HALF.
+// laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md routes the SURFACE to
+// UI (shipped: the phone screen in CITY mode, the scroll, the beat) and THE STREAM
+// here. Their own header says it out loud -- "this is a reader, not a source ... it
+// consumes whatever the game already writes" -- and names the seam they left open:
+// "WORLD/PEOPLE own the faction event stream; when it lands it calls this ... Until
+// then that source is EMPTY, on purpose." This is that source landing, and it takes
+// over the two stopgaps the surface was carrying meanwhile, because the law says ONE
+// stream and two producers for one feed is the bug this repo keeps writing up.
+//
+// WHAT WAS MEASURED ON THE WALKED SURFACE BEFORE A LINE OF THIS WAS WRITTEN:
+//   BOHEMIA_FACTION_GRAPH  present    BohemiaTowns  present, ZERO callers
+//   POWER                  358 live cells          prices  water 1, food 1
+//   BohemiaCentury/Housing/Production  present (this lane's own, shipped this round)
+//   the world source of the feed       0 posts, ever
+// Everything the world needs to talk about is in the page and nothing reads it. That
+// is the whole job.
+//
+// AN EVENT STREAM MEANS DIFFS, NOT A DESCRIPTION. A source that re-states the world
+// every beat is a status bar, and he asked for a feed: things that HAPPENED. So every
+// world source keeps its last-seen value and speaks only when it moves. The first
+// drain is the baseline and says nothing about the world, which is correct -- "the
+// grid is at 358" is not news, "the grid just lost a block" is.
+//
+// WHO SAYS IT: faction names come from the graph the world already has, never from a
+// name typed here. WHAT THEY SAY is TEXT, so ALWAYS MAKE AN ATTEMPT (8/11) applies --
+// every line is a real attempt tagged draft:true and WORDS edits them later. Which
+// faction says what ABOUT WHOM is canon and is not decided here: posts report what
+// moved, in the valley's mouth, and never put an opinion in a named faction's mouth.
+//
+// REUSE CHECK: cooks NO pixels, adds NO panel, and owns no memory. It reads the deed
+// ledger, the power map, the price table, the faction graph via BohemiaTowns, and this
+// lane's own century record. It writes nothing any of them owns.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  var MAX_PER_DRAIN = 3;      /* a feed, not a dump: a beat carries a few posts */
+  /* TWO CADENCES, AND PUTTING THEM ON ONE BROKE ANOTHER LANE'S GATE. Events are
+     events: a deed you just did has to land on the NEXT beat, which is the surface's
+     own published contract and what its gate measures. Ambient life is the opposite --
+     one every eight beats, or the panel reads as a ticker. The first cut ran the whole
+     drain on the slow cadence, so a finished quest waited up to seven beats and UI's
+     feed gate went red on latency. THE CADENCE BELONGS TO THE SOURCE, NOT TO THE
+     CALLER, so the slow one lives here and the surface simply drains every beat. */
+  var LIFE_EVERY = 8;
+
+  function make() {
+    return {
+      V: 1,
+      seenDeeds: 0,
+      /* null means "never looked", which is NOT the same as zero and is the whole
+         reason the first drain is silent about the world. */
+      lit: null, prices: null, seats: null, built: null,
+      lifeAt: -1, lastLife: null, lifeBeat: null,
+      /* THE CAP DELAYS A POST, IT NEVER DROPS ONE. The first cut capped the RETURN
+         while the sources had already advanced their cursors, so on a busy beat the
+         fourth thing that happened was gone for good -- a faction taking a seat,
+         silently eaten by a price change and two blackouts. An event stream that
+         loses events is a status bar with extra steps. */
+      pending: []
+    };
+  }
+
+  function post(who, txt, kind) {
+    return { who: who, txt: String(txt), kind: kind || 'world', draft: true };
+  }
+
+  /* ---------------------------------------------------------------------------
+     1. WHAT YOU DID. The deed ledger, which already exists and already keeps the
+        REASON -- the completing stage's own @LOG line -- so a post about your
+        standing quotes the quest's own words and never prose written about it.
+        That is the 8/11 catalogue rule, and it is why this reads `why` first.
+     --------------------------------------------------------------------------- */
+  function deeds(st, w) {
+    var out = [], log = (w && w.deedLog) || null;
+    if (!log || !log.length) return out;
+    /* THE LEDGER IS CAPPED AND SHIFTS, so an index is not a safe cursor once it
+       wraps. Clamp rather than read off the front of a rotated array. */
+    if (st.seenDeeds > log.length) st.seenDeeds = 0;
+    while (st.seenDeeds < log.length) {
+      var e = log[st.seenDeeds++];
+      if (!e) continue;
+      var who = e.who || 'somebody';
+      var handle = '@' + String(who).toLowerCase().replace(/[^a-z0-9]+/g, '');
+      var txt = e.why ? String(e.why)
+                      : ((e.d > 0) ? ('word is you did right by ' + who + '.')
+                                   : ('word is you burned ' + who + '.'));
+      if (e.quest) txt += '  [' + e.quest + ']';
+      out.push(post(handle, txt, 'mine'));
+    }
+    return out;
+  }
+
+  /* ---------------------------------------------------------------------------
+     2. WHAT THE WORLD DID. Four things that really move on the walked surface,
+        each spoken only when it changes.
+     --------------------------------------------------------------------------- */
+  function world(st, w) {
+    var out = [];
+
+    /* THE LIGHTS. Light is territory (COLOUR IS TERRITORY, and the 12% grid), so a
+       block coming on or going dark is the most legible thing that can happen to
+       this valley without a person in it. */
+    if (typeof w.lit === 'number') {
+      if (st.lit === null) st.lit = w.lit;                 /* baseline, no post */
+      else if (w.lit !== st.lit) {
+        var d = w.lit - st.lit;
+        st.lit = w.lit;
+        out.push(post('@thecircuit', d > 0
+          ? ('another ' + d + (d === 1 ? ' block' : ' blocks') + ' came up on the grid tonight.')
+          : (Math.abs(d) + (Math.abs(d) === 1 ? ' block' : ' blocks') + ' went dark. nobody is saying why.')));
+      }
+    }
+
+    /* WHAT THINGS COST. The shop's own quote, never a number typed here -- if the
+       valley gets thirstier the sim moves the price and the feed says so. */
+    if (w.prices) {
+      if (st.prices === null) st.prices = w.prices;
+      else {
+        for (var g in w.prices) {
+          if (!Object.prototype.hasOwnProperty.call(w.prices, g)) continue;
+          var was = st.prices[g], now = w.prices[g];
+          if (typeof was !== 'number' || typeof now !== 'number' || was === now) continue;
+          out.push(post('@nobodysgas', now > was
+            ? (g + ' is up to ' + battery(now) + '. it was ' + battery(was) + ' last week.')
+            : (g + ' is down to ' + battery(now) + '. somebody got a load in.')));
+        }
+        st.prices = w.prices;
+      }
+    }
+
+    /* WHO HOLDS WHAT. The faction seats the world already derives -- FORTRESS, TOWN,
+       CAMP. A seat changing tier is a faction rising or falling, which is the
+       territory half of his ruling. The NAMES are the graph's; nothing is invented. */
+    if (w.seats) {
+      if (st.seats === null) st.seats = w.seats;
+      else {
+        for (var f in w.seats) {
+          if (!Object.prototype.hasOwnProperty.call(w.seats, f)) continue;
+          var b = st.seats[f], a = w.seats[f];
+          if (!a || b === a) continue;
+          out.push(post('@thevalley', b
+            ? (f + ' is a ' + String(a).toLowerCase() + ' now. it was a ' + String(b).toLowerCase() + '.')
+            : (f + ' has put down a ' + String(a).toLowerCase() + '.')));
+        }
+        st.seats = w.seats;
+      }
+    }
+
+    /* AND WHAT YOU PUT UP. The century record is this lane's own and it already
+       knows, so the valley notices a building the same round it is placed. */
+    if (typeof w.built === 'number') {
+      if (st.built === null) st.built = w.built;
+      else if (w.built > st.built) {
+        var n = w.built - st.built;
+        st.built = w.built;
+        out.push(post('@eastwardEve', n === 1
+          ? 'somebody has put a roof up where there was nothing. good.'
+          : (n + ' new roofs this week. somebody is building.')));
+      } else st.built = w.built;
+    }
+
+    return out;
+  }
+
+  function battery(n) { return n === 1 ? 'one battery' : (n + ' batteries'); }
+
+  /* ---------------------------------------------------------------------------
+     3. AMBIENT LIFE, KEYED OFF WHAT EXISTS -- which is the half of his ruling a
+        fixed list of lines cannot satisfy. The law asks for posts "keyed off what
+        exists (trade, circuit owner, hour, what you are known for), so the valley
+        reads as alive when nothing is happening". So each of these is a sentence
+        the CURRENT world makes true: the hour, the light, the price of water. A
+        static list says the same things in a dark valley and a lit one.
+        draft:true, every one -- WORDS owns the voice.
+     --------------------------------------------------------------------------- */
+  function life(st, w) {
+    var lines = [];
+    var hh = (typeof w.min === 'number') ? Math.floor(w.min / 60) : 12;
+    var night = (hh >= 20 || hh < 6);
+    var lit = (typeof w.lit === 'number') ? w.lit : null;
+
+    /* THE FIRST CUT OF THIS READ AS A LOOP AND I ONLY SAW IT BY WATCHING THE PANEL.
+       At six in the morning exactly two of these were true, so the feed alternated
+       the same two lines forever -- which is worse than a fixed list, because it is a
+       fixed list that took an hour to build. The fix is not more lines, it is more of
+       the world: the faction seats and the size of the grid are things the valley can
+       always talk about, and they differ between one valley and another. */
+    if (w.seats) {
+      var names = [], held = {};
+      for (var f in w.seats) if (Object.prototype.hasOwnProperty.call(w.seats, f)) {
+        names.push(f); held[w.seats[f]] = (held[w.seats[f]] || 0) + 1;
+      }
+      if (names.length) {
+        var pick = names[Math.abs(st.lifeAt + 1) % names.length];
+        lines.push(post('@thevalley', 'still no moving the ' + pick + ' off their '
+          + String(w.seats[pick]).toLowerCase() + '. everybody knows it.', 'life'));
+      }
+      if (held.fortress > 1)
+        lines.push(post('@nightcount', held.fortress + ' outfits holding a fortress between them. '
+          + 'that is a lot of walls for one valley.', 'life'));
+    }
+    if (lit !== null && lit < 500)
+      lines.push(post('@thecircuit', 'most of the valley is still dark. '
+        + lit + ' blocks with anything in them at all.', 'life'));
+
+    if (night && lit !== null && lit > 0)
+      lines.push(post('@nightcount', 'counting lights from the ridge again. ' + lit
+        + ' of them tonight.', 'life'));
+    if (night && lit === 0)
+      lines.push(post('@nightcount', 'no lights anywhere from the ridge. just the stars, and they do not help.', 'life'));
+    if (!night && hh < 10)
+      lines.push(post('@waterline', 'queue at the standpipe already. bring something to sit on.', 'life'));
+    if (!night && hh >= 15)
+      lines.push(post('@duststop', 'wind off the dry lake all afternoon. tape your windows.', 'life'));
+    if (w.prices && typeof w.prices.water === 'number')
+      lines.push(post('@marisol_v', 'water is ' + battery(w.prices.water) + ' today. no se, pero we drink anyway.', 'life'));
+    if (typeof w.built === 'number' && w.built > 0)
+      lines.push(post('@thecircuit', 'new build going up on the east side. somebody has plans.', 'life'));
+    if (!lines.length)
+      lines.push(post('@thevalley', 'quiet day. nobody has anything to say and that is its own news.', 'life'));
+
+    /* ONE AT A TIME, AND NEVER THE SAME ONE TWICE RUNNING. The seed fills the panel
+       with three in a row, so a plain rotation over a two-line set printed the same
+       sentence back to back the moment he opened it. */
+    st.lifeAt = (st.lifeAt + 1) % lines.length;
+    var one = lines[st.lifeAt];
+    if (lines.length > 1 && st.lastLife === one.txt) {
+      st.lifeAt = (st.lifeAt + 1) % lines.length;
+      one = lines[st.lifeAt];
+    }
+    st.lastLife = one.txt;
+    return [one];
+  }
+
+  /* ---------------------------------------------------------------------------
+     THE DRAIN. One call, one stream, newest sources first: what you did leads,
+     because it is the thing he came to see; the world next; ambient life only when
+     the first two had nothing, which is exactly when the valley needs to sound
+     alive. Capped, because a feed is not a dump.
+     --------------------------------------------------------------------------- */
+  function drain(st, w) {
+    if (!st || !w) return [];
+    st.pending = (st.pending || []).concat(deeds(st, w)).concat(world(st, w));
+    /* ambient life fills a beat when nothing happened, and is NOT queued: a quiet
+       line held over and shown three beats later is a lie about a quiet moment. */
+    if (!st.pending.length) {
+      /* nothing happened: fill the quiet, but only on the slow cadence. A caller that
+         does not hand over a beat gets the old behaviour and life every drain. */
+      if (typeof w.beat === 'number') {
+        if (st.lifeBeat !== null && w.beat - st.lifeBeat < LIFE_EVERY) return [];
+        st.lifeBeat = w.beat;
+      }
+      return life(st, w);
+    }
+    var out = st.pending.slice(0, MAX_PER_DRAIN);
+    st.pending = st.pending.slice(MAX_PER_DRAIN);
+    return out;
+  }
+
+  /* FILLING AN EMPTY PANEL IS ITS OWN CASE AND IT IS NOT THE SLOW CADENCE. The moment
+     he zooms out there is nothing to read, and a blank phone teaches nothing and reads
+     as broken -- the surface's own measurement, and why it seeds three posts on open.
+     So the burst asks for N lines and the eight-beat rule does not apply to it: the
+     rule exists to stop a ticker, and three lines at once is not a ticker, it is the
+     panel having something in it. Found by UI's gate going red at ONE post when the
+     cadence started gating the seed too. */
+  function seed(st, w, n) {
+    var out = [], want = n || 3;
+    for (var i = 0; i < want; i++) out = out.concat(life(st, w));
+    return out;
+  }
+
+  /* WHAT THE SURFACE HAS TO HAND OVER. Gathered by the caller, not reached for
+     here: this module is loaded headless by its gate and must not know the names of
+     a page's globals. */
+  function shape() {
+    return ['deedLog', 'lit', 'prices', 'seats', 'built', 'min'];
+  }
+
+  var API = { MAX_PER_DRAIN: MAX_PER_DRAIN, LIFE_EVERY: LIFE_EVERY,
+              make: make, drain: drain, shape: shape,
+              deeds: deeds, world: world, life: life, seed: seed };
+  if (HASREQ) module.exports = API;
+  root.BohemiaFeedStream = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== engine/bohemia_feedstream.js ==== */
+
 /* ONE MAP (Paolo 7/27, LOCKED) + his 7/28 order to make the run and the city
    the same place. This frame used to hardcode `seed=2026` while the GAME
    boots the text seed 'bohemia' -> hashSeed -> 2691674296, so the builder
@@ -25987,7 +26372,69 @@ function BOH_HASH_SEED(str){ str=String(str);
 const BOH_SEED_TEXT='bohemia';
 function BOH_ONE_SEED(){ return BOH_HASH_SEED(BOH_SEED_TEXT); }
 let seed=BOH_ONE_SEED(), om=OM.buildOvermap(seed);
-let POWER=BOH_POWERGRID.powerMap(om,seed);
+/* __WHO_HOLDS_THE_GROUND__ -- ONE PLACE THAT KNOWS HOW A POWER MAP IS MADE.
+   BB-TURF. The grid stamps an owner on every lit circuit and one in five came back
+   as the generic word "faction", so the game knew somebody held that block and could
+   not say who -- and the seam test on this page compares those words, which made a
+   Mob block and a Cartel block the same block.
+   THE NAME COMES OFF THE SEATS FACTION-TOWNS ALREADY PUT ON THE MAP: a faction holds
+   the ground around its own town, which is what "different parts of Vegas as
+   different faction holdings" means in plain words and needs no canon from anybody.
+   BUILT IN ONE FUNCTION because the page constructs a power map in THREE places
+   (boot, a save restored on a different seed, and a re-rolled valley) and a naming
+   step added to two of them is a valley where a third of the time nobody has a name.
+   Handed no seats it degrades to exactly the old behaviour rather than throwing. */
+/* IT READS THE GLOBALS, NEVER THE `const` ALIASES. `const CE` is declared THREE
+   LINES BELOW the boot call to this, so touching CE here lands in the temporal dead
+   zone -- and `typeof` on a const in TDZ THROWS rather than returning 'undefined',
+   so the guard I wrote first was not a guard and the try/catch silently returned an
+   empty seat list. Measured: every circuit came back unnamed and nothing said why.
+   Same trap this file already carries a note about for HOME (8/11). A property read
+   off window has no dead zone. */
+function powerSeats(m){
+  try{
+    var G=window.BOHEMIA_FACTION_GRAPH||null;
+    var TW=window.BohemiaTowns||null;
+    var ED=window.BohemiaCityEdit||null;
+    if(!G||!TW||!ED) return [];
+    var ds=TW.districtsOf(m, ED.cat);
+    if(!ds.length) return [];
+    return TW.derive(G, ds, 1)||[];
+  }catch(_e){ return []; }
+}
+/* __WHO_HOLDS_THE_GROUND__ -- WHOSE GROUND IS THIS, FOR ANY CELL, LIT OR NOT.
+   Paolo 9/4, LOCKED: "EVERY PART OF THE VALLEY IS OWNED BY A FACTION." The lit
+   circuits are the TELL, not the territory: only 12% of feeders are live, so a map
+   made only of lit ground would leave nine cells in ten belonging to nobody.
+   MEASURED, and it is why this exists next to the grid rather than inside it: across
+   five seeds every lit-circuit border in the valley is a CATEGORY border, and two
+   NAMED factions never once end up adjacent -- because neighbouring circuits fall in
+   the same town's catchment and therefore share a holder. The lit border between two
+   outfits is rare; the border itself is not, and it runs through unlit ground.
+   ONE CACHE, REBUILT WHEN THE VALLEY IS. Fourteen seats, a distance each: cheap
+   enough to ask per step, and asked nowhere in a draw loop anyway. */
+var TURF_SEATS=null, TURF_KEY=null;
+function turfSeats(){
+  var k=seed+':'+((om&&om.n)|0);
+  if(TURF_KEY===k&&TURF_SEATS) return TURF_SEATS;
+  TURF_SEATS=powerSeats(om); TURF_KEY=k; return TURF_SEATS;
+}
+function turfAt(x,y){
+  try{
+    var seats=turfSeats(); if(!seats||!seats.length) return null;
+    return window.BohemiaTowns.holderOf(seats,x,y);
+  }catch(_e){ return null; }
+}
+function buildPower(m,sd){
+  var seats=powerSeats(m);
+  var opts={};
+  if(seats.length) opts.holderAt=function(x,y){
+    try{ return window.BohemiaTowns.holderOf(seats,x,y); }catch(_e){ return null; } };
+  var pm=BOH_POWERGRID.powerMap(m,sd,opts);
+  try{ window.__POWER_SEATS=seats.length; }catch(_e){}
+  return pm;
+}
+let POWER=buildPower(om,seed);
 
 // ---- ZOOM-BUILD state: the delta over the generator (never the generator) ----
 const CE=window.BohemiaCityEdit;
@@ -31472,10 +31919,19 @@ function roadCan(need){
          are adjacent. Not a metaphor, the grid's own data. */
       var me=POWER.at(city.x,city.y)||{};
       if(!me.live||!me.owner) return false;
+      /* __WHO_HOLDS_THE_GROUND__ -- AND IT COMPARES THE NAME WHERE THERE IS ONE.
+         BB-TURF: the owner used to be a CATEGORY, so two circuits held by two
+         DIFFERENT factions both answered "faction" and this said there was no seam
+         between them. The Mob's block and the Cartel's block were the same block.
+         The named holder is the truer answer and the category is the fallback for
+         ground nobody is named on. */
+      var mine=me.faction||me.owner;
       var d=[[1,0],[-1,0],[0,1],[0,-1]];
       for(var i=0;i<d.length;i++){
         var n=POWER.at(city.x+d[i][0],city.y+d[i][1])||{};
-        if(n.live&&n.owner&&n.owner!==me.owner) return true;
+        if(!n.live) continue;
+        var theirs=n.faction||n.owner;
+        if(theirs&&theirs!==mine) return true;
       }
       return false;
     }
@@ -42237,8 +42693,19 @@ let DAYOPEN=null;
 function dayWhere(){
   try{
     const t=(MODE==='human')?om.at((hx/FN)|0,(hy/FN)|0):om.at(city.x,city.y);
+    /* __WHO_HOLDS_THE_GROUND__ -- and note WHOSE ground it was while we are here.
+       Recorded on the same call that already asks where you are, so walking costs
+       one extra lookup and nothing new runs in a draw loop. */
+    try{ turfNote((MODE==='human')?(hx/FN)|0:city.x, (MODE==='human')?(hy/FN)|0:city.y); }catch(_e){}
     return t?t.district:null;
   }catch(_e){ return null; }
+}
+/* WHOSE GROUND YOU CROSSED TODAY, in the order you crossed it. Cleared with the
+   day's spend list at the wake, so the reckoning reports a day and not a session. */
+var TURF_TODAY=[];
+function turfNote(cx,cy){
+  var t=turfAt(cx,cy); if(!t||!t.faction) return;
+  if(TURF_TODAY.indexOf(t.faction)<0) TURF_TODAY.push(t.faction);
 }
 /* is the block you are standing on dark? The world's real 12% clustered power
    grid answers this, so "an unlit block" is a place you can actually find. */
@@ -42355,6 +42822,7 @@ function showWake(){
      read instead of where it is filled works exactly until it has a second writer. */
   SPENT_TODAY=[];
   DARK_TONIGHT=[];
+  TURF_TODAY=[];
   offerRing();
   updQline();
   const o=OFFER;
@@ -42864,6 +43332,14 @@ function showReckoning(){
   h+='<h3>THE DAY</h3><ul>';
   h+='<li>'+s.steps+' steps</li>';
   if(s.districts.length)h+='<li>'+esc(s.districts.map(d=>d.name).join(', '))+'</li>';
+  /* __WHO_HOLDS_THE_GROUND__ -- AND WHOSE VALLEY YOU WERE IN. BB-TURF, on his 9/4
+     ruling that EVERY part of the valley is owned by a faction. He asked for
+     "different parts of Vegas as different faction holdings" by name; this is the
+     line that tells him he crossed one. Silent on a day you never left one block,
+     because a name you already knew is not news. draft:true. */
+  if(TURF_TODAY.length===1) h+='<li>'+esc(TURF_TODAY[0])+' ground</li>';
+  else if(TURF_TODAY.length>1)
+    h+='<li>you crossed '+esc(TURF_TODAY.join(' into '))+'</li>';
   if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
   const oc=OFFER_TAKEN?DQ.outcome():null;
   if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)
@@ -42923,7 +43399,13 @@ function showReckoning(){
      is not his business. draft:true -- real words, his to overwrite. */
   for(var dk=0;dk<DARK_TONIGHT.length;dk++){ var dc=DARK_TONIGHT[dk], dn='a block';
     try{ dn=(om.at(dc.at[0],dc.at[1])||{}).district||dn; }catch(_e){}
-    h+='<li style="color:#c98a5a">the lights went out on '+esc(dn)
+    /* __WHO_HOLDS_THE_GROUND__ -- AND WHOSE BLOCK IT WAS. BB-TURF gave the grid's
+       owner a real name, so a light going out can say who just lost it. You can be
+       paying the bill on ground somebody else holds -- you built there, they hold
+       it -- and that is the sentence that makes territory mean something.
+       draft:true. Silent where nobody is named, which is most of the valley. */
+    var dh=null; try{ dh=POWER.holderAt(dc.at[0],dc.at[1]); }catch(_e){}
+    h+='<li style="color:#c98a5a">the lights went out on '+esc(dh?(dh+'\u2019s '+dn):dn)
       +' \u2014 nobody patrols the dark</li>'; }
   h+='</ul>';
   /* __KEEP_THIS_RUN__ -- ONE LINE ON A CARD HE IS ALREADY READING, and that shape
@@ -44158,7 +44640,7 @@ function applyRestore(st){
   }
   st = _m.st;
   window.__RESTORE_OK = (window.__RESTORE_OK||0) + 1;
-  if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear();
+  if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=buildPower(om,seed); metaCache.clear(); chunkCache.clear();
     /* __THE_NIGHT_EATS_POWER__ -- A DIFFERENT SEED IS A DIFFERENT VALLEY, so the
        circuit ids somebody could not pay for last time point at other streets now.
        Carrying them over would put out lights at random in a place the player has
@@ -44463,7 +44945,7 @@ document.getElementById('reroll').addEventListener('click',()=>{
   const _wasWalking = (MODE === 'human');
   seed=(seed*1103515245+12345)>>>0;
   EDITS=CE.makeEdits(); CBpersist(); CB.sel=null;   /* ZOOM-BUILD: new valley, edits reset */
-  om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed);
+  om=CBinstall(OM.buildOvermap(seed));POWER=buildPower(om,seed);
   /* __THE_NIGHT_EATS_POWER__ -- the edits reset one line above and the unpaid
      circuits go with them. A new valley he has never built in cannot owe anybody
      a power bill, and the ids would point at other streets anyway. */
@@ -54405,9 +54887,21 @@ window.BOHEMIA_FEED = (function(){
            for eight seconds. A feed that teaches the world teaches nothing while it
            is blank, and blank also reads as broken. Three posts land immediately so
            there is something to read the instant the panel appears. */
-        if(on && !posts.length) for(var k=0;k<3;k++){
-          var sp=LIFE[(seedAt++)%LIFE.length];
-          push({who:sp.who, txt:sp.txt, kind:'life', draft:true});
+        /* __THE_FEED_STREAM__ -- THE SEED COMES FROM THE STREAM TOO. This was the
+           SECOND life producer in this file and I missed it on the first pass: I
+           replaced the every-8-beats one, watched the panel, and the first three
+           posts were still the old fixed list. Two producers is the bug; two
+           producers where one has been quietly renamed is the same bug wearing a
+           disguise. Measured by reading the panel, not the diff. */
+        if(on && !posts.length){
+          if(typeof BohemiaFeedStream!=='undefined'){
+            if(!FEED_ST){ try{ FEED_ST=BohemiaFeedStream.make(); }catch(_e){} }
+            var sd=[]; try{ sd=BohemiaFeedStream.seed(FEED_ST, feedWorld(), 3); }catch(_e){}
+            for(var j=0;j<sd.length;j++) push(sd[j]);
+          } else for(var k2=0;k2<3;k2++){
+            var sp=LIFE[(seedAt++)%LIFE.length];
+            push({who:sp.who, txt:sp.txt, kind:'life', draft:true});
+          }
         }
       }
     }
@@ -54432,12 +54926,74 @@ window.BOHEMIA_FEED = (function(){
         CLOCK.textContent = (hh!=null&&mm!=null)
           ? (String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0')) : ''; }catch(_e){}
     }
-    drainLedger();
-    /* then one every 8 beats (4s) so it reads as a feed rather than a ticker */
-    if(++lifeAt%8===0 && LIFE.length){
-      var p=LIFE[(seedAt++)%LIFE.length];
-      push({who:p.who, txt:p.txt, kind:'life', draft:true});
-    }
+    /* __THE_FEED_STREAM__ (LIFE + CITY lane, 9/5, board row [feed posts]). THE
+       SURFACE READS ONE STREAM NOW. The law routes the surface here and the STREAM to
+       another lane, and this file's own header said so -- "this is a reader, not a
+       source" -- while carrying two stopgaps meanwhile: an inline ledger drain and a
+       fixed LIFE[] list. Both are now the stream's, because ONE feed with TWO
+       producers is the bug this repo keeps writing post-mortems about, and because a
+       fixed list says the same thing in a dark valley and a lit one while his ruling
+       asks for life "keyed off what exists".
+       drainLedger() and LIFE[] are left in place above and are NO LONGER CALLED: the
+       stream is the only producer, and if it is ever absent the feed carries the
+       ledger alone rather than quietly running two sources at once. */
+    if(typeof BohemiaFeedStream!=='undefined'){
+      if(!FEED_ST){ try{ FEED_ST=BohemiaFeedStream.make(); }catch(_e){} }
+      /* EVERY BEAT, because a deed you just did has to land on the NEXT one -- this
+         panel's own published contract, and its gate measures it. The SLOW cadence for
+         ambient life lives inside the stream now, where the source that needs it is:
+         running the whole drain on the slow clock made a finished quest wait up to
+         seven beats and turned that gate red. */
+      if(FEED_ST){
+        var _new=[]; try{ _new=BohemiaFeedStream.drain(FEED_ST, feedWorld()); }catch(_e){}
+        for(var _i=0;_i<_new.length;_i++) push(_new[_i]);
+      }
+    } else drainLedger();
+  }
+
+  /* WHAT THE WORLD LOOKS LIKE RIGHT NOW, gathered HERE and handed over, because the
+     stream is loaded headless by its own gate and must never know the names of this
+     page's globals. Every reader is guarded on its own: a source that is not on this
+     surface yet answers undefined and the stream simply has nothing to say about it,
+     which is the honest empty state rather than a crash. */
+  var FEED_ST=null, FEED_LIT=0, FEED_LIT_AT=-1;
+  function feedLit(){
+    /* THE GRID IS 9,216 CELLS AND THIS RUNS ON A BEAT. Counting it every four seconds
+       is 2,300 cells a second for a number that moves rarely, so it is counted at most
+       once every 20 beats (10s) and held. 60 on a phone is PLUMBER's row and a feed
+       must not spend it. */
+    try{
+      var bt=nowBeat();
+      if(FEED_LIT_AT>=0 && bt-FEED_LIT_AT<20) return FEED_LIT;
+      FEED_LIT_AT=bt; var n=0;
+      for(var y=0;y<om.n;y++) for(var x=0;x<om.n;x++){ var c=POWER.at(x,y); if(c&&c.live) n++; }
+      FEED_LIT=n; return n;
+    }catch(_e){ return FEED_LIT; }
+  }
+  function feedWorld(){
+    var w={};
+    try{ if(typeof DQ!=='undefined'&&DQ&&DQ.shared&&DQ.shared.log) w.deedLog=DQ.shared.log; }catch(_e){}
+    w.lit=feedLit();
+    try{ var pr={}; (mktShelf()||[]).forEach(function(r){ if(r&&r.price!=null) pr[r.good]=r.price; });
+      if(Object.keys(pr).length) w.prices=pr; }catch(_e){}
+    /* WHO HOLDS WHAT, from the module WORLD already shipped. Measured 9/5: it had
+       ZERO callers on this surface, so this is the first thing that reads it. */
+    try{
+      if(typeof BohemiaTowns!=='undefined' && typeof BOHEMIA_FACTION_GRAPH!=='undefined'){
+        /* tiers() answers a ROW per faction ({faction,tier,rank,power,ruled,draft}),
+           not a string -- checked rather than assumed, because a map of objects
+           compared with !== would report every faction as changed on every beat and
+           the feed would become a siren. The stream wants the TIER. */
+        var t=BohemiaTowns.tiers(BOHEMIA_FACTION_GRAPH, 1)||{}, seats={};
+        for(var k in t) if(Object.prototype.hasOwnProperty.call(t,k) && t[k])
+          seats[k]=String(t[k].tier||t[k]);
+        if(Object.keys(seats).length) w.seats=seats;
+      }
+    }catch(_e){}
+    try{ w.built=BohemiaCentury.through(centuryGet(), null).built; }catch(_e){}
+    try{ w.min=DAY.min; }catch(_e){}
+    try{ w.beat=nowBeat(); }catch(_e){}
+    return w;
   }
 
   /* THE BEAT COMES FROM THE CLOCK, NOT FROM COUNTING INTERVALS. A plain
@@ -54475,6 +55031,10 @@ window.BOHEMIA_FEED = (function(){
   try{ t=setInterval(pulse, Math.max(60, FEED_BEAT/4)); tick(); }catch(_e){}
 
   return { push:push, tick:tick, beat:nowBeat,
+           /* __THE_FEED_STREAM__ -- two READ-ONLY windows so the stream can be proven
+              on the real surface rather than on a copy of it. A gate that tests its own
+              reimplementation of the gather tests nothing. */
+           world:feedWorld, stream:function(){ return FEED_ST; },
            ran:function(){ return ran; },
            stalls:function(){ return {count:stalls, worstGapBeats:worstGap}; },
            count:function(){ return posts.length; },

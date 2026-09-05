@@ -493,7 +493,7 @@
     "y": 5002,
     "zoom": 12
    },
-   "kb": 264.9,
+   "kb": 293.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only you-can-see-through-it"
