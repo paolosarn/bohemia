@@ -10112,6 +10112,54 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/5 (e) LATEST -- *** [one number] SHIPPED. A GUARD, NOT A BUILD, AND
+THE THING IT GUARDS WAS ALREADY CORRECT AND HAD NOTHING HOLDING IT. ***
+
+SHIPPED 9/5  [one number]  BB-ONE-NUMBER
+The backlog row's own first line is the whole job: "WE ALREADY GOT THIS RIGHT AND IT IS
+UNDEFENDED, WHICH IS HOW IT WILL GET LOST." So this round built no feature. It read the
+real fight screen, confirmed the line is right, and put a machine behind it.
+
+THE COLLISION IT DEFENDS. His two named tactical references answer "how much do you
+show?" in opposite directions and both are LOCKED. Battle Brothers shows you the math.
+Rogue Fable 4 is "deliberately free of stat and formula bloat". His own line sits on the
+RF4 side: "spreadsheet simulators and I'm not a fan." What is built is THE WORLD IN
+WORDS AND EXACTLY ONE NUMBER -- measured on the demo's fight screen this round:
+    "DARK . HE IS ABOVE YOU . no cover counts . LONG RANGE . his dial: EASY .
+     he hits you 99%"
+Sixteen words, one number, and the number is HIS CHANCE ON YOU.
+
+AND IT IS NOT THE NUMBER THE OTHER GAME SHOWS. Theirs answers "what is my best move?";
+ours answers "HOW MUCH TROUBLE AM I IN?" One is an efficiency display, ours is a DANGER
+display, and a danger display makes the player MOVE where an efficiency one makes him
+calculate. That distinction is the row's real content and it is now a gate leg, because
+it is the half that could be lost without anybody noticing the count stayed at one.
+
+THE RISK IS A SECOND NUMBER. One number is a reading; two is a COMPARISON, and a
+comparison invites optimisation -- the moment "he hits me 62%" is weighed against "I hit
+him 71%", the turn stops being about ground and becomes a sum. The backlog names six
+live candidates for that second number (the heat budget, the standing web, the circuit
+owner, who you owe, BB-WHY, the act buildup), which is exactly why this needed a gate
+and not a note.
+
+GATE: gates/one_number_gate.js, 9 claims, registered ONE NUMBER. It checks EVERY enemy
+on the board rather than one lucky sample, because a second number could easily be
+conditional (elite only, dark only, high ground only) and a one-target check would miss
+precisely the case somebody added it for.
+MUTATION-PROVED TWICE, and the mutations had to go through the real product: the fight
+is a base64 blob inside the alpha, so each one decodes it, edits updRangeRead, re-encodes
+and re-cuts the demo, the same way this repo's own combat patch scripts do.
+  1. Add "you hit him 71%" to the line -> two legs fail, naming both numbers.
+  2. Keep ONE number but flip "he hits you" to "you hit him" -> the danger-display leg
+     fails. That is the subtle one: the count stays at one and the row is still broken.
+
+NOTHING ELSE CHANGED. No feature was added to the fight, and the row did not ask for one.
+
+STILL FILED, NOT MINE: the page freezes 4-6 beats in city mode (PLUMBER); the city fetches
+fonts.googleapis.com every run (the cold-boot font shape, never swept here).
+
+------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 9/5 (d) LATEST -- *** [danger visible] SHIPPED. THE BLOCKER CLEARED
 BETWEEN ROUNDS AND THE TELL IS WIRED TO REAL DANGER NOW. ***
 

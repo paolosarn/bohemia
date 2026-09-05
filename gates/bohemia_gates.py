@@ -222,6 +222,21 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('ONE NUMBER',     ['node', 'gates/one_number_gate.js'],
+     'BB-ONE-NUMBER is a GUARD, not a build, and its own first line says why: "we already '
+     'got this right and it is UNDEFENDED, which is how it will get lost." His two locked '
+     'tactical references disagree -- BATTLE BROTHERS shows you the math, ROGUE FABLE 4 is '
+     '"deliberately free of stat and formula bloat" -- and his own line sits on the RF4 '
+     'side ("spreadsheet simulators and I\'m not a fan"). What is built is THE WORLD IN '
+     'WORDS AND EXACTLY ONE NUMBER, and it is not the number the other game shows: theirs '
+     'answers "what is my best move?", ours answers "how much trouble am I in?" One is an '
+     'efficiency display, ours is a DANGER display, and a danger display makes the player '
+     'MOVE. The risk is not today, it is somebody adding a SECOND number -- one number is '
+     'a reading, two is a COMPARISON, and a comparison invites optimisation. The backlog '
+     'names six live candidates for that second number. So this reads the real fight '
+     'screen, for EVERY enemy on the board rather than one lucky sample, and holds: the '
+     'line fills, it carries exactly one number, "he hits you" sits immediately before it, '
+     'no rival reading appears, and the rest is words.', True),
     ('SEE IT COMING',  ['node', 'gates/danger_gate.js'],
      'The manager 9/5: "a fight that arrives with no warning on a phone is a rage quit. '
      'Before you walk into a dangerous block you can SEE it ... no numbers, no meter, no '
