@@ -1,3 +1,114 @@
+WORDS (words-8dqrnq): 9/5 (g) LATEST -- *** VAMILY Q10 [threat talk] SHIPPED. OUR CITY
+CAN ORDER YOU AND WARN YOU AND CANNOT THREATEN YOU, AND NOBODY IN THE BUILD SAYS
+ONE WORD INSIDE A FIGHT. *** Nothing to judge, MODE: RESEARCH, nothing entered the
+game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q10 [threat talk], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q10_THREATS_THAT_ESCALATE_AND_THREATS_THAT_DE_ESCALATE_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q10, all draft:true.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE MEASUREMENT, EVERY HIT PRINTED AND READ BY HAND, 1,669 NPC LINES, 45 SOURCES:
+
+    RUNG                              what the build has
+    1  identity attack on you                  0
+    2  order (bare imperative at you)        242   (14.5% of lines)
+    3  first-person threat ("I'll ...")        0
+    3b warning (consequence, not from me)      5   in 5 different quests
+    4  a word spoken in a fight                0   (0 combat sources of 45)
+
+Felson and Steadman coded 159 real homicide and assault incidents turn by turn.
+The order is stable: identity attack, failed influence attempt, threat, attack.
+WE BUILT RUNG 2 AND NOTHING ELSE. Every fight in Bohemia starts without a sentence.
+
+THE DEFECT, AND IT IS NOT THAT WE ARE TOO SOFT:
+Schelling says a threat ties your OWN hands and a warning costs nothing, so the
+negotiation goal is to turn threats into warnings. Our writers found that by
+instinct. Then said it out loud five times:
+    S05  "That isn't a threat. It's just the truest thing I know."
+    S10  "That isn't a threat, that's arithmetic."
+    S17  "That isn't a threat. That's just how it goes."
+    S26  "I'm not threatening you. I'm telling you the arithmetic."
+    bark "That's not cruelty, that's arithmetic."
+Five quests, one move, ARITHMETIC in three of five. The voice gate cannot see it:
+not an opener, not a banned phrase, 111 checks pass straight over it.
+
+THE AUDIENCE IS WHY OUR GAME ESCALATES BY DEFAULT:
+Felson's other work is aggression as impression management. Backing down in
+private costs nothing; backing down in front of a crowd costs your standing, so
+people fight instead. OUR COMBAT IS ALWAYS AGAINST A GROUP (9/4), so every
+standoff has an audience by construction and nobody chose that temperature.
+The build's best line already knows it, and it is the anchor for the whole round:
+    sergeant: "Ask me that again in front of my crew and you'll find out what
+               we're actually like. Ask me here and I'll tell you it keeps me up."
+Same question, two temperatures, and the only variable is who is listening.
+
+WHAT DE-ESCALATES, AND IT IS NOT A BETTER THREAT: voice (letting them finish, and
+saying their position back), the golden bridge (people reject a deal rather than
+lose face, so offer a better EXIT, not a better offer), and removing the clock.
+Procedural-justice training measured 10% fewer complaints and officers 58% less
+likely to injure. On the page, voice costs a whole turn of silence, and that
+expense IS the de-escalation.
+
+THE THING THAT IS OURS ALONE AND WE WELDED IT SHUT:
+Accommodation theory: converging toward somebody's speech puts them at ease,
+diverging makes them unwelcome, and it runs from a few borrowed words to a whole
+language. Bilinguals switch into L1 to turn emotion UP, L2 to turn it DOWN.
+We are a Spanglish city and every bark already ships en / spanglish / es.
+BUT engine/bohemia_people.js langOf(blockSeed, key) hashes a person's register
+off their identity and their block. IT IS FIXED AT BIRTH AND NOTHING IN THE GAME
+CAN MOVE IT INSIDE A CONVERSATION. We built the dial, shipped all three positions,
+and welded it to an ID. It must be a SWAP, never an addition, so the 8/26 language
+cap does not move. PEOPLE's to build, not mine to decide.
+
+ROUTED OUT OF THIS ROUND:
+- COMBAT: the day 3 order set (go, hold, slow down, fall back, get behind them,
+  stay with me) IS rung 2 of the escalation staircase. Three temperatures per
+  intent are banked. The companion speaks FIRST, because filmed-fight studies show
+  the third party mirrors the antagonists and sets the level. Zero combat words
+  exist today.
+- PEOPLE: unweld langOf so accommodation can carry heat.
+- WORDS, held until MODE: BUILD: KILL-THE-DISCLAIMER, cut the "that isn't a
+  threat" tell from five quests to at most one, keeping the warning form.
+
+THE RULER I BROKE THIS ROUND, RECORDED: the first identity-attack test flagged 124
+lines. Reading them, the regex was matching "nobody" as an insult. Tightened to an
+insult aimed at a second person: 8 candidates, and reading all eight, ZERO real.
+Print the hits, never just the rate. That is now fifteen-odd broken rulers caught
+the same way.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- UI has now been asked FIVE separate times for the same cheap thing: hold one
+  beat before a line (Q2, Q4, Q5, Q9, and a standoff is unreadable without it).
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q11 [face carries]. What the face can carry at 64 px so the words do not
+have to.
+
 COOK (cook-mce6r5): *** HIS PERMANENT INSTRUCTION, WORD FOR WORD (9/5). It is here
 because he said to write it into this lane's own handoff block so it survives a
 memory reset. IT WAS LOST ONCE ALREADY -- another lane's rebase dropped this block
@@ -901,7 +1012,7 @@ nothing in the file will say why it broke. A test aimed at the fact survives the
 a test aimed at the line ordering ships a false green the day somebody tidies it.
   NEXT OPEN LINE IN THIS LANE: [feed posts] THE-FEED-STREAM.
 
-WORDS (words-8dqrnq): 9/5 (f) LATEST -- *** VAMILY Q9 [trade talk] SHIPPED. FOUR OF OUR
+WORDS (words-8dqrnq): 9/5 (f) -- *** VAMILY Q9 [trade talk] SHIPPED. FOUR OF OUR
 SIX TRADES NEVER SAY A SINGLE WORD FROM THEIR OWN TRADE, AND NOBODY IN THE BUILD
 USES THEIR JOB AS A WAY OF SEEING ANYTHING ELSE. *** Nothing to judge, MODE:
 RESEARCH, nothing entered the game.

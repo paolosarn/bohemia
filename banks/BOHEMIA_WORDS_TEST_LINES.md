@@ -457,3 +457,120 @@ BROTHER  Pass the salt.                                                [time off
 # The lineman does not describe a debt in blood.
 # Cross-contamination reads as a writer with a metaphor list, not a person with
 # a past. One domain per mouth, for the whole game.
+
+## Q10 -- THREATS THAT ESCALATE AND THREATS THAT DE-ESCALATE  (9/5/26)
+# The finding: measured across 1,669 NPC lines, our build has 242 orders, 5
+# warnings, ZERO first-person threats, ZERO identity attacks, and ZERO words
+# spoken inside a fight (0 combat sources of 45). Felson's coded staircase is
+# identity attack, failed influence attempt, threat, attack. We built rung 2 and
+# nothing else, so every fight in Bohemia starts without a sentence.
+#
+# THE RULES EVERY LINE BELOW OBEYS:
+# 1. A threat is the LAST line before the fight, never the first.
+# 2. A warning (the consequence is not from me) de-escalates. A threat (I tie my
+#    own hands) escalates. Schelling: turn your threats into warnings.
+# 3. In front of the group there is no de-escalating sentence. The de-escalating
+#    line is the one that gets the other person off the stage.
+# 4. Nobody ever says "that isn't a threat" again. Five quests use that tell.
+
+### THE SAME STANDOFF, FOUR RUNGS. One pair of people, one street.   draft:true
+# Rung 1 IDENTITY ATTACK. We have zero of these and need a few, because the
+# staircase does not stand up without its bottom step.
+  THEM  You're the one who takes the easy end of everything, aren't you.
+  THEM  I know exactly what you are. I've known since the first week.
+# Rung 2 INFLUENCE ATTEMPT, which is an ORDER. We already have 242 of these.
+  THEM  Put it down and walk up the street.
+  THEM  Go home. I'm asking once and I'm asking nicely.
+# Rung 3 THREAT. First person, and notice what it costs the speaker: he has just
+# taken away his own choice in front of witnesses.
+  THEM  I'll be on this corner every night this week and you'll get tired first.
+  THEM  Then I'm the one who has to do something about it, and I don't want to be.
+# Rung 4 is not a line. It is the fight.
+
+### THE WARNING, WHICH IS THE STRONGER FORM AND COSTS THE SPEAKER NOTHING   draft:true
+# The consequence belongs to the world, the rules, or a third party. The speaker
+# keeps his choice, which is why it is credible.
+  The road shuts in November. That's not me, that's November.
+  Whoever's already taking from that line notices new people. I'd notice you.
+  There's a man who comes for these on Fridays. I don't decide what he's like.
+  Two houses on this block did what you're about to do. Ask either of them.
+# BANNED FOREVER, and we have five of them in the build: "that isn't a threat",
+# "I'm not threatening you", "that's arithmetic". The form is right. The tell dies.
+
+### THE AUDIENCE IS THE WHOLE DIAL. Same question, two temperatures.   draft:true
+# Already in the build and it is our best line on this subject, kept as the anchor:
+#   sergeant: "Ask me that again in front of my crew and you'll find out what we're
+#              actually like. Ask me here and I'll tell you it keeps me up."
+# The pattern, three more times:
+  PUBLIC   You said that out loud, so now I've got to answer it out loud.
+  PRIVATE  Say it again round the back and I'll give you a real answer.
+  PUBLIC   Everybody heard you. That's the part you should be worrying about.
+  PRIVATE  Nobody's listening now. Start again.
+  PUBLIC   I can't take that back in front of them, and neither can you.
+  PRIVATE  Just us. Nothing you say here gets carried anywhere.
+
+### THE GOLDEN BRIDGE. Backing down that does not look like backing down.   draft:true
+# Ury: people reject a deal rather than lose face. The line is not a better offer,
+# it is a better exit.
+  Say you changed your mind about the weather and we'll both let that be true.
+  You came up here to check on me. That's what happened. That's what I'll say.
+  Do me the favour instead. Then it's a favour and not whatever this was.
+  Walk out first. I'll wait a minute so it doesn't look like anything.
+  You were right about the count. I was right about the day. Call it that.
+
+### VOICE. The de-escalation that costs a whole turn.   draft:true
+# The negotiator move that measures best is letting the other person finish and
+# saying their position back to them accurately. It is expensive on the page and
+# that expense IS the de-escalation.
+  Say the rest of it. I'll wait.
+  So the way you see it, I've been taking and calling it borrowing.
+  You're not angry about the crate. You're angry it was the second one.
+  Finish. I've got nowhere to be and you've been holding that a while.
+
+### THE CLOCK IS WHAT MAKES IT A THREAT. Same demand, clock on and off.   draft:true
+  CLOCK ON   By dark or I do it my way.
+  CLOCK OFF  Whenever you've worked it out. I'm not going anywhere.
+  CLOCK ON   Last chance to be smart.
+  CLOCK OFF  There's still a smart way to do this and it's still on the table.
+# We only have two lines in the whole build that put a clock on the listener.
+# That is a lever we have not used in either direction.
+
+### THE GAMBIT ORDERS, THREE TEMPERATURES. Two or three words, one beat.  draft:true
+# One beat at 120 BPM is about two words (Q4). One system drives everybody, so
+# the enemy says these too, and hearing them is how you read the enemy.
+#   intent        cool (converge)              flat            hot (diverge)
+    hold          give it a second             hold            nobody moves
+    slow down     easy. easy.                  slow down       stop pushing
+    fall back     we're done here              fall back       out. now.
+    get behind    go around, I'll keep him     get behind them cut him off
+    stay with me  stay where I can see you     stay with me    on me
+    go            when you're ready            go              now now now
+
+### THE COMPANION SPEAKS FIRST, BECAUSE THE THIRD PARTY SETS THE TEMPERATURE  draft:true
+# Filmed-fight studies: third parties mirror the antagonists. A calm intervention
+# lowers the level, an aggressive one raises it. Ours is automated and silent.
+  COOLING  They're four and we're two. Say the thing that ends this.
+  COOLING  I've got your back either way. I'd rather have it walking.
+  COOLING  He hasn't decided yet. Neither have you.
+  HEATING  Nobody here is walking away clean, so pick.
+  HEATING  You want me to say it for you?
+  HEATING  They already made up their minds. Look at their hands.
+
+### THE LANGUAGE IS THE TEMPERATURE, AND ONLY THIS GAME HAS IT   draft:true
+# Accommodation theory: convergence puts at ease, divergence makes unwelcome, and
+# it runs from a few borrowed words to a whole language. Bilinguals switch into
+# L1 to turn emotion UP and into L2 to turn it DOWN.
+# A SWAP, NEVER AN ADDITION. The valley's totals do not move (the 8/26 cap).
+  DIVERGE, HOT   Ya te dije. I'm not saying it again in your language.
+  DIVERGE, HOT   Entonces we're finished talking.
+  CONVERGE, COOL Okay. Okay. In English, so we both hear it the same.
+  CONVERGE, COOL Dímelo otra vez. Slower. I want to get it right.
+  CONVERGE, COOL You say it however it comes out. I'll keep up.
+# The player never gets a lesson. He just learns that when somebody stops meeting
+# him halfway, the temperature went up.
+
+### AND THE LINE THAT ENDS A STANDOFF WITHOUT ANYBODY WINNING   draft:true
+# The best of these do not resolve the dispute. They resolve the audience.
+  Alright. Everybody's seen everybody. We can all go in now.
+  You've said it. It's said. That's the whole thing done.
+  I'm going to go stand over there and be wrong about this by myself.
