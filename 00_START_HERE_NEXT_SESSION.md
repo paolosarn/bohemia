@@ -1,3 +1,139 @@
+PLUMBER (plumber-ont6t5): 9/5 (a) LATEST -- *** CHAT 18. THE LANE IS CLAIMED, AND THE FIRST SPEED
+NUMBERS IN THE HISTORY OF THIS REPO ARE ON DISK. [sixty fps] FPS-ON-A-PHONE stays CLAIMED, not
+SHIPPED: everything the row asked for is measured and gated EXCEPT the one thing a container
+cannot do, which is a real handset. *** MODE: BUILD. TAB: NOT IN A TAB YET (this lane builds
+checkers, not screens). Nothing to judge.
+=== PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+THIS ROUND, IN HIS ORDER. Pulled main and rebased (it had moved four times). Re-read CLAUDE.md
+from disk. Read the VAMILY front page. I am a fresh chat with no name, so by his step 4 I am
+18 PLUMBER: wrote CLAIMED on the chat line and on the first OPEN row, committed and pushed
+BEFORE starting (1e2a579), then worked.
+
+WHAT [sixty fps] FPS-ON-A-PHONE NOW HAS, and none of it existed before this round:
+  gates/bohemia_phone_perf.js      the instrument. Serves the repo over http with gzip the way
+                                   Pages does, opens it at 390x844 dpr3 with touch, drives real
+                                   touch events, and measures. Also a library, so the gate and
+                                   the instrument cannot drift.
+  gates/fps_on_a_phone_gate.js     the gate. Registered in gates/bohemia_gates.py, marked slow
+                                   (57.3s), GREEN through the runner at 25 passed 0 failed.
+  records/BOHEMIA_PHONE_PERF_9_5_26.md / .json   the numbers and the budget, written by the
+                                   instrument itself so prose and budget are the same number.
+  records/BOHEMIA_PHONE_PERF_FIRST_SCREEN_9_5_26.png   the screenshot that settled an argument.
+
+THE NUMBERS (demo, median of 3 runs, Chromium 390x844 dpr3, over gzipped http, CPU x1):
+  tap the link -> the city is drawn        2.8 s
+  tap the link -> you can MOVE            18.7 s      goal 5 s, MISSED by 3.7x
+  main thread blocked in between          16.5 s in 21 long tasks, worst single block 7.9 s
+  walking, first minute                   18.5 fps    goal 60, MISSED by 3.2x
+  walking, once it settles                33 fps      goal 60, MISSED by 1.8x
+  a fight                                 17.8 fps    goal 60, MISSED by 3.4x, 7,372 drawImage a frame
+  bytes before anything is on screen       5.94 MB gzipped
+  bytes before you can move               28.05 MB gzipped
+  bytes in one session                    48.59 MB gzipped, 29 requests
+  battery proxy                           14.8% of one core walking -> 1.48 CPU-min per 10 min
+  the same box hands an empty canvas       60.4 fps, so these are about the game, not the box
+
+THE ONE THAT MATTERS MOST, and it was not on anybody's list: the city is fully drawn at 2.8 s
+and then THE MAIN THREAD IS BLOCKED SOLID FOR 16.5 SECONDS. BOHEMIA_CITY_TILES_LATE.js waits
+for the first painted frame and then pulls eight more sprite banks, 19.4 MB gzipped, one at a
+time, parsing and baking on the same thread the game draws on. Nothing runs in that window:
+not the metronome, not a thumb, not a question asked from outside. The late loader is the RIGHT
+call (its own comment carries the measurement that put it there) -- what is missing is anything
+covering the gap it opens. That is [slim build] and [hot path], both mine, both OPEN, and they
+are now the top of this queue for a measured reason instead of board order.
+
+A SECOND FINDING, free, and it belongs to RUN's existing [cold hand] row so I have NOT added a
+line to their section: on boot #daycard is inset:0 over the whole walked surface and the
+browser's own hit test returns the CARD for all eight direction buttons. A stranger's first
+press does not walk, it dismisses a card. Found because my first walk sample moved nobody and
+reported a perfectly healthy-looking 0 fps.
+
+WHY THE ROW IS STILL CLAIMED AND NOT SHIPPED. The row says "on a real phone" and "battery in
+ten minutes". There is no handset here. Everything else it asked for is measured, budgeted and
+gated; the handset is recorded as owed, in the record, in three lines that say exactly what a
+container cannot know. Front page rule 6: mark SHIPPED only when the ship test is met.
+[PENDING Paolo, carried by the coordinator]: is a phone-shaped Chromium enough for this row, or
+does he want somebody to open the link on an actual phone and time it? I did not decide it.
+
+THREE TIMES THIS ROUND I PUBLISHED A NUMBER TO MYSELF AND IT WAS WRONG, and the instrument's
+header keeps all three because the next person will make the same mistake. (1) The rAF ceiling
+was measured with an empty callback chain, which paints nothing, so headless throttled it and
+the walk scored 397% of the ceiling. (2) Playwright's waitForFunction polls inside the page,
+and the page is the thing that is jammed, so first play read 18.5 s when a screenshot showed
+the city at 2.0 s. (3) The first version tidied up before pressing -- cleared the card, read
+coordinates -- and every one of those questions queued behind the jam, so the touch was not
+dispatched until the jam was over. A measurement taken through the thing being measured is not
+a measurement.
+
+THE BUDGET THE GATE HOLDS is a ratchet at today's truth plus the measured spread, never at the
+goal: first play <= 26,500 ms, walking >= 24 fps, main thread <= 52%, fight >= 12 fps, bytes to
+first play <= 33.8 MB, and the host must hand an empty canvas >= 45 fps or the gate refuses to
+judge. The goal (60/60/5s) is PRINTED on every run and never asserted, because a gate red on
+arrival gets switched off by the next session that meets it. Mutation-checked: the card left
+over the pad makes the sample invalid (0 cells, 0 renders) and the gate refuses it; the same
+demo at CPU x4 breaches three of the five lines (first play 67,171 ms, main thread 94.8%, fight
+3.3 fps). The walk-fps line does NOT bite at x4 and the header says so.
+
+AND ONE THING I MEASURED BY ACCIDENT, WHICH IS THE NEXT-NEXT ROW'S WHOLE CASE. I ran the full
+suite once before shipping, as the law says. `python3 gates/bohemia_gates.py --fast` took
+2,651 SECONDS -- forty-four minutes -- against its own 2,700 second budget, so it finished
+with forty-nine seconds to spare, and 33 GATES ARE RED on main right now: DISTRICT FILL, REPO
+BUDGET, BUILD THE WORLD, NO CANOPIES, LOOK, COMBAT LAB, COMBAT RUNS, MOTION VISIBLE, FIELD
+SURGERY, FACE THUMB, OUTFITS 13, CAST SHAPES, WALK DEADLOCK, BANNER, MANDATE FACE, PROPS,
+QUEST PLACEMENT, VOICE, THE RUN, BANKS USED, ORGAN REACH, INVISIBLE SCHEDULE, INTERIORS, MAP
+TAB, REUSE FIRST, NO BULLSHIT Qs, TASTE, TARGET MATCH, WIRED IN A TAB, CANVAS MEMORY, EARNED
+NOT AFFORDED, BATTLE BROS, TOP OF THE DOC. Four more went red in the pack and green alone.
+NONE OF THEM ARE MINE and I fixed none of them: my section says a red in another lane's work
+is one line in that lane's section, never a fix by this chat, and thirty-three lines would be
+me rewriting the board. They belong to the coordinator to route. Two are worth naming here
+because they sit in plumbing rather than in a lane: REPO BUDGET is red only because its
+measurement is 30 days stale and wants a fresh bare clone, and REUSE FIRST is red on two of
+COOK's cook tools missing their REUSE CHECK block. The suite number itself is the case for
+[suite runs] SUITE-FINISHES, which is now measured rather than remembered.
+
+NEXT IN THIS LANE (VAMILY order, and the measurement agrees with it): [slim build]
+SLIM-THE-BUILD, then [hot path] THE-BEAT-LOOP-IS-CLEAN. The 16.5 second block is the same
+finding from both ends.
+
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO
 MAIN, THE ROW STAYS CLAIMED. *** Nothing to judge.
