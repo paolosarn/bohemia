@@ -260,3 +260,88 @@ N3  keeper, to somebody who offers more              draft:true
 - No line says what a battery buys beyond his own ruling (one for one).
 - No line explains the system. If a line reads like a tutorial it failed rule 2
   of the voice card and should be cut, not edited.
+
+# ============================================================================
+# DAY 3 [rebuild order] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_3_NOBODY_REBUILDS_A_BUILDING_FIRST_9_5_26.md
+# Same rules. Every line draft:true, none in the game, no game named, no faction
+# named, no moral stated, nothing gated behind Spanish. Voice card holds.
+# THESE ARE NOT BUILD MENU LABELS. They are what people say about a place
+# coming back or not coming back, which is the half the century rule cannot
+# currently see.
+# ============================================================================
+
+## P. THE MARKET DAY (a time and a place, before any shop)
+
+P1  somebody setting up on a corner                  draft:true
+    "Tuesdays. That's it, that's the whole thing, we're here Tuesdays until
+     somebody tells us not to be."
+
+P2  a trader explaining why it moved                 draft:true
+    "We used to be up on the wide street. Too wide. You can see everybody
+     coming and everybody coming can see you."
+
+P3  a regular, on the first day it came back         draft:true
+    "Four people. Last month it was four people and a dog. Look at it."
+
+## Q. PERMISSION (the unlock that fed two countries is a change in who may use ground)
+
+Q1  somebody who has been told they can use a lot    draft:true
+    "It's not mine. Nobody's saying it's mine. They're saying nobody's going to
+     come and turn it over, and that's enough to put seed in it."
+
+Q2  a neighbour, sceptical                           draft:true
+    "And when it grows? Who comes then. That's the part you haven't thought
+     about, hermano."
+
+Q3  somebody who did it without asking               draft:true
+    "I didn't ask. What were they going to say. It was gravel for nine years."
+
+## R. THE ANCHOR (the building that means children have a future here)
+
+R1  a parent, on the school                          draft:true
+    "If it opens I'll fix the roof. If it doesn't I'm not fixing anything, I'm
+     going to my sister's."
+
+R2  somebody who already left and came back          draft:true
+    "Heard they got the doors open. That's the only reason I'm standing here,
+     I'm not going to pretend it's for the view."
+
+R3  a teacher who has three kids and no room         draft:true
+    "Three. I'm not turning any of them away, I'm just saying it's three, and
+     last year on this block it was thirty."
+
+R4  a clinic worker                                  draft:true
+    "People don't move back for a clinic. They move back and then they need
+     one, and by then it's late."
+
+## S. THE PATCHY STREET (jack-o-lantern: a house, a gap, a house)
+
+S1  somebody describing their own block              draft:true
+    "Us, nothing, nothing, the old man, nothing, and then whoever's in the
+     green one. Six lots, three people."
+
+S2  a kid who counts the lit windows                 draft:true
+    "Two more than last week. I check."
+
+S3  somebody who is not coming back                  draft:true
+    "I go and look at it sometimes. I don't go in."
+
+## T. WHO STAYED (the century's other half)
+
+T1  an old woman who never left                      draft:true
+    "Everybody who was going went in the first month. The rest of us are the
+     rest of us."
+
+T2  somebody counting a generation later             draft:true
+    "My mother knew every door on this street. I know four."
+
+T3  somebody who came back and found it built        draft:true
+    "It all looks better. I don't know anybody, boss. It looks better and I
+     don't know anybody."
+
+## U. WHAT IS NOT HERE, ON PURPOSE
+- No line names which building anchors what. That is his.
+- No line states the lesson. T3 is the whole finding of day 3 and it never says
+  the word "social" or "capital", it says a man does not know anybody.
+- No numbers, no meters, no build costs.

@@ -1,127 +1,3 @@
-WORDS (words-8dqrnq): 9/4 (e) LATEST -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
-LAW HAS NEVER REACHED THE WORDS: OUR LINES LAND ON THE BAR AT 23.7% AND CHANCE IS 25%. ***
-MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
-(His PERMANENT INSTRUCTION is written verbatim in the 9/4 (d) block below. Keep it.)
-
-THE CONVERSION TABLE THIS LANE NEVER HAD. 120 BPM = a 0.5s beat, a 2.0s bar. Our lines are
-READ, not heard, so READING speed governs. Brysbaert's meta-analysis, 190 studies and 18,573
-participants: silent fiction 260 wpm, non-fiction 238, aloud 183, and most adults between
-200 and 320.
-  a bar holds   8.7 words at 260 wpm   |   6.7 at 200   |   10.7 at 320
-SO SEVEN WORDS TO THE BAR IS THE SAFE UNIT, because timing to the average cuts off the
-slower third of players.
-
-THE FINDING THAT PROVES US WRONG. Measured in beats for the first time:
-  quest @SAY  527 lines, median 9.7 beats = 2.4 BARS, lands on a bar 23.7%
-  street bark 558 lines, median 3.7 beats = 0.9 bars, lands on a bar 29.2%
-  exchange    148 lines, median 3.2 beats = 0.8 bars, lands on a bar 16.2%
-"Lands on a bar" = within half a beat of a boundary, and for lengths scattered at random the
-expected rate is EXACTLY 25%. OUR DIALOGUE IS NO MORE BEAT-ALIGNED THAN IF IT HAD BEEN
-WRITTEN WITH DICE. The 120 BPM law is honoured by movement and combat and has never once
-reached the words. And the quest median of 2.4 bars is the worst possible value: too far
-from 2 and from 3 to nudge, so it can only be padded or cut, and drift is CUMULATIVE --
-twenty such lines put a scene eight bars behind the music it started on.
-
-THE GOOD NEWS: THE BARKS ARE NEARLY RIGHT BY ACCIDENT at 0.9 bars, because a natural spoken
-sentence IS about a bar (film 6.0 words, KOTOR 8.2, our barks 6.7). Quantising is a rounding,
-not a fight.
-
-BOTH ANGLES. Crypt of the NecroDancer quantises hard and a miss costs your turn. Hi-Fi Rush
-deliberately loosens the beat and spends everything on FEEDBACK instead (pulsing lights,
-venting pipes, an on-beat mark and sound). For dialogue that is READ, Hi-Fi Rush is the
-model: the line does not have to be SPOKEN on the beat, it has to ARRIVE on one.
-
-AND A GATE OF MINE WENT STALE, WHICH IS ITS OWN LESSON. voice_gate asserted that CLAUDE.md
-names the WORDS lane. The coordinator's TOKEN DIET folded CLAUDE.md from ~34K tokens to ~6K
-and moved every lane brief into VAMILY.md, whose front page says THE RULES LIVE HERE, NOT IN
-ANY CHAT'S MEMORY. The target moved for a good reason, so I moved the RULER: the check now
-asserts VAMILY.md carries a WORDS section AND that it declares a MODE. Re-inflating another
-lane's deliberate compression to keep my own check green would have been the worst kind of
-green. voice_gate 111/0.
-
-RECORD: records/BOHEMIA_WORDS_Q4_SPEECH_ON_A_BEAT_9_4_26.md
-TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- one-bar barks, a two-bar line, a four-bar
-speech that stops ON the bar, the same line at our broken 2.4 bars, and a held beat doing
-what text cannot. All draft:true, NONE in the game.
-VAMILY: Q4 SHIPPED. Next open is Q5 [refusing answers].
-
-ROUTED OUT OF THIS DAY:
- - UI  LINE-ON-THE-BAR: reveal and clear dialogue on beat boundaries, and HOLD A BEAT before
-   a line tagged for stress. Q2 found the strongest stress markers are pause length and rate
-   and that a page carries neither; a held beat gives that channel back. Cheapest item in
-   either record, and the timing lives in their surface, not in the words.
- - UI / SOUNDS  a slow-reader setting is ACCESSIBILITY, not taste: 200 vs 320 wpm is a 60%
-   gap and no single hold serves both.
- - WORDS  new row SEVEN-TO-THE-BAR: a rewrite pass to whole-bar lengths at the slow rate.
-   Held until MODE: BUILD.
-
-WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
-
-CHARACTER (character-0lurbs): 9/5 -- VAMILY [clothes wired] WIRE-THE-REMAKE, CLAIMED,
-continuing. *** THE WARDROBE IS CLEAN AND THE WIRE STOPS AT THE DOOR OF THE SURFACE HE
-ACTUALLY WALKS. ***
-
-VAMILY: read the front page, found 05 CHARACTER, took the first OPEN line
-([clothes wired] WIRE-THE-REMAKE), marked it CLAIMED 9/5 and pushed before starting.
-
-WHY IT IS STILL CLAIMED AND NOT SHIPPED. The job is "as ART batches pass DIRECTION,
-wire them into the picker and the wardrobe data". COOK's WARDROBE-REMAKE has not been
-cooked and DIRECTION's style card does not exist yet, so THERE IS NO BATCH TO WIRE. The
-front page says a half-done job marked SHIPPED is worse than an open one, so the line
-stays CLAIMED and I built the half that can be done now.
-
-WHAT I DID INSTEAD, AND IT IS THE HALF THAT MATTERS MOST.
-This lane's most expensive recurring failure is THE MATERIAL EXISTED AND NEVER REACHED
-THE PLAYER -- four times in six weeks: the seventeen invisible hats, four bright
-garments with three worn by nobody for five weeks, a VOTE tab that held no faces for
-three weeks, a face maker shipped into a tab the demo strips out. Every one shipped
-green. So the first question was whether anything is unworn RIGHT NOW.
-
-MEASURED, by asking the real picker for 4000 citizens rather than reading the table:
-    280 canon garments across 12 layers
-    0 layers with no odds
-    0 non-reserved garments worn by nobody
-    reserved coats 1.13% of citizens (the 8/27 10% cap holding)
-THE WARDROBE IS CLEAN TODAY. That is a good answer and it is not a finished job, because
-nothing was stopping the next batch from being invisible.
-
-*** AND THE HOLE IS STRUCTURAL, NOT STATISTICAL. *** engine/bohemia_personlook.js says,
-verbatim, `if (odds === undefined) continue;` -- so a garment cooked into a LAYER nobody
-added to WEAR_ODDS is canon, drawn in the wardrobe, and UNWEARABLE FOREVER, with no
-error and every other gate green. That is one line away at all times and it is exactly
-the shape of the seventeen hats. gates/wardrobe_wired_gate.js (10 checks, registered)
-holds it, holds the demo as well as the workshop, and lets reserved garments be rare but
-not gone -- a share cap alone is satisfied by DELETING the thing, which is the lesson
-from the trenchcoat cap. MUTATION TESTED: a garment in an unwired layer turns it red and
-names the layer.
-
-*** THE FINDING, AND IT IS NOT MINE TO FIX -- FOR THE COORDINATOR TO ROUTE. ***
-The wardrobe reaches the alpha and the demo. It does not reach the walked city, and the
-reason is bigger than clothes:
-    slices/BOHEMIA_CITY_WORLD.html   GARMENTS undefined, BOH_PERSONLOOK undefined,
-                                     buildFrame undefined, drawChar undefined
-    and in 3.7 MB of source, ZERO calls to buildFrame or drawChar
-That file simulates about 5,027 agents with homes, bed spots, schedules and movement and
-NOT ONE OF THEM IS EVER DRAWN AS A BODY. No garment and no haircut can reach the surface
-Paolo actually walks, not because the wardrobe is unwired but because THERE IS NOBODY
-THERE TO DRESS. Drawing bodies in the walked city is RUN / LIFE+CITY, so my gate REPORTS
-it every run and deliberately does NOT go red -- failing there would block another lane
-for a hole they own. ROUTE TO: 01 THE RUN and 03 LIFE + CITY.
-
-NEXT ROUND ON THIS JOB: check whether a COOK batch has landed; if it has, wire it and
-mark SHIPPED. If not, the standing wiring duty continues and the next useful piece is
-whether every canon garment is reachable in the CLOTHES tab so he can try it on, which
-is the same invisible-material question on the surface he judges from.
-
-Proof: wardrobe_wired 10/10 (mutation tested), family 15/15, become 28/28,
-talking_portrait 27/27, hair_graveyard 9/9, portrait_haircut 12/12, face_maker 13/13.
-Record: records/BOHEMIA_WHAT_NOBODY_WEARS_9_5_26.txt
-Tool: node tools/bohemia_what_nobody_wears.js
-Tab: RUN (the crowd) / CLOTHES / CHARACTER
-
-
-
-=======
 LIFE + CITY (city-1eztay): 9/5 (b) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR
 WORD, SO IT SURVIVES A MEMORY RESET. THEN VAMILY [buildings produce]. *** MODE: BUILD.
 TAB: CITY (the aerial view). THIS BLOCK IS NOT DELETED BY A LATER ROUND.
@@ -290,6 +166,252 @@ THIS ROUND: read the VAMILY front page (it had been rewritten as THE MEETING HAL
 last round, which is exactly why rule 1 says read it every time and never trust memory).
 Q1, Q2 and Q3 are SHIPPED. Claimed Q4 [beat speech] and worked it. See the block below for
 where it got to.
+=======
+ECONOMY (economy-knxaeh): 9/5 (c) LATEST -- *** [rebuild order] SHIPPED. NOBODY
+REBUILDS A BUILDING FIRST, AND THE CENTURY RULE COUNTS THE WRONG THING. MODE:
+RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_3_NOBODY_REBUILDS_A_BUILDING_FIRST_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections P-U (16 more lines,
+        all draft:true)
+Question: ECONOMY Q3 [rebuild order], now SHIPPED in VAMILY.md.
+
+FIRST, A CORRECTION TO MY OWN DAY 1, MEASURED THIS HOUR: THE PRICE TABLE IS NO
+LONGER EMPTY. Another lane filled it between rounds. PRICES is 11 rows, every one
+{currency:'electricity', amount:1, ruling:'8/15 EVERYTHING COSTS ONE + 9/4
+BATTERIES ARE THE MONEY'}, and PAYOUT is 1 row (was 0). BATTERIES ARE THE MONEY IS
+SHIPPED. Day 1's "nothing pays and nothing is priced" is stale and this block says
+so. PRODUCTION is still {} and its comment is the right call, not an oversight:
+produce() has zero callers, so there is no buildingId vocabulary to key on.
+
+THE FINDING: in Cuba, post-Soviet Russia, post-Katrina New Orleans and Detroit,
+the first thing back is never a building. It is PERMISSION, A MARKET DAY, and A
+SCHOOL. Cuba's 1993 land reform put ~70% of farmland into usufruct and Havana had
+food security by 2001; Russian dachas are the reason there was no famine (urban
+plot-holders grew ~12% of national vegetables, 20% of fruit, 37% of berries);
+recovery markets are "shortened market days" and pop-up sites, a TIME AND A PLACE
+not a shop. And the measured one: in New Orleans, residential rebuilding
+concentrated around the schools that REOPENED and stayed away from the ones that
+did not.
+
+*** THE FINDING THAT PROVES US WRONG: THE CENTURY RULE COUNTS BUILDINGS, AND THE
+EVIDENCE SAYS COUNT WHO STAYED. *** The four-city study (Tokyo 1923, Kobe 1995,
+Tamil Nadu 2004, New Orleans 2005) concludes recovery is NOT explained by damage
+or by aid, and that pre-disaster social capital is the best long-term predictor.
+After Kobe most people pulled from collapsed houses were pulled out by NEIGHBOURS,
+not rescue workers. His 7/26 rule stands and is not being rewritten; what it
+cannot express is the commoner failure, A CITY THAT WAS REBUILT AND IS STILL
+EMPTY, which is his own "the city seems dead asf" arriving a hundred years late.
+AND THE SHARPEST VERSION IS A HOLE IN THE THREE-CURRENCY RULE ITSELF: a building
+houses people or produces resources/electricity/clout, and A SCHOOL HOUSES NOBODY
+AND PRODUCES NOTHING. The single measured predictor of neighbourhood return
+cannot be expressed by our economy. The fix is not a fourth currency (banned): the
+third thing a building can do is MAKE PEOPLE STAY, which is the population half of
+his own 7/26 sentence finally doing something.
+
+MEASURED ON THE SHIPPED BUILD:
+  - 79 district types, 59 BUILDABLE, 16 skeleton. PREREQUISITES, UNLOCKS, TIERS:
+    ZERO. Nothing gates a type by act, standing, population or progress. You may
+    place a waterpark next to a farm on day one and the build has no opinion.
+    The module says so itself: "Costs, rules, unlocks: [PENDING Paolo]."
+  - EVERY ANCHOR THE RESEARCH NAMES IS ALREADY PLACEABLE: school, library,
+    medical, chapel, firestation, policestation, cityhall, courthouse, campus,
+    farm, granary, swapmeet, commercial. THIRTEEN FOR THIRTEEN, and all thirteen
+    are inert. No art is needed for any of this.
+  - THE BUILDER DOES NOT KNOW WHICH ACT IT IS. bohemia_cityedit.js has no act
+    state, so nothing can compound across the century.
+  - act1 929 hits on the walked surface (all tile MATERIAL tags), act2 ZERO,
+    act3 14. I checked what the fourteen are instead of assuming: they are
+    faction POWER ORDINALS. THE ONLY ACT-3 FORECAST IN THE BUILD IS A RANKING OF
+    WHO WILL BE STRONG, and his century rule is about what the CITY will look
+    like. Nothing forecasts that and nothing records it.
+  - AND THE OTHER HALF IS ALREADY BUILT: bohemia_belonging.js, bohemia_deeds.js,
+    bohemia_memory.js. The layer the evidence says predicts recovery is the layer
+    we have; the layer the century rule counts is the layer we do not.
+
+THE SEQUENCE THE RECORD SUPPORTS (mechanism only, every number his): 0 SHARE
+(nothing built, existing capacity re-pointed) -> 1 MARKET DAY (a time and a place)
+-> 2 PERMISSION (ground somebody may now use; an ACCESS unlock, third time this
+study has landed on access-not-numbers) -> 3 ANCHOR (school, clinic, grocery;
+these make people STAY) -> 4 PRODUCTION -> 5 LUXURY (the resort, the sphere, only
+if anyone stayed). Rungs 3-5 are already in our 59; rungs 0-2 are not buildings at
+all. Beat friendly: a market day is a day, a permission is one tap, the
+compounding happens at the fold between acts and never per beat.
+
+ROUTED: WORLD ECON-THE-CENTURY-COUNTS-WHO-STAYED (the finding; rides with the
+already-OPEN CENTURY-RECORD and HOUSING), ECON-A-SCHOOL-MAKES-PEOPLE-STAY,
+ECON-THE-ORDER-IS-NEED-NOT-A-LOCK (no tech tree), ECON-PERMISSION-IS-A-BUILD,
+ECON-THE-BUILDER-KNOWS-THE-ACT (smallest first step for the century rule).
+LIFE + CITY ECON-JACK-O-LANTERN (recovery renders patchy, not as a front; a look,
+not a system). FACTIONS ECON-ACT-3-IS-ONLY-A-POWER-TABLE. SHARED: day 1 and 2's
+row stands, a fixed price with no refusal is the restaurant that closed.
+
+REFUSED: a tech tree or hard prerequisites (need creates the order, not a lock), a
+fourth currency, a happiness meter, a population bar, deciding which building
+anchors what (his), rewriting the century rule (it stands), and any implementation.
+
+GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0
+(and its summary now reads "0 ruled-but-empty tables", which is the letter-is-one
+job landing), canon rot 13/0.
+
+*** MARKET GATE IS RED ON MAIN RIGHT NOW: 22 passed, 10 FAILED. IT IS NOT THIS
+LANE'S AND IT IS NOT A CODE BUG. *** It was 32/0 this morning. Reproduced
+byte-identical on a clean worktree of origin/main, so it arrived with the
+batteries-are-the-money ship, and then I exercised the real buy path instead of
+believing the gate text:
+    quoted: {"source":"ruled","price":1,"currency":"electricity",
+             "ruling":"8/15 EVERYTHING COSTS ONE + 9/4 BATTERIES ARE THE MONEY"}
+    buy:    applied:true, paid:1, kind:"drain"
+    purse:  electricity 500 -> 499
+THE PURCHASE WORKS PERFECTLY. THE RULER IS STALE. market_gate still asserts the
+old world in two ways: it watches the `resources` balance while the debit is now
+in `electricity` (hence "the money really left the purse (500 -> 500)" and "buys
+water for undefined", which is it reading a field that moved), and four of its
+checks assert HIS TABLE IS STILL EMPTY and that a price REFUSES rather than
+answers, which stopped being true the moment the ruling shipped. FIX THE RULER,
+NEVER THE TARGET (Paolo 8/1). Whoever owns market_gate: rebaseline it against the
+ruling, do not touch bohemia_payday.js, which is correct. Flagged here rather than
+fixed because ONE SYSTEM, ONE SESSION, and this lane does not implement.
+
+The three older pre-existing reds are unchanged and also not this lane's: engine
+sync (BOH_FLOORPLAN, 2 bodies), banks-used (an index debt row), dialogue catalogue
+(the WORDS tab is stale against its sources; the fix is one command the gate
+prints).
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten days. Premise or bug?
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS? Real consequences for territory.
+  3. (new) The century rule counts buildings. Should it also count who stayed?
+     That is a change to a LOCKED law and only he can make it.
+
+NEXT IN THIS LANE: Q4 [first building], what makes a placed building feel like it
+did something in the first ten minutes.
+
+================================================================================
+WORDS (words-8dqrnq): 9/4 (e) LATEST -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
+LAW HAS NEVER REACHED THE WORDS: OUR LINES LAND ON THE BAR AT 23.7% AND CHANCE IS 25%. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is written verbatim in the 9/4 (d) block below. Keep it.)
+
+THE CONVERSION TABLE THIS LANE NEVER HAD. 120 BPM = a 0.5s beat, a 2.0s bar. Our lines are
+READ, not heard, so READING speed governs. Brysbaert's meta-analysis, 190 studies and 18,573
+participants: silent fiction 260 wpm, non-fiction 238, aloud 183, and most adults between
+200 and 320.
+  a bar holds   8.7 words at 260 wpm   |   6.7 at 200   |   10.7 at 320
+SO SEVEN WORDS TO THE BAR IS THE SAFE UNIT, because timing to the average cuts off the
+slower third of players.
+
+THE FINDING THAT PROVES US WRONG. Measured in beats for the first time:
+  quest @SAY  527 lines, median 9.7 beats = 2.4 BARS, lands on a bar 23.7%
+  street bark 558 lines, median 3.7 beats = 0.9 bars, lands on a bar 29.2%
+  exchange    148 lines, median 3.2 beats = 0.8 bars, lands on a bar 16.2%
+"Lands on a bar" = within half a beat of a boundary, and for lengths scattered at random the
+expected rate is EXACTLY 25%. OUR DIALOGUE IS NO MORE BEAT-ALIGNED THAN IF IT HAD BEEN
+WRITTEN WITH DICE. The 120 BPM law is honoured by movement and combat and has never once
+reached the words. And the quest median of 2.4 bars is the worst possible value: too far
+from 2 and from 3 to nudge, so it can only be padded or cut, and drift is CUMULATIVE --
+twenty such lines put a scene eight bars behind the music it started on.
+
+THE GOOD NEWS: THE BARKS ARE NEARLY RIGHT BY ACCIDENT at 0.9 bars, because a natural spoken
+sentence IS about a bar (film 6.0 words, KOTOR 8.2, our barks 6.7). Quantising is a rounding,
+not a fight.
+
+BOTH ANGLES. Crypt of the NecroDancer quantises hard and a miss costs your turn. Hi-Fi Rush
+deliberately loosens the beat and spends everything on FEEDBACK instead (pulsing lights,
+venting pipes, an on-beat mark and sound). For dialogue that is READ, Hi-Fi Rush is the
+model: the line does not have to be SPOKEN on the beat, it has to ARRIVE on one.
+
+AND A GATE OF MINE WENT STALE, WHICH IS ITS OWN LESSON. voice_gate asserted that CLAUDE.md
+names the WORDS lane. The coordinator's TOKEN DIET folded CLAUDE.md from ~34K tokens to ~6K
+and moved every lane brief into VAMILY.md, whose front page says THE RULES LIVE HERE, NOT IN
+ANY CHAT'S MEMORY. The target moved for a good reason, so I moved the RULER: the check now
+asserts VAMILY.md carries a WORDS section AND that it declares a MODE. Re-inflating another
+lane's deliberate compression to keep my own check green would have been the worst kind of
+green. voice_gate 111/0.
+
+RECORD: records/BOHEMIA_WORDS_Q4_SPEECH_ON_A_BEAT_9_4_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- one-bar barks, a two-bar line, a four-bar
+speech that stops ON the bar, the same line at our broken 2.4 bars, and a held beat doing
+what text cannot. All draft:true, NONE in the game.
+VAMILY: Q4 SHIPPED. Next open is Q5 [refusing answers].
+
+ROUTED OUT OF THIS DAY:
+ - UI  LINE-ON-THE-BAR: reveal and clear dialogue on beat boundaries, and HOLD A BEAT before
+   a line tagged for stress. Q2 found the strongest stress markers are pause length and rate
+   and that a page carries neither; a held beat gives that channel back. Cheapest item in
+   either record, and the timing lives in their surface, not in the words.
+ - UI / SOUNDS  a slow-reader setting is ACCESSIBILITY, not taste: 200 vs 320 wpm is a 60%
+   gap and no single hold serves both.
+ - WORDS  new row SEVEN-TO-THE-BAR: a rewrite pass to whole-bar lengths at the slow rate.
+   Held until MODE: BUILD.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
+CHARACTER (character-0lurbs): 9/5 -- VAMILY [clothes wired] WIRE-THE-REMAKE, CLAIMED,
+continuing. *** THE WARDROBE IS CLEAN AND THE WIRE STOPS AT THE DOOR OF THE SURFACE HE
+ACTUALLY WALKS. ***
+
+VAMILY: read the front page, found 05 CHARACTER, took the first OPEN line
+([clothes wired] WIRE-THE-REMAKE), marked it CLAIMED 9/5 and pushed before starting.
+
+WHY IT IS STILL CLAIMED AND NOT SHIPPED. The job is "as ART batches pass DIRECTION,
+wire them into the picker and the wardrobe data". COOK's WARDROBE-REMAKE has not been
+cooked and DIRECTION's style card does not exist yet, so THERE IS NO BATCH TO WIRE. The
+front page says a half-done job marked SHIPPED is worse than an open one, so the line
+stays CLAIMED and I built the half that can be done now.
+
+WHAT I DID INSTEAD, AND IT IS THE HALF THAT MATTERS MOST.
+This lane's most expensive recurring failure is THE MATERIAL EXISTED AND NEVER REACHED
+THE PLAYER -- four times in six weeks: the seventeen invisible hats, four bright
+garments with three worn by nobody for five weeks, a VOTE tab that held no faces for
+three weeks, a face maker shipped into a tab the demo strips out. Every one shipped
+green. So the first question was whether anything is unworn RIGHT NOW.
+
+MEASURED, by asking the real picker for 4000 citizens rather than reading the table:
+    280 canon garments across 12 layers
+    0 layers with no odds
+    0 non-reserved garments worn by nobody
+    reserved coats 1.13% of citizens (the 8/27 10% cap holding)
+THE WARDROBE IS CLEAN TODAY. That is a good answer and it is not a finished job, because
+nothing was stopping the next batch from being invisible.
+
+*** AND THE HOLE IS STRUCTURAL, NOT STATISTICAL. *** engine/bohemia_personlook.js says,
+verbatim, `if (odds === undefined) continue;` -- so a garment cooked into a LAYER nobody
+added to WEAR_ODDS is canon, drawn in the wardrobe, and UNWEARABLE FOREVER, with no
+error and every other gate green. That is one line away at all times and it is exactly
+the shape of the seventeen hats. gates/wardrobe_wired_gate.js (10 checks, registered)
+holds it, holds the demo as well as the workshop, and lets reserved garments be rare but
+not gone -- a share cap alone is satisfied by DELETING the thing, which is the lesson
+from the trenchcoat cap. MUTATION TESTED: a garment in an unwired layer turns it red and
+names the layer.
+
+*** THE FINDING, AND IT IS NOT MINE TO FIX -- FOR THE COORDINATOR TO ROUTE. ***
+The wardrobe reaches the alpha and the demo. It does not reach the walked city, and the
+reason is bigger than clothes:
+    slices/BOHEMIA_CITY_WORLD.html   GARMENTS undefined, BOH_PERSONLOOK undefined,
+                                     buildFrame undefined, drawChar undefined
+    and in 3.7 MB of source, ZERO calls to buildFrame or drawChar
+That file simulates about 5,027 agents with homes, bed spots, schedules and movement and
+NOT ONE OF THEM IS EVER DRAWN AS A BODY. No garment and no haircut can reach the surface
+Paolo actually walks, not because the wardrobe is unwired but because THERE IS NOBODY
+THERE TO DRESS. Drawing bodies in the walked city is RUN / LIFE+CITY, so my gate REPORTS
+it every run and deliberately does NOT go red -- failing there would block another lane
+for a hole they own. ROUTE TO: 01 THE RUN and 03 LIFE + CITY.
+
+NEXT ROUND ON THIS JOB: check whether a COOK batch has landed; if it has, wire it and
+mark SHIPPED. If not, the standing wiring duty continues and the next useful piece is
+whether every canon garment is reachable in the CLOTHES tab so he can try it on, which
+is the same invisible-material question on the surface he judges from.
+
+Proof: wardrobe_wired 10/10 (mutation tested), family 15/15, become 28/28,
+talking_portrait 27/27, hair_graveyard 9/9, portrait_haircut 12/12, face_maker 13/13.
+Record: records/BOHEMIA_WHAT_NOBODY_WEARS_9_5_26.txt
+Tool: node tools/bohemia_what_nobody_wears.js
+Tab: RUN (the crowd) / CLOTHES / CHARACTER
+
+
+
 
 ECONOMY (economy-knxaeh): PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS, VERBATIM,
 KEPT HERE SO IT SURVIVES ANY MEMORY RESET. THIS BLOCK IS NOT DELETED BY A LATER ROUND.
@@ -549,7 +671,7 @@ Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the
 
 
 
-ECONOMY (economy-knxaeh): 9/5 (b) LATEST -- *** [money returns] SHIPPED. THE GAME
+ECONOMY (economy-knxaeh): 9/5 (b) -- *** [money returns] SHIPPED. THE GAME
 ALREADY KNOWS WHAT A BATTERY IS WORTH, IT SAYS SO IN A QUEST LINE SOMEBODY WROTE
 MONTHS AGO, AND NO SYSTEM IN THE BUILD CAN HEAR IT. MODE: RESEARCH -- nothing
 implemented. NOT IN A TAB YET (a research day ships a record). Nothing to judge. ***
@@ -659,7 +781,6 @@ rule's sequence.
 
 ================================================================================
 
-ECONOMY (economy-knxaeh): 9/5 (a) -- *** THE ECONOMY LANE IS OPEN AND ITS
 LIFE + CITY (city-1eztay): 9/5 (a) LATEST -- *** VAMILY [builder works]
 BUILDER-ON-A-PHONE: SHIPPED. THE AERIAL BUILDER ANSWERS A THUMB. *** The job was
 prove-it-or-fix-it and it did not need fixing. Proven on an iPhone profile
@@ -849,7 +970,7 @@ which is the deep extension of save_iphone_gate over whatever this row landed --
 
 --------------------------------------------------------------------------------
 
-ECONOMY (economy-knxaeh): 9/5 LATEST -- *** THE ECONOMY LANE IS OPEN AND ITS
+ECONOMY (economy-knxaeh): 9/5 (a) -- *** THE ECONOMY LANE IS OPEN AND ITS
 FIRST DAY MEASURED SOMETHING NOBODY HAD RUN: OUR VALLEY STARVES ON DAY 10 AND
 EVERY PRICE IN THE GAME IS A CONSTANT FROM ABOUT WEEK NINE UNTIL THE END OF A
 HUNDRED-HOUR LIFE. MODE: RESEARCH -- NOTHING WAS IMPLEMENTED. NOT IN A TAB YET
