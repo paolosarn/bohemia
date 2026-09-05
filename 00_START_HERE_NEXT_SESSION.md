@@ -8221,6 +8221,75 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/5 (b) LATEST -- *** [city feed] SHIPPED. AND A GIT MISTAKE THAT
+LANDED THIS LANE'S WORK UNDER ANOTHER LANE'S COMMIT MESSAGE -- READ THAT PART. ***
+
+SHIPPED 9/5 1d5137d3  [city feed]  THE-FEED-ON-THE-CITY-SCREEN
+A phone screen that is part of the UI in CITY mode, absent while walking, scrolling one
+stream on the beat, on the walked workshop surface AND in the demo.
+
+IT IS A READER, NOT A SOURCE, and that is the design. The law routes the SURFACE here
+and the STREAM to WORLD/PEOPLE, so this owns the panel, the scroll and the beat and
+consumes what the game already writes:
+  WHAT YOU DID   DQ.shared.log, the deed ledger that already exists. It keeps the
+                 completing stage's own @LOG line, so a post QUOTES THE QUEST'S OWN
+                 WORDS and never prose about it (8/11 catalogue rule, and a gate leg).
+  WHAT THE WORLD BOHEMIA_FEED.push(post) -- the seam, EMPTY ON PURPOSE until
+  DID            THE-FEED-STREAM lands. Mechanism mine, contents not.
+  LIFE           ten ambient posts, real attempts, draft:true. WORDS owns the voice.
+It touches nothing: the panel shows and hides by POLLING MODE on the beat rather than
+hooking the city's own mode swap, so it adds no line to another lane's render path.
+
+FOUR THINGS FOUND BY LOOKING, NOT ASSUMING:
+  1. The first render REBUILT THE WHOLE LIST on every push, so every post on screen was
+     destroyed, recreated at opacity 0 and re-animated. The count said four posts while
+     the screen showed an EMPTY BLACK PANEL. It appends one node now.
+  2. The first life post was sixteen beats out, so zooming out met a BLANK PHONE for
+     eight seconds. It seeds three posts the moment it opens.
+  3. A FIXED TOP OFFSET passed most runs and failed some, which is worse than failing
+     every time. #topbar is a flex row and ITS HEIGHT IS NOT FIXED -- the music chip
+     shows the CURRENT TRACK NAME, so a long title widens the row, the row wraps, and
+     the bar grows down onto anything parked at a constant offset. The panel measures
+     the bar every beat now.
+  4. The beat came from COUNTING INTERVALS, which drifts: worst 561ms against a 500ms
+     beat, failing this lane's own gate. The fix was not to loosen the gate. The timer
+     runs at a quarter beat and the work happens only when the beat NUMBER, derived
+     from a fixed epoch, changes.
+
+GATE: gates/feed_gate.js, 15 claims, registered THE FEED, mutation-proved four ways.
+THE FOURTH MUTATION PASSED AT FIRST: removing the seed entirely still went green,
+because the leg waited for three posts to EXIST and the ambient cadence supplies those
+on its own. A number pretending to be a rule (SHARED -18 again). It measures the beats
+between the panel appearing and it having words in it now.
+AND IT IS TIMED IN BEATS THE PAGE ACTUALLY RAN, NOT ON A STOPWATCH. Posts are
+beat-quantised, so write-to-visible is bounded by one beat PLUS the draw; a 500ms
+stopwatch demands zero render time and failed on 505/518/546ms samples. The threshold
+was wrong, not the feed.
+
+*** NOT THIS LANE'S, AND DELIBERATELY NOT HIDDEN INSIDE THIS LANE'S GREEN: THE PAGE
+FREEZES. *** Every gate run records one or two clock gaps of FOUR TO SIX BEATS (two to
+three seconds) during city mode -- the timer never fires, so nothing in the document
+runs at all. One probe took 4105ms that way. The gate prints it every run. It belongs
+to PLUMBER (small, fast, 60 on a phone).
+Also seen every run: the city fetches fonts.googleapis.com. That is the same shape as
+the cold-boot font bug fixed on the run slice; the city was never swept. Not this row.
+
+*** THE GIT MISTAKE, WRITTEN DOWN BECAUSE GIT IS THE MEMORY. *** I committed the feed,
+then ran `git rebase origin/main` followed by `git commit --amend`. THE REBASE HAD
+DROPPED MY COMMIT, so --amend attached my three files to whatever was on top, which was
+ANOTHER LANE'S commit ("VAMILY: the [builder reachable] SHIPPED line..."). Pushed as
+1d5137d3. NOTHING OF THEIRS WAS LOST -- their VAMILY.md edit is intact in the parent
+605dcc1a and 1d5137d3 contains only my three files -- but this lane's feed work wears
+their title, and main now shows that title twice in a row.
+NOT REWRITTEN. Rewriting shared history while fifteen other lanes push into it is worse
+than a wrong message, so the correction is recorded here and in the SHIPPED line, which
+carries 1d5137d3 as the sha the work actually landed on.
+THE RULE FOR EVERY LANE: NEVER `--amend` AFTER A REBASE WITHOUT CHECKING `git log -1`
+FIRST. A rebase that drops your commit leaves someone else's on top and amend does not
+warn you.
+
+------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 9/5 LATEST -- *** THE PERMANENT INSTRUCTION, WORD FOR WORD, FIRST.
 IT LIVES HERE SO IT SURVIVES ANY MEMORY RESET. ***
 
