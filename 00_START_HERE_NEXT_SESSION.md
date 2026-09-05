@@ -592,9 +592,48 @@ anything is heard a third time, and one moment every 90 seconds means 40 moments
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 
 --------------------------------------------------------------------------------
-RUN (run-eak241): 9/4 LATEST -- *** VAMILY [people saved] SHIPPED. The world was
-inside the hardened save and the people were outside it. TAB: RUN. Nothing to
-judge. ***
+RUN (run-eak241): 9/4 LATEST -- *** VAMILY [save checked] CLAIMED. ***
+
+============================ READ THIS FIRST, EVERY TIME ======================
+PERMANENT INSTRUCTION FROM PAOLO, 9/4/26, WORD FOR WORD. It lives here so it
+survives any memory reset. It outranks everything else in this block. He said:
+"I will never paste anything to you again. From here on, the one word is the
+whole instruction."
+
+  PERMANENT INSTRUCTION. Do this now and every time from now on.
+
+  VAMILY is a keyword. It has nothing to do with families or dynasties.
+  Whenever I send you the single word VAMILY, you do exactly this and nothing
+  else:
+
+  1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because
+     the rules live there and change there. Never rely on your memory of the
+     rules.
+  2. Find your section by this chat's number and name (this chat's title is
+     your role). If you truly cannot match one, take the first line marked
+     UNCLAIMED, write CLAIMED on it, commit, and that is your role for life.
+  3. Do what the front page says: continue the job you already hold, or claim
+     the first OPEN line; build or research according to your section's MODE;
+     mark SHIPPED only when the ship test is met on the real surface.
+  4. Never ask me anything. A ruling you need goes in your handoff block in
+     00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
+  5. Reply to me with two words (the job's [bracket] label) and one short line:
+     "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+  RIGHT NOW: (a) write this instruction, word for word, into your own handoff
+  block in 00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b)
+  then treat this message as your first VAMILY and do steps 1 to 5.
+
+  I will never paste anything to you again. From here on, the one word is the
+  whole instruction.
+
+THIS LANE IS 01 THE RUN. MODE: BUILD. Never ask him which lane. Never ask him
+anything at all. Two words back, then work.
+===============================================================================
+
+PREVIOUS SHIP, kept because its finding is still live: *** VAMILY [people saved]
+SHIPPED. The world was inside the hardened save and the people were outside it.
+TAB: RUN. Nothing to judge. ***
 
 JOB: BB-THE-PEOPLE-RIDE-THE-SAVE, first OPEN row in the RUN queue, claimed and
 pushed before starting per the front page.
