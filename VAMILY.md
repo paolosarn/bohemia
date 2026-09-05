@@ -186,7 +186,7 @@ STATE: 18 factions in the graph (14 selectable plus four more), every one with a
 ## WORDS  (12.)
 MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
 STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes measured against 617 films; the language cap (8/26) stands. This lane does not implement; it researches how people talk and writes test lines to a bank.
-- OPEN  Q1  Two people, three lines each, and you can tell them apart with the names removed. What the best-written games do with vocabulary, rhythm and the thing a person never says. Measure our 504 NPC lines for it.
+- SHIPPED 9/4 records/BOHEMIA_WORDS_Q1_TELL_THEM_APART_9_4_26.md  Q1  Two people, three lines each, and you can tell them apart with the names removed. What the best-written games do with vocabulary, rhythm and the thing a person never says. Measure our 504 NPC lines for it.
 - OPEN  Q2  How a person talks when they are lying, scared, or exhausted, in TEXT with no voice actor. The real science of speech under stress (hesitation, repair, shortened sentences) and which games get it onto the page.
 - OPEN  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
 - OPEN  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a line that lands ON the beat does that one that drifts does not.
