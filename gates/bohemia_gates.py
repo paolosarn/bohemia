@@ -1414,6 +1414,22 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('CITY WHERE',    ['python3', 'gates/city_where_gate.py'],
+     "THE WALKED SURFACE SAYS WHERE YOU ARE. One message, BOHEMIA_WHERE, feeds "
+     "four finished systems: the ambience bed, occlusion, the day/night music "
+     "pool and the hour chime. The 8/14 migration moved the walked surface into "
+     "another document and the ONE sender stayed behind, so all four were dark "
+     "for three weeks with nothing red. MEASURED before the fix: __AMB.seen 0 "
+     "after 25 seconds of walking, the bed had never chosen a bed, the phase "
+     "said NIGHT while the clock said 06:00, the chime had never struck. "
+     "BB-THE-DAY-SONG-PLAYS says how to check it -- VERIFY BY OBSERVED PHASE, "
+     "NOT BY READING THE CODE, because this exact bug was fixed once and a "
+     "surface change undid it -- so this gate moves the CITY's own clock with "
+     "the CITY's own advance() and reads the phase off the shell. It also holds "
+     "the ground under every step: __surfaceOf read c.name and c.tile and a "
+     "city cell has NEITHER, so 6,561 of 6,561 cells classified 'dirt' and "
+     "every footstep in the valley was the dirt one, invisible because the "
+     "fallback is an approved sound", True),
     ('MATERIAL COOKED',['python3', 'gates/material_cooked_gate.py'],
      "Paolo 8/28 LOCKED at the bottom of a 599-of-600 sweep: 'no more wood "
      "stone ash bone shit its COOKED'. Four materials retired for NEW cooks; "
@@ -3634,6 +3650,16 @@ GATES = [
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '
      'a judgement of whether it looks good', False),
+    # REGISTERED 9/5 (DIRECTION, VAMILY [style checker]). The 9/4 runway law's card
+    # (records/BOHEMIA_STYLE_CARD_9_5_26.md) held by machine: new canon garments sit in
+    # the register (sat<=0.25) or are clear faction accents (sat>=0.55) — the muddy
+    # middle ends; new outers wear runway black; the whole canon rides a ratchet against
+    # the frozen 9/5 baseline (82/256 register) and the purple ban. The 280 pre-card
+    # garments are judged as a population, never garment by garment — the pixel-craft
+    # precedent, so the gate is honest on day one instead of red on history.
+    ('STYLE CARD',     ['python3', 'gates/style_card_gate.py'],
+     'the runway card is machine-readable and every NEW cook lands inside its palette; '
+     'the register share only ratchets up; no purple, ever', False),
     ('CANVAS MEMORY',  ['python3', 'gates/canvas_memory_gate.py'],
      'section 8 of the mobile render contract, measured: the shipped surfaces stay under '
      'the resident/pixel ratchets and walking the valley does not grow the picture', False),

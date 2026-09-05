@@ -131,6 +131,22 @@ const METER=`(function(){
      load, and died with a bare TimeoutError that said nothing about why.
      NOT A PRODUCT BUG: measured both sides in the same container, the run boots
      fine at 47ac314 and the frame is simply empty here until it is asked for. */
+  /* *** THE VALLEY MAKES A SOUND NOW, AND THIS GATE MEASURES LEVELS. (9/5) ***
+     Every level claim below integrates energy off the output bus over one to
+     three seconds and compares two numbers. From 9/5 the walked city reports
+     BOHEMIA_WHERE, which turns the AMBIENCE BED back on -- his air_day /
+     air_night / air_inside, fifteen thumbs of fifteen -- and the bed plays on
+     its own 40-to-95 second clock into the same bus. That put a random third
+     sound under six of these measurements and made this gate red on a build
+     where every one of the six things it checks was still true: footsteps
+     stopped looking quieter than kills, a muted slider looked like it was
+     leaking, and a DEAD moment looked like it made a sound.
+     THE BED IS NOT WHAT ANY OF THESE CLAIMS IS ABOUT. Stopping its tick for the
+     measurement is the same move as --mute-audio in the screenshot gates:
+     remove the variable the question is not about. It is a stub on the test
+     page and changes nothing in the game -- city_where_gate is where the bed
+     itself is proved to run. */
+  await p.evaluate(()=>{ try{ if(window.__AMB){ window.__AMB.tick=function(){}; } }catch(_e){} });
   await p.evaluate(()=>{ try{ window.__loadRunSlice && window.__loadRunSlice(); }catch(_e){} });
   await p.waitForSelector('#runFrame',{state:'attached',timeout:30000});
   await p.waitForTimeout(3500);

@@ -1,3 +1,138 @@
+WORDS (words-8dqrnq): 9/5 (c) LATEST -- *** VAMILY Q6 [power talk] SHIPPED. OUR WORLD HAS
+BOSSES, A FOREMAN, A SERGEANT AND A WATCH, AND NOBODY IS EVER SPOKEN TO DIFFERENTLY. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG. Across all 1,669 spoken lines: upward address 0.1%,
+downward 0.7%, politeness markers 1.0%, bare commands 2.6%, softened requests 0.3%. THERE
+ARE EXACTLY TWO UPWARD-ADDRESS LINES IN THE ENTIRE BUILD and one of them I wrote myself in
+the demo pass. Nobody has ever said sir, ma'am, mister or jefe. Everyone speaks to everyone
+as an exact equal.
+
+AND THE WORLD IS NOT FLAT. The cast already carries the hierarchy: keeper 43, watch 27,
+sergeant 21, owner 16, pastor 15, foreman 11, holder 9, boss 8, blue_boss 8, red_boss 6,
+elder 6 on the power side; worker 20, hauler 20, neighbor 20, scav 19, tenant 10, busker 10,
+canvasser 8, runner 5 on the hand side. The world model has the gap. The language does not.
+
+THE REFRAME, AND IT CHANGES HOW THIS LANE WORKS. Brown and Gilman (1960): a power gap is
+NON-RECIPROCAL -- the superior gives the familiar form and receives the polite one, while
+EQUALS EXCHANGE THE SAME FORM. Solidarity is symmetrical, power is asymmetrical. So A POWER
+GAP CANNOT BE WRITTEN INTO A LINE, ONLY INTO A PAIR. Every previous round here measured
+single lines; this one cannot. If a scene only ever ships the NPC's half, there is no rank
+in it at all. Our `exchange` kind holds 148 lines and ZERO address terms in either
+direction -- that is where this work goes.
+
+AND THERE IS A FORMULA, WHICH MAKES IT A DIAL RATHER THAN A TABLE. Brown and Levinson:
+the weight of an imposition W = D + P + R (social Distance + relative Power + Rank of the
+ask). Heavier sum, more indirect phrasing, running bald-on-record ("Move") -> positive
+politeness ("Do me a favour, move") -> negative politeness ("Sorry, could you move?") ->
+off-record hint ("I can't get past"). Distance and power live in the world model and the
+ask belongs to the quest, so the bend can be COMPUTED.
+
+THE FREE ONE: a camp kid who addresses everybody identically makes every adult's asymmetry
+visible by contrast, and costs one character. Test lines show it -- the kid's two lines are
+byte-identical to a scav and to a sergeant, and only the answers change.
+
+FIFTEENTH BROKEN RULER. My first address counter read 7.2% upward address and printed a
+list of hits that were all things like "Don't touch that, it's live." The pattern carried
+Spanish `don` as a title and \bdon\b MATCHES THE "don" INSIDE "don't", so every contraction
+in the game scored as deference. Fixed by requiring an address term to sit in ADDRESS
+POSITION (after a comma, before a comma, or standing alone). Honest figure: 7.2% -> 0.1%.
+Caught by reading the printed lines, not the percentage. PRINT THE HITS, NEVER JUST THE RATE.
+
+RECORD: records/BOHEMIA_WORDS_Q6_TALKING_ACROSS_A_POWER_GAP_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- a boss/hand exchange, the SAME exchange
+between equals with two words removed so you can see what carries it, a stranger at a
+fortress, and the camp kid. All draft:true, NONE in the game.
+VAMILY: Q6 SHIPPED. Next open is Q7 [second meeting].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row THE-PAIR-IS-THE-UNIT: rank lines get written as EXCHANGES, and the 148
+   existing exchange lines are the target. Held until MODE: BUILD.
+ - PEOPLE / FACTIONS  relative power and social distance between two speakers is the input
+   this needs. If those two numbers are already computed this is a dial; if not it is a
+   hand-written table and much worse. Worth an answer before I build anything.
+ - QUESTS  a scene that only ships the NPC's half can never show rank.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
+SOUND (sound-xk7pjp): 9/5 (a) LATEST -- *** THE VALLEY WAS SILENT WHEN YOU STOOD
+STILL, AND NOTHING WAS BROKEN. One message feeds four finished systems and the
+walked surface never sent it. Every step in the game was also the dirt one.
+TAB: RUN (the walked city). Nothing to judge -- no new sound was cooked. ***
+
+Build 9/5k - THE CITY SENDS WHERE.
+VAMILY: SHIPPED [background sound] BB-THE-CITY-SENDS-WHERE and [daytime music]
+BB-THE-DAY-SONG-PLAYS. They are one wire: musicPhase() is called from exactly one
+place and that place is the handler for the message nobody sent.
+
+MEASURED FIRST, on the real surface, before touching anything (headless run,
+splash clicked, twenty-five seconds of walking):
+  __AMB.seen        0        the shell had never heard from the walked surface
+  __AMB.kind        null     the ambience bed had never chosen a bed
+  __musicPhase()    NIGHT    while the city's own clock said 06:00
+  __sfxSpace()      STREET   nailed there
+  __timePassStats   0 rows   the hour chime had never struck
+  runFrame src      (none)   the ONE sender never even loads
+Positive control, posting the same message by hand: all four moved instantly.
+NOTHING IN THE SHELL WAS EVER BROKEN. BOHEMIA_RUN_CURRENT.html has posted
+BOHEMIA_WHERE every four seconds since 8/1; the 8/14 migration moved the walked
+surface into BOHEMIA_CITY_WORLD.html, whose only two hits for that string are
+FILENAMES INSIDE COMMENTS. A MIGRATION LIST IS A DELETION LIST FOR EVERYTHING
+NOT ON IT.
+
+AFTER: the bed picks air_day / air_night / air_inside (his 15-of-15 sweep), the
+phase walks DAWN -> DAY -> DUSK -> NIGHT with the clock, the chime counts, and
+the space follows the ground. Crossings report INSTANTLY at all four places the
+city changes INSIDE, because AMB arms its bed on the crossing itself (8/14).
+
+TWO BUGS FOUND UNDERNEATH IT, AND BOTH HAD TO BE FIXED HERE:
+1. EVERY FOOTSTEP IN THE VALLEY WAS THE DIRT ONE. __surfaceOf reads
+   `c.name || c.tile` and A CITY CELL HAS NEITHER FIELD. Measured 81x81 around
+   the spawn: 6,561 of 6,561 cells classified 'dirt' and 6,561 of 6,561 had an
+   empty name. The rules under that line are right and were never reached. It
+   survived because THE FALLBACK IS AN APPROVED SOUND -- nothing went silent,
+   nothing threw, no gate went red. Now reads gArtPool, the field the tile pass
+   fills in off the district legend, and every routing is that block's own
+   sentence about the tile. 6,561 dirt -> 5,043 dirt / 1,014 asphalt / 433
+   concrete / 71 gravel.
+2. TURNING ON A SECOND SENDER FOR A STATEFUL HANDLER IS NOT AN ADDITION, IT IS
+   A RACE. The run slice posts the same message off its own clock. timePass
+   keeps LASTMIN and turns the gap between reports into a JUMP, so two clocks
+   taking turns read as a twelve-hour leap every four seconds. sfx_wired_gate
+   caught it in its own words -- "THE GAME PLAYED OVER HIM WHILE HE WAS VOTING"
+   -- with twelve hour strikes over the judge sheet, which is a thing he has
+   complained about by name. Fixed: the city stamps from:'city' and owns the
+   report while it is live; a direct post from the parent (a probe) always lands.
+
+GATE: city_where_gate.py, 25 claims, nothing decided by reading source --
+BB-THE-DAY-SONG-PLAYS says VERIFY BY OBSERVED PHASE because this exact bug was
+fixed once and a surface change undid it. Mutations: heartbeat deleted RED x5,
+inside/space nailed RED x3, clock frozen RED x5, ground classifier reverted
+RED x5, source stamp dropped RED (66 hour strikes, worst jump 870 minutes).
+
+TWO BROKEN RULERS, both mine, both the usual shape:
+  * silent_moments_gate read csrc[i:i+2000] from the word `function`. A WINDOW
+    IS NOT A SCOPE: the fix added a comment and four legs went red on a build
+    where the thing they check had just been repaired. Reads the whole function
+    now.
+  * city_where_gate's first cut ran the clock walk BEFORE the place claims. That
+    walk crosses NIGHTFALL, which ends the day and wakes you somewhere else, so
+    every later claim described a world the earlier ones did not measure. A
+    MEASUREMENT TAKEN AFTER YOU CHANGED THE WORLD IS ABOUT THE NEW WORLD.
+
+FILES  tools/bohemia_the_city_sends_where.py, tools/bohemia_the_ground_has_a_name.py,
+       tools/bohemia_one_walked_surface.py, gates/city_where_gate.py,
+       records/BOHEMIA_THE_CITY_SENDS_WHERE_9_5_26.md
+
+NEXT IN THIS LANE (VAMILY order): [district sound] BB-THE-BED-IS-THE-PLACE, then
+[power hums] BB-A-LIT-BLOCK-HUMS, then [unused sounds] THE-OTHER-51. The bed row
+is now unblocked -- it rode behind this one and the message it needed exists.
+
+------------------------------------------------------------------------
+
+WORDS (words-8dqrnq): 9/4 -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+
 CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
@@ -97,7 +232,8 @@ CHARACTER'S OWN NOTES ON RUNNING IT
 - NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
   / day N to him. Rounds, minutes, hours.
 
-WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+
+WORDS (words-8dqrnq): 9/5 (b) -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
 REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
 (His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
@@ -805,7 +941,48 @@ END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
 =============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
-THE JOB IN HAND: [demo talks] TALK-REACHES-THE-DEMO, CLAIMED on the board.
+THE JOB JUST SHIPPED: [demo talks] TALK-REACHES-THE-DEMO (baab7c5).
+
+ROUND 2, AND [demo talks] IS SHIPPED (baab7c5). Gate: gates/demo_talks_gate.js,
+14 claims, 3 mutations caught.
+
+THE ROW SAID THE TALK WAS MUTE. IT IS NOT, AND HERE IS THE NUMBER:
+  the corpus                       236 @TALK, 504 @SAY, 27 quests   (board exact)
+  the demo opens                   FIVE days, five quests
+  reachable in those five          43 nodes, 88 spoken lines = 18%
+  the other 193                    22 quests this demo never opens. That is the
+                                   demo being five days long, NOT a defect, and
+                                   the gate pins it so nobody re-files it as one.
+  orphan speakers                  ZERO: every speaker has a castable role
+  all five days                    open, cast somebody, and somebody TALKS
+  later speakers                   day-1 fixer is SILENT at stage 10 and TALKS at
+                                   stage 20 -- entry conditions, not a hole
+
+THE WHOLE CHAIN, ON THE REAL DEMO: the phone rings, answering it starts the
+quest, the day casts its roles onto real blocks, standing on one makes ctCast()
+return them, and ctConvNode() hands back a node.
+
+*** FIVE TIMES IN THIS JOB I GUESSED INSTEAD OF READING, AND EVERY GUESS
+PRODUCED A CONFIDENT WRONG FINDING. *** probed `BohemiaBQ` when the file
+publishes `BQ`; called offerAccept() without offerRing(), which returns false on
+!OFFER; teleported with hx = block*FN when A BLOCK IS NB*FN = 512 FINE CELLS;
+walked one direction into a wall and called the feature dead; and asserted
+offerRing() returns true when it returns nothing at all. Every number in the gate
+is read off the running game now. THE LESSON FOR THE NEXT ROUND IS THE WHOLE JOB:
+A NAME, A CONSTANT OR A RETURN VALUE YOU GUESSED IS NOT A MEASUREMENT.
+
+AND ONE OF MY OWN GATES WENT RED FROM SOMEBODY ELSE'S GOOD WORK: who_vouches
+demanded ctSeenByHtml() and ctWhoVouchesHtml() be LITERALLY ADJACENT, and another
+lane slid ctLegendHtml() between them. Nothing moved the panel or gave it a door
+of its own, so the claim was red over a thing it was never about. REPOINTED, NOT
+LOOSENED: both call sites must build both, in that order. It still fails if the
+panel is dropped or moved before the seen-by list; both mutations caught.
+
+LANE GREEN ON THE SHIPPED TREE: DEMO TALKS 14/0, PEOPLE 158/0, WHO VOUCHES 19/0,
+PACK 47/0, WALK ENCOUNTER 15/0, ALIVE 16/0, CITY MEMORY 34/0.
+
+NEXT OPEN LINE FOR THIS LANE: [outfits nearby] OUTFITS-AT-SPAWN -- zero of 34
+people within six cells wear one.
 
 ROUND 1 OF [demo talks], MEASURED ON THE REAL SURFACE. THE PIPE IS NOT BROKEN.
 
@@ -2675,6 +2852,7 @@ Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the
 
 
 WORDS (words-8dqrnq): 9/4 -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+
 ITSELF IS IMPOSSIBLE AS REALISM. *** MODE: RESEARCH, so nothing was implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
@@ -3192,6 +3370,35 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+LAST ROUND: BB-NERVE-ON [fights end] SHIPPED (0d5b24d). MORALE IS DEFAULT BEHAVIOUR
+NOW and THEY KNOW YOU became a sharper roll instead of the on-switch for the whole
+system. Before it, the ONLY way a fight could end was every body on one side on the
+floor; now 30% of fights end because somebody left, 47% with the perk.
+
+*** AND THE ROW'S HEADLINE WAS HALF RIGHT, WHICH THE NEXT CHAT NEEDS MORE THAN THE
+FEATURE. *** "The mechanic that ENDS FIGHTS EARLY" buys 1.2 TURNS. Measured at three
+player paces before anything was flipped: 18.0->16.9 fast, 30.7->29.3 realistic,
+39.5->39.1 slow. The trigger is HALF THE ROOM DOWN, and by then the rest fall within a
+couple of turns anyway. SO IF SHORT FIGHTS ARE THE REQUIREMENT, NERVE IS NOT THE LEVER
+-- a fight is ~31 turns at a realistic pace and no row on the board names where the
+length actually lives. FOR THE COORDINATOR; this chat does not add rows.
+
+AND THE SAFETY CHECK THAT LET IT SHIP: his 8/26 words were "I don't wanna see anyone
+run away anymore... I don't know why SO MANY PEOPLE ARE RUNNING AWAY", and at the
+untouched rates 4-8% of men leave -- one in twenty, not "so many". If it had
+reinstated his complaint it would not have shipped. His FICTION also survives: by
+default men break because HALF THEIR FRIENDS ARE DEAD (not about you); the perk is the
+part that is about you.
+
+[PENDING Paolo] Where a scoped rifle stops on the house-scale board. It ships at 3
+houses as an attempt (rifle is 2). From BB-A-TILE-IS-A-HOUSE.
+
+KNOWN AND NOT YET CAUGHT: fight_moves_you_gate flakes about one run in four -- seen at
+159/1, 164/1, then 165/0 on the same tree, and the failing arm has never been captured
+because the runs that fail were not the ones being logged. NEXT TIME IT GOES RED,
+CAPTURE THE OUTPUT BEFORE RE-RUNNING. A gate that flakes is a broken ruler and this
+lane has fixed five of those already; do not let a green re-run close it.
+
 THIS CHAT'S NAME IS **04 COMBAT**. That is its role for life and it is never asked for
 again. THE ONE MISTAKE ALREADY MADE AND NOT TO BE REPEATED: VAMILY was read as
 "family" and a companion-from-the-family-tree feature was started before the board was
@@ -3613,7 +3820,24 @@ relationship" -> LOCKED: THE MANAGER HAS HIS OWN MIND (central-chat law amendmen
 records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md: my own five, on the board as jobs: RUN
 [animal first] [death handoff], SOUNDS [heartbeat first], FACTIONS [crossing costs],
 WORLD [rice clock]; and two "needs Paolo" lines decided with defaults: COMBAT [hurt
-death], PEOPLE [heir moment] (marriage stays his).
+death], PEOPLE [heir moment] (marriage stays his). THEN (bl) "awesome good ideas man.
+VAMILY" -> ROUND: since last round RUN shipped [hands now] (5faf227: the demo loads in
+572 ms, a walked world in 1.7 s, zero errors, byte-identical to a fresh cut, a gate opens
+it like a stranger); LIFE+CITY shipped [building costs]; DIRECTION shipped [style card]
+and [builder references]; ECONOMY Q5, WORDS Q5; WORLD [living costs] round 1 (the day
+eats food); DYNASTY claimed Q3 [heir keeps]; the FACTIONS chat, still reading VAMILY as
+family before the paste, BUILT THE GENERATION FOLD in the DIRECT tab (60c9b44), real
+work. SWING: the heir pays (records/BOHEMIA_COORDINATOR_RESEARCH_THE_HEIR_PAYS_9_5_26.md):
+formal law kills debt with the estate; informal economies pass it to the child; my
+"every debt in full" default stands with its reason. Routed WORLD [debt carried],
+FACTIONS [collector heir], DYNASTY Q11 [what carries]. THEN (bm) HE PLAYED IT: "where the
+enemies at bro" -> the biggest hole in the game, measured not guessed: every hostile/enemy
+string in the alpha, city and demo is PROSE; hostility lives in engine/bohemia_between.js
+as a SIGN ON A RELATIONSHIP (they charge you more, they watch you) and never as a body;
+roadInterrupt still has one caller inside MODE==='city'. The game knows who your enemies
+are and has never put one in front of you. Record: records/BOHEMIA_RULING_WHERE_THE_
+ENEMIES_AT_9_5_26.md. Routed to the TOP of four lanes: RUN [enemies exist], COMBAT
+[street fight], PEOPLE [who is hostile], and my own UI [danger visible].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -8281,7 +8505,7 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/30 (a) LATEST -- *** THE HUNDRED-HOUR GAME LEVELLED YOU
+SOUND (sound-xk7pjp): 8/30 (a) -- *** THE HUNDRED-HOUR GAME LEVELLED YOU
 UP IN SILENCE. The tree and the fifty-three bosses -- the entire progression of
 the game he described on 8/26 -- had ZERO sound calls between them. 7 moments,
 35 candidates, 5 wired the same turn. TAB: MUSIC. ***
@@ -8844,7 +9068,18 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [builder references] SHIPPED 30c01de -- block, street
+ROUND LOG 9/5 (latest): [style checker] SHIPPED 5e6ef42 -- the card has a
+machine gate (suite-registered): new cooks are register-or-accent (the muddy
+middle ends), new outers wear runway black, the canon rides the 82/256
+ratchet, purple stays banned, and the bank must match the shipped alpha or
+the gate names the regenerate command. Proven to bite with a fake muddy
+jacket before registering. NEXT OPEN: [batch judging], then [fortress look],
+[feed look], [tile ground]. PREVIOUS: [opening references] SHIPPED 1a06017 -- six great
+openings written as beats in reference/library/first-hour/ (safe first
+screen, the earned reveal, powerless-first, one errand, full-information
+first fight, and the Vegas porte-cochere as the real-world arrival machine).
+Index now 57 refs / 12 kinds. NEXT OPEN: [style checker] STYLE-CARD-GATE,
+then [batch judging], [fortress look], [feed look], [tile ground]. PREVIOUS: [builder references] SHIPPED 30c01de -- block, street
 and lot rules from the best builders, annotated at our own measured scale, in
 reference/library/city-builder/ (7 entries; index now 51 refs / 11 kinds).
 NEXT OPEN: [opening references], then [style checker], [batch judging],

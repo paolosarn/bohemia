@@ -227,3 +227,50 @@ MARKED    [beat] ...That's not this street. You'd want the other end.
 # Disco Elysium's rule: a failure returns a DIFFERENT route, never a null.
   I don't know. I know who'd know, and you won't like what he charges.
 # Refuses the question, hands over the next thread and a price in one line.
+
+## Q6 -- TALKING ACROSS A POWER GAP  (9/5/26)
+# The finding: a power gap is invisible in ONE line. It lives in the ASYMMETRY
+# between two. Brown and Gilman: equals exchange the SAME form, unequals exchange
+# DIFFERENT ones. So every set below is an EXCHANGE, and the gap is in the pair,
+# never in either half alone. Weight of the ask = distance + power + rank of the
+# imposition (Brown and Levinson), which is why the third one bends furthest.
+
+### GAP 1 -- A BOSS TO A HAND. Power high, distance low, ask small.   draft:true
+BOSS  Take the small stuff first, kid. Small stuff walks.
+HAND  Right. Small first. You want the cells left where they are, boss?
+BOSS  Leave them.
+HAND  Leaving them.
+# He gives a bare command and a downward name. The hand answers upward, checks
+# before acting, and repeats the order back. NEITHER LINE IS RUDE. The rank is
+# entirely in the fact that the forms do not match.
+
+### THE SAME EXCHANGE BETWEEN EQUALS, so you can see what carries it   draft:true
+A  Take the small stuff first. Small stuff walks.
+B  Right. You want the cells left where they are?
+A  Leave them.
+B  Leaving them.
+# Identical content. Two words removed ("kid", "boss") and the hierarchy is gone.
+# That is the whole mechanism in one edit.
+
+### GAP 2 -- A STRANGER AT A FORTRESS. Distance HIGH, power high, ask heavy.  draft:true
+# The heaviest sum in the game, so the most indirect: no command, no name, and a
+# reason offered BEFORE the ask.
+STRANGER  I've been walking since the flats. I'm not asking to come in.
+WATCH     Good.
+STRANGER  There's water on this side of the fence. That's all I came to say.
+WATCH     There is. Stand where I can see you and I'll bring some out.
+# The stranger never once uses an imperative and never asks the actual question.
+# The watch gives permission in the form of an instruction, which is the gap.
+
+### GAP 3 -- A CAMP KID TO ANYONE, and this one is free   draft:true
+# The kid does not know the rules yet, so he speaks to a sergeant exactly as he
+# speaks to a scav. Writing ONE character who ignores the gap makes every adult's
+# asymmetry visible by contrast.
+KID (to a scav)      You got anything in that bag?
+SCAV                 Nothing you'd want.
+KID (to a sergeant)  You got anything in that bag?
+SERGEANT             ...Say that again.
+KID                  I said have you got anything in the bag.
+SERGEANT             No.
+# The kid's two lines are IDENTICAL. Only the answers change, and the sergeant's
+# held beat does more work than any adjective would.

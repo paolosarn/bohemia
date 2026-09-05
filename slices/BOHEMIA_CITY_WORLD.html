@@ -30903,6 +30903,39 @@ function __surfaceOf(c){
      plays the one it played before rather than going silent.
      step_glass and step_metal are deliberately absent -- he killed all ten, and
      there is no glass or metal ground to report. */
+  /* __THE_GROUND_HAS_A_NAME__ (9/5, SOUNDS lane) -- EVERY STEP IN THE VALLEY
+     WAS THE DIRT ONE. Measured over 81x81 cells around the spawn: 6,561 of
+     6,561 came back 'dirt' and 6,561 of 6,561 had an EMPTY name, because the
+     line below reads c.name and c.tile and A CITY CELL HAS NEITHER. The rules
+     under it are right, were ported correctly, and have never once been
+     reached. It survived because `return 'dirt'` is an APPROVED SOUND: nothing
+     went silent, nothing threw, no gate went red, and the only symptom was a
+     valley that sounded like one enormous field.
+     gArtPool IS THE FIELD THE CITY ACTUALLY FILLS IN. The tile pass sets it off
+     the district legend's KIND and NAME -- the two things the dossier law says
+     a legend is for -- and every routing below is that block's own sentence
+     about the tile, not a new opinion: a kerb is poured with the walk, the
+     parkway strip is Vegas rock mulch, talus is the rock the wash's armour is
+     made of, the freeway's graded shoulder is the berm, a channel invert is
+     plain jointed concrete.
+     A MARKING IS PAINT ON A ROAD, so it is the road: markPool is only ever set
+     on a drivable surface, and the ported order already says a drivable surface
+     is asphalt whatever the tile is called. */
+  var pool = (c && (c.markPool ? 'street' : c.gArtPool)) || '';
+  if(pool){
+    if(pool === 'street') return 'asphalt';
+    if(pool === 'side' || pool === 'tf_bk' || pool.indexOf('tf_iv') === 0) return 'concrete';
+    if(pool === 'tf_ls' || pool === 'tf_rip' || pool.indexOf('tf_be') === 0) return 'gravel';
+    /* hyard is the house yard AND the table's default for plain ground, and
+       every other tf_ pool is loose ground: field soil, furrows, cracked silt,
+       the ring the lake left. This is what it already played, kept on purpose
+       so the commonest ground in the valley does not change under him. */
+    if(pool === 'hyard' || pool.indexOf('tf_') === 0) return 'dirt';
+  }
+  /* AND THE NAME RULES STAY, UNDERNEATH. They are the answer for anything that
+     does carry a name -- an interior floor, the run slice's own cells, the next
+     caller -- and deleting a rule because it is currently unreachable is how
+     the migration stranded this one in the first place. */
   var n = (c && (c.name || c.tile || '') + '').toLowerCase();
   if(/gravel|ballast|caliche|hardpan|lag|shoulder/.test(n)) return 'gravel';
   if(/asphalt|roadway|road|street|lane|driveway|highway|parking|lot/.test(n))
@@ -41122,6 +41155,7 @@ function homeWake(){
   if(MODE!=='human'){ HOME_WAKE_PENDING=true; return false; }
   const s=homeDoorstep(); if(!s)return false;
   hx=s[0]; hy=s[1]; INSIDE=null;
+  try{ ctWhere(); }catch(_e){}   /* __THE_CITY_SENDS_WHERE__ */
   HOME_WAKE_PENDING=false;
   window.__WOKE_HOME=(window.__WOKE_HOME||0)+1;
   return true;
@@ -43609,6 +43643,10 @@ function inEnter(tgtX,tgtY,fromX,fromY,portal){
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({bohemiaCitySfx:{ev:'door_drag'}},'*'); }catch(_e){}
   try{ cityFightOnEnter(); }catch(_e){}
+  /* __THE_CITY_SENDS_WHERE__ -- the threshold is the moment, not four
+     seconds later: occlusion is a yes/no about the wall you just walked
+     through, and the bed arms on the crossing itself. */
+  try{ ctWhere(); }catch(_e){}
   advance(0.5); return true;
 }
 /* WHO IS IN THE ROOM IS NOT MINE. This city has factions, bases and reach and NO
@@ -44072,6 +44110,7 @@ stepOnce=function(di){
     // on the exact cell you came in from.
     if(INSIDE.ix===INSIDE.door[0]&&INSIDE.iy===INSIDE.door[1]){
       hx=INSIDE.exit.gx; hy=INSIDE.exit.gy; INSIDE=null;
+      try{ ctWhere(); }catch(_e){}   /* __THE_CITY_SENDS_WHERE__ */
       HFACE=dirOf(d[0],d[1]); advance(0.5); return true;
     }
     return false;
@@ -44530,7 +44569,8 @@ updHud=function(){ _inHud();
 // leaving the walk zoom leaves the building first - you never zoom out to the
 // city from inside a room.
 const _inSwap=swapMode;
-swapMode=function(){ if(INSIDE){ hx=INSIDE.exit.gx; hy=INSIDE.exit.gy; INSIDE=null; } return _inSwap.apply(this,arguments); };
+swapMode=function(){ if(INSIDE){ hx=INSIDE.exit.gx; hy=INSIDE.exit.gy; INSIDE=null;
+    try{ ctWhere(); }catch(_e){}   /* __THE_CITY_SENDS_WHERE__ */ } return _inSwap.apply(this,arguments); };
 
 
 /* ==== CITY TALK (8/3): somebody to speak to ==== */
@@ -51620,6 +51660,62 @@ document.getElementById('phonebtn').addEventListener('click',function(){
   if(PHONE_ON)phoneClose(); else phoneOpen();
 });
 document.getElementById('phoneclose').addEventListener('click',phoneClose);
+
+/* __THE_CITY_SENDS_WHERE__ (9/5, SOUNDS lane) -- ONE MESSAGE, FOUR SYSTEMS.
+   MEASURED before this line existed, on the surface he walks: __AMB.seen was 0
+   after 25 seconds of walking, __AMB.kind was null, __musicPhase() said NIGHT
+   while the clock below said 06:00, and the hour chime had never struck once.
+   Posting this same message by hand from the parent moved all four instantly,
+   so nothing in the shell was ever broken -- the sender was in the other
+   building. BOHEMIA_RUN_CURRENT.html has posted this every four seconds since
+   8/1 and the 8/14 migration moved the walked surface here, where the only two
+   hits for the string are filenames inside comments.
+   ONE AUDIOCONTEXT, THE PARENT'S: this posts, the shell decides. */
+function ctWhere(){
+  try{
+    if(!(window.parent&&window.parent!==window)) return;
+    var inside=false; try{ inside=!!INSIDE; }catch(_i){}
+
+    /* WHERE YOU ARE STANDING, in the shell's four-space vocabulary.
+       INDOORS: the run's own rule, ported verbatim rather than reinvented --
+       ~12x12 of walkable floor and up is a HALL, anything smaller is a ROOM. */
+    var space='STREET';
+    try{
+      if(inside){
+        var cells=0, fp=INSIDE.fp;
+        if(fp&&fp.grid){
+          for(var yy=0;yy<fp.grid.length;yy++)
+            for(var xx=0;xx<fp.grid[yy].length;xx++)
+              if(fp.grid[yy][xx]&&fp.grid[yy][xx].g==='floor') cells++;
+        }
+        space=(cells>=140)?'HALL':'ROOM';
+      }else{
+        /* OUTDOORS: a road within one cell is the canyon, open ground is not.
+           __surfaceOf IS THE CITY'S OWN ANSWER -- the classifier that already
+           decides whether a step sounds like asphalt -- so the street that
+           sounds like a road underfoot is the same street that reflects. */
+        var near=false, dx2, dy2, nc;
+        for(dx2=-1;dx2<=1&&!near;dx2++) for(dy2=-1;dy2<=1;dy2++){
+          try{ nc=cellAt(hx+dx2,hy+dy2);
+               if(nc&&__surfaceOf(nc)==='asphalt'){ near=true; break; } }catch(_r){}
+        }
+        space=near?'STREET':'OPEN';
+      }
+    }catch(_s){}
+
+    var night=false; try{ night=!!isNight(); }catch(_n){}
+    var min=0; try{ min=T.min; }catch(_m){}
+    /* __ONE_WALKED_SURFACE__ -- SAY WHICH SURFACE THIS IS. The run slice
+       posts the same message off its own clock, and the shell's handler is
+       stateful: two clocks answering the same question read as an hourly leap
+       and strike the hour chime every four seconds. */
+    window.parent.postMessage({type:'BOHEMIA_WHERE', from:'city',
+      inside:inside, night:night, min:min, space:space},'*');
+  }catch(_e){}
+}
+window.__ctWhere=ctWhere;          /* so a gate can ask, and so a crossing can call */
+setInterval(ctWhere,4000);
+ctWhere();                         /* and once now, so the bed does not wait four seconds */
 
 </script>
 </body></html>

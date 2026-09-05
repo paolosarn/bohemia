@@ -94,6 +94,7 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - OPEN  [century stayed]  WHO-STAYED-COUNTS -- [PENDING Paolo] ECONOMY asks whether the century rule should count who STAYED, not only buildings. That changes a LOCKED law and only he can; the coordinator carries it. Nothing to build until he rules.
 - OPEN  [own power]  YOUR-OWN-POWER-IS-YOUR-WAY-OUT -- from the 9/5 generator-mafia research: the Lebanese families who built their own rooftop solar were buying their way out of the block's owner. In our game, a power building you place on your land takes you OFF the block's line: the monthly cut stops, your batteries are yours, and the faction that owned the line notices (a standing hit, a visit). This is what "set up buildings and auto-mine batteries" (Paolo 9/5) means in the world. Needs [batteries mined] and FACTIONS [block rent].
 - OPEN  [rice clock]  THE-BAG-OF-RICE-IS-THE-TUTORIAL -- THE MANAGER'S OWN CALL (9/5): everything costs one and a day of work pays one; the one thing you must buy every day is the whole economy in miniature. Hunger is the clock: a day without the bag shows on the body and the purse, and the first purchase of the game is rice, taught by wanting it, not by a text box. Tab: CITY and the walked street.
+- OPEN  [debt carried]  THE-DEBT-NAMES-ITS-LENDER-AND-OUTLIVES-YOU -- from the 9/5 heir research (records/BOHEMIA_COORDINATOR_RESEARCH_THE_HEIR_PAYS_9_5_26.md): where there is no state, the lender collects from the family. Every debt in the ledger names WHO is owed (a faction, a person) and survives the generation fold to the heir in full; the fold that exists (60c9b44, DIRECT tab) carries it. Tab: RUN, then DIRECT.
 
 ## QUESTS  (first word "quests")
 MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on experiencing it." Nothing below is claimed until he reopens it.
@@ -109,11 +110,11 @@ MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on
 
 ## SOUNDS  (08.)
 MODE: BUILD
-STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all reactions; the ambience bed is built and fed only by a message the city never sends; music phase stuck on NIGHT. Unverified: where the music engine module lives (not in engine/).
-- OPEN  [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
+STATE: 65 approved sounds, 185 variants. The walked city NOW reports where you are every four seconds, so the ambience bed runs, occlusion has a listener, the music phase follows the clock and the hour chime strikes -- all four measured on the real surface, all four dark for three weeks before 9/5. Also fixed 9/5: every footstep in the valley was the dirt one (the classifier read two fields a city cell does not have; 6,561 of 6,561 cells came back 'dirt'). Unverified: where the music engine module lives (not in engine/).
+- CLAIMED 9/5 sound-xk7pjp  [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
 
-- OPEN  [background sound]  BB-THE-CITY-SENDS-WHERE
-- OPEN  [daytime music]  BB-THE-DAY-SONG-PLAYS
+- SHIPPED 9/5 [background sound]  BB-THE-CITY-SENDS-WHERE
+- SHIPPED 9/5 [daytime music]  BB-THE-DAY-SONG-PLAYS
 - OPEN  [district sound]  BB-THE-BED-IS-THE-PLACE
 - OPEN  [power hums]  BB-A-LIT-BLOCK-HUMS
 - OPEN  [unused sounds]  THE-OTHER-51
@@ -125,7 +126,7 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 - SHIPPED 9/5 93a0c3f  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked
 - SHIPPED 9/5 c9504be  [buildings produce]  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - SHIPPED 9/5 0a258b9  [building costs]  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
-- OPEN  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
+- CLAIMED 9/5 city-1eztay  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
 - OPEN  [people housed]  HOUSING -- residents per plot, capacity, a population number that moves; the other half of the 7/26 economy law, zero built
 - OPEN  [century memory]  CENTURY-RECORD -- persist per-act build totals so act 3's city can differ; mechanism ours, every number his
 - OPEN  [feed posts]  THE-FEED-STREAM -- one event stream the city-screen feed reads: the deed ledger first (exists), then faction/territory events, then ambient life posts; with PEOPLE
@@ -136,10 +137,11 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 
 ## COMBAT  (04.)
 MODE: BUILD
-STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree saved, a COMPANION who takes her own turn and splits the incoming fire, THE HOUSE-SCALE BOARD ON A DIAL (pistol reaches 1 house, rifle 2, seeded boards byte-identical at the old setting), the door from the city works (gate 26/0). NOT built: the indoor entry, loot leaving, FEAR_ON is false with its perk shipped, armour all zero, picking the companion up. Unverified: gate colours; and AN ARENA SEED DOES NOT REPRODUCE THE TIME OF DAY (pickDayPhase is unseeded, night halves every range) which weakens V88 for anybody pinning a board.
+STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree saved, a COMPANION who takes her own turn and splits the incoming fire, THE HOUSE-SCALE BOARD ON A DIAL (pistol reaches 1 house, rifle 2, seeded boards byte-identical at the old setting), the door from the city works (gate 26/0). NOT built: the indoor entry, loot leaving, armour all zero, picking the companion up. MORALE IS NOW DEFAULT (FEAR_ON true; measured 4-8% of men leave, NOT the rout he rejected) and THEY KNOW YOU became a sharper roll instead of the on-switch; measured, nerve buys only ~1.2 turns, so THE LENGTH OF A FIGHT DOES NOT LIVE THERE and no row names where it does. Unverified: gate colours; and AN ARENA SEED DOES NOT REPRODUCE THE TIME OF DAY (pickDayPhase is unseeded, night halves every range) which weakens V88 for anybody pinning a board.
+- OPEN  [street fight]  THE-FIGHT-STARTS-WHERE-YOU-STAND -- with RUN [enemies exist]: walking into a hostile group on the street starts the fight right there, on the beat, on the house-sized board, without going through the city map door (which is the only entry that exists today, gate 26/0). roadInterrupt has one caller and it is inside MODE==='city'. Tab: RUN into COMBAT.
 - SHIPPED 9/5 91cbd15  [house tiles]  BB-A-TILE-IS-A-HOUSE
-- CLAIMED 9/5 session_01C6Fn6dDgMUy725zJqieinK  [fights end]  BB-NERVE-ON
-- OPEN  [indoor fights]  THE-INDOOR-FIGHT -- the door from the city works (gate 26/0); the indoor entry is the missing half (day-14 row)
+- SHIPPED 9/5 0d5b24d  [fights end]  BB-NERVE-ON
+- CLAIMED 9/5 session_01C6Fn6dDgMUy725zJqieinK  [indoor fights]  THE-INDOOR-FIGHT -- the door from the city works (gate 26/0); the indoor entry is the missing half (day-14 row)
 - OPEN  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
 - OPEN  [guns close]  BB-GUNS-CLOSE
 - OPEN  [rescue her]  BB-PICKUP
@@ -156,10 +158,11 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 MODE: BUILD
 STATE: the door opens on the played surface, the demo build exists (re-cut 9/4), the save is hardened and carries day/clock/position/quest/purse AND THE PEOPLE (minds/known/met/belong/deedweight, shipped 9/4), and as of 9/5 the five are walked through every one of the hostile browser's seven iOS failure modes plus the torn-write rollback, in Node and on the real page (SAVE IPHONE 44 -> 78); road interrupts fire only on map travel. MEASURED 9/5: the save is 3,683 bytes and 3,170 of them are the people, 2,928 of that the deed table. Nobody has ever put the demo in a stranger's hands; load time and frame rate on a real phone are the PLUMBER's to measure. NOT built: a title or stop-and-return, an ending that is not bed. Unverified: roadInterrupt still has one caller and it is inside MODE==='city', so nothing fires on the walked street -- that is the next row.
 THE RULE FOR THIS LANE (Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's so much to do"): the demo is never held for more content. What exists today is the demo. Every round of this lane ends with a link that works on a phone.
+- OPEN  [enemies exist]  THERE-ARE-NO-ENEMIES-ON-THE-STREET -- PAOLO PLAYED IT 9/5 AND ASKED "where the enemies at bro". MEASURED (records/BOHEMIA_RULING_WHERE_THE_ENEMIES_AT_9_5_26.md): every "hostile"/"enemy" string in the alpha, the city and the demo is PROSE; hostility exists in engine/bohemia_between.js only as a SIGN ON A RELATIONSHIP (they charge you more, they watch you), never as a body. Put hostile bodies on the walked street: they stand somewhere, they move, they close on you, they are visible before they reach you. This is the top of this lane above everything, including the save and the title. Tab: RUN.
 - SHIPPED 9/5 5faf227  [hands now]  HANDS-NOW -- the demo was re-cut and is BYTE-IDENTICAL (the link is today's game), it opens cold on a phone in 572ms, one tap puts a walked world up in 1,669ms, zero page errors, 200,914+ cells reachable on foot, and nothing stands between a stranger and the game. No fight in it by his own 8/4 scope, so nothing was 'fixed' to invent one. STRANGER OPENS 15/0 holds all of it every run. Record: records/BOHEMIA_A_STRANGER_OPENS_IT_9_5_26.md
 - SHIPPED 9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - SHIPPED 9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
-- OPEN  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
+- CLAIMED 9/5 run-eak241  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
 - OPEN  [cold hand]  BB-COLD-HAND -- the test that presses the loudest thing and never reads, on every demo screen
 - OPEN  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE -- the home-screen install IS the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it (absorbs ADD-TO-HOME)
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
@@ -198,9 +201,10 @@ STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, war
 ## PEOPLE  (09.)
 MODE: BUILD
 STATE: talking on foot with nine verbs, a real witness memory, schedules and homes, 12 encounters firing on foot. NOT built: the player as a node in standing, the conversation chain in the demo file (236 nodes mute), outfits near spawn, any family event. Unverified: whether the talking portrait reaches a live NPC card.
+- OPEN  [who is hostile]  THE-CROWD-CARRIES-THE-SIGN -- the between-ledger already computes who is hostile to you (sorted hostile-first, they charge more, "only enemies watch you"). None of that reaches the street. Make the sign visible in the crowd: they watch, they follow, they block a door, they refuse. Feeds RUN [enemies exist] and COMBAT [street fight].
 - SHIPPED 9/5 3aa7fa1  [your reputation]  BB-STANDING-PLAYER
 - SHIPPED 9/5 35e44ba  [gate red]  PEOPLE-GATE-RED -- gates/people_gate.js runs 148 passed, 10 failed as of 9/4 (measured by the coordinator; it reads engine/, tools/ and slices/, none of which the coordinator touches, so this predates today). His bugs beat your queue: fix or explain the ten before taking anything else.
-- CLAIMED 9/5 people-7h9sfy  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
+- SHIPPED 9/5 baab7c5  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
 - OPEN  [outfits nearby]  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one
 - OPEN  [former jobs]  BB-WHAT-YOU-WERE
 - OPEN  [family events]  FAMILY-EVENTS -- something writes a child, a marriage, an ageing into family.tree; selectHeir has zero callers
@@ -213,7 +217,7 @@ STATE: talking on foot with nine verbs, a real witness memory, schedules and hom
 ## FACTIONS  (10.)
 MODE: BUILD
 STATE: 18 factions in the graph (14 selectable plus four more), every one with act1_power and act3_power, wrapped writes protecting canon. NOT built: the player is not a node; zero of 34 people near spawn wear an outfit; nobody holds ground; the non-selectable factions have no verified presence on the map.
-- OPEN  [faction homes]  FACTION-SEATS -- every selectable faction has a seat placed on its generated district, and the seat is where its town grows (with WORLD FACTION-TOWNS); moving a seat is his
+- CLAIMED 9/5 factions-ovkjpf  [faction homes]  FACTION-SEATS -- every selectable faction has a seat placed on its generated district, and the seat is where its town grows (with WORLD FACTION-TOWNS); moving a seat is his
 - OPEN  [hidden factions]  THE-OTHER-FOUR -- the four non-selectable factions: do they exist anywhere a player can meet them? measure, then place a presence or write [PENDING Paolo]
 - OPEN  [colours fixed]  COLOUR-AUDIT -- every faction's colour is coordinated, saturated and nobody else's (COLOUR IS TERRITORY); the gate holds contradictions, this row fixes them
 - OPEN  [town sizes]  TOWN-TIERS-ARE-HIS -- needs Paolo: the draft tiers off act1_power ship; he moves any faction he likes; with WORLD FACTION-TOWNS
@@ -224,6 +228,7 @@ STATE: 18 factions in the graph (14 selectable plus four more), every one with a
 - OPEN  [power territory]  A-FACTION-MINES-ITS-LAND -- every faction's territory carries its own battery-making buildings, so what a faction is worth is what its land makes; a fortress makes more than a camp (9/4 towns law); the numbers flow from WORLD [batteries mined]; losing a block loses its output
 - OPEN  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- from the coordinator's 9/5 research (records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_MAFIA_9_5_26.md): in Lebanon and Iraq the faction that owns a neighbourhood's generator charges every household on it monthly, by the ampere, sets the price, and cuts you off without warning; it was 44% of an average family's income. Build it: living or working on a faction's block costs a monthly cut in batteries paid to that faction; a fortress charges more than a camp; a faction can cut a block off (its services stop) when a block does not pay; the cut lands in the purse ledger as PAY (day 23 verbs). Tab: CITY, then the walked street.
 - OPEN  [crossing costs]  THE-WRONG-COLOUR-REACTS -- THE MANAGER'S OWN CALL (9/5): colour is territory and nothing happens when you walk into the wrong colour. The moment you cross into a faction's block that does not know you: a look, then a tail, then a stop, on the beat, before any fight; the block's colour is the only warning. Tab: RUN.
+- OPEN  [collector heir]  THE-LENDER-VISITS-THE-HEIR -- from the 9/5 heir research: on the first day after the fold, the faction your parent owed comes to you; the first line the heir hears in their own life is the parent's debt, on the beat, at the door. Needs WORLD [debt carried]. Tab: RUN.
 
 ## WORDS  (12.)
 MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
@@ -233,8 +238,8 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q3_HOW_A_CROWD_TALKS_9_4_26.md  [crowd talk]  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
 - SHIPPED 9/4 records/BOHEMIA_WORDS_Q4_SPEECH_ON_A_BEAT_9_4_26.md  [beat speech]  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a line that lands ON the beat does that one that drifts does not.
 - SHIPPED 9/5 records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md  [refusing answers]  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns something. Against our asking module's eighteen blocks.
-- OPEN  [power talk]  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a camp kid to anyone. Test lines for one exchange at each gap.
-- OPEN  [second meeting]  Q7  The second conversation. How speech changes when a person REMEMBERS you (our memory organ already tracks it). What the best games do with a returning player, and what they do wrong.
+- SHIPPED 9/5 records/BOHEMIA_WORDS_Q6_TALKING_ACROSS_A_POWER_GAP_9_5_26.md  [power talk]  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a camp kid to anyone. Test lines for one exchange at each gap.
+- CLAIMED 9/5 words-8dqrnq  [second meeting]  Q7  The second conversation. How speech changes when a person REMEMBERS you (our memory organ already tracks it). What the best games do with a returning player, and what they do wrong.
 - OPEN  [grief talk]  Q8  Grief speech. The cold open kills the sister. How real people talk in the first hour, the first day, the first month, and which games wrote it honestly. Test lines for the grief dinner.
 - OPEN  [trade talk]  Q9  What a former trade sounds like. A dealer, a lineman, a laundry chief, a pit boss: the vocabulary and metaphors a job leaves in a mouth (day 8's background as identity). Test lines for six trades.
 - OPEN  [threat talk]  Q10 Threats that de-escalate and threats that escalate. What real negotiators and the best-written standoffs do with a sentence, for the gambit orders (day 3).
@@ -252,6 +257,7 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 ## UI  (11.)
 MODE: BUILD
 STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen, any onboarding, the city-screen feed. Unverified: the round-7 look, which is his to thumb.
+- OPEN  [danger visible]  YOU-CAN-SEE-IT-COMING -- THE MANAGER'S OWN CALL (9/5): a fight that arrives with no warning on a phone is a rage quit. Before you walk into a dangerous block you can SEE it: colour is already territory, so the tell rides the colour (the block reads hot, the people read wrong, one glance is enough). No numbers, no meter, no text box. Pairs with FACTIONS [crossing costs].
 - CLAIMED 9/5 ui-kmqmrf  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
 - OPEN  [one number]  BB-ONE-NUMBER
 - OPEN  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
@@ -263,15 +269,15 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 
 ## DIRECTION  (06. the Art Director. Decides the look, judges every cook. Does not cook.)
 MODE: BUILD
-STATE: a visual constitution exists (records/target, target_match_gate); THE STYLE CARD EXISTS (records/BOHEMIA_STYLE_CARD_9_5_26.md, 9/5) with a machine block waiting for STYLE-CARD-GATE; the VOTE tab shows what each candidate was matched against; nothing yet FAILS a cook against the card by machine.
+STATE: a visual constitution exists (records/target, target_match_gate); THE STYLE CARD EXISTS (records/BOHEMIA_STYLE_CARD_9_5_26.md, 9/5) AND ITS GATE ENFORCES IT (style_card_gate.py, suite-registered 9/5); the VOTE tab shows what each candidate was matched against; nothing yet FAILS a cook against the card by machine.
 - SHIPPED 9/5 09c83ba  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 - SHIPPED 9/5 191fd5d  [reference library]  THE-REFERENCE-LIBRARY (reference/library/, 9 kinds, 31 entries, machine-parseable for REFERENCE-INDEX) -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
 - SHIPPED 9/5 b416bc6  [reference index]  REFERENCE-INDEX (derived by tools/bohemia_reference_index.py; 31 refs, hard-fails on malformed entries) -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
 - SHIPPED 9/5 32338e1  [runway shapes]  RUNWAY-REFERENCE (reference/library/runway/, 13 shapes: shoulder x3, drape x3, hem x3, leg-and-boot x3, the two whole-figure poles) -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
 - SHIPPED 9/5 468fbcb  [style card]  THE-STYLE-CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md: palette measured off the 280-garment canon, the two poles in px at 56/112, machine block for the gate) -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - SHIPPED 9/5 30c01de  [builder references]  PIXEL-CITY-BUILDER-REFERENCE (reference/library/city-builder/, 7 entries annotated at our 44px cell / house-tile / mile-grid scale) -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
-- OPEN  [opening references]  FIRST-HOUR-REFERENCE -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
-- OPEN  [style checker]  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
+- SHIPPED 9/5 1a06017  [opening references]  FIRST-HOUR-REFERENCE (reference/library/first-hour/, 6 openings as beats, each with the one rule it teaches) -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
+- SHIPPED 9/5 5e6ef42  [style checker]  STYLE-CARD-GATE (gates/style_card_gate.py, registered in the suite; born green and proven to bite: register-or-accent for new cooks, runway-black outers, the 82/256 ratchet, the purple ban) -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  [batch judging]  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
 - OPEN  [fortress look]  FORTRESS-TOWN-CAMP-REFERENCE -- what a fortress, a town and a camp LOOK like at our tile size, from real places (a walled compound, a main street, a tent field) and the best games' versions of each; three annotated sheets for COOK, so the faction-towns ruling (9/4) can be cooked to a card, not a guess
 - OPEN  [feed look]  THE-FEED-LOOK -- what the phone feed on the city screen looks like: a real phone feed's spacing, type and rhythm at our pixel scale, one reference sheet, so UI builds it once (9/4 feed law)
@@ -300,7 +306,7 @@ STATE: the game's identity is the most realistic economic crash simulator, but f
 - SHIPPED 9/5/26  records/BOHEMIA_ECONOMY_DAY_3_NOBODY_REBUILDS_A_BUILDING_FIRST_9_5_26.md  [rebuild order]  Q3  What people rebuild first. Cuba's Special Period, post-Katrina New Orleans, Detroit, post-Soviet towns: the real order of rebuilding, for the century rule's sequence.
 - SHIPPED 9/5/26  records/BOHEMIA_ECONOMY_DAY_4_THE_FIRST_BUILDING_IS_AN_AIRBASE_9_5_26.md  [first building]  Q4  Placing a building that feels good in the first hour. What the best builder games ever made do in the first ten minutes of building, and what makes a placed building feel like it did something.
 - SHIPPED 9/5/26  records/BOHEMIA_ECONOMY_DAY_5_FIFTEEN_NUMBERS_ON_THE_SHOP_CARD_9_5_26.md  [numberless economy]  Q5  An economy with no numbers on screen. How the best games show scarcity, price and wealth without a spreadsheet. Against our one-number rule.
-- OPEN  [casino backstage]  Q6  Who runs a casino when the money is gone. The back of house as an economy: laundry, kitchens, boilers, the deep dry stores (day 8). What a fortress actually produces.
+- CLAIMED 9/5/26 economy-knxaeh  [casino backstage]  Q6  Who runs a casino when the money is gone. The back of house as an economy: laundry, kitchens, boilers, the deep dry stores (day 8). What a fortress actually produces.
 - OPEN  [water supply]  Q7  Water. Lake Mead, the real constraint on Las Vegas. What a valley of a few thousand people actually needs and where it comes from when the pumps stop.
 - OPEN  [battery value]  Q8  Electricity as money in the real world. Microgrids, battery economics, Nevada solar, what a AA is really worth in energy. Denominations for the battery.
 - OPEN  [trust credit]  Q9  Credit without courts. Rotating savings circles, hawala, tabs at a bar: how debt works when nobody can sue, for the obligations motor (day 7).
@@ -316,7 +322,7 @@ STATE: Gen 1 Animal, the fold, Gen 3 Angel: nothing on any player surface; selec
 - SHIPPED 9/5 records/BOHEMIA_DYNASTY_DAY_1_WHAT_YOU_CAN_DO_WITH_NO_HANDS_9_5_26.md  [animal play]  Q1  Playing as an animal. What the best games ever made do when you are not human: what you can do, what you cannot, what the player feels, and where it gets boring. For Gen 1.
 - SHIPPED 9/5 records/BOHEMIA_DYNASTY_DAY_2_A_COYOTE_IN_LAS_VEGAS_9_5_26.md  [coyote life]  Q2  A coyote in Las Vegas. The real ethology of urban coyotes (range, diet, how they read people, how they die) as the animal generation's actual life.
 - SHIPPED 9/5 records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md  [heir keeps]  Q3  What carries across a generation. In the best games with inheritance, what the heir keeps, what they lose, and which of it the player actually cares about. Against our fold maths (selectHeir exists, unused).
-- OPEN  [third generation]  Q4  The third-generation curse. How real family businesses and dynasties survive or die by the third generation, and what a game could take from it for Gen 3.
+- CLAIMED 9/5 dynasty-w4yxiz  [third generation]  Q4  The third-generation curse. How real family businesses and dynasties survive or die by the third generation, and what a game could take from it for Gen 3.
 - OPEN  [growing old]  Q5  Growing old on screen. How the best games show a character ageing in a way that changes play, not only the portrait.
 - OPEN  [time skip]  Q6  The time skip. How to jump ten years and make the player feel it; what the best games do at a cut like ours (the match cut at the table).
 - OPEN  [family arrives]  Q7  A partner and a child without a chore. How the best games handle a companion becoming family and a child arriving, and where it turns into babysitting.
@@ -325,6 +331,7 @@ STATE: Gen 1 Animal, the fold, Gen 3 Angel: nothing on any player surface; selec
 - OPEN  [final act]  Q10 The transcendent last act. Not the lore, the SHAPE: how the best games handle a final act where the rules change (a new kind of body, a new kind of power) without breaking the game that came before. For the Angel.
 - OPEN  [lasting death]  Q11 Death that is not the end. How games without permadeath and without a run still make a death matter across generations (the wounds that carry, day 4's scar).
 - OPEN  [heir's hour]  Q12 The heir's first hour. When the fold happens, what the first ten minutes of the next life must do so the player does not feel they lost everything.
+- OPEN  [what carries]  Q11 What should carry across the fold and what must die. Both aisles: real family histories (what a child of a debtor, a soldier, a boss actually inherits: the debt, the enemies, the house, the name, the trade) and the best games' heirs, sorted into the two kinds (the clean heir, where dying is a costume change, and the burdened heir, where the generation it went wrong is the one players remember). Deliver the full carry list, good and bad, field by field, as the ruling DYNASTY Q3 [heir keeps] needs to fix the persistence.
 
 ## EYES AND EARS  (17. his second pair of eyes and ears. Checks that every shipped visual and sound is correct and not weak. Never decides taste; that is DIRECTION.)
 MODE: RESEARCH, turning to a STANDING DUTY once the checklists exist. THIS LANE MAY BUILD ITS OWN CHECKING INSTRUMENTS (screenshot passes, audio measurement, tools/ and gates/ that only check); it never writes game code. Paolo 9/4 asked how long until it is worth having: useful for visuals after E3, for sound after E4, decent after about eight rounds, so the queue is ordered fastest-to-useful.

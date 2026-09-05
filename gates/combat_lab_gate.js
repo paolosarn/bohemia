@@ -555,8 +555,11 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('e.windup||e.edist<=(e.reach||1.8)+0.3'));
   ok('V33 lethality retune: pistol non-zero (research-honest), the rest scaled with it, shotgun still always lethal',
     demo.includes('const WEAPON_LETHAL={pistol:0.20,smg:0.35,rifle:0.55,shotgun:1.0}'));
-  ok('V33 nerve retuned down further on top of the v32 event-gating',
-    demo.includes('0.10+0.05*(_down-_half)') && !demo.includes('0.18+0.08*(_down-_half)'));
+  ok('V33 nerve retuned down further on top of the v32 event-gating. V199 RE-POINTED: the pair is now NAMED (NERVE_BASE / NERVE_STEP) instead of typed into the roll, because THEY KNOW YOU needs a second pair to be steeper than. THE NUMBERS ARE BYTE-IDENTICAL -- 0.10 and 0.05 -- and this claim is about those numbers, not about where they are written. The retune that was rejected (0.18 + 0.08) is still absent, and the perk pair is checked separately in fight_moves_you',
+    demo.includes('NERVE_BASE=0.10') && demo.includes('NERVE_STEP=0.05') &&
+    demo.includes('_base+_step*(_down-_half)') &&
+    !demo.includes('0.18+0.08*(_down-_half)') &&
+    !demo.includes('NERVE_BASE=0.18'));
   // v34: KILL ARC treated as a vital — armor buys a real turn, never a free chain
   ok('V34 KILL ARC = VITAL: an armored survivor stuns 2 and ends the turn CLEAN, no auto-chain',
     demo.includes('V34 KILL ARC = VITAL') &&

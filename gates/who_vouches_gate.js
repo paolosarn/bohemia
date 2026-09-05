@@ -122,8 +122,22 @@ ok('the panel exists in the city', CITY.indexOf('__CITY_WHO_VOUCHES__') >= 0);
 ok('*** AND IT IS CALLED, NOT JUST DEFINED ***',
   (CITY.split('ctWhoVouchesHtml(').length - 1) >= 3,
   (CITY.split('ctWhoVouchesHtml(').length - 1) + ' occurrences');
-ok('it renders directly under WHO HAS LAID EYES ON YOU, not behind a new door',
-  /ctSeenByHtml\(\) \+ ctWhoVouchesHtml\(\)/.test(CITY));
+/* *** REPOINTED 9/5, NOT LOOSENED. *** This demanded the two calls be LITERALLY
+   ADJACENT, and another lane later slid ctLegendHtml() between them. Nothing
+   about that moved this panel or put it behind a new door -- it is still in the
+   same expression, still after the seen-by list -- so the claim was red over a
+   thing it was never really about. WHAT IT MEANS is: the vouch panel is built by
+   the SAME panel that already answers "what do they think of me", and it comes
+   AFTER it. That is what it checks now, at BOTH call sites, and it still fails if
+   the panel is dropped, moved before the seen-by list, or given a door of its
+   own. */
+var sites = CITY.split('\n').filter(function (L) {
+  return L.indexOf('ctSeenByHtml()') >= 0 && L.indexOf('ctWhoVouchesHtml()') >= 0;
+});
+ok('it renders in the same panel as WHO HAS LAID EYES ON YOU, after it, not behind a new door',
+  sites.length === 2 && sites.every(function (L) {
+    return L.indexOf('ctSeenByHtml()') < L.indexOf('ctWhoVouchesHtml()'); }),
+  sites.length + ' call site(s) build both, in that order');
 /* A NAME IS EARNED, NEVER GIVEN. The panel must never print a mind's owner id at
    a player: the first cut did, and it read "12:12:900 FWU SAW IT". */
 var panel = CITY.slice(CITY.indexOf('function ctWhoVouchesHtml'),

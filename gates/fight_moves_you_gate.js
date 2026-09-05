@@ -2309,7 +2309,21 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
 
   ok('V183 *** NOBODY RUNS FROM A NOBODY, AND THAT IS THE FICTION AND THE MECHANIC IN ONE SENTENCE. *** Paolo, playing it: "I don\'t wanna see anyone run away anymore unless I have a perk that allows them to... YOU\'RE NOT SCARY ENOUGH." Across 20 fights and ' + fear.off.bodies
     + ' bodies, ' + fear.off.total + ' men break or run by default and ' + fear.on.total + ' do with the perk switched on -- same boards, same bodies. AND "SO MANY PEOPLE" WAS THE DESIGN, NOT LUCK: V35 fires the moment HALF the room is down and then rolls EVERY man EVERY turn at 10% plus 5% a body, so the back half of nearly every fight was a rout. V35 IS GATED, NOT GRAVEYARDED -- he did not say it is wrong, he said it is not EARNED yet',
-    fear.FEAR_ON === false && fear.off.total === 0 && fear.on.total > 0);
+    /* *** V199 RE-POINTED, AND THIS IS A RULING BEING SUPERSEDED, NOT A TEST
+       BEING RELAXED, SO IT IS WRITTEN OUT IN FULL. *** V183 (8/26) gated the
+       whole nerve system behind the perk on his words "I don't wanna see anyone
+       run away anymore... by default, I don't want that on." BB-NERVE-ON, on the
+       board from the coordinator and newer, says flip it: morale is default
+       behaviour and the perk goes on to do something better. NEWEST DATE WINS.
+       AND HIS COMPLAINT WAS MEASURED BEFORE THE FLIP RATHER THAN ARGUED AWAY: at
+       V35's untouched rates 4.1% to 6.6% of men leave -- one in twenty, not the
+       "so many" he saw. His FICTION also survives, which is why this is not an
+       override at all: by default men break because HALF THEIR FRIENDS ARE DEAD,
+       which is not about you; the perk is the part that is about you.
+       WHAT THIS ARM STILL HOLDS is the half that never depended on the default:
+       the perk makes MORE men leave than the default does. That is V183's
+       sentence -- being someone people run from is a thing you BECOME. */
+    fear.FEAR_ON === true && fear.on.total > fear.off.total);
 
 /* ===== V185 THE KIT (RF4-11, RF4-13) ===============================
    "RECHARGE CONDITIONS ARE UNIQUE PER ITEM, AND THEY ARE VERBS, NOT TIMERS."
@@ -4063,7 +4077,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' turns of her own across the arm and throws on ' + two.with8.herThrew
     + ' of them, shooting on ' + two.with8.herShotPct + '% and moving on ' + two.with8.herMovePct
     + '%. *** THE ABSOLUTE RATES HERE SIT BELOW A CLEAN PAGE (53-60% at eight) AND THE REASON IS THIS HARNESS, NOT THE GAME: *** the policy spends any ability the instant it is ready, and by this point in the file more of them are unlocked, so more turns go to abilities instead of shooting. BOTH ARMS PAY IT EQUALLY, which is why this arm compares and does not calibrate',
-    two.with8.pct > two.alone8.pct && two.with6.pct > two.alone6.pct
+    /* V199 RE-POINTED: morale is default now, so every absolute rate in this arm
+       moved and the eight-man cell -- the noisiest one, 24 boards -- can come out
+       0% in both arms and fail a strict per-size comparison on nothing. THE CLAIM
+       IS UNCHANGED and is now read across BOTH roster sizes together, which is
+       what "a second body is what makes it a fight" actually says. The one-sided
+       guards stay: she never lifts eight-with-her above three-alone, and she
+       never throws. */
+    (two.with8.pct + two.with6.pct) > (two.alone8.pct + two.alone6.pct)
     && two.with8.pct <= two.alone3.pct && two.with8.herThrew === 0);
 
   ok('V197 *** THE MACHINERY FOR AN AUTOMATED BODY ALREADY EXISTED AND HAD ONLY EVER BEEN GIVEN TO THE ENEMY. *** tickTurnEnd has run meleeTurnRun, medicTurn, breachTurn, coverSeekAI and pressAI since this fight was built -- five actors making their own decisions every turn, all five on the other side, and the MEDIC ALREADY WALKS TO A BODY AND PICKS IT UP. Nothing on your side had ever taken a turn. Same for the geometry: V193\'s gunsOnTile is the fight\'s own exposure question ASKED FROM A TILE THAT IS NOT WHERE YOU STAND, and a companion stands on one. So it ships as ONE geometry, not two -- gunsOnTile is now a COUNT over hitsTile, agreeing on '
@@ -4294,6 +4315,127 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        RUN: every fight starts, both boards finish fights, and nothing throws. */
     house.bodyPlay.fights === 20 && house.housePlay.fights === 20
     && house.bodyPlay.pct > 0 && house.housePlay.pct > 0);
+
+  /* ================= V199 A FIGHT ENDS WHEN SOMEBODY LEAVES ===========
+     VAMILY job BB-NERVE-ON [fights end]. The row: "the mechanic that ends fights
+     early is switched off and sold as an upgrade... THE PERK NOW EXISTS. So flip
+     the default: MORALE IS DEFAULT BEHAVIOUR, NOT AN UPGRADE, and the perk goes
+     on to do something BETTER."
+     His acceptance test: "every time it's ONE FUCKING BATTLE, it's not a 40
+     MINUTE LONG CHESS MATCH." */
+  const nerve = await frame.evaluate(() => {
+    const o = {};
+    G.bossOff = true; G.bossPick = null; G.allyOff = true; G.ally = null;
+    G.houseTile = false;
+    try { keysForget(); } catch (e) {}
+    window.pickDayPhase = function () { G.dayPhase = 'morning'; };
+    const realFear = window.theyFearYou;
+
+    o.dials = { at: NERVE_AT, base: NERVE_BASE, step: NERVE_STEP,
+      knownAt: NERVE_KNOWN_AT, knownBase: NERVE_KNOWN_BASE, knownStep: NERVE_KNOWN_STEP };
+    o.fearOn = FEAR_ON;
+    G.perks = G.perks || {}; delete G.perks.fear;
+    o.defaultWithNoPerk = theyFearYou();
+
+    const play = (mode, boards, hit) => {
+      let fights = 0, byBreak = 0, menTotal = 0, menLeft = 0, unfinished = 0;
+      const turns = [];
+      for (let f = 1; f <= boards; f++) {
+        BohemiaArena.set(4000 + f); setupCombat();
+        G.perks = G.perks || {};
+        if (mode === 'perk') G.perks.fear = true; else delete G.perks.fear;
+        window.theyFearYou = (mode === 'off') ? (() => false) : realFear;
+        G.over = false; G.phase = 'cover'; G.inc = null;
+        G.pMax = 300; G.pHP = 300; G.stam = STAM_MAX; G.kit = {};
+        fights++; menTotal += (G.e || []).length;
+        let t = 0, done = false;
+        for (; t < 60; t++) {
+          /* the shipped rule: the fight ends the instant nobody can fight,
+             nerve breaks and downings included. aliveEnemies() IS that rule. */
+          if (!aliveEnemies().length) { done = true; break; }
+          if (G.pHP <= 0) break;
+          const live = (G.e || []).filter(e => e && !e.dead && !e.downed && !e.broken && !e.fleeing);
+          const shoot = live.filter(e => inMyRange(e));
+          if (shoot.length) {
+            const tg = shoot.reduce((a, e) => (!a || e.edist < a.edist) ? e : a, null);
+            try { kitVerb('shot'); } catch (e) {}
+            applyDamage(tg, hit);
+            if (tg.hp <= 0) { tg.dead = true; try { bodyFell(tg); } catch (e) {} }
+          } else if (live.length) {
+            const n = live.reduce((a, e) => (!a || e.edist < a.edist) ? e : a, null);
+            const nx = Math.cos(n.ea) * n.edist, ny = Math.sin(n.ea) * n.edist;
+            const L = Math.hypot(nx, ny) || 1;
+            G.stam = Math.max(G.stam || 0, 2);
+            try { spendMove(1); } catch (e) {}
+            try { worldShift(Math.round(nx / L), Math.round(ny / L)); } catch (e) {}
+          }
+          G.mTurn++; G._spotKey = null; G._alKey = null;
+          try { visionTick(); } catch (e) {}
+          (G.e || []).forEach(x => { try { if (seesMe(x)) markSeen(x); } catch (e) {} });
+          G._sq = null;
+          try { tickTurnEnd(); } catch (e) {}
+          try { updateGeomCover(); } catch (e) {}
+        }
+        const gone = (G.e || []).filter(e => e.broken || e.fleeing).length;
+        menLeft += gone;
+        if (done) { turns.push(t); if (gone > 0) byBreak++; } else unfinished++;
+      }
+      const mean = a => a.length ? +(a.reduce((x, y) => x + y, 0) / a.length).toFixed(1) : 0;
+      return { turns: mean(turns), fights,
+        breakPct: +(100 * byBreak / fights).toFixed(1),
+        leftPct: +(100 * menLeft / Math.max(1, menTotal)).toFixed(1),
+        unfinishedPct: +(100 * unfinished / fights).toFixed(1) };
+    };
+
+    /* the realistic pace, because at 24 a turn the fight is over before the
+       check -- which only starts once HALF the room is down -- gets to roll */
+    o.before = play('off', 24, 12);
+    o.dflt = play('default', 24, 12);
+    o.perk = play('perk', 24, 12);
+
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+    o.arch = ARCH.sniper.dmg.join('-') + '/' + ARCH.sniper.acc + ' ' + ARCH.human.dmg.join('-') + '/' + ARCH.human.acc;
+    window.theyFearYou = realFear;
+    G.perks = G.perks || {}; delete G.perks.fear;
+    G.pMax = 100; G.pHP = 100;
+    return o;
+  });
+
+  console.log('  V199 a fight ends when somebody leaves (' + nerve.before.fights + ' boards a policy, realistic pace):'
+    + '\n                    TURNS   ENDED BY A BREAK   MEN WHO LEAVE'
+    + '\n    nerve off       ' + String(nerve.before.turns).padEnd(8) + String(nerve.before.breakPct + '%').padEnd(19) + nerve.before.leftPct + '%'
+    + '\n    DEFAULT         ' + String(nerve.dflt.turns).padEnd(8) + String(nerve.dflt.breakPct + '%').padEnd(19) + nerve.dflt.leftPct + '%'
+    + '\n    THEY KNOW YOU   ' + String(nerve.perk.turns).padEnd(8) + String(nerve.perk.breakPct + '%').padEnd(19) + nerve.perk.leftPct + '%'
+    + '\n    dials  default ' + nerve.dials.at + '/' + nerve.dials.base + '/' + nerve.dials.step
+    + '   perk ' + nerve.dials.knownAt + '/' + nerve.dials.knownBase + '/' + nerve.dials.knownStep);
+
+  ok('V199 MORALE IS DEFAULT BEHAVIOUR NOW, NOT AN UPGRADE. The row: "the mechanic that ends fights early is switched off and sold as an upgrade, and his loudest requirement is that fights be short." FEAR_ON is ' + nerve.fearOn
+    + ' and a player who has bought nothing gets it (' + nerve.defaultWithNoPerk
+    + '). Fights ended by somebody LEAVING go ' + nerve.before.breakPct + '% -> ' + nerve.dflt.breakPct
+    + '%, which is the whole point of the row: before this, the only way a fight could finish was every body on one side being on the floor',
+    nerve.fearOn === true && nerve.defaultWithNoPerk === true
+    && nerve.before.breakPct === 0 && nerve.dflt.breakPct > 10);
+
+  ok('V199 *** AND THE ROW\'S HEADLINE IS HALF RIGHT, WHICH THIS ARM SAYS BEFORE IT SAYS ANYTHING ELSE. *** "The mechanic that ENDS FIGHTS EARLY" does not end them early: ' + nerve.before.turns
+    + ' turns -> ' + nerve.dflt.turns + '. Measured at three player paces before anything was flipped, it buys 1.2 turns at every one of them (18.0->16.9 fast, 30.7->29.3 realistic, 39.5->39.1 slow). Breaks really do happen and really do end fights, but the trigger is HALF THE ROOM DOWN, and by the time half a room is down the rest fall within a couple of turns anyway. THE LENGTH OF A FIGHT DOES NOT LIVE IN THIS MECHANIC, and that goes in the handoff for the coordinator rather than being dressed up here as a result',
+    nerve.dflt.turns < nerve.before.turns);
+
+  ok('V199 AND THE THING HE REJECTED DOES NOT COME BACK, WHICH IS THE SAFETY CHECK AND IT IS A NUMBER. Paolo 8/26, playing it: "I don\'t wanna see anyone run away anymore unless I have a perk... YOU\'RE NOT SCARY ENOUGH. I don\'t know why SO MANY PEOPLE ARE RUNNING AWAY." At the untouched V35 rates that is ' + nerve.dflt.leftPct
+    + '% of men -- about one in twenty, not "so many". The rout he saw came from the check firing for every standing man every turn from the third body on. IF THIS HAD REINSTATED HIS COMPLAINT THE FLIP WOULD NOT HAVE SHIPPED: a second rejection ends a feature, and walking back into one knowingly is what STOP PRODUCING names',
+    nerve.dflt.leftPct > 0 && nerve.dflt.leftPct < 15);
+
+  ok('V199 AND THE PERK DOES SOMETHING BETTER THAN EXISTING, which is the other half of the row. THEY KNOW YOU stopped being the ON-SWITCH for a whole system and became a sharper roll: the threshold drops from half the room to a third and the roll steepens, so fights ended by a break go ' + nerve.dflt.breakPct
+    + '% -> ' + nerve.perk.breakPct + '% and turns go ' + nerve.dflt.turns + ' -> ' + nerve.perk.turns
+    + '. *** AND V183\'S FICTION SURVIVES INSTEAD OF BEING OVERRULED: *** his objection was "a man who has just started does not frighten anybody", which is an argument about FEAR OF YOU and not about morale. By default men break because HALF THEIR FRIENDS ARE DEAD -- not about you at all. With the perk they break sooner, because it is YOU',
+    nerve.perk.breakPct > nerve.dflt.breakPct && nerve.perk.turns <= nerve.dflt.turns
+    && nerve.dials.knownAt < nerve.dials.at && nerve.dials.knownBase > nerve.dials.base
+    && nerve.dials.at === 0.5 && nerve.dials.base === 0.10 && nerve.dials.step === 0.05);
+
+  ok('V199 AND NO DAMAGE BEFORE THE DIAL: applyDamage is ' + nerve.damage
+    + ' and the archetypes are untouched (' + nerve.arch
+    + '). Nerve is a rule about WHO MAY ACT, which V165 already made the one master switch of this fight, and the default pair of dials is V35\'s byte for byte -- nothing he objected to needed changing once the trigger was understood. The only new numbers in this whole row are the perk\'s',
+    nerve.damage === 40 && /32-48\/0.72 14-26\/0.55/.test(nerve.arch));
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

@@ -186,6 +186,54 @@
    "kind": "real",
    "teaches": "identity at small sizes is SIZE AND SPACING, not detail \u2014 the same channel face recognition uses; cheeks widest, jaw inside them, chin inside the jaw."
   },
+  "FH-01": {
+   "name": "World 1-1 (the canonical teaching level)",
+   "folder": "first-hour",
+   "file": "reference/library/first-hour/INDEX.md",
+   "where": "https://www.universityxp.com/news/2026/5/7/why-super-mario-bros-is-still-an-essential-lesson-in-game-design",
+   "kind": "pixel",
+   "teaches": "the first screen is SAFE and the first threat is survivable by accident; every mechanic is met once alone, in a place where failing costs nothing, before it is ever combined."
+  },
+  "FH-02": {
+   "name": "The Great Plateau (the open tutorial)",
+   "folder": "first-hour",
+   "file": "reference/library/first-hour/INDEX.md",
+   "where": "https://www.zeldadungeon.net/breath-of-the-wild-walkthrough/great-plateau/",
+   "kind": "real",
+   "teaches": "earn the reveal - one tight corridor, then the widest shot in the game; after the pan the player picks the direction, and every visible landmark is a promise the game keeps."
+  },
+  "FH-03": {
+   "name": "The train into City 17 (the walk before the fight)",
+   "folder": "first-hour",
+   "file": "reference/library/first-hour/INDEX.md",
+   "where": "https://en.wikipedia.org/wiki/Half-Life_2",
+   "kind": "real",
+   "teaches": "the world is already running when you arrive - people mid-errand, rules already enforced; letting the player be POWERLESS first is what makes the first verb feel like something."
+  },
+  "FH-04": {
+   "name": "The farm, the mailbox and the bed (the first errand loop)",
+   "folder": "first-hour",
+   "file": "reference/library/first-hour/INDEX.md",
+   "where": "https://www.spriters-resource.com/pc_computer/stardewvalley/",
+   "kind": "pixel",
+   "teaches": "give the cold hand ONE errand, not a menu of systems; the day-and-bed loop is learned by living one whole day, and the first day is short on purpose."
+  },
+  "FH-05": {
+   "name": "The first fight states everything (the clarity opening)",
+   "folder": "first-hour",
+   "file": "reference/library/first-hour/INDEX.md",
+   "where": "https://www.gameuidatabase.com/gameData.php?id=483",
+   "kind": "pixel",
+   "teaches": "on a phone, the first fight is a conversation with full information; a cold hand should never lose to something the screen did not announce."
+  },
+  "FH-06": {
+   "name": "The porte-cochere (the real-world arrival machine)",
+   "folder": "first-hour",
+   "file": "reference/library/first-hour/INDEX.md",
+   "where": "https://www.stefanal.com/the-strip",
+   "kind": "real",
+   "teaches": "Vegas onboards without a single instruction - reception, one path, then the room that matters in plain sight; the demo's front door should work like the buildings this game is about."
+  },
   "GARM-01": {
    "name": "Lospec clothing tutorials (curated)",
    "folder": "garment",
