@@ -144,7 +144,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 ## RUN  (01. the walked surface)
 MODE: BUILD
 STATE: the door opens on the played surface, the demo build exists (re-cut 9/1), the save is hardened and carries day/clock/position/quest/purse; road interrupts fire only on map travel. NOT built: the people inside the save, a title or stop-and-return, an ending that is not bed. Unverified: the demo re-cut is byte-current with the city file.
-- OPEN  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
+- CLAIMED 9/4 run-eak241  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE
 - OPEN  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE
 - OPEN  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
 - OPEN  [debts named]  BB-WHAT-YOU-OWE
