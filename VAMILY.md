@@ -129,7 +129,7 @@ STATE: build verbs and a picker EXIST in the aerial tab (engine/bohemia_cityedit
 - SHIPPED 9/5 9ddef52  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab
 - SHIPPED 9/5 24eb078  [people housed]  HOUSING -- residents per plot, capacity, a population number that moves; the other half of the 7/26 economy law, zero built
 - SHIPPED 9/5 66544a0  [century memory]  CENTURY-RECORD -- persist per-act build totals so act 3's city can differ; mechanism ours, every number his
-- OPEN  [feed posts]  THE-FEED-STREAM -- one event stream the city-screen feed reads: the deed ledger first (exists), then faction/territory events, then ambient life posts; with PEOPLE
+- CLAIMED 9/5 city-1eztay  [feed posts]  THE-FEED-STREAM -- one event stream the city-screen feed reads: the deed ledger first (exists), then faction/territory events, then ambient life posts; with PEOPLE
 - OPEN  [combat floor]  THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR -- with COMBAT: the zoomed-out city render is what the fight stands on (9/4 tile law 3b); expose it as a drawable layer COMBAT can centre on a block
 - OPEN  [more people]  POPULATION-DEFAULT -- dispatch item 5, "dead is not the default"; the number is his, the mechanism (a default that is not zero) is ours
 - OPEN  [buildings appear]  A-BUILDING-YOU-PLACED-SHOWS-UP-ON-FOOT -- what you build in the aerial view is standing there when you walk to it; INTERIOR = EXTERIOR holds
