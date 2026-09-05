@@ -8926,7 +8926,12 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [builder references] SHIPPED 30c01de -- block, street
+ROUND LOG 9/5 (latest): [opening references] SHIPPED 1a06017 -- six great
+openings written as beats in reference/library/first-hour/ (safe first
+screen, the earned reveal, powerless-first, one errand, full-information
+first fight, and the Vegas porte-cochere as the real-world arrival machine).
+Index now 57 refs / 12 kinds. NEXT OPEN: [style checker] STYLE-CARD-GATE,
+then [batch judging], [fortress look], [feed look], [tile ground]. PREVIOUS: [builder references] SHIPPED 30c01de -- block, street
 and lot rules from the best builders, annotated at our own measured scale, in
 reference/library/city-builder/ (7 entries; index now 51 refs / 11 kinds).
 NEXT OPEN: [opening references], then [style checker], [batch judging],
