@@ -1,4 +1,51 @@
-PEOPLE (people-7h9sfy): 8/31 LATEST -- *** HIS TWELVE APPROVED STREET ENCOUNTERS
+PEOPLE (people-7h9sfy): 8/31 (b) LATEST -- *** FAMILY: THE FINDING, MEASURED. YOUR
+FAMILY IS REAL FOR NINETY SECONDS AND THEN THEY ARE NOT IN THE GAME. Nothing to
+judge; this is a finding and a named next row, not a shipped feature. ***
+
+Paolo said one word: FAMILY (transcribed "VAMILY"). Measured rather than guessed.
+
+WHAT ALREADY EXISTS, AND IT IS GOOD -- I CHECKED BEFORE BUILDING AND ALMOST
+BUILT A SECOND ONE. FAMILY_CAST is a complete, canon-sourced family: RAY the
+father, DENISE the mother, MARCO the brother, NINA the sister. Draft names under
+the 8/11 rule, body dials on the one rig, every garment st==='canon', and the
+7/19 gender mirror encoded as `survivesIf` -- a male player keeps the older
+brother, a female player keeps the older sister, and the other is the one taken.
+Both parents are `survivesIf:'always'`. The opening scene resolves {sibling_lost}
+against that table and owns no names of its own. There is a gate on it.
+I WAS ONE STEP FROM WRITING A SECOND FAMILY REGISTER. The question that stopped
+it is the one this repo has paid for all month: DOES SOMETHING ALREADY PICK THIS?
+
+THE GAP, AND IT IS ONE NUMBER:
+    FAMILY_CAST references in slices/BOHEMIA_ALPHA_0_9.html   23
+    FAMILY_CAST references in slices/BOHEMIA_DEMO.html        23
+    FAMILY_CAST references in slices/BOHEMIA_CITY_WORLD.html   0
+    RAY / DENISE / MARCO / NINA in the walked city             0 / 0 / 0 / 0
+The family lives in the SHELL, where the opening scene plays. The walked world
+has never heard of them. You sit at that table, the cut takes ten years, you
+walk out into a valley of ~96,885 people and NOT ONE OF THEM IS RELATED TO YOU.
+By the cast's own flags THREE OF THEM ARE ALIVE -- both parents always, plus the
+sibling who matches your gender -- and all three are absent from the world.
+
+AND THE DYNASTY IS THE WHOLE GAME. "Three generations, ~100 years. Gen 1 Animal,
+Gen 2 Human, Gen 3 Angel. THE PLAYER LIVES ALL THREE" is locked canon and the Act
+3 ending is the gen-3 Angel heir going one-way. A generational handoff INHERITS
+the family tree. There is no family tree in the walked game to inherit.
+engine/bohemia_succession.js exists but is FACTION SEATS -- who holds a post when
+somebody dies -- not the player's blood.
+
+THE NEXT ROW (FAMILY-1): the surviving family are PEOPLE IN THE VALLEY. They
+already have ids, faces (faceFor takes an id), and a full `worn` list, so this is
+placement and persistence, not invention -- the same ONE ID ONE WHOLE PERSON rule
+that made the portrait match the body. Default location is YOUR OWN HOUSE, which
+the demo already starts you in; that is not designing a map, it is putting your
+mother in the house the game opens in. WHO IS ALIVE TEN YEARS LATER beyond the
+cast's own flags, and WHAT THE LOST ONE'S REAL NAME IS, stay his: the scene line
+is literally "{sibling_lost}. Green ones too." with a hole where the name goes.
+
+[PENDING, Paolo's call] the sibling's EMPTY CHAIR motif at family meals is marked
+[PENDING] in the scene file itself and is NOT built.
+
+PEOPLE (people-7h9sfy): 8/31 -- *** HIS TWELVE APPROVED STREET ENCOUNTERS
 FIRE ON FOOT FOR THE FIRST TIME, AND WHERE ONE NAMES AN ANIMAL IT POINTS AT THE
 ANIMAL THAT IS ACTUALLY THERE. TAB: RUN. Nothing to judge. ***
 
