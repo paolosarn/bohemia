@@ -202,6 +202,110 @@
    "kind": "real",
    "teaches": "every prop is seen from the world's three-quarter view \u2014 ellipse cross-sections, visible sky-lit tops; a flat side-on prop is from a different game."
   },
+  "RNWY-01": {
+   "name": "The exaggerated square shoulder (Balenciaga)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://www.anothermag.com/fashion-beauty/8602/the-evolution-of-balenciagas-hero-silhouette",
+   "kind": "real",
+   "teaches": "the shoulder line is CUT SQUARE and wider than the hips, with the waist narrowed against it; the drama is the RATIO of shoulder to waist, not padding for its own sake."
+  },
+  "RNWY-02": {
+   "name": "The dropped, rounded cocoon shoulder (Balenciaga, the house code)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://grazia.sg/fashion/balenciaga-fw24-haute-couture-demna/",
+   "kind": "real",
+   "teaches": "the cocoon hides the shoulder point entirely \u2014 one continuous arc from neck to elbow, pulled back off the nape; a body inside it reads as one curved MASS, not a torso with arms."
+  },
+  "RNWY-03": {
+   "name": "The absent shoulder (Rick Owens)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://antidotestyle.com/blogs/news/rick-owens-draping-and-textures-atlantas-guide-to-sculptural-style",
+   "kind": "real",
+   "teaches": "the opposite pole \u2014 the shoulder is soft and narrow so the SILHOUETTE'S width lives at the hem or the boot instead; height, not breadth, is the statement."
+  },
+  "RNWY-04": {
+   "name": "Bias-cut coil (Rick Owens)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://antidotestyle.com/blogs/news/rick-owens-draping-and-textures-atlantas-guide-to-sculptural-style",
+   "kind": "real",
+   "teaches": "fabric cut on the diagonal WRAPS the body instead of hanging off it; the fold lines run diagonally around the figure, never straight down."
+  },
+  "RNWY-05": {
+   "name": "The elongated column (Rick Owens)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://anastasiaboutique.com/blogs/the-shop/mastering-the-dark-a-guide-to-styling-rick-owens",
+   "kind": "real",
+   "teaches": "elongated, stacked, skewed \u2014 the figure reads from a block away because every layer's hem sits LOWER than the layer over it, stretching the body into one vertical."
+  },
+  "RNWY-06": {
+   "name": "The maximal layer stack (Balenciaga FW18 outerwear)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://www.ssense.com/en-it/editorial/fashion/balenciaga-brand-history-demna",
+   "kind": "real",
+   "teaches": "layers are worn AS VOLUME \u2014 shirt, hoodie, trench, parka stacked until the body is an architecture; each layer must stay individually readable at the collar or the stack becomes a blob."
+  },
+  "RNWY-07": {
+   "name": "The asymmetric hem (Rick Owens)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://www.1stdibs.com/fashion/clothing/evening-dresses/rick-owens-fw19-asymmetrical-silk-blend-bias-cut-dress/id-v_25164572",
+   "kind": "real",
+   "teaches": "a hem is a DIAGONAL EVENT, not a horizontal line \u2014 one side rides the thigh while the other falls past the knee, and that single angle carries the whole garment's asymmetry."
+  },
+  "RNWY-08": {
+   "name": "The elongated tee hem (Rick Owens jersey)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://aumifour.com/blogs/faq-your-questions-answered/rick-owens-faq-2026",
+   "kind": "real",
+   "teaches": "jersey pieces are cut LONG so the under-layer's hem shows below every outer layer; the visible stagger of hems IS the layering, readable in silhouette alone."
+  },
+  "RNWY-09": {
+   "name": "The arched back fall (Balenciaga cocoon)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://grazia.sg/fashion/balenciaga-fw24-haute-couture-demna/",
+   "kind": "real",
+   "teaches": "the cocoon's hem falls FORWARD \u2014 the back arcs over and down so the garment is longer behind than in front, the profile reading as a comma, not a rectangle."
+  },
+  "RNWY-10": {
+   "name": "The pant-boot / continuous leg (Balenciaga)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://www.anothermag.com/fashion-beauty/8602/the-evolution-of-balenciagas-hero-silhouette",
+   "kind": "real",
+   "teaches": "trouser and boot fuse into ONE unbroken line to the floor; no ankle break, no cuff event \u2014 the leg is a single column and the silhouette's base is narrow."
+  },
+  "RNWY-11": {
+   "name": "The drop-crotch taper (Rick Owens)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://aumifour.com/blogs/faq-your-questions-answered/rick-owens-faq-2026",
+   "kind": "real",
+   "teaches": "volume pools LOW between the hips and the knee, then tapers clean to the ankle; the leg reads as a diamond, widest below the hip, never as two tubes."
+  },
+  "RNWY-12": {
+   "name": "The platform grill boot (Rick Owens)",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "https://rickowens.eu.com/",
+   "kind": "real",
+   "teaches": "the boot is the silhouette's PEDESTAL \u2014 a visibly thick, flat platform mass that widens the figure's base and makes the column above it read taller; heavy boots are a proportion tool, not an accessory."
+  },
+  "RNWY-13": {
+   "name": "The two poles, stated once",
+   "folder": "runway",
+   "file": "reference/library/runway/INDEX.md",
+   "where": "this file's entries RNWY-01..12, read together",
+   "kind": "real",
+   "teaches": "the register has exactly two whole-figure poles \u2014 WIDE AT THE TOP (square or cocoon shoulder, narrow leg, Balenciaga) and TALL AND STACKED (soft shoulder, staggered hems, heavy base, Rick Owens); every crowd body should commit to one pole, because a figure that mixes both reads as neither."
+  },
   "UI-01": {
    "name": "Into the Breach (Interface In Game gallery)",
    "folder": "ui",
