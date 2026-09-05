@@ -5,7 +5,7 @@
 ## *** THE STUDY HE ORDERED IS FINISHED. READ THE SYNTHESIS BEFORE ACTING
 ## ON ANYTHING BELOW: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
 ## THE_ROUTING_8_28_26.md ***
-TWENTY-TWO days, twenty-two records, driven by his own two-word trigger "bb study,
+TWENTY-THREE days, twenty-three records, driven by his own two-word trigger "bb study,
 next day". The plan was five; HE KEPT SENDING IT ("YOU ARE NOT DONE WITH
 STUDYING BATTLE BROTHERS"), AND EVERY DAY PAST FIVE FOUND A PILLAR THE
 PLAN HAD MISSED. Day 6: his own "CITY-STATE SYSTEM... different parts of
@@ -282,7 +282,21 @@ WHAT IT SETTLED, in one block, so nobody re-derives it:
   world with its machines off found human ground noise down up to 50% and
   buried signals becoming audible.** Sound is day 13's combination
   multiplier at zero art cost, and this is the smallest fix in the study.
-- **ROUTED:** seventy-six rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
+- **YOU NEVER SPEND A RESOURCE, WHAT YOU DID SPENDS IT (day 23, ON HIS
+  DIRECTION, 9/4: *"battle brothers has 3-4 currencies too you should look
+  into that fr how they manage it is superb"*).** That sentence is what is
+  superb: crowns plus four consumables, each spent by exactly one verb
+  (walk, fight, get hurt, shoot), no allocation screen, four different
+  punishment shapes and none of them a bar on the player, and food spoils
+  so you cannot hoard. **Measured: the only debit in Bohemia is buying at a
+  market; electricity and clout have never moved; walking, fighting,
+  holding ground and asking are all free.** The map fits his three
+  currencies without a fourth because his icons ARE the consumables (duct
+  tape is tools): **THE DAY EATS FOOD, THE FIGHT EATS TAPE, THE NIGHT EATS
+  POWER, ASKING EATS CLOUT**, every amount 1, and having a resource grants
+  ACCESS rather than a stat. Refused: a fourth currency, any meter on the
+  body, ammunition as a purse line.
+- **ROUTED:** eighty rows tagged `BB-` across RUN, COMBAT, WORLD, PEOPLE,
   QUESTS, WORDS, UI and SHARED. Two jumped the queue on day 5, day 6 added
   WORLD BB-TURF and day 7 added RUN BB-WHAT-YOU-OWE, which is the best
   effort-to-effect row in the study: one line on a card he already reads.

@@ -194,7 +194,7 @@ research partner. He DECIDES, you PRODUCE.
 - SIDEWALK SANCTITY, LINE COLOR, TAN WALL 85/15, CLUSTERED POWER (12% lit,
   owned, NETWORK eerily perfect), LIGHT=TERRITORY, nobody patrols the dark.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
-- *** THE BATTLE BROTHERS STUDY: TWENTY-TWO DAYS, WRITTEN AND ROUTED (8/28), AND
+- *** THE BATTLE BROTHERS STUDY: TWENTY-THREE DAYS, WRITTEN AND ROUTED (8/28), AND
   HE MAY SEND MORE. *** He drives it with two words, "bb study, next day", and it was the
   COORDINATOR'S own work, not a lane's. If you are about to build anything it
   touches, READ THE SYNTHESIS FIRST:
@@ -660,7 +660,39 @@ research partner. He DECIDES, you PRODUCE.
   missing is ONE MESSAGE, EVERY FOUR SECONDS, FROM THE SURFACE HE WALKS. REFUSED:
   cooking more sounds. 51 of 65 approved are already unreachable, and recording more
   while the approved ones cannot play is the seventeen-invisible-hats shape again.
-  ROUTED: seventy-six rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
+  *** AND DAY 23 IS THE FIRST DAY HE NAMED HIMSELF (9/4): "BATTLE BROTHERS HAS 3-4
+  CURRENCIES TOO YOU SHOULD LOOK INTO THAT FR HOW THEY MANAGE IT IS SUPERB." *** WHAT
+  IS SUPERB, IN ONE SENTENCE A LANE CAN BUILD FROM: **YOU NEVER SPEND A RESOURCE.
+  WHAT YOU DID SPENDS IT.** Crowns plus four consumables (provisions, tools,
+  medicine, ammunition), each spent by exactly ONE VERB -- walk, fight, get hurt,
+  shoot -- with no allocation screen anywhere, so you always know what took it. Four
+  punishment shapes (social, delayed-physical, time, immediate-tactical), none a bar
+  on the player, which is HOW the most punishing campaign ever shipped has no hunger
+  meter (day 7). Food SPOILS and the men eat nearest-to-spoil first, so you cannot
+  hoard. And the devs' own blog admits the first version was "kind of underwhelming...
+  doesn't really add that much", so they made HAVING it do something: A RESOURCE
+  THAT ONLY PUNISHES IS A CHORE. *** MEASURED: NOTHING YOU DO IN BOHEMIA COSTS
+  ANYTHING. *** The only debit in the whole game is buying at a market, one caller.
+  ELECTRICITY HAS NEVER MOVED. CLOUT HAS NEVER MOVED. The ledger already carries the
+  word (`KINDS` has `drain`, "this is what fights inflation") and one verb uses it;
+  STAKES is [] on purpose; the lit grid costs nothing a night; armour resets free
+  every bell. WALKING IS FREE, FIGHTING IS FREE, HOLDING GROUND IS FREE, ASKING IS
+  FREE, ONLY SHOPPING COSTS -- so day 20's unpaid jobs read differently: with
+  nothing draining, pay would be a score, not an income. *** THE MAP FITS HIS THREE
+  WITHOUT A FOURTH, because his RESOURCES bucket already carries the icons and THE
+  ICONS ARE THE CONSUMABLES ("an apple, duct tape, and maybe another important
+  thing" -- duct tape IS tools and supplies). FOUR VERBS ON THREE CURRENCIES, every
+  verb already in the game: THE DAY EATS FOOD (people who depend on you ate; run
+  out and they stop showing up, day 7's obligation burn, no meter on the player),
+  THE FIGHT EATS TAPE (the plate at the bell is spent), THE NIGHT EATS POWER (every
+  lit circuit you hold burns one, and a block you cannot pay goes dark -- LIGHT=
+  TERRITORY becomes a bill, which is what finally makes territory cost something),
+  ASKING EATS CLOUT (the approved claim ration already counts). Every amount is 1
+  (EVERYTHING COSTS ONE), food is the only thing that spoils (REALISM FIRST at 40C),
+  and having a resource grants ACCESS never a stat (day 10). REFUSED: a fourth
+  currency, any meter on the body, ammunition as a purse line. Four rows, WORLD's
+  BB-FOUR-VERBS-THREE-CURRENCIES sits directly behind the ones.
+  ROUTED: eighty rows tagged `BB-` in the backlog across RUN, COMBAT, WORLD,
   PEOPLE, QUESTS, WORDS, UI and SHARED. Four are worth taking early (guns bad in
   close; you can go back for her; name the circuit owner; and RUN BB-WHAT-YOU-OWE,
   the best effort-to-effect row in the study). TWO ARE ON THE DEMO PATH -- day

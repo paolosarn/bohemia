@@ -703,7 +703,59 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (z) LATEST -- *** THE BB ROWS ARE NOW AT
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aa) LATEST -- *** DAY 23, ON HIS OWN
+DIRECTION: YOU NEVER SPEND A RESOURCE, WHAT YOU DID SPENDS IT. AND NOTHING YOU DO
+IN BOHEMIA COSTS ANYTHING. Eighty BB- rows. Nothing to judge. ***
+
+READ: records/BOHEMIA_BB_STUDY_DAY_23_FOUR_VERBS_THREE_CURRENCIES_9_4_26.md
+
+His words, 9/4: "battle brothers has 3-4 currencies too you should look into that
+fr how they manage it is superb." First day of the study he named himself.
+
+WHAT IS SUPERB, IN ONE SENTENCE: YOU NEVER SPEND A RESOURCE. WHAT YOU DID SPENDS
+IT. Crowns plus four consumables -- provisions (two per man per day, SPOILS, the men
+eat nearest-to-spoil first, run out and they DESERT), tools (one point fixes 15
+durability, drained after EVERY fight), medicine (heals faster), ammunition. Each
+spent by exactly ONE VERB: walk, fight, get hurt, shoot. No allocation screen
+anywhere, so you always know what took it -- the anti-spreadsheet answer he has
+asked for since 7/26. Four punishment shapes (social, delayed-physical, time,
+immediate-tactical), none a bar on the player, which is HOW the most punishing
+campaign ever shipped has no hunger meter (day 7). And the devs' own blog admits
+the first version was "kind of underwhelming... doesn't really add that much", so
+they made HAVING food do something. A RESOURCE THAT ONLY PUNISHES IS A CHORE.
+
+MEASURED 9/4: the ONLY debit in the whole game is buying at a market, in
+`resources`, one caller, and its own comment already says the right thing ("A HARD
+SINK, on purpose... the half of a faucet-and-drain economy that actually fights
+inflation"). ELECTRICITY HAS NEVER MOVED. CLOUT HAS NEVER MOVED. Zero credits, zero
+debits, anywhere. The ledger's KINDS already has `drain`; one verb uses it. STAKES
+is [] on purpose (day 7). The lit grid costs nothing a night. Armour resets free
+every bell (day 10). WALKING IS FREE, FIGHTING IS FREE, HOLDING GROUND IS FREE,
+ASKING IS FREE, ONLY SHOPPING COSTS. Day 20's "nobody has ever been paid" reads
+differently now: with nothing draining, pay would be a score, not an income.
+
+THE MAP FITS HIS THREE WITHOUT A FOURTH. His law freezes three currencies, and his
+RESOURCES bucket already carries the icons -- "an apple, duct tape, and maybe
+another important thing" (7/26). THE ICONS ARE THE CONSUMABLES. Duct tape IS tools
+and supplies. So: FOUR VERBS ON THREE CURRENCIES, every verb already in the game.
+  THE DAY EATS FOOD (apple)          run out -> the people you owe stop showing up
+                                     (BB-OBLIGATION-BURN, day 7). No meter on him.
+  THE FIGHT EATS TAPE (duct tape)    the plate at the bell is spent. No tape, no plate.
+  THE NIGHT EATS POWER (electricity) every lit circuit you hold burns one; unpaid
+                                     goes dark. LIGHT=TERRITORY becomes a bill.
+  ASKING EATS CLOUT (clout)          the approved claim ration already counts.
+Every amount 1 (EVERYTHING COSTS ONE). Only food spoils (REALISM FIRST at 40C).
+Having a resource grants ACCESS, never a stat (day 10, NO DAMAGE BEFORE THE DIAL).
+REFUSED: a fourth currency; any meter on the player's body; ammunition as a purse
+line (guns are bad in close forever, rounds ride the fight's own loot); any number
+above 1.
+
+Four rows: WORLD BB-FOUR-VERBS-THREE-CURRENCIES (second in the lane, directly behind
+BB-THE-LETTER-IS-ONE, because a drain with no faucet is a countdown to zero on day
+one), WORLD BB-THE-NIGHT-EATS-POWER, COMBAT BB-THE-FIGHT-EATS-TAPE, RUN/UI
+BB-THE-SHADOW-OF-WHAT-YOU-DID (the reckoning names which verb took what).
+
+COORDINATOR: 9/4 (z) -- *** THE BB ROWS ARE NOW AT
 THE TOP OF EACH LANE'S QUEUE, SO "GO" POPS THEM. Nothing to judge. ***
 
 Paolo, 9/4: "did you get any coding from your research" / "the jobs should be

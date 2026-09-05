@@ -1572,6 +1572,16 @@ BB-THE-TIME-NOT-THE-TAPS. *** DAY 19. THE COST IS REAL. THE WATCHING IS NOT.
    PAIRS WITH DAY 14: a cold hand presses the loudest thing on screen and never
    reads, and twenty identical presses is exactly what it will do.
 
+BB-THE-SHADOW-OF-WHAT-YOU-DID. *** DAY 23. THE RECKONING NAMES WHICH VERB TOOK
+   WHAT. RIDES WITH BB-THE-END. ***
+   The whole point of one-verb-one-resource is that the player always knows what
+   took it. So the end-of-day card says it in the verb's own words -- "the day ate
+   one food. the night ate two power. the bell ate one tape." -- read straight off
+   the ledger's `drain` reasons, never a second table. Day 13 already found the
+   card reads as a receipt and the end is half the memory; this is one more line
+   on a surface he already reads. | the card lists today's drains by verb |
+   nothing | no. ***
+
 BB-HOME-SCREEN-IS-THE-SAVE. *** DAY 21. THE PLATFORM PUT A RUN TIMER ON A GAME
    WHOSE FIRST LAW IS THAT THERE ARE NO RUNS. ***
    Since iOS 13.4 / Safari 13.1, WebKit DELETES ALL of a site's script-writable
@@ -2496,6 +2506,65 @@ BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
    keys (law section 4). | a finished job credits the purse on the real surface,
    and the placeholder gate still goes red on an untagged number | the real
    amounts are HIS, after he plays to the end (law section 1) | no. ***
+
+BB-FOUR-VERBS-THREE-CURRENCIES. *** DAY 23, ON HIS DIRECTION 9/4 ("battle brothers
+   has 3-4 currencies too... how they manage it is superb"). NOTHING YOU DO IN
+   BOHEMIA COSTS ANYTHING. SECOND IN THIS LANE, DIRECTLY BEHIND THE ONES. ***
+   WHAT IS SUPERB ABOUT IT, IN ONE SENTENCE: YOU NEVER SPEND A RESOURCE, WHAT YOU
+   DID SPENDS IT. In the game he named nobody allocates tools from a menu -- you
+   FIGHT and tools drain to fix what broke, you WALK and the men eat, you SHOOT and
+   the quiver empties, you GET HURT and the medicine goes. Each resource is spent
+   by exactly one verb, so you always know what took it, and there is no screen
+   where any of it is managed. That is the anti-spreadsheet answer he has asked for
+   since 7/26. The resource is the shadow of what you did.
+   MEASURED 9/4: the ONLY debit in the whole game is buying at a market, in
+   `resources`, one caller. ELECTRICITY HAS NEVER MOVED. CLOUT HAS NEVER MOVED.
+   Zero credits, zero debits, anywhere. The ledger already carries the word --
+   KINDS has `drain`, "destroyed and gone, a HARD SINK, this is what fights
+   inflation" -- and one verb uses it. STAKES is [] on purpose (day 7). The lit
+   grid costs nothing a night. Armour resets every bell (day 10). SO WALKING IS
+   FREE, FIGHTING IS FREE, HOLDING GROUND IS FREE, ASKING IS FREE, AND THE ONLY
+   THING THAT COSTS ANYTHING IS SHOPPING. Day 20's "nobody has ever been paid"
+   reads differently now: with nothing draining, pay would be a score, not an
+   income.
+   THE MAP FITS HIS THREE WITHOUT A FOURTH, because his RESOURCES bucket already
+   carries the icons and the icons ARE the consumables -- "an apple, duct tape, and
+   maybe another important thing" (7/26). Duct tape IS tools and supplies. FOUR
+   VERBS ON THREE CURRENCIES, every verb already in the game:
+     THE DAY EATS FOOD (apple): the people who depend on you ate. Run out and they
+       stop showing up -- BB-OBLIGATION-BURN, day 7, BB's desertion. NO METER ON
+       THE PLAYER.
+     THE FIGHT EATS TAPE (duct tape): the plate you wore at the bell is spent. Run
+       out, no plate next bell. See COMBAT BB-THE-FIGHT-EATS-TAPE.
+     THE NIGHT EATS POWER (electricity): every lit circuit you hold burns one. See
+       BB-THE-NIGHT-EATS-POWER below.
+     ASKING EATS CLOUT (clout): you leaned on somebody. Run out and they are done
+       being asked -- the approved claim ration already does the counting.
+   EACH DRAIN IS A LEDGER `drain` WITH THE VERB AS ITS REASON, AT 1 (EVERYTHING
+   COSTS ONE). FOOD SPOILS and nothing else does -- the one BB rule to copy
+   exactly, and REALISM FIRST at 40C. AND THE BB DEVS' OWN LESSON, from their blog
+   before they reworked it: "handling provisions is... kind of underwhelming... it
+   doesn't really add that much" -- so a resource that only punishes is a chore;
+   HAVING it must give you something, and under NO DAMAGE BEFORE THE DIAL that
+   something is ACCESS (day 10): full food, your people are there; tape, a plate
+   at the bell; power, your lights hold; clout, you can ask.
+   REFUSED: a fourth currency (his law freezes three); any meter on the player's
+   body; ammunition as a purse line (guns are bad in close forever and rounds ride
+   the fight's own loot); any number above 1.
+   Read: records/BOHEMIA_BB_STUDY_DAY_23_FOUR_VERBS_THREE_CURRENCIES_9_4_26.md
+   | all four verbs post a drain on the walked surface and the reckoning can name
+   them | the amounts are his after he plays to the end | no. ***
+
+BB-THE-NIGHT-EATS-POWER. *** DAY 23. THE ONE DRAIN WITH THE MOST GAME IN IT, AND
+   IT TURNS TERRITORY INTO A BILL. RIDES BB-FOUR-VERBS-THREE-CURRENCIES. ***
+   LIGHT=TERRITORY is live code on the walked surface: 12% lit, every circuit
+   carries an owner, seams are computed, nobody patrols the dark. AND HOLDING A
+   LIT BLOCK IS FREE. Every lit circuit you hold costs one electricity a night; a
+   block you cannot pay goes dark, and the dark is where nobody patrols. That is
+   what makes day 6's territory mean something and day 7's "cut an outfit's
+   income and it goes roving" have a mechanism. Electricity has never moved in
+   this game; this is its first verb. | a held circuit debits power at nightfall
+   and an unpaid one goes dark | which circuits are his is still his | no. ***
 
 BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
    WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
@@ -5412,6 +5481,18 @@ BB-PICKUP. *** JUMPS THE QUEUE. THE SMALLEST ROW IN THE STUDY AND THE HIGHEST
    MUST NOT: become a heal button, make her invulnerable, or add a control
    surface (8/31 law: no order menu). Read: records/BOHEMIA_BB_STUDY_DAY_4_
    ATTACHMENT_WITHOUT_PERMADEATH_8_28_26.md.
+
+BB-THE-FIGHT-EATS-TAPE. *** DAY 23. THE PLATE YOU WEAR AT EVERY BELL IS FREE, AND
+   IT SHOULD COST TAPE. ***
+   Day 10 measured `G.pp=PLATE_START` every bell -- armour is a consumable that
+   resets for nothing. In the game he named, TOOLS drain after every fight to fix
+   what the fight broke (one point per 15 durability), which is the single
+   resource players manage most, and it is spent by the VERB of fighting, never
+   from a menu. His duct-tape icon IS that resource. So: the plate reset at the
+   bell is paid in tape from the purse, at 1; no tape, no plate. Composes with
+   BB-ARMOUR-COSTS (day 15) and day 10's weapon-wears-on-armour. NO DAMAGE
+   NUMBER MOVES. | the bell debits one tape and a purse at zero rings with no
+   plate | nothing | no. ***
 
 BB-THE-FIGHT-KNOWS-THE-DAY. *** DAY 15. EVERY PIPE FINDING IN THIS STUDY SO FAR
    HAS BEEN OUTBOUND. THIS IS THE FIRST INBOUND ONE: NOTHING GOES IN EITHER. ***

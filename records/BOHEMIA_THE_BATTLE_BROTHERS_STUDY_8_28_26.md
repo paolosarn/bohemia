@@ -62,9 +62,9 @@ reference game he has not named. ***
 ## INTERESTING (15), WHAT IT MEANS THAT THE PLAYER ONLY LIVES ONCE (16),
 ## HOW MUCH YOU SHOW (17), THE MIDDLE HORIZON (18), WHAT IT COSTS TO GO
 ## SOMEWHERE (19), WHAT A JOB IS ONCE YOU TAKE IT (20), WHAT SURVIVES WHEN
-## YOU CLOSE THE TAB (21) AND WHAT THE PLACE SOUNDS LIKE (22). A PLAN IS NOT
-## A LAW -- AND DAY 20 FOUND A RULING OF HIS, TWENTY DAYS OLD, THAT NOBODY
-## EVER BUILT. ***
+## YOU CLOSE THE TAB (21), WHAT THE PLACE SOUNDS LIKE (22) AND, ON HIS OWN
+## DIRECTION, HOW FOUR THINGS GET USED UP (23). A PLAN IS NOT A LAW -- AND DAY
+## 20 FOUND A RULING OF HIS, TWENTY DAYS OLD, THAT NOBODY EVER BUILT. ***
 Each day ends as a record with numbers, both aisles, one finding that
 challenges what we believe, and a routed decision. No day ends as a
 summary of a wiki page.
@@ -680,3 +680,27 @@ A DIFFERENT BED.**
 THE CHALLENGE: day 13 answered "the city seems dead asf" entirely in the
 visual domain. Nobody asked whether it is dead because you cannot hear it.
 Four rows, and the first is the smallest fix in the study.
+
+## 11. DAY 23, THE FIRST DAY HE NAMED HIMSELF
+
+**DAY 23 -- FOUR VERBS, THREE CURRENCIES. *** DONE:
+records/BOHEMIA_BB_STUDY_DAY_23_FOUR_VERBS_THREE_CURRENCIES_9_4_26.md. His
+words, 9/4: "battle brothers has 3-4 currencies too you should look into
+that fr how they manage it is superb." ***
+WHAT IS SUPERB, IN ONE SENTENCE: **YOU NEVER SPEND A RESOURCE. WHAT YOU DID
+SPENDS IT.** Crowns plus four consumables (provisions, tools, medicine,
+ammunition), each spent by exactly ONE verb -- walk, fight, get hurt, shoot
+-- with no allocation screen anywhere, four different punishment shapes
+(social, delayed-physical, time, immediate-tactical), none a bar on the
+player, and food SPOILS so you cannot hoard. The devs' own blog admits the
+first version was "kind of underwhelming", so they made HAVING it do
+something. A resource that only punishes is a chore.
+MEASURED: the only debit in Bohemia is buying at a market. ELECTRICITY AND
+CLOUT HAVE NEVER MOVED. The ledger has the word `drain` ("this is what
+fights inflation") and one verb uses it. Walking, fighting, holding ground
+and asking are all free; only shopping costs. With nothing draining, day
+20's missing pay would be a score, not an income.
+THE MAP FITS HIS THREE WITHOUT A FOURTH: his RESOURCES bucket already
+carries the icons and the icons are the consumables (duct tape IS tools).
+THE DAY EATS FOOD, THE FIGHT EATS TAPE, THE NIGHT EATS POWER, ASKING EATS
+CLOUT -- four verbs, three currencies, every amount 1. Four rows.
