@@ -879,6 +879,81 @@ CHARACTER'S OWN NOTES ON RUNNING IT
 
 --- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
 
+ROUND 4, 9/5 LATEST -- *** OUR THIRD GENERATION CANNOT GET WORSE, AND THE ROW'S
+OWN PREMISE IS FOLKLORE. [third generation] Q4 SHIPPED. RESEARCH ONLY, NOTHING
+BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_4_THE_THIRD_GENERATION_9_5_26.md
+  banks/BOHEMIA_GEN3_THE_CROWD_AND_THE_FORGETTING_DRAFT_9_5_26.txt  (draft:true)
+
+FIRST: THE ROW IS CALLED A CURSE AND THE CURSE IS NOT WELL SUPPORTED. The famous
+30% / 12% / 3% survival figures and the "70% fail by the third generation" line
+are contested, traced back to an early-2000s study about family COMMUNICATION and
+felt control rather than business survival. Family firms on average outlast the
+typical public company and most of the world's longest-lived companies are family
+owned. DO NOT BUILD A CURSE: REALISM FIRST means we do not encode a proverb and
+call it research.
+
+WHAT ACTUALLY MAKES IT HARD, AND IT IS NOT DECADENCE. Two mechanisms:
+  (a) THE CROWD. Ownership shape changes at generation three, from one founder to
+      a sibling partnership to a COUSIN CONSORTIUM: many owners, few of whom work
+      there. The literature's trap is "20 cousins each holding 5%, none with
+      meaningful control"; one documented firm had sixteen shareholders with nine
+      working. The hardest named problem is BALANCE OF POWER BETWEEN BRANCHES.
+  (b) THE FORGETTING. A twenty-question scale asking children what they know about
+      their own family, including explicitly "an illness or something really
+      terrible that happened in your family", was the best single predictor in the
+      study of a child's emotional health. Families that told COHERENT, EMOTIONALLY
+      OPEN stories about hard events had children who coped better over two years.
+THE THIRD GENERATION IS NOT CURSED. IT IS CROWDED, AND IT HAS FORGOTTEN.
+
+MEASURED, AND IT IS THE OPPOSITE PROBLEM: builds is a HARD RATCHET
+(Math.max(existing, tier), never falls); invest, economyCapacity, karma and
+virtues only accumulate; blindSpot and recordedKnown only grow; standings is still
+the only decay. THERE IS NO -= AND NO Math.min ANYWHERE IN THE FOLD. So
+districtTexture (invest<=0 apocalypse, <5 recovering, else modern) reads a number
+that only rises, and ACT 3'S CITY IS ARITHMETICALLY INCAPABLE OF LOOKING WORSE
+THAN ACT 2'S.
+AND THE TWO FORCES THE RESEARCH NAMES ARE THE TWO WE CANNOT REPRESENT:
+  DILUTION DOES NOT EXIST. selectHeir picks ONE living child by a seeded index and
+  the other children are NEVER REFERENCED AGAIN ANYWHERE in the engine. No cousins,
+  no branches, no shares.
+  MEMORY IS WRITE-ONLY. `wounds` appears EXACTLY TWICE in the whole engine: the
+  declaration and one push. Nothing ever reads a wound. Nothing ever settles one.
+WE BUILT A DYNASTY THAT CANNOT LOSE ANYTHING AND CANNOT REMEMBER ANYTHING, AND
+LOSING AND REMEMBERING ARE THE ONLY TWO FORCES THE RESEARCH SAYS MATTER.
+
+FOUR ROUNDS, FOUR QUESTIONS, ONE FILE: round 1 the fold is generation-blind;
+round 2 a territory is a vacancy not an inheritance; round 3 it decays the thing
+that lasts and keeps the things that go; round 4 it cannot model decline and its
+only memory field is write-only. The fold is an asset register that only goes up,
+and a hundred-year dynasty is neither of those.
+
+GAMES SIDE: the same illness under another name. Power creep trivialises
+decisions and the third act ends up easier than the first two even while handing
+you the best abilities. The named cure is horizontal additions rather than bigger
+numbers, which is day 9 and day 10's ruling that we reached independently.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS, already proposed
+in round 3, gets bigger and stays ONE row: nothing in the fold can go down, and
+wounds is write-only. Inside this lane: Q8 [inherited memory] is doubly the
+sequel; Q9 [century town] inherits districtTexture's one-way ladder; Q11 [lasting
+death] inherits the write-only wound; Q12 [heir's hour] inherits the crowd.
+
+A MISTAKE OF MINE, FOUND AND FIXED THIS ROUND: my rebase resolver rebuilt
+VAMILY.md from origin/main and re-applied only the SHIPPED marks, so it silently
+DROPPED the Q3 sentence I had added to this lane's STATE line. All four status
+marks were fine; only the STATE text was lost. Restored this round and labelled as
+restored. A RESOLVER THAT ONLY RE-APPLIES WHAT IT REMEMBERS TO RE-APPLY WILL EAT
+EVERYTHING ELSE. Next round: resolve VAMILY.md by hand, or diff the section
+before and after.
+
+[PENDING Paolo] Nothing blocking. Eight questions still OPEN, none needs a ruling
+to start. How many cousins, who they are, which branch resents which, what the
+wound was, which fields may fall and how far, and everything about act 3's canon
+are all his and untouched.
+
+NEXT FOR THIS LANE: the first line marked OPEN, which is Q5 [growing old].
+
 ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
 FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
   records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md

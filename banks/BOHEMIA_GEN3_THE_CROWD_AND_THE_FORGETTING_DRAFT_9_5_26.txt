@@ -1,0 +1,87 @@
+BOHEMIA -- GEN 3: THE CROWD AND THE FORGETTING
+BANK, 9/5/26, DYNASTY lane, Q4 [third generation]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+appears anywhere. How many cousins there are, who they are, which branch is
+which, and what the wound was are all his and are left blank.
+Record: records/BOHEMIA_DYNASTY_DAY_4_THE_THIRD_GENERATION_9_5_26.md
+
+WHY THIS SHAPE, AND WHAT IT REFUSES
+The famous curse (shirtsleeves to shirtsleeves, 30% then 12% then 3%) rests on a
+contested number, so nothing here scripts a decline. What the evidence actually
+says is that the third generation is CROWDED and has FORGOTTEN: ownership splits
+into a cousin consortium with many owners and few of them working, the hardest
+problem is resentment between branches, and the best single predictor of a
+child's resilience in the study was how much of the family's story they knew,
+including the terrible parts.
+Our own machine has the opposite problem. Buildings ratchet and never fall,
+districts only improve, the hidden advantage only grows, there is no subtraction
+anywhere in the fold, there are no cousins at all, and a wound is written and
+never read.
+
+---- THE CROWD, AS A SHAPE ONLY ---------------------------------------- draft:true
+Structure is ours. Every count and every name is his.
+
+  CLAIMANTS      more people with a claim than there are seats
+  BRANCHES       each descends from one of the second generation
+  WORKING        the few who actually do the thing
+  HOLDING        the many who only own a piece of it
+  THE RESENTMENT the branch with more heirs ends up with more seats
+
+---- WHAT THE THIRD ONE HEARS, AND IT IS NEVER A NUMBER ---------------- draft:true
+  THERE ARE NINE OF YOU NOW.
+  HE IS YOUR COUSIN. YOU HAVE MET HIM TWICE.
+  THAT BRANCH HAS THREE PEOPLE INSIDE. YOURS HAS ONE.
+  NOBODY HERE WORKS. THEY ALL OWN.
+  YOU ALL WANT THE SAME CHAIR.
+  YOUR PIECE IS SMALL AND IT IS STILL A PIECE.
+
+---- THE FORGETTING, WHICH IS THE HALF THAT ACTUALLY KILLS IT ---------- draft:true
+(the twenty-question scale asked children things like "do you know an illness or
+something really terrible that happened in your family". the ones who knew coped
+better. so these are the questions the third generation should be able to fail.)
+  YOU DO NOT KNOW WHY THIS IS YOURS.
+  NOBODY LEFT REMEMBERS HOW IT WAS GOT.
+  SHE TOLD THAT STORY. SHE IS GONE.
+  YOU KNOW THE NAME. YOU DO NOT KNOW THE MAN.
+  THEY STOPPED TELLING IT BECAUSE IT WAS UGLY.
+  ASK SOMEBODY OLD, WHILE THERE IS SOMEBODY OLD.
+
+---- WHEN THE STORY IS STILL THERE ------------------------------------- draft:true
+  HE TOLD YOU THIS ONE HIMSELF.
+  YOU KNOW WHAT HAPPENED IN THE SECOND WINTER.
+  YOU KNOW WHAT IT COST. THAT IS WHY YOU WILL NOT SELL.
+  THE UGLY PART IS THE PART YOU REMEMBER.
+
+---- A WOUND THAT CAN BE READ, WHICH TODAY IT CANNOT -------------------- draft:true
+today:   wounds.push(target)          nothing ever reads it, nothing settles it
+draft:   { who, whatHappened, when, settled, whoStillTellsIt }
+  SOMEBODY DID THIS TO YOUR GRANDMOTHER.
+  IT WAS NEVER ANSWERED.
+  THE ONE WHO DID IT HAS GRANDCHILDREN TOO.
+  YOU COULD LET THIS GO. NOBODY WOULD KNOW BUT YOU.
+  IT IS SETTLED. IT TOOK THREE LIVES TO SETTLE IT.
+
+---- THINGS GOING DOWN, BECAUSE TODAY NOTHING CAN --------------------- draft:true
+(NOT a curse and NOT a script. a ratchet is just a bug in a hundred-year machine.
+which fields, and how far, is HIS.)
+  THE ROOF WENT. NOBODY WAS PAYING FOR THE ROOF.
+  THIS BLOCK IS GOING BACK TO WHAT IT WAS.
+  THEY STOPPED SENDING ANYBODY.
+  IT WAS MODERN WHEN HE DIED.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No scripted third-generation decline. The number behind that proverb is
+contested and REALISM FIRST means we do not encode folklore.
+No lazy grandchild. The evidence says structure, not character.
+No bigger numbers for act 3. Growth is horizontal (day 9) and what you get is
+access, not power (day 10). The genre's own answer to a trivial third act is the
+same one.
+No inheritance summary screen. The crowd should be met, not read.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+How many cousins. Who they are and what they want. Which branch resents which.
+What the wound was and whether it can be settled. Which fields are allowed to
+fall and how far. What the third generation is told and by whom.
