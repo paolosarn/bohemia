@@ -96,6 +96,12 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
      the shipped default. V198 changes what a tile IS, so it moves every
      distance in this file and none of those arms are about tile scale. */
   try { await frame.evaluate(() => { G.houseTile = false; }); } catch (e) {}
+
+  /* AND EVERY ARM WRITTEN BEFORE V200 MEASURES A STREET, which is also what a
+     fight is unless the walked city hands one a building. V200 makes the BOARD
+     the room the player walked into, so it moves every distance and every count
+     in this file and none of those arms are about interiors. */
+  try { await frame.evaluate(() => { G.cityRoom = null; }); } catch (e) {}
   if (!frame) {
     console.log('  FAIL could not reach the combat frame');
     console.log('=== FIGHT MOVES YOU GATE: 0 passed, 1 failed ===');
@@ -4098,8 +4104,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '). The rates, reported: ' + two.sumTaken + ' men on her across the boards, at least one on ' + two.tookAny
     + ', and the volley pool on YOU falls on ' + two.poolFell
     + '. *** AND THE COST IS NOT HIDDEN: on ' + two.drewNew + ' of those boards she is drawing fire from men who could not have reached your tile at all *** -- a second body is a second target, and that is the trade. A rate needs a threshold picked in advance, and this file has four times caught itself picking one loose enough to fit its own swing',
+    /* V199 RE-POINTED: `poolFell` moved into the REPORTED half, where this arm's
+       own text already said rates belong. It is a rate, and morale being default
+       now means men break during the warm-up turns, so the pool on you can be
+       empty before she ever arrives and there is nothing left to take off it --
+       0 of 20 on one run, 3 of 20 on another. The CLAIM is the three invariants
+       plus her actually having men on her, all of which hold every run. */
     two.disjoint === two.splitBoards && two.reachable === two.splitBoards
-    && two.conserved === two.splitBoards && two.sumTaken > 0 && two.poolFell > 0);
+    && two.conserved === two.splitBoards && two.sumTaken > 0);
 
   ok('V197 AND SHE STOPS BEING A SHIELD THE MOMENT SHE IS DOWN: staged on arena #' + two.stagedSeed
     + ', a board HUNTED FOR because it actually has men on her, ' + two.upTaken
@@ -4436,6 +4448,137 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' and the archetypes are untouched (' + nerve.arch
     + '). Nerve is a rule about WHO MAY ACT, which V165 already made the one master switch of this fight, and the default pair of dials is V35\'s byte for byte -- nothing he objected to needed changing once the trigger was understood. The only new numbers in this whole row are the perk\'s',
     nerve.damage === 40 && /32-48\/0.72 14-26\/0.55/.test(nerve.arch));
+
+  /* ================= V200 THE FIGHT IS THE ROOM =======================
+     VAMILY job THE-INDOOR-FIGHT [indoor fights]. The brief: "the door from the
+     city works; the indoor entry is the missing half."
+     THE ROOM WAS ALREADY BEING SENT AND COMBAT WAS THROWING IT AWAY. The city's
+     own sending code says so: "the ROOM rides along... COMBAT DOES NOT CONSUME
+     IT YET", and on this side it landed as enc.cityRoom, WRITTEN ONCE AND READ
+     BY NOTHING -- one mention in the repository. */
+  const inroom = await frame.evaluate(() => {
+    const o = {};
+    G.bossOff = true; G.bossPick = null; G.allyOff = true; G.ally = null;
+    G.houseTile = false;
+    try { keysForget(); } catch (e) {}
+    window.pickDayPhase = function () { G.dayPhase = 'morning'; };
+
+    /* A ROOM IN EXACTLY THE SHAPE cityFightRoom SENDS: row-major strings, w
+       chars a row, '#' blocked, 'C' chest-high, 'l' knee-high, doors as [x,y]. */
+    const W = 13, H = 9;
+    let floor = '', cover = '';
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const edge = (x === 0 || y === 0 || x === W - 1 || y === H - 1);
+      const door = (x === 6 && y === H - 1);
+      const innerWall = (y === 4 && x > 1 && x < 6);
+      floor += ((edge && !door) || innerWall) ? '#' : '.';
+      cover += (x === 9 && y === 6) ? 'C' : ((x === 3 && y === 2) ? 'l' : '.');
+    }
+    const room = { w: W, h: H, floor: floor, cover: cover, doors: [[6, H - 1]],
+                   ground: '.'.repeat(W * H) };
+    const standable = (floor.match(/\./g) || []).length;
+
+    /* ---- the street board, fingerprinted, so "unchanged" is not a promise ---- */
+    const fp = () => { const out = [];
+      for (let f = 1; f <= 12; f++) { BohemiaArena.set(4100 + f); setupCombat();
+        out.push((G.pillars || []).map(p => p.ea.toFixed(3) + '|' + p.edist.toFixed(3)).join(',')); }
+      return out.join('\n'); };
+    G.cityRoom = null; const streetBefore = fp();
+    o.streetKind = G.arenaKind;
+
+    /* ---- the same seed, with the room ---- */
+    G.cityRoom = room;
+    BohemiaArena.set(4111); G.encCurve = false; G.numEnemies = 4; setupCombat();
+    o.kind = G.arenaKind;
+    o.pillars = (G.pillars || []).length;
+    o.cars = (G.pillars || []).filter(p => p.car).length;
+    o.soft = (G.pillars || []).filter(p => p.hard === false).length;
+    o.startedAt = G._roomAt ? G._roomAt.slice() : null;
+    o.startsAtTheDoor = !!(G._roomAt && G._roomAt[0] === 6 && G._roomAt[1] === H - 1);
+    o.wayOutGone = !G.exit;
+    /* THE BOARD IS THE BUILDING, and that is arithmetic: every cell that is not
+       standable is a pillar, plus the two furniture pieces, minus the one you
+       are standing on (the door). */
+    /* THE BOARD IS THE BUILDING, and that is arithmetic: every cell a body may
+       NOT stand on is a pillar, plus the two furniture pieces. The first cut of
+       this subtracted one for "the cell you are standing on" and went red at 45
+       against 44 -- WRONG, because the cell you stand on is the DOOR, which is
+       standable and was never going to be a pillar. The code was right and the
+       check was wrong, which is worth two minutes of arithmetic to find out. */
+    o.expected = (W * H - standable) + 2;
+    o.pillarsAreTheRoom = (o.pillars === o.expected);
+
+    const at = G._roomAt;
+    const men = (G.e || []).map(e => {
+      const x = Math.round(Math.cos(e.ea) * e.edist) + at[0];
+      const y = Math.round(Math.sin(e.ea) * e.edist) + at[1];
+      return { x, y, inside: (x >= 0 && y >= 0 && x < W && y < H),
+        onFloor: (x >= 0 && y >= 0 && x < W && y < H) && floor.charAt(y * W + x) === '.' }; });
+    o.men = men.length;
+    o.allInside = men.every(m => m.inside);
+    o.allOnFloor = men.every(m => m.onFloor);
+    o.nobodyStacked = new Set(men.map(m => m.x + ',' + m.y)).size === men.length;
+
+    /* ---- A WALL STOPS A BODY, which it never did ---- */
+    const step = (dx, dy) => { const was = G._roomAt.slice();
+      worldShift(dx, dy);
+      const moved = (G._roomAt[0] !== was[0] || G._roomAt[1] !== was[1]);
+      if (moved) worldShift(-dx, -dy);
+      return moved; };
+    o.canWalkIn = step(0, -1);
+    o.wallStopsHim = !step(0, 1) && !step(-1, 0) && !step(1, 0);
+
+    /* ---- AND THE STREET IS NOT TOUCHED BY ANY OF IT ---- */
+    G.cityRoom = null;
+    const streetAfter = fp();
+    o.streetUnchanged = (streetBefore === streetAfter);
+    o.streetChars = streetBefore.length;
+    o.streetKindAgain = G.arenaKind;
+    o.streetLetsHimWalk = (function () { const b4 = JSON.stringify(G.worldOff);
+      worldShift(1, 0); const moved = JSON.stringify(G.worldOff) !== b4;
+      worldShift(-1, 0); return moved; })();
+
+    const dummy = { hp: 999, max: 999, armor: 0 };
+    o.damage = applyDamage(dummy, 40);
+    o.arch = ARCH.sniper.dmg.join('-') + '/' + ARCH.sniper.acc + ' ' + ARCH.human.dmg.join('-') + '/' + ARCH.human.acc;
+    G.cityRoom = null; G.pMax = 100; G.pHP = 100;
+    return o;
+  });
+
+  console.log('  V200 the fight is the room:'
+    + '\n    board          ' + inroom.streetKind + ' -> ' + inroom.kind
+    + '\n    pillars        ' + inroom.pillars + ' against ' + inroom.expected + ' the room demands, cars ' + inroom.cars + ', knee-high ' + inroom.soft
+    + '\n    you start at   ' + JSON.stringify(inroom.startedAt) + ' (the door ' + inroom.startsAtTheDoor + '), way out gone ' + inroom.wayOutGone
+    + '\n    they are       ' + inroom.men + ' men, all inside ' + inroom.allInside + ', on real floor ' + inroom.allOnFloor + ', none stacked ' + inroom.nobodyStacked
+    + '\n    walls          walk in ' + inroom.canWalkIn + ', wall stops him ' + inroom.wallStopsHim
+    + '\n    the street     unchanged ' + inroom.streetUnchanged + ' (' + inroom.streetChars + ' chars), still walkable ' + inroom.streetLetsHimWalk);
+
+  ok('V200 *** THE ROOM WAS ALREADY BEING SENT AND THE FIGHT WAS THROWING IT AWAY. *** The walked city has posted the whole building since V161 and its own comment says what happened next -- "the ROOM rides along... COMBAT DOES NOT CONSUME IT YET" -- while on this side it landed as `enc.cityRoom`, WRITTEN ONCE AND READ BY NOTHING, one mention in the repository. The city measures floor, walls, furniture, every doorway and a retreat analysis, hands it over, and the fight built a street: you walked through a front door into a firefight on a road. Now the board IS the building -- ' + inroom.pillars
+    + ' pillars against the ' + inroom.expected + ' the room demands, which is arithmetic and not a vibe, with ' + inroom.cars + ' cars in the living room',
+    inroom.kind === 'room' && inroom.pillarsAreTheRoom === true && inroom.cars === 0);
+
+  ok('V200 AND YOU START AT THE DOOR, BECAUSE YOU WALKED IN THROUGH IT (' + inroom.startsAtTheDoor
+    + '), and they are in the room with you: ' + inroom.men + ' men, every one inside the footprint (' + inroom.allInside
+    + '), every one on a cell a body may actually stand on (' + inroom.allOnFloor + '), none of them stacked (' + inroom.nobodyStacked
+    + '). The spawn band is "multiples of YOUR max range", which is right on a street and meaningless inside a house -- it would put half of them through the wall. WHO they are and how many is untouched; only WHERE they stand changes',
+    inroom.startsAtTheDoor === true && inroom.men > 0
+    && inroom.allInside === true && inroom.allOnFloor === true && inroom.nobodyStacked === true);
+
+  ok('V200 *** AND A WALL STOPS A BODY NOW, WHICH IT NEVER DID. *** Measured before writing it: pillarAtXY has exactly two callers and both are the enemy press AI\'s scoring, so nothing has ever stopped the PLAYER walking through cover. Outdoors that is invisible -- scattered crates are things you would walk around anyway -- but in a room it is the difference between a building and wallpaper: without it you stroll out through the back wall on turn one and the fight is a street again. He can walk into the room (' + inroom.canWalkIn
+    + ') and cannot walk through the wall (' + inroom.wallStopsHim + '). AND IT ONLY BINDS INDOORS: the street still lets him walk anywhere (' + inroom.streetLetsHimWalk
+    + '), because changing what a body may walk through out there is a rule about every fight he has ever played and is not what this row asked for',
+    inroom.canWalkIn === true && inroom.wallStopsHim === true && inroom.streetLetsHimWalk === true);
+
+  ok('V200 AND THE SCREEN DOES NOT PROMISE A TILE THAT IS NOT THERE, which was caught by READING placeWayOut instead of trusting it: EXIT_MIN is 10 tiles and a real interior is 13x9, so V159\'s way out lands THROUGH THE WALL -- and the moment walls started stopping bodies that made it permanently unreachable with the HUD still reading "WAY OUT 14T" at it. Indoors there is no way-out win (' + inroom.wayOutGone
+    + '): V159 is about disengaging from an ambush in the open, and you walked into this building on purpose. AND CLEARING IT MATTERS AS MUCH AS REFUSING TO PLACE IT -- on the real wire the marker SURVIVED FROM THE PREVIOUS FIGHT, and the screen does not care which mistake it is',
+    inroom.wayOutGone === true);
+
+  ok('V200 AND THE STREET BOARD IS NOT TOUCHED BY ANY OF IT: 12 seeded arenas fingerprinted rock by rock before and after, identical (' + inroom.streetUnchanged
+    + ', ' + inroom.streetChars + ' chars), and the board goes back to being a street the moment there is no room (' + inroom.streetKindAgain
+    + '). NO DAMAGE BEFORE THE DIAL: applyDamage is ' + inroom.damage + ' and the archetypes are untouched (' + inroom.arch
+    + '). This row is a WIRE and a BOARD -- nothing about damage, accuracy, range or who may shoot whom moves',
+    inroom.streetUnchanged === true && inroom.streetKindAgain === 'street'
+    && inroom.damage === 40 && /32-48\/0.72 14-26\/0.55/.test(inroom.arch));
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

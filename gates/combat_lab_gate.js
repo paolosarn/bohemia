@@ -157,8 +157,11 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   ok('KILLSHOTS/TURN sits at the top of settings',
     demo.includes('V19: KILLSHOTS/TURN at the TOP of settings'));
   ok('worldShift carries corpses AND pillars with the world',
-    /function worldShift\([\s\S]{0,600}?G\.corpses/.test(demo) &&
-    /function worldShift\([\s\S]{0,700}?G\.pillars/.test(demo));
+    /* V200 RE-POINTED: worldShift opens with the indoor wall test now, so both
+       windows grew by that block. THE CLAIM IS UNCHANGED -- the world carries
+       the corpses and the pillars with it -- and it is what is still matched. */
+    /function worldShift\([\s\S]{0,1400}?G\.corpses/.test(demo) &&
+    /function worldShift\([\s\S]{0,1500}?G\.pillars/.test(demo));
   // PILLAR COVER (v5, Paolo: "shuffled pillars that I can take cover from")
   ok('shuffled pillars spawn each encounter (V89: the count is now a real 2-15 range, so this no longer pins the old 5-7 literal -- it pins the RESHUFFLE)',
     /* V100 RE-POINTED: the invariant is that cover RESHUFFLES every encounter over a
@@ -3349,7 +3352,11 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes("if(G.arenaKind==='warehouse'||Math.random()<0.72){"));
 
   ok('V100 INDOORS THERE IS NO STREET: one material wall to wall, from the approved starter set',
-    demo.includes("if(G.arenaKind==='warehouse')return 'slab';") &&
+    /* V200 RE-POINTED: a ROOM is indoors too. V100's sentence -- "indoors there
+       is no street, one material wall to wall" -- is the rule THE-INDOOR-FIGHT
+       needed, and it was already written one line above where it was needed, so
+       the room joins the warehouse on it rather than getting a second rule. */
+    demo.includes("if(G.arenaKind==='warehouse'||G.arenaKind==='room')return 'slab';") &&
     demo.includes('ST_SPIN.slab=1;'));
 
   ok('V100 AND THE ARENA HAS A NAME, because an arena you cannot name is a field with rocks on it',
@@ -5471,7 +5478,11 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     demo.includes('function cellOf(o){') && demo.includes('function putCell(o,cx,cy){') &&
     demo.includes('function snapBody(o){') && demo.includes('function snapAllBodies(){') &&
     /try\{ snapAllBodies\(\); \}catch\(_e\)\{\}/.test(demo) &&
-    /try\{ snapBody\(e\); \}catch\(_e\)\{\}\s*\n\s*G\.e\.push\(e\);/.test(demo));
+    /* V200 RE-POINTED: indoors a body is placed on a real floor CELL between
+       the snap and the push, so the two are no longer adjacent lines. THE CLAIM
+       IS THE INVARIANT -- the snap lives in worldShift AND in the spawn -- and
+       both are still asserted; putCell is the same cell function it always was. */
+    /try\{ snapBody\(e\); \}catch\(_e\)\{\}[\s\S]{0,1400}?G\.e\.push\(e\);/.test(demo));
 
   { /* THE GUARD IS LOAD-BEARING, AND THIS IS THE CASE THAT PROVES IT. Deleting
        the re-snap left every ordinary measurement at 160/160 and 960/960,
