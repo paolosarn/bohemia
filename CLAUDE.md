@@ -1602,6 +1602,13 @@ tools, gates or slices code. THE QUEUE NEVER RUNS DRY, BY LAW: when a lane's que
 is empty the coordinator's next turn either asks him ONE thumbs-up/down creative
 question in the 8/4 format (about the GAME, never about how to build it) or does a
 research day on the games he named and the best games ever made, ending as jobs.
+AMENDED THE SAME DAY: "everything I tell you that comes out of my mouth should be
+an assigned job for real for real for real... I'm making you a manager." THE INTAKE
+RULE IS ABSOLUTE: every sentence he sends this chat becomes a VAMILY line before the
+reply ends (a job, a research question, a ruling with a row, or a [PENDING Paolo]
+line). A thought in passing is a job. The test, every reply: name the line each
+thing he said became; a sentence with no line means the reply is not finished. THE
+COORDINATOR IS THE MANAGER as of 9/4.
 Law: laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 - FACTION TOWNS (Paolo 9/4, LOCKED): every part of Vegas is owned by a faction and
   the faction's seat is where you trade; big factions are FORTRESSES with many

@@ -5,7 +5,8 @@
 # from records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
 
 ## HOW IT WORKS
-0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator. Every other chat
+0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator, THE MANAGER.
+   EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions. Every other chat
    gets one word, VAMILY, and no discussion. A lane that needs a ruling writes
    [PENDING Paolo] in its handoff block; the coordinator carries it to him.
 1. Paolo types **VAMILY**. That is the whole instruction.

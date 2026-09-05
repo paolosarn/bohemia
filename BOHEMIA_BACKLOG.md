@@ -9949,7 +9949,9 @@ VAMILY-GATE. *** PAOLO 9/4, LOCKED: VAMILY is the one word. A LAW WITHOUT A
    MACHINE GATE IS NOT ENFORCED. ***
    handoff_gate (or a sibling) asserts VAMILY.md exists at repo root, every job
    line parses as OPEN / CLAIMED <date> ... / SHIPPED <date> ..., and every job
-   name resolves to a row in this file OR a brief in the 9/4 plan record. Small. Law:
+   name resolves to a row in this file OR a brief in the 9/4 plan record, AND a
+   coordinator commit that updates the handoff's LAST FEEDBACK RECEIVED line also
+   touches VAMILY.md (the absolute intake rule, 9/4). Small. Law:
    laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md | the gate goes red on a
    misspelled job or a bad status word | nothing | no. ***
 

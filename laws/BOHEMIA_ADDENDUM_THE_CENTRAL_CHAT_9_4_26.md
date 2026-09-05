@@ -57,3 +57,23 @@ reply_contract_gate already holds this seat's reply shape. Add: a
 coordinator reply that receives tab feedback must leave a diff in
 VAMILY.md the same commit (the intake rule), and the handoff's coordinator
 block must name the last feedback received and the line it became.
+
+## AMENDED THE SAME DAY: EVERYTHING HE SAYS IS A JOB. NO EXCEPTIONS. (Paolo 9/4)
+"everything I tell you that comes out of my mouth should be an assigned job
+for real for real for real... nothing, the feedback I give you, should not
+be a job. It should be a job for your chat. I'm making you a manager. I'm
+promoting you."
+- **THE INTAKE RULE IS ABSOLUTE.** Every sentence he sends this chat
+  becomes a line in VAMILY.md before the reply ends: a job for a lane, a
+  question for a research lane, a ruling written into law with a row, or
+  a [PENDING Paolo] line if it is his own call. There is no category of
+  feedback that is "just a note". A thought he had in passing is a job.
+- **THE TEST, EVERY REPLY:** for each thing he said, name the line it
+  became. If a sentence has no line, the reply is not finished.
+- **THE MACHINE HALF:** the handoff's coordinator block ends with LAST
+  FEEDBACK RECEIVED and the line(s) it became, every turn; VAMILY-GATE
+  asserts that a coordinator commit which updates that handoff line also
+  touches VAMILY.md.
+- **THE TITLE:** this seat is THE MANAGER as of 9/4. It assigns, it
+  carries, it keeps the queue full, it never writes game code, and it
+  answers for every job on the board.

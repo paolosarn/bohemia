@@ -703,7 +703,20 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ak) LATEST -- *** THE FEED ON THE CITY
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (al) LATEST -- *** THE MANAGER. EVERYTHING
+HE SAYS IS A JOB, NO EXCEPTIONS. Nothing to judge. ***
+Paolo 9/4: "everything I tell you that comes out of my mouth should be an assigned
+job for real for real for real... nothing I tell you should not be a job... I'm
+making you a manager. I'm promoting you." Amendment on the central-chat law: the
+intake rule is absolute; every sentence becomes a VAMILY line before the reply
+ends; the test every reply is to name the line each thing became; VAMILY-GATE
+asserts a handoff LAST FEEDBACK update touches VAMILY.md. SELF-CHECK OF TODAY: every
+item he sent 9/4 has a line (batteries, the tile, the sprite, VAMILY, the plan,
+towns, the central chat, the runway, combat sharpened, wider tiles, research modes,
+the feed, 120 BPM on every row, and this). LAST FEEDBACK RECEIVED: this -> the
+amendment, VAMILY point 0, VAMILY-GATE.
+
+COORDINATOR: 9/4 (ak) -- *** THE FEED ON THE CITY
 SCREEN: in zoomed-out city mode a phone scrolls a social feed of what you did, what
 the world did, and auto-generated life. Nothing to judge. ***
 laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md. Measured: the phone
