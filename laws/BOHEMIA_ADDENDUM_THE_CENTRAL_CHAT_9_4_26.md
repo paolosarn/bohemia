@@ -92,3 +92,27 @@ For every thing in the vomit, in order, two questions and nothing else:
    lane's VAMILY will reach it, and say so in the reply.
 The vomit is never summarised back to him as a list of what he said. It
 is answered as a list of what it BECAME.
+
+## TWO WORDS PER JOB, AND WHAT VAMILY MEANS IN THIS SEAT (Paolo 9/4, same day)
+"anytime you make a job I want to see the job you created and it should be
+maximum two words only... don't try to be artistic with it. Just two words
+that explain the job best."
+- **EVERY JOB CARRIES A TWO-WORD LABEL.** On the board it is the
+  [bracketed] label at the front of the line; in a reply it is the only
+  way a job is named to him. Plain words, no cleverness: "battery money",
+  "fights end", "crowd moves". The long name after it is for the machine.
+  Every existing job got one the day he asked; every new one gets one when
+  it is made.
+- **EVERY REPLY THAT CREATES JOBS LISTS THEM, BY CHAT, TWO WORDS EACH.**
+  Nothing else about a new job needs to reach him unless he asks.
+- **VAMILY TYPED TO THE COORDINATOR MEANS A MANAGER'S ROUND:** (1) turn
+  anything he said into jobs; (2) read every lane's newest handoff block
+  and commits since the last round, and move SHIPPED lines; (3) top up any
+  lane under six OPEN lines; (4) if the board is thin or a lane is stuck,
+  run one research day and route it; (5) reply with the new jobs, two
+  words each, by chat, and the shipped ones the same way.
+- **THROUGHPUT, HONESTLY:** a normal round makes about five to fifteen new
+  jobs. A full-sweep round (readers sent into every lane, roughly one
+  round in five) makes forty to sixty. The ceiling is not typing, it is
+  measurement: a job that is not grounded in something checked is a wish,
+  and wishes do not go on the board.

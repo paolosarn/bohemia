@@ -754,7 +754,17 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (at) LATEST -- *** THE REFERENCE LAB IS
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (au) LATEST -- *** TWO WORDS PER JOB, ON
+ALL 156 LINES, AND WHAT VAMILY MEANS IN THIS SEAT. Nothing to judge. ***
+Paolo 9/4: "anytime you make a job... maximum two words... don't be artistic." Every
+job line on VAMILY.md now opens with a [two-word] label (156 lines, zero missing,
+one RF4 duplicate removed). Central-chat law amended: the label rule, the manager's
+round (intake, read every lane, move SHIPPED, top up under six, research if thin,
+report in two words), and throughput stated honestly (five to fifteen a normal round,
+forty to sixty on a full sweep). LAST FEEDBACK RECEIVED: this -> the labels and the
+procedure.
+
+COORDINATOR: 9/4 (at) -- *** THE REFERENCE LAB IS
 RETIRED. Its library jobs went to DIRECTION, its spec jobs to COMBAT. Fifteen worker
 chats. Nothing to judge. ***
 Paolo 9/4: "we're going to retire the reference lab chat." VAMILY line 07 marked

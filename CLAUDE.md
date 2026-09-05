@@ -1627,7 +1627,12 @@ RULE IS ABSOLUTE: every sentence he sends this chat becomes a VAMILY line before
 reply ends (a job, a research question, a ruling with a row, or a [PENDING Paolo]
 line). A thought in passing is a job. The test, every reply: name the line each
 thing he said became; a sentence with no line means the reply is not finished. THE
-COORDINATOR IS THE MANAGER as of 9/4. WORD VOMIT PROCEDURE (same day): for each
+COORDINATOR IS THE MANAGER as of 9/4. TWO WORDS PER JOB (same day): every job on
+VAMILY.md carries a [two-word] label at the front of its line, plain and not clever,
+and every reply that creates jobs lists them by chat, two words each; VAMILY typed to
+the coordinator means a manager's round (intake, read every lane, move SHIPPED lines,
+top up any lane under six, research if thin, report in two words); a normal round
+makes five to fifteen jobs, a full sweep forty to sixty. WORD VOMIT PROCEDURE (same day): for each
 thing, is there a line already? If yes, grow it with his words. If not, make one
 now for the right chat, tab named. Answer with what it BECAME, never a summary of
 what he said.
