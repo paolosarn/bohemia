@@ -5795,7 +5795,23 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-DIRECTION (art-f3eu53): 9/5 (k) LATEST -- *** THIS CHAT IS THE DIRECTION LANE
+DIRECTION (art-f3eu53): 9/5 (l) LATEST -- *** THE REFERENCE LIBRARY AND ITS
+INDEX ARE SHIPPED (VAMILY rows 2 and 3 of the DIRECTION lane, after row 1's
+MATCHED TO button earlier today). reference/library/ holds 9 kinds x 31
+entries (real + pixel, each with the ONE structural rule it teaches, REF-ID
+format, no copyrighted bytes copied - links and annotations only), placed
+INSIDE the already-excluded reference/ folder because a sibling references/
+was a near-twin name pages_publish_gate caught immediately.
+records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json is derived by
+tools/bohemia_reference_index.py and is the ruler reference_check_gate
+(SHARED's row, not yet built) resolves REFERENCE CHECK citations against.
+NOTE FOR COOK: cite REF-IDs in every new cook's REFERENCE CHECK. NEXT OPEN
+in this lane: RUNWAY-REFERENCE (the Balenciaga / Rick Owens silhouette
+library), then PIXEL-CITY-BUILDER-REFERENCE, FIRST-HOUR-REFERENCE, and
+THE-STYLE-CARD. [PENDING Paolo, carried by the coordinator: the farm tile
+group is the one art-family drift - approved bank, needs his A/B from the
+9/5 reply.] PREVIOUS:
+DIRECTION (art-f3eu53): 9/5 (k) -- *** THIS CHAT IS THE DIRECTION LANE
 NOW: Paolo typed "ART DIRECTION VAMILY" into it, and the ledger's DIRECTION row
 is its queue. SHIPPED 9/5 (09c83ba): REFERENCE-BESIDE-EVERY-CANDIDATE -- the
 VOTE tab has a MATCHED TO button; tap it, tap any tile, and the panel says what
