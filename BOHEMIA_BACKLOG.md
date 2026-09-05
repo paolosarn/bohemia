@@ -9945,6 +9945,20 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
     are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
     OF_THE_GAME_9_4_26.md; that brief IS the row. ***
+REFERENCE-CHECK-GATE. *** PAOLO 9/4, LOCKED: "every time you make a piece of art
+   you have to compare it to something online... make that a law." ***
+   Sweeps every tools/*_factory.py and *_cook*.py for a `REFERENCE CHECK:` block in
+   the module docstring, exactly the way gates/reusefirst_gate.py sweeps for
+   `REUSE CHECK:`. The block names what the cook was compared against, which
+   structural rules were taken in plain words, and what changed because of it. A
+   missing block is red; an empty one is red. STRUCTURE FROM REFERENCE, STYLE FROM
+   US: the runway and 45-degree laws still give the look, this gives the bones
+   (windows in a wall plane, a wall meets a roof, a door on the ground). The 8/28
+   reference-set ban is untouched: a check names its source as a measurement names
+   its ruler; nothing from it enters the design. Law:
+   laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md | red on a
+   cook tool with no REFERENCE CHECK | nothing | no. ***
+
 VAMILY-GATE. *** PAOLO 9/4, LOCKED: VAMILY is the one word. A LAW WITHOUT A
    MACHINE GATE IS NOT ENFORCED. ***
    handoff_gate (or a sibling) asserts VAMILY.md exists at repo root, every job

@@ -116,6 +116,7 @@ MODE: BUILD
 
 ## ANIMATION  (NEW LANE, first word "animation"; last animation ship 8/18)
 MODE: BUILD
+STANDING DUTY (9/4 law): every clip compared side by side to the best pixel walk/idle/hit cycles online before it is called done; REFERENCE CHECK documented.
 - OPEN  THE-63-CLIP-AUDIT -- play every clip on the real surface, list what is broken and how, before any recook (his 8/25 order, untouched)
 - OPEN  SHOW-HIM-THE-LIST -- needs Paolo: verdicts on the 63; no clip carries one since the 7/26 reset
 - OPEN  ANIMATE-THE-CROWD -- the bake already sends walk frames for the city cast; the decoder keeps only idle, so every resident is a frozen sprite
@@ -183,12 +184,14 @@ MODE: BUILD
 
 ## DIRECTION  (first word "direction"; the look half of the UI chat, its own word as of 9/4)
 MODE: BUILD
+- OPEN  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
 - OPEN  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
 
 ## ART  (never idles; the last line is permanent)
 MODE: BUILD
+STANDING DUTY (9/4 law): EVERY COOK CARRIES A REFERENCE CHECK. Compare it side by side to real work of its kind online before calling it done; document what it was compared to, which structural rules were taken, what changed. Structure from reference, style from us. No shots in the dark.
 - OPEN  WARDROBE-REMAKE -- every garment to the card, NEW SHAPES ONLY (structure law), graveyard stays dead, 10% coat cap stands, colour stays territory; batches through the existing kill/approve pipeline
 - OPEN  HAIR-TO-THE-CARD -- every haircut to the card; all eight facings; the hair, hairline, graveyard and leaf gates hold
 - OPEN  COMBAT-GROUND-TILES -- the combat floor tile at 1.5 to 2 sprite-widths, on the 45-degree corpus: house, yard, street, lot, cover that reads; a house with a backyard spans 1x2 (9/4 tile law 3d)
@@ -239,6 +242,7 @@ MODE: BUILD
 - OPEN  BB-COLD-HAND
 - OPEN  BB-A-GATE-CAN-SAY-OWED
 - OPEN  VAMILY-GATE
+- OPEN  REFERENCE-CHECK-GATE -- sweeps every cook tool for a REFERENCE CHECK: block, the way reusefirst_gate sweeps for REUSE CHECK (9/4 compare law)
 - OPEN  BB-LOOPLESS
 - OPEN  BB-THE-ACT-IS-A-STATE
 

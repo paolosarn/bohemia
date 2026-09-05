@@ -808,6 +808,24 @@ research partner. He DECIDES, you PRODUCE.
   against doing more work, which is the only shape that catches enthusiasm.
   Raising it needs a ruling from him newer than 8/26. Full law:
   laws/BOHEMIA_ADDENDUM_ENOUGH_IS_ENOUGH_ON_THE_SPANISH_8_26_26.md ***
+- COMPARE EVERY PIECE OF ART TO THE WORLD BEFORE CALLING IT DONE (Paolo 9/4,
+  LOCKED): "every time you make a piece of art you have to compare it to something
+  online... I don't need you taking aesthetic liberties, shots in the dark... if it
+  looks like there's windows floating where they shouldn't be, walls where they
+  shouldn't be... make that a law." NO COOK IS DONE until it has been compared side
+  by side to real work of its kind online (a district to the best pixel
+  city-builders, a building to real buildings and the best pixel ones, a garment to
+  the runway houses, a clip to the best cycles). STRUCTURE COMES FROM REFERENCE,
+  STYLE COMES FROM US: the runway and 45-degree laws give the look, this gives the
+  bones. EVERY COOK TOOL CARRIES A `REFERENCE CHECK:` in its docstring (the REUSE
+  CHECK shape): what it was compared to, which rules were taken in plain words,
+  what changed. THE REFERENCE SITS BESIDE THE CANDIDATE ON EVERY JUDGE SHEET, and
+  DIRECTION judges the comparison before VOTE. The 8/28 reference-set ban is
+  untouched: a check names its source as a measurement names its ruler, nothing
+  from it enters the design. Law:
+  laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md
+  Gate: reference_check_gate (SHARED row). Rows: DIRECTION
+  REFERENCE-BESIDE-EVERY-CANDIDATE; ART and ANIMATION standing duty.
 - 45 DEGREE ART LAW (7/17): every original art Claude draws is seen from the
   world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
   scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the

@@ -703,7 +703,17 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (am) LATEST -- *** THE WORD VOMIT
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (an) LATEST -- *** COMPARE EVERY PIECE
+OF ART TO THE WORLD BEFORE CALLING IT DONE. Nothing to judge. ***
+laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md. No cook is done
+until compared side by side to real work of its kind online; structure from
+reference, style from us; every cook tool carries a REFERENCE CHECK (the REUSE
+CHECK shape); the reference sits beside the candidate on every judge sheet;
+DIRECTION judges the comparison before VOTE; the 8/28 reference-set ban untouched.
+Rows: DIRECTION REFERENCE-BESIDE-EVERY-CANDIDATE, ART and ANIMATION standing duty,
+SHARED REFERENCE-CHECK-GATE. LAST FEEDBACK RECEIVED: this -> those.
+
+COORDINATOR: 9/4 (am) -- *** THE WORD VOMIT
 PROCEDURE: is there a line already? grow it. If not, make one now for the right
 chat. Answer with what it became. Nothing to judge. ***
 Paolo 9/4: "If I ever just word vomit about the state of the game, you should be
