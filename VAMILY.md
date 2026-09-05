@@ -180,7 +180,7 @@ HISTORY: RELEASE (18) existed from 9/4 to 9/5 as "the demo as a product"; Paolo 
 MODE: BUILD
 STATE: 63 named clips; the walked PLAYER is animated (idle, four walk, four run, eight directions, on the beat); the NPC crowd is frozen sprites; no clip carries a verdict since the 7/26 reset; ten clips killed 7/2 with no replacement; last animation ship 8/18. Unverified: whether the ANIMATION tab still renders.
 STANDING DUTY (9/4 law): every clip compared side by side to the best pixel walk/idle/hit cycles online before it is called done; REFERENCE CHECK documented.
-- OPEN  [clip audit]  THE-63-CLIP-AUDIT -- play every clip on the real surface, list what is broken and how, before any recook (his 8/25 order, untouched)
+- CLAIMED 9/5 (animation-lr9y9i)  [clip audit]  THE-63-CLIP-AUDIT -- play every clip on the real surface, list what is broken and how, before any recook (his 8/25 order, untouched)
 - OPEN  [your verdicts]  SHOW-HIM-THE-LIST -- needs Paolo: verdicts on the 63; no clip carries one since the 7/26 reset
 - OPEN  [crowd moves]  ANIMATE-THE-CROWD -- the bake already sends walk frames for the city cast; the decoder keeps only idle, so every resident is a frozen sprite
 - OPEN  [clips redone]  RECOOK-WHAT-HE-KILLS
