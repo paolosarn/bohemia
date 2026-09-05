@@ -387,6 +387,41 @@ END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
 THE JOB IN HAND: [demo talks] TALK-REACHES-THE-DEMO, CLAIMED on the board.
 
+ROUND 1 OF [demo talks], MEASURED ON THE REAL SURFACE. THE PIPE IS NOT BROKEN.
+
+The board says "236 @TALK nodes and 504 @SAY lines are parsed and mute in the
+demo file". The COUNTS are exact (236 @TALK across 27 .bq files, 504 @SAY, all
+27 loaded in the page as DEMO_BQ). "MUTE" IS NOT, and here is the whole chain
+walked on the real demo:
+
+  offerRing()                 -> OFFER exists (the phone rings)
+  offerAccept()               -> true
+  DQ.Q / DQ.rt                -> LIVE: S01_THE_METER_READER, stage 10, 6 stages
+  ctDayCast()                 -> 2 cast: lineman@block 6,20 and fixer@block 5,13
+  stand on block [6,20]       -> ctCast() returns the lineman
+  ctConvNode({key:lineman})   -> HAS A NODE
+
+So a quest line DOES reach a player who rings, accepts, and walks to the cast.
+Nothing here is dead.
+
+THREE OF MY OWN BROKEN RULERS ON THE WAY, ALL THE SAME MISTAKE -- I GUESSED A
+NAME OR A CONSTANT INSTEAD OF READING IT:
+  1. probed for `BohemiaBQ`/`BohemiaQuestRuntime`; the file publishes `BQ` and
+     `BQRuntime`, so I reported the corpus missing when it was loaded.
+  2. called offerAccept() without offerRing() first; it returns false on
+     `if(!OFFER||OFFER_TAKEN)`, so I reported the quest never starts.
+  3. teleported with hx = block*FN and landed on block [1,5] while asking for
+     [6,20]. A BLOCK IS NB*FN = 512 FINE CELLS, not FN.
+Each one produced a confident wrong finding. A NAME OR A NUMBER YOU GUESSED IS
+NOT A MEASUREMENT.
+
+WHAT IS ACTUALLY LEFT TO MEASURE (round 2): the demo plays ONE quest per day and
+day 1 is S01 with 6 stages, so most of the 236 belong to quests the demo never
+opens. The number that matters is HOW MANY of the 236 a player can reach across
+the days the demo actually ships, and which roles are never cast. Only that says
+what "mute" means here and whether anything needs building.
+
+
 ECONOMY (economy-knxaeh): 9/5 (d) LATEST -- *** [first building] SHIPPED. THE FIRST
 BUILDING A PLAYER PLACES IN BOHEMIA IS AN AIRBASE, AND IT IS FREE, SILENT AND
 INSTANT. MODE: RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge.
