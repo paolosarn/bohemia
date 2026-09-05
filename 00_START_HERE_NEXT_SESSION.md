@@ -1,3 +1,175 @@
+WORDS (words-8dqrnq): 9/5 (f) LATEST -- *** VAMILY Q9 [trade talk] SHIPPED. FOUR OF OUR
+SIX TRADES NEVER SAY A SINGLE WORD FROM THEIR OWN TRADE, AND NOBODY IN THE BUILD
+USES THEIR JOB AS A WAY OF SEEING ANYTHING ELSE. *** Nothing to judge, MODE:
+RESEARCH, nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q9 [trade talk], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q9_WHAT_A_TRADE_LEAVES_IN_A_MOUTH_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q9, all draft:true.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE MEASUREMENT, HITS PRINTED, NOT JUST THE RATE:
+Tight vocabulary test, words belonging to ONE trade and to no everyday register.
+
+    trade      lines   uses its OWN trade words   OTHER speakers using them
+    lineman       20            3                          2
+    fitter        10            3                          7
+    scav         100            0                          3
+    trader        16            0                          9
+    medic         14            0                          0
+    busker        10            0                          0
+
+Four of six trades never say one word from their own trade. A medic who never
+says pulse, stitch, fever, wound or dose. A busker who never says chord, verse,
+tune or string. And twice, OTHER speakers use that trade's vocabulary MORE than
+the tradesperson does. The trade is a label on the speaker, not a fact about the
+mouth.
+
+THE DEEPER HOLE, WHICH IS THE REAL ONE:
+Lakoff and Johnson: a job is a SOURCE DOMAIN, a lived physical thing you explain
+other things with. So the test is not "does the lineman say cable", it is "does
+the lineman explain a marriage in terms of load".
+
+    lines carrying BOTH a trade word and a person word:  4 of 1,669
+
+I read all four. Not one is a metaphor. All literal. NOBODY IN THIS BUILD USES
+THEIR TRADE AS A WAY OF SEEING ANYTHING ELSE. Zero.
+
+WHAT THE BEST GAMES DO:
+Pentiment is the exact model. Andreas's residence, hobby and university subject
+unlock dialogue that leverages that talent: the Craftsman reads the art, the
+Medicine student reads the body. A BACKGROUND IS A PERCEPTION, NOT A VOCABULARY.
+Disco Elysium runs the same idea with skills that speak as voices.
+
+THE SPEC, SIX TRADES, SOURCE DOMAIN NOT WORD LIST:
+    dealer         odds, the house, the long run  who is due to lose, and does not know
+    lineman        load, draw, what is upstream   who is quietly taking from whom
+    laundry chief  what stains, what comes out    what a person did, from what is on them
+    pit boss       the count, the watched room    who is being watched and by whom
+    fitter         pressure, flow, backflow       which way trouble runs when the push stops
+    medic          bleeding, pulse, what closes   how long a thing has before it goes bad
+
+THE HARD RULE: the trade word must land on a NON-TRADE target. A lineman saying
+"warm cable" about a cable is a technician. A lineman saying "that family has been
+drawing more than the line can carry for years" is a character. Every banked line
+obeys it and each trade also carries its technician version, marked do-not-ship,
+so the difference is visible.
+
+THE ONE THAT ALREADY WORKS AND ONLY HALF COUNTS: the fitter explains his trade
+correctly ("a main keeps muck out by pushing"). That is ACCURACY. It becomes
+CHARACTER the moment the same sentence is about a person, and he never does it.
+His quest does the metaphor at the design level; his mouth does not.
+
+ROUTED OUT OF THIS ROUND:
+- PEOPLE: a background should be a PERCEPTION, not a tag. What can this person
+  see that nobody else in the scene can. Theirs to model, not mine.
+- QUESTS: the fitter pattern, design-level metaphor with a literal mouth, is the
+  thing to copy in both directions.
+- WORDS, held until MODE: BUILD: ONE-LINE-PER-TRADE, one cross-domain line per
+  named trade. Six lines, the highest characterisation-per-word in the queue.
+
+STILL CARRIED, ROUND AFTER ROUND, AND STILL NOBODY'S:
+- UI has now been asked FOUR separate times for the same cheap thing: hold one
+  beat before a line (Q2 stress, Q4 beat, Q5 refusal, and the pause a trade line
+  needs to land). One timer, four payoffs.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q10 [threat talk]. Threats that de-escalate and threats that escalate, for
+the gambit orders.
+
+
+WORDS (words-8dqrnq): 9/5 (e) -- *** VAMILY Q8 [grief talk] SHIPPED. THE FIVE STAGES
+ARE NOT A FINDING ABOUT GRIEVING PEOPLE, AND A DINNER WHERE EVERYBODY IS SAD THROUGHOUT IS
+NOT DULL, IT IS WRONG. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
+(His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)
+
+THE FINDING THAT PROVES US WRONG, AND IT WOULD HAVE CAUGHT ME. Kubler-Ross's five stages
+came from watching people who were DYING, not people who were BEREAVED, and have never been
+empirically supported as stages of grief. Bonanno's longitudinal work finds five bereavement
+patterns of which "common grief" is relatively INFREQUENT and RESILIENCE IS THE MOST FREQUENT
+-- stable low distress, about 46% in the 2002 study. Left to instinct I would have written
+the dinner as a slow build toward a break. That is the television version, and writing
+everyone as visibly destroyed also flattens the person who genuinely IS.
+
+THE MECHANISM, AND IT IS THE USEFUL PART. Stroebe and Schut's Dual Process Model: grieving is
+an OSCILLATION, not a direction. People swing minute to minute between LOSS-oriented
+attention (yearning, her things, what she would have said) and RESTORATION-oriented attention
+(who does her job now, the door, the room, the money), and the model explicitly includes TIME
+OFF FROM GRIEF as healthy rather than avoidant. SO THE DINNER OSCILLATES, IT DOES NOT BUILD:
+cross the subject and leave it three or four times, and THE LEAVING IS THE ACCURATE PART.
+And Bonanno on laughter: over half of bereaved subjects show positive emotion recounting the
+loss, and those who genuinely laugh do BETTER and draw warmth from listeners. A laugh at that
+table is not a relief valve, it is the most accurate thing in the scene.
+
+THREE TIMESCALES. First hour: LOGISTICS, small and flat -- who is told, what happens to the
+body, where the keys are. Not denial, and must not be written as denial; same short shape Q2
+measured for any acute stress. First day: oscillation becomes visible, and tense slips. First
+month: the practical strains outlast the shock, most people are functioning, and that is
+exactly when everybody else stops asking.
+
+MEASURED AGAINST OUR BUILD, THE HONEST ANSWER IS "IT IS NOT WRITTEN". Stage-of-grief words 0,
+logistics after a death 0, present tense about the dead 6, laughter 4, sister 2. A death word
+matches 26 lines but READING THEM shows most are dead batteries, dead storefronts, a dead
+payphone and a dead band; about five concern a person dying and roughly ONE is a grief line
+("She died with the words still in her mouth. I'll wonder about that for a long time"). Both
+sister lines are self-introductions in the belonging bank. THE GRIEF DINNER DOES NOT EXIST
+YET, so this round is a spec, not a critique.
+
+AND THE ONE GOOD NEGATIVE: WE HAVE IMPORTED ZERO STAGE-OF-GRIEF VOCABULARY. Nobody says
+closure, denial, processing or moving on. That is the hardest habit to avoid and we have
+never had it. Worth protecting.
+
+(The ruler wobbled again -- 26 matched, about five were real -- caught by printing the hits.
+PRINT THE HITS, NEVER JUST THE RATE is now this lane's standing rule.)
+
+RECORD: records/BOHEMIA_WORDS_Q8_GRIEF_SPEECH_9_5_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- the grief dinner with its oscillation marked
+(four at the table, three crossings, one laugh), the first hour as logistics, THE ONE WHO IS
+FINE, the slipped tense, and the banned pamphlet vocabulary. All draft:true, NONE in the game.
+VAMILY: Q8 SHIPPED. Next open is Q9 [trade talk].
+
+ROUTED OUT OF THIS ROUND:
+ - WORDS  new row THE-GRIEF-DINNER: write it as an oscillation with a laugh in it and one
+   person who is fine. Held until MODE: BUILD.
+ - QUESTS  the cold open kills the sister and there are two sister lines in the build, both
+   self-introductions. Unwritten, not miswritten.
+ - PEOPLE  "present tense about the dead" is a per-character trait, not a scene effect: who
+   slips and who corrects themselves is characterisation.
+
+HOUSEKEEPING FOR WHOEVER OWNS IT: a stray dangling >>>>>>> marker sits at line 190 of
+records/BOHEMIA_I_WAS_WRONG_ABOUT_THE_FONT_AND_HE_WAS_RIGHT_ABOUT_SHOWING_8_27_26.md (UI
+lane, 8/27). Harmless in markdown so nothing is broken, and it is not my file to edit.
+Found by sweeping every tracked file for conflict markers after another lane's FIX MAIN
+commit, because my own rebase loop uses the same 'git add -A then --continue' pattern that
+staged markers into the walked city. My lane's files are clean.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
+
 DYNASTY (dynasty-w4yxiz): 9/5 LATEST. *** THIS IS THE ONE GOOD COPY OF THIS
 LANE'S BLOCK. Older DYNASTY fragments further down this file are TORN AND
 INTERLEAVED WITH OTHER LANES' TEXT (see the corruption note at the end of this
@@ -922,7 +1094,7 @@ CHARACTER'S OWN NOTES ON RUNNING IT
 - NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
   / day N to him. Rounds, minutes, hours.
 
-WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
+WORDS (words-8dqrnq): 9/5 (b) -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
 REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
 (His PERMANENT INSTRUCTION is verbatim in the 9/5 (a) block below. Keep it.)

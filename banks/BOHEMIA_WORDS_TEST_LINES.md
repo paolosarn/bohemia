@@ -367,3 +367,93 @@ BROTHER  Pass the salt.                                                [time off
 # BANNED, and we have never once used it, which is worth protecting:
 # closure, denial, acceptance, bargaining, the stages, processing it, moving on.
 # Unsupported by the evidence and it reads like a pamphlet, not a valley.
+
+## Q9 -- WHAT A TRADE LEAVES IN A MOUTH  (9/5/26)
+# The finding: measured tight, four of our six trades never say a single word from
+# their own trade, and in two cases OTHER speakers use that trade's vocabulary more
+# than the tradesperson does. The deeper hole is worse: 4 lines out of 1,669 carry
+# both a trade word and a person word, and reading all four, not one is a metaphor.
+# Nobody in this build uses their trade as a way of seeing anything else.
+#
+# THE RULE EVERY LINE BELOW OBEYS: the trade word lands on a NON-TRADE target.
+# A lineman saying "warm cable" about a cable is a technician.
+# A lineman saying a family has been drawing more than the line can carry is a
+# character. Pentiment's model: a background is a PERCEPTION, not a vocabulary.
+# It buys you a line nobody else in the room could have said, about something that
+# is not your job.
+
+### THE DEALER. Source domain: odds, the house, the long run.   draft:true
+# Sees: who is due to lose and does not know it.
+  He's not unlucky. He's just been paid early for something he hasn't done yet.
+  Everybody at this table thinks they're the exception. That's what pays the table.
+  You want the honest version? The house doesn't cheat. It just outlives you.
+  She's still betting the last hand. That's why she keeps losing this one.
+# TECHNICIAN VERSION, do not ship: "The odds on that hand were bad." That is a
+# dealer talking about cards. The four above are a dealer talking about people.
+
+### THE LINEMAN. Source domain: load, draw, what is upstream.   draft:true
+# Sees: who is quietly taking from whom.
+  That family's been drawing more than the line can carry for years. Somebody's
+  been eating the difference and it isn't them.
+  You're not tired. You're carrying two houses on one run.
+  Follow it back. Whatever's dark down here, somebody upstream is warm.
+  He talks a lot for a man with nothing coming in.
+# TECHNICIAN VERSION, do not ship: "That cable's warm, back off it."
+
+### THE LAUNDRY CHIEF. Source domain: what stains, what comes out.   draft:true
+# Sees: what a person did, from what is on them.
+  Blood comes out. Grease never does. Tell me which one you are.
+  She came in clean and went out clean. Nobody in this city is clean twice.
+  Everything comes out if you get to it fast. That's the whole trick and nobody
+  ever does it fast.
+  He's been wearing the same story three weeks. You can smell it.
+# TECHNICIAN VERSION, do not ship: "Cold water for blood, hot sets it."
+
+### THE PIT BOSS. Source domain: the count, the watched room.   draft:true
+# Sees: who is being watched and by whom.
+  Don't look up. Somebody's always paid to be looking at you, and it's never who
+  you think.
+  I counted this room before you sat down. You're the only thing in it that
+  doesn't add up.
+  He's not nervous about me. He's nervous about whoever sent him.
+  Two of them came in together and sat apart. That's the whole thing, right there.
+# TECHNICIAN VERSION, do not ship: "The drop was light tonight."
+
+### THE FITTER. Source domain: pressure, flow, backflow.   draft:true
+# Sees: which way trouble will run when the push stops.
+  Take the push off a family and every place somebody joined on stops being an
+  outlet and turns into an inlet.
+  He's not holding it together. He's just the narrow part.
+  Nothing in this block is broken. It's all running the wrong direction and
+  everybody's calling that normal.
+  Muck doesn't get cleaned out. It gets pushed somewhere quieter.
+# TECHNICIAN VERSION, and this one is already IN the build, which is the point:
+# "A main keeps muck out by pushing, that's all it does." Accurate. Not a person.
+
+### THE MEDIC. Source domain: bleeding, pulse, what closes.   draft:true
+# Sees: how long a thing has left before it goes bad.
+  That's not an argument. That's a wound nobody closed and now you're all standing
+  in it.
+  It's still bleeding. Quiet doesn't mean stopped.
+  Some things you stitch and some things you have to leave open or they go bad
+  underneath. This block is the second kind.
+  He's got a pulse and a plan. One of them's lying.
+# TECHNICIAN VERSION, do not ship: "Pressure on it, hold, count to sixty."
+
+### THE FOUR SILENT TRADES, and what they must say before anything else   draft:true
+# Measured: medic, busker, scav and trader currently say ZERO words from their own
+# world across 140 lines. Before any cross-domain line, each needs its own ground.
+  MEDIC   Sit. Let me see it before you tell me about it.
+  BUSKER  Nobody pays for the song. They pay for the two seconds after it stops.
+  SCAV    Everything worth taking was taken twice. I go for the third pass.
+  TRADER  I don't set the price. I just say it out loud and watch your face.
+# Each is the trade speaking from inside the trade, which is the floor, not the
+# ceiling. The cross-domain lines above are the ceiling.
+
+### THE BAN, carried forward from Q1 unchanged   draft:true
+# A source domain is also a set of things a person would NEVER reach for.
+# The medic does not describe a building in money.
+# The dealer does not describe a person in weather.
+# The lineman does not describe a debt in blood.
+# Cross-contamination reads as a writer with a metaphor list, not a person with
+# a past. One domain per mouth, for the whole game.
