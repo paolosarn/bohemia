@@ -1,3 +1,56 @@
+WORDS (words-8dqrnq): 9/4 (c) LATEST -- *** VAMILY Q3 [crowd talk]. OUR DIRECTOR CANNOT
+REPEAT ITSELF, AND THAT IS THE BUG. *** MODE: RESEARCH, nothing implemented.
+TAB: NOT IN A TAB YET (research day). Nothing to judge.
+
+THE FINDING THAT PROVES US WRONG. eligible() in the roadside director holds one line,
+`if (state.fired[tok.id]) return false;`, and repeatAfterS defaults to null because the
+code's own comment says the repeat interval is NOT RULED. Strictest possible reading,
+honestly chosen, with a consequence nobody wrote down: A TOKEN FIRES AT MOST ONCE PER
+SESSION AND IS THEN GONE. The third repeat is impossible and so is the SECOND. 12 tokens
+x 90s minimum gap = EIGHTEEN MINUTES OF WALKING before the valley has permanently run out.
+A shuffle bag draws without replacement AND THEN REFILLS. We built the first half.
+
+AND THE APPROVED PACING IS UNREACHABLE BY CONSTRUCTION. The roster is 3 ambient, 5
+interactive, 4 forced = 25/42/33, against a MIX asking for 70/20/10. Because tokens are
+single-use that is not a rate, it is a HARD CEILING OF THREE AMBIENT MOMENTS PER SESSION.
+After the coyote, the dog pack and the rattlesnake have each fired once, the director goes
+on picking "ambient" as the neediest kind and finds nothing eligible, all night.
+
+THE SPOKEN CROWD IS THE SAME SHAPE ONE LAYER DOWN: 558 barks, 534 distinct, across 152
+speaker pools. MEDIAN POOL IS 3 LINES. 90 of 152 pools hold three or fewer. Pass somebody
+a fourth time and you have heard everything they own.
+
+THE ARITHMETIC THAT ANSWERS "HOW MANY LINES": in a shuffle bag of N nothing repeats a third
+time before draw 2N+1. At one moment every 90s a two-hour walk is 80 moments, so never
+hearing anything three times needs N >= 40. We have 3 ambient and a median pool of 3.
+
+BOTH ANGLES. Valve (Ruskin, GDC 2012): hundreds of world facts fuzzy-matched against
+thousands of lines, MOST SPECIFIC RULE WINS -- specificity is the anti-repeat, not counting.
+And the arrow-to-the-knee case: Skyrim's line was written to be rare and its CONDITION went
+live for nearly every player, so a throwaway became the most-heard sentence in the game.
+Their gate was too common; ours is too permanent. Both are unmeasured assumptions about how
+often a condition opens.
+
+RECORD: records/BOHEMIA_WORDS_Q3_HOW_A_CROWD_TALKS_9_4_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- one keeper crossed with hour, circuit owner
+and what you are known for, showing that a condition buys a night where a fourth line buys
+one pass. All draft:true, NONE in the game.
+VAMILY: Q3 SHIPPED. Next open is Q4 [beat speech].
+
+ROUTED OUT OF THIS DAY:
+ - WORLD / RUN  REFILL-THE-BAG: the roster is single-use and the valley goes quiet after
+   twelve moments. Their file, not mine.
+ - WORLD / RUN  COUNT-THE-CONDITIONS: simulate how often each token's gate opens before
+   adding any content. One simulation, and it insures against both failure modes.
+ - PEOPLE  90 of 152 bark pools hold three lines or fewer.
+ - QUESTS  a 3/5/4 roster cannot deliver a 70/20/10 pacing package.
+
+[PENDING Paolo] THE REPEAT INTERVAL. The director deliberately refused to invent one and I
+am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
+anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
+
+WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
+
 ECONOMY (economy-knxaeh): 9/5 LATEST -- *** THE ECONOMY LANE IS OPEN AND ITS
 FIRST DAY MEASURED SOMETHING NOBODY HAD RUN: OUR VALLEY STARVES ON DAY 10 AND
 EVERY PRICE IN THE GAME IS A CONSTANT FROM ABOUT WEEK NINE UNTIL THE END OF A
