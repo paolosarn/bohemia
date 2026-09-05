@@ -163,7 +163,7 @@ STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, war
 ## PEOPLE  (09.)
 MODE: BUILD
 STATE: talking on foot with nine verbs, a real witness memory, schedules and homes, 12 encounters firing on foot. NOT built: the player as a node in standing, the conversation chain in the demo file (236 nodes mute), outfits near spawn, any family event. Unverified: whether the talking portrait reaches a live NPC card.
-- OPEN  [your reputation]  BB-STANDING-PLAYER
+- CLAIMED 9/5 people-7h9sfy  [your reputation]  BB-STANDING-PLAYER
 - OPEN  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
 - OPEN  [outfits nearby]  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one
 - OPEN  [former jobs]  BB-WHAT-YOU-WERE
