@@ -1082,6 +1082,71 @@ CHARACTER'S OWN NOTES ON RUNNING IT
 
 --- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
 
+ROUND 5, 9/5 LATEST -- *** WE ALREADY BUILT THE AGEING EQUATION AND POINTED IT AT
+MEMORIES INSTEAD OF BODIES. [growing old] Q5 SHIPPED. RESEARCH ONLY, NOTHING
+BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_5_GROWING_OLD_ON_SCREEN_9_5_26.md
+  banks/BOHEMIA_GROWING_OLD_THE_CROSSOVER_DRAFT_9_5_26.txt  (draft:true)
+
+AGEING IS A CROSSOVER, NOT A SLOPE. What falls: reaction time peaks in the
+early-to-mid twenties and is 20 to 30 percent slower by sixty; muscle goes 3 to 5
+percent a decade from thirty; grip peaks in the early thirties. What does NOT
+fall, and this is the half the genre ignores: anticipation, decision-making and
+pattern recognition RESIST age and keep growing with experience, and expert older
+performers beat younger novices at reading their own domain. THE NUMBER THAT
+FALLS IS SPEED. THE NUMBER THAT RISES IS KNOWING WHAT HAPPENS NEXT.
+AN OLD FIGHTER DOES NOT GET WEAKER. HE GETS FEWER CHANCES AND HE STOPS NEEDING AS
+MANY. On a 120 BPM game that is directly expressible with no number he has not
+ruled: fewer inputs inside the bar, and a better read of which beat matters.
+The one cost with NO compensation is HEALING (two weeks becomes three or four),
+and it is time rather than power, so it needs no damage number.
+
+MEASURED, AND BOUNDED PROPERLY THIS TIME BECAUSE ROUND 2 COST ME A CONFIDENT
+NEGATIVE: a person's age takes EXACTLY TWO VALUES in the whole engine, age:'child'
+and age:'adult' in story_surface, used only to pick which sprite to paint in a
+cutscene. CONTROL 1: the same search returns age:'industrial' three times, which
+is a BUILDING STYLE. CONTROL 2: the decoded fight has 39 raw hits for
+age/old/young/elder and every one is hold, holds, gold, bold, damage, wager, two
+elapsed-time variables, or one game title inside a comment, so there is NO age in
+the fight at all. And EVERYWHERE ELSE in this engine `age` means ELAPSED TIME:
+days a claim is overdue, turns since a sighting, turns since a deed.
+
+*** THE FINDING. bohemia_memory.js already runs clarity = 0.5^(age/halflife) with
+halflife = BASE * (1 + log2(1 + familiarity)), commented "familiarity slows the
+fog". THAT IS THE AGEING CURVE, EXACTLY: something decays with time, and
+experience extends the halflife with diminishing returns. We own the mathematics
+of growing old and it is running on what the city remembers about you instead of
+on what your body can do. ***
+THIRD TIME THIS LANE HAS FOUND THAT SHAPE. Round 1: material exists and never
+reaches the player. Round 2: both halves of the coyote's life shipped as unrelated
+tiers. Round 5: the ageing curve itself, aimed at the wrong noun. THE PATTERN IS
+NOT THAT WE ARE MISSING THINGS, IT IS THAT WE BUILD THE RIGHT MECHANISM AND
+ATTACH IT TO THE WRONG SUBJECT.
+
+AND SAY THE GOOD PART: bohemia_standing.js already ages across generations in the
+right direction, written before anybody asked. "Thirty years pass. EVERY PERSON
+WHO WATCHED YOU DO ANYTHING IS DEAD... A QUIET GOOD DEED DIES WITH THE WITNESS. A
+NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR." That is round 3's "the
+name outlasts the money" reached independently from anthropology, already built.
+
+A PRIOR REFUSAL I AM NOT OVERTURNING: bohemia_people.js says "NO CALENDAR YEAR IS
+ASSUMED -- the game has never locked one, and a cohort-by-birth-year generator
+would be inventing canon to do arithmetic on." That lane was right. Any ageing we
+do must run on BEATS, not dates, the way memory already does.
+
+ROUTED (proposals only): COMBAT THE-OLD-HAND (fewer inputs inside the bar, earlier
+read of the tell; no damage number; the only row here that touches play). WORLD
+THE-FOLD-CARRIES-THE-WRONG-THINGS gains a small third item, a tree node has no
+born and no died and can have them WITHOUT a calendar by storing beats. PEOPLE:
+NOTHING NEW, and saying so is the finding. Inside this lane: Q6 [time skip]
+inherits the crossover directly; Q11 [lasting death] inherits healing.
+
+[PENDING Paolo] Nothing blocking. Seven questions still OPEN, none needs a ruling
+to start. Where the curves cross, whether anybody ages inside a generation or
+only between them, how long a wound takes, and every name are his.
+
+NEXT FOR THIS LANE: the first line marked OPEN, which is Q6 [time skip].
+
 ROUND 4, 9/5 LATEST -- *** OUR THIRD GENERATION CANNOT GET WORSE, AND THE ROW'S
 OWN PREMISE IS FOLKLORE. [third generation] Q4 SHIPPED. RESEARCH ONLY, NOTHING
 BUILT. NOT IN A TAB. ***

@@ -1,0 +1,88 @@
+BOHEMIA -- GROWING OLD: THE CROSSOVER
+BANK, 9/5/26, DYNASTY lane, Q5 [growing old]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. NO DAMAGE, HEALTH OR ARMOUR NUMBER
+APPEARS ANYWHERE, and no age in years appears anywhere either, because the
+PEOPLE lane already ruled that this game locks no calendar year.
+Record: records/BOHEMIA_DYNASTY_DAY_5_GROWING_OLD_ON_SCREEN_9_5_26.md
+
+WHY THIS SHAPE
+Ageing measured is two curves crossing, not one slope. Reaction time peaks in the
+early-to-mid twenties and is about 20 to 30 percent slower by sixty; muscle goes
+3 to 5 percent a decade from thirty; grip peaks in the early thirties. But
+anticipation and pattern recognition RESIST age and keep growing with experience,
+and expert older performers beat younger novices at reading their own domain. The
+one cost with no compensation at all is HEALING: a cut that closed in two weeks
+takes three or four.
+AN OLD FIGHTER DOES NOT GET WEAKER. HE GETS FEWER CHANCES AND HE STOPS NEEDING AS
+MANY.
+And we already own the equation: bohemia_memory.js runs
+clarity = 0.5^(age/halflife) with halflife growing as log2 of familiarity,
+commented "familiarity slows the fog". That is the ageing curve. It is pointed at
+what the city remembers instead of at what a body can do.
+
+---- THE CROSSOVER, AS A SHAPE ONLY ------------------------------------ draft:true
+Structure is ours. Where the curves cross, and every value, is HIS.
+
+  FALLS      how many times you can act inside one bar
+  FALLS      how fast a wound closes
+  HOLDS      how hard you hit. NOT a decline. we do not touch damage.
+  RISES      how early you see the tell
+  RISES      how often you are already standing in the right place
+
+---- WHAT THE YOUNG BODY GETS ------------------------------------------ draft:true
+  YOU GET THERE FIRST.
+  YOU CAN GO AGAIN.
+  YOU DID NOT SEE THAT COMING.
+  IT CLOSED UP OVERNIGHT.
+
+---- WHAT THE OLD BODY GETS -------------------------------------------- draft:true
+  YOU KNEW BEFORE HE MOVED.
+  YOU WERE ALREADY STANDING HERE.
+  ONE. MAKE IT THE RIGHT ONE.
+  YOU HAVE SEEN THIS EXACT THING.
+  HE IS GOING TO SWING WIDE. HE ALWAYS DOES.
+  THAT IS NOT CLOSING THIS WEEK.
+
+---- THE BEAT, BECAUSE EVERYTHING HERE IS 120 BPM ---------------------- draft:true
+(fewer inputs inside the bar, and a better read of the bar. no numbers.)
+  YOUNG: more chances, worse choices
+  OLD:   fewer chances, and you know which beat is the one
+  THE TELL ARRIVES EARLIER FOR YOU THAN IT USED TO.
+  YOU CANNOT TAKE BOTH OF THEM. PICK.
+
+---- HEALING, THE ONE COST WITH NO COMPENSATION ------------------------ draft:true
+(time, never power. composes with round 4's finding that a wound is written and
+never read.)
+  THIS ONE IS GOING TO TAKE A WHILE.
+  IT OPENED AGAIN.
+  IT NEVER REALLY CLOSED.
+  YOU WILL FEEL THIS ONE WHEN IT IS COLD.
+  THE OLD ONE HURTS BEFORE THE NEW ONE DOES.
+
+---- WHAT OTHER PEOPLE SEE ---------------------------------------------- draft:true
+  HE IS NOT WHO HE WAS.
+  HE DOES NOT HAVE TO BE.
+  THEY STOPPED TESTING HIM YEARS AGO.
+  THE YOUNG ONES DO NOT KNOW WHAT HE DID.
+  SOMEBODY HERE STILL DOES.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No new portrait plus a stat penalty. That is exactly the thing the job says not
+to do, and it is a subtraction the player cannot answer.
+No age in years. No birth years. No calendar. The PEOPLE lane already refused a
+cohort-by-birth-year generator because it would be inventing canon to do
+arithmetic on, and that refusal was right.
+No wisdom stat. Knowing what happens next is a READ, not a roll: the old
+character sees the tell sooner, never rolls higher.
+No damage, health or armour number of any kind.
+No single ageing curve across all three generations. Gen 1 is short on purpose
+and a coyote's danger is a vacancy and a car, not a slow decline. One curve for
+three lives is the generation-blind mistake round 1 already found in the fold.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Where the curves cross and how sharply. Whether anybody ages inside a generation
+at all or only between them. How long a wound takes. What the old one is called,
+and who is still alive to remember him.
