@@ -21,7 +21,17 @@
  */
 const path = require('path');
 const fs = require('fs');
-const { chromium } = require('playwright');
+/* PLAYWRIGHT LIVES WHERE IT LIVES. The suite runs gates with no NODE_PATH, so a
+   bare require('playwright') is an instant red that has nothing to do with the
+   thing being measured. Same loader the browser gates use. */
+function pw() {
+  for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules',
+    '/usr/local/lib/node_modules']) {
+    try { return require(require('path').join(g, 'playwright')); } catch (e) { }
+  }
+  return require('playwright');
+}
+const { chromium } = pw();
 
 const args = process.argv.slice(2);
 function arg(name, dflt){ const i = args.indexOf(name); return i >= 0 ? args[i+1] : dflt; }

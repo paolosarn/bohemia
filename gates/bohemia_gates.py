@@ -1457,6 +1457,20 @@ GATES = [
      "bar and no builder's drawer for a stranger to tap REROLL in -- and his "
      "bench still has all sixteen of its tabs, because taking the workshop away "
      "to make a demo would trade one mistake for a worse one", True),
+    ('EYES', ['node', 'gates/eyes_gate.js'],
+     "EYES AND EARS lane 17, 9/5: THE PLAYER'S SCREEN IS MEASURED, NOT EYEBALLED. "
+     "This lane's round-one headline -- 'the demo's SLEEP button runs off the bottom "
+     "of an iPhone' -- was FALSE: the chip sits twelve pixels clear of the glass, and "
+     "dark-on-dark above a black band was read as clipping. Four questions with no "
+     "golden image and no noise floor, on both surfaces, at 390x844: the front door "
+     "opens onto a live canvas; nothing hangs below or right of the phone's edge IN THE "
+     "PHONE'S COORDINATES (the game is in an iframe, and the frame's own bottom is not "
+     "the glass); no text is wider than its box; nothing threw. Plus the check that "
+     "makes the other four worth reading: a copy of the demo with one control parked "
+     "80px below the phone is probed every run, and a green that misses it fails the "
+     "gate. NOT a pixel diff, on purpose -- two identical runs of the screenshot pass "
+     "disagree on 12 of 27 screens with nothing changed (the character bench by 5.95%), "
+     "and a checker that cries wolf gets muted", True),
     ('FRESH DOORS',    ['python3', 'gates/doors_fresh_gate.py'],
      "he killed all ten doors on 7/30 (metal 3-12, wood 0-5) and named DOORS in "
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "

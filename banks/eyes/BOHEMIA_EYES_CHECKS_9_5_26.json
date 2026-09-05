@@ -1,0 +1,98 @@
+{
+ "bank": "EYES AND EARS -- THE CHECKS, ROUND 1",
+ "date": "9/5/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. Every line is a check this lane could run on a screenshot or on the live page. RED means it can be a suite gate today (no baseline, no noise floor, no taste). REPORT means it is a number for the lane's own round, never a light that stops the fleet. HUMAN means only a person can answer it and the machine's job is only to put the right picture in front of them.",
+ "checks": [
+  {
+   "id": "E-01",
+   "draft": true,
+   "verdict": "RED",
+   "live": true,
+   "what": "the front door opens onto a live canvas",
+   "how": "tap #front, then look for a canvas over 200x400 in any frame",
+   "catches": "a black rectangle reported as a working game, the classic false success"
+  },
+  {
+   "id": "E-02",
+   "draft": true,
+   "verdict": "RED",
+   "live": true,
+   "what": "nothing hangs off the glass",
+   "how": "every visible leaf element's rect PLUS its frame's offset, against 390x844, skipping anything a scroll can reach",
+   "catches": "a control a thumb cannot reach on the phone the game is built for"
+  },
+  {
+   "id": "E-03",
+   "draft": true,
+   "verdict": "RED",
+   "live": true,
+   "what": "no text is wider than its own box",
+   "how": "scrollWidth > clientWidth on any element whose overflow is not scrollable",
+   "catches": "a button that loses its last word; a caption cut at the right edge (found 2 real ones on 9/5)"
+  },
+  {
+   "id": "E-04",
+   "draft": true,
+   "verdict": "RED",
+   "live": true,
+   "what": "nothing threw",
+   "how": "pageerror on both surfaces",
+   "catches": "a screen that renders because the failure was swallowed"
+  },
+  {
+   "id": "E-05",
+   "draft": true,
+   "verdict": "RED",
+   "live": true,
+   "what": "and the checker still bites",
+   "how": "probe a copy of the demo with one control parked 80px below the phone, every run",
+   "catches": "a green from a blind instrument, which this lane produced TWICE in its first afternoon"
+  },
+  {
+   "id": "E-06",
+   "draft": true,
+   "verdict": "REPORT",
+   "live": false,
+   "what": "what moved since the last ship",
+   "how": "global moved-pixel share AND worst 64px block, per screen, against the last shipped picture, each screen judged against its own measured noise floor",
+   "catches": "the screens worth a human's eyes this round, and nothing else"
+  },
+  {
+   "id": "E-07",
+   "draft": true,
+   "verdict": "REPORT",
+   "live": false,
+   "what": "a screen that did not change when it should have",
+   "how": "a screen whose lane shipped this round but whose picture moved 0.00%",
+   "catches": "a ship that never reached the surface, which is how the link stopped being true on 8/6"
+  },
+  {
+   "id": "E-08",
+   "draft": true,
+   "verdict": "REPORT",
+   "live": false,
+   "what": "the world is a photograph",
+   "how": "two frames N seconds apart with no input; 0.00% means nothing in the valley moves",
+   "catches": "'the city seems dead asf', with a number instead of a feeling"
+  },
+  {
+   "id": "E-09",
+   "draft": true,
+   "verdict": "HUMAN",
+   "live": false,
+   "what": "does this art belong to this world",
+   "how": "put the cook and its reference side by side; the machine cannot answer it",
+   "catches": "the opening scene being built out of another game's furniture"
+  },
+  {
+   "id": "E-10",
+   "draft": true,
+   "verdict": "HUMAN",
+   "live": false,
+   "what": "is this the same game two taps apart",
+   "how": "one logo against another, one panel style against another",
+   "catches": "two BOHEMIA wordmarks, gold and hot pink, one screen apart"
+  }
+ ]
+}

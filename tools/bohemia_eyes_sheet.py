@@ -43,7 +43,7 @@ NOTES = {
  'alpha-19-art.png': "Dated 8/5. The right-hand picture sits in its frame with a black band under it, and there is no label saying which one is before and which is after.",
  'alpha-99-back-on-the-game.png': "After opening all eighteen tabs and coming back, the same two cards are still up. 1.66% of the picture changed in four minutes, and the change was somebody talking.",
  'demo-00-splash.png': "Also fixed while I was looking: the demo saved in the repo used to be a build behind the workshop, and a re-cut caught it up. Both say 9/5k now.",
- 'demo-01-after-the-tap.png': "THE WORST ONE. On an iPhone, SLEEP and the bottom arrow of the ring are cut off by the bottom of the glass. The demo's own controls run off the screen.",
+ 'demo-01-after-the-tap.png': "I CALLED THIS WRONG. I said SLEEP and the bottom arrow were cut off by the bottom of the phone. I measured it properly afterwards: SLEEP sits 12 pixels ABOVE the edge and nothing is cut. The chips are dark on dark above a black band, and I read that as clipping instead of measuring it.",
  'demo-02-t15s.png': "Fifteen seconds in, the only thing that has moved on the whole screen is the music button: it grew to fit the song title and shoved OUTFIT off the right edge.",
  'demo-03-t21s.png': "Six seconds later the toolbar gives up and breaks onto two rows, and everything under it jumps down about a centimetre on its own, with nobody touching anything.",
  'demo-04-t29s.png': "Nothing. The same picture as eight seconds ago.",
@@ -90,19 +90,26 @@ def build():
       'What the game should LOOK like is not my call, and I have not touched a pixel.</p>'
       '<p><b>This round is EYES ONLY.</b> I have no way to hear the game yet. That instrument '
       'is the next job in my queue.</p></div>')
+    parts.append('<div class="box"><h2>ONE I GOT WRONG, FIRST</h2>'
+      '<p>My loudest finding was that the demo\'s SLEEP button and the bottom arrow run off the '
+      'bottom of an iPhone. <b>That was wrong.</b> I measured it properly afterwards: SLEEP sits '
+      'twelve pixels above the edge and nothing is cut, in the demo or the workshop.</p>'
+      '<p>The chips are dark on dark above a black band and I read that as clipping instead of '
+      'measuring it. A checker that cries wolf is worse than no checker, so it is at the top of '
+      'this page and not buried.</p></div>')
     parts.append('<div class="box"><h2>THE SIX THAT MATTER</h2><ol>'
-      '<li><b>The demo runs off the bottom of an iPhone.</b> SLEEP and the bottom arrow are cut '
-      'by the edge of the glass. That is the build you hand a friend.</li>'
-      '<li><b>The opening scene is art from another game.</b> Shiny floor, fancy chairs, a bright '
-      'green cake. It is the first thing anybody sees.</li>'
+      '<li><b>The opening scene is art from another kind of game.</b> Shiny floor, fancy chairs, a '
+      'bright green cake, a seam down the middle of the table. It is the first thing anybody sees.</li>'
       '<li><b>There are two BOHEMIA logos.</b> The gold one on the front door and a white one '
-      'struck through in hot pink on the fight screen.</li>'
+      'struck through in hot pink on the fight screen, two taps apart.</li>'
       '<li><b>Standing still, the game is a photograph.</b> Two frames eighteen seconds apart are '
       'the same file, pixel for pixel. Nothing moves.</li>'
       '<li><b>The first screen asks you for two things at once</b> and a third person talks '
-      'underneath them.</li>'
+      'underneath them from behind the card.</li>'
       '<li><b>Every bench judges your art on the wrong colour.</b> The character and clothes stages are '
       'a cool blue-grey; the game itself is warm black. You cannot judge a colour on the wrong ground.</li>'
+      '<li><b>The map pastes the same block eight times</b> straight down one column, with black '
+      'holes between the districts.</li>'
       '</ol></div>')
     for run in data:
         parts.append('<div class="hr"></div>')

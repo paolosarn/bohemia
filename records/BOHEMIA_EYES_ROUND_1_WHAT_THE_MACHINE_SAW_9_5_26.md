@@ -80,9 +80,18 @@ opens on his phone from the same site as the game). The pictures are in
 
 ## WHAT LOOKS WRONG. SIX THAT MATTER FIRST.
 
-1. **THE DEMO'S CONTROLS RUN OFF THE BOTTOM OF AN IPHONE.** `demo-01-after-the-tap`:
-   SLEEP and the bottom arrow of the movement ring are cut by the bottom edge of the
-   glass at 390x844. This is the build handed to a stranger. Demo-critical.
+1. ~~**THE DEMO'S CONTROLS RUN OFF THE BOTTOM OF AN IPHONE.**~~ **WITHDRAWN 9/5, AND IT
+   WAS THIS ROUND'S LOUDEST CLAIM. IT IS FALSE.** Measured with the E3 probe an hour
+   later, in both surfaces, in parent coordinates: the demo's game frame is top 0 height
+   844 (the whole glass) and SLEEP's box is 788-832, **twelve pixels clear of the edge**;
+   the workshop's frame is top 42 height 802 and SLEEP lands at 801-832 in the phone's
+   own coordinates, also clear. The ring's bottom arrow is complete in both. Brightening
+   the same screenshot 3x shows the chip's cut corner fully drawn above a black band.
+   **What happened:** dark chips on a dark ground above a black letterbox, read at page
+   scale, called clipped without measuring. A checker that cries wolf is worse than no
+   checker, so this stays at the top of the list rather than being deleted, and it is the
+   first thing on the page he opens. What replaced it as the sixth finding is the map's
+   repetition (below).
 2. **THE OPENING SCENE IS ART FROM ANOTHER KIND OF GAME.** `alpha-07-cutscene`: a
    glossy stone floor with heavy grout, ornate wooden chairs, a plated steak, a bright
    green cake; a visible seam straight down the middle of the table; the same crack
@@ -98,7 +107,9 @@ opens on his phone from the same site as the game). The pictures are in
 5. **THE FIRST SCREEN ASKS FOR TWO THINGS AT ONCE.** The WATCH offer and the GET UP
    card are both up, with a bark underneath both, and the bark's speaker is hidden
    behind the card, so a voice comes out of nothing.
-6. **EVERY BENCH JUDGES ART ON THE WRONG COLOUR.** The character and clothes stages are
+6. **THE MAP PASTES THE SAME BLOCK EIGHT TIMES** straight down one column, with black
+   voids between districts that read as missing tiles rather than empty desert.
+7. **EVERY BENCH JUDGES ART ON THE WRONG COLOUR.** The character and clothes stages are
    rgb(52,50,65), a cool blue-violet grey; the game's own ground is rgb(10,9,8), warm
    black. Colour is judged relative to what surrounds it, so a wardrobe approved on a
    cool stage is approved against a background the game never shows.
