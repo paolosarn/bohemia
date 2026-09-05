@@ -1473,6 +1473,19 @@ rarely as one mega-session.
   (no CURRENT_SLICE link, no per-feature page) as "the build." Parallel work folds
   into the alpha (e.g. the SLICE tab) — the surface Paolo taps is always the alpha.
 
+## THE VAMILY WORD (Paolo 9/4/26, LOCKED)
+"Make the key word vamily for all of the jobs u assign to it ever in the
+history itll search if it has a job assigned for its role." **VAMILY** is the
+one word. He types it in any chat; the chat finds its role's section in
+`VAMILY.md` at repo root, takes the first job marked OPEN, marks it CLAIMED and
+commits before building, marks it SHIPPED and commits when it is in the walked
+surface AND the demo. A chat with no role takes the top of THE ORDER in that
+file. Only the coordinator adds jobs there; lanes change the status word and
+nothing else; the job's full text is its named row in BOHEMIA_BACKLOG.md. The
+SHIPPED lines are the history. Every job is 120 BPM friendly or it is not done,
+and not shipped until the demo is re-cut. Law:
+laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md
+
 ## THE HANDOFF FILE
 `00_START_HERE_NEXT_SESSION.md` at repo root: read it immediately after this
 file, every session. It is the live state: where we are, what is in flight,

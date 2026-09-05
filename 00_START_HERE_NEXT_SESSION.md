@@ -703,7 +703,21 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ac) LATEST -- *** THREE RULINGS IN ONE
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ad) LATEST -- *** THE WORD IS VAMILY.
+ONE FILE, VAMILY.md, IS THE ASSIGNMENT LEDGER AND THE HISTORY. Nothing to judge. ***
+Paolo 9/4: "Make the key word vamily for all of the jobs u assign to it ever in
+the history itll search if it has a job assigned for its role." LOCKED. Law:
+laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md. He types VAMILY in any chat; the
+chat reads its lane's section in VAMILY.md, takes the first OPEN job, marks it
+CLAIMED (commit), builds, marks it SHIPPED (commit) when it is in the walked
+surface and the demo. A chat with no role takes the top of THE ORDER there. Only
+the coordinator adds jobs; lanes change the status word only. Every lane banner
+in the backlog now says the word. Gate row: SHARED VAMILY-GATE.
+HIS OTHER QUESTION, "do we have new chats to make?": NO NEW ROLES. Every job goes
+to a role that exists -- world, sound, combat, run, quests, people, ui, words.
+The only role with jobs and no handoff block on record is QUESTS.
+
+COORDINATOR: 9/4 (ac) -- *** THREE RULINGS IN ONE
 MESSAGE, RECORDED AS LAW: BATTERIES ARE THE MONEY, ONE WORD STARTS A CHAT AND IT
 LANDS IN THE BETA, AND A COMBAT TILE IS A HOUSE. Nothing to judge. ***
 laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md
