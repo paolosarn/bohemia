@@ -4,6 +4,39 @@ judge. ***
 
 TAB: RUN. Build 9/5a - WHO WOULD VOUCH FOR YOU.
 Walk, let people see you, open the standing panel: under WHO HAS LAID EYES ON
+--- 9/5 (b), SAME SESSION: [gate red] PEOPLE-GATE-RED. 148/10 -> 158/0, ONE CAUSE,
+AND IT WAS MINE. ---
+
+The coordinator put PEOPLE-GATE-RED at the top of this lane's queue: "his bugs
+beat your queue: fix or explain the ten before taking anything else." Ten
+failures in two clusters -- seven about ASKING somebody's name (C11, C23, C24,
+C25, C27, C27a, C34) and three about the size of the starting neighbourhood (H1,
+H3, H4).
+
+*** ONE ROOT CAUSE, AND THIS LANE PUT IT THERE ON 8/28. *** The starting block
+holds EXACTLY FOUR FAMILIES because he asked for it -- twice -- and the code says
+so in its own comment ("A RATE cannot say four"). That count was scaled against
+the LITERAL dial, so "four families at dial 1" was only ever true WHILE THE
+DEFAULT WAS 1. On 8/28 the ALIVE-1 row moved the default to LANDMARK.story, for
+a good measured reason (his design document says ~69,000 and the game shipped
+4,194), and his own street quietly went to EIGHTEEN households and FORTY-SEVEN
+people. The seven naming failures fell out of the same thing: with eighteen
+families the asking flow met a different person.
+
+A DEFAULT IS NOT A NEUTRAL NUMBER. Anything measured against 1 breaks the day 1
+stops being the default, and nothing here said so out loud. The named count is
+now scaled against THE DEFAULT rather than against 1: four families at whatever
+the shipped default is, none at 0, eight at twice it. BOTH of his rulings survive
+-- "four families in my starting neighborhood" and "the slider can go all the way
+from ZERO to a maximum" -- and it stays true whatever the default becomes next.
+
+Fixed in engine/bohemia_agents.js, the canonical body, then re-inlined into all
+four carriers that hold a copy (ENGINE SYNC).
+
+  gates/people_gate.js   148 passed / 10 failed  ->  158 passed / 0 failed
+  and the rest of the lane still green on the same tree: ALIVE 16/0, WHO VOUCHES
+  19/0, PACK 47/0, WALK ENCOUNTER 15/0, CITY MEMORY 34/0.
+
 YOU there is now WHO WOULD VOUCH FOR YOU.
 
 THE ROW: BB-STANDING-PLAYER, in its own words -- "it is A WEB, NOT A BAR. A job
