@@ -247,3 +247,87 @@ question he has not been asked.
 - **UI-12 for CITY** — the drawn triangle was already there and correct; what was
   open was the leftover glyph, now fixed demo-side and gated. Filed for the city lane.
 - `gates/thumb_gate.js` is 11 claims now, mutation-proved five ways.
+
+---
+---
+
+# PART THREE: "FAMILY", AND THE DOOR TO IT WAS TOO SMALL TO HIT
+### and the gate I wrote yesterday had the exact hole its own header warns about
+
+Paolo, one word: **"VAMILY"** — voice-to-text for **FAMILY**. Never take a garbled
+word literally; decipher the intent. Family is not a passing note in this project,
+it is the LOCKED core theme (7/19): *"STRONG FAMILY CAN CONQUER ALL. NOBODY IS
+ANYTHING WITHOUT FAMILY ... you do not play a hero, you play a FAMILY across three
+generations."* The whole final choice is true family against the Amalgamation's
+counterfeit one.
+
+So: **where does family actually reach the player?**
+
+## 11. THREE DEAD ENDS FIRST, AND SAYING SO
+
+- **There is no family tab.** Nineteen `data-p` panels in the alpha, none of them family.
+- **`familyOf()` in the city is not about kin at all.** It appears ten times and it is
+  the *suburb family* from the LANDLOCKED DISTRICT LAW — which districts count as the
+  same family for a road relay. A promising name for the wrong thing.
+- **A runtime probe found no family globals and no people list.** That proves nothing:
+  the city keeps them inside module closures. *Saying where I looked, because a
+  confident negative is the most expensive kind of wrong.*
+
+## 12. WHERE IT DOES REACH THE PLAYER, AND IT IS GOOD
+
+The cold open. **DAY 1 BEGINS BEFORE THE DAY / The family, the table, ten years ago.**
+Pressed WATCH and followed it for thirty seconds:
+
+    DENISE   Sit down, both of you. It's getting cold.
+    NINA     I'm not eating the green ones.
+    DENISE   NINA. Green ones too. We do this every night.
+    RAY      They're saying the water district's hiring again. I'll go down Monday.
+    MARCO    Can I take the truck Saturday? I'll put gas in it, I swear.
+
+Five people at a table, warm light through the shutters, food on it. The speaker's
+portrait was **visible in 40 of 60 samples and had real pixels painted in 47 of 60** —
+the 8/27 talking portrait is working here. **This is the best thing in the demo.**
+
+*A thing I nearly reported and did not:* my probe read the caption as
+`"DENISESit down, both of you"` and it looked like the speaker name was jammed into
+the line. It is not. The markup is `<span>DENISE</span><br>Sit down…` — a proper
+break. `textContent` concatenates children; **the probe was jamming it, not the game.**
+Checked the markup and a screenshot before saying a word.
+
+## 13. THE FINDING: THE DOOR TO IT IS 57% OF A THUMB
+
+That scene has two buttons — **WATCH** and **NOT NOW**. Measured on the demo at
+390x844:
+
+    openWatch   79 x 25
+    openNot     79 x 25
+
+**25 pixels tall against a 44px minimum.** They are the **first two buttons anybody
+ever touches in this game**, and WATCH is the only door to the one scene that carries
+the game's core theme. A stranger who fumbles that tap gets the city and never meets
+the family at all.
+
+Fixed demo-side, height only — the width is left alone because these sit in a flex row
+inside a 390px overlay and stretching them is a layout change in another lane's scene.
+The workshop keeps its 25px and the row is filed.
+
+## 14. AND MY OWN GATE HAD THE HOLE ITS HEADER WARNS ABOUT
+
+`thumb_gate` was written yesterday. Its header says, in its own words, that scoping to
+the demo is *"a scope, not an exemption — an exemption written for yourself and stated
+as a principle is how a 23% sat under a green gate all morning."*
+
+**It swept the city frame only.** The opening overlay lives in the OUTER document, so
+the first two buttons of the entire game were never measured, and the gate was green
+the whole time. That is an exemption written for myself and stated as a scope,
+committed by the author of that header, **one turn after writing it.**
+
+The gate sweeps every document now: the opening overlay and the city, 21 controls
+instead of 14, plus a leg that fails if it ever stops looking at the overlay. **12
+claims, mutation-proved six ways** — the newest one shrinks the cold open buttons back
+to 25px and the gate goes red naming both of them.
+
+**THE LESSON, and it is not about buttons:** a gate that picks which surface to measure
+will pick the one it is comfortable with. *State the scope, then check that the scope
+still contains the thing that matters.* Writing the warning down is not the same as
+obeying it.

@@ -159,10 +159,19 @@ function serve() {
   const city = p.frames().find(x => /CITY_WORLD/.test(x.url()));
   if (!city) { ok('the city loaded in the demo', false); await b.close(); srv.close(); done(); }
 
-  const ctrls = await city.evaluate(() => {
+  /* *** SWEEP EVERY DOCUMENT, NOT JUST THE CITY. *** The first cut of this gate
+     measured the city frame only, and the demo's opening overlay -- DAY 1 BEGINS
+     BEFORE THE DAY, with WATCH and NOT NOW -- lives in the OUTER document. So THE
+     FIRST TWO BUTTONS ANYBODY EVER TOUCHES IN THIS GAME went unmeasured, and both
+     were 79x25: 57% of the minimum, on the door to the family scene. That is an
+     exemption written for myself and stated as a scope, which is exactly what this
+     gate's own header warns against, committed by the header's own author one turn
+     after writing it. A gate that picks the surface it is comfortable measuring is
+     a gate with a number in it, not a rule. */
+  const sweepDoc = () => {
     const out = [];
     const all = new Set([...(window.__tapNodes || [])]);
-    for (const n of document.querySelectorAll('button,[onclick]')) all.add(n);
+    for (const n of document.querySelectorAll('button,[onclick],[role=button]')) all.add(n);
     for (const n of all) {
       if (!n.isConnected) continue;
       const r = n.getBoundingClientRect(), s = getComputedStyle(n);
@@ -176,15 +185,22 @@ function serve() {
                  w: Math.round(r.width), h: Math.round(r.height) });
     }
     return out;
-  });
+  };
+  const shell = (await p.evaluate(sweepDoc)).map(c => ({ ...c, where: 'the opening' }));
+  const inCity = (await city.evaluate(sweepDoc)).map(c => ({ ...c, where: 'the city' }));
+  const ctrls = shell.concat(inCity);
 
-  ok('the sweep actually found the controls (it found ' + ctrls.length
-     + '; three earlier methods each confidently found zero on this same screen)', ctrls.length >= 8);
+  ok('the sweep actually found the controls (it found ' + ctrls.length + ' across '
+     + 'both documents; three earlier methods each confidently found zero on the city '
+     + 'screen alone)', ctrls.length >= 10);
+  ok('and it looked at the opening overlay too, where the first two buttons of the '
+     + 'whole game live (' + shell.length + ' found there)', shell.length >= 2);
 
   const small = ctrls.filter(c => c.w < MIN || c.h < MIN);
-  ok('every tappable control on the demo\'s first screen is at least ' + MIN + 'px'
+  ok('every tappable control a stranger can reach is at least ' + MIN + 'px, in every '
+     + 'document'
      + (small.length ? ' -- ' + small.length + ' of ' + ctrls.length + ' are not: '
-        + small.map(c => c.id + ' ' + c.w + 'x' + c.h).join(', ') : ''),
+        + small.map(c => c.id + ' ' + c.w + 'x' + c.h + ' (' + c.where + ')').join(', ') : ''),
      small.length === 0);
 
   /* THE ARROWS ARE THE GAME'S ONLY MOVEMENT INPUT. Growing them is worthless if

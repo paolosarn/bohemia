@@ -6019,7 +6019,58 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/30 (b) LATEST -- *** EVERY WALK BUTTON WAS DRAWING TWO ARROWS, AND
+UI (ui-kmqmrf): 8/30 (c) LATEST -- *** HE SAID ONE WORD, "VAMILY", WHICH IS FAMILY.
+THE DOOR TO THE FAMILY SCENE TURNED OUT TO BE 57% OF A THUMB, AND THE GATE I WROTE
+YESTERDAY HAD THE EXACT HOLE ITS OWN HEADER WARNS ABOUT. *** TAB: RUN.
+
+FAMILY IS NOT A PASSING NOTE, it is the LOCKED core theme (7/19: "NOBODY IS ANYTHING
+WITHOUT FAMILY ... you do not play a hero, you play a FAMILY across three generations")
+and the whole final choice is true family against the Amalgamation's counterfeit one.
+So the question this lane owns is where it reaches the player.
+
+THREE DEAD ENDS FIRST, AND SAYING SO because a confident negative is the expensive kind
+of wrong: there is NO family tab (19 data-p panels, none of them family); familyOf() in
+the city is NOT about kin, it is the SUBURB FAMILY from the LANDLOCKED DISTRICT LAW, a
+promising name for the wrong thing; and a runtime probe found no family globals, which
+proves nothing because the city keeps them in module closures.
+
+WHERE IT DOES REACH HIM, AND IT IS THE BEST THING IN THE DEMO: the cold open. DENISE,
+NINA, RAY and MARCO at the table, ten years ago, warm light through the shutters. The
+8/27 talking portrait is WORKING here -- visible in 40 of 60 samples, real pixels painted
+in 47 of 60.
+
+*** AND ITS TWO BUTTONS ARE 79x25. *** WATCH and NOT NOW, 25px against a 44px minimum,
+the FIRST TWO BUTTONS ANYBODY EVER TOUCHES IN THIS GAME, and WATCH is the only door to
+the one scene carrying the game's theme. A stranger who fumbles that tap gets the city
+and never meets the family at all. Raised demo-side, height only; the workshop still has
+25px and the row is filed as UI-20.
+
+*** THE GATE I WROTE YESTERDAY NEVER LOOKED AT THEM. *** thumb_gate's own header says
+scoping to the demo is "a scope, not an exemption -- an exemption written for yourself
+and stated as a principle is how a 23% sat under a green gate all morning". IT SWEPT THE
+CITY FRAME ONLY, and the opening overlay is in the OUTER document. Green the whole time
+over a 25px control, committed by that header's own author ONE TURN LATER. It sweeps
+every document now, 21 controls not 14, with a leg that fails if it ever stops looking at
+the overlay. 12 claims, mutation-proved six ways.
+THE RULE, and it is not about buttons: STATE THE SCOPE, THEN CHECK THE SCOPE STILL
+CONTAINS THE THING THAT MATTERS. Writing the warning down is not the same as obeying it.
+
+A THING I NEARLY REPORTED AND DID NOT: my probe read a caption as "DENISESit down, both
+of you" and it looked like the speaker name was jammed into the line. The markup is
+<span>DENISE</span><br>Sit down... -- a proper break. textContent concatenates children;
+THE PROBE WAS JAMMING IT, NOT THE GAME. Checked the markup and a screenshot first.
+
+NOT MINE AND FILED: opening_gate.js is RED ("Target page, context or browser has been
+closed"), twice in a row, and it reads the WORKSHOP which this lane did not touch. Proved
+pre-existing on a clean origin/main worktree AND on bb8ece6, the commit before this
+session changed anything. SHARED -20.
+
+Round 7 is still on the wall waiting for his thumb. Nothing from it has gone into the
+game. Record: records/BOHEMIA_THE_THUMB_HAS_NEVER_BEEN_CHECKED_8_30_26.md (part three)
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/30 (b) -- *** EVERY WALK BUTTON WAS DRAWING TWO ARROWS, AND
 MY OWN EYE WAS WRONG ABOUT THOSE ARROWS FOR THE THIRD TIME IN THIS PROJECT. ***
 TAB: RUN. The game's look is still untouched; round 7 is still waiting on his thumb.
 

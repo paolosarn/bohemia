@@ -30237,6 +30237,28 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
    does, and every line degrades to exactly the workshop behaviour if it
    fails. Do not hand-edit: the gate regenerates this file and compares. */
 window.__BOHEMIA_DEMO_BUILD = true;
+</script>
+
+<!-- THE DOOR TO THE FAMILY SCENE WAS TOO SMALL TO HIT.
+     FAMILY is the load-bearing theme of this whole game (7/19, LOCKED: "you do
+     not play a hero, you play a FAMILY across three generations"), and the cold
+     open -- DENISE, NINA, RAY and MARCO at the table, ten years ago -- is the
+     first and only place it reaches a new player. Its two buttons, WATCH and NOT
+     NOW, measured 79x25 on the demo at 390x844. THE THUMB says 44px minimum.
+     25 is 57% of it, on the FIRST TWO BUTTONS ANYBODY EVER TOUCHES IN THIS GAME.
+     AND THE THUMB GATE HAD NEVER LOOKED AT THEM, because it swept the CITY FRAME
+     and this overlay lives in the OUTER document -- an exemption written for
+     myself, which is the exact failure that gate's own header warns about. The
+     gate sweeps every document now.
+     Height only, and the width is left alone: these sit in a flex row inside a
+     390px overlay and stretching them is a layout change in another lane's
+     scene. The workshop keeps its 25px and the row is filed. -->
+<style id="demo-cut-thumb">
+  #openWatch,#openNot,#openSkip{min-height:44px !important;
+    display:inline-flex !important;align-items:center !important;
+    justify-content:center !important}
+</style>
+<script>
 
 /* THE BUILDER'S DRAWER IS NOT PART OF THE GAME. The walked city's toolbar
    carries 🛠, which opens #devtray: REROLL, UNDER, KEY, PEOPLE, SLIDE. A

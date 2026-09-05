@@ -9817,6 +9817,37 @@ SHARED -19. *** THE SITE STOPPED DEPLOYING AT 14:40 AND NOBODY NOTICED FOR SEVEN
    look = shared, not UI's system | open. TAB: every tab, they all come off the
    one link.
 
+UI-20. *** THE DOOR TO THE FAMILY SCENE IS 57% OF A THUMB, AND IT IS THE FIRST BUTTON
+   IN THE GAME. *** FAMILY is the LOCKED core theme (7/19: "you do not play a hero, you
+   play a FAMILY across three generations") and the cold open is the only place it
+   reaches a new player: DENISE, NINA, RAY and MARCO at the table, ten years ago, with
+   the talking portrait working (visible in 40 of 60 samples, real pixels in 47 of 60).
+   ITS TWO BUTTONS MEASURE 79x25 ON THE DEMO AT 390x844. THE THUMB says 44. A stranger
+   who fumbles that tap gets the city and never meets the family at all.
+   RAISED DEMO-SIDE, HEIGHT ONLY -- the width is left alone because these sit in a flex
+   row inside a 390px overlay and stretching them is a layout change in another lane's
+   scene. The workshop still has 25px. The owning lane can set min-height:44px on
+   #openWatch/#openNot/#openSkip in the alpha and the demo-side rule becomes a no-op.
+   | 44px on both surfaces | look = the cold open's lane | open. TAB: RUN.
+
+UI-21. A GATE THAT PICKS ITS OWN SURFACE WILL PICK THE COMFORTABLE ONE. thumb_gate was
+   written 8/30 and its header says, in its own words, that scoping to the demo is "a
+   scope, not an exemption -- an exemption written for yourself and stated as a principle
+   is how a 23% sat under a green gate all morning". IT THEN SWEPT THE CITY FRAME ONLY.
+   The opening overlay lives in the OUTER document, so THE FIRST TWO BUTTONS OF THE WHOLE
+   GAME were never measured and the gate was green over a 25px control. Committed by the
+   author of that header ONE TURN after writing it.
+   Fixed: it sweeps every document now (21 controls, not 14) and carries a leg that fails
+   if it ever stops looking at the overlay. THE RULE: state the scope, then check the
+   scope still contains the thing that matters. Writing the warning down is not obeying it.
+   | - | - | reference row, done. TAB: any.
+
+SHARED -20. opening_gate.js IS RED AND IT IS NOT THIS LANE'S. It dies with "Target page,
+   context or browser has been closed" at its own enter()/tapRun() helpers, twice in a
+   row, and it reads slices/BOHEMIA_ALPHA_0_9.html which this lane did not touch.
+   PROVED PRE-EXISTING RATHER THAN ASSUMED: re-run on a clean worktree of origin/main
+   (RED) and on bb8ece6, the commit before this session changed anything (RED). Belongs
+   to the lane that owns the opening. | it runs | - | open for whoever owns the cold open.
 UI-18. *** EVERY WALK BUTTON DRAWS TWO ARROWS, AND ONE OF THEM IS A LEFTOVER. ***
    The city already carries UI-12's fix: the direction is DRAWN, not typed -- a CSS
    border triangle on .pb::before whose eight rotations measure exactly
