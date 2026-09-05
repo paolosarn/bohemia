@@ -150,10 +150,12 @@ dialogue system for Gen 1 with zero new art and zero new canon.
    them are the word `spawn`.)
 6. **THERE IS NO ANIMAL BODY AND NO ANIMAL ON ANY BOARD.** No renderer for a
    four-legged thing exists anywhere. In the fight (decoded from `COMBAT_B64`
-   first -- a plain search of the alpha cannot see it) every archetype is a
-   person with a gun: `ARCH_WEAPON = {human:'pistol', bot:'rifle',
-   sniper:'sniper'}`, and the archetype list is GOON / SPEAR / SNIPER /
-   MEDIC / BREACHER.
+   first -- a plain search of the alpha cannot see it) the archetype list is
+   GOON / SPEAR / SNIPER / MEDIC / BREACHER, **and all five carry
+   `bot:false`, meaning all five are people.** Four of the five are ranged
+   (`ARCH_WEAPON = {human:'pistol', bot:'rifle', sniper:'sniper'}`); the
+   fifth, SPEAR, is `melee:true` with `reach:4.2`, so the one body on any
+   board of ours that fights without a gun is still a man holding a stick.
 7. **AND YET THE ANIMAL WORLD IS ONE OF THE BEST-RESEARCHED THINGS WE OWN.**
    `engine/bohemia_wildlife.js` ships five species off Clark County material,
    each with **two separate distances** -- `alert` (it notices you) and

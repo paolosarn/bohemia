@@ -52,8 +52,9 @@ MEASURED IN OUR OWN REPO, 9/5
      Animal to Human. Under our only heir function, an animal's heir is its cub.
   5. THERE IS NO SMELL IN BOHEMIA: olfact 0, sniff 2, and every smell/scent/odour
      hit is prose, a music track called FLUORESCENT DAWN, or base64.
-  6. No animal body renderer anywhere. Every fight archetype is a person with a
-     gun (ARCH_WEAPON human/bot/sniper).
+  6. No animal body renderer anywhere. All five fight archetypes carry
+     bot:false, so all five are people; the only one that fights without a gun
+     is SPEAR, which is a man holding a stick.
   7. AND THE ANIMAL WORLD IS ONE OF THE BEST-RESEARCHED THINGS WE OWN: the
      wildlife module ships five sourced species with TWO distances each (alert
      and flush) and a crow-measured feeding discount, AND THE COYOTE IS THE ONLY
