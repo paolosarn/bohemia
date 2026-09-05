@@ -1,3 +1,113 @@
+COOK (cook-mce6r5): *** HIS PERMANENT INSTRUCTION, WORD FOR WORD (9/5). It is here
+because he said to write it into this lane's own handoff block so it survives a
+memory reset. IT WAS LOST ONCE ALREADY -- another lane's rebase dropped this block
+and only their copy survived -- so it is restored, and the lesson is that a thing
+kept in ONE place in a file eleven lanes rewrite is not kept. ***
+
+  PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your
+  own handoff block first so it survives any memory reset.
+
+  VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go
+  to the meeting hall and do your job. From now on I will only ever type that one
+  word to you.
+
+  WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+  1. Pull main first (git fetch origin main, rebase onto it). The board changes every
+     hour.
+  2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+  3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and
+     change there. Never trust your memory of them.
+  4. Find your section. There are 18 chats, each with a number and a name: 01 RUN,
+     02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director),
+     08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION,
+     15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your
+     chat's title is your name. If you are a brand-new chat with no name, you are
+     18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+  5. Do your section's job: continue the job you already hold, or claim the first OPEN
+     line by writing CLAIMED <date> <your session slug> on it and committing. Build or
+     research according to your section's MODE. A job takes as many rounds as it takes.
+     Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+  6. Only build what is on the board. Never invent a job. Never add a job to any
+     section; only the coordinator adds jobs. Your only writes to the board are
+     CLAIMED and SHIPPED on your own lines.
+  7. Never ask me anything. A ruling you need goes in your handoff block in
+     00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+  8. Commit straight to main, no pull requests, and update your handoff block every
+     round.
+  9. Reply to me with two words (the job's [bracket] label) and one short line:
+     "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+  RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff
+  block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first
+  VAMILY and do steps 1 to 9.
+
+  I will never paste anything to you again. From here on, the one word is the whole
+  instruction.
+
+THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
+THIS LANE'S SESSION SLUG: cook-mce6r5.
+
+================================================================================
+
+COOK (cook-mce6r5): 9/5 LATEST -- *** THE STYLE CARD'S SECTION 2 IS NOW BUILT AND
+HELD, ID BY ID, EXCEPT THE ONE NUMBER THAT CANNOT BE MET. Six batches: 22 new SHAPES
++ 1 the engine could always draw and nothing wore, 50 garments. Wardrobe 79 -> 108
+shapes. Card headline 32% -> 44%. TAB: CHARACTER / RUN. Nothing to judge. ***
+
+THE JOB: [runway clothes] WARDROBE-REMAKE, still CLAIMED. The card's mechanism is
+"the wardrobe drifts dark AS BATCHES REPLACE", so this line stays open and the
+permanent [keep cooking] line is where it continues.
+
+THE CARD'S SECTION 2, WORKED THROUGH ID BY ID:
+  RNWY-01 square shoulder      BUILT (corner rounding 0 px) and held
+  RNWY-02 cocoon arc shoulder  BUILT (edge step 1 px) and held -- took THREE attempts
+  RNWY-05/08 the stack         BUILT (two hem lines, 3 silhouette steps) and held
+  RNWY-06 readable at collar   a property of the layered top, measured not cooked
+  RNWY-07 asymmetric hem       BUILT (8 px and 5 px of hem across the body) and held
+  RNWY-09 the comma            BUILT (hangs 4 rows lower behind) and held
+  RNWY-10 the pant-boot column BUILT (no tonal break at the ankle) and held
+  RNWY-11 the tapering leg     BUILT (drop rise, thigh 10 -> ankle 6)
+  RNWY-12 the pedestal boot    BUILT (2 platform rows, base 10 vs foot 8)
+  RNWY-03 / the pole span      NOT BUILDABLE. The card writes it against the
+    PAPERDOLL torso; a dressed sprite's shoulder is its ARMS, 16 px before cloth
+    against a hip of 8, so a PLAIN T-SHIRT is pole A and pole B is unreachable by any
+    garment. DIRECTION's number. Measured, reported, card untouched.
+
+*** ELEVEN RULERS HAVE BEEN WRONG IN THIS JOB AND NOT ONE SHAPE WAS EVER CHANGED TO
+FIT A BAR. *** Area ranked the dead V-NECK above the oversized shoulder; the outline
+ruler scored a wrap coat zero because a slit is a HOLE; the face check would have
+condemned his approved DUST MASK; the shoulder-corner ruler measured a drop; the
+asymmetry ruler measured a height; the arc's three; the comma was judged from the one
+facing where it is meant to look the same; and the ankle ruler looked for a width
+step where the break is TONAL, then sampled shoe-against-shoe.
+SEVEN LIVE CONTROLS now, each of which must FAIL the rule it guards: the dead V-NECK,
+his approved DUST MASK, a PLAIN COAT (level hem, and hem that does not move with the
+facing), a PLAIN TOP twice (must HAVE a shoulder point, must NOT stack), and a plain
+trouser-over-boot (must HAVE an ankle break). The last one caught the ankle ruler
+twice.
+
+THE COLUMN TOOK THREE LOOKS, EACH A DIFFERENT MISTAKE: the boot painted straight over
+it (the composite draws feet AFTER legs, so a pant-boot must take the BOOT'S SLOT);
+then it read as a skirt because filling between the outer leg columns removes the
+ankle break and the legs with it; then it STILL read as a skirt because on this rig
+the legs are adjacent -- there is no gap, only a seam -- and shading the mass as one
+piece deleted the only thing saying "two legs".
+
+[PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
+[FOR DIRECTION] the pole shoulder-span number, above.
+[FOR THE PLUMBER] `bohemia_gates.py --fast` is documented "~2s vs ~4min" and ran
+  THIRTY-FOUR MINUTES without finishing, output fully buffered.
+
+FILES  tools/bohemia_runway_cook_9_5_26.py and _2_ .. _6_; gates/runway_gate.js (82
+checks, seven live controls); records/BOHEMIA_THE_RUNWAY_BATCHES_1_TO_6_9_5_26.md
+
+*** WHAT COMES NEXT *** Every shape the card names is built. The next OPEN line is
+[runway hair] HAIR-TO-THE-CARD -- which must NOT start until the graveyard is read TO
+THE END for that lane (8/30: seven haircuts were remakes of shapes he had killed
+twice, and the answer was one grep away).
+
+================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
 NOW MOVES. Every one of the 105 animations plays on its own row, next to its own
 thumbs, with what the audit measured about it. TAB: ANIMATION, the JUDGE ALL

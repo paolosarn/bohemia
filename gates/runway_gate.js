@@ -199,9 +199,19 @@ const SHAPES = [
          the card offers them as alternatives and they must not be each other. */
   ['arc shoulder',       () => G.genTop(g, { ramp: R, sleeves: true, shoulder: 'arc' }),  G.genTop(g, { ramp: R, sleeves: true, shoulder: 'wide' })],
   ['layered hem',        () => G.genTop(g, { ramp: R, sleeves: true, cut: 'layered' }),   G.genTop(g, { ramp: R, sleeves: true, cut: 'long' })],
+  /* --- BATCH 6 (9/5): the last two shapes the card names. --- */
+  ['comma coat',         () => GD.N.genCoat(g, { ramp: R, cocoon: true, comma: true, len: 0.56 }), GD.N.genCoat(g, { ramp: R, cocoon: true, len: 0.56 }), 'N'],
+  ['column pant-boot',   () => G.genPants(g, { ramp: R, cut: 'column' }),          G.genPants(g, { ramp: R })],
 ];
 console.log('  --- every new shape against the shape it sits next to ---');
-for (const [name, mk, ref] of SHAPES) {
+/* A SHAPE WHOSE POINT IS AT THE BACK CANNOT BE JUDGED FROM THE FRONT. The comma
+   scored ZERO here -- correctly, because facing you it is deliberately identical to
+   the cocoon it is built on; its whole rule (RNWY-09) is that the hem drops as the
+   body turns AWAY. Judging it in the S facing measures the one view where it is
+   supposed to look the same, which is the same error as judging a haircut from the
+   front only (8/28). A row may name the facing it must be judged in. */
+for (const row of SHAPES) {
+  const [name, mk, ref] = row, face = row[3] || 'S';
   const d = outlineDiff(ref, mk());
   console.log('      ' + name.padEnd(20) + ' rows ' + String(d.moved).padStart(2) + '/' + String(d.rows).padStart(2)
     + ' (' + d.pct.toFixed(0).padStart(2) + '%)  widest +/-' + d.dWide + '  length +/-' + d.dExt + '  holes +/-' + d.dHole);
@@ -260,7 +270,9 @@ for (const d of DIRS) {
                ['visor', () => gd.genAcc(g, { ramp: R, kind: 'visor' })],
                ['facewrap', () => gd.genAcc(g, { ramp: R, kind: 'facewrap' })],
                ['arc', () => gd.genTop(g, { ramp: R, sleeves: true, shoulder: 'arc' })],
-               ['layered', () => gd.genTop(g, { ramp: R, sleeves: true, cut: 'layered' })]];
+               ['layered', () => gd.genTop(g, { ramp: R, sleeves: true, cut: 'layered' })],
+               ['comma', () => gd.genCoat(g, { ramp: R, cocoon: true, comma: true, len: 0.56 })],
+               ['column', () => gd.genPants(g, { ramp: R, cut: 'column' })]];
   for (const [n, mk] of set) {
     let o = null; try { o = mk(); } catch (e) { angleFail.push(n + '@' + d + ' threw ' + e.message); continue; }
     if (!o || Object.keys(o).length === 0) angleFail.push(n + '@' + d + ' rendered nothing');
@@ -375,11 +387,12 @@ const BATCH = ['DROP RISE TROUSER', 'BONE DROP TROUSER', 'WIDE PLEAT TROUSER', '
   'BONE HEAD WRAP', 'SOOT HEAD WRAP', 'WIDE WAIST WRAP', 'LEAD WAIST WRAP',
   'ONE-SHOULDER DRAPE', 'BONE SHOULDER DRAPE',
   'SHIELD VISOR', 'ASH SHIELD', 'FACE WRAP', 'ASH FACE WRAP',
-  'ARC SHOULDER TEE', 'ASH ARC SHIRT', 'LAYERED JERSEY', 'ASH LAYERED TEE', 'ARC LAYERED SHIRT'];
+  'ARC SHOULDER TEE', 'ASH ARC SHIRT', 'LAYERED JERSEY', 'ASH LAYERED TEE', 'ARC LAYERED SHIRT',
+  'COMMA COAT', 'SLATE COMMA COAT', 'COLUMN PANT-BOOT', 'COAL COLUMN', 'ASH COLUMN'];
 const missing = BATCH.filter(n => CAT.indexOf("n:'" + n + "'") < 0);
-ok('all forty-five runway garments are in the wardrobe' + (missing.length ? ' (missing ' + missing[0] + ')' : ''), missing.length === 0);
+ok('all fifty runway garments are in the wardrobe' + (missing.length ? ' (missing ' + missing[0] + ')' : ''), missing.length === 0);
 const notCanon = BATCH.filter(n => { const i = CAT.indexOf("n:'" + n + "'"); return i < 0 || CAT.slice(i, i + 200).indexOf("st:'canon'") < 0; });
-ok('all forty-five are canon, so the picker can actually reach them', notCanon.length === 0);
+ok('all fifty are canon, so the picker can actually reach them', notCanon.length === 0);
 /* every new SHAPE has at least one garment wearing it -- an option nothing calls
    is a dial that cannot move the pixels */
 const OPTS = [["cut:'drop'", 'drop rise'], ["cut:'wide'", 'wide pleat'], ["cut:'stack'", 'stacked hem'],
@@ -393,7 +406,8 @@ const OPTS = [["cut:'drop'", 'drop rise'], ["cut:'wide'", 'wide pleat'], ["cut:'
      the seventeen invisible hats is the failure this repo repeats most. */
   ["kind:'wrap'", 'head wrap, which the engine could always draw and nothing wore'],
   ["kind:'visor'", 'shield visor'], ["kind:'facewrap'", 'face wrap'],
-  ["shoulder:'arc'", 'arc shoulder (RNWY-02)'], ["cut:'layered'", 'layered hem (RNWY-05/08)']];
+  ["shoulder:'arc'", 'arc shoulder (RNWY-02)'], ["cut:'layered'", 'layered hem (RNWY-05/08)'],
+  ['comma:true', 'the comma hem (RNWY-09)'], ["cut:'column'", 'the pant-boot column (RNWY-10)']];
 for (const [o, nm] of OPTS) ok('somebody in the wardrobe actually wears the ' + nm, CAT.indexOf(o) >= 0);
 
 /* ---------- 7a. THE CARD'S SHAPE RULES, SECTION 2 -------------------------- */
@@ -469,6 +483,63 @@ for (const [o, nm] of OPTS) ok('somebody in the wardrobe actually wears the ' + 
   ok('RNWY-05/08: the LAYERED top shows two hem lines at least 2 cells apart (steps at rows ' + layS.join(',') + ')',
      layS.length >= 3 && laySpread >= 2 * S);
   ok('CONTROL: a PLAIN top has no stack (steps at rows ' + plnS.join(',') + ')', plnS.length < 3);
+
+  /* RNWY-09, THE COMMA: "the cocoon hem falls in an arc, LONGER BEHIND THAN IN
+     FRONT -- the profile reads as a comma, not a rectangle". Measured as the hem's
+     lowest row facing away minus facing you. A PLAIN COAT is the control and must
+     show ZERO: a hem that changes with the facing is the whole shape, so a ruler
+     that reports the same number for a level hem is measuring something else. */
+  const hemBottom = (o) => { let b = -1; for (const k in o) { const y = (+k / CW) | 0; if (y > b) b = y; } return b; };
+  const commaFront = hemBottom(GD.S.genCoat(g, { ramp: R, cocoon: true, comma: true, len: 0.56 }));
+  const commaBack  = hemBottom(GD.N.genCoat(g, { ramp: R, cocoon: true, comma: true, len: 0.56 }));
+  const plainFront = hemBottom(GD.S.genCoat(g, { ramp: R, len: 0.56 }));
+  const plainBack  = hemBottom(GD.N.genCoat(g, { ramp: R, len: 0.56 }));
+  ok('RNWY-09: the COMMA coat hangs lower behind than in front (' + (commaBack - commaFront) + ' rows)', commaBack - commaFront >= 2 * S);
+  ok('CONTROL: a PLAIN coat\'s hem does not move with the facing (' + (plainBack - plainFront) + ')', plainBack - plainFront === 0);
+  /* AND IT STAYS INSIDE ANOTHER LANE'S PIN. one_garment_per_slot caps hem movement
+     across ONE NOTCH at 0.09 body-heights and this lane already blew that once at
+     0.188 with the one-shoulder drape. The comma ramps one row per notch. */
+  let commaWorstNotch = 0, prevHem = null;
+  for (const d of ['S', 'SE', 'E', 'NE', 'N']) { const hb = hemBottom(GD[d].genCoat(g, { ramp: R, cocoon: true, comma: true, len: 0.56 }));
+    if (prevHem !== null) commaWorstNotch = Math.max(commaWorstNotch, Math.abs(hb - prevHem)); prevHem = hb; }
+  ok('the COMMA moves at most one row per notch (' + commaWorstNotch + '), well inside the 0.09 body-height pin', commaWorstNotch <= S);
+
+  /* RNWY-10, THE COLUMN: "the leg is a single column, ANKLE BREAK-FREE (pant-boot)".
+     The break is a HORIZONTAL step in the silhouette where the trouser ends and the
+     boot begins. A plain trouser over a boot has one; the column must not. Measured
+     over the rows around the ankle. The plain pair is the control and must HAVE the
+     break, or the ruler is not looking at the ankle. */
+  let legBot = -1, footBot = -1;
+  for (let i = 0; i < g.length; i++) { const p = g[i], y = (i / CW) | 0;
+    if ((p === 9 || p === 10) && y > legBot) legBot = y;
+    if ((p === 11 || p === 12) && y > footBot) footBot = y; }
+  /* *** AND THE FIRST VERSION OF THIS RULER MEASURED THE WRONG KIND OF BREAK. ***
+     It looked for a STEP IN WIDTH across the ankle and reported 0 for a plain
+     trouser over a plain boot -- which is true and useless, because on this rig the
+     trouser and the boot are the SAME WIDTH. The break you actually see at the ankle
+     is a TONAL one: grey cloth stops, brown leather starts, in the same column. So
+     it is counted as columns whose colour changes across the ankle seam. The control
+     below exists precisely to catch a ruler that finds no break where there plainly
+     is one, and it did. */
+  /* AND THE SEAM IS WHERE THE BOOT'S OWN TOP ROW IS, not where the foot part starts.
+     Measuring at the foot's top row read shoe-against-shoe -- the shaft already
+     covers the shin above it -- so both samples were the same garment and the ruler
+     reported no break in a pair that plainly has one. The seam is the topmost row
+     the upper layer paints; the break is the colour change across it. */
+  const ankleStep = (layers) => { const merged = {};
+    for (const o of layers) for (const k in o) merged[k] = o[k];
+    let seam = 1e9;
+    if (layers.length > 1) { for (const k in layers[layers.length - 1]) { const y = (+k / CW) | 0; if (y < seam) seam = y; } }
+    else { for (let i = 0; i < g.length; i++) { const p = g[i], y = (i / CW) | 0; if ((p === 11 || p === 12) && y < seam) seam = y; } }
+    let changed = 0;
+    for (let x = 0; x < CW; x++) { const above = merged[(seam - S) * CW + x], below = merged[seam * CW + x];
+      if (!above || !below) continue;
+      if (above[0] !== below[0] || above[1] !== below[1] || above[2] !== below[2]) changed++; }
+    return changed; };
+  const colStep   = ankleStep([G.genPants(g, { ramp: R, cut: 'column' })]);
+  const brokenStep = ankleStep([G.genPants(g, { ramp: R }), G.genShoes(g, { ramp: R })]);
+  ok('RNWY-10: the COLUMN pant-boot has no ankle break (' + colStep + ' columns change tone across the seam)', colStep <= S);
+  ok('CONTROL: a plain trouser over a boot DOES break at the ankle (' + brokenStep + ' columns) -- a ruler finding none is not looking at the ankle', brokenStep >= 4 * S);
 
   const asymRange  = hemRange(G.genCoat(g, { ramp: R, asym: true, len: 0.56 }));
   const asymShort  = hemRange(G.genCoat(g, { ramp: R, asym: true, len: 0.34 }));

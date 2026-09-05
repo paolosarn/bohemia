@@ -610,3 +610,58 @@ can fail is not a check.
 
 **Running total: eight rulers wrong in this job, and not one shape ever changed to
 fit a bar.** Gate: 73, 0 failed.
+
+---
+---
+
+# BATCH 6 -- THE LAST TWO SHAPES THE CARD NAMES
+
+| id | the card's words | what existed |
+|---|---|---|
+| RNWY-09 | "the cocoon hem falls in an arc, **longer behind than in front** -- the profile reads as a comma, not a rectangle" | every coat's hem was dead level in every facing: side on, exactly the rectangle the card names as the failure |
+| RNWY-10 | "the leg is a **single column, ankle break-free** (pant-boot)" | every fit breaks at the ankle -- trouser stops, boot starts |
+
+RNWY-03 and the pole shoulder span are **not buildable** and were not attempted: the
+card writes them against the paperdoll torso while a dressed sprite's shoulder is its
+arms. Reported to DIRECTION, not worked around. RNWY-06 is a property of the layered
+top already built, so it is measured rather than cooked.
+
+**Wardrobe: 256 -> 306 garments, 79 -> 108 shapes. The card's headline number: 44%.**
+
+## THE COLUMN TOOK THREE LOOKS AND EACH ONE WAS A DIFFERENT MISTAKE
+
+1. **The boot painted straight over it.** The composite draws base, then legs, then
+   FEET -- so a column in the legs slot is covered by whatever boot the person wears,
+   and the ankle break survived in the one garment that exists to remove it. **A
+   pant-boot IS the boot**; it takes the boot's slot. Only the slot moved, not the
+   geometry.
+2. **It read as a skirt.** Filling everything between the outermost leg columns
+   removes the ankle break and also removes the legs. The card says "THE LEG is a
+   single column", and a leg merged with the other leg is not a leg. One column per
+   side now.
+3. **It still read as a skirt.** On this rig the legs are *adjacent* -- there is no
+   gap between them, only a seam -- so per-leg boxes still make one contiguous mass,
+   and shading it as a single piece deleted the only thing saying "two legs". The
+   card forbids a **horizontal** break at the ankle; a **vertical** seam between the
+   legs is not that break, it is the legs.
+
+## AND THE GATE'S TWO NEW RULERS WERE BOTH WRONG FIRST
+
+- **The comma scored ZERO on the shape test** -- correctly, because facing you it is
+  deliberately identical to the cocoon it is built on. Its whole rule is that the hem
+  drops as the body turns *away*. Judging it from the front measures the one view
+  where it is supposed to look the same, which is the haircut error of 8/28 in a
+  coat. A shape row may now name the facing it must be judged in.
+- **The ankle ruler looked for a step in WIDTH and reported 0 for a plain trouser
+  over a plain boot** -- true and useless, because on this rig they are the same
+  width. The break you see is TONAL: grey cloth stops, brown leather starts, in the
+  same column. And then it sampled at the foot's top row, where the boot shaft
+  already covers the shin, so it compared shoe against shoe. The seam is the topmost
+  row the upper layer paints.
+
+**The control caught both.** It exists to fail when a plain pair shows no break, and
+it did, twice.
+
+**Running total: eleven rulers wrong in this job, and not one shape ever changed to
+fit a bar.** Seven live controls now, each of which must FAIL the rule it guards.
+Gate: 82, 0 failed.
