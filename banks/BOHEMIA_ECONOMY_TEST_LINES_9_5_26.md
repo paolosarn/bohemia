@@ -456,3 +456,72 @@ BB2 the same quote, from somebody who is sick of saying it  draft:true
 - No line puts a number back in through the side door ("about fifty days" is the
   same decimal with a hedge on it).
 - Nothing for the fight readout. That screen is settled and correct.
+
+# ============================================================================
+# ROUND 6 [casino backstage] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_6_A_CASINO_IS_A_JOB_NOT_A_PRIZE_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THE POINT OF THESE: a resort is 30% back of house and about four thousand
+# people. The player never reads that as a number. He hears it from the people
+# who have to run the place, and he SEES it in who has clean clothes.
+# ============================================================================
+
+## DD. THE PEOPLE WHO ACTUALLY RUN IT
+
+DD1 a boiler man, about the building                 draft:true
+    "Everybody looks at the floor. The floor's the easy part. Come down here and
+     I'll show you what runs it."
+
+DD2 somebody who took the place and did not think    draft:true
+    "We hold it. That's what I keep saying. We hold it, we hold it. Hold it with
+     what, is what he keeps asking me."
+
+DD3 a woman who worked there before                  draft:true
+    "Four thousand of us. You've got, what, thirty? You don't have a casino,
+     boss, you've got a big dark room."
+
+DD4 a cook, on the kitchen                           draft:true
+    "It'll feed three hundred. It'll feed three hundred if there's water and
+     there's heat, and right now there's neither, so it feeds nobody."
+
+## EE. THE STORES, WHICH ARE A CLOCK
+
+EE1 somebody counting the freezer down                draft:true
+    "Two days. That's not me being careful, that's just what a freezer does."
+
+EE2 the second morning                                draft:true
+    "It's starting to smell down there. We eat the good stuff tonight or we eat
+     none of it."
+
+EE3 somebody who arrived too late                     draft:true
+    "The doors were still locked. Everything in there was still in there. All of
+     it ruined, hermano, every bit."
+
+## FF. NO WATER ABOVE THE GROUND FLOOR
+
+FF1 explaining the tower                              draft:true
+    "Pumps push it up. No pumps, no up. Those rooms might as well be on the moon."
+
+FF2 somebody who tried to live up there               draft:true
+    "Twelve floors with a bucket. I did it twice."
+
+## GG. CLEAN CLOTHES AS A CLASS MARKER (the laundry output, seen not counted)
+
+GG1 noticing somebody                                  draft:true
+    "Look at his shirt. Whoever's washing that has hot water, and that's the
+     whole thing you need to know about them."
+
+GG2 somebody proud of it                               draft:true
+    "Pressed. You can say what you like about them, they send people out pressed."
+
+GG3 somebody who cannot                                draft:true
+    "I rinse it in the morning and put it on wet. It dries on you by nine."
+
+## HH. WHAT IS NOT HERE, ON PURPOSE
+- No line gives a yield, a rate or a headcount as a game number. DD3 says four
+  thousand because a person who worked there would say it, not because anything
+  reads it.
+- No line names a faction or says who holds the building. That is his.
+- No line explains the mechanic. GG1 is the whole finding and it never says
+  laundry, power, or economy.

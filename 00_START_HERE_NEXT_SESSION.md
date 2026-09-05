@@ -1,3 +1,270 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+================================ END, VERBATIM =================================
+
+THIS ROUND (round 2 of [clothes wired], still CLAIMED)
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
+  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
+  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
+  line stays CLAIMED, not SHIPPED.
+- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
+  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
+  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
+  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
+  across the two benches. Added that to the gate as a UNION check, so neither bench can
+  quietly lose a category. Gate now 11/11.
+- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
+  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
+  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
+  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
+  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
+  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
+  into the gate.
+- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
+  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
+- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
+  job is whether a garment's colour survives the picker onto the body at 112 (the
+  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
+CHARACTER'S OWN NOTES ON RUNNING IT
+- My section is 05 CHARACTER. My session slug is character-0lurbs.
+- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
+  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
+  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
+- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
+  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
+  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
+  goes red on a stale bank.
+- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
+  / day N to him. Rounds, minutes, hours.
+
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
+FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
+
+MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
+economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
+standing loses 25% a generation. Territory, builds, economy capacity, investment,
+karma and virtues carry at 100% FOREVER with no decay at all.
+THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
+generation and takes ten to fifteen generations, three to four centuries, to
+fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
+NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+So we decay the thing that really lasts and preserve perfectly the things that
+really go.
+
+AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
+STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
+persistence of status is 0.79. A constant our own comment calls "tunable" and
+nobody ever checked landed within 0.04 of the best figure in the literature.
+NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
+
+AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
+ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
+three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
+whether it was settled. Reported surveys put 64% of older adults ranking
+heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
+than sentiment: an object somebody USED is valued more than one they merely
+OWNED. Our model records no use, no name and no memory, so it cannot express any
+of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
+AND LOSES EVERYTHING IT SAYS THEY DO.
+
+THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
+up, which reads as deleting a high-level character; and the game that carries
+items, skills, money and shops straight across is the one whose players say the
+biggest thing you lose is your family. Carrying everything material and losing
+the people is a known, shipped, complained-about outcome, and it is the shape of
+our fold.
+
+HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
+generation hands the next one zeroes). Round 3 finds that even for a HUMAN
+generation it carries the wrong things. Round 2 found that in a real coyote's
+life a territory is a VACANCY, never an inheritance, which contradicts territory
+being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
+AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
+onto the asset ledgers, give a tree node a name, give a wound a who and a when;
+pure engine, headless, no player surface). Inside this lane: Q8 [inherited
+memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
+death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
+
+[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
+to start. Which fields decay and how fast, every name, who dies, what the wound
+was, and what generation two is told on its first morning are all his.
+
+NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
+If a later round disagrees with that ordering, take Q4; the board's order is the
+default and this is a recommendation, not a change to the board.
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
+TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
+so the next round does not repeat them:
+  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
+    is the records convention, but the front page says plainly: it is one VAMILY,
+    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
+    called it a research day. Stop.
+  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
+    this block says I stopped. A job takes as many rounds as it takes and nobody
+    expects one round. Only if I hold nothing do I take the first OPEN line.
+
+
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino backstage].
+Next OPEN is Q7 [water supply].
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+=== ROUND 6 REPORT: [casino backstage] SHIPPED ===
+*** A CASINO IS NOT A PRIZE, IT IS A JOB. OUR CASINO HAS NO BACK OF HOUSE AT ALL.
+MODE: RESEARCH, nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_6_A_CASINO_IS_A_JOB_NOT_A_PRIZE_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections DD-HH (13 lines)
+Board:  Q6 SHIPPED. Q1-Q6 shipped; next OPEN is Q7 [water supply].
+
+OUR OWN MODULE HAS SAID SINCE 7/19 THAT THE REASON DOWNTOWN MATTERS IS THE "deep
+casino/resort dry stores". MEASURED: there is no dry store, no laundry, no boiler
+and no loading dock anywhere in this game. The string appears three times
+repo-wide, all the same comment in a module and its two inlined copies, and
+nothing reads it.
+  - bohemia_casino.js is 175 lines of good research and SIXTEEN LEGEND CODES,
+    EVERY ONE EXTERIOR (sidewalk, valet, floor mass, roof band, hotel wing, park
+    deck, marquee, doors). The only interior thing in the file is a door.
+  - casino declares zone 'leisure': concourse, counter, kitchen, locker,
+    restroom, service. Six slots, and no laundry/boiler/store/dock.
+  - AND bulk:'concourse', which is what a bigger building gets more of. The file
+    says why itself: "A bigger leisure building is more CONCOURSE." SO IN OUR
+    BUILD THE BIGGER THE RESORT, THE SMALLER ITS BACK-OF-HOUSE SHARE. The real
+    curve is the exact inverse: ~10% of floor area for an economy hotel and ~30%
+    FOR A RESORT, housekeeping and laundry alone 13-20%, kitchen ~40% of the
+    dining area it serves.
+
+NOT A MISTAKE, AN UNFINISHED SPLIT, and the file already did this surgery once
+and documented it well: `institutional` carried eleven types and produced "a
+school of hospital wards, a fire station of hospital wards", so it was split into
+school/transit/firehouse. `leisure` is one step behind: it carries drivein, golf,
+stadium, waterpark, speedway, ballpark, minigp, resort AND casino. A STADIUM
+REALLY IS MOSTLY CONCOURSE. A RESORT IS THE OPPOSITE BUILDING.
+
+REUSE-FIRST, SITTING RIGHT THERE: bohemia_furnish.js dresses 25 room roles and
+TWO OF THEM ARE `dock` AND `stockroom`, assigned to warehouse and retail only.
+The casino gets NEITHER. The dry store and the loading dock are built, furnished,
+and pointed at the wrong buildings.
+
+WHAT A FORTRESS ACTUALLY PRODUCES: not a list of goods. A resort puts ~30% of its
+floor area into the machine that keeps the other 70% alive and takes roughly four
+thousand people to run (Venetian ~4,100; Bellagio ~2,500). And when the power
+stops: A FULL WALK-IN FREEZER HOLDS ABOUT 48 HOURS (24 half full), and WATER
+PRESSURE IN A HIGH-RISE RUNS ON ELECTRIC PUMPS, so there is no water above the
+ground floor. THE DEEP STORES ARE A COUNTDOWN, NOT A VAULT. A FORTRESS PRODUCES
+EXACTLY WHAT IT CAN STILL POWER AND STILL STAFF; everything else is a liability.
+Whoever holds a resort is whoever can field a laundry crew and a boiler man.
+Laundry is the best first back-of-house industry: 8-12 lb per occupied room per
+day (12+ luxury), labour/water/heat hungry, and ITS OUTPUT IS VISIBLE ON A
+PERSON. Who has clean clothes is a class marker with no number, and it rides the
+runway law we already hold.
+
+ALMOST OUR LAW, WRITTEN BY A REAL OPERATOR: a Las Vegas company built a 100 MW
+solar array supplying UP TO 90% OF DAYTIME POWER for 13 of its resorts, and
+nothing at night. LIGHT IS TERRITORY and THE NIGHT EATS POWER are documented fact
+in the real Las Vegas. Cite it in the law instead of defending it again.
+
+TWO CORRECTIONS I ALMOST SHIPPED, both caught by checking:
+  - "the boiler room art already exists" -- FALSE. The floorplan comment lists
+    `plant`, `dining`, `corridor` as unused pool names; NONE are among the 25
+    rooms bohemia_furnish.js can dress. A boiler room is a real art ask.
+  - "the Strip is three rooms called room" -- FALSE. `strip` declares zone
+    'default' but has NO foot: function and sits in ROADSET with freeway and
+    arterial, so it generates no buildings. WHAT IS TRUE: `farm` declares
+    'default' AND has footprints, so a farm's interior is room, room, service,
+    and round 3 named the farm as an anchor.
+
+AND BOTH FLOORPLAN GATES PASS: floorplan_gate 11/0 (12 zones), floor_gate 18/0.
+They check the zones are well formed and never ask whether a zone's rooms suit
+its buildings, or whether an assigned role can be furnished. Same shape round 1
+found in economy_gate. Nobody was negligent; no gate was pointed at the question.
+
+ROUTED: LIFE + CITY ECON-A-RESORT-IS-NOT-A-STADIUM (split leisure the way
+institutional was split), ECON-THE-DRY-STORE-EXISTS-ALREADY (dock and stockroom,
+no new art), ECON-TWO-ZONES-PLACE-ROOMS-NOBODY-CAN-FURNISH (floorplan assigns
+`study` and `garage`; the furnisher dresses neither -- found on the way past, not
+this lane's). FACTIONS ECON-A-RESORT-IS-A-PAYROLL (rides with the claimed
+[faction homes] FACTION-SEATS row). WORLD ECON-THE-STORES-ARE-A-COUNTDOWN,
+ECON-DAYTIME-ONLY-IS-REAL. COOK ECON-THE-BOILER-ROOM (a real art ask, after the
+split).
+
+REFUSED: inventing what a resort yields per round, a fourth currency or staffing
+meter or morale bar, splitting the leisure zone myself (LIFE + CITY's file),
+claiming the boiler art is free, deciding who holds which resort (MAP LAW), and
+any implementation.
+
+GATES: economy 13/0, payday 37/0, purse 28/0, attempt 15/0, demo blockers 22/0,
+canon rot 13/0, floorplan 11/0, floor 18/0. MARKET GATE STILL 22/10 ON MAIN,
+THIRD ROUND RUNNING, STILL NOT A CODE BUG: the real buy path gives applied:true,
+paid:1, kind:"drain", electricity 500 -> 499. The gate watches the `resources`
+balance while the debit lands in `electricity`, and four checks assert his price
+table is still empty. FIX THE RULER, NEVER THE TARGET (8/1). Also still red and
+not this lane's: engine sync (BOH_FLOORPLAN, 2 bodies), banks-used, dialogue
+catalogue.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. The valley eats its last shelves in ten in-game days. Premise or bug?
+  2. Nothing charges a battery anywhere in the build. Is charging something the
+     player DOES or something a faction SELLS?
+  3. The century rule counts buildings. Should it also count who stayed? A change
+     to a LOCKED law, so only he can make it.
+  4. Which building is the good FIRST one? The machine can order the 59 by need;
+     which one a player should want at the start is canon and is his.
+
+NEXT IN THIS LANE: Q7 [water supply], Lake Mead and what a valley of a few
+thousand actually needs when the pumps stop.
+
+================================================================================
+
+
 WORDS (words-8dqrnq): 9/5 (d) LATEST -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
 CONVERSATION IS SHORTER, NOT WARMER, AND WE WRITE THE FIRST MEETING ELEVEN TIMES AND THE
 SECOND ONCE. *** MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET.
