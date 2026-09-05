@@ -1,3 +1,74 @@
+SOUND (sound-xk7pjp): 9/5 (c) LATEST -- *** THE STRIP SOUNDS BUSY AND THE DESERT
+SOUNDS EMPTY, AND NOT ONE NEW SOUND WAS COOKED TO DO IT.
+TAB: RUN (the walked city). Nothing to judge -- nothing entered the bank. ***
+
+Build 9/5r - THE BED IS THE PLACE.
+VAMILY: SHIPPED [district sound] BB-THE-BED-IS-THE-PLACE. It rode behind
+BB-THE-CITY-SENDS-WHERE, which shipped earlier this round, so it was reachable
+for the first time.
+
+THE AISLE (the row's own): Schafer's KEYNOTE SOUNDS are the background bed, not
+listened to consciously but they imprint a sense of place. We shipped only
+signals. This is the game's first keynote.
+
+THE HONEST WORRY THAT SHAPED IT. The bed speaks once every 40-95 seconds, so a
+player crossing three districts in ninety seconds hears ONE sound. Re-weighting
+WHICH sound that is would be a change no human can perceive, and calling that
+"the district sounds different" would be true in a table and false in a pair of
+ears. So there are two levers and the gate holds them SEPARATELY:
+  1. which rare sound (generator / sign / wind)
+  2. HOW OFTEN THE BED SPEAKS AT ALL -- lit block 25-60s, open desert 60-130s.
+     This is the half a person can actually hear.
+
+FOUR GROUPS, 79 DISTRICTS, COUNTED AGAINST THE GAME'S OWN ENUM not against the
+table's idea of itself: machine 25, lit 19, open 18, lived 17. Nothing
+ungrouped, nothing invented, nothing in two groups.
+
+GROUNDED IN THE REPO, NOT IN TASTE: LIGHT=TERRITORY (12% has power, clustered,
+owned) and the lockdown finding already quoted in BB-A-LIT-BLOCK-HUMS (the 2020
+shutdowns cut human ground noise up to 50%, largest in the DENSEST cities, and
+buried signals became clearly audible -- DEAD IS NOT SILENT, DEAD IS A DIFFERENT
+BED).
+
+MECHANISM MINE, CONTENTS HIS, and the row says so in as many words: "WHICH place
+sounds like WHAT is canon and is his." The groups are an ATTEMPT, published as
+window.__ambPlaces, one word per district to move.
+
+TWO THINGS IT DELIBERATELY DOES NOT CHANGE:
+  * an ungrouped place is exactly what it was yesterday -- measured, not
+    asserted: generator 12.5%, wind 25%, gap 40-95. The run slice reports no
+    district, and A NEW FIELD MUST NEVER CHANGE WHAT IT DOES NOT DESCRIBE.
+  * the four UNAPPROVED names keep their row. The bed's list carries dog_far,
+    dog_cry, dog_calls, neon_buzz, neon_hum and metal_ticks, all guarded. A
+    place-aware pick that returned early would SKIP that list, so the day he
+    approves a dog it would be silent everywhere -- a new feature quietly
+    deleting an old wire. Each place carries a dog and metal weight behind the
+    same guard, costing nothing until he says yes.
+
+GATE: bed_is_the_place_gate.py, 20 claims. Mutations: identical odds and gaps
+RED x4, city stops reporting its district RED x2, one district dropped from the
+table RED (and it names it).
+
+TWO MISTAKES OF MINE:
+  * THE TWO-DOCUMENTS ONE, AGAIN. The gate's first cut armed the message
+    listener in the SHELL and called __ctWhere() in the SHELL -- but __ctWhere
+    lives in the CITY, so nothing was posted and the intercept came back empty
+    on a build that was sending the field perfectly. THE LISTENER BELONGS WHERE
+    THE MESSAGE ARRIVES AND THE TRIGGER WHERE IT IS SENT. Same shape as the
+    8/29 autoSave probe looking for a run-slice function in the city frame.
+  * I wrote 78 districts twice in my own docstring. It is 79. Counted and
+    corrected in the tool, the gate and the shipped comment.
+
+FILES  tools/bohemia_the_bed_is_the_place.py, gates/bed_is_the_place_gate.py,
+       records/BOHEMIA_THE_BED_IS_THE_PLACE_9_5_26.md
+
+NEXT IN THIS LANE (VAMILY order): [power hums] BB-A-LIT-BLOCK-HUMS, then
+[unused sounds] THE-OTHER-51, then [music owned] THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/5 (b) -- *** THE GAME WAS SILENT FOR TEN SECONDS
+
 CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
@@ -647,6 +718,7 @@ FILES
    means anything added there will now actually move.
 
 SOUND (sound-xk7pjp): 9/5 (b) LATEST -- *** THE GAME WAS SILENT FOR TEN SECONDS
+
 AT ITS OWN FRONT DOOR, AND THE MUSIC WAS NOT LATE, IT WAS STARVED.
 TAB: RUN (from the splash). Nothing to judge -- no sound was cooked. ***
 
@@ -1197,7 +1269,7 @@ STILL, AND NOTHING WAS BROKEN. One message feeds four finished systems and the
 walked surface never sent it. Every step in the game was also the dirt one.
 TAB: RUN (the walked city). Nothing to judge -- no new sound was cooked. ***
 
-Build 9/5k - THE CITY SENDS WHERE.
+Build 9/5r - THE CITY SENDS WHERE.
 VAMILY: SHIPPED [background sound] BB-THE-CITY-SENDS-WHERE and [daytime music]
 BB-THE-DAY-SONG-PLAYS. They are one wire: musicPhase() is called from exactly one
 place and that place is the handler for the message nobody sent.

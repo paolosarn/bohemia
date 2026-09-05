@@ -51999,8 +51999,14 @@ function ctWhere(){
        posts the same message off its own clock, and the shell's handler is
        stateful: two clocks answering the same question read as an hourly leap
        and strike the hour chime every four seconds. */
+    /* __THE_BED_IS_THE_PLACE__ -- WHICH GROUND YOU ARE STANDING ON. The
+       overmap tile's own district, read the same way every other system in
+       this file reads it. Indoors it is not reported: a room is a room. */
+    var dist=null;
+    try{ if(!inside){ var _t=om.at(Math.floor(hx/FN),Math.floor(hy/FN));
+                      dist=_t?_t.district:null; } }catch(_d){}
     window.parent.postMessage({type:'BOHEMIA_WHERE', from:'city',
-      inside:inside, night:night, min:min, space:space},'*');
+      inside:inside, night:night, min:min, space:space, district:dist},'*');
   }catch(_e){}
 }
 window.__ctWhere=ctWhere;          /* so a gate can ask, and so a crossing can call */

@@ -1465,6 +1465,19 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('BED IS PLACE',  ['python3', 'gates/bed_is_the_place_gate.py'],
+     "A DISTRICT THAT SOUNDS DIFFERENT IS DIFFERENT, at zero art cost. "
+     "BB-THE-BED-IS-THE-PLACE, and Schafer's keynote sounds are the aisle: a "
+     "background bed is not listened to consciously but imprints a sense of "
+     "place, and this game shipped only signals. 79 districts fall into four "
+     "kinds -- machine, lit, open, lived -- counted against the game's own "
+     "DISTRICT enum so an ungrouped one cannot slip through. AND IT HOLDS THE "
+     "TWO HALVES SEPARATELY ON PURPOSE: the bed speaks once every 40 to 95 "
+     "seconds, so re-weighting WHICH sound is a change no human can perceive; "
+     "the audible lever is HOW OFTEN, and a lit block speaks every 25 to 60 "
+     "seconds against the desert's 60 to 130. Also holds that a report with no "
+     "district sounds exactly as it did before, because the run slice sends "
+     "none and a new field must never change what it does not describe", True),
     ('BEAT FIRST',    ['python3', 'gates/beat_first_gate.py'],
      "THE GAME HAS A PULSE BEFORE IT HAS A SONG. Measured on the real surface: "
      "the tap sounds at 110ms, it is over by 401ms, and the next thing you hear "
