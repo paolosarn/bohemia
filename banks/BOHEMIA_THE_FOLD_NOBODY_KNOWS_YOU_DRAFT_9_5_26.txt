@@ -1,0 +1,88 @@
+BOHEMIA -- THE FOLD: THE ROOM STAYS AND THE PEOPLE GO
+BANK, 9/5/26, DYNASTY lane, Q6 [time skip]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+anywhere. No years elapsed, no ages, no dates: the PEOPLE lane already refused a
+calendar and round 5 agreed, so everything here runs on beats.
+Record: records/BOHEMIA_DYNASTY_DAY_6_THE_TIME_SKIP_9_5_26.md
+
+WHY THIS SHAPE
+Games do a time skip as an art job: decay the rooms, dirty the textures, close
+the routes. Real life does it as a CAST CHANGE. If half a neighbourhood's renters
+move every two years, about three in a hundred are still there after ten. The
+buildings stand. The people are gone. And when researchers ask long-term
+residents what changed, they name institutions, safety, and who lives here now,
+never the frontages.
+Our valley has been a ruin for ten years and will be a ruin for a hundred, so a
+repaint means nothing here. What means something is walking into a place you own,
+that looks identical, where almost nobody knows your face.
+AND HIS OWN LAW ALREADY RULES THE CUT ITSELF: TEN YEARS COLD says the crash is
+never played, only its aftermath. Same for the gap. DO NOT PLAY THE TEN YEARS.
+
+---- THE CUT, AS A SHAPE ONLY ------------------------------------------ draft:true
+Structure is ours. What is on the table, who is at it, and how long the gap is
+are all HIS.
+
+  BEFORE      the last beat of the old life. one room. people you know.
+  THE CUT     one beat. nothing is explained and nothing is summarised.
+  AFTER       the same room. the same objects. different people in it.
+  THE TEST    you should want to ask somebody something and find that the
+              somebody is not there any more.
+
+---- WHAT IS IDENTICAL, AND SHOULD BE POINTEDLY IDENTICAL -------------- draft:true
+  THE SAME TABLE.
+  THE SAME MARK ON IT.
+  NOTHING HERE HAS BEEN FIXED.
+  IT SMELLS THE SAME.
+  THE DOOR STILL STICKS.
+
+---- WHAT IS GONE, WHICH IS THE PEOPLE --------------------------------- draft:true
+  NOBODY HERE KNOWS YOU.
+  YOU KNOW THE ROOM. YOU DO NOT KNOW ANYONE IN IT.
+  THAT ONE IS NEW. THEY ARE ALL NEW.
+  THE MAN WHO RAN THIS IS NOT RUNNING IT.
+  YOU WANT TO ASK HER. SHE IS NOT HERE TO ASK.
+
+---- THE THREE IN A HUNDRED WHO ARE STILL THERE ------------------------ draft:true
+(the whole point of the cut is that a couple of people survive it. how many is
+his; that it is nearly nobody is the finding.)
+  ONE PERSON HERE KNOWS THE NAME.
+  SHE WAS A CHILD LAST TIME.
+  HE IS TOO OLD TO BE ANY USE AND HE IS THE ONLY ONE WHO REMEMBERS.
+  THEY HEARD IT FROM SOMEBODY WHO HEARD IT.
+  WHAT THEY HEARD IS NOT WHAT HAPPENED.
+
+---- WHAT STOPPED WORKING, WHICH IS WHAT RESIDENTS ACTUALLY NAME ------- draft:true
+  NOBODY COLLECTS HERE ANY MORE.
+  THE ONES WHO KEPT ORDER STOPPED COMING.
+  IT IS NOT WORSE TO LOOK AT. IT IS WORSE TO LIVE IN.
+  THE PLACE THAT SETTLED ARGUMENTS IS SHUT.
+
+---- WHAT THE STORY BECAME WHILE YOU WERE GONE ------------------------- draft:true
+(the witness organ already models this: a deed travels, distorts, and a quiet
+good one dies with the witness while a notorious one becomes what your child is
+judged for. this is that, out loud.)
+  THEY TELL IT WRONG AND THEY TELL IT OFTEN.
+  THE GOOD THING YOU DID DIED WITH THE MAN WHO SAW IT.
+  THE WORST THING YOU DID IS THE ONLY THING THEY KEPT.
+  YOU ARE NOT A PERSON HERE. YOU ARE A STORY.
+  YOUR NAME ARRIVED BEFORE YOU DID.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No montage of the decade. No summary reel. No numbers ticking forward. TEN YEARS
+COLD clause 1 already banned watching the backstory happen, and the gap is the
+same thing.
+No re-texturing of the ruin. It has been a ruin the whole time, and our own
+machine can only make districts look BETTER anyway, never worse.
+No years-elapsed counter, no ages, no dates.
+No second memory system. There are already two in this repo and they have never
+met; the fix is one wire, not a third organ.
+No keeping the whole cast, which is what the machine does today at a hundred
+percent.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+How long the gap is. What room it is and what is on the table. Who is at it
+before and who is at it after. Which two or three people survive the cut and why.
+What the story became. Every name.

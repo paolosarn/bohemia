@@ -1,3 +1,10 @@
+DYNASTY (dynasty-w4yxiz): 9/5 LATEST. *** THIS IS THE ONE GOOD COPY OF THIS
+LANE'S BLOCK. Older DYNASTY fragments further down this file are TORN AND
+INTERLEAVED WITH OTHER LANES' TEXT (see the corruption note at the end of this
+block). READ THIS COPY. IGNORE THE OTHERS. ***
+
+--- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -6,6 +13,7 @@ EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
 VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
 
 WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 
@@ -289,6 +297,147 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 
 1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
 2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. IT NEVER IMPLEMENTS. Findings
+become PEOPLE, WORLD, RUN and (when reopened) QUESTS jobs. Canon stays his.
+TWO FRONT-PAGE RULES I HAD BEEN GETTING WRONG, kept here so they stay fixed:
+  - A RESEARCH ROUND IS NOT "A DAY". Record files are titled DAY N because that
+    is the records convention, but it is one VAMILY, and NEVER call it a day to
+    Paolo.
+  - RULE 5: holding a claimed job means VAMILY = CONTINUE IT, however many rounds
+    it takes. Only an empty hand takes the next OPEN line.
+
+SHIPPED SO FAR: Q1 [animal play], Q2 [coyote life], Q3 [heir keeps],
+Q4 [third generation], Q5 [growing old], Q6 [time skip]. Records are named in
+the VAMILY board's SHIPPED lines and the lane STATE line carries every finding.
+
+*** THE LANE'S OWN FINDING, ACROSS FOUR ROUNDS, AND IT IS THE MOST USEFUL THING
+HERE: WE DO NOT HAVE A CONTENT PROBLEM, WE HAVE A WIRING PROBLEM, AND IT IS
+ALWAYS THE SAME WIRE. THE ORGAN AND THE MOMENT THAT NEEDS IT ARE IN DIFFERENT
+FILES. ***
+  round 1  the material exists and never reaches the player
+  round 2  both halves of the coyote's life shipped as unrelated tiers
+  round 5  the ageing curve, running on memories instead of on bodies
+  round 6  the memory of a person, and the fold that cannot see it
+
+ROUND 6 [time skip], SHIPPED. records/BOHEMIA_DYNASTY_DAY_6_THE_TIME_SKIP_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_NOBODY_KNOWS_YOU_DRAFT_9_5_26.txt (draft:true)
+A TIME SKIP IN GAMES IS AN ART JOB. IN LIFE IT IS A CAST CHANGE. If half a
+neighbourhood's renters move every two years, about THREE IN A HUNDRED are still
+there after ten. The buildings stand; the people are gone. Residents asked what
+changed name institutions, safety, and who lives here, never the frontages.
+THE FINDING: bohemia_engine.js (the fold) references bohemia_standing ZERO times.
+At the cut the fold decays an abstract faction number by 25% and THE WITNESS WEB,
+the organ that models a deed being seen, told, distorted and forgotten at
+clarity = 0.5^(age/halflife), IS NOT ADVANCED AT ALL. Nothing anywhere (no
+advanceYears, no generationPass) drives it across a gap, though its own comment
+already specifies our scene: "Thirty years pass. EVERY PERSON WHO WATCHED YOU DO
+ANYTHING IS DEAD... A QUIET GOOD DEED DIES WITH THE WITNESS."
+ALSO: nothing replaces or ages out the population at a generation boundary
+(control: "cohort" appears once in the engine, in the comment REFUSING a
+birth-year generator), so 100% of the cast survives our fold. And round 4 showed
+districtTexture only travels one way, so we cannot do the art half either.
+AND TEN YEARS COLD CLAUSE 1 ALREADY RULES THE CUT: do not play the ten years, the
+same way the crash is never played. All the weight lands on Q12's first hour.
+ROUTED: WORLD or RUN THE-FOLD-READS-THE-WITNESS-WEB, one wire, nothing new
+authored. BIGGEST SINGLE ITEM THIS LANE HAS PRODUCED.
+
+ROUND 5 [growing old], SHIPPED (this text was lost once by another lane's merge
+and is restored here). records/BOHEMIA_DYNASTY_DAY_5_GROWING_OLD_ON_SCREEN_9_5_26.md
+  banks/BOHEMIA_GROWING_OLD_THE_CROSSOVER_DRAFT_9_5_26.txt (draft:true)
+AGEING IS A CROSSOVER, NOT A SLOPE. Reaction time peaks in the early-to-mid
+twenties and is 20-30% slower by sixty; muscle goes 3-5% a decade from thirty.
+But anticipation and pattern recognition RESIST age and keep growing, and expert
+olds beat young novices at reading their own domain. THE NUMBER THAT FALLS IS
+SPEED, THE NUMBER THAT RISES IS KNOWING WHAT HAPPENS NEXT. An old fighter gets
+fewer chances and stops needing as many: on 120 BPM that is fewer inputs inside
+the bar and a better read of the bar, with no damage number. Healing is the one
+cost with no compensation.
+THE FINDING: bohemia_memory.js already runs clarity = 0.5^(age/halflife) with
+halflife = BASE*(1+log2(1+familiarity)), commented "familiarity slows the fog".
+That IS the ageing curve, pointed at what the city remembers instead of at bodies.
+MEASURED: a person's age takes EXACTLY TWO VALUES in the engine, 'child' and
+'adult', only to pick a cutscene sprite. Controls: age:'industrial' is a building
+style; the fight's 39 age/old hits are all hold/gold/bold/damage/wager plus two
+elapsed-time variables and one game title in a comment, so there is NO age in the
+fight. Everywhere else `age` means ELAPSED TIME.
+NOT OVERTURNED: bohemia_people.js refuses birth years and a locked calendar year.
+Any ageing runs on beats, not dates. ROUTED: COMBAT THE-OLD-HAND.
+
+ROUND 4 [third generation], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_4_THE_THIRD_GENERATION_9_5_26.md
+  banks/BOHEMIA_GEN3_THE_CROWD_AND_THE_FORGETTING_DRAFT_9_5_26.txt (draft:true)
+THE ROW'S OWN PREMISE IS FOLKLORE. The 30/12/3 and "70% fail by the third
+generation" figures are contested and traced to a study about family
+communication. DO NOT BUILD A CURSE.
+What actually makes it hard: THE CROWD (a cousin consortium, many owners and few
+working, the trap being twenty cousins at five percent with nobody in control,
+and the hardest problem being balance of power between branches) and THE
+FORGETTING (a twenty-question family-knowledge scale, including whether the child
+knows about something terrible that happened, was the best single predictor of
+emotional health; families telling coherent open stories about hard events had
+children who coped better).
+MEASURED, THE OPPOSITE PROBLEM: builds is a HARD RATCHET (Math.max); invest,
+economyCapacity, karma and virtues only accumulate; blindSpot and recordedKnown
+only grow. THERE IS NO -= AND NO Math.min ANYWHERE IN THE FOLD, so act 3's city
+cannot look worse than act 2's. And the two forces the research names are the two
+we cannot represent: dilution does not exist (selectHeir picks ONE child and the
+others are never referenced again) and memory is write-only (`wounds` appears
+EXACTLY TWICE in the engine, a declaration and one push; nothing reads a wound,
+nothing settles one).
+
+ROUND 3 [heir keeps], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt (draft:true)
+THE FOLD HAS THE PERSISTENCE BACKWARDS. It folds eight kinds of thing and decays
+exactly ONE: a faction standing loses 25% a generation while territory, builds,
+economyCapacity, invest, karma and virtues carry at 100% forever. The measured
+world is the reverse: social status persists at about 0.79 a generation (ten to
+fifteen generations to fade), wealth and occupation at about 0.3 to 0.4. THE NAME
+OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+AND THE RATE IS RIGHT ON THE WRONG FIELD: STANDING_DECAY_TO_NEUTRAL multiplies by
+0.75 against a measured 0.79, a constant its own comment calls "tunable" that
+nobody ever checked. Do not touch that number; move it.
+The fold also carries FOUR asset ledgers and not one object, name or memory: a
+relative is {id, rel, alive} with NO NAME. 64% of older adults reportedly rank
+heirlooms above money, and an object somebody USED beats one they merely owned,
+which our model cannot express because it records no use.
+
+[PENDING Paolo] Nothing blocks this lane. Six questions still OPEN and none needs
+a ruling to start. His and untouched: whether gen 1 is a coyote at all and how
+long it runs; every name; who marries whom and who dies; which fold fields may
+fall and how far; where the ageing curves cross; how long the gap is, what room
+the cut happens in, and which two or three people survive it.
+
+*** [PENDING, COORDINATOR] THIS FILE IS TORN, AND IT IS NOT ONE LANE'S DOING. ***
+Measured 9/5 on main: this handoff has FOUR partial copies of the DYNASTY block,
+and other lanes' blocks are spliced INTO the middle of them (a FACTIONS header
+lands seven lines into my block, ECONOMY and CHARACTER text sits inside another
+of my copies, and one of my rounds was deleted outright by another lane's merge).
+The damage is cross-lane and predates my last push, so REPAIRING IT IS NOT MINE:
+cutting the interleaved fragments would risk deleting other lanes' work, which is
+the exact failure I would be trying to fix. I have written this one clean copy at
+the top and touched nothing else. ONE OWNER SHOULD REBUILD THIS FILE, and until
+somebody does, every lane's block below is suspect.
+ROOT CAUSE, so it stops: lanes (me included) have been resolving conflicts in
+this file with scripts that rebuild it from one side and re-apply remembered
+pieces. That eats whatever it was not told to remember. I have retired mine and
+resolve this file by hand now.
+
+NEXT FOR THIS LANE: the first line marked OPEN, which is Q7 [family arrives].
+
 3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
 there. Never trust your memory of them.
 4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
