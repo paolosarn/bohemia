@@ -159,18 +159,21 @@ PLACE_REPLACE = """        if(ev!==this.kind){
              lowpass do the rest, so a generator a block away comes back quiet
              AND dull, which is what a block of distance actually sounds like.
              A lit sign is the same fact about the same block, so it rides it. */
-          if((ev==='generator'||ev==='sign_alive') && this.litD>=0){
-            dist = 2.5 + this.litD*8.5;
-            dx   = Math.max(-7.5, Math.min(7.5, (this.litDx||0)*2.5));
-          }
+          var _hp=(ev==='generator'||ev==='sign_alive')?humPlace(this.litD,this.litDx):null;
+          if(_hp){ dist=_hp.dist; dx=_hp.dx; }
           placeSound(ev, { dx: dx, dist: dist, inside:false }, this.bus);
           this.last=ev; return;
         }"""
 
+HUM_PLACE_ANCHOR = '  try{ window.__ambPlaces=function(){ return {of:PLACE_OF, is:PLACE}; }; }catch(_e){}\n'
+HUM_PLACE_REPLACE = HUM_PLACE_ANCHOR + "  /* ONE FORMULA, AND EXPOSED, WHICH IS NOT THE SAME AS A COPY OF ONE.\n     The first cut of this published a SECOND function that computed the same\n     distance, and a mutation that changed the real one in tick() left the\n     published one agreeing with itself -- the gate went green on a build where\n     every live circuit sounded the same distance away. A CHECK THAT READS ITS\n     OWN COPY OF THE ANSWER IS NOT A CHECK. tick() calls this and nothing else\n     computes it.\n     And it is exposed for the same reason __sfxInSpace is: measuring this by\n     loudness proved nothing four separate times -- the master's brickwall\n     limiter squashed both ends to one ceiling, placeSound draws a RANDOM\n     candidate and two of his candidates differ by more than a block does, and\n     long tails bled from one play into the next window. */\n  function humPlace(litD, litDx){\n    if(!(litD >= 0)) return null;\n    return { dist: 2.5 + litD*8.5,\n             dx: Math.max(-7.5, Math.min(7.5, (litDx||0)*2.5)) };\n  }\n  try{ window.__ambHumPlace=function(litD,litDx){\n    return humPlace(litD,litDx) || {dist:10.5, dx:0, litD:litD}; }; }catch(_e){}\n"
+
 WIRES = [
     (CITY, [('the city measures how far the nearest live circuit is',
              CITY_ANCHOR, CITY_REPLACE)]),
-    (ALPHA, [('the shell learns it', WHERE_ANCHOR, WHERE_REPLACE),
+    (ALPHA, [('the one distance formula, used by the bed and published so it can '
+              'be checked exactly', HUM_PLACE_ANCHOR, HUM_PLACE_REPLACE),
+             ('the shell learns it', WHERE_ANCHOR, WHERE_REPLACE),
              ('a dead block gets no machine and no lit sign, by place',
               PICK_ANCHOR, PICK_REPLACE),
              ('and by the old odds too, for a sender with no place',

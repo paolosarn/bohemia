@@ -979,6 +979,18 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('ROAD ON FOOT',   ['node', 'gates/road_interrupts_on_foot_gate.js'],
+     'VAMILY [street encounters]. THE ROAD INTERRUPTS shipped 8/27 -- twelve approved road '
+     'moments, the director on the clock, 70/20/10 held, the card, the leavings, the choices -- '
+     'AND ALL OF IT FIRED ONLY WHEN YOU WERE LOOKING AT THE MAP. roadInterrupt had one caller '
+     'and it sat inside MODE===city, so the surface he actually walks had never produced one. '
+     'TWO THINGS WERE WRONG AND ONLY ONE WAS THE MISSING CALL: the interrupt also read the '
+     'district and the power grid off city.x/city.y, which only move in city mode, so wired to '
+     'the street unchanged it would have decided what happens to you from wherever the map was '
+     'last left sitting. roadWhere() answers which cell the PLAYER is in, once, per mode. '
+     'Measured first: 39.4% of the valley is a road district and the nearest is ONE cell from '
+     'the spawn. Mutation: remove the foot call -> 4 red; put roadWhere back on the map cursor '
+     '-> the player walks into arterial and the director is told SUBURB ninety-nine times', True),
     ('COLD HAND',      ['node', 'gates/cold_hand_gate.js'],
      'BB-COLD-HAND, promoted from a one-off to a harness. THE TEST IN ONE SENTENCE: A COLD '
      'HAND PRESSES THE LOUDEST THING ON SCREEN AND NEVER READS -- if doing that repeatedly '
@@ -1606,6 +1618,20 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('SOUND REACHABLE',['python3', 'gates/every_sound_is_reachable_gate.py'],
+     "WHICH OF HIS APPROVED SOUNDS THE GAME ACTUALLY MAKES, measured by playing "
+     "it. THE-OTHER-51's brief says '51 of 65 have none' and THAT NUMBER CAME "
+     "FROM A GREP, which cannot answer this question: EYES E4 proved it the "
+     "expensive way, one search saying 50 and a better one saying 56 and both "
+     "wrong, because the footstep caller builds its name by concatenation "
+     "('step_'+surface) and a name assembled at run time is invisible to every "
+     "grep ever written. So this gate drives the walked surface and counts what "
+     "comes out: 9 of 65 heard on a full drive. It proves the audio engine was "
+     "RUNNING for every sample first, because a low count on a dead engine is a "
+     "statement about the harness. And it reads the hour chime off the shell's "
+     "OWN ledger, because strikeHours renders directly and never goes through "
+     "playSFX -- a name hook cannot see it, and the first cut of this gate wrote "
+     "it off as unreachable for exactly that reason", True),
     ('LIT BLOCK HUMS',['python3', 'gates/lit_block_hums_gate.py'],
      "A LIVE CIRCUIT IS AUDIBLE AND A DEAD ONE IS NOT -- BB-A-LIT-BLOCK-HUMS's "
      "own ship test, and the second half is the one that gets skipped. Measured "

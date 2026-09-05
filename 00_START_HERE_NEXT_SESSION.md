@@ -1,3 +1,80 @@
+SOUND (sound-xk7pjp): 9/5 (e) LATEST -- *** WHAT THE GAME PLAYS IS NOW A
+MEASUREMENT, NOT A GREP. NINE of 65 approved sounds, heard.
+TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
+
+Build 9/5ah - WHAT THE GAME ACTUALLY PLAYS.
+VAMILY: [unused sounds] THE-OTHER-51 is CLAIMED AND CONTINUING, round 1 of N.
+The census is built and green; the wiring it points at is not done. Front page
+rule 6: a half-done job marked SHIPPED is worse than an open one.
+
+THE BRIEF'S NUMBER ("51 of 65 have none") CAME FROM A GREP AND A GREP CANNOT
+ANSWER THIS. EYES E4 proved it the same round: one text search said 50 events
+are never called, a better one said 56, BOTH WRONG, because the footstep caller
+builds its name by concatenation ('step_'+surface) and a name assembled at run
+time is invisible to every grep ever written. This lane's own census in
+silent_moments_gate is the LOOSER kind and admits it: "the id appears as a
+string in the game code". An id in a table, a comment or a dead branch reads as
+called.
+
+SO THE GATE PLAYS THE GAME AND COUNTS. It wraps BOH_SFX.render (the one hook
+nothing routes around) for LIVENESS, records names at playSFX, at the bed's own
+pick(), at STING.play and at the city's messages, then drives the walk, the
+door, the phone, the bed at day/night/indoors and the clock. AND IT PROVES THE
+AUDIO ENGINE WAS RUNNING FOR EVERY SAMPLE, which is what EYES' first run could
+not, and they were right to withhold a headline without it.
+
+MEASURED, audio alive every sample, 144 renders:
+  step_dirt 115  air_day 53  air_inside 40  air_night 14  wind_gust 13
+  time_pass 6  door_drag 4  step_concrete 2  ui_tap 2
+NINE OF SIXTY-FIVE. The other 56 each carry a written reason this drive cannot
+reach them: a fight, a verb, a payday, a night slept through, a ground you
+happen not to stand on, or a sibling pool drawn from inside its parent.
+
+FOUR INSTRUMENT MISTAKES, ALL MINE, EACH A REAL DEFECT:
+ 1. THE INSTRUMENT MOVED THE THING IT WAS MEASURING. The first drive walked 200
+    blind steps and THEN sampled the bed, reporting air_inside forty times on
+    what looked like a street. The game was right: 200 steps cycling four
+    directions in a suburb walks you through a door. The bed is sampled first.
+ 2. A GATE THAT UNDER-WAITS WRITES ITS OWN EXCUSE LIST. time_pass was on the
+    "cannot drive" list because I advanced the clock and looked 1.2s later,
+    before the four-second heartbeat that carries it. It is reachable.
+ 3. A HOOK THAT MISSES A PATH IS A GATE THAT INVENTS AN EXCUSE. strikeHours
+    calls BOH_SFX.render DIRECTLY and never playSFX, so a name hook is blind to
+    the hour chime. The shell keeps a per-call ledger; the gate reads it.
+ 4. A CHECK THAT READS ITS OWN COPY OF THE ANSWER IS NOT A CHECK. Fixing the hum
+    gate's distance claim I published a SECOND function computing the same
+    distance, and a mutation changing the real one in tick() left the published
+    one agreeing with itself -- 20 PASSED on a build where every live circuit
+    sounded the same distance away. One formula now; tick() calls it; the
+    mutation goes red.
+
+AND THE HUM'S DISTANCE IS CHECKED AS A NUMBER, WITH A PRECEDENT. Four attempts
+to measure it as loudness each found a real defect: the master's brickwall
+limiter squashing both ends to one ceiling, candidate variance (placeSound draws
+a random candidate and two of his differ by more than a block does), then long
+tails bleeding across windows. The shell solved this once already for the room
+transform and says so: "measuring the room by playing playSFX twice proves
+nothing." So the computed distance is asserted exactly and AUDIBILITY IS STILL
+MEASURED ON REAL AUDIO.
+
+GATE: every_sound_is_reachable_gate.py, 10 claims. Mutations: the city stops
+posting footsteps RED (and it names them), the hour chime never strikes RED x2.
+
+NOTE ON THE SUITE: BEAT FIRST went red inside a fifteen-gate back-to-back run
+and is GREEN run alone. That is the suite's own documented behaviour (a gate
+that fails in the pack may have failed for LOAD) and it re-confirms reds alone.
+
+FILES  gates/every_sound_is_reachable_gate.py,
+       records/BOHEMIA_WHAT_THE_GAME_ACTUALLY_PLAYS_9_5_26.md,
+       tools/bohemia_a_lit_block_hums.py (one distance formula, published)
+
+NEXT IN THIS LANE: finish THE-OTHER-51 -- take the events whose moment
+demonstrably exists and wire them, write a reason for the ones whose moment does
+not. NOT a wire invented for a moment that does not exist. Then [music owned]
+THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
 COOK (cook-mce6r5): *** HIS PERMANENT INSTRUCTION, WORD FOR WORD (9/5). It is here
 because he said to write it into this lane's own handoff block so it survives a
 memory reset. IT WAS LOST ONCE ALREADY -- another lane's rebase dropped this block
@@ -1441,7 +1518,7 @@ TAB: CITY. Walk out and the sign is on the bodies.
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/5 (d) LATEST -- *** YOU CAN HEAR WHOSE BLOCK STILL HAS
+SOUND (sound-xk7pjp): 9/5 (d) -- *** YOU CAN HEAR WHOSE BLOCK STILL HAS
 POWER FROM THE NEXT STREET, AND A DEAD ONE IS DEAD.
 TAB: RUN (the walked city). Nothing to judge -- nothing entered the bank. ***
 
@@ -5619,7 +5696,70 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/5 LATEST -- *** [home screen] SHIPPED, AND THE INSTALL PATH
+RUN (run-eak241): 9/5 LATEST -- *** [street encounters] SHIPPED. The twelve road
+moments fire on the walked street now, not just on the map -- and the reason they
+never could was not only the missing call. THE INTERRUPT WAS READING THE MAP
+CURSOR, NOT THE PLAYER. TAB: RUN, walk out of the suburb. Nothing to judge. ***
+
+THE ROW, open since 8/31: roadInterrupt had one caller and it sat inside
+MODE==='city'. THE ROAD INTERRUPTS shipped 8/27 with twelve approved moments, the
+director on the clock, 70/20/10, the card, the leavings, the choices -- and the
+surface he actually walks had never produced ONE of them in nine days.
+
+TWO THINGS WERE WRONG AND ONLY ONE WAS THE MISSING CALL.
+  1. the human branch of stepOnce spends 0.084 min a cell and handed that time to
+     nobody. It hands it to the SAME director now. No new pacing, no second
+     director. "The time was always being spent, it just never bought anything"
+     is the city branch's own 8/27 sentence and it was just as true one branch
+     down.
+  2. *** IT TOOK THE DISTRICT AND THE POWER GRID OFF city.x/city.y, WHICH ONLY
+     MOVE IN CITY MODE. *** Wired to the street unchanged it would have decided
+     what happens to you from wherever the MAP CURSOR was last left sitting: a
+     working-looking feature with every answer about the wrong place. roadWhere()
+     answers which cell the PLAYER is in, once, per mode. Two places both
+     claiming to be where you are is a bug this file has fixed FIVE TIMES under
+     five different names.
+
+MEASURED BEFORE BUILDING, because a feature that cannot reach him is the trap
+this lane fell into twice this round: 3,633 of 9,216 overmap cells (39.4%) are
+road districts, arterial alone 2,434, and the nearest is ONE CELL from the spawn.
+After: walking off the suburb into arterial produced coyote_shadow, ambient, card
+on screen, zero errors.
+
+THE RATE IS REPORTED, NOT TUNED: NO_TABLE 6 (the suburb, correctly -- NO GLOBAL
+SPAWNS EVER), GAP 17, NO_BUDGET 21, FIRED 1. NO_BUDGET dominating is the approved
+director's own shape: budget is tension x quiet, both accrue with spent time, so
+on foot it RAMPS -- about 180 seconds of walking, thirty-six cells, against one
+map press buying 600 seconds outright. Moments are RARER ON FOOT than on the map.
+Re-tuning approved pacing without a ruling is not mine.
+
+*** AND THE HARNESS WAS WRONG TWICE BEFORE THE FEATURE WAS RIGHT ONCE. *** Two
+cuts of the gate reported ZERO moments where a hand-walk had already got one.
+Both times it was the walk: 420 PRESSES PRODUCED SEVENTEEN MOVES, because it was
+pressing into buildings, and A STEP THAT DOES NOT MOVE SPENDS NO TIME. The
+harness was standing still and calling it walking. It checks its own position
+every step now and turns the moment it stops moving. A third claim was wrong on
+its merits: it ASSERTED the director had refused with NO_TABLE, which is a fact
+about the path taken -- a walk that goes straight onto road ground never sees one
+-- and it went red on a run where the feature worked perfectly. That rule is
+tested against the module now, where it cannot depend on which way the wind blew.
+
+MERGE NOTE FOR WORLD: BB-TURF landed inside roadCan's seam logic mid-round (the
+NAMED holder beats the category, so the Mob's block and the Cartel's block are
+not the same block). I kept THEIRS and applied only my coordinate change on top
+-- theirs is what a seam IS, mine is only WHERE it is asked about. TURF 23/0
+after the merge.
+
+  ROAD ON FOOT 12/0 (new) - THE ROAD INTERRUPTS 19/0 - ENEMIES EXIST 27/0
+  - COLD HAND 6/0 - TURF 23/0
+  MUTATION: remove the foot call -> 4 red; put roadWhere back on the cursor ->
+  the player walks into arterial and the director is told SUBURB ninety-nine
+  times, and fires nothing.
+No new content, no new tokens, no new pacing. NO DAMAGE BEFORE THE DIAL untouched.
+Record: records/BOHEMIA_ROAD_INTERRUPTS_ON_FOOT_9_5_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [home screen] SHIPPED, AND THE INSTALL PATH
 WAS SENDING FRIENDS TO THE DEV BENCH. Add the demo to your home screen, tap the
 icon, and you got the seventeen-tab workshop -- because the demo was linking the
 ALPHA's manifest. On an iPhone the home screen IS the save, so this was the one

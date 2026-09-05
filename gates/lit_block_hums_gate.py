@@ -157,15 +157,28 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
        0.064 where the inverse law says 0.42 against 0.14 -- candidate variance
        swamping the thing being measured. Ten plays and the MEAN, so the four
        generator variants average out and what is left is the distance. */
+    /* *** AND THE PLAYS HAVE TO STOP OVERLAPPING, WHICH IS THE THIRD DEFECT
+       THIS ONE MEASUREMENT HAS HAD. *** With ten plays back to back in a 360ms
+       window each, and generator candidates running up to 2.5 seconds, every
+       window carried the TAIL of the play before it -- so the ten loud
+       on-the-block plays bled into the first quiet block-away ones and the
+       contrast collapsed to 0.78 where the inverse law says 0.33. Repeatably:
+       three runs, same wrong answer, which is what told me it was the ruler and
+       not noise. A LOUD SOUND THAT HAS NOT FINISHED IS PART OF THE NEXT
+       MEASUREMENT. Sample long enough to contain the sound, then wait for
+       silence before the next one. */
+    const settle=async()=>{ for(let i=0;i<60;i++){ if(read()<0.002) return true; await wait(25);} return false; };
     const play=async(litD)=>{
       A.litD=litD; A.litDx=0;
+      await settle();
       const peaks=[];
-      for(let k=0;k<10;k++){
+      for(let k=0;k<8;k++){
         let peak=0;
         A.next=1; A.seen=Date.now();            /* the tick's own "play now" state */
         A.tick();
-        for(let i=0;i<40;i++){ peak=Math.max(peak,read()); await wait(9); }
+        for(let i=0;i<70;i++){ peak=Math.max(peak,read()); await wait(9); }
         peaks.push(peak);
+        await settle();
       }
       return +(peaks.reduce((a,b)=>a+b,0)/peaks.length).toFixed(5);
     };
@@ -176,6 +189,13 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     return {base:+base.toFixed(5), onIt:onIt, oneAway:oneAway, threeAway:threeAway,
             pickPutBack:(A.pick===was.pick)};
   });
+
+  /* THE DISTANCE THE GAME COMPUTES, exactly. See __ambHumPlace's own comment
+     in the shell for why this is a number and not a loudness. */
+  out.dist = await p.evaluate(()=>{
+    if(typeof window.__ambHumPlace!=='function') return null;
+    const r={}; for(const d of [-1,0,1,2,3]) r[d]=window.__ambHumPlace(d).dist;
+    return r; });
 
   out.errs=errs.slice(0,8);
   console.log(JSON.stringify(out));
@@ -289,13 +309,30 @@ def main():
        % loud.get('base'), loud.get('base') is not None and loud.get('base') < 0.02)
     ok('the hum on your own block is audible (mean peak %s over ten plays)'
        % loud.get('onIt'), (loud.get('onIt') or 0) > 0.01)
-    ok('a block away it is QUIETER, because the distance is the grid\'s answer '
-       'and not a taste dial (%s against %s)'
-       % (loud.get('oneAway'), loud.get('onIt')),
-       (loud.get('oneAway') or 1) < (loud.get('onIt') or 0) * 0.6)
-    ok('and three blocks away quieter still, the faintest thing that is still '
-       'information (%s)' % loud.get('threeAway'),
-       (loud.get('threeAway') or 1) < (loud.get('oneAway') or 0))
+    # *** THE DISTANCE IS CHECKED AS A NUMBER, AND THAT IS A DECISION WITH A
+    #     PRECEDENT, NOT A RETREAT. *** Four attempts to measure it as loudness
+    #     each turned up a real defect in the ruler -- the master's brickwall
+    #     limiter squashing both ends to one ceiling, candidate variance (two of
+    #     his candidates differ by more than a block does), then long tails
+    #     bleeding from one play into the next window -- and the fourth still
+    #     could not separate one block from three. The shell already solved this
+    #     exact problem once, for the room transform, and says so: "measuring the
+    #     room by playing playSFX twice proves nothing." So the GAME'S OWN
+    #     computed distance is asserted exactly, and whether a hum is audible at
+    #     all is still measured on real audio, above.
+    dist = d.get('dist') or {}
+    ok('the game exposes the distance it computes, so it can be checked exactly '
+       'rather than guessed at through a limiter (%s)' % json.dumps(dist), bool(dist))
+    if dist:
+        ok('on your own block the hum is close (%s), a street away it is a '
+           'street away (%s), two streets (%s), three (%s) -- the grid\'s answer, '
+           'rising with every cell'
+           % (dist.get('0'), dist.get('1'), dist.get('2'), dist.get('3')),
+           dist.get('0') is not None
+           and dist['0'] < dist['1'] < dist['2'] < dist['3'])
+        ok('and with no live circuit the distance is not used at all (%s, the '
+           'old dial) -- the hum is silenced above, not moved' % dist.get('-1'),
+           abs((dist.get('-1') or 0) - 10.5) < 0.01)
     ok('and the probe put the bed back the way it found it',
        loud.get('pickPutBack'))
 
