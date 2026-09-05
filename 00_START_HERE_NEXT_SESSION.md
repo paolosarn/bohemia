@@ -2004,7 +2004,89 @@ single Bash call is capped at 10 minutes, so one mutation run per call.
 
 --------------------------------------------------------------------------------
 
-COMBAT (combat-nfnki9): 8/31 (a) LATEST -- *** ONE MAN CLEARS ZERO EIGHT-MAN ROOMS
+COMBAT (combat-nfnki9): 9/5 (e) LATEST -- *** A COMBAT TILE IS A HOUSE NOW, ON A DIAL.
+A PISTOL IS A DAGGER AND A RIFLE IS A SPEAR. *** Nothing to judge.
+
+TAB: **COMBAT**, in DEMO SETTINGS beside SHE FIGHTS WITH YOU: two new dials,
+`TILE: A BODY / A HOUSE` and `TILE WIDTH`. The human-scale board is NOT removed --
+his row says so in those words -- so he plays both and can feel the difference.
+
+VAMILY job BB-A-TILE-IS-A-HOUSE, the first OPEN line in this lane's queue. Claimed
+before building (9f26d34), shipped 91cbd15. THE NEXT OPEN LINE IS BB-NERVE-ON.
+
+HIS RULING, 9/4: "instead of each combat tile being the size a human maybe each combat
+tile is the same size as the house and a pistol is like a dagger compared to the range
+of battle brothers and a rifle can do two tiles." Plus: "the size of the 'ground'
+changes but the player is the same size."
+
+THE ROW WROTE ITS OWN ACCEPTANCE TEST AND ALL FOUR CLAUSES ARE MEASURED:
+    the dial exists ..................... yes, two of them
+    a pistol reaches one house .......... 1  (shotgun 1, smg 1)
+    a rifle two ......................... 2  (sniper 3, [PENDING Paolo])
+    seeded boards unchanged at the old
+    setting ............................. TRUE, 25 arenas fingerprinted man by man
+                                          and rock by rock, dial flipped and flipped back
+
+THREE THINGS IT NEEDED WERE ALREADY BUILT, which is most of why it was small: the
+SPAWN BAND is already "multiples of YOUR max range" so the approach compressed for
+free; V162 already deleted PRESS_STEP so "a step is one house" needed nothing; and the
+accuracy curve is already a RATIO.
+
+AND rangeMult() IS THE WRONG DOOR -- write this down before somebody puts scale in it.
+Its own comment calls it "the ONE DOOR every reach in the game passes through", but
+isDark() is literally rangeMult()<0.999, so a house board would have told V98's dark,
+V191's LIGHT IT and the spotter's night band THAT THE SUN HAD GONE DOWN, silently, with
+every check green. THAT IS THE DARKNESS DOOR. Scale has its own: hd(n), which at body
+scale is n/1 and therefore EXACTLY n for every double.
+
+THE MAX IS HIS RULING, THE EFF IS DERIVED, and that is what keeps the curve honest: a
+house table with eff picked by hand bent it (a rifle at its own max read 0.556 against
+0.429) until each gun carried across its own body-scale eff/max. The rifle curve is now
+identical at both settings. It is also where "shotgun and SMG sit between" lives -- on a
+board of 1s and 2s there is no room between them in TILES, so they separate by
+RELIABILITY inside their one tile.
+
+TWO BROKEN INSTRUMENTS, AND THEY COST MORE THAN THE FEATURE:
+  * THE DAY IS NOT IN THE SEEDED STREAM. pickDayPhase is a bare Math.random, so ONE
+    BUILD ON ONE SEED DEALS MORNING, DUSK OR NIGHT AT RANDOM -- and night halves every
+    range. The first board comparison read "the boards changed" and was reading that.
+    PRE-EXISTING, a real hole in V88's "one number reproduces one exact fight", and
+    anybody pinning an arena should know it. Not fixed here; not this job.
+  * THE PLAY HARNESS WAS BIASED BETWEEN ITS OWN TWO ARMS, which is worse than noisy: it
+    fired any charged ability before shooting, and at house scale every verb charges
+    faster because everybody is adjacent, so the house arm never shot. It reported 70%
+    of house fights STUCK and FOUR SEPARATE "FIXES" WERE CHASED before the instrument
+    was suspected. A harness that only shoots and walks reports 0 stuck of 20.
+    The four changes were KEPT because each is a category error corrected, not a number
+    tuned: PRESS_STANDOFF 3.2, SQ_LANE 9.5, a 2.5-tile occupancy shove and the rooftop
+    placement are written in BODY-tiles, and a body-tile constant on a house board is
+    eight times too big whatever the harness says.
+
+TWENTY combat_lab anchors re-pointed and a slice harness fixed twice. THE SLICE RULE
+BIT AGAIN: a sliced function called hd() and the binding list did not have it, so the
+gate CRASHED and it read as a broken feature.
+
+WHAT COMES AFTER, IN ORDER:
+  1. BB-NERVE-ON, the next OPEN line, and it is the right one: "the mechanic that ends
+     fights early is switched off and sold as an upgrade". Everything about fight
+     LENGTH lands there.
+  2. Where a scoped rifle stops [PENDING Paolo] -- ships at 3 as an attempt.
+  3. The house-width ground tile is ART's canvas under DIRECTION's card
+     (ART COMBAT-GROUND-TILES); this shipped the geometry, not the picture.
+  4. Step onto a house tile and go INSIDE it (INTERIOR = EXTERIOR) is named in the law
+     and not built; THE-INDOOR-FIGHT is already a row.
+  5. Still open from 8/31: the companion cannot be picked back up (the enemy medic has
+     done exactly that since it was written), and the blades still only run at YOU.
+
+Record: records/BOHEMIA_COMBAT_A_TILE_IS_A_HOUSE_9_5_26.md
+Gates: fight_moves_you 160/0 (was 155/0), combat_lab 931/1 (the red is another lane's,
+pre-existing), boss_ladder 87/0, one_engine 3/0, pages_publish 18/0, 0 page errors.
+One earlier run of fight_moves_you read 159/1 and the next two read 160/0; the failing
+arm was not captured, so it is written down rather than called clean.
+
+--------------------------------------------------------------------------------
+
+COMBAT (combat-nfnki9): 8/31 (a) -- *** ONE MAN CLEARS ZERO EIGHT-MAN ROOMS
 OUT OF SIXTY. THERE ARE TWO OF YOU NOW. *** Nothing to judge.
 
 TAB: **COMBAT**. She is standing beside you when the bell rings. DEMO SETTINGS holds
