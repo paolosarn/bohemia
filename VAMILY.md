@@ -177,6 +177,7 @@ STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, war
 ## PEOPLE  (09.)
 MODE: BUILD
 STATE: talking on foot with nine verbs, a real witness memory, schedules and homes, 12 encounters firing on foot. NOT built: the player as a node in standing, the conversation chain in the demo file (236 nodes mute), outfits near spawn, any family event. Unverified: whether the talking portrait reaches a live NPC card.
+- OPEN  [gate red]  PEOPLE-GATE-RED -- gates/people_gate.js runs 148 passed, 10 failed as of 9/4 (measured by the coordinator; it reads engine/, tools/ and slices/, none of which the coordinator touches, so this predates today). His bugs beat your queue: fix or explain the ten before taking anything else.
 - OPEN  [your reputation]  BB-STANDING-PLAYER
 - OPEN  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
 - OPEN  [outfits nearby]  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one
@@ -308,6 +309,8 @@ STATE: nothing exists. No screenshot pass, no golden images, no audio measuremen
 
 ## SHARED (any chat with nothing open in its own lane)
 MODE: BUILD
+- OPEN  [handoff cut]  HANDOFF-CUT -- the handoff file is 5.2 MB, 79,379 lines, ~1.3 MILLION tokens, and every session is told to read it first; only 14 lane blocks are live (61 KB). gates/handoff_gate.js forbids shrinking it by more than 20% in one write (written after an accidental truncation). Amend that gate so a DELIBERATE archive passes: when archive/handoffs/HANDOFF_ARCHIVE_<date>.md holds every byte removed, the bulk check is satisfied. Then replace 00_START_HERE_NEXT_SESSION.md with archive/handoffs/HANDOFF_SLIM_READY_9_4_26.md (already prepared: the newest block per lane, the gate's own lane definition). The coordinator cannot touch gates; whoever takes this lands a 98% cut in one commit. Also add to the front of the slim file: "older blocks live in archive/handoffs/". (Paolo 9/4: "I don't want a bunch of tokens being used just for the uplifting of this work structure.")
+- OPEN  [backlog archive]  BACKLOG-ARCHIVE -- BOHEMIA_BACKLOG.md is 10,716 lines, ~193K tokens. Move every row marked done, dead, or superseded into records/backlog/ARCHIVE_<date>.md verbatim, keep the live rows, and add a one-line pointer. Same shape as the handoff cut; do it after.
 - OPEN  [cold hand]  BB-COLD-HAND
 - OPEN  [owed checker]  BB-A-GATE-CAN-SAY-OWED
 - OPEN  [board checker]  VAMILY-GATE
