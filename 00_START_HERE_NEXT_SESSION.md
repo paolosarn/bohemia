@@ -24,6 +24,42 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
+THIS ROUND (round 3 of [clothes wired], still CLAIMED)
+- DIRECTION SHIPPED THE STYLE CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md, 9/5). COOK's
+  WARDROBE-REMAKE is still OPEN, so still no batch to wire -- but the card's machine block
+  carries a line that is NOT a cooking rule and lands straight on this lane:
+      "accent_max_pieces": 1     "banned": [... "second saturated piece" ...]
+  A COOK DECIDES WHAT ONE GARMENT LOOKS LIKE. NOTHING BUT THE PICKER DECIDES HOW MANY OF
+  THEM A PERSON WEARS AT ONCE. However well every piece is cooked, that line breaks on the
+  street unless the picker holds it. It is the one rule on the card COOK cannot keep.
+- *** AND IT WAS UNENFORCEABLE BY ANYTHING. *** Not one of the 280 canon garments carries
+  a mark saying it is a faction accent. The fields are n, st, layer, lux, gen, hard, cw,
+  fresh, hoodDefaultUp and nothing else. That is a WARDROBE DATA hole, which is the second
+  half of this job's own sentence, so it is mine.
+  FIXED: engine/bohemia_personlook.js honours an `accent` flag and will never put a second
+  one on a body. DATA, NOT NAMES, exactly like the `lux` and `hard` flags beside it, so
+  COOK tags a piece as it cooks it and no code changes. It drops the second accent, never
+  the person: a category whose whole pool is accents is left alone rather than left bare.
+  IT SHIPS INERT, WHICH IS CORRECT (MECHANISM-MINE / CONTENTS-PAOLO'S): nothing is tagged,
+  and MEASURED 0 of 4000 people's looks changed.
+- The gate drives the MECHANISM on a synthetic wardrobe rather than the empty real one --
+  a check that said "nobody wears two" would be vacuously true today and would stay green
+  the day the rule was deleted. Stripping the flag from the same pool proves it is the
+  RULE holding and not a pool that cannot break it (worst 1 guarded, worst 5 stripped).
+  Mutation tested: deleting the rule gives 1844 violations in 3000. Gate now 15/15.
+- *** A NUMBER IS NOT A FINDING UNTIL YOU KNOW WHAT IT IS COUNTING. *** My first report
+  concluded "THE CARD IS BROKEN ON THE SURFACE, 574 in 3000 wear a second saturated
+  piece" -- and among the offenders it named BROWN BOOTS. Brown is highly saturated in HSV
+  (a mid brown is about 0.59), so the measure was calling ordinary leather an accent, when
+  the card says "the FACTION'S saturated colour" and lists dust, ash, bone, lead and
+  oxblood-grey as LEGAL cloth. The honest reading of that number is that THE WARDROBE
+  PREDATES THE CARD, which is COOK's remake and not a defect for me to fix. Corrected in
+  the tool rather than deleted, so the wrong inference stays visible.
+- NEXT ROUND: check for a COOK batch first. If none, the remaining unmeasured piece of
+  this job is whether a garment's ramp survives the picker onto the body at 112 without
+  the 45-degree read breaking. After that this lane has [hair sheet]
+  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
+
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
 - Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
   CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
