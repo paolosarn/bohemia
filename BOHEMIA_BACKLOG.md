@@ -1494,7 +1494,9 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
    AND THE PEOPLE ARE OUTSIDE IT. ***
    THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found
@@ -2501,7 +2503,9 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-BATTERIES-ARE-THE-MONEY. *** PAOLO 9/4, LOCKED: "i dont want there to be money
    money maybe electronics like batteries are the currency. For one aa battery a
    bag of rice and so on so forth." TOP OF THE LANE. DO THIS AND BB-THE-LETTER-IS-
@@ -5484,7 +5488,9 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-A-TILE-IS-A-HOUSE. *** PAOLO 9/4, LOCKED: "instead of each combat tile being
    the size a human maybe each combat tile is the same size as the house and a
    pistol is like a dagger compared to the range of battle brothers and a rifle
@@ -6103,7 +6109,9 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
    THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
    MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
@@ -7892,7 +7900,9 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-THE-CITY-SENDS-WHERE. *** DAY 22. ONE MESSAGE, FOUR SYSTEMS, AND THE SURFACE
    HE WALKS DOES NOT SEND IT. THE FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
    SMALLEST FIX IN THE WHOLE STUDY. TAKE IT FIRST. ***
@@ -8923,7 +8933,9 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-THE-JOB-PAYS. *** DAY 20. 687 THINGS A JOB CAN DO AND NONE OF THEM IS PAY. ***
    MEASURED across all 27 playable canon quests: 687 @DO calls -- 203 set_stage,
    110 complete_objective, 93 learn, 82 faction, 58 bond, 51 show_objective, 50
@@ -9280,7 +9292,9 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
    IS HOW IT WILL GET LOST. WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS
    CHANCE ON YOU. ***
@@ -9865,12 +9879,14 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
     RE-CUT THE DEMO (tools/bohemia_cut_the_demo.js).
     AND THE WORD IS VAMILY (Paolo 9/4): your assignment is in VAMILY.md at repo
     root. Take the first OPEN line for your lane, mark it CLAIMED, build, mark it
-    SHIPPED. ***
+    SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
+    are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
+    OF_THE_GAME_9_4_26.md; that brief IS the row. ***
 VAMILY-GATE. *** PAOLO 9/4, LOCKED: VAMILY is the one word. A LAW WITHOUT A
    MACHINE GATE IS NOT ENFORCED. ***
    handoff_gate (or a sibling) asserts VAMILY.md exists at repo root, every job
    line parses as OPEN / CLAIMED <date> ... / SHIPPED <date> ..., and every job
-   name resolves to a row in this file. Small. Law:
+   name resolves to a row in this file OR a brief in the 9/4 plan record. Small. Law:
    laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md | the gate goes red on a
    misspelled job or a bad status word | nothing | no. ***
 

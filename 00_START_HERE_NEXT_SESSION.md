@@ -703,7 +703,35 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ad) LATEST -- *** THE WORD IS VAMILY.
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ae) LATEST -- *** THE FULL-GAME PLAN:
+WHAT EVERY CHAT DOES FOR THE REST OF THE GAME. TWO NEW CHATS: QUESTS AND ANIMATION.
+VAMILY.md IS NOW THE WHOLE QUEUE. Nothing to judge. ***
+READ: records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
+Paolo 9/4: "big brain research on what every chat needs to be doing for the rest
+of the game at all times... animation... a chat to that... everything at a click
+of a button... know what u know and know what u dont." Eight read-only readers in
+parallel, one per lane, plus a twenty-pillar scorecard, every claim grep-verified
+or marked unverified. THE SCORECARD: 7 BUILT, 8 PARTLY, 3 PAPER, 2 NOT STARTED,
+and every BUILT pillar is Act 1 of Gen 2. Gen 1 Animal, the fold, Act 2, Act 3:
+nothing on any player surface. Three scorecard rows corrected from my own runs
+(the reader trusted the stale GET-PAID banner and a grep blind to the base64
+fight); the COMBAT reader's "fight unreachable from the city" was wrong (door
+gate 26/0), the INDOOR half is the real gap.
+THE TWO HOLES NOBODY OWNS: the dynasty spine (no main-quest .bq exists,
+selectHeir has zero callers, nothing writes a child, QUESTS has no chat on
+record) and the city-builder (produce() has one caller and it is a gate, nothing
+houses, build is free, not reachable where he walks; ~25% exists).
+RULED, laws/BOHEMIA_ADDENDUM_WHAT_EVERY_CHAT_DOES_9_4_26.md: the ANIMATION lane
+exists (last animation ship 8/18, crowd frozen, 63 clips no verdict); QUESTS
+needs a chat; six STANDING DUTIES every chat runs every turn; VAMILY.md is the
+full-game queue (non-BB jobs carry a one-line brief there and in the plan).
+VAMILY.md rebuilt: THE ORDER is now 10 deep across lanes, every lane has a
+rest-of-the-game queue, ANIMATION / ART / LAB / CHARACTER / FACTIONS sections
+added. CLAUDE.md lane list updated. He needs to open two chats: "quests" and
+"animation". KNOW WHAT I DO NOT KNOW: no reader ran the game on a phone; the "170
+quest file" is not in the repo; the suite cannot finish in budget.
+
+COORDINATOR: 9/4 (ad) -- *** THE WORD IS VAMILY.
 ONE FILE, VAMILY.md, IS THE ASSIGNMENT LEDGER AND THE HISTORY. Nothing to judge. ***
 Paolo 9/4: "Make the key word vamily for all of the jobs u assign to it ever in
 the history itll search if it has a job assigned for its role." LOCKED. Law:

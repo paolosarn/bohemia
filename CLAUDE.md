@@ -1473,6 +1473,21 @@ rarely as one mega-session.
   (no CURRENT_SLICE link, no per-feature page) as "the build." Parallel work folds
   into the alpha (e.g. the SLICE tab) — the surface Paolo taps is always the alpha.
 
+## WHAT EVERY CHAT DOES FOR THE REST OF THE GAME (Paolo 9/4/26, LOCKED)
+"big brain research on what every chat needs to be doing for the rest of the
+game at all times." Eight readers, one per lane, plus a twenty-pillar scorecard:
+**7 built, 8 partly, 3 paper, 2 not started, and every built pillar is Act 1 of
+Gen 2.** Gen 1 Animal, the fold, Act 2 and Act 3 have no presence on any surface
+a player can reach. THE TWO HOLES NOBODY OWNS: the dynasty spine (no main-quest
+file exists, selectHeir has zero callers, QUESTS has no chat on record) and the
+city-builder (no building produces, nothing houses, building is free, and you
+cannot build where he walks). **THE ANIMATION LANE EXISTS AS OF 9/4**, first word
+"animation": last animation ship 8/18, the walked crowd is frozen sprites, 63
+clips with no verdict. The standing duties every chat runs every turn are at the
+top of VAMILY.md, which is now the FULL-GAME queue for every lane. Plan:
+records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
+Law: laws/BOHEMIA_ADDENDUM_WHAT_EVERY_CHAT_DOES_9_4_26.md
+
 ## THE VAMILY WORD (Paolo 9/4/26, LOCKED)
 "Make the key word vamily for all of the jobs u assign to it ever in the
 history itll search if it has a job assigned for its role." **VAMILY** is the
@@ -1551,7 +1566,7 @@ failed - stop and say so instead of fixing the attempt.
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
 short form: the FIRST word of a new session names its lane (run/world/city/
-combat/character/quests/art/lab/coordinator) and means GO; after that his entire
+combat/character/animation/quests/people/sound/ui/words/art/lab/coordinator) and means GO; after that his entire
 vocabulary is "go" / "verdicts in" / "status" —
 any other word from him is a RULING to record, never a discussion to have.
 On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's
