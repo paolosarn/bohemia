@@ -145,6 +145,60 @@
     return out;
   })();
 
+  /* ---------------------------------------------------------------------------
+     THE FOUR VERBS, FROZEN THE WAY THE THREE CURRENCIES ARE (9/5)
+     BB-FOUR-VERBS-THREE-CURRENCIES, on his direction: "battle brothers has 3-4
+     currencies too... how they manage it is superb."
+
+     WHAT IS SUPERB ABOUT IT, IN ONE SENTENCE: YOU NEVER SPEND A RESOURCE, WHAT YOU
+     DID SPENDS IT. In the game he named nobody allocates from a menu -- you FIGHT
+     and the tools drain to fix what broke, you WALK and the men eat, you SHOOT and
+     the quiver empties. Each resource is spent by exactly one verb, so you always
+     know what took it, and there is no screen where any of it is managed. That is
+     the anti-spreadsheet answer he has asked for since 7/26: THE RESOURCE IS THE
+     SHADOW OF WHAT YOU DID.
+
+     MEASURED 9/5, before this existed: the ONLY debit in the whole game was buying
+     at a market, one caller. CLOUT had never moved in either direction. So walking
+     was free, fighting was free, holding ground was free, asking was free, and the
+     only thing that cost anything was shopping.
+
+     IT IS A TABLE AND NOT FOUR CALLS TO debit() ON PURPOSE. A frozen list is the
+     mechanism that stops a fifth verb appearing quietly, exactly as CURRENCIES is
+     the mechanism that stops a fourth currency -- his law freezes three and the
+     anti-spreadsheet ruling dies the day somebody adds one by hand. An undeclared
+     verb is REFUSED here, not silently posted.
+     AND THE AMOUNT IS 1 AND CANNOT BE PASSED IN. EVERYTHING COSTS ONE (8/15) is
+     his ruling, and a caller that could pass 2 would be a place for a number
+     nobody ruled to enter the game. When he tunes, he tunes this line.
+     --------------------------------------------------------------------------- */
+  var VERBS = {
+    /* THE DAY EATS FOOD -- the people who depend on you ate. No meter on the
+       player's body: he is not hungry, THEY are. */
+    'day:ate':     { currency: 'resources',   about: 'the people who depend on you ate' },
+    /* THE FIGHT EATS TAPE -- the plate you wore at the bell is spent. COMBAT owns
+       what a plate does; this owns what it costs. */
+    'fight:plate': { currency: 'resources',   about: 'the plate you wore at the bell is spent' },
+    /* THE NIGHT EATS POWER -- every lit circuit you hold burns one, which is what
+       turns territory into a bill. */
+    'night:power': { currency: 'electricity', about: 'every lit circuit you hold burned one' },
+    /* ASKING EATS CLOUT -- you leaned on somebody. */
+    'ask:leaned':  { currency: 'clout',       about: 'you leaned on somebody' }
+  };
+
+  /* A VERB SPENDS. The only way anything but a purchase leaves the purse.
+     Returns the ledger's own answer verbatim, INCLUDING its refusal, because a
+     caller has to be able to tell "it cost nothing" from "you could not pay" --
+     and "you could not pay" is the whole game: run out of food and your people
+     stop showing up, run out of power and the block goes dark. */
+  function upkeep(purse, verb, ref, day) {
+    var v = Object.prototype.hasOwnProperty.call(VERBS, verb) ? VERBS[verb] : null;
+    if (!v) return { applied: false, reason: 'NO_SUCH_VERB', verb: verb,
+                     about: 'the four verbs are frozen; a fifth is a design change, ' +
+                            'and design changes are Paolo\'s' };
+    return debit(purse, v.currency, 1, verb, ref || null, day);
+  }
+
   /* PRODUCTION STAYS EMPTY AND IT IS NOT AN OVERSIGHT. Measured 9/5: `produce()`
      has ZERO callers anywhere in the engine or the walked surface, so there is no
      buildingId vocabulary to key on and every row I could write here would be dead
@@ -356,6 +410,7 @@
     credit: credit, debit: debit, transferIn: transferIn, transferOut: transferOut,
     convert: convert,
     payQuest: payQuest, spend: spend, produce: produce,
+    VERBS: VERBS, upkeep: upkeep,
     flow: flow, audit: audit, history: history, save: save, load: load
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

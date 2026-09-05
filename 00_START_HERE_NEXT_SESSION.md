@@ -206,7 +206,45 @@ SURVIVES ANY MEMORY RESET. READ IT BEFORE ANYTHING ELSE IN THIS BLOCK. ***
 MY LANE: 02 WORLD MODEL. MODE: BUILD.
 MY SESSION SLUG: world-9lfjtf.
 
-HOLDING: [living costs] BB-FOUR-VERBS-THREE-CURRENCIES -- claiming this round.
+HOLDING: [living costs] BB-FOUR-VERBS-THREE-CURRENCIES. CLAIMED 9/5.
+ABOUT 2 OF 4. NOT SHIPPED -- do not mark it SHIPPED until all four verbs post on
+the walked surface and the reckoning names them, which is the row's own ship test.
+
+WHERE I STOPPED, AND WHAT THE NEXT ROUND PICKS UP
+  DONE
+    THE SPINE. engine/bohemia_purse.js now freezes FOUR VERBS the way it freezes
+    the three currencies, and exposes upkeep(purse, verb, ref, day):
+      day:ate      resources    the people who depend on you ate
+      fight:plate  resources    the plate you wore at the bell is spent
+      night:power  electricity  every lit circuit you hold burned one
+      ask:leaned   clout        you leaned on somebody
+    A FIFTH VERB IS REFUSED (NO_SUCH_VERB), which is the mechanism that stops one
+    appearing quietly -- same shape as CURRENCIES stopping a fourth currency. THE
+    AMOUNT IS 1 AND CANNOT BE PASSED IN: a caller that could pass 2 would be a
+    door for a number nobody ruled. When he tunes, he tunes that one line.
+    WIRED AND PROVEN ON THE WALKED SURFACE: nightfall posts day:ate. Ledger reads
+    `drain resources -1 day:ate`. With nothing left it records a refusal naming
+    the verb (INSUFFICIENT) instead of silently skipping -- "you could not pay" is
+    the loudest thing that can happen and it is not an error.
+    THE RECKONING NAMES THE VERB, not a category: "the people who depend on you
+    ate", and a line he could not pay is coloured and says so.
+    MEASURED BEFORE ANY OF THIS: the ONLY debit in the whole game was buying at a
+    market, one caller, and CLOUT had never moved in either direction. Walking was
+    free, holding ground was free, asking was free.
+  NEXT ROUND, IN ORDER
+    1. ask:leaned -- the ask hook. askFor() exists in the walked surface (the
+       can-you-ask predicate); find where the ask is actually TAKEN and post there.
+    2. night:power -- needs to know how many lit circuits the player HOLDS. If the
+       walked surface cannot say, that answer belongs to my own next row
+       [lights bill] BB-THE-NIGHT-EATS-POWER and this row posts the drain the
+       moment it can. Do NOT invent ownership to make a drain fire.
+    3. fight:plate -- there is NO fight hook on the walked surface (measured: no
+       FIGHT_DONE / bell event anywhere in it). upkeep() is exported and callable;
+       COMBAT's BB-THE-FIGHT-EATS-TAPE calls it. Do not build combat here.
+    4. re-cut the demo and prove all four there before SHIPPED.
+  GATES GREEN THIS ROUND: purse 28, payday 37, day pays 18, demo blockers 22,
+  placeholder 14, economy 13.
+
 LAST SHIPPED: [battery money] + [prices one], 9/5 ce39270. A day of work pays one
 battery and a bag of rice costs one, on the walked surface and in the demo.
 
