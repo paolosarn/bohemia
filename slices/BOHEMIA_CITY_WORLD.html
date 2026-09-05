@@ -31258,6 +31258,11 @@ function stepOnce(di){
          walking. 0.084 minutes is 5.04 seconds, the same clock the rest of this
          line spends, so this cannot double-charge him. */
       try { walkInterrupt(5.04); } catch(_e){}
+      /* __STREET_FIGHT__ (V201): and the same step asks whether he just walked
+         into somebody who wants to hurt him. This is the only hook needed --
+         one step is one place a body arrives, exactly as inEnter is the one
+         place a body goes through a door. */
+      try { streetFightOnStep(); } catch(_e){}
     }
     if(moved){ HFACE=dirOf(dx,dy); return true; }
   }
@@ -45164,6 +45169,75 @@ function cityFightRoom(fp,f){
   return out;
 }
 /* __FR_E__ */
+/* ===== __STREET_FIGHT__ -- V201 THE FIGHT STARTS WHERE YOU STAND =====
+   Paolo 9/5, having played it: "Awesome I just played the run. WHERE THE ENEMIES
+   AT BRO." The ruling that came out of it says the honest sentence: "THE GAME
+   KNOWS WHO YOUR ENEMIES ARE. IT HAS NEVER ONCE PUT ONE IN FRONT OF YOU."
+   Hostility lives in the between-ledger as a SIGN ON A RELATIONSHIP -- they
+   charge you more, they watch you -- and it is a ledger, never a body. The fight
+   is real and reachable, but ONLY through the city map door.
+   THREE LANES ARE ON THAT RULING AND THIS IS THE THIRD OF IT: RUN puts hostile
+   bodies on the street, PEOPLE puts the sign on the crowd, and COMBAT makes
+   bumping one start the fight where you stand. NO HOSTILITY IS AUTHORED HERE. */
+var SF_STEPS=0, SF_LAST=-9999, SF_DONE={};
+var SF_COOLDOWN=60;      /* [DIAL] steps of quiet after a street fight, so one bad block is not a corridor of them */
+var SF_GRACE=40;         /* [DIAL] steps before the street may jump you at all -- the __NOT_YOUR_OWN_HOUSE__ lesson, one surface along */
+var SF_MIN=2, SF_MAX=4;  /* [DIALS, draft:true] how many are with him. The ROOM decided at the door; the BLOCK decides here */
+/* WHO WANTS TO HURT YOU, ASKED IN THE ONLY ORDER THAT DOES NOT AUTHOR CANON.
+   A real hostile body first, so RUN's and PEOPLE's rows land and this starts
+   using them with no second wire. Then the ledger, which already computes this
+   and has simply never been asked from the street. Then nothing. */
+function streetFoeOf(p){
+  if(!p) return null;
+  if(p.hostile===true || p.foe===true) return 'body';
+  try{
+    var w = (typeof ctPerson==='function') ? ctPerson(p) : null;
+    var fac = w && (w.faction || w.outfit);
+    if(fac && typeof BohemiaBetween!=='undefined'){
+      var mine = BohemiaBetween.mine();
+      if(mine){
+        var e = BohemiaBetween.between(fac, mine, null);
+        if(e && e.sign==='hostile') return 'ledger';
+      }
+    }
+  }catch(_e){}
+  return null;
+}
+/* DETERMINISTIC OFF THE PERSON, never a coin flip per step -- the door's own
+   rule, for the door's own reason: he cannot farm an encounter by stepping back
+   and forth over a kerb, and the same person on the same block behaves the same
+   way every time. A street is a place, not a slot machine. */
+function streetFightCount(key){
+  var h=0, s=String(key||'');
+  for(var i=0;i<s.length;i++) h=((h*31)+s.charCodeAt(i))>>>0;
+  return SF_MIN + (h % (SF_MAX - SF_MIN + 1));
+}
+function streetFightOnStep(){
+  if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */
+  if(!(window.parent&&window.parent!==window)) return false;
+  SF_STEPS++;
+  if(SF_STEPS < SF_GRACE) return false;
+  if(SF_STEPS - SF_LAST < SF_COOLDOWN) return false;
+  var p=null; try{ p=ctAdjacent(); }catch(_e){}
+  if(!p) return false;
+  var key=null; try{ key=(ctPerson(p)||{}).key || p.id || String(p.home); }catch(_e){ key=String(p&&p.home); }
+  if(!key || SF_DONE[key]) return false;                    /* he only ambushes you once */
+  var why=streetFoeOf(p);
+  if(!why) return false;
+  SF_DONE[key]=1; SF_LAST=SF_STEPS;
+  var n=streetFightCount(key), roster=[];
+  for(var i=0;i<n;i++) roster.push({arch:(i%4===3)?'bot':'human'});
+  var fac=null; try{ fac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
+  /* THE SAME MESSAGE THE DOOR SENDS, AND NO ROOM, WHICH IS THE WHOLE
+     DIFFERENCE. V200 taught the fight to build its board out of the building you
+     walked into; with no room it builds a street, which is correct, because you
+     are standing on one. One field decides which board you fight on. */
+  try{ window.parent.postMessage({type:'BOHEMIA_CITY_ENCOUNTER',
+    label:'out on the block', faction:fac, draft:true, roster:roster,
+    street:true, why:why,
+    at:{gx:hx|0, gy:hy|0}},'*'); }catch(_e){ return false; }
+  return true;
+}
 function cityFightOnEnter(){
   if(!INSIDE||!cityFightRoll())return false;
   if(!(window.parent&&window.parent!==window))return false;

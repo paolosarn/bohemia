@@ -320,6 +320,119 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       .test(require('fs').readFileSync(
         require('path').join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8')));
 
+  /* ================= __STREET_FIGHT__ V201 =============================
+     THE-FIGHT-STARTS-WHERE-YOU-STAND. Paolo 9/5, having played it: "Awesome I
+     just played the run. WHERE THE ENEMIES AT BRO." The ruling's own sentence:
+     "the game knows who your enemies are. IT HAS NEVER ONCE PUT ONE IN FRONT OF
+     YOU" -- hostility is a sign on a relationship in the between-ledger, never a
+     body, and the fight was reachable only through the city map door.
+     THE MESSAGE IS CAUGHT ON THE SHELL, NOT INTERCEPTED IN THE FRAME. The first
+     cut of this arm patched window.parent.postMessage from inside the city and
+     the browser refused it: file:// origins are "null" and cross-origin to each
+     other. Catching it where it lands is also the honest test -- it is the same
+     path the real chain uses. */
+  await page.evaluate(() => {
+    window.__sf = [];
+    window.addEventListener('message', function (ev) {
+      const d = ev && ev.data;
+      if (d && d.type === 'BOHEMIA_CITY_ENCOUNTER') window.__sf.push(d);
+    });
+  });
+
+  const street = await cityFrame.evaluate(() => {
+    const o = {};
+    o.hasTrigger = (typeof streetFightOnStep === 'function');
+    o.hasFoeTest = (typeof streetFoeOf === 'function');
+    /* the hook is checked against the SOURCE below, not against String(stepOnce):
+       stepOnce is REASSIGNED by the interiors wrapper (const _inStepOnce =
+       stepOnce; stepOnce = function...), so stringifying it reads the wrapper and
+       reports the hook missing while it sits in the original. That is a checker
+       looking at the wrong function, and it went red on working code. */
+    /* IT AUTHORS NO HOSTILITY: a plain person is not a foe. */
+    o.plainPersonIsFoe = streetFoeOf({ id: 'x', home: [0, 0] });
+
+    const realAdj = window.ctAdjacent;
+    /* A HOSTILE BODY -- what RUN's row will ship, and it is read FIRST so their
+       row lands with no second wire. */
+    window.ctAdjacent = () => ({ id: 'gate_foe_1', home: [1, 1], hostile: true });
+    SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+    o.firedOnHostile = streetFightOnStep();
+    /* HE ONLY AMBUSHES YOU ONCE */
+    SF_LAST = -9999;
+    o.firedTwiceSamePerson = streetFightOnStep();
+    /* A COOLDOWN, so one bad block is not a corridor of fights */
+    window.ctAdjacent = () => ({ id: 'gate_foe_2', home: [2, 2], hostile: true });
+    SF_LAST = SF_STEPS - 1;
+    o.firedInsideCooldown = streetFightOnStep();
+    SF_LAST = SF_STEPS - SF_COOLDOWN;
+    o.firedAfterCooldown = streetFightOnStep();
+    /* AND NOBODY IS JUMPED BEFORE THEY ARE OUT OF THEIR OWN STREET */
+    window.ctAdjacent = () => ({ id: 'gate_foe_3', home: [3, 3], hostile: true });
+    SF_STEPS = 0; SF_LAST = -9999; SF_DONE = {};
+    let early = 0;
+    for (let i = 0; i < SF_GRACE - 1; i++) if (streetFightOnStep()) early++;
+    o.firedInGrace = early;
+    /* AND A STRANGER STARTS NOTHING */
+    window.ctAdjacent = () => ({ id: 'gate_stranger', home: [4, 4] });
+    SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+    o.firedOnStranger = streetFightOnStep();
+    window.ctAdjacent = realAdj;
+    return o;
+  });
+
+  await page.waitForTimeout(900);
+  const sf = await page.evaluate(() => {
+    const list = window.__sf || [];
+    const m = list[0] || null;
+    return { count: list.length,
+      isTheDoorsMessage: !!(m && m.type === 'BOHEMIA_CITY_ENCOUNTER'),
+      roster: (m && m.roster) ? m.roster.length : 0,
+      sendsNoRoom: !!(m && m.room == null),
+      saysStreet: !!(m && m.street === true),
+      carriesWhereYouStand: !!(m && m.at && typeof m.at.gx === 'number'),
+      label: m && m.label };
+  });
+
+  const _citySrc = require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+  /* ON THE WALKED STEP, proved where it lives: immediately after the walk spends
+     its 5.04 seconds. That is the one place a body arrives on foot, exactly as
+     inEnter is the one place a body goes through a door. */
+  const hookedToTheStep =
+    /walkInterrupt\(5\.04\);[\s\S]{0,600}?streetFightOnStep\(\);/.test(_citySrc);
+
+  console.log('  V201 the fight starts where you stand:'
+    + '\n    wired          trigger ' + street.hasTrigger + ', hooked to the walked step ' + hookedToTheStep
+    + '\n    on a hostile   fires ' + street.firedOnHostile + ', ' + sf.count + ' message(s) reached the shell, '
+    + sf.roster + ' of them, no room ' + sf.sendsNoRoom + ', label ' + JSON.stringify(sf.label)
+    + '\n    guards         twice on one man ' + street.firedTwiceSamePerson
+    + ', inside cooldown ' + street.firedInsideCooldown + ', after it ' + street.firedAfterCooldown
+    + ', in grace ' + street.firedInGrace + ', on a stranger ' + street.firedOnStranger);
+
+  ok('V201 *** THE GAME KNEW WHO YOUR ENEMIES WERE AND HAD NEVER ONCE PUT ONE IN FRONT OF YOU. *** Paolo 9/5, having played it: "Awesome I just played the run. WHERE THE ENEMIES AT BRO." Hostility lived in the between-ledger as a SIGN ON A RELATIONSHIP -- they charge you more, they watch you -- and the fight was real and reachable but ONLY through the city map door, never because somebody walked up to you. Now bumping a hostile body on the walked street starts the fight where you stand (' + street.firedOnHostile
+    + '), and the message reaches the shell (' + sf.count + ') as THE DOOR\'S OWN MESSAGE (' + sf.isTheDoorsMessage
+    + ') with ' + sf.roster + ' of them. Hooked to the walked step (' + street.hookedToTheStep
+    + '), which is the one place a body arrives, exactly as inEnter is the one place a body goes through a door. THE HOOK IS CHECKED IN THE SOURCE, not by stringifying stepOnce -- that function is REASSIGNED by the interiors wrapper, so stringifying it reads the wrapper and reports the hook missing while it sits in the original',
+    street.hasTrigger === true && hookedToTheStep === true
+    && street.firedOnHostile === true && sf.isTheDoorsMessage === true
+    && sf.roster >= 2 && sf.carriesWhereYouStand === true);
+
+  ok('V201 AND IT SENDS NO ROOM, WHICH IS THE WHOLE DIFFERENCE BETWEEN THIS ENTRY AND THE DOOR\'S. V200 taught the fight to build its board out of the building you walked into; with no room it builds a street (' + sf.sendsNoRoom
+    + '), which is correct, because you are standing on one. ONE FIELD DECIDES WHICH BOARD YOU FIGHT ON and it is the field the city already fills, so a street ambush can never be fought inside somebody\'s living room. And the objective reads like English on the street ' + JSON.stringify(sf.label)
+    + ' rather than through the interior template, which would have said "inside the out on the block"',
+    sf.sendsNoRoom === true && sf.saysStreet === true);
+
+  ok('V201 AND NO HOSTILITY IS AUTHORED HERE, which matters because three lanes are on this ruling and only one of them owns that: RUN puts hostile BODIES on the street, PEOPLE puts the SIGN on the crowd, and this row is the ENTRY. A plain person is not a foe (' + JSON.stringify(street.plainPersonIsFoe)
+    + ') and a stranger starts nothing (' + street.firedOnStranger + '). The test reads a real hostile body FIRST, so the moment RUN\'s row lands this entry uses it with no second wire, then falls back to the between-ledger, which already computes exactly this and had simply never been asked from the street. Consuming canon is not authoring it',
+    street.plainPersonIsFoe === null && street.firedOnStranger === false);
+
+  ok('V201 AND THE GUARDS HOLD, because an entry with no guards is a corridor of fights. He only ambushes you once (' + street.firedTwiceSamePerson
+    + '), a cooldown holds the next one off (' + street.firedInsideCooldown + ') and lets it through once it has passed (' + street.firedAfterCooldown
+    + '), and nothing fires before you are out of your own street (' + street.firedInGrace
+    + ' across the whole grace period). Nothing fires indoors either, because indoors is the door\'s fight. DETERMINISTIC OFF THE PERSON, never a coin flip per step -- the door\'s own rule, so he cannot farm an encounter by stepping back and forth over a kerb',
+    street.firedTwiceSamePerson === false && street.firedInsideCooldown === false
+    && street.firedAfterCooldown === true && street.firedInGrace === 0);
+
   ok('no page errors through the whole round trip', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
