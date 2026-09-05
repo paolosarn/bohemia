@@ -21,7 +21,7 @@ OUT   = os.path.join(ROOT, 'slices', 'BOHEMIA_EYES_ROUND_1_9_5_26.html')
 
 # WHAT LOOKS WRONG TO ME. One line each, plain words, no file names.
 NOTES = {
- 'alpha-00-splash.png': "The build line at the bottom still says 8/31 -- five days old -- and it runs from edge to edge with no margin, so on a smaller phone the last word gets cut.",
+ 'alpha-00-splash.png': "This one got fixed while I was looking at it: at six in the morning the build line said 8/31, five days old, running edge to edge. The sound lane shipped and now it says 9/5k and it fits. The line still has no side margin, so a longer headline will run off a smaller phone.",
  'alpha-01-after-the-tap.png': "One tap in and there are TWO things asking you for something at once: WATCH at the top, GET UP in the middle, and somebody talking underneath both.",
  'alpha-02-vote.png': "The button at the top loses its own last word, and the name of each haircut is printed on top of the picture it belongs to.",
  'alpha-03-ui.png': "A button here says FF10 and the law file says the game we compare to is Final Fantasy TWELVE. Two files, two different games. Somebody has to say which.",
@@ -31,7 +31,7 @@ NOTES = {
  'alpha-07-cutscene.png': "The opening scene of the game is built out of art from a different kind of game: shiny floor, fancy chairs, a bright green cake, and a seam straight down the middle of the table.",
  'alpha-08-direct.png': "Two buttons both say HOUSE with arrows pointing opposite ways and the seed number wedged between them.",
  'alpha-09-run.png': "Somebody is talking to you from behind the card -- the speech bubble is on screen and the person it comes from is covered up.",
- 'alpha-10-char.png': "The bench opens on the BACK of your head, and the body sliders are stock browser blue (0,117,255) on a game with no blue in it.",
+ 'alpha-10-char.png': "The bench opens on a different direction every time -- this run the side, the run before the BACK of your head -- and from the side the face is a flat wall with no nose, under a portrait with a full head of hair. The body sliders are stock browser blue (0,117,255) on a game with no blue in it.",
  'alpha-11-clothes.png': "The row of small pictures runs off the right edge with nothing to show it scrolls, and you are judging clothes on a cool blue-grey stage while the game itself is warm black.",
  'alpha-12-anim.png': "All eight directions in one frame, which is the right way to show it. The three back views are a flat cream block with ONE straight black bar on it.",
  'alpha-13-rig.png': "The status line prints straight through the GHOST OTHERS button, and this tab looks like a different app: grey pills, blue-grey ground, no cut corners.",
@@ -42,7 +42,7 @@ NOTES = {
  'alpha-18-life.png': "Four paragraphs before you get to anything you can look at. It reads like a memo, not a screen.",
  'alpha-19-art.png': "Dated 8/5. The right-hand picture sits in its frame with a black band under it, and there is no label saying which one is before and which is after.",
  'alpha-99-back-on-the-game.png': "After opening all eighteen tabs and coming back, the same two cards are still up. 1.66% of the picture changed in four minutes, and the change was somebody talking.",
- 'demo-00-splash.png': "The demo saved in the repo is one build BEHIND the workshop (8/31b against 8/31d). The published one is re-cut, this one is not.",
+ 'demo-00-splash.png': "Also fixed while I was looking: the demo saved in the repo used to be a build behind the workshop, and a re-cut caught it up. Both say 9/5k now.",
  'demo-01-after-the-tap.png': "THE WORST ONE. On an iPhone, SLEEP and the bottom arrow of the ring are cut off by the bottom of the glass. The demo's own controls run off the screen.",
  'demo-02-t15s.png': "Fifteen seconds in, the only thing that has moved on the whole screen is the music button: it grew to fit the song title and shoved OUTFIT off the right edge.",
  'demo-03-t21s.png': "Six seconds later the toolbar gives up and breaks onto two rows, and everything under it jumps down about a centimetre on its own, with nobody touching anything.",
@@ -101,7 +101,8 @@ def build():
       'the same file, pixel for pixel. Nothing moves.</li>'
       '<li><b>The first screen asks you for two things at once</b> and a third person talks '
       'underneath them.</li>'
-      '<li><b>The build line says 8/31.</b> It is 9/5. You cannot tell which build you are on.</li>'
+      '<li><b>Every bench judges your art on the wrong colour.</b> The character and clothes stages are '
+      'a cool blue-grey; the game itself is warm black. You cannot judge a colour on the wrong ground.</li>'
       '</ol></div>')
     for run in data:
         parts.append('<div class="hr"></div>')

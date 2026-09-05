@@ -22,8 +22,14 @@ opens on his phone from the same site as the game). The pictures are in
   screenshotted a black rectangle while every report said success. A finger taps.
 - Tabs are read off the live DOM (`#tabs .tab`), never from a list in this file, so
   a renamed or cut tab cannot be silently missed.
-- The workshop's own build stamp is read out of the page: **BUILD 8/31d**. The demo's:
-  **DEMO - BUILD 8/31b**.
+- The workshop's own build stamp is read out of the page.
+- **THE ROUND WAS SHOT TWICE, ON PURPOSE.** The first pass ran at 06:00 on **BUILD 8/31d**
+  (demo on disk: **8/31b**, a build behind). While the round was being written up, the
+  SOUND lane shipped THE CITY SENDS WHERE and main moved to **9/5k**, re-cutting the demo.
+  A picture of a build nobody is on is exactly the fault this round reports about the LOOK
+  tab, so the pass was re-run and **every picture published here is 9/5k**. The 8/31d set
+  is not lost -- it is in this round's first commit, and it is what the build-to-build
+  comparison below is measured against.
 - Slow panels (the game, the city, the fight, the map) get 6-9 seconds before the
   shutter; flat panels get 3.5.
 
@@ -44,7 +50,7 @@ opens on his phone from the same site as the game). The pictures are in
 
 ## THE INVENTORY
 
-- **THE WORKSHOP: 21 pictures.** The front door, the first screen after one tap, all
+- **THE WORKSHOP: 21 pictures**, all on build 9/5k. The front door, the first screen after one tap, all
   **18 tabs** (VOTE UI 3D LOOK WORDS CUTSCENE DIRECT RUN CHARACTER CLOTHES ANIMATION
   RIG COMBAT MUSIC MAP SLICE LIFE ART), and the game again after the whole sweep.
 - **THE DEMO: 6 pictures.** The front door, the first screen after one tap, and the
@@ -57,8 +63,8 @@ opens on his phone from the same site as the game). The pictures are in
 
 | what | measured |
 |---|---|
-| standing still in the demo, 21s vs 39s after the tap | **0.0000% of pixels moved** (byte-identical files) |
-| the workshop, first screen vs the same screen after all 18 tabs (~4 min) | 1.66% moved, and the moving part was a speech bubble |
+| standing still in the demo, 21s vs 39s after the tap | **0.0000% of pixels moved** (byte-identical files) -- measured on 8/31d, reproduced exactly on 9/5k |
+| the workshop, first screen vs the same screen after all 18 tabs (~4 min) | 0.68% moved on 9/5k (1.66% on 8/31d), and the moving part was a speech bubble |
 | the only two things that changed in the demo's first 39 seconds | the music button growing to hold the song title (pushing OUTFIT off the right edge), then the toolbar breaking onto two rows and shoving everything below it down |
 | character/clothes bench ground | rgb(52,50,65) cool blue-violet, against the game's own rgb(10,9,8) warm black |
 | CHARACTER body sliders | rgb(0,117,255) -- the stock browser accent blue |
@@ -67,7 +73,7 @@ opens on his phone from the same site as the game). The pictures are in
 | SLICE neighbour avatar | rgb(192,143,209) lilac, 4,897 pixels |
 | LIFE status pills | rgb(110,192,110), 33,847 pixels |
 | ANIMATION two button borders | rgb(102,255,102) pure lime |
-| build stamps | workshop 8/31d, demo on disk 8/31b, today 9/5 |
+| build stamps | 8/31d and 8/31b at 06:00 (five days stale, and the demo a build behind the workshop); **both 9/5k after the SOUND lane's ship**, which fixed both mid-round |
 | surfaces that fetch a font from the internet | **one**: the fight, inside `COMBAT_B64`, asks fonts.googleapis for VT323 + Space Grotesk. Nothing else in slices/ or engine/ does. |
 
 ---
@@ -92,8 +98,13 @@ opens on his phone from the same site as the game). The pictures are in
 5. **THE FIRST SCREEN ASKS FOR TWO THINGS AT ONCE.** The WATCH offer and the GET UP
    card are both up, with a bark underneath both, and the bark's speaker is hidden
    behind the card, so a voice comes out of nothing.
-6. **THE BUILD LINE IS FIVE DAYS OLD** (8/31d on 9/5) and runs edge to edge with no
-   side margin, one character from clipping on a narrower phone.
+6. **EVERY BENCH JUDGES ART ON THE WRONG COLOUR.** The character and clothes stages are
+   rgb(52,50,65), a cool blue-violet grey; the game's own ground is rgb(10,9,8), warm
+   black. Colour is judged relative to what surrounds it, so a wardrobe approved on a
+   cool stage is approved against a background the game never shows.
+   *(The sixth finding at 06:00 was the build line: 8/31d on 9/5, edge to edge with no
+   side margin. The SOUND lane's ship fixed the staleness mid-round -- it reads 9/5k now
+   and it fits. The missing side margin is still there, waiting for a longer headline.)*
 
 ## THE REST, BY TAB
 
@@ -111,9 +122,11 @@ opens on his phone from the same site as the game). The pictures are in
 - **DIRECT** -- two buttons both say HOUSE with arrows pointing opposite ways and the
   seed number wedged between them; the panel has no title of its own.
 - **RUN** -- see findings 1, 4, 5.
-- **CHARACTER** -- opens facing **NE**, which is the BACK of the head, so the bench opens
-  on a view with no face in it; sliders are browser blue; the CANON button is clipped by
-  the bottom edge; the SHOULDER label collides with its slider.
+- **CHARACTER** -- **opens on a random facing**: NE (the back of the head, no face in it)
+  on the first pass, E (profile) on the second. In profile the face is a flat vertical
+  wall with no nose projecting, under a portrait carrying a full mane. Sliders are browser
+  blue; the CANON button is clipped by the bottom edge; the SHOULDER label collides with
+  its slider.
 - **CLOTHES** -- the thumbnail row runs off the right edge with no scroll cue; the judging
   stage is cool blue-grey while the game is warm black (you cannot judge a colour on the
   wrong ground); the buttons are a different type and shape from the rest of the build.
@@ -136,12 +149,41 @@ opens on his phone from the same site as the game). The pictures are in
   where you are.
 - **SLICE** -- a lilac avatar (purple is reserved); its clock reads 07:14 while the game
   reads 06:00; two thirds of the screen is empty.
+- **THE DEMO'S FRONT DOOR** -- at 06:00 the demo on disk was a build behind the workshop
+  (8/31b against 8/31d); the re-cut that came with the 9/5k ship caught it up. Fixed
+  mid-round, and recorded because the next drift will look exactly the same.
 - **LIFE** -- four long paragraphs before anything you can look at; mint-green pills;
   rounded corners and a sans typeface against the shell's cut corners and typewriter.
 - **ART** -- dated 8/5; the right-hand render sits in its frame with a black band under it;
   a before/after pair with nothing saying which is which.
 
 ---
+
+---
+
+## THE FIRST REGRESSION RUN, BY ACCIDENT (this is what E3 is for)
+
+Main moved mid-round, so the same 27 frames exist on two builds and the diff tool could
+be pointed at them. **This is the machine E3 is meant to build, running for the first
+time**, and the result is worth keeping:
+
+| screen | moved between 8/31d and 9/5k |
+|---|---|
+| the character bench | 6.09% |
+| the demo, standing still | 2.25% - 3.23% |
+| the walked game (RUN) | 1.18% |
+| after the sweep | 0.96% |
+| all eight facings (ANIMATION) | 0.53% |
+| both front doors | 0.30% / 0.46% (the build line) |
+| the fight's title | 0.07% |
+| **the other twelve tabs** | **0.00%, pixel for pixel** |
+
+Twelve of the workshop's screens did not move by a single pixel across five days of
+shipping. Most of those are judge pages that nobody claimed to have changed, so this is
+not a fault by itself -- **it is a baseline**, and it is the whole trick: once a screen
+has a known picture, the only screens worth a human's eyes on the next ship are the ones
+whose number is not zero. The character bench's 6% is the shuffle, not a change: it opens
+on a random facing and a random fit.
 
 ## TWO FALSE FINDINGS THIS ROUND KILLED BEFORE THEY REACHED HIM
 

@@ -2,18 +2,18 @@
   {
     "name": "alpha",
     "file": "BOHEMIA_ALPHA_0_9.html",
-    "stamp": "BUILD 8/31d - THE REFERENCE SITS BESIDE THE ART",
+    "stamp": "BUILD 9/5k - THE CITY SENDS WHERE",
     "tabs": 18,
     "shots": [
       {
         "file": "alpha-00-splash.png",
         "tab": "(the front door)",
-        "ms": 5113
+        "ms": 5009
       },
       {
         "file": "alpha-01-after-the-tap.png",
         "tab": "(first screen after one tap)",
-        "ms": 9219
+        "ms": 9211
       },
       {
         "file": "alpha-02-vote.png",
@@ -125,18 +125,18 @@
   {
     "name": "demo",
     "file": "BOHEMIA_DEMO.html",
-    "stamp": "DEMO - BUILD 8/31b - THE STREET HAS THINGS HAPPENING IN IT",
+    "stamp": "DEMO - BUILD 9/5k - THE CITY SENDS WHERE",
     "tabs": 1,
     "shots": [
       {
         "file": "demo-00-splash.png",
         "tab": "(the front door)",
-        "ms": 4498
+        "ms": 4520
       },
       {
         "file": "demo-01-after-the-tap.png",
         "tab": "(first screen after one tap)",
-        "ms": 9213
+        "ms": 9207
       },
       {
         "file": "demo-02-t15s.png",
