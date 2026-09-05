@@ -754,7 +754,15 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (av) LATEST -- *** LANE 17, EYES AND
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aw) LATEST -- *** EYES AND EARS: useful
+after 3 rounds (visuals), 4 (sound), decent after 8 to 10; queue reordered
+fastest-to-useful; it may build its own checking instruments. Nothing to judge. ***
+Paolo 9/4: "how many rounds of research until eyes and ears is worth having around?"
+Answered honestly with the two caveats (screenshot noise until baselines settle; the
+best-of-kind verdicts depend on DIRECTION's reference library). E3 and E4 now lead
+the queue. LAST FEEDBACK RECEIVED: this -> the reorder and the instruments clause.
+
+COORDINATOR: 9/4 (av) -- *** LANE 17, EYES AND
 EARS: HIS DOUBLE FOR EVERY SHIPPED VISUAL AND SOUND. AND EVERY ROUND IS A FULL SWEEP
 SIZED TO WHAT CHANGED. Nothing to judge. ***
 laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md. Seam: DIRECTION decides the look, EYES
