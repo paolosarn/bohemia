@@ -11050,7 +11050,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [batch judging] SHIPPED bb04050 -- the DIRECTION
+ROUND LOG 9/5 (latest): [fortress look] SHIPPED 6c25769 -- the three faction
+seat tiers as three annotated sheets (fortress = perimeter + baffled gate +
+tower, and ours are CLAIMED podiums not built walls; town = one street, two
+storefront faces, a visible end; camp = UNHCR rows melting into Za'atari
+courtyards, on trailer/swapmeet art that exists). ALSO THIS ROUND: the card
+ratchet clicked 32% -> 41% (COOK's ask; the gate first caught the wardrobe
+bank 40 garments stale, the extract fixed it, all 40 pass the full card) and
+tools/bohemia_style_card_ratchet.py is the card keeper's click tool. NEXT
+OPEN: [feed look], then [tile ground]. PREVIOUS: [batch judging] SHIPPED bb04050 -- the DIRECTION
 checkpoint lives inside the VOTE build: a red style card aborts the build, a
 candidate the reference registry has never seen is refused by name into
 records/BOHEMIA_VOTE_REFUSALS.txt (self-cleans when the queue is clean),
