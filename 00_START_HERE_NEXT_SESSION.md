@@ -9995,7 +9995,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [style checker] SHIPPED 5e6ef42 -- the card has a
+ROUND LOG 9/5 (latest): [batch judging] SHIPPED bb04050 -- the DIRECTION
+checkpoint lives inside the VOTE build: a red style card aborts the build, a
+candidate the reference registry has never seen is refused by name into
+records/BOHEMIA_VOTE_REFUSALS.txt (self-cleans when the queue is clean),
+pre-law faces and icons grandfathered. Both teeth proven with fakes before
+shipping. NEXT OPEN: [fortress look], then [feed look], [tile ground].
+PREVIOUS: [style checker] SHIPPED 5e6ef42 -- the card has a
 machine gate (suite-registered): new cooks are register-or-accent (the muddy
 middle ends), new outers wear runway black, the canon rides the 82/256
 ratchet, purple stays banned, and the bank must match the shipped alpha or
