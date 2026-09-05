@@ -850,6 +850,20 @@ GATES = [
      'the same instance, got day 2, and read as a failure of the module when it was a failure '
      'of the harness. It models a relaunch now. Mutation-tested: the snapshot dropping the '
      'people turns 5 claims red', True),
+    ('STRANGER OPENS', ['node', 'gates/a_stranger_opens_it_gate.js'],
+     'BB HANDS-NOW (Paolo 9/5: "I do want to get a demo into people\'s hands immediately"). '
+     'WHOLE DEMO walks the demo end to end as somebody who KNOWS THE WAY -- it presses the '
+     'right thing because it was told which thing is right. That is the correct test for '
+     '"does the day work" and the wrong one for "can a person who has never seen this get '
+     'in", because a stranger spends their first thirty seconds on questions the walkthrough '
+     'already knows the answers to: what is this, where do I press, did anything happen. So '
+     'this opens the demo COLD on a phone -- touch events, no saved game, no dev knowledge -- '
+     'and only ever presses what the screen is offering. Measured 9/5: loads in 572ms, one '
+     'tap puts a walked world up in 1,669ms, zero page errors, the front door says "TAP TO '
+     'ENTER" and nothing else, 200,914+ cells of ground reachable on foot. It REPORTS every '
+     'number rather than only asserting it, because a stranger\'s patience is a real budget. '
+     'Mutation-tested: a scrim over the walk pad (the bug this lane shipped and caught once) '
+     'turns 2 red AND NAMES THE CULPRIT BY ID; deleting "TAP TO ENTER" turns 1 red', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

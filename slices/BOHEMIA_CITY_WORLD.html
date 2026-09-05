@@ -9036,6 +9036,60 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     return out;
   })();
 
+  /* ---------------------------------------------------------------------------
+     THE FOUR VERBS, FROZEN THE WAY THE THREE CURRENCIES ARE (9/5)
+     BB-FOUR-VERBS-THREE-CURRENCIES, on his direction: "battle brothers has 3-4
+     currencies too... how they manage it is superb."
+
+     WHAT IS SUPERB ABOUT IT, IN ONE SENTENCE: YOU NEVER SPEND A RESOURCE, WHAT YOU
+     DID SPENDS IT. In the game he named nobody allocates from a menu -- you FIGHT
+     and the tools drain to fix what broke, you WALK and the men eat, you SHOOT and
+     the quiver empties. Each resource is spent by exactly one verb, so you always
+     know what took it, and there is no screen where any of it is managed. That is
+     the anti-spreadsheet answer he has asked for since 7/26: THE RESOURCE IS THE
+     SHADOW OF WHAT YOU DID.
+
+     MEASURED 9/5, before this existed: the ONLY debit in the whole game was buying
+     at a market, one caller. CLOUT had never moved in either direction. So walking
+     was free, fighting was free, holding ground was free, asking was free, and the
+     only thing that cost anything was shopping.
+
+     IT IS A TABLE AND NOT FOUR CALLS TO debit() ON PURPOSE. A frozen list is the
+     mechanism that stops a fifth verb appearing quietly, exactly as CURRENCIES is
+     the mechanism that stops a fourth currency -- his law freezes three and the
+     anti-spreadsheet ruling dies the day somebody adds one by hand. An undeclared
+     verb is REFUSED here, not silently posted.
+     AND THE AMOUNT IS 1 AND CANNOT BE PASSED IN. EVERYTHING COSTS ONE (8/15) is
+     his ruling, and a caller that could pass 2 would be a place for a number
+     nobody ruled to enter the game. When he tunes, he tunes this line.
+     --------------------------------------------------------------------------- */
+  var VERBS = {
+    /* THE DAY EATS FOOD -- the people who depend on you ate. No meter on the
+       player's body: he is not hungry, THEY are. */
+    'day:ate':     { currency: 'resources',   about: 'the people who depend on you ate' },
+    /* THE FIGHT EATS TAPE -- the plate you wore at the bell is spent. COMBAT owns
+       what a plate does; this owns what it costs. */
+    'fight:plate': { currency: 'resources',   about: 'the plate you wore at the bell is spent' },
+    /* THE NIGHT EATS POWER -- every lit circuit you hold burns one, which is what
+       turns territory into a bill. */
+    'night:power': { currency: 'electricity', about: 'every lit circuit you hold burned one' },
+    /* ASKING EATS CLOUT -- you leaned on somebody. */
+    'ask:leaned':  { currency: 'clout',       about: 'you leaned on somebody' }
+  };
+
+  /* A VERB SPENDS. The only way anything but a purchase leaves the purse.
+     Returns the ledger's own answer verbatim, INCLUDING its refusal, because a
+     caller has to be able to tell "it cost nothing" from "you could not pay" --
+     and "you could not pay" is the whole game: run out of food and your people
+     stop showing up, run out of power and the block goes dark. */
+  function upkeep(purse, verb, ref, day) {
+    var v = Object.prototype.hasOwnProperty.call(VERBS, verb) ? VERBS[verb] : null;
+    if (!v) return { applied: false, reason: 'NO_SUCH_VERB', verb: verb,
+                     about: 'the four verbs are frozen; a fifth is a design change, ' +
+                            'and design changes are Paolo\'s' };
+    return debit(purse, v.currency, 1, verb, ref || null, day);
+  }
+
   /* PRODUCTION STAYS EMPTY AND IT IS NOT AN OVERSIGHT. Measured 9/5: `produce()`
      has ZERO callers anywhere in the engine or the walked surface, so there is no
      buildingId vocabulary to key on and every row I could write here would be dead
@@ -9247,6 +9301,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     credit: credit, debit: debit, transferIn: transferIn, transferOut: transferOut,
     convert: convert,
     payQuest: payQuest, spend: spend, produce: produce,
+    VERBS: VERBS, upkeep: upkeep,
     flow: flow, audit: audit, history: history, save: save, load: load
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
@@ -34999,9 +35054,21 @@ function ctDialApply(w, save){
     var raw = JSON.parse(localStorage.getItem('boh.city.deedweight') || 'null');
     if (raw && typeof raw === 'object') ctDialApply(raw, false);
   } catch(_e){}
+  try { ctGenLoad(); } catch(_e){}     /* __CITY_FAMILY__ */
   /* and the DIRECT tab pushes it across the frame the moment he turns it */
+  /* __CITY_FAMILY__ -- HE MUST BE ABLE TO DIRECT IT (8/12). WHEN a generation
+     turns is a STORY decision and it is his; nothing in this file folds on its
+     own -- no timer, no act boundary, no death. This is the door, on the same
+     postMessage seam the STANDING dial already uses, so he can turn a life into
+     a legend and watch what survives instead of being told it works. */
   window.addEventListener('message', function(ev){
     var d = ev && ev.data;
+    if (d && d.type === 'BOHEMIA_FOLD_GENERATION'){
+      var r = ctFold();
+      try { if (ev.source) ev.source.postMessage(
+        { type:'BOHEMIA_FOLDED', result:r }, '*'); } catch(_e){}
+      return;
+    }
     if (d && d.type === 'BOHEMIA_DEED_WEIGHTS' && d.weights)
       ctDialApply(d.weights, true);
     /* *** THE DIAL CANNOT READ THIS MODULE, SO THIS MODULE ANSWERS IT. ***
@@ -40594,6 +40661,14 @@ function onNightfall(){
      takes the quest author's own FAIL stage. */
   if(OFFER_TAKEN){ const r=DQ.nightfall(); if(r)updQline();
     try{ payForToday(); }catch(_e){}   /* __THE_DAY_PAYS__ */ }
+  /* __WHAT_TODAY_COST__ -- THE DAY EATS FOOD. He is not hungry; THE PEOPLE WHO
+     DEPEND ON YOU ATE, which is why there is no meter on the player's body and
+     never will be. Posted AFTER the day is paid, in the order it really happened:
+     you earn the battery, then the day takes what it takes. Running out is not a
+     failure state here, it is a refusal the ledger records -- what it COSTS you is
+     BB-OBLIGATION-BURN's row, not this one. */
+  SPENT_TODAY=[];
+  try{ upkeepPost('day:ate', (DAYOPEN&&DAYOPEN.title)||'the day'); }catch(_e){}
   try{ mktAdvanceDay(); }catch(_e){}   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
      what water at thirty days costs, and that is the whole point of ruling A. */
@@ -40629,6 +40704,14 @@ function showReckoning(){
     h+='<li>paid: '+esc(pd.join(', '))+'</li>'; }
   else if(PAY_REFUSED==='NO_RULING')
     h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': nobody has ruled what this pays</li>';
+  /* __WHAT_TODAY_COST__ -- AND THE RECKONING NAMES WHAT TOOK IT. The whole point of
+     one verb per resource is that you always know what took it, so the card says the
+     VERB and never a category: "the people who depend on you ate", not "-1 food".
+     A refusal gets its own line, because "you could not pay" is the loudest thing
+     that can happen on this card and it is not an error. */
+  for(var si=0;si<SPENT_TODAY.length;si++){ var sp=SPENT_TODAY[si];
+    h+='<li'+(sp.paid?'':' style="color:#c98a5a"')+'>'+esc(sp.about)
+      +(sp.paid?'' : ' \u2014 and you could not pay it')+'</li>'; }
   h+='</ul>';
   /* __KEEP_THIS_RUN__ -- ONE LINE ON A CARD HE IS ALREADY READING, and that shape
      is a correction. The first cut was its own modal between the SLEEP tap and the
@@ -41415,6 +41498,26 @@ window.addEventListener('message',function(ev){
    demo cut's "GET PAID" beat has been in the build, dormant, ever since. var, not
    let, for the same temporal-dead-zone reason as HOME (8/11). */
 var PURSEV=null, PAID_TODAY=null, PAY_REFUSED=null;
+/* __WHAT_TODAY_COST__ -- BB-FOUR-VERBS-THREE-CURRENCIES, on his 9/4 direction
+   ("battle brothers has 3-4 currencies too... how they manage it is superb").
+   YOU NEVER SPEND A RESOURCE, WHAT YOU DID SPENDS IT. Measured before this existed:
+   the only debit in the whole game was buying at a market, and CLOUT had never moved
+   in either direction -- so walking was free, holding ground was free, asking was
+   free, and the only thing that cost anything was shopping.
+   The four verbs are FROZEN in engine/bohemia_purse.js the way the three currencies
+   are, and this is only the wiring: what happened today, in the order it happened. */
+var SPENT_TODAY=[];
+function upkeepPost(verb,ref){
+  var p=purseGet(); if(!p) return null;
+  var r=null; try{ r=BohemiaPurse.upkeep(p,verb,ref||null,DAY.day); }catch(_e){ return null; }
+  var v=(BohemiaPurse.VERBS||{})[verb]||null;
+  SPENT_TODAY.push({verb:verb, about:(v&&v.about)||verb,
+                    currency:(v&&v.currency)||null,
+                    paid:!!(r&&r.applied), why:(r&&r.reason)||null});
+  if(r&&r.applied) window.__SPENT=(window.__SPENT||0)+1;
+  else window.__SPENT_SHORT=(window.__SPENT_SHORT||0)+1;
+  return r;
+}
 function purseGet(){
   if(PURSEV) return PURSEV;
   try{ PURSEV=BohemiaPurse.create(); }catch(_e){ PURSEV=null; }
@@ -49238,7 +49341,7 @@ function ctOutfitHtml(){
     return h + '<div class="obempty">NOBODY IN THIS VALLEY HAS A POSITION ON YOU'
       + ' YET.<br><br>You have not thrown in with anybody far enough for it to'
       + ' reach the people they are at odds with. The day you do, this fills up'
-      + ' and it does not empty again.</div>' + ctSeenByHtml() + ctWhoVouchesHtml() + ctVouchedHtml()
+      + ' and it does not empty again.</div>' + ctSeenByHtml() + ctLegendHtml() + ctWhoVouchesHtml() + ctVouchedHtml()
       + ctValleyHtml();
   }
   for(var i=0;i<d.rows.length;i++){
@@ -49261,7 +49364,7 @@ function ctOutfitHtml(){
   /* __CITY_YOURPROBLEM__ -- the people you put up sit between your own positions
      and the valley, because they are the one part of this board that is about
      what you DID rather than about where anybody is. */
-  return h + ctSeenByHtml() + ctWhoVouchesHtml() + ctVouchedHtml() + ctValleyHtml();
+  return h + ctSeenByHtml() + ctLegendHtml() + ctWhoVouchesHtml() + ctVouchedHtml() + ctValleyHtml();
 }
 
 function ctOutfitOpen(){
@@ -49285,6 +49388,88 @@ function ctOutfitBadge(){
   var b = document.getElementById('outfitbtn'); if(b) b.classList.add('ring');
 }
 
+/* __CITY_FAMILY__ -- THE GENERATION TURNS, AND THE VALLEY REMEMBERS.
+   Paolo 8/28, ruling the dynasty alive: a handoff "INHERITS EVERYTHING the last
+   life built (compound, STANDINGS, territory, the family tree, and the unhealed
+   wounds)". Standings are named in that list and they are this lane's.
+
+   bohemia_standing.js has carried inherit() since 8/20 and organ_reach reported
+   it reached by NOTHING ANYWHERE every single run. It could not have meant
+   anything sooner: it keeps only deeds with hops > 0, the ones somebody RETOLD,
+   and a deed's loudness did not decide its hop budget on the walked surface
+   until the quest corpus started filling DEED_WEIGHT on 8/28. The dynasty half
+   was waiting on the reputation half without either one saying so. */
+var CT_GEN = 1;
+function ctGenLoad(){
+  try { var g = parseInt(localStorage.getItem('boh.city.gen') || '1', 10);
+        if (g > 0) CT_GEN = g; } catch(_e){}
+  return CT_GEN;
+}
+function ctGenSave(){
+  try { localStorage.setItem('boh.city.gen', String(CT_GEN)); } catch(_e){}
+}
+/* THE HEIR IS ALSO '@', AND THAT IS THE RULING RATHER THAN A SHORTCUT. The
+   player is '@' on every surface in this city, and the whole point is that the
+   heir INHERITS rather than starts over -- a run resets you to nothing, a
+   handoff is the opposite. Keeping the id means every card, every rung and
+   every outfit view keeps working and now reads the family's history as the
+   player's own, which is exactly "you are born owing what your father owed".
+   legendOf() is what tells the two apart again: it counts ONLY deeds carrying
+   `inherited`, so what your father did is still nameable as his. */
+function ctFold(){
+  if (typeof BohemiaStanding === 'undefined') return null;
+  var minds = ctMindsList();
+  var res;
+  try { res = BohemiaStanding.inherit(minds, '@', '@', ctMinuteNow()); }
+  catch(_e){
+    console.error('BOHEMIA: the generation could not be folded, so nothing your '
+      + 'family did survives it. ' + _e.message);
+    return null;
+  }
+  CT_GEN = (CT_GEN | 0) + 1;
+  ctGenSave();
+  try { ctMindSave(); } catch(_e){}
+  try { if (CT_OPEN) ctDraw(); } catch(_e){}
+  return { gen: CT_GEN, carried: res.carried, died: res.died };
+}
+/* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY, IN HIS OWN SENTENCES.
+   legendOf returns deed KINDS, which are machine ids nobody can read. The line
+   is the quest's own @LOG out of BohemiaDeeds.labels() -- the same source the
+   card's reasons already use, so the family's history and the day's gossip are
+   never two different voices. Nothing is authored here. */
+function ctLegendRows(limit){
+  if (typeof BohemiaStanding === 'undefined') return [];
+  var minds = ctMindsList(); if (!minds.length) return [];
+  var rows = [];
+  try { rows = BohemiaStanding.legendOf(minds, '@', ctMinuteNow()) || []; }
+  catch(_e){ return []; }
+  var labels = {};
+  try { labels = BohemiaDeeds.labels() || {}; } catch(_e){}
+  var out = [];
+  for (var i = 0; i < rows.length && out.length < (limit || 4); i++){
+    var r = rows[i], say = labels[r.kind];
+    if (!say) continue;                 /* no sentence, no row: never a raw id */
+    out.push({ kind: r.kind, tellers: r.tellers, force: r.force,
+               generations: r.generations, say: say });
+  }
+  return out;
+}
+function ctLegendHtml(){
+  var rows = ctLegendRows(4);
+  if (!rows.length) return '';
+  var h = '<div class="obhead2">WHAT THEY STILL SAY ABOUT YOUR FAMILY</div>';
+  for (var i = 0; i < rows.length; i++){
+    var r = rows[i];
+    /* HOW MANY LIVES BACK, said in words rather than a number nobody can place */
+    var ago = r.generations >= 3 ? 'THREE LIVES BACK'
+            : (r.generations === 2 ? 'YOUR GRANDFATHER' : 'YOUR FATHER');
+    h += '<div class="obv"><span class="obvwho">' + ago + '</span>'
+       + '<span class="obvwhere">' + r.tellers + ' STILL '
+       + (r.tellers === 1 ? 'TELLS IT' : 'TELL IT') + '</span></div>'
+       + ctNote(r.say);
+  }
+  return h;
+}
 /* __CITY_THEIRVIEW__ -- A FACTION'S VIEW IS ITS MEMBERS' VIEWS.
    Rule 4 of bohemia_standing.js, quoted from its own header, and the only one
    of its four that nothing on this surface had ever called. standingOf and

@@ -1,0 +1,88 @@
+BOHEMIA -- THE FOLD: WHAT AN HEIR ACTUALLY KEEPS
+BANK, 9/5/26, DYNASTY lane, Q3 [heir keeps]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+appears anywhere. Who is in the family, who dies, and what the heir is called
+are all his and are left blank.
+Record: records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+
+WHY THIS SHAPE
+Our fold folds eight kinds of thing and decays exactly one of them: a faction
+standing loses 25% a generation, while territory, builds, economy capacity,
+investment, karma and virtues carry at 100% forever. The measured world is the
+other way round. Social status persists at about 0.79 a generation and takes ten
+to fifteen generations to fade; wealth and occupation persist at about 0.3 to
+0.4. THE NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+So the 0.75 our engine already uses is a good number on the wrong field.
+And a relative in our tree is {id, rel, alive}: three fields, no name. A wound is
+a bare target: no who, no when.
+
+---- THE FIELDS, AS A SHAPE ONLY --------------------------------------- draft:true
+Structure is ours. Every value, every name and the exact split are his.
+
+  KEPT ALMOST WHOLE       what people say about the family. it barely moves in
+                          one lifetime. this is the field the 0.75 belongs on,
+                          slowed down, not sped up.
+  KEPT AND MUST BE HELD   ground, buildings, what the place can make. real, and
+                          it goes if nobody keeps it. today these never move.
+  KEPT ENTIRE             a name. one object somebody used. a wound with a who
+                          and a date on it. none of these exist today.
+  NOT KEPT                skills. what you personally learned to do. the heir is
+                          not you and should not open with your hands.
+
+---- A PERSON IN THE TREE, AS A SHAPE ---------------------------------- draft:true
+today:    { id, rel, alive }
+draft:    { id, name, rel, alive, born, died, whatTheyWereKnownFor }
+          name and whatTheyWereKnownFor are HIS. the machine only holds them.
+
+---- A WOUND, AS A SHAPE ----------------------------------------------- draft:true
+today:    wounds.push(target)
+draft:    { who, whatHappened, when, settled }
+          a wound the game cannot describe cannot be inherited, only counted.
+
+---- WHAT THE HEIR IS TOLD, AND IT IS NOT A SUMMARY SCREEN ------------- draft:true
+(the measured rule is essence: a thing somebody USED beats a thing they owned.
+so these lines name a use, never a value.)
+  THIS WAS HERS. SHE HAD IT ON HER THE WHOLE TIME.
+  HE FIXED THIS TWICE. THE SECOND TIME BADLY.
+  NOBODY HAS OPENED THIS SINCE HIM.
+  SHE CARRIED THIS EVERY DAY FOR ELEVEN YEARS.
+  IT STILL WORKS. THAT IS THE POINT OF IT.
+
+---- WHAT PEOPLE SAY, WHICH IS THE THING THAT REALLY LASTS ------------- draft:true
+  THEY KNOW THE NAME HERE.
+  THEY KNOW THE NAME HERE AND THEY DO NOT LIKE IT.
+  SOMEBODY HERE OWED HIM. SHE IS DEAD NOW.
+  YOU LOOK LIKE HIM.
+  THAT WAS A LONG TIME AGO. THEY STILL BRING IT UP.
+  NOBODY HERE HAS HEARD OF ANY OF YOU.
+
+---- WHAT WENT, AND THE GAME SHOULD SAY SO OUT LOUD -------------------- draft:true
+  THE ROOF WENT WHILE NOBODY WAS HERE.
+  THIS WAS YOURS. IT IS NOT NOW.
+  THE ONES WHO WORKED THIS LEFT.
+  YOU CANNOT DO WHAT HE COULD DO.
+
+---- AN UNSETTLED WOUND ------------------------------------------------- draft:true
+  SOMEBODY DID THIS AND THEY ARE STILL HERE.
+  NOBODY EVER ANSWERED FOR IT.
+  YOU WERE NOT BORN. IT IS STILL YOURS.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No skill carryover. Both directions are the genre's known failure: withhold
+everything and the handoff reads as deleting your character, carry everything and
+the family is what goes missing.
+No inheritance screen with numbers on it. What the heir gets should be met, not
+read.
+No stat bonus for being well born. Growth is horizontal (day 9) and what you
+inherit is a door, not a number (day 10).
+No rewrite of the 0.75 to match a paper. It is already within 0.04 and false
+precision on a game is worse than the rough number.
+No second inheritance system beside the fold. There is one fold.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Every name. Who marries whom, who dies, who the heir is, what the wound was.
+Which fields decay and how fast. Whether the object is the tweezers or something
+else. What generation two is told on its first morning.

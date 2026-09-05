@@ -118,3 +118,13 @@ that explain the job best."
   round in five) makes forty to sixty. The ceiling is not typing, it is
   measurement: a job that is not grounded in something checked is a wish,
   and wishes do not go on the board.
+
+
+## AMENDED 9/5/26: EVERY ROUND HAS A RESEARCH SWING (Paolo, LOCKED)
+"When I type VAMILY, are you doing big brain online research and own insight to make new
+jobs, or are you just reporting?" Both, every round, from now on. A manager's round is
+not finished by the sweep. It carries ONE research swing: a real question about the
+game, both aisles (the real world and the best games ever made), at least one finding
+that challenges what we believe, measured against our own repo, written as a record, and
+ROUTED into jobs on the board the same round. A round that only reports is a failed
+round. The first: records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_MAFIA_9_5_26.md.

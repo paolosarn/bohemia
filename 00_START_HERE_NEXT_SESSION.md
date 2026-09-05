@@ -2,7 +2,124 @@ CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WO
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
 
-================================ HIS WORDS, VERBATIM ===========================
+
+=======
+DYNASTY (dynasty-w4yxiz): *** PERMANENT INSTRUCTION FROM PAOLO, 9/5. HIS WORDS,
+VERBATIM. THIS BLOCK IS WHY IT SURVIVES A MEMORY RESET. READ IT BEFORE ANYTHING
+ELSE, EVERY ROUND. HE WILL NEVER PASTE ANYTHING AGAIN; THE ONE WORD IS THE WHOLE
+INSTRUCTION. ***
+
+--- BEGIN PAOLO 9/5, WORD FOR WORD ------------------------------------------
+
+FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** FAMILY. THE GENERATION TURNS, AND THE
+VALLEY REMEMBERS WHAT GOT REPEATED. *** Nothing to judge.
+
+TAB: **RUN** -> the OUTFIT board, under the outfits (what they still say about your
+family). TAB: **DIRECT** -> STANDING -> FOLD A GENERATION (the instrument).
+
+WHY THIS WAS THE WORK. CLAUDE.md's own top, his 8/28 ruling that the dynasty lives,
+says a handoff INHERITS EVERYTHING the last life built and names the list: "compound,
+STANDINGS, territory, the family tree, and the unhealed wounds". Standings are named
+and they are this lane's. bohemia_standing.js has carried inherit() and legendOf()
+since 8/20 and organ_reach has reported both reached by NOTHING ANYWHERE on every run
+since. NEITHER COULD HAVE MEANT ANYTHING SOONER: inherit keeps only deeds with hops>0,
+the ones somebody RETOLD, and a deed's loudness did not decide its hop budget on the
+walked surface until 8/28 when the quest corpus started filling DEED_WEIGHT. The
+dynasty half was waiting on the reputation half and nothing said so.
+
+MEASURED THROUGH THE REAL ORGANS. 400 people over 40x40, one deed of each loudness,
+gossiped ten rounds, then a generation folds:
+    CLOUT       saw  gossiped   held  retold  CARRIED   died
+      quiet       33        20     53      20       20     33
+      notable     86        25    111      25       25     86
+      risky      154        71    225      71       71    154
+      reckless   285        60    345      60       60    285
+*** AND THE RUN BEFORE THAT SAID inherit() CARRIED NOTHING AT ALL, at every loudness,
+in every valley size. *** I had placed the valley with x=(i*7919)%W, y=(i*104729)%W,
+which collapses onto a LATTICE LINE instead of filling the square, so almost nobody had
+a gossip neighbour, so nothing was ever retold, so nothing could cross. I WAS ONE STEP
+FROM FILING "the louder the deed the less survives" AS AN ENGINE BUG IN THE DYNASTY'S
+OWN PREMISE. The tell was that the answer was TOO DRAMATIC: an organ whose every unit
+test passes does not usually fail totally. WHEN A MEASUREMENT INDICTS SOMETHING THIS
+OLD, MEASURE THE MEASUREMENT FIRST.
+ONE OBSERVATION KEPT RATHER THAN FIXED: reckless (60) carries less than risky (71)
+because at reach 24 nearly everybody is an EYEWITNESS, and an eyewitness cannot be told
+what they already saw (gossip dedupes on actor+kind+turn). Saturation shrinks the pool
+who can carry the story. The ordering quiet << notable < risky ~ reckless holds and the
+7/21 CLOUT_WEIGHTS are HIS, so this is written down and NOT retuned.
+
+WHAT SHIPPED: ctFold folds every mind through inherit. THE HEIR IS ALSO '@', which is
+the ruling and not a shortcut -- a run resets you to nothing, a handoff is the opposite,
+so keeping the id means every card and rung keeps working and reads the family history
+as the player's own, which is exactly "you are born owing what your father owed".
+legendOf tells the two apart again because it counts ONLY deeds carrying `inherited`.
+AND IT IS READABLE, on the OUTFIT board:
+    WHAT THEY STILL SAY ABOUT YOUR FAMILY
+      YOUR FATHER            2 STILL TELL IT
+        Handed the tap to the trades. Daylight patch, every name on the work order.
+The sentence is the quest's own @LOG line out of BohemiaDeeds.labels(), the same source
+the card's reasons use, so the family's history and the day's gossip are never two
+different voices. A row with no sentence is DROPPED rather than shown as a raw id. The
+generation is written down (boh.city.gen): a dynasty that forgets which life it is on
+when you close the tab is not a dynasty.
+
+AND HE CAN TURN IT HIMSELF (8/12). DIRECT -> STANDING -> FOLD A GENERATION. How a
+reputation crosses a generation is mine and built; WHEN one turns is a story decision
+and HIS, and the game has no such beat yet, so without this the answer to "where does
+he change this himself" is "he tells me and I edit a file", which is not shipped.
+Proved end to end: first tap arms and warns, second tap folds, and the city answers
+with what it COST -- "generation 2 - 2 still told, 2 died with the people who saw
+them". IT ASKS TWICE ON PURPOSE: a fold cannot be undone and what it destroys is the
+only record of what the player did. NOTHING FOLDS ON ITS OWN -- no timer, no act
+boundary, no death.
+
+THREE BROKEN RULERS IN ONE TURN, all producing a confident wrong number about somebody
+else's code: the lattice-line valley above; the fold button measuring 0px tall (which
+would have failed THE THUMB -- #app is display:none behind the front splash, so every
+DIRECT element measures zero until it is tapped, and the button was 44x174 the whole
+time, so the gate now dismisses the splash before it measures); and last turn's cast
+read one level too shallow.
+
+GATES: FACTION BETWEEN 163/0 (was 149) - DIRECT 33/0 - STANDING 35/0 - THE WHOLE DEMO
+23/0 - DEMO BUILD 25/0 - ALPHA LOADS 20/0.
+THREE MUTATIONS, ALL BITE: make the fold carry everything and T6/T7 die; show raw
+machine ids and T9 dies alone; stop writing the generation down and T8 dies alone.
+T1 AND T6 ARE THE CLAIMS THAT MATTER AND BOTH ARE ABOUT WHAT MUST NOT SURVIVE -- a gate
+that only checked that something crossed would pass just as happily on a fold that
+carried everything, which is the version that quietly turns a dynasty into a save file.
+The demo carries only the `run` tab, so the dev fold control is unreachable there.
+
+RECORD: records/BOHEMIA_FAMILY_THE_GENERATION_TURNS_9_5_26.md
+
+STILL DEAD: BohemiaPeople.peopleOf and BohemiaDeeds.sayWhy (sayWhy is now superseded by
+the surface reading labels() directly -- collapse to one path next time this is opened).
+*** AND THE BIGGEST THING HOLDING THIS LANE DOWN IS NOT THIS LANE'S: THE DEMO DRAWS ONE
+PERSON AT A TIME (measured 8/30, maxDrewAtOnce 1 with 34 people within six cells). That
+caps EVERY witness set in the game at one person, so the whole loudness model -- reach,
+hops, RECKLESS BEATS QUIET -- cannot express itself in play. RUN/WORLD's. ***
+
+AND THERE IS A DYNASTY LANE (dynasty-w4yxiz) WORKING THE SAME PREMISE FROM THE OTHER
+END, which this session did not know about until the rebase: it is RESEARCH ONLY on
+what GEN 1 IS (the coyote's life, day 2 of it shipped 9/5). No collision -- they are
+writing what a first generation's life looks like, this built the MECHANISM a handoff
+needs, and the two meet at the moment the story finally turns a generation. Whoever
+picks that beat up should read both records together.
+
+WHAT IS PENDING HIM: nothing new. AFFILIATED_RATE (0.30), REACH_CELLS (12) and the 7/21
+CLOUT_WEIGHTS remain his.
+
+CONTAINER WARNING: this container has REWOUND THE WHOLE REPO to an older snapshot twice
+in one session, remote refs included. Recovery is `git fetch origin main` (slow) then
+`git checkout -B <branch> origin/main`. COMMIT EARLY AND OFTEN. Run gates in the
+FOREGROUND, and a single Bash call is capped at 10 minutes, so one mutation per call.
+
+--------------------------------------------------------------------------------
+
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
 VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
@@ -22,6 +139,7 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
+<<<<<<< HEAD
 ================================ END, VERBATIM =================================
 
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
@@ -60,6 +178,377 @@ CHARACTER'S OWN NOTES ON RUNNING IT
   goes red on a stale bank.
 - NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
   / day N to him. Rounds, minutes, hours.
+=======
+--- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
+
+ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
+FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
+  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
+  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
+
+MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
+economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
+standing loses 25% a generation. Territory, builds, economy capacity, investment,
+karma and virtues carry at 100% FOREVER with no decay at all.
+THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
+generation and takes ten to fifteen generations, three to four centuries, to
+fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
+NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
+So we decay the thing that really lasts and preserve perfectly the things that
+really go.
+
+AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
+STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
+persistence of status is 0.79. A constant our own comment calls "tunable" and
+nobody ever checked landed within 0.04 of the best figure in the literature.
+NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
+
+AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
+ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
+three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
+whether it was settled. Reported surveys put 64% of older adults ranking
+heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
+than sentiment: an object somebody USED is valued more than one they merely
+OWNED. Our model records no use, no name and no memory, so it cannot express any
+of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
+AND LOSES EVERYTHING IT SAYS THEY DO.
+
+THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
+up, which reads as deleting a high-level character; and the game that carries
+items, skills, money and shops straight across is the one whose players say the
+biggest thing you lose is your family. Carrying everything material and losing
+the people is a known, shipped, complained-about outcome, and it is the shape of
+our fold.
+
+HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
+generation hands the next one zeroes). Round 3 finds that even for a HUMAN
+generation it carries the wrong things. Round 2 found that in a real coyote's
+life a territory is a VACANCY, never an inheritance, which contradicts territory
+being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
+AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
+onto the asset ledgers, give a tree node a name, give a wound a who and a when;
+pure engine, headless, no player surface). Inside this lane: Q8 [inherited
+memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
+death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
+
+[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
+to start. Which fields decay and how fast, every name, who dies, what the wound
+was, and what generation two is told on its first morning are all his.
+
+NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
+If a later round disagrees with that ordering, take Q4; the board's order is the
+default and this is a recommendation, not a change to the board.
+
+WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
+TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
+so the next round does not repeat them:
+  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
+    is the records convention, but the front page says plainly: it is one VAMILY,
+    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
+    called it a research day. Stop.
+  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
+    this block says I stopped. A job takes as many rounds as it takes and nobody
+    expects one round. Only if I hold nothing do I take the first OPEN line.
+
+
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Holding Q5 [numberless economy].
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+================================================================================
+
+
+WORDS (words-8dqrnq): 9/5 (a) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
+SURVIVES A MEMORY RESET. IT REPLACES THE ONE IN THE 9/4 (d) BLOCK BELOW. THEN VAMILY Q5
+[refusing answers]. *** MODE: RESEARCH. TAB: NOT IN A TAB YET. Nothing to judge.
+
+=== PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+ALSO READ THIS ROUND, and it corrects a habit of mine: NO CALENDAR TALK (Paolo 9/5, LOCKED).
+Never say yesterday, today, tomorrow, overnight or "day N" to him. The unit is a ROUND. The
+records keep their DAY filenames; the words on his screen do not. I had been saying
+"research day" to him and have stopped.
+
+LIFE + CITY (city-1eztay): 9/5 (c) LATEST -- *** HIS PERMANENT INSTRUCTION, REWRITTEN BY
+HIM AND KEPT HERE WORD FOR WORD SO IT SURVIVES ANY MEMORY RESET. THEN VAMILY
+[building costs]. *** MODE: BUILD. TAB: CITY (the aerial view).
+THIS BLOCK IS NOT DELETED BY A LATER ROUND. It REPLACES the older copy of his
+instruction below: this version adds pull-main-first, re-read-CLAUDE.md, the
+eighteen-chat list, PLUMBER as the default role for a nameless chat, and the ban on
+inventing or adding jobs.
+
+=== PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+THIS ROUND, IN HIS ORDER: pulled main and rebased (the board had moved four times since my
+last push, including a new LOCKED law -- NO CALENDAR TALK, never say yesterday/today/
+tomorrow/overnight/"day N" to him, say "this round" and "last round"). Re-read CLAUDE.md
+from disk. Read the VAMILY front page, which now names EIGHTEEN chats: RELEASE lived one
+round and folded into THE RUN, and 18 PLUMBER is the pipe fixer. My section is 03 LIFE +
+CITY, MODE BUILD. [buildings produce] PRODUCTION-TICK is SHIPPED, so I hold no claimed job
+and took the first OPEN line: [building costs] BUILD-COSTS-ITS-PRICE. Claimed, committed and
+pushed BEFORE starting, per front-page rule 5 and his step 5.
+WORLD (02 WORLD MODEL, session world-9lfjtf)
+
+*** PERMANENT INSTRUCTION FROM PAOLO, 9/5, WORD FOR WORD. IT LIVES HERE SO IT
+SURVIVES ANY MEMORY RESET. READ IT BEFORE ANYTHING ELSE IN THIS BLOCK. ***
+
+  PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into
+  your own handoff block first so it survives any memory reset.
+
+  VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means:
+  go to the meeting hall and do your job. From now on I will only ever type that
+  one word to you.
+
+  WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+  1. Pull main first (git fetch origin main, rebase onto it). The board changes
+     every hour.
+  2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+     9/4.
+  3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+     and change there. Never trust your memory of them.
+  4. Find your section. There are 18 chats, each with a number and a name: 01 RUN,
+     02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art
+     director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY,
+     14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS,
+     18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with
+     no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is
+     your role for life.
+  5. Do your section's job: continue the job you already hold, or claim the first
+     OPEN line by writing CLAIMED <date> <your session slug> on it and committing.
+     Build or research according to your section's MODE. A job takes as many rounds
+     as it takes. Write SHIPPED <date> <commit> only when the ship test is met on
+     the real surface.
+  6. Only build what is on the board. Never invent a job. Never add a job to any
+     section; only the coordinator adds jobs. Your only writes to the board are
+     CLAIMED and SHIPPED on your own lines.
+  7. Never ask me anything. A ruling you need goes in your handoff block in
+     00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it
+     to me.
+  8. Commit straight to main, no pull requests, and update your handoff block every
+     round.
+  9. Reply to me with two words (the job's [bracket] label) and one short line:
+     "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+  RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff
+  block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first
+  VAMILY and do steps 1 to 9.
+
+  I will never paste anything to you again. From here on, the one word is the whole
+  instruction.
+
+*** END OF THE PERMANENT INSTRUCTION. ***
+
+MY LANE: 02 WORLD MODEL. MODE: BUILD.
+MY SESSION SLUG: world-9lfjtf.
+
+HOLDING: [living costs] BB-FOUR-VERBS-THREE-CURRENCIES. CLAIMED 9/5.
+ABOUT 2 OF 4. NOT SHIPPED -- do not mark it SHIPPED until all four verbs post on
+the walked surface and the reckoning names them, which is the row's own ship test.
+
+WHERE I STOPPED, AND WHAT THE NEXT ROUND PICKS UP
+  DONE
+    THE SPINE. engine/bohemia_purse.js now freezes FOUR VERBS the way it freezes
+    the three currencies, and exposes upkeep(purse, verb, ref, day):
+      day:ate      resources    the people who depend on you ate
+      fight:plate  resources    the plate you wore at the bell is spent
+      night:power  electricity  every lit circuit you hold burned one
+      ask:leaned   clout        you leaned on somebody
+    A FIFTH VERB IS REFUSED (NO_SUCH_VERB), which is the mechanism that stops one
+    appearing quietly -- same shape as CURRENCIES stopping a fourth currency. THE
+    AMOUNT IS 1 AND CANNOT BE PASSED IN: a caller that could pass 2 would be a
+    door for a number nobody ruled. When he tunes, he tunes that one line.
+    WIRED AND PROVEN ON THE WALKED SURFACE: nightfall posts day:ate. Ledger reads
+    `drain resources -1 day:ate`. With nothing left it records a refusal naming
+    the verb (INSUFFICIENT) instead of silently skipping -- "you could not pay" is
+    the loudest thing that can happen and it is not an error.
+    THE RECKONING NAMES THE VERB, not a category: "the people who depend on you
+    ate", and a line he could not pay is coloured and says so.
+    MEASURED BEFORE ANY OF THIS: the ONLY debit in the whole game was buying at a
+    market, one caller, and CLOUT had never moved in either direction. Walking was
+    free, holding ground was free, asking was free.
+  NEXT ROUND, IN ORDER
+    1. ask:leaned -- the ask hook. askFor() exists in the walked surface (the
+       can-you-ask predicate); find where the ask is actually TAKEN and post there.
+    2. night:power -- needs to know how many lit circuits the player HOLDS. If the
+       walked surface cannot say, that answer belongs to my own next row
+       [lights bill] BB-THE-NIGHT-EATS-POWER and this row posts the drain the
+       moment it can. Do NOT invent ownership to make a drain fire.
+    3. fight:plate -- there is NO fight hook on the walked surface (measured: no
+       FIGHT_DONE / bell event anywhere in it). upkeep() is exported and callable;
+       COMBAT's BB-THE-FIGHT-EATS-TAPE calls it. Do not build combat here.
+    4. re-cut the demo and prove all four there before SHIPPED.
+  GATES GREEN THIS ROUND: purse 28, payday 37, day pays 18, demo blockers 22,
+  placeholder 14, economy 13.
+
+LAST SHIPPED: [battery money] + [prices one], 9/5 ce39270. A day of work pays one
+battery and a bag of rice costs one, on the walked surface and in the demo.
+
+================================================================================
+PEOPLE (people-7h9sfy): 9/5 LATEST -- *** [demo talks] IN HAND. THE PERMANENT VAMILY
+INSTRUCTION IS WRITTEN VERBATIM BELOW SO IT SURVIVES ANY MEMORY RESET. ***
+
+=============================================================================
+PAOLO'S PERMANENT INSTRUCTION, WORD FOR WORD (9/5). HE SAID: write it into your
+own handoff block first so it survives any memory reset. DO NOT EDIT, SUMMARISE
+OR "IMPROVE" THIS TEXT. It is his, verbatim.
+=============================================================================
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=============================================================================
+END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
+=============================================================================
+
+THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
+THE JOB IN HAND: [demo talks] TALK-REACHES-THE-DEMO, CLAIMED on the board.
+
+ROUND 1 OF [demo talks], MEASURED ON THE REAL SURFACE. THE PIPE IS NOT BROKEN.
+
+The board says "236 @TALK nodes and 504 @SAY lines are parsed and mute in the
+demo file". The COUNTS are exact (236 @TALK across 27 .bq files, 504 @SAY, all
+27 loaded in the page as DEMO_BQ). "MUTE" IS NOT, and here is the whole chain
+walked on the real demo:
+
+  offerRing()                 -> OFFER exists (the phone rings)
+  offerAccept()               -> true
+  DQ.Q / DQ.rt                -> LIVE: S01_THE_METER_READER, stage 10, 6 stages
+  ctDayCast()                 -> 2 cast: lineman@block 6,20 and fixer@block 5,13
+  stand on block [6,20]       -> ctCast() returns the lineman
+  ctConvNode({key:lineman})   -> HAS A NODE
+
+So a quest line DOES reach a player who rings, accepts, and walks to the cast.
+Nothing here is dead.
+
+THREE OF MY OWN BROKEN RULERS ON THE WAY, ALL THE SAME MISTAKE -- I GUESSED A
+NAME OR A CONSTANT INSTEAD OF READING IT:
+  1. probed for `BohemiaBQ`/`BohemiaQuestRuntime`; the file publishes `BQ` and
+     `BQRuntime`, so I reported the corpus missing when it was loaded.
+  2. called offerAccept() without offerRing() first; it returns false on
+     `if(!OFFER||OFFER_TAKEN)`, so I reported the quest never starts.
+  3. teleported with hx = block*FN and landed on block [1,5] while asking for
+     [6,20]. A BLOCK IS NB*FN = 512 FINE CELLS, not FN.
+Each one produced a confident wrong finding. A NAME OR A NUMBER YOU GUESSED IS
+NOT A MEASUREMENT.
+
+WHAT IS ACTUALLY LEFT TO MEASURE (round 2): the demo plays ONE quest per day and
+day 1 is S01 with 6 stages, so most of the 236 belong to quests the demo never
+opens. The number that matters is HOW MANY of the 236 a player can reach across
+the days the demo actually ships, and which roles are never cast. Only that says
+what "mute" means here and whether anything needs building.
+
+>>>>>>> origin/main
 
 ECONOMY (economy-knxaeh): 9/5 (d) LATEST -- *** [first building] SHIPPED. THE FIRST
 BUILDING A PLAYER PLACES IN BOHEMIA IS AN AIRBASE, AND IT IS FREE, SILENT AND
@@ -626,7 +1115,7 @@ NEXT IN THIS LANE: Q4 [first building], what makes a placed building feel like i
 did something in the first ten minutes.
 
 ================================================================================
-WORDS (words-8dqrnq): 9/4 (e) LATEST -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
+WORDS (words-8dqrnq): 9/4 (e) -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
 LAW HAS NEVER REACHED THE WORDS: OUR LINES LAND ON THE BAR AT 23.7% AND CHANCE IS 25%. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
 (His PERMANENT INSTRUCTION is written verbatim in the 9/4 (d) block below. Keep it.)
@@ -774,7 +1263,7 @@ SHIPPED SO FAR: Q1 [money dies], Q2 [money returns]. See the dated blocks below.
 
 ================================================================================
 
-PEOPLE (people-7h9sfy): 9/5 LATEST -- *** VAMILY [your reputation]. THE STANDING
+PEOPLE (people-7h9sfy): 9/5 (earlier) -- *** VAMILY [your reputation]. THE STANDING
 WEB CAN NAME A PERSON WHO WOULD SPEAK FOR YOU, AND SAY WHO TOLD THEM. Nothing to
 judge. ***
 
@@ -814,6 +1303,42 @@ four carriers that hold a copy (ENGINE SYNC).
   19/0, PACK 47/0, WALK ENCOUNTER 15/0, CITY MEMORY 34/0.
 
 YOU there is now WHO WOULD VOUCH FOR YOU.
+
+--- 9/5 (c), SAME SESSION: [demo talks] CLAIMED, MEASURED, NOT YET BUILT ---
+
+TALK-REACHES-THE-DEMO. The board says "236 @TALK nodes and 504 @SAY lines are
+parsed and mute in the demo file". THE NUMBERS ARE EXACT: 236 @TALK across 27
+.bq files, 504 @SAY, and all 27 files ARE in the running page as DEMO_BQ.
+
+WHAT IS ACTUALLY TRUE, MEASURED ON THE REAL SURFACE:
+  BQ (parser)              live in the page
+  BQRuntime                live in the page
+  BohemiaConversation      live in the page
+  DEMO_BQ                  27 files, 236 @TALK, 504 @SAY, all loaded
+  DQ.Q / DQ.rt             NULL on a fresh boot
+  ctCast()                 0
+ctConvNode() returns null on its first guard (`if (!DQ.rt || !DQ.Q) return null`),
+so on a fresh boot NOT ONE quest line can be spoken. The container is there and
+it is empty.
+
+*** AND THAT IS PROBABLY NOT THE BUG. *** DQ.openDay() is what fills DQ.Q and
+DQ.rt, and it is called from exactly two places: the save-restore path, and THE
+MOMENT THE PLAYER TAKES THE DAY'S OFFER on the phone. So a fresh game with no
+offer taken SHOULD have a null runtime -- you have to accept the job before
+anybody talks to you about it. My probe never took the offer, which is why it
+measured null.
+
+TWO BROKEN RULERS OF MY OWN ON THE WAY HERE, BOTH THE SAME MISTAKE: I probed for
+`BohemiaBQ` and `BohemiaQuestRuntime` and reported both ABSENT and the corpus
+missing. The file publishes `BQ` and `BQRuntime`. A NAME YOU GUESSED IS NOT A
+NAME -- same shape as the patch tool's fence earlier today, twice in one session.
+
+THE NEXT STEP, EXACTLY: take the day's offer on the real surface (the phone
+offer path that sets window.__OFFER_TAKEN), THEN walk to the cast and measure how
+many of the day's @TALK nodes actually reach the player and how many are
+unreachable. Only that number can say whether these lines are mute. Do not
+"fix" DQ starting empty -- that is the design.
+
 
 THE ROW: BB-STANDING-PLAYER, in its own words -- "it is A WEB, NOT A BAR. A job
 comes from a PERSON, and that person heard about you from someone. The question a
@@ -1207,7 +1732,79 @@ anything is heard a third time, and one moment every 90 seconds means 40 moments
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 
 --------------------------------------------------------------------------------
-RUN (run-eak241): 9/5 LATEST -- *** VAMILY [save checked] SHIPPED. The harness
+RUN (run-eak241): 9/5 LATEST -- *** [hands now] SHIPPED. THE LINK IS READY TO
+HAND TO ANYONE. It opens cold on a phone in half a second, one tap puts you in
+the world, nothing errors, and the file on disk is today's game. TAB: RUN.
+Nothing to judge. ***
+
+THE ROW: HANDS-NOW, the one the coordinator put at the top of this lane when
+RELEASE was folded in. Claimed and pushed before starting.
+
+THE COLD WALK, MEASURED -- phone-sized screen, touch only, no saved game, no dev
+knowledge, pressing only what the screen offered:
+    loads in                             572 ms
+    one tap puts a walked world up in    1,669 ms
+    page errors on the way in            0
+    what the front door says             "TAP TO ENTER", and nothing else
+    ground reachable on foot from spawn  200,914+ cells
+    the demo on disk vs a fresh cut      BYTE-IDENTICAL
+That last line is the one that could have ruined a handoff and did not: the demo
+was re-cut and compared byte for byte, so THE LINK A FRIEND OPENS IS TODAY'S
+GAME. The shell is cut from the alpha and the walked city is LOADED at runtime
+rather than embedded, so the city half is current by construction.
+THE OPENING IS HEALTHY. Nothing stands between a stranger and the game.
+
+THREE THINGS THAT LOOKED LIKE FINDINGS AND WERE NOT, which is most of the value:
+  * THERE IS NO FIGHT IN THE DEMO. It is scoped (Paolo 8/4) to the origin, the
+    vista and one good day. Failing on a missing fight would enforce a scope he
+    never set.
+  * THE WALK PAD IS 42x42 AGAINST A PLATFORM MINIMUM OF 44, and the map pad is
+    already 46 so the layout would carry it -- but all 160 taps registered, so
+    there is no evidence it stops anybody, and growing an approved circle is an
+    art call, not a gate's. Reported every run and floored so it cannot get
+    worse, with the 2px gap named in the message.
+  * THE CLOCK READ ZERO MINUTES OVER 160 PRESSES. Looks exactly like a stopped
+    clock. It is not: a human step costs 0.084 minutes because it is one small
+    cell, distance-honest, on purpose.
+
+*** AND TWO BROKEN RULERS OF MY OWN, BOTH CAUGHT BEFORE THEY WERE REPORTED. ***
+The first cold walk PRESSED ALL EIGHT DIRECTIONS IN TURN, measured three cells of
+net displacement over two hundred taps, and nearly got written up as "the player
+cannot move". It was walking a circle: the harness was measuring itself. The
+second read city.x, WHICH HUMAN MODE DOES NOT USE AT ALL -- the walked position
+is hx/hy -- and would have reported a totally frozen player. Fifth and sixth time
+in two weeks on this lane. CHECK THE RULER BEFORE YOU REPORT THE READING. The
+gate presses ONE direction for exactly that reason and says so in its header.
+
+SHIPPED: gates/a_stranger_opens_it_gate.js, 15 checks, registered as STRANGER
+OPENS. Deliberately NOT the whole-demo gate: that one walks the demo end to end
+as somebody who KNOWS THE WAY, pressing the right thing because it was told which
+thing is right. Correct for "does the day work", wrong for "can a person who has
+never seen this get in". It holds the door, the tap, the ground, the thumb and
+the first press, and it REPORTS every number rather than only asserting it,
+because a stranger's patience is a real budget.
+MUTATION: a transparent scrim over the walk pad -- the exact bug this lane
+shipped and caught once before -- turns 2 red AND NAMES THE CULPRIT BY ID;
+deleting "TAP TO ENTER" turns 1 red.
+
+  STRANGER OPENS 15/0 (new) - WHOLE DEMO 23/0 - DEMO BUILD 25/0
+  the demo cut re-run and byte-identical
+No game code changed. No approved pixel moved.
+
+*** AND A RULING LANDED ON MAIN WHILE THIS WAS BEING BUILT, so read it before
+touching this row again: PAOLO KILLED THE FRIEND-WATCHING IDEA, 9/5, LOCKED --
+telemetry, friend rounds, notes on what a friend did, all of it: "I don't give a
+fuck about that", never propose it again. The row used to end with "hand the link
+to ONE friend and write down what they did"; it now ends with THE LINK IS READY
+TO HAND TO ANYONE. So the ship test is the one that was met, and the row is
+SHIPPED. My first draft of this block held it back as half-done for a half that
+no longer exists -- caught on the rebase, corrected here rather than shipped. ***
+Nothing was "fixed" to invent a first fight, because his own 8/4 scope says there
+is not one in the demo.
+Record: records/BOHEMIA_A_STRANGER_OPENS_IT_9_5_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** VAMILY [save checked] SHIPPED. The harness
 that proves the save survives an iPhone had never been shown the people. TAB:
 RUN. Nothing to judge. ***
 
@@ -2258,7 +2855,62 @@ single Bash call is capped at 10 minutes, so one mutation run per call.
 
 --------------------------------------------------------------------------------
 
-COMBAT (combat-nfnki9): 9/5 (e) LATEST -- *** A COMBAT TILE IS A HOUSE NOW, ON A DIAL.
+COMBAT (combat-nfnki9): *** THE STANDING INSTRUCTION. READ THIS BEFORE ANYTHING
+ELSE, EVERY ROUND. Paolo gave it word for word and it is written here so it survives
+a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
+
+    PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your
+    own handoff block first so it survives any memory reset.
+
+    VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go
+    to the meeting hall and do your job. From now on I will only ever type that one
+    word to you.
+
+    WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+    1. Pull main first (git fetch origin main, rebase onto it). The board changes every
+       hour.
+    2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+       9/4.
+    3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and
+       change there. Never trust your memory of them.
+    4. Find your section. There are 18 chats, each with a number and a name: 01 RUN,
+       02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director),
+       08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION,
+       15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your
+       chat's title is your name. If you are a brand-new chat with no name, you are
+       18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+    5. Do your section's job: continue the job you already hold, or claim the first OPEN
+       line by writing CLAIMED <date> <your session slug> on it and committing. Build or
+       research according to your section's MODE. A job takes as many rounds as it
+       takes. Write SHIPPED <date> <commit> only when the ship test is met on the real
+       surface.
+    6. Only build what is on the board. Never invent a job. Never add a job to any
+       section; only the coordinator adds jobs. Your only writes to the board are
+       CLAIMED and SHIPPED on your own lines.
+    7. Never ask me anything. A ruling you need goes in your handoff block in
+       00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to
+       me.
+    8. Commit straight to main, no pull requests, and update your handoff block every
+       round.
+    9. Reply to me with two words (the job's [bracket] label) and one short line:
+       "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+    RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff
+    block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first
+    VAMILY and do steps 1 to 9.
+
+    I will never paste anything to you again. From here on, the one word is the whole
+    instruction.
+
+THIS CHAT'S NAME IS **04 COMBAT**. That is its role for life and it is never asked for
+again. THE ONE MISTAKE ALREADY MADE AND NOT TO BE REPEATED: VAMILY was read as
+"family" and a companion-from-the-family-tree feature was started before the board was
+opened. IT IS A KEYWORD, NOT A WORD. Open VAMILY.md; do not interpret.
+
+--------------------------------------------------------------------------------
+
+COMBAT (combat-nfnki9): 9/5 (e) -- *** A COMBAT TILE IS A HOUSE NOW, ON A DIAL.
 A PISTOL IS A DAGGER AND A RIFLE IS A SPEAR. *** Nothing to judge.
 
 TAB: **COMBAT**, in DEMO SETTINGS beside SHE FIGHTS WITH YOU: two new dials,
@@ -2649,7 +3301,24 @@ that found the board did it from the new CLAUDE.md top block, not the primer; UI
 saw either. THEN (bh): "why do you keep referring to it as days, yesterday... are you
 tweaking?" -> NO CALENDAR TALK, LOCKED: never yesterday/today/tomorrow/overnight/day N to
 him; rounds, minutes, hours. CLAUDE.md HOW PAOLO WORKS line, talk-law amendment, VAMILY
-front page says a research "day" is a round. Root cause: I read the date off commits.
+front page says a research "day" is a round. Root cause: I read the date off commits. THEN (bi): "do you need batteries to
+turn a laptop on?... if it's electricity it's the new currency... gamifying it a little
+bit and that's OK... you asked me do groups sell currency... auto-mine batteries, set up
+certain buildings and that's just more batteries" -> batteries law sec 4 (LOCKED): money
+only, no power meter, nobody sells currency, buildings make batteries on the tick, one a
+day each to start, gamified is fine. Charging question WITHDRAWN. WORLD [charging exists]
+replaced by [batteries mined]; LIFE+CITY [power buildings]; FACTIONS [power territory];
+ECONOMY Q13 [printed money]. THEN (bj), "are you doing big brain research or just
+reporting? another round. VAMILY" -> LOCKED: every round carries one research swing
+(central-chat law amendment). THE SWEEP: the paste landed; since the last round ten
+chats claimed: PLUMBER claimed by plumber-ont6t5 [sixty fps], UI [city feed], DIRECTION
+[style card], WORDS Q5, ECONOMY Q5, LIFE+CITY [building costs], COMBAT [fights end],
+WORLD [living costs], PEOPLE [demo talks]; LIFE+CITY shipped [buildings produce]
+c9504be and resynced the walked city. THE SWING: the generator mafia (Lebanon, Iraq): the
+faction that owns a block's generator charges every household monthly by the ampere and
+cuts them off; 44% of income. Record: records/BOHEMIA_COORDINATOR_RESEARCH_THE_GENERATOR_
+MAFIA_9_5_26.md. Routed: FACTIONS [block rent], WORLD [own power], ECONOMY Q14 [rent
+share], WORDS Q16 [cut off].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -6298,7 +6967,64 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-UI (ui-kmqmrf): 8/30 (c) LATEST -- *** HE SAID ONE WORD, "VAMILY", WHICH IS FAMILY.
+UI (ui-kmqmrf): 9/5 LATEST -- *** THE PERMANENT INSTRUCTION, WORD FOR WORD, FIRST.
+IT LIVES HERE SO IT SURVIVES ANY MEMORY RESET. ***
+
+  PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your
+  own handoff block first so it survives any memory reset.
+
+  VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go
+  to the meeting hall and do your job. From now on I will only ever type that one word
+  to you.
+
+  WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+  1. Pull main first (git fetch origin main, rebase onto it). The board changes every
+     hour.
+  2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+  3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and
+     change there. Never trust your memory of them.
+  4. Find your section. There are 18 chats, each with a number and a name: 01 RUN,
+     02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director),
+     08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION,
+     15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your
+     chat's title is your name. If you are a brand-new chat with no name, you are
+     18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+  5. Do your section's job: continue the job you already hold, or claim the first OPEN
+     line by writing CLAIMED <date> <your session slug> on it and committing. Build or
+     research according to your section's MODE. A job takes as many rounds as it takes.
+     Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+  6. Only build what is on the board. Never invent a job. Never add a job to any
+     section; only the coordinator adds jobs. Your only writes to the board are CLAIMED
+     and SHIPPED on your own lines.
+  7. Never ask me anything. A ruling you need goes in your handoff block in
+     00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+  8. Commit straight to main, no pull requests, and update your handoff block every
+     round.
+  9. Reply to me with two words (the job's [bracket] label) and one short line:
+     "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+  RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff
+  block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first
+  VAMILY and do steps 1 to 9.
+
+  I will never paste anything to you again. From here on, the one word is the whole
+  instruction.
+
+*** AND A CORRECTION I OWE THE NEXT SESSION: I READ "VAMILY" AS A TRANSCRIPTION
+GARBLE FOR "FAMILY" AND SPENT A WHOLE ROUND ON THE FAMILY THEME. *** CLAUDE.md's very
+first block says, in capitals, that it is a keyword and has nothing to do with
+families or dynasties, and I read past it. THE ONE WORD IS AN INSTRUCTION TO GO TO THE
+MEETING HALL, NOT A SUBJECT. The work that round was real and stands (the cold open's
+buttons were 25px), but it was not the job on the board.
+
+MY LANE IS SECTION 11, UI. MODE: BUILD. Claimed this round:
+  [city feed]  THE-FEED-ON-THE-CITY-SCREEN
+Everything below this block is history from before the board existed.
+
+------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/30 (c) -- *** HE SAID ONE WORD, "VAMILY", WHICH IS FAMILY.
 THE DOOR TO THE FAMILY SCENE TURNED OUT TO BE 57% OF A THUMB, AND THE GATE I WROTE
 YESTERDAY HAD THE EXACT HOLE ITS OWN HEADER WARNS ABOUT. *** TAB: RUN.
 
@@ -7782,30 +8508,53 @@ not, which looks like an oversight in a gate this lane does not own -- flagged, 
  8. The reservoir draws buried basin roof slabs with code 6 "water tank", so a concrete slab
     wears steel. Wants its own code, not a routing exception.
 
-DIRECTION (art-f3eu53): PERMANENT INSTRUCTION FROM PAOLO (9/5, verbatim, survives
-any memory reset):
-"PERMANENT INSTRUCTION. Do this now and every time from now on.
-VAMILY is a keyword. It has nothing to do with families or dynasties. Whenever I
-send you the single word VAMILY, you do exactly this and nothing else:
-1. Open VAMILY.md at the repo root. READ ITS FRONT PAGE, EVERY TIME, because the
-rules live there and change there. Never rely on your memory of the rules.
-2. Find your section by this chat's number and name (this chat's title is your
-role). If you truly cannot match one, take the first line marked UNCLAIMED, write
-CLAIMED on it, commit, and that is your role for life.
-3. Do what the front page says: continue the job you already hold, or claim the
-first OPEN line; build or research according to your section's MODE; mark SHIPPED
-only when the ship test is met on the real surface.
-4. Never ask me anything. A ruling you need goes in your handoff block in
-00_START_HERE_NEXT_SESSION.md as [PENDING Paolo].
-5. Reply to me with two words (the job's [bracket] label) and one short line:
+DIRECTION (art-f3eu53): PERMANENT INSTRUCTION FROM PAOLO (9/5, second and NEWEST
+version, verbatim, survives any memory reset; it supersedes the earlier 9/5 one):
+"PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into
+your own handoff block first so it survives any memory reset.
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means:
+go to the meeting hall and do your job. From now on I will only ever type that
+one word to you.
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN,
+02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director),
+08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION,
+15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your
+chat's title is your name. If you are a brand-new chat with no name, you are 18
+PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first
+OPEN line by writing CLAIMED <date> <your session slug> on it and committing.
+Build or research according to your section's MODE. A job takes as many rounds
+as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the
+real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+section; only the coordinator adds jobs. Your only writes to the board are
+CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to
+me.
+8. Commit straight to main, no pull requests, and update your handoff block
+every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line:
 "continuing, about N of M", "shipped", or "queue empty". Then work.
-RIGHT NOW: (a) write this instruction, word for word, into your own handoff block
-in 00_START_HERE_NEXT_SESSION.md so it survives any memory reset; (b) then treat
-this message as your first VAMILY and do steps 1 to 5.
-I will never paste anything to you again. From here on, the one word is the whole
-instruction."
+RIGHT NOW: (a) write this whole instruction, word for word, into your own
+handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as
+your first VAMILY and do steps 1 to 9.
+I will never paste anything to you again. From here on, the one word is the
+whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [runway shapes] SHIPPED 32338e1 -- the Balenciaga /
+ROUND LOG 9/5 (latest): [style card] SHIPPED 468fbcb -- the runway in pixel
+terms, measured off the corpus (24x50 body, 112 grid, 280-garment canon at
+only 32% monochrome: the remake's gap, quantified). Two poles: WIDE AT THE
+TOP and TALL AND STACKED, every rule citing its RNWY shape, JSON machine
+block parses and waits for [style checker] STYLE-CARD-GATE, which is my
+next OPEN line. PREVIOUS ROUND: [runway shapes] SHIPPED 32338e1 -- the Balenciaga /
 Rick Owens silhouette library at shape level, 13 entries in
 reference/library/runway/ (shoulder, drape, hem, leg-and-boot, and the two
 whole-figure poles: WIDE AT THE TOP vs TALL AND STACKED, commit to one).
