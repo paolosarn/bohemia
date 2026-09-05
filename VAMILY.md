@@ -169,7 +169,7 @@ STANDING DUTY (9/4 law): every clip compared side by side to the best pixel walk
 ## CHARACTER  (05.)
 MODE: BUILD
 STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, wardrobe and the face maker at the match cut all ship and persist. NOT done: the hair reference sheet in all eight facings (his 8/25 order), the round-7 look. This lane WIRES what COOK cooks.
-- OPEN  [clothes wired]  WIRE-THE-REMAKE -- as ART batches pass DIRECTION, wire them into the picker and the wardrobe data; ART makes pixels, CHARACTER makes them worn
+- CLAIMED 9/5 character-0lurbs  [clothes wired]  WIRE-THE-REMAKE -- as ART batches pass DIRECTION, wire them into the picker and the wardrobe data; ART makes pixels, CHARACTER makes them worn
 - OPEN  [hair sheet]  HAIR-REF-EIGHT-FACINGS -- his 8/25 order, still open
 - OPEN  [look verdict]  ROUND-7-LOOK -- needs Paolo
 - OPEN  [more clothes]  WARDROBE-VOLUME -- new garment shapes behind the structure law
