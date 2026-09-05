@@ -141,7 +141,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - OPEN  [street fight]  THE-FIGHT-STARTS-WHERE-YOU-STAND -- with RUN [enemies exist]: walking into a hostile group on the street starts the fight right there, on the beat, on the house-sized board, without going through the city map door (which is the only entry that exists today, gate 26/0). roadInterrupt has one caller and it is inside MODE==='city'. Tab: RUN into COMBAT.
 - SHIPPED 9/5 91cbd15  [house tiles]  BB-A-TILE-IS-A-HOUSE
 - SHIPPED 9/5 0d5b24d  [fights end]  BB-NERVE-ON
-- SHIPPED 9/5  [indoor fights]  THE-INDOOR-FIGHT
+- SHIPPED 9/5 8646115  [indoor fights]  THE-INDOOR-FIGHT
 - OPEN  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
 - OPEN  [guns close]  BB-GUNS-CLOSE
 - OPEN  [rescue her]  BB-PICKUP

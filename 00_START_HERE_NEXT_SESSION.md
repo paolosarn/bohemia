@@ -3947,7 +3947,35 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-LAST ROUND: BB-NERVE-ON [fights end] SHIPPED (0d5b24d). MORALE IS DEFAULT BEHAVIOUR
+LAST ROUND: THE-INDOOR-FIGHT [indoor fights] SHIPPED (8646115). YOU WALK INTO A HOUSE
+AND THE FIGHT IS THE HOUSE. The walked city had been posting the whole building --
+walls, furniture, every doorway, even a retreat analysis -- since V161, and combat
+threw it away: enc.cityRoom was WRITTEN ONCE AND READ BY NOTHING, one mention in the
+repository. You walked through a front door into a firefight on a road. Now the board
+IS the building, you start at the door, they are in the room with you, and A WALL STOPS
+A BODY -- which it never did, because pillarAtXY had exactly two callers and both were
+enemy scoring.
+
+TWO THINGS THAT WERE CAUGHT BY READING AND BY LOOKING, NOT BY MEASURING:
+  * placeWayOut would have put V159's way out THROUGH THE WALL (EXIT_MIN is 10 tiles, a
+    real interior is 13x9) with the HUD still reading "WAY OUT 14T" at a tile that
+    became unreachable the moment walls stopped bodies. And the marker SURVIVED FROM
+    THE PREVIOUS FIGHT, so clearing it mattered as much as refusing to place it.
+  * The geometry was right and the screenshot was still a STREET with a fence in it.
+    The fix was already written one line above where it was needed -- V100's "INDOORS
+    THERE IS NO STREET. ONE MATERIAL, WALL TO WALL." Nothing was cooked.
+
+NOT BUILT, IN ORDER: the door as a fighting RETREAT (you start on it, so it would be an
+instant win -- a mechanic, not a wire); the room's ground/hazard channel and its
+retreat analysis are still unread (interiors carry no hazards yet); doorways as
+CHOKEPOINTS (the city marks every door, combat uses the first as your start).
+
+AND A PRE-EXISTING ONE FOUND ON THE WAY, NOT THIS ROW: THE CITY SAYS HOW MANY MEN ARE
+IN THERE AND THE FIGHT ROLLS ITS OWN NUMBER. enter() sets numEnemies from the roster
+and setupEnemies then overrides it with rollEncounterSize(). A three-man ambush becomes
+whatever the curve feels like.
+
+THE ROUND BEFORE: BB-NERVE-ON [fights end] SHIPPED (0d5b24d). MORALE IS DEFAULT BEHAVIOUR
 NOW and THEY KNOW YOU became a sharper roll instead of the on-switch for the whole
 system. Before it, the ONLY way a fight could end was every body on one side on the
 floor; now 30% of fights end because somebody left, 47% with the perk.
