@@ -1630,3 +1630,24 @@ the band steps along the dead lake exactly like the satellite photo.
 Board row 108. THE MIGRATION HAS NO LEFTOVERS WITHOUT ART LEFT - what
 remains is polish (boxcar running order) and the daily landmark
 re-probe cadence.
+
+## 8/30 SEVENTY-NINTH PASS: THE ART FAMILY SHEET (his word: "ART DIRECTION FAMILY")
+
+Art direction is a FAMILY question, and 47 pools cooked across three
+weeks of passes had never stood in one frame. Now they do: a new LOOK
+tab picture holds EVERY migrated family exactly as the game decodes it
+- flat grounds, banded grounds, structures, the solar rack, overlays,
+the trains - each tile at 2x because judging art below ship size is
+judging a thumbnail (8/28). Shot off the LIVE page's own SA_IMG, never
+the bank files, so what the frame shows is what the player gets.
+
+THE HONEST READ, standing in front of it: forty-five families sit in
+one calm dun-and-bone world. The invert, the ring, the plazas, the
+solar glass, the fills and beds all hold the same temperature. THE ONE
+DRIFT IS THE FARM GROUP (TF-ART-014, the 8/11 cook): the crop rows and
+dead-field tiles are the busiest surface in the frame by a distance -
+dense per-pixel speckle with bright yellow-green flecks in a world
+where every other dead thing went dun. IT IS AN APPROVED BANK, so not
+one pixel of it moves without his word - the sheet exists exactly so
+he can make that call with his own eyes. Queued to him in plain words
+with the picture.
