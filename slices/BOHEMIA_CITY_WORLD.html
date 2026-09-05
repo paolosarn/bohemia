@@ -53064,6 +53064,83 @@ ctWhere();                         /* and once now, so the bed does not wait fou
    than hooking the city's own mode swap, so this module adds zero lines to a render
    path another lane owns and cannot break one. Same reasoning the demo cut uses.
    ============================================================================ */
+/* ============================================================================
+   __YOU_CAN_SEE_IT_COMING__ , PART TWO: THE SOURCE IS REAL NOW.
+   (UI lane, 9/5, board row [danger visible])
+
+   Last round this lane built the tell and left its seam EMPTY, because there was
+   nothing dangerous to point at: nobody held ground and there were no hostile bodies
+   on the street. RUN has since SHIPPED [enemies exist] (bb2057b) -- crews of people
+   stand on a corner, clock you while they are still on screen, and close on you.
+   So the blocker is gone and the tell gets wired to the thing it was built for.
+
+   THIS IS A READER. It does not touch engine/bohemia_hostiles.js and it does not
+   decide who is hostile -- that is RUN's module and its own correct-after ruling
+   (an outfit already at odds with somebody puts crews out, and to an unaligned
+   stranger those crews are the danger). This asks it where they are and paints the
+   ground they stand on.
+
+   WHY THE GROUND AND NOT THE PEOPLE: his row says the block reads hot AND the people
+   read wrong, and PEOPLE holds [who is hostile] for the second half. Ground is also
+   the half that answers "BEFORE you walk into it": a body has to be on screen to
+   warn you, but their corner is visible from the moment the block is.
+
+   IT ASKS ONCE A BEAT, NOT ONCE A CELL. near() walks a lattice; calling it per cell
+   per frame would be thousands of walks a second for a picture that changes twice a
+   second. The crew list is cached for one beat, and at() is then a loop over the
+   couple of crews actually on screen -- SPACING is 90 cells, so "a couple" is the
+   real number, not an optimistic one. 60 on a phone is PLUMBER's row and this does
+   not spend it.
+
+   THE RADIUS IS THEIRS, NOT A NUMBER I PICKED. RUN's ladder says SEE_YOU is 8 cells
+   (they have clocked you) and CLOSE_AT is 3 (they are coming). The hot ground is
+   their corner: full strength inside CLOSE_AT, fading out to nothing by SEE_YOU. So
+   what you see is exactly the ground where they will act, and the fade is the
+   warning you get while you can still turn around.
+   ============================================================================ */
+(function(){
+  var cacheT = 0, cacheAt = [-1,-1], cache = [];
+  function crewsNow(){
+    var t = Date.now();
+    if (t - cacheT < 400 && cacheAt[0] === hx && cacheAt[1] === hy) return cache;
+    cacheT = t; cacheAt = [hx, hy]; cache = [];
+    try{
+      if (typeof BohemiaHostiles === 'undefined') return cache;
+      var danger = hostDanger();
+      if (!danger || !danger.length) return cache;
+      var day = 0; try { day = (T.day | 0); } catch(_e) {}
+      cache = BohemiaHostiles.near({
+        seed: (typeof seed !== 'undefined' ? seed : 0),
+        at: [hx, hy], radius: 28, probe: hostileProbe,   /* past BLOCK, so a crew just off screen still paints the edge you can see */
+        danger: danger, density: HOST_DENSITY, day: day }) || [];
+    }catch(_e){ cache = []; }
+    return cache;
+  }
+  /* THE WARNING HAS TO REACH FURTHER THAN THEIR EYES, OR IT IS NOT A WARNING.
+     First cut faded the hot ground out at SEE_YOU, their own notice distance, which
+     measured as no warning at all: you crossed the edge at the exact moment the crew
+     clocked you. And the camera shows about eight cells, so a tell that only exists
+     inside eight cells is a tell you meet by standing in it.
+     HIS WORDS ARE "THE BLOCK READS HOT" -- a block, not a puddle round three people.
+     So full strength on their corner and the heat carries out to BLOCK, which is
+     comfortably past SEE_YOU: you cross the visible edge with about seven cells still
+     in hand, which is the "before you walk into it" the row is named for. Both numbers
+     are still RUN's, taken from their ladder rather than picked here. */
+  var NEAR  = (typeof BohemiaHostiles !== 'undefined' && BohemiaHostiles.CLOSE_AT) || 3;
+  var SEES  = (typeof BohemiaHostiles !== 'undefined' && BohemiaHostiles.SEE_YOU)  || 8;
+  var BLOCK = SEES * 2;
+  window.BOHEMIA_DANGER.at = function(gx, gy){
+    var l = crewsNow();
+    for (var i = 0; i < l.length; i++){
+      var a = l[i].at; if (!a) continue;
+      var d = Math.max(Math.abs(gx - a[0]), Math.abs(gy - a[1]));
+      if (d <= NEAR) return 1;
+      if (d < BLOCK) return 1 - (d - NEAR) / (BLOCK - NEAR);
+    }
+    return 0;
+  };
+})();
+
 window.BOHEMIA_FEED = (function(){
   var LIST, PANEL, CLOCK, on=false, seen=0, posts=[], MAX=14, t=0;
   var FEED_BEAT = (typeof BEAT==='number'? BEAT : 500);

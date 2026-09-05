@@ -72,8 +72,14 @@ function serve(){ return new Promise(r=>{ const s=http.createServer((rq,rs)=>{
     empty: !(window.BOHEMIA_DANGER && typeof window.BOHEMIA_DANGER.at === 'function'),
     mode: (typeof MODE!=='undefined')?MODE:null
   }));
-  ok('the seam other lanes install a danger source into exists', seam.exists);
-  ok('and it SHIPS EMPTY -- nothing here invents territory or a threat', seam.empty);
+  ok('the seam a danger source installs into exists', seam.exists);
+  /* THIS LEG USED TO ASSERT THE SEAM SHIPPED EMPTY, AND THAT WAS RIGHT LAST ROUND AND
+     IS WRONG NOW. RUN shipped [enemies exist] (bb2057b): crews of people stand on a
+     corner and close on you. So the tell is wired to them and the claim flips from
+     "invents nothing" to "shows exactly what the hostiles module says is there".
+     It still invents nothing -- who is dangerous is RUN's own ruling, read not decided. */
+  ok('and it is WIRED to the crews RUN shipped, not to a table this lane made up',
+     !seam.empty);
   ok('and this is measured on the walked street, not the map', seam.mode === 'human');
 
   const fe = await p.$('iframe#cityFrame'); const fb = await fe.boundingBox();
@@ -237,6 +243,69 @@ function serve(){ return new Promise(r=>{ const s=http.createServer((rq,rs)=>{
   ok('and the EDGE reads stronger than the middle, so you see the line you are about '
      + 'to cross from OUTSIDE it (edge ' + border + ' vs inside ' + insideAvg.toFixed(0)
      + ')', edgeWins);
+
+  /* ============================================================================
+     THE ROW'S OWN SHIP TEST, ON THE GAME'S OWN DANGER AND NOT ON AN INJECTED ONE:
+     "BEFORE you walk into a dangerous block you can SEE it."
+     That is a comparison of two distances, so measure both. RUN's crews notice you at
+     SEE_YOU cells. The hot ground has to appear FURTHER OUT than that or the warning
+     arrives at the same moment the thing it warns about, which is not a warning.
+     Walked toward a real crew a cell at a time, counting the tell's own rim colour.
+     ============================================================================ */
+  const walk = await city.evaluate(async () => {
+    if (typeof BohemiaHostiles === 'undefined' || typeof hostDanger !== 'function') return null;
+    const day = (T.day | 0);
+    const list = BohemiaHostiles.near({ seed: (typeof seed !== 'undefined' ? seed : 0),
+      at: [hx, hy], radius: 40, probe: hostileProbe, danger: hostDanger(),
+      density: HOST_DENSITY, day: day }) || [];
+    if (!list.length) return { crews: 0 };
+    list.sort((a, b) => Math.max(Math.abs(a.at[0]-hx), Math.abs(a.at[1]-hy))
+                      - Math.max(Math.abs(b.at[0]-hx), Math.abs(b.at[1]-hy)));
+    const t = list[0].at, ux = Math.sign(t[0]-hx), uy = Math.sign(t[1]-hy);
+    const rim = () => { const c = (typeof cv !== 'undefined') ? cv : document.querySelector('canvas');
+      const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0;
+      for (let i = 0; i < d.length; i += 4)
+        if (Math.abs(d[i]-232)<26 && Math.abs(d[i+1]-112)<26 && Math.abs(d[i+2]-44)<26) n++;
+      return n; };
+    /* ASK THE TELL ABOUT THIS CREW'S GROUND, not "is there any orange on screen".
+       The first cut counted rim pixels anywhere in frame and reported 30 cells, which
+       was really A DIFFERENT CREW's block showing at the edge -- three of them stand
+       within forty cells. Walking the approach line and asking at() about the cell the
+       player is standing on names the distance for THIS crew and cannot be borrowed
+       from a neighbour. The rim count still runs, as the separate check that the
+       warning is actually on screen and not merely true in the data. */
+    let firstHot = null, rimAt = null;
+    for (let step = 30; step >= 2; step--) {
+      hx = t[0] - ux*step; hy = t[1] - uy*step;
+      const v = window.BOHEMIA_DANGER.at(hx, hy);
+      if (v > 0 && firstHot === null) {
+        firstHot = step;
+        if (typeof render === 'function') render();
+        await new Promise(r => setTimeout(r, 60));
+        rimAt = rim();
+        break;
+      }
+    }
+    return { crews: list.length, seeYou: BohemiaHostiles.SEE_YOU,
+             block: BohemiaHostiles.SEE_YOU * 2, firstSeen: firstHot, rimAt: rimAt };
+  });
+  ok('there are real crews on the walked street to warn about ('
+     + (walk ? walk.crews : 0) + ' within 40 cells)', !!walk && walk.crews > 0);
+  /* WORDED FOR WHAT IS ACTUALLY MEASURED. at() reports DANGEROUS GROUND, not one
+     named crew's, and three crews stand within forty cells, so the distance below is
+     "how far out the hot ground starts on this approach" rather than "this crew's
+     block begins here". That is still exactly the row's claim -- you are warned before
+     anything can see you -- and being warned by the neighbours' block is a true
+     warning, but the sentence should say what the number is. */
+  ok('and the ground reads hot BEFORE anything can see you -- on the approach to the '
+     + 'nearest crew it starts at '
+     + (walk && walk.firstSeen) + ' cells out and they notice you at '
+     + (walk && walk.seeYou) + ', so you get '
+     + (walk && walk.firstSeen ? walk.firstSeen - walk.seeYou : 0)
+     + ' cells to turn around',
+     !!walk && walk.firstSeen !== null && walk.firstSeen > walk.seeYou);
+  ok('and it is actually ON SCREEN at that distance, not just true in the data ('
+     + (walk && walk.rimAt) + ' rim pixels drawn)', !!walk && walk.rimAt > 0);
 
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close(); done();

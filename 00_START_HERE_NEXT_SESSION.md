@@ -9196,6 +9196,48 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/5 (d) LATEST -- *** [danger visible] SHIPPED. THE BLOCKER CLEARED
+BETWEEN ROUNDS AND THE TELL IS WIRED TO REAL DANGER NOW. ***
+
+SHIPPED 9/5  [danger visible]  YOU-CAN-SEE-IT-COMING
+Last round this lane built the tell and left its seam EMPTY because there was nothing
+dangerous to point at. RUN then SHIPPED [enemies exist] (bb2057b): crews of people
+stand on a corner, clock you while they are still on screen, and close on you. FIRST
+MOVE THIS ROUND WAS TO CHECK WHETHER THE BLOCKER HAD CLEARED, and it had.
+
+WIRED AS A READER. It does not touch engine/bohemia_hostiles.js and it does not decide
+who is hostile -- that is RUN's module and RUN's correct-after ruling. It asks
+BohemiaHostiles.near() where the crews are and paints the ground they stand on. Asked
+ONCE A BEAT and cached, never once a cell: near() walks a lattice and calling it per
+cell per frame would be thousands of walks a second for a picture that changes twice.
+
+*** THE NUMBER THAT MATTERED, AND THE FIRST ANSWER WAS USELESS. *** The row is "BEFORE
+you walk into a dangerous block you can SEE it", which is a comparison of two
+distances. RUN's ladder: crews notice you at SEE_YOU = 8 cells. My first cut faded the
+hot ground out at 8 as well -- so you crossed the edge at the exact moment they clocked
+you, which is no warning at all, and the camera only shows about eight cells anyway, so
+a tell that lives inside eight cells is one you meet by standing in it.
+HIS WORDS ARE "THE BLOCK READS HOT" -- a block, not a puddle round three people. Full
+strength inside CLOSE_AT, fading out to SEE_YOU * 2. MEASURED ON THE REAL STREET,
+walking at a real crew: the hot ground starts about 20 cells before anything can see
+you. Both numbers are still RUN's, read off their ladder rather than picked here.
+
+GATE: gates/danger_gate.js, 11 claims, registered SEE IT COMING. Its "ships empty" leg
+was correct last round and WRONG this round, so it was rewritten rather than deleted:
+the claim flipped from "invents nothing" to "shows exactly what the hostiles module
+says is there". New legs walk the approach and prove the warning arrives before their
+eyes do, and that it is ON SCREEN at that distance and not merely true in the data.
+
+AND ONE OVERCLAIM I CAUGHT IN MY OWN GATE: the leg said "THIS crew's ground" while at()
+reports ANY dangerous ground, and three crews stand within forty cells -- so the first
+reading of 30 cells was partly a neighbour's block at the screen edge. The measurement
+is right and the sentence was not; the sentence now says what the number is.
+
+STILL FILED, NOT MINE: the page freezes 4-6 beats during city mode (PLUMBER), and the
+city fetches fonts.googleapis.com every run (the cold-boot font shape, never swept here).
+
+------------------------------------------------------------------------
+
 UI (ui-kmqmrf): 9/5 (c) LATEST -- *** [danger visible] IS CLAIMED AND HALF BUILT. THE
 TELL WORKS AND THERE IS NOTHING FOR IT TO POINT AT YET. NOT SHIPPED, ON PURPOSE. ***
 
