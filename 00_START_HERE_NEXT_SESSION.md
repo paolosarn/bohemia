@@ -1,3 +1,62 @@
+WORDS (words-8dqrnq): 9/4 (e) LATEST -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
+LAW HAS NEVER REACHED THE WORDS: OUR LINES LAND ON THE BAR AT 23.7% AND CHANCE IS 25%. ***
+MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
+(His PERMANENT INSTRUCTION is written verbatim in the 9/4 (d) block below. Keep it.)
+
+THE CONVERSION TABLE THIS LANE NEVER HAD. 120 BPM = a 0.5s beat, a 2.0s bar. Our lines are
+READ, not heard, so READING speed governs. Brysbaert's meta-analysis, 190 studies and 18,573
+participants: silent fiction 260 wpm, non-fiction 238, aloud 183, and most adults between
+200 and 320.
+  a bar holds   8.7 words at 260 wpm   |   6.7 at 200   |   10.7 at 320
+SO SEVEN WORDS TO THE BAR IS THE SAFE UNIT, because timing to the average cuts off the
+slower third of players.
+
+THE FINDING THAT PROVES US WRONG. Measured in beats for the first time:
+  quest @SAY  527 lines, median 9.7 beats = 2.4 BARS, lands on a bar 23.7%
+  street bark 558 lines, median 3.7 beats = 0.9 bars, lands on a bar 29.2%
+  exchange    148 lines, median 3.2 beats = 0.8 bars, lands on a bar 16.2%
+"Lands on a bar" = within half a beat of a boundary, and for lengths scattered at random the
+expected rate is EXACTLY 25%. OUR DIALOGUE IS NO MORE BEAT-ALIGNED THAN IF IT HAD BEEN
+WRITTEN WITH DICE. The 120 BPM law is honoured by movement and combat and has never once
+reached the words. And the quest median of 2.4 bars is the worst possible value: too far
+from 2 and from 3 to nudge, so it can only be padded or cut, and drift is CUMULATIVE --
+twenty such lines put a scene eight bars behind the music it started on.
+
+THE GOOD NEWS: THE BARKS ARE NEARLY RIGHT BY ACCIDENT at 0.9 bars, because a natural spoken
+sentence IS about a bar (film 6.0 words, KOTOR 8.2, our barks 6.7). Quantising is a rounding,
+not a fight.
+
+BOTH ANGLES. Crypt of the NecroDancer quantises hard and a miss costs your turn. Hi-Fi Rush
+deliberately loosens the beat and spends everything on FEEDBACK instead (pulsing lights,
+venting pipes, an on-beat mark and sound). For dialogue that is READ, Hi-Fi Rush is the
+model: the line does not have to be SPOKEN on the beat, it has to ARRIVE on one.
+
+AND A GATE OF MINE WENT STALE, WHICH IS ITS OWN LESSON. voice_gate asserted that CLAUDE.md
+names the WORDS lane. The coordinator's TOKEN DIET folded CLAUDE.md from ~34K tokens to ~6K
+and moved every lane brief into VAMILY.md, whose front page says THE RULES LIVE HERE, NOT IN
+ANY CHAT'S MEMORY. The target moved for a good reason, so I moved the RULER: the check now
+asserts VAMILY.md carries a WORDS section AND that it declares a MODE. Re-inflating another
+lane's deliberate compression to keep my own check green would have been the worst kind of
+green. voice_gate 111/0.
+
+RECORD: records/BOHEMIA_WORDS_Q4_SPEECH_ON_A_BEAT_9_4_26.md
+TEST LINES: banks/BOHEMIA_WORDS_TEST_LINES.md -- one-bar barks, a two-bar line, a four-bar
+speech that stops ON the bar, the same line at our broken 2.4 bars, and a held beat doing
+what text cannot. All draft:true, NONE in the game.
+VAMILY: Q4 SHIPPED. Next open is Q5 [refusing answers].
+
+ROUTED OUT OF THIS DAY:
+ - UI  LINE-ON-THE-BAR: reveal and clear dialogue on beat boundaries, and HOLD A BEAT before
+   a line tagged for stress. Q2 found the strongest stress markers are pause length and rate
+   and that a page carries neither; a held beat gives that channel back. Cheapest item in
+   either record, and the timing lives in their surface, not in the words.
+ - UI / SOUNDS  a slow-reader setting is ACCESSIBILITY, not taste: 200 vs 320 wpm is a 60%
+   gap and no single hold serves both.
+ - WORDS  new row SEVEN-TO-THE-BAR: a rewrite pass to whole-bar lengths at the slow rate.
+   Held until MODE: BUILD.
+
+WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
+
 CHARACTER (character-0lurbs): 9/5 -- VAMILY [clothes wired] WIRE-THE-REMAKE, CLAIMED,
 continuing. *** THE WARDROBE IS CLEAN AND THE WIRE STOPS AT THE DOOR OF THE SURFACE HE
 ACTUALLY WALKS. ***
@@ -196,7 +255,7 @@ long it runs, and what happens at the fold are HIS and were not decided here.
 
 NEXT FOR THIS LANE: Q2, the coyote's actual life. Q1 deliberately stopped at the
 senses and left the ethology to it.
-WORDS (words-8dqrnq): 9/4 (d) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
+WORDS (words-8dqrnq): 9/4 (d) -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
 SURVIVES A MEMORY RESET. THEN VAMILY Q4 [beat speech]. *** MODE: RESEARCH.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
@@ -891,7 +950,7 @@ NEXT IN THIS LANE: ECONOMY Q2, how money comes back, and the battery tested
 against every way a commodity money has ever failed.
 
 ================================================================================
-WORDS (words-8dqrnq): 9/4 (b) LATEST -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
+WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 LINES AND IT NEVER REACHES THE WORDS. *** MODE: RESEARCH, nothing implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
@@ -1177,7 +1236,7 @@ Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the
 
 
 
-WORDS (words-8dqrnq): 9/4 LATEST -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+WORDS (words-8dqrnq): 9/4 -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
 ITSELF IS IMPOSSIBLE AS REALISM. *** MODE: RESEARCH, so nothing was implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
