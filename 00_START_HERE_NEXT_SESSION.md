@@ -5603,7 +5603,21 @@ as a SIGN ON A RELATIONSHIP (they charge you more, they watch you) and never as 
 roadInterrupt still has one caller inside MODE==='city'. The game knows who your enemies
 are and has never put one in front of you. Record: records/BOHEMIA_RULING_WHERE_THE_
 ENEMIES_AT_9_5_26.md. Routed to the TOP of four lanes: RUN [enemies exist], COMBAT
-[street fight], PEOPLE [who is hostile], and my own UI [danger visible].
+[street fight], PEOPLE [who is hostile], and my own UI [danger visible]. THEN (bn) VAMILY:
+THE ENEMIES GOT BUILT IN ONE ROUND. Main moved ~40 commits: RUN [enemies exist] bb2057ba
+(people on the street who mean it), COMBAT [street fight] f5725324 + the crew seam d18f2444
++ THE FIGHT IS THE ROOM 86461153, SOUNDS [heartbeat first] e107ee21 and [district sound]
+128bd48d, COOK 18 shapes/40 garments ee859169, WORLD [living costs] 5b613035 and [lights
+bill] 94ca5707, LIFE+CITY housing 24eb078a and build-where-you-stand 9ddef52c, UI [city
+feed] 9d1a2b14, ANIMATION the 105-clip audit + the valley keeps breathing 80370280,
+EYES E3 6c584c68, DIRECTION judge-every-batch, ECONOMY Q6+Q7, WORDS Q8, DYNASTY Q4+Q5.
+THE SEAM I RULED: UI shipped the danger tell with NOTHING TO POINT AT because
+FACTION_ASSIGN is empty and marked needs-Paolo; that emptiness blocked four jobs, and he
+already ruled "each part of Vegas is owned by a faction" on 9/4. DECIDED, mine:
+records/BOHEMIA_RULING_WHO_HOLDS_WHAT_9_5_26.md -- every district has an owner, derived
+from act1_power and district worth, borders follow a visible landmark (real gang borders
+run on highways and rail), the edge is painted in the holder's colour, act3_power redraws
+it. Routed FACTIONS [who holds] (top of lane) and COOK [border marked].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
