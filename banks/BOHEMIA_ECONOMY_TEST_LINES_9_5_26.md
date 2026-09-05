@@ -150,3 +150,113 @@ G3  employer, paying small and often                draft:true
 - No line gates required information behind Spanish (8/25 law, hard rule).
 - No exchange rate, no second number, no chart. Day 17: one number, and a
   comparison is what invites the spreadsheet.
+
+# ============================================================================
+# DAY 2 [money returns] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_2_THE_MONEY_IS_THE_CHARGE_9_5_26.md
+# Same rules as above: every line draft:true, none of it in the game, no line
+# names a game, a faction or a person, nothing states a moral, no line gates
+# information behind Spanish. Voice card holds: nobody in Bohemia is wise,
+# nobody leads with a no, contract it, and put a comma where you want a stop.
+# THE GRADING VOCABULARY IS NOT MINE. It is already canon, written in
+# quests/bq/S02_THE_SAME_CRATE_TWICE.bq: "Real ones, charged, not that swollen
+# junk" and "Charged cells hum a little, you hear it? From here." Every line
+# below extends THAT, it does not invent a second vocabulary.
+# ============================================================================
+
+## I. GRADING A CELL (the money has to be inspected, one unit at a time)
+## The POW camps' hand-rolled problem, in our own words. One beat at 120 BPM:
+## pick it up, listen, decide.
+
+I1  trader, taking one off you                       draft:true
+    "Let me hold it. Yeah, that's got something in it. Not much, but something."
+
+I2  trader, refusing a flat one, buying the second first  draft:true
+    "That one's finished, boss. This one, though. Where'd you get this one?"
+
+I3  trader, on a swollen cell                        draft:true
+    "See how it's fat in the middle? Put it down. Don't put it in your pocket
+     either, it'll take the pocket with it."
+
+I4  a kid who has learned to listen                  draft:true
+    "You can hear it. Everybody says you can't. Hold it by your ear."
+
+I5  somebody who has been caught before              draft:true
+    "I'm not saying you did it on purpose. I'm saying I'm going to check all six
+     this time."
+
+I6  trader, the honest weigh-up                      draft:true
+    "Four of yours make about one of mine. I'll take the four, I'm not going to
+     pretend that's fair, it's just what I've got room for."
+
+## J. WHY ANYBODY WANTS ONE (the demand is light, and light is ground)
+## Canon already: "My block's been dark since the weekend."
+
+J1  a woman at a fence, evening                      draft:true
+    "Third night. The kids have stopped asking, which is worse."
+
+J2  a man who will not say what it is for            draft:true
+    "It's not for me. Don't ask me who it's for, I'll tell you and then you'll
+     have to know it."
+
+J3  somebody counting what they have left            draft:true
+    "Two good ones. That's Thursday. After Thursday I don't know, hermano."
+
+## K. WHO CHARGES IT (whoever holds the lit ground is the mint)
+
+K1  a gate man on a lit block                        draft:true
+    "You can plug in. You can't stand there while it fills, and you can't come
+     back tomorrow. Those are the whole rules."
+
+K2  somebody explaining the arrangement              draft:true
+    "They don't sell light. They sell the wire for an hour. Same thing, costs
+     you more to say it out loud."
+
+K3  a rival, unimpressed                             draft:true
+    "Half this valley thinks that block owns electricity. They own a fence and a
+     working outlet."
+
+## L. THE MONEY GOING UP IN SMOKE (you burn most when you are most afraid)
+
+L1  somebody who left the lights on all night        draft:true
+    "I know what it cost. I'm telling you I'd do it again, I wasn't going to sit
+     there in the dark listening."
+
+L2  a neighbour, next morning                        draft:true
+    "Whole street was lit. Nobody slept anyway."
+
+L3  a trader noticing the valley is quieter          draft:true
+    "Nobody's spending. That's not people being careful, that's people not
+     having any."
+
+## M. WHEN THE MONEY MOVES (the ramen lesson: what people quote in is a readout)
+## For the day the valley stops pricing in batteries. NOT a proposal that it
+## should; a bank for if it ever does.
+
+M1  a trader who has changed what he quotes in       draft:true
+    "I'm not taking cells this week. Water. I know. Ask me again in a month and
+     it'll be cells again, probably."
+
+M2  somebody who noticed before anyone else          draft:true
+    "Watch what the old man asks for. He's never wrong twice."
+
+## N. THE SHOP THAT CANNOT SAY NO (the fixed price plus the refusal)
+## The BMk died because the restaurant had a price list and no right to close.
+## These are the lines a shop needs so a fixed price stays survivable.
+
+N1  keeper, price unchanged, answer changed          draft:true
+    "It's one. It's always one. I'm still not giving you one."
+
+N2  keeper, explaining without arguing               draft:true
+    "The price isn't the problem, boss. What I've got on the shelf is the
+     problem."
+
+N3  keeper, to somebody who offers more              draft:true
+    "You can't pay me more, there isn't a more. Come back when I've been out."
+
+## O. WHAT IS NOT HERE, ON PURPOSE
+- No line names a denomination, an exchange rate, or a second number. Q8 owns
+  denominations and the number is his.
+- No line says what a battery buys beyond his own ruling (one for one).
+- No line explains the system. If a line reads like a tutorial it failed rule 2
+  of the voice card and should be cut, not edited.

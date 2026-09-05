@@ -82,8 +82,120 @@ Record: records/BOHEMIA_DO_THEY_LOOK_RELATED_8_31_26.txt
 Report: node tools/bohemia_do_they_look_related.js
 Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the cards)
 
+
+
+=======
+ECONOMY (economy-knxaeh): 9/5 (b) LATEST -- *** [money returns] SHIPPED. THE GAME
+ALREADY KNOWS WHAT A BATTERY IS WORTH, IT SAYS SO IN A QUEST LINE SOMEBODY WROTE
+MONTHS AGO, AND NO SYSTEM IN THE BUILD CAN HEAR IT. MODE: RESEARCH -- nothing
+implemented. NOT IN A TAB YET (a research day ships a record). Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_2_THE_MONEY_IS_THE_CHARGE_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md, sections I-O (20 more lines,
+        all draft:true, none in the game)
+Question: ECONOMY Q2 [money returns], now SHIPPED in VAMILY.md.
+
+THE LINE THAT IS THE WHOLE FINDING, canon since it was written:
+  quests/bq/S02_THE_SAME_CRATE_TWICE.bq:82
+  @SAY Batteries. Real ones, charged, not that swollen junk. My block's been
+       dark since the weekend.
+A quality grade, a counterfeit class, and the reason anybody wants it, in one
+sentence. Fourteen lines later the rival buyer adds the verification method:
+"Charged cells hum a little, you hear it? From here." THE WORD `charged` APPEARS
+FIVE TIMES IN THE QUESTS AND ZERO TIMES IN THE MONEY LAYER. The writers are ahead
+of the machine. THE REFRAME IT FORCES: the money is not the battery, it is the
+CHARGE, and the battery is the wallet. His ruling is untouched (one AA, one bag
+of rice); what the record adds is that a dead AA and a live AA are the same
+object, and the difference between them is the entire monetary system.
+
+MEASURED ON THE SHIPPED BUILD:
+  - 3 of 27 canon quests already run on batteries and charged cells. S02 is
+    entirely a battery quest, objective 20 is literally "Decide who gets the
+    batteries", and it promises "you eat for a month". WHAT THE MACHINE PAYS: a
+    faction posture point and a learned fact. `@DO pay` is STILL used ZERO times
+    across all 27 quests. THE ONE QUEST THAT IS ENTIRELY ABOUT MONEY DOES NOT
+    MOVE ANY MONEY.
+  - `electricity` on the walked surface: 8 mentions, 3 of them inside an inlined
+    quest-text blob, and ZERO calls that credit or debit it. HIS OWN CURRENCY HAS
+    NEVER MOVED ONCE, and he named it twice (7/26 "electricity -- batteries, kind
+    of tech stuff"; 9/4 "maybe electronics like batteries are the currency").
+  - TWO THREE-CURRENCY VOCABULARIES ARE LIVE: purse says resources/electricity/
+    clout (the 7/26 law, his own words), engine says ELECTRICITY/MEDICINE/CLOUT.
+    A contradiction between two live files is a bug. The law is newer, so the
+    engine's MEDICINE is stale and nobody has ever reconciled them.
+  - *** AND WE ALREADY BUILT THE MODEL OF WHAT MAKES A COMMODITY MONEY FAIL. ***
+    bohemia_engine.js carries a quality bar ("medicine below a quality bar
+    produces nothing usable", i.e. bad money is not money) AND a 60% per-producer
+    anti-monopoly ceiling from GDD v2 sec 12. Those are the two things the whole
+    historical record is about. AND `addFaucet`/`addSink` HAVE NEVER BEEN CALLED
+    ONCE IN THE HISTORY OF THIS BUILD (6 hits repo-wide, all of them the method
+    definition itself in three synced copies). So production is 0, netFlow is 0,
+    and isMonopolized can never be true BECAUSE THERE IS NO PRODUCER. The quality
+    bar is pointed at MEDICINE, the one currency of the three the law deleted.
+
+THE BATTERY TESTED AGAINST EVERY FAILURE (the job Q2 asks for, full grid in the
+record). It FAILS fungible (a charged and a dead AA are the same object) and
+FAILS divisible (no change from a AA); passes portable, scarce, acceptable.
+Gresham's law is our biggest risk and it is arithmetic: if both count as one,
+everyone spends the weak and hoards the strong and the circulating money is flat
+within a week. The camp's answer was not a rule, it was INSPECTION, and our
+writers already wrote it (they hum). AND HIS 8/15 RULING SOLVES THE HARDEST
+PROBLEM IN THE RECORD WITHOUT ANYBODY NOTICING: the small-change problem is where
+every commodity money actually breaks, and IF EVERYTHING COSTS ONE THERE IS NO
+CHANGE TO MAKE.
+
+*** THE HONEST TENSION, AND IT LANDS ON DAY 1'S ROW FROM THE OTHER SIDE:
+EVERYTHING COSTS ONE is a fixed price list, and every fixed price list in this
+record killed its own market (the camp's BMk restaurant; Zimbabwe's 2007 freeze).
+But the BMk did not die of having a fixed price, IT DIED BECAUSE THE SHOP COULD
+NOT SAY NO. Day 1 measured that our seller always sells. A FIXED PRICE PLUS A
+REAL REFUSAL IS A MARKET; A FIXED PRICE WITHOUT ONE IS THE RESTAURANT THAT
+CLOSED. Do not unfix the price. Let the seller refuse. ***
+
+INSTRUMENT NOTE: my first sweep concluded the economy engine was unreachable,
+which is this study's favourite shape, AND IT IS WRONG. Both the alpha and the
+demo carry BOHEMIA_RUN_CURRENT.html in an iframe and that file holds the model.
+It is not stranded, it is BOOTED AND EMPTY, which is a different defect and a far
+cheaper one. Caught it because the grep meant to prove "nothing loads it" came
+back with seven files and I read them instead of reading my own summary line.
+Also: `bohemia_battery.js` is a DISTRICT (a grid-scale storage yard), and
+`battery` is also a row of grain silos in bohemia_utility.js. Three meanings, one
+word; do not measure on the name.
+
+ROUTED (coordinator places them; this lane changes status words only):
+WORLD ECON-CHARGED-OR-SWOLLEN (the finding), ECON-POUR-ONE-FAUCET (cheapest
+economy work in the repo), ECON-ONE-CURRENCY-VOCABULARY, ECON-THE-QUALITY-BAR-
+POINTS-AT-A-GHOST, ECON-ELECTRICITY-HAS-NEVER-MOVED. FACTIONS ECON-WHOEVER-HOLDS-
+THE-LIGHT-IS-THE-MINT (charging is the only way charge enters the valley, the
+grid is 12% lit, every circuit has an owner; who holds what stays his). QUESTS
+(parked) ECON-S02-PAYS-WHAT-IT-PROMISES, the first customer for @DO pay. UI
+ECON-YOU-CAN-HEAR-IT (grading a cell is one beat, in words not numbers).
+SHARED: reinforces day 1's ECON-THE-SELLER-HAS-A-VIEW-ABOUT-TOMORROW.
+
+REFUSED: inventing what a battery buys beyond his own sentence, a fourth
+currency, an exchange rate, a chart, a wallet screen, adding MEDICINE back to the
+purse, and any implementation at all.
+
+GATES: economy 13/0, market 32/0, payday 35/0, purse 26/0, canon rot 13/0.
+Three reds on main are pre-existing and were reproduced byte-identical on a clean
+worktree of origin/main yesterday: engine sync (BOH_FLOORPLAN, 2 bodies),
+banks-used (an index debt row), dialogue catalogue (the WORDS tab is baked from
+a852b32424dab382 while its sources hash c95d11ddf447f7ca; the fix is one command
+the gate prints, python3 tools/bohemia_words_book.py). A GATE NOBODY RUNS IS NOT
+A GATE.
+
+[PENDING Paolo] -- for the coordinator, one at a time, still queued from day 1:
+  1. The valley eats its last shelves in ten days. Premise or bug?
+  2. (new) Nothing charges a battery anywhere in the build. Whether charging is a
+     thing the player DOES or a thing a faction SELLS is a design fork with real
+     consequences for territory, and it is his.
+
+NEXT IN THIS LANE: Q3 [rebuild order], what people rebuild first, for the century
+rule's sequence.
+
 ================================================================================
 
+ECONOMY (economy-knxaeh): 9/5 (a) -- *** THE ECONOMY LANE IS OPEN AND ITS
 LIFE + CITY (city-1eztay): 9/5 (a) LATEST -- *** VAMILY [builder works]
 BUILDER-ON-A-PHONE: SHIPPED. THE AERIAL BUILDER ANSWERS A THUMB. *** The job was
 prove-it-or-fix-it and it did not need fixing. Proven on an iPhone profile
