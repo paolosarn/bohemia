@@ -3650,6 +3650,16 @@ GATES = [
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '
      'a judgement of whether it looks good', False),
+    # REGISTERED 9/5 (DIRECTION, VAMILY [style checker]). The 9/4 runway law's card
+    # (records/BOHEMIA_STYLE_CARD_9_5_26.md) held by machine: new canon garments sit in
+    # the register (sat<=0.25) or are clear faction accents (sat>=0.55) — the muddy
+    # middle ends; new outers wear runway black; the whole canon rides a ratchet against
+    # the frozen 9/5 baseline (82/256 register) and the purple ban. The 280 pre-card
+    # garments are judged as a population, never garment by garment — the pixel-craft
+    # precedent, so the gate is honest on day one instead of red on history.
+    ('STYLE CARD',     ['python3', 'gates/style_card_gate.py'],
+     'the runway card is machine-readable and every NEW cook lands inside its palette; '
+     'the register share only ratchets up; no purple, ever', False),
     ('CANVAS MEMORY',  ['python3', 'gates/canvas_memory_gate.py'],
      'section 8 of the mobile render contract, measured: the shipped surfaces stay under '
      'the resident/pixel ratchets and walking the valley does not grow the picture', False),

@@ -1,0 +1,1128 @@
+{
+"stamp": "9/5/26",
+"note": "the pre-card wardrobe: the ratchet baseline for style_card_gate. Garments in this list predate the card and are judged only by the ratchet and the purple ban; garments NOT in this list are new cooks and take the full card.",
+"names": {
+"SUN CROP": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"DUSK SHAG": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"TEMPLE TAPER": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"ASH SWEEP": {
+"layer": "hair",
+"hex": "#686870"
+},
+"SALT CROWN": {
+"layer": "hair",
+"hex": "#686870"
+},
+"BUZZ CUT": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"CROP": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"SLICK BACK": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"BOWL CUT": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"FRINGE": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"SHAG": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"SHOULDER LENGTH": {
+"layer": "hair",
+"hex": "#967850"
+},
+"LONG LOOSE": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"WOLF CUT": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"GREY WISPS": {
+"layer": "hair",
+"hex": "#babac2"
+},
+"ROPE LOCKS": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"SHORT ROPES": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"DUST WEAVE": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"COIL CROWN": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"LAYERED FALL": {
+"layer": "hair",
+"hex": "#967850"
+},
+"CURTAIN CUT": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"HEAVY FRINGE": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"DRY TAPER": {
+"layer": "hair",
+"hex": "#523a26"
+},
+"DEEP TAPER": {
+"layer": "hair",
+"hex": "#201e1b"
+},
+"RED SHIRT": {
+"layer": "base",
+"hex": "#963c36"
+},
+"WHITE TEE": {
+"layer": "base",
+"hex": "#d4d0c8"
+},
+"BLACK TANK": {
+"layer": "base",
+"hex": "#2a2a32"
+},
+"GREEN FLANNEL": {
+"layer": "base",
+"hex": "#36603e"
+},
+"SCAVENGER FLANNEL": {
+"layer": "base",
+"hex": "#724830"
+},
+"BONE HENLEY": {
+"layer": "base",
+"hex": "#a29a86"
+},
+"COPPER WORK SHIRT": {
+"layer": "base",
+"hex": "#506e60"
+},
+"SOOT TANK": {
+"layer": "base",
+"hex": "#363436"
+},
+"BLUE JEANS": {
+"layer": "legs",
+"hex": "#40506e"
+},
+"BLACK CARGOS": {
+"layer": "legs",
+"hex": "#343a2e"
+},
+"GREY SWEATS": {
+"layer": "legs",
+"hex": "#787882"
+},
+"DUST TROUSERS": {
+"layer": "legs",
+"hex": "#806e50"
+},
+"PATCHED WORK PANTS": {
+"layer": "legs",
+"hex": "#586676"
+},
+"SOOT CARGOS": {
+"layer": "legs",
+"hex": "#363436"
+},
+"WHITE SNEAKERS": {
+"layer": "feet",
+"hex": "#d4d0c8"
+},
+"BROWN BOOTS": {
+"layer": "feet",
+"hex": "#6e4a2e"
+},
+"WRAPPED BOOTS": {
+"layer": "feet",
+"hex": "#363436"
+},
+"SANDWALKERS": {
+"layer": "feet",
+"hex": "#8a704a"
+},
+"WASTELAND DUSTER": {
+"layer": "outer",
+"hex": "#806e50"
+},
+"SOOT TRENCH": {
+"layer": "outer",
+"hex": "#46464a"
+},
+"DRIFTER'S COAT": {
+"layer": "outer",
+"hex": "#5c302a"
+},
+"RANGER LONGCOAT": {
+"layer": "outer",
+"hex": "#506e60"
+},
+"OLIVE DRAB TEE": {
+"layer": "base",
+"hex": "#4a5036"
+},
+"FADED BLACK LONGSLEEVE": {
+"layer": "base",
+"hex": "#303034"
+},
+"BRICK HENLEY": {
+"layer": "base",
+"hex": "#703a30"
+},
+"SAGE FLANNEL": {
+"layer": "base",
+"hex": "#5a6856"
+},
+"STEEL WORK SHIRT": {
+"layer": "base",
+"hex": "#4c5a6a"
+},
+"BLACK DENIM": {
+"layer": "legs",
+"hex": "#2c2e36"
+},
+"OLIVE PANTS": {
+"layer": "legs",
+"hex": "#444a32"
+},
+"KHAKI CARGOS": {
+"layer": "legs",
+"hex": "#7e6e50"
+},
+"SLATE WORK PANTS": {
+"layer": "legs",
+"hex": "#484e56"
+},
+"RED CLAY BOOTS": {
+"layer": "feet",
+"hex": "#7c4e3a"
+},
+"GREY SNEAKERS": {
+"layer": "feet",
+"hex": "#686a70"
+},
+"OXBLOOD BOOTS": {
+"layer": "feet",
+"hex": "#5c342e"
+},
+"FIELD GREEN COAT": {
+"layer": "outer",
+"hex": "#40523a"
+},
+"DUST BROWN TRENCH": {
+"layer": "outer",
+"hex": "#624e38"
+},
+"STORM GREY LONGCOAT": {
+"layer": "outer",
+"hex": "#46484e"
+},
+"LEATHER VEST": {
+"layer": "outer",
+"hex": "#5c422c"
+},
+"TACTICAL VEST": {
+"layer": "outer",
+"hex": "#3c4230"
+},
+"QUILTED VEST": {
+"layer": "outer",
+"hex": "#807660"
+},
+"RED PLAID FLANNEL": {
+"layer": "base",
+"hex": "#703a30"
+},
+"FOREST PLAID FLANNEL": {
+"layer": "base",
+"hex": "#40523a"
+},
+"STRIPED TEE": {
+"layer": "base",
+"hex": "#a29a86"
+},
+"RUST HENLEY": {
+"layer": "base",
+"hex": "#724830"
+},
+"KHAKI BUTTON-UP": {
+"layer": "base",
+"hex": "#7e6e50"
+},
+"SLATE SHORT-SLEEVE": {
+"layer": "base",
+"hex": "#484e56"
+},
+"SAGE STRIPED HENLEY": {
+"layer": "base",
+"hex": "#5a6856"
+},
+"DUST PLAID SHIRT": {
+"layer": "base",
+"hex": "#806e50"
+},
+"ASH HOODIE": {
+"layer": "base",
+"hex": "#46484e"
+},
+"COAL HOODIE": {
+"layer": "base",
+"hex": "#303034"
+},
+"OLIVE HOODIE": {
+"layer": "base",
+"hex": "#4a5036"
+},
+"CHINESE RICE FARMER HAT": {
+"layer": "head",
+"hex": "#7e6e50"
+},
+"CHARCOAL WATCH CAP": {
+"layer": "head",
+"hex": "#363436"
+},
+"RUST WATCH CAP": {
+"layer": "head",
+"hex": "#724830"
+},
+"OLIVE FIELD CAP": {
+"layer": "head",
+"hex": "#4a5036"
+},
+"STORM KNIT CAP": {
+"layer": "head",
+"hex": "#46484e"
+},
+"SAND KNIT CAP": {
+"layer": "head",
+"hex": "#806e50"
+},
+"SLATE WORK CAP": {
+"layer": "head",
+"hex": "#484e56"
+},
+"DUST SCARF": {
+"layer": "neck",
+"hex": "#806e50"
+},
+"OXBLOOD SCARF": {
+"layer": "neck",
+"hex": "#5c302a"
+},
+"BONE DUST MASK": {
+"layer": "face",
+"hex": "#a29a86"
+},
+"OXBLOOD DUST MASK": {
+"layer": "face",
+"hex": "#5c302a"
+},
+"LEATHER GLOVES": {
+"layer": "hands",
+"hex": "#5c422c"
+},
+"SOOT GLOVES": {
+"layer": "hands",
+"hex": "#363436"
+},
+"LEATHER BELT": {
+"layer": "waist",
+"hex": "#5c422c"
+},
+"WRAPAROUND SHADES": {
+"layer": "face",
+"hex": "#303034"
+},
+"CHARCOAL TURTLENECK": {
+"layer": "base",
+"hex": "#363436"
+},
+"BONE TURTLENECK": {
+"layer": "base",
+"hex": "#a29a86"
+},
+"CUTOFF DENIM SHORTS": {
+"layer": "legs",
+"hex": "#40506e"
+},
+"OLIVE SHORTS": {
+"layer": "legs",
+"hex": "#444a32"
+},
+"OXBLOOD SLOUCH BEANIE": {
+"layer": "head",
+"hex": "#5c302a"
+},
+"SLATE PLAID FLANNEL": {
+"layer": "base",
+"hex": "#484e56"
+},
+"SAND HOODIE": {
+"layer": "base",
+"hex": "#806e50"
+},
+"RUST STRIPED TEE": {
+"layer": "base",
+"hex": "#724830"
+},
+"DENIM VEST": {
+"layer": "outer",
+"hex": "#40506e"
+},
+"SLATE SNEAKERS": {
+"layer": "feet",
+"hex": "#545c66"
+},
+"COPPER SCARF": {
+"layer": "neck",
+"hex": "#506e60"
+},
+"CHARCOAL DUST MASK": {
+"layer": "face",
+"hex": "#363436"
+},
+"OXBLOOD PLAID FLANNEL": {
+"layer": "base",
+"hex": "#5c302a"
+},
+"STEEL PLAID FLANNEL": {
+"layer": "base",
+"hex": "#4c5a6a"
+},
+"COPPER PLAID FLANNEL": {
+"layer": "base",
+"hex": "#506e60"
+},
+"RUST HOODIE": {
+"layer": "base",
+"hex": "#724830"
+},
+"BRICK HOODIE": {
+"layer": "base",
+"hex": "#703a30"
+},
+"STEEL HOODIE": {
+"layer": "base",
+"hex": "#4c5a6a"
+},
+"SAGE HOODIE": {
+"layer": "base",
+"hex": "#5a6856"
+},
+"OLIVE HENLEY": {
+"layer": "base",
+"hex": "#4a5036"
+},
+"STORM HENLEY": {
+"layer": "base",
+"hex": "#46484e"
+},
+"SLATE HENLEY": {
+"layer": "base",
+"hex": "#484e56"
+},
+"BRICK TEE": {
+"layer": "base",
+"hex": "#703a30"
+},
+"SAGE TEE": {
+"layer": "base",
+"hex": "#5a6856"
+},
+"FIELD GREEN TEE": {
+"layer": "base",
+"hex": "#40523a"
+},
+"STORM GREY TEE": {
+"layer": "base",
+"hex": "#46484e"
+},
+"BONE TANK": {
+"layer": "base",
+"hex": "#a29a86"
+},
+"OLIVE TANK": {
+"layer": "base",
+"hex": "#4a5036"
+},
+"RUST TANK": {
+"layer": "base",
+"hex": "#724830"
+},
+"STEEL STRIPED TEE": {
+"layer": "base",
+"hex": "#4c5a6a"
+},
+"CHARCOAL STRIPED TEE": {
+"layer": "base",
+"hex": "#363436"
+},
+"BONE BUTTON-UP": {
+"layer": "base",
+"hex": "#a29a86"
+},
+"FIELD BUTTON-UP": {
+"layer": "base",
+"hex": "#40523a"
+},
+"STORM BUTTON-UP": {
+"layer": "base",
+"hex": "#46484e"
+},
+"OLIVE TURTLENECK": {
+"layer": "base",
+"hex": "#4a5036"
+},
+"STORM TURTLENECK": {
+"layer": "base",
+"hex": "#46484e"
+},
+"FIELD GREEN PANTS": {
+"layer": "legs",
+"hex": "#40523a"
+},
+"STORM GREY SWEATS": {
+"layer": "legs",
+"hex": "#46484e"
+},
+"BONE WORK PANTS": {
+"layer": "legs",
+"hex": "#a29a86"
+},
+"RUST CARGOS": {
+"layer": "legs",
+"hex": "#724830"
+},
+"SAGE TROUSERS": {
+"layer": "legs",
+"hex": "#5a6856"
+},
+"STEEL BLUE JEANS": {
+"layer": "legs",
+"hex": "#4c5a6a"
+},
+"DUST BROWN TROUSERS": {
+"layer": "legs",
+"hex": "#624e38"
+},
+"KHAKI SHORTS": {
+"layer": "legs",
+"hex": "#7e6e50"
+},
+"CHARCOAL SHORTS": {
+"layer": "legs",
+"hex": "#363436"
+},
+"BONE SNEAKERS": {
+"layer": "feet",
+"hex": "#a29a86"
+},
+"OLIVE BOOTS": {
+"layer": "feet",
+"hex": "#4a5036"
+},
+"STEEL SNEAKERS": {
+"layer": "feet",
+"hex": "#4c5a6a"
+},
+"DUST BROWN BOOTS": {
+"layer": "feet",
+"hex": "#624e38"
+},
+"FIELD BOOTS": {
+"layer": "feet",
+"hex": "#40523a"
+},
+"RUST BOOTS": {
+"layer": "feet",
+"hex": "#724830"
+},
+"SAGE FIELD COAT": {
+"layer": "outer",
+"hex": "#5a6856"
+},
+"SLATE TRENCH": {
+"layer": "outer",
+"hex": "#484e56"
+},
+"BONE DUSTER": {
+"layer": "outer",
+"hex": "#a29a86"
+},
+"BRICK LONGCOAT": {
+"layer": "outer",
+"hex": "#703a30"
+},
+"KHAKI DUSTER": {
+"layer": "outer",
+"hex": "#7e6e50"
+},
+"STORM VEST": {
+"layer": "outer",
+"hex": "#46484e"
+},
+"OLIVE VEST": {
+"layer": "outer",
+"hex": "#4a5036"
+},
+"RUST VEST": {
+"layer": "outer",
+"hex": "#724830"
+},
+"BONE KNIT CAP": {
+"layer": "head",
+"hex": "#a29a86"
+},
+"OLIVE KNIT CAP": {
+"layer": "head",
+"hex": "#4a5036"
+},
+"BRICK WATCH CAP": {
+"layer": "head",
+"hex": "#703a30"
+},
+"COPPER FIELD CAP": {
+"layer": "head",
+"hex": "#506e60"
+},
+"DUST WORK CAP": {
+"layer": "head",
+"hex": "#806e50"
+},
+"STORM SLOUCH BEANIE": {
+"layer": "head",
+"hex": "#46484e"
+},
+"KHAKI SLOUCH BEANIE": {
+"layer": "head",
+"hex": "#7e6e50"
+},
+"CHARCOAL SCARF": {
+"layer": "neck",
+"hex": "#363436"
+},
+"SAGE SCARF": {
+"layer": "neck",
+"hex": "#5a6856"
+},
+"BONE SCARF": {
+"layer": "neck",
+"hex": "#a29a86"
+},
+"OLIVE DUST MASK": {
+"layer": "face",
+"hex": "#4a5036"
+},
+"RUST DUST MASK": {
+"layer": "face",
+"hex": "#724830"
+},
+"DUST GLOVES": {
+"layer": "hands",
+"hex": "#806e50"
+},
+"OXBLOOD GLOVES": {
+"layer": "hands",
+"hex": "#5c302a"
+},
+"CHARCOAL BELT": {
+"layer": "waist",
+"hex": "#363436"
+},
+"GREY WRAPAROUNDS": {
+"layer": "face",
+"hex": "#46464a"
+},
+"DENIM JACKET": {
+"layer": "outer",
+"hex": "#40506e"
+},
+"FIELD JACKET": {
+"layer": "outer",
+"hex": "#40523a"
+},
+"LEATHER JACKET": {
+"layer": "outer",
+"hex": "#5c422c"
+},
+"DUST PONCHO": {
+"layer": "outer",
+"hex": "#806e50"
+},
+"OXBLOOD PONCHO": {
+"layer": "outer",
+"hex": "#5c302a"
+},
+"TALL MOTO BOOTS": {
+"layer": "feet",
+"hex": "#303034"
+},
+"RANCH BOOTS": {
+"layer": "feet",
+"hex": "#624e38"
+},
+"ROLLED WORK SHIRT": {
+"layer": "base",
+"hex": "#4c5a6a"
+},
+"ROLLED FLANNEL": {
+"layer": "base",
+"hex": "#703a30"
+},
+"SCAV KNEEPADS": {
+"layer": "gear",
+"hex": "#363436"
+},
+"SCRAP PAULDRON": {
+"layer": "gear",
+"hex": "#724830"
+},
+"CHEST RIG": {
+"layer": "gear",
+"hex": "#3c4230"
+},
+"RUCK PACK": {
+"layer": "back",
+"hex": "#624e38"
+},
+"SALVAGE SATCHEL": {
+"layer": "back",
+"hex": "#5c422c"
+},
+"SMITH'S APRON": {
+"layer": "outer",
+"hex": "#5c422c"
+},
+"TRADES APRON": {
+"layer": "outer",
+"hex": "#363436"
+},
+"WORK SUSPENDERS": {
+"layer": "gear",
+"hex": "#363436"
+},
+"TATTERED TEE": {
+"layer": "base",
+"hex": "#a29a86"
+},
+"TATTERED FLANNEL": {
+"layer": "base",
+"hex": "#586676"
+},
+"BEDROLL": {
+"layer": "back",
+"hex": "#807660"
+},
+"WRAP SKIRT": {
+"layer": "legs",
+"hex": "#806e50"
+},
+"SHIN GUARDS": {
+"layer": "gear",
+"hex": "#724830"
+},
+"DESERT SHEMAGH": {
+"layer": "head",
+"hex": "#806e50"
+},
+"WORN BRACERS": {
+"layer": "gear",
+"hex": "#5c422c"
+},
+"THIGH HOLSTER": {
+"layer": "gear",
+"hex": "#363436"
+},
+"TRAILING SCARF": {
+"layer": "neck",
+"hex": "#5c302a"
+},
+"WORK COVERALLS": {
+"layer": "base",
+"hex": "#3c4230"
+},
+"SPLIT-TAIL DUSTER": {
+"layer": "outer",
+"hex": "#5c422c"
+},
+"ROAD CAPE": {
+"layer": "back",
+"hex": "#5c302a"
+},
+"SHELL BANDOLIER": {
+"layer": "gear",
+"hex": "#5c422c"
+},
+"BIB OVERALLS": {
+"layer": "base",
+"hex": "#40506e"
+},
+"RUBBER GAS MASK": {
+"layer": "face",
+"hex": "#363436"
+},
+"SCAV TOOL BELT": {
+"layer": "waist",
+"hex": "#5c422c"
+},
+"ANKLE WRAP SKIRT": {
+"layer": "legs",
+"hex": "#5c302a"
+},
+"SHOULDER MANTLE": {
+"layer": "back",
+"hex": "#3c4230"
+},
+"ELBOW PADS": {
+"layer": "gear",
+"hex": "#5c422c"
+},
+"FIELD LEG WRAPS": {
+"layer": "gear",
+"hex": "#806e50"
+},
+"BLANKET SHOULDER ROLL": {
+"layer": "gear",
+"hex": "#5c302a"
+},
+"HIP SASH": {
+"layer": "waist",
+"hex": "#5c302a"
+},
+"OUTLAW BANDANA": {
+"layer": "face",
+"hex": "#40506e"
+},
+"SCRAP HELM": {
+"layer": "head",
+"hex": "#724830"
+},
+"MOB PINSTRIPE SHIRT": {
+"layer": "base",
+"hex": "#b08a2a"
+},
+"SIGNAL RED SHIRT": {
+"layer": "base",
+"hex": "#dc2820"
+},
+"SIGNAL RED BOOTS": {
+"layer": "feet",
+"hex": "#dc2820"
+},
+"VESTMENT GOLD SHIRT": {
+"layer": "base",
+"hex": "#ffd75c"
+},
+"VESTMENT GOLD BOOTS": {
+"layer": "feet",
+"hex": "#ffd75c"
+},
+"MOSS GREEN SHIRT": {
+"layer": "base",
+"hex": "#6ebe3c"
+},
+"TEAL WORK SHIRT": {
+"layer": "base",
+"hex": "#28bea0"
+},
+"COBALT WORK PANTS": {
+"layer": "legs",
+"hex": "#326ed2"
+},
+"ROSE BANDANA": {
+"layer": "face",
+"hex": "#dc4655"
+},
+"TEAL STRIPED TEE": {
+"layer": "base",
+"hex": "#28bea0"
+},
+"COBALT DUSTER": {
+"layer": "outer",
+"hex": "#326ed2"
+},
+"ROSE KNIT CAP": {
+"layer": "head",
+"hex": "#dc4655"
+},
+"COBALT KNIT CAP": {
+"layer": "head",
+"hex": "#326ed2"
+},
+"GOLD WRAP SKIRT": {
+"layer": "legs",
+"hex": "#ffd75c"
+},
+"GRASS SNEAKERS": {
+"layer": "feet",
+"hex": "#6ebe3c"
+},
+"COBALT SHIRT": {
+"layer": "base",
+"hex": "#326ed2"
+},
+"COBALT COAT": {
+"layer": "outer",
+"hex": "#326ed2"
+},
+"COBALT BOOTS": {
+"layer": "feet",
+"hex": "#326ed2"
+},
+"ROSE DUSTER": {
+"layer": "outer",
+"hex": "#dc4655"
+},
+"CHARCOAL ROAD CAPE": {
+"layer": "back",
+"hex": "#363436"
+},
+"GRASS DUSTER": {
+"layer": "outer",
+"hex": "#6ebe3c"
+},
+"COBALT SNEAKERS": {
+"layer": "feet",
+"hex": "#326ed2"
+},
+"CHARCOAL WRAP SKIRT": {
+"layer": "legs",
+"hex": "#363436"
+},
+"CHARCOAL BOOTS": {
+"layer": "feet",
+"hex": "#363436"
+},
+"CHORE COAT": {
+"layer": "outer",
+"hex": "#624e38"
+},
+"BARN COAT": {
+"layer": "outer",
+"hex": "#7e6e50"
+},
+"OLIVE CHORE COAT": {
+"layer": "outer",
+"hex": "#444a32"
+},
+"STORM CHORE COAT": {
+"layer": "outer",
+"hex": "#46484e"
+},
+"RUST WORK COAT": {
+"layer": "outer",
+"hex": "#724830"
+},
+"CAR COAT": {
+"layer": "outer",
+"hex": "#363436"
+},
+"SAND CAR COAT": {
+"layer": "outer",
+"hex": "#a29a86"
+},
+"SAGE CAR COAT": {
+"layer": "outer",
+"hex": "#5a6856"
+},
+"SLATE CAR COAT": {
+"layer": "outer",
+"hex": "#484e56"
+},
+"WORK JACKET": {
+"layer": "outer",
+"hex": "#624e38"
+},
+"STORM JACKET": {
+"layer": "outer",
+"hex": "#46484e"
+},
+"KHAKI JACKET": {
+"layer": "outer",
+"hex": "#7e6e50"
+},
+"OXBLOOD JACKET": {
+"layer": "outer",
+"hex": "#5c302a"
+},
+"SAGE VEST": {
+"layer": "outer",
+"hex": "#5a6856"
+},
+"BONE VEST": {
+"layer": "outer",
+"hex": "#a29a86"
+},
+"OLIVE CAR COAT": {
+"layer": "outer",
+"hex": "#4a5036"
+},
+"BRICK CAR COAT": {
+"layer": "outer",
+"hex": "#703a30"
+},
+"SPLIT-TAIL WORK COAT": {
+"layer": "outer",
+"hex": "#5c422c"
+},
+"COBALT CHORE COAT": {
+"layer": "outer",
+"hex": "#326ed2"
+},
+"GRASS CAR COAT": {
+"layer": "outer",
+"hex": "#6ebe3c"
+},
+"HOOD-UP ASH HOODIE": {
+"layer": "base",
+"hex": "#46484e"
+},
+"HOOD-UP COAL HOODIE": {
+"layer": "base",
+"hex": "#303034"
+},
+"HOODED DUST PONCHO": {
+"layer": "outer",
+"hex": "#806e50"
+},
+"SCRAP CHEST PLATE": {
+"layer": "gear",
+"hex": "#724830"
+},
+"SAND KNEEPADS": {
+"layer": "gear",
+"hex": "#806e50"
+},
+"STEEL PAULDRON": {
+"layer": "gear",
+"hex": "#4c5a6a"
+},
+"OLIVE CHEST RIG": {
+"layer": "gear",
+"hex": "#4a5036"
+},
+"BRICK SUSPENDERS": {
+"layer": "gear",
+"hex": "#703a30"
+},
+"STEEL SHIN GUARDS": {
+"layer": "gear",
+"hex": "#4c5a6a"
+},
+"OXBLOOD BRACERS": {
+"layer": "gear",
+"hex": "#5c302a"
+},
+"RUST THIGH HOLSTER": {
+"layer": "gear",
+"hex": "#724830"
+},
+"SOOT TOOL BELT": {
+"layer": "waist",
+"hex": "#363436"
+},
+"DUST BROWN BANDOLIER": {
+"layer": "gear",
+"hex": "#624e38"
+},
+"SOOT CHEST PLATE": {
+"layer": "gear",
+"hex": "#363436"
+},
+"KHAKI ELBOW PADS": {
+"layer": "gear",
+"hex": "#7e6e50"
+},
+"OLIVE LEG WRAPS": {
+"layer": "gear",
+"hex": "#4a5036"
+},
+"BRICK SHOULDER ROLL": {
+"layer": "gear",
+"hex": "#703a30"
+},
+"OLIVE RUCK PACK": {
+"layer": "back",
+"hex": "#4a5036"
+},
+"OXBLOOD SATCHEL": {
+"layer": "back",
+"hex": "#5c302a"
+},
+"DUST BEDROLL": {
+"layer": "back",
+"hex": "#806e50"
+},
+"RUST QUIVER": {
+"layer": "back",
+"hex": "#724830"
+},
+"STEEL ROAD CAPE": {
+"layer": "back",
+"hex": "#4c5a6a"
+},
+"OLIVE SHOULDER MANTLE": {
+"layer": "back",
+"hex": "#4a5036"
+},
+"STORM PONCHO": {
+"layer": "outer",
+"hex": "#46484e"
+},
+"RUST GORGET": {
+"layer": "gear",
+"hex": "#724830"
+},
+"SOOT GORGET": {
+"layer": "gear",
+"hex": "#363436"
+},
+"LEATHER HALF APRON": {
+"layer": "outer",
+"hex": "#5c422c"
+},
+"DUST HALF APRON": {
+"layer": "outer",
+"hex": "#806e50"
+},
+"DENIM SHORTALLS": {
+"layer": "base",
+"hex": "#40506e"
+},
+"FIELD SHORTALLS": {
+"layer": "base",
+"hex": "#3c4230"
+}
+},
+"register_count": 82,
+"nonhair_count": 256
+}
