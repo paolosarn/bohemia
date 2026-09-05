@@ -65,7 +65,7 @@ what nobody has verified) so the chat knows what it does not know.
 ## WORLD  (02. the economy, the map, the towns)
 MODE: BUILD
 STATE: the purse ledger and payout pipe are built and called; the three price tables are EMPTY and electricity and clout have never moved; nothing drains; the map is 35 districts with 18 factions placed. Unverified: whether the faction world's territory AI drives anything visible on the walked surface.
-- OPEN  [battery money]  BB-BATTERIES-ARE-THE-MONEY  (with BB-THE-LETTER-IS-ONE, one job)
+- CLAIMED 9/5 world-9lfjtf  [battery money]  BB-BATTERIES-ARE-THE-MONEY  (with BB-THE-LETTER-IS-ONE, one job)
 - OPEN  [prices one]  BB-THE-LETTER-IS-ONE
 - OPEN  [living costs]  BB-FOUR-VERBS-THREE-CURRENCIES
 - OPEN  [lights bill]  BB-THE-NIGHT-EATS-POWER
