@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/31d - THE REFERENCE SITS BESIDE THE ART</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/31e - YOUR FAMILY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5695,8 +5695,27 @@ window.addEventListener('message',function(ev){
        how this repo's dial said 19 when the truth was 1.1. */
     var __bs=document.getElementById('buildstamp');
     if(ev.source&&ev.source.postMessage)
+      /* __THE_FAMILY_IS_IN_THE_GAME__ (9/4): AND WHO HIS FAMILY IS.
+         FAMILY IS THE CORE THEME (7/19, LOCKED) and the walked world had never
+         been told there is one: runDynasty, selectHeir and family.tree are all
+         ZERO in both files that make up the game. The cast, the names and the
+         ruling about which sibling is lost have existed since the cold open
+         shipped; only the wire was missing.
+         READ OFF FAMILY_CAST, NEVER COPIED. Two places holding one name is how
+         the mother came back as DENISE from a table the scene module had never
+         heard of -- the note above fillNames is that post-mortem. survivesIf is
+         his 7/19 ruling and decides the lost sibling here, once. */
+      var _fam = null;
+      try {
+        var _g = (window.PGENDER || window.__PLAYER_GENDER || 'male');
+        _fam = (window.FAMILY_CAST || []).map(function (m) {
+          return { role: m.role, name: m.name, age: m.age, draft: !!m.draft,
+                   alive: (m.survivesIf === 'always') || (m.survivesIf === _g) };
+        });
+      } catch (_e) { _fam = null; }
       ev.source.postMessage({bohemiaIsDemo:!!window.__BOHEMIA_DEMO_BUILD,
-        bohemiaBuild:__bs?String(__bs.textContent||'').trim():null},'*');
+        bohemiaBuild:__bs?String(__bs.textContent||'').trim():null,
+        bohemiaFamily:_fam},'*');
   }catch(e){}
 });
 window.addEventListener('message',ev=>{const m=ev&&ev.data;if(!m||m.type!=='BOHEMIA_SHOT_RESULT')return;

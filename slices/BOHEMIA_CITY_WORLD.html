@@ -39851,7 +39851,10 @@ window.addEventListener('message', function(ev){
      already answering this exact question, so it carries the answer rather than
      opening a second channel that can rot on its own. */
   try { if (ev && ev.data && typeof ev.data.bohemiaBuild === 'string')
-          CT_BUILD = ev.data.bohemiaBuild; } catch(_e){}
+          CT_BUILD = ev.data.bohemiaBuild;
+    /* __THE_FAMILY_IS_IN_THE_GAME__: and who his family is, on the same reply. */
+    if (ev && ev.data && ev.data.bohemiaFamily && ev.data.bohemiaFamily.length)
+          famSet(ev.data.bohemiaFamily); } catch(_e){}
 });
 /* *** AND THE CITY ASKS, BECAUSE WAITING TO BE TOLD DOES NOT WORK. *** The first
    cut had the shell push this on the frame's `load` event, and MEASURED ON THE
@@ -39888,6 +39891,52 @@ function ctDemoOver(day){ return CT_IS_DEMO && (day|0) >= CT_DEMO_DAYS; }
    because the recorder going quiet must never be able to take the game with it.
    ============================================================================ */
 var CT_BUILD = null;
+
+/* ============================================================================
+   __THE_FAMILY_IS_IN_THE_GAME__ (9/4) -- THE RUN HAS A FAMILY NOW.
+
+   MEASURED BEFORE THIS EXISTED: runDynasty 0, selectHeir 0, family.tree 0, in
+   BOTH files that make up the game. A full dynasty engine has existed since 7/2
+   -- family tree, heir selection, three generational folds -- and the game he
+   plays had never referenced it once. FAMILY IS THE CORE THEME (7/19, LOCKED)
+   and there was no family in the game.
+
+   NOTHING HERE IS INVENTED. The cast, the names and the ruling about which
+   sibling is lost all shipped with the cold open; the shell knew all of it and
+   the walked world had never been told. This holds what the shell sends.
+
+   NOT ONE NAME IS TYPED IN THIS FILE. They arrive from FAMILY_CAST, which is
+   his and drafted, so renaming her there renames her everywhere -- the mistake
+   the alpha's own fillNames note documents.
+   ========================================================================== */
+var FAMILY = null;
+var FAM_KEY = 'boh.city.family';
+
+function famSet(list){
+  if(!list || !list.length) return;
+  FAMILY = list;
+  try{ localStorage.setItem(FAM_KEY, JSON.stringify(list)); }catch(_e){}
+}
+/* AN UNREADABLE BLOB IS DISCARDED WHOLE, never half applied -- the rule the
+   belonging save already sets, because a partly restored family is worse than
+   no family: you cannot see that it is wrong. */
+function famHydrate(){
+  if(FAMILY) return FAMILY;
+  try{
+    var raw = JSON.parse(localStorage.getItem(FAM_KEY) || 'null');
+    if(raw && raw.length && raw[0] && raw[0].role) FAMILY = raw;
+  }catch(_e){ FAMILY = null; }
+  return FAMILY;
+}
+function famLost(){
+  var f = famHydrate() || [];
+  for(var i=0;i<f.length;i++) if(!f[i].alive) return f[i];
+  return null;
+}
+function famLiving(){
+  var f = famHydrate() || [];
+  return f.filter(function(m){ return m.alive; });
+}
 var FB_KEY  = 'boh.demo.card';
 var FB      = null;      /* the record */
 var FB_T0   = 0;         /* wall clock this sitting started */
@@ -50468,6 +50517,25 @@ function showStanding(){
     return;
   }
   var h = '';
+  /* __THE_FAMILY_IS_IN_THE_GAME__ (9/4): FAMILY GOES ABOVE THE FACTIONS, because in this game
+     family comes before factions and this card is already called WHERE YOU STAND.
+     He never digs, so it goes on a card he already opens rather than behind a new
+     button nobody finds.
+     AND IT NAMES WHO IS GONE, not only who is left. The 7/19 law: "Grief is the
+     proof it was real." A family card that lists only survivors is the
+     counterfeit family the whole story is against. */
+  try{
+    var _liv = famLiving(), _lost = famLost();
+    if(_liv.length || _lost){
+      if(_liv.length)
+        h += '<div class="rrow"><span class="rk">YOUR PEOPLE</span><span class="rv">'
+           + esc(_liv.map(function(m){ return m.name; }).join(' \u00b7 '))
+           + '</span></div>';
+      if(_lost)
+        h += '<div class="rrow"><span class="rk">WHO YOU LOST</span><span class="rv">'
+           + esc(_lost.name) + '</span></div>';
+    }
+  }catch(_e){}
   h += '<div class="rrow"><span class="rk">YOUR RUNG</span>'
      + '<span class="rv">' + r.rung + '</span></div>';
   h += '<div class="rrow"><span class="rk">THE VALLEY</span><span class="rv">'

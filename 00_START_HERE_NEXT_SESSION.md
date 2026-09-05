@@ -54,6 +54,71 @@ ROUTED OUT OF THIS DAY:
 WHAT IS PENDING HIM: nothing from this lane.
 
 WORDS (words-8dqrnq): 9/4 (a) -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+
+--------------------------------------------------------------------------------
+RUN (run-eak241): 9/4 LATEST -- *** HE SAID ONE WORD, FAMILY. FAMILY IS THE CORE
+THEME AND THERE WAS NO FAMILY IN THE GAME. There is now.
+TAB: RUN, tap STANDING. Nothing to judge. ***
+
+MEASURED BEFORE BUILDING ANYTHING:
+    slices/BOHEMIA_ALPHA_0_9.html    runDynasty 0  selectHeir 0  family.tree 0
+    slices/BOHEMIA_CITY_WORLD.html   runDynasty 0  selectHeir 0  family.tree 0
+THOSE TWO FILES ARE THE GAME. Zero, every term, both files. A complete dynasty
+engine has existed since 7/2 -- family tree, deterministic heir selection, three
+generational folds, the monument -- living in engine/bohemia_engine.js and in
+BOHEMIA_CURRENT_SLICE.html and BOHEMIA_RUN_CURRENT.html, TWO OLD SLICES NOBODY
+OPENS. AND THE WALKED WORLD'S ONLY MENTION OF HIS SIBLING WAS A COMMENT QUOTING
+HIM ASKING FOR IT ("I want that main quest origin in it when ur sibling dies").
+Every other "sibling" in that file is a SIBLING ROAD CELL.
+
+IT IS A WIRE, NOT AN INVENTION -- THIRD TIME THIS SHAPE THIS WEEK, and the third
+time nothing was missing except the connection:
+    the encounter director   258 approved lines, ZERO CALLERS       wired 8/27
+    the build stamp          a fact the shell held, city blind      wired 8/27
+    THE FAMILY               named, drafted, rendering, never told  wired 9/4
+Everything needed existed: FAMILY_CAST (RAY, DENISE, MARCO, NINA -- named,
+draft:true, dressed in approved garments, family_cast_gate 26/0); his 7/19 ruling
+on which sibling is lost, ALREADY IMPLEMENTED as survivesIf; and a boot handshake
+already carrying two other answers. THE SHELL KNEW WHO HE LOST AND THE WALKED
+WORLD HAD NEVER BEEN TOLD. No new channel: the reply that already answers "which
+surface am I on" and "which build am I" now also answers "who is my family".
+
+MINE: that the run HOLDS a family, that it survives a reload, that he can reach
+it. HIS AND UNTOUCHED: every name comes from FAMILY_CAST and is draft:true, so
+renaming her there renames her everywhere -- NOT ONE NAME IS TYPED IN THE NEW
+CODE, because two places holding one name is how the mother came back as DENISE
+from a table the scene module had never heard of. WHICH sibling dies is read off
+survivesIf and decided nowhere else. KNOWN_AT_START is NOT TOUCHED and stays
+empty; people_gate still fails if it gains a row.
+
+WHERE HE MEETS IT: the STANDING card, above the factions, because family comes
+before factions in this game and that card is already called WHERE YOU STAND. He
+never digs, so it goes on a card he already opens.
+    YOUR PEOPLE     RAY  DENISE  MARCO
+    WHO YOU LOST    NINA
+AND IT NAMES WHO HE LOST, not only who is left. "Grief is the proof it was real"
+(7/19). A family card listing only survivors is literally the Amalgamation's
+pitch -- "a family that never ends" -- shipped by accident.
+
+  FAMILY IN GAME 14/0 (new) · FAMILY CAST 26/0 · WHOLE DEMO 23/0, both unchanged
+  MUTATIONS: the shell stops sending the family 5/9 · nobody is lost 10/4
+REACHABILITY IS PROVED BY PRESSING THE REAL STANDING BUTTON, never by reading a
+variable -- the whole defect being fixed is a thing that existed and could not be
+reached, so reading a variable would be that mistake wearing a gate's clothes.
+
+WHAT THIS IS NOT: it is not the dynasty. Three generations, the folds,
+succession, the heir and the monument are STILL NOT IN THE GAME -- that is a real
+build and it wants its own run. What shipped is the thing all of it stands on:
+the game knows he has a family, knows who he lost, and does not forget either.
+NEXT IN THIS LANE: the walked world. Everything the road system does -- interrupt,
+leave salvage, ask a real question -- fires ONLY ON THE MAP, and most of the demo
+is walked. Dispatch item 5, DEAD IS NOT THE DEFAULT, is still open where he
+actually spends his time.
+Record: records/BOHEMIA_FAMILY_IS_THE_CORE_THEME_AND_THERE_WAS_NONE_IN_IT_9_4_26.md
+
+--------------------------------------------------------------------------------
+
+WORDS (words-8dqrnq): 9/4 LATEST -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
 ITSELF IS IMPOSSIBLE AS REALISM. *** MODE: RESEARCH, so nothing was implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
