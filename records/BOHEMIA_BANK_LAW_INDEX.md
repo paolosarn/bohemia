@@ -69,10 +69,12 @@ bank cannot quietly add a rule nobody checks.
 | 47 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
 | 48 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
 | 49 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
-| 50 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
-| 51 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
-| 52 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 53 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 50 | `records/BOHEMIA_REFERENCE_CHECKS.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26, clause 4 |
+| 51 | `records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26 — the gate ruler |
+| 52 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
+| 53 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
+| 54 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 55 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
 
-TOTAL: 53 rulings across 39 files.
+TOTAL: 55 rulings across 41 files.
 

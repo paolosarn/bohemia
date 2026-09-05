@@ -1508,8 +1508,22 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
          rulings meet here: "four families in my starting neighborhood" and "the
          slider can go all the way from ZERO to a maximum". At dial 0 the valley
          is a ghost valley and that has to include his own street, or the bottom
-         of the slider is a lie. So the COUNT is dialled the same way a rate is:
-         four families at 1, two at 0.5, none at 0, eight at 2. */
+         of the slider is a lie.
+
+         *** AND ON 8/28 THIS LANE MOVED THE DEFAULT DIAL AND TURNED HIS FOUR
+         FAMILIES INTO EIGHTEEN. *** The count was scaled against the LITERAL
+         dial, so "four at 1" was only ever true while the default WAS 1. The
+         population row then moved the default to LANDMARK.story -- for a good
+         measured reason, his own design document says ~69,000 and the game was
+         shipping 4,194 -- and his starting block quietly went to 18 households
+         and 47 people. people_gate's H1, H3 and H4 have been red ever since and
+         its own comment records that HE ASKED TWICE for four.
+         A DEFAULT IS NOT A NEUTRAL NUMBER: anything measured against 1 breaks
+         the day 1 stops being the default, and nothing here said so out loud.
+         So the count is scaled against THE DEFAULT rather than against 1. Four
+         families at the shipped default, none at 0, eight at twice it -- which
+         is what both rulings say, and it stays true whatever the default becomes
+         next. */
       var __d = (opts.preDialled ? 1 : dialOf(opts.cell));
       var __base = 1;
       if(!opts.preDialled){

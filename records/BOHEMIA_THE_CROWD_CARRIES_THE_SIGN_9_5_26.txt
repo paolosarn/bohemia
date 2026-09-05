@@ -149,6 +149,37 @@ THREE MISTAKES OF MINE, WRITTEN DOWN SO THEY ARE NOT MADE AGAIN
    coat, with no caller anywhere. Unexported. BohemiaAgainst now reads
    4 fns | surface 4 | dead 0.
 
+5. AND I FORGOT TO RE-CUT THE DEMO. Updating the build stamp changes the alpha,
+   and the demo is a CUT of the workshop -- so demo_is_current and demo_build
+   both went red over six bytes, and both are green on clean main, which is how
+   I knew instantly it was mine. node tools/bohemia_cut_the_demo.js. It is step
+   four of this lane's own instructions and I skipped it.
+
+================================================================================
+WHAT THE SUITE SAID, AND HOW EVERY RED WAS CLASSIFIED
+================================================================================
+Run in four shards (the suite refuses two concurrent runs on one tree). Every
+red was re-run on a CLEAN origin/main worktree rather than assumed:
+  PRE-EXISTING, IDENTICAL ON CLEAN MAIN  fight music, district fill, full res,
+    build the world, no canopies, fresh doors, person look, motion visible,
+    face thumb*, dress, mandate face, quest placement, voice, banks used,
+    city cast, city dial, map tab, reuse first, ui vocab, style card, top of
+    the doc, combat sound, demo day, rig check, field surgery, walk deadlock,
+    banner, reachability, zoom build, fence orphan, invisible schedule, wired
+    in a tab, canvas memory, canon rot, dominance sweep, engine sync, see
+    through, market, day loop, install card, time pass, combat lab, outfits 13,
+    props
+  FLAKY BOTH SIDES  walk feel (ran it three times on each tree: 20/0, 19/1,
+    20/0 on mine; 20/0, 19/1, 20/0 on clean. A pixel-timing claim, not a
+    regression.)
+  MINE, AND FIXED THIS ROUND  organ reach rule 3 (stale myRipples exemption),
+    demo is current + demo build (the un-re-cut demo)
+  * face thumb is a raw mtime comparison (bank newer than the alpha within six
+    hours). ANY ship trips it, because every ship updates the build stamp, and
+    it passes vacuously on a fresh clone where every file has the same mtime.
+    Not this lane's gate and not this lane's art bank to rebake. Flagged, not
+    papered over.
+
 ================================================================================
 [PENDING Paolo] -- CARRIED, NOT DECIDED HERE
 ================================================================================
