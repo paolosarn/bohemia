@@ -6862,6 +6862,15 @@ this message as your first VAMILY and do steps 1 to 5.
 I will never paste anything to you again. From here on, the one word is the whole
 instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 9/5 (latest): [runway shapes] SHIPPED 32338e1 -- the Balenciaga /
+Rick Owens silhouette library at shape level, 13 entries in
+reference/library/runway/ (shoulder, drape, hem, leg-and-boot, and the two
+whole-figure poles: WIDE AT THE TOP vs TALL AND STACKED, commit to one).
+Index re-derived, 44 refs / 10 kinds. NEXT OPEN: [builder references], then
+[opening references], [style card], [style checker], [batch judging].
+[PENDING Paolo] (for the coordinator to carry): the farm tile group is the
+one drift in the art family sheet (LOOK tab) -- approved bank; leave as-is
+or calm it to match the family, A or B.
 DIRECTION (art-f3eu53): 9/5 (l) -- *** THE REFERENCE LIBRARY AND ITS
 INDEX ARE SHIPPED (VAMILY rows 2 and 3 of the DIRECTION lane, after row 1's
 MATCHED TO button earlier today). reference/library/ holds 9 kinds x 31
