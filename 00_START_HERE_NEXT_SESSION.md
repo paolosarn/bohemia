@@ -1381,6 +1381,62 @@ broken ruler in WORLD's gate. For the coordinator to route.
 FAUCET, THE DRAIN IS NOT THE NEXT JOB, IT IS THE SECOND HALF OF THIS ONE. The board happened
 to have them adjacent. It will not always.
   NEXT OPEN LINE IN THIS LANE: [builder reachable] BUILDER-WHERE-HE-WALKS.
+
+*** [builder reachable] BUILDER-WHERE-HE-WALKS: SHIPPED. HE CAN BUILD WHERE HE IS
+STANDING, AND A CACHE THAT PROMISED "ONE FRAME" WAS LASTING FOREVER. *** MODE: BUILD.
+TAB: CITY (the BUILD HERE chip is on the walked street, beside SLEEP).
+  HALF THE BRIEF WAS ALREADY FALSE AND I MEASURED IT BEFORE BUILDING ANYTHING. Driven on
+the real cut demo, through the splash, as a player: the CITY button is there, the panel
+opens, BUILD is live. THE BUILDER HAS REACHED THE DEMO FOR SOME TIME. The note saying
+otherwise was MINE, from the [builder works] round, and it was grepping
+BOHEMIA_RUN_CURRENT.html for cityTapPlot -- the demo does not build its city from that
+file, it loads BOHEMIA_CITY_WORLD.html in an iframe. A GREP OVER THE WRONG ARTEFACT IS
+NOT A MEASUREMENT, and it sat in this lane's STATE line for two rounds looking exactly
+like one. STATE corrected in the same commit.
+  WHAT WAS ACTUALLY MISSING IS THE OTHER HALF OF THE JOB'S NAME: cityTapPlot was guarded
+by MODE==='city', so a player on the street could not touch the city he is rebuilding
+without leaving it and looking down from the air.
+  SHIPPED: a BUILD HERE chip on the walked surface, joined to the bottom-left column the
+day it was born. It opens THE SAME PANEL for the cell under his feet -- same verbs, same
+skeleton-is-sacred rule, same one battery -- because a second builder for the street
+would be a second set of rules to keep in step with the first. A toggle (the chip is the
+only way in, so it must be the way out) plus an X on the panel in human mode, because on
+foot there is no plot to tap a second time. NOT offered in the aerial view, where tapping
+a plot already does this: one door per room.
+  THE REAL FIND, AND IT IS A BUG THIS JOB EXPOSED RATHER THAN CAUSED: the first drive
+demolished the plot under his feet, the delta took the edit, and om.at kept answering
+SUBURB -- so the panel offered DEMOLISH again and the next BUILD was refused as "build
+only on empty desert" for a plot that was already desert. The edit-seam frame cache says
+it is safe because "within a single frame the map cannot change". The rule is right. But
+the only thing that advances CITY_FRAME is the CITY render, and the walked surface never
+runs one, so on foot the "one frame" lifetime quietly became FOREVER. THE CACHE WAS
+NEVER WRONG ABOUT ITS RULE, ONLY ABOUT WHO WAS KEEPING IT. Invisible until now because
+until this round the only way to edit was in city mode, where render() bumps the counter
+one line later. A NEW DOOR FOUND AN OLD HOLE. Fixed where an edit happens.
+  GATE: gates/builder_where_he_walks_gate.js, 16/0, walked surface AND cut demo (rule
+7), registered. A2/A3 hold REACHABILITY not existence; A5/B5 ask om.at, THE WORLD, not
+the delta, which is the only reason the cache bug was caught rather than shipped.
+Mutation-tested three ways: remove the seam-cache bump (4 legs red), restore the
+MODE==='city' guard (7 red), show the chip in every mode (A9 red).
+  AND ITS OWN DEMO SECTION WENT RED TWICE ON INNOCENT CONTROLS: the cold open card
+(#daycard, inset:0, z 40) because nothing had tapped GET UP inside the frame; then the
+invite banner (#openInvite, absolute across the top, z 39) swallowing every tap in the
+top band, which is where the build panel lives. Both halves of that evidence were true
+and only one decided: elementFromPoint INSIDE the frame said cbdem, the same point in
+the PARENT said openNot. A ladder of taps down the screen turned the theory into a
+measurement. THIRD TIME THIS LANE HAS WRITTEN A GATE THAT SKIPPED A STEP THE PLAYER
+CANNOT SKIP; the button was innocent all three times.
+  WHERE IT STOPS: what you build on foot changes the world model and the streets
+regenerate from it, but whether the building is standing in the ART when you walk up to
+it is [buildings appear], further down this queue. Not absorbed into this one.
+  RECORD: records/BOHEMIA_BUILD_WHERE_YOU_ARE_STANDING_9_5_26.md
+  STILL RED ON MAIN AND STILL NOT MINE: demo_day_gate 23/1, "the money really left the
+purse (500 -> 500)". Third round carrying it: the leg's own fixture credits and reads
+`resources` while WORLD's battery ship moved buying to `electricity`. A broken ruler in
+WORLD's gate. FOR THE COORDINATOR TO ROUTE.
+  THE STANDING NOTE: A CACHE'S LIFETIME IS A PROMISE ABOUT WHO WILL END IT. This one
+named a frame that, on half the game's surfaces, never comes.
+  NEXT OPEN LINE IN THIS LANE: [people housed] HOUSING.
 WORLD (02 WORLD MODEL, session world-9lfjtf)
 
 *** PERMANENT INSTRUCTION FROM PAOLO, 9/5, WORD FOR WORD. IT LIVES HERE SO IT
