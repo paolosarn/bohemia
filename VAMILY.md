@@ -323,7 +323,7 @@ STATE: Gen 1 Animal, the fold, Gen 3 Angel: nothing on any player surface; selec
 - SHIPPED 9/5 records/BOHEMIA_DYNASTY_DAY_2_A_COYOTE_IN_LAS_VEGAS_9_5_26.md  [coyote life]  Q2  A coyote in Las Vegas. The real ethology of urban coyotes (range, diet, how they read people, how they die) as the animal generation's actual life.
 - SHIPPED 9/5 records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md  [heir keeps]  Q3  What carries across a generation. In the best games with inheritance, what the heir keeps, what they lose, and which of it the player actually cares about. Against our fold maths (selectHeir exists, unused).
 - SHIPPED 9/5 records/BOHEMIA_DYNASTY_DAY_4_THE_THIRD_GENERATION_9_5_26.md  [third generation]  Q4  The third-generation curse. How real family businesses and dynasties survive or die by the third generation, and what a game could take from it for Gen 3.
-- OPEN  [growing old]  Q5  Growing old on screen. How the best games show a character ageing in a way that changes play, not only the portrait.
+- CLAIMED 9/5 dynasty-w4yxiz  [growing old]  Q5  Growing old on screen. How the best games show a character ageing in a way that changes play, not only the portrait.
 - OPEN  [time skip]  Q6  The time skip. How to jump ten years and make the player feel it; what the best games do at a cut like ours (the match cut at the table).
 - OPEN  [family arrives]  Q7  A partner and a child without a chore. How the best games handle a companion becoming family and a child arriving, and where it turns into babysitting.
 - OPEN  [inherited memory]  Q8  Remembering a life you did not play. How the second generation remembers the first: what the game shows the heir about the parent, and what real second generations actually keep.
