@@ -703,7 +703,20 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ai) LATEST -- *** THE COMBAT TILE IS
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aj) LATEST -- *** QUESTS PARKED; VAMILY
+HAS TWO MODES; WORDS IS IN RESEARCH MODE ON HOW PEOPLE TALK; ECONOMY AND DYNASTY
+RECOMMENDED AS RESEARCH CHATS. Nothing to judge. ***
+laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md. His words: no quest chat yet, he
+needs aesthetic supervision on experiencing it. WORDS on VAMILY does research only,
+"test and write down, big swings"; 14 questions queued; test lines go to
+banks/BOHEMIA_WORDS_TEST_LINES.md draft:true. Asked which other chats should do
+weeks of research now: ECONOMY (12 questions, the game's identity, builder a quarter
+built) and DYNASTY (12 questions, the least-built pillar, needs thinking before
+building). Not recommended as research-only: ANIMATION, SOUND, COMBAT. Every VAMILY
+section now carries MODE: BUILD / RESEARCH / PARKED. LAST FEEDBACK RECEIVED: this ->
+VAMILY modes, WORDS/ECONOMY/DYNASTY queues.
+
+COORDINATOR: 9/4 (ai) -- *** THE COMBAT TILE IS
 WIDER THAN THE PERSON: about 1.5 to 2 sprite-widths, sprite in the middle, a house
 with a backyard is 1x2, the ratio is a dial by eye. Nothing to judge. ***
 Section 3d of the 9/4 tile law; COMBAT's top row; ART gets COMBAT-GROUND-TILES (the

@@ -19,6 +19,13 @@
 5. When it is in the walked surface AND the demo (re-cut it), change the
    line to `SHIPPED <date> <commit>` and commit. That is the history.
 6. Then the next OPEN one, or stop and say so.
+7. EVERY LANE SECTION CARRIES A MODE (9/4). MODE: BUILD is the above. MODE:
+   RESEARCH means DO NOT IMPLEMENT: take the first OPEN question, do one research
+   day in the BB-study shape (both aisles, one finding that challenges us,
+   measured against our repo, a record, test lines tagged draft:true in a bank
+   file never in the game, and a ROUTED section), mark the question SHIPPED
+   with the record's path. Big swings; a day that only confirms us has failed.
+   A section marked PARKED is not claimed by anybody until he reopens it.
 Only the coordinator adds jobs. Lanes change the status word and nothing
 else. STANDING DUTIES, every turn, every lane: VAMILY first; play it on the
 real surface before calling it shipped and re-cut the demo; his bugs beat
@@ -38,6 +45,7 @@ everything; rewrite your handoff block before you end.
 10. COMBAT    BB-NERVE-ON
 
 ## WORLD
+MODE: BUILD
 - OPEN  BB-BATTERIES-ARE-THE-MONEY  (with BB-THE-LETTER-IS-ONE, one job)
 - OPEN  BB-THE-LETTER-IS-ONE
 - OPEN  BB-FOUR-VERBS-THREE-CURRENCIES
@@ -53,7 +61,8 @@ everything; rewrite your handoff block before you end.
 - OPEN  BB-COALITION
 - OPEN  CENTURY-RECORD -- persist per-act build totals so act 3's city can differ; mechanism ours, every number his
 
-## QUESTS  (first word "quests"; NO CHAT ON RECORD, open one)
+## QUESTS  (first word "quests")
+MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on experiencing it." Nothing below is claimed until he reopens it.
 - OPEN  MAIN-QUEST-SPINE -- Act 1 main quest as .bq stubs from laws/BOHEMIA_STORY_MASTER_7_18_26.md; not one main-quest file exists; the single largest hole in the game
 - OPEN  BB-THE-JOB-PAYS  (after WORLD's first job lands)
 - OPEN  BB-INSIDE-A-DAY
@@ -65,6 +74,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  ACT-2-OPENING -- needs Paolo: who dies next; write the scene the moment he rules
 
 ## SOUNDS
+MODE: BUILD
 - OPEN  BB-THE-CITY-SENDS-WHERE
 - OPEN  BB-THE-DAY-SONG-PLAYS
 - OPEN  BB-THE-BED-IS-THE-PLACE
@@ -72,6 +82,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  THE-OTHER-51 -- give every approved sound a caller on the walked surface; 51 of 65 have none; no new cooks
 
 ## COMBAT
+MODE: BUILD
 - OPEN  BB-A-TILE-IS-A-HOUSE
 - OPEN  BB-NERVE-ON
 - OPEN  THE-INDOOR-FIGHT -- the door from the city works (gate 26/0); the indoor entry is the missing half (day-14 row)
@@ -86,6 +97,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  RF4-SPEC-DIFF -- close the 68-item RF4 teardown spec's diff column (from LAB)
 
 ## RUN
+MODE: BUILD
 - OPEN  BB-THE-PEOPLE-RIDE-THE-SAVE
 - OPEN  BB-THE-GATE-WALKS-THE-PEOPLE
 - OPEN  ROAD-INTERRUPTS-ON-FOOT -- roadInterrupt has one caller inside MODE==='city'; it never fires on the walked street
@@ -99,6 +111,7 @@ everything; rewrite your handoff block before you end.
 - OPEN  POPULATION-DEFAULT -- dispatch item 5; the number is his
 
 ## ANIMATION  (NEW LANE, first word "animation"; last animation ship 8/18)
+MODE: BUILD
 - OPEN  THE-63-CLIP-AUDIT -- play every clip on the real surface, list what is broken and how, before any recook (his 8/25 order, untouched)
 - OPEN  SHOW-HIM-THE-LIST -- needs Paolo: verdicts on the 63; no clip carries one since the 7/26 reset
 - OPEN  ANIMATE-THE-CROWD -- the bake already sends walk frames for the city cast; the decoder keeps only idle, so every resident is a frozen sprite
@@ -107,12 +120,14 @@ everything; rewrite your handoff block before you end.
 - OPEN  LEAF-GATE-EVERY-RECOOK
 
 ## CHARACTER
+MODE: BUILD
 - OPEN  WIRE-THE-REMAKE -- as ART batches pass DIRECTION, wire them into the picker and the wardrobe data; ART makes pixels, CHARACTER makes them worn
 - OPEN  HAIR-REF-EIGHT-FACINGS -- his 8/25 order, still open
 - OPEN  ROUND-7-LOOK -- needs Paolo
 - OPEN  WARDROBE-VOLUME -- new garment shapes behind the structure law
 
 ## PEOPLE
+MODE: BUILD
 - OPEN  BB-STANDING-PLAYER
 - OPEN  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
 - OPEN  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one
@@ -124,18 +139,35 @@ everything; rewrite your handoff block before you end.
 - OPEN  A-COMPANION-ON-FOOT -- needs Paolo: ROSA is a draft he has not ruled on
 
 ## FACTIONS
+MODE: BUILD
 - OPEN  TOWN-TIERS-ARE-HIS -- needs Paolo: the draft tiers off act1_power ship; he moves any faction he likes; with WORLD FACTION-TOWNS
 - OPEN  NAME-THE-CIRCUIT-OWNER -- needs Paolo (who holds what)
 - OPEN  BB-COALITION  (with WORLD)
 - OPEN  BB-UNPAID-TURNS-PREDATORY
 
-## WORDS
-- OPEN  BB-THE-SMALL-MOMENT
-- OPEN  BB-STILL-SAYS-IT
-- OPEN  BB-RESPONSIVE
-- OPEN  SECOND-VOICE-PASS -- the 27 quest scenes, one more pass
+## WORDS  (first word "words")
+MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't implement anything. Just test and write down. Big swings." Subject: HOW PEOPLE TALK, banked for the day quests open. Test lines go to banks/BOHEMIA_WORDS_TEST_LINES.md, draft:true.
+- OPEN  Q1  Two people, three lines each, and you can tell them apart with the names removed. What the best-written games do with vocabulary, rhythm and the thing a person never says. Measure our 504 NPC lines for it.
+- OPEN  Q2  How a person talks when they are lying, scared, or exhausted, in TEXT with no voice actor. The real science of speech under stress (hesitation, repair, shortened sentences) and which games get it onto the page.
+- OPEN  Q3  How a crowd talks without repeating itself. The best ambient-bark systems ever built: how many lines, how they are chosen, how they avoid the third repeat. Against our roadside director's twelve.
+- OPEN  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a line that lands ON the beat does that one that drifts does not.
+- OPEN  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns something. Against our asking module's eighteen blocks.
+- OPEN  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a camp kid to anyone. Test lines for one exchange at each gap.
+- OPEN  Q7  The second conversation. How speech changes when a person REMEMBERS you (our memory organ already tracks it). What the best games do with a returning player, and what they do wrong.
+- OPEN  Q8  Grief speech. The cold open kills the sister. How real people talk in the first hour, the first day, the first month, and which games wrote it honestly. Test lines for the grief dinner.
+- OPEN  Q9  What a former trade sounds like. A dealer, a lineman, a laundry chief, a pit boss: the vocabulary and metaphors a job leaves in a mouth (day 8's background as identity). Test lines for six trades.
+- OPEN  Q10 Threats that de-escalate and threats that escalate. What real negotiators and the best-written standoffs do with a sentence, for the gambit orders (day 3).
+- OPEN  Q11 What the face can carry so the words do not have to. At 64 px with mouth, blink and brow, which emotions read without a word, and how games with a talking portrait split the load between face and text.
+- OPEN  Q12 Names and nicknames. How people in a collapsed city name each other and places (real post-disaster naming, gang and crew naming), and what that does for a player learning who is who.
+- OPEN  Q13 Rumour. How true and false news moves through a small world by speech alone, in the real record and in the best games, for the man-who-lives-tells-people axis (day 12).
+- OPEN  Q14 The one-word answer. When the best games let a character answer in one word and why it lands. Test lines: twenty one-word answers, each a different person.
+- OPEN  BB-THE-SMALL-MOMENT  (build, held until the lane returns to MODE: BUILD)
+- OPEN  BB-STILL-SAYS-IT  (build, held)
+- OPEN  BB-RESPONSIVE  (build, held)
+- OPEN  SECOND-VOICE-PASS  (build, held)
 
 ## UI
+MODE: BUILD
 - OPEN  BB-ONE-NUMBER
 - OPEN  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
 - OPEN  FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists; measure with the cold hand
@@ -144,11 +176,13 @@ everything; rewrite your handoff block before you end.
 - OPEN  ROUND-7-LOOK -- needs Paolo
 
 ## DIRECTION  (first word "direction"; the look half of the UI chat, its own word as of 9/4)
+MODE: BUILD
 - OPEN  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
 
 ## ART  (never idles; the last line is permanent)
+MODE: BUILD
 - OPEN  WARDROBE-REMAKE -- every garment to the card, NEW SHAPES ONLY (structure law), graveyard stays dead, 10% coat cap stands, colour stays territory; batches through the existing kill/approve pipeline
 - OPEN  HAIR-TO-THE-CARD -- every haircut to the card; all eight facings; the hair, hairline, graveyard and leaf gates hold
 - OPEN  COMBAT-GROUND-TILES -- the combat floor tile at 1.5 to 2 sprite-widths, on the 45-degree corpus: house, yard, street, lot, cover that reads; a house with a backyard spans 1x2 (9/4 tile law 3d)
@@ -161,9 +195,41 @@ everything; rewrite your handoff block before you end.
 - OPEN  COOK-THE-NEXT-THING-THE-CARD-ASKS-FOR -- permanent; this line is never marked shipped
 
 ## LAB
+MODE: BUILD
 - OPEN  REOPEN-OR-RETIRE -- needs Paolo; its RF4 spec goes to COMBAT either way
 
+## ECONOMY  (first word "economy"; RECOMMENDED 9/4, open it)
+MODE: RESEARCH -- the game's identity is "the most realistic economic crash simulator, but fun", and the builder half is a quarter built. Research only; every finding becomes a WORLD job later. No game he has not named enters the design; bring back mechanics in plain words.
+- OPEN  Q1  The first thirty days after a currency dies. What actually happened to prices, wages and shops in Argentina 2001, Zimbabwe 2008, Venezuela, Lebanon 2019. Which of it a player would feel in a first hour.
+- OPEN  Q2  How money comes back. How a good becomes money when the money is gone (POW-camp cigarettes, prison mackerel, detergent, phone credit) and what makes it fail. Test the battery against every failure.
+- OPEN  Q3  What people rebuild first. Cuba's Special Period, post-Katrina New Orleans, Detroit, post-Soviet towns: the real order of rebuilding, for the century rule's sequence.
+- OPEN  Q4  Placing a building that feels good in the first hour. What the best builder games ever made do in the first ten minutes of building, and what makes a placed building feel like it did something.
+- OPEN  Q5  An economy with no numbers on screen. How the best games show scarcity, price and wealth without a spreadsheet. Against our one-number rule.
+- OPEN  Q6  Who runs a casino when the money is gone. The back of house as an economy: laundry, kitchens, boilers, the deep dry stores (day 8). What a fortress actually produces.
+- OPEN  Q7  Water. Lake Mead, the real constraint on Las Vegas. What a valley of a few thousand people actually needs and where it comes from when the pumps stop.
+- OPEN  Q8  Electricity as money in the real world. Microgrids, battery economics, Nevada solar, what a AA is really worth in energy. Denominations for the battery.
+- OPEN  Q9  Credit without courts. Rotating savings circles, hawala, tabs at a bar: how debt works when nobody can sue, for the obligations motor (day 7).
+- OPEN  Q10 The market day. How real periodic markets work (who comes, from how far, how often) and what the best games do with a trading trip, for the faction towns.
+- OPEN  Q11 Inflation as a feeling. What runaway prices do to behaviour (spend today, hoard, barter) and how a game could make a player feel it in a week of play without a single chart.
+- OPEN  Q12 Housing. How people actually house themselves after a collapse (squatting, doubling up, who gets the good buildings) for the other half of the economy law.
+
+## DYNASTY  (first word "dynasty"; RECOMMENDED 9/4, open it)
+MODE: RESEARCH -- Gen 1 Animal, the fold, Gen 3 Angel, the heir: not started on any surface and never owned. Research only; findings become PEOPLE, QUESTS and RUN jobs when those open. Canon (who marries whom, who the Angel is) stays his; the lane brings shapes.
+- OPEN  Q1  Playing as an animal. What the best games ever made do when you are not human: what you can do, what you cannot, what the player feels, and where it gets boring. For Gen 1.
+- OPEN  Q2  A coyote in Las Vegas. The real ethology of urban coyotes (range, diet, how they read people, how they die) as the animal generation's actual life.
+- OPEN  Q3  What carries across a generation. In the best games with inheritance, what the heir keeps, what they lose, and which of it the player actually cares about. Against our fold maths (selectHeir exists, unused).
+- OPEN  Q4  The third-generation curse. How real family businesses and dynasties survive or die by the third generation, and what a game could take from it for Gen 3.
+- OPEN  Q5  Growing old on screen. How the best games show a character ageing in a way that changes play, not only the portrait.
+- OPEN  Q6  The time skip. How to jump ten years and make the player feel it; what the best games do at a cut like ours (the match cut at the table).
+- OPEN  Q7  A partner and a child without a chore. How the best games handle a companion becoming family and a child arriving, and where it turns into babysitting.
+- OPEN  Q8  Remembering a life you did not play. How the second generation remembers the first: what the game shows the heir about the parent, and what real second generations actually keep.
+- OPEN  Q9  A place across a hundred years. Real succession of a town (what stays, what is renamed, what is forgotten) for the century rule and for Act 3's city.
+- OPEN  Q10 The transcendent last act. Not the lore, the SHAPE: how the best games handle a final act where the rules change (a new kind of body, a new kind of power) without breaking the game that came before. For the Angel.
+- OPEN  Q11 Death that is not the end. How games without permadeath and without a run still make a death matter across generations (the wounds that carry, day 4's scar).
+- OPEN  Q12 The heir's first hour. When the fold happens, what the first ten minutes of the next life must do so the player does not feel they lost everything.
+
 ## SHARED (any chat with nothing open in its own lane)
+MODE: BUILD
 - OPEN  BB-COLD-HAND
 - OPEN  BB-A-GATE-CAN-SAY-OWED
 - OPEN  VAMILY-GATE

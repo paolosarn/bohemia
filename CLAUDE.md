@@ -1544,6 +1544,22 @@ danger; wardrobe + LIFE + COMBAT in parallel = the design). Stay inside your
 session's systems; a rebase conflict inside the alpha means a boundary was
 crossed -- stop and check before pushing.
 
+## RESEARCH LANES: VAMILY HAS TWO MODES (Paolo 9/4/26, LOCKED)
+"no quest chat yet... I need aesthetic supervision on experiencing it." QUESTS IS
+PARKED until he says. "for the words chat when I say VAMILY... keep doing big
+brain online research, keep impressing me with knowledge, don't implement
+anything. Just test and write down. Big swings." EVERY VAMILY SECTION CARRIES A
+MODE: BUILD (claim, build, ship, mark) or RESEARCH (do not implement; take the
+first OPEN question, do one research day in the BB-study shape, both aisles, one
+finding that challenges us, test lines tagged draft:true in a bank never in the
+game, a ROUTED section, mark it shipped with the record). WORDS is in research
+mode on HOW PEOPLE TALK. Two more research chats recommended and queued: ECONOMY
+(first word "economy": how real economies collapse and rebuild, how money comes
+back, what the best builder games do) and DYNASTY (first word "dynasty": playing
+an animal, inheritance, ageing, the time skip, the Angel's shape). The 8/28 rule
+holds hardest in research mode: mechanics in plain words, no unnamed game enters
+the design. Law: laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md
+
 ## THE RUNWAY, AND ART AT ALL TIMES (Paolo 9/4/26, LOCKED)
 "every piece of clothing and every hairstyle should be modeled after like fashion
 brands... Balenciaga, Rick Owens... no matter their faction... I want everyone to
@@ -1618,7 +1634,7 @@ failed - stop and say so instead of fixing the attempt.
 ## THE AUTONOMY DOCTRINE (Paolo 7/26/26, LOCKED — binds EVERY session)
 Read laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md and follow it exactly. The
 short form: the FIRST word of a new session names its lane (run/world/city/
-combat/character/animation/quests/people/sound/ui/direction/words/art/lab/coordinator) and means GO; after that his entire
+combat/character/animation/quests/people/sound/ui/direction/words/economy/dynasty/art/lab/coordinator) and means GO; after that his entire
 vocabulary is "go" / "verdicts in" / "status" —
 any other word from him is a RULING to record, never a discussion to have.
 On "go": run THE GO PROCEDURE (resume mid-flight work, else pop your lane's
