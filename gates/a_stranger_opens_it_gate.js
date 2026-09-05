@@ -37,26 +37,31 @@
       8/4) to the origin, the vista and one good day; there is no fight in it,
       by his ruling, and a gate that failed on its absence would be enforcing a
       scope he did not set.
-   2. It does not claim the movement pad is too small. The eight walk buttons
-      measure 42x42 CSS px against a platform minimum of 44, and the map-move
-      pad is already 46, so the layout would carry it -- but every one of 160
-      taps registered, so there is no evidence it stops anybody. The number is
-      REPORTED and floored so it cannot get worse, and whether the circle grows
-      is an art call, not a gate's.
+   2. It does not claim a card is a bug. Cards are how this game talks, and one
+      can arrive at any moment -- measured, the same unmutated build read 17/0
+      and then 15/2 on the next run because a card came up during the seconds
+      the flood fill takes and sat over the pad. Asserting "no card ever covers
+      the controls" is flaky AND wrong. The real claim, and the one the
+      historical bug broke, is that a card is DISMISSIBLE and the pad works once
+      it is gone.
    3. It does not claim the clock is broken. A first walk read zero minutes over
       160 presses, which looks like a stopped clock and is not one: a human step
       costs 0.084 minutes because it is one small cell, distance-honest, on
       purpose. Checked before it was written down, and that is the only reason
       it is not in here as a bug.
 
-   MUTATION PROOF, run 9/5:
+   MUTATION PROOF, run 9/5, re-run after the move to a served build:
      * a transparent scrim over the walk pad -- the exact bug this lane shipped
        and caught once already, when a card's own backdrop sat on the controls
        -> 2 red, and it NAMES THE CULPRIT BY ID ("covered by MUTSCRIM") rather
-       than only saying the game stopped working
+       than only saying the game stopped working. Still bites after the card
+       handling was made non-flaky, which was the thing to check: a claim made
+       tolerant of cards must still catch a scrim that is not one.
      * deleting the words "TAP TO ENTER" from the front door -> 1 red, and it
        prints what the screen said instead, which is the whole question a
        stranger's first screen has to answer
+     * dropping only the demo's drawer-hide -> 1 red on the drawer claim,
+       printing "read: true".
 
    AND THE HARNESS MISTAKE THAT IS BAKED INTO THE DESIGN HERE: the first cold
    walk pressed all eight directions in turn, measured a net displacement of
@@ -69,9 +74,44 @@
 'use strict';
 const path = require('path');
 const fs = require('fs');
+const http = require('http');
 const ROOT = path.join(__dirname, '..');
+const SLICES = path.join(ROOT, 'slices');
 const { settle: SETTLE } = require(__dirname + '/bohemia_settle.js');
-const DEMO = 'file://' + path.join(ROOT, 'slices/BOHEMIA_DEMO.html');
+
+/* *** SERVED, NOT OPENED (fixed 9/5, and it was MY OWN BROKEN RULER). ***
+   This gate first shipped driving file://, and on file:// IT WAS NOT TESTING
+   THE DEMO. The demo does not edit the city file -- ONE SYSTEM, ONE SESSION --
+   so the two things that make it safe for a stranger are injected into the city
+   frame from the demo side, and both are same-origin. A file:// parent cannot
+   reach a file:// frame, the injection lands in a catch, and it silently does
+   nothing. Measured on the built demo at 390x844:
+
+       off disk (what this gate used to see)   served (what a player gets)
+       walk pad 42x42                          walk pad 44x44
+       the builder drawer VISIBLE              the builder drawer hidden
+
+   The drawer opens REROLL, which regenerates the world under a stranger's own
+   session. So the gate whose whole job is "what does a stranger meet" was
+   reporting green about a screen with a destroy-my-game button on it that no
+   player will ever see. Seventh broken ruler on this lane in two weeks, and the
+   worst kind: it was measuring the harness while claiming to measure the game. */
+const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
+               '.png': 'image/png', '.json': 'application/json', '.woff2': 'font/woff2' };
+function serve() {
+  return new Promise(res => {
+    const s = http.createServer((rq, rs) => {
+      const rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '');
+      const f = path.join(SLICES, rel);
+      if (!f.startsWith(SLICES) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) {
+        rs.statusCode = 404; return rs.end('no');
+      }
+      rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream');
+      fs.createReadStream(f).pipe(rs);
+    });
+    s.listen(0, '127.0.0.1', () => res(s));
+  });
+}
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
@@ -85,9 +125,11 @@ const done = () => {
    ceiling that trips on noise gets ignored, which is worse than no ceiling. */
 const LOAD_CEIL_MS = 20000;
 const WORLD_CEIL_MS = 60000;
-/* the floor holds today's size so it cannot silently shrink. 44 is Apple's
-   published minimum and the walk pad is 42; that gap is named, not enforced. */
-const PAD_FLOOR_PX = 42;
+/* NOW THAT THIS GATE IS SERVED, the demo's own thumb injection applies and the
+   walk pad is the platform minimum. The floor is the real number, not the disk
+   one -- holding 42 here would have quietly accepted the un-injected build
+   forever, which is the bug this gate just had. */
+const PAD_FLOOR_PX = 44;
 const APPLE_MIN_PX = 44;
 /* a stranger who can only reach a courtyard has not been handed a game. The
    real number is 200,914+; this floor is two orders under it. */
@@ -100,6 +142,8 @@ const GROUND_FLOOR = 2000;
 
   ok('the demo build exists on disk', fs.existsSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html')));
 
+  const srv = await serve();
+  const DEMO = 'http://127.0.0.1:' + srv.address().port + '/BOHEMIA_DEMO.html';
   const browser = await chromium.launch({ args: ['--no-sandbox'] });
   /* A REAL PHONE, not a small window: touch events, mobile UA, no mouse. */
   const ctx = await browser.newContext({
@@ -182,14 +226,43 @@ const GROUND_FLOOR = 2000;
       + declined + ')', declined === 'declined' || declined === 'no-invite');
 
     /* ---- 3. THE GROUND -------------------------------------------------- */
-    await city.evaluate(() => {
-      const c = document.getElementById('daycard');
-      if (c && getComputedStyle(c).display !== 'none') {
-        const g = c.querySelector('.dcgo') || c.querySelector('.dcbtn');
-        if (g) g.click();
+    /* CLEAR THE MORNING CARD THE WAY A PLAYER DOES, AND KEEP CLEARING IT.
+       A single dismissal was enough off disk and is NOT enough served: the
+       served boot is slower, so the card can arrive after the one attempt and
+       then sit over the controls. That is a harness timing difference, not a
+       game bug, and reading it as a game bug is how a gate manufactures a false
+       accusation. So this waits for the card to actually be gone. */
+    /* A CARD CAN COME BACK, AND THAT IS THE GAME, NOT A BUG. Measured: on the
+       served build the same unmutated demo read 17/0 and then 15/2 on the next
+       run, because a card arrived during the seconds the flood fill takes and
+       sat over the pad. Asserting "no card ever covers the controls" is both
+       flaky and wrong -- cards are how this game talks. THE REAL CLAIM, and the
+       one the historical bug broke, is that a card is DISMISSIBLE and the pad
+       works once it is gone. So this clears them wherever it needs a clear
+       screen, and reports how many it met. */
+    let cardsMet = 0;
+    const seenCards = [];
+    const clearCards = async () => {
+      for (let i = 0; i < 12; i++) {
+        const up = await city.evaluate(() => {
+          const c = document.getElementById('daycard');
+          if (!c || getComputedStyle(c).display === 'none') return null;
+          const txt = (c.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 44);
+          const g = c.querySelector('.dcgo') || c.querySelector('.dcbtn') || c.querySelector('.dcx');
+          if (g) g.click();
+          return txt || '(blank)';
+        });
+        if (up === null) return i;
+        cardsMet++; if (seenCards.length < 4) seenCards.push(up);
+        await SETTLE(page, 700);
       }
-    });
-    await SETTLE(page, 1500);
+      return -1;   /* would not go away */
+    };
+    const firstClear = await clearCards();
+    await SETTLE(page, 1200);
+    ok('every card he meets can be dismissed -- one is never a wall'
+      + (seenCards.length ? ' (' + seenCards.join(' | ') + ')' : ' (none up)'),
+      firstClear >= 0);
 
     const ground = await city.evaluate((CAP) => {
       const sx = hx, sy = hy;
@@ -215,6 +288,11 @@ const GROUND_FLOOR = 2000;
       + GROUND_FLOOR + ')', ground.reachable >= GROUND_FLOOR);
 
     /* ---- 4. THE THUMB --------------------------------------------------- */
+    /* clear whatever arrived while the flood fill ran, then look at the pad */
+    const beforeThumb = await clearCards();
+    await SETTLE(page, 600);
+    ok('and they stay dismissible later in the session too', beforeThumb >= 0);
+
     const thumb = await city.evaluate(() => {
       const vis = el => {
         if (!el) return false;
@@ -247,11 +325,23 @@ const GROUND_FLOOR = 2000;
     ok('and NOTHING is sitting on top of them -- every one takes the tap'
       + (thumb.coveredCount ? ' (covered by ' + thumb.covered.join(', ') + ')' : ''),
       thumb.coveredCount === 0);
-    ok('the walk buttons are ' + thumb.minW + 'x' + thumb.minH + 'px and have not '
-      + 'shrunk (floor ' + PAD_FLOOR_PX + '; the platform minimum is ' + APPLE_MIN_PX
-      + ', so this is ' + (APPLE_MIN_PX - Math.min(thumb.minW, thumb.minH))
-      + 'px under it and that is an art call, not a gate\'s)',
+    ok('the walk buttons are ' + thumb.minW + 'x' + thumb.minH + 'px, the platform '
+      + 'minimum (floor ' + PAD_FLOOR_PX + '). Off disk they read 42, because the '
+      + 'demo\'s thumb injection is same-origin and cannot apply -- which is why '
+      + 'this gate is served',
       thumb.minW >= PAD_FLOOR_PX && thumb.minH >= PAD_FLOOR_PX);
+
+    /* THE ONE THAT IS NOT COSMETIC. The city's toolbar carries a builder drawer
+       whose REROLL regenerates the world under the player's own session. The
+       demo hides it from its own side; off disk that hide does not apply and it
+       sits there in plain view. A stranger meeting a destroy-my-game button is
+       exactly what this gate exists to notice. */
+    const drawer = await city.evaluate(() => {
+      const d = document.getElementById('devbtn');
+      return d ? getComputedStyle(d).display !== 'none' : null;
+    });
+    ok('*** AND THE BUILDER DRAWER IS NOT THERE *** -- REROLL would regenerate '
+      + 'the world under his own session (read: ' + drawer + ')', drawer === false);
 
     /* ---- 5. PRESSING IT MOVES HIM --------------------------------------- */
     /* THE ONE THING A STRANGER TESTS FIRST. Not "does the pad exist" -- does
@@ -259,6 +349,7 @@ const GROUND_FLOOR = 2000;
        all eight walks a circle and a circle measures the harness, not the game.
        (That mistake was made on the first walk and caught before it was
        written down.) */
+    await clearCards();          /* and once more before the press test */
     const before = await city.evaluate(() => ({ hx, hy }));
     const east = await city.evaluateHandle(() =>
       [...document.querySelectorAll('#pad .pb')].find(b => (b.textContent || '').trim() === '→')
@@ -277,10 +368,12 @@ const GROUND_FLOOR = 2000;
       + (errs.length ? ' -- first: ' + errs[0] : ''), errs.length === 0);
 
     await browser.close();
+    srv.close();
     done();
   } catch (e) {
     ok('the gate ran to the end [' + String(e.message).slice(0, 160) + ']', false);
     try { await browser.close(); } catch (e2) { }
+    try { srv.close(); } catch (e2) { }
     done();
   }
 })();

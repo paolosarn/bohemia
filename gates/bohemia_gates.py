@@ -866,6 +866,22 @@ GATES = [
      'the same instance, got day 2, and read as a failure of the module when it was a failure '
      'of the harness. It models a relaunch now. Mutation-tested: the snapshot dropping the '
      'people turns 5 claims red', True),
+    ('DEMO CURRENT',   ['node', 'gates/demo_is_current_gate.js'],
+     'VAMILY [demo current]: "prove the demo cut carries the same city file as the workshop on '
+     'every ship, by hash, in a gate". The SHELL half was already held (demo_build_gate re-runs '
+     'the cutter with --check, verified rather than believed). THE CITY HALF WAS HELD BY NOTHING: '
+     'the walked world is not cut into the demo, it is LOADED, both surfaces declaring the same '
+     'CITY_SRC -- with twenty-odd old slices sitting in the same folder, one of them 22 MB and '
+     'touched today. A demo re-pointed at one of those hands a friend a stale valley with no '
+     'symptom until somebody plays it. AND THE BIGGER THING IT UNCOVERED: the demo cannot edit '
+     'the city file, so the two things that make it safe for a stranger are injected into the '
+     'city frame from the demo side and both are SAME-ORIGIN. Off disk the injection lands in a '
+     'catch and silently does nothing -- measured at 390x844, a file:// load shows the walk pad '
+     'at 42 and THE BUILDER DRAWER VISIBLE, whose REROLL regenerates the world under a stranger '
+     'own session, while a served load shows 44 and the drawer hidden. So this gate SERVES the '
+     'files, and hashes the city\'s own code read live out of both frames (not the DOM, which '
+     'the demo is supposed to change). Mutation-tested: pointing the demo at a stale slice turns '
+     '7 red and names it; dropping only the drawer hide turns 2 red', True),
     ('STRANGER OPENS', ['node', 'gates/a_stranger_opens_it_gate.js'],
      'BB HANDS-NOW (Paolo 9/5: "I do want to get a demo into people\'s hands immediately"). '
      'WHOLE DEMO walks the demo end to end as somebody who KNOWS THE WAY -- it presses the '
@@ -879,7 +895,13 @@ GATES = [
      'ENTER" and nothing else, 200,914+ cells of ground reachable on foot. It REPORTS every '
      'number rather than only asserting it, because a stranger\'s patience is a real budget. '
      'Mutation-tested: a scrim over the walk pad (the bug this lane shipped and caught once) '
-     'turns 2 red AND NAMES THE CULPRIT BY ID; deleting "TAP TO ENTER" turns 1 red', True),
+     'turns 2 red AND NAMES THE CULPRIT BY ID; deleting "TAP TO ENTER" turns 1 red. FIXED 9/5, '
+     'and it was MY OWN BROKEN RULER: this first shipped driving file://, where the demo-side '
+     'injections that make it safe for a stranger are same-origin and silently do nothing -- so '
+     'the gate whose whole job is what a stranger meets was reporting green about a screen with '
+     'the builder drawer (REROLL, which regenerates the world under their own session) sitting '
+     'in plain view. It is SERVED now, the pad floor is the real 44 rather than the disk 42, and '
+     'the drawer is a claim', True),
     ('WHOLE DEMO',     ['node', 'gates/the_whole_demo_gate.js'],
      'THE DEMO IS SCOPED (Paolo 8/4): THE ORIGIN + THE VISTA + ONE GOOD DAY. Every beat of it '
      'is green and NOT ONE TEST HAD EVER PLAYED IT THROUGH. Five gates, three surfaces, five '

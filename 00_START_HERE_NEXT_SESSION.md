@@ -2775,7 +2775,81 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/5 LATEST -- *** [hands now] SHIPPED. THE LINK IS READY TO
+RUN (run-eak241): 9/5 LATEST -- *** [demo current] SHIPPED, AND IT CAUGHT
+SOMETHING BIGGER THAN ITSELF: EVERY GATE THAT OPENS THE DEMO OFF DISK IS TESTING
+A BUILD NO PLAYER GETS. On that surface the builder drawer is sitting in plain
+view, and its REROLL regenerates the world under a stranger's own session. TAB:
+RUN. Nothing to judge. ***
+
+THE ROW: prove the demo cut carries the same city file as the workshop, by hash,
+in a gate.
+
+THE SHELL HALF WAS ALREADY HELD, and I checked rather than believed it: the cut
+tool's header claims demo_build_gate re-runs it with --check, and it really does
+(demo_build_gate.js:160). This repo has spent a month finding comments that
+promise enforcement nobody wired, so that check was not optional.
+
+THE CITY HALF WAS HELD BY NOTHING. The world is not cut into the demo, it is
+LOADED -- both surfaces declare the same CITY_SRC, so today they share it by
+construction, and no test said so. There are twenty-odd old slices in that same
+folder; BOHEMIA_RUN_CURRENT.html is 22 MB and was touched this round. A demo
+re-pointed at one of those hands a friend a stale valley WITH NO SYMPTOM UNTIL
+SOMEBODY PLAYS IT.
+The hash is made honestly: hashing the frame's DOM would be wrong on its face,
+because the demo injects a stylesheet and the two DOMs are SUPPOSED to differ.
+So it reads five of the city's functions back AS SOURCE from inside each running
+frame -- what the browser actually parsed -- and hashes that.
+
+*** THE BIGGER THING. *** The demo cannot edit the city file (ONE SYSTEM, ONE
+SESSION), so the two things that make it safe for a stranger are INJECTED into
+the city frame from the demo side, and both are SAME-ORIGIN. A file:// parent
+cannot reach a file:// frame; the injection lands in a catch and does nothing.
+Measured at 390x844:
+      off disk (how gates test it)        served (what a player gets)
+      walk pad 42x42                      walk pad 44x44
+      the builder drawer VISIBLE          the builder drawer hidden
+The drawer opens REROLL: a destroyed playthrough, not a cosmetic leak. The cut
+tool's own comment predicted this exactly ("if a browser ever refuses ... the
+catch leaves the page exactly as it is today"). Written down correctly, enforced
+by nobody -- the fourth of those this month.
+
+*** AND IT WAS MY OWN GATE. *** a_stranger_opens_it shipped last round driving
+file://. Its whole job is what a stranger meets, and it was green about a screen
+with a destroy-my-game button on it. Worse, I wrote up the 42px pad in that
+round's record as a real measurement and reasoned carefully about whether to
+call it a blocker: THE NUMBER WAS AN ARTEFACT OF MY HARNESS. Seventh broken
+ruler on this lane in two weeks and the worst kind -- measuring the harness
+while claiming to measure the game, inside the one gate built to see what a
+player sees. It is served now, 15 -> 18 checks, pad floor at the real 44, the
+drawer a claim rather than a comment.
+
+A FLAKE, AND WHY THE FIX WAS NOT A RETRY: on http the same unmutated build read
+17/0 then 15/2, because a card arrived during the seconds the flood fill takes
+and sat over the pad. The lazy fix is a retry around the assertion; the right
+fix was noticing THE ASSERTION WAS WRONG. Cards are how this game talks and one
+can arrive any time, so "no card ever covers the controls" is flaky AND false.
+The real claim, the one the historical bug broke, is that a card is DISMISSIBLE
+and the pad works once it is gone. Then checked the risk that change creates: a
+claim made tolerant of cards must still catch a scrim that is not one. Re-ran
+the scrim mutation; still 2 red, still names the culprit.
+
+  DEMO CURRENT 16/0 (new) - STRANGER OPENS 18/0 (was 15/0) - DEMO BUILD 25/0
+  - THE THUMB 12/0 - WHOLE DEMO 23/0
+  MUTATION: point the demo at a stale slice -> 7 red and it NAMES the file;
+  drop only the drawer-hide -> 2 red here and 1 red there; scrim -> 2 red.
+No game code changed. No approved pixel moved. The 42 -> 44 pad and the drawer
+hide are the PLUMBER's, already shipped from the demo side; this round only
+built the instruments that can see them.
+NOT THIS LANE'S: FACE THUMB is red on a face candidate bank 146 hours behind the
+alpha, a CHARACTER/COOK rebake that touches nothing in my three files.
+
+FOR EVERY LANE, NOT JUST THIS ONE: ANY GATE THAT DRIVES THE DEMO MUST SERVE IT.
+Off disk, the demo is not the demo. It is in both gate headers now so it cannot
+be rediscovered a third time.
+Record: records/BOHEMIA_DEMO_IS_CURRENT_AND_THE_GATES_WERE_TESTING_THE_WRONG_BUILD_9_5_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [hands now] SHIPPED. THE LINK IS READY TO
 HAND TO ANYONE. It opens cold on a phone in half a second, one tap puts you in
 the world, nothing errors, and the file on disk is today's game. TAB: RUN.
 Nothing to judge. ***
