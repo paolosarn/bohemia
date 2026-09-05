@@ -3577,7 +3577,17 @@ relationship" -> LOCKED: THE MANAGER HAS HIS OWN MIND (central-chat law amendmen
 records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md: my own five, on the board as jobs: RUN
 [animal first] [death handoff], SOUNDS [heartbeat first], FACTIONS [crossing costs],
 WORLD [rice clock]; and two "needs Paolo" lines decided with defaults: COMBAT [hurt
-death], PEOPLE [heir moment] (marriage stays his).
+death], PEOPLE [heir moment] (marriage stays his). THEN (bl) "awesome good ideas man.
+VAMILY" -> ROUND: since last round RUN shipped [hands now] (5faf227: the demo loads in
+572 ms, a walked world in 1.7 s, zero errors, byte-identical to a fresh cut, a gate opens
+it like a stranger); LIFE+CITY shipped [building costs]; DIRECTION shipped [style card]
+and [builder references]; ECONOMY Q5, WORDS Q5; WORLD [living costs] round 1 (the day
+eats food); DYNASTY claimed Q3 [heir keeps]; the FACTIONS chat, still reading VAMILY as
+family before the paste, BUILT THE GENERATION FOLD in the DIRECT tab (60c9b44), real
+work. SWING: the heir pays (records/BOHEMIA_COORDINATOR_RESEARCH_THE_HEIR_PAYS_9_5_26.md):
+formal law kills debt with the estate; informal economies pass it to the child; my
+"every debt in full" default stands with its reason. Routed WORLD [debt carried],
+FACTIONS [collector heir], DYNASTY Q11 [what carries].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
