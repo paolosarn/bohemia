@@ -1243,6 +1243,63 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 9 [century town], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_9_A_PLACE_ACROSS_A_HUNDRED_YEARS_9_5_26.md
+  banks/BOHEMIA_CENTURY_TOWN_THREE_SPEEDS_DRAFT_9_5_26.txt (draft:true)
+THIS ROW IS THE COMMISSION HIS OWN LAW ASKED FOR. The CENTURY RULE (7/26,
+LOCKED) says dynasty building choices compound across ~100 years, that "Neglect
+production/power/clout and act three's city is visibly POORER; invest and it's
+visibly rebuilt", that "the city is the game's long memory", and ends with
+"Mechanism to be designed (research commissioned)". This is that research.
+
+A TOWN DOES NOT CHANGE AT ONE SPEED, IT CHANGES AT THREE. The STREET PATTERN is
+the most persistent thing in a town, legible for centuries and steering
+everything built after it. The PLOT lines outlive the walls. The BUILDING FABRIC
+turns over in decades. And WHAT A PLACE IS FOR is the least resistant of all: it
+flips without a brick moving. THE THING THAT LASTS A HUNDRED YEARS IS THE SHAPE,
+AND THE THING THAT CHANGES FASTEST IS WHAT THE ROOMS ARE FOR. That is the exact
+inverse of a game's instinct, which is to change the textures and leave the map.
+
+RENAMING IS FAR RARER THAN ANYONE GUESSES. Quantitative studies of five cities
+after a total political rupture: Bucharest 6.59%, Sibiu 7.69%, Brasov 8.20%,
+Cluj-Napoca 12.40%, Timisoara 25.99% (the outlier). NINE STREET NAMES IN TEN
+SURVIVE A REGIME FALLING, and the ones that go are the politicised, central and
+large ones. So the main square changes hands and the back lane never does, and
+THE FORGETTING IS NOT A DELETED NAME, IT IS A NAME NOBODY CAN EXPLAIN.
+
+*** THE FINDING: THE CODE CANNOT OBEY HALF OF HIS OWN LOCKED LAW. *** invest is
+written with += and never decreases, and districtTexture is the ONLY reader of
+invest anywhere, climbing apocalypse -> recovering -> modern one way. So "invest
+and it's visibly rebuilt" is buildable today and "neglect and it's visibly
+poorer" is ARITHMETICALLY IMPOSSIBLE. WE BUILT THE HALF OF THE CENTURY RULE THAT
+REWARDS AND NOT THE HALF THAT COSTS, and nobody noticed because the half we built
+is the one you see when you are playing well.
+
+AND ROUND 8'S PATTERN CONFIRMED IN A SECOND PLACE: the monument, the only thing
+outliving spoken memory, is three strings from two numbers; a district, carrying
+a hundred years of a place, is three textures from one number that only rises.
+EVERY PERMANENT THING IN THIS GAME IS THREE-VALUED, while everything that fades
+is modelled in fine grain.
+
+AND A THIRD ONE, FREE: THE REMNANTS ARE ALREADY THE CULTURAL-MEMORY FACTION AND
+HAVE NOTHING TO REMEMBER. Their shipped, approved barks: "This was a real city. I
+don't mean big. I mean real." / "We kept the records. Somebody's going to want
+them." / "Somebody has to remember what the street names were." STREETS HAVE NO
+NAMES ANYWHERE IN THIS ENGINE. A faction and a mechanism designed by two lanes on
+different days for the same idea, neither knowing about the other. Sixth round of
+this lane finding that shape.
+
+ALSO MEASURED: the street plan is fixed because world = f(seed, choiceLog)
+regenerates it, which is the RIGHT ANSWER FOR THE WRONG REASON -- fixed because
+we regenerate it, not because it persists.
+
+ROUTED (proposals only): WORLD THE-CENTURY-RULE-ONLY-GOES-UP (same underlying fix
+as round 4's ratchet and round 3's misplaced decay, now with a locked law quoting
+itself as the reason). WORLD or LIFE+CITY WHAT-A-PLACE-IS-FOR (the fastest layer
+in the research, never modelled, and cheaper than new art because it changes
+meaning rather than pixels). FACTIONS or WORDS THE-REMNANTS-KEPT-THE-NAMES.
+Inside this lane: Q12 [heir's hour] inherits the name nobody can explain.
+
 ROUND 8 [inherited memory], SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_8_INHERITED_MEMORY_9_5_26.md
   banks/BOHEMIA_INHERITED_MEMORY_WHAT_SURVIVED_DRAFT_9_5_26.txt (draft:true)
