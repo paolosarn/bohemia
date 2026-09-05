@@ -703,7 +703,35 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 8/28 (y) LATEST -- *** DAY 22 OF THE BB
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (z) LATEST -- *** THE BB ROWS ARE NOW AT
+THE TOP OF EACH LANE'S QUEUE, SO "GO" POPS THEM. Nothing to judge. ***
+
+Paolo, 9/4: "did you get any coding from your research" / "the jobs should be
+ready for the assigned chat". MEASURED: 22 days, 76 rows, ZERO built by any lane.
+THE CAUSE WAS MINE: the rows were stacked in routing order (newest on top), the
+sound rows sat in WORLD instead of SOUNDS, the money and save rows sat in SHARED
+where no named lane pops from, and the lane banners still said "the study is five
+records and it is done". A row nobody's GO reaches is a row that does not exist.
+FIXED IN BOHEMIA_BACKLOG.md, moves only, every row preserved (77 before, 77 after):
+  RUN     -> BB-THE-PEOPLE-RIDE-THE-SAVE, then BB-THE-GATE-WALKS-THE-PEOPLE,
+             BB-WHAT-YOU-OWE, BB-THE-TIME-NOT-THE-TAPS
+  WORLD   -> BB-THE-LETTER-IS-ONE (his 8/15 ruling, unbuilt), then BB-TURF,
+             BB-ROADS-ARE-FAST
+  SOUNDS  -> BB-THE-CITY-SENDS-WHERE, then BB-THE-DAY-SONG-PLAYS,
+             BB-THE-BED-IS-THE-PLACE, BB-A-LIT-BLOCK-HUMS
+  COMBAT  -> BB-NERVE-ON (a const), then BB-GUNS-CLOSE, BB-PICKUP
+  PEOPLE  -> BB-STANDING-PLAYER, then BB-WHAT-YOU-WERE
+  QUESTS  -> BB-THE-JOB-PAYS, then BB-INSIDE-A-DAY
+  UI      -> BB-ONE-NUMBER
+  SHARED  -> BB-COLD-HAND, then BB-A-GATE-CAN-SAY-OWED
+Every lane banner now says "the first row below is the one to pop on GO" and
+points at the latest record. ALSO CORRECTED: the backlog's demo banner claimed
+"GET PAID and SPEND are both live" for three weeks; day 20 ran it and it pays
+0/0/0. The banner now says so and points at WORLD's top row.
+LESSON FOR THIS SEAT: routing a row is not the job. A row is routed when the
+lane's own GO reaches it. Check where the lane's cursor actually lands.
+
+COORDINATOR: 8/28 (y) -- *** DAY 22 OF THE BB
 STUDY: THE VALLEY MAKES NO SOUND WHEN NOTHING IS HAPPENING, AND THE FIX IS ONE
 MESSAGE. Seventy-six BB- rows routed. Nothing to judge. ***
 

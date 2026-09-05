@@ -45,10 +45,14 @@
 ##      he walks; the receiver already exists in the alpha
 ##   3. COMBAT RF4-LIFT  the movement budget AND the indoor fight entry,
 ##      which is also row 1's missing fight half
-## CLOSED SINCE 8/14: the VISTA now has a caller and fires on day 2; GET
-## PAID and SPEND are both live (his EVERYTHING-COSTS-ONE ruling unblocked
-## them); the home-screen manifest shipped; 18 wired families; the demo
-## gate exists. CAMP stays CUT. Full evidence:
+## CLOSED SINCE 8/14: the VISTA now has a caller and fires on day 2; the
+## home-screen manifest shipped; 18 wired families; the demo gate exists.
+## CAMP stays CUT. *** CORRECTED 9/4 BY THE COORDINATOR: this banner said
+## "GET PAID and SPEND are both live" for three weeks. MEASURED AND RUN on
+## 9/4 (BB study day 20): finishing a job returns NO_RULING and pays 0/0/0,
+## because PURSE.PAYOUT / PRICES / PRODUCTION are still {} despite his 8/15
+## EVERYTHING COSTS ONE ruling. GET PAID IS NOT LIVE. The fix is WORLD's top
+## row, BB-THE-LETTER-IS-ONE. *** Full evidence:
 ## records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md ***
 ## SCOPE IS RULED, NOT PENDING (corrected 8/14 — this banner still said
 ## "pending Paolo" ten days after he ruled it, which is exactly the stale
@@ -59,6 +63,7 @@
 ## the city type shit." LIVE STATUS OF ALL 13 CRITICAL-PATH ROWS:
 ## records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md — read it before you
 ## claim a row is somebody else's problem. ***
+
 
 ## *** FLEET-WIDE FREEZE (7/26, ART-FIRST RESET — read laws/BOHEMIA_ADDENDUM_
 ## ART_FIRST_RESET_7_26_26.md). *** BOTH FREEZES ARE LIFTED AS OF 7/26. ***
@@ -1473,8 +1478,100 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
-*** BATTLE BROTHERS STUDY ROW, ROUTED 8/28 BY THE COORDINATOR (DAY 7).
-    READ FIRST: records/BOHEMIA_BB_STUDY_DAY_7_WHY_YOU_LEAVE_THE_HOUSE_8_28_26.md ***
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
+   AND THE PEOPLE ARE OUTSIDE IT. ***
+   THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found
+   in 21 days of study -- two slots with a generation counter, an FNV-1a checksum,
+   a probe the SIZE of the real save, poisoning on write failure so a stale save
+   can never be resurrected, a version chain with migrations, and the phone path
+   (pagehide/freeze/blur/visibilitychange). save_iphone_gate.js drives it against a
+   hostile fake browser: 44 passed, 0 failed. citySnapshot carries seed, day,
+   minute, POSITION, the day loop, the quest runtime, the day's cast, the purse and
+   the market ledger. Nothing here is broken.
+   THE GAP: the walked city makes TEN localStorage writes. Four are dev tools. THE
+   OTHER FIVE ARE THE GAME'S MEMORY OF PEOPLE and every one goes to raw
+   localStorage AROUND the hardened save -- boh.city.minds, boh.city.known,
+   boh.city.met, boh.city.belong, boh.city.deedweight. One slot, no checksum, no
+   migration on four of five, and a silent catch(_e){} on write failure: the exact
+   four failure modes bohemia_save.js was written to kill, reproduced outside its
+   walls. MEASURED: met/minds/known/belong/deedweight appear ZERO times in
+   citySnapshot.
+   SO: EXPORT SAVE does not carry the people; a restore gives you yesterday's world
+   with today's population; and the two-slot rollback DESYNCS -- the world rolls
+   back one generation and the people do not. A TORN SAVE ACROSS TWO SYSTEMS IS
+   WORSE THAN A LOST ONE BECAUSE YOU CANNOT SEE THAT IT IS WRONG, which is the
+   belonging code's OWN comment one function above the break.
+   AND A CLEAN SLATE ONLY CLEANS TWO OF FIVE: __CT.wipe removes met and belong;
+   minds, known and deedweight survive it, under a comment that already reads "A
+   WIPE THAT LEAVES HALF THE SAVE IS NOT A WIPE".
+   WHY IT IS THE WORST PLACE FOR THE GAP: day 4 (attachment is marks that persist),
+   day 7 (the motor is obligations to people), day 16 (every relationship here is a
+   repeated game because we never reset) and day 20 (with no courts the contract IS
+   repeat business) all concluded the people are the point. ENGINE SYNC LAW, one
+   canonical body: fold the five into citySnapshot or route them through
+   BohemiaSave. They already serialise themselves; this is wiring, not invention.
+   | export, import, restore, rollback and wipe all cover the people | nothing |
+   no. ***
+
+BB-THE-GATE-WALKS-THE-PEOPLE. *** DAY 21. 44 CHECKS AND NONE OF THEM TOUCHES THE
+   FIVE. RIDES WITH BB-THE-PEOPLE-RIDE-THE-SAVE. ***
+   MEASURED: met, minds, known, belong and deedweight appear ZERO times in
+   gates/save_iphone_gate.js. The hostile-browser harness is good and it is
+   pointed at half the save. Extend it over whatever the previous row lands, and
+   include the case that harness was built for: force a torn write, roll the world
+   back one generation, and assert THE PEOPLE CAME WITH IT. A gate that proves
+   half a save survives an iPhone is proving the wrong half survives. | the
+   desync case goes red before the fix and green after | nothing | no. ***
+
+BB-WHAT-YOU-OWE. *** THE SMALLEST ROW IN SEVEN DAYS OF STUDY AND THE BEST
+   EFFORT-TO-EFFECT ONE ON THE WHOLE BB BOARD. IT IS ONE LINE ON A CARD HE IS
+   ALREADY READING. ***
+   THE RECKONING CARD MUST NAME WHO YOU LET DOWN.
+   MEASURED 8/28: there is exactly ONE daily cost in the walked game, and it is
+   not food, rent or fuel -- it is PEOPLE YOU SAID YOU WOULD SHOW UP FOR.
+   `ctNeglectFor()` walks every outfit you made a commitment to and takes standing
+   away if you did not turn up ("nothing said, nothing owed", so it only bills
+   what you actually promised). THAT IS THE RIGHT MECHANIC AND THE PLAYER IS
+   NEVER TOLD IT HAPPENED.
+   `ctNeglectFor` has exactly TWO mentions in the file: its definition and its one
+   call. The call sits in the SLEEP-tap callback inside a try/catch AND ITS RETURN
+   VALUE IS THROWN AWAY -- it hands back a list of {faction, lost, now} and nobody
+   reads it. Worse, the timing: showReckoning builds and shows the card FIRST, and
+   the charge happens ON THE TAP THAT DISMISSES IT. The card lists steps,
+   districts, buildings entered, the job outcome and what you were paid, and NEVER
+   SAYS WHO YOU LET DOWN -- and the bill is rung up at the exact moment the card
+   that could have told you is already gone.
+   THE ROW: move the charge to BEFORE the card is built, read its return instead
+   of discarding it, and put it on the card. It already computes exactly what to
+   say. AND ADD THE FORWARD HALF -- who is expecting you TOMORROW -- because a
+   bill you only see after it is charged teaches nothing and motivates nothing.
+   WHY IT MATTERS MORE THAN ITS SIZE: this is the game's motor. The game he named
+   makes you leave the house through PAYROLL, and its punishment is not death, it
+   is people leaving. We already built our version of that and hid it.
+
+BB-THE-TIME-NOT-THE-TAPS. *** DAY 19. THE COST IS REAL. THE WATCHING IS NOT.
+   MEASURE THIS ONE WITH DAY 14's COLD HAND BEFORE ANYBODY CALLS THE DEMO
+   READY. ***
+   Day 2 concluded FRICTION IS PROTECTED -- no fast, safe, universal route, ever --
+   and that stands. IT IS ALSO HALF THE RULE, and this study has been quoting only
+   that half for seventeen days. The game we are studying protects friction AND
+   makes roads fast AND gives you a pause/normal/FAST speed control. Those are not
+   contradictions, they are two halves of one rule:
+   *** DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER'S ATTENTION. ***
+   Our long walk correctly costs in-game hours. It ALSO costs the player however
+   long it takes to press the pad twenty times, and THAT SECOND COST BUYS NOTHING
+   -- it is not friction, not tension and not realism, it is time out of a person's
+   evening.
+   THE ROW: a route you set and let run, or a held press that keeps going. THIS IS
+   NOT FAST TRAVEL and it removes no cost; IT REMOVES THE WATCHING.
+   PAIRS WITH DAY 14: a cold hand presses the loudest thing on screen and never
+   reads, and twenty identical presses is exactly what it will do.
+
 BB-HOME-SCREEN-IS-THE-SAVE. *** DAY 21. THE PLATFORM PUT A RUN TIMER ON A GAME
    WHOSE FIRST LAW IS THAT THERE ARE NO RUNS. ***
    Since iOS 13.4 / Safari 13.1, WebKit DELETES ALL of a site's script-writable
@@ -1499,24 +1596,6 @@ BB-HOME-SCREEN-IS-THE-SAVE. *** DAY 21. THE PLATFORM PUT A RUN TIMER ON A GAME
    FIRST -- it is WebKit's published behaviour from 13.4 and I did not find a
    2025-26 source confirming it is unchanged. | the ask is sized on purpose and the
    eviction sentence is reachable when it is true | how loud to be is his | no. ***
-
-BB-THE-TIME-NOT-THE-TAPS. *** DAY 19. THE COST IS REAL. THE WATCHING IS NOT.
-   MEASURE THIS ONE WITH DAY 14's COLD HAND BEFORE ANYBODY CALLS THE DEMO
-   READY. ***
-   Day 2 concluded FRICTION IS PROTECTED -- no fast, safe, universal route, ever --
-   and that stands. IT IS ALSO HALF THE RULE, and this study has been quoting only
-   that half for seventeen days. The game we are studying protects friction AND
-   makes roads fast AND gives you a pause/normal/FAST speed control. Those are not
-   contradictions, they are two halves of one rule:
-   *** DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER'S ATTENTION. ***
-   Our long walk correctly costs in-game hours. It ALSO costs the player however
-   long it takes to press the pad twenty times, and THAT SECOND COST BUYS NOTHING
-   -- it is not friction, not tension and not realism, it is time out of a person's
-   evening.
-   THE ROW: a route you set and let run, or a held press that keeps going. THIS IS
-   NOT FAST TRAVEL and it removes no cost; IT REMOVES THE WATCHING.
-   PAIRS WITH DAY 14: a cold hand presses the loudest thing on screen and never
-   reads, and twenty identical presses is exactly what it will do.
 
 BB-THIS-WEEK. *** DAY 18. A GOAL YOU HAVE TO GO FIND IS NOT A GOAL. RIDES WITH
    BB-WHAT-YOU-OWE AND BB-THE-END -- THREE DAYS OF THIS STUDY NOW WANT THE SAME
@@ -1551,32 +1630,6 @@ BB-THE-END. *** DAY 13. THE LAST THING HE SEES EVERY DAY IS CARRYING HALF THE
    not its inventory. Two days of this study converge on this one surface and it
    is the cheapest in the game.
 
-BB-COLD-HAND. *** DAY 14. THE FIRST DEMO-CRITICAL ROW THIS STUDY HAS PRODUCED,
-   AND IT IS A METHOD WE ALREADY OWN AND RAN EXACTLY ONCE. THIS ONE IS ON THE
-   DEMO PATH, NOT BEHIND IT. ***
-   Written into the walked surface on 8/25: "MEASURED with a cold hand that
-   presses the loudest control on screen and never reads: from a cold boot it went
-   WATCH, GET UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped.
-   PHONE OPENED 0. JOB TAKEN 0. CLOCK 06:00 AT THE FIRST TAP AND 06:00 AT THE
-   TWELFTH." A simulated stranger pressed the biggest button twelve times and the
-   game's clock never moved. The cause was found and fixed properly (the phone had
-   rung as "a dark chip with a hairline and a 14px dot, and the dot is a sign on a
-   door -- Norman: when you have to put a sign on a door, the design already
-   failed"), so the ring now wears the same fill as the WATCH button the player
-   has already been taught to press.
-   *** THE FIX IS NOT THE FINDING. THE TEST IS. *** It is not a gate, it is not
-   repeatable, and nothing has run it since -- not on the cold open, the first
-   morning, the job offer, the first fight or the reckoning. It found a total dead
-   end in the first minute of the game the one time it ran, and NOBODY HAS ASKED
-   WHAT A SECOND RUN WOULD FIND.
-   THE ROW: promote it to a repeatable harness. Press the loudest control on
-   screen, never read, and assert THE GAME ADVANCES -- clock moves, a job gets
-   taken, a day ends.
-   THE TEST IN ONE SENTENCE, for anybody designing a screen: A COLD HAND PRESSES
-   THE LOUDEST THING ON SCREEN AND NEVER READS. If doing that repeatedly does not
-   advance the game, the screen is broken however good the systems behind it are.
-   Read: records/BOHEMIA_BB_STUDY_DAY_14_THE_FIRST_FIVE_MINUTES_8_28_26.md
-
 BB-NOT-LOSE-TO-LEARN. *** DAY 14. WRITTEN AS A REFUSAL SO NO LANE QUIETLY IMPORTS
    IT. AFTER THIRTEEN DAYS OF TAKING, THIS IS THE DAY THE STUDY SAYS NO. ***
    THE GAME HE NAMED IS A BAD TEACHER AND ITS OWN PLAYERS SAY SO: "a rather steep
@@ -1604,32 +1657,6 @@ BB-NOT-LOSE-TO-LEARN. *** DAY 14. WRITTEN AS A REFUSAL SO NO LANE QUIETLY IMPORT
    and BB-THE-ROUT (a decision after the fight, which in the FIRST fight is one
    more thing to understand at the worst moment). NOTHING FROM THIS STUDY LANDS IN
    THE COLD OPEN WITHOUT A COLD-HAND RUN. ***
-
-BB-WHAT-YOU-OWE. *** THE SMALLEST ROW IN SEVEN DAYS OF STUDY AND THE BEST
-   EFFORT-TO-EFFECT ONE ON THE WHOLE BB BOARD. IT IS ONE LINE ON A CARD HE IS
-   ALREADY READING. ***
-   THE RECKONING CARD MUST NAME WHO YOU LET DOWN.
-   MEASURED 8/28: there is exactly ONE daily cost in the walked game, and it is
-   not food, rent or fuel -- it is PEOPLE YOU SAID YOU WOULD SHOW UP FOR.
-   `ctNeglectFor()` walks every outfit you made a commitment to and takes standing
-   away if you did not turn up ("nothing said, nothing owed", so it only bills
-   what you actually promised). THAT IS THE RIGHT MECHANIC AND THE PLAYER IS
-   NEVER TOLD IT HAPPENED.
-   `ctNeglectFor` has exactly TWO mentions in the file: its definition and its one
-   call. The call sits in the SLEEP-tap callback inside a try/catch AND ITS RETURN
-   VALUE IS THROWN AWAY -- it hands back a list of {faction, lost, now} and nobody
-   reads it. Worse, the timing: showReckoning builds and shows the card FIRST, and
-   the charge happens ON THE TAP THAT DISMISSES IT. The card lists steps,
-   districts, buildings entered, the job outcome and what you were paid, and NEVER
-   SAYS WHO YOU LET DOWN -- and the bill is rung up at the exact moment the card
-   that could have told you is already gone.
-   THE ROW: move the charge to BEFORE the card is built, read its return instead
-   of discarding it, and put it on the card. It already computes exactly what to
-   say. AND ADD THE FORWARD HALF -- who is expecting you TOMORROW -- because a
-   bill you only see after it is charged teaches nothing and motivates nothing.
-   WHY IT MATTERS MORE THAN ITS SIZE: this is the game's motor. The game he named
-   makes you leave the house through PAYROLL, and its punishment is not death, it
-   is people leaving. We already built our version of that and hid it.
 
 FT-JOURNEY. *** FAST TRAVEL IS A JOURNEY, NOT A TELEPORT (Paolo 8/24, LOCKED).
    He named the shape exactly: "fun organ trail type of fast travel" and then
@@ -2436,10 +2463,85 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
+   BUILT. ON THE DEMO PATH -- ONLY THE SECOND STUDY ROW THAT IS. ***
+   MEASURED AND RUN 9/4, not read: finish a #notable job the way all 27 canon
+   quests finish one and the purse answers
+   {"applied":false,"reason":"NO_RULING","table":"PAYOUT"} -- balances stay
+   0/0/0. POSITIVE CONTROL: the same call with a reward declared pays correctly
+   ({"applied":true,"paid":{"resources":1}}), so the pipe is built, wired, gated
+   (payday_gate.js) and CALLED on the walked surface by payForToday(). IT PAYS
+   NOTHING BECAUSE THERE IS NOTHING TO PAY.
+   HIS RULING, 8/15, LOCKED: "just make everything cost one. Just start off with
+   one and then I'll move from there." The law names the three tables BY NAME and
+   says they "fill with ones TODAY". Today all three are still {} and all three
+   still carry the comment [PENDING Paolo] -- in engine/bohemia_purse.js, in
+   slices/BOHEMIA_CITY_WORLD.html and in slices/BOHEMIA_RUN_CURRENT.html. Row E1
+   in this file is still open and says DO THIS FIRST; the demo banner near the
+   top of this file says "GET PAID and SPEND are both live". BOTH CANNOT BE TRUE.
+   AND THE GATES NEVER LIED: placeholder_number_gate says "the three tables are
+   still EMPTY" and demo_blockers_gate prints "3 ruled-but-empty tables" -- both
+   INSIDE A GREEN PASS, every run, for twenty days.
+   THE COLLISION, which is why no single lane could have caught it: 8/11 put the
+   reward ON THE QUEST ("whatever currency the quest decides to give") and 8/15
+   fills the FALLBACK TABLE. They compose fine and they are not in conflict, but
+   they hand the job to two different lanes, so QUESTS and WORLD can each
+   correctly believe it is the other's. SETTLE THE OWNER IN ONE LINE, then fill
+   the three tables with TAGGED ones and keep the NO_RULING path for uncovered
+   keys (law section 4). | a finished job credits the purse on the real surface,
+   and the placeholder gate still goes red on an untagged number | the real
+   amounts are HIS, after he plays to the end (law section 1) | no. ***
+
+BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
+   WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
+   He asked for "different parts of Vegas as different faction holdings" by name.
+   The walked city ALREADY HAS AN OWNERSHIP MAP AND IT IS MADE OF ELECTRICITY.
+   Live code, answering whether a scene can spawn: "A SEAM IS TWO OWNERS
+   TOUCHING. LIGHT=TERRITORY: a live circuit's owner is who holds that ground, so
+   a seam is where two different live owners are adjacent. NOT A METAPHOR, THE
+   GRID'S OWN DATA." Every live circuit carries an owner and the game already
+   computes BORDERS from it.
+   THE GAP IS THAT THE OWNER HAS NO NAME. It is a CATEGORY -- {settlement:0.55,
+   faction:0.2, network:0.15, solar_lone:0.1}, defaulting to 'settlement' -- so
+   one circuit in five is owned by the generic word "faction".
+   THE ROW: give that owner a real faction id out of engine/BOHEMIA_faction_
+   graph.json, which is his own GDD §9 canon. No loop, no engine migration, no
+   new system. And it is diegetic: you SEE who holds a block, at night, from the
+   street, because his 12%-lit law already made light the tell.
+   WHO HOLDS WHAT IS HIS. Ships empty of canon. Read: records/BOHEMIA_BB_STUDY_
+   DAY_6_WHO_HOLDS_THE_GROUND_8_28_26.md.
+
+BB-ROADS-ARE-FAST. *** DAY 19. A STREET THAT IS NOT FASTER IS A PICTURE OF A
+   STREET, AND WE HAVE MORE STREET THAN ALMOST ANYTHING ELSE IN THIS PROJECT. ***
+   MEASURED, and the two scales cross-check: a fine tile is 0.75 m, the walk ticks
+   0.084 minutes per fine cell ("time per CELL, distance-honest") so TWELVE WALKED
+   CELLS COST ONE MINUTE, and the pad's own comment says a zoomed-out press is
+   "ninety-six metres and TEN MINUTES". Those agree at about NINE METRES A MINUTE.
+   The day is 06:00 to 22:00, so A FULL DAY OF WALKING IS ABOUT 8.6 KM, and the
+   valley is about 9.2 KM ACROSS. Crossing it on foot is a little more than one
+   entire day. THAT IS A GOOD NUMBER, not a bug.
+   WHAT THE GAME HE NAMED DOES: terrain costs you (forest and swamp slow you,
+   forest cuts vision, hills and mountains are slow, open ground is free), a SCOUT
+   in your company speeds you through bad terrain, chases can take DAYS -- and
+   *** ROADS ARE FAST. Everybody, player included, moves at high speed along a
+   road. ***
+   ROADS ARE THE ONLY LEVER THAT CHANGES THE SHAPE OF THE MAP WITHOUT REMOVING THE
+   FRICTION. A fast road does not flatten the valley, it gives it a GRAIN -- some
+   places near in time and far in metres -- which is exactly the structure von
+   Thunen says organises everything: transport cost rises with distance, and that
+   alone determines what happens where.
+   AND WE ALREADY OWN THE STREETS: the harmonised street bank, SIDEWALK SANCTITY,
+   the street-aware/drivable law, and his own 8/25 ruling that streets must connect
+   LIKE LEGO with art and path as ONE contract. AND A STREET COSTS EXACTLY THE SAME
+   TIME AS BROKEN GROUND. Every one of them is mechanically scenery.
+   NEEDS NO NEW ART. The streets are drawn and already know what they are.
+   Read: records/BOHEMIA_BB_STUDY_DAY_19_WHAT_IT_COSTS_TO_GO_SOMEWHERE_8_28_26.md
+
 BB-COALITION. *** DAY 11. THE WORLD DOES NOT GET STRONGER, IT GETS ORGANISED. ***
    THE BEST ESCALATION MECHANIC IN THE GAME HE NAMED, AND IT COSTS ZERO BALANCE
    NUMBERS: in its late-game crises, factions that normally fight each other STOP.
@@ -2474,71 +2576,6 @@ BB-SLOWER-EVERY-TIME. *** DAY 11. THE ACT TURN IS FORETOLD BY THE VALLEY GETTING
    patrolled). NO new economics and NO numbers from him.
    IT IS THE OPPOSITE OF A DIFFICULTY SLIDER: THE WORLD DOES NOT HIT HARDER, IT
    STOPS BOUNCING BACK. Needs UI BB-FORETOLD or it is a simulation nobody sees.
-
-BB-THE-CITY-SENDS-WHERE. *** DAY 22. ONE MESSAGE, FOUR SYSTEMS, AND THE SURFACE
-   HE WALKS DOES NOT SEND IT. THE FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
-   SMALLEST FIX IN THE WHOLE STUDY. TAKE IT FIRST. ***
-   MEASURED, mention-vs-use, name by name: the walked city can produce FOURTEEN of
-   the bank's 65 approved sounds (come_up, phone_buzz, went_down, door_drag,
-   sleep_sink, three derived ui_* and six footstep surfaces) AND EVERY ONE OF THEM
-   IS A REACTION TO SOMETHING THE PLAYER DID. Stand still and the valley makes no
-   sound at all.
-   THE BED IS BUILT AND HE GAVE IT A PERFECT SWEEP: air_day, air_night and
-   air_inside are FIVE VARIANTS OF FIVE, THUMBS UP, FIFTEEN OF FIFTEEN, and the
-   MUSIC tab's own labels call them "THE VALLEY AT MIDDAY -- what you hear when
-   nothing is happening", "THE VALLEY AT NIGHT -- this one is the horror" and
-   "INSIDE A BUILDING -- a room with nobody in it but you". The AMB bed that plays
-   them is finished, tuned (a 40-95s gap, its own bus at 0.4 of the judged level)
-   and documented ("a rare sound so the valley is not dead air... it makes the
-   place feel occupied by nothing").
-   THE CAUSE: AMB.where has exactly ONE caller, the BOHEMIA_WHERE handler, and that
-   handler also sets LISTENER.inside (occlusion), musicPhase (the day/night music
-   pool) and timePass in the same line. BOHEMIA_WHERE is posted by
-   slices/BOHEMIA_RUN_CURRENT.html every four seconds. THE WALKED CITY NEVER POSTS
-   IT -- positive control: its only two hits for that string are FILENAMES INSIDE
-   COMMENTS. Same shape as day 6's stranded faction world; A MIGRATION LIST IS A
-   DELETION LIST FOR EVERYTHING NOT ON IT, and this is what it deletes when nothing
-   crashes.
-   THE WORK: post BOHEMIA_WHERE with `inside` and `night` on a four-second
-   heartbeat, the way the run has since 8/1. No new sound, no new art, no ruling
-   from him, and it turns four systems back on at once. | the bed audibly runs on
-   the walked surface and occlusion can fire | nothing | no. ***
-
-BB-THE-BED-IS-THE-PLACE. *** DAY 22. A DISTRICT THAT SOUNDS DIFFERENT IS
-   DIFFERENT, AT ZERO ART COST. RIDES BEHIND BB-THE-CITY-SENDS-WHERE. ***
-   In the game he named, ambience is PER-TERRAIN and PER-SETTLEMENT and the stated
-   goal is that you feel immersed in the ground your figure stands on: seagulls and
-   waves on the coast, insects and frogs in swamp, icy wind in snow, wolves howling
-   at night in forest, crickets in the steppe; and settlements carry people, dogs,
-   cats, chickens, smithy hammering, temple sermons, tavern laughter. THE PLACE
-   TELLS YOU WHAT IT IS BEFORE YOU LOOK AT IT.
-   THIS IS DAY 13'S OWN CONCLUSION IN A CHEAPER DOMAIN: stop counting content and
-   count COMBINATIONS. Sound needs no new pixels and passes no art gate. Once the
-   heartbeat exists the bed picks by WHERE YOU ARE STANDING, not just
-   day/night/inside.
-   REAL AISLE: Schafer's KEYNOTE SOUNDS -- the background bed, named for the key of
-   a piece of music -- are NOT LISTENED TO CONSCIOUSLY BUT DEEPLY IMPRINT A SENSE OF
-   PLACE. We ship only signals and have no keynote.
-   MECHANISM-MINE / CONTENTS-PAOLO'S: WHICH place sounds like WHAT is canon and is
-   his. | the bed varies by district on the walked surface | which district sounds
-   like what | no. ***
-
-BB-A-LIT-BLOCK-HUMS. *** DAY 22. LIGHT=TERRITORY, THROUGH THE EAR, AND IT NEEDS
-   NO NAME. QUEUED BEHIND THE DEMO. ***
-   generator (4 variants of 5 approved) and power_on (2 of 5) are in the bank and
-   are NEVER SENT by anything. Meanwhile LIGHT=TERRITORY is live code on the walked
-   surface, every circuit carries an owner, and the game already computes seams.
-   A BLOCK WITH POWER SHOULD BE AUDIBLE FROM THE NEXT STREET. That is day 6's "name
-   the circuit owner" arriving through the ear, and unlike the naming row it needs
-   NO canon from him at all -- a hum is not a name.
-   GROUNDING, and it is the day's best real-world result: the 2020 lockdowns cut
-   human-generated high-frequency ground noise BY UP TO 50%, the largest such drop
-   ever recorded and largest in the DENSEST cities -- and signals that had always
-   been there, previously buried, BECAME CLEARLY AUDIBLE. DEAD IS NOT SILENT, DEAD
-   IS A DIFFERENT BED: when the machines stop you do not lose sound, you lose the
-   layer that was masking everything else. A working generator four blocks away in
-   a dead valley is LOUD. | a live circuit is audible and a dead one is not |
-   nothing | no. ***
 
 BB-MORE-KEYS. *** DAY 13. THE DESIGN ASKS FOR 70% OF ITS MOMENTS OUT OF 25% OF
    ITS CONTENT, AND THE FIX COSTS HIM NOTHING. ***
@@ -2578,51 +2615,6 @@ BB-SHADE-IS-A-RESOURCE. *** DAY 15. THE CITY ALREADY HAS SHADE AND IT BUYS
    a flat street into ground worth choosing. Pairs with COMBAT
    BB-THE-HEAT-IS-THE-CLOCK (shade is where the pips come back) and with WORLD
    BB-TURF (a seam you can only hold in the morning is a different kind of block).
-
-BB-ROADS-ARE-FAST. *** DAY 19. A STREET THAT IS NOT FASTER IS A PICTURE OF A
-   STREET, AND WE HAVE MORE STREET THAN ALMOST ANYTHING ELSE IN THIS PROJECT. ***
-   MEASURED, and the two scales cross-check: a fine tile is 0.75 m, the walk ticks
-   0.084 minutes per fine cell ("time per CELL, distance-honest") so TWELVE WALKED
-   CELLS COST ONE MINUTE, and the pad's own comment says a zoomed-out press is
-   "ninety-six metres and TEN MINUTES". Those agree at about NINE METRES A MINUTE.
-   The day is 06:00 to 22:00, so A FULL DAY OF WALKING IS ABOUT 8.6 KM, and the
-   valley is about 9.2 KM ACROSS. Crossing it on foot is a little more than one
-   entire day. THAT IS A GOOD NUMBER, not a bug.
-   WHAT THE GAME HE NAMED DOES: terrain costs you (forest and swamp slow you,
-   forest cuts vision, hills and mountains are slow, open ground is free), a SCOUT
-   in your company speeds you through bad terrain, chases can take DAYS -- and
-   *** ROADS ARE FAST. Everybody, player included, moves at high speed along a
-   road. ***
-   ROADS ARE THE ONLY LEVER THAT CHANGES THE SHAPE OF THE MAP WITHOUT REMOVING THE
-   FRICTION. A fast road does not flatten the valley, it gives it a GRAIN -- some
-   places near in time and far in metres -- which is exactly the structure von
-   Thunen says organises everything: transport cost rises with distance, and that
-   alone determines what happens where.
-   AND WE ALREADY OWN THE STREETS: the harmonised street bank, SIDEWALK SANCTITY,
-   the street-aware/drivable law, and his own 8/25 ruling that streets must connect
-   LIKE LEGO with art and path as ONE contract. AND A STREET COSTS EXACTLY THE SAME
-   TIME AS BROKEN GROUND. Every one of them is mechanically scenery.
-   NEEDS NO NEW ART. The streets are drawn and already know what they are.
-   Read: records/BOHEMIA_BB_STUDY_DAY_19_WHAT_IT_COSTS_TO_GO_SOMEWHERE_8_28_26.md
-
-BB-TURF. *** DAY 6, AND IT IS THE ONE WORTH TAKING EARLY: TERRITORY ON THE
-   WALKED SURFACE IS A NAMING JOB, NOT A PORTING JOB. ***
-   He asked for "different parts of Vegas as different faction holdings" by name.
-   The walked city ALREADY HAS AN OWNERSHIP MAP AND IT IS MADE OF ELECTRICITY.
-   Live code, answering whether a scene can spawn: "A SEAM IS TWO OWNERS
-   TOUCHING. LIGHT=TERRITORY: a live circuit's owner is who holds that ground, so
-   a seam is where two different live owners are adjacent. NOT A METAPHOR, THE
-   GRID'S OWN DATA." Every live circuit carries an owner and the game already
-   computes BORDERS from it.
-   THE GAP IS THAT THE OWNER HAS NO NAME. It is a CATEGORY -- {settlement:0.55,
-   faction:0.2, network:0.15, solar_lone:0.1}, defaulting to 'settlement' -- so
-   one circuit in five is owned by the generic word "faction".
-   THE ROW: give that owner a real faction id out of engine/BOHEMIA_faction_
-   graph.json, which is his own GDD §9 canon. No loop, no engine migration, no
-   new system. And it is diegetic: you SEE who holds a block, at night, from the
-   street, because his 12%-lit law already made light the tell.
-   WHO HOLDS WHAT IS HIS. Ships empty of canon. Read: records/BOHEMIA_BB_STUDY_
-   DAY_6_WHO_HOLDS_THE_GROUND_8_28_26.md.
 
 BB-SUPPLY-FIRST. *** QUEUED (BB study day 6). ***
    YOU TAKE A PLACE BY TAKING WHAT FEEDS IT, NOT BY A STACK FIGHT AT THE GATES.
@@ -5356,10 +5348,71 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
+   SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.
+   THE FIX IS ONE CONST. ***
+   His acceptance test: "every time it's ONE FUCKING BATTLE, it's not a 40 MINUTE
+   LONG CHESS MATCH." NOBODY HAD ASKED WHAT MAKES A FIGHT END. If the only way one
+   can finish is every body on one side being on the floor, a fight is exactly as
+   long as the enemy count, forever.
+   THE NERVE SYSTEM IS ALREADY BUILT AND IT IS GOOD: once HALF the enemy are down,
+   each standing man rolls every turn at 0.10 + 0.05 per body past half, elites at
+   HALF that chance; not-the-last-man PANICS AND RUNS, and the last man PUTS HIS
+   HANDS UP -- his own ruling, in the code's words: "nobody surrenders while his
+   people are still shooting -- he either holds or FLEES." The break lands ON THE
+   BEAT, and the fight ends "the instant nobody can fight -- nerve breaks and
+   downings included", so a break really does end it early.
+   AND: `const FEAR_ON=false; /* [DIAL] until the perk exists, nothing switches
+   this on -- which is the ruling */`. THE PERK NOW EXISTS (THEY KNOW YOU, EYE
+   branch, level 2). So flip the default: MORALE IS DEFAULT BEHAVIOUR, NOT AN
+   UPGRADE, and the perk goes on to do something BETTER (they break sooner, or at
+   the sight of you) instead of being the thing that makes breaking exist.
+   Read: records/BOHEMIA_BB_STUDY_DAY_12_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_8_28_26.md
+
+BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
+   IT IS A CONSTRAINT, NOT A FEATURE, IT COSTS NOTHING TODAY, AND EVERY WEAPON
+   WRITTEN BEFORE IT IS WRITTEN IS REWORK. ***
+   GUNS ARE BAD IN CLOSE. Forever, on every weapon.
+   WHY, and it is history not taste (day 3): guns and melee coexisted for two
+   centuries and it ONLY ended when the bayonet let a gun fight up close. If our
+   guns are good in close we lose the positional game entirely and the fight
+   becomes stand-and-shoot. The genre's usual answer -- cover plus hold-fire --
+   is REFUSED, because its documented result is turtling: "matches take longer
+   than optimal... less interesting, often un-interactive early on, and endgames
+   tend to be a huge sudden cascade that involves little decision-making." That
+   is his own acceptance test failing in someone else's game: "not a 40 MINUTE
+   LONG CHESS MATCH."
+   A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, so this row includes ITS GATE:
+   an invariant over every weapon, not a habit. NO DAMAGE BEFORE THE DIAL still
+   holds -- the gate asserts the SHAPE (a gun's effectiveness falls off close),
+   never a number. Read: records/BOHEMIA_BB_STUDY_DAY_3_DUMB_ORDERS_AND_THE_GUN_
+   PROBLEM_8_28_26.md.
+
+BB-PICKUP. *** JUMPS THE QUEUE. THE SMALLEST ROW IN THE STUDY AND THE HIGHEST
+   FEELING PER LINE, AND THE MACHINERY IS ALREADY WRITTEN ON THE OTHER SIDE OF
+   THE BOARD. ***
+   YOU CAN GO BACK FOR HER.
+   MEASURED 8/28 in the decoded combat source: their medic has a scoring rule
+   whose own comment reads "A BODY ON THE FLOOR OUTRANKS HIS OWN SKIN, AND THAT
+   IS THE WHOLE FIGHT WITH HIM" -- he breaks cover to reach a downed man, gets
+   him back up, and has a second verb for a man who lost his nerve, HE TALKS HIM
+   ROUND. Your side has neither. `ALLY_DOWN_TURNS=99` and the comment beside it
+   ("picking him up is not built yet and is not pretended") are the exact spot.
+   WHY IT MATTERS MORE THAN IT LOOKS (day 4): permadeath does not create
+   attachment, it cashes in a bond that already exists, so with permadeath ruled
+   out the bond has to be built by other channels. The measured channels are
+   interdependence (already true: 8 foes alone 0/60 rooms, with her 60%),
+   responsiveness, marks that persist, and BEING MISSED. This is being missed,
+   and it is the one that costs the least.
+   MUST NOT: become a heal button, make her invulnerable, or add a control
+   surface (8/31 law: no order menu). Read: records/BOHEMIA_BB_STUDY_DAY_4_
+   ATTACHMENT_WITHOUT_PERMADEATH_8_28_26.md.
+
 BB-THE-FIGHT-KNOWS-THE-DAY. *** DAY 15. EVERY PIPE FINDING IN THIS STUDY SO FAR
    HAS BEEN OUTBOUND. THIS IS THE FIRST INBOUND ONE: NOTHING GOES IN EITHER. ***
    MEASURED: `enter(G,d,env)` receives the player's HP, a roster, a package id and
@@ -5467,25 +5520,6 @@ BB-NO-BREAKDOWN. *** DAY 17. A REFUSAL, WRITTEN DOWN SO IT DOES NOT ARRIVE BY
    Pairs with UI BB-ONE-NUMBER. His own sentence on this exact question:
    "spreadsheet simulators and I'm not a fan."
 
-BB-GUNS-CLOSE. *** JUMPS THE QUEUE (coordinator running order, BB study day 5).
-   IT IS A CONSTRAINT, NOT A FEATURE, IT COSTS NOTHING TODAY, AND EVERY WEAPON
-   WRITTEN BEFORE IT IS WRITTEN IS REWORK. ***
-   GUNS ARE BAD IN CLOSE. Forever, on every weapon.
-   WHY, and it is history not taste (day 3): guns and melee coexisted for two
-   centuries and it ONLY ended when the bayonet let a gun fight up close. If our
-   guns are good in close we lose the positional game entirely and the fight
-   becomes stand-and-shoot. The genre's usual answer -- cover plus hold-fire --
-   is REFUSED, because its documented result is turtling: "matches take longer
-   than optimal... less interesting, often un-interactive early on, and endgames
-   tend to be a huge sudden cascade that involves little decision-making." That
-   is his own acceptance test failing in someone else's game: "not a 40 MINUTE
-   LONG CHESS MATCH."
-   A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, so this row includes ITS GATE:
-   an invariant over every weapon, not a habit. NO DAMAGE BEFORE THE DIAL still
-   holds -- the gate asserts the SHAPE (a gun's effectiveness falls off close),
-   never a number. Read: records/BOHEMIA_BB_STUDY_DAY_3_DUMB_ORDERS_AND_THE_GUN_
-   PROBLEM_8_28_26.md.
-
 BB-THE-HEAT-IS-THE-CLOCK. *** DAY 15. HE ALREADY DESIGNED A WORK/REST CYCLE AND
    DID NOT CALL IT THAT. ***
    `const STAM_MAX=3;` and its comment: "V54 STAMINA (Paolo, Fable model): stamina
@@ -5538,27 +5572,6 @@ BB-SAVE-BEFORE-THE-BELL. *** DAY 21. THE GAME HE NAMED AUTOSAVES BEFORE EVERY
    known-good point to come back to. | a save exists at the bell whether or not the
    frame blurs | nothing | no. ***
 
-BB-NERVE-ON. *** DAY 12. THE MECHANIC THAT ENDS FIGHTS EARLY IS SWITCHED OFF AND
-   SOLD AS AN UPGRADE, AND HIS LOUDEST REQUIREMENT IS THAT FIGHTS BE SHORT.
-   THE FIX IS ONE CONST. ***
-   His acceptance test: "every time it's ONE FUCKING BATTLE, it's not a 40 MINUTE
-   LONG CHESS MATCH." NOBODY HAD ASKED WHAT MAKES A FIGHT END. If the only way one
-   can finish is every body on one side being on the floor, a fight is exactly as
-   long as the enemy count, forever.
-   THE NERVE SYSTEM IS ALREADY BUILT AND IT IS GOOD: once HALF the enemy are down,
-   each standing man rolls every turn at 0.10 + 0.05 per body past half, elites at
-   HALF that chance; not-the-last-man PANICS AND RUNS, and the last man PUTS HIS
-   HANDS UP -- his own ruling, in the code's words: "nobody surrenders while his
-   people are still shooting -- he either holds or FLEES." The break lands ON THE
-   BEAT, and the fight ends "the instant nobody can fight -- nerve breaks and
-   downings included", so a break really does end it early.
-   AND: `const FEAR_ON=false; /* [DIAL] until the perk exists, nothing switches
-   this on -- which is the ruling */`. THE PERK NOW EXISTS (THEY KNOW YOU, EYE
-   branch, level 2). So flip the default: MORALE IS DEFAULT BEHAVIOUR, NOT AN
-   UPGRADE, and the perk goes on to do something BETTER (they break sooner, or at
-   the sight of you) instead of being the thing that makes breaking exist.
-   Read: records/BOHEMIA_BB_STUDY_DAY_12_A_FIGHT_ENDS_WHEN_SOMEBODY_LEAVES_8_28_26.md
-
 BB-NOBODY-DESPAWNS. *** DAY 16. WE BUILT THE SHADOW OF THE FUTURE AND THEN
    DESPAWNED IT. RIDES WITH BB-THE-ROUT -- SAME BEHAVIOUR, SAME FILE. ***
    Measured on day 12: a man who breaks runs one tile a turn straight out to a
@@ -5606,26 +5619,6 @@ BB-YOU-CAN-LEAVE. *** DAY 12. THEY CANNOT BREAK UNLESS YOU BOUGHT A PERK, AND YO
    reload (7/26). A WITHDRAWAL THAT COSTS SOMETHING REAL -- ground, standing, what
    you dropped -- IS A BETTER LOSS THAN A RELOAD, and it is the only way a fight
    can be lost without being replayed.
-
-BB-PICKUP. *** JUMPS THE QUEUE. THE SMALLEST ROW IN THE STUDY AND THE HIGHEST
-   FEELING PER LINE, AND THE MACHINERY IS ALREADY WRITTEN ON THE OTHER SIDE OF
-   THE BOARD. ***
-   YOU CAN GO BACK FOR HER.
-   MEASURED 8/28 in the decoded combat source: their medic has a scoring rule
-   whose own comment reads "A BODY ON THE FLOOR OUTRANKS HIS OWN SKIN, AND THAT
-   IS THE WHOLE FIGHT WITH HIM" -- he breaks cover to reach a downed man, gets
-   him back up, and has a second verb for a man who lost his nerve, HE TALKS HIM
-   ROUND. Your side has neither. `ALLY_DOWN_TURNS=99` and the comment beside it
-   ("picking him up is not built yet and is not pretended") are the exact spot.
-   WHY IT MATTERS MORE THAN IT LOOKS (day 4): permadeath does not create
-   attachment, it cashes in a bond that already exists, so with permadeath ruled
-   out the bond has to be built by other channels. The measured channels are
-   interdependence (already true: 8 foes alone 0/60 rooms, with her 60%),
-   responsiveness, marks that persist, and BEING MISSED. This is being missed,
-   and it is the one that costs the least.
-   MUST NOT: become a heal button, make her invulnerable, or add a control
-   surface (8/31 law: no order menu). Read: records/BOHEMIA_BB_STUDY_DAY_4_
-   ATTACHMENT_WITHOUT_PERMADEATH_8_28_26.md.
 
 BB-ORDERS. *** QUEUED BEHIND THE DEMO. DO NOT START THIS BEFORE THE DEMO SHIPS
    -- it is the biggest build in the study and it touches the fight, the enemies
@@ -5908,10 +5901,57 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS BUILT ON HIS OWN CORPUS NOW (LAB 8/18 --
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
+   THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
+   MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
+   and rich -- his own GDD §9 data, 14 factions on real generated districts,
+   permanent canon constraints, every write wrapped so no raw call can break
+   canon. And `shiftStanding(aId,bId,...)` is faction-to-faction. THE PLAYER IS
+   NOT IN IT. Factions have opinions about each other and NOBODY IN THE VALLEY
+   HAS AN OPINION ABOUT YOU.
+   THE SHAPE, from day 1: it is A WEB, NOT A BAR. A job comes from a PERSON, and
+   that person heard about you from someone. The question a favour answers is not
+   "did my bar go up" but "who will vouch for me now."
+   MUST GO THROUGH THE WRAPPED WRITER. Canon constraints untouched. Adding a node
+   must not let this lane invent a standing he never ruled.
+
+BB-WHAT-YOU-WERE. *** DAY 8. NOBODY IN THIS VALLEY USED TO BE ANYBODY. ***
+   MEASURED: the entire occupational vocabulary of Las Vegas is FOUR WORDS --
+   `ROLE_WORDS = { worker:'WORKER', scav:'SCAVENGER', keeper:'KEEPER',
+   watch:'WATCH' }` -- and there is no former trade, no "used to be", no history
+   field anywhere. (Positive control, because it nearly fooled me: `background`
+   appears 115 times in the walked city and EVERY ONE IS CSS; `job` appears 167
+   times and every one is the DAY'S JOB -- jobSite, jobCell -- a place to work,
+   never a trade somebody has.)
+   IN THE GAME HE NAMED, THE BACKGROUND *IS* THE CHARACTER: a former job that
+   carries what he is good at, his daily wage, how much he eats, what traits he
+   can develop, and "opens up specific events and dialog choices."
+   THE ROW: every derived person gets a FORMER TRADE beside their current role,
+   derived from (blockSeed, house, slot) exactly like the rest of that module, so
+   it costs no storage and survives every load. IT IS A WORD, NOT A STAT --
+   NO DAMAGE BEFORE THE DIAL, and the research says the word is the better half
+   anyway (see below). WHO the named people are stays HIS.
+   WEIGHT IT TO THE REAL CITY: leisure and hospitality was ~29% OF ALL NONFARM
+   EMPLOYMENT in the Las Vegas metro, 370,000+ jobs in Clark County, and the top
+   employers list is casino properties one after another. The valley's survivors
+   are not a random draw of humanity.
+   *** AND THE INVERSION THAT MAKES IT GOOD: THE FRONT OF HOUSE IS USELESS AND
+   THE BACK OF HOUSE RUNS THE VALLEY. A dealer's trade died with the money. But a
+   Strip casino is a small city -- industrial laundry, kitchens feeding tens of
+   thousands, boiler and chiller techs, high-voltage electricians, water and pool
+   plant, refrigeration, docks, and the people who know where the deep dry stores
+   are. Every one of those is now the most valuable person alive, and
+   engine/bohemia_economy.js ALREADY makes the deep casino dry stores "the reason
+   downtown matters." We built the building and never asked who worked in it. ***
+   COVERAGE BEATS COUNT: do not cook sixty trades at once. SHARED -8 measured what
+   a big undifferentiated batch does to his keep rate.
+   Read: records/BOHEMIA_BB_STUDY_DAY_8_WHAT_YOU_USED_TO_BE_8_28_26.md.
+
 BB-ENCOMPASSING. *** QUEUED (BB study day 6). ***
    HOLDING GROUND MUST COST SOMETHING AND PAY SOMETHING, AND WHAT IT PAYS THE
    PEOPLE UNDER IT IS WHY IT STAYS HELD.
@@ -5991,52 +6031,6 @@ BB-WHO-FIXES-IT. *** DAY 10. THE PERSON WHO CAN FIX IT IS WORTH MORE THAN THE
    `tweezers: { durable:true, note:'THE DURABLE. Sterilised, never consumed. The
    one piece you keep.' }` -- ONE OBJECT IN THE WHOLE VALLEY is written as a thing
    you keep rather than a thing you use up. The distinction exists; extend it.
-
-BB-WHAT-YOU-WERE. *** DAY 8. NOBODY IN THIS VALLEY USED TO BE ANYBODY. ***
-   MEASURED: the entire occupational vocabulary of Las Vegas is FOUR WORDS --
-   `ROLE_WORDS = { worker:'WORKER', scav:'SCAVENGER', keeper:'KEEPER',
-   watch:'WATCH' }` -- and there is no former trade, no "used to be", no history
-   field anywhere. (Positive control, because it nearly fooled me: `background`
-   appears 115 times in the walked city and EVERY ONE IS CSS; `job` appears 167
-   times and every one is the DAY'S JOB -- jobSite, jobCell -- a place to work,
-   never a trade somebody has.)
-   IN THE GAME HE NAMED, THE BACKGROUND *IS* THE CHARACTER: a former job that
-   carries what he is good at, his daily wage, how much he eats, what traits he
-   can develop, and "opens up specific events and dialog choices."
-   THE ROW: every derived person gets a FORMER TRADE beside their current role,
-   derived from (blockSeed, house, slot) exactly like the rest of that module, so
-   it costs no storage and survives every load. IT IS A WORD, NOT A STAT --
-   NO DAMAGE BEFORE THE DIAL, and the research says the word is the better half
-   anyway (see below). WHO the named people are stays HIS.
-   WEIGHT IT TO THE REAL CITY: leisure and hospitality was ~29% OF ALL NONFARM
-   EMPLOYMENT in the Las Vegas metro, 370,000+ jobs in Clark County, and the top
-   employers list is casino properties one after another. The valley's survivors
-   are not a random draw of humanity.
-   *** AND THE INVERSION THAT MAKES IT GOOD: THE FRONT OF HOUSE IS USELESS AND
-   THE BACK OF HOUSE RUNS THE VALLEY. A dealer's trade died with the money. But a
-   Strip casino is a small city -- industrial laundry, kitchens feeding tens of
-   thousands, boiler and chiller techs, high-voltage electricians, water and pool
-   plant, refrigeration, docks, and the people who know where the deep dry stores
-   are. Every one of those is now the most valuable person alive, and
-   engine/bohemia_economy.js ALREADY makes the deep casino dry stores "the reason
-   downtown matters." We built the building and never asked who worked in it. ***
-   COVERAGE BEATS COUNT: do not cook sixty trades at once. SHARED -8 measured what
-   a big undifferentiated batch does to his keep rate.
-   Read: records/BOHEMIA_BB_STUDY_DAY_8_WHAT_YOU_USED_TO_BE_8_28_26.md.
-
-BB-STANDING-PLAYER. *** QUEUED BEHIND THE DEMO (BB study day 1). ***
-   THE PLAYER BECOMES A NODE IN THE STANDING GRAPH.
-   MEASURED, with a positive control: engine/BOHEMIA_faction_graph.json is real
-   and rich -- his own GDD §9 data, 14 factions on real generated districts,
-   permanent canon constraints, every write wrapped so no raw call can break
-   canon. And `shiftStanding(aId,bId,...)` is faction-to-faction. THE PLAYER IS
-   NOT IN IT. Factions have opinions about each other and NOBODY IN THE VALLEY
-   HAS AN OPINION ABOUT YOU.
-   THE SHAPE, from day 1: it is A WEB, NOT A BAR. A job comes from a PERSON, and
-   that person heard about you from someone. The question a favour answers is not
-   "did my bar go up" but "who will vouch for me now."
-   MUST GO THROUGH THE WRAPPED WRITER. Canon constraints untouched. Adding a node
-   must not let this lane invent a standing he never ruled.
 
 BB-THE-SHADOW. *** DAY 16, AND IT IS A STRUCTURAL ADVANTAGE WE HAVE NOT NOTICED
    WE HAVE. ***
@@ -7684,6 +7678,95 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+BB-THE-CITY-SENDS-WHERE. *** DAY 22. ONE MESSAGE, FOUR SYSTEMS, AND THE SURFACE
+   HE WALKS DOES NOT SEND IT. THE FIFTH SYSTEM THE 8/14 MIGRATION STRANDED.
+   SMALLEST FIX IN THE WHOLE STUDY. TAKE IT FIRST. ***
+   MEASURED, mention-vs-use, name by name: the walked city can produce FOURTEEN of
+   the bank's 65 approved sounds (come_up, phone_buzz, went_down, door_drag,
+   sleep_sink, three derived ui_* and six footstep surfaces) AND EVERY ONE OF THEM
+   IS A REACTION TO SOMETHING THE PLAYER DID. Stand still and the valley makes no
+   sound at all.
+   THE BED IS BUILT AND HE GAVE IT A PERFECT SWEEP: air_day, air_night and
+   air_inside are FIVE VARIANTS OF FIVE, THUMBS UP, FIFTEEN OF FIFTEEN, and the
+   MUSIC tab's own labels call them "THE VALLEY AT MIDDAY -- what you hear when
+   nothing is happening", "THE VALLEY AT NIGHT -- this one is the horror" and
+   "INSIDE A BUILDING -- a room with nobody in it but you". The AMB bed that plays
+   them is finished, tuned (a 40-95s gap, its own bus at 0.4 of the judged level)
+   and documented ("a rare sound so the valley is not dead air... it makes the
+   place feel occupied by nothing").
+   THE CAUSE: AMB.where has exactly ONE caller, the BOHEMIA_WHERE handler, and that
+   handler also sets LISTENER.inside (occlusion), musicPhase (the day/night music
+   pool) and timePass in the same line. BOHEMIA_WHERE is posted by
+   slices/BOHEMIA_RUN_CURRENT.html every four seconds. THE WALKED CITY NEVER POSTS
+   IT -- positive control: its only two hits for that string are FILENAMES INSIDE
+   COMMENTS. Same shape as day 6's stranded faction world; A MIGRATION LIST IS A
+   DELETION LIST FOR EVERYTHING NOT ON IT, and this is what it deletes when nothing
+   crashes.
+   THE WORK: post BOHEMIA_WHERE with `inside` and `night` on a four-second
+   heartbeat, the way the run has since 8/1. No new sound, no new art, no ruling
+   from him, and it turns four systems back on at once. | the bed audibly runs on
+   the walked surface and occlusion can fire | nothing | no. ***
+
+BB-THE-DAY-SONG-PLAYS. *** DAY 22. THE WALKED CITY IS PERMANENTLY NIGHT, AND
+   THIS EXACT BUG WAS FIXED ONCE ALREADY AND THE MIGRATION UNDID IT. ***
+   MEASURED: CITYMUS.phase ships hardcoded 'NIGHT' and musicPhase(d) is THE ONLY
+   ASSIGNMENT TO IT IN THE BUILD. musicPhase is called from exactly one place, the
+   BOHEMIA_WHERE handler, which the walked city never sends (see
+   BB-THE-CITY-SENDS-WHERE). So on the surface he actually walks, phaseCat() returns
+   OVERWORLD NIGHT forever and the day and dusk/dawn pools are unreachable.
+   THE ALPHA'S OWN 8/4 BLOCK ALREADY FOUND AND FIXED THIS, FOR THE RUN: "CITYMUS.
+   phase shipped hardcoded to 'NIGHT'... The clock landed. Nobody set it... over
+   200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one song in this
+   entire project he has ever said he likes ('now one of my new favorite songs that
+   you've made'), tagged OVERWORLD DAY by his own hand, unplayable in the run since
+   the day he tagged it." It is tagged OVERWORLD DAY and the walked city can never
+   be in day.
+   RIDES BB-THE-CITY-SENDS-WHERE. VERIFY BY OBSERVED PHASE, NOT BY READING THE CODE
+   -- a fix that has already been undone once by a surface change is exactly the
+   thing to gate. | the phase changes with the clock on the walked surface and a
+   day-tagged song can be drawn | nothing | no. ***
+
+BB-THE-BED-IS-THE-PLACE. *** DAY 22. A DISTRICT THAT SOUNDS DIFFERENT IS
+   DIFFERENT, AT ZERO ART COST. RIDES BEHIND BB-THE-CITY-SENDS-WHERE. ***
+   In the game he named, ambience is PER-TERRAIN and PER-SETTLEMENT and the stated
+   goal is that you feel immersed in the ground your figure stands on: seagulls and
+   waves on the coast, insects and frogs in swamp, icy wind in snow, wolves howling
+   at night in forest, crickets in the steppe; and settlements carry people, dogs,
+   cats, chickens, smithy hammering, temple sermons, tavern laughter. THE PLACE
+   TELLS YOU WHAT IT IS BEFORE YOU LOOK AT IT.
+   THIS IS DAY 13'S OWN CONCLUSION IN A CHEAPER DOMAIN: stop counting content and
+   count COMBINATIONS. Sound needs no new pixels and passes no art gate. Once the
+   heartbeat exists the bed picks by WHERE YOU ARE STANDING, not just
+   day/night/inside.
+   REAL AISLE: Schafer's KEYNOTE SOUNDS -- the background bed, named for the key of
+   a piece of music -- are NOT LISTENED TO CONSCIOUSLY BUT DEEPLY IMPRINT A SENSE OF
+   PLACE. We ship only signals and have no keynote.
+   MECHANISM-MINE / CONTENTS-PAOLO'S: WHICH place sounds like WHAT is canon and is
+   his. | the bed varies by district on the walked surface | which district sounds
+   like what | no. ***
+
+BB-A-LIT-BLOCK-HUMS. *** DAY 22. LIGHT=TERRITORY, THROUGH THE EAR, AND IT NEEDS
+   NO NAME. QUEUED BEHIND THE DEMO. ***
+   generator (4 variants of 5 approved) and power_on (2 of 5) are in the bank and
+   are NEVER SENT by anything. Meanwhile LIGHT=TERRITORY is live code on the walked
+   surface, every circuit carries an owner, and the game already computes seams.
+   A BLOCK WITH POWER SHOULD BE AUDIBLE FROM THE NEXT STREET. That is day 6's "name
+   the circuit owner" arriving through the ear, and unlike the naming row it needs
+   NO canon from him at all -- a hum is not a name.
+   GROUNDING, and it is the day's best real-world result: the 2020 lockdowns cut
+   human-generated high-frequency ground noise BY UP TO 50%, the largest such drop
+   ever recorded and largest in the DENSEST cities -- and signals that had always
+   been there, previously buried, BECAME CLEARLY AUDIBLE. DEAD IS NOT SILENT, DEAD
+   IS A DIFFERENT BED: when the machines stop you do not lose sound, you lose the
+   layer that was masking everything else. A working generator four blocks away in
+   a dead valley is LOUD. | a live circuit is audible and a dead one is not |
+   nothing | no. ***
+
 SILENT-1. *** SAY WHICH SOUNDS ARE MESSAGES (sweep 19, 8/25 —
    records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md). SMALL. It
    is a classification pass, not a cook.
@@ -8614,23 +8697,11 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
 ##    see it, and he was right).
 
 ## QUESTS — HEADER WAS STALE, CORRECTED 8/15 BY THE COORDINATOR. The
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
-BB-TERRITORY-FLAG. *** QUEUED (BB study day 6). TEN QUESTS SAY THE MAP CHANGES
-   HANDS AND NOTHING IS LISTENING. ***
-   There is a PACING LAW (Paolo 7/24) in the walked surface: the territory AI's
-   advanceRound "is never a tick -- it fires when the narrative calls for it, a
-   quest resolves, a story beat lands." The lever is the quest verb
-   `@DO advance_territory`, opt-in per quest, so everyday errands never move the
-   map. THAT IS A GOOD DESIGN AND IT IS HIS.
-   MEASURED 8/28: 10 OF OUR 27 CANON QUESTS USE THE VERB. On the walked surface
-   it is parsed and sets `s.advanceTerritory=true`, and the ONLY code that reads
-   that flag lives in the RETIRED slice. The flag is set and dropped on the floor.
-   Either it moves ground, or those ten quests are telling the player something
-   that does not happen. Depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
-
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
 BB-THE-JOB-PAYS. *** DAY 20. 687 THINGS A JOB CAN DO AND NONE OF THEM IS PAY. ***
    MEASURED across all 27 playable canon quests: 687 @DO calls -- 203 set_stage,
    110 complete_objective, 93 learn, 82 faction, 58 bond, 51 show_objective, 50
@@ -8646,22 +8717,6 @@ BB-THE-JOB-PAYS. *** DAY 20. 687 THINGS A JOB CAN DO AND NONE OF THEM IS PAY. **
    CONTENTS question the quest's own canon already answers in words. | at least
    one canon quest credits the purse end to end on the walked surface | the
    amounts are his | no. ***
-
-BB-ASK-FOR-MORE. *** DAY 20. ASKING FOR MORE SHOULD BE FREE ONCE AND EXPENSIVE
-   AFTER. QUEUED BEHIND THE DEMO. ***
-   Measured: zero hits for haggle, negotiate-a-fee, counter-offer, advance or
-   retainer anywhere in the walked city. A job here has no price and no terms.
-   THE MECHANISM WORTH COPYING, and it needs no balance number: in the game he
-   named, every haggle adds a random 3-6 to an ANNOYANCE counter and at 9 you are
-   thrown out with a real standing hit -- so it is safe once, risky twice, nearly
-   impossible three times. Asking for more becomes a decision with a rising cost
-   instead of a free button you press until it stops giving.
-   NO NEW SCREEN: this is an @OPT on the @TALK node where the job is offered,
-   which the .bq language already has, and the words ship draft:true per 8/11.
-   Pairs with advance pay as a TRADE (taking some up front raises what walking
-   away costs you). Passes day 16's test: it pays off the first time. | a haggle
-   that can succeed, can be pushed too far, and leaves a standing mark | who gets
-   angry at what is contents | no. ***
 
 BB-INSIDE-A-DAY. *** DAY 19. THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP AND
    NOTHING ON THE OFFER SAYS SO. THIS ROW IS DISCLOSURE, NOT RELOCATION. ***
@@ -8686,6 +8741,35 @@ BB-INSIDE-A-DAY. *** DAY 19. THE FIRST JOB IS A SEVEN-HOUR ROUND TRIP AND
    (And the pleasing number: our valley is 9.2 km across and a day buys 8.6 km --
    THE WHOLE VALLEY IS EXACTLY ONE MARKET TOWN'S CATCHMENT. The map is already the
    right SIZE for its clock.)
+
+BB-TERRITORY-FLAG. *** QUEUED (BB study day 6). TEN QUESTS SAY THE MAP CHANGES
+   HANDS AND NOTHING IS LISTENING. ***
+   There is a PACING LAW (Paolo 7/24) in the walked surface: the territory AI's
+   advanceRound "is never a tick -- it fires when the narrative calls for it, a
+   quest resolves, a story beat lands." The lever is the quest verb
+   `@DO advance_territory`, opt-in per quest, so everyday errands never move the
+   map. THAT IS A GOOD DESIGN AND IT IS HIS.
+   MEASURED 8/28: 10 OF OUR 27 CANON QUESTS USE THE VERB. On the walked surface
+   it is parsed and sets `s.advanceTerritory=true`, and the ONLY code that reads
+   that flag lives in the RETIRED slice. The flag is set and dropped on the floor.
+   Either it moves ground, or those ten quests are telling the player something
+   that does not happen. Depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
+
+BB-ASK-FOR-MORE. *** DAY 20. ASKING FOR MORE SHOULD BE FREE ONCE AND EXPENSIVE
+   AFTER. QUEUED BEHIND THE DEMO. ***
+   Measured: zero hits for haggle, negotiate-a-fee, counter-offer, advance or
+   retainer anywhere in the walked city. A job here has no price and no terms.
+   THE MECHANISM WORTH COPYING, and it needs no balance number: in the game he
+   named, every haggle adds a random 3-6 to an ANNOYANCE counter and at 9 you are
+   thrown out with a real standing hit -- so it is safe once, risky twice, nearly
+   impossible three times. Asking for more becomes a decision with a rising cost
+   instead of a free button you press until it stops giving.
+   NO NEW SCREEN: this is an @OPT on the @TALK node where the job is offered,
+   which the .bq language already has, and the words ship draft:true per 8/11.
+   Pairs with advance pay as a TRADE (taking some up front raises what walking
+   away costs you). Passes day 16's test: it pays off the first time. | a haggle
+   that can succeed, can be pushed too far, and leaves a standing mark | who gets
+   angry at what is contents | no. ***
 
 BB-PREDICATE-ANSWER. *** DAY 8. SIXTY TIMES A QUEST HAS ASKED FOR SOMEBODY BY
    WHAT THEY CAN DO AND THE VALLEY HAS HAD NO WAY TO ANSWER. ***
@@ -8851,10 +8935,6 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
 ## structure, stages, effects, consequence. WORDS owns HOW IT SOUNDS —
 ## the line, the voice, the register, the craft. Neither writes the
 ## other's half.)
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
 BB-THE-SMALL-MOMENT. *** DAY 13. A BEAT NOBODY REMEMBERS DID NOT HAPPEN. ***
    The twelve approved roadside encounters get written as PEAKS, not as wallpaper.
    THE REASON IS THE BEST-ESTABLISHED FINDING ABOUT HOW PEOPLE REMEMBER ANYTHING:
@@ -8962,35 +9042,11 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
 ## PLAYER TOUCHES THAT IS NOT THE WORLD: buttons, cards, panels, the phone
 ## chrome, type, the HUD, the feed. It is a LOOK lane, not a plumbing lane
 ## -- RUN keeps owning what buttons DO. Law: the dispatch, §9.)
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
-BB-FORETOLD. *** DAY 11. A CRISIS ANNOUNCED IN ADVANCE IS THE DESIGN, NOT A
-   COURTESY. ***
-   In the game he named, a late-game crisis is FORETOLD around day 50-70 and
-   begins around day 80-100, and the first of its two phases is a BUILDUP the
-   player can read: more sightings, camps creeping closer to settlements, more
-   contracts about the thing that is coming. IT IS ALSO NOT OPTIONAL -- the world
-   turns whether you were interested or not.
-   THE ROW: the player has to be able to SEE the buildup. This is the display half
-   of WORLD BB-SLOWER-EVERY-TIME, and without it that row is a simulation nobody
-   can perceive, which day 6 already named as the way this kind of work gets
-   wasted. An escalation the player cannot see coming is not tension, it is an
-   ambush.
-
-BB-SIXTY-SECONDS. *** DAY 14. A GUARD, NOT A BUILD. ***
-   The practitioners' operational rule for a first session: "Get to playable inside
-   60 seconds. No account creation, no settings, no extended tutorial before the
-   first gameplay moment."
-   WE ALREADY MEET IT: the RUN lane measured 24.2 SECONDS TO FIRST PLAY on
-   throttled 4G. Against a 60-second budget that is INSIDE it, which is worth
-   saying out loud -- THE LOADING IS NOT WHAT LOSES THE FRIEND. (Performance stays
-   on the board as its own row and should.)
-   THIS ROW EXISTS SO THAT THE NEXT THING SOMEBODY WANTS TO PUT IN FRONT OF THE
-   GAME HAS TO ARGUE AGAINST A NUMBER. No settings screen, no options wall, no
-   tutorial sequence, nothing between the tap and the first real moment.
-
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
 BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
    IS HOW IT WILL GET LOST. WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS
    CHANCE ON YOU. ***
@@ -9026,6 +9082,31 @@ BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
    a chunk is BIGGER FOR AN EXPERT -- so a line made of words you recognise grows
    with the player automatically. Ours is 4-6 chunks and almost all words.
    Read: records/BOHEMIA_BB_STUDY_DAY_17_HOW_MUCH_DO_YOU_SHOW_8_28_26.md
+
+BB-FORETOLD. *** DAY 11. A CRISIS ANNOUNCED IN ADVANCE IS THE DESIGN, NOT A
+   COURTESY. ***
+   In the game he named, a late-game crisis is FORETOLD around day 50-70 and
+   begins around day 80-100, and the first of its two phases is a BUILDUP the
+   player can read: more sightings, camps creeping closer to settlements, more
+   contracts about the thing that is coming. IT IS ALSO NOT OPTIONAL -- the world
+   turns whether you were interested or not.
+   THE ROW: the player has to be able to SEE the buildup. This is the display half
+   of WORLD BB-SLOWER-EVERY-TIME, and without it that row is a simulation nobody
+   can perceive, which day 6 already named as the way this kind of work gets
+   wasted. An escalation the player cannot see coming is not tension, it is an
+   ambush.
+
+BB-SIXTY-SECONDS. *** DAY 14. A GUARD, NOT A BUILD. ***
+   The practitioners' operational rule for a first session: "Get to playable inside
+   60 seconds. No account creation, no settings, no extended tutorial before the
+   first gameplay moment."
+   WE ALREADY MEET IT: the RUN lane measured 24.2 SECONDS TO FIRST PLAY on
+   throttled 4G. Against a 60-second budget that is INSIDE it, which is worth
+   saying out loud -- THE LOADING IS NOT WHAT LOSES THE FRIEND. (Performance stays
+   on the board as its own row and should.)
+   THIS ROW EXISTS SO THAT THE NEXT THING SOMEBODY WANTS TO PUT IN FRONT OF THE
+   GAME HAS TO ARGUE AGAINST A NUMBER. No settings screen, no options wall, no
+   tutorial sequence, nothing between the tap and the first real moment.
 
 BB-READ-LINE-AUDIT. *** DAY 17. A MEASUREMENT, NOT A FIX. DO NOT CHANGE A WORD
    BEFORE RUNNING IT. ***
@@ -9534,102 +9615,36 @@ UI-2. *** CLOSED 8/30: ANOTHER LANE SHIPPED THIS ON 8/27 AND THIS ROW WAS STALE.
    | — | he plays it. TAB: RUN. ***
 
 ## SHARED / ANY IDLE SESSION (non-cook)
-*** BATTLE BROTHERS STUDY ROWS, ROUTED 8/28 BY THE COORDINATOR ON DAY 5.
-    THE STUDY IS FIVE RECORDS AND IT IS DONE. READ THE SYNTHESIS BEFORE
-    POPPING ONE OF THESE: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_
-    THE_ROUTING_8_28_26.md ***
-BB-THE-DAY-SONG-PLAYS. *** DAY 22. THE WALKED CITY IS PERMANENTLY NIGHT, AND
-   THIS EXACT BUG WAS FIXED ONCE ALREADY AND THE MIGRATION UNDID IT. ***
-   MEASURED: CITYMUS.phase ships hardcoded 'NIGHT' and musicPhase(d) is THE ONLY
-   ASSIGNMENT TO IT IN THE BUILD. musicPhase is called from exactly one place, the
-   BOHEMIA_WHERE handler, which the walked city never sends (see
-   BB-THE-CITY-SENDS-WHERE). So on the surface he actually walks, phaseCat() returns
-   OVERWORLD NIGHT forever and the day and dusk/dawn pools are unreachable.
-   THE ALPHA'S OWN 8/4 BLOCK ALREADY FOUND AND FIXED THIS, FOR THE RUN: "CITYMUS.
-   phase shipped hardcoded to 'NIGHT'... The clock landed. Nobody set it... over
-   200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one song in this
-   entire project he has ever said he likes ('now one of my new favorite songs that
-   you've made'), tagged OVERWORLD DAY by his own hand, unplayable in the run since
-   the day he tagged it." It is tagged OVERWORLD DAY and the walked city can never
-   be in day.
-   RIDES BB-THE-CITY-SENDS-WHERE. VERIFY BY OBSERVED PHASE, NOT BY READING THE CODE
-   -- a fix that has already been undone once by a surface change is exactly the
-   thing to gate. | the phase changes with the clock on the walked surface and a
-   day-tagged song can be drawn | nothing | no. ***
-
-BB-THE-PEOPLE-RIDE-THE-SAVE. *** DAY 21. THE WORLD IS INSIDE THE HARDENED SAVE
-   AND THE PEOPLE ARE OUTSIDE IT. ***
-   THE GOOD NEWS FIRST: engine/bohemia_save.js is the second-best-built thing found
-   in 21 days of study -- two slots with a generation counter, an FNV-1a checksum,
-   a probe the SIZE of the real save, poisoning on write failure so a stale save
-   can never be resurrected, a version chain with migrations, and the phone path
-   (pagehide/freeze/blur/visibilitychange). save_iphone_gate.js drives it against a
-   hostile fake browser: 44 passed, 0 failed. citySnapshot carries seed, day,
-   minute, POSITION, the day loop, the quest runtime, the day's cast, the purse and
-   the market ledger. Nothing here is broken.
-   THE GAP: the walked city makes TEN localStorage writes. Four are dev tools. THE
-   OTHER FIVE ARE THE GAME'S MEMORY OF PEOPLE and every one goes to raw
-   localStorage AROUND the hardened save -- boh.city.minds, boh.city.known,
-   boh.city.met, boh.city.belong, boh.city.deedweight. One slot, no checksum, no
-   migration on four of five, and a silent catch(_e){} on write failure: the exact
-   four failure modes bohemia_save.js was written to kill, reproduced outside its
-   walls. MEASURED: met/minds/known/belong/deedweight appear ZERO times in
-   citySnapshot.
-   SO: EXPORT SAVE does not carry the people; a restore gives you yesterday's world
-   with today's population; and the two-slot rollback DESYNCS -- the world rolls
-   back one generation and the people do not. A TORN SAVE ACROSS TWO SYSTEMS IS
-   WORSE THAN A LOST ONE BECAUSE YOU CANNOT SEE THAT IT IS WRONG, which is the
-   belonging code's OWN comment one function above the break.
-   AND A CLEAN SLATE ONLY CLEANS TWO OF FIVE: __CT.wipe removes met and belong;
-   minds, known and deedweight survive it, under a comment that already reads "A
-   WIPE THAT LEAVES HALF THE SAVE IS NOT A WIPE".
-   WHY IT IS THE WORST PLACE FOR THE GAP: day 4 (attachment is marks that persist),
-   day 7 (the motor is obligations to people), day 16 (every relationship here is a
-   repeated game because we never reset) and day 20 (with no courts the contract IS
-   repeat business) all concluded the people are the point. ENGINE SYNC LAW, one
-   canonical body: fold the five into citySnapshot or route them through
-   BohemiaSave. They already serialise themselves; this is wiring, not invention.
-   | export, import, restore, rollback and wipe all cover the people | nothing |
-   no. ***
-
-BB-THE-GATE-WALKS-THE-PEOPLE. *** DAY 21. 44 CHECKS AND NONE OF THEM TOUCHES THE
-   FIVE. RIDES WITH BB-THE-PEOPLE-RIDE-THE-SAVE. ***
-   MEASURED: met, minds, known, belong and deedweight appear ZERO times in
-   gates/save_iphone_gate.js. The hostile-browser harness is good and it is
-   pointed at half the save. Extend it over whatever the previous row lands, and
-   include the case that harness was built for: force a torn write, roll the world
-   back one generation, and assert THE PEOPLE CAME WITH IT. A gate that proves
-   half a save survives an iPhone is proving the wrong half survives. | the
-   desync case goes red before the fix and green after | nothing | no. ***
-
-BB-THE-LETTER-IS-ONE. *** DAY 20. HE SENT THIS NUMBER ON 8/15 AND IT WAS NEVER
-   BUILT. ON THE DEMO PATH -- ONLY THE SECOND STUDY ROW THAT IS. ***
-   MEASURED AND RUN 9/4, not read: finish a #notable job the way all 27 canon
-   quests finish one and the purse answers
-   {"applied":false,"reason":"NO_RULING","table":"PAYOUT"} -- balances stay
-   0/0/0. POSITIVE CONTROL: the same call with a reward declared pays correctly
-   ({"applied":true,"paid":{"resources":1}}), so the pipe is built, wired, gated
-   (payday_gate.js) and CALLED on the walked surface by payForToday(). IT PAYS
-   NOTHING BECAUSE THERE IS NOTHING TO PAY.
-   HIS RULING, 8/15, LOCKED: "just make everything cost one. Just start off with
-   one and then I'll move from there." The law names the three tables BY NAME and
-   says they "fill with ones TODAY". Today all three are still {} and all three
-   still carry the comment [PENDING Paolo] -- in engine/bohemia_purse.js, in
-   slices/BOHEMIA_CITY_WORLD.html and in slices/BOHEMIA_RUN_CURRENT.html. Row E1
-   in this file is still open and says DO THIS FIRST; the demo banner near the
-   top of this file says "GET PAID and SPEND are both live". BOTH CANNOT BE TRUE.
-   AND THE GATES NEVER LIED: placeholder_number_gate says "the three tables are
-   still EMPTY" and demo_blockers_gate prints "3 ruled-but-empty tables" -- both
-   INSIDE A GREEN PASS, every run, for twenty days.
-   THE COLLISION, which is why no single lane could have caught it: 8/11 put the
-   reward ON THE QUEST ("whatever currency the quest decides to give") and 8/15
-   fills the FALLBACK TABLE. They compose fine and they are not in conflict, but
-   they hand the job to two different lanes, so QUESTS and WORLD can each
-   correctly believe it is the other's. SETTLE THE OWNER IN ONE LINE, then fill
-   the three tables with TAGGED ones and keep the NO_RULING path for uncovered
-   keys (law section 4). | a finished job credits the purse on the real surface,
-   and the placeholder gate still goes red on an untagged number | the real
-   amounts are HIS, after he plays to the end (law section 1) | no. ***
+*** BATTLE BROTHERS STUDY ROWS (coordinator, 22 records, 8/28; ORDERED 9/4). ***
+*** THE FIRST ROW BELOW IS THE ONE TO POP ON "GO". Smallest and already-ruled
+    first. None of the top rows waits on the demo build. Latest record:
+    records/BOHEMIA_BB_STUDY_DAY_22_THE_CITY_MAKES_NO_SOUND_8_28_26.md
+    Synthesis: records/BOHEMIA_BB_STUDY_DAY_5_THE_SYNTHESIS_AND_THE_ROUTING_8_28_26.md ***
+BB-COLD-HAND. *** DAY 14. THE FIRST DEMO-CRITICAL ROW THIS STUDY HAS PRODUCED,
+   AND IT IS A METHOD WE ALREADY OWN AND RAN EXACTLY ONCE. THIS ONE IS ON THE
+   DEMO PATH, NOT BEHIND IT. ***
+   Written into the walked surface on 8/25: "MEASURED with a cold hand that
+   presses the loudest control on screen and never reads: from a cold boot it went
+   WATCH, GET UP, then DROP IN / CITY / DROP IN / CITY ten times and stopped.
+   PHONE OPENED 0. JOB TAKEN 0. CLOCK 06:00 AT THE FIRST TAP AND 06:00 AT THE
+   TWELFTH." A simulated stranger pressed the biggest button twelve times and the
+   game's clock never moved. The cause was found and fixed properly (the phone had
+   rung as "a dark chip with a hairline and a 14px dot, and the dot is a sign on a
+   door -- Norman: when you have to put a sign on a door, the design already
+   failed"), so the ring now wears the same fill as the WATCH button the player
+   has already been taught to press.
+   *** THE FIX IS NOT THE FINDING. THE TEST IS. *** It is not a gate, it is not
+   repeatable, and nothing has run it since -- not on the cold open, the first
+   morning, the job offer, the first fight or the reckoning. It found a total dead
+   end in the first minute of the game the one time it ran, and NOBODY HAS ASKED
+   WHAT A SECOND RUN WOULD FIND.
+   THE ROW: promote it to a repeatable harness. Press the loudest control on
+   screen, never read, and assert THE GAME ADVANCES -- clock moves, a job gets
+   taken, a day ends.
+   THE TEST IN ONE SENTENCE, for anybody designing a screen: A COLD HAND PRESSES
+   THE LOUDEST THING ON SCREEN AND NEVER READS. If doing that repeatedly does not
+   advance the game, the screen is broken however good the systems behind it are.
+   Read: records/BOHEMIA_BB_STUDY_DAY_14_THE_FIRST_FIVE_MINUTES_8_28_26.md
 
 BB-A-GATE-CAN-SAY-OWED. *** DAY 20. OUR GATES HAVE TWO WORDS AND NEED A THIRD. ***
    A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED has a twin nobody wrote down:
@@ -9645,6 +9660,7 @@ BB-A-GATE-CAN-SAY-OWED. *** DAY 20. OUR GATES HAVE TWO WORDS AND NEED A THIRD. *
    other; this one reads a law against the build. | an unexecuted dated ruling
    goes OWED, and a mutation that quietly executes it flips the row | nothing |
    no. ***
+
 
 BB-THE-ACT-IS-A-STATE. *** DAY 11. TEN QUESTS ARE LABELLED ACT 2 IN A GAME WITH
    NO ACT. NINTH INSTANCE, AND IT RIDES ALONG WITH BB-LOOPLESS. ***
