@@ -39375,7 +39375,15 @@ function citySnapshot(){
     vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
     installAsked:!!INSTALL_ASKED,   /* __KEEP_THIS_RUN__ -- a prompt that comes back every night is an ad */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
-    market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */ };
+    market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null,   /* __THE_TRADING_HUB__ */
+    /* __THE_PEOPLE_RIDE_THE_SAVE__ -- THE WORLD WAS INSIDE THE HARDENED SAVE AND THE PEOPLE
+       WERE OUTSIDE IT. Five keys -- minds, known, met, belong, deedweight -- wrote
+       to raw localStorage AROUND bohemia_save.js: one slot each, no checksum, no
+       migration on four of five, and a silent catch on write failure, which is the
+       exact four failure modes that module was written to kill. They appeared ZERO
+       times here. So export did not carry the people, a restore gave yesterday's
+       world with today's population, and the two-slot rollback DESYNCED. */
+    people:(function(){ try{ return ctPeopleSave(); }catch(_e){ return null; } })() };
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
@@ -41220,6 +41228,9 @@ function applyRestore(st){
   if(st.vistaSeen){ try{ VISTA_SEEN=true; }catch(_e){} }
   /* __KEEP_THIS_RUN__ */
   if(st.installAsked){ try{ INSTALL_ASKED=true; }catch(_e){} }
+  /* __THE_PEOPLE_RIDE_THE_SAVE__ -- AND THE PEOPLE COME WITH IT. Absent on any save written
+     before today, which is correct: that save never had them. */
+  if(st.people){ try{ ctPeopleLoad(st.people); }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     /* __CITY_ADDRESS__ -- WHO THE JOB IS ABOUT SURVIVES A RELOAD. Restored
@@ -43843,6 +43854,67 @@ function ctCardToBottom(){
 function ctSave(){
   try{ localStorage.setItem('boh.city.met', JSON.stringify(CT_MET.serialize())); }catch(_e){}
   ctBelongPersist();          /* __CITY_BELONGSAVE__ */
+}
+
+/* ============================================================================
+   __THE_PEOPLE_RIDE_THE_SAVE__ (9/4) -- THE FIVE, GATHERED IN ONE PLACE.
+
+   WIRING, NOT INVENTION: every one of these already serialises itself and keeps
+   its own key. This reads the LIVE objects and hands them to the hardened save,
+   and the restore writes both the live object AND its key so the two systems can
+   never disagree -- which is the desync the row is about.
+
+   EACH ONE IS GUARDED ON ITS OWN. A blob that cannot be read is skipped, never
+   half-applied: "a partially restored standing is worse than a fresh one because
+   you cannot see that it is wrong" is the belonging code's own rule and it holds
+   for all five.
+   ========================================================================== */
+function ctPeopleSave(){
+  var out = {}, n = 0;
+  try{ out.met    = CT_MET.serialize();                              n++; }catch(_e){}
+  try{ out.minds  = CT_MINDS;                                        n++; }catch(_e){}
+  try{ var k = knownLoad(); out.known = k ? k.serialize() : null;    n++; }catch(_e){}
+  try{ var b = window.__CT_BELONG; out.belong = (b && b.meta) ? b.meta : null; n++; }catch(_e){}
+  try{ out.deed   = BohemiaStanding.DEED_WEIGHT;                     n++; }catch(_e){}
+  return n ? out : null;
+}
+
+function ctPeopleLoad(p){
+  if(!p || typeof p !== 'object') return 0;
+  var n = 0;
+  /* THE LIVE OBJECT AND ITS KEY MOVE TOGETHER. Setting only the live object
+     would leave the key holding yesterday's people, and the next ctSave would
+     write the restored one back over it -- a race whose loser is invisible. */
+  try{ if(p.met){ CT_MET = BohemiaPeople.makeLedger(p.met);
+        localStorage.setItem('boh.city.met', JSON.stringify(p.met)); n++; } }catch(_e){}
+  try{ if(p.minds && typeof p.minds === 'object'){ CT_MINDS = p.minds;
+        localStorage.setItem('boh.city.minds', JSON.stringify(CT_MINDS)); n++; } }catch(_e){}
+  try{ if(p.known){ KNOWN = BohemiaKnown.make(p.known);
+        localStorage.setItem('boh.city.known', JSON.stringify(KNOWN.serialize())); n++; } }catch(_e){}
+  try{ if(p.belong && typeof p.belong === 'object'){
+        window.__CT_BELONG = window.__CT_BELONG || {};
+        window.__CT_BELONG.meta = p.belong;
+        ctBelongPersist(); n++; } }catch(_e){}
+  /* THE DEED TABLE RIDES TOO, and that is deliberate: a save that cannot
+     reproduce the numbers it was played under cannot reproduce the bug it was
+     sent to show. His live tuning re-lands the moment he touches the DIRECT tab,
+     which pushes across the frame. */
+  try{ if(p.deed && typeof p.deed === 'object'){ ctDialApply(p.deed, true); n++; } }catch(_e){}
+  window.__PEOPLE_RESTORED = n;
+  return n;
+}
+
+/* A WIPE THAT LEAVES HALF THE SAVE IS NOT A WIPE -- the comment was already
+   there and it was already true of three of the five. __THE_PEOPLE_RIDE_THE_SAVE__ */
+function ctPeopleWipe(){
+  var keys = ['boh.city.met','boh.city.minds','boh.city.known',
+              'boh.city.belong','boh.city.deedweight'];
+  for(var i=0;i<keys.length;i++){ try{ localStorage.removeItem(keys[i]); }catch(_e){} }
+  try{ CT_MET = BohemiaPeople.makeLedger(null); }catch(_e){}
+  try{ CT_MINDS = {}; }catch(_e){}
+  try{ KNOWN = null; }catch(_e){}
+  try{ window.__CT_BELONG = null; }catch(_e){}
+  return keys.length;
 }
 /* __CITY_BELONGSAVE__ -- THE BELONGING SYSTEM HAD NO MEMORY.
    window.__CT_BELONG was a plain object: nothing wrote it, nothing read it back.
@@ -50405,13 +50477,13 @@ window.__CT={ everyone:function(){ return ctEveryone().map(function(p){
               adjacent:function(){ var p=ctAdjacent(); return p?ctPerson(p).key:null; },
               open:function(){ ctOpen(); return !!CT_OPEN; },
               nameCount:function(){ return CT_MET.namesKnown(); },
-              wipe:function(){ try{localStorage.removeItem('boh.city.met');}catch(_e){}
-                /* __CITY_BELONGSAVE__ -- A WIPE THAT LEAVES HALF THE SAVE IS NOT A
-                   WIPE. This removed only the met-ledger, which would have left a
-                   player's standing and commitments behind after they asked for a
-                   clean slate. */
-                try{localStorage.removeItem(CT_BELONG_KEY); window.__CT_BELONG=null;}catch(_e){}
-                               CT_MET=BohemiaPeople.makeLedger(null); } };
+              /* __THE_PEOPLE_RIDE_THE_SAVE__ (9/4) -- AND IT CLEANS ALL FIVE NOW.
+                 __CITY_BELONGSAVE__ wrote "A WIPE THAT LEAVES HALF THE SAVE IS NOT
+                 A WIPE" and then fixed two of five: met and belong went, and MINDS,
+                 KNOWN and DEEDWEIGHT survived a clean slate. The comment was right
+                 and it was describing itself. One list, so there is no sixth key to
+                 forget next time. */
+              wipe:function(){ try{ return ctPeopleWipe(); }catch(_e){ return 0; } } };
 /* ==== /CITY TALK ==== */
 
 window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot:INSIDE.foot,

@@ -172,6 +172,68 @@ anything is heard a third time, and one moment every 90 seconds means 40 moments
 
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 
+--------------------------------------------------------------------------------
+RUN (run-eak241): 9/4 LATEST -- *** VAMILY [people saved] SHIPPED. The world was
+inside the hardened save and the people were outside it. TAB: RUN. Nothing to
+judge. ***
+
+JOB: BB-THE-PEOPLE-RIDE-THE-SAVE, first OPEN row in the RUN queue, claimed and
+pushed before starting per the front page.
+
+THE GAP, MEASURED: engine/bohemia_save.js is not broken -- two slots with a
+generation counter, an FNV-1a checksum, a probe the SIZE of the real save,
+poisoning on write failure, a version chain, the whole phone path, 44/0 against a
+hostile fake browser. But the walked city made TEN localStorage writes; four are
+dev tools and THE OTHER FIVE ARE THE GAME'S MEMORY OF PEOPLE -- minds, known,
+met, belong, deedweight -- every one writing to raw localStorage AROUND that
+save. One slot each, no checksum, no migration on four of five, a silent catch on
+write failure: THE EXACT FOUR FAILURE MODES THAT MODULE WAS WRITTEN TO KILL,
+reproduced outside its walls. ALL FIVE APPEARED ZERO TIMES IN citySnapshot.
+So export did not carry the people, a restore gave yesterday's world with today's
+population, and the two-slot rollback DESYNCED. And a clean slate cleaned only
+two of five, under a comment that already read "A WIPE THAT LEAVES HALF THE SAVE
+IS NOT A WIPE".
+
+WIRING, NOT INVENTION: all five already serialise themselves. The snapshot READS
+the live objects; the restore WRITES the object AND its key together so the two
+systems can never disagree, which is the desync itself. No new key, no new
+serialiser, no second copy of any ledger.
+
+THE VERSION IS DELIBERATELY NOT BUMPED. `people` is optional: an old save has none
+and the restore skips it, which is correct because that save never had them.
+Bumping would be worse -- migrateCity refuses anything newer by name, so a bump
+makes every save written today UNREADABLE by any build that has not shipped yet,
+to describe a field that is safely absent.
+
+THE DEED TABLE RIDES TOO, and that is the one judgment call: a save that cannot
+reproduce the numbers it was played under cannot reproduce the bug it was sent to
+show, and his live tuning re-lands the moment he touches the DIRECT tab.
+
+  PEOPLE SAVED 14/0 (new) · SAVE IPHONE 44/0 · SAVE COMPAT 16/0 · WHOLE DEMO 23/0
+  · DEMO BUILD 25/0 · DAYLOOP 57/2 (its pre-existing baseline, unchanged, not mine)
+  MEASURED: snapshot carries belong/deed/known/met/minds · wipe 5 -> 0 · restore
+  5 of 5 with the burned bridge byte-identical · rollback carries the people
+  MUTATION: the snapshot dropping the people turns 5 claims red
+PROVED ON THE DEMO SURFACE TOO, not by argument: opened BOHEMIA_DEMO.html itself
+and read citySnapshot().people back -- all five. The demo LOADS the city file
+rather than embedding it, so it gets this, and that is now measured rather than
+assumed.
+
+*** AND THE HARNESS TAUGHT ME SOMETHING WORTH KEEPING: A ROLLBACK IS A
+NEXT-LAUNCH EVENT, NOT A NEXT-CALL ONE. *** load() prefers S.mem, the in-session
+copy of what was last written, which is correct -- inside one session memory IS
+the truth even when the disk is torn. My first cut tore the newest slot and
+called load() on the SAME instance, got day 2, and read as a failure of the save
+module. It was a failure of the harness. It models a relaunch now: a fresh
+instance over the same store, with no memory of the session that tore it. Second
+time this week a test of mine proved nothing and nearly got believed.
+
+NEXT: the RUN queue's next OPEN row is [save checked] BB-THE-GATE-WALKS-THE-PEOPLE,
+which is the deep extension of save_iphone_gate over whatever this row landed --
+44 checks and none of them touched the five.
+
+--------------------------------------------------------------------------------
+
 ECONOMY (economy-knxaeh): 9/5 LATEST -- *** THE ECONOMY LANE IS OPEN AND ITS
 FIRST DAY MEASURED SOMETHING NOBODY HAD RUN: OUR VALLEY STARVES ON DAY 10 AND
 EVERY PRICE IN THE GAME IS A CONSTANT FROM ABOUT WEEK NINE UNTIL THE END OF A
