@@ -1283,7 +1283,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5j - A FIGHT ENDS WHEN SOMEBODY LEAVES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/5k - THE CITY SENDS WHERE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -22561,6 +22561,30 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
            The run has been reporting `inside` every four seconds since 8/1 and
            this handler used it for the ambience bed and threw the rest away.
            No new message, no new run code: the fact was already arriving. */
+        /* __ONE_WALKED_SURFACE__ (9/5) -- TWO SENDERS, ONE STATEFUL HANDLER.
+           The run slice has posted this every four seconds since 8/1 and the
+           walked city started posting it today, and they are two documents with
+           two independent clocks. timePass keeps LASTMIN and turns the gap
+           between one report and the next into a JUMP, so two clocks taking
+           turns read as a twelve-hour leap every four seconds -- twelve hour
+           strikes, over the judge sheet, which is a thing he has complained
+           about by name (8/16, THE GAME DOES NOT PLAY TO AN EMPTY ROOM).
+           TURNING ON A SECOND SENDER FOR A STATEFUL HANDLER IS NOT AN ADDITION,
+           IT IS A RACE. So one walked surface owns the report, and it is the one
+           he is standing on: the city wins while it is live, and twelve seconds
+           of silence from it (three missed heartbeats, the same recency window
+           AMB uses) hands the report back to the run exactly as before.
+           WHICH SURFACE, NOT WHICH WINDOW: both frames are children of this
+           document, so ev.source only says "an iframe" and cannot tell the run
+           from the city. But it DOES tell an iframe from a direct post, and
+           this document's other branch already uses it that way -- a direct
+           post from the parent is a probe, a measurement or his own board, not
+           a surface, and one of those must always land or nothing can measure
+           this handler at all. So the rule is: an IFRAME that is not the city
+           stands down while the city is walking. */
+        var _wn = Date.now();
+        if(d.from === 'city') WHERE_CITY = _wn;
+        else if(ev.source !== window && _wn - (WHERE_CITY || 0) < 12000) return;
         LISTENER.inside = !!d.inside;
         AMB.where(d);
         if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); timePass(d); return; }
@@ -22789,6 +22813,7 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
      copy, exactly as the footstep path has always done: the verdict is on the
      SOUND, never on where the game puts it. */
   var LISTENER = { inside: false };
+  var WHERE_CITY = 0;   /* __ONE_WALKED_SURFACE__: when the walked city last reported */
   function placeSound(ev, place, dest0){
     try{
       if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return null;

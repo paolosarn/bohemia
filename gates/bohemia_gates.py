@@ -1414,6 +1414,22 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('CITY WHERE',    ['python3', 'gates/city_where_gate.py'],
+     "THE WALKED SURFACE SAYS WHERE YOU ARE. One message, BOHEMIA_WHERE, feeds "
+     "four finished systems: the ambience bed, occlusion, the day/night music "
+     "pool and the hour chime. The 8/14 migration moved the walked surface into "
+     "another document and the ONE sender stayed behind, so all four were dark "
+     "for three weeks with nothing red. MEASURED before the fix: __AMB.seen 0 "
+     "after 25 seconds of walking, the bed had never chosen a bed, the phase "
+     "said NIGHT while the clock said 06:00, the chime had never struck. "
+     "BB-THE-DAY-SONG-PLAYS says how to check it -- VERIFY BY OBSERVED PHASE, "
+     "NOT BY READING THE CODE, because this exact bug was fixed once and a "
+     "surface change undid it -- so this gate moves the CITY's own clock with "
+     "the CITY's own advance() and reads the phase off the shell. It also holds "
+     "the ground under every step: __surfaceOf read c.name and c.tile and a "
+     "city cell has NEITHER, so 6,561 of 6,561 cells classified 'dirt' and "
+     "every footstep in the valley was the dirt one, invisible because the "
+     "fallback is an approved sound", True),
     ('MATERIAL COOKED',['python3', 'gates/material_cooked_gate.py'],
      "Paolo 8/28 LOCKED at the bottom of a 599-of-600 sweep: 'no more wood "
      "stone ash bone shit its COOKED'. Four materials retired for NEW cooks; "

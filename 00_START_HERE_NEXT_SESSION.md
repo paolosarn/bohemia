@@ -1,3 +1,80 @@
+SOUND (sound-xk7pjp): 9/5 (a) LATEST -- *** THE VALLEY WAS SILENT WHEN YOU STOOD
+STILL, AND NOTHING WAS BROKEN. One message feeds four finished systems and the
+walked surface never sent it. Every step in the game was also the dirt one.
+TAB: RUN (the walked city). Nothing to judge -- no new sound was cooked. ***
+
+Build 9/5k - THE CITY SENDS WHERE.
+VAMILY: SHIPPED [background sound] BB-THE-CITY-SENDS-WHERE and [daytime music]
+BB-THE-DAY-SONG-PLAYS. They are one wire: musicPhase() is called from exactly one
+place and that place is the handler for the message nobody sent.
+
+MEASURED FIRST, on the real surface, before touching anything (headless run,
+splash clicked, twenty-five seconds of walking):
+  __AMB.seen        0        the shell had never heard from the walked surface
+  __AMB.kind        null     the ambience bed had never chosen a bed
+  __musicPhase()    NIGHT    while the city's own clock said 06:00
+  __sfxSpace()      STREET   nailed there
+  __timePassStats   0 rows   the hour chime had never struck
+  runFrame src      (none)   the ONE sender never even loads
+Positive control, posting the same message by hand: all four moved instantly.
+NOTHING IN THE SHELL WAS EVER BROKEN. BOHEMIA_RUN_CURRENT.html has posted
+BOHEMIA_WHERE every four seconds since 8/1; the 8/14 migration moved the walked
+surface into BOHEMIA_CITY_WORLD.html, whose only two hits for that string are
+FILENAMES INSIDE COMMENTS. A MIGRATION LIST IS A DELETION LIST FOR EVERYTHING
+NOT ON IT.
+
+AFTER: the bed picks air_day / air_night / air_inside (his 15-of-15 sweep), the
+phase walks DAWN -> DAY -> DUSK -> NIGHT with the clock, the chime counts, and
+the space follows the ground. Crossings report INSTANTLY at all four places the
+city changes INSIDE, because AMB arms its bed on the crossing itself (8/14).
+
+TWO BUGS FOUND UNDERNEATH IT, AND BOTH HAD TO BE FIXED HERE:
+1. EVERY FOOTSTEP IN THE VALLEY WAS THE DIRT ONE. __surfaceOf reads
+   `c.name || c.tile` and A CITY CELL HAS NEITHER FIELD. Measured 81x81 around
+   the spawn: 6,561 of 6,561 cells classified 'dirt' and 6,561 of 6,561 had an
+   empty name. The rules under that line are right and were never reached. It
+   survived because THE FALLBACK IS AN APPROVED SOUND -- nothing went silent,
+   nothing threw, no gate went red. Now reads gArtPool, the field the tile pass
+   fills in off the district legend, and every routing is that block's own
+   sentence about the tile. 6,561 dirt -> 5,043 dirt / 1,014 asphalt / 433
+   concrete / 71 gravel.
+2. TURNING ON A SECOND SENDER FOR A STATEFUL HANDLER IS NOT AN ADDITION, IT IS
+   A RACE. The run slice posts the same message off its own clock. timePass
+   keeps LASTMIN and turns the gap between reports into a JUMP, so two clocks
+   taking turns read as a twelve-hour leap every four seconds. sfx_wired_gate
+   caught it in its own words -- "THE GAME PLAYED OVER HIM WHILE HE WAS VOTING"
+   -- with twelve hour strikes over the judge sheet, which is a thing he has
+   complained about by name. Fixed: the city stamps from:'city' and owns the
+   report while it is live; a direct post from the parent (a probe) always lands.
+
+GATE: city_where_gate.py, 25 claims, nothing decided by reading source --
+BB-THE-DAY-SONG-PLAYS says VERIFY BY OBSERVED PHASE because this exact bug was
+fixed once and a surface change undid it. Mutations: heartbeat deleted RED x5,
+inside/space nailed RED x3, clock frozen RED x5, ground classifier reverted
+RED x5, source stamp dropped RED (66 hour strikes, worst jump 870 minutes).
+
+TWO BROKEN RULERS, both mine, both the usual shape:
+  * silent_moments_gate read csrc[i:i+2000] from the word `function`. A WINDOW
+    IS NOT A SCOPE: the fix added a comment and four legs went red on a build
+    where the thing they check had just been repaired. Reads the whole function
+    now.
+  * city_where_gate's first cut ran the clock walk BEFORE the place claims. That
+    walk crosses NIGHTFALL, which ends the day and wakes you somewhere else, so
+    every later claim described a world the earlier ones did not measure. A
+    MEASUREMENT TAKEN AFTER YOU CHANGED THE WORLD IS ABOUT THE NEW WORLD.
+
+FILES  tools/bohemia_the_city_sends_where.py, tools/bohemia_the_ground_has_a_name.py,
+       tools/bohemia_one_walked_surface.py, gates/city_where_gate.py,
+       records/BOHEMIA_THE_CITY_SENDS_WHERE_9_5_26.md
+
+NEXT IN THIS LANE (VAMILY order): [district sound] BB-THE-BED-IS-THE-PLACE, then
+[power hums] BB-A-LIT-BLOCK-HUMS, then [unused sounds] THE-OTHER-51. The bed row
+is now unblocked -- it rode behind this one and the message it needed exists.
+
+------------------------------------------------------------------------
+
+WORDS (words-8dqrnq): 9/4 LATEST -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+
 CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WORD.
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
@@ -60,6 +137,7 @@ CHARACTER'S OWN NOTES ON RUNNING IT
   goes red on a stale bank.
 - NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
   / day N to him. Rounds, minutes, hours.
+
 
 WORDS (words-8dqrnq): 9/5 (b) LATEST -- *** VAMILY Q5 [refusing answers] SHIPPED. ALL FOUR
 REFUSALS IN THE ASKING MODULE ARE THE SAME MOVE, AND IT IS THE ONE THAT TEACHES NOTHING. ***
@@ -2639,6 +2717,7 @@ Tab: RUN (the opening -- they speak and their portraits pop up) / CHARACTER (the
 
 
 WORDS (words-8dqrnq): 9/4 -- *** VAMILY. LANE CLAIMED, Q1 ANSWERED, AND THE QUESTION
+
 ITSELF IS IMPOSSIBLE AS REALISM. *** MODE: RESEARCH, so nothing was implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
 
@@ -8284,7 +8363,7 @@ WHAT COMES AFTER, AND IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 8/30 (a) LATEST -- *** THE HUNDRED-HOUR GAME LEVELLED YOU
+SOUND (sound-xk7pjp): 8/30 (a) -- *** THE HUNDRED-HOUR GAME LEVELLED YOU
 UP IN SILENCE. The tree and the fifty-three bosses -- the entire progression of
 the game he described on 8/26 -- had ZERO sound calls between them. 7 moments,
 35 candidates, 5 wired the same turn. TAB: MUSIC. ***

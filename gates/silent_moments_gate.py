@@ -421,21 +421,39 @@ def main():
     # for the city in the run tab on 7/28 -- so step_concrete, step_sand and
     # step_wood, all approved in his 270-thumb sweep, had never made a sound and
     # every sidewalk played the roadway footstep.
+    # *** AND THE RULER WAS A FIXED 2000 BYTES, WHICH IS NOT A FUNCTION. ***
+    # This read csrc[i:i+2000] from the word `function`. On 9/5 the classifier
+    # gained a block of comment explaining a real bug it had -- it was reading
+    # c.name and c.tile, fields a city cell does not have, so 6,561 of 6,561
+    # cells came back 'dirt' -- and the rules this gate was looking for moved
+    # past byte 2000. Four legs went red on a build where the thing they check
+    # had just been FIXED. Tenth broken ruler in this repo's month of them, and
+    # the same shape as all of them: A WINDOW IS NOT A SCOPE. It reads the whole
+    # function now, to its own closing brace.
     city = 'slices/BOHEMIA_CITY_WORLD.html'
     if os.path.exists(city):
         csrc = open(city, encoding='utf8').read()
         i = csrc.find('function __surfaceOf')
-        blk = csrc[i:csrc.find('}', csrc.find('return', i))] if i >= 0 else ''
+        j = csrc.find("\n}", i) if i >= 0 else -1
+        blk = csrc[i:j] if (i >= 0 and j > i) else ''
         ok('the city world still has a ground classifier', bool(blk))
         # every surface it can report must be one the bank can answer, or the
         # parent's fallback silently swallows it
         for surf in ('concrete', 'sand', 'wood'):
             ok("the ground he walks can report '%s' (it could not before 8/20)"
-               % surf, ("'%s'" % surf) in csrc[i:i + 2000])
+               % surf, ("'%s'" % surf) in blk)
         ok('and the roadway test still runs before the concrete test, so a '
            'drivable surface is asphalt whatever the tile is called',
-           csrc[i:i + 2000].find('asphalt|roadway') <
-           csrc[i:i + 2000].find('sidewalk|walk|concrete'))
+           blk.find('asphalt|roadway') < blk.find('sidewalk|walk|concrete'))
+        # AND IT READS A FIELD A CITY CELL ACTUALLY HAS. The rules above were
+        # right, ported correctly, and unreachable for three weeks because the
+        # only thing feeding them was `c.name || c.tile` and a city cell carries
+        # neither. gArtPool is what the tile pass fills in, off the district
+        # legend's kind and name. Source-level here; city_where_gate counts the
+        # rendered cells.
+        ok('and it reads gArtPool, the ground name a city cell actually carries '
+           '-- reading c.name alone made 6,561 of 6,561 cells dirt, invisible '
+           'because the fallback is an approved sound', 'gArtPool' in blk)
         bank2 = json.load(open(BANK, encoding='utf8'))
         for e in ('step_concrete', 'step_sand', 'step_wood'):
             ok('%s is approved AND now reachable (%d candidates)'

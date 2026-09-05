@@ -110,11 +110,11 @@ MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on
 
 ## SOUNDS  (08.)
 MODE: BUILD
-STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all reactions; the ambience bed is built and fed only by a message the city never sends; music phase stuck on NIGHT. Unverified: where the music engine module lives (not in engine/).
+STATE: 65 approved sounds, 185 variants. The walked city NOW reports where you are every four seconds, so the ambience bed runs, occlusion has a listener, the music phase follows the clock and the hour chime strikes -- all four measured on the real surface, all four dark for three weeks before 9/5. Also fixed 9/5: every footstep in the valley was the dirt one (the classifier read two fields a city cell does not have; 6,561 of 6,561 cells came back 'dirt'). Unverified: where the music engine module lives (not in engine/).
 - OPEN  [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
 
-- CLAIMED 9/5 sound-xk7pjp  [background sound]  BB-THE-CITY-SENDS-WHERE
-- CLAIMED 9/5 sound-xk7pjp  [daytime music]  BB-THE-DAY-SONG-PLAYS
+- SHIPPED 9/5 [background sound]  BB-THE-CITY-SENDS-WHERE
+- SHIPPED 9/5 [daytime music]  BB-THE-DAY-SONG-PLAYS
 - OPEN  [district sound]  BB-THE-BED-IS-THE-PLACE
 - OPEN  [power hums]  BB-A-LIT-BLOCK-HUMS
 - OPEN  [unused sounds]  THE-OTHER-51
