@@ -351,6 +351,28 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     /* IT AUTHORS NO HOSTILITY: a plain person is not a foe. */
     o.plainPersonIsFoe = streetFoeOf({ id: 'x', home: [0, 0] });
 
+    /* ---- AND IT MEETS RUN'S CREW, WHICH IS THE HALF THAT NEARLY MISSED ----
+       RUN [enemies exist] shipped hostile bodies as a CREW standing at a cell:
+       BohemiaHostiles.near(), with stateOf() returning idle / watch / CLOSE
+       ("they are coming"). IT NEVER DECORATES A ctAdjacent() PERSON, so the
+       p.hostile path this entry shipped with would never have been set by it,
+       and the two halves of one ruling would not have met -- the exact defect
+       the ruling is about, one layer up. HOST_DREW is what their own draw
+       computed; reading it is not a second copy of the question. */
+    o.hostilesEngineHere = (typeof BohemiaHostiles !== 'undefined');
+    o.readsTheCrew = (typeof streetCrewOnYou === 'function');
+    const hostWas = (typeof HOST_DREW !== 'undefined') ? HOST_DREW : null;
+    HOST_DREW = [{ at: [hx + 1, hy], count: 3, state: 'close' }];
+    SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+    o.firedOnCrew = streetFightOnStep();
+    SF_LAST = -9999;
+    o.firedTwiceSameCrew = streetFightOnStep();
+    /* a crew that is only WATCHING has clocked you and is not coming: not a fight */
+    HOST_DREW = [{ at: [hx + 4, hy], count: 3, state: 'watch' }];
+    SF_LAST = -9999; SF_DONE = {};
+    o.firedOnWatching = streetFightOnStep();
+    HOST_DREW = hostWas || [];
+
     const realAdj = window.ctAdjacent;
     /* A HOSTILE BODY -- what RUN's row will ship, and it is read FIRST so their
        row lands with no second wire. */
@@ -425,6 +447,14 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V201 AND NO HOSTILITY IS AUTHORED HERE, which matters because three lanes are on this ruling and only one of them owns that: RUN puts hostile BODIES on the street, PEOPLE puts the SIGN on the crowd, and this row is the ENTRY. A plain person is not a foe (' + JSON.stringify(street.plainPersonIsFoe)
     + ') and a stranger starts nothing (' + street.firedOnStranger + '). The test reads a real hostile body FIRST, so the moment RUN\'s row lands this entry uses it with no second wire, then falls back to the between-ledger, which already computes exactly this and had simply never been asked from the street. Consuming canon is not authoring it',
     street.plainPersonIsFoe === null && street.firedOnStranger === false);
+
+  ok('V201 *** AND IT MEETS RUN\'S CREW, WHICH IS THE HALF THAT NEARLY MISSED. *** RUN [enemies exist] landed in the same round and shipped hostile bodies as a CREW standing at a cell -- BohemiaHostiles.near(), with stateOf() returning idle / watch / CLOSE. IT NEVER DECORATES A ctAdjacent() PERSON, so the p.hostile path this entry shipped with WOULD NEVER HAVE BEEN SET BY IT, and the two halves of one ruling would not have met: the exact defect the ruling is about, one layer up. A crew that is COMING starts the fight (' + street.firedOnCrew
+    + '), the same crew never jumps you twice (' + street.firedTwiceSameCrew
+    + '), and a crew that is only WATCHING is not a fight (' + street.firedOnWatching
+    + ') -- they have clocked you and they are not coming. The roster is THEIR crew\'s own count, because RUN decided how many are on that corner, not this lane. And it reads HOST_DREW, which their draw already computed; asking BohemiaHostiles.near() again here would have been the second copy',
+    street.hostilesEngineHere === true && street.readsTheCrew === true
+    && street.firedOnCrew === true && street.firedTwiceSameCrew === false
+    && street.firedOnWatching === false);
 
   ok('V201 AND THE GUARDS HOLD, because an entry with no guards is a corridor of fights. He only ambushes you once (' + street.firedTwiceSamePerson
     + '), a cooldown holds the next one off (' + street.firedInsideCooldown + ') and lets it through once it has passed (' + street.firedAfterCooldown

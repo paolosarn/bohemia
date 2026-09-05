@@ -92,6 +92,52 @@ import sys
 CITY = 'slices/BOHEMIA_CITY_WORLD.html'
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 MARK = '__STREET_FIGHT__'
+MARK_CREW = 'streetCrewOnYou'
+
+CREW_BLOCK = '''/* *** AND THE REAL ANSWER IS RUN'S CREW, WHICH LANDED IN THE SAME ROUND. ***
+   RUN [enemies exist] shipped hostile bodies as a CREW standing at a cell --
+   BohemiaHostiles.near(), with stateOf() returning idle / watch / CLOSE ("they
+   are coming") -- and it never decorates a ctAdjacent() person, so `p.hostile`
+   would never have been set by it. THE TWO HALVES OF ONE RULING WOULD NOT HAVE
+   MET, which is the exact defect this whole ruling is about, one layer up.
+   HOST_DREW is what their draw already computed: the crews actually on screen,
+   each carrying the state their own model decided. Reading it is not a second
+   copy of the question -- asking BohemiaHostiles.near() again here would have
+   been. And the crew's own COUNT is how many they are, because RUN decided that,
+   not this lane. */
+function streetCrewOnYou(){
+  try{
+    if(typeof HOST_DREW==='undefined' || !HOST_DREW || !HOST_DREW.length) return null;
+    for(var i=0;i<HOST_DREW.length;i++){
+      var cw=HOST_DREW[i];
+      if(cw && cw.state==='close') return cw;   /* they have clocked you and they are coming */
+    }
+  }catch(_e){}
+  return null;
+}
+function streetFightOnStep(){
+  if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */
+  if(!(window.parent&&window.parent!==window)) return false;
+  SF_STEPS++;
+  if(SF_STEPS < SF_GRACE) return false;
+  if(SF_STEPS - SF_LAST < SF_COOLDOWN) return false;
+  /* A CREW THAT IS COMING FOR YOU IS THE FIGHT, and it is asked first because it
+     is the real one. */
+  var crew=streetCrewOnYou();
+  if(crew){
+    var ck='crew:'+crew.at[0]+','+crew.at[1];
+    if(!SF_DONE[ck]){
+      SF_DONE[ck]=1; SF_LAST=SF_STEPS;
+      var cn=Math.max(1,Math.min(8,crew.count|0)), croster=[];
+      for(var ci=0;ci<cn;ci++) croster.push({arch:(ci%4===3)?'bot':'human'});
+      var cfac=null; try{ cfac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
+      try{ window.parent.postMessage({type:'BOHEMIA_CITY_ENCOUNTER',
+        label:'out on the block', faction:cfac, draft:true, roster:croster,
+        street:true, why:'crew',
+        at:{gx:hx|0, gy:hy|0}},'*'); }catch(_e){ return false; }
+      return true;
+    }
+  }'''
 
 
 def sub(src, old, new, n=1, what=''):
@@ -101,10 +147,26 @@ def sub(src, old, new, n=1, what=''):
     return src.replace(old, new)
 
 
+def crew_amend(html):
+    """THE HALF THAT MEETS RUN. Separate mark, because V201 shipped before RUN's
+    bodies landed and this must stay replayable onto a tree that already has it."""
+    if MARK_CREW in html:
+        return html, False
+    return sub(html,
+        """function streetFightOnStep(){
+  if(typeof INSIDE!=='undefined' && INSIDE) return false;   /* indoors is the door's fight */""",
+        CREW_BLOCK, what='the crew half'), True
+
+
 def main():
     html = open(CITY, encoding='utf-8').read()
     if MARK in html:
-        print('v201: already applied')
+        html, did = crew_amend(html)
+        if did:
+            open(CITY, 'w', encoding='utf-8').write(html)
+            print('v201: the crew half wired -- it meets RUN now')
+        else:
+            print('v201: already applied')
         return
 
     # ---- 1. THE TRIGGER, beside the door's own ----

@@ -105,19 +105,40 @@ entry.
 
 | gate | |
 |---|---|
-| `combat_entry_gate.js` | **30 pass / 0 fail** (was 26/0) |
+| `combat_entry_gate.js` | **31 pass / 0 fail** (was 26/0) |
+| `there_are_enemies_gate.js` (RUN's) | 27 / 0, still green with this consuming their model |
 | `fight_moves_you_gate.js` | **170 pass / 0 fail** |
 | `combat_lab_gate.js` | **931 pass / 1 fail** (the red is another lane's, pre-existing) |
 | `one_engine_gate.js` | 3 / 0 |
 | `boss_ladder_gate.js` | 87 / 0 |
 | page errors | **0** |
 
-## WHAT COMES AFTER
+## AND THEN RUN'S HALF LANDED IN THE SAME ROUND, AND IT NEARLY MISSED
 
-1. **RUN `[enemies exist]` is the half that makes this visible.** This entry fires
-   on a hostile body and RUN has not shipped one yet, so today it fires on the
-   ledger's own hostile outfits. **The moment RUN lands, this uses their bodies
-   with no change.**
+RUN shipped `[enemies exist]` while this row was closing, and checking it rather
+than assuming it is the only reason the two halves meet.
+
+**RUN's hostiles are a CREW standing at a cell** — `BohemiaHostiles.near()`, with
+`stateOf()` returning `idle` / `watch` / **`close`** ("they are coming"). **It never
+decorates a `ctAdjacent()` person**, so the `p.hostile` path this entry shipped
+with *would never have been set by it*. The two halves of one ruling would have
+sat next to each other doing nothing — **the exact defect this ruling is about,
+one layer up.**
+
+So the entry now reads `HOST_DREW`, which their own draw already computed, and
+fires on a crew that is **closing**:
+
+| | |
+|---|---|
+| a crew that is **coming** | starts the fight |
+| the same crew twice | **no** |
+| a crew that is only **watching** | **no** — they have clocked you and are not coming |
+| roster size | **their crew's own count**, because RUN decided how many are on that corner |
+
+*Reading what their draw computed is not a second copy of the question. Asking
+`BohemiaHostiles.near()` again here would have been.*
+
+## WHAT COMES AFTER
 2. **PEOPLE `[who is hostile]`** puts the sign on the crowd, so you can see it
    coming — and UI `[danger visible]` is the coordinator's own row for the same
    reason: *a fight that arrives with no warning on a phone is a rage quit.*
