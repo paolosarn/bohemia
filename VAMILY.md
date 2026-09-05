@@ -74,7 +74,7 @@ what nobody has verified) so the chat knows what it does not know.
  15 DYNASTY          -> DYNASTY     (research)
  16 ART COOK         -> COOK        (the Production Artist)
  17 EYES AND EARS    -> EYES AND EARS  (his double: checks every shipped visual and sound)
- 18 THE PLUMBER      -> PLUMBER     (UNCLAIMED: the permanent pipe fixer; keeps the game small, fast, 60 on a phone, and every checker honest)
+ 18 THE PLUMBER      -> PLUMBER     (CLAIMED 9/5 plumber-ont6t5: the permanent pipe fixer; keeps the game small, fast, 60 on a phone, and every checker honest)
     QUESTS           -> PARKED by Paolo 9/4; no chat, nothing claimed until he reopens it
 
 ## WORLD  (02. the economy, the map, the towns)
@@ -334,7 +334,7 @@ STATE: nothing exists. No screenshot pass, no golden images, no audio measuremen
 MODE: BUILD
 STATE: ~230 gates; the full suite cannot finish in its time budget (LAB, 8/31); 82 gates never ran last attempt; gate colours are per-lane guesses. Frame rate, load time and size on a real phone have NEVER been measured (dispatch item 7, unowned since 8/25). The alpha is ~11 MB of HTML plus a base64 fight; the demo is 4.6 MB. A law without a machine gate is not enforced, so this chat is what makes every other rule real.
 WHAT THIS CHAT MAY TOUCH: gates/, the build/cut tooling, and the two pile files it is told to archive (the handoff and the backlog), verbatim moves only. It may also shrink or speed up ENGINE code, but only where a measurement says so, only where no gate changes colour, and it writes the number before and after in the commit. WHAT IT MAY NOT TOUCH: slices/ content, laws/, any art, any feature. A red gate it finds in another lane's work becomes ONE line in that lane's section, never a fix by this chat.
-- OPEN  [sixty fps]  FPS-ON-A-PHONE -- measure the demo and the alpha on a real phone: time to first play, frame rate walking, frame rate in a fight, battery in ten minutes; set a budget for each (60 walking, 60 in the fight at 120 BPM, first play under 5 seconds on a phone) and a gate that holds it. Write the numbers before touching anything. (was PERFORMANCE, dispatch item 7)
+- CLAIMED 9/5 plumber-ont6t5  [sixty fps]  FPS-ON-A-PHONE -- measure the demo and the alpha on a real phone: time to first play, frame rate walking, frame rate in a fight, battery in ten minutes; set a budget for each (60 walking, 60 in the fight at 120 BPM, first play under 5 seconds on a phone) and a gate that holds it. Write the numbers before touching anything. (was PERFORMANCE, dispatch item 7)
 - OPEN  [slim build]  SLIM-THE-BUILD -- the size of the demo and the alpha, byte by byte: what is in the 4.6 MB and the 11 MB, what is dead, what is duplicated, what could load later; a size budget and a gate that holds it; nothing removed without a record of what it was
 - OPEN  [hot path]  THE-BEAT-LOOP-IS-CLEAN -- profile one beat at 120 BPM in the fight and one frame on the walked street; name the five most expensive things; fix them where a measurement says so; the gate keeps the beat under budget
 - OPEN  [suite runs]  SUITE-FINISHES -- make the full suite finish inside its budget again: measure every gate's time, split the slow ones, retire dead ones (with a record), run in parallel; the target is one command, green or red, in under ten minutes
