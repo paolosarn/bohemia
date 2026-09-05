@@ -3,7 +3,8 @@ VALLEY WAS A STILL PHOTOGRAPH WHENEVER HE STOPPED WALKING, AND ALL 105 CLIPS ARE
 NOW AUDITED ON THE REAL SURFACE. TAB: RUN. Nothing to judge yet -- the clip
 verdicts are the next row and they are HIS. ***
 
-TAB: RUN. Build 9/5a - THE VALLEY KEEPS BREATHING.
+TAB: RUN. Build 9/5p - THE VALLEY KEEPS BREATHING. Landed on main as da246eb;
+the pages run on that sha concluded SUCCESS, so the link is true.
 Stand still in the city and watch. It used to be a photograph.
 
 TWO ROWS SHIPPED: THE-63-CLIP-AUDIT and ANIMATE-THE-CROWD.
