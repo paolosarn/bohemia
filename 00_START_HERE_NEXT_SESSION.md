@@ -237,6 +237,71 @@ section is 03 LIFE + CITY, MODE BUILD. [builder works] BUILDER-ON-A-PHONE is SHI
 hold no claimed job and take the first OPEN line: [buildings produce] PRODUCTION-TICK.
 Claimed, committed and pushed BEFORE starting, as front-page rule 5 requires.
 
+*** [buildings produce] PRODUCTION-TICK: SHIPPED. THE VERB THAT EXISTED FOR ITS OWN TEST
+NOW RUNS IN THE GAME. *** produce() has been in the purse since 7/31 and its ONLY caller in
+the whole repo was gates/purse_gate.js. A verb that exists for its own test is a fixture,
+not a feature -- the seventeen-invisible-hats shape in the economy layer.
+  WHAT SHIPPED: engine/bohemia_production.js. install() fills the purse's PRODUCTION table
+from BohemiaCityEdit.buildableTypes(DISTRICT) -- 59 types, exactly what the BUILD button can
+place, so no list here can drift from the list there. placed() walks the DELTA (the plots he
+put down, never the 9,216 the generator drew), a 4-lot span is ONE building, and a
+demolished lot stops paying though demolish WRITES a cell rather than deleting one.
+tick() calls produce() per building on DAY.on('wake') -- the day loop's own hook, never a
+second timer. IDEMPOTENT OFF THE LEDGER, NOT OFF A FLAG: a reload is a wake, so it asks the
+purse whether day N already carries a produce: entry. The ledger is the truth; a second
+record of the same fact is how two things that agree start disagreeing.
+  AND HE SEES IT: one sentence on the morning card, draft:true -- "Your one building put one
+thing by the door overnight." Absent entirely on a morning with nothing built, which is the
+honest empty state and not a zero. Looked at it on a 390x844 phone shot before shipping.
+  WHAT A BUILDING MAKES: the 7/26 law clause 3 is LOCKED -- "BUILDINGS: house people or
+produce one of the three" -- and his words lead with resources and offer the other two as
+exceptions. So the default row is resources at his 8/15 ONE, every row tagged and
+tuned:false. DELIBERATELY NOT ELECTRICITY: batteries are the money (9/4) and the market
+prices in them, so a build button that minted electricity would be a printing press.
+MAKING MONEY IS A DESIGN ACT, NOT A WIRING JOB. Gate leg A8 guards it.
+  [PENDING Paolo] WHICH BUILDING TYPES PRODUCE ELECTRICITY OR CLOUT INSTEAD OF RESOURCES.
+install() never overwrites a row that exists, so the day he names one it wins and nothing
+else changes.
+  GATE: gates/production_tick_gate.js, 14/0, registered in the suite. ITS SHAPE IS THE
+POINT: the job's own defect was that the only caller was a gate, so section B refuses to
+call tick() -- it boots the walked surface on a phone, taps GET UP, CITY, hunts a desert
+plot, presses the real BUILD button, SLEEPs, takes the reckoning, and only then reads the
+purse. The claim is that THE GAME called produce, which a node-side tick() can never make.
+Mutation-tested three ways: delete the wake hook (B3, B4, B5 red), delete the guard (A6
+red), stop emitting spans (A4 red).
+  WHERE IT STOPS, MEASURED AND NOT ABSORBED: the demo carries the code and cannot run it.
+CT_DEMO_DAYS = 1, so day two never comes and there is no second wake beat in the demo at
+all; and the demo cut hides the builder drawer, so nothing is placed there. Both are the
+demo's shape and one of them is the next line's work ([builder reachable]
+BUILDER-WHERE-HE-WALKS). Failing this job's gate on either would make one job's red another
+job's work, which is how a red stops meaning anything.
+  TWO REDS ON MAIN THAT ARE NOT MINE, verified by stashing and re-running:
+    dayloop_gate 57/2 -- "its brief is the quest's own @LOG line", "quotes the quest, not
+      me". Red before this change. QUESTS is PARKED.
+    demo_day_gate 23/1 -- "and the money really left the purse (500 -> 500)". Red before
+      this change, and it is a BROKEN RULER not broken code: the leg's own fixture credits
+      `resources` and reads `resources` (gates/demo_day_gate.js ~222) while WORLD's 9/5
+      [battery money] ship correctly moved buying to `electricity`. The sale passes on the
+      leg above it. FOR THE COORDINATOR TO ROUTE TO WORLD; I did not touch another lane's
+      gate hours after they shipped it.
+  ALSO FOR THE COORDINATOR: WORLD's STATE line on VAMILY.md still reads "PRODUCTION is still
+empty because produce() has zero callers". That was true this morning and is not true now.
+I changed only my own section's STATE, per front-page rule 10.
+  RECORD: records/BOHEMIA_THE_BUILDINGS_PRODUCE_9_5_26.md
+  THE STANDING NOTE: produce() waited five weeks for a caller while its own table waited on
+the caller for its ids -- each half correctly believing the other was missing. WHEN A TABLE
+IS EMPTY "BECAUSE NOTHING READS IT" AND A VERB IS DEAD "BECAUSE NOTHING FILLS IT", THEY ARE
+ONE JOB AND NEITHER LANE CAN SEE IT ALONE.
+  AND I PAID A DEBT OF MY OWN THE SAME TURN. bohemia_sync_gate went red on
+BOH_FLOORPLAN, 2 bodies across 11 carriers -- and it was MINE: my two floorplan commits
+(740a376, 7e612e6) resynced eight carriers and missed three old judge/slice pages
+(ENTER_SLICE 7/18, LIFE_SLICE 7/19, QUEST_PLACEMENT_JUDGE 7/26). Found the exact prior body
+by asking git which revision each page carries (all three: d017947), swapped canon in byte
+for byte. ENGINE SYNC LAW HOLDS, 18 modules, zero drift. A red I inherited from myself is
+still a red I made; the stash-and-re-run that told me the other two reds were not mine is
+the same test that told me this one was.
+  NEXT OPEN LINE IN THIS LANE: [building costs] BUILD-COSTS-ITS-PRICE.
+
 DYNASTY (dynasty-w4yxiz): 9/5 -- *** GEN 1 CANNOT USE THE FOLD, AND THE FOLD IS
 THE ONLY DYNASTY MACHINE WE HAVE. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
 

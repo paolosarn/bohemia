@@ -3680,6 +3680,28 @@ GATES = [
      'GET UP -- the CITY button is not on screen until the cold open clears -- so the gate '
      'walks the game rather than my memory of it. Mutation-tested by making the BUILD button '
      'ignore pointers: red at 0 -> 0 edits.', False),
+    ('PRODUCTION TICK', ['node', 'gates/production_tick_gate.js'],
+     'VAMILY [buildings produce] / PRODUCTION-TICK: the buildings he placed make something on '
+     'the wake beat. engine/bohemia_purse.js has carried produce() since 7/31 and its ONLY '
+     'caller in the whole repo was gates/purse_gate.js -- a verb that exists for its own test, '
+     'the seventeen-invisible-hats shape in the economy layer. THE JOB NAMES THE DEFECT AND '
+     'THE DEFECT IS A GATE, so section B refuses to call tick() itself: it boots the real '
+     'walked surface on a phone profile, taps GET UP, CITY, hunts a desert plot, presses the '
+     'real BUILD button, SLEEPs, takes the reckoning, and only then reads the purse -- so the '
+     'claim is that THE GAME called produce, which a node-side tick() can never make. B4 reads '
+     'the morning card, because a number that moves in a ledger nobody renders is the same '
+     'defect one layer up. Section A holds the arithmetic headless: the ids are '
+     'BohemiaCityEdit.buildableTypes(DISTRICT) so no list can drift from the BUILD button, '
+     'every row names the 7/26 + 8/15 rulings behind it and is tuned:false, a row that already '
+     'exists is KEPT (which buildings make electricity or clout instead is [PENDING Paolo]), a '
+     '4-lot span is ONE building, a demolished lot stops paying though the delta still carries '
+     'the cell, and the LEDGER answers "did today already pay" rather than a second flag beside '
+     'it. A8 is a guard against a design act arriving as a wiring job: production must not mint '
+     'ELECTRICITY, because batteries are the money (9/4) and the market prices in them, so a '
+     'build button that made money would be a printing press nobody ruled. MEASURED GREEN 14/0: '
+     '59 buildable types, 59 rows, one plot placed by thumb, resources 0 -> 1 across the night. '
+     'Mutation-tested three ways -- delete the wake hook (B3, B4, B5 red), delete the '
+     'already-produced guard (A6 red), stop emitting spans (A4 red).', False),
     ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
      'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
      'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '

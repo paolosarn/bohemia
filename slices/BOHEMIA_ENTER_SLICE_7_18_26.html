@@ -1726,14 +1726,64 @@ if(typeof module!=='undefined')module.exports=BOH_BLOCKGEN;
 const BOH_FLOORPLAN=(function(){
   function rng(seed){let s=(seed>>>0)||1;return function(){s=(s*1103515245+12345)>>>0;return s/4294967296;};}
   // zone -> ordered room roles (public first) + minimum room dimension
+  /* *** WHAT A BIGGER BUILDING HAS MORE OF (`bulk`, 8/28). ***
+     Rooms are named by RANK -- distance from the street door, public first -- and the line
+     that did it was `Z.roles[Math.min(rank, Z.roles.length-1)]`. That CLAMPS: every room past
+     the end of the list takes the LAST role, and in seven of these nine zones the last role is
+     `bath`, because the list runs public-to-private and a toilet is the most private thing in
+     it. So every building with more rooms than its zone has roles filled up with toilets.
+     MEASURED ACROSS 277 BUILDINGS FROM THE REAL GENERATORS BEFORE THE FIX: 1213 of 2287 rooms
+     in the valley were bathrooms -- FIFTY-THREE PERCENT. The convention centre had 50 of 54.
+     The library 50 of 54. The chapel 49 of 53, which is a chapel that is 92% toilet. City hall
+     48, the courthouse 48, the school 43. You walked into the Las Vegas library and found fifty
+     lavatories.
+     THE FIX IS NOT A CAP ON BATHROOMS, it is naming the room a bigger building actually gets
+     more of, which is a different question and the one the clamp was silently answering wrong.
+     A bigger house has more BEDROOMS. A bigger shop is more SALES FLOOR. A bigger hospital is
+     more WARDS. A bigger warehouse is more OPEN FLOOR -- and that one is not taste: building
+     code puts occupant load at 100-150 sq ft per person in an office and 500 in a warehouse,
+     so a warehouse holds a fifth of the people and needs a fifth of the fixtures, while this
+     was giving a 60x31 pump station EIGHT toilets. Restrooms are CORE space in the same
+     bracket as stairs and risers; net-to-gross runs 60-80%, so they are a slice of the 20-40%
+     that is left, never half the plan.
+     Each list still runs public-to-private for the rooms it names, and `bath` still appears
+     exactly once in each -- which is why no cap is needed. The flood was entirely the clamp. */
   const ZONES={
-    residential:{roles:['living','kitchen','bed','bed','bath'],minRoom:4},
-    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],minRoom:5},
-    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],minRoom:4},
-    civic:      {roles:['hall','reception','office','records','bath'],minRoom:5},
-    institutional:{roles:['ward','ward','office','service','bath'],minRoom:5},
-    warehouse:  {roles:['floor_open','dock','office','bath'],minRoom:8},
-    landmark:   {roles:['atrium','gallery','service','bath'],minRoom:6},
+    residential:{roles:['living','kitchen','bed','bed','bath'],bulk:'bed',minRoom:4},
+    retail:     {roles:['shopfloor','checkout','stockroom','office','bath'],bulk:'shopfloor',minRoom:5},
+    office:     {roles:['lobby','office','office','meeting','breakroom','bath'],bulk:'office',minRoom:4},
+    civic:      {roles:['hall','reception','office','records','bath'],bulk:'office',minRoom:5},
+    institutional:{roles:['ward','ward','office','service','bath'],bulk:'ward',minRoom:5},
+    warehouse:  {roles:['floor_open','dock','office','bath'],bulk:'floor_open',minRoom:8},
+    landmark:   {roles:['atrium','gallery','service','bath'],bulk:'gallery',minRoom:6},
+    /* *** THREE ZONES SPLIT OUT OF `institutional` (8/28). ***
+       Fixing the bathroom flood left `ward` as the COMMONEST ROOM IN THE VALLEY at 20.7%,
+       because one zone was carrying eleven different building types -- medical, school,
+       campus, firestation, policestation, jail, prison, terminal, airport, airbase, cemetery
+       -- and a ward is only right for the first of them. A school of hospital wards, a fire
+       station of hospital wards, an airport terminal of hospital wards.
+       EVERY ROLE NAME BELOW IS ONE THE FLOOR POOL ALREADY CARRIES (measured: it maps 36 names
+       and the floorplan was only assigning 25, so `garage`, `study`, `exam`, `plant`,
+       `corridor`, `dining` and five more were sitting there unused). REUSE-FIRST -- nothing
+       here reaches into the ART lane's map, which is what stopped this fix yesterday.
+       GROUNDED, not guessed:
+         school   - schools put 65-70% of gross floor area into INSTRUCTION and 30-35% into
+                    ancillary, so the bulk room is the classroom and `study` is the mapped
+                    name for it.
+         transit  - "in smaller airports the terminal and concourse are one and the same
+                    building", which is exactly Bohemia's scale: check-in, security and gates
+                    sharing one space. The bulk room is the concourse.
+         firehouse- the apparatus bay is the dominant volume of a fire station: bays run 15-18
+                    ft wide and 40 ft deep for a single, 80 for a double, and everything else
+                    (watch, bunks, office) is fitted around them. `garage` is the mapped name.
+       POLICE STATIONS ARE NOT FIREHOUSES and are moved to `civic` instead: a police station is
+       mostly desks and interview rooms with a motor pool attached, not a hall of vehicle bays.
+       WHAT STAYS `institutional`: medical, where a ward is exactly right, and prison/jail,
+       where a cellblock is a genuine ward-shaped repeated unit. Cemetery stays too -- its
+       buildings are a chapel and an office and it is too small to be worth a zone. */
+    school:     {roles:['hall','office','study','study','bath'],bulk:'study',minRoom:5},
+    transit:    {roles:['concourse','counter','office','locker','bath'],bulk:'concourse',minRoom:6},
+    firehouse:  {roles:['garage','office','locker','bath'],bulk:'garage',minRoom:6},
     // LEISURE (7/26): the vehicular/venue districts (drivein, golf, stadium,
     // waterpark) declare zone 'leisure' in bohemia_world.js's DISTGEN and were
     // silently falling through to the nameless 'default' grammar — 46 buildings
@@ -1741,8 +1791,12 @@ const BOH_FLOORPLAN=(function(){
     // front, grill + locker rooms behind"; drivein: "counter + kitchen up front,
     // the projection room behind"; stadium: "the ring corridor under the stands,
     // boarded concession windows + restrooms"). Roles read off those dossiers.
-    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],minRoom:5},
-    'default':  {roles:['room','room','service'],minRoom:4},
+    /* These two ended in 'service' rather than 'bath', so they were never part of the
+       bathroom flood -- but they were still answering the wrong question, filling a big
+       stadium with plant rooms. A bigger leisure building is more CONCOURSE; that is what
+       a concourse is for. */
+    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],bulk:'concourse',minRoom:5},
+    'default':  {roles:['room','room','service'],bulk:'room',minRoom:4},
   };
   // union-find for the door spanning tree
   function UF(n){const p=Array.from({length:n},(_,i)=>i);
@@ -1777,7 +1831,9 @@ const BOH_FLOORPLAN=(function(){
         const da=Math.abs(rooms[a].x-rooms[front].x)+Math.abs(rooms[a].y-rooms[front].y);
         const db=Math.abs(rooms[b].x-rooms[front].x)+Math.abs(rooms[b].y-rooms[front].y);
         return da-db;});
-      order.forEach((ri,rank)=>{const role=Z.roles[Math.min(rank,Z.roles.length-1)];
+      /* PAST THE END OF THE LIST, A ROOM IS THE ZONE'S BULK ROOM -- not the last one
+         named. See the note on ZONES: clamping here made 53% of the valley bathrooms. */
+      order.forEach((ri,rank)=>{const role=rank<Z.roles.length?Z.roles[rank]:(Z.bulk||Z.roles[Z.roles.length-1]);
         rooms[ri].role=role;
         for(let y=rooms[ri].y;y<rooms[ri].y+rooms[ri].h;y++)for(let x=rooms[ri].x;x<rooms[ri].x+rooms[ri].w;x++)grid[y][x].role=role;});
     };
