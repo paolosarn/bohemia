@@ -113,8 +113,8 @@ MODE: BUILD
 STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all reactions; the ambience bed is built and fed only by a message the city never sends; music phase stuck on NIGHT. Unverified: where the music engine module lives (not in engine/).
 - OPEN  [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
 
-- OPEN  [background sound]  BB-THE-CITY-SENDS-WHERE
-- OPEN  [daytime music]  BB-THE-DAY-SONG-PLAYS
+- CLAIMED 9/5 sound-xk7pjp  [background sound]  BB-THE-CITY-SENDS-WHERE
+- CLAIMED 9/5 sound-xk7pjp  [daytime music]  BB-THE-DAY-SONG-PLAYS
 - OPEN  [district sound]  BB-THE-BED-IS-THE-PLACE
 - OPEN  [power hums]  BB-A-LIT-BLOCK-HUMS
 - OPEN  [unused sounds]  THE-OTHER-51
