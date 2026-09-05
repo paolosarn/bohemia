@@ -241,7 +241,7 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 ## UI  (11.)
 MODE: BUILD
 STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen, any onboarding, the city-screen feed. Unverified: the round-7 look, which is his to thumb.
-- OPEN  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
+- CLAIMED 9/5 ui-kmqmrf  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
 - OPEN  [one number]  BB-ONE-NUMBER
 - OPEN  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
 - OPEN  [first teaching]  FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists; measure with the cold hand
