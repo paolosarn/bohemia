@@ -703,7 +703,15 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (as) LATEST -- *** ALL SIXTEEN OF HIS
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (at) LATEST -- *** THE REFERENCE LAB IS
+RETIRED. Its library jobs went to DIRECTION, its spec jobs to COMBAT. Fifteen worker
+chats. Nothing to judge. ***
+Paolo 9/4: "we're going to retire the reference lab chat." VAMILY line 07 marked
+RETIRED; five reference-library jobs now sit in DIRECTION ahead of the style card;
+RF4-SPEC-DIFF and BB-SPEC sit at the end of COMBAT. Research-lanes law amended;
+CLAUDE.md lane list drops "lab". LAST FEEDBACK RECEIVED: this -> those moves.
+
+COORDINATOR: 9/4 (as) -- *** ALL SIXTEEN OF HIS
 CHATS HAVE A QUEUE AND A STATE LINE. 143 OPEN JOBS. Nothing to judge. ***
 Paolo 9/4, with a screenshot of his session list: "We have 17 chats including you...
 all of them need jobs. They need to know what they don't know... Do you have jobs for

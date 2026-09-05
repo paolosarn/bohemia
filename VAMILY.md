@@ -48,7 +48,7 @@ what nobody has verified) so the chat knows what it does not know.
  04 COMBAT           -> COMBAT
  05 CHARACTER        -> CHARACTER
  06 ART DIRECTION    -> DIRECTION   (the Art Director)
- 07 REFERENCE LAB    -> LAB
+ 07 REFERENCE LAB    -> RETIRED by Paolo 9/4. Its library jobs went to DIRECTION, its spec jobs to COMBAT.
  08 SOUNDS           -> SOUNDS
  09 PEOPLE           -> PEOPLE
  10 FACTIONS         -> FACTIONS
@@ -123,6 +123,8 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - OPEN  ARMOUR-AND-MORALE -- armour as a layer (the field is on every body and all zero) and morale past the nerve roll; no damage number moves
 - OPEN  SIXTY -- the seven bosses to reach 60 and which of the 53 grants unlock a real verb; needs Paolo, cannot start first
 - OPEN  RF4-SPEC-DIFF -- close the 68-item RF4 teardown spec's diff column (from LAB)
+- OPEN  RF4-SPEC-DIFF -- close the 68-item Rogue Fable 4 teardown's diff column against the decoded fight (COMBAT_B64), one line per item: matches / differs / not built
+- OPEN  BB-SPEC -- the Battle Brothers study's 23 records folded into one spec of the same shape as the RF4 one, so COMBAT and WORLD have one reference document per named game
 
 ## RUN  (01. the walked surface)
 MODE: BUILD
@@ -219,6 +221,11 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 MODE: BUILD
 STATE: a visual constitution exists (records/target, target_match_gate); no style card for the runway exists yet; nothing judges a cook's comparison against reference yet.
 - CLAIMED 9/5 session_015Wm1PKCubu8WUBgmB9eXKK  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the comparison before VOTE (9/4 compare law)
+- OPEN  THE-REFERENCE-LIBRARY -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
+- OPEN  REFERENCE-INDEX -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
+- OPEN  RUNWAY-REFERENCE -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
+- OPEN  PIXEL-CITY-BUILDER-REFERENCE -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
+- OPEN  FIRST-HOUR-REFERENCE -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
 - OPEN  THE-STYLE-CARD -- the runway in pixel terms: palette, value bands, silhouette rules, what a Balenciaga shoulder and a Rick Owens drape ARE at 56 and 112 px, for the 45-degree corpus (laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md)
 - OPEN  STYLE-CARD-GATE -- fails any cook outside the card's palette and bands, same shape as target_match_gate
 - OPEN  JUDGE-EVERY-ART-BATCH -- standing: nothing from ART reaches VOTE without passing the card
@@ -237,17 +244,6 @@ STANDING DUTY (9/4 law): EVERY COOK CARRIES A REFERENCE CHECK. Compare it side b
 - OPEN  BOXCAR-ORDER
 - OPEN  LANDMARK-RE-PROBE
 - OPEN  COOK-THE-NEXT-THING-THE-CARD-ASKS-FOR -- permanent; this line is never marked shipped
-
-## LAB  (07. the reference lab: the library every cook is compared against)
-MODE: RESEARCH
-STATE: its RF4 teardown spec has 68 items, last touched 8/18; reference/ holds one folder. Unverified: nothing here is wired to anything. The 9/4 COMPARE-EVERY-PIECE-OF-ART law gives this chat its real job: every cook must be compared to real work online, and somebody has to hold that library.
-- OPEN  THE-REFERENCE-LIBRARY -- one folder per asset kind (district, building, garment, haircut, face, walk cycle, prop, combat ground, UI) holding the best real and pixel references online, each with a one-line note of the structural rule it teaches (windows in a wall plane, a door on the ground); COOK and DIRECTION read from it; nothing from it enters the design vocabulary (8/28)
-- OPEN  REFERENCE-INDEX -- an index file the reference_check_gate can resolve a REFERENCE CHECK against, so a cook that names a reference names a real one
-- OPEN  RUNWAY-REFERENCE -- the Balenciaga and Rick Owens silhouette library at the level of shape (shoulder, drape, hem, boot), for DIRECTION's style card; no third house until he names it
-- OPEN  RF4-SPEC-DIFF -- close the 68-item Rogue Fable 4 teardown's diff column against the decoded fight (COMBAT_B64), one line per item: matches / differs / not built
-- OPEN  BB-SPEC -- the Battle Brothers study's 23 records folded into one spec of the same shape as the RF4 one, so COMBAT and WORLD have one reference document per named game
-- OPEN  PIXEL-CITY-BUILDER-REFERENCE -- the best pixel city-builder districts online, annotated for what a block, a street and a lot look like at our tile size, for the faction-towns and combat-ground work
-- OPEN  FIRST-HOUR-REFERENCE -- the first ten minutes of the best games ever made, written up as beats, for the cold hand and the onboarding work (day 14)
 
 ## ECONOMY  (13.)
 MODE: RESEARCH -- the game's identity is "the most realistic economic crash simulator, but fun", and the builder half is a quarter built. Research only; every finding becomes a WORLD job later. No game he has not named enters the design; bring back mechanics in plain words.

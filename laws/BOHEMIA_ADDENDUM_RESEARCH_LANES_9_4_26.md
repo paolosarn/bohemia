@@ -72,3 +72,11 @@ COMBAT (the tile ruling is a build).
   queue; ECONOMY and DYNASTY sections with question queues.
 - The coordinator writes the question queues and keeps them deep (the
   9/4 central-chat law: the queue never runs dry).
+
+## RULED THE SAME DAY: THE REFERENCE LAB IS RETIRED (Paolo 9/4)
+"we're going to retire the reference lab chat." Its reference-library jobs
+(the library every cook is compared against, the index, the runway
+silhouettes, the pixel city-builder and first-hour references) move to
+DIRECTION, which judges those comparisons anyway. Its two spec jobs (the RF4
+teardown diff and the BB spec) move to COMBAT, where the 8/31 handoff had
+already sent the lab's Battle Brothers items. No lane word "lab" any more.
