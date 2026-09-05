@@ -1,0 +1,87 @@
+BOHEMIA -- A PARTNER AND A CHILD: WHO TURNS UP
+BANK, 9/5/26, DYNASTY lane, Q7 [family arrives]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+anywhere, and no care meter of any kind. Whether there is a partner at all, who,
+whether there is a child, how many, and every name are HIS.
+Record: records/BOHEMIA_DYNASTY_DAY_7_A_PARTNER_AND_A_CHILD_9_5_26.md
+
+WHY THIS SHAPE
+The genre's answer to a dependent is the escort mission, which is the most
+reliably hated thing in the medium: it takes control away, the outcome stops
+depending on your skill, and the AI gets worse the moment it matters.
+The species answer is the opposite. Humans are COOPERATIVE BREEDERS. Care comes
+from grandmothers, older siblings, extended family and ritual kin as a matter of
+design, not culture; interbirth intervals are short enough that a mother has
+several overlapping dependents at once, which is impossible without other people.
+Asked who looks after a child, the answer reported across many societies is "We
+all do." RAISING A CHILD ALONE IS NOT THE REALISTIC OPTION, IT IS THE LEAST
+REALISTIC ONE.
+So: A CHILD IS NOT A THING YOU CARRY. A CHILD IS A REASON OTHER PEOPLE COME TO
+YOUR HOUSE. That is a query against the standing web, which already answers who
+would speak for you with a real name.
+
+---- THE CHILD, AS A SHAPE ONLY ---------------------------------------- draft:true
+Structure is ours. Every person and every name is his.
+
+  NOT A FOLLOWER   the child is not on a leash and never fails you
+  A QUESTION       when there is a child, the game asks the valley who comes
+  AN ANSWER        it answers with NAMES, from the web we already have
+  A DEBT           whoever comes is owed, and the game remembers that
+  A SILENCE        nobody coming is the real failure state, and it is social
+
+---- WHEN SOMEBODY COMES ------------------------------------------------ draft:true
+  SHE TOOK HIM FOR THE AFTERNOON.
+  HE DID NOT ASK WHY.
+  THEY HAVE DONE THIS BEFORE.
+  SOMEBODY LEFT FOOD AND DID NOT KNOCK.
+  THE OLD WOMAN FROM THE CORNER KNOWS HIS NAME.
+
+---- WHEN NOBODY COMES, WHICH IS THE ONLY REAL FAILURE ------------------ draft:true
+  YOU ASKED THREE PEOPLE.
+  NOBODY IS COMING.
+  THEY ARE NOT ANGRY. THEY JUST DO NOT OWE YOU ANYTHING.
+  YOU HAVE NEVER DONE THIS FOR ANYONE.
+
+---- WHAT IT COSTS YOU LATER, BECAUSE IT IS A DEBT ---------------------- draft:true
+  SHE WILL ASK YOU FOR SOMETHING. NOT TODAY.
+  HE HELD YOUR KID. YOU CANNOT SAY NO TO HIM NOW.
+  THAT IS TWICE. THEY ARE COUNTING.
+  YOU OWE FOUR PEOPLE AND YOU KNOW ALL FOUR NAMES.
+
+---- THE PARTNER, USING RULES WE ALREADY WROTE DOWN --------------------- draft:true
+(from bohemia_resolve.js, a study another lane did for faction standing:
+RATION limit by count not price; a CEILING that only moves on a COMMITMENT, so
+you cannot grind past a relationship, you have to ACT; and neglect that costs
+MORE the closer you are.)
+  THERE IS NOTHING MORE YOU CAN DO BY BEING NICE.
+  YOU HAVE TO SAY IT OR IT STOPS HERE.
+  A STRANGER WOULD NOT HAVE NOTICED. SHE DID.
+  YOU WERE NOT THERE. THAT LANDS DIFFERENTLY NOW.
+  IT IS NOT THAT SHE IS ANGRY. IT IS THAT IT MATTERS MORE.
+
+---- THE COMPANION IN A FIGHT, WHICH ALREADY HALF EXISTS ---------------- draft:true
+(the ally is ARCH.human with the same 60 hp as every goon, which is the right
+instinct. what is missing is the lift: the code says so itself, "picking him up
+is not built yet and is not pretended".)
+  HE IS DOWN.
+  YOU CANNOT GET HIM UP. NOT YET.
+  HE IS NOT BEHIND YOU ANY MORE.
+  HE GOT HIMSELF OUT.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No escort mission in any costume. No follow-me, no keep-it-alive, no fail state
+attached to a body the player does not drive.
+No care meter. No feeding, no bar that empties. Survival meters were killed
+already and a child is not an exemption.
+No child that is only a stat bonus, and no child that is only a cutscene.
+No grinding toward a partner: the ceiling moves on a commitment, never on points.
+No second relationship system. The study exists in resolve, the people exist in
+the standing web. Use them.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Whether there is a partner at all and who. Whether there is a child, and how
+many. Who the alloparents are and which of them refuse. What being owed a favour
+gets called. Every name.

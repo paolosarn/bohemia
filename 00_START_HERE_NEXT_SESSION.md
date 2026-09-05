@@ -994,6 +994,65 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 7 [family arrives], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_7_A_PARTNER_AND_A_CHILD_9_5_26.md
+  banks/BOHEMIA_FAMILY_WHO_TURNS_UP_DRAFT_9_5_26.txt (draft:true)
+A CHILD IS NOT A THING YOU CARRY. A CHILD IS A REASON OTHER PEOPLE COME TO YOUR
+HOUSE. The genre's answer to a dependent is the ESCORT MISSION, the most
+reliably hated mechanic in the medium: it takes control away, the outcome stops
+depending on your skill, and the AI gets worse the moment it matters. The
+species answer is the opposite: humans are COOPERATIVE BREEDERS, care comes from
+grandmothers, older siblings, extended family and ritual kin by design, and
+interbirth intervals are short enough that a mother has several overlapping
+dependents at once, which is impossible without other people. Asked who looks
+after a child, the reported answer across many societies is "We all do."
+RAISING A CHILD ALONE IS NOT THE REALISTIC OPTION, IT IS THE LEAST REALISTIC ONE.
+So the child becomes a QUERY against the standing web, which already answers who
+would speak for you with a real name. The question stops being "can you keep it
+alive" and becomes WHO TURNS UP, and nobody coming is the real failure state.
+THE FAMILY IS EXPENSIVE BECAUSE IT PUTS YOU IN DEBT TO PEOPLE, NOT BECAUSE IT IS
+WORK.
+
+AND THE PARTNER HALF WAS ALREADY ANSWERED, FILED UNDER FACTION STANDING.
+engine/bohemia_resolve.js carries a relationship study with three findings:
+RATION (limit by count, never by price, because a priced limit stops mattering
+once the player is rich); a CEILING that only moves on a COMMITMENT ("you cannot
+grind past a relationship; you have to ACT", and progress gates are STATE
+CHANGES not point totals); and NEGLECT THAT COSTS MORE THE CLOSER YOU ARE. That
+last one is the whole answer to "without a chore": THE COST OF A PARTNER IS NOT
+MAINTENANCE, IT IS THAT IGNORING THEM HURTS MORE THE MORE THEY MATTER. A chore
+is a task on a schedule; this is a consequence you accept, and nothing gets fed.
+
+MEASURED: the fight's ally is ROSA (ALLY_DRAFT true, the name is his),
+ARCH.human with the same 60 hp and damage as every goon so no number was
+authored, ALLY_LEASH 6, and ALLY_DOWN_TURNS 99 carrying its own honest comment,
+"he stays down; picking him up is not built yet and is not pretended". That
+down-and-cannot-be-lifted state is the escort failure mode in miniature,
+admitted in code rather than hidden.
+NO CHILD EXISTS AS A PERSON IN THE ENGINE. The only children are the fold's
+`child` event id, a skeleton's child nodes in the rig, a corpse described as
+"child-sized", and one comment quoting the standing law. SCOPE STATED ON PURPOSE
+AFTER ROUND 6'S FALSE NEGATIVE: I searched the ENGINE and read what every hit
+actually was; I did NOT sweep every slice. The honest claim is that none exists
+in the engine and I did not find one.
+A family is five events and nothing else: applyFamily handles marry, child,
+sibling_child, death, heir.
+
+AND THE SECOND FINDING, ABOUT US: the partner half of this row was already
+researched and written down INSIDE A MODULE ABOUT FACTION STANDING, and this lane
+did not know until it went looking. Rounds 1, 2, 5 and 6 found the right
+mechanism attached to the wrong subject. THIS ONE FOUND THE ANSWER FILED UNDER
+THE WRONG DEPARTMENT.
+
+ROUTED (proposals only): PEOPLE WHO-COMES-WHEN-THERE-IS-A-CHILD (the strongest
+query the standing web has ever been asked, reusing the organ that answers who
+would vouch for you; no new system). COMBAT PICKING-HIM-UP (the lift the ally's
+own comment says is not built). WORLD TWO-FOLDS-SHOULD-BE-ONE, renamed this round
+from round 6's wire, unchanged in substance. Inside this lane: Q8 [inherited
+memory] is the direct sequel; Q11 [lasting death] inherits the neglect curve,
+because if ignoring a spouse costs more than ignoring a stranger, losing one
+should too.
+
 ROUND 6 [time skip], SHIPPED. records/BOHEMIA_DYNASTY_DAY_6_THE_TIME_SKIP_9_5_26.md
   banks/BOHEMIA_THE_FOLD_NOBODY_KNOWS_YOU_DRAFT_9_5_26.txt (draft:true)
 A TIME SKIP IN GAMES IS AN ART JOB. IN LIFE IT IS A CAST CHANGE. If half a
