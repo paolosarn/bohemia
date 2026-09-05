@@ -101,6 +101,14 @@ const GLOBALS = {
      it: a module nobody has looked at is worse than a module somebody decided
      to leave alone, and the difference is written down. */
   bohemia_deeds: 'BohemiaDeeds',
+  /* 9/5, THE PEOPLE LANE, REGISTERED THE SAME TURN IT SHIPPED. The join that
+     asks whether a body on the street is against you. It is registered here
+     BEFORE its first sweep on purpose: the note six rows up says an
+     unregistered organ is one this tool actively certifies as fine, and the
+     lane that writes a module is the lane with the least excuse for leaving it
+     invisible to its own check. The first sweep with it in cost me an export --
+     rankOf was a private helper wearing a public coat. */
+  bohemia_against: 'BohemiaAgainst',
 };
 
 const argv = process.argv.slice(2);

@@ -1,0 +1,167 @@
+BOHEMIA -- THE CROWD CARRIES THE SIGN (9/5/26, PEOPLE lane)
+VAMILY job [who is hostile], row THE-CROWD-CARRIES-THE-SIGN
+
+THE ROW, WORD FOR WORD
+  "the between-ledger already computes who is hostile to you (sorted
+   hostile-first, they charge more, 'only enemies watch you'). None of that
+   reaches the street. Make the sign visible in the crowd: they watch, they
+   follow, they block a door, they refuse. Feeds RUN [enemies exist] and
+   COMBAT [street fight]."
+
+================================================================================
+WHAT WAS MEASURED BEFORE ANYTHING WAS BUILT, AND IT MOVED THE JOB THREE TIMES
+================================================================================
+
+1. THERE ARE TWO LIVE WAYS SOMEBODY CAN BE AGAINST YOU, NOT ONE.
+   a. THEIR OUTFIT vs YOURS -- engine/bohemia_between.js. Nine authored
+      positions. Only THREE of fourteen outfits can ever be at odds with you
+      (Cartel, Caravans, Remnants; the war is Cartel <-> Remnants). Your own
+      outfit starts with NO enemies and earns them the second you side with
+      somebody: side with the Remnants and the Cartel is at WAR with you.
+   b. THEIR OWN OPINION OF YOU -- engine/bohemia_standing.js, the deed ledger.
+      82 weights load at runtime off his .bq quest files.
+
+2. THE SPAWN IS EMPTY OF BOTH, AND THAT IS A MAP FACT, NOT A BUG.
+   Real surface, cold start: 0 of 61 people within three neighbourhoods of the
+   player's front door run with ANYBODY. Nearest base 29 cells; a base's pull
+   (REACH_CELLS) reaches 12. Both dials are [PENDING Paolo]; the map is MAP LAW.
+   The three outfits that can hate you have bases 48, 60 and 62 cells out.
+   AND all 82 loaded deed weights are QUEST deeds: the four street deeds
+   (claim:met, claim:refused, commit, favour) are UNWEIGHTED, so street
+   behaviour moves nobody's opinion until he rules what it is worth.
+   >>> SO A SIGN BUILT ON EITHER CHANNEL ALONE SHIPS DARK EVERYWHERE A DEMO
+       PLAYER WALKS. It reads BOTH, through one question, and either lights it.
+
+3. THE MAP HAS ALMOST NO DOORS. The row says "they block a door"; stepOnce's own
+   measurement, written in the city, is "39,706 solid cells admit you, 7 painted
+   doors exist, 25 walkable portals, and TEN OF FOURTEEN district types have zero
+   of either." The gate found NO door within forty cells of the ground the Cartel
+   actually live on. So a doorway is the SPECIAL case and the general one is the
+   cell you are about to walk into -- the same sentence, and it is the OCCUPANCY
+   LAW this game already has.
+
+================================================================================
+THE BUG THAT WAS ALREADY SHIPPED, FOUND BY RUNNING IT
+================================================================================
+THE SEAT BUG. The obvious way to ask "is their outfit against mine" is
+between(theirs, mine). IT IS NULL FOR EVERY ENEMY THE PLAYER EARNED: an earned
+edge is written in ONE seat, while his authored pairs happen to be written in
+both. Measured: side with the Remnants, the save holds CUSTOM -> CARTEL war
+exactly as it should, and between('Cartel','Custom') is null.
+
+AND A ROW THAT ALREADY SHIPPED WAS ASKING FROM THE WRONG SEAT. "AND THEY ARE UP
+AGAINST YOU" on the person card carries the comment "an outfit YOU made an enemy
+of shows its own history too" -- the one case it could never see. Fixed at the
+root: both callers now go through ctRelToMine, which asks
+BohemiaBetween.myRipples, which walks both seats and flips the far one. myRipples
+had ZERO CALLERS in the whole repo until today.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_against.js         the question and the ladder. PURE: handed
+                                  facts, reads no global, holds no copy of the
+                                  rung ladder or of any magnitude.
+tools/bohemia_city_against_patch.py   the wiring, 13 anchored steps.
+gates/against_gate.js             66 claims, 0 red.
+
+THE LADDER, AND EVERY WORD IN IT ALREADY EXISTED
+  cold     -> they WATCH                                  (BohemiaStanding rung)
+  hostile  -> WATCH, FOLLOW, REFUSE                       (BohemiaStanding rung)
+  war      -> WATCH, FOLLOW, REFUSE, BLOCK                (BohemiaBetween locked)
+The worse of the two reasons wins, because a person is not the average of their
+reasons. Both halves survive the join so a card can say which it is.
+WHAT IS CHOSEN HERE is only the escalation ORDER -- look, close, withhold, stand
+in the way -- which is the order people really escalate in. No magnitude is
+chosen anywhere in this file. Every sentence is draft:true.
+
+THE FOUR SIGNS, EACH RIDING MACHINERY THAT ALREADY RUNS
+  WATCH   inside pplFace, the function that already decides which way a body
+          looks. Range is BohemiaStanding.SEE_RANGE (9), asked not copied.
+          bohemia_between has carried the comment "only enemies watch you" since
+          8/26 and no body in this game had ever turned its head.
+  FOLLOW  WORLD MOVERS LAW (Paolo 7/5): nothing moves until you do. ONE step of
+          theirs per step of yours, called from stepOnce and nowhere else, no
+          timer. They stop at TWO cells, which is the city's own gossip-pass
+          ruling ("two cells is arm's length plus one"), and they go back to
+          their schedule the moment they lose sight of you.
+  BLOCK   at WAR only. They take the doorway when this valley has one and
+          otherwise the cell you are facing, and stepOnce refuses that step in
+          BOTH of its branches. It cannot trap you: one cell, six other
+          directions proven walkable in the gate.
+  REFUSE  the card leads with it, says what they are doing on the street, and
+          the ASK and GIVE buttons are withdrawn and replaced with a sentence,
+          because an offer that is going to be a lie is worse than no offer.
+
+================================================================================
+PROVEN ON THE REAL SURFACE, THROUGH THE FUNCTION A D-PAD PRESS RUNS
+================================================================================
+  DARK WHERE IT SHOULD BE   0 of 61 people near the spawn are against you, and
+                            nobody follows you.
+  PERSONAL CHANNEL          one weight on his STANDING dial (ctDialApply, the
+                            real one the DIRECT tab posts) + one real deed
+                            through ctDeed -> the person who watched it reads
+                            hostile/you and their head is turned to the player
+                            (S vs S at 2 cells).
+  OUTFIT CHANNEL            side with the Remnants, walk onto Cartel ground:
+                            3 of 3 Cartel bodies on the glass read war/them,
+                            all three facing the player exactly (NW/NW W/W W/W),
+                            3 followers active on 300 of 300 walked steps,
+                            distances 2/3/4 with none closer than 2,
+                            0 occupancy collisions in 300 steps.
+  THE CARD                  leads with THEY ARE AGAINST YOU + AT WAR, says
+                            WATCHING and STANDING IN THE WAY, and both offer
+                            buttons are gone.
+  THE BLOCK                 a war body steps into the cell the player faces,
+                            stepOnce returns false, the player does not move,
+                            the street says so, and 6 other directions still
+                            walk.
+
+================================================================================
+THREE MISTAKES OF MINE, WRITTEN DOWN SO THEY ARE NOT MADE AGAIN
+================================================================================
+1. OCCUPANCY LAW BROKEN IN FRONT OF ME. The first follow put three Cartel bodies
+   in ONE cell for 600 steps, because each asked "one step toward him" with no
+   idea the other two existed. Guarding the cell they STEPPED to fixed 4 of 6;
+   the last 2 were the cell they HELD. A boxed-out follower now steps aside,
+   prefers to keep its distance, takes a closer cell only when the polite ring is
+   full, and never takes the player's cell. 6 -> 2 -> 0.
+2. A CHECK THAT WAS BACKWARDS. "They stop at two cells" was written as "every
+   follower is within two", went red on 2/3/2, and the 3 was the code being
+   RIGHT: KEEP is where they stop CLOSING, not a leash. The claim now asks what
+   it means -- never closer than two, and a clear run really does reach it.
+3. A COMMENT IS A BLOCK, NOT A LINE, AND A -1 IS NOT A RUNG. Two gate claims
+   grepped the raw module for other modules' names and for the digits -3 and -1,
+   and went red on the file's own header comment and on `dy < 0 ? -1 : 0` inside
+   a step. Both were the check being wrong about what it measured. Third time
+   this lane has hit the comment-stripping version of this.
+4. AND THE SUITE CAUGHT A FIFTH, ONE ROUND AFTER THE WIRING LANDED, WHICH IS
+   THE WHOLE ARGUMENT FOR THAT GATE EXISTING. ORGAN REACH rule 3 went red:
+   BohemiaBetween.myRipples was on the tooling-only exemption list because "it
+   returns EMPTY today and that is the correct answer", and I had just wired it
+   to every body the walked city draws. A stale exemption is a defect too. The
+   entry is DELETED, not reworded.
+   AND THE SAME SWEEP HAD NEVER HEARD OF MY OWN MODULE. bohemia_against is now
+   registered in tools/bohemia_organ_reach.js -- the tool's own note says an
+   unregistered organ is one it "actively certifies as fine", and the lane that
+   writes a module has the least excuse for leaving it invisible. The first
+   sweep with it in cost an export: rankOf was a private helper wearing a public
+   coat, with no caller anywhere. Unexported. BohemiaAgainst now reads
+   4 fns | surface 4 | dead 0.
+
+================================================================================
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+================================================================================
+- THE 82 DEED WEIGHTS still need a ruling on SHAPE: which handful of things a
+  person repeats about a stranger, and roughly how much worse a betrayal is than
+  a kindness is good. One sentence unblocks all 82. Until then the four STREET
+  deeds are worth nothing and the personal channel only lights from his dial.
+- AFFILIATED_RATE (0.30) and REACH_CELLS (12) are both marked [PENDING Paolo] in
+  bohemia_agents.js. They are why a seventeen-cell ring round the spawn cannot
+  hold one affiliated body. Not touched.
+
+FEEDS: RUN [enemies exist] and COMBAT [street fight] can both call
+BohemiaAgainst.read({rel, rung}) with their own facts and get the same answer the
+street gives, rather than growing a second idea of who is hostile.
+
+TAB: CITY (walk out, and the sign is on the bodies).

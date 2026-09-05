@@ -69,16 +69,19 @@ process.chdir(ROOT);
    them". The outfit board changed that: the surface asks for the whole roster
    now, all three read `surface` in the sweep, and an exemption for something the
    player can reach is the beginning of a list that means nothing. */
+/* *** AND A FOURTH CAME OUT ON 9/5, WHICH IS RULE 3 DOING ITS JOB AGAIN, ON
+   ME. *** BohemiaBetween.myRipples was declared tooling-only because "it returns
+   EMPTY today and that is the correct answer": your own outfit starts with no
+   enemies, so no card could show the list. THAT STOPPED BEING TRUE THE DAY THE
+   PLAYER COULD EARN ONE. The walked city now asks myRipples through ctRelToMine
+   on every body it draws, because it is the only function that reads an edge
+   from BOTH SEATS -- between(theirs, mine) is null for every enemy you earned,
+   which is the bug [who is hostile] found already shipped. The entry is deleted
+   rather than reworded: an exemption for something the player can reach is the
+   beginning of a list that means nothing.
+   THE GATE CAUGHT THIS BEFORE A HUMAN DID, one round after the wiring landed,
+   which is the entire argument for rule 3 existing. */
 const TOOLING_ONLY = {
-  'BohemiaBetween.myRipples':
-    'the player\'s OWN outfit\'s canon positions, for faction_between C4. It '
-    + 'returns EMPTY today and that is the correct answer, not a gap: canon\'s '
-    + 'note on Custom is "Player faction. No preset philosophy. Identity emerges '
-    + 'from three generations of action", so an emergent outfit has not made its '
-    + 'enemies yet. No card can show a list that is empty by construction, and '
-    + 'the claim that asserts the emptiness is CORRECT is the whole reason this '
-    + 'function exists — on 8/21 this lane reported his own faction as a defect '
-    + 'for exactly this shape and he had to correct it.',
   'BohemiaCommitment.states':
     'the commitment ladder as a list, for faction_arc J6. The card never asks '
     + 'for the whole ladder — it asks what YOUR state is and what the next one '

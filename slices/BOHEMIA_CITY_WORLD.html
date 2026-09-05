@@ -31799,12 +31799,34 @@ function stepOnce(di){
              counted doorW/doorE, so every house whose door is a doorW/doorE was
              sealed by its own door. */
           if(isDoorCell(c)){
+            /* __CITY_AGAINST__ -- UNLESS SOMEBODY IS STANDING IN IT. A body at
+               WAR with your outfit takes the doorway and the doorway stops
+               being a way in while they are there. THIS CANNOT TRAP YOU: it is
+               one cell, every other direction is untouched, and they only hold
+               it while you are beside it. */
+            if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
+              HFACE=dirOf(dx,dy);
+              try{ ctAgainstSay(); }catch(_e){}
+              return false;
+            }
             if(inEnter(nx,ny,hx,hy,false)){ HFACE=dirOf(dx,dy); return true; }
           }
           /* it has a door and this is not it: a wall, and a wall stops you */
         } else if(inEnter(nx,ny,hx,hy,false)){ HFACE=dirOf(dx,dy); return true; }
       }
       if(c&&c.walk&&c.portal&&c.enter&&typeof inEnter==='function'){ if(inEnter(nx,ny,hx,hy,true)){ HFACE=dirOf(dx,dy); return true; } }
+      /* __CITY_AGAINST__ -- AND A BODY AT WAR WITH YOU DOES NOT MOVE FOR YOU.
+         OCCUPANCY LAW is one body per cell and this is the first thing in the
+         game that enforces it against the player. Before the walkability test,
+         because a blocked cell is blocked whatever the ground is.
+         THIS CANNOT TRAP YOU AND THE GATE PROVES IT: a blocker holds ONE cell
+         and only the one you are facing, so seven directions are untouched, and
+         they only hold it while they can see you. */
+      if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
+        HFACE=dirOf(dx,dy);
+        try{ ctAgainstSay(); }catch(_e){}
+        break;
+      }
       if(!(c&&c.walk))break;
       /* __STEP_SFX__ -- FOOTSTEPS (Paolo 7/31: "I don't hear no sound for the
          steps that I'm making"). He judged these on 7/30 and nothing ever played
@@ -31835,6 +31857,14 @@ function stepOnce(di){
          one step is one place a body arrives, exactly as inEnter is the one
          place a body goes through a door. */
       try { streetFightOnStep(); } catch(_e){}
+      /* __CITY_AGAINST__ -- AND EVERY ENEMY IN SIGHT TAKES A STEP. WORLD MOVERS
+         LAW: nothing moves until you do, so this is here and nowhere else.
+         BESIDE THE STREET FIGHT, NOT INSTEAD OF IT: COMBAT and PEOPLE landed on
+         this one hook in the same round, which is correct -- a step is where a
+         body arrives, so it is where BOTH "did I walk into a fight" and "did my
+         enemies close on me" belong. The two do not talk to each other and must
+         not be merged into one call. */
+      try { ctFollowStep(); } catch(_e){}
     }
     if(moved){ HFACE=dirOf(dx,dy); return true; }
   }
@@ -34812,12 +34842,176 @@ function pplCtx(p) {
    person's own facts say WHICH PLACE, and their own conditions can keep them
    in. Stardew's trick: two identical schedules are two different people if
    only one of them stays home when it rains. */
-function pplAt(p) {
+/* __CITY_AGAINST__ -- WHERE THE SCHEDULE SAYS THEY ARE, kept separate from
+   where they actually ARE. A follower is off their schedule by definition, and
+   ctFollowStep needs the spot they would be standing on if they were not
+   following you -- so the two answers are two functions and can never be
+   confused for one another. */
+function pplAtSched(p) {
   const b = BohemiaAgents.whereAt(p, T.min | 0);
   const kind = BohemiaPopulation.placeFor(p, (b && b.where) || 'home', pplCtx(p));
   if (kind === 'home') return p.home;
   if (BohemiaPopulation.atFavourite(p, T.min | 0)) return p.favSpot || p.outSpot;
   return p.outSpot;
+}
+/* WHERE THEY ACTUALLY ARE. Their schedule, unless they have walked off it to
+   stay near you -- which is the only thing in this world that overrides the
+   address book, and it takes an enemy to do it. */
+function pplAt(p) {
+  var f = CT_FOLLOW[p.id];
+  if (f) return f;
+  return pplAtSched(p);
+}
+
+/* ==== __CITY_AGAINST__ : THEY FOLLOW, AND THEY STAND IN THE DOORWAY ========
+   WORLD MOVERS LAW (Paolo 7/5/26): "NOTHING moves until you do." So this is not
+   a chase loop and there is no timer: it runs once per step the player takes,
+   out of stepOnce, and every enemy in sight takes exactly one step. Walk away
+   and they walk after you; get far enough and they go back to their day.
+
+   ONLY BODIES THAT WERE ON THE GLASS. BARK_DREW is the render's own list of who
+   was actually drawn, the same list the witness pass and the gossip pass read.
+   Somebody the camera has never contained cannot be following you, and building
+   a second idea of "who is near" is how two surfaces start disagreeing.
+   ========================================================================== */
+var CT_FOLLOW = {};
+function ctFollowStep(){
+  if (typeof BohemiaAgainst === 'undefined') return 0;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var live = {}, moved = 0, range = ctSeeRange();
+  /* *** OCCUPANCY LAW, AND THE FIRST CUT BROKE IT IN FRONT OF ME. *** Three
+     Cartel bodies followed the player for six hundred steps and every one of
+     them converged on the SAME CELL, because each asked "one step toward him"
+     with no idea the other two existed -- three men standing inside each other.
+     The law is one body per cell, player included. So the pass keeps the cells
+     it has handed out and a follower who wants an occupied one holds where it
+     is; the next step it tries again from there, so they fan out behind you
+     instead of stacking. */
+  var taken = {}; taken[hx + ',' + hy] = 1;
+  for (var i = 0; i < drew.length; i++) {
+    var p = drew[i] && drew[i].p; if (!p || p.id == null) continue;
+    var ag = null; try { ag = ctAgainstMe(p); } catch(_e){}
+    if (!ag || !ag.signs.follow) continue;
+    var was = CT_FOLLOW[p.id] || pplAtSched(p);
+    if (!BohemiaAgainst.inSight(was, [hx, hy], range)) continue;   /* lost you */
+    /* THE DOORWAY FIRST, because a body that is blocking a door is not also
+       drifting toward you -- it is already where it wants to be. */
+    var door = (ag.signs.block) ? ctBlockCell(was) : null;
+    var free = function (sx, sy) { return !taken[sx + ',' + sy] && pplStandable(sx, sy); };
+    var now = door ? door : BohemiaAgainst.follow(was, [hx, hy], free);
+    /* *** AND HOLDING IS NOT A FREE PASS THROUGH THE LAW. *** The first fix
+       only guarded the cell a follower STEPPED to, so the two that had nowhere
+       to go both fell back to `was` -- and if somebody was already standing
+       there, they stacked anyway. Measured: six collisions in three hundred
+       steps, which is five more than zero. A boxed-out follower steps ASIDE,
+       which is what a person does, and only holds when every neighbour is
+       taken too. */
+    if (taken[now[0] + ',' + now[1]]) now = ctStepAside(was, taken, free);
+    if (!now) continue;      /* boxed in on all sides: they are not going anywhere */
+    if (now[0] !== was[0] || now[1] !== was[1]) moved++;
+    taken[now[0] + ',' + now[1]] = 1;
+    CT_FOLLOW[p.id] = now; live[p.id] = 1;
+  }
+  /* AND EVERYBODY ELSE GOES BACK TO THEIR DAY. A follower who is no longer in
+     sight, no longer an enemy, or no longer drawn stops being a special case
+     entirely rather than freezing where they stood -- a body parked forever off
+     its own schedule is a ghost, and this game has shipped enough of those. */
+  for (var k in CT_FOLLOW) if (!live[k]) delete CT_FOLLOW[k];
+  return moved;
+}
+
+/* WHERE A BOXED-OUT FOLLOWER GOES. Two rounds of this were wrong before it was
+   right, and both were the same mistake in a smaller coat: guarding the cell
+   somebody STEPPED to while letting the cell they HELD collide. Measured on the
+   real surface, three Cartel bodies over three hundred steps: 6 collisions,
+   then 2, then 0.
+   THE ORDER IS THE POINT. A crowded follower would rather keep its distance
+   than shove, so it prefers a free neighbour no closer than KEEP; it takes a
+   closer one only when the polite ring is full, because being crowded a cell
+   nearer is a real thing that happens and two men inside each other is not; and
+   it never, ever takes the cell the player is standing on. If everything is
+   taken it stays out of the pass entirely rather than pretending to move. */
+function ctStepAside(was, taken, free){
+  var ring = [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+  var near = null;
+  for (var v = 0; v < ring.length; v++) {
+    var ax = was[0] + ring[v][0], ay = was[1] + ring[v][1];
+    if (ax === hx && ay === hy) continue;              /* never onto the player */
+    if (!free(ax, ay)) continue;
+    if (Math.max(Math.abs(hx - ax), Math.abs(hy - ay)) >= BohemiaAgainst.KEEP)
+      return [ax, ay];
+    if (!near) near = [ax, ay];
+  }
+  if (near) return near;
+  /* their own cell, only if it really is theirs alone and is not yours */
+  if (!taken[was[0] + ',' + was[1]]) return was;
+  return null;
+}
+
+/* WHERE A BLOCKER PUTS ITSELF. THE ROW SAYS "THEY BLOCK A DOOR" AND THE MAP
+   SAYS THERE ARE ALMOST NO DOORS: stepOnce's own measurement, written in this
+   file, is "39,706 solid cells admit you, 7 painted doors exist ... TEN OF
+   FOURTEEN district types have zero of either", and this gate found NO door
+   within forty cells of the ground the Cartel actually live on. A sign wired
+   only to doorways would have been correct and invisible, which is the failure
+   this whole job was measured to avoid.
+   SO A DOORWAY IS THE SPECIAL CASE AND THE GENERAL ONE IS THE CELL YOU ARE
+   ABOUT TO WALK INTO. That is the same sentence -- they get in your way -- and
+   it is the OCCUPANCY LAW this game already has: one body per cell, and if the
+   body is at war with you it is not moving for you.
+   THE DOOR STILL WINS WHEN THERE IS ONE, because standing in a doorway reads
+   better than standing in a street and because that is the row's own word.
+   pplStandable refuses a threshold on purpose ("a doorway is a threshold, not a
+   place to stand"); a blocker is the one exception, which is exactly what makes
+   it read as blocking rather than as loitering. */
+function ctBlockCell(from){
+  var reach = function (cx, cy) {
+    return Math.max(Math.abs(cx - from[0]), Math.abs(cy - from[1])) <= 1
+        && !(cx === hx && cy === hy);
+  };
+  /* 1. A DOORWAY BESIDE YOU, if this valley has one here at all. */
+  if (typeof isDoorCell === 'function' && typeof cellAt === 'function') {
+    for (var dy = -1; dy <= 1; dy++)
+    for (var dx = -1; dx <= 1; dx++) {
+      if (!dx && !dy) continue;
+      var cx = hx + dx, cy = hy + dy, c = cellAt(cx, cy);
+      if (c && c.enter && isDoorCell(c) && reach(cx, cy)) return [cx, cy];
+    }
+  }
+  /* 2. OTHERWISE THE CELL IN FRONT OF YOU. HFACE is the way the player is
+     already facing -- the direction the next step would go -- so this is
+     literally getting in your way rather than a guess at where you are headed. */
+  var v = (typeof PPL_DIRV !== 'undefined' && PPL_DIRV[HFACE]) || null;
+  if (!v) return null;
+  var nx = hx + v[0], ny = hy + v[1];
+  if (!reach(nx, ny) || !pplStandable(nx, ny)) return null;
+  return [nx, ny];
+}
+
+/* IS SOMEBODY AT WAR WITH YOU STANDING IN THIS CELL. Read by stepOnce before it
+   moves you into it. */
+function ctBlocked(cx, cy){
+  for (var k in CT_FOLLOW) {
+    var f = CT_FOLLOW[k];
+    if (f && f[0] === cx && f[1] === cy) return k;
+  }
+  return null;
+}
+
+/* AND IT SAYS SO, IN THE STREET'S OWN MOUTH. #packline is where a walked
+   encounter already puts its one line; a bounced step that says nothing reads
+   as broken controls, and a SECOND line element would be a second place to look
+   for the same kind of sentence. draft:true.
+   IT DOES NOT SAY "DOORWAY", because most of the time it is not one -- this
+   valley has seven painted doors. Saying the specific thing when the general
+   thing happened is how a surface starts lying quietly. */
+var CT_AGAINST_SAY = 'somebody steps into your way. they meant to.';  /* draft:true */
+function ctAgainstSay(){
+  var l = document.getElementById('packline');
+  if (!l) return 0;
+  l.textContent = CT_AGAINST_SAY;
+  l.style.display = 'block';
+  return 1;
 }
 /* WHICH WAY THEY ARE FACING, and it has to be derived, not stored. Every person
    carries a `face` from their hash, which is right for somebody standing at
@@ -34827,6 +35021,18 @@ function pplAt(p) {
    was for. So: standing at home, use their own idle facing; standing anywhere
    else, face the way they came FROM home, because that is the way they walked. */
 function pplFace(p, at) {
+  /* __CITY_AGAINST__ -- AND AN ENEMY LOOKS AT YOU. bohemia_between has carried
+     the comment "only enemies watch you" since 8/26 and no body in this game
+     had ever turned its head. This is that sentence, on the glass.
+     IT WINS OVER THE WALK because it is a stronger fact about this second than
+     which way they came from: somebody who has stopped to watch you is not
+     still facing their commute. */
+  try {
+    var ag = ctAgainstMe(p);
+    if (ag && ag.signs.watch && !(at[0] === hx && at[1] === hy)
+        && BohemiaAgainst.inSight(at, [hx, hy], ctSeeRange()))
+      return dirOf(hx - at[0], hy - at[1]);
+  } catch (_e) {}
   if (at[0] === p.home[0] && at[1] === p.home[1]) return _DIRS8[p.face % 8];
   return dirOf(at[0] - p.home[0], at[1] - p.home[1]);
 }
@@ -35607,6 +35813,234 @@ function ctKnowsMe(id){
 })(typeof globalThis!=='undefined'?globalThis:this);
 /* ==== /engine/bohemia_standing.js (THE DEED LEDGER) ==== */
 
+/* ==== engine/bohemia_against.js (THE CROWD CARRIES THE SIGN, inlined verbatim) ==== */
+// BOHEMIA AGAINST — IS THIS PERSON AGAINST YOU, AND WHAT DOES THE CROWD DO
+// ABOUT IT. (9/5/26, PEOPLE lane. VAMILY [who is hostile], row
+// THE-CROWD-CARRIES-THE-SIGN.)
+//
+// THE ROW, IN ITS OWN WORDS: "the between-ledger already computes who is
+// hostile to you (sorted hostile-first, they charge more, 'only enemies watch
+// you'). None of that reaches the street. Make the sign visible in the crowd:
+// they watch, they follow, they block a door, they refuse."
+//
+// *** MEASURED BEFORE A LINE WAS WRITTEN, AND THE MEASUREMENT SHAPED IT. ***
+// There are exactly TWO live ways somebody can be against the player, and I ran
+// both on the real surface before choosing anything:
+//
+//   1. THEIR OUTFIT vs YOURS.  bohemia_between holds nine authored positions.
+//      Only THREE outfits of fourteen can ever be at odds with you (Cartel,
+//      Caravans, Remnants) and their bases sit 48, 60 and 62 cells from where a
+//      new player stands. Your own outfit starts with no enemies at all, and
+//      earns them the moment you side with somebody: side with the Caravans and
+//      the Cartel is against you from that second.
+//   2. THEIR OWN OPINION OF YOU.  bohemia_standing's deed ledger. 82 weights
+//      load at runtime off his quest files, and every one is a QUEST deed --
+//      the four things you can do on the street (claim:met, claim:refused,
+//      commit, favour) are all UNWEIGHTED, so street behaviour moves nobody's
+//      opinion until he rules what it is worth. [PENDING Paolo], in the handoff.
+//
+// AND THE THIRD MEASUREMENT IS THE ONE THAT MATTERS MOST: 0 of 61 people within
+// three neighbourhoods of the player's front door run with ANYBODY. The nearest
+// base is 29 cells away and a base's pull reaches 12, so a seventeen-cell ring
+// around the spawn cannot hold an affiliated body. That is a fact about the MAP
+// (not mine) and two dials marked [PENDING Paolo] (not mine either).
+//
+// SO THIS MODULE READS BOTH CHANNELS THROUGH ONE QUESTION. Where the world is
+// genuinely empty it stays dark and it says so; the moment either channel has
+// anything to say -- you side with an outfit, you walk onto somebody's ground,
+// he turns the STANDING dial -- the crowd carries the sign with no further
+// wiring. Building it on either channel alone would have shipped a feature that
+// is dark everywhere a demo player actually walks, which is this lane's oldest
+// bug wearing a new coat.
+//
+// NOTHING HERE INVENTS A NUMBER OR A LADDER.
+//   - the personal rungs are BohemiaStanding.RUNGS, passed IN as a word. This
+//     file does not own a copy of that ladder and must never grow one.
+//   - the outfit sign and the war flag are BohemiaBetween's own, passed in.
+//   - the four signs are the four the row names, in that order.
+// What IS chosen here is which sign rides which rung, and that is an escalation
+// order, not a magnitude: watching is the cheapest signal a person can send and
+// costs nothing, following costs commitment, refusing withdraws cooperation,
+// and blocking a doorway is a claim on ground. Real escalation runs in that
+// order and so does this. Every WORD is draft:true.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: the ladder is mechanism, the sentences are
+// attempts, and the magnitudes are all somebody else's.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  /* THE FOUR SIGNS, IN ESCALATION ORDER. The row names them in this order and
+     that order is also the order a person really escalates: look, close,
+     withhold, stand in the way. */
+  var SIGNS = ['watch', 'follow', 'refuse', 'block'];
+
+  /* THE LADDER. Three levels, and every one of them is a word that already
+     exists somewhere else in this repo -- COLD and HOSTILE are two of
+     BohemiaStanding's five rungs, and WAR is BohemiaBetween's `locked:'war'`
+     flag. No fourth level is invented to make room for a fourth sign. */
+  var LEVELS = {
+    cold:    { rank: 1, signs: { watch: true } },
+    hostile: { rank: 2, signs: { watch: true, follow: true, refuse: true } },
+    war:     { rank: 3, signs: { watch: true, follow: true, refuse: true, block: true } }
+  };
+
+  /* PLAIN WORDS, AND THEY ARE ATTEMPTS. ALWAYS MAKE AN ATTEMPT (8/11): text
+     ships as a real try tagged draft, numbers wait. He rewrites these; nothing
+     downstream reads them as data. Eighth grade, said out loud, no jargon. */
+  var WORDS = {
+    them: {
+      cold:    'THEY RUN WITH PEOPLE WHO DO NOT LIKE YOURS',
+      hostile: 'YOUR OUTFIT AND THEIRS ARE AT ODDS',
+      war:     'YOUR OUTFIT AND THEIRS ARE AT WAR'
+    },
+    you: {
+      cold:    'THEY SAW SOMETHING THEY DID NOT LIKE',
+      hostile: 'THEY HAVE A PROBLEM WITH YOU',
+      war:     'THEY HAVE A PROBLEM WITH YOU'
+    },
+    both: {
+      cold:    'THEY SAW SOMETHING, AND THEIR OUTFIT IS NOT YOURS',
+      hostile: 'IT IS YOUR OUTFIT AND IT IS ALSO YOU',
+      war:     'YOUR OUTFITS ARE AT WAR AND IT IS ALSO PERSONAL'
+    }
+  };
+
+  /* WHAT THE SIGN LOOKS LIKE, SAID PLAINLY, for a card that has to explain a
+     body's behaviour rather than leave the player guessing why somebody turned
+     around. Attempts, draft:true. */
+  var SIGN_WORDS = {
+    watch:  'THEY ARE WATCHING YOU',
+    follow: 'THEY ARE KEEPING NEAR YOU',
+    refuse: 'THEY WILL NOT DEAL WITH YOU',
+    block:  'THEY ARE STANDING IN THE WAY'
+  };
+
+  function rankOf(level) { return (LEVELS[level] && LEVELS[level].rank) || 0; }
+
+  /* THE OUTFIT HALF. `rel` is a BohemiaBetween edge read FROM them TO you, or
+     null. Its `sign` and its `war` flag are its own; nothing is recomputed. */
+  function fromOutfit(rel) {
+    if (!rel) return null;
+    if (rel.war) return 'war';
+    if (rel.sign === 'hostile') return 'hostile';
+    return null;
+  }
+
+  /* THE PERSONAL HALF. `rung` is a word out of BohemiaStanding.RUNGS, computed
+     by the caller with rungFor(). PASSED IN AS A WORD ON PURPOSE: a second copy
+     of that ladder living here is the drift this lane has deleted six times. */
+  function fromRung(rung) {
+    var r = String(rung || '').toUpperCase();
+    if (r === 'HOSTILE') return 'hostile';
+    if (r === 'COLD') return 'cold';
+    return null;
+  }
+
+  /* ---- THE QUESTION ------------------------------------------------------
+     read({ rel, rung }) -> null, or one answer with the signs it earns.
+
+     NULL IS THE HONEST ANSWER AND IT IS THE COMMON ONE. Most people in the
+     valley are against nobody, and a module that returns a neutral object for
+     them would put a live sign on every body on the street. Nothing is a real
+     answer here, which is precisely why it must never also be the error answer:
+     bad input throws nothing and returns nothing, same as indifference, so the
+     caller gets the same silence either way -- and that is why the CALLER, not
+     this file, is the thing a gate has to walk. */
+  function read(facts) {
+    if (!facts) return null;
+    var a = fromOutfit(facts.rel), b = fromRung(facts.rung);
+    if (!a && !b) return null;
+    /* THE WORSE OF THE TWO WINS, because a person is not the average of their
+       reasons. Somebody whose outfit is at war with yours does not become
+       merely cold because they have never personally seen you. */
+    var level = (rankOf(a) >= rankOf(b)) ? a : b;
+    if (!level) return null;
+    var why = (a && b) ? 'both' : (a ? 'them' : 'you');
+    var spec = LEVELS[level];
+    var signs = {};
+    for (var i = 0; i < SIGNS.length; i++) signs[SIGNS[i]] = !!spec.signs[SIGNS[i]];
+    return {
+      level: level,
+      rank: spec.rank,
+      why: why,
+      /* BOTH HALVES SURVIVE THE JOIN, so a card can say which one it is even
+         when only one of them set the level. */
+      outfit: a || null,
+      personal: b || null,
+      word: WORDS[why][level],
+      signs: signs,
+      draft: true
+    };
+  }
+
+  /* WHICH SIGNS, AS A LIST, for a surface that wants to say them out loud. */
+  function signsOf(ans) {
+    if (!ans || !ans.signs) return [];
+    var out = [];
+    for (var i = 0; i < SIGNS.length; i++)
+      if (ans.signs[SIGNS[i]]) out.push({ sign: SIGNS[i], say: SIGN_WORDS[SIGNS[i]], draft: true });
+    return out;
+  }
+
+  /* ---- WHERE A FOLLOWER STANDS -------------------------------------------
+     WORLD MOVERS LAW (Paolo 7/5/26): "NOTHING moves until you do." So this is
+     not a chase loop; it is one step, and the caller runs it once per step the
+     PLAYER takes. Pure: same inputs, same cell, every time.
+
+     IT STOPS AT TWO CELLS AND THAT DISTANCE IS NOT MINE EITHER. The city's own
+     gossip pass already fixed what standing beside somebody means -- "TOGETHER
+     MEANS CONVERSATIONAL DISTANCE ... two cells is arm's length plus one" -- so
+     a follower closes to exactly that and no further. Any closer and the
+     OCCUPANCY LAW fight starts (one body per cell, player included); any
+     further and nobody would read it as following.
+
+     ONE CELL PER STEP, DIAGONALS INCLUDED, because the walker has eight
+     directions and a follower that could only use four would visibly lag on
+     every diagonal. */
+  var KEEP = 2;
+  function follow(from, to, standable) {
+    if (!from || !to) return from || null;
+    var fx = from[0] | 0, fy = from[1] | 0, tx = to[0] | 0, ty = to[1] | 0;
+    var dx = tx - fx, dy = ty - fy;
+    var far = Math.max(Math.abs(dx), Math.abs(dy));
+    if (far <= KEEP) return [fx, fy];             /* close enough; hold */
+    var sx = fx + (dx > 0 ? 1 : dx < 0 ? -1 : 0);
+    var sy = fy + (dy > 0 ? 1 : dy < 0 ? -1 : 0);
+    if (sx === tx && sy === ty) return [fx, fy];  /* never onto the player */
+    if (standable && !standable(sx, sy)) {
+      /* BLOCKED IS NOT STUCK. A body that gives up the moment a wall is in the
+         way reads as a bug, so it tries the two slides a person would: the
+         horizontal part of the move, then the vertical. If neither is standable
+         it holds, which is also what a person does. */
+      if (sx !== fx && standable(sx, fy) && !(sx === tx && fy === ty)) return [sx, fy];
+      if (sy !== fy && standable(fx, sy) && !(fx === tx && sy === ty)) return [fx, sy];
+      return [fx, fy];
+    }
+    return [sx, sy];
+  }
+
+  /* IS THE PLAYER CLOSE ENOUGH TO BE WATCHED AT ALL. BohemiaStanding.SEE_RANGE
+     is nine tiles because that is how far you can see something happen, and it
+     is passed in rather than copied so the two can never disagree. */
+  function inSight(from, to, range) {
+    if (!from || !to) return false;
+    return Math.max(Math.abs(to[0] - from[0]), Math.abs(to[1] - from[1])) <= (range | 0);
+  }
+
+  /* rankOf IS DELIBERATELY NOT EXPORTED. It was, for one round, and the organ
+     reach sweep called it dead the first time it looked -- correctly: nothing
+     outside this file has any business ranking a level, and read() is the only
+     thing that ever needs to. An exported helper with no caller is the exact rot
+     that sweep exists to kill, and it does not get an exemption just because I
+     wrote it. */
+  var API = { SIGNS: SIGNS, LEVELS: LEVELS, WORDS: WORDS, SIGN_WORDS: SIGN_WORDS,
+              KEEP: KEEP,
+              read: read, signsOf: signsOf, follow: follow, inSight: inSight };
+  if (HASREQ) module.exports = API; else root.BohemiaAgainst = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* ==== /engine/bohemia_against.js (THE CROWD CARRIES THE SIGN) ==== */
+
+
 /* ==== engine/bohemia_clout.js (HOW LOUD, inlined verbatim) ==== */
 // BOHEMIA CLOUT, HOW LOUD A THING WAS, AND THE ONE PLACE THAT SAYS SO
 // (8/21/26, PEOPLE lane. Extracted, not authored: every number below is Paolo's
@@ -36320,6 +36754,8 @@ function ctDialApply(w, save){
     T0[j] = v; n++;
   }
   if (save !== false) ctDialSave();
+  /* __CITY_AGAINST__ -- his STANDING dial changes who is against you. */
+  try{ ctAgainstBump(); }catch(_e){}
   try { if (CT_OPEN) ctDraw(); } catch(_e){}
   return n;
 }
@@ -50374,6 +50810,66 @@ function ctCastRow(who){
   } catch(_e){}
   return null;
 }
+/* ==== __CITY_AGAINST__ : IS THIS PERSON AGAINST ME =========================
+   TWO CHANNELS, ONE QUESTION. Their outfit's position on yours, and their own
+   opinion of you. Both already existed and neither had ever reached a body on
+   the street -- which is the row's entire complaint, word for word.
+
+   NEITHER LADDER IS RE-IMPLEMENTED HERE. The rung word comes out of
+   BohemiaStanding.rungFor and the sign comes off the BohemiaBetween edge; this
+   function only hands both to BohemiaAgainst.read and returns what it says.
+
+   MEMOISED, BECAUSE peoplePass ASKS IT FOR EVERY VISIBLE BODY EVERY FRAME.
+   ctFactionOf walks the base list and hashes a seat; opinionOf walks a mind.
+   Neither is expensive once and both are wasteful sixty times a second. The key
+   carries the two things that really change the answer -- a bump the writers
+   ring, and the hour, so a decaying opinion is re-read without a timer.
+   ========================================================================== */
+/* *** THE SEAT BUG, FOUND BY RUNNING IT, AND IT WAS ALREADY SHIPPED. ***
+   The obvious way to ask this is between(theirOutfit, myOutfit) and IT RETURNS
+   NULL FOR EVERY ENEMY YOU EARNED. Measured: side with the Remnants and the
+   save holds CUSTOM -> CARTEL, war, exactly as it should -- and
+   between('Cartel','Custom') is null, because an EARNED edge is written in one
+   seat while his AUTHORED pairs happen to be written in both. So the one case
+   that matters most, the enemy the player made with their own hands, was
+   invisible from the side the street asks from.
+   ripples() is the function that already knows this: it walks both seats and
+   flips the far one. myRipples() is that, from your own outfit, and it had ZERO
+   CALLERS anywhere in the repo -- a finished organ nobody was using, sitting
+   next to a question it answers exactly. So this asks it. */
+function ctRelToMine(fid){
+  if (!fid || typeof BohemiaBetween === 'undefined') return null;
+  var want = String(fid).toUpperCase().replace(/[\s_]/g,'');
+  var rip = [];
+  try { rip = BohemiaBetween.myRipples(ctBelongSave()) || []; } catch(_e){ return null; }
+  for (var i = 0; i < rip.length; i++)
+    if (String(rip[i].to).toUpperCase().replace(/[\s_]/g,'') === want) return rip[i];
+  return null;
+}
+var CT_AGAINST = {}, CT_AGAINST_BUMP = 0;
+/* RUNG BY THE THINGS THAT CHANGE THE ANSWER: a commitment that earns you an
+   enemy, his STANDING dial landing new weights, and a vouch that moves somebody
+   into an outfit. Anything that forgets to ring this goes stale for an hour,
+   which is why it is one function and not three copies of a delete. */
+function ctAgainstBump(){ CT_AGAINST_BUMP++; CT_AGAINST = {}; }
+function ctAgainstMe(p){
+  if (typeof BohemiaAgainst === 'undefined' || !p || p.id == null) return null;
+  var key = p.id + '|' + CT_AGAINST_BUMP + '|' + Math.floor(ctMinuteNow() / 60);
+  if (Object.prototype.hasOwnProperty.call(CT_AGAINST, key)) return CT_AGAINST[key];
+  var rel = null, rung = null;
+  try { rel = ctRelToMine(ctFactionOf(p)); } catch(_e){}
+  try { var op = ctOpinionOf(p.id); if (op) rung = op.rung; } catch(_e){}
+  var ans = null;
+  try { ans = BohemiaAgainst.read({ rel: rel, rung: rung }); } catch(_e){ ans = null; }
+  CT_AGAINST[key] = ans;
+  return ans;
+}
+/* HOW FAR AN ENEMY CAN SEE YOU. BohemiaStanding's own constant, asked rather
+   than copied: nine tiles, "because that is how far you can SEE it happen". */
+function ctSeeRange(){
+  try { return BohemiaStanding.SEE_RANGE | 0; } catch(_e){ return 9; }
+}
+
 function ctFactionOf(p){
   /* __CITY_VOUCH__ -- WHAT YOU DID BEATS WHAT THE HASH SAYS.
      Allegiance here is COMPUTED from the bases and a seat hash, so there is
@@ -52175,8 +52671,13 @@ function ctIntroRows(body, intro, fid, ctOnwardKey){
          with is a different card from a stranger's, and it was reading
          identically. draft:true. */
       try {
-        var ctMineRel = BohemiaBetween.between(fid, BohemiaBetween.mine(),
-                                               ctBelongSave());
+        /* __CITY_AGAINST__ -- ASKED FROM THE SEAT THE ANSWER IS WRITTEN IN.
+           This was between(fid, mine), which returns null for every enemy the
+           player EARNED -- an earned edge is stored in one seat and this row
+           asked from the other, so the row written for "an outfit you made an
+           enemy of" was the one thing it could never show. ctRelToMine goes
+           through myRipples, which walks both seats and flips the far one. */
+        var ctMineRel = ctRelToMine(fid);
         if(ctMineRel && ctMineRel.sign === 'hostile'){
           body += ctRow('AND THEY ARE UP AGAINST YOU',
             ctMineRel.earned && ctMineRel.via
@@ -52295,6 +52796,21 @@ function ctDraw(){
      different because of what you have done. A person who knows nothing about
      you gets no row at all rather than an empty one -- a blank labelled row
      reads as a broken feature, and silence is the honest answer. */
+  /* __CITY_AGAINST__ -- AND IT LEADS, because a person who is against you is
+     not a person you are having a normal conversation with, and every row below
+     reads differently once you know. Their behaviour on the street is said out
+     loud here too: a body that turned to watch you and then followed you down
+     the block is doing something the player can SEE, and a card that does not
+     explain it leaves them guessing at a bug. draft:true, all of it. */
+  var CT_AG = null;
+  try { CT_AG = ctAgainstMe(p); } catch(_e){}
+  if (CT_AG) {
+    body += ctRow('THEY ARE AGAINST YOU', CT_AG.word);
+    try {
+      var sg = BohemiaAgainst.signsOf(CT_AG);
+      for (var sgi = 0; sgi < sg.length; sgi++) body += ctRow('AND', sg[sgi].say);
+    } catch(_e){}
+  }
   try {
     var kd = ctKnownDeeds(p.id, 2);
     for (var kdi = 0; kdi < kd.length; kdi++)
@@ -52706,7 +53222,12 @@ function ctDraw(){
     if (CT_SEEN_SAID && CT_SEEN_SAID.asked === String(p.id))
       body += ctRow('THEY SAID', CT_SEEN_SAID.text);
   } catch(_e){}
-  if(ctBtn) body+='<button id="ctask">'+ctBtn+'</button>';
+  /* __CITY_AGAINST__ -- THEY REFUSE. An enemy does not answer your questions,
+     and offering a button that is going to be a lie is worse than not offering
+     it. The sentence stays so the door is visibly shut rather than missing. */
+  if(ctBtn && CT_AG && CT_AG.signs.refuse) body += ctNote('They are not going to '
+    + 'answer you.');
+  else if(ctBtn) body+='<button id="ctask">'+ctBtn+'</button>';
   /* __CITY_THIRDPARTY__ -- THE OTHER MOVE. The Homeless do not ask your name, they
      ask WHERE YOU SLEEP, and answering it honestly is the unlock -- so it has to
      be pressable or the mechanic is decoration. answerFor() has returned this
@@ -52740,7 +53261,10 @@ function ctDraw(){
      would run AFTER the assignment above and clobber it back to false, and the
      suppression would silently never fire. Undefined here (when there is no
      bargain at all) reads as false, which is the safe default: show the act. */
-  if(ctAct && !ctFavIsAct) body+='<button id="ctgive">'+ctAct.label+'</button>';
+  /* __CITY_AGAINST__ -- AND THEY WILL NOT TAKE ANYTHING OFF YOU EITHER. */
+  if(ctAct && !ctFavIsAct && CT_AG && CT_AG.signs.refuse)
+    body += ctNote('They will not take anything off you.');
+  else if(ctAct && !ctFavIsAct) body+='<button id="ctgive">'+ctAct.label+'</button>';
   /* __CITY_VOUCH__ -- the door the top rung buys. */
   try {
     if(!ctFid){
@@ -52949,6 +53473,9 @@ function ctDraw(){
         if(typeof BohemiaBetween !== 'undefined'){
           CT_EARNED = BohemiaBetween.earn(sv, ctFid, r.state, (T && T.day) || 1);
           if(CT_EARNED && CT_EARNED.length) ctOutfitBadge();
+          /* __CITY_AGAINST__ -- YOU JUST MADE ENEMIES AND THE STREET HAS TO
+             KNOW THIS SECOND, not when the memo cache happens to roll over. */
+          try{ ctAgainstBump(); }catch(_e){}
         }
       } catch(_e){}
     }
