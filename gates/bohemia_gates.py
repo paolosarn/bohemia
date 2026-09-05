@@ -1414,6 +1414,19 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('BEAT FIRST',    ['python3', 'gates/beat_first_gate.py'],
+     "THE GAME HAS A PULSE BEFORE IT HAS A SONG. Measured on the real surface: "
+     "the tap sounds at 110ms, it is over by 401ms, and the next thing you hear "
+     "is at 9,824ms. The opening music was never late -- it starts half a "
+     "second after the tap and is then STARVED, because its scheduler is a "
+     "setInterval on the thread that is parsing a 3.7 MB city iframe. So the "
+     "pulse is one looping AudioBuffer on the audio thread, 120 BPM by "
+     "construction, and the song takes the beat off it on the tick that "
+     "actually books step 0. A transport more than a quarter second behind now "
+     "re-anchors onto that beat instead of firing seventy-two sixteenths at "
+     "once. The gate blocks the main thread for three seconds ON PURPOSE, "
+     "because a main-thread meter records ZERO SAMPLES across the window this "
+     "feature exists for and would report silence on a build that was playing", True),
     ('CITY WHERE',    ['python3', 'gates/city_where_gate.py'],
      "THE WALKED SURFACE SAYS WHERE YOU ARE. One message, BOHEMIA_WHERE, feeds "
      "four finished systems: the ambience bed, occlusion, the day/night music "

@@ -1,3 +1,81 @@
+SOUND (sound-xk7pjp): 9/5 (b) LATEST -- *** THE GAME WAS SILENT FOR TEN SECONDS
+AT ITS OWN FRONT DOOR, AND THE MUSIC WAS NOT LATE, IT WAS STARVED.
+TAB: RUN (from the splash). Nothing to judge -- no sound was cooked. ***
+
+Build 9/5l - THE BEAT BEFORE THE SONG.
+VAMILY: SHIPPED [heartbeat first] THE-BEAT-BEFORE-THE-SONG, the manager's own
+call: "put a heartbeat on the walked street from the first second, before any
+song loads, at 120, quiet, that the first fight's music lands on."
+
+MEASURED FIRST, on the real surface, tapping the splash and watching the master:
+  110 ms    the tap (ui_tap)
+  401 ms    it is over
+  ...       NOTHING
+  9,824 ms  the next thing you hear
+
+THE CAUSE IS NOT WHAT THE BRIEF ASSUMED OR WHAT I ASSUMED. The opening song is
+not late: it starts HALF A SECOND after the tap. It is STARVED. MUS.start() sets
+playing=true and then schedules notes from a setInterval on the MAIN THREAD, and
+the main thread is parsing a 3.7 MB city iframe. The transport runs and cannot
+put one note in the graph for nine seconds.
+
+AND THAT BROKE THE FIRST INSTRUMENT I POINTED AT IT: the energy meter samples on
+a 100ms setInterval and recorded ZERO SAMPLES across the gap -- not zero energy,
+zero samples. A main-thread meter cannot measure the window this feature exists
+for, and a gate built only on it would report silence on a build that was
+playing. So the gate blocks the thread for three seconds ON PURPOSE.
+
+THE DESIGN. Not a scheduler: setInterval is the thing that stopped running, and
+a four-second lookahead still dies in a nine-second stall. ONE LOOPING
+AudioBufferSourceNode, half a second, handed to the audio thread and never
+touched again -- and therefore EXACTLY 120 BPM by construction. Two low thumps
+0.3125s apart, which is HIS number, hits:[0,0.3125] off the approved `heartbeat`
+recipe. THE SHAPE IS REUSED, THE EVENT IS NOT: `heartbeat` means "YOUR HEART TOO
+LOUD -- low health", and firing it here would tell the player they are dying.
+It is MUSIC, not a candidate: two sines, scheduled decay, effects bus, no delay,
+no convolver, no feedback, one node. Nothing enters the bank.
+
+THE HANDOFF TOOK THREE TRIES AND EACH WRONG ONE TAUGHT SOMETHING:
+  1. hand over in MUS.start()  -> handed the beat to a song that then made no
+     sound for nine seconds. STARTING A TRANSPORT IS NOT A SONG BEING AUDIBLE.
+  2. hand over on the tick where step is still 0 -> the timer fires every 25ms
+     whether or not it books anything, so it ran at 0.5s and handed over anyway.
+     Half a second of pulse over a ten-second silence.
+  3. hand over INSIDE the booking loop, on the iteration that puts step 0 in the
+     graph -> 12.9 beats of pulse, and the song lands on the beat.
+And the pulse's supervisor (the 8/16 "is he still looking at the game" check)
+also killed it on MUS.playing, which RACED the scheduler after the block: when
+the supervisor woke first it took the pulse away before the scheduler could ask
+where the next beat was, and the song re-anchored to now+0.06 and landed 29ms
+off its own beat. Measured. It only answers the looking-at-it question now.
+
+A SECOND BUG, FOUND BY THE SAME MEASUREMENT: MUS's scheduler books every step it
+is behind on, at times IN THE PAST, which Web Audio plays immediately -- so after
+the nine-second parse SEVENTY-TWO SIXTEENTHS fired at once. A transport more
+than a quarter second behind now RE-ANCHORS, onto the pulse's next beat.
+
+THE LEVEL WAS WRONG AND THE METER SAID SO: at 0.085 the pulse peaked 0.0678
+against a footstep at 0.0346, LOUDER than the quietest thing in the game. Now
+0.020, about 40% of a step.
+
+GATE: beat_first_gate.py, 17 claims. Mutations: no pulse on the tap RED x3, no
+re-anchor RED, level back to 0.085 RED. AND ONE MORE BROKEN RULER OF MINE: the
+peak detector used a FIXED floor of 0.004, fine at the old level and blind at the
+new one -- it missed thumps and reported lub-to-lub gaps of 1.01s, a dropped beat
+read as a slow one. A DETECTOR WITH A FIXED THRESHOLD MEASURES ITS THRESHOLD.
+(Its first tempo check also did not know a heart has two thumps.)
+
+FILES  tools/bohemia_the_beat_before_the_song.py, gates/beat_first_gate.py,
+       records/BOHEMIA_THE_BEAT_BEFORE_THE_SONG_9_5_26.md
+
+NEXT IN THIS LANE (VAMILY order): [district sound] BB-THE-BED-IS-THE-PLACE, then
+[power hums] BB-A-LIT-BLOCK-HUMS, then [unused sounds] THE-OTHER-51, then
+[music owned] THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/5 (a) -- *** THE VALLEY WAS SILENT WHEN YOU STOOD
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -473,6 +551,7 @@ ROUTED OUT OF THIS ROUND:
 WHAT IS PENDING HIM: [PENDING Paolo] the encounter repeat interval, carried from Q3.
 
 SOUND (sound-xk7pjp): 9/5 (a) LATEST -- *** THE VALLEY WAS SILENT WHEN YOU STOOD
+
 STILL, AND NOTHING WAS BROKEN. One message feeds four finished systems and the
 walked surface never sent it. Every step in the game was also the dirt one.
 TAB: RUN (the walked city). Nothing to judge -- no new sound was cooked. ***

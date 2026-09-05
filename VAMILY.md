@@ -110,8 +110,8 @@ MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on
 
 ## SOUNDS  (08.)
 MODE: BUILD
-STATE: 65 approved sounds, 185 variants. The walked city NOW reports where you are every four seconds, so the ambience bed runs, occlusion has a listener, the music phase follows the clock and the hour chime strikes -- all four measured on the real surface, all four dark for three weeks before 9/5. Also fixed 9/5: every footstep in the valley was the dirt one (the classifier read two fields a city cell does not have; 6,561 of 6,561 cells came back 'dirt'). Unverified: where the music engine module lives (not in engine/).
-- CLAIMED 9/5 sound-xk7pjp  [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
+STATE: 65 approved sounds, 185 variants. The game now has a PULSE from the tap -- one looping audio-thread buffer at 120 BPM, quieter than a footstep -- covering the ten seconds of silence while the city loads, and the first song takes the beat off it. The walked city NOW reports where you are every four seconds, so the ambience bed runs, occlusion has a listener, the music phase follows the clock and the hour chime strikes -- all four measured on the real surface, all four dark for three weeks before 9/5. Also fixed 9/5: every footstep in the valley was the dirt one (the classifier read two fields a city cell does not have; 6,561 of 6,561 cells came back 'dirt'). Unverified: where the music engine module lives (not in engine/).
+- SHIPPED 9/5 [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, before any song loads, at 120, quiet, that the first fight's music lands on. Tab: RUN, then MUSIC.
 
 - SHIPPED 9/5 [background sound]  BB-THE-CITY-SENDS-WHERE
 - SHIPPED 9/5 [daytime music]  BB-THE-DAY-SONG-PLAYS
