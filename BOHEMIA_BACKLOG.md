@@ -9336,6 +9336,28 @@ W-1. *** FIRST JOB IS A DIAGNOSIS, NOT A STYLE GUIDE.
     SHIPPED. VAMILY.md is the FULL-GAME queue as of 9/4: jobs without a BB- name
     are briefed there and in records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_
     OF_THE_GAME_9_4_26.md; that brief IS the row. ***
+THE-FEED-ON-THE-CITY-SCREEN. *** PAOLO 9/4, LOCKED: "when it's in zoomed out
+   city mode I want part of the UI to show a phone screen and the social posts
+   just scrolling, whether it's our achievements or auto generated posts... if you
+   read it you'll learn more about the world and you'll see the quests you've
+   done." ***
+   IN CITY MODE (MODE==='city', the builder view) A PHONE SCREEN IS PART OF THE UI
+   AND SCROLLS A FEED. Three kinds of post in one stream: WHAT YOU DID (every
+   finished quest and every deed the ledger already records -- "THE VALLEY'S
+   MEMORY OF WHAT YOU DID TO IT" writes a move with its reason -- in the world's
+   mouth), WHAT THE WORLD DID (faction events, territory, a town going dark, a
+   crisis building, the man who lived telling people), AUTO-GENERATED LIFE
+   (ambient posts keyed off trade, circuit owner, hour, what you are known for).
+   READING IT TEACHES THE WORLD: it is the map's caption. REUSE-FIRST: the phone
+   panel (phonewrap/phoneslot/phonePush), the deed ledger and the faction events
+   all exist; the feed READS what the game already writes. Posts are words:
+   attempts, draft:true. 120 BPM: a post lands on a beat, the scroll moves on
+   the beat. Where on screen is his by eye. Tab: CITY. UI builds the surface,
+   WORLD/PEOPLE build the stream (ledger first). Law:
+   laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md | a finished quest
+   appears in the feed within a beat, in CITY mode, in the demo | which faction
+   says what about whom | no. ***
+
 BB-ONE-NUMBER. *** DAY 17. WE ALREADY GOT THIS RIGHT AND IT IS UNDEFENDED, WHICH
    IS HOW IT WILL GET LOST. WORDS FOR THE WORLD, ONE NUMBER, AND THE NUMBER IS HIS
    CHANCE ON YOU. ***

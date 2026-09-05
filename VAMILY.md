@@ -50,6 +50,7 @@ MODE: BUILD
 - OPEN  BB-THE-LETTER-IS-ONE
 - OPEN  BB-FOUR-VERBS-THREE-CURRENCIES
 - OPEN  BB-THE-NIGHT-EATS-POWER
+- OPEN  THE-FEED-STREAM -- one event stream the city-screen feed reads: the deed ledger first (exists), then faction/territory events, then ambient life posts; with PEOPLE
 - OPEN  FACTION-TOWNS -- every faction has a seat that is its market, buildings and quests; FORTRESS / TOWN / CAMP derived from act1_power, draft:true; who sits where is his (9/4 law)
 - OPEN  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate
 - OPEN  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised
@@ -160,7 +161,8 @@ MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't impl
 - OPEN  Q11 What the face can carry so the words do not have to. At 64 px with mouth, blink and brow, which emotions read without a word, and how games with a talking portrait split the load between face and text.
 - OPEN  Q12 Names and nicknames. How people in a collapsed city name each other and places (real post-disaster naming, gang and crew naming), and what that does for a player learning who is who.
 - OPEN  Q13 Rumour. How true and false news moves through a small world by speech alone, in the real record and in the best games, for the man-who-lives-tells-people axis (day 12).
-- OPEN  Q14 The one-word answer. When the best games let a character answer in one word and why it lands. Test lines: twenty one-word answers, each a different person.
+- OPEN  Q14 The one-word answer.
+- OPEN  Q15 How a feed talks. The city screen scrolls posts about what you did and what the world did. What real small-community feeds and the best in-game feeds sound like, and how to keep an auto-generated post from reading like a press release. Test posts for five deeds and five world events. When the best games let a character answer in one word and why it lands. Test lines: twenty one-word answers, each a different person.
 - OPEN  BB-THE-SMALL-MOMENT  (build, held until the lane returns to MODE: BUILD)
 - OPEN  BB-STILL-SAYS-IT  (build, held)
 - OPEN  BB-RESPONSIVE  (build, held)
@@ -168,6 +170,7 @@ MODE: RESEARCH -- Paolo 9/4: "keep doing big brain online research... don't impl
 
 ## UI
 MODE: BUILD
+- OPEN  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
 - OPEN  BB-ONE-NUMBER
 - OPEN  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
 - OPEN  FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists; measure with the cold hand

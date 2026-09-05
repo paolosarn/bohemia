@@ -703,7 +703,16 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (aj) LATEST -- *** QUESTS PARKED; VAMILY
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ak) LATEST -- *** THE FEED ON THE CITY
+SCREEN: in zoomed-out city mode a phone scrolls a social feed of what you did, what
+the world did, and auto-generated life. Nothing to judge. ***
+laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md. Measured: the phone
+panel exists (phonewrap/phoneslot/phonePush), the deed ledger exists, no feed or
+post generator exists. Rows: UI THE-FEED-ON-THE-CITY-SCREEN (top of UI), WORLD
+THE-FEED-STREAM (ledger first), WORDS Q15 how a feed talks. Tab: CITY. LAST
+FEEDBACK RECEIVED: this -> those three lines.
+
+COORDINATOR: 9/4 (aj) -- *** QUESTS PARKED; VAMILY
 HAS TWO MODES; WORDS IS IN RESEARCH MODE ON HOW PEOPLE TALK; ECONOMY AND DYNASTY
 RECOMMENDED AS RESEARCH CHATS. Nothing to judge. ***
 laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md. His words: no quest chat yet, he

@@ -1544,6 +1544,17 @@ danger; wardrobe + LIFE + COMBAT in parallel = the design). Stay inside your
 session's systems; a rebase conflict inside the alpha means a boundary was
 crossed -- stop and check before pushing.
 
+- THE FEED ON THE CITY SCREEN (Paolo 9/4, LOCKED): "when it's in zoomed out city
+  mode I want part of the UI to show a phone screen and the social posts just
+  scrolling... our achievements or auto generated posts... you'll learn more about
+  the world and you'll see the quests you've done." In CITY mode a phone screen on
+  the UI scrolls one feed of three kinds of post: what you did (the deed ledger,
+  which exists), what the world did (faction and territory events), and
+  auto-generated life. Reading it teaches the world. Reuse-first, posts are
+  attempts draft:true, on the beat, where on screen is his by eye. Tab: CITY. Law:
+  laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md  Rows: UI
+  THE-FEED-ON-THE-CITY-SCREEN, WORLD THE-FEED-STREAM, WORDS Q15.
+
 ## RESEARCH LANES: VAMILY HAS TWO MODES (Paolo 9/4/26, LOCKED)
 "no quest chat yet... I need aesthetic supervision on experiencing it." QUESTS IS
 PARKED until he says. "for the words chat when I say VAMILY... keep doing big
