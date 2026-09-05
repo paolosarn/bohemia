@@ -52,7 +52,7 @@ one word, and this page is the briefing.
 Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md and
 laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 
-## THE SEVENTEEN CHATS (his list, 9/4). Every one has a queue below. He types VAMILY, nothing else.
+## THE NINETEEN CHATS (his list, 9/4, plus two blind spots found 9/4). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name
 takes the first line marked UNCLAIMED, writes CLAIMED, commits, and that is its
 role. Every section carries MODE and a STATE line (what is built, what is not,
@@ -74,6 +74,8 @@ what nobody has verified) so the chat knows what it does not know.
  15 DYNASTY          -> DYNASTY     (research)
  16 ART COOK         -> COOK        (the Production Artist)
  17 EYES AND EARS    -> EYES AND EARS  (his double: checks every shipped visual and sound)
+ 18 RELEASE          -> RELEASE     (UNCLAIMED: the demo as a product; performance, the cut, playtest rounds, telemetry)
+ 19 GATEKEEPER       -> GATEKEEPER  (UNCLAIMED: the checking machine itself; the suite, dead gates, the OWED checker)
     QUESTS           -> PARKED by Paolo 9/4; no chat, nothing claimed until he reopens it
 
 ## WORLD  (02. the economy, the map, the towns)
@@ -108,7 +110,8 @@ STATE: 65 approved sounds, 185 variants; the walked city can produce 14, all rea
 - OPEN  [daytime music]  BB-THE-DAY-SONG-PLAYS
 - OPEN  [district sound]  BB-THE-BED-IS-THE-PLACE
 - OPEN  [power hums]  BB-A-LIT-BLOCK-HUMS
-- OPEN  [unused sounds]  THE-OTHER-51 -- give every approved sound a caller on the walked surface; 51 of 65 have none; no new cooks
+- OPEN  [unused sounds]  THE-OTHER-51
+- OPEN  [music owned]  THE-MUSIC-ITSELF -- the 200-plus songs in the alpha, their pools and phases, the one he likes: this lane owns the MUSIC too, not only the sounds; a queue of what the valley's music still needs, judged in the MUSIC tab -- give every approved sound a caller on the walked surface; 51 of 65 have none; no new cooks
 
 ## LIFE + CITY  (03. the city-builder tab and the aerial view; the buildings, the housing, the century)
 MODE: BUILD
@@ -137,6 +140,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - OPEN  [enemies flee]  BB-THE-ROUT
 - OPEN  [prefight save]  BB-SAVE-BEFORE-THE-BELL
 - OPEN  [armour morale]  ARMOUR-AND-MORALE -- armour as a layer (the field is on every body and all zero) and morale past the nerve roll; no damage number moves
+- OPEN  [what lives]  CREATURES -- dispatch item 8: enemies, loot and danger BY PLACE (some blocks are deadly at night, some never). The bestiary research exists (records/BOHEMIA_RESEARCH_WHAT_LIVES_IN_A_CITY_OF_CORPSES_8_25_26.md) and nobody owns the creatures themselves: what they are, where they live, what they drop. With PEOPLE (encounters) and WORLD (place). WHICH creatures is his where it is canon.
 - OPEN  [sixty bosses]  SIXTY -- the seven bosses to reach 60 and which of the 53 grants unlock a real verb; needs Paolo, cannot start first
 - OPEN  [RF4 checklist]  RF4-SPEC-DIFF -- close the 68-item RF4 teardown spec's diff column (from LAB)
 - OPEN  [BB checklist]  BB-SPEC -- the Battle Brothers study's 23 records folded into one spec of the same shape as the RF4 one, so COMBAT and WORLD have one reference document per named game
@@ -229,6 +233,7 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 - OPEN  [one number]  BB-ONE-NUMBER
 - OPEN  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; nothing exists
 - OPEN  [first teaching]  FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists; measure with the cold hand
+- OPEN  [phone readable]  ACCESSIBLE-ON-A-PHONE -- text size, tap targets, colour-blind safety on faction colours, motion; the Game Accessibility Guidelines basic tier that the sound and colour rules already cite, applied to the whole surface
 - OPEN  [reactions explained]  BB-WHY
 - OPEN  [crisis warning]  BB-FORETOLD
 - OPEN  [look verdict]  ROUND-7-LOOK -- needs Paolo
@@ -307,16 +312,33 @@ STATE: nothing exists. No screenshot pass, no golden images, no audio measuremen
 - OPEN  [first minute]  E8  What a human art reviewer does in the first sixty seconds with a new asset, and what a human audio reviewer does in the first ten seconds with a new sound. Turn both into the order this lane checks things in.
 - OPEN  [every ship]  E9  STANDING DUTY, once E1 to E8 exist: on every SHIPPED line from any lane that touches pixels or sound, run the pass on the real surface, write a one-page verdict record with the screenshots and measurements, and post the two-word verdict to the coordinator; on a defect, write ONE [eyes: two words] line into that lane's section (the only exception to "only the coordinator adds jobs").
 
-## SHARED (any chat with nothing open in its own lane)
+## RELEASE  (18. the demo as a product. Nobody owned this: the cut, how fast it runs on a phone, the friend rounds, and how we learn what a friend actually did.)
 MODE: BUILD
+STATE: slices/BOHEMIA_DEMO.html exists (4.6 MB, re-cut 9/1) and a closed playtest protocol was written 8/11 (records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md). NOT owned by anybody until now: performance (dispatch item 7, never picked up), whether the demo is byte-current with the city, any way to see what a friend did in their session, and running the friend rounds. Unverified: load time and frame rate on a real iPhone today.
+- OPEN  [phone speed]  PERFORMANCE -- measure the demo on a real phone: time to first play, frame rate walking, frame rate in a fight, battery in ten minutes, the 4.6 MB load; set a budget for each and a gate that holds it (dispatch item 7, unowned since 8/25)
+- OPEN  [demo current]  DEMO-IS-CURRENT -- prove the demo cut carries the same city file as the workshop on every ship, by hash, in a gate; today it is re-cut by hand
+- OPEN  [friend telemetry]  WHAT-A-FRIEND-DID -- a way to see a friend's session without watching over their shoulder: taps, screens reached, minutes, where they stopped; written to something we can read; no accounts, no tracking beyond the demo
+- OPEN  [cold hand]  BB-COLD-HAND  (moved from SHARED: the test that presses the loudest thing and never reads, on every demo screen)
+- OPEN  [friend round]  FRIEND-ROUND-ONE -- run the 8/11 protocol for real with three friends, collect what they said and what the telemetry showed, and turn every finding into a job on this board through the coordinator
+- OPEN  [install path]  ADD-TO-HOME -- the home-screen install is the save (day 21); make the path a friend actually takes work first time, on iOS and Android, and measure it
+
+## GATEKEEPER  (19. the checking machine itself. Nobody owned it: the suite cannot finish inside its budget, 82 gates never ran in the last full attempt, and no gate can say OWED.)
+MODE: BUILD
+STATE: ~230 gates; the full suite cannot finish in its time budget (LAB, 8/31); 82 gates never ran last attempt; gate colours are per-lane guesses. A law without a machine gate is not enforced, so this chat is what makes every other rule real.
+- OPEN  [suite runs]  SUITE-FINISHES -- make the full suite finish inside its budget again: measure every gate's time, split the slow ones, retire dead ones (with a record), run in parallel; the target is one command, green or red, in under ten minutes
+- OPEN  [dead gates]  GATE-CENSUS -- every gate names what law it enforces and what would make it red; a gate that cannot say either is retired to archive/ with a record
 - OPEN  [handoff cut]  HANDOFF-CUT -- the handoff file is 5.2 MB, 79,379 lines, ~1.3 MILLION tokens, and every session is told to read it first; only 14 lane blocks are live (61 KB). gates/handoff_gate.js forbids shrinking it by more than 20% in one write (written after an accidental truncation). Amend that gate so a DELIBERATE archive passes: when archive/handoffs/HANDOFF_ARCHIVE_<date>.md holds every byte removed, the bulk check is satisfied. Then replace 00_START_HERE_NEXT_SESSION.md with archive/handoffs/HANDOFF_SLIM_READY_9_4_26.md (already prepared: the newest block per lane, the gate's own lane definition). The coordinator cannot touch gates; whoever takes this lands a 98% cut in one commit. Also add to the front of the slim file: "older blocks live in archive/handoffs/". (Paolo 9/4: "I don't want a bunch of tokens being used just for the uplifting of this work structure.")
 - OPEN  [backlog archive]  BACKLOG-ARCHIVE -- BOHEMIA_BACKLOG.md is 10,716 lines, ~193K tokens. Move every row marked done, dead, or superseded into records/backlog/ARCHIVE_<date>.md verbatim, keep the live rows, and add a one-line pointer. Same shape as the handoff cut; do it after.
-- OPEN  [cold hand]  BB-COLD-HAND
 - OPEN  [owed checker]  BB-A-GATE-CAN-SAY-OWED
 - OPEN  [board checker]  VAMILY-GATE
 - OPEN  [reference checker]  REFERENCE-CHECK-GATE -- sweeps every cook tool for a REFERENCE CHECK: block, the way reusefirst_gate sweeps for REUSE CHECK (9/4 compare law)
+
+## SHARED (any chat with nothing open in its own lane)
+MODE: BUILD
+- OPEN  [cold hand]  BB-COLD-HAND
 - OPEN  [loop wired]  BB-LOOPLESS
 - OPEN  [acts real]  BB-THE-ACT-IS-A-STATE
+
 
 ## HISTORY
 (nothing shipped yet -- 9/4/26. Every SHIPPED line above is the history.)
