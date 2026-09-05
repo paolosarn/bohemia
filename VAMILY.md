@@ -4,6 +4,26 @@
 # Rebuilt 9/4 (later the same day) as the FULL-GAME queue for every lane,
 # from records/BOHEMIA_WHAT_EVERY_CHAT_DOES_FOR_THE_REST_OF_THE_GAME_9_4_26.md
 
+## THE CHATS TO OPEN (Paolo 9/4: "an easy copy and paste list")
+Open a fresh chat and paste the two words. The first word names the chat's role.
+NEW (do not exist yet):
+  animation VAMILY
+  direction VAMILY
+  economy VAMILY
+  dynasty VAMILY
+EXISTING (open one, or a fresh one, and paste):
+  world VAMILY
+  combat VAMILY
+  sound VAMILY
+  run VAMILY
+  people VAMILY
+  ui VAMILY
+  art VAMILY
+  character VAMILY
+  factions VAMILY
+  words VAMILY
+DO NOT OPEN: quests (parked by him 9/4). lab (reopen or retire is his call).
+
 ## HOW IT WORKS
 0. THE CENTRAL CHAT (9/4): Paolo talks ONLY to the coordinator, THE MANAGER.
    EVERYTHING HE SAYS BECOMES A LINE HERE BEFORE THE REPLY ENDS. No exceptions.

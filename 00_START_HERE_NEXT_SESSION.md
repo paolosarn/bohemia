@@ -703,7 +703,14 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (an) LATEST -- *** COMPARE EVERY PIECE
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ao) LATEST -- *** THE CHATS-TO-OPEN
+LIST IS AT THE TOP OF VAMILY.md. Nothing to judge. ***
+Paolo 9/4: "give me an easy copy and paste list of chats that I need to create right
+now." Four new (animation, direction, economy, dynasty), ten existing, two not to
+open (quests parked, lab his call). Each is two words: the lane word then VAMILY.
+LAST FEEDBACK RECEIVED: this -> the block at the top of VAMILY.md.
+
+COORDINATOR: 9/4 (an) -- *** COMPARE EVERY PIECE
 OF ART TO THE WORLD BEFORE CALLING IT DONE. Nothing to judge. ***
 laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md. No cook is done
 until compared side by side to real work of its kind online; structure from
