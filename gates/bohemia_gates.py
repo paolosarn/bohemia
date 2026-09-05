@@ -285,6 +285,25 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('FACTION TOWNS',  ['node', 'gates/faction_towns_gate.js'],
+     'FACTION-TOWNS, Paolo 9/4 LOCKED: "each part of Vegas is owned by a faction and that\'s '
+     'where you can do all your trading... the more prominent factions kind of feel like '
+     'strong fortress parts... and then for the smaller ones like the colorful maybe they '
+     'just have not a lot of goods". Every selectable faction now has a SEAT that is a '
+     'market on the walked surface, and a TIER derived from his own act1_power column -- '
+     'top third FORTRESS, bottom third CAMP -- which lands Colorful, the faction he named '
+     'as the small one, in CAMP off a graph he wrote months earlier with nothing tuned to '
+     'make it. act3_power flips tiers for free, so the CENTURY RULE needs no new field. '
+     'A camp is THINNER than a fortress, never dearer: everything is one battery wherever '
+     'you buy it (8/15 + 9/4), so depth is the only axis his words give. *** THE CHECK THIS '
+     'FILE IS FOR: the loop and the walked surface must name the SAME fourteen seats. '
+     'Measured before it existed, they did not -- the loop strided over 3,919 cells passing '
+     'bohemia_world.js\'s isAutoDistrict, the walked surface counted 4,009 by cityedit\'s '
+     'cat()==sand, ninety cells apart on one seed, two answers to where the Mob lives, and '
+     'nothing had noticed because nothing had ever asked the walked surface. Both sides are '
+     'asked through the SHIPPED module, never a rule retyped in the gate. *** It also holds '
+     'the demo clause: the whole valley carried exactly TWO markets and the nearer was 38 '
+     'cells from where the game opens; the nearest seat is 9', True),
     ('LIGHTS BILL',    ['node', 'gates/lights_bill_gate.js'],
      'BB-THE-NIGHT-EATS-POWER, and the ship test is its own sentence: a held circuit debits '
      'power at nightfall and an unpaid one goes dark. LIGHT=TERRITORY has been live code '

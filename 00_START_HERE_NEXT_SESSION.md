@@ -2568,53 +2568,90 @@ SURVIVES ANY MEMORY RESET. READ IT BEFORE ANYTHING ELSE IN THIS BLOCK. ***
 MY LANE: 02 WORLD MODEL. MODE: BUILD.
 MY SESSION SLUG: world-9lfjtf.
 
-HOLDING: nothing. [living costs] BB-FOUR-VERBS-THREE-CURRENCIES is SHIPPED 9/5.
-Its ship test -- "all four verbs post a drain on the walked surface and the
-reckoning can name them" -- is met on the walked surface AND in the cut demo,
-driven through the splash the way a person meets it.
+*** NOTE FOR WHOEVER RESOLVES THIS FILE: this block was found reverted to an
+older round's text after a rebase, with two shipped rounds missing from it. If
+you resolve conflicts here, keep the NEWEST block; a resolver that re-applies
+only what it remembers eats everything else. ***
+
+HOLDING: [faction towns] FACTION-TOWNS. CLAIMED 9/5. ABOUT 3 OF 4.
+*** DO NOT MARK IT SHIPPED YET. *** Ship test: "every selectable faction has a
+seat, a derived tier and a market reachable on the walked surface; the demo's
+first day reaches one." Three of those four are met. REACHABLE is not, for two
+seats, and that is written down below rather than waved through.
 
 WHAT SHIPPED THIS ROUND
-  day:ate      resources    the people who depend on you ate        (nightfall)
-  fight:plate  resources    the plate you wore at the bell is spent (BOHEMIA_CITY_COMBAT_END)
-  night:power  electricity  every lit circuit you hold burned one   (nightfall sweep)
-  ask:leaned   clout        you leaned on somebody                  (askAbout)
-  The reckoning names the VERB, never a category. Repeats group with a count.
-  A real day reads: "paid: 1 battery" then "the people who depend on you ate --
-  and you could not pay it". That is the crash simulator in three lines.
-  GATE: gates/four_verbs_gate.js, 32 checks, registered as FOUR VERBS. Proved it
-  can go red (28/4 when the fight post is deleted).
-  RECORD: records/BOHEMIA_THE_FOUR_VERBS_EAT_9_5_26.md
+  MEASURED FIRST, AND IT DECIDED EVERYTHING: the whole 96x96 valley carried TWO
+  markets, a swap meet at (44,10) and a truck stop at (56,88), and the game opens
+  the player at (48,48) -- 38 cells from the nearer one. Now 16 markets and the
+  nearest is 9 cells.
+  THE TIER IS DERIVED off his own act1_power, thirds, top rounds up (5/4/5).
+  Colorful -- the faction HE named as the small one -- comes out CAMP off a graph
+  he wrote months earlier with nothing tuned. act3_power flips four factions
+  between acts, so the CENTURY RULE costs no new field. SEATS and TIER ship EMPTY.
+  A SEAT IS A HUB, because his ruling says a seat is where you trade. So
+  nearestHub, mktAt, the shelf, the till and the card all work on a seat with
+  nothing changed. The card says CARAVANS - FORTRESS / COLORFUL - CAMP.
+  A CAMP IS THINNER, NEVER DEARER. shelf() had taken a hub since it was written
+  and ignored it, and the city never passed one, so every market carried identical
+  goods. Depth is the only axis his words give; everything is one battery.
+  NEW: engine/bohemia_towns.js, tools/bohemia_city_towns_patch.py (splices HIS
+  graph verbatim + the module into the walked surface, idempotent),
+  gates/faction_towns_gate.js (32 checks, registered as FACTION TOWNS).
+  RECORD: records/BOHEMIA_EVERY_PART_OF_VEGAS_HAS_AN_OWNER_9_5_26.md
+
+THE BUG THIS FOUND, BIGGER THAN THE FEATURE, AND IT IS FIXED
+  The 14 factions were "already placed" -- IN TWO PLACES, AND THEY DISAGREED.
+  bohemia_loop.js strided over 3,919 cells passing bohemia_world.js isAutoDistrict;
+  the walked surface CANNOT LOAD THAT MODULE and counted 4,009 by cityedit's
+  cat()=='sand'. Same seed, ninety cells apart, two answers to where the Mob lives.
+  Nobody had noticed because nobody had ever asked the walked surface -- its
+  FACTION_ASSIGN is {} and says so. One rule in bohemia_towns.js now; bootFactions
+  rewired to it; measured after: IDENTICAL, all fourteen.
+
+WHAT THE NEXT ROUND MUST FINISH BEFORE SHIPPED
+  TWO SEATS ARE STILL UNREACHABLE across payday_gate's seed set (ceiling
+  SEAT_UNREACH_DEBT = 2, only ever down). They are golf and farm cells that happen
+  to carry no buildings -- a per-cell fact a kind list cannot see. Adding 14 seats
+  broke payday_gate's reachability check (it was green), which is how this was
+  found; the diagnosis was solar arrays, golf and farms with ZERO buildings, not a
+  road problem. Two fixes took 7 down to 2: a seat must front a road, and ground
+  that never carries a building is excluded (NOT_A_TOWN, MEASURED by asking the
+  district kit, and the gate re-measures it).
+  *** DO NOT FIX THE REMAINING TWO IN THE CALLER. *** reachable() needs w.plot()
+  and the walked surface has no plot API, so the loop would nudge those seats and
+  the city could not, and the two would disagree again -- the exact drift this
+  round existed to end. The fix has to be computable on BOTH surfaces.
 
 THREE THINGS THE NEXT ROUND MUST NOT RE-LEARN
-  1. LAST ROUND'S HANDOFF SAID "THERE IS NO FIGHT HOOK ON THE WALKED SURFACE".
-     There is, it is BOHEMIA_CITY_COMBAT_END, and it has been there since 8/21.
-     The search looked for FIGHT_DONE and a bell and reported the absence as a
-     fact about the game. A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT.
-  2. THE ASK BLOCK IS REGENERATED by tools/bohemia_city_asking_patch.py. Edit the
-     GENERATOR, never the generated copy, or the next run deletes your work.
-  3. NOTHING STAMPS A CIRCUIT `player`, so night:power really bills zero. That is
-     correct and it is not a hole. Do NOT bill him for the block under his own
-     front door to make the drain fire on camera.
+  1. DO NOT ANCHOR A SPLICE INSIDE A MODULE'S CANON BODY. My first towns patcher
+     anchored on `root.BohemiaCityEdit=API;`, which is inside cityedit's body;
+     bohemia_city_module_resync.py replaces a body by finding it as a substring, so
+     the next resync swallowed the block and killed the page -- every global came
+     back undefined. Anchor on the NEXT module's banner.
+  2. AND DO NOT GIVE A DATA SPLICE THE `/* ==== engine/x ==== */` BANNER FORM. That
+     tool collects every such banner whose file exists, so the faction graph JSON
+     went into its module list and came back UNRECOGNISED.
+  3. bohemia_loop.js RESOLVES DEPENDENCIES AS FACTORY PARAMETERS. A const added in
+     the wrapper is not in the factory's scope, which is where bootFactions lives.
+     The file's own 8/21 note says this and I hit it anyway.
 
-NEXT: the queue in order. First OPEN line is [lights bill] BB-THE-NIGHT-EATS-POWER,
-which is the natural next one -- it is the row that decides which circuits are his,
-and night:power is already built and waiting on exactly that. After it: [faction
-towns], [held ground], [faster roads], [rung unlocks], [enemies unite], [shelves
-premise], [batteries mined], [own power], [rice clock]. [century stayed] is
-[PENDING Paolo] and blocks nothing.
+NEXT AFTER THIS ROW: [held ground] BB-TURF, then [faster roads], [rung unlocks],
+[enemies unite], [shelves premise], [batteries mined], [own power], [rice clock],
+[debt carried]. [century stayed] is [PENDING Paolo] and blocks nothing.
 
-CARRY THIS TO THE NEXT ROUND -- THE SHOP IS A DEAD END. buy() debits the battery
-and the good never lands in the purse as `resources`, so day:ate is refused rather
-than paid on day one. The purse has had an atomic convert() since 7/31 with zero
-callers; a bag of rice for one battery is convert(electricity 1 -> resources 1).
-That is [rice clock] THE-BAG-OF-RICE-IS-THE-TUTORIAL, already on the board. Not
-built here on purpose -- this row's ship test did not need it and rule 6 says only
-build what is on the board.
+STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
+never lands in the purse as `resources`, so the shop is a dead end and day:ate is
+refused rather than paid on day one.
+ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds (a
+stale ruler another lane flagged) and faction_outfit_gate is 16/2 (two faction
+outlines too close). Both were already red before this round and neither moved.
 
 [PENDING Paolo] -- nothing new from me this round.
 
-LAST SHIPPED: [living costs] BB-FOUR-VERBS-THREE-CURRENCIES, 9/5. Before it:
-[battery money] + [prices one], 9/5 ce39270.
+LAST SHIPPED: [lights bill] BB-THE-NIGHT-EATS-POWER, 9/5 94ca570 (a held circuit
+is billed at nightfall and an unpaid one goes dark and stays dark). Before it:
+[living costs] 5b61303, [battery money] + [prices one] ce39270.
+
 
 
 ================================================================================

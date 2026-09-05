@@ -59,6 +59,25 @@
   var ECON = HASREQ ? require('./bohemia_economy.js')
     : (root.BohemiaEconomy || (typeof BohemiaEconomy !== 'undefined' ? BohemiaEconomy : null));
 
+  /* LATE-BOUND ON PURPOSE. The city inlines these in an order this module does not
+     control, and a hard require at load time would make payday's own boot depend on
+     three neighbours being above it. Asked for when needed, absent means no towns
+     rather than a crash -- the same rule the rest of this file follows for the world
+     model it may or may not be handed. */
+  function TOWNS() {
+    if (HASREQ) { try { return require('./bohemia_towns.js'); } catch (e) { return null; } }
+    return root.BohemiaTowns || (typeof BohemiaTowns !== 'undefined' ? BohemiaTowns : null);
+  }
+  function CITYEDIT() {
+    if (HASREQ) { try { return require('./bohemia_cityedit.js'); } catch (e) { return null; } }
+    return root.BohemiaCityEdit || (typeof BohemiaCityEdit !== 'undefined' ? BohemiaCityEdit : null);
+  }
+  function GRAPH() {
+    if (HASREQ) { try { return require('./BOHEMIA_faction_graph.json'); } catch (e) { return null; } }
+    return root.BOHEMIA_FACTION_GRAPH
+        || (typeof BOHEMIA_FACTION_GRAPH !== 'undefined' ? BOHEMIA_FACTION_GRAPH : null);
+  }
+
   var NO_RULING = 'NO_RULING';
 
   /* THE DISTRICT TYPES A MARKET ACCRETES ON, most market-like first. NOT a placement:
@@ -146,8 +165,34 @@
     return null;
   }
 
+  /* THE FACTION SEATS ARE HUBS (9/5, FACTION-TOWNS). Paolo 9/4: "each part of Vegas
+     is owned by a faction and THAT'S WHERE YOU CAN DO ALL YOUR TRADING." A seat is a
+     market by his own definition of a seat, so it belongs in the hub list rather than
+     in a second list beside it -- nearestHub, the "am I standing in a market" test,
+     the shelf, the till and the card all work on a seat with nothing changed.
+     MEASURED FIRST, and it is why this matters: the whole 96x96 valley carries
+     exactly TWO hubs, a swap meet at (44,10) and a truck stop at (56,88), and the
+     game opens the player at (48,48) -- THIRTY-EIGHT CELLS from the nearer one. The
+     nearest faction seat is NINE. The row's demo clause ("the first town a stranger
+     reaches is inside the first day") was failing on a two-shop valley. */
+  function townHubs(w) {
+    var T = TOWNS(), CE = CITYEDIT(), G = GRAPH();
+    if (!T || !CE || !G) return [];
+    var m = overmapOf(w);
+    if (!m) return [];
+    var ds = T.districtsOf(m, CE.cat);
+    if (!ds.length) return [];
+    var seats = T.derive(G, ds, 1), out = [];
+    for (var i = 0; i < seats.length; i++) {
+      var s = seats[i];
+      out.push({ id: 'seat:' + s.faction, kind: 'seat', x: s.x, y: s.y,
+                 faction: s.faction, tier: s.tier, draft: s.draft });
+    }
+    return out;
+  }
+
   function hubs(w) {
-    var out = [], i, j, t;
+    var out = townHubs(w), i, j, t;
     if (w && typeof w.districtsOfType === 'function') {
       for (i = 0; i < HUB_TYPES.length; i++) {
         t = HUB_TYPES[i];
@@ -210,6 +255,18 @@
       if (!ECON.GOODS[g].need) continue;        // a numeraire is not a thing on a shelf
       out.push({ good: g, unit: ECON.GOODS[g].unit, note: ECON.GOODS[g].note });
     }
+    /* A CAMP IS THINNER THAN A FORTRESS (9/5, FACTION-TOWNS). Paolo 9/4 on the small
+       factions: "not a lot of goods not a lot of buildings not a lot of good quests
+       and it's just smaller." DEPTH IS THE AXIS HIS WORDS GIVE, not price -- every
+       good is one battery wherever you buy it (8/15 + 9/4), so a camp having fewer
+       things on the shelf is his sentence and a camp charging more would be a number
+       nobody ruled.
+       This function has taken a `hub` since it was written and ignored it. It is the
+       right place: the shelf and the till both go through here, so a town cannot
+       show a good it will not sell. WHICH goods a particular town carries belongs to
+       its buildings and is BB-WANTS' row; this only says HOW MANY. */
+    var T = TOWNS();
+    if (T && hub && hub.tier) return T.goodsFor(hub.tier, out);
     return out;
   }
 

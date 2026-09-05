@@ -49,6 +49,19 @@
   const DEFAULT_GRAPH = (typeof require !== 'undefined')
     ? require('./BOHEMIA_faction_graph.json')
     : (root.BOHEMIA_FACTION_GRAPH);
+  /* THE SEAT RULE LIVES IN ONE MODULE NOW (9/5, FACTION-TOWNS), because it was
+     living in two and they disagreed. Measured before the change, one seed, one
+     96x96 valley: this file strided over 3,919 cells passing bohemia_world.js's
+     isAutoDistrict, while the walked surface -- which cannot load that module at
+     all -- counted 4,009 by bohemia_cityedit.js's cat()=='sand'. Ninety cells
+     apart, so two different answers to where the Mob lives, and nothing had
+     noticed because nothing had ever asked the walked surface the question. */
+  const TOWNS = (typeof require !== 'undefined')
+    ? require('./bohemia_towns.js')
+    : (root.BohemiaTowns);
+  const CITYEDIT = (typeof require !== 'undefined')
+    ? require('./bohemia_cityedit.js')
+    : (root.BohemiaCityEdit);
   /* 8/21 (found by the SOUND lane rebuilding the run): THE CLOUT TABLE IS
      RESOLVED HERE, like every other dependency in this file, and it has to be.
      It was added INSIDE the factory as
@@ -62,10 +75,15 @@
   const CLOUTMOD = (typeof require !== 'undefined')
     ? require('./bohemia_clout.js')
     : (root.BohemiaClout);
-  const mod = factory(E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD);
+  const mod = factory(E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD, TOWNS, CITYEDIT);
   if (typeof module !== 'undefined' && module.exports) module.exports = mod;
   if (typeof root !== 'undefined') root.BohemiaLoop = mod;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (E, Sched, World, BQ, BQRT, DEFAULT_GRAPH, CLOUTMOD, TOWNS, CITYEDIT) {
+  /* TOWNS/CITYEDIT COME IN AS PARAMETERS like every other dependency in this file,
+     and they have to. The 8/21 note twenty lines up is the same bug: a const added
+     INSIDE the wrapper is not in the factory's scope, and the factory is where
+     bootFactions lives. Measured on the first run -- ReferenceError: TOWNS is not
+     defined, straight out of bootFactions. */
   'use strict';
 
   const Core = E.Core;
@@ -380,12 +398,28 @@
 
     // base placement: zip sorted faction ids to an evenly-strided sample of
     // the real district list.
+    /* ONE SEAT RULE, ASKED FOR RATHER THAN REPEATED. bohemia_towns.js reads the
+       overmap through bohemia_cityedit's cat(), which is the definition BOTH this
+       loop and the walked surface can reach, so the two agree by construction
+       instead of by coincidence. The spread itself is unchanged -- sorted ids
+       zipped to an evenly-strided sample of whatever the map already generated,
+       which this file's own comment above already argues is plumbing and not a
+       layout decision. What changed is WHICH cells count, and now only one
+       answer to that exists.
+       FALLS BACK TO THE OLD LIST if the towns module is not carried, so a browser
+       bundle that has not inlined it boots exactly as it did before. */
     ctx.factionBases = {};
-    if (ctx.worldMap && ctx.worldMap.districts && ctx.worldMap.districts.length) {
+    const realOvermap = ctx.worldMap && ctx.worldMap.real;
+    let seatList = null;
+    if (TOWNS && CITYEDIT && realOvermap) {
+      const ds = TOWNS.districtsOf(realOvermap, CITYEDIT.cat);
+      if (ds.length) seatList = ds.map(function (d) { return { pos: [d.x, d.y], id: d.x + ',' + d.y }; });
+    }
+    if (!seatList && ctx.worldMap && ctx.worldMap.districts) seatList = ctx.worldMap.districts;
+    if (seatList && seatList.length) {
       const ids = [...ctx.factions.factions.keys()].sort();
-      const districts = ctx.worldMap.districts;
       ids.forEach(function (fid, i) {
-        const d = districts[Math.floor(i * districts.length / ids.length)];
+        const d = seatList[Math.floor(i * seatList.length / ids.length)];
         ctx.factionBases[fid] = { x: d.pos[0], y: d.pos[1] };
         const f = ctx.factions.factions.get(fid);
         f.territory.add(d.id);
