@@ -201,7 +201,7 @@ STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, war
 ## PEOPLE  (09.)
 MODE: BUILD
 STATE: talking on foot with nine verbs, a real witness memory, schedules and homes, 12 encounters firing on foot. NOT built: the player as a node in standing, the conversation chain in the demo file (236 nodes mute), outfits near spawn, any family event. Unverified: whether the talking portrait reaches a live NPC card.
-- OPEN  [who is hostile]  THE-CROWD-CARRIES-THE-SIGN -- the between-ledger already computes who is hostile to you (sorted hostile-first, they charge more, "only enemies watch you"). None of that reaches the street. Make the sign visible in the crowd: they watch, they follow, they block a door, they refuse. Feeds RUN [enemies exist] and COMBAT [street fight].
+- CLAIMED 9/5 people-7h9sfy  [who is hostile]  THE-CROWD-CARRIES-THE-SIGN -- the between-ledger already computes who is hostile to you (sorted hostile-first, they charge more, "only enemies watch you"). None of that reaches the street. Make the sign visible in the crowd: they watch, they follow, they block a door, they refuse. Feeds RUN [enemies exist] and COMBAT [street fight].
 - SHIPPED 9/5 3aa7fa1  [your reputation]  BB-STANDING-PLAYER
 - SHIPPED 9/5 35e44ba  [gate red]  PEOPLE-GATE-RED -- gates/people_gate.js runs 148 passed, 10 failed as of 9/4 (measured by the coordinator; it reads engine/, tools/ and slices/, none of which the coordinator touches, so this predates today). His bugs beat your queue: fix or explain the ten before taking anything else.
 - SHIPPED 9/5 baab7c5  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
