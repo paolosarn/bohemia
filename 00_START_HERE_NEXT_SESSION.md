@@ -5617,7 +5617,16 @@ already ruled "each part of Vegas is owned by a faction" on 9/4. DECIDED, mine:
 records/BOHEMIA_RULING_WHO_HOLDS_WHAT_9_5_26.md -- every district has an owner, derived
 from act1_power and district worth, borders follow a visible landmark (real gang borders
 run on highways and rail), the edge is painted in the holder's colour, act3_power redraws
-it. Routed FACTIONS [who holds] (top of lane) and COOK [border marked].
+it. Routed FACTIONS [who holds] (top of lane) and COOK [border marked]. THEN (bo) "how's
+combat gonna work from overworld to combat... whole overworld change or a transition?"
+-> answered from the build, not theory (records/BOHEMIA_HOW_THE_FIGHT_BEGINS_9_5_26.md):
+the walked world does NOT change scale, the house tile is a COMBAT-BOARD dial only
+(COMBAT tab DEMO SETTINGS), and the transition already exists and is PLACE-BASED -- a
+street bump builds a STREET board where you stood, a front door builds THAT ROOM with
+real walls as cover and starts you at the door. The only unbuilt part is what he SEES in
+the half second, which is a genuine fork with no default, so it went to him as A/B/C
+(A camera pulls back over the same ground, recommended; B hard cut; C no transition).
+Routed COMBAT [enter zoom], top of lane.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
