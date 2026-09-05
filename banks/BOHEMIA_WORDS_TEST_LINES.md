@@ -147,3 +147,42 @@ reckless  I know what you did. You can stand.
 # most-heard sentence in the game.
   Nobody's turned away.
 # Keep it. Gate it. Never let it be the fallback.
+
+## Q4 -- SPEECH ON A BEAT  (9/4/26)
+# At 120 BPM a bar is 2.0 seconds. A bar holds 8.7 words for an average reader and
+# 6.7 for a slow one, so SEVEN WORDS TO THE BAR is the safe unit. Our quest lines
+# currently sit at a median of 2.4 bars, which is the one length that can only be
+# padded or cut. Below, the same content written to whole bars.
+
+### ONE BAR EACH -- barks, seven words or fewer   draft:true
+  Lights are ours tonight.                          (4 words, 1 bar)
+  Nobody's turned away. Not twice.                  (5 words, 1 bar)
+  Door's shut. Knock like you mean it.              (7 words, 1 bar)
+  Keep your voice down. That's their power.         (7 words, 1 bar)
+
+### TWO BARS -- a normal line   draft:true
+  Nine at night, every night, and half this block goes brown.       (11 words)
+  I tested it myself. The line is clean, and clean means somebody.  (12 words)
+# Both sit inside two bars for an average reader and just over for a slow one,
+# which is why the safe target is 14 words at two bars, not 17.
+
+### FOUR BARS -- a speech meant to land, and it stops ON the bar   draft:true
+  Whoever is drinking that current likes being invisible, and you are new here.
+  Nobody comes asking after you. Nobody comes asking at all. That is the job.
+# 26 words. Four bars at the slow rate, three at the fast one. The last sentence
+# is four words so the line can END on a beat instead of trailing into the next.
+
+### THE SAME LINE AT 2.4 BARS, WHICH IS OUR CURRENT MEDIAN   draft:true
+  Whoever's drinking that current doesn't like being looked at, and you're new,
+  so nobody comes asking if you don't come back.
+# 21 words. Ends a half-bar early or a half-bar late, and there is nothing to do
+# about it except cut a clause or hold dead air. Twenty of these puts a scene
+# eight bars behind the music it started on.
+
+### A HELD BEAT DOING WHAT TEXT CANNOT   draft:true
+# Q2 found the strongest markers of stress are pause length and rate, and a page
+# carries neither. One empty beat before the line gives that channel back.
+  [beat]  It's warm.
+  [beat]  The cable, it's. Somebody's drinking it.
+          I checked it twice.
+# Nothing in the prose signals fear. The two held beats do all of it.

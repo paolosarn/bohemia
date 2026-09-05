@@ -1603,6 +1603,23 @@ GATES = [
      'the renderer never read; an eyeY jitter smaller than one pixel), and NO TWO '
      'TOP-LEVEL FUNCTIONS SHARE A NAME -- a second faceHash silently took over the '
      'blink scheduler with every other gate still green.', False),
+    ('WARDROBE WIRED', ['node', 'gates/wardrobe_wired_gate.js'],
+     'ART MAKES PIXELS, CHARACTER MAKES THEM WORN (VAMILY [clothes wired], 9/5). The '
+     'ratchet against this lane\'s most expensive recurring failure -- THE MATERIAL '
+     'EXISTED AND NEVER REACHED THE PLAYER, four times in six weeks: seventeen '
+     'invisible hats, four bright garments with three worn by nobody for five weeks, a '
+     'VOTE tab that held no faces for three weeks, a face maker shipped into a tab the '
+     'demo strips out. THE HOLE IS STRUCTURAL: engine/bohemia_personlook.js says '
+     '"if (odds === undefined) continue", so a garment cooked into a layer nobody added '
+     'to WEAR_ODDS is canon, drawn, and unwearable FOREVER with every other gate green. '
+     'It asks the real picker for 4000 citizens rather than reading the table, holds '
+     'the demo as well as the workshop, and allows reserved garments to be rare but not '
+     'gone (a share cap alone is satisfied by deleting the thing -- the 8/27 trenchcoat '
+     'lesson). Measured clean the day it was written: 280 canon garments, 12 layers, 0 '
+     'unworn. Mutation tested: a garment in an unwired layer turns it red and names the '
+     'layer. It REPORTS rather than fails on the walked city drawing no bodies at all '
+     '(0 buildFrame/drawChar for ~5,027 agents), because that surface belongs to RUN '
+     'and LIFE+CITY and a gate must not go red over another lane\'s hole.', False),
     ('FAMILY', ['node', 'gates/family_gate.js'],
      'A FAMILY LOOKS LIKE A FAMILY (Paolo 8/31, one word: "VAMILY", straight after '
      'watching the opening). MEASURED FIRST WITH A CONTROL, before anything was '

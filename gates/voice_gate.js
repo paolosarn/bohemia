@@ -101,8 +101,19 @@ ok('the card says out loud that a gate cannot tell you if a line is good',
   /CANNOT TELL YOU IF A LINE IS GOOD/i.test(card));
 ok('the card states the frame: nobody in Bohemia is wise',
   /NOBODY IN BOHEMIA IS WISE/i.test(card));
-ok('CLAUDE.md carries the WORDS lane so a session actually reads it',
-  fs.readFileSync('CLAUDE.md', 'utf8').indexOf('THE WORDS LANE EXISTS') >= 0);
+/* REPOINTED 9/4. This asserted that CLAUDE.md names the WORDS lane, and it was
+   right until the coordinator's TOKEN DIET folded CLAUDE.md from ~34K tokens to
+   ~6K and moved every lane brief into VAMILY.md, the meeting hall, whose own front
+   page says THE RULES LIVE HERE, NOT IN ANY CHAT'S MEMORY. The target moved for a
+   good reason, so the RULER moves. Re-inflating another lane's deliberate
+   compression to keep my own check green would be the worst kind of green. */
+{
+  const vam = fs.existsSync('VAMILY.md') ? fs.readFileSync('VAMILY.md', 'utf8') : '';
+  ok('VAMILY.md carries the WORDS section, which is where a session now reads its lane',
+    /^## WORDS\b/m.test(vam));
+  ok('and that section declares a MODE, so a lane knows whether it builds or researches',
+    /^## WORDS\b[\s\S]{0,400}?MODE:/m.test(vam));
+}
 
 /* ---- 2. THE DIAGNOSIS IS MEASURED, NOT ASSERTED -------------------------- */
 ok('the diagnosis record exists', fs.existsSync(DIAG));

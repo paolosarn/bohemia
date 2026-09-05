@@ -1,0 +1,100 @@
+WHAT NOBODY WEARS -- every canon garment, against the picker that dresses the city
+9/5/26, CHARACTER lane. [clothes wired] WIRE-THE-REMAKE.
+
+Asked BOH_PERSONLOOK.lookFor for 4000 citizens and counted what came back.
+
+LAYERS  (a layer with no odds is SILENTLY SKIPPED by the picker:
+         engine/bohemia_personlook.js, "if (odds === undefined) continue")
+
+  layer        canon   odds     ever worn
+  back          12   0.16     12 of 12
+  base          70   1        70 of 70
+  face          10   0.1      10 of 10
+  feet          22   0.97     22 of 22
+  gear          26   0.12     26 of 26
+  hair          24   0.93     24 of 24
+  hands          4   0.14     4 of 4
+  head          19   0.3      19 of 19
+  legs          26   1        26 of 26
+  neck           7   0.22     7 of 7
+  outer         55   0.45     54 of 55
+  waist          5   0.18     5 of 5
+
+TOTALS
+  canon garments                 280
+  layers with no odds at all     0
+  cooked, canon, worn by NOBODY  0
+  reserved (hard) and unworn     1  (allowed to be rare)
+
+THE RAREST TWENTY THAT ARE WORN, for scale
+
+  outer     DRIFTER'S COAT                1  0.03%   (reserved)
+  outer     KHAKI DUSTER                  1  0.03%   (reserved)
+  outer     SOOT TRENCH                   2  0.05%   (reserved)
+  outer     RANGER LONGCOAT               2  0.05%   (reserved)
+  outer     FIELD GREEN COAT              2  0.05%   (reserved)
+  outer     DUST BROWN TRENCH             2  0.05%   (reserved)
+  outer     COBALT DUSTER                 2  0.05%   (reserved)
+  outer     COBALT COAT                   2  0.05%   (reserved)
+  outer     ROSE DUSTER                   2  0.05%   (reserved)
+  outer     GRASS DUSTER                  2  0.05%   (reserved)
+  outer     WASTELAND DUSTER              3  0.07%   (reserved)
+  outer     STORM GREY LONGCOAT           3  0.07%   (reserved)
+  outer     SPLIT-TAIL DUSTER             4  0.10%   (reserved)
+  outer     BRICK LONGCOAT                5  0.13%   (reserved)
+  outer     SLATE TRENCH                  6  0.15%   (reserved)
+  outer     BONE DUSTER                   6  0.15%   (reserved)
+  gear      OXBLOOD BRACERS              10  0.25%
+  gear      SCAV KNEEPADS                12  0.30%
+  gear      WORK SUSPENDERS              12  0.30%
+  gear      THIGH HOLSTER                12  0.30%
+
+
+================================================================================
+AND THE WIRE STOPS AT THE DOOR OF THE SURFACE HE ACTUALLY WALKS
+================================================================================
+
+The wardrobe reaches two surfaces and not the third:
+
+    slices/BOHEMIA_ALPHA_0_9.html   280 canon, 0 non-reserved unworn
+    slices/BOHEMIA_DEMO.html        280 canon, 0 non-reserved unworn
+    slices/BOHEMIA_CITY_WORLD.html  NO WARDROBE AT ALL
+
+MEASURED LIVE on the walked city, not read off the file:
+    window.GARMENTS         undefined
+    window.BOH_PERSONLOOK   undefined
+    window.buildFrame       undefined
+    window.drawChar         undefined
+and in the source, ZERO calls to buildFrame or drawChar anywhere in 3.7 MB.
+
+That file simulates about 5,027 agents with homes, bed spots, schedules and
+movement -- and NOT ONE OF THEM IS EVER DRAWN AS A BODY. So no garment and no
+haircut can reach the surface Paolo actually walks, and the reason is not that
+the wardrobe is unwired. IT IS THAT THERE IS NOBODY THERE TO DRESS.
+
+THIS IS NOT A CHARACTER HOLE AND THE GATE DOES NOT GO RED OVER IT. Drawing
+bodies in the walked city is the RUN and LIFE+CITY lanes' system. A gate that
+failed here would block them for a hole they own, which is the opposite of
+useful. It is REPORTED by wardrobe_wired_gate every run, and it is in the
+CHARACTER handoff block for the coordinator to route.
+
+WHAT IT MEANS FOR THIS JOB. [clothes wired] is "ART makes pixels, CHARACTER
+makes them worn". Today the wire is complete and clean on every surface that
+has a person on it, and the ratchet is in place for the batch that has not been
+cooked yet. The line stays CLAIMED, not SHIPPED: COOK's WARDROBE-REMAKE has not
+produced a batch and DIRECTION's style card does not exist, so the wiring half
+of the job has nothing to wire. Marking it shipped would be marking a half-done
+job done, which the front page of VAMILY.md names as worse than leaving it open.
+
+================================================================================
+WHAT SHIPPED THIS ROUND
+================================================================================
+
+  audited            280 canon garments across 12 layers, against the real picker
+  found              0 unworn, 0 unwired layers -- the wardrobe is clean TODAY
+  built              gates/wardrobe_wired_gate.js, 10 checks, registered
+  mutation tested    a garment in an unwired layer turns it red and names the layer
+  reported           the walked city draws no bodies, routed to RUN / LIFE+CITY
+  tool               node tools/bohemia_what_nobody_wears.js
+
+Tab: RUN (the crowd) / CLOTHES / CHARACTER
