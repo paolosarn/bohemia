@@ -703,7 +703,25 @@ RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
 ================================================================================
 
-COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (ar) LATEST -- *** THE COOK IS THE
+COORDINATOR (coordinator-checkin-1y6dtv): 9/4 (as) LATEST -- *** ALL SIXTEEN OF HIS
+CHATS HAVE A QUEUE AND A STATE LINE. 143 OPEN JOBS. Nothing to judge. ***
+Paolo 9/4, with a screenshot of his session list: "We have 17 chats including you...
+all of them need jobs. They need to know what they don't know... Do you have jobs for
+all 16 right now?" Honest answer before the fix: 14 of 16. 03 LIFE + CITY had NO
+section (its builder work was folded into WORLD) and 07 REFERENCE LAB had one line
+saying "his call". Fixed: VAMILY.md now opens with THE SIXTEEN CHATS by his numbers
+and names; LIFE + CITY has 10 jobs (the builder, production, housing, the century
+record, the feed stream, the aerial view as the combat floor, the population
+default); LAB has 7 (the reference library the compare-to-the-world law needs, the
+RF4 and BB specs, first-hour reference); FACTIONS deepened to 7; every section
+carries MODE and a STATE line (built / not built / unverified). Counts: RUN 10,
+WORLD 9, LIFE+CITY 10, COMBAT 12, CHARACTER 4, DIRECTION 4, LAB 7, SOUNDS 5, PEOPLE
+9, FACTIONS 7, UI 7, WORDS 19, ECONOMY 12, ANIMATION 6, DYNASTY 12, COOK 10. Two
+earlier scripts failed their own asserts before writing (a regex that would have
+swallowed two sections); nothing landed until the counts verified. LAST FEEDBACK
+RECEIVED: this -> the sixteen sections.
+
+COORDINATOR: 9/4 (ar) -- *** THE COOK IS THE
 PRODUCTION ARTIST; DIRECTION IS THE ART DIRECTOR. Titles on the lanes. Nothing to judge. ***
 Paolo 9/4: "What's the art cook called, professionally?" Production Artist (environment,
 character and prop art to the art director's bible). Written on the COOK and
