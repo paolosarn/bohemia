@@ -1,0 +1,447 @@
+{
+  "what": "BOHEMIA -- how fast the game is on a phone-shaped browser. Taken by gates/bohemia_phone_perf.js, held by gates/fps_on_a_phone_gate.js.",
+  "takenOn": "2026-09-05T19:44:08.186Z",
+  "staleAfterDays": 30,
+  "refreshCommand": "node gates/bohemia_phone_perf.js --repeat 3 --cpu 1 --record",
+  "host": {
+    "platform": "linux",
+    "cpus": 4,
+    "model": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "totalMemGB": 15.7,
+    "node": "v22.22.2"
+  },
+  "measured": {
+    "surface": "Chromium 390x844 at dpr 3, touch, mobile, over http with gzip",
+    "timeToFirstPlayMs": 18677,
+    "timeToFirstPlayWorstMs": 19351,
+    "doorMs": 702,
+    "worldReadyMs": 2792,
+    "mainThreadBlockedMsDuringBoot": 16457,
+    "longestSingleBlockMs": 7925,
+    "longTaskCount": 21,
+    "bytesBeforeAnythingIsOnScreen": 6225982,
+    "bytesToFirstPlay": 29415018,
+    "bytesByTheEndOfTheRun": 50950159,
+    "walkFpsFirstMinute": 18.5,
+    "walkFpsFirstMinuteWorst": 17.6,
+    "walkFpsSettled": 33,
+    "walkFpsSettledWorst": 32.7,
+    "walkFrameMs": 1.7,
+    "mainThreadBusyWalkingPercent": 28.2,
+    "idleMainThreadBusyPercent": 10,
+    "mainThreadBusyWalkingWorstPercent": 28.4,
+    "paintingPercentOfThatBusy": 46.1,
+    "fightFps": 17.8,
+    "fightFpsWorst": 17.6,
+    "fightDrawCallsPerFrame": 7372,
+    "cpuBusyStandingStillPercent": 9.4,
+    "cpuBusyWalkingPercent": 14.8,
+    "cpuMinutesPerTenMinutesWalking": 1.48,
+    "batteryWindowMs": 30000,
+    "emptyPageCeilingFps": 60.4,
+    "controlWalkFpsSettled": 56.6,
+    "controlMainThreadBusyWalkingPercent": 24.3,
+    "controlIdleBusyPercent": 1.1,
+    "alphaTimeToFirstPlayMs": 18628,
+    "alphaWalkFpsSettled": 34.6,
+    "alphaWalkFpsFirstMinute": 17.5,
+    "alphaFightFps": 18.4
+  },
+  "goal": {
+    "timeToFirstPlayMs": 5000,
+    "walkFps": 60,
+    "fightFps": 60,
+    "source": "VAMILY.md, PLUMBER row [sixty fps] FPS-ON-A-PHONE, Paolo 9/5"
+  },
+  "budget": {
+    "timeToFirstPlayMs": 26500,
+    "walkFpsSettled": 24,
+    "mainThreadBusyWalkingPercent": 52,
+    "fightFps": 12,
+    "bytesToFirstPlay": 33827271,
+    "minimumHostCeilingFps": 45
+  },
+  "owed": [
+    "BATTERY IN TEN MINUTES ON A REAL HANDSET. No container can report milliamp-hours. What is here instead is main-thread CPU time, which is what a battery pays for.",
+    "A REAL PHONE, FULL STOP. Chromium at 390x844 with a CPU throttle is a stand-in: it does not reproduce a phone GPU, its memory bandwidth, its thermal throttle or Safari.",
+    "THE REAL LINK OVER A REAL NETWORK. These numbers come off a local server; the load time a stranger gets also carries GitHub Pages, TLS and whatever their signal is."
+  ],
+  "summaries": [
+    {
+      "page": "city-world-alone",
+      "cpuThrottle": 1,
+      "repeats": 3,
+      "emptyPageCeilingFps": {
+        "med": 60.4,
+        "lo": 60.3,
+        "hi": 60.5,
+        "n": 3
+      },
+      "walkFpsDelivered": {
+        "med": 56.6,
+        "lo": 55,
+        "hi": 57.5,
+        "n": 3
+      },
+      "walkFrameMs": {
+        "med": 1,
+        "lo": 1,
+        "hi": 1.2,
+        "n": 3
+      },
+      "walkMainThreadBusyPercent": {
+        "med": 24.3,
+        "lo": 22.7,
+        "hi": 25.3,
+        "n": 3
+      },
+      "walkPaintingPercentOfBusy": {
+        "med": 59.4,
+        "lo": 57.6,
+        "hi": 61.7,
+        "n": 3
+      },
+      "walkFractionOfEmptyPage": {
+        "med": 0.94,
+        "lo": 0.91,
+        "hi": 0.95,
+        "n": 3
+      },
+      "invalidWalkSamples": 0,
+      "runsThatNeverWentQuiet": 0,
+      "framesOfferedToThePageFps": {
+        "med": 60.5,
+        "lo": 24.6,
+        "hi": 61.2,
+        "n": 3
+      },
+      "idleMainThreadBusyPercent": {
+        "med": 1.1,
+        "lo": 1.1,
+        "hi": 1.1,
+        "n": 3
+      },
+      "readyMs": {
+        "med": 1879,
+        "lo": 1733,
+        "hi": 2102,
+        "n": 3
+      }
+    },
+    {
+      "page": "alpha",
+      "cpuThrottle": 1,
+      "net": "none",
+      "repeats": 3,
+      "emptyPageCeilingFps": {
+        "med": 60.3,
+        "lo": 60.3,
+        "hi": 60.3,
+        "n": 3
+      },
+      "walkFpsDelivered": {
+        "med": 34.6,
+        "lo": 34.6,
+        "hi": 36,
+        "n": 3
+      },
+      "walkFrameMs": {
+        "med": 1.5,
+        "lo": 1.5,
+        "hi": 1.7,
+        "n": 3
+      },
+      "walkMainThreadBusyPercent": {
+        "med": 24.9,
+        "lo": 24.1,
+        "hi": 25.4,
+        "n": 3
+      },
+      "walkPaintingPercentOfBusy": {
+        "med": 38.7,
+        "lo": 35.8,
+        "hi": 39.5,
+        "n": 3
+      },
+      "walkFractionOfEmptyPage": {
+        "med": 0.57,
+        "lo": 0.57,
+        "hi": 0.6,
+        "n": 3
+      },
+      "invalidWalkSamples": 0,
+      "runsThatNeverWentQuiet": 0,
+      "firstPlayMs": {
+        "med": 18628,
+        "lo": 18572,
+        "hi": 18946,
+        "n": 3
+      },
+      "doorMs": {
+        "med": 674,
+        "lo": 625,
+        "hi": 812,
+        "n": 3
+      },
+      "worldReadyMs": {
+        "med": 2660,
+        "lo": 2541,
+        "hi": 2802,
+        "n": 3
+      },
+      "paintedMs": {
+        "med": 2638,
+        "lo": 2537,
+        "hi": 2801,
+        "n": 3
+      },
+      "mainThreadBlockedMsDuringBoot": {
+        "med": 16899,
+        "lo": 16598,
+        "hi": 17069,
+        "n": 3
+      },
+      "longTaskCount": {
+        "med": 21,
+        "lo": 21,
+        "hi": 23,
+        "n": 3
+      },
+      "longestSingleBlockMs": {
+        "med": 8037,
+        "lo": 7917,
+        "hi": 8151,
+        "n": 3
+      },
+      "bytesAtWorldReady": {
+        "med": 6223062,
+        "lo": 6223062,
+        "hi": 6223062,
+        "n": 3
+      },
+      "bytesToFirstPlay": {
+        "med": 29409178,
+        "lo": 28096323,
+        "hi": 29409178,
+        "n": 3
+      },
+      "bytesOverTheWire": {
+        "med": 50944319,
+        "lo": 50944319,
+        "hi": 50944319,
+        "n": 3
+      },
+      "walkFpsFirstMinute": {
+        "med": 17.5,
+        "lo": 16.1,
+        "hi": 18.1,
+        "n": 3
+      },
+      "walkBusyFirstMinutePercent": {
+        "med": 98.7,
+        "lo": 98.1,
+        "hi": 99,
+        "n": 3
+      },
+      "requests": {
+        "med": 29,
+        "lo": 29,
+        "hi": 29,
+        "n": 3
+      },
+      "framesOfferedInsideTheShellFps": {
+        "med": 60.7,
+        "lo": 60.1,
+        "hi": 60.7,
+        "n": 3
+      },
+      "idleMainThreadBusyPercent": {
+        "med": 10.9,
+        "lo": 9,
+        "hi": 10.9,
+        "n": 3
+      },
+      "fightFpsDelivered": {
+        "med": 18.4,
+        "lo": 17.2,
+        "hi": 18.8,
+        "n": 3
+      },
+      "fightDrawCallsPerFrame": {
+        "med": 7218,
+        "lo": 7029,
+        "hi": 7313,
+        "n": 3
+      },
+      "fightNotReached": 0
+    },
+    {
+      "page": "demo",
+      "cpuThrottle": 1,
+      "net": "none",
+      "repeats": 3,
+      "emptyPageCeilingFps": {
+        "med": 60.4,
+        "lo": 60.2,
+        "hi": 60.4,
+        "n": 3
+      },
+      "walkFpsDelivered": {
+        "med": 33,
+        "lo": 32.7,
+        "hi": 33.2,
+        "n": 3
+      },
+      "walkFrameMs": {
+        "med": 1.7,
+        "lo": 1.6,
+        "hi": 1.7,
+        "n": 3
+      },
+      "walkMainThreadBusyPercent": {
+        "med": 28.2,
+        "lo": 27.7,
+        "hi": 28.4,
+        "n": 3
+      },
+      "walkPaintingPercentOfBusy": {
+        "med": 46.1,
+        "lo": 45.7,
+        "hi": 48.2,
+        "n": 3
+      },
+      "walkFractionOfEmptyPage": {
+        "med": 0.55,
+        "lo": 0.54,
+        "hi": 0.55,
+        "n": 3
+      },
+      "invalidWalkSamples": 0,
+      "runsThatNeverWentQuiet": 0,
+      "firstPlayMs": {
+        "med": 18677,
+        "lo": 18425,
+        "hi": 19351,
+        "n": 3
+      },
+      "doorMs": {
+        "med": 702,
+        "lo": 694,
+        "hi": 815,
+        "n": 3
+      },
+      "worldReadyMs": {
+        "med": 2792,
+        "lo": 2596,
+        "hi": 2857,
+        "n": 3
+      },
+      "paintedMs": {
+        "med": 2792,
+        "lo": 2596,
+        "hi": 2857,
+        "n": 3
+      },
+      "mainThreadBlockedMsDuringBoot": {
+        "med": 16457,
+        "lo": 16220,
+        "hi": 16719,
+        "n": 3
+      },
+      "longTaskCount": {
+        "med": 21,
+        "lo": 19,
+        "hi": 23,
+        "n": 3
+      },
+      "longestSingleBlockMs": {
+        "med": 7925,
+        "lo": 7802,
+        "hi": 8037,
+        "n": 3
+      },
+      "bytesAtWorldReady": {
+        "med": 6225982,
+        "lo": 6225982,
+        "hi": 6225982,
+        "n": 3
+      },
+      "bytesToFirstPlay": {
+        "med": 29415018,
+        "lo": 28102163,
+        "hi": 29415018,
+        "n": 3
+      },
+      "bytesOverTheWire": {
+        "med": 50950159,
+        "lo": 50950159,
+        "hi": 50950159,
+        "n": 3
+      },
+      "walkFpsFirstMinute": {
+        "med": 18.5,
+        "lo": 17.6,
+        "hi": 18.5,
+        "n": 3
+      },
+      "walkBusyFirstMinutePercent": {
+        "med": 98.3,
+        "lo": 98.2,
+        "hi": 98.4,
+        "n": 3
+      },
+      "requests": {
+        "med": 29,
+        "lo": 29,
+        "hi": 29,
+        "n": 3
+      },
+      "framesOfferedInsideTheShellFps": {
+        "med": 60.6,
+        "lo": 60.6,
+        "hi": 60.7,
+        "n": 3
+      },
+      "idleMainThreadBusyPercent": {
+        "med": 10,
+        "lo": 7.9,
+        "hi": 10.3,
+        "n": 3
+      },
+      "fightFpsDelivered": {
+        "med": 17.8,
+        "lo": 17.6,
+        "hi": 18,
+        "n": 3
+      },
+      "fightDrawCallsPerFrame": {
+        "med": 7372,
+        "lo": 7198,
+        "hi": 7626,
+        "n": 3
+      },
+      "fightNotReached": 0
+    }
+  ],
+  "runCount": 9,
+  "repeatsPerConfiguration": 3,
+  "batteryRun": {
+    "standingStill": {
+      "taskS": 2.81,
+      "scriptS": 1.84,
+      "layoutS": 0.1,
+      "wallS": 30,
+      "busyPercent": 9.4
+    },
+    "windowMs": 30000,
+    "walking": {
+      "taskS": 4.46,
+      "scriptS": 2.85,
+      "layoutS": 0.1,
+      "wallS": 30.14,
+      "busyPercent": 14.8
+    },
+    "cpuMinutesPerTenMinutesWalking": 1.48,
+    "note": "CPU time is what drains a battery, and it is all a container can honestly report. MILLIAMP-HOURS ON A REAL HANDSET ARE STILL OWED."
+  }
+}

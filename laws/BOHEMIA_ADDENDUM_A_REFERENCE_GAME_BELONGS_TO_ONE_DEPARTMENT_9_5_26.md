@@ -37,7 +37,7 @@ index. That line now carries the split. Nothing else in the repo had to move: th
 UI study is legal and always was, and no lane had to stop work.
 
 ## THE MACHINE PART
-`gates/ui_study_gate.py` already binds the UI study to its own corpus. This ruling
+`gates/ui_study_gate.js` already binds the UI study to its own corpus. This ruling
 adds no new gate: the seam it protects is one line of vocabulary in two law files,
 and the canon index is what carries it to the next chat. If a lane ever cites a
 reference outside its department, that is a REFERENCE CHECK failure and it belongs

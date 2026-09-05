@@ -1123,6 +1123,13 @@
 "hex": "#3c4230"
 }
 },
-"register_count": 82,
-"nonhair_count": 256
+"register_count": 122,
+"nonhair_count": 296,
+"clicks": [
+{
+"stamp": "9/5/26",
+"floor": "122/296",
+"share": 0.4122
+}
+]
 }
