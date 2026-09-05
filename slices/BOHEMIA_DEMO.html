@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5x - EVERY PART OF VEGAS HAS AN OWNER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5y - A LIT BLOCK HUMS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -23215,6 +23215,13 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
       /* __THE_BED_IS_THE_PLACE__ -- which KIND of ground you are standing on.
          Indoors has no place: a room is a room whatever block it is on. */
       this.place = d.inside ? null : (PLACE_OF[d.district] || null);
+      /* __A_LIT_BLOCK_HUMS__ -- HOW FAR THE NEAREST LIVE CIRCUIT IS, in overmap
+         cells, or -1 for none within three. NULL IS NOT -1: null means the
+         sender does not report power at all (the run slice does not), and -1
+         means it looked and the grid is dead around you. Conflating them would
+         silence the run slice's bed, which is a new field deleting an old one. */
+      this.litD  = d.inside ? -1 : ((typeof d.litD === 'number') ? d.litD : null);
+      this.litDx = +d.litDx || 0;
       /* ---- THE THRESHOLD IS THE MOMENT (8/20) ------------------------------
          YOU STEP INSIDE was offered to him TEN TIMES under two ids and all ten
          died. His own brief said why, and it was right all along: "crossing
@@ -23270,11 +23277,18 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          you are standing. Falls straight through when the place is unknown, so
          the run slice's report and any ungrouped district hear exactly what
          they heard yesterday. */
+      /* __A_LIT_BLOCK_HUMS__ -- A DEAD BLOCK HAS NO MACHINES ON IT. The row's
+         ship test is "a live circuit is audible and a dead one is not", and the
+         second half is the one that gets skipped. `generator` is a machine
+         running and `sign_alive` is a neon sign that is ON; neither can happen
+         on a circuit nobody is feeding, and 88% of this valley's circuits are
+         not. A sender that does not report power (null) keeps what it had. */
+      var _hum = (this.litD == null) || (this.litD >= 0);
       var _p = this.place && PLACE[this.place];
       if(_p){
-        if(r < _p.gen  && (A.generator  ||[]).length) return 'generator';
-        if(r < _p.wind && (A.wind_gust  ||[]).length) return 'wind_gust';
-        if(r < _p.sign && (A.sign_alive ||[]).length) return 'sign_alive';
+        if(r < _p.gen  && _hum && (A.generator  ||[]).length) return 'generator';
+        if(r < _p.wind &&         (A.wind_gust  ||[]).length) return 'wind_gust';
+        if(r < _p.sign && _hum && (A.sign_alive ||[]).length) return 'sign_alive';
         /* AND THE FOUR THAT ARE NOT APPROVED YET GET THEIR ROW ANYWAY. The
            list below this branch carries dog_far, dog_cry, dog_calls,
            neon_buzz, neon_hum and metal_ticks, none of them in the bank, all
@@ -23292,7 +23306,7 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
         if(r < _p.metal && (A.metal_ticks||[]).length) return 'metal_ticks';
         return this.kind;
       }
-      if(r<0.125 && (A.generator||[]).length) return 'generator';
+      if(r<0.125 && _hum && (A.generator||[]).length) return 'generator';
       if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
       /* A DOG AND THE NEON (8/20). Both are written for exactly this slot --
          his own briefs say "far off" and "the 12% that has power" -- and both
@@ -23310,7 +23324,7 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          built on voices he WROTE for them -- neonsign, neontube, neonrelic for
          the sign; dobrowail, harmonicawail, shofar for the dog. Same guard, so
          an unapproved name is skipped and the bed plays. */
-      if(r<0.44 && (A.sign_alive||[]).length) return 'sign_alive';
+      if(r<0.44 && _hum && (A.sign_alive||[]).length) return 'sign_alive';
       if(r<0.50 && (A.dog_calls||[]).length) return 'dog_calls';
       /* THE DESERT MOVES THE METAL (8/21). Sheet metal that took full sun all
          day contracting as the day comes off it -- irregular, and the gaps get
@@ -23378,8 +23392,20 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
            to read as "out there", near enough to stay information. */
         if(ev!==this.kind){
           var side=(Math.random()*2-1);
-          placeSound(ev, { dx: side*7, dist: 6+Math.random()*9, inside:false },
-                     this.bus);
+          var dx=side*7, dist=6+Math.random()*9;
+          /* __A_LIT_BLOCK_HUMS__ -- THE HUM IS AS FAR AWAY AS THE POWER IS.
+             "6 to 15 tiles" was a taste dial for everything, and for this one
+             sound the game knows the real answer: how many overmap cells to the
+             nearest live circuit. On the block ~2.5, the next street ~11, two
+             streets ~20, three ~29. placeSound's inverse law and its distance
+             lowpass do the rest, so a generator a block away comes back quiet
+             AND dull, which is what a block of distance actually sounds like.
+             A lit sign is the same fact about the same block, so it rides it. */
+          if((ev==='generator'||ev==='sign_alive') && this.litD>=0){
+            dist = 2.5 + this.litD*8.5;
+            dx   = Math.max(-7.5, Math.min(7.5, (this.litDx||0)*2.5));
+          }
+          placeSound(ev, { dx: dx, dist: dist, inside:false }, this.bus);
           this.last=ev; return;
         }
         var set=APPROVED[ev]; if(!set||!set.length) return;
