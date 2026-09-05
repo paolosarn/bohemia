@@ -1,3 +1,137 @@
+ECONOMY (economy-knxaeh): 9/5 LATEST -- *** THE ECONOMY LANE IS OPEN AND ITS
+FIRST DAY MEASURED SOMETHING NOBODY HAD RUN: OUR VALLEY STARVES ON DAY 10 AND
+EVERY PRICE IN THE GAME IS A CONSTANT FROM ABOUT WEEK NINE UNTIL THE END OF A
+HUNDRED-HOUR LIFE. MODE: RESEARCH -- NOTHING WAS IMPLEMENTED. NOT IN A TAB YET
+(a research day ships a record, not a surface). Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_1_THE_PRICE_IS_NOT_THE_STORY_9_5_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md  (27 lines, all draft:true)
+Question: ECONOMY Q1, now SHIPPED in VAMILY.md.
+
+THE FINDING, IN ONE SENTENCE: **SCARCITY IS NOT A NUMBER GOING UP, IT IS
+SOMEBODY SAYING NO, AND WE BUILT THE HALF THAT ISN'T THE STORY.** Argentina
+2001, Zimbabwe 2008, Venezuela and Lebanon 2019 all say the same thing about the
+first thirty days: the goods were mostly still there. What broke was the
+willingness to trade. Harare's famous empty shelves came from a PRICE FREEZE,
+not a shortage -- sellers stopped selling because replacement cost beat the
+sale, in their own confederation's words. Caracas took the price tags off the
+goods entirely. Beirut invented a word for the fact that two people can hold
+"the same" dollar and not be holding the same thing. And Buenos Aires froze the
+banks on 1 December 2001 at 250 pesos a week, and eighteen days later thirty
+people were dead. Our seller has no view about tomorrow. He will sell you a
+ration on day 300 with zero food in the valley, cheerfully, forever.
+
+WHAT WAS MEASURED ON THE SHIPPED BUILD (probes only, nothing written into the
+game). The good news first: THERE IS A REAL MARKET ON THE SURFACE HE WALKS. Four
+goods, all priced, prices READ from the scarcity sim and never typed, days-left
+shown in words, buying is a hard sink, and it saves and restores. That is more
+economy than this day expected to find. Then:
+  - FOOD GONE DAY 10 ON THE REAL SEED (day 10-16 across six seeds). WATER GONE
+    DAY 51-60. MEDS GONE DAY 32-36. Population does not move it AT ALL (stock and
+    need both scale with heads), everybody working the best job the module has
+    moves it two days, and the seed moves it by less than a week. The real
+    valley, seed text "bohemia", is the worst of the six.
+  - THE STARVATION IS ARITHMETIC: a person eats 1.0 food a day and produces 0.15
+    scavenging, 0.30 at a site. The valley grows 15-30% of what it eats forever.
+    Water need is 4.0 a day and NO JOB PRODUCES WATER AT ALL.
+  - THE FLAT LINE: food pins at the 40x cap on day 10. Day 60 and day 365 are
+    the same game -- water 10, food 60, meds 480, fuel 120, unchanging. Above 30
+    days of supply the multiplier is exactly 1.0, so the water price does not
+    move for the first 23 days and fuel does not move in the first 30 at all.
+  - THE NUMBER THAT SAYS THE VALLEY IS STARVING HAS NO READERS. `shortfall` is
+    computed every night (about 21 rations of unmet need), is correct, and
+    `ledger.flows` is touched by the module's own return and by economy_gate and
+    NOTHING ELSE. Zero occurrences inside any player-facing string.
+  - THE FIRST HOUR CONTAINS NOTHING, and not for the reason anybody would guess:
+    the purse starts 0/0/0, every buy answers CANNOT_AFFORD (water is 0.25 and
+    you have nothing), PAYOUT/PRICES/PRODUCTION are still {} sixteen days after
+    day 20 of the BB study said so, and dayReport prints blocking:["PAYOUT"] on
+    every call. WE DO NOT HAVE AN ECONOMY PROBLEM IN THE FIRST HOUR, WE HAVE A
+    FIRST-COIN PROBLEM.
+
+*** AND THE CORRECTION THAT IS BETTER THAN THE ERROR, FOR THE NEXT SESSION: the
+roadside director DOES fire on foot as of 8/31 (PEOPLE shipped it, it is the top
+block of this file). What did NOT come with it is the money. There are two
+directors: walkInterrupt on foot fires the twelve and says a line and touches the
+purse zero times; roadInterrupt inside if(MODE==='city') fires the twelve AND
+calls roadCard, which is the only route to the choices, the cost, and roadLeave
+-- the one faucet in the walked game. THE ENCOUNTERS WALKED ONTO THE STREET AND
+LEFT THEIR MONEY BEHIND. A migration list is a deletion list for everything not
+on it, at the scale of one function, four days old, green the whole time. It is
+also the cheapest first coin in the build: the code exists, it is approved, it is
+already firing, one branch is holding its wallet. ***
+
+A STALE FINDING READS EXACTLY LIKE A FRESH ONE. My first sweep said "the road
+never fires on foot", which is written in three records still in this repo and
+was true until 8/31. What caught it was the top of this handoff file.
+
+ROUTED (coordinator places the rows; this lane changes status words only):
+WORLD ECON-THE-SELLER-HAS-A-VIEW-ABOUT-TOMORROW (the finding),
+ECON-THE-VALLEY-STARVES-ON-DAY-TEN (report it, do NOT quietly tune it),
+ECON-SOMETHING-READS-THE-SHORTFALL, ECON-THE-FIRST-COIN, ECON-QUOTED-IN-BATTERIES,
+ECON-THE-LARDER-IS-BORN-WHEN-YOU-LOOK, ECON-SAY-THE-BLOCK-NOT-THE-VALLEY (the
+market card promises a region and counts a block, one string).
+RUN ECON-THE-WALK-PAYS-WHAT-THE-MAP-PAYS.
+UI ECON-NO-TAG-ASK-THE-MAN. PEOPLE/FACTIONS ECON-THE-SAME-THING-COSTS-YOU-MORE.
+QUESTS (parked) ECON-PAID-IN-WHAT-THEY-HAVE. SHARED
+ECON-A-GATE-CAN-ASK-IF-IT-IS-SURVIVABLE -- economy_gate proves the ledger is
+consistent and never asks whether anybody lives; thirty simulated days would have
+caught the day-ten famine on the day it shipped.
+
+GATES, this turn: ECONOMY 13/0, MARKET 32/0, PAYDAY 35/0. Full suite (479 gates)
+run; two reds and NEITHER IS THIS LANE'S, both proved against a clean worktree of
+origin/main rather than asserted:
+  - ENGINE SYNC: BOH_FLOORPLAN has 2 distinct bodies across 11 carriers. FAILS
+    IDENTICALLY ON CLEAN origin/main, so it is pre-existing drift somebody owns
+    and nobody has picked up. ENGINE SYNC LAW is one canonical body per module;
+    this one is red right now on main.
+  - FIGHT MUSIC: failed inside the concurrent suite ("LANDS at the top of the
+    next bar, want 4, layers 0") and passes 47/0 when run alone on BOTH trees.
+    A load-timing flake in the suite runner, not a regression.
+And two more from the markdown-sensitive subset, both also byte-identical on the
+clean baseline:
+  - BANKS-USED: 24/2. "INDEX SAYS DEBT, AND IT IS STILL A DEBT: house skins
+    (7/21 UP - roof + wall + yard)".
+  - DIALOGUE CATALOGUE: 61/2. The WORDS tab is baked from a852b32424dab382 and
+    its sources now hash c95d11ddf447f7ca. The fix is one command, printed by
+    the gate itself: python3 tools/bohemia_words_book.py. Somebody edited words
+    and did not re-bake, so HIS EDITING SURFACE IS STALE, which is the one thing
+    a judging surface cannot afford (8/28).
+This lane changed markdown only (git diff --name-only against origin/main: four
+.md files, zero code, zero json, zero bq), so none of the four can be its work.
+
+*** THE CROSS-LANE FINDING, WHICH IS WHY IT IS WRITTEN HERE AND NOT SWALLOWED:
+MAIN IS RED RIGHT NOW ON AT LEAST THREE GATES, and A LAW WITHOUT A MACHINE GATE
+IS NOT ENFORCED has a partner nobody wrote down: A GATE NOBODY RUNS IS NOT A
+GATE. The ship flow says green or it does not ship, and three reds are sitting on
+main. One of them (the words re-bake) is a single command. ***
+
+HONEST SCOPE OF THIS TURN'S GATE RUN: the lane's three gates, plus the subset
+that can actually read what this turn changed (canon rot 13/0, attempt 15/0,
+demo blockers 22/0, banks-used, dialogue catalogue), plus 43 of the full 479
+before I stopped blocking on a suite that runs for hours. Every red seen was
+reproduced on a clean worktree of origin/main first. Nothing here was
+self-attested.
+AND READ THE PAYDAY LINE: it passes 35/35 while its own summary says "every
+amount still [PENDING Paolo]". Day 20 happening live. economy_gate's 13 checks
+are all true of a valley where everybody is dead: they prove the ledger never
+goes negative and prices monotonically in scarcity, and none of them asks
+whether anybody lives. CONSISTENCY IS NOT SURVIVABILITY.
+
+REFUSED: any meter on the player (day 7 and the scarcity science agree), any
+rebalance of the yields (NO DAMAGE BEFORE THE DIAL -- the famine gets reported to
+him, not tuned away, and it may even be his premise), a fourth currency, an
+exchange rate, a chart, and inventing what a battery buys. And any
+implementation at all, because the lane is MODE: RESEARCH.
+
+[PENDING Paolo] -- for the coordinator to carry, ONE at a time, not a queue:
+  1. The valley eats its last shelves in ten days. Is that the premise (a
+     place that is running out) or a bug to fix? Nobody has ever ruled it.
+
+NEXT IN THIS LANE: ECONOMY Q2, how money comes back, and the battery tested
+against every way a commodity money has ever failed.
+
+================================================================================
 WORDS (words-8dqrnq): 9/4 (b) LATEST -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 LINES AND IT NEVER REACHES THE WORDS. *** MODE: RESEARCH, nothing implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
