@@ -1,0 +1,98 @@
+BOHEMIA -- GEN 1: THE TWO LIVES OF A COYOTE
+BANK, 9/5/26, DYNASTY lane, Q2 [coyote life]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+Every line is draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it
+ships so he has something to edit instead of a blank page. He has ruled nothing
+about generation one. Not a word here is his, and no number here is a damage,
+health or armour number.
+Record: records/BOHEMIA_DYNASTY_DAY_2_A_COYOTE_IN_LAS_VEGAS_9_5_26.md
+
+WHY THIS SHAPE
+The literature splits every coyote into a RESIDENT (holds defended ground with
+one mate and a family, measured mean range about 9 km2) and a TRANSIENT (holds
+nothing, measured mean range about 59 km2, living in the undefended strips
+between other families' territory and waiting for a vacancy). Young leave at
+nine to eleven months. A territory is never inherited, it is waited for, and
+most die waiting. The pair bond ends only at death: 236 animals, six years,
+genetic testing, no coyote ever left a living mate.
+Against our valley (about 151 km2, about 9.2 km across, day 19): a family holds
+about 6% of it and a homeless one walks about 39% of it, so the valley has room
+for roughly sixteen territories.
+
+---- THE FIVE STAGES, AS A SHAPE ONLY ---------------------------------- draft:true
+Structure is ours. WHO, WHERE and HOW LONG are his and are left blank.
+
+  AT HOME       you are on ground your parents hold. it is small and it is
+                safe. you did not earn any of it.
+  SENT AWAY     nine to eleven months. not a choice and not a punishment.
+                the ground stops being yours on a day nobody marks.
+  THE SEAM      you live in the strips between other families. the ground you
+                can cross is six times bigger and none of it is yours.
+                this is the long stage. this is the game.
+  A VACANCY     somebody stops holding a piece of ground. you were near it,
+                or you were not.
+  HELD          ground, and one other. it ends when one of you dies.
+
+---- WHAT EACH STAGE CHANGES, WITH NO NUMBER HE HAS NOT RULED ---------- draft:true
+  AT HOME    small ground, others near you, somewhere to sleep
+  SENT AWAY  the den closes behind you. the same map, none of it yours
+  THE SEAM   the whole valley is walkable and nowhere is safe.
+             every family's ground is a place you pass through, not stop in
+  A VACANCY  a piece of ground has no owner for a while. so does everyone else
+             know
+  HELD       one piece of ground, one other animal, and pups that will leave
+
+---- THE SEAM, WHICH IS THE STAGE THAT IS ACTUALLY THE GAME ------------ draft:true
+NOT A LINE ON THE GROUND. It is the ground nobody bothered to hold.
+In our valley that already has a name in code: the place where two owners meet.
+  NOBODY HOLDS THIS.
+  THIS IS SOMEBODY'S. KEEP MOVING.
+  THEY KNOW YOU ARE HERE. THEY ARE NOT COMING.
+  YOU HAVE BEEN THROUGH HERE BEFORE.
+  THERE IS WATER HERE AND IT IS NOT YOURS.
+  THE CHANNEL RUNS ALL THE WAY IN.
+
+---- A VACANCY, WHICH IS THE ONLY WAY GROUND EVER CHANGES HANDS -------- draft:true
+  NOBODY HAS CROSSED THIS IN FOUR DAYS.
+  THE ONE WHO HELD THIS IS NOT HOLDING IT.
+  THERE IS ANOTHER ONE WAITING AT THE FAR END.
+  THIS IS YOURS NOW. IT WILL NOT STAY YOURS.
+
+---- PEOPLE, WHICH IS THE ONLY REAL DANGER IN OUR VERSION -------------- draft:true
+(the number one killer of a real urban coyote is a car, and our Vegas has
+almost no moving cars, so what is left is people. NO DAMAGE NUMBERS.)
+  HE HAS SEEN YOU. HE IS DECIDING.
+  HE HAS NOT SEEN YOU.
+  THIS ONE HAS CHASED YOU BEFORE.
+  THIS ONE FED YOU ONCE. THAT WAS WORSE.
+  HE IS NOT LOOKING AT YOU, HE IS LOOKING BEHIND YOU.
+  FORTY STEPS. THAT IS FAR ENOUGH.
+  THAT ONE IS NOT BACKING UP.
+
+---- THE OTHER ONE ------------------------------------------------------ draft:true
+(one partner, and it ends only at death. no menu, no options, no score.)
+  SHE IS AHEAD OF YOU.
+  SHE WENT BACK FOR THEM.
+  YOU HAVE BEEN TOGETHER SINCE THE SECOND WINTER.
+  SHE IS NOT COMING.
+
+---- THE ONES THAT LEAVE ------------------------------------------------ draft:true
+  THEY ARE OLD ENOUGH.
+  ONE OF THEM WENT NORTH.
+  ONE OF THEM CAME BACK ONCE.
+  THAT IS ALL OF THEM.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No hunger meter, no thirst meter, no stamina bar the player manages. The desert
+is the setting, not the scoreboard.
+No eating out of bins. Real urban coyotes avoid trash even in cities, and a
+rummage loop is the boring animal game day 1 refused.
+No damage, health or armour number anywhere.
+No dialogue. No menu for a mate.
+No inherited territory. Ground only ever comes from a vacancy.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Whether generation one is a coyote at all. How long any stage lasts. Where the
+home ground is and who else is on the map. Who the other one is. What happens
+at the fold into generation two. Every name.

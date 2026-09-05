@@ -1,3 +1,84 @@
+DYNASTY (dynasty-w4yxiz): 9/5 LATEST -- *** WE SHIPPED BOTH HALVES OF THE
+COYOTE'S LIFE AND NEVER NOTICED THEY WERE THE SAME ANIMAL. RESEARCH ONLY,
+NOTHING BUILT. NOT IN A TAB. ***
+
+MODE: RESEARCH. Q2 [coyote life] SHIPPED:
+  records/BOHEMIA_DYNASTY_DAY_2_A_COYOTE_IN_LAS_VEGAS_9_5_26.md
+  banks/BOHEMIA_GEN1_THE_TWO_LIVES_DRAFT_9_5_26.txt   (draft:true, not in the game)
+
+*** FIRST, I CORRECTED YESTERDAY, AND IT IS THE EXPENSIVE KIND OF WRONG. ***
+Q1 recorded "no four-legged renderer exists anywhere". FALSE. draw_beast in the
+wildlife factory makes a 16x16 four-legged canid in three frames (rest/look/go)
+under the 45 degree law, shared ON PURPOSE by the coyote and all three dogs, and
+eight animals are baked into a sprite bank. I searched for seven function names I
+INVENTED, found nothing, and wrote down an absence. CLAUDE.md has carried this
+lesson since 8/28 and I paid it again. WHEN YOU WRITE DOWN THAT SOMETHING DOES
+NOT EXIST, SAY WHERE YOU LOOKED. The narrower true claim: no coyote at the
+PLAYER's scale and no facings (16px/3 frames/no direction against the rig's
+56px/8 facings). Q1's record and its routed row are corrected in place.
+
+THE ONE SENTENCE: A COYOTE'S LIFE IS ALREADY THE SHAPE OF THIS GAME. You are born
+on ground you do not own, you are sent away at nine to eleven months, you live in
+the seams between other families until somebody dies, and what you win is a place
+and one partner for the rest of your life. Nobody has to invent gen 1's
+structure. It is measured, it is in the literature, and it is a dynasty already.
+
+THE TWO LIVES, AND THE NUMBER BETWEEN THEM. Every coyote is a RESIDENT (defended
+ground, a mate, a family, measured mean range about 9 km2) or a TRANSIENT (holds
+nothing, about 59 km2, six and a half times bigger, living in the narrow
+undefended strips between other families and waiting for a vacancy). A TERRITORY
+IS NEVER INHERITED, IT IS WAITED FOR, and most die waiting. THE PAIR BOND IS
+ABSOLUTE: 236 coyotes, six years, genetic testing, no polygamy at all and no
+coyote that ever left a mate while that mate was alive.
+AND OUR MAP IS ALREADY THE RIGHT SIZE: against day 19's 151 km2 valley, a family
+holds about 6% of it and a homeless one walks about 39%, so the valley has room
+for roughly sixteen coyote territories. Nobody planned that.
+
+THE CITY IS THE SAFEST PLACE A COYOTE HAS EVER LIVED, and all four facts are the
+opposite of the obvious: urban pup survival up to 67% against 15% rural; they do
+NOT eat our rubbish (rodents, rabbits, fruit; they avoid trash even in cities);
+they moved to the night to avoid people, not to hunt (up to 90% of movement
+between 10pm and 5am); and THE NUMBER ONE KILLER OF AN URBAN COYOTE IS A CAR.
+*** OUR VEGAS HAS ALMOST NO MOVING CARS. Delete the traffic and you have deleted
+the leading cause of death and put nothing in its place except people with guns.
+So gen 1's danger is not the desert and not starvation, IT IS PEOPLE, which is
+the game we already have, and it costs no damage number to say so. ***
+
+THE FINDING. Two modules, two coyotes, and they look like a contradiction:
+wildlife ships 'coyote' flock [1,1], dawn and dusk, reacts:FALSE, "it has already
+decided you are not worth it"; packs ships 'coyotes' size [2,6], spacing 140,
+notice 40, a den, "it clocked you long before you saw it". Against the literature
+BOTH ARE RIGHT AND THEY ARE THE SAME ANIMAL AT TWO POINTS IN ITS LIFE. The lone
+one crossing open ground is a TRANSIENT; the spaced family with a den is a
+RESIDENT. Two lanes built the whole life cycle on different days and shipped it
+as two unrelated tiers, and NOTHING SAYS THE LONE ONE IS TRYING TO BECOME THE
+GROUP. Not an engine-sync bug, and the fix is NOT to delete one: it is the gen 1
+design, already in the build, missing one sentence.
+ONE SMALL REAL MISMATCH, not mine to fix: our ambient coyote is dawn/dusk only
+and never reacts, while the measured urban coyote is a NIGHT animal that retreats
+71% of the time before forty metres, and our own packs module holds those exact
+numbers one file away. Dawn/dusk is the DESERT pattern, not the city one.
+
+SAY THE GOOD PART TOO: THE COYOTE IS ALREADY THE BEST-RESEARCHED ANIMAL IN THIS
+REPO. The packs module carries the Edmonton field study verbatim (1,598 patrols,
+seen on 11% of walks, retreated before 40m in 71%, retreated immediately from 96%
+of hazings, shipped as backDown 0.956), non-overlapping ground as real code, the
+den in Las Vegas storm drains with the correct biology that coyotes den only for
+pupping, one shared sprite so the animals cannot drift, and not one damage number.
+
+ROUTED (proposals only, the coordinator adds jobs): PEOPLE
+THE-COYOTE-IS-ONE-ANIMAL; WORLD THE-SEAM-IS-WHERE-YOU-LIVE (we already compute
+where two owners meet); COOK/CHARACTER A-COYOTE-AT-THE-PLAYER'S-SCALE (replaces
+Q1's row, smaller than it said). Inside this lane: Q3 [heir keeps] now has its
+sharpest input (a territory is a vacancy, not an inheritance), Q7 [family
+arrives] owns the litter-as-chore risk, Q11 [lasting death] gets the pair bond.
+
+[PENDING Paolo] Nothing blocking. Ten questions still OPEN and none needs a
+ruling to start. Whether gen 1 is a coyote at all, how long each stage lasts,
+who the other one is, and what happens at the fold are all his and untouched.
+
+NEXT FOR THIS LANE: Q3 [heir keeps].
+
 LIFE + CITY (city-1eztay): 9/5 (b) LATEST -- *** HIS PERMANENT INSTRUCTION, WORD FOR
 WORD, SO IT SURVIVES A MEMORY RESET. THEN VAMILY [buildings produce]. *** MODE: BUILD.
 TAB: CITY (the aerial view). THIS BLOCK IS NOT DELETED BY A LATER ROUND.
@@ -89,9 +170,12 @@ MEASURED IN OUR OWN REPO, 9/5
      Animal to Human. Under our only heir function, an animal's heir is its cub.
   5. THERE IS NO SMELL IN BOHEMIA: olfact 0, sniff 2, and every smell/scent/odour
      hit is prose, a music track called FLUORESCENT DAWN, or base64.
-  6. No animal body renderer anywhere. All five fight archetypes carry
-     bot:false, so all five are people; the only one that fights without a gun
-     is SPEAR, which is a man holding a stick.
+  6. [CORRECTED SAME DAY BY Q2: a four-legged renderer DOES exist, 16x16, three
+     frames, shared by the coyote and the dogs. I grepped for seven function
+     names I invented and reported an absence. The true, narrower claim: no
+     coyote at the PLAYER's scale and no facings.] No animal is on any fight
+     board: all five archetypes carry bot:false, so all five are people, and the
+     only one that fights without a gun is SPEAR, a man holding a stick.
   7. AND THE ANIMAL WORLD IS ONE OF THE BEST-RESEARCHED THINGS WE OWN: the
      wildlife module ships five sourced species with TWO distances each (alert
      and flush) and a crow-measured feeding discount, AND THE COYOTE IS THE ONLY
