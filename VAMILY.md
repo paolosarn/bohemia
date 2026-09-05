@@ -192,7 +192,7 @@ STANDING DUTY (9/4 law): every clip compared side by side to the best pixel walk
 MODE: BUILD
 STATE: the rig enforced by 137 assertions, the 56/112 pipeline, hair, faces, wardrobe and the face maker at the match cut all ship and persist. NOT done: the hair reference sheet in all eight facings (his 8/25 order), the round-7 look. This lane WIRES what COOK cooks.
 - SHIPPED 9/5 16aaf9a  [clothes wired]  WIRE-THE-REMAKE (COOK batches 1-4 landed: canon 280 -> 320, 0 unworn over 4000 citizens, every layer wired, all 320 on a bench and in the demo; the card's one-accent rule built into the picker as a data flag, inert until he rules a faction colour) -- as ART batches pass DIRECTION, wire them into the picker and the wardrobe data; ART makes pixels, CHARACTER makes them worn
-- OPEN  [hair sheet]  HAIR-REF-EIGHT-FACINGS -- his 8/25 order, still open
+- CLAIMED 9/5 character-0lurbs  [hair sheet]  HAIR-REF-EIGHT-FACINGS -- his 8/25 order, still open
 - OPEN  [look verdict]  ROUND-7-LOOK -- needs Paolo
 - OPEN  [more clothes]  WARDROBE-VOLUME -- new garment shapes behind the structure law
 - OPEN  [runway hair]  HAIR-TO-THE-CARD -- once DIRECTION's style card exists: the haircut set re-read against the runway silhouettes (reference/library/runway/), new shapes only, dead shapes stay dead, through the existing hair gates
