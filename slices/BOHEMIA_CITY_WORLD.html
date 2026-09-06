@@ -687,7 +687,13 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* __EVERY_PANEL_CLOSES__ -- the corner ✕ every card gets from cardShow. Floated
    right so it sits in the card's own top-right without a wrapper, and given a
    real touch target rather than a glyph you have to hunt for with a thumb. */
-#daycardIn .dcx{float:right;margin:-6px -4px 0 8px;width:34px;height:34px;
+/* 44, NOT 34 (UI lane 9/6, [phone readable]). THE THUMB IS 44 AND THIS WAS THE ONLY
+   control on the whole walked surface still under it -- measured on a served demo at
+   390x844, one hit out of every clickable thing in both documents. It was written as
+   "a real touch target rather than a glyph you have to hunt for", which was the right
+   intent at the wrong number. The negative margin grows with it so the glyph stays
+   exactly where it was drawn; only the reachable area gets bigger. */
+#daycardIn .dcx{float:right;margin:-11px -9px 0 8px;width:44px;height:44px;
   display:flex;align-items:center;justify-content:center;border-radius:8px;
   color:#8d7c5e;font-size:15px;line-height:1;cursor:pointer;
   border:1px solid transparent}

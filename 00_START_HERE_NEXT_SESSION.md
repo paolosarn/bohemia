@@ -13536,6 +13536,74 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/6 (b) LATEST -- *** [phone readable] BUILT. TEXT SIZE, LESS MOTION,
+THE LAST 34px BUTTON, AND THE FACTION COLOURS MEASURED FOR COLOUR BLINDNESS. ***
+
+MEASURED FIRST, on the served demo at 390x844 with no storage. All four numbers:
+  TEXT    21 pieces of text under 12px, EIGHT at 10px -- the top bar, the chips, the
+          card subheads.
+  TAP     ONE control under the 44px thumb out of every clickable thing in both
+          documents: the day card's close button at 34x34.
+  MOTION  ZERO animations running, and zero prefers-reduced-motion support in the
+          walked city. Motion is not a hazard yet; the switch exists so it cannot
+          become one silently.
+  COLOUR  13 of 78 faction pairs under dE10 for a protan. Anarchists vs Reds sit at
+          dE 1.8, which is "the same colour" to that player. Trades vs Network are
+          dE 0.9 for a tritan.
+
+WHAT SHIPPED. A TEXT row (three steps) and a MOTION row on the settings screen.
+  - Text is a FLOOR, not a multiplier: 12px or 14px minimum. A multiplier blows up
+    headings that are already big and wrecks a layout nobody asked this lane to
+    touch; a floor only moves what is too small to read. THE DEFAULT DOES NOT MOVE --
+    what size the game is drawn at is the art direction's call. What this lane owes a
+    player is the CHOICE, which is what the Game Accessibility Guidelines basic tier
+    actually asks for.
+  - Both reach the SHELL AND THE CITY, because the game a player reads lives in a
+    frame. That is the lesson [first teaching] already paid for.
+  - Reduced motion set on the phone is honoured without asking the player twice; an
+    explicit choice in the game still wins over it.
+  - The 34px close button is 44px. Its negative margin grew with it so the glyph did
+    not move; only the reachable area did.
+
+*** THREE THINGS WORTH KEEPING. ***
+  1. MY OWN THUMB GATE WAS GREEN OVER A 34px BUTTON, and I proved it by putting 34
+     back and watching nothing go red. TWO holes, not one. The button is a bare
+     <div class="dcx"> driven by delegation, so it has no onclick, no role, and never
+     registers a listener -- invisible to a sweep looking for buttons AND to the
+     listener wrapper. And the sweep only ever looked at whatever was on screen at one
+     instant, which is the street and nothing else. Fixed both: cursor:pointer is now
+     a third channel (it is the page's own declaration of "this is pressable", and a
+     thumb does not read the DOM), and the gate now opens a card with cardShow() and
+     sweeps that too. cardShow is the ONE system that draws the close button on every
+     card in the game, so measuring one card measures all of them. 15 ok.
+  2. MY OWN FEATURE MADE THE TOP BAR WORSE BEFORE IT MADE IT BETTER. The city's HUD
+     is a flex row on space-between: at the authored size there is slack, and at a
+     14px floor the slack is gone and the three labels ran together into "HUMAN MODE
+     DAY 1 - 06:00 SUBURB - ON FOOT". Caught on a screenshot, not by a number -- the
+     overflow count was zero the whole time, because nothing overflowed, it just
+     touched. Bigger text that is harder to read is not an accessibility setting. A
+     flex row that has to hold raised text now gets a real gap, and that is a leg.
+  3. THE COLOUR HALF IS A RATCHET, NOT A REPAINT, ON PURPOSE. STRUCTURE-NOT-COLOR
+     already answers the colour-blind case ("colour is the SECOND channel, the
+     silhouette wins"), and which faction owns which hue is HIS. So the gate prints
+     the numbers every run and only forbids the collision count from GROWING.
+
+[PENDING Paolo] -- CARRIED BY THE COORDINATOR. Two factions a colour-blind player
+cannot tell apart only matters if colour ever decides something mechanically (a
+crossing cost, a territory read). If it does, his pick: A leave it, the silhouette is
+the identity channel and always was; B repaint the worst pairs (Anarchists/Reds,
+Trades/Network); C add a second non-colour channel where colour carries the load.
+Full numbers and the argument: records/BOHEMIA_COLOUR_BLIND_ON_THE_FACTIONS_9_6_26.md
+
+GATES: gates/phone_readable_gate.js 19 ok 0 failed, registered in the suite, with
+gates/cvd_faction_measure.js as its measurer (kept separate so the colour numbers can
+be re-run alone). Mutation-proved twice: cut the city out of the two-document reach ->
+4 legs red; drop the flex gap -> the top bar leg red.
+
+STILL TRUE: fix the alpha, THEN cut the demo, THEN run the gate. And the build stamp
+letter conflicts on EVERY rebase -- read what main has and go one PAST it, never
+trust the letter in your own tree (I nearly shipped 9/6h backwards over main's 9/6i).
+
 UI (ui-kmqmrf): 9/6 (a) LATEST -- *** [first teaching] BUILT. THREE NUDGES, ONE AT A
 TIME, CLEARED BY DOING THE THING. AND TWO THINGS THAT WERE INVISIBLE TO THE OBVIOUS
 INSTRUMENT. ***

@@ -172,6 +172,18 @@ function serve() {
     const out = [];
     const all = new Set([...(window.__tapNodes || [])]);
     for (const n of document.querySelectorAll('button,[onclick],[role=button]')) all.add(n);
+    /* AND ANYTHING THE PAGE ITSELF CALLS TAPPABLE (UI lane 9/6, [phone readable]).
+       A third channel, because the first two both missed a real control: the day
+       card's close button is a bare <div class="dcx"> driven by delegation on the
+       card, so it has no onclick attribute, no role, and never registers a listener
+       of its own -- invisible to a sweep looking for buttons and invisible to the
+       listener wrapper. It shipped at 34x34 and this gate was green over it. A thumb
+       does not read the DOM; it goes for what looks pressable, and cursor:pointer is
+       the page's own declaration of exactly that. */
+    for (const n of document.querySelectorAll('*')) {
+      if (all.has(n)) continue;
+      try { if (getComputedStyle(n).cursor === 'pointer') all.add(n); } catch (_e) {}
+    }
     for (const n of all) {
       if (!n.isConnected) continue;
       const r = n.getBoundingClientRect(), s = getComputedStyle(n);
@@ -188,7 +200,33 @@ function serve() {
   };
   const shell = (await p.evaluate(sweepDoc)).map(c => ({ ...c, where: 'the opening' }));
   const inCity = (await city.evaluate(sweepDoc)).map(c => ({ ...c, where: 'the city' }));
-  const ctrls = shell.concat(inCity);
+
+  /* AND SWEEP A CARD, BECAUSE ONE MOMENT IS NOT THE SURFACE (UI lane 9/6).
+     This gate used to sweep whatever happened to be on screen the instant it looked,
+     which is the street and nothing else. Every panel in this game is a CARD, and the
+     card's own close button shipped at 34x34 with this gate green over it -- proved by
+     putting 34 back and watching nothing go red. cardShow() is the single system that
+     draws the * on every card there is ("FIXED IN THE SYSTEM, NOT IN THE ONE CARD"),
+     so opening one card with it measures the close button of every card in the game.
+     No game state is touched: it is shown with a throwaway body and hidden again. */
+  let card = [];
+  const cardOpened = await city.evaluate(() => {
+    if (typeof cardShow !== 'function') return false;
+    cardShow('<h2>THUMB GATE</h2><div>measuring the card chrome</div>');
+    return document.getElementById('daycard').classList.contains('on');
+  });
+  ok('a card could be opened to measure its own chrome, which is where every panel '
+     + 'in the game gets its close button', cardOpened === true);
+  if (cardOpened) {
+    await p.waitForTimeout(300);
+    card = (await city.evaluate(sweepDoc)).map(c => ({ ...c, where: 'a card' }));
+    await city.evaluate(() => { try { cardHide(); } catch (_e) {} });
+    await p.waitForTimeout(200);
+  }
+  ok('and the card actually put controls on screen to measure (' + card.length + ')',
+     card.length >= 1);
+
+  const ctrls = shell.concat(inCity).concat(card);
 
   ok('the sweep actually found the controls (it found ' + ctrls.length + ' across '
      + 'both documents; three earlier methods each confidently found zero on the city '

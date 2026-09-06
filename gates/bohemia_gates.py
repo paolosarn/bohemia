@@ -222,6 +222,26 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('PHONE READABLE', ['node', 'gates/phone_readable_gate.js'],
+     'Board row [phone readable]: "text size, tap targets, colour-blind safety on faction '
+     'colours, motion; the Game Accessibility Guidelines basic tier". MEASURED FIRST on the '
+     'served demo at 390x844: TWENTY-ONE pieces of text under 12px (eight at 10px); ONE '
+     'control under the 44px thumb -- the day card close button at 34x34, which thumb_gate '
+     'was GREEN over because it only swept what happened to be on screen at one instant; '
+     'ZERO animations running and zero reduced-motion support in the walked city; and 13 of '
+     '78 faction pairs under dE10 for a protan, with Anarchists vs Reds at dE 1.8. THE '
+     'DEFAULT NEVER MOVES -- what size the game is drawn at is the art direction\'s call, so '
+     'this ships the CHOICE, which is what the basic tier actually asks for: a text size that '
+     'puts a 12 or 14px FLOOR under every word (a floor, not a multiplier, so headings are '
+     'not blown up and no layout nobody asked me to touch is wrecked) and a LESS MOTION '
+     'switch, both reaching the shell AND the walked city, because the game a player reads '
+     'lives in a frame. Reduced-motion set on the phone is honoured without asking twice. '
+     'Two findings are frozen as legs: raising the text made the city\'s HUD, a flex row on '
+     'space-between, run together into one string, so a row holding raised text now gets a '
+     'real gap -- bigger text that is harder to read is not an accessibility setting; and '
+     'the colour legs are a RATCHET, not a repaint, because STRUCTURE-NOT-COLOR already '
+     'answers the colour-blind case and which faction owns which hue is HIS. The numbers '
+     'print every run: records/BOHEMIA_COLOUR_BLIND_ON_THE_FACTIONS_9_6_26.md.', True),
     ('FIRST TEACHING', ['node', 'gates/teach_gate.js'],
      'Board row [first teaching]: "the pad, the phone, DROP IN; nothing exists; measure with '
      'the cold hand", and measuring first proved every word of it -- no onboarding of any '

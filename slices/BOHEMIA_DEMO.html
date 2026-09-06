@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/6m - EVERY BORDER YOU CAN SEE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/6n - TEXT SIZE, LESS MOTION</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1447,6 +1447,10 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
       <div id="setvol" class="setbars"></div></div>
     <div class="setrow"><span class="setlab">MUTE</span>
       <div id="setmute" class="setbtn" role="button" tabindex="0">OFF</div></div>
+    <div class="setrow"><span class="setlab">TEXT</span>
+      <div id="settext" class="setbars"></div></div>
+    <div class="setrow"><span class="setlab">MOTION</span>
+      <div id="setmotion" class="setbtn" role="button" tabindex="0">FULL</div></div>
     <div class="setrow"><span class="setlab">GAME</span>
       <div id="setsave" class="setbtn" role="button" tabindex="0">SAVE</div>
       <div id="setquit" class="setbtn" role="button" tabindex="0">QUIT</div></div>
@@ -31832,14 +31836,35 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
    ============================================================================ */
 (function(){
   var LS='BOH_SETTINGS', LEVELS=5, vol=4, muted=false, live=false, lastTop=-1, lastBus=null;
+  /* [phone readable] 9/6. TEXT: 1 = as authored, 2 = 12px floor, 3 = 14px floor.
+     MEASURED FIRST on a served demo at 390x844: TWENTY-ONE pieces of text sit under
+     12px on the surface a stranger gets, EIGHT of them at 10px -- the top bar, the
+     chips, the card subheads. THE DEFAULT DOES NOT MOVE, and that is deliberate:
+     what size the game is drawn at is the art direction's call, not this lane's
+     (MECHANISM-MINE / CONTENTS-PAOLO'S). What this lane owes a player is the CHOICE,
+     which is what the Game Accessibility Guidelines basic tier actually asks for.
+     MOTION: false = full, true = reduce. */
+  var TEXTS=3, tsize=1, lessmo=false;
   function el(id){ return document.getElementById(id); }
   function load(){
     try{ var j=JSON.parse(localStorage.getItem(LS)||'{}');
       if(typeof j.vol==='number') vol=Math.max(0,Math.min(LEVELS,j.vol|0));
       if(typeof j.muted==='boolean') muted=j.muted;
+      if(typeof j.tsize==='number') tsize=Math.max(1,Math.min(TEXTS,j.tsize|0));
+      if(typeof j.lessmo==='boolean') lessmo=j.lessmo;
+    }catch(_e){}
+    /* AND IF THE PHONE ALREADY ASKED FOR LESS MOTION, HONOUR IT WITHOUT BEING TOLD.
+       A player who set that on their device has already answered this question once;
+       making them answer it again in here is the fiddling the setting exists to end.
+       An explicit choice saved in this game still wins over it. */
+    try{
+      var j2=JSON.parse(localStorage.getItem(LS)||'{}');
+      if(typeof j2.lessmo!=='boolean'
+         && window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)
+        lessmo=true;
     }catch(_e){}
   }
-  function save(){ try{ localStorage.setItem(LS,JSON.stringify({vol:vol,muted:muted})); }catch(_e){} }
+  function save(){ try{ localStorage.setItem(LS,JSON.stringify({vol:vol,muted:muted,tsize:tsize,lessmo:lessmo})); }catch(_e){} }
 
   /* THE ONE PLACE EVERYTHING MEETS. Not created here and not replaced here: found.
      AND IT MUST BE THE LIVE OUTPUT, NOT WHATEVER IS PARKED IN MUS.OUT RIGHT NOW.
@@ -31903,12 +31928,110 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     m.textContent = muted ? 'ON' : 'OFF';
     m.setAttribute('aria-pressed', muted?'true':'false');
   }
-  function commit(){ applyAudio(); paintVol(); paintMute(); save(); }
+  /* THE TWO DOCUMENTS. This screen lives in the shell, but the game a player reads is
+     the city, in a frame. Anything this lane does about text or motion has to reach
+     both or it has only half done the job -- the same lesson [first teaching] paid for
+     when the shell drew over the city and this document could not see it. */
+  function docs(){
+    var out=[document];
+    try{ var cf=el('cityFrame'), cd=cf&&cf.contentDocument; if(cd&&cd.body) out.push(cd); }catch(_e){}
+    return out;
+  }
+
+  var FLOOR=[0,0,12,14];      /* index by tsize; 0 means leave everything alone */
+
+  /* RAISE THE SMALL TEXT TO A FLOOR, AND NEVER SHRINK ANYTHING. A multiplier on every
+     size would blow up the headings that are already big and wreck a layout nobody
+     asked me to touch. A FLOOR only moves what is too small to read, which is exactly
+     the complaint, and it leaves the art direction's sizing intact everywhere else.
+     Marked with a data attribute so going back to 1 restores what was authored rather
+     than guessing at it. */
+  function applyText(){
+    var floor=FLOOR[tsize]||0;
+    docs().forEach(function(d){
+      var nodes=d.querySelectorAll('[data-bohtext]');
+      for(var i=0;i<nodes.length;i++){
+        nodes[i].style.fontSize=nodes[i].getAttribute('data-bohtext')||'';
+        nodes[i].removeAttribute('data-bohtext');
+      }
+      var gaps=d.querySelectorAll('[data-bohgap]');
+      for(var gi=0;gi<gaps.length;gi++){
+        gaps[gi].style.columnGap=gaps[gi].getAttribute('data-bohgap')||'';
+        gaps[gi].removeAttribute('data-bohgap');
+      }
+      if(!floor) return;
+      var all=d.querySelectorAll('*');
+      for(var k=0;k<all.length;k++){
+        var e=all[k];
+        var own=''; for(var c=0;c<e.childNodes.length;c++)
+          if(e.childNodes[c].nodeType===3) own+=e.childNodes[c].nodeValue;
+        if(!own.trim()) continue;
+        var cs; try{ cs=getComputedStyle(e); }catch(_e2){ continue; }
+        var px=parseFloat(cs.fontSize)||0;
+        if(px<=0||px>=floor) continue;
+        e.setAttribute('data-bohtext', e.style.fontSize||'');
+        e.style.fontSize=floor+'px';
+        /* AND WORDS THAT FIT BEFORE MUST NOT TOUCH NOW. Caught on a screenshot of my
+           own feature: the city's top bar is a flex row on space-between, so at the
+           authored size the three labels had slack between them and at a 14px floor
+           they ran together into "HUMAN MODE DAY 1 - 06:00 SUBURB - ON FOOT". Making
+           text bigger and less readable is not an accessibility setting. A row that
+           has to hold raised text gets a real gap; nothing else is touched. */
+        var pr=e.parentElement;
+        if(pr && !pr.hasAttribute('data-bohgap')){
+          var ps; try{ ps=getComputedStyle(pr); }catch(_e3){ ps=null; }
+          if(ps && /flex/.test(ps.display) && (parseFloat(ps.columnGap)||0) < 8){
+            pr.setAttribute('data-bohgap', pr.style.columnGap||'');
+            pr.style.columnGap='10px';
+          }
+        }
+      }
+    });
+  }
+
+  /* LESS MOTION MEANS LESS MOTION EVERYWHERE, INCLUDING IN MY OWN WORK. One rule per
+     document, so anything any lane ever animates is covered by the same switch --
+     naming today's animations would only cover today's. */
+  function applyMotion(){
+    docs().forEach(function(d){
+      var st=d.getElementById('bohmotion');
+      if(!lessmo){ if(st) st.remove(); return; }
+      if(!st){ st=d.createElement('style'); st.id='bohmotion';
+        st.textContent='*,*::before,*::after{animation-duration:.001s!important;'
+          +'animation-iteration-count:1!important;transition-duration:.001s!important;'
+          +'scroll-behavior:auto!important}';
+        (d.head||d.documentElement).appendChild(st); }
+    });
+  }
+
+  function paintText(){
+    var host=el('settext'); if(!host) return;
+    if(host.children.length!==TEXTS){
+      host.textContent='';
+      for(var i=0;i<TEXTS;i++){
+        var d=document.createElement('div');
+        d.className='vb'; d.setAttribute('role','button'); d.setAttribute('tabindex','0');
+        d.setAttribute('aria-label','text size '+(i+1)+' of '+TEXTS);
+        (function(n){ d.addEventListener('click',function(){ tsize=n; commit(); }); })(i+1);
+        host.appendChild(d);
+      }
+    }
+    for(var k=0;k<host.children.length;k++)
+      host.children[k].classList.toggle('lit', k<tsize);
+  }
+  function paintMotion(){
+    var m=el('setmotion'); if(!m) return;
+    m.textContent = lessmo ? 'LESS' : 'FULL';
+    m.setAttribute('aria-pressed', lessmo?'true':'false');
+  }
+
+  function commit(){ applyAudio(); applyText(); applyMotion();
+                     paintVol(); paintMute(); paintText(); paintMotion(); save(); }
 
   function open(){
     var w=el('setwrap'); if(!w) return;
     w.classList.add('on'); w.setAttribute('aria-hidden','false');
-    paintVol(); paintMute();
+    paintVol(); paintMute(); paintText(); paintMotion();
   }
   function close(){
     var w=el('setwrap'); if(!w) return;
@@ -32000,6 +32123,11 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     if(up){
       var b=bus();
       if(b && b!==lastBus){ lastBus=b; live=true; applyAudio(); }
+      /* THE SCREEN KEEPS CHANGING UNDER THIS. Cards open, panels draw themselves, the
+         city swaps modes -- and every one of those brings NEW text that was never
+         raised to the floor. Re-apply on the beat, but only when there is a floor to
+         apply, so a player who never touched the setting pays nothing at all. */
+      if(FLOOR[tsize]) applyText();
     }
   }, 500);
   window.BOHEMIA_SETTINGS = {
@@ -32007,7 +32135,12 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     get:function(){ return {vol:vol, muted:muted, levels:LEVELS}; },
     set:function(v,m){ if(typeof v==='number') vol=Math.max(0,Math.min(LEVELS,v|0));
                        if(typeof m==='boolean') muted=m; commit(); },
-    busGain:function(){ var b=bus(); return b&&b.gain?b.gain.value:null; }
+    busGain:function(){ var b=bus(); return b&&b.gain?b.gain.value:null; },
+    text:function(){ return tsize; },
+    floor:function(){ return FLOOR[tsize]||0; },
+    motion:function(){ return lessmo; },
+    setText:function(n){ tsize=Math.max(1,Math.min(TEXTS,n|0)); commit(); },
+    setMotion:function(v){ lessmo=!!v; commit(); }
   };
 })();
 </script>
