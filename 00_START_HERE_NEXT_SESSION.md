@@ -3,7 +3,7 @@ COLOUR-AUDIT SHIPPED. Every faction already HAD a colour and it was locked insid
 a browser; three rows were stopped on it. It is a published number now and the
 map paints it. *** Nothing to judge.
 
-VAMILY row: [colours fixed] COLOUR-AUDIT, MODE: BUILD, SHIPPED 9/6.
+VAMILY row: [colours fixed] COLOUR-AUDIT, MODE: BUILD, SHIPPED 9/6 0160c71.
 Record: records/BOHEMIA_HIS_COLOUR_ANSWER_WAS_LOCKED_IN_A_BROWSER_9_6_26.md
 Law: laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md
 
