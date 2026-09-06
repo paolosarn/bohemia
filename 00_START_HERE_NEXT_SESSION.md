@@ -13232,6 +13232,20 @@ that dependable" because the world was not quite working) so nobody copies a gre
 and flagged that HIS phrase "2050 rustic" is the harder half nobody has drawn: our own era's
 technology worn down and hand-repaired, not a 1950s idea of the future. Routed UI [three
 acts], [skin swap], [show options] as a standing duty, and DIRECTION [act cards].
+THEN (cg) VAMILY: quiet on main (2 commits) but SCHOOL MODE PAID OFF THE ROUND AFTER HE
+ORDERED IT -- WORDS Q2's schooled round INVERTED its own earlier answer: of 158 measured
+deception cues 118 show no association at all, pauses among them by name, and people catch
+only 47% of lies, so THE LIAR IS BELIEVED. The bank now has the liar as the most fluent
+person in the scene and the FRIGHTENED man as the one who stumbles; the unschooled 9/4
+round had it backwards. HARVEST THREE (records/BOHEMIA_HARVEST_THREE_NOTHING_IN_HIS_MOUTH_
+IS_A_TELL_9_6_26.md): the sentence "what exposes him is a fence the player can walk to,
+nothing in his mouth is a tell" is a GAME rule, not a writing note -- you catch a liar by
+walking to the thing, never by a highlighted option or a roll, and our world already keeps
+every fence (gossip hops, deeds that fade, faction tracks, lights with owners, blocks with
+owners, shelves that empty, debts with a lender's name). Routed QUESTS [check the claim],
+PEOPLE [fluent liar] (top), UI [what you know], FACTIONS [tracks read], LIFE+CITY [shelves
+seen]. Topped up ECONOMY, DYNASTY, WORDS. NOTED: DIRECTION is now holding FIVE claimed and
+one open, the same one-at-a-time violation PLUMBER has.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
