@@ -470,19 +470,75 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
       /* STAND STILL AND LET THE MECHANISM RUN. Nothing here places a blocker:
          ctFollowStep does, the same function every walked step calls. */
       try { render(); } catch (e) {}
-      var before = [hx, hy], got = null;
+      /* *** THIS LEG ONLY EVER LOOKED AT ONE OF THE TWO CELLS THE CODE PICKS
+         BETWEEN, AND ON 9/6 THE OTHER ONE BECAME REACHABLE FOR THE FIRST TIME. ***
+         ctBlockCell() chooses A DOORWAY BESIDE YOU FIRST and only falls back to the
+         cell in front -- the row's own two sentences, in that order. This leg read
+         the faced cell alone, and it was green for one reason: the comment forty
+         lines above says a doorway "within forty cells of the ground the Cartel
+         live on" did not exist, so branch 1 could never fire and branch 2 always
+         did. LIFE + CITY's AN ADDRESS IS A FRONT DOOR (9/6) seats residents at
+         their own front doors, and the block above stands the player NEXT TO a
+         refusing body -- so there is now a doorway beside the player and the
+         mechanism takes the branch it always preferred. The leg went red while the
+         code did the BETTER of its two documented things.
+         So it asks the real question: is a body at war standing in one of the two
+         cells this mechanism is written to choose, and does walking INTO THAT CELL
+         get refused. FIX THE RULER, NEVER THE TARGET.
+         Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
+      var before = [hx, hy], got = null, gotAt = null;
       for (var t = 0; t < 20 && !got; t++) {
         try { ctFollowStep(); render(); } catch (e) {}
+        /* THE CELL IN FRONT FIRST, then the doorway, then anywhere they have put
+           themselves within arm's reach -- ctBlockCell's own order of preference,
+           and then the general case it exists to serve. */
+        var cands = [];
         var v = (typeof PPL_DIRV !== 'undefined') ? PPL_DIRV[HFACE] : null;
-        if (v) got = ctBlocked(hx + v[0], hy + v[1]);
+        if (v) cands.push([hx + v[0], hy + v[1]]);
+        for (var ddy = -1; ddy <= 1; ddy++) for (var ddx = -1; ddx <= 1; ddx++) {
+          if (!ddx && !ddy) continue;
+          var cc = cellAt(hx + ddx, hy + ddy);
+          if (cc && cc.enter) cands.push([hx + ddx, hy + ddy]);
+        }
+        /* *** AND NOT "ANYWHERE NEXT TO YOU". *** That was tried on 9/6 and it is
+           a loosened ruler, proven the only way it can be: with ctBlockCell()
+           stubbed to return null -- the whole get-in-your-way mechanism deleted --
+           the leg still passed, because an ordinary follower ends up beside you
+           anyway. A leg that cannot tell the mechanism from its absence is
+           decoration. The two cells below are the two the code chooses between,
+           and they are the only two that mean anything. */
+        for (var ci = 0; ci < cands.length && !got; ci++) {
+          var g0 = ctBlocked(cands[ci][0], cands[ci][1]);
+          if (g0) { got = g0; gotAt = cands[ci]; }
+        }
       }
       o.blocker = got;
+      o.blockAt = gotAt;
+      /* WHY NOT, when it is not. A leg that can only say "nobody" cannot be
+         debugged by anybody who did not write it. */
+      o.followers = Object.keys(CT_FOLLOW || {}).length;
+      o.followAt = Object.keys(CT_FOLLOW || {}).map(function (k) {
+        var f = CT_FOLLOW[k];
+        return f.join(',') + '@' + Math.max(Math.abs(f[0] - hx), Math.abs(f[1] - hy));
+      }).join(' ');
+      o.drew = (typeof BARK_DREW !== 'undefined' ? BARK_DREW.length : -1);
+      o.wantBlock = (function () {
+        var n = 0;
+        for (var q = 0; q < (BARK_DREW || []).length; q++) {
+          var a2 = null; try { a2 = ctAgainstMe(BARK_DREW[q].p); } catch (e) {}
+          if (a2 && a2.signs && a2.signs.block) n++;
+        }
+        return n;
+      })();
+      o.onDoor = !!(gotAt && (cellAt(gotAt[0], gotAt[1]) || {}).enter);
       o.face = HFACE;
       o.stillThere = (hx === before[0] && hy === before[1]);
       if (!got) return o;
-      /* AND NOW WALK INTO THEM, through the function a d-pad press runs. */
+      /* AND NOW WALK INTO THEM, through the function a d-pad press runs. THE
+         DIRECTION IS THE ONE THAT LEADS TO THE CELL THEY ARE ACTUALLY IN, which
+         for a doorway block is not always the way the body happens to face. */
       var pl = document.getElementById('packline'); if (pl) pl.textContent = '';
-      var vv = PPL_DIRV[HFACE];
+      var vv = [gotAt[0] - hx, gotAt[1] - hy];
       var di = -1;
       for (var k = 0; k < DIRS.length; k++)
         if (DIRS[k][0] === vv[0] && DIRS[k][1] === vv[1]) di = k;
@@ -503,10 +559,16 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
       o.waysOut = outs;
       return o;
     });
-    ok('*** A BODY AT WAR WITH YOU PUTS ITSELF IN FRONT OF YOU ***',
-      !!blk.blocker, blk.blocker ? (blk.blocker + ' stepped into your way facing ' + blk.face)
-                                 : 'nobody got in the way');
-    ok('and the gate is pushing the direction the player is actually facing', !!blk.dirFound);
+    ok('*** A BODY AT WAR WITH YOU PUTS ITSELF IN FRONT OF YOU, OR IN YOUR DOORWAY ***',
+      !!blk.blocker, blk.blocker
+        ? (blk.blocker + ' stepped into your way at ' + JSON.stringify(blk.blockAt)
+           + (blk.onDoor ? ' (THE DOORWAY, branch 1)' : ' (the cell in front, branch 2)')
+           + ', you facing ' + blk.face)
+        : ('nobody got in the way (' + blk.drew + ' drawn, ' + blk.wantBlock
+           + ' of them want to block, ' + blk.followers + ' following: '
+           + (blk.followAt || 'none') + ')'));
+    ok('and the gate is pushing toward the cell they are actually standing in',
+      !!blk.dirFound);
     ok('*** THE STEP IS REFUSED AND THE PLAYER DOES NOT MOVE ***',
       blk.went === false && blk.moved === false,
       'stepOnce returned ' + blk.went + ', player ' + (blk.moved ? 'MOVED' : 'held'));
