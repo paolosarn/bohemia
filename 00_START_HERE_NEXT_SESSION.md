@@ -1822,10 +1822,12 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/6 (a) LATEST -- *** [more people] POPULATION-DEFAULT:
-ROUND 1 SHIPPED, THE JOB CONTINUES. THE CITY DRAWS ONE PERSON ALL DAY AND IT IS NOT
-THE COUNT: THE SUBURB HE WAKES IN HAS 1,118 FRONT DOORS AND NOBODY WAS EVER PUT IN
-ONE. *** MODE: BUILD. TAB: CITY (walk out the front door). Nothing to judge.
+LIFE + CITY (city-1eztay): 9/6 (b) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 2 SHIPPED, THE JOB CONTINUES. THE DAY WAS WHAT EMPTIED THE STREET -- GOING OUT
+FOURTEEN-TIMED THE GAP BETWEEN PEOPLE, BECAUSE EVERY ONE OF THEM WALKED A PRIVATE RAY
+TO A PRIVATE COORDINATE. A NEIGHBOURHOOD HAS PLACES NOW; 13 SHARE A SCREENFUL WHERE 3
+DID, AND A WALK MEETS SOMEBODY 3 TIMES IN 12 WHERE IT NEVER DID ONCE. *** MODE: BUILD.
+TAB: CITY (walk out the front door). Nothing to judge.
 
 === PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
@@ -2010,7 +2012,76 @@ THE COORDINATOR TO ROUTE TO RUN.
   THE STANDING NOTE: A NUMBER CHOSEN BY MEASURING ONE PATH IS NOT A SETTING, IT IS AN
 ASSUMPTION ABOUT THE OTHER PATH. The dial was moved to 20 in good faith off a real
 measurement of a real model. It just was not the model that draws the street he walks down.
-  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues next round.
+  *** ROUND 2, SAME JOB: A BEARING IS A PLACE. SHIPPED, ROW STILL OPEN. ***
+  FIRST I CORRECTED MY OWN LAST HANDOFF. It told this round to go and fix people who
+never leave the doorstep. THEY LEAVE: 41 of 61 are outside at 10:00. That sentence was
+never measured -- it was inferred from a stale comment plus an out=0 that only ever
+counted people who were DRAWN, of whom there was one. An hour of building against it
+would have produced nothing.
+  WHAT IS ACTUALLY WRONG IS WORSE AND MORE FIXABLE. Measured at the busiest hour, the
+same 61 people: AT HOME nearest neighbour 1 cell and 4 share a screen; OUT, nearest
+neighbour 14 CELLS and 3 share a screen. THE DAY IS WHAT EMPTIES THE STREET. At home
+they are in households shoulder to shoulder; the morning dissolves the only cluster the
+game has into sixty-one private rays to sixty-one private coordinates, none of them
+near anybody else's.
+  THE MODULE HAD ALREADY WRITTEN THE FIX AND NOBODY DID IT. bohemia_population.js on
+workDir, since 7/31: "a bearing and a distance, not a district name -- NAMING THE
+WORKPLACE IS THE SURFACE'S JOB because only the surface knows what is actually there."
+The surface resolved the bearing to the most open cell on the ray, which is a
+COORDINATE. A place is a thing OTHER PEOPLE ALSO GO TO.
+  WHAT SHIPPED: a neighbourhood has PLACES and a bearing picks one. NOTHING IN IT IS A
+NUMBER I CHOSE. How many is HEADS.cluster, the population module's own settlement size
+-- a literal there would be a population knob wearing a placement rule's clothes and
+this lane may not touch how many. Where is pplOpenness + pplDoorstep, the two
+instruments the surface already had: openness alone does not discriminate here (90% of
+the ground scores 22-24) so "the openest cell" was picking the middle of an empty lot,
+and a crowd in open desert is a coincidence, not a place. A place is FRONTAGE, which is
+also where a walking player goes because doorways line the streets buildings front. A
+faction seat beats a street corner -- BB-TURF put 14 real markets on the map on 9/5 and
+the walked surface had never asked where they were. Their own bearing still chooses
+WHICH place, so the 7/31 address book survives. The old ray is still underneath, so
+ground the art has not filled in behaves exactly as before.
+  WHAT IT DID: share a screenful 3 -> 13. Nearest neighbour where they go 18 cells -> 1.
+Standing at the nearest place, 97 cells from where he wakes: 1 body at 06:00, 4 at
+08:00, 6 at 10:00, 2 at 14:00, 4 at 16:00, EIGHT at 18:00, 2 at 22:00 -- against ONE
+body everywhere all day before round 1, and the day now has a shape (a morning, a dead
+middle at the module's own heat hour, a busy evening, a quiet night).
+  THE HEADLINE, AND IT IS NOT A WIN YET. Four 400-step walks from the wake cell at
+06:00, 10:00 and 18:00, counting only people NOT already on the glass, same protocol
+run on the code before and after: 0 OF 12 BEFORE, 3 OF 12 AFTER, median first meeting
+at step 157. Three of twelve is not "he meets people without trying" and the row stays
+OPEN. It is the first number above zero this lane has measured on that walk.
+  WHAT IS LEFT IS NOT PLACEMENT ANY MORE, IT IS FINDING. A place is a point and two
+points in a 512-cell square are hard to walk into; the crowd is real when you stand in
+it and invisible when you do not. The module's own phrase is "you hear a settlement
+before you see it", and this game has a city phone with a feed on it that THIS LANE
+BUILT ON 9/5 AND NEVER POINTED AT ANYTHING. That is the next round.
+  GATE: gates/people_gather_gate.js, 13/0, walked surface AND cut demo, registered.
+Mutation-tested four ways: delete the places (B1 red, 4 on a screen not 13, B4 red),
+delete the spacing rule (B3 red, closest pair anywhere 12 not 20), stop preferring
+frontage (B2 red, 0 of 12 places on a door), ignore the bearing (A3 and B1b red, 8
+bearings collapsing to 3 places).
+  *** AND THREE OF THOSE LEGS WERE ACCIDENTALLY CORRECT BEFORE THEY WERE LEGS. *** B3
+asked the nine neighbourhoods round the wake cell (loner/spread ground, 1-2 places
+each, far apart whether the rule existed or not) -- rule deleted, STILL GREEN. Rewritten
+to ask the single BUSIEST settlement, which SOUNDED like the hardest case -- still
+green, because the closest pair in the valley is not in the biggest settlement.
+Rewritten again to ask the minimum over every pair everywhere: 704 places across 133
+settlements, 20 cells with the rule and 12 without (12 is the sampling lattice showing
+through, which is exactly what the rule exists to stop). A LEG THAT ASKS THE CASE THAT
+SOUNDS HARDEST IS STILL GUESSING. B1b counted distinct destination CELLS and could not
+fail, because the OCCUPANCY LAW rings a crowd around its spot -- twenty-five people sent
+to ONE place still stand on twenty-five cells; it counts PLACES now. And B4 measured
+ZERO bodies at every hour on working code because it ran on the STANDALONE walked
+surface, where peoplePass() returns 0 on !PLAYER_CV and nobody is ever blitted. THIS
+LANE HAS BEEN CAUGHT BY THAT TRAP THREE TIMES IN TWO ROUNDS; it is now written into the
+gate at the point of use so the fourth time is somebody reading rather than re-deriving.
+  RECORD: records/BOHEMIA_A_BEARING_IS_A_PLACE_9_6_26.md
+  STAMP: BUILD 9/6j - A BEARING IS A PLACE
+  THE STANDING NOTE: A NUMBER YOU INFERRED FROM A COMMENT IS NOT A MEASUREMENT, AND IT
+WILL AIM THE NEXT ROUND AT THE WRONG THING.
+  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues next round,
+and the next round is FINDING, not placing.
 
 
 
