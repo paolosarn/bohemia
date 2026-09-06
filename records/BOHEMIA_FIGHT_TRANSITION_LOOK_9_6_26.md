@@ -26,6 +26,22 @@
 - The cloud is the ONLY cover. The ground never cuts, tiles never swap in
   view; the zoom happens while the shade is over the player's cell, so
   the scale change is discovered as the shadow passes, not watched.
+- HOW MUCH IT MAY COVER (the [cloud look] row, 9/6): the shade's core
+  (below 0.85 brightness) covers at most 60% of the frame at its peak
+  and NEVER the whole screen - a full-frame dim is a fade-to-black in a
+  costume, which is the hard cut again. The feather may touch the frame
+  edges; the core may not touch all four at once.
+- HOW FAST IT CLEARS: gone by the end of beat two, fully - no lingering
+  tint, no residue; brightness returns to exactly the pre-turn frame.
+- WHAT IT DOES TO THE PALETTE UNDERNEATH: multiplies value and touches
+  NOTHING else - no hue rotation, no saturation change, no blur. A tile
+  sampled under the shade and after it differs only by the multiplier.
+- THE REFERENCE (9/4 compare law): a real cloud shadow crossing the
+  Mojave - watch any desert timelapse or satellite loop: soft-edged,
+  kilometre-scale, value-only darkening that TRAVELS with one wind, and
+  the ground's colour identity survives inside it. That is the whole
+  spec observed from life; nothing about it is invented. Structure from
+  reference, style from us (the 0.75-0.85 band matches our val floor).
 
 ## 3. THE LIGHT (nothing else is allowed to change)
 - Combat gets NO palette of its own. The fight is the street: same sun,
@@ -65,7 +81,10 @@ failed, whatever its smoothness.
   "beats": 2,
   "bpm": 120,
   "cloud": {"kind": "value multiplier", "core_darken": [0.75, 0.85],
-            "travel": "one direction, enters and exits the frame", "white_fog": false},
+            "travel": "one direction, enters and exits the frame", "white_fog": false,
+            "core_coverage_max": 0.6, "clear_by_beat": 2, "residue": false,
+            "touches": "value only - hue, saturation and focus unchanged",
+            "reference": "a real cloud shadow crossing the Mojave (timelapse/satellite): value-only, soft-edged, travels with one wind"},
   "light": {"combat_palette": "none", "filters_banned":
             ["desaturation", "vignette", "grading", "corner darkening"]},
   "crowd": {"noncombatants": "walk off during the beats", "pop_or_fade": false,
