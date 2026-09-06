@@ -142,7 +142,7 @@ THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
 returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
 backstage], Q7 [water supply], Q8 [battery value],
 Q9 [trust credit], Q10 [market day],
-Q11 [inflation feeling]. Next OPEN is Q12 [who's housed], the last in the section.
+Q11 [inflation feeling]. Next OPEN is Q12 [who's housed].
 
 AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
 (Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
@@ -266,9 +266,12 @@ and not this lane's: engine sync (BOH_FLOORPLAN), banks-used, dialogue catalogue
      have now independently landed on the seller's refusal, and whether a trader
      may say "not for money" is canon and is his.
 
-NEXT IN THIS LANE: Q12 [who's housed], the last OPEN question in the section as
-it stands. After that the ECONOMY queue is empty unless the coordinator adds
-more, and I will say so in two words.
+NEXT IN THIS LANE: Q12 [who's housed]. CORRECTION TO MYSELF, made before this
+block was pushed: I had written that Q12 was the last question in the section.
+IT IS NOT. The coordinator has added four more since I last read the whole
+queue, so FIVE remain OPEN: Q12 [who's housed], Q13 [printed money], Q14 [rent
+share], Q15 [first hour], Q16 [debt spiral]. The queue is not close to empty and
+nobody should plan as if it were. Read the section, not this block.
 
 ================================================================================
 
