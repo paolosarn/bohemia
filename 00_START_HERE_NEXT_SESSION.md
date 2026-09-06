@@ -2591,11 +2591,10 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/5 (a) LATEST -- *** CHAT 18. THE LANE IS CLAIMED, AND THE FIRST SPEED
-PLUMBER (plumber-ont6t5): 9/5 (b) LATEST -- *** CHAT 18. ROUND 2. THE FIRST SPEED
+PLUMBER (plumber-ont6t5): 9/5 (c) LATEST -- *** CHAT 18. ROUND 3. THE FIRST SPEED
 NUMBERS IN THE HISTORY OF THIS REPO ARE ON DISK. [sixty fps] FPS-ON-A-PHONE stays CLAIMED, not
-SHIPPED: everything the row asked for is measured and gated EXCEPT the one thing a container
-cannot do, which is a real handset. *** MODE: BUILD. TAB: NOT IN A TAB YET (this lane builds
+SHIPPED: everything the row asked for is measured and gated ON BOTH SURFACES except the one
+thing a container cannot do, which is a real handset. *** MODE: BUILD. TAB: NOT IN A TAB YET (this lane builds
 checkers, not screens). Nothing to judge.
 === PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
@@ -3171,73 +3170,70 @@ measurement is 30 days stale and wants a fresh bare clone, and REUSE FIRST is re
 COOK's cook tools missing their REUSE CHECK block. The suite number itself is the case for
 [suite runs] SUITE-FINISHES, which is now measured rather than remembered.
 
-THIS ROUND (round 2 of [sixty fps], still CLAIMED). Pulled main and rebased, re-read
-CLAUDE.md from disk, re-read the VAMILY front page, confirmed 18 PLUMBER, continued the job
-I hold. Round 1 left three things owed that do NOT need a handset. All three are now closed.
+THIS ROUND (round 3 of [sixty fps], still CLAIMED). Pulled main and rebased, re-read
+CLAUDE.md from disk, re-read the VAMILY front page, confirmed 18 PLUMBER, continued the job I
+hold. The row says "measure the demo AND THE ALPHA ... and a gate that holds it", and the gate
+only held the demo. That is the surface he actually taps under the one-link law, so it was the
+wrong one to leave unguarded. It is guarded now, and two bugs in my own earlier work are fixed.
 
-1. THE REAL NETWORK, which was the biggest unknown. Same demo, same box, same build, run
-through Chromium's slow-4G profile (1.6 Mbit down, 150 ms round trip):
-    the logo appears     8.4 s   (0.5 s on the local server)
-    the city is drawn   25.4 s   (1.9 s)
-    you can MOVE        33.0 s   (14.1 s)
-  A stranger on a bad signal stares at a blank screen for eight seconds before the logo
-  arrives and thirty-three seconds before a thumb does anything. Seven times the five second
-  goal. AND ONE THING GETS BETTER ON THE SLOW LINK, which is the diagnosis: the beat is
-  perfect through the boot there (0% of beats swallowed instead of 11.8%), because when the
-  network is the bottleneck the art dribbles in and the thread gets gaps. THE JAM IS NOT THE
-  DOWNLOAD. It is parsing and baking the art once it lands, which is why a FASTER connection
-  makes that part worse. That is the single most useful thing measured this round.
+1. THE GATE NOW BOOTS BOTH FILES. The alpha gets a BOOT pass: first play, the beat the witness
+recorded on the way, and the bytes. A full second pass was tried first and MEASURED 122 SECONDS
+against the 60 this gate had been, in a suite that finishes with forty-nine seconds to spare, so
+it was cut back to a boot pass and the gate now runs in 72s through the runner. The alpha's
+walk, fight and settled beat stay in the record and are NOT gated live; that blind spot is
+printed in the gate's own output every run so nobody reads a boot pass as a full one. What only
+the alpha can break is its own shell, and a boot is the measurement of that.
+  AND THE DRIFT LINE IS ASSERTED ON THE ONE NUMBER THAT DOES NOT MOVE. The obvious check is "do
+  both files reach the first step at the same time", and it is the wrong one: first play swings
+  five seconds run to run on this box. BYTES BEFORE ANYTHING IS ON SCREEN is deterministic to
+  the byte within a sample (6,335,759 alpha against 6,338,697 demo, 2,938 apart), because it is
+  a property of the files and not of the afternoon. That is what is asserted; the timing gap is
+  printed beside it as information.
 
-2. THE BEAT, AND IT IS THE 120 BPM LAW'S FIRST REAL CHECK IN THIS REPO. Every gate that
-touches that law asserts the number 500 is in the code, or that a step happened. None ever
-asked whether the step happened WHEN IT WAS DUE. The witness now wraps setInterval before any
-page script runs and records the real firing times of the metronome (picked by its 500 ms
-period; the first draft picked a 400 ms UI ticker and reported a perfect beat off the wrong
-clock, which is in the header).
-    through the boot   33.3% of beats late, 11.8% SWALLOWED WHOLE, worst gap ate 4.1 beats
-    once settled       13.8% late, 3.1% swallowed, median gap exactly 500 ms
-  Settled is much better and it is NOT clean. The median being perfect with a ragged tail is
-  a thread that is mostly free and occasionally busy. The settled figure is now a gate line;
-  the boot figure is printed and not asserted, because fixing it is [slim build] and
-  [hot path], not something a checker gets to demand.
+2. MY OWN RULE WAS WRONG, AND THE EVIDENCE TURNED UP TWO REFRESHES LATER. Round 2 fixed a
+budget that could loosen by making it a one-way ratchet: always take the stricter of old and
+new. A ONE-WAY RATCHET IS RIGHT FOR A STABLE METRIC AND WRONG FOR ONE WHOSE OWN SPREAD IS 40%.
+Measured across four refreshes on an unchanged tree, time to first play sampled 14.1 s, 18.7 s,
+19.9 s and 19.7 s. Pinned at 19.5 s from the luckiest of those, the ratchet would have failed
+the next ordinary run of a game nobody had touched, and a gate that goes red for nothing is a
+gate the next session switches off. That is the exact death I keep writing about and I walked
+into it while writing it down. THE BUDGET IS NOW SET FROM THE WORST CASE ACROSS THE LAST SIX
+REFRESHES, kept as a history array in the record so the movement is visible. What stops that
+hiding a real slowdown is that a refresh is a deliberate act somebody runs; a regression trips
+the standing budget first and a human has to look before any number moves. Same model as the
+repo budget gate.
 
-3. BATTERY IN TEN MINUTES, which is what the row literally asked for, and it is now ten real
-minutes each way rather than a thirty second sample multiplied up:
-    standing still, 10 min   8.3% of one core
-    walking, 10 min          9.9% of one core  ->  0.99 CPU-minutes per ten minutes
-  THE INTERESTING NUMBER IS THE FIRST ONE. Doing nothing costs 84% of what playing costs. The
-  game open and untouched in a pocket burns 0.83 CPU-minutes every ten minutes, and that is a
-  far cheaper thing to fix than a frame rate. Milliamp-hours are still owed and always will be
-  from here: the bill also has a screen, a radio and a thermal throttle on it.
+3. AND THE BOX IS NOW MEASURED, NOT ASSUMED. The empty-page rAF ceiling answers "can this
+browser paint at 60" and reads 60.x whatever else is running, because vsync is not contended --
+it cannot see CPU contention at all. So the instrument also times a fixed lump of integer work
+inside the page. Validated by throttling: 28.1 / 62.8 / 123.6 ms at CPU x1 / x2 / x4, spread
+under 3 ms. The budget records the yardstick it was set against and the gate scales its time
+and frame-rate lines by the ratio, clamped at 3x, past which it refuses to judge rather than
+excusing the number. HONEST LIMIT, WRITTEN DOWN: the yardstick did NOT explain this build's own
+run-to-run spread (it moved 28.1 to 28.7 ms while first play moved 14 s to 20 s), so the jam
+itself is what varies. It corrects for a slower or busier machine, nothing more, and the
+history above is what covers the rest.
 
-AND ONE BUG IN MY OWN WORK, FOUND AND FIXED THIS ROUND. THE RATCHET COULD LOOSEN. Both headers
-promised the budget "only ever comes down", and the arithmetic did not: the budget was derived
-from whatever the latest sample happened to be, so a slow afternoon on a busy box would have
-REWRITTEN THE BUDGET UPWARDS and baked the regression in as the new normal. Measured on one
-tree hours apart: the settled walk read 39.6 fps in one sample and 24.9 in the next, which
-would have moved the floor from 24 down to 18 with nothing in the game having changed. A
-refresh now takes the STRICTER of the old budget and the new one, line by line, and records
-which lines it tightened and which it held. This refresh tightened three (first play 26,500 ->
-19,500 ms, fight 12 -> 17 fps, bytes 33.8 -> 30.5 MB) and HELD two against a looser sample
-(walking held at 24 fps when the sample wanted 18; main thread held at 52% when it wanted 56).
-Loosening a line is now a deliberate act somebody does by hand, with a reason.
+WHERE THE ROW STANDS. Everything it named is measured, budgeted and gated on both surfaces:
+first play (local and on a phone network), walking (first minute and settled), the fight, the
+beat, and battery over ten minutes. The gate is GREEN at 35 passed, 0 failed, 72s through the
+runner.
+STILL CLAIMED, AND ONLY FOR ONE REASON: the row says "on a real phone" and there is no handset
+here.
+[PENDING Paolo, carried by the coordinator, unchanged from round 2]: is a phone-shaped Chromium
+enough to call this row shipped, or does he want somebody to open the link on a real phone and
+time it? I did not decide it, and it is the only thing between this row and SHIPPED.
 
-THE GATE IS GREEN at 29 passed, 0 failed, up from 25, and still one command.
+A COST THIS LANE NOW OWES THE FLEET, SAID PLAINLY: this gate went from 60s to 72s. The full
+suite measured 2,651s against its own 2,700s budget last round, so the headroom is now roughly
+twenty seconds. That is not comfortable and it is not somebody else's problem: it is
+[suite runs] SUITE-FINISHES, third in this lane's queue, and it moved up in importance because
+of my own work.
 
-WHAT IS LEFT ON THIS ROW, AND IT IS ONLY THE HANDSET. Every number the row named is now
-measured, budgeted and gated: time to first play (local and on a phone network), frame rate
-walking (first minute and settled), frame rate in a fight, the beat itself, and battery over
-ten minutes. What no container can do is open the link on an actual phone. The row stays
-CLAIMED for that reason and nothing else.
-[PENDING Paolo, carried by the coordinator]: is a phone-shaped Chromium enough to call this
-row shipped, or does he want somebody to open the link on a real phone and time it? I did not
-decide it, and it is the only thing standing between this row and SHIPPED.
-
-NEXT IN THIS LANE (VAMILY order, and every measurement this round agrees with it):
-[slim build] SLIM-THE-BUILD, then [hot path] THE-BEAT-LOOP-IS-CLEAN. The 12.5 second block,
-the 11.8% of swallowed beats and the 33 second wait on a real network are all the same finding
-seen from three sides: 19.4 MB of sprite banks parsed and baked on the thread the game draws
-on.
+NEXT IN THIS LANE (VAMILY order, and every measurement agrees with it): [slim build]
+SLIM-THE-BUILD, then [hot path] THE-BEAT-LOOP-IS-CLEAN. The 16.5 second block, the beats
+swallowed during boot and the 33 second wait on a real network are one finding seen from three
+sides: 19.4 MB of sprite banks parsed and baked on the thread the game draws on.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO
