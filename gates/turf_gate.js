@@ -87,10 +87,17 @@ const done = () => {
      + ' (' + withName + ' of ' + (cat.faction || 0) + ')', withName === (cat.faction || 0) && withName > 0);
   /* settlement is a neighbourhood holding its own lights and solar_lone is one
      holdout with a panel. Naming those would be inventing canon the row did not ask
-     for -- and `network` is left alone even though the roster has a faction called
-     Network, because treating the two as the same thing is a guess about his canon. */
-  ok('and NOTHING ELSE was renamed -- settlement, network and solar_lone are'
-     + ' untouched', nonFactionNamed === 0);
+     for, and that still stands.
+     *** THE REST OF THIS PARAGRAPH USED TO ARGUE AGAINST WHAT SECTION 6 SHIPPED,
+     AND IT WAS WRONG. *** It said `network` was left alone "because treating the
+     two as the same thing is a guess about his canon". It is not a guess: his
+     belonging file says the Network "hold: the feed, the radio repeaters, and THE
+     LIT GRID". Nobody had looked. Section 6 names them off that sentence.
+     THIS CALL PASSES NO GRID HOLDER, so what it still proves is the thing worth
+     proving: handed nothing, the naming is additive and network stays a bare
+     category exactly as before. */
+  ok('and handed no grid holder NOTHING ELSE is renamed -- settlement, network and'
+     + ' solar_lone are untouched', nonFactionNamed === 0);
   ok('the name is a real faction off his own graph',
      Object.keys(named.holdings()).every(f => !!G.factions[f] && G.factions[f].type === 'selectable'));
   ok('a whole feeder answers with ONE holder, so no border runs through a wire',
@@ -353,6 +360,109 @@ const done = () => {
   ok('and the border measurement actually notices when ownership stops following'
      + ' the blocks: scribbling one faction across the valley drops it to '
      + (100 * bad.pct).toFixed(1) + '%', bad.pct < 0.99);
+}
+
+/* ============================================================================
+   6. AND THE LIGHTS SAY WHOSE THEY ARE.
+   (9/6/26, FACTIONS lane, VAMILY row [light owners] NAME-THE-CIRCUIT-OWNER.)
+
+   The row was marked "needs Paolo (who holds what)". Who holds what SHIPPED on
+   9/6 in this same lane, so the named blocker was gone and nobody had noticed.
+
+   MEASURED BEFORE ANY OF THIS: 204 lit circuits, and 42 of them (21%) could name
+   a faction. The other 162 answered with a CATEGORY -- settlement, network,
+   solar_lone -- while Paolo 9/4 LOCKED says every part of the valley is owned by
+   a faction.
+   ========================================================================== */
+{
+  const L = require(path.join(ROOT, 'engine/bohemia_loop.js'));
+  const B = require(path.join(ROOT, 'engine/bohemia_belonging.js'));
+  const ctx = (L.BohemiaLoop || L).boot({ seed: 'bohemia' });
+  const m = ctx.worldMap.real, n = m.n;
+  const seats = T.derive(G, T.districtsOf(m, CE.cat), 1);
+  const tf = T.turf(m, CE.cat, seats);
+  const holderAt = (x, y) => tf.at(x, y);
+
+  /* *** THE READING, AND IT IS A READING RATHER THAN A GUESS. *** The module's
+     own comment used to refuse to join the `network` owner CATEGORY to the
+     faction called Network, calling it "a guess about his canon, not a reading of
+     it". His file had already answered it. This asserts the sentence is really
+     there, so the day he moves the grid to somebody else the gate says so instead
+     of the code quietly keeping an old name. */
+  const gridHolder = Object.keys(B.RULES || {})
+    .filter(k => /lit grid/i.test((B.RULES[k] || {}).hold || ''));
+  ok('*** HIS OWN FILE SAYS WHO HOLDS THE LIT GRID, AND IT IS ONE FACTION. *** '
+     + 'bohemia_belonging\'s ' + (gridHolder[0] || '?') + ' rule: "The feed, the radio '
+     + 'repeaters, and THE LIT GRID." Naming the network circuits is reading that '
+     + 'sentence, not guessing at it',
+     gridHolder.length === 1);
+
+  const grid = gridHolder[0] || null;
+  const was = PG.powerMap(m, 12345, { holderAt });
+  const now = PG.powerMap(m, 12345, { holderAt, gridFaction: () => grid });
+
+  function tally(pm) {
+    const seen = new Set();
+    let tot = 0, named = 0, ground = 0, free = 0, pay = 0;
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      const p = pm.at(x, y);
+      if (!p || !p.live || p.id < 0 || seen.has(p.id)) continue;
+      seen.add(p.id); tot++;
+      if (p.faction) named++;
+      if (p.ground) ground++;
+      if (p.free) free++;
+      if (pm.payTo(x, y)) pay++;
+    }
+    return { tot, named, ground, free, pay };
+  }
+  const A = tally(was), Bt = tally(now);
+
+  ok('*** ONE LIT CIRCUIT IN SIX WAS ANONYMOUS WHILE HIS FILE NAMED ITS OWNER. *** '
+     + 'Named with a faction: ' + A.named + ' of ' + A.tot + ' before, '
+     + Bt.named + ' of ' + Bt.tot + ' after',
+     Bt.named > A.named && Bt.named - A.named >= 20);
+
+  /* AND THE SECOND HALF OF THAT SENTENCE IS A CONSTRAINT, NOT COLOUR. */
+  ok('*** AND THEY NEVER CHARGE FOR IT, WHICH IS ALSO HIS SENTENCE AND IS A RULE '
+     + '[block rent] MUST NOT BREAK. *** "they have never once charged for it", '
+     + 'said twice in two places, so a Network circuit is marked free and payTo '
+     + 'answers nobody for it (' + Bt.free + ' free circuits)',
+     Bt.free > 0 && /never once charged/i.test((B.RULES[grid] || {}).hold || '')
+     && Bt.pay === Bt.tot - Bt.free);
+
+  /* WHAT IS STILL NOT NAMED, AND SHOULD NOT BE. */
+  ok('EVERY CIRCUIT KNOWS WHOSE GROUND IT RUNS UNDER, which is a different fact '
+     + 'from whose wire it is and is the one [block rent] needs. A neighbourhood '
+     + 'pooling its own lights is nobody\'s circuit and is still standing on '
+     + 'somebody\'s block (' + Bt.ground + '/' + Bt.tot + ')',
+     Bt.ground === Bt.tot);
+
+  ok('and settlement and solar_lone are still NOT called factions, because a '
+     + 'neighbourhood with a generator is not one and saying so would invent canon '
+     + 'the row did not ask for',
+     (() => {
+       const seen = new Set();
+       for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+         const p = now.at(x, y);
+         if (!p || !p.live || p.id < 0 || seen.has(p.id)) continue;
+         seen.add(p.id);
+         if ((p.owner === 'settlement' || p.owner === 'solar_lone') && p.faction) return false;
+       }
+       return true;
+     })());
+
+  ok('HANDED NO GRID HOLDER IT IS EXACTLY WHAT IT WAS -- the naming is additive, '
+     + 'which is the zero-regression proof',
+     A.named === tally(PG.powerMap(m, 12345, { holderAt })).named && A.free === 0);
+
+  /* *** LATE-BOUND, AND THE FIRST CUT WAS NOT. *** */
+  ok('AND THE NAME IS ASKED WHEN IT IS NEEDED, NOT AT BUILD TIME. The walked city '
+     + 'builds its power map at LOAD and the module carrying his sentence is '
+     + 'inlined further down the same file, so a value resolved at build came back '
+     + 'null and left every network circuit anonymous -- measured on the real '
+     + 'surface, 0 free where a direct call answered perfectly',
+     tally(PG.powerMap(m, 12345, { holderAt, gridFaction: () => grid })).free === Bt.free
+     && tally(PG.powerMap(m, 12345, { holderAt, gridFaction: () => null })).free === 0);
 }
 
 /* ---- 4. on the surface he walks ---------------------------------------- */
