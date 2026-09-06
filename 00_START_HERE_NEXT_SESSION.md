@@ -13035,6 +13035,21 @@ AT ONCE; the order is the door (living street under the plate, no stamp in the d
 the cold open offered, the tutorial offered exactly where he put it, then the game, and THE
 DAY PANEL IS NOT A MODAL. Anything a lane wants to add to the opening comes through this
 seat. Routed RUN [one question] and [first world], PLUMBER [stamp stripped].
+THEN (cf) A BIG UI RULING, LOCKED (laws/BOHEMIA_LAW_THE_UI_HAS_THREE_ACTS_9_6_26.md):
+"every time I say VAMILY to the UI chat I need to be seeing some sort of creation... we are
+not even 10% there, so it should not be implementing so much, focusing on code-wise where
+things go... everything has to be interchangeable with the new look... three different acts
+of UI... maybe one is Fallout 1 inspired, 2050 rustic... the middle modern, the third
+futuristic... I need to keep seeing options." So: EVERY UI ROUND ENDS WITH A PICTURE HE CAN
+OPEN, three to five DIFFERENT options, never one candidate, never a plan instead of a
+picture. STOP PLUMBING except the one required piece: every element draws from a SKIN so
+swapping the skin swaps the interface, which is what makes three acts possible instead of
+three rewrites. FALLOUT 1 enters the reference set 9/6, INTERFACE department only (CLAUDE.md
+updated); researched what it actually is (an in-world object, deliberately clunky, "not all
+that dependable" because the world was not quite working) so nobody copies a green screen,
+and flagged that HIS phrase "2050 rustic" is the harder half nobody has drawn: our own era's
+technology worn down and hand-repaired, not a 1950s idea of the future. Routed UI [three
+acts], [skin swap], [show options] as a standing duty, and DIRECTION [act cards].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
