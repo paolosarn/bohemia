@@ -2364,6 +2364,67 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 10 [final act], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_10_THE_TRANSCENDENT_LAST_ACT_9_5_26.md
+  banks/BOHEMIA_ACT3_THE_SAME_VERBS_FURTHER_OUT_DRAFT_9_5_26.txt (draft:true)
+THE ANGEL'S CANON IS HIS AND THIS ROUND ONLY READS IT. Act 3 is locked: the
+moonshot is ONE-WAY, "the gen-3 (Angel) heir goes and does not come back, the
+dynasty ends looking down at the planet"; the zoom axis and the generation axis
+are THE SAME AXIS ("street / city / planetary zoom... Act 3 was always Angel,
+always the planetary level"); one camera, one scalar, no band is a dead end.
+
+SAY THE MEASUREMENT FIRST, BECAUSE I ASSUMED OTHERWISE BEFORE I LOOKED: THE SHAPE
+OF ACT 3 IS ALREADY BUILT AND IT WORKS ON HIS PHONE. slices/BOHEMIA_CITY_WORLD
+carries var SKY_BANDS=[[0.25,'REGION'],[0.55,'PLANET'],[1.01,'MOON']] on one
+scalar SKYU running 0 to 1, with its own comment "Every band is the SAME iso
+projection with a smaller tile, so the diamond never breaks... it is why this is a
+zoom rather than a cut to a different picture", and it was debugged on his actual
+phone on 8/13 after he reported the zoom crashing on leaving the city. WHAT I DID
+NOT FIND is anything the Angel can DO up there. SCOPE STATED after round 6's false
+negative: engine/*.js and slices/*.html searched for band tables, planetary and
+moon references. Also: `Angel` appears 53 times across the laws and TWICE in the
+engine (the GEN_COUNT comment and the 'light' monument outcome).
+
+*** THE FINDING. THE INSTINCT FOR A TRANSCENDENT ACT IS NEW POWERS, AND NEW
+POWERS ARE THE ONE THING THAT WOULD BREAK IT. *** Near transfer works; FAR
+transfer "has been difficult to document in experiments, industrial psychology,
+education, and research on analogy, intelligence, and expertise", and learning is
+domain-specific. The sting: the longer you train a skill the MORE specific your
+proficiency becomes, so BEING AN EXPERT LIMITS TRANSFER. A new rule set in the
+last act makes the player A BEGINNER AT THE EXACT MOMENT THE STORY SAYS THEY
+BECAME A GOD, after ninety hours of street-level mastery.
+AND HIS OWN ZOOM LAW ALREADY HOLDS THE ANSWER, WRITTEN ABOUT A CAMERA: one
+camera, one scalar, the same diamond at every band. THE RULES MUST NOT CHANGE,
+THE SCALE CHANGES. Same verbs, further out. That is near transfer, which works,
+instead of far transfer, which does not.
+
+AND THE COST IS ALREADY DRAWN ON THE SCREEN. Experiments on power found that
+high-power people draw an E on their own forehead FACING THEMSELVES (legible to
+them, backwards to anyone looking), fail to allow for others not knowing what they
+know, and read other people's emotions less accurately. POWER DOES NOT MAKE YOU
+CRUEL, IT MAKES YOU UNABLE TO SEE FROM WHERE ANYBODY ELSE IS STANDING. At
+planetary zoom a person is not visible.
+THE ANGEL'S POWER AND THE ANGEL'S COST ARE THE SAME GESTURE: EVERY STEP BACK LETS
+YOU ACT ON MORE AND SEE FEWER. Rounds 6, 8 and 9 all found this game's real
+subject is people who remember you, so act 3 is the act where you can finally act
+on everything and can no longer see one of them. No stat, no new verb, no damage
+number.
+
+AND ONE MORE THING HIS TWO LAWS DO TOGETHER: "no band may be a dead end" and "the
+moonshot is one-way" are not in conflict. THE WHOLE GAME IS REVERSIBLE RIGHT UP
+UNTIL THE SINGLE MOMENT THAT IS NOT, which is where an ending gets its weight.
+
+SEVENTH ROUND OF THE SAME SHAPE: the hardest structural problem in the game,
+already solved, in a law written about a camera.
+
+ROUTED (proposals only): WORLD or LIFE+CITY WHAT-YOU-CAN-DO-FROM-UP-THERE (the
+verbs the player already owns, aimed at bigger things). UI
+THE-HIGHER-YOU-GO-THE-FEWER-YOU-SEE (make the measured cost legible; no new art).
+NOTHING FOR COMBAT, deliberately: the correct act-3 combat change is NO CHANGE,
+and saying so is this round's contribution to that lane. Inside this lane: Q11
+[lasting death] inherits the one-way step as the only irreversible thing in a game
+that refuses runs.
+
 ROUND 9 [century town], SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_9_A_PLACE_ACROSS_A_HUNDRED_YEARS_9_5_26.md
   banks/BOHEMIA_CENTURY_TOWN_THREE_SPEEDS_DRAFT_9_5_26.txt (draft:true)
