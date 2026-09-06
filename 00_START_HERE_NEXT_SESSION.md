@@ -14476,7 +14476,16 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): [judge enemies] CLAIMED, round 1 of N -- instrument
+ROUND LOG 9/6 (latest): [judge enemies] SHIPPED 66ba929 -- round 2 rebuilt
+the instrument (the bare city page never draws the crowd: PLAYER_CV arrives
+by postMessage from the alpha, so round 1's empty frames were the probe's
+own fault; judged through the shipped alpha instead) and delivered the
+verdict: two WAR-rank Cartel bodies in a dense phone-size frame and you
+cannot point at them - all three questions NO. Fix costs zero pixels:
+hostile-rank bodies wear their faction ACCENT (the card's one saturated
+piece), muscle commits to a card POLE, behaviours stay the motion sign.
+Routed as picker dressing rules (PEOPLE/CHARACTER), not a COOK batch.
+NEXT OPEN: [border card] THE-TERRITORY-LOOK. PREVIOUS: [judge enemies] CLAIMED, round 1 of N -- instrument
 work. PROVEN so far: the earned-edge path works live (BohemiaBetween.earn
 against Remnants makes Cartel read rel=hostile through ctRelToMine); 49
 Cartel bodies exist among 5,194 scheduled midday positions; the densest
