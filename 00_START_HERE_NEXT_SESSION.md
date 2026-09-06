@@ -1,3 +1,129 @@
+WORDS (words-8dqrnq): 9/5 (m) LATEST -- *** VAMILY Q16 [cut off] SHIPPED. A CUT-OFF IS
+NOT SAID. IT IS A BREAKER TRIPPING AND THE FRIDGE STOPS, AND THE MOST COMMON WAY YOUR
+POWER GOES OUT IS YOUR OWN KETTLE. *** Nothing to judge, MODE: RESEARCH, nothing
+entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q16 [cut off], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q16_THE_COLLECTOR_AND_THE_CUT_OFF_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q16, all draft:true.
+Ten collector lines, five cut-off lines and five refusals, as the row asked for.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE MEASUREMENT: 42 money-owed lines of 1,669 (2.5%), every one read by hand.
+THERE IS NO COLLECTOR IN THIS GAME. The entire collector vocabulary of Bohemia is
+one ambient bark in three registers: "You know what you owe me." Four words, no
+speaker, no place, no amount, no consequence. And the household side has exactly
+one line, which is the best thing in the set and was written by accident:
+    "Did you pay it?"  /  "I paid it. Tomorrow it will be twice again and I will
+    pay that too."
+Then I searched the cut-off itself: ten candidates, all read, and THREE ARE ABOUT
+CUTTING THE ENDS OFF VEGETABLES. ZERO CUT-OFF LINES. The closest thing we own is
+good and is a different scene: S15's owner in a backroom, an owner talking to an
+equal, not a collector at a door and not a family that cannot pay.
+
+THE REAL RECORD, IN THEIR OWN WORDS:
+- People in Beirut "DREAD THE MONTHLY VISIT of the private generator bill
+  collector." Not the bill. The VISIT. It is an appointment with a person.
+- "The generator owner is a thug. Everyone knows it, but there is nothing we can
+  do." (Yasmine, Saydeh Street, Achrafieh)
+- "He makes his own law IN FULL VIEW OF EVERYONE."
+- He "set up a large station in one of the underground warehouses, and the
+  residents know that he STEALS ELECTRICITY through large cables" from the state
+  utility's own rooms. (Majed, Barbour Street) He steals the state's power and
+  sells it back to the people the state was supposed to give it to, in a building
+  everybody can point at, and nothing happens.
+- AND THE WEAPON OF THE WEAK IS A METER. One resident, after TWO YEARS of asking,
+  got a meter installed: "MY ELECTRICITY BILL HAS BEEN CUT IN HALF." The whole
+  fight was a small box. Our first quest is already called THE METER READER.
+NUMBERS: one 500 kVA generator feeds ~300 homes; you buy AMPERES monthly, unmetered
+for years so the owner alone says how many hours he ran; the bill ran ~44% of an
+average household's income in 2023 and ~88% for the poorest; recent Baghdad rates
+12,000 dinars (~$9) per ampere round-the-clock, 8,000 (~$6) nights only, against a
+350,000 dinar (~$269) minimum wage.
+
+THE FINDING THAT PROVES US WRONG: THE CUT-OFF IS SILENT. I assumed a confrontation.
+In the real system the line runs through A CIRCUIT BREAKER SET TO THE AMPERES YOU
+BOUGHT, and it trips whenever you draw more. Two kinds, neither with a speech:
+    THE PUNISHMENT   somebody at the generator throws a switch. Nobody comes to
+                     tell you. You find out because the fan stops.
+    AND THE ONE I DID NOT EXPECT, WHICH IS BETTER: YOU CUT YOURSELF OFF. A family
+    at its ampere limit trips its own breaker by turning on one thing too many.
+    THE MOST COMMON WAY THE POWER GOES OUT IS YOUR OWN KETTLE.
+That second one is a whole design in one sentence and it is real: a household that
+buys five amperes decides every evening which TWO THINGS RUN AT ONCE. The argument
+about the kettle is the economy arriving in a kitchen, with no antagonist in the
+room. SO: HOW IS A CUT-OFF SAID? IT IS NOT. Write the silence and the next morning.
+
+THE COLLECTOR IS NOT THE OWNER, AND THAT IS THE CHARACTER. The man at your door is
+an employee. He does not set the price, cannot give you another week, and lives on
+your street. SO HE HAS THE SAME LINE THE FAMILY HAS: there is nothing he can do. It
+is true, AND it is the oldest excuse there is, and the family cannot tell which.
+That ambiguity is free and it is the best thing in the scene.
+
+WHAT MAKES IT LAND WITHOUT A VILLAIN VOICE, THREE THINGS:
+1. THE POWER IS PUBLIC, SO THE THREAT NEVER HAS TO BE SPOKEN. When both people
+   already know what he can do, saying it out loud is WEAKER. He talks dates and
+   amounts; the consequence sits in the room without being invited. ("The chair is
+   new." is a whole threat in three words and is not a threat.)
+2. HE IS RIGHT AND HE KNOWS IT. Menace is payoff plus conviction. The generator
+   owner GENUINELY PROVIDES THE ELECTRICITY; without him the block is dark. A
+   collector who thinks he is the reason the lights work is far worse to face than
+   one who thinks he is a villain.
+3. AND THIS IS WHERE Q10 CASHES IN. That round measured ZERO first-person threats
+   in the build and found that a warning beats a threat because a threat costs the
+   speaker his own freedom of choice. THE COLLECTOR IS THE PUREST WARNING-SPEAKER
+   IN THE GAME. He never says "I will cut you off", he says what happens on Friday.
+   Our five-times-repeated "that isn't a threat" tell must still never be spoken.
+
+ROUTED OUT OF THIS ROUND:
+- FACTIONS / ECONOMY: the testimony hands over two mechanics the coordinator's own
+  generator-mafia round did not name. The owner STEALS THE STATE'S POWER AND SELLS
+  IT BACK, in a building everybody can point at. And THE METER IS THE WEAPON OF THE
+  WEAK: one real bill halved the day a box went in, after two years of asking. A
+  meter is a cheap, legible, non-violent way for a player to fight a faction, and
+  it is already the name of our first quest.
+- LIFE + CITY: the breaker. A household at its limit trips its own line by turning
+  on one thing too many.
+- COMBAT: the collector is not a fight. He is why a fight starts three scenes
+  later, and if he is ever a fight he stops being frightening.
+- WORDS, held until MODE: BUILD: THE-COLLECTOR-HAS-A-DOOR.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER (Q11, Q14): facePerform is called with {} while 229 mood tags ride in
+  the shipped demo. A wire, not a feature. Two rounds depend on it.
+- PEOPLE (Q12, Q13, Q15): 64 given names never spoken; the hop count computed and
+  never spoken. Three rounds now.
+- UI: SEVEN rounds asking for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q17 [rumour words], which the coordinator added out of my Q13 round: what a
+DISTORTED rumour sounds like, now that PEOPLE is building rumours that travel about
+somebody who is not you and that get things wrong.
+
 FACTIONS (factions-ovkjpf): 9/6 (round 5) LATEST -- *** [who holds]
 EVERY-DISTRICT-HAS-AN-OWNER SHIPPED. Every border in the valley now runs along
 something a player can see: 65.7% -> 100%. *** Nothing to judge.
@@ -282,7 +408,7 @@ blockers 22/0, language 81/0.
 NEXT IN THIS LANE: Q15 [first hour].
 
 ================================================================================
-WORDS (words-8dqrnq): 9/5 (l) LATEST -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
+WORDS (words-8dqrnq): 9/5 (l) -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
 RESEARCH QUEUE Q1 TO Q15 IS NOW ALL SHIPPED. THE CITY FEED IS A PRESS RELEASE IN A
 WARM LOWERCASE COSTUME: EVERY POST THAT CARRIES ACTUAL NEWS HAS NO PERSON IN IT. ***
 Nothing to judge, MODE: RESEARCH, nothing entered the game.
