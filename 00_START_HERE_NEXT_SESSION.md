@@ -1,3 +1,67 @@
+SOUND (sound-xk7pjp): 9/5 (g) LATEST -- *** THE END OF A DAY WAS COMPLETELY
+SILENT, AND IT IS THE MOST REPEATED MOMENT IN A HUNDRED-HOUR GAME.
+TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
+
+Build 9/5ao - THE DAY ENDS ON YOU.
+VAMILY: [unused sounds] THE-OTHER-51, ROUND 3, STILL CLAIMED. Nine of 65 heard
+in round 1, twelve in round 2, THIRTEEN now.
+
+MEASURED: driving the clock from 06:00 to nightfall on the real surface and
+recording every sound the game asked for returned {}. Nothing.
+
+AND THE SOUND ALREADY EXISTED, WIRED TO THE OTHER DOOR INTO THE SAME ROOM.
+sleep_sink ("YOU SLEEP") is 5 of 5, his cleanest sweep, wired 8/22 to the SLEEP
+BUTTON. But the day loop's own header says there are TWO doors -- it "ends the
+day at NIGHTFALL 22:00 WHETHER YOU LIKE IT OR NOT". The door you choose had a
+sound; the door that closes on you did not, and that is the more dramatic one.
+
+WHERE IT GOES, AND WHY NOT THE OBVIOUS PLACE: onNightfall() is the obvious place
+and it would have played TWO SOUNDS ON ONE TAP, because the sleep button calls
+onNightfall() too, right after posting its own sleep_sink -- the 8/4 complaint
+the UI policy in this same file exists to prevent. The paths are already
+separate one level up: advance() carries the clock-driven ending, and the button
+never touches advance(). So it goes there, where it cannot stack.
+
+TWO OF MY OWN INSTRUMENT MISTAKES, BOTH CAUGHT BEFORE THEY BECAME CLAIMS:
+  * THE SAME MEASUREMENT SAID WAKING UP MAKES NO SOUND EITHER. It does --
+    come_up (4 of 5) fires when the morning card is dismissed, wired 8/22. My
+    probe called DAY.wake() directly and SKIPPED THE CARD. The silence was my
+    instrument skipping the UI, not the game. Checked before writing it down.
+  * MY RECORDER REPORTED A DOUBLE-PLAY THAT WAS NOT ONE. The first count came
+    back sleep_sink: 2 because it wrapped BOTH the city's message and the
+    shell's playSFX, so one sound counted twice. Per path: posted once, played
+    once. AN INSTRUMENT THAT WATCHES A SOUND TWICE REPORTS A DOUBLE-PLAY THAT IS
+    NOT ONE.
+
+GATE: every_sound_is_reachable_gate.py, 20 claims, both doors driven and counted
+separately. Mutations: the clock ending goes silent again RED x2; the sound
+moved into onNightfall() RED x3 (both doors double). A THIRD MUTATION DID NOT GO
+RED and that is correct, not a hole: making the button path call advance(0)
+creates no double, because DAY.sleep() has already set the phase so advance sees
+no transition. A mutation that cannot break the thing is not evidence either way
+and is recorded as such rather than counted as a pass.
+
+ALSO MEASURED THIS ROUND AND NOT ACTED ON, because it is not this row's job:
+A FIGHT STARTING MAKES NO SOUND AT ALL. cityFightOnEnter posts the encounter to
+the parent with no sound call anywhere in the path, and the street ambush is the
+same. There is NO APPROVED SOUND for "a fight begins" -- boss_here was cooked but
+never judged -- so wiring it would need a new cook, which THE-OTHER-51 forbids.
+It belongs to the coordinator's new [enemy heard] and [fight music] rows, which
+this lane has not claimed. Written down so the next round does not rediscover it.
+
+FILES  tools/bohemia_the_day_ends_on_you.py,
+       gates/every_sound_is_reachable_gate.py,
+       records/BOHEMIA_THE_DAY_ENDS_ON_YOU_9_5_26.md
+
+NEXT IN THIS LANE: THE-OTHER-51 round 4 -- what is left is combat (owned by
+sfx_wired_gate), the verbs that do not exist yet (already waived), a payday and
+a save. The honest end of this row is close: name what remains with a reason and
+mark it SHIPPED, rather than inventing callers for moments that do not exist.
+
+------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/5 (f) -- *** THE DESERT WAS PLAYING A SUBURBAN
+
 WORDS (words-8dqrnq): 9/5 (j) LATEST -- *** VAMILY Q13 [rumours spread] SHIPPED. WE
 ALREADY HAVE A REAL RUMOUR ENGINE. IN 1,669 LINES IT HAS PASSED ON NEWS ABOUT
 SOMEBODY OTHER THAN THE PLAYER EXACTLY ONCE, AND IT HAS NEVER ONCE BEEN WRONG. ***
@@ -471,6 +535,7 @@ NEXT IN THIS LANE: Q13 [printed money].
 ================================================================================
 
 SOUND (sound-xk7pjp): 9/5 (f) LATEST -- *** THE DESERT WAS PLAYING A SUBURBAN
+
 LAWN. step_sand fires for the first time since he approved it on 8/12.
 TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
 

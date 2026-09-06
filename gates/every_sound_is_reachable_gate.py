@@ -72,7 +72,7 @@ CANNOT_DRIVE = {
     #   them; it is the gate that owns that surface.
     'eat', 'drink', 'pickup', 'set_down', 'seton_more', 'demolish', 'dirt_take',
     'cloth_on', 'cloth_more', 'tape_pull', 'tape_more', 'lungs_burn', 'power_on',
-    'parts_pass', 'save_chime', 'sleep_sink', 'boots_go', 'tread_more',
+    'parts_pass', 'save_chime', 'boots_go', 'tread_more',
     # ^ a verb, a payday, a night's sleep or a save. Several of these already
     #   carry written waivers in sfx_wired_gate for verbs that do not exist yet
     #   (equip, sprint, power, place, patch), and those waivers are still true.
@@ -92,8 +92,8 @@ CANNOT_DRIVE = {
     # ^ both need a LIVE CIRCUIT within three cells, which is the whole of
     #   BB-A-LIT-BLOCK-HUMS and is held by lit_block_hums_gate on a grid it
     #   counts first. 88% of circuits are dead, so a spawn usually has none.
-    'sleep_sink',
-    # ^ needs a night actually slept through, not a clock moved past it.
+    # sleep_sink is NOT here any more: BOTH doors into the end of a day are
+    # driven and counted below.
     # time_pass is NOT here any more: it IS reachable, and listing it as
     # undrivable was this gate under-waiting for the four-second heartbeat that
     # carries the clock. See the drive.
@@ -304,6 +304,41 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   await p.waitForTimeout(2500);
   out.bedInside = await bed();
 
+  /* ---- THE END OF A DAY, BOTH DOORS INTO IT. Measured before this wire: the
+     clock reaching nightfall produced NOT ONE SOUND, while pressing the sleep
+     button has posted sleep_sink since 8/22. The day loop's own header says
+     there are two doors -- it "ends the day at NIGHTFALL 22:00 whether you like
+     it or not" -- and only one of them made a sound.
+     COUNTED PER PATH, because the first probe wrapped BOTH the city's message
+     and the shell's playSFX and reported one sound as two. AN INSTRUMENT THAT
+     WATCHES A SOUND TWICE REPORTS A DOUBLE-PLAY THAT IS NOT ONE. ---- */
+  await p.evaluate(()=>{ window.__MSG={};
+    window.addEventListener('message',e=>{ const d=e&&e.data;
+      if(d&&d.bohemiaCitySfx&&d.bohemiaCitySfx.ev){ const k=d.bohemiaCitySfx.ev;
+        window.__MSG[k]=(window.__MSG[k]||0)+1; } }); });
+
+  /* DOOR ONE: you decide to turn in. */
+  await cf.evaluate(()=>{ try{ if(DAY.phase!=='awake'){ DAY.wake(); daySync(); } }catch(e){} });
+  await p.evaluate(()=>{ window.__MSG={}; });
+  await cf.evaluate(()=>{ try{ const b=document.getElementById('sleepbtn'); if(b) b.click(); }catch(e){} });
+  await p.waitForTimeout(1200);
+  out.dayByChoice = await p.evaluate(()=>Object.assign({},window.__MSG));
+
+  /* DOOR TWO: the light runs out on you. */
+  await cf.evaluate(()=>{ try{ DAY.wake(); daySync(); }catch(e){} });
+  await p.waitForTimeout(400);
+  await p.evaluate(()=>{ window.__MSG={}; });
+  out.dayDrive = await cf.evaluate(async()=>{
+    const w=ms=>new Promise(z=>setTimeout(z,ms));
+    for(let i=0;i<40 && DAY.phase!=='ended';i++){ advance(30); await w(20); }
+    return {min:T.min, phase:DAY.phase};
+  });
+  await p.waitForTimeout(1500);
+  out.dayByClock = await p.evaluate(()=>Object.assign({},window.__MSG));
+  await p.evaluate(()=>{ try{
+    const n=(window.__MSG||{}).sleep_sink||0;
+    if(n>0) window.__ASK['sleep_sink']=(window.__ASK['sleep_sink']||0)+n; }catch(e){} });
+
   out.final = await p.evaluate(()=>({
     asks: window.__ASK, renders: window.__RENDERS,
     aliveRunning: window.__ALIVE.filter(x=>x==='running').length,
@@ -431,6 +466,23 @@ def main():
        '~9,000 cells. Wiring it would mean inventing a surface so a sound has '
        'somewhere to play. (%s)' % json.dumps(su.get('wood')),
        not (su.get('wood') or {}).get('ok'))
+
+    # ---- BOTH DOORS INTO THE END OF A DAY. THE-OTHER-51 round 3.
+    ch = (d.get('dayByChoice') or {}).get('sleep_sink', 0)
+    ck = (d.get('dayByClock') or {}).get('sleep_sink', 0)
+    ok('the day loop really ended the day by the clock (%s)'
+       % json.dumps(d.get('dayDrive')),
+       (d.get('dayDrive') or {}).get('phase') == 'ended')
+    ok('choosing to sleep sounds like sleeping (%d), which it has since 8/22'
+       % ch, ch == 1)
+    ok('AND THE DAY RUNNING OUT OF LIGHT SOUNDS LIKE IT TOO (%d). Measured '
+       'before this wire: driving the clock to nightfall produced NOT ONE '
+       'SOUND, and in a hundred-hour game over three generations the end of a '
+       'day is the most repeated moment there is.' % ck, ck == 1)
+    ok('and neither door plays it TWICE -- the button never goes through '
+       'advance(), so the two paths cannot stack (choice %d, clock %d). Two '
+       'sounds on one tap is the 8/4 complaint the UI policy exists to stop.'
+       % (ch, ck), ch == 1 and ck == 1)
 
     ok('nothing threw (%s)' % (d.get('errs') or 'clean'), not d.get('errs'))
 

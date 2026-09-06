@@ -29368,7 +29368,26 @@ function advance(mins){
   const was=DAY.phase;
   DAY.tick(mins, dayWhere());
   daySync();
-  if(was==='awake'&&DAY.phase==='ended') onNightfall();
+  if(was==='awake'&&DAY.phase==='ended'){
+    /* __THE_DAY_ENDS_ON_YOU__ (9/5, SOUNDS lane) -- THE DOOR THAT CLOSES ON YOU.
+       MEASURED: driving the clock from 06:00 to nightfall on the real surface
+       produced NOT ONE SOUND, and in a hundred-hour game over three generations
+       the end of a day is the most repeated moment there is.
+       THE SOUND ALREADY EXISTS AND WAS ALREADY WIRED TO THE OTHER DOOR.
+       sleep_sink is 5 of 5, his cleanest sweep, and on 8/22 it went on the SLEEP
+       BUTTON -- you decide to turn in. But the day loop has two doors and says
+       so in its own header: it "ends the day at NIGHTFALL 22:00 WHETHER YOU LIKE
+       IT OR NOT". Choosing had a sound; running out of light did not.
+       IT GOES HERE AND NOT IN onNightfall() BECAUSE THIS BRANCH IS THE CLOCK'S
+       ALONE. The button calls DAY.sleep(), daySync() and onNightfall() directly
+       and never touches advance(), so it cannot double -- and two sounds on one
+       tap is the 8/4 complaint the UI policy in this same file exists to stop.
+       BEFORE onNightfall(), so it lands with the light going rather than after
+       the reckoning has been totted up. */
+    try{ if(window.parent&&window.parent!==window)
+      window.parent.postMessage({bohemiaCitySfx:{ev:'sleep_sink'}},'*'); }catch(_e){}
+    onNightfall();
+  }
   updHud();
 }
 function isNight(){ return T.min>=19*60||T.min<6*60; }
