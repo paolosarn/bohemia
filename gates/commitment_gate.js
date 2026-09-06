@@ -355,8 +355,26 @@ async function partD() {
     const shape = await page.evaluate(() => {
       const r = ctValleyRoster(), aff = r.filter(a => a.faction);
       const facs = [...new Set(aff.map(a => a.faction))];
+      /* *** ASK IT THE WAY THE GAME ASKS IT. *** This called whoHears with
+         {ties} alone and read zero lines everywhere, and the reflex was to go
+         tune the seat placer until the number moved. BOTH real call sites --
+         the card's cost preview and the card's hear rows -- pass three more
+         things, and two of them decide the answer outright:
+           keyOf: ctVKey   the valley mints a fresh id per person, and this
+                           module keys its whole social graph on the key it is
+                           handed, so without it every "H1-1" in the valley is
+                           ONE PERSON and the graph collapses. bohemia_ties.js
+                           warns about exactly this in its own comment.
+           watching        the canon-enemy path, added because an acquaintance
+                           walk needs a chain of housemates and workmates
+                           between two outfits and in a thin valley there
+                           usually is none.
+         A gate that calls something the game never calls is measuring its own
+         invention. The wrong number was the ruler, not the valley. */
+      const opts = { ties: BohemiaTies, keyOf: ctVKey, save: ctBelongSave(),
+                     watching: (typeof BohemiaBetween !== 'undefined' ? BohemiaBetween : null) };
       const lines = facs.filter(f =>
-        BohemiaCommitment.whoHears(f, r, ctCell(), { ties: BohemiaTies }).length);
+        BohemiaCommitment.whoHears(f, r, ctCell(), opts).length);
       return { people: r.length, affiliated: aff.length, outfits: facs.length,
                withLines: lines.length };
     });
@@ -491,10 +509,26 @@ async function partWall() {
            why the probe climbed to the ceiling on the same person the real loop
            could only move once. OCCUPANCY LAW says one body per cell; a test
            that puts two there is asking the game a question it does not have. */
+        /* *** RE-READ WHERE THEY ARE, AND NEVER LAND ON A JUNK CELL. *** (9/6.)
+           Two bugs in four lines, and the trace this loop now prints found both:
+             day 1  restood:true   at 6933,1259  button ctgive  gave 0->1
+             day 2  restood:FALSE  at 6931,1258  button MISSING gave 1->1
+           `at` was captured ONCE before the loop, so every offset after the first
+           press was measured from where the person USED TO BE -- people walk. And
+           when no offset matched, the loop fell out leaving hx,hy on the LAST
+           ring cell it happened to try, which is nobody's doorstep: the card then
+           opened on a stranger and the give button was simply absent. Eight days
+           of "the wall stops you at 1 of 5" was the probe standing in a gap.
+           The position is re-read every press and a failure restores the cell
+           that last worked, so a miss can never be worse than staying put. */
+        let _re = false;
+        const _now = ctAt(who);
+        const _keep = [hx, hy];
         for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
-          hx = at[0] + _d[0]; hy = at[1] + _d[1];
-          const _a = ctAdjacent(); if (_a && _a.id === who.id) break;
+          hx = _now[0] + _d[0]; hy = _now[1] + _d[1];
+          const _a = ctAdjacent(); if (_a && _a.id === who.id) { _re = true; break; }
         }
+        if (!_re) { hx = _keep[0]; hy = _keep[1]; }
         /* ctSawCell EVERY PRESS, BECAUSE THE QUALIFICATION DOES. (9/5.) The
            candidate probe above climbs with `ctClose(); ctSawCell(); ctOpen();`
            and this climbed with `ctClose(); ctOpen();`. So the probe reported
@@ -508,7 +542,9 @@ async function partWall() {
         const was9 = BohemiaBelonging.gaveOf(sv, fid);
         const g = document.getElementById('ctgive') || document.getElementById('ctfavour');
         if (g) g.click();
-        (window.__EZ = window.__EZ || []).push({ day: T.day, button: !!g,
+        (window.__EZ = window.__EZ || []).push({ day: T.day, button: !!g, restood: _re,
+          at: hx + ',' + hy, opened: (typeof CT_OPEN !== 'undefined' && CT_OPEN) ? String(CT_OPEN.id) : null,
+          want: String(who.id),
           id: (g || {}).id || null, gave: was9 + '->' + BohemiaBelonging.gaveOf(sv, fid) });
       }
       ctClose(); ctOpen();
