@@ -33117,7 +33117,10 @@ function animate(kind){
 }
 // the metronome: the ONE clock movement answers to
 setInterval(()=>{
-  const di=(held!==null)?held:pend;
+  /* __THE_TIME_NOT_THE_TAPS__: a latched direction is the last thing consulted, so a
+     real press always wins over one he let go of. */
+  if(LATCH_DIR !== null && latchShouldStop()) latchStop();
+  const di=(held!==null)?held:(pend!==null?pend:LATCH_DIR);
   if(di===null)return;
   pend=null;
   const running=(held!==null&&heldBeats>=2)&&!RIDING;   // the bike IS the speed, no run ramp
@@ -33130,8 +33133,61 @@ setInterval(()=>{
   if(moved) glideStart(_gfr[0], _gfr[1], _gsp);   /* __WALK_FEEL_SLIDE__ */
   if(held!==null)heldBeats++;
   if(moved){ animate((running||RIDING)?'run':'walk'); reportState(); footingUpdate(); /* __FLOOR_DOES_SOMETHING__ */ }
+  /* __THE_TIME_NOT_THE_TAPS__: A WALL ENDS IT. Two beats with nothing to show for them and
+     the latch lets go -- walking into a building forever is exactly the
+     not-working-button feeling this game has been bitten by before. */
+  if(LATCH_DIR !== null){
+    if(moved) LATCH_STILL = 0;
+    else if(++LATCH_STILL >= 2) latchStop();
+  }
   render();
 },BEAT);
+/* ==== __THE_TIME_NOT_THE_TAPS__ (9/6) : LET GO AND KEEP WALKING ================
+   BB-THE-TIME-NOT-THE-TAPS. DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER'S
+   ATTENTION. The long walk correctly costs in-game hours; it also cost him
+   however long twenty presses take, and that second cost buys nothing.
+
+   MEASURED FIRST: a held press ALREADY keeps going -- four seconds of hold moved
+   five cells on the served demo. Half this row was built. But a held press
+   removes the TAPPING and not the WATCHING, and the row's last five words are
+   IT REMOVES THE WATCHING. This is the gap between those two, and nothing more:
+   a hold that really got going LATCHES, so letting go keeps you walking.
+
+   IT REMOVES NO COST. Every latched step is the same stepOnce, so the clock, the
+   road moments, the leavings and the crews all happen exactly as they would. NOT
+   FAST TRAVEL.
+   ========================================================================== */
+var LATCH_DIR = null;       /* the direction he let go in, or null */
+var LATCH_STILL = 0;        /* beats since he last actually moved */
+var LATCH_AFTER = 3;        /* a real hold latches; a tap is still one step */
+
+/* EVERYTHING THAT ENDS IT, in one place, so a new reason to stop cannot be
+   added to one caller and forgotten in another. */
+function latchStop(){ LATCH_DIR = null; LATCH_STILL = 0; }
+
+function latchShouldStop(){
+  if(LATCH_DIR === null) return false;
+  /* the walked mode only */
+  try{ if(typeof MODE !== 'undefined' && MODE === 'city') return true; }catch(_e){}
+  /* ANYTHING TO LOOK AT. The road moments this lane put on the walked street on
+     9/5 arrive as a card; walking through them would be worse than the taps. */
+  try{
+    var d = document.getElementById('daycard');
+    if(d && getComputedStyle(d).display !== 'none') return true;
+  }catch(_e){}
+  /* ANYBODY COMING. A crew that has closed on you is the other thing worth
+     stopping for, and it is read from the same record the render uses. */
+  try{
+    if(typeof HOST_DREW !== 'undefined' && HOST_DREW && HOST_DREW.length){
+      for(var i=0;i<HOST_DREW.length;i++)
+        if(HOST_DREW[i] && HOST_DREW[i].state === 'close') return true;
+    }
+  }catch(_e){}
+  /* THE DAY ENDING. */
+  try{ if(typeof DAY !== 'undefined' && DAY.phase === 'ended') return true; }catch(_e){}
+  return false;
+}
+
 function startHold(di){
   /* __EVERY_CONTROL_LEAVES_THE_VISTA__: a direction is not "get me out of here", it is "go that
      way". So the overlook drops AND the hold he is already making stands --
@@ -33140,8 +33196,17 @@ function startHold(di){
   try{ if(typeof vistaBail==='function') vistaBail(); }catch(_e){}
   /* __THE_ROAD_CARD_IS_NOT_A_LOCK__: and the road card goes with it, same rule. */
   try{ if(typeof roadBail==='function') roadBail(); }catch(_e){}
+  /* __THE_TIME_NOT_THE_TAPS__: HIM. Any press ends a latched walk -- a control you
+     cannot interrupt is worse than one you have to hold. Done here rather than
+     in the button handler so every way in cancels it, not just the pad. */
+  latchStop();
   held=di; pend=di; heldBeats=0; }
-function endHold(){ held=null; heldBeats=0; }
+function endHold(){
+  /* __THE_TIME_NOT_THE_TAPS__: LETTING GO IS NOT STOPPING, if he really was walking. A tap
+     is one step and stays one step, so nothing about the existing feel moves;
+     only a hold that got going carries on. */
+  if(held !== null && heldBeats >= LATCH_AFTER){ LATCH_DIR = held; LATCH_STILL = 0; }
+  held=null; heldBeats=0; }
 
 // ---- WORLD MOVERS LAW (Paolo 7/5/26): NOTHING moves until you do, cars and
 // planes included. Movers advance ONLY on player steps, then TWEEN fluidly over

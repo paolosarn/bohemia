@@ -1031,6 +1031,19 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('TIME NOT TAPS',  ['node', 'gates/the_time_not_the_taps_gate.js'],
+     'BB-THE-TIME-NOT-THE-TAPS: DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER\'S ATTENTION. '
+     'The long walk correctly costs in-game hours and ALSO cost him however long twenty presses '
+     'take, which buys nothing. MEASURED FIRST AND IT CHANGED THE JOB: a held press ALREADY '
+     'keeps going (four seconds of hold moved five cells), so half the row was built -- but a '
+     'held press removes the TAPPING, not the WATCHING, and the row\'s last five words are IT '
+     'REMOVES THE WATCHING. So a hold that really got going LATCHES: let go and you keep '
+     'walking. No new control and no new surface. IT REMOVES NO COST -- a latched step is the '
+     'same stepOnce -- and it stops on its own for anything to look at, anybody closing on you, '
+     'a wall, any press, or the day ending, with every reason in ONE function. The card rule '
+     'matters most: this lane put road moments on the walked street, and strolling through them '
+     'would be worse than the taps. Driven with REAL input, never by calling startHold. '
+     'Mutation: remove the latch -> 3 red; remove the card rule -> 2 red', True),
     ('DRAINS SHOWN',   ['node', 'gates/shadow_of_what_you_did_gate.js'],
      'BB-THE-SHADOW-OF-WHAT-YOU-DID: the reckoning card names which verb took what, READ '
      'STRAIGHT OFF THE LEDGER\'S drain REASONS, NEVER A SECOND TABLE. Half was already built '

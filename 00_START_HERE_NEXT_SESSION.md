@@ -6629,7 +6629,65 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 LATEST -- *** [drains shown] SHIPPED. The end-of-day card
+RUN (run-eak241): 9/6 LATEST -- *** [auto walk] SHIPPED. Hold a direction long
+enough and you keep walking after you let go. It is NOT fast travel, it costs the
+same hours, it just stops costing your attention -- and it stops itself the
+moment there is something to look at. TAB: RUN, hold an arrow and take your thumb
+off. Nothing to judge. ***
+
+MEASURED FIRST, AND IT CHANGED THE JOB. A HELD PRESS ALREADY KEEPS GOING: the pad
+wires pointerdown to startHold and the metronome steps every beat while `held` is
+set. Four seconds of hold moved five cells on the served demo, before I touched
+anything. HALF THIS ROW WAS BUILT AND I NEARLY CLOSED IT ON THAT.
+*** BUT A HELD PRESS REMOVES THE TAPPING, NOT THE WATCHING, and the row's last
+five words are IT REMOVES THE WATCHING. *** Your thumb is still down and your
+eyes are still on it. The job was the gap between those two and nothing more.
+
+SHIPPED: a hold that really got going LATCHES. No new control, no new surface, no
+destination picker -- the same press he already makes, one sentence further. A
+tap is still one step, so nothing about the existing feel moves. IT REMOVES NO
+COST: every latched step is the same stepOnce, so the clock, the road moments,
+the leavings and the crews all happen exactly as they would have.
+IT STOPS ON ITS OWN, which is why it is safe to let go: anything to look at (a
+card), anybody coming (a crew at 'close'), a wall (two still beats), him (any
+press), or the day ending. EVERY REASON IN ONE FUNCTION so a new one cannot be
+added to one caller and forgotten in another. The card rule matters most --
+this lane put road moments on the walked street last round, and strolling through
+them would be worse than the twenty taps.
+Measured: 6217,6283 -> 6218,6284 -> 6219,6285 -> 6221,6287 -> 6222,6288 ->
+6223,6289[card] -> [stopped]. Six cells with nothing held down, then it stopped.
+
+*** AND THE HARNESS WALKED INTO A WALL, FOR THE THIRD TIME ON THIS LANE. *** The
+first cut held east, got ZERO cells after release and read like a broken feature.
+He had walked into a building and the wall rule correctly stopped him. THE
+HARNESS WAS MEASURING A WALL. It asks the game which direction has room now --
+finding room is the SETUP for "he keeps walking when there is room", not the
+claim. Second harness problem: synthetic PointerEvent('pointerup') did not
+reliably reach the pad handler, so one early run looked like the latch never
+engaged. It uses REAL input now and asserts the pad-to-handler wiring separately,
+because a probe that calls startHold has proved the function and not the button.
+
+AND TWO WAYS THE GATE WAS FLAKY, BOTH FIXED PROPERLY rather than loosened:
+  1. THE CLAIM COMPETED WITH ITS OWN STOP RULE -- a road moment on the first beat
+     after release means he stops before covering a cell, the feature working
+     scored as failing. The claim is the true one now: he either walked on OR
+     stopped for something named, and "it latched at all" stays a separate check
+     so the mutation still bites.
+  2. THE SETUP DID NOT ALWAYS HAPPEN -- a card arriving between clearing cards
+     and the press landing meant the press hit the card. THE SETUP retries now.
+     Retrying a setup is honest; retrying an assertion would not be.
+  Green, green, RED across three runs before; five clean runs after, one through
+  the suite.
+
+  TIME NOT TAPS 19/0 (new) - COLD HAND 6/0 - ROAD ON FOOT 12/0
+  COLD HAND matters here: it taps the pad forty times and the latch must not
+  change what a tap does. It does not.
+  MUTATION: remove the latch -> red, zero cells after letting go; remove the card
+  rule -> 2 red including "a card on screen stops it".
+Record: records/BOHEMIA_THE_TIME_NOT_THE_TAPS_9_6_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [drains shown] SHIPPED. The end-of-day card
 told you about the four things that happen TO you and said NOTHING about the two
 things you DID: everything you bought and everything you put up. It reads the
 ledger now instead of a side list, so every drain shows whoever wrote it.
