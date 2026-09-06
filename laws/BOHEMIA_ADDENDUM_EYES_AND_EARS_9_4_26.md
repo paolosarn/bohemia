@@ -53,3 +53,31 @@ not grounded in something checked does not go on the board.
   then its standing duty.
 - The manager's round in the central-chat law: every lane read every
   round; readers into every lane that moved.
+
+
+## AMENDED 9/6/26: EYES AND EARS GOES TO SCHOOL (Paolo, LOCKED)
+"Eyes and ears gotta still be going to school bro, rounds of big brain research.
+Maybe each request for eyes and ears becomes a round of online research for that
+topic before it does it, so maybe eyes and ears takes 2 rounds."
+
+**EVERY JOB IN THIS LANE IS TWO ROUNDS. NEVER ONE.**
+- **ROUND ONE IS SCHOOL.** Before a single measurement, the lane spends a whole
+  VAMILY researching that job's topic: how the best games in the world do this
+  thing, what the real craft or science says about it, what the standard
+  instrument for measuring it is, and what that instrument gets wrong. It ends as
+  a written record. NOTHING IS MEASURED IN ROUND ONE and nothing is built.
+- **ROUND TWO IS THE CHECK.** The instrument gets built and run, armed by round
+  one, and the record must name WHICH finding from school changed how it measured.
+  If nothing from school changed the method, school was done badly.
+- A job marked SHIPPED without both rounds is not shipped. A job that looks like
+  one round is a job the lane has not learned enough about yet.
+- **WHY HE IS RIGHT, in this lane's own evidence:** its best rounds were already
+  the schooled ones. E4 reported 50 events never called, a second method said 56,
+  and BOTH WERE WRONG because a name assembled at run time is invisible to every
+  text search ever written -- which is a fact about the INSTRUMENT, not the game,
+  and only knowing the craft catches it. E7's score sheet only found the colour
+  density drift because it first went and learned what colour density IS. An
+  unschooled checker measures what is easy to measure and reports it as truth.
+- This does not slow the lane down, it doubles what a round is worth: a checker
+  that knows the craft finds the defect the game has, not the defect the tool can
+  see.

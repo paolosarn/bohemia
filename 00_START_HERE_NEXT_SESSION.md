@@ -11498,7 +11498,15 @@ hand-cut demo. New law: laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md -- anyt
 derived is derived every run or a machine proves the copy matches its source, and A RULING
 OF HIS THAT LIVES ONLY AS PIXELS IS NOT RECORDED. Routed PLUMBER [nothing baked], EYES E11
 [pixels only] and E12 [silence standing], UI [colour reaches]; topped up DYNASTY and
-ECONOMY.
+ECONOMY. THEN (bx) "eyes and ears gotta still be going to school bro... each request
+becomes a round of online research for that topic before it does it, so maybe eyes and ears
+takes 2 rounds" -> LOCKED. That lane's MODE is now SCHOOL THEN CHECK: every job is TWO
+rounds, round one is pure online research on that job's topic with NO measuring, round two
+builds and runs the instrument and must name which finding from school changed the method.
+A job SHIPPED without both rounds is not shipped. Written into VAMILY's EYES section and
+laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md, with the lane's own evidence for why he is
+right (E4's grep count was wrong twice because a run-time-assembled name is invisible to
+any text search; E7 only found the density drift after learning what density is).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
