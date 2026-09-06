@@ -1,3 +1,74 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 8) LATEST -- *** [town sizes]
+TOWN-TIERS-ARE-HIS SHIPPED. He can move any faction's town size from the DIRECT
+tab and the walked city agrees the same second. *** Nothing to judge.
+
+VAMILY row: [town sizes] TOWN-TIERS-ARE-HIS, MODE: BUILD, SHIPPED 9/6.
+Record: records/BOHEMIA_HE_CAN_MOVE_A_TOWN_9_6_26.md
+
+THE ROW SAID "needs Paolo" AND IT DID NOT
+Its own brief is two halves: "the draft tiers off act1_power ship; HE MOVES ANY
+FACTION HE LIKES." The first shipped 9/5. The second was missing, and it was not
+a ruling -- it was a door. Nothing waits on him now.
+
+WHAT SHIPPED. Tab: DIRECT, a fourth mode beside CUTSCENES / QUESTS / STANDING.
+Fourteen rows, four chips each (FORTRESS / TOWN / CAMP / WORK IT OUT), every chip
+44px. He is choosing a CONSEQUENCE, not a label -- each row prints what the tier
+buys, read off the real modules:
+  fortress 11 of 11 goods, 7 blocks across
+  town      8 of 11 goods, 5 blocks across
+  camp      4 of 11 goods, 3 blocks across
+WORK IT OUT is the default and a real choice: it returns the faction to DERIVED
+rather than freezing today's answer, so re-ranking somebody in the graph moves
+their tier instead of leaving it disagreeing with canon.
+
+*** THREE FAULTS HID BEHIND SOURCE CHECKS THAT ALL PASSED. READ THIS BEFORE
+BUILDING ANOTHER PANEL IN THE ALPHA. ***
+1. window.BohemiaTowns IS NOT IN THE ALPHA. It is inlined in the walked city and
+   nowhere else. Any dial that needs an engine module must ASK THE CITY and render
+   the reply -- the STANDING dial's own comment says why in full, and retyping the
+   rule into the alpha is the second-copy drift this lane keeps deleting.
+2. dirRender RETURNS. Its shared branch for dial modes calls dirDial() and
+   returns, and dirDial() hides the host unless the mode is 'standing'. A new dial
+   mode must be wired INSIDE that branch, not next to the call in the message
+   listener.
+3. EVERY BUTTON READS 0x0 BEHIND THE SPLASH, because #app is display:none. THIRD
+   TIME THIS SESSION that ruler has lied. Tap #front before measuring anything.
+
+THE SHIP TEST, DRIVEN ON A REAL CANVAS
+  Colorful (act1_power 1) reads "worked out from strength: CAMP - sells 4 of 11"
+  press FORTRESS -> "YOURS: FORTRESS - sells 11 of 11"
+  the walked city, asked with its OWN module -> fortress/11
+  press WORK IT OUT -> back to CAMP - sells 4 of 11, save cleared
+
+GATES  faction towns 48/0 (was 33/0), faction between 182/0, turf 36/0,
+       faction colour 17/0, demo build 25/0, alpha loads 20/0
+
+[PENDING Paolo] -- THREE, ALL CARRIED FORWARD, NOTHING NEW
+  1. Anarchists, Colorful and Custom are called non-territorial by his own notes
+     and still hold ground. Should they at all?
+  2. What it COSTS to be seen with one of the four hidden factions, or taken for
+     one. Nothing answers it.
+  3. FOUR COLOUR CLASHES, and he can now SEE them on the map: Mob #db1800 beside
+     Reds #db1900, Network #4a8ddb beside Blues #0052db. Blues and Reds keep
+     theirs by name, so Network and Mob are the ones squatting. Also: is the
+     Cartel drab on purpose? The law names two drab factions, the gate carries
+     three.
+
+KNOWN RED AND NOT THIS LANE'S: faction_outfit 16/2 (Blues/Trades silhouettes
+0.009, mean 0.070). VERIFIED on a clean checkout of origin/main with none of this
+work -- identical numbers. It is a SHAPE problem and the alpha's own comment
+already documents it. Do not chase it from here.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [light owners]  NAME-THE-CIRCUIT-OWNER -- says "needs Paolo (who holds what)",
+    and who holds what SHIPPED 9/6: turfAt answers every cell and the border is
+    drawn and coloured. Worth re-reading before assuming it is blocked.
+  [enemies unite]  BB-COALITION  (with WORLD)
+  [crossing costs]  THE-WRONG-COLOUR-REACTS -- has a real border AND a real
+    colour to cross now; the last four rows were feeding it
+
+--------------------------------------------------------------------------------
+
 EYES AND EARS (eyes-5vql33): 9/5 (i) LATEST -- *** E8 [first minute] SHIPPED. The lane's ten
 instruments now run in a HUMAN REVIEWER'S ORDER, as one command, and building that runner
 found the worst instrument bug of the day: TWO COUNTERS THAT NOTHING INCREMENTED. They read
