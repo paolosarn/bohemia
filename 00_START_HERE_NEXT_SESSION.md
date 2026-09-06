@@ -13024,6 +13024,17 @@ world and nothing resolves one, so standing is a one-way ratchet toward being ha
 generation three is an ANGEL who cannot forgive anything; routed PEOPLE [make it right],
 top of lane. Also topped up DYNASTY (empty), ECONOMY, EYES (E13 half-size check, school
 first) and DIRECTION [small and clear].
+THEN (ce) VAMILY: 7 commits -- FACTIONS [enemies unite] A COALITION YOU CAN MEET (formed()
+had one caller and it was a card), and DIRECTION [first look] judged the PUBLIC DEMO'S
+first screen as a picture: the promise shows NO WORLD (a logo on a void while we own a
+living street), the workshop build stamp leaks into a stranger's first second and reads as
+debug text, and ONE TAP IN TWO MODALS STACK (the cutscene offer and the DAY panel). Since
+Paolo ordered a THIRD pop-up the same round (tutorial or skip) and nobody owned the ORDER,
+I ruled it: records/BOHEMIA_RULING_THE_FIRST_SIXTY_SECONDS_9_6_26.md -- NEVER TWO QUESTIONS
+AT ONCE; the order is the door (living street under the plate, no stamp in the demo cut),
+the cold open offered, the tutorial offered exactly where he put it, then the game, and THE
+DAY PANEL IS NOT A MODAL. Anything a lane wants to add to the opening comes through this
+seat. Routed RUN [one question] and [first world], PLUMBER [stamp stripped].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
