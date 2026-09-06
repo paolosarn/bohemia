@@ -62,43 +62,87 @@ const BOH_POWERGRID=(()=>{
        ONLY THE `faction` CATEGORY IS NAMED. settlement is a neighbourhood holding its
        own lights and solar_lone is one holdout with a panel; naming those would be
        inventing canon the row did not ask for.
-       AND `network` IS LEFT ALONE ON PURPOSE, even though the graph has a faction
-       called Network: the category predates the roster and treating the two as the
-       same thing is a guess about his canon, not a reading of it. Written down rather
-       than silently resolved. */
+       *** AND `network` IS NO LONGER LEFT ALONE, BECAUSE SOMEBODY FINALLY LOOKED.
+       *** (9/6, [light owners] NAME-THE-CIRCUIT-OWNER.) The paragraph that used to
+       stand here said treating the category and the faction as one thing was "a
+       guess about his canon, not a reading of it." It is a reading, and it was
+       already written down. bohemia_belonging.js, the NETWORK rule, in his own
+       words:
+           hold: "The feed, the radio repeaters, and THE LIT GRID. They are the
+                  reason a message crosses the valley in an hour instead of a day,
+                  and they have never once charged for it."
+       The lit grid is theirs by canon. Refusing to say so left 34 of 204 lit
+       circuits -- one in six -- anonymous while his file named their owner. This
+       is the authored-but-unread disease with the answer sitting two modules away.
+       AND THE SECOND HALF OF THAT SENTENCE IS A CONSTRAINT, not colour: "they have
+       NEVER ONCE CHARGED FOR IT", said twice in two places. A Network circuit is
+       marked free, so [block rent] cannot ship a bill they would never send.
+
+       WHAT IS STILL NOT NAMED, AND SHOULD NOT BE. settlement is a neighbourhood
+       pooling its own lights and solar_lone is one holdout with a panel. Neither is
+       a faction and calling them one would invent canon. What they get instead is
+       GROUND: since [who holds] (9/6) every cell of the valley has a named holder,
+       so an unowned circuit can still say whose land it runs under -- which is a
+       different fact from whose wire it is, and it is the one [block rent] needs. */
     const name = opts.holderAt || null;
+    /* HIS WORD FOR THE GRID-HOLDING FACTION. Passed in rather than typed, so this
+       module still takes DATA and never a roster; absent, nothing is named and the
+       behaviour is exactly what it was.
+       *** LATE-BOUND, AND THE FIRST CUT WAS NOT. *** A FUNCTION is accepted and
+       asked when the answer is needed, because the walked city builds its power map
+       AT LOAD -- `let POWER=buildPower(om,seed)` -- and the module that carries his
+       "hold: the lit grid" sentence is inlined further down the same file. Measured
+       on the real surface: the name resolved to null at build time, so 34 circuits
+       stayed anonymous and 0 came back free while a direct call answered "Network"
+       perfectly. Same shape as the CLOUTMOD load-order bug bohemia_loop.js carries a
+       paragraph about. */
+    const gridOpt = opts.gridFaction || null;
+    function gridFactionNow(){
+      try { return (typeof gridOpt === 'function') ? (gridOpt() || null) : gridOpt; }
+      catch(_e){ return null; }
+    }
     for(let ci=0;ci<circuits.length;ci++){
       const c=circuits[ci];
       const live=r()<litFraction;
-      let owner=null, faction=null;
+      let owner=null, faction=null, free=false;
+      /* WHOSE LAND IT RUNS UNDER, lit or not, because a dark circuit is still on
+         somebody's block and that is the whole of [block rent]'s question. Read
+         off the circuit's FIRST cell for the same reason the holder is: one
+         feeder, one answer, or the border runs through a wire. */
+      let ground=null;
+      if(name){ const g=name(c[0][0],c[0][1]); if(g&&g.faction) ground=g.faction; }
       if(live){
         const roll=r(); let acc=0;
         for(const k in weights){acc+=weights[k];if(roll<acc){owner=k;break;}}
         owner=owner||'settlement';
-        if(owner==='faction'&&name){
-          /* named off the circuit's FIRST cell, so every cell of one feeder answers
-             with one holder -- a circuit that changed hands halfway down its own run
-             would be a border drawn through a wire. */
-          const h=name(c[0][0],c[0][1]);
-          if(h&&h.faction) faction=h.faction;
-        }
+        if(owner==='faction'&&ground) faction=ground;
       }
-      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci,faction};
+      for(const [x,y] of c)status[x+','+y]={live,owner,id:ci,faction,ground,free};
     }
     /* THE CIRCUITS SOMEBODY COULD NOT PAY FOR. Empty at boot, because a valley
        where the lights are already out is a different game and that is not the
        seed's business. */
     const dark=Object.create(null);
-    const DEAD={live:false,owner:null,id:-1,faction:null};
+    const DEAD={live:false,owner:null,id:-1,faction:null,ground:null,free:false};
     function raw(x,y){ return status[x+','+y]||DEAD; }
     /* THE ONE ANSWER. A doused circuit reports NOT LIVE and KEEPS ITS OWNER,
        because whose block went dark is exactly the thing you want to know when
        it does — the light went out, the claim did not. */
+    /* HIS CANON, NOT A GUESS, AND ASKED AT READ TIME: the Network hold the lit
+       grid and have never once charged for it. Resolved here rather than at build
+       so a caller whose modules load in any order still gets the name. */
+    function skin(s){
+      if(s.owner!=='network') return s;
+      const g=gridFactionNow();
+      if(!g) return s;
+      return {live:s.live,owner:s.owner,faction:s.faction||g,ground:s.ground,
+              free:true,id:s.id,doused:s.doused};
+    }
     function at(x,y){
       const s=raw(x,y);
-      if(s.id>=0&&dark[s.id]) return {live:false,owner:s.owner,faction:s.faction,
-                                       id:s.id,doused:true};
-      return s;
+      if(s.id>=0&&dark[s.id]) return skin({live:false,owner:s.owner,faction:s.faction,
+                                       ground:s.ground,free:s.free,id:s.id,doused:true});
+      return skin(s);
     }
     return {circuits:circuits.length,
       liveCircuits:Object.values(status).filter(s=>s.live).length,  /* live CELLS; the name predates the id */
@@ -108,13 +152,22 @@ const BOH_POWERGRID=(()=>{
       /* WHO HOLDS THIS BLOCK, BY NAME, or null where nobody is named. A doused
          circuit keeps its holder: the light went out, the claim did not. */
       holderAt:(x,y)=>at(x,y).faction||null,
+      /* AND WHOSE GROUND IT IS ON, which every circuit can answer since [who
+         holds] -- a settlement pooling its own lights is nobody's circuit and is
+         still standing on somebody's block. */
+      groundAt:(x,y)=>at(x,y).ground||null,
+      /* WHO YOU PAY FOR THIS BLOCK. The wire's owner if it has one, otherwise the
+         landlord. Null only where the map itself has no holder. */
+      payTo:function(x,y){ const s=at(x,y); if(s.free) return null;
+        return s.faction||s.ground||null; },
       /* how many live circuits each named faction holds -- the owner map as a
          number, which is what BB-TERRITORY-FLAG will read. */
       holdings:function(){
-        const out={};
+        const out={}; const g=gridFactionNow();
         for(const k in status){ const s=status[k];
-          if(s.live&&s.faction&&!dark[s.id]) (out[s.faction]=out[s.faction]||{cells:0,circuits:{}}),
-            out[s.faction].cells++, out[s.faction].circuits[s.id]=1; }
+          const f = s.faction || (s.owner==='network' ? g : null);
+          if(s.live&&f&&!dark[s.id]) (out[f]=out[f]||{cells:0,circuits:{}}),
+            out[f].cells++, out[f].circuits[s.id]=1; }
         for(const f in out) out[f].circuits=Object.keys(out[f].circuits).length;
         return out;
       },
