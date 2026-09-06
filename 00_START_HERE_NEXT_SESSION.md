@@ -8784,7 +8784,50 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 LATEST -- *** [real ending]: THE ENDING WAS ALREADY BUILT,
+RUN (run-eak241): 9/6 LATEST -- *** [weekly goal] SHIPPED. The card you see at
+the end of every day now tells you what you are working on: ONE MORE FACTION
+WITH YOU, and how far along you are. It was already in the game, behind a button
+nobody presses. TAB: RUN, play a day and sleep. Nothing to judge. ***
+
+THE ROW, DAY 18: A GOAL YOU HAVE TO GO FIND IS NOT A GOAL. The study behind it is
+unusually blunt -- forty children behind and uninterested in arithmetic, under
+PROXIMAL SUB-GOALS vs a DISTAL GOAL vs "work productively". Under proximal
+sub-goals they progressed rapidly and grew real interest in a subject that had
+held none. *** DISTAL GOALS HAD NO DEMONSTRABLE EFFECTS. Not weaker. NONE. ***
+
+MEASURED FIRST AND BOTH HALVES OF THE ROW HELD:
+  1. THE MIDDLE HORIZON WAS ALREADY BUILT AND ALREADY HIDDEN. rungRead() answers
+     it exactly -- your rung, who is with you, and TO BE BACKED, the number you
+     still need -- and it lives behind #rungbtn, a button you have to notice.
+  2. THE RECKONING CARD SAID NOTHING ABOUT IT. Four sections, not one word about
+     what you are working toward, on the last thing seen every single day.
+So nothing was designed. The answer the game already had went on the card he
+passes anyway, READ FROM rungRead(), the STANDING card's OWN source -- no second
+table, which is the bug this lane already shipped once on this exact card.
+
+*** AND MY FIRST CUT FAILED THE ROW'S OWN STUDY, which is the part worth
+keeping. *** Measured on the served demo it read "8 MORE FACTIONS AND THE CITY
+BACKS YOU". EIGHT FROM ZERO IS THE DISTAL GOAL WEARING A NUMBER -- the exact
+condition the study found does nothing -- and it would have shipped as a feature
+citing research it does not follow. The ask is ONE MORE, every time; the climb
+sits underneath as progress. And the denominator matters as much: it counts
+toward what the mandate NEEDS (8), never the whole roster (16), which would have
+made the goal twice as far away as it is.
+
+  THIS WEEK 15/0 (new, registered)
+  MUTATION: put the distal ask back -> 1 red on that exact claim, naming the
+  string; hide it again -> 4 red; count the whole roster -> 2 red. The gate also
+  holds that the STANDING card still opens and reads the SAME number, because a
+  middle horizon that disagrees with itself is worse than a hidden one.
+  HARNESS NOTE: the first cut of the gate grepped BOHEMIA_DEMO.html for the mark
+  and went red on a build that WORKS -- the demo LOADS the city file rather than
+  embedding it, so the mark is not in the demo's own bytes and never will be.
+  The demo's half of the claim is that it loads the city; the rest is asked of
+  the served run.
+Record: records/BOHEMIA_THIS_WEEK_9_6_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [real ending]: THE ENDING WAS ALREADY BUILT,
 AND THE GATE GUARDING IT WAS READING A BUILD NO PLAYER GETS. Fixed the
 instrument, not the game. TAB: RUN, play a day to nightfall and sleep. Nothing to
 judge. ***

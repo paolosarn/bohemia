@@ -1127,6 +1127,25 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('THIS WEEK',      ['node', 'gates/this_week_gate.js'],
+     'BB-THIS-WEEK, day 18: "A GOAL YOU HAVE TO GO FIND IS NOT A GOAL." Day 7 found the DAILY '
+     'motor and days 9 and 11 the HUNDRED-HOUR arc; NOBODY EVER ASKED WHAT YOU ARE WORKING ON '
+     'THIS WEEK. The evidence is blunt -- forty children behind and uninterested in arithmetic, '
+     'under PROXIMAL SUB-GOALS vs a DISTAL GOAL vs "work productively": under proximal sub-goals '
+     'they progressed rapidly and grew real interest, and DISTAL GOALS HAD NO DEMONSTRABLE '
+     'EFFECTS. Not weaker. NONE. MEASURED FIRST AND BOTH HALVES OF THE ROW HELD: the middle '
+     'horizon was ALREADY BUILT AND ALREADY HIDDEN (rungRead() answers it exactly, behind the '
+     'STANDING button nobody presses) and the reckoning card, the last thing seen every single '
+     'day, said nothing about what you are working toward. So nothing was designed: the answer '
+     'the game already had went on the card he passes anyway, read from the STANDING card\'s OWN '
+     'source -- no second table, the bug this lane already shipped once on this exact card. '
+     '*** AND THE FIRST CUT OF THE WORDS FAILED THE ROW\'S OWN STUDY: it read "8 MORE FACTIONS '
+     'AND THE CITY BACKS YOU" on a fresh run, and eight from zero IS the distal goal wearing a '
+     'number. The ask is ONE MORE, every time, and the climb sits under it as progress. *** '
+     'Mutation: put the distal ask back -> 1 red on that exact claim; hide it again -> 4 red; '
+     'count the whole roster instead of the mandate -> 2 red (0 of 16 makes the goal twice as '
+     'far as it is). Also asserts the STANDING card still opens and reads the SAME number, '
+     'because a middle horizon that disagrees with itself is worse than a hidden one', True),
     ('COME BACK',      ['node', 'gates/stop_and_come_back_gate.js'],
      'VAMILY [title screen] / STOP-AND-COME-BACK, record item H: "no way to stop and come '
      'back that a stranger would recognise as such". MEASURED FIRST AND TWO THIRDS WERE '
