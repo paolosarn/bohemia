@@ -219,6 +219,43 @@ standalone city **nobody is ever blitted**. It runs in the demo now.
 > is written into the gate at the point of use so the fourth time is somebody
 > reading rather than re-deriving.
 
+## AND ONE MORE LANE'S GATE, WHOSE FLAKE TURNED OUT TO BE A TUNED NUMBER
+
+`known_gate` B5 — *"standing on a street fills the log ON ITS OWN"* — went red. It
+waits for **two** overheard conversations to accumulate by themselves, driven only by
+rendering, and it was getting one.
+
+Two things were wrong and only the first was mine.
+
+**It stood at the first resident's front door.** That was "where people are" while
+every person walked a private ray from their own doorstep. It is an empty street at
+noon now. It stands beside **whichever body currently has the most neighbours** — the
+literal reading of its own comment, and immune to which bearing goes where or how many
+of a settlement work alone.
+
+**And then it still answered 21/0 and 20/1 by turns.** Pinning the clock to
+mid-morning did not fix it, so I measured the thing itself: *how many renders does two
+conversations actually take?* Two consecutive runs of identical code:
+
+```
+120 renders      380 renders
+```
+
+**The old bound of 260 sat in the middle of the natural spread.** That is a coin flip,
+not a test. The claim was never in doubt — both runs reached it comfortably; thinning
+the pairs standing close enough to overhear had stretched the tail past a number that
+was tuned to the old world.
+
+The bound is 900 now, a little over twice the slowest run observed, **and the leg
+prints what it took** so the next person who sees this wobble reads the number instead
+of re-deriving it. Three runs since: 300, 130, 150 renders, green each time. Stubbing
+`knownHeard()` to return null still takes B5 and three others red.
+
+> This is the leg that carries the sentence **"A GATE THAT FAILS INTERMITTENTLY IS
+> WORSE THAN NO GATE: it teaches everybody to re-run it until it goes green, which is
+> how a real failure gets waved through."** It was right, and it was flaky anyway,
+> because it had bounded the WORLD's randomness and left a wall-clock-shaped hole.
+
 ## THE GATE
 
 `gates/people_gather_gate.js`, **13 pass / 0 fail**, walked surface and cut demo.

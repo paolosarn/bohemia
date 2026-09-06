@@ -135,15 +135,60 @@ function pw() {
     await SETTLE(page, 2200);
 
     /* stand where people are: a spread neighbourhood is one household per
-       subdivision BY HIS 7/29 RULING, so a conversation lives in a settlement */
+       subdivision BY HIS 7/29 RULING, so a conversation lives in a settlement.
+       *** AND "WHERE PEOPLE ARE" MOVED ON 9/6, SO THIS HAD TO. *** This stood
+       beside the FIRST RESIDENT'S FRONT DOOR, which was where everybody was while
+       every person walked a private ray from their own doorstep. LIFE + CITY's
+       A BEARING IS A PLACE (9/6) sends the working half of a settlement to shared
+       places during the day, so a doorstep at noon is now an empty street and the
+       leg below heard one conversation instead of two -- the mechanism working,
+       reported as the mechanism missing. The claim is unchanged and so is the
+       difficulty: two conversations have to accumulate ON THEIR OWN, driven only
+       by rendering. It is just asked where the settlement actually is.
+       Falls back to the doorstep when a settlement has no place, so ground the art
+       has not filled in is measured exactly as it was.
+       Record: records/BOHEMIA_A_BEARING_IS_A_PLACE_9_6_26.md */
     const found = await city.evaluate(() => {
       BohemiaPopulation.setDial(20);
+      /* *** AND PIN THE HOUR, BECAUSE THIS LEG'S OWN COMMENT DEMANDS IT. *** B5
+         below already says "A GATE THAT FAILS INTERMITTENTLY IS WORSE THAN NO
+         GATE", and it was still choosing its spot at whatever minute the page
+         happened to have booted to -- which decides whether the settlement is
+         indoors, out at work, or sheltering from the afternoon heat. Measured
+         9/6: the same code answered 21/0 and 20/1 on consecutive runs. Mid-morning
+         is when this valley is outdoors (alive_gate measures two thirds of it out
+         at 10:00), so the leg asks its question at the hour the question has an
+         answer, every time. */
+      try { T.min = 10 * 60; if (typeof DAY !== 'undefined') DAY.min = 10 * 60; } catch (e) {}
       const NB = BohemiaPopulation.NB;
       for (let ny = 0; ny < 24; ny++) for (let nx = 0; nx < 24; nx++) {
         if (BohemiaPopulation.zoneAt(om, POWER, nx * NB, ny * NB, seed) !== 'cluster') continue;
         const ppl = pplPeople(nx, ny);
         if (ppl.length < 5) continue;
-        hx = ppl[0].home[0] + 1; hy = ppl[0].home[1] + 1;
+        /* THE DENSEST SPOT RIGHT NOW, asked of the people themselves rather than
+           guessed from a doorstep or from place index 0 -- only the people with
+           one particular bearing go to any one place, and a third of a settlement
+           works alone by trade. Standing beside whichever body has the most
+           neighbours is what "stand where people are" actually means, and it is
+           the same sentence this comment always carried. */
+        let at = null, most = -1;
+        for (const a of ppl) {
+          const pa = pplAt(a);
+          let n = 0;
+          for (const b of ppl) {
+            const pb = pplAt(b);
+            if (Math.max(Math.abs(pa[0] - pb[0]), Math.abs(pa[1] - pb[1])) <= 6) n++;
+          }
+          if (n > most) {
+            for (const d of [[1,0],[-1,0],[0,1],[0,-1]]) {
+              if (pplStandable(pa[0] + d[0], pa[1] + d[1])) {
+                most = n; at = [pa[0] + d[0], pa[1] + d[1]]; break;
+              }
+            }
+          }
+        }
+        if (!at) at = [ppl[0].home[0] + 1, ppl[0].home[1] + 1];
+        hx = at[0]; hy = at[1];
         city.x = (nx * NB) | 0; city.y = (ny * NB) | 0;
         render();
         return true;
@@ -180,14 +225,31 @@ function pw() {
        IS WORSE THAN NO GATE: it teaches everybody to re-run it until it goes
        green, which is how a real failure gets waved through. So this walks a
        bounded distance and stops the moment the claim is satisfied. */
-    for (let i = 0; i < 260; i++) {
+    /* *** THE BOUND WAS THE COIN FLIP, AND IT IS MEASURED NOW RATHER THAN GUESSED.
+       *** This waited 260 renders. Measured 9/6 on two consecutive runs of the same
+       code, the number of renders it actually takes for two conversations to leak:
+       120 and 380. THE OLD BOUND SAT IN THE MIDDLE OF THE NATURAL SPREAD, which is
+       exactly a coin flip, and it is why this leg answered 21/0 and 20/1 by turns.
+       The claim was never in doubt: both runs reached it. LIFE + CITY's A BEARING
+       IS A PLACE (9/6) sends the working half of a settlement to shared places and
+       leaves the solitary trades walking alone, which thins the pairs standing
+       close enough to overhear near any one spot and stretched the tail.
+       900 is a little over twice the slowest run observed. The leg is not weaker:
+       it still requires two conversations to accumulate ON THEIR OWN, driven only
+       by rendering, and stubbing knownHeard() to return null still takes it and
+       three others red. And it PRINTS what it took, so the next person who sees
+       this wobble reads the number instead of re-deriving it.
+       Record: records/BOHEMIA_A_BEARING_IS_A_PLACE_9_6_26.md */
+    let __took = -1;
+    for (let i = 0; i < 900; i++) {
       await city.evaluate(() => render());
       await SETTLE(page, 260);
       if (i % 10 === 9) {
         const n = await city.evaluate(() => knownLoad().count());
-        if (n >= 2) break;
+        if (n >= 2) { __took = i + 1; break; }
       }
     }
+    console.log('    [probe] two facts took ' + __took + ' renders');
     const after = await city.evaluate(() => {
       const k = knownLoad();
       return { n: k.count(), subs: k.subjects().length, rows: k.all() };
