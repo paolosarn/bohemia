@@ -83,7 +83,13 @@ body #hud{ padding:4px 10px; letter-spacing:1px; }
 .pb{ font-size:0; color:transparent; }
 .pb::before, .pb::after{ content:''; position:absolute; left:50%; top:50%;
   width:0; height:0; border-left:6px solid transparent; border-right:6px solid transparent;
-  border-bottom:14px solid var(--acc);
+  /* THE ARROWS ARE BRIGHTER THAN THE PALETTE'S GOLD, ON PURPOSE (9/6,
+     [eyes: faint chips]). Measured on the finished picture with nothing on top: the
+     eight walk arrows were 4.31 to 4.46 against a 4.5 floor -- under it, on the one
+     control that makes the game advance, and the old ruler had cleared them at 4.9
+     to 5.1 because it was measuring the button and not the shape. A lighter tint of
+     the same gold, so the palette is unchanged and the pad is legible. */
+  border-bottom:14px solid #d8c49a;
   transform:translate(-50%,-57%) rotate(var(--ba,0deg)); transform-origin:50% 50%; }
 .pb::after{ display:none; }
 /* travelling: two chevrons, the same shape said twice */
@@ -217,7 +223,9 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #keypanel .krow.on{border-color:var(--acc);background:rgba(184,154,106,0.16)}
 #keypanel .krow.leg{opacity:0.7}
 #keypanel .krow.clear{color:var(--acc);font-weight:700;letter-spacing:1px;margin-bottom:4px}
-#note{position:absolute;left:10px;top:10px;font-size:10px;color:#8a7d66;background:rgba(12,10,8,0.85);border:1px solid var(--line);padding:5px 9px;border-radius:5px;z-index:4;letter-spacing:.5px}
+/* 4.16:1 measured against a 4.5 floor (9/6, [eyes: faint chips]) -- the one label on
+   this screen that both rulers agreed was too faint. Lifted inside the same family. */
+#note{position:absolute;left:10px;top:10px;font-size:10px;color:#b3a488;background:rgba(12,10,8,0.85);border:1px solid var(--line);padding:5px 9px;border-radius:5px;z-index:4;letter-spacing:.5px}
 #bikebtn{display:none;position:absolute;left:12px;bottom:14px;padding:8px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}
 #bikebtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 

@@ -46,12 +46,41 @@ def read_box(img, r, scale):
     crop = np.asarray(img.crop((x, y, x + w, y + h)).convert('RGB')).reshape(-1, 3)
     if len(crop) < 16:
         return None
-    l = np.array([lum(c) for c in crop[::max(1, len(crop) // 400)]])
+    # *** MEASURE THE LETTERS, NOT THE BOX (UI lane, 9/6, [eyes: faint chips]). ***
+    #
+    # THE OLD METHOD WAS THE DARKEST TENTH AGAINST THE LIGHTEST TENTH, and a tenth is
+    # only "the ink" if the ink really is a tenth of the box. MEASURED on the real
+    # screen: the MUSIC chip is 10px text inside a 44px thumb, so the letters are
+    # TWO PER CENT of its pixels -- the top tenth is therefore still background, and
+    # the box scored 1.21:1, "the ink and the paper are the same brightness", about a
+    # label a person reads without effort. The two-cluster answer for the same chip is
+    # 6.17:1. OUTFIT: 1.21 against 5.77. PHONE, which is dark text on gold, is the same
+    # error inverted: 3.24 against 6.29.
+    #
+    # AND IT FAILED THE OTHER WAY TOO, WHICH IS WORSE. The eight walk-pad arrows --
+    # the single control that makes the game advance -- measured 4.9 to 5.1 and passed,
+    # while the letters are really 4.31 to 4.46 and DO NOT clear the floor. A ruler
+    # that clears the most important control in the game and condemns a chip anybody
+    # can read is not strict or lenient, it is unrelated to the thing it names.
+    #
+    # WORST OF ALL, IT PUNISHED THE FIX: the bigger a control's tap target, the smaller
+    # the share of it that is letters, so making a button MORE accessible (the 44px
+    # thumb this lane shipped on 9/6) made its contrast score WORSE.
+    #
+    # SO: split the box at the midpoint of its own range and average each side. That is
+    # ink and paper as a reader sees them, and it does not care what fraction of the
+    # rectangle the letters happen to occupy.
+    sample = crop[::max(1, len(crop) // 400)]
+    l = np.array([lum(c) for c in sample])
     if l.size < 8:
         return None
-    ink = crop[::max(1, len(crop) // 400)][np.argsort(l)]
-    dark = ink[:max(1, len(ink) // 10)].mean(axis=0)      # the darkest tenth
-    light = ink[-max(1, len(ink) // 10):].mean(axis=0)    # the lightest tenth
+    lo, hi = float(l.min()), float(l.max())
+    mid = (lo + hi) / 2.0
+    below, above = sample[l < mid], sample[l >= mid]
+    if len(below) == 0 or len(above) == 0:
+        return round(float(ratio(sample[int(np.argmin(l))], sample[int(np.argmax(l))])), 2)
+    dark = below.mean(axis=0)
+    light = above.mean(axis=0)
     return round(float(ratio(dark, light)), 2)
 
 

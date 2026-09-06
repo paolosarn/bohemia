@@ -222,6 +222,28 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('READABLE RULER', ['python3', 'gates/readable_ruler_gate.py'],
+     'Board row [eyes: faint chips] THE PLAYER CANNOT READ HIS OWN CONTROLS -- an EYES AND '
+     'EARS bounce-back on shipped work, and this lane\'s own defect ([phone readable] shipped '
+     'text size, tap targets, colour blindness and motion and never measured contrast). '
+     'MEASURING FOUND SOMETHING ELSE: the row reported 39 unreadable boxes worst at 1.03:1, '
+     'and the picture showed those chips are plainly readable. THE RULER WAS WRONG IN BOTH '
+     'DIRECTIONS. It took the darkest tenth of a box against the lightest tenth, and a tenth '
+     'is only "the ink" if the ink really is a tenth of the box: the MUSIC chip is 10px text '
+     'in a 44px thumb, so the letters are TWO PER CENT of its pixels, the top tenth was still '
+     'background, and it scored 1.21 for a label anybody can read (the letters are 6.17). '
+     'PHONE, dark on gold, is the same error inverted: 3.24 against 6.29. AND IT CLEARED THE '
+     'ONE THING THAT MATTERED -- the eight walk-pad arrows, the single control that makes the '
+     'game advance, passed at 4.9-5.1 while the letters were 4.31-4.46 and under the floor. '
+     'WORST OF ALL IT PUNISHED THE FIX: a bigger tap target means letters are a smaller share '
+     'of the box, so the 44px thumb this lane shipped the same day made every score worse. The '
+     'ruler now splits each box at the midpoint of its own range (ink and paper as a reader '
+     'sees them); the arrows and the ambient caption were really under the floor and were '
+     'lifted; the baseline went 38 -> 27 with the reason written into the file. THE LEG THAT '
+     'MATTERS: four synthetic boxes at the same 2%% ink fraction that broke the old method -- '
+     'two nobody can read must FAIL and two anybody can read must PASS -- so "fix the ruler" '
+     'can never quietly mean "make the red go away". With both cards answered and nothing on '
+     'top, the played screen is now 0 of 24 under the floor.', True),
     ('FORETOLD',       ['node', 'gates/foretold_gate.js'],
      'Board row [crisis warning] / BB-FORETOLD: "A CRISIS ANNOUNCED IN ADVANCE IS THE '
      'DESIGN, NOT A COURTESY... an escalation the player cannot see coming is not tension, '

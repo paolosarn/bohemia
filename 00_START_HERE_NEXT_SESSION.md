@@ -17280,6 +17280,69 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/6 (e) LATEST -- *** [eyes: faint chips] DONE. THE ROW WAS RIGHT THAT
+SOMETHING WAS WRONG AND WRONG ABOUT WHAT. THE RULER WAS BROKEN, IN BOTH DIRECTIONS. ***
+
+WHY I TOOK THIS ROW OUT OF ORDER: [look verdict] sits above it and needs Paolo, and a
+row that needs him blocks nothing. This is an EYES bounce-back on SHIPPED work and his
+bugs beat my queue -- and it is THIS LANE'S OWN defect, because [phone readable]
+shipped text size, tap targets, colour blindness and motion and never once measured
+contrast.
+
+THE ROW SAID: 39 unreadable text boxes, worst the OUTFIT chip at 1.03:1, "where 1.00
+means the ink and the paper are the same brightness". I looked at the picture. OUTFIT
+is plainly readable. So I looked at the ruler.
+
+*** THE OLD METHOD TOOK THE DARKEST TENTH OF A BOX AGAINST THE LIGHTEST TENTH, AND A
+TENTH IS ONLY "THE INK" IF THE INK REALLY IS A TENTH OF THE BOX. *** The MUSIC chip is
+10px text inside a 44px thumb: the letters are TWO PER CENT of its pixels, so the top
+tenth is still background and it scored 1.21:1 for a label anybody reads without
+effort. The letters are 6.17:1. OUTFIT 1.21 against 5.77. PHONE, dark text on gold, is
+the same error inverted: 3.24 against 6.29.
+
+AND IT FAILED THE OTHER WAY, WHICH IS WORSE. The eight walk-pad arrows -- the single
+control that makes the game advance, as [first teaching] established -- scored 4.9 to
+5.1 and PASSED, while the letters were really 4.31 to 4.46 and did NOT clear the 4.5
+floor. A ruler that condemns a chip anybody can read and clears the most important
+control in the game is not strict or lenient. It is unrelated to the thing it names.
+
+*** AND IT PUNISHED THE FIX. *** The bigger a control's tap target, the smaller the
+share of it that is letters -- so making a button MORE accessible (the 44px thumb this
+lane shipped hours earlier, same row) made its contrast score WORSE. A ruler that gets
+angrier the more you fix the thing it measures will eventually be ignored, and then
+the real failures ride in behind the noise.
+
+WHAT SHIPPED.
+  1. THE RULER MEASURES THE LETTERS: each box is split at the midpoint of its own
+     range and the two sides averaged -- ink and paper as a reader sees them, which
+     does not care what fraction of the rectangle the letters occupy.
+  2. THE TWO REAL FAILURES ARE FIXED: the eight walk arrows (a lighter tint of the
+     same gold, palette unchanged) and the ambient caption. On the screen you actually
+     play on, with both cards answered and nothing on top, it is now 0 OF 24 UNDER THE
+     FLOOR, from 7.
+  3. THE BASELINE WENT 38 -> 27 WITH THE REASON WRITTEN INTO THE FILE, not silently.
+  4. gates/readable_ruler_gate.py, 7 ok 0 failed, registered. THE LEG THAT MATTERS:
+     four synthetic boxes at the same 2%% ink fraction that broke the old method -- two
+     nobody can read must FAIL, two anybody can read must PASS. A ruler loosened to
+     make red go away would clear the unreadable ones; one tuned to look strict would
+     condemn the readable ones, which is exactly what the old one did. That leg is
+     what stops "I fixed the ruler" from ever meaning "I made the red go away", and I
+     wrote it before lowering a single number.
+
+FOR EYES AND EARS, AND IT IS THEIR CALL NOT MINE: almost everything left in the 27 is
+text UNDER THE MORNING CARD'S SCRIM, which their harness holds up because it is the
+screen a player lands on. A modal dimming what is behind it is intended, not a craft
+defect. The number worth ratcheting may be the one with the cards ANSWERED, where it
+is now zero -- tools/bohemia_readable_on_the_played_screen.js measures that state. I
+did not change their harness's state; I only fixed the arithmetic it was using.
+
+THE GENERAL LESSON, THE THIRD TIME THIS LANE HAS PAID FOR IT: WHEN A MEASUREMENT AND
+THE PICTURE DISAGREE, LOOK AT THE PICTURE. A confident number from a broken instrument
+costs more than no number, because people act on it.
+
+STILL TRUE: fix the alpha, THEN cut the demo, THEN run the gate. Read main's stamp
+letter and go one PAST it.
+
 UI (ui-kmqmrf): 9/6 (d) LATEST -- *** [crisis warning] BUILT. THE VALLEY NOW TELLS YOU
 IT IS RUNNING OUT WHILE YOU PLAY, NOT ONLY AT BEDTIME. AND ONE READ NEARLY ATE ANOTHER
 LANE'S SHIPPED MOMENT. ***
