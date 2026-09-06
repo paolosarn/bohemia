@@ -1,4 +1,129 @@
-WORDS (words-8dqrnq): 9/6 (e) LATEST -- *** Q2 [stressed speech] SHIPPED WITH BOTH ROUNDS.
+WORDS (words-8dqrnq): 9/6 (f) LATEST -- *** Q3 [crowd talk] SCHOOL DONE, ROUND ONE OF TWO.
+WE DO NOT HAVE A REPETITION PROBLEM THAT MORE LINES WOULD FIX. THE BARK SELECTOR HAS NO
+MEMORY OF WHAT WAS SAID, AND ITS PER-PERSON TERM COLLAPSES TO TWO VALUES ON A STREET, SO
+EVERY PERSON YOU CAN SEE PICKS THE SAME INDEX ON THE SAME BEAT. *** THE ROW IS CLAIMED, NOT
+SHIPPED, because round two is owed. No test lines were written.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q3 SCHOOL, ROUND ONE OF TWO. Record:
+    records/BOHEMIA_WORDS_Q3_SCHOOL_THE_FIRST_REPEAT_IS_A_FEATURE_9_6_26.md
+    172 lines. NO test lines. banks/ deliberately untouched.
+Third question taken under the 9/6 mode, one row at a time. The 9/4 record is untouched
+and its path stays in the row.
+
+WHAT THE SCIENCE SAYS ABOUT HEARING SOMETHING AGAIN. The mere exposure effect: 1989
+meta-analysis, 208 STUDIES, r = 0.26, repetition increases liking. But not forever. TWO
+FORCES RUN AT ONCE WITH DIFFERENT TIMING: comfort arrives early, tedium arrives later, and
+their sum is an INVERTED U. The 2017 re-examination, 268 CURVE ESTIMATES FROM 81 ARTICLES,
+confirmed the shape (positive slope, negative quadratic). AND THERE IS NO UNIVERSAL PEAK:
+the turn moves with complexity, spacing and novelty, SO "THE THIRD REPEAT" IN THE ROW'S OWN
+BRIEF IS NOT A CONSTANT and any design that hard-codes a number is guessing.
+AND ONE QUALIFICATION THAT COULD HAVE EMBARRASSED THIS LANE: the 2017 analysis found the
+inverted-U for VISUAL BUT NOT AUDITORY stimuli. If our barks were voice-acted the evidence
+would not straightforwardly cover them. OUR BARKS ARE TEXT IN A BUBBLE, so we are in the
+visual branch where it holds. That is luck rather than judgement and it is recorded as such.
+The fast end is a different mechanism: SEMANTIC SATIATION, rapid repetition draining meaning
+through reactive inhibition, over seconds. So the same line twice on ONE STREET is a
+different psychological event from the same line twice in a DAY, and spacing is not a tuning
+knob, it is the difference between two mechanisms.
+
+HOW THE BEST-DOCUMENTED BARK SYSTEM WORKS: a RULE DATABASE. Hundreds of facts about the
+world fuzzy-matched against thousands of possible lines, each carrying criteria, picking the
+MOST SPECIFIC rule that matches with less specific ones as fallbacks. THE DESIGN POINT IS
+NOT THE SIZE OF THE DATABASE, IT IS THAT VARIETY COMES FROM CONTEXT: a line tied to a
+specific situation is not experienced as a repeat even on its second outing, because the
+situation is what the player is attending to. HONEST SOURCING NOTE: the primary slides and
+talk are blocked by this session's network egress, so the architecture is from secondary
+accounts and I quote NO line counts I could not verify.
+
+*** OUR OWN MACHINE, MEASURED, AND IT IS WORSE THAN I EXPECTED ***
+THE POOLS:
+    base pools (English, before register variants)   77
+    total lines in them                             310
+    MEDIAN POOL SIZE                                  3
+    pools with 3 lines or fewer                 40 of 77  (52%)
+    pools with exactly ONE line                       8
+OVER HALF OUR POOLS CANNOT SURVIVE A THIRD HEARING BECAUSE THEY DO NOT CONTAIN A THIRD LINE.
+WHO SPEAKS IS HANDLED WELL AND DELIBERATELY: a record of who spoke recently, cleared every
+24 speakers, so the barking moves around the crowd. Somebody thought about that.
+WHAT THEY SAY HAS NO MEMORY AT ALL. The selection is one line:
+    idx = hash(beat) XOR String(key).length, modulo pool length
+No history, no cooldown, no shuffle bag, and nothing anywhere knows what was said last. The
+record that IS kept tracks WHO spoke, never WHAT was spoken.
+AND THE PER-PERSON TERM IS BROKEN. It uses the LENGTH of the person key, not the key. A key
+is 'P:' + block seed + ':' + an agent id like H3-2. Measured:
+    distinct person-key LENGTHS across the valley     3   (16, 17, 18)
+    distinct person-key lengths WITHIN ONE BLOCK      2
+Everyone on a street shares a block seed, so the only variation is whether the agent id is
+four or five characters. THE PER-PERSON TERM HAS TWO VALUES ON THE STREET IN FRONT OF YOU,
+and the index reduces to a function of the beat alone. SO EVERY PERSON YOU CAN SEE PICKS THE
+SAME INDEX ON THE SAME BEAT, and two people in the SAME pool on the SAME street say the
+IDENTICAL line at the IDENTICAL moment. That is not a problem a bigger word count fixes.
+(NOTE ON MY OWN METHOD: my first pass measured POOL-key lengths, which is the wrong object,
+and I caught it before writing anything down. The numbers above are the person key, which is
+what the code actually hashes.)
+
+WHERE THE STANDARD ADVICE IS WRONG. It is "write more lines", and it fails three ways.
+FIRST, WRONG LEVER: doubling a pool halves the repeat rate at doubled authoring cost while
+exposure grows with play time, so it comes back. A THREE-LINE POOL WITH A REAL COOLDOWN AND
+A CONTEXT MATCH BEATS A TWELVE-LINE POOL PICKED BY A CLOCK HASH, and we can prove that
+without writing a new line. SECOND, IT TREATS ALL REPETITION AS DAMAGE AND THE CURVE SAYS
+OTHERWISE: liking RISES before it falls, THE FIRST REPEAT IS WHERE A PHRASE BECOMES A PLACE,
+and a street where nothing is ever said twice is a shuffled deck, not a street. THIRD, THE
+PEAK MOVES: a short plain line survives more repeats than a long clever one, SO A MEMORABLE
+LINE IS A LIABILITY, and the lines a player notices repeating first are the ones we are
+proudest of. This lane has already caught itself propagating one rhetorical move across five
+quests (Q13) and Q1's school found the same about tics.
+
+WHAT SCHOOL LEAVES ME HOLDING FOR ROUND TWO:
+    1. the fix is the SELECTOR, not the word count, and it is not mine to build; what is
+       mine is writing lines that assume a selector with memory
+    2. spacing beats volume, and the two repetition mechanisms are different
+    3. the first repeat is a FEATURE, and some lines should be written to be heard again
+    4. plain lines survive repetition and clever ones do not, so a pool needs a deliberate
+       MIX rather than twelve equally good lines
+    5. context is where variety really comes from
+    6. and over half our pools have three lines or fewer, which is the honest starting point
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1 and Q2 have both rounds. Q3 has school. Q4 to
+Q17 were each done in a single round under the old mode and are owed theirs. One at a time;
+the sequencing is the coordinator's.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, Q2). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q3 round two, the writing, naming which of the six findings changed the lines, and
+routing the selector defect properly alongside something written.
+
+WORDS (words-8dqrnq): 9/6 (e) -- *** Q2 [stressed speech] SHIPPED WITH BOTH ROUNDS.
 SCHOOL INVERTED THE WHOLE SECTION: THE LIAR IS NOW THE MOST FLUENT PERSON IN THE ROOM AND
 THE FRIGHTENED MAN IS THE ONE WHO STUMBLES. And I caught a broken ruler before publishing
 it, which would have reported the exhaustion result backwards and loudly. ***
