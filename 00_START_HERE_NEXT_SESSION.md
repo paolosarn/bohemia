@@ -1,3 +1,103 @@
+WORDS (words-8dqrnq): 9/6 (e) LATEST -- *** Q2 [stressed speech] SHIPPED WITH BOTH ROUNDS.
+SCHOOL INVERTED THE WHOLE SECTION: THE LIAR IS NOW THE MOST FLUENT PERSON IN THE ROOM AND
+THE FRIGHTENED MAN IS THE ONE WHO STUMBLES. And I caught a broken ruler before publishing
+it, which would have reported the exhaustion result backwards and loudly. ***
+Nothing to judge. Nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q2 IS DONE UNDER THE NEW MODE. Two records, and the row carries both paths:
+    school   records/BOHEMIA_WORDS_Q2_SCHOOL_THE_HESITATION_IS_A_MYTH_9_6_26.md
+    writing  records/BOHEMIA_WORDS_Q2_ROUND_TWO_THE_WRITING_9_6_26.md
+    bank     banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q2 ROUND TWO", draft:true
+
+WHICH FINDINGS FROM SCHOOL CHANGED THE LINES, which is what the mode demands:
+1. A LIAR IS THIN, NOT SHAKY, so the liar is the MOST FLUENT person in his scene. Of 158
+   measured deception cues, 118 show no association at all and PAUSES are on that list by
+   name. What holds up is content: fewer details, less coherence, feigned ignorance. The
+   9/4 round had it the other way round. THAT INVERSION IS THE LARGEST CHANGE SCHOOL MADE.
+2. THE LIE IS CAUGHT BY THE QUESTION, NOT THE MANNER. People score 54%, catching 47% of
+   lies and clearing 61% of truths, so the liar is BELIEVED. He is broken by one question
+   he did not prepare for, and what exposes him is a FENCE THE PLAYER CAN WALK TO. Nothing
+   in his mouth is a tell. Same rule Q17 reached from the other side, now reached twice.
+3. A FRIGHTENED PERSON SAYS MORE, NOT LESS. The row's brief says "shortened sentences";
+   the measurement says word productivity goes UP while pausing also goes up. So the
+   frightened lines are LONG AND BROKEN, not clipped, and a second quieter fear sits beside
+   them to show shortness is about how OLD the fear is, not how big.
+4. AN EXHAUSTED PERSON FIXATES IN ONE SEMANTIC FIELD, the only stress signature that
+   survives into text with no voice actor. The exhausted woman cannot talk about her son
+   without landing back in the water barrel, and the word "tired" never appears. Then she
+   is written again after sleep, same event, moving freely, to prove it was the state.
+   THE SHOWPIECE, because we have zero of it.
+5. "UM" IS A COURTESY, NOT A CRACK. Exactly one in the section, belonging to the calmest
+   person in it, holding the floor.
+6. WE CANNOT USE THE DASH, so every cut off is built from an incomplete clause or the next
+   speaker starting somewhere else, never from punctuation.
+
+THE MEASUREMENT, AND A BROKEN RULER CAUGHT BEFORE PUBLICATION:
+    filled pauses (uh, um) in 1,669 lines     1    0.1%
+    ellipsis lines                           18    1.1%
+    claimed ignorance                        14    0.8%
+Reading all fourteen ignorance hits: NOT ONE IS A LIAR. Every one is an honest person
+admitting a real limit. NOBODY IN THIS GAME LIES. That is the hole the round writes into.
+And the exhaustion test is where the ruler broke. First pass, unmatched:
+    #tired  389 content tokens, repeat share 0.290
+    other 1,620 tokens,         repeat share 0.553
+THAT COMPARISON IS WORTHLESS AND I NEARLY USED IT. Repeat share rises mechanically with
+sample size and one set is four times the other, the same class of error as the type-token
+trap this lane already fell into once. Length-matched, 400 draws of 389 tokens:
+    other mean 0.276, sd 0.018, middle 95% from 0.242 to 0.314
+    #tired at 0.290 is +0.79 sd, INSIDE the normal range
+NO DIFFERENCE ONCE LENGTH IS MATCHED. THE FIXATION IS ABSENT. The unmatched number would
+have reported it backwards and loudly. LENGTH-MATCHING A REPETITION MEASURE IS NOW A
+STANDING HABIT IN THIS LANE, NOT A THING I REMEMBER TO DO.
+
+AND THE DESIGN CONSEQUENCE THAT CARRIES OUT OF SCHOOL, which is not negotiable: no scene
+may reward the player for catching a liar by MANNER. A scheme for reading guilt off a
+caller's speech has featured in more than a hundred real criminal cases and researchers
+cannot reproduce it. We are not teaching that skill. The player checks the fence.
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1 and Q2 have both rounds. Q3 to Q17 were each
+done in a single round under the old mode and are owed theirs. One at a time; the
+sequencing is the coordinator's. Natural next is Q3 [crowd talk].
+
+ROUTED THIS ROUND:
+- QUESTS: a liar is only worth writing if the player can go and check something. The liar
+  in this bank is broken by a fence, and the fence has to exist on the walked surface.
+  Same requirement Q17 put on rumours, now asked twice.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, and Q2's craft channel depends on it too). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q3 [crowd talk] round one, school.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -267,7 +367,7 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
-WORDS (words-8dqrnq): 9/6 (d) LATEST -- *** Q2 [stressed speech] SCHOOL DONE, ROUND ONE OF
+WORDS (words-8dqrnq): 9/6 (d) -- *** Q2 [stressed speech] SCHOOL DONE, ROUND ONE OF
 TWO. THE ROW'S OWN BRIEF NAMES HESITATION FIRST, AND HESITATION IS ON THE MEASURED LIST OF
 THINGS THAT DO NOT INDICATE LYING. We were about to write folklore, and the same folklore,
 dressed as forensic science, has featured in more than a hundred criminal cases. ***

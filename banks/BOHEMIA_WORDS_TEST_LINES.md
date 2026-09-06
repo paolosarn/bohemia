@@ -1356,3 +1356,124 @@ BROTHER  Pass the salt.                                                [time off
 # it merges them behind the writer's back. Every pair above is built so that its
 # distinguishing feature CANNOT be handed to the other speaker: an absence, a
 # direction of want, and a way of seeing are not portable the way a phrase is.
+
+## Q2 ROUND TWO -- LYING, SCARED, EXHAUSTED, ARMED BY SCHOOL  (9/6/26)
+# Round one is records/BOHEMIA_WORDS_Q2_SCHOOL_THE_HESITATION_IS_A_MYTH_9_6_26.md
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES, named as the mode requires:
+#
+# 1. A LIAR IS THIN, NOT SHAKY. Of 158 measured deception cues, 118 show no
+#    association at all, and that list includes PAUSES by name. What holds up is
+#    content: fewer details, less coherence, feigned ignorance. So the liar below
+#    is the most FLUENT person in his scene, and the frightened man is the one who
+#    stumbles. That inversion is the whole section.
+# 2. THE LIE IS CAUGHT BY THE QUESTION, NOT THE MANNER. People score 54%, catching
+#    47% of lies and clearing 61% of truths, so the bias is toward believing. The
+#    liar below is believed. What breaks him is one question he did not prepare
+#    for, and what it exposes is a CHECKABLE detail, not a tell.
+# 3. A FRIGHTENED PERSON SAYS MORE, NOT LESS. Under a standard stressor word
+#    productivity goes UP while pausing also goes up. So the scared lines are long
+#    and broken, not clipped. The row's own brief said "shortened sentences" and
+#    the measurement says the opposite.
+# 4. AN EXHAUSTED PERSON FIXATES IN ONE SEMANTIC FIELD. This is the only stress
+#    signature that survives into text with no voice actor, and we have none of it.
+# 5. "UM" IS A COURTESY, NOT A CRACK. It appears once below, used by somebody
+#    holding the floor, which is what the research says it is for.
+# 6. WE CANNOT USE THE DASH. Every cut off below is built from an incomplete
+#    clause or the next speaker starting mid-thought, never from punctuation.
+#
+# MEASURED THIS ROUND: filled pauses in our 1,669 lines: ONE. Claimed ignorance:
+# 14, and reading all 14, not one is a liar, they are honest people admitting real
+# limits. NOBODY IN THIS GAME LIES. And our 40 #tired lines repeat content words
+# at 0.290 against a LENGTH-MATCHED mean of 0.276 (sd 0.018, 400 draws): no
+# fixation at all. The naive unmatched comparison said 0.290 against 0.553 and
+# would have been reported backwards.
+
+### THE LIAR, WHO IS THE SMOOTHEST PERSON IN THE ROOM   draft:true
+# He is not nervous. He is thin. Count what he actually tells you: almost nothing.
+  Q  You were up at the pump Tuesday.
+  A  I was up there Tuesday, yes. Same as most Tuesdays.
+  Q  Who was with you?
+  A  Nobody worth writing down.
+  Q  Was the tank full when you left it?
+  A  It was how I found it. I do not touch what is not mine to touch.
+  Q  How long were you there?
+  A  Long enough to do what I went for. You know how it is up there.
+# Four answers, four non-answers, and not one hesitation. He never says "um", he
+# never trails off, and a player watching for a tell will find nothing, because
+# there is nothing to find. THE LINE THAT DOES THE WORK IS "nobody worth writing
+# down", which sounds like an answer and contains no information.
+
+### AND THE QUESTION HE DID NOT PREPARE FOR   draft:true
+# Lying is the harder mental job, so the tells appear when you raise the load with
+# something unanticipated. What breaks is not his manner. It is a fact you can go
+# and check.
+  Q  Which way did you walk back?
+  A  The usual way.
+  Q  Past the kennel or past the lot?
+  A  ...the lot.
+  Q  The lot has been fenced since spring.
+  A  Then it was the kennel. I am not going to argue about a fence.
+# He is still calm. He is still fluent. HE IS CAUGHT BY THE FENCE, NOT BY HIS
+# VOICE, and the player can walk to the fence. That is the only honest way to
+# write a catchable lie and it is the same rule Q17 arrived at.
+
+### THE FRIGHTENED MAN, WHO WILL NOT STOP TALKING   draft:true
+# Not clipped. Voluble and broken. He is producing MORE words than he would calm,
+# and breaking more often while he does it.
+  It is fine, it is fine, I am saying it is fine because it is, we came down the
+  side where the wall is and there is nothing on that side, there has never been
+  anything on that side, you can ask anybody who
+  Sorry. Sorry. What did you ask me.
+  The side where the wall is. That is what I said. That is what I have been saying.
+# The break is not a dash and not an ellipsis. IT IS A SENTENCE THAT STOPS ON AN
+# INCOMPLETE CLAUSE, and the next line starts somewhere else. That is the cut off
+# built out of structure, because the dash is not available to us.
+
+### AND THE SECOND KIND OF FRIGHT, WHICH IS QUIET AND IS NOT THE SAME THING draft:true
+# Fear that has been going on a long time is not the same as fright. This one is
+# short, but it is short because he has said it many times, not because he is
+# scared into silence.
+  Q  Are they coming back?
+  A  Friday.
+  Q  You are sure.
+  A  Friday. It is always Friday.
+# The difference between this and the man above is not how frightened they are. It
+# is how NEW the fear is.
+
+### THE EXHAUSTED WOMAN, STUCK IN ONE FIELD OF WORDS   draft:true
+# The one real stress signature that survives into text: a fixation within a
+# semantic category, an inability to shift. We have zero of this in the build.
+# Watch her try to talk about her son and keep landing back in the water.
+  He came back Thursday. Or he came back and the barrel was still half, so it was
+  Thursday.
+  I had filled it. I had filled it twice that week, which is not normal, twice.
+  Anyway he came back and he. The barrel was half.
+  Ask me tomorrow when I have not been carrying.
+# Every sentence about her son ends up in the barrel. She is not being evasive and
+# she is not lying. SHE CANNOT GET OUT OF THE WATER, and the reader feels how tired
+# she is without the word tired appearing once.
+
+### THE SAME WOMAN, TWO HOURS OF SLEEP LATER, TO SHOW IT IS THE STATE AND NOT HER draft:true
+  He came back Thursday. He had somebody else's coat on and he would not say whose.
+  I asked him twice and then I stopped asking, because you know how that goes.
+# Same person, same event, and she can move now. The fixation was the exhaustion.
+
+### THE ONE CORRECT "UM" IN THE SET   draft:true
+# It is a conventional word that a speaker plans and produces. "uh" announces a
+# short delay, "um" a longer one. It is somebody holding the floor, not somebody
+# caught. This is the only one in the section and it belongs to the calmest person
+# in it.
+  Give me a second. Um. Right, three things and then you can go.
+# He is not rattled. He is telling you the next bit is coming slowly and asking you
+# not to fill the gap.
+
+### AND THE THINGS THIS SECTION REFUSES TO DO   draft:true
+# BANNED, on the evidence, in every line this lane writes about these three states:
+#   a liar who hesitates, trails off, or looks away
+#   a frightened person written in clipped fragments because that reads as scared
+#   an exhausted person who says they are tired
+#   any dash, anywhere, for a cut off
+#   and any scene where the player is rewarded for catching a liar by MANNER
+# The last one is not a style rule. A scheme for reading guilt off a caller's
+# speech has featured in more than a hundred real criminal cases and researchers
+# cannot reproduce it. We are not teaching that skill.
