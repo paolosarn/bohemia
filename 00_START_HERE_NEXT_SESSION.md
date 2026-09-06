@@ -6549,6 +6549,101 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+*** THIS CHAT NOW HOLDS TWO LANES. It is 15 DYNASTY (research, queue empty) and,
+since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
+chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
+lane and its first row were claimed and pushed BEFORE any work started. ***
+
+ROUND 19 [asks exist] THE-WORLD-DOES-THE-ASKING, SHIPPED. QUESTS lane, MODE:
+BUILD, so this round is CODE, not a record. The DYNASTY research rounds 1-18 are
+below and unchanged.
+  engine/bohemia_asks.js          the generator
+  gates/asks_visible_gate.js      38 passed, 0 failed, real surface driven
+  slices/BOHEMIA_CITY_WORLD.html  the module inlined verbatim + the seam
+  BUILD 9/6ag - THE WORLD ASKS
+
+THE LAW THIS ROW EXISTS TO ENFORCE, from the 9/6 unpark ruling:
+  *** AN ASK THAT CHANGES NOTHING VISIBLE IS NOT AN ASK. ***
+The research the ruling rests on is blunt: generated quests read as filler for
+exactly one reason, which is that finishing one changes nothing the player can
+see. So the visible change is the ADMISSION TICKET, not the prize. offer() builds
+candidates and throws away every one that cannot name what will visibly move,
+BEFORE anybody is asked anything.
+
+IT RUNS IN THE GAME, NOT ONLY IN NODE. Measured on the real surface at the waking
+block: 61 people on screen, one dark circuit under the player's feet, and the
+generator hands back a real ask whose visible change is A LIGHT COMES BACK ON.
+Identical in the demo, because the alpha and the demo both load the one city file,
+so rule 7 (walked surface AND demo) is satisfied by construction rather than by
+two copies that can drift.
+
+FOUR OF HIS SIX VISIBLE CHANGES ARE WIRED. TWO ARE NOT, AND SAY SO.
+  WIRED    a block changes hands   faction territory owner map
+           a light comes back on   the brownout grid
+           a shelf refills         the block ledger stocks
+           a rumour turns          the standing web
+  NOT      a debt clears or is called in -- nothing owns a debt with a name on it
+           that anybody can clear; belonging models debt as a faction WANT, not a
+           balance. (This is the same hole DYNASTY round 17 found from the other
+           side: our game can record and it cannot resolve.)
+           somebody moves house -- nothing in the repo moves a person between
+           homes.
+  Both ship listed and REFUSED. Each turns itself on with no edit to either file
+  the moment its system is real. Of the four wired, only the grid speaks today:
+  the standing web is wired and quiet because the waking block holds exactly ONE
+  mind, and the shelf has no live per-block ledger reachable from the seam yet.
+
+*** THE GATE OPENS THE PROOF, IT DOES NOT TRUST IT. *** Every wired change names a
+file and a symbol, and the gate READS THAT FILE AND FINDS THAT SYMBOL. This is the
+check that matters most, because the cheap way to pass the visible-change law is a
+confident pointer at a system that does not exist. It also parses the 14 @DO verbs
+the quest runtime actually runs and refuses any ask wanting a verb we do not have
+(the ruling: if it needs a new verb it is a boss, not a quest), counts digits in
+the table so no unruled threshold can hide there, and proves an empty world is
+quiet rather than filled with a placeholder.
+
+*** AND THE REAL SURFACE CAUGHT A BUG THE HEADLESS GATE COULD NOT, WHICH IS THE
+MOST USEFUL THING THAT HAPPENED THIS ROUND. *** My first seam asked for people
+with CELL coordinates when people are keyed by NEIGHBOURHOOD. It found nobody in
+all 289 cells around the player, produced no asks, and EVERY CHECK WAS GREEN,
+because "the valley is quiet" is a legal answer. The feature was dead and looked
+healthy. Fixed by reusing the city's own ctEveryone() (REUSE-FIRST was also the
+fix: the city already owns one answer to who is on screen), and the gate now
+refuses to let un-explained quiet pass: if the city can see people, the seam must
+name one, and a want in the live snapshot must produce an ask.
+LESSON, WRITTEN DOWN BECAUSE IT WILL HAPPEN AGAIN: A GATE WHOSE PASSING STATE
+INCLUDES "NOTHING HAPPENED" IS NOT A GATE UNTIL "NOTHING HAPPENED" HAS TO EXPLAIN
+ITSELF.
+
+WHAT IS DELIBERATELY NOT BUILT
+  - NO CARD YET. The ask is generated and readable on the surface; it is not yet a
+    thing you tap. That is the next round on this row's neighbours, not a silent
+    gap.
+  - NOTHING APPLIES THE CHANGE. plan() names the system, the file, the symbol and
+    the verb, and never performs the move. ONE SYSTEM, ONE SESSION: the system
+    that owns a change is the one that moves it, and reaching into the grid, the
+    turf or the standing web from here is exactly the cross-lane write that law
+    forbids.
+  - NO CONTENT. Not one person, place, price, threshold or count. Every number in
+    an ask came out of the live snapshot. The six changes are HIS list from the
+    ruling, word for word, and the gate traces each one back to a phrase in it.
+
+GATES RUN THIS ROUND: asks_visible 38/0, alpha_loads 20/0, city_tab 64/0,
+inlined_fresh 3/0 (111 modules, all canon), one_engine 3/0, pages_publish GREEN,
+direct GREEN, nomarkers 6/0, handoff 7/0, attempt 15/0, reply_contract 17/0,
+answered GREEN.
+
+[FOR THE PLUMBER OR THE COORDINATOR, NOT MINE TO FIX] reusefirst_gate.py is RED at
+201/4 and it was already red on main before this round: bohemia_city_ground_patch.py,
+bohemia_combat_you_can_see_why_she_did_it_patch.py, bohemia_floor_cook.py and
+bohemia_there_are_enemies_patch.py are each missing a REUSE CHECK block. They
+belong to other lanes, I did not touch them, and quietly editing four other lanes'
+tools to turn a gate green is how a shared repo gets wrecked. Verified by stashing
+my whole tree and re-running: same 201/4.
+
+NEXT ON THIS ROW'S LANE: [spine first] THE-LADDER-IS-THE-MAIN-LINE is the next
+OPEN QUESTS row. Nine other rows are open behind it. DYNASTY still has zero.
+
 ROUND 18 [hundred hours] Q16, SHIPPED. *** THE LAST ROW IN THIS LANE'S QUEUE.
 DYNASTY NOW HAS ZERO OPEN LINES. ***
   records/BOHEMIA_DYNASTY_DAY_18_A_HUNDRED_HOUR_GAME_9_5_26.md
