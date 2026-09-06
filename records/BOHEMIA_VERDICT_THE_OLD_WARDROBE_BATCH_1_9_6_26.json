@@ -1,0 +1,429 @@
+{
+"stamp": "9/6/26",
+"batch": 1,
+"retint": [
+{
+"name": "GREEN FLANNEL",
+"layer": "base",
+"hex": "#36603e",
+"sat": 0.44,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "COPPER WORK SHIRT",
+"layer": "base",
+"hex": "#506e60",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "BLUE JEANS",
+"layer": "legs",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST TROUSERS",
+"layer": "legs",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "PATCHED WORK PANTS",
+"layer": "legs",
+"hex": "#586676",
+"sat": 0.25,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SANDWALKERS",
+"layer": "feet",
+"hex": "#8a704a",
+"sat": 0.46,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "WASTELAND DUSTER",
+"layer": "outer",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DRIFTER'S COAT",
+"layer": "outer",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "RANGER LONGCOAT",
+"layer": "outer",
+"hex": "#506e60",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE DRAB TEE",
+"layer": "base",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL WORK SHIRT",
+"layer": "base",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE PANTS",
+"layer": "legs",
+"hex": "#444a32",
+"sat": 0.32,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI CARGOS",
+"layer": "legs",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "RED CLAY BOOTS",
+"layer": "feet",
+"hex": "#7c4e3a",
+"sat": 0.53,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD BOOTS",
+"layer": "feet",
+"hex": "#5c342e",
+"sat": 0.5,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD GREEN COAT",
+"layer": "outer",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST BROWN TRENCH",
+"layer": "outer",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "LEATHER VEST",
+"layer": "outer",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "TACTICAL VEST",
+"layer": "outer",
+"hex": "#3c4230",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FOREST PLAID FLANNEL",
+"layer": "base",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI BUTTON-UP",
+"layer": "base",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST PLAID SHIRT",
+"layer": "base",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE HOODIE",
+"layer": "base",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "CHINESE RICE FARMER HAT",
+"layer": "head",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE FIELD CAP",
+"layer": "head",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SAND KNIT CAP",
+"layer": "head",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST SCARF",
+"layer": "neck",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD SCARF",
+"layer": "neck",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD DUST MASK",
+"layer": "face",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "LEATHER GLOVES",
+"layer": "hands",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "LEATHER BELT",
+"layer": "waist",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "CUTOFF DENIM SHORTS",
+"layer": "legs",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE SHORTS",
+"layer": "legs",
+"hex": "#444a32",
+"sat": 0.32,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD SLOUCH BEANIE",
+"layer": "head",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SAND HOODIE",
+"layer": "base",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DENIM VEST",
+"layer": "outer",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "COPPER SCARF",
+"layer": "neck",
+"hex": "#506e60",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD PLAID FLANNEL",
+"layer": "base",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL PLAID FLANNEL",
+"layer": "base",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "COPPER PLAID FLANNEL",
+"layer": "base",
+"hex": "#506e60",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL HOODIE",
+"layer": "base",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE HENLEY",
+"layer": "base",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD GREEN TEE",
+"layer": "base",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE TANK",
+"layer": "base",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL STRIPED TEE",
+"layer": "base",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD BUTTON-UP",
+"layer": "base",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE TURTLENECK",
+"layer": "base",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD GREEN PANTS",
+"layer": "legs",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+}
+],
+"accent": [
+{
+"name": "RED SHIRT",
+"layer": "base",
+"hex": "#963c36",
+"sat": 0.64,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "SCAVENGER FLANNEL",
+"layer": "base",
+"hex": "#724830",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "BROWN BOOTS",
+"layer": "feet",
+"hex": "#6e4a2e",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "BRICK HENLEY",
+"layer": "base",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "RED PLAID FLANNEL",
+"layer": "base",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "RUST HENLEY",
+"layer": "base",
+"hex": "#724830",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "RUST WATCH CAP",
+"layer": "head",
+"hex": "#724830",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "RUST STRIPED TEE",
+"layer": "base",
+"hex": "#724830",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "RUST HOODIE",
+"layer": "base",
+"hex": "#724830",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "BRICK HOODIE",
+"layer": "base",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "BRICK TEE",
+"layer": "base",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+},
+{
+"name": "RUST TANK",
+"layer": "base",
+"hex": "#724830",
+"sat": 0.58,
+"note": "legal only as THE one faction accent on a matching body; picker enforces"
+}
+],
+"kill": []
+}
