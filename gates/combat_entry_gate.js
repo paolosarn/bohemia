@@ -420,8 +420,13 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   /* ON THE WALKED STEP, proved where it lives: immediately after the walk spends
      its 5.04 seconds. That is the one place a body arrives on foot, exactly as
      inEnter is the one place a body goes through a door. */
+  /* AND IT IS NOT PINNED TO ANOTHER LANE'S NUMBER. The first cut matched the
+     literal walkInterrupt(5.04) and went RED ON WORKING CODE the moment WORLD's
+     [faster roads] row made a step cost what the ground costs -- the call is now
+     walkInterrupt(_mc*60) and the hook never moved. What this arm is checking is
+     WHERE the hook sits, so it matches the CALL and not its argument. */
   const hookedToTheStep =
-    /walkInterrupt\(5\.04\);[\s\S]{0,600}?streetFightOnStep\(\);/.test(_citySrc);
+    /walkInterrupt\([^)]*\);[\s\S]{0,600}?streetFightOnStep\(\);/.test(_citySrc);
 
   console.log('  V201 the fight starts where you stand:'
     + '\n    wired          trigger ' + street.hasTrigger + ', hooked to the walked step ' + hookedToTheStep
@@ -433,7 +438,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
 
   ok('V201 *** THE GAME KNEW WHO YOUR ENEMIES WERE AND HAD NEVER ONCE PUT ONE IN FRONT OF YOU. *** Paolo 9/5, having played it: "Awesome I just played the run. WHERE THE ENEMIES AT BRO." Hostility lived in the between-ledger as a SIGN ON A RELATIONSHIP -- they charge you more, they watch you -- and the fight was real and reachable but ONLY through the city map door, never because somebody walked up to you. Now bumping a hostile body on the walked street starts the fight where you stand (' + street.firedOnHostile
     + '), and the message reaches the shell (' + sf.count + ') as THE DOOR\'S OWN MESSAGE (' + sf.isTheDoorsMessage
-    + ') with ' + sf.roster + ' of them. Hooked to the walked step (' + street.hookedToTheStep
+    + ') with ' + sf.roster + ' of them. Hooked to the walked step (' + hookedToTheStep
     + '), which is the one place a body arrives, exactly as inEnter is the one place a body goes through a door. THE HOOK IS CHECKED IN THE SOURCE, not by stringifying stepOnce -- that function is REASSIGNED by the interiors wrapper, so stringifying it reads the wrapper and reports the hook missing while it sits in the original',
     street.hasTrigger === true && hookedToTheStep === true
     && street.firedOnHostile === true && sf.isTheDoorsMessage === true
@@ -462,6 +467,208 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' across the whole grace period). Nothing fires indoors either, because indoors is the door\'s fight. DETERMINISTIC OFF THE PERSON, never a coin flip per step -- the door\'s own rule, so he cannot farm an encounter by stepping back and forth over a kerb',
     street.firedTwiceSamePerson === false && street.firedInsideCooldown === false
     && street.firedAfterCooldown === true && street.firedInGrace === 0);
+
+  /* ================= V202 THE FIRST FIGHT TEACHES THE BEAT ==============
+     "one lesson per encounter, and the obstacle must be impossible to pass
+      without the thing being taught" -- the coordinator's research this round.
+     A stranger opens the demo with no manual and meets a real fight. Four rules
+     have to be learned and NOTHING teaches any of them. So the first one teaches
+     THE BEAT ALONE, and every other lesson is kept OUT of it: no group, no
+     cover, no range problem, no companion, no words.
+     DRIVEN, NEVER READ. The board is read out of the running fight, and the rule
+     is proved by pressing the REAL trigger through the REAL aim door, once off
+     the beat and once on it, and reading what happened to the man. */
+  const cframe = page.frames().find(f => { try { return f.name() === 'combatFrame'; } catch (e) { return false; } });
+  let ff = null, ffOff = null, ffOn = null, ffTell = null, ffSecond = null, ffShell = null, ffQuest = null;
+  if (cframe) {
+    ff = await cframe.evaluate(() => ({
+      teachBeat: !!G.teachBeat,
+      men: (G.e || []).length,
+      arenaKind: G.arenaKind,
+      pillars: (G.pillars || []).length,
+      cars: (G.pillars || []).filter(p => p.car).length,
+      deck: (G.deck || []).length,
+      allyOn: allyOn(),
+      melee: !!(G.e[0] || {}).melee,
+      bot: !!(G.e[0] || {}).bot,
+      inReach: ((G.e[0] || {}).edist || 1e9) <= maxRange(myRange()),
+      /* THE TELL IS DERIVED FROM THE RULE, never a second number: teachAlpha
+         reads GOOD_MS on the 120 grid, which is the same window gradeOf uses. */
+      windowIsTheGradeWindow: Math.abs((GOOD_MS / (60000 / 120)) - 0.22) < 1e-9
+    }));
+
+    /* THE TELL IS READ OFF THE GLASS, NOT OFF THE FUNCTION. The first cut asked
+       teachAlpha() what it would return and called that proof, and MEASURED it
+       was proving nothing: the ghost was wrapped around drawEnemySprite, which
+       on the real surface is called every frame and RETURNS FALSE EVERY TIME --
+       enemyLook() has no baked look for this man, so what a stranger sees is the
+       fallback DISC one line below. The tell was in the draw path nobody was on.
+       So this averages the ink in the box he was actually drawn in, on-beat
+       frames against off-beat ones, with a CONTROL BOX of empty ground beside
+       him so the answer can never be the street's own lighting. */
+    ffTell = await cframe.evaluate(() => new Promise(res => {
+      const g = cv.getContext('2d', { willReadFrequently: true });
+      const box = (X, Y, R) => { const d = g.getImageData(X - R, Y - R, R * 2, R * 2).data;
+        let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2];
+        return s / (d.length / 4) / 3; };
+      /* HIS OWN PEEK AND FIRE WINDOWS ARE ALSO BEAT-LOCKED and they repaint the
+         disc green or red, which is a far louder signal than an alpha. Sampling
+         on-beat frames against off-beat ones therefore measures HIS COLOUR, not
+         the ghost. So the ghost is A/B'd directly: the same frames, the same
+         states, teachAlpha held at 1 and then at what it really returns. If the
+         wrap were around a draw path nobody is on -- which is exactly the bug
+         this arm was written after -- forcing it would change nothing at all. */
+      const real = window.teachAlpha;   /* put back at the end */
+      /* INTERLEAVED FRAME BY FRAME, never sixty of one then sixty of the other:
+         the camera is still settling at the top of a fight, so two consecutive
+         blocks sample two different pictures and the answer would be the pan. */
+      const A = { him: [], ground: [] }, B = { him: [], ground: [] };
+      G._teachDraw = null;
+      let k = 0;
+      const tick = () => {
+        const solid = (k % 2) === 0;
+        /* HELD AT 1 AND THEN AT 0, because the question this arm exists to answer
+           is WHETHER THE GHOST IS WIRED INTO THE PATH THAT DRAWS THIS MAN -- the
+           bug it was written after was a wrap around a draw path nobody is on.
+           At the shipped 0.34 the size of the change depends on how much the
+           ground under him happens to contrast, which is a different run every
+           time and not a thing to gate on. At 0 he is simply not painted. */
+        window.teachAlpha = solid ? (() => 1) : (() => 0);
+        /* TWO FRAMES, NOT ONE. The render loop is on requestAnimationFrame too,
+           and a reader that shares the frame can run BEFORE the draw -- so the
+           pixels belong to the PREVIOUS setting and the two arms cancel. That is
+           exactly what the first interleaved cut measured: a 1.3 difference the
+           wrong way round, on a ghost that a screenshot shows working. */
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const T = G._teachDraw;
+          if (T) { const R = Math.max(6, T.r | 0);
+            const gx = (T.dx | 0) > cv.width / 2 ? (T.dx | 0) - 140 : (T.dx | 0) + 140;
+            const out = solid ? A : B;
+            out.him.push(box(T.dx | 0, T.dy | 0, R));
+            out.ground.push(box(gx, T.dy | 0, R)); }
+          if (++k >= 120) {
+            window.teachAlpha = real;
+            const m = a => a.length ? Math.round(a.reduce((p, q) => p + q, 0) / a.length * 10) / 10 : null;
+            return res({ solidN: A.him.length, ghostN: B.him.length,
+              him_solid: m(A.him), him_ghost: m(B.him), shipped: real(),
+              ground_solid: m(A.ground), ground_ghost: m(B.ground),
+              drew: A.him.length > 0 });
+          }
+          tick();
+        }));
+      };
+      tick();
+    }));
+
+    /* THE NEEDLE IS PINNED, WHICH IS THE ONLY WAY THIS ARM MEANS ANYTHING.
+       The first cut read the man's health after a press and called it proof --
+       and it PASSED WITH THE RULE DELETED, because an off-beat press can miss on
+       the dial all by itself and an on-beat one can hit. That is a checker that
+       agrees with whatever it is shown. So the dial is held at a value the OTHER
+       WAY ROUND from the answer being claimed: DEAD CENTRE for the off-beat
+       press (the dial says kill) and a wild miss for the on-beat one (the dial
+       says nothing). If the press is what decides, both come out backwards from
+       the needle. G.angle is an INPUT held still, never the thing under test. */
+    const shot = (wantOn, ang) => cframe.evaluate((a) => new Promise(res => {
+      const on = a.on, w = GOOD_MS / (60000 / 120);
+      const hp0 = G.e[0].hp;
+      const had = Object.getOwnPropertyDescriptor(G, 'angle');
+      Object.defineProperty(G, 'angle', { configurable: true, get: () => a.ang, set: () => {} });
+      const done = (o) => { try { delete G.angle; if (had) Object.defineProperty(G, 'angle', had); } catch (e) {} res(o); };
+      G.phase = 'cover'; G.over = false; G.ks = null; G.inc = null;
+      try { enterAim(false); } catch (e) { return done({ err: 'enterAim ' + e.message }); }
+      if (G.phase !== 'aim') return done({ err: 'phase ' + G.phase });
+      const tick = () => {
+        const ph = beatNow() - Math.floor(beatNow());
+        if (((ph <= w) || (ph >= 1 - w)) !== on) return requestAnimationFrame(tick);
+        /* an off-beat press is HELD and granted on the next beat by design, so
+           give the grant a full beat to land before reading the man */
+        try { fire(); } catch (e) { return done({ err: 'fire ' + e.message }); }
+        setTimeout(() => done({ grade: (G._lastGrade || {}).grade || null, needle: a.ang,
+          hp0: hp0, hp1: G.e[0].hp, down: !!(G.e[0].dead || G.e[0].downed || G.e[0].broken) }), 900);
+      };
+      requestAnimationFrame(tick);
+    }), { on: wantOn, ang: ang });
+
+    ffOff = await shot(false, 0);      /* the dial says KILL and the press says no */
+    ffOn = await shot(true, 3.0);      /* the dial says NOTHING and the press says yes */
+
+    /* AND AN AUTHORED FIGHT IS NEVER THE LESSON. A quest step or a hold-line
+       defence is a fight somebody WROTE, with its own roster and its own way to
+       lose; replacing it with one man on an empty street would break the thing
+       that asked for it, and it must not consume the lesson either. */
+    ffQuest = await page.evaluate(() => {
+      startEncounter({ packageId: 1, questId: 'S99', stepId: 'x',
+        roster: [{}, {}, {}, {}], reason: 'gate authored' });
+      return { stillUnlearned: !beatTaught() };
+    });
+    await page.waitForTimeout(2500);
+    ffQuest.board = await cframe.evaluate(() => ({
+      teachBeat: !!G.teachBeat, men: (G.e || []).length, allyOn: allyOn() }));
+
+    /* AND IT ENDS. A lesson that never turns itself off is a game that is all
+       tutorial, so mark it learned the way winning marks it and start another
+       fight through the same door. */
+    ffShell = await page.evaluate(() => {
+      const before = beatTaught();
+      markBeatTaught();
+      startEncounter({ packageId: 1, roster: [{}, {}, {}, {}, {}], reason: 'gate' });
+      return { before: before, after: beatTaught() };
+    });
+    await page.waitForTimeout(2500);
+    ffSecond = await cframe.evaluate(() => ({
+      teachBeat: !!G.teachBeat, men: (G.e || []).length,
+      pillars: (G.pillars || []).length, allyOn: allyOn()
+    }));
+  }
+
+  console.log('  V202 the first fight teaches the beat:'
+    + '\n    the board   ' + JSON.stringify(ff)
+    + '\n    off-beat    ' + JSON.stringify(ffOff)
+    + '\n    on-beat     ' + JSON.stringify(ffOn)
+    + '\n    the tell    ' + JSON.stringify(ffTell)
+    + '\n    authored    ' + JSON.stringify(ffQuest)
+    + '\n    after       ' + JSON.stringify(ffShell) + ' ' + JSON.stringify(ffSecond));
+
+  ok('V202 *** THE FIRST FIGHT IS THE ONLY TUTORIAL WE GET, AND IT TEACHES ONE THING. *** Four rules have to be learned in a stranger\'s first minute of combat -- the beat, it is a group, a tile is a house, the companion acts -- and NOTHING taught any of them. The research is blunt: one lesson per encounter, and a first fight that teaches four teaches none. So this board is ONE man (' + (ff && ff.men)
+    + ') on a street (' + (ff && ff.arenaKind) + ') with nowhere to hide (' + (ff && ff.pillars) + ' cover, ' + (ff && ff.cars)
+    + ' cars, ' + (ff && ff.deck) + ' deck), no companion (allyOn ' + (ff && ff.allyOn)
+    + '), a plain man with a gun rather than a blade or a machine, and he is already inside your reach (' + (ff && ff.inReach)
+    + ') -- because IT IS A GROUP, USE THE BOARD, A TILE IS A HOUSE and THE COMPANION ACTS are lessons two, three and four, one per later encounter',
+    !!ff && ff.teachBeat === true && ff.men === 1 && ff.arenaKind === 'street'
+    && ff.pillars === 0 && ff.cars === 0 && ff.deck === 0 && ff.allyOn === false
+    && ff.melee === false && ff.bot === false && ff.inReach === true);
+
+  ok('V202 AND THE OBSTACLE IS IMPOSSIBLE TO PASS WITHOUT THE THING BEING TAUGHT, which is the whole finding. On the teaching board the DIAL does not decide, the PRESS does: pressed off the beat WITH THE NEEDLE HELD DEAD CENTRE the shot lands on nobody (' + (ffOff && ffOff.grade) + ', needle ' + (ffOff && ffOff.needle) + ', ' + (ffOff && ffOff.hp0) + ' -> ' + (ffOff && ffOff.hp1)
+    + '), and pressed on the beat WITH THE NEEDLE HELD AT A WILD MISS he goes down anyway (' + (ffOn && ffOn.grade) + ', needle ' + (ffOn && ffOn.needle) + ', ' + (ffOn && ffOn.hp0) + ' -> ' + (ffOn && ffOn.hp1)
+    + '). Both answers come out BACKWARDS FROM THE NEEDLE on purpose: the first cut of this arm just read his health after a press and PASSED WITH THE RULE DELETED, because a press can miss on the dial by itself. The grade is the SAME grade the groove chain already reads, so there is one judge of what on-the-beat means and not two. Driven through the real aim door and the real trigger, never a stub',
+    !!ffOff && !!ffOn && !ffOff.err && !ffOn.err
+    && ffOff.hp1 === ffOff.hp0 && ffOff.down === false
+    && (ffOn.grade === 'PERFECT' || ffOn.grade === 'GOOD') && ffOn.hp1 < ffOn.hp0);
+
+  ok('V202 AND YOU CAN SEE IT WITHOUT BEING TOLD, because a text box breaks the world and the row says no text box, ever. READ OFF THE GLASS, ' + (ffTell && ffTell.ghostN)
+    + ' frames a side, interleaved frame by frame: the box he is drawn in reads ' + (ffTell && ffTell.him_solid) + ' when the ghost is held open and ' + (ffTell && ffTell.him_ghost)
+    + ' when it is held shut, while a control box of ground beside him reads ' + (ffTell && ffTell.ground_solid) + ' and ' + (ffTell && ffTell.ground_ghost)
+    + ' -- HIS pixels move and nothing else\'s does, so the ghost is wired into the path that actually draws this man. THAT IS THE QUESTION THIS ARM EXISTS FOR, and three cuts of it were wrong first: it asked teachAlpha() what it would return, which proved nothing, because the ghost was wrapped around drawEnemySprite and that function is called every frame and RETURNS FALSE EVERY TIME on the real surface -- no look is baked for this man, so a stranger sees the fallback disc, and the tell was in the draw path nobody was on; then it sampled sixty frames of one setting followed by sixty of the other, so the answer was the camera still settling at the top of the fight; then it read the canvas in the SAME frame it set the flag, and the reader shares requestAnimationFrame with the render loop, so the pixels belonged to the previous setting and the two arms cancelled. The window is GOOD_MS on the 120 grid (' + (ff && ff.windowIsTheGradeWindow)
+    + '), the same window the shot is graded by, derived and not declared, because a tell that can drift from the rule is a lie with an animation on it',
+    !!ffTell && ffTell.drew === true && ffTell.ghostN > 40 && ffTell.ground_solid > 5
+    && Math.abs(ffTell.him_solid - ffTell.him_ghost) > 3
+    && Math.abs(ffTell.ground_solid - ffTell.ground_ghost) < 1
+    && !!ff && ff.windowIsTheGradeWindow === true);
+
+  ok('V202 AND THE LESSON ENDS, which is the guard that keeps the whole game from being a tutorial. It is marked learned only on a WIN, so dying or quitting in the middle leaves it standing and the fight you cannot pass without the beat comes back. Once it is learned (' + (ffShell && ffShell.before) + ' -> ' + (ffShell && ffShell.after)
+    + ') the next fight through the same door is an ordinary one: ' + (ffSecond && ffSecond.men) + ' men, ' + (ffSecond && ffSecond.pillars)
+    + ' pieces of cover, companion back on (' + (ffSecond && ffSecond.allyOn)
+    + '). The flag is a LATCH consumed by setup, so a fight built without a fresh message -- the COMBAT bench\'s own FOES buttons included -- is never a teaching fight',
+    !!ffShell && ffShell.before === false && ffShell.after === true
+    && !!ffSecond && ffSecond.teachBeat === false && ffSecond.men > 1
+    && ffSecond.pillars > 0 && ffSecond.allyOn === true);
+
+  ok('V202 AND AN AUTHORED FIGHT IS NEVER THE LESSON. A quest step or a hold-line defence is a fight somebody WROTE, with its own roster and its own way to lose, so cutting it down to one man on an empty street would break the thing that asked for it -- and it must not spend the lesson either. A fight carrying a questId builds an ordinary board (' + JSON.stringify(ffQuest && ffQuest.board)
+    + ') and leaves the lesson standing (' + (ffQuest && ffQuest.stillUnlearned)
+    + '). The lesson waits for a fight the world produced on its own, which is the only kind a stranger meets anyway',
+    !!ffQuest && ffQuest.stillUnlearned === true && !!ffQuest.board
+    && ffQuest.board.teachBeat === false && ffQuest.board.men > 1 && ffQuest.board.allyOn === true);
 
   ok('no page errors through the whole round trip', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

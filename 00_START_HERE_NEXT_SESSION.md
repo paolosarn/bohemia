@@ -9316,7 +9316,79 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-LAST ROUND: THE-INDOOR-FIGHT [indoor fights] SHIPPED (8646115). YOU WALK INTO A HOUSE
+THIS ROUND: THE-FIRST-FIGHT-TEACHES-THE-BEAT [first fight] SHIPPED. A STRANGER OPENS
+THE DEMO WITH NO MANUAL, AND THE FIRST FIGHT IS NOW A LESSON IN THE BEAT AND NOTHING
+ELSE. Four rules have to be in their head inside a minute (the beat, it is a group, a
+tile is a house, the companion acts) and NOTHING taught any of them. The coordinator's
+research is blunt: one lesson per encounter, the obstacle must be impossible to pass
+without the thing being taught, and a first fight that teaches four teaches none.
+
+WHAT THE TEACHING BOARD IS, measured in the running fight: ONE man, on a STREET, 0
+cover, 0 cars, 0 upper deck, NO COMPANION, a plain man with a gun (never a blade, never
+a machine), already INSIDE YOUR REACH, and NO WORDS ADDED. Every other lesson is kept
+out on purpose -- you cannot teach IT IS A GROUP with one man, USE THE BOARD with
+nothing to hide behind, or THE COMPANION ACTS with a companion who would have won the
+fight for you.
+
+THE RULE: on the teaching board THE DIAL DOES NOT DECIDE, THE PRESS DOES. Off the beat
+nothing lands on him; on the beat he goes down. It reads G._lastGrade, the same grade
+the groove chain has read since V74, so there is ONE judge of what on-the-beat means.
+THE TELL IS DIEGETIC AND DERIVED: he is solid inside the window and a ghost outside it
+(alpha 1 -> 0.34), and that window is GOOD_MS on the 120 grid, arithmetically the same
+window gradeOf bands. It sits on the CALLER, not inside drawEnemySprite, so it covers
+the sprite AND the fallback disc. No text box, ever.
+
+AND AN AUTHORED FIGHT IS NEVER THE LESSON: a fight carrying a questId or a defend
+contract is one somebody WROTE, with its own roster and its own way to lose, so it
+builds an ordinary board and leaves the lesson standing. The lesson waits for a fight
+the world produced on its own, which is the only kind a stranger meets anyway.
+
+AND THE LESSON ENDS, which is the guard that matters most: marked learned ONLY ON A
+WIN, so dying or quitting leaves it standing and the fight you cannot pass without the
+beat comes back. The next fight through the same door is ordinary (5 men, 52 pieces of
+cover, companion back on). The flag is a LATCH consumed by setup, so the COMBAT bench's
+own FOES buttons are never a teaching fight. It rides PERSIST's existing backend and
+touches no other lane's save.
+
+*** FOUR THINGS WENT WRONG AND THREE OF THEM WERE THE INSTRUMENT. ***
+  * THE FLAG WAS READ BEFORE IT WAS DECLARED. const _teach sat beside the postMessage
+    and was read in the G.encounter literal twelve lines above -- a temporal dead zone,
+    so startEncounter THREW ON EVERY FIGHT and the flag never went out. Caught on the
+    real surface, which is the only reason it is not shipping.
+  * THE GATE PASSED WITH THE RULE DELETED. The first cut pressed the trigger and read
+    the man's health, which sounds like proof and is not: an off-beat press can miss on
+    the dial by itself and an on-beat one can hit. Mutation gave 35/0 with the rule cut
+    out. The fix is to PIN THE NEEDLE THE OTHER WAY ROUND FROM THE ANSWER BEING CLAIMED
+    -- off-beat pressed with the dial DEAD CENTRE, on-beat pressed at a WILD MISS -- so
+    only the press can explain either result. Mutation now 34/1.
+  * THE TELL WAS IN THE DRAW PATH NOBODY IS ON. The ghost was wrapped around
+    drawEnemySprite and the arm asked teachAlpha() what it would return, which is not
+    a picture. MEASURED: that function is called every frame and RETURNS FALSE EVERY
+    TIME -- enemyLook() has no baked look for this man, so a stranger sees the FALLBACK
+    DISC one line below. Real code, in a branch the game never takes. It sits on the
+    CALLER now, the one door the sprite and the disc both go through. AND THE ARM TOOK
+    THREE MORE WRONG CUTS: sampling on-beat against off-beat measured HIS COLOUR (his
+    own peek and fire windows are beat-locked too and repaint that disc green or red);
+    sixty frames of one setting then sixty of the other measured THE CAMERA still
+    settling; and reading the canvas in the SAME frame the flag was set measured the
+    PREVIOUS setting, because the reader shares requestAnimationFrame with the render
+    loop -- 1.3 the wrong way round on a ghost a screenshot shows working. It
+    interleaves frame by frame, reads a frame later, and carries a control box of
+    ground: 51.9 -> 61.3 on him, 48.4 -> 48.4 on the ground.
+  * MY OWN V201 CHECKER WENT RED ON WORKING CODE, pinned to another lane's number: it
+    matched the literal walkInterrupt(5.04) and WORLD's [faster roads] row made a step
+    cost what the ground costs. The hook never moved. It matches the CALL now, not its
+    argument. A checker pinned to a constant another lane owns is a false alarm waiting
+    for a date.
+
+NO DAMAGE BEFORE THE DIAL: this row moves no damage, accuracy, range or resource
+number. KILL_DMG, the archetypes and every weapon band are untouched; it changes which
+of the existing outcomes a shot resolves to, on one board, for one fight.
+Tool: tools/bohemia_first_fight_patch.py (replayable, MARK-idempotent; replay order
+v197 -> v198 -> v199 -> v200 -> street v201 -> THIS).
+Record: records/BOHEMIA_COMBAT_THE_FIRST_FIGHT_TEACHES_THE_BEAT_9_6_26.md
+
+THE ROUND BEFORE THAT: THE-INDOOR-FIGHT [indoor fights] SHIPPED (8646115). YOU WALK INTO A HOUSE
 AND THE FIGHT IS THE HOUSE. The walked city had been posting the whole building --
 walls, furniture, every doorway, even a retreat analysis -- since V161, and combat
 threw it away: enc.cityRoom was WRITTEN ONCE AND READ BY NOTHING, one mention in the

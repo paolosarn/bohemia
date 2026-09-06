@@ -2910,7 +2910,10 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
     /* V100 RE-POINTED: still rolled on the arena dice outdoors. Indoors a warehouse
        ALWAYS has its office mezzanine, which is a property of the building, not a
        coin flip -- and the seed still reproduces which kind of arena you got. */
-    demo.includes("if(G.arenaKind==='warehouse'||Math.random()<0.72){") &&
+    /* V202 RE-POINTED: the die is still thrown, and it is thrown FIRST, so a
+       fight with no lesson on it leaves the seeded stream exactly where it found
+       it. The teaching board is the one arena with no storey on it. */
+    demo.includes("if((G.arenaKind==='warehouse'||Math.random()<0.72)&&!G.teachBeat){") &&
     demo.includes('G._deckHolders='));
   ok('NEVER BUILT ON TOP OF THE PLAYER, and never so far out it is scenery',
     demo.includes('if(Math.hypot(tx,ty)<2.6)continue;') && demo.includes('if(Math.hypot(tx,ty)>12)continue;'));
@@ -3349,7 +3352,7 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('for(let a=-10;a<=10;a+=BAY)for(let b=-10;b<=10;b+=BAY)put(a,b,0.42,true);'));
 
   ok('V100 THE MEZZANINE ALWAYS EXISTS INDOORS, and it is the first time the v90 cross-level cover rule has paid for itself: height means seeing down the rows the racking would otherwise close off',
-    demo.includes("if(G.arenaKind==='warehouse'||Math.random()<0.72){"));
+    demo.includes("if((G.arenaKind==='warehouse'||Math.random()<0.72)&&!G.teachBeat){"));   /* V202 RE-POINTED: same rule indoors, and no storey on the teaching board */
 
   ok('V100 INDOORS THERE IS NO STREET: one material wall to wall, from the approved starter set',
     /* V200 RE-POINTED: a ROOM is indoors too. V100's sentence -- "indoors there
