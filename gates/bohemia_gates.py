@@ -979,6 +979,20 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('WHAT YOU OWE',   ['node', 'gates/what_you_owe_gate.js'],
+     'BB-WHAT-YOU-OWE, called by the study "the smallest row in seven days and the best '
+     'effort-to-effect one on the whole board -- one line on a card he is already reading". '
+     'THERE IS EXACTLY ONE DAILY COST IN THE WALKED GAME and it is not food, rent or fuel: it '
+     'is PEOPLE YOU SAID YOU WOULD SHOW UP FOR. ctNeglectFor bills every outfit you promised '
+     'and did not turn up for, hands back who and how much, AND ITS RETURN VALUE WAS THROWN '
+     'AWAY -- worse, the charge happened on the tap that DISMISSED the card, so the bill was '
+     'rung up at the moment the only surface that could report it was already gone. The charge '
+     'now happens before the card is built and the card NAMES WHO YOU LET DOWN, plus the '
+     'forward half, WHO IS EXPECTING YOU TOMORROW. The game he named punishes you with people '
+     'leaving, not death; we built that and hid it. Mutation: discard the answer -> 5 red; '
+     'remove the nothing-said-nothing-owed guard -> 1 red (and that one PASSED first time, '
+     'because it was asked on a save where nobody had standing to lose -- it seeds real '
+     'standing with no promise now)', True),
     ('ROAD ON FOOT',   ['node', 'gates/road_interrupts_on_foot_gate.js'],
      'VAMILY [street encounters]. THE ROAD INTERRUPTS shipped 8/27 -- twelve approved road '
      'moments, the director on the clock, 70/20/10 held, the card, the leavings, the choices -- '

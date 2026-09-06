@@ -5696,7 +5696,60 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/5 LATEST -- *** [street encounters] SHIPPED. The twelve road
+RUN (run-eak241): 9/5 LATEST -- *** [debts named] SHIPPED. The reckoning card
+names WHO YOU LET DOWN now, and who is expecting you tomorrow. The one daily cost
+in this game is not food or rent, it is PEOPLE YOU SAID YOU WOULD SHOW UP FOR --
+and the game has been charging it silently. TAB: RUN, play a day and sleep.
+Nothing to judge. ***
+
+THE MECHANIC WAS ALREADY RIGHT AND COMPLETELY SILENT. ctNeglectFor walks every
+outfit you made a commitment to and takes standing away if you did not turn up
+("nothing said, nothing owed" -- it only bills what you actually promised).
+Three things, all in one place:
+  1. IT HANDS BACK {faction, lost, now} FOR EVERY OUTFIT AND THE RETURN VALUE WAS
+     THROWN AWAY. It already computed exactly what the card needed to say.
+  2. THE TIMING MADE IT UNSAYABLE: the card was built and shown FIRST and the
+     charge fired on the tap that DISMISSED it, so the bill was rung up at the
+     exact moment the only surface that could report it was already gone.
+  3. So the card counted steps, districts, buildings, the job outcome and the
+     pay, and NEVER ONCE SAID WHOSE DAY YOU RUINED.
+The game he named punishes you with PEOPLE LEAVING, not death. We built our
+version of that and hid it.
+
+SHIPPED: the charge moves to the top of showReckoning, before a line of the card
+exists, and its answer is kept. The card carries WHO YOU LET DOWN (their name,
+what it cost, what is left) and WHO IS EXPECTING YOU TOMORROW. The forward half
+is read-only and shares the charge's OWN module calls, so the warning can never
+say anything the bill would not do. The old call is REMOVED from the dismiss
+callback rather than left as a harmless second one -- two call sites for one
+day's write is the two-writers bug, and a self-guarding function is not a reason
+to keep it. ctVouchSweep is untouched and still runs after the charge, which is
+the order it needs.
+
+A JUDGEMENT I GOT WRONG FIRST: the first cut FILTERED anybody already billed
+today out of the forward list, on the theory that a name said twice reads as two
+debts. Measured on the real card, that emptied the forward list at exactly the
+moment the warning is worth most -- THE NIGHT YOU ALREADY MISSED THEM. Somebody
+you let down today still expects you tomorrow. Nobody is filtered now.
+
+*** AND A CLAIM THAT PASSED FOR THE WRONG REASON, which is a first this week. ***
+The gate asserts "nothing said, nothing owed". Mutation-tested by removing the
+guard so everybody is billed whether they promised anything or not -- AND IT
+STAYED GREEN. The claim was asked on a fresh save where nobody had any standing
+at all, and both lists independently drop anybody with nothing left to lose, so
+it agreed for the wrong reason. It seeds REAL STANDING WITH NO PROMISE BEHIND IT
+now -- the exact case the guard exists for -- and the mutation turns it red.
+Eleventh ruler check this week and the first where the ruler PASSED when it
+should have failed rather than the reverse.
+
+  WHAT YOU OWE 17/0 (new) - WHOLE DEMO 23/0 - COLD HAND 6/0
+  NOT MINE, unchanged from before this patch: DAY LOOP 57/2.
+No new mechanic, no new cost, no new number. The game already computed all of it
+and said none of it. Words are attempts, draft:true.
+Record: records/BOHEMIA_WHAT_YOU_OWE_9_5_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [street encounters] SHIPPED. The twelve road
 moments fire on the walked street now, not just on the map -- and the reason they
 never could was not only the missing call. THE INTERRUPT WAS READING THE MAP
 CURSOR, NOT THE PLAYER. TAB: RUN, walk out of the suburb. Nothing to judge. ***
