@@ -1953,6 +1953,8 @@ GATES = [
      'Paolo 8/1 "remember all my feedback and put it into your own training data" -- I cannot, so the repo remembers instead: his seven craft rules and the process lessons pinned as law, with the code that implements each checkable clause asserted still in place', False),
     ('HAIR',          ['node', 'gates/hair_gate.js'],
      'Paolo 8/1 cook up as many hairstyles as you possibly can: 26 SHAPES not recolours (footprint-hashed, colour discarded), the face never covered, all 8 facings, fits the tallest and shortest citizen, and a thumbs board that exports .txt', False),
+    ('HAIR 8 FACINGS',['node', 'gates/hair_eight_facings_gate.js'],
+     'Paolo 8/20 east and west hairstyles look like absolute dog shit across the board, killing 13 of 15 in one sitting: the first NUMBER for it. Every PAIR of canon cuts on every facing, by the share of hair pixels only one of the two has. It is not east and west, it is the BACK -- every pair from NE scored below the worst pair from S, because sideBot forced nine short cuts down to the skull base. Each cut has its own neckline now (NE 0.220 -> 0.299, N 0.224 -> 0.305, five facings byte-identical). E and W are still the hole and are pinned so raising them is visible', False),
     ('FACING',        ['node', 'gates/facing_gate.js'],
      'Paolo 8/1 the back of my outfits are the exact same when Im facing south: 19 generators read curDir and only the CLOTHES preview ever set it, so every garment rendered front-facing everywhere. The composite now feeds the frame direction and hands it back', False),
     ('CLIP HEALTH',   ['node', 'gates/clip_health_gate.js'],

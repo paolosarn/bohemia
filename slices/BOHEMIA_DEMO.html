@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/6k - FACTIONS SIT WHERE THEIR CANON SAYS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/6l - EVERY HAIRCUT GETS ITS OWN NECKLINE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -25382,8 +25382,52 @@ window.CLO=(function(){
          SO IT ONLY DRAWS WHEN THE HAIR ACTUALLY STOPS THERE. Nothing about a crop, a
          buzz or a bob changes -- those all end at or above the jaw and still come to a
          nape, which is his 8/1 ruling and it stands. */
-      if(back&&y>hBot-2*S&&y<=hBot&&(sideBot+backEx)<=hBot+S){
-        var _nd=((((y-(hBot-2*S+1))/S)|0)+1)*S; mn+=_nd; mx-=_nd; }
+      /* *** AND EVERY CUT HAD THE SAME NECKLINE, WHICH IS THE ONE THING THAT COULD
+         TELL THEM APART FROM BEHIND. (COOK, 9/6, and it is measured.) ***
+         tools/bohemia_hair_eight_facings_9_6_26.js scores every PAIR of canon cuts on
+         every facing by the share of hair pixels only one of the two has. The back is
+         the worst part of this generator by a distance, not the profiles everybody has
+         been quoting since 8/20:
+             S 0.459 (1 twin pair of 55)   E/W 0.301 (18)   NE 0.220 (33)   N 0.224 (31)
+         EVERY pair seen from NE scores below the WORST pair seen from S. TEMPLE TAPER
+         against CURTAIN CUT: 0.322 from the front, 0.066 from behind.
+         The cause is thirty lines up -- sideBot forces every cut down to hBot on a back
+         facing -- and the profile fix's own comment states what that costs: "what still
+         tells them apart is how far the hair HANGS, which sideBot already owns."
+         THE FLOOR STAYS. This block's own comment is right that a buzz cut covers the
+         whole cranium; the cranium is not the argument. THE NECKLINE IS, and this block
+         says so itself: "every one of those is a cut a barber names BY ITS NECKLINE."
+         It then drew the identical inset on all of them.
+         So the line is the cut's own now: it STARTS at the style's own bottom (a cut
+         hanging to 62% closes in four rows higher than one hanging to 95%), it CLOSES at
+         a rate the fade dial and the hang set together (a deep fade narrows to a point,
+         which is what clippers do; no fade and a long hang stays blocked and level), and
+         FULLNESS holds it off the neck (vol and flare, because a full cut does not sit
+         tight to the nape).
+         IT DRAWS AT BOTH SCALES, and scoping it to 112 was the first thing tried and the
+         first thing wrong: a rivet RECOLOURS a pixel the plate already owns, but A
+         NECKLINE IS THE SILHOUETTE, so 112-only put CROP at 82% of its proper coverage
+         and LONG at 114% and clothes_4x_gate claim 1 refused it, correctly. Drawn at
+         both scales it is 448/448, and the 56 hashes for hair on NE/N/NW move -- logged
+         in gates/clothes_56_pin.txt with the numbers.
+         EVERY NAME HERE IS PREFIXED _nk. The first cut called the row counter `_cr`,
+         which genHair already uses three times in the shading, and `var` is FUNCTION
+         scoped -- so a variable written under a `back`-only guard overwrote one read on
+         every facing, and city_cast_gate went red on the FRONT view. A back-only guard
+         is not a back-only change if the names are shared. */
+      if(back&&(sideBot+backEx)<=hBot+S){
+        var _nkT=Math.max(hBot-4*S+1,Math.min(hBot-2*S+1,_styleBot));
+        if(y>=_nkT&&y<=hBot){
+          var _nkR=(((y-_nkT)/S)|0)+1;
+          var _nkTight=Math.max(0.5,Math.min(2.0,
+            (opt.fade||0)*0.18+(0.85-Math.min(0.85,sideF))*1.6));
+          var _nkWide=Math.round(((opt.vol||0)*0.5+(opt.flare||0)*4)*S);
+          /* NEVER CLOSE THE NAPE. The inset is capped at a third of the row so the
+             span can never invert or pinch to nothing on the small grid, where the
+             head is twelve pixels across. */
+          var _nkI=Math.min(Math.floor((mx-mn)/3),
+                            Math.max(0,Math.round(_nkR*S*_nkTight)-_nkWide));
+          mn+=_nkI; mx-=_nkI; } }
       if(!strip){ mn-=wob(y,0); mx+=wob(y,1);                      /* NO STRAIGHT LINES */
         /* A FALL IS A FALL WHICHEVER WAY HE FACES. wob() fires on one row in four,
            which is a hairline lying on bone; below the jaw the hair is hanging in air

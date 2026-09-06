@@ -2014,100 +2014,98 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/6 LATEST -- *** THE THIRTEEN HAIRCUTS PAOLO KILLED ON 8/20 HAD
-BEEN SHIPPING AS CANON FOR SIXTEEN DAYS, AND NINETEEN PEOPLE WERE WEARING THEM. Canon
-hair 24 -> 11. Nobody in the game wears a shape he killed. The graveyard sweep reports
-ZERO live references for the first time. TAB: CHARACTER. Nothing to judge. ***
+COOK (cook-mce6r5): 9/6 LATEST -- *** IT IS NOT EAST AND WEST. IT IS THE BACK. His
+oldest open hair complaint finally has a number, and the number says everyone has been
+carrying the wrong diagnosis for sixteen days. Every haircut has its own NECKLINE now.
+TAB: CHARACTER. Nothing to judge. ***
 
-THE JOB: [runway hair] HAIR-TO-THE-CARD, CLAIMED, CONTINUING. This round was the
-graveyard read this lane's own handoff says must come first, and it never got to the
-card. Round 1 of about 3.
+THE JOB: [runway hair] HAIR-TO-THE-CARD, CLAIMED, CONTINUING. Round 2 of about 3.
+Round 1 was the graveyard read (thirteen of his kills were still shipping as canon).
+This round is the card's section 3, ALL EIGHT FACINGS, which the card names after hair:
+"a pole judged only from the front is not judged (THE HAIRCUT LESSON, 8/28)".
 
-WHAT THE READ FOUND. records/BOHEMIA_VERDICT_HAIR_ROUND4_8_20_26.txt lists thirteen
-kills, "FINAL and graveyarded". All thirteen were still `st:'canon'` -- 13 of the 24
-canon haircuts, in the crowd, the face maker, the family and the city cast.
+THE RULER, AND IT DID NOT EXIST BEFORE THIS ROUND. A haircut's job is to tell one person
+from another, so: from this angle, can you tell the eleven cuts apart? For every PAIR of
+cuts on one facing, the share of hair pixels exactly one of the two has. Silhouettes
+only, never colour. gates/hair_eight_facings_gate.js, 19 checks, pinned per facing.
 
-WHY NOTHING CAUGHT IT, AND IT IS THE KEEPER. The registry spelled them
-`n:'HAIR - SUN CROP'` -- the JUDGING TOOL'S DISPLAY NAME. The build has always said
-`n:'SUN CROP'`. The graveyard gate treats a registry entry as a search string, so it
-swept the whole tree for a string THAT HAS NEVER EXISTED IN THIS CODEBASE, found
-nothing, and reported the dead as staying dead. Green, thorough, measuring a typo --
-same family as the 8/25 headwear gate that passed 17 hats drawing zero pixels.
+    S 0.459 (1 twin pair of 55)   SE/SW 0.452 (2)   E/W 0.301 (18/19)
+    NE 0.220 (33)   N 0.224 (31)   NW 0.225 (33)
 
-WHAT SHIPPED
-  1. Thirteen tokens rewritten into the form the code uses; thirteen haircuts flipped
-     canon -> dead. Canon hair 24 -> 11 (his two KEEPs plus nine cooked after).
-  2. NINETEEN AUTHORED PEOPLE REPOINTED off the corpses. The draw path is
-     `GARMENTS.find(x => x.n === nm)` -- BY NAME, `st` never consulted -- so RAY,
-     DENISE, NINA, eleven faction looks and the whole city cast were rendering dead
-     shapes. Replacement is the nearest LIVING cut by the dials that make the
-     silhouette, not taste.
-  3. FOUR NEW CHECKS in hair_graveyard_gate.js, every one mutation-tested: none of the
-     thirteen is canon; all thirteen are still tombstones; NOBODY IS WEARING ONE; and
-     *** every hair tombstone names a string the build actually contains ***, which is
-     the one that would have caught this on day one.
+EVERY ONE of the 55 pairs seen from NE scored below the WORST pair seen from S. The
+profiles are poor; THE BACK THREE ARE A WHOLE TIER BELOW THEM. His 8/20 words were "east
+and west hairstyles look like absolute dog shit across the board" and he killed 13 of 15
+on it; he was judging a turntable and named the angle he could name. TEMPLE TAPER against
+CURTAIN CUT is 0.322 from the front and 0.066 from behind.
 
-FIVE MORE RULERS WERE WRONG (sixteen in this lane now) AND NOT ONE SHAPE WAS CHANGED
-TO FIT A BAR. Four gates went red on a turn that moved no pixels; clothes_4x_gate's
-1,744 pinned 56px hashes are unmoved and per-style straightness is identical to the
-digit for all eleven survivors, which is the proof.
-  hair_gate clause 3   a POOLED MEAN IS NOT A RATCHET when the population can change.
-    The thirteen that left were the LESS straight ones. Re-derived to 0.1822, and the
-    straightest SINGLE style is now pinned beside it (TEMPLE TAPER 34.4%, identical
-    before and after) -- removing a style can never raise that number.
-  hairline_gate        `E.length >= 15` was a COUNT OF THE POOL, and the weaker claim.
-    Now: every canon style that exists rendered. Its blind fixture named BOWL CUT, a
-    corpse; it reads the pool now.
-  portrait_haircut_gate  `DIALS_MIN = 15`. 11 of 11 failed a bar of 15. Now: all.
-  face_maker_gate      clicked the button labelled `wolf cut`. THE RULER NAMED A STYLE
-    AND THE STYLE DIED.
-  craft_law_gate cl.6  `>= 4` faded canon styles. A SHARE, NOT A COUNT -- third time
-    this exact bug has been written. THE RATE WENT UP: 29.2% -> 27.3% against 26.7%
-    on the build the line was written for. Floor 25%.
-city_cast_silhouette_gate WAS RIGHT and is the one that changed a shape: nearest-cut
-alone collapsed two of the six outlines and handed the member the table calls
-"smallest" the biggest cut in the pool. Inside that table the repoint now carries the
-table's own two authored properties (no two share a cut; a repoint may not overturn a
-member's written brief). Spread back to 14.0%; the gate is exactly as it is on main
-(its mean check was already red before this turn and is the cast lane's).
+THE CAUSE IS ONE LINE, CONTRADICTED BY A COMMENT THIRTY LINES BELOW IT.
+`sideBot=(back||prof)?Math.max(hBot,_styleBot)` forces every cut down to the base of the
+skull on a back facing, and nine of eleven are shorter than that. The profile fix's own
+comment says what that costs: "what still tells them apart is how far the hair HANGS,
+which sideBot already owns."
 
-[PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME. *** ASH
-  SWEEP and SALT CROWN were grey, GREY WISPS white, LOW BUN grey (died 8/2). All
-  eleven survivors are black, brown or sand, and a worn hair garment draws in its OWN
-  baked ramp -- there is no recolour on that path -- so RAY the father, the Church and
-  the old wide-brim citizen lost their grey. Nothing was faked: grey recolours are
-  "recolors, not diverse looks" (7/18) and a fresh hair SHAPE is blocked until the
-  east/west facings render (8/20: "cooking new hair into a broken render is how you
-  get a fourteenth kill"). His call, in plain words: leave them dark, or unblock hair.
+THE FIX IS NOT TO REMOVE THE FLOOR -- the generator is right that a buzz cut covers the
+whole cranium. What was merged into the cranium is THE NECKLINE, which the same block
+names out loud ("every one of those is a cut a barber names BY ITS NECKLINE") and then
+drew identically on all of them. It is the cut's own now: where it starts is the style's
+own bottom, how hard it closes is the fade dial and the hang, fullness holds it off the
+neck, and it is capped at a third of the row so it can never pinch shut.
+    NE 0.220 -> 0.272 (33 -> 25)   N 0.224 -> 0.276 (31 -> 23)   NW 0.225 -> 0.272
+    S, SE, SW, E and W unchanged to the digit, at both scales.
+The back was 27% below the profiles; it is 9% below now.
+
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY MACHINE IN UNDER A MINUTE, and both worth keeping:
+  1. I SCOPED IT TO 112 FIRST. That is this generator's standing pattern for authored
+     detail ("S>1 only, so the 56 wardrobe is byte-identical"), and it does not apply: a
+     rivet RECOLOURS a pixel the plate already owns, A NECKLINE IS THE SILHOUETTE.
+     clothes_4x_gate claim 1 refused it (CROP at 82% coverage, LONG at 114%, 7 of 448).
+     Drawn at both scales it is 448/448 and 123 of 1744 hashes move -- all genHair, all on
+     NE/N/NW, logged in gates/clothes_56_pin.txt with the numbers and the reason.
+  2. I NAMED A VARIABLE `_cr` AND genHair ALREADY HAD ONE, three times, in the shading.
+     `var` is FUNCTION scoped, so a variable written under a `back`-only guard overwrote
+     one read on every facing and city_cast_gate went red on the FRONT view. A back-only
+     guard is not a back-only change if the names are shared. Everything is `_nk` now.
+
+[FOR CHARACTER, P0, AND IT IS NOW CLOSEABLE] EAST AND WEST are the worst angle now: 0.300
+  against 0.452 head-on, 34% less legible, 18 and 19 same-shape pairs. Same shared cause
+  (the `prof` branch of the same line). Raise them, then raise the pins in
+  gates/hair_eight_facings_gate.js. That is his 8/20 P0 with a finish line on it.
+[PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (round 1).
+  All eleven survivors are black, brown or sand and a worn hair garment draws in its own
+  baked ramp, so RAY the father, the Church and the old wide-brim citizen lost their grey.
+  Not faked: grey recolours are "recolors, not diverse looks" (7/18) and a fresh hair
+  SHAPE is blocked until east and west render. Leave them dark, unblock hair, or rule.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
-[FOR DIRECTION] the card's POLE A/POLE B shoulder-span number is unmeetable by any
-  dressed sprite (it is written against the paperdoll torso).
-[FOR CHARACTER, P0, AND IT IS THE ROOT OF ALL OF IT] the EAST and WEST facings. His
-  8/20 words were "east and west hairstyles look like absolute dog shit ACROSS THE
-  BOARD" -- one render defect judged thirteen times. Until it is fixed no hair ballot
-  happens and no fresh cut answers a dead slot. hair_gate's own comment recorded the
-  profile strip bug before he ever saw it.
-[FOR THE PLUMBER] two rulers that lie:
-  - `bohemia_gates.py --fast` is documented "~2s vs ~4min", ran THIRTY-FOUR MINUTES
-    without finishing, output fully buffered.
-  - `look_gate` clocks a picture by FILE MTIME against its surface's mtime. PROVEN on
-    unchanged origin/main content: move only the timestamps and it reports ALL 52
-    pictures stale. It is green on a fresh clone and red in every live tree, for every
-    lane, whatever the content. It wants a content hash recorded at shoot time.
+[FOR DIRECTION] the card's POLE A/POLE B shoulder-span number is unmeetable by any dressed
+  sprite (it is written against the paperdoll torso). Also: the card has NO HAIR SECTION,
+  and its cloth bands do not apply to hair -- cloth_sat_max 0.25 would make every head in
+  the valley grey. The one card rule that does apply is section 3, which is this round.
+[FOR THE PLUMBER] three rulers that lie:
+  - `bohemia_gates.py --fast` documented "~2s vs ~4min", ran 34 MINUTES without finishing.
+  - `look_gate` clocks pictures by FILE MTIME. Proven on unchanged origin/main: move only
+    the timestamps and it calls all 52 stale. Green on a fresh clone, red in a live tree.
+  - `city_cast_gate` B6 is FLAKY: four runs on unchanged origin/main gave three red and
+    one green; four on this build gave two and two. It compares a freshly rendered
+    neighbour against the baked cast canvases and they do not always agree. Cost this
+    round twenty minutes chasing a regression that was not there.
 
-FILES  tools/bohemia_hair_graveyard_enforce_9_5_26.py,
-tools/bohemia_hair_repoint_the_kills_9_5_26.py, gates/hair_graveyard_gate.js (13
-checks), records/BOHEMIA_THE_THIRTEEN_KILLS_WERE_NEVER_ENFORCED_9_5_26.md.
-Previous job, still the standing wardrobe work: tools/bohemia_runway_cook_9_5_26.py
-and _2_ .. _6_; gates/runway_gate.js (82 checks, seven live controls);
-records/BOHEMIA_THE_RUNWAY_BATCHES_1_TO_6_9_5_26.md
+FILES  tools/bohemia_hair_eight_facings_9_6_26.js (the ruler, with the full pair tables),
+tools/bohemia_hair_the_neckline_9_6_26.py (the cook), gates/hair_eight_facings_gate.js
+(19 checks, registered in the suite as HAIR 8 FACINGS),
+records/BOHEMIA_IT_IS_NOT_EAST_AND_WEST_IT_IS_THE_BACK_9_6_26.md.
+Round 1: tools/bohemia_hair_graveyard_enforce_9_5_26.py,
+tools/bohemia_hair_repoint_the_kills_9_5_26.py, gates/hair_graveyard_gate.js (13 checks),
+records/BOHEMIA_THE_THIRTEEN_KILLS_WERE_NEVER_ENFORCED_9_5_26.md.
 
-*** WHAT COMES NEXT *** [runway hair] continues. The graveyard is read and clean, so
-the card work can start: the eleven canon cuts measured against the style card's
-palette bands (hair ramps vs cloth_sat 0.25 / value 0.08-0.92 / 4-6 steps) and the
-45-degree read on all eight facings. DO NOT COOK A NEW HAIRCUT: fresh cuts answering
-the dead slots are blocked until CHARACTER fixes east and west, and cooking into a
-broken render is how you get a fourteenth kill.
+*** WHAT COMES NEXT *** [runway hair] round 3: the eleven cuts against the rest of the
+card. The palette block is measured and REPORTED, not applied -- hair is not cloth and
+its bands would grey the valley (see FOR DIRECTION above); what is left that genuinely
+applies is the ramp step count (hair ramps are 3 steps against the card's 4-6 band) and
+the no-pure-ends floor (H_BLK's dark step sits at value 0.063 against a floor of 0.08,
+and the card says pure black flattens the 45-degree read). Both are COLOUR, so both are
+maintenance under STRUCTURE-NOT-COLOR and both change every head in the game -- take them
+to DIRECTION before touching a ramp. DO NOT COOK A NEW HAIRCUT: fresh cuts answering the
+dead slots stay blocked until east and west render.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM

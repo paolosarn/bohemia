@@ -54,6 +54,37 @@
 #            loop bounds moving together at the jaw, and the nape taper only drawing
 #            where the hair actually ends. Law:
 #            laws/BOHEMIA_LAW_THE_HAIRLINE_IN_PROFILE_8_27_26.md
+#
+#   9/6/26   123 of 1744, ALL genHair and ALL on the three BACK facings (41 hair
+#            shapes x NE, N, NW). S, SE, SW, E and W did not move one pixel at
+#            either scale, so the front view he approved 24 cuts on and both
+#            profiles are byte-identical.
+#            THE RULING IT SERVES is his 8/20 verdict, where he killed 13 of 15
+#            haircuts in one sitting saying "east and west hairstyles look like
+#            absolute dog shit across the board". That has never been a number.
+#            MEASURED FIRST (gates/hair_eight_facings_gate.js): for every PAIR of
+#            canon cuts on every facing, the share of hair pixels only one of the
+#            two has. IT IS NOT EAST AND WEST, IT IS THE BACK -- every one of the
+#            55 pairs seen from NE scored below the WORST pair seen from S:
+#                S 0.459 (1 twin pair)   E/W 0.301 (18)   NE 0.220 (33)
+#            because sideBot forces every cut shorter than the skull down to the
+#            skull base on a back facing, and nine of eleven are shorter. The
+#            profile fix's own comment says what that costs: "what still tells them
+#            apart is how far the hair HANGS, which sideBot already owns."
+#            THE FIX gives each cut its own NECKLINE -- the thing a barber names
+#            these cuts by, which this generator says out loud two lines above the
+#            code that drew the identical one on all of them. Where it starts is
+#            the style's own bottom; how hard it closes is the fade dial and the
+#            hang; fullness holds it off the neck. NE 0.220 -> 0.272, N 0.224 ->
+#            0.276, NW 0.225 -> 0.272, twin pairs 33 -> 25.
+#            AND IT IS DRAWN AT BOTH SCALES ON PURPOSE, which is why this file
+#            moves at all. Scoping it to 112 (this generator's usual pattern for
+#            authored detail) put CROP at 82% of its proper coverage and LONG at
+#            114% -- seven shape/facings outside claim 1's band, because a rivet
+#            recolours a pixel the plate already owns and A NECKLINE IS THE
+#            SILHOUETTE. Claim 1 is 448/448 with it drawn at both scales.
+#            tools/bohemia_hair_the_neckline_9_6_26.py, control run in the gate:
+#            put the flat nape back and it goes red seven ways.
 S|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
 S|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
 S|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
@@ -856,45 +887,45 @@ NE|genPoncho|{"hood":true}|a73f110995504b1d
 NE|genApron|{}|bf8d68f920699c4d
 NE|genApron|{"bibless":true}|faa82ac059c1e919
 NE|genCoverall|{}|43b4213c84f73639
-NE|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|11b773e4161b0024
-NE|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|07b276d55307cc9c
-NE|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|a7d5c89d0507a769
-NE|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|41de509dea4cb66b
-NE|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|0987df9c7f42b614
-NE|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|872a5f8cf6f1aa1a
-NE|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|b9b76e48b4ab0118
-NE|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|f8cd6f7d784e3055
-NE|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|4c7ec9f9e0314259
+NE|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|24e07e53ac382281
+NE|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|da69f225eb642aa3
+NE|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|9bb8b297fd717b46
+NE|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|67b8142b43303876
+NE|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|178e096e89b154d1
+NE|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|820e6fb87c27c363
+NE|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|c73470f796af418a
+NE|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|e6ad9f619171ea67
+NE|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|66e315e87e203973
 NE|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|eeacab62dba911af
 NE|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|35d3a5e3a6255ddc
 NE|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|de5e88b2904f1eac
 NE|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|8c03b0d9c98442c1
 NE|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|76a9a6ceb19faba6
 NE|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|51858382317859f7
-NE|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|037a04358c4a4eed
-NE|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|18989a2a5c973d7c
-NE|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|7730557e54a7af71
-NE|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|2c553863da5d1be6
-NE|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|3ac0f03448787200
-NE|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|dcf04adfad192450
-NE|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|aa8a820a27d71b4b
-NE|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|405725b1c4e5a3bd
-NE|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|521ae9e4e0ac8d6d
+NE|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|45f001eaa2f8cbcc
+NE|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|7c5d2cf9428c1f17
+NE|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|9a84dc93c2a777a2
+NE|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|83cc33479511e71f
+NE|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|6df1b6b675e6dbd8
+NE|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|5352d4cf8a2c8f5c
+NE|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|b2429beb580249a2
+NE|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|f2b00ce2254f9e6b
+NE|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|51f702a584195ede
 NE|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|ab6ecd2facdc5b49
 NE|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|fcb324ab6a30f66c
 NE|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|7ef3cc5220e14f52
 NE|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|b66a044bf207f890
 NE|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|9701403aa52ddb17
 NE|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|4ea013017a5e694b
-NE|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|6761022f9b0030ab
-NE|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|034ab3c5e8a6cda5
-NE|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|462236838e1e65af
-NE|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|df6a537ae65805ff
-NE|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|e65735f14912c012
-NE|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|3406a327e8092270
-NE|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|27d18a28e81ed2d7
-NE|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|b1c1c3fdd04d281b
-NE|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|8feeb62d518838f1
+NE|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|85516da7186a2d0b
+NE|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|bc6583ed7d7508db
+NE|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|0a135bddde5e2963
+NE|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|41416c7a9f969253
+NE|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|2613893edb5ce120
+NE|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|f5ca6db4bdf9e41c
+NE|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|4d46796a2ae7845f
+NE|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|9b1d892a7a174c17
+NE|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|35ffaaa08150c82b
 NE|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|abf8cbff8da9085b
 NE|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|d98b72a1c17141bb
 NE|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|2b588feae0a64833
@@ -904,26 +935,26 @@ NE|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}
 NE|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|fb019921f90f7625
 NE|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|7d227ad037760174
 NE|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|c9bb89d1dfaf6690
-NE|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|474db66e5e5c269e
-NE|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|ed0c39280ad043e8
-NE|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|e05a249cd508ad47
-NE|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|b1932c9fa8922079
-NE|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|9345a7a2ba78497a
-NE|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|aaa7426bdb0cd7d4
+NE|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|4a466a2cc967c567
+NE|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|e6a2731ace7a4463
+NE|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|357df944b162dbd0
+NE|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|511280b7ea834879
+NE|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|16b731ca108204bc
+NE|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|47546e31bdf5ff32
 NE|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|bdc89128a4d88b91
 NE|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|7df5f8013e9ea31b
 NE|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|6c96658026dfba8f
 NE|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|953c30deeb0804b9
 NE|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|8286e745e2792a17
 NE|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|935135c0711be239
-NE|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|2a688fe1890e6aed
-NE|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|238e2d5d2f6a7d9c
-NE|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|a606398126d641e5
-NE|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|da38b59906861513
-NE|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|7e089c363db902fa
-NE|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|f253fcde31abc31e
-NE|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|caed04ca9bb594ba
-NE|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|3b896e998482b994
+NE|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|0d4519784b30dfa6
+NE|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|895e7353b064aca1
+NE|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|214b473c2386d2a9
+NE|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|a3fa79c5848351b9
+NE|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|d37320b678612270
+NE|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|6318dfdea97be691
+NE|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|d4b0c3bf99d8153d
+NE|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|7160cd5715148e33
 NE|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|cc427130ee26b5bf
 NE|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|c679a0e47c9034a9
 N|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
@@ -1074,45 +1105,45 @@ N|genPoncho|{"hood":true}|a73f110995504b1d
 N|genApron|{}|bf8d68f920699c4d
 N|genApron|{"bibless":true}|faa82ac059c1e919
 N|genCoverall|{}|43b4213c84f73639
-N|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|bd0d8adf33e4cf91
-N|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|7d418a98385deabf
-N|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|ed11daeaa6f4fce2
-N|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|c7eb41e0df2188d4
-N|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|50aca96764e9ff67
-N|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|1c1ff421b87f8f19
-N|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|c40dec11fcc689f3
-N|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|3df8e8e5943b76cb
-N|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|96540268b0e40d8d
+N|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|1fd7f88fe4bbee56
+N|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|1e4315dfe641d693
+N|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|d49369a47f3d5e87
+N|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|86953ac0fa7e37b1
+N|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|c594ca2fb65ddb51
+N|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|58944a4f4197a14b
+N|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|cab533dfb39daa46
+N|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|c765c836a43425af
+N|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|87777be37d2c1b04
 N|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|a2c221ea2099d0ee
 N|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|b1084904af6593b1
 N|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|aea32021096275a3
 N|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|72de2deed0929eae
 N|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|91511c37a3416b92
 N|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|6e9ac52c50791471
-N|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|c0856dbaa5871512
-N|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|cb7ffb8f6d00e350
-N|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|9cb2889511207382
-N|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|6a1052af8b693a39
-N|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|aed80fb4e96bc4fc
-N|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|357e738e3f3d80d3
-N|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|4c3698c820787a17
-N|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|5342521331995f18
-N|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|8988e822da6f17e1
+N|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|5a15a8f9e8407cd0
+N|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|23d9e7c6386e5d59
+N|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|21c48dde09d3df59
+N|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|75ca7c76f4b3e661
+N|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|b0946909491b07e9
+N|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|0ab3a961d96635fa
+N|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|4a14c47c39a5b815
+N|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|30c75c0f7fd0fd81
+N|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|b20ce330ca0ce03a
 N|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|1b7b1f7260335b40
 N|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|69c9da77fc373cb0
 N|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|8b75abb5d4cfb339
 N|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|fd2907702755289b
 N|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|8c8395339a483bf1
 N|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|30a4e21bb38c243a
-N|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|77afb3ed20fde7cd
-N|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|94132c142af1762c
-N|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|d9dc3ebab9e809ec
-N|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|356b3aee0e307ac4
-N|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|e5f42eeee1705bff
-N|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|198310c97871ccd5
-N|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|865deeb636b00263
-N|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|6273d380c9659d48
-N|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|1418fe3265113311
+N|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|055a38c6d01a9fdc
+N|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|3adf3d824cfef415
+N|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|ef4cbb036738d9ac
+N|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|ba49b7359eb41c5c
+N|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|8bcaf352536427fa
+N|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|43a942ea6b4d7745
+N|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|3304cd0c714884db
+N|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|2418adccd8866bbf
+N|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|489b356ab66b2b58
 N|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|00b2f027329b7e71
 N|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|e05c43aaa223d91b
 N|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|683abee15a48c4c5
@@ -1122,26 +1153,26 @@ N|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|
 N|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|c83f4e08ac45e104
 N|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|b2ea21cdfaf0fd28
 N|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|42594ac43690a437
-N|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|17d91911ff8e033d
-N|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|ba0ca36d4759b90b
-N|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|a11ce77bcee20b19
-N|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|3ba0b2b85796f3af
-N|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|dae09e86866aa1ba
-N|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|731bcc4ad2507dd9
+N|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|3a61c38c90b835f7
+N|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|428905b1acdad5da
+N|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|cbae01dffba7d795
+N|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|0c27b4caf8e97900
+N|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|d199c6b3f766cf8f
+N|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|64453e65cd825d8c
 N|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|fc16818d3fb815b8
 N|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|31988e10987b1579
 N|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|c6ee99912345ae95
 N|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|cdfa1df82cc672f2
 N|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|7111a3827893588b
 N|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|6f182fb9bd7204e6
-N|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|42216dd71f7e55ef
-N|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|9e870ad0a2ce5012
-N|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|a606398126d641e5
-N|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|da38b59906861513
-N|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|b9c16d430ec7e319
-N|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|56726c7208706700
-N|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|2a970e768b3ce9ff
-N|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|c347d0edeb7806bf
+N|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|ab9d9ecc0da92a19
+N|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|df4b4c36383bc3d3
+N|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|214b473c2386d2a9
+N|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|a3fa79c5848351b9
+N|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|96de14e07330a6e2
+N|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|409b0e16e3cac80e
+N|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|365aa8eb32d76352
+N|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|7bf584f6820a68b1
 N|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|a552001131601fc0
 N|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|98c22bb4707e1a8a
 NW|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
@@ -1292,45 +1323,45 @@ NW|genPoncho|{"hood":true}|a73f110995504b1d
 NW|genApron|{}|bf8d68f920699c4d
 NW|genApron|{"bibless":true}|faa82ac059c1e919
 NW|genCoverall|{}|43b4213c84f73639
-NW|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|11b773e4161b0024
-NW|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|07b276d55307cc9c
-NW|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|a7d5c89d0507a769
-NW|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|41de509dea4cb66b
-NW|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|0987df9c7f42b614
-NW|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|872a5f8cf6f1aa1a
-NW|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|b9b76e48b4ab0118
-NW|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|f8cd6f7d784e3055
-NW|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|4c7ec9f9e0314259
+NW|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|24e07e53ac382281
+NW|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|da69f225eb642aa3
+NW|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|9bb8b297fd717b46
+NW|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|67b8142b43303876
+NW|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|178e096e89b154d1
+NW|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|820e6fb87c27c363
+NW|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|c73470f796af418a
+NW|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|e6ad9f619171ea67
+NW|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|66e315e87e203973
 NW|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|eeacab62dba911af
 NW|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|35d3a5e3a6255ddc
 NW|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|de5e88b2904f1eac
 NW|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|8c03b0d9c98442c1
 NW|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|76a9a6ceb19faba6
 NW|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|51858382317859f7
-NW|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|037a04358c4a4eed
-NW|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|18989a2a5c973d7c
-NW|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|7730557e54a7af71
-NW|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|2c553863da5d1be6
-NW|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|3ac0f03448787200
-NW|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|dcf04adfad192450
-NW|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|aa8a820a27d71b4b
-NW|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|405725b1c4e5a3bd
-NW|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|521ae9e4e0ac8d6d
+NW|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|45f001eaa2f8cbcc
+NW|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|7c5d2cf9428c1f17
+NW|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|9a84dc93c2a777a2
+NW|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|83cc33479511e71f
+NW|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|6df1b6b675e6dbd8
+NW|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|5352d4cf8a2c8f5c
+NW|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|b2429beb580249a2
+NW|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|f2b00ce2254f9e6b
+NW|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|51f702a584195ede
 NW|genHair|{"name":"ID 11.7solid","vol":1,"side":1.7,"front":0.22,"tex":"solid"}|ab6ecd2facdc5b49
 NW|genHair|{"name":"ID 11.7locs","vol":1,"side":1.7,"front":0.22,"tex":"locs"}|fcb324ab6a30f66c
 NW|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|7ef3cc5220e14f52
 NW|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|b66a044bf207f890
 NW|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|9701403aa52ddb17
 NW|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|4ea013017a5e694b
-NW|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|6761022f9b0030ab
-NW|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|034ab3c5e8a6cda5
-NW|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|462236838e1e65af
-NW|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|df6a537ae65805ff
-NW|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|e65735f14912c012
-NW|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|3406a327e8092270
-NW|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|27d18a28e81ed2d7
-NW|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|b1c1c3fdd04d281b
-NW|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|8feeb62d518838f1
+NW|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|85516da7186a2d0b
+NW|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|bc6583ed7d7508db
+NW|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|0a135bddde5e2963
+NW|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|41416c7a9f969253
+NW|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|2613893edb5ce120
+NW|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|f5ca6db4bdf9e41c
+NW|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|4d46796a2ae7845f
+NW|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|9b1d892a7a174c17
+NW|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|35ffaaa08150c82b
 NW|genHair|{"name":"ID 21.7solid","vol":2,"side":1.7,"front":0.22,"tex":"solid"}|abf8cbff8da9085b
 NW|genHair|{"name":"ID 21.7locs","vol":2,"side":1.7,"front":0.22,"tex":"locs"}|d98b72a1c17141bb
 NW|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|2b588feae0a64833
@@ -1340,26 +1371,26 @@ NW|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}
 NW|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|fb019921f90f7625
 NW|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|7d227ad037760174
 NW|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|c9bb89d1dfaf6690
-NW|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|474db66e5e5c269e
-NW|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|ed0c39280ad043e8
-NW|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|e05a249cd508ad47
-NW|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|b1932c9fa8922079
-NW|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|9345a7a2ba78497a
-NW|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|aaa7426bdb0cd7d4
+NW|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|4a466a2cc967c567
+NW|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|e6a2731ace7a4463
+NW|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|357df944b162dbd0
+NW|genHair|{"name":"ID 31solid","vol":3,"side":1,"front":0.22,"tex":"solid"}|511280b7ea834879
+NW|genHair|{"name":"ID 31locs","vol":3,"side":1,"front":0.22,"tex":"locs"}|16b731ca108204bc
+NW|genHair|{"name":"ID 31braid","vol":3,"side":1,"front":0.22,"tex":"braid"}|47546e31bdf5ff32
 NW|genHair|{"name":"ID 31.7solid","vol":3,"side":1.7,"front":0.22,"tex":"solid"}|bdc89128a4d88b91
 NW|genHair|{"name":"ID 31.7locs","vol":3,"side":1.7,"front":0.22,"tex":"locs"}|7df5f8013e9ea31b
 NW|genHair|{"name":"ID 31.7braid","vol":3,"side":1.7,"front":0.22,"tex":"braid"}|6c96658026dfba8f
 NW|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|953c30deeb0804b9
 NW|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|8286e745e2792a17
 NW|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|935135c0711be239
-NW|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|2a688fe1890e6aed
-NW|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|238e2d5d2f6a7d9c
-NW|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|a606398126d641e5
-NW|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|da38b59906861513
-NW|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|7e089c363db902fa
-NW|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|f253fcde31abc31e
-NW|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|caed04ca9bb594ba
-NW|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|3b896e998482b994
+NW|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|0d4519784b30dfa6
+NW|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|895e7353b064aca1
+NW|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|214b473c2386d2a9
+NW|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|a3fa79c5848351b9
+NW|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|d37320b678612270
+NW|genHair|{"name":"ID2 {\"tie\":\"bun\"}","vol":1,"side":0.9,"front":0.22,"tie":"bun"}|6318dfdea97be691
+NW|genHair|{"name":"ID2 {\"tie\":\"pony\"}","vol":1,"side":0.9,"front":0.22,"tie":"pony"}|d4b0c3bf99d8153d
+NW|genHair|{"name":"ID2 {\"flare\":0.4}","vol":1,"side":0.9,"front":0.22,"flare":0.4}|7160cd5715148e33
 NW|genHair|{"name":"ID2 {\"back\":3}","vol":1,"side":0.9,"front":0.22,"back":3}|cc427130ee26b5bf
 NW|genHair|{"name":"ID2 {\"back\":5}","vol":1,"side":0.9,"front":0.22,"back":5}|c679a0e47c9034a9
 W|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
