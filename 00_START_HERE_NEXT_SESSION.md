@@ -1,71 +1,78 @@
-FACTIONS (factions-ovkjpf): 9/6 (round 3) LATEST -- *** [faction homes] ONE GATE
-FROM DONE. ARC GATE IS GREEN AND BETTER THAN IT STARTED (101/0 against 91/0);
-COMMITMENT GATE IS 69/3 AND THE REASON IS WRITTEN DOWN, NOT GUESSED. NOT PUSHED
-TO MAIN, ROW STAYS CLAIMED. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/6 (round 4) LATEST -- *** [faction homes]
+FACTION-SEATS SHIPPED. Every faction now sits on ground its own note names, and
+the boot and the walked city name the SAME seats because there is now one placer
+instead of two. *** Nothing to judge.
 
-VAMILY row: FACTION-SEATS [faction homes], MODE: BUILD, CLAIMED 9/5.
-Work is on claude/factions-ovkjpf. MAIN IS GREEN AND STAYS GREEN.
+VAMILY row: FACTION-SEATS [faction homes], MODE: BUILD, SHIPPED 9/5 52eb5be.
+Record: records/BOHEMIA_A_FACTION_SITS_WHERE_ITS_CANON_SAYS_9_5_26.md
 
-WHAT IS BUILT AND MEASURED (unchanged, restated so this block stands alone):
+WHAT SHIPPED
 bootFactions zipped SORTED faction ids to an evenly-strided sample of a district
 list that is 100% ordered by y, so the initials picked the latitude --
 correlation(alphabetical rank, seat y) = 0.9966, Anarchists at y=2 and
-Volunteers at y=83. Seats now sit on the ground each faction's own note names
-(FACTION_HOMES quotes the words each row rests on); the three factions his canon
-calls non-territorial get no home and fall back to spread; strongest picks first
-by act1_power; inland and populated ground preferred but HIS CANON WINS over
-both. Correlation is now 0.0552, deterministic across boots, no two seats
-stacked, baked into the walked city by the same rule. worldMap.factionSlots is a
-ghost that two files claimed bootFactions used -- corrected in place.
+Volunteers at y=83. Seats now sit on the kind of ground each faction's own note
+names; the three factions his canon calls non-territorial get NO home and fall
+back to spread; strongest picks first by act1_power; six cells apart, five off
+the boundary, populated ground preferred, and all three of those yield to his
+canon. One line in BohemiaTowns.SEATS moves any seat anywhere.
 
-GATES ON MY BRANCH:
-  FACTION BETWEEN     174 / 0    (11 seat claims, three biting mutations)
+*** THE PART THAT MATTERS MOST AND IS EASY TO MISS: THE RULE LIVES IN
+bohemia_towns.js, NOT IN bohemia_loop.js. *** The walked surface reads its seats
+through BohemiaTowns.derive() -- powerSeats -> turfAt -> who owns every cell ->
+the power grid. Putting the canon placer in the loop would have rebuilt the exact
+defect FACTION-TOWNS spent a round killing, one layer up: ctBases() saying the
+Mob lives on a resort while turfAt() still answered by the alphabet. derive() and
+bootFactions now call the same placeHomes(). If you ever need to change where
+factions sit, change it THERE, once.
+
+MEASURED
+  on ground his own note names, 5 seeds     1/55  ->  53/55
+  seats on the valley boundary row              4  ->  0
+  fewest residential districts within 8 cells   0  ->  23
+  boot vs walked surface disagreement                0
+  deterministic across boots                       yes
+
+GATES (on the merged tree, main's tip underneath)
+  FACTION BETWEEN     pass U, U1-U11
   FACTION ARC         101 / 0    (was 91/0 on main, 57/29 at my worst)
+  FACTION TOWNS        33 / 0    (WORLD's gate, still green with the new placer)
   FACTION MEMBERSHIP   60 / 0
   STANDING             35 / 0
-  COMMITMENT           69 / 3    <-- the only red, and it is mine (72/0 on main's
-                                     seats, isolated by swapping only those files)
+  COMMITMENT           72 / 0
 
-*** THE ONE THING TO PICK UP, AND IT IS A CONTRADICTION I MEASURED RATHER THAN A
-GUESS. *** commitment_gate Ez picks its subject with a probe that climbs the wall
-with the candidate and requires the climb to land. That probe reports landed:5 of
-ceiling 5 for the ANARCHISTS. The real loop, on the same person, presses nine
-times and the trace it now prints says:
-    day 1  button ctgive   gave 0->1
-    day 2  button MISSING  gave 1->1   (and every day after)
-The Anarchists are a once-only outfit by his canon -- "be there ONCE, when it
-matters" -- so the RUN is right and THE PROBE IS WRONG. Find why the probe climbs
-where the run cannot; the presses report themselves now, so start from the trace.
+FOUR BROKEN RULERS THIS JOB, AND THAT IS THE LESSON WORTH CARRYING
+Every red this job produced was the measurement, not the target:
+  1. the arc gate's SPARSE dial was setDial(1) -- a population where half the
+     outfits do not exist, so the walk could not find them
+  2. the fold button measured 0px because #app is display:none behind the splash;
+     it was 44x174 the whole time
+  3. commitment_gate D11 called whoHears with {ties} alone when BOTH real call
+     sites in the city pass keyOf: ctVKey -- without it every "H1-1" in the
+     valley is ONE PERSON and the social graph collapses to 241 names for 5194
+     people. It was measuring a call the game never makes.
+  4. faction_between U3 was correlation < 0.5 on FOURTEEN points, where |r| > 0.5
+     happens by chance about one seed in fifteen. It went red on a change with
+     nothing alphabetical in it. The available wrong move was to nudge the bound
+     to 0.7. It is now causal instead: same maps, five seeds, old rule vs new
+     rule, counting how often each lands a faction on ground its note names --
+     53/55 against 1/55 -- plus an order-invariance test.
+Before tuning anything to make a number move, check the number.
 
-THREE DIFFERENCES BETWEEN PROBE AND RUN WERE FOUND AND CLOSED, AND NONE WAS IT:
-  the probe counted BUTTON PRESSES rather than standing gained, so a once-only
-    act scored a full five (now requires the count to rise);
-  the run climbed with ctClose/ctOpen while the probe used ctClose/ctSawCell/
-    ctOpen (now matched);
-  the run's ring started at [0,0], standing the player ON TOP of the person --
-    ctAdjacent counts distance 0 as a match -- which the probe's ring never does
-    (removed; OCCUPANCY LAW says one body per cell).
-A TEST THAT PICKS ITS SUBJECT WITH ONE PROCEDURE AND THEN USES ANOTHER IS NOT
-TESTING WHAT IT SELECTED FOR. All three were that shape and it is worth expecting
-a fourth.
+[PENDING Paolo] -- ONE, and it is real canon, not a preference
+  Anarchists ("territorially inconsistent"), Colorful ("Community-based not
+  territorial") and Custom ("Player faction. No preset philosophy") are told by
+  his own notes NOT to hold ground like the others. They currently get a seat by
+  spread alone because the row asked for one each. Whether a faction his canon
+  calls non-territorial should hold ground AT ALL is his ruling.
 
-D11 (withLines:0) MAY NOT BE A BUG. It needs two affiliated people from DIFFERENT
-outfits to share a workplace, and seats on canon ground spread the outfits apart.
-faction_arc's own note already calls this class of thing WORLD/density, not this
-lane. Named rather than tuned: moving MIN_APART until a number goes green would
-be fitting the world to a test.
-
-WHAT THE ARC GATE COST AND WHAT IT TAUGHT (kept because it is the lesson, not the
-bookkeeping): every one of the 29 it broke was a walk that picks ONE subject and
-reports the game broken when that subject cannot be read, or a FIXED NUMBER
-standing in for a condition -- a 15-press cap that could not reach a ceiling that
-moves, a 20-day drain that could not empty a count that grew. And the gate was
-PINNED AT A POPULATION DIAL WHERE 7 OF THE 14 OUTFITS DO NOT EXIST, so six claims
-were asking about people the pinned world did not contain. Pinned at 8 now, the
-smallest dial where every outfit is present.
-
-WHAT IS PENDING HIM: nothing new. Moving a seat is his, as the row says.
-AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
+NEXT IN THIS LANE (top unblocked, in order)
+  [who holds]  EVERY-DISTRICT-HAS-AN-OWNER  -- the top of the lane, and the seats
+    it needed now exist. The ruling is written (records/BOHEMIA_RULING_WHO_HOLDS_
+    WHAT_9_5_26.md) and turfAt() already answers per cell off these seats; what is
+    missing is the BORDER following something you can see (road, rail, wash, wall)
+    and the holder's colour on the edge. Tab: MAP and CITY.
+  [hidden factions]  THE-OTHER-FOUR
+  [colours fixed]  COLOUR-AUDIT
 
 --------------------------------------------------------------------------------
 
