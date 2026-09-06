@@ -12593,6 +12593,20 @@ THE GATE-ABLE RULE, from research done against my own pick: generated quests rea
 for exactly one reason, that finishing one changes nothing visible, so AN ASK THAT CHANGES
 NOTHING VISIBLE IS NOT AN ASK. Record: records/BOHEMIA_RULING_QUESTS_ARE_UNPARKED_9_6_26.md.
 Routed QUESTS [asks exist] and [spine first], WORLD [visible change]. ***
+THEN (cb) TWO ORDERS: "for the run right now make all the UI 50% smaller, I don't give a
+fuck" and "I need a fast travel system extremely similar to Battle Brothers, I really need
+that, because the whole encounter system with groups of enemies is going to be in there,
+and chance encounters." BOTH LOCKED, record: records/BOHEMIA_RULING_HALF_SIZE_UI_AND_THE_
+TRAVEL_MAP_9_6_26.md. UI [half size] top of lane: everything on the walked surface at 50%,
+no proposal, no comparison, the ONLY survivor is the 44 px touch area (drawn half, reach
+unchanged). RUN [travel map] top of lane: not a teleport menu -- in his reference travel IS
+the encounter system, which is why he needs it, since the group fights have nowhere to come
+from. Researched the reference's own dev material: one map in pausable real time, fog with
+a sight circle, terrain that hides parties, night that slows travel and shrinks sight,
+tracks that differ by faction, pursuit decided by relative strength, line of sight as the
+escape, camp fires that attract company, parties bought and sent by places with agendas.
+Also routed WORLD [parties move] and COMBAT [contact fight]. The 9/5 one-department law
+holds: BB is the campaign layer only, nothing touches RF4 on the beat.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
