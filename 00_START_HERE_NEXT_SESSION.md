@@ -1,3 +1,82 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 7) LATEST -- *** [colours fixed]
+COLOUR-AUDIT SHIPPED. Every faction already HAD a colour and it was locked inside
+a browser; three rows were stopped on it. It is a published number now and the
+map paints it. *** Nothing to judge.
+
+VAMILY row: [colours fixed] COLOUR-AUDIT, MODE: BUILD, SHIPPED 9/6.
+Record: records/BOHEMIA_HIS_COLOUR_ANSWER_WAS_LOCKED_IN_A_BROWSER_9_6_26.md
+Law: laws/BOHEMIA_LAW_COLOUR_IS_TERRITORY_8_26_26.md
+
+WHAT WAS WRONG WAS NOT THE COLOURS, IT WAS THE REACHABILITY
+He ruled colour on 8/26 and answered it garment by garment. That answer existed
+ONLY as rendered pixels: faction_colour_gate reached it by launching a browser
+and counting cloth, and nothing in the game could, because the RGB ramps live in
+the alpha and the city carried a grep count of NOUGHT. Blocked on it: FACTIONS
+[who holds] (drew borders in a two-colour language and said so), UI [owner shown],
+COOK [border marked]. The last two are FREE NOW.
+
+WHAT SHIPPED
+tools/bohemia_faction_colour.js measures his wardrobe, writes
+engine/BOHEMIA_faction_colours.json and inlines it into the city beside the
+faction graph. Re-written every run, never one-shot. It takes NO colour decision.
+  Blues 210 #2d5fb3   Colorful 90 #60a136   Mob 0 #572f2a   Reds 0 #773229
+  Church 30 #826c3e   Anarchists 30 #573f2a  Caravans 30 #6c5b41
+  Remnants 60 #4c5238 Network 210 #465362    Trades 150 #496558
+  Homeless / Cartel / Volunteers: drab
+THIRTEEN, NOT FOURTEEN -- Custom has no wardrobe entry by design.
+
+*** IF YOU DRAW WITH THESE, LIFT THEM. *** The measured average is the colour of
+CLOTH, dyed to be worn in daylight. The Mob's #572f2a is nearly black on a night
+overmap. The map keeps the HUE exactly (that is the part that is his) and pushes
+value and saturation up. Drab factions get the map's gold, because a border in
+their average grey is invisible -- that is the law's exemption, not a shortcut.
+
+THE AUDIT, AND WHY ALMOST NONE OF IT WAS FIXED
+The law draws the line: the machine may fix a CONTRADICTION, never TASTE.
+  FOUR CLASHES: hue 30 Caravans/Anarchists/Church, hue 210 Blues/Network,
+  hue 0 Reds/Mob. NOT ONE is between two factions his canon puts in any relation
+  -- measured against his graph, every clashing pair is `none`. The law's research
+  is that colour is OPPOSITIONAL, so two ENEMIES in one hue is a lie about his
+  graph and two strangers in one hue is a coincidence. Nothing is urgent.
+  If he ever does move them: Blues owns 210 and Reds owns 0 BY NAME (test 4), so
+  Network and Mob are the ones squatting.
+  FIXED: PINNED_CLASH was 5 for a true count of 4. The gate had been printing
+  "lower it to 4 so it cannot slide back" and nobody had. A ratchet that has
+  slipped is not a ratchet.
+  FOUND AND NOT FIXED: the gate's drab exemption names THREE factions and the law
+  names TWO. The Cartel was added to the list and not to the law. Now printed
+  every run rather than sitting silent, and the list cannot grow while it waits.
+
+TWO BROKEN RULERS THIS ROUND, AND ONE WAS MINE
+1. faction_outfit came back 16/2. VERIFIED ON A CLEAN CHECKOUT OF origin/main
+   with none of this work: identical numbers (Blues/Trades 0.009, mean 0.070).
+   Inherited, a SILHOUETTE problem, and the alpha's own comment already documents
+   it. Not this lane's.
+2. fps came back 32/3 at 4.2fps -- run beside six other browser gates. Run alone:
+   35/0. SEVEN CONCURRENT CHROMIUMS MEASURE THE BOX, NOT THE GAME. Do not run the
+   frame-rate gate in a parallel batch.
+
+GATES  faction colour 17/0 (was 9/0), faction between 182/0, turf 36/0,
+       demo build 25/0, alpha loads 20/0, fps on a phone 35/0 (alone)
+
+[PENDING Paolo] -- THREE NOW
+  1. Anarchists, Colorful and Custom are called non-territorial by his own notes
+     and still hold ground. Should they at all?
+  2. What it COSTS to be seen with one of the four hidden factions, or taken for
+     one. Nothing answers it.
+  3. FOUR COLOUR CLASHES, and now he can SEE them: on the map the Mob is #db1800
+     beside the Reds' #db1900, the Network #4a8ddb beside the Blues' #0052db.
+     Also: is the Cartel drab on purpose? The law names two drab factions, the
+     gate carries three.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [crossing costs]  THE-WRONG-COLOUR-REACTS -- has a real border AND a real colour
+    to cross now; this is the row the last three were feeding
+  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- already decided, needs the dial
+  [power territory]  A-FACTION-MINES-ITS-LAND
+
+--------------------------------------------------------------------------------
+
 ANIMATION (animation-lr9y9i): 9/6 LATEST -- *** THE HOSTILES WALK AT YOU NOW.
 DIRECTION said they read as the crowd; measured, they were STILLER than the crowd,
 and the moment they "came for you" was a teleport. TAB: RUN. Nothing to judge. ***
