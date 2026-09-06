@@ -1327,7 +1327,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/6z - THE FIGHT STOPS DRAWING WHEN YOU CANNOT SEE IT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/6aa - HE CAN MOVE A TOWN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -30770,8 +30770,15 @@ function dirRenderChips(){
      it is a third kind of direction: cutscenes and quests are ORDERED things he
      rearranges, this is a VALUE he sets. Same tab, same law. */
   m.appendChild(dirChip('STANDING', DIR_MODE==='standing', function(){ DIR_MODE='standing'; dirRender(); }));
+  /* __DIR_TOWNS__ -- HOW BIG EACH FACTION'S TOWN IS. (9/6, [town sizes]
+     TOWN-TIERS-ARE-HIS.) Fourth mode, same reason STANDING is the third: it is a
+     VALUE he sets rather than an order he rearranges. The row's own brief is
+     "the draft tiers off act1_power ship; HE MOVES ANY FACTION HE LIKES", and
+     until this the only way to move one was to edit TIER in a source file --
+     which HE MUST BE ABLE TO DIRECT IT (8/12) says is not shipped. */
+  m.appendChild(dirChip('TOWN SIZES', DIR_MODE==='towns', function(){ DIR_MODE='towns'; dirRender(); }));
   var p=document.getElementById('dirPick'); p.innerHTML='';
-  if(DIR_MODE==='standing') return;   /* __DIR_STANDING__: no scene to pick */
+  if(DIR_MODE==='standing'||DIR_MODE==='towns') return;   /* no scene to pick */
   var list = DIR_MODE==='cutscene' ? dirScenes().map(function(s){return s.title;})
                                    : BOHEMIA_QUESTS.map(function(q){return q.title;});
   list.forEach(function(t,i){ p.appendChild(dirChip(t, i===DIR_I, function(){ DIR_I=i; dirRender(); })); });
@@ -31173,6 +31180,11 @@ window.addEventListener('message',function(ev){
     DIR_FACTS=d.rows;
     if(DIR_MODE==='standing') try{ dirDial(); }catch(e){}
   }
+  /* __DIR_TOWNS__ -- the city's answer about town sizes, same shape. */
+  if(d&&d.type==='BOHEMIA_TOWN_ROWS'&&d.rows){
+    DIR_TROWS=d.rows;
+    if(DIR_MODE==='towns') try{ dirTowns(); }catch(e){}
+  }
 });
 function dirWReadout(w, clout){
   if(!w) return 'not ruled yet, so nobody forms an opinion about it at all';
@@ -31208,6 +31220,125 @@ function dirDialRow(d){
   box.appendChild(out);
   return box;
 }
+/* ================= __DIR_TOWNS__ : HOW BIG EACH FACTION'S TOWN IS ============
+   (9/6/26, FACTIONS lane, VAMILY row [town sizes] TOWN-TIERS-ARE-HIS.)
+
+   THE ROW SAYS BOTH HALVES IN ONE LINE: "the draft tiers off act1_power ship; HE
+   MOVES ANY FACTION HE LIKES." The first half shipped on 9/5 with FACTION-TOWNS
+   -- rank the fourteen by his own power column, cut in thirds, five fortresses,
+   everything tagged draft:true. The second half did not exist. Moving one meant
+   editing BohemiaTowns.TIER in a source file, and HE MUST BE ABLE TO DIRECT IT
+   (8/12) is explicit that "he tells me and I edit a file" is not shipped.
+
+   *** HE IS CHOOSING A CONSEQUENCE, NOT A LABEL, AND THE ROW SAYS SO OUT LOUD. ***
+   A tier is not decoration: it decides HOW MANY GOODS that faction's market
+   carries and HOW FAR its town spreads on the ground. Both numbers are read off
+   the shipped modules and printed under every choice, because a dial whose effect
+   you cannot see is a dial nobody trusts -- the lesson the VOTE tab paid for on
+   8/28. Measured off the economy's own goods list: fortress 11, town 8, camp 4.
+
+   NOT RULED IS A REAL CHOICE AND IT IS THE DEFAULT. Every faction starts derived
+   from his act1_power, which is canon he already wrote. Pressing NOT RULED puts
+   it back rather than freezing today's answer, so the day he re-ranks a faction
+   the tiers follow instead of quietly disagreeing with the graph. */
+var DIR_T_KEY='bohemia.dir.tiers.v1';
+var DIR_T={}, DIR_TROWS=null;
+try{ DIR_T=JSON.parse(localStorage.getItem(DIR_T_KEY)||'{}')||{}; }catch(e){ DIR_T={}; }
+
+/* *** THE FIRST CUT OF THIS COMPUTED THE ROWS UP HERE AND IT COULD NOT WORK. ***
+   MEASURED by pressing the real chip: window.BohemiaTowns is NOT IN THE ALPHA --
+   it is inlined in the walked city and nowhere else -- so dirTowns() fell to its
+   "module is not loaded here" branch and the panel rendered NOTHING. Every source
+   check in the gate passed while the button did nothing, which is the whole
+   reason VERIFY ON THE REAL SURFACE is a law here.
+   The repair was already written one screenful up, in the STANDING dial's own
+   comment: "the REAL module computes the answer here and posts it... that is the
+   same second-copy drift this lane spent yesterday deleting." Retyping the tier
+   thirds, the goods fractions and the reach table into the alpha would have been
+   exactly that, done knowingly. So this ASKS. */
+function dirTAsk(){
+  try{
+    var fr=document.getElementById('cityFrame');
+    if(fr&&fr.contentWindow)
+      fr.contentWindow.postMessage({type:'BOHEMIA_TOWN_ASK',tiers:DIR_T},'*');
+  }catch(e){}
+}
+function dirTSave(){
+  try{ localStorage.setItem(DIR_T_KEY, JSON.stringify(DIR_T)); }catch(e){}
+  dirTPush();
+  dirTAsk();          /* and read the consequence back off the real module */
+}
+/* ACROSS THE FRAME, THE MOMENT HE TURNS IT. The walked city carries its own copy
+   of the towns module, so a dial that only wrote localStorage would be one he has
+   to reload to feel -- the same reason the deed weights post. */
+function dirTPush(){
+  try{
+    var fr=document.getElementById('cityFrame');
+    if(fr&&fr.contentWindow)
+      fr.contentWindow.postMessage({type:'BOHEMIA_TOWN_TIERS',tiers:DIR_T},'*');
+  }catch(e){}
+}
+function dirTowns(){
+  var host=document.getElementById('dirDial'); if(!host) return;
+  host.innerHTML=''; host.style.display='block';
+
+  var intro=document.createElement('div');
+  intro.className='mini';
+  intro.style.cssText='line-height:1.55;margin-bottom:8px';
+  intro.textContent='Every faction has a town, and its size is worked out from the '
+    + 'strength number you already gave it. Size is not a label: a bigger town sells '
+    + 'more things and covers more ground. Move any faction you like.';
+  host.appendChild(intro);
+
+  if(!DIR_TROWS){
+    dirTAsk();
+    var w=document.createElement('div');
+    w.className='mini'; w.style.cssText='line-height:1.5;opacity:.8';
+    w.textContent='Open the RUN tab once and the towns will show up here.';
+    host.appendChild(w);
+    return;
+  }
+
+  DIR_TROWS.forEach(function(r){
+    var fid=r.faction;
+    var box=document.createElement('div');
+    box.style.cssText='border:1px solid #241c12;border-radius:4px;padding:8px 10px;margin-bottom:7px';
+    var head=document.createElement('div');
+    head.style.cssText='font-size:12px;line-height:1.4;margin-bottom:6px';
+    head.textContent=fid.toUpperCase()+'  ·  strength '+(r.power==null?'not set':r.power);
+    box.appendChild(head);
+
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap';
+    ['fortress','town','camp',''].forEach(function(t){
+      var on = t ? (DIR_T[fid]===t) : !DIR_T[fid];
+      var bt=dirChip(t? t.toUpperCase() : 'WORK IT OUT', on, function(){
+        if(t) DIR_T[fid]=t; else delete DIR_T[fid];
+        dirTSave(); dirTowns();
+      });
+      /* THE THUMB (44px). The deed chips are smaller and predate the law; a row
+         he is meant to tap fourteen times on a phone is not the place to inherit
+         that. */
+      bt.style.cssText+=';min-height:44px;padding:0 12px;font-size:11px';
+      row.appendChild(bt);
+    });
+    box.appendChild(row);
+
+    var out=document.createElement('div');
+    out.style.cssText='margin-top:6px;font-size:11px;line-height:1.45;opacity:.78';
+    out.textContent=(r.ruled? 'YOURS: ' : 'worked out from strength: ')
+      + String(r.tier).toUpperCase() + ' · sells ' + r.goods + ' of ' + r.allGoods
+      + ' things · covers ' + r.across + ' blocks across';
+    box.appendChild(out);
+    host.appendChild(box);
+  });
+
+  var foot=document.createElement('div');
+  foot.className='mini';
+  foot.style.cssText='line-height:1.5;margin-top:4px;opacity:.7';
+  foot.textContent='Saved on this phone. It takes hold in the game straight away.';
+  host.appendChild(foot);
+}
 function dirDial(){
   var host=document.getElementById('dirDial'); if(!host) return;
   host.innerHTML='';
@@ -31228,17 +31359,30 @@ function dirRender(){
   dirRenderChips();
   /* __DIR_STANDING__ -- the scene editors have nothing to say about a dial, and
      calling them anyway printed a stale scene's beats under it. */
-  if(DIR_MODE==='standing'){
+  if(DIR_MODE==='standing'||DIR_MODE==='towns'){
     ['dirWhere','dirAdd','dirList'].forEach(function(id){
       var e=document.getElementById(id); if(e){ e.innerHTML=''; }
     });
-    dirDial();
+    /* __DIR_TOWNS__ -- BOTH DIALS SHARE ONE HOST, so exactly one of them may draw
+       into it. The first cut of the town sizes panel added its call beside the
+       one in the MESSAGE LISTENER instead of here, and this branch RETURNS -- so
+       dirDial() ran, set the host to display:none because the mode was not
+       'standing', and the panel was blank however many times he pressed the chip.
+       Every source check in the gate passed. Only clicking it found this. */
+    if(DIR_MODE==='towns') dirTowns(); else dirDial();
     dirFoldRow();          /* __DIR_FAMILY__ */
     var n=document.getElementById('dirNote');
-    var set=Object.keys(DIR_W).length;
-    n.innerHTML = set
-      ? '<b>'+set+' of '+DIR_DEEDS.length+' ruled</b> · the city is using these right now'
-      : '<b>nothing ruled yet</b> · people remember what you did, but form no opinion of it';
+    if(DIR_MODE==='towns'){
+      var moved=Object.keys(DIR_T).length;
+      n.innerHTML = moved
+        ? '<b>'+moved+' of 14 moved by you</b> · the rest are worked out from strength'
+        : '<b>all worked out from strength</b> · move any faction you like';
+    } else {
+      var set=Object.keys(DIR_W).length;
+      n.innerHTML = set
+        ? '<b>'+set+' of '+DIR_DEEDS.length+' ruled</b> · the city is using these right now'
+        : '<b>nothing ruled yet</b> · people remember what you did, but form no opinion of it';
+    }
     return;
   }
   dirDial();
