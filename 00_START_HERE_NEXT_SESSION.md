@@ -3882,6 +3882,68 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 14 [heir plays] (the coordinator's new Q12), SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_14_WHAT_THE_HEIR_DOES_DIFFERENTLY_9_5_26.md
+  banks/BOHEMIA_HEIR_PLAYS_THE_ROOM_DECIDED_FIRST_DRAFT_9_5_26.txt (draft:true)
+
+THE ROW ARRIVES WITH TWO ANSWERS ALREADY RULED OUT. The VERBS cannot change
+(round 10: expertise is domain-specific, a new rule set at the fold makes a
+beginner of a master) and the HANDS cannot carry (round 13: skill does not
+transfer). SO THE DIFFERENCE CANNOT LIVE IN WHAT THE HEIR CAN DO.
+
+THE RESEARCH PUTS IT SOMEWHERE ELSE ENTIRELY. The best-studied real second
+generation is the children of immigrants, where the field started from a worry
+about SECOND-GENERATION DECLINE and the long New York study found the opposite:
+broad upward mobility, often past the parents. And the mechanism they name is not
+a trait, it is a POSITION -- THE SECOND GENERATION CAN SELECT FROM BOTH WORLDS.
+They know what the parent knew and are not bound by it. It is described as an
+ADVANTAGE, not a wound, and it is purely relational.
+That is also the "real leg up" round 3 said an heir must arrive with, AT NO STAT
+COST.
+
+THE GAMES FIX BUYS DIFFERENCE BY CUTTING THE THREAD. The standard cure for the
+reskin is randomised traits per heir, and a critic of the best-known example names
+the cost exactly: the traits are INDEPENDENT OF THE PARENT, so the children read
+"as if they are all adopted", and the player is "presented with a pre-determined
+identity, rather than being allowed to develop something for yourself".
+A CLEAN HEIR IS A RESKIN. A RANDOM HEIR IS UNRELATED. Both look for the difference
+INSIDE THE CHARACTER; the first finds none and the second invents some.
+
+THE HEIR IS NOT A NEW CHARACTER. THE HEIR IS THE SAME HANDS IN A ROOM THAT HAS
+ALREADY DECIDED SOMETHING ABOUT THEM, AND WHAT CHANGES AT THE FOLD IS WHO IS
+DOING THE DECIDING AND WHY.
+
+*** MEASURED: THE DIVERGENCE IS ALREADY RUNNING, IN ARITHMETIC. *** gossip()
+carries `inherited` and `of` when one mind tells another, under its own comment
+"so does whose deed it originally was", so WHOSE DEED IT WAS SURVIVES EVERY
+RETELLING. And forceOf multiplies by GEN_LOSS^inherited with GEN_LOSS = 0.45, so
+an inherited deed keeps 45% of its force per generation crossed while the heir's
+own deeds enter at full weight. THE HEIR OVERTAKES THE FATHER INSIDE ONE LIFE, BY
+ARITHMETIC, AND NOTHING IN THE GAME SHOWS IT HAPPENING.
+BUT THE LAST STEP THROWS THE ATTRIBUTION AWAY: opinionOf sums forceOf and RETURNS
+A BARE NUMBER. `of` and `inherited` survive the witness, the gossip and the fold,
+and are dropped at the moment an opinion is formed. legendOf does keep them, so
+this is ONE DROPPED FIELD AT ONE CALL SITE, not a missing system. It is the
+difference between "they distrust you" and "they distrust you because of him".
+
+I NEARLY GOT THIS WRONG AND THE CHECK IS WHY IT IS RIGHT: I first read the
+attribution line as being inside opinionOf, and verified which function actually
+contains it before writing. It is in gossip().
+
+THE DELIVERABLE (what must CHANGE, not what carries): 1 who is in the room (about
+three in a hundred remain, round 6); 2 what they assume, decided before you acted;
+3 AND THAT IT IS ABOUT HIM, which the machine can say and currently does not; 4
+the weight shifts, his deeds at 45% a generation and yours at full; 5 who vouches,
+because whoVouches and whoWont return different people; 6 the trade is refusable
+and refusing is the NORMAL outcome (five times more likely to enlist, one in four
+does); 7 the seat is taken (round 11). NOT DIFFERENT ON PURPOSE: the verbs and the
+hands.
+
+ROUTED (proposals only): PEOPLE SAY-WHOSE-DEED-IT-WAS (one field at one call site).
+RUN or UI THE-ROOM-DECIDED-BEFORE-YOU (section 6 items 1-3, at the fold, alongside
+round 12's SAY-WHAT-CARRIED; same moment, same file). Inside this lane: [child
+watches] Q13 is next and section 2 is its direct input.
+
 ROUND 13 [what carries] (the coordinator's new Q11), SHIPPED. *** THE ROW ASKED
 FOR A FIELD-BY-FIELD CARRY LIST AND SECTION 4 OF THE RECORD IS IT. ***
   records/BOHEMIA_DYNASTY_DAY_13_WHAT_CARRIES_AND_WHAT_MUST_DIE_9_5_26.md

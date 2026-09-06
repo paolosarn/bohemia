@@ -1,0 +1,87 @@
+BOHEMIA -- WHAT THE HEIR DOES DIFFERENTLY: THE ROOM DECIDED FIRST
+BANK, 9/5/26, DYNASTY lane, Q12 [heir plays]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11). No damage, health or armour
+number anywhere. Whether the heir takes the trade, whose allies stay, and every
+name are HIS. This file supplies the seven changes, not one person's choice.
+Record: records/BOHEMIA_DYNASTY_DAY_14_WHAT_THE_HEIR_DOES_DIFFERENTLY_9_5_26.md
+
+WHY THIS SHAPE
+Two rounds already ruled out the obvious answers. The VERBS cannot change,
+because skill is domain-specific and a new rule set at the fold makes a beginner
+of a master. The HANDS cannot carry, because skill does not transfer. So the
+difference cannot live in what the heir can DO.
+The real research puts it somewhere else entirely. The best-studied second
+generation is the children of immigrants, where the field expected DECLINE and
+found broad upward mobility instead, and the mechanism they name is not a trait,
+it is a POSITION: the second generation CAN SELECT FROM BOTH WORLDS. They know
+what the parent knew and are not bound by it. That is called an ADVANTAGE, and it
+is entirely about what they can draw on and how they are read.
+The games fix is randomised traits per heir, and a critic names its cost exactly:
+the traits are independent of the parent, so the children read "as if they are
+all adopted" and the player gets a pre-determined identity instead of developing
+one. A CLEAN HEIR IS A RESKIN AND A RANDOM HEIR IS UNRELATED. Both look for the
+difference inside the character; one finds none and the other invents some.
+THE HEIR IS NOT A NEW CHARACTER. THE HEIR IS THE SAME HANDS IN A ROOM THAT HAS
+ALREADY DECIDED SOMETHING ABOUT THEM.
+And our machine is already running the divergence. A story carries WHOSE deed it
+originally was all the way through retelling, and an inherited deed keeps 45% of
+its force per generation crossed while the heir's own deeds enter at full weight.
+The heir overtakes the father inside one life, by arithmetic, and nothing shows
+it happening.
+
+---- THE SEVEN CHANGES, AS A SHAPE ONLY -------------------------------- draft:true
+  1. WHO IS IN THE ROOM      the cast changed; you did not
+  2. WHAT THEY ASSUME        decided before you did anything
+  3. AND IT IS ABOUT HIM     the game can say so and currently does not
+  4. THE WEIGHT SHIFTS       his deeds fade, yours do not
+  5. WHO VOUCHES             his allies are not automatically yours
+  6. THE TRADE IS REFUSABLE  and refusing is the NORMAL outcome
+  7. THE SEAT IS TAKEN       somebody filled it while you were not born
+
+---- WHAT THE ROOM ALREADY DECIDED -------------------------------------- draft:true
+  THEY KNEW BEFORE YOU WALKED IN.
+  NOBODY HERE HAS MET YOU.
+  THEY ARE NOT LOOKING AT YOU. THEY ARE LOOKING AT HIM.
+  YOU HAVE NOT DONE ANYTHING YET AND THEY HAVE ALREADY ANSWERED.
+  THAT IS THE FACE THEY MADE AT HIM.
+
+---- AND THE GAME SAYING WHOSE IT WAS ----------------------------------- draft:true
+(the one field the machine carries the whole way and drops at the last line)
+  THAT IS ABOUT HIM. NOT YOU.
+  YOU ARE PAYING FOR SOMETHING YOU DID NOT SEE.
+  HALF OF WHAT THEY THINK OF YOU IS SECOND HAND.
+  THEY WOULD LIKE YOU IF THEY HAD MET YOU FIRST.
+
+---- THE WEIGHT SHIFTING, WHICH IS ALREADY IN THE MATHS ----------------- draft:true
+  HE IS FADING. YOU ARE NOT.
+  THEY TALK ABOUT HIM LESS THAN THEY DID.
+  THAT ONE IS YOURS. THE FIRST ONE THAT IS ONLY YOURS.
+  NOBODY MENTIONED HIM THAT TIME.
+
+---- WHO WILL AND WILL NOT STAND FOR YOU -------------------------------- draft:true
+  HE WOULD HAVE DONE THIS FOR YOUR FATHER.
+  HE WILL NOT DO IT FOR YOU.
+  SHE WILL, AND SHE HAS NOT SAID WHY.
+  NOBODY OWES YOU ANYTHING YET.
+
+---- THE TRADE, AND WALKING AWAY FROM IT -------------------------------- draft:true
+  EVERYBODY ASSUMED.
+  YOU ARE NOT GOING TO.
+  MOST OF THEM DO NOT. THAT IS THE ORDINARY THING.
+  IF YOU DO IT, DO IT BECAUSE YOU CHOSE IT.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No randomised traits. They buy difference by cutting the thread to the parent,
+and that thread is this game's entire subject.
+No new verbs, no new stats, no new moveset.
+No trait screen or character sheet at the fold. The first hour shows what you
+kept, not a stat block.
+No damage, health or armour numbers.
+No ruling on whether the heir takes the trade. That is his.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Whether the heir refuses the trade and what they do instead. Which of the
+father's people stay and which walk. What the room decided and whether it was
+fair. Every name.
