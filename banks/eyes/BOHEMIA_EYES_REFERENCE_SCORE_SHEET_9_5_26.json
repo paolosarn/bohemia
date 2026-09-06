@@ -1,0 +1,25 @@
+{
+ "bank": "EYES AND EARS -- THE REFERENCE SCORE: TEN YES/NO QUESTIONS",
+ "date": "9/5/26",
+ "draft": true,
+ "serves": "COMPARE EVERY PIECE OF ART TO THE WORLD BEFORE CALLING IT DONE (9/4, LOCKED). The law says compare; it never said how to write the answer down, so a comparison has been an opinion, and an opinion cannot be checked by the next chat.",
+ "how_to_use": "Run tools/bohemia_eyes_reference_score.py COOK REF for questions 1-7 (a file path, or BANK.txt:id for art that lives in a bank). Questions 8-10 go to a fresh pair of eyes -- a person or a chat that has not seen the cook before. A cook is not done until the seven are yes and the three are asked.",
+ "reuse_check": "gates/texture_match_gate.py already derives a ruler from the packs Paolo BOUGHT and holds painted tiles to colours-per-tile, edge energy, grain and saturation. This does not re-measure those four for tiles; it generalises the idea to ANY pair of pictures and adds the four that gate does not ask.",
+ "questions": [
+  {"n":1,"who":"machine","q":"Same DETAIL ORDER?","test":"local contrast (mean neighbour step) within 2.5x of the reference","why":"the texture gate's own finding: his bought art carries about 2.5x the local contrast of painted art, and no choice of colours closes that"},
+  {"n":2,"who":"machine","q":"Same COLOUR DENSITY?","test":"unique colours per 1000 pixels within 3x","why":"a 13-colour flat ramp cannot sit beside a 1,300-colour photographic texture and read as one game"},
+  {"n":3,"who":"machine","q":"Same SATURATION BUDGET?","test":"median saturation within 0.10","why":"painted art in this repo has run hot: 0.383 against his 0.274"},
+  {"n":4,"who":"machine","q":"Same VALUE BAND?","test":"the 5th-95th percentile luminance bands overlap by at least 60%","why":"two pictures can share a palette and still sit in different rooms"},
+  {"n":5,"who":"machine","q":"Same GRAIN SCALE?","test":"the structure repeats at a similar size (first autocorrelation peak within 2x)","why":"the same material at the wrong scale reads as a different material"},
+  {"n":6,"who":"machine","q":"Same LIGHT?","test":"the lit corner agrees","why":"the craft law says one key from the upper left; a tile that argues with it argues with the whole street"},
+  {"n":7,"who":"machine","q":"Does it still READ at play size?","test":"shrink both to 24px and compare the surviving contrast, within 2x","why":"detail that dies at play size is detail nobody paid for"},
+  {"n":8,"who":"a fresh pair of eyes","q":"Is it the same MATERIAL?","test":"name what each picture is made of. If the two words differ, the cook is not the reference's material however close the numbers are"},
+  {"n":9,"who":"a fresh pair of eyes","q":"Does it belong to THIS world?","test":"the 9/4 law's real question, and no machine answers it"},
+  {"n":10,"who":"a fresh pair of eyes","q":"What would a stranger call it, in one word, for each picture?","test":"if the two words differ, stop and look again"}
+ ],
+ "validated_9_5": {
+  "a picture against itself": "7 of 7",
+  "a water tile against a wall tile": "3 of 7 (colour density, saturation, value band and read-at-size all say no)",
+  "the act-1 re-cook against the art Paolo approved, 42 tiles": "median 6 of 7"
+ }
+}

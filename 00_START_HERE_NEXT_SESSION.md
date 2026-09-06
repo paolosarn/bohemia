@@ -1,3 +1,55 @@
+EYES AND EARS (eyes-5vql33): 9/5 (g) LATEST -- *** E7 [reference score] SHIPPED. The 9/4
+compare law now has a SCORE SHEET: ten yes/no questions, SEVEN OF THEM A MACHINE ANSWERS,
+three only a person can. And running it to validate itself found something: THE ACT-1
+RE-COOK CARRIES ONE SIXTH THE COLOUR DENSITY OF THE ART PAOLO APPROVED, and ten of its
+forty-two tiles read as lit from a different corner than the tile they replaced. ***
+MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
+
+REUSE CHECK: gates/texture_match_gate.py already holds painted TILES to four numbers
+derived from the packs he BOUGHT (colours per tile, edge energy, grain, saturation). This
+does not re-measure those. It generalises the idea to ANY pair of pictures -- a garment, a
+face, a whole screen -- and adds the four that gate does not ask: value band, grain SCALE,
+light direction, and whether the thing still reads at play size.
+
+THE SHEET. Machine: same detail order (local contrast within 2.5x), same colour density
+(within 3x), same saturation budget (within 0.10), same value band (60% overlap), same
+grain scale, same light (the lit corner agrees), still reads at play size (shrink to 24px).
+A person: is it the same MATERIAL (name what each is made of -- two words that differ means
+the numbers do not matter), does it belong to THIS world, and what would a stranger call
+each picture in one word. A cook is not done until the seven are yes and the three are asked.
+
+VALIDATED BEFORE IT WAS USED: a picture against itself 7/7; a water tile against a wall tile
+3/7; the re-cook against the approved set, median 6/7 across 42 tiles.
+
+THE FINDING, AND TWO INSTRUMENTS NOW AGREE. Across those 42 tiles the failures are: COLOUR
+DENSITY 32 of 42, LIGHT 10 of 42, value band 4, grain 4, detail order 3, saturation 3, reads
+at size 1. The re-cook's colour density is a MEDIAN 0.16x of the art he approved and the
+sidewalk tiles are at 0.03x -- three percent. Some of that is the craft working (law 0: a
+tile is decisions, not a shrunk painting) BUT the texture-match gate found the same shape
+from a completely different direction months ago: painted art here is too smooth and too
+clean beside the packs he bought. Two instruments built for different reasons pointing the
+same way is worth a RULING from DIRECTION, not another quiet cook.
+AND TEN TILES READ AS LIT FROM A DIFFERENT CORNER than the tile they replaced: road_0,
+road_1, road_2, road_centre, dirt, garage_bottom, roof_slope, roof_hipTL, roof_hipBR,
+roof_deck. The pixel-craft gate checks the key by PAIRS within a form, which is the right
+test for a form; whether a tile agrees with the tile it REPLACED is a different question and
+nothing was asking it. Routed to COOK.
+
+HONEST LIMIT: reference/library holds URLs, not pixels, so the machine half cannot run
+against most library entries from in here. It runs today against anything in the repo -- his
+bought packs, any bank, any screenshot -- and for a library entry the same ten questions go
+to a fresh chat with both pictures in front of it. That is why the sheet is written to be
+answerable BY EITHER. And seven yes does not mean good: it means built to the same recipe.
+
+NEXT IN THIS LANE: E5 [missing sound], then E8 [first minute], then E9's standing duty.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; seven things
+now do. Lanes may only change the status word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E7_THE_REFERENCE_SCORE_9_5_26.md (+ E1, E2, E3, E4, E6 and the
+round-one record). Sheet: banks/eyes/BOHEMIA_EYES_REFERENCE_SCORE_SHEET_9_5_26.json,
+draft:true. Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools:
+ten now, all bohemia_eyes_*.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -342,58 +394,6 @@ GATES, ALL GREEN, RUN THIS ROUND:
 
 NEXT: Q15 [feed voice], the last research row before the held build rows. How the
 city-screen feed talks without reading like a press release.
-
-EYES AND EARS (eyes-5vql33): 9/5 (f) LATEST -- *** E6 [walk tells] SHIPPED. 105 clips read
-off the real pose functions in all eight directions. THE GOOD NEWS IS MEASURED: every clip
-that is a CYCLE closes cleanly, and all 105 sit on a 2 or 4 beat count, so the 120 BPM law
-holds across the whole animation library. THE FINDING: nothing in the clip table says which
-clips LOOP, so one-shots are played on a loop and snap back every cycle. ***
-MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
-
-REUSE CHECK FIRST, which is this lane's habit now. Three gates already watch animation:
-anim_fabrication (a moving limb cannot gain painted pixels), frozen_poses (a hold is the
-same frame, not a recomputation), motion_visible (the clip moves enough pixels to see).
-None of them asks whether a cycle CLOSES or whether a joint SNAPS, so that is what I built.
-
-DOES IT CLOSE: the joint vector at phase 0 against the vector one frame before phase 1, in
-all eight directions, compared against that clip's OWN typical step. 7 of 102 fail --
-cover-drop, cover-rise, headshot, sit-ground, crawl-dying, chest-thump, throw -- AND ALL
-SEVEN ARE ONE-SHOT ACTIONS. Nothing that loops pops.
-
-AND THAT IS WHY THE REAL FINDING IS THE MISSING FIELD. There is no loop flag in the clip
-table, and the bench drives every clip with phase modulo 1. So cover-drop, whose end pose is
-1,032 TIMES its own typical step away from its start, is played on a loop and snaps back
-every cycle; cover-rise 755x, headshot 107x. That is not a bug in those clips -- a one-shot
-is meant to end somewhere else -- it is missing DATA. The table says how many beats a clip
-lasts and never says whether it comes back. ONE FIELD PER CLIP AND THIS TEST BECOMES A GATE.
-Routed to ANIMATION.
-
-THE SNAP LIST, A REPORT AND NOT A VERDICT: biggest single step against the clip's own median
-step -- cover-drop 47.8x, cover-rise 34.4x, stumble 20.1x, get-shoved 19.9x, cover-fire
-19.3x, shiv-jab 14.2x, inject 9.9x, spear-drive 9.7x, chest-thump 8.4x, nod and brace 7.6x.
-16 clips over 6x. SOME ARE MEANT TO SNAP (a shove is a snap), which is exactly why it ships
-as a list for ANIMATION to rule on instead of a gate that would fail correct art.
-
-TWO LIMITS OF MY INSTRUMENT, SAID OUT LOUD. sleep and headshot-2 have NO pose function --
-not a defect, they are a Verlet physics sim and a lying special case, and a tool that called
-them broken would have been my fourth false alarm of the day. floor-rise changes its pose
-SHAPE between frames in all eight directions, which is the morphing family, reported to
-ANIMATION because this tool cannot say whether it is intentional.
-
-FOOT SLIDING IS STILL OPEN AND I DID NOT FAKE IT. It needs where the planted foot is AND how
-fast the world moves him, and the second number does not live in the animation at all -- it
-lives in the city's movement code. Measuring the pose alone would be a confident number
-about nothing.
-
-NEXT IN THIS LANE: E7 [reference score], then E5 [missing sound] once the audio harness can
-prove the engine was alive for a whole walk, then E8 and the E9 standing duty.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; six things
-now do. Lanes may only change the status word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E6_THE_WALK_TELLS_9_5_26.md (+ E1, E2, E3, E4 and the
-round-one record). Data: records/BOHEMIA_EYES_WALK_TELLS_9_5_26.json (105 clips). Checklist:
-banks/eyes/BOHEMIA_EYES_WALK_TELLS_CHECKLIST_9_5_26.json, draft:true. Gate: gates/eyes_gate.js
-(10 checks, 81s, self-testing, readability ratchet at 38). Tools: nine now, all bohemia_eyes_*.
 
 FACTIONS (factions-ovkjpf): 9/6 (round 4) LATEST -- *** [faction homes]
 FACTION-SEATS SHIPPED. Every faction now sits on ground its own note names, and
