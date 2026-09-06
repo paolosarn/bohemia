@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+/* __BOHEMIA_SOLO__ -- THIS GATE MEASURES TIME, SO IT RUNS WITH THE BOX TO ITSELF.
+   The suite runs four gates at once, which is what makes it finish and also what
+   makes a stopwatch lie: it already had to re-run FIGHT MUSIC and FIRST NIGHT
+   alone to find out they were green. A gate whose whole subject is time cannot
+   be scheduled beside anything. The marker above is what gates/bohemia_gates.py
+   reads to pull this out of the pool and run it on its own; any gate that
+   measures time may opt in the same way. */
 /* FRAME BUDGET GATE (8/15/26, WORLD lane) — THE FIRST PERF GAUGE IN THE REPO.
  *
  * DEMO BOARD ROW 8 SAID IT PLAINLY: "step latency is gated, render latency is measured

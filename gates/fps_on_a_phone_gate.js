@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+/* __BOHEMIA_SOLO__ -- THIS GATE MEASURES TIME, SO IT RUNS WITH THE BOX TO ITSELF.
+   The suite runs four gates at once, which is what makes it finish and also what
+   makes a stopwatch lie: it already had to re-run FIGHT MUSIC and FIRST NIGHT
+   alone to find out they were green. A gate whose whole subject is time cannot
+   be scheduled beside anything. The marker above is what gates/bohemia_gates.py
+   reads to pull this out of the pool and run it on its own; any gate that
+   measures time may opt in the same way. */
 /* ============================================================================
    FPS ON A PHONE — THE SPEED BUDGET, AND THE FIRST GATE THAT HOLDS ONE
    (9/5/26, PLUMBER lane, VAMILY row [sixty fps] FPS-ON-A-PHONE)

@@ -2448,6 +2448,30 @@ GATES = [
      'render(): the SAME bug the 8/13 P0 named in the sky, sitting in a second place, found '
      'only because somebody finally counted. Now 1.00. A GAUGE THAT ONLY LOOKS WHERE THE APP '
      'HAPPENS TO OPEN IS HALF A GAUGE', False),
+    ('SUITE FINISHES', ['python3', 'gates/suite_finishes_gate.py'],
+     'CAN THIS SUITE STILL FINISH? 9/6, PLUMBER lane, row [suite runs]. You cannot run the '
+     'suite to check the suite, so this holds the thing that DECIDES its runtime instead, '
+     'which is arithmetic and costs nothing: a wall clock is the widest lane divided by that '
+     'lane\'s slots, or the single longest gate, whichever is worse. MEASURED off a real run '
+     'and recorded: 94 browser gates hold 63.6 of the 82 minutes of gate work and 233 pure '
+     'gates hold 18, so at the old two browser slots the browser lane alone was THIRTY-TWO '
+     'MINUTES and nothing that happened to the other 234 gates could move it. The row\'s '
+     'first clause is "measure every gate\'s time" and nobody had: the runner has printed a '
+     'per-gate time on every line for weeks and nothing ever added them up. This gate reads '
+     'that census, checks it still describes THIS suite, recomputes the floor from the '
+     'CURRENT table and the CURRENT scheduler settings (charging every untimed gate at the '
+     'median of its class, because pretending an untimed gate is free is how a budget lies), '
+     'and fails when the floor crosses the budget -- BEFORE the suite starts reporting gates '
+     'as never-run, which is worse than a red because an unrun gate has held nothing while '
+     'looking like it did. It also holds the thing the widening depended on: browser slots '
+     'went from half the cores to three quarters ONLY because gates that measure time now '
+     'carry __BOHEMIA_SOLO__ and run alone, so if that tier disappears the setting has to be '
+     'reconsidered rather than left with its reason quietly evaporated. THE TEN-MINUTE TARGET '
+     'IS REPORTED AND NEVER ASSERTED: the floor is over three times it, and a ceiling set '
+     'there would be red on arrival and switched off by whoever met it. Getting there needs '
+     'LESS BROWSER WORK, not better packing -- that much work over four cores is 24 minutes '
+     'even at four slots -- which is the row\'s other two clauses, split and retire',
+     False),
     ('BEAT BUDGET',    ['node', 'gates/beat_budget_gate.js'],
      'HOW MUCH OF A BEAT THE GAME SPENDS, 9/6, PLUMBER lane, row [hot path]. A beat is 500 ms '
      'under the 120 BPM law and NOBODY HAD EVER PROFILED ONE: of ~520 gates, two measure speed '
@@ -4728,9 +4752,67 @@ import threading
 
 _CPUS = os.cpu_count() or 4
 JOBS = int(os.environ.get('BOHEMIA_JOBS', str(_CPUS)))
-BROWSER_JOBS = int(os.environ.get('BOHEMIA_BROWSER_JOBS', str(max(1, _CPUS // 2))))
+# BROWSER SLOTS: WHY THIS MOVED FROM HALF THE CORES TO THREE QUARTERS (9/6, PLUMBER).
+# MEASURED, off a full run: 95 browser gates hold 3,840s of the suite's 4,928s of
+# work and 233 pure gates hold 1,089s. At two browser slots the browser lane alone
+# is 1,920s -- THIRTY-TWO MINUTES -- and nothing that happens to the other 233
+# gates can move that. At three it is 1,280s; at four, 960s.
+# HALF THE CORES WAS THE RIGHT NUMBER WHEN IT WAS SET and it is written up in
+# one() below: oversubscribing the box made FIGHT MUSIC and FIRST NIGHT fail for
+# LOAD rather than for truth. What changed is that the gates which measure time
+# now say so (__BOHEMIA_SOLO__) and run with the box to themselves, so widening
+# the pool can no longer make a stopwatch lie. Three rather than four, because
+# this is one step with a measurement behind it and the re-run-alone pass is the
+# net under it, not a licence to saturate a four-core box.
+BROWSER_JOBS = int(os.environ.get('BOHEMIA_BROWSER_JOBS', str(max(1, (_CPUS * 3) // 4))))
 
 _ISBROWSER = {}
+
+
+_ISSOLO = {}
+
+
+def is_solo_gate(argv):
+    """A GATE THAT MEASURES TIME MUST NOT BE MEASURED UNDER LOAD (9/6, PLUMBER).
+
+    DERIVED, NEVER A LIST, for the same reason is_browser_gate is: a hand-kept
+    list is right today and wrong at the next gate anybody writes. A gate opts in
+    by carrying the marker __BOHEMIA_SOLO__ in its own file, so the gate that
+    needs a quiet box is the gate that says so.
+
+    WHY THIS EXISTS. Running four gates at once is what makes the suite finish,
+    and it is also what makes a stopwatch lie. This runner already knew that --
+    it holds browser gates to half the cores for exactly that reason, and it
+    still had to re-run FIGHT MUSIC and FIRST NIGHT alone to find out they were
+    green. Since 9/5 the suite also carries gates whose WHOLE SUBJECT is time:
+    frames a second, milliseconds per beat, time to first play. Those cannot be
+    scheduled beside anything, and no amount of browser-slot arithmetic fixes
+    that -- they need the box, not a share of it.
+
+    AND IT IS WHAT LETS THE REST GO WIDER. With the timing gates fenced off, the
+    browser lane can take more slots without inventing reds, which is the only
+    lever that moves this suite's wall time at all: 95 browser gates hold 3,840s
+    of the 4,928s of work, so at two at a time the floor is 32 minutes no matter
+    what happens to the other 233.
+    """
+    path = None
+    for a in argv:
+        if isinstance(a, str) and a.startswith('gates/') \
+                and (a.endswith('.js') or a.endswith('.py')):
+            path = a
+            break
+    if not path:
+        return False
+    hit = _ISSOLO.get(path)
+    if hit is not None:
+        return hit
+    try:
+        with open(path, encoding='utf8', errors='replace') as fh:
+            hit = '__BOHEMIA_SOLO__' in fh.read()
+    except Exception:
+        hit = False
+    _ISSOLO[path] = hit
+    return hit
 
 
 def is_browser_gate(argv):
@@ -5053,6 +5135,18 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
             continue
         work.append((i, name, argv, what))
 
+    # THE SOLO PHASE RUNS FIRST, AND FIRST IS THE POINT. These are the gates whose
+    # subject IS time -- frames a second, milliseconds per beat, time to first
+    # play -- and a stopwatch held beside three other gates measures the box, not
+    # the game. They are pulled out of the pool and run one at a time with nothing
+    # else in flight.
+    # FIRST rather than last because the report streams in table order: a solo
+    # gate sitting early in the table and finishing last would hold the whole
+    # printout behind it, and a run that says nothing until minute forty is the
+    # original bug of this file's own sweep wearing a new costume.
+    solo_work = [w for w in work if is_solo_gate(w[2])]
+    work = [w for w in work if not is_solo_gate(w[2])]
+
     results = {}
     lock = threading.Lock()
     dispatched = set()
@@ -5152,14 +5246,21 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
 
     state = {'nxt': 0, 'ran': 0}
 
+    # THE PRINTER WALKS THE WHOLE TABLE, NOT JUST THE POOL'S SHARE OF IT. Pulling
+    # the solo gates into their own list and leaving the printer iterating `work`
+    # would have made every solo gate silently "unrun" in the final accounting --
+    # a runner reporting gates as never-run that it had in fact just run alone,
+    # which is the exact class of lie the unrun list exists to prevent.
+    all_work = sorted(solo_work + work, key=lambda w: w[0])
+
     def drain(final=False):
         with lock:
-            while state['nxt'] < len(work):
-                idx = work[state['nxt']][0]
+            while state['nxt'] < len(all_work):
+                idx = all_work[state['nxt']][0]
                 if idx not in results:
                     if not final:
                         break
-                    unrun.append(work[state['nxt']][1])
+                    unrun.append(all_work[state['nxt']][1])
                     state['nxt'] += 1
                     continue
                 nm, wh, okk, outp, secs = results[idx]
@@ -5168,6 +5269,15 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
                 emit(idx, nm, wh, okk, outp, secs)
                 state['ran'] += 1
                 state['nxt'] += 1
+
+    if solo_work:
+        print('  --- %d SOLO GATE(S) FIRST, one at a time, nothing else running ---'
+              % len(solo_work), flush=True)
+        for item in solo_work:
+            if stop.is_set() or time.time() - t0 > SUITE_BUDGET:
+                break
+            one(item)
+        drain()
 
     threads = []
     for item in work:
