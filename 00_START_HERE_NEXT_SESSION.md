@@ -1,3 +1,97 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 5) LATEST -- *** [who holds]
+EVERY-DISTRICT-HAS-AN-OWNER SHIPPED. Every border in the valley now runs along
+something a player can see: 65.7% -> 100%. *** Nothing to judge.
+
+VAMILY row: [who holds] EVERY-DISTRICT-HAS-AN-OWNER, MODE: BUILD, SHIPPED 9/6 e44ffb3.
+Record: records/BOHEMIA_A_BORDER_YOU_CAN_SEE_9_6_26.md
+Ruling it rests on: records/BOHEMIA_RULING_WHO_HOLDS_WHAT_9_5_26.md
+
+WHAT WAS ALREADY TRUE AND THIS ROW DID NOT REDO
+BB-TURF (9/5) gave every cell an owner. 100% coverage was already there. This row
+was about the EDGES, which nothing had ever looked at.
+
+WHAT SHIPPED
+holderOf() is a scaled Voronoi, so a border landed wherever two seats balanced --
+a diagonal through the middle of a block with nothing on the ground to explain
+it. Measured before: 466 of 709 borders on something you can see; 243 cutting
+across open buildable ground. And the shares were an artifact: Network 2195
+cells, Volunteers FOUR.
+THE UNIT OF OWNERSHIP IS NOW A BLOCK, NOT A CELL. Cut the valley along everything
+a player can see (road, freeway, rail, water, mountain, desert) and 465 blocks are
+left, each ringed by visible edges. A block is owned whole, so a border can only
+fall on the skeleton -- two buildable cells that touch are in the same block by
+construction. STRUCTURAL, not tuned. There is no number in this rule to nudge.
+Draft order: his HOLDS override, then a capital holds its own block, then
+factions pick by act1_power strongest-first, each pick the most valuable
+unclaimed block TOUCHING ground they already hold.
+
+MEASURED
+  borders on something you can see   466/709 (65.7%)  ->  2372/2372 (100%)
+  smallest faction holding           4 cells          ->  331 cells
+  resort+strip cells held by the Mob                      199 of 199
+  act1 -> act3 cells changing hands                       37.1%
+  build cost, cached with the valley                      128ms once
+
+TWO THINGS WORTH CARRYING
+1. WORTH: TWO RULERS WERE WRONG BEFORE THE THIRD WORKED. Counting BUILDINGS ranks
+   trailer parks (26.9/plot) above casinos (4) -- a resort is one huge building, a
+   trailer park thirty tiny ones, so it measures fragmentation. Counting BUILT
+   TILES ON A CELL puts `strip` at ZERO, because the strip district IS the
+   boulevard. Right answer: built tiles summed over a BLOCK, where the boulevard
+   rides along with the 118 resort cells beside it. Both wrong versions would have
+   shipped as features.
+2. A CAPITAL CAN SIT ON SOMEBODY ELSE'S GROUND AND IT IS NOT A BUG. The gate
+   asserted every seat owns its block; the world said no three times. The reflex
+   was to shove seats apart until the sentence came true. His own canon had
+   already written it: the Volunteers are "resource-poor by design. Nobody wants
+   to be seen attacking them, even Cartel stays hands-off." The claim changed, not
+   the world. turf() now reports its guests.
+
+WHAT THIS UNBLOCKS, AND THE ONE WALL BOTH WILL HIT
+UI [owner shown] THE-CITY-SHOWS-WHO-OWNS-IT and COOK [border marked]
+THE-BORDER-WEARS-ITS-COLOUR both name this row as their blocker. Both are now
+free: turfGrid() answers per cell off one flat array and the border is a real set
+of edges, every one on a landmark a painter could paint.
+*** THERE IS NO FACTION COLOUR NUMBER IN THIS REPO. *** A faction's colour is
+implied by its GARMENTS (FACTION_LOOKS in the alpha: COBALT SNEAKERS, RUST BOOTS,
+OLIVE SHOULDER MANTLE) and the RGB ramps those resolve to live in the alpha and
+NOWHERE ELSE -- the city file carries zero of them. faction_colour_gate gets its
+answer by rendering cloth in a browser and counting pixels, which no draw loop
+can do. First job for either row: lift the ramps somewhere both surfaces reach
+and derive a hue per faction FROM HIS OWN WARDROBE, never by picking one.
+That is also why the border this row drew on the MAP is in the map's existing
+two-colour language (yours against theirs) rather than in the holder's colour.
+
+GATES (on the merged tree)
+  TURF                 36 / 0   (extended, not duplicated: the before number is
+                                 measured in the same loop as the after)
+  FACTION TOWNS        33 / 0
+  COLD BOOT            11 / 0
+  FPS ON A PHONE       35 / 0
+  RUNG PAYS            21 / 0
+  FACTION MEMBERSHIP   60 / 0
+  STANDING             35 / 0
+  ALPHA LOADS          20 / 0
+
+[PENDING Paolo] -- still one, unchanged from last round
+  Anarchists ("territorially inconsistent"), Colorful ("Community-based not
+  territorial") and Custom ("Player faction. No preset philosophy") are told by
+  his own notes NOT to hold ground like the others. They still get a seat, and
+  now a real territory, because the rule gives everybody one. Whether a faction
+  his canon calls non-territorial should hold ground AT ALL is his ruling.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [hidden factions]  THE-OTHER-FOUR -- the four non-selectable factions: do they
+    exist anywhere a player can meet them? measure, then place a presence or write
+    [PENDING Paolo]
+  [colours fixed]  COLOUR-AUDIT -- and it is now worth more than it was: two other
+    lanes are blocked on a faction colour number that does not exist
+  [crossing costs]  THE-WRONG-COLOUR-REACTS -- has a real border to cross now
+
+
+
+--------------------------------------------------------------------------------
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

@@ -139,9 +139,30 @@ the map already speaks, yours against theirs. Only the edge, never a fill: a was
 of colour over the valley would bury the streets and lights the map is for, and
 the border is the thing the ruling names.
 
-**The real hues belong with `[colours fixed]` COLOUR-AUDIT**, which is already
-OPEN in this lane and is explicitly about faction colour. Lifting the wardrobe
-ramps out of the alpha into the city is that row's job, not this one's.
+**And the colour half was never this row's to begin with.** Two rows on the board
+already own it, and both name this row as the thing they were waiting for:
+
+- UI `[owner shown]` THE-CITY-SHOWS-WHO-OWNS-IT — *"with FACTIONS [who holds]
+  landing, CITY mode shows the owner of every district in its colour, and the
+  borders where you can see them."* Unblocked now: `turfGrid()` answers per cell
+  off one flat array, and `turf().guests` says who is standing on whose ground.
+- COOK `[border marked]` THE-BORDER-WEARS-ITS-COLOUR — *"cook the edge: a
+  territory border is marked where a player can see it, in the holder's colour, on
+  the wall, the fence, the underpass."* Unblocked now: the border is a real,
+  queryable set of edges, and every one of them is on a landmark a painter could
+  actually paint.
+
+**THE ONE THING BOTH OF THOSE WILL HIT, WRITTEN DOWN HERE SO NOBODY REDISCOVERS
+IT:** there is no faction colour number in this repo. A faction's colour is
+implied by its GARMENTS (`FACTION_LOOKS` in the alpha: `'COBALT SNEAKERS'`,
+`'RUST BOOTS'`, `'OLIVE SHOULDER MANTLE'`), and the RGB ramps those names resolve
+to (`COBALT={dk:[30,70,140],...}`) exist in the alpha and nowhere else — the city
+file contains zero of them. `faction_colour_gate` gets its answer by rendering
+cloth in a browser and counting pixels, which no draw loop can do. So the first
+job for either row is to lift the ramps into a place both surfaces can reach and
+derive a hue per faction *from his own wardrobe*, never by picking one — COLOUR IS
+TERRITORY (8/26) says "which faction owns which hue is HIS", and he has in fact
+already answered it, just in garment names instead of numbers.
 
 ## GATES
 `turf_gate.js` extended rather than duplicated (REUSE-FIRST) — the before number

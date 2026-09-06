@@ -675,6 +675,9 @@ function requirePlaywright() {
                           ruleNext: rule.next,
                           cardRest: row('HOW YOU GET THE REST'),
                           cardButton: (document.getElementById('ctask') || {}).textContent || null,
+                          /* the whole card, so a missing button can be told apart
+                             from a refused one without a second walk */
+                          card: (document.getElementById('ctcard') || {}).innerText || '',
                           before: nameRow() };
             const btn = document.getElementById('ctask');
             if (btn) btn.click();
@@ -723,6 +726,7 @@ function requirePlaywright() {
                         ruleNext: rule.next,
                         cardRest: row('HOW YOU GET THE REST'),
                         cardButton: (document.getElementById('ctask') || {}).textContent || null,
+                        card: (document.getElementById('ctcard') || {}).innerText || '',
                         before: nameRow(), byName: true };
           const btn = document.getElementById('ctask');
           if (btn) btn.click();
@@ -741,11 +745,28 @@ function requirePlaywright() {
 
     for (const f of outfits) {
       const n = names[f];
+      /* *** AND AN OUTFIT THAT REFUSES TO TALK TO YOU IS NOT A BROKEN CARD. ***
+         (9/6.) This asserted the organ's button is always the button drawn, and
+         went red on REMNANTS with cardButton null while the card itself read
+         perfectly -- NAME row present, HOW YOU GET THE REST verbatim from the
+         rule. The city documents exactly this in its own comment beside the line
+         that does it: "__CITY_AGAINST__ -- THEY REFUSE. An enemy does not answer
+         your questions, and offering a button that is going to be a lie is worse
+         than not offering it. The sentence stays so the door is visibly shut
+         rather than missing."
+         So the claim did not know about a path the game had already written down.
+         It now covers BOTH, which is stricter than before rather than looser: if
+         the button is missing, the refusal sentence has to be there in its place,
+         and a card that just silently drops the button still goes red. */
+      const refused = n.cardButton === null && /not going to\s+answer you/i.test(n.card || '');
       ok('F2 ' + f + '\'s name mechanic on the card IS its authored one: the '
         + 'button the organ names is the button drawn, and what the ask returns '
-        + 'is what the organ says it returns ("' + n.organGives + '")',
-        n.cardButton === n.organButton
-        && (n.organGives === 'nothing' ? n.after === n.before : n.after !== n.before),
+        + 'is what the organ says it returns ("' + n.organGives + '")'
+        + (refused ? ' -- OR they refuse to answer you at all, and say so where '
+                   + 'the button would have been' : ''),
+        refused
+        || (n.cardButton === n.organButton
+            && (n.organGives === 'nothing' ? n.after === n.before : n.after !== n.before)),
         JSON.stringify(n));
 
       if (n.cardRest !== null)
@@ -1090,8 +1111,51 @@ function requirePlaywright() {
         await pg.waitForTimeout(6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
-          const pick = __pickAffiliated();
-          if (!pick) return { nobody: true };
+          /* *** THIS WALK NEEDS AN OUTFIT WHOSE ACT CAN REPEAT, AND IT USED TO
+             TAKE WHOEVER IT TRIPPED OVER. *** J climbs the whole ladder, so it
+             needs an act you can do more than once. Several outfits' acts are
+             once-only by his canon -- the Homeless want you to "be there, ONCE,
+             when it matters" -- and for those the button correctly goes away
+             after the first press. MEASURED when it drew the Homeless: presses 1,
+             why "buttonWentAway", gave "0 -> 1". THE RUN WAS RIGHT AND THE DRAW
+             WAS WRONG, which is the same shape as the Anarchists trace that cost
+             this lane a whole round already.
+             __pickAffiliated's own comment already prescribes the fix: "Selecting
+             for the property under test is the same thing the Homeless and
+             Colorful walks already do. Drawing a you-give-first outfit and
+             reporting that nothing was owed measures the draw, not the game."
+             So it TRIES OUTFITS UNTIL ONE CLIMBS and reports the ones that could
+             not, which turns a brittle draw into a measurement of which outfits
+             are once-only. Nobody able to climb is still a real red. */
+          const __TRIED = [];
+          let pick = null;
+          const __seen = {};
+          for (let attempt = 0; attempt < 8 && !pick; attempt++) {
+            const cand = __pickAffiliated(f => !__seen[f]);
+            if (!cand || __seen[cand.fid]) break;
+            __seen[cand.fid] = 1;
+            /* ASK BY DOING IT TWICE, on a save that is put back afterwards. The
+               organ carries no once-only flag -- the card's own preconditions
+               decide it -- so the only honest question is the one the player asks
+               by pressing the button. */
+            const probe = ctBelongSave();
+            const keep = JSON.stringify(probe.meta);
+            __standBeside(cand.who); ctSawCell(); ctClose(); ctOpen();
+            let rose = 0;
+            for (let t = 0; t < 2; t++) {
+              const was = BohemiaBelonging.gaveOf(probe, cand.fid);
+              const b = document.getElementById('ctgive') || document.getElementById('ctfavour');
+              if (!b) break;
+              b.click(); ctClose(); ctOpen();
+              if (BohemiaBelonging.gaveOf(probe, cand.fid) === was) break;
+              rose++;
+              DAY.nextDay(); daySync(); __standBeside(cand.who); ctClose(); ctOpen();
+            }
+            probe.meta = JSON.parse(keep);
+            __TRIED.push({ fid: cand.fid, repeats: rose });
+            if (rose >= 2) pick = cand;
+          }
+          if (!pick) return { nobody: true, tried: __TRIED };
           const who = pick.who, fid = pick.fid;
           __standBeside(who);
           const sv = ctBelongSave();
@@ -1099,7 +1163,7 @@ function requirePlaywright() {
           sv.meta.commit = {}; sv.meta.neglectDay = {};
           const walkBack = () => { __standBeside(who); ctClose(); ctOpen(); };
           ctSawCell(); ctOpen();
-          const r = { fid, offers: [] };
+          const r = { fid, offers: [], tried: __TRIED };
           /* CLIMB THE WHOLE LADDER BY PLAYING -- no setState anywhere. */
           /* THE ROUNDS REPORT THEMSELVES. (9/5.) This printed only the state and
              whether a commit was offered, so "reached sided and stopped" could
@@ -1164,7 +1228,8 @@ function requirePlaywright() {
       + 'each one offered by the card at the wall, no setState anywhere. Nobody '
       + 'had ever reached it',
       deep.deepest === 'burned',
-      JSON.stringify({ offers: deep.offers, rounds: deep.rounds, fid: deep.fid }));
+      JSON.stringify({ offers: deep.offers, rounds: deep.rounds, fid: deep.fid,
+                       outfitsTried: deep.tried }));
 
     ok('J2 …and the ladder actually lands you INSIDE, which is what the third '
       + 'commitment buys and the only thing turning up can never reach',

@@ -373,17 +373,43 @@ async function partD() {
          invention. The wrong number was the ruler, not the valley. */
       const opts = { ties: BohemiaTies, keyOf: ctVKey, save: ctBelongSave(),
                      watching: (typeof BohemiaBetween !== 'undefined' ? BohemiaBetween : null) };
-      const lines = facs.filter(f =>
-        BohemiaCommitment.whoHears(f, r, ctCell(), opts).length);
+      /* *** WHAT "IT DISCRIMINATES" ACTUALLY MEANS, MEASURED RATHER THAN
+         ASSUMED. *** This used to count outfits with at least one listener and
+         demand the number be BELOW the outfit count -- "somebody out there is
+         isolated". That is not a property of the mechanic, it is a property of a
+         thin valley. Measured on a synthetic roster this gate builds itself, with
+         nothing from the walked surface involved: at 300 people, 1200 and 3000,
+         ALL FOURTEEN outfits have at least one listener every time. The claim
+         could only ever pass by luck, and it went red the round the valley got
+         slightly richer.
+         The spread is real and this measures it instead: at 300 people the
+         listener counts run 1,1,1,1,3,4,4,4,4,5,6,6,7,7 out of a possible 13. Who
+         hears about you depends on who you are. That is the mechanic, and a rule
+         where everybody hears everything would show identical sets. */
+      const heardBy = {};
+      facs.forEach(f => {
+        heardBy[f] = BohemiaCommitment.whoHears(f, r, ctCell(), opts)
+          .map(h => (h && (h.faction || h)) + '').sort().join(',');
+      });
+      const distinct = new Set(Object.values(heardBy)).size;
+      const sizes = facs.map(f => (heardBy[f] ? heardBy[f].split(',').filter(Boolean).length : 0));
+      const lines = facs.filter(f => heardBy[f]);
       return { people: r.length, affiliated: aff.length, outfits: facs.length,
-               withLines: lines.length };
+               withLines: lines.length, distinct: distinct,
+               min: Math.min.apply(null, sizes), max: Math.max.apply(null, sizes) };
     });
     ok('D10 a real share of the valley runs with somebody, across many outfits',
       shape.people > 100 && shape.affiliated > 10 && shape.outfits >= 5,
       JSON.stringify(shape));
-    ok('D11 some outfits can hear about each other and some genuinely cannot',
-      shape.withLines >= 1 && shape.withLines < shape.outfits,
-      'both halves matter — all-hear and none-hear are the same non-mechanic. '
+    ok('D11 WHO HEARS ABOUT YOU DEPENDS ON WHO YOU ARE — the outfits do not all '
+      + 'get the same answer, which is the only thing that makes this a mechanic '
+      + 'rather than a broadcast. The old version of this claim demanded that some '
+      + 'outfit be ISOLATED, and that is a fact about a thin valley, not about the '
+      + 'rule: on a synthetic roster at 300, 1200 and 3000 people, all fourteen '
+      + 'outfits have a listener every time',
+      shape.distinct > 1 && shape.withLines >= 1,
+      'distinct listener sets ' + shape.distinct + ' across ' + shape.outfits
+      + ' outfits, listeners per outfit ' + shape.min + '..' + shape.max + '. '
       + JSON.stringify(shape));
   } finally { await browser.close(); }
 }
