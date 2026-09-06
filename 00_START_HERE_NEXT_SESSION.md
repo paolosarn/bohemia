@@ -13351,6 +13351,21 @@ owners, shelves that empty, debts with a lender's name). Routed QUESTS [check th
 PEOPLE [fluent liar] (top), UI [what you know], FACTIONS [tracks read], LIFE+CITY [shelves
 seen]. Topped up ECONOMY, DYNASTY, WORDS. NOTED: DIRECTION is now holding FIVE claimed and
 one open, the same one-at-a-time violation PLUMBER has.
+THEN (ch) VAMILY: 3 commits, and ECONOMY round 20 is the harvest of the round --
+EVERYBODY IN THE VALLEY HAS A JOB EXCEPT THE PLAYER, measured in our own code: every NPC
+works a seven-hour day (worker 448 min, scav 371, watch 413, keeper 101) with acts errand/
+free/home/scav/sleep/watch/work, while the PLAYER's acts are walk/talk/fight/build/buy/
+sleep -- THERE IS NO PLAYER ACT CALLED WORK. And the money vocabulary agrees: three of the
+four verbs are SPENDING, one is earning, none is work. Record: records/BOHEMIA_HARVEST_
+FOUR_EVERYBODY_WORKS_EXCEPT_THE_PLAYER_9_6_26.md. It is also the missing half of his
+batteries ruling (today you either spend, or a building mines while you sleep) and the
+missing shape of the five-minute session (a shift IS that unit). Swing: the known failure
+of passive income is that it makes hand-work pointless -- early hours must be active, the
+player's role must CHANGE rather than end when automation arrives, and away-earnings must
+be capped. So I amended WORLD [batteries mined] in place: WORK COMES FIRST, buildings
+second, and away-earnings capped; his ruling stands as given, this is only which one a
+player meets first. Routed WORLD [a days work] (top), RUN [a shift], PEOPLE [somebody
+hires you].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
