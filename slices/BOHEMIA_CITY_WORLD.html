@@ -25094,6 +25094,7 @@ const BEAT=500; // 120BPM law
 
 
 
+
 /* ===== BOHEMIA FACTION GRAPH (generated, verbatim) ===== */
 /* Paolo's own faction graph, spliced verbatim by
    tools/bohemia_city_towns_patch.py. ONE COPY OF HIS NUMBERS: edit
@@ -32347,13 +32348,29 @@ function stepOnce(di){
          calling it. step() ticks 0 minutes, so the time below is still the only
          thing spending the day and this cannot double-charge him. */
       try{ DAY.step(dayWhere()); }catch(_e){}
-      advance(0.084); /* __CITY_FACTIONS__ */ ctSawCell();        // time per CELL, distance-honest
+      /* __ROADS_ARE_FAST__ -- AND UNTIL NOW A STREET COST EXACTLY WHAT BROKEN
+         GROUND COST. Measured on this surface before it was written: 29 paved
+         cells took 2 minutes and 29 cells of dirt took 2 minutes. Every street in
+         the valley was mechanically scenery, and we have more street than almost
+         anything else in this project.
+         The cost comes from what is actually underfoot, through __surfaceOf --
+         the classifier the footsteps already use, so the ground that SOUNDS like
+         asphalt is the ground that WALKS like asphalt and there is no second
+         opinion about what a tile is. */
+      var _mc=stepCost(c);
+      advance(_mc); /* __CITY_FACTIONS__ */ ctSawCell();        // time per CELL, distance-honest
       /* __WALK_ENCOUNTERS__ -- FIVE SECONDS OF HIS DAY JUST WENT BY ON FOOT, and
          until today that bought nothing: his twelve approved encounters were
          wired to overmap travel only and had never once fired for somebody
          walking. 0.084 minutes is 5.04 seconds, the same clock the rest of this
          line spends, so this cannot double-charge him. */
-      try { walkInterrupt(5.04); } catch(_e){}
+      /* AND THE DIRECTOR IS HANDED THE TIME THAT WAS REALLY SPENT. This was the
+         hard-coded 5.04 seconds of one baseline cell, which was right while every
+         cell cost the same. On a fast road it would have paid the director a full
+         cell's worth of seconds for half a cell's worth of clock, so his approved
+         ~90-second gap would have come twice as often on pavement -- pacing
+         changed by a movement fix, which is nobody's ruling. */
+      try { walkInterrupt(_mc*60); } catch(_e){}
       /* __STREET_FIGHT__ (V201): and the same step asks whether he just walked
          into somebody who wants to hurt him. This is the only hook needed --
          one step is one place a body arrives, exactly as inEnter is the one
@@ -32388,6 +32405,38 @@ function stepOnce(di){
 /* WHAT AM I STANDING ON? Read off the tile's OWN dossier name, so a new surface
    is one line here rather than a guess at the call site. Falls back to dirt,
    which is the dead-world default everywhere that is not paved. */
+/* __ROADS_ARE_FAST__ -- WHAT ONE CELL COSTS TO CROSS (9/5, BB-ROADS-ARE-FAST).
+   Paolo's reference game, quoted in the row: "ROADS ARE FAST. Everybody, player
+   included, moves at high speed along a road."
+   MEASURED FIRST, ON THIS SURFACE: 29 paved cells cost 2 minutes and 29 cells of
+   broken ground cost 2 minutes. Identical. Every street was scenery.
+   WHY THIS IS THE RIGHT LEVER: a fast road does not flatten the valley, it gives
+   it a GRAIN -- places near in time and far in metres. The friction stays; the
+   shape changes.
+   *** THE BASELINE DOES NOT MOVE. *** 0.084 minutes a cell is 12 cells a minute,
+   about nine metres a minute, so a 16-hour day walks about 8.6 km across a 9.2 km
+   valley -- and the row calls that a GOOD NUMBER, not a bug. So broken ground
+   costs exactly what it costs today and nothing regresses; only pavement gets
+   cheaper.
+   THE FACTOR, AND ITS BASIS: REALISM FIRST. Route planning has treated rough
+   off-road going as roughly half of road pace since Naismith, and every terrain-
+   factor table since has kept that order -- prepared surface fastest, broken
+   ground about half. So paved is TWICE the speed of everything else. It is tagged
+   tuned:false like every other number this lane has shipped, so it lands in the
+   one generated list he tunes from after a playthrough.
+   PAVED IS ASPHALT AND CONCRETE -- the roadway and the sidewalk. A person on foot
+   is not slower on a sidewalk than on the tarmac, and both are what "a road" means
+   to somebody walking. Gravel, dirt, sand and wood keep the baseline: a gravel
+   shoulder is not a road and the row did not ask for a ladder of surfaces.
+   INDOORS IS UNTOUCHED. The interior step has its own advance() and a corridor is
+   not a highway. */
+var MIN_PER_CELL = 0.084;                  /* the baseline, and it does not move */
+var PAVED = { asphalt: 1, concrete: 1 };
+var PAVED_SPEED = { factor: 0.5, ruling: 'REALISM FIRST: rough going is about half road pace', tuned: false };
+function stepCost(c){
+  var s=null; try{ s=__surfaceOf(c); }catch(_e){ s=null; }
+  return (s && PAVED[s]) ? MIN_PER_CELL*PAVED_SPEED.factor : MIN_PER_CELL;
+}
 function __surfaceOf(c){
   /* THE GROUND GOT FINER (8/20). This knew three surfaces -- asphalt, gravel,
      dirt -- and lumped concrete, sidewalk, walk and slab in WITH asphalt. Paolo
@@ -43429,7 +43478,15 @@ function showReckoning(){
     h+='</ul>';
   }
   h+='<h3>THE DAY</h3><ul>';
-  h+='<li>'+s.steps+' steps</li>';
+  /* __ROADS_ARE_FAST__ -- AND HOW FAR THAT ACTUALLY GOT HIM. A step count cannot
+     show the thing this row changed: keeping to pavement covers twice the ground in
+     the same hours, and "412 steps" says the same whether he did it on a highway or
+     across a wash. A cell is 0.75 m at the game's own scale, which is the number the
+     rest of the file already measures distance with, so this invents nothing. */
+  h+='<li>'+s.steps+' steps'
+    +(s.steps? ' \u00b7 '+(s.steps*0.75>=1000
+        ? (s.steps*0.75/1000).toFixed(1)+' km'
+        : Math.round(s.steps*0.75)+' m') : '')+'</li>';
   if(s.districts.length)h+='<li>'+esc(s.districts.map(d=>d.name).join(', '))+'</li>';
   /* __WHO_HOLDS_THE_GROUND__ -- AND WHOSE VALLEY YOU WERE IN. BB-TURF, on his 9/4
      ruling that EVERY part of the valley is owned by a faction. He asked for

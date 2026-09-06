@@ -316,6 +316,23 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('ROADS ARE FAST', ['node', 'gates/roads_are_fast_gate.js'],
+     'BB-ROADS-ARE-FAST, quoting his reference game: "ROADS ARE FAST. Everybody, player '
+     'included, moves at high speed along a road." MEASURED ON THE WALKED SURFACE BEFORE '
+     'anything was written: 29 paved cells cost 2 minutes and 29 cells of broken ground '
+     'cost 2 minutes -- IDENTICAL. Every street in this valley was mechanically scenery, '
+     'and we have more street than almost anything else in the project. A fast road does '
+     'not flatten the valley, it gives it a GRAIN: places near in time and far in metres, '
+     'which is the friction staying and the shape changing. THE BASELINE DOES NOT MOVE -- '
+     '0.084 minutes a cell is 8.6 km in a 16-hour day across a 9.2 km valley and the row '
+     'calls that a GOOD NUMBER, so broken ground costs exactly what it always did and only '
+     'pavement got cheaper. The surface comes from __surfaceOf, the classifier the '
+     'FOOTSTEPS already use, so the ground that sounds like asphalt is the ground that '
+     'walks like asphalt and there is no second opinion about what a tile is. The encounter '
+     'director is handed the seconds REALLY spent rather than one baseline cell\'s, because '
+     'pacing changed by a movement fix is nobody\'s ruling. Indoors is untouched: a corridor '
+     'is not a highway. The card says how far he got, because "412 steps" reads the same on '
+     'a highway and across a wash', True),
     ('TURF',           ['node', 'gates/turf_gate.js'],
      'BB-TURF. He asked for "different parts of Vegas as different faction holdings" by '
      'name, and ruled 9/4 that EVERY part of the valley is owned by a faction. The walked '

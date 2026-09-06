@@ -4565,51 +4565,49 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [held ground] BB-TURF is SHIPPED 9/5.
+HOLDING: nothing. [faster roads] BB-ROADS-ARE-FAST is SHIPPED 9/5.
 
 WHAT SHIPPED
-  THE GAP WAS ONE WORD: the grid stamps an owner on every lit circuit and it was a
-  CATEGORY -- settlement / faction / network / solar_lone -- so one circuit in five
-  read as the generic word "faction" and the director's seam test, which compares
-  those words, made a Mob block and a Cartel block the same block.
-  THE NAME COMES OFF THE TOWN SEATS. A faction holds the ground around its own
-  town; a FORTRESS REACHES FURTHER THAN A CAMP, off the REACH table that already
-  sized a town rather than a new number. HOLDS ships EMPTY, an entry wins.
-  ONLY THE `faction` CATEGORY IS RENAMED. settlement and solar_lone are real things
-  in their own right, and `network` is left alone ON PURPOSE even though the roster
-  has a faction of that name -- treating the two as one is a guess about his canon.
-  THE GRID TAKES DATA, NOT A MODULE: powerMap gains a holderAt callback, so it
-  stays a pure function of map+seed and handed nothing is byte-identical.
-  turfAt(x,y) answers for ANY cell: 9,216 of 9,216 held, 0 uncovered, 14 factions,
-  712 borders. The player opens on MOB ground.
-  THE CARD: "you crossed Mob into Homeless", and a block going dark now names whose
-  it was, which ties this to [lights bill] -- you can be paying the power bill on
-  ground somebody else holds.
-  GATE: gates/turf_gate.js, 23 checks, registered as TURF. Red both ways.
-  RECORD: records/BOHEMIA_EVERY_BLOCK_HAS_A_NAME_ON_IT_9_5_26.md
+  MEASURED FIRST, on the walked surface: 29 paved cells cost 2 minutes and 29 cells
+  of broken ground cost 2 minutes. IDENTICAL. Every street in the valley was
+  mechanically scenery, and we have more street than almost anything else here.
+  PAVEMENT NOW COSTS HALF. Broken ground is UNTOUCHED, so the 8.6 km day the row
+  calls a good number is unchanged; a day on the roads covers 17.1 km across a
+  9.2 km valley, which means you can cross it in a day if you stay on roads and
+  cannot if you do not. That is the GRAIN the row asked for -- places near in time
+  and far in metres, friction kept, shape changed.
+  THE SURFACE COMES FROM __surfaceOf, the classifier the FOOTSTEPS already use, so
+  the ground that sounds like asphalt walks like asphalt and there is no second
+  opinion about what a tile is. Paved = asphalt + concrete (roadway and sidewalk).
+  Gravel, dirt, sand and wood keep the baseline; a shoulder is not a road.
+  Measured: 34% of walkable ground near the spawn is paved, so the grain is real.
+  THE FACTOR IS 0.5 on REALISM FIRST (rough going is about half road pace, the
+  order every terrain-factor table has kept since Naismith), tagged tuned:false
+  with its ruling, so it lands in the one list he tunes from.
+  THE CARD SAYS HOW FAR: "78 steps - 59 m". A step count cannot show what this row
+  changed, because 412 steps reads the same on a highway and across a wash.
+  GATE: gates/roads_are_fast_gate.js, 17 checks, registered as ROADS ARE FAST.
+  RECORD: records/BOHEMIA_A_STREET_THAT_IS_NOT_FASTER_9_5_26.md
 
-THE MEASUREMENT THAT CHANGED THE DESIGN, AND THE NEXT ROUND SHOULD NOT REDO IT
-  Across five seeds: 2,155 live cells, 424 named, 127 lit borders, and ZERO of them
-  faction-against-faction. Not one, on any seed. The reason is structural and not a
-  bug: neighbouring circuits fall in the same town's catchment and share a holder.
-  SO A TERRITORY MAP MADE ONLY OF LIT GROUND LEAVES NINE CELLS IN TEN OWNED BY
-  NOBODY, which is not what he ruled. The lit circuits are the TELL; the territory
-  is the catchment. turf_gate REPORTS the faction-vs-faction seam count rather than
-  asserting it -- if it ever stops being 0 that is a finding, not a failure.
+THE THING THAT WOULD HAVE GONE WRONG QUIETLY, AND DID NOT
+  The walked step handed the encounter director a hard-coded 5.04 seconds -- the
+  seconds in ONE BASELINE CELL. Right while every cell cost the same; on a fast
+  road it pays a full cell's seconds for half a cell's clock, so his approved
+  90-second gap between moments would have come TWICE AS OFTEN on pavement. Pacing
+  changed as a side effect of a movement fix is nobody's ruling. It is handed the
+  seconds really spent now. Indoors is untouched: a corridor is not a highway.
 
 TWO THINGS THE NEXT ROUND MUST NOT RE-LEARN
-  1. `typeof` ON A `const` IN THE TEMPORAL DEAD ZONE THROWS. It does not return
-     'undefined'. My seat lookup guarded with `typeof CE === 'undefined'` and CE is
-     declared THREE LINES BELOW the boot call that uses it, so the guard was not a
-     guard, the try/catch ate it, and every circuit came back unnamed with nothing
-     saying why. Read globals off window. This file already warns about it for HOME.
-  2. THE POWER MAP IS BUILT IN THREE PLACES -- boot, a save restored on a different
-     seed, and a re-rolled valley. Anything added to two of them is a valley where a
-     third of the time it is missing. They all go through buildPower() now.
+  1. THE CLOCK REPORTS WHOLE MINUTES. The walked check asserts the ORDER and a
+     clear margin, not an exact 2.000x -- a test that demands an exact ratio off a
+     rounding clock is a test about the clock.
+  2. AND MY OWN CHECK WAS THE BROKEN PART FIRST: the "indoors is untouched" regex
+     allowed 400 characters between the comment and the advance() and the real gap
+     is longer, so it went red on correct code. Widen before believing a red.
 
-NEXT: the first OPEN line is [faster roads] BB-ROADS-ARE-FAST. After it:
-[rung unlocks], [enemies unite], [shelves premise], [batteries mined], [own power],
-[rice clock], [debt carried]. [century stayed] is [PENDING Paolo], blocks nothing.
+NEXT: the first OPEN line is [rung unlocks] BB-THE-RUNG-PAYS. After it:
+[enemies unite], [shelves premise], [batteries mined], [own power], [rice clock],
+[debt carried]. [century stayed] is [PENDING Paolo] and blocks nothing.
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
@@ -4621,9 +4619,10 @@ before my rounds and neither moved.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [held ground] BB-TURF, 9/5. Before it: [faction towns] fd484b9,
-[lights bill] 94ca570, [living costs] 5b61303, [battery money] + [prices one]
-ce39270.
+LAST SHIPPED: [faster roads] BB-ROADS-ARE-FAST, 9/5. Before it: [held ground]
+afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
+[battery money] + [prices one] ce39270.
+
 
 
 
