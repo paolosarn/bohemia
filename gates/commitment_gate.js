@@ -425,22 +425,35 @@ async function partWall() {
           const probe = ctBelongSave();
           const ceil0 = BohemiaCommitment.wallOf('none', 0).ceiling;
           probe.meta.gave = {}; probe.meta.owed = {}; probe.meta.claims = {}; probe.meta.commit = {};
+          /* *** IT COUNTED BUTTON PRESSES, NOT STANDING. *** (9/5.) `landed++`
+             fired whenever a button existed and was clicked, so an outfit whose
+             act is ONCE-ONLY scored a full five while its count moved by one --
+             which is exactly the trap this block says it exists to avoid two
+             comments up ("the act has to REPEAT... which cannot climb to a
+             ceiling of five"). It picked the ANARCHISTS, whose canon is "be
+             there ONCE, when it matters", and Ez2 then reported a wall at
+             gave:1 of ceiling:5 with nothing wrong with the wall. Qualifying on
+             the thing under test means qualifying on the COUNT. */
           let landed = 0;
           for (let t = 0; t < ceil0; t++) {
             T.day = t + 1; probe.meta.gaveDay = {};
             ctClose(); ctSawCell(); ctOpen();
+            const was = BohemiaBelonging.gaveOf(probe, f);
             const g = document.getElementById('ctgive') || document.getElementById('ctfavour');
-            if (g) { g.click(); landed++; }
+            if (g) g.click();
+            if (BohemiaBelonging.gaveOf(probe, f) > was) landed++;
           }
           ctClose(); ctOpen();
           const doorThere = !!document.getElementById('ctcommit');
           ctClose();
           probe.meta.gave = {}; probe.meta.owed = {}; probe.meta.claims = {}; probe.meta.commit = {};
+          (window.__EZQ = window.__EZQ || []).push({ f: f, landed: landed, ceil0: ceil0, door: doorThere });
           if (landed === ceil0 && doorThere) { who = p; fid = f; break outer; }
         }
       }
       if (!who) return { skip: 'none of the ' + tried + ' affiliated people reachable from a '
-        + 'base offers an act that can be repeated, so the wall cannot be climbed to' };
+        + 'base offers an act that can be repeated, so the wall cannot be climbed to',
+        qualify: (window.__EZQ || []).slice(0, 12) };
       /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
          ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
          the chosen body is the only one in reach. That was true while the
@@ -470,16 +483,36 @@ async function partWall() {
            BUTTON was gone from the second press on. Kept anyway, because the
            assumption it removes is a real one, and the note is corrected rather
            than quietly left saying something the trace disproved.) */
-        for (const _d of [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
+        /* AND NEVER [0,0], WHICH IS STANDING ON TOP OF THEM. (9/5.) This ring
+           began at the person's OWN cell, and ctAdjacent counts distance 0 as a match,
+           so the very first candidate always "succeeded" and left the player
+           inside the body it meant to stand beside. The qualification probe's
+           ring (RING0, above) starts at [1,0] and never does this -- which is
+           why the probe climbed to the ceiling on the same person the real loop
+           could only move once. OCCUPANCY LAW says one body per cell; a test
+           that puts two there is asking the game a question it does not have. */
+        for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
           hx = at[0] + _d[0]; hy = at[1] + _d[1];
           const _a = ctAdjacent(); if (_a && _a.id === who.id) break;
         }
-        ctClose(); ctOpen();
+        /* ctSawCell EVERY PRESS, BECAUSE THE QUALIFICATION DOES. (9/5.) The
+           candidate probe above climbs with `ctClose(); ctSawCell(); ctOpen();`
+           and this climbed with `ctClose(); ctOpen();`. So the probe reported
+           landed:5 on a subject the real loop could only move once -- it
+           qualified the person on a routine the run did not perform, which makes
+           the qualification worth nothing. Measured: with the probe's routine
+           the count reaches the ceiling; without it the give button is gone from
+           the second press on. A TEST THAT PICKS ITS SUBJECT WITH ONE PROCEDURE
+           AND THEN USES ANOTHER IS NOT TESTING WHAT IT SELECTED FOR. */
+        ctClose(); ctSawCell(); ctOpen();
+        const was9 = BohemiaBelonging.gaveOf(sv, fid);
         const g = document.getElementById('ctgive') || document.getElementById('ctfavour');
         if (g) g.click();
+        (window.__EZ = window.__EZ || []).push({ day: T.day, button: !!g,
+          id: (g || {}).id || null, gave: was9 + '->' + BohemiaBelonging.gaveOf(sv, fid) });
       }
       ctClose(); ctOpen();
-      return { fid, ceiling,
+      return { fid, ceiling, presses: window.__EZ, qualify: (window.__EZQ || []).slice(0, 12),
         gave: BohemiaBelonging.gaveOf(sv, fid),
         state: BohemiaCommitment.stateOf(sv, fid),
         actOffered: !!document.getElementById('ctgive'),
@@ -490,7 +523,8 @@ async function partWall() {
       ok('Ez1 NINE PRESSES CANNOT PASS THE WALL — the count stops at the ceiling '
         + 'with no commitment made',
         out.gave <= out.ceiling && out.state === 'none',
-        JSON.stringify({ gave: out.gave, ceiling: out.ceiling, state: out.state }));
+        JSON.stringify({ gave: out.gave, ceiling: out.ceiling, state: out.state,
+                         presses: out.presses }));
       ok('Ez2 …and it stops AT the ceiling rather than short of it, so the wall is '
         + 'the limit and not an off-by-one',
         out.gave === out.ceiling, JSON.stringify(out));
