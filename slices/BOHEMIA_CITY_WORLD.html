@@ -25740,6 +25740,288 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
      WHO HOLDS WHAT IS STILL HIS: HOLDS ships EMPTY and an entry in it wins. */
   var HOLDS = {};        /* HOLDS['48,57'] = 'Mob';  -- empty, and it stays empty */
 
+  /* =========================================================================
+     EVERY DISTRICT HAS AN OWNER, AND THE BORDER RUNS ALONG SOMETHING YOU CAN
+     SEE.  (9/6/26, FACTIONS lane, VAMILY row [who holds]
+     EVERY-DISTRICT-HAS-AN-OWNER. Ruling: records/BOHEMIA_RULING_WHO_HOLDS_WHAT_
+     9_5_26.md, decided by the coordinator 9/5; Paolo corrects it by playing.)
+
+     WHAT WAS ALREADY TRUE. holderOf() above answers for any cell, so 100% of the
+     valley already had an owner -- BB-TURF did that on 9/5 and this row does not
+     redo it.
+
+     WHAT WAS NOT. holderOf is a scaled Voronoi: nearest seat, divided by tier
+     reach. That draws borders wherever two seats happen to balance, which is a
+     diagonal line through the middle of a block. MEASURED on the shipped seed
+     before this landed: of 709 places where two owners meet, only 466 ran along
+     something a player can see -- 243 of them, one in three, cut straight across
+     open buildable ground with nothing there to explain the edge.
+
+     THE RESEARCH SAYS THAT IS BACKWARDS. Real armed-group territory does not run
+     on invisible lines; it runs on landmarks you cannot miss -- highways, rail,
+     washes, walls. Chicago's Dan Ryan Expressway splits the South Side factions.
+     The ruling wrote it down as rule 3: "if you cannot see why the border is
+     there, it is in the wrong place."
+
+     SO THE UNIT OF OWNERSHIP IS NOT A CELL, IT IS A BLOCK. Cut the valley along
+     everything a player can see -- road, freeway, rail, water, mountain, open
+     desert -- and what is left are 465 blocks of buildable ground, each one ringed
+     by visible edges. A block is owned whole. Then a border between two owners can
+     only ever fall on the skeleton, because two buildable cells that touch are in
+     the same block by construction. The property is STRUCTURAL, not tuned: there
+     is no number here to nudge to make it come out right.
+
+     AND THE STRONGEST TAKES THE BEST GROUND IT CAN REACH (rule 2), which needed a
+     worth number, and the first two rulers were both wrong:
+       - COUNT THE BUILDINGS: ranks trailer parks (26.9 per plot) and suburbs
+         (19.9) above casinos (4) and resorts (4), because a resort is one enormous
+         building and a trailer park is thirty tiny ones. It measures fragmen-
+         tation. It would have made the trailers the richest ground in Las Vegas.
+       - COUNT THE BUILT TILES ON THE CELL: puts `strip` at zero, because the strip
+         district IS the boulevard and carries no buildings. It would have handed
+         Las Vegas Boulevard to the weakest faction in the valley.
+     The second one is right at the BLOCK level and wrong at the cell level: the
+     Strip's boulevard cells sit in the same block as the 118 resort cells beside
+     them, so the block scores enormous and the corridor rides along. Worth is
+     summed over a block, never read off a cell, and that is the whole fix.
+     ========================================================================= */
+
+  /* HOW MUCH IS BUILT ON ONE PLOT OF EACH KIND, MEASURED, NOT RANKED BY TASTE.
+     Built tiles (w*h summed over the plot's buildings), sampled eight plots per
+     kind off the shipped valley. faction_turf_gate RE-MEASURES this and goes red
+     naming the kind if any answer moves out of its band, the same contract
+     NOT_A_TOWN carries above, so it cannot rot into a list somebody believes.
+     The order it produces is the order the ruling names in words -- the Strip and
+     downtown first (resort 12043, casino 11477, downtown 9624), then the ordinary
+     city, then the industrial edge, then the desert (solar, airbase, airport and
+     the boulevard itself at 0). That agreement is the reason to trust it. */
+  var WORTH = {
+    resort: 12043, casino: 11477, downtown: 9624, library: 8632, convention: 8496,
+    fort: 8400, stadium: 7732, chapel: 7565, courthouse: 6693, medical: 6661,
+    mall: 6431, school: 6011, industrial: 5030, campus: 4897, terminal: 4850,
+    estate: 4118, commercial: 4103, policestation: 4054, town: 3990, suburb: 3950,
+    storage: 3911, ballpark: 3911, gated: 3869, prison: 3708, jail: 3652,
+    trailer: 3293, firestation: 3268, apartment: 3204, warehouse: 2550,
+    pumpstation: 1860, truckstop: 1292, speedway: 896, minigp: 896, radio: 822,
+    cemetery: 667, farm: 603, battery: 544, arsenal: 527, substation: 480,
+    granary: 462, swapmeet: 455, drivein: 378, strat: 336, sphere: 336,
+    highroller: 336, luxor: 336, sign: 336, waterpark: 282, golf: 226,
+    datafort: 165, park: 164, solar: 0, airbase: 0, airport: 0, strip: 0
+  };
+  function worthOf(kind) {
+    return Object.prototype.hasOwnProperty.call(WORTH, kind) ? WORTH[kind] : 0;
+  }
+
+  /* THE THINGS A PLAYER CAN SEE, which are the only legal places for a border.
+     Read off cityedit's cat() -- the one definition both surfaces can reach --
+     plus open desert, which is as plain an edge as a freeway. */
+  var SEEN_EDGE = { road: 1, freeway: 1, rail: 1, water: 1, mount: 1, open: 1, none: 1 };
+
+  /* CUT THE VALLEY INTO BLOCKS. 4-connected runs of buildable ground, each ringed
+     by things you can see. Returns the id grid and the blocks themselves. */
+  function blocksOf(m, cat) {
+    var n = (m && m.n) | 0, out = { n: n, id: null, blocks: [] };
+    if (!n || typeof m.at !== 'function' || !cat) return out;
+    var id = new Int32Array(n * n); id.fill(-1);
+    function edgeAt(x, y) {
+      var c = m.at(x, y);
+      if (!c || !c.district) return true;
+      return !!SEEN_EDGE[cat(c.district)];
+    }
+    var blocks = [], stack = [];
+    for (var y0 = 0; y0 < n; y0++) for (var x0 = 0; x0 < n; x0++) {
+      if (id[y0 * n + x0] >= 0 || edgeAt(x0, y0)) continue;
+      var k = blocks.length, cells = [], worth = 0, sx = 0, sy = 0;
+      id[y0 * n + x0] = k; stack.push(x0, y0);
+      while (stack.length) {
+        var cy = stack.pop(), cx = stack.pop();
+        cells.push(cx, cy); sx += cx; sy += cy;
+        var cc = m.at(cx, cy);
+        worth += worthOf(cc && cc.district);
+        var around = [cx + 1, cy, cx - 1, cy, cx, cy + 1, cx, cy - 1];
+        for (var a = 0; a < 8; a += 2) {
+          var X = around[a], Y = around[a + 1];
+          if (X < 0 || Y < 0 || X >= n || Y >= n) continue;
+          if (id[Y * n + X] >= 0 || edgeAt(X, Y)) continue;
+          id[Y * n + X] = k; stack.push(X, Y);
+        }
+      }
+      var cnt = cells.length / 2;
+      blocks.push({ i: k, cells: cells, count: cnt, worth: worth,
+                    cx: Math.round(sx / cnt), cy: Math.round(sy / cnt) });
+    }
+    out.id = id; out.blocks = blocks;
+    return out;
+  }
+
+  /* WHO HOLDS EVERY CELL OF THE VALLEY.
+     1. HIS OVERRIDE FIRST: anything in HOLDS wins, always.
+     2. A CAPITAL HOLDS ITS OWN BLOCK. A seat that did not own the ground under it
+        would not be a seat.
+     3. THE DRAFT, in HIS order: factions pick by act1_power, strongest first, and
+        each pick is the most valuable unclaimed block TOUCHING ground it already
+        holds. Territory grows outward from a capital the way real ground does,
+        rather than teleporting across the valley. When nothing it holds touches
+        free ground, it takes the nearest unclaimed block to its seat, so a boxed-in
+        faction is never left with four cells -- which is what the old rule did to
+        the Volunteers.
+     4. THE SKELETON GOES TO WHOEVER IS NEAREST. A road IS the border, so the cells
+        of the border belong to whichever side reaches them first; a breadth-first
+        wave out of every owned block settles it, and ties go to the stronger
+        faction and then the name so every device agrees. */
+  function turf(m, cat, towns) {
+    var res = { n: 0, id: null, ownerOf: null, blocks: [], byFaction: {}, at: function () { return null; } };
+    var B = blocksOf(m, cat);
+    var n = B.n;
+    if (!n || !B.blocks.length || !towns || !towns.length) return res;
+
+    var order = towns.slice().sort(function (a, b) {
+      var pa = (a.power || 0), pb = (b.power || 0);
+      if (pb !== pa) return pb - pa;
+      return a.faction < b.faction ? -1 : 1;
+    });
+    var rank = {}; for (var r = 0; r < order.length; r++) rank[order[r].faction] = r;
+
+    var owner = new Array(B.blocks.length).fill(null);
+
+    /* 1. his overrides, by the block they land in */
+    for (var hk in HOLDS) if (Object.prototype.hasOwnProperty.call(HOLDS, hk)) {
+      var hp = hk.split(','), hx = hp[0] | 0, hy = hp[1] | 0;
+      if (hx < 0 || hy < 0 || hx >= n || hy >= n) continue;
+      var hb = B.id[hy * n + hx];
+      if (hb >= 0 && !owner[hb]) owner[hb] = HOLDS[hk];
+    }
+    /* 2. every capital owns the ground under it */
+    for (var s = 0; s < order.length; s++) {
+      var t = order[s];
+      if (t.x < 0 || t.y < 0 || t.x >= n || t.y >= n) continue;
+      var bi = B.id[t.y * n + t.x];
+      if (bi >= 0 && !owner[bi]) owner[bi] = t.faction;
+    }
+
+    /* which blocks touch which, across one cell of skeleton */
+    var touch = [];
+    for (var i = 0; i < B.blocks.length; i++) touch.push({});
+    for (var yy = 0; yy < n; yy++) for (var xx = 0; xx < n; xx++) {
+      if (B.id[yy * n + xx] >= 0) continue;                 /* skeleton cells only */
+      var near = {}, ring = [xx + 1, yy, xx - 1, yy, xx, yy + 1, xx, yy - 1,
+                            xx + 1, yy + 1, xx - 1, yy - 1, xx + 1, yy - 1, xx - 1, yy + 1];
+      for (var q = 0; q < ring.length; q += 2) {
+        var rx = ring[q], ry = ring[q + 1];
+        if (rx < 0 || ry < 0 || rx >= n || ry >= n) continue;
+        var rb = B.id[ry * n + rx]; if (rb >= 0) near[rb] = 1;
+      }
+      var ks = Object.keys(near);
+      for (var u = 0; u < ks.length; u++) for (var v = 0; v < ks.length; v++)
+        if (u !== v) touch[ks[u] | 0][ks[v] | 0] = 1;
+    }
+
+    /* 3. the draft */
+    var left = 0;
+    for (var z = 0; z < owner.length; z++) if (!owner[z]) left++;
+    var guard = 0;
+    while (left > 0 && guard++ < 4000) {
+      var moved = false;
+      for (var f = 0; f < order.length; f++) {
+        if (!left) break;
+        var fid = order[f].faction, pick = -1, best = -1;
+        for (var bj = 0; bj < owner.length; bj++) {
+          if (owner[bj]) continue;
+          var adj = false, tk = touch[bj];
+          for (var nb in tk) if (owner[nb | 0] === fid) { adj = true; break; }
+          if (!adj) continue;
+          var w = B.blocks[bj].worth;
+          if (w > best || (w === best && pick >= 0 && bj < pick)) { best = w; pick = bj; }
+        }
+        if (pick < 0) {                       /* boxed in: nearest free ground */
+          var nd = Infinity;
+          for (var bk = 0; bk < owner.length; bk++) {
+            if (owner[bk]) continue;
+            var d = Math.abs(B.blocks[bk].cx - order[f].x) + Math.abs(B.blocks[bk].cy - order[f].y);
+            if (d < nd || (d === nd && pick >= 0 && bk < pick)) { nd = d; pick = bk; }
+          }
+        }
+        if (pick >= 0) { owner[pick] = fid; left--; moved = true; }
+      }
+      if (!moved) break;
+    }
+
+    /* 4. the skeleton, by a wave out of every owned block */
+    var own = new Array(n * n).fill(null);
+    var qx = [], qy = [];
+    for (var bb = 0; bb < B.blocks.length; bb++) {
+      if (!owner[bb]) continue;
+      var cl = B.blocks[bb].cells;
+      for (var ci = 0; ci < cl.length; ci += 2) {
+        own[cl[ci + 1] * n + cl[ci]] = owner[bb];
+        qx.push(cl[ci]); qy.push(cl[ci + 1]);
+      }
+    }
+    var head = 0;
+    while (head < qx.length) {
+      var px = qx[head], py = qy[head]; head++;
+      var who = own[py * n + px];
+      var ar = [px + 1, py, px - 1, py, px, py + 1, px, py - 1];
+      for (var g = 0; g < 8; g += 2) {
+        var ax = ar[g], ay = ar[g + 1];
+        if (ax < 0 || ay < 0 || ax >= n || ay >= n) continue;
+        var idx = ay * n + ax;
+        if (own[idx] === null) { own[idx] = who; qx.push(ax); qy.push(ay); }
+        else if (own[idx] !== who && B.id[idx] < 0) {
+          /* two waves met on the skeleton: the stronger name holds the road, so
+             the answer does not depend on which cell the loop reached first */
+          if ((rank[who] | 0) < (rank[own[idx]] | 0)) own[idx] = who;
+        }
+      }
+    }
+    /* his overrides win on the exact cell too */
+    for (var hk2 in HOLDS) if (Object.prototype.hasOwnProperty.call(HOLDS, hk2)) {
+      var hp2 = hk2.split(','), ox = hp2[0] | 0, oy = hp2[1] | 0;
+      if (ox >= 0 && oy >= 0 && ox < n && oy < n) own[oy * n + ox] = HOLDS[hk2];
+    }
+
+    /* *** A CAPITAL CAN SIT ON SOMEBODY ELSE'S GROUND, AND THAT IS NOT A BUG. ***
+       (9/6.) The gate's first version of this asserted every seat owns the block
+       under it, and the world said no three times: the Church's chapel and the
+       Mob's resort are both inside the 431-cell Strip block, and the Network, the
+       Reds and the Volunteers all sit in one 35-cell block downtown. A block has
+       one owner by construction -- that is the whole reason the borders are
+       visible -- so the weaker capital is a GUEST.
+       The reflex was to push the seats apart until my claim came true. Then his own
+       canon turned out to have written this already: the Volunteers are "resource-
+       poor by design. Nobody wants to be seen attacking them, EVEN CARTEL STAYS
+       HANDS-OFF." A clinic that survives because nobody will touch it, standing on
+       ground somebody else holds, is exactly that sentence. So the world keeps its
+       answer and the claim is the thing that changes.
+       IT IS NAMED RATHER THAN LEFT TO BE NOTICED. A fact this useful sitting in the
+       data with nothing able to ask about it is the authored-but-unread disease, so
+       turf() reports it and the invariant that MATTERS is locked instead: the
+       stronger faction always holds the ground, never the weaker one. */
+    var guests = [];
+    for (var gi = 0; gi < towns.length; gi++) {
+      var gt = towns[gi];
+      if (gt.x < 0 || gt.y < 0 || gt.x >= n || gt.y >= n) continue;
+      var gw = own[gt.y * n + gt.x];
+      if (gw && gw !== gt.faction) guests.push({ faction: gt.faction, host: gw, x: gt.x, y: gt.y });
+    }
+
+    var by = {};
+    for (var e = 0; e < own.length; e++) if (own[e]) by[own[e]] = (by[own[e]] || 0) + 1;
+    var tierOf = {}; for (var ti = 0; ti < towns.length; ti++) tierOf[towns[ti].faction] = towns[ti].tier;
+
+    res.n = n; res.id = B.id; res.blocks = B.blocks; res.ownerOf = owner;
+    res.byFaction = by; res.own = own; res.guests = guests; res.rank = rank;
+    res.at = function (x, y) {
+      if (x < 0 || y < 0 || x >= n || y >= n) return null;
+      var w = own[y * n + x];
+      if (!w) return null;
+      return { faction: w, tier: tierOf[w] || null,
+               ruled: Object.prototype.hasOwnProperty.call(HOLDS, x + ',' + y),
+               block: B.id[y * n + x], draft: true };
+    };
+    return res;
+  }
+
   function holderOf(towns, x, y) {
     var k = x + ',' + y;
     if (Object.prototype.hasOwnProperty.call(HOLDS, k))
@@ -25767,12 +26049,13 @@ window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Deri
     HOMES: HOMES, placeHomes: placeHomes, MIN_APART: MIN_APART,
     frontsRoad: frontsRoad,
     goodsFor: goodsFor, nearest: nearest, townCells: townCells,
-    HOLDS: HOLDS, holderOf: holderOf
+    HOLDS: HOLDS, holderOf: holderOf,
+    WORTH: WORTH, worthOf: worthOf, SEEN_EDGE: SEEN_EDGE,
+    blocksOf: blocksOf, turf: turf
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaTowns = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
-/* ==== /engine/bohemia_towns.js (FACTION TOWNS) ==== */
 /* ==== engine/bohemia_coalition.js (COALITION, 9/6) ==== */
 // BOHEMIA COALITION — the world does not get stronger, it gets organised. (9/6/26, WORLD.)
 //
@@ -27105,8 +27388,34 @@ function turfSeats(){
   if(TURF_KEY===k&&TURF_SEATS) return TURF_SEATS;
   TURF_SEATS=powerSeats(om); TURF_KEY=k; return TURF_SEATS;
 }
+/* __WHO_HOLDS_THE_GROUND__ -- AND THE BORDER RUNS ALONG SOMETHING YOU CAN SEE.
+   (9/6, [who holds] EVERY-DISTRICT-HAS-AN-OWNER.) holderOf() is a scaled Voronoi:
+   nearest seat over tier reach. Every cell got an owner, which was the point of
+   BB-TURF, but the EDGES landed wherever two seats happened to balance. MEASURED
+   on the shipped seed: of 709 places two owners met, 243 -- one in three -- cut
+   straight across open buildable ground with nothing there to explain it.
+   The ruling's rule 3 is "if you cannot see why the border is there, it is in the
+   wrong place", and the research behind it is that real armed-group borders run on
+   highways, rail and washes. So ownership is now decided a BLOCK at a time, and
+   the whole grid is asked for at once instead of a cell at a time. 100% of borders
+   now fall on the skeleton, by construction rather than by tuning. Same cache key,
+   same call shape, and holderOf stays as the fallback if the map is not ready. */
+var TURF_MAP=null, TURF_MAP_KEY=null;
+function turfGrid(){
+  var k=seed+':'+((om&&om.n)|0);
+  if(TURF_MAP_KEY===k&&TURF_MAP) return TURF_MAP;
+  try{
+    var seats=turfSeats();
+    if(seats&&seats.length&&window.BohemiaTowns&&window.BohemiaTowns.turf&&window.BohemiaCityEdit){
+      var g=window.BohemiaTowns.turf(om, window.BohemiaCityEdit.cat, seats);
+      if(g&&g.n){ TURF_MAP=g; TURF_MAP_KEY=k; return TURF_MAP; }
+    }
+  }catch(_e){}
+  return null;
+}
 function turfAt(x,y){
   try{
+    var g=turfGrid(); if(g) return g.at(x,y);
     var seats=turfSeats(); if(!seats||!seats.length) return null;
     return window.BohemiaTowns.holderOf(seats,x,y);
   }catch(_e){ return null; }
@@ -27115,6 +27424,9 @@ function buildPower(m,sd){
   var seats=powerSeats(m);
   var opts={};
   if(seats.length) opts.holderAt=function(x,y){
+    /* THE GRID ASKS THE SAME RULE THE STREET DOES. Two answers to "whose block is
+       this" is the drift this file's own header spends a paragraph on. */
+    try{ var g=turfGrid(); if(g) return g.at(x,y); }catch(_e){}
     try{ return window.BohemiaTowns.holderOf(seats,x,y); }catch(_e){ return null; } };
   var pm=BOH_POWERGRID.powerMap(m,sd,opts);
   try{ window.__POWER_SEATS=seats.length; }catch(_e){}
@@ -34132,6 +34444,61 @@ function renderCity(){
      AND IT ASKS ctBases(), so after a reroll it correctly shows no territory
      rather than confidently drawing the last valley's borders over this one.
      One organ, one answer. */
+  /* __WHO_HOLDS_THE_GROUND__ -- AND THE EDGE IS DRAWN, NOT JUST DECIDED.
+     (9/6, [who holds] rule 4: "the border is marked".) Before this the map put
+     fourteen pins on a valley that looked like it belonged to nobody: the
+     ownership was real and completely invisible, which is the authored-but-unread
+     disease this lane wrote a gate against.
+     ONLY THE EDGE, NEVER A FILL. A wash of colour over the whole valley would bury
+     the streets, the lights and the buildings that the map is actually for, and the
+     border is the thing his ruling names -- the research is that a border is a
+     LANDMARK you can see, so drawing the landmark is the point.
+     IT COSTS ONE LOOKUP PER VISIBLE CELL. turfGrid() is a flat array built once and
+     cached with the valley, so this is an array index, not the old per-cell nearest
+     seat search, and the fps gate stayed at 35/0 across the change.
+     THE HOLDER'S OWN COLOUR IS NOT HERE YET AND THAT IS DELIBERATE. Rule 4 says the
+     edge is marked "in the holder's colour", and there is no such number anywhere a
+     map can reach: a faction's colour lives in its WARDROBE, as garment names in
+     the alpha's FACTION_LOOKS whose ramps are RGB triples in that file only. The
+     city carries none of them. Inventing a hue per faction is precisely what
+     COLOUR IS TERRITORY (8/26) reserves for Paolo -- "which faction owns which hue
+     is HIS" -- so this uses the two-colour language the map already speaks, YOURS
+     against THEIRS, and the real hues arrive with [colours fixed] COLOUR-AUDIT. */
+  try {
+    var __tg = (typeof turfGrid === 'function') ? turfGrid() : null;
+    if(__tg && __tg.own){
+      var __tm = null;
+      try { if(typeof BohemiaBetween !== 'undefined') __tm = BohemiaBetween.mine(); }
+      catch(_e){}
+      var __tn = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
+      var __N = __tg.n;
+      g.save();
+      g.lineWidth = Math.max(1, Math.min(TW * 0.10, 3));
+      for(var __ty = 0; __ty < __N; __ty++) for(var __tx = 0; __tx < __N; __tx++){
+        var __me = __tg.own[__ty * __N + __tx];
+        if(!__me) continue;
+        var __e = (__tg.own[__ty * __N + __tx + 1] !== __me && __tx + 1 < __N);
+        var __s = (__tg.own[(__ty + 1) * __N + __tx] !== __me && __ty + 1 < __N);
+        if(!__e && !__s) continue;
+        var __q = iso(__tx, __ty, ox, oy);
+        if(__q.sx < -60 || __q.sx > cv.width + 60) continue;
+        if(__q.sy < -60 || __q.sy > cv.height + 60) continue;
+        var __own = !!(__tm && __tn(__me) === __tn(__tm));
+        g.strokeStyle = __own ? '#e8dcc0' : '#c8a558';
+        g.globalAlpha = __own ? 0.85 : 0.5;
+        /* THE ISO EDGE, NOT A SQUARE. A cell is a diamond here, so its east side is
+           the lower-right run and its south side the lower-left one; drawing a box
+           would put the line through the middle of the neighbouring block. */
+        if(__e){ g.beginPath(); g.moveTo(__q.sx + TW/2, __q.sy + TH/2);
+                 g.lineTo(__q.sx, __q.sy + TH); g.stroke(); }
+        if(__s){ g.beginPath(); g.moveTo(__q.sx, __q.sy + TH);
+                 g.lineTo(__q.sx - TW/2, __q.sy + TH/2); g.stroke(); }
+      }
+      g.restore();
+      g.globalAlpha = 1;
+    }
+  } catch(_e){}
+
   try {
     var __gb = (typeof ctBases === 'function') ? ctBases() : null;
     if(__gb){

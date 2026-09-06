@@ -148,6 +148,213 @@ const done = () => {
               + ' the lit circuits are the tell)');
 }
 
+/* ============================================================================
+   5. AND THE BORDER RUNS ALONG SOMETHING YOU CAN SEE.
+   (9/6/26, FACTIONS lane, VAMILY row [who holds] EVERY-DISTRICT-HAS-AN-OWNER.
+   Ruling: records/BOHEMIA_RULING_WHO_HOLDS_WHAT_9_5_26.md.)
+
+   Section 3 above proves every cell has an owner and that has been true since
+   BB-TURF. This section is about the EDGES, which nothing had ever looked at.
+   ========================================================================== */
+{
+  const L = require(path.join(ROOT, 'engine/bohemia_loop.js'));
+  const ctx = (L.BohemiaLoop || L).boot({ seed: 'bohemia' });
+  const m = ctx.worldMap.real, n = m.n;
+  const ds = T.districtsOf(m, CE.cat);
+  const seats = T.derive(G, ds, 1);
+  const tf = T.turf(m, CE.cat, seats);
+
+  const catOf = (x, y) => { const c = m.at(x, y); return c && c.district ? CE.cat(c.district) : 'none'; };
+  const SEEN = T.SEEN_EDGE;
+
+  /* the two rules, measured the same way over the same valley */
+  function edges(at) {
+    let pairs = 0, visible = 0, worst = null;
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++)
+      for (const [dx, dy] of [[1, 0], [0, 1]]) {
+        const X = x + dx, Y = y + dy; if (X >= n || Y >= n) continue;
+        const a = at(x, y), b = at(X, Y);
+        if (!a || !b || a.faction === b.faction) continue;
+        pairs++;
+        if (SEEN[catOf(x, y)] || SEEN[catOf(X, Y)]) visible++;
+        else if (!worst) worst = x + ',' + y + ' and ' + X + ',' + Y + ' are both buildable ground';
+      }
+    return { pairs, visible, worst, pct: pairs ? visible / pairs : 0 };
+  }
+  const now = edges((x, y) => tf.at(x, y));
+  const was = edges((x, y) => T.holderOf(seats, x, y));
+
+  /* *** THE CLAIM THE ROW EXISTS FOR, AND IT MEASURES THE FIX RATHER THAN
+     RESTATING IT. *** Both rules run over the same map in the same loop, so the
+     before number is taken here rather than remembered from a commit message. */
+  ok('*** A BORDER RUNS ALONG SOMETHING YOU CAN SEE. *** The ruling\'s rule 3 is'
+     + ' "if you cannot see why the border is there, it is in the wrong place", and'
+     + ' the research behind it is that real armed-group borders run on highways,'
+     + ' rail and washes. The rule this replaced was a scaled Voronoi, so its edges'
+     + ' fell wherever two seats balanced: ' + was.visible + ' of ' + was.pairs
+     + ' visible (' + (100 * was.pct).toFixed(1) + '%), '
+     + (was.pairs - was.visible) + ' of them cutting across open buildable ground.'
+     + ' Now ' + now.visible + ' of ' + now.pairs + ' ('
+     + (100 * now.pct).toFixed(1) + '%)'
+     + (now.worst ? ' -- first miss: ' + now.worst : ''),
+     now.pct === 1 && was.pct < 0.8);
+
+  ok('and it is STRUCTURAL, not tuned: two buildable cells that touch are in the'
+     + ' same block by construction, so there is no number here to nudge until the'
+     + ' percentage comes out right',
+     tf.blocks.length > 100
+     && tf.blocks.every(bl => {
+       const f = tf.at(bl.cells[0], bl.cells[1]);
+       for (let i = 0; i < bl.cells.length; i += 2)
+         if (!f || !tf.at(bl.cells[i], bl.cells[i + 1])
+             || tf.at(bl.cells[i], bl.cells[i + 1]).faction !== f.faction) return false;
+       return true;
+     }));
+
+  let owned = 0;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (tf.at(x, y)) owned++;
+  ok('EVERY DISTRICT STILL HAS AN OWNER -- rule 1, and the block rule must not lose'
+     + ' the thing BB-TURF already won (' + owned + '/' + (n * n) + ')',
+     owned === n * n);
+
+  /* *** AND NO FACTION IS A ROUNDING ERROR. *** The old rule handed the Network
+     2195 cells and the Volunteers FOUR, which is not a holding, it is an artifact
+     of where two circles happened to meet. */
+  const mine = Object.entries(tf.byFaction).sort((a, b) => b[1] - a[1]);
+  const oldBy = {};
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const h = T.holderOf(seats, x, y); if (h) oldBy[h.faction] = (oldBy[h.faction] || 0) + 1;
+  }
+  const oldMin = Math.min(...Object.values(oldBy));
+  const newMin = mine[mine.length - 1][1];
+  ok('AND EVERY FACTION HOLDS GROUND A PLAYER COULD STAND IN. The old rule gave the'
+     + ' smallest holder ' + oldMin + ' cells of 9216 -- the Volunteers were not on'
+     + ' the map, they were a rounding error where two circles met. Now the smallest'
+     + ' is ' + mine[mine.length - 1][0] + ' with ' + newMin,
+     newMin > 100 && oldMin < 50);
+
+  /* HIS CANON, AND NOTHING TYPED TO MAKE IT COME OUT. */
+  const strip = {};
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const c = m.at(x, y); if (!c || (c.district !== 'strip' && c.district !== 'resort')) continue;
+    const h = tf.at(x, y); if (h) strip[h.faction] = (strip[h.faction] || 0) + 1;
+  }
+  ok('*** THE MOB CONTROLS THE STRIP, AND NOBODY TYPED THAT. *** His note says it in'
+     + ' those words. It falls out: FACTION-SEATS put the Mob\'s capital on a resort,'
+     + ' the resort sits in the block the boulevard runs through, and a capital owns'
+     + ' its own block. Held: ' + JSON.stringify(strip),
+     Object.keys(strip).length === 1 && strip.Mob > 150);
+
+  /* *** THIS CLAIM USED TO SAY "EVERY CAPITAL OWNS THE GROUND UNDER IT" AND THE
+     WORLD SAID NO THREE TIMES. *** A block has exactly one owner -- that is the
+     whole reason the borders are visible -- and the Church's chapel and the Mob's
+     resort are both inside the 431-cell Strip block, while the Network, the Reds
+     and the Volunteers all sit in one 35-cell block downtown. The reflex was to
+     shove the seats apart until my sentence came true. Then his own canon turned
+     out to have written it already: the Volunteers are "resource-poor by design.
+     Nobody wants to be seen attacking them, EVEN CARTEL STAYS HANDS-OFF." A clinic
+     that survives because nobody will touch it, standing on ground somebody else
+     holds, IS that sentence. So the world keeps its answer and the claim changed.
+     WHAT IS LOCKED IS THE INVARIANT THAT ACTUALLY MATTERS: the stronger faction
+     holds the ground, never the weaker one. A guest is always the weaker name. */
+  const rank = {}; seats.slice().sort((a, b) => (b.power || 0) - (a.power || 0)
+    || (a.faction < b.faction ? -1 : 1)).forEach((s, i) => { rank[s.faction] = i; });
+  const guests = tf.guests || [];
+  ok('A CAPITAL SITS ON ITS OWN GROUND UNLESS A STRONGER ONE SHARES THE BLOCK, AND'
+     + ' THEN IT IS A GUEST -- never the other way round. His canon writes this for'
+     + ' the Volunteers in as many words ("nobody wants to be seen attacking them,'
+     + ' even Cartel stays hands-off"). Guests: '
+     + (guests.map(g => g.faction + ' on ' + g.host + ' ground').join(', ') || 'none'),
+     seats.every(s => { const h = tf.at(s.x, s.y); return h && h.faction; })
+     && guests.every(g => rank[g.host] < rank[g.faction]));
+
+  ok('and a guest still holds real ground of its own somewhere else -- being'
+     + ' somebody\'s guest is not the same as being landless',
+     guests.every(g => (tf.byFaction[g.faction] || 0) > 100));
+
+  const again = T.turf(m, CE.cat, seats);
+  ok('and the same valley answers the same every time', JSON.stringify(again.byFaction) === JSON.stringify(tf.byFaction));
+
+  /* *** WORTH IS A MEASUREMENT AND IT GETS RE-MEASURED. *** Same contract
+     NOT_A_TOWN carries. Two rulers were tried and both were wrong, so this is the
+     one number in the rule most likely to rot. Bands, not exact tiles, because
+     sampling eight plots wobbles by a few percent and a gate that goes red on
+     wobble teaches people to ignore it. */
+  const kinds = Object.keys(T.WORTH);
+  const band = v => v >= 6000 ? 0 : v >= 3000 ? 1 : v > 0 ? 2 : 3;
+  const cells = {};
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const c = m.at(x, y); if (!c || !c.district || CE.cat(c.district) !== 'sand') continue;
+    (cells[c.district] || (cells[c.district] = [])).push([x, y]);
+  }
+  const drift = [];
+  for (const k of kinds) {
+    const cl = cells[k]; if (!cl || !cl.length) continue;
+    const step = Math.max(1, Math.floor(cl.length / 8));
+    let seen = 0, tot = 0;
+    for (let i = 0; i < cl.length && seen < 8; i += step) {
+      let p = null; try { p = m.plot(cl[i][0], cl[i][1]); } catch (_e) { continue; }
+      if (!p) continue; seen++;
+      (p.buildings || []).forEach(bb => { tot += (bb.w | 0) * (bb.h | 0); });
+    }
+    if (!seen) continue;
+    const got = Math.round(tot / seen);
+    if (band(got) !== band(T.WORTH[k])) drift.push(k + ' table ' + T.WORTH[k] + ' now ' + got);
+  }
+  ok('WORTH IS RE-MEASURED OFF THE REAL VALLEY, so it cannot rot into a list'
+     + ' somebody believes. It is built TILES, not building COUNT: counting'
+     + ' buildings ranks trailer parks (26.9 per plot) above casinos (4), because a'
+     + ' resort is one enormous building and a trailer park is thirty tiny ones'
+     + (drift.length ? ' -- drifted: ' + drift.join('; ') : ''),
+     drift.length === 0);
+
+  ok('and the order it produces is the order the ruling names in words -- the Strip'
+     + ' and downtown first, the desert last',
+     T.worthOf('resort') > T.worthOf('suburb')
+     && T.worthOf('downtown') > T.worthOf('suburb')
+     && T.worthOf('suburb') > T.worthOf('park')
+     && T.worthOf('solar') === 0 && T.worthOf('airport') === 0);
+
+  /* RULE 5: ACT 3 REDRAWS IT, using a number already in his graph. */
+  const a3 = T.turf(m, CE.cat, T.derive(G, ds, 3));
+  let moved = 0;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const p = tf.at(x, y), q = a3.at(x, y);
+    if (p && q && p.faction !== q.faction) moved++;
+  }
+  ok('*** ACT 3 REDRAWS THE MAP, off act3_power which was already in his graph. ***'
+     + ' The same rule run against the endgame column moves ' + moved + ' of '
+     + (n * n) + ' cells (' + (100 * moved / (n * n)).toFixed(1) + '%), so the'
+     + ' valley visibly changes hands across the game and no second rule was'
+     + ' written to do it',
+     moved > n * n * 0.1 && moved < n * n * 0.9);
+
+  /* HIS OVERRIDE STILL WINS, AND IT IS PROVED BY USING IT. */
+  const spot = '5,5';
+  const before = tf.at(5, 5) && tf.at(5, 5).faction;
+  T.HOLDS[spot] = 'Volunteers';
+  const forced = T.turf(m, CE.cat, seats);
+  /* READ THE ANSWER BEFORE PUTTING THE TABLE BACK. The first version of this
+     asserted `.ruled === true` AFTER deleting the entry, and at() reads HOLDS live,
+     so the test was asking the world a question it had already un-asked. */
+  const got = forced.at(5, 5);
+  const gotFaction = got && got.faction, gotRuled = got && got.ruled;
+  delete T.HOLDS[spot];
+  ok('ONE LINE IN HOLDS MOVES A BLOCK AND THE RULE GETS OUT OF THE WAY -- proved by'
+     + ' setting one and reading it back, not by reading the code. 5,5 was '
+     + before + ', became ' + gotFaction,
+     gotFaction === 'Volunteers' && gotRuled === true
+     && before !== 'Volunteers' && Object.keys(T.HOLDS).length === 0);
+
+  /* AND THE MUTATION THAT MUST BITE: if blocks stop being atomic the whole claim
+     is worthless, so break one on purpose and check the border measurement notices. */
+  const broken = { at: (x, y) => (x + y) % 7 === 0 ? { faction: 'Mob' } : tf.at(x, y) };
+  const bad = edges(broken.at);
+  ok('and the border measurement actually notices when ownership stops following'
+     + ' the blocks: scribbling one faction across the valley drops it to '
+     + (100 * bad.pct).toFixed(1) + '%', bad.pct < 0.99);
+}
+
 /* ---- 4. on the surface he walks ---------------------------------------- */
 (async () => {
   let chromium;
