@@ -17329,15 +17329,19 @@ WHAT SHIPPED.
      what stops "I fixed the ruler" from ever meaning "I made the red go away", and I
      wrote it before lowering a single number.
 
-*** A SECOND FINDING, FROM CHASING THE LAST TWO. *** After the ruler fix my tree read
-29 and origin/main read 27 -- SAME RULER, three runs each, stable on both sides, so not
-noise. The two extra are the COLD-OPEN CARD'S OWN LINES ("The family, the table, ten
-years ago." and its WATCH button) being on screen in one capture and not the other.
-That is which card is up at the instant of capture, not craft. It also means this
-file's old note -- that the harness reaches one state deterministically -- IS NOT TRUE.
-I froze at 29, the number this tree really and repeatably measures, with BOTH halves of
-the move written into the baseline file: down nine, of which two went up and why. A
-number lowered with the awkward part deleted is worth less than no number.
+*** A SECOND FINDING, AND IT CORRECTS ME. *** After the ruler fix my tree read 29 twice
+and origin/main read 27 three times, same ruler, so I recorded that the +2 was mine and
+committed that. THEN I RAN MY TREE A THIRD TIME AND GOT 27. It is NOISE, not
+attribution: the same tree gives 29, 27, 27 with nothing else on the machine. The two
+that come and go are the COLD-OPEN CARD'S OWN LINES ("The family, the table, ten years
+ago." and its WATCH button), on screen in one capture and gone in the next. Neither
+tree added an unreadable line.
+TWO RUNS IS NOT ENOUGH TO SEE A COIN LAND THE SAME WAY TWICE, and this file's old note
+claimed determinism on exactly that evidence ("measured twice, same number both times").
+I repeated the same mistake in the same file before a third run caught it. The
+correction is written into the baseline JSON as `a_correction`, not quietly edited out.
+Frozen at 29, the TOP of the observed range, so a run cannot fail for having caught the
+card -- with the range itself recorded, which is what stops that being a fudge upward.
 AND EYES' GATE WAS ALREADY RED ON MAIN BEFORE ANY OF THIS (39 against their frozen 38).
 It is green now.
 
