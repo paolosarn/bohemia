@@ -12607,6 +12607,17 @@ tracks that differ by faction, pursuit decided by relative strength, line of sig
 escape, camp fires that attract company, parties bought and sent by places with agendas.
 Also routed WORLD [parties move] and COMBAT [contact fight]. The 9/5 one-department law
 holds: BB is the campaign layer only, nothing touches RF4 on the beat.
+THEN (cc) THREE MORE ORDERS, LOCKED (records/BOHEMIA_RULING_ZOOM_IS_THE_NAVIGATION_9_6_26.md):
+"I don't even want a button for city and map, you have them wired all wrong, how you get to
+the cities is zooming out" -> CITY and MAP stop being places you GO and become how far you
+stand back; one continuous zoom, street to city to valley and back to where you were; kill
+data-p="city" and data-p="map" as game buttons (workshop tabs not in scope); and THE ACTION
+BUTTON IS NOT A ZOOM BUTTON -- he watched a tutorial try to relabel it and rejected exactly
+that. "The game must explain that very well in the tutorial" -> RUN [zoom teaches], the
+first and unfumbleable lesson. "Have the tutorial pop-up after the other pop-up, do you
+wanna skip the tutorial or have the tutorial" -> UI [tutorial ask], two choices, no third.
+AND I AMENDED MY OWN [no text box] ROW so the lanes do not fight: that rule is the FIGHT
+only; an offered tutorial the player chose is not what it bans.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
