@@ -85,6 +85,32 @@
 #            SILHOUETTE. Claim 1 is 448/448 with it drawn at both scales.
 #            tools/bohemia_hair_the_neckline_9_6_26.py, control run in the gate:
 #            put the flat nape back and it goes red seven ways.
+#
+#   9/6/26   50 of 1744, ALL genHair and ALL on the two PROFILE facings (25 hair
+#            shapes x E, and the same 25 x W; the other 16 shapes resolve to no
+#            inset and did not move). S, SE, SW, NE, N and NW did not move a pixel.
+#            SAME RULING, SECOND HALF. The line that flattens the set reads
+#            `sideBot=(back||prof)?Math.max(hBot,_styleBot)` and the 9/6 entry above
+#            answered only the `back` half. The profile pair table said so plainly:
+#            every collapsed pair was a SHORT or MID cut and the only two standing
+#            clear were the only two longer than the skull --
+#                DRY TAPER / DEEP TAPER 0.136       ROPE LOCKS / DUST WEAVE 0.505
+#                CURTAIN CUT / HEAVY FRINGE 0.137   SHORT ROPES / LAYERED FALL 0.475
+#            WHICH EDGE, AND IT IS NOT BOTH: side-on you look ALONG the head, so the
+#            FRONT edge is the hairline over the face and `_pHair` owns it (the same
+#            for every style, because every style sits on the same skull). THE BACK
+#            EDGE IS THE NECKLINE. The inset lands on the away side only, read off
+#            `_fFront.dir` -- the same fact `_pHair` reads. Insetting both would eat
+#            the hairline on the one facing where the face is half the head.
+#                E 0.300 -> 0.338, same-shape pairs 18 -> 8
+#                W 0.302 -> 0.344, same-shape pairs 19 -> 7
+#            The profiles were 17% less legible than the other six; they are 6% now,
+#            and they have gone from the worst angles to better than the back three.
+#            THIS IS HIS 8/20 COMPLAINT, CLOSED AS A NUMBER: "east and west
+#            hairstyles look like absolute dog shit across the board", 13 of 15
+#            killed on it, open sixteen days for want of a ruler.
+#            tools/bohemia_hair_the_profile_neckline_9_6_26.py; control in
+#            gates/hair_eight_facings_gate.js.
 S|genTop|{"sleeves":"long","neck":"crew","pattern":"solid"}|733cbb514c527ec3
 S|genTop|{"sleeves":"long","neck":"crew","pattern":"plaid"}|96629d4eaa468b81
 S|genTop|{"sleeves":"long","neck":"crew","pattern":"stripe"}|cfc64e78070cf6db
@@ -669,27 +695,27 @@ E|genPoncho|{"hood":true}|0240ce12aa1cc44a
 E|genApron|{}|bbdcba59e705c727
 E|genApron|{"bibless":true}|6c7467c6f8573455
 E|genCoverall|{}|43b4213c84f73639
-E|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|baf8f4c71152fddc
-E|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|70ad263651c95b0e
-E|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|cdf3490b783e3454
-E|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|41d1bd8cee1bb2ac
-E|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|d13ce85549570594
-E|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|e5dc5d08f0ead5cc
-E|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|19297a3a98d84aea
-E|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|80bc3aa1c802ca9a
-E|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|d3ed8ac5016acefb
+E|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|6a2db79c0ff80659
+E|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|3dcc5d7cec02d544
+E|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|15c86343a3852c07
+E|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|d9cd7d0b8f90f57d
+E|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|419a37a4fdd29f08
+E|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|b5201b72e3123f0e
+E|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|1c9321a25d5921b4
+E|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|bb7f039199cd26ed
+E|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|06b5fea6c7162d63
 E|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|596a06edcf3b1e38
 E|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|e53b9f3d02e848a8
 E|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|db9e41d9eb803bd7
 E|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|a48958592280b4e0
 E|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|c70d052379185211
 E|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|64d53eafcb027cd1
-E|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|963595a747a2bb42
-E|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|a8502bcaf720cd5d
-E|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|ceb7433cfc6043e1
-E|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|9389b1313df051ae
-E|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|d694a7b5cfaf55b5
-E|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|0912a6c9403b7eae
+E|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|5f886457d7a2c580
+E|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|fa7c9456ac0660a4
+E|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|8b2338b08e22dbdf
+E|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|433aa4cd0d343a56
+E|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|3f5604317e22aa1f
+E|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|7e2af83ad1f03525
 E|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|1c76d862514f3182
 E|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|5874ed3d2ef99aa9
 E|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|4c08b6a020f1ca4c
@@ -699,12 +725,12 @@ E|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|
 E|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|e0a418e057d24647
 E|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|e466f02d823eb4a5
 E|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|dc515f1b91ed2aba
-E|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|0412303d954d8ca2
-E|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|ad0040a91484a29b
-E|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|ccaaf80a7c86aaf8
-E|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|7a79174511c800b4
-E|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|97df07227460beb2
-E|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|ccee4be409e2e2d4
+E|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|dfdb9403d4ce38db
+E|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|e6e2a5d6f9460420
+E|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|fc8bcd2c29e8f989
+E|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|91156346141f04d6
+E|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|e53162db21788d72
+E|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|66c684b7008add7c
 E|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|f90ff54b87745e88
 E|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|0a704b4f65449b0a
 E|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|d1b28beea7d2d5ff
@@ -714,9 +740,9 @@ E|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|
 E|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|cf9cbcb83da8688d
 E|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|444d5bfee3a15bab
 E|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|d7a78de003afeb97
-E|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|0230fd8264af15d3
-E|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|98e094ddb0f6e2e4
-E|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|774e12f8065258f0
+E|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|525a0fb1578f69e5
+E|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|546deab453c99e61
+E|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|020a12c2acba7d43
 E|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|a30667f14bbe3025
 E|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|4f36ef8175d4e3cd
 E|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|bb5c107447f34698
@@ -730,7 +756,7 @@ E|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|
 E|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|70a540433161e2a6
 E|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|f540c3ccfbd73c14
 E|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|d59d0850cfd4815d
-E|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|7ae99f6ee384ec14
+E|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|6356785d94f4a748
 E|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|1842be450214897d
 E|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|1842be450214897d
 E|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|b320e721c75d2c14
@@ -1541,27 +1567,27 @@ W|genPoncho|{"hood":true}|0240ce12aa1cc44a
 W|genApron|{}|bbdcba59e705c727
 W|genApron|{"bibless":true}|6c7467c6f8573455
 W|genCoverall|{}|43b4213c84f73639
-W|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|baf8f4c71152fddc
-W|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|70ad263651c95b0e
-W|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|cdf3490b783e3454
-W|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|41d1bd8cee1bb2ac
-W|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|d13ce85549570594
-W|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|e5dc5d08f0ead5cc
-W|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|19297a3a98d84aea
-W|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|80bc3aa1c802ca9a
-W|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|d3ed8ac5016acefb
+W|genHair|{"name":"ID 00.3solid","vol":0,"side":0.3,"front":0.22,"tex":"solid"}|6a2db79c0ff80659
+W|genHair|{"name":"ID 00.3locs","vol":0,"side":0.3,"front":0.22,"tex":"locs"}|3dcc5d7cec02d544
+W|genHair|{"name":"ID 00.3braid","vol":0,"side":0.3,"front":0.22,"tex":"braid"}|15c86343a3852c07
+W|genHair|{"name":"ID 00.62solid","vol":0,"side":0.62,"front":0.22,"tex":"solid"}|d9cd7d0b8f90f57d
+W|genHair|{"name":"ID 00.62locs","vol":0,"side":0.62,"front":0.22,"tex":"locs"}|419a37a4fdd29f08
+W|genHair|{"name":"ID 00.62braid","vol":0,"side":0.62,"front":0.22,"tex":"braid"}|b5201b72e3123f0e
+W|genHair|{"name":"ID 01solid","vol":0,"side":1,"front":0.22,"tex":"solid"}|1c9321a25d5921b4
+W|genHair|{"name":"ID 01locs","vol":0,"side":1,"front":0.22,"tex":"locs"}|bb7f039199cd26ed
+W|genHair|{"name":"ID 01braid","vol":0,"side":1,"front":0.22,"tex":"braid"}|06b5fea6c7162d63
 W|genHair|{"name":"ID 01.7solid","vol":0,"side":1.7,"front":0.22,"tex":"solid"}|596a06edcf3b1e38
 W|genHair|{"name":"ID 01.7locs","vol":0,"side":1.7,"front":0.22,"tex":"locs"}|e53b9f3d02e848a8
 W|genHair|{"name":"ID 01.7braid","vol":0,"side":1.7,"front":0.22,"tex":"braid"}|db9e41d9eb803bd7
 W|genHair|{"name":"ID 02.6solid","vol":0,"side":2.6,"front":0.22,"tex":"solid"}|a48958592280b4e0
 W|genHair|{"name":"ID 02.6locs","vol":0,"side":2.6,"front":0.22,"tex":"locs"}|c70d052379185211
 W|genHair|{"name":"ID 02.6braid","vol":0,"side":2.6,"front":0.22,"tex":"braid"}|64d53eafcb027cd1
-W|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|963595a747a2bb42
-W|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|a8502bcaf720cd5d
-W|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|ceb7433cfc6043e1
-W|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|9389b1313df051ae
-W|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|d694a7b5cfaf55b5
-W|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|0912a6c9403b7eae
+W|genHair|{"name":"ID 10.3solid","vol":1,"side":0.3,"front":0.22,"tex":"solid"}|5f886457d7a2c580
+W|genHair|{"name":"ID 10.3locs","vol":1,"side":0.3,"front":0.22,"tex":"locs"}|fa7c9456ac0660a4
+W|genHair|{"name":"ID 10.3braid","vol":1,"side":0.3,"front":0.22,"tex":"braid"}|8b2338b08e22dbdf
+W|genHair|{"name":"ID 10.62solid","vol":1,"side":0.62,"front":0.22,"tex":"solid"}|433aa4cd0d343a56
+W|genHair|{"name":"ID 10.62locs","vol":1,"side":0.62,"front":0.22,"tex":"locs"}|3f5604317e22aa1f
+W|genHair|{"name":"ID 10.62braid","vol":1,"side":0.62,"front":0.22,"tex":"braid"}|7e2af83ad1f03525
 W|genHair|{"name":"ID 11solid","vol":1,"side":1,"front":0.22,"tex":"solid"}|1c76d862514f3182
 W|genHair|{"name":"ID 11locs","vol":1,"side":1,"front":0.22,"tex":"locs"}|5874ed3d2ef99aa9
 W|genHair|{"name":"ID 11braid","vol":1,"side":1,"front":0.22,"tex":"braid"}|4c08b6a020f1ca4c
@@ -1571,12 +1597,12 @@ W|genHair|{"name":"ID 11.7braid","vol":1,"side":1.7,"front":0.22,"tex":"braid"}|
 W|genHair|{"name":"ID 12.6solid","vol":1,"side":2.6,"front":0.22,"tex":"solid"}|e0a418e057d24647
 W|genHair|{"name":"ID 12.6locs","vol":1,"side":2.6,"front":0.22,"tex":"locs"}|e466f02d823eb4a5
 W|genHair|{"name":"ID 12.6braid","vol":1,"side":2.6,"front":0.22,"tex":"braid"}|dc515f1b91ed2aba
-W|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|0412303d954d8ca2
-W|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|ad0040a91484a29b
-W|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|ccaaf80a7c86aaf8
-W|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|7a79174511c800b4
-W|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|97df07227460beb2
-W|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|ccee4be409e2e2d4
+W|genHair|{"name":"ID 20.3solid","vol":2,"side":0.3,"front":0.22,"tex":"solid"}|dfdb9403d4ce38db
+W|genHair|{"name":"ID 20.3locs","vol":2,"side":0.3,"front":0.22,"tex":"locs"}|e6e2a5d6f9460420
+W|genHair|{"name":"ID 20.3braid","vol":2,"side":0.3,"front":0.22,"tex":"braid"}|fc8bcd2c29e8f989
+W|genHair|{"name":"ID 20.62solid","vol":2,"side":0.62,"front":0.22,"tex":"solid"}|91156346141f04d6
+W|genHair|{"name":"ID 20.62locs","vol":2,"side":0.62,"front":0.22,"tex":"locs"}|e53162db21788d72
+W|genHair|{"name":"ID 20.62braid","vol":2,"side":0.62,"front":0.22,"tex":"braid"}|66c684b7008add7c
 W|genHair|{"name":"ID 21solid","vol":2,"side":1,"front":0.22,"tex":"solid"}|f90ff54b87745e88
 W|genHair|{"name":"ID 21locs","vol":2,"side":1,"front":0.22,"tex":"locs"}|0a704b4f65449b0a
 W|genHair|{"name":"ID 21braid","vol":2,"side":1,"front":0.22,"tex":"braid"}|d1b28beea7d2d5ff
@@ -1586,9 +1612,9 @@ W|genHair|{"name":"ID 21.7braid","vol":2,"side":1.7,"front":0.22,"tex":"braid"}|
 W|genHair|{"name":"ID 22.6solid","vol":2,"side":2.6,"front":0.22,"tex":"solid"}|cf9cbcb83da8688d
 W|genHair|{"name":"ID 22.6locs","vol":2,"side":2.6,"front":0.22,"tex":"locs"}|444d5bfee3a15bab
 W|genHair|{"name":"ID 22.6braid","vol":2,"side":2.6,"front":0.22,"tex":"braid"}|d7a78de003afeb97
-W|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|0230fd8264af15d3
-W|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|98e094ddb0f6e2e4
-W|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|774e12f8065258f0
+W|genHair|{"name":"ID 30.3solid","vol":3,"side":0.3,"front":0.22,"tex":"solid"}|525a0fb1578f69e5
+W|genHair|{"name":"ID 30.3locs","vol":3,"side":0.3,"front":0.22,"tex":"locs"}|546deab453c99e61
+W|genHair|{"name":"ID 30.3braid","vol":3,"side":0.3,"front":0.22,"tex":"braid"}|020a12c2acba7d43
 W|genHair|{"name":"ID 30.62solid","vol":3,"side":0.62,"front":0.22,"tex":"solid"}|a30667f14bbe3025
 W|genHair|{"name":"ID 30.62locs","vol":3,"side":0.62,"front":0.22,"tex":"locs"}|4f36ef8175d4e3cd
 W|genHair|{"name":"ID 30.62braid","vol":3,"side":0.62,"front":0.22,"tex":"braid"}|bb5c107447f34698
@@ -1602,7 +1628,7 @@ W|genHair|{"name":"ID 32.6solid","vol":3,"side":2.6,"front":0.22,"tex":"solid"}|
 W|genHair|{"name":"ID 32.6locs","vol":3,"side":2.6,"front":0.22,"tex":"locs"}|70a540433161e2a6
 W|genHair|{"name":"ID 32.6braid","vol":3,"side":2.6,"front":0.22,"tex":"braid"}|f540c3ccfbd73c14
 W|genHair|{"name":"ID2 {\"fade\":4}","vol":1,"side":0.9,"front":0.22,"fade":4}|d59d0850cfd4815d
-W|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|7ae99f6ee384ec14
+W|genHair|{"name":"ID2 {\"fade\":7}","vol":1,"side":0.9,"front":0.22,"fade":7}|6356785d94f4a748
 W|genHair|{"name":"ID2 {\"strip\":2}","vol":1,"side":0.9,"front":0.22,"strip":2}|1842be450214897d
 W|genHair|{"name":"ID2 {\"strip\":2,\"spiky\":true}","vol":1,"side":0.9,"front":0.22,"strip":2,"spiky":true}|1842be450214897d
 W|genHair|{"name":"ID2 {\"tie\":\"top\"}","vol":1,"side":0.9,"front":0.22,"tie":"top"}|b320e721c75d2c14

@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/6s - THE FOUR THAT HOLD NO GROUND</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/6t - EAST AND WEST HAIR, ANSWERED</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -25445,7 +25445,24 @@ window.CLO=(function(){
          scoped -- so a variable written under a `back`-only guard overwrote one read on
          every facing, and city_cast_gate went red on the FRONT view. A back-only guard
          is not a back-only change if the names are shared. */
-      if(back&&(sideBot+backEx)<=hBot+S){
+      /* *** AND THE PROFILE HAS A NECKLINE TOO. (Round 3, 9/6.) ***
+         The line this fixes says `back||prof` and round 2 answered only the `back`
+         half. The profile pair table says so in the plainest way there is: every
+         collapsed pair is a SHORT or MID cut and the only two that stand clear are the
+         only two longer than the skull.
+             DRY TAPER / DEEP TAPER 0.136    ROPE LOCKS / DUST WEAVE 0.505
+             CURTAIN CUT / HEAVY FRINGE 0.137   SHORT ROPES / LAYERED FALL 0.475
+         Same signature the back had: length is the only thing that survives the clamp.
+         WHICH EDGE, AND IT IS NOT BOTH. Side-on you look ALONG the head. The FRONT edge
+         is the hairline over the face and `_pHair` owns it -- rightly, and it is the
+         same for every style because every style sits on the same skull. THE BACK EDGE
+         IS THE NECKLINE: it runs up behind the ear and it is what a barber cuts. So in
+         profile the inset goes on the AWAY side only, read off `_fFront.dir`, the same
+         fact `_pHair` reads to know which way he is looking. Insetting both would eat
+         the hairline on the one facing where the face is half the head.
+         ONE COMPUTATION, TWO APPLICATIONS: the size of the line is identical because it
+         is the same haircut; only which edges it lands on differs. */
+      if((back||(prof&&_fFront))&&(sideBot+backEx)<=hBot+S){
         var _nkT=Math.max(hBot-4*S+1,Math.min(hBot-2*S+1,_styleBot));
         if(y>=_nkT&&y<=hBot){
           var _nkR=(((y-_nkT)/S)|0)+1;
@@ -25457,7 +25474,8 @@ window.CLO=(function(){
              head is twelve pixels across. */
           var _nkI=Math.min(Math.floor((mx-mn)/3),
                             Math.max(0,Math.round(_nkR*S*_nkTight)-_nkWide));
-          mn+=_nkI; mx-=_nkI; } }
+          if(back){ mn+=_nkI; mx-=_nkI; }
+          else if(_fFront.dir>0){ mn+=_nkI; } else { mx-=_nkI; } } }
       if(!strip){ mn-=wob(y,0); mx+=wob(y,1);                      /* NO STRAIGHT LINES */
         /* A FALL IS A FALL WHICHEVER WAY HE FACES. wob() fires on one row in four,
            which is a hairline lying on bone; below the jaw the hair is hanging in air

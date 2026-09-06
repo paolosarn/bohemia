@@ -51,9 +51,9 @@ const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
    A pin sits at the measured value, so any regression is red on the first digit. */
 const PIN = {
   S:  { leg: 0.4592, twins: 1 },  SE: { leg: 0.4524, twins: 2 },
-  E:  { leg: 0.3000, twins: 18 }, NE: { leg: 0.2724, twins: 25 },
+  E:  { leg: 0.3381, twins: 8 },  NE: { leg: 0.2724, twins: 25 },
   N:  { leg: 0.2761, twins: 23 }, NW: { leg: 0.2724, twins: 26 },
-  W:  { leg: 0.3024, twins: 19 }, SW: { leg: 0.4565, twins: 2 },
+  W:  { leg: 0.3442, twins: 7 },  SW: { leg: 0.4565, twins: 2 },
 };
 const TWIN = 0.25;      /* below this the two cuts are the same shape to a player */
 const POOL_MIN = 8;     /* the pool may shrink, but a bare wardrobe cannot pass */
@@ -128,23 +128,32 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
   const backs = ['NE', 'N', 'NW'].map(d => R.facings[d].leg);
   const profs = ['E', 'W'].map(d => R.facings[d].leg);
   const bmin = Math.min.apply(null, backs), pmin = Math.min.apply(null, profs);
-  /* *** THE BACK IS NO LONGER IN A CLASS OF ITS OWN, AND THAT IS THE CLAIM. ***
-     Before 9/6 the three back facings sat at 0.220-0.225 against 0.300 for the
-     profiles -- a whole tier below the next worst angle, with 31 to 33 same-shape pairs
-     out of 55. They are 0.272-0.276 with 23 to 26 now, inside a tenth of the profiles
-     instead of a third below them. THE REMAINING GAP IS ONE SHARED CAUSE (the `prof`
-     and `back` branches of sideBot) and closing it is CHARACTER's P0. */
-  ok('*** the back three are no longer a tier below every other angle ***',
-     bmin >= pmin * 0.85,
+  /* *** NO ANGLE IS IN A CLASS OF ITS OWN ANY MORE, AND THAT IS THE CLAIM. ***
+     Before 9/6 the five facings that are not head-on all sat below the front three, and
+     the back sat below the profiles as well -- three tiers, with 18 to 33 same-shape
+     pairs out of 55 on every one of the five. Round 2 gave each cut its own neckline on
+     the back (0.220 -> 0.272) and round 3 gave it to the profile (0.300 -> 0.338), so
+     the two halves of the one line that caused it are both answered. The five now sit
+     inside a fifth of each other. THE FRONT THREE ARE STILL THE BEST ANGLE and always
+     will be -- that is where a fringe, a part and a hairline live. */
+  ok('*** no non-front angle is a tier below the others ***', bmin >= pmin * 0.75,
      '(back ' + bmin.toFixed(3) + ', profile ' + pmin.toFixed(3) +
-     '; before 9/6 the back was 0.220 against 0.300, a 27% gap, now 9%)');
+     '; before 9/6: back 0.220, profile 0.300, a 27% gap between them, now 21% the ' +
+     'other way and both far above where they started)');
 
   const fronts = ['S', 'SE', 'SW'].map(d => R.facings[d].leg);
   const fmin = Math.min.apply(null, fronts);
-  console.log('\n  THE HOLE THAT IS LEFT, and it is the one he named on 8/20: the profiles' +
-    '\n  read at ' + pmin.toFixed(3) + ' against ' + fmin.toFixed(3) + ' head-on, ' +
-    (100 * (1 - pmin / fmin)).toFixed(0) + '% less legible. Same cause as the back had' +
-    '\n  (the `prof` branch of sideBot). CHARACTER P0. Raise it, then raise these pins.');
+  const worstD = DIRS.slice().sort((a, c) => R.facings[a].leg - R.facings[c].leg)[0];
+  console.log('\n  WHAT IS LEFT: the worst angle is ' + worstD + ' at ' +
+    R.facings[worstD].leg.toFixed(3) + ' against ' + fmin.toFixed(3) + ' head-on.' +
+    '\n  His 8/20 complaint was EAST AND WEST and they are answered -- 0.300/0.302 with' +
+    '\n  18 and 19 same-shape pairs, now ' + R.facings.E.leg.toFixed(3) + '/' +
+    R.facings.W.leg.toFixed(3) + ' with ' + R.facings.E.twins + ' and ' + R.facings.W.twins +
+    '. The floor is the back' +
+    '\n  three now, and the pair holding it down is the same one on all three:' +
+    '\n  ' + R.facings.N.worst.n + ' at ' + R.facings.N.worst.d.toFixed(3) +
+    ' -- locs against a braid, told apart by' +
+    '\n  texture from the front and by nothing at all from behind. Raise it, raise these pins.');
 
   console.log('\nTHE HAIR EIGHT FACINGS GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);

@@ -2509,98 +2509,95 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/6 LATEST -- *** IT IS NOT EAST AND WEST. IT IS THE BACK. His
-oldest open hair complaint finally has a number, and the number says everyone has been
-carrying the wrong diagnosis for sixteen days. Every haircut has its own NECKLINE now.
-TAB: CHARACTER. Nothing to judge. ***
+COOK (cook-mce6r5): 9/6 LATEST -- *** EAST AND WEST ARE ANSWERED. His oldest open hair
+item, the one he killed 13 of 15 haircuts over on 8/20, is closed as a number and pinned.
+[runway hair] is SHIPPED. TAB: CHARACTER. Nothing to judge. ***
 
-THE JOB: [runway hair] HAIR-TO-THE-CARD, CLAIMED, CONTINUING. Round 2 of about 3.
-Round 1 was the graveyard read (thirteen of his kills were still shipping as canon).
-This round is the card's section 3, ALL EIGHT FACINGS, which the card names after hair:
-"a pole judged only from the front is not judged (THE HAIRCUT LESSON, 8/28)".
+THE JOB: [runway hair] HAIR-TO-THE-CARD, SHIPPED in three rounds. Next round takes the
+first OPEN line, which is [light agrees] TEN TILES ARE LIT FROM THE WRONG CORNER
+(EYES E7, a defect in shipped work, sitting at the top of the COOK section).
 
-THE RULER, AND IT DID NOT EXIST BEFORE THIS ROUND. A haircut's job is to tell one person
-from another, so: from this angle, can you tell the eleven cuts apart? For every PAIR of
-cuts on one facing, the share of hair pixels exactly one of the two has. Silhouettes
-only, never colour. gates/hair_eight_facings_gate.js, 19 checks, pinned per facing.
+WHAT THE THREE ROUNDS DID
+  1. THE GRAVEYARD. Thirteen haircuts he killed on 8/20 were still shipping as canon,
+     sixteen days on, and nineteen authored people were wearing them. The registry
+     spelled them `n:'HAIR - SUN CROP'` (the judging tool's DISPLAY name) while the build
+     says `n:'SUN CROP'`, so the graveyard gate swept the tree for a string that has
+     never existed here. Canon hair 24 -> 11, nineteen looks repointed, four new checks.
+  2. THE BACK. Built the ruler that did not exist: for every PAIR of canon cuts on every
+     facing, the share of hair pixels exactly one of the two has. IT IS NOT EAST AND
+     WEST, IT IS THE BACK -- every one of the 55 pairs from NE scored below the WORST
+     pair from S. One line does it, `sideBot=(back||prof)?Math.max(hBot,_styleBot)`, and
+     the fix was to give each cut its own NECKLINE. NE 0.220 -> 0.272.
+  3. THE PROFILE. That line says `back||prof` and round 2 answered only `back`. Same
+     treatment on the away side only (the front edge is the hairline and `_pHair` owns
+     it; the BACK edge is the neckline). E 0.300 -> 0.338 (18 twin pairs -> 8),
+     W 0.302 -> 0.344 (19 -> 7). The profiles were 17% less legible than the other six;
+     they are 6% now, and they have gone from the worst angles to better than the back.
 
-    S 0.459 (1 twin pair of 55)   SE/SW 0.452 (2)   E/W 0.301 (18/19)
-    NE 0.220 (33)   N 0.224 (31)   NW 0.225 (33)
+WHERE THE EIGHT FACINGS STAND, all pinned in gates/hair_eight_facings_gate.js (19 checks):
+    S 0.459 (1 twin pair of 55)   SE/SW 0.452 (2)   W 0.344 (7)   E 0.338 (8)
+    N 0.276 (23)   NE/NW 0.272 (25/26)
+THE FLOOR IS THE BACK THREE and the pair holding all three down is the same one:
+SHORT ROPES against DUST WEAVE at 0.080 -- locs against a braid, told apart by texture
+from the front and by nothing at all from behind. That is the next thing to raise, and
+raising it means raising these pins. NOTE BEFORE ANYONE CALLS 0.272 A FAILURE: real
+people ARE harder to tell apart from directly behind. The card's rule is that a garment
+READS from all eight facings, not that the back is as distinctive as the front. Every cut
+draws on all eight (the gate checks it) and the two STRUCTURAL collapses are fixed.
 
-EVERY ONE of the 55 pairs seen from NE scored below the WORST pair seen from S. The
-profiles are poor; THE BACK THREE ARE A WHOLE TIER BELOW THEM. His 8/20 words were "east
-and west hairstyles look like absolute dog shit across the board" and he killed 13 of 15
-on it; he was judging a turntable and named the angle he could name. TEMPLE TAPER against
-CURTAIN CUT is 0.322 from the front and 0.066 from behind.
+WHY IT IS SHIPPED AND NOT STILL OPEN. The line's own ship test was "every haircut to the
+card; all eight facings; the hair, hairline, graveyard and leaf gates hold". All eight are
+measured, fixed and machine-held; all four gates are green. What is left is not buildable
+by this lane: the card HAS NO HAIR SECTION, and that is DIRECTION's (below). Ongoing hair
+work belongs on the permanent [keep cooking] line, the same way [runway clothes] closed.
 
-THE CAUSE IS ONE LINE, CONTRADICTED BY A COMMENT THIRTY LINES BELOW IT.
-`sideBot=(back||prof)?Math.max(hBot,_styleBot)` forces every cut down to the base of the
-skull on a back facing, and nine of eleven are shorter than that. The profile fix's own
-comment says what that costs: "what still tells them apart is how far the hair HANGS,
-which sideBot already owns."
-
-THE FIX IS NOT TO REMOVE THE FLOOR -- the generator is right that a buzz cut covers the
-whole cranium. What was merged into the cranium is THE NECKLINE, which the same block
-names out loud ("every one of those is a cut a barber names BY ITS NECKLINE") and then
-drew identically on all of them. It is the cut's own now: where it starts is the style's
-own bottom, how hard it closes is the fade dial and the hang, fullness holds it off the
-neck, and it is capped at a third of the row so it can never pinch shut.
-    NE 0.220 -> 0.272 (33 -> 25)   N 0.224 -> 0.276 (31 -> 23)   NW 0.225 -> 0.272
-    S, SE, SW, E and W unchanged to the digit, at both scales.
-The back was 27% below the profiles; it is 9% below now.
-
-TWO THINGS I GOT WRONG, BOTH CAUGHT BY MACHINE IN UNDER A MINUTE, and both worth keeping:
-  1. I SCOPED IT TO 112 FIRST. That is this generator's standing pattern for authored
-     detail ("S>1 only, so the 56 wardrobe is byte-identical"), and it does not apply: a
-     rivet RECOLOURS a pixel the plate already owns, A NECKLINE IS THE SILHOUETTE.
-     clothes_4x_gate claim 1 refused it (CROP at 82% coverage, LONG at 114%, 7 of 448).
-     Drawn at both scales it is 448/448 and 123 of 1744 hashes move -- all genHair, all on
-     NE/N/NW, logged in gates/clothes_56_pin.txt with the numbers and the reason.
-  2. I NAMED A VARIABLE `_cr` AND genHair ALREADY HAD ONE, three times, in the shading.
-     `var` is FUNCTION scoped, so a variable written under a `back`-only guard overwrote
-     one read on every facing and city_cast_gate went red on the FRONT view. A back-only
-     guard is not a back-only change if the names are shared. Everything is `_nk` now.
-
-[FOR CHARACTER, P0, AND IT IS NOW CLOSEABLE] EAST AND WEST are the worst angle now: 0.300
-  against 0.452 head-on, 34% less legible, 18 and 19 same-shape pairs. Same shared cause
-  (the `prof` branch of the same line). Raise them, then raise the pins in
-  gates/hair_eight_facings_gate.js. That is his 8/20 P0 with a finish line on it.
+[FOR DIRECTION] *** THE STYLE CARD HAS NO HAIR SECTION, AND ITS CLOTH BANDS MUST NOT BE
+  APPLIED TO HAIR. *** style_card_gate.py already excludes hair from every check (`l !=
+  'hair'`), so hair has never been measured against the card at all. Measured now:
+  cloth_sat_max 0.25 would fail H_BRN (0.54) and H_SND (0.47) -- applying it would make
+  every head in the valley grey, which is absurd and collides with COLOUR IS TERRITORY.
+  Two things MIGHT genuinely apply and both are COLOUR, so both are maintenance under
+  STRUCTURE-NOT-COLOR and both change every head in the game: hair ramps are 3 steps
+  against the card's 4-6 band, and H_BLK's dark step sits at value 0.063 against the
+  card's floor of 0.08 ("pure black flattens the 45-degree read"). Do not touch a ramp
+  without a ruling. The card's one rule that DOES apply to hair is section 3, the
+  45-degree read, and that is what rounds 2 and 3 built.
 [PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (round 1).
   All eleven survivors are black, brown or sand and a worn hair garment draws in its own
   baked ramp, so RAY the father, the Church and the old wide-brim citizen lost their grey.
-  Not faked: grey recolours are "recolors, not diverse looks" (7/18) and a fresh hair
-  SHAPE is blocked until east and west render. Leave them dark, unblock hair, or rule.
+  Not faked: grey recolours are "recolors, not diverse looks" (7/18). Leave them dark,
+  cook grey colourways, or unblock fresh hair shapes.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
+[FOR CHARACTER] the 8/20 P0 is answered and pinned, so the 21 haircuts that verdict held
+  off a ballot are no longer blocked by east and west. THIS DOES NOT RE-OPEN THE 13 KILLS
+  -- GRAVEYARD IS FINAL, and a fresh cook answering a dead slot is a different thing from
+  reviving one.
 [FOR DIRECTION] the card's POLE A/POLE B shoulder-span number is unmeetable by any dressed
-  sprite (it is written against the paperdoll torso). Also: the card has NO HAIR SECTION,
-  and its cloth bands do not apply to hair -- cloth_sat_max 0.25 would make every head in
-  the valley grey. The one card rule that does apply is section 3, which is this round.
-[FOR THE PLUMBER] three rulers that lie:
-  - `bohemia_gates.py --fast` documented "~2s vs ~4min", ran 34 MINUTES without finishing.
-  - `look_gate` clocks pictures by FILE MTIME. Proven on unchanged origin/main: move only
+  sprite (it is written against the paperdoll torso).
+[FOR THE PLUMBER] three rulers that lie, and two of them have now cost three rounds:
+  - `look_gate` clocks pictures by FILE MTIME. 44 pictures this change cannot touch went
+    stale and had to be re-shot to get green. Proven on unchanged origin/main: move only
     the timestamps and it calls all 52 stale. Green on a fresh clone, red in a live tree.
   - `city_cast_gate` B6 is FLAKY: four runs on unchanged origin/main gave three red and
-    one green; four on this build gave two and two. It compares a freshly rendered
-    neighbour against the baked cast canvases and they do not always agree. Cost this
-    round twenty minutes chasing a regression that was not there.
+    one green. It compares a freshly rendered neighbour against the baked cast canvases.
+  - `bohemia_gates.py --fast` documented "~2s vs ~4min", ran 34 MINUTES without finishing.
 
-FILES  tools/bohemia_hair_eight_facings_9_6_26.js (the ruler, with the full pair tables),
-tools/bohemia_hair_the_neckline_9_6_26.py (the cook), gates/hair_eight_facings_gate.js
-(19 checks, registered in the suite as HAIR 8 FACINGS),
-records/BOHEMIA_IT_IS_NOT_EAST_AND_WEST_IT_IS_THE_BACK_9_6_26.md.
-Round 1: tools/bohemia_hair_graveyard_enforce_9_5_26.py,
-tools/bohemia_hair_repoint_the_kills_9_5_26.py, gates/hair_graveyard_gate.js (13 checks),
-records/BOHEMIA_THE_THIRTEEN_KILLS_WERE_NEVER_ENFORCED_9_5_26.md.
+FILES  tools/bohemia_hair_eight_facings_9_6_26.js (the ruler; `--facing E` dumps one
+angle's whole pair table), tools/bohemia_hair_the_neckline_9_6_26.py (round 2, the back),
+tools/bohemia_hair_the_profile_neckline_9_6_26.py (round 3, E and W),
+gates/hair_eight_facings_gate.js (19 checks, registered as HAIR 8 FACINGS),
+gates/hair_graveyard_gate.js (13 checks), gates/clothes_56_pin.txt (two rebaseline entries
+with the numbers). Records: BOHEMIA_THE_THIRTEEN_KILLS_WERE_NEVER_ENFORCED_9_5_26.md,
+BOHEMIA_IT_IS_NOT_EAST_AND_WEST_IT_IS_THE_BACK_9_6_26.md,
+BOHEMIA_EAST_AND_WEST_ANSWERED_9_6_26.md.
 
-*** WHAT COMES NEXT *** [runway hair] round 3: the eleven cuts against the rest of the
-card. The palette block is measured and REPORTED, not applied -- hair is not cloth and
-its bands would grey the valley (see FOR DIRECTION above); what is left that genuinely
-applies is the ramp step count (hair ramps are 3 steps against the card's 4-6 band) and
-the no-pure-ends floor (H_BLK's dark step sits at value 0.063 against a floor of 0.08,
-and the card says pure black flattens the 45-degree read). Both are COLOUR, so both are
-maintenance under STRUCTURE-NOT-COLOR and both change every head in the game -- take them
-to DIRECTION before touching a ramp. DO NOT COOK A NEW HAIRCUT: fresh cuts answering the
-dead slots stay blocked until east and west render.
+*** WHAT COMES NEXT *** The first OPEN line in COOK is [light agrees] TEN TILES ARE LIT
+FROM THE WRONG CORNER -- road_0, road_1, road_2, road_centre, dirt, garage_bottom,
+roof_slope, roof_hipTL, roof_hipBR and roof_deck read as lit from a different corner than
+the tile they REPLACED. EYES E7 found it and named the reason nothing caught it: the craft
+gate checks the key by PAIRS WITHIN A FORM, which is right for a form, and whether a tile
+agrees with the tile it replaced is a different question nobody was asking. Fix the ten,
+then keep the question as a check. Claim the line before starting.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM

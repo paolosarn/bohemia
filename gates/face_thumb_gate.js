@@ -138,7 +138,17 @@ const idOf = n => 'hair_' + n.toLowerCase().replace(/[^a-z0-9]+/g, '_');
   await b.close();
   if (errs.length) console.log('  page errors: ' + errs.slice(0, 3).join(' | '));
 
-  ok('the haircuts are on the page he opens', r.hair >= 20, '(' + r.hair + ' cells)');
+  /* *** WAS `>= 20`, AND TWENTY IS A POPULATION, NOT A STANDARD. (COOK, 9/6.) ***
+     Sixth time this exact bug has been found in this lane's job, and this one was hiding
+     behind a stale artefact: the check was green only because the VOTE PAGE it reads was
+     built when the game had 24 canon haircuts. Rebaking the page (which the gate itself
+     tells you to do, two checks up) showed the real number -- 11, because Paolo's
+     thirteen 8/20 kills were finally enforced on 9/5 -- and a correct page failed a bar
+     written for the old one. THE CLAIM IS "the haircuts", ALL of them, and the gate
+     already reads the canon list off the alpha twenty lines above this. Use it, with a
+     floor so an empty wardrobe cannot pass by having nothing to show. */
+  ok('the haircuts are on the page he opens', r.hair === canon.length && canon.length >= 8,
+     '(' + r.hair + ' of ' + canon.length + ' canon haircuts have a cell)');
   ok('the faces are on it too', r.face >= 8, '(' + r.face + ' cells)');
   ok('every haircut cell actually carries a picture', !!r.everyHairHasArt);
   ok('tapping one moves it through the verdict states', (r.cycles || 0) >= 3,
@@ -152,8 +162,12 @@ const idOf = n => 'hair_' + n.toLowerCase().replace(/[^a-z0-9]+/g, '_');
      arrived it said "0 / 0 voted" over forty things waiting -- a counter that cannot see
      half the queue is telling him he is finished. */
   const m = /(\d+)\s*\/\s*(\d+)\s*voted/.exec(r.count || '');
-  ok('the counter can see the face queue', !!m && +m[2] >= 30,
-     '(header says "' + (r.count || '').trim() + '")');
+  /* AND THE SAME MISTAKE ONE LINE LATER: `>= 30` was 24 haircuts + 16 faces with room to
+     spare. The claim in the comment above is not "the queue is big", it is that the
+     counter counts the WHOLE queue instead of one list, so measure exactly that. */
+  ok('the counter can see the face queue', !!m && +m[2] === r.hair + r.face,
+     '(header says "' + (r.count || '').trim() + '", queue is ' + r.hair + ' haircuts + ' +
+     r.face + ' faces = ' + (r.hair + r.face) + ')');
 
   ok('and it is still there after he closes the tab and comes back',
      !!after.cls && after.cls === r.votedState,

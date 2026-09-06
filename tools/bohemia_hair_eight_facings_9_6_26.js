@@ -114,7 +114,10 @@ const DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   const om = open.reduce((s, f) => s + f.mean, 0) / open.length;
   console.log('  EAST AND WEST ' + pm.toFixed(3) + '   THE OTHER SIX ' + om.toFixed(3) +
     '   the profiles are ' + (100 * (1 - pm / om)).toFixed(0) + '% less legible');
-  const worstF = byMean[0];
+  /* `node tools/... --facing E` dumps one angle's whole pair table (9/6). */
+  const argF = (process.argv.find(a => a.startsWith('--facing=')) || '').split('=')[1]
+            || (process.argv[process.argv.indexOf('--facing') + 1] || '');
+  const worstF = (argF && R.facings.find(f => f.dir === argF)) || byMean[0];
   console.log('\n  EVERY PAIR FROM ' + worstF.dir + ', the worst angle (union number / smaller-mask number):');
   worstF.table.forEach(t => console.log('    ' + t.n.padEnd(34) +
     t.d.toFixed(3).padStart(7) + '  ' + t.s.toFixed(2).padStart(6)));
