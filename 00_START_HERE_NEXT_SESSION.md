@@ -1014,10 +1014,10 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/5 (f) LATEST -- *** [combat floor]
-THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR: SHIPPED. THE FIGHT CAN STAND ON THE CITY HE
-WALKED, AND IT IS THE SAME RENDER. *** MODE: BUILD. TAB: CITY (the aerial view is
-the floor; COMBAT wires the fight). Nothing to judge.
+LIFE + CITY (city-1eztay): 9/6 (a) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 1 SHIPPED, THE JOB CONTINUES. THE CITY DRAWS ONE PERSON ALL DAY AND IT IS NOT
+THE COUNT: THE SUBURB HE WAKES IN HAS 1,118 FRONT DOORS AND NOBODY WAS EVER PUT IN
+ONE. *** MODE: BUILD. TAB: CITY (walk out the front door). Nothing to judge.
 
 === PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
@@ -1059,62 +1059,80 @@ I will never paste anything to you again. From here on, the one word is the whol
 instruction.
 === END OF HIS VERBATIM INSTRUCTION ===
 
-*** THIS ROUND: [combat floor] THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR, SHIPPED. ***
-  HIS RULING IS THE SPEC AND IT ANSWERS THE HOW ITSELF. 9/4 tile law 3b, LOCKED: "the size
-of the ground changes but the player is the same size ... war is spilling in the streets
-type shit", and in the same clause "REUSE-FIRST, and it is already built ... The combat
-floor is that render, centred on the block you are standing on, NOT A NEW BOARD. ONE SEED,
-same coordinates." So the job had exactly one correct shape and the law wrote it: DO NOT
-DRAW A CITY.
-  WHAT SHIPPED: engine/bohemia_combatfloor.js owns the contract; the walked surface
-registers its OWN renderCity as the painter. paint() points that renderer at a block,
-copies the frame out, and puts the camera back in a finally. A second renderer would be
-byte-different from the streets he walked to get there, which is what ONE SEED forbids.
-Swapping the live canvas is safe because a canvas is presented at the END of a task and
-everything between save and restore is synchronous.
-  plan() is PURE ARITHMETIC and needs no pixels: COMBAT can ask where the blocks are
-without drawing a frame, and a lane that has to render to find out will render every time.
-  THE RULING HELD AS A RULE: a tile at or above the 112px sprite is REFUSED BY NAME, because
-a floor that zooms IN is not this ruling with a different number, it is the opposite of it.
-And the picture is a NUMBER, not an adjective -- a figure stands 6.22 blocks wide at the
-city's own 18px tile. His numbers throughout (the 56 rig at 112, TW0/TH0 = 18/9).
-  A NUMBER IS NOT HONEST UNTIL ITS UNIT IS: a cell here is a BLOCK, a district, ninety-six
-metres -- not a house. 2,524 of 2,601 cells on a suburb floor come back solid, which is
-correct for blocks and nonsense for houses, so every answer carries scope:'block'. The 9/4
-law's OTHER clause ("a combat tile is a house") governs the house-scale board, not this one.
-COMBAT should know that before building a cover model on it.
-  *** THE LEG THAT DID NOT CATCH ITS OWN MUTATION. *** B3 asserts the camera comes back. I
-deleted the restore and the gate stayed 13/0 -- because the leg had captured the camera AS
-IT HAPPENED TO SIT (already on the walked cell, at the default tile) and painted a floor
-centred on that same cell at that same tile, so there was nothing to compare. Accidental
-correctness again, ONE ROUND after writing it down. The leg parks the camera somewhere
-distinctive first now AND asserts the park was somewhere the floor had to move away from.
-  AND A RED IN THIS LANE'S OWN GATE, FIXED THE SAME ROUND: city_tab_gate 63/1 on "POWER
-rebuilds with every world rebuild" while the lights rebuild in all three places. The leg
-matched ONE EXACT CALL SPELLING and somebody had folded it into a buildPower() helper --
-correct, tidier, behaviour unchanged, gate red. A BROKEN RULER, NOT BROKEN CODE, and this
-lane's own ruler. The invariant is stated directly now (every world rebuild is followed by
-a power rebuild before the next one, any spelling); my first attempt used a fixed
-character window and was ALSO wrong, because the boot build sits sixty lines above its
-POWER line -- the invariant was never about proximity. Re-checked by deleting one power
-rebuild: still red where it should be. 64/0.
-  GATE: gates/combat_floor_gate.js, 13/0, walked surface AND cut demo, registered.
-Mutation-tested three ways: drop the scale rule (A2 red), leave the camera where the fight
-put it (B3 red, after hardening), paint a flat fill instead of the city (B2 red, 1 colour).
-  MEASURED AND LEFT FOR COMBAT, NOT ABSORBED: the city render bakes its own map labels
-(CUSTOM, COLORFUL) into the frame, because the floor IS that render exactly as the law
-says. If they want a floor without labels that is a change to the city renderer and a
-conversation with this lane, not something to strip silently on the way past.
-  RECORD: records/BOHEMIA_THE_CITY_IS_THE_COMBAT_FLOOR_9_5_26.md
+*** THIS ROUND: [more people] POPULATION-DEFAULT, round 1 of the job, SHIPPED. ***
+  HIS COMPLAINT, MEASURED AND TRUE. Dispatch item 5: "IM WALKING THROUGH THE CITY I THINK
+I SAW ONE WATCH PERSON ON ACCIDENT ... THE CITY SEEMS DEAD ASF AND I DONT LIKE THIS BEING
+THE DEFAULT." On the running demo, standing where he wakes, bodies actually blitted, every
+hour from 05:00 to 23:00: ONE. All day. Not a figure of speech.
+  THE FIRST PROBE WAS INVALID AND IT MATTERS WHY. Loading the city file on its own gave
+drawn=undefined at every hour. That is not an empty game: peoplePass() opens with
+"if (!PLAYER_CV) return 0", and PLAYER_CV only exists once the PARENT frame posts the baked
+rig in, so standalone the city can NEVER draw a body. The probe was measuring itself.
+VERIFY ON THE REAL SURFACE is not about which file you open, it is about which of the two
+of you is producing the number.
+  WHAT WAS ACTUALLY WRONG, AND IT IS NOT THE COUNT. At the cell he wakes on: 20 people live
+in that neighbourhood, the NEAREST IS 64 CELLS AWAY (seven screens), the screen is 9x18
+cells -- and the overmap cell he is standing on carries 4,188 doorway cells, 1,118 of them
+with somewhere to stand, with the NEAREST FRONT DOOR FOURTEEN CELLS AWAY. The suburb is
+full of houses and the game seated its residents on open ground with no relation to any of
+them. surveyNeighbourhood() has counted which of the sixteen overmap cells are residential
+since the day it was written; homesIn() threw the answer away and scattered people over all
+sixteen -- the suburb AND the freeway, arterial and rail beside it. Measured headless:
+NINETEEN OF TWENTY loner residents were living off residential ground.
+  WHAT SHIPPED, TWO RULES, NEITHER OF THEM A NUMBER. (1) People live on the ground the
+survey already calls residential, cluster centres included. (2) AN ADDRESS IS A FRONT DOOR:
+homesIn takes an optional prefer() callback, the same contract as pick() and for the same
+stated reason -- the module refuses to guess what a surface's ground means, so it offers a
+candidate and the surface answers "is there a doorway beside this cell". A second pass
+drops the question, so a district whose art has no doors seats EXACTLY as many people as
+before. Home is the DOORSTEP, never the doorway; standing in a threshold stays refused.
+  MEASURED AFTER, nine neighbourhoods around him: on residential ground half -> 61 of 61,
+at a front door 7 of 61 -> 44 of 61, nearest resident 64 cells -> 33.
+  *** THE DIAL WAS NOT TOUCHED. *** The module carries a standing 8/28 warning that the
+next session must not turn that knob and call the job done. It was not turned. want is
+untouched, the census still reports the ruled 297, the default is still LANDMARK.story. A3
+is the leg that holds that line.
+  *** THE FINDING, AND IT IS BIGGER THAN THE JOB. *** The dial's own comment prices dial 20
+at "GDD v5's ~69,000", read off a sweep of agentsForPlot. Summing this module's own dialled
+heads -- which is exactly what homesIn then seats -- gives 5,940 on the surface he walks,
+while census() reports 297 because it never applies the dial. THREE ANSWERS FOR ONE FACT,
+the same bug records/BOHEMIA_HOW_MANY_PEOPLE_CONTRADICTION_8_1_26.md was opened about, in a
+new costume. Two population models differ by ~14x and one dial rides both, so a default
+chosen by measuring one arrived wrong on the other. Said plainly: DIAL_MAX 32 IS 9,504
+PEOPLE ON THE SURFACE HE WALKS, AGAINST A DESIGN DOCUMENT THAT SAYS 69,000. The top of his
+slider cannot reach his own GDD.
+  [PENDING Paolo] WHICH NUMBER THE VALLEY IS -- the GDD's ~69,000 or the zone map's ruled
+297 x the dial. Nothing here picked one. FOR THE COORDINATOR TO CARRY.
+  WHAT THIS DOES NOT FIX, SAID OUT LOUD. A 300-step walk east from where he wakes still
+meets NOBODY: 100 frames looked at, 0 with anybody on screen. The arithmetic, so the next
+round starts from it instead of from hope: 60 people across the nine neighbourhoods around
+him is 2.36 square km; a 300 m walk with a 9 m viewport sweeps 2,700 square m, 0.11% of it;
+TO MEET ONE PERSON YOU NEED ABOUT 900 PEOPLE IN THAT AREA, NOT 60. No placement rule inside
+a neighbourhood closes a gap of fifteen times.
+  SO THE NEXT ROUND OF THIS SAME JOB IS ALREADY NAMED: NOBODY EVER LEAVES THE DOORSTEP.
+out=0 at every hour of the day -- a resident's out-spot is the first free cell beside their
+own front door, so there is no gathering anywhere in the valley. A thin population reads
+alive by CONVERGING (five people at one standpipe, not one per block) and this world
+already has the things to converge on: the live circuits, the farm and water ground DRAW
+already names, and the module's own favSpot.
+  GATE: gates/where_people_live_gate.js, 15/0, walked surface AND cut demo, registered.
+Mutation-tested three ways: scatter over the whole square again (A2 red at 1/20 and 3/20,
+B1 and C1 red at 54/61), stop asking for a doorstep (B2 red, 44 of 61 falls to 7), answer
+the doorstep question with a flat yes (B4 red at 1,849 yes / 0 no).
+  AND A FILE THAT WAS NOT MINE. The first cut of this gate was written to
+gates/address_gate.js, which is the PEOPLE lane's gate from 8/26, and the write silently
+replaced it. Caught by git diff --stat before any commit, restored from HEAD, and this one
+moved to a name nothing owned. ONE SYSTEM ONE SESSION APPLIES TO THE RULER AS MUCH AS THE
+TARGET, and a new file is only new if you looked.
+  RECORD: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md
   STILL RED ON MAIN AND STILL NOT MINE: bohemia_sync_gate BOH_POWERGRID, 2 bodies across 6
 carriers -- canon and the walked city agree, the graphics-engine masters and
-BOHEMIA_RUN_CURRENT.html carry an older body. RUN's carriers, their 21 MB generated slice,
-ONE SYSTEM ONE SESSION. FOR THE COORDINATOR TO ROUTE TO RUN.
-  THE STANDING NOTE: A TEST THAT PASSES BECAUSE THE WORLD HAPPENED TO ALREADY BE IN THE
-RIGHT STATE IS NOT A TEST. Set the state you claim to restore, and prove you set it to
-something that had to change. The mutation is the only thing that tells you which kind of
-green you have.
-  NEXT OPEN LINE IN THIS LANE: [more people] POPULATION-DEFAULT.
+BOHEMIA_RUN_CURRENT.html carry an older body. RUN's carriers, ONE SYSTEM ONE SESSION. FOR
+THE COORDINATOR TO ROUTE TO RUN.
+  THE STANDING NOTE: A NUMBER CHOSEN BY MEASURING ONE PATH IS NOT A SETTING, IT IS AN
+ASSUMPTION ABOUT THE OTHER PATH. The dial was moved to 20 in good faith off a real
+measurement of a real model. It just was not the model that draws the street he walks down.
+  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues next round.
 
 
 

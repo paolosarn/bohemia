@@ -199,7 +199,29 @@
   // chunk metadata) and this module refuses to guess — it offers candidates and
   // the surface accepts them. That is what keeps one census honest across two
   // renderers.
-  function homesIn(om, POWER, nx, ny, seed, FN, pick, cap) {
+  /* __AN_ADDRESS_IS_A_FRONT_DOOR__ (9/6) -- WHICH SIXTEENTHS OF THIS SQUARE HAVE
+     HOUSES ON THEM. surveyNeighbourhood has counted this since the day it was
+     written and homesIn threw the answer away, scattering residents evenly over
+     all sixteen overmap cells: the suburb, and also the freeway, the arterial and
+     the rail yard beside it. MEASURED on the real demo at the cell he wakes on
+     (neighbourhood 12,12): six of its sixteen cells are suburb and the other ten
+     are arterial and freeway, and NINE OF THE TWENTY RESIDENTS were living on
+     road cells. Restricting the scatter to the ground the survey already calls
+     residential is not a tuning number, it is the file agreeing with itself.
+     The COUNT does not move -- `want` is untouched, so the census, the dial and
+     every gate that adds people up get the same answer. Only WHERE moves, which
+     is the thing records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md said
+     was all that was left. */
+  function residentialTiles(om, nx, ny) {
+    var t = [];
+    for (var y = 0; y < NB; y++) for (var x = 0; x < NB; x++) {
+      var c = om && om.at ? om.at(nx * NB + x, ny * NB + y) : null;
+      if (c && RESIDENTIAL[c.district]) t.push([x, y]);
+    }
+    return t;
+  }
+
+  function homesIn(om, POWER, nx, ny, seed, FN, pick, cap, prefer) {
     var out = [];
     /* THE DIAL APPLIES HERE TOO, and for fifteen days it did not. See dialHeads
        below: this is the path the CITY SURFACE walks, and it was raw. */
@@ -207,6 +229,12 @@
     if (!want) return out;
     if (cap && want > cap) want = cap;
     var x0 = nx * NB * FN, y0 = ny * NB * FN, span = NB * FN;
+    /* If the survey finds no residential ground the zone would have been null and
+       want would be zero, so this list is never empty in practice -- but a caller
+       may hand in an overmap that answers differently, and an empty list must fall
+       back to the old whole-square scatter rather than seat nobody. */
+    var resT = residentialTiles(om, nx, ny);
+    var onRes = resT.length > 0;
     // A CLUSTER HAS TO BE TIGHT OR IT IS NOT A CLUSTER. Measured on the real
     // surface first: scattering 13 people evenly over a 128x128 subdivision put
     // exactly ONE of them on screen at walk zoom, which reads as a lonely
@@ -227,26 +255,54 @@
     // still never see all 13, and you should not: you hear a settlement before
     // you see it, and you meet it a few people at a time.
     var cRad = 8;                                    // fine cells, ~one street
-    var cx0 = x0 + cRad + (h2(nx, ny, (seed | 0) + 31337) % Math.max(1, span - 2 * cRad));
-    var cy0 = y0 + cRad + (h2(ny, nx, (seed | 0) + 31337) % Math.max(1, span - 2 * cRad));
+    /* AND THE SETTLEMENT SITS ON THE HOUSES, not in the middle of the freeway
+       interchange next door. Same restriction as the scatter below, applied to
+       the one centre a cluster gets. */
+    var cTile = onRes ? resT[h2(nx, ny, (seed | 0) + 2654435761) % resT.length] : null;
+    var cSpan = cTile ? FN : span;
+    var cbx = cTile ? (x0 + cTile[0] * FN) : x0;
+    var cby = cTile ? (y0 + cTile[1] * FN) : y0;
+    var cx0 = cbx + cRad + (h2(nx, ny, (seed | 0) + 31337) % Math.max(1, cSpan - 2 * cRad));
+    var cy0 = cby + cRad + (h2(ny, nx, (seed | 0) + 31337) % Math.max(1, cSpan - 2 * cRad));
     // Walk a deterministic scatter; take the first `want` cells the surface
     // accepts. Bounded so a surface that rejects everything cannot hang.
-    for (var i = 0, tries = 0; out.length < want && tries < span * 8; i++, tries++) {
-      var r = h2(nx * 8191 + i, ny * 131 + i, seed);
-      var fx, fy;
-      if (tight) {
-        fx = cx0 - cRad + (r % (cRad * 2));
-        fy = cy0 - cRad + ((r >>> 12) % (cRad * 2));
-      } else {
-        fx = x0 + (r % span); fy = y0 + ((r >>> 12) % span);
+    /* TWO PASSES, AND THE FIRST ONE ASKS FOR A DOORSTEP. `prefer` is the same
+       shape of contract as `pick` and for the same stated reason: this module
+       refuses to guess what a surface's ground means, so it offers candidates and
+       the surface answers. The city answers "is there a front door beside this
+       cell"; a surface that has no doors passes nothing and gets the old
+       behaviour exactly. MEASURED on the demo, the overmap cell he wakes on: 4,188
+       doorway cells, 1,118 of them with somewhere to stand, NEAREST ONE FOURTEEN
+       CELLS AWAY -- while the nearest resident was sixty-four cells away on open
+       ground. The houses were always there. Nobody was ever put in one.
+       PASS 1 EXISTS SO THIS CAN NEVER SEAT FEWER PEOPLE THAN BEFORE. If a
+       neighbourhood has no doorsteps the second pass fills the same `want` off
+       the plain `pick`, so the count is identical either way. */
+    var passes = prefer ? 2 : 1;
+    for (var pass = 0; pass < passes && out.length < want; pass++) {
+      var needDoor = !!prefer && pass === 0;
+      for (var i = 0, tries = 0; out.length < want && tries < span * 8; i++, tries++) {
+        var r = h2(nx * 8191 + i, ny * 131 + i, (seed | 0) + pass * 7919);
+        var fx, fy;
+        if (tight) {
+          fx = cx0 - cRad + (r % (cRad * 2));
+          fy = cy0 - cRad + ((r >>> 12) % (cRad * 2));
+        } else if (onRes) {
+          var t = resT[(r >>> 24) % resT.length];
+          fx = x0 + t[0] * FN + (r % FN);
+          fy = y0 + t[1] * FN + ((r >>> 12) % FN);
+        } else {
+          fx = x0 + (r % span); fy = y0 + ((r >>> 12) % span);
+        }
+        if (pick && !pick(fx, fy)) continue;
+        if (needDoor && !prefer(fx, fy)) continue;
+        var dup = false;
+        for (var k = 0; k < out.length; k++) if (out[k][0] === fx && out[k][1] === fy) { dup = true; break; }
+        if (dup) continue;
+        out.push([fx, fy, r]);
+        /* __POP_HOUSEHOLDS__ -- and the rest of their household, beside them */
+        seatHouseholds(out[out.length - 1], want, out, nx, ny, seed, pick);
       }
-      if (pick && !pick(fx, fy)) continue;
-      var dup = false;
-      for (var k = 0; k < out.length; k++) if (out[k][0] === fx && out[k][1] === fy) { dup = true; break; }
-      if (dup) continue;
-      out.push([fx, fy, r]);
-      /* __POP_HOUSEHOLDS__ -- and the rest of their household, beside them */
-      seatHouseholds(out[out.length - 1], want, out, nx, ny, seed, pick);
     }
     return out;
   }
@@ -836,8 +892,8 @@
   // ---- READING PEOPLE ------------------------------------------------------
   // The ONLY way anything gets a person. Derivation then overrides, always in
   // that order, so a surface can never see an unedited body.
-  function peopleIn(om, POWER, nx, ny, seed, FN, pick, cap) {
-    var homes = homesIn(om, POWER, nx, ny, seed, FN, pick, cap);
+  function peopleIn(om, POWER, nx, ny, seed, FN, pick, cap, prefer) {
+    var homes = homesIn(om, POWER, nx, ny, seed, FN, pick, cap, prefer);
     if (!homes.length) return [];
     var zone = zoneAt(om, POWER, nx * NB, ny * NB, seed);
     var out = [];
@@ -994,6 +1050,30 @@
      not a count, it is WHERE: this module already sorts people into cluster /
      spread / loner and the demo walks a SPREAD suburb.
      records/BOHEMIA_THE_SLIDER_WAS_NEVER_THE_ANSWER_8_28_26.md */
+  /* *** AND THE PARAGRAPH ABOVE PRICES THIS DIAL OFF A PATH THE WALKED CITY DOES
+     NOT USE. MEASURED 9/6 on the running demo, canon seed, dial 20, by summing
+     this module's own dialled headsAt() over every residential neighbourhood --
+     which is exactly what homesIn() then seats:
+
+         what the note above says dial 20 buys   ~69,000   (agentsForPlot sweep)
+         what the WALKED CITY actually seats       5,940   (headsAt x dialAt)
+         what census() reports                       297   (it never applies the dial)
+
+     Three answers for one fact again, which is the bug
+     records/BOHEMIA_HOW_MANY_PEOPLE_CONTRADICTION_8_1_26.md was opened about. The
+     zone map's 297 is HIS 7/29 ruling and is not in question; the dial is an
+     honest 20x on top of it. What is wrong is the JUSTIFICATION: the default was
+     set to LANDMARK.story because story was read as "GDD v5's ~69,000", and on
+     the surface he walks LANDMARK.story is 5,940 people. Two population models
+     (this zone map and agents.js's plot model) differ by about fourteen times and
+     the dial rides both, so a number chosen by measuring one arrives wrong on the
+     other.
+     WHAT THAT MEANS FOR THE SLIDER, said plainly rather than left to be
+     rediscovered: DIAL_MAX 32 is 9,504 people ON THE WALKED SURFACE, against a
+     design document that says 69,000. The top of his handle cannot reach his own
+     GDD. Which of the two numbers is the valley is HIS, and it is carried as
+     [PENDING Paolo]; nothing here quietly picks one.
+     records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
   // ==========================================================================
   // PER-DISTRICT DIALS — the plumbing for REPAIRING A DISTRICT
   // (Paolo 8/1: "when you fully repair a district, kind of like Stardew Valley -
@@ -1110,6 +1190,7 @@
 
   var API = { RESIDENTIAL: RESIDENTIAL, DRAW: DRAW, SHARE: SHARE, HEADS: HEADS, NB: NB,
               zoneAt: zoneAt, headsAt: headsAt, homesIn: homesIn, census: census,
+              residentialTiles: residentialTiles,   /* __AN_ADDRESS_IS_A_FRONT_DOOR__ */
               occupiedRateFor: occupiedRateFor, HOUSEHOLD_MEAN: HOUSEHOLD_MEAN, weightOf: weightOf,
               dial: dial, setDial: setDial, applyDial: applyDial,
               cellDial: cellDial, setCellDial: setCellDial, clearCellDials: clearCellDials,
