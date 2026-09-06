@@ -13611,7 +13611,18 @@ player's role must CHANGE rather than end when automation arrives, and away-earn
 be capped. So I amended WORLD [batteries mined] in place: WORK COMES FIRST, buildings
 second, and away-earnings capped; his ruling stands as given, this is only which one a
 player meets first. Routed WORLD [a days work] (top), RUN [a shift], PEOPLE [somebody
-hires you].
+hires you]. THEN (ci) HE ASKED MY OPINION AND A PERCENTAGE: told him about 15%, from
+systems ~40% built, what a player can do and feel ~10%, story ~5%, looks and speed ~5%,
+and that the five-minute loop (work, pay, walk, fight, return) is what moves it. THEN (cj)
+VAMILY: 2 commits (WORDS Q3 school: the first repeat is a feature; the bark index has no
+memory). SWING: THE BEAT ON A PHONE (records/BOHEMIA_COORDINATOR_RESEARCH_THE_BEAT_ON_A_
+PHONE_9_6_26.md) -- combat is a timing judgement at 120 BPM and NOTHING in ~500 gates
+measures touch-to-sound latency on iOS Safari; known figures are three quarters of a second
+on the audio tag and ~1,500 ms on Web Audio after a backgrounded tab wakes. If the beat he
+hears is late, the first fight teaches the wrong beat. Routed PLUMBER [beat latency],
+SOUNDS [scheduled beat], EYES E14 [late beat]. OWN CALL: DIRECTION at six claimed and one
+open is structural -- every cook waits on a human -- so EYES E15 [machine judges] builds
+the pre-pass and DIRECTION rules only on what a machine cannot. Topped up ECONOMY, DYNASTY.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
