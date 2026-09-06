@@ -43482,15 +43482,28 @@ function showReckoning(){
      "you leaned on somebody x4" and "and you could not pay it x2" are two honest
      lines instead of one averaged lie. Order is first-happened-first, because the
      card is a record of the day and a day has an order. */
-  var _sk=[], _sg={};
-  for(var si=0;si<SPENT_TODAY.length;si++){ var sp=SPENT_TODAY[si];
-    var gk=sp.verb+'|'+(sp.paid?'1':'0');
-    if(!_sg[gk]){ _sg[gk]={about:sp.about,paid:sp.paid,n:0}; _sk.push(gk); }
-    _sg[gk].n++; }
-  for(var sj=0;sj<_sk.length;sj++){ var g=_sg[_sk[sj]];
-    h+='<li'+(g.paid?'':' style="color:#c98a5a"')+'>'+esc(g.about)
-      +(g.paid?'' : ' \u2014 and you could not pay it')
-      +(g.n>1?' \u00d7'+g.n:'')+'</li>'; }
+  /* __THE_SHADOW_OF_WHAT_YOU_DID__ (9/6) -- WHAT WAS PAID COMES OFF THE LEDGER.
+     This read SPENT_TODAY, which only upkeepPost writes, so the card listed
+     the four things that happen TO you and said nothing about the two things
+     you DID -- everything bought at a market and everything you put up. Same
+     grouping, same order, same voice; the SOURCE is the ledger now, so every
+     drain shows whoever wrote it, and a fourth writer tomorrow shows up for
+     free. */
+  var _drains=[];
+  try{ _drains = ctDrainsToday(purseGet(), DAY.day) || []; }catch(_e){}
+  for(var sj=0;sj<_drains.length;sj++){ var g=_drains[sj];
+    h+='<li>'+esc(g.about)+(g.n>1?' \u00d7'+g.n:'')+'</li>'; }
+  /* AND WHAT YOU COULD NOT PAY, WHICH ONLY THE SIDE TABLE SAW.
+     MEASURED, not assumed: bohemia_purse's _post says "the refusal is part of
+     the record" and then RETURNS BEFORE PUSHING AN ENTRY -- proved in Node, a
+     refused debit leaves zero entries. So the ledger structurally CANNOT report
+     a shortfall and SPENT_TODAY is the only witness. They cannot double-count:
+     a refused drain has no ledger twin. (The comment and the code disagreeing
+     is another lane's module and is reported, not touched.) */
+  for(var su=0;su<SPENT_TODAY.length;su++){ var sp=SPENT_TODAY[su];
+    if(sp.paid) continue;
+    h+='<li style="color:#c98a5a">'+esc(sp.about)
+      +' \u2014 and you could not pay it</li>'; }
   /* __THE_NIGHT_EATS_POWER__ -- AND THE BLOCK THAT WENT OUT GETS SAID OUT LOUD.
      A light going off is the loudest consequence in this game and the only one the
      player can walk into tomorrow, so it does not get discovered by accident. The
@@ -44320,6 +44333,54 @@ var PURSEV=null, PAID_TODAY=null, PAY_REFUSED=null;
    free, and the only thing that cost anything was shopping.
    The four verbs are FROZEN in engine/bohemia_purse.js the way the three currencies
    are, and this is only the wiring: what happened today, in the order it happened. */
+/* ==== __THE_SHADOW_OF_WHAT_YOU_DID__ (9/6) : WHAT TODAY ACTUALLY TOOK ==============
+   BB-THE-SHADOW-OF-WHAT-YOU-DID, and its clause in capitals: read straight off
+   the ledger's drain reasons, NEVER A SECOND TABLE.
+
+   SPENT_TODAY is a second table. It is written by upkeepPost alone, and the
+   ledger has three drain writers -- the four upkeep verbs, buy: at a market, and
+   build: when you put something up. So the card named the four things that
+   happen TO you and was silent about the two things you DID. Reading the entries
+   fixes all of it at once and a fourth writer tomorrow shows up for free.
+
+   GROUPED BY REASON, because one line per post is a wall: you buy four things
+   and hold six lit circuits. EVERYTHING COSTS ONE, so the count IS the amount,
+   and the amount is summed off the entries rather than assumed.
+   ========================================================================== */
+function ctDrainsToday(p, day){
+  var out = [], key = {};
+  if(!p || !p.entries) return out;
+  var verbs = (typeof BohemiaPurse!=='undefined' && BohemiaPurse.VERBS) || {};
+  for(var i=0;i<p.entries.length;i++){
+    var e = p.entries[i];
+    if(!e || e.kind !== 'drain') continue;
+    if((e.day|0) !== (day|0)) continue;
+    var r = String(e.reason||'');
+    if(!key[r]){
+      key[r] = { reason:r, currency:e.currency, amount:0, n:0,
+                 about:(verbs[r] && verbs[r].about) || ctDrainWords(r) };
+      out.push(key[r]);
+    }
+    key[r].amount += Math.abs(e.amount||0);
+    key[r].n++;
+  }
+  return out;
+}
+
+/* WHAT TO CALL A DRAIN THE VERB TABLE DOES NOT NAME. The four upkeep verbs carry
+   their own sentence and those are used verbatim. buy: and build: do not, so
+   these are attempts in the same voice -- what you did, not what it cost.
+   draft:true, his to overwrite. */
+function ctDrainWords(reason){
+  var s = String(reason||'');
+  var i = s.indexOf(':');
+  var head = i<0 ? s : s.slice(0,i);
+  var what = i<0 ? '' : s.slice(i+1).replace(/[_-]+/g,' ');
+  if(head === 'buy')   return what ? ('you bought ' + what) : 'you bought something';
+  if(head === 'build') return what ? ('you put up a ' + what) : 'you put something up';
+  return what ? (head + ' ' + what) : s;
+}
+
 var SPENT_TODAY=[];
 function upkeepPost(verb,ref){
   var p=purseGet(); if(!p) return null;

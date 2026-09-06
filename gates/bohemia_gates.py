@@ -995,6 +995,19 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('DRAINS SHOWN',   ['node', 'gates/shadow_of_what_you_did_gate.js'],
+     'BB-THE-SHADOW-OF-WHAT-YOU-DID: the reckoning card names which verb took what, READ '
+     'STRAIGHT OFF THE LEDGER\'S drain REASONS, NEVER A SECOND TABLE. Half was already built '
+     '(WORLD\'s living-costs verb lines, kept) and the clause in capitals was the missing '
+     'half: SPENT_TODAY is a second table written by upkeepPost alone, and the ledger has '
+     'THREE drain writers -- the four upkeep verbs, buy: at a market, and build: when you put '
+     'something up. So the card named the four things that happen TO you and said nothing '
+     'about the two things you DID. It reads purse.entries now, so every drain shows whoever '
+     'wrote it and a fourth writer appears for free. AND ONE THING MEASURED RATHER THAN '
+     'ASSUMED: bohemia_purse\'s _post says "the refusal is part of the record" and RETURNS '
+     'BEFORE PUSHING AN ENTRY -- proved in Node -- so the shortfall lines are the one thing '
+     'that still comes from the side table, and they cannot double-count. Mutation: point the '
+     'paid lines back at the side table -> 3 red; drop the day filter -> 1 red', True),
     ('WHAT YOU OWE',   ['node', 'gates/what_you_owe_gate.js'],
      'BB-WHAT-YOU-OWE, called by the study "the smallest row in seven days and the best '
      'effort-to-effect one on the whole board -- one line on a card he is already reading". '

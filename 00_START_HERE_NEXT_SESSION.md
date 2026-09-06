@@ -5801,7 +5801,62 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/5 LATEST -- *** [debts named] SHIPPED. The reckoning card
+RUN (run-eak241): 9/6 LATEST -- *** [drains shown] SHIPPED. The end-of-day card
+told you about the four things that happen TO you and said NOTHING about the two
+things you DID: everything you bought and everything you put up. It reads the
+ledger now instead of a side list, so every drain shows whoever wrote it.
+TAB: RUN, play a day and sleep. Nothing to judge. ***
+
+HALF OF THIS ROW WAS ALREADY BUILT AND I FOUND IT BEFORE BUILDING ANYTHING --
+second round running that checking main first saved a duplicate. WORLD's [living
+costs] shipped the verb lines, grouped and in each verb's own words. KEPT, not
+replaced.
+
+*** WHAT WAS MISSING IS THE ROW'S CLAUSE IN CAPITALS: read straight off the
+ledger's drain reasons, NEVER A SECOND TABLE. *** SPENT_TODAY IS a second table.
+It is written by upkeepPost alone, and the ledger has THREE drain writers:
+      upkeepPost(day:ate | night:power | fight:plate | ask:leaned)   ON THE CARD
+      debit(..., 'buy:'   + goodId)   everything you BUY at a market   SILENT
+      debit(..., 'build:' + type)     everything you PUT UP            SILENT
+Reading purse.entries fixes all of it at once, and a fourth writer tomorrow shows
+up FOR FREE -- asserted, not hoped for: the gate posts a reason nothing in the
+game writes yet (mend:boots) and requires it on the card.
+
+*** AND ONE THING MEASURED RATHER THAN ASSUMED, WORTH KNOWING BEYOND THIS LANE.
+bohemia_purse's _post carries the comment "YOU CANNOT SPEND WHAT YOU DO NOT HAVE,
+and the refusal is part of the record" -- AND THE CODE RETURNS BEFORE PUSHING AN
+ENTRY. Proved in Node: a refused debit leaves ZERO entries. The comment and the
+code disagree. It is another lane's module so it is REPORTED, not touched. *** It
+is also the whole shape of the fix: paid drains come off the ledger where all
+three writers are, and "and you could not pay it" can only come from SPENT_TODAY,
+the one thing that ever saw a refusal. They cannot double-count because a refused
+drain has no ledger twin, and the gate asserts that rather than assuming it.
+
+THE CARD NOW: "you bought rice x2 / you put up a solar rack / every lit circuit
+you hold burned one". The four upkeep verbs still speak in THEIR OWN words, taken
+verbatim from the frozen VERBS table; buy: and build: had no sentence so those
+are attempts in the same voice, draft:true.
+
+AND THE ANCHOR THAT WOULD NOT MATCH, TWICE: the patch tool's render anchor was
+hand-typed with a literal em dash and multiply sign, and the file writes them as
+escapes, so it matched ZERO times -- twice, because the first fix escaped the
+backslash one level too deep inside a raw string. It is BUILT from the file's own
+escapes now. An assert that fires is the tool working; a tool that had quietly
+replaced nothing would have shipped a card still reading the side table with
+every gate green about it.
+
+  DRAINS SHOWN 17/0 (new) - WHAT YOU OWE 17/0 - FOUR VERBS 32/0 - PURSE green
+  - WHOLE DEMO 23/0
+  WORLD's own FOUR VERBS gate (the reckoning names the verb, never a category)
+  still passes on this change, which was the thing to check before touching
+  their lines.
+  MUTATION: point the paid lines back at the side table -> 3 red; drop the day
+  filter -> 1 red.
+No new mechanic, no new cost, no new number.
+Record: records/BOHEMIA_THE_SHADOW_OF_WHAT_YOU_DID_9_6_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [debts named] SHIPPED. The reckoning card
 names WHO YOU LET DOWN now, and who is expecting you tomorrow. The one daily cost
 in this game is not food or rent, it is PEOPLE YOU SAID YOU WOULD SHOW UP FOR --
 and the game has been charging it silently. TAB: RUN, play a day and sleep.
