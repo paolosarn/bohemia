@@ -16786,7 +16786,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [judge the old] round 1 of ~3 -- the oldest 60
+ROUND LOG 9/6 (latest): [judge the old] round 2 -- JUDGING COMPLETE, 172 of
+172 pre-card non-register garments judged (retint 119, accent 53, kill 0;
+the hot pieces are faction uniform stock - COBALT/SIGNAL RED/TEAL/PINSTRIPE
+- the accent inventory pre-built). Dockets for COOK: BATCH_1 and BATCH_2
+JSONs in records/, per-garment spec (keep hue and value, clamp cloth mid
+sat 0.22-0.25). [PENDING coordinator routing]: COOK's retint execution
+rows. The line stays CLAIMED until the ratchet reads 100% - that is
+execution, not judgment, and it is COOK's half of the seam. PREVIOUS: [judge the old] round 1 of ~3 -- the oldest 60
 non-register garments judged: RETINT x48 (shapes sound, tint one notch hot;
 keep hue and value, clamp cloth mid sat to 0.22-0.25 - the card's own
 maintenance clause; per-garment spec in records/BOHEMIA_VERDICT_THE_OLD_
