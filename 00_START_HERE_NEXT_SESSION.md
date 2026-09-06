@@ -131,8 +131,8 @@ backstage], Q7 [water supply], Q8 [battery value],
 Q9 [trust credit], Q10 [market day],
 Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
 Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
-Q19 [price moves].
-Next OPEN is Q20 [work feels], the LAST row in this section.
+Q19 [price moves], Q20 [work feels].
+Next OPEN is Q21 [five minute money], added by the coordinator this round.
 
 AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
 (Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
@@ -166,111 +166,117 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 19 REPORT: [price moves] SHIPPED ===
-*** THE WORLD STOPS TALKING ON DAY SIXTY-SEVEN. MODE: RESEARCH, nothing
+=== ROUND 20 REPORT: [work feels] SHIPPED ===
+*** EVERYBODY IN THE VALLEY HAS A JOB EXCEPT THE PLAYER. MODE: RESEARCH, nothing
 implemented. NOT IN A TAB YET. Nothing to judge. ***
 
-Record: records/BOHEMIA_ECONOMY_DAY_19_THE_WORLD_STOPS_TALKING_ON_DAY_SIXTY_SEVEN_9_6_26.md
-Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections QQQQ-UUUU (14 lines, 271 total)
-Board:  Q19 SHIPPED. Q1-Q19 shipped; next OPEN is Q20 [work feels], and it is the
-        last row in this section.
+Record: records/BOHEMIA_ECONOMY_DAY_20_EVERYBODY_HAS_A_JOB_EXCEPT_THE_PLAYER_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections VVVV-ZZZZ (13 lines, 284 total)
+Board:  Q20 SHIPPED. Q1-Q20 shipped; next OPEN is Q21 [five minute money], added by
+        the coordinator since last round.
 
-Round 11 already settled that our price cannot move (his 8/15 ONE beats the sim,
-correctly) and round 18 that what moves instead is whether it is sold at all.
-Neither reopened. This answers the part they left: the RULE.
+THE ROW ASKS WHAT OUR FOUR VERBS ARE MISSING. THEY ARE NOT MISSING A FEATURE.
+  day:ate / fight:plate / night:power / ask:leaned. ALL FOUR ARE THINGS THAT HAPPEN
+  TO YOU. Two fire at nightfall, one at the bell, and ONLY ask:leaned has a verb in
+  it a player performs. THE FOUR VERBS ARE THE BILL, NOT THE JOB. The law is right
+  and it is a law about what a day COSTS.
+  THE WHOLE ECONOMIC ACTION VOCABULARY OF THE PLAYER: finish a quest (+1 battery,
+  27 exist, round 17), place a building (-1, costs no game time, round 13), buy a
+  good (-1 and you get nothing, round 15), ask somebody (-1 clout). THREE OF FOUR
+  ARE SPENDING. ONE IS EARNING. NONE IS WORK.
 
-THE PRICE CANNOT MOVE, SO I WENT LOOKING FOR WHAT DOES. SOMETHING ALREADY DOES AND
-IT IS ALREADY ON HIS SCREEN, IN WORDS: the shop card renders "8.6 days of it left
-in the valley", off the sim's own daysLeft, built into every shelf row.
-  MEASURED DAY BY DAY: the sim computes food at 5.24 -> 10.05 -> 60.00 while the
-  tag stays 1 electricity forever (round 11, correct), AND THE THIRD COLUMN MOVES:
-  8.60 -> 4.50 -> 0.40 -> 0.00.
-  *** AND IT STOPS ON DAY 67. *** Food hits zero on day 11, water on day 53, and
-  after day 67 NO NUMBER ON ANY SHELF IN THE VALLEY EVER CHANGES AGAIN. Measured at
-  four populations (100 / 300 / 600 / 1200): IDENTICAL, because the ledger scales
-  stocks with houses so the ratio is fixed.
-  In a three-generation, hundred-hour game, THE WORLD HAS SIXTY-SEVEN DAYS OF
-  THINGS TO SAY AND THEN GOES QUIET FOREVER. The coordinator ruled the emptying is
-  the PREMISE (9/5, off round 1) and asked for it to be visible; this is the other
-  end of that ruling -- the sentence that expresses it runs dry two months in.
+*** AND THE MEASUREMENT THAT DECIDED THE ROUND: bohemia_agents.js GIVES EVERY
+PERSON IN THE VALLEY A WORKDAY, and has since Paolo's 7/19 correction that "real
+people run on DIFFERENT clocks and live DIFFERENT lives". ***
+  worker  sleep 468m  home 323m  WORK 448m   free 201m
+  scav    sleep 706m  home 363m  SCAV 371m
+  keeper  sleep 692m  home 647m  ERRAND 101m
+  watch   sleep 654m  home 373m  WATCH 413m
+  An NPC's acts: errand, free, home, scav, sleep, watch, work.
+  The player's acts: walk, talk, fight, build, buy, sleep.
+  THERE IS NO PLAYER ACT CALLED WORK, SCAV, ERRAND OR WATCH.
+AND THE DAY LOOP LEFT A HOLE FOR THIS ON PURPOSE: bohemia_dayloop.js carries an
+empty STAKES table saying "what a day costs to live is Paolo's ruling, not mine".
+The day ledger records steps, minutes per district, buildings entered, quest stages
+and the quest's log lines. IT RECORDS WHERE YOU WERE AND WHAT THE QUEST DID. IT HAS
+NO PLACE TO RECORD WHAT YOU DID.
 
-THE REAL AISLE. Clifford Geertz studied exactly this case, a market with no
-published prices and no bookkeeping:
-  "IN THE BAZAAR, INFORMATION IS POOR, SCARCE, MALDISTRIBUTED, INEFFICIENTLY
-  COMMUNICATED, AND INTENSELY VALUED." Haggling is "a means of communicating
-  economic information in an indeterminate pricing situation" -- YOU ARE NOT
-  NEGOTIATING, YOU ARE FINDING OUT.
-  AND CLIENTELIZATION, which is the answer to "how does a price get RE-set":
-  buyers form persistent personal relationships with particular sellers rather
-  than shopping around, because with bad information a limited number of trading
-  partners beats a series of impersonal transactions. THE BAZAAR'S ANSWER TO NOT
-  KNOWING WHAT THINGS ARE WORTH IS A REGULAR GUY.
-  THE NUMBERS OF HAGGLING, remarkably consistent: the final price lands between a
-  THIRD AND TWO THIRDS of the first ask; counteroffers open around 40-50%; THREE TO
-  FIVE EXCHANGES is a good haggle; the gasp of insult is theatre everybody knows;
-  and THE WALK-AWAY IS THE STRONGEST TOOL THERE IS -- set it down, say you'll think
-  about it, and a significant share of the time he calls you back.
+THE REAL AISLE.
+  UNDOING SOMEBODY'S WORK COSTS 36% OF IT AND KILLS THE LOVE OF IT. Ariely's
+  Bionicle experiment, 40 undergraduates, identical declining pay. MEANINGFUL (the
+  models were stored): 11 built on average. SISYPHUS (each taken apart in front of
+  them on handover): 7. And the worse result: IN THE SISYPHUS CONDITION, HOW MUCH
+  SOMEBODY LOVED BUILDING LEGO STOPPED PREDICTING ANYTHING -- serious fans built as
+  few as people who did not enjoy it. It severed enthusiasm from output.
+  WE SHIP THREE SISYPHUS CONDITIONS: round 15 (you pay a battery for food and the
+  food never arrives), round 16 (one missed payment and that block is dark forever),
+  round 19 (the world stops reporting what you did to it on day 67).
+  THE FIVE SATISFACTION DIMENSIONS (Hackman and Oldham) USED AS A CHECKLIST:
+    SKILL VARIETY      FAIL  one earning action exists
+    TASK IDENTITY      PASS  a quest is a whole job with an end. This we have.
+    TASK SIGNIFICANCE  HALF  the deed ledger and feed exist and are free of place
+    AUTONOMY           PASS  he goes where he likes
+    FEEDBACK           FAIL  buying reports nothing (15), the world goes quiet (19)
+  THE TWO WE FAIL ARE VARIETY AND FEEDBACK, exactly the two the real record fixes.
+  AND THE REAL RECORD HAS A WORD: REBUSQUE. "Selling in the street, repairing,
+  cooking, reselling or RESOLVING is not a break between jobs, IT IS THE WORK
+  ITSELF." Not one job with one wage: A DAY MADE OF MANY SMALL SOLVINGS. And what it
+  gives besides money, in the words of somebody who lived it: "WE SURVIVED TOGETHER.
+  THAT'S THE ONLY WAY SURVIVAL WORKS." Community, standing, capability.
 
-GAMES AISLE: the shop literature is almost entirely PRICE AS THE SIGNAL (supply
-low, demand high, number up). Non-price signalling of scarcity is barely discussed
-at all. THAT IS AN ADVANTAGE, NOT A GAP: our locked ONE forces us out of the
-move-the-number answer and into the one the real bazaar actually uses.
+GAMES AISLE: the named failure is the EMPTY LOOP -- grinding for a meaningless
+reward, or repetition with no variation and no escalation. Both halves describe our
+one earning action: every job pays the same battery and there is only the one. The
+sharpest sentence in the literature: engagement is a metric and enjoyment is an
+emotion, and a loop can guarantee the first while never producing the second.
 
-*** THE FINDING THAT PROVES US WRONG. The row asks what makes a price move; I spent
-half the round hunting the trigger. IN A PLACE WITH NO MARKET DATA, HAGGLING IS NOT
-ABOUT THE PRICE. IT IS HOW INFORMATION MOVES. AND WHAT PEOPLE SETTLE ON IS NOT A
-NUMBER, IT IS A SELLER THEY KEEP GOING BACK TO. ***
-Three rounds have now arrived at the same place through different doors:
-  ROUND  9  a debt is a person who remembers, and the punishment is being dealt out
-  ROUND 18  the market's most important product was NEWS, not goods (Markale)
-  ROUND 19  the bazaar's answer to not knowing what things are worth is a regular guy
-THE ECONOMY OF BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO, not of prices,
-which are locked at one and should stay there. And all three found the mechanism
-already half-built and pointed at nothing: whoHears/memory/commitment live (9), the
-feed live and free of place (18), the shelf's talking line live and stopping on day
-67 (19).
+*** THE FINDING THAT PROVES US WRONG. I came in expecting to add a fifth verb. THE
+FOUR VERBS ARE THE BILL. WHAT IS MISSING IS NOT ANOTHER LINE ON THE BILL, IT IS THE
+DAY'S SMALL SOLVINGS -- MANY LITTLE JOBS RATHER THAN ONE BIG ONE -- AND THE PROOF
+THAT EACH ONE LANDED. ***
+And the Sisyphus number is the warning attached: ADDING WORK TO A GAME THAT UNDOES
+THREE THINGS A PLAYER DOES IS WORSE THAN ADDING NOTHING. Fix the three erasures
+first.
 
-THE RULE DELIVERED, IN ONE SENTENCE: THE PRICE IS ALWAYS ONE. WHAT MOVES IS WHAT
-YOU KNOW, AND WHAT YOU KNOW COMES FROM WHO YOU KEEP GOING BACK TO.
-  1 THE SHELF KEEPS TALKING. It needs a second thing to say, not a new sentence:
-    what CHANGED since you were last here. The walked surface already computes it
-    and calls it `tonight` -- "what ran out TONIGHT is the beat, and it is the
-    difference between a thing that happened and a thing that is simply true now" --
-    right instinct, already written, same file, not on the shelf row.
-  2 THE SELLER REMEMBERS YOU, AND THAT IS THE SHOP'S PROGRESSION. Clientelization
-    with no new system: memory already decays slower for the familiar (round 9
-    measured it live) and nothing in the buy path reads it. A regular gets told
-    things; a stranger gets the shelf. It never touches a price.
-  3 THE HAGGLE IS 3 TO 5 BEATS AND IT BUYS ACCESS, NOT MONEY. The whole real
-    structure survives a fixed price except the number, and 3-5 beats is 120 BPM
-    friendly by construction.
-  4 THE WALK-AWAY IS THE PLAYER'S STRONGEST MOVE. Turning to leave is already a
-    thing he does; being called back is one line.
+WHAT THE FOUR VERBS ARE MISSING, DELIVERED:
+  1 A FIFTH CATEGORY, NOT A FIFTH VERB. The frozen four are what a day COSTS and
+    should stay frozen and four. The missing column is what a day EARNED, itemised.
+  2 MANY SMALL SOLVINGS, NOT ONE JOB. Several small doable things a day, each
+    finishable in minutes, each paying one of something DIFFERENT (round 17's
+    ruling). Not a bigger reward: more kinds of small one.
+  3 EVERY SOLVING LEAVES A MARK YOU CAN GO BACK AND LOOK AT. The Bionicles were
+    STORED, not destroyed. The century ledger is already the perfect surface: a
+    per-act record act 2 cannot erase.
+  4 THE WORK IS ALREADY STANDING IN THE STREET. A worker is at a site 448 minutes,
+    a scav sweeps 371, a keeper leaves once. A live schedule, not scenery.
+  5 WHAT IT PAYS BESIDES MONEY IS THE POINT. Community, standing, capability, and
+    Bohemia has organs for all three (commitment, the standing systems, the deed
+    ledger). Rounds 9, 18, 19 and now 20 all land on THE ECONOMY BEING MADE OF
+    PEOPLE YOU KEEP GOING BACK TO; a day's work is how you meet them.
 
-REFUSED: moving the price (8/15 LOCKED, round 11 settled it); a haggle that changes
-the number (the obvious build of 3 and the banned one); a reputation score or trust
-meter (rounds 5 and 9); turning on the sim's prices (he ruled the source 8/11 --
-this round reports what the sim's OTHER output is good for and does not touch the
-valve); a second number on the shop card (round 5 counted fifteen already); any
-implementation.
+REFUSED: a fifth upkeep verb (the four are frozen and the answer is not on that
+list); a grind (the named empty loop, and round 17 measured we already have one);
+a work meter or stamina bar or job screen (anti-spreadsheet, and STAM_MAX=3 is
+his); inventing the jobs (contents are his); filling the STAKES table (the day loop
+says in its own words that it is his ruling); any implementation.
 
-ROUTED: WORLD gets two (the only moving number stops on day 67; the second
-sentence already exists and is called `tonight`). PEOPLE gets the big one (a seller
-should remember you, and that is the shop's progression). QUESTS / BB-ASK-FOR-MORE
-gets the 3-to-5-beat haggle that buys access. One goes to Paolo.
+ROUTED: LIFE+CITY and RUN get the big one -- we ship three Sisyphus conditions and
+they should be fixed BEFORE work is added, not after. WORLD gets two (the player
+has no work act; the day ledger has nowhere to record what he did). PEOPLE gets
+"the work is already standing in the street". Two go to Paolo.
 
 GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
 blockers 22/0, language 81/0.
-FOURTH ROUND RUNNING WHERE A GREEN SUITE AND A REAL FINDING ARE BOTH CORRECT:
-economy_gate is 13/13 over the module whose only visible output stops moving on day
-67 -- it checks conservation, that stock delta equals produced minus consumed, that
-nothing goes negative. Nothing asks how long the thing keeps having something to
-say. Round 18's pattern holds and extends: THESE GATES CHECK THAT A PART DOES WHAT
-IT SAYS; NOTHING CHECKS THAT TWO PARTS AGREE, OR THAT A PART KEEPS DOING IT FOR AS
-LONG AS THE GAME LASTS.
+FIFTH ROUND RUNNING where a green suite and a real finding are both correct:
+purse_gate is 28/28 over the module holding the four verbs, proving the ledger
+balances and every movement declares its kind, and nothing asks whether any of the
+four is something a player DOES. The pattern, now named twice and extended: THESE
+GATES CHECK THAT A PART DOES WHAT IT SAYS. NOTHING CHECKS THAT TWO PARTS AGREE,
+THAT A PART KEEPS WORKING AS LONG AS THE GAME LASTS, OR THAT IT IS THE RIGHT PART
+TO HAVE.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
-  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept here
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept
      because round 19 measured the far end: the shelf line stops moving on day 67.
   2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
   3. Century rule counts buildings. Should it also count who stayed?
@@ -287,17 +293,21 @@ LONG AS THE GAME LASTS.
  11. What does a subscription to a block BUY? Round 18's answer: the right to trade
      at that faction's seat.
  12. What does the player START with? He boots with nothing.
- 13. What does it take to get the lights back on? A PRICE is the trap; work, a walk
-     or a favour are payable by somebody with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap.
  14. What does a FAILED job pay? Today it is an honest NO_RULING.
  15. What will each faction NOT trade? Fourteen answers, one short phrase each.
- 16. (new) After the valley's shelves are empty, WHAT DOES A SHOP SAY? "8.6 days of
-     it left" is his sentence and a good one; on day 68 it has nothing to report.
-     What a seller says when there is nothing left to count is words, and words are
-     his.
+ 16. After the valley's shelves are empty, what does a shop SAY? On day 68 the
+     "days of it left" line has nothing to report.
+ 17. (new) WHAT CAN A PERSON IN THIS VALLEY BE PAID TO DO? Round 17 says every job
+     should say what it pays and no two should pay the same; round 20 says a day
+     should hold several small ones rather than one big one. WHAT THOSE SMALL ONES
+     ARE is the most characterful list left in the economy.
+ 18. (new, and already open in the code) What does a day COST to live? The day
+     loop's STAKES table is empty on purpose and says so in its own words.
 
-NEXT IN THIS LANE: Q20 [work feels], the last OPEN row in this section.
+NEXT IN THIS LANE: Q21 [five minute money].
 
+================================================================================
 ================================================================================
 FACTIONS (factions-ovkjpf): 9/6 (round 10) LATEST -- *** [enemies unite]
 BB-COALITION SHIPPED, this lane's half. WORLD built the coalition and the card;

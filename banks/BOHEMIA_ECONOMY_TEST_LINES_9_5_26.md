@@ -1473,3 +1473,80 @@ TTTT4 a seller who lets one go                        draft:true
   about it, he genuinely wants to know.
 - Spanish register: 1 of 16 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## VVVV. WHAT DID YOU DO TODAY (round 20, the day that has no doing in it)
+## (nobody says the word work. They list.)
+
+VVVV1 somebody answering honestly                     draft:true
+      "Walked. Talked to a guy about a thing that came to nothing. Walked back.
+       That's the whole of it and it's not even dark yet."
+
+VVVV2 somebody with a better answer                   draft:true
+      "Four things. None of them big. Four things that weren't done this
+       morning and are done now."
+
+VVVV3 somebody who cannot answer                      draft:true
+      "Ask me what I did and I've got nothing to say, and I was busy. That's
+       the part that gets me, hermano, I was busy."
+
+## WWWW. THE REBUSQUE (many small solvings, and it IS the work)
+## (nobody calls it a job. Nobody calls it getting by either.)
+
+WWWW1 somebody listing a day                          draft:true
+      "Moved a fridge, fixed a door that wasn't mine, sold two of something I
+       got for free. That's a day. That's a good day."
+
+WWWW2 somebody correcting you                         draft:true
+      "It's not in between. You keep saying in between, like I'm waiting for
+       something. This is it. This is the thing."
+
+WWWW3 somebody who is good at it                      draft:true
+      "I don't look for work. I look at things and I can see which one of them
+       somebody needs solved."
+
+WWWW4 what it gives besides the money                 draft:true
+      "Four people know my name now who didn't in the spring. That's worth
+       more than what I got paid for any of it."
+
+## XXXX. THEY TOOK IT APART WHILE I WATCHED (the Sisyphus condition)
+## (undoing the work costs 36% of it and kills the love of it. Nobody explains
+##  that; they just stop.)
+
+XXXX1 somebody who did the work twice                 draft:true
+      "I built that wall. Then they knocked it and I built it again, and I'll
+       tell you now I built it worse the second time."
+
+XXXX2 somebody who paid and got nothing               draft:true
+      "I paid him. In front of everybody, I paid him, and I walked out with
+       the same empty bag I walked in with."
+
+XXXX3 somebody who has stopped                        draft:true
+      "I used to like doing it. That's the strange bit. I used to actually
+       like it."
+
+## YYYY. THEY ALL HAVE SOMEWHERE TO BE (the valley works and he does not)
+## (the four archetypes, seen from outside. Nobody is envious out loud.)
+
+YYYY1 somebody watching the morning                   draft:true
+      "Six o'clock and they're all going somewhere. Every one of them knows
+       where they're going."
+
+YYYY2 somebody asked what he does                     draft:true
+      "Bit of this. No, I know, everybody says bit of this. I mean it more
+       than they do."
+
+YYYY3 somebody who found a place in it                draft:true
+      "Now I've got a Tuesday. You don't know what that is until you haven't
+       got one."
+
+## ZZZZ. WHAT IS NOT HERE, ON PURPOSE (round 20)
+- No line names a job title, a wage, an hour count or a task list. VVVV2 says four
+  things because a person counts on their fingers.
+- No line has a stamina bar, a work meter or a level. YYYY3 is the whole
+  progression and it is "now I've got a Tuesday".
+- No line invents what a person can be paid to do. WWWW1 moves a fridge and fixes a
+  door because those are things anybody has done, not a list of our verbs.
+- No line explains why undoing work hurts. XXXX3 just says he used to like it.
+- No line names a faction or an employer. MAP LAW, and his.
+- Spanish register: 1 of 16 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.
