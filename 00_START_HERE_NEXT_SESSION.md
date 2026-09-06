@@ -16724,7 +16724,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [density ruling] SHIPPED 182a572 -- the ground floor
+ROUND LOG 9/6 (latest): [judge the old] round 1 of ~3 -- the oldest 60
+non-register garments judged: RETINT x48 (shapes sound, tint one notch hot;
+keep hue and value, clamp cloth mid sat to 0.22-0.25 - the card's own
+maintenance clause; per-garment spec in records/BOHEMIA_VERDICT_THE_OLD_
+WARDROBE_BATCH_1_9_6_26.json for COOK to execute), PASS-AS-ACCENT x12,
+KILL x0 (the honest count - a kill wave over tint would invert
+STRUCTURE-NOT-COLOR). [PENDING coordinator routing]: COOK needs the
+batch-1 retint execution row. Batch 2 (the next ~60) next patrol; the
+job ships when the ratchet reads 100%. PREVIOUS: [density ruling] SHIPPED 182a572 -- the ground floor
 is in the style card (5A + machine block): density >= 4.5 colours/kpx and
 adjacent-step hue >= 3.0 deg, both set AT THE LEANEST ART HE APPROVED. I
 re-measured both sets with EYES' own ruler before ruling: the disease is
