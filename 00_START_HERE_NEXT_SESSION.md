@@ -12152,7 +12152,22 @@ is what the research points at and what our unusually many live systems are read
 stay parked). MY PICK B WITH A'S SPINE AS THE MAIN LINE, but the shape of the game's main
 content is the biggest creative fork left and it is his. ALSO FLAGGED ON THE BOARD: PLUMBER
 holds FIVE claimed jobs at once against the one-at-a-time rule; [fight headroom] is the one
-that matters.
+that matters. THEN (ca) VAMILY: 19 commits and SCHOOL MODE LANDED IMMEDIATELY -- WORDS
+re-ran Q1 as ROUND ONE: SCHOOL ("why three lines cannot carry a fingerprint"), EYES E9's
+standing duty caught a regression on its first day. Also COOK [border marked] (the border
+wears its colour where he walks), UI [crisis warning] (the valley tells you it is running
+out WHILE you play, not only at bedtime), FACTIONS [light owners] (a sentence in his own
+canon had already named the grid's owner: the Network), PLUMBER [fight headroom] round 2,
+RUN [drop in] (all three first-minute nudges are control labels), DIRECTION ruled the fight
+transition look ahead of the build, ECONOMY Q17, DYNASTY Q15. *** I DECIDED QUESTS. He
+answered last round's three-way fork with VAMILY, which means go, and EVERYTHING IS A THUMB
+says decide and let him correct by playing, so re-asking would have rebuilt the verdict
+queue he killed. QUESTS IS UNPARKED, shape B with A's spine: the sixty-boss ladder is the
+main line, everything else is asked for by the systems, no ask introduces a new verb.
+THE GATE-ABLE RULE, from research done against my own pick: generated quests read as filler
+for exactly one reason, that finishing one changes nothing visible, so AN ASK THAT CHANGES
+NOTHING VISIBLE IS NOT AN ASK. Record: records/BOHEMIA_RULING_QUESTS_ARE_UNPARKED_9_6_26.md.
+Routed QUESTS [asks exist] and [spine first], WORLD [visible change]. ***
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

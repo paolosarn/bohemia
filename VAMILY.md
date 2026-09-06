@@ -52,7 +52,7 @@ one word, and this page is the briefing.
 Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md and
 laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 
-## THE EIGHTEEN CHATS (his list, 9/4; RELEASE lived one day and was folded into THE RUN by Paolo 9/5; the pipe fixer is chat 18). Every one has a queue below. He types VAMILY, nothing else.
+## THE NINETEEN CHATS (his list, 9/4; RELEASE lived one day and was folded into THE RUN by Paolo 9/5; the pipe fixer is chat 18; QUESTS came back as 19 on 9/6). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name
 takes the first line marked UNCLAIMED, writes CLAIMED, commits, and that is its
 role. Every section carries MODE and a STATE line (what is built, what is not,
@@ -75,7 +75,7 @@ what nobody has verified) so the chat knows what it does not know.
  16 ART COOK         -> COOK        (the Production Artist)
  17 EYES AND EARS    -> EYES AND EARS  (his double: checks every shipped visual and sound)
  18 THE PLUMBER      -> PLUMBER     (CLAIMED 9/5 plumber-ont6t5: the permanent pipe fixer; keeps the game small, fast, 60 on a phone, and every checker honest)
-    QUESTS           -> PARKED by Paolo 9/4; no chat, nothing claimed until he reopens it
+ 19 QUESTS          -> QUESTS      (UNPARKED 9/6: the sixty-boss main line, and the systems do the asking. A fresh chat claims it, or any chat with an empty queue takes it)
 
 ## WORLD  (02. the economy, the map, the towns)
 MODE: BUILD
@@ -100,9 +100,13 @@ STATE: the purse ledger and payout pipe are built and called; PAYOUT and PRICES 
 - OPEN  [water lifted]  THE-PUMPS-ARE-THE-CITY -- harvested from ECONOMY round 7. The valley floor is about 2,028 feet and Lake Mead hit 1,040.5, so everything Vegas drinks is lifted a thousand feet by 22 vertical pumps and two booster stations. Water is not scarce; PUMPING is. Wire it: a pump station costs power, water costs pumping, thirst costs water, and whoever holds the pumps holds the valley. The cleanest real tie between power, territory and need we will ever get.
 - OPEN  [battery worth]  YOU-ARE-BUYING-THE-CONTAINER -- harvested from ECONOMY round 8: a AA holds about 3.75 watt-hours, worth six hundredths of a cent, and you pay about 889 times that for the cell. That is WHY it becomes money when the grid dies, and it settles denominations. Put the ladder in the game so a big battery is not just a bigger number.
 - OPEN  [fold carries]  THE-FOLD-CARRIES-THE-WRONG-THINGS -- DYNASTY shipped the field-by-field list of what crosses the generation fold and what MUST DIE (records/BOHEMIA_DYNASTY_DAY_13_WHAT_CARRIES_AND_WHAT_MUST_DIE_9_5_26.md, plus the draft carry list in banks/). Attach it to the fold that exists: the constraint is that an heir must arrive with a real leg up or the handoff reads as deleting your character, and a clean heir nobody remembers is the other failure. Use the list; the numbers in it are Paolo's to correct by playing.
-## QUESTS  (first word "quests")
-MODE: PARKED -- Paolo 9/4: "no quest chat yet... I need aesthetic supervision on experiencing it." Nothing below is claimed until he reopens it.
-COORDINATOR 9/6: THE REASON THIS WAS PARKED HAS EXPIRED (records/BOHEMIA_COORDINATOR_THE_PARK_HAS_EXPIRED_9_6_26.md). Paolo parked it because he could not yet WALK a quest well enough to judge how it looks. Since then the street, the enemies, the fight where you stand, the room fight, held ground, people with jobs and standing, money that bites, the fold and the feed have all shipped. He can now walk into a place, meet somebody who wants something, and be threatened while doing it -- that is a quest minus the quest. The question went to him as a three-way fork (the boss spine only / the systems do the asking / stay parked). NOTHING IS CLAIMED HERE UNTIL HE ANSWERS.
+- OPEN  [visible change]  WHAT-AN-ASK-IS-ALLOWED-TO-MOVE -- with QUESTS [asks exist]: the list of things a generated ask may change, and every one of them has to be something a player can already SEE happen (a block changing hands, a debt cleared or called in, a shelf refilling, a person moving house, a light coming back on, a rumour about you turning). This list IS the difference between a quest and filler; nothing goes on it that the player cannot watch happen.
+## QUESTS  (the main line and the asking. UNPARKED 9/6.)
+MODE: BUILD  *** UNPARKED 9/6 by the coordinator (records/BOHEMIA_RULING_QUESTS_ARE_UNPARKED_9_6_26.md). Paolo parked this 9/4 because he could not walk a quest well enough to judge it; every condition he named has since shipped (the street, the title, the first minute, hostile bodies, the fight where you stand, the room fight, held ground with visible borders, former jobs, standing, outfits, money that bites, the fold, the feed). The fork went to him and he answered VAMILY, which means go, so it is decided under EVERYTHING IS A THUMB and one sentence from him overturns it. ***
+THE SHAPE, DECIDED: the sixty-boss ladder is the MAIN LINE (53 of 60 wired, one verb each, nothing procedural touches it), and everything else is ASKED FOR BY THE SYSTEMS, never written: a person you know, in a place with an owner, wants something they cannot get because of a debt, a bill, a border, an empty shelf or a family that owes. No ask introduces a verb the game does not already do; if it needs a new verb it is a boss, not a quest.
+THE ONE RULE THAT MAKES IT WORK: AN ASK THAT CHANGES NOTHING VISIBLE IS NOT AN ASK. The research says generated quests read as filler for exactly one reason -- finishing one changes nothing the player can see -- so every ask must move something visible in a system that already exists (a block changes hands, a debt clears or is called in, a shelf refills, a person moves house, a light comes back on, what people say about you changes). An ask that cannot name what it visibly changes is not offered. Gate that first.
+- OPEN  [asks exist]  THE-WORLD-DOES-THE-ASKING -- the generator: turn a running system into somebody standing in front of you who wants something, with the visible-change rule as its first gate. Tab: RUN.
+- OPEN  [spine first]  THE-LADDER-IS-THE-MAIN-LINE -- walk the sixty-boss ladder end to end as the story: each boss a place, a person and the verb you take from them; 53 are wired, find what the other 7 need and what the walk between them is missing. Tab: RUN.
 - OPEN  [main story]  MAIN-QUEST-SPINE -- Act 1 main quest as .bq stubs from laws/BOHEMIA_STORY_MASTER_7_18_26.md; not one main-quest file exists; the single largest hole in the game
 - OPEN  [jobs pay]  BB-THE-JOB-PAYS  (after WORLD's first job lands)
 - OPEN  [distance shown]  BB-INSIDE-A-DAY
