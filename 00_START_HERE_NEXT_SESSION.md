@@ -1,3 +1,54 @@
+EYES AND EARS (eyes-5vql33): 9/5 (i) LATEST -- *** E8 [first minute] SHIPPED. The lane's ten
+instruments now run in a HUMAN REVIEWER'S ORDER, as one command, and building that runner
+found the worst instrument bug of the day: TWO COUNTERS THAT NOTHING INCREMENTED. They read
+zero forever and zero looks exactly like silence. RULE ZERO NOW LEADS THIS LANE: A ZERO NEEDS
+A POSITIVE CONTROL. *** MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET.
+
+THE ART ORDER, THE FIRST SIXTY SECONDS, from how directors actually review -- the squint and
+thumbnail test FIRST (shrink it: does the thing still read at any size), then VALUE BEFORE
+COLOUR (strip the colour; if it all blurs together, saturation was carrying the picture and
+contrast was doing nothing), then does it fit the glass, then is it the same world, then the
+craft, and only then TASTE which is his:
+  1s  is it there            the gate: a live canvas in any frame
+  5s  the squint             the reference score's read-at-play-size question
+  10s value, not colour      the readability pass over the FINISHED picture
+  15s does it fit the glass  nothing off the edge, no text wider than its box
+  30s is it the same world   detail order, colour density, saturation, value band, grain, light
+  60s the craft              orphans, banding, jaggies, mixels, the key
+  then TASTE                 Paolo. never a machine.
+
+THE SOUND ORDER, THE FIRST TEN SECONDS, from the broadcast QC pass: is there a sound at all
+(with a control), is it too hot (true peak), can he hear it on a phone, is it the thing (a
+person), does it sit in the mix -- and that last one is still NOBODY'S, E5 gap 10. For us
+mono fold-down is not a formality: a phone speaker IS the mono fold-down.
+
+RULE ZERO, AND IT COST THE ROUND TO LEARN IT. Running everything end to end for the first
+time, the sound step again said the game rendered nothing while walking -- and E5's dedicated
+experiment had already proved the opposite. Chasing the disagreement: THE LIVE HARNESS'S
+RENDER COUNTER AND FOOTSTEP COUNTER WERE READ FROM VARIABLES NOTHING INCREMENTED. The wraps
+meant to set them had quietly stopped being in the file. Both are hooked by bare name now,
+and the tool FIRES ONE SOUND BY HAND after every run and checks the counters move; if they do
+not it prints that it is blind instead of reporting silence. With the control: 41 renders and
+40 footstep calls in 20 seconds of walking, all step_dirt. The harness now agrees with the
+dedicated experiment, which is what agreement is supposed to look like.
+AND THE RULE IS NOT THIS LANE'S ALONE: any gate that reports "0 found" with no control might
+be blind, and there are 500-odd of them.
+
+THE ROUND IS A COMMAND NOW: node tools/bohemia_eyes_round.js [--quick] runs the gate, the
+readability pass, the 27-screen picture pass, what moved since last round against each
+screen's own noise floor, the craft tells across the art banks, and the walk with the engine
+proven alive -- in that order -- then prints the taste questions it will not answer.
+
+NEXT IN THIS LANE: E9, the standing duty, which is the last open line here. The runner is what
+makes it a command instead of a promise. The mix meter (E5 gap 10) is the one instrument the
+order names and this lane does not have.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; nine things
+now do. Lanes may only change the status word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E8_THE_FIRST_MINUTE_9_5_26.md (+ E1, E2, E3, E4, E5, E6, E7 and
+the round-one record). Order: banks/eyes/BOHEMIA_EYES_THE_ORDER_9_5_26.json, draft:true.
+Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools: eleven now.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -554,59 +605,6 @@ NEXT IN THIS LANE (top unblocked, in order)
   [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- already decided, just needs the dial
 
 --------------------------------------------------------------------------------
-
-EYES AND EARS (eyes-5vql33): 9/5 (h) LATEST -- *** E5 [missing sound] SHIPPED, AND E4'S
-ALARM IS WITHDRAWN. The footstep chain WORKS end to end (31 walked cells, 31 calls, 32
-renders). But STAND STILL FOR 35 SECONDS WITH THE DAY STARTED AND THE ENGINE RUNNING AND THE
-GAME PLAYS NOTHING: zero effects asked for, zero rendered, while the music plays. The three
-ambience beds are approved, cooked, measured -- and nothing ever calls them. ***
-MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
-
-THE WITHDRAWAL FIRST. E4 reported a walk that rendered zero sounds and REFUSED to call it a
-finding because the same run showed the audio engine down. That refusal was right and the
-cause was a bug in my own harness: IT READ window.MUS, AND THE MUSIC STUDIO IS DECLARED WITH
-const -- a global BINDING, NOT a window PROPERTY. window.MUS is undefined while MUS works.
-Fifth instrument bug this lane has caught in itself in one day, and the cheapest.
-With bare names the harness tells the truth: engine running at four checkpoints, 31 walked
-cells, 31 footstep calls, 32 renders at the bus. THE GAME IS NOT SILENT WHEN YOU WALK.
-
-AND THEN THE MEASUREMENT THAT MATTERS: 35 SECONDS STANDING STILL = ZERO SOUNDS. air_day,
-air_night and air_inside are approved and cookable (E4 measured all three) and nothing in the
-game calls them. That is the day-22 finding still standing, with a number on it. SOUND fixed
-the MUSIC half today (the city sends where you are and the song follows); the ambience half
-is cooked and unplayed.
-
-THE TEN GAPS, EVERY VERDICT TWO WORDS AND EVERY ONE MEASURED TODAY:
-  the ambience bed        COOKED, UNPLAYED   35s still: 0 asked, 0 rendered
-  footsteps               LIVE, MONOTONE     31 of 31 steps reported the surface 'dirt'
-  reverb by space         BUILT, LIVE        the city posts OPEN; four spaces with real numbers
-  occlusion               NOT BUILT          nothing filters a sound by a wall in the way
-  distance colour         NOT BUILT          darkness is per SPACE, never per DISTANCE
-  a threshold you hear    NOT BUILT          the spaces switch instantly; a doorway is silent
-  stings                  MUSIC ONLY         they live in the studio, not the effects factory
-  ducking under a card    NOT BUILT          no sidechain: nothing steps aside for a card
-  the phone speaker       HALF LOST          E4: 22 events lose half their energy under 500 Hz
-  watching the mix        NOBODY IS          nothing meters the game's own output while it plays
-
-AND EVERY VERDICT RESPECTS THE SCREECH LAW. No delay lines, no convolvers: the factory
-already builds space out of FINITE SOURCES (scheduled early reflections, a filtered noise
-tail). Occlusion in that world is a low-pass on the dry layer with the reflections untouched
--- three numbers on an existing recipe, not a new engine. Not one gap asks for a reverb bus.
-
-ROUTED: SOUNDS gets the bed first (the work is done, only the call is missing), then
-occlusion and distance colour, then one look at whether 31 dirt steps is a yard or a
-fallback. GAP 10 IS MINE: E4 measured every asset alone and nothing has ever metered the MIX
-while the game plays. That is my next instrument and it is what lets E9's standing duty say
-"this ship got louder" instead of "these files measure fine".
-
-NEXT IN THIS LANE: E8 [first minute], then E9 the standing duty, then the mix meter.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; eight things
-now do. Lanes may only change the status word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E5_THE_SOUND_GAP_LIST_9_5_26.md (+ E1, E2, E3, E4, E6, E7 and
-the round-one record). List: banks/eyes/BOHEMIA_EYES_SOUND_GAP_LIST_9_5_26.json, draft:true.
-Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools: ten, all
-bohemia_eyes_*, and the live audio harness is trustworthy now.
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE

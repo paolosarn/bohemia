@@ -69,6 +69,22 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
      player takes and not a walk with the sound removed. */
   await p.evaluate(() => {
     window.__SFX_ASKED = {};
+    window.__SFX_RENDERS = 0; window.__STEP_CALLS = 0; window.__HOOKS = [];
+    /* EVERY HOOK BY ITS BARE NAME, AND EVERY HOOK RECORDED. Two zeros in this tool's
+       output were never measurements at all: the render counter and the footstep
+       counter were read from variables NOTHING INCREMENTED, because the wraps that
+       were supposed to set them had quietly stopped being in this file. A counter
+       nobody increments reads zero forever and looks exactly like silence. */
+    try { if (typeof BOH_SFX !== 'undefined' && BOH_SFX.render && !BOH_SFX.render.__w) {
+      const real = BOH_SFX.render;
+      const w = function () { window.__SFX_RENDERS++; return real.apply(this, arguments); };
+      w.__w = true; BOH_SFX.render = w; window.__HOOKS.push('the audio bus'); } } catch (_e) {}
+    try { if (typeof stepSfx === 'function' && !stepSfx.__w) {
+      const realS = stepSfx;
+      const w2 = function (surface) { window.__STEP_CALLS++;
+        const ev = 'step_' + surface; window.__SFX_ASKED[ev] = (window.__SFX_ASKED[ev] || 0) + 1;
+        return realS.apply(this, arguments); };
+      w2.__w = true; window.stepSfx = w2; window.__HOOKS.push('the footsteps'); } } catch (_e) {}
     /* COUNT THE MESSAGE, NOT THE HANDLER. The city posts {type:'BOHEMIA_STEP'} on
        every walked cell and the shell decides what to do with it. Listening for the
        message answers "did he walk" without trusting any of the shell's own wiring. */
@@ -114,6 +130,17 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
     let d = 0; for (let k = 0; k < n; k += 7) if (before[k] !== after[k]) d++;
     return +(100 * d / (n / 7)).toFixed(1);
   })();
+  /* THE POSITIVE CONTROL, AND NO ZERO FROM THIS TOOL MEANS ANYTHING WITHOUT IT.
+     After the walk, one sound is fired by hand. If the counters do not move, they were
+     blind, and the tool says so instead of reporting silence. */
+  const control = await p.evaluate(async () => {
+    const before = { r: window.__SFX_RENDERS, s: window.__STEP_CALLS };
+    try { if (typeof stepSfx === 'function') stepSfx('asphalt'); } catch (_e) {}
+    await new Promise(r => setTimeout(r, 400));
+    return { movedRender: window.__SFX_RENDERS > before.r, movedStep: window.__STEP_CALLS > before.s,
+             before, after: { r: window.__SFX_RENDERS, s: window.__STEP_CALLS } };
+  });
+
   const asked = await p.evaluate(() => {
     /* WHY IT WAS SILENT MATTERS MORE THAN THAT IT WAS. Three different worlds look
        identical from outside: nobody asked for a sound; somebody asked and the bank
@@ -125,6 +152,7 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
       renders: window.__SFX_RENDERS || 0, stepCalls: window.__STEP_CALLS || 0,
       audio: acState, stepBankEvents: steps,
       stepMsgs: window.__STEP_MSGS || 0, citySfxMsgs: window.__CITY_SFX_MSGS || 0,
+      hooks: window.__HOOKS || [],
       approvedEvents: Object.keys((typeof __SFX_APPROVED !== 'undefined' && __SFX_APPROVED) || window.__SFX_APPROVED || {}).length };
   });
   await b.close();
@@ -135,10 +163,19 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
   for (const m of marks) console.log('   ' + m);
   console.log('the screen changed by ' + moved + '% between the first frame and the last, so the walk '
     + (moved > 5 ? 'MOVED HIM' : 'may not have moved him at all'));
-  console.log('sounds actually rendered at the bus in that time: ' + asked.renders
+  console.log('hooks installed: ' + (asked.hooks || []).join(', ') || 'NONE');
+  /* A CONTROL IS ONLY NEEDED WHEN THE ANSWER IS ZERO. And the render half of it can
+     legitimately not move: stepSfx rate-limits itself to one footfall every 120 ms, so
+     a control fired right after the last step of a walk is refused BY DESIGN. The
+     footstep counter moving is what proves the chain is hooked. */
+  const blind = (control.before.r === 0 && !control.movedRender) || (control.before.s === 0 && !control.movedStep);
+  console.log('the control: firing one footstep by hand moved the footstep counter -- ' + control.movedStep
+    + (control.movedRender ? ', and the bus counter too' : ', the bus counter was rate-limited (one footfall per 120 ms)')
+    + (blind ? '\n   *** THE COUNTERS ARE BLIND, SO EVERY ZERO BELOW IS BLINDNESS AND NOT SILENCE ***' : ''));
+  console.log('sounds actually rendered at the bus in that time: ' + (control.before.r)
     + '  | the audio engine was: ' + asked.audio
     + '  | the footstep bank holds ' + asked.stepBankEvents + ' events'
-    + '  | the footstep function was called ' + asked.stepCalls + ' times');
+    + '  | the footstep function was called ' + control.before.s + ' times');
   console.log('the city told the shell he took a step ' + asked.stepMsgs + ' times, and asked it for a sound '
     + asked.citySfxMsgs + ' times');
   console.log('IN ' + SECONDS + ' SECONDS OF WALKING, THE GAME ASKED FOR ' + names.length + ' DIFFERENT SOUNDS:');

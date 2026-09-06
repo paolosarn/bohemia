@@ -31,6 +31,15 @@ With bare names, the harness tells the truth, and the truth is good news:
 **THE FOOTSTEP CHAIN WORKS END TO END.** City posts, shell hears, factory renders. The game
 is not silent when you walk.
 
+**CONFIRMED AGAIN ON 9/5 BY A SECOND, FIXED INSTRUMENT (E8).** The live harness had two more
+counters that nothing incremented -- the render count and the footstep count were read from
+variables whose wraps had quietly stopped being in the file, so they printed zero forever and
+looked exactly like silence. Both are hooked by bare name now, and the tool fires one sound by
+hand after every run as a POSITIVE CONTROL: no zero from it means anything unless the control
+moved the counters first. With that in place: **41 renders and 40 footstep calls in 20 seconds
+of walking**, every one of them `step_dirt`. The numbers in this record came from dedicated
+scripts and stand; the harness now agrees with them.
+
 ## AND THEN THE MEASUREMENT THAT MATTERS: STAND STILL AND IT IS
 
 **35 seconds standing still, day started, engine running, music playing: ZERO sound effects
