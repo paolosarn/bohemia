@@ -107,7 +107,7 @@ BB-UNPAID-TURNS-PREDATORY SHIPPED. Putting a faction's lights out was a free win
 It costs something now: you have not weakened them, you have released them. ***
 Nothing to judge.
 
-VAMILY row: [broke raiders] BB-UNPAID-TURNS-PREDATORY, MODE: BUILD, SHIPPED 9/6.
+VAMILY row: [broke raiders] BB-UNPAID-TURNS-PREDATORY, MODE: BUILD, SHIPPED 9/6 c25e98dc.
 Record: records/BOHEMIA_TAKE_THEIR_LIGHTS_AND_YOU_RELEASE_THEM_9_6_26.md
 
 HIS OWN STUDY IS THE SPEC. The free companies "regularly made a living by plunder
