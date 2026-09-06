@@ -277,7 +277,55 @@ def main():
         sys.exit('FAIL: ' + CITY + ' not found')
     s = open(CITY, encoding='utf-8').read()
     if MARKER in s:
-        print('NOOP: ' + MARKER + ' already present')
+        # *** THE ONE-SHOT NOOP WAS HIDING A STALE WORLD (9/5, FACTIONS lane).
+        #
+        # This tool bakes the loop's faction seats into CT_BASES_BAKED, then
+        # checks its marker and no-ops forever. So the day anybody changed the
+        # placement rule in bohemia_loop.js, the engine was right and the walked
+        # city carried last week's capitals, with NOTHING to re-run. Measured
+        # when FACTION-SEATS landed: the boot put the Homeless on a pump station
+        # in the middle of the city; the bake still said 8,89, a corner.
+        # faction_between's U9 caught it -- 14 of 14 baked and every coordinate
+        # wrong -- which is the only reason this is a paragraph and not another
+        # thirteen dark days.
+        #
+        # This is EXACTLY the defect tools/bohemia_city_module_resync.py was
+        # written for ("all one-shot: they check a marker and no-op forever
+        # after"). That tool re-syncs the inlined module BODIES; nothing
+        # re-synced the baked DATA. So the NOOP becomes a RE-BAKE: the injection
+        # is still one-shot, the numbers are not.
+        seed_txt = city_seed(s)
+        if not seed_txt:
+            sys.exit('FAIL: could not read BOH_SEED_TEXT out of the city')
+        bases = loop_bases(seed_txt)
+        if not bases:
+            sys.exit('FAIL: the loop produced no faction bases -- refusing to bake nothing')
+        import json as _json
+        import re as _re
+        want = 'var CT_BASES_BAKED = ' + _json.dumps(bases, sort_keys=True) + ';'
+        pat = _re.compile(r'var CT_BASES_BAKED = .*?;\n')
+        if not pat.search(s):
+            sys.exit('FAIL: ' + MARKER + ' is present but CT_BASES_BAKED is not -- '
+                     'the block was edited by hand and this tool will not guess')
+        old = pat.search(s).group(0).strip()
+        if old == want:
+            print('SEATS ALREADY FRESH: %d bases, seed %r' % (len(bases), seed_txt))
+            return
+        # --check: report and fail without writing, so a gate can ask this
+        # question in a second instead of driving a browser to find out.
+        if '--check' in sys.argv:
+            print('SEATS STALE: the walked city carries seats the loop no longer places')
+            print('  baked: ' + old[:150])
+            print('  loop : ' + want[:150])
+            print('  fix  : python3 tools/bohemia_city_factions_patch.py')
+            sys.exit(1)
+        s = pat.sub(lambda _m: want + '\n', s, count=1)
+        s = _re.sub(r'var CT_BASES_SEED  = .*?;\n',
+                    'var CT_BASES_SEED  = ' + _json.dumps(str(seed_txt)) + ';\n', s, count=1)
+        open(CITY, 'w', encoding='utf-8').write(s)
+        print('SEATS RE-BAKED: %d bases from the loop, seed %r' % (len(bases), seed_txt))
+        print('  was: ' + old[:110])
+        print('  now: ' + want[:110])
         return
 
     bodies = []

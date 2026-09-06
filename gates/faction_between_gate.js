@@ -39,6 +39,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.dirname(__dirname);
 const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
@@ -1784,6 +1785,29 @@ async function onFactionSeats() {
     ids.filter(f => ((F[f] || {}).act1_power || 0) >= 9)
        .every(f => !spread.length || spread.indexOf(f) < 0),
     'top-power factions: ' + ids.filter(f => ((F[f] || {}).act1_power || 0) >= 9).join(','));
+
+  /* *** AND THE BAKE CANNOT GO STALE IN SILENCE AGAIN. ***
+     The walked city does not compute these, it carries them: CT_BASES_BAKED is a
+     constant written by tools/bohemia_city_factions_patch.py. That tool checked
+     its own marker and NO-OPPED FOREVER, so the moment this row changed the
+     placement rule the engine was right and the city carried last week's
+     capitals -- the Homeless on a pump station in the middle of town according to
+     the boot, at 8,89 in a corner according to the bake. U9 below caught it, but
+     only by driving a browser through the whole demo. This asks the same question
+     in a second, and it is the same defect tools/bohemia_city_module_resync.py
+     was written for: that one re-syncs inlined module BODIES, and nothing was
+     re-syncing baked DATA. The tool now re-bakes instead of no-opping. */
+  let bakeCheck = { code: 0, out: '' };
+  try {
+    bakeCheck.out = execFileSync('python3',
+      ['tools/bohemia_city_factions_patch.py', '--check'],
+      { cwd: ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  } catch (e) { bakeCheck.code = 1; bakeCheck.out = String((e.stdout || '') + (e.stderr || '')); }
+  ok('U6b THE BAKED SEATS IN THE WALKED CITY ARE THE ONES THE LOOP PLACES TODAY. '
+    + 'A one-shot patch tool that no-ops on its own marker is how a surface ends '
+    + 'up a week behind canon with nothing to re-run, and this row proved it '
+    + 'happens by tripping over it',
+    bakeCheck.code === 0, bakeCheck.out.trim().split('\n').slice(0, 4).join(' | '));
 
   const again = boot({ seed: 'bohemia' }).factionBases;
   ok('U7 AND IT IS THE SAME VALLEY EVERY BOOT. A capital that moves when you '

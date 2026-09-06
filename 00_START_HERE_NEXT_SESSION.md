@@ -3,7 +3,7 @@ FACTION-SEATS SHIPPED. Every faction now sits on ground its own note names, and
 the boot and the walked city name the SAME seats because there is now one placer
 instead of two. *** Nothing to judge.
 
-VAMILY row: FACTION-SEATS [faction homes], MODE: BUILD, SHIPPED 9/5 52eb5be.
+VAMILY row: FACTION-SEATS [faction homes], MODE: BUILD, SHIPPED 9/5 dcf69ac.
 Record: records/BOHEMIA_A_FACTION_SITS_WHERE_ITS_CANON_SAYS_9_5_26.md
 
 WHAT SHIPPED
