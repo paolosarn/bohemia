@@ -1,3 +1,216 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market].
+Next OPEN is Q19 [price moves]; Q20 [work feels] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 18 REPORT: [black market] SHIPPED ===
+*** A MARKET IS WHAT IT REFUSES. MODE: RESEARCH, nothing implemented. NOT IN A
+TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_18_A_MARKET_IS_WHAT_IT_REFUSES_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections LLLL-PPPP (14 lines, 257 total)
+Board:  Q18 SHIPPED. Q1-Q18 shipped; next OPEN is Q19 [price moves], then Q20
+        [work feels].
+
+Round 10 already covered market DENSITY and market DAYS, and round 11 already
+covered why the price cannot move. Neither is reopened.
+
+I ASKED THE SHIPPED MARKET TO REFUSE ME SOMETHING. IT CANNOT.
+  THE SHELF IS TRIMMED BY TOWN TIER AND THE TILL IGNORES IT COMPLETELY:
+    town     x4   shelf shows 3 (water,food,meds)        till sells 11
+    fortress x5   shelf shows 4 (+fuel)                  till sells 11
+    camp     x5   shelf shows 2 (water,food)             till sells 11
+    swapmeet/truckstop  shelf 4                          till sells 11
+  buy(purse, hubOrNull, ...) TAKES A MARKET AND NEVER READS IT. shelf() calls
+  TOWNS.goodsFor(tier); buy() calls price() directly and never calls shelf(). The
+  comment above goodsFor already states the intent: "a town cannot show a good it
+  will not sell". True of price(), false of buy().
+  AND THERE DOES NOT HAVE TO BE A SHOP AT ALL:
+    buy(purse, null, 'antibiotics')          -> applied:true, paid:1
+    buy(purse, {kind:'nowhere'}, 'meds')     -> applied:true, paid:1
+  YOU CAN BUY ANTIBIOTICS STANDING IN THE OPEN DESERT.
+  AND NOBODY IS EVER REFUSED EITHER: no faction standing, rung, memory or
+  who-has-heard-about-you check anywhere in the buy path. The permit shipped 9/6
+  gates BUILDING on faction ground. NOTHING GATES BUYING.
+  AND THE ONE REFUSAL THE CODE OWNS IS DEAD: payday.price() has three sources
+  (economy / ruled / barter) and PRICE_SOURCE is 'economy' by his 8/11 ruling, but
+  PURSE.PRICES is checked FIRST and was filled 9/5 with all eleven goods for the
+  battery ruling. So the 'barter' branch, and its BARTER_ONLY refusal, CAN NEVER
+  FIRE. That sentence -- "I will not take your money, bring me goods" -- is exactly
+  what FIVE previous rounds (2, 9, 10, 12, 13) independently asked for, and none of
+  us noticed it was already written. Fourth never-executed branch in this pipe. Two
+  correct rulings collided and the order of two ifs decided it.
+
+THE REAL AISLE:
+  WHAT IT REFUSES IS THE MARKET'S IDENTITY, and it is absolute. Hydra, the largest
+  darknet market ever run, explicitly forbade guns, poisons, contract killing,
+  explosives, government secrets, pornography, and fentanyl derivatives. Vortex
+  bans fentanyl, weapons, venoms, CSAM and government data. Rules are fluid and
+  time-dependent and everybody watches them change. A PROHIBITED LIST IS RISK
+  MANAGEMENT, not moral posturing: the banned things bring heat that ends the
+  market for everyone on it. A market with no list is an unattended shelf.
+  HOW IT POLICES WITHOUT COURTS: escrow (the house holds the money), a reputation
+  that TRAVELS (vendors carry reviews between markets with cryptographic proof),
+  and a formal dispute process. There is always a house. That is round 9's finding
+  in a different century.
+  WHERE IT MEETS, AND THE REAL PRODUCT IS NOT GOODS. Sarajevo: cigarettes were the
+  currency at ~100 DM (~$70) a carton, salaries were paid in cigarettes, a single
+  smoke cost one cigarette per five people. And the sentence that reorganised this
+  round: "Markale was a place where Sarajevans mostly sold food, but also coffee or
+  cigarettes, and MOST IMPORTANTLY, IT WAS A PLACE TO EXCHANGE INFORMATION, BECAUSE
+  THE BLOCKADE MEANT INFORMATION WAS SCARCE."
+  AND THE CHOKEPOINT HAS AN OWNER: the Tunnel of Hope was the lifeline and where
+  the war profiteers worked, political/military/paramilitary structures documented
+  enriching themselves reselling basic groceries. WHOEVER HOLDS THE ONE WAY IN SETS
+  WHAT EVERYTHING COSTS, AND IT IS NEVER THE SHOPKEEPER.
+
+GAMES AISLE: the consistent player criticism of black markets in games is one
+sentence -- it is just a shop with different prices -- and the named fixes are all
+about the approach and the aftermath, never the shelf. WE ARE ONE STEP BELOW THE
+SHALLOW VERSION: our shops do not even have different prices (correctly), so with
+nothing refused and nowhere you have to be, a Bohemia market is a vending machine
+that follows you around.
+
+*** THE FINDING THAT PROVES US WRONG. I came in expecting to design a second,
+shadier shop. A MARKET IS NOT A PLACE THAT SELLS THINGS. IT IS THE ONE PLACE THAT
+KNOWS THINGS, RUN BY SOMEBODY WHO DECIDES WHAT WILL NOT BE SOLD. ***
+And the uncomfortable half: we have BOTH halves of Markale and they face away from
+each other. bohemia_feedstream.js and the CITY phone (9/5, off his 9/4 law) carry
+the deed ledger, faction events and ambient life -- good work, right stream -- AND
+IT IS FREE OF PLACE. I checked: nothing in the feed reads where the player stands,
+which market he is at, or how far he walked. IN A SIEGE, GOING TO THE MARKET IS HOW
+YOU FIND OUT WHAT HAPPENED. IN BOHEMIA THE NEWS COMES TO YOU AND THE MARKET SELLS
+GROCERIES. The single strongest reason to walk to a market already exists in this
+build and is attached to nothing.
+
+THE SHAPE DELIVERED:
+  SHOPS. 1 The till obeys the shelf (not a new feature; the existing one working).
+  2 EVERY SEAT HAS A LIST OF WHAT IT WILL NOT TOUCH AND THE LISTS DIFFER -- no price
+  moves, nothing is dearer, a good is simply not sold here. A player learns the
+  valley's fourteen factions BY WHAT EACH REFUSES: the cheapest characterisation in
+  the whole game. 3 The market is where you find out (attach the feed to the place).
+  4 BARTER_ONLY needs a reachable path, not an invention.
+  THE BLOCK'S CUT. 5 Whoever holds the way in sets what everything costs -- and if
+  the seat that holds your block refuses you, THERE HAS TO BE ANOTHER SEAT THAT
+  DOES NOT (round 16's company-store counter). 6 SO THE CUT'S REAL PRICE IS ACCESS,
+  NOT MONEY: round 14 could not find what a block subscription BUYS because his law
+  forbids it buying electricity. IT BUYS THE RIGHT TO TRADE AT THAT FACTION'S SEAT.
+  Stop paying and the shelf gets shorter, not the lights dimmer. A refusal rather
+  than a number, and everything costs one is untouched.
+
+REFUSED: a second shadier shop; different prices for contraband (8/15 LOCKED);
+contraband as a property of an object (what is refused is per seat, which is what
+makes it geography); inventing what any faction refuses (contents, and it is one of
+the most characterful decisions in the game); crime/heat/wanted levels/security
+scans (wrong genre, and round 9's doors that stop opening is the better version);
+reopening PRICE_SOURCE (he ruled it 8/11; section 1c reports a collision, not a
+proposal); any implementation.
+
+ROUTED: WORLD gets two (buy() ignores the hub; BARTER_ONLY is unreachable).
+FACTIONS gets two (a seat's refusal list; [block rent]'s missing product is
+ACCESS). UI and LIFE+CITY get "the feed is free of place and the market is the
+reason to walk". One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0.
+AND THE PATTERN IS NOW NAMEABLE, THREE ROUNDS RUNNING: payday_gate is 38/38 and
+every assertion is true, and nothing in it asks whether the till and the shelf
+agree. Round 16: lights_bill_gate 30/0 while not paying was the optimal play.
+Round 17: quest_study_gate 456/0 over 27 quests that pay nothing. THESE GATES CHECK
+THAT A PART DOES WHAT IT SAYS. NOTHING CHECKS THAT TWO PARTS SAY THE SAME THING,
+and all three findings this lane has produced in a row lived in exactly that gap.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days, runs dry around fifty.
+     Premise or bug?
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE -- and round 18
+     found the code for it ALREADY EXISTS (BARTER_ONLY) and is unreachable.
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY, if it cannot buy electricity?
+     ROUND 18 HAS AN ANSWER FOR THE FIRST TIME: the right to trade at that
+     faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? The research says a PRICE is the
+     trap; work, a walk or a favour are payable by somebody with nothing.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. (new) What will each faction NOT trade? Fourteen answers, one short phrase
+     each, and they will do more to make the valley feel like fourteen different
+     peoples than any amount of colour.
+
+NEXT IN THIS LANE: Q19 [price moves].
+
+================================================================================
 WORDS (words-8dqrnq): 9/6 (c) LATEST -- *** Q1 [telling apart] SHIPPED WITH BOTH ROUNDS,
 THE FIRST QUESTION IN THIS LANE TO MEET THE 9/6 MODE. School changed the writing: not one
 pair is built on how anybody talks, because 33 words is far below the floor where that

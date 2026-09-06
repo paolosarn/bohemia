@@ -1312,3 +1312,83 @@ JJJJ3 the one job that pays different                 draft:true
 - Nobody is wise. JJJJ1 works it out mid-sentence and JJJJ2 takes it anyway.
 - Spanish register: 1 of 14 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## LLLL. WE DON'T CARRY THAT (round 18, the refusal that makes a market a market)
+## (a good is simply not sold here. No price changes. Nobody explains a policy.)
+
+LLLL1 a seller, plainly                               draft:true
+      "Water and food. That's what's on the table, and that's what I've got.
+       No, I'm not being cagey with you, that's it."
+
+LLLL2 a seller who will not touch one thing           draft:true
+      "Anything else. Honestly, anything else and we're talking. Not that."
+
+LLLL3 the same seller, asked why                      draft:true
+      "Because of what comes after. You don't have to worry about what comes
+       after, that's the difference between us."
+
+LLLL4 somebody who knows the map by the refusals      draft:true
+      "You want that, you go north. They won't touch it here and they won't
+       touch it two streets over either, so save your legs and go north."
+
+## MMMM. THE PLACE YOU GO TO FIND OUT (Markale: the real product was news)
+## (nobody calls it information. They call it who was there.)
+
+MMMM1 somebody explaining why they walked             draft:true
+      "I didn't come for the rice. I mean I'll take the rice. I came because
+       everybody's here on a Thursday."
+
+MMMM2 somebody who stopped going                      draft:true
+      "Three weeks I haven't been down. Three weeks and I'm finding things out
+       from a kid, hermano."
+
+MMMM3 the seller who knows everything                 draft:true
+      "Everyone tells me. They don't mean to, they're just standing here with
+       nothing to do while I weigh it out."
+
+MMMM4 news arriving the old way                       draft:true
+      "You haven't heard. Alright. Sit down, don't sit down, but you haven't
+       heard."
+
+## NNNN. WHOEVER HOLDS THE WAY IN (the tunnel, and the cut)
+## (the profiteer at the chokepoint. Nobody uses the word monopoly.)
+
+NNNN1 somebody working out who is really charging     draft:true
+      "It's not him. Look at him, he's as poor as me. It's whoever lets the
+       truck through, and I've never seen that guy."
+
+NNNN2 the man at the gate                             draft:true
+      "I don't set prices. I just decide who comes through, and yeah, alright,
+       I hear it when you say it like that."
+
+NNNN3 somebody who found the other way in             draft:true
+      "There's a second gate. It's further, it's worse, and I'll never use his
+       again."
+
+## OOOO. YOUR MONEY IS FINE, YOU ARE NOT (the seat that will not serve you)
+## (round 9's punishment is access. This is access at the shop counter.)
+
+OOOO1 a seller, not angry                             draft:true
+      "Your money's good. You're not, and those are two different things I'm
+       telling you at once."
+
+OOOO2 somebody who got shut out                       draft:true
+      "I stood there with it in my hand. He looked at my hand and he looked at
+       me and he served the woman behind me."
+
+OOOO3 the way back in                                 draft:true
+      "Somebody has to walk in with you. That's all it is. Somebody has to
+       walk in with you the first time."
+
+## PPPP. WHAT IS NOT HERE, ON PURPOSE (round 18)
+- No line names a price, a mark-up or contraband. Everything costs one and this
+  bank never says otherwise: what changes is whether it is sold at all.
+- No line names which faction refuses what. That is the [PENDING Paolo] this round
+  routes and it is the most characterful decision in the game.
+- No line has a crime, a wanted level, a scan or a guard. Getting shut out here is
+  round 9's door that stops opening, not a chase.
+- No line calls the market a source of information. MMMM1 says everybody's here on
+  a Thursday and MMMM3 says they tell him without meaning to.
+- Nobody is wise. NNNN2 hears it himself halfway through his own sentence.
+- Spanish register: 1 of 14 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.
