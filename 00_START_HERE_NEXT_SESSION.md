@@ -1,3 +1,74 @@
+WORDS (words-8dqrnq): 9/6 LATEST -- *** QUEUE EMPTY. NO TAKEABLE ROW. Every research row
+Q1 to Q17 is SHIPPED, and the only four rows left in this section are BUILD rows explicitly
+held until Paolo returns this lane to MODE: BUILD. I did not invent a job and I did not add
+a row. *** Nothing to judge. Nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+WHY THIS ROUND PRODUCED NOTHING, AND WHY THAT IS THE CORRECT ANSWER:
+The section's MODE is still RESEARCH. All four remaining OPEN rows carry "(build,
+held until the lane returns to MODE: BUILD)" in their own text. Rule 6 says a
+half-done job marked SHIPPED is worse than an open one; the 7/26 STOP PRODUCING law
+says a frozen lane produces NOTHING and that finding a legal way to ship anyway IS
+the violation. So the honest turn is this one. I checked the rest of the board too:
+the only other row that names WORDS is PEOPLE's A-RUMOUR-ABOUT-SOMEBODY-WHO-IS-NOT-YOU,
+which is theirs, not mine.
+
+WHAT I DID DO, which is the standing duty and nothing more: ran the lane's gates on
+current main and confirmed the shelf is intact.
+    voice 111/0   attempt 15/0   dialogue catalogue 63/0   language 81/0   handoff 7/0
+    17 records in records/, 1,258 lines in banks/BOHEMIA_WORDS_TEST_LINES.md, all draft:true.
+
+THE SHELF, SO THE COORDINATOR CAN SEE WHAT IS PAID FOR AND WAITING:
+    Q1  tell them apart     Q2  stressed speech    Q3  crowd talk
+    Q4  beat speech         Q5  refusing answers   Q6  power talk
+    Q7  second meeting      Q8  grief talk         Q9  trade talk
+    Q10 threat talk         Q11 face carries       Q12 naming people
+    Q13 rumours spread      Q14 one-word answers   Q15 feed voice
+    Q16 cut off             Q17 rumour words
+Nine build rows came out of that queue and only the coordinator can add them:
+    ONE-LINE-PER-TRADE, KILL-THE-DISCLAIMER, MOOD-ON-EVERY-LINE, SAY-THE-NAME,
+    NEWS-ABOUT-SOMEBODY-ELSE, ANSWER-IN-ONE-WORD, THE-FEED-HAS-PEOPLE-IN-IT,
+    THE-COLLECTOR-HAS-A-DOOR, A-RUMOUR-WITH-AN-ADDRESS.
+Plus the four already on the board and held: BB-THE-SMALL-MOMENT [small moments],
+BB-STILL-SAYS-IT [trade slang], BB-RESPONSIVE [reputation lines],
+SECOND-VOICE-PASS [voice pass].
+
+THE ONE THING THAT WOULD UNBLOCK THE MOST, AND IT IS NOT MINE TO DO. Five separate
+rounds found the same shape: we build the hard half and skip the wire.
+    facePerform is called with {} while 229 mood tags ride in the shipped demo
+      (Q11, Q14). One argument.
+    64 given names exist and no mouth ever speaks one (Q12, Q15).
+    the hop count is computed and no mouth ever uses it (Q13, Q15, Q17).
+Each is one field reaching a line picker that already exists. None is a feature.
+
+STILL CARRIED:
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+NEXT: nothing, until the coordinator adds a row or Paolo puts this lane in
+MODE: BUILD. If the next VAMILY finds the board unchanged, the honest answer is
+"queue empty" again, and it should not manufacture one.
+
 FACTIONS (factions-ovkjpf): 9/6 (round 8) LATEST -- *** [town sizes]
 TOWN-TIERS-ARE-HIS SHIPPED. He can move any faction's town size from the DIRECT
 tab and the walked city agrees the same second. *** Nothing to judge.
@@ -321,7 +392,7 @@ look. "All gates green" was true the whole time.
 NEXT IN THIS LANE: Q17 [wages fall].
 
 ================================================================================
-WORDS (words-8dqrnq): 9/5 (n) LATEST -- *** VAMILY Q17 [rumour words] SHIPPED, AND THE
+WORDS (words-8dqrnq): 9/5 (n) -- *** VAMILY Q17 [rumour words] SHIPPED, AND THE
 WORDS RESEARCH QUEUE IS NOW EMPTY. 249 LINES NAME A PLACE YOU COULD WALK TO, 17 PASS
 ON SOMETHING SECOND-HAND, AND ZERO DO BOTH. *** Nothing to judge, MODE: RESEARCH,
 nothing entered the game.
