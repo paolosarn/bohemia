@@ -11455,6 +11455,57 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/5 (g) LATEST -- *** THE SETTINGS SCREEN WAS QUIETLY CHANGING THE
+SOUND OF THE GAME'S OWN TESTS. FOUND AND KILLED BEFORE IT SHIPPED. ***
+
+THE BUG, IN PLAIN WORDS. The settings screen looks up the one audio bus every sound
+in the game passes through, and it was doing that on a timer, twice a second, forever.
+The menu-music checker renders a bar of a song by temporarily parking a FAKE bus
+(an OfflineAudioContext gain node) in MUS.OUT, rendering, then putting the real one
+back. So the settings screen's timer landed inside somebody else's render and set a
+volume ramp on it -- which changed how loud the rendered bar came out. Three menu
+songs failed a rule they actually obey.
+
+HOW IT WAS CAUGHT, AND THE INSTRUMENT THAT SETTLED IT. The full suite showed MENU
+MUSIC red. Rather than assume pre-existing, I built a worktree at origin/main and ran
+the same gate there: main 4 runs green, my tree 2 runs red, same load. That is the
+only instrument that separates "mine" from "already broken" and it is cheap. FRESH
+DOORS, red at the same time, ran identically red on main -- pre-existing, SOUND lane's,
+NOT mine (same three legs, same numbers).
+
+THE FIX IS IN bus(), NOT IN THE TIMER. Two changes:
+  1. bus() returns null if the node's context is an OfflineAudioContext. A settings
+     screen has no business touching a render. This is the real fix.
+  2. the timer no longer re-applies every 500ms. It applies when the bus first
+     appears and again only if the node identity changes. Re-running
+     cancelScheduledValues plus a fresh ramp on the whole game's output twice a
+     second, for the life of the page, was scheduling work nobody asked for.
+Note the ORDER MATTERED: fixing only (2) made it WORSE (1 song red -> 3), because
+"apply when the bus changes" fires reliably at the start of every render, where the
+old cadence only sometimes landed inside one. The timer was the symptom; the missing
+guard was the bug.
+
+AND IT IS NOW GATED, so it cannot come back: settings_gate.js has two new legs. One
+swaps in an offline node exactly the way the music checker does and demands the
+settings screen see NO bus and leave that node's gain untouched. The other proves the
+real bus still moves afterwards, so the guard cannot be passed by simply turning the
+screen off. 18 ok, 0 failed. Mutation proof is on the record: the build without the
+guard fails that leg with "saw 0.5".
+
+A TRAP THAT COST A CYCLE: settings_gate loads BOHEMIA_DEMO.html, not the workshop. I
+fixed the alpha, re-ran, and the leg still failed -- because the demo had not been
+re-cut. FIX THE ALPHA, THEN CUT THE DEMO, THEN RUN THE GATE. Always that order.
+
+FOR THE COORDINATOR, TWO THINGS THAT ARE NOT MINE:
+  - FRESH DOORS is red on main (3 legs: a real door in the real run sounds nothing,
+    a door on an unreadable tile is silent, placeSound throws on a non-finite
+    distance). SOUND lane.
+  - THE FULL SUITE IS NOW 514 GATES AND TAKES OVER FIVE HOURS. It has a 30-minute
+    timeout wrapper in normal use, so it is being killed before it finishes and
+    nobody is seeing the end of it. CLAUDE.md still describes it as a ~95 second
+    suite. That is a PLUMBER problem: either it runs in parallel or ships stop
+    being able to honour "run the full suite once".
+
 UI (ui-kmqmrf): 9/5 (f) LATEST -- *** [settings pause] SHIPPED. VOLUME, MUTE, SAVE AND
 QUIT, AND NO PAUSE BUTTON ON PURPOSE. ***
 

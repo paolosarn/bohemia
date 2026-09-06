@@ -181,6 +181,46 @@ const MIN = 44;
   ok('and it remembers across a reload (' + JSON.stringify(remembered) + ')',
      !!remembered && remembered.vol === 2 && remembered.muted === true);
 
+  /* IT MUST NOT TOUCH SOMEBODY ELSE'S OFFLINE RENDER. Measured, not assumed: the
+     menu-music checker renders a bar by parking an OfflineAudioContext node in
+     MUS.OUT, rendering, and putting the real one back. This screen polls MUS.OUT,
+     so it lands inside that window, and the first cut set a gain ramp on it --
+     which changed the loudness of the rendered bar and failed three menu songs on
+     a rule they obey. So: swap in an offline node the way that checker does, and
+     the settings screen must see NO bus at all and leave the node's gain exactly
+     where the render left it. */
+  /* the reload above left us on the splash with no audio graph yet, and this leg
+     is about the LIVE bus, so open the door and let the sound come up first --
+     otherwise the swap restores an MUS.OUT that was never there. */
+  await p.mouse.click(195, 509);
+  await p.waitForTimeout(4000);
+  const offline = await p.evaluate(async () => {
+    if (typeof MUS === 'undefined' || !MUS) return { skip: 'no MUS' };
+    if (!MUS.OUT) return { skip: 'no live bus to protect' };
+    const OAC = new OfflineAudioContext(2, 4410, 44100);
+    const fake = OAC.createGain(); fake.gain.value = 0.5; fake.connect(OAC.destination);
+    const save = { AC: MUS.AC, MAST: MUS.MAST, OUT: MUS.OUT };
+    MUS.AC = OAC; MUS.MAST = fake; MUS.OUT = fake;
+    const sawBus = window.BOHEMIA_SETTINGS.busGain();
+    window.BOHEMIA_SETTINGS.set(1, false);          /* a real change, mid-render */
+    await new Promise(r => setTimeout(r, 1200));    /* longer than the 500ms poll */
+    const gain = fake.gain.value;
+    MUS.AC = save.AC; MUS.MAST = save.MAST; MUS.OUT = save.OUT;
+    return { sawBus, gain };
+  });
+  ok('it does not reach into an offline render: no bus found there, and the render'
+     + ' keeps its own gain (saw ' + JSON.stringify(offline.sawBus) + ', gain '
+     + offline.gain + ')',
+     !offline.skip && offline.sawBus === null && Math.abs(offline.gain - 0.5) < 1e-6);
+
+  /* AND THE REAL BUS STILL MOVES AFTERWARDS -- the guard must not have turned the
+     screen off, which is the cheap way to pass the leg above. */
+  await p.evaluate(() => window.BOHEMIA_SETTINGS.set(5, false));
+  await p.waitForTimeout(300);
+  const afterGuard = await p.evaluate(() => window.BOHEMIA_SETTINGS.busGain());
+  ok('and the real bus still moves once the render is over (' + afterGuard + ')',
+     typeof afterGuard === 'number' && Math.abs(afterGuard - 1) < 0.02);
+
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close(); done();
 })();

@@ -31695,7 +31695,7 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
    localStorage, wrapped, and a failure to store is not a failure to work.
    ============================================================================ */
 (function(){
-  var LS='BOH_SETTINGS', LEVELS=5, vol=4, muted=false, live=false, lastTop=-1;
+  var LS='BOH_SETTINGS', LEVELS=5, vol=4, muted=false, live=false, lastTop=-1, lastBus=null;
   function el(id){ return document.getElementById(id); }
   function load(){
     try{ var j=JSON.parse(localStorage.getItem(LS)||'{}');
@@ -31705,11 +31705,25 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
   }
   function save(){ try{ localStorage.setItem(LS,JSON.stringify({vol:vol,muted:muted})); }catch(_e){} }
 
-  /* THE ONE PLACE EVERYTHING MEETS. Not created here and not replaced here: found. */
+  /* THE ONE PLACE EVERYTHING MEETS. Not created here and not replaced here: found.
+     AND IT MUST BE THE LIVE OUTPUT, NOT WHATEVER IS PARKED IN MUS.OUT RIGHT NOW.
+     Measured the hard way: the menu-music checker renders a bar by swapping
+     MUS.AC / MUS.MAST / MUS.OUT to an OfflineAudioContext, rendering, and putting
+     the real ones back. Anything that reads MUS.OUT on a timer therefore lands
+     inside somebody's offline render sooner or later -- and this code was setting
+     a gain ramp on it, which quietly changed the loudness of the rendered bar.
+     Three menu songs failed a rule they obey. A settings screen has no business
+     touching an offline render, so the node's own context is the gate: if it is
+     not a live AudioContext, there is no bus here to move. */
   function bus(){
     try{
       if(typeof MUS==='undefined'||!MUS) return null;
-      return MUS.OUT || MUS.MAST || null;
+      var b = MUS.OUT || MUS.MAST || null;
+      if(!b) return null;
+      var ctx = b.context;
+      if(window.OfflineAudioContext && ctx instanceof window.OfflineAudioContext) return null;
+      if(ctx && ctx.constructor && /Offline/.test(ctx.constructor.name)) return null;
+      return b;
     }catch(_e){ return null; }
   }
   function applyAudio(){
@@ -31831,8 +31845,18 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
         }
       }catch(_e){}
     }
-    if(up && !live){ live=true; applyAudio(); }
-    else if(up){ applyAudio(); }
+    /* APPLY WHEN THE BUS APPEARS OR IS REPLACED, NEVER ON A TIMER. The first
+       version re-applied every 500ms forever, which meant cancelScheduledValues
+       and a fresh ramp on the one node every sound in the game passes through,
+       twice a second, for the life of the page -- scheduling work nobody asked
+       for, and a standing hazard to anything that ever wants to automate that
+       node. The honest trigger is the bus's own identity: apply once when it
+       first exists, again only if the graph is rebuilt under us. Every real
+       change comes through commit(), which applies directly. */
+    if(up){
+      var b=bus();
+      if(b && b!==lastBus){ lastBus=b; live=true; applyAudio(); }
+    }
   }, 500);
   window.BOHEMIA_SETTINGS = {
     open:open, close:close,
