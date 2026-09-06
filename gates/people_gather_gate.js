@@ -76,7 +76,7 @@ ok('A1 how many places a neighbourhood gets is the population module\'s own '
    every district nobody has filled in yet. */
 ok('A2 the old ray still answers where there is no place to go (out and fav both '
    + 'fall through to pplSpotToward)',
-   /pplPlaceFor\(p, p\.workDir, taken\)\s*\n\s*\|\| pplSpotToward\(p, p\.workDir/.test(CITY)
+   /pplPlaceFor\(p, p\.workDir, taken, true\)\s*\n\s*\|\| pplSpotToward\(p, p\.workDir/.test(CITY)
    && /pplPlaceFor\(p, p\.favDir, taken\)\s*\n\s*\|\| pplSpotToward\(p, p\.favDir/.test(CITY));
 
 /* A3. THE ADDRESS BOOK SURVIVES. The 7/31 ruling is that two people on identical
@@ -144,9 +144,19 @@ ok('A4 the cut demo loads the walked city, which is where this code lives',
   const DEMO_RUN = await open('BOHEMIA_DEMO.html', true);
   const CROWD_FRAME = DEMO_RUN.target;
 
-  /* B1. *** THE MEASUREMENT THE JOB EXISTS FOR. *** Going out must not scatter
-     them. The number that matters is how many share one screenful, because a
-     screenful is all he can ever see at once. */
+  /* B1. *** THE MEASUREMENT THE JOB EXISTS FOR, AND IT IS TWO MEASUREMENTS. ***
+     The first cut of this leg averaged the whole valley and demanded that going
+     out tighten everybody. It went red the moment the solitary trades were let
+     walk alone -- and letting them walk alone is the fix that took alive_gate's
+     thirty-two walks from 2 meetings to 9. AN AVERAGE OVER TWO POPULATIONS THAT
+     ARE MEANT TO DIFFER MEASURES NEITHER OF THEM.
+     bohemia_agents.js's own four days say who is which: a WORKER goes to an
+     off-block site job and a KEEPER runs one daily errand, so their day happens
+     somewhere; a SCAV runs a subsistence sweep and a WATCH stands a post, and both
+     of those are solitary by definition -- two scavengers on one corner are
+     competing. So the claim is BOTH halves at once: the ones whose day is at a
+     place must end up together, and the ones whose day is not must NOT. Either
+     one failing is the mechanism being wrong. */
   const spread = W.target ? await W.target.evaluate(() => {
     try {
       const P = BohemiaPopulation, span = P.NB * FN;
@@ -164,6 +174,7 @@ ok('A4 the cut demo loads the walked city, which is where this code lives',
         return most;
       };
       const nearMedian = pts => {
+        if (pts.length < 2) return null;
         const nn = [];
         for (let i = 0; i < pts.length; i++) {
           let bd = 1e9;
@@ -177,20 +188,35 @@ ok('A4 the cut demo loads the walked city, which is where this code lives',
         nn.sort((a, b) => a - b);
         return nn[nn.length >> 1];
       };
-      const homes = all.map(q => q.home), outs = all.map(q => q.outSpot).filter(Boolean);
-      return { people: all.length,
-               homesOnAScreen: onOneScreen(homes), outOnAScreen: onOneScreen(outs),
-               homesNearMedian: nearMedian(homes), outNearMedian: nearMedian(outs) };
+      const ALONE = { scav: 1, watch: 1 };
+      const social = all.filter(q => !ALONE[q.archetype]);
+      const solo = all.filter(q => ALONE[q.archetype]);
+      const outs = xs => xs.map(q => q.outSpot).filter(Boolean);
+      return { people: all.length, social: social.length, solo: solo.length,
+               homesOnAScreen: onOneScreen(all.map(q => q.home)),
+               homesNearMedian: nearMedian(all.map(q => q.home)),
+               socialOnAScreen: onOneScreen(outs(social)),
+               socialNearMedian: nearMedian(outs(social)),
+               soloOnAScreen: onOneScreen(outs(solo)),
+               soloNearMedian: nearMedian(outs(solo)) };
     } catch (e) { return { err: String(e).slice(0, 140) }; }
   }) : { err: 'no surface' };
 
-  ok('B1 *** GOING OUT DOES NOT SCATTER THEM *** — ' + (spread.err || (
-        spread.outOnAScreen + ' share a screenful where they go, against '
-        + spread.homesOnAScreen + ' at home (nearest neighbour ' + spread.outNearMedian
-        + ' cells out, ' + spread.homesNearMedian + ' at home)')),
-     !spread.err && spread.people > 20
-     && spread.outOnAScreen >= spread.homesOnAScreen
-     && spread.outNearMedian <= spread.homesNearMedian + 2);
+  ok('B1 *** THE ONES WHOSE DAY IS AT A PLACE END UP TOGETHER *** — '
+     + (spread.err || (spread.socialOnAScreen + ' of the ' + spread.social
+        + ' workers and keepers share a screenful, nearest neighbour '
+        + spread.socialNearMedian + ' cells (at home the whole valley is '
+        + spread.homesOnAScreen + ' and ' + spread.homesNearMedian + ')')),
+     !spread.err && spread.social > 10
+     && spread.socialOnAScreen >= spread.homesOnAScreen
+     && spread.socialNearMedian <= spread.homesNearMedian + 2);
+
+  ok('B1a *** AND THE ONES WHOSE DAY IS NOT STILL WALK ALONE *** — '
+     + (spread.err || (spread.solo + ' scavengers and lookouts, nearest neighbour '
+        + spread.soloNearMedian + ' cells, ' + spread.soloOnAScreen
+        + ' on a screenful — a sweep is dispersed and a post is a post')),
+     !spread.err && spread.solo > 5
+     && spread.soloNearMedian > spread.socialNearMedian);
 
   /* B1b. AND THE CROWD IS NOT ONE CROWD. *** A3 ASKS THIS OF THE SOURCE AND THAT
      IS NOT ENOUGH ***: it catches the one edit that deletes the bearing lookup and
@@ -396,14 +422,16 @@ ok('A4 the cut demo loads the walked city, which is where this code lives',
   await D.ctx.close();
 
   console.log('  MEASURED ON THE WALKED SURFACE:');
-  console.log('    share a screenful   : ' + spread.outOnAScreen + ' where they go, '
-    + spread.homesOnAScreen + ' at home');
-  console.log('    nearest neighbour   : ' + spread.outNearMedian + ' cells out, '
-    + spread.homesNearMedian + ' at home  (was 14 out against 1 at home)');
+  console.log('    workers + keepers   : ' + spread.socialOnAScreen + ' share a screenful, '
+    + 'nearest neighbour ' + spread.socialNearMedian + ' cells');
+  console.log('    scavs + lookouts    : ' + spread.soloOnAScreen + ' share a screenful, '
+    + 'nearest neighbour ' + spread.soloNearMedian + ' cells (alone, on purpose)');
+  console.log('    the whole valley at home: ' + spread.homesOnAScreen + ' on a screenful, '
+    + spread.homesNearMedian + ' cells apart');
   console.log('    the nearest place   : ' + (places[0] ? places[0].from : '?')
     + ' cells from where he wakes, peak ' + (crowd.peak || 0) + ' bodies');
-  console.log('    twelve walks        : 0 of 12 met anybody before, 3 of 12 after, '
-    + 'median first meeting at step 157  [THE JOB STAYS OPEN]');
+  console.log('    alive_gate\'s 32 walks: 2 met a stranger before this, 9 after, '
+    + 'closest meeting 198 steps -> 58  [THE JOB STAYS OPEN]');
 
   await browser.close();
   server.close();

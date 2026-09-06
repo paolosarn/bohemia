@@ -2041,26 +2041,48 @@ faction seat beats a street corner -- BB-TURF put 14 real markets on the map on 
 the walked surface had never asked where they were. Their own bearing still chooses
 WHICH place, so the 7/31 address book survives. The old ray is still underneath, so
 ground the art has not filled in behaves exactly as before.
-  WHAT IT DID: share a screenful 3 -> 13. Nearest neighbour where they go 18 cells -> 1.
-Standing at the nearest place, 97 cells from where he wakes: 1 body at 06:00, 4 at
-08:00, 6 at 10:00, 2 at 14:00, 4 at 16:00, EIGHT at 18:00, 2 at 22:00 -- against ONE
-body everywhere all day before round 1, and the day now has a shape (a morning, a dead
-middle at the module's own heat hour, a busy evening, a quiet night).
-  THE HEADLINE, AND IT IS NOT A WIN YET. Four 400-step walks from the wake cell at
-06:00, 10:00 and 18:00, counting only people NOT already on the glass, same protocol
-run on the code before and after: 0 OF 12 BEFORE, 3 OF 12 AFTER, median first meeting
-at step 157. Three of twelve is not "he meets people without trying" and the row stays
-OPEN. It is the first number above zero this lane has measured on that walk.
+  WHAT IT DID ON THE FIRST CUT, sending EVERYBODY to a place: share a screenful 3 -> 13,
+nearest neighbour where they go 18 cells -> 1. Standing at the nearest place, 97 cells
+from where he wakes: 1 body at 06:00, 4 at 08:00, 6 at 10:00, 2 at 14:00, 4 at 16:00,
+EIGHT at 18:00, 2 at 22:00 -- against ONE body everywhere all day before round 1, and
+the day now has a shape (a morning, a dead middle at the module's own heat hour, a busy
+evening, a quiet night).
+  *** AND THAT FIRST CUT WAS TOO MUCH, WHICH ANOTHER LANE'S GATE SAID BEFORE I NOTICED.
+*** alive_gate went red on "it can happen inside a block, not only at the far end of
+one": its closest meeting across 32 walks had gone from within 60 steps to 198. REAL
+COST, NOT A BROKEN RULER -- gathering everybody makes the ground BETWEEN places
+emptier, and the lone body you used to bump into is now standing in a square somewhere
+else. WHOSE DAY HAPPENS AT A PLACE IS ALREADY WRITTEN, in bohemia_agents.js's own four
+days, and it is not a ratio anybody had to choose: a WORKER goes to an off-block site
+job and a KEEPER runs one daily errand, so their day happens somewhere; a SCAV runs a
+subsistence sweep (two scavengers on one corner are competing) and a WATCH stands a
+post, and both of those are solitary by definition. The FAVOURITE spot stays a place
+for everybody, because Shadows of Doubt's favourite bar is a BAR and a man who
+scavenges alone all day still drinks where other people drink -- only the WORKING half
+of the day is solitary.
+  MEASURED AFTER THE SPLIT: workers and keepers 6 share a screenful and are 1 cell
+apart; scavs and lookouts 2 on a screenful and 25 cells apart (alone, on purpose); the
+whole valley at home 4 and 1. And on alive_gate's own 32 walks, a bigger and older
+sample than anything this round built: 2 OF 32 MET A STRANGER BEFORE, 9 OF 32 AFTER, 5
+different people, closest meeting 198 steps back down to 58. BETTER THAN EITHER VERSION
+ON ITS OWN, and it came out of taking another lane's red seriously instead of arguing
+with it.
+  THE HEADLINE, AND IT IS NOT A WIN YET. My own 12-walk protocol went 0 of 12 -> 2 of
+12, which is inside the noise of twelve samples; alive_gate's 32-walk sweep (2 -> 9) is
+the number to trust. NEITHER IS "he meets people without trying" and the row stays
+OPEN. They are the first numbers above zero this lane has measured on that walk.
   WHAT IS LEFT IS NOT PLACEMENT ANY MORE, IT IS FINDING. A place is a point and two
 points in a 512-cell square are hard to walk into; the crowd is real when you stand in
 it and invisible when you do not. The module's own phrase is "you hear a settlement
 before you see it", and this game has a city phone with a feed on it that THIS LANE
 BUILT ON 9/5 AND NEVER POINTED AT ANYTHING. That is the next round.
-  GATE: gates/people_gather_gate.js, 13/0, walked surface AND cut demo, registered.
-Mutation-tested four ways: delete the places (B1 red, 4 on a screen not 13, B4 red),
-delete the spacing rule (B3 red, closest pair anywhere 12 not 20), stop preferring
-frontage (B2 red, 0 of 12 places on a door), ignore the bearing (A3 and B1b red, 8
-bearings collapsing to 3 places).
+  GATE: gates/people_gather_gate.js, 14/0, walked surface AND cut demo, registered.
+Mutation-tested SIX ways: delete the places (B1 red, B4 red), delete the spacing rule
+(B3 red, closest pair anywhere 12 not 20), stop preferring frontage (B2 red, 0 of 12
+places on a door), ignore the bearing (A3 and B1b red, 8 bearings collapsing to 3
+places), send the solitary trades to a place too (B1a red, 36 scavs and lookouts 1 cell
+apart), and send nobody's working day to a place (B1, B1b and B4 red, peak 3 bodies and
+only at 18:00).
   *** AND THREE OF THOSE LEGS WERE ACCIDENTALLY CORRECT BEFORE THEY WERE LEGS. *** B3
 asked the nine neighbourhoods round the wake cell (loner/spread ground, 1-2 places
 each, far apart whether the rule existed or not) -- rule deleted, STILL GREEN. Rewritten
@@ -2076,6 +2098,11 @@ ZERO bodies at every hour on working code because it ran on the STANDALONE walke
 surface, where peoplePass() returns 0 on !PLAYER_CV and nobody is ever blitted. THIS
 LANE HAS BEEN CAUGHT BY THAT TRAP THREE TIMES IN TWO ROUNDS; it is now written into the
 gate at the point of use so the fourth time is somebody reading rather than re-deriving.
+And B1 ITSELF averaged the whole valley and demanded that going out tighten EVERYBODY,
+so it went red the moment the solitary trades were let walk alone -- which is the change
+that took alive_gate from 2 meetings to 9. AN AVERAGE OVER TWO POPULATIONS THAT ARE
+MEANT TO DIFFER MEASURES NEITHER OF THEM. It is two legs now and both directions of the
+split are mutation-proved.
   RECORD: records/BOHEMIA_A_BEARING_IS_A_PLACE_9_6_26.md
   STAMP: BUILD 9/6j - A BEARING IS A PLACE
   THE STANDING NOTE: A NUMBER YOU INFERRED FROM A COMMENT IS NOT A MEASUREMENT, AND IT

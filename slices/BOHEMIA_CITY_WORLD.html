@@ -36831,7 +36831,27 @@ function pplPlaces(nx, ny) {
    bearing chooses; the OCCUPANCY LAW means they ring it rather than stack on it,
    so a place with seven people is seven bodies you can see, not one. */
 var PPL_COMPASS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-function pplPlaceFor(p, dir, taken) {
+/* WHOSE DAY HAPPENS AT A PLACE, AND WHOSE DOES NOT. Read off bohemia_agents.js's
+   own four days rather than decided here:
+       worker  'work' at 'work'   -- an off-block site job. A place.
+       keeper  'errand' on the street, "barely leaves: tends the house/stock".
+               An errand goes somewhere. A place.
+       scav    'scav' on the street -- a SUBSISTENCE SWEEP. Sweeping is dispersed
+               by definition; two scavengers on one corner are competing.
+       watch   'watch' on the street at dusk -- a lookout, on a post, alone.
+   MEASURED, AND THIS IS WHY IT MATTERS. Sending EVERYBODY to a place made the
+   crowds real and the ground between them emptier: alive_gate's closest meeting
+   across thirty-two walks went from within 60 steps to 198, because the lone body
+   you used to bump into is now standing in a square somewhere else. Half the
+   valley walking its own way keeps both -- a stranger passed in the street AND a
+   crowd when you reach one. Nothing here is a ratio I chose; it is what those four
+   words already mean, and the split happens to be two of four. */
+var PPL_ALONE = { scav: 1, watch: 1 };
+function pplPlaceFor(p, dir, taken, work) {
+  /* the FAVOURITE spot is a place for everybody -- Shadows of Doubt's favourite
+     bar is a BAR, and even a man who scavenges alone all day drinks where other
+     people drink. Only the WORKING half of the day is solitary. */
+  if (work && PPL_ALONE[p.archetype]) return null;
   var P = BohemiaPopulation, span = P.NB * FN;
   var list = pplPlaces(Math.floor(p.home[0] / span), Math.floor(p.home[1] / span));
   if (!list.length) return null;
@@ -36861,7 +36881,7 @@ function pplOutSpot(p, taken) {
   /* __A_BEARING_IS_A_PLACE__ -- a place first; the old ray is what answers where
      there is no place to go, so ground the art has not filled in behaves exactly
      as it did. */
-  return pplPlaceFor(p, p.workDir, taken)
+  return pplPlaceFor(p, p.workDir, taken, true)
       || pplSpotToward(p, p.workDir, 4 + p.workDist * 2, 22 + p.workDist * 10, taken)
       || pplSpotToward(p, p.favDir, 3, 20, taken)
       || [p.home[0], p.home[1]];               /* nowhere to go: stay in */

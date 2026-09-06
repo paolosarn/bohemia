@@ -78,7 +78,9 @@ And **the old ray is still underneath**. Ground whose art has no doors and no op
 corners behaves exactly as it did, or this rule would quietly empty every district
 nobody has filled in yet.
 
-## WHAT IT DID
+## WHAT IT DID, ON THE FIRST CUT
+
+Sending **everybody** to a place:
 
 ```
                       before            after
@@ -95,7 +97,59 @@ blitted, hour by hour:
 ```
 
 Against **one body, everywhere, all day** before round 1. And the day has a shape
-you can feel: a morning, a dead middle, a busy evening, a quiet night.
+you can feel: a morning, a dead middle at the module's own heat hour, a busy
+evening, a quiet night.
+
+That first cut was too much, and the next section is how another lane's gate said so
+before I noticed.
+
+## AND SENDING EVERYBODY TO A PLACE WAS TOO MUCH, WHICH ANOTHER LANE'S GATE SAID FIRST
+
+`alive_gate` — the LIFE lane's own `__CITY_ALIVE__` gate — went red on one leg:
+*"it can happen inside a block, not only at the far end of one"*. Its closest
+meeting across thirty-two walks had gone from **within 60 steps to 198**.
+
+That is a real cost and it was not a broken ruler. Gathering everybody into places
+makes the ground **between** places emptier: the lone body you used to bump into is
+now standing in a square somewhere else. And the thing he actually complained about
+was *"I THINK I SAW ONE WATCH PERSON ON ACCIDENT"* — a single wandering stranger is
+the read he already called dead. But a valley where you meet nobody at all until you
+find a crowd is not better, it is differently empty.
+
+**WHOSE DAY HAPPENS AT A PLACE IS ALREADY WRITTEN**, in `bohemia_agents.js`'s own
+four days, and it is not a ratio anybody had to choose:
+
+| | its day | verdict |
+|---|---|---|
+| `worker` | `'work'` at `'work'` — an off-block site job | **a place** |
+| `keeper` | *"barely leaves: tends the house/stock"*, one daily `'errand'` | **a place** |
+| `scav` | `'scav'` on the street — a subsistence sweep | **alone**: two scavengers on one corner are competing |
+| `watch` | `'watch'` on the street at dusk — a lookout | **alone**: a post is a post |
+
+Half the valley walks its own way and half of it gathers, and the split fell out of
+what those four words already mean. The **favourite** spot stays a place for
+everybody — Shadows of Doubt's favourite bar is a *bar*, and a man who scavenges
+alone all day still drinks where other people drink. Only the working half of the
+day is solitary.
+
+Measured after:
+
+```
+workers + keepers   6 share a screenful, nearest neighbour  1 cell
+scavs + lookouts    2 share a screenful, nearest neighbour 25 cells   (alone, on purpose)
+the valley at home  4 share a screenful, nearest neighbour  1 cell
+```
+
+And on `alive_gate`'s own thirty-two walks, which is a bigger and older sample than
+anything this round built:
+
+```
+before this round   2 of 32 walks met a stranger, 2 different people
+after               9 of 32 walks, 5 different people, closest meeting 58 steps
+```
+
+**Better than either version on its own**, and it came out of taking another lane's
+red seriously instead of arguing with it.
 
 ## THE HEADLINE, AND IT IS NOT A WIN YET
 
@@ -105,11 +159,14 @@ the same protocol run on the code before and after:
 
 ```
 before   0 of 12 walks met anybody
-after    3 of 12, median first meeting at step 157
+after    2 of 12, median first meeting at step 160
 ```
 
-**Three of twelve is not "he meets people without trying" and the row stays OPEN.**
-It is the first number above zero this lane has ever measured on that walk.
+Two or three of twelve is inside the noise of a twelve-sample protocol, and
+`alive_gate`'s thirty-two-walk sweep is the number to trust: **2 of 32 to 9 of 32.**
+
+**Neither is "he meets people without trying" and the row stays OPEN.** They are the
+first numbers above zero this lane has measured on that walk.
 
 The arithmetic that is left: a place is a point, and two points in a 512-cell square
 are hard to walk into. The crowd is real when you are standing in it and invisible
@@ -139,6 +196,13 @@ had to be rewritten because **breaking the target did not make them red**.
 > floor on every pair everywhere, so the leg has to be the minimum over everything
 > the rule claims to cover.
 
+**B1 — "going out does not scatter them."**
+Averaged the whole valley and demanded that going out tighten *everybody*. It went
+red the moment the solitary trades were let walk alone — which is the change that
+took `alive_gate` from 2 meetings to 9. **AN AVERAGE OVER TWO POPULATIONS THAT ARE
+MEANT TO DIFFER MEASURES NEITHER OF THEM.** It is two legs now, and both directions
+of the split are mutation-proved.
+
 **B1b — "a settlement does not empty into one spot."**
 Counted distinct destination **cells**, and could not fail: the OCCUPANCY LAW rings
 a crowd around its spot, so twenty-five people sent to **one** place still stand on
@@ -165,6 +229,8 @@ standalone city **nobody is ever blitted**. It runs in the demo now.
 | delete the spacing rule | B3 (closest pair anywhere 12, not 20) |
 | stop preferring frontage | B2 (0 of 12 places on a door) |
 | ignore the person's bearing | A3, B1b (8 bearings → 3 places) |
+| send the solitary trades to a place too | B1a (36 scavs and lookouts, 1 cell apart) |
+| send nobody's working day to a place | B1, B1b, B4 (peak 3 bodies, and only at 18:00) |
 
 ## THE STANDING NOTE
 
