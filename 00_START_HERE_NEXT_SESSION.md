@@ -10937,7 +10937,22 @@ DIRECTION currently holds [density ruling] which is judging COOK's re-cook). THE
 ratchet is FORWARD-ONLY at 127/301 garments, so 174 older pieces have never been judged at
 all, and EYES' colour-density drift lives in exactly that unjudged half. Routed DIRECTION
 [judge the old] (top of lane): judge the backlog oldest-first on the same patrol schedule
-until the ratchet reads 100%.
+until the ratchet reads 100%. THEN (bw) VAMILY: 30 commits -- ANIMATION [walks at you]
+SHIPPED (the hostiles were STILLER than the crowd and "they are coming" was a teleport),
+CHARACTER [stands out] round 1 (nothing about how a body looks had ever asked whether that
+body is your enemy), FACTIONS [hidden factions] (four factions reachable by 0 of 5148 and
+now all four can be heard), SOUNDS THE ROOM HAS ITS OWN SONG (82 canon songs played
+NOWHERE, they play indoors now), PLUMBER [suite runs] 44.2 min -> 33.8, LIFE+CITY A BEARING
+IS A PLACE, RUN [real ending] (its gate read the wrong build), EYES E5, ECONOMY Q15, WORDS
+Q16, DYNASTY [heir plays], COOK [runway hair] answered. MY OWN CALL: six incidents in one
+day were ALL THE SAME DEFECT and no lane saw it -- the one-shot seat bake, HIS FACTION
+COLOURS LOCKED INSIDE A BROWSER while three lanes sat blocked on them, the five-garment
+stale bank, a merge silently dropping batch 5, cityRoom written and read by nothing, the
+hand-cut demo. New law: laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md -- anything
+derived is derived every run or a machine proves the copy matches its source, and A RULING
+OF HIS THAT LIVES ONLY AS PIXELS IS NOT RECORDED. Routed PLUMBER [nothing baked], EYES E11
+[pixels only] and E12 [silence standing], UI [colour reaches]; topped up DYNASTY and
+ECONOMY.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
