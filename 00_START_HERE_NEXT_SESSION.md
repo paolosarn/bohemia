@@ -13911,7 +13911,19 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/5 (latest): queue still empty; patrol round. Batch 5 judged PASS
+ROUND LOG 9/5 (latest): [judge enemies] CLAIMED, round 1 of N -- instrument
+work. PROVEN so far: the earned-edge path works live (BohemiaBetween.earn
+against Remnants makes Cartel read rel=hostile through ctRelToMine); 49
+Cartel bodies exist among 5,194 scheduled midday positions; the densest
+Cartel spot is world cell 8560,3195 (suburb). BLOCKED at the frame: the
+crowd does not DRAW under a teleport drop (three probes: empty frames, yet
+a TALK TO THE WATCH prompt fired with no body drawn - do NOT write that up
+as a defect, it may be the teleport's artifact, not the game's). NEXT ROUND:
+reach the spot by legit walk or find the crowd draw's anchor, get hostiles
+IN FRAME at phone size beside the crowd, then the three-question verdict
+(dangerous at phone size? faction-readable? readable against the crowd?)
+side by side with reference, as the job orders. Probe scripts:
+scratchpad hostilelook2/3/4.js, pplkeys.js. PREVIOUS: queue still empty; patrol round. Batch 5 judged PASS
 (the cocoon arc and double hem, cooked to the card's named shapes, sats
 0.037-0.077). The card gate caught the bank five garments stale on arrival,
 the extract fixed it, 45 post-card garments all pass (100 checks), ratchet
