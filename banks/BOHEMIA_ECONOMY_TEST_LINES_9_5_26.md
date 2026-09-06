@@ -1624,3 +1624,82 @@ DDDDD3 somebody showing you                            draft:true
 - No line names a faction, a collector or a market by name. MAP LAW, and his.
 - Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## FFFFF. THE FIRST ONE (round 22, the cliff: one mark and you have moved)
+## (nobody says reputation, standing or trust. They say what changed.)
+
+FFFFF1 somebody who noticed the day it happened        draft:true
+       "One thing. I did one thing and I could feel it on the street the next
+        morning, like the whole road had been told before I woke up."
+
+FFFFF2 somebody who did it twice                       draft:true
+       "The second one cost me nothing. That's what nobody warns you about.
+        The second one is free because there's nothing left to take."
+
+FFFFF3 the person who was there                        draft:true
+       "I'm not going to make a thing of it. I'm just going to be somebody who
+        knows, and you're going to feel that for a long time."
+
+## GGGGG. THEY GO LOOKING NOW (later marks arrive faster)
+## (once you are marked, people find more. Nobody explains the mechanism.)
+
+GGGGG1 somebody being re-read                          draft:true
+       "Everything I've ever done, they're going through it again. Things
+        nobody minded at the time, hermano, they mind now."
+
+GGGGG2 somebody doing the looking                      draft:true
+       "I thought about it after and there were three other times. I let them
+        all go. I'm not letting them go any more."
+
+GGGGG3 somebody who cannot get ahead of it             draft:true
+       "I can't argue with it because half of it's true and the half that
+        isn't sounds exactly like the half that is."
+
+## HHHHH. YOUR MONEY IS FINE (the cost is being served, not the price)
+## (the price never moves. Whether he deals with you does. Round 18's refusal,
+##  with a reason attached at last.)
+
+HHHHH1 a seller who will not deal                      draft:true
+       "It's the same price it was last week. It's the same price for
+        everybody. It's just not for you."
+
+HHHHH2 somebody working out what it costs              draft:true
+       "Nothing got dearer. That's what's strange. Nothing got dearer, there's
+        just nowhere that'll take it off me."
+
+HHHHH3 somebody with the money and no door             draft:true
+       "I've got more than I've ever had and I ate worse this week than I did
+        in the spring."
+
+## IIIII. STARTING AGAIN AS NOBODY (you do not come back, you arrive)
+## (the cheap-name equilibrium, and the price every newcomer pays for it.)
+
+IIIII1 somebody who moved on                           draft:true
+       "Two valleys over nobody's heard any of it. That's the whole plan.
+        That's the entire plan and I know how it sounds."
+
+IIIII2 somebody paying a newcomer's dues               draft:true
+       "I've done nothing to anybody here. Doesn't matter. New is new, and new
+        gets the worst of it for a while, and then it doesn't."
+
+IIIII3 somebody explaining why they are hard on new people draft:true
+       "Because half of them are somebody's problem walking away from itself.
+        The other half I'm sorry about, genuinely, but I can't tell which."
+
+IIIII4 the way back in, if there is one                 draft:true
+       "Same as anybody. You come back, and you come back, and one day
+        somebody says your name without thinking about it."
+
+## JJJJJ. WHAT IS NOT HERE, ON PURPOSE (round 22)
+- No line names a score, a rank, a level or a number of points. FFFFF1 says he
+  could feel it on the street.
+- No line has a price change. EVERYTHING COSTS ONE: HHHHH1 says it is the same
+  price for everybody and simply not for him.
+- No line names what the lie WAS. What a person can be caught at is the [PENDING
+  Paolo] this round routes, and it is his list.
+- No line has anybody take a possession or hit anybody. The punishment in every
+  line is a door, which is round 9's finding held to.
+- No line puts a timer on coming back. IIIII4 is the whole recovery mechanism and
+  it is showing up until somebody says your name without thinking.
+- Spanish register: 1 of 16 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.

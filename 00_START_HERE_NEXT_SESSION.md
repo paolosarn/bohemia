@@ -31,8 +31,8 @@ backstage], Q7 [water supply], Q8 [battery value],
 Q9 [trust credit], Q10 [market day],
 Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
 Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
-Q19 [price moves], Q20 [work feels], Q21 [five minute money].
-Next OPEN is Q22 [what a lie costs]; Q23 [who eats first] after it.
+Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs].
+Next OPEN is Q23 [who eats first]; Q24 [pay on time] and Q25 [batteries scarce] after it.
 
 AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
 (Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
@@ -66,113 +66,116 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 21 REPORT: [five minute money] SHIPPED ===
-*** THE ONLY LOOP THAT CLOSES IS THE EXPLOIT. MODE: RESEARCH, nothing implemented.
+=== ROUND 22 REPORT: [what a lie costs] SHIPPED ===
+*** THE FIRST ONE IS A CLIFF, NOT A SLOPE. MODE: RESEARCH, nothing implemented.
 NOT IN A TAB YET. Nothing to judge. ***
 
-Record: records/BOHEMIA_ECONOMY_DAY_21_THE_ONLY_LOOP_THAT_CLOSES_IS_THE_EXPLOIT_9_6_26.md
-Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections AAAAA-EEEEE (13 lines, 297 total)
-Board:  Q21 SHIPPED. Q1-Q21 shipped; next OPEN is Q22 [what a lie costs], then Q23
-        [who eats first], both added by the coordinator since last round.
+Record: records/BOHEMIA_ECONOMY_DAY_22_THE_FIRST_ONE_IS_A_CLIFF_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections FFFFF-JJJJJ (13 lines, 310 total)
+Board:  Q22 SHIPPED. Q1-Q22 all shipped; next OPEN is Q23 [who eats first], then
+        Q24 [pay on time] and Q25 [batteries scarce].
 
-I WENT LOOKING FOR THE SMALLEST COMPLETE MONEY LOOP IN BOHEMIA AND FOUND EXACTLY
-ONE, run end to end on the real modules:
-  TAP 1  place a building   -> paid 1 battery     game minutes spent: 0
-  TAP 2  sleep
-  TAP 3  wake               -> {resources:1}      game minutes spent: 0
-THREE TAPS, NO WALKING, NO TALKING, NO CLOCK, AND THE NUMBER WENT UP. That is the
-only complete money loop in the game AND IT IS THE EXACT LOOP ROUND 13 MEASURED
-FILLING THE VALLEY IN ELEVEN DAYS.
-  THE LOOP A PLAYER WOULD ACTUALLY TRY DOES NOT CLOSE: earn a battery, walk 78 game
-  minutes to the nearest market, buy food, resources still 0 (round 15). 157
-  minutes of a 960-minute day and he ends holding nothing.
-  SO WE CANNOT SIMPLY REMOVE THE EXPLOIT. IT IS CURRENTLY THE ONLY THING IN THE
-  ECONOMY THAT FINISHES.
+Round 9 already covered courtless CREDIT and found the organs live. This is the
+different question: what a CAUGHT LIE does, and what coming back looks like.
 
-WHAT A MINUTE OF THIS GAME COSTS, MEASURED: a fine cell is 0.75 m and costs 0.084
-game minutes (5.04 s); an overmap cell is 96 m = 10.8 minutes off-road, 5.4 on
-pavement; the nearest market is 7.3 cells = 78 minutes one way, 157 there and back,
-which is 16% OF A DAY; a conversation costs 60 minutes; BUILDING COSTS 0 AND BUYING
-COSTS 0. The economy's two cheapest actions are the two that should cost something.
+THE VALLEY CAN WATCH YOU, REMEMBER YOU, TALK ABOUT YOU BEHIND YOUR BACK AND RANK
+YOU FROM HOSTILE TO FAMILY. ALL OF IT IS BUILT AND RUNNING.
+  SEE_RANGE 9 tiles | HEARSAY_LOSS 0.55 | MAX_HOPS 2 | GOSSIP_WINDOW 45 days
+  RUNGS: HOSTILE -3 | COLD -1 | NEUTRAL 1 | WARM 3 | FWU
+  standingOf() averages a faction's actual members, so there is NO faction ledger:
+  a deed the Cartel watched moves the Cartel and nobody else.
+AND THERE IS NOT ONE THING YOU CAN DO THAT MOVES ANY OF IT. DEED_WEIGHT HAS ZERO
+ROWS, by his own mechanism/contents law, and the header names the empty half:
+"Positive is a good turn, NEGATIVE IS A WRONG DONE." Every opinion is 0 and every
+standing is NEUTRAL.
+AND THERE IS NO LIE TO CATCH: searched the whole engine, no lie / deceive / bluff /
+caught verb anywhere; every hit for the word is a comment about honest code. The
+one place lying is canon is a line the game already carries -- "they do not ask
+your name, they ask where you sleep... answer it with a lie and you will never get
+either." THE CONSEQUENCE IS WRITTEN AND THE SENTENCE CANNOT BE SPOKEN.
 
-THE REAL AISLE. "Portfolios of the Poor" followed ~250 families across India,
-Bangladesh and South Africa for a year with financial diaries. The TRIPLE WHAMMY:
-incomes are not only LOW, they are IRREGULAR and UNPREDICTABLE. And the behaviour
-that follows: THE POOR PRIORITISE SMALL, FREQUENT TRANSACTIONS OVER LARGE LUMP
-SUMS. Their financial lives are busier than a salaried person's, not simpler.
-AND THE THING THEY WILL PAY FOR IS SOMEWHERE TO PUT IT. The susu collector walks a
-daily route taking "small small moneys", as little as two cedis a day, and hands
-the total back at month end. HIS FEE IS ONE DAY'S COLLECTION: you save thirty days
-and receive twenty-nine. PEOPLE PAY ABOUT 3.3% FOR THE PRIVILEGE OF SAVING and ~15%
-of Ghana's adults still do, because money in your pocket gets spent and money in
-somebody else's box becomes a lump. The sentence that names it: "SAVING IN THE
-INFORMAL ECONOMY IS JUST BORROWING IN REVERSE, AND IT'S ALL ABOUT TURNING SMALL
-AMOUNTS OF CASH FLOW INTO USEABLE LUMP SUMS."
+THE REAL AISLE, and it is measured.
+  THE FIRST ONE IS A CLIFF. Cabral and Hortacsu on eBay: WHEN A SELLER GETS HIS
+  FIRST NEGATIVE FEEDBACK HIS WEEKLY SALES GROWTH GOES FROM +5% TO -8%. A
+  thirteen-point swing on one mark.
+  AND EVERY ONE AFTER IT IS CHEAP: subsequent negatives ARRIVE 25% MORE RAPIDLY and
+  hurt nowhere near as much. Once you are marked people go looking and they find
+  more; the reputation has already done its work. (On price, a 1% rise in the
+  negative share tracks ~9% lower price, weakly significant.)
+  AND MOSTLY YOU DO NOT COME BACK, YOU LEAVE: a seller is likelier to exit the lower
+  his reputation, and just before exiting collects more negatives than his lifetime
+  average. The observed end state of a bad reputation is departure, not repair.
+  SO WHAT ACTUALLY HAPPENS IS YOU START AGAIN AS A NOBODY. Friedman and Resnick,
+  "The Social Cost of Cheap Pseudonyms": when identity is cheap to replace,
+  reputation stops working as accountability, and the equilibrium societies land on
+  is that NEWCOMERS PAY THEIR DUES BY ACCEPTING POOR TREATMENT from people with
+  established names. There is an inherent social cost in making the spread of
+  reputations optional, AND IT IS PAID BY EVERY HONEST NEWCOMER TOO.
+  THAT IS THE ANSWER TO "HOW LONG TO COME BACK": YOU DO NOT. YOU ARRIVE AGAIN, AS A
+  STRANGER, AND THE VALLEY MAKES STRANGERS PAY.
+  AND ONE SOURCE PROVED ME WRONG: I meant to lead with the Maghribi traders, the
+  standard example of enforcement with no courts. THE REAPPRAISAL SAYS THEY USED
+  THE COURTS -- Edwards and Ogilvie showed they combined reputation sanctions with
+  real legal mechanisms. A world where reputation is the ONLY enforcement is not
+  something the historical record gives us. Even the famous example had a backstop.
 
-GAMES AISLE, and it is unusually specific: MICRO LOOP resolves in 1-5 seconds;
-FIRST REWARD lands within 30-60 seconds; MESO LOOP completes in 2-10 minutes, "long
-enough to feel like an accomplishment, short enough to fit a commute". If the basic
-cycle takes more than a few minutes the player loses the sense of progress. THE
-ROW'S FIVE MINUTES IS THE MESO LOOP EXACTLY AND THE STANDARD IS THAT IT COMPLETES.
-  MICRO         PASS, and only because the exploit is instant
-  FIRST REWARD  HALF: TAKE IT is one tap, then the reward is a whole quest of
-                hour-long conversations
-  MESO          FAIL: the shop run is 16% of a day and ends in nothing
+*** THE FINDING THAT PROVES US WRONG. I came in intending to deliver a slope:
+caught lying, standing falls; behave well, standing climbs. BOTH HALVES ARE WRONG.
+THE FALL IS ONE STEP AND THE CLIMB MOSTLY DOES NOT HAPPEN. A caught lie should not
+subtract, it should MOVE you; and the way back is not repair, it is arriving again
+as somebody nobody knows. ***
 
-*** THE FINDING THAT PROVES US WRONG. The row asks what an economy can GIVE a
-player in five minutes and I spent half the round hunting the right size of payout.
-THE THING WORTH COMING BACK FOR IS NOT SOMETHING YOU ARE GIVEN. IT IS SOMEWHERE TO
-PUT WHAT YOU GOT. People pay one day in thirty for it and a sixth of a country
-still does. ***
-Because the problem is not that a day earns little, it is that a day earns
-UNPREDICTABLY, so what a person needs is not a bigger day but a way to turn many
-small uneven days into one lump worth something.
-AND ROUND 15 FOUND THE SAME HOLE FROM THE OTHER SIDE: no bag, so buying delivers
-nothing, and in every real collapse the first thing people acquire is a container
-(a safe, a jerrycan, a tank). TWO INDEPENDENT ROUNDS, ONE ANSWER: THE MISSING PIECE
-IS NOT INCOME, IT IS A PLACE TO PUT THINGS.
-And that REFRAMES the exploit rather than condemning it: placing a building is
-already the only thing in this game that turns effort into something that keeps
-paying. IT IS NOT POPULAR BECAUSE IT IS BROKEN. IT IS THE ONLY CONTAINER WE
-SHIPPED. The fix is to stop it being the only one.
+WHAT A CAUGHT LIE SHOULD DO, DELIVERED:
+  TO STANDING. 1 One step down the ladder we already have (NEUTRAL to COLD IS the
+  cliff, built, no new field), and the second lie costs much less. 2 It moves only
+  the people who could have SEEN it, then travels at 55% a hop for two hops over
+  forty-five days -- all shipped. A lie told where nobody is standing costs nothing,
+  which is true and is round 16's dark blocks again. 3 THE WAY BACK IS NOT TIME, IT
+  IS BEING KNOWN AGAIN: nothing heals on a timer, and memory already decays slower
+  for the familiar, so showing up IS the mechanism (round 19's clientelization from
+  the other side).
+  TO PRICES. 4 THE PRICE DOES NOT MOVE. WHAT MOVES IS WHETHER HE IS SERVED. 8/15 is
+  locked and round 18 already measured that our till refuses nothing to nobody
+  anywhere -- A CAUGHT LIAR IS THE BEST POSSIBLE REASON FOR THAT REFUSAL TO EXIST.
+  5 And the cost lands on what round 21 said he needs: not his batteries, his access
+  to somewhere that will hold them, deal with him, or tell him anything.
+  THE CATCH ITSELF. 6 Somebody has to be standing there. The scene is not the lie,
+  it is the moment somebody who was there says so.
 
-THE SMALLEST COMPLETE MONEY LOOP, DELIVERED:
-  1 SEE ONE SMALL THING THAT NEEDS DOING   in front of you, not on a menu
-  2 DO IT                                  minutes, not an hour of conversation
-  3 GET PAID ONE OF SOMETHING              and not the same something as last time
-  4 PUT IT SOMEWHERE THAT KEEPS IT         <- THE MISSING RUNG, and the whole finding
-  5 SEE IT ADD TO WHAT WAS THERE           the lump growing is the reason to return
-Rungs 1 and 2 are round 20's rebusque sharpened by the meso number. Rung 3 is his
-own 8/11 ruling (every job says what it pays, no two the same) and EVERYTHING COSTS
-ONE is untouched. Rung 5 is round 20's Sisyphus repair: the Bionicles kept on a
-shelf produced 11, the ones taken apart produced 7. AND THE ORDER MATTERS: 1, 2, 3
-and 5 are each one round's work on systems that exist; RUNG 4 DOES NOT EXIST AT
-ALL, which is exactly why the only closing loop today is the building.
+REFUSED: a reputation number or meter (rounds 5 and 9 settled it); a sliding
+penalty that decays back (the record says cliff and departure); a price penalty for
+liars (8/15, and refusal is better anyway); filling DEED_WEIGHT (his table by name,
+and its gate asserts the emptiness); a world where reputation is the only
+enforcement (even the Maghribis used courts); inventing what a lie IS (words and
+quests); any implementation.
 
-REFUSED: removing the building loop before there is another one (it is the only
-thing that finishes); a bigger payout for a shorter job (8/15 LOCKED, and the real
-record says a lumpy day is not fixed by a bigger day); INTEREST ON SAVINGS (the
-susu fee runs the other way, and round 9 refused interest in either direction --
-the container should HOLD, not pay); a bank or vault screen or deposit menu
-(anti-spreadsheet, same as round 15's refusal of an inventory grid); shortening the
-hour-long conversation (that is a scene's business; the point is a conversation is
-the wrong unit to EARN by); any implementation.
-
-ROUTED: LIFE+CITY and WORLD get the one that unblocks everything -- there is
-nowhere to put what a day produced, and one fix closes both round 15's hole and
-this one. WORLD also gets "the only complete loop is three taps with no clock, do
-not remove it before there is a second one" and "building and buying cost no time
-while everything else costs hours". QUESTS gets "an hour-long conversation is the
-wrong unit to earn by". One goes to Paolo.
+ROUTED: PEOPLE gets two (DEED_WEIGHT is zero rows while every other part of the
+organ runs; the first mark should be the expensive one). WORLD and FACTIONS get "a
+caught liar is the best reason round 18's refusal should exist". WORDS and QUESTS
+get "there is no way to say a false thing". One goes to Paolo.
 
 GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
-blockers 22/0, language 81/0.
-SIXTH ROUND RUNNING where a green suite and a real finding are both correct. The
-pattern in its final form: THESE GATES CHECK THAT A PART DOES WHAT IT SAYS. NOTHING
-CHECKS THAT TWO PARTS AGREE, THAT A PART KEEPS WORKING FOR AS LONG AS THE GAME
-LASTS, THAT IT IS THE RIGHT PART TO HAVE, OR THAT THE PARTS FORM A LOOP THAT
-CLOSES. Every finding this lane has produced since round 16 lives in one of those
-four gaps. A suggestion about what a checker could be, not this lane's to build.
+blockers 22/0, language 81/0, STANDING 35/0.
+SEVENTH ROUND RUNNING where a green suite and a real finding are both correct, AND
+THIS ONE IS DIFFERENT FROM THE OTHER SIX: standing_gate is 35/35 over a module with
+zero deeds, and that is the gate working as designed -- its own module says the gate
+ASSERTS the emptiness. The other six were gaps between parts. THIS ONE IS A GATE
+CORRECTLY GUARDING AN EMPTY ROOM, which is the mechanism/contents split doing
+exactly its job. The answer is not a better gate, it is a ruling.
+
+HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
+  FOUR ROUNDS FROM FOUR DIRECTIONS FOUND THE SAME OBJECT -- round 9 (a debt is a
+  person who remembers), 18 (the market's real product is news), 19 (the answer is
+  a regular guy), 22 (the punishment for a lie is being a stranger again):
+  THE ECONOMY OF BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO.
+  TWO ROUNDS FROM TWO DIRECTIONS FOUND THE SAME MISSING OBJECT -- round 15 (no bag)
+  and 21 (what people pay for is somewhere to put it):
+  THE MISSING PIECE IS NOT INCOME, IT IS A PLACE TO PUT THINGS.
+  AND THE STANDING PATTERN: almost every finding was a mechanism ALREADY BUILT,
+  ALREADY CORRECT, AND POINTED AT NOTHING -- the purse, the grid, the standing
+  organ, the feed, the agents' workday, the barter refusal, the pay verb, the
+  shelf's talking line. THIS BUILD'S PROBLEM HAS NOT ONCE BEEN THAT SOMETHING WAS
+  WRONG. IT HAS BEEN THAT SOMETHING WAS NOT CONNECTED.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept
@@ -196,16 +199,17 @@ four gaps. A suggestion about what a checker could be, not this lane's to build.
  14. What does a FAILED job pay? Today it is an honest NO_RULING.
  15. What will each faction NOT trade? Fourteen answers, one short phrase each.
  16. After the valley's shelves are empty, what does a shop SAY?
- 17. What can a person in this valley be paid to do? The most characterful list
-     left in the economy.
+ 17. What can a person in this valley be paid to do?
  18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
- 19. (new, and it is now TWO rounds' finding) WHAT DOES A PLAYER KEEP HIS MONEY AND
-     GOODS IN? Round 15 asked what he starts with; this asks what holds what he
-     gets. In the real record it is a safe, a jerrycan, a tank, a box the collector
-     carries. It is a thing with a name, and names are his.
+ 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
+ 20. (new) WHAT IS THE FIRST THING A PLAYER CAN BE CAUGHT AT, AND WHAT DOES IT COST
+     HIM? DEED_WEIGHT is his table and the NEGATIVE half of it is the most
+     characterful thing in this lane's whole study: IT IS THE LIST OF WHAT THIS
+     VALLEY THINKS IS WRONG.
 
-NEXT IN THIS LANE: Q22 [what a lie costs].
+NEXT IN THIS LANE: Q23 [who eats first].
 
+================================================================================
 ================================================================================
 EYES AND EARS (eyes-5vql33): 9/6 (k) LATEST -- *** E11 [pixels only] ROUND ONE OF TWO IS DONE:
 SCHOOL. NO MEASURING WAS DONE, ON PURPOSE, BECAUSE THE 9/6 LAW SAYS THIS LANE TAKES TWO ROUNDS
