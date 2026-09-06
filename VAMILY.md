@@ -255,7 +255,7 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 - SHIPPED 9/5 records/BOHEMIA_WORDS_Q11_WHAT_THE_FACE_CAN_CARRY_9_5_26.md  [face carries]  Q11 What the face can carry so the words do not have to. At 64 px with mouth, blink and brow, which emotions read without a word, and how games with a talking portrait split the load between face and text.
 - SHIPPED 9/5 records/BOHEMIA_WORDS_Q12_NAMES_AND_NICKNAMES_9_5_26.md  [naming people]  Q12 Names and nicknames. How people in a collapsed city name each other and places (real post-disaster naming, gang and crew naming), and what that does for a player learning who is who.
 - SHIPPED 9/5 records/BOHEMIA_WORDS_Q13_HOW_A_RUMOUR_TRAVELS_9_5_26.md  [rumours spread]  Q13 Rumour. How true and false news moves through a small world by speech alone, in the real record and in the best games, for the man-who-lives-tells-people axis (day 12).
-- OPEN  [one-word answers]  Q14 The one-word answer.
+- CLAIMED 9/5 words-8dqrnq  [one-word answers]  Q14 The one-word answer.
 - OPEN  [feed voice]  Q15 How a feed talks. The city screen scrolls posts about what you did and what the world did. What real small-community feeds and the best in-game feeds sound like, and how to keep an auto-generated post from reading like a press release. Test posts for five deeds and five world events. When the best games let a character answer in one word and why it lands. Test lines: twenty one-word answers, each a different person.
 - OPEN  [small moments]  BB-THE-SMALL-MOMENT  (build, held until the lane returns to MODE: BUILD)
 - OPEN  [trade slang]  BB-STILL-SAYS-IT  (build, held)
