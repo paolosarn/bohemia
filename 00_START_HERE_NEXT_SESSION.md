@@ -18043,7 +18043,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [judge the turn] round 1 -- the transition look is
+ROUND LOG 9/6 (latest): [cloud look] SHIPPED e30ce69 -- the cloud's four
+open answers closed inside the transition card (coverage <= 60% and never
+all four edges, clears by beat two, value-only multiply, Mojave cloud
+shadow as the named reference). STILL HELD: [judge the old] (execution on
+COOK's retints, [PENDING coordinator routing], third round waiting) and
+[judge the turn] (ships when the built transition passes section 6).
+PREVIOUS: [judge the turn] round 1 -- the transition look is
 RULED AHEAD OF THE BUILD (records/BOHEMIA_FIGHT_TRANSITION_LOOK_9_6_26.md):
 two beats at 120, the cloud is a moving value shade (no white fog), combat
 gets no palette of its own and all screen filters are banned, non-
