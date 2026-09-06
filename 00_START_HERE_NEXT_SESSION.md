@@ -9990,7 +9990,16 @@ every lane keeps building, but nothing new enters the FIGHT LOOP without its cos
 beat until headroom exists; explicitly NOT the 7/26 art freeze. Swing: the drawImage wall is
 per CALL not per pixel -- cut call count, pre-render to offscreen and blit whole, layer the
 canvases, never scale inside drawImage, round the coordinates. Routed PLUMBER [fight
-headroom] (top), COMBAT [draw budget] (top), ANIMATION [cheap cloud].
+headroom] (top), COMBAT [draw budget] (top), ANIMATION [cheap cloud]. THEN (bv) "is the
+art direction and art cook always working together?" -> MEASURED, and the honest answer is
+yes with one gap: the pipeline is real (DIRECTION writes the card, COOK cooks to it,
+DIRECTION patrols and judges, CHARACTER wires what passes -- batches 1-4 wired at canon
+280->320, batch 5 judged and passed, the card gate went red on arrival exactly as designed,
+DIRECTION currently holds [density ruling] which is judging COOK's re-cook). THE GAP: the
+ratchet is FORWARD-ONLY at 127/301 garments, so 174 older pieces have never been judged at
+all, and EYES' colour-density drift lives in exactly that unjudged half. Routed DIRECTION
+[judge the old] (top of lane): judge the backlog oldest-first on the same patrol schedule
+until the ratchet reads 100%.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
