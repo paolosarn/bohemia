@@ -90,3 +90,32 @@ or a written reason why it is not ready. By the time this rule was written the
 bank held 36 records (ECONOMY 12, WORDS 13, DYNASTY 11) and not one of them had
 been routed into a build job by this seat. A finding nobody routes is a finding
 nobody made. First harvest: records/BOHEMIA_THE_HARVEST_9_6_26.md.
+
+
+## AMENDED 9/6/26: SCHOOL FIRST, IN WORDS TOO (Paolo, LOCKED)
+He gave EYES AND EARS a two-round rule ("each request becomes a round of online
+research for that topic before it does it") and immediately extended it: "oh and
+same thing for words bro."
+
+**WORDS: EVERY QUESTION IS TWO ROUNDS.**
+- **ROUND ONE IS SCHOOL.** A whole VAMILY spent learning the subject and nothing
+  else: the best-written games, the real linguistics, the real testimony of people
+  who lived the thing, what the standard advice on writing it says and where that
+  advice is wrong. It ends as a record. NO TEST LINES ARE WRITTEN IN ROUND ONE.
+- **ROUND TWO IS THE WRITING.** The test lines go to the bank, draft:true, and the
+  record must name WHICH finding from school changed how they were written. If
+  nothing from school changed the lines, school was done badly.
+- A question marked SHIPPED without both rounds is not shipped.
+- Everything else about the lane stands: do not implement, big swings, the voice
+  gate and the language cap hold over the bank.
+
+**WHY IT FITS THIS LANE PARTICULARLY.** Its strongest rounds were the ones that
+went and learned something first and came back with a finding that broke our
+assumption -- that all four of our refusals were the same move and taught nothing,
+that the five stages of grief are not a finding about grieving people. Its weakest
+shape is writing lines that sound good to the writer. School is what makes the
+difference, so it gets its own round.
+
+**THE MODE NAMES:** RESEARCH lanes that write nothing into the game are now either
+plain RESEARCH (ECONOMY, DYNASTY: one round per question) or SCHOOL THEN WRITE
+(WORDS) and SCHOOL THEN CHECK (EYES AND EARS). Only he moves a lane between them.

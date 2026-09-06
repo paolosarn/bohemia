@@ -11507,6 +11507,12 @@ A job SHIPPED without both rounds is not shipped. Written into VAMILY's EYES sec
 laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md, with the lane's own evidence for why he is
 right (E4's grep count was wrong twice because a run-time-assembled name is invisible to
 any text search; E7 only found the density drift after learning what density is).
+THEN (by) "oh and same thing for words bro" -> WORDS is now MODE: SCHOOL THEN WRITE, the
+same two-round shape: round one is pure study of the question's subject with NO test lines
+written, round two writes the lines and must name which finding from school changed them.
+Law amendment in laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md, which now also names the
+three research modes (plain RESEARCH for ECONOMY and DYNASTY, SCHOOL THEN WRITE for WORDS,
+SCHOOL THEN CHECK for EYES AND EARS) and says only Paolo moves a lane between them.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
