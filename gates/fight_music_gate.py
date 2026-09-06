@@ -104,7 +104,20 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
       console.log(JSON.stringify(out)); await b.close(); return; }
 
     await p.click('#front');                      // the real gesture
-    await p.waitForTimeout(22000);                // opening hands over to the streets
+    // WAIT FOR THE HANDOFF, NOT FOR A DURATION. This was `waitForTimeout(22000)`
+    // with the comment "opening hands over to the streets", and it ROTTED: the
+    // opening plays 8 bars and then hands over, but the handover cannot happen
+    // until the transport is running, and the city has grown. MEASURED 9/6: the
+    // opening hands over at 27.5 SECONDS. So the sample was taken while MENUMUS
+    // was still on, saw city=false and a MENU song, and the three claims that
+    // depend on the streets playing all went red -- on plain origin/main, with
+    // nothing wrong with the game. This is the same rot BEAT FIRST had (8/2x):
+    // A FIXED WAIT IS NOT AN EVENT. Wait for the thing itself, with a bound, and
+    // report honestly if it never comes.
+    out.openingHandedOverMs = await p.evaluate(async () => { const t=Date.now();
+      while (Date.now()-t < 60000) { await new Promise(r=>setTimeout(r,300));
+        if (!MENUMUS.on && CITYMUS.on) return Date.now()-t; }
+      return null; });
     const snap=()=>p.evaluate(()=>({fight:FIGHTMUS.on,city:CITYMUS.on,watch:!!CITYMUS.watch,
       step:MUS.step,playing:!!MUS.playing,
       now:(MUS.cur<MFACTIONS.length?MFACTIONS[MUS.cur].n:(MUS.lib()[MUS.cur]||{}).n)}));
@@ -206,9 +219,24 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
         KILLMUS.kills=1; KILLMUS.killed();  // -> 2 kills, which is now LEVEL 3
         await wait(400);
         r.held={step:MUS.step%16, want:KILLMUS.want, layers:MUS.layers};
-        MUS.step=32;                       // 32 % 16 = 0: the top of a bar
-        await wait(400);
-        r.landed={want:KILLMUS.want, layers:MUS.layers};
+        // HOLD THE TRANSPORT ON THE BAR LINE AND WAIT FOR THE APPLIER, rather
+        // than nudging it once and hoping. This was `MUS.step=32; wait(400)`
+        // and it was A RACE the whole time: the scheduler keeps advancing step
+        // (a sixteenth is 125 ms at 120 BPM) while KILLMUS's watcher polls at
+        // 60 ms, so whether the watcher ever SAW a step with step%16===0 inside
+        // that 400 ms depended on where the transport happened to be. MEASURED
+        // 9/6: two consecutive runs of this gate, one 47/1 and one 48/0, on the
+        // same unchanged tree. The gate's own note four lines up says a flaky
+        // gate is worse than no gate because it teaches everyone to ignore red
+        // -- and that note was written about this very claim, which was made
+        // "driven" but kept a fixed wait. A FIXED WAIT IS NOT AN EVENT. So the
+        // bar line is HELD until the applier acts, and the wait ends on the
+        // thing itself.
+        r.landedMs=null;
+        { const t0=Date.now();
+          while(Date.now()-t0<4000){ MUS.step=32; await wait(60);
+            if(MUS.layers===KILLMUS.want){ r.landedMs=Date.now()-t0; break; } } }
+        r.landed={want:KILLMUS.want, layers:MUS.layers, ms:r.landedMs};
       }catch(e){ r.barErr=String(e); }
       KILLMUS.reset();
       // AND THE PARTS REALLY THICKEN. Exact, not a signal guess: wrap the two
@@ -323,6 +351,9 @@ def main():
     ok('FIGHTMUS is in the shipped alpha', d.get('fm'))
 
     st = d.get('streets') or {}
+    ok('the opening handed the music over to the streets on its own (after %s ms) '
+       '-- waited for, not timed out on'
+       % d.get('openingHandedOverMs'), d.get('openingHandedOverMs') is not None)
     ok('the streets are playing before the fight (city=%s, %s)'
        % (st.get('city'), st.get('now')), st.get('city') and st.get('playing'))
 

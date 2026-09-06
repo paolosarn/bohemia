@@ -1803,6 +1803,20 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('ROOM SONG',['python3', 'gates/room_song_gate.py'],
+     "CAN THIS SONG BE HEARD ANYWHERE? music_reach_gate (8/4) asks whether a "
+     "song HE TAGGED can be heard, and a gate built around his tag table can "
+     "only ever check the rows in it -- so it could not see the 91 songs nobody "
+     "ever tagged. Measured on a real boot by asking the game's own functions: "
+     "128 songs, the street reaches 16, combat 15, the opening 6, and NINETY-ONE "
+     "could be heard NOWHERE, 82 of them thumbed CANON. This asks the "
+     "whole-shelf question instead: every song is reachable by some player or "
+     "buried, no third state, and 'nobody got round to tagging it' is not an "
+     "excuse a build keeps. It walks the body through a REAL DOOR with the "
+     "city's own inEnter and waits for the SWITCH, not for a duration. Three "
+     "probes came before it and TWO BROKE WHAT THEY MEASURED -- one forced the "
+     "street shuffle under the opening and deadlocked it, one posted a FAKE "
+     "inside:true that the city's own truthful heartbeat correctly overwrote", True),
     ('SOUND REACHABLE',['python3', 'gates/every_sound_is_reachable_gate.py'],
      "WHICH OF HIS APPROVED SOUNDS THE GAME ACTUALLY MAKES, measured by playing "
      "it. THE-OTHER-51's brief says '51 of 65 have none' and THAT NUMBER CAME "

@@ -1456,6 +1456,108 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/6 (b) LATEST -- *** 82 SONGS HE THUMBED CANON PLAYED
+NOWHERE IN THIS GAME. THEY PLAY INDOORS NOW, AND NOT ONE OF THEM WAS ASSIGNED
+TO ANYTHING BY ME. TAB: RUN (walk into any building). Nothing to judge --
+nothing was cooked. ***
+
+Build 9/6v - THE ROOM HAS ITS OWN SONG.
+
+MEASURED FIRST, BY ASKING THE GAME'S OWN FUNCTIONS ON A REAL BOOT, not by
+reading the tag table:
+
+    songs in the shelf   128
+    the street reaches    16   (night 9, day 5, dusk/dawn 2)
+    combat reaches        15
+    the opening reaches    6
+    HEARD NOWHERE         91   -- 82 of them thumbed CANON, 9 correctly buried
+
+HIS OWN LAW ALREADY NAMED THE ROOM AND NOBODY BUILT IT. The OVERWORLD PLAYLIST
+LAW (7/7) says the overworld plays only the creepers, and that faction/action
+themes are for "scenes, dialogue, INTERIORS". Scenes were built -- that is
+combat, and it is why 15 songs have a home. The interior never was: the walked
+city has doors, the ambience bed has swapped to air_inside on that exact flag
+since 8/14, and the MUSIC did not move. Street, shop, street: the same song
+three times, and typeof INTERIORMUS was undefined.
+
+THE POOL IS A RULE, NOT A LIST, WHICH IS WHY IT CHOOSES NOTHING FOR HIM. Tagging
+is his, in the MUSIC tab. So the pool is one sentence: a song with NO category is
+a song nobody has placed, and a song nobody has placed is heard indoors. Tag one
+in the MUSIC tab and it leaves the pool by itself. Measured on the running game:
+82 in, 0 tagged, 0 buried, 0 creepers. GRAVEYARD IS FINAL is enforced, not
+assumed.
+
+BOTH TRANSITIONS WAIT ONE PHRASE, AND THAT IS NOT FIGHTMUS COPIED. FIGHTMUS is
+asymmetric on purpose because danger is now; A DOOR IS NOT DANGER. And the
+DEBOUNCE had to be a SECOND condition: a song change resets MUS.step to 0 and
+the wrap must count as arrival or the wait hangs forever, so "the phrase wait IS
+the debounce for free" is wrong. Wall time cannot be wrapped -- one phrase of
+dwell as well. Never sooner than 16s, always on a phrase.
+
+*** THREE CUTS, AND THE PROBE CAUGHT BOTH FAILURES. ***
+  * CUT ONE armed once on the doorway and GAVE UP if anything else owned the
+    music at that instant. Forty seconds indoors, no switch: the opening was
+    still playing. BEING INDOORS IS A STATE, NOT AN EDGE.
+  * CUT TWO polled with TWO timers, one per direction, and the way out was DEAD
+    -- where() always installed the going-IN poll, whose first line is "if he is
+    not inside, stop". He walked in at 15.8s and the room played on forever.
+    TWO TIMERS FOR ONE STATE IS THE BUG, not whichever handler ran.
+  * CUT THREE is one pump, routed by what is true now, standing down in the same
+    tick it acts (a tick later was a lie to a checker).
+
+AND TWO OF THREE PROBES BROKE WHAT THEY MEASURED, which keeps being this lane's
+real lesson. One forced CITYMUS.startShuffle() while the opening was playing,
+which resets MUS.step under MENUMUS's watch (it waits for step>=128) and
+deadlocked the handoff for the whole run. The other posted a FAKE inside:true
+that the city's own truthful 4-second heartbeat correctly overwrote 3 seconds
+later. Lying to the game about where the player is standing measures nothing.
+
+MEASURED END TO END: street TWO COINS FOR THE FERRYMAN -> through a real garage
+door -> 15,760ms -> WHAT THE DICE FORGOT (untagged), shuffle stood down, music
+never stopped -> back outside -> 16,037ms -> THE WIND LEARNS WORDS. And in the
+DEMO, checked separately rather than assumed: 15,769ms to SILK ROAD GHOST.
+
+THE GATE ASKS A DIFFERENT QUESTION FROM THE ONE WE HAD. music_reach_gate (8/4)
+asks whether a song HE TAGGED can be heard; a gate built around his tag table can
+only check the rows in the tag table, so it was GREEN through all of this. ROOM
+SONG asks the whole shelf, of the game and not the file: every song is reachable
+by some player or buried, no third state. 33 claims, 3 runs, 33/0 every time.
+Mutation proved four ways (cut the wire 5 fail, tagged leaks in 2 fail, buried
+leaks in 1 fail, no dwell 2 fail).
+
+*** AND FIGHT MUSIC WAS RED ON MAIN, IN THIS LANE, AND IS GREEN NOW. ***
+Found at 44/3 running the lane's gates; checked against plain origin/main in a
+clean worktree BEFORE blaming my own diff and it failed there identically. The
+cause was `await p.waitForTimeout(22000)` with the comment "opening hands over
+to the streets" -- A FIXED WAIT IS NOT AN EVENT, the exact rot BEAT FIRST had.
+The handover now takes 27.5s because the city keeps growing, so the gate sampled
+while the opening was still on and three claims went red with nothing wrong with
+the game. It waits for the handover now.
+FIXING THAT EXPOSED A FLAKY CLAIM UNDERNEATH: "LANDS at the top of the next bar"
+came back 47/1 then 48/0 on the SAME unchanged tree. It was `MUS.step=32; wait
+(400)` -- a race, because the scheduler advances step (125ms a sixteenth) while
+KILLMUS's watcher polls at 60ms. My change did not break it, it changed the
+phase and revealed it. The gate's own comment four lines up says a flaky gate is
+worse than no gate. The bar line is HELD until the applier acts now.
+48 passed, 0 failed, three runs.
+
+*** RECORDED, NOT ACTED ON: THE OPENING SONG DRAWS FROM A POOL OF TWO. ***
+MENUMUS.candidates() returns 2 while 6 songs carry the MENU tag -- the other
+four are in the buried 13. That is correct by GRAVEYARD IS FINAL and it is not
+this row's job, but a two-song front door is worth knowing about.
+Also still carried from last round: A FIGHT STARTING MAKES NO SOUND AT ALL
+(cityFightOnEnter posts the encounter with no sound call). Needs a new cook, so
+it belongs to [enemy heard] and [fight music].
+
+  proof  python3 gates/bohemia_gates.py --only "ROOM SONG"
+         records/BOHEMIA_THE_ROOM_HAS_ITS_OWN_SONG_9_6_26.md
+         tools/bohemia_the_room_has_its_own_song.py
+  next   [music owned] continues: the street pool is 16 of 128 and the three
+         time-of-day pools are 9 / 5 / 2, so dusk is a coin flip between two
+         songs. That is the next measured hole in this row.
+
+--------------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 9/6 (a) LATEST -- *** THE-OTHER-51 IS CLOSED. EVERY ONE
 OF THE 65 APPROVED SOUNDS IS ACCOUNTED FOR: 13 HEARD ON THE WALKED SURFACE, 52
 WITH THEIR OWN WRITTEN REASON, 0 UNEXPLAINED.
