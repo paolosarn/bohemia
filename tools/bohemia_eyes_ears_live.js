@@ -41,6 +41,18 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
   await p.locator('#front').click({ timeout:30000 });
   await p.waitForTimeout(9000);
 
+  const acNow = async (where) => {
+    /* BARE NAME, NOT window.MUS. The music studio is declared with `const`, and a
+       const at the top of a classic script is a GLOBAL BINDING BUT NOT A WINDOW
+       PROPERTY. Reading window.MUS returns undefined while MUS works perfectly --
+       which is how this harness reported "no AudioContext" through a whole walk and
+       nearly turned a bug in itself into a finding about the game. */
+    const st = await p.evaluate(() => { try { return (typeof MUS !== 'undefined' && MUS.AC) ? MUS.AC.state : 'no AudioContext'; } catch (e) { return 'MUS threw'; } });
+    marks.push(where + ': ' + st); return st;
+  };
+  const marks = [];
+  await acNow('right after the splash tap');
+
   /* GET UP FIRST. The first screen holds a card and a walk taken underneath it is a
      walk nobody takes: measured once without this and the game asked for ONE sound in
      45 seconds, because the player was still in bed. */
@@ -51,6 +63,7 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
     }
   }
   await p.waitForTimeout(2000);
+  await acNow('after the cards are dismissed');
 
   /* WRAP, DO NOT REPLACE. The real function still runs, so the walk is the walk a
      player takes and not a walk with the sound removed. */
@@ -77,6 +90,7 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
      unless the walk was a walk: a picture before and a picture after, and the pixel
      count between them, so "the game is silent" cannot be confused with "my harness
      did not press anything". */
+  await acNow('at the start of the walk');
   const before = await p.screenshot({ path: process.env.EARS_SHOT_A || undefined });
 
   /* WALK. Arrows plus taps on the movement ring, because the ring is what a thumb
@@ -93,6 +107,7 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
     }
     await p.waitForTimeout(220);                    /* a step every fifth of a second */
   }
+  await acNow('at the end of the walk');
   const after = await p.screenshot({ path: process.env.EARS_SHOT_B || undefined });
   const moved = (() => {                                  /* share of bytes that differ, cheap and honest */
     const n = Math.min(before.length, after.length);
@@ -104,18 +119,20 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
        identical from outside: nobody asked for a sound; somebody asked and the bank
        was empty; somebody asked and the audio engine was never started. */
     let acState = 'no MUS', steps = null;
-    try { acState = (window.MUS && window.MUS.AC) ? window.MUS.AC.state : 'MUS with no AudioContext'; } catch (_e) {}
-    try { steps = window.STEP_BANK ? Object.keys(window.STEP_BANK).length : (typeof STEP_BANK !== 'undefined' && STEP_BANK ? Object.keys(STEP_BANK).length : null); } catch (_e) {}
+    try { acState = (typeof MUS !== 'undefined' && MUS.AC) ? MUS.AC.state : 'MUS with no AudioContext'; } catch (_e) {}
+    try { steps = (typeof STEP_BANK !== 'undefined' && STEP_BANK) ? Object.keys(STEP_BANK).length : null; } catch (_e) {}
     return { wrapped: window.__SFX_WRAPPED, asked: window.__SFX_ASKED,
       renders: window.__SFX_RENDERS || 0, stepCalls: window.__STEP_CALLS || 0,
       audio: acState, stepBankEvents: steps,
       stepMsgs: window.__STEP_MSGS || 0, citySfxMsgs: window.__CITY_SFX_MSGS || 0,
-      approvedEvents: Object.keys(window.__SFX_APPROVED || {}).length };
+      approvedEvents: Object.keys((typeof __SFX_APPROVED !== 'undefined' && __SFX_APPROVED) || window.__SFX_APPROVED || {}).length };
   });
   await b.close();
 
   const names = Object.keys(asked.asked || {});
   console.log('playSFX wrapped:', asked.wrapped, '| approved events in the build:', asked.approvedEvents);
+  console.log('THE AUDIO ENGINE, THROUGH THE RUN:');
+  for (const m of marks) console.log('   ' + m);
   console.log('the screen changed by ' + moved + '% between the first frame and the last, so the walk '
     + (moved > 5 ? 'MOVED HIM' : 'may not have moved him at all'));
   console.log('sounds actually rendered at the bus in that time: ' + asked.renders

@@ -1,3 +1,56 @@
+EYES AND EARS (eyes-5vql33): 9/5 (h) LATEST -- *** E5 [missing sound] SHIPPED, AND E4'S
+ALARM IS WITHDRAWN. The footstep chain WORKS end to end (31 walked cells, 31 calls, 32
+renders). But STAND STILL FOR 35 SECONDS WITH THE DAY STARTED AND THE ENGINE RUNNING AND THE
+GAME PLAYS NOTHING: zero effects asked for, zero rendered, while the music plays. The three
+ambience beds are approved, cooked, measured -- and nothing ever calls them. ***
+MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
+
+THE WITHDRAWAL FIRST. E4 reported a walk that rendered zero sounds and REFUSED to call it a
+finding because the same run showed the audio engine down. That refusal was right and the
+cause was a bug in my own harness: IT READ window.MUS, AND THE MUSIC STUDIO IS DECLARED WITH
+const -- a global BINDING, NOT a window PROPERTY. window.MUS is undefined while MUS works.
+Fifth instrument bug this lane has caught in itself in one day, and the cheapest.
+With bare names the harness tells the truth: engine running at four checkpoints, 31 walked
+cells, 31 footstep calls, 32 renders at the bus. THE GAME IS NOT SILENT WHEN YOU WALK.
+
+AND THEN THE MEASUREMENT THAT MATTERS: 35 SECONDS STANDING STILL = ZERO SOUNDS. air_day,
+air_night and air_inside are approved and cookable (E4 measured all three) and nothing in the
+game calls them. That is the day-22 finding still standing, with a number on it. SOUND fixed
+the MUSIC half today (the city sends where you are and the song follows); the ambience half
+is cooked and unplayed.
+
+THE TEN GAPS, EVERY VERDICT TWO WORDS AND EVERY ONE MEASURED TODAY:
+  the ambience bed        COOKED, UNPLAYED   35s still: 0 asked, 0 rendered
+  footsteps               LIVE, MONOTONE     31 of 31 steps reported the surface 'dirt'
+  reverb by space         BUILT, LIVE        the city posts OPEN; four spaces with real numbers
+  occlusion               NOT BUILT          nothing filters a sound by a wall in the way
+  distance colour         NOT BUILT          darkness is per SPACE, never per DISTANCE
+  a threshold you hear    NOT BUILT          the spaces switch instantly; a doorway is silent
+  stings                  MUSIC ONLY         they live in the studio, not the effects factory
+  ducking under a card    NOT BUILT          no sidechain: nothing steps aside for a card
+  the phone speaker       HALF LOST          E4: 22 events lose half their energy under 500 Hz
+  watching the mix        NOBODY IS          nothing meters the game's own output while it plays
+
+AND EVERY VERDICT RESPECTS THE SCREECH LAW. No delay lines, no convolvers: the factory
+already builds space out of FINITE SOURCES (scheduled early reflections, a filtered noise
+tail). Occlusion in that world is a low-pass on the dry layer with the reflections untouched
+-- three numbers on an existing recipe, not a new engine. Not one gap asks for a reverb bus.
+
+ROUTED: SOUNDS gets the bed first (the work is done, only the call is missing), then
+occlusion and distance colour, then one look at whether 31 dirt steps is a yard or a
+fallback. GAP 10 IS MINE: E4 measured every asset alone and nothing has ever metered the MIX
+while the game plays. That is my next instrument and it is what lets E9's standing duty say
+"this ship got louder" instead of "these files measure fine".
+
+NEXT IN THIS LANE: E8 [first minute], then E9 the standing duty, then the mix meter.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; eight things
+now do. Lanes may only change the status word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E5_THE_SOUND_GAP_LIST_9_5_26.md (+ E1, E2, E3, E4, E6, E7 and
+the round-one record). List: banks/eyes/BOHEMIA_EYES_SOUND_GAP_LIST_9_5_26.json, draft:true.
+Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools: ten, all
+bohemia_eyes_*, and the live audio harness is trustworthy now.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -745,58 +798,6 @@ GATES, ALL GREEN, RUN THIS ROUND:
     voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
 
 NEXT: Q16 [cut off], the last open research row.
-
-EYES AND EARS (eyes-5vql33): 9/5 (g) LATEST -- *** E7 [reference score] SHIPPED. The 9/4
-compare law now has a SCORE SHEET: ten yes/no questions, SEVEN OF THEM A MACHINE ANSWERS,
-three only a person can. And running it to validate itself found something: THE ACT-1
-RE-COOK CARRIES ONE SIXTH THE COLOUR DENSITY OF THE ART PAOLO APPROVED, and ten of its
-forty-two tiles read as lit from a different corner than the tile they replaced. ***
-MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
-
-REUSE CHECK: gates/texture_match_gate.py already holds painted TILES to four numbers
-derived from the packs he BOUGHT (colours per tile, edge energy, grain, saturation). This
-does not re-measure those. It generalises the idea to ANY pair of pictures -- a garment, a
-face, a whole screen -- and adds the four that gate does not ask: value band, grain SCALE,
-light direction, and whether the thing still reads at play size.
-
-THE SHEET. Machine: same detail order (local contrast within 2.5x), same colour density
-(within 3x), same saturation budget (within 0.10), same value band (60% overlap), same
-grain scale, same light (the lit corner agrees), still reads at play size (shrink to 24px).
-A person: is it the same MATERIAL (name what each is made of -- two words that differ means
-the numbers do not matter), does it belong to THIS world, and what would a stranger call
-each picture in one word. A cook is not done until the seven are yes and the three are asked.
-
-VALIDATED BEFORE IT WAS USED: a picture against itself 7/7; a water tile against a wall tile
-3/7; the re-cook against the approved set, median 6/7 across 42 tiles.
-
-THE FINDING, AND TWO INSTRUMENTS NOW AGREE. Across those 42 tiles the failures are: COLOUR
-DENSITY 32 of 42, LIGHT 10 of 42, value band 4, grain 4, detail order 3, saturation 3, reads
-at size 1. The re-cook's colour density is a MEDIAN 0.16x of the art he approved and the
-sidewalk tiles are at 0.03x -- three percent. Some of that is the craft working (law 0: a
-tile is decisions, not a shrunk painting) BUT the texture-match gate found the same shape
-from a completely different direction months ago: painted art here is too smooth and too
-clean beside the packs he bought. Two instruments built for different reasons pointing the
-same way is worth a RULING from DIRECTION, not another quiet cook.
-AND TEN TILES READ AS LIT FROM A DIFFERENT CORNER than the tile they replaced: road_0,
-road_1, road_2, road_centre, dirt, garage_bottom, roof_slope, roof_hipTL, roof_hipBR,
-roof_deck. The pixel-craft gate checks the key by PAIRS within a form, which is the right
-test for a form; whether a tile agrees with the tile it REPLACED is a different question and
-nothing was asking it. Routed to COOK.
-
-HONEST LIMIT: reference/library holds URLs, not pixels, so the machine half cannot run
-against most library entries from in here. It runs today against anything in the repo -- his
-bought packs, any bank, any screenshot -- and for a library entry the same ten questions go
-to a fresh chat with both pictures in front of it. That is why the sheet is written to be
-answerable BY EITHER. And seven yes does not mean good: it means built to the same recipe.
-
-NEXT IN THIS LANE: E5 [missing sound], then E8 [first minute], then E9's standing duty.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; seven things
-now do. Lanes may only change the status word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E7_THE_REFERENCE_SCORE_9_5_26.md (+ E1, E2, E3, E4, E6 and the
-round-one record). Sheet: banks/eyes/BOHEMIA_EYES_REFERENCE_SCORE_SHEET_9_5_26.json,
-draft:true. Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools:
-ten now, all bohemia_eyes_*.
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
