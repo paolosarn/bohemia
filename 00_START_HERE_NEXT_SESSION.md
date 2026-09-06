@@ -1754,7 +1754,7 @@ NEXT: Q12 [naming people]. How a collapsed city names its people and places.
 
 
 
-LIFE + CITY (city-1eztay): 9/5 (e) LATEST -- *** [feed posts] THE-FEED-STREAM: SHIPPED.
+LIFE + CITY (city-1eztay): 9/5 (e) -- *** [feed posts] THE-FEED-STREAM: SHIPPED.
 THE VALLEY TALKS ON THE CITY PHONE, AND IT IS ONE STREAM NOW. *** MODE: BUILD.
 TAB: CITY (the phone panel on the right, in the zoomed-out view). Nothing to judge.
 
