@@ -17329,12 +17329,27 @@ WHAT SHIPPED.
      what stops "I fixed the ruler" from ever meaning "I made the red go away", and I
      wrote it before lowering a single number.
 
+*** A SECOND FINDING, FROM CHASING THE LAST TWO. *** After the ruler fix my tree read
+29 and origin/main read 27 -- SAME RULER, three runs each, stable on both sides, so not
+noise. The two extra are the COLD-OPEN CARD'S OWN LINES ("The family, the table, ten
+years ago." and its WATCH button) being on screen in one capture and not the other.
+That is which card is up at the instant of capture, not craft. It also means this
+file's old note -- that the harness reaches one state deterministically -- IS NOT TRUE.
+I froze at 29, the number this tree really and repeatably measures, with BOTH halves of
+the move written into the baseline file: down nine, of which two went up and why. A
+number lowered with the awkward part deleted is worth less than no number.
+AND EYES' GATE WAS ALREADY RED ON MAIN BEFORE ANY OF THIS (39 against their frozen 38).
+It is green now.
+
 FOR EYES AND EARS, AND IT IS THEIR CALL NOT MINE: almost everything left in the 27 is
 text UNDER THE MORNING CARD'S SCRIM, which their harness holds up because it is the
 screen a player lands on. A modal dimming what is behind it is intended, not a craft
 defect. The number worth ratcheting may be the one with the cards ANSWERED, where it
 is now zero -- tools/bohemia_readable_on_the_played_screen.js measures that state. I
-did not change their harness's state; I only fixed the arithmetic it was using.
+did not change their harness's state; I only fixed the arithmetic it was using -- their
+probe's own comment says it means to count dimmed dialogue ("this game dims its own
+dialogue behind a card"), so excluding scrimmed text would be overriding their design,
+not correcting their maths, and that line is theirs to draw.
 
 THE GENERAL LESSON, THE THIRD TIME THIS LANE HAS PAID FOR IT: WHEN A MEASUREMENT AND
 THE PICTURE DISAGREE, LOOK AT THE PICTURE. A confident number from a broken instrument
