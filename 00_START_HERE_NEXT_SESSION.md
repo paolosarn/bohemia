@@ -18925,7 +18925,16 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [first look] round 1 -- the demo's first screen and
+ROUND LOG 9/6 (latest): [small and clear] round 1 -- the half-size card is
+ruled ahead of the shrink (records/BOHEMIA_HALF_SIZE_LOOK_CARD_9_6_26.md):
+chrome halves, floors do not (44pt touch / 11px body / one-pixel border);
+glyph-only with the label on hold; barks and anything that spends keep
+words; the replacing zoom is anchor-invariant, scale-only, tiers swap
+below 4px per cell, three resting stops that read as closer-and-further.
+UI [half size] builds to it; the line ships on judging the built shrink
+(section 4's four-shot test). FIVE HELD LINES now, all waiting on other
+lanes' builds or the retint routing - the lane's cards are ahead of every
+build they feed. PREVIOUS: [first look] round 1 -- the demo's first screen and
 first tap judged as pictures against the first-hour library (evidence PNGs
 in records/target). A B hiding its A: register right, ONE input right; but
 the promise shows no world (fix: the walked street dimmed under the
