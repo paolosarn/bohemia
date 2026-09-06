@@ -2,7 +2,7 @@ FACTIONS (factions-ovkjpf): 9/6 (round 8) LATEST -- *** [town sizes]
 TOWN-TIERS-ARE-HIS SHIPPED. He can move any faction's town size from the DIRECT
 tab and the walked city agrees the same second. *** Nothing to judge.
 
-VAMILY row: [town sizes] TOWN-TIERS-ARE-HIS, MODE: BUILD, SHIPPED 9/6.
+VAMILY row: [town sizes] TOWN-TIERS-ARE-HIS, MODE: BUILD, SHIPPED 9/6 a04fc969.
 Record: records/BOHEMIA_HE_CAN_MOVE_A_TOWN_9_6_26.md
 
 THE ROW SAID "needs Paolo" AND IT DID NOT
