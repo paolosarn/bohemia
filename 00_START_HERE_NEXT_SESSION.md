@@ -3,7 +3,7 @@ THE-OTHER-FOUR SHIPPED. Four factions in his own graph could never appear on a
 single person, and each already had a line nobody could hear. All four are now
 reachable AND hearable on the demo. *** Nothing to judge.
 
-VAMILY row: [hidden factions] THE-OTHER-FOUR, MODE: BUILD, SHIPPED 9/6.
+VAMILY row: [hidden factions] THE-OTHER-FOUR, MODE: BUILD, SHIPPED 9/6 f554a28.
 Record: records/BOHEMIA_THE_FOUR_THAT_HOLD_NO_GROUND_9_6_26.md
 
 WHAT THE ROW ASKED FOR FIRST WAS A MEASUREMENT, AND IT WAS DAMNING
