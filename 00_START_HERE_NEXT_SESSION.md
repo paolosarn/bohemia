@@ -2927,6 +2927,66 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 12 [heir's hour], SHIPPED. *** THE SHARPEST FINDING THIS LANE HAS MADE,
+AND THE SMALLEST FIX. ***
+  records/BOHEMIA_DYNASTY_DAY_12_THE_HEIRS_FIRST_HOUR_9_5_26.md
+  banks/BOHEMIA_THE_HEIRS_FIRST_HOUR_WHAT_YOU_STILL_HAVE_DRAFT_9_5_26.txt (draft:true)
+
+THE MACHINE ALREADY COUNTS EXACTLY WHAT THE FIRST HOUR NEEDS AND TELLS NOBODY.
+ctFold() returns { gen, carried, died }: `carried` is how many of your father's
+deeds survived BECAUSE SOMEBODY RETOLD THEM, `died` is how many died with the
+last witness. MEASURED: those two words appear in EXACTLY TWO PLACES in the
+walked city, where they are computed and where they are returned. Nothing
+consumes them. Nothing displays them. The game performs the most important
+arithmetic in the whole dynasty and throws the answer away.
+
+AND THE ORDER OF THOSE TWO WORDS IS THE ENTIRE DESIGN. Losses are felt harder
+than equal gains, so a fold that takes a life and returns an equal amount does
+not feel level, it feels like a loss; the heir has to arrive holding VISIBLY MORE
+than was taken. Of the two numbers we already have, `died` is the loss quantified
+and delivered at the exact moment it lands hardest, and `carried` is the only one
+that answers the question the row asks. WHAT YOU KEPT COMES FIRST, AND ONLY THEN
+WHAT YOU LOST.
+(The loss-aversion COEFFICIENT is deliberately not shipped. The direction is well
+supported, including a multi-country replication reporting about 90% on the core
+contrasts; the number itself, canonically 2.0 in a 1.5-2.5 range, is openly
+contested in its own literature. Direction only.)
+
+AND THE CONTINUITY IS ALREADY TOTAL AND ALREADY INVISIBLE. The heir keeps the
+player id '@' by ruling, not convenience: "a run resets you to nothing, a handoff
+is the opposite. Keeping the id means every card, every rung and every outfit
+view keeps working and now reads the family's history as the player's own."
+MECHANICALLY THE PLAYER LOSES NOTHING AND WOULD STILL FEEL THEY LOST EVERYTHING,
+BECAUSE NOTHING TELLS THEM WHAT THEY KEPT. That gap between what is true and what
+is felt is the whole content of this row.
+
+AND A SCENE IS ONE FILE. Four act-1 scenes are shipped as JSON (COLD OPEN 362
+lines, GRIEF DINNER 194, RIDGE BURIAL 182, THE LAST ROOM 115) and the grief
+dinner's own note says the cost: "THE SECOND CUTSCENE, AND IT COST ONE FILE. No
+new engine code, no new gate machinery." THERE IS NO FOLD SCENE. The machinery
+for the most important cut in a hundred-hour game is proven, shipped four times,
+and has never been pointed at the fold. Scope: scene records listed, quest corpus
+and slices searched.
+
+WHAT THE FIRST TEN MINUTES MUST DO, ASSEMBLED FROM ELEVEN EARLIER ROUNDS (so it
+is an assembly job, not an invention): show what CARRIED first; do not play the
+ten years (round 6); the room is identical and the people are gone (round 6); a
+name nobody can explain (round 9); a seat somebody took, a scar, and one person
+who does not answer (round 11); an object somebody USED rather than owned (round
+3); the same verbs, because nothing should be taught at the worst possible moment
+to learn something (round 10); and somebody still says the name (round 8).
+
+ROUTED (proposals only): RUN or UI SAY-WHAT-CARRIED -- two words the machine
+already computes, shown in the right order at the fold. THE SMALLEST JOB THIS
+LANE HAS EVER PROPOSED AND THE HIGHEST RATIO OF EFFECT TO COST. And QUESTS
+(parked) THE-FOLD-IN-THE-RUNTIME already exists as an OPEN row; section 3 of the
+record is its cost estimate.
+
+*** THE BOARD GREW AGAIN THIS ROUND. *** The coordinator has added two new rows
+below: [what carries] Q11 and [heir plays] Q12. Everything in the list above is
+input to both. NEXT FOR THIS LANE: the first line marked OPEN, which is
+[what carries] Q11.
+
 ROUND 11 [lasting death], SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_11_DEATH_THAT_IS_NOT_THE_END_9_5_26.md
   banks/BOHEMIA_LASTING_DEATH_THE_SEAT_AND_THE_SCAR_DRAFT_9_5_26.txt (draft:true)

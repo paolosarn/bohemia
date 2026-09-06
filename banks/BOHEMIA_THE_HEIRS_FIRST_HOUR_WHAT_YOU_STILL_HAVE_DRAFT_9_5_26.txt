@@ -1,0 +1,91 @@
+BOHEMIA -- THE HEIR'S FIRST HOUR: WHAT YOU STILL HAVE
+BANK, 9/5/26, DYNASTY lane, Q12 [heir's hour]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. No damage, health or armour number
+anywhere, and NO loss-aversion coefficient either: that number is contested in
+its own literature and the direction is the only part I trust. WHAT IS IN THE
+ROOM, WHO IS AT THE TABLE AND WHAT ANYBODY SAYS IS HIS. This file supplies the
+ORDER, not the words.
+Record: records/BOHEMIA_DYNASTY_DAY_12_THE_HEIRS_FIRST_HOUR_9_5_26.md
+
+WHY THIS SHAPE
+Losses are felt harder than equal gains. So a fold that takes a life and hands
+back the same amount does not feel level, it feels like a loss, and the heir has
+to arrive holding VISIBLY MORE than was taken.
+And the machine already knows the exact number. ctFold() returns
+{gen, carried, died}: how many of your father's deeds survived because somebody
+RETOLD them, and how many died with the last witness. Measured: those two words
+appear in exactly two places in the walked city, where they are computed and
+where they are returned. NOTHING SHOWS THEM. The game does the most important
+arithmetic in the whole dynasty and throws the answer away.
+THE ORDER IS THE DESIGN. `died` is the loss, quantified, arriving at the exact
+moment a loss is felt hardest. `carried` is the only thing that answers the
+question the job is asking. WHAT YOU KEPT COMES FIRST.
+And the continuity is already total: the heir keeps the player id, so every card,
+every rung and every outfit view still works. The player loses nothing and would
+still feel they lost everything, because nothing tells them what they kept.
+
+---- THE FIRST TEN MINUTES, AS AN ORDER ONLY --------------------------- draft:true
+Structure is ours. Every word, room, name and person is his.
+
+  1. WHAT YOU KEPT      the carried count, first, before anything else
+  2. THE SAME ROOM      identical, unfixed, and full of people who do not know you
+  3. ONE WHO DOES       somebody still says the name
+  4. A THING HE USED    not a thing he owned
+  5. WHAT IS GONE       the died count, and the seat, and the silence
+  6. THE SAME VERBS     nothing new to learn at the worst moment to learn it
+
+---- WHAT YOU KEPT, WHICH GOES FIRST ------------------------------------ draft:true
+  SIX THINGS HE DID ARE STILL BEING TOLD.
+  PEOPLE HERE KNOW THE NAME.
+  THE GROUND IS STILL YOURS.
+  YOU KNOW HOW TO DO THIS. YOU HAVE ALWAYS KNOWN HOW TO DO THIS.
+  NOTHING IN YOUR HANDS HAS CHANGED.
+
+---- THE SAME ROOM ------------------------------------------------------ draft:true
+  SAME TABLE. SAME MARK ON IT.
+  NOBODY FIXED ANYTHING WHILE YOU WERE NOT HERE.
+  YOU KNOW WHICH BOARD CREAKS.
+  THE DOOR STILL STICKS.
+
+---- ONE WHO STILL SAYS THE NAME ---------------------------------------- draft:true
+  SHE KNEW HIM.
+  SHE IS THE LAST ONE WHO DID.
+  SHE TELLS IT WRONG AND SHE TELLS IT OFTEN.
+  YOU LOOK LIKE HIM. SHE SAYS IT LIKE AN ACCUSATION.
+
+---- A THING HE USED ---------------------------------------------------- draft:true
+  HE HAD THIS ON HIM.
+  IT IS WORN WHERE HIS HAND WAS.
+  HE MENDED IT HIMSELF AND HE MENDED IT BADLY.
+  IT STILL WORKS.
+
+---- ONLY THEN, WHAT IS GONE -------------------------------------------- draft:true
+  ELEVEN THINGS HE DID. SIX SURVIVED.
+  THE REST DIED WITH THE PEOPLE WHO SAW THEM.
+  SOMEBODY ELSE HAS HIS SEAT.
+  THERE IS A NAME ON THAT CORNER AND NOBODY CAN TELL YOU WHY.
+  YOU WILL NEVER KNOW WHAT HE DID HERE.
+
+---- AND THEN YOU ARE JUST PLAYING -------------------------------------- draft:true
+(no tutorial. the verbs did not change, so there is nothing to teach.)
+  GO.
+  IT IS YOURS NOW.
+  SOMEBODY IS ALREADY WAITING AT THE DOOR.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+NEVER show what was lost first, or alone. That is the loss, quantified, delivered
+at the moment it lands hardest.
+No summary screen of the parent's life. Real second generations get fragments,
+not briefings.
+No montage of the years between. His own law says the gap is never played.
+No tutorial. The verbs did not change.
+No loss-aversion number and no damage, health or armour number.
+Not one line of the actual scene: the order ships, the words are his.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+What room it is and who is in it. Who still says the name and what they get
+wrong. Which object survived and what it was for. What the heir is called.
+Whether any of this is a scene at all.
