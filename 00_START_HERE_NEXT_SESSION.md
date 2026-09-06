@@ -12742,6 +12742,19 @@ first and unfumbleable lesson. "Have the tutorial pop-up after the other pop-up,
 wanna skip the tutorial or have the tutorial" -> UI [tutorial ask], two choices, no third.
 AND I AMENDED MY OWN [no text box] ROW so the lanes do not fight: that rule is the FIGHT
 only; an offered tutorial the player chose is not what it bans.
+THEN (cd) VAMILY: one commit (DIRECTION [contrast rule] shipped) -- he is typing VAMILY
+back to back so there is little to sweep. DYNASTY'S QUEUE WAS EMPTY, refilled. HARVEST TWO
+(records/BOHEMIA_HARVEST_TWO_A_HUNDRED_HOURS_IN_FIVE_MINUTE_BITES_9_6_26.md), two findings
+from their bank: (1) a mobile session is 5-6 MINUTES, four a day, day-7 retention 3.4-3.9%,
+so we are building a hundred-hour game for somebody who plays five minutes at a time and is
+96% likely gone by the end of the week -- not an argument against the hundred hours, it
+decides their SHAPE; routed RUN [five minutes] and UI [where was i]. (2) NOTHING IN THIS
+GAME CAN BE FORGIVEN: they searched the standing web, deeds and dynasty for forgive,
+settle, absolve, pardon, spare, redeem and found ZERO; every function gets a deed INTO the
+world and nothing resolves one, so standing is a one-way ratchet toward being hated and
+generation three is an ANGEL who cannot forgive anything; routed PEOPLE [make it right],
+top of lane. Also topped up DYNASTY (empty), ECONOMY, EYES (E13 half-size check, school
+first) and DIRECTION [small and clear].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
