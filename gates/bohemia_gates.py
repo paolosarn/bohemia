@@ -222,6 +222,28 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('ALLY WHY',       ['node', 'gates/ally_why_gate.js'],
+     'Board row [reactions explained] / BB-WHY: "THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE '
+     'DID WHAT IT DID... when the player cannot tell WHY it chose what it chose, the whole '
+     'system reads as broken instead of clever. With no manual control there is no recourse '
+     'mid-fight, so legibility is not polish, it is the safety rail. It is a LOOK problem." '
+     'MEASURED FIRST: the companion is real and decides WELL -- ROSA runs a fixed four-rung '
+     'ladder (a blade on you, then the man who gave away your cover, then whoever is nearest '
+     'to dropping, then one step onto safer ground) and she already speaks. SO SHE WAS NEVER '
+     'SILENT: she said WHAT ("FIRING", a description of a trigger pull containing no reason) '
+     'under one fixed subtitle that read the same whether she had just saved you or wandered '
+     'off, in a readout at the edge of the screen while the thing it is about is a body in '
+     'the middle of it. Every rung already HAS its reason -- the code is built out of them -- '
+     'so the reason is now recorded at the rung that produced it and DRAWN ON THE BODY: a '
+     'dashed line from her to the man she chose and three or four plain words on him, for '
+     'one beat (BPM_MS, the game\'s own clock), then gone, because a reason that stays is '
+     'furniture. No numbers, no scores, no list of what she rejected -- the row\'s hard part '
+     'is showing a reason without a debug dump. Nothing is drawn when the room is clear. '
+     'Three findings are legs: a rung can only be tested with the rungs above it silenced '
+     '(the first checker measured the spotter while claiming to measure the weakest); the '
+     'line must still point at a man she KILLED, which is the commonest case of all and the '
+     'first cut hid it; and pos[] is not a mirror of G.e, so the draw asks epos(), the same '
+     'authority the bodies themselves are drawn with.', True),
     ('PHONE READABLE', ['node', 'gates/phone_readable_gate.js'],
      'Board row [phone readable]: "text size, tap targets, colour-blind safety on faction '
      'colours, motion; the Game Accessibility Guidelines basic tier". MEASURED FIRST on the '

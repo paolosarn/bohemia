@@ -14986,6 +14986,72 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/6 (c) LATEST -- *** [reactions explained] BUILT. THE COMPANION NOW
+SAYS WHY, ON THE BODY IT IS ABOUT, FOR ONE BEAT. ***
+
+MEASURED FIRST, AND THE PREMISE WAS WRONG IN AN IMPORTANT WAY. The row reads like the
+companion is a black box. She is not. ROSA is real, she runs a fixed FOUR-RUNG ladder
+in allyTurn() -- a blade already on you, then the man who gave away your cover, then
+whoever is nearest to dropping, then one step onto the safest ground -- and she
+already SPEAKS through allySay(). SO SHE WAS NEVER SILENT. The gap was narrower and
+sharper than the row implies:
+  - she said WHAT ('FIRING'), which is a description of a trigger pull and contains
+    no reason at all;
+  - 'GOT THE BLADE' implied a reason by luck of phrasing, not by design;
+  - every line carried ONE FIXED SUBTITLE, "she is fighting her own turn", which
+    reads the same whether she just saved your life or wandered out of range;
+  - and all of it landed in a readout at the EDGE of the screen while the thing it
+    was about is a body in the MIDDLE of it. The row says this is a LOOK problem. A
+    line of text somewhere else is not a look.
+
+WHAT SHIPPED. Every rung already HAS its reason -- the code is built out of them --
+so the reason is recorded at the rung that produced it (never reconstructed later,
+which would be a second guessing copy of the ladder) and DRAWN ON THE BODY: a dashed
+green line from her to the man she chose, and three or four plain words sitting on
+him, for exactly one beat (BPM_MS, the game's own clock), then gone. KNIFE ON YOU /
+HE GAVE YOU AWAY / CLOSEST TO DROPPING / NOTHING IN RANGE / TOO FAR FROM YOU. Nothing
+at all when the room is clear. No numbers, no scores, no list of what she rejected --
+showing a reason WITHOUT a debug dump is the hard half of the row. The readout's
+subtitle now carries the same reason, because two places explaining one act must not
+give two different explanations.
+
+*** THREE THINGS THAT COST TIME AND ARE NOW LEGS. ***
+  1. A RUNG CAN ONLY BE TESTED WITH THE RUNGS ABOVE IT SILENCED. The ladder is
+     ordered on purpose, so the first checker set up "nearest to dropping" and
+     measured the SPOTTER rung instead, reporting the wrong words for the right
+     reason. Kill spotterCall (and its cached key) before testing anything below it.
+  2. THE LINE MUST STILL POINT AT A MAN SHE KILLED. The first cut refused to draw at
+     a dead body, which hid THE SINGLE MOST COMMON CASE THERE IS: she shoots the one
+     nearest to dropping and he drops. The question is about the instant she acted;
+     the corpse is still on the field to point at.
+  3. pos[] IS NOT A MIRROR OF G.e. Two lookups into it came back empty -- entries are
+     skipped, which is why the older code in that file carries an explicit .i rather
+     than an iteration index, and .i is not on every man. The draw asks epos(), the
+     same authority the bodies themselves are drawn with, which needs no index and
+     cannot disagree with where the man was painted.
+  AND A FOURTH, FOR THE CHECKER ITSELF: a fixed 120ms wait for "did it draw" passed
+  and failed on consecutive runs of the same build. Wait for the frame's own record
+  to appear, inside the beat, never for a number of milliseconds. That is the third
+  time this lane has paid for a fixed sleep.
+
+HOW TO EDIT THE FIGHT AT ALL: combat lives in COMBAT_B64, a base64 blob inside the
+alpha. There is an established pattern (~130 tools/bohemia_combat_*_patch.py files):
+decode, anchor on exact text with a count==1 assertion, re-encode. Mine is
+tools/bohemia_combat_you_can_see_why_she_did_it_patch.py and it is kept in sync with
+what actually shipped, so it can be re-read as the record of the change. NOTE the
+beat constant in there is BPM_MS (ENG.K.BPM_MS), NOT BEAT_MS -- reaching for BEAT_MS
+silently falls back to a literal that stops agreeing with the music.
+
+GATE: gates/ally_why_gate.js, 14 ok 0 failed, registered in the suite. It drives the
+REAL fight in the REAL alpha through real frames, never a parse of the source
+(combat_runs_smoke was written after 620 green checks shipped a black screen).
+Mutation-proved twice: put 'FIRING' back on two rungs -> 3 legs red; park the words
+at the screen edge -> the on-the-body leg red.
+
+STILL TRUE: fix the alpha, THEN cut the demo, THEN run the gate. And read main's
+build-stamp letter and go one PAST it -- main was on 9/6q this round and my own tree
+would have handed me a letter from hours ago.
+
 UI (ui-kmqmrf): 9/6 (b) LATEST -- *** [phone readable] BUILT. TEXT SIZE, LESS MOTION,
 THE LAST 34px BUTTON, AND THE FACTION COLOURS MEASURED FOR COLOUR BLINDNESS. ***
 
