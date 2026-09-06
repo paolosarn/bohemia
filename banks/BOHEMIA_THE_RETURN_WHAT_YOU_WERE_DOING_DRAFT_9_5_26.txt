@@ -1,0 +1,69 @@
+BOHEMIA -- THE RETURN: WHAT YOU WERE DOING
+BANK, 9/5/26, DYNASTY lane, Q16 [hundred hours]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11). No damage, health or armour
+number anywhere. NO NUMBER HERE IS A RULING: how long a break counts as long,
+how many lines a return shows, and every word chosen are HIS.
+Record: records/BOHEMIA_DYNASTY_DAY_18_A_HUNDRED_HOUR_GAME_9_5_26.md
+
+WHY THIS SHAPE
+A hundred hours is between 200 and 1,000 separate decisions to come back. That is
+the most repeated moment in the whole game and nothing greets it. The recap is
+already written: 27 quests carry 164 journal rows, first person, past tense, one
+per stage, and the only code that reads them is the tool they were typed into.
+SO THIS BANK INVENTS ALMOST NOTHING. It is the shape of a return, and the words
+it would say are mostly words we already have.
+
+---- THE THREE THINGS A RETURN HAS TO ANSWER ------------------------------ draft:true
+(in this order, because the last one is what actually brings somebody back)
+  1  WHAT DID I DO           the journal line you already wrote
+  2  WHAT CHANGED WHILE I WAS GONE   the world moved, and it moved without you
+  3  WHAT WAS I ABOUT TO DO   the intent. the save protects the state and
+                              nothing anywhere protects this.
+
+---- THE SHORT BREAK, WHERE YOU STILL REMEMBER ---------------------------- draft:true
+(one line. anything longer is in the way of the game.)
+  YOU WERE HALFWAY UP THE HILL.
+  YOU LEFT THE MONEY WITH HER.
+  YOU STILL OWE THE WATCH A NAME.
+  YOU WERE GOING BACK FOR IT.
+
+---- THE LONG BREAK, WHERE YOU DO NOT ------------------------------------- draft:true
+(the whole point: you do not open a menu to find out who you are.)
+  IT HAS BEEN A WHILE.
+  YOU ARE THE ONE WHO PUT THE LIGHT BACK ON THIS BLOCK.
+  THE PEOPLE WHO WERE ANGRY AT YOU ARE STILL ANGRY.
+  YOU HAD ONE THING LEFT TO DO AND YOU KNEW WHAT IT WAS.
+
+---- WHAT THE WORLD DID WITHOUT YOU --------------------------------------- draft:true
+(this is the one that has to be true. it is a lie unless something moved.)
+  SOMEBODY ELSE TOOK THE CORNER.
+  THEY FINISHED IT WITHOUT YOU.
+  NOBODY CAME LOOKING.
+  IT IS WORSE THAN YOU LEFT IT.
+
+---- THE WEEK, NOT THE HUNDRED HOURS -------------------------------------- draft:true
+(the only goal distance with a demonstrated effect. the ladder is already built
+and already on the surface; these are the words a rung would wear, not a rung.)
+  THIS IS WHAT YOU ARE WORKING ON.
+  YOU PICKED THIS ONE.
+  ONE MORE AND THEY HAVE TO LISTEN TO YOU.
+  YOU ARE CLOSER THAN YOU WERE.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ----------------------------- (the refusals)
+No streak, no daily reward, no notification, no login bonus. A hundred-hour game
+that has to bribe you back has already lost the argument.
+No tutorial replay and no controls reminder. Our verbs are nine and they are on
+the screen.
+No "welcome back" as words. It is the phrase every phone game uses and it says
+nothing.
+No number of days shown. How long is long is his ruling and I did not guess it.
+No new mechanic. Every line above reads data we already write.
+No damage, health or armour numbers.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+What counts as a long break. Whether the return is a scene, a card or a line.
+How much the world is allowed to move while you are gone. MAYOR_SHARE, which has
+been null since 6/30 and caps the week's ladder at two rungs of three. Every
+word, every name, every number.

@@ -5751,6 +5751,112 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 18 [hundred hours] Q16, SHIPPED. *** THE LAST ROW IN THIS LANE'S QUEUE.
+DYNASTY NOW HAS ZERO OPEN LINES. ***
+  records/BOHEMIA_DYNASTY_DAY_18_A_HUNDRED_HOUR_GAME_9_5_26.md
+  banks/BOHEMIA_THE_RETURN_WHAT_YOU_WERE_DOING_DRAFT_9_5_26.txt (draft:true)
+
+*** THE FINDING: WE ARE BUILDING THE HOUR AND THE GAME IS MADE OF RETURNS. ***
+100 hours is 6,000 minutes. The mobile median session is 5 to 6 minutes, the top
+quarter 8 to 9, about four sessions a day. So a hundred hours is 1,000 returns at
+the median and still 200 at a generous half-hour session. BETWEEN TWO HUNDRED AND
+A THOUSAND TIMES, SOMEBODY HAS TO DECIDE TO COME BACK. That is the most repeated
+moment in the entire game and we have built it zero times.
+HONEST COUNTERWEIGHT, WHICH I WENT LOOKING FOR ON PURPOSE: those medians are
+market averages, not a law of the device. 46% of smartphone players in China
+report sessions over an hour, one in five over two; 39% in Brazil report over an
+hour. A phone can hold a long session. The median is what the average phone game
+gets, not what a phone can do. That is why the range above is a range.
+
+MEASURED, AND IT IS THE LANE'S OWN PATTERN AGAIN:
+  - ZERO returning-player surface in any slice. Searched welcome back, when you
+    left, while you were gone, what you were doing. Nothing.
+  - AND THE RECAP IS ALREADY WRITTEN. 27 quests are baked into the alpha carrying
+    164 rows of kind:'journal' -- first person, past tense, one per stage, exactly
+    what a returning player needs. "Put the current back myself. Block has light
+    tonight. Nobody knows it was me."
+  - THE ONLY CODE IN THE REPO THAT READS kind==='journal' IS THE DIRECTOR TOOL
+    PAOLO TYPES THEM IN. Not one of those 164 lines is ever shown to a player.
+  - THE SAVE PROTECTS THE STATE AND NOTHING ANYWHERE PROTECTS THE INTENT. A save
+    that survives is not a player who returns. Two problems; we solved one.
+
+AND THE MIDDLE IS OUR THINNEST ACT, COUNTED THREE WAYS SO IT IS NOT AN ARTEFACT:
+                        act 1     act 2     act 3
+  boss ladder numerals     20        12         7
+  laws/ numerals          145        57        86
+  laws+records spelled    111        29        49
+ACT 2 LOSES EVERY COUNT, and the craft says the middle is precisely where long
+games die (the three-act shape does not scale past about eight hours; the named
+failure is movement without progress, a middle that is busy while nothing has
+changed).
+
+COMPLETION IS THE PRICE OF LENGTH, and it lands on our own pillar. About 14% of
+players finish primary single-player content (one in seven); RPGs run ten points
+under that; a 61-hour campaign was finished by 15 to 17% while 16-hour games of
+other genres sit near 50%. ON THE PUBLISHED CURVE, MOST PEOPLE WHO START BOHEMIA
+NEVER MEET THE ANGEL. Gen 3 is the least-seen content in the game. That is not an
+argument against three generations. It is an argument about where the care goes.
+(Reference law: the sources name titles, I STRIPPED THE TITLES AND KEPT THE
+NUMBERS, so no game he has not named enters through the back door. The only
+reference game named in the record is BATTLE BROTHERS, and this row IS the
+campaign layer, which is its department.)
+
+NOTHING KNOWS HOW LONG YOU HAVE PLAYED. Zero hits for playtime, hoursPlayed,
+totalTime, minutesPlayed (control: 89 "hour" hits in the engine, all golden hour
+and wake times). We claim a hundred hours and own no instrument that could ever
+tell us the middle sagged.
+
+SAY THE GOOD PART, TWICE, BECAUSE IT IS EARNED:
+  - bohemia_save.js is the best-engineered thing this lane has measured. Two
+    slots with a generation counter so the newest good save is never the write
+    target. FNV-1a checksum plus byte length verified on load. Tombstones so a
+    failed write can never resurrect a stale save ("never a time machine"). A
+    probe sized to the REAL save instead of one byte. Driven by a gate against a
+    hostile fake browser.
+  - RUN already shipped the answer to the hardest constraint a hundred-hour phone
+    game has: WebKit deletes all script-writable storage after seven days without
+    interaction, and the home screen install is the only exemption. In the gate's
+    own words, the platform put a run timer on a game whose first law is that
+    there are no runs.
+
+AND THE WEEK IS BUILT AND CAPPED. The mandate ladder is inlined on the walked
+surface behind a real STANDING button, reads live standings, three rungs for the
+three acts. VERIFIED LIVE THIS ROUND rather than quoted from the 8/28 law:
+slices/BOHEMIA_CITY_WORLD.html:11031 still reads
+  var MAYOR_SHARE = null;   // [PENDING Paolo]
+so it tops out at two rungs of three. The evidence on goal distance is blunt:
+proximal week-sized goals produce mastery and interest, DISTAL GOALS HAD NO
+DEMONSTRABLE EFFECT. A hundred-hour horizon motivates nobody; a week does. A
+PENDING SINCE 6/30 IS SITTING ON THE ONLY MOTIVATION STRUCTURE THE RESEARCH
+SUPPORTS.
+
+AND THE SAG IS THE SAME BUG AS ROUNDS 9 AND 17, SEEN A THIRD TIME: a middle
+cannot escalate in a world with no subtraction (no -= and no Math.min anywhere in
+the fold, districtTexture climbs one way only), and it cannot conclude in a game
+where no deed can ever be settled. Three rounds, three faces, one missing verb.
+Also the spine is short: the live ladder is v7 with 53 candidates against the
+60-boss pillar, and its own header calls it a pool to cut from.
+
+ROUTED (proposals only, the coordinator adds jobs):
+  RUN or UI  THE-RETURN-IS-A-SCENE. Highest-frequency moment in the game,
+    unbuilt, script already written, one reader missing. Round 12 measured that a
+    scene costs one file and no new engine code. Tab: RUN.
+  WORLD      THE-MIDDLE-CAN-GET-WORSE. Third routing of the same missing
+    subtraction and the second time it has been the largest gap on the board.
+  PLUMBER    ONE-PLAYTIME-COUNTER. Small, fast, and the only way any claim in
+    this record ever gets tested on the real surface.
+
+[PENDING Paolo, for the coordinator to carry] MAYOR_SHARE has been null since
+6/30 and caps the week's ladder at two rungs of three. It is not a technical
+question and I am not asking him one: it is "how much of the valley is enough to
+be the mayor." His ruling, nobody else's.
+
+*** LANE STATUS: THE DYNASTY QUEUE IS EMPTY. Sixteen rows, eighteen rounds, zero
+OPEN lines left. The next VAMILY on this lane has nothing to claim unless the
+coordinator adds a row. Per rule 5 and rule 10 I will not invent one. If the
+board is still empty next round, the correct reply is "queue empty" and the
+correct action is to check the board, verify no row appeared, and stop. ***
+
 ROUND 17 [angel means] Q15, SHIPPED. *** THE ROW ASKED FOR VERBS AND MY OWN
 ROUNDS 10 AND 16 SAID THERE ARE NONE. BOTH SURVIVE, AND THE HOLE IT FOUND IS THE
 BIGGEST ONE THIS LANE HAS FOUND. ***
