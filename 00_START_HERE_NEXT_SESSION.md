@@ -2908,8 +2908,19 @@ split are mutation-proved.
   STAMP: BUILD 9/6j - A BEARING IS A PLACE
   THE STANDING NOTE: A NUMBER YOU INFERRED FROM A COMMENT IS NOT A MEASUREMENT, AND IT
 WILL AIM THE NEXT ROUND AT THE WRONG THING.
-  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues next round,
-and the next round is FINDING, not placing.
+  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues.
+  ROUND 3 DID THE FINDING (see the block above this one). THE NEXT ROUND, NAMED AND
+MEASURED RATHER THAN GUESSED: he can now SEE where the crowds are on the map, but
+nothing tells him one is there WHILE HE IS WALKING. The population module's own phrase
+is "you hear a settlement before you see it", and hearing is the SOUNDS lane's ground,
+so the next thing this lane can honestly do is on the walked surface, not in an ear.
+Options measured but NOT chosen yet, for the next round to pick between with numbers:
+the city phone feed (this lane built it 9/5 and it already speaks on the CITY screen in
+the right register -- "@waterline queue at the standpipe already") could carry a post
+naming where people gathered today; or a crowd could be visible at greater range than a
+single body on the walked surface, which is an art question and belongs to DIRECTION.
+The row stays OPEN because the sentence it exists for is still not true: he does not
+meet people WITHOUT TRYING.
 
 
 
