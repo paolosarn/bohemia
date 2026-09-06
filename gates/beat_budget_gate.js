@@ -129,7 +129,8 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
   };
   console.log('\n  yardstick: ' + why);
   show('WALKING THE STREET', L.walk);
-  show('IN A FIGHT', L.fight);
+  show('IN A FIGHT, CAMERA STILL GLIDING (the opening)', L.fight);
+  show('IN A FIGHT, CAMERA SETTLED (where a fight is spent)', L.fightSettled);
 
   /* ---- the anti-silent-pass floors, before any ceiling ---- */
   ok('THE PROFILER ACTUALLY SAW THE WALK (' + L.walk.samples + ' samples over ' +
@@ -173,9 +174,15 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
   /* ---- the fight, reported and deliberately not asserted ---- */
   if (L.fight && L.fight.reached !== false) {
     console.log('\n  THE FIGHT IS AT ' + L.fight.busyPercent + '% OF THE BEAT (' +
-                L.fight.msOfWorkPerBeat + ' of 500 ms), and ' +
+                L.fight.msOfWorkPerBeat + ' of 500 ms) WHILE THE CAMERA IS STILL GLIDING, and ' +
                 (L.fight.topSystems[0] || {}).percent + '% of everything it does is ' +
                 (L.fight.topSystems[0] || {}).name + '.');
+    if (L.fightSettled && L.fightSettled.reached !== false)
+      console.log('    ONCE THE CAMERA SETTLES it is at ' + L.fightSettled.busyPercent +
+                  '% (' + L.fightSettled.msOfWorkPerBeat + ' of 500 ms)' +
+                  (L.fightSettled.cameraSettled ? '' : ' -- BUT THE CAMERA NEVER SETTLED THIS RUN') +
+                  '. The cover zoom eases 10% a frame, so it takes about 335 frames to land; a ' +
+                  'fight lasts far longer than that, so the settled number is the fight.');
     console.log('    NOT ASSERTED, ON PURPOSE: any ceiling here is above 100% and can never ' +
                 'fail, or below today and is red on arrival. Printed instead, every run,');
     console.log('    until the fight has headroom and a real line can be set. Recorded: ' +
@@ -183,6 +190,10 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
     ok('THE FIGHT WAS REACHED AND PROFILED. A beat gate that quietly skips the surface the ' +
        '120 BPM law governs is a gate with no opinion about the law',
        L.fight.samples > 5000, L.fight.samples + ' samples');
+    ok('THE SETTLED FIGHT WAS PROFILED TOO. The opening of a fight is a camera transient; ' +
+       'measuring only that and calling it the fight is how a real win reads as no change',
+       !!(L.fightSettled && L.fightSettled.reached !== false && L.fightSettled.samples > 5000),
+       L.fightSettled && L.fightSettled.samples ? L.fightSettled.samples + ' samples' : 'not taken');
   } else {
     ok('THE FIGHT WAS REACHED AND PROFILED', false, (L.fight && L.fight.why) || 'no sample');
   }

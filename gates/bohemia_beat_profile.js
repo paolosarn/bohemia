@@ -269,10 +269,32 @@ async function run(opts) {
       }
       if (!cf) out.fight = { reached: false, why: 'the combat frame never showed a canvas' };
       else {
+        /* TWO FIGHTS, NOT ONE, and the split was forced by a measurement.
+           The cover camera GLIDES for five to eight seconds at the start of
+           every fight (G._uzE eases 10% of the way to its target each frame,
+           so it needs ~335 frames to land). While it glides, the floor is a
+           different picture every frame and nothing about it can be reused.
+           Profiling only the opening therefore measures the transient and
+           calls it the fight. Both windows are taken now: the OPENING, while
+           the camera is still moving, and the SETTLED fight, which is the one
+           a player spends a fight in. */
         await sleep(1500);
         out.fight = await profileWhile(cdp, async () => { await sleep(opts.fightMs); }, 100);
         out.fight.reached = true;
         out.fight.beatsSampled = +(out.fight.wallMs / BEAT_MS).toFixed(1);
+        let last = null, same = 0, settled = false;
+        for (let i = 0; i < 80 && !settled; i++) {
+          await sleep(250);
+          const z = await cf.evaluate(() => (typeof G !== 'undefined' && G && G._uzE != null)
+            ? String(G._uzE) : null).catch(() => null);
+          if (z != null && z === last) { same++; if (same >= 3) settled = true; } else same = 0;
+          last = z;
+        }
+        out.fightSettled = await profileWhile(cdp, async () => { await sleep(opts.fightMs); }, 100);
+        out.fightSettled.reached = true;
+        out.fightSettled.cameraSettled = settled;
+        out.fightSettled.zoom = last;
+        out.fightSettled.beatsSampled = +(out.fightSettled.wallMs / BEAT_MS).toFixed(1);
       }
     }
     out.pageErrors = [];
@@ -286,7 +308,7 @@ async function run(opts) {
 
 /* ---- THE RECORD --------------------------------------------------------- */
 function buildRecord(R, prevPath) {
-  const w = R.walk, f = R.fight, H = R.hiddenFrame;
+  const w = R.walk, f = R.fight, H = R.hiddenFrame, fs = R.fightSettled;
   const measured = {
     beatMs: BEAT_MS,
     cpuYardstickMs: R.cpuYardstickMs,
@@ -294,6 +316,9 @@ function buildRecord(R, prevPath) {
             beatsSampled: w.beatsSampled, samples: w.samples,
             crossCheckDeltaPoints: w.crossCheckDeltaPoints,
             topFive: w.topSystems.slice(0, 5) },
+    fightSettled: fs && fs.reached ? { msOfWorkPerBeat: fs.msOfWorkPerBeat, busyPercent: fs.busyPercent,
+                 beatsSampled: fs.beatsSampled, cameraSettled: !!fs.cameraSettled, zoom: fs.zoom,
+                 topFive: fs.topFive } : { reached: false, why: (fs && fs.why) || 'not taken' },
     fight: f && f.reached ? { msOfWorkPerBeat: f.msOfWorkPerBeat, busyPercent: f.busyPercent,
             beatsSampled: f.beatsSampled, samples: f.samples,
             crossCheckDeltaPoints: f.crossCheckDeltaPoints,

@@ -2597,6 +2597,34 @@ GATES = [
      'hot path named lives in slices/ content, which this lane may not touch; the record is '
      'the hand-off',
      True),
+    ('FIGHT FLOOR CACHE', ['node', 'gates/fight_floor_cache_gate.js'],
+     'THE FIGHT DRAWS ITS FLOOR ONCE, 9/6, PLUMBER lane, row [fight headroom]. A fighting beat '
+     'spent 497.5 of its 500 ms and the fight made 2,501 drawImage calls EVERY FRAME, 99.9% of '
+     'them the same 24x24 street tile, repainting a floor that is a pure function of world '
+     'coordinates and cannot change during a fight. It is composed once now and blitted: a '
+     'settled fight went 497.5 ms of the beat to 364/394/393.5 across three samples, and 41.6 '
+     'frames a second to a locked 60. WHAT THIS GATE IS, AND IT IS THE WHOLE POINT: the obvious '
+     'check is a before-and-after picture across two trees, and THAT CHECK CANNOT WORK HERE -- '
+     'this lane fingerprinted the same unchanged fight across three boots and measured the '
+     'distance between them at 44.74, so a fight does not repeat and any difference the cache '
+     'made would be buried under the difference the fight makes by itself. So the comparison '
+     'happens INSIDE ONE FRAME: one boot, one fight, one synchronous block of JavaScript, the '
+     'same camera and the same G, the floor composed BOTH WAYS into two canvases and the two '
+     'compared to each other. Session variance cannot enter, because there is only one session. '
+     'IT GOES RED ON one channel of one pixel differing, a cache hit that is not exactly one '
+     'draw call, a miss that is not the old path plus one blit, any of the five pieces of '
+     'trailing context state differing (code after the floor reads them), or a cached floor '
+     'that is not faster than the floor it replaces. AND IT HOLDS THE ANTI-SILENT-PASS FLOORS '
+     'FIRST -- fewer than 500 tile calls on the uncached arm, a canvas under 40% covered, or '
+     'fewer than a million channels read -- because two blank canvases compare perfectly and '
+     'that is exactly how a picture gate goes green on a broken run. IT ALREADY EARNED ITS '
+     'KEEP: it caught the first cut rebuilding the camera with setTransform(getTransform()), '
+     'which looks exact and is not -- 29,610 channels differed, up to 12 apart, because '
+     'getTransform hands back a float32-rounded matrix while the context rasterises from the '
+     'ops that built it. The cache replays the camera ops now, and the control arm (the '
+     'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
+     'measure against',
+     True),
     ('BUILD SIZE',     ['node', 'gates/build_size_gate.js'],
      'THE SIZE BUDGET, 9/6, PLUMBER lane, row [slim build]. The row asked what is in the '
      'shipped files byte by byte, what is dead, what is duplicated, what could load later, '
