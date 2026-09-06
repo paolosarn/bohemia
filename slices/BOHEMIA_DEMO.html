@@ -1289,7 +1289,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5ai - THE HAIRCUT TURNS ALL EIGHT WAYS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/5aj - WHAT YOU WEAR SAYS WHAT YOU DO</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8808,7 +8808,13 @@ function citySendCast(){
   for(let i=0;i<CITY_LOOKS;i++){
     const src=CITY_CAST_LOOKS[i%CITY_CAST_LOOKS.length];
     const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
-    plan.push(L); out.looks.push({dirs:L.dirs});
+    /* __CITY_TRADE__ (9/5, PEOPLE) -- SEND THE LOOK'S NAME WITH IT. The city
+       received six anonymous bodies and picked one with `look % 6`, so what a
+       person wore was a hash and said nothing about them. To bind a shape to a
+       TRADE the city has to know which shape it is holding, and a POSITION IN
+       AN ARRAY IS A GUESS -- reorder this table and every binding silently
+       means something else. The id is a fact, so the id travels. */
+    plan.push(L); out.looks.push({id:L.id,dirs:L.dirs});
   }
   /* BORROW THE BODY, THEN GIVE IT BACK -- the path famPaintBody proved. A resident
      is not the player, and dials/age reach the renderer ONLY through
@@ -8849,6 +8855,43 @@ function citySendCast(){
     fr.contentWindow.postMessage(out,'*');
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
+  return true;
+}
+/* __CITY_FACTIONBODY__ -- BAKE ONE FACTION LOOK AND POST IT.
+   Everything here is citySendCast's own machinery, asked for a single look:
+   the same withLook borrow-and-give-back (these are GLOBALS -- leaving one
+   installed silently reshapes every other surface in the game), the same
+   bake56, the same 56px frames, the same four breath phases on the 120 BPM
+   clock. Nothing about how a body is made is duplicated; only HOW MANY. */
+const CFACT_SENT = {};
+function cityBakeFaction(name){
+  const fr=document.getElementById('cityFrame');
+  if(!fr||!fr.contentWindow) return false;
+  if(CFACT_SENT[name]) return true;              /* one bake per faction, ever */
+  const src=(window.FACTION_LOOKS||[]).filter(f=>f.faction===name)[0];
+  if(!src) return false;                          /* no outfit for them: stay anonymous */
+  CFACT_SENT[name]=1;
+  const L={id:'faction:'+name,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
+  const PD_CLOTHES=['shirt','jacket','pants','shoes','hat','glasses','hair'];
+  const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+  PD_CLOTHES.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+  try{
+    window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
+    rebuildFromRig();
+    for(const d of DIRS){
+      L.dirs[d]={idle:bake56(d,'idle',0.25,true),
+                 breathe:CAST_PHS.map(ph=>bake56(d,'idle',ph,true))};
+    }
+  }catch(_e){ CFACT_SENT[name]=null; return false; }
+  finally{
+    window.G_WORN=kW; G.bodyVar=kD; G.age=kA;
+    for(const s in kE) G.equipped[s]=kE[s];
+    try{ rebuildFromRig(); }catch(_e){}
+    try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
+  }
+  try{ fr.contentWindow.postMessage(
+    {type:'BOHEMIA_CITY_FACTION_CAST',w:56,h:56,packed:true,
+     faction:name,dirs:L.dirs},'*'); }catch(_e){ return false; }
   return true;
 }
 /* ==== /CITY CAST ==== */
@@ -9279,6 +9322,15 @@ function combatMsgIn(d){
   /* CITY CAST: the city asks for a body on boot; send the CAST too, so
      the people standing in it are not six copies of him. */
   if(d.type==='BOHEMIA_CITY_NEED_PLAYER'){ try{citySendCast();}catch(_e){} }
+  /* __CITY_FACTIONBODY__ (9/5, PEOPLE) -- ONE FACTION'S BODY, ON DEMAND.
+     Baking all thirteen at boot costs a measured 4,579ms of frozen page against
+     today's 1,446ms, to dress people who do not exist near the spawn. So the
+     city asks for a faction the first time it actually has to draw one, and
+     this bakes that one look and sends it back. */
+  if(d.type==='BOHEMIA_CITY_NEED_FACTION'&&d.faction){
+    try{ cityBakeFaction(String(d.faction)); }catch(_e){}
+    return true;
+  }
   /* WHERE HE IS (7/28). The run tells the shell which valley cell it has
      him standing in; the shell remembers it and hands it to the CITY frame
      so the builder opens looking at his block instead of the Strip.
