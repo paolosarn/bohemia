@@ -918,3 +918,92 @@ KKK2 the person who did the work                     draft:true
 - No line names which faction holds which ground. That is MAP LAW and his.
 - No line says the word habitable, occupancy or capacity. HHH2 is the whole
   finding in six words.
+
+## MMM. EVERYBODY IS MINING NOW (round 13, the rush)
+## (the Comstock arc in mouths: the first ones got rich, the last ones got wages.
+##  Nobody in these lines explains the economy. They just got there late.)
+
+MMM1 somebody who was early                          draft:true
+     "I put mine up when there were four on the whole street. Four. Now you
+      can't see the street."
+
+MMM2 somebody who was late                           draft:true
+     "Sure, it works. It works exactly as good as everybody else's, which is
+      the problem, hermano."
+
+MMM3 a kid who has never known otherwise              draft:true
+     "You used to be able to buy a whole day with one of these? One?"
+
+MMM4 the person who stopped building                  draft:true
+     "I've got the ground. I've got the ground and I'm not putting anything on
+      it, and everybody thinks I'm slow."
+
+## NNN. THE MONEY IS FINE, THERE IS NOTHING TO BUY
+## (the finding that proves us wrong, said by people who would never phrase it
+##  that way. Not one line uses the word demand, supply, value or worth.)
+
+NNN1 somebody with a full pocket                      draft:true
+     "I'm not poor. Look. Look at that. And I've been standing here twenty
+      minutes trying to think of something to want."
+
+NNN2 a seller who has run out of shelf                draft:true
+     "You've got plenty. That's not it. I've got water, I've got rice, and
+      that's the shop, that's the whole shop."
+
+NNN3 somebody who noticed first                       draft:true
+     "It's not that they went up. Nothing went up. There's just nothing at the
+      end of it any more."
+
+NNN4 somebody who found the one thing worth it        draft:true
+     "All that, for a door that locks. Took me a month to find somebody who
+      even had a door."
+
+## OOO. YOUR MONEY IS NO GOOD HERE (the free-banking distance rule, in mouths)
+## (the price never moves. What moves is whether he takes it. Nobody says no
+##  first, per the card.)
+
+OOO1 a trader four districts out                      draft:true
+     "One, yeah. One's the price. It's one everywhere, that's not what I'm
+      asking you."
+
+OOO2 the same trader, getting to it                   draft:true
+     "Where'd you make these. No, where. Because I can't walk to there and
+      neither can anybody I owe."
+
+OOO3 what he wants instead                            draft:true
+     "Bring me something I can eat or something I can wear and we're done in
+      about nine seconds."
+
+OOO4 a trader who does take them                      draft:true
+     "You I know. Your block's the one with the lights. Put it down."
+
+OOO5 somebody explaining it to a newcomer             draft:true
+     "Close to home they're money. Out past the wash they're a rock, mano.
+      Same rock, different street."
+
+## PPP. HE LOOKS AT IT BEFORE HE TAKES IT (Gresham, in a hand)
+## (recorded from the camp, NOT proposed as a mechanic; the ruling is that a
+##  battery is a coin and nothing else. These are here because the gesture is
+##  true and somebody will want it one day.)
+
+PPP1 the seller, turning it over                      draft:true
+     "Hold on. Hold on, let me. Yeah, alright, that one's alright."
+
+PPP2 the seller, handing it back                      draft:true
+     "This one's light. It's light, feel it against that one. Give me the
+      other one and we're good."
+
+PPP3 the buyer, caught                                draft:true
+     "I didn't know. I got given it same as I'm giving it to you, that's the
+      honest answer."
+
+## QQQ. WHAT IS NOT HERE, ON PURPOSE (round 13)
+- No line names a number of buildings, a yield, a cap or a day count. The
+  arithmetic is in the record; a person on a street does not know it.
+- No line says the words inflation, currency, supply or economy. MMM3 does the
+  whole of hyperinflation by being surprised at a price his mother quoted.
+- No line proposes debasing a battery. Section PPP is a gesture, not a system,
+  and the record says so in its REFUSED list.
+- No line names a faction, a market seat or a district. That is MAP LAW and his.
+- Spanish register: 3 of 16 lines, which holds the 15% he set on 8/26 and stays
+  under Clark County's real 18.5%. This bank does not grow the register corpus.
