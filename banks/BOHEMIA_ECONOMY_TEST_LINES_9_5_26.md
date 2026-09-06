@@ -787,3 +787,69 @@ AAA2 somebody defending it                           draft:true
 - No line says which seat opens on which day. That is canon and it is his.
 - No line explains periodicity. XX1 is the whole finding in twelve words and it
   never uses the word market.
+
+# ============================================================================
+# ROUND 11 [inflation feeling] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_11_THE_PRICE_CANNOT_MOVE_AND_THAT_IS_RIGHT_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THE POINT: our price is frozen at one forever, so nobody can ever say a price
+# went up. What people say instead is that they will not take it, or that the
+# shelf is shorter, or that they are not holding anything overnight.
+# ============================================================================
+
+## CCC. NOT FOR MONEY (the refusal escalated: rounds 1, 2, 9 and 11 all land here)
+
+CCC1 a trader who has changed what he takes      draft:true
+     "Keep them. I've got a drawer of them and a drawer of them isn't dinner.
+      Bring me water and we'll talk."
+
+CCC2 somebody explaining it to a newcomer        draft:true
+     "He'll take them off you. He'll take them off you at a price that tells you
+      exactly what he thinks of them."
+
+CCC3 the moment it turns                          draft:true
+     "Last month he'd have taken it. That's all I'm saying. Last month."
+
+## DDD. NOBODY HOLDS ANYTHING OVERNIGHT (velocity, said as a habit)
+
+DDD1 somebody spending the moment they are paid  draft:true
+     "I don't carry them. I get them and I go straight up the hill and I spend
+      them, and then I've got a thing instead of a maybe."
+
+DDD2 somebody who learned the hard way            draft:true
+     "I sat on four of them for a fortnight like an idiot. Four."
+
+DDD3 an old habit dying                           draft:true
+     "My father saved. Actually saved, on purpose, for years. Can you imagine
+      trying that now."
+
+## EEE. THE SHELF IS SHORTER (the index, read by counting rows)
+
+EEE1 somebody noticing                            draft:true
+     "Three things. It was seven things, I'm not making that up, I counted
+      because it was funny at the time."
+
+EEE2 the trader, defensive                        draft:true
+     "It's what I've got. You want me to put empty boxes out so it looks
+      better?"
+
+EEE3 what goes first                              draft:true
+     "The good stuff went first, obviously. Then the useful stuff. Now it's
+      whatever nobody wanted, and I still can't keep it in."
+
+## FFF. PAID AT NOON AS WELL (the shortening)
+
+FFF1 a foreman changing the rule                  draft:true
+     "Half at noon, half at dark. No, it's not me being generous, ask anybody
+      why."
+
+FFF2 somebody who prefers it                      draft:true
+     "Noon's better. Noon means I eat."
+
+## GGG. WHAT IS NOT HERE, ON PURPOSE
+- NO LINE SAYS A PRICE WENT UP, because in this game a price cannot. That is the
+  whole finding of the round and the bank obeys it.
+- No line quotes an index, a percentage or a trend. EEE1 counts to three on her
+  fingers, which is the only kind of number this game shows.
+- No line decides what a trader will and will not take. That is canon and his.
