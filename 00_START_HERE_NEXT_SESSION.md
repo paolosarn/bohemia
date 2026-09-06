@@ -1,3 +1,64 @@
+SOUND (sound-xk7pjp): 9/5 (f) LATEST -- *** THE DESERT WAS PLAYING A SUBURBAN
+LAWN. step_sand fires for the first time since he approved it on 8/12.
+TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
+
+Build 9/5an - THE DESERT SOUNDS LIKE THE DESERT.
+VAMILY: [unused sounds] THE-OTHER-51, ROUND 2, STILL CLAIMED. Nine of 65 heard
+last round, TWELVE now, and all five reachable footstep surfaces are walked onto
+and fired.
+
+MEASURED: with the game's own stepOnce, four of six approved footstep surfaces
+fired end to end. step_sand and step_wood were not found within sixty cells. So
+I sampled wider -- 18 DISTRICTS, ~9,000 CELLS -- and the whole valley produced
+exactly FOUR surfaces: dirt, concrete, asphalt, gravel. NO SAND AND NO WOOD
+ANYWHERE. Inside the desert district itself: 76 dirt, 3 asphalt, 1 concrete, no
+sand. Walking into the Mojave played THE SAME FOOTSTEP AS A SUBURBAN LAWN, while
+step_sand -- approved 8/12, labelled "FOOTSTEP -- DEEP SAND" in the engine's own
+table -- had never once played.
+
+WHY, AND IT WAS MY OWN FIX FROM EARLIER THE SAME ROUND: the classifier reads
+gArtPool, and the pool table's else-branch sends every ground that is not a road,
+a walk or water to hyard, the YARD pool. Right for a lawn, wrong for the Mojave.
+A POOL CANNOT TELL THEM APART.
+
+THE FIX IS THE ONE FACT THE POOL CANNOT CARRY: THE DISTRICT. One overmap lookup
+at the step site, read the way every other system in that file reads it. The
+default ground of a DESERT or a WASH is sand. ONLY THOSE TWO: not basin (a dry
+lake bed, really silt), not boneyard (a junkyard on graded ground), not mountain
+(rock). REALISM FIRST, not taste. AND IT IS A FALL-THROUGH, NOT AN OVERRIDE --
+measured after: the desert's roads are still asphalt, its sidewalk still
+concrete, the suburb untouched at 3,316 dirt, the arterial untouched.
+
+step_wood GETS A WRITTEN REASON, NOT AN INVENTED CALLER: no wooden ground exists
+in this valley, measured across eighteen districts. Wiring it would mean
+inventing a surface so a sound has somewhere to play.
+
+GATE: every_sound_is_reachable_gate.py, 16 claims. Mutation: the desert goes
+back to sounding like a lawn -> RED x2, and it names step_sand.
+
+ONE MORE INSTRUMENT MISTAKE, THE ORDERING ONE AGAIN: the surface drive ran at the
+END of the gate, by which point the player was INSIDE a building -- where
+stepOnce takes the interior path and posts no footstep at all. Asphalt and gravel
+read as unreachable on a build where a standalone probe had just walked onto
+both. A STEP INDOORS IS A DIFFERENT FUNCTION.
+
+FILES  tools/bohemia_the_desert_sounds_like_the_desert.py,
+       gates/every_sound_is_reachable_gate.py,
+       records/BOHEMIA_THE_DESERT_SOUNDS_LIKE_THE_DESERT_9_5_26.md
+
+AND A NEAR MISS WORTH WRITING DOWN: the rebase's own three-way merge left a
+LIVE CONFLICT MARKER in this file and `rebase --continue` committed it, exactly
+the way main was broken earlier today. Caught before the push by counting the
+markers rather than trusting the merge. CHECK THE FILE, NOT THE EXIT CODE.
+
+NEXT IN THIS LANE: THE-OTHER-51 round 3 -- the remaining not-heard events are
+combat, verbs, a payday, a save and a night slept through. Each needs the surface
+that owns it, so the next round drives a FIGHT (sfx_wired_gate already owns that
+surface, so the question is whether this census should call into it or stay a
+walk census). Then [music owned] THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
 LIFE + CITY (city-1eztay): 9/5 (f) LATEST -- *** [combat floor]
 THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR: SHIPPED. THE FIGHT CAN STAND ON THE CITY HE
 WALKED, AND IT IS THE SAME RENDER. *** MODE: BUILD. TAB: CITY (the aerial view is
@@ -100,6 +161,7 @@ something that had to change. The mutation is the only thing that tells you whic
 green you have.
   NEXT OPEN LINE IN THIS LANE: [more people] POPULATION-DEFAULT.
 
+
 EYES AND EARS (eyes-5vql33): 9/5 (d) LATEST -- *** E2 [glitch list] SHIPPED. 18 GLITCH
 CLASSES, 8 OF THEM RUNNING BY MACHINE TODAY, AND THE ONE THEY CAUGHT IS BIG: 38 pieces of
 text on the screen a player lands on are too faint to read, and the worst are the game's
@@ -153,6 +215,7 @@ BOHEMIA_EYES_E3_HOW_TO_CATCH_A_VISUAL_REGRESSION_9_5_26.md, BOHEMIA_EYES_ROUND_1
 BOHEMIA_EYES_READABLE_BASELINE_9_5_26.json. Banks: banks/eyes/ (checks + glitch taxonomy, all
 draft:true). Gate: gates/eyes_gate.js. Tools: bohemia_eyes_shots / _probe / _diff / _sheet /
 _glitch / _readable / _ears / _ears_live.
+
 
 WORDS (words-8dqrnq): 9/5 (i) LATEST -- *** VAMILY Q12 [naming people] SHIPPED. NOT ONE
 PROPER NAME IS SPOKEN ANYWHERE IN THIS GAME. 57 PEOPLE TALK ACROSS 27 QUESTS AND EVERY
@@ -549,6 +612,7 @@ nobody should plan as if it were. Read the section, not this block.
 
 ================================================================================
 
+
 FACTIONS (factions-ovkjpf): 9/6 (round 3) LATEST -- *** [faction homes] ONE GATE
 FROM DONE. ARC GATE IS GREEN AND BETTER THAN IT STARTED (101/0 against 91/0);
 COMMITMENT GATE IS 69/3 AND THE REASON IS WRITTEN DOWN, NOT GUESSED. NOT PUSHED
@@ -620,7 +684,7 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/5 (e) LATEST -- *** WHAT THE GAME PLAYS IS NOW A
+SOUND (sound-xk7pjp): 9/5 (e) -- *** WHAT THE GAME PLAYS IS NOW A
 MEASUREMENT, NOT A GREP. NINE of 65 approved sounds, heard.
 TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
 

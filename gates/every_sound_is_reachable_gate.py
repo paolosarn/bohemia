@@ -76,10 +76,10 @@ CANNOT_DRIVE = {
     # ^ a verb, a payday, a night's sleep or a save. Several of these already
     #   carry written waivers in sfx_wired_gate for verbs that do not exist yet
     #   (equip, sprint, power, place, patch), and those waivers are still true.
-    'step_asphalt', 'step_gravel', 'step_sand', 'step_wood', 'walk_more',
-    'sand_more', 'wood_more',
-    # ^ the ground you happen to be standing on. The classifier is held by
-    #   city_where_gate, which counts all four surfaces on the real cells.
+    'step_wood', 'walk_more', 'sand_more', 'wood_more',
+    # ^ step_wood: there is no wooden ground in this valley, measured. The
+    #   others are sibling pools. step_asphalt, step_gravel and step_sand are
+    #   NOT here any more -- each is walked onto and fired below.
     'buzz_more', 'door_more', 'wind_more', 'shot_more', 'hurt_more',
     # ^ SIBLING pools: they are drawn from inside their parent's pick, so the
     #   name never appears at a call site by construction.
@@ -185,6 +185,68 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     return {moved:moved, leftBuildings:left, inside:!!INSIDE};
   });
   await p.waitForTimeout(1500);
+
+  /* ---- THE GROUND UNDER EVERY STEP, ONE SURFACE AT A TIME. The classifier
+     was fixed on 9/5 (it read two fields a city cell does not have and called
+     6,561 of 6,561 cells dirt) and nothing had ever proved, per surface, that
+     walking onto one fires its own footstep. This walks onto a real cell of
+     each with the game's own stepOnce. ---- */
+  /* *** OUTDOORS FIRST, AND THE FIRST CUT OF THIS RAN IT LAST. *** Placed at
+     the end of the drive it ran while the player was INSIDE a building, where
+     stepOnce takes the interior path and posts no footstep at all -- so asphalt
+     and gravel read as unreachable on a build where a standalone probe had just
+     walked onto both. A STEP INDOORS IS A DIFFERENT FUNCTION. */
+  await cf.evaluate(()=>{ try{ if(INSIDE) swapMode(); }catch(e){} });
+  await p.waitForTimeout(500);
+  out.surfaces = await cf.evaluate(async()=>{
+    const DIRS_=[[0,-1],[1,0],[0,1],[-1,0]];
+    const res={};
+    const findTile=(want)=>{                 /* an overmap tile of a district */
+      const cx0=(hx/FN)|0, cy0=(hy/FN)|0;
+      for(let r=1;r<40;r++) for(let ox=-r;ox<=r;ox++) for(let oy=-r;oy<=r;oy++){
+        if(Math.max(Math.abs(ox),Math.abs(oy))!==r) continue;
+        let t=null; try{ t=om.at(cx0+ox,cy0+oy); }catch(e){}
+        if(t && t.district===want) return [cx0+ox, cy0+oy];
+      }
+      return null;
+    };
+    const tryHere=(want)=>{
+      for(let r=1;r<70;r++) for(let dx=-r;dx<=r;dx++) for(let dy=-r;dy<=r;dy++){
+        if(Math.max(Math.abs(dx),Math.abs(dy))!==r) continue;
+        const tx=hx+dx, ty=hy+dy;
+        let t=null; try{ t=cellAt(tx,ty); }catch(e){}
+        if(!(t&&t.walk)) continue;
+        if(__surfaceOf(t,__districtAt(tx,ty))!==want) continue;
+        for(let di=0;di<4;di++){
+          const fx=tx-DIRS_[di][0], fy=ty-DIRS_[di][1];
+          let fc=null; try{ fc=cellAt(fx,fy); }catch(e){}
+          if(!(fc&&fc.walk)) continue;
+          const wx=hx, wy=hy;
+          hx=fx; hy=fy;
+          if(stepOnce(di)) return {ok:true, at:[tx,ty], r:r};
+          hx=wx; hy=wy;
+        }
+      }
+      return {ok:false};
+    };
+    for(const want of ['dirt','concrete','asphalt','gravel']) res[want]=tryHere(want);
+    /* THE DESERT IS NOT NEXT DOOR. Jump to a desert TILE the overmap picks,
+       then walk onto its ground the same way as everywhere else. */
+    const dt=findTile('desert');
+    res.desertTile=dt;
+    if(dt){
+      for(let k=0;k<FN && !(res.sand&&res.sand.ok); k+=7){
+        const gx=dt[0]*FN+k, gy=dt[1]*FN+((k*13)%FN);
+        let c=null; try{ c=cellAt(gx,gy); }catch(e){}
+        if(c&&c.walk){ hx=gx; hy=gy; res.sand=tryHere('sand'); }
+      }
+    }
+    if(!res.sand) res.sand={ok:false, why:'no desert tile within reach'};
+    res.wood=tryHere('wood');
+    return res;
+  });
+  await p.waitForTimeout(900);
+
 
   /* THE PHONE */
   await cf.evaluate(()=>{ try{ const b=document.getElementById('phonebtn'); if(b)b.click(); }catch(e){} });
@@ -351,6 +413,24 @@ def main():
        'produced (%s)' % (len(heard), ', '.join(heard)), len(heard) >= 5)
     ok('EVERY approved sound this drive can reach was actually produced. Not '
        'reached and with no written reason: %s' % (orphan or 'none'), not orphan)
+
+    # ---- THE FOOTSTEP FAMILY, ONE SURFACE AT A TIME. THE-OTHER-51 round 2.
+    su = d.get('surfaces') or {}
+    for g in ('dirt', 'concrete', 'asphalt', 'gravel'):
+        ok('walking onto real %s ground fires its own footstep (%s)'
+           % (g, json.dumps(su.get(g))), (su.get(g) or {}).get('ok'))
+    ok('THE DESERT SOUNDS LIKE THE DESERT: walking onto desert ground fires '
+       'step_sand, approved 8/12 and never once played before today. The pool '
+       'table sends every unnamed ground to `hyard`, the YARD pool, so the '
+       'Mojave played a suburban lawn. (%s, desert tile %s)'
+       % (json.dumps(su.get('sand')), su.get('desertTile')),
+       (su.get('sand') or {}).get('ok'))
+    ok('and step_wood is NOT reachable, which is the honest answer and not a '
+       'missing wire: there is no wooden ground in this valley -- no boardwalk, '
+       'no porch deck, no floorboard pool -- measured across 18 districts and '
+       '~9,000 cells. Wiring it would mean inventing a surface so a sound has '
+       'somewhere to play. (%s)' % json.dumps(su.get('wood')),
+       not (su.get('wood') or {}).get('ok'))
 
     ok('nothing threw (%s)' % (d.get('errs') or 'clean'), not d.get('errs'))
 

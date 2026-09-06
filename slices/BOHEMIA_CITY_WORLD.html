@@ -32484,7 +32484,7 @@ function stepOnce(di){
          dossier, so the road sounds like asphalt and the yard sounds like dirt.
          ONE AUDIOCONTEXT, THE PARENT'S: this posts, the shell renders. */
       try{ if(window.parent&&window.parent!==window)
-        window.parent.postMessage({type:'BOHEMIA_STEP',surface:__surfaceOf(c)},'*'); }catch(_e){}
+        window.parent.postMessage({type:'BOHEMIA_STEP',surface:__surfaceOf(c,__districtAt(nx,ny))},'*'); }catch(_e){}
       hx=nx; hy=ny; moved++;
       /* __THE_DAY_IS_SPENT_BY_WALKING__ -- A WALKED CELL IS A STEP, AND NOTHING SAID SO.
          The day loop has had L.step since it shipped -- it is what the
@@ -32584,7 +32584,44 @@ function stepCost(c){
   var s=null; try{ s=__surfaceOf(c); }catch(_e){ s=null; }
   return (s && PAVED[s]) ? MIN_PER_CELL*PAVED_SPEED.factor : MIN_PER_CELL;
 }
-function __surfaceOf(c){
+
+/* __THE_DESERT_SOUNDS_LIKE_THE_DESERT__ x __ROADS_ARE_FAST__ (9/5, two lanes, same
+   afternoon): stepCost above asks __surfaceOf WITHOUT a district, so a desert cell
+   answers `dirt` there instead of `sand`. That changes nothing it cares about --
+   neither is in PAVED -- so rough ground still costs the baseline. Written down
+   rather than left for somebody to rediscover. */
+
+/* __THE_DESERT_SOUNDS_LIKE_THE_DESERT__ -- WHICH DISTRICT A CELL IS IN. One
+   overmap lookup, read exactly the way every other system in this file reads
+   it. It exists because a POOL cannot tell a suburban yard from the desert
+   floor: the pool table's else-branch sends both to `hyard`, so the Mojave
+   played the lawn's footstep. */
+function __districtAt(gx,gy){
+  try{ var t=om.at(Math.floor(gx/FN),Math.floor(gy/FN)); return t?t.district:null; }
+  catch(_e){ return null; }
+}
+function __surfaceOf(c,district){
+  /* __THE_DESERT_SOUNDS_LIKE_THE_DESERT__ -- THE GROUND OF A DESERT IS SAND.
+     MEASURED across 18 districts and ~9,000 cells: the whole valley produced
+     exactly four surfaces -- dirt, concrete, asphalt, gravel -- and inside the
+     `desert` district itself, 76 dirt and NO SAND. step_sand is approved (8/12)
+     and labelled "FOOTSTEP -- DEEP SAND" in the engine's own table, and it had
+     never once played, because the pool table's else-branch sends every ground
+     that is not a road, a walk or water to `hyard`, the YARD pool. That is
+     right for a suburban lawn and wrong for the Mojave, and a pool cannot tell
+     them apart. The district can.
+     ONLY DESERT AND WASH, on purpose. Not `basin`, which is a dry lake bed and
+     really is silt; not `boneyard`, a junkyard on graded ground; not
+     `mountain`, which is rock. Two districts whose floor is unambiguously sand
+     in this valley -- REALISM FIRST, not taste.
+     AND IT IS A FALL-THROUGH, NOT AN OVERRIDE: the pool still answers first, so
+     a road through the desert is asphalt and its sidewalk is concrete, exactly
+     as before. Only the ground nobody named changes. */
+  var __d = (district || '') + '';
+  var __sandy = (__d === 'desert' || __d === 'wash');
+  var __pool0 = (c && (c.markPool ? 'street' : c.gArtPool)) || '';
+  if (__sandy && (!__pool0 || __pool0 === 'hyard')) return 'sand';
+
   /* THE GROUND GOT FINER (8/20). This knew three surfaces -- asphalt, gravel,
      dirt -- and lumped concrete, sidewalk, walk and slab in WITH asphalt. Paolo
      approved step_concrete, step_sand and step_wood in his 270-thumb sweep on
