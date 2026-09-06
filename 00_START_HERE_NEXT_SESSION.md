@@ -3,7 +3,7 @@ NAME-THE-CIRCUIT-OWNER SHIPPED. The row said "needs Paolo" and it did not: the
 blocker had shipped in this lane, and the rest was one sentence in his own file
 that nobody had read. *** Nothing to judge.
 
-VAMILY row: [light owners] NAME-THE-CIRCUIT-OWNER, MODE: BUILD, SHIPPED 9/6.
+VAMILY row: [light owners] NAME-THE-CIRCUIT-OWNER, MODE: BUILD, SHIPPED 9/6 8cc0c6ad.
 Record: records/BOHEMIA_THE_LIGHTS_SAY_WHOSE_THEY_ARE_9_6_26.md
 
 *** THE LESSON, AND IT IS THE SECOND ROW RUNNING. *** Two rows in a row were
