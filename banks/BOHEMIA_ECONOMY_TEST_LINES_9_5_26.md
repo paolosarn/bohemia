@@ -1550,3 +1550,77 @@ YYYY3 somebody who found a place in it                draft:true
 - No line names a faction or an employer. MAP LAW, and his.
 - Spanish register: 1 of 16 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## AAAAA. THE MONEY IS LUMPY (round 21, the triple whammy in mouths)
+## (not that a day earns little. That a day earns unpredictably. Nobody says
+##  irregular, unpredictable or volatile.)
+
+AAAAA1 somebody explaining their week                 draft:true
+       "Monday was good. Monday was very good. Then nothing until Friday and
+        now I'm exactly where I was."
+
+AAAAA2 somebody who cannot plan                        draft:true
+       "Don't ask me what I make. I don't know what I make. I know what I made
+        yesterday and that tells you nothing about tomorrow."
+
+AAAAA3 somebody who has a rhythm                       draft:true
+       "Three small ones beats one big one, and I'll tell you why: the big one
+        doesn't come."
+
+## BBBBB. SOMEWHERE TO PUT IT (the susu box, and people PAY for it)
+## (a place that holds it. Nobody calls it saving or a bank.)
+
+BBBBB1 somebody explaining why they hand it over       draft:true
+       "In my pocket it's gone by Thursday. In his box it's still there at the
+        end of the month. That's the whole service."
+
+BBBBB2 somebody who lost money to keep it              draft:true
+       "He keeps a day of it. Yeah, I know how that sounds. Try holding thirty
+        days of it yourself and come back to me."
+
+BBBBB3 the man with the coat                           draft:true
+       "Small small. That's all I take off anybody, small small, every day,
+        and at the end of it you've got something you couldn't have made."
+
+BBBBB4 somebody without one                            draft:true
+       "I've earned it four times over this year. I couldn't tell you where
+        any of it went and I'm not lying to you, I genuinely couldn't."
+
+## CCCCC. FIVE MINUTES THAT WERE WORTH IT (the small solving that finishes)
+## (starts, finishes, pays, and you can see it. Nobody says loop or reward.)
+
+CCCCC1 somebody who did one thing                      draft:true
+       "Took me ten minutes. Got given something for it, and it's still in my
+        hand, which is more than I can say for most of today."
+
+CCCCC2 somebody who prefers them small                 draft:true
+       "Give me the little jobs. The little ones end, hermano. That's what I
+        like about them, they end."
+
+CCCCC3 somebody halfway through a long one             draft:true
+       "Three days on this and I still couldn't tell you if I'm nearly done."
+
+## DDDDD. THE PILE (seeing it add up is the reason to come back)
+## (the Bionicles on the shelf. Nobody explains why looking at it helps.)
+
+DDDDD1 somebody counting                               draft:true
+       "I look at it before I go out and I look at it when I come back. Don't
+        laugh. It's the best part of the day."
+
+DDDDD2 somebody whose pile got taken                   draft:true
+       "It's not the money. I'd have given him the money. It's that I have to
+        start the counting again."
+
+DDDDD3 somebody showing you                            draft:true
+       "That there? That's since the spring. All of that is since the spring."
+
+## EEEEE. WHAT IS NOT HERE, ON PURPOSE (round 21)
+- No line names an amount, a rate, a fee or a total. BBBBB2 says a day of it
+  because that is how the collector says it.
+- No line names a bank, a vault, a deposit or an account. BBBBB1 says his box.
+- No line has a payout bigger than another. EVERYTHING COSTS ONE: what varies in
+  this bank is how OFTEN and what KIND, never how much.
+- No line explains why seeing the pile matters. DDDDD1 just says don't laugh.
+- No line names a faction, a collector or a market by name. MAP LAW, and his.
+- Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.

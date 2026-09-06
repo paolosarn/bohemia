@@ -1,3 +1,212 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
+Q19 [price moves], Q20 [work feels], Q21 [five minute money].
+Next OPEN is Q22 [what a lie costs]; Q23 [who eats first] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 21 REPORT: [five minute money] SHIPPED ===
+*** THE ONLY LOOP THAT CLOSES IS THE EXPLOIT. MODE: RESEARCH, nothing implemented.
+NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_21_THE_ONLY_LOOP_THAT_CLOSES_IS_THE_EXPLOIT_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections AAAAA-EEEEE (13 lines, 297 total)
+Board:  Q21 SHIPPED. Q1-Q21 shipped; next OPEN is Q22 [what a lie costs], then Q23
+        [who eats first], both added by the coordinator since last round.
+
+I WENT LOOKING FOR THE SMALLEST COMPLETE MONEY LOOP IN BOHEMIA AND FOUND EXACTLY
+ONE, run end to end on the real modules:
+  TAP 1  place a building   -> paid 1 battery     game minutes spent: 0
+  TAP 2  sleep
+  TAP 3  wake               -> {resources:1}      game minutes spent: 0
+THREE TAPS, NO WALKING, NO TALKING, NO CLOCK, AND THE NUMBER WENT UP. That is the
+only complete money loop in the game AND IT IS THE EXACT LOOP ROUND 13 MEASURED
+FILLING THE VALLEY IN ELEVEN DAYS.
+  THE LOOP A PLAYER WOULD ACTUALLY TRY DOES NOT CLOSE: earn a battery, walk 78 game
+  minutes to the nearest market, buy food, resources still 0 (round 15). 157
+  minutes of a 960-minute day and he ends holding nothing.
+  SO WE CANNOT SIMPLY REMOVE THE EXPLOIT. IT IS CURRENTLY THE ONLY THING IN THE
+  ECONOMY THAT FINISHES.
+
+WHAT A MINUTE OF THIS GAME COSTS, MEASURED: a fine cell is 0.75 m and costs 0.084
+game minutes (5.04 s); an overmap cell is 96 m = 10.8 minutes off-road, 5.4 on
+pavement; the nearest market is 7.3 cells = 78 minutes one way, 157 there and back,
+which is 16% OF A DAY; a conversation costs 60 minutes; BUILDING COSTS 0 AND BUYING
+COSTS 0. The economy's two cheapest actions are the two that should cost something.
+
+THE REAL AISLE. "Portfolios of the Poor" followed ~250 families across India,
+Bangladesh and South Africa for a year with financial diaries. The TRIPLE WHAMMY:
+incomes are not only LOW, they are IRREGULAR and UNPREDICTABLE. And the behaviour
+that follows: THE POOR PRIORITISE SMALL, FREQUENT TRANSACTIONS OVER LARGE LUMP
+SUMS. Their financial lives are busier than a salaried person's, not simpler.
+AND THE THING THEY WILL PAY FOR IS SOMEWHERE TO PUT IT. The susu collector walks a
+daily route taking "small small moneys", as little as two cedis a day, and hands
+the total back at month end. HIS FEE IS ONE DAY'S COLLECTION: you save thirty days
+and receive twenty-nine. PEOPLE PAY ABOUT 3.3% FOR THE PRIVILEGE OF SAVING and ~15%
+of Ghana's adults still do, because money in your pocket gets spent and money in
+somebody else's box becomes a lump. The sentence that names it: "SAVING IN THE
+INFORMAL ECONOMY IS JUST BORROWING IN REVERSE, AND IT'S ALL ABOUT TURNING SMALL
+AMOUNTS OF CASH FLOW INTO USEABLE LUMP SUMS."
+
+GAMES AISLE, and it is unusually specific: MICRO LOOP resolves in 1-5 seconds;
+FIRST REWARD lands within 30-60 seconds; MESO LOOP completes in 2-10 minutes, "long
+enough to feel like an accomplishment, short enough to fit a commute". If the basic
+cycle takes more than a few minutes the player loses the sense of progress. THE
+ROW'S FIVE MINUTES IS THE MESO LOOP EXACTLY AND THE STANDARD IS THAT IT COMPLETES.
+  MICRO         PASS, and only because the exploit is instant
+  FIRST REWARD  HALF: TAKE IT is one tap, then the reward is a whole quest of
+                hour-long conversations
+  MESO          FAIL: the shop run is 16% of a day and ends in nothing
+
+*** THE FINDING THAT PROVES US WRONG. The row asks what an economy can GIVE a
+player in five minutes and I spent half the round hunting the right size of payout.
+THE THING WORTH COMING BACK FOR IS NOT SOMETHING YOU ARE GIVEN. IT IS SOMEWHERE TO
+PUT WHAT YOU GOT. People pay one day in thirty for it and a sixth of a country
+still does. ***
+Because the problem is not that a day earns little, it is that a day earns
+UNPREDICTABLY, so what a person needs is not a bigger day but a way to turn many
+small uneven days into one lump worth something.
+AND ROUND 15 FOUND THE SAME HOLE FROM THE OTHER SIDE: no bag, so buying delivers
+nothing, and in every real collapse the first thing people acquire is a container
+(a safe, a jerrycan, a tank). TWO INDEPENDENT ROUNDS, ONE ANSWER: THE MISSING PIECE
+IS NOT INCOME, IT IS A PLACE TO PUT THINGS.
+And that REFRAMES the exploit rather than condemning it: placing a building is
+already the only thing in this game that turns effort into something that keeps
+paying. IT IS NOT POPULAR BECAUSE IT IS BROKEN. IT IS THE ONLY CONTAINER WE
+SHIPPED. The fix is to stop it being the only one.
+
+THE SMALLEST COMPLETE MONEY LOOP, DELIVERED:
+  1 SEE ONE SMALL THING THAT NEEDS DOING   in front of you, not on a menu
+  2 DO IT                                  minutes, not an hour of conversation
+  3 GET PAID ONE OF SOMETHING              and not the same something as last time
+  4 PUT IT SOMEWHERE THAT KEEPS IT         <- THE MISSING RUNG, and the whole finding
+  5 SEE IT ADD TO WHAT WAS THERE           the lump growing is the reason to return
+Rungs 1 and 2 are round 20's rebusque sharpened by the meso number. Rung 3 is his
+own 8/11 ruling (every job says what it pays, no two the same) and EVERYTHING COSTS
+ONE is untouched. Rung 5 is round 20's Sisyphus repair: the Bionicles kept on a
+shelf produced 11, the ones taken apart produced 7. AND THE ORDER MATTERS: 1, 2, 3
+and 5 are each one round's work on systems that exist; RUNG 4 DOES NOT EXIST AT
+ALL, which is exactly why the only closing loop today is the building.
+
+REFUSED: removing the building loop before there is another one (it is the only
+thing that finishes); a bigger payout for a shorter job (8/15 LOCKED, and the real
+record says a lumpy day is not fixed by a bigger day); INTEREST ON SAVINGS (the
+susu fee runs the other way, and round 9 refused interest in either direction --
+the container should HOLD, not pay); a bank or vault screen or deposit menu
+(anti-spreadsheet, same as round 15's refusal of an inventory grid); shortening the
+hour-long conversation (that is a scene's business; the point is a conversation is
+the wrong unit to EARN by); any implementation.
+
+ROUTED: LIFE+CITY and WORLD get the one that unblocks everything -- there is
+nowhere to put what a day produced, and one fix closes both round 15's hole and
+this one. WORLD also gets "the only complete loop is three taps with no clock, do
+not remove it before there is a second one" and "building and buying cost no time
+while everything else costs hours". QUESTS gets "an hour-long conversation is the
+wrong unit to earn by". One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0.
+SIXTH ROUND RUNNING where a green suite and a real finding are both correct. The
+pattern in its final form: THESE GATES CHECK THAT A PART DOES WHAT IT SAYS. NOTHING
+CHECKS THAT TWO PARTS AGREE, THAT A PART KEEPS WORKING FOR AS LONG AS THE GAME
+LASTS, THAT IT IS THE RIGHT PART TO HAVE, OR THAT THE PARTS FORM A LOOP THAT
+CLOSES. Every finding this lane has produced since round 16 lives in one of those
+four gaps. A suggestion about what a checker could be, not this lane's to build.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept
+     because round 19 measured the far end: the shelf line stops moving on day 67.
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
+     found the code (BARTER_ONLY) already exists and is unreachable.
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY? Round 18's answer: the right to trade
+     at that faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
+ 16. After the valley's shelves are empty, what does a shop SAY?
+ 17. What can a person in this valley be paid to do? The most characterful list
+     left in the economy.
+ 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
+ 19. (new, and it is now TWO rounds' finding) WHAT DOES A PLAYER KEEP HIS MONEY AND
+     GOODS IN? Round 15 asked what he starts with; this asks what holds what he
+     gets. In the real record it is a safe, a jerrycan, a tank, a box the collector
+     carries. It is a thing with a name, and names are his.
+
+NEXT IN THIS LANE: Q22 [what a lie costs].
+
+================================================================================
 EYES AND EARS (eyes-5vql33): 9/6 (k) LATEST -- *** E11 [pixels only] ROUND ONE OF TWO IS DONE:
 SCHOOL. NO MEASURING WAS DONE, ON PURPOSE, BECAUSE THE 9/6 LAW SAYS THIS LANE TAKES TWO ROUNDS
 AND ROUND ONE IS RESEARCH ONLY. School found the world's name for our problem (THE ARTIFACT
