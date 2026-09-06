@@ -294,5 +294,178 @@ notes.forEach(n => console.log('  NOTE  ' + n));
     typeof A.factionOf(crowd[0], [20, 20], [{ name: 'REMNANTS', x: 20, y: 20 }]) !== 'undefined');
 }
 
+/* ============================================================================
+   F. THE FOUR FACTIONS THAT HOLD NO GROUND.
+   (9/6/26, FACTIONS lane, VAMILY row [hidden factions] THE-OTHER-FOUR.)
+
+   THE ROW SAID MEASURE FIRST, SO: on the walked surface, 5,148 people and 566
+   affiliations, spread across EXACTLY the fourteen selectable outfits. Pures,
+   Panthers, La Familia and Triads appeared on ZERO people, while all four
+   already had an authored line in bohemia_people.js that nobody could ever hear.
+
+   They were unreachable for a reason that is not a bug: factionOf derives
+   everything from the fourteen SEATS and his graph gives these four none. He
+   types them `social_force` and the note says what they are in one sentence --
+   "MEMBERS INSIDE OTHER FACTIONS." A second, hidden affiliation, not a place.
+   ========================================================================== */
+{
+  const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/BOHEMIA_faction_graph.json'), 'utf8'));
+  const four = Object.keys(G.factions).filter(k => G.factions[k].type !== 'selectable').sort();
+
+  ok('F1 the four are exactly the ones his graph does NOT mark selectable, read out '
+    + 'of his file rather than typed here (' + four.join(', ') + ')',
+    four.length === 4 && JSON.stringify(four) === JSON.stringify(A.FORCES.slice().sort()));
+
+  /* *** THE DEFECT THIS ROW EXISTS FOR, MEASURED RATHER THAN REMEMBERED. *** */
+  const crowd2 = roster(4242);
+  const cellsAll = [];
+  for (let y = 0; y < 40; y++) for (let x = 0; x < 40; x++) cellsAll.push([x, y]);
+  let oldReach = 0;
+  for (const c of cellsAll.slice(0, 200))
+    for (const a of crowd2) {
+      const f = A.factionOf(a, c, BASES);
+      if (f && four.indexOf(f) >= 0) oldReach++;
+    }
+  ok('F2 *** THE RULE THAT DECIDES WHO RUNS WITH WHOM CAN NEVER PRODUCE ONE OF THE '
+    + 'FOUR, AND THAT IS WHY THEY WERE UNREACHABLE. *** It answers from the seats it '
+    + 'is handed, and these four have no seat in the world or in this fixture. So '
+    + 'the fix could never be a bigger bases list',
+    oldReach === 0);
+
+  /* AND NOW THEY EXIST. */
+  const seenF = {};
+  let people = 0, members = 0;
+  for (const c of cellsAll)
+    for (const a of crowd2) {
+      people++;
+      const f = A.forceOf(a, c, { act: 1, worth: ((c[0] * 7 + c[1] * 13) % 100) / 100 });
+      if (f) { members++; seenF[f] = (seenF[f] || 0) + 1; }
+    }
+  ok('F3 *** ALL FOUR NOW EXIST ON REAL PEOPLE. *** ' + JSON.stringify(seenF),
+    four.every(f => seenF[f] > 0));
+
+  /* HIS NOTE IS THE SPEC AND EVERY NUMBER BELOW IS READ OFF IT.
+     "Members inside other factions. Larger in act1 (crash drove identity
+     clustering), fixed ceiling, stagnant across acts." */
+  const share = members / people;
+  ok('F4 AND IT IS A MINORITY WITH A LOW CEILING, which is his own words "fixed '
+    + 'ceiling" and the real record: the SPLC counts 800+ US hate groups and MOST '
+    + 'HAVE FEWER THAN TWENTY MEMBERS. A valley where a fifth of people are in one '
+    + 'is not this world (' + (100 * share).toFixed(2) + '%)',
+    share > 0.002 && share < 0.06);
+
+  let m3 = 0;
+  for (const c of cellsAll)
+    for (const a of crowd2)
+      if (A.forceOf(a, c, { act: 3, worth: ((c[0] * 7 + c[1] * 13) % 100) / 100 })) m3++;
+  ok('F5 LARGER IN ACT 1 THAN ACT 3, which is his note in as many words -- "larger '
+    + 'in act1 (crash drove identity clustering), stagnant across acts". act1 '
+    + members + ', act3 ' + m3,
+    m3 < members && m3 > 0);
+
+  /* *** WHERE, NOT JUST HOW MANY. *** Realistic group conflict theory says the
+     driver is competition over resources, so this has to be denser on poor
+     ground -- and the worth of a block is already measured and shipped by [who
+     holds], so the valley varies by itself with no second table invented. */
+  /* HOLD THE BLOCK STILL AND MOVE ONLY THE POVERTY. The first cut of this
+     bucketed cells by a synthetic worth and compared the two halves, and it
+     measured 2.97% against 2.67% -- a ratio of 1.11 where the rule's own maths
+     says 1.26. The gap is not the rule, it is the BLOCK DRAW sitting in front
+     of it: whether a force works a block at all is decided first and has
+     nothing to do with worth, so most of what that comparison counted was which
+     blocks happened to draw one. Asking the same people on the same ground at
+     both ends of the scale removes the confound entirely and measures the thing
+     the claim is actually about.
+     END TO END ON THE WALKED SURFACE, where the block draw is real and so is
+     the population: 0.81% of people on the rich half of the valley, 2.19% on
+     the poor half. */
+  let lowM = 0, highM = 0, both = 0;
+  for (const c of cellsAll) {
+    if (!A.forceOnBlock(c)) continue;
+    for (const a of crowd2) {
+      both++;
+      if (A.forceOf(a, c, { act: 1, worth: 0 })) lowM++;
+      if (A.forceOf(a, c, { act: 1, worth: 1 })) highM++;
+    }
+  }
+  ok('F6 AND POORER GROUND CARRIES MORE OF IT. Not a mood: realistic group conflict '
+    + 'theory puts the driver on competition for resources, and the block worth this '
+    + 'lane shipped on 9/6 is what makes the valley vary by itself with no second '
+    + 'table invented. Same people, same blocks, poorest ground ' + lowM
+    + ' members against richest ' + highM + ' of ' + both,
+    both > 0 && lowM > highM * 1.3);
+
+  /* *** AND IT SAYS NOTHING ABOUT ANYBODY'S ANCESTRY. ***
+     The obvious reading of four identity-supremacist groups is that membership
+     follows heritage. THE GAME MODELS NO SUCH THING, and inventing one in order
+     to assign somebody to a supremacist group would be authoring the most
+     sensitive content in his canon. What is derived is WHICH ONE ORGANIZES A
+     BLOCK -- geography, and exactly what his own note calls "identity
+     CLUSTERING". This claim is structural: the same person, moved to another
+     block, gets whatever is organizing THERE. */
+  const one = crowd2[0];
+  const moved = {};
+  for (const c of cellsAll) { const f = A.forceOnBlock(c); if (f) moved[f] = 1; }
+  const gotAny = cellsAll.map(c => A.forceOf(one, c, { act: 1, worth: 0.2 })).filter(Boolean);
+  ok('F7 *** IT IS THE BLOCK THAT CARRIES THE IDENTITY, NEVER THE PERSON. *** One '
+    + 'person walked across the whole fixture comes back as more than one of the '
+    + 'four, because what is derived is which of them ORGANIZES THERE. A rule that '
+    + 'read a person\'s ancestry could not do that -- and this game models no '
+    + 'ancestry to read',
+    new Set(gotAny).size > 1);
+
+  ok('F8 and a block either has one working it or it does not, so a person on quiet '
+    + 'ground is in nothing however poor it is',
+    cellsAll.some(c => !A.forceOnBlock(c))
+    && cellsAll.filter(c => !A.forceOnBlock(c))
+        .every(c => crowd2.every(a => A.forceOf(a, c, { act: 1, worth: 0 }) === null)));
+
+  ok('F9 the same person on the same ground answers the same every time -- a hidden '
+    + 'thing that flickers is not hidden, it is broken',
+    cellsAll.slice(0, 50).every(c => crowd2.slice(0, 20).every(a =>
+      A.forceOf(a, c, { act: 1, worth: 0.3 }) === A.forceOf(a, c, { act: 1, worth: 0.3 }))));
+
+  /* HIS OVERRIDE WINS, PROVED BY USING IT. */
+  const spot = '3,3';
+  A.FORCE_BLOCK[spot] = 'Triads';
+  const forced = A.forceOnBlock([3, 3]);
+  delete A.FORCE_BLOCK[spot];
+  ok('F10 ONE LINE IN FORCE_BLOCK PUTS WHOEVER HE WANTS ON WHATEVER BLOCK HE WANTS, '
+    + 'and the table ships empty -- proved by setting one and reading it back',
+    forced === 'Triads' && Object.keys(A.FORCE_BLOCK).length === 0);
+
+  /* AND THE FOUR AUTHORED LINES ARE REACHABLE, which is the only thing that makes
+     any of this a PRESENCE rather than another field nobody can meet. */
+  const P = require('../engine/bohemia_people.js');
+  const authored = four.filter(f => (P.LINES['faction:' + f] || []).length);
+  ok('F11 all four have an authored line waiting, which is what made this row '
+    + 'urgent: they were written and unhearable (' + authored.length + '/4)',
+    authored.length === 4);
+
+  const person = { key: 'K1', role: 'keeper', lang: 'en', faction: 'Mob' };
+  let spoke = 0, ordinary = 0;
+  for (const f of four)
+    for (let i = 0; i < 40; i++) {
+      const ls = P.linesFor({ ...person, key: 'K' + i }, { at: 'free', faction: 'Mob', force: f });
+      if ((P.LINES['faction:' + f] || []).some(t => ls.indexOf(t) >= 0)) spoke++; else ordinary++;
+    }
+  ok('F12 *** AND A CARRIER CAN ACTUALLY SAY IT. *** It sits ABOVE the role buckets '
+    + 'and the first cut had it below them -- measured, 40 carriers across six acts, '
+    + '240 askings and ZERO force lines, because bucket(person.role) answers for '
+    + 'everybody. Same defect this organ already documents for reactions',
+    spoke > 0);
+
+  ok('F13 …AND MOSTLY THEY DO NOT. A carrier who says it every time is not hidden, '
+    + 'they are labelled, and you would read the whole layer off the first sentence '
+    + 'instead of ever having to find anything out. Said ' + spoke + ' of '
+    + (spoke + ordinary),
+    ordinary > spoke);
+
+  ok('F14 and somebody carrying nothing is untouched -- the layer is additive, which '
+    + 'is the zero-regression proof',
+    JSON.stringify(P.linesFor(person, { at: 'free', faction: 'Mob' }))
+    === JSON.stringify(P.linesFor(person, { at: 'free', faction: 'Mob', force: null })));
+}
+
 console.log('=== FACTION MEMBERSHIP GATE: ' + pass + ' passed, ' + fails.length + ' failed ===');
 process.exit(fails.length ? 1 : 0);

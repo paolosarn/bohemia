@@ -2612,11 +2612,48 @@
          who you are, an English-only reaction table would have taken their voice
          away again. Same shape as bucket(), same English fallback, same reason. */
       function react(k) { return k ? (REACTIONS[k + '@' + reg] || REACTIONS[k]) : null; }
+      /* *** AND THE THING THEY DO NOT ADVERTISE. (9/6, [hidden factions].) ***
+         Four factions in his graph hold no ground -- Pures, Panthers, La
+         Familia, Triads -- and his note says what they are in one sentence:
+         "MEMBERS INSIDE OTHER FACTIONS." Each has an authored line here and
+         MEASURED on the walked surface, across 5,148 people and 566
+         affiliations, NOT ONE PERSON could ever be any of them, so not one of
+         those four lines could ever be heard. The rule that decides who runs
+         with whom is keyed to the fourteen SEATS, and these four have none.
+         BohemiaAgents.forceOf now answers it, and opts.force carries the answer
+         here.
+         IT IS RARE ON PURPOSE AND THAT IS THE MECHANIC, NOT A DIAL I WAS SHY
+         ABOUT. A carrier who says it every time is not hidden, they are
+         labelled; you would read the layer off the first sentence and never
+         have to learn anything. So it outranks the ordinary faction bark and
+         nothing else, and only on a fraction of speakings -- most of the time a
+         member of one of these sounds exactly like everybody else on their
+         block, which is the whole reason finding out means something.
+         DERIVED, NEVER ROLLED FRESH: keyed to the person and the hour, so the
+         same neighbour at the same moment says the same thing on every device,
+         the way every other line in this organ works. */
+      var force = (opts && opts.force) || null;
+      var forceSpeaks = false;
+      if (force) {
+        var fh = 2166136261, fs = String(person.key || '') + '|' + String(at || '');
+        for (var fi = 0; fi < fs.length; fi++) { fh ^= fs.charCodeAt(fi); fh = (fh * 16777619) >>> 0; }
+        forceSpeaks = ((fh >>> 8) % 100) < 25;
+      }
       var pick = (saw && react('saw:' + saw))
         || (heard && react('heard:' + heard))
         || (rung && react('rung:' + rung))
         || (met && react('met:' + met))
         || bucket(person.key)
+        /* ABOVE THE ROLE BUCKETS, AND THE FIRST VERSION HAD IT BELOW THEM.
+           MEASURED: 40 carriers, stood beside every one, asked across six acts
+           each -- 240 askings, ZERO force lines. bucket(person.role) answers for
+           everybody, so a bucket underneath it can never speak. That is the
+           identical defect this organ already carries a paragraph about for
+           reactions ("this function returned at, faction and when and linesFor()
+           looks for met and rung before any of those"), and it was rebuilt one
+           screenful lower. What somebody quietly belongs to is a fact about the
+           PERSON; their shift is a fact about the hour. */
+        || (forceSpeaks && bucket('faction:' + force))
         || (at && bucket(person.role + ':' + at))
         || bucket(person.role)
         || (fac && bucket('faction:' + fac))

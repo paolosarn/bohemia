@@ -353,6 +353,120 @@
     x^=x>>>16; return x>>>0; }
   function strHash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=(h*16777619)>>>0; } return h>>>0; }
 
+  /* =========================================================================
+     THE OTHER FOUR: THE FACTIONS THAT HOLD NO GROUND.
+     (9/6/26, FACTIONS lane, VAMILY row [hidden factions] THE-OTHER-FOUR.)
+
+     MEASURED FIRST, WHICH IS WHAT THE ROW ASKED FOR. On the walked surface:
+     5,148 people, 566 of them affiliated, spread across EXACTLY the fourteen
+     selectable outfits. Pures, Panthers, La Familia and Triads appeared on
+     ZERO people. All four already have an authored line sitting in
+     bohemia_people.js that no player could ever hear. Four factions written
+     down and unreachable -- the authored-but-unread disease this lane keeps a
+     gate for.
+
+     THEY WERE UNREACHABLE FOR A GOOD REASON: they hold no ground, and
+     factionOf() derives everything from the fourteen SEATS. His graph types
+     them `social_force`, not `selectable`, and the note says what they are in
+     one sentence: "MEMBERS INSIDE OTHER FACTIONS. Larger in act1 (crash drove
+     identity clustering), fixed ceiling, stagnant across acts."
+     So they are not a place. They are a SECOND, HIDDEN affiliation carried by
+     people who visibly belong to something else, and a rule keyed to seats can
+     never produce one. This is that rule.
+
+     *** WHICH PERSON BELONGS TO WHICH OF THE FOUR IS NOT DERIVED FROM ANY
+     PERSON, AND THAT IS DELIBERATE. *** The obvious reading of four
+     identity-supremacist groups is that membership follows a person's
+     heritage. THE GAME MODELS NO SUCH THING -- personOf() carries a look seed,
+     an id seed, a language and a role, and nothing about ancestry -- and
+     inventing one in order to assign somebody to a supremacist group would be
+     me authoring the most sensitive content in his canon. MECHANISM-MINE /
+     CONTENTS-PAOLO'S, and this is contents.
+     WHAT IS DERIVED INSTEAD IS WHICH ONE ORGANIZES ON A BLOCK, which is
+     geography and is what his own note describes: "crash drove identity
+     CLUSTERING", and clustering is a thing that happens to places. Real
+     movements of this kind are neighbourhood organizations. So a block may
+     have one of the four working it, or none, and a member on that block
+     belongs to whichever one is there. Nothing anywhere says a word about any
+     person's ancestry, because the game does not know and this rule does not
+     ask.
+
+     THE RATE, AND THE RESEARCH BOTH AISLES (9/6 round):
+     - ORGANIZED MEMBERSHIP IS TINY. The SPLC counts 800+ active US hate groups
+       and MOST HAVE FEWER THAN TWENTY MEMBERS. A share of a percent, not a
+       fifth of a valley. So the ceiling is low and his note already says
+       "fixed ceiling".
+     - SCARCITY REALLY DOES CLUSTER PEOPLE, which is the half that backs his
+       canon. Across 82 countries and 150,000+ people, INGROUP TRUST RISES
+       AFTER A DISASTER; scarcity raises benevolence toward your own and fear of
+       everyone else (realistic group conflict theory).
+     - *** AND THE FINDING THAT ARGUES WITH US. *** Allport: a preference for
+       the ingroup is NOT always accompanied by hostility toward outgroups, and
+       the measured outgroup-trust effect is the weak, unreliable half of that
+       result. The disaster literature's headline is the opposite of the
+       war-of-all-against-all -- people cooperate. So the crash does NOT turn
+       the valley supremacist; it produces a great many people who hold tight to
+       their own, and a SMALL HARD CORE who turn that into supremacy. That is
+       precisely "members inside other factions" with a fixed ceiling, and it is
+       why this is a thin layer under the fourteen rather than a fifteenth
+       outfit.
+     - WHERE, NOT JUST HOW MANY: realistic group conflict theory says the driver
+       is competition over resources, so this is DENSER ON POOR GROUND. The
+       worth of a block is already measured and shipped ([who holds], 9/6), so
+       the valley varies by itself and no second table was invented for it.
+
+     A NUMBER IS NEVER HIS QUESTION (the coordinator, 9/5), so the rates are
+     mine, they are on a dial, and they are the smallest thing that makes the
+     layer meetable rather than theoretical.
+     ========================================================================= */
+  var FORCES = ['La Familia','Panthers','Pures','Triads'];   /* his graph, sorted */
+  /* HOW MANY BLOCKS HAVE ONE WORKING THEM AT ALL. */
+  var FORCE_BLOCK_RATE = 0.22;
+  /* AND OF THE PEOPLE ON SUCH A BLOCK, HOW MANY ARE IN IT. Act 1 is the
+     ceiling his note describes; act 3 is lower because the note says larger in
+     act1 and stagnant after, so the rest of the world grows past them. */
+  var FORCE_RATE_ACT1 = 0.09;
+  var FORCE_RATE_ACT3 = 0.05;
+  /* HOW MUCH POORER GROUND MATTERS. At the richest block the rate is itself; on
+     the poorest it is this much more. */
+  var FORCE_POVERTY_LIFT = 1.6;
+  /* HIS OVERRIDES, EMPTY AND STAYING EMPTY:  FORCE_BLOCK['12,40']='Triads'; */
+  var FORCE_BLOCK = {};
+
+  /* WHICH OF THE FOUR WORKS THIS BLOCK, IF ANY. Keyed to the cell, so it is a
+     fact about the neighbourhood and the same on every device. */
+  function forceOnBlock(cell){
+    if(!cell) return null;
+    var k=(cell[0]|0)+','+(cell[1]|0);
+    if(Object.prototype.hasOwnProperty.call(FORCE_BLOCK,k)) return FORCE_BLOCK[k];
+    var h=mix32(hash(cell[0]|0, cell[1]|0, 0x5f3a7c1)^0xb5297a4d);
+    if((h%10000)/10000 >= FORCE_BLOCK_RATE) return null;
+    return FORCES[mix32(h^0x68e31da4)%FORCES.length];
+  }
+
+  /* AND WHETHER THIS PERSON IS IN IT.
+     opts.act  1 or 3 (default 1)
+     opts.worth 0..1, how rich this ground is; absent means unknown, treated as
+                the middle so the layer still works on a surface that has no
+                worth map. */
+  function forceOf(agent, cell, opts){
+    if(!agent||!cell) return null;
+    var which=forceOnBlock(cell);
+    if(!which) return null;
+    opts=opts||{};
+    var act=(opts.act===3)?3:1;
+    var base=(act===3)?FORCE_RATE_ACT3:FORCE_RATE_ACT1;
+    var w=(typeof opts.worth==='number')?Math.max(0,Math.min(1,opts.worth)):0.5;
+    var rate=base*(1+(1-w)*(FORCE_POVERTY_LIFT-1));
+    /* ITS OWN STREAM. factionOf's own comment records what correlated draws out
+       of one hash did to a three-way split (63% to one faction), so this never
+       reuses either of its rolls. */
+    var seatKey=mix32((agent.seed>>>0)^strHash(String(agent.id||'')));
+    var roll=mix32(hash(cell[0]|0, cell[1]|0, seatKey)^0x27d4eb2f);
+    if((roll%10000)/10000 >= rate) return null;
+    return which;
+  }
+
   // ---- AGENT SPEC ----------------------------------------------------------
   // agent = {
   //   id:'H<house>-<n>'         mechanical designation (names are Paolo's)
@@ -1046,7 +1160,10 @@
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
-    factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
+    factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS,
+    FORCES:FORCES,FORCE_BLOCK:FORCE_BLOCK,FORCE_BLOCK_RATE:FORCE_BLOCK_RATE,
+    FORCE_RATE_ACT1:FORCE_RATE_ACT1,FORCE_RATE_ACT3:FORCE_RATE_ACT3,
+    FORCE_POVERTY_LIFT:FORCE_POVERTY_LIFT,forceOnBlock:forceOnBlock,forceOf:forceOf};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

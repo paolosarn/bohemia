@@ -1675,6 +1675,113 @@ async function onYourProblem() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   V. THE FOUR THAT HOLD NO GROUND, ON THE FILE A STRANGER OPENS.
+   (9/6/26, VAMILY row [hidden factions] THE-OTHER-FOUR.)
+   faction_membership_gate holds the RULE. This holds the only thing that makes
+   it a presence rather than another field: that a player walking the demo can
+   actually meet one, and hear the line his own WORDS lane wrote for them.
+   ========================================================================== */
+async function onHiddenFour() {
+  console.log('\nV. THE FOUR FACTIONS THAT HOLD NO GROUND.');
+  const { chromium } = requirePlaywright();
+  const { settle: SETTLE } = require(path.join(ROOT, 'gates/bohemia_settle.js'));
+  const DEMO = path.join(ROOT, 'slices/BOHEMIA_DEMO.html');
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: VIEW });
+  const errs = [];
+  page.on('pageerror', e => errs.push(String(e.message).slice(0, 140)));
+  try {
+    await page.goto('file://' + DEMO);
+    await SETTLE(page, 12000);
+    await page.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+    await SETTLE(page, 14000);
+    let city = null;
+    for (const f of page.frames()) {
+      try { if (await f.evaluate(() => typeof ctValleyRoster === 'function')) { city = f; break; } } catch (_e) {}
+    }
+    ok('V1 the demo opens on the walked world', !!city);
+    if (!city) return;
+    await city.evaluate(() => { const g = document.querySelector('#daycardIn .dcgo'); if (g) g.click(); });
+    await SETTLE(page, 900);
+    await city.evaluate(() => { try { offerAccept(); } catch (_e) {} });
+    await SETTLE(page, 1200);
+
+    const D = await city.evaluate(() => {
+      const G = window.BOHEMIA_FACTION_GRAPH || {};
+      const four = Object.keys(G.factions || {}).filter(k => G.factions[k].type !== 'selectable').sort();
+      const want = {};
+      four.forEach(f => ((BohemiaPeople.LINES['faction:' + f]) || []).forEach(t => { want[t] = f; }));
+      const g = typeof turfGrid === 'function' ? turfGrid() : null;
+      const R = ctValleyRoster();
+      const carriers = [], byForce = {};
+      for (let i = 0; i < R.length; i++) {
+        const a = R[i], q = String(a.__id || '').split(':');
+        const cx = +q[0] | 0, cy = +q[1] | 0;
+        let w = 0.5;
+        try { const bi = g.id[cy * g.n + cx];
+              if (bi >= 0 && g.blocks[bi] && g.blocks[bi].worthRank != null) w = g.blocks[bi].worthRank; } catch (_e) {}
+        const f = BohemiaAgents.forceOf({ id: a.id, seed: a.seed || 0 }, [cx, cy], { act: 1, worth: w });
+        if (f) { carriers.push({ row: a, cx, cy, force: f }); byForce[f] = (byForce[f] || 0) + 1; }
+      }
+      /* AND THE ONE NUMBER THIS ROW EXISTS TO MOVE: can the four be HEARD.
+         Capped per force so a thin one is still reached -- the point is whether
+         each is reachable at all, not which is commonest. */
+      const heard = {}, cnt = {};
+      let stood = 0, said = 0, ordinary = 0;
+      for (const c of carriers) {
+        if ((cnt[c.force] || 0) >= 12) continue;
+        cnt[c.force] = (cnt[c.force] || 0) + 1;
+        const span = BohemiaPopulation.NB * FN;
+        hx = c.cx * span + 4; hy = c.cy * span + 4; CT_SPAWN = null; ctSpawn();
+        const rec = ctEveryone().filter(x => x.id === c.row.__id)[0];
+        if (!rec) continue;
+        stood++;
+        const person = ctPerson(rec);
+        for (const at of ['home', 'work', 'free', 'scav', 'errand', 'watch']) {
+          let ls = [];
+          try { ls = BohemiaPeople.linesFor(person, { at: at, faction: rec.faction || null, force: c.force }); }
+          catch (_e) {}
+          if (ls.some(t => want[t] === c.force)) { heard[c.force] = (heard[c.force] || 0) + 1; said++; }
+          else ordinary++;
+        }
+      }
+      let aff = 0;
+      R.forEach(a => { if (a.faction) aff++; });
+      return { four, people: R.length, affiliated: aff, carriers: carriers.length,
+               byForce, stood, heard, said, ordinary,
+               allHeard: four.every(f => heard[f] > 0) };
+    });
+
+    ok('V2 *** FOUR FACTIONS HIS GRAPH CARRIES WERE UNREACHABLE, AND THE MEASUREMENT '
+      + 'IS WHAT THIS ROW ASKED FOR FIRST. *** Before this: ' + D.people + ' people, '
+      + D.affiliated + ' affiliated, spread across exactly the fourteen SELECTABLE '
+      + 'outfits and ZERO across the other four, while all four already had an '
+      + 'authored line nobody could ever hear. Now they exist: '
+      + JSON.stringify(D.byForce),
+      D.carriers > 0 && D.four.every(f => D.byForce[f] > 0));
+
+    ok('V3 *** AND A DEMO PLAYER CAN HEAR ALL FOUR. *** That is the whole difference '
+      + 'between a presence and another field nobody meets. Stood beside ' + D.stood
+      + ' of them and heard ' + JSON.stringify(D.heard),
+      D.allHeard);
+
+    ok('V4 …AND MOSTLY THEY SOUND LIKE EVERYBODY ELSE ON THEIR BLOCK. His note is '
+      + '"members INSIDE other factions", so a carrier who announces it every time is '
+      + 'not hidden, they are labelled, and the layer would be readable off the first '
+      + 'sentence instead of ever being found out. Said it ' + D.said + ' times '
+      + 'against ' + D.ordinary + ' ordinary lines',
+      D.ordinary > D.said);
+
+    ok('V5 IT IS A MINORITY OF THE VALLEY, which is his "fixed ceiling" and the real '
+      + 'record (800+ US hate groups, most under twenty members): ' + D.carriers
+      + ' of ' + D.people + ' (' + (100 * D.carriers / D.people).toFixed(2) + '%)',
+      D.carriers / D.people > 0.002 && D.carriers / D.people < 0.06);
+
+    ok('V6 NOTHING THREW', errs.length === 0, JSON.stringify(errs.slice(0, 2)));
+  } finally { await browser.close(); }
+}
+
 async function onFactionSeats() {
   console.log('\nU. A FACTION SITS WHERE ITS OWN CANON SAYS IT LIVES.');
   const { chromium } = requirePlaywright();
@@ -2791,6 +2898,7 @@ onTheCard()
   .then(onTheJobWitness)
   .then(onTheFamily)
   .then(onFactionSeats)
+  .then(onHiddenFour)
   .catch(e => { fail++; console.log('  FAIL browser part threw: ' + e.message); })
   .then(() => {
     console.log('\nFACTION BETWEEN GATE: ' + pass + ' passed, ' + fail + ' failed');
