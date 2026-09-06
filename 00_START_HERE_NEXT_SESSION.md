@@ -2,7 +2,7 @@ FACTIONS (factions-ovkjpf): 9/6 (round 5) LATEST -- *** [who holds]
 EVERY-DISTRICT-HAS-AN-OWNER SHIPPED. Every border in the valley now runs along
 something a player can see: 65.7% -> 100%. *** Nothing to judge.
 
-VAMILY row: [who holds] EVERY-DISTRICT-HAS-AN-OWNER, MODE: BUILD, SHIPPED 9/6 e44ffb3.
+VAMILY row: [who holds] EVERY-DISTRICT-HAS-AN-OWNER, MODE: BUILD, SHIPPED 9/6 8bf3a91.
 Record: records/BOHEMIA_A_BORDER_YOU_CAN_SEE_9_6_26.md
 Ruling it rests on: records/BOHEMIA_RULING_WHO_HOLDS_WHAT_9_5_26.md
 
