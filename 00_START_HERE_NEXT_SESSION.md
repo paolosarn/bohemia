@@ -1124,6 +1124,66 @@ gates/address_gate.js, which is the PEOPLE lane's gate from 8/26, and the write 
 replaced it. Caught by git diff --stat before any commit, restored from HEAD, and this one
 moved to a name nothing owned. ONE SYSTEM ONE SESSION APPLIES TO THE RULER AS MUCH AS THE
 TARGET, and a new file is only new if you looked.
+  *** AND HALF THE ROUND WAS THE PART NOBODY PLANS FOR: SIX OTHER GATES WENT RED. ***
+Moving where every resident in the valley lives is a change to a foundation six other
+lanes measure. Ran every gate in the repo that touches population, people or the census
+(30 of them), then ran every failure AGAIN on a clean origin/main to separate what was
+already broken from what I broke. Twelve failed here; six fail on main too. FOUR WERE
+MINE, AND NOT ONE OF THEM WAS A BROKEN MECHANISM -- in every case the code did the
+better of the things it is written to do and the LEG could not see it:
+    against_gate J        asserted a body at war is in the cell you FACE. Followers
+                          TRAIL you, so that cell is two steps out of their reach; the
+                          leg was green because a 300-step walk used to stop in a lucky
+                          spot. It now BUILDS the situation instead of hoping for it.
+    casting_gate          demanded the QUEST cast from exactly ONE block, while its own
+                          header three paragraphs up says "A QUEST DOES NOT HAVE AN
+                          ADDRESS, IT HAS ONE PER ROLE, and going from one to the other
+                          IS the job". Measured after: fixer at 8,7, lineman at 18,14,
+                          one person each -- THE LAW BEING SATISFIED, REPORTED AS A
+                          FAILURE. A GATE MUST NEVER OUTRANK A RULING.
+    casting_gate (card)   opened whoever was standing nearest, which is now the
+                          housemate, whose card correctly has no job row.
+    address_gate          froze its own 8/26 PREMISE (affiliated === 0) as if it were a
+                          law. Factions hold GROUND and nobody holds a freeway, so people
+                          who had no outfit because the game parked them on a motorway now
+                          have the one whose ground they live on: 441 people within three
+                          blocks, 69 affiliated, up from ZERO. COLOUR IS TERRITORY finally
+                          has bodies standing on the territory.
+    faction_between P6    the housemate's card again, then a second time after a sweep
+                          that advances the world by days.
+  *** THE ONE I GOT WRONG, AND HOW IT WAS CAUGHT. *** My first fix to against_gate J
+accepted a blocker ANYWHERE within arm's reach and went green instantly. Then I stubbed
+ctBlockCell() to return null -- the whole get-in-your-way mechanism deleted -- AND THE LEG
+STILL PASSED, because an ordinary follower ends up beside you anyway. MAKING A GATE GREEN
+BY WIDENING WHAT IT ACCEPTS IS NOT FIXING A RULER, IT IS UNPLUGGING ONE. Reverted, reason
+written where the next person will try the same shortcut. All four fixes mutation-tested:
+ctBlockCell -> null (5 FAILED/61), the cast follows your block (576 of 576, RED), drop the
+card's THE JOB row (RED), everybody affiliated (441 of 441, RED), drop THEY WERE IN ONCE
+(RED).
+  THE SHAPE OF ALL OF THEM: three of the four picked a person and then trusted the game to
+hand back the same person. ctAdjacent() returns the NEAREST body and measures MANHATTAN
+distance, so its four diagonal tries never answer at all. Safe while residents lived alone
+on open ground; not safe the moment a household sits down at one address.
+faction_between_gate HAD ALREADY WRITTEN THIS LESSON on 8/28 -- "A TEST THAT PICKS A PERSON
+AND THEN TRUSTS THE GAME TO PICK THE SAME ONE IS TESTING THE CROWD" -- and then left a
+fallback in because it "cannot be made worse than it was". THAT FALLBACK IS EXACTLY HOW IT
+GOT WORSE: a fallback that keeps a test running after its setup failed does not preserve
+the old behaviour, it converts a setup failure into a false claim about the game.
+  GATES I TOUCHED THAT ARE NOT MINE: against_gate and casting_gate (PEOPLE),
+faction_between_gate (FACTIONS), address_gate (PEOPLE). Target untouched in all four; only
+the legs. FOR THE COORDINATOR TO TELL THOSE LANES.
+  STILL RED AND NOT MINE (identical on main): invisible_schedule_gate 16/1, banner_gate
+12/2 (engine/bohemia_encounters.js inlined behind a banner the sync sweep cannot read --
+NOT my module), city_cast_gate 7/1, commitment_gate 71/1, faction_arc_gate 97/5,
+run_people_gate 41/4, trade_fit_gate 1 failed, FIGHT MUSIC 3 (SOUND), ENGINE SYNC and
+BUNDLE on BOH_POWERGRID (RUN's carriers, routed last round and still open).
+  THE FULL 526-GATE SUITE WAS NOT RUN TO COMPLETION AND THAT IS SAID PLAINLY. It is 526
+gates now, several of them 100 seconds each; two attempts ran over fifty minutes without
+finishing, and main moves every ~13 minutes, so it can never finish before it has to start
+over. What WAS run: every gate that touches population/people/census (30), every failure
+re-run on clean origin/main for comparison, and a final pass over all 17 gates this round
+touched or disturbed. THE SUITE'S OWN WALL CLOCK IS NOW A SHIP-FLOW PROBLEM AND IT BELONGS
+TO THE PLUMBER, NOT TO ME. FOR THE COORDINATOR TO ROUTE.
   RECORD: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md
   STILL RED ON MAIN AND STILL NOT MINE: bohemia_sync_gate BOH_POWERGRID, 2 bodies across 6
 carriers -- canon and the walked city agree, the graphics-engine masters and

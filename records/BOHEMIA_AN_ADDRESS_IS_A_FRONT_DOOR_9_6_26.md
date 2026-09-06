@@ -150,6 +150,69 @@ PEOPLE lane's gate from 8/26, and the write silently replaced it. Caught by
 nothing owned. **ONE SYSTEM, ONE SESSION applies to the ruler as much as the target,
 and a new file is only new if you looked.**
 
+## AND THE HALF OF THE ROUND NOBODY PLANS FOR: SIX OTHER GATES WENT RED
+
+Moving where every resident in the valley lives is a change to a foundation six
+other lanes measure. Every gate in the repo that touches population, people or the
+census was run (30 of them), and every one that failed was then run again on a
+clean `origin/main` to separate what was already broken from what this change
+broke. **That comparison is the only thing that makes the next paragraph
+trustworthy**, and it is cheap: twelve gates failed here, six of them fail on main
+too.
+
+Four were mine. **Not one of them was a broken mechanism.** In every case the code
+did the better of the things it is written to do and the LEG could not see it.
+
+| gate | what the leg asserted | what was actually true |
+|---|---|---|
+| `against_gate` J | a body at war is in the cell you FACE | followers TRAIL you, so that cell is two steps out of their reach; the leg was green because a 300-step walk used to stop in a lucky spot |
+| `casting_gate` | the QUEST casts from exactly ONE block | its own header, three paragraphs up: *"A QUEST DOES NOT HAVE AN ADDRESS, IT HAS ONE PER ROLE, and going from one to the other IS the job."* Measured after: fixer at 8,7, lineman at 18,14, one person each — **the law being satisfied, reported as a failure** |
+| `casting_gate` card | the card of whoever was standing nearest | households now sit together, so that was the housemate, whose card correctly has no job row |
+| `address_gate` | `affiliated === 0` near the front door | that was this gate's 8/26 PREMISE, not its law. Factions hold GROUND and nobody holds a freeway, so people who had no outfit because the game had parked them on a motorway now have the one whose ground they live on: **441 people within three blocks, 69 affiliated, up from zero** |
+| `faction_between_gate` P6 | the vouched person's card | the housemate's card again, then a second time after a sweep that advances the world by days |
+
+### THE ONE I GOT WRONG, AND HOW IT WAS CAUGHT
+
+The first fix to `against_gate` J accepted a blocker **anywhere within arm's
+reach**. It went green instantly. Then `ctBlockCell()` was stubbed to return null —
+the entire get-in-your-way mechanism deleted — and **the leg still passed**, because
+an ordinary follower ends up beside you anyway.
+
+> **A LEG THAT CANNOT TELL THE MECHANISM FROM ITS ABSENCE IS DECORATION.** Making a
+> gate green by widening what it accepts is not fixing a ruler, it is unplugging
+> one. The only proof that a fixed leg is still a leg is breaking the target and
+> watching it go red.
+
+Reverted, and the reason is written where the next person will try the same
+shortcut. The leg now BUILDS the situation the row is about — a cell the player
+faces, empty, within one step of a body at war — so if somebody is standing there
+afterwards, the mechanism put them there and nothing else could have.
+
+Every one of the four fixes was mutation-tested:
+
+| gate | mutation | result |
+|---|---|---|
+| `against_gate` | `ctBlockCell()` returns null | 5 FAILED / 61 ok |
+| `casting_gate` | the cast follows whatever block you stand on (the 8/26 bug) | 576 of 576 blocks, RED |
+| `casting_gate` | drop the THE JOB row from the card | RED |
+| `address_gate` | `ctFactionOf` returns an outfit for everybody | 441 of 441, RED |
+| `faction_between_gate` | drop the THEY WERE IN, ONCE row | RED |
+
+### THE SHAPE OF ALL OF THEM
+
+Three of the four picked a person and then trusted the game to hand back the same
+person. `ctAdjacent()` returns the NEAREST body and measures MANHATTAN distance, so
+its four diagonal tries never answer at all. That was safe while residents lived
+alone on open ground and stopped being safe the moment a household sits down at one
+address.
+
+`faction_between_gate` had already written this exact lesson on 8/28 — *"A TEST THAT
+PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE SAME ONE IS TESTING THE
+CROWD"* — and then left a fallback in on the grounds that it "cannot be made worse
+than it was". **That fallback is exactly how it got worse.** A fallback that keeps a
+test running after its setup failed does not preserve the old behaviour; it converts
+a setup failure into a false claim about the game.
+
 ## THE STANDING NOTE
 
 **A NUMBER CHOSEN BY MEASURING ONE PATH IS NOT A SETTING, IT IS AN ASSUMPTION ABOUT
