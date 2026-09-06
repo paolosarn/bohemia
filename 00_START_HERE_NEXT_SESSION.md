@@ -11646,7 +11646,20 @@ same two-round shape: round one is pure study of the question's subject with NO 
 written, round two writes the lines and must name which finding from school changed them.
 Law amendment in laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md, which now also names the
 three research modes (plain RESEARCH for ECONOMY and DYNASTY, SCHOOL THEN WRITE for WORDS,
-SCHOOL THEN CHECK for EYES AND EARS) and says only Paolo moves a lane between them.
+SCHOOL THEN CHECK for EYES AND EARS) and says only Paolo moves a lane between them. THEN (bz) VAMILY: only 2 commits, both claims
+(UI [crisis warning], FACTIONS [light owners]) -- the fleet is mid-work with 13 jobs claimed
+across the lanes, so the sweep is thin by construction. MY OWN CALL THIS ROUND: THE REASON
+QUESTS WAS PARKED HAS EXPIRED (records/BOHEMIA_COORDINATOR_THE_PARK_HAS_EXPIRED_9_6_26.md).
+He parked it 9/4 because he could not walk a quest well enough to judge it; since then the
+street, the title, the first teaching, hostile bodies, the fight where you stand, the room
+fight, held ground with visible borders, former jobs, standing, outfits, money that bites,
+the fold and the feed have ALL shipped. Went to him as a three-way fork (A the 60-boss
+spine only, 53 of 60 already wired; B the systems do the asking, no quest written, which
+is what the research points at and what our unusually many live systems are ready for; C
+stay parked). MY PICK B WITH A'S SPINE AS THE MAIN LINE, but the shape of the game's main
+content is the biggest creative fork left and it is his. ALSO FLAGGED ON THE BOARD: PLUMBER
+holds FIVE claimed jobs at once against the one-at-a-time rule; [fight headroom] is the one
+that matters.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
