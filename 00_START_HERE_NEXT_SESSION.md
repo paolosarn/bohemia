@@ -1,3 +1,109 @@
+WORDS (words-8dqrnq): 9/6 (c) LATEST -- *** Q1 [telling apart] SHIPPED WITH BOTH ROUNDS,
+THE FIRST QUESTION IN THIS LANE TO MEET THE 9/6 MODE. School changed the writing: not one
+pair is built on how anybody talks, because 33 words is far below the floor where that
+shows. And 31 of our 37 speakers will answer any question you put to them. ***
+Nothing to judge. Nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q1 IS DONE UNDER THE NEW MODE. Two records, and the row now carries both paths:
+    school   records/BOHEMIA_WORDS_Q1_SCHOOL_WHY_THREE_LINES_CANNOT_CARRY_A_FINGERPRINT_9_6_26.md
+    writing  records/BOHEMIA_WORDS_Q1_ROUND_TWO_THE_WRITING_9_6_26.md
+    bank     banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q1 ROUND TWO", draft:true
+
+WHICH FINDINGS FROM SCHOOL CHANGED THE LINES, which is what the mode demands and is
+the first thing in the round-two record:
+1. THIRTY-THREE WORDS IS BELOW THE IDIOLECT FLOOR, so NOT ONE PAIR is built on how
+   anybody talks. The 9/4 round leaned on word choice and rhythm. Every pair now is
+   built on what a person will not say, what they want from the listener, or what
+   they see the world through. That is the biggest difference between the rounds.
+2. THE ORDER IS THE REVERSE OF THE STANDARD ADVICE, so negative space is PAIR ONE
+   instead of an afterthought, and vocabulary is last instead of first.
+3. A TIC IS THE WRITER'S FINGERPRINT AND IT SPREADS, so there are NO tics, and the
+   section ends by handing one catchphrase to two characters to show it MERGES them.
+4. INTIMATES CONVERGE, so one pair is DELIBERATELY not tellable apart: two people who
+   have shared a kitchen thirty years, whom you cannot sort. The 9/4 round would have
+   called that a failure. Then a third person is added who has stopped matching,
+   because divergence is the drama.
+5. THE REAL NUMBERS ARE A DIAGNOSIS, NOT A TARGET, so these are paced for a phone at
+   120 BPM rather than pushed toward the telephone corpus.
+
+THE MEASUREMENT THE ROW ASKED FOR, WITH THE RIGHT INSTRUMENT. The row says "measure our
+504 NPC lines". The 9/4 round used function-word stylometry, which school established is
+the instrument built to IGNORE what makes a character a character. So this round measured
+the channels school ranks above it. Across 527 quest @SAY lines, the 37 speakers with 8 or
+more lines (455 lines):
+    refusals by pattern                  6
+    refusals after reading every hit     4
+    speakers who never refuse anything  31 of 37
+    wants aimed at the listener         35
+    speakers who never ask for anything 13 of 37
+NEGATIVE SPACE IS THE CHANNEL SCHOOL RANKS FIRST AND IT IS THE ONE WE HAVE LEAST OF.
+EIGHTY-FOUR PERCENT OF OUR SPEAKING CAST WILL ANSWER ANYTHING YOU ASK THEM.
+AND THE RULER WAS CHECKED, WHICH IS WHY THE NUMBER MOVED: seven pattern hits, three false
+when read. "I'm not saying it isn't" is a concession; "I'm not telling you to do anything"
+is a disclaimer and is the Q10 tell again; "what I can't tell you is why" is an admission
+of ignorance. FOUR REAL REFUSALS IN 527 LINES. The best is a medic: "that part is mine to
+carry." And one is an ELDER saying "we don't ask about the hum", which is stronger still,
+because a GROUP refusal tells you about the place at the same time, and we have exactly one.
+
+THE TEST EVERY PAIR HAD TO PASS, NEW THIS ROUND: the distinguishing feature must be one
+that CANNOT BE HANDED TO THE OTHER SPEAKER. An absence, a direction of want and a way of
+seeing are not portable. A phrase is, which is how the corpus ended up with five characters
+sharing one.
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE:
+Q1 is the only question that has had both rounds. Q2 to Q17 were each done in a single
+round under the old mode and are owed their school rounds. I am taking them ONE AT A TIME
+and not un-shipping a shelf; the sequencing is the coordinator's. The natural next one is
+Q2 [stressed speech], because Q1's school found that behaviour under stress is the fourth
+channel that carries a person and Q2 is where that lives.
+
+NOTES FOR THIS LANE'S OWN HELD BUILD ROWS (not new jobs, notes on existing ones):
+- NOBODY-REFUSES-ANYTHING: 31 of 37 speakers answer anything. Negative space is the
+  cheapest and least portable way to make a person distinct.
+- THE-FAMILY-CONVERGES: a correction to the Q8 grief dinner, which was written to
+  diverge on the assumption that distinct is always better.
+
+A PROCESS FAULT I CAUSED AND FIXED LAST ROUND, RECORDED SO IT DOES NOT RECUR: I resolved a
+handoff conflict inside a subshell where the scratchpad path variable was not set, so the
+merge wrote upstream's file WITHOUT my block and pushed it. No other lane lost anything
+(the resolution took upstream verbatim) and the record and board change survived. Fixed by
+prepending the block back. THE LESSON: use absolute paths in any command that rewrites the
+handoff file, never a variable set in an earlier call.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q2 [stressed speech] round one, school.
+
 FACTIONS (factions-ovkjpf): 9/6 (round 9) LATEST -- *** [light owners]
 NAME-THE-CIRCUIT-OWNER SHIPPED. The row said "needs Paolo" and it did not: the
 blocker had shipped in this lane, and the rest was one sentence in his own file
@@ -77,7 +183,7 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
-WORDS (words-8dqrnq): 9/6 (b) LATEST -- *** THE MODE CHANGED AND IT UNDOES MY LAST TWO
+WORDS (words-8dqrnq): 9/6 (b) -- *** THE MODE CHANGED AND IT UNDOES MY LAST TWO
 DAYS OF SHIPPING. Paolo 9/6 LOCKED this lane into SCHOOL THEN WRITE: every question is
 TWO rounds, round one is school with NO TEST LINES AT ALL, and a question marked SHIPPED
 without both rounds is NOT SHIPPED. All seventeen of mine were done in one round each.

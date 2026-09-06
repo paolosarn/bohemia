@@ -1256,3 +1256,103 @@ BROTHER  Pass the salt.                                                [time off
   Ask at the kennel. The dog is not there and it never was.
 # The third one is the shape to copy: the rumour, then a person who has actually
 # been, then the rumour continuing anyway.
+
+## Q1 ROUND TWO -- TELLING TWO PEOPLE APART, ARMED BY SCHOOL  (9/6/26)
+# Round one is records/BOHEMIA_WORDS_Q1_SCHOOL_WHY_THREE_LINES_CANNOT_CARRY_A_FINGERPRINT_9_6_26.md
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES, named as the mode requires:
+#
+# 1. THIRTY-THREE WORDS IS BELOW THE IDIOLECT FLOOR. Reliable authorship work
+#    needs 1,000 to 2,000 words. Three lines is about 33. So none of these pairs
+#    is built on how the person talks. Every one is built on what they will not
+#    say, what they want, or what they see with.
+# 2. THE ORDER IS THE REVERSE OF THE STANDARD ADVICE. Vocabulary is LAST here,
+#    not first. Negative space is first.
+# 3. A TIC IS THE WRITER'S FINGERPRINT AND IT SPREADS. Measured in our own build:
+#    five speakers in five quests say a version of "that isn't a threat". So not
+#    one line below carries a catchphrase, and the last section shows why.
+# 4. INTIMATES CONVERGE. Language style matching predicts closeness (speed dates
+#    33.3% against 9.1%; couples 76.7% against 53.5% at three months). So one
+#    pair below is deliberately NOT tellable apart, and that is the correct
+#    writing, not a failure of it.
+# 5. THE REAL NUMBERS ARE A DIAGNOSIS, NOT A TARGET. These are written to be read
+#    on a phone at 120 BPM, not to match a telephone corpus.
+#
+# MEASURED THIS ROUND, the row's own ask: across 37 quest speakers with 8 or more
+# lines (455 lines), SIX refusals by regex and FOUR when read by hand, with 31 of
+# 37 speakers never declining to answer anything. Negative space is the channel
+# school ranks first and it is the one we have least of.
+
+### PAIR ONE, BUILT ON WHAT THEY WILL NOT SAY   draft:true
+# Same subject, same question put to both. Neither has a tic. Neither has a
+# vocabulary the other could not use. You can still tell them apart.
+  A1  Ask me about the pump, the yard, the road north. Any of it.
+  A2  Not the fence. I have told you that twice now and I am telling you kindly.
+  A3  The fence is the one thing, and after that I am good company.
+  B1  I will tell you about the fence. It is not interesting and you will be
+      disappointed.
+  B2  There is a boy who used to sit on it. That is all of it, that is the whole
+      story, and now you have it.
+  B3  Ask me anything you like. I have got nothing I keep.
+# A guards one thing and advertises the guard. B gives away the thing to avoid
+# being asked a second time. Both refuse. Only one of them looks like it.
+
+### PAIR TWO, BUILT ON WHAT THEY WANT FROM YOU   draft:true
+# Measured: 13 of our 37 speakers never ask the listener for anything at all.
+  A1  You came up here for something, so say it and we will both be finished.
+  A2  I want you gone before the light goes. Not because of you. Because of the
+      light.
+  A3  Take the short way back. I will know if you did not.
+  B1  Sit down a minute. No, sit down.
+  B2  I do not want anything. That is the part people cannot ever believe.
+  B3  Come back Thursday and do not bring anybody.
+# A wants you OUT and says so three times in three different ways. B wants you to
+# STAY and never says it once. Same want structure, opposite direction, and the
+# reader has them separated by the second line.
+
+### PAIR THREE, BUILT ON WHAT THEY EXPLAIN THINGS WITH   draft:true
+# Q9 measured zero of this in our build: nobody uses their trade to see anything
+# that is not their trade. Both people below are talking about the SAME family.
+  A1  That house has been drawing more than the line can carry for years.
+  A2  Somebody upstream is warm and it is not them.
+  A3  You do not fix that at the house. You never fix it at the house.
+  B1  Blood comes out. Grease never does.
+  B2  She came in clean four years and went out clean four years, and then she
+      did not.
+  B3  Whatever happened to that family, it happened on a Tuesday and it is still
+      on them.
+# Neither says a word about their job. Both can only see through it.
+
+### PAIR FOUR, WHERE THEY SHOULD NOT BE TELLABLE APART, AND THAT IS RIGHT draft:true
+# Two people who have shared a kitchen for thirty years. The science says they
+# converge on exactly the dimension that supposedly carries identity, so writing
+# them distinct would be the inaccurate choice.
+  A1  It is going cold.
+  B1  It has been cold.
+  A2  Then eat it cold.
+  B2  I am eating it.
+  A3  Nobody said you were not.
+  B3  Nobody said anything at all, that is what I am saying.
+# Cover the names and you cannot sort them. That is not a failure of the writing.
+# THE FAILURE WOULD BE MAKING THEM DISTINCT.
+
+### AND THE THIRD PERSON AT THAT TABLE, WHO HAS STOPPED MATCHING   draft:true
+# Divergence is the drama. The one who has left is audible before anybody says so.
+  A   It is going cold.
+  B   It has been cold.
+  C   I am going to eat later. Leave it on the side and I will see to it.
+  A   ...
+  B   Leave it on the side, she says.
+# C is the only one using a full sentence and a future tense at a table that
+# speaks in fragments and the present. Nobody has to be told what that means.
+
+### WHY WE ARE NOT USING A TIC, DEMONSTRATED   draft:true
+# The standard advice is to give each character a repeated phrase. Here is the
+# same tic given to two different people, which is what actually happens in a
+# corpus: our own build has five speakers in five quests using one rhetorical
+# move without anybody planning it.
+  A  Nobody is saying you did. Nobody is saying that at all.
+  B  Nobody is saying it is your fault. Nobody is saying anything.
+# Two characters. One voice. A tic does not separate people, it MERGES them, and
+# it merges them behind the writer's back. Every pair above is built so that its
+# distinguishing feature CANNOT be handed to the other speaker: an absence, a
+# direction of want, and a way of seeing are not portable the way a phrase is.
