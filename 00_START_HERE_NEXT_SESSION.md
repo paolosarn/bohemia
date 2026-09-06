@@ -5230,6 +5230,69 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 16 [three arcs] Q14, SHIPPED. *** THE SYNTHESIS ROW, AND THE ANSWER IS
+SMALLER THAN ANYBODY WOULD GUESS. ***
+  records/BOHEMIA_DYNASTY_DAY_16_THE_THREE_ARCS_AS_VERBS_9_5_26.md
+  banks/BOHEMIA_THREE_ARCS_THE_VERB_LIST_DRAFT_9_5_26.txt (draft:true)
+
+THE ROW ARRIVES WITH A TENSION AND RESOLVING IT IS THE FINDING. Round 1: the
+animal's eight verbs and NOT ONE NEEDS A HAND, so the animal cannot play the
+human game. Round 10: the rules MUST NOT change in the last act, because
+expertise is domain-specific and a new rule set makes a beginner of a master.
+Both are right. THE TWO FOLDS ARE NOT THE SAME KIND OF FOLD. At fold 1 the player
+has about FIVE hours invested (round 1 measured eight verbs as a five-hour game);
+losing that is cheap AND it is the strongest teaching device this game will ever
+have. At fold 2 the player has about NINETY hours; losing that is unacceptable.
+THE FIRST FOLD CHANGES THE VERBS. THE SECOND ONE MUST NOT.
+
+MEASURED IN THE DECODED FIGHT: OUR HUMAN VERB LIST IS EXACTLY NINE, and each is
+attached to a KIT ability with a need cost.
+  hit / PLATE UP     move2 / BREAK CONTACT   cover / STEADY
+  kill / SLIP        shot / CALL IT          open / READ THE ROOM
+  quiet / PATCH IT   dark / LIGHT IT         close / SEND HIM
+The pillar behind them is his: sixty mini bosses, each handing you a VERB. These
+nine are what is built.
+
+THE SIDE BY SIDE (the row's deliverable): SEVEN OF THE ANIMAL'S EIGHT MAP ONTO A
+HUMAN VERB WE HAVE ALREADY BUILT. move->move2, bite-and-hold->hit/kill,
+call->shot/close, mark->dark, feed->quiet, rest->rest, carry-one->hands.
+AND THE TWO GAPS ARE THE WHOLE ANSWER:
+  the animal has SMELL and the human has NOTHING like it (round 1: no smell
+  mechanic exists anywhere and the only nose is one you paint on a portrait);
+  the human has OPEN and COVER and the animal cannot have them, because both need
+  hands and made things: a door, a wall, something to get behind.
+THE FIRST FOLD IS A STRAIGHT TRADE: YOU LOSE THE NOSE AND YOU GAIN HANDS.
+Everything else survives it renamed, which is a clean enough fold to teach in ten
+minutes.
+
+AND THE REAL AISLE POINTS THE SAME WAY. The distinctive human physical act is
+THROWING: only humans regularly throw with high speed and accuracy, the mechanism
+is elastic energy stored in the tendons and ligaments crossing the shoulder, and
+IT IS THE FASTEST MOTION THE HUMAN BODY PRODUCES (the anatomy appears together
+about two million years ago). So the human signature is not strength, it is
+ACTING AT A DISTANCE WITH AN OBJECT, which is `shot`, the verb the animal most
+obviously cannot have. And it is the exact mirror of the animal's signature from
+round 1: a track has a direction because it has an age.
+  THE ANIMAL KNOWS THE PAST.
+  THE HUMAN REACHES THE DISTANCE.
+  THE ANGEL SEES THE WHOLE THING AND CAN TOUCH NONE OF IT.
+
+*** THE FINDING THAT PROVES US WRONG: THREE GENERATIONS, ONLY ONE VERB CHANGE,
+AND IT LANDS AT THE CHEAP FOLD RATHER THAN THE DRAMATIC ONE. *** The most
+structurally violent moment in a hundred-hour game is the one the story treats as
+a prologue ending, and the moment that looks like a transformation is the one that
+must change nothing at all.
+AND ONE MORE THING THE SIDE-BY-SIDE SHOWS: GEN 1 IS NOT A SEPARATE GAME. IT IS
+OUR GAME WITH THE NOSE SWITCHED ON AND THE HANDS SWITCHED OFF. That is a far
+smaller build than "design gen 1" and it is the strongest argument this lane has
+produced for gen 1 being buildable at all.
+
+ROUTED (proposals only): COMBAT THE-NINE-ARE-THE-SPINE (the sixty-boss ladder is
+a gen-2 and gen-3 structure and needs no animal variant). WORLD or PEOPLE
+THE-NOSE-IS-THE-PROLOGUE (gen 1 is the nine minus hands plus smell).
+
+THE BOARD GREW AGAIN: two new rows, [angel means] Q15 and [hundred hours] Q16.
+
 ROUND 15 [child watches] Q13, SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_15_WHAT_A_CHILD_LEARNS_BY_WATCHING_9_5_26.md
   banks/BOHEMIA_CHILD_WATCHES_WHO_STILL_ANSWERS_DRAFT_9_5_26.txt (draft:true)

@@ -1,0 +1,75 @@
+BOHEMIA -- THE THREE ARCS: THE VERB LIST, SIDE BY SIDE
+BANK, 9/5/26, DYNASTY lane, Q14 [three arcs]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11). No damage, health or armour
+number anywhere. THE SIXTY VERBS AND THE BOSS LADDER ARE HIS and this file names
+no new one. The nine human verbs below are MEASURED from the built fight, not
+invented.
+Record: records/BOHEMIA_DYNASTY_DAY_16_THE_THREE_ARCS_AS_VERBS_9_5_26.md
+
+WHY THIS SHAPE
+Two earlier findings look like they contradict each other here. The animal's verb
+set is eight things and not one needs a hand, so the animal cannot play the human
+game. And the rules must NOT change in the last act, because skill is
+domain-specific and a new rule set makes a beginner of a master.
+Both are right. THE TWO FOLDS ARE NOT THE SAME KIND OF FOLD. At the first fold
+the player has about five hours invested and losing it is cheap, and it is the
+strongest teaching moment the game will ever have. At the second the player has
+about ninety hours invested and losing it is unacceptable.
+THE FIRST FOLD CHANGES THE VERBS. THE SECOND ONE MUST NOT.
+
+---- THE SIDE BY SIDE --------------------------------------------------- draft:true
+The middle column is MEASURED from the built fight. The left is from round 1's
+research. The right is round 10's finding, unchanged.
+
+  ANIMAL (8)                 HUMAN (9, built)        ANGEL
+  move, run at a cost    ->  move2                   same
+  bite and HOLD          ->  hit, kill               same
+  carry ONE, in mouth    ->  (hands: carry many)     same
+  call                   ->  shot, close             same
+  mark the ground        ->  dark                    same
+  feed something smaller ->  quiet                   same
+  rest                   ->  rest                    same
+  SMELL                  ->  nothing                 --
+  (no hands)             ->  cover, open   NEW       same
+                                                     + one scalar, further out
+
+---- THE TWO GAPS, WHICH ARE THE WHOLE ANSWER --------------------------- draft:true
+  THE ANIMAL HAS A NOSE AND THE HUMAN HAS NOTHING LIKE IT.
+  THE HUMAN HAS DOORS AND WALLS AND THE ANIMAL CANNOT USE EITHER.
+  EVERYTHING ELSE SURVIVES THE FOLD, RENAMED.
+  ONE THING DIES. ONE THING IS BORN. THAT IS TEACHABLE IN TEN MINUTES.
+
+---- LOSING THE NOSE ---------------------------------------------------- draft:true
+(the one thing gen 1 has that nobody ever gets again. the loss is the point.)
+  YOU CANNOT TELL WHO WAS HERE.
+  IT IS JUST A ROOM NOW.
+  YOU USED TO KNOW HOW OLD A THING WAS BY STANDING NEXT TO IT.
+  THE GROUND DOES NOT TELL YOU ANYTHING ANY MORE.
+
+---- GAINING THE HANDS -------------------------------------------------- draft:true
+  YOU CAN OPEN THAT.
+  YOU CAN GET BEHIND THAT.
+  YOU CAN CARRY BOTH.
+  YOU CAN THROW IT.
+  YOU CAN REACH SOMETHING YOU ARE NOT STANDING NEXT TO.
+
+---- WHAT EACH GENERATION IS, IN ONE LINE EACH ------------------------- draft:true
+  THE ANIMAL KNOWS THE PAST.
+  THE HUMAN REACHES THE DISTANCE.
+  THE ANGEL SEES THE WHOLE THING AND CAN TOUCH NONE OF IT.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No three verb sets. ONE change, at the FIRST fold, not two.
+No tenth verb for the Angel. It gets the nine, aimed further out, and loses the
+ability to see who it is doing it to.
+No hand verb for the animal. Doors and cover are exactly what a five-hour
+prologue must not have, because getting them is the payoff.
+No nose for the human. The loss is the point.
+No new verb named anywhere, and nothing added to the sixty or to the ladder.
+No damage, health or armour numbers.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+The sixty verbs and which boss hands over which. Whether gen 1 is a coyote at
+all. How long each generation runs. What the Angel does with the nine. Every name.
