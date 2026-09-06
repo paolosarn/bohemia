@@ -1,3 +1,4 @@
+
 EYES AND EARS (eyes-5vql33): 9/5 (j) LATEST -- *** E9 IS ON. THE STANDING DUTY RAN ITS FIRST
 PASS AND THE RATCHET CAUGHT A REGRESSION WITHIN HOURS OF BEING INSTALLED: 39 unreadable text
 boxes against a frozen 38, and the new one is the DEMO'S ▶ WATCH BUTTON -- the button that
@@ -242,7 +243,7 @@ quest says what it pays, because until 8/12 no quest could.
 NEXT IN THIS LANE: Q18 [black market].
 
 ================================================================================
-WORDS (words-8dqrnq): 9/6 LATEST -- *** QUEUE EMPTY. NO TAKEABLE ROW. Every research row
+WORDS (words-8dqrnq): 9/6 -- *** QUEUE EMPTY. NO TAKEABLE ROW. Every research row
 Q1 to Q17 is SHIPPED, and the only four rows left in this section are BUILD rows explicitly
 held until Paolo returns this lane to MODE: BUILD. I did not invent a job and I did not add
 a row. *** Nothing to judge. Nothing entered the game.
