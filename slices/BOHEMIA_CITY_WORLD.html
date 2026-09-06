@@ -43043,6 +43043,144 @@ function hostilePass(ox, oy, C){
   return drawn;
 }
 
+/* __ONE_STEP_FROM_THE_CROWD__ (9/6/26, CHARACTER lane, VAMILY [stands out]) ==========
+   THE ROW, and it CORRECTS a fix we were about to ship. DIRECTION judged the hostiles on
+   this street and the answer to all three of its questions was NO -- they ARE the crowd
+   (records/BOHEMIA_VERDICT_THE_HOSTILES_LOOK_9_6_26.md). Its fix was "a hostile wears its
+   faction's accent". The board answered:
+     "in a Cartel block full of Cartel people that is exactly what makes a hostile
+      INVISIBLE. Pop-out comes from FEATURE CONTRAST, not the feature. So a hostile
+      carries ONE VALUE STEP away from the bodies within a few cells of it -- light in a
+      dark crowd, dark in a light one -- measured in the FRAME, not against the palette."
+
+   WHAT WAS MEASURED FIRST, on this surface through the demo, because nobody had
+   (records/BOHEMIA_CAN_YOU_PICK_HIM_OUT_9_6_26.txt):
+       DOES A BODY LOOK ANY DIFFERENT ONCE IT IS YOUR ENEMY?   NO. ZERO of 172.
+   Same crowd swept before and after they turned, the same facing asked both times, every
+   body matched to itself by id. Not one moved by a thousandth of a shade, while the null
+   control shows those same bodies drifting up to 3.13 shades on their own. The code says
+   the same: ctBody() asks ctFactionOf() then ctFitIndex() -- faction, else trade, else id
+   -- and ctAgainstMe is called in four places in this file, none of them the appearance
+   path. THE VALUE CHANNEL CARRIED NO INFORMATION ABOUT WHO IS DANGEROUS.
+
+   THREE MEASURED FACTS THAT DECIDED HOW THIS IS BUILT, rather than taste:
+     1. THE CROWD IS QUANTISED -- 24 distinct body values over 172 people, because the
+        cast is a small set of baked bodies many people share. So the step CANNOT be baked
+        into a sprite; it has to be applied PER BODY AT DRAW TIME, which is here.
+     2. BODIES ALREADY SIT A MEDIAN 6.6 SHADES from their own neighbours (worst 34.6) in a
+        crowd spanning 37.3. A step smaller than that is inside the noise the crowd
+        already has and reads as another body, not as a warning.
+     3. NOBODY ON THIS STREET HAS A FACTION -- 172 of 172 answer none -- so a fix that
+        keys off faction membership would do nothing at all today.
+
+   WHAT THIS IS NOT: no health bar, no floating name, no outline, no badge. The
+   composite is source-atop, which shifts colour and CANNOT reshape the silhouette --
+   the same guarantee pplTinted relies on, and RIG LAW's reason for it.
+
+   THE NUMBER IS NOT MINE. DIRECTION's [contrast rule] row owns how far a hostile must
+   sit from the crowd; it is still open. CT_STEP below is the mechanism's default, set to
+   beat the measured 6.6-shade noise floor rather than chosen by eye, and it reads from
+   the style card the moment DIRECTION puts a number there. MECHANISM-MINE /
+   CONTENTS-PAOLO'S. */
+const CT_STEP = {
+  /* how far, in shades of 255, a hostile must sit from the median of the bodies near it.
+     14 is a little over twice the 6.6 the crowd already carries by accident: far enough
+     that it cannot be read as one more body, close enough that he is still one of them
+     and not a lamp. */
+  delta: 14,
+  /* how far "the bodies around him" reaches, in cells. The row says "within a few cells". */
+  near: 4,
+  /* never let the composite go past this: beyond it a body stops being a body. */
+  maxAlpha: 0.55
+};
+try {
+  /* DIRECTION's card wins the moment it carries a number. Read, never copied, so the day
+     they move it this moves with it and nobody has to remember. */
+  if (typeof BOHEMIA_STYLE_CARD !== 'undefined' && BOHEMIA_STYLE_CARD &&
+      typeof BOHEMIA_STYLE_CARD.hostile_value_step === 'number') {
+    CT_STEP.delta = BOHEMIA_STYLE_CARD.hostile_value_step;
+  }
+} catch (_e) {}
+
+const CT_LUMA = new Map();      /* sprite id -> mean luma of its opaque pixels */
+const CT_STEP_CV = new Map();   /* sprite id|delta|sign -> the shifted canvas */
+let CT_SPR_N = 0;
+
+/* A BODY'S VALUE. Opaque pixels only: transparent ones are not part of a person, and
+   counting them drags every body toward the ground behind it and flattens exactly the
+   difference this is about. Read ONCE per distinct sprite and cached forever -- the
+   measured crowd has 24 of them behind 172 people, so this costs 24 reads, not 172. */
+function ctLuma(spr) {
+  if (!spr) return null;
+  if (spr.__ctSid == null) spr.__ctSid = ++CT_SPR_N;
+  const k = spr.__ctSid;
+  if (CT_LUMA.has(k)) return CT_LUMA.get(k);
+  let v = null;
+  try {
+    const c = document.createElement('canvas');
+    c.width = spr.width; c.height = spr.height;
+    const x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+    x.drawImage(spr, 0, 0);
+    const im = x.getImageData(0, 0, c.width, c.height).data;
+    let s = 0, n = 0;
+    for (let i = 0; i < im.length; i += 4) {
+      if (im[i + 3] < 128) continue;
+      s += 0.2126 * im[i] + 0.7152 * im[i + 1] + 0.0722 * im[i + 2];
+      n++;
+    }
+    v = n ? s / n : null;
+  } catch (e) { v = null; }
+  CT_LUMA.set(k, v); return v;
+}
+
+/* THE SAME BODY, ONE STEP AWAY. `want` is the luma this body should land on; the alpha
+   needed to get there is SOLVED from where the body already is, so a dark body and a
+   light one both move the same distance instead of the same fraction. Cached per sprite
+   and per rounded target, so a crowd costs a handful of canvases. */
+function ctStepped(spr, want) {
+  if (!spr) return spr;
+  const have = ctLuma(spr);
+  if (have == null) return spr;
+  if (Math.abs(want - have) < 0.5) return spr;
+  /* *** IT MULTIPLIES THE LIGHT, IT DOES NOT WASH TOWARD WHITE, AND LOOKING AT IT IS
+     WHAT DECIDED THAT. *** The first version composited white or black over the body at
+     an alpha solved for the target. It hit the number exactly and looked WRONG: white
+     over a dun body pulls every channel toward each other, so it drains the colour as it
+     lightens and a hostile came out milky -- a pale person rather than a lit one, in a
+     valley whose whole register is dust and ash. That is a fight with COLOUR IS TERRITORY
+     (8/26) and with the dun palette, picked up by rendering the street and looking at it,
+     not by any number: the target luma was correct in both versions.
+     MULTIPLYING EVERY CHANNEL BY THE SAME FACTOR MOVES THE VALUE AND LEAVES THE HUE
+     WHERE IT WAS -- luma is linear in the channels, so scaling them scales it exactly,
+     and the ratios between them, which are the colour, do not move at all. It is the
+     textbook value step and it is what a painter means by one.
+     Done on the pixels rather than through a composite because no blend mode multiplies
+     by a constant greater than one; the cost is a single read per cached variant. */
+  const k = Math.max(0.35, Math.min(2.2, want / Math.max(1, have)));
+  if (Math.abs(k - 1) < 0.02) return spr;
+  if (spr.__ctSid == null) spr.__ctSid = ++CT_SPR_N;
+  const key = spr.__ctSid + '|k' + Math.round(k * 100);
+  const got = CT_STEP_CV.get(key);
+  if (got) return got;
+  try {
+    const c = document.createElement('canvas');
+    c.width = spr.width; c.height = spr.height;
+    const x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+    x.drawImage(spr, 0, 0);
+    const im = x.getImageData(0, 0, c.width, c.height), d2 = im.data;
+    for (let i = 0; i < d2.length; i += 4) {
+      /* ALPHA IS NEVER TOUCHED, so the silhouette cannot move by one pixel -- the same
+         guarantee source-atop gave, kept explicitly now that this writes pixels. */
+      if (!d2[i + 3]) continue;
+      d2[i]     = Math.max(0, Math.min(255, Math.round(d2[i]     * k)));
+      d2[i + 1] = Math.max(0, Math.min(255, Math.round(d2[i + 1] * k)));
+      d2[i + 2] = Math.max(0, Math.min(255, Math.round(d2[i + 2] * k)));
+    }
+    x.putImageData(im, 0, 0);
+    CT_STEP_CV.set(key, c); return c;
+  } catch (e) { return spr; }
+}
+
 function peoplePass(ox, oy, C) {
   BARK_DREW = [];   /* __CITY_BARKS__ */
   if (!PLAYER_CV) return 0;                    /* no body yet: draw nobody, never a placeholder */
@@ -43056,6 +43194,13 @@ function peoplePass(ox, oy, C) {
      render used a different value - a gate that cannot fail. This records the
      real per-body facing the blit used, so the gate measures the SURFACE. */
   const drewFaces = [];
+  /* __ONE_STEP_FROM_THE_CROWD__: GATHER, THEN DRAW. The step is measured against the
+     bodies AROUND a person, so nobody can be drawn until everybody who might be standing
+     near them has been resolved. This loop used to draw as it walked; it now resolves
+     every visible body first and blits in a second pass. Nothing about WHO is drawn, in
+     what order, or with what sprite changes -- the same list, the same order, the same
+     bookkeeping, one pass later. */
+  const seen = [];
   for (let ny = Math.max(0, ny0); ny <= ny1; ny++)
   for (let nx = Math.max(0, nx0); nx <= nx1; nx++) {
     const ppl = pplPeople(nx, ny);
@@ -43081,13 +43226,57 @@ function peoplePass(ox, oy, C) {
       /* CITY CAST: a cast body is ALREADY this person's clothes - tinting it
          again would put a hue over his wardrobe and undo the point. Only the
          fallback player sprite still gets the shift. */
-      g.drawImage(own ? img : pplTinted(dir, p.look, img),
-                  Math.round(sx + C / 2 - lad / 2), Math.round(sy + C - lad), lad, lad);
-      drawn++;
-      drewFaces.push({ id: p.id, dir: dir, home: (fx === p.home[0] && fy === p.home[1]) });
-      BARK_DREW.push({ p: p, at: [fx, fy] });   /* __CITY_BARKS__ */
-      if (fx !== p.home[0] || fy !== p.home[1]) out++;
+      const base = own ? img : pplTinted(dir, p.look, img);
+      let hostile = false;
+      try { hostile = !!ctAgainstMe(p); } catch (_e) { hostile = false; }
+      seen.push({ p: p, at: at, fx: fx, fy: fy, sx: sx, sy: sy, dir: dir,
+                  lad: lad, base: base, hostile: hostile });
     }
+  }
+  /* THE STEP. A hostile is pushed one step AWAY from the median of the bodies near him,
+     and the CIVILIANS are the crowd he has to stand out from -- measuring against other
+     hostiles would let a pair of enemies standing together cancel each other out, which
+     is the one case where being seen matters most. If there is nobody near him to differ
+     from, there is no crowd and no step: a lone figure on an empty street is already the
+     only thing to look at, and shifting him would be a badge. */
+  for (let i = 0; i < seen.length; i++) {
+    const me = seen[i];
+    if (!me.hostile) continue;
+    const near = [];
+    for (let j = 0; j < seen.length; j++) {
+      const o = seen[j];
+      if (o === me || o.hostile) continue;
+      if (Math.max(Math.abs(o.fx - me.fx), Math.abs(o.fy - me.fy)) <= CT_STEP.near) {
+        const lv = ctLuma(o.base); if (lv != null) near.push(lv);
+      }
+    }
+    if (!near.length) continue;
+    near.sort((a, c) => a - c);
+    const crowd = near.length % 2 ? near[(near.length - 1) / 2]
+                                 : (near[near.length / 2 - 1] + near[near.length / 2]) / 2;
+    const mine = ctLuma(me.base);
+    if (mine == null) continue;
+    /* LIGHT IN A DARK CROWD, DARK IN A LIGHT ONE -- the row's own words, and it is the
+       CROWD that picks the direction, not the body. Against a dark crowd there is room
+       above and none below, so he goes light; against a light one, dark. Ties break the
+       way that keeps him furthest from them. */
+    const up = (crowd <= 127) ? true : false;
+    let want = crowd + (up ? CT_STEP.delta : -CT_STEP.delta);
+    /* and never let the step land him back ON them: if he already sits past the crowd on
+       that side, he keeps his own value rather than being dragged in to a fixed target. */
+    if (up && mine > want) want = mine;
+    if (!up && mine < want) want = mine;
+    me.base = ctStepped(me.base, Math.max(0, Math.min(255, want)));
+  }
+  for (let i = 0; i < seen.length; i++) {
+    const me = seen[i], p = me.p;
+    g.drawImage(me.base,
+                Math.round(me.sx + C / 2 - me.lad / 2), Math.round(me.sy + C - me.lad),
+                me.lad, me.lad);
+    drawn++;
+    drewFaces.push({ id: p.id, dir: me.dir, home: (me.fx === p.home[0] && me.fy === p.home[1]) });
+    BARK_DREW.push({ p: p, at: [me.fx, me.fy] });   /* __CITY_BARKS__ */
+    if (me.fx !== p.home[0] || me.fy !== p.home[1]) out++;
   }
   window.__PPL_DRAWN = drawn;
   /* CITY TALK: names last, so nothing paints over them */

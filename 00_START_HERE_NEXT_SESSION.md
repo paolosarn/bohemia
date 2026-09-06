@@ -4301,62 +4301,53 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND -- *** [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT, CLAIMED, round 1 of
-the job. MEASURED, NOT YET BUILT. The line stays CLAIMED. ***
-- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page. [hair sheet]
-  had shipped, so I took the first OPEN line, which the coordinator had just added at the
-  TOP of my section, and pushed the claim before starting.
-- THE ROW CORRECTS A FIX WE WERE ABOUT TO SHIP. DIRECTION judged the hostiles and said
-  "a hostile wears its faction's accent". The board answered: in a Cartel block full of
-  Cartel people that is what makes him INVISIBLE. Pop-out is FEATURE CONTRAST, not the
-  feature. So a hostile sits ONE VALUE STEP off the bodies within a few cells of him.
-- WHAT I MEASURED, on the walked street through the DEMO, and nobody had:
-      DOES A BODY LOOK ANY DIFFERENT ONCE IT IS YOUR ENEMY?  NO. ZERO of 172.
-  Same crowd swept before and after they turned hostile, same facing asked for both
-  times, matched by id. Not one body moved by a thousandth of a shade.
-- AND THE CODE SAYS THE SAME, so it is not one crowd's accident: a body's sprite comes
-  from ctBody() -> ctFactionOf() -> ctFitIndex(): faction, else trade, else id.
-  ctAgainstMe is called in exactly FOUR places in the walked city and NOT ONE is the
-  appearance path (following, blocking, the bark, the bump). THE VALUE CHANNEL CARRIES
-  NO INFORMATION ABOUT WHO IS DANGEROUS, because nothing asks.
-- *** THE RULER BROKE THREE TIMES AND EVERY BREAK IS WRITTEN INTO THE TOOL. ***
-  1. IT MEASURED THE DEMO'S COLD SPAWN: ONE body on the glass. Not a fact about hostiles
-     -- it is the city's own front-door finding (nearest resident 64 cells, seven
-     screens). Now it sweeps pplPeople() for the fullest neighbourhood and stands in the
-     middle of it, and prints where it stood. Teleporting to the cell DIRECTION's frame
-     names (8560,3195) gave ZERO bodies: a world position is not the whole state.
-  2. IT SAID ALL 172 BODIES CHANGED VALUE, which contradicts the code path -- and the
-     contradiction was the tell. 152 of them had TURNED TO LOOK AT ME (PEOPLE's watch
-     behaviour working as designed) and a body seen from another side is another sprite.
-     Of the 20 that did not turn, ZERO moved. The facing is pinned now.
-     WHEN A NUMBER CONTRADICTS THE CODE, SUSPECT THE NUMBER.
-  3. THE NULL CONTROL WAS UNFAIR: two sweeps back to back reported zero drift while the
-     test sweep, which happens later, reported up to 2.3. The noise is ELAPSED TIME (the
-     breath frame advances with the beat), so a control that takes less time than its
-     test is not a control. It now spans several sweeps with real waiting, every pair
-     compared: bodies drift up to 3.13 shades on their own, and hostility moves them 0.00.
-- AND A POSITIVE CONTROL, because a ruler that returns zero for everything is not
-  evidence: the same measurement separates the crowd into 24 distinct values across 37.3
-  shades. It is wide awake; it returns zero because there is nothing there.
-- FOR DIRECTION'S [contrast rule], WHICH IS STILL OPEN AND OWNS THE NUMBER: bodies
-  already sit a median 6.6 shades from their own neighbours (worst 34.6), inside a crowd
-  spanning 37.3. A step smaller than about 7 is inside the noise the crowd already has.
-  Measured here, DECIDED there.
-- TWO THINGS THE NEXT ROUND MUST NOT ASSUME:
-  * NOBODY ON THE WALKED STREET HAS A FACTION -- 172 of 172 answer none. The verdict's
-    "a Cartel block full of Cartel people" is not what the street currently holds.
-  * THE CROWD IS QUANTISED (24 values over 172 bodies): many people share a sprite
-    exactly, so the step CANNOT be baked into a shared body. It has to be applied PER
-    BODY AT DRAW TIME, which is where pplTinted already works.
-- NEXT ROUND: build it. The place is the draw pass in slices/BOHEMIA_CITY_WORLD.html
-  where a body is blitted (ctBody or the tinted fallback); the step is a per-body value
-  shift chosen against the median of the bodies within a few cells, away from the crowd
-  in whichever direction has headroom. THE SHIP TEST NEEDS A MIXED CROWD -- this round's
-  deed turned all 172 hostile at once because every one of them witnessed it, so there
-  were no civilians left to stand out from. Earning a FEW enemies is the first problem
-  to solve next round.
-- Record: records/BOHEMIA_CAN_YOU_PICK_HIM_OUT_9_6_26.txt
-  Tool:   tools/bohemia_can_you_pick_him_out.js
+THIS ROUND -- *** [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT, round 2. BUILT AND
+MEASURED ON THE REAL SURFACE. Tab: RUN, the walked street. ***
+- A hostile now stands ONE VALUE STEP away from the bodies near him: light in a dark
+  crowd, dark in a light one, measured against the CIVILIANS actually within four cells
+  of him in the frame. No badge, no outline, no name, no health bar.
+- WHERE IT LIVES: peoplePass in slices/BOHEMIA_CITY_WORLD.html. The pass used to draw as
+  it walked the neighbourhoods; a step measured against the bodies AROUND somebody cannot
+  be computed until everyone near them is resolved, so it now gathers every visible body
+  first and blits in a second pass. Same list, same order, same bookkeeping.
+- MEASURED, mixed crowd earned the way the game earns it (deed at the crowd's EDGE, so
+  only who is on the glass turns): 88 hostile, 83 civilian, 171 on the glass, one frame.
+      hostile distance from the crowd near him, BEFORE   median  7.6 shades
+      an ORDINARY CIVILIAN's distance, same measure       median  8.4
+      hostile distance AFTER                              median 14.0
+  BEFORE THE CHANGE A HOSTILE SAT CLOSER TO HIS NEIGHBOURS THAN AN AVERAGE CIVILIAN DID.
+  31 of the 88 had no civilian in reach and correctly take no step.
+- PERF: 5.1 ms/render before, 5.2 after, same 171-body frame. The luma read and the
+  shifted body are cached per sprite, so a crowd costs about 24 reads, not 171.
+- *** I GOT IT WRONG ONCE AND ONLY LOOKING AT IT CAUGHT THAT. *** The first version
+  composited white or black over the body at an alpha solved for the target. It hit the
+  number exactly and looked WRONG: white over a dun body drains the colour as it lightens,
+  so a hostile came out MILKY -- a pale person, not a lit one, in a valley whose register
+  is dust and ash. Invisible to the measurement, because the target luma was correct both
+  times. It now MULTIPLIES every channel by one factor, which moves the value and leaves
+  the hue exactly where it was. THE NUMBER WAS RIGHT AND THE PICTURE WAS WRONG.
+- THE NUMBER IS NOT MINE. CT_STEP.delta = 14 shades, set to beat the measured 6.6-shade
+  noise the crowd already carries, and it READS DIRECTION's style card the moment that
+  card carries hostile_value_step. Their [contrast rule] row owns the magnitude and is
+  still OPEN. MECHANISM-MINE / CONTENTS-PAOLO'S.
+- HONESTLY, WHAT IT LOOKS LIKE: at 14, with ONE enemy in a dense frame at phone size, the
+  read is PRESENT BUT QUIET. Evidence pair (same frame, same crowd, same one enemy):
+  records/target/CHARACTER_ONE_STEP_FROM_THE_CROWD_9_6_26.png. That is a magnitude
+  question and the magnitude is DIRECTION's; the mechanism now exists for a number to be
+  set on, and if the card asks for more, one field changes.
+- GATES: city_cast_gate 8/8, city_barks_gate 13/13. city_cast_silhouette_gate is RED at
+  5/1 -- AND IT IS RED IDENTICALLY ON origin/main (mean 0.079, floor 0.085). It is about
+  the cast's silhouette VARIETY, which this change never touches (alpha is never written,
+  so no silhouette can move by a pixel). NOT MINE, not fixed, said out loud.
+- NOT DONE, said plainly: the separate __THERE_ARE_ENEMIES__ pass draws its own bodies
+  beside the people and was NOT touched. Whether those need the same step is a different
+  question and not this row's.
+- Record: records/BOHEMIA_ONE_STEP_FROM_THE_CROWD_9_6_26.md
+  Round-1 measurement: records/BOHEMIA_CAN_YOU_PICK_HIM_OUT_9_6_26.txt
+  Tool: tools/bohemia_can_you_pick_him_out.js
+
+PREVIOUS ROUND -- [stands out] round 1, the measurement: nothing about how a body looks
+had ever asked whether that body is your enemy (ZERO of 172 changed). Landed at 439f73b.
 
 PREVIOUS ROUND -- [hair sheet] HAIR-REF-EIGHT-FACINGS SHIPPED at 6d566d4.
 the board since August, is closed. Tab: CHARACTER, and every person in the game. ***
