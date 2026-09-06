@@ -6153,48 +6153,58 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [enemies unite] BB-COALITION is SHIPPED 9/6.
+HOLDING: nothing. [shelves premise] THE-VALLEY-RUNS-OUT is SHIPPED 9/6.
 
 WHAT SHIPPED
-  ESCALATION IS A GRAPH EDIT AND THE MODULE HAS NO NUMBERS IN IT AT ALL. A and B
-  are hostile TO EACH OTHER in his authored relations AND both are hostile to YOU
-  -> they stop spending it on each other. Every term already existed.
-  NO THRESHOLD, ON PURPOSE. "When N factions hate you" is an N nobody ruled. The
-  pairwise version needs none; the only comparison in the logic is against ZERO,
-  which is the SIGN of a standing rather than a size. NO DAMAGE BEFORE THE DIAL is
-  not a blocker here, it is the specification: nothing changes anybody's strength.
-  DERIVED, NEVER STORED, so peace with one dissolves it with no dissolution rule --
-  and his feud survives underneath (between() still reads permanent-war).
-  THE CARD: "AGAINST YOU: Cartel + Remnants / They were enemies. They have stopped,
-  and that is about you. Nobody got stronger."
-  COALITIONS ships EMPTY; an authored pact holds whatever the standings say.
-  NEW: engine/bohemia_coalition.js, gates/coalition_gate.js (28 checks, registered
-  as COALITION, red three ways). The towns patcher now inlines it too.
-  RECORD: records/BOHEMIA_THE_WORLD_GETS_ORGANISED_9_6_26.md
+  THE VALLEY RUNS OUT WHETHER OR NOT YOU LOOK AT IT. On the nightfall card he
+  already reads: the scarcest good and how long it has left ("food: 7 days left in
+  the valley"), counting down to "1 day", then "less than a day". The night a good
+  hits zero is a BEAT -- "THE FOOD IS GONE. There is none left in the valley." --
+  fired ONCE, then the countdown moves to whatever is scarcest next.
+  THE PREMISE BUG UNDERNEATH IT, AND IT IS THE WHOLE ROW. mktAdvanceDay() read
+  `if(!MKT_LEDGER) return null` with the note "never censused = never traded =
+  nothing to age". TRUE OF A SHOP, FALSE OF A VALLEY. The ledger does not exist at
+  boot, so a player who never walked into a market had a world that never ate -- and
+  his first market visit on day 30 built a FULL ledger and started the countdown
+  THEN. A place that only starts running out when somebody checks is not running out.
+  EVERY NUMBER IS READ, NONE IS TYPED. bohemia_economy.js has computed daysLeft
+  since it was written and nothing outside a market card ever asked. Measured on the
+  real ledger: food goes 8.4 days to 0 across exactly TEN DAYS -- the coordinator's
+  day-10 moment, derived from his own stocks and needs, scheduled by nobody.
+  NEW: gates/valley_runs_out_gate.js (25 checks, registered as VALLEY RUNS OUT,
+  red 4 with the fix removed). RECORD: records/BOHEMIA_THE_VALLEY_RUNS_OUT_9_6_26.md
 
-TWO THINGS MEASURING CAUGHT
-  1. HIS PAIRS TABLE IS FIVE PAIRS AND ONLY TWO ARE HOSTILE (Caravans/Cartel and
-     Cartel/Remnants, both involving the Cartel). A first cut reading PAIRS only
-     would have shipped a mechanic capped at his starting graph, which is backwards
-     -- the world getting organised is supposed to happen BECAUSE of what you did.
-     allEarned() enumerates feuds earned in play, so those count and it grows with
-     the run. HOW MANY PAIRS ARE HOSTILE IS CONTENTS; more are his to author.
-  2. THE MODULE BOUND BohemiaBetween AT LOAD TIME and saw ZERO pairs on the walked
-     surface while node saw five -- the city inlines in an order the module does not
-     control, so it bound null forever, threw nothing, and reported "no coalitions",
-     WHICH IS INDISTINGUISHABLE FROM A PEACEFUL VALLEY. Ask for a neighbour when you
-     NEED it, never when you load. Same class as the TDZ trap the towns seats hit.
+FOUR THINGS MEASURING CAUGHT. THREE OF THEM WERE MY OWN INSTRUMENT.
+  1. *** THE DEMO IS ONE DAY LONG ON PURPOSE AND I NEARLY FILED IT AS A FREEZE. ***
+     Twelve nights in the demo gave one count and eleven silences with DAY.phase
+     stuck on "ended". CT_DEMO_DAYS is 1 and ctDemoOver() hands day 2 to
+     showEnding(), the phone card that says THAT IS AS FAR AS THIS GOES FOR NOW.
+     Verified against a clean origin/main build, which stops in the same place. The
+     demo ENDS. Its one night is the whole ship test, and the count is on it.
+  2. MY PROBE READ ONE STALE CARD ELEVEN TIMES. The drive dismissed with .dcgo or
+     nothing; other lanes share #daycardIn and their cards do not all carry .dcgo,
+     so the night the phone card came up the loop stopped advancing and re-read
+     night one. Every card has a real ✕ (.dcx). The gate now DRAINS the night and
+     dismisses whatever is up. A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT.
+  3. *** THE CITY FEED WAS STARTING THE VALLEY'S CLOCK BY ACCIDENT. *** Deleting my
+     fix and watching this gate stay green: the valley was STILL aged by night 12,
+     because feedWorld() renders a post through mktShelf(), which calls mktLedger(),
+     which builds the ledger as a SIDE EFFECT -- night 4, from a panel only trying
+     to write a sentence. That is this row's own bug in a different coat, and it is
+     why "aged by night 12" is a coincidence, not a check. The gate now asserts the
+     count is on the card ON NIGHT ONE, before anything else has looked.
+  4. *** ANOTHER LANE'S RESOLVER DELETED COALITION'S ROW FROM gates/bohemia_gates.py
+     BETWEEN aace2d9 AND THIS ROUND. AN UNREGISTERED GATE NEVER RUNS, and nothing
+     goes red to tell you -- the suite just gets quietly shorter. Restored verbatim
+     from `git show aace2d9:gates/bohemia_gates.py`, and all six of this lane's other
+     registrations checked and present. IF YOU SHIP A GATE, RE-CHECK ITS REGISTRATION
+     EVERY ROUND; the row is one line in a file every lane edits. ***
 
-ALSO FIXED, AND IT WAS ROT I CAUSED: the STANDING card still said "Nobody holds this
-ground yet. No faction has claimed this district" -- true when written, FALSE since
-BB-TURF gave all 9,216 cells a holder. A card saying nobody is here while a faction
-refuses him a building permit two taps away is worse than one that says nothing. It
-names the holder now (THIS GROUND: Church).
-
-NEXT: the first OPEN line is [shelves premise] THE-VALLEY-RUNS-OUT. The coordinator
-harvested six more rows onto this queue on 9/6 ([someone lends], [back of house],
-[water lifted], [battery worth] and others), so read the section fresh rather than
-from this list.
+NEXT: read the WORLD section fresh. The coordinator harvested six rows onto this
+queue on 9/6, so the list in this block is stale by design. Board order after this
+one: [batteries mined], [own power], [rice clock], [debt carried], [someone lends],
+[back of house], [water lifted], [battery worth]. [century stayed] is [PENDING
+Paolo] and blocks nothing.
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
@@ -6205,9 +6215,10 @@ faction_outfit_gate is 16/2. Both were red before my rounds and neither moved.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [enemies unite] BB-COALITION, 9/6. Before it: [rung unlocks] 44dd7a1,
-[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
-[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [shelves premise] THE-VALLEY-RUNS-OUT, 9/6. Before it:
+[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
+[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
+[living costs] 5b61303, [battery money] ce39270.
 
 
 
