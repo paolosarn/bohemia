@@ -276,7 +276,7 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 - SHIPPED 9/5 1d5137d3  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed ledger; on the beat (9/4 law)
 - SHIPPED 9/5 fa34aebc  [one number]  BB-ONE-NUMBER
 - SHIPPED 9/5 b0625a24  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; NO pause button, because I-MOVE-YOU-MOVE means there is no clock to stop
-- CLAIMED 9/6 ui-kmqmrf  [first teaching]  FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists; measure with the cold hand
+- SHIPPED 9/6 0c2f728d  [first teaching]  FIRST-RUN-TEACHING -- three nudges, one at a time: the pad, the phone, DROP IN. A ring on the real control and one line, cleared by DOING THE THING, never seen again. Not a tutorial: pointer-events:none end to end, nothing to dismiss
 - OPEN  [phone readable]  ACCESSIBLE-ON-A-PHONE -- text size, tap targets, colour-blind safety on faction colours, motion; the Game Accessibility Guidelines basic tier that the sound and colour rules already cite, applied to the whole surface
 - OPEN  [reactions explained]  BB-WHY
 - OPEN  [crisis warning]  BB-FORETOLD
