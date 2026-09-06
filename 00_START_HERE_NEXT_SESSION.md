@@ -18713,7 +18713,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [contrast rule] SHIPPED 90f3d56 -- card section 2B:
+ROUND LOG 9/6 (latest): [first look] round 1 -- the demo's first screen and
+first tap judged as pictures against the first-hour library (evidence PNGs
+in records/target). A B hiding its A: register right, ONE input right; but
+the promise shows no world (fix: the walked street dimmed under the
+existing plate), the workshop stamp leaks into the stranger's first second
+(the demo cut should strip it), and one tap in TWO modals stack (sequence
+the cutscene offer and the DAY panel). Routed to RUN via the coordinator;
+[first look] ships on the re-judged picture. Also claimed [ratchet sixty]
+honestly: all queued batches are judged, the number moves on COOK's retint
+execution - same blocker as [judge the old], third round waiting on the
+routing. PREVIOUS: [contrast rule] SHIPPED 90f3d56 -- card section 2B:
 a hostile reads by ANY TWO of three numbered channels (value >= 0.15 from
 the local crowd median, accent >= 48 px^2 at sat >= 0.55, pole silhouette
 >= 4 px), measured off the proving frame (crowd median 0.44, 27.7% of the
