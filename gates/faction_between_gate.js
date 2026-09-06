@@ -1664,7 +1664,34 @@ async function onFactionSeats() {
     + 'capitals',
     new Set(ids.map(f => bases[f].x + ',' + bases[f].y)).size === ids.length);
 
-  /* *** THE DEFECT THIS ROW EXISTS FOR *** */
+  /* *** THE DEFECT THIS ROW EXISTS FOR, AND THE RULER IT COST ME TO GET RIGHT ***
+
+     The first version of this claim was `corr < 0.5` on
+     correlation(alphabetical rank, seat y). It caught the defect -- the old
+     placer zipped SORTED ids to an evenly-strided sample of a district list that
+     is 100% ordered by y, so the initials picked the latitude and the number came
+     out 0.9966, Anarchists at y=2 and Volunteers at y=83.
+
+     THEN IT WENT RED ON A CHANGE THAT HAD NOTHING ALPHABETICAL IN IT. Teaching
+     the placer to prefer populated ground moved the number to 0.6227 with no
+     alphabetical input anywhere in the new rule: order is act1_power, choice is
+     kind then density then a hash of the id. On FOURTEEN points a correlation
+     over 0.5 turns up by chance roughly one seed in fifteen. So the instrument
+     was noise at this sample size, and 0.5 was a bound I picked, not one the
+     world gave me. The wrong move was obvious and available: nudge it to 0.7.
+     That is fitting the ruler to the answer, and this gate's own A13 already
+     carries the note "Fix the ruler, never the claim" from the last time.
+
+     SO THE CLAIM IS NOW CAUSAL INSTEAD OF CORRELATIONAL, and it is a HARDER test,
+     not a looser one: run the OLD rule and the NEW rule over the SAME district
+     lists on several seeds and compare how often each lands a faction on ground
+     its own note names. A correlation can go quiet by luck. This cannot: the old
+     rule has no way to read his notes, so it can only score by accident. The
+     correlation is still computed and still printed -- it is useful to see -- it
+     just no longer decides anything on its own. */
+  const CITYEDIT = require(path.join(ROOT, 'engine/bohemia_cityedit.js'));
+  const TOWNS = require(path.join(ROOT, 'engine/bohemia_towns.js'));
+
   const alpha = [...ids].sort();
   const ys = alpha.map(f => bases[f].y);
   const n = ys.length, mx = (n - 1) / 2, my = ys.reduce((a, b) => a + b, 0) / n;
@@ -1672,12 +1699,59 @@ async function onFactionSeats() {
   ys.forEach((y, i) => { num += (i - mx) * (y - my); dx += (i - mx) ** 2; dy += (y - my) ** 2; });
   const corr = Math.abs(num / Math.sqrt(dx * dy));
 
-  ok('U3 *** THE ALPHABET NO LONGER DECIDES THE GEOGRAPHY OF THE VALLEY. *** The '
-    + 'old placer zipped SORTED ids to an evenly-strided sample of a district '
-    + 'list that is 100% ordered by y, so the initials picked the latitude: '
-    + 'Anarchists at y=2 and Volunteers at y=83, correlation 0.9966. This is the '
-    + 'number that must stay small, and it is measured, not remembered',
-    corr < 0.5, 'correlation(alphabetical rank, seat y) = ' + corr.toFixed(4) + ' (was 0.9966)');
+  const SEEDS = ['bohemia', 'demo', 'vegas', 'nellis', 'fremont'];
+  let newOnCanon = 0, oldOnCanon = 0, total = 0;
+  const perSeed = [];
+  for (const sd of SEEDS) {
+    const c = boot({ seed: sd });
+    const ds = TOWNS.districtsOf(c.worldMap.real, CITYEDIT.cat);
+    if (!ds.length) continue;
+    const roster = [...c.factions.factions.keys()];
+    /* THE NEW RULE, asked the same way the loop asks it. */
+    const now = TOWNS.placeHomes(graph, ds, 1, roster);
+    /* THE OLD RULE, re-implemented here in the two lines it actually was, so the
+       comparison is against the thing that shipped rather than a memory of it. */
+    const sorted = [...roster].sort();
+    let a = 0, b = 0;
+    sorted.forEach(function (fid, i) {
+      const wants = TOWNS.HOMES[fid];
+      if (!wants) return;                       /* non-territorial: nothing to hit */
+      total++;
+      const oldD = ds[Math.floor(i * ds.length / sorted.length)];
+      if (oldD && wants.indexOf(oldD.kind) >= 0) { oldOnCanon++; b++; }
+      const nowD = now[fid];
+      if (nowD && wants.indexOf(nowD.kind) >= 0) { newOnCanon++; a++; }
+    });
+    perSeed.push(sd + ' ' + a + '/' + b);
+  }
+
+  ok('U3 *** THE ALPHABET NO LONGER DECIDES THE GEOGRAPHY OF THE VALLEY, AND THIS '
+    + 'MEASURES THE FIX RATHER THAN RESTATING IT. *** Same maps, same district '
+    + 'lists, five seeds: the shipped rule puts a faction on ground its own note '
+    + 'names almost every time, and the rule it replaced -- sorted ids zipped to '
+    + 'an even stride down a list that is ordered by y -- essentially never does, '
+    + 'because it has no way to read his notes at all',
+    total > 0 && newOnCanon >= Math.ceil(total * 0.75) && newOnCanon > oldOnCanon * 3,
+    'on his own ground: NEW ' + newOnCanon + '/' + total + '  OLD ' + oldOnCanon + '/' + total
+      + '   per seed (new/old): ' + perSeed.join('  ')
+      + '   [correlation(alphabetical rank, seat y) = ' + corr.toFixed(4)
+      + ', was 0.9966 -- printed, not judged, see the note above]');
+
+  /* AND THE SORT POSITION IS NOT AN INPUT AT ALL. The defect was not "the ids
+     were sorted", it was that the sorted POSITION indexed the district list.
+     Hand the placer the same roster in three different orders; if any of them
+     moves a seat, something is reading position again. */
+  const rosterA = [...ids].sort();
+  const rosterB = [...rosterA].reverse();
+  const rosterC = [...rosterA].sort((p, q) => (p.length - q.length) || (p < q ? 1 : -1));
+  const dsA = TOWNS.districtsOf(ctx.worldMap.real, CITYEDIT.cat);
+  const seatsOf = r => JSON.stringify(Object.entries(TOWNS.placeHomes(graph, dsA, 1, r))
+    .map(([f, s]) => f + ':' + s.x + ',' + s.y).sort());
+  ok('U3b AND THE ORDER THE ROSTER ARRIVES IN CHANGES NOTHING. The old rule read '
+    + 'the sorted POSITION and used it as an index; this one reads his power '
+    + 'column and his notes, so the same fourteen factions handed over in three '
+    + 'different orders have to produce the same fourteen seats',
+    seatsOf(rosterA) === seatsOf(rosterB) && seatsOf(rosterA) === seatsOf(rosterC));
 
   /* his note names a place; the seat is on it */
   const placed = ids.filter(f => why[f] && why[f].why && why[f].why !== 'spread');
