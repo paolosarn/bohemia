@@ -1,3 +1,81 @@
+ANIMATION (animation-lr9y9i): 9/6 LATEST -- *** THE HOSTILES WALK AT YOU NOW.
+DIRECTION said they read as the crowd; measured, they were STILLER than the crowd,
+and the moment they "came for you" was a teleport. TAB: RUN. Nothing to judge. ***
+
+TAB: RUN. Build 9/6r - THEY WALK AT YOU.
+Walk toward a crew that has a reason to want you. They step off their corner.
+
+ROW SHIPPED: [walks at you] THE-APPROACH-IS-THE-TELL.
+
+THE BRIEF: DIRECTION judged the shipped hostiles at phone size and all three
+questions came back NO -- not dangerous, not Cartel, not at all: THEY ARE THE CROWD.
+The research says the fix is free, because MOTION is a preattentive channel and
+everybody else walks past while a hostile walks AT YOU.
+
+*** MEASURED FIRST, AND WORSE THAN THE BRIEF ASSUMED. *** Walking a crew down from
+ten cells:
+    dist 8..4   watch   every body STILL, on its corner, facing you
+    dist 3      close   four bodies TELEPORT to [-1,0][-1,1][1,0][0,1]
+    dist 3,2,1,0        those offsets NEVER CHANGE again
+No approach anywhere in it -- and one of those four appears on the FAR SIDE of you,
+which nothing walked past to reach. Every one drawn with set.idle, A SINGLE STILL
+FRAME. So since [crowd moves] shipped last round, the residents BREATHE and the
+hostiles do not: THE MOST STATIC BODIES ON THE STREET WERE THE DANGEROUS ONES.
+
+WHERE THE TELL GOES: streetFightOnStep posts the encounter on the SAME STEP the
+state turns close, so there is no beat between closing and fighting for an approach
+to live in. But WATCH runs from eight cells out to four -- five cells of walking
+where the crew is on screen, looking at you, and not yet a fight.
+
+SHIPPED: the bodies step off their corner toward you and WALK while they do it; the
+lean grows as you close and GIVES GROUND BACK if you widen it, so walking toward
+them or away both make motion along the line between you. Leash 1.5 cells,
+deliberately shorter than closeAt (3), so a watching body can never stand on top of
+you. Pace 0.34 cells a beat -- at the player's own 1.0 the whole lean was covered in
+ONE beat and the walk cycle never played. A body first seen starts ON ITS CORNER.
+Measured after: 8.0 -> 6.7 -> 5.4 -> 4.1 -> 2.8 -> 1.0, continuous, no jump. NO NEW ART:
+the player bake already ships a four-frame walk per facing and this pass was drawing
+idle in every state.
+
+WHAT IT DOES NOT TOUCH: crew.at is still the crew, stateOf still measures from it,
+so the fight triggers on exactly the beat it did before. This lane says what the
+approach LOOKS like; where the crew IS stays RUN's. That is what the leash is for.
+
+*** THE RULER THAT WAS SATISFIED BY THE PLAYER'S OWN LEGS. *** The gate's first
+claim compared nearest-body-to-player at the start of the walk-in against the end.
+That shrinks whether or not anybody approaches, BECAUSE THE PLAYER IS THE THING
+WALKING -- mutated to leash 0, the exact old behaviour, and it still passed. The
+honest measure is the GAP THEY OPEN ON THEIR OWN CORNER: how much nearer the player
+they are than their corner is. Standing still that gap is zero at every distance.
+Same shape as last round's gate, where TIME supplied the variety instead of the offset.
+
+GATE: gates/the_approach_is_the_tell_gate.js, 9 claims, 3 MUTATIONS CAUGHT -- the
+approach deleted, the approach done by TELEPORTING, and the approach drawn as a
+STILL FRAME.
+
+FILES
+  slices/BOHEMIA_CITY_WORLD.html            hostilePass, __THE_APPROACH_IS_THE_TELL__
+  gates/the_approach_is_the_tell_gate.js    9 claims, 3 mutations caught
+  records/BOHEMIA_THE_APPROACH_IS_THE_TELL_9_6_26.md
+
+*** BOUNCED TO RUN, NOT PATCHED FROM HERE (both are engine/bohemia_hostiles.js and
+streetFightOnStep, which are RUN's) ***
+1. THE RING IS A TELEPORT. At closeAt the four bodies are PLACED on cells adjacent
+   to the player, including behind him, with no travel. This lane now walks them
+   onto it, which hides the worst of it, but the placement is the engine's.
+2. THE FIGHT FIRES ON THE SAME STEP THE STATE TURNS CLOSE, so nothing that happens
+   in the closing beat can ever be seen. If a crew is meant to ARRIVE, the trigger
+   wants a beat or two of daylight after the state flips.
+
+*** WHAT COMES NEXT FOR THIS LANE ***
+1. [enemy walks] A-HOSTILE-MOVES-LIKE-A-HOSTILE is the sibling row and is still
+   OPEN: this round made the APPROACH read; that row is whether the WALK ITSELF
+   reads hostile (pace, gait, the head). The clips are all measured already --
+   THE-63-CLIP-AUDIT flagged 15 and swagger/stomp/sneak are the obvious raw
+   material, reuse before cooking.
+2. [clips redone] RECOOK-WHAT-HE-KILLS still waits on his thumbs in ANIMATION ->
+   JUDGE ALL. Nothing recooks before that; his 8/25 order says so in those words.
+3. [hurt shows] and [cloud turn] are both coordinator-decided and unblocked.
 FACTIONS (factions-ovkjpf): 9/6 (round 6) LATEST -- *** [hidden factions]
 THE-OTHER-FOUR SHIPPED. Four factions in his own graph could never appear on a
 single person, and each already had a line nobody could hear. All four are now

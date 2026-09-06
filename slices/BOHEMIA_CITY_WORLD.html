@@ -42819,6 +42819,50 @@ function hostDanger(){
   return HOST_DANGER;
 }
 
+/* ==== __THE_APPROACH_IS_THE_TELL__ (ANIMATION lane, 9/6/26) =================
+   DIRECTION judged the new hostiles in the shipped alpha at phone size: two
+   bodies at WAR rank 3 in frame, and they do not read as dangerous, as Cartel,
+   or at all. THEY ARE THE CROWD. The coordinator's research says why, and says
+   the cheapest fix is free: vision finds a target by CONTRAST in a preattentive
+   channel, MOTION is one of those channels, and everybody else walks past while
+   a hostile walks AT YOU. No pixels, no palette, no new art.
+
+   *** MEASURED ON THE REAL SURFACE BEFORE WRITING A LINE, and it is worse than
+   the brief assumed. *** Walking a crew down from ten cells out:
+       dist 10..9   idle    bodies at their corner
+       dist  8..4   watch   bodies at their corner, STILL, facing you
+       dist  3      close   four bodies TELEPORT to [-1,0] [-1,1] [1,0] [0,1]
+       dist  3,2,1,0        those offsets NEVER CHANGE again
+   There is no approach anywhere in it. One step across closeAt and four bodies
+   appear glued around you -- one of them on the far side, which nothing walked
+   past you to reach -- and then they are stuck to you like a decal. And
+   hostilePass drew every one of them with set.idle, A SINGLE STILL FRAME, so
+   since __THE_VALLEY_KEEPS_BREATHING__ shipped the residents BREATHE and the
+   hostiles do not: right now the most static bodies on the street are the
+   dangerous ones, which is the read exactly backwards.
+
+   WHERE THE TELL GOES, AND WHY IT IS THE WATCH WINDOW. The fight fires on the
+   SAME STEP the state turns close (streetFightOnStep asks streetCrewOnYou for
+   state==='close' and posts the encounter), so there is no beat between closing
+   and fighting in which an approach could be seen at all. But `watch` runs from
+   eight cells out to four -- five cells of walking where the crew is on screen,
+   looking at you, and not yet a fight. THAT is where a player can still find
+   them, and it is where this belongs.
+
+   WHAT THIS DOES NOT TOUCH. The crew's cell is still crew.at and stateOf still
+   measures from it, so the fight triggers on exactly the beat it did before.
+   This lane decides what the approach LOOKS like; where the crew IS stays RUN's,
+   and inventing a second answer to that question is the ONE ID ONE WHOLE PERSON
+   mistake with a different noun. The bodies lean off their corner TOWARD you and
+   walk while they do it -- motion, direction, on the beat -- and nothing else
+   moves.
+
+   THE TELEPORT AND THE SAME-STEP TRIGGER ARE REAL AND THEY ARE NOT MINE. Both
+   are bounced to RUN in this lane's handoff rather than patched from here. */
+var HOST_STEP = {};                 /* bodyKey -> {x,y} drawn cell position, floats */
+var HOST_SPR = {};                  /* bodyKey -> which sprite the last frame actually blitted */
+var HOST_LASTB = -1;                /* the last beat this pass advanced on */
+
 function hostilePass(ox, oy, C){
   HOST_DREW = [];
   if (typeof BohemiaHostiles === 'undefined') return 0;
@@ -42851,7 +42895,61 @@ function hostilePass(ox, oy, C){
         jx = (BohemiaHostiles.hash(cw.at[0], cw.at[1], k, 1) * 2 - 1) * C * 1.2;
         jy = (BohemiaHostiles.hash(cw.at[1], cw.at[0], k, 2) * 2 - 1) * C * 0.8;
       }
-      if (fx === hx && fy === hy) continue;   /* OCCUPANCY LAW: one body per cell */
+      /* __THE_APPROACH_IS_THE_TELL__: WHERE THIS BODY WANTS TO BE, in cells.
+         Watching, it wants to be off its corner and ON YOUR SIDE of it -- the
+         lean grows as you close, so the four of them are translating toward the
+         player the whole way in. That direction, not the sprite, is the tell.
+         The LEASH is one cell: they step off their corner, they do not leave it,
+         because leaving it would be a second answer to where the crew is and
+         stateOf would still be reading the first one. */
+      var tgx = fx, tgy = fy;
+      if (st === 'watch') {
+        var vx = hx - cw.at[0], vy = hy - cw.at[1];
+        var vl = Math.sqrt(vx * vx + vy * vy) || 1;
+        var dCell = Math.max(Math.abs(vx), Math.abs(vy));
+        /* 0 at the far edge of watch, 1 at the near edge: they commit as you close,
+           and they GIVE GROUND BACK if you widen it again. Walking toward them or
+           away from them both produce motion along the line between you, which is
+           the direction cue the whole row is about. */
+        var lean = 1 - Math.max(0, Math.min(1, (dCell - cw.closeAt) / Math.max(1, cw.seeAt - cw.closeAt)));
+        /* THE LEASH IS SHORTER THAN closeAt ON PURPOSE. At full lean a body sits
+           LEASH cells off its corner, so with closeAt at 3 it can never be standing
+           on top of you while the state still says watch. The crew's cell stays the
+           only answer to where the crew is; this only says how far its members have
+           stepped off it. */
+        var LEASH = 1.5;
+        tgx = cw.at[0] + (vx / vl) * lean * LEASH;
+        tgy = cw.at[1] + (vy / vl) * lean * LEASH;
+      }
+      /* WALK THERE, NEVER SNAP. One cell per beat is the player's own pace, so a
+         crew reads as keeping up with you rather than gliding or twitching.
+         Advanced once per beat (120 BPM LAW) rather than per frame, or the step
+         would depend on how fast the machine draws. */
+      var bkey = cw.at[0] + ',' + cw.at[1] + '|' + k;
+      var nowB = Math.floor(performance.now() / BEAT);
+      var pos = HOST_STEP[bkey];
+      /* A BODY FIRST SEEN STARTS ON ITS CORNER, not on its target. Starting it at
+         the target meant the very first frame was already leaned in and the step
+         off the corner -- the thing the player is supposed to notice -- had
+         already happened before anything was drawn. */
+      if (!pos) { pos = HOST_STEP[bkey] = { x: cw.at[0], y: cw.at[1], mv: 0 }; }
+      if (nowB !== HOST_LASTB) {
+        var ddx = tgx - pos.x, ddy = tgy - pos.y;
+        var dl = Math.sqrt(ddx * ddx + ddy * ddy);
+        /* SLOWER THAN THE PLAYER, ON PURPOSE, TWICE OVER. At the player's own
+           1.0 cells a beat the whole lean was covered in a SINGLE beat and there
+           was nothing to watch -- measured: the bodies were at their target before
+           the second frame, mv back to 0, no walk cycle ever played. A third of a
+           cell a beat spends four or five beats crossing the leash, which is long
+           enough to see and still slow enough that you can always walk away. */
+        var STEP = 0.34;                                 /* cells per beat */
+        if (dl > 0.02) {
+          var f2 = Math.min(1, STEP / dl);
+          pos.x += ddx * f2; pos.y += ddy * f2; pos.mv = 1;
+        } else { pos.x = tgx; pos.y = tgy; pos.mv = 0; }
+      }
+      fx = pos.x; fy = pos.y;
+      if (Math.round(fx) === hx && Math.round(fy) === hy) continue;   /* OCCUPANCY LAW: one body per cell */
       var sx = ox + fx * C, sy = oy + fy * C;
       if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
       /* THEY LOOK AT YOU. The facing is toward the player, which is the whole
@@ -42861,7 +42959,24 @@ function hostilePass(ox, oy, C){
       /* THE BODIES THAT ALREADY EXIST. Same ladder, same sprite path the
          residents use -- no new art, and nothing here was cooked for this. */
       var set = PLAYER_CV[dir] || PLAYER_CV.S;
-      var spr = set && set.idle; if (!spr) continue;
+      /* A BODY THAT IS COMING FOR YOU IS WALKING, and the frames already exist:
+         the player bake ships idle plus a four-frame walk cycle per facing, and
+         this pass has been drawing set.idle for every hostile in every state.
+         Since the residents started breathing, that made the dangerous bodies
+         the most static things on the street. Walk while moving, idle when not,
+         on the shared clock so their feet land on the same beat as yours. */
+      var spr = null, sprKind = 'idle';
+      if (pos.mv && set && set.walk && set.walk.length) {
+        spr = set.walk[Math.floor(performance.now() / BEAT) % set.walk.length];
+        if (spr) sprKind = 'walk';
+      }
+      if (!spr) spr = set && set.idle;
+      if (!spr) continue;
+      /* WHAT WAS ACTUALLY BLITTED, recorded for the gate. Reading the flag that
+         CHOOSES the sprite would be a check that reads its own input; this is the
+         sprite the frame really used (8/30: a gate that cannot fail is worse than
+         none). */
+      HOST_SPR[bkey] = sprKind;
       var lad = C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
       var img = spriteAt(spr, C);
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
@@ -42876,6 +42991,7 @@ function hostilePass(ox, oy, C){
     }
     if (onGlass) HOST_DREW.push(cw);
   }
+  HOST_LASTB = Math.floor(performance.now() / BEAT);   /* one advance per beat, after every body has used it */
   window.__HOST_DRAWN = drawn;
   return drawn;
 }
