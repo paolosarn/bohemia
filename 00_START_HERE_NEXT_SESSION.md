@@ -4973,7 +4973,9 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/6 (c) LATEST -- *** CHAT 18. ROUND 6. THE SUITE WENT FROM 44.2
+PLUMBER (plumber-ont6t5): 9/6 (d) LATEST -- *** CHAT 18. ROUND 7. THE FIGHT HAS STOPPED
+DRAWING WHERE NOBODY CAN SEE IT: ~900 blits a second to ZERO, and the walked street went from
+229 to 204.5 ms of every beat. ROUND 6: THE SUITE WENT FROM 44.2
 MINUTES TO 33.8, MEASURED END TO END BEFORE AND AFTER. ROUND 5: A BEAT WAS PROFILED FOR THE
 FIRST TIME. A FIGHT SPENDS 497 OF EVERY 500 MS AND 61% OF IT IS ONE CALL. AND THE FIGHT IS
 ANIMATING BEHIND A HIDDEN PANEL, 60 FRAMES A SECOND INTO A ZERO-BY-ZERO BOX, BEFORE ANY FIGHT
@@ -5797,80 +5799,67 @@ measurement is 30 days stale and wants a fresh bare clone, and REUSE FIRST is re
 COOK's cook tools missing their REUSE CHECK block. The suite number itself is the case for
 [suite runs] SUITE-FINISHES, which is now measured rather than remembered.
 
-THIS ROUND (round 6). Took the FIRST OPEN row, [suite runs] SUITE-FINISHES, which this lane's
-own three gates had made urgent. THE SUITE WENT FROM 2,651s TO 2,025s, measured end to end on
-full runs before and after: 44.2 minutes to 33.8, a 626 second saving, while CARRYING the 121
-seconds of gates this lane had just added.
+THIS ROUND (round 7). The coordinator read this lane's beat profile, reordered the board
+around it and routed the fix here by name: "PLUMBER [fight headroom]: get a fighting beat
+under 400 ms of 500 with the five techniques above, HIDDEN PANEL FIRST." Claimed it and took
+the hidden panel. THE FREE MONEY IS COLLECTED.
 
-WHAT THE ROW ASKED FOR FIRST WAS "MEASURE EVERY GATE'S TIME", AND NOBODY HAD. The runner has
-printed a per-gate time on every line for weeks and nothing ever added them up.
-  gates/bohemia_suite_census.py   reads a real run's log, joins it to the gate table, and
-                                  classifies every gate BY THE RUNNER'S OWN predicates rather
-                                  than a second opinion that could drift from the scheduler it
-                                  describes. Writes its own record.
-  gates/suite_finishes_gate.py    the gate. Registered, not slow, GREEN at 7 passed 0 failed,
-                                  and it costs nothing because it holds arithmetic.
-  records/BOHEMIA_SUITE_CENSUS_9_6_26.md / .json
+BEFORE AND AFTER, on the real surface, three samples each way:
+  the hidden fight frame   ~900 drawImage calls a second  ->  ZERO
+                           15 ms of every 500 ms beat     ->  5.3 ms
+                           3.3% / 2.8% / 3.1% of a core   ->  1.1% / 1.2% / 0.9%
+  the walked street        229 ms of every beat           ->  204.5 ms  (45.9% -> 40.9%)
 
-THE WALL IS ONE LANE, AND THAT IS THE WHOLE ANSWER. A suite's wall clock is not the sum of its
-gates; it is the widest lane over that lane's slots, or the longest single gate, whichever is
-worse.
-    99 browser gates hold 65.0 of the 80 minutes of gate work
-   236 pure gates hold 14.8
-  At the old TWO browser slots the browser lane alone was 32.9 minutes and nothing that
-  happened to the other 237 gates could move it.
+THE CHANGE IS ONE LINE OF BEHAVIOUR. draw() in the fight returns early when the frame has no
+viewport. tools/bohemia_fight_not_on_screen_patch.py, the same decode-patch-re-encode shape
+every other combat patch in tools/ uses, applied to both shipped surfaces so they stay
+identical.
 
-WHAT I CHANGED, AND THE SECOND THING ONLY WORKED BECAUSE OF THE FIRST:
-1. A SOLO TIER. A gate whose subject is time now carries __BOHEMIA_SOLO__ in its own file and
-runs one at a time with the box to itself, FIRST, before the pool starts. Derived from the
-file, never a hand-kept list, the same way is_browser_gate already worked. First rather than
-last because the report streams in table order and a solo gate sitting early in the table
-would hold the whole printout behind it. Three gates opted in: FRAME BUDGET, BEAT BUDGET,
-FPS ON A PHONE.
-2. BROWSER SLOTS FROM HALF THE CORES TO THREE QUARTERS. Half was the right number when it was
-set, and the runner says why in its own words: oversubscribing made FIGHT MUSIC and FIRST
-NIGHT fail for LOAD rather than for truth. What changed is that the gates which measure time
-are now fenced off, so widening the pool can no longer make a stopwatch lie.
+WHY IT IS SAFE, AND EVERY PART OF THIS WAS MEASURED BEFORE THE PATCH WAS WRITTEN:
+  - THE SIM IS NOT TOUCHED. Every tick, beat and enemy turn runs as before. Only the painting
+    stops, and only when there is provably nothing to paint onto.
+  - THE PREDICATE WAS MEASURED, NOT ASSUMED. Inside that frame innerWidth reads 0 while the
+    panel is hidden and 390 during a real fight entered through cityEncounterIn. Guessing
+    wrong here would have frozen every fight in the game forever, which is the worst outcome
+    available, so it was checked on the real surface first.
+  - THE REAL PATH MAKES IT SAFE. cityEncounterIn shows the panel FIRST and starts the
+    encounter about 250 ms later, so by the time a fight exists the frame has a viewport.
+  - AND IT SELF-HEALS: draw() runs every frame, so the frame after the panel appears paints
+    as usual. No state to reset, nothing to re-arm.
+  - PROVEN NOT BROKEN: the fight still profiles as a live fight (12.6 beats, 31,162 samples,
+    drawField and drawFloor and paintFireButton all present). COMBAT SCALE 7/0, COLD OPEN
+    45/0, ALPHA LOADS 20/0, BUILD SIZE 21/0, FPS ON A PHONE 35/0, BEAT BUDGET 17/0.
+  - AND THE BUDGET RATCHETED DOWN BEHIND IT: the hidden-frame line went 30 ms -> 10 ms, so
+    the day anybody puts that drawing back, the gate says so.
 
-AND I CHECKED THAT I HAD NOT INVENTED REDS, because that would be worse than a slow suite.
-The suite's own confirm-alone pass found FOUR non-reproducing reds on the run before and ONE
-on the run after, so the wider lane did not make the pack lie more; it made it lie less. Nine
-gates are newly red between the two runs, and main moved by 43 gates in between, so most are
-other lanes' work. I ran FIGHT MUSIC alone on a quiet box because it is exactly the gate the
-runner's own comment names as the load victim: IT FAILS ALONE. It is a real red belonging to
-another lane, not something this change invented. I checked that one directly and am not
-claiming to have checked the other eight.
+A NOTE ON PERMISSION, FLAGGED RATHER THAN ASSUMED. This lane's section says it may not touch
+slices/ content, and the fight lives there. The coordinator put a row in this lane whose whole
+content is fixing that loop, with a target and named techniques, which reads as authorization
+for this row. If that reading is wrong the patch is one tool file and reverts cleanly.
 
-AND ONE COST THAT IS NOT SCHEDULING AT ALL: 38 gates failed in that run and every one was
-RE-RUN ALONE afterwards, because the suite may not invent a red. Correct, and not free:
-8.3 MINUTES of the 33.8 is re-running red gates. It is the only line in the record that gets
-cheaper by FIXING THE GAME rather than by moving a setting, and it is most of the gap between
-the 22 minute floor and the 33.8 observed.
+WHY [fight headroom] IS NOT SHIPPED. The target is a FIGHTING beat under 400 ms of 500, and a
+fighting beat is still 497.5. That is expected and not a disappointment: the hidden-panel fix
+only pays when the fight is NOT showing, which is most of the time on every surface, and it is
+what the coordinator asked for first. The fight itself is untouched, and the five techniques
+against its drawImage wall are the rest of the row.
+  A CAUTION FOR WHOEVER TAKES THAT NEXT, MEASURED THIS ROUND: the fight's profile COMPOSITION
+  swings hard between runs. Two runs of the same tree gave canvas blits at 60.9% and then at
+  11.3%, with (program) taking the difference. The TOTAL is stable across every run taken so
+  far (497.5, 498.5, 497.5) but the breakdown is not, so a fix aimed at one run's composition
+  may be aimed at a phase of the fight rather than at the fight. Profile several fights and
+  work from what is stable across them.
 
-WHY [suite runs] IS NOT SHIPPED. The row's target is "under ten minutes" and THAT TARGET
-CANNOT BE REACHED BY SCHEDULING ON THIS BOX. 65 minutes of browser work over four cores is
-16.6 minutes even if every core ran a browser, and the longest single gate is 7.4 minutes on
-its own. The remaining path is the row's other two clauses, SPLIT the slow ones and RETIRE the
-dead ones, which means less browser work rather than better packing. The gate REPORTS the
-distance to the target every run and never asserts it: a ceiling three times away from the
-truth would be red on arrival and switched off by whoever met it.
-
-[PENDING, for the coordinator to route]: the honest next step for the ten-minute target is
-splitting OPENING (7.4 min, one gate, the floor on its own) and the four behind it, and
-retiring dead gates, which is the very next row, [dead gates] GATE-CENSUS. If the target
-matters more than the order, those two rows are the ones that reach it.
-
-THE OTHER THREE ROWS THIS LANE HOLDS, all finished to the edge of its permissions:
+THE OTHER FOUR ROWS THIS LANE HOLDS, each finished to the edge of its permissions:
 [sixty fps] -- measured, budgeted, gated on both surfaces. [PENDING Paolo since round 2]: is a
 phone-shaped Chromium enough to call it shipped, or does he want a real handset?
-[slim build] -- 235 MB published, 73 MB of it reachable from nothing. [PENDING Paolo since
-round 4]: are those 445 old judge pages safe to stop publishing?
-[hot path] -- a beat profiled; a fight spends 497 of every 500 ms and 61% of it is one call;
-the fight animates behind a hidden panel 60 frames a second before any fight. All three fixes
-live in slices/ content and are handed off.
+[slim build] -- 235 MB published, 73 MB reachable from nothing. [PENDING Paolo since round 4]:
+are those 445 old judge pages safe to stop publishing?
+[hot path] -- the profile that started all of this; its remaining fixes are now this row.
+[suite runs] -- 44.2 min -> 33.8 min, measured end to end. Under ten minutes needs less
+browser work, not better packing: 65 min of it over four cores is 16.6 min at best.
 
-NEXT IN THIS LANE: [dead gates] GATE-CENSUS, which is both the next row and half of what the
-ten-minute target actually needs.
+NEXT IN THIS LANE: the rest of [fight headroom] -- the five drawImage techniques against a
+fighting beat, profiled across several fights first because of the composition swing above.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO

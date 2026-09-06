@@ -9,27 +9,27 @@ A beat is 500 ms under the 120 BPM law. Every number below is how much of one be
 
 ## THE HEADLINE
 
-  walking the street   208.5 ms of every 500 ms beat   (41.7% of the main thread)
-  in a fight           498.5 ms of every 500 ms beat   (99.7% of the main thread)
+  walking the street   208 ms of every 500 ms beat   (41.6% of the main thread)
+  in a fight           497.5 ms of every 500 ms beat   (99.5% of the main thread)
 
 THE FIGHT HAS NO HEADROOM LEFT. It is using essentially the whole beat, which is what a
 17 frames-a-second fight looks like from the inside. The walked street is using under half.
 
 ## THE FIVE MOST EXPENSIVE THINGS, WALKING
 
-  1. (program)           9.88%     310.1 ms
-  2. canvas blits        8.09%     253.9 ms   [drawImage, putImageData]
-  3. danger + crews      6.93%     217.5 ms   [dangerMark (BOHEMIA_CITY_WORLD.html:34966), __dangerAt (BOHEMIA_CITY_WORLD.html:34958), window.BOHEMIA_DANGER.at (BOHEMIA_CITY_WORLD.html:56123)]
-  4. canvas fills        2.72%        85 ms   [fillRect, save, lineTo]
-  5. the map grid        2.09%      65.3 ms   [cellAt (BOHEMIA_CITY_WORLD.html:32086), chunkCanvas (BOHEMIA_CITY_WORLD.html:35086), saTex (BOHEMIA_CITY_WORLD.html:34684)]
+  1. (program)          10.52%     328.2 ms
+  2. canvas blits        8.48%     264.6 ms   [drawImage, putImageData]
+  3. danger + crews      6.94%     216.8 ms   [dangerMark (BOHEMIA_CITY_WORLD.html:35687), __dangerAt (BOHEMIA_CITY_WORLD.html:35679), window.BOHEMIA_DANGER.at (BOHEMIA_CITY_WORLD.html:57219)]
+  4. canvas fills        2.06%      64.9 ms   [fillRect, save, lineTo]
+  5. the map grid        2.05%      63.9 ms   [cellAt (BOHEMIA_CITY_WORLD.html:32706), chunkCanvas (BOHEMIA_CITY_WORLD.html:35807), saTex (BOHEMIA_CITY_WORLD.html:35405)]
 
 ## THE FIVE MOST EXPENSIVE THINGS, IN A FIGHT
 
-  1. canvas blits       61.79%    1928.7 ms   [drawImage]
-  2. (program)          27.29%     851.9 ms
-  3. streetTile          2.08%        65 ms
-  4. the fight           1.86%      58.5 ms   [drawField (about:srcdoc:10244), drawFloor (about:srcdoc:1515), paintFireButton (about:srcdoc:9632)]
-  5. draw                1.05%      32.8 ms
+  1. (program)           80.1%    2464.1 ms
+  2. canvas blits        11.5%     353.9 ms   [drawImage]
+  3. the fight           3.21%      98.6 ms   [drawField (about:srcdoc:10275), paintFireButton (about:srcdoc:9663), drawFloor (about:srcdoc:1515)]
+  4. (anonymous)         0.88%      28.1 ms
+  5. draw                0.65%      20.1 ms
 
 Two thirds of a fight is one call: drawImage. The fight is not thinking too hard, it is
 blitting too much.
@@ -39,9 +39,9 @@ blitting too much.
 THE FIGHT IS ANIMATING BEHIND A HIDDEN PANEL, BEFORE ANY FIGHT HAS HAPPENED.
 
   the frame box measures        0 x 0, on a panel with display:none
-  it runs                       59 frames a second
-  it draws                      1062 images a second
-  it costs                      3.7% of one core, 18.7 ms of every 500 ms beat
+  it runs                       59.8 frames a second
+  it draws                      0 images a second
+  it costs                      1.2% of one core, 5.8 ms of every 500 ms beat
 
 Found because a walk profile of a session that had never entered a fight contained drawField,
 which is a fight function. The frame is created at boot and never stops.
@@ -57,11 +57,11 @@ When a difference is the size of the noise, stop subtracting and measure the thi
 
 ## THE BUDGET THE GATE HOLDS
 
-  walking, work per beat        <= 303 ms
-  the hidden frame, per beat    <= 30 ms
+  walking, work per beat        <= 302 ms
+  the hidden frame, per beat    <= 10 ms
 
 THERE IS NO LINE FOR THE FIGHT, AND THAT IS NOT AN OVERSIGHT. It is already at
-99.7% of the beat, so any ceiling is
+99.5% of the beat, so any ceiling is
 either above 100% and can never fail, or below today's number and is red on arrival. A gate
 red on arrival gets switched off by the next session that meets it. The number is PRINTED on
 every run instead, and the day the fight has headroom again a real line can be set.
