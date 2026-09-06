@@ -87,24 +87,6 @@ Photographed on the walked surface:
 (8/15 + 9/4), so a camp charging more would be a number nobody ruled. "Not a lot of goods" is
 a count. **Which** goods a town carries belongs to its buildings and is BB-WANTS' row.
 
-## AND THE GATE CAUGHT ME PUTTING A MARKET ON A SOLAR FARM
-
-Adding 14 seats broke `payday_gate`'s reachability check, which was green before. Good.
-
-Diagnosed rather than assumed: the failing seats were on **solar arrays, golf courses and
-farms** — plots with **zero buildings**. Not a road problem. **A solar field is not a town**,
-and his own law says in its own words that *what supports a town is buildings*.
-
-Two fixes, both computable on **both** surfaces so the drift cannot come back:
-
-- a seat must **front a road** (the drivable-access law's own idea of serving a curb);
-- ground that **never carries a building** is excluded — and **that list is measured, not
-  imagined**: I asked the district kit how many buildings each kind's plots carry across two
-  seeds, and `airbase`, `airport`, `solar`, `strip` came back zero on every plot examined and
-  were the only ones that did. The gate **re-measures it** and goes red if a kind changes.
-
-**7 unreachable seats → 2.**
-
 ## THE GAP THAT KEPT THIS ROW OPEN A ROUND, AND WHAT CLOSED IT
 
 Adding 14 seats broke `payday_gate`'s reachability check, which had been green. Good.
