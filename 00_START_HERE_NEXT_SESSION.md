@@ -15001,7 +15001,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [judge enemies] SHIPPED 66ba929 -- round 2 rebuilt
+ROUND LOG 9/6 (latest): [border card] SHIPPED 88c2a24 -- the territory look
+card for COOK [border marked] and UI [danger visible]: value first (held =
+swept), colour only on marks (<2% of a tile, accent sat), rim one pixel on
+the holder's side of the landmark, tags anatomised (body height, chipped;
+CLEAN = RECENT is the time channel), disputed = overpaint, and the
+greyscale test rules every cook. NEXT OPEN: [judge the turn], then
+[ratchet sixty], [first look]. PREVIOUS: [judge enemies] SHIPPED 66ba929 -- round 2 rebuilt
 the instrument (the bare city page never draws the crowd: PLAYER_CV arrives
 by postMessage from the alpha, so round 1's empty frames were the probe's
 own fault; judged through the shipped alpha instead) and delivered the
