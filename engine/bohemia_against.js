@@ -86,6 +86,13 @@
       cold:    'THEY SAW SOMETHING, AND THEIR OUTFIT IS NOT YOURS',
       hostile: 'IT IS YOUR OUTFIT AND IT IS ALSO YOU',
       war:     'YOUR OUTFITS ARE AT WAR AND IT IS ALSO PERSONAL'
+    },
+    /* THE COALITION'S OWN WORDS. His graph says these two hate each other, so
+       the thing worth saying is that they stopped -- and that it is about him. */
+    joined: {
+      cold:    'THEY HAVE TAKEN SOMEBODY ELSE\'S SIDE AGAINST YOU',
+      hostile: 'THEIR OUTFIT HAS JOINED A QUARREL THAT WAS NOT THEIRS',
+      war:     'THEY STOPPED FIGHTING EACH OTHER, AND IT IS ABOUT YOU'
     }
   };
 
@@ -120,6 +127,33 @@
     return null;
   }
 
+  /* THE THIRD REASON: THEIR OUTFIT JOINED SOMEBODY ELSE'S QUARREL WITH YOU.
+     (9/6/26, FACTIONS lane, VAMILY row [enemies unite] BB-COALITION, the half
+     that is joint with WORLD.)
+
+     WORLD shipped the graph edit and the STANDING card: two outfits who hate
+     each other STOP when they both hate you, and the card names them --
+     "AGAINST YOU: Cartel + Remnants". MEASURED after that landed:
+     BohemiaCoalition.formed() had exactly ONE CALLER in the whole game, and it
+     was that card. So the valley could tell you a coalition had formed and then
+     every one of its members treated you exactly as before. You could read
+     "they have stopped fighting each other, and that is about you" and walk up
+     to a Remnant who still had no opinion.
+     The row's own sentence is "the enemies who were spending their strength on
+     each other POINT ALL OF IT AT YOU", and pointing it at you has to be
+     something you MEET, not a line on a screen.
+
+     AND THE LEVEL IS COPIED, NEVER INVENTED. A person whose outfit joined a
+     coalition is against you exactly as hard as the ally who already was --
+     `worst` is the level the caller read off the outfit that brought them in.
+     Nothing new is ranked, no fourth level is added, and a coalition of people
+     who merely dislike you cannot manufacture a war. */
+  function fromCoalition(co) {
+    if (!co) return null;
+    var w = String((co && co.worst) || '').toLowerCase();
+    return LEVELS[w] ? w : null;
+  }
+
   /* ---- THE QUESTION ------------------------------------------------------
      read({ rel, rung }) -> null, or one answer with the signs it earns.
 
@@ -132,14 +166,21 @@
      this file, is the thing a gate has to walk. */
   function read(facts) {
     if (!facts) return null;
-    var a = fromOutfit(facts.rel), b = fromRung(facts.rung);
-    if (!a && !b) return null;
-    /* THE WORSE OF THE TWO WINS, because a person is not the average of their
+    var a = fromOutfit(facts.rel), b = fromRung(facts.rung), c = fromCoalition(facts.coalition);
+    if (!a && !b && !c) return null;
+    /* THE WORST OF THEM WINS, because a person is not the average of their
        reasons. Somebody whose outfit is at war with yours does not become
        merely cold because they have never personally seen you. */
-    var level = (rankOf(a) >= rankOf(b)) ? a : b;
+    var level = a;
+    if (rankOf(b) > rankOf(level)) level = b;
+    if (rankOf(c) > rankOf(level)) level = c;
     if (!level) return null;
-    var why = (a && b) ? 'both' : (a ? 'them' : 'you');
+    /* AND THE COALITION ONLY GETS TO EXPLAIN ITSELF WHEN IT IS THE REASON.
+       If their outfit already hated you this hard on its own, saying "they
+       joined somebody's quarrel" would be telling him the wrong story about
+       why the person in front of him turned around. */
+    var joined = !!c && rankOf(c) > rankOf(a) && rankOf(c) >= rankOf(b);
+    var why = joined ? 'joined' : ((a && b) ? 'both' : (a ? 'them' : 'you'));
     var spec = LEVELS[level];
     var signs = {};
     for (var i = 0; i < SIGNS.length; i++) signs[SIGNS[i]] = !!spec.signs[SIGNS[i]];
@@ -151,6 +192,9 @@
          when only one of them set the level. */
       outfit: a || null,
       personal: b || null,
+      /* WHO BROUGHT THEM IN, so a card can name the ally rather than leave him
+         guessing which quarrel this is. */
+      coalition: joined ? (facts.coalition || null) : null,
       word: WORDS[why][level],
       signs: signs,
       draft: true

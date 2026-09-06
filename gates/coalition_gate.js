@@ -166,5 +166,120 @@ const done = () => {
 
   ok('no page error across forming and dissolving a coalition'
      + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
+
+  /* ========================================================================
+     AND THE HALF THAT IS THE FACTIONS LANE'S. (9/6/26, the same row, which the
+     board carries in both sections as "(with WORLD)".)
+
+     *** WORLD SHIPPED THE COALITION AND THE CARD, AND MEASURED AFTER IT LANDED:
+     BohemiaCoalition.formed() HAD EXACTLY ONE CALLER IN THE WHOLE GAME, AND IT
+     WAS THAT CARD. *** So the valley could tell him "Cartel + Remnants have
+     stopped fighting each other, and that is about you" and then every Remnant
+     in the street treated him exactly as before -- no watching, no refusing,
+     nothing. The row's own sentence is that the enemies who were spending their
+     strength on each other POINT ALL OF IT AT YOU, and pointing it at you has
+     to be something he MEETS.
+     ====================================================================== */
+  const A = require(path.join(ROOT, 'engine/bohemia_against.js'));
+
+  ok('THE AGAINST ORGAN IGNORES A COALITION IT IS NOT HANDED -- additive, which '
+     + 'is the zero-regression proof', A.read({}) === null
+     && A.read({ rung: 'COLD' }).why === 'you');
+
+  const joined = A.read({ coalition: { worst: 'hostile', with: 'Cartel' } });
+  ok('*** A PERSON WHOSE OUTFIT JOINED A QUARREL THAT WAS NOT THEIRS IS AGAINST '
+     + 'YOU, EVEN THOUGH THEY HAVE NEVER SEEN YOU AND THEIR OUTFIT HAS NO FEUD '
+     + 'WITH YOURS. *** That is the whole of the row on the street: '
+     + (joined && joined.word),
+     !!joined && joined.level === 'hostile' && joined.why === 'joined'
+     && joined.signs.watch && joined.signs.refuse);
+
+  ok('AND THE LEVEL IS COPIED OFF THE ALLY, NEVER INVENTED. A coalition of people '
+     + 'who merely dislike you cannot manufacture a war, and no fourth level was '
+     + 'added to make room for one',
+     A.read({ coalition: { worst: 'cold' } }).level === 'cold'
+     && A.read({ coalition: { worst: 'war' } }).level === 'war'
+     && A.read({ coalition: { worst: 'nonsense' } }) === null
+     && Object.keys(A.LEVELS).length === 3);
+
+  ok('and it only explains itself when it IS the reason -- if their outfit already '
+     + 'hated you this hard on its own, telling him they joined somebody\'s quarrel '
+     + 'is the wrong story about the person in front of him',
+     A.read({ rel: { war: true }, coalition: { worst: 'cold' } }).why === 'them'
+     && A.read({ rel: { war: true }, coalition: { worst: 'cold' } }).coalition === null);
+
+  ok('and when it is, the card can name who brought them in rather than leaving '
+     + 'him to guess which quarrel this is',
+     (A.read({ coalition: { worst: 'hostile', with: 'Cartel' } }).coalition || {}).with === 'Cartel');
+
+  /* *** AND ON THE SURFACE HE WALKS. *** */
+  const b2 = await chromium.launch();
+  const street = await (async () => {
+    try {
+      const p2 = await b2.newPage({ viewport: { width: 390, height: 844 } });
+      const thrown = [];
+      p2.on('pageerror', e => thrown.push(String(e.message).slice(0, 120)));
+      await p2.route(/^https?:/, r => r.abort());
+      await p2.goto('file://' + CITY, { waitUntil: 'load', timeout: 180000 });
+      await SETTLE(p2, 14000);
+      const out = await p2.evaluate(() => {
+        const say = f => {
+          const c = ctCoalitionAgainst(f);
+          const a = BohemiaAgainst.read({ rel: ctRelToMine(f), rung: null, coalition: c });
+          return a ? (a.level + '/' + a.why) : 'nothing';
+        };
+        const R = { clean: {} };
+        R.clean.cartel = say('Cartel');
+        DQ.shared = DQ.shared || {}; DQ.shared.faction = DQ.shared.faction || {};
+        DQ.shared.faction.CARTEL = -6; DQ.shared.faction.REMNANTS = -6;
+        try { ctAgainstBump(); } catch (_e) {}
+        R.formed = (BohemiaCoalition.formed(rungStandings(), ctBelongSave()) || [])
+                     .map(p => p.a + '+' + p.b);
+        R.cartel = say('Cartel'); R.remnants = say('Remnants'); R.church = say('Church');
+        DQ.shared.faction.CARTEL = 2;
+        try { ctAgainstBump(); } catch (_e) {}
+        R.afterPeace = say('Remnants');
+        R.thrown = 0;
+        return R;
+      });
+      out.thrown = thrown.length;
+      return out;
+    } finally { await b2.close(); }
+  })();
+
+  ok('*** ON THE STREET: A CLEAN RUN IS SILENT, THEN TWO OF HIS ENEMIES UNITE AND '
+     + 'A MEMBER OF EITHER ONE IS AGAINST HIM. *** clean ' + street.clean.cartel
+     + ', formed ' + JSON.stringify(street.formed) + ', Cartel ' + street.cartel
+     + ', Remnants ' + street.remnants,
+     street.clean.cartel === 'nothing' && street.formed.length === 1
+     && /^hostile\/joined$/.test(street.cartel) && /^hostile\/joined$/.test(street.remnants));
+
+  ok('and nobody else in the valley is caught by it -- the Church is not in the '
+     + 'quarrel and reads as nothing (' + street.church + ')',
+     street.church === 'nothing');
+
+  ok('AND MAKING PEACE WITH ONE TAKES IT OFF THE STREET TOO, not just off the card. '
+     + 'Derived, never stored, so there is no dissolution rule to forget ('
+     + street.afterPeace + ')', street.afterPeace === 'nothing');
+
+  /* *** THE FAULT THAT COST THE MOST, AND THE CLAIM THAT WOULD HAVE CAUGHT IT. ***
+     The first cut read the ally's level from ctRelToMine, which is OUTFIT versus
+     OUTFIT -- and the player above has no outfit of their own, so myRipples is
+     empty, so it came back null for both members and the whole thing quietly did
+     nothing WHILE THE PAIR REALLY HAD FORMED. A coalition forms off rungStandings,
+     the deed ledger, so that is where the level has to come from.
+     THE FIRST VERSION OF THIS CLAIM WAS A GREP for `rungFor` near the function,
+     and it went red on its own string arithmetic while the behaviour was correct.
+     A grep proves the code exists; three separate faults this session passed
+     greps while the thing did nothing. THIS IS THE BEHAVIOUR: the same run that
+     produced `hostile/joined` above had NO OUTFIT and NO ripple to read, which is
+     precisely the state the broken version returned nothing in. */
+  ok('and the level comes off the axis the coalition FORMED on -- proved by the '
+     + 'street pass above having no outfit of its own, which is exactly the state '
+     + 'the outfit-versus-outfit reading came back empty in',
+     street.clean.cartel === 'nothing' && /^hostile\/joined$/.test(street.cartel));
+
+  ok('nothing threw on the street pass', street.thrown === 0);
+
   done();
 })();
