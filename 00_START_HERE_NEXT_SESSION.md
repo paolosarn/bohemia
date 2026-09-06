@@ -1,3 +1,142 @@
+WORDS (words-8dqrnq): 9/5 (j) LATEST -- *** VAMILY Q13 [rumours spread] SHIPPED. WE
+ALREADY HAVE A REAL RUMOUR ENGINE. IN 1,669 LINES IT HAS PASSED ON NEWS ABOUT
+SOMEBODY OTHER THAN THE PLAYER EXACTLY ONCE, AND IT HAS NEVER ONCE BEEN WRONG. ***
+Nothing to judge, MODE: RESEARCH, nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q13 [rumours spread], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q13_HOW_A_RUMOUR_TRAVELS_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q13, all draft:true.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+WHAT WE ACTUALLY BUILT, AND IT IS MORE THAN I EXPECTED:
+    engine/bohemia_standing.js
+      gossip(mindA, mindB, turn)   moves a deed from one mind to another
+      HEARSAY_LOSS 0.55            a retold deed keeps 55% of its force
+      MAX_HOPS 2                   eyewitness, told, told, then it stops dead
+      inherit()                    carries a deed to the next generation ONLY if
+                                   somebody retold it (hops > 0)
+    engine/bohemia_deeds.js
+      hopsFor(tag)  #quiet gets 1 hop, #reckless gets 5     reachOf(tag)
+And the law those two write together, in standing.js's own words: "A QUIET GOOD
+DEED DIES WITH THE WITNESS. A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED
+FOR." THIS LANE OWES IT WORDS, NOT A REDESIGN. We even wrote the hearsay voice and
+it is good ("It got to me third-hand and it still had your name on it").
+
+THE FINDING, IN TWO PARTS. Searched all 1,669 NPC lines for a hearsay marker and
+read every hit: 17 of 1,669 = 1.0%.
+    12 of 17 are the heard: and rung: reaction pools, and EVERY ONE IS ABOUT YOU.
+     3 are the same denial in three registers ("That's not a rumour, that's my cousin").
+     1 is a metaphor.
+     1 is the ONLY line in this game where a person passes on news about the world:
+         father: "They're saying the water district's hiring again. I'll go down Monday."
+PART ONE: EVERY RUMOUR IN BOHEMIA IS A RUMOUR ABOUT THE PLAYER. A gossip system
+that only carries your reputation back to your own face is not a world, it is a
+mirror.
+PART TWO: THE HOP COUNT NEVER REACHES THE MOUTH. bohemia_people.js:2461 reads
+opts.heard, and opts.heard carries the CLOUT TAG, never hops. So a first-hand story
+and a five-times-retold story pick from the same two or three lines.
+A RUMOUR IN BOHEMIA GETS QUIETER. IT NEVER GETS WRONG.
+
+THE REAL RECORD, AND THE TEXTBOOK ANSWER DOES NOT REPLICATE:
+Allport and Postman (1947) named LEVELLING (it gets shorter), SHARPENING (a few
+details amplify) and ASSIMILATION (it bends toward the teller), plus R = i x a,
+rumour in circulation varies with IMPORTANCE times AMBIGUITY. AND I WOULD HAVE BEEN
+WRONG TO HAND THAT OVER FLAT: studies of naturally occurring rumours do NOT
+reproduce levelling and sharpening, some real rumours are EXTENDED instead of
+shortened, and there is a published paper on how badly the original study is
+misquoted. The lab version is a classroom chain with no stakes. A real rumour lives
+in a group that wants something from it, and it GROWS. What survives is the fuel
+rule: ambiguity is the fuel, confirmation is the off switch.
+Shibutani (1966): rumour is IMPROVISED NEWS, a group's collective problem-solving
+in a situation nobody has defined, appearing exactly when official channels fail,
+do not exist, or cannot be trusted. IN A COLLAPSED CITY RUMOUR IS NOT FLAVOUR, IT
+IS THE PRESS. And it hands over the writing rule: a rumour scene is not one person
+telling another a fact, it is two people trying to work out what happened. Ours are
+announcements. Real ones are DELIBERATION: a question and a partial.
+Vosoughi, Roy and Aral (Science 2018), ~126,000 cascades and ~3 million people: the
+top 1% of FALSE cascades reached 1,000 to 100,000 while TRUTH rarely passed 1,000,
+and falsehood was 70% MORE LIKELY to be passed on. The mechanism is NOVELTY.
+
+AND THE DEEPEST GOSSIP SIMULATION EVER SHIPPED IN A GAME HAS OUR EXACT HOLE:
+rumours start with witnesses and spread one teller at a time, knowledge fades over
+weeks and years, transfer happens where strangers mix. AND NO FALSE RUMOUR EVER
+SPREADS IN IT. The best model in the medium carries only true things and the real
+record says the false ones travel furthest. THAT IS OPEN GROUND AND IT IS OURS.
+A false rumour is the same row in the same organ with one field changed.
+
+THE MAN WHO LIVES (the day 12 axis this round serves): the survivor is not a
+neutral channel. He is a zero-hop eyewitness WITH A MOTIVE, because he has to
+explain to his own people why he is still breathing, and "he let me go" is not an
+explanation that survives. SO THE SPARED MAN'S VERSION ALWAYS OVERSTATES YOU, and
+that is correct, not a bug. The mercy verb feeds the axis a story with a bias in it.
+
+THE SPEC, WHAT A RUMOUR SOUNDS LIKE AT EACH HOP (the engine already knows the number):
+    0   everything: name, place, detail      "I was there. He came up the alley."
+    1   the name and ONE detail              "Ruben says there was a dog."
+    2   the detail, the name is gone         "Somebody let somebody go. That's all I've got."
+    3+  no facts, only a moral               "They didn't have to. That's the part people repeat."
+The name goes first, then the place, then the detail, and what survives longest is
+the MORAL. Which is why a reputation outlives the facts that made it.
+
+ROUTED OUT OF THIS ROUND:
+- PEOPLE: the line picker takes the clout tag and drops the hop count. Pass `hops`
+  alongside `heard` and the four pools above light up for free. Recall already
+  returns it; nothing new is computed.
+- WORLD: a false version of a true deed is the same row with one field changed, and
+  it needs somewhere strangers mix, because news moves where people who do not
+  already share what they know meet.
+- COMBAT: the spared man overstates you. Correct, not a bug.
+- UI: the city feed already reads the deed ledger. A feed post that is WRONG and
+  later corrected teaches more about this world than ten true ones.
+- WORDS, held until MODE: BUILD: NEWS-ABOUT-SOMEBODY-ELSE. One line in 1,669 passes
+  on news about anyone but the player. Write the third-party register and the hop
+  ladder as four pools instead of one.
+
+*** A RULE I HAD BEEN GETTING WRONG, FIXED THIS ROUND. The 8/28 law (YOU ARE THE
+LEAD) says I may research anything and bring back a MECHANIC, but the canon of what
+this game is aimed at is Paolo's list, and a mechanic goes into a brief IN PLAIN
+WORDS WITH NO BORROWED NAME ATTACHED. I checked all eleven of my records: one ROUTED
+line carried a borrowed game name into another lane's brief, and three bank comments
+attached a rule to a game's name. All four are rewritten in plain words this round.
+Research citations stay in SOURCES, where they are sources and not references.
+The 9/5 department split still holds on top of that: FF12 combat only, FF10
+interface only, Rogue Fable 4 combat on the beat, Battle Brothers the campaign
+layer, Las Vegas the city. ***
+
+STILL CARRIED, AND STILL NOBODY'S:
+- UI has now been asked SEVEN rounds running to hold one beat before a line.
+- CHARACTER (Q11): facePerform is called with {} while 229 mood tags sit in the
+  shipped demo. A wire, not a feature.
+- PEOPLE (Q12): the naming engine is correct and unused; no name is ever spoken.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q14 [one-word answers]. When the best games let a character answer in one
+word and why it lands.
+
 EYES AND EARS (eyes-5vql33): 9/5 (e) LATEST -- *** E1 [pixel tells] SHIPPED, AND THE REUSE
 CHECK CHANGED THE JOB. This repo already went to school on 7/27: six of E1's tells are held
 by gates/pixel_craft_gate.py. So I did not rebuild them. I measured WHAT IT COVERS -- 84 of
@@ -496,7 +635,7 @@ green you have.
 
 
 
-WORDS (words-8dqrnq): 9/5 (i) LATEST -- *** VAMILY Q12 [naming people] SHIPPED. NOT ONE
+WORDS (words-8dqrnq): 9/5 (i) -- *** VAMILY Q12 [naming people] SHIPPED. NOT ONE
 PROPER NAME IS SPOKEN ANYWHERE IN THIS GAME. 57 PEOPLE TALK ACROSS 27 QUESTS AND EVERY
 ONE OF THEM IS A JOB TITLE. *** Nothing to judge, MODE: RESEARCH, nothing entered the game.
 

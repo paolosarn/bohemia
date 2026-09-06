@@ -150,9 +150,9 @@ Our quests are the memories, and in ours nobody addresses anybody.
   both are replaceable, exactly like GIVEN and SURNAME.
 - **WORLD / CITY**  Places are types, not names. A vernacular layer over the
   official one costs nothing and is how a real collapsed city talks about itself.
-- **UI**  Obra Dinn's lesson: the interface should RECORD a name the player heard,
-  never hand one over. Anything the player was told is worth less than anything
-  they worked out.
+- **UI**  The interface should RECORD a name the player already heard somebody say,
+  never hand one over. Anything the player was told is worth less than anything they
+  worked out.
 Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, all `draft:true`, none in the game.
 
 ## SOURCES

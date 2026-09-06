@@ -224,7 +224,7 @@ MARKED    [beat] ...That's not this street. You'd want the other end.
 # second one is a man deciding not to tell you.
 
 ### AND THE DEAD END THAT STILL PAYS   draft:true
-# Disco Elysium's rule: a failure returns a DIFFERENT route, never a null.
+# The rule, from the study: a failure returns a DIFFERENT route, never a null.
   I don't know. I know who'd know, and you won't like what he charges.
 # Refuses the question, hands over the next thread and a price in one line.
 
@@ -378,7 +378,7 @@ BROTHER  Pass the salt.                                                [time off
 # THE RULE EVERY LINE BELOW OBEYS: the trade word lands on a NON-TRADE target.
 # A lineman saying "warm cable" about a cable is a technician.
 # A lineman saying a family has been drawing more than the line can carry is a
-# character. Pentiment's model: a background is a PERCEPTION, not a vocabulary.
+# character. The rule, from the study: a background is a PERCEPTION, not a vocabulary.
 # It buys you a line nobody else in the room could have said, about something that
 # is not your job.
 
@@ -735,10 +735,104 @@ BROTHER  Pass the salt.                                                [time off
 # place name in the game. Nobody planned it. That is the proof the register works.
 
 ### AND THE PLAYER LEARNS WHO IS WHO WITHOUT BEING TOLD   draft:true
-# Obra Dinn's rule: the mouths name people, the notebook only records. So the same
+# The rule, from the study: the mouths name people, the notebook only records. So the same
 # person should arrive in the player's head three times before they meet him.
   ONE    Somebody's been drawing off that line for years.
   TWO    It's the man with the blue tank. Everybody knows and nobody says.
   THREE  Amos. Say it out loud or don't say it, but that's who it is.
   MEET   You've heard of me, then. That's usually the bad half.
 # Four lines, and the player worked it out instead of being handed it.
+
+## Q13 -- HOW A RUMOUR TRAVELS  (9/5/26)
+# The finding: we already HAVE a rumour engine (gossip() between minds, hearsay
+# decay 0.55, a hop budget scaled by the clout tag, a quiet deed dying with its
+# witness while a notorious one is what your child gets judged for). Two holes,
+# both in the mouth and both mine:
+#   1. 17 lines in 1,669 carry a hearsay marker and TWELVE are about the player.
+#      Exactly ONE line in the whole game passes on news about anybody else.
+#   2. The engine computes `hops` and the line picker reads only the clout tag,
+#      so a first-hand story and a five-times-retold story say the same sentence.
+# A RUMOUR IN BOHEMIA GETS QUIETER. IT NEVER GETS WRONG.
+#
+# THE RULES EVERY LINE BELOW OBEYS:
+# 1. Deliberation, not announcement. A rumour line ends in a gap, not a fact.
+# 2. What survives depends on the hop count, and the hop count is already computed.
+# 3. Sometimes it is wrong, and the player can go and find out.
+# 4. Ambiguity is the fuel. Confirm the thing and people stop saying it.
+
+### THE SAME EVENT AT FOUR HOPS. One deed, four mouths, one shrinking story. draft:true
+# The deed: the player let a beaten man walk away, in an alley, at night, and the
+# man had a dog with him.
+  HOP 0  I was there. He came up the alley and he didn't finish it. I watched him
+         not finish it.
+  HOP 1  Ruben was there. He says there was a dog, and he says nobody finished
+         anything.
+  HOP 2  Somebody let somebody go. Down that way. That's genuinely all I've got.
+  HOP 3  Whoever it was, they didn't have to. That's the part people keep saying.
+         Nobody remembers the rest.
+# The name goes first, then the place, then the detail. What survives longest is
+# the MORAL, which is why a reputation outlives the facts that made it.
+
+### NEWS ABOUT SOMEBODY WHO IS NOT YOU. We have one line of this. ONE.   draft:true
+# Our only existing example, kept as the anchor:
+#   father: "They're saying the water district's hiring again. I'll go down Monday."
+  They're saying the far pump ran an hour past dark. Nobody's saying who turned it on.
+  The house on the corner has three more people in it than it had last week.
+  Somebody paid a whole month at once. Nobody pays a whole month at once.
+  There was a truck at four in the morning and it came back empty.
+  The old man on the roof stopped coming down. That's the second week.
+  They took the sign off the door. That's usually the last thing that happens.
+# Not one of these is about the player. Every one is a thing you could go and check.
+
+### DELIBERATION, WHICH IS WHAT A REAL RUMOUR IS   draft:true
+# Rumour is improvised news: a group working out what happened because nobody
+# official is going to tell them. So it is a QUESTION and a PARTIAL, not a report.
+  A  You hear about the corner?
+  B  I heard something about the corner. I don't know if it's the same something.
+  A  Three people, or one person three times?
+  B  See, that's the bit nobody can tell me straight.
+  A  Then it's one person. It's always one person when nobody can count them.
+  B  That's not knowing. That's just you deciding.
+  A  It's what I've got until somebody gives me better.
+# Nobody in that exchange learns a fact. That is the accurate part.
+
+### THE FALSE ONE, WHICH TRAVELS FURTHEST   draft:true
+# Measured on 126,000 real cascades: the top 1% of FALSE stories reached 1,000 to
+# 100,000 people while the truth rarely passed 1,000, and falsehood was 70% more
+# likely to be passed on. Novelty is the reason. The deepest gossip simulation in
+# games spreads no false rumour at all, so this is open ground.
+  TRUE, DULL      Somebody fixed the pad on the far pump.
+  FALSE, TRAVELS  Somebody put a body in the far pump. That's why it runs hot.
+  TRUE, DULL      He paid what he owed and left.
+  FALSE, TRAVELS  He paid in cells nobody's seen since before the water went.
+  TRUE, DULL      The old man stopped coming down because his knee went.
+  FALSE, TRAVELS  The old man stopped coming down because of what he can see from up there.
+# AND THE HARD RULE: a false rumour the player cannot disprove is noise. Every one
+# of these has a place you can walk to and a person you can ask.
+
+### THE CORRECTION, WHICH IS THE PAYOFF   draft:true
+# The player goes and looks. Now they know something the street does not.
+  So it wasn't a body.
+  It was never a body. It's a bearing. It's been a bearing for a month.
+  You going to tell them?
+  I'm going to tell two people and see which version comes back to me.
+# That last line is a whole quest with no quest in it.
+
+### THE MAN WHO LIVES, TELLING IT HIS WAY   draft:true
+# The spared man is a zero-hop eyewitness WITH A MOTIVE. He has to explain to his
+# own people why he is still breathing, and "he let me go" is not an explanation
+# that survives. So his version overstates you, and that is correct, not a bug.
+  WHAT HAPPENED  He stopped. He looked at me and he stopped.
+  WHAT HE SAYS   You didn't see him. There was no walking away from that one.
+  WHAT HE SAYS   I've been doing this eleven years. I know when it's finished.
+  WHAT HE SAYS   Ask anybody who was up that end. Ask them what it sounded like.
+# Nobody was up that end. The player gets a reputation they did not earn, from a
+# man protecting himself, and that is the truest thing in this whole section.
+
+### AMBIGUITY IS THE FUEL, AND CONFIRMATION IS THE OFF SWITCH   draft:true
+# R = importance x ambiguity. Settle it and the talking stops.
+  BEFORE  Nobody knows who owns that tank and everybody's got an answer.
+  BEFORE  Six people have told me six things and all six sounded sure.
+  AFTER   Turns out it's just Amos. Nobody's said a word about it since.
+  AFTER   It's boring now. It was better when nobody knew.
+# The last line is the one that tells the player what this city runs on.
