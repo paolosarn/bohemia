@@ -9037,7 +9037,64 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 LATEST -- *** [weekly goal] SHIPPED. The card you see at
+RUN (run-eak241): 9/6 IN FLIGHT -- *** [animal first] HANDED BACK TO OPEN
+(blocked on CHARACTER), [drop in] CLAIMED AND MEASURED. Nothing shipped to the
+game this round; two findings did. ***
+
+=== [animal first]: MEASURED, BLOCKED, HANDED BACK ===
+The row's own dependency is "the four-legged renderer exists (CHARACTER [animal
+rig] proves it)" -- AND THAT ROW IS STILL OPEN, its whole job being to prove it.
+So I measured instead of inheriting the claim.
+WHAT IS THERE: the coyote is real and already inlined in the walked city (eight
+animals, 16x16, rest/look/go, 45 degree law). AND SCALE IS NOT THE BLOCKER, which
+was the surprise: the draw path already runs the ladder
+C>=64?64:(C>=32?32:(C<17?8:16)), whose own comment says it is "the same one the
+player and the residents use", so a 16px source already reaches the glass at 64.
+WHAT IS NOT THERE, and both halves are a rig pass:
+  1. NO FACINGS AT ALL (the player rig is 56 with eight; plain drawImage, no flip)
+  2. *** THE ONE MOTION FRAME EVERY ANIMAL HAS IS NEVER DRAWN. *** Both draw
+     sites pick between two frames only (42789 rest/look, 42921 look/rest), so
+     `go` is baked into all eight animals WITH ZERO CALLERS. Nothing in this game
+     has ever moved on four legs.
+ONE SYSTEM ONE SESSION: the rig is CHARACTER's. Handed back to OPEN.
+Record: records/BOHEMIA_THE_COYOTE_EXISTS_AND_CANNOT_TURN_9_6_26.md
+
+=== [drop in] THE-FIRST-MINUTE-IS-THE-PROMISE: MEASURED ON THE SERVED DEMO ===
+Sixty seconds of real time, walking on the beat, tapping cards the way a stranger
+would:
+      6.5s  the walked world is up
+     14.9s  CARD: DAY 1
+     15.6s  TEACHING: WALK WITH THIS
+     27.8s  TEACHING: THE PHONE IS HOW THEY REACH YOU
+     40.4s  TEACHING: STEP BACK AND SEE THE CITY
+     60s    nothing else. 13 tiles walked, ONE in-game minute spent.
+*** UI'S TEACHING WORKS AND IT PACES THE WHOLE MINUTE -- AND ALL THREE NUDGES ARE
+CONTROL LABELS. *** The row asks for "the pad, then SOMETHING TO LOOK AT, then
+SOMEBODY WHO WANTS SOMETHING FROM THEM". Today the first minute teaches the
+interface and delivers no world: nothing to look at, nobody who wants anything.
+NEXT ROUND, and both parts already exist somewhere:
+  * SOMETHING TO LOOK AT -- the road moments fire on the walked street now (this
+    lane's own [street encounters], 9/5). None fired inside the first minute.
+  * SOMEBODY WHO WANTS SOMETHING -- the phone RINGS with the day's job; the
+    ending's untaken branch literally says "the number that called you this
+    morning". It did not ring inside the first minute either.
+So the likely job is ORDER AND TIMING of things that already work, not new
+content. MEASURE BEFORE BUILDING: find when the morning call actually fires and
+why no road moment landed in sixty seconds of walking.
+
+THREE HARNESS TRAPS PAID AGAIN THIS ROUND, ALL MINE, ALL CAUGHT BEFORE THEY
+BECAME FINDINGS:
+  1. Pressed one direction blind -> walked into a wall, clock frozen at 06:00,
+     and it read as "the world is empty". ASK THE GAME WHICH WAY HAS ROOM (the
+     cellAt walk-run scan in the_time_not_the_taps_gate.js is copy-ready).
+  2. Looked for the teaching by an element id I INVENTED (teachcap). The real
+     ones are teachwrap / teachring / teachcss, and teach_gate.js knows them.
+     DYNASTY wrote this exact lesson up on 9/5 and I paid it the same round.
+  3. Never tapped the cold-open card, so it sat up for the whole minute and the
+     probe reported ONE event. A harness standing still is not an empty game.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [weekly goal] SHIPPED. The card you see at
 the end of every day now tells you what you are working on: ONE MORE FACTION
 WITH YOU, and how far along you are. It was already in the game, behind a button
 nobody presses. TAB: RUN, play a day and sleep. Nothing to judge. ***
