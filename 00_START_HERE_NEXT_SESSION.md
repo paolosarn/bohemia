@@ -1,3 +1,80 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 6) LATEST -- *** [hidden factions]
+THE-OTHER-FOUR SHIPPED. Four factions in his own graph could never appear on a
+single person, and each already had a line nobody could hear. All four are now
+reachable AND hearable on the demo. *** Nothing to judge.
+
+VAMILY row: [hidden factions] THE-OTHER-FOUR, MODE: BUILD, SHIPPED 9/6.
+Record: records/BOHEMIA_THE_FOUR_THAT_HOLD_NO_GROUND_9_6_26.md
+
+WHAT THE ROW ASKED FOR FIRST WAS A MEASUREMENT, AND IT WAS DAMNING
+5,148 people, 566 affiliated, across EXACTLY the fourteen selectable outfits.
+Pures, Panthers, La Familia and Triads: ZERO people, four authored lines, none
+of them hearable.
+
+IT WAS NOT A BUG. factionOf reads the fourteen SEATS and his graph gives these
+four none, correctly -- he types them `social_force` and the note says "MEMBERS
+INSIDE OTHER FACTIONS. Larger in act1 (crash drove identity clustering), fixed
+ceiling, stagnant across acts." Not a place. A hidden second affiliation. No
+bigger base list could ever have reached them.
+
+*** THE PART THAT MATTERS MOST IF YOU TOUCH THIS. ***
+WHICH ONE ORGANIZES A BLOCK is derived. WHO BELONGS is never read off a person.
+The obvious reading of four identity-supremacist groups is that membership
+follows heritage; the game models no heritage (personOf carries a look seed, an
+id seed, a language, a role) and inventing one to assign somebody to a
+supremacist group would be authoring the most sensitive content in his canon.
+Geography is what his own note describes -- "identity CLUSTERING" -- and the gate
+locks it structurally: one person walked across the map comes back as more than
+one of the four, which a heritage rule could not do. DO NOT "improve" this by
+adding an ancestry field.
+
+MEASURED
+  people who could carry one      0 of 5148  ->  94 (1.83%)
+  of the four, reachable                  0  ->  4 of 4
+  authored lines a player can hear   0 of 4  ->  4 of 4
+  rich half of the valley                        0.81%
+  poor half                                      2.19%
+  blocks with one organizing them       1968 of 9216 (21.4%)
+  block-level spread                    515/491/482/480, even
+
+Panthers 55 against Triads 6 is REPORTED, NOT TUNED. The block draw is even; the
+imbalance is that Panthers landed on populous blocks. Flattening it would erase
+the geography that makes the layer mean anything. Worth watching whether a player
+can go a whole game without meeting a Triad.
+
+TWO THINGS THAT WOULD HAVE SHIPPED WRONG
+1. THE POVERTY SCALING WAS DEAD ON ARRIVAL. It asked how rich a block is as a
+   SHARE OF THE RICHEST, and the richest is the Strip: 2,267,749 against a second
+   place of 209,223. Everything else rounded to zero, so a scale built to
+   separate rich from poor put 5,049 of 5,148 people in ONE BUCKET. It is a RANK
+   now. Any future "how good is this ground" question should use worthRank, never
+   worth over max.
+2. A CARRIER COULD NOT SAY ANYTHING. The bucket went below bucket(person.role),
+   which answers for everybody. 40 carriers, six acts each, 240 askings, ZERO
+   lines. This organ already carries a paragraph on the identical defect for
+   reactions.
+
+GATES  faction between 182/0 (new pass V, on the demo file a stranger opens),
+       faction membership 74/0 (extended, not duplicated), turf 36/0
+
+[PENDING Paolo] -- TWO NOW
+  1. Anarchists ("territorially inconsistent"), Colorful ("Community-based not
+     territorial") and Custom ("Player faction. No preset philosophy") are told
+     by his own notes NOT to hold ground, and still get a seat and a territory.
+     Whether they should hold ground AT ALL is his ruling.
+  2. WHAT THE FOUR DO TO YOU. They exist and can be met; what it COSTS to be
+     seen with one, or to be taken for one, is unwritten. That is a real fork
+     about the game, not a number.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [colours fixed]  COLOUR-AUDIT -- worth more than it was: UI [owner shown] and
+    COOK [border marked] are both blocked on a faction colour number that does
+    not exist anywhere outside the alpha's wardrobe
+  [crossing costs]  THE-WRONG-COLOUR-REACTS -- has a real border to cross now
+  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- already decided, just needs the dial
+
+--------------------------------------------------------------------------------
+
 EYES AND EARS (eyes-5vql33): 9/5 (h) LATEST -- *** E5 [missing sound] SHIPPED, AND E4'S
 ALARM IS WITHDRAWN. The footstep chain WORKS end to end (31 walked cells, 31 calls, 32
 renders). But STAND STILL FOR 35 SECONDS WITH THE DAY STARTED AND THE ENGINE RUNNING AND THE
