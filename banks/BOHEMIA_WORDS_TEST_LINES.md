@@ -1134,3 +1134,125 @@ BROTHER  Pass the salt.                                                [time off
   It went in on Tuesday. The number came back half. Half. Say that out loud and
   then tell me what the other half was.
 # Nobody throws a punch and a faction just lost a street.
+
+## Q17 -- WHAT A DISTORTED RUMOUR SOUNDS LIKE  (9/5/26)
+# The finding: a rumour is only catchable if it tells you where to go and look.
+# Measured: 249 lines name a place a player could walk to, 17 lines pass on
+# something second-hand, and ZERO lines do both. Every rumour in this game is
+# unfalsifiable because it never gives an address.
+#
+# THE THREE MECHANICS, all separate behaviours, all grounded:
+#   DROPPED     socially shared retrieval-induced forgetting. Retelling half a
+#               story destroys the OTHER half, in the listener too, so a street
+#               ends up with ONE version and everybody has the same hole in the
+#               same place. Not random decay. STRUCTURED and SHARED.
+#   ADDED       Bartlett's rationalisation. What cannot be understood is either
+#               dropped or explained with NEW material. A rumour acquires a CAUSE
+#               it never had, and the cause is what that street already believes.
+#   MISATTACHED source monitoring failure plus the sleeper effect. People confuse
+#               what they were TOLD with what they SAW, and the hedge decays
+#               faster than the claim. So at three hops the doubt is gone and
+#               somebody says "I was there", and is not lying.
+#
+# AND THE TRAP: research on how players read deception finds that what decides
+# whether a false line reads as a LIE or a BUG is whether it seems authored. An
+# unmarked falsehood is indistinguishable from a defect and gets reported as one.
+# So every one below carries a hop count and an address.
+
+### TEN TRUE RUMOURS AND THEIR THREE-HOPS-LATER VERSIONS   draft:true
+# Format: the true thing, then hop 0 (a witness), then hop 3. Read the pairs.
+# Names are from the engine's own generated pool. Nothing here is canon.
+
+  1 TRUE   Amos ran the east pump an hour past dark to finish a tank.
+    HOP 0  I was on the step. Amos had the east pump going an hour past dark. He
+           was finishing a tank, that is all it was.
+    HOP 3  They run that pump all night on the east side. Somebody is selling it.
+           [DROPPED: the tank, which is the reason. ADDED: selling, which is what
+            this street assumes about everything.]
+
+  2 TRUE   Consuelo paid a whole month at once because her brother sent money.
+    HOP 0  Consuelo paid the whole month in one go. Her brother sent it up.
+    HOP 3  Consuelo has got money from somewhere and she is not saying where.
+           [DROPPED: the brother. The gap fills with suspicion.]
+
+  3 TRUE   Ruben fixed the corner tap on a Tuesday and would not take anything.
+    HOP 0  Ruben did the corner tap Tuesday. Would not take a thing for it.
+    HOP 3  Somebody fixed the corner tap. I think it was one of the Reds, doing
+           it to be seen.
+           [MISATTACHED: a name swapped for a faction, and a motive invented.]
+
+  4 TRUE   A man with a dog stopped moving on the roof four days ago.
+    HOP 0  There is a man on that roof who has not moved in four days, and a dog
+           up there who has not accepted it.
+    HOP 3  There is a dog living on the roof over there. Been up there weeks.
+           [DROPPED: the man. What survives is the strangest image, not the worst
+            fact. That is sharpening and it is why rumours get lighter as they
+            get older.]
+
+  5 TRUE   The lit street has been lit eleven years and nobody has changed a bulb.
+    HOP 0  Eleven years that street has been on. Nobody has ever changed a bulb.
+    HOP 3  Nothing on that street has ever gone out. Not once. There is a reason
+           and nobody will say it.
+           [ADDED: "there is a reason and nobody will say it." Rationalisation:
+            an unexplained fact grows an explanation-shaped hole.]
+
+  6 TRUE   Marisol told the collector she had eleven and he wanted nineteen.
+    HOP 0  Marisol told him straight out. Eleven in the tin, nineteen on his book.
+    HOP 3  Somebody on that block told the collector no. To his face.
+           [DROPPED: the numbers, which were the whole truth of it. What survives
+            is the shape of the story, which is a person standing up.]
+
+  7 TRUE   Delroy carried pipe to the same yard twice and was paid cash.
+    HOP 0  Delroy has carried pipe to that yard twice now. Cash both times.
+    HOP 3  I have carried pipe to that yard. Cash both times. You do not ask.
+           [MISATTACHED, AND THE WORST KIND: the teller has taken the story into
+            the first person. He is not lying. He believes he was there.]
+
+  8 TRUE   The Reds put a wall up on the north side last month.
+    HOP 0  The Reds walled the north side. Went up last month.
+    HOP 3  The Reds have walled off half the valley and they are not stopping.
+           [EXAGGERATED. One wall becomes half a valley, and a completed thing
+            becomes an ongoing threat. Both are what a frightened street does.]
+
+  9 TRUE   Two men came to the short block carrying pipe and left.
+    HOP 0  Two men on the short block this morning. Carrying pipe. Then gone.
+    HOP 3  They were going door to door on the short block. Everybody saw it.
+           [ADDED: a purpose. And "everybody saw it", which is the crowd being
+            invoked as a source by somebody who saw nothing.]
+
+ 10 TRUE   Somebody put a meter on the line and the bill came back half.
+    HOP 0  He got the box put on. Bill came back half. Half.
+    HOP 3  You can make him halve it. People have done it. Go and ask.
+           [The rare one that gets BETTER: a fact becomes an instruction, and the
+            instruction is true. A rumour is how a street teaches itself.]
+
+### THE HEDGE WEARING OFF, WHICH IS THE SLEEPER EFFECT ON A PAGE   draft:true
+# The doubt is the FIRST thing to go, faster than the claim it was attached to.
+  HOP 0  Somebody told me, and I do not believe him, that the east pump ran past dark.
+  HOP 1  Somebody reckons the east pump ran past dark. Take it how you like.
+  HOP 2  The east pump ran past dark. That is what I have got.
+  HOP 3  The east pump runs past dark.
+# Four lines. Nothing was added. Only the doubt was removed, and by the fourth
+# line it is a fact about the world.
+
+### THE SAME HOLE IN THE SAME PLACE, WHICH IS THE SHARED PART  draft:true
+# Retelling destroys the untold half in the LISTENER too, so a street converges.
+# Two people at three hops should be missing the SAME detail, not different ones.
+  A  Amos had that pump going past dark.
+  B  Past dark, yes. Everybody says past dark.
+  A  Doing what, though.
+  B  Nobody says. I have asked three people and not one of them says.
+  A  Then it was not important.
+  B  Or it was the only part that was.
+# Neither of them ever knew about the tank. Neither of them can get back to it.
+# That is the accurate and the frightening part.
+
+### AND THE ONE THAT MAKES IT CATCHABLE: AN ADDRESS   draft:true
+# Zero of our 17 rumours name a place. Every one of these does, and the walk is
+# short, because a lie the player cannot check reads as a bug, not as a lie.
+  They are keeping somebody in the back of the laundry. Go and look if you want.
+  There is nothing left in the storefronts past the dead block. Nothing. Go and see.
+  The far standpipe runs clean now. It does not. But that is what they are saying.
+  Ask at the kennel. The dog is not there and it never was.
+# The third one is the shape to copy: the rumour, then a person who has actually
+# been, then the rumour continuing anyway.

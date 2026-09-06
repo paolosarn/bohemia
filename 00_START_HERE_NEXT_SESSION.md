@@ -1,3 +1,125 @@
+WORDS (words-8dqrnq): 9/5 (n) LATEST -- *** VAMILY Q17 [rumour words] SHIPPED, AND THE
+WORDS RESEARCH QUEUE IS NOW EMPTY. 249 LINES NAME A PLACE YOU COULD WALK TO, 17 PASS
+ON SOMETHING SECOND-HAND, AND ZERO DO BOTH. *** Nothing to judge, MODE: RESEARCH,
+nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q17 [rumour words], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q17_WHAT_A_DISTORTED_RUMOUR_SOUNDS_LIKE_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q17, all draft:true.
+Ten true rumours and their three-hops-later versions, as the row asked for.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE MEASUREMENT. A lie a player can catch needs two things: a claim the speaker did
+not witness, and somewhere to go and check it. Counted both across 1,669 NPC lines:
+    lines naming a place you could walk to      249   14.9%
+    lines passing on something second-hand       17    1.0%
+    LINES THAT DO BOTH                            0    0.0%
+Two hundred and forty-nine addresses, seventeen rumours, and the intersection is
+EMPTY. Our rumours are about the player's reputation, which has no address, and our
+places are named by people standing in them, who are therefore not reporting.
+AND A CONTRADICTION IS STRUCTURALLY IMPOSSIBLE TODAY: catching a lie by
+contradiction needs two accounts of ONE event, and Q13 measured that exactly one
+line in this game passes on news about the world. One account cannot disagree.
+PEOPLE's row A-RUMOUR-ABOUT-SOMEBODY-WHO-IS-NOT-YOU is still OPEN, so the words are
+ahead of the mechanism. Correct order, and the spec can be built in rather than
+retrofitted.
+
+THE THREE MECHANICS, AND THEY ARE THREE DIFFERENT BEHAVIOURS:
+WHAT GETS DROPPED, AND IT IS NOT THE UNIMPORTANT PART. Socially shared
+retrieval-induced forgetting: when a speaker selectively retells part of a shared
+memory, BOTH speaker and listener then forget the UNMENTIONED BUT RELATED material
+more than unmentioned unrelated material, shown on well-rehearsed emotionally
+intense memories. So TELLING HALF A STORY ACTIVELY DESTROYS THE OTHER HALF, IN THE
+LISTENER TOO, and speaker and listeners come to remember and forget the same way.
+A street does not end up with many partial versions. It ends up with ONE version
+and EVERYBODY HAS THE SAME HOLE IN THE SAME PLACE.
+*** THIS IS THE FINDING THAT PROVES ME WRONG. I would have modelled distortion as
+random decay, details falling off at random per hop. The evidence says the loss is
+STRUCTURED and SHARED: the detail next to the repeated one dies, for everyone at
+once. That is one seed, not one roll per listener, so it is also CHEAPER. ***
+WHAT GETS ADDED. Bartlett's rationalisation appeared in almost every chain: what
+cannot be understood is either dropped OR EXPLAINED WITH NEW MATERIAL, and the
+unfamiliar is swapped for the nearest familiar thing (canoes became boats, hunting
+became fishing). So a rumour does not only shrink, IT ACQUIRES A CAUSE IT NEVER HAD,
+and the cause is what that street already believes. The invented half is where the
+player learns about the PLACE rather than the event.
+WHAT GETS ATTACHED TO THE WRONG PERSON, which is two things at once. Source
+monitoring failure: people CONFUSE WHAT THEY WERE TOLD WITH WHAT THEY OBSERVED. And
+the sleeper effect (meta-analysis of 72 experiments): the discounting cue and the
+message come apart, so the claim outlives the doubt. Two writable lines:
+    1. THE DOUBT EVAPORATES BEFORE THE CLAIM. "Somebody told me and I don't believe
+       him, that the pump ran past dark" becomes, three hops later, "the pump runs
+       past dark." The hedge goes first.
+    2. AND THE TELLER COMES TO BELIEVE THEY SAW IT. At three hops the honest line
+       is not "I heard" but "I WAS THERE", said by somebody who was not, and who is
+       not lying. THAT IS THE BEST LINE IN THE ROUND: everybody is honest and the
+       story is still wrong.
+
+HOW TO WRITE A LIE A PLAYER CAN CATCH, AND THE TRAP IN IT: a statement is checkable
+when it is OBSERVABLE, when the player can go to a named place and corroborate it.
+The other pattern is contradiction, one person refuted by a second. AND THE TRAP IS
+A REAL FINDING, NOT A CAUTION I INVENTED: research on how players read deception
+finds that what decides whether a false statement reads as a LIE or as a BUG is
+WHETHER IT SEEMS AUTHORED. A player who cannot tell a written lie from a broken
+quest files it as broken and stops trusting every NPC including the honest ones. So
+a false rumour must arrive with its own fingerprints: a hop count, a worn-off hedge,
+a shifted name, or a second person who says it differently.
+
+ROUTED OUT OF THIS ROUND:
+- PEOPLE, for A-RUMOUR-ABOUT-SOMEBODY-WHO-IS-NOT-YOU, three things cheaper than they
+  sound: a rumour needs a PLACE FIELD, because an address is what makes it
+  checkable; distortion should be SHARED not per-mind (one seed per telling, so
+  everyone loses the same detail); and the hedge and the source should decay FASTER
+  than the claim, which is one extra number on the row.
+- QUESTS: a false rumour with an address is a quest nobody had to author.
+- UI: a rumour the player has checked and disproved must look different from one
+  they have not, or they cannot tell a written lie from a defect.
+- WORDS, held until MODE: BUILD: A-RUMOUR-WITH-AN-ADDRESS.
+
+*** THE WORDS RESEARCH QUEUE IS EMPTY. Q1 to Q17 all SHIPPED, each with a record in
+records/ and a draft:true section in banks/BOHEMIA_WORDS_TEST_LINES.md (1,258 lines).
+WHAT REMAINS IN THIS LANE IS FOUR BUILD ROWS, ALL HELD UNTIL PAOLO RETURNS THE LANE
+TO MODE: BUILD: BB-THE-SMALL-MOMENT [small moments], BB-STILL-SAYS-IT [trade slang],
+BB-RESPONSIVE [reputation lines], SECOND-VOICE-PASS [voice pass]. Plus eight rows
+this queue generated, which only the coordinator can add: ONE-LINE-PER-TRADE,
+KILL-THE-DISCLAIMER, MOOD-ON-EVERY-LINE, SAY-THE-NAME, NEWS-ABOUT-SOMEBODY-ELSE,
+ANSWER-IN-ONE-WORD, THE-FEED-HAS-PEOPLE-IN-IT, THE-COLLECTOR-HAS-A-DOOR,
+A-RUMOUR-WITH-AN-ADDRESS. If the next VAMILY finds no takeable row, the honest
+answer is "queue empty" and the lane waits for the coordinator. ***
+
+THE ONE THING THAT WOULD UNBLOCK THE MOST, ACROSS FIVE ROUNDS: facePerform is called
+with {} while 229 mood tags ride in the shipped demo (Q11, Q14); 64 given names are
+never spoken (Q12, Q15); the hop count is computed and never spoken (Q13, Q15, Q17).
+WE KEEP BUILDING THE HARD HALF AND SKIPPING THE WIRE.
+
+STILL CARRIED:
+- UI has now been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
 FACTIONS (factions-ovkjpf): 9/6 (round 7) LATEST -- *** [colours fixed]
 COLOUR-AUDIT SHIPPED. Every faction already HAD a colour and it was locked inside
 a browser; three rows were stopped on it. It is a published number now and the
@@ -478,7 +600,7 @@ mine and not this lane's.
 NEXT IN THIS LANE: Q16 [debt spiral].
 
 ================================================================================
-WORDS (words-8dqrnq): 9/5 (m) LATEST -- *** VAMILY Q16 [cut off] SHIPPED. A CUT-OFF IS
+WORDS (words-8dqrnq): 9/5 (m) -- *** VAMILY Q16 [cut off] SHIPPED. A CUT-OFF IS
 NOT SAID. IT IS A BREAKER TRIPPING AND THE FRIDGE STOPS, AND THE MOST COMMON WAY YOUR
 POWER GOES OUT IS YOUR OWN KETTLE. *** Nothing to judge, MODE: RESEARCH, nothing
 entered the game.
