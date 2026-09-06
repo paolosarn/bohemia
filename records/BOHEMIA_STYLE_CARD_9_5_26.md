@@ -111,9 +111,40 @@ included. Every span rule below reads against those two numbers.
           "ankle_taper_max_px112": 3, "boot_base_px112": 4}
   },
   "banned": ["purple", "second saturated piece", "pure black", "pure white"],
-  "coat_cap": 0.10
+  "coat_cap": 0.10,
+  "ground": {"colours_per_kpx_min": 4.5, "ramp_hue_shift_deg_min": 3.0,
+             "rulers": {"density": "tools/bohemia_eyes_reference_score.py colours_per_kpx",
+                        "hue": "mean adjacent-step hue delta, luminance-ordered, usage-weighted, sat>=0.08"},
+             "scope": "new and re-cooked ground tiles from 9/6; CBB-frozen act-1 set exempt until its re-cook row"}
 }
 ```
+
+## 5A. THE GROUND FLOOR (density ruling, 9/6 — VAMILY [density ruling])
+EYES' 42-tile score sheet and texture_match_gate agree from two different
+directions: the act-1 re-cook is too clean beside the art he approved.
+DIRECTION re-measured BOTH sets with EYES' own ruler before ruling, and
+the honest result is narrower than the headline: the disease is COLOUR
+DENSITY (approved ground runs 4.6-91.9 colours/kpx, median 12.7; the
+re-cook runs 2.6-4.1, median 3.4 — every tile leaner than the leanest
+tile he ever approved), while HUE VARIATION, measured stably (mean hue
+delta between adjacent used colours, luminance-ordered, usage-weighted),
+is fine on most of the re-cook (median 7.1 deg vs approved 6.8) and
+truly dead only on the yards (1.1 deg, hue-flat AND density-poor).
+THE FLOORS, set at the leanest art he approved — no cleaner than
+anything that ever got his yes, and no stricter either:
+- COLOUR DENSITY: a ground tile holds >= 4.5 unique colours per 1000 px
+  (8-quantized — EYES' colours_per_kpx ruler, tools/bohemia_eyes_
+  reference_score.py). pz_0, his leanest approved paving, sits at 4.6.
+- HUE VARIATION: mean adjacent-step hue delta >= 3.0 deg (bare_plot_0,
+  his leanest approved, sits at 3.0). A ramp that only darkens is flat
+  however many steps it has — the 7/27 craft law, now with a number.
+- LAW 0 STANDS: a tile is decisions, not a shrunk painting. The floor
+  bans PLASTIC, not cleanliness; a deliberate clean flat above the floor
+  is a style, below it is drift.
+- SCOPE: binds every NEW or RE-cooked ground tile from 9/6. The frozen
+  act-1 set stays byte-locked under his CBB verdict (a gate does not
+  overrule a verdict, 7/27); when its re-cook row opens, these floors
+  are the bar it is cooked to.
 
 ## 5. HOW A COOK USES IT (three sentences)
 Pick the pole, name it and the RNWY entries in your REFERENCE CHECK,
