@@ -222,6 +222,25 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('FIRST TEACHING', ['node', 'gates/teach_gate.js'],
+     'Board row [first teaching]: "the pad, the phone, DROP IN; nothing exists; measure with '
+     'the cold hand", and measuring first proved every word of it -- no onboarding of any '
+     'kind in the walked city. WHAT THE COLD HAND MEETS: the splash carries ONE control (TAP '
+     'TO ENTER) and one tap later the screen carries TWENTY, and the RUN lane\'s own '
+     'cold_hand_gate presses the loudest thing forty times, finding the walk pad exactly ONCE '
+     'before a panel GO button takes the next thirty-six presses. The pad was never missing; '
+     'it was one ring among twenty things. So: three nudges, ONE AT A TIME, each a ring on the '
+     'REAL control plus one short line, cleared by DOING THE THING and never seen again. No '
+     'modal, no OK button, nothing to dismiss -- the house style is "a signifier, not a '
+     'tutorial", and the overlay is pointer-events:none end to end so a player who ignores it '
+     'plays the game unchanged. THE WORDS ARE ENGLISH BY RULE, not preference: language_gate '
+     'holds that LANGUAGE NEVER GATES REQUIRED INFORMATION, and how to move is required '
+     'information. Two findings are frozen into legs here because both were invisible to the '
+     'obvious instrument: the pad is a RING with DROP IN sitting in its hole, so asking what '
+     'is under a thumb at the pad\'s centre answers "the mode button" forever; and the city '
+     'runs in a FRAME the shell draws over, so this document cannot see the cold-open card '
+     'lying across the phone chip -- the lesson asks the shell what is topmost, for the '
+     'control AND for its own sentence, and holds rather than rendering a ghost.', True),
     ('SETTINGS',       ['node', 'gates/settings_gate.js'],
      'Board row [settings pause]: "volume, mute, quit, save; nothing exists", and measured '
      'before building it was exactly true -- ZERO settings surfaces in the walked city, no '

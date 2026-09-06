@@ -12742,6 +12742,75 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/6 (a) LATEST -- *** [first teaching] BUILT. THREE NUDGES, ONE AT A
+TIME, CLEARED BY DOING THE THING. AND TWO THINGS THAT WERE INVISIBLE TO THE OBVIOUS
+INSTRUMENT. ***
+
+WHAT THE COLD HAND ACTUALLY MEETS, measured on a served demo at 390x844 with no
+storage BEFORE a line was written: the splash carries ONE control (TAP TO ENTER) and
+one tap later the screen carries TWENTY. The RUN lane's own cold_hand_gate presses the
+loudest thing forty times and finds the walk pad exactly ONCE before a panel's GO
+button takes the next thirty-six presses, clock never moving. THE PAD WAS NEVER
+MISSING. It is one ring among twenty things and it reads as decoration.
+
+THE BUILD. Three nudges, one at a time, in BOHEMIA_CITY_WORLD.html: the pad, then the
+phone, then DROP IN. Each is a ring on the REAL control plus one short line above it.
+No modal, no OK button, nothing to dismiss -- this file's own words are "a signifier,
+not a tutorial", and the overlay is pointer-events:none end to end, so a player who
+ignores it plays exactly the game that shipped before. A step clears by DOING THE
+THING; doing a LATER thing clears the earlier ones (somebody who found the phone alone
+is not told where it is); a step gives up after 24 beats so it cannot nag; a flag
+retires the whole thing after one run. It pulses on the beat (BEAT=500).
+
+THE WORDS ARE ENGLISH BY RULE. language_gate: "LANGUAGE NEVER GATES REQUIRED
+INFORMATION." Flavour Spanglish belongs in people's mouths; how to move is required
+information. The three lines are attempts, draft:true, his to edit.
+
+*** TWO FINDINGS THAT THE OBVIOUS INSTRUMENT COULD NOT SEE. Both are now legs. ***
+  1. THE PAD IS A RING WITH A HOLE, AND DROP IN SITS IN THE HOLE. "Is this control
+     under a thumb?" asked at the pad's own centre answers "the mode button", every
+     time, forever. A reachability test built on the centre can never come true, and
+     it took four legs of the new gate red before the shape of the control explained
+     it. Probe a button the pad actually has, never the middle of it.
+  2. THE CITY RUNS IN A FRAME AND THE SHELL DRAWS OVER IT. The shell's cold-open card
+     lies across the top of the screen, exactly where the phone chip is, and this
+     document cannot see it: elementFromPoint inside the frame said the chip was
+     perfectly clear while the caption rendered as a GHOST underneath the card. Caught
+     on a screenshot, not by a gate. The fix asks the SHELL what is topmost (same
+     origin, one document up) -- and it asks for the SENTENCE as well as the control,
+     because checking the control and not the words is checking half the thing.
+     Naming the card would have fixed only today's card.
+
+AND I FIXED MY OWN DEFECT FROM LAST ROUND, caught in the same screenshot: the settings
+gear sat on top of the cold-open card and covered the first word of its second line
+("The family, the table, ten years ago" read as "amily, the table"). The gear now
+stands down while the cold open is asking, and comes back the moment it is answered. A
+settings button is never worth a word of the opening.
+
+GATE: gates/teach_gate.js, 17 ok 0 failed, registered in the suite. Mutation-proved
+twice on purpose (teach the phone first -> 3 legs red; let the overlay eat presses -> 5
+legs red, including the overlay itself caught under the thumb), and the shell-cover leg
+proves itself before/during/after in one shot.
+
+A TRAP THAT COST TWO ROUNDS OF DEBUGGING, WRITE IT DOWN: THE CITY'S LAST SCRIPT IS 232
+KB AND A FIXED SLEEP GRADES A HALF-PARSED PAGE. At nine seconds the frame had EIGHT
+script elements and this build's object did not exist; at the same wait on another run
+it had nine and did. cold_hand_gate.js records the same trap ("four probes were fooled
+by that in one round"). WAIT FOR SOMETHING DEFINED ON THE LAST LINE, never for seconds.
+
+FOR THE COORDINATOR -- THE COLD HAND IS RED AND IT IS NOT UI's. gates/cold_hand_gate.js
+fails 2 of 6 on main AND identically at 16737db7 (checked in a worktree, before this
+lane's settings work landed), so it is pre-existing, not something UI broke. The trail:
+a stranger presses shell:front, WATCH, STANDING, the pad ONCE, and then a panel's GO
+button thirty-six times while the clock never moves. THAT IS THE RUN LANE'S OWN ROW
+(BB-COLD-HAND) and the teaching shipped this round does not fix it -- teaching where
+the pad is does not help a player a panel will not let go of. Worth putting in front of
+whoever owns the panels.
+
+STILL TRUE FROM LAST ROUND: fix the alpha, THEN cut the demo, THEN run the gate --
+settings_gate and teach_gate both load BOHEMIA_DEMO.html. And check the build-stamp
+letter after every rebase; it conflicts every single time.
+
 UI (ui-kmqmrf): 9/5 (g) LATEST -- *** THE SETTINGS SCREEN WAS QUIETLY CHANGING THE
 SOUND OF THE GAME'S OWN TESTS. FOUND AND KILLED BEFORE IT SHIPPED. ***
 

@@ -56262,5 +56262,233 @@ window.BOHEMIA_FEED = (function(){
            isOn:function(){ return on; } };
 })();
 
+/* ============================================================================
+   __FIRST_RUN_TEACHING__  (9/6, UI lane 11, VAMILY [first teaching])
+   Row: FIRST-RUN-TEACHING -- the pad, the phone, DROP IN; nothing exists;
+   measure with the cold hand.
+
+   WHAT THE COLD HAND ACTUALLY MEETS, MEASURED BEFORE A LINE OF THIS WAS WRITTEN,
+   on a served build at 390x844 with no storage:
+       the splash shows ONE thing (TAP TO ENTER). Good.
+       one tap later the screen carries TWENTY visible controls at once.
+   And gates/cold_hand_gate.js, the RUN lane's own harness, reports a stranger
+   pressing the loudest thing forty times: it finds the pad ONCE, then a panel's
+   GO button captures it for thirty-six presses and the clock never moves. So the
+   problem is not that the pad is missing. IT IS THAT THE PAD IS ONE RING AMONG
+   TWENTY THINGS AND READS AS DECORATION.
+
+   THE SHAPE, AND WHY IT IS NOT A TUTORIAL. This file already says, of the map's
+   own marker, "No caption anywhere: this is a signifier, not a tutorial." That is
+   the house style and this obeys it: no modal, no wall, no OK button, nothing to
+   dismiss. Three nudges, ONE AT A TIME, each one a ring around the REAL control
+   and one short line above it. A step is cleared by DOING THE THING -- the ring
+   is not something you acknowledge, it is something you obey once and never see
+   again. Nothing is blocked: the overlay is pointer-events:none end to end, so a
+   player who ignores it entirely plays exactly the game that shipped yesterday.
+
+   THREE THINGS, BECAUSE THE ROW NAMES THREE: the pad (how you move), the phone
+   (where the game talks to you), DROP IN (how you step back and see the city).
+
+   IT PULSES ON THE BEAT because everything here does (120 BPM law, BEAT=500).
+
+   THE WORDS ARE ENGLISH ON PURPOSE, AND THAT IS A RULE, NOT A PREFERENCE.
+   gates/language_gate.js: "LANGUAGE NEVER GATES REQUIRED INFORMATION." Flavour
+   Spanglish belongs in the mouths of people; the three lines that tell a stranger
+   how to move are required information and stay plain. They are attempts,
+   draft:true, per the 8/11 always-make-an-attempt rule -- Paolo edits them live.
+
+   IT NEVER NAGS. A step gives up after twenty-four beats (twelve seconds) and
+   moves on, and doing a LATER thing first clears the earlier steps too, because a
+   player who found the phone on their own does not need to be told where it is.
+   Once through, a flag in localStorage retires it for good.
+   ========================================================================== */
+(function(){
+  var LS='BOH_TAUGHT_9_6', GIVE_UP=24;      /* beats a single step may live */
+  try{ if(localStorage.getItem(LS)) return; }catch(_e){}
+
+  /* draft:true -- attempts, his to edit. Short enough to read without stopping. */
+  /* `sel` is what gets the ring. `hit` is the point we ask the browser about, and
+     THEY ARE NOT ALWAYS THE SAME ELEMENT. The pad is a RING of eight buttons with
+     a hole in the middle, and sitting in that hole is DROP IN -- so asking what is
+     under a thumb at the pad's own centre answers "the mode button", forever, and
+     a reachability test built on the centre would hold the walk lesson back for
+     the life of the page. Measured the hard way: it did, and it took four legs of
+     this gate red with it. Ask about a button the pad actually has. */
+  var STEPS=[
+    { k:'walk',  sel:'#pad',      hit:'#pad .pb', say:'WALK WITH THIS' },
+    { k:'phone', sel:'#phonebtn',                 say:'THE PHONE IS HOW THEY REACH YOU' },
+    { k:'drop',  sel:'#mode',                     say:'STEP BACK AND SEE THE CITY' }
+  ];
+
+  var css=document.createElement('style');
+  css.id='teachcss';
+  css.textContent=
+    '#teachwrap{position:fixed;inset:0;z-index:60;pointer-events:none;display:none}'
+   +'#teachwrap.on{display:block}'
+   +'#teachring{position:absolute;border:2px solid var(--acc);border-radius:12px;'
+     +'box-shadow:0 0 0 2px rgba(0,0,0,.55),0 0 14px rgba(184,154,106,.55);'
+     +'transition:opacity .18s linear;opacity:.95}'
+   +'#teachring.beat{opacity:.45}'
+   +'#teachsay{position:absolute;font:600 12px/1.35 ui-monospace,monospace;'
+     +'letter-spacing:1px;color:var(--ink);background:rgba(11,10,9,.92);'
+     +'border:1px solid var(--line);border-radius:8px;padding:7px 10px;'
+     +'text-align:center;max-width:80vw}';
+  document.head.appendChild(css);
+
+  var wrap=document.createElement('div'); wrap.id='teachwrap';
+  wrap.setAttribute('aria-hidden','true');
+  var ring=document.createElement('div'); ring.id='teachring';
+  var say=document.createElement('div'); say.id='teachsay';
+  /* a screen reader should hear the instruction, not just see a rectangle */
+  say.setAttribute('role','status'); say.setAttribute('aria-live','polite');
+  wrap.appendChild(ring); wrap.appendChild(say);
+  document.body.appendChild(wrap);
+
+  var i=0, age=0, done={}, lastBeat=-1, EPOCH=performance.now();
+
+  /* one document up, same origin. Degrades to "nothing covers us" if a browser
+     ever refuses the hop, which is what file:// does -- the same fallback the
+     settings gear and the city feed both needed. */
+  function shellCovers(px,py){
+    try{
+      var fe=window.frameElement;
+      if(!fe || !parent || parent===window) return false;
+      var fr=fe.getBoundingClientRect();
+      var top=parent.document.elementFromPoint(px+fr.left, py+fr.top);
+      if(!top) return false;
+      return top!==fe && !fe.contains(top) && !top.contains(fe);
+    }catch(_e){ return false; }
+  }
+
+  function retire(){
+    try{ localStorage.setItem(LS,'1'); }catch(_e){}
+    wrap.classList.remove('on');
+  }
+  /* DOING A LATER THING CLEARS THE EARLIER ONES. Somebody who opened the phone
+     before being shown it has learned the phone; telling them anyway is the
+     nagging this is supposed to avoid. */
+  function mark(k){
+    var at=-1; for(var n=0;n<STEPS.length;n++) if(STEPS[n].k===k) at=n;
+    if(at<0) return;
+    for(var m=0;m<=at;m++) done[STEPS[m].k]=true;
+    if(at>=i){ i=at+1; age=0; }
+    if(i>=STEPS.length) retire();
+  }
+
+  /* THE HOOKS ARE THE PLAYER'S OWN GESTURE, not a redraw or a state variable.
+     Capture phase and passive, so nothing here can swallow or delay a press the
+     game is waiting on. The pad reports every button in it, which is right: the
+     lesson is WHERE THE CONTROL IS, and a press into a wall still found it. */
+  document.addEventListener('pointerdown',function(e){
+    var t=e.target; if(!t||!t.closest) return;
+    if(t.closest('#pad'))                     mark('walk');
+    else if(t.closest('#phonebtn'))           mark('phone');
+    else if(t.closest('#mode')||t.closest('#modechip')) mark('drop');
+  },{capture:true,passive:true});
+
+  function place(){
+    var st=STEPS[i]; if(!st){ retire(); return false; }
+    var el=document.querySelector(st.sel);
+    if(!el) return false;
+    var r=el.getBoundingClientRect();
+    if(r.width<8||r.height<8) return false;
+    var cs=getComputedStyle(el);
+    if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0) return false;
+    /* AND IT MUST ACTUALLY BE REACHABLE BY A THUMB. Measured, not assumed: on a
+       real first run the DAY CARD is on top of the whole screen, so the pad is
+       visible in the layout and completely unpressable. Ringing it there teaches a
+       stranger to press something that does nothing, which is worse than teaching
+       nothing at all -- and it is the same dead end the cold hand records, where a
+       panel's GO button takes thirty-six presses. So ask the browser what is under
+       a thumb at the control's own centre, and hold the whole thing until the
+       answer is the control. */
+    var probe=st.hit ? document.querySelector(st.hit) : el;
+    if(!probe) return false;
+    var pr=probe.getBoundingClientRect();
+    if(pr.width<4||pr.height<4) return false;
+    var cx=pr.left+pr.width/2, cy=pr.top+pr.height/2;
+    var mid=document.elementFromPoint(cx, cy);
+    if(!(mid && mid.closest && mid.closest(st.sel))) return false;
+    /* AND ASK THE SHELL TOO, BECAUSE THIS DOCUMENT IS NOT THE WHOLE SCREEN. The
+       city runs in a frame and the shell draws over it: its cold-open card sits
+       across the top, exactly where the phone chip is. Measured on a real first
+       run -- the phone lesson rendered UNDERNEATH that card, faint and unreadable,
+       and this frame's own elementFromPoint said the chip was perfectly clear,
+       because a document cannot see what is stacked above its own frame. Same
+       lesson this lane keeps paying for: measure the thing itself, in the place it
+       actually lives. Naming the card would only fix today's card, so ask the
+       shell what is topmost at that screen point and hold if it is not us. */
+    if(shellCovers(cx, cy)) return false;
+    var pad=6;
+    ring.style.left=(r.left-pad)+'px';  ring.style.top=(r.top-pad)+'px';
+    ring.style.width=(r.width+pad*2)+'px'; ring.style.height=(r.height+pad*2)+'px';
+    if(say.textContent!==st.say) say.textContent=st.say;
+    /* ABOVE THE CONTROL, AND CLAMPED. The pad sits low-right and the phone chip
+       sits at the very top, so a caption parked at a constant offset would go off
+       one edge or the other. Measure the caption, then keep it on screen -- the
+       same lesson the city feed and the settings gear both earned. */
+    var sr=say.getBoundingClientRect();
+    var left=r.left+r.width/2-sr.width/2;
+    left=Math.max(6,Math.min(left, innerWidth-sr.width-6));
+    /* THE WORDS HAVE TO BE READABLE, NOT JUST THE CONTROL. Caught on a real
+       screenshot 9/6: the phone chip itself was perfectly clear, so the lesson
+       showed -- and the caption, which has no room above a chip at the top of the
+       screen, went BELOW it and landed underneath the shell's cold-open card,
+       where it rendered as a ghost. Checking the control and not the sentence is
+       checking half the thing. So try both sides, take the first one the shell is
+       not covering, and if neither is clear, say nothing at all until it is. */
+    var above=r.top-pad-sr.height-8, below=r.bottom+pad+8;
+    var tries=[], t;
+    if(above>=6) tries.push(above);
+    if(below+sr.height<=innerHeight-6) tries.push(below);
+    if(!tries.length) tries.push(Math.max(6,Math.min(above, innerHeight-sr.height-6)));
+    var chosen=null;
+    for(var n=0;n<tries.length;n++){
+      t=Math.max(6,Math.min(tries[n], innerHeight-sr.height-6));
+      /* three points, because a card edge can clip a corner and leave the middle
+         clear -- the same reason a whole-frame diff was the wrong instrument for
+         the danger tell */
+      if(!shellCovers(left+sr.width/2, t+sr.height/2)
+      && !shellCovers(left+4,          t+2)
+      && !shellCovers(left+sr.width-4, t+sr.height-2)){ chosen=t; break; }
+    }
+    if(chosen===null) return false;
+    say.style.left=left+'px'; say.style.top=chosen+'px';
+    return true;
+  }
+
+  setInterval(function(){
+    if(i>=STEPS.length) return;
+    var bt=Math.floor((performance.now()-EPOCH)/BEAT);
+    var newBeat = (bt!==lastBeat);
+    if(newBeat) lastBeat=bt;
+    /* only show it once the walked surface is actually up: a ring drawn over the
+       splash points at a control that is not there yet. */
+    var up = document.body && !document.body.classList.contains('booting');
+    var ok = up && place();
+    wrap.classList.toggle('on', !!ok);
+    if(!ok) return;
+    if(newBeat){
+      ring.classList.toggle('beat');
+      /* the clock only runs while the lesson is actually on screen, so a step
+         cannot time out sitting behind a card the player has not closed yet */
+      if(++age>GIVE_UP){ age=0; i++; if(i>=STEPS.length) retire(); }
+    }
+  }, Math.max(60, BEAT/4));
+
+  /* the checker's door, and the only way anything outside can see this state */
+  window.BOHEMIA_TEACH={
+    step:function(){ return i<STEPS.length?STEPS[i].k:null; },
+    say:function(){ return i<STEPS.length?STEPS[i].say:null; },
+    done:function(){ return Object.keys(done); },
+    showing:function(){ return wrap.classList.contains('on'); },
+    box:function(){ var r=ring.getBoundingClientRect();
+      return {x:r.left,y:r.top,w:r.width,h:r.height}; },
+    reset:function(){ try{ localStorage.removeItem(LS); }catch(_e){}
+      i=0; age=0; done={}; },
+    retire:retire
+  };
+})();
+
 </script>
 </body></html>
