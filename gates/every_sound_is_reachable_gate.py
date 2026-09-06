@@ -63,40 +63,64 @@ ENG = os.path.join(ROOT, 'engine/bohemia_sfx.js')
 # a "never mind" list: it is the boundary of what a headless walk can honestly
 # claim. A fight, a quest and a death are driven by other gates that own those
 # surfaces, and poking their internals from here would measure the poke.
+# WHY EACH SOUND THIS DRIVE DOES NOT PRODUCE IS NOT PRODUCED. *** A FLAT SET
+# WAS NOT GOOD ENOUGH TO CLOSE THIS ROW. *** For three rounds this was a set of
+# names with the reasons grouped in comments above them, which means a name
+# could be added to the set and inherit a reason that was never about it. Every
+# event now carries its OWN sentence, and the closing claim below is that the
+# heard set and this map together cover ALL SIXTY-FIVE with nothing left over
+# and nothing counted twice. That is the honest end of "give every approved
+# sound a caller": not a wire for every name, but every name accounted for.
+FIGHT = 'needs a FIGHT. sfx_wired_gate drives combat and owns that surface'
+VERB = 'the verb does not exist yet, and sfx_wired_gate carries the written waiver'
+SIB = 'a SIBLING pool, drawn from inside its parent pick, so it never appears at a call site'
 CANNOT_DRIVE = {
-    'hit', 'hit_more', 'hurt', 'hurt_more', 'kill', 'melee_hit', 'miss_past',
-    'shot', 'shot_more', 'casing', 'dry_fire', 'mag_home', 'block', 'swing_air',
-    'swing_more', 'vital_deep', 'will_goes', 'went_down', 'come_up',
-    'heartbeat', 'stone_bite', 'chip_more', 'cover_more',
-    # ^ every one of these needs a FIGHT. sfx_wired_gate drives combat and holds
-    #   them; it is the gate that owns that surface.
-    'eat', 'drink', 'pickup', 'set_down', 'seton_more', 'demolish', 'dirt_take',
-    'cloth_on', 'cloth_more', 'tape_pull', 'tape_more', 'lungs_burn', 'power_on',
-    'parts_pass', 'save_chime', 'boots_go', 'tread_more',
-    # ^ a verb, a payday, a night's sleep or a save. Several of these already
-    #   carry written waivers in sfx_wired_gate for verbs that do not exist yet
-    #   (equip, sprint, power, place, patch), and those waivers are still true.
-    'step_wood', 'walk_more', 'sand_more', 'wood_more',
-    # ^ step_wood: there is no wooden ground in this valley, measured. The
-    #   others are sibling pools. step_asphalt, step_gravel and step_sand are
-    #   NOT here any more -- each is walked onto and fired below.
-    'buzz_more', 'door_more', 'wind_more', 'shot_more', 'hurt_more',
-    # ^ SIBLING pools: they are drawn from inside their parent's pick, so the
-    #   name never appears at a call site by construction.
-    'ui_back', 'ui_deny',
-    # ^ a BACK button on a panel this drive does not open.
-    'phone_buzz',
-    # ^ it fires when a JOB ARRIVES, not when you open the phone. Opening the
-    #   phone is not its trigger and driving it that way would be a lie.
-    'generator', 'sign_alive',
-    # ^ both need a LIVE CIRCUIT within three cells, which is the whole of
-    #   BB-A-LIT-BLOCK-HUMS and is held by lit_block_hums_gate on a grid it
-    #   counts first. 88% of circuits are dead, so a spawn usually has none.
-    # sleep_sink is NOT here any more: BOTH doors into the end of a day are
-    # driven and counted below.
-    # time_pass is NOT here any more: it IS reachable, and listing it as
-    # undrivable was this gate under-waiting for the four-second heartbeat that
-    # carries the clock. See the drive.
+    'hit': FIGHT, 'hit_more': FIGHT, 'hurt': FIGHT, 'hurt_more': FIGHT,
+    'kill': FIGHT, 'melee_hit': FIGHT, 'miss_past': FIGHT, 'shot': FIGHT,
+    'shot_more': FIGHT, 'casing': FIGHT, 'dry_fire': FIGHT, 'mag_home': FIGHT,
+    'block': FIGHT, 'swing_air': FIGHT, 'swing_more': FIGHT, 'vital_deep': FIGHT,
+    'will_goes': FIGHT, 'went_down': FIGHT, 'heartbeat': FIGHT,
+    'stone_bite': FIGHT, 'chip_more': FIGHT, 'cover_more': FIGHT,
+
+    'cloth_on': VERB, 'cloth_more': VERB, 'tape_pull': VERB, 'tape_more': VERB,
+    'set_down': VERB, 'seton_more': VERB, 'demolish': VERB, 'drink': VERB,
+    'pickup': VERB, 'lungs_burn': VERB, 'power_on': VERB,
+
+    'buzz_more': SIB, 'door_more': SIB, 'wind_more': SIB, 'walk_more': SIB,
+    'sand_more': SIB, 'wood_more': SIB, 'tread_more': SIB,
+
+    'come_up': 'fires when the MORNING CARD is dismissed (8/22). This drive '
+              'wakes the day loop directly and skips the card, and a probe that '
+              'skips the UI is not evidence the UI is silent',
+    'eat': 'eating is a verb the walked surface does not offer yet; Paolo ruled '
+           '8/2 that EAT is its own sound, and it waits for the action',
+    'boots_go': 'the boots are a CHARACTER moment, not a step: it belongs to '
+                'dressing, which no surface does yet',
+    'dirt_take': 'the ground taking something is a burial or a drop, and no '
+                 'surface does either yet',
+    'parts_pass': 'PAYDAY, wired inside payForToday. It fires only when a job '
+                  'was ACCEPTED that day, and this drive accepts none -- '
+                  'driving it by calling payForToday would measure the poke',
+    'save_chime': 'wired in the RUN slice and proved on pixels by '
+                  'silent_play_gate. The walked city has NO single save moment '
+                  'to hang it on: it persists continuously, per system, and a '
+                  'chime on every write would be the two-sounds problem at '
+                  'scale. A written reason, not a missing wire',
+    'phone_buzz': 'it fires when a JOB ARRIVES, not when you open the phone. '
+                  'Opening the phone is not its trigger and driving it that way '
+                  'would be a lie',
+    'ui_back': 'a BACK button on a panel this drive does not open; the city UI '
+               'policy posts it off the button label',
+    'ui_deny': 'a REFUSAL, which needs a thing the game will not let you do; '
+               'silent_play_gate drives it and proved it changes no pixels',
+    'generator': 'needs a LIVE CIRCUIT within three cells. That is the whole of '
+                 'BB-A-LIT-BLOCK-HUMS and lit_block_hums_gate holds it on a '
+                 'grid it counts first; 88% of circuits are dead',
+    'sign_alive': 'same as generator: a lit sign cannot be on a dead circuit',
+    'step_wood': 'there is NO WOODEN GROUND in this valley -- no boardwalk, no '
+                 'porch deck, no floorboard pool -- measured across 18 '
+                 'districts and ~9,000 cells. Wiring it would mean inventing a '
+                 'surface so a sound has somewhere to play',
 }
 
 
@@ -283,9 +307,28 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     if(s>0) window.__ASK['time_pass']=(window.__ASK['time_pass']||0)+s;
   }catch(e){} });
 
-  /* NIGHT, and the bed again: air_night is a different approved sound */
-  await cf.evaluate(()=>{ try{ if(INSIDE) swapMode(); const d=(21*60-T.min+1440)%1440; if(d) advance(d); }catch(e){} });
-  await p.waitForTimeout(1200);
+  /* NIGHT, and the bed again: air_night is a different approved sound.
+     *** AND THE DAY HAS TO BE AWAKE FOR THE CLOCK TO MOVE, WHICH THIS MISSED
+     TWICE OUT OF THREE RUNS. *** The clock drive above can tip the day past
+     22:00; once DAY.phase is 'ended', advance() no longer moves T.min, so
+     "set the clock to 21:00" quietly did nothing and the bed sampled a DAYTIME
+     valley. air_night then read as unreachable on a build where it works --
+     a FLAKE, which is worse than a red, because it passes often enough to be
+     believed. Wake first, then set the clock, then CHECK it landed. */
+  out.night = await cf.evaluate(()=>{
+    try{
+      if(INSIDE) swapMode();
+      if(DAY.phase!=='awake'){ DAY.wake(); daySync(); }
+      const d=(21*60-T.min+1440)%1440; if(d) advance(d);
+      /* AND TELL THE SHELL, because the bed does not read the city's clock --
+         it learns day from night ONLY from the four-second WHERE report. Moving
+         the clock and ticking the bed in the same breath samples a bed that has
+         not been told yet, and it answered air_day at nine at night. */
+      try{ window.__ctWhere && window.__ctWhere(); }catch(_e){}
+      return {min:T.min, isNight:(typeof isNight==='function')?isNight():null, phase:DAY.phase};
+    }catch(e){ return {err:String(e)}; }
+  });
+  await p.waitForTimeout(1400);   /* let the report land before sampling */
   out.bedNight = await bed();
 
   /* A DOOR, then the bed indoors */
@@ -413,6 +456,10 @@ def main():
        % (w.get('moved'), w.get('leftBuildings')), (w.get('moved') or 0) > 30)
     ok('a door was walked through (%s)' % json.dumps(d.get('door')),
        (d.get('door') or {}).get('ok'))
+    ok('the clock really reached night before the night bed was sampled (%s) -- '
+       'a day that has already ENDED stops advance() moving T.min, and that '
+       'made air_night a FLAKE rather than a red for two runs out of three'
+       % json.dumps(d.get('night')), (d.get('night') or {}).get('isNight') is True)
     ok('the bed was sampled outdoors in DAY, at NIGHT and INDOORS: %s / %s / %s'
        % ((d.get('bedDay') or {}).get('kind'), (d.get('bedNight') or {}).get('kind'),
           (d.get('bedInside') or {}).get('kind')),
@@ -428,6 +475,7 @@ def main():
 
     silent = [e for e in approved if e not in heard]
     orphan = [e for e in silent if e not in CANNOT_DRIVE]
+    both = [e for e in heard if e in CANNOT_DRIVE]
     print('  NOT HEARD: %d, of which %d have a written reason this drive cannot '
           'reach them and %d do not' % (len(silent), len(silent) - len(orphan),
                                         len(orphan)))
@@ -448,6 +496,26 @@ def main():
        'produced (%s)' % (len(heard), ', '.join(heard)), len(heard) >= 5)
     ok('EVERY approved sound this drive can reach was actually produced. Not '
        'reached and with no written reason: %s' % (orphan or 'none'), not orphan)
+
+    # ---- THE CLOSING CLAIM OF THE-OTHER-51. Every one of the sixty-five is in
+    #      exactly one bucket: HEARD here, or carrying its OWN sentence saying
+    #      what it waits for. Not a wire for every name -- every name accounted
+    #      for. A flat set of names with the reasons in comments above them,
+    #      which is what this was for three rounds, lets a name inherit a reason
+    #      that was never about it.
+    ok('and nothing is counted twice -- an event that was HEARD must not also '
+       'be carrying an excuse (%s)' % (both or 'none'), not both)
+    ok('EVERY ONE OF THE %d APPROVED SOUNDS IS ACCOUNTED FOR: %d heard on the '
+       'walked surface, %d with their own written reason, 0 unexplained'
+       % (len(approved), len(heard), len(silent)),
+       len(heard) + len(silent) == len(approved) and not orphan)
+    print('  THE LEDGER, every approved sound and where it stands:')
+    for e in approved:
+        if e in heard:
+            print('     HEARD    %-15s %d' % (e, asks.get(e, 0)))
+    for e in approved:
+        if e not in heard:
+            print('     waits    %-15s %s' % (e, CANNOT_DRIVE.get(e, '?')[:70]))
 
     # ---- THE FOOTSTEP FAMILY, ONE SURFACE AT A TIME. THE-OTHER-51 round 2.
     su = d.get('surfaces') or {}

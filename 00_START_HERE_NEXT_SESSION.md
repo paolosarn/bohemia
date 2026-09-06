@@ -808,6 +808,65 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/6 (a) LATEST -- *** THE-OTHER-51 IS CLOSED. EVERY ONE
+OF THE 65 APPROVED SOUNDS IS ACCOUNTED FOR: 13 HEARD ON THE WALKED SURFACE, 52
+WITH THEIR OWN WRITTEN REASON, 0 UNEXPLAINED.
+TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
+
+Build 9/6j - EVERY SOUND ACCOUNTED FOR.
+
+THE ROW CLOSED BY ACCOUNTING, NOT BY WIRING, AND THAT IS THE POINT. It began as
+a grep -- 65 approved sounds, 14 names found in the code, "so 51 are unused."
+Round 1 threw that away and measured on the real surface instead. Rounds 2 and 3
+fixed the two real bugs the measurement found (the desert played a suburban
+lawn; the end of a day was silent). Round 4 checked the last two names that
+still looked like bugs, found they are reasons, and closed the census.
+
+  * save_chime appears ZERO times in the walked city, which looks like a missing
+    wire and is not one. The city persists CONTINUOUSLY, per system, with no
+    single "the game saved" moment to hang a chime on -- and a chime on every
+    write is the 8/4 two-sounds complaint several times a minute.
+  * parts_pass IS wired, inside payForToday, and only fires when a job was
+    accepted. My probe never accepted a job. THAT IS MY INSTRUMENT NOT DOING THE
+    THING, not the game not making the sound.
+
+THE GATE CHANGED SHAPE TO CLOSE THE ROW. every_sound_is_reachable_gate.py held
+its unreachable names in a FLAT SET. Fine while a row is open, NOT fine as the
+thing that closes one: a name could be added later and silently inherit a reason
+that was never about it. It is now a DICT OF EVENT -> ITS OWN SENTENCE, plus two
+end-of-row claims -- that nothing is counted twice (an event that was HEARD must
+not also carry an excuse, or the arithmetic adds up on a lie), and the closing
+count itself. It prints the whole ledger, one line per sound. 23 claims green.
+
+AND A FLAKE WAS FIXED, WHICH IS WHY THIS TOOK A ROUND. air_night failed 1 run in
+3, both causes in the instrument: an ENDED day stops advance() moving T.min so
+the clock write did not always land (now the day is woken and isNight() is
+ASSERTED, not assumed), and the bed learns night ONLY from the 4-second WHERE
+heartbeat (now __ctWhere() is called before the bed is sampled). Three runs
+after: 23 passed, 0 failed, 13 of 65, every time. A GATE THAT IS RIGHT TWO TIMES
+IN THREE IS NOT A GATE.
+
+*** CARRIED FORWARD, LOUDLY: A FIGHT STARTING MAKES NO SOUND AT ALL. ***
+cityFightOnEnter posts the encounter with no sound call, and the street ambush is
+the same. There is NO APPROVED SOUND for "a fight begins", so fixing it needs a
+NEW COOK, which THE-OTHER-51 forbids. It belongs to [enemy heard] and [fight
+music], which are next in this lane's queue. Do not lose it.
+
+WHY THE FINISH LINE IS "ACCOUNTED FOR" AND NOT "ALL 65 PLAY": what is left is
+either a sound for a system the game does not have yet (the fight bed, the
+enemies you hear coming, the pump) or a sound for a moment that does not exist in
+this game's shape. Wiring the second kind means INVENTING A MOMENT SO A SOUND HAS
+SOMEWHERE TO PLAY, which is the opposite of the row's job and is exactly what
+STOP PRODUCING is about.
+
+  proof  python3 gates/bohemia_gates.py --only "SOUND REACHABLE"
+         python3 gates/bohemia_gates.py --only "CITY WHERE"
+         records/BOHEMIA_EVERY_SOUND_ACCOUNTED_FOR_9_6_26.md
+  next   [music owned] THE-MUSIC-ITSELF, then [beat teaches], then [enemy heard]
+         and [fight music] -- which is where the silent fight start gets fixed.
+
+--------------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 9/5 (g) LATEST -- *** THE END OF A DAY WAS COMPLETELY
 SILENT, AND IT IS THE MOST REPEATED MOMENT IN A HUNDRED-HOUR GAME.
 TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
