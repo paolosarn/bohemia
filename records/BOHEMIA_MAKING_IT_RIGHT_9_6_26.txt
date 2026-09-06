@@ -1,0 +1,114 @@
+BOHEMIA -- MAKING IT RIGHT (9/6/26, PEOPLE lane)
+VAMILY job [make it right], row NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN
+
+THE ROW, harvested from DYNASTY's Angel round:
+  "They searched the standing web, the deeds module and the dynasty engine for
+   forgive, forgiven, settle, settled, absolve, pardon, spare, redeem: ZERO.
+   Every function gets a deed INTO the world and NOTHING resolves one. A deed is
+   written, it travels, it fades, and it is never settled. So a player who
+   wronged somebody in hour two can never make it right, and standing is a
+   one-way ratchet toward being hated -- and generation three is the ANGEL, who
+   cannot forgive anything. Build the other half."
+
+================================================================================
+VERIFIED BEFORE BUILDING, BECAUSE A ROW IS A CLAIM UNTIL YOU RUN IT
+================================================================================
+All eight words, in bohemia_standing.js and bohemia_deeds.js: 0, 0, 0, 0, 0, 0,
+0, 0. The row holds exactly.
+The wider engine has 3 "forgive" and 86 "settle" hits and I read every kind of
+them rather than assuming: "settlement" the town (34), a LAB-03 note about a
+reach number, and a wash gate's seam check. None of them this.
+AND ONE NAME COLLISION WORTH KNOWING: BohemiaFavour.settle already exists and
+means something else entirely -- clearing a favour DEBT with an outfit. So the
+new function is called makeRight, after the row's own label, and the two can
+never be confused.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_standing.js              RIGHT_WORDS, makeRight, madeRightBy,
+                                        wouldSquare, carryRight; forceOf honours
+                                        a righted deed
+tools/bohemia_city_make_it_right_patch.py  the card row, the offer, the handler
+gates/make_it_right_gate.js             40 claims, 0 red
+
+THE RULE, AND IT IS THE ROW'S OWN: THE PERSON WHO WAS WRONGED DECIDES.
+makeRight takes ONE MIND. There is deliberately no valley-wide absolution and no
+way for the actor to clear their own name -- witness() refuses to record a deed
+about yourself, so there is no mind for a player to call this on. Somebody else
+who watched the same thing is NOT settled by your forgiver's choice, because it
+was never theirs to give away. That asymmetry is the feature, and it is the
+claim that stops this being an eraser.
+
+FORGIVEN IS NOT FORGOTTEN, AND THAT IS NOT SENTIMENT, IT IS THE DEFINITION.
+The forgiveness literature treats forgiveness as a drop in negative motivation
+toward the offender, never as forgetting. So the deed STAYS in the mind carrying
+a `right` mark, forceOf returns 0 for it, and madeRightBy can always say what
+happened and how. becauseOf still works. Nothing is deleted.
+
+FOUR WORDS, ONE MECHANISM: settled / paid / forgiven / spared, which are four
+stories for the same event -- whether they got something, whether they simply
+let it go, whether you had them and did not. The word is recorded so a surface
+can say which and so he can rule them apart later. All draft:true.
+
+*** AND "WOULD THEY?" IS DERIVED, NOT A DIAL, WHICH IS THE BEST PART. ***
+A button that always works is an eraser, but "how forgiving is this person"
+would be a tuned number and numbers are his. So it is asked of what THEY saw:
+they will square the old thing only if everything else they know about you
+already comes out positive. Nothing new is invented -- it is this web's own
+arithmetic with the grudge taken out of the sum.
+  IT MAKES THE RIGHT LOOP. "Make it right" stops being a button and becomes the
+  literal instruction: go and do something for the person you wronged, in front
+  of them, and then ask. Somebody whose only knowledge of you is the bad thing
+  will not forgive you, which is true and is the harder, better version.
+  AND IT IS GROUNDED: the most consistent finding in that literature is that
+  amends raise forgiveness while severity lowers it. Both fall out of this sum
+  already -- a heavier grudge needs more good to outweigh it -- with no
+  threshold anybody had to pick.
+
+THE WEB LEARNS IT HAPPENED, on the paths the grudge travelled: carryRight drops
+a SECOND-HAND grudge when the person it belongs to squares it ("she's squared it
+with him" really is how a retold grudge dies), and stops dead at anybody who saw
+it with their own eyes.
+
+================================================================================
+PROVEN ON THE REAL DEMO, THROUGH THE CARD AND THE BUTTON A PLAYER PRESSES
+================================================================================
+  wrong somebody in front of them   opinion -6.00, the card says THEY HOLD
+                                    SOMETHING AGAINST YOU and NOTHING YOU HAVE
+                                    DONE FOR THEM OUTWEIGHS IT YET, and there
+                                    is NO BUTTON
+  one good turn                     -6.00 -> -2.00, still no button
+  two                               2.00, the card says AND THEY WOULD LET IT
+                                    GO, and the button appears
+  press it                          2.00 -> 8.00, the card says YOU SQUARED IT /
+                                    PAID THEM BACK, the button is gone, and the
+                                    good standing you earned is still there
+The weights come from his STANDING dial (ctDialApply, the real one the DIRECT
+tab posts); nothing writes a weight by hand.
+
+================================================================================
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+================================================================================
+1. DOES A FORGIVEN THING STILL STING A LITTLE? Right now a squared deed goes
+   clean to zero force and keeps its record. Whether it should leave a residue
+   is a MAGNITUDE and magnitudes are his. The mechanism does not need one to be
+   true, and this is exactly the kind of ruling that changes how the whole
+   theme feels.
+2. The four words (SQUARED WITH THEM / PAID THEM BACK / THEY LET IT GO / YOU HAD
+   THEM AND DID NOT) are draft:true. He corrects them by playing.
+3. Whether the four should differ MECHANICALLY -- whether being spared is worth
+   more than being paid -- is his too. They are one mechanism today and the word
+   is recorded so they can be pulled apart without touching a surface.
+4. STILL CARRIED FROM EARLIER ROUNDS: the four STREET deeds are unweighted until
+   he rules the 82-row table, so on today's build a grudge only exists where a
+   quest deed fires or where he turns the STANDING dial. That is the same
+   [PENDING] as [weights shape], which the coordinator has since RULED on the
+   board.
+
+FEEDS: DYNASTY's Angel round (which found this hole), and WORDS Q17 [angel
+verbs], which is open on the board and is about what the Angel can do now that
+something in the game can finally be forgiven.
+
+TAB: CITY. Wrong somebody, do two good turns in front of them, and the card
+offers to square it.

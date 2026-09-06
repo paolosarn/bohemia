@@ -158,6 +158,22 @@
   function forceOf(mind, d, now){
     var w=DEED_WEIGHT[d.kind];
     if(w==null) return 0;                            // unruled deed = weightless
+    /* *** AND A THING THAT HAS BEEN MADE RIGHT STOPS COUNTING. *** (9/6, VAMILY
+       [make it right], row NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN.)
+       MEASURED BEFORE BUILDING: forgive, forgiven, settle, settled, absolve,
+       pardon, spare and redeem appeared ZERO times in this module and in
+       bohemia_deeds.js. Every function here got a deed INTO the world -- witness,
+       gossip, inherit, legendOf -- and NOTHING resolved one. A deed was written,
+       it travelled, it faded, and it was never settled, so standing was a
+       one-way ratchet toward being hated.
+       THE RECORD IS KEPT ON PURPOSE. Forgiveness is not amnesia: the whole
+       literature treats it as a drop in negative motivation toward the offender,
+       never as forgetting, and becauseOf must still be able to say the thing
+       happened. So the deed stays in the mind and stops carrying weight.
+       [PENDING Paolo] whether a forgiven thing should still sting a little
+       rather than going clean to nothing. That is a magnitude and magnitudes are
+       his; the mechanism does not need one to be true. */
+    if(d.right) return 0;
     /* the deed's own clock, not the sighting clock (see DEED_HALFLIFE above) */
     var age=Math.max(0, (now|0)-(d.turn|0));
     var c=Math.pow(0.5, age/deedHalflife(w));
@@ -212,6 +228,153 @@
         to.deeds.push(r);
         if(to.deeds.length>(to.cap||64)) to.deeds.shift();
         moved++;
+      }
+    });
+    return moved;
+  }
+
+  /* ==== MAKING IT RIGHT (9/6/26, PEOPLE lane) ==============================
+     VAMILY [make it right], row NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN.
+
+     "A deed is written, it travels, it fades, and it is never settled. So a
+     player who wronged somebody in hour two can never make it right, and
+     standing is a one-way ratchet toward being hated -- and generation three is
+     the ANGEL, who cannot forgive anything."
+
+     *** THE PERSON WHO WAS WRONGED IS THE ONE WHO DECIDES, and that is not a
+     nicety, it is the whole reason this is not a cheat. *** This takes ONE MIND.
+     There is deliberately no valley-wide absolution and no way for the actor to
+     clear their own name: you can only be forgiven by somebody who is actually
+     carrying the thing.
+
+     ONLY A THING HELD AGAINST YOU CAN BE MADE RIGHT. Nobody forgives you for a
+     kindness, and letting them would turn this into an eraser for good standing
+     as well as bad. So a deed whose force is positive is refused.
+
+     FOUR WORDS, ONE MECHANISM. The row names settled, paid off, forgiven and
+     spared. Those are four STORIES for the same event -- whether they got
+     something, whether they simply let it go, whether you had them and did not.
+     The word is recorded so a surface can say which one it was and so he can
+     rule them apart later; the mechanism does not pretend to know the
+     difference. draft:true. */
+  var RIGHT_WORDS = {
+    settled:  'SQUARED WITH THEM',      /* draft:true */
+    paid:     'PAID THEM BACK',         /* draft:true */
+    forgiven: 'THEY LET IT GO',         /* draft:true */
+    spared:   'YOU HAD THEM AND DID NOT'/* draft:true */
+  };
+
+  /* makeRight(mind, actorId, opts) -> {settled, deeds, how}
+       mind     the person doing the forgiving. THEIRS is the only opinion this
+                changes, because theirs is the only one it is.
+       actorId  who is being forgiven.
+       opts.how one of RIGHT_WORDS. Defaults to 'settled'.
+       opts.kind settle only this deed kind; default every held grudge.
+       opts.turn when, so a surface can say how long ago it was squared. */
+  function makeRight(mind, actorId, opts){
+    opts = opts || {};
+    var how = RIGHT_WORDS[opts.how] ? opts.how : 'settled';
+    var now = (opts.turn==null) ? 0 : (opts.turn|0);
+    var out = {settled:0, deeds:[], how:how};
+    if(!mind || !mind.deeds || actorId==null) return out;
+    for(var i=0;i<mind.deeds.length;i++){
+      var d=mind.deeds[i];
+      if(d.actor!==actorId) continue;
+      if(d.right) continue;                       /* already squared */
+      if(opts.kind && d.kind!==opts.kind) continue;
+      /* THE FORCE IS READ BEFORE THE MARK GOES ON, because forceOf returns 0
+         for anything already righted and this has to know what it is holding.
+         A weightless deed is not a grudge and there is nothing to forgive. */
+      var f = forceOf(mind, d, now);
+      if(!(f<0)) continue;                        /* only a thing held AGAINST you */
+      d.right = {how:how, turn:now};
+      out.settled++; out.deeds.push(d.kind);
+    }
+    return out;
+  }
+  /* WHAT THIS PERSON HAS SQUARED WITH YOU, for a surface that wants to say so.
+     The record survives on purpose -- forgiven is not forgotten -- so this can
+     always answer, however long ago it was. */
+  function madeRightBy(mind, actorId){
+    var out=[];
+    if(!mind || !mind.deeds) return out;
+    for(var i=0;i<mind.deeds.length;i++){
+      var d=mind.deeds[i];
+      if(d.actor===actorId && d.right)
+        out.push({kind:d.kind, how:d.right.how, turn:d.right.turn,
+                  say:RIGHT_WORDS[d.right.how], sawIt:!(d.hops>0), draft:true});
+    }
+    return out;
+  }
+  /* ---- WOULD THEY? AND THE ANSWER IS NOT A DIAL ---------------------------
+     A button that always works is not somebody deciding, it is an eraser. But
+     "how forgiving is this person" would be a tuned number, and numbers are his.
+
+     SO IT IS ASKED OF WHAT THEY ACTUALLY SAW. Would they square the old thing?
+     Only if everything ELSE they know about you already comes out positive --
+     that is, if you have since given them a reason. Nothing new is invented:
+     it is this web's own arithmetic with the grudge taken out of the sum.
+
+     AND IT MAKES THE RIGHT LOOP. "Make it right" stops being a button and
+     becomes the literal instruction: go and do something for the person you
+     wronged, in front of them, and then ask. Somebody whose only knowledge of
+     you is the bad thing will not forgive you, which is both true and the
+     harder, better version.
+
+     GROUNDED, NOT GUESSED: the forgiveness literature's most consistent finding
+     is that amends and apology raise forgiveness while severity lowers it. Both
+     fall out of this sum already -- a heavier grudge needs more good to outweigh
+     it -- without a threshold anybody had to pick.
+
+     Returns the working, so a card can say WHY not rather than greying out. */
+  function wouldSquare(mind, actorId, now){
+    var out={would:false, grudge:0, rest:0, kinds:[]};
+    if(!mind || !mind.deeds || actorId==null) return out;
+    for(var i=0;i<mind.deeds.length;i++){
+      var d=mind.deeds[i];
+      if(d.actor!==actorId) continue;
+      var f=forceOf(mind, d, now);
+      if(d.right) continue;                       /* already squared: not in either sum */
+      if(f<0){ out.grudge+=f; out.kinds.push(d.kind); }
+      else out.rest+=f;
+    }
+    /* NOTHING HELD AGAINST YOU IS NOT THE SAME AS FORGIVEN, and the card must
+       not offer to fix a thing that is not broken. */
+    if(!out.kinds.length) return out;
+    out.would = out.rest > 0 && (out.rest + out.grudge) >= 0;
+    return out;
+  }
+
+  /* ---- AND THE WEB LEARNS IT HAPPENED -------------------------------------
+     "the web learns it happened" is the row's own line, and the shape of it is
+     the row's own rule applied precisely: THE PERSON WHO WAS WRONGED DECIDES.
+
+     So a mind that only HEARD the story (hops>0) drops it when the eyewitness
+     squares it -- their whole grip on it was second hand, and "she's squared it
+     with him" really is how a retold grudge dies. A mind that SAW IT THEMSELVES
+     is NOT settled by somebody else's decision, because it was not somebody
+     else's to make. That asymmetry is the feature.
+
+     Called with the same pair gossip is called with, so the news of a settlement
+     travels on exactly the paths the grudge travelled on. */
+  function carryRight(mindA, mindB){
+    if(!mindA||!mindB||mindA===mindB) return 0;
+    makeLedgerFreeMind(mindA); makeLedgerFreeMind(mindB);
+    var moved=0;
+    [[mindA,mindB],[mindB,mindA]].forEach(function(pair){
+      var from=pair[0], to=pair[1];
+      for(var i=0;i<from.deeds.length;i++){
+        var d=from.deeds[i];
+        if(!d.right) continue;
+        if(d.hops>0) continue;                    /* only the eyewitness's word carries */
+        for(var j=0;j<to.deeds.length;j++){
+          var e=to.deeds[j];
+          if(e.actor!==d.actor||e.kind!==d.kind||e.turn!==d.turn) continue;
+          if(e.right) continue;
+          if(!(e.hops>0)) continue;               /* they saw it too: theirs to decide */
+          e.right = {how:d.right.how, turn:d.right.turn, heard:true};
+          moved++;
+        }
       }
     });
     return moved;
@@ -401,6 +564,9 @@
     witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
     whoVouches:whoVouches, whoWont:whoWont,
     becauseOf:becauseOf, rungFor:rungFor,
+    RIGHT_WORDS:RIGHT_WORDS, makeRight:makeRight, madeRightBy:madeRightBy,
+    wouldSquare:wouldSquare,
+    carryRight:carryRight,
     inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
     DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
   if(HASREQ) module.exports=API; else root.BohemiaStanding=API;

@@ -6434,9 +6434,9 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/6 LATEST -- *** [former jobs] SHIPPED. NOBODY IN THIS
-VALLEY USED TO BE ANYBODY, AND NOW ALL 47 PEOPLE NEAR THE FRONT DOOR DO. The
-card says what they were, and the back of house says what they still know.
+PEOPLE (people-7h9sfy): 9/6 (b) LATEST -- *** [make it right] SHIPPED. NOTHING IN
+THIS GAME COULD BE FORGIVEN AND NOW IT CAN. Wrong somebody, do two good turns
+in front of them, and they will square it. TAB: CITY.
 THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION VERBATIM, BECAUSE HE ASKED FOR IT
 TO LIVE HERE SO IT SURVIVES A MEMORY RESET, AND BECAUSE A REBASE ONTO MAIN
 DROPPED THE LAST COPY OF THIS LANE'S BLOCK ENTIRELY. ***
@@ -6470,90 +6470,81 @@ END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
 =============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
-THE JOB JUST SHIPPED: [former jobs] BB-WHAT-YOU-WERE.
+THE JOB JUST SHIPPED: [make it right] NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN.
 
-THE ROW: "NOBODY IN THIS VALLEY USED TO BE ANYBODY." Verified before building:
-no former trade, no "used to be", no history field anywhere. Its own positive
-control holds too: `background` appears 120 times in the walked city and every
-one is CSS.
+THE ROW, from DYNASTY's Angel round: the web wrote deeds, carried them, faded
+them, and NEVER SETTLED ONE, so standing was a one-way ratchet toward being
+hated -- and generation three is the Angel, who could not forgive anything.
 
-WHY IT IS A WORD AND NOT A STAT, WHICH IS THE ROW'S OWN BEST FINDING:
-"A BACKGROUND IS NOT WHAT SOMEBODY CAN DO. IT IS WHAT THEY STILL THINK THEY
-ARE." 55% of workers get their self-identity from their job, and people who lose
-one build an ALTERNATIVE WORK IDENTITY rather than call themselves unemployed.
-The occupational identity outlives the occupation. So the valley is full of
-people still introducing themselves by a job that died a decade ago.
+VERIFIED FIRST: all eight words (forgive, forgiven, settle, settled, absolve,
+pardon, spare, redeem) are ZERO in the standing web and the deeds module. The
+wider engine's 3 forgive and 86 settle hits are "settlement" the town, a lab
+note and a wash seam check -- read, none of them this. AND A NAME COLLISION
+WORTH KNOWING: BohemiaFavour.settle already means clearing a favour DEBT with an
+outfit, so the new function is makeRight, after the row's own label.
 
-FIFTEEN TRADES, AND THE COUNT IS A MEASUREMENT: SHARED -8 found the sfx ballot
-grew ~6x while his keep rate HALVED and SFX-06 came back 34 of 35 dead.
-"FIFTEEN THAT COVER THE GRID BEATS SIXTY THAT DO NOT."
-  BACK OF HOUSE (6)  ran a kitchen, ran the laundry, kept the boilers, pulled
-                     high voltage, ran the water plant, worked the docks
-  FRONT OF HOUSE (4) dealt cards, parked cars, ran a pit, worked the floor
-  OFF THE STRIP (5)  poured concrete, drove a cab, worked a ward, taught
-                     school, fixed engines
-THE INVERSION IS ENFORCED, NOT DECORATIVE: every back-of-house trade carries
-what they still know and the card prints it; every front-of-house trade carries
-NULL and the card prints nothing under it. The empty half IS the joke, and a
-gate claim stops anybody adding a consolation sentence to it.
+THE RULE IS THE ROW'S OWN: THE PERSON WHO WAS WRONGED DECIDES. makeRight takes
+ONE MIND. No valley-wide absolution, and you cannot clear your own name --
+witness() refuses to record a deed about yourself, so there is no mind to call
+it on. Somebody else who watched the same thing is NOT settled by your
+forgiver's choice. That asymmetry is what stops this being an eraser.
 
-THE MIX IS THE REAL CITY'S: hospitality was ~29% of ALL nonfarm employment in
-the Las Vegas metro. Measured over 60,000 derived people: 29.0%. Two independent
-salted streams, because bohemia_agents already paid a round for "correlated
-draws out of one hash ... one faction took 63% of a three-way split".
+FORGIVEN IS NOT FORGOTTEN, and that is the definition, not sentiment: the deed
+STAYS in the mind with a `right` mark, forceOf returns 0 for it, and madeRightBy
+can always say what happened and how.
 
-PROVEN ON THE REAL DEMO: 47 of 47 people within six cells used to be somebody,
-which was NONE of them before. 13 of the 15 trades show up in one crowd. The
-card says RAN A KITCHEN with CAN FEED A CROWD OFF NOTHING under it, and DEALT
-CARDS with nothing under it.
+*** AND "WOULD THEY?" IS DERIVED, NOT A DIAL, WHICH IS THE BEST PART. *** A
+button that always works is an eraser; "how forgiving is this person" would be a
+tuned number and numbers are his. So it is asked of what THEY saw: they square
+the old thing only if everything else they know about you already comes out
+positive. It is this web's own arithmetic with the grudge taken out of the sum.
+IT MAKES THE RIGHT LOOP: "make it right" stops being a button and becomes the
+instruction -- go do something for the person you wronged, in front of them,
+then ask. Grounded too: amends raise forgiveness, severity lowers it, and both
+fall out of that sum with no threshold anybody picked.
 
-*** THE MISTAKE OF MINE, AND THE GATE FOUND IT: ONE HUMAN HAD TWO PASTS. ***
-wasOf fell back to person.id when there was no key. That looks generous and it
-is a SECOND IDENTITY: the roster object carries id '12:12:900' while the card's
-person carries key 'P:city:12:12:900', so the same human came back with a
-different former trade depending on which object asked. Found by the gate
-finding a water-plant worker in the roster and opening a card that said
-something else. It refuses without a key now, exactly as nameOf does, and the
-refusal is a claim so it cannot come back.
-Two more of mine, both about the CHECK not the code: the card claims first
-hand-placed the player at roster coordinates (ctAdjacent answers about DRAWN
-bodies), then swept the clock at the spawn where the screen holds ONE body and
-it was always the same cab driver.
+THE WEB LEARNS IT on the paths the grudge travelled: a SECOND-HAND grudge dies
+when the person it belongs to squares it, and it stops dead at anybody who saw
+it with their own eyes.
 
-AND ONE PLACE THE STUDY AND THE CODE DISAGREE, WORTH CARRYING: the study routes
-the former trade at the ~60 one-off quest predicates. THIS MODULE'S OWN CASTING
-NOTE already settled that the other way -- they are "CONFERRED, NOT MATCHED ...
-the only reading that does not require inventing sixty new simulation facts."
-A later measured decision in the code beats an earlier routing note, so nothing
-here touches casting.
+SHIPPED THIS ROUND
+  engine/bohemia_standing.js                RIGHT_WORDS, makeRight, madeRightBy,
+                                            wouldSquare, carryRight
+  tools/bohemia_city_make_it_right_patch.py the card row, offer and handler
+  gates/make_it_right_gate.js               40 claims, 0 red
+  records/BOHEMIA_MAKING_IT_RIGHT_9_6_26.txt
 
-WHAT THIS LANE DID NOT DO, ON PURPOSE: no LINES keyed off a former trade (that
-is WORDS' own row [trade slang] BB-STILL-SAYS-IT, still OPEN, and a gate claim
-asserts none exist here); no stat, wage or combat effect; nothing on casting.
+PROVEN ON THE REAL DEMO, THROUGH THE BUTTON A PLAYER PRESSES:
+  wrong them        -6.00, card says THEY HOLD SOMETHING AGAINST YOU and
+                    NOTHING YOU HAVE DONE OUTWEIGHS IT YET, and NO button
+  one good turn     -6.00 -> -2.00, still no button
+  two               2.00, card says AND THEY WOULD LET IT GO, button appears
+  press it          2.00 -> 8.00, card says YOU SQUARED IT / PAID THEM BACK,
+                    button gone, and the good standing you earned survives
 
-LANE GREEN: USED TO BE 36/0, TRADE FIT 42/0, PEOPLE 158/0, AGAINST 66/0,
-WHO VOUCHES 19/0, CITY PEOPLE 18/0, LANGUAGE 81/0, DEMO IS CURRENT 16/0,
-DEMO BUILD 25/0.
-trade_fit's [one faction] claim was REPOINTED TWICE this round and both times
-the CHECK was wrong: FACTIONS shipped [who holds] so Church bodies now stand
-near the Cartel base and asking for two is correct; and the request set is
-session-cumulative while a render is an instant. It now asserts what the lazy
-bake really promises -- a handful not thirteen, and every request comes back as
-a body.
+LANE GREEN: MAKE IT RIGHT 40/0, WHO VOUCHES 19/0, PEOPLE 158/0, AGAINST 66/0,
+DEED BRIDGE 27/0, USED TO BE 36/0, TRADE FIT 42/0, CITY PEOPLE 18/0.
+city_deeds 42/1 is identical on clean origin/main.
 
 NEXT OPEN LINE FOR THIS LANE: [family events] FAMILY-EVENTS -- something writes
 a child, a marriage, an ageing into family.tree; selectHeir has zero callers.
 
 [PENDING Paolo] -- CARRIED, NOT DECIDED HERE
-  1. The fifteen former trades and their sentences are all draft:true. He
-     corrects them by playing.
-  2. HONEST LIMIT: the five off-Strip trades stand for ~71% of a real city's
-     employment, so each is individually more common than any single hospitality
-     trade. The SECTOR share is exact; the within-half spread is even because no
-     source gives a finer split, and adding trades to fix it is the thing
-     SHARED -8 measured going wrong.
-  3. STILL CARRIED: AFFILIATED_RATE and REACH_CELLS in bohemia_agents.js are
-     both already [PENDING Paolo].
+  1. DOES A FORGIVEN THING STILL STING A LITTLE? A squared deed goes clean to
+     zero force and keeps its record. Whether it should leave a residue is a
+     MAGNITUDE and magnitudes are his. This one changes how the whole theme
+     feels and it is the first thing to ask him about this feature.
+  2. Whether the four words should differ MECHANICALLY -- is being spared worth
+     more than being paid? One mechanism today, the word recorded so they can be
+     pulled apart without touching a surface.
+  3. The four sentences are draft:true.
+  4. STILL CARRIED: the four STREET deeds are unweighted until the 82-row table
+     is ruled, so a grudge only exists today where a quest deed fires or where
+     he turns the STANDING dial. Same [PENDING] as [weights shape], which the
+     coordinator has since RULED on the board.
+
+FEEDS: DYNASTY's Angel round (which found this hole) and WORDS Q17 [angel verbs],
+open on the board, about what the Angel can do now that something can be forgiven.
 
 TAB: CITY. Walk up to anybody and the card says what they used to be.
 
