@@ -9395,7 +9395,22 @@ fix (hostiles wear the faction colour) would have made them INVISIBLE in their o
 faction's block. New rule: motion first (they walk AT you), then one value step from the
 LOCAL crowd measured in the frame, then silhouette, never a health bar. Routed ANIMATION
 [walks at you] (top), CHARACTER [stands out] (top), DIRECTION [contrast rule], EYES E10
-[find them], plus RUN [drop in] and [day one], WORDS Q17 [rumour words].
+[find them], plus RUN [drop in] and [day one], WORDS Q17 [rumour words]. THEN (bt) VAMILY: small round,
+7 commits -- RUN [real ending] (measured first: the ending is already built), DIRECTION
+THE TERRITORY LOOK CARD, DYNASTY [what carries], EYES E7. TWO THINGS CAME BACK AT ME.
+(1) DYNASTY's carry research reads as contradicting my 9/5 "every debt in full" ruling and
+does NOT: it says debt stops inheriting only because a court stops it, and we have no
+courts, so ours is "what the law exists to prevent, running where the law is gone" -- a
+stronger reason than I gave. It DID correct the form: you do not inherit a bill, you
+inherit THE PEOPLE HE OWED. Adopted; routed PEOPLE [creditor stands] and WORLD [fold
+carries]. (2) EYES E7's score sheet found the act-1 re-cook at a median 0.16x the colour
+density of the art Paolo APPROVED, sidewalks 0.03x, colour density failing 32 of 42, and
+ten tiles lit from a different corner than the ones they replaced -- and texture_match_gate
+found the same shape months ago from another direction. SWING: records/BOHEMIA_COORDINATOR_
+RESEARCH_TOO_CLEAN_TO_BE_REAL_9_6_26.md (material reads as material because of irregular
+noise; vary hue between neighbouring values, not just brightness; an even tile announces
+itself). Routed DIRECTION [density ruling] (top) and COOK [light agrees] (top). Not a
+question for him: he ruled the principle on 9/4 and froze the fleet over it on 7/26.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
