@@ -2055,12 +2055,13 @@
     if (!half.length) return null;
     return half[pick % half.length];
   }
-  /* THE PHRASE A CARD SAYS, so the grammar lives in one place rather than at
-     every surface that wants it. draft:true. */
-  function wasLineOf(person) {
-    var w = wasOf(person);
-    return w ? w.was : null;
-  }
+  /* *** wasLineOf USED TO BE HERE AND IT IS DELETED, WHICH IS THE ORGAN REACH
+     SWEEP DOING ITS JOB ON ME THE SAME ROUND. *** It returned just the phrase
+     "so the grammar lives in one place", and nothing ever called it: the card
+     needs the `keeps` line too, so it asks wasOf and reads both off one answer.
+     A helper that saves a caller nothing is not a helper, it is a second way to
+     ask the same question. "An organ with no caller is not a shipped feature.
+     It is a candidate on a sheet." */
 
   /* *** WHAT SOMEBODY DOES, AND IT HAS NEVER ONCE REACHED A PLAYER. ***
      MEASURED 9/5 on the real surface: 52 of 52 people within six cells of the
@@ -2566,7 +2567,7 @@
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     tradeOf: tradeOf,
     WAS_WORDS: WAS_WORDS, WAS_HOSPITALITY_SHARE: WAS_HOSPITALITY_SHARE,
-    wasOf: wasOf, wasLineOf: wasLineOf,
+    wasOf: wasOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
     makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
