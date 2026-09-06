@@ -1,3 +1,375 @@
+EYES AND EARS (eyes-5vql33): 9/5 (h) LATEST -- *** E5 [missing sound] SHIPPED, AND E4'S
+ALARM IS WITHDRAWN. The footstep chain WORKS end to end (31 walked cells, 31 calls, 32
+renders). But STAND STILL FOR 35 SECONDS WITH THE DAY STARTED AND THE ENGINE RUNNING AND THE
+GAME PLAYS NOTHING: zero effects asked for, zero rendered, while the music plays. The three
+ambience beds are approved, cooked, measured -- and nothing ever calls them. ***
+MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
+
+THE WITHDRAWAL FIRST. E4 reported a walk that rendered zero sounds and REFUSED to call it a
+finding because the same run showed the audio engine down. That refusal was right and the
+cause was a bug in my own harness: IT READ window.MUS, AND THE MUSIC STUDIO IS DECLARED WITH
+const -- a global BINDING, NOT a window PROPERTY. window.MUS is undefined while MUS works.
+Fifth instrument bug this lane has caught in itself in one day, and the cheapest.
+With bare names the harness tells the truth: engine running at four checkpoints, 31 walked
+cells, 31 footstep calls, 32 renders at the bus. THE GAME IS NOT SILENT WHEN YOU WALK.
+
+AND THEN THE MEASUREMENT THAT MATTERS: 35 SECONDS STANDING STILL = ZERO SOUNDS. air_day,
+air_night and air_inside are approved and cookable (E4 measured all three) and nothing in the
+game calls them. That is the day-22 finding still standing, with a number on it. SOUND fixed
+the MUSIC half today (the city sends where you are and the song follows); the ambience half
+is cooked and unplayed.
+
+THE TEN GAPS, EVERY VERDICT TWO WORDS AND EVERY ONE MEASURED TODAY:
+  the ambience bed        COOKED, UNPLAYED   35s still: 0 asked, 0 rendered
+  footsteps               LIVE, MONOTONE     31 of 31 steps reported the surface 'dirt'
+  reverb by space         BUILT, LIVE        the city posts OPEN; four spaces with real numbers
+  occlusion               NOT BUILT          nothing filters a sound by a wall in the way
+  distance colour         NOT BUILT          darkness is per SPACE, never per DISTANCE
+  a threshold you hear    NOT BUILT          the spaces switch instantly; a doorway is silent
+  stings                  MUSIC ONLY         they live in the studio, not the effects factory
+  ducking under a card    NOT BUILT          no sidechain: nothing steps aside for a card
+  the phone speaker       HALF LOST          E4: 22 events lose half their energy under 500 Hz
+  watching the mix        NOBODY IS          nothing meters the game's own output while it plays
+
+AND EVERY VERDICT RESPECTS THE SCREECH LAW. No delay lines, no convolvers: the factory
+already builds space out of FINITE SOURCES (scheduled early reflections, a filtered noise
+tail). Occlusion in that world is a low-pass on the dry layer with the reflections untouched
+-- three numbers on an existing recipe, not a new engine. Not one gap asks for a reverb bus.
+
+ROUTED: SOUNDS gets the bed first (the work is done, only the call is missing), then
+occlusion and distance colour, then one look at whether 31 dirt steps is a yard or a
+fallback. GAP 10 IS MINE: E4 measured every asset alone and nothing has ever metered the MIX
+while the game plays. That is my next instrument and it is what lets E9's standing duty say
+"this ship got louder" instead of "these files measure fine".
+
+NEXT IN THIS LANE: E8 [first minute], then E9 the standing duty, then the mix meter.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; eight things
+now do. Lanes may only change the status word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E5_THE_SOUND_GAP_LIST_9_5_26.md (+ E1, E2, E3, E4, E6, E7 and
+the round-one record). List: banks/eyes/BOHEMIA_EYES_SOUND_GAP_LIST_9_5_26.json, draft:true.
+Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools: ten, all
+bohemia_eyes_*, and the live audio harness is trustworthy now.
+
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour].
+Next OPEN is Q16 [debt spiral]; Q17 [wages fall] and Q18 [black market] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 15 REPORT: [first hour] SHIPPED ===
+*** THE MISSING THING IS NOT THE RICE, IT IS THE BAG. MODE: RESEARCH, nothing
+implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_15_THE_MISSING_THING_IS_NOT_THE_RICE_IT_IS_THE_BAG_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections WWW-AAAA (13 lines, 218 total)
+Board:  Q15 SHIPPED. Q1-Q15 shipped; next OPEN is Q16 [debt spiral], then Q17
+        [wages fall] and Q18 [black market].
+
+I DROVE THE WHOLE FIRST HOUR ON THE REAL MODULES INSTEAD OF DESCRIBING IT.
+  A PLAYER WHO DOES EVERYTHING RIGHT ENDS HIS FIRST HOUR OWNING NOTHING, AND THE
+  PEOPLE WHO DEPEND ON HIM DO NOT EAT, BECAUSE THE FOOD HE BOUGHT NEVER ARRIVED.
+His whole economic record for day one is two ledger lines: +1 electricity
+quest:COMPLETE, -1 electricity buy:food. One in, one out, no food.
+  STEP 5  buys the bag of rice -> applied:true, paid:1, and resources 0 BEFORE,
+          0 AFTER.
+  STEP 6  night falls, day:ate -> REFUSED, INSUFFICIENT, wanted:1 have:0.
+WORLD's STATE line already called buy() a known gap on [rice clock]. Nobody had
+measured it through to the consequence. The consequence is that the tutorial's own
+loop cannot close on day one.
+
+THERE IS NO BAG. The purse is three numbers and there is NO INVENTORY ANYWHERE IN
+THE GAME. Nothing a player holds has a name, a count or a place; 'resources' is a
+lump. So buy() has nowhere to put what you bought and does the only honest thing
+it can: charges you, records the drain, stops.
+THE HALF THAT EXISTS: MKT_BOUGHT is a per-good count already written on every
+purchase, already saved, already restored, and NOTHING EVER READS IT to decide
+anything. The gap between a receipt and an inventory is one reader.
+EVERYTHING A PLAYER CAN OWN: electricity (+1 per job, 27 jobs exist), resources
+(+1 per building per day), clout, buildings, housing (derived). FOUR NUMBERS AND
+A SET OF COORDINATES. Nothing on the list is a thing.
+
+*** THE FINDING THAT PROVES US WRONG. I came in certain the answer was the bag of
+rice -- the coordinator's [rice clock] row, which I have quoted approvingly in
+three records. The real record says the rice is the SECOND thing. IN A COLLAPSE
+THE FIRST THING PEOPLE ACQUIRE IS NOT A GOOD, IT IS A PLACE TO PUT GOODS. ***
+  LEBANON 2019: banks shut over two weeks, longer than in the civil war. The SAFE
+    shops boomed, business up ~30%, safes $35 to $15,000. The jewellery shop next
+    door filled with people SELLING what they already owned. Households on
+    delivered water roughly doubled (35% / 28.5% / 19%) -- what you needed was a
+    tank.
+  SARAJEVO: the two things people needed were CONTAINERS to carry water in and a
+    STOVE improvised from broken machines. Not water. Not fuel. The container.
+  ARGENTINA 1 Dec 2001: corralito, 250 pesos a week. BY 5 DECEMBER, FOUR DAYS
+    LATER, SHOP SALES HAD COLLAPSED 50-70% with the currency still nominally fine.
+    THE FIRST WEEK IS NOT PRICES GOING UP, IT IS THE SHOP STOPPING. And the answer
+    was not cleverness with money, it was 1.5 MILLION PEOPLE IN BARTER CLUBS: they
+    learned a room and the people in it, not a price.
+A GOOD YOU CANNOT HOLD IS NOT A GOOD. And it explains round 13: of course the
+game mints 585 batteries a night against eleven things worth buying -- A CURRENCY
+IS THE ONLY THING OUR PLAYER CAN HOLD, so it is the only thing he accumulates.
+Give him somewhere to put a good and the demand side has somewhere to grow.
+
+THE LIST, IN ORDER (the deliverable RUN and LIFE+CITY asked for):
+  1. SOMEWHERE TO PUT THINGS. Missing outright. Costs one reader over a count we
+     already keep.
+  2. ONE GOOD HE ACTUALLY HOLDS, and make it the rice. [rice clock] is right, it
+     just needs item 1 underneath it.
+  3. A THING HE ALREADY OWNED THAT HE CAN SELL. We have no sell verb at all.
+  4. SOMEWHERE THAT IS HIS. Nearly free; housing and the builder already do it.
+  5. ONE PERSON WHO WILL DEAL WITH HIM. The nearest seat is 7.3 cells away with
+     two things on the shelf; it needs to be a person before it needs a third good.
+  6. ONE OBLIGATION HE HAS NOT SETTLED. Round 9: a debt is a person who remembers.
+     Cheapest hook in the list.
+  NOT ON THE LIST ON PURPOSE: a battery balance. He will have one. It is not what
+  he should point at when somebody asks what he got today.
+
+*** AND I RAN RUN'S COLD HAND GATE, BECAUSE THIS ROUND IS ABOUT THAT EXACT HOUR
+AND ITS OWN HEADER SAYS NOBODY HAD ASKED WHAT A SECOND RUN WOULD FIND.
+THE COLD HAND: 4 passed, 2 FAILED. ***
+  "THE GAME ADVANCES UNDER A COLD HAND -- clock 1d 360m -> 1d 360m over 40 presses"
+  trail: shell:front > shell:openWatch > city:rungbtn > city:pad > city:dcgo x36
+A simulated stranger gets four taps in, lands on the day card's GO and presses it
+THIRTY-SIX TIMES while the clock never moves. 06:00 day one at the first tap and
+06:00 day one at the fortieth. Same failure the test was written for on 8/25, in a
+different place. PROVEN NOT TO BE THIS ROUND'S TREE: my slices/, engine/ and
+gates/ are byte-identical to origin/main. NOT THIS LANE'S TO FIX (RUN's gate, RUN's
+surface, and my mode is research) -- reported because a first-hour round that ran
+the first-hour instrument and stayed quiet about a red would be worthless.
+The road IN is fine: the first-morning gate is 19/0 and TAKE IT needs one tap. It
+is the hour AFTER that is broken.
+
+REFUSED: an inventory screen with slots and weights (anti-spreadsheet, 7/26 -- what
+the list asks for is one line a person could say out loud, "a bag of rice and a
+jerrycan"); a fourth currency for goods (three is LOCKED, and a bag is a place not
+a currency); changing any price (8/15); a hunger meter on the player (the four-verb
+law already has the better version: the people who depend on you ate); building the
+fix (this lane does not implement); a tutorial that explains it (the first hour
+does not teach by killing you, and [rice clock] teaches by wanting).
+
+ROUTED: WORLD [rice clock] gets two (buy() charges and delivers nothing, measured
+through to day:ate; MKT_BOUGHT is the half that exists). LIFE + CITY gets the
+missing sell verb and "a player cannot point at anything he owns". RUN gets the
+cold hand red and the 30-60 second first reward. One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0, first-morning 19/0. COLD HAND 4/2, red on main, not
+mine and not this lane's.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days, runs dry around fifty.
+     Premise or bug?
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? FIFTH VOTE (rounds 2, 9,
+     10, 12, 13): a banknote far from its bank was not discounted, it was REFUSED.
+  9. Can a repaired ruin house people, the way his 8/1 ruling says? And can a
+     building hold a second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player in a broken city WANT that he cannot just
+     build? (Round 13: this is the bigger half.)
+ 11. What does a subscription to a block BUY, if it cannot buy electricity? His
+     9/5 law rules out a power allowance. Without this, [block rent] has a price
+     and no product.
+ 12. (new) What does the player START with? He boots with nothing: 0 batteries, 0
+     goods, no possessions. Every real first week begins with somebody selling or
+     improvising something they already had. What is in his hands at the first
+     frame is canon, and canon is his.
+
+NEXT IN THIS LANE: Q16 [debt spiral].
+
+================================================================================
+WORDS (words-8dqrnq): 9/5 (m) LATEST -- *** VAMILY Q16 [cut off] SHIPPED. A CUT-OFF IS
+NOT SAID. IT IS A BREAKER TRIPPING AND THE FRIDGE STOPS, AND THE MOST COMMON WAY YOUR
+POWER GOES OUT IS YOUR OWN KETTLE. *** Nothing to judge, MODE: RESEARCH, nothing
+entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q16 [cut off], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q16_THE_COLLECTOR_AND_THE_CUT_OFF_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q16, all draft:true.
+Ten collector lines, five cut-off lines and five refusals, as the row asked for.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE MEASUREMENT: 42 money-owed lines of 1,669 (2.5%), every one read by hand.
+THERE IS NO COLLECTOR IN THIS GAME. The entire collector vocabulary of Bohemia is
+one ambient bark in three registers: "You know what you owe me." Four words, no
+speaker, no place, no amount, no consequence. And the household side has exactly
+one line, which is the best thing in the set and was written by accident:
+    "Did you pay it?"  /  "I paid it. Tomorrow it will be twice again and I will
+    pay that too."
+Then I searched the cut-off itself: ten candidates, all read, and THREE ARE ABOUT
+CUTTING THE ENDS OFF VEGETABLES. ZERO CUT-OFF LINES. The closest thing we own is
+good and is a different scene: S15's owner in a backroom, an owner talking to an
+equal, not a collector at a door and not a family that cannot pay.
+
+THE REAL RECORD, IN THEIR OWN WORDS:
+- People in Beirut "DREAD THE MONTHLY VISIT of the private generator bill
+  collector." Not the bill. The VISIT. It is an appointment with a person.
+- "The generator owner is a thug. Everyone knows it, but there is nothing we can
+  do." (Yasmine, Saydeh Street, Achrafieh)
+- "He makes his own law IN FULL VIEW OF EVERYONE."
+- He "set up a large station in one of the underground warehouses, and the
+  residents know that he STEALS ELECTRICITY through large cables" from the state
+  utility's own rooms. (Majed, Barbour Street) He steals the state's power and
+  sells it back to the people the state was supposed to give it to, in a building
+  everybody can point at, and nothing happens.
+- AND THE WEAPON OF THE WEAK IS A METER. One resident, after TWO YEARS of asking,
+  got a meter installed: "MY ELECTRICITY BILL HAS BEEN CUT IN HALF." The whole
+  fight was a small box. Our first quest is already called THE METER READER.
+NUMBERS: one 500 kVA generator feeds ~300 homes; you buy AMPERES monthly, unmetered
+for years so the owner alone says how many hours he ran; the bill ran ~44% of an
+average household's income in 2023 and ~88% for the poorest; recent Baghdad rates
+12,000 dinars (~$9) per ampere round-the-clock, 8,000 (~$6) nights only, against a
+350,000 dinar (~$269) minimum wage.
+
+THE FINDING THAT PROVES US WRONG: THE CUT-OFF IS SILENT. I assumed a confrontation.
+In the real system the line runs through A CIRCUIT BREAKER SET TO THE AMPERES YOU
+BOUGHT, and it trips whenever you draw more. Two kinds, neither with a speech:
+    THE PUNISHMENT   somebody at the generator throws a switch. Nobody comes to
+                     tell you. You find out because the fan stops.
+    AND THE ONE I DID NOT EXPECT, WHICH IS BETTER: YOU CUT YOURSELF OFF. A family
+    at its ampere limit trips its own breaker by turning on one thing too many.
+    THE MOST COMMON WAY THE POWER GOES OUT IS YOUR OWN KETTLE.
+That second one is a whole design in one sentence and it is real: a household that
+buys five amperes decides every evening which TWO THINGS RUN AT ONCE. The argument
+about the kettle is the economy arriving in a kitchen, with no antagonist in the
+room. SO: HOW IS A CUT-OFF SAID? IT IS NOT. Write the silence and the next morning.
+
+THE COLLECTOR IS NOT THE OWNER, AND THAT IS THE CHARACTER. The man at your door is
+an employee. He does not set the price, cannot give you another week, and lives on
+your street. SO HE HAS THE SAME LINE THE FAMILY HAS: there is nothing he can do. It
+is true, AND it is the oldest excuse there is, and the family cannot tell which.
+That ambiguity is free and it is the best thing in the scene.
+
+WHAT MAKES IT LAND WITHOUT A VILLAIN VOICE, THREE THINGS:
+1. THE POWER IS PUBLIC, SO THE THREAT NEVER HAS TO BE SPOKEN. When both people
+   already know what he can do, saying it out loud is WEAKER. He talks dates and
+   amounts; the consequence sits in the room without being invited. ("The chair is
+   new." is a whole threat in three words and is not a threat.)
+2. HE IS RIGHT AND HE KNOWS IT. Menace is payoff plus conviction. The generator
+   owner GENUINELY PROVIDES THE ELECTRICITY; without him the block is dark. A
+   collector who thinks he is the reason the lights work is far worse to face than
+   one who thinks he is a villain.
+3. AND THIS IS WHERE Q10 CASHES IN. That round measured ZERO first-person threats
+   in the build and found that a warning beats a threat because a threat costs the
+   speaker his own freedom of choice. THE COLLECTOR IS THE PUREST WARNING-SPEAKER
+   IN THE GAME. He never says "I will cut you off", he says what happens on Friday.
+   Our five-times-repeated "that isn't a threat" tell must still never be spoken.
+
+ROUTED OUT OF THIS ROUND:
+- FACTIONS / ECONOMY: the testimony hands over two mechanics the coordinator's own
+  generator-mafia round did not name. The owner STEALS THE STATE'S POWER AND SELLS
+  IT BACK, in a building everybody can point at. And THE METER IS THE WEAPON OF THE
+  WEAK: one real bill halved the day a box went in, after two years of asking. A
+  meter is a cheap, legible, non-violent way for a player to fight a faction, and
+  it is already the name of our first quest.
+- LIFE + CITY: the breaker. A household at its limit trips its own line by turning
+  on one thing too many.
+- COMBAT: the collector is not a fight. He is why a fight starts three scenes
+  later, and if he is ever a fight he stops being frightening.
+- WORDS, held until MODE: BUILD: THE-COLLECTOR-HAS-A-DOOR.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER (Q11, Q14): facePerform is called with {} while 229 mood tags ride in
+  the shipped demo. A wire, not a feature. Two rounds depend on it.
+- PEOPLE (Q12, Q13, Q15): 64 given names never spoken; the hop count computed and
+  never spoken. Three rounds now.
+- UI: SEVEN rounds asking for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q17 [rumour words], which the coordinator added out of my Q13 round: what a
+DISTORTED rumour sounds like, now that PEOPLE is building rumours that travel about
+somebody who is not you and that get things wrong.
+
 FACTIONS (factions-ovkjpf): 9/6 (round 5) LATEST -- *** [who holds]
 EVERY-DISTRICT-HAS-AN-OWNER SHIPPED. Every border in the valley now runs along
 something a player can see: 65.7% -> 100%. *** Nothing to judge.
@@ -282,7 +654,7 @@ blockers 22/0, language 81/0.
 NEXT IN THIS LANE: Q15 [first hour].
 
 ================================================================================
-WORDS (words-8dqrnq): 9/5 (l) LATEST -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
+WORDS (words-8dqrnq): 9/5 (l) -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
 RESEARCH QUEUE Q1 TO Q15 IS NOW ALL SHIPPED. THE CITY FEED IS A PRESS RELEASE IN A
 WARM LOWERCASE COSTUME: EVERY POST THAT CARRIES ACTUAL NEWS HAS NO PERSON IN IT. ***
 Nothing to judge, MODE: RESEARCH, nothing entered the game.
@@ -426,58 +798,6 @@ GATES, ALL GREEN, RUN THIS ROUND:
     voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
 
 NEXT: Q16 [cut off], the last open research row.
-
-EYES AND EARS (eyes-5vql33): 9/5 (g) LATEST -- *** E7 [reference score] SHIPPED. The 9/4
-compare law now has a SCORE SHEET: ten yes/no questions, SEVEN OF THEM A MACHINE ANSWERS,
-three only a person can. And running it to validate itself found something: THE ACT-1
-RE-COOK CARRIES ONE SIXTH THE COLOUR DENSITY OF THE ART PAOLO APPROVED, and ten of its
-forty-two tiles read as lit from a different corner than the tile they replaced. ***
-MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
-
-REUSE CHECK: gates/texture_match_gate.py already holds painted TILES to four numbers
-derived from the packs he BOUGHT (colours per tile, edge energy, grain, saturation). This
-does not re-measure those. It generalises the idea to ANY pair of pictures -- a garment, a
-face, a whole screen -- and adds the four that gate does not ask: value band, grain SCALE,
-light direction, and whether the thing still reads at play size.
-
-THE SHEET. Machine: same detail order (local contrast within 2.5x), same colour density
-(within 3x), same saturation budget (within 0.10), same value band (60% overlap), same
-grain scale, same light (the lit corner agrees), still reads at play size (shrink to 24px).
-A person: is it the same MATERIAL (name what each is made of -- two words that differ means
-the numbers do not matter), does it belong to THIS world, and what would a stranger call
-each picture in one word. A cook is not done until the seven are yes and the three are asked.
-
-VALIDATED BEFORE IT WAS USED: a picture against itself 7/7; a water tile against a wall tile
-3/7; the re-cook against the approved set, median 6/7 across 42 tiles.
-
-THE FINDING, AND TWO INSTRUMENTS NOW AGREE. Across those 42 tiles the failures are: COLOUR
-DENSITY 32 of 42, LIGHT 10 of 42, value band 4, grain 4, detail order 3, saturation 3, reads
-at size 1. The re-cook's colour density is a MEDIAN 0.16x of the art he approved and the
-sidewalk tiles are at 0.03x -- three percent. Some of that is the craft working (law 0: a
-tile is decisions, not a shrunk painting) BUT the texture-match gate found the same shape
-from a completely different direction months ago: painted art here is too smooth and too
-clean beside the packs he bought. Two instruments built for different reasons pointing the
-same way is worth a RULING from DIRECTION, not another quiet cook.
-AND TEN TILES READ AS LIT FROM A DIFFERENT CORNER than the tile they replaced: road_0,
-road_1, road_2, road_centre, dirt, garage_bottom, roof_slope, roof_hipTL, roof_hipBR,
-roof_deck. The pixel-craft gate checks the key by PAIRS within a form, which is the right
-test for a form; whether a tile agrees with the tile it REPLACED is a different question and
-nothing was asking it. Routed to COOK.
-
-HONEST LIMIT: reference/library holds URLs, not pixels, so the machine half cannot run
-against most library entries from in here. It runs today against anything in the repo -- his
-bought packs, any bank, any screenshot -- and for a library entry the same ten questions go
-to a fresh chat with both pictures in front of it. That is why the sheet is written to be
-answerable BY EITHER. And seven yes does not mean good: it means built to the same recipe.
-
-NEXT IN THIS LANE: E5 [missing sound], then E8 [first minute], then E9's standing duty.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; seven things
-now do. Lanes may only change the status word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E7_THE_REFERENCE_SCORE_9_5_26.md (+ E1, E2, E3, E4, E6 and the
-round-one record). Sheet: banks/eyes/BOHEMIA_EYES_REFERENCE_SCORE_SHEET_9_5_26.json,
-draft:true. Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools:
-ten now, all bohemia_eyes_*.
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
@@ -1502,10 +1822,12 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/6 (a) LATEST -- *** [more people] POPULATION-DEFAULT:
-ROUND 1 SHIPPED, THE JOB CONTINUES. THE CITY DRAWS ONE PERSON ALL DAY AND IT IS NOT
-THE COUNT: THE SUBURB HE WAKES IN HAS 1,118 FRONT DOORS AND NOBODY WAS EVER PUT IN
-ONE. *** MODE: BUILD. TAB: CITY (walk out the front door). Nothing to judge.
+LIFE + CITY (city-1eztay): 9/6 (b) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 2 SHIPPED, THE JOB CONTINUES. THE DAY WAS WHAT EMPTIED THE STREET -- GOING OUT
+FOURTEEN-TIMED THE GAP BETWEEN PEOPLE, BECAUSE EVERY ONE OF THEM WALKED A PRIVATE RAY
+TO A PRIVATE COORDINATE. A NEIGHBOURHOOD HAS PLACES NOW; 13 SHARE A SCREENFUL WHERE 3
+DID, AND A WALK MEETS SOMEBODY 3 TIMES IN 12 WHERE IT NEVER DID ONCE. *** MODE: BUILD.
+TAB: CITY (walk out the front door). Nothing to judge.
 
 === PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
@@ -1690,7 +2012,103 @@ THE COORDINATOR TO ROUTE TO RUN.
   THE STANDING NOTE: A NUMBER CHOSEN BY MEASURING ONE PATH IS NOT A SETTING, IT IS AN
 ASSUMPTION ABOUT THE OTHER PATH. The dial was moved to 20 in good faith off a real
 measurement of a real model. It just was not the model that draws the street he walks down.
-  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues next round.
+  *** ROUND 2, SAME JOB: A BEARING IS A PLACE. SHIPPED, ROW STILL OPEN. ***
+  FIRST I CORRECTED MY OWN LAST HANDOFF. It told this round to go and fix people who
+never leave the doorstep. THEY LEAVE: 41 of 61 are outside at 10:00. That sentence was
+never measured -- it was inferred from a stale comment plus an out=0 that only ever
+counted people who were DRAWN, of whom there was one. An hour of building against it
+would have produced nothing.
+  WHAT IS ACTUALLY WRONG IS WORSE AND MORE FIXABLE. Measured at the busiest hour, the
+same 61 people: AT HOME nearest neighbour 1 cell and 4 share a screen; OUT, nearest
+neighbour 14 CELLS and 3 share a screen. THE DAY IS WHAT EMPTIES THE STREET. At home
+they are in households shoulder to shoulder; the morning dissolves the only cluster the
+game has into sixty-one private rays to sixty-one private coordinates, none of them
+near anybody else's.
+  THE MODULE HAD ALREADY WRITTEN THE FIX AND NOBODY DID IT. bohemia_population.js on
+workDir, since 7/31: "a bearing and a distance, not a district name -- NAMING THE
+WORKPLACE IS THE SURFACE'S JOB because only the surface knows what is actually there."
+The surface resolved the bearing to the most open cell on the ray, which is a
+COORDINATE. A place is a thing OTHER PEOPLE ALSO GO TO.
+  WHAT SHIPPED: a neighbourhood has PLACES and a bearing picks one. NOTHING IN IT IS A
+NUMBER I CHOSE. How many is HEADS.cluster, the population module's own settlement size
+-- a literal there would be a population knob wearing a placement rule's clothes and
+this lane may not touch how many. Where is pplOpenness + pplDoorstep, the two
+instruments the surface already had: openness alone does not discriminate here (90% of
+the ground scores 22-24) so "the openest cell" was picking the middle of an empty lot,
+and a crowd in open desert is a coincidence, not a place. A place is FRONTAGE, which is
+also where a walking player goes because doorways line the streets buildings front. A
+faction seat beats a street corner -- BB-TURF put 14 real markets on the map on 9/5 and
+the walked surface had never asked where they were. Their own bearing still chooses
+WHICH place, so the 7/31 address book survives. The old ray is still underneath, so
+ground the art has not filled in behaves exactly as before.
+  WHAT IT DID ON THE FIRST CUT, sending EVERYBODY to a place: share a screenful 3 -> 13,
+nearest neighbour where they go 18 cells -> 1. Standing at the nearest place, 97 cells
+from where he wakes: 1 body at 06:00, 4 at 08:00, 6 at 10:00, 2 at 14:00, 4 at 16:00,
+EIGHT at 18:00, 2 at 22:00 -- against ONE body everywhere all day before round 1, and
+the day now has a shape (a morning, a dead middle at the module's own heat hour, a busy
+evening, a quiet night).
+  *** AND THAT FIRST CUT WAS TOO MUCH, WHICH ANOTHER LANE'S GATE SAID BEFORE I NOTICED.
+*** alive_gate went red on "it can happen inside a block, not only at the far end of
+one": its closest meeting across 32 walks had gone from within 60 steps to 198. REAL
+COST, NOT A BROKEN RULER -- gathering everybody makes the ground BETWEEN places
+emptier, and the lone body you used to bump into is now standing in a square somewhere
+else. WHOSE DAY HAPPENS AT A PLACE IS ALREADY WRITTEN, in bohemia_agents.js's own four
+days, and it is not a ratio anybody had to choose: a WORKER goes to an off-block site
+job and a KEEPER runs one daily errand, so their day happens somewhere; a SCAV runs a
+subsistence sweep (two scavengers on one corner are competing) and a WATCH stands a
+post, and both of those are solitary by definition. The FAVOURITE spot stays a place
+for everybody, because Shadows of Doubt's favourite bar is a BAR and a man who
+scavenges alone all day still drinks where other people drink -- only the WORKING half
+of the day is solitary.
+  MEASURED AFTER THE SPLIT: workers and keepers 6 share a screenful and are 1 cell
+apart; scavs and lookouts 2 on a screenful and 25 cells apart (alone, on purpose); the
+whole valley at home 4 and 1. And on alive_gate's own 32 walks, a bigger and older
+sample than anything this round built: 2 OF 32 MET A STRANGER BEFORE, 9 OF 32 AFTER, 5
+different people, closest meeting 198 steps back down to 58. BETTER THAN EITHER VERSION
+ON ITS OWN, and it came out of taking another lane's red seriously instead of arguing
+with it.
+  THE HEADLINE, AND IT IS NOT A WIN YET. My own 12-walk protocol went 0 of 12 -> 2 of
+12, which is inside the noise of twelve samples; alive_gate's 32-walk sweep (2 -> 9) is
+the number to trust. NEITHER IS "he meets people without trying" and the row stays
+OPEN. They are the first numbers above zero this lane has measured on that walk.
+  WHAT IS LEFT IS NOT PLACEMENT ANY MORE, IT IS FINDING. A place is a point and two
+points in a 512-cell square are hard to walk into; the crowd is real when you stand in
+it and invisible when you do not. The module's own phrase is "you hear a settlement
+before you see it", and this game has a city phone with a feed on it that THIS LANE
+BUILT ON 9/5 AND NEVER POINTED AT ANYTHING. That is the next round.
+  GATE: gates/people_gather_gate.js, 14/0, walked surface AND cut demo, registered.
+Mutation-tested SIX ways: delete the places (B1 red, B4 red), delete the spacing rule
+(B3 red, closest pair anywhere 12 not 20), stop preferring frontage (B2 red, 0 of 12
+places on a door), ignore the bearing (A3 and B1b red, 8 bearings collapsing to 3
+places), send the solitary trades to a place too (B1a red, 36 scavs and lookouts 1 cell
+apart), and send nobody's working day to a place (B1, B1b and B4 red, peak 3 bodies and
+only at 18:00).
+  *** AND THREE OF THOSE LEGS WERE ACCIDENTALLY CORRECT BEFORE THEY WERE LEGS. *** B3
+asked the nine neighbourhoods round the wake cell (loner/spread ground, 1-2 places
+each, far apart whether the rule existed or not) -- rule deleted, STILL GREEN. Rewritten
+to ask the single BUSIEST settlement, which SOUNDED like the hardest case -- still
+green, because the closest pair in the valley is not in the biggest settlement.
+Rewritten again to ask the minimum over every pair everywhere: 704 places across 133
+settlements, 20 cells with the rule and 12 without (12 is the sampling lattice showing
+through, which is exactly what the rule exists to stop). A LEG THAT ASKS THE CASE THAT
+SOUNDS HARDEST IS STILL GUESSING. B1b counted distinct destination CELLS and could not
+fail, because the OCCUPANCY LAW rings a crowd around its spot -- twenty-five people sent
+to ONE place still stand on twenty-five cells; it counts PLACES now. And B4 measured
+ZERO bodies at every hour on working code because it ran on the STANDALONE walked
+surface, where peoplePass() returns 0 on !PLAYER_CV and nobody is ever blitted. THIS
+LANE HAS BEEN CAUGHT BY THAT TRAP THREE TIMES IN TWO ROUNDS; it is now written into the
+gate at the point of use so the fourth time is somebody reading rather than re-deriving.
+And B1 ITSELF averaged the whole valley and demanded that going out tighten EVERYBODY,
+so it went red the moment the solitary trades were let walk alone -- which is the change
+that took alive_gate from 2 meetings to 9. AN AVERAGE OVER TWO POPULATIONS THAT ARE
+MEANT TO DIFFER MEASURES NEITHER OF THEM. It is two legs now and both directions of the
+split are mutation-proved.
+  RECORD: records/BOHEMIA_A_BEARING_IS_A_PLACE_9_6_26.md
+  STAMP: BUILD 9/6j - A BEARING IS A PLACE
+  THE STANDING NOTE: A NUMBER YOU INFERRED FROM A COMMENT IS NOT A MEASUREMENT, AND IT
+WILL AIM THE NEXT ROUND AT THE WRONG THING.
+  THIS LANE'S JOB IS STILL OPEN: [more people] POPULATION-DEFAULT continues next round,
+and the next round is FINDING, not placing.
 
 
 
@@ -3938,6 +4356,68 @@ FILES. ***
   round 2  both halves of the coyote's life shipped as unrelated tiers
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
+
+ROUND 14 [heir plays] (the coordinator's new Q12), SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_14_WHAT_THE_HEIR_DOES_DIFFERENTLY_9_5_26.md
+  banks/BOHEMIA_HEIR_PLAYS_THE_ROOM_DECIDED_FIRST_DRAFT_9_5_26.txt (draft:true)
+
+THE ROW ARRIVES WITH TWO ANSWERS ALREADY RULED OUT. The VERBS cannot change
+(round 10: expertise is domain-specific, a new rule set at the fold makes a
+beginner of a master) and the HANDS cannot carry (round 13: skill does not
+transfer). SO THE DIFFERENCE CANNOT LIVE IN WHAT THE HEIR CAN DO.
+
+THE RESEARCH PUTS IT SOMEWHERE ELSE ENTIRELY. The best-studied real second
+generation is the children of immigrants, where the field started from a worry
+about SECOND-GENERATION DECLINE and the long New York study found the opposite:
+broad upward mobility, often past the parents. And the mechanism they name is not
+a trait, it is a POSITION -- THE SECOND GENERATION CAN SELECT FROM BOTH WORLDS.
+They know what the parent knew and are not bound by it. It is described as an
+ADVANTAGE, not a wound, and it is purely relational.
+That is also the "real leg up" round 3 said an heir must arrive with, AT NO STAT
+COST.
+
+THE GAMES FIX BUYS DIFFERENCE BY CUTTING THE THREAD. The standard cure for the
+reskin is randomised traits per heir, and a critic of the best-known example names
+the cost exactly: the traits are INDEPENDENT OF THE PARENT, so the children read
+"as if they are all adopted", and the player is "presented with a pre-determined
+identity, rather than being allowed to develop something for yourself".
+A CLEAN HEIR IS A RESKIN. A RANDOM HEIR IS UNRELATED. Both look for the difference
+INSIDE THE CHARACTER; the first finds none and the second invents some.
+
+THE HEIR IS NOT A NEW CHARACTER. THE HEIR IS THE SAME HANDS IN A ROOM THAT HAS
+ALREADY DECIDED SOMETHING ABOUT THEM, AND WHAT CHANGES AT THE FOLD IS WHO IS
+DOING THE DECIDING AND WHY.
+
+*** MEASURED: THE DIVERGENCE IS ALREADY RUNNING, IN ARITHMETIC. *** gossip()
+carries `inherited` and `of` when one mind tells another, under its own comment
+"so does whose deed it originally was", so WHOSE DEED IT WAS SURVIVES EVERY
+RETELLING. And forceOf multiplies by GEN_LOSS^inherited with GEN_LOSS = 0.45, so
+an inherited deed keeps 45% of its force per generation crossed while the heir's
+own deeds enter at full weight. THE HEIR OVERTAKES THE FATHER INSIDE ONE LIFE, BY
+ARITHMETIC, AND NOTHING IN THE GAME SHOWS IT HAPPENING.
+BUT THE LAST STEP THROWS THE ATTRIBUTION AWAY: opinionOf sums forceOf and RETURNS
+A BARE NUMBER. `of` and `inherited` survive the witness, the gossip and the fold,
+and are dropped at the moment an opinion is formed. legendOf does keep them, so
+this is ONE DROPPED FIELD AT ONE CALL SITE, not a missing system. It is the
+difference between "they distrust you" and "they distrust you because of him".
+
+I NEARLY GOT THIS WRONG AND THE CHECK IS WHY IT IS RIGHT: I first read the
+attribution line as being inside opinionOf, and verified which function actually
+contains it before writing. It is in gossip().
+
+THE DELIVERABLE (what must CHANGE, not what carries): 1 who is in the room (about
+three in a hundred remain, round 6); 2 what they assume, decided before you acted;
+3 AND THAT IT IS ABOUT HIM, which the machine can say and currently does not; 4
+the weight shifts, his deeds at 45% a generation and yours at full; 5 who vouches,
+because whoVouches and whoWont return different people; 6 the trade is refusable
+and refusing is the NORMAL outcome (five times more likely to enlist, one in four
+does); 7 the seat is taken (round 11). NOT DIFFERENT ON PURPOSE: the verbs and the
+hands.
+
+ROUTED (proposals only): PEOPLE SAY-WHOSE-DEED-IT-WAS (one field at one call site).
+RUN or UI THE-ROOM-DECIDED-BEFORE-YOU (section 6 items 1-3, at the fold, alongside
+round 12's SAY-WHAT-CARRIED; same moment, same file). Inside this lane: [child
+watches] Q13 is next and section 2 is its direct input.
 
 ROUND 13 [what carries] (the coordinator's new Q11), SHIPPED. *** THE ROW ASKED
 FOR A FIELD-BY-FIELD CARRY LIST AND SECTION 4 OF THE RECORD IS IT. ***
@@ -7577,7 +8057,65 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 IN FLIGHT -- *** [real ending] CLAIMED (9614d3a), AND THE
+RUN (run-eak241): 9/6 LATEST -- *** [real ending]: THE ENDING WAS ALREADY BUILT,
+AND THE GATE GUARDING IT WAS READING A BUILD NO PLAYER GETS. Fixed the
+instrument, not the game. TAB: RUN, play a day to nightfall and sleep. Nothing to
+judge. ***
+
+MEASURED BEFORE BUILDING ANYTHING, AND IT CHANGED THE JOB COMPLETELY.
+showEnding() already exists under __THE_ENDING__ and it IS the record's first
+candidate: he sleeps, day two does not come, one message lands from the person
+the day was about, with the reply he wants to send greyed and dead under it.
+ctDemoOver gates it to the demo (CT_DEMO_DAYS = 1, his ruled ONE GOOD DAY) and
+the workshop never ends, which is right. Item G was written 8/25 and answered
+8/27; the row was just never closed. BUILDING A SECOND ENDING WOULD HAVE BEEN
+THE EXACT FAILURE STOP PRODUCING NAMES.
+
+AND IT FIRES ON THE SERVED DEMO -- measured, not assumed. Played day one to
+nightfall with the game's own clock, took the reckoning's SLEEP, at 390x844
+over http:
+    A NUMBER YOU DO NOT HAVE
+    "This is the number that called you this morning." / "You didn't pick up.
+    That's fine. People don't." / "Nine tonight it goes brown again and I'll be
+    stood out front like a fool with a torch in my mouth." / "Anyway."
+    [Pick up]  <- the withheld verb, dead
+    THAT IS AS FAR AS THIS GOES FOR NOW.   then 5s of silence, then the door.
+The UNTAKEN branch, correctly: the phone rang that morning and nobody answered.
+
+*** BUT gates/ending_gate.js OPENED BOTH SURFACES OVER file://. *** This lane
+measured on 9/5 why that is not a detail: the demo's safety layer is injected
+into the city frame FROM THE DEMO SIDE, same-origin, so off disk it silently
+no-ops. My own STRANGER OPENS was doing it and went 15 -> 18 once served. The
+ending is the one screen peak-end says a person keeps, so it is the worst place
+in the demo to be testing the wrong build.
+SERVED NOW, from the repo root so every relative path resolves as in production,
+AND THE CHANGE WAS MADE TO COUNT FOR SOMETHING: two claims only a served build
+can answer -- the drawer gone from the demo's ending, AND still there on the
+workshop, because a demo fix that quietly cost the bench its tools would be the
+worse bug.
+
+  MUTATION, AND IT IS THE WHOLE ARGUMENT: point it back at file:// ->
+      FAIL *** THE BUILDER'S DRAWER IS GONE FROM THE ENDING ***
+           demo 8 SHOWING / tray hidden
+  On the build that gate was measuring, THE LAST SCREEN OF THE DEMO CARRIED THE
+  BUILDER'S DRAWER -- one tap from REROLL regenerating the world under a
+  stranger's session -- and twenty-six green claims had nothing to say about it.
+  The shipped demo, served, is clean. THE INSTRUMENT WAS THE BROKEN THING.
+
+  ENDING 28/0 (was 26/0)
+Record: records/BOHEMIA_THE_ENDING_WAS_PROVEN_ON_THE_WRONG_BUILD_9_6_26.md
+
+STILL OPEN ON THIS ROW, and it is the only thing left: the record's SECOND
+candidate, THE VISTA RETURNS. vistaOpen() exists, it is a camera move on the
+renderer that has drawn this map since 7/6, and it returns false safely on a
+seed with no rim vantage. The record calls it "even more ours" and a peak AND an
+end in one shot. IT IS NOT A DEFECT and the shipped ending is not broken, so it
+sits behind anything that is. Next round: decide whether it goes BEFORE the
+phone message (the valley, changed by your day, then the text lands) and build
+it, or leave the row closed.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [real ending] CLAIMED (9614d3a), AND THE
 FIRST HOUR OF IT WAS MEASURING, WHICH CHANGED THE JOB. ***
 
 MEASURED BEFORE BUILDING ANYTHING, and the row is nearly all built already:
@@ -10047,7 +10585,16 @@ every lane keeps building, but nothing new enters the FIGHT LOOP without its cos
 beat until headroom exists; explicitly NOT the 7/26 art freeze. Swing: the drawImage wall is
 per CALL not per pixel -- cut call count, pre-render to offscreen and blit whole, layer the
 canvases, never scale inside drawImage, round the coordinates. Routed PLUMBER [fight
-headroom] (top), COMBAT [draw budget] (top), ANIMATION [cheap cloud].
+headroom] (top), COMBAT [draw budget] (top), ANIMATION [cheap cloud]. THEN (bv) "is the
+art direction and art cook always working together?" -> MEASURED, and the honest answer is
+yes with one gap: the pipeline is real (DIRECTION writes the card, COOK cooks to it,
+DIRECTION patrols and judges, CHARACTER wires what passes -- batches 1-4 wired at canon
+280->320, batch 5 judged and passed, the card gate went red on arrival exactly as designed,
+DIRECTION currently holds [density ruling] which is judging COOK's re-cook). THE GAP: the
+ratchet is FORWARD-ONLY at 127/301 garments, so 174 older pieces have never been judged at
+all, and EYES' colour-density drift lives in exactly that unjudged half. Routed DIRECTION
+[judge the old] (top of lane): judge the backlog oldest-first on the same patrol schedule
+until the ratchet reads 100%.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -15819,7 +16366,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [border card] SHIPPED 88c2a24 -- the territory look
+ROUND LOG 9/6 (latest): [density ruling] SHIPPED 182a572 -- the ground floor
+is in the style card (5A + machine block): density >= 4.5 colours/kpx and
+adjacent-step hue >= 3.0 deg, both set AT THE LEANEST ART HE APPROVED. I
+re-measured both sets with EYES' own ruler before ruling: the disease is
+density (every re-cook tile leaner than his leanest yes), hue is healthy
+except the yards - the naive band metric that said otherwise blows up on
+tiny palettes and was not used. NEXT OPEN: [judge the turn], [ratchet
+sixty], [first look]. PREVIOUS: [border card] SHIPPED 88c2a24 -- the territory look
 card for COOK [border marked] and UI [danger visible]: value first (held =
 swept), colour only on marks (<2% of a tile, accent sat), rim one pixel on
 the holder's side of the landmark, tags anatomised (body height, chipped;

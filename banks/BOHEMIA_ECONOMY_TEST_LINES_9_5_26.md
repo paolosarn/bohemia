@@ -1090,3 +1090,79 @@ UUU4 somebody who got out the other way               draft:true
   complaint about one guy, not a lesson.
 - Spanish register: 1 of 15 lines, well under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## WWW. THE SHOP IS OPEN AND NOTHING MOVES (round 15, the first week)
+## (Argentina lost two thirds of its shop trade in four days with the money still
+##  nominally fine. Nobody in these lines says the word crisis.)
+
+WWW1 a seller, day four                               draft:true
+     "I opened. I've been open since six and you're the second person through
+      that door, and the first one was my brother."
+
+WWW2 somebody explaining why they are not buying      draft:true
+     "It's not that I can't afford it. I can afford it. I just can't get at it,
+      and those aren't the same, hermano."
+
+WWW3 somebody who understood it early                 draft:true
+     "Everybody's waiting to see what things cost. Nothing costs anything.
+      There's nothing on the shelf to cost."
+
+## XXX. SOMEWHERE TO PUT IT (the finding: the container comes before the goods)
+## (the safe, the jerrycan, the tank. Nobody calls it storage.)
+
+XXX1 somebody who got a container                     draft:true
+     "Took me two days to find. Two days for a plastic drum, and I'd do it
+      again, because now I can carry."
+
+XXX2 somebody who did not                             draft:true
+     "I stood at that tap with my hands. You laugh. What was I supposed to
+      carry it in."
+
+XXX3 the person selling the containers                draft:true
+     "Everybody wants what goes in them. Nobody thinks about the them."
+
+XXX4 somebody with money and nowhere to keep it       draft:true
+     "It's under the bed. It's under the bed and I haven't slept properly
+      since I put it there."
+
+## YYY. SELLING WHAT YOU ALREADY HAD (the first move, in every collapse)
+## (Lebanon's jewellery shops filled with sellers. Nobody is ashamed out loud.)
+
+YYY1 somebody at the counter                          draft:true
+     "It was my mother's. Yeah. I know what you're going to say, I've said it
+      to myself in the car already."
+
+YYY2 the buyer, not unkind                            draft:true
+     "I'll give you what I can give you. I've had nine of these this week and
+      I'll be honest, I'm running out of what I can give."
+
+YYY3 somebody who kept one thing                      draft:true
+     "Everything went except the one thing that isn't worth anything. That's
+      how you know which one it was."
+
+## ZZZ. THE ROOM WHERE PEOPLE DEAL (a million and a half Argentines)
+## (they did not learn prices, they learned a room. Nobody is wise about it.)
+
+ZZZ1 somebody bringing you in                         draft:true
+     "Come Thursday. Bring whatever, doesn't matter what, you just have to
+      bring something or they don't know where to put you."
+
+ZZZ2 somebody who has been going a while              draft:true
+     "First time I brought soap. Now I bring soap and I leave with a haircut
+      and a bag of onions, and I don't touch a single battery."
+
+ZZZ3 what gets you thrown out                         draft:true
+     "Take twice and bring nothing once, that's it, that's the whole rule.
+      Nobody writes it down and everybody knows it."
+
+## AAAA. WHAT IS NOT HERE, ON PURPOSE (round 15)
+- No line lists an inventory, a slot, a weight or a capacity. XXX1 owns a drum
+  and that is the whole of it.
+- No line says the words crisis, collapse, economy, inflation or shortage.
+- No line explains the barter room's rules as a system. ZZZ3 is one sentence a
+  person would actually say and it is not a lesson.
+- No line names a faction, a market seat or a district. MAP LAW, and his.
+- No line puts a hunger meter on the player. The four-verb law says the people who
+  depend on you ate, not that he is hungry, and the bank obeys it.
+- Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.

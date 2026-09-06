@@ -1041,3 +1041,96 @@ BROTHER  Pass the salt.                                                [time off
 # When nothing is worth saying, the file already has the right line and it should
 # never be rewritten:
   @thevalley    quiet day. nobody has anything to say and that is its own news.
+
+## Q16 -- THE COLLECTOR AND THE CUT-OFF  (9/5/26)
+# The finding: a cut-off is not SAID. In the real system the line runs through a
+# breaker set to the amperes you bought, and it trips. The fridge stops. Nobody
+# announces anything. Every version of this scene I would have written was a man
+# at a door making a speech, and the drama is actually in the next morning.
+# Measured in our build: 42 money-owed lines of 1,669, all read. ONE collector
+# line exists, the bark "You know what you owe me.", four words with no speaker,
+# no place, no amount. ZERO cut-off lines.
+#
+# THE RULES EVERY LINE BELOW OBEYS:
+# 1. The collector talks LOGISTICS, never consequences. Dates, amounts, the book,
+#    what he can and cannot do. The consequence is the one thing he never names.
+#    Everyone in the room already knows it. Saying it would be weaker.
+# 2. He has been here before and he remembers something in the room.
+# 3. He is not the owner. He cannot give you another week and he lives on this
+#    street. "There is nothing I can do" is true AND is the oldest excuse there
+#    is, and the family cannot tell which.
+# 4. He never says "that isn't a threat". Q10 measured that tell five times.
+# 5. The family's refusal is arithmetic, not defiance. They show you the sum.
+
+### TEN COLLECTOR LINES   draft:true
+  Fifth of the month. Same as it was the fifth of last month.
+  Five amperes. That is what the book says and the book is what I read from.
+  I do not set it. I could tell you who does and it would not help you.
+  You ran the fan through the afternoon. That is your business, it is just also
+  in the number.
+  Last month you asked me for a week and I gave you a week. I am not allowed to
+  do that twice.
+  The chair is new.
+  I will be back on the fifth either way. That part is not up to either of us.
+  There is nothing I can do. I know how that sounds. It is still true.
+  You are not the only one on this street and you are not the worst one on this
+  street. That is the most I can say to you.
+  Tell him yourself if you want. He is in the warehouse and everybody knows he
+  is in the warehouse.
+# Not one of them names what happens if you do not pay. That is the technique.
+# "The chair is new" is a whole threat in three words and it is not a threat.
+
+### FIVE CUT-OFF LINES, AND NONE OF THEM IS THE CUT-OFF   draft:true
+# The cut-off itself has no line. Write the second before and the morning after.
+  THE SECOND BEFORE  Do not put the kettle on with the fan going. I am asking you
+                     nicely and I am asking you for the last time this week.
+  THE MOMENT         [the fan slows. nothing is said. somebody stands up.]
+  ONE MINUTE AFTER   That was us. That was not them. Sit down.
+  THE NEXT MORNING   Everything in the box is warm. Eat the meat first and do not
+                     make a thing of it.
+  THE NEXT MORNING   The whole street is on and we are not. So it is not the
+                     street.
+# THE SECOND KIND, WHICH IS BETTER: a family at its ampere limit trips its own
+# breaker. The most common way the power goes out is your own kettle. There is no
+# antagonist in the room and the economy is still the thing that just happened.
+
+### FIVE REFUSALS FROM A FAMILY THAT CANNOT PAY   draft:true
+# People who cannot pay do not make speeches. They show you the sum. Flatter,
+# shorter, more concrete (Q2 stress, Q14 the short answer on the hard question).
+  I have got eleven. You want nineteen. I am not arguing with you, I am telling
+  you what is in the tin.
+  Take the amperes down to three and take three off the number. We will sit in
+  the dark and we will be square.
+  Not this month. I am not saying never and I am not saying next month either.
+  You can have it out of what he brings back Friday. If he brings anything back
+  Friday.
+  Do what you have to do. I mean that. I am not going to stand here and beg a
+  man who is not allowed to say yes.
+# The last one is the whole scene: she is not refusing HIM, she has worked out
+# that he has no power either, and she is refusing to perform for a functionary.
+
+### THE OWNER, WHO IS DIFFERENT AND MUST NOT SOUND LIKE THE COLLECTOR  draft:true
+# Real testimony: "he makes his own law in full view of everyone", and residents
+# know he steals from the state's own rooms and sells it back. He is not hiding.
+# And the craft rule for menace is payoff plus conviction: HE BELIEVES HE IS
+# RIGHT, and he is not entirely wrong, because without him the block is dark.
+  Everybody knows where the station is. Nobody has ever needed to be told twice.
+  I did not take anything from anyone who was getting it. There was nothing
+  coming down that line and now there is.
+  You are welcome to go and buy it somewhere else. Go on. I will wait.
+  Sixty houses ate hot last night because of a warehouse everybody complains
+  about.
+# Our S15 owner already does this correctly and is kept as the anchor:
+#   "I'd rather be the man who posted a rate than the man whose corner went
+#    dark. Barely."
+
+### AND THE METER, WHICH IS THE WEAPON OF THE WEAK   draft:true
+# One real resident, after two years of asking, got a meter installed and said
+# his bill was CUT IN HALF. The whole fight was a small box. Our first quest is
+# already called THE METER READER and nobody wrote this scene.
+  Put a box on it. That is all I am asking. A box that counts.
+  He says the box is expensive. The box is not expensive. I have priced the box.
+  Two years I have asked. Two years he has said next month.
+  It went in on Tuesday. The number came back half. Half. Say that out loud and
+  then tell me what the other half was.
+# Nobody throws a punch and a faction just lost a street.

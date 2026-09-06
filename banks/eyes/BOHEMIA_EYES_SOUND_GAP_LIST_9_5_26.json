@@ -1,0 +1,20 @@
+{
+ "bank": "EYES AND EARS -- WHAT WE ARE MISSING AGAINST THE BEST-SOUNDING GAMES",
+ "date": "9/5/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. Every verdict is TWO WORDS, and every one of them is backed by a measurement taken on the real surface today, not by an opinion about what good games do.",
+ "measured_on": "build 9/5, the alpha in a real browser at phone size, the day started, the audio engine confirmed RUNNING at four checkpoints",
+ "the_hard_constraint": "THE SCREECH LAW (7/8) forbids delay lines and convolvers. Space in this engine is built from FINITE SOURCES -- scheduled early reflections and a noise-burst tail. Every verdict below respects that; none of them asks for a reverb bus.",
+ "gaps": [
+  {"id":"S-01","thing":"the ambience bed","verdict":"COOKED, UNPLAYED","measured":"35 seconds standing still with the day started and the engine running: ZERO sound effects asked for and ZERO rendered, while the music played. air_day, air_night and air_inside are APPROVED and cookable and nothing calls them","who":"SOUNDS"},
+  {"id":"S-02","thing":"footsteps","verdict":"LIVE, MONOTONE","measured":"31 walked cells, 31 step messages, 31 stepSfx calls, 32 renders -- the chain works end to end. All 31 reported the surface 'dirt'. Worth one look: it may be a yard, or it may be the surface lookup falling back","who":"SOUNDS"},
+  {"id":"S-03","thing":"reverb by space","verdict":"BUILT, LIVE","measured":"the city posts a space and the shell applies it: OPEN sent three times during a walk. Four spaces exist (OPEN, STREET, ROOM, HALL) with their own space, room, reflection and darkness numbers","who":"nobody, it works"},
+  {"id":"S-04","thing":"occlusion, a sound through a wall","verdict":"NOT BUILT","measured":"nothing filters a sound by whether a wall stands between it and the player. The industry's split is obstruction (the direct path is blocked, the reflections still arrive) versus occlusion (a wall between two rooms): the direct sound is low-passed while the room's wet tail is not. Our engine can do this WITHOUT a reverb bus, because space is already built from sources","who":"SOUNDS"},
+  {"id":"S-05","thing":"distance colour","verdict":"NOT BUILT","measured":"the space table carries a 'dark' number per SPACE, not per DISTANCE. A sound forty feet away should lose its highs to the air itself and ours does not","who":"SOUNDS"},
+  {"id":"S-06","thing":"a threshold you can hear","verdict":"NOT BUILT","measured":"walking from a yard into a room should be an audible event -- the industry calls these binaural micro-events and they are most of what 'immersive' means. Our four spaces switch instantly with no crossing","who":"SOUNDS"},
+  {"id":"S-07","thing":"stings on a moment","verdict":"MUSIC ONLY","measured":"stings live in the music studio, not in the effects factory, so a moment that deserves a hit gets one only if the song is playing","who":"SOUNDS"},
+  {"id":"S-08","thing":"ducking under a card","verdict":"NOT BUILT","measured":"no sidechain, no duck: when a card or a line of dialogue comes up, nothing steps out of its way","who":"SOUNDS / UI"},
+  {"id":"S-09","thing":"the phone speaker","verdict":"HALF LOST","measured":"E4, same day: 22 approved events lose more than half their energy below 500 Hz, which a phone speaker cannot reproduce, and four are inaudible on a phone at all","who":"SOUNDS"},
+  {"id":"S-10","thing":"anybody watching the mix","verdict":"NOBODY IS","measured":"nothing measures the game's OWN output while it plays. E4 measured the assets one at a time; the mix -- what a player actually hears with music, steps and a bark together -- has never been metered","who":"EYES AND EARS, next"}
+ ]
+}

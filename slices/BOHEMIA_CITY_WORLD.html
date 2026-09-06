@@ -36723,6 +36723,153 @@ function pplSpotToward(p, dir, near, far, taken) {
    is the whole of Ultima VII's trick and the cheapest individuality there is.
    Measured after this landed: 4 archetypes, 296 distinct day-signatures across
    297 people. */
+/* __A_BEARING_IS_A_PLACE__ (9/6) ===========================================
+   ROUND 2 of [more people] POPULATION-DEFAULT. Round 1 (AN ADDRESS IS A FRONT
+   DOOR) put residents on residential ground at their own front doors, and the
+   street was still empty on a walk. MEASURED on the demo, the 61 people living
+   in the nine neighbourhoods around where he wakes:
+
+       at home                  nearest neighbour 1 cell,  4 share a screen
+       out, at the busiest hour nearest neighbour 14 cells, 3 share a screen
+
+   *** THE DAY IS WHAT EMPTIES THE STREET. *** 41 of the 61 leave home at 10:00 --
+   they were never stuck on the doorstep, and my own last handoff said they were,
+   off a stale comment and an out=0 that was only ever counted among the ONE body
+   being drawn. What actually happens is worse and more fixable: going out
+   FOURTEEN-TIMES the gap between them. Everybody walks a private ray to a private
+   coordinate. Sixty-one people, sixty-one destinations, and not one of them is
+   anywhere near anybody else's.
+
+   THE MODULE ALREADY SAID WHAT TO DO AND NOBODY DID IT. bohemia_population.js, on
+   the workDir field: "A bearing and a distance, not a district name -- NAMING THE
+   WORKPLACE IS THE SURFACE'S JOB because only the surface knows what is actually
+   there." The surface resolved the bearing to the most open cell along the ray,
+   which is a COORDINATE, not a place. A place is a thing other people also go to.
+
+   SO A NEIGHBOURHOOD HAS PLACES, AND A BEARING PICKS ONE. Nothing is invented:
+     - HOW MANY is the population module's own HEADS.cluster, the number it already
+       calls a settlement. One place per settlement's worth of people. Not a knob.
+     - WHERE they are is the most open ground the surface can find on the
+       residential cells people actually live on -- pplOpenness is the same
+       instrument the ray already used to avoid the side of a house, and an open
+       cell IS a forecourt or a corner, which is where people stand.
+     - A FACTION SEAT BEATS A STREET CORNER. If one of the valley's fourteen town
+       seats falls in this neighbourhood, that is a real market and it is the
+       place. BB-TURF put them on the map and nothing on the walked surface had
+       ever asked where they were.
+   Their bearing still decides WHICH place, so the 7/31 address book is intact:
+   two people on identical schedules still walk opposite ways. They now arrive
+   somewhere rather than nowhere. */
+var PPL_PLACES = new Map(), PPL_PLACES_KEY = null;
+function pplPlaces(nx, ny) {
+  var k = seed + ':' + nx + ',' + ny;
+  if (PPL_PLACES_KEY !== seed) { PPL_PLACES.clear(); PPL_PLACES_KEY = seed; }
+  var got = PPL_PLACES.get(k);
+  if (got) return got;
+  var P = BohemiaPopulation, NB = P.NB, span = NB * FN;
+  var x0 = nx * span, y0 = ny * span;
+  var out = [];
+  /* 1. A REAL MARKET, if this ground has one. */
+  try {
+    var seats = turfSeats() || [];
+    for (var i = 0; i < seats.length; i++) {
+      var sx = seats[i].x, sy = seats[i].y;
+      if (sx >= nx * NB && sx < (nx + 1) * NB && sy >= ny * NB && sy < (ny + 1) * NB) {
+        var cx = sx * FN + (FN >> 1), cy = sy * FN + (FN >> 1);
+        if (pplStandable(cx, cy)) out.push([cx, cy, 'seat']);
+      }
+    }
+  } catch (_e) {}
+  /* 2. HOW MANY PLACES THIS MANY PEOPLE NEED -- the module's own settlement size,
+        never a number typed here. */
+  var heads = 0;
+  try { heads = Math.round(P.headsAt(om, POWER, nx * NB, ny * NB, seed)
+                           * P.dialAt(nx, ny)); } catch (_e) {}
+  var want = Math.max(1, Math.ceil(heads / (P.HEADS.cluster || 13)));
+  /* 3. THE OPENEST GROUND ON THE CELLS PEOPLE LIVE ON. Sampled on a coarse
+        lattice: this runs once per neighbourhood and is cached with the people. */
+  var res = [];
+  try { res = P.residentialTiles(om, nx, ny) || []; } catch (_e) {}
+  var cand = [];
+  for (var t = 0; t < res.length; t++) {
+    var bx = x0 + res[t][0] * FN, by = y0 + res[t][1] * FN;
+    for (var yy = 6; yy < FN; yy += 12) for (var xx = 6; xx < FN; xx += 12) {
+      var fx = bx + xx, fy = by + yy;
+      if (!pplStandable(fx, fy)) continue;
+      /* A PLACE IS SOMEWHERE WITH SOMETHING ON IT. Openness alone does not
+         discriminate here -- MEASURED on the cell he wakes on, 90% of the ground
+         scores 22 to 24 -- so "the openest cell" was picking the middle of an
+         empty lot, and a crowd standing in open desert is not a place, it is a
+         coincidence. A cell that is open AND has a door on it is a frontage: a
+         shop front, a forecourt, the mouth of a yard. It is also where a WALKING
+         player goes, because doorways line the streets that buildings front.
+         Same instrument as round 1, used for the other half of the problem. */
+      var sc = pplOpenness(fx, fy);
+      if (pplDoorstep(fx, fy)) sc += 32;
+      cand.push([fx, fy, sc]);
+    }
+  }
+  /* frontage first, then openest, ties by position so it can never depend on
+     scan order */
+  cand.sort(function (a, b) { return (b[2] - a[2]) || (a[0] - b[0]) || (a[1] - b[1]); });
+  /* AND THEY MUST BE APART, or "several places" is one place with a wide skirt.
+     One screen is 9 cells across at walk zoom, so places a screen apart are
+     places you cannot see at once. */
+  var APART = 18;
+  for (var c = 0; c < cand.length && out.length < want; c++) {
+    var ok = true;
+    for (var o = 0; o < out.length; o++)
+      if (Math.max(Math.abs(out[o][0] - cand[c][0]),
+                   Math.abs(out[o][1] - cand[c][1])) < APART) { ok = false; break; }
+    if (ok) out.push([cand[c][0], cand[c][1], 'corner']);
+  }
+  PPL_PLACES.set(k, out);
+  return out;
+}
+
+/* WHICH PLACE THIS PERSON GOES TO, and a cell beside it to stand on. Their own
+   bearing chooses; the OCCUPANCY LAW means they ring it rather than stack on it,
+   so a place with seven people is seven bodies you can see, not one. */
+var PPL_COMPASS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+/* WHOSE DAY HAPPENS AT A PLACE, AND WHOSE DOES NOT. Read off bohemia_agents.js's
+   own four days rather than decided here:
+       worker  'work' at 'work'   -- an off-block site job. A place.
+       keeper  'errand' on the street, "barely leaves: tends the house/stock".
+               An errand goes somewhere. A place.
+       scav    'scav' on the street -- a SUBSISTENCE SWEEP. Sweeping is dispersed
+               by definition; two scavengers on one corner are competing.
+       watch   'watch' on the street at dusk -- a lookout, on a post, alone.
+   MEASURED, AND THIS IS WHY IT MATTERS. Sending EVERYBODY to a place made the
+   crowds real and the ground between them emptier: alive_gate's closest meeting
+   across thirty-two walks went from within 60 steps to 198, because the lone body
+   you used to bump into is now standing in a square somewhere else. Half the
+   valley walking its own way keeps both -- a stranger passed in the street AND a
+   crowd when you reach one. Nothing here is a ratio I chose; it is what those four
+   words already mean, and the split happens to be two of four. */
+var PPL_ALONE = { scav: 1, watch: 1 };
+function pplPlaceFor(p, dir, taken, work) {
+  /* the FAVOURITE spot is a place for everybody -- Shadows of Doubt's favourite
+     bar is a BAR, and even a man who scavenges alone all day drinks where other
+     people drink. Only the WORKING half of the day is solitary. */
+  if (work && PPL_ALONE[p.archetype]) return null;
+  var P = BohemiaPopulation, span = P.NB * FN;
+  var list = pplPlaces(Math.floor(p.home[0] / span), Math.floor(p.home[1] / span));
+  if (!list.length) return null;
+  var i = PPL_COMPASS.indexOf(dir); if (i < 0) i = 0;
+  var at = list[i % list.length];
+  /* the spot itself first, then outward in rings, so the first arrivals stand on
+     it and the rest gather round -- which is what a crowd looks like */
+  for (var r = 0; r <= 3; r++)
+    for (var dy = -r; dy <= r; dy++) for (var dx = -r; dx <= r; dx++) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+      var fx = at[0] + dx, fy = at[1] + dy;
+      if (!pplStandable(fx, fy)) continue;
+      if (taken && taken.has(fx + ',' + fy)) continue;
+      return [fx, fy];
+    }
+  return null;
+}
+
 function pplOutSpot(p, taken) {
   /* __CITY_ALIVE__ -- AND THE RAY REACHES THE STREET NOW. The old window was 4
      to 10 cells from the doorstep, which on this world's scale does not clear
@@ -36731,14 +36878,23 @@ function pplOutSpot(p, taken) {
      their own distance again, just measured far enough out to leave the block.
      Their DIRECTION and their DISTANCE RANK are unchanged, so a person who
      worked far away still walks further than one who did not. */
-  return pplSpotToward(p, p.workDir, 4 + p.workDist * 2, 22 + p.workDist * 10, taken)
+  /* __A_BEARING_IS_A_PLACE__ -- a place first; the old ray is what answers where
+     there is no place to go, so ground the art has not filled in behaves exactly
+     as it did. */
+  return pplPlaceFor(p, p.workDir, taken, true)
+      || pplSpotToward(p, p.workDir, 4 + p.workDist * 2, 22 + p.workDist * 10, taken)
       || pplSpotToward(p, p.favDir, 3, 20, taken)
       || [p.home[0], p.home[1]];               /* nowhere to go: stay in */
 }
 function pplFavSpot(p, taken) {
   /* __CITY_ALIVE__ -- same reach, same reason. A favourite spot nobody can see
-     is a favourite spot nobody has. */
-  return pplSpotToward(p, p.favDir, 3, 20, taken) || null;
+     is a favourite spot nobody has.
+     __A_BEARING_IS_A_PLACE__ -- and Shadows of Doubt's favourite bar is a BAR:
+     the one place they go that is not work is a place other people go too, or it
+     is just a second private coordinate. Their favDir picks it, so it is still
+     theirs and it is usually not the one they work at. */
+  return pplPlaceFor(p, p.favDir, taken)
+      || pplSpotToward(p, p.favDir, 3, 20, taken) || null;
 }
 
 /* THE CACHE IS KEYED ON THE RULES VERSION. A mass edit that does not reach the
