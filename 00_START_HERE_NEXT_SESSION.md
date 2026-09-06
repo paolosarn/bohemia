@@ -1,3 +1,74 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 11) LATEST -- *** [broke raiders]
+BB-UNPAID-TURNS-PREDATORY SHIPPED. Putting a faction's lights out was a free win.
+It costs something now: you have not weakened them, you have released them. ***
+Nothing to judge.
+
+VAMILY row: [broke raiders] BB-UNPAID-TURNS-PREDATORY, MODE: BUILD, SHIPPED 9/6.
+Record: records/BOHEMIA_TAKE_THEIR_LIGHTS_AND_YOU_RELEASE_THEM_9_6_26.md
+
+HIS OWN STUDY IS THE SPEC. The free companies "regularly made a living by plunder
+when they were not employed"; Caferro on the medieval mercenary, "prone to
+desertion if not paid regularly". And the row names the mechanism itself:
+bohemia_mandate's income rule -- a district pays only while it is yours AND lit
+AND patrolled -- IS ALSO THE AGGRESSION RULE.
+
+WHAT SHIPPED. BohemiaMandate.roving() is that rule read backwards, nothing added:
+they HELD ground (so they settled) and NOTHING ON IT IS LIT (so nobody pays them).
+Derived, never stored -- the lights coming back ends it, no dissolution rule to
+forget. A faction that never held anything is not roving; it never settled.
+
+*** THE SEVERITY NOBODY RULED. *** "A roving outfit is HOSTILE" is a number nobody
+gave me. RELEASED is a COMPARATIVE in his own sentence, so it raises them ONE RUNG
+on the existing ladder: no new level, cannot make a war out of nothing, and a
+faction already at war is unchanged AND KEEPS ITS OWN STORY -- a body that behaves
+identically must not be handed a new explanation.
+
+*** THE ORDER THAT IS THE WHOLE ROW, AND THE THING TO REMEMBER. *** The first cut
+applied the release AFTER the no-reason-at-all check, so a roving faction the
+player had no history with came back as NOTHING -- and they are exactly who the
+row is about ("it becomes SOMEBODY ELSE'S problem" means somebody who did nothing
+to them). If you add a fifth reason to bohemia_against, decide FIRST whether it
+can stand alone, and put it above that early return if it can.
+
+ON THE WALKED SURFACE
+  the Mob holds 1490 blocks, 7 lit circuits    reads: nothing
+  douse all 7                                  reads: cold / broke
+  every other faction                          untouched
+
+AND A TEST MEASURING A CALL THE GAME DOES NOT MAKE, AGAIN. coalition_gate's street
+helper predated this row and passed {rel, rung, coalition} with no `roving`, so it
+said "nothing" after dousing every circuit a faction had while the game was right.
+Same shape as commitment_gate's D11 this session. WHEN A HELPER ASKS AN ORGAN A
+QUESTION, IT MUST ASK EVERYTHING THE CITY ASKS.
+
+GATES  mandate 44/0 (was 33), coalition 40/0 (was 38), rung pays 21/0, turf 43/0,
+       faction between 182/0, demo build 25/0, alpha loads 20/0
+
+THE AGAINST ORGAN NOW HAS FOUR REASONS, all shipped in this lane today:
+  their outfit vs yours | their own opinion of you | their outfit joined a
+  coalition against you | nobody is paying them any more
+
+[PENDING Paolo] -- THREE, ALL CARRIED, NOTHING NEW
+  1. Anarchists, Colorful and Custom are called non-territorial by his own notes
+     and still hold ground. Should they at all?
+  2. What it COSTS to be seen with one of the four hidden factions, or taken for
+     one. (WORLD also carries: what a coalition, or a roving outfit, should DO
+     beyond turning on whoever is in front of it.)
+  3. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
+     Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
+     Network and Mob are squatting. Also: is the Cartel drab on purpose? The law
+     names two drab factions, the gate carries three.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- already decided by the
+    coordinator, just needs the dial in DEMO SETTINGS with the stated default
+  [power territory]  A-FACTION-MINES-ITS-LAND
+  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() answers who you pay for any
+    block, the Network's circuits are flagged free, and roving() is what happens
+    when a block stops paying
+
+--------------------------------------------------------------------------------
+
 WORDS (words-8dqrnq): 9/6 (f) LATEST -- *** Q3 [crowd talk] SCHOOL DONE, ROUND ONE OF TWO.
 WE DO NOT HAVE A REPETITION PROBLEM THAT MORE LINES WOULD FIX. THE BARK SELECTOR HAS NO
 MEMORY OF WHAT WAS SAID, AND ITS PER-PERSON TERM COLLAPSES TO TWO VALUES ON A STREET, SO
