@@ -9281,7 +9281,23 @@ loading dock exists anywhere), WORLD [water lifted] (Vegas is 1,000 ft above its
 pumping is the scarcity), WORLD [battery worth] (you buy the container, 889x the energy),
 PEOPLE [rumours travel] (the city gossips about nobody but the player and has never once
 been wrong). Topped up SOUNDS, ECONOMY, DYNASTY. NOTED: FACTIONS holds 12 open, 0 shipped,
-and owns [who holds] which unblocks four lanes -- the one bottleneck on the board.
+and owns [who holds] which unblocks four lanes -- the one bottleneck on the board. THEN (bs) VAMILY: 43 commits, and FACTIONS UNBLOCKED
+ITSELF -- [faction homes] shipped after a long fight (arc gate 29 red -> 101/0, the seat
+bake was one-shot so the walked city had been carrying last week's capitals). RUN shipped
+[title screen], [auto walk] and [first teaching]; LIFE+CITY shipped AN ADDRESS IS A FRONT
+DOOR; COOK [runway hair]; PLUMBER [slim build] round 1 (a third of what we publish cannot
+be opened from the game); FACTIONS [enemies unite] THE WORLD DOES NOT GET STRONGER IT GETS
+ORGANISED; ECONOMY Q13, WORDS Q14, DYNASTY Q12, EYES E6. *** THE FINDING OF THE ROUND:
+DIRECTION judged the hostiles in the shipped alpha at phone size and all three questions
+came back NO -- two enemies at WAR rank 3 in frame, and THEY ARE THE CROWD. Paolo asked
+"where the enemies at", we put them there, and he still cannot see them. *** SWING:
+records/BOHEMIA_COORDINATOR_RESEARCH_WHY_YOU_CANNOT_SEE_THEM_9_6_26.md -- pop-out comes
+from FEATURE CONTRAST, not the feature, and motion is its own free channel. Our planned
+fix (hostiles wear the faction colour) would have made them INVISIBLE in their own
+faction's block. New rule: motion first (they walk AT you), then one value step from the
+LOCAL crowd measured in the frame, then silhouette, never a health bar. Routed ANIMATION
+[walks at you] (top), CHARACTER [stands out] (top), DIRECTION [contrast rule], EYES E10
+[find them], plus RUN [drop in] and [day one], WORDS Q17 [rumour words].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
