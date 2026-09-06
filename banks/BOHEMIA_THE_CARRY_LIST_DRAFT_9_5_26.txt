@@ -1,0 +1,85 @@
+BOHEMIA -- THE CARRY LIST: WHAT CROSSES THE FOLD AND WHAT MUST DIE
+BANK, 9/5/26, DYNASTY lane, Q11 [what carries]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11). No damage, health or armour
+number anywhere. EVERY NUMBER, THRESHOLD AND NAME IN THE CARRY LIST IS HIS; the
+mechanism and the ordering are ours.
+Record: records/BOHEMIA_DYNASTY_DAY_13_WHAT_CARRIES_AND_WHAT_MUST_DIE_9_5_26.md
+
+WHY THIS SHAPE
+The brief names "the debt" first among what a child of a debtor inherits, and it
+is the one item that legally does NOT carry: a child is not personally liable for
+a parent's unsecured debts, creditors claim against the ESTATE, and an insolvent
+estate means the creditor loses. YOU DO NOT INHERIT A BILL. YOU INHERIT LESS, AND
+YOU INHERIT THE PEOPLE HE OWED, STILL STANDING THERE.
+And that is where it becomes ours: debt stops inheriting only because there is a
+court to stop it. BOHEMIA HAS NO COURTS. Our standing web's "you are born owing
+what your father owed" is not a fantasy mechanic and not a softening. It is what
+the law exists to prevent, running in a valley where the law is gone.
+The trade carries as a PULL, not a destiny. A son of a military father is five
+times more likely to enlist and only one in four does. Only 3% of farmers' sons
+stay, and that 3% is seven and a half times the base rate. Huge multipliers,
+small absolute numbers. THE STRONGEST PULL IN A CHILD'S LIFE USUALLY LOSES.
+
+---- WHAT CARRIES ------------------------------------------------------- draft:true
+  THE NAME          the stickiest thing there is. barely moves in a lifetime.
+  WHAT GOT RETOLD   only the deeds somebody repeated. already built, already right.
+  THE HOUSE         but held, not owned forever, and it can be lost.
+  THE WALLS         and they come down if nobody keeps them up.
+  THE TRADE         as a pull. the heir starts pointed at it and usually walks.
+  THE ENEMIES       the people he owed and the people he wronged, still alive.
+  THE PEOPLE        and they need names, because a relative without one cannot
+                    be inherited, only counted.
+
+---- WHAT MUST DIE ------------------------------------------------------ draft:true
+  THE BILL          you inherit less, never a debt. the creditor survives, the
+                    number does not.
+  HIS HANDS         skill does not transfer. the heir is not him and should not
+                    open with his hands.
+  THE WITNESSES     a quiet good deed dies with the man who saw it.
+  THE REASON        nine names in ten survive and nobody remembers why.
+  THE CAST          almost nobody who knew him is still standing.
+
+---- WHAT THE HEIR IS TOLD ABOUT THE DEBT ------------------------------ draft:true
+(a standing-web query, not a purse line. no number.)
+  HE OWED THAT MAN. THAT MAN IS STILL HERE.
+  NOBODY IS COMING FOR THE MONEY. THEY ARE COMING FOR YOU.
+  THERE IS LESS THAN THERE WAS. THAT IS WHERE IT WENT.
+  SHE WAS OWED AND SHE NEVER GOT IT. SHE KNOWS YOUR FACE.
+  THEY WROTE IT OFF. THEY DID NOT FORGET IT.
+
+---- THE TRADE, WHICH PULLS AND USUALLY LOSES -------------------------- draft:true
+  EVERYBODY ASSUMES YOU WILL DO WHAT HE DID.
+  YOU KNOW HOW, BECAUSE YOU WATCHED.
+  YOU ARE NOT GOING TO DO IT.
+  ONE OF YOU WILL. IT WILL NOT BE YOU.
+  YOU DID IT ANYWAY. NOBODY IS SURPRISED.
+
+---- THE ENEMIES -------------------------------------------------------- draft:true
+  HE MADE THIS ONE. NOT YOU.
+  YOU HAVE NEVER MET HIM AND HE HAS DECIDED ABOUT YOU.
+  IT WAS SETTLED. SOMEBODY UNSETTLED IT.
+  THAT BRANCH REMEMBERS AND THIS ONE DOES NOT.
+
+---- HIS HANDS, WHICH DO NOT COME WITH YOU ----------------------------- draft:true
+  YOU WATCHED HIM DO THIS A THOUSAND TIMES.
+  YOU CANNOT DO IT.
+  KNOWING HOW IT LOOKS IS NOT KNOWING HOW.
+  YOU WILL GET THERE. NOT TODAY.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No inherited debt NUMBER. It is the one thing on the brief's own list the real
+world says does not carry, and a purse line would also break the three-currency
+law.
+No carried skill. Both aisles refuse it from opposite directions.
+No clean heir, where dying is a costume change and nothing was survived.
+No stripped heir either, which reads as deleting a high-level character. The
+answer is the RIGHT FIELDS, not a middle amount.
+No re-use of the contested family-firm survival percentages.
+No damage, health or armour numbers, and not one threshold from the carry list:
+those are all his.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Every rate and threshold in the carry list. Who was owed and what for. What the
+trade actually is. Which enemies survive and which are settled. Every name.

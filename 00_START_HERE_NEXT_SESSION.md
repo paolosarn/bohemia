@@ -3393,6 +3393,66 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 13 [what carries] (the coordinator's new Q11), SHIPPED. *** THE ROW ASKED
+FOR A FIELD-BY-FIELD CARRY LIST AND SECTION 4 OF THE RECORD IS IT. ***
+  records/BOHEMIA_DYNASTY_DAY_13_WHAT_CARRIES_AND_WHAT_MUST_DIE_9_5_26.md
+  banks/BOHEMIA_THE_CARRY_LIST_DRAFT_9_5_26.txt (draft:true)
+NOT A REPEAT OF Q3. Q3 measured our fold against the mobility literature and
+found the persistence backwards. This row is narrower and human, and its second
+half, WHAT MUST DIE, no earlier round had touched.
+
+*** THE FINDING: DEBT DOES NOT INHERIT. *** The brief names "the debt" first
+among what a child of a debtor inherits, and it is the one item that legally does
+NOT carry. A child is not personally liable for a parent's unsecured debts.
+Creditors claim against the ESTATE, and an insolvent estate means the CREDITOR
+loses. The exceptions prove it: co-signing means it was always your own debt;
+community property reaches a SPOUSE not the children; and filial responsibility
+laws, on the books in about two dozen US states for medical and nursing costs,
+are described as rarely enforced.
+YOU DO NOT INHERIT A BILL. YOU INHERIT LESS, AND YOU INHERIT THE PEOPLE HE OWED,
+STILL STANDING THERE.
+AND THAT IS WHERE IT BECOMES SPECIFICALLY OURS. Round 3 quoted our own standing
+web: "in stateless societies a family is treated as a CORPORATE ENTITY whose
+reputation carries its economic viability... You are born owing what your father
+owed." Both are true, and the gap is the point: DEBT STOPS INHERITING ONLY
+BECAUSE THERE IS A COURT TO STOP IT. TAKE THE COURT AWAY AND IT INHERITS AGAIN.
+BOHEMIA HAS NO COURTS. Our standing web is not a fantasy mechanic and not a
+softening; it is what the law exists to prevent, running where the law is gone.
+That is a stronger justification than the module gives itself.
+
+THE TRADE CARRIES AS A PULL, NOT A DESTINY, and the numbers are strange in a
+useful way. UK: 72% more likely to be in an occupation if your father is. A son
+of a military father is FIVE TIMES more likely to enlist AND ONLY ONE IN FOUR
+DOES. Only 3% of farmers' sons stay in it AND THAT 3% IS SEVEN AND A HALF TIMES
+the base rate. About 39% follow the parental legacy in Brazil; 33-40% larger
+effect from the same-gendered parent. HUGE MULTIPLIERS, SMALL ABSOLUTE RATES. The
+strongest pull in a child's life usually loses. So the heir starts POINTED at the
+father's trade and the game should expect them not to take it.
+
+THE TWO KINDS OF HEIR, WHICH THE BRIEF NAMES CORRECTLY: the CLEAN heir, where
+everything material transfers and dying is a costume change (its own players
+report that carrying items, skills, money and shops across means the biggest
+thing you lose is your family); and the BURDENED heir, where something real did
+not come across and THE GENERATION IT WENT WRONG IS THE ONE PLAYERS REMEMBER. The
+constraint that stops burdened becoming punished is round 3's: an heir must
+arrive with a real leg up or the handoff reads as deleting a high-level
+character. A CLEAN HEIR IS UNMEMORABLE AND A STRIPPED HEIR IS UNACCEPTABLE, SO
+THE ANSWER IS THE RIGHT FIELDS AND NOT A MIDDLE AMOUNT.
+
+THE DELIVERABLE IS SECTION 4 OF THE RECORD: every fold field (standings, retold
+deeds, territory, builds, economyCapacity, invest, karma, virtues, family tree,
+wounds, blindSpot, recordedKnown) with carries-or-not and the measured reason,
+PLUS the half nobody had written down, WHAT MUST DIE: the bill, his hands (skill
+does not transfer), the witnesses, the reason for a name, and the cast. Every
+number and threshold in it is HIS; the mechanism and the ordering are ours.
+
+ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (rounds 3, 4, 5)
+DOES NOT NEED A NEW ROW, IT NEEDS THIS LIST ATTACHED TO IT: section 4 is the
+ruling input that fix was waiting for. PEOPLE THE-CREDITOR-IS-STILL-STANDING
+-THERE (debt as an unsettled relationship in the web we already have, not a
+number in a purse). Inside this lane: [heir plays] Q12 is next and section 2's
+"pull that usually loses" is its strongest input.
+
 ROUND 12 [heir's hour], SHIPPED. *** THE SHARPEST FINDING THIS LANE HAS MADE,
 AND THE SMALLEST FIX. ***
   records/BOHEMIA_DYNASTY_DAY_12_THE_HEIRS_FIRST_HOUR_9_5_26.md
