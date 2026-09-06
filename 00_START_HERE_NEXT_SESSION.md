@@ -7029,7 +7029,45 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 LATEST -- *** [title screen] SHIPPED. Put the game down,
+RUN (run-eak241): 9/6 IN FLIGHT -- *** [real ending] CLAIMED (9614d3a), AND THE
+FIRST HOUR OF IT WAS MEASURING, WHICH CHANGED THE JOB. ***
+
+MEASURED BEFORE BUILDING ANYTHING, and the row is nearly all built already:
+showEnding() exists in the walked city under __THE_ENDING__ and it is exactly
+the record's FIRST candidate -- he sleeps, day two does not come, one message
+lands from the person the day was about, with the reply he wants to send sitting
+under it greyed and dead, phone_buzz on it, then five seconds of silence before
+a feedback door. ctDemoOver(day) gates it to the demo (CT_DEMO_DAYS = 1, his
+ruled ONE GOOD DAY), and the workshop never ends at all, which is right.
+ENDING GATE: 26/0 GREEN ON TODAY'S TREE. So AN-ENDING-THAT-IS-NOT-BED is not
+missing. DO NOT BUILD A SECOND ONE -- STOP PRODUCING names finding a legal way
+to ship anyway as the violation.
+
+*** BUT IT IS PROVEN ON A BUILD NO PLAYER GETS, AND THAT IS THIS LANE'S OWN
+LAW BEING BROKEN. *** gates/ending_gate.js line 164 opens the demo over
+file://. This lane measured and wrote down on 9/5 that the demo's safety layer
+is injected into the city frame SAME-ORIGIN, so on file:// it silently no-ops:
+the walk pad reads 42 instead of 44 and the builder drawer is VISIBLE. My own
+STRANGER OPENS was doing exactly this and went 15 -> 18 once served. The last
+thirty seconds are half of what anybody keeps and nobody has ever seen them on
+the surface a friend actually opens.
+
+NEXT, IN ORDER:
+  1. Drive the ending on the SERVED demo and see whether it still fires: play
+     day 1 to nightfall with advance(), take the reckoning's SLEEP, and read
+     what is on screen. The two harness truths from last round both apply --
+     T is a MIRROR (drive advance(), never T.day) and ENTERING IS NOT BEING
+     READY (wait for __RESTORE_OK, ~1.6s).
+  2. If it holds, serve ending_gate.js the way stop_and_come_back_gate.js does
+     (its serve() is copy-ready) and re-run. If it does NOT hold, that is the
+     row, and it is a real one.
+  3. Only then consider the record's SECOND candidate, THE VISTA RETURNS
+     (vistaOpen() exists, it is a camera move, returns false safely on a seed
+     with no rim vantage). The record calls it "even more ours" and a peak AND
+     an end in one shot. NOT A DEFECT, so it waits behind the two above.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [title screen] SHIPPED. Put the game down,
 open the link again, and the front door now says CONTINUE - DAY 1 - 16:20 instead
 of TAP TO ENTER. Your run was always there; the door just never said so.
 TAB: RUN (the walked city), and the door is the first thing you see. Nothing to
