@@ -1,0 +1,5503 @@
+{
+ "what": "banding and jaggies across every bank that holds art",
+ "per_bank": [
+  {
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 62.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_CMU_BLOCK_7_29_26.txt",
+   "pieces": 4,
+   "banding_pct_mean": 31.8,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.7,
+   "jaggy_pct_mean": 0.0
+  },
+  {
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "pieces": 9,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
+   "pieces": 4,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "pieces": 30,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "pieces": 8,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": 33.3
+  },
+  {
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "pieces": 36,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "pieces": 24,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": 0.0
+  },
+  {
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "pieces": 15,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  },
+  {
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "pieces": 40,
+   "banding_pct_mean": 0.0,
+   "jaggy_pct_mean": null
+  }
+ ],
+ "pieces": [
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "yard_0__act1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "yard_0__act2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "yard_0__act3"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "wall_0__act1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "wall_0__act2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "wall_0__act3"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "roof_slope__act1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "roof_slope__act2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "id": "roof_slope__act3"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 880,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
+   "id": "civic_parapet"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1464,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
+   "id": "civic_dock"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1144,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
+   "id": "civic_storefront"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 454,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
+   "id": "civic_mandoor"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CMU_BLOCK_7_29_26.txt",
+   "id": "cmu_wall"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CMU_BLOCK_7_29_26.txt",
+   "id": "cmu_cap"
+  },
+  {
+   "banding_pct": 63.6,
+   "banding_rows": 28,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CMU_BLOCK_7_29_26.txt",
+   "id": "cmu_pilaster"
+  },
+  {
+   "banding_pct": 63.6,
+   "banding_rows": 28,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_CMU_BLOCK_7_29_26.txt",
+   "id": "cmu_vent"
+  },
+  {
+   "banding_pct": 69.0,
+   "banding_rows": 87,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_sun_crop"
+  },
+  {
+   "banding_pct": 73.8,
+   "banding_rows": 93,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_dusk_shag"
+  },
+  {
+   "banding_pct": 66.7,
+   "banding_rows": 84,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_temple_taper"
+  },
+  {
+   "banding_pct": 81.0,
+   "banding_rows": 102,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_ash_sweep"
+  },
+  {
+   "banding_pct": 81.0,
+   "banding_rows": 102,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_salt_crown"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_buzz_cut"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_crop"
+  },
+  {
+   "banding_pct": 73.8,
+   "banding_rows": 93,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_slick_back"
+  },
+  {
+   "banding_pct": 73.8,
+   "banding_rows": 93,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_bowl_cut"
+  },
+  {
+   "banding_pct": 73.8,
+   "banding_rows": 93,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_fringe"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_shag"
+  },
+  {
+   "banding_pct": 88.1,
+   "banding_rows": 111,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_shoulder_length"
+  },
+  {
+   "banding_pct": 83.3,
+   "banding_rows": 105,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_long_loose"
+  },
+  {
+   "banding_pct": 88.1,
+   "banding_rows": 111,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_wolf_cut"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_grey_wisps"
+  },
+  {
+   "banding_pct": 88.1,
+   "banding_rows": 111,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_rope_locks"
+  },
+  {
+   "banding_pct": 66.7,
+   "banding_rows": 84,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_short_ropes"
+  },
+  {
+   "banding_pct": 73.8,
+   "banding_rows": 93,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_dust_weave"
+  },
+  {
+   "banding_pct": 81.0,
+   "banding_rows": 102,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_coil_crown"
+  },
+  {
+   "banding_pct": 78.6,
+   "banding_rows": 99,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_layered_fall"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_curtain_cut"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_heavy_fringe"
+  },
+  {
+   "banding_pct": 71.4,
+   "banding_rows": 90,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_dry_taper"
+  },
+  {
+   "banding_pct": 69.0,
+   "banding_rows": 87,
+   "jaggy_pct": null,
+   "drawn_px": 60480,
+   "size": [
+    480,
+    126
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "hair_deep_taper"
+  },
+  {
+   "banding_pct": 32.8,
+   "banding_rows": 84,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_1"
+  },
+  {
+   "banding_pct": 34.4,
+   "banding_rows": 88,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_2"
+  },
+  {
+   "banding_pct": 34.4,
+   "banding_rows": 88,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_3"
+  },
+  {
+   "banding_pct": 43.8,
+   "banding_rows": 112,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_4"
+  },
+  {
+   "banding_pct": 9.4,
+   "banding_rows": 24,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_5"
+  },
+  {
+   "banding_pct": 54.7,
+   "banding_rows": 140,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_6"
+  },
+  {
+   "banding_pct": 68.8,
+   "banding_rows": 176,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_7"
+  },
+  {
+   "banding_pct": 60.9,
+   "banding_rows": 156,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_8"
+  },
+  {
+   "banding_pct": 23.4,
+   "banding_rows": 60,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_9"
+  },
+  {
+   "banding_pct": 75.0,
+   "banding_rows": 192,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_10"
+  },
+  {
+   "banding_pct": 59.4,
+   "banding_rows": 152,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_11"
+  },
+  {
+   "banding_pct": 34.4,
+   "banding_rows": 88,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_12"
+  },
+  {
+   "banding_pct": 29.7,
+   "banding_rows": 76,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_13"
+  },
+  {
+   "banding_pct": 40.6,
+   "banding_rows": 104,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_14"
+  },
+  {
+   "banding_pct": 37.5,
+   "banding_rows": 96,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_15"
+  },
+  {
+   "banding_pct": 32.8,
+   "banding_rows": 84,
+   "jaggy_pct": null,
+   "drawn_px": 65536,
+   "size": [
+    256,
+    256
+   ],
+   "bank": "BOHEMIA_FACE_CANDIDATES_8_28_26.txt",
+   "id": "face_16"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_shingle_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_shingle_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_shingle_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_shingle_3"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_shingle_4"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_shingle_5"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_gravel_6"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_gravel_7"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_plain_8"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_plain_9"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_plain_10"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_plain_11"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_window_12"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_window_13"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_window_14"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_boarded_15"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_boarded_16"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_boarded_17"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_door_18"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_door_19"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "wall_door_20"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_stile_terracotta_21"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_stile_terracotta_22"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_stile_desertbrown_23"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_stile_desertbrown_24"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_stile_graybrown_25"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "roof_stile_graybrown_26"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "yard_deserttan_27"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "yard_mojavegold_28"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "id": "yard_rebelred_29"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": 33.3,
+   "drawn_px": 877,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "wall_window"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": 33.3,
+   "drawn_px": 869,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "wall_boarded"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "garage_top"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "garage_bottom"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "garage_top_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "garage_bottom_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "garage_top_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_OPENINGS_8_2_26.txt",
+   "id": "garage_bottom_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_0_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_0_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_1_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_1_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_2_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_2_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_3_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_3_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_4_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_4_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_5_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_5_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_6_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_6_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_7_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_7_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_pillar_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_0_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_0_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_1_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_1_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_2_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_2_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_3_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_3_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_4_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_4_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_5_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_5_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_6_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_6_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_7_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_7_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_pillar_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_0_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_0_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_1_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_1_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_face_2_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_PERIMETER_8_2_26.txt",
+   "id": "perim_slump_base_2_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "road_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "road_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "road_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "road_centre"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "walk_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "walk_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "walk_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "walk_kerb"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "road_gutter"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "road_crossing"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "yard_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "yard_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "yard_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "concrete_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "concrete_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "dirt"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_base"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_under_eave"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_window"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_boarded"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "door_top"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "door_bottom"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "garage_top"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "garage_bottom"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "garage_top_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "garage_bottom_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "garage_top_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "garage_bottom_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_slope"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_ridge"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_eave"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": 0.0,
+   "drawn_px": 946,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_hipTL"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_hipBL"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 990,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_hipTR"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "roof_hipBR"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_end_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "id": "wall_end_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "road_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "road_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "road_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "road_centre"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "walk_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "walk_1"
+  },
+  {
+   "banding_pct": 13.6,
+   "banding_rows": 6,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "walk_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "walk_kerb"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "road_gutter"
+  },
+  {
+   "banding_pct": 15.9,
+   "banding_rows": 7,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "road_crossing"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "yard_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "yard_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "yard_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "concrete_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "concrete_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "dirt"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_base"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_under_eave"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_window"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_boarded"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "door_top"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "door_bottom"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "garage_top"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "garage_bottom"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "garage_top_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "garage_bottom_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "garage_top_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "garage_bottom_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_slope"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_ridge"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_eave"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": 0.0,
+   "drawn_px": 946,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_hipTL"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_hipBL"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 990,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_hipTR"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "roof_hipBR"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_end_l"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "id": "wall_end_r"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_tan_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_tan_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_tan_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_bone_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_bone_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_bone_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_ochre_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_ochre_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "stucco_ochre_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "block_grey_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "block_grey_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "block_grey_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "block_painted_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "block_painted_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "block_painted_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_tile_terra_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_tile_terra_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_tile_terra_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_tile_sand_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_tile_sand_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_tile_sand_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_shingle_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_shingle_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_shingle_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_shingle_bn_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_shingle_bn_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "roof_shingle_bn_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "metal_corrugate_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "metal_corrugate_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "metal_corrugate_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "wall_plaster_bare_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "wall_plaster_bare_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "wall_plaster_bare_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "gravel_roof_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "gravel_roof_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "gravel_roof_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "brick_running_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "brick_running_1"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "brick_running_2"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "id": "brick_painted_0"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  },
+  {
+   "banding_pct": 0.0,
+   "banding_rows": 0,
+   "jaggy_pct": null,
+   "drawn_px": 1936,
+   "size": [
+    44,
+    44
+   ],
+   "bank": "BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "id": "?"
+  }
+ ]
+}

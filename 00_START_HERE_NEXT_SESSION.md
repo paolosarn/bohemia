@@ -1,3 +1,60 @@
+EYES AND EARS (eyes-5vql33): 9/5 (e) LATEST -- *** E1 [pixel tells] SHIPPED, AND THE REUSE
+CHECK CHANGED THE JOB. This repo already went to school on 7/27: six of E1's tells are held
+by gates/pixel_craft_gate.py. So I did not rebuild them. I measured WHAT IT COVERS -- 84 of
+1,465 pieces, 5.7%, in 2 of 17 banks -- added the two big tells nobody holds, and found the
+hair. *** MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code.
+
+FINDING 1: THE CRAFT MACHINE IS POINTED AT 5.7% OF THE ART. 17 banks hold base64 art, 1,465
+pieces. The audit reads 2 banks, 84 pieces. The 605-piece seam-fixed surfaces bank, the
+330-piece perimeter bank, the 114-piece texture-match bank and every hair sheet have never
+been through any craft measure at all. Nothing is wrong with the six; they are aimed at the
+act-1 starter set because that is what they were built for, and nobody widened them.
+Widening it is one line per bank in tools/bohemia_pixel_craft_audit.py, and the ratchet
+shape already exists so old banks can be frozen at their own baselines, never condemned.
+
+FINDING 2: THE HAIR IS THE MOST BANDED ART IN THE REPO. Banding measured across every bank,
+ground excluded: FACE AND HAIR CANDIDATES 62.0%, CMU BLOCK 31.8%, the act-1 re-cook 0.7%,
+EVERY OTHER BANK INCLUDING ALL THE TILES 0.0%. The tiles read zero because a grimy
+45-degree texture has no smooth ramp to band -- that is the craft working, not the detector
+failing (a deliberately banded ramp reads 31.2% on the same instrument). AND IT AGREES WITH
+WHAT MY EYES SAID FIVE HOURS EARLIER: the player's head from behind is a flat cream mass
+with one straight black mark on it. Two instruments, same art. Routed to CHARACTER and COOK.
+
+THE BANDING DETECTOR TOOK FOUR VERSIONS AND THREE WERE WRONG. All four are written into the
+tool's own docstring: (1) keyed the streak on a run's exact start column, so a diagonal band
+broke its own streak and a banded ramp scored 0.0%; (2) looked for a different colour
+directly under a run, which on a ramp is the same colour shifted -- 0.0% again; (3) worked,
+but measured the BLACK SHEET a hair candidate sits on and reported 88% banding on a picture
+whose subject is a few hundred pixels of hair; (4) dropped any colour over 40% as "ground"
+and killed its own bite test, because the widest band of a five-band ramp IS the art. THE
+RULE THAT WORKS: ground is what SURROUNDS the subject -- over 40% of the picture AND over
+70% of the border. Final bite test: banded ramp 31.2%, hand-broken ramp 21.9%, noise 0.0%,
+two-tone 0.0%, noisy subject on black 0.0%.
+
+AND THE JAGGIES DETECTOR IS PARTIAL, SAID OUT LOUD RATHER THAN DISCOVERED LATER: it needs a
+silhouette, so 13 of 16 banks return "-" and never "0.0", because a checker that reports a
+clean zero for something it cannot see is the worst kind of green.
+
+STILL OPEN AND NAMED: anti-aliasing where it does not belong, dithering used as a gradient,
+corpus-wide seams, broken outline weight, detail level across a set (M5), hue that does not
+shift with light (M6). Contrast spent on the wrong thing and "does this belong to this
+world" are HUMAN; E7 is the sheet that turns the second into a measurement.
+
+WHAT THIS LANE NOW HOLDS: gates/eyes_gate.js (10 checks, 81s, self-testing, with the
+readability ratchet frozen at 38) plus eight tools -- shots, probe, diff, sheet, glitch,
+readable, ears, ears_live, pixel_tells. Four records this round: E0 pictures, E3 screenshot
+diffs, E4 the ears, E2 the glitch list, E1 the pixel tells.
+
+NEXT IN THIS LANE: E6 [walk tells] -- foot sliding, popping, off-beat timing, run against
+the 63 clips. Then E7 [reference score], then E5 [missing sound] once the audio harness can
+prove the engine was alive for a whole walk.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; five things
+now do. Lanes may only change the status word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E1_THE_PIXEL_TELLS_9_5_26.md (+ E2, E3, E4 and the round-one
+record). Data: records/BOHEMIA_EYES_PIXEL_TELLS_9_5_26.json (450 pieces). Checklist:
+banks/eyes/BOHEMIA_EYES_PIXEL_TELLS_CHECKLIST_9_5_26.json, draft:true.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -437,60 +494,6 @@ something that had to change. The mutation is the only thing that tells you whic
 green you have.
   NEXT OPEN LINE IN THIS LANE: [more people] POPULATION-DEFAULT.
 
-
-EYES AND EARS (eyes-5vql33): 9/5 (d) LATEST -- *** E2 [glitch list] SHIPPED. 18 GLITCH
-CLASSES, 8 OF THEM RUNNING BY MACHINE TODAY, AND THE ONE THEY CAUGHT IS BIG: 38 pieces of
-text on the screen a player lands on are too faint to read, and the worst are the game's
-own control chips at 1.03 to 1 where 1.00 means the ink and the paper are the same
-brightness. *** MODE: RESEARCH plus this lane's own instruments. TAB: NOT IN A TAB YET.
-No game code touched.
-
-THE READABILITY FINDING, MEASURED TWICE, NOW A RATCHET IN THE SUITE. A page can dim its own
-words with a scrim drawn OVER them: every style still says gold on black and the player sees
-a grey smudge, so contrast is a PICTURE question, not a style question. The DOM gives the
-rectangle, the screenshot gives the colours, WCAG gives the number (4.5:1 body, 3:1 large).
-WITH THE MORNING CARD UP (the screen he lands on): 38 boxes under the floor. OUTFIT 1.03:1,
-MUSIC 1.06, WHOLE MAP 1.07, the status line "walking your own block." 1.07, BIKE 1.09, CITY
-1.09, SLEEP 1.10. WITH BOTH CARDS DISMISSED: 7 of 13 still under it -- status line 1.75,
-OUTFIT 1.80, WHOLE MAP 2.82, BIKE 3.46, CITY 3.67, SLEEP 3.70, STANDING 4.22. THE CHIPS ARE
-DIM ON THEIR OWN; the card only makes it worse. That is the whole left-hand column of the
-game's controls. ROUTED TO UI.
-
-THE GATE IS TEN CHECKS NOW, 81 SECONDS, GREEN: the four baseline-free faults (a live canvas,
-nothing off the glass in the phone's coordinates, no text wider than its box, nothing threw),
-the readability RATCHET frozen at 38 (it may only ever go down; proven to bite by setting it
-to 10 and watching the gate go red), and the self-test that probes a deliberately broken copy
-every run so a green from a blind instrument is impossible.
-
-AND THE THREE CLASSES I REFUSED TO FAKE. The map repeats one apartment block down a column,
-by eye -- but a lattice autocorrelation scores THE MAP 0.21, THE WALKED GAME 0.22 AND A GRID
-OF JUDGE CARDS 0.25, so it cannot tell a copy-pasted city from a correct grid, and a detector
-that ranks a judge page above the real fault is worse than none. That question belongs to the
-TABLE THE MAP IS GENERATED FROM, where a repeat is an exact match. Sprites through walls and
-draw order are the same shape of problem: a pixel test cannot separate "behind" from "inside",
-so they are marked NEEDS A HARNESS instead of shipped as guesses. Two logos, art from another
-world and "the wrong thing is loud" are marked HUMAN, and E7 is the sheet that turns those
-into measurements.
-
-ALSO FOUND AND ROUTED: the CHARACTER bench's SHOULDERS label is cut by 14px and the MAP
-caption by 484px (UI); the CUTSCENE screen carries a 94px black band under its picture
-(CITY/COOK).
-
-NEXT IN THIS LANE: E1 [pixel tells] -- banding, pillow shading, orphan pixels, mixed
-resolutions, measured against the 45-degree corpus rather than a screenshot of a tab. Then
-E6 [walk tells], E7 [reference score], E5 [missing sound] once the sound harness can prove
-the audio engine was alive for a whole walk.
-
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists. No screenshot
-pass, no golden images, no audio measurement, no glitch checklist." All four now exist except
-golden images, which E3 argued against on measured grounds. Lanes may only change the status
-word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E2_THE_GLITCH_LIST_9_5_26.md, BOHEMIA_EYES_E4_THE_EARS_9_5_26.md,
-BOHEMIA_EYES_E3_HOW_TO_CATCH_A_VISUAL_REGRESSION_9_5_26.md, BOHEMIA_EYES_ROUND_1_WHAT_THE_MACHINE_SAW_9_5_26.md,
-BOHEMIA_EYES_READABLE_BASELINE_9_5_26.json. Banks: banks/eyes/ (checks + glitch taxonomy, all
-draft:true). Gate: gates/eyes_gate.js. Tools: bohemia_eyes_shots / _probe / _diff / _sheet /
-_glitch / _readable / _ears / _ears_live.
 
 
 WORDS (words-8dqrnq): 9/5 (i) LATEST -- *** VAMILY Q12 [naming people] SHIPPED. NOT ONE

@@ -1,0 +1,29 @@
+{
+ "bank": "EYES AND EARS -- THE OBJECTIVE TELLS OF PIXEL ART, AND WHO HOLDS EACH ONE",
+ "date": "9/5/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. The craft canon's list of things that can be judged WITHOUT taste, each marked with whether a machine in this repo already holds it, whether this lane added it today, or whether nobody holds it yet. REUSE CHECK: gates/pixel_craft_gate.py already holds six of these through tools/bohemia_pixel_craft_audit.py. Nothing here re-measures those six.",
+ "not_a_taste_machine": "None of these say whether art looks good. They say whether it was BUILT like pixel art. The gestalt is Paolo's, forever (amendment B).",
+ "tells": [
+  {"id":"P-01","tell":"orphan pixels","what_it_looks_like":"single pixels alone in a field, noise instead of shape","holder":"pixel_craft_gate (orphan share)","status":"HELD"},
+  {"id":"P-02","tell":"single-use colours","what_it_looks_like":"a palette of one-offs: a shrunk painting, not a set of decisions","holder":"pixel_craft_gate (single-use colour share)","status":"HELD"},
+  {"id":"P-03","tell":"mixels / mixed resolution","what_it_looks_like":"two pixel sizes in one scene","holder":"pixel_craft_gate (pixel block size)","status":"HELD"},
+  {"id":"P-04","tell":"pillow shading","what_it_looks_like":"light coming from everywhere: a shape shaded evenly inward from its own outline","holder":"pixel_craft_gate (pillow score)","status":"HELD"},
+  {"id":"P-05","tell":"the light argues with the scene","what_it_looks_like":"one tile lit from the left in a world lit from the upper left","holder":"pixel_craft_gate (light agreement, by PAIRS after the 7/28 amendment)","status":"HELD"},
+  {"id":"P-06","tell":"noise instead of material","what_it_looks_like":"texture made of random dots rather than a few shapes repeated","holder":"pixel_craft_gate (cluster density)","status":"HELD"},
+  {"id":"P-07","tell":"banding","what_it_looks_like":"two colour bands running parallel for their whole length, so the eye reads a contour line the artist never drew","holder":"EYES AND EARS, tools/bohemia_eyes_pixel_tells.py","status":"ADDED 9/5","how":"the gaps between consecutive colour boundaries in a row, compared row to row: a band is a median gap that holds within one pixel for six rows or more, with the surrounding ground excluded","validated":"a deliberately banded ramp reads 31.2%, the same ramp with hand-broken edges 21.9%, noise 0.0%, a two-tone shape 0.0%, a noisy subject on black 0.0%"},
+  {"id":"P-08","tell":"jaggies and doubles","what_it_looks_like":"a line whose steps are irregular -- 1,3,1,2 instead of 2,2,2 -- or a one-pixel nick between two long runs","holder":"EYES AND EARS, tools/bohemia_eyes_pixel_tells.py","status":"ADDED 9/5, PARTIAL","how":"run lengths along the drawn silhouette; a step that agrees with neither neighbour is a jaggy","limit":"IT ONLY WORKS ON A SILHOUETTE. A full-bleed tile has no outline, so 13 of our 16 art banks return nothing. Reported as '-' rather than as zero, because a checker that reports a clean zero for a thing it cannot see is the worst kind"},
+  {"id":"P-09","tell":"anti-aliasing where it does not belong","what_it_looks_like":"soft blended pixels on art meant to be crisp, or AA against a background it will never sit on","holder":"nobody","status":"OPEN","how":"count colours that appear only on boundaries between two other colours and nowhere else; that is what an AA pixel is"},
+  {"id":"P-10","tell":"dithering used as a gradient","what_it_looks_like":"a checkerboard of two colours standing in for a colour that should have been mixed","holder":"nobody","status":"OPEN","how":"a 2x2 alternating pattern repeated over an area, which is a small autocorrelation test"},
+  {"id":"P-11","tell":"a seam between tiles","what_it_looks_like":"a one-pixel line of the wrong colour where two tiles meet","holder":"the craft audit measures an offset seam per tile; the CORPUS-WIDE version is open","status":"PARTLY HELD"},
+  {"id":"P-12","tell":"broken outline weight","what_it_looks_like":"an outline that is two pixels thick in one place and one in another for no reason","holder":"nobody","status":"OPEN"},
+  {"id":"P-13","tell":"detail level does not match across the set","what_it_looks_like":"one tile busier than its neighbours, so the eye is pulled to the wrong thing","holder":"nobody","status":"OPEN","note":"the mastery law M5 states it; no machine holds it. Cluster density per bank is the nearest existing number"},
+  {"id":"P-14","tell":"contrast spent on the wrong thing","what_it_looks_like":"the loudest thing on screen is a wall, not a person","holder":"nobody","status":"HUMAN, mostly","note":"mastery law M3. A machine can rank contrast; only a person says which should have won"},
+  {"id":"P-15","tell":"hue does not shift with light","what_it_looks_like":"shadows that are the same hue as the light, just darker","holder":"nobody","status":"OPEN","how":"hue difference between the lightest and darkest cluster of one material; mastery law M6 says it should shift, not just dim"}
+ ],
+ "coverage_finding": "The craft machine reads 84 of the 1,465 pieces of art in banks/, in 2 of the 17 banks that hold base64 art. That is 5.7%. Nothing is wrong with the six measures; they are simply pointed at one tileset.",
+ "measured_9_5": {
+  "banding_by_bank_pct": {"BOHEMIA_FACE_CANDIDATES_8_28_26": 62.0, "BOHEMIA_CMU_BLOCK_7_29_26": 31.8, "BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26": 0.7, "every_other_bank": 0.0},
+  "reading": "The hair and face sheets are the most banded art in the repo by a wide margin, and the tile banks read zero because a grimy texture has no parallel bands to find. This agrees with what this lane saw by eye on 9/5: the player's hair from behind is a flat mass with one straight mark on it."
+ }
+}
