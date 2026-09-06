@@ -2564,7 +2564,66 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/6 (b) LATEST -- *** [more people] POPULATION-DEFAULT:
+LIFE + CITY (city-1eztay): 9/6 (c) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 3 SHIPPED, THE JOB CONTINUES. THE MAP OF THE VALLEY HAD NEVER READ THE
+POPULATION ONCE -- renderCity() does not call headsAt, census or pplPeople -- SO HE
+COULD OPEN IT AND NOTHING SAID A SINGLE PERSON LIVED ANYWHERE. HE WAKES ONE KILOMETRE
+FROM A SETTLEMENT OF 220 PEOPLE AND THE GAME HAD NO WAY TO TELL HIM. Thirteen marks
+now, one per settlement, 10.5:1 contrast. *** MODE: BUILD. TAB: CITY (open the map).
+Nothing to judge.
+
+  *** ROUND 3: THE MAP KNOWS WHERE PEOPLE ARE. SHIPPED, ROW STILL OPEN. ***
+  WHAT WAS LEFT AFTER ROUNDS 1 AND 2 WAS FINDING, not placing: a crowd is real when
+you are standing in it and invisible when you are not. MEASURED, AND THE MAP HAD NEVER
+ASKED: renderCity() does not call headsAt(), census() or pplPeople() once. This file
+ALREADY CARRIES THAT EXACT SENTENCE about factions ("you could open the map of the
+whole valley and nothing on it said that anybody held any of it") -- somebody found
+it, fixed it for territory, and PEOPLE WERE THE HALF NOBODY CAME BACK FOR.
+  THE NUMBER THAT MADE IT WORTH DRAWING: HE WAKES 1.02 KM FROM A SETTLEMENT OF 220
+PEOPLE. Eight overmap cells, a twenty-minute walk on the roads BB-ROADS-ARE-FAST made
+fast, and nothing in the game has ever said it is there.
+  WHAT SHIPPED: one mark per SETTLEMENT, 13 on a 96x96 valley, off a flat array built
+once with the valley exactly as turfGrid() is (576 entries, an array index per visible
+cell). The rules are THE MAP'S OWN, taken from the territory pass rather than invented:
+MAP LAW nothing is placed, NOT A HUD PIN (never on the walking screen, does not follow
+him), no fill over the ground, and no faction hue because COLOUR IS TERRITORY reserves
+those for Paolo. Keyed on the seed AND the rules version so an edit cannot leave a
+stale map.
+  *** TWO THINGS THE REAL SCREEN KILLED AND NEITHER WAS VISIBLE FROM THE CODE. *** (1)
+The first cut also marked all 139 neighbourhoods holding anybody: clutter over the
+streets the map is for, and a small pale diamond IS INDISTINGUISHABLE FROM THE GOLD
+DIAMONDS THIS MAP ALREADY DRAWS FOR EVERY LANDMARK. A MARK THAT READS AS A DIFFERENT
+MARK IS WORSE THAN NO MARK. (2) It measured 2.41:1 against its own ground, under the
+3:1 floor -- in the same round EYES measured 38 pieces of text too faint to read, so a
+39th would have been my own defect. 10.5:1 now, a ring with a dark rim so it holds on
+lit blocks and dark desert alike and is not one of the map's filled icons either.
+  AND THE PROBE WAS MEASURING THE WRONG PIXEL: the contrast reader sampled the CENTRE
+of the mark, which is a deliberate dark hole, and reported the hole against the ground
+as if it were the mark. Same class as measuring the wrong surface. SAMPLE THE THING YOU
+ARE CLAIMING, NOT THE PLACE IT HAPPENS TO BE.
+  GATE: gates/map_knows_people_gate.js, 12/0, walked surface AND cut demo, registered.
+Mutation-tested three ways: mark every household instead of the settlements (B2b red,
+69 drawn against 6), draw it faint (B3 red at 1.58:1), return no grid (B1 B2 B2b B3 B4
+C1 red).
+  *** AND B2b HAD TO BE ADDED AFTER THE FIRST MUTATION RUN. *** Loosening the mark back
+to every household -- the exact decision the real screen forced -- went COMPLETELY
+UNCAUGHT: 69 marks instead of 6, contrast unchanged, twelve of twelve green. "IS IT
+DRAWN" AND "IS IT BRIGHT" SAY NOTHING ABOUT WHAT IS DRAWN. A gate holds a design
+decision only if some leg states it.
+  WHAT IT STILL DOES NOT DO: it does not tell him a crowd is there WHILE HE IS WALKING.
+The map is a thing he opens; "you hear a settlement before you see it" is the SOUNDS
+lane's ground. A mark on a map he has to think to open is the cheapest honest half of
+finding, not the whole of it. The row stays OPEN because he still does not meet people
+WITHOUT TRYING -- he can now find out where they are.
+  RECORD: records/BOHEMIA_THE_MAP_KNOWS_WHERE_PEOPLE_ARE_9_6_26.md
+  STAMP: BUILD 9/6ab - THE MAP KNOWS WHERE PEOPLE ARE
+  THE STANDING NOTE: A DRAWING IS FINISHED WHEN YOU HAVE LOOKED AT IT, NOT WHEN IT
+COMPILES. Both real defects this round were invisible in the diff, invisible to every
+leg I had written, and obvious in the first screenshot.
+
+--- ROUND 2 BELOW ---
+
+LIFE + CITY (city-1eztay): 9/6 (b) -- *** [more people] POPULATION-DEFAULT:
 ROUND 2 SHIPPED, THE JOB CONTINUES. THE DAY WAS WHAT EMPTIED THE STREET -- GOING OUT
 FOURTEEN-TIMED THE GAP BETWEEN PEOPLE, BECAUSE EVERY ONE OF THEM WALKED A PRIVATE RAY
 TO A PRIVATE COORDINATE. A NEIGHBOURHOOD HAS PLACES NOW; 13 SHARE A SCREENFUL WHERE 3

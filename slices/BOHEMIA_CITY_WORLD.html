@@ -27721,6 +27721,62 @@ function turfGrid(){
   }catch(_e){}
   return null;
 }
+/* __THE_MAP_KNOWS_WHERE_PEOPLE_ARE__ (9/6) ================================
+   ROUND 3 of [more people] POPULATION-DEFAULT. Rounds 1 and 2 put residents at
+   their front doors and gave a neighbourhood places to gather, and a walk still
+   only meets somebody 9 times in 32 -- because a crowd is real when you are
+   standing in it and invisible when you are not. What was left was FINDING.
+
+   MEASURED FIRST, AND THE MAP HAD NEVER ASKED: renderCity() does not call
+   headsAt(), census(), or pplPeople() once. You can open the map of the whole
+   valley and nothing on it says a single person lives anywhere. That is the exact
+   sentence this file already wrote about factions forty lines below -- "you could
+   open the map of the whole valley and nothing on it said that anybody held any of
+   it" -- and people were the half nobody came back for.
+
+   AND THE NUMBER THAT MAKES IT WORTH DRAWING: he wakes one kilometre from a
+   settlement of 220 PEOPLE. Eight overmap cells. A twenty-minute walk on the roads
+   BB-ROADS-ARE-FAST made fast, and the game has never had any way to tell him it
+   is there.
+
+   THE RULES ARE THE MAP'S OWN, taken from the territory pass below rather than
+   invented: MAP LAW, nothing is placed here -- every mark is a neighbourhood the
+   zone map already decided; NOT A HUD PIN, it does not follow him and it is not on
+   the walking screen; NO FILL, because a wash of colour buries the streets and the
+   lights the map is actually for; and the map's own two-colour language, because
+   COLOUR IS TERRITORY reserves hues for Paolo.
+
+   ONE FLAT ARRAY, BUILT ONCE WITH THE VALLEY, exactly as turfGrid() is -- one
+   entry per NEIGHBOURHOOD (not per cell), so 576 entries for a 96x96 valley and an
+   array index per visible cell when it draws. */
+var PPL_MAP = null, PPL_MAP_KEY = null;
+function pplGrid(){
+  var k = seed + ':' + ((om && om.n) | 0) + ':' + BohemiaPopulation.rulesVersion();
+  if (PPL_MAP_KEY === k && PPL_MAP) return PPL_MAP;
+  try {
+    var P = BohemiaPopulation, NB = P.NB, N = Math.ceil((om.n | 0) / NB);
+    var heads = new Int32Array(N * N), zone = new Array(N * N);
+    for (var ny = 0; ny < N; ny++) for (var nx = 0; nx < N; nx++) {
+      var z = null, h = 0;
+      try { z = P.zoneAt(om, POWER, nx * NB, ny * NB, seed); } catch (_e) {}
+      if (z && z !== 'empty') {
+        try { h = Math.round(P.headsAt(om, POWER, nx * NB, ny * NB, seed) * P.dialAt(nx, ny)); }
+        catch (_e) { h = 0; }
+      }
+      heads[ny * N + nx] = h; zone[ny * N + nx] = h ? z : null;
+    }
+    PPL_MAP = { n: N, NB: NB, heads: heads, zone: zone,
+                at: function (tx, ty) {
+                  var ix = (ty / NB) | 0, iy2 = (tx / NB) | 0;   /* tx,ty are OVERMAP cells */
+                  var i = ix * N + iy2;
+                  if (tx < 0 || ty < 0 || iy2 >= N || ix >= N) return null;
+                  return heads[i] ? { heads: heads[i], zone: zone[i] } : null;
+                } };
+    PPL_MAP_KEY = k;
+    return PPL_MAP;
+  } catch (_e) { return null; }
+}
+
 function turfAt(x,y){
   try{
     var g=turfGrid(); if(g) return g.at(x,y);
@@ -34850,6 +34906,60 @@ function renderCity(){
       g.restore();
       g.globalAlpha = 1;
       try { window.__TURF_INK = __drew; } catch(_e2){}
+    }
+  } catch(_e){}
+
+  /* __THE_MAP_KNOWS_WHERE_PEOPLE_ARE__ -- AND NOW IT SAYS WHERE THE CROWDS ARE.
+     ONE MARK PER SETTLEMENT and nothing else, which is 13 marks on a 96x96 valley.
+     The first cut also drew a faint outline on all 139 neighbourhoods that hold
+     anybody, and looking at the real screen killed it twice over: 139 marks is
+     clutter on a map whose job is streets and lights, and a small pale diamond is
+     INDISTINGUISHABLE FROM THE GOLD DIAMONDS THE MAP ALREADY DRAWS for every
+     landmark it has. A mark that reads as a different mark is worse than none.
+     He does not need to be told a household exists somewhere. He needs to know
+     where the two hundred people are, and there are thirteen such places.
+
+     AND IT IS DRAWN TO BE SEEN, because this repo has just measured 38 pieces of
+     text on the screen he lands on that are too faint to read, and adding a 39th
+     would be its own defect. The first cut measured 2.41:1 against the ground it
+     sits on, under the 3:1 floor for a graphic. Full alpha, a dark rim so it holds
+     on pale ground as well as dark, and a size off the map's own tile.
+
+     THE RULES ARE THE MAP'S OWN, from the territory pass above: MAP LAW, nothing
+     is placed -- every mark is a neighbourhood the zone map already decided; NOT A
+     HUD PIN, it does not follow him and it is not on the walking screen; NO FILL
+     over the ground; and the map's two-colour language, because COLOUR IS
+     TERRITORY reserves hues for Paolo. */
+  try {
+    var __pg = pplGrid();
+    if(__pg){
+      var __NB = __pg.NB, __PN = __pg.n, __drew = 0;
+      g.save();
+      for(var __py = 0; __py < __PN; __py++) for(var __px = 0; __px < __PN; __px++){
+        if(__pg.zone[__py * __PN + __px] !== 'cluster') continue;
+        var __cx = __px * __NB + (__NB >> 1), __cy = __py * __NB + (__NB >> 1);
+        if(__cx >= om.n || __cy >= om.n) continue;
+        var __c = iso(__cx, __cy, ox, oy);
+        if(__c.sx < -40 || __c.sx > cv.width + 40) continue;
+        if(__c.sy < -40 || __c.sy > cv.height + 40) continue;
+        var __r = Math.max(4, TW * 0.34);
+        var __my = __c.sy + TH / 2;
+        g.globalAlpha = 1;
+        /* the rim first and wider, so the mark holds its edge over lit blocks and
+           over dark desert without a second colour */
+        g.beginPath(); g.arc(__c.sx, __my, __r + 1.5, 0, 7);
+        g.fillStyle = '#241d16'; g.fill();
+        g.beginPath(); g.arc(__c.sx, __my, __r, 0, 7);
+        g.fillStyle = '#f4ead2'; g.fill();
+        /* a hole in the middle: a ring is not one of the map's filled icons, and it
+           reads as a place rather than as a thing standing on the ground */
+        g.beginPath(); g.arc(__c.sx, __my, __r * 0.38, 0, 7);
+        g.fillStyle = '#241d16'; g.fill();
+        __drew++;
+      }
+      g.restore();
+      g.globalAlpha = 1;
+      try { window.__PPL_MARKS = __drew; } catch(_e){}
     }
   } catch(_e){}
 
