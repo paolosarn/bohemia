@@ -3015,9 +3015,9 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/5 LATEST -- *** [outfits nearby] SHIPPED. WHAT SOMEBODY
-WEARS NOW SAYS WHAT THEY DO: 52 of 52 people near the front door, where it was
-ZERO. And on a faction's own ground they wear the outfit itself. TAB: CITY.
+PEOPLE (people-7h9sfy): 9/6 LATEST -- *** [former jobs] SHIPPED. NOBODY IN THIS
+VALLEY USED TO BE ANYBODY, AND NOW ALL 47 PEOPLE NEAR THE FRONT DOOR DO. The
+card says what they were, and the back of house says what they still know.
 THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION VERBATIM, BECAUSE HE ASKED FOR IT
 TO LIVE HERE SO IT SURVIVES A MEMORY RESET, AND BECAUSE A REBASE ONTO MAIN
 DROPPED THE LAST COPY OF THIS LANE'S BLOCK ENTIRELY. ***
@@ -3051,89 +3051,92 @@ END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
 =============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
-THE JOB JUST SHIPPED: [outfits nearby] OUTFITS-AT-SPAWN.
+THE JOB JUST SHIPPED: [former jobs] BB-WHAT-YOU-WERE.
 
-THE ROW WAS ONE LINE -- "zero of 34 people within six cells wear one" -- AND IT
-WAS THREE SEPARATE BREAKS.
-  1. THE BODY WAS A HASH. ctBody picked CAST_CV[look % 6]: six anonymous fits
-     chosen by three bits of a seed. Measured: 52 people within six cells,
-     bodies spread 16/13/5/7/6/5, with no relation to who any of them is.
-  2. THE TRADE WORD HAD NEVER FIRED FOR ANYBODY, EVER. All 52 have `role`
-     UNDEFINED. The population module calls the field `archetype`, it IS
-     populated (scav 20, worker 14, keeper 7, watch 11), and it holds THE SAME
-     FOUR KEYS ROLE_WORDS holds. So every reader answered 'SOMEBODY' for every
-     stranger in the valley since the day it was written. SAME SHAPE AS THE SEAT
-     BUG I FOUND LAST ROUND: a finished organ asked in the wrong words.
-  3. NOBODY NEAR THE SPAWN RUNS WITH ANYBODY -- 0 of 61, nearest base 29 cells,
-     reach 12. MAP LAW plus two [PENDING Paolo] dials. Not mine.
-  AND A FOURTH ON THE WAY IN: the city's inlined identity module had NO CLOSING
-  FENCE, so the resync tool refused to run and the copy had drifted 1.3 KB
-  behind the engine. Fence written, module resynced.
+THE ROW: "NOBODY IN THIS VALLEY USED TO BE ANYBODY." Verified before building:
+no former trade, no "used to be", no history field anywhere. Its own positive
+control holds too: `background` appears 120 times in the walked city and every
+one is CSS.
 
-SO CLOTHES SAY THE FACT A PERSON NEAR THE SPAWN ACTUALLY HAS: their trade.
+WHY IT IS A WORD AND NOT A STAT, WHICH IS THE ROW'S OWN BEST FINDING:
+"A BACKGROUND IS NOT WHAT SOMEBODY CAN DO. IT IS WHAT THEY STILL THINK THEY
+ARE." 55% of workers get their self-identity from their job, and people who lose
+one build an ALTERNATIVE WORK IDENTITY rather than call themselves unemployed.
+The occupational identity outlives the occupation. So the valley is full of
+people still introducing themselves by a job that died a decade ago.
 
-SHIPPED THIS ROUND
-  engine/bohemia_people.js              tradeOf(), the ONE owner of the trade word
-  tools/bohemia_city_trade_fit_patch.py the trade -> shape binding
-  tools/bohemia_faction_body_patch.py   the outfit itself, baked lazily
-  gates/trade_fit_gate.js               41 claims, 0 red
-  records/BOHEMIA_WHAT_YOU_WEAR_SAYS_WHAT_YOU_DO_9_5_26.txt
+FIFTEEN TRADES, AND THE COUNT IS A MEASUREMENT: SHARED -8 found the sfx ballot
+grew ~6x while his keep rate HALVED and SFX-06 came back 34 of 35 dead.
+"FIFTEEN THAT COVER THE GRID BEATS SIXTY THAT DO NOT."
+  BACK OF HOUSE (6)  ran a kitchen, ran the laundry, kept the boilers, pulled
+                     high voltage, ran the water plant, worked the docks
+  FRONT OF HOUSE (4) dealt cards, parked cars, ran a pit, worked the floor
+  OFF THE STRIP (5)  poured concrete, drove a cab, worked a ward, taught
+                     school, fixed engines
+THE INVERSION IS ENFORCED, NOT DECORATIVE: every back-of-house trade carries
+what they still know and the card prints it; every front-of-house trade carries
+NULL and the card prints nothing under it. The empty half IS the joke, and a
+gate claim stops anybody adding a consolation sentence to it.
 
-THE BINDING, EVERY LINE QUOTED FROM THE FIT'S OWN `why`:
-  longcoat -> WATCH | barearms -> WORKER | pack -> SCAV | skirt -> KEEPER
-  widebrim -> SCAV or WORKER | cape -> WATCH or KEEPER
-Four shapes are one trade's alone, two are shared. All-unique would put twenty
-scavengers in ONE silhouette, which reads as a uniform, not a crowd. All four
-bindings draft:true -- "which shape belongs to whom is taste" is the cast
-table's own sentence. And the bake now sends each look's ID, because a position
-in an array is a guess and an id is a fact.
+THE MIX IS THE REAL CITY'S: hospitality was ~29% of ALL nonfarm employment in
+the Las Vegas metro. Measured over 60,000 derived people: 29.0%. Two independent
+salted streams, because bohemia_agents already paid a round for "correlated
+draws out of one hash ... one faction took 63% of a three-way split".
 
-AND THE OUTFIT ITSELF, LAZILY, WITH THE NUMBER THAT DECIDED IT. FACTION_LOOKS
-has carried 13 canon faction outfits since 8/18 and no body on the street had
-ever worn one. MEASURED: bake56 is 6.02ms, a look is 40 bakes, so the six cost
-1,446ms of BLOCKING page today and nineteen would cost 4,579ms. Four and a half
-seconds of frozen boot to dress people who near the spawn do not exist. So a
-faction body bakes THE FIRST TIME ONE IS NEEDED: walk onto Cartel ground, the
-city asks for the Cartel ONCE, the alpha bakes that one look and posts it back.
-Who you run with beats what you do; your trade is what you wear until you have
-an outfit; and there is no hole while it bakes.
+PROVEN ON THE REAL DEMO: 47 of 47 people within six cells used to be somebody,
+which was NONE of them before. 13 of the 15 trades show up in one crowd. The
+card says RAN A KITCHEN with CAN FEED A CROWD OFF NOTHING under it, and DEALT
+CARDS with nothing under it.
 
-PROVEN ON THE REAL DEMO
-  within six cells   52 of 52 have a trade word (was 0). 52 of 52 wear a fit
-                     from their own trade, 0 off-pair. Both of every trade's two
-                     shapes are on the street. 0 lost a body. 0 flicker.
-  the bake           sends every body's name: longcoat, barearms, pack, skirt,
-                     widebrim, cape
-  on Cartel ground   25 live near the base, 3 on the glass. ONE faction asked
-                     for, not thirteen. 3 of 3 still drawn mid-bake. The outfit
-                     arrives and 3 of 3 put it on. 0 unaffiliated leaked.
+*** THE MISTAKE OF MINE, AND THE GATE FOUND IT: ONE HUMAN HAD TWO PASTS. ***
+wasOf fell back to person.id when there was no key. That looks generous and it
+is a SECOND IDENTITY: the roster object carries id '12:12:900' while the card's
+person carries key 'P:city:12:12:900', so the same human came back with a
+different former trade depending on which object asked. Found by the gate
+finding a water-plant worker in the roster and opening a card that said
+something else. It refuses without a key now, exactly as nameOf does, and the
+refusal is a claim so it cannot come back.
+Two more of mine, both about the CHECK not the code: the card claims first
+hand-placed the player at roster coordinates (ctAdjacent answers about DRAWN
+bodies), then swept the clock at the spawn where the screen holds ONE body and
+it was always the same cab driver.
 
-ONE MISTAKE OF MINE, AND IT IS THE THIRD TIME: A COMMENT IS A BLOCK, NOT A LINE.
-My "the city no longer does this lookup itself" claim grepped the raw file and
-went red on three legitimate hits -- two comments explaining the bug and
-tradeOf's OWN BODY. Comments stripped first now, owner excluded by position. A
-second claim went stale the same way and was REPOINTED, NOT LOOSENED.
+AND ONE PLACE THE STUDY AND THE CODE DISAGREE, WORTH CARRYING: the study routes
+the former trade at the ~60 one-off quest predicates. THIS MODULE'S OWN CASTING
+NOTE already settled that the other way -- they are "CONFERRED, NOT MATCHED ...
+the only reading that does not require inventing sixty new simulation facts."
+A later measured decision in the code beats an earlier routing note, so nothing
+here touches casting.
 
-LANE GREEN: TRADE FIT 41/0, PEOPLE 158/0, CITY PEOPLE 18/0, AGAINST 66/0,
-WHO VOUCHES 19/0, DEMO TALKS 14/0, LANGUAGE 81/0, TALKING PORTRAIT 27/0,
-DRESS 46/0, ALPHA LOADS 20/0. city_cast 7/1, city_cast_silhouette 5/1,
-personlook 21/1 and face_thumb 22/1 are all IDENTICAL on clean origin/main.
-(dress went 44/2 -> 46/0 this round, but the canon item count went 280 -> 320:
-that is another lane's wardrobe work arriving in my rebase, not my fix.)
+WHAT THIS LANE DID NOT DO, ON PURPOSE: no LINES keyed off a former trade (that
+is WORDS' own row [trade slang] BB-STILL-SAYS-IT, still OPEN, and a gate claim
+asserts none exist here); no stat, wage or combat effect; nothing on casting.
 
-NEXT OPEN LINE FOR THIS LANE: [former jobs] BB-WHAT-YOU-WERE.
+LANE GREEN: USED TO BE 36/0, TRADE FIT 42/0, PEOPLE 158/0, AGAINST 66/0,
+WHO VOUCHES 19/0, CITY PEOPLE 18/0, LANGUAGE 81/0, DEMO IS CURRENT 16/0,
+DEMO BUILD 25/0.
+trade_fit's [one faction] claim was REPOINTED TWICE this round and both times
+the CHECK was wrong: FACTIONS shipped [who holds] so Church bodies now stand
+near the Cartel base and asking for two is correct; and the request set is
+session-cumulative while a render is an instant. It now asserts what the lazy
+bake really promises -- a handful not thirteen, and every request comes back as
+a body.
+
+NEXT OPEN LINE FOR THIS LANE: [family events] FAMILY-EVENTS -- something writes
+a child, a marriage, an ageing into family.tree; selectHeir has zero callers.
 
 [PENDING Paolo] -- CARRIED, NOT DECIDED HERE
-  1. AFFILIATED_RATE (0.30) and REACH_CELLS (12) in bohemia_agents.js are why a
-     seventeen-cell ring round the spawn cannot hold one affiliated body. Both
-     already marked [PENDING Paolo]. Until one moves, or FACTIONS lands
-     [who holds], the faction outfit is only visible on a faction's own ground.
-  2. The four trade bindings are draft:true. He corrects them by playing.
-  3. STILL OPEN FROM LAST ROUND, and the coordinator has since RULED it on the
-     board as [weights shape]: the 82 deed weights need his shape. Until then
-     the four STREET deeds are worth nothing.
+  1. The fifteen former trades and their sentences are all draft:true. He
+     corrects them by playing.
+  2. HONEST LIMIT: the five off-Strip trades stand for ~71% of a real city's
+     employment, so each is individually more common than any single hospitality
+     trade. The SECTOR share is exact; the within-half spread is even because no
+     source gives a finer split, and adding trades to fix it is the thing
+     SHARED -8 measured going wrong.
+  3. STILL CARRIED: AFFILIATED_RATE and REACH_CELLS in bohemia_agents.js are
+     both already [PENDING Paolo].
 
-TAB: CITY. Walk out of the front door and the street tells you what people do.
+TAB: CITY. Walk up to anybody and the card says what they used to be.
 
 ------------------------------------------------------------------------
 

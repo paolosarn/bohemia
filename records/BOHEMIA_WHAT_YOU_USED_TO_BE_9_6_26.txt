@@ -1,0 +1,128 @@
+BOHEMIA -- WHAT YOU USED TO BE (9/6/26, PEOPLE lane)
+VAMILY job [former jobs], BOHEMIA_BACKLOG.md row BB-WHAT-YOU-WERE
+
+THE ROW: "NOBODY IN THIS VALLEY USED TO BE ANYBODY."
+
+================================================================================
+VERIFIED BEFORE BUILDING, BECAUSE A ROW IS A CLAIM UNTIL YOU RUN IT
+================================================================================
+- No former trade, no "used to be", no history field anywhere in
+  engine/bohemia_people.js or engine/bohemia_population.js. ZERO hits.
+- The row's own positive control holds: `background` appears 120 times in the
+  walked city and every one is CSS.
+- engine/bohemia_economy.js line 29 really does call the deep casino dry stores
+  "THE reason downtown matters". We built the building and never asked who
+  worked in it.
+
+*** AND ONE PLACE THE STUDY AND THE CODE DISAGREE, WHICH I FOUND BY READING
+BOTH. *** The study's section 5 routes the former trade at the ~60 one-off quest
+predicates ("a real fraction of them get an honest answer for the first time").
+THIS MODULE'S OWN CASTING NOTE ALREADY SETTLED THAT THE OTHER WAY, and gave the
+reason: those predicates are "CONFERRED, NOT MATCHED ... the quest does not hunt
+for somebody who already keeps the tunnel, it makes the person it cast INTO the
+one who keeps it ... the only reading that does not require inventing sixty new
+simulation facts." A later measured decision in the code beats an earlier
+routing note, so this feature is built for its OWN reason and not to chase them.
+Nothing here touches casting.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_people.js               WAS_WORDS (15), wasOf(), wasLineOf()
+tools/bohemia_city_used_to_be_patch.py the card row
+gates/used_to_be_gate.js               36 claims, 0 red
+(and the identity module resynced into the walked city, 112,593 -> 120,827 bytes)
+
+WHY IT IS A WORD AND NOT A STAT, WHICH IS THE ROW'S OWN BEST FINDING
+"A BACKGROUND IS NOT WHAT SOMEBODY CAN DO. IT IS WHAT THEY STILL THINK THEY
+ARE." 55% of American workers derive their self-identity from their job; losing
+the role is a status passage; and people who lose one build an ALTERNATIVE WORK
+IDENTITY rather than call themselves unemployed. The occupational identity
+outlives the occupation. So ten years on, the valley is full of people who still
+introduce themselves by a job that has not existed for a decade. NO DAMAGE
+BEFORE THE DIAL is not a constraint this worked around; it is the better read.
+
+FIFTEEN, AND THE COUNT IS A MEASUREMENT, NOT A PREFERENCE
+SHARED -8: the sfx ballot grew ~6x while his keep rate HALVED (62% -> 32%) and
+SFX-06 came back 34 of 35 dead. "FIFTEEN THAT COVER THE GRID BEATS SIXTY THAT DO
+NOT." So each cell of house x kind is filled once and it stops.
+
+  BACK OF HOUSE (6) -- kept a machine running, and the machine still matters
+    RAN A KITCHEN / RAN THE LAUNDRY / KEPT THE BOILERS / PULLED HIGH VOLTAGE /
+    RAN THE WATER PLANT / WORKED THE DOCKS
+  FRONT OF HOUSE (4) -- served the money, and the money is gone
+    DEALT CARDS / PARKED CARS / RAN A PIT / WORKED THE FLOOR
+  OFF THE STRIP (5) -- the city that served the people who worked it
+    POURED CONCRETE / DROVE A CAB / WORKED A WARD / TAUGHT SCHOOL / FIXED ENGINES
+
+THE INVERSION IS ENFORCED, NOT DECORATIVE: every back-of-house trade carries
+what they still know; every front-of-house trade carries NULL and the card
+prints nothing under it. The empty half is the point, and a gate claim keeps a
+consolation sentence from ever being added to it.
+
+THE MIX IS THE REAL CITY'S, AND IT IS THE ROW'S FIGURE, NOT A DIAL I TUNED
+Leisure and hospitality was ~29% of ALL nonfarm employment in the Las Vegas
+metro (370,000+ jobs in Clark County). Measured over 60,000 derived people:
+29.0%. The six-against-four back/front ratio is the LIST, so the useful half is
+the bigger half without putting a number on a split no source gave.
+
+TWO INDEPENDENT SALTED STREAMS, and that is not fussiness. bohemia_agents paid a
+whole round for this lesson and wrote it down: "one hash was doing both jobs ...
+one faction took 63% of a three-way split. Correlated draws out of one hash is a
+classic and it is invisible until you count." So the which-half roll and the
+which-trade pick are separate, salted away from the two generatedName uses.
+Measured worst within-half ratio: 1.09 hospitality, 1.02 off-Strip.
+
+================================================================================
+PROVEN ON THE REAL DEMO
+================================================================================
+  within six cells of the spawn   47 people. 47 of 47 used to be somebody,
+                                  which was NONE of them before. 13 of the 15
+                                  trades show up in that one crowd. All three
+                                  houses on the street.
+  the card                        says USED TO BE beside the trade it already
+                                  says. A back-of-house body: RAN A KITCHEN,
+                                  and under it CAN FEED A CROWD OFF NOTHING.
+                                  A front-of-house body: DEALT CARDS, and
+                                  nothing under it.
+  the table                       fifteen trades, ZERO numbers, no damage,
+                                  health or combat word anywhere.
+  storage                         nothing writes it on a person.
+
+================================================================================
+THE MISTAKE OF MINE, AND THE GATE FOUND IT
+================================================================================
+*** ONE HUMAN HAD TWO PASTS. *** wasOf fell back to `person.id` when there was
+no key. That looks generous and it is a SECOND IDENTITY: the walked city's
+roster object carries id '12:12:900' while the card's person carries key
+'P:city:12:12:900', so the same human came back with a different former trade
+depending on which object asked. The gate caught it by finding a water-plant
+worker in the roster and opening a card that said something else entirely.
+Fixed by refusing without a key, exactly as nameOf refuses without one, and the
+refusal is now a claim so it cannot come back.
+
+A second gate mistake, twice over, both mine and both about the CHECK: the card
+claims first hand-placed the player at a roster person's coordinates (ctAdjacent
+answers about DRAWN bodies, so all three went red while the feature worked), and
+then swept the clock at the spawn where the screen holds about ONE body and it
+was always the same off-Strip cab driver. It goes to where a body of that house
+actually lives now, and everything after that -- the clock, the draw, standing
+beside them, opening the card -- is the real thing a player does.
+
+================================================================================
+WHAT THIS LANE DID NOT DO, ON PURPOSE
+================================================================================
+- NO LINES keyed off a former trade. That is WORDS' own row on the board,
+  [trade slang] BB-STILL-SAYS-IT, and it is still OPEN. A gate claim asserts no
+  dialogue is keyed off a trade here.
+- NO STAT, no wage, no bonus, no combat effect. The row refuses it and so does
+  NO DAMAGE BEFORE THE DIAL.
+- Nothing touching the ~60 quest predicates (see the disagreement above).
+
+HONEST LIMIT, STATED RATHER THAN GLOSSED: the five off-Strip trades stand for
+~71% of a real city's employment, so each one is individually more common than
+any single hospitality trade. The SECTOR share is exact; the within-half spread
+is even because no source gives a finer split, and adding trades to fix it is
+the thing SHARED -8 measured going wrong.
+
+TAB: CITY. Walk up to anybody and the card says what they used to be.

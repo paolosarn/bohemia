@@ -6213,6 +6213,135 @@ global.BohemiaOvermap=API;
   /* WHAT THE GAME CALLS THEM TO YOUR FACE. A stranger is their trade; somebody
      you asked is their first name, because that is how you would actually think
      of a neighbour once you had it. */
+  /* ==== WHAT YOU USED TO BE (9/6/26, PEOPLE lane) ==========================
+     VAMILY [former jobs], BOHEMIA_BACKLOG.md row BB-WHAT-YOU-WERE.
+     "NOBODY IN THIS VALLEY USED TO BE ANYBODY." Verified before building:
+     there is no former trade, no "used to be", no history field anywhere in
+     this module or in the population module. A person is one of four things
+     and has always been that thing.
+
+     *** THE ROW'S OWN FINDING, AND IT IS WHY THIS IS A WORD AND NOT A STAT.
+     *** "A BACKGROUND IS NOT WHAT SOMEBODY CAN DO. IT IS WHAT THEY STILL THINK
+     THEY ARE." 55% of American workers derive their self-identity from their
+     job; losing the role is a status passage; and people who lose one build an
+     ALTERNATIVE WORK IDENTITY rather than call themselves unemployed. The
+     occupational identity outlives the occupation. So ten years after the
+     collapse the valley is full of people who still introduce themselves by a
+     job that has not existed for a decade -- which is funny and sad in the same
+     breath, is true, and costs nothing. NO DAMAGE BEFORE THE DIAL is not a
+     constraint this feature works around; it is the better reading anyway.
+
+     WEIGHTED TO THE REAL CITY, WHICH IS THE ROW'S INSTRUCTION AND NOT A DIAL I
+     TUNED: leisure and hospitality was ~29% of ALL nonfarm employment in the
+     Las Vegas metro, 370,000+ jobs in Clark County, and the top-employer list
+     is casino properties one after another. The valley's survivors are not a
+     random draw of humanity.
+
+     *** AND THE INVERSION THAT MAKES IT BOHEMIA'S: THE FRONT OF HOUSE IS
+     USELESS AND THE BACK OF HOUSE RUNS THE VALLEY. *** A dealer's trade died
+     with the money. But a Strip casino is a small city -- industrial laundry,
+     kitchens feeding tens of thousands, boiler and chiller techs, high-voltage
+     electricians, water and pool plant, docks, and the people who know where
+     the deep dry stores are. bohemia_economy.js already calls those dry stores
+     "THE reason downtown matters". We built the building and never asked who
+     worked in it.
+
+     FIFTEEN, AND THE COUNT IS THE MEASURED LESSON, NOT A GUESS. SHARED -8:
+     the sfx ballot grew ~6x while his keep rate HALVED (62% -> 32%) and SFX-06
+     came back 34 of 35 dead. "FIFTEEN THAT COVER THE GRID BEATS SIXTY THAT DO
+     NOT." So this fills each cell of house x kind ONCE and stops.
+
+     THE BACK/FRONT RATIO IS THE LIST, NOT A PERCENTAGE I INVENTED: six back of
+     house against four front, so the useful half is the bigger half, without
+     putting a number on a split no source gave.
+
+     WHAT IS NOT HERE, ON PURPOSE:
+       - no stat, no wage, no bonus. That is the dial and the dial is his.
+       - no LINES keyed off a trade. That is WORDS' own row [trade slang]
+         BB-STILL-SAYS-IT, still OPEN on the board, and this lane does not
+         write another lane's job.
+       - no attempt to answer the ~60 one-off quest predicates. The study
+         routed that, but THIS MODULE'S OWN CASTING NOTE already settled it the
+         other way and gave the reason: those predicates are "CONFERRED, NOT
+         MATCHED ... the only reading that does not require inventing sixty new
+         simulation facts." A later measured decision in the code beats an
+         earlier routing note, so the former trade is built for its own reason
+         and not to chase them.
+     Every word below is draft:true. WHO the named people are stays HIS. */
+  var WAS_WORDS = [
+    /* BACK OF HOUSE -- they kept a machine running, and the machine still
+       matters. This is the valuable half. */
+    { id: 'kitchen', house: 'back',  was: 'RAN A KITCHEN',        keeps: 'CAN FEED A CROWD OFF NOTHING' },
+    { id: 'laundry', house: 'back',  was: 'RAN THE LAUNDRY',      keeps: 'KNOWS WATER, HEAT AND SOAP AT SCALE' },
+    { id: 'plant',   house: 'back',  was: 'KEPT THE BOILERS',     keeps: 'CAN MAKE HEAT AND COLD AGAIN' },
+    { id: 'sparks',  house: 'back',  was: 'PULLED HIGH VOLTAGE',  keeps: 'WILL TOUCH A LIVE PANEL' },
+    { id: 'water',   house: 'back',  was: 'RAN THE WATER PLANT',  keeps: 'KNOWS WHAT IS SAFE TO DRINK' },
+    { id: 'docks',   house: 'back',  was: 'WORKED THE DOCKS',     keeps: 'KNOWS WHERE THE DEEP STORES ARE' },
+    /* FRONT OF HOUSE -- they served the money, and the money is gone. `keeps`
+       is null on purpose: the trade died, and the empty half of the inversion
+       has to be visible or the joke is not there. */
+    { id: 'dealer',  house: 'front', was: 'DEALT CARDS',          keeps: null },
+    { id: 'valet',   house: 'front', was: 'PARKED CARS',          keeps: null },
+    { id: 'pit',     house: 'front', was: 'RAN A PIT',            keeps: null },
+    { id: 'floor',   house: 'front', was: 'WORKED THE FLOOR',     keeps: null },
+    /* OFF THE STRIP -- the city that served the people who worked it. */
+    { id: 'builder', house: 'off',   was: 'POURED CONCRETE',      keeps: 'CAN READ A BUILDING' },
+    { id: 'driver',  house: 'off',   was: 'DROVE A CAB',          keeps: 'KNOWS EVERY ROAD IN THE VALLEY' },
+    { id: 'nurse',   house: 'off',   was: 'WORKED A WARD',        keeps: 'CAN KEEP SOMEBODY ALIVE' },
+    { id: 'teacher', house: 'off',   was: 'TAUGHT SCHOOL',        keeps: 'CAN STILL TEACH IT' },
+    { id: 'wrench',  house: 'off',   was: 'FIXED ENGINES',        keeps: 'CAN GET SOMETHING RUNNING' }
+  ];
+  /* THE MIX. ~29% hospitality is the row's own real-city figure, so the ten
+     hospitality trades share that share and the five off-Strip ones share the
+     rest. Nothing here is a balance knob: change the real number and this
+     changes with it. */
+  var WAS_HOSPITALITY_SHARE = 0.29;
+  function wasPool() {
+    var hosp = [], off = [];
+    for (var i = 0; i < WAS_WORDS.length; i++)
+      (WAS_WORDS[i].house === 'off' ? off : hosp).push(WAS_WORDS[i]);
+    return { hosp: hosp, off: off };
+  }
+  /* WHAT THIS PERSON USED TO BE. Derived from their KEY, exactly like their
+     name is, so it costs no storage and the same person is the same person on
+     any device, on any load, forever.
+
+     *** ITS OWN SALTED STREAM, AND THAT IS NOT FUSSINESS. *** bohemia_agents
+     has this written down at the cost of a whole round: "one hash was doing
+     both jobs ... so the agents that passed the first test were a biased slice
+     of the second, and one faction took 63% of a three-way split. Correlated
+     draws out of one hash is a classic and it is invisible until you count."
+     So the which-house roll and the which-trade pick are two independent
+     streams, both salted away from the two generatedName already uses. */
+  function wasOf(person) {
+    /* *** THE KEY, AND ONLY THE KEY, AND THIS COST A ROUND TO GET RIGHT. ***
+       The first cut fell back to `person.id` when there was no key, which looks
+       generous and is actually a second identity: the walked city's roster
+       object carries id '12:12:900' while the card's person carries key
+       'P:city:12:12:900', so THE SAME HUMAN CAME BACK WITH TWO DIFFERENT FORMER
+       TRADES depending on which object you asked. The gate caught it by finding
+       a water-plant worker in the roster and opening a card that said something
+       else.
+       A person's key is the identity module's own answer to "who is this",
+       exactly as nameOf refuses to answer without one. No key, no answer. */
+    var key = person && person.key;
+    if (!key) return null;
+    var h = 0, s = String(key);
+    for (var i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;
+    var side = mix32(h ^ 0x517cc1b7);          /* hospitality, or not */
+    var pick = mix32(h ^ 0x27d4eb2f);          /* which one, inside that half */
+    var pool = wasPool();
+    var half = ((side % 10000) / 10000 < WAS_HOSPITALITY_SHARE) ? pool.hosp : pool.off;
+    if (!half.length) return null;
+    return half[pick % half.length];
+  }
+  /* THE PHRASE A CARD SAYS, so the grammar lives in one place rather than at
+     every surface that wants it. draft:true. */
+  function wasLineOf(person) {
+    var w = wasOf(person);
+    return w ? w.was : null;
+  }
+
   /* *** WHAT SOMEBODY DOES, AND IT HAS NEVER ONCE REACHED A PLAYER. ***
      MEASURED 9/5 on the real surface: 52 of 52 people within six cells of the
      spawn have `role` UNDEFINED, so every reader of ROLE_WORDS[person.role] has
@@ -6716,6 +6845,8 @@ global.BohemiaOvermap=API;
     personOf: personOf, peopleOf: peopleOf,
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     tradeOf: tradeOf,
+    WAS_WORDS: WAS_WORDS, WAS_HOSPITALITY_SHARE: WAS_HOSPITALITY_SHARE,
+    wasOf: wasOf, wasLineOf: wasLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
     makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
@@ -55140,6 +55271,24 @@ function ctDraw(){
   var ctTradeWord = BohemiaPeople.tradeOf(who)||'SOMEBODY';
   if(String(ctTradeWord).toUpperCase() !== String(nm?nm:BohemiaPeople.headingOf(who)).toUpperCase())
     body+=ctRow('TRADE', ctTradeWord);
+  /* __CITY_USEDTOBE__ -- AND WHAT THEY WERE BEFORE ALL THIS.
+     It sits directly under TRADE because that is the whole point of the row:
+     what somebody IS now, and what they still think they are. Ten years on, in
+     a city where a third of everybody worked hospitality, the pit boss still
+     runs a room that way.
+     THE SECOND ROW ONLY EXISTS FOR THE HALF THAT STILL MATTERS. A back-of-house
+     trade kept a machine running and the machine still runs; a front-of-house
+     trade died with the money, and its `keeps` is null so nothing is printed.
+     THE EMPTY HALF IS THE POINT and must not be filled with a consolation
+     sentence -- "DEALT CARDS" with nothing under it is the joke.
+     draft:true, both rows. */
+  try {
+    var ctWas = BohemiaPeople.wasOf(who);
+    if (ctWas) {
+      body += ctRow('USED TO BE', ctWas.was);
+      if (ctWas.keeps) body += ctNote(ctWas.keeps);
+    }
+  } catch(_e){}
   /* __CITY_SPEAKS__ -- WHAT THEY SPEAK (8/25). THEY SPEAK SPANGLISH (Paolo
      8/25, LOCKED). This shipped on BohemiaPeople.cardFor() and this card does
      not call cardFor -- it builds itself row by row -- so his ruling reached
