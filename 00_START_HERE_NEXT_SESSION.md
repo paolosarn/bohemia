@@ -6969,7 +6969,107 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 LATEST -- *** [auto walk] SHIPPED. Hold a direction long
+RUN (run-eak241): 9/6 LATEST -- *** [title screen] SHIPPED. Put the game down,
+open the link again, and the front door now says CONTINUE - DAY 1 - 16:20 instead
+of TAP TO ENTER. Your run was always there; the door just never said so.
+TAB: RUN (the walked city), and the door is the first thing you see. Nothing to
+judge. ***
+
+MEASURED FIRST, AND TWO THIRDS OF THE ROW WERE ALREADY BUILT. Item H asked for
+"a title screen of its own, a what-is-this, and a way to stop and come back".
+  A TITLE SCREEN     -- yes, his wordmark on its plate.
+  A WHAT-IS-THIS     -- yes, POST-ECONOMIC APOCALYPSE - LAS VEGAS, under it.
+  A WAY TO STOP      -- yes, and it is UI's: the gear's QUIT, shipped 9/5.
+  A WAY TO COME BACK -- *** NO. *** And that was the whole job.
+
+Played to 16:20 and reloaded the way coming back does:
+      the shell's save held  {day:1, min:980}
+      THE FRONT DOOR SAID    "TAP TO ENTER"
+The run was sitting right there. This lane spent three rounds making that save
+carry the day, the clock, the position, the quest, the purse and the people, and
+THE ONE SURFACE THAT COULD SAY SO WAS SILENT.
+
+SHIPPED: one line of the door. It reads THE SHELL'S OWN save, asked the way the
+boot handshake asks it -- no second reader, because two things that both decide
+whether a run exists is how they come to disagree. With no run it is untouched.
+NO START OVER on the splash: wiping is destructive, the save panel already owns
+it, and the screen a stranger taps first is the worst place for a second door
+onto it. NO second screen and no fork. THE TAP ITSELF IS UNCHANGED -- entering
+already restored the save; the door was lying by omission, not by action.
+Repainted by a POLL while the door is up (UI's QUIT brings it back mid-session
+and a line that was right at load is stale by then), not hooked into doQuit, so
+no line of mine lands in a function another lane owns.
+
+*** THREE HARNESS TRUTHS THIS ROUND EARNED, AND NO LANE SHOULD RE-LEARN THEM. ***
+  1. THE CLOCK THE HUD READS IS A MIRROR, NOT THE CLOCK. daySync() copies the day
+     loop into T on the loop's next tick, so a probe that sets T.day gets its
+     value onto disk and LOSES IT ABOUT A SECOND LATER. My first cut did exactly
+     that and went green, green, RED. advance(mins) is the game's own function,
+     the one every walked step calls, and what it moves stays moved.
+  2. ENTERING IS NOT BEING READY. The walked world defines DAY early and asks the
+     shell for its save afterwards -- MEASURED AT ABOUT 1.6 SECONDS. Reading
+     before that made an earlier cut report a clock that had "reset". There was
+     no reset. window.__RESTORE_OK is the honest signal. (Same family as the
+     DAY.day>=1 lie this lane wrote down last round.)
+  3. THE DOOR AND THE DISK GET READ IN ONE EVALUATE. Two reads a second apart
+     cannot tell a door that lied from a save that moved underneath it, and a red
+     that does not say which one broke costs the next round an hour.
+
+*** AND THE FIRST CUT OF THIS BLOCK BROKE THE BEAT. *** The suite came back with
+34 reds on a busy main, which is useless as a verdict, so EVERY red was re-run
+alone on this tree AND on pristine main with only these two slices swapped. 26
+red on both. 3 green on both. ONE differed, and it was mine: the repaint polled
+every 600ms and called CITYSAVE.load() ON EVERY TICK -- which parses the WHOLE
+run, day, quest, purse, century, market and the people. Twice a second of
+main-thread work on the splash, in the exact window the pulse is measured in.
+"the pulse covered the silence: 0.5s of beat between the tap and the song's first
+note". 120 BPM IS A LAW AND THE SPLASH IS NOT EXEMPT. The tick is a cheap
+visibility check now and the save is read ONCE each time the door appears.
+  AND THE FLAG HAD TO CLEAR ON A MISSING ELEMENT: entering the game removes
+  #front, and returning early on that without clearing meant QUIT repainted
+  nothing -- door 16:20, disk 17:55, caught by the claim written for it.
+  AND BEAT FIRST IS FLAKY ON MAIN, WHICH THE ONE-RUN SAMPLE HID: measured three
+  runs a tree, pristine main failed 1 of 3 and this tree 2 of 3, its own numbers
+  swinging 16/20/21/22 thumps for the same build. A one-against-one comparison
+  cannot separate those. FLAGGED FOR SOUNDS. The fix stays either way.
+
+  COME BACK 25/0 (new) - FRONT DOOR 4/0 - ALPHA LOADS 20/0 - WHOLE DEMO 23/0
+  - DEMO BLOCKERS 22/0 - PAGES PUBLISH green - demo --check clean
+  MUTATION: never find the run -> 4 red; remove the repaint -> 4 red (and that
+  one is worth knowing: the load-time paint alone CANNOT work, because CITYSAVE
+  is not defined yet when this script runs, so the poll is load-bearing for all
+  of it); name the run but print the fresh-start clock -> 2 red, caught by the
+  claim that a line just printing the defaults would say 06:00.
+
+AND ONE GIT LESSON THAT COST A COMMIT: `git checkout <ref> -- path` WRITES THE
+INDEX, not just the working tree. A baseline script was doing that to swap slices,
+and a later `git add <one file>` + commit swept the two staged reverts in with it
+and stripped the feature out of both surfaces (02ee423, restored by 1c13616).
+NEVER COMMIT WHILE A SCRIPT IS SWAPPING FILES IN THE TREE.
+Record: records/BOHEMIA_STOP_AND_COME_BACK_9_6_26.md
+
+*** AND A RED ON MAIN THAT IS NOT MINE AND IS NOT NEW: DEMO DAY, ONE LINE. ***
+"and the money really left the purse (500 -> 500)". The buy REGISTERS and the
+balance does not move. NOT CAUSED BY THIS ROUND and not by ECONOMY's round 13
+either -- I ran it on pristine main, on f5b3577 before the two economy commits,
+and on 6923ce8, and it is red on all three. THE CAUSE, as far as one look goes:
+mktBuy takes `var cur = p.currency || SALVAGE_CURRENCY` -- a ruled row names its
+OWN pocket -- while the gate credits 500 to `resources` and reads `resources`
+back. So either the cheapest good on the shelf is priced in a pocket the fixture
+never funded (the buy is refused, and __BOUGHT counts the tap either way, which
+is why only ONE line goes red), or it came out of a different pocket and nobody
+looked there. EITHER WAY THE SHELF'S AFFORDABILITY AND THE GATE DISAGREE ABOUT
+WHICH POCKET PAYS, and that is worth knowing on the surface a friend plays.
+Not touched: it is the currency model, ECONOMY's, and my row was done and green.
+FIRST THING NEXT ROUND unless the coordinator routes it to ECONOMY.
+AND TWO MORE, ALSO REPRODUCED ON PRISTINE MAIN: BUNDLE and ENGINE SYNC both fail
+on bohemia_powergrid.js -- the standalone module and its inlined carrier have
+drifted apart. Last touched by [held ground]. ENGINE SYNC LAW; no engine file was
+touched this round. REPO BUDGET is red for a stale measurement, 31 days old,
+which is a re-measure and nothing else.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [auto walk] SHIPPED. Hold a direction long
 enough and you keep walking after you let go. It is NOT fast travel, it costs the
 same hours, it just stops costing your attention -- and it stops itself the
 moment there is something to look at. TAB: RUN, hold an arrow and take your thumb

@@ -335,24 +335,6 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
-    ('COALITION',      ['node', 'gates/coalition_gate.js'],
-     'BB-COALITION: "THE WORLD DOES NOT GET STRONGER, IT GETS ORGANISED." The best '
-     'escalation mechanic in the game he named, and it costs zero balance numbers -- '
-     'factions that normally fight each other STOP, and nobody\'s stat block changes, the '
-     'RELATIONSHIP GRAPH does. So escalation is a graph edit and the module has NO NUMBERS '
-     'IN IT AT ALL: A and B are hostile to EACH OTHER in his own authored relations AND '
-     'both are hostile to YOU, and they stop spending it on each other. The obvious version '
-     'is a threshold ("when N factions hate you") and N is a number nobody ruled, so check 1 '
-     'holds the file clear of one -- the only comparison it makes is against zero, which is '
-     'the SIGN of a standing rather than a size. NO DAMAGE BEFORE THE DIAL is not a blocker '
-     'here, it is the specification: nothing changes anybody\'s strength, only who is '
-     'pointing it at whom. Derived and never stored, so making peace with one of them '
-     'dissolves it with no dissolution rule -- the same anti-stuck design as the mandate '
-     'rung. COALITIONS ships EMPTY because who allies with whom is his, and an authored pact '
-     'holds whatever the standings say. It also catches the bug that nearly shipped silently: '
-     'the module bound BohemiaBetween at LOAD time and saw ZERO pairs on the walked surface '
-     'while node saw five, reporting "no coalitions" -- indistinguishable from a peaceful '
-     'valley', True),
     ('RUNG PAYS',      ['node', 'gates/rung_pays_gate.js'],
      'BB-THE-RUNG-PAYS. Paolo 6/30 LOCKED: "The more the city backs you, the easier building '
      'becomes, even in areas whose local faction doesn\'t love you, because the whole city has '
@@ -1068,6 +1050,25 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('COME BACK',      ['node', 'gates/stop_and_come_back_gate.js'],
+     'VAMILY [title screen] / STOP-AND-COME-BACK, record item H: "no way to stop and come '
+     'back that a stranger would recognise as such". MEASURED FIRST AND TWO THIRDS WERE '
+     'ALREADY BUILT -- the wordmark plate is a title screen, POST-ECONOMIC APOCALYPSE - LAS '
+     'VEGAS is the what-is-this, and the gear\'s QUIT (UI, 9/5) is the way to stop. THE '
+     'MISSING THIRD, measured: played to 16:20, reloaded, the save held {day:1,min:980} AND '
+     'THE DOOR SAID "TAP TO ENTER". This lane spent three rounds making that save carry the '
+     'day, clock, position, quest, purse and people, and the one surface that could say so '
+     'was silent. So the tap line names the run -- CONTINUE, the day, the clock, the HUD\'s '
+     'own vocabulary -- read from the SHELL\'S OWN save, no second reader. Asserted for what '
+     'it must NOT do: no start over on the splash (destructive, the save panel owns it), no '
+     'second button, no touching what the tap does. Repainted by a POLL, not a hook into '
+     'doQuit, so no line lands in a function another lane owns. THREE HARNESS TRUTHS THIS '
+     'EARNED: T is a MIRROR the day loop overwrites (drive advance(), not T, or the gate goes '
+     'green green RED); entering is NOT being ready, the restore lands ~1.6s later via '
+     '__RESTORE_OK; and the door and the disk get read in ONE evaluate, or a red cannot say '
+     'which of them broke. Mutation: never find the run -> 4 red; remove the repaint -> 4 red '
+     '(the load-time paint alone cannot work, CITYSAVE is not defined yet when this runs); '
+     'name the run but print the fresh-start clock -> 2 red', True),
     ('TIME NOT TAPS',  ['node', 'gates/the_time_not_the_taps_gate.js'],
      'BB-THE-TIME-NOT-THE-TAPS: DISTANCE SHOULD SPEND THE DAY, NOT THE PLAYER\'S ATTENTION. '
      'The long walk correctly costs in-game hours and ALSO cost him however long twenty presses '
