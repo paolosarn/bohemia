@@ -1,0 +1,2293 @@
+{
+  "what": "BOHEMIA -- what is in the thing we serve, byte by byte. Taken by gates/bohemia_build_size.js, held by gates/build_size_gate.js.",
+  "takenOn": "2026-09-06T05:25:57.929Z",
+  "staleAfterDays": 30,
+  "refreshCommand": "node gates/bohemia_build_size.js --record",
+  "entryPoints": [
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    "slices/BOHEMIA_DEMO.html"
+  ],
+  "publishedFolders": [
+    "slices",
+    "engine",
+    "records/target"
+  ],
+  "measured": {
+    "publishedBytes": 246973312,
+    "publishedFiles": 642,
+    "reachableBytes": 170422109,
+    "reachableFiles": 197,
+    "unreachableBytes": 76551203,
+    "unreachableFiles": 445,
+    "surfaces": {
+      "BOHEMIA_ALPHA_0_9.html": {
+        "bytes": 4809421,
+        "gzipped": 1732021,
+        "biggestBlocks": [
+          {
+            "kind": "literal",
+            "name": "COMBAT_B64",
+            "bytes": 1817635,
+            "gzipped": 764887
+          },
+          {
+            "kind": "rest",
+            "name": "everything else (markup, small scripts, css)",
+            "bytes": 1383277,
+            "gzipped": null
+          },
+          {
+            "kind": "script",
+            "name": "script@3936755",
+            "bytes": 305726,
+            "gzipped": 101064
+          },
+          {
+            "kind": "script",
+            "name": "script@4242573",
+            "bytes": 265202,
+            "gzipped": 124103
+          },
+          {
+            "kind": "script",
+            "name": "script@4507911",
+            "bytes": 248865,
+            "gzipped": 61209
+          },
+          {
+            "kind": "script",
+            "name": "script@3595856",
+            "bytes": 224928,
+            "gzipped": 66397
+          },
+          {
+            "kind": "literal",
+            "name": "RIG_B64",
+            "bytes": 127936,
+            "gzipped": 35739
+          },
+          {
+            "kind": "script",
+            "name": "script@3849012",
+            "bytes": 84047,
+            "gzipped": 32464
+          },
+          {
+            "kind": "script",
+            "name": "script@46416",
+            "bytes": 82397,
+            "gzipped": 28972
+          },
+          {
+            "kind": "literal",
+            "name": "BOH_FRONT_LOGO_B64",
+            "bytes": 80427,
+            "gzipped": 60522
+          },
+          {
+            "kind": "script",
+            "name": "script@128814",
+            "bytes": 50579,
+            "gzipped": 20266
+          },
+          {
+            "kind": "style",
+            "name": "style@3691",
+            "bytes": 42557,
+            "gzipped": 27842
+          }
+        ]
+      },
+      "BOHEMIA_DEMO.html": {
+        "bytes": 4816323,
+        "gzipped": 1734962,
+        "biggestBlocks": [
+          {
+            "kind": "literal",
+            "name": "COMBAT_B64",
+            "bytes": 1817635,
+            "gzipped": 764887
+          },
+          {
+            "kind": "rest",
+            "name": "everything else (markup, small scripts, css)",
+            "bytes": 1390177,
+            "gzipped": null
+          },
+          {
+            "kind": "script",
+            "name": "script@3936308",
+            "bytes": 305726,
+            "gzipped": 101064
+          },
+          {
+            "kind": "script",
+            "name": "script@4242126",
+            "bytes": 265202,
+            "gzipped": 124103
+          },
+          {
+            "kind": "script",
+            "name": "script@4507464",
+            "bytes": 248865,
+            "gzipped": 61209
+          },
+          {
+            "kind": "script",
+            "name": "script@3595409",
+            "bytes": 224928,
+            "gzipped": 66397
+          },
+          {
+            "kind": "literal",
+            "name": "RIG_B64",
+            "bytes": 127936,
+            "gzipped": 35739
+          },
+          {
+            "kind": "script",
+            "name": "script@3848565",
+            "bytes": 84047,
+            "gzipped": 32464
+          },
+          {
+            "kind": "script",
+            "name": "script@46689",
+            "bytes": 82397,
+            "gzipped": 28972
+          },
+          {
+            "kind": "literal",
+            "name": "BOH_FRONT_LOGO_B64",
+            "bytes": 80427,
+            "gzipped": 60522
+          },
+          {
+            "kind": "script",
+            "name": "script@129087",
+            "bytes": 50579,
+            "gzipped": 20266
+          },
+          {
+            "kind": "style",
+            "name": "style@3696",
+            "bytes": 42557,
+            "gzipped": 27842
+          }
+        ]
+      }
+    },
+    "duplicatedAcrossSurfacesBytes": 3425478,
+    "biggestSingleBlockBytes": 1817635,
+    "biggestSingleBlockName": "COMBAT_B64",
+    "topOrphans": [
+      {
+        "rel": "slices/BOHEMIA_LIVE_SLICE_V9_7_14_26.html",
+        "bytes": 4585387
+      },
+      {
+        "rel": "slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html",
+        "bytes": 3146972
+      },
+      {
+        "rel": "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
+        "bytes": 2631411
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_35_6.html",
+        "bytes": 1815098
+      },
+      {
+        "rel": "records/target/PAL_FROZEN.png",
+        "bytes": 1676437
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_36_6.html",
+        "bytes": 1651416
+      },
+      {
+        "rel": "slices/BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html",
+        "bytes": 1514727
+      },
+      {
+        "rel": "slices/BOHEMIA_ANIM_GAP_PROOF_7_14_26.html",
+        "bytes": 1418139
+      },
+      {
+        "rel": "slices/BOHEMIA_STREET_GEN_GALLERY_7_13_26.html",
+        "bytes": 1302538
+      },
+      {
+        "rel": "slices/BOHEMIA_STREET_TILE_ROLES_7_13_26.html",
+        "bytes": 1295058
+      },
+      {
+        "rel": "slices/BOHEMIA_DESERT_LOT_PROOF_7_18_26.png",
+        "bytes": 1291890
+      },
+      {
+        "rel": "slices/BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html",
+        "bytes": 1230019
+      },
+      {
+        "rel": "records/target/BOHEMIA_TARGET_A_FRONTFACE.png",
+        "bytes": 1144289
+      },
+      {
+        "rel": "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
+        "bytes": 1103050
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_SCATTER_PROOF_7_18_26.png",
+        "bytes": 1067930
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png",
+        "bytes": 1065530
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.png",
+        "bytes": 1063311
+      },
+      {
+        "rel": "slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
+        "bytes": 991834
+      },
+      {
+        "rel": "records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json",
+        "bytes": 955419
+      },
+      {
+        "rel": "records/target/BOUGHT_WALLS.png",
+        "bytes": 913167
+      },
+      {
+        "rel": "records/target/graveyard/BOHEMIA_TARGET_B_ISOBLOCK.png",
+        "bytes": 808402
+      },
+      {
+        "rel": "records/target/graveyard/BOHEMIA_TARGET_C_CUTAWAY.png",
+        "bytes": 793647
+      },
+      {
+        "rel": "records/target/TEXTURE_MATCH_CONTACT.png",
+        "bytes": 741059
+      },
+      {
+        "rel": "records/target/VALLEY_DOWNTOWN.png",
+        "bytes": 734782
+      },
+      {
+        "rel": "slices/BOHEMIA_SESSION_SHOWCASE_7_10_26.html",
+        "bytes": 728838
+      },
+      {
+        "rel": "records/target/STREET_TEXTURED.png",
+        "bytes": 693659
+      },
+      {
+        "rel": "slices/eyes/alpha-19-art.png",
+        "bytes": 689050
+      },
+      {
+        "rel": "records/target/LOOK_AGAIN_RECOOK.png",
+        "bytes": 688712
+      },
+      {
+        "rel": "records/target/VALLEY_INDUSTRIAL.png",
+        "bytes": 681860
+      },
+      {
+        "rel": "slices/look/runway-before-after.png",
+        "bytes": 672536
+      },
+      {
+        "rel": "records/target/PERIMETER.png",
+        "bytes": 638803
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_33_6.html",
+        "bytes": 629658
+      },
+      {
+        "rel": "records/target/PERIMETER_WALL_LIVE.png",
+        "bytes": 623599
+      },
+      {
+        "rel": "records/target/STREET_AFTER_YARD.png",
+        "bytes": 623439
+      },
+      {
+        "rel": "records/target/PERIMETER_GATE_LIVE.png",
+        "bytes": 621691
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_MOUNTAIN_PROOF_7_18_26.png",
+        "bytes": 600578
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_BAKE_PROOF_34_6.html",
+        "bytes": 598938
+      },
+      {
+        "rel": "records/target/PALETTE_AB.png",
+        "bytes": 594476
+      },
+      {
+        "rel": "slices/BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html",
+        "bytes": 572632
+      },
+      {
+        "rel": "slices/BOHEMIA_V12_DESERT_PROOF_7_18_26.png",
+        "bytes": 543165
+      }
+    ],
+    "couldLoadLater": {
+      "blocks": [
+        {
+          "kind": "literal",
+          "name": "COMBAT_B64",
+          "bytes": 1817635,
+          "gzipped": 764887
+        },
+        {
+          "kind": "literal",
+          "name": "RIG_B64",
+          "bytes": 127936,
+          "gzipped": 35739
+        }
+      ],
+      "bytes": 1945571,
+      "gzipped": 800626,
+      "test": "a whole other page carried inline as base64, on a tab the door does not open on",
+      "perSurface": true
+    }
+  },
+  "budget": {
+    "publishedBytes": 266731177,
+    "unreachableBytes": 82675300,
+    "alphaBytes": 5194175,
+    "alphaGzipped": 1870583,
+    "demoBytes": 5201629,
+    "demoGzipped": 1873759,
+    "biggestSingleBlockBytes": 1963046,
+    "twinBytes": 262144,
+    "__basis": {
+      "rule": "ONE-WAY RATCHET, DOWN ONLY. A byte count has no run-to-run spread, so unlike the speed budget there is nothing here to leave headroom for.",
+      "tightenedThisRefresh": []
+    }
+  },
+  "duplication": [
+    {
+      "name": "COMBAT_B64",
+      "bytes": 1817635,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@3936755",
+      "bytes": 305726,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@4242573",
+      "bytes": 265202,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@4507911",
+      "bytes": 248865,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@3595856",
+      "bytes": 224928,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "RIG_B64",
+      "bytes": 127936,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@3849012",
+      "bytes": 84047,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@46416",
+      "bytes": 82397,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "BOH_FRONT_LOGO_B64",
+      "bytes": 80427,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@128814",
+      "bytes": 50579,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "style@3691",
+      "bytes": 42557,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@4756904",
+      "bytes": 37258,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@3537873",
+      "bytes": 29774,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    },
+    {
+      "name": "script@3820785",
+      "bytes": 28147,
+      "copies": 2,
+      "files": [
+        "slices/BOHEMIA_ALPHA_0_9.html",
+        "slices/BOHEMIA_DEMO.html"
+      ]
+    }
+  ],
+  "owed": [
+    "REMOVING ANY OF IT. This lane may not touch slices/ content, so every byte named here is a hand-off to the lane that owns the file, not a change this chat can make. The row says \"nothing removed without a record of what it was\"; this IS that record, written before anybody removes anything."
+  ],
+  "allUnreachable": [
+    {
+      "rel": "slices/BOHEMIA_LIVE_SLICE_V9_7_14_26.html",
+      "bytes": 4585387
+    },
+    {
+      "rel": "slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html",
+      "bytes": 3146972
+    },
+    {
+      "rel": "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
+      "bytes": 2631411
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_35_6.html",
+      "bytes": 1815098
+    },
+    {
+      "rel": "records/target/PAL_FROZEN.png",
+      "bytes": 1676437
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_36_6.html",
+      "bytes": 1651416
+    },
+    {
+      "rel": "slices/BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html",
+      "bytes": 1514727
+    },
+    {
+      "rel": "slices/BOHEMIA_ANIM_GAP_PROOF_7_14_26.html",
+      "bytes": 1418139
+    },
+    {
+      "rel": "slices/BOHEMIA_STREET_GEN_GALLERY_7_13_26.html",
+      "bytes": 1302538
+    },
+    {
+      "rel": "slices/BOHEMIA_STREET_TILE_ROLES_7_13_26.html",
+      "bytes": 1295058
+    },
+    {
+      "rel": "slices/BOHEMIA_DESERT_LOT_PROOF_7_18_26.png",
+      "bytes": 1291890
+    },
+    {
+      "rel": "slices/BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html",
+      "bytes": 1230019
+    },
+    {
+      "rel": "records/target/BOHEMIA_TARGET_A_FRONTFACE.png",
+      "bytes": 1144289
+    },
+    {
+      "rel": "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
+      "bytes": 1103050
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_SCATTER_PROOF_7_18_26.png",
+      "bytes": 1067930
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_INTERSECTION_PROOF_7_17_26.png",
+      "bytes": 1065530
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.png",
+      "bytes": 1063311
+    },
+    {
+      "rel": "slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
+      "bytes": 991834
+    },
+    {
+      "rel": "records/target/BOHEMIA_PIXEL_CRAFT_AUDIT.json",
+      "bytes": 955419
+    },
+    {
+      "rel": "records/target/BOUGHT_WALLS.png",
+      "bytes": 913167
+    },
+    {
+      "rel": "records/target/graveyard/BOHEMIA_TARGET_B_ISOBLOCK.png",
+      "bytes": 808402
+    },
+    {
+      "rel": "records/target/graveyard/BOHEMIA_TARGET_C_CUTAWAY.png",
+      "bytes": 793647
+    },
+    {
+      "rel": "records/target/TEXTURE_MATCH_CONTACT.png",
+      "bytes": 741059
+    },
+    {
+      "rel": "records/target/VALLEY_DOWNTOWN.png",
+      "bytes": 734782
+    },
+    {
+      "rel": "slices/BOHEMIA_SESSION_SHOWCASE_7_10_26.html",
+      "bytes": 728838
+    },
+    {
+      "rel": "records/target/STREET_TEXTURED.png",
+      "bytes": 693659
+    },
+    {
+      "rel": "slices/eyes/alpha-19-art.png",
+      "bytes": 689050
+    },
+    {
+      "rel": "records/target/LOOK_AGAIN_RECOOK.png",
+      "bytes": 688712
+    },
+    {
+      "rel": "records/target/VALLEY_INDUSTRIAL.png",
+      "bytes": 681860
+    },
+    {
+      "rel": "slices/look/runway-before-after.png",
+      "bytes": 672536
+    },
+    {
+      "rel": "records/target/PERIMETER.png",
+      "bytes": 638803
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_33_6.html",
+      "bytes": 629658
+    },
+    {
+      "rel": "records/target/PERIMETER_WALL_LIVE.png",
+      "bytes": 623599
+    },
+    {
+      "rel": "records/target/STREET_AFTER_YARD.png",
+      "bytes": 623439
+    },
+    {
+      "rel": "records/target/PERIMETER_GATE_LIVE.png",
+      "bytes": 621691
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_MOUNTAIN_PROOF_7_18_26.png",
+      "bytes": 600578
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_34_6.html",
+      "bytes": 598938
+    },
+    {
+      "rel": "records/target/PALETTE_AB.png",
+      "bytes": 594476
+    },
+    {
+      "rel": "slices/BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html",
+      "bytes": 572632
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_DESERT_PROOF_7_18_26.png",
+      "bytes": 543165
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_35_6.png",
+      "bytes": 540123
+    },
+    {
+      "rel": "records/target/VALLEY_STRIP.png",
+      "bytes": 537758
+    },
+    {
+      "rel": "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+      "bytes": 530291
+    },
+    {
+      "rel": "records/target/STREET_BEFORE_YARD.png",
+      "bytes": 519930
+    },
+    {
+      "rel": "records/target/RECOOK_FRAME_AB.png",
+      "bytes": 507988
+    },
+    {
+      "rel": "records/target/BOUGHT_ROOFS.png",
+      "bytes": 506289
+    },
+    {
+      "rel": "records/target/PERIMETER_RUNS.png",
+      "bytes": 504896
+    },
+    {
+      "rel": "records/target/BEFORE_RUN.png",
+      "bytes": 491660
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_36_6.png",
+      "bytes": 491072
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_HANDOFF_PROOF_7_26_26.png",
+      "bytes": 475228
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_33_6.png",
+      "bytes": 471854
+    },
+    {
+      "rel": "records/target/LOGO_SHEET.png",
+      "bytes": 463792
+    },
+    {
+      "rel": "slices/BOHEMIA_QUANTIZED_FREEZE_PROOF_7_26_26.png",
+      "bytes": 463733
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_BAKE_PROOF_34_6.png",
+      "bytes": 448813
+    },
+    {
+      "rel": "slices/BOHEMIA_ANSWER_SHEET_7_31_26.html",
+      "bytes": 447186
+    },
+    {
+      "rel": "slices/BOHEMIA_INTERIOR_PROOF_SCHOOL_7_26_26.png",
+      "bytes": 422572
+    },
+    {
+      "rel": "slices/BOHEMIA_RING_QUARTER_PROOF_7_26_26.png",
+      "bytes": 419390
+    },
+    {
+      "rel": "records/target/FRAME_OLD.png",
+      "bytes": 405413
+    },
+    {
+      "rel": "records/target/REASSEMBLED.png",
+      "bytes": 405413
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_SLICE_7_26_26.html",
+      "bytes": 404155
+    },
+    {
+      "rel": "records/target/PERIMETER_JUDGE_PROOF.png",
+      "bytes": 383328
+    },
+    {
+      "rel": "slices/BOHEMIA_NEW_ENCOUNTER_SONG_PROOF_7_26_26.png",
+      "bytes": 380517
+    },
+    {
+      "rel": "slices/BOHEMIA_SONGS_PLAY_OUT_PROOF_7_26_26.png",
+      "bytes": 374542
+    },
+    {
+      "rel": "slices/eyes/alpha-05-look.png",
+      "bytes": 372827
+    },
+    {
+      "rel": "slices/BOHEMIA_BAKE_V8_GALLERY_7_10_26.html",
+      "bytes": 371050
+    },
+    {
+      "rel": "slices/BOHEMIA_INTERIOR_PROOF_HOUSE_7_26_26.png",
+      "bytes": 362491
+    },
+    {
+      "rel": "slices/eyes/alpha-07-cutscene.png",
+      "bytes": 335135
+    },
+    {
+      "rel": "records/target/LIFE_HUB_SHOT.png",
+      "bytes": 331638
+    },
+    {
+      "rel": "slices/eyes/demo-00-splash.png",
+      "bytes": 321888
+    },
+    {
+      "rel": "slices/eyes/alpha-00-splash.png",
+      "bytes": 321224
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_IN_ALPHA_7_26_26.png",
+      "bytes": 316428
+    },
+    {
+      "rel": "records/target/FRONT_SCREEN.png",
+      "bytes": 314469
+    },
+    {
+      "rel": "slices/BOHEMIA_REASSEMBLY_7_26_26.html",
+      "bytes": 313425
+    },
+    {
+      "rel": "records/target/GRIME.png",
+      "bytes": 306560
+    },
+    {
+      "rel": "slices/BOHEMIA_SFX_JUDGE_PROOF_7_29_26.png",
+      "bytes": 294201
+    },
+    {
+      "rel": "slices/look/bone-scale.png",
+      "bytes": 292219
+    },
+    {
+      "rel": "slices/eyes/alpha-14-combat.png",
+      "bytes": 291571
+    },
+    {
+      "rel": "slices/eyes/alpha-16-map.png",
+      "bytes": 290619
+    },
+    {
+      "rel": "records/target/BOTTOMLEFT.png",
+      "bytes": 281748
+    },
+    {
+      "rel": "engine/bohemia_engine.js",
+      "bytes": 281738
+    },
+    {
+      "rel": "records/target/RUN_TAB_IS_CITY.png",
+      "bytes": 280857
+    },
+    {
+      "rel": "records/target/PALETTE_JUDGE.png",
+      "bytes": 280726
+    },
+    {
+      "rel": "slices/eyes/alpha-18-life.png",
+      "bytes": 276138
+    },
+    {
+      "rel": "records/target/TEXTURE_SEAM_3x3.png",
+      "bytes": 273695
+    },
+    {
+      "rel": "slices/BOHEMIA_QUEST_JUDGE_PROOF_7_26_26.png",
+      "bytes": 272807
+    },
+    {
+      "rel": "records/target/FRAME_NEW.png",
+      "bytes": 271320
+    },
+    {
+      "rel": "records/target/PAL_RECOOK.png",
+      "bytes": 271320
+    },
+    {
+      "rel": "slices/eyes/alpha-15-music.png",
+      "bytes": 271179
+    },
+    {
+      "rel": "records/target/PIXEL_CRAFT_JUDGE_SHOT.png",
+      "bytes": 261360
+    },
+    {
+      "rel": "slices/BOHEMIA_SUBURB_WALK_7_18_26.html",
+      "bytes": 259373
+    },
+    {
+      "rel": "records/target/RECOOK_CONTACT.png",
+      "bytes": 255470
+    },
+    {
+      "rel": "slices/BOHEMIA_RHYTHM_PROOF_7_26_26.png",
+      "bytes": 241112
+    },
+    {
+      "rel": "slices/BOHEMIA_BEAT_PERMISSION_PROOF_7_26_26.png",
+      "bytes": 238132
+    },
+    {
+      "rel": "slices/eyes/alpha-04-looks.png",
+      "bytes": 228536
+    },
+    {
+      "rel": "engine/bohemia_sfx.js",
+      "bytes": 224822
+    },
+    {
+      "rel": "slices/eyes/alpha-01-after-the-tap.png",
+      "bytes": 210255
+    },
+    {
+      "rel": "slices/eyes/alpha-09-run.png",
+      "bytes": 208529
+    },
+    {
+      "rel": "slices/eyes/alpha-99-back-on-the-game.png",
+      "bytes": 206849
+    },
+    {
+      "rel": "slices/BOHEMIA_PULSE_LADDER_PROOF_7_26_26.png",
+      "bytes": 205098
+    },
+    {
+      "rel": "slices/eyes/demo-01-after-the-tap.png",
+      "bytes": 198885
+    },
+    {
+      "rel": "slices/eyes/demo-02-t15s.png",
+      "bytes": 198641
+    },
+    {
+      "rel": "slices/eyes/alpha-06-words.png",
+      "bytes": 198095
+    },
+    {
+      "rel": "records/target/JUDGE_ASK_SHOT.png",
+      "bytes": 197579
+    },
+    {
+      "rel": "slices/eyes/demo-03-t21s.png",
+      "bytes": 196657
+    },
+    {
+      "rel": "slices/eyes/demo-04-t29s.png",
+      "bytes": 196657
+    },
+    {
+      "rel": "slices/eyes/demo-05-t39s.png",
+      "bytes": 196657
+    },
+    {
+      "rel": "records/target/HOUSE_JUDGE.png",
+      "bytes": 191197
+    },
+    {
+      "rel": "slices/BOHEMIA_ENTER_SLICE_7_18_26.html",
+      "bytes": 185525
+    },
+    {
+      "rel": "records/target/PROOF_roof.png",
+      "bytes": 184331
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_TARGET_LOOK_7_26_26.png",
+      "bytes": 178156
+    },
+    {
+      "rel": "records/target/TILESET_CONTACT.png",
+      "bytes": 177097
+    },
+    {
+      "rel": "slices/BOHEMIA_STALL_STRIPING_PROOF_7_14_26.html",
+      "bytes": 176159
+    },
+    {
+      "rel": "slices/BOHEMIA_FIGHT_PULSE_PROOF_7_26_26.png",
+      "bytes": 169155
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_INTERIOR_DRESSED_7_26_26.png",
+      "bytes": 167718
+    },
+    {
+      "rel": "slices/BOHEMIA_REASSEMBLY_RECOOK_7_28_26.html",
+      "bytes": 159408
+    },
+    {
+      "rel": "records/target/CIVIC_OPENINGS.png",
+      "bytes": 154580
+    },
+    {
+      "rel": "slices/eyes/alpha-03-ui.png",
+      "bytes": 152158
+    },
+    {
+      "rel": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+      "bytes": 133951
+    },
+    {
+      "rel": "records/target/PIXEL_CRAFT_JUDGE_SHOT2.png",
+      "bytes": 129511
+    },
+    {
+      "rel": "records/target/PROOF_car.png",
+      "bytes": 128956
+    },
+    {
+      "rel": "slices/BOHEMIA_OVERWORLD_BAG_PROOF_7_26_26.png",
+      "bytes": 128429
+    },
+    {
+      "rel": "engine/bohemia_people.js",
+      "bytes": 112810
+    },
+    {
+      "rel": "slices/eyes/alpha-08-direct.png",
+      "bytes": 110507
+    },
+    {
+      "rel": "slices/eyes/alpha-11-clothes.png",
+      "bytes": 106409
+    },
+    {
+      "rel": "slices/BOHEMIA_QUEST_JUDGE_7_25_26.html",
+      "bytes": 106067
+    },
+    {
+      "rel": "slices/eyes/alpha-13-rig.png",
+      "bytes": 101615
+    },
+    {
+      "rel": "engine/bohemia_coldopen_set.js",
+      "bytes": 97947
+    },
+    {
+      "rel": "slices/BOHEMIA_CITY_CURRENT.html",
+      "bytes": 97673
+    },
+    {
+      "rel": "slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26.png",
+      "bytes": 95469
+    },
+    {
+      "rel": "slices/eyes/alpha-02-vote.png",
+      "bytes": 93697
+    },
+    {
+      "rel": "records/target/FEATURE_COMPARE.png",
+      "bytes": 91419
+    },
+    {
+      "rel": "slices/BOHEMIA_PEOPLE_NAMED_ALPHA_7_31_26_STRANGER.png",
+      "bytes": 89994
+    },
+    {
+      "rel": "records/target/VEG_HARDWARE.png",
+      "bytes": 88072
+    },
+    {
+      "rel": "engine/bohemia_utility.js",
+      "bytes": 87607
+    },
+    {
+      "rel": "slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html",
+      "bytes": 84983
+    },
+    {
+      "rel": "slices/BOHEMIA_GROOVE_PROOF_7_26_26.png",
+      "bytes": 83640
+    },
+    {
+      "rel": "slices/BOHEMIA_FREE_MOVEMENT_PROOF_7_26_26.png",
+      "bytes": 83163
+    },
+    {
+      "rel": "slices/eyes/alpha-12-anim.png",
+      "bytes": 81933
+    },
+    {
+      "rel": "records/target/BOHEMIA_HERO_ONE.png",
+      "bytes": 81597
+    },
+    {
+      "rel": "records/target/HOUSES16_JUDGE.png",
+      "bytes": 80780
+    },
+    {
+      "rel": "engine/bohemia_overmap.js",
+      "bytes": 80697
+    },
+    {
+      "rel": "engine/bohemia_loop.js",
+      "bytes": 79579
+    },
+    {
+      "rel": "records/target/PERIMETER_VS_HIS.png",
+      "bytes": 79539
+    },
+    {
+      "rel": "records/target/RECOOK_road_0.png",
+      "bytes": 76417
+    },
+    {
+      "rel": "slices/eyes/alpha-17-slice.png",
+      "bytes": 75990
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_STARDEW_WORLD_7_26_26.html",
+      "bytes": 73597
+    },
+    {
+      "rel": "slices/eyes/alpha-10-char.png",
+      "bytes": 72288
+    },
+    {
+      "rel": "slices/BOHEMIA_SPRINT_FREE_PROOF_7_26_26.png",
+      "bytes": 72134
+    },
+    {
+      "rel": "engine/bohemia_world.js",
+      "bytes": 69342
+    },
+    {
+      "rel": "engine/bohemia_arterial.js",
+      "bytes": 69092
+    },
+    {
+      "rel": "records/target/logos/LOGO_03.png",
+      "bytes": 63962
+    },
+    {
+      "rel": "records/target/BOHEMIA_ICON_GRID.png",
+      "bytes": 62426
+    },
+    {
+      "rel": "engine/bohemia_population.js",
+      "bytes": 61985
+    },
+    {
+      "rel": "engine/bohemia_agents.js",
+      "bytes": 61864
+    },
+    {
+      "rel": "records/target/logos/LOGO_07.png",
+      "bytes": 61588
+    },
+    {
+      "rel": "records/target/logos/LOGO_11.png",
+      "bytes": 60300
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_MOBILE_CAMP_DIAL_7_27_26.html",
+      "bytes": 59264
+    },
+    {
+      "rel": "records/target/logos/LOGO_06.png",
+      "bytes": 59095
+    },
+    {
+      "rel": "slices/BOHEMIA_PALETTE_JUDGE_7_29_26.html",
+      "bytes": 59029
+    },
+    {
+      "rel": "records/target/logos/LOGO_09.png",
+      "bytes": 57366
+    },
+    {
+      "rel": "records/target/PIXEL_CRAFT_PROOF.png",
+      "bytes": 57167
+    },
+    {
+      "rel": "engine/bohemia_suburb.js",
+      "bytes": 56786
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_STARDEW_TOWNWALK_7_26_26.html",
+      "bytes": 55270
+    },
+    {
+      "rel": "engine/BOHEMIA_region_map.json",
+      "bytes": 55083
+    },
+    {
+      "rel": "engine/bohemia_district_kit.js",
+      "bytes": 52902
+    },
+    {
+      "rel": "engine/bohemia_engine_graphics_7_14_26.js",
+      "bytes": 52801
+    },
+    {
+      "rel": "engine/bohemia_dead.js",
+      "bytes": 52632
+    },
+    {
+      "rel": "engine/bohemia_strip.js",
+      "bytes": 50397
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_VALHEIM_COMFORT_7_27_26.html",
+      "bytes": 48482
+    },
+    {
+      "rel": "engine/bohemia_landmarks.js",
+      "bytes": 48280
+    },
+    {
+      "rel": "slices/icons/bohemia-512.png",
+      "bytes": 47162
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_STARDEW_MECHANICS_7_26_26.html",
+      "bytes": 47115
+    },
+    {
+      "rel": "slices/BOHEMIA_CITY_MAP_PROOF_7_18_26.png",
+      "bytes": 44475
+    },
+    {
+      "rel": "engine/bohemia_exchanges.js",
+      "bytes": 43400
+    },
+    {
+      "rel": "records/target/HOUSE_01_SHEET.png",
+      "bytes": 43080
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_SHEET.png",
+      "bytes": 42292
+    },
+    {
+      "rel": "records/target/ACT_TRIPTYCH.png",
+      "bytes": 42190
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_quarry.png",
+      "bytes": 37691
+    },
+    {
+      "rel": "records/target/logos/LOGO_04.png",
+      "bytes": 35943
+    },
+    {
+      "rel": "engine/bohemia_freeway.js",
+      "bytes": 35291
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_radio.png",
+      "bytes": 34336
+    },
+    {
+      "rel": "engine/bohemia_look.css",
+      "bytes": 32922
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_VALHEIM_WEAPONS_7_31_26.html",
+      "bytes": 32823
+    },
+    {
+      "rel": "engine/bohemia_bodyvar.js",
+      "bytes": 32763
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_CDDA_ACTION_COST_7_31_26.html",
+      "bytes": 32070
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_PROOF_loud_7_26_26.png",
+      "bytes": 31839
+    },
+    {
+      "rel": "engine/bohemia_rail.js",
+      "bytes": 31042
+    },
+    {
+      "rel": "slices/BOHEMIA_HOUSE_ISO_JUDGE_7_29_26.html",
+      "bytes": 31030
+    },
+    {
+      "rel": "slices/BOHEMIA_RUN_PROOF_quiet_7_26_26.png",
+      "bytes": 30411
+    },
+    {
+      "rel": "engine/bohemia_voice.js",
+      "bytes": 29707
+    },
+    {
+      "rel": "engine/bohemia_commitment.js",
+      "bytes": 29566
+    },
+    {
+      "rel": "slices/lab/BOHEMIA_LAB_TEN_YEARS_COLD_7_31_26.html",
+      "bytes": 29562
+    },
+    {
+      "rel": "engine/bohemia_story_surface.js",
+      "bytes": 29522
+    },
+    {
+      "rel": "engine/bohemia_introductions.js",
+      "bytes": 29078
+    },
+    {
+      "rel": "engine/bohemia_school.js",
+      "bytes": 28029
+    },
+    {
+      "rel": "engine/bohemia_between.js",
+      "bytes": 27827
+    },
+    {
+      "rel": "engine/bohemia_quirk.js",
+      "bytes": 27807
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_interchange.png",
+      "bytes": 26987
+    },
+    {
+      "rel": "engine/bohemia_blockgen.js",
+      "bytes": 25974
+    },
+    {
+      "rel": "engine/bohemia_belonging.js",
+      "bytes": 25863
+    },
+    {
+      "rel": "engine/bohemia_interchange.js",
+      "bytes": 25846
+    },
+    {
+      "rel": "engine/bohemia_hazard.js",
+      "bytes": 25171
+    },
+    {
+      "rel": "records/target/RECOOK_road_0_PHONE.png",
+      "bytes": 25033
+    },
+    {
+      "rel": "engine/bohemia_purse.js",
+      "bytes": 24975
+    },
+    {
+      "rel": "engine/bohemia_speedway.js",
+      "bytes": 23549
+    },
+    {
+      "rel": "engine/bohemia_wash.js",
+      "bytes": 23290
+    },
+    {
+      "rel": "engine/bohemia_commercial.js",
+      "bytes": 23114
+    },
+    {
+      "rel": "engine/bohemia_cityhall.js",
+      "bytes": 22719
+    },
+    {
+      "rel": "engine/bohemia_payday.js",
+      "bytes": 22081
+    },
+    {
+      "rel": "engine/bohemia_standing.js",
+      "bytes": 21242
+    },
+    {
+      "rel": "engine/bohemia_golf.js",
+      "bytes": 21096
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_strip.png",
+      "bytes": 20708
+    },
+    {
+      "rel": "records/target/HOUSE_02_FACING_AB.png",
+      "bytes": 20403
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_strip_x.png",
+      "bytes": 20389
+    },
+    {
+      "rel": "slices/BOHEMIA_SUBURB_JUDGE_7_18_26.html",
+      "bytes": 20374
+    },
+    {
+      "rel": "engine/bohemia_floorplan.js",
+      "bytes": 20314
+    },
+    {
+      "rel": "engine/bohemia_dress.js",
+      "bytes": 20293
+    },
+    {
+      "rel": "engine/bohemia_downtown.js",
+      "bytes": 20180
+    },
+    {
+      "rel": "engine/bohemia_railyard.js",
+      "bytes": 20013
+    },
+    {
+      "rel": "records/target/OPENINGS.png",
+      "bytes": 19659
+    },
+    {
+      "rel": "engine/bohemia_ballpark.js",
+      "bytes": 19444
+    },
+    {
+      "rel": "engine/bohemia_demoquests.js",
+      "bytes": 19284
+    },
+    {
+      "rel": "engine/bohemia_courthouse.js",
+      "bytes": 19240
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_datafort.png",
+      "bytes": 19086
+    },
+    {
+      "rel": "engine/bohemia_interior_ground.js",
+      "bytes": 19059
+    },
+    {
+      "rel": "engine/bohemia_quest_placement.js",
+      "bytes": 19000
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_freeway.png",
+      "bytes": 18662
+    },
+    {
+      "rel": "engine/bohemia_watertreat.js",
+      "bytes": 18654
+    },
+    {
+      "rel": "records/target/BOHEMIA_ICON_INTERSECTION.png",
+      "bytes": 18613
+    },
+    {
+      "rel": "engine/bohemia_resolve.js",
+      "bytes": 18557
+    },
+    {
+      "rel": "engine/bohemia_library.js",
+      "bytes": 18316
+    },
+    {
+      "rel": "engine/bohemia_packs.js",
+      "bytes": 18219
+    },
+    {
+      "rel": "engine/bohemia_chapel.js",
+      "bytes": 18118
+    },
+    {
+      "rel": "engine/bohemia_terminal.js",
+      "bytes": 17912
+    },
+    {
+      "rel": "engine/bohemia_furnish.js",
+      "bytes": 17653
+    },
+    {
+      "rel": "engine/bohemia_town.js",
+      "bytes": 17412
+    },
+    {
+      "rel": "slices/BOHEMIA_SUBURB_MODULAR_PROOF.html",
+      "bytes": 17307
+    },
+    {
+      "rel": "engine/bohemia_airfield.js",
+      "bytes": 16974
+    },
+    {
+      "rel": "engine/bohemia_quest_runtime.js",
+      "bytes": 16835
+    },
+    {
+      "rel": "engine/bohemia_stadium.js",
+      "bytes": 16791
+    },
+    {
+      "rel": "engine/bohemia_towns.js",
+      "bytes": 16775
+    },
+    {
+      "rel": "engine/bohemia_deeds.js",
+      "bytes": 16744
+    },
+    {
+      "rel": "engine/bohemia_vista.js",
+      "bytes": 16716
+    },
+    {
+      "rel": "engine/bohemia_mall.js",
+      "bytes": 16503
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_arterial.png",
+      "bytes": 16431
+    },
+    {
+      "rel": "records/target/HOUSE_01.png",
+      "bytes": 16381
+    },
+    {
+      "rel": "engine/bohemia_save.js",
+      "bytes": 16285
+    },
+    {
+      "rel": "engine/bohemia_resort.js",
+      "bytes": 16283
+    },
+    {
+      "rel": "engine/bohemia_asking.js",
+      "bytes": 16274
+    },
+    {
+      "rel": "engine/bohemia_mountain.js",
+      "bytes": 15949
+    },
+    {
+      "rel": "engine/bohemia_stage.js",
+      "bytes": 15869
+    },
+    {
+      "rel": "engine/bohemia_tests.js",
+      "bytes": 15587
+    },
+    {
+      "rel": "engine/bohemia_ties.js",
+      "bytes": 15515
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_casino.png",
+      "bytes": 15414
+    },
+    {
+      "rel": "engine/bohemia_feedstream.js",
+      "bytes": 15403
+    },
+    {
+      "rel": "engine/bohemia_casino.js",
+      "bytes": 15335
+    },
+    {
+      "rel": "engine/bohemia_desert.js",
+      "bytes": 15267
+    },
+    {
+      "rel": "engine/bohemia_bq.js",
+      "bytes": 14984
+    },
+    {
+      "rel": "engine/bohemia_cemetery.js",
+      "bytes": 14792
+    },
+    {
+      "rel": "engine/bohemia_farm.js",
+      "bytes": 14786
+    },
+    {
+      "rel": "engine/bohemia_landfill.js",
+      "bytes": 14511
+    },
+    {
+      "rel": "engine/bohemia_encounters.js",
+      "bytes": 14503
+    },
+    {
+      "rel": "slices/BOHEMIA_EYES_ROUND_1_9_5_26.html",
+      "bytes": 14469
+    },
+    {
+      "rel": "engine/bohemia_scene.js",
+      "bytes": 14267
+    },
+    {
+      "rel": "engine/bohemia_production.js",
+      "bytes": 14147
+    },
+    {
+      "rel": "engine/bohemia_graphics_tests.js",
+      "bytes": 14116
+    },
+    {
+      "rel": "engine/bohemia_world_resolve.js",
+      "bytes": 14010
+    },
+    {
+      "rel": "engine/bohemia_blackbox.js",
+      "bytes": 13977
+    },
+    {
+      "rel": "engine/bohemia_scheduler.js",
+      "bytes": 13877
+    },
+    {
+      "rel": "engine/bohemia_retreat.js",
+      "bytes": 13839
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_prison.png",
+      "bytes": 13837
+    },
+    {
+      "rel": "engine/bohemia_campus.js",
+      "bytes": 13818
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_mountain.png",
+      "bytes": 13729
+    },
+    {
+      "rel": "records/target/BOHEMIA_CANVAS_MEMORY.json",
+      "bytes": 13711
+    },
+    {
+      "rel": "engine/bohemia_mandate.js",
+      "bytes": 13706
+    },
+    {
+      "rel": "engine/bohemia_succession.js",
+      "bytes": 13696
+    },
+    {
+      "rel": "engine/bohemia_park.js",
+      "bytes": 13555
+    },
+    {
+      "rel": "engine/bohemia_claim.js",
+      "bytes": 13373
+    },
+    {
+      "rel": "engine/bohemia_hostiles.js",
+      "bytes": 13264
+    },
+    {
+      "rel": "engine/bohemia_wildlife.js",
+      "bytes": 13232
+    },
+    {
+      "rel": "engine/bohemia_solar.js",
+      "bytes": 13127
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_resort.png",
+      "bytes": 12930
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_arterial_x.png",
+      "bytes": 12829
+    },
+    {
+      "rel": "engine/bohemia_dayloop.js",
+      "bytes": 12779
+    },
+    {
+      "rel": "engine/bohemia_valleymap.js",
+      "bytes": 12613
+    },
+    {
+      "rel": "engine/bohemia_truckstop.js",
+      "bytes": 12572
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_convention.png",
+      "bytes": 12535
+    },
+    {
+      "rel": "engine/bohemia_personlook.js",
+      "bytes": 12452
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_minigp.png",
+      "bytes": 12252
+    },
+    {
+      "rel": "records/target/HOUSE_02_SW.png",
+      "bytes": 12228
+    },
+    {
+      "rel": "engine/bohemia_water.js",
+      "bytes": 12195
+    },
+    {
+      "rel": "engine/bohemia_economy.js",
+      "bytes": 12094
+    },
+    {
+      "rel": "engine/bohemia_medical.js",
+      "bytes": 11719
+    },
+    {
+      "rel": "slices/icons/bohemia-192.png",
+      "bytes": 11660
+    },
+    {
+      "rel": "engine/bohemia_boneyard.js",
+      "bytes": 11651
+    },
+    {
+      "rel": "engine/bohemia_firestation.js",
+      "bytes": 11465
+    },
+    {
+      "rel": "slices/BOHEMIA_COMMERCIAL_PROOF.html",
+      "bytes": 11454
+    },
+    {
+      "rel": "engine/bohemia_against.js",
+      "bytes": 11313
+    },
+    {
+      "rel": "engine/bohemia_fuse.js",
+      "bytes": 11282
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_dam.png",
+      "bytes": 11181
+    },
+    {
+      "rel": "engine/bohemia_industrial.js",
+      "bytes": 10906
+    },
+    {
+      "rel": "engine/bohemia_apartment.js",
+      "bytes": 10749
+    },
+    {
+      "rel": "engine/bohemia_warehouse.js",
+      "bytes": 10715
+    },
+    {
+      "rel": "engine/bohemia_swapmeet.js",
+      "bytes": 10708
+    },
+    {
+      "rel": "engine/bohemia_policestation.js",
+      "bytes": 10637
+    },
+    {
+      "rel": "engine/bohemia_plotgen.js",
+      "bytes": 10628
+    },
+    {
+      "rel": "engine/bohemia_storage.js",
+      "bytes": 10444
+    },
+    {
+      "rel": "engine/bohemia_century.js",
+      "bytes": 10322
+    },
+    {
+      "rel": "engine/bohemia_jail.js",
+      "bytes": 10188
+    },
+    {
+      "rel": "engine/bohemia_waterpark.js",
+      "bytes": 10137
+    },
+    {
+      "rel": "engine/bohemia_substation.js",
+      "bytes": 10080
+    },
+    {
+      "rel": "engine/bohemia_housing.js",
+      "bytes": 9972
+    },
+    {
+      "rel": "engine/bohemia_battery.js",
+      "bytes": 9884
+    },
+    {
+      "rel": "records/target/BOHEMIA_GRID_airport.png",
+      "bytes": 9830
+    },
+    {
+      "rel": "engine/bohemia_favour.js",
+      "bytes": 9702
+    },
+    {
+      "rel": "engine/bohemia_drivein.js",
+      "bytes": 9118
+    },
+    {
+      "rel": "engine/bohemia_trailer.js",
+      "bytes": 8878
+    },
+    {
+      "rel": "engine/bohemia_loop_faction_bridge_tests.js",
+      "bytes": 8717
+    },
+    {
+      "rel": "engine/bohemia_powergrid.js",
+      "bytes": 8362
+    },
+    {
+      "rel": "engine/bohemia_slice_engine.js",
+      "bytes": 8333
+    },
+    {
+      "rel": "engine/bohemia_combatfloor.js",
+      "bytes": 8045
+    },
+    {
+      "rel": "engine/bohemia_interior_levels.js",
+      "bytes": 7746
+    },
+    {
+      "rel": "engine/bohemia_brownout.js",
+      "bytes": 7616
+    },
+    {
+      "rel": "slices/BOHEMIA_QUEST_DEMO_7_19_26.html",
+      "bytes": 7615
+    },
+    {
+      "rel": "slices/BOHEMIA_FLOORPLAN_PROOF_7_18_26.png",
+      "bytes": 7558
+    },
+    {
+      "rel": "engine/bohemia_ending.js",
+      "bytes": 7335
+    },
+    {
+      "rel": "slices/BOHEMIA_BUILTLOT_PROOF_7_18_26.png",
+      "bytes": 7107
+    },
+    {
+      "rel": "engine/bohemia_cityedit.js",
+      "bytes": 7055
+    },
+    {
+      "rel": "engine/bohemia_weather.js",
+      "bytes": 6992
+    },
+    {
+      "rel": "engine/bohemia_overmap_bridge.js",
+      "bytes": 6879
+    },
+    {
+      "rel": "engine/bohemia_known.js",
+      "bytes": 6732
+    },
+    {
+      "rel": "engine/bohemia_loop_slice_tests.js",
+      "bytes": 6653
+    },
+    {
+      "rel": "engine/bohemia_tilepool.js",
+      "bytes": 6625
+    },
+    {
+      "rel": "records/target/BOHEMIA_TARGET_MANIFEST.txt",
+      "bytes": 6250
+    },
+    {
+      "rel": "engine/bohemia_patrol.js",
+      "bytes": 6199
+    },
+    {
+      "rel": "slices/BOHEMIA_SCALE_STUDY_7_18_26.html",
+      "bytes": 6180
+    },
+    {
+      "rel": "engine/bohemia_conversation.js",
+      "bytes": 6131
+    },
+    {
+      "rel": "engine/bohemia_quest_runtime_tests.js",
+      "bytes": 6012
+    },
+    {
+      "rel": "engine/bohemia_rooms.js",
+      "bytes": 5841
+    },
+    {
+      "rel": "engine/bohemia_light_registry.js",
+      "bytes": 5731
+    },
+    {
+      "rel": "engine/BOHEMIA_faction_graph.json",
+      "bytes": 5584
+    },
+    {
+      "rel": "engine/bohemia_prop_scale.js",
+      "bytes": 5451
+    },
+    {
+      "rel": "records/target/BOHEMIA_VISUAL_CONSTITUTION.json",
+      "bytes": 5107
+    },
+    {
+      "rel": "engine/bohemia_memory.js",
+      "bytes": 5075
+    },
+    {
+      "rel": "engine/bohemia_loop_clout_tests.js",
+      "bytes": 5046
+    },
+    {
+      "rel": "engine/bohemia_loop_ledger_tests.js",
+      "bytes": 4860
+    },
+    {
+      "rel": "engine/bohemia_bq_tests.js",
+      "bytes": 4731
+    },
+    {
+      "rel": "engine/bohemia_slice_core.js",
+      "bytes": 4498
+    },
+    {
+      "rel": "engine/bohemia_loop_profile_tests.js",
+      "bytes": 4406
+    },
+    {
+      "rel": "engine/bohemia_garage.js",
+      "bytes": 3996
+    },
+    {
+      "rel": "engine/bohemia_loop_quests_tests.js",
+      "bytes": 3977
+    },
+    {
+      "rel": "slices/BOHEMIA_WORLD_ZOOM_PROOF_7_18_26.png",
+      "bytes": 3956
+    },
+    {
+      "rel": "records/target/HOUSE_02_ISO.png",
+      "bytes": 3901
+    },
+    {
+      "rel": "records/target/HOUSE_02_SOUTH.png",
+      "bytes": 3901
+    },
+    {
+      "rel": "records/target/logos/LOGO_05.png",
+      "bytes": 3887
+    },
+    {
+      "rel": "engine/bohemia_clout.js",
+      "bytes": 3874
+    },
+    {
+      "rel": "slices/eyes/shots.json",
+      "bytes": 3710
+    },
+    {
+      "rel": "engine/bohemia_loop_channel_tests.js",
+      "bytes": 3586
+    },
+    {
+      "rel": "records/target/BOHEMIA_MASTER_PALETTE.json",
+      "bytes": 3536
+    },
+    {
+      "rel": "engine/bohemia_loop_talk_tests.js",
+      "bytes": 3470
+    },
+    {
+      "rel": "engine/bohemia_terrain_noise.js",
+      "bytes": 3463
+    },
+    {
+      "rel": "records/target/floor/carpet_0.png",
+      "bytes": 3456
+    },
+    {
+      "rel": "records/target/floor/carpet_3.png",
+      "bytes": 3439
+    },
+    {
+      "rel": "engine/bohemia_crypt.js",
+      "bytes": 3267
+    },
+    {
+      "rel": "engine/bohemia_loop_feed_tests.js",
+      "bytes": 3183
+    },
+    {
+      "rel": "slices/SLICES_MANIFEST.json",
+      "bytes": 3152
+    },
+    {
+      "rel": "records/target/floor/wood_3.png",
+      "bytes": 2960
+    },
+    {
+      "rel": "records/target/floor/carpet_1.png",
+      "bytes": 2941
+    },
+    {
+      "rel": "records/target/floor/carpet_4.png",
+      "bytes": 2877
+    },
+    {
+      "rel": "records/target/floor/carpet_2.png",
+      "bytes": 2874
+    },
+    {
+      "rel": "records/target/floor/wood_1.png",
+      "bytes": 2834
+    },
+    {
+      "rel": "records/target/floor/carpet_5.png",
+      "bytes": 2740
+    },
+    {
+      "rel": "records/target/BOHEMIA_TARGET_SPEC.json",
+      "bytes": 2726
+    },
+    {
+      "rel": "records/target/logos/LOGO_08.png",
+      "bytes": 2719
+    },
+    {
+      "rel": "records/target/floor/slab_2.png",
+      "bytes": 2636
+    },
+    {
+      "rel": "records/target/BOHEMIA_TAB_MEMORY_BILL.json",
+      "bytes": 2633
+    },
+    {
+      "rel": "engine/bohemia_light_pass.js",
+      "bytes": 2594
+    },
+    {
+      "rel": "records/target/floor/wood_4.png",
+      "bytes": 2579
+    },
+    {
+      "rel": "records/target/floor/slab_1.png",
+      "bytes": 2537
+    },
+    {
+      "rel": "engine/bohemia_loop_entities_tests.js",
+      "bytes": 2495
+    },
+    {
+      "rel": "records/target/CMU_BLOCK.png",
+      "bytes": 2459
+    },
+    {
+      "rel": "records/target/floor/slab_3.png",
+      "bytes": 2385
+    },
+    {
+      "rel": "records/target/floor/lino_2.png",
+      "bytes": 2259
+    },
+    {
+      "rel": "records/target/floor/slab_4.png",
+      "bytes": 2219
+    },
+    {
+      "rel": "records/target/floor/lino_3.png",
+      "bytes": 2183
+    },
+    {
+      "rel": "records/target/floor/lino_1.png",
+      "bytes": 2182
+    },
+    {
+      "rel": "records/target/floor/wood_0.png",
+      "bytes": 2133
+    },
+    {
+      "rel": "records/target/floor/lino_0.png",
+      "bytes": 1991
+    },
+    {
+      "rel": "records/target/logos/LOGO_01.png",
+      "bytes": 1962
+    },
+    {
+      "rel": "records/target/BOHEMIA_MASTER_PALETTE.png",
+      "bytes": 1935
+    },
+    {
+      "rel": "records/target/floor/wood_2.png",
+      "bytes": 1935
+    },
+    {
+      "rel": "records/target/HERO_SPRITE.png",
+      "bytes": 1920
+    },
+    {
+      "rel": "slices/sw.js",
+      "bytes": 1858
+    },
+    {
+      "rel": "records/target/floor/slab_0.png",
+      "bytes": 1691
+    },
+    {
+      "rel": "engine/bohemia_transitions.js",
+      "bytes": 1648
+    },
+    {
+      "rel": "records/target/logos/LOGO_10.png",
+      "bytes": 1380
+    },
+    {
+      "rel": "engine/bohemia_daycycle.js",
+      "bytes": 1251
+    },
+    {
+      "rel": "engine/BOHEMIA_AGENT_RAGS_7_10_26.js",
+      "bytes": 1126
+    },
+    {
+      "rel": "records/target/char/walk_SE_1.png",
+      "bytes": 1055
+    },
+    {
+      "rel": "records/target/char/walk_SW_3.png",
+      "bytes": 1045
+    },
+    {
+      "rel": "records/target/char/walk_W_1.png",
+      "bytes": 1040
+    },
+    {
+      "rel": "records/target/char/walk_E_3.png",
+      "bytes": 1037
+    },
+    {
+      "rel": "records/target/char/walk_SE_3.png",
+      "bytes": 1024
+    },
+    {
+      "rel": "records/target/char/walk_NW_3.png",
+      "bytes": 1019
+    },
+    {
+      "rel": "records/target/char/walk_E_1.png",
+      "bytes": 1016
+    },
+    {
+      "rel": "records/target/logos/LOGO_02.png",
+      "bytes": 1015
+    },
+    {
+      "rel": "records/target/char/walk_SW_1.png",
+      "bytes": 995
+    },
+    {
+      "rel": "records/target/char/walk_W_3.png",
+      "bytes": 983
+    },
+    {
+      "rel": "records/target/char/walk_NE_3.png",
+      "bytes": 977
+    },
+    {
+      "rel": "records/target/char/walk_NE_1.png",
+      "bytes": 976
+    },
+    {
+      "rel": "records/target/char/walk_NW_1.png",
+      "bytes": 972
+    },
+    {
+      "rel": "engine/BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
+      "bytes": 966
+    },
+    {
+      "rel": "records/target/char/walk_S_3.png",
+      "bytes": 951
+    },
+    {
+      "rel": "records/target/char/walk_S_1.png",
+      "bytes": 929
+    },
+    {
+      "rel": "records/target/char/walk_SW_0.png",
+      "bytes": 920
+    },
+    {
+      "rel": "records/target/char/walk_SW_2.png",
+      "bytes": 920
+    },
+    {
+      "rel": "records/target/char/walk_S_0.png",
+      "bytes": 918
+    },
+    {
+      "rel": "records/target/char/walk_S_2.png",
+      "bytes": 918
+    },
+    {
+      "rel": "records/target/char/walk_SE_0.png",
+      "bytes": 910
+    },
+    {
+      "rel": "records/target/char/walk_SE_2.png",
+      "bytes": 910
+    },
+    {
+      "rel": "records/target/char/walk_NW_0.png",
+      "bytes": 909
+    },
+    {
+      "rel": "records/target/char/walk_NW_2.png",
+      "bytes": 909
+    },
+    {
+      "rel": "records/target/char/idle_SE.png",
+      "bytes": 900
+    },
+    {
+      "rel": "records/target/char/idle_S.png",
+      "bytes": 899
+    },
+    {
+      "rel": "records/target/char/idle_N.png",
+      "bytes": 896
+    },
+    {
+      "rel": "records/target/char/idle_NE.png",
+      "bytes": 896
+    },
+    {
+      "rel": "records/target/char/idle_SW.png",
+      "bytes": 895
+    },
+    {
+      "rel": "records/target/char/walk_NE_0.png",
+      "bytes": 877
+    },
+    {
+      "rel": "records/target/char/walk_NE_2.png",
+      "bytes": 877
+    },
+    {
+      "rel": "records/target/char/walk_N_1.png",
+      "bytes": 875
+    },
+    {
+      "rel": "records/target/char/idle_NW.png",
+      "bytes": 871
+    },
+    {
+      "rel": "records/target/RECOOK_road_0_TILE.png",
+      "bytes": 864
+    },
+    {
+      "rel": "engine/BOHEMIA_AGENT_LOOK_7_10_26.js",
+      "bytes": 861
+    },
+    {
+      "rel": "records/target/char/walk_N_0.png",
+      "bytes": 859
+    },
+    {
+      "rel": "records/target/char/walk_N_2.png",
+      "bytes": 859
+    },
+    {
+      "rel": "records/target/char/walk_N_3.png",
+      "bytes": 849
+    },
+    {
+      "rel": "records/target/char/idle_E.png",
+      "bytes": 824
+    },
+    {
+      "rel": "records/target/char/walk_W_0.png",
+      "bytes": 818
+    },
+    {
+      "rel": "records/target/char/walk_W_2.png",
+      "bytes": 818
+    },
+    {
+      "rel": "records/target/char/walk_E_0.png",
+      "bytes": 817
+    },
+    {
+      "rel": "records/target/char/walk_E_2.png",
+      "bytes": 817
+    },
+    {
+      "rel": "records/target/char/idle_W.png",
+      "bytes": 768
+    },
+    {
+      "rel": "slices/BOHEMIA_V12_INTERSECTION_INTACT_7_18_26.occ.json",
+      "bytes": 114
+    },
+    {
+      "rel": "records/target/BOHEMIA_DEMO_BLOCKERS.json",
+      "bytes": 57
+    },
+    {
+      "rel": "records/target/HERO_SPRITE.json",
+      "bytes": 13
+    }
+  ]
+}

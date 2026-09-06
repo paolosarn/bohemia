@@ -3000,10 +3000,10 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/5 (c) LATEST -- *** CHAT 18. ROUND 3. THE FIRST SPEED
-NUMBERS IN THE HISTORY OF THIS REPO ARE ON DISK. [sixty fps] FPS-ON-A-PHONE stays CLAIMED, not
-SHIPPED: everything the row asked for is measured and gated ON BOTH SURFACES except the one
-thing a container cannot do, which is a real handset. *** MODE: BUILD. TAB: NOT IN A TAB YET (this lane builds
+PLUMBER (plumber-ont6t5): 9/6 (a) LATEST -- *** CHAT 18. ROUND 4. TWO ROWS HELD: [sixty fps]
+is finished except for a real handset and stays CLAIMED; [slim build] is claimed and its
+measuring, budgeting and gating half is built. THE SITE WE PUBLISH IS 235 MB AND 73 MB OF IT
+CANNOT BE OPENED FROM THE GAME AT ALL. *** MODE: BUILD. TAB: NOT IN A TAB YET (this lane builds
 checkers, not screens). Nothing to judge.
 === PAOLO 9/5/26, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
@@ -3639,70 +3639,94 @@ measurement is 30 days stale and wants a fresh bare clone, and REUSE FIRST is re
 COOK's cook tools missing their REUSE CHECK block. The suite number itself is the case for
 [suite runs] SUITE-FINISHES, which is now measured rather than remembered.
 
-THIS ROUND (round 3 of [sixty fps], still CLAIMED). Pulled main and rebased, re-read
-CLAUDE.md from disk, re-read the VAMILY front page, confirmed 18 PLUMBER, continued the job I
-hold. The row says "measure the demo AND THE ALPHA ... and a gate that holds it", and the gate
-only held the demo. That is the surface he actually taps under the one-link law, so it was the
-wrong one to leave unguarded. It is guarded now, and two bugs in my own earlier work are fixed.
+THIS ROUND (round 4). [sixty fps] is finished except for a handset and stays CLAIMED so nobody
+redoes three rounds of it; this lane took the FIRST OPEN row, [slim build] SLIM-THE-BUILD, and
+built the measuring, budgeting and gating half of it. Pulled main and rebased, re-read
+CLAUDE.md from disk, re-read the VAMILY front page, confirmed 18 PLUMBER, claimed and pushed
+before starting.
 
-1. THE GATE NOW BOOTS BOTH FILES. The alpha gets a BOOT pass: first play, the beat the witness
-recorded on the way, and the bytes. A full second pass was tried first and MEASURED 122 SECONDS
-against the 60 this gate had been, in a suite that finishes with forty-nine seconds to spare, so
-it was cut back to a boot pass and the gate now runs in 72s through the runner. The alpha's
-walk, fight and settled beat stay in the record and are NOT gated live; that blind spot is
-printed in the gate's own output every run so nobody reads a boot pass as a full one. What only
-the alpha can break is its own shell, and a boot is the measurement of that.
-  AND THE DRIFT LINE IS ASSERTED ON THE ONE NUMBER THAT DOES NOT MOVE. The obvious check is "do
-  both files reach the first step at the same time", and it is the wrong one: first play swings
-  five seconds run to run on this box. BYTES BEFORE ANYTHING IS ON SCREEN is deterministic to
-  the byte within a sample (6,335,759 alpha against 6,338,697 demo, 2,938 apart), because it is
-  a property of the files and not of the afternoon. That is what is asserted; the timing gap is
-  printed beside it as information.
+WHAT [slim build] NOW HAS:
+  gates/bohemia_build_size.js   the inventory. Splits every shipped surface into named blocks
+                                (each big literal, each style, each inline script, the markup
+                                left over) raw and gzipped; walks the reference graph from the
+                                two real entry points to mark every published file reachable
+                                or not; hashes blocks to find duplication. Writes its own
+                                record, both halves.
+  gates/build_size_gate.js      the gate. Registered in gates/bohemia_gates.py, NOT slow,
+                                GREEN at 21 passed 0 failed in 1.0s through the runner.
+  records/BOHEMIA_BUILD_SIZE_9_6_26.md / .json   the inventory and the budget, plus the full
+                                list of all 445 unreachable files.
 
-2. MY OWN RULE WAS WRONG, AND THE EVIDENCE TURNED UP TWO REFRESHES LATER. Round 2 fixed a
-budget that could loosen by making it a one-way ratchet: always take the stricter of old and
-new. A ONE-WAY RATCHET IS RIGHT FOR A STABLE METRIC AND WRONG FOR ONE WHOSE OWN SPREAD IS 40%.
-Measured across four refreshes on an unchanged tree, time to first play sampled 14.1 s, 18.7 s,
-19.9 s and 19.7 s. Pinned at 19.5 s from the luckiest of those, the ratchet would have failed
-the next ordinary run of a game nobody had touched, and a gate that goes red for nothing is a
-gate the next session switches off. That is the exact death I keep writing about and I walked
-into it while writing it down. THE BUDGET IS NOW SET FROM THE WORST CASE ACROSS THE LAST SIX
-REFRESHES, kept as a history array in the record so the movement is visible. What stops that
-hiding a real slowdown is that a refresh is a deliberate act somebody runs; a regression trips
-the standing budget first and a human has to look before any number moves. Same model as the
-repo budget gate.
+THE NUMBERS:
+  the site we publish        235.53 MB in 642 files
+  reachable from the game    162.53 MB in 197 files
+  REACHABLE FROM NOTHING      73.00 MB in 445 files
+  the alpha                    4.59 MB raw, 1.65 MB gzipped
+  the demo                     4.59 MB raw, 1.65 MB gzipped
+  biggest single block         1.73 MB  COMBAT_B64, inline in BOTH files
+  could load later             1.86 MB raw, 0.76 MB gzipped per surface
 
-3. AND THE BOX IS NOW MEASURED, NOT ASSUMED. The empty-page rAF ceiling answers "can this
-browser paint at 60" and reads 60.x whatever else is running, because vsync is not contended --
-it cannot see CPU contention at all. So the instrument also times a fixed lump of integer work
-inside the page. Validated by throttling: 28.1 / 62.8 / 123.6 ms at CPU x1 / x2 / x4, spread
-under 3 ms. The budget records the yardstick it was set against and the gate scales its time
-and frame-rate lines by the ratio, clamped at 3x, past which it refuses to judge rather than
-excusing the number. HONEST LIMIT, WRITTEN DOWN: the yardstick did NOT explain this build's own
-run-to-run spread (it moved 28.1 to 28.7 ms while first play moved 14 s to 20 s), so the jam
-itself is what varies. It corrects for a slower or busier machine, nothing more, and the
-history above is what covers the rest.
+THE THREE FINDINGS:
+1. A THIRD OF WHAT WE SERVE CANNOT BE OPENED FROM THE GAME. 73.00 MB in 445 files is reachable
+from neither entry point by any path: not a tab, not an iframe, not a link, not a fetch. Old
+judge pages, galleries and proofs, sitting in folders GitHub Pages publishes wholesale. The
+biggest single one is 4.37 MB. The full list is in the JSON.
+2. THE BIGGEST THING IN BOTH SHIPPED FILES IS THE FIGHT. COMBAT_B64 is 1.73 MB of inline
+base64 (0.73 MB gzipped) downloaded before the first frame by everybody who opens either link,
+fight or no fight. With RIG_B64 that is 0.76 MB gzipped, which on the slow-4G link measured
+last round is about 3.9 SECONDS of blank screen before the logo, on every cold load. The
+cheaper pattern is in the same file four times over: the UI, VOTE, RUN and SLICE tabs each
+load their page from a sibling with data-src and pay none of it.
+3. THE ROW'S OWN NUMBER IS STALE. It says "the 4.6 MB and the 11 MB". The alpha is 4.59 MB,
+not 11: the 8/2 payload-wall work already moved 35.76 MB of inlined city out to a sibling.
+Recorded so nobody hunts for seven megabytes that are not there.
 
-WHERE THE ROW STANDS. Everything it named is measured, budgeted and gated on both surfaces:
-first play (local and on a phone network), walking (first minute and settled), the fight, the
-beat, and battery over ten minutes. The gate is GREEN at 35 passed, 0 failed, 72s through the
-runner.
-STILL CLAIMED, AND ONLY FOR ONE REASON: the row says "on a real phone" and there is no handset
-here.
-[PENDING Paolo, carried by the coordinator, unchanged from round 2]: is a phone-shaped Chromium
-enough to call this row shipped, or does he want somebody to open the link on a real phone and
-time it? I did not decide it, and it is the only thing between this row and SHIPPED.
+AND IT DOES NOT RE-ASSERT THE TOTAL, WHICH IS REUSE-FIRST AND NEARLY WENT WRONG. My first
+draft put a ceiling on the whole published surface, and gates/pages_publish_gate.js has held
+exactly that number since 8/6 at 260 MB, tied to the build timeout that killed three deploys
+in a row. Two ceilings on one number at different values is the drift this repo keeps paying
+for: raise one and the other still fires and nobody knows which is the rule. One fact, one
+owner. The size gate now reports the total, asserts that its own count AGREES with the
+neighbour's (both read 236 MB, which is a useful cross-check), and holds only what nothing
+else was looking at.
 
-A COST THIS LANE NOW OWES THE FLEET, SAID PLAINLY: this gate went from 60s to 72s. The full
-suite measured 2,651s against its own 2,700s budget last round, so the headroom is now roughly
-twenty seconds. That is not comfortable and it is not somebody else's problem: it is
-[suite runs] SUITE-FINISHES, third in this lane's queue, and it moved up in importance because
-of my own work.
+AND THE TWO GATES DISAGREE ABOUT RATCHETS ON PURPOSE, which is worth knowing before somebody
+"fixes" one to match the other. The size budget is a ONE-WAY RATCHET, down only. The speed
+budget is NOT, and must not be: a frame rate swings 40% between runs of an unchanged build
+(measured 14.1, 18.7, 19.9, 19.7 seconds to first play on one tree), so a one-way ratchet
+there pins the budget to the luckiest afternoon and goes red on a game nobody touched. A byte
+count has no spread at all. Different metric, different rule, both written down in the headers.
 
-NEXT IN THIS LANE (VAMILY order, and every measurement agrees with it): [slim build]
-SLIM-THE-BUILD, then [hot path] THE-BEAT-LOOP-IS-CLEAN. The 16.5 second block, the beats
-swallowed during boot and the 33 second wait on a real network are one finding seen from three
-sides: 19.4 MB of sprite banks parsed and baked on the thread the game draws on.
+WHY [slim build] IS NOT SHIPPED. The row is named SLIM-THE-BUILD and the build is not slimmer.
+Everything the row asks this lane to PRODUCE exists -- the byte-by-byte inventory, what is
+dead, what is duplicated, what could load later, a size budget, a gate that holds it, and the
+record that has to exist before anything is removed. What is missing is the removing, and this
+lane may not do it: slices/ content is not this chat's to touch, and the 73 MB is published
+only because Pages serves those folders wholesale, so cutting it means editing what the site
+publishes -- which risks 404ing a link somebody already has. The 8/6 config says exactly that
+in its own header.
+[PENDING Paolo, carried by the coordinator]: are the 445 unreachable files (73 MB of old judge
+pages, galleries and proofs) safe to stop publishing? Some are things he was shown once and
+may still open. I did not decide it. The list is in the record, newest first by size.
+[PENDING, for the coordinator to route]: moving COMBAT_B64 and RIG_B64 out to siblings is a
+change to slices/ content and belongs to the lane that owns the shell, not here. It is worth
+about 3.9 seconds of blank screen on every cold load over a phone connection.
+
+[sixty fps] REMAINS CLAIMED AND BLOCKED ON ONE THING. Every number it named is measured,
+budgeted and gated on both surfaces; gate green at 35 passed, 0 failed, 72s. The only thing
+left is opening the link on a real phone.
+[PENDING Paolo, unchanged since round 2]: is a phone-shaped Chromium enough to call that row
+shipped, or does he want somebody to time it on an actual phone?
+
+THE SUITE COST, STILL OWED AND NOW A LITTLE BETTER: the speed gate is 72s and this new size
+gate is 1.0s. The full suite measured 2,651s against its own 2,700s budget, so headroom is
+about twenty seconds. [suite runs] SUITE-FINISHES is next in this lane's queue and my own work
+is why it matters.
+
+NEXT IN THIS LANE (VAMILY order): [hot path] THE-BEAT-LOOP-IS-CLEAN, then [suite runs]
+SUITE-FINISHES. The 16.5 second block, the beats swallowed during boot, the 33 second wait on
+a real network and the 0.76 MB of fight nobody asked for yet are all one finding seen from
+four sides.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO
