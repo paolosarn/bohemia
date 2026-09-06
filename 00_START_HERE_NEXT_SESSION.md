@@ -8210,7 +8210,12 @@ topped up DIRECTION 0->5, SOUNDS 1->4, ANIMATION 3->6, LIFE+CITY 4->6, UI 5->7, 
 (records/BOHEMIA_COORDINATOR_RESEARCH_THE_FIRST_FIGHT_TEACHES_9_6_26.md) -- one lesson per
 encounter, the obstacle must be impassable without the thing taught, so the first fight
 teaches THE BEAT ALONE. Routed COMBAT [first fight] (top), SOUNDS [beat teaches], UI [no
-text box].
+text box]. THEN (bq) HE PICKED: "Yes definitely and the map will zoom out nicely maybe a
+cloud opacity somewhere" -> OPTION A, THE CAMERA PULLS BACK, LOCKED, plus HIS OWN detail,
+a cloud opacity across the turn so the scale change reads as weather and not a load.
+Written into laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md
+section 5. COMBAT [enter zoom] rewritten with the ruling; new ANIMATION [cloud turn] and
+DIRECTION [cloud look]. No open question to him now.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

@@ -178,6 +178,24 @@ maybe set up certain buildings wherever you're doing and that's just more batter
   economy behaves; the fact that a battery is the coin is a chosen simplification and
   is never re-litigated.
 
+## 5. RULED 9/6: HOW THE FIGHT BEGINS, AND THE CLOUD (Paolo, LOCKED)
+He asked how the walked world becomes a fight now that a combat tile is a house, and
+was given three shapes. HE PICKED THE PULL-BACK: "Yes definitely, and the map will
+zoom out nicely, maybe a cloud opacity somewhere."
+- **THE WALKED WORLD NEVER CHANGES SCALE.** The house-sized tile is the FIGHT BOARD
+  only, on the COMBAT tab's dial. Walking stays person-scale, one small cell a step.
+- **THE FIGHT IS ENTERED BY CAMERA, NOT BY SCREEN.** When a fight starts the view
+  pulls back from person-scale to house-scale over the SAME ground, on the beat at
+  120 BPM, and comes back in when it ends. No hard cut, no separate arena, no
+  loading, no text.
+- **THE CLOUD IS HIS AND IT IS THE POINT.** A soft opacity layer passes across the
+  turn, so the change of scale reads as weather moving over the block rather than as
+  a loading screen. Both directions, in and out.
+- **IT IS THE SAME MOVE EVERYWHERE.** A street bump and a walk through a front door
+  use one transition; only the board underneath differs (a STREET board where you
+  stood, or THAT ROOM with its real walls as cover), which the code already decides
+  with one field.
+
 ## ROUTING
 - WORLD: BB-BATTERIES-ARE-THE-MONEY, top of the lane, folded into
   BB-THE-LETTER-IS-ONE's work (PRICES are in `electricity`, at 1).
