@@ -285,7 +285,7 @@ STATE: HUD, phone, pad, day card exist. NOT built: any settings or pause screen,
 - SHIPPED 9/5 b0625a24  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; NO pause button, because I-MOVE-YOU-MOVE means there is no clock to stop
 - SHIPPED 9/6 0c2f728d  [first teaching]  FIRST-RUN-TEACHING -- three nudges, one at a time: the pad, the phone, DROP IN. A ring on the real control and one line, cleared by DOING THE THING, never seen again. Not a tutorial: pointer-events:none end to end, nothing to dismiss
 - SHIPPED 9/6 4c397639  [phone readable]  ACCESSIBLE-ON-A-PHONE -- text size, tap targets, colour-blind safety on faction colours, motion; the Game Accessibility Guidelines basic tier that the sound and colour rules already cite, applied to the whole surface
-- CLAIMED 9/6 ui-kmqmrf  [reactions explained]  BB-WHY
+- SHIPPED 9/6 ce2ec931  [reactions explained]  BB-WHY -- the companion says WHY, not what: the reason is drawn ON the body she chose, a line from her to him and three or four plain words, for one beat, then gone. Nothing when the room is clear
 - OPEN  [crisis warning]  BB-FORETOLD
 - OPEN  [look verdict]  ROUND-7-LOOK -- needs Paolo
 - OPEN  [no text box]  THE-FIRST-FIGHT-EXPLAINS-NOTHING -- with COMBAT [first fight]: nothing in a player's first fight is taught in words. No tip, no hint, no popup. The one number, the beat and the bodies do the whole job. Audit what the fight shows a first-timer and cut every word that is a lesson.
