@@ -1,3 +1,194 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall].
+Next OPEN is Q18 [black market]; Q19 [price moves] and Q20 [work feels] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 17 REPORT: [wages fall] SHIPPED ===
+*** THE WAGE LINE SURVIVES AND STOPS BEING THE PAY. MODE: RESEARCH, nothing
+implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_17_THE_WAGE_LINE_SURVIVES_AND_STOPS_BEING_THE_PAY_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections GGGG-KKKK (12 lines, 243 total)
+Board:  Q17 SHIPPED. Q1-Q17 shipped; next OPEN is Q18 [black market]. The
+        coordinator added two more since last round: Q19 [price moves] and Q20
+        [work feels].
+
+THE ROW ASKS FOR A LADDER FOR THE PAYOUT TABLE. HE ALREADY RULED THAT THE LADDER
+DOES NOT GO THERE, ON 8/11, AND THE REAL RECORD AGREES WITH HIM.
+  Asked what a day's work should pay, Paolo answered: "Whatever currency the quest
+  decida to give." The reward belongs to the JOB, not a global table. The payday
+  bridge was built that day; the .bq verb to say it (@DO pay resources 3) shipped
+  8/12. MEASURED THIS ROUND: ZERO OF TWENTY-SEVEN QUESTS USE IT. Zero pay
+  directives across every .bq file in the repo.
+  So every finished job falls through to the one-row table and pays one battery.
+  MEASURED: a quiet job pays {electricity:1}. A reckless job pays {electricity:1}.
+  A failed job pays NO_RULING. THE BANK'S OWN TAGS ARE RICH AND AUTHORED WITH CARE
+  (quiet 81, dread 66, wary 66, notable 48, reckless 42, flat 41, tired 40, risky
+  32, cold 10, hope 6) AND NOT ONE OF THEM CAN CHANGE WHAT A JOB PAYS.
+  AND THE DOOR THEY WOULD COME THROUGH IS DEAD CODE: payQuest picks
+  `key = ev.outcome || (ev.tags && ev.tags[0])`, and a done quest ALWAYS has
+  outcome set, so ev.tags[0] is unreachable. PAYOUT can only ever be keyed on two
+  words. Third unexecuted branch found in this same pipe.
+
+THE REAL LADDER, five rungs:
+  1 THE WAGE STOPS TRACKING AND RAISES DO NOT FIX IT. Lebanon: LL675,000 was ~$450
+    pre-crisis; the lira lost 98%+ to ~LL97,000/$, making that wage ~$7 A MONTH;
+    the state then raised it THIRTEENFOLD to LL9,000,000, which is ~$93. $450 ->
+    $7 -> $93. An enormous real raise that recovered a fifth of what was lost.
+  2 THE INTERVAL SHORTENS BEFORE THE AMOUNT CHANGES. Weimar 1923: paid TWICE A DAY,
+    midday and end of shift, spent within hours; wives at the factory gate with
+    suitcases and wheelbarrows running to the shops; prices doubling every ~3.7
+    days; restaurants stopped printing menus. THE FIRST THING THAT CHANGES ABOUT
+    PAY IS NOT HOW MUCH, IT IS HOW OFTEN. The gap between earning and spending is
+    where the money dies, so the gap is what gets cut.
+  3 THE PAY MOVES OUT OF THE WAGE AND THE WAGE LINE SURVIVES. Venezuela: teachers
+    on $15/month against a ~$500 family food basket (33x). And sharper: a teacher
+    takes home $160 OF WHICH HER OFFICIAL WAGE IS WORTH UNDER $2 -- the rest is an
+    "economic war bonus" and a food subsidy. OVER 98% OF WHAT SHE IS PAID IS NOT
+    THE WAGE. The payslip line is still there and still called the wage.
+  4 YOU GET PAID IN THE THING. Venezuelan drivers buying petrol with food, snacks
+    and cigarettes; Zimbabwean take-home commonly cash plus food and housing.
+  5 AND THE THING IS PRICED BY WHOEVER PAYS YOU. CLAP boxes: ~$12 of goods billed
+    at $35, at least 70% gutted by corruption. THIS IS ROUND 16'S COMPANY STORE
+    SEEN FROM THE PAY SIDE.
+
+*** THE FINDING THAT PROVES US WRONG. I spent the first half of this round
+building the ladder the row asked for. It is the wrong deliverable.
+PAYOUT SHOULD STAY AT ONE ROW. A RICHER FALLBACK IS EXACTLY HOW THE QUESTS NEVER
+GET THEIR OWN REWARDS. ***
+Three lines arrive at it: his 8/11 ruling (he refused the global table when it was
+offered and the payday header records that he was right); the real record (the wage
+line never grows rows, it keeps its name and stops being where the money is); and
+the measurement (add a FAIL row and a #quiet row and every quest is correctly paid
+forever without one author ever writing @DO pay -- A GENEROUS DEFAULT IS HOW A GOOD
+DESIGN DIES QUIETLY). And a fourth, uncomfortable: the verb shipped 8/12, the 27
+quests predate it, nobody went back, and it is one line per quest.
+
+THE GAMES AISLE AGREES AND SO DOES HIS LAW: a fixed reward at a predictable
+interval goes flat, the standard fix is a VARIABLE AMOUNT, and we cannot have that
+(EVERYTHING COSTS ONE, and it is a slot machine in a crash simulator). So THE
+VARIATION HAS TO BE IN THE KIND, NOT THE NUMBER: a water run pays water, a courier
+job pays clout, every job pays ONE of something and no two pay the same something.
+That is his 8/11 ruling word for word.
+
+THE LADDER DELIVERED (mechanism only; every amount stays his):
+  1 EVERY JOB SAYS WHAT IT PAYS AND NO TWO PAY THE SAME THING. 27 quests, one line
+    each. Still one of something.
+  2 PAY LANDS MORE THAN ONCE A DAY. That is what "wages fall" actually looks like,
+    it costs no arithmetic and no new currency, and the clock, nightfall and
+    reckoning card all already exist. A day that pays twice and buys less is the
+    feeling, and neither half is a bigger number.
+  3 SOME OF THE PAY IS NOT THE WAGE (a job that hands you a good). BLOCKED on round
+    15's missing bag -- the same hole from the pay side.
+  4 WHOEVER PAYS YOU IN A THING DECIDES WHAT IT WAS WORTH. Round 16, and the reason
+    rung 3 needs a second person who will deal with you before it is safe.
+  WHAT PAYOUT ITSELF SHOULD HOLD: one row, exactly as now. Its value is that it is
+  thin enough to be embarrassing.
+
+REFUSED: a richer PAYOUT table (the whole finding); varying the amount (8/15
+LOCKED); a wage that decays on a curve (exchange-rate arithmetic is the spreadsheet
+he banned, and round 11 settled that the price cannot move); ruling what a failed
+job pays; inventing what any quest pays (amounts are contents); any implementation.
+
+ROUTED: QUESTS (or whoever the coordinator gives it to) gets the big one -- 0 of 27
+quests declare a reward, one line each. WORLD gets the unreachable tag branch and
+"PAYOUT should not grow". RUN and LIFE+CITY get "pay more than once a day". WORLD
+[rice clock] gets rung 3 joining round 15. One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0, QUEST STUDY 456/0 across all 27 quests.
+AND THAT LAST ONE IS THE SAME LESSON AS ROUND 16'S: 456 green over the exact 27
+files that declare ZERO rewards. Every assertion is true; nothing asks whether a
+quest says what it pays, because until 8/12 no quest could.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days, runs dry around fifty.
+     Premise or bug?
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? FIFTH VOTE (rounds 2, 9,
+     10, 12, 13).
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY, if it cannot buy electricity?
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? The research says a PRICE is the
+     trap; work, a walk or a favour are all payable by somebody with nothing.
+ 14. (new) What does a FAILED job pay? Today it is an honest NO_RULING. The real
+     record says people who failed still ate that day, and round 16 says a
+     punishment you cannot recover from is an ending nobody chose.
+
+NEXT IN THIS LANE: Q18 [black market].
+
+================================================================================
 WORDS (words-8dqrnq): 9/6 LATEST -- *** QUEUE EMPTY. NO TAKEABLE ROW. Every research row
 Q1 to Q17 is SHIPPED, and the only four rows left in this section are BUILD rows explicitly
 held until Paolo returns this lane to MODE: BUILD. I did not invent a job and I did not add

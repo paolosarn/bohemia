@@ -1240,3 +1240,75 @@ EEEE3 somebody who worked it off instead              draft:true
 - Nobody is wise. DDDD1 works it out mid-sentence and is not proud of it.
 - Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## GGGG. THE RAISE (round 17, rung one: pay stops tracking)
+## (Lebanon's minimum wage went up thirteen times and recovered a fifth of what
+##  was lost. Nobody in these lines says a percentage.)
+
+GGGG1 somebody who just got one                       draft:true
+      "Thirteen times. They gave me thirteen times what I was on, and I did the
+       same shop I did before and I came out with less."
+
+GGGG2 somebody older                                  draft:true
+      "I remember what a week bought. That's the whole problem, hermano, I'm
+       the only one in the house who remembers."
+
+GGGG3 somebody who has stopped asking                 draft:true
+      "I don't ask for more any more. More isn't the thing that's broken."
+
+## HHHH. PAID AT NOON AND PAID AGAIN AT SIX (rung two: the interval)
+## (Weimar paid twice a day. Wives met the men at the gate and ran. Nobody
+##  explains why; everybody just moves fast.)
+
+HHHH1 somebody waiting at the gate                    draft:true
+      "Don't put it in your pocket. Give it here and go back in, I'll be at the
+       shop before they change it."
+
+HHHH2 somebody who was late                           draft:true
+      "Two hours. I stopped to help a guy with his cart and it cost me two
+       hours, and two hours is a different price now."
+
+HHHH3 somebody who works the other way                draft:true
+      "I get it at six and I spend it at six. There's no putting it anywhere.
+       There's nowhere it stays the same."
+
+## IIII. THE WAGE IS NOT THE PAY (rung three: it moves out of the wage)
+## (Venezuela: the official wage under two dollars, the take-home a hundred and
+##  sixty, the rest a bonus and a food box. Nobody uses the word wage twice.)
+
+IIII1 somebody explaining their own payslip           draft:true
+      "That number? That number's nothing. That's not what I live on, that's
+       just the number on the paper."
+
+IIII2 somebody listing what they actually got         draft:true
+      "The little bit of money, the box, whatever the boss decides is the
+       bonus this month. Three things, and the smallest one's the wage."
+
+IIII3 somebody who prefers it                         draft:true
+      "I'd rather the box. Money I have to go somewhere with. The box is
+       already food."
+
+## JJJJ. PAID IN THE THING, AND HE SAYS WHAT IT WAS WORTH (rungs four and five)
+## (the box is worth twelve and he charged thirty-five. Nobody says a number.)
+
+JJJJ1 somebody working it out                         draft:true
+      "He calls it a day's pay. I've seen what's in it. He calls it a day's
+       pay because there's nobody to say it isn't."
+
+JJJJ2 somebody who took it anyway                     draft:true
+      "Yeah, I took it. What am I going to do, hold out? Hold out with what."
+
+JJJJ3 the one job that pays different                 draft:true
+      "The water run pays water. That's the only honest one on the board,
+       because you can see it, you can carry it, and it's the thing you wanted."
+
+## KKKK. WHAT IS NOT HERE, ON PURPOSE (round 17)
+- No line names an amount, an exchange rate, a percentage or a currency. GGGG1
+  says thirteen times because a person would say that out loud.
+- No line has a payment that is bigger or smaller than another. EVERYTHING COSTS
+  ONE is untouched: the variety in this bank is in the KIND of pay, never the size.
+- No line names a faction, an employer or a boss by name. MAP LAW, and his.
+- No line says the word inflation, wage decay, purchasing power or salary.
+- Nobody is wise. JJJJ1 works it out mid-sentence and JJJJ2 takes it anyway.
+- Spanish register: 1 of 14 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.
