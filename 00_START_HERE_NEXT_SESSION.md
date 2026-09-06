@@ -19502,7 +19502,12 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [act cards] round 1 -- the three acts of UI ruled in
+ROUND LOG 9/6 (latest): [one at a time] complied - five blocked holds
+honestly REOPENED with their delivered work named in each line (the old-
+wardrobe dockets, the transition card, the first-screen verdict, the
+half-size card, the ratchet state); the single held claim is [act cards],
+whose ship test is UI's three-act mock of one panel passing the judge's
+test. Reclaim rules are written in each reopened line. PREVIOUS: [act cards] round 1 -- the three acts of UI ruled in
 pixel terms (records/BOHEMIA_ACT_LOOK_CARDS_9_6_26.md): layout constant
 across acts (material changes, grammar never), act 1 = paint and stencil
 with one pixel of grit, act 2 = printed laminate with the grit gone, act 3
