@@ -3907,7 +3907,7 @@ wake cell at three hours), compute the line and never write it to the glass (A2 
 red, the authored-but-unread disease), hear them where they SLEEP rather than where they
 are (B1 B2 B3 red, the whole day goes quiet).
   RECORD: records/BOHEMIA_YOU_HEAR_IT_BEFORE_YOU_SEE_IT_9_6_26.md
-  STAMP: BUILD 9/6ag - YOU HEAR IT BEFORE YOU SEE IT
+  STAMP: BUILD 9/6ai - YOU HEAR IT BEFORE YOU SEE IT
   WHERE THE JOB IS AFTER FOUR ROUNDS: (1) people live at their front doors on ground
 that has houses; (2) their day gathers them at places instead of scattering them, 2 of
 32 walks meeting somebody became 9 of 32; (3) the map shows the thirteen crowds; (4) the
@@ -3918,6 +3918,18 @@ a voice that says "warmer" as he gets close.
 [PENDING Paolo] IS THE VALLEY THE GDD'S 69,000 OR THE ZONE MAP'S RULED 297 TIMES THE
 DIAL (5,940)? Every one of these mechanisms would read four times louder at the larger
 number, and no mechanism closes a gap of twelve. FOR THE COORDINATOR TO CARRY.
+  *** AND A RULING LANDED MID-ROUND THAT CHANGES HOW THIS LANE SPEAKS, NOT WHAT IT
+BUILT. *** ZOOM IS THE NAVIGATION (Paolo 9/6, LOCKED,
+records/BOHEMIA_RULING_ZOOM_IS_THE_NAVIGATION_9_6_26.md): "no city button and no map
+button ... how you get to the cities is zooming out". It is ROUTED TO UI [no tabs] and
+RUN [zoom teaches], NOT to this lane, and it does not touch a line of what rounds 3 and
+4 built -- the marks draw inside renderCity(), which is the same render whether you
+reach it by a button or by pulling back. WHAT IT DOES CHANGE IS THE WORDS: this lane has
+been telling Paolo "open the CITY tab" for four rounds, and CITY is about to stop being
+a tab. From here this lane says ZOOM OUT, not "tap CITY", and the round 3 record's
+phrase "a map he has to think to open" should be read as "a distance he has to pull back
+to", which is still exactly the point of the mark. NAME THE TAB is not broken by this --
+it is satisfied by naming the ZOOM, because that is what he will actually do.
   THE STANDING NOTE: MEASURE WHETHER THE MECHANISM WOULD EVER FIRE BEFORE YOU BUILD IT.
 The earshot rule took twenty minutes to measure and an afternoon to build; the
 measurement said "two of four walks", which is what made it worth building. Had it said
