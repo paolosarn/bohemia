@@ -1169,6 +1169,16 @@ AND THEN TRUSTS THE GAME TO PICK THE SAME ONE IS TESTING THE CROWD" -- and then 
 fallback in because it "cannot be made worse than it was". THAT FALLBACK IS EXACTLY HOW IT
 GOT WORSE: a fallback that keeps a test running after its setup failed does not preserve
 the old behaviour, it converts a setup failure into a false claim about the game.
+  AND ONE THAT LOOKED LIKE MINE AND WAS NOT: known_gate came back 21/0, then 17/4, then
+20/1 on IDENTICAL code. Run on its own, three times: 21/0, 21/0, 21/0. Every red came from
+a run inside a batch of other gates -- its B5 leg waits on wall clock between renders, so
+under CPU contention 260 iterations cover less game time and only one conversation leaks.
+That leg carries its own warning, written when it was flaky for a different reason: "A GATE
+THAT FAILS INTERMITTENTLY IS WORSE THAN NO GATE: it teaches everybody to re-run it until it
+goes green, which is how a real failure gets waved through." Bounding it by renders instead
+of a fixed count fixed the determinism of the WORLD and left it hostage to the MACHINE. Not
+mine to fix; the three extra runs happened precisely because "re-run until green" is what
+the leg warns against, so the answer had to be measured. FOR THE COORDINATOR TO ROUTE.
   GATES I TOUCHED THAT ARE NOT MINE: against_gate and casting_gate (PEOPLE),
 faction_between_gate (FACTIONS), address_gate (PEOPLE). Target untouched in all four; only
 the legs. FOR THE COORDINATOR TO TELL THOSE LANES.

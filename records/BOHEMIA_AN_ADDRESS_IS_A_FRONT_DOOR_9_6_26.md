@@ -213,6 +213,27 @@ than it was". **That fallback is exactly how it got worse.** A fallback that kee
 test running after its setup failed does not preserve the old behaviour; it converts
 a setup failure into a false claim about the game.
 
+### AND ONE THAT LOOKED LIKE MINE AND WAS NOT: A GATE THAT ONLY FAILS UNDER LOAD
+
+`known_gate` came back 21/0, then 17/4, then 20/1 on identical code. Its failing leg
+is B5 — *"standing on a street fills the log ON ITS OWN"* — which drives 260 renders
+and stops as soon as two overheard facts land.
+
+Run on its own, three times in a row: **21/0, 21/0, 21/0.** Every red came from a run
+inside a batch of other gates. B5 waits on wall-clock (`SETTLE`) between renders, so
+under CPU contention 260 iterations cover less game time and only one conversation
+leaks.
+
+The irony is that this leg carries its own warning, written when it was flaky for a
+different reason: *"A GATE THAT FAILS INTERMITTENTLY IS WORSE THAN NO GATE: it
+teaches everybody to re-run it until it goes green, which is how a real failure gets
+waved through."* Bounding it by renders instead of by a fixed count fixed the
+determinism of the WORLD and left it hostage to the MACHINE.
+
+**Not this lane's to fix, and named rather than shrugged at** — the whole reason it
+was worth three extra runs is that "re-run until green" is exactly what the leg
+warns against, so the answer had to be a measurement and not a preference.
+
 ## THE STANDING NOTE
 
 **A NUMBER CHOSEN BY MEASURING ONE PATH IS NOT A SETTING, IT IS AN ASSUMPTION ABOUT
