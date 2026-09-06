@@ -446,10 +446,30 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
 
     head('B. WHAT THE VALLEY ACTUALLY SAYS');
     ok('nothing threw while measuring it', errs.length === 0, errs.slice(0, 2).join(' | '));
-    ok('*** NOBODY WITHIN THREE BLOCKS OF THE FRONT DOOR RUNS WITH ANYBODY ***',
-      m.near.people > 10 && m.near.affiliated === 0,
-      m.near.people + ' people, ' + m.near.affiliated + ' affiliated, around block '
-      + JSON.stringify(m.spawnBlock));
+    /* *** THIS LEG FROZE A MEASUREMENT, NOT A RULE, AND ON 9/6 THE MEASUREMENT
+       CHANGED FOR A GOOD REASON. *** It demanded `affiliated === 0` -- the 8/26
+       finding that nobody near the front door runs with anybody, which was the
+       PREMISE of this gate, not its law. LIFE + CITY's AN ADDRESS IS A FRONT DOOR
+       (9/6) stopped seating residents on freeway and arterial cells and put them
+       on the residential ground the survey already knew about; factions hold
+       ground, nobody holds a freeway, so people who had no outfit because they
+       lived on a motorway now have the one whose ground they actually live on.
+       Measured: 441 people within three blocks, 69 of them affiliated, where it
+       used to be 0. COLOUR IS TERRITORY finally has bodies standing on the
+       territory, and this leg called that a failure.
+       WHAT IT WAS PROTECTING, and what it asserts now: you cannot assume the
+       day's role is next door. That needs affiliation near the front door to be a
+       MINORITY, not zero -- if the whole neighbourhood ran with one outfit, the
+       walk this gate exists for would be over before it started. The legs that
+       carry the actual law (every required part on its own outfit's ground,
+       exactly one block in the sweep holding the part) are below and unchanged.
+       Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
+    ok('*** MOST PEOPLE NEAR THE FRONT DOOR STILL RUN WITH NOBODY, SO A ROLE HAS '
+       + 'TO BE LOOKED FOR ***',
+      m.near.people > 10 && m.near.affiliated * 2 < m.near.people,
+      m.near.people + ' people, ' + m.near.affiliated + ' affiliated ('
+      + (m.near.people ? Math.round(100 * m.near.affiliated / m.near.people) : 0)
+      + '%), around block ' + JSON.stringify(m.spawnBlock));
     ok('so a role can only be looked for on its OWN outfit\'s ground',
       m.outfits.held >= Math.ceil(m.outfits.total * 0.6),
       m.outfits.held + ' of ' + m.outfits.total + ' outfits have a member within 2 blocks of '

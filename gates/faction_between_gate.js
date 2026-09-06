@@ -1511,26 +1511,44 @@ async function onYourProblem() {
     const R = await page.evaluate(() => {
       const out = {};
       const bases = ctBases() || {};
-      let who = null;
+      /* *** AND ON 9/6 THE SAME LESSON WENT ONE STEP FURTHER. *** The 8/28 note
+         below is right and its fix was half the answer: it picked the FIRST
+         unaffiliated body and then looked for a cell where THAT body answers,
+         falling back to at[0]+1 when the whole ring belonged to somebody else.
+         LIFE + CITY's AN ADDRESS IS A FRONT DOOR (9/6) seats a HOUSEHOLD at one
+         address, so the first body now usually has a housemate one cell away --
+         and ctAdjacent measures MANHATTAN distance, so the four diagonal tries
+         never answer at all and the four orthogonal ones are shared with the
+         housemate. The fallback then opened the HOUSEMATE'S card, whose rows
+         correctly say nothing about a vouch that was never theirs, and P6
+         reported a missing feature that is right there on the glass.
+         So the person and the standing spot are chosen TOGETHER: the first body
+         there is somewhere to stand ALONE with. Same claim, same law, and no
+         fallback that measures a stranger.
+         THE 8/28 NOTE IS KEPT BELOW because it is this same lesson one turn
+         earlier, and a fallback that "cannot be made worse than it was" turned
+         out to be exactly how it got worse.
+         Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
+      let who = null, whoAt = null;
+      const RING = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]];
       for (const bse of Object.values(bases)) {
         hx = bse.x * FN + 2; hy = bse.y * FN + 2;
-        for (const p of ctEveryone()) if (!ctFactionOf(p)) { who = p; break; }
+        const pool = ctEveryone().filter(p => !ctFactionOf(p));
+        for (const p of pool) {
+          const pat = ctAt(p);
+          for (const d of RING) {
+            hx = pat[0] + d[0]; hy = pat[1] + d[1];
+            if (!pplStandable(hx, hy)) continue;
+            const a = ctAdjacent();
+            if (a && a.id === p.id) { who = p; whoAt = [hx, hy]; break; }
+          }
+          if (who) break;
+        }
         if (who) break;
       }
-      if (!who) return { err: 'nobody unaffiliated' };
-      /* STAND WHERE THIS PERSON IS THE ONE WHO ANSWERS (8/28). ctOpen and
-         ctAdjacent show whoever is NEAREST, and standing at at[0]+1 trusts that
-         the chosen body is the only one in reach. That was true while the
-         population default was 1 and stopped being true the day it moved to 20:
-         the card opens on a stranger and the claim below reports a missing
-         feature. A TEST THAT PICKS A PERSON AND THEN TRUSTS THE GAME TO PICK THE
-         SAME ONE IS TESTING THE CROWD. Falls back to the old cell if the whole
-         ring is somebody else's, so nothing here can be made worse than it was. */
-      const at = ctAt(who); let _sb = false;
-      for (const _d of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]) {
-        hx = at[0] + _d[0]; hy = at[1] + _d[1];
-        const _a = ctAdjacent(); if (_a && _a.id === who.id) { _sb = true; break; } }
-      if (!_sb) { hx = at[0] + 1; hy = at[1]; }
+      if (!who) return { err: 'nobody unaffiliated there is room to stand alone with' };
+      out.stoodAlone = whoAt;
+      hx = whoAt[0]; hy = whoAt[1];
       const sv = ctBelongSave();
       sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {};
       sv.meta.commit = {}; sv.meta.vouched = {};
@@ -1563,6 +1581,22 @@ async function onYourProblem() {
       out.record = JSON.parse(JSON.stringify(ctVouchRecord(who) || {}));
       out.sweptTwice = ctVouchSweep(sv, 8);   /* idempotent */
 
+      /* AND STAND WITH THEM AGAIN BEFORE READING THEIR CARD. The sweep above
+         advances the world by days; people are somewhere else by now, and ctOpen
+         shows whoever is NEAREST. Reading the card without re-finding them was
+         reading a neighbour: measured 9/6, "YOU HAVE MET 2 TIMES" on a person the
+         gate had met four. Same trap as the selection above, one page later. */
+      (function () {
+        const pat2 = ctAt(who);
+        for (const d of RING) {
+          hx = pat2[0] + d[0]; hy = pat2[1] + d[1];
+          if (!pplStandable(hx, hy)) continue;
+          const a2 = ctAdjacent();
+          if (a2 && a2.id === who.id) return;
+        }
+        hx = whoAt[0]; hy = whoAt[1];
+      })();
+      try { render(); } catch (e) {}
       ctClose(); ctOpen();
       out.rows = [...document.querySelectorAll('.r')].map(r => {
         const k = r.querySelector('.k'), v = r.querySelector('.v');
@@ -1618,7 +1652,9 @@ async function onYourProblem() {
       + 'again and a sentence naming you',
       (R.rows || []).some(r => /THEY WERE IN, ONCE/.test(r))
         && (R.rows || []).some(r => /Your word put them there/.test(r)),
-      JSON.stringify((R.rows || []).filter(r => /WERE IN|Your word/.test(r))));
+      JSON.stringify({ stoodAlone: R.stoodAlone, inNow: R.inNow, afterSweep: R.afterSweep,
+                       matched: (R.rows || []).filter(r => /WERE IN|Your word/.test(r)),
+                       rows: (R.rows || []).length, all: R.rows }));
 
     ok('P7 AND THE BOARD SAYS WHEN. Both halves of the list render, and the '
       + 'first version of this only patched ONE of ctOutfitHtml\'s two return '
