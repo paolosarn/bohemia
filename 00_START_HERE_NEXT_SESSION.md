@@ -3,7 +3,7 @@ BB-COALITION SHIPPED, this lane's half. WORLD built the coalition and the card;
 formed() had ONE CALLER in the whole game and it was that card. Now a member of
 either side actually treats you like it. *** Nothing to judge.
 
-VAMILY row: [enemies unite] BB-COALITION (with WORLD), MODE: BUILD, SHIPPED 9/6.
+VAMILY row: [enemies unite] BB-COALITION (with WORLD), MODE: BUILD, SHIPPED 9/6 388284d6.
 Record: records/BOHEMIA_A_COALITION_YOU_CAN_MEET_9_6_26.md
 WORLD's half: records/BOHEMIA_THE_WORLD_GETS_ORGANISED_9_6_26.md (aace2d9)
 
