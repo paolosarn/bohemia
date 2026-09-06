@@ -18508,7 +18508,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [cloud look] SHIPPED e30ce69 -- the cloud's four
+ROUND LOG 9/6 (latest): [contrast rule] SHIPPED 90f3d56 -- card section 2B:
+a hostile reads by ANY TWO of three numbered channels (value >= 0.15 from
+the local crowd median, accent >= 48 px^2 at sat >= 0.55, pole silhouette
+>= 4 px), measured off the proving frame (crowd median 0.44, 27.7% of the
+field already dark - dark alone misreads one in four). Greyscale survives
+by construction. Feeds CHARACTER [stands out], ANIMATION [walks at you].
+STILL HELD: [judge the old] (COOK retints, [PENDING coordinator routing])
+and [judge the turn] (ships on the built transition). PREVIOUS: [cloud look] SHIPPED e30ce69 -- the cloud's four
 open answers closed inside the transition card (coverage <= 60% and never
 all four edges, clears by beat two, value-only multiply, Mojave cloud
 shadow as the named reference). STILL HELD: [judge the old] (execution on
