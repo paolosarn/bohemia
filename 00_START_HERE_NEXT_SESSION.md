@@ -19241,7 +19241,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [small and clear] round 1 -- the half-size card is
+ROUND LOG 9/6 (latest): [act cards] round 1 -- the three acts of UI ruled in
+pixel terms (records/BOHEMIA_ACT_LOOK_CARDS_9_6_26.md): layout constant
+across acts (material changes, grammar never), act 1 = paint and stencil
+with one pixel of grit, act 2 = printed laminate with the grit gone, act 3
+= glass and hairlines where fades become legal - and PURPLE lands where
+canon reserved it: Amalgamation surfaces only, the only purple in the
+game, in the act they own. Ships when UI's three-act mock of one panel
+passes the judge's test. ALSO: re-judged the demo first screen - 4caaaa8
+was the RULING record only, RUN has not built it (stamp still on the demo,
+void still empty, two modals still stacked), so [first look] holds
+honestly. PREVIOUS: [small and clear] round 1 -- the half-size card is
 ruled ahead of the shrink (records/BOHEMIA_HALF_SIZE_LOOK_CARD_9_6_26.md):
 chrome halves, floors do not (44pt touch / 11px body / one-pixel border);
 glyph-only with the label on hold; barks and anything that spends keep
