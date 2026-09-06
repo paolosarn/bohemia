@@ -1392,3 +1392,84 @@ OOOO3 the way back in                                 draft:true
 - Nobody is wise. NNNN2 hears it himself halfway through his own sentence.
 - Spanish register: 1 of 14 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## QQQQ. WHAT THE SHELF SAYS AFTER IT HAS NOTHING LEFT TO COUNT (round 19)
+## (the line "N days of it left in the valley" runs out on day 67. These are what
+##  a seller says on day 68. No line states a number.)
+
+QQQQ1 a seller with an empty table                    draft:true
+      "I'm still here. I open, I sit, and that's most of what I've got to offer
+       you at the minute."
+
+QQQQ2 the same seller, being useful anyway            draft:true
+      "Nothing today. Come Thursday, though. Not a promise, just, Thursday's
+       when things happen if they're going to."
+
+QQQQ3 a seller who has started counting other things  draft:true
+      "Two months I've been telling people what's left. Now I tell them who
+       came through, and honestly they listen harder."
+
+## RRRR. YOU ARE NOT FINDING OUT A PRICE, YOU ARE FINDING OUT (Geertz, in mouths)
+## (haggling as how information moves. Nobody says the word information.)
+
+RRRR1 somebody who asked around                       draft:true
+      "I went to four people before I came to you, and every one of them told
+       me something different, and that's why I'm asking you."
+
+RRRR2 a seller who explains by not explaining         draft:true
+      "What's it worth. Well. What did the last guy say it was worth, because
+       that's more interesting than what I say."
+
+RRRR3 somebody new to it                              draft:true
+      "There's no list. I keep waiting for somebody to show me the list,
+       hermano, and there isn't one."
+
+## SSSS. MY GUY (clientelization: the answer is a person, not a price)
+## (a regular seller. Nobody calls it a relationship.)
+
+SSSS1 somebody explaining where they shop             draft:true
+      "I go to him. I don't shop around, I go to him, and if he hasn't got it
+       he'll tell me who has and he'll be right."
+
+SSSS2 the seller's side of it                         draft:true
+      "Her I keep things back for. Not a favour. She's been coming two years
+       and she's never once wasted my morning."
+
+SSSS3 somebody who has nobody yet                     draft:true
+      "Everybody's got a guy. I've been here four months and I'm still walking
+       up to strangers like a tourist."
+
+SSSS4 what it takes to become one                     draft:true
+      "Come back. That's it, that's the whole trick, just come back when you
+       said you would about six times."
+
+## TTTT. THE WALK-AWAY (the strongest move there is, and it costs nothing)
+## (setting it down and turning. Half the time he calls you back.)
+
+TTTT1 the buyer, turning                              draft:true
+      "Alright. No, it's alright, I'll have a think."
+
+TTTT2 the seller, calling him back                    draft:true
+      "Hey. Hey, come here. Don't make me shout across the whole street at
+       you, come here."
+
+TTTT3 the buyer who did not get called back           draft:true
+      "I got about nine steps. Nine steps and then I had to turn around and
+       walk back on my own, which is a long nine steps."
+
+TTTT4 a seller who lets one go                        draft:true
+      "Let him walk. He'll be back and he'll be nicer, or he won't, and I've
+       still got it."
+
+## UUUU. WHAT IS NOT HERE, ON PURPOSE (round 19)
+- No line names a price, a discount, a percentage or an offer. EVERYTHING COSTS
+  ONE and nothing in this bank haggles over a number: what is being negotiated is
+  whether he deals with you and what he tells you.
+- No line names a days-left figure. QQQQ3 says two months because a person would.
+- No line has a trust score, a rank or a reputation level. SSSS4 is the whole
+  progression in one sentence and it is "come back about six times".
+- No line names a faction, a seller or a market by name. MAP LAW, and his.
+- Nobody is wise. RRRR2 answers a question with a question and is not being clever
+  about it, he genuinely wants to know.
+- Spanish register: 1 of 16 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.

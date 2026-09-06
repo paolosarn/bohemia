@@ -1,3 +1,204 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
+Q19 [price moves].
+Next OPEN is Q20 [work feels], the LAST row in this section.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 19 REPORT: [price moves] SHIPPED ===
+*** THE WORLD STOPS TALKING ON DAY SIXTY-SEVEN. MODE: RESEARCH, nothing
+implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_19_THE_WORLD_STOPS_TALKING_ON_DAY_SIXTY_SEVEN_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections QQQQ-UUUU (14 lines, 271 total)
+Board:  Q19 SHIPPED. Q1-Q19 shipped; next OPEN is Q20 [work feels], and it is the
+        last row in this section.
+
+Round 11 already settled that our price cannot move (his 8/15 ONE beats the sim,
+correctly) and round 18 that what moves instead is whether it is sold at all.
+Neither reopened. This answers the part they left: the RULE.
+
+THE PRICE CANNOT MOVE, SO I WENT LOOKING FOR WHAT DOES. SOMETHING ALREADY DOES AND
+IT IS ALREADY ON HIS SCREEN, IN WORDS: the shop card renders "8.6 days of it left
+in the valley", off the sim's own daysLeft, built into every shelf row.
+  MEASURED DAY BY DAY: the sim computes food at 5.24 -> 10.05 -> 60.00 while the
+  tag stays 1 electricity forever (round 11, correct), AND THE THIRD COLUMN MOVES:
+  8.60 -> 4.50 -> 0.40 -> 0.00.
+  *** AND IT STOPS ON DAY 67. *** Food hits zero on day 11, water on day 53, and
+  after day 67 NO NUMBER ON ANY SHELF IN THE VALLEY EVER CHANGES AGAIN. Measured at
+  four populations (100 / 300 / 600 / 1200): IDENTICAL, because the ledger scales
+  stocks with houses so the ratio is fixed.
+  In a three-generation, hundred-hour game, THE WORLD HAS SIXTY-SEVEN DAYS OF
+  THINGS TO SAY AND THEN GOES QUIET FOREVER. The coordinator ruled the emptying is
+  the PREMISE (9/5, off round 1) and asked for it to be visible; this is the other
+  end of that ruling -- the sentence that expresses it runs dry two months in.
+
+THE REAL AISLE. Clifford Geertz studied exactly this case, a market with no
+published prices and no bookkeeping:
+  "IN THE BAZAAR, INFORMATION IS POOR, SCARCE, MALDISTRIBUTED, INEFFICIENTLY
+  COMMUNICATED, AND INTENSELY VALUED." Haggling is "a means of communicating
+  economic information in an indeterminate pricing situation" -- YOU ARE NOT
+  NEGOTIATING, YOU ARE FINDING OUT.
+  AND CLIENTELIZATION, which is the answer to "how does a price get RE-set":
+  buyers form persistent personal relationships with particular sellers rather
+  than shopping around, because with bad information a limited number of trading
+  partners beats a series of impersonal transactions. THE BAZAAR'S ANSWER TO NOT
+  KNOWING WHAT THINGS ARE WORTH IS A REGULAR GUY.
+  THE NUMBERS OF HAGGLING, remarkably consistent: the final price lands between a
+  THIRD AND TWO THIRDS of the first ask; counteroffers open around 40-50%; THREE TO
+  FIVE EXCHANGES is a good haggle; the gasp of insult is theatre everybody knows;
+  and THE WALK-AWAY IS THE STRONGEST TOOL THERE IS -- set it down, say you'll think
+  about it, and a significant share of the time he calls you back.
+
+GAMES AISLE: the shop literature is almost entirely PRICE AS THE SIGNAL (supply
+low, demand high, number up). Non-price signalling of scarcity is barely discussed
+at all. THAT IS AN ADVANTAGE, NOT A GAP: our locked ONE forces us out of the
+move-the-number answer and into the one the real bazaar actually uses.
+
+*** THE FINDING THAT PROVES US WRONG. The row asks what makes a price move; I spent
+half the round hunting the trigger. IN A PLACE WITH NO MARKET DATA, HAGGLING IS NOT
+ABOUT THE PRICE. IT IS HOW INFORMATION MOVES. AND WHAT PEOPLE SETTLE ON IS NOT A
+NUMBER, IT IS A SELLER THEY KEEP GOING BACK TO. ***
+Three rounds have now arrived at the same place through different doors:
+  ROUND  9  a debt is a person who remembers, and the punishment is being dealt out
+  ROUND 18  the market's most important product was NEWS, not goods (Markale)
+  ROUND 19  the bazaar's answer to not knowing what things are worth is a regular guy
+THE ECONOMY OF BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO, not of prices,
+which are locked at one and should stay there. And all three found the mechanism
+already half-built and pointed at nothing: whoHears/memory/commitment live (9), the
+feed live and free of place (18), the shelf's talking line live and stopping on day
+67 (19).
+
+THE RULE DELIVERED, IN ONE SENTENCE: THE PRICE IS ALWAYS ONE. WHAT MOVES IS WHAT
+YOU KNOW, AND WHAT YOU KNOW COMES FROM WHO YOU KEEP GOING BACK TO.
+  1 THE SHELF KEEPS TALKING. It needs a second thing to say, not a new sentence:
+    what CHANGED since you were last here. The walked surface already computes it
+    and calls it `tonight` -- "what ran out TONIGHT is the beat, and it is the
+    difference between a thing that happened and a thing that is simply true now" --
+    right instinct, already written, same file, not on the shelf row.
+  2 THE SELLER REMEMBERS YOU, AND THAT IS THE SHOP'S PROGRESSION. Clientelization
+    with no new system: memory already decays slower for the familiar (round 9
+    measured it live) and nothing in the buy path reads it. A regular gets told
+    things; a stranger gets the shelf. It never touches a price.
+  3 THE HAGGLE IS 3 TO 5 BEATS AND IT BUYS ACCESS, NOT MONEY. The whole real
+    structure survives a fixed price except the number, and 3-5 beats is 120 BPM
+    friendly by construction.
+  4 THE WALK-AWAY IS THE PLAYER'S STRONGEST MOVE. Turning to leave is already a
+    thing he does; being called back is one line.
+
+REFUSED: moving the price (8/15 LOCKED, round 11 settled it); a haggle that changes
+the number (the obvious build of 3 and the banned one); a reputation score or trust
+meter (rounds 5 and 9); turning on the sim's prices (he ruled the source 8/11 --
+this round reports what the sim's OTHER output is good for and does not touch the
+valve); a second number on the shop card (round 5 counted fifteen already); any
+implementation.
+
+ROUTED: WORLD gets two (the only moving number stops on day 67; the second
+sentence already exists and is called `tonight`). PEOPLE gets the big one (a seller
+should remember you, and that is the shop's progression). QUESTS / BB-ASK-FOR-MORE
+gets the 3-to-5-beat haggle that buys access. One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0.
+FOURTH ROUND RUNNING WHERE A GREEN SUITE AND A REAL FINDING ARE BOTH CORRECT:
+economy_gate is 13/13 over the module whose only visible output stops moving on day
+67 -- it checks conservation, that stock delta equals produced minus consumed, that
+nothing goes negative. Nothing asks how long the thing keeps having something to
+say. Round 18's pattern holds and extends: THESE GATES CHECK THAT A PART DOES WHAT
+IT SAYS; NOTHING CHECKS THAT TWO PARTS AGREE, OR THAT A PART KEEPS DOING IT FOR AS
+LONG AS THE GAME LASTS.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept here
+     because round 19 measured the far end: the shelf line stops moving on day 67.
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
+     found the code (BARTER_ONLY) already exists and is unreachable.
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY? Round 18's answer: the right to trade
+     at that faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap; work, a walk
+     or a favour are payable by somebody with nothing.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
+ 16. (new) After the valley's shelves are empty, WHAT DOES A SHOP SAY? "8.6 days of
+     it left" is his sentence and a good one; on day 68 it has nothing to report.
+     What a seller says when there is nothing left to count is words, and words are
+     his.
+
+NEXT IN THIS LANE: Q20 [work feels], the last OPEN row in this section.
+
+================================================================================
 FACTIONS (factions-ovkjpf): 9/6 (round 10) LATEST -- *** [enemies unite]
 BB-COALITION SHIPPED, this lane's half. WORLD built the coalition and the card;
 formed() had ONE CALLER in the whole game and it was that card. Now a member of
