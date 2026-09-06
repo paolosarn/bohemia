@@ -4705,6 +4705,68 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 15 [child watches] Q13, SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_15_WHAT_A_CHILD_LEARNS_BY_WATCHING_9_5_26.md
+  banks/BOHEMIA_CHILD_WATCHES_WHO_STILL_ANSWERS_DRAFT_9_5_26.txt (draft:true)
+
+THE ROW'S PREMISE IS SLIGHTLY WRONG AND THE CORRECTION IS THE FINDING. The row
+says "what a child learns by WATCHING a parent work". The learning research says
+watching is the smaller half. The standard account of how anyone picks up a trade
+is LEGITIMATE PERIPHERAL PARTICIPATION: a newcomer is allowed to do REAL BUT
+PERIPHERAL work inside a working community and moves inward over time, and the
+authors are explicit that this is "MORE THAN AN 'OBSERVATIONAL' LOOKOUT POST: it
+crucially involves PARTICIPATION as a way of learning". THE LOAD-BEARING WORD IS
+LEGITIMATE. The child of the tradesman learns because they were ALLOWED IN, handed
+the small real job, in the room while the work was argued about.
+THE CHILD DOES NOT INHERIT WHAT THEY SAW. THEY INHERIT PERMISSION TO BE THERE.
+So what the heir starts with is A DOOR, NOT A STAT.
+
+AND THE GAMES SIDE AGREES LOUDLY. Meta-progression design writing says permanent
+upgrades must not trivialise the thing the game is about, and the player verdict
+is blunt: grinding is not fun, permanent stat boosts between runs are "inelegant",
+incremental upgrades turn a challenge into a grind. THE STATED PREFERENCE IS
+PROGRESSION THAT UNLOCKS OPTIONS AND CONTENT RATHER THAN STAT BOOSTS. That is day
+9's horizontal growth and day 10's access-not-power, reached independently for the
+third time in this study. BOTH AISLES, SAME ANSWER: THE INHERITANCE IS A DOOR.
+
+*** AND THE DOOR IS ALREADY BUILT. *** engine/bohemia_asking.js (PEOPLE lane,
+8/17) is a knowledge system with SEVEN SUBJECTS (names, power, salvage, strangers,
+the hill, water, work), FOUR TRADES (keeper, scav, watch, worker), every subject
+answerable BY TWO DIFFERENT TRADES (its own note: MULTIPLE KEYS), and ONE REFUSAL
+PER TRADE. It is referenced from the walked city, not just the engine.
+KNOWLEDGE IN BOHEMIA IS ALREADY GATED BY WHICH TRADE WILL TALK TO YOU. NOTHING
+CONNECTS THAT DOOR TO A PARENT.
+And the ledger of what the player DID ships empty on purpose too: var DEED_WEIGHT
+= {} with its own comment that what counts as a deed is his (the walked city fills
+it from the quest corpus, per round 9).
+
+THE FINDING: our machine converts WHAT YOU DID into WHAT PEOPLE SAY ABOUT YOU --
+that is the whole standing web and rounds 8 and 14 measured it working. It has
+never converted WHAT YOU DID into WHAT YOUR CHILD IS ALLOWED TO LEARN.
+  BUILT   deed -> witnessed -> retold -> reputation -> inherited as reputation
+  BUILT   trade -> will answer these subjects and refuse those
+  MISSING deed -> which trades count your family as one of theirs
+THE HEIR INHERITS A REPUTATION AND NOT AN APPRENTICESHIP, AND THE APPRENTICESHIP
+IS THE ONE THE RESEARCH SAYS ACTUALLY TRANSFERS.
+The row's exact ask, what the heir starts with because of what the player DID
+rather than what they owned, answers in one sentence: THE TRADES YOUR PARENT
+WORKED WITH ARE THE TRADES THAT WILL ANSWER YOU. Round 13 was the OWNED axis; this
+is the DID axis.
+
+NINTH ROUND OF THE SAME SHAPE, in a new form: TWO FINISHED PIPES THAT HAVE NEVER
+BEEN CONNECTED.
+
+WHAT I DID NOT GET, FLAGGED RATHER THAN PADDED: the row also asks "AT WHAT AGE",
+and I found no defensible figure for when children of tradespeople begin absorbing
+this. I did not invent one and did not dress up a guess. That half of the row is
+UNANSWERED.
+
+ROUTED (proposals only): PEOPLE THE-TRADE-YOUR-FATHER-KNEW -- connect the two
+built pipes so deeds done alongside a trade make that trade answerable for the
+heir. No new system, no new content, and the refusal path already exists. RUN or
+UI: "who will still answer you" belongs in the first hour beside round 12's
+SAY-WHAT-CARRIED.
+
 ROUND 14 [heir plays] (the coordinator's new Q12), SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_14_WHAT_THE_HEIR_DOES_DIFFERENTLY_9_5_26.md
   banks/BOHEMIA_HEIR_PLAYS_THE_ROOM_DECIDED_FIRST_DRAFT_9_5_26.txt (draft:true)
