@@ -25514,6 +25514,7 @@ const BEAT=500; // 120BPM law
    engine/BOHEMIA_faction_graph.json and re-run that tool. Nothing here is
    typed by hand and nothing here may be edited in place. */
 window.BOHEMIA_FACTION_GRAPH={"_meta": "BOHEMIA faction relationship graph. Derived from GDD v2 \u00a79. Power = ordinal rank (1=weakest) per act. relations are directional labels the engine reads for spillover, war state, and AI. All canon; nothing invented.", "factions": {"Reds": {"type": "selectable", "align": "capitalist", "note": "Economic engine, compound-interest faction. Not military.", "relations": {"Network": "adjacent"}, "act1_power": 8, "act3_power": 11}, "Blues": {"type": "selectable", "align": "socialist", "note": "Environmentalist. Large headcount. Collective decision-making = strength and tactical liability.", "relations": {}, "act1_power": 7, "act3_power": 6}, "Anarchists": {"type": "selectable", "align": "anti-establishment", "note": "Absorbed Rockstar faction. Culturally huge, territorially inconsistent. Overwhelming when provoked.", "relations": {}, "act1_power": 6, "act3_power": 4}, "Colorful": {"type": "selectable", "align": "community", "note": "LGBTQ faction. Smallest selectable. Community-based not territorial. Members across friendly factions.", "relations": {}, "act1_power": 1, "act3_power": 1}, "Church": {"type": "selectable", "align": "evangelical", "note": "Best crisis organization. More powerful act1 than act3, ceiling drops as world heals.", "relations": {}, "act1_power": 9, "act3_power": 5}, "Network": {"type": "selectable", "align": "psyop", "secret_hostile_to_truth": true, "note": "The Amalgamation's manufactured protection. Only faction with a manufactured origin. Most dangerous by act3. Strongest national/international ties.", "relations": {"Reds": "adjacent"}, "act1_power": 11, "act3_power": 13}, "Trades": {"type": "selectable", "align": "neutral", "politically_neutral": true, "note": "Skilled-worker guild. Never takes a public position. Best for vehicle/solar/construction. Most capable civilian drones.", "relations": {}, "act1_power": 5, "act3_power": 7}, "Caravans": {"type": "selectable", "align": "neutral", "protected_neutral": true, "note": "Neutral outside-world trade. Everyone but Cartel wants them alive. Neutrality is survival, not philosophy.", "relations": {"Cartel": "preyed-taxed"}, "act1_power": 10, "act3_power": 8}, "Volunteers": {"type": "selectable", "align": "nonprofit", "universally_respected": true, "note": "Healthcare/education/food/knowledge. Resource-poor by design. Nobody wants to be seen attacking them, even Cartel stays hands-off.", "relations": {}, "act1_power": 3, "act3_power": 3}, "Remnants": {"type": "selectable", "align": "military", "note": "Military/law-enforcement survivors incl Nellis. The floor of civilization. Refuses to be a government. Biggest act1 head start. Military drones.", "relations": {"Cartel": "permanent-war", "Mob": "professional-respect"}, "act1_power": 14, "act3_power": 10}, "Cartel": {"type": "selectable", "align": "predatory", "straightforwardly_evil": true, "note": "Organized human predation. Supply chains mirror Caravan routes. Only faction the game frames as evil.", "relations": {"Remnants": "permanent-war", "Caravans": "prey-tax", "Volunteers": "hands-off"}, "act1_power": 12, "act3_power": 9}, "Mob": {"type": "selectable", "align": "territorial", "note": "Controls the Strip. Ownership/protection/tribute. Historic early-police DNA, honor code = stability.", "relations": {"Remnants": "professional-respect"}, "act1_power": 13, "act3_power": 12}, "Homeless": {"type": "selectable", "align": "underground", "amalgamation_resistant": true, "note": "Sewer/tunnel HQ under the King Hobo. Most Amalgamation-resistant (barely use feed, talk face-to-face in tunnels). Live directly above the Network's secret servers without knowing. KEY act3 liberation ally.", "relations": {}, "act1_power": 2, "act3_power": 2}, "Custom": {"type": "selectable", "align": "emergent", "note": "Player faction. No preset philosophy. Identity emerges from three generations of action.", "relations": {}, "act1_power": 4, "act3_power": null}, "Pures": {"type": "social_force", "align": "identity-supremacist", "note": "white supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.", "relations": {}, "act1_power": null, "act3_power": null}, "Panthers": {"type": "social_force", "align": "identity-supremacist", "note": "black supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.", "relations": {}, "act1_power": null, "act3_power": null}, "La Familia": {"type": "social_force", "align": "identity-supremacist", "note": "Latino supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.", "relations": {}, "act1_power": null, "act3_power": null}, "Triads": {"type": "social_force", "align": "identity-supremacist", "note": "Asian supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts.", "relations": {}, "act1_power": null, "act3_power": null}}};
+window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/bohemia_faction_colour.js. Nothing here is a colour decision: COLOUR IS TERRITORY (8/26) says which faction owns which hue is HIS, and he answered it in garments. This is only his answer, written where both surfaces can read it. faction_colour_gate re-measures and goes red if this drifts from the wardrobe, so it cannot rot into a list somebody believes.","measured":"wardrobe","factions":{"Caravans":{"hex":"#6c5b41","rgb":[108,91,65],"hue":30,"drab":false,"strength":0.3322,"share":0.6653,"second":"neutral","neutral":0.2405,"draft":true},"Colorful":{"hex":"#60a136","rgb":[96,161,54],"hue":90,"drab":false,"strength":0.6377,"share":0.5681,"second":"60","neutral":0.0443,"draft":true},"Anarchists":{"hex":"#573f2a","rgb":[87,63,42],"hue":30,"drab":false,"strength":0.4786,"share":0.8969,"second":"neutral","neutral":0.1031,"draft":true},"Blues":{"hex":"#2d5fb3","rgb":[45,95,179],"hue":210,"drab":false,"strength":0.7221,"share":0.9371,"second":"neutral","neutral":0.0451,"draft":true},"Homeless":{"hex":"#968b82","rgb":[150,139,130],"hue":null,"drab":true,"strength":0.3086,"share":0.4401,"second":"0","neutral":0.4401,"draft":true},"Church":{"hex":"#826c3e","rgb":[130,108,62],"hue":30,"drab":false,"strength":0.4882,"share":0.4535,"second":"60","neutral":0.0793,"draft":true},"Reds":{"hex":"#773229","rgb":[119,50,41],"hue":0,"drab":false,"strength":0.5617,"share":0.7811,"second":"30","neutral":0.0482,"draft":true},"Cartel":{"hex":"#434042","rgb":[67,64,66],"hue":null,"drab":true,"strength":0.2668,"share":0.3944,"second":"30","neutral":0.3944,"draft":true},"Trades":{"hex":"#496558","rgb":[73,101,88],"hue":150,"drab":false,"strength":0.3014,"share":0.4768,"second":"30","neutral":0.1376,"draft":true},"Mob":{"hex":"#572f2a","rgb":[87,47,42],"hue":0,"drab":false,"strength":0.5952,"share":0.5302,"second":"30","neutral":0.0516,"draft":true},"Network":{"hex":"#465362","rgb":[70,83,98],"hue":210,"drab":false,"strength":0.3089,"share":0.6177,"second":"30","neutral":0.0701,"draft":true},"Volunteers":{"hex":"#c1bdb5","rgb":[193,189,181],"hue":null,"drab":true,"strength":0.169,"share":0.6878,"second":"30","neutral":0.6878,"draft":true},"Remnants":{"hex":"#4c5238","rgb":[76,82,56],"hue":60,"drab":false,"strength":0.3191,"share":0.4598,"second":"90","neutral":0.0732,"draft":true}}};
 /* ===== END BOHEMIA FACTION GRAPH ===== */
 /* ==== engine/bohemia_towns.js (FACTION TOWNS, 9/5) ==== */
 // BOHEMIA FACTION TOWNS (9/5/26, WORLD lane) — FACTION-TOWNS.
@@ -34763,14 +34764,23 @@ function renderCity(){
      IT COSTS ONE LOOKUP PER VISIBLE CELL. turfGrid() is a flat array built once and
      cached with the valley, so this is an array index, not the old per-cell nearest
      seat search, and the fps gate stayed at 35/0 across the change.
-     THE HOLDER'S OWN COLOUR IS NOT HERE YET AND THAT IS DELIBERATE. Rule 4 says the
-     edge is marked "in the holder's colour", and there is no such number anywhere a
-     map can reach: a faction's colour lives in its WARDROBE, as garment names in
-     the alpha's FACTION_LOOKS whose ramps are RGB triples in that file only. The
-     city carries none of them. Inventing a hue per faction is precisely what
-     COLOUR IS TERRITORY (8/26) reserves for Paolo -- "which faction owns which hue
-     is HIS" -- so this uses the two-colour language the map already speaks, YOURS
-     against THEIRS, and the real hues arrive with [colours fixed] COLOUR-AUDIT. */
+     *** AND THE EDGE NOW WEARS THE HOLDER'S OWN COLOUR. *** (9/6, [colours fixed].)
+     For one round this drew in a two-colour language, yours against theirs,
+     because rule 4 asks for "the holder's colour" and NO SUCH NUMBER EXISTED
+     anywhere a map could reach: a faction's colour lived in its WARDROBE, as
+     garment names in the alpha's FACTION_LOOKS whose ramps are RGB triples in
+     that file and nowhere else -- the city carried a grep count of nought.
+     It is measured off that same wardrobe now and written down beside the faction
+     graph, so this paints HIS answer and picks nothing. COLOUR IS TERRITORY says
+     "which faction owns which hue is HIS" and he answered it in garments; all
+     that changed is that the answer is no longer locked inside a browser.
+     YOUR OWN GROUND STILL READS DIFFERENTLY, because "that one is mine" is the
+     first thing anybody looks for on a map of who holds what -- so yours is drawn
+     brighter and thicker in its own colour rather than in a separate one.
+     A DRAB FACTION KEEPS THE OLD TREATMENT. The Volunteers, the Homeless and the
+     Cartel measure as neutral, which is the law's own exemption ("drab is legal,
+     but only when drabness IS the statement"), and a border painted in their
+     average grey would be invisible against the map. They get the map's gold. */
   try {
     var __tg = (typeof turfGrid === 'function') ? turfGrid() : null;
     if(__tg && __tg.own){
@@ -34779,6 +34789,36 @@ function renderCity(){
       catch(_e){}
       var __tn = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
       var __N = __tg.n;
+      /* HIS COLOUR, LIFTED SO IT READS ON THE MAP. The measured average is the
+         colour of CLOTH, which is dyed to be worn in daylight and comes out too
+         dark against a night overmap -- the Mob's #572f2a is nearly black at this
+         size. The HUE is untouched, which is the part that is his; only value and
+         saturation are pushed up so a one-pixel line survives. Yours is pushed
+         further, because "that one is mine" is the first thing anybody looks for. */
+      var __inkCache = {}, __drew = {};
+      function __holderInk(who, mine){
+        var k = who + (mine ? '|m' : '');
+        if(__inkCache[k]) return __inkCache[k];
+        var out = mine ? '#e8dcc0' : '#c8a558';
+        try {
+          var C = window.BOHEMIA_FACTION_COLOURS;
+          var e = C && C.factions && C.factions[who];
+          if(e && !e.drab && e.rgb){
+            var r=e.rgb[0]/255, gg=e.rgb[1]/255, bb=e.rgb[2]/255;
+            var mx=Math.max(r,gg,bb), mn=Math.min(r,gg,bb), d=mx-mn;
+            var h=0; if(d){ if(mx===r) h=((gg-bb)/d)%6; else if(mx===gg) h=(bb-r)/d+2; else h=(r-gg)/d+4; h*=60; if(h<0)h+=360; }
+            var sat=Math.min(1, (mx?d/mx:0)*1.55 + 0.22);
+            var val=mine ? 0.98 : 0.86;
+            var c2=val*sat, x2=c2*(1-Math.abs(((h/60)%2)-1)), m2=val-c2, rr,gg2,bb2;
+            if(h<60){rr=c2;gg2=x2;bb2=0;} else if(h<120){rr=x2;gg2=c2;bb2=0;}
+            else if(h<180){rr=0;gg2=c2;bb2=x2;} else if(h<240){rr=0;gg2=x2;bb2=c2;}
+            else if(h<300){rr=x2;gg2=0;bb2=c2;} else {rr=c2;gg2=0;bb2=x2;}
+            var hx2=function(v){ return Math.max(0,Math.min(255,Math.round((v+m2)*255))).toString(16).padStart(2,'0'); };
+            out = '#'+hx2(rr)+hx2(gg2)+hx2(bb2);
+          }
+        } catch(_e){}
+        __inkCache[k]=out; return out;
+      }
       g.save();
       g.lineWidth = Math.max(1, Math.min(TW * 0.10, 3));
       for(var __ty = 0; __ty < __N; __ty++) for(var __tx = 0; __tx < __N; __tx++){
@@ -34791,8 +34831,14 @@ function renderCity(){
         if(__q.sx < -60 || __q.sx > cv.width + 60) continue;
         if(__q.sy < -60 || __q.sy > cv.height + 60) continue;
         var __own = !!(__tm && __tn(__me) === __tn(__tm));
-        g.strokeStyle = __own ? '#e8dcc0' : '#c8a558';
-        g.globalAlpha = __own ? 0.85 : 0.5;
+        g.strokeStyle = __holderInk(__me, __own);
+        /* AND THE RENDER SAYS WHAT IT ACTUALLY DID, the same way this renderer
+           already publishes its label boxes. A source grep for the function name
+           proves the code exists; only this proves a border was painted in a
+           faction's own colour on a real canvas. */
+        __drew[__me] = g.strokeStyle;
+        g.globalAlpha = __own ? 0.9 : 0.62;
+        g.lineWidth = __own ? Math.max(1.5, Math.min(TW * 0.14, 4)) : Math.max(1, Math.min(TW * 0.10, 3));
         /* THE ISO EDGE, NOT A SQUARE. A cell is a diamond here, so its east side is
            the lower-right run and its south side the lower-left one; drawing a box
            would put the line through the middle of the neighbouring block. */
@@ -34803,6 +34849,7 @@ function renderCity(){
       }
       g.restore();
       g.globalAlpha = 1;
+      try { window.__TURF_INK = __drew; } catch(_e2){}
     }
   } catch(_e){}
 

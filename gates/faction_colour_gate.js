@@ -127,7 +127,8 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
      So this pins the number where it is and lets it only ever shrink -- the same
      downward ratchet the hair laws use, and it still fires the moment somebody adds
      a fourteenth faction in a colour that is already spoken for. */
-  const PINNED_CLASH = 5;   // tightened the day it was written: 8 -> 5
+  const PINNED_CLASH = 4;   // 8 -> 5 the day it was written, 5 -> 4 on 9/6 when
+                            // the gate itself said so and nobody had done it
   const byHue = {};
   for (const q of R) { if (q.dom === 'neutral') continue; (byHue[q.dom] = byHue[q.dom] || []).push(q.n); }
   let clashes = 0; const clashList = [];
@@ -138,6 +139,119 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
      (clashList.length ? ' -- ' + clashList.join('  ') : '') + ')', clashes <= PINNED_CLASH);
   if (clashes < PINNED_CLASH)
     console.log('  *** FEWER CLASHES THAN THE PIN. Lower PINNED_CLASH to ' + clashes + ' so it cannot slide back. ***');
+
+  /* ---- 5. HIS ANSWER IS READABLE OUTSIDE THE WARDROBE (9/6, [colours fixed])
+     Every faction already HAD a colour -- he answered it garment by garment on
+     8/26 -- and it existed only as PIXELS. This gate could reach it by launching
+     a browser; nothing in the game could. The ramps live in the alpha and the
+     city carried a grep count of NOUGHT, so three rows were stopped on it:
+     FACTIONS [who holds] drew its borders in a two-colour language for want of a
+     hue, UI [owner shown] wants "the owner of every district IN ITS COLOUR", and
+     COOK [border marked] wants the edge painted in the holder's.
+     tools/bohemia_faction_colour.js runs THIS MEASUREMENT and writes it down.
+     These claims are the thing that stops it rotting: the published number is
+     compared against the render, here, every run. ------------------------- */
+  const FS = require('fs');
+  const CJ = path.join(__dirname, '../engine/BOHEMIA_faction_colours.json');
+  let PUB = null;
+  try { PUB = JSON.parse(FS.readFileSync(CJ, 'utf8')); } catch (_e) {}
+  ok('*** A FACTION\'S COLOUR IS READABLE WITHOUT RENDERING A BODY. *** It was his '
+     + 'answer all along and it was locked in a browser; three rows were blocked on '
+     + 'it', !!(PUB && PUB.factions && Object.keys(PUB.factions).length === R.length));
+
+  const drift = [];
+  for (const q of R) {
+    const e = PUB && PUB.factions && PUB.factions[q.n];
+    if (!e) { drift.push(q.n + ' missing'); continue; }
+    const wantHue = q.dom === 'neutral' ? null : (q.dom | 0);
+    if (e.hue !== wantHue) drift.push(q.n + ' hue ' + e.hue + ' but renders ' + wantHue);
+    if (!!e.drab !== (q.dom === 'neutral')) drift.push(q.n + ' drab flag wrong');
+  }
+  ok('AND IT IS THE SAME ANSWER THE CLOTH GIVES, re-measured here every run so it '
+     + 'cannot rot into a list somebody believes -- the contract NOT_A_TOWN and the '
+     + 'seat bake already carry' + (drift.length ? ' -- DRIFT: ' + drift.join('; ') : ''),
+     drift.length === 0);
+
+  ok('and every published colour is tagged draft, because it is MEASURED and never '
+     + 'RULED -- the day he thumbs one, the flag is what changes',
+     !!PUB && Object.values(PUB.factions).every(e => e.draft === true));
+
+  /* THE WALKED SURFACE CARRIES IT, or the whole exercise was a file nobody reads. */
+  const CITY_SRC = FS.readFileSync(path.join(__dirname, '../slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+  const m = /window\.BOHEMIA_FACTION_COLOURS=(.*?);\n/.exec(CITY_SRC);
+  let cityMatches = false;
+  try { cityMatches = !!m && JSON.stringify(JSON.parse(m[1]).factions) === JSON.stringify(PUB.factions); }
+  catch (_e) {}
+  ok('*** AND THE WALKED SURFACE CARRIES THE SAME NUMBERS. *** A JSON in engine/ is '
+     + 'still unreachable from the city, which is the exact reason the ramps were '
+     + 'stranded in the alpha in the first place. The tool re-writes it every run '
+     + 'rather than checking a marker and no-opping, which is the defect the seat '
+     + 'bake paid for one round ago', cityMatches);
+
+  ok('and the map draws its territory border with it', /__holderInk/.test(CITY_SRC));
+
+  /* *** VERIFY ON THE REAL SURFACE. *** The line above is a grep and a grep proves
+     the code exists, not that anything was painted. The border loop publishes the
+     ink it actually used per faction -- the same way this renderer already
+     publishes its label boxes, and for the same reason: counting coloured pixels
+     near a border reads the neighbour's line as yours. */
+  const inks = await (async () => {
+    const b2 = await chromium.launch();
+    try {
+      const p2 = await b2.newPage({ viewport: { width: 390, height: 844 } });
+      await p2.route(/^https?:/, r => r.abort());
+      await p2.goto('file://' + path.join(__dirname, '../slices/BOHEMIA_CITY_WORLD.html'),
+                    { waitUntil: 'load', timeout: 180000 });
+      await p2.waitForFunction(() => typeof renderCity === 'function' && typeof turfGrid === 'function',
+                               { timeout: 60000 });
+      return await p2.evaluate(() => {
+        try { if (typeof MAPON !== 'undefined') MAPON = true; } catch (_e) {}
+        try { openMap(); } catch (_e) {}
+        for (let i = 0; i < 3; i++) { try { renderCity(); } catch (_e) {} }
+        return window.__TURF_INK || null;
+      });
+    } finally { await b2.close(); }
+  })();
+
+  const painted = inks ? Object.keys(inks) : [];
+  const distinct = inks ? new Set(Object.values(inks)).size : 0;
+  ok('*** AND A REAL CANVAS REALLY PAINTED THEM. *** ' + painted.length + ' factions\' '
+     + 'ground drawn in ' + distinct + ' distinct inks. Before this round the border '
+     + 'was two colours for the whole valley, yours and theirs, because there was no '
+     + 'hue to use' + (inks ? ' -- ' + painted.slice(0, 4).map(k => k + ' ' + inks[k]).join(', ') : ''),
+     painted.length >= 6 && distinct >= 4);
+
+  /* ---- 6. THE AUDIT THIS ROW WAS OPENED FOR, MEASURED --------------------
+     "the gate holds contradictions, this row fixes them". Two were found, and
+     the honest answer to both is that they are HIS, not mine -- so they are
+     NAMED here every run instead of sitting silently inside a pin. */
+  const GRAPH = JSON.parse(FS.readFileSync(path.join(__dirname, '../engine/BOHEMIA_faction_graph.json'), 'utf8')).factions;
+  const rel = (a, c) => (GRAPH[a] && GRAPH[a].relations && GRAPH[a].relations[c])
+                     || (GRAPH[c] && GRAPH[c].relations && GRAPH[c].relations[a]) || null;
+  const related = [];
+  for (const h in byHue) if (byHue[h].length > 1) {
+    const F = byHue[h];
+    for (let i = 0; i < F.length; i++) for (let j = i + 1; j < F.length; j++)
+      if (rel(F[i], F[j])) related.push(F[i] + '/' + F[j] + ' (' + rel(F[i], F[j]) + ') both on ' + h);
+  }
+  ok('*** NO COLOUR CLASH IS BETWEEN TWO FACTIONS HIS CANON PUTS IN A RELATION. *** '
+     + 'The law\'s own research is that colour choice is OPPOSITIONAL -- the Bloods '
+     + 'took red against the Crips\' blue -- so two ENEMIES in one hue is a lie about '
+     + 'his graph and two strangers in one hue is only a coincidence. Measured '
+     + 'against his relations: every clashing pair is unrelated'
+     + (related.length ? ' -- BUT: ' + related.join('; ') : ''),
+     related.length === 0);
+
+  console.log('  note: the drab exemption names ' + Object.keys(DRAB_ON_PURPOSE).length
+    + ' factions (' + Object.keys(DRAB_ON_PURPOSE).join(', ') + ') and COLOUR IS '
+    + 'TERRITORY names TWO -- "drab is legal, but only when drabness IS the statement '
+    + '(the Volunteers, the Homeless)". The Cartel was added to the list and not to '
+    + 'the law. Its note is "organized human predation" with supply chains, so the '
+    + 'law\'s reason ("the Volunteers own nothing and the Homeless bought nothing") '
+    + 'does not describe it -- but a predator not advertising is a real reading too. '
+    + 'That is TASTE, so it is [PENDING Paolo] and printed here rather than settled.');
+  ok('and the exemption cannot quietly GROW while it waits for him',
+     Object.keys(DRAB_ON_PURPOSE).length <= 3);
 
   /* ---- and the instrument he asked for, which is half of the ruling ------- */
   const src = require('fs').readFileSync(ALPHA, 'utf8');

@@ -1,0 +1,201 @@
+{
+ "_": "MEASURED off the shipped wardrobe by tools/bohemia_faction_colour.js. Nothing here is a colour decision: COLOUR IS TERRITORY (8/26) says which faction owns which hue is HIS, and he answered it in garments. This is only his answer, written where both surfaces can read it. faction_colour_gate re-measures and goes red if this drifts from the wardrobe, so it cannot rot into a list somebody believes.",
+ "measured": "wardrobe",
+ "factions": {
+  "Caravans": {
+   "hex": "#6c5b41",
+   "rgb": [
+    108,
+    91,
+    65
+   ],
+   "hue": 30,
+   "drab": false,
+   "strength": 0.3322,
+   "share": 0.6653,
+   "second": "neutral",
+   "neutral": 0.2405,
+   "draft": true
+  },
+  "Colorful": {
+   "hex": "#60a136",
+   "rgb": [
+    96,
+    161,
+    54
+   ],
+   "hue": 90,
+   "drab": false,
+   "strength": 0.6377,
+   "share": 0.5681,
+   "second": "60",
+   "neutral": 0.0443,
+   "draft": true
+  },
+  "Anarchists": {
+   "hex": "#573f2a",
+   "rgb": [
+    87,
+    63,
+    42
+   ],
+   "hue": 30,
+   "drab": false,
+   "strength": 0.4786,
+   "share": 0.8969,
+   "second": "neutral",
+   "neutral": 0.1031,
+   "draft": true
+  },
+  "Blues": {
+   "hex": "#2d5fb3",
+   "rgb": [
+    45,
+    95,
+    179
+   ],
+   "hue": 210,
+   "drab": false,
+   "strength": 0.7221,
+   "share": 0.9371,
+   "second": "neutral",
+   "neutral": 0.0451,
+   "draft": true
+  },
+  "Homeless": {
+   "hex": "#968b82",
+   "rgb": [
+    150,
+    139,
+    130
+   ],
+   "hue": null,
+   "drab": true,
+   "strength": 0.3086,
+   "share": 0.4401,
+   "second": "0",
+   "neutral": 0.4401,
+   "draft": true
+  },
+  "Church": {
+   "hex": "#826c3e",
+   "rgb": [
+    130,
+    108,
+    62
+   ],
+   "hue": 30,
+   "drab": false,
+   "strength": 0.4882,
+   "share": 0.4535,
+   "second": "60",
+   "neutral": 0.0793,
+   "draft": true
+  },
+  "Reds": {
+   "hex": "#773229",
+   "rgb": [
+    119,
+    50,
+    41
+   ],
+   "hue": 0,
+   "drab": false,
+   "strength": 0.5617,
+   "share": 0.7811,
+   "second": "30",
+   "neutral": 0.0482,
+   "draft": true
+  },
+  "Cartel": {
+   "hex": "#434042",
+   "rgb": [
+    67,
+    64,
+    66
+   ],
+   "hue": null,
+   "drab": true,
+   "strength": 0.2668,
+   "share": 0.3944,
+   "second": "30",
+   "neutral": 0.3944,
+   "draft": true
+  },
+  "Trades": {
+   "hex": "#496558",
+   "rgb": [
+    73,
+    101,
+    88
+   ],
+   "hue": 150,
+   "drab": false,
+   "strength": 0.3014,
+   "share": 0.4768,
+   "second": "30",
+   "neutral": 0.1376,
+   "draft": true
+  },
+  "Mob": {
+   "hex": "#572f2a",
+   "rgb": [
+    87,
+    47,
+    42
+   ],
+   "hue": 0,
+   "drab": false,
+   "strength": 0.5952,
+   "share": 0.5302,
+   "second": "30",
+   "neutral": 0.0516,
+   "draft": true
+  },
+  "Network": {
+   "hex": "#465362",
+   "rgb": [
+    70,
+    83,
+    98
+   ],
+   "hue": 210,
+   "drab": false,
+   "strength": 0.3089,
+   "share": 0.6177,
+   "second": "30",
+   "neutral": 0.0701,
+   "draft": true
+  },
+  "Volunteers": {
+   "hex": "#c1bdb5",
+   "rgb": [
+    193,
+    189,
+    181
+   ],
+   "hue": null,
+   "drab": true,
+   "strength": 0.169,
+   "share": 0.6878,
+   "second": "30",
+   "neutral": 0.6878,
+   "draft": true
+  },
+  "Remnants": {
+   "hex": "#4c5238",
+   "rgb": [
+    76,
+    82,
+    56
+   ],
+   "hue": 60,
+   "drab": false,
+   "strength": 0.3191,
+   "share": 0.4598,
+   "second": "90",
+   "neutral": 0.0732,
+   "draft": true
+  }
+ }
+}
