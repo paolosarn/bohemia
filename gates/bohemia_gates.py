@@ -4267,6 +4267,8 @@ GATES = [
      'the ART lane\'s master document cannot drift: all 32 laws still in it, the three '
      'honesty clauses intact, the ten-failure record un-rewritten, and the ignorance list '
      'shrinking only by CLOSING entries, never by deleting them', False),
+    ('LIGHT AGREES',  ['python3', 'gates/light_agrees_gate.py'],
+     'EYES E7 (9/5) asked the question the craft gate does not: not whether a FORM is lit consistently, but whether a re-cooked tile agrees with THE TILE IT REPLACED. It reported ten of 42 act-1 tiles lit from a different corner. Measured three ways, NONE of the ten is: key_light() flattened alpha so a corner piece read as a 67-unit gradient across pixels the game never draws, and it took the sign of a difference with no threshold, so a deliberately flat road tile was a coin flip. The ten rank 4, 5, 9, 20, 23, 27, 28, 35, 37 and 40 of 42 by actual light difference and the furthest apart was not among them. No art was changed; the question is kept instead, on opaque pixels, with a ratchet, and with the ruler tested inside the gate both ways', False),
     ('PIXEL CRAFT',    ['python3', 'gates/pixel_craft_gate.py'],
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '

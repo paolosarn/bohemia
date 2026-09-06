@@ -3105,95 +3105,94 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/6 LATEST -- *** EAST AND WEST ARE ANSWERED. His oldest open hair
-item, the one he killed 13 of 15 haircuts over on 8/20, is closed as a number and pinned.
-[runway hair] is SHIPPED. TAB: CHARACTER. Nothing to judge. ***
+COOK (cook-mce6r5): 9/6 LATEST -- *** THE TEN TILES ARE NOT LIT FROM THE WRONG CORNER.
+The board row said "fix the ten"; measured three ways, there are none to fix, and the
+ruler that found them is backwards rather than merely noisy. NO ART WAS CHANGED. The
+question is kept as a gate instead. [light agrees] SHIPPED. NOT IN A TAB -- this round
+changed no pixel a player can see, on purpose. ***
 
-THE JOB: [runway hair] HAIR-TO-THE-CARD, SHIPPED in three rounds. Next round takes the
-first OPEN line, which is [light agrees] TEN TILES ARE LIT FROM THE WRONG CORNER
-(EYES E7, a defect in shipped work, sitting at the top of the COOK section).
+THE JOB WAS [light agrees] TEN TILES ARE LIT FROM THE WRONG CORNER (EYES E7, 9/5):
+road_0, road_1, road_2, road_centre, dirt, garage_bottom, roof_slope, roof_hipTL,
+roof_hipBR, roof_deck, all reported as lit from a different corner than the tile they
+REPLACED. E7's own finding REPRODUCES EXACTLY -- the same ten, to the digit. Then it
+falls apart in two places.
 
-WHAT THE THREE ROUNDS DID
-  1. THE GRAVEYARD. Thirteen haircuts he killed on 8/20 were still shipping as canon,
-     sixteen days on, and nineteen authored people were wearing them. The registry
-     spelled them `n:'HAIR - SUN CROP'` (the judging tool's DISPLAY name) while the build
-     says `n:'SUN CROP'`, so the graveyard gate swept the tree for a string that has
-     never existed here. Canon hair 24 -> 11, nineteen looks repointed, four new checks.
-  2. THE BACK. Built the ruler that did not exist: for every PAIR of canon cuts on every
-     facing, the share of hair pixels exactly one of the two has. IT IS NOT EAST AND
-     WEST, IT IS THE BACK -- every one of the 55 pairs from NE scored below the WORST
-     pair from S. One line does it, `sideBot=(back||prof)?Math.max(hBot,_styleBot)`, and
-     the fix was to give each cut its own NECKLINE. NE 0.220 -> 0.272.
-  3. THE PROFILE. That line says `back||prof` and round 2 answered only `back`. Same
-     treatment on the away side only (the front edge is the hairline and `_pHair` owns
-     it; the BACK edge is the neckline). E 0.300 -> 0.338 (18 twin pairs -> 8),
-     W 0.302 -> 0.344 (19 -> 7). The profiles were 17% less legible than the other six;
-     they are 6% now, and they have gone from the worst angles to better than the back.
+  1. IT MEASURES PIXELS THE GAME NEVER DRAWS. key_light() does .convert('RGB'), which
+     turns every transparent pixel BLACK. roof_hipTL is a corner piece: 48.9% opaque, and
+     the re-cooked and approved alpha masks are IDENTICAL. Flattened to RGB it reads as a
+     67-unit gradient into the lower right, the loudest number in the report. On the
+     pixels actually drawn its horizontal gradient is +3.86 against the approved +4.27.
+  2. IT TAKES THE SIGN OF A DIFFERENCE WITH NO THRESHOLD. A road tile is deliberately
+     flat top to bottom, so the sign is a coin flip: roof_deck's vertical difference is
+     0.07 of 255 on one side and 0.10 on the other. Nine of the ten were flagged on an
+     axis carrying no light direction at all, and on every axis where both tiles ARE
+     decided, they agree.
 
-WHERE THE EIGHT FACINGS STAND, all pinned in gates/hair_eight_facings_gate.js (19 checks):
-    S 0.459 (1 twin pair of 55)   SE/SW 0.452 (2)   W 0.344 (7)   E 0.338 (8)
-    N 0.276 (23)   NE/NW 0.272 (25/26)
-THE FLOOR IS THE BACK THREE and the pair holding all three down is the same one:
-SHORT ROPES against DUST WEAVE at 0.080 -- locs against a braid, told apart by texture
-from the front and by nothing at all from behind. That is the next thing to raise, and
-raising it means raising these pins. NOTE BEFORE ANYONE CALLS 0.272 A FAILURE: real
-people ARE harder to tell apart from directly behind. The card's rule is that a garment
-READS from all eight facings, not that the back is as distinctive as the front. Every cut
-draws on all eight (the gate checks it) and the two STRUCTURAL collapses are fixed.
+AND IT IS BACKWARDS, NOT MERELY NOISY. Rank all 42 shared tiles by how far apart the two
+banks' gradients actually are (as a share of the tiles' own contrast) and the flagged ten
+land at ranks 4, 5, 9, 20, 23, 27, 28, 35, 37 and 40 of 42. Six sit in the BOTTOM HALF.
+roof_hipBR, flagged, is the SECOND MOST SIMILAR pair in the whole set at 0.016. The
+furthest apart, wall_0 at 0.311, was not flagged. And wall_0 is not a wrong corner either
+-- vertical +2.17 against +5.92, the same direction, weaker. NOTHING IN THE 42 IS LIT FROM
+THE WRONG CORNER.
 
-WHY IT IS SHIPPED AND NOT STILL OPEN. The line's own ship test was "every haircut to the
-card; all eight facings; the hair, hairline, graveyard and leaf gates hold". All eight are
-measured, fixed and machine-held; all four gates are green. What is left is not buildable
-by this lane: the card HAS NO HAIR SECTION, and that is DIRECTION's (below). Ongoing hair
-work belongs on the permanent [keep cooking] line, the same way [runway clothes] closed.
+SO NO ART WAS CHANGED. Changing ten tiles to satisfy a sign test on invisible pixels is
+the thing this repo forbids in as many words: FIX THE RULER, NEVER THE TARGET (8/1). The
+alpha, the demo and the walked city are byte-identical to before this round, which is why
+there is no build stamp bump and no demo re-cut -- a stamp that moves when nothing moved
+is a lie to him.
 
-[FOR DIRECTION] *** THE STYLE CARD HAS NO HAIR SECTION, AND ITS CLOTH BANDS MUST NOT BE
-  APPLIED TO HAIR. *** style_card_gate.py already excludes hair from every check (`l !=
-  'hair'`), so hair has never been measured against the card at all. Measured now:
-  cloth_sat_max 0.25 would fail H_BRN (0.54) and H_SND (0.47) -- applying it would make
-  every head in the valley grey, which is absurd and collides with COLOUR IS TERRITORY.
-  Two things MIGHT genuinely apply and both are COLOUR, so both are maintenance under
-  STRUCTURE-NOT-COLOR and both change every head in the game: hair ramps are 3 steps
-  against the card's 4-6 band, and H_BLK's dark step sits at value 0.063 against the
-  card's floor of 0.08 ("pure black flattens the 45-degree read"). Do not touch a ramp
-  without a ruling. The card's one rule that DOES apply to hair is section 3, the
-  45-degree read, and that is what rounds 2 and 3 built.
-[PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (round 1).
-  All eleven survivors are black, brown or sand and a worn hair garment draws in its own
-  baked ramp, so RAY the father, the Church and the old wide-brim citizen lost their grey.
-  Not faked: grey recolours are "recolors, not diverse looks" (7/18). Leave them dark,
-  cook grey colourways, or unblock fresh hair shapes.
+WHAT SHIPPED IS THE QUESTION, KEPT: gates/light_agrees_gate.py, registered as LIGHT
+AGREES. Every tile's light direction must agree with the tile it replaced on every axis
+where both have a direction, opaque pixels only; no tile may drift further from its
+predecessor than the worst does today (ratchet pinned at wall_0's 0.311); AND THE RULER IS
+SELF-TESTED BOTH WAYS EVERY RUN so it cannot quietly stop working the way its predecessor
+did -- a tile against its own mirror must be caught, a black-under-alpha corner must not.
+Mutation-tested on the real bank: turn garage_bottom upside down and it goes red twice at
+a gap of 1.274 against the 0.312 pin.
+
+[FOR EYES AND EARS, lane 17, E7's owner] tools/bohemia_eyes_reference_score.py,
+  key_light(). TWO LINES FIX IT and I have not touched your tool: mask to alpha > 0 before
+  taking the luminance, and return "undecided" on an axis whose half-difference is under
+  about a tenth of the tile's own standard deviation. Question 6 then reads "the lit
+  corner agrees, OR neither tile has one" instead of forcing a yes/no. The sheet is a good
+  instrument and the other six questions are unaffected; the fixed ruler is in
+  gates/light_agrees_gate.py if it is easier to lift than to rewrite.
+[FOR THE COORDINATOR] the E7 row's premise was wrong. Worth knowing before another row is
+  written straight from a research finding that no lane has re-measured.
+[PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (from
+  [runway hair]). All eleven survivors are black, brown or sand and a worn hair garment
+  draws in its own baked ramp, so RAY the father, the Church and the old wide-brim citizen
+  lost their grey. Leave them dark, cook grey colourways, or unblock fresh hair shapes.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
-[FOR CHARACTER] the 8/20 P0 is answered and pinned, so the 21 haircuts that verdict held
-  off a ballot are no longer blocked by east and west. THIS DOES NOT RE-OPEN THE 13 KILLS
-  -- GRAVEYARD IS FINAL, and a fresh cook answering a dead slot is a different thing from
-  reviving one.
-[FOR DIRECTION] the card's POLE A/POLE B shoulder-span number is unmeetable by any dressed
-  sprite (it is written against the paperdoll torso).
-[FOR THE PLUMBER] three rulers that lie, and two of them have now cost three rounds:
-  - `look_gate` clocks pictures by FILE MTIME. 44 pictures this change cannot touch went
-    stale and had to be re-shot to get green. Proven on unchanged origin/main: move only
-    the timestamps and it calls all 52 stale. Green on a fresh clone, red in a live tree.
-  - `city_cast_gate` B6 is FLAKY: four runs on unchanged origin/main gave three red and
-    one green. It compares a freshly rendered neighbour against the baked cast canvases.
-  - `bohemia_gates.py --fast` documented "~2s vs ~4min", ran 34 MINUTES without finishing.
+[FOR DIRECTION] the style card has NO HAIR SECTION and its cloth bands must not be applied
+  to hair (cloth_sat_max 0.25 fails H_BRN at 0.54 and H_SND at 0.47 and would grey every
+  head in the valley). Two things might genuinely apply and both are COLOUR: hair ramps
+  are 3 steps against the card's 4-6 band, and H_BLK's dark step sits at value 0.063
+  against the card's floor of 0.08. Also: the card's POLE A/POLE B shoulder-span number is
+  unmeetable by any dressed sprite.
+[FOR THE PLUMBER] look_gate clocks pictures by FILE MTIME (proven: move only the
+  timestamps on unchanged origin/main and it calls all 52 stale); city_cast_gate B6 is
+  flaky (3 red of 4 runs on unchanged main); bohemia_gates.py --fast is documented
+  "~2s vs ~4min" and ran 34 minutes without finishing.
+NOT MINE, red on clean origin/main with identical counts: target_match_gate 278/1 (a
+  CBB-frozen frame changed) and canvas_memory_gate 27/3 (its own output says "reported,
+  not failed -- every lane touches the alpha every ship").
 
-FILES  tools/bohemia_hair_eight_facings_9_6_26.js (the ruler; `--facing E` dumps one
-angle's whole pair table), tools/bohemia_hair_the_neckline_9_6_26.py (round 2, the back),
-tools/bohemia_hair_the_profile_neckline_9_6_26.py (round 3, E and W),
-gates/hair_eight_facings_gate.js (19 checks, registered as HAIR 8 FACINGS),
-gates/hair_graveyard_gate.js (13 checks), gates/clothes_56_pin.txt (two rebaseline entries
-with the numbers). Records: BOHEMIA_THE_THIRTEEN_KILLS_WERE_NEVER_ENFORCED_9_5_26.md,
-BOHEMIA_IT_IS_NOT_EAST_AND_WEST_IT_IS_THE_BACK_9_6_26.md,
-BOHEMIA_EAST_AND_WEST_ANSWERED_9_6_26.md.
+FILES  gates/light_agrees_gate.py (5 checks, two of them self-tests of its own ruler),
+records/BOHEMIA_THE_TEN_TILES_ARE_NOT_LIT_WRONG_9_6_26.md. Registered in
+gates/bohemia_gates.py as LIGHT AGREES.
 
-*** WHAT COMES NEXT *** The first OPEN line in COOK is [light agrees] TEN TILES ARE LIT
-FROM THE WRONG CORNER -- road_0, road_1, road_2, road_centre, dirt, garage_bottom,
-roof_slope, roof_hipTL, roof_hipBR and roof_deck read as lit from a different corner than
-the tile they REPLACED. EYES E7 found it and named the reason nothing caught it: the craft
-gate checks the key by PAIRS WITHIN A FORM, which is right for a form, and whether a tile
-agrees with the tile it replaced is a different question nobody was asking. Fix the ten,
-then keep the question as a check. Claim the line before starting.
+*** WHAT COMES NEXT *** The first OPEN line in COOK is [border marked]
+THE-BORDER-WEARS-ITS-COLOUR -- cook the edge, so a territory border is marked where a
+player can see it, in the holder's colour, on the wall, the fence, the underpass (COLOUR
+IS TERRITORY 8/26, the one-pixel border law 8/16, and the real thing: gangs mark
+boundaries in paint on the landmark that divides them). Tab: CITY. IT HAS A DEPENDENCY:
+the line says it needs FACTIONS [who holds] for who owns which side, and FACTIONS has a
+[colours fixed] COLOUR-AUDIT claimed precisely because "two other lanes are blocked on a
+faction colour number that does not exist outside the alpha's wardrobe: UI [owner shown]
+and COOK [border marked]". CHECK THAT LANE'S STATE FIRST -- if the colour number still
+does not exist, say so and take the next line rather than inventing one.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
