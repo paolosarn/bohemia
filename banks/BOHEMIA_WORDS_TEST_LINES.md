@@ -836,3 +836,105 @@ BROTHER  Pass the salt.                                                [time off
   AFTER   Turns out it's just Amos. Nobody's said a word about it since.
   AFTER   It's boring now. It was better when nobody knew.
 # The last line is the one that tells the player what this city runs on.
+
+## Q14 -- THE ONE-WORD ANSWER  (9/5/26)
+# The finding: measured on 9,087 real replies to a question with backchannels
+# thrown out, 35.3% are ONE WORD and 53.2% are three or fewer. Film manages 7.5%.
+# Shipped game dialogue manages 0.8%. We have FIVE one-word lines in 1,669, plus
+# twelve of a character asleep. Our median line is eleven words.
+#
+# WHY IT LANDS, and it is two different reasons:
+#   1. LENGTH IS A SIGNAL. A preferred answer comes fast, plain, with no reason
+#      attached. A dispreferred one is delayed, hedged and comes wrapped in an
+#      account. So the player reads the answer off the LENGTH before the words.
+#   2. IT MAKES THEM DO THE WORK. Saying obviously less than the moment needs
+#      does not read as a mistake, it makes the listener supply the reason. A
+#      one-word answer is information manufactured in the player's head, free,
+#      and believed harder because they made it.
+#
+# TWO KINDS, BOTH STRONG:
+#   THE ALIGNED ONE  immediate, plain, no account. The shortness IS the yes.
+#   THE SLAP         a refusal delivered in preferred format. "No." with no
+#                    reason is a refusal to give you the courtesy of a reason.
+#
+# AND THE DEPENDENCY: Q11 measured 94.5% of our lines delivered by a flat face.
+# "Fine." with a face is six sentences. "Fine." without one is a bug report.
+
+### TWENTY ONE-WORD ANSWERS, TWENTY DIFFERENT PEOPLE   draft:true
+# Format: who / what they were asked / the answer / what the player infers.
+# Nothing here is canon; the speakers are trades, and the cast stays Paolo's.
+  LINEMAN     How long has that line been drawing?      Years.       #flat
+  MEDIC       Is he going to be alright?                No.          #cold
+  KEEPER      You got a room?                           One.         #wary
+  SCAV        Anything left up there?                   Bones.       #flat
+  TRADER      Is that your best price?                  Yes.         #sharp
+  FITTER      Can you fix it?                           Maybe.       #wary
+  PASTOR      Have you told her yet?                    Once.        #tired
+  HAULER      Was anybody with him?                     Somebody.    #wary
+  SERGEANT    Are you going to do anything about it?    No.          #cold
+  WATCH       How many came through?                    Three.       #flat
+  FORGER      Did you know what they were for?          Obviously.   #sharp
+  BUSKER      Is anybody paying you for this?           Nope.        #warm
+  NEIGHBOUR   Are we alright, you and me?               Sure.        #wary
+  QUARTERMSTR Is the bottom name worth taking?          Cheap.       #cold
+  MOTHER      Did you eat?                              Later.       #tired
+  GROWER      Will it come back next year?              Some.        #flat
+  CLERK       Is any of this written down anywhere?     Was.         #tired
+  ORGANIZER   Do we put every name on the list?         Every.       #sharp
+  WORKER      Do they ever call you back?               Never.       #tired
+  OWNER       Whose tank is it?                         Mine.        #cold
+# Read the twenty in a row. Not one of them needs a second sentence, and every one
+# tells you something about the person that a paragraph would have blurred.
+
+### THE SLAP, WHICH IS A REFUSAL WEARING A YES'S CLOTHES   draft:true
+# A dispreferred answer with no account is the rudest thing in conversation and
+# every listener alive reads it without being taught.
+  ASKED  I only need it for an hour, and I'll bring it back tonight.
+  SLAP   No.
+  ASKED  You know I wouldn't ask if there was another way.
+  SLAP   Sure.
+  ASKED  So can I count on you or not?
+  SLAP   And?
+# "And?" already exists in our build. It is the best short line we own.
+
+### THE ALIGNED ONE, WHERE SHORTNESS IS THE AGREEMENT   draft:true
+  ASKED  Can you be at the pump before it gets dark?
+  YES    Done.
+  ASKED  You'll keep this between us.
+  YES    Obviously.
+  ASKED  Are you in?
+  YES    Yeah.
+# No reason given, because a reason would mean there was a decision to make.
+
+### THE SHORT ANSWER GOES ON THE HARDEST QUESTION, NOT THE EASIEST   draft:true
+# This is backwards from instinct and it is the whole trick.
+  EASY QUESTION  How do you keep the pressure up on the far side?
+  LONG ANSWER    You don't keep it up, you stop letting it out. There's four
+                 places on this block somebody's joined onto a main and every one
+                 of them is a hole with a story attached.
+  HARD QUESTION  Did you know she was still in there?
+  SHORT ANSWER   Yes.
+# The same man. Twenty-nine words about a pipe and one word about a person. That
+# ratio IS the character, and neither line has to explain it.
+
+### THE SAME WORD, SIX PEOPLE, SIX MEANINGS   draft:true
+# One word cannot carry tone by itself. The face and the beat carry it (Q11, Q4).
+# This is the test case for the mood wire: the identical line, six ways.
+  Fine.   #warm     it genuinely is fine
+  Fine.   #cold     it is not fine and you will not be told why
+  Fine.   #tired    it is not fine and there is nothing left to argue with
+  Fine.   #wary     it is fine for now and they are watching what you do next
+  Fine.   #dread    it is not fine and they know what happens next
+  Fine.   #sharp    say one more word
+# If the face is flat, all six of these are the same line and five of them are
+# wasted. That is the dependency, stated as a test.
+
+### AND THE PAUSE, WHICH IS HALF THE LINE   draft:true
+# At 120 BPM one beat is about two words (Q4), so a one-word answer is the only
+# line shape in this game that lands inside a single beat. It needs the beat
+# BEFORE it more than any other line we write.
+  Q  You going to tell them what you saw?
+     [one beat]
+  A  No.
+# Without the hold the answer arrives on top of the question and reads as a
+# reflex. With it, the player watches somebody decide.

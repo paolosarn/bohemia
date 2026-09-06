@@ -1,3 +1,132 @@
+WORDS (words-8dqrnq): 9/5 (k) LATEST -- *** VAMILY Q14 [one-word answers] SHIPPED. MORE
+THAN A THIRD OF EVERY REAL ANSWER TO A QUESTION IS ONE WORD. WE HAVE FIVE ONE-WORD
+LINES IN THE WHOLE GAME. NOT FIVE PERCENT, FIVE LINES. *** Nothing to judge, MODE:
+RESEARCH, nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q14 [one-word answers], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q14_THE_ONE_WORD_ANSWER_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q14, all draft:true.
+Twenty one-word answers, twenty different people, as the row asked for.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+OUR 1,669 NPC LINES BY LENGTH:
+    1 word   5  0.3%     2 words  16  1.0%     3 words  26  1.6%
+    4-5    132  7.9%     6-10    633 37.9%     11-20   568 34.0%    21+  277 16.6%
+    mean 13.1 words, median 11.
+Only 3.5% of everything anybody says is three words or fewer, and half is eleven
+words or more. EVERY SHORT LINE IN THE BUILD, READ BY HAND:
+    pastor "Once."   hauler "Well."   neighbour "Maybe."
+    worker "And?"    watch "Three."   + twelve sleep barks that are just "..."
+FIVE REAL ONE-WORD ANSWERS AND TWELVE OF A CHARACTER ASLEEP. And the five that
+exist are exactly right, which is the frustrating part: the technique is already
+in our own build, unrepeated.
+
+A COUNTING NOTE, BECAUSE DEFINITIONS ARE HOW THIS LANE GETS BURNED: a first pass
+said 17 one-word lines (1.0%). That regex counted "..." as a word. Real count is 5
+(0.3%) plus 12 ellipses. Both arithmetically right, one answers the question. THE
+RULER WAS NOT BROKEN THIS TIME, THE DEFINITION WAS, and reading all 17 by hand is
+what separated them.
+
+THE THREE-CORPUS RULER, AND THE OBJECTION IT HAD TO SURVIVE:
+First pass, every turn:
+    REAL SPEECH  n=199,740  mean  7.3  median  5   one word 29.2%
+    FILM         n=304,446  mean 10.6  median  7   one word  7.3%
+    GAME         n= 29,213  mean 15.6  median 14   one word  1.1%
+    BOHEMIA      n=  1,669  mean 13.1  median 11   one word  0.3%
+AND THAT 29.2% IS NOT WHAT IT LOOKS LIKE. The real-speech corpus is dialogue-act
+tagged, and 36,107 of its 58,391 one-word turns are tagged BACKCHANNEL: not
+answers, just the noises a listener makes (uh-huh, yeah, right). Quoting 29.2% as
+"how often people answer in one word" would have been another broken ruler.
+SO I BUILT THE TIGHT ONE. Every turn tagged a QUESTION, take the next turn by the
+other speaker, throw out backchannels and abandoned turns:
+    REPLIES TO A QUESTION, backchannels excluded    n = 9,087
+        mean 5.5 words, median 3
+        ONE WORD 35.3%    two or fewer 46.4%    three or fewer 53.2%
+THE NUMBER WENT UP, NOT DOWN, WHEN I REMOVED THE THING THAT COULD HAVE INFLATED IT.
+Same measure on the others (the line after any line ending in "?"):
+    answering a question, one word:  REAL 35.3%  FILM 7.5%  GAME 0.8%
+Real speech, then film, then game writing: 35, then 7, then under one. Game
+dialogue is about forty times less likely than a real person to answer in one word.
+AND OUR OWN AFTER-A-QUESTION NUMBER IS NOT REPORTABLE: our quest format does not
+put a question and its answer in one addressable sequence, so that measure found
+only n=14 in our corpus. FOURTEEN IS NOT A RATE AND I AM NOT QUOTING IT AS ONE.
+
+WHY IT LANDS, TWO DIFFERENT REASONS:
+1. LENGTH IS A SIGNAL AND EVERY LISTENER ALREADY READS IT. Preference organisation:
+   a PREFERRED answer comes immediately, plainly, with NO account; a DISPREFERRED
+   one is delayed, prefaced, hedged and wrapped in a REASON. Measured in 329
+   texting exchanges, a reply delayed past a minute was far more likely to be a no,
+   preferred running about 63% to 37%. So a long answer with a reason in it is a no
+   dressed as cooperation, and the player reads it before the words.
+2. IT MAKES THE LISTENER DO THE WORK. Grice's maxim of quantity: say obviously less
+   than the moment needs, ON PURPOSE and visibly, and the listener does not think
+   you erred, they look for what you meant. A ONE-WORD ANSWER IS NOT INFORMATION
+   WITHHELD, IT IS INFORMATION MANUFACTURED IN THE PLAYER'S HEAD, FOR FREE, AND
+   BELIEVED HARDER BECAUSE THEY MADE IT.
+
+TWO KINDS, BOTH STRONG:
+    THE ALIGNED ONE  immediate, plain, no account. The shortness IS the yes.
+    THE SLAP         a refusal in preferred format. "No." with no reason is a
+                     refusal to give you the courtesy of a reason.
+Our own five split across both. "Once." is a fact with nothing around it. "Maybe."
+is a door closing politely. "And?" is the slap, and it is the best short line we own.
+
+*** AND Q14 IS BLOCKED BY Q11. A one-word answer is exactly the line that cannot
+survive a dead face. "Fine." with a face is six sentences; without one it is a bug
+report. Q11 measured 94.5% of our lines delivered by a flat brow. THE FIX FOR BOTH
+IS THE SAME ONE-LINE WIRE: pass the mood tag that is already in the shipped data.
+The bank carries the test case: the identical word "Fine." six ways. ***
+
+THE SPEC: the target is NOT 35% (that is strangers on a telephone with nothing at
+stake). The reachable target is film's 7.5%, about 125 of our lines instead of 5.
+The short answer goes on the HARDEST question, not the easiest, which is backwards
+from instinct and is the whole trick. Never two in a row from one mouth unless the
+person is refusing the conversation, in which case that IS the scene. One word is
+one beat at 120 BPM (Q4), the only line shape in this game that fits inside a beat.
+
+ROUTED OUT OF THIS ROUND:
+- CHARACTER: same wire as Q11, now with two rounds behind it.
+- UI: SEVENTH round asking for one beat of hold before a line. On a one-word answer
+  the pause carries half the meaning.
+- QUESTS: our format does not pair a question with its answer addressably, which is
+  why the after-a-question measure found fourteen lines. An observation, not an ask.
+- WORDS, held until MODE: BUILD: ANSWER-IN-ONE-WORD. From 5 lines toward film's
+  7.5%, shortest answers on the hardest questions.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER (Q11, Q14): facePerform is called with {} while 229 mood tags sit in
+  the shipped demo. A wire, not a feature. Two rounds now depend on it.
+- PEOPLE (Q12): the naming engine is correct and unused; no name is ever spoken.
+- PEOPLE (Q13): the line picker takes the clout tag and drops the hop count.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q15 [feed voice], the last research row before the held build rows. How the
+city-screen feed talks without reading like a press release.
+
 EYES AND EARS (eyes-5vql33): 9/5 (f) LATEST -- *** E6 [walk tells] SHIPPED. 105 clips read
 off the real pose functions in all eight directions. THE GOOD NEWS IS MEASURED: every clip
 that is a CYCLE closes cleanly, and all 105 sit on a 2 or 4 beat count, so the 120 BPM law
@@ -192,7 +321,7 @@ mark it SHIPPED, rather than inventing callers for moments that do not exist.
 
 SOUND (sound-xk7pjp): 9/5 (f) -- *** THE DESERT WAS PLAYING A SUBURBAN
 
-WORDS (words-8dqrnq): 9/5 (j) LATEST -- *** VAMILY Q13 [rumours spread] SHIPPED. WE
+WORDS (words-8dqrnq): 9/5 (j) -- *** VAMILY Q13 [rumours spread] SHIPPED. WE
 ALREADY HAVE A REAL RUMOUR ENGINE. IN 1,669 LINES IT HAS PASSED ON NEWS ABOUT
 SOMEBODY OTHER THAN THE PLAYER EXACTLY ONCE, AND IT HAS NEVER ONCE BEEN WRONG. ***
 Nothing to judge, MODE: RESEARCH, nothing entered the game.
