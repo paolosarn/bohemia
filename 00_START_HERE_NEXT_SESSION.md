@@ -1,3 +1,121 @@
+WORDS (words-8dqrnq): 9/5 (i) LATEST -- *** VAMILY Q12 [naming people] SHIPPED. NOT ONE
+PROPER NAME IS SPOKEN ANYWHERE IN THIS GAME. 57 PEOPLE TALK ACROSS 27 QUESTS AND EVERY
+ONE OF THEM IS A JOB TITLE. *** Nothing to judge, MODE: RESEARCH, nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q12 [naming people], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q12_NAMES_AND_NICKNAMES_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q12, all draft:true.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+THE MEASUREMENT:
+    57 distinct speakers across 27 quests, the scenes and the asking module.
+    NAMES: 0. Every one is a job title, a family word, or a placeholder.
+    keeper 43  watch 27  sergeant 21  lineman 20  neighbor 20  hauler 20
+    worker 20  scav 19   clerk 18     voice 17    mother 17    owner 16 ...
+Searched all 1,669 NPC lines for a capitalised word in mid-sentence position:
+    4 candidates. Reading all four: "Sorry" x3 and "Tonight". ZERO real names.
+NOBODY EVER SAYS ANYBODY'S NAME. NOBODY EVER SAYS A PLACE'S NAME.
+
+And against this lane's three-corpus vocative measure (trusted only because the
+corpora agree):
+    lines that address the person they are talking to
+    FILM 22.8%   KOTOR 23.9%   REAL SPEECH 31.4%   BOHEMIA 1.0%
+Our 1.0% is 16 lines and I read all 16. Every one uses an address NOUN, never a
+name: man 5, friend 3, boss 2, then hermano, kid, mijo, mija, hombre, compa.
+WE ARE 20 TO 30 TIMES BELOW EVERY CORPUS AND THE ENTIRE SHORTFALL IS NAMES.
+
+THE PART THAT STINGS: THE ENGINE ALREADY DOES THIS PROPERLY.
+engine/bohemia_people.js has GIVEN (64 first names, deliberately mixed), SURNAME
+(48), nameOf() which returns NULL for a stranger whatever pool exists, headingOf()
+falling back to the trade until the player has asked, and addressOf() owning the
+grammar ("TALK TO THE SCAVENGER" but "TALK TO RUBEN"). Its header carries the law
+in its own words: "A NAME IS EARNED, NEVER GIVEN."
+THE NAMES LIVE ON BUTTONS AND NEVER IN A MOUTH. Naming in Bohemia is an INTERFACE
+fact, not a social fact: the machine will label somebody Ruben and no human being
+in the valley will ever call him that.
+Same for places: districts are TYPES (mountain, desert, strip, mall, downtown,
+suburb) and the landmark kit says "apron", "service drive", "exhibit hall". There
+is not one proper place name a player can hear.
+
+THE REAL RECORD, TWO BODIES, ONE RULE:
+- MEXICAN APODOS: nearly everybody has one, from a neighbour to the taco vendor.
+  Physically descriptive, derogatory on the surface, affectionate underneath
+  (la larga, la chaparra, el prieto, la flaca). Why they matter, and this is the
+  line to steal: AN APODO PROVES SOMEBODY LOOKED AT YOU LONG ENOUGH TO SEE YOU.
+- GANG AND PRISON MONIKERS: 87 gang-affiliated inmates, almost TWO THIRDS of
+  nicknames referred to BEHAVIOURAL characteristics, 76% acquired before
+  incarceration, 66 of 87 liked theirs. ALWAYS given by fellow members, RARELY
+  negative. Three distinct categories: ALIAS (conceals), NICKNAME (what the people
+  around you call you), MONIKER (known only inside one world).
+- THE INVARIANT: YOU CANNOT GIVE YOURSELF ONE. A name you picked yourself is not a
+  name, it is a claim. Our engine already says this; the world says it twice, once
+  affectionate and once criminal.
+- PLACES: critical toponymy finds communities naming for a person, an event or a
+  feature, and colonial Singapore ran a whole INFORMAL naming layer parallel to the
+  official signs. For a collapsed Vegas: the official name is on a rusted sign
+  nobody reads, the real name is what happened there, and which one you use says
+  which world you came from.
+
+THE BEST GAME ON THIS EXACT QUESTION, AND IT IS OUR INVERSE:
+RETURN OF THE OBRA DINN is a whole game about learning who sixty people are. THE
+MOUTHS DO THE NAMING (crew address and argue with each other by name in the
+memories) AND THE BOOK ONLY RECORDS (the photo sharpens as evidence accumulates,
+the manifest lists nationality, identities confirm in batches of three so a guess
+is never free). WE BUILT THE LOGBOOK AND SKIPPED THE MEMORIES. Our nameOf() is the
+manifest; our quests are the memories, and in ours nobody addresses anybody.
+
+ROUTED OUT OF THIS ROUND:
+- PEOPLE: the naming engine is correct and unused. Two things it lacks: an APODO
+  layer (a conferred nickname distinct from the given name) and a way for a name to
+  enter play through a MOUTH rather than a button. Both are pools, both replaceable,
+  exactly like GIVEN and SURNAME.
+- WORLD / CITY: places are types, not names. A vernacular layer over the official
+  one costs nothing and is how a real collapsed city talks about itself.
+- UI: Obra Dinn's lesson. The interface should RECORD a name the player heard, never
+  hand one over.
+- WORDS, held until MODE: BUILD: SAY-THE-NAME. Raise the address rate off 1.0%
+  toward the 22.8% floor, with third-person mentions doing most of the work.
+
+THE LAW I DID NOT BREAK, STATED SO THE NEXT SESSION DOES NOT: KNOWN_AT_START and
+LINES ship EMPTY and people_gate.js goes red if either gains a row. Every name in
+the Q12 bank is either drawn from the engine's OWN generated pool or left blank.
+THEY ARE SHAPES, NOT PEOPLE. The mechanism is mine, the cast is Paolo's, and
+nothing in that bank may become canon by being shipped.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- UI has now been asked SIX rounds running to hold one beat before a line.
+- CHARACTER (from Q11): facePerform is called with {} while 229 mood tags sit in
+  the shipped demo. That is a wire, not a feature.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+    (people_gate run separately; it is a slow one)
+
+NEXT: Q13 [rumours spread], and it is the direct sequel to this round. A rumour
+cannot travel without a name to travel about.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -607,7 +725,7 @@ FILES
    (crouch-aim-1h/2h, cover-fire, take-cover, shiv-jab, bat-arc, spear-drive). Worth
    asking whether COMBAT wants them before this lane spends a turn on them.
 
-WORDS (words-8dqrnq): 9/5 (h) LATEST -- *** VAMILY Q11 [face carries] SHIPPED. 94.5% OF
+WORDS (words-8dqrnq): 9/5 (h) -- *** VAMILY Q11 [face carries] SHIPPED. 94.5% OF
 EVERY LINE IN THIS GAME IS DELIVERED BY A FLAT FACE, AND THE MOOD IT NEEDS IS ALREADY
 SITTING IN THE SHIPPED DEMO ON 229 LINES WITH NO WIRE TO IT. *** Nothing to judge,
 MODE: RESEARCH, nothing entered the game.

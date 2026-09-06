@@ -660,3 +660,85 @@ BROTHER  Pass the salt.                                                [time off
 # he said angrily / she looked away sadly / his face fell / with a tired smile /
 # eyes narrowing / voice shaking.
 # The tag does it, the face does it, and the sentence does not say it twice.
+
+## Q12 -- NAMES AND NICKNAMES  (9/5/26)
+# The finding: 57 people talk across 27 quests and every one is a job title. Zero
+# proper names are spoken in 1,669 lines. Our address rate is 1.0% against FILM
+# 22.8%, KOTOR 23.9%, REAL SPEECH 31.4%, and the entire shortfall is names. The
+# engine already has 64 given names, 48 surnames and the law "A NAME IS EARNED,
+# NEVER GIVEN"; the names live on buttons and never in a mouth.
+#
+# *** THE CAST IS PAOLO'S AND NOTHING HERE IS CANON. KNOWN_AT_START and LINES ship
+# EMPTY and people_gate.js goes red if either gains a row. Every name below is
+# either drawn from the engine's OWN generated pool or left as a blank. These are
+# SHAPES, not people. ***
+#
+# THE RULES EVERY LINE OBEYS:
+# 1. Nobody ever names themselves. A name is conferred or it is a claim.
+# 2. A third-person mention is worth more than a direct address: the player meets
+#    somebody before they meet them.
+# 3. An apodo is a physical fact, a relationship and a temperature in two words.
+# 4. A place is named for what happened there, never for what type it is.
+
+### THE THIRD-PERSON MENTION, WHICH DOES MOST OF THE WORK   draft:true
+# The player has not met this person. By the second mention they have.
+  Ask Ruben. He's the one who put the pad in, and he'll tell you it's a tile.
+  That's not my line. That's Marisol's line and she'll say so at some volume.
+  Delroy did the corner tap. Delroy does most things and gets asked for none of it.
+  The tank belongs to a man called Amos. Nobody has seen Amos in two years.
+  Whoever's up there, Consuelo pays them and Consuelo doesn't discuss it.
+# NOTE: names taken from the engine's existing GIVEN pool. Illustrative, not canon.
+
+### THE APODO. Two words, and you know a face, a relationship and a temperature. draft:true
+# Real apodos are physically descriptive, derogatory on the surface, affectionate
+# underneath, and always given by somebody else. They prove somebody looked.
+  El Flaco runs the far pump. He's not thin any more and nobody's changing it.
+  They call her La Guera. She's darker than me. Ask her about it, don't ask me.
+  Everybody calls him Tuesday. He came on a Wednesday. That's the whole joke.
+  We call him El Ingeniero and he has never engineered anything in his life.
+  She's Media Casa. Half a house. You'll understand when you see the house.
+  They call him Uno. He asks for one of everything, every time, for nine years.
+# Not one of these is the person's name. Every one is somebody else's opinion,
+# stuck to a person and outliving the reason.
+
+### THE MONIKER, THE NICKNAME AND THE ALIAS ARE THREE DIFFERENT THINGS   draft:true
+# The literature separates them and so should we: an ALIAS conceals, a NICKNAME is
+# what the people around you call you, a MONIKER is known only inside one world.
+# WHICH ONE A STRANGER USES TELLS YOU WHERE THEY CAME FROM.
+  HIS BLOCK USES  Chava. That's what his mother calls him and she started it.
+  HIS CREW USES   The Meter. Don't call him that where his mother can hear it.
+  A STRANGER USES He gave me a name at the gate. It wasn't either of those.
+# And the tell:
+  Anybody who tells you their own nickname picked it themselves, and a name you
+  picked yourself is not a name. It's a claim.
+
+### NOBODY NAMES THEMSELVES. THE INTRODUCTION, DONE FOUR WAYS   draft:true
+  DEFLECT   People round here call me the keeper. That'll do.
+  EARNED    She told you my name? Then I suppose you can use it.
+  REFUSED   You don't need it. You need the pump on.
+  DANGEROUS They call me El Rey. (Nobody has ever called him that.)
+# Only the second one gives the player a name, and it costs the player a
+# relationship with somebody else to get it. That is the earned-name law in a line.
+
+### A PLACE IS NAMED FOR WHAT HAPPENED THERE   draft:true
+# Our districts are TYPES: mountain, desert, strip, mall, downtown, suburb. Real
+# communities name for a person, an event, or a feature, and they run that layer
+# in PARALLEL with the official signs nobody reads.
+  OFFICIAL   the industrial block off the arterial
+  WHAT THEY  the lit street          (it has never gone dark and nobody knows why)
+  SAY        the dry side            (the mains stopped there first)
+             Amos's tank             (Amos is gone, the tank is not)
+             the clapping corner     (something happened there once, everybody saw)
+             three hundred           (what the water cost there, one bad month)
+             the short block          (it is not short)
+# "The lit street" is ALREADY in our build, in somebody's mouth, and it is the best
+# place name in the game. Nobody planned it. That is the proof the register works.
+
+### AND THE PLAYER LEARNS WHO IS WHO WITHOUT BEING TOLD   draft:true
+# Obra Dinn's rule: the mouths name people, the notebook only records. So the same
+# person should arrive in the player's head three times before they meet him.
+  ONE    Somebody's been drawing off that line for years.
+  TWO    It's the man with the blue tank. Everybody knows and nobody says.
+  THREE  Amos. Say it out loud or don't say it, but that's who it is.
+  MEET   You've heard of me, then. That's usually the bad half.
+# Four lines, and the player worked it out instead of being handed it.
