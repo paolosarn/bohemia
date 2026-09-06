@@ -5082,64 +5082,85 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/6 LATEST -- *** THE BORDER WEARS ITS COLOUR WHERE HE WALKS. Stand
-on the edge of a faction's ground and the wall beside you now carries that faction's own
-colour. 78% of the border reaches; the suburb is the other 22% and is round 2. TAB: CITY,
-walking. Nothing to judge. ***
+COOK (cook-mce6r5): 9/6 LATEST -- *** THE BORDER WEARS ITS COLOUR, AND THE SUBURB WALL
+WEARS IT TOO. Walk to the edge of a faction's ground and the block wall beside you carries
+that faction's colour; two streets in it is a plain wall again. [border marked] SHIPPED in
+two rounds. TAB: CITY, walking. Nothing to judge. ***
 
-THE JOB: [border marked] THE-BORDER-WEARS-ITS-COLOUR, CLAIMED, CONTINUING. Round 1 of 2.
-Both dependencies landed first and neither of them is this: FACTIONS [who holds] (8bf3a91)
-made the border REAL (100% of the places two owners meet run along a road, a rail line, a
-wash or a mountain), FACTIONS [colours fixed] (0160c71) made the colour REACHABLE, and UI
-[owner shown] painted it ON THE MAP. A MAP IS NOT WHERE HE WALKS.
+THE JOB WAS [border marked] THE-BORDER-WEARS-ITS-COLOUR. Both dependencies landed first and
+neither was this: FACTIONS [who holds] (8bf3a91) made the border REAL, FACTIONS
+[colours fixed] (0160c71) made the colour REACHABLE, UI [owner shown] painted it ON THE MAP.
+A MAP IS NOT WHERE HE WALKS.
 
 THE REFERENCE CHECK (the 9/4 standing duty, done before any pixel): police-intelligence
 write-ups on gang boundary graffiti -- policemag.com, police1.com, the ASU Center for
-Problem-Oriented Policing, gangenforcement.com. TAKEN: (1) a boundary mark is a
-NO-TRESPASSING SIGN AIMED AT THE OTHER SIDE, so it is the holder's colour on the holder's
-edge facing out; (2) the places named are "main thoroughfares, underpasses, and walls
-bordering rival territories", WHICH IS THE ROW'S OWN LIST arrived at independently;
-(3) "large and plain surfaces are preferred, without windows or doors"; (4) a mark is a
-NAME OR SYMBOL repeated along the boundary, NOT a wash of colour. NOT TAKEN: the
-crossing-out vocabulary (a rival's mark struck through, both claims where they meet) --
-that needs the contested edge as a PAIR rather than a cell, and it is named as next rather
-than half-built. STYLE FROM US: the hue is HIS, measured off his wardrobe and never picked
-here, and the mark is thin -- a 3 px band on a 44 px face.
+Problem-Oriented Policing, gangenforcement.com. TAKEN: a boundary mark is a NO-TRESPASSING
+SIGN AIMED AT THE OTHER SIDE, so it is the holder's colour on the holder's edge facing out;
+the places named are "main thoroughfares, underpasses, and walls bordering rival
+territories", WHICH IS THE ROW'S OWN LIST arrived at independently; "large and plain
+surfaces are preferred, without windows or doors"; and a mark is a NAME OR SYMBOL repeated
+along the boundary, NOT a wash of colour. NOT TAKEN: the crossing-out vocabulary (a rival's
+mark struck through, both claims where they meet) -- it needs the contested edge as a PAIR
+rather than a cell, and it is named as next rather than half-built. STYLE FROM US: the hue
+is HIS, measured off his wardrobe and never picked here; the mark is thin, a 3 px band on a
+44 px face.
 
-WHAT SHIPPED, in three places: bohBorderInk() beside the turf cache (the map's copy lifts
-value AND saturation hard and is right to, because an overmap is drawn at night; A WALL IS
-NOT A MAP, so this keeps his value and lifts only saturation, and a drab faction keeps its
-drab); the tile builder sets c.turfMark on a plain wall or fence face in the band of a
-border cell that FACES THE RIVAL; the structure draw paints it on the wall and under the
-edge lines, so the shadow at the foot still falls across it.
+ROUND 1 built it and MEASURED that it reached 78% of the border: 346 of 446 sampled border
+cells carry a district kit legend, 100 do not (99 suburb, 1 gated). ROUND 2 closed that.
+The parametric suburb's v===4 branch IS the block perimeter wall and has been since 7/27
+-- its own pool, its own thirteen approved keys, its own height, its own law that perimeter
+and building walls never share a pool. Nothing needed identifying; it just sat on a path the
+kit-legend test could not see. Suburb border cells went 0 -> 135 and 0 -> 76 marks.
 
-MEASURED ON THE REAL SURFACE, AND IT CORRECTED ME FOUR TIMES
-(tools/bohemia_border_paint_probe_9_6_26.js, the alpha's RUN tab, the frame he is inside):
-  1. THE FIRST CUT PAINTED THE WHOLE NEIGHBOURHOOD. Any plain wall anywhere in a border
-     cell, one in three -- and an overmap cell is 128 x 128 walked tiles, so that is ten
-     marks per 16,384 cells, scattered mid-block saying nothing. Now: the eighth of the
-     cell that touches the rival, on that side only, one face in two.
-  2. THE FIRST PROBE REPORTED ZERO OF EVERYTHING ON A WORKING BUILD. It asked tileMeta for
-     cells; tileMeta returns kit CODES and no cells. cellAt() is what a walk calls.
-  3. THE FILTER TESTED THE KIND, AND THE KIND IS NOT WHAT EVERY DISTRICT AGREES ON. The
-     city's legend calls code 4 kind:'fence'; a district KIT writes its own. The apartment
-     kit's 756 fences are kind:'structure' name:'fence'. Testing the kind found the solar
-     farm and missed everywhere anybody lives. THE NAME is what every kit agrees on.
-  4. AND THE SAMPLE ONLY SAW THE RIM -- twelve border cells in scan order are all solar,
-     freeway and mountain. Spread across the valley now.
+AND THE TEST WAS FACTORED OUT RATHER THAN COPIED. Round 1 inlined the per-tile turf memo in
+the kit branch; a second copy in the suburb branch is what REUSE-FIRST exists to stop, and
+this file has fixed that same bug under six names. One function now (bohTurfEdgeOf /
+bohBorderMark), memoised on the tile, both call sites three lines. The cook REFUSES TO WRITE
+ITSELF if the turf test ends up in the file more than once.
 
-WHAT IT DOES: marks land on border cells in the holder's measured colour; ZERO on interior
-cells (checked, and it is the point); ZERO on the 605-1290 rock faces of a mountain border
-cell (nobody sprays a cliff); 64, 8 and 3 marks on freeway cells, which is the sound wall
-and the fence along the thoroughfare -- the reference's first named place.
+AND ROUND 2 COST 30 POINTS OF THE BEAT BEFORE IT COST NOTHING. The first cut asked the
+turf question BEFORE the arithmetic ones, for every perimeter-wall cell in the district the
+player spawns in. Four interleaved phone-beat runs, same machine: 42.9% and 51.7% of beats
+late WITHOUT it, 77.1% and 77.4% WITH -- non-overlapping, and THE GATE'S EXIT CODE WAS 0
+BOTH TIMES, so nothing would have stopped it shipping except measuring it. The turf answer
+was never the cost: instrumented on a real boot, only 2 tiles in 144 ever carry the memo.
+The cost was ASKING AT ALL, millions of times. The hash and the position test are pure
+arithmetic and go first now, and the CALL is skipped rather than shortened: 47.1% (541 ms),
+back inside the baseline band, with the suburb marks unchanged at 135 and 76.
 
-*** WHAT IS NOT DONE, AND IT IS 22% OF THE BORDER *** The mark rides the DISTRICT KIT path,
-which needs a kit legend to tell a fence from a window. Measured over every 7th border cell
-in the valley: 346 of 446 have a kit legend and are reached; 100 of 446 are drawn the older
-PARAMETRIC way and carry no legend -- 99 suburb, 1 gated. So the suburb, where most people
-live and where garden walls actually are, is not painted yet. Round 2 is exactly that: the
-parametric suburb path sets c.s and c.face without ever building a legend entry, so the
-branch this mark lives on never sees it.
+MEASURING CORRECTED ME SIX TIMES ACROSS THE TWO ROUNDS, all written into the record:
+the first cut painted whole neighbourhoods (an overmap cell is 128 x 128 walked tiles, so
+one-in-three anywhere is ten marks per 16,384 cells, mid-block, saying nothing); the first
+probe reported zero of everything on a working build (it asked tileMeta for cells; tileMeta
+returns kit CODES, and cellAt() is what a walk calls); the filter tested the KIND when a
+district KIT writes its own legend (the apartment kit's 756 fences are kind:'structure'
+name:'fence', so testing the kind found the solar farm and missed everywhere anybody
+lives -- THE NAME is what every kit agrees on); the sample only saw the valley rim; and the
+turf lookup was asked per cell instead of once per tile.
+
+THE ROW'S THIRD WORD, "THE UNDERPASS", IS ANSWERED AND NOT QUIETLY DROPPED: there is no
+underpass WALL in this build. An underpass here is a grade-separated crossing where an
+arterial meets a freeway (his 7/5 ruling, bohemia_overmap.js) and a two-lane street
+generator -- a road under a road, not a wall kind with a legend. The vertical surfaces at
+those crossings are freeway structures and take the same rule as any other structure there,
+which is why the freeway border cells paint (64, 8 and 3 marks).
+
+WHAT IS STILL UNPAINTED IS NOT A GAP IN THE RULE: nine of sixteen sampled border cells have
+NO wall face in the band at all -- arterial, desert, mountain. That is FACTIONS' design
+working: every border runs along a road, a rail line, a wash or a mountain, and most of
+those have nothing standing on them. Painting there would mean inventing a wall. The
+mountain cells carry 605-1290 rock faces and take zero marks: nobody sprays a cliff.
+
+[EYES BOUNCED BACK A ROW AND ITS PREMISE IS THE ONE I ALREADY DISPROVED] The board now
+carries [eyes: light drift] repeating E7's ten-tiles-lit-wrong finding verbatim, directly
+under COOK's own SHIPPED line (b5b877c) that measured it three ways and found NONE of the
+ten lit from the wrong corner. It contains no counter-measurement -- it looks re-added from
+the E7 record rather than written against the result. gates/light_agrees_gate.js is
+registered, green, and self-tests its own ruler both ways every run. DO NOT SPEND A ROUND
+"FIXING THE TEN": read records/BOHEMIA_THE_TEN_TILES_ARE_NOT_LIT_WRONG_9_6_26.md first. The
+SECOND half of that line is new and is NOT mine -- the re-cook's median 0.16x colour density
+against the approved set was routed by E7 itself to DIRECTION, and two independent
+instruments now point at it, so it wants a ruling and not a quiet cook.
 
 [PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (from
   [runway hair]). All eleven survivors are black, brown or sand and a worn hair garment
@@ -5147,28 +5168,27 @@ branch this mark lives on never sees it.
   lost their grey. Leave them dark, cook grey colourways, or unblock fresh hair shapes.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
 [FOR DIRECTION] the style card has NO HAIR SECTION and its cloth bands must not be applied
-  to hair (cloth_sat_max 0.25 fails H_BRN at 0.54 and H_SND at 0.47 and would grey every
-  head in the valley). Also: the card's POLE A/POLE B shoulder-span number is unmeetable by
-  any dressed sprite.
+  to hair; the card's POLE A/POLE B shoulder-span number is unmeetable by any dressed
+  sprite; and E7's colour-density finding above is yours.
 [FOR EYES AND EARS] tools/bohemia_eyes_reference_score.py, key_light(): mask to alpha > 0
-  and return "undecided" under about a tenth of the tile's own standard deviation. The
-  fixed ruler is in gates/light_agrees_gate.js if it is easier to lift than to rewrite.
-[FOR THE PLUMBER] look_gate clocks pictures by FILE MTIME (proven on unchanged
-  origin/main); city_cast_gate B6 is flaky (3 red of 4 runs on unchanged main, and it is
-  red on this round too for the same reason); bohemia_gates.py --fast is documented
-  "~2s vs ~4min" and ran 34 minutes without finishing.
+  and return "undecided" under about a tenth of the tile's own standard deviation.
+[FOR THE PLUMBER] look_gate clocks pictures by FILE MTIME; city_cast_gate B6 is flaky
+  (3 red of 4 runs on unchanged main); bohemia_gates.py --fast is documented "~2s vs ~4min"
+  and ran 34 minutes without finishing.
 
-FILES  tools/bohemia_border_wears_its_colour_9_6_26.py (the cook, three exact-once
-substitutions), tools/bohemia_border_paint_probe_9_6_26.js (the measurement),
-records/BOHEMIA_THE_BORDER_WEARS_ITS_COLOUR_9_6_26.md. Previous rounds:
-gates/light_agrees_gate.js, gates/hair_eight_facings_gate.js, gates/hair_graveyard_gate.js.
+FILES  tools/bohemia_border_wears_its_colour_9_6_26.py (round 1),
+tools/bohemia_border_the_suburb_wall_9_6_26.py (round 2, and it refactors round 1 rather
+than copying it), tools/bohemia_border_paint_probe_9_6_26.js (the measurement),
+records/BOHEMIA_THE_BORDER_WEARS_ITS_COLOUR_9_6_26.md and
+records/BOHEMIA_AND_THE_SUBURB_WALL_WEARS_IT_TOO_9_6_26.md.
 
-*** WHAT COMES NEXT *** [border marked] round 2: the suburb. Find where the parametric
-suburb path sets c.s and c.face for a perimeter wall or side fence, and give the same
-c.turfMark to a border cell's rival-facing band there. The mechanism is built and proven;
-what is missing is that one path cannot name its own tiles. Re-run the probe after -- the
-number to move is "346 of 446 reached" toward 446, and the suburb rows in the per-cell
-table from 0 marks to some.
+*** WHAT COMES NEXT *** The first OPEN line in COOK is [combat ground] COMBAT-GROUND-TILES
+-- the combat floor tile at 1.5 to 2 sprite-widths on the 45-degree corpus: house, yard,
+street, lot, cover that reads, and a house with a backyard spanning 1x2 (the 9/4 tile law).
+COOK already shipped the reference for it: reference/library/tile-ground/ (7 entries, the
+1x2 house-and-yard ruling checked against real Vegas lot numbers) and
+reference/library/combat-ground/. Claim the line before starting. If [eyes: light drift] is
+still OPEN, answer it from the record above rather than re-doing the measurement.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM

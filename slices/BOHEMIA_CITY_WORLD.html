@@ -27831,6 +27831,57 @@ function bohBorderInk(who){
   }catch(_e){}
   BOH_INK_CACHE[who]=out; return out;
 }
+/* __THE_BORDER_WEARS_ITS_COLOUR__ ROUND 2 (COOK, 9/6) -- ONE ANSWER TO "IS THIS TILE ON A
+   BORDER, AND WHICH SIDE", ASKED ONCE PER TILE AND SHARED BY EVERY DRAW PATH.
+   Round 1 inlined this in the district-kit branch, which was fine until the suburb needed
+   it too: the suburb is drawn the older parametric way, carries no kit legend, and is 22%
+   of the border. A second copy is what REUSE-FIRST exists to stop and the two would drift
+   the first time either was touched. Memoised on the tile's own meta object, which is the
+   cache the rest of the builder already reads, so a hot chunk asks the turf grid once
+   instead of sixteen thousand times. */
+function bohTurfEdgeOf(m, tx, ty, fn){
+  if(m.__tm!==undefined) return m.__tm;
+  m.__tm=null;
+  try{
+    var _tg=(typeof turfGrid==='function')?turfGrid():null;
+    if(_tg&&_tg.own&&_tg.n){
+      var _n=_tg.n, _me=_tg.own[ty*_n+tx], _o=_tg.own;
+      if(_me){
+        m.__tm={ who:_me, ink:bohBorderInk(_me), band:Math.max(4,fn>>3),
+          W:!!(tx>0    && _o[ty*_n+tx-1]   && _o[ty*_n+tx-1]!==_me),
+          E:!!(tx<_n-1 && _o[ty*_n+tx+1]   && _o[ty*_n+tx+1]!==_me),
+          N:!!(ty>0    && _o[(ty-1)*_n+tx] && _o[(ty-1)*_n+tx]!==_me),
+          S:!!(ty<_n-1 && _o[(ty+1)*_n+tx] && _o[(ty+1)*_n+tx]!==_me) };
+        if(!m.__tm.ink||!(m.__tm.W||m.__tm.E||m.__tm.N||m.__tm.S)) m.__tm=null;
+      }
+    }
+  }catch(_e){}
+  return m.__tm;
+}
+/* AND THE ONE PLACE THAT DECIDES WHETHER A GIVEN CELL IS IN THE BAND FACING THE RIVAL.
+   *** THE CHEAP TESTS COME FIRST, AND MEASURING IS WHY. *** The first cut of round 2 asked
+   the turf question before the arithmetic ones, and called this for every perimeter-wall
+   cell in every suburb tile. MEASURED on the real surface, four interleaved runs of the
+   phone-beat gate on the same machine: 42.9% and 51.7% of beats late WITHOUT it, 77.1% and
+   77.4% WITH -- non-overlapping, and it is the beat, which is a pillar. The turf answer
+   itself was never the cost (only 2 tiles in 144 ever carry the memo on a boot); the cost
+   is asking at all, millions of times, on the district the player spawns in.
+   So: the HASH rejects half and the POSITION rejects the interior of the tile, both pure
+   arithmetic with no lookup, before anything asks who owns the ground. BOH_BORDER_NEAR is
+   the pre-test the call sites use so the call itself is skipped, not just shortened. */
+function bohBorderNear(lx, ly, fn){
+  var b=fn>>3;
+  return lx<b||lx>=fn-b||ly<b||ly>=fn-b;
+}
+function bohBorderMark(m, tx, ty, lx, ly, gx, gy, fn){
+  if(((Math.imul(gx,2654435761)^Math.imul(gy,246822507))>>>0)%2!==0) return null;
+  if(!bohBorderNear(lx,ly,fn)) return null;
+  var t=bohTurfEdgeOf(m,tx,ty,fn); if(!t) return null;
+  var b=t.band;
+  if(!((lx<b&&t.W)||(lx>=fn-b&&t.E)||(ly<b&&t.N)||(ly>=fn-b&&t.S))) return null;
+  return { ink:t.ink, who:t.who,
+           v:((Math.imul(gx,374761393)^Math.imul(gy,668265263))>>>0)%3 };
+}
 var TURF_MAP=null, TURF_MAP_KEY=null;
 function turfGrid(){
   var k=seed+':'+((om&&om.n)|0);
@@ -32385,37 +32436,9 @@ function realizeCell(gx,gy){
                     && _bnm.indexOf('window')<0 && _bnm.indexOf('door')<0
                     && _bnm.indexOf('gate')<0 && _bnm.indexOf('garage')<0
                     && _bnm.indexOf('retaining')<0 && _bnm.indexOf('sea')<0;
-          if(_plain && ((Math.imul(gx,2654435761)^Math.imul(gy,246822507))>>>0)%2===0){
-            /* ASKED ONCE PER TILE, NOT ONCE PER CELL. Whether this overmap cell touches a
-               different owner is a fact about the TILE, and a tile is 16,384 cells. The
-               answer rides on the tile's own meta object, which is already the cache the
-               rest of this builder reads, so a hot chunk asks the turf grid once instead
-               of sixteen thousand times. */
-            if(m.__tm===undefined){
-              m.__tm=null;
-              try{
-                var _tg2=(typeof turfGrid==='function')?turfGrid():null;
-                if(_tg2&&_tg2.own&&_tg2.n){
-                  var _tn2=_tg2.n, _me=_tg2.own[ty*_tn2+tx];
-                  if(_me){
-                    var _o=_tg2.own;
-                    m.__tm={ who:_me, ink:bohBorderInk(_me), band:Math.max(4,FN>>3),
-                      W:!!(tx>0      && _o[ty*_tn2+tx-1]     && _o[ty*_tn2+tx-1]!==_me),
-                      E:!!(tx<_tn2-1 && _o[ty*_tn2+tx+1]     && _o[ty*_tn2+tx+1]!==_me),
-                      N:!!(ty>0      && _o[(ty-1)*_tn2+tx]   && _o[(ty-1)*_tn2+tx]!==_me),
-                      S:!!(ty<_tn2-1 && _o[(ty+1)*_tn2+tx]   && _o[(ty+1)*_tn2+tx]!==_me) };
-                    if(!m.__tm.ink||!(m.__tm.W||m.__tm.E||m.__tm.N||m.__tm.S)) m.__tm=null;
-                  }
-                }
-              }catch(_e){}
-            }
-            var _tmT=m.__tm;
-            if(_tmT){
-              var _b=_tmT.band;
-              if((lx<_b&&_tmT.W)||(lx>=FN-_b&&_tmT.E)||(ly<_b&&_tmT.N)||(ly>=FN-_b&&_tmT.S))
-                c.turfMark={ink:_tmT.ink, who:_tmT.who,
-                  v:((Math.imul(gx,374761393)^Math.imul(gy,668265263))>>>0)%3};
-            }
+          if(_plain && bohBorderNear(lx,ly,FN)){
+            var _bm=bohBorderMark(m,tx,ty,lx,ly,gx,gy,FN);
+            if(_bm) c.turfMark=_bm;
           }
         }
         /* FRONT DOOR (7/27): never hash a door onto a wall here. Every kit
@@ -32870,6 +32893,22 @@ function realizeCell(gx,gy){
       c.gArtPool='hyard'; c.gArtVariant=bh%3;
     }
     else if(v===4){ c.s='#6a5c44'; c.walk=false;
+      /* __THE_BORDER_WEARS_ITS_COLOUR__ ROUND 2 (COOK, 9/6) -- AND THIS IS THE 22% ROUND 1
+         COULD NOT REACH. Measured then: 346 of 446 sampled border cells carry a district
+         kit legend and the mark can read them; 100 do not, and 99 of those are SUBURB.
+         The suburb is drawn on this older parametric path, so the branch that reads a kit
+         legend to tell a fence from a window never sees it -- and the suburb is where most
+         people live and where a garden wall actually is.
+         NOTHING NEEDED IDENTIFYING. This branch IS the block perimeter wall: its own pool
+         since 7/27, its own thirteen approved keys, its own height, and its own law that
+         perimeter and building walls never share a pool. It is the plainest large surface
+         in the valley, which is the reference's own first rule for where a boundary mark
+         goes. Same band, same rate, same ink, same draw as the kit path -- through the
+         same one function, so the two can never disagree about what a border is. */
+      if(bohBorderNear(lx,ly,FN)){
+        var _bmS=bohBorderMark(m,tx,ty,lx,ly,gx,gy,FN);
+        if(_bmS) c.turfMark=_bmS;
+      }
       /* PERIMETER STANDS (7/27): this was ONE FLAT CELL - a texture lying on the
          ground - while house facades stood three tiles tall, so the only thing
          that looked like a wall in a suburb was the HOUSE wall. Its own bank has

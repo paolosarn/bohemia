@@ -157,10 +157,11 @@ function pw() {
   const dry = R.cells.filter(c => c.faces === 0).length;
   console.log('\n  ' + dry + ' of ' + R.cells.length + ' border cells have NO wall face in the band at all' +
     (dry ? ' -- nothing there to paint' : ''));
-  console.log('\n  HOW MUCH OF THE BORDER THIS CAN REACH (every 7th border cell, ' +
-    (R.kitted + R.bare) + ' sampled):');
-  console.log('    ' + R.kitted + ' have a district kit legend, so the mark can see them');
-  console.log('    ' + R.bare + ' are drawn the older parametric way and carry no legend:');
+  console.log('\n  THE TWO DRAW PATHS (every 7th border cell, ' + (R.kitted + R.bare) +
+    ' sampled). Round 1 reached only the first of these; round 2 reaches both,');
+  console.log('  through one shared border test, so they cannot disagree:');
+  console.log('    ' + R.kitted + ' carry a district kit legend');
+  console.log('    ' + R.bare + ' are drawn the older parametric way and carry none:');
   for (const k of Object.keys(R.bareKinds).sort((a,c)=>R.bareKinds[c]-R.bareKinds[a]))
     console.log('      ' + k.padEnd(14) + R.bareKinds[k]);
   console.log('\n  INTERIOR WALLS PAINTED: ' + R.I.marks + (R.I.marks ? '   <-- WRONG, the mark is the EDGE' : '   (correct: the mark is the edge)'));
