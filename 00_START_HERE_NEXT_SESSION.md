@@ -1,3 +1,127 @@
+WORDS (words-8dqrnq): 9/6 (d) LATEST -- *** Q2 [stressed speech] SCHOOL DONE, ROUND ONE OF
+TWO. THE ROW'S OWN BRIEF NAMES HESITATION FIRST, AND HESITATION IS ON THE MEASURED LIST OF
+THINGS THAT DO NOT INDICATE LYING. We were about to write folklore, and the same folklore,
+dressed as forensic science, has featured in more than a hundred criminal cases. ***
+THE ROW IS CLAIMED, NOT SHIPPED, because round two is owed. No test lines were written.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q2 SCHOOL, ROUND ONE OF TWO. Record:
+    records/BOHEMIA_WORDS_Q2_SCHOOL_THE_HESITATION_IS_A_MYTH_9_6_26.md
+    193 lines. NO test lines. banks/ deliberately untouched.
+Second question taken under the 9/6 mode, one row at a time. The 9/4 record is untouched
+and its path stays in the row.
+
+THE FINDING THAT PROVES US WRONG, WITH NUMBERS. The largest meta-analysis of deception
+cues assessed 158 possible cues:
+    showed NO association with deception       118 of 158  (75%)
+      and that list includes BY NAME:          gaze aversion, postural shifts,
+                                               PAUSES, self-references
+    of the 50 studied five or more times,
+      significantly related                     14  (28%)
+      average effect size of those 14           d = 0.25   (small)
+And how well people actually do, across 206 documents and 24,483 judges:
+    overall 54%    lies caught 47%    truths cleared 61%
+PEOPLE ARE WORSE THAN A COIN AT CATCHING A LIE AND BETTER THAN A COIN AT CLEARING A TRUTH.
+The bias is toward believing, so the realistic scene outcome is that the liar is believed.
+
+WHAT ACTUALLY DIFFERS IS THE OPPOSITE SHAPE. The cues that hold up are CONTENT, not
+manner: fewer details, less coherence, feigned ignorance. A LIAR IS NOT HESITANT, A LIAR IS
+THIN. The 9/4 round would have written a liar who stumbles; the evidence says write one who
+is smooth, gives you nothing, and reaches for not-knowing when pressed. And the modern
+approach follows: the tells appear when you INCREASE cognitive load with questions the liar
+did not anticipate. SO CATCHING A LIAR IS A PROPERTY OF THE QUESTION, NOT OF THE ANSWER,
+which is the same conclusion Q17 reached from the other side.
+
+FILLED PAUSES ARE WORDS AND THE SPEAKER CHOSE THEM. "uh" and "um" are conventional English
+words that speakers plan, formulate and produce; uh announces a short delay, um a longer
+one. A FILLED PAUSE IS NOT A LEAK, IT IS AN ANNOUNCEMENT. A character saying "um" is being
+considerate, holding the floor and warning you the next bit is slow. Writing it as the sound
+of somebody caught is backwards.
+
+STRESS DOES NOT DO WHAT THE ROW ASSUMES, AND MOST OF IT DIES ON THE PAGE. The brief says
+"shortened sentences". Under a standard social stressor the measured result is the reverse:
+HIGHER word productivity, WITH more pausing, the pausing strongest in those with the biggest
+cortisol and heart-rate response. STRESSED PEOPLE TALK MORE AND BREAK MORE AT THE SAME TIME.
+Not clipped. Voluble and broken. And nearly everything else reliably measured under stress
+is ACOUSTIC (an over-one-octave pitch shift in panic, faster tempo), while the row's own
+constraint is "in TEXT with no voice actor", SO MOST OF THE REAL SCIENCE OF SPEECH UNDER
+STRESS IS UNAVAILABLE TO US BY CONSTRUCTION. What survives: where the breaks fall, and the
+word count going UP.
+
+EXHAUSTION IS THE ONE THAT WRITES ITSELF AND NOBODY USES IT. Sleep deprivation gives
+slurring, monotone, slowness, all acoustic and all lost. But one finding is pure page:
+deterioration in word generation and A TENDENCY TO BECOME FIXATED WITHIN A SEMANTIC
+CATEGORY, a perseveration-like difficulty shifting between categories. AN EXHAUSTED PERSON
+GETS STUCK IN ONE FIELD OF WORDS AND CANNOT MOVE OFF IT. Visible in text with no
+performance, specific, measured, and in none of the craft advice I found. THE SINGLE MOST
+USEFUL THING IN THIS SCHOOL ROUND.
+
+*** THE REAL TESTIMONY, AND IT MATTERS BEYOND OUR GAME. In 2006 a police lieutenant wrote a
+master's thesis on 100 homicide-related 911 calls and, with an FBI analyst, published "911
+call analysis" through the FBI's own bulletin: a scheme for deciding if a caller is lying
+from how they speak. Researchers who tried to reproduce it HAVE FAILED. It has featured in
+MORE THAN A HUNDRED CASES ACROSS TWENTY-SIX STATES, some prosecutors used it knowing it
+would not survive as scientific evidence, and prosecutors and judges are now pushing for a
+ban and for conviction reviews. PEOPLE WENT TO PRISON BECAUSE SOMEBODY BELIEVED THAT A
+FRIGHTENED PERSON'S SPEECH REVEALS GUILT. THE DESIGN CONSEQUENCE IS NOT OPTIONAL: if we
+reward the player for catching a liar by manner, we teach a false skill, and it is the
+specific false skill that has ruined real lives. The player must catch a lie by GOING AND
+CHECKING IT. Q17 put an address on every rumour for a different reason; this is the second
+reason and it is a better one. ***
+
+A COLLISION WITH OUR OWN LAW, WORTH NAMING BEFORE ROUND TWO RATHER THAN DURING IT: the
+standard craft tool for an abrupt cut off is the em dash, and the em dash is BANNED in this
+project everywhere, permanently. Round two has to build the cut off out of sentence
+structure instead: a line stopping on an incomplete clause, or the next speaker starting
+mid-thought. And the craft's other channel, stage direction for the face, is unavailable
+until CHARACTER passes the mood argument, because Q11 measured 94.5% of our lines delivered
+by a flat face.
+
+WHAT SCHOOL LEAVES ME HOLDING FOR ROUND TWO:
+    1. a liar is THIN, not shaky
+    2. the lie is caught by the QUESTION, not the manner
+    3. a frightened person says MORE and breaks more while doing it
+    4. an exhausted person gets stuck in ONE SEMANTIC FIELD
+    5. "um" is a courtesy, not a crack
+    6. and we cannot use the dash
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1 has both rounds. Q2 has school. Q3 to Q17 were
+each done in a single round under the old mode and are owed theirs. One at a time; the
+sequencing is the coordinator's.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, and now Q2's craft channel depends on it too). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q2 round two, the writing, naming which of the six findings above changed the lines.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -211,7 +335,7 @@ and all three findings this lane has produced in a row lived in exactly that gap
 NEXT IN THIS LANE: Q19 [price moves].
 
 ================================================================================
-WORDS (words-8dqrnq): 9/6 (c) LATEST -- *** Q1 [telling apart] SHIPPED WITH BOTH ROUNDS,
+WORDS (words-8dqrnq): 9/6 (c) -- *** Q1 [telling apart] SHIPPED WITH BOTH ROUNDS,
 THE FIRST QUESTION IN THIS LANE TO MEET THE 9/6 MODE. School changed the writing: not one
 pair is built on how anybody talks, because 33 words is far below the floor where that
 shows. And 31 of our 37 speakers will answer any question you put to them. ***
