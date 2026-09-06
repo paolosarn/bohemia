@@ -11458,6 +11458,15 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 UI (ui-kmqmrf): 9/5 (g) LATEST -- *** THE SETTINGS SCREEN WAS QUIETLY CHANGING THE
 SOUND OF THE GAME'S OWN TESTS. FOUND AND KILLED BEFORE IT SHIPPED. ***
 
+LANDED ON MAIN AS b0625a24, board marked SHIPPED in 17c8b6d9, pages run 1107
+concluded SUCCESS on 17c8b6d9 and merge-base confirms it carries b0625a24. Build
+stamp 9/5ak (main took ah and aj in flight while this was rebasing -- CHECK THE
+STAMP LETTER AFTER EVERY REBASE, it is a conflict every time). Eight lane gates
+green on the final tree: settings 18/0, menu music 17/0, alpha loads 20/0, demo
+build 25/0, one number 9/0, danger 11/0, feed 15/0, thumb 13/0 -- 128 checks, 0 red.
+The eight-gate audio cluster was compared mine-vs-main pass-for-pass and
+fail-for-fail: identical, so this change added no new red anywhere in sound.
+
 THE BUG, IN PLAIN WORDS. The settings screen looks up the one audio bus every sound
 in the game passes through, and it was doing that on a timer, twice a second, forever.
 The menu-music checker renders a bar of a song by temporarily parking a FAKE bus
