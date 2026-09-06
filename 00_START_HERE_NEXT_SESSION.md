@@ -1,3 +1,82 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 9) LATEST -- *** [light owners]
+NAME-THE-CIRCUIT-OWNER SHIPPED. The row said "needs Paolo" and it did not: the
+blocker had shipped in this lane, and the rest was one sentence in his own file
+that nobody had read. *** Nothing to judge.
+
+VAMILY row: [light owners] NAME-THE-CIRCUIT-OWNER, MODE: BUILD, SHIPPED 9/6.
+Record: records/BOHEMIA_THE_LIGHTS_SAY_WHOSE_THEY_ARE_9_6_26.md
+
+*** THE LESSON, AND IT IS THE SECOND ROW RUNNING. *** Two rows in a row were
+marked "needs Paolo" and neither did. [town sizes] needed a DOOR, not a ruling.
+[light owners] named "who holds what" as its blocker, and who holds what shipped
+in this same lane hours earlier. BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER
+ITS NAMED BLOCKER IS STILL TRUE.
+
+WHAT WAS MEASURED
+204 lit circuits, 42 could name a faction (21%). The other 162 answered with a
+CATEGORY -- settlement 113, network 34, solar_lone 15 -- against Paolo 9/4 LOCKED
+"every part of the valley is owned by a faction".
+
+THE SENTENCE NOBODY HAD READ
+bohemia_powergrid.js said naming the `network` circuits was "A GUESS ABOUT HIS
+CANON, NOT A READING OF IT". bohemia_belonging.js, the NETWORK rule, his words:
+  hold: "The feed, the radio repeaters, and THE LIT GRID. They are the reason a
+         message crosses the valley in an hour instead of a day, AND THEY HAVE
+         NEVER ONCE CHARGED FOR IT."
+It is a reading. It is now asked, never typed: the city scans his belonging rules
+for whoever's `hold` names the lit grid, so moving it in that file moves this.
+
+*** AND THE SECOND HALF IS A CONSTRAINT [block rent] MUST NOT BREAK. *** "Never
+once charged", said twice. 23 circuits are marked free and payTo() answers NOBODY
+for them. [block rent] is the next row worth taking and its premise is that the
+generator owner charges every household -- it would have billed the Network.
+
+MEASURED ON THE WALKED SURFACE
+  circuits naming a faction        37  ->  60
+  circuits the Network holds        5  ->  28
+  circuits marked free              0  ->  23
+  circuits that know their ground        173 of 173
+  circuits that can name who you pay     150 (the rest are free)
+
+WHAT IS STILL NOT NAMED, ON PURPOSE: settlement and solar_lone are not factions.
+They carry GROUND instead, so an unowned circuit still says whose land it is on --
+a different fact from whose wire it is, and the one [block rent] needs.
+
+THREE FAULTS, AND THE FIRST IS THE ONE TO REMEMBER
+1. LOAD ORDER. The grid-holder was resolved to a VALUE at build time, and the city
+   builds its power map AT LOAD while the module carrying his sentence is inlined
+   further down the same file. Measured: name null, 34 circuits anonymous, 0 free,
+   while a direct call answered perfectly. LATE-BIND ANYTHING THE CITY NEEDS AT
+   LOAD -- pass a function, ask when needed. Same shape as the CLOUTMOD bug.
+2. A bare ctCanonFaction reference would have thrown ReferenceError at load and
+   taken the whole grid with it: it is declared in a LATER SCRIPT BLOCK, where
+   hoisting does not reach. Use typeof.
+3. The module resync reported UNRECOGNISED for the powergrid, because the engine
+   file was edited twice without committing so the embedded body matched a state
+   git had never seen -- the tool finds the old body by walking history. If that
+   happens: replace the embedded span directly, then COMMIT so it tracks again.
+
+GATES  turf 43/0 (was 36/0), faction towns 48/0, faction between 182/0,
+       rung pays 21/0, demo build 25/0, alpha loads 20/0
+
+[PENDING Paolo] -- THREE, ALL CARRIED, NOTHING NEW
+  1. Anarchists, Colorful and Custom are called non-territorial by his own notes
+     and still hold ground. Should they at all?
+  2. What it COSTS to be seen with one of the four hidden factions, or taken for
+     one.
+  3. FOUR COLOUR CLASHES he can now SEE on the map: Mob #db1800 beside Reds
+     #db1900, Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by
+     name, so Network and Mob are squatting. Also: is the Cartel drab on purpose?
+     The law names two drab factions, the gate carries three.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [enemies unite]  BB-COALITION  (with WORLD)
+  [broke raiders]  BB-UNPAID-TURNS-PREDATORY
+  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() now answers who you pay for
+    any block, and the Network's circuits are already flagged free for it
+
+--------------------------------------------------------------------------------
+
 WORDS (words-8dqrnq): 9/6 (b) LATEST -- *** THE MODE CHANGED AND IT UNDOES MY LAST TWO
 DAYS OF SHIPPING. Paolo 9/6 LOCKED this lane into SCHOOL THEN WRITE: every question is
 TWO rounds, round one is school with NO TEST LINES AT ALL, and a question marked SHIPPED
