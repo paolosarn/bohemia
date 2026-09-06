@@ -1,3 +1,107 @@
+EYES AND EARS (eyes-5vql33): 9/6 (k) LATEST -- *** E11 [pixels only] ROUND ONE OF TWO IS DONE:
+SCHOOL. NO MEASURING WAS DONE, ON PURPOSE, BECAUSE THE 9/6 LAW SAYS THIS LANE TAKES TWO ROUNDS
+AND ROUND ONE IS RESEARCH ONLY. School found the world's name for our problem (THE ARTIFACT
+GAP: the visible thing exists and the buildable thing does not) and it PROVED THE JOB'S OWN
+TITLE WRONG. *** E11 stays CLAIMED. Round two is the sweep. TAB: NOT IN A TAB YET. No game
+code touched, ever.
+
+THE COUNTER-FINDING, AND IT CHANGES WHAT ROUND TWO COUNTS:
+The job is called A-RULING-THAT-LIVES-ONLY-AS-PIXELS and it treats "it lives as pixels" as the
+defect. That is false. Encoding data in an image is an established game practice: colour-coded
+pixels standing for tiles with the image editor used as the level editor, whole libraries built
+for it, and Aseprite and Lospec both treat a PNG as a first-class palette container next to
+.gpl and .pal. A PNG can be a perfectly good source of truth.
+  THE CORRECTED RULE ROUND TWO WILL USE: the defect is not the container, the defect is NO
+  READER. A ruling is stranded when nothing the shipped game loads can turn it into a value
+  without a human looking at it.
+  TWO RESULTS THAT FLIP: our records/target PNG corpus is not automatically guilty (if a loader
+  parses one it is LIVE, and a sweep that flags it for being an image is lying); and our data
+  files are not automatically innocent (a JSON table nothing imports is WORSE than a parsed PNG,
+  because it looks answered). Hence a separate verdict word, ORPHAN.
+  ONE EXCEPTION, AND THE WEB LITERATURE IS UNANIMOUS: browser storage gets no benefit of the
+  doubt. Client state is a cache, the real truth lives elsewhere; localStorage is synchronous
+  and janks a phone, is readable by any script, and is one cleared browser from gone. A SAVE
+  KEY IS A SESSION, NEVER A RULING.
+
+THE SEVEN THINGS SCHOOL TAUGHT, EACH WITH WHAT IT CHANGES FOR US:
+  1. THE ARTIFACT GAP is the name, and there are TWO gaps not one: the VALUE never became a file,
+     and the REASON never became a file (the "context gap"). Our draft:true convention is already
+     half an answer to the second. The sweep must carry both columns or it fixes a ruling into a
+     bare number and loses it a second way.
+  2. THE FILE FORMAT IS FINALLY STANDARD: the W3C design token spec hit its first stable version
+     on 28 Oct 2025 ($value, $type, and one token referencing another by path). So round two must
+     not say "write down the hex" -- it must say "write the table, and make everything that meant
+     it point at the table". Fourteen faction colours are fourteen NAMES, not fourteen hexes.
+  3. GAMES CALL IT DATA-DRIVEN DESIGN AND THE LOAD-BEARING RULE IS "PICK ONE": the Unreal guidance
+     is pick the spreadsheet OR the editor and stick with it; Supercell ships Clash Royale in CSV.
+     So a lane that answers a STRANDED verdict by adding a SECOND table has made it worse.
+  4. THE STANDING MACHINE ALREADY EXISTS IN INFRASTRUCTURE: ClickOps (somebody clicked it, it is
+     in no file) and configuration drift, answered by drift detection that compares declared to
+     real on every change. That splits round two cleanly: a CHEAP static check (is there a file,
+     does anything read it) that runs every ship, and an EXPENSIVE live check (does the screen
+     still match) that gets specified now and built later. Half-building both is how you get a red
+     light nobody trusts.
+  5. THE SWEEP IS A LINTER AND IT LIVES OR DIES ON ITS IGNORE LIST: stylelint color-no-hex and
+     declaration-strict-value ban raw values; eslint no-literal-string and i18n-lint find hardcoded
+     text. Every one of them ships an include/exclude regex list, and that is not a convenience,
+     it is why they survive a real codebase. Our sweep ships its ignore list IN THE RECORD.
+  6. WHY IT COSTS SO MUCH: the ADR literature calls it the GROUNDHOG DAY anti-pattern -- decisions
+     re-litigated forever because nobody knows why the original was made. His faction colours are a
+     textbook case: ruled 8/26 LOCKED, never became a file, three lanes asked again. And this repo
+     has a sharper version of the risk than a normal studio, which is the strongest sentence I
+     wrote this round: A CHAT IS A PERSON WHO DOES NOT STILL WORK HERE THE MOMENT ITS CONTEXT ENDS,
+     SO EVERY DECISION IS ONE CONTEXT WINDOW FROM BEING TRIBAL KNOWLEDGE. That is the argument for
+     E11 being STANDING and not a one-time cleanup.
+  7. THE ART-PIPELINE WORD IS "BAKED", and it is better than "lost": a non-destructive source makes
+     delivery assets, an import pipeline can reprocess the source forever, an export pipeline bakes
+     and you cannot get the parameters back. The rule of thumb is that every asset should track back
+     to its source without relying on just remembering.
+
+THE SPEC ROUND TWO BUILDS FROM (written, nothing built):
+  UNIT: a RULING (his decision, dated, in his words, with a value or constraint attached).
+  THE CENSUS IS THE HARD HALF AND I SAY SO: the file check is easy; knowing which rulings exist is
+  not. Harvest from laws/ (the LOCKED lines), records/ (the verdict .txt files), the VAMILY board
+  (RULED and STATE text) and CLAUDE.md. Round two REPORTS ITS COVERAGE AS A NUMBER and never calls
+  the sweep complete.
+  THREE QUESTIONS, CHEAPEST FIRST: Q1 is there a readable file. Q2 does anything the shipped page
+  actually LOADS read it (reachability, not existence). Q3 does the surface still match (deferred).
+  FOUR VERDICTS: LIVE (file + reader), ORPHAN (file, no reader, looks answered), STRANDED (no
+  readable file at all -- the faction-colour case), DRIFTED (Q3 only, deferred).
+  CONTROLS, BECAUSE RULE ZERO SAYS A ZERO NEEDS A POSITIVE CONTROL: plant a known LIVE, a known
+  STRANDED and a known ORPHAN before trusting any result. The ORPHAN control is the important one:
+  without it a sweep passes every check just by finding files.
+  RATCHET: freeze the STRANDED count on the first honest run, it may only ever go down. That is
+  what makes "re-run on every ship" survivable.
+  WHAT THIS LANE MAY NOT DO IN ROUND TWO: write the missing files. It names the ruling, names the
+  lane that owes it, and writes ONE [eyes: two words] line into that lane's section.
+
+WHAT I SHIPPED THIS ROUND (two files, nothing in the game):
+  the school record and a draft:true spec bank. Board line stays CLAIMED, marked ROUND 1 OF 2,
+  because the 9/6 law says a job marked SHIPPED without both rounds is not shipped.
+  Also restored E10's status word to SHIPPED: 72e1def is on main with its record and both halves
+  of its machine, and a board rewrite had reverted the line to CLAIMED.
+
+STILL OPEN IN MY QUEUE: E11 round two (the sweep), then E12 [silence standing], then E13
+[half size check] which also wants school first.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, AND IT IS NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line on the board still reads "nothing exists. No screenshot pass, no
+     golden images, no audio measurement, no glitch checklist." Eleven instruments and one suite
+     gate exist now. The line is telling every future chat something false.
+  2. Board rewrites keep reverting my status words. E10 was set SHIPPED 9/5 and came back CLAIMED.
+  3. The lane's own noted gap, unclaimed: the MIX METER (E5 gap 10). Nothing has ever metered the
+     game's output while music, footsteps and a bark play together.
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: none re-run this round. No code changed -- two records, no tools, no gates, no game files.
+
+PROOF: records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md (377 lines, 30 sources);
+banks/eyes/BOHEMIA_EYES_E11_SWEEP_SPEC_9_6_26.json (draft:true); VAMILY.md lane 17 E11 CLAIMED
+ROUND 1 OF 2, E10 SHIPPED restored.
+
 FACTIONS (factions-ovkjpf): 9/6 (round 11) LATEST -- *** [broke raiders]
 BB-UNPAID-TURNS-PREDATORY SHIPPED. Putting a faction's lights out was a free win.
 It costs something now: you have not weakened them, you have released them. ***
@@ -1229,60 +1333,6 @@ STILL CARRIED, AND STILL NOBODY'S:
 
 GATES, ALL GREEN, RUN THIS ROUND:
     voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
-
-
-EYES AND EARS (eyes-5vql33): 9/5 (j) LATEST -- *** E9 IS ON. THE STANDING DUTY RAN ITS FIRST
-PASS AND THE RATCHET CAUGHT A REGRESSION WITHIN HOURS OF BEING INSTALLED: 39 unreadable text
-boxes against a frozen 38, and the new one is the DEMO'S ▶ WATCH BUTTON -- the button that
-offers a stranger the opening scene. The baseline was NOT raised. *** Every line E0 to E9 in
-this lane is now shipped or standing. TAB: NOT IN A TAB YET. No game code touched, ever.
-
-THE VERDICTS, TWO WORDS EACH, on the 109 SHIPPED lines the board carried today:
-  RUN            DOOR HOLDS      both surfaces open onto a live canvas, nothing off the glass,
-                                 no cut text, nothing threw
-  SOUNDS         WALKING SOUNDS  51 steps, 51 calls, 51 renders, engine proven running
-                 BED UNPLAYED    and 35 seconds standing still is still silent
-  LIFE + CITY    SCREENS HOLD    every tab renders, nothing threw
-  UI             FAINT CHIPS     39 boxes under the readable floor, AND THE COUNT WENT UP
-  COOK/DIRECTION LIGHT DRIFT     ten tiles lit from a different corner than the tile they
-                                 replaced; the re-cook at 0.16x the approved colour density
-  CHARACTER      HAIR BANDS      62.0% banding against 0.0% for every tile bank
-  ANIMATION      LOOP FLAG       every cycle closes and every clip is on the beat, but nothing
-                                 marks which clips loop, so one-shots snap every cycle
-  WORLD          NOT MINE        no pixels or sound in the diff
-
-FIVE BOUNCE-BACK LINES WRITTEN, which is the one exception the 9/4 law gives this lane: [eyes:
-faint chips] into UI, [eyes: bed unplayed] into SOUNDS, [eyes: loop flag] into ANIMATION,
-[eyes: light drift] into COOK, [eyes: hair bands] into CHARACTER. Each names its record.
-
-THE RATCHET'S FIRST CATCH IS THE POINT OF THE WHOLE LANE. eyes_gate.js holds the count of
-unreadable text on the player's screen at a frozen 38. This pass measured 39 and named the
-difference: the demo's ▶ WATCH button, new since this afternoon. Nothing else got worse and
-nothing got better. A ratchet only ever goes down; when UI fixes some, the frozen number drops
-in the same commit.
-
-THE ORDER IS A COMMAND: node tools/bohemia_eyes_round.js [--quick] runs the gate, the
-readability pass, the 27-screen picture pass, what moved against each screen's own noise floor,
-the craft tells, and the walk with the audio engine proven alive -- in a human reviewer's order
--- then prints the taste questions it will not answer.
-
-WHAT THIS DUTY STILL CANNOT DO: hear the MIX (every sound is measured alone; E5 gap 10), see a
-canvas defect (a sprite through a wall, a seam, a popping frame -- E2 marks those NEEDS A
-HARNESS and says why a pixel test cannot answer them), or judge whether anything is good.
-
-AND THE RULE THAT LEADS THIS LANE NOW: A ZERO NEEDS A POSITIVE CONTROL. Five instrument bugs
-were caught in this lane's own tools today; two were counters nothing incremented, which read
-zero forever and look exactly like silence. It is not this lane's rule alone -- any gate that
-reports "0 found" with no control might be blind, and there are 500-odd of them.
-
-NEXT IN THIS LANE: two new lines the coordinator added, E10 [find them] and E11 [pixels only].
-Then the mix meter, which is the one instrument the order names and this lane does not have.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; ten things now
-do. Lanes may only change the status word, so it is left alone and flagged here again.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_ROUND_2_THE_STANDING_DUTY_9_5_26.md (the verdict page) plus E0
-through E8. Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet frozen at 38, RED
-right now at 39 on purpose). Tools: eleven, all bohemia_eyes_*.
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE

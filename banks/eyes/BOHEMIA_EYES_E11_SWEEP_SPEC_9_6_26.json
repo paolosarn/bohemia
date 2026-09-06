@@ -1,0 +1,61 @@
+{
+ "bank": "EYES AND EARS -- E11 [pixels only] -- THE STRANDED-RULING SWEEP, SPEC ONLY",
+ "date": "9/6/26",
+ "round": "1 of 2 (SCHOOL). Nothing here has been built or run.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. This is the design round two builds from. The corrected rule from school: the container is not the crime, NO READER is the crime. A colour-coded PNG a loader parses is LIVE; a JSON table nothing imports is ORPHAN. Browser storage is the one container that gets no benefit of the doubt: a save key is a session, never a ruling.",
+ "school_record": "records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md",
+ "unit": {
+  "name": "RULING",
+  "draft": true,
+  "what": "a decision of Paolo's, dated, in his words, with a value or a constraint attached",
+  "fields": ["id", "date", "his_words", "the_value_or_constraint", "law_or_record_file", "verdict", "lane_that_owes_it"]
+ },
+ "census_sources": [
+  {"draft": true, "where": "laws/", "look_for": "LOCKED lines and quoted rulings", "why": "this repo's laws are already an ADR set in everything but name"},
+  {"draft": true, "where": "records/", "look_for": "verdict .txt files from the judge pages", "why": "thumbs are rulings"},
+  {"draft": true, "where": "VAMILY.md", "look_for": "RULED / LOCKED text inside lane sections and STATE lines", "why": "the board records rulings the coordinator carried"},
+  {"draft": true, "where": "CLAUDE.md", "look_for": "the standing rules and the pillars", "why": "the oldest rulings live here"}
+ ],
+ "census_honesty": "Round two must report census COVERAGE as a number and must never present the sweep as complete. The file check is the easy half; knowing which rulings exist is the hard half.",
+ "questions": [
+  {"id": "Q1", "draft": true, "ask": "is there a file in the repo holding this ruling's value in a form a parser can open", "kind": "static", "cost": "cheap"},
+  {"id": "Q2", "draft": true, "ask": "does anything the shipped page actually loads read that file", "kind": "static, reachability from the alpha's load graph", "cost": "cheap", "note": "this is the question that separates a real answer from a file that only looks like one"},
+  {"id": "Q3", "draft": true, "ask": "does the value on the real surface still match the file", "kind": "live drift detection", "cost": "expensive", "status": "DEFERRED to a later round; specified, not built"}
+ ],
+ "verdicts": [
+  {"word": "LIVE", "draft": true, "means": "file exists and something loads it", "owed": "nothing"},
+  {"word": "ORPHAN", "draft": true, "means": "file exists, nothing reads it", "owed": "the wiring", "why_it_matters": "worse than a parsed PNG because it looks answered"},
+  {"word": "STRANDED", "draft": true, "means": "no readable file at all", "owed": "the file", "example": "COLOUR IS TERRITORY, 8/26, LOCKED"},
+  {"word": "DRIFTED", "draft": true, "means": "file exists, is read, and the surface disagrees", "owed": "one of them is wrong and the lane says which", "status": "Q3 only, deferred"}
+ ],
+ "controls": {
+  "rule": "RULE ZERO (E9): a zero needs a positive control.",
+  "draft": true,
+  "plant_before_trusting_anything": [
+   {"kind": "known LIVE", "proves": "the sweep can see a real answer"},
+   {"kind": "known STRANDED", "proves": "the sweep bites at all"},
+   {"kind": "known ORPHAN", "proves": "Q2 has teeth over Q1; without this control a sweep passes every check just by finding files"}
+  ]
+ },
+ "anti_fatigue": {
+  "draft": true,
+  "from": "every mature hardcoded-value linter ships an include/exclude list of regexes, and that is why they survive a real codebase",
+  "rules": [
+   "the ignore list is written in the record, never hidden in the tool",
+   "the sweep names the class of ruling it cannot see instead of counting it clean",
+   "an assembled value (built at runtime from pieces) is invisible to a text scan and must be declared as a blind spot"
+  ]
+ },
+ "ratchet": {
+  "draft": true,
+  "freeze": "the STRANDED count on the first honest run",
+  "rule": "it may only ever go down",
+  "why": "this is what makes 're-run on every ship' survivable"
+ },
+ "what_this_lane_may_not_do": [
+  "write the missing files (this lane never writes game code)",
+  "decide the value (that is DIRECTION's or Paolo's)",
+  "add a job to another lane's queue beyond the one [eyes: two words] bounce-back line"
+ ]
+}
