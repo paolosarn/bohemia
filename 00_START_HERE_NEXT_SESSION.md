@@ -1,3 +1,138 @@
+WORDS (words-8dqrnq): 9/6 (b) LATEST -- *** THE MODE CHANGED AND IT UNDOES MY LAST TWO
+DAYS OF SHIPPING. Paolo 9/6 LOCKED this lane into SCHOOL THEN WRITE: every question is
+TWO rounds, round one is school with NO TEST LINES AT ALL, and a question marked SHIPPED
+without both rounds is NOT SHIPPED. All seventeen of mine were done in one round each.
+This round is Q1's school. THE ROW IS CLAIMED, NOT SHIPPED, because round two is owed. ***
+Nothing to judge. Nothing entered the game. No test lines were written.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+THE NEW MODE, IN FULL, BECAUSE IT GOVERNS EVERY ROUND FROM HERE:
+MODE: SCHOOL THEN WRITE (Paolo 9/6, LOCKED, "oh and same thing for words bro", the same
+two-round rule he gave EYES AND EARS). Round one is a whole VAMILY spent purely LEARNING
+the question's subject: the best-written games, the real linguistics, the real testimony
+from people who lived it, what the standard advice is AND WHERE THAT ADVICE IS WRONG,
+written as a record, WITH NO TEST LINES WRITTEN AT ALL. Round two is the writing, and its
+record must name WHICH FINDING from school changed how the lines were written. If nothing
+from school changed the lines, school was done badly.
+
+WHAT I DID WITH THAT, AND WHY I DID NOT UN-SHIP SEVENTEEN ROWS:
+By the letter of the new law none of Q1 to Q17 is shipped. Un-shipping a whole shelf in
+one edit is a big destructive board change and the sequencing of past work is the
+coordinator's call, not mine. So I took ONE row, the lane's foundation, changed its status
+word on my own line (which is the one thing rule 6 lets a lane do), and spent the whole
+round schooling it properly. The 9/4 record is untouched and its path stays in the row.
+The other sixteen are in the same position and should be sequenced by the coordinator.
+
+Q1 SCHOOL, ROUND ONE OF TWO. Record:
+    records/BOHEMIA_WORDS_Q1_SCHOOL_WHY_THREE_LINES_CANNOT_CARRY_A_FINGERPRINT_9_6_26.md
+    203 lines. NO test lines. banks/ was not touched this round, deliberately.
+
+THE HARD NUMBER THAT REFRAMES THE QUESTION. The row's test is three lines each. Our
+median NPC line is 11 words, so three lines is ABOUT 33 WORDS. Telling two writers apart
+from text alone needs 1,000 words to be weak and 2,000 to be better, and the LOW END
+forensic studies work at is 105 to 341 tokens. THIRTY-THREE WORDS IS A THIRD OF THE
+ABSOLUTE FLOOR AND ABOUT TWO PERCENT OF THE RELIABLE THRESHOLD, and the field's own remedy
+for short texts is to JOIN them into a longer corpus, which a scene cannot do. SO WHATEVER
+LETS A READER TELL TWO PEOPLE APART IN THREE LINES, IT IS NOT IDIOLECT. And the field
+itself is unsure idiolect is usable: there is growing concern it "remains too abstract to
+be of practical use."
+
+*** THE CENTRAL FINDING, AND IT CONVICTS MY OWN 9/4 ROUND. Authorship attribution runs on
+FUNCTION WORDS for a stated reason: "we need variables that depend on authors and nothing
+else." They are chosen BECAUSE they are topic-independent; content words are rejected as
+wasteful because their use depends on topic. Now read that against a writer's problem:
+    FORENSICS WANTS                    A WRITER NEEDS
+    unconscious features               features a reader catches in one pass
+    stable across topics               features that ARE the topic
+    hard to imitate                    instantly legible, on purpose
+    1,000 to 2,000 words               33 words
+    situation and audience stripped    situation and audience doing the work
+THE BEST TOOL FOR AUTHORSHIP ATTRIBUTION IS THE WORST TOOL FOR CHARACTER VOICE, AND ON
+9/4 I MEASURED OUR PEOPLE WITH IT (Mosteller-Wallace function-word stylometry), the
+instrument built to ignore exactly what makes a character a character. That is the error
+school exists to catch and it is mine. ***
+
+AND THE ROW'S OWN TEST IS WRONG HALF THE TIME. Language style matching measures function
+word similarity between two people, the same dimension stylometry uses, and it predicts
+CLOSENESS: 40 speed dates, mutual interest 33.3% above median against 9.1% below (OR
+3.05); 86 couples, 76.7% against 53.5% still together at three months (OR 1.95). PEOPLE
+WHO ARE CLOSE CONVERGE. So a family at a table should be HARD to tell apart, and
+divergence is the drama: the one who has stopped matching is the one who has left. Our
+Q8 grief dinner was written with four distinct voices on the assumption distinct is always
+better. THE SCIENCE SAYS THE FAMILY SHOULD CONVERGE. That is a correction to a shipped
+scene and it came out of school.
+
+THE TIC, AND THE PROOF FROM OUR OWN CORPUS. The standard advice is a catchphrase; the
+published objection is that it flattens a character, which is true and too soft. The
+harder objection is measured and ours: FIVE DIFFERENT SPEAKERS IN FIVE DIFFERENT QUESTS
+INDEPENDENTLY SAY A VERSION OF "THAT ISN'T A THREAT", with "arithmetic" in three of five
+(Q13). Nobody planned a tic. A TIC IS THE WRITER'S FINGERPRINT, NOT THE CHARACTER'S, AND
+IT SPREADS ACROSS A CAST. Current craft replaces the single tic with three things:
+opposing syntax, behaviour under stress, and AVOIDANCE PATTERNS, blind-read before lock.
+
+THE THING A PERSON NEVER SAYS, REACHED BY THREE INDEPENDENT ROUTES: the row names it,
+screenwriting craft names it "avoidance patterns", and game-writing practice names it
+"bright lines: what this person will not discuss and how they refuse." It is the one
+channel that works at 33 words, because AN ABSENCE CANNOT BE BORROWED BY ANOTHER CHARACTER
+THE WAY A PHRASE CAN: when a second person refuses the same subject, that is a fact about
+the world, not a copy.
+
+AN HONEST NOTE ON THE THIN HALF: published craft writing on game dialogue voice is
+generic and the searchable material now skews to persona prompting for generated NPCs. The
+better games evidence I hold is MEASURED (617 films, a 29,213-line game script, 199,740
+tagged real turns), not written. And one caution from that half worth keeping as a
+counterweight to this lane's own instinct: GAME DIALOGUE DOES NOT HAVE TO BE REALISTIC,
+and mimicking real conversation often reads flat. Seventeen rounds of pushing our numbers
+toward the real-speech corpus need this: THE REAL NUMBERS ARE A DIAGNOSIS, NOT A TARGET.
+
+WHAT SCHOOL LEAVES ME HOLDING, in order of evidential weight, for round two to write from:
+    1. what they will not talk about
+    2. what they want from the person in front of them
+    3. what they explain other things with (the source domain, Q9)
+    4. how they behave when pressed (Q2)
+    5. rhythm and length (Q4, Q14)
+    6. and LAST, vocabulary, where the standard advice starts
+THE ORDER IS ROUGHLY THE REVERSE OF THE STANDARD ADVICE. That is the finding.
+
+NOTHING WAS ROUTED TO ANOTHER LANE THIS ROUND. School produces knowledge, not jobs, and
+inventing work for somebody else out of a learning round would be the same violation as
+writing test lines in it.
+
+NEXT: Q1 round two, the writing, which must name which findings above changed the lines.
+On this evidence at least three: negative space over vocabulary; a scene of intimates
+written to CONVERGE; and no tic, ever.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
 
 EYES AND EARS (eyes-5vql33): 9/5 (j) LATEST -- *** E9 IS ON. THE STANDING DUTY RAN ITS FIRST
 PASS AND THE RATCHET CAUGHT A REGRESSION WITHIN HOURS OF BEING INSTALLED: 39 unreadable text
