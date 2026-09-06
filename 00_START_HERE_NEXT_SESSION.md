@@ -8482,7 +8482,22 @@ cloud opacity somewhere" -> OPTION A, THE CAMERA PULLS BACK, LOCKED, plus HIS OW
 a cloud opacity across the turn so the scale change reads as weather and not a load.
 Written into laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md
 section 5. COMBAT [enter zoom] rewritten with the ruling; new ANIMATION [cloud turn] and
-DIRECTION [cloud look]. No open question to him now.
+DIRECTION [cloud look]. No open question to him now. THEN (br) VAMILY: a small round on
+main (9 commits) -- SOUNDS [day ends] THE DAY ENDS ON YOU (the most repeated moment in a
+hundred-hour game was silent), DIRECTION [judge enemies] round 1, EYES E1 (the craft
+machine reads 5.7% of the art), PLUMBER [sixty fps] round 3, ECONOMY Q12, WORDS Q13,
+DYNASTY Q11. MY OWN CALL THIS ROUND, THE HARVEST (records/BOHEMIA_THE_HARVEST_9_6_26.md,
+law amendment in laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md): the research bank had
+36 records and THIS SEAT had never routed one into a build job. Standing rule now: every
+research round I read becomes a build job the same round or a written reason. First
+harvest, five findings: LIFE+CITY [build default] (the first building a player places is
+an AIRBASE -- 59 types alphabetical, no default), WORLD [someone lends] (the courthouse
+was built and no loan was ever issued), WORLD [back of house] (no dry store, laundry or
+loading dock exists anywhere), WORLD [water lifted] (Vegas is 1,000 ft above its water;
+pumping is the scarcity), WORLD [battery worth] (you buy the container, 889x the energy),
+PEOPLE [rumours travel] (the city gossips about nobody but the player and has never once
+been wrong). Topped up SOUNDS, ECONOMY, DYNASTY. NOTED: FACTIONS holds 12 open, 0 shipped,
+and owns [who holds] which unblocks four lanes -- the one bottleneck on the board.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

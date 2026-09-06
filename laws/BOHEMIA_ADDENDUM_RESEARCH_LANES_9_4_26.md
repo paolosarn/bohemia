@@ -80,3 +80,13 @@ silhouettes, the pixel city-builder and first-hour references) move to
 DIRECTION, which judges those comparisons anyway. Its two spec jobs (the RF4
 teardown diff and the BB spec) move to COMBAT, where the 8/31 handoff had
 already sent the lab's Battle Brothers items. No lane word "lab" any more.
+
+
+## AMENDED 9/6/26: THE HARVEST (coordinator's standing rule)
+Research mode still means DO NOT IMPLEMENT, and that is not weakened. What is
+added is on the COORDINATOR, not the research lanes: every research round the
+coordinator reads becomes at least one BUILD job on a BUILD lane the same round,
+or a written reason why it is not ready. By the time this rule was written the
+bank held 36 records (ECONOMY 12, WORDS 13, DYNASTY 11) and not one of them had
+been routed into a build job by this seat. A finding nobody routes is a finding
+nobody made. First harvest: records/BOHEMIA_THE_HARVEST_9_6_26.md.
