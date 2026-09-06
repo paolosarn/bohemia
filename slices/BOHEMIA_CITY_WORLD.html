@@ -37380,6 +37380,89 @@ var PPL_COMPASS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
    crowd when you reach one. Nothing here is a ratio I chose; it is what those four
    words already mean, and the split happens to be two of four. */
 var PPL_ALONE = { scav: 1, watch: 1 };
+/* __YOU_HEAR_IT_BEFORE_YOU_SEE_IT__ (9/6) =================================
+   ROUND 4 of [more people] POPULATION-DEFAULT. Round 3 put the crowds on the MAP,
+   which is a thing he has to think to open. Nothing has ever told him a crowd is
+   there WHILE HE IS WALKING, and the population module's own phrase for what that
+   should feel like is "you hear a settlement before you see it".
+
+   THE RANGE IS DERIVED, NOT PICKED, and that matters because this lane may not
+   invent numbers about people. Sound from N sources falls off as 1/d^2, so a crowd
+   of N carries to sqrt(N) times the distance one person does. One person is the
+   repo's OWN SEE_RANGE -- 9 cells, BohemiaStanding's number for how far you can
+   make out a body -- so the phrase comes out literally true: everything is heard
+   further than it is seen, and a crowd much further.
+
+   MEASURED BEFORE IT WAS BUILT, because a mechanism that is right and never happens
+   is not a deliverable:
+       the biggest crowd standing at one place anywhere in the valley   18 people
+       what that buys it                                    38 cells, about 4 screens
+       at the cell he wakes on, every hour                  NOTHING, and correctly:
+                                                            the nearest place is 97
+                                                            cells off and holds 8
+       four 400-step walks from that cell at 10:00          two of them come within
+                                                            earshot, first at step 91
+                                                            and step 156
+   So he has to walk toward it, which is the point. It is not a compass: the valley
+   only speaks when a crowd is close enough to hear, it goes quiet at night when
+   everybody is indoors, and it never says where anything is that you cannot hear.
+
+   WORDS, NOT AN ARROW. That is this repo's own ruling, from the address gate:
+   "Morrowind put its directions in dialogue and no marker on the map ... Bohemia is
+   a city whose phones do not work, so a compass that always knows where everybody
+   is would be the strangest object in it." The line is an attempt, draft:true. */
+var PPL_HEARD = null, PPL_HEARD_KEY = null;
+var PPL_COMPASS_WORD = { N: 'north', NE: 'northeast', E: 'east', SE: 'southeast',
+                         S: 'south', SW: 'southwest', W: 'west', NW: 'northwest' };
+function pplHeard() {
+  /* once per cell per ten minutes of game time: the HUD repaints on every step and
+     this walks the people of nine neighbourhoods. */
+  var key = hx + ',' + hy + ':' + (((T && T.min) | 0) / 10 | 0);
+  if (PPL_HEARD_KEY === key) return PPL_HEARD;
+  PPL_HEARD_KEY = key; PPL_HEARD = null;
+  try {
+    var P = BohemiaPopulation, span = P.NB * FN;
+    var SEE = 9; try { SEE = BohemiaStanding.SEE_RANGE | 0 || 9; } catch (_e) {}
+    var n0x = Math.floor(hx / span), n0y = Math.floor(hy / span);
+    var best = null;
+    for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) {
+      var nx = n0x + dx, ny = n0y + dy;
+      if (nx < 0 || ny < 0) continue;
+      var list = pplPeople(nx, ny); if (!list.length) continue;
+      var places = pplPlaces(nx, ny); if (!places.length) continue;
+      /* where everybody in this neighbourhood is standing, once */
+      var at = [];
+      for (var i = 0; i < list.length; i++) at.push(pplAt(list[i]));
+      for (var k = 0; k < places.length; k++) {
+        var pl = places[k], n = 0;
+        for (var j = 0; j < at.length; j++)
+          if (Math.max(Math.abs(at[j][0] - pl[0]), Math.abs(at[j][1] - pl[1])) <= 4) n++;
+        if (!n) continue;
+        var ear = SEE * Math.sqrt(n);
+        var d = Math.max(Math.abs(pl[0] - hx), Math.abs(pl[1] - hy));
+        if (d > ear) continue;
+        /* THE ONE YOU HEAR IS THE LOUDEST, not the nearest: a big crowd further off
+           carries over a pair of voices next door. */
+        var loud = n / Math.max(1, d * d);
+        if (!best || loud > best.loud) best = { at: pl, people: n, cells: d, loud: loud };
+      }
+    }
+    if (best) {
+      var vx = best.at[0] - hx, vy = best.at[1] - hy;
+      var w = PPL_COMPASS_WORD[dirOf(Math.sign(vx), Math.sign(vy))] || null;
+      best.way = w;
+      PPL_HEARD = best;
+    }
+  } catch (_e) { PPL_HEARD = null; }
+  return PPL_HEARD;
+}
+/* AND WHAT IT SAYS. An attempt (draft:true): plain words, no number, no arrow, and
+   it never names a distance -- an ear does not measure metres. */
+function pplHeardLine() {
+  var h = pplHeard(); if (!h || !h.way) return null;
+  return (h.people > 6 ? 'you can hear a crowd, ' : 'you can hear people, ') + h.way + '.';
+}
+
 function pplPlaceFor(p, dir, taken, work) {
   /* the FAVOURITE spot is a place for everybody -- Shadows of Doubt's favourite
      bar is a BAR, and even a man who scavenges alone all day drinks where other
@@ -44518,9 +44601,15 @@ function updHud(){
     if(_mc) _mc.textContent=MODE==='city'?'\⤓ DROP IN':'\⤒ CITY'; }
   { const fb=document.getElementById('fitbtn'); if(fb)fb.style.display=MODE==='city'?'block':'none'; }
   { const bb=document.getElementById('bikebtn'); if(bb)bb.style.display=MODE==='human'?'block':'none'; }
-  document.getElementById('note').textContent=MODE==='city'
+  /* __YOU_HEAR_IT_BEFORE_YOU_SEE_IT__ -- the walked line says what the street says.
+     It has been the hard-coded string 'walking your own block.' since it was written,
+     and the default is KEPT for when there is nothing to hear, which is most of a
+     valley this empty and is the honest answer. */
+  var _note = MODE==='city'
     ? 'move on the streets. time moves when you move.'
     : 'walking your own block.';
+  if(MODE!=='city'){ try{ var _h=pplHeardLine(); if(_h) _note=_h; }catch(_e){} }
+  document.getElementById('note').textContent=_note;
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
   try{ buildBtnSync(); }catch(_e){}  /* __BUILDER_WHERE_HE_WALKS__ */
 }

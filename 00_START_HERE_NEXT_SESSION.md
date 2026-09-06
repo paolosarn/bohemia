@@ -3043,7 +3043,77 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/6 (c) LATEST -- *** [more people] POPULATION-DEFAULT:
+LIFE + CITY (city-1eztay): 9/6 (d) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 4 SHIPPED, THE JOB CONTINUES. THE WALKED STATUS LINE HAS SAID "walking your own
+block." SINCE THE DAY IT WAS WRITTEN AND NEVER ONE WORD ABOUT THE WORLD. IT NOW SAYS
+"you can hear a crowd, northwest." WHEN ONE IS IN EARSHOT, AND NOTHING WHEN THERE IS
+NOTHING TO HEAR. *** MODE: BUILD. TAB: RUN (walk, and listen). Nothing to judge.
+
+  *** ROUND 4: YOU HEAR IT BEFORE YOU SEE IT. SHIPPED, ROW STILL OPEN. ***
+  Round 3 put the crowds on the MAP, which is a thing he has to THINK TO OPEN. Nothing
+had ever told him a crowd is there WHILE HE IS WALKING. The population module's own
+phrase for what that should feel like is "you hear a settlement before you see it".
+  THE RANGE IS DERIVED, NOT PICKED, because this lane may not invent numbers about
+people: sound from N sources falls off as 1/d^2, so a crowd of N carries to sqrt(N)
+times the distance one person does, and one person is THE REPO'S OWN SEE_RANGE (9
+cells, BohemiaStanding). That makes the module's sentence literally true -- everything
+heard further than it is seen, a crowd much further.
+  MEASURED BEFORE IT WAS BUILT, because a mechanism that is right and never happens is
+not a deliverable: the biggest crowd standing at one place ANYWHERE is 18 people, which
+buys it 38 cells (about four screens); at the cell he wakes on it says NOTHING at any
+hour, correctly, because the nearest place is 97 cells off and holds eight; and of four
+400-step walks from there at 10:00, TWO come within earshot, first at step 91 and 156.
+HE HAS TO WALK TOWARD IT, which is the point and is what stops it being a compass.
+  WHAT IT SAYS: 02:00 quiet, 06:00 quiet, 10:00 "you can hear people, northwest.",
+14:00 quiet (the module's own heat rule), 18:00 "you can hear a crowd, northwest.",
+22:00 quiet. THE DAY HAS A SHAPE IN THE EAR. The one you hear is the LOUDEST, not the
+nearest -- a big crowd further off carries over a pair of voices next door. WORDS, NOT
+AN ARROW, which is this repo's own ruling from the address gate ("Bohemia is a city
+whose phones do not work, so a compass that always knows where everybody is would be
+the strangest object in it"). The line is an attempt, draft:true, and never names a
+distance because an ear does not measure metres. The old default is kept wherever there
+is nothing to hear, which is most of a valley this empty and is the honest answer.
+  COST, STATED THE WAY THIS LANE'S OWN NEW [draw budget] ROW DEMANDS: 0.044 ms when it
+recomputes, 0.0002 ms cached, 0.01% of a 500 ms beat, cached per cell per ten minutes
+of game time. It draws nothing; it walks nine neighbourhoods and the HUD repaints every
+step, which is why it is cached at all.
+  *** A PROBE REPORTED A MISSING FEATURE THAT WAS RIGHT THERE. *** My first check of
+"does it reach the glass" called hud(). There is no such function; it is updHud(). The
+try/catch swallowed it and reported the note still reading "walking your own block." --
+WHICH IS EXACTLY WHAT A REAL DEFECT LOOKS LIKE. A PROBE THAT CALLS THE WRONG NAME
+REPORTS THE FEATURE MISSING AND IS INDISTINGUISHABLE FROM THE FEATURE BEING MISSING.
+Same family as measuring the wrong surface and sampling the wrong pixel. The gate calls
+updHud() bare, with no catch, so it can never be quiet again.
+  AND A SCAN OF A SLEEPING VALLEY: "the biggest crowd anywhere" first answered ONE
+person, contradicting round 2's own measurement of eight at a single place. The scan had
+run at whatever minute the restore put back -- six in the morning. At 10:00 it is 18.
+WHEN A MEASUREMENT CONTRADICTS ONE YOU ALREADY TRUST, THE PROBE IS THE FIRST SUSPECT,
+NOT THE WORLD.
+  GATE: gates/hear_the_crowd_gate.js, 9/0, in the cut demo, registered. Mutation-tested
+three ways: earshot infinite so it becomes a compass (A1 and B4 red, it speaks at the
+wake cell at three hours), compute the line and never write it to the glass (A2 and B2
+red, the authored-but-unread disease), hear them where they SLEEP rather than where they
+are (B1 B2 B3 red, the whole day goes quiet).
+  RECORD: records/BOHEMIA_YOU_HEAR_IT_BEFORE_YOU_SEE_IT_9_6_26.md
+  STAMP: BUILD 9/6ag - YOU HEAR IT BEFORE YOU SEE IT
+  WHERE THE JOB IS AFTER FOUR ROUNDS: (1) people live at their front doors on ground
+that has houses; (2) their day gathers them at places instead of scattering them, 2 of
+32 walks meeting somebody became 9 of 32; (3) the map shows the thirteen crowds; (4) the
+street says when one is in earshot. HE STILL DOES NOT MEET PEOPLE WITHOUT TRYING, so the
+row stays OPEN. What he has now is a reason to walk somewhere, a way to know where, and
+a voice that says "warmer" as he gets close.
+  AND THE THING STANDING BEHIND ALL FOUR ROUNDS IS UNCHANGED AND IS NOT MINE:
+[PENDING Paolo] IS THE VALLEY THE GDD'S 69,000 OR THE ZONE MAP'S RULED 297 TIMES THE
+DIAL (5,940)? Every one of these mechanisms would read four times louder at the larger
+number, and no mechanism closes a gap of twelve. FOR THE COORDINATOR TO CARRY.
+  THE STANDING NOTE: MEASURE WHETHER THE MECHANISM WOULD EVER FIRE BEFORE YOU BUILD IT.
+The earshot rule took twenty minutes to measure and an afternoon to build; the
+measurement said "two of four walks", which is what made it worth building. Had it said
+"never", that would have been the round's finding and worth just as much.
+
+--- ROUND 3 BELOW ---
+
+LIFE + CITY (city-1eztay): 9/6 (c) -- *** [more people] POPULATION-DEFAULT:
 ROUND 3 SHIPPED, THE JOB CONTINUES. THE MAP OF THE VALLEY HAD NEVER READ THE
 POPULATION ONCE -- renderCity() does not call headsAt, census or pplPeople -- SO HE
 COULD OPEN IT AND NOTHING SAID A SINGLE PERSON LIVED ANYWHERE. HE WAKES ONE KILOMETRE
