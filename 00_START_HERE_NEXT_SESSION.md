@@ -17497,7 +17497,16 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [judge the old] round 2 -- JUDGING COMPLETE, 172 of
+ROUND LOG 9/6 (latest): [judge the turn] round 1 -- the transition look is
+RULED AHEAD OF THE BUILD (records/BOHEMIA_FIGHT_TRANSITION_LOOK_9_6_26.md):
+two beats at 120, the cloud is a moving value shade (no white fog), combat
+gets no palette of its own and all screen filters are banned, non-
+combatants walk off (no pop, no fade), the door skin is the doorway's own
+shadow, and section 6 is the judge's test (a frozen frame is still the
+street; greyscale survives). COMBAT [enter zoom] and ANIMATION [zoom beat]
+build to it; this line ships on my judgment of the BUILT thing. STILL
+HELD: [judge the old] - all 172 judged, execution blocked on COOK's retint
+rows ([PENDING coordinator routing], second round waiting). PREVIOUS: [judge the old] round 2 -- JUDGING COMPLETE, 172 of
 172 pre-card non-register garments judged (retint 119, accent 53, kill 0;
 the hot pieces are faction uniform stock - COBALT/SIGNAL RED/TEAL/PINSTRIPE
 - the accent inventory pre-built). Dockets for COOK: BATCH_1 and BATCH_2
