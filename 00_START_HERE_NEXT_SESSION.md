@@ -1,3 +1,196 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour].
+Next OPEN is Q16 [debt spiral]; Q17 [wages fall] and Q18 [black market] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 15 REPORT: [first hour] SHIPPED ===
+*** THE MISSING THING IS NOT THE RICE, IT IS THE BAG. MODE: RESEARCH, nothing
+implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_15_THE_MISSING_THING_IS_NOT_THE_RICE_IT_IS_THE_BAG_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections WWW-AAAA (13 lines, 218 total)
+Board:  Q15 SHIPPED. Q1-Q15 shipped; next OPEN is Q16 [debt spiral], then Q17
+        [wages fall] and Q18 [black market].
+
+I DROVE THE WHOLE FIRST HOUR ON THE REAL MODULES INSTEAD OF DESCRIBING IT.
+  A PLAYER WHO DOES EVERYTHING RIGHT ENDS HIS FIRST HOUR OWNING NOTHING, AND THE
+  PEOPLE WHO DEPEND ON HIM DO NOT EAT, BECAUSE THE FOOD HE BOUGHT NEVER ARRIVED.
+His whole economic record for day one is two ledger lines: +1 electricity
+quest:COMPLETE, -1 electricity buy:food. One in, one out, no food.
+  STEP 5  buys the bag of rice -> applied:true, paid:1, and resources 0 BEFORE,
+          0 AFTER.
+  STEP 6  night falls, day:ate -> REFUSED, INSUFFICIENT, wanted:1 have:0.
+WORLD's STATE line already called buy() a known gap on [rice clock]. Nobody had
+measured it through to the consequence. The consequence is that the tutorial's own
+loop cannot close on day one.
+
+THERE IS NO BAG. The purse is three numbers and there is NO INVENTORY ANYWHERE IN
+THE GAME. Nothing a player holds has a name, a count or a place; 'resources' is a
+lump. So buy() has nowhere to put what you bought and does the only honest thing
+it can: charges you, records the drain, stops.
+THE HALF THAT EXISTS: MKT_BOUGHT is a per-good count already written on every
+purchase, already saved, already restored, and NOTHING EVER READS IT to decide
+anything. The gap between a receipt and an inventory is one reader.
+EVERYTHING A PLAYER CAN OWN: electricity (+1 per job, 27 jobs exist), resources
+(+1 per building per day), clout, buildings, housing (derived). FOUR NUMBERS AND
+A SET OF COORDINATES. Nothing on the list is a thing.
+
+*** THE FINDING THAT PROVES US WRONG. I came in certain the answer was the bag of
+rice -- the coordinator's [rice clock] row, which I have quoted approvingly in
+three records. The real record says the rice is the SECOND thing. IN A COLLAPSE
+THE FIRST THING PEOPLE ACQUIRE IS NOT A GOOD, IT IS A PLACE TO PUT GOODS. ***
+  LEBANON 2019: banks shut over two weeks, longer than in the civil war. The SAFE
+    shops boomed, business up ~30%, safes $35 to $15,000. The jewellery shop next
+    door filled with people SELLING what they already owned. Households on
+    delivered water roughly doubled (35% / 28.5% / 19%) -- what you needed was a
+    tank.
+  SARAJEVO: the two things people needed were CONTAINERS to carry water in and a
+    STOVE improvised from broken machines. Not water. Not fuel. The container.
+  ARGENTINA 1 Dec 2001: corralito, 250 pesos a week. BY 5 DECEMBER, FOUR DAYS
+    LATER, SHOP SALES HAD COLLAPSED 50-70% with the currency still nominally fine.
+    THE FIRST WEEK IS NOT PRICES GOING UP, IT IS THE SHOP STOPPING. And the answer
+    was not cleverness with money, it was 1.5 MILLION PEOPLE IN BARTER CLUBS: they
+    learned a room and the people in it, not a price.
+A GOOD YOU CANNOT HOLD IS NOT A GOOD. And it explains round 13: of course the
+game mints 585 batteries a night against eleven things worth buying -- A CURRENCY
+IS THE ONLY THING OUR PLAYER CAN HOLD, so it is the only thing he accumulates.
+Give him somewhere to put a good and the demand side has somewhere to grow.
+
+THE LIST, IN ORDER (the deliverable RUN and LIFE+CITY asked for):
+  1. SOMEWHERE TO PUT THINGS. Missing outright. Costs one reader over a count we
+     already keep.
+  2. ONE GOOD HE ACTUALLY HOLDS, and make it the rice. [rice clock] is right, it
+     just needs item 1 underneath it.
+  3. A THING HE ALREADY OWNED THAT HE CAN SELL. We have no sell verb at all.
+  4. SOMEWHERE THAT IS HIS. Nearly free; housing and the builder already do it.
+  5. ONE PERSON WHO WILL DEAL WITH HIM. The nearest seat is 7.3 cells away with
+     two things on the shelf; it needs to be a person before it needs a third good.
+  6. ONE OBLIGATION HE HAS NOT SETTLED. Round 9: a debt is a person who remembers.
+     Cheapest hook in the list.
+  NOT ON THE LIST ON PURPOSE: a battery balance. He will have one. It is not what
+  he should point at when somebody asks what he got today.
+
+*** AND I RAN RUN'S COLD HAND GATE, BECAUSE THIS ROUND IS ABOUT THAT EXACT HOUR
+AND ITS OWN HEADER SAYS NOBODY HAD ASKED WHAT A SECOND RUN WOULD FIND.
+THE COLD HAND: 4 passed, 2 FAILED. ***
+  "THE GAME ADVANCES UNDER A COLD HAND -- clock 1d 360m -> 1d 360m over 40 presses"
+  trail: shell:front > shell:openWatch > city:rungbtn > city:pad > city:dcgo x36
+A simulated stranger gets four taps in, lands on the day card's GO and presses it
+THIRTY-SIX TIMES while the clock never moves. 06:00 day one at the first tap and
+06:00 day one at the fortieth. Same failure the test was written for on 8/25, in a
+different place. PROVEN NOT TO BE THIS ROUND'S TREE: my slices/, engine/ and
+gates/ are byte-identical to origin/main. NOT THIS LANE'S TO FIX (RUN's gate, RUN's
+surface, and my mode is research) -- reported because a first-hour round that ran
+the first-hour instrument and stayed quiet about a red would be worthless.
+The road IN is fine: the first-morning gate is 19/0 and TAKE IT needs one tap. It
+is the hour AFTER that is broken.
+
+REFUSED: an inventory screen with slots and weights (anti-spreadsheet, 7/26 -- what
+the list asks for is one line a person could say out loud, "a bag of rice and a
+jerrycan"); a fourth currency for goods (three is LOCKED, and a bag is a place not
+a currency); changing any price (8/15); a hunger meter on the player (the four-verb
+law already has the better version: the people who depend on you ate); building the
+fix (this lane does not implement); a tutorial that explains it (the first hour
+does not teach by killing you, and [rice clock] teaches by wanting).
+
+ROUTED: WORLD [rice clock] gets two (buy() charges and delivers nothing, measured
+through to day:ate; MKT_BOUGHT is the half that exists). LIFE + CITY gets the
+missing sell verb and "a player cannot point at anything he owns". RUN gets the
+cold hand red and the 30-60 second first reward. One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0, first-morning 19/0. COLD HAND 4/2, red on main, not
+mine and not this lane's.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days, runs dry around fifty.
+     Premise or bug?
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? FIFTH VOTE (rounds 2, 9,
+     10, 12, 13): a banknote far from its bank was not discounted, it was REFUSED.
+  9. Can a repaired ruin house people, the way his 8/1 ruling says? And can a
+     building hold a second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player in a broken city WANT that he cannot just
+     build? (Round 13: this is the bigger half.)
+ 11. What does a subscription to a block BUY, if it cannot buy electricity? His
+     9/5 law rules out a power allowance. Without this, [block rent] has a price
+     and no product.
+ 12. (new) What does the player START with? He boots with nothing: 0 batteries, 0
+     goods, no possessions. Every real first week begins with somebody selling or
+     improvising something they already had. What is in his hands at the first
+     frame is canon, and canon is his.
+
+NEXT IN THIS LANE: Q16 [debt spiral].
+
+================================================================================
 WORDS (words-8dqrnq): 9/5 (m) LATEST -- *** VAMILY Q16 [cut off] SHIPPED. A CUT-OFF IS
 NOT SAID. IT IS A BREAKER TRIPPING AND THE FRIDGE STOPS, AND THE MOST COMMON WAY YOUR
 POWER GOES OUT IS YOUR OWN KETTLE. *** Nothing to judge, MODE: RESEARCH, nothing
