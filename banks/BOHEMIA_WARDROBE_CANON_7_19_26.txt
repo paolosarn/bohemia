@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 325
+# count: 330
 SUN CROP|hair|#523a26|
 DUSK SHAG|hair|#201e1b|
 TEMPLE TAPER|hair|#201e1b|
@@ -330,3 +330,8 @@ ASH ARC SHIRT|base|#46464a|
 LAYERED JERSEY|base|#303034|
 ASH LAYERED TEE|base|#46464a|
 ARC LAYERED SHIRT|base|#363436|
+COMMA COAT|outer|#363436|
+SLATE COMMA COAT|outer|#484e56|
+COLUMN PANT-BOOT|feet|#363436|
+COAL COLUMN|feet|#303034|
+ASH COLUMN|feet|#46464a|

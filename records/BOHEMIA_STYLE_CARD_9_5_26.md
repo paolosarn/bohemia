@@ -37,7 +37,15 @@
 
 ## 2. THE TWO POLES (RNWY-13: commit to one, or it reads as neither)
 Every dressed body is ONE of these, chosen at cook time and named in
-the cook's REFERENCE CHECK:
+the cook's REFERENCE CHECK.
+AMENDED 9/5 (the Goodhart guard working as written): COOK's batch 6
+reported that the span rules were written against the NAKED paperdoll
+torso, and on this rig a dressed sprite's shoulder IS its arms - the
+naked-torso rule was unbuildable and COOK refused to work around it,
+which is exactly right. THE MEASUREMENT SURFACE IS THE DRESSED
+COMPOSITE: shoulder span = the widest row ABOVE the waist row (row 25
+of 50), hip span = the widest row BELOW it, arms and garments
+included. Every span rule below reads against those two numbers.
 
 ### POLE A — WIDE AT THE TOP (the Balenciaga figure)
 - SHOULDER: span >= hip span + 4 px at 112 (+2 at 56), and EITHER cut
@@ -93,6 +101,9 @@ the cook's REFERENCE CHECK:
   "accent_max_pieces": 1,
   "ramp_steps": [4, 6],
   "poles": {
+    "measure": {"surface": "dressed composite", "waist_row_of_50": 25,
+              "shoulder": "widest row above waist, arms included",
+              "hip": "widest row below waist"},
     "A": {"shoulder_minus_hip_px112": 4, "corner_round_max_px": 1,
           "leg_max_vs_hip_px112": -4},
     "B": {"shoulder_max_vs_hip_px112": 0, "hem_lines_min": 2,
