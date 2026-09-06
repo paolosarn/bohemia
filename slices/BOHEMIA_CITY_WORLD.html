@@ -37671,12 +37671,88 @@ function pplCtx(p) {
    ctFollowStep needs the spot they would be standing on if they were not
    following you -- so the two answers are two functions and can never be
    confused for one another. */
+/* __THEY_ARE_ON_THE_WAY__ (9/6) ==========================================
+   ROUND 5 of [more people] POPULATION-DEFAULT. Rounds 1-4 put people in the
+   houses, gathered their days at places, marked the crowds on the map and made
+   them audible. They still TELEPORTED.
+
+   MEASURED on the demo, the 61 people around where he wakes, minute by minute
+   through one morning: FIFTY-NINE times a body moved more than two cells in a
+   single minute, and THE BIGGEST WAS 477 CELLS -- half a kilometre in sixty
+   seconds. And the schedule already has rush hours: 16 of 61 change place at
+   08:00, 14 at 15:00, TWENTY-EIGHT AT 17:00, 16 at 19:00. Four times a day this
+   neighbourhood empties and refills, and not one of those journeys has ever
+   happened on a street.
+
+   A CITY IS MET ON THE WAY TO WORK. That is where strangers share ground, and it
+   is the plainest answer left to "he should meet people without trying": the
+   people are already going somewhere, at the same times, past each other.
+
+   NOTHING HERE IS A NUMBER I PICKED. The walk takes as long as the walk takes, at
+   MIN_PER_CELL -- the surface's own 0.084 minutes a cell from BB-ROADS-ARE-FAST,
+   the same cost the PLAYER pays to cross one. The schedule's own block boundary
+   (t0) says when they set off, and the block before it says where they set off
+   FROM. A twenty-cell errand is over in under two minutes; the 477-cell commute
+   takes forty. Both are the world's own arithmetic.
+
+   AND THE OCCUPANCY LAW STILL HOLDS: a walker is one body in one cell, nudged to
+   standable ground when the straight line clips a wall, because a person crossing
+   a lot is fine and a person inside a wall is not. */
+var PPL_WAY = new Map();
+function pplWayFrom(p, b) {
+  /* where they set off from: the place the block BEFORE this one put them */
+  var k = p.id + ':' + b.t0;
+  var got = PPL_WAY.get(k);
+  if (got !== undefined) return got;
+  var out = null;
+  try {
+    var prev = BohemiaAgents.whereAt(p, Math.max(0, (b.t0 | 0) - 1));
+    var kind = BohemiaPopulation.placeFor(p, (prev && prev.where) || 'home', pplCtx(p));
+    out = (kind === 'home') ? p.home
+        : (BohemiaPopulation.atFavourite(p, Math.max(0, (b.t0 | 0) - 1))
+             ? (p.favSpot || p.outSpot) : p.outSpot);
+  } catch (_e) { out = null; }
+  if (PPL_WAY.size > 4000) PPL_WAY.clear();
+  PPL_WAY.set(k, out);
+  return out;
+}
+function pplOnTheWay(p, b, target) {
+  if (!b || !target) return null;
+  var from = pplWayFrom(p, b);
+  if (!from || (from[0] === target[0] && from[1] === target[1])) return null;
+  var dist = Math.max(Math.abs(target[0] - from[0]), Math.abs(target[1] - from[1]));
+  var need = dist * MIN_PER_CELL;                 /* the surface's own step cost */
+  var gone = ((T.min | 0) - (b.t0 | 0));
+  if (gone < 0 || gone >= need) return null;      /* not set off yet, or arrived */
+  var f = need > 0 ? (gone / need) : 1;
+  var fx = Math.round(from[0] + (target[0] - from[0]) * f);
+  var fy = Math.round(from[1] + (target[1] - from[1]) * f);
+  if (pplStandable(fx, fy)) return [fx, fy];
+  /* THE STRAIGHT LINE CLIPS BUILDINGS, and a two-cell nudge was not enough: measured,
+     68 journeys still finished in one minute because the interpolated point landed
+     inside a wall and the walker snapped to the far end instead. So step BACK ALONG
+     THEIR OWN ROUTE until the ground is walkable -- they are behind where the clock
+     says, which is what happens to anybody who has to go round a building. */
+  var ux = (target[0] - from[0]) / (dist || 1), uy = (target[1] - from[1]) / (dist || 1);
+  for (var back = 1; back <= 24; back++) {
+    var bx = Math.round(fx - ux * back), by = Math.round(fy - uy * back);
+    if (pplStandable(bx, by)) return [bx, by];
+  }
+  for (var r = 1; r <= 3; r++)
+    for (var dy = -r; dy <= r; dy++) for (var dx = -r; dx <= r; dx++)
+      if (pplStandable(fx + dx, fy + dy)) return [fx + dx, fy + dy];
+  return null;                                    /* nowhere to put them: they arrive */
+}
 function pplAtSched(p) {
   const b = BohemiaAgents.whereAt(p, T.min | 0);
   const kind = BohemiaPopulation.placeFor(p, (b && b.where) || 'home', pplCtx(p));
-  if (kind === 'home') return p.home;
-  if (BohemiaPopulation.atFavourite(p, T.min | 0)) return p.favSpot || p.outSpot;
-  return p.outSpot;
+  const target = (kind === 'home') ? p.home
+               : (BohemiaPopulation.atFavourite(p, T.min | 0)
+                    ? (p.favSpot || p.outSpot) : p.outSpot);
+  /* __THEY_ARE_ON_THE_WAY__ -- and if the walk is not finished, they are on it */
+  var way = null;
+  try { way = pplOnTheWay(p, b, target); } catch (_e) {}
+  return way || target;
 }
 /* WHERE THEY ACTUALLY ARE. Their schedule, unless they have walked off it to
    stay near you -- which is the only thing in this world that overrides the

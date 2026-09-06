@@ -4324,7 +4324,65 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/6 (d) LATEST -- *** [more people] POPULATION-DEFAULT:
+LIFE + CITY (city-1eztay): 9/6 (e) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 5 SHIPPED, THE JOB CONTINUES. PEOPLE WERE STILL TELEPORTING -- 34 journeys a
+morning finished in under a minute AND THE BIGGEST WAS 477 CELLS, half a kilometre in
+sixty seconds, with NOBODY EVER VISIBLY ON THE WAY at any hour. They walk now, at the
+player's own step cost. *** AND IT DID NOT MOVE THE MEETING RATE: 3 of 12 walks before,
+3 of 12 after. *** MODE: BUILD. TAB: zoom out for the map, or just walk. Nothing to
+judge.
+
+  *** ROUND 5: THEY ARE ON THE WAY. SHIPPED, ROW STILL OPEN. ***
+  MEASURED FIRST, minute by minute through one morning, with a jump defined as MOVING
+FASTER THAN THE WORLD WALKS (MIN_PER_CELL, the surface's own 0.084 min a cell, ~12 cells
+a minute): 34 journeys finished in under a minute, THE BIGGEST 477 CELLS, and NOBODY was
+ever visibly between two places at any hour of the day. The schedule already has rush
+hours -- 16 of 61 change place at 08:00, 14 at 15:00, TWENTY-EIGHT at 17:00, 16 at 19:00
+-- and not one of those journeys had ever happened on a street.
+  WHAT SHIPPED, AND NOT ONE NUMBER OF IT IS MINE: a journey takes distance x
+MIN_PER_CELL, THE SAME COST THE PLAYER PAYS to cross a cell; when they set off is the
+schedule's own block boundary and where from is the block before it. A walker stands on
+ground a person can stand on -- the straight line runs through buildings, a two-cell
+nudge left 68 journeys still snapping, so a blocked walker steps BACK ALONG THEIR OWN
+ROUTE, which is what anybody going round a building does.
+  *** THE HONEST HEADLINE: IT DID NOT MOVE THE SHIP TEST. *** Twelve walks from the wake
+cell at 08:00, 12:00 and 17:00, run BEFORE AND AFTER: 3 of 12 met somebody, both times.
+What changed: teleports 34 -> 26, biggest 477 cells -> 400, and visibly on the way 0 all
+day -> a peak of 7 at once. A DEFECT IN THE WORLD'S HONESTY FIXED, NOT A MEETING RATE
+IMPROVED. Worth shipping anyway for a reason that has nothing to do with the ship test:
+a body crossing half a kilometre in sixty seconds is a bug whether or not fixing it
+helps anybody meet anybody, and it costs 0.07 ms to place all 61 people at rush hour.
+26 teleports remain and are NAMED not hidden: most journeys are short enough (median 20
+cells, under two minutes) to finish between two samples, and a few long ones still snap
+when the route is blocked past the 24-cell backtrack.
+  *** AND THE PROBE REPORTED THE FIX AS A CATASTROPHE. *** The first measurement after
+building it said teleports went from 59 to 610. The probe called anything over TWO cells
+a minute a teleport; the world walks TWELVE. So the moment people actually started
+walking, every honest step counted as a teleport. A THRESHOLD THAT IS NOT THE WORLD'S
+OWN NUMBER MEASURES THE PROBE. With it corrected the before was 34 and the after 68 --
+which is how the wall-clipping was found at all, and led to the backtrack that took it
+to 26.
+  GATE: gates/on_the_way_gate.js, 8/0, in the cut demo, registered. Mutation-tested two
+ways: remove the commute so they teleport again (B1 red at 34 and 477, B2 red at a peak
+of 0), and let walkers stand inside walls (B3 red, 9 hours with a body off walkable
+ground). B4 IS THE LEG THAT STATES THE HEADLINE, because a gate that let "the world got
+honest" and "he meets more people" be confused would be doing the confusing.
+  RECORD: records/BOHEMIA_THEY_ARE_ON_THE_WAY_9_6_26.md
+  STAMP: BUILD 9/6as - THEY ARE ON THE WAY
+  WHERE THE JOB IS AFTER FIVE ROUNDS: (1) people live at their front doors on ground that
+has houses; (2) their day gathers them at places, 2 of 32 walks meeting somebody became
+9 of 32; (3) the map shows the thirteen crowds; (4) the street says when one is in
+earshot; (5) and they walk there instead of vanishing. HE STILL DOES NOT MEET PEOPLE
+WITHOUT TRYING. Rounds 2 and 3 moved the number; rounds 4 and 5 made the world honest
+and legible WITHOUT moving it, and that is worth saying plainly rather than dressing up.
+  THE STANDING NOTE: REPORT THE NUMBER THAT DID NOT MOVE. The temptation after five
+rounds is to lead with the teleports falling and let the meeting rate go unmentioned.
+The meeting rate is this row's whole reason to exist, it did not move, and a record that
+buried that would make the next round start from a lie.
+
+--- ROUND 4 BELOW ---
+
+LIFE + CITY (city-1eztay): 9/6 (d) -- *** [more people] POPULATION-DEFAULT:
 ROUND 4 SHIPPED, THE JOB CONTINUES. THE WALKED STATUS LINE HAS SAID "walking your own
 block." SINCE THE DAY IT WAS WRITTEN AND NEVER ONE WORD ABOUT THE WORLD. IT NOW SAYS
 "you can hear a crowd, northwest." WHEN ONE IS IN EARSHOT, AND NOTHING WHEN THERE IS
