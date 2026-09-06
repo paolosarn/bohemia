@@ -1,0 +1,7500 @@
+{
+ "what": "the walk tells, read off the real pose functions",
+ "rows": [
+  {
+   "clip": "idle",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0078,
+     "median_step": 0.0052,
+     "max_step": 0.0078,
+     "snap_ratio": 1.51,
+     "amplitude": 0.08
+    }
+   ],
+   "worst_loop_gap": 0.0078,
+   "worst_snap": 1.51,
+   "median_step": 0.0052
+  },
+  {
+   "clip": "walk",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1024,
+     "median_step": 0.0677,
+     "max_step": 0.1024,
+     "snap_ratio": 1.51,
+     "amplitude": 0.245
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.3693,
+     "median_step": 0.244,
+     "max_step": 0.3693,
+     "snap_ratio": 1.51,
+     "amplitude": 1.176
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.402,
+     "median_step": 0.2656,
+     "max_step": 0.402,
+     "snap_ratio": 1.51,
+     "amplitude": 1
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3693,
+     "median_step": 0.244,
+     "max_step": 0.3693,
+     "snap_ratio": 1.51,
+     "amplitude": 1.176
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1024,
+     "median_step": 0.0677,
+     "max_step": 0.1024,
+     "snap_ratio": 1.51,
+     "amplitude": 0.245
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3693,
+     "median_step": 0.244,
+     "max_step": 0.3693,
+     "snap_ratio": 1.51,
+     "amplitude": 1.176
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.402,
+     "median_step": 0.2656,
+     "max_step": 0.402,
+     "snap_ratio": 1.51,
+     "amplitude": 1
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.3693,
+     "median_step": 0.244,
+     "max_step": 0.3693,
+     "snap_ratio": 1.51,
+     "amplitude": 1.176
+    }
+   ],
+   "worst_loop_gap": 0.402,
+   "worst_snap": 1.51,
+   "median_step": 0.2053
+  },
+  {
+   "clip": "run",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1423,
+     "median_step": 0.094,
+     "max_step": 0.1423,
+     "snap_ratio": 1.51,
+     "amplitude": 0.34
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6213,
+     "median_step": 0.4106,
+     "max_step": 0.6213,
+     "snap_ratio": 1.51,
+     "amplitude": 2.351
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.6565,
+     "median_step": 0.4338,
+     "max_step": 0.6565,
+     "snap_ratio": 1.51,
+     "amplitude": 2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.6213,
+     "median_step": 0.4106,
+     "max_step": 0.6213,
+     "snap_ratio": 1.51,
+     "amplitude": 2.351
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1423,
+     "median_step": 0.094,
+     "max_step": 0.1423,
+     "snap_ratio": 1.51,
+     "amplitude": 0.34
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.6213,
+     "median_step": 0.4106,
+     "max_step": 0.6213,
+     "snap_ratio": 1.51,
+     "amplitude": 2.351
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.6565,
+     "median_step": 0.4338,
+     "max_step": 0.6565,
+     "snap_ratio": 1.51,
+     "amplitude": 2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6213,
+     "median_step": 0.4106,
+     "max_step": 0.6213,
+     "snap_ratio": 1.51,
+     "amplitude": 2.351
+    }
+   ],
+   "worst_loop_gap": 0.6565,
+   "worst_snap": 1.51,
+   "median_step": 0.3373
+  },
+  {
+   "clip": "pistol",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5487,
+     "median_step": 0.3369,
+     "max_step": 0.5487,
+     "snap_ratio": 1.63,
+     "amplitude": 59.85
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6237,
+     "median_step": 0.383,
+     "max_step": 0.6237,
+     "snap_ratio": 1.63,
+     "amplitude": 64.733
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5487,
+     "median_step": 0.3369,
+     "max_step": 0.5487,
+     "snap_ratio": 1.63,
+     "amplitude": 68.35
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3675,
+     "median_step": 0.2257,
+     "max_step": 0.3675,
+     "snap_ratio": 1.63,
+     "amplitude": 66.733
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1863,
+     "median_step": 0.1144,
+     "max_step": 0.1863,
+     "snap_ratio": 1.63,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3675,
+     "median_step": 0.2257,
+     "max_step": 0.3675,
+     "snap_ratio": 1.63,
+     "amplitude": 44.762
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5487,
+     "median_step": 0.3369,
+     "max_step": 0.5487,
+     "snap_ratio": 1.63,
+     "amplitude": 47.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6237,
+     "median_step": 0.383,
+     "max_step": 0.6237,
+     "snap_ratio": 1.63,
+     "amplitude": 56.233
+    }
+   ],
+   "worst_loop_gap": 0.6237,
+   "worst_snap": 1.63,
+   "median_step": 0.2928
+  },
+  {
+   "clip": "two-hand",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.88,
+     "median_step": 0.5403,
+     "max_step": 0.88,
+     "snap_ratio": 1.63,
+     "amplitude": 59.75
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 1.0086,
+     "median_step": 0.6193,
+     "max_step": 1.0086,
+     "snap_ratio": 1.63,
+     "amplitude": 64.697
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.88,
+     "median_step": 0.5403,
+     "max_step": 0.88,
+     "snap_ratio": 1.63,
+     "amplitude": 68.3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5694,
+     "median_step": 0.3496,
+     "max_step": 0.5694,
+     "snap_ratio": 1.63,
+     "amplitude": 66.697
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.2588,
+     "median_step": 0.1589,
+     "max_step": 0.2588,
+     "snap_ratio": 1.63,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5694,
+     "median_step": 0.3496,
+     "max_step": 0.5694,
+     "snap_ratio": 1.63,
+     "amplitude": 48.969
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.88,
+     "median_step": 0.5403,
+     "max_step": 0.88,
+     "snap_ratio": 1.63,
+     "amplitude": 48.3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 1.0086,
+     "median_step": 0.6193,
+     "max_step": 1.0086,
+     "snap_ratio": 1.63,
+     "amplitude": 56.147
+    }
+   ],
+   "worst_loop_gap": 1.0086,
+   "worst_snap": 1.63,
+   "median_step": 0.4647
+  },
+  {
+   "clip": "deadeye",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 14.4863,
+     "median_step": 7.5193,
+     "max_step": 14.4863,
+     "snap_ratio": 1.93,
+     "amplitude": 66.692
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 12.4547,
+     "median_step": 5.8471,
+     "max_step": 12.4697,
+     "snap_ratio": 2.13,
+     "amplitude": 68
+    },
+    {
+     "dir": "E",
+     "loop_gap": 14.3496,
+     "median_step": 7.5248,
+     "max_step": 14.3496,
+     "snap_ratio": 1.91,
+     "amplitude": 67.877
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 12.4697,
+     "median_step": 5.8471,
+     "max_step": 12.4547,
+     "snap_ratio": 2.13,
+     "amplitude": 70
+    },
+    {
+     "dir": "N",
+     "loop_gap": 14.4863,
+     "median_step": 7.5193,
+     "max_step": 14.4863,
+     "snap_ratio": 1.93,
+     "amplitude": 66.692
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 12.4547,
+     "median_step": 5.8471,
+     "max_step": 12.4697,
+     "snap_ratio": 2.13,
+     "amplitude": 56.708
+    },
+    {
+     "dir": "W",
+     "loop_gap": 14.3496,
+     "median_step": 7.5248,
+     "max_step": 14.3496,
+     "snap_ratio": 1.91,
+     "amplitude": 57.692
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 12.4697,
+     "median_step": 5.8471,
+     "max_step": 12.4547,
+     "snap_ratio": 2.13,
+     "amplitude": 59
+    }
+   ],
+   "worst_loop_gap": 14.4863,
+   "worst_snap": 2.13,
+   "median_step": 6.6846
+  },
+  {
+   "clip": "lean",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0026,
+     "median_step": 0.0017,
+     "max_step": 0.0026,
+     "snap_ratio": 1.51,
+     "amplitude": 0.24
+    }
+   ],
+   "worst_loop_gap": 0.0026,
+   "worst_snap": 1.51,
+   "median_step": 0.0017
+  },
+  {
+   "clip": "sleep",
+   "error": "no pose function"
+  },
+  {
+   "clip": "headshot",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "E",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "N",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "W",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 12.8794,
+     "median_step": 0.1208,
+     "max_step": 0.8786,
+     "snap_ratio": 7.27,
+     "amplitude": 10
+    }
+   ],
+   "worst_loop_gap": 12.8794,
+   "worst_snap": 7.27,
+   "median_step": 0.1208
+  },
+  {
+   "clip": "headshot-2",
+   "error": "no pose function"
+  },
+  {
+   "clip": "sneak",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0711,
+     "median_step": 0.047,
+     "max_step": 0.0711,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2115,
+     "median_step": 0.1397,
+     "max_step": 0.2115,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2115,
+     "median_step": 0.1397,
+     "max_step": 0.2115,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2115,
+     "median_step": 0.1397,
+     "max_step": 0.2115,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0711,
+     "median_step": 0.047,
+     "max_step": 0.0711,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2115,
+     "median_step": 0.1397,
+     "max_step": 0.2115,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2115,
+     "median_step": 0.1397,
+     "max_step": 0.2115,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2115,
+     "median_step": 0.1397,
+     "max_step": 0.2115,
+     "snap_ratio": 1.51,
+     "amplitude": 4
+    }
+   ],
+   "worst_loop_gap": 0.2115,
+   "worst_snap": 1.51,
+   "median_step": 0.1165
+  },
+  {
+   "clip": "drunk",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1048,
+     "median_step": 0.0799,
+     "max_step": 0.105,
+     "snap_ratio": 1.31,
+     "amplitude": 0.238
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.4039,
+     "median_step": 0.355,
+     "max_step": 0.4654,
+     "snap_ratio": 1.31,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.4039,
+     "median_step": 0.355,
+     "max_step": 0.4654,
+     "snap_ratio": 1.31,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.4039,
+     "median_step": 0.355,
+     "max_step": 0.4654,
+     "snap_ratio": 1.31,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1048,
+     "median_step": 0.0799,
+     "max_step": 0.105,
+     "snap_ratio": 1.31,
+     "amplitude": 0.238
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.4039,
+     "median_step": 0.355,
+     "max_step": 0.4654,
+     "snap_ratio": 1.31,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.4039,
+     "median_step": 0.355,
+     "max_step": 0.4654,
+     "snap_ratio": 1.31,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.4039,
+     "median_step": 0.355,
+     "max_step": 0.4654,
+     "snap_ratio": 1.31,
+     "amplitude": 1.8
+    }
+   ],
+   "worst_loop_gap": 0.4039,
+   "worst_snap": 1.31,
+   "median_step": 0.2862
+  },
+  {
+   "clip": "jump",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.6444,
+     "median_step": 0.7188,
+     "max_step": 2.3833,
+     "snap_ratio": 3.32,
+     "amplitude": 9
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6514,
+     "median_step": 0.725,
+     "max_step": 2.3917,
+     "snap_ratio": 3.3,
+     "amplitude": 9
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.6514,
+     "median_step": 0.725,
+     "max_step": 2.3917,
+     "snap_ratio": 3.3,
+     "amplitude": 9
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.6514,
+     "median_step": 0.725,
+     "max_step": 2.3917,
+     "snap_ratio": 3.3,
+     "amplitude": 9
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.6444,
+     "median_step": 0.7188,
+     "max_step": 2.3833,
+     "snap_ratio": 3.32,
+     "amplitude": 9
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.6514,
+     "median_step": 0.725,
+     "max_step": 2.3917,
+     "snap_ratio": 3.3,
+     "amplitude": 9
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.6514,
+     "median_step": 0.725,
+     "max_step": 2.3917,
+     "snap_ratio": 3.3,
+     "amplitude": 9
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6514,
+     "median_step": 0.725,
+     "max_step": 2.3917,
+     "snap_ratio": 3.3,
+     "amplitude": 9
+    }
+   ],
+   "worst_loop_gap": 0.6514,
+   "worst_snap": 3.32,
+   "median_step": 0.7234
+  },
+  {
+   "clip": "eat",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 56
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 58.475
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 59.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 60.475
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 50.525
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 50.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6605,
+     "median_step": 0.4364,
+     "max_step": 0.6605,
+     "snap_ratio": 1.51,
+     "amplitude": 51.525
+    }
+   ],
+   "worst_loop_gap": 0.6605,
+   "worst_snap": 1.51,
+   "median_step": 0.4364
+  },
+  {
+   "clip": "drink",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 56
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 58.475
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 59.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 60.475
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 50.525
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 50.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.6438,
+     "snap_ratio": null,
+     "amplitude": 51.525
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "smoke",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 56
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 58.121
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 59
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 60.121
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 50.879
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 51
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.7083,
+     "snap_ratio": null,
+     "amplitude": 51.879
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "talk",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1311,
+     "median_step": 0.0878,
+     "max_step": 0.1369,
+     "snap_ratio": 1.56,
+     "amplitude": 0.95
+    }
+   ],
+   "worst_loop_gap": 0.1311,
+   "worst_snap": 1.56,
+   "median_step": 0.0878
+  },
+  {
+   "clip": "nod",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0388,
+     "median_step": 0.063,
+     "max_step": 0.4788,
+     "snap_ratio": 7.6,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0362,
+     "median_step": 0.0254,
+     "max_step": 0.0414,
+     "snap_ratio": 1.63,
+     "amplitude": 0.26
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0362,
+     "median_step": 0.0254,
+     "max_step": 0.0414,
+     "snap_ratio": 1.63,
+     "amplitude": 0.26
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0362,
+     "median_step": 0.0254,
+     "max_step": 0.0414,
+     "snap_ratio": 1.63,
+     "amplitude": 0.26
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0388,
+     "median_step": 0.063,
+     "max_step": 0.4788,
+     "snap_ratio": 7.6,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0362,
+     "median_step": 0.0254,
+     "max_step": 0.0414,
+     "snap_ratio": 1.63,
+     "amplitude": 0.26
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0362,
+     "median_step": 0.0254,
+     "max_step": 0.0414,
+     "snap_ratio": 1.63,
+     "amplitude": 0.26
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0362,
+     "median_step": 0.0254,
+     "max_step": 0.0414,
+     "snap_ratio": 1.63,
+     "amplitude": 0.26
+    }
+   ],
+   "worst_loop_gap": 0.0388,
+   "worst_snap": 7.6,
+   "median_step": 0.0348
+  },
+  {
+   "clip": "look-around",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0875,
+     "median_step": 0.0578,
+     "max_step": 0.0875,
+     "snap_ratio": 1.51,
+     "amplitude": 0.5
+    }
+   ],
+   "worst_loop_gap": 0.0875,
+   "worst_snap": 1.51,
+   "median_step": 0.0578
+  },
+  {
+   "clip": "stumble",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0278,
+     "median_step": 0.0278,
+     "max_step": 0.5594,
+     "snap_ratio": 20.14,
+     "amplitude": 3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.6219,
+     "snap_ratio": 14.92,
+     "amplitude": 3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.6219,
+     "snap_ratio": 14.92,
+     "amplitude": 3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.6219,
+     "snap_ratio": 14.92,
+     "amplitude": 3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0278,
+     "median_step": 0.0278,
+     "max_step": 0.5594,
+     "snap_ratio": 20.14,
+     "amplitude": 3
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.6219,
+     "snap_ratio": 14.92,
+     "amplitude": 3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.6219,
+     "snap_ratio": 14.92,
+     "amplitude": 3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.6219,
+     "snap_ratio": 14.92,
+     "amplitude": 3
+    }
+   ],
+   "worst_loop_gap": 0.0417,
+   "worst_snap": 20.14,
+   "median_step": 0.0382
+  },
+  {
+   "clip": "fistpump",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.5208,
+     "max_step": 0.5208,
+     "snap_ratio": 1,
+     "amplitude": 1.6
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1,
+   "median_step": 0.5208
+  },
+  {
+   "clip": "point",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.399,
+     "snap_ratio": 3.85,
+     "amplitude": 62.4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.1464,
+     "max_step": 0.5505,
+     "snap_ratio": 3.76,
+     "amplitude": 66.889
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.4042,
+     "snap_ratio": 3.9,
+     "amplitude": 71.4
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.1464,
+     "max_step": 0.5505,
+     "snap_ratio": 3.76,
+     "amplitude": 68.889
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.399,
+     "snap_ratio": 3.85,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.1464,
+     "max_step": 0.5505,
+     "snap_ratio": 3.76,
+     "amplitude": 44.161
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.4042,
+     "snap_ratio": 3.9,
+     "amplitude": 47
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.1464,
+     "max_step": 0.5505,
+     "snap_ratio": 3.76,
+     "amplitude": 57.889
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 3.9,
+   "median_step": 0.125
+  },
+  {
+   "clip": "cheer",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5091,
+     "median_step": 0.3364,
+     "max_step": 0.5091,
+     "snap_ratio": 1.51,
+     "amplitude": 3.14
+    }
+   ],
+   "worst_loop_gap": 0.5091,
+   "worst_snap": 1.51,
+   "median_step": 0.3364
+  },
+  {
+   "clip": "sit-ground",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1973,
+     "median_step": 0.0145,
+     "max_step": 0.0787,
+     "snap_ratio": 5.43,
+     "amplitude": 11.5
+    }
+   ],
+   "worst_loop_gap": 0.1973,
+   "worst_snap": 5.43,
+   "median_step": 0.0145
+  },
+  {
+   "clip": "pickup",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.3304,
+     "max_step": 0.3304,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.3613,
+     "max_step": 0.3613,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.3613,
+     "max_step": 0.3613,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.3613,
+     "max_step": 0.3613,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.3304,
+     "max_step": 0.3304,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.3613,
+     "max_step": 0.3613,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.3613,
+     "max_step": 0.3613,
+     "snap_ratio": 1,
+     "amplitude": 4
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.3613,
+     "max_step": 0.3613,
+     "snap_ratio": 1,
+     "amplitude": 4
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1,
+   "median_step": 0.3536
+  },
+  {
+   "clip": "carry",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.2141,
+     "median_step": 0.1414,
+     "max_step": 0.2141,
+     "snap_ratio": 1.51,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1429,
+     "median_step": 0.0949,
+     "max_step": 0.1429,
+     "snap_ratio": 1.51,
+     "amplitude": 1.62
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1429,
+     "median_step": 0.0949,
+     "max_step": 0.1429,
+     "snap_ratio": 1.51,
+     "amplitude": 1.62
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1429,
+     "median_step": 0.0949,
+     "max_step": 0.1429,
+     "snap_ratio": 1.51,
+     "amplitude": 1.62
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.2141,
+     "median_step": 0.1414,
+     "max_step": 0.2141,
+     "snap_ratio": 1.51,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1429,
+     "median_step": 0.0949,
+     "max_step": 0.1429,
+     "snap_ratio": 1.51,
+     "amplitude": 1.62
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1429,
+     "median_step": 0.0949,
+     "max_step": 0.1429,
+     "snap_ratio": 1.51,
+     "amplitude": 1.62
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1429,
+     "median_step": 0.0949,
+     "max_step": 0.1429,
+     "snap_ratio": 1.51,
+     "amplitude": 1.62
+    }
+   ],
+   "worst_loop_gap": 0.2141,
+   "worst_snap": 1.51,
+   "median_step": 0.1065
+  },
+  {
+   "clip": "shrug",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.11,
+     "max_step": 0.1833,
+     "snap_ratio": 1.67,
+     "amplitude": 0.85
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1.67,
+   "median_step": 0.11
+  },
+  {
+   "clip": "hands-up",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0662,
+     "median_step": 0.0662,
+     "max_step": 0.1398,
+     "snap_ratio": 2.11,
+     "amplitude": 2.81
+    }
+   ],
+   "worst_loop_gap": 0.0662,
+   "worst_snap": 2.11,
+   "median_step": 0.0662
+  },
+  {
+   "clip": "dance",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.3875,
+     "median_step": 0.3673,
+     "max_step": 0.4085,
+     "snap_ratio": 1.11,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.3953,
+     "median_step": 0.3724,
+     "max_step": 0.4159,
+     "snap_ratio": 1.12,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.3953,
+     "median_step": 0.3724,
+     "max_step": 0.4159,
+     "snap_ratio": 1.12,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3953,
+     "median_step": 0.3724,
+     "max_step": 0.4159,
+     "snap_ratio": 1.12,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.3875,
+     "median_step": 0.3673,
+     "max_step": 0.4085,
+     "snap_ratio": 1.11,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3953,
+     "median_step": 0.3724,
+     "max_step": 0.4159,
+     "snap_ratio": 1.12,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.3953,
+     "median_step": 0.3724,
+     "max_step": 0.4159,
+     "snap_ratio": 1.12,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.3953,
+     "median_step": 0.3724,
+     "max_step": 0.4159,
+     "snap_ratio": 1.12,
+     "amplitude": 1.6
+    }
+   ],
+   "worst_loop_gap": 0.3953,
+   "worst_snap": 1.12,
+   "median_step": 0.3711
+  },
+  {
+   "clip": "pray",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 56.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 60.312
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 61.85
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 62.312
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 56.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 49.888
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 49.35
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2872,
+     "median_step": 0.1897,
+     "max_step": 0.2872,
+     "snap_ratio": 1.51,
+     "amplitude": 50.888
+    }
+   ],
+   "worst_loop_gap": 0.2872,
+   "worst_snap": 1.51,
+   "median_step": 0.1897
+  },
+  {
+   "clip": "beckon",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1214,
+     "median_step": 0.0802,
+     "max_step": 0.1214,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    }
+   ],
+   "worst_loop_gap": 0.1214,
+   "worst_snap": 1.51,
+   "median_step": 0.0802
+  },
+  {
+   "clip": "dig",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.3937,
+     "max_step": 0.4725,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.4292,
+     "max_step": 0.515,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.4292,
+     "max_step": 0.515,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.4292,
+     "max_step": 0.515,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.3937,
+     "max_step": 0.4725,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.4292,
+     "max_step": 0.515,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.4292,
+     "max_step": 0.515,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.4292,
+     "max_step": 0.515,
+     "snap_ratio": 1.2,
+     "amplitude": 3
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1.2,
+   "median_step": 0.4203
+  },
+  {
+   "clip": "tired-walk",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0711,
+     "median_step": 0.047,
+     "max_step": 0.0711,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2323,
+     "median_step": 0.1535,
+     "max_step": 0.2323,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2323,
+     "median_step": 0.1535,
+     "max_step": 0.2323,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2323,
+     "median_step": 0.1535,
+     "max_step": 0.2323,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0711,
+     "median_step": 0.047,
+     "max_step": 0.0711,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2323,
+     "median_step": 0.1535,
+     "max_step": 0.2323,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2323,
+     "median_step": 0.1535,
+     "max_step": 0.2323,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2323,
+     "median_step": 0.1535,
+     "max_step": 0.2323,
+     "snap_ratio": 1.51,
+     "amplitude": 1.2
+    }
+   ],
+   "worst_loop_gap": 0.2323,
+   "worst_snap": 1.51,
+   "median_step": 0.1269
+  },
+  {
+   "clip": "wander",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1358,
+     "median_step": 0.0485,
+     "max_step": 0.07,
+     "snap_ratio": 1.44,
+     "amplitude": 0.22
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2454,
+     "median_step": 0.1131,
+     "max_step": 0.1664,
+     "snap_ratio": 1.47,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2454,
+     "median_step": 0.1131,
+     "max_step": 0.1664,
+     "snap_ratio": 1.47,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2454,
+     "median_step": 0.1131,
+     "max_step": 0.1664,
+     "snap_ratio": 1.47,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1358,
+     "median_step": 0.0485,
+     "max_step": 0.07,
+     "snap_ratio": 1.44,
+     "amplitude": 0.22
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2454,
+     "median_step": 0.1131,
+     "max_step": 0.1664,
+     "snap_ratio": 1.47,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2454,
+     "median_step": 0.1131,
+     "max_step": 0.1664,
+     "snap_ratio": 1.47,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2454,
+     "median_step": 0.1131,
+     "max_step": 0.1664,
+     "snap_ratio": 1.47,
+     "amplitude": 0.3
+    }
+   ],
+   "worst_loop_gap": 0.2454,
+   "worst_snap": 1.47,
+   "median_step": 0.0969
+  },
+  {
+   "clip": "push",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1436,
+     "median_step": 0.0949,
+     "max_step": 0.1436,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1697,
+     "median_step": 0.1121,
+     "max_step": 0.1697,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1697,
+     "median_step": 0.1121,
+     "max_step": 0.1697,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1697,
+     "median_step": 0.1121,
+     "max_step": 0.1697,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1436,
+     "median_step": 0.0949,
+     "max_step": 0.1436,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1697,
+     "median_step": 0.1121,
+     "max_step": 0.1697,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1697,
+     "median_step": 0.1121,
+     "max_step": 0.1697,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1697,
+     "median_step": 0.1121,
+     "max_step": 0.1697,
+     "snap_ratio": 1.51,
+     "amplitude": 1.5
+    }
+   ],
+   "worst_loop_gap": 0.1697,
+   "worst_snap": 1.51,
+   "median_step": 0.1078
+  },
+  {
+   "clip": "cough",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.3521,
+     "snap_ratio": null,
+     "amplitude": 56
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.4592,
+     "snap_ratio": null,
+     "amplitude": 57.768
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.4592,
+     "snap_ratio": null,
+     "amplitude": 58.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.4592,
+     "snap_ratio": null,
+     "amplitude": 59.768
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.3521,
+     "snap_ratio": null,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.4592,
+     "snap_ratio": null,
+     "amplitude": 51.232
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.4592,
+     "snap_ratio": null,
+     "amplitude": 51.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.4592,
+     "snap_ratio": null,
+     "amplitude": 52.232
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "laugh",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1634,
+     "median_step": 0.1113,
+     "max_step": 0.1634,
+     "snap_ratio": 1.47,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1817,
+     "median_step": 0.1222,
+     "max_step": 0.1817,
+     "snap_ratio": 1.49,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1817,
+     "median_step": 0.1222,
+     "max_step": 0.1817,
+     "snap_ratio": 1.49,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1817,
+     "median_step": 0.1222,
+     "max_step": 0.1817,
+     "snap_ratio": 1.49,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1634,
+     "median_step": 0.1113,
+     "max_step": 0.1634,
+     "snap_ratio": 1.47,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1817,
+     "median_step": 0.1222,
+     "max_step": 0.1817,
+     "snap_ratio": 1.49,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1817,
+     "median_step": 0.1222,
+     "max_step": 0.1817,
+     "snap_ratio": 1.49,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1817,
+     "median_step": 0.1222,
+     "max_step": 0.1817,
+     "snap_ratio": 1.49,
+     "amplitude": 0.9
+    }
+   ],
+   "worst_loop_gap": 0.1817,
+   "worst_snap": 1.49,
+   "median_step": 0.1195
+  },
+  {
+   "clip": "argue",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1863,
+     "median_step": 0.1491,
+     "max_step": 0.3106,
+     "snap_ratio": 2.08,
+     "amplitude": 0.66
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2096,
+     "median_step": 0.1678,
+     "max_step": 0.3986,
+     "snap_ratio": 2.38,
+     "amplitude": 0.825
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2096,
+     "median_step": 0.1678,
+     "max_step": 0.3986,
+     "snap_ratio": 2.38,
+     "amplitude": 0.825
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2096,
+     "median_step": 0.1678,
+     "max_step": 0.3986,
+     "snap_ratio": 2.38,
+     "amplitude": 0.825
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1863,
+     "median_step": 0.1491,
+     "max_step": 0.3106,
+     "snap_ratio": 2.08,
+     "amplitude": 0.66
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2096,
+     "median_step": 0.1678,
+     "max_step": 0.3986,
+     "snap_ratio": 2.38,
+     "amplitude": 0.825
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2096,
+     "median_step": 0.1678,
+     "max_step": 0.3986,
+     "snap_ratio": 2.38,
+     "amplitude": 0.825
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2096,
+     "median_step": 0.1678,
+     "max_step": 0.3986,
+     "snap_ratio": 2.38,
+     "amplitude": 0.825
+    }
+   ],
+   "worst_loop_gap": 0.2096,
+   "worst_snap": 2.38,
+   "median_step": 0.1631
+  },
+  {
+   "clip": "greet",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3896,
+     "snap_ratio": 3.76,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3938,
+     "snap_ratio": 3.8,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3938,
+     "snap_ratio": 3.8,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3938,
+     "snap_ratio": 3.8,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3896,
+     "snap_ratio": 3.76,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3938,
+     "snap_ratio": 3.8,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3938,
+     "snap_ratio": 3.8,
+     "amplitude": 2.02
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.1035,
+     "max_step": 0.3938,
+     "snap_ratio": 3.8,
+     "amplitude": 2.02
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 3.8,
+   "median_step": 0.1035
+  },
+  {
+   "clip": "search",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1044,
+     "median_step": 0.069,
+     "max_step": 0.1044,
+     "snap_ratio": 1.51,
+     "amplitude": 56
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1566,
+     "median_step": 0.1035,
+     "max_step": 0.1566,
+     "snap_ratio": 1.51,
+     "amplitude": 57.768
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1566,
+     "median_step": 0.1035,
+     "max_step": 0.1566,
+     "snap_ratio": 1.51,
+     "amplitude": 58.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1566,
+     "median_step": 0.1035,
+     "max_step": 0.1566,
+     "snap_ratio": 1.51,
+     "amplitude": 59.768
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1044,
+     "median_step": 0.069,
+     "max_step": 0.1044,
+     "snap_ratio": 1.51,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1566,
+     "median_step": 0.1035,
+     "max_step": 0.1566,
+     "snap_ratio": 1.51,
+     "amplitude": 51.232
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1566,
+     "median_step": 0.1035,
+     "max_step": 0.1566,
+     "snap_ratio": 1.51,
+     "amplitude": 51.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1566,
+     "median_step": 0.1035,
+     "max_step": 0.1566,
+     "snap_ratio": 1.51,
+     "amplitude": 52.232
+    }
+   ],
+   "worst_loop_gap": 0.1566,
+   "worst_snap": 1.51,
+   "median_step": 0.0949
+  },
+  {
+   "clip": "brace",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.0327,
+     "max_step": 0.2485,
+     "snap_ratio": 7.6,
+     "amplitude": 3.3
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 7.6,
+   "median_step": 0.0327
+  },
+  {
+   "clip": "stretch",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1801,
+     "median_step": 0.119,
+     "max_step": 0.1801,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2219,
+     "median_step": 0.1466,
+     "max_step": 0.2219,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2219,
+     "median_step": 0.1466,
+     "max_step": 0.2219,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2219,
+     "median_step": 0.1466,
+     "max_step": 0.2219,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1801,
+     "median_step": 0.119,
+     "max_step": 0.1801,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2219,
+     "median_step": 0.1466,
+     "max_step": 0.2219,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2219,
+     "median_step": 0.1466,
+     "max_step": 0.2219,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2219,
+     "median_step": 0.1466,
+     "max_step": 0.2219,
+     "snap_ratio": 1.51,
+     "amplitude": 2.72
+    }
+   ],
+   "worst_loop_gap": 0.2219,
+   "worst_snap": 1.51,
+   "median_step": 0.1397
+  },
+  {
+   "clip": "shiver",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.3166,
+     "median_step": 0.2204,
+     "max_step": 0.3336,
+     "snap_ratio": 1.51,
+     "amplitude": 0.8
+    }
+   ],
+   "worst_loop_gap": 0.3166,
+   "worst_snap": 1.51,
+   "median_step": 0.2204
+  },
+  {
+   "clip": "throw",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5069,
+     "median_step": 0.1618,
+     "max_step": 0.6639,
+     "snap_ratio": 4.1,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5597,
+     "median_step": 0.1715,
+     "max_step": 0.7361,
+     "snap_ratio": 4.29,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5597,
+     "median_step": 0.1715,
+     "max_step": 0.7361,
+     "snap_ratio": 4.29,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5597,
+     "median_step": 0.1715,
+     "max_step": 0.7361,
+     "snap_ratio": 4.29,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5069,
+     "median_step": 0.1618,
+     "max_step": 0.6639,
+     "snap_ratio": 4.1,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5597,
+     "median_step": 0.1715,
+     "max_step": 0.7361,
+     "snap_ratio": 4.29,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5597,
+     "median_step": 0.1715,
+     "max_step": 0.7361,
+     "snap_ratio": 4.29,
+     "amplitude": 1.7
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5597,
+     "median_step": 0.1715,
+     "max_step": 0.7361,
+     "snap_ratio": 4.29,
+     "amplitude": 1.7
+    }
+   ],
+   "worst_loop_gap": 0.5597,
+   "worst_snap": 4.29,
+   "median_step": 0.1691
+  },
+  {
+   "clip": "dodge",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 6.72,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "preach",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1814,
+     "median_step": 0.1199,
+     "max_step": 0.1814,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2271,
+     "median_step": 0.1501,
+     "max_step": 0.2271,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2271,
+     "median_step": 0.1501,
+     "max_step": 0.2271,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2271,
+     "median_step": 0.1501,
+     "max_step": 0.2271,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1814,
+     "median_step": 0.1199,
+     "max_step": 0.1814,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2271,
+     "median_step": 0.1501,
+     "max_step": 0.2271,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2271,
+     "median_step": 0.1501,
+     "max_step": 0.2271,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2271,
+     "median_step": 0.1501,
+     "max_step": 0.2271,
+     "snap_ratio": 1.51,
+     "amplitude": 1.9
+    }
+   ],
+   "worst_loop_gap": 0.2271,
+   "worst_snap": 1.51,
+   "median_step": 0.1426
+  },
+  {
+   "clip": "sit-chair",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.017,
+     "median_step": 0.0161,
+     "max_step": 0.0692,
+     "snap_ratio": 4.3,
+     "amplitude": 8.4
+    }
+   ],
+   "worst_loop_gap": 0.017,
+   "worst_snap": 4.3,
+   "median_step": 0.0161
+  },
+  {
+   "clip": "whistle",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 56
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 57.556
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 58.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 59.556
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 51.444
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 51.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0091,
+     "median_step": 0.009,
+     "max_step": 0.0613,
+     "snap_ratio": 6.83,
+     "amplitude": 52.444
+    }
+   ],
+   "worst_loop_gap": 0.0091,
+   "worst_snap": 6.83,
+   "median_step": 0.009
+  },
+  {
+   "clip": "bow",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.17,
+     "max_step": 0.2125,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.22,
+     "max_step": 0.275,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.22,
+     "max_step": 0.275,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.22,
+     "max_step": 0.275,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.17,
+     "max_step": 0.2125,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.22,
+     "max_step": 0.275,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.22,
+     "max_step": 0.275,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.22,
+     "max_step": 0.275,
+     "snap_ratio": 1.25,
+     "amplitude": 1.2
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1.25,
+   "median_step": 0.2075
+  },
+  {
+   "clip": "kick",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.125,
+     "max_step": 0.5583,
+     "snap_ratio": 4.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.1979,
+     "max_step": 1.1111,
+     "snap_ratio": 5.61,
+     "amplitude": 1.25
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.1979,
+     "max_step": 1.1111,
+     "snap_ratio": 5.61,
+     "amplitude": 1.25
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.1979,
+     "max_step": 1.1111,
+     "snap_ratio": 5.61,
+     "amplitude": 1.25
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.125,
+     "max_step": 0.5583,
+     "snap_ratio": 4.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.1979,
+     "max_step": 1.1111,
+     "snap_ratio": 5.61,
+     "amplitude": 1.25
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.1979,
+     "max_step": 1.1111,
+     "snap_ratio": 5.61,
+     "amplitude": 1.25
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.1979,
+     "max_step": 1.1111,
+     "snap_ratio": 5.61,
+     "amplitude": 1.25
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 5.61,
+   "median_step": 0.1797
+  },
+  {
+   "clip": "shadowbox",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.4141,
+     "median_step": 0.2702,
+     "max_step": 0.44,
+     "snap_ratio": 1.63,
+     "amplitude": 0.675
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.4918,
+     "median_step": 0.3258,
+     "max_step": 0.5306,
+     "snap_ratio": 1.63,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.4918,
+     "median_step": 0.3258,
+     "max_step": 0.5306,
+     "snap_ratio": 1.63,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.4918,
+     "median_step": 0.3258,
+     "max_step": 0.5306,
+     "snap_ratio": 1.63,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.4141,
+     "median_step": 0.2702,
+     "max_step": 0.44,
+     "snap_ratio": 1.63,
+     "amplitude": 0.675
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.4918,
+     "median_step": 0.3258,
+     "max_step": 0.5306,
+     "snap_ratio": 1.63,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.4918,
+     "median_step": 0.3258,
+     "max_step": 0.5306,
+     "snap_ratio": 1.63,
+     "amplitude": 0.85
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.4918,
+     "median_step": 0.3258,
+     "max_step": 0.5306,
+     "snap_ratio": 1.63,
+     "amplitude": 0.85
+    }
+   ],
+   "worst_loop_gap": 0.4918,
+   "worst_snap": 1.63,
+   "median_step": 0.3119
+  },
+  {
+   "clip": "sigh",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1667,
+     "median_step": 0.0967,
+     "max_step": 0.3278,
+     "snap_ratio": 3.39,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2028,
+     "median_step": 0.1008,
+     "max_step": 0.3708,
+     "snap_ratio": 3.68,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2028,
+     "median_step": 0.1008,
+     "max_step": 0.3708,
+     "snap_ratio": 3.68,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2028,
+     "median_step": 0.1008,
+     "max_step": 0.3708,
+     "snap_ratio": 3.68,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1667,
+     "median_step": 0.0967,
+     "max_step": 0.3278,
+     "snap_ratio": 3.39,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2028,
+     "median_step": 0.1008,
+     "max_step": 0.3708,
+     "snap_ratio": 3.68,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2028,
+     "median_step": 0.1008,
+     "max_step": 0.3708,
+     "snap_ratio": 3.68,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2028,
+     "median_step": 0.1008,
+     "max_step": 0.3708,
+     "snap_ratio": 3.68,
+     "amplitude": 1.2
+    }
+   ],
+   "worst_loop_gap": 0.2028,
+   "worst_snap": 3.68,
+   "median_step": 0.0998
+  },
+  {
+   "clip": "startle",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.8949,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.09,
+     "snap_ratio": null,
+     "amplitude": 2.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.09,
+     "snap_ratio": null,
+     "amplitude": 2.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.09,
+     "snap_ratio": null,
+     "amplitude": 2.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.8949,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.09,
+     "snap_ratio": null,
+     "amplitude": 2.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.09,
+     "snap_ratio": null,
+     "amplitude": 2.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.09,
+     "snap_ratio": null,
+     "amplitude": 2.5
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "shove",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.4306,
+     "max_step": 0.8167,
+     "snap_ratio": 1.9,
+     "amplitude": 1
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.4528,
+     "max_step": 0.9222,
+     "snap_ratio": 2.04,
+     "amplitude": 1
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.4528,
+     "max_step": 0.9222,
+     "snap_ratio": 2.04,
+     "amplitude": 1
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.4528,
+     "max_step": 0.9222,
+     "snap_ratio": 2.04,
+     "amplitude": 1
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.4306,
+     "max_step": 0.8167,
+     "snap_ratio": 1.9,
+     "amplitude": 1
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.4528,
+     "max_step": 0.9222,
+     "snap_ratio": 2.04,
+     "amplitude": 1
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.4528,
+     "max_step": 0.9222,
+     "snap_ratio": 2.04,
+     "amplitude": 1
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.4528,
+     "max_step": 0.9222,
+     "snap_ratio": 2.04,
+     "amplitude": 1
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 2.04,
+   "median_step": 0.4472
+  },
+  {
+   "clip": "taunt",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1276,
+     "median_step": 0.0843,
+     "max_step": 0.1276,
+     "snap_ratio": 1.51,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.1498,
+     "median_step": 0.099,
+     "max_step": 0.1498,
+     "snap_ratio": 1.51,
+     "amplitude": 0.7
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.1498,
+     "median_step": 0.099,
+     "max_step": 0.1498,
+     "snap_ratio": 1.51,
+     "amplitude": 0.7
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.1498,
+     "median_step": 0.099,
+     "max_step": 0.1498,
+     "snap_ratio": 1.51,
+     "amplitude": 0.7
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1276,
+     "median_step": 0.0843,
+     "max_step": 0.1276,
+     "snap_ratio": 1.51,
+     "amplitude": 0.95
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.1498,
+     "median_step": 0.099,
+     "max_step": 0.1498,
+     "snap_ratio": 1.51,
+     "amplitude": 0.7
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.1498,
+     "median_step": 0.099,
+     "max_step": 0.1498,
+     "snap_ratio": 1.51,
+     "amplitude": 0.7
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.1498,
+     "median_step": 0.099,
+     "max_step": 0.1498,
+     "snap_ratio": 1.51,
+     "amplitude": 0.7
+    }
+   ],
+   "worst_loop_gap": 0.1498,
+   "worst_snap": 1.51,
+   "median_step": 0.0953
+  },
+  {
+   "clip": "swagger",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.2681,
+     "median_step": 0.1772,
+     "max_step": 0.2681,
+     "snap_ratio": 1.51,
+     "amplitude": 1.58
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.556,
+     "median_step": 0.3674,
+     "max_step": 0.556,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.556,
+     "median_step": 0.3674,
+     "max_step": 0.556,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.556,
+     "median_step": 0.3674,
+     "max_step": 0.556,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.2681,
+     "median_step": 0.1772,
+     "max_step": 0.2681,
+     "snap_ratio": 1.51,
+     "amplitude": 1.58
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.556,
+     "median_step": 0.3674,
+     "max_step": 0.556,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.556,
+     "median_step": 0.3674,
+     "max_step": 0.556,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.556,
+     "median_step": 0.3674,
+     "max_step": 0.556,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    }
+   ],
+   "worst_loop_gap": 0.556,
+   "worst_snap": 1.51,
+   "median_step": 0.3198
+  },
+  {
+   "clip": "balance",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.4152,
+     "median_step": 0.3026,
+     "max_step": 0.4671,
+     "snap_ratio": 1.54,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.4201,
+     "median_step": 0.37,
+     "max_step": 0.542,
+     "snap_ratio": 1.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.4201,
+     "median_step": 0.37,
+     "max_step": 0.542,
+     "snap_ratio": 1.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.4201,
+     "median_step": 0.37,
+     "max_step": 0.542,
+     "snap_ratio": 1.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.4152,
+     "median_step": 0.3026,
+     "max_step": 0.4671,
+     "snap_ratio": 1.54,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.4201,
+     "median_step": 0.37,
+     "max_step": 0.542,
+     "snap_ratio": 1.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.4201,
+     "median_step": 0.37,
+     "max_step": 0.542,
+     "snap_ratio": 1.47,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.4201,
+     "median_step": 0.37,
+     "max_step": 0.542,
+     "snap_ratio": 1.47,
+     "amplitude": 1.2
+    }
+   ],
+   "worst_loop_gap": 0.4201,
+   "worst_snap": 1.54,
+   "median_step": 0.3532
+  },
+  {
+   "clip": "stomp",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.2502,
+     "max_step": 1.0891,
+     "snap_ratio": 4.35,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.3333,
+     "max_step": 1.25,
+     "snap_ratio": 3.75,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.3333,
+     "max_step": 1.25,
+     "snap_ratio": 3.75,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.3333,
+     "max_step": 1.25,
+     "snap_ratio": 3.75,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.2502,
+     "max_step": 1.0891,
+     "snap_ratio": 4.35,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.3333,
+     "max_step": 1.25,
+     "snap_ratio": 3.75,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.3333,
+     "max_step": 1.25,
+     "snap_ratio": 3.75,
+     "amplitude": 1.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.3333,
+     "max_step": 1.25,
+     "snap_ratio": 3.75,
+     "amplitude": 1.8
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 4.35,
+   "median_step": 0.3125
+  },
+  {
+   "clip": "shout",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1613,
+     "max_step": 0.5042,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.1733,
+     "max_step": 0.5417,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.1733,
+     "max_step": 0.5417,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.1733,
+     "max_step": 0.5417,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.1613,
+     "max_step": 0.5042,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.1733,
+     "max_step": 0.5417,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.1733,
+     "max_step": 0.5417,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.1733,
+     "max_step": 0.5417,
+     "snap_ratio": 3.13,
+     "amplitude": 1
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 3.13,
+   "median_step": 0.1703
+  },
+  {
+   "clip": "rage",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.3233,
+     "median_step": 0.223,
+     "max_step": 0.3233,
+     "snap_ratio": 1.45,
+     "amplitude": 0.6
+    }
+   ],
+   "worst_loop_gap": 0.3233,
+   "worst_snap": 1.45,
+   "median_step": 0.223
+  },
+  {
+   "clip": "crack-neck",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.0903,
+     "max_step": 0.0903,
+     "snap_ratio": 1,
+     "amplitude": 0.3
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1,
+   "median_step": 0.0903
+  },
+  {
+   "clip": "pour",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 57.1
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 59.928
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 61.1
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 61.928
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 57.1
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 51.272
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 51.1
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.3842,
+     "max_step": 0.8732,
+     "snap_ratio": 2.27,
+     "amplitude": 53.628
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 2.27,
+   "median_step": 0.3842
+  },
+  {
+   "clip": "inject",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 56.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 59.428
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 60.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 61.428
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 56.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 50.772
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 51.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.174,
+     "median_step": 0.1609,
+     "max_step": 1.6006,
+     "snap_ratio": 9.95,
+     "amplitude": 54.628
+    }
+   ],
+   "worst_loop_gap": 0.174,
+   "worst_snap": 9.95,
+   "median_step": 0.1609
+  },
+  {
+   "clip": "tweeze",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 57.475
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 60.303
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 61.475
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 62.303
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 57.475
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 51.647
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 51.475
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0141,
+     "median_step": 0.682,
+     "max_step": 2.0394,
+     "snap_ratio": 2.99,
+     "amplitude": 53.228
+    }
+   ],
+   "worst_loop_gap": 0.0141,
+   "worst_snap": 2.99,
+   "median_step": 0.682
+  },
+  {
+   "clip": "punch-heavy",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1967,
+     "max_step": 0.4694,
+     "snap_ratio": 2.39,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.2067,
+     "max_step": 0.5389,
+     "snap_ratio": 2.61,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.2067,
+     "max_step": 0.5389,
+     "snap_ratio": 2.61,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.2067,
+     "max_step": 0.5389,
+     "snap_ratio": 2.61,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.1967,
+     "max_step": 0.4694,
+     "snap_ratio": 2.39,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.2067,
+     "max_step": 0.5389,
+     "snap_ratio": 2.61,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.2067,
+     "max_step": 0.5389,
+     "snap_ratio": 2.61,
+     "amplitude": 1.3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.2067,
+     "max_step": 0.5389,
+     "snap_ratio": 2.61,
+     "amplitude": 1.3
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 2.61,
+   "median_step": 0.2042
+  },
+  {
+   "clip": "duck",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.6667,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.7722,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.7722,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.7722,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.6667,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.7722,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.7722,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.7722,
+     "snap_ratio": null,
+     "amplitude": 4.5
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "haggle",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.2292,
+     "snap_ratio": 5.5,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0542,
+     "median_step": 0.0542,
+     "max_step": 0.2611,
+     "snap_ratio": 4.82,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0542,
+     "median_step": 0.0542,
+     "max_step": 0.2611,
+     "snap_ratio": 4.82,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0542,
+     "median_step": 0.0542,
+     "max_step": 0.2611,
+     "snap_ratio": 4.82,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0417,
+     "median_step": 0.0417,
+     "max_step": 0.2292,
+     "snap_ratio": 5.5,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0542,
+     "median_step": 0.0542,
+     "max_step": 0.2611,
+     "snap_ratio": 4.82,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0542,
+     "median_step": 0.0542,
+     "max_step": 0.2611,
+     "snap_ratio": 4.82,
+     "amplitude": 0.9
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0542,
+     "median_step": 0.0542,
+     "max_step": 0.2611,
+     "snap_ratio": 4.82,
+     "amplitude": 0.9
+    }
+   ],
+   "worst_loop_gap": 0.0542,
+   "worst_snap": 5.5,
+   "median_step": 0.0511
+  },
+  {
+   "clip": "stagger-hit",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.651,
+     "snap_ratio": null,
+     "amplitude": 1
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.3802,
+     "snap_ratio": null,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.3802,
+     "snap_ratio": null,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.3802,
+     "snap_ratio": null,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.651,
+     "snap_ratio": null,
+     "amplitude": 1
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.3802,
+     "snap_ratio": null,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.3802,
+     "snap_ratio": null,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 3.3802,
+     "snap_ratio": null,
+     "amplitude": 2.8
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "dash",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.5545,
+     "snap_ratio": null,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 2.7147,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 2.7147,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 2.7147,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 1.5545,
+     "snap_ratio": null,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 2.7147,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 2.7147,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 2.7147,
+     "snap_ratio": null,
+     "amplitude": 3.2
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "inspect-ground",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.0604,
+     "max_step": 0.3843,
+     "snap_ratio": 6.37,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.0687,
+     "max_step": 0.443,
+     "snap_ratio": 6.45,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.0687,
+     "max_step": 0.443,
+     "snap_ratio": 6.45,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.0687,
+     "max_step": 0.443,
+     "snap_ratio": 6.45,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.0604,
+     "max_step": 0.3843,
+     "snap_ratio": 6.37,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.0687,
+     "max_step": 0.443,
+     "snap_ratio": 6.45,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.0687,
+     "max_step": 0.443,
+     "snap_ratio": 6.45,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.0687,
+     "max_step": 0.443,
+     "snap_ratio": 6.45,
+     "amplitude": 2.2
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 6.45,
+   "median_step": 0.0666
+  },
+  {
+   "clip": "winded",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5953,
+     "median_step": 0.3655,
+     "max_step": 0.5953,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6393,
+     "median_step": 0.3925,
+     "max_step": 0.6393,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.6393,
+     "median_step": 0.3925,
+     "max_step": 0.6393,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.6393,
+     "median_step": 0.3925,
+     "max_step": 0.6393,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5953,
+     "median_step": 0.3655,
+     "max_step": 0.5953,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.6393,
+     "median_step": 0.3925,
+     "max_step": 0.6393,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.6393,
+     "median_step": 0.3925,
+     "max_step": 0.6393,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6393,
+     "median_step": 0.3925,
+     "max_step": 0.6393,
+     "snap_ratio": 1.63,
+     "amplitude": 4.7
+    }
+   ],
+   "worst_loop_gap": 0.6393,
+   "worst_snap": 1.63,
+   "median_step": 0.3858
+  },
+  {
+   "clip": "overwatch",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0496,
+     "median_step": 0.0328,
+     "max_step": 0.0496,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0966,
+     "median_step": 0.0638,
+     "max_step": 0.0966,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0966,
+     "median_step": 0.0638,
+     "max_step": 0.0966,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0966,
+     "median_step": 0.0638,
+     "max_step": 0.0966,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0496,
+     "median_step": 0.0328,
+     "max_step": 0.0496,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0966,
+     "median_step": 0.0638,
+     "max_step": 0.0966,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0966,
+     "median_step": 0.0638,
+     "max_step": 0.0966,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0966,
+     "median_step": 0.0638,
+     "max_step": 0.0966,
+     "snap_ratio": 1.51,
+     "amplitude": 3.2
+    }
+   ],
+   "worst_loop_gap": 0.0966,
+   "worst_snap": 1.51,
+   "median_step": 0.056
+  },
+  {
+   "clip": "pat-pockets",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.2,
+     "max_step": 0.5,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.2217,
+     "max_step": 0.5542,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.2217,
+     "max_step": 0.5542,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.2217,
+     "max_step": 0.5542,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.2,
+     "max_step": 0.5,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.2217,
+     "max_step": 0.5542,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.2217,
+     "max_step": 0.5542,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.2217,
+     "max_step": 0.5542,
+     "snap_ratio": 2.5,
+     "amplitude": 0.55
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 2.5,
+   "median_step": 0.2163
+  },
+  {
+   "clip": "heave",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.4719,
+     "median_step": 0.4719,
+     "max_step": 1.0389,
+     "snap_ratio": 2.2,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5198,
+     "median_step": 0.5092,
+     "max_step": 1.1389,
+     "snap_ratio": 2.24,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5198,
+     "median_step": 0.5092,
+     "max_step": 1.1389,
+     "snap_ratio": 2.24,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5198,
+     "median_step": 0.5092,
+     "max_step": 1.1389,
+     "snap_ratio": 2.24,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.4719,
+     "median_step": 0.4719,
+     "max_step": 1.0389,
+     "snap_ratio": 2.2,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5198,
+     "median_step": 0.5092,
+     "max_step": 1.1389,
+     "snap_ratio": 2.24,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5198,
+     "median_step": 0.5092,
+     "max_step": 1.1389,
+     "snap_ratio": 2.24,
+     "amplitude": 2.25
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5198,
+     "median_step": 0.5092,
+     "max_step": 1.1389,
+     "snap_ratio": 2.24,
+     "amplitude": 2.25
+    }
+   ],
+   "worst_loop_gap": 0.5198,
+   "worst_snap": 2.24,
+   "median_step": 0.4999
+  },
+  {
+   "clip": "dizzy",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.4791,
+     "median_step": 0.3324,
+     "max_step": 0.4906,
+     "snap_ratio": 1.48,
+     "amplitude": 2.2
+    }
+   ],
+   "worst_loop_gap": 0.4791,
+   "worst_snap": 1.48,
+   "median_step": 0.3324
+  },
+  {
+   "clip": "lunge-stretch",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1085,
+     "max_step": 0.5418,
+     "snap_ratio": 4.99,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.1165,
+     "max_step": 0.7499,
+     "snap_ratio": 6.44,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.1165,
+     "max_step": 0.7499,
+     "snap_ratio": 6.44,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.1165,
+     "max_step": 0.7499,
+     "snap_ratio": 6.44,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.1085,
+     "max_step": 0.5418,
+     "snap_ratio": 4.99,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.1165,
+     "max_step": 0.7243,
+     "snap_ratio": 6.22,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.1165,
+     "max_step": 0.7243,
+     "snap_ratio": 6.22,
+     "amplitude": 3.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.1165,
+     "max_step": 0.7243,
+     "snap_ratio": 6.22,
+     "amplitude": 3.8
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 6.44,
+   "median_step": 0.1145
+  },
+  {
+   "clip": "psych-up",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.4638,
+     "median_step": 0.264,
+     "max_step": 0.4638,
+     "snap_ratio": 1.76,
+     "amplitude": 1.4
+    }
+   ],
+   "worst_loop_gap": 0.4638,
+   "worst_snap": 1.76,
+   "median_step": 0.264
+  },
+  {
+   "clip": "headbang",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5176,
+     "median_step": 0.3655,
+     "max_step": 0.5953,
+     "snap_ratio": 1.63,
+     "amplitude": 2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5176,
+     "median_step": 0.4142,
+     "max_step": 0.7558,
+     "snap_ratio": 1.82,
+     "amplitude": 2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5176,
+     "median_step": 0.4142,
+     "max_step": 0.7558,
+     "snap_ratio": 1.82,
+     "amplitude": 2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5176,
+     "median_step": 0.4142,
+     "max_step": 0.7558,
+     "snap_ratio": 1.82,
+     "amplitude": 2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5176,
+     "median_step": 0.3655,
+     "max_step": 0.5953,
+     "snap_ratio": 1.63,
+     "amplitude": 2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5176,
+     "median_step": 0.4142,
+     "max_step": 0.7558,
+     "snap_ratio": 1.82,
+     "amplitude": 2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5176,
+     "median_step": 0.4142,
+     "max_step": 0.7558,
+     "snap_ratio": 1.82,
+     "amplitude": 2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5176,
+     "median_step": 0.4142,
+     "max_step": 0.7558,
+     "snap_ratio": 1.82,
+     "amplitude": 2
+    }
+   ],
+   "worst_loop_gap": 0.5176,
+   "worst_snap": 1.82,
+   "median_step": 0.402
+  },
+  {
+   "clip": "air-guitar",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5712,
+     "median_step": 0.3978,
+     "max_step": 0.5712,
+     "snap_ratio": 1.44,
+     "amplitude": 1.16
+    }
+   ],
+   "worst_loop_gap": 0.5712,
+   "worst_snap": 1.44,
+   "median_step": 0.3978
+  },
+  {
+   "clip": "chest-thump",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.4,
+     "median_step": 0.1111,
+     "max_step": 0.9375,
+     "snap_ratio": 8.44,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.58,
+     "median_step": 0.1611,
+     "max_step": 0.9375,
+     "snap_ratio": 5.82,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.58,
+     "median_step": 0.1611,
+     "max_step": 0.9375,
+     "snap_ratio": 5.82,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.58,
+     "median_step": 0.1611,
+     "max_step": 0.9375,
+     "snap_ratio": 5.82,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.4,
+     "median_step": 0.1111,
+     "max_step": 0.9375,
+     "snap_ratio": 8.44,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.58,
+     "median_step": 0.1611,
+     "max_step": 0.9375,
+     "snap_ratio": 5.82,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.58,
+     "median_step": 0.1611,
+     "max_step": 0.9375,
+     "snap_ratio": 5.82,
+     "amplitude": 1.1
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.58,
+     "median_step": 0.1611,
+     "max_step": 0.9375,
+     "snap_ratio": 5.82,
+     "amplitude": 1.1
+    }
+   ],
+   "worst_loop_gap": 0.58,
+   "worst_snap": 8.44,
+   "median_step": 0.1486
+  },
+  {
+   "clip": "retch",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.2269,
+     "max_step": 0.4083,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.2801,
+     "max_step": 0.5042,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.2801,
+     "max_step": 0.5042,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.2801,
+     "max_step": 0.5042,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.2269,
+     "max_step": 0.4083,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.2801,
+     "max_step": 0.5042,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.2801,
+     "max_step": 0.5042,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.2801,
+     "max_step": 0.5042,
+     "snap_ratio": 1.8,
+     "amplitude": 2.6
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 1.8,
+   "median_step": 0.2668
+  },
+  {
+   "clip": "twist-stretch",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.3981,
+     "median_step": 0.2631,
+     "max_step": 0.3981,
+     "snap_ratio": 1.51,
+     "amplitude": 2.2
+    }
+   ],
+   "worst_loop_gap": 0.3981,
+   "worst_snap": 1.51,
+   "median_step": 0.2631
+  },
+  {
+   "clip": "slump",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0522,
+     "median_step": 0.0345,
+     "max_step": 0.0522,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0979,
+     "median_step": 0.0647,
+     "max_step": 0.0979,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0979,
+     "median_step": 0.0647,
+     "max_step": 0.0979,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0979,
+     "median_step": 0.0647,
+     "max_step": 0.0979,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0522,
+     "median_step": 0.0345,
+     "max_step": 0.0522,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0979,
+     "median_step": 0.0647,
+     "max_step": 0.0979,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0979,
+     "median_step": 0.0647,
+     "max_step": 0.0979,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0979,
+     "median_step": 0.0647,
+     "max_step": 0.0979,
+     "snap_ratio": 1.51,
+     "amplitude": 1.6
+    }
+   ],
+   "worst_loop_gap": 0.0979,
+   "worst_snap": 1.51,
+   "median_step": 0.0571
+  },
+  {
+   "clip": "cower",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5,
+     "median_step": 0.366,
+     "max_step": 0.5,
+     "snap_ratio": 1.37,
+     "amplitude": 3.2
+    }
+   ],
+   "worst_loop_gap": 0.5,
+   "worst_snap": 1.37,
+   "median_step": 0.366
+  },
+  {
+   "clip": "jumping-jacks",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.7897,
+     "median_step": 0.6834,
+     "max_step": 1.4212,
+     "snap_ratio": 2.08,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6957,
+     "median_step": 0.6311,
+     "max_step": 1.3272,
+     "snap_ratio": 2.1,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.6957,
+     "median_step": 0.6311,
+     "max_step": 1.3272,
+     "snap_ratio": 2.1,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.6957,
+     "median_step": 0.6311,
+     "max_step": 1.3272,
+     "snap_ratio": 2.1,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.7897,
+     "median_step": 0.6834,
+     "max_step": 1.4212,
+     "snap_ratio": 2.08,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.6957,
+     "median_step": 0.6311,
+     "max_step": 1.3272,
+     "snap_ratio": 2.1,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.6957,
+     "median_step": 0.6311,
+     "max_step": 1.3272,
+     "snap_ratio": 2.1,
+     "amplitude": 2.75
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6957,
+     "median_step": 0.6311,
+     "max_step": 1.3272,
+     "snap_ratio": 2.1,
+     "amplitude": 2.75
+    }
+   ],
+   "worst_loop_gap": 0.7897,
+   "worst_snap": 2.1,
+   "median_step": 0.6442
+  },
+  {
+   "clip": "stretch-back",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.1969,
+     "median_step": 0.1346,
+     "max_step": 0.1969,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.2165,
+     "median_step": 0.1481,
+     "max_step": 0.2165,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.2165,
+     "median_step": 0.1481,
+     "max_step": 0.2165,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.2165,
+     "median_step": 0.1481,
+     "max_step": 0.2165,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.1969,
+     "median_step": 0.1346,
+     "max_step": 0.1969,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.2165,
+     "median_step": 0.1481,
+     "max_step": 0.2165,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.2165,
+     "median_step": 0.1481,
+     "max_step": 0.2165,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.2165,
+     "median_step": 0.1481,
+     "max_step": 0.2165,
+     "snap_ratio": 1.46,
+     "amplitude": 1.05
+    }
+   ],
+   "worst_loop_gap": 0.2165,
+   "worst_snap": 1.46,
+   "median_step": 0.1447
+  },
+  {
+   "clip": "weave",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.7616,
+     "median_step": 0.4899,
+     "max_step": 0.7616,
+     "snap_ratio": 1.55,
+     "amplitude": 2.4
+    }
+   ],
+   "worst_loop_gap": 0.7616,
+   "worst_snap": 1.55,
+   "median_step": 0.4899
+  },
+  {
+   "clip": "howl",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.3677,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.2576,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.2576,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.2576,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.3677,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.2576,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.2576,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0,
+     "max_step": 0.2576,
+     "snap_ratio": null,
+     "amplitude": 1.2
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 0,
+   "median_step": 0
+  },
+  {
+   "clip": "hail",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8154,
+     "snap_ratio": 5.97,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8152,
+     "snap_ratio": 5.97,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8152,
+     "snap_ratio": 5.97,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8152,
+     "snap_ratio": 5.97,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8154,
+     "snap_ratio": 5.97,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8363,
+     "snap_ratio": 6.12,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8363,
+     "snap_ratio": 6.12,
+     "amplitude": 2.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.1366,
+     "max_step": 0.8363,
+     "snap_ratio": 6.12,
+     "amplitude": 2.8
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 6.12,
+   "median_step": 0.1366
+  },
+  {
+   "clip": "scratch-back",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.5511,
+     "median_step": 0.3122,
+     "max_step": 0.5511,
+     "snap_ratio": 1.77,
+     "amplitude": 2.3
+    }
+   ],
+   "worst_loop_gap": 0.5511,
+   "worst_snap": 1.77,
+   "median_step": 0.3122
+  },
+  {
+   "clip": "take-cover",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.0392,
+     "median_step": 0.0259,
+     "max_step": 0.0392,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.0411,
+     "median_step": 0.0272,
+     "max_step": 0.0411,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.0411,
+     "median_step": 0.0272,
+     "max_step": 0.0411,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.0411,
+     "median_step": 0.0272,
+     "max_step": 0.0411,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.0392,
+     "median_step": 0.0259,
+     "max_step": 0.0392,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.0411,
+     "median_step": 0.0272,
+     "max_step": 0.0411,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.0411,
+     "median_step": 0.0272,
+     "max_step": 0.0411,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.0411,
+     "median_step": 0.0272,
+     "max_step": 0.0411,
+     "snap_ratio": 1.51,
+     "amplitude": 4.5
+    }
+   ],
+   "worst_loop_gap": 0.0411,
+   "worst_snap": 1.51,
+   "median_step": 0.0269
+  },
+  {
+   "clip": "crouch-aim-1h",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 10.9752,
+     "median_step": 4.7714,
+     "max_step": 10.9752,
+     "snap_ratio": 2.3,
+     "amplitude": 64.465
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 9.2457,
+     "median_step": 3.7107,
+     "max_step": 9.2541,
+     "snap_ratio": 2.49,
+     "amplitude": 65.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 10.9096,
+     "median_step": 4.7724,
+     "max_step": 10.9096,
+     "snap_ratio": 2.29,
+     "amplitude": 65.402
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 9.2541,
+     "median_step": 3.7107,
+     "max_step": 9.2457,
+     "snap_ratio": 2.49,
+     "amplitude": 67.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 10.9752,
+     "median_step": 4.7714,
+     "max_step": 10.9752,
+     "snap_ratio": 2.3,
+     "amplitude": 64.465
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 9.2457,
+     "median_step": 3.7107,
+     "max_step": 9.2541,
+     "snap_ratio": 2.49,
+     "amplitude": 55.936
+    },
+    {
+     "dir": "W",
+     "loop_gap": 10.9096,
+     "median_step": 4.7724,
+     "max_step": 10.9096,
+     "snap_ratio": 2.29,
+     "amplitude": 55.465
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 9.2541,
+     "median_step": 3.7107,
+     "max_step": 9.2457,
+     "snap_ratio": 2.49,
+     "amplitude": 56.936
+    }
+   ],
+   "worst_loop_gap": 10.9752,
+   "worst_snap": 2.49,
+   "median_step": 4.2413
+  },
+  {
+   "clip": "crouch-aim-2h",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 12.9065,
+     "median_step": 6.6145,
+     "max_step": 12.9065,
+     "snap_ratio": 1.95,
+     "amplitude": 65.356
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 11.2295,
+     "median_step": 5.1418,
+     "max_step": 11.2387,
+     "snap_ratio": 2.19,
+     "amplitude": 66.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 12.8415,
+     "median_step": 6.6262,
+     "max_step": 12.8415,
+     "snap_ratio": 1.94,
+     "amplitude": 66.392
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 11.2387,
+     "median_step": 5.1418,
+     "max_step": 11.2295,
+     "snap_ratio": 2.18,
+     "amplitude": 68.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 12.9065,
+     "median_step": 6.6145,
+     "max_step": 12.9065,
+     "snap_ratio": 1.95,
+     "amplitude": 65.356
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 11.2295,
+     "median_step": 5.1418,
+     "max_step": 11.2387,
+     "snap_ratio": 2.19,
+     "amplitude": 56.245
+    },
+    {
+     "dir": "W",
+     "loop_gap": 12.8415,
+     "median_step": 6.6262,
+     "max_step": 12.8415,
+     "snap_ratio": 1.94,
+     "amplitude": 56.356
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 11.2387,
+     "median_step": 5.1418,
+     "max_step": 11.2295,
+     "snap_ratio": 2.18,
+     "amplitude": 57.5
+    }
+   ],
+   "worst_loop_gap": 12.9065,
+   "worst_snap": 2.19,
+   "median_step": 5.8811
+  },
+  {
+   "clip": "crawl-dying",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 2.5,
+     "median_step": 0.2865,
+     "max_step": 0.9139,
+     "snap_ratio": 3.19,
+     "amplitude": 60.469
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 2.5,
+     "median_step": 0.3512,
+     "max_step": 0.9878,
+     "snap_ratio": 2.81,
+     "amplitude": 59.513
+    },
+    {
+     "dir": "E",
+     "loop_gap": 2.5,
+     "median_step": 0.2865,
+     "max_step": 0.9139,
+     "snap_ratio": 3.19,
+     "amplitude": 60.969
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 2.5,
+     "median_step": 0.3512,
+     "max_step": 0.947,
+     "snap_ratio": 2.7,
+     "amplitude": 61.513
+    },
+    {
+     "dir": "N",
+     "loop_gap": 2.5,
+     "median_step": 0.2865,
+     "max_step": 0.873,
+     "snap_ratio": 3.05,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 2.5,
+     "median_step": 0.3512,
+     "max_step": 0.947,
+     "snap_ratio": 2.7,
+     "amplitude": 53.086
+    },
+    {
+     "dir": "W",
+     "loop_gap": 2.5,
+     "median_step": 0.2865,
+     "max_step": 0.9139,
+     "snap_ratio": 3.19,
+     "amplitude": 55.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 2.5,
+     "median_step": 0.3512,
+     "max_step": 0.9878,
+     "snap_ratio": 2.81,
+     "amplitude": 59.013
+    }
+   ],
+   "worst_loop_gap": 2.5,
+   "worst_snap": 3.19,
+   "median_step": 0.3188
+  },
+  {
+   "clip": "flee-sprint",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.2566,
+     "median_step": 0.1458,
+     "max_step": 0.2566,
+     "snap_ratio": 1.76,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.6853,
+     "median_step": 0.383,
+     "max_step": 0.6853,
+     "snap_ratio": 1.79,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.688,
+     "median_step": 0.3848,
+     "max_step": 0.688,
+     "snap_ratio": 1.79,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.6853,
+     "median_step": 0.383,
+     "max_step": 0.6853,
+     "snap_ratio": 1.79,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.2566,
+     "median_step": 0.1458,
+     "max_step": 0.2566,
+     "snap_ratio": 1.76,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.6853,
+     "median_step": 0.383,
+     "max_step": 0.6853,
+     "snap_ratio": 1.79,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.688,
+     "median_step": 0.3848,
+     "max_step": 0.688,
+     "snap_ratio": 1.79,
+     "amplitude": 2.72
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.6853,
+     "median_step": 0.383,
+     "max_step": 0.6853,
+     "snap_ratio": 1.79,
+     "amplitude": 2.72
+    }
+   ],
+   "worst_loop_gap": 0.688,
+   "worst_snap": 1.79,
+   "median_step": 0.3241
+  },
+  {
+   "clip": "flee-scramble",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.5848,
+     "median_step": 0.3438,
+     "max_step": 0.5562,
+     "snap_ratio": 1.62,
+     "amplitude": 1.55
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.8157,
+     "median_step": 0.4945,
+     "max_step": 0.7927,
+     "snap_ratio": 1.6,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.8485,
+     "median_step": 0.5166,
+     "max_step": 0.8248,
+     "snap_ratio": 1.6,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.8157,
+     "median_step": 0.4945,
+     "max_step": 0.7927,
+     "snap_ratio": 1.6,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.5848,
+     "median_step": 0.3438,
+     "max_step": 0.5562,
+     "snap_ratio": 1.62,
+     "amplitude": 1.55
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.8157,
+     "median_step": 0.4945,
+     "max_step": 0.7927,
+     "snap_ratio": 1.6,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.8485,
+     "median_step": 0.5166,
+     "max_step": 0.8248,
+     "snap_ratio": 1.6,
+     "amplitude": 1.6
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.8157,
+     "median_step": 0.4945,
+     "max_step": 0.7927,
+     "snap_ratio": 1.6,
+     "amplitude": 1.6
+    }
+   ],
+   "worst_loop_gap": 0.8485,
+   "worst_snap": 1.62,
+   "median_step": 0.4623
+  },
+  {
+   "clip": "cover-rise",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 21.7092,
+     "median_step": 0.0517,
+     "max_step": 1.0204,
+     "snap_ratio": 19.74,
+     "amplitude": 59
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 31.0077,
+     "median_step": 0.0531,
+     "max_step": 1.4175,
+     "snap_ratio": 26.71,
+     "amplitude": 64.485
+    },
+    {
+     "dir": "E",
+     "loop_gap": 31.6892,
+     "median_step": 0.0531,
+     "max_step": 1.4491,
+     "snap_ratio": 27.3,
+     "amplitude": 68
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 39.8077,
+     "median_step": 0.0531,
+     "max_step": 1.8249,
+     "snap_ratio": 34.38,
+     "amplitude": 66.485
+    },
+    {
+     "dir": "N",
+     "loop_gap": 31.2492,
+     "median_step": 0.0517,
+     "max_step": 1.4278,
+     "snap_ratio": 27.62,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 39.0677,
+     "median_step": 0.0531,
+     "max_step": 1.8249,
+     "snap_ratio": 34.38,
+     "amplitude": 51.444
+    },
+    {
+     "dir": "W",
+     "loop_gap": 30.9492,
+     "median_step": 0.0531,
+     "max_step": 1.4491,
+     "snap_ratio": 27.3,
+     "amplitude": 51.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 30.2677,
+     "median_step": 0.0531,
+     "max_step": 1.4175,
+     "snap_ratio": 26.71,
+     "amplitude": 55.485
+    }
+   ],
+   "worst_loop_gap": 39.8077,
+   "worst_snap": 34.38,
+   "median_step": 0.0527
+  },
+  {
+   "clip": "cover-drop",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 21.6308,
+     "median_step": 0.0385,
+     "max_step": 1.0032,
+     "snap_ratio": 26.07,
+     "amplitude": 59
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 30.9294,
+     "median_step": 0.0385,
+     "max_step": 1.4337,
+     "snap_ratio": 37.25,
+     "amplitude": 64.485
+    },
+    {
+     "dir": "E",
+     "loop_gap": 31.6108,
+     "median_step": 0.0385,
+     "max_step": 1.4653,
+     "snap_ratio": 38.07,
+     "amplitude": 68
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 39.7294,
+     "median_step": 0.0385,
+     "max_step": 1.8411,
+     "snap_ratio": 47.84,
+     "amplitude": 66.485
+    },
+    {
+     "dir": "N",
+     "loop_gap": 31.1708,
+     "median_step": 0.0385,
+     "max_step": 1.4449,
+     "snap_ratio": 37.54,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 38.9894,
+     "median_step": 0.0385,
+     "max_step": 1.8069,
+     "snap_ratio": 46.95,
+     "amplitude": 51.444
+    },
+    {
+     "dir": "W",
+     "loop_gap": 30.8708,
+     "median_step": 0.0385,
+     "max_step": 1.431,
+     "snap_ratio": 37.18,
+     "amplitude": 51.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 30.1894,
+     "median_step": 0.0385,
+     "max_step": 1.3995,
+     "snap_ratio": 36.36,
+     "amplitude": 55.485
+    }
+   ],
+   "worst_loop_gap": 39.7294,
+   "worst_snap": 47.84,
+   "median_step": 0.0385
+  },
+  {
+   "clip": "gun-walk",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.2017,
+     "median_step": 0.1269,
+     "max_step": 0.2017,
+     "snap_ratio": 1.59,
+     "amplitude": 59
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0.3837,
+     "median_step": 0.2536,
+     "max_step": 0.3837,
+     "snap_ratio": 1.51,
+     "amplitude": 64.132
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0.3837,
+     "median_step": 0.2536,
+     "max_step": 0.3837,
+     "snap_ratio": 1.51,
+     "amplitude": 67.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0.3837,
+     "median_step": 0.2536,
+     "max_step": 0.3837,
+     "snap_ratio": 1.51,
+     "amplitude": 66.132
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.2017,
+     "median_step": 0.1269,
+     "max_step": 0.2017,
+     "snap_ratio": 1.59,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0.3837,
+     "median_step": 0.2536,
+     "max_step": 0.3837,
+     "snap_ratio": 1.51,
+     "amplitude": 44.868
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0.3837,
+     "median_step": 0.2536,
+     "max_step": 0.3837,
+     "snap_ratio": 1.51,
+     "amplitude": 47.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0.3837,
+     "median_step": 0.2536,
+     "max_step": 0.3837,
+     "snap_ratio": 1.51,
+     "amplitude": 55.632
+    }
+   ],
+   "worst_loop_gap": 0.3837,
+   "worst_snap": 1.59,
+   "median_step": 0.2219
+  },
+  {
+   "clip": "cover-fire",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.3408,
+     "max_step": 3.375,
+     "snap_ratio": 9.9,
+     "amplitude": 59.095
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.3637,
+     "max_step": 5.1693,
+     "snap_ratio": 14.21,
+     "amplitude": 64.482
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.3637,
+     "max_step": 5.225,
+     "snap_ratio": 14.37,
+     "amplitude": 67.995
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.3637,
+     "max_step": 7.0027,
+     "snap_ratio": 19.26,
+     "amplitude": 66.482
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.3408,
+     "max_step": 5.2083,
+     "snap_ratio": 15.28,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.3637,
+     "max_step": 7.0027,
+     "snap_ratio": 19.26,
+     "amplitude": 51.444
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.3637,
+     "max_step": 5.225,
+     "snap_ratio": 14.37,
+     "amplitude": 51.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.3637,
+     "max_step": 5.1693,
+     "snap_ratio": 14.21,
+     "amplitude": 55.585
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 19.26,
+   "median_step": 0.358
+  },
+  {
+   "clip": "get-shoved",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0.95,
+     "median_step": 0.066,
+     "max_step": 1.3151,
+     "snap_ratio": 19.93,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 1.05,
+     "median_step": 0.4549,
+     "max_step": 1.9505,
+     "snap_ratio": 4.29,
+     "amplitude": 5.5
+    },
+    {
+     "dir": "E",
+     "loop_gap": 1.05,
+     "median_step": 0.4549,
+     "max_step": 1.9505,
+     "snap_ratio": 4.29,
+     "amplitude": 5.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 1.05,
+     "median_step": 0.4549,
+     "max_step": 1.9505,
+     "snap_ratio": 4.29,
+     "amplitude": 5.5
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0.95,
+     "median_step": 0.066,
+     "max_step": 1.3151,
+     "snap_ratio": 19.93,
+     "amplitude": 2.2
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 1.05,
+     "median_step": 0.4549,
+     "max_step": 1.9505,
+     "snap_ratio": 4.29,
+     "amplitude": 5.5
+    },
+    {
+     "dir": "W",
+     "loop_gap": 1.05,
+     "median_step": 0.4549,
+     "max_step": 1.9505,
+     "snap_ratio": 4.29,
+     "amplitude": 5.5
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 1.05,
+     "median_step": 0.4549,
+     "max_step": 1.9505,
+     "snap_ratio": 4.29,
+     "amplitude": 5.5
+    }
+   ],
+   "worst_loop_gap": 1.05,
+   "worst_snap": 19.93,
+   "median_step": 0.3577
+  },
+  {
+   "clip": "floor-rise",
+   "beats": 4,
+   "dirs": [
+    {
+     "dir": "S",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "SE",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "E",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "NE",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "N",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "NW",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "W",
+     "error": "pose shape changes between frames"
+    },
+    {
+     "dir": "SW",
+     "error": "pose shape changes between frames"
+    }
+   ],
+   "worst_loop_gap": null,
+   "worst_snap": null,
+   "median_step": null
+  },
+  {
+   "clip": "shiv-jab",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.1051,
+     "max_step": 1.4948,
+     "snap_ratio": 14.22,
+     "amplitude": 60.3
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.2263,
+     "max_step": 2.6765,
+     "snap_ratio": 11.83,
+     "amplitude": 64.132
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.3968,
+     "max_step": 2.8733,
+     "snap_ratio": 7.24,
+     "amplitude": 67.5
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.4674,
+     "max_step": 3.614,
+     "snap_ratio": 7.73,
+     "amplitude": 66.132
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.3892,
+     "max_step": 2.4323,
+     "snap_ratio": 6.25,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.4674,
+     "max_step": 3.614,
+     "snap_ratio": 7.73,
+     "amplitude": 52.151
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.3968,
+     "max_step": 2.8733,
+     "snap_ratio": 7.24,
+     "amplitude": 52.8
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.2263,
+     "max_step": 2.6765,
+     "snap_ratio": 11.83,
+     "amplitude": 56.932
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 14.22,
+   "median_step": 0.3344
+  },
+  {
+   "clip": "bat-arc",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.2428,
+     "max_step": 0.8318,
+     "snap_ratio": 3.43,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.2636,
+     "max_step": 1.2039,
+     "snap_ratio": 4.57,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.2636,
+     "max_step": 1.2039,
+     "snap_ratio": 4.57,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.2636,
+     "max_step": 1.2039,
+     "snap_ratio": 4.57,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.2428,
+     "max_step": 0.8318,
+     "snap_ratio": 3.43,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.2636,
+     "max_step": 1.2039,
+     "snap_ratio": 4.57,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.2636,
+     "max_step": 1.2039,
+     "snap_ratio": 4.57,
+     "amplitude": 2.05
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.2636,
+     "max_step": 1.2039,
+     "snap_ratio": 4.57,
+     "amplitude": 2.05
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 4.57,
+   "median_step": 0.2584
+  },
+  {
+   "clip": "spear-drive",
+   "beats": 2,
+   "dirs": [
+    {
+     "dir": "S",
+     "loop_gap": 0,
+     "median_step": 0.3542,
+     "max_step": 3.0035,
+     "snap_ratio": 8.48,
+     "amplitude": 60
+    },
+    {
+     "dir": "SE",
+     "loop_gap": 0,
+     "median_step": 0.4922,
+     "max_step": 4.7317,
+     "snap_ratio": 9.61,
+     "amplitude": 64.485
+    },
+    {
+     "dir": "E",
+     "loop_gap": 0,
+     "median_step": 0.3663,
+     "max_step": 3.5451,
+     "snap_ratio": 9.68,
+     "amplitude": 68
+    },
+    {
+     "dir": "NE",
+     "loop_gap": 0,
+     "median_step": 0.4922,
+     "max_step": 4.7317,
+     "snap_ratio": 9.61,
+     "amplitude": 66.485
+    },
+    {
+     "dir": "N",
+     "loop_gap": 0,
+     "median_step": 0.3542,
+     "max_step": 3.0035,
+     "snap_ratio": 8.48,
+     "amplitude": 56
+    },
+    {
+     "dir": "NW",
+     "loop_gap": 0,
+     "median_step": 0.4922,
+     "max_step": 4.7317,
+     "snap_ratio": 9.61,
+     "amplitude": 54.414
+    },
+    {
+     "dir": "W",
+     "loop_gap": 0,
+     "median_step": 0.3663,
+     "max_step": 3.5451,
+     "snap_ratio": 9.68,
+     "amplitude": 56
+    },
+    {
+     "dir": "SW",
+     "loop_gap": 0,
+     "median_step": 0.4922,
+     "max_step": 4.7317,
+     "snap_ratio": 9.61,
+     "amplitude": 56.485
+    }
+   ],
+   "worst_loop_gap": 0,
+   "worst_snap": 9.68,
+   "median_step": 0.4262
+  }
+ ]
+}

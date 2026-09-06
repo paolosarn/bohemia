@@ -1,3 +1,55 @@
+EYES AND EARS (eyes-5vql33): 9/5 (f) LATEST -- *** E6 [walk tells] SHIPPED. 105 clips read
+off the real pose functions in all eight directions. THE GOOD NEWS IS MEASURED: every clip
+that is a CYCLE closes cleanly, and all 105 sit on a 2 or 4 beat count, so the 120 BPM law
+holds across the whole animation library. THE FINDING: nothing in the clip table says which
+clips LOOP, so one-shots are played on a loop and snap back every cycle. ***
+MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code touched.
+
+REUSE CHECK FIRST, which is this lane's habit now. Three gates already watch animation:
+anim_fabrication (a moving limb cannot gain painted pixels), frozen_poses (a hold is the
+same frame, not a recomputation), motion_visible (the clip moves enough pixels to see).
+None of them asks whether a cycle CLOSES or whether a joint SNAPS, so that is what I built.
+
+DOES IT CLOSE: the joint vector at phase 0 against the vector one frame before phase 1, in
+all eight directions, compared against that clip's OWN typical step. 7 of 102 fail --
+cover-drop, cover-rise, headshot, sit-ground, crawl-dying, chest-thump, throw -- AND ALL
+SEVEN ARE ONE-SHOT ACTIONS. Nothing that loops pops.
+
+AND THAT IS WHY THE REAL FINDING IS THE MISSING FIELD. There is no loop flag in the clip
+table, and the bench drives every clip with phase modulo 1. So cover-drop, whose end pose is
+1,032 TIMES its own typical step away from its start, is played on a loop and snaps back
+every cycle; cover-rise 755x, headshot 107x. That is not a bug in those clips -- a one-shot
+is meant to end somewhere else -- it is missing DATA. The table says how many beats a clip
+lasts and never says whether it comes back. ONE FIELD PER CLIP AND THIS TEST BECOMES A GATE.
+Routed to ANIMATION.
+
+THE SNAP LIST, A REPORT AND NOT A VERDICT: biggest single step against the clip's own median
+step -- cover-drop 47.8x, cover-rise 34.4x, stumble 20.1x, get-shoved 19.9x, cover-fire
+19.3x, shiv-jab 14.2x, inject 9.9x, spear-drive 9.7x, chest-thump 8.4x, nod and brace 7.6x.
+16 clips over 6x. SOME ARE MEANT TO SNAP (a shove is a snap), which is exactly why it ships
+as a list for ANIMATION to rule on instead of a gate that would fail correct art.
+
+TWO LIMITS OF MY INSTRUMENT, SAID OUT LOUD. sleep and headshot-2 have NO pose function --
+not a defect, they are a Verlet physics sim and a lying special case, and a tool that called
+them broken would have been my fourth false alarm of the day. floor-rise changes its pose
+SHAPE between frames in all eight directions, which is the morphing family, reported to
+ANIMATION because this tool cannot say whether it is intentional.
+
+FOOT SLIDING IS STILL OPEN AND I DID NOT FAKE IT. It needs where the planted foot is AND how
+fast the world moves him, and the second number does not live in the animation at all -- it
+lives in the city's movement code. Measuring the pose alone would be a confident number
+about nothing.
+
+NEXT IN THIS LANE: E7 [reference score], then E5 [missing sound] once the audio harness can
+prove the engine was alive for a whole walk, then E8 and the E9 standing duty.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; six things
+now do. Lanes may only change the status word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E6_THE_WALK_TELLS_9_5_26.md (+ E1, E2, E3, E4 and the
+round-one record). Data: records/BOHEMIA_EYES_WALK_TELLS_9_5_26.json (105 clips). Checklist:
+banks/eyes/BOHEMIA_EYES_WALK_TELLS_CHECKLIST_9_5_26.json, draft:true. Gate: gates/eyes_gate.js
+(10 checks, 81s, self-testing, readability ratchet at 38). Tools: nine now, all bohemia_eyes_*.
+
 FACTIONS (factions-ovkjpf): 9/6 (round 4) LATEST -- *** [faction homes]
 FACTION-SEATS SHIPPED. Every faction now sits on ground its own note names, and
 the boot and the walked city name the SAME seats because there is now one placer
@@ -278,63 +330,6 @@ GATES, ALL GREEN, RUN THIS ROUND:
 
 NEXT: Q14 [one-word answers]. When the best games let a character answer in one
 word and why it lands.
-
-EYES AND EARS (eyes-5vql33): 9/5 (e) LATEST -- *** E1 [pixel tells] SHIPPED, AND THE REUSE
-CHECK CHANGED THE JOB. This repo already went to school on 7/27: six of E1's tells are held
-by gates/pixel_craft_gate.py. So I did not rebuild them. I measured WHAT IT COVERS -- 84 of
-1,465 pieces, 5.7%, in 2 of 17 banks -- added the two big tells nobody holds, and found the
-hair. *** MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET. No game code.
-
-FINDING 1: THE CRAFT MACHINE IS POINTED AT 5.7% OF THE ART. 17 banks hold base64 art, 1,465
-pieces. The audit reads 2 banks, 84 pieces. The 605-piece seam-fixed surfaces bank, the
-330-piece perimeter bank, the 114-piece texture-match bank and every hair sheet have never
-been through any craft measure at all. Nothing is wrong with the six; they are aimed at the
-act-1 starter set because that is what they were built for, and nobody widened them.
-Widening it is one line per bank in tools/bohemia_pixel_craft_audit.py, and the ratchet
-shape already exists so old banks can be frozen at their own baselines, never condemned.
-
-FINDING 2: THE HAIR IS THE MOST BANDED ART IN THE REPO. Banding measured across every bank,
-ground excluded: FACE AND HAIR CANDIDATES 62.0%, CMU BLOCK 31.8%, the act-1 re-cook 0.7%,
-EVERY OTHER BANK INCLUDING ALL THE TILES 0.0%. The tiles read zero because a grimy
-45-degree texture has no smooth ramp to band -- that is the craft working, not the detector
-failing (a deliberately banded ramp reads 31.2% on the same instrument). AND IT AGREES WITH
-WHAT MY EYES SAID FIVE HOURS EARLIER: the player's head from behind is a flat cream mass
-with one straight black mark on it. Two instruments, same art. Routed to CHARACTER and COOK.
-
-THE BANDING DETECTOR TOOK FOUR VERSIONS AND THREE WERE WRONG. All four are written into the
-tool's own docstring: (1) keyed the streak on a run's exact start column, so a diagonal band
-broke its own streak and a banded ramp scored 0.0%; (2) looked for a different colour
-directly under a run, which on a ramp is the same colour shifted -- 0.0% again; (3) worked,
-but measured the BLACK SHEET a hair candidate sits on and reported 88% banding on a picture
-whose subject is a few hundred pixels of hair; (4) dropped any colour over 40% as "ground"
-and killed its own bite test, because the widest band of a five-band ramp IS the art. THE
-RULE THAT WORKS: ground is what SURROUNDS the subject -- over 40% of the picture AND over
-70% of the border. Final bite test: banded ramp 31.2%, hand-broken ramp 21.9%, noise 0.0%,
-two-tone 0.0%, noisy subject on black 0.0%.
-
-AND THE JAGGIES DETECTOR IS PARTIAL, SAID OUT LOUD RATHER THAN DISCOVERED LATER: it needs a
-silhouette, so 13 of 16 banks return "-" and never "0.0", because a checker that reports a
-clean zero for something it cannot see is the worst kind of green.
-
-STILL OPEN AND NAMED: anti-aliasing where it does not belong, dithering used as a gradient,
-corpus-wide seams, broken outline weight, detail level across a set (M5), hue that does not
-shift with light (M6). Contrast spent on the wrong thing and "does this belong to this
-world" are HUMAN; E7 is the sheet that turns the second into a measurement.
-
-WHAT THIS LANE NOW HOLDS: gates/eyes_gate.js (10 checks, 81s, self-testing, with the
-readability ratchet frozen at 38) plus eight tools -- shots, probe, diff, sheet, glitch,
-readable, ears, ears_live, pixel_tells. Four records this round: E0 pictures, E3 screenshot
-diffs, E4 the ears, E2 the glitch list, E1 the pixel tells.
-
-NEXT IN THIS LANE: E6 [walk tells] -- foot sliding, popping, off-beat timing, run against
-the 63 clips. Then E7 [reference score], then E5 [missing sound] once the audio harness can
-prove the engine was alive for a whole walk.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; five things
-now do. Lanes may only change the status word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E1_THE_PIXEL_TELLS_9_5_26.md (+ E2, E3, E4 and the round-one
-record). Data: records/BOHEMIA_EYES_PIXEL_TELLS_9_5_26.json (450 pieces). Checklist:
-banks/eyes/BOHEMIA_EYES_PIXEL_TELLS_CHECKLIST_9_5_26.json, draft:true.
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
