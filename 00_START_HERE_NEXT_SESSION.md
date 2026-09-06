@@ -1,3 +1,105 @@
+LIFE + CITY (city-1eztay): 9/5 (f) LATEST -- *** [combat floor]
+THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR: SHIPPED. THE FIGHT CAN STAND ON THE CITY HE
+WALKED, AND IT IS THE SAME RENDER. *** MODE: BUILD. TAB: CITY (the aerial view is
+the floor; COMBAT wires the fight). Nothing to judge.
+
+=== PAOLO, PERMANENT INSTRUCTION, VERBATIM. DO NOT PARAPHRASE, DO NOT SHORTEN. ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own
+handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the
+meeting hall and do your job. From now on I will only ever type that one word to you.
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change
+there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD,
+03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE,
+10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production
+artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a
+brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that
+is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by
+writing CLAIMED <date> <your session slug> on it and committing. Build or research according
+to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date>
+<commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only
+the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own
+lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in
+00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing,
+about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in
+00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps
+1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole
+instruction.
+=== END OF HIS VERBATIM INSTRUCTION ===
+
+*** THIS ROUND: [combat floor] THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR, SHIPPED. ***
+  HIS RULING IS THE SPEC AND IT ANSWERS THE HOW ITSELF. 9/4 tile law 3b, LOCKED: "the size
+of the ground changes but the player is the same size ... war is spilling in the streets
+type shit", and in the same clause "REUSE-FIRST, and it is already built ... The combat
+floor is that render, centred on the block you are standing on, NOT A NEW BOARD. ONE SEED,
+same coordinates." So the job had exactly one correct shape and the law wrote it: DO NOT
+DRAW A CITY.
+  WHAT SHIPPED: engine/bohemia_combatfloor.js owns the contract; the walked surface
+registers its OWN renderCity as the painter. paint() points that renderer at a block,
+copies the frame out, and puts the camera back in a finally. A second renderer would be
+byte-different from the streets he walked to get there, which is what ONE SEED forbids.
+Swapping the live canvas is safe because a canvas is presented at the END of a task and
+everything between save and restore is synchronous.
+  plan() is PURE ARITHMETIC and needs no pixels: COMBAT can ask where the blocks are
+without drawing a frame, and a lane that has to render to find out will render every time.
+  THE RULING HELD AS A RULE: a tile at or above the 112px sprite is REFUSED BY NAME, because
+a floor that zooms IN is not this ruling with a different number, it is the opposite of it.
+And the picture is a NUMBER, not an adjective -- a figure stands 6.22 blocks wide at the
+city's own 18px tile. His numbers throughout (the 56 rig at 112, TW0/TH0 = 18/9).
+  A NUMBER IS NOT HONEST UNTIL ITS UNIT IS: a cell here is a BLOCK, a district, ninety-six
+metres -- not a house. 2,524 of 2,601 cells on a suburb floor come back solid, which is
+correct for blocks and nonsense for houses, so every answer carries scope:'block'. The 9/4
+law's OTHER clause ("a combat tile is a house") governs the house-scale board, not this one.
+COMBAT should know that before building a cover model on it.
+  *** THE LEG THAT DID NOT CATCH ITS OWN MUTATION. *** B3 asserts the camera comes back. I
+deleted the restore and the gate stayed 13/0 -- because the leg had captured the camera AS
+IT HAPPENED TO SIT (already on the walked cell, at the default tile) and painted a floor
+centred on that same cell at that same tile, so there was nothing to compare. Accidental
+correctness again, ONE ROUND after writing it down. The leg parks the camera somewhere
+distinctive first now AND asserts the park was somewhere the floor had to move away from.
+  AND A RED IN THIS LANE'S OWN GATE, FIXED THE SAME ROUND: city_tab_gate 63/1 on "POWER
+rebuilds with every world rebuild" while the lights rebuild in all three places. The leg
+matched ONE EXACT CALL SPELLING and somebody had folded it into a buildPower() helper --
+correct, tidier, behaviour unchanged, gate red. A BROKEN RULER, NOT BROKEN CODE, and this
+lane's own ruler. The invariant is stated directly now (every world rebuild is followed by
+a power rebuild before the next one, any spelling); my first attempt used a fixed
+character window and was ALSO wrong, because the boot build sits sixty lines above its
+POWER line -- the invariant was never about proximity. Re-checked by deleting one power
+rebuild: still red where it should be. 64/0.
+  GATE: gates/combat_floor_gate.js, 13/0, walked surface AND cut demo, registered.
+Mutation-tested three ways: drop the scale rule (A2 red), leave the camera where the fight
+put it (B3 red, after hardening), paint a flat fill instead of the city (B2 red, 1 colour).
+  MEASURED AND LEFT FOR COMBAT, NOT ABSORBED: the city render bakes its own map labels
+(CUSTOM, COLORFUL) into the frame, because the floor IS that render exactly as the law
+says. If they want a floor without labels that is a change to the city renderer and a
+conversation with this lane, not something to strip silently on the way past.
+  RECORD: records/BOHEMIA_THE_CITY_IS_THE_COMBAT_FLOOR_9_5_26.md
+  STILL RED ON MAIN AND STILL NOT MINE: bohemia_sync_gate BOH_POWERGRID, 2 bodies across 6
+carriers -- canon and the walked city agree, the graphics-engine masters and
+BOHEMIA_RUN_CURRENT.html carry an older body. RUN's carriers, their 21 MB generated slice,
+ONE SYSTEM ONE SESSION. FOR THE COORDINATOR TO ROUTE TO RUN.
+  THE STANDING NOTE: A TEST THAT PASSES BECAUSE THE WORLD HAPPENED TO ALREADY BE IN THE
+RIGHT STATE IS NOT A TEST. Set the state you claim to restore, and prove you set it to
+something that had to change. The mutation is the only thing that tells you which kind of
+green you have.
+  NEXT OPEN LINE IN THIS LANE: [more people] POPULATION-DEFAULT.
+
 EYES AND EARS (eyes-5vql33): 9/5 (d) LATEST -- *** E2 [glitch list] SHIPPED. 18 GLITCH
 CLASSES, 8 OF THEM RUNNING BY MACHINE TODAY, AND THE ONE THEY CAUGHT IS BIG: 38 pieces of
 text on the screen a player lands on are too faint to read, and the worst are the game's

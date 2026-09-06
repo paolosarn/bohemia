@@ -123,8 +123,27 @@ if (app) {
   const pgBody = fs.readFileSync('engine/bohemia_powergrid.js', 'utf8');
   ok('LIT: the canon powergrid body rides inside the city verbatim',
     decoded.indexOf(pgBody) >= 0);
-  ok('POWER rebuilds with every world rebuild (3 hooks)',
-    (decoded.match(/POWER=BOH_POWERGRID\.powerMap\(om,seed\)/g) || []).length >= 3);
+  /* THE CLAIM IS "EVERY WORLD REBUILD REBUILDS THE LIGHTS", AND IT USED TO BE WRITTEN
+     AS ONE EXACT CALL SPELLING: /POWER=BOH_POWERGRID\.powerMap\(om,seed\)/ x3.
+     Someone folded that call into a buildPower(om,seed) helper -- correct, tidier, and
+     the behaviour is unchanged -- and this leg went RED on a page where the lights
+     rebuild in all three places. A BROKEN RULER, NOT BROKEN CODE, and this lane's own
+     ruler at that (city_tab_gate is LIFE+CITY-SURFACE's). FIX THE RULER, NEVER THE
+     TARGET: the invariant is stated directly now, so any spelling of "rebuild the
+     power" satisfies it and a world rebuild that FORGETS the lights still cannot. */
+  const worldRebuilds = (decoded.match(/OM\.buildOvermap\(/g) || []).length;
+  const powerRebuilds = (decoded.match(/POWER\s*=\s*[A-Za-z_$.]*[Pp]ower[A-Za-z_$]*\(/g) || []).length;
+  /* AND THE STRONG HALF: every world rebuild is followed by a power rebuild BEFORE THE
+     NEXT WORLD REBUILD. A fixed character window was the first cut and it was wrong in
+     a way worth keeping: the BOOT build sits sixty lines above its `let POWER=...`,
+     because CBinstall has to be defined in between, so a 160-char window called the
+     legitimate boot pairing an orphan. The invariant was never about proximity. */
+  const POWER_RE = /POWER\s*=\s*[A-Za-z_$.]*[Pp]ower[A-Za-z_$]*\(/;
+  const segs = decoded.split(/OM\.buildOvermap\(/).slice(1);
+  const orphanWorld = segs.filter(seg => !POWER_RE.test(seg)).length;
+  ok('POWER rebuilds with every world rebuild (' + worldRebuilds + ' world rebuilds, '
+    + powerRebuilds + ' power rebuilds, ' + orphanWorld + ' world rebuilds with no lights)',
+    powerRebuilds >= 3 && worldRebuilds >= 3 && orphanWorld === 0);
   ok('LIGHT=TERRITORY: live arterials queue lamps at night',
     decoded.indexOf('LIGHT=TERRITORY') >= 0 && decoded.indexOf('__LAMPQ') >= 0);
   ok('the lamp pass draws AFTER the night wash (light cuts the dark)',
