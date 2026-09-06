@@ -23,127 +23,14 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
-
-THIS ROUND (round 2 of [clothes wired], still CLAIMED)
-- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
-  CHARACTER, continued the job I hold. NO BATCH YET: COOK's WARDROBE-REMAKE and
-  DIRECTION's THE-STYLE-CARD are both still OPEN, so there is nothing to wire and the
-  line stays CLAIMED, not SHIPPED.
-- Did the piece I named last round: the WARDROBE DATA half, the bench he judges from.
-  MEASURED on the real surface: the CLOTHES rail names 256 of 280 canon garments and the
-  24 missing are ALL of hair -- which is correct, hair is not clothing and lives in the
-  face maker in CHARACTER, where all 24 are offered. Every canon garment is reachable
-  across the two benches. Added that to the gate as a UNION check, so neither bench can
-  quietly lose a category. Gate now 11/11.
-- *** A LESSON WORTH MORE THAN THE CHECK. *** My first mutation of that check was
-  VACUOUS: adding a fake garment to GARMENTS did not turn it red, because the CLOTHES
-  rail is BUILT FROM GARMENTS -- the subject is generated from the yardstick, so it
-  cannot fail that way. The failure the check actually guards is a BENCH THAT STOPS
-  RENDERING A CATEGORY; emptying the face maker's haircut list turns it red and names all
-  24. TEST THE MUTATION THE CHECK IS FOR, NOT THE FIRST ONE THAT COMES TO HAND. Written
-  into the gate.
-- Still routed, unchanged: the walked city draws NO bodies (0 buildFrame/drawChar for
-  ~5,027 agents), so no garment can reach the surface he walks. RUN / LIFE+CITY own it.
-- NEXT ROUND: check for a COOK batch first. If none, the next unmeasured piece of this
-  job is whether a garment's colour survives the picker onto the body at 112 (the
-  wardrobe data half nobody has measured), and after that this lane has [hair sheet]
-  HAIR-REF-EIGHT-FACINGS waiting, which is his 8/25 order and still open.
-
-CHARACTER'S OWN NOTES ON RUNNING IT
-- My section is 05 CHARACTER. My session slug is character-0lurbs.
-- My lane's gates: family_gate, become_gate, talking_portrait_gate, portrait_haircut_gate,
-  face_maker_gate, face_thumb_gate, hair_gate, hairline_gate, hair_graveyard_gate,
-  craft_law_gate, wardrobe_wired_gate, coldopen_gate, opening_gate.
-- Re-cut the demo with `node tools/bohemia_cut_the_demo.js` before calling anything
-  shipped, and rebake the vote bank (`node tools/bohemia_face_candidates.js` then
-  `python3 tools/bohemia_vote_tab.py`) whenever the alpha changes, or face_thumb_gate
-  goes red on a stale bank.
-- NO CALENDAR TALK (9/5, LOCKED, and it is new): never say yesterday / today / tomorrow
-  / day N to him. Rounds, minutes, hours.
-
---- END PAOLO 9/5, WORD FOR WORD --------------------------------------------
-
-ROUND 3, 9/5 LATEST -- *** THE FOLD HAS THE PERSISTENCE BACKWARDS, FIELD FOR
-FIELD. [heir keeps] Q3 SHIPPED. RESEARCH ONLY, NOTHING BUILT. NOT IN A TAB. ***
-  records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md
-  banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt  (draft:true)
-
-MEASURED: our fold folds EIGHT kinds of thing (standing, territory, build,
-economy, invest, karma, virtue, family+wound) and decays exactly ONE. A faction
-standing loses 25% a generation. Territory, builds, economy capacity, investment,
-karma and virtues carry at 100% FOREVER with no decay at all.
-THE MEASURED WORLD IS THE REVERSE. Social status persists at about 0.79 a
-generation and takes ten to fifteen generations, three to four centuries, to
-fade. Wealth persists at about 0.28 to 0.37 and occupation at 0.30 to 0.40. THE
-NAME OUTLASTS THE MONEY BY ROUGHLY TWO TO ONE.
-So we decay the thing that really lasts and preserve perfectly the things that
-really go.
-
-AND THE ALMOST-FUNNY HALF: THE RATE IS RIGHT, IT IS ON THE WRONG FIELD.
-STANDING_DECAY_TO_NEUTRAL = 0.25 multiplies a standing by 0.75. The measured
-persistence of status is 0.79. A constant our own comment calls "tunable" and
-nobody ever checked landed within 0.04 of the best figure in the literature.
-NOBODY SHOULD TOUCH THAT NUMBER. It belongs on the fields that have no decay.
-
-AND THE HALF THAT MATTERS MORE THAN THE ARITHMETIC: the fold carries FOUR asset
-ledgers and NOT ONE OBJECT, NAME OR MEMORY. A relative is {id, rel, alive} --
-three fields, NO NAME. A wound is wounds.push(target) -- no who, no when, no
-whether it was settled. Reported surveys put 64% of older adults ranking
-heirlooms ABOVE MONEY in an inheritance, and the psychology of it is sharper
-than sentiment: an object somebody USED is valued more than one they merely
-OWNED. Our model records no use, no name and no memory, so it cannot express any
-of it. OUR FOLD CARRIES EVERYTHING THE EVIDENCE SAYS PEOPLE DO NOT CARE ABOUT
-AND LOSES EVERYTHING IT SAYS THEY DO.
-
-THE GAMES SIDE AGREES FROM BOTH ENDS: the stated failure is an heir with no leg
-up, which reads as deleting a high-level character; and the game that carries
-items, skills, money and shops straight across is the one whose players say the
-biggest thing you lose is your family. Carrying everything material and losing
-the people is a known, shipped, complained-about outcome, and it is the shape of
-our fold.
-
-HOW THE THREE ROUNDS COMPOSE: round 1 found the fold generation-blind (an animal
-generation hands the next one zeroes). Round 3 finds that even for a HUMAN
-generation it carries the wrong things. Round 2 found that in a real coyote's
-life a territory is a VACANCY, never an inheritance, which contradicts territory
-being the fold's most permanent field. Three angles, one conclusion: THE FOLD IS
-AN ASSET REGISTER AND A DYNASTY IS NOT AN ASSET REGISTER.
-
-ROUTED (proposals only): WORLD THE-FOLD-CARRIES-THE-WRONG-THINGS (move the decay
-onto the asset ledgers, give a tree node a name, give a wound a who and a when;
-pure engine, headless, no player surface). Inside this lane: Q8 [inherited
-memory] is now the direct sequel and should be taken BEFORE Q4; Q11 [lasting
-death] inherits the wound shape; Q12 [heir's hour] inherits the leg-up problem.
-
-[PENDING Paolo] Nothing blocking. Nine questions still OPEN, none needs a ruling
-to start. Which fields decay and how fast, every name, who dies, what the wound
-was, and what generation two is told on its first morning are all his.
-
-NEXT FOR THIS LANE: Q8 [inherited memory], ahead of Q4, for the reason above.
-If a later round disagrees with that ordering, take Q4; the board's order is the
-default and this is a recommendation, not a change to the board.
-
-WHAT THIS CHAT IS: 15 DYNASTY. MODE: RESEARCH. It never implements.
-TWO THINGS THE FRONT PAGE SAYS THAT I HAD BEEN GETTING SLIGHTLY WRONG, recorded
-so the next round does not repeat them:
-  - A RESEARCH ROUND IS NOT "A DAY". The records are titled DAY 1, DAY 2 and that
-    is the records convention, but the front page says plainly: it is one VAMILY,
-    not a calendar day, and YOU NEVER CALL IT A DAY TO PAOLO. My first two replies
-    called it a research day. Stop.
-  - RULE 5: IF I ALREADY HOLD A CLAIMED JOB, VAMILY MEANS CONTINUE IT from where
-    this block says I stopped. A job takes as many rounds as it takes and nobody
-    expects one round. Only if I hold nothing do I take the first OPEN line.
-
-
 === END OF HIS WORDS ===
 
 THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
 returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
 backstage], Q7 [water supply], Q8 [battery value],
 Q9 [trust credit], Q10 [market day],
-Q11 [inflation feeling], Q12 [who's housed].
-Next OPEN is Q13 [printed money]; four more open after it.
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money].
+Next OPEN is Q14 [rent share]; Q15 [first hour] and Q16 [debt spiral] after it.
 
 AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
 (Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
@@ -160,6 +47,23 @@ it. Twice that produced a stray marker or a duplicated header on main, and once 
 interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
 TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
 your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
 === ROUND 13 REPORT: [printed money] SHIPPED ===
 *** THE VALLEY FILLS ITSELF IN ELEVEN DAYS. MODE: RESEARCH, nothing implemented.
 NOT IN A TAB YET. Nothing to judge. ***
