@@ -1,3 +1,56 @@
+EYES AND EARS (eyes-5vql33): 9/5 (j) LATEST -- *** E9 IS ON. THE STANDING DUTY RAN ITS FIRST
+PASS AND THE RATCHET CAUGHT A REGRESSION WITHIN HOURS OF BEING INSTALLED: 39 unreadable text
+boxes against a frozen 38, and the new one is the DEMO'S ▶ WATCH BUTTON -- the button that
+offers a stranger the opening scene. The baseline was NOT raised. *** Every line E0 to E9 in
+this lane is now shipped or standing. TAB: NOT IN A TAB YET. No game code touched, ever.
+
+THE VERDICTS, TWO WORDS EACH, on the 109 SHIPPED lines the board carried today:
+  RUN            DOOR HOLDS      both surfaces open onto a live canvas, nothing off the glass,
+                                 no cut text, nothing threw
+  SOUNDS         WALKING SOUNDS  51 steps, 51 calls, 51 renders, engine proven running
+                 BED UNPLAYED    and 35 seconds standing still is still silent
+  LIFE + CITY    SCREENS HOLD    every tab renders, nothing threw
+  UI             FAINT CHIPS     39 boxes under the readable floor, AND THE COUNT WENT UP
+  COOK/DIRECTION LIGHT DRIFT     ten tiles lit from a different corner than the tile they
+                                 replaced; the re-cook at 0.16x the approved colour density
+  CHARACTER      HAIR BANDS      62.0% banding against 0.0% for every tile bank
+  ANIMATION      LOOP FLAG       every cycle closes and every clip is on the beat, but nothing
+                                 marks which clips loop, so one-shots snap every cycle
+  WORLD          NOT MINE        no pixels or sound in the diff
+
+FIVE BOUNCE-BACK LINES WRITTEN, which is the one exception the 9/4 law gives this lane: [eyes:
+faint chips] into UI, [eyes: bed unplayed] into SOUNDS, [eyes: loop flag] into ANIMATION,
+[eyes: light drift] into COOK, [eyes: hair bands] into CHARACTER. Each names its record.
+
+THE RATCHET'S FIRST CATCH IS THE POINT OF THE WHOLE LANE. eyes_gate.js holds the count of
+unreadable text on the player's screen at a frozen 38. This pass measured 39 and named the
+difference: the demo's ▶ WATCH button, new since this afternoon. Nothing else got worse and
+nothing got better. A ratchet only ever goes down; when UI fixes some, the frozen number drops
+in the same commit.
+
+THE ORDER IS A COMMAND: node tools/bohemia_eyes_round.js [--quick] runs the gate, the
+readability pass, the 27-screen picture pass, what moved against each screen's own noise floor,
+the craft tells, and the walk with the audio engine proven alive -- in a human reviewer's order
+-- then prints the taste questions it will not answer.
+
+WHAT THIS DUTY STILL CANNOT DO: hear the MIX (every sound is measured alone; E5 gap 10), see a
+canvas defect (a sprite through a wall, a seam, a popping frame -- E2 marks those NEEDS A
+HARNESS and says why a pixel test cannot answer them), or judge whether anything is good.
+
+AND THE RULE THAT LEADS THIS LANE NOW: A ZERO NEEDS A POSITIVE CONTROL. Five instrument bugs
+were caught in this lane's own tools today; two were counters nothing incremented, which read
+zero forever and look exactly like silence. It is not this lane's rule alone -- any gate that
+reports "0 found" with no control might be blind, and there are 500-odd of them.
+
+NEXT IN THIS LANE: two new lines the coordinator added, E10 [find them] and E11 [pixels only].
+Then the mix meter, which is the one instrument the order names and this lane does not have.
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; ten things now
+do. Lanes may only change the status word, so it is left alone and flagged here again.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_ROUND_2_THE_STANDING_DUTY_9_5_26.md (the verdict page) plus E0
+through E8. Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet frozen at 38, RED
+right now at 39 on purpose). Tools: eleven, all bohemia_eyes_*.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -330,57 +383,6 @@ NEXT IN THIS LANE (top unblocked, in order)
     colour to cross now; the last four rows were feeding it
 
 --------------------------------------------------------------------------------
-
-EYES AND EARS (eyes-5vql33): 9/5 (i) LATEST -- *** E8 [first minute] SHIPPED. The lane's ten
-instruments now run in a HUMAN REVIEWER'S ORDER, as one command, and building that runner
-found the worst instrument bug of the day: TWO COUNTERS THAT NOTHING INCREMENTED. They read
-zero forever and zero looks exactly like silence. RULE ZERO NOW LEADS THIS LANE: A ZERO NEEDS
-A POSITIVE CONTROL. *** MODE: RESEARCH plus this lane's instruments. TAB: NOT IN A TAB YET.
-
-THE ART ORDER, THE FIRST SIXTY SECONDS, from how directors actually review -- the squint and
-thumbnail test FIRST (shrink it: does the thing still read at any size), then VALUE BEFORE
-COLOUR (strip the colour; if it all blurs together, saturation was carrying the picture and
-contrast was doing nothing), then does it fit the glass, then is it the same world, then the
-craft, and only then TASTE which is his:
-  1s  is it there            the gate: a live canvas in any frame
-  5s  the squint             the reference score's read-at-play-size question
-  10s value, not colour      the readability pass over the FINISHED picture
-  15s does it fit the glass  nothing off the edge, no text wider than its box
-  30s is it the same world   detail order, colour density, saturation, value band, grain, light
-  60s the craft              orphans, banding, jaggies, mixels, the key
-  then TASTE                 Paolo. never a machine.
-
-THE SOUND ORDER, THE FIRST TEN SECONDS, from the broadcast QC pass: is there a sound at all
-(with a control), is it too hot (true peak), can he hear it on a phone, is it the thing (a
-person), does it sit in the mix -- and that last one is still NOBODY'S, E5 gap 10. For us
-mono fold-down is not a formality: a phone speaker IS the mono fold-down.
-
-RULE ZERO, AND IT COST THE ROUND TO LEARN IT. Running everything end to end for the first
-time, the sound step again said the game rendered nothing while walking -- and E5's dedicated
-experiment had already proved the opposite. Chasing the disagreement: THE LIVE HARNESS'S
-RENDER COUNTER AND FOOTSTEP COUNTER WERE READ FROM VARIABLES NOTHING INCREMENTED. The wraps
-meant to set them had quietly stopped being in the file. Both are hooked by bare name now,
-and the tool FIRES ONE SOUND BY HAND after every run and checks the counters move; if they do
-not it prints that it is blind instead of reporting silence. With the control: 41 renders and
-40 footstep calls in 20 seconds of walking, all step_dirt. The harness now agrees with the
-dedicated experiment, which is what agreement is supposed to look like.
-AND THE RULE IS NOT THIS LANE'S ALONE: any gate that reports "0 found" with no control might
-be blind, and there are 500-odd of them.
-
-THE ROUND IS A COMMAND NOW: node tools/bohemia_eyes_round.js [--quick] runs the gate, the
-readability pass, the 27-screen picture pass, what moved since last round against each
-screen's own noise floor, the craft tells across the art banks, and the walk with the engine
-proven alive -- in that order -- then prints the taste questions it will not answer.
-
-NEXT IN THIS LANE: E9, the standing duty, which is the last open line here. The runner is what
-makes it a command instead of a promise. The mix meter (E5 gap 10) is the one instrument the
-order names and this lane does not have.
-FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists"; nine things
-now do. Lanes may only change the status word, so it is left alone and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E8_THE_FIRST_MINUTE_9_5_26.md (+ E1, E2, E3, E4, E5, E6, E7 and
-the round-one record). Order: banks/eyes/BOHEMIA_EYES_THE_ORDER_9_5_26.json, draft:true.
-Gate: gates/eyes_gate.js (10 checks, 81s, self-testing, ratchet at 38). Tools: eleven now.
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
