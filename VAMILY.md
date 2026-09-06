@@ -272,7 +272,7 @@ STATE: 2,442 authored lines, a voice card and a voice gate, 27 quest scenes meas
 - OPEN  [trade slang]  BB-STILL-SAYS-IT  (build, held)
 - OPEN  [reputation lines]  BB-RESPONSIVE  (build, held)
 - OPEN  [voice pass]  SECOND-VOICE-PASS  (build, held)
-- OPEN  [cut off]  Q16 How the collector talks and how a cut-off is said. Real testimony from Lebanese and Iraqi households about the generator owner, his collector, and the day the line was cut; the best games' debt collectors and landlords; what makes a threat land in one line without a villain voice. Test lines: ten collector lines, five cut-off lines, five refusals from a family that cannot pay, draft:true.
+- CLAIMED 9/5 words-8dqrnq  [cut off]  Q16 How the collector talks and how a cut-off is said. Real testimony from Lebanese and Iraqi households about the generator owner, his collector, and the day the line was cut; the best games' debt collectors and landlords; what makes a threat land in one line without a villain voice. Test lines: ten collector lines, five cut-off lines, five refusals from a family that cannot pay, draft:true.
 - OPEN  [rumour words]  Q17 What a distorted rumour sounds like. PEOPLE is building rumours that travel about somebody who is not you and that get things WRONG (harvested last round). Research how real gossip distorts: what gets exaggerated, what gets dropped, what gets attached to the wrong person, and how the best games write a lie that a player can catch. Test lines: ten true rumours and their three-hops-later versions, draft:true.
 ## UI  (11.)
 MODE: BUILD
