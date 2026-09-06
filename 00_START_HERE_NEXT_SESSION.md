@@ -1,3 +1,57 @@
+EYES AND EARS (eyes-5vql33): 9/5 (d) LATEST -- *** E2 [glitch list] SHIPPED. 18 GLITCH
+CLASSES, 8 OF THEM RUNNING BY MACHINE TODAY, AND THE ONE THEY CAUGHT IS BIG: 38 pieces of
+text on the screen a player lands on are too faint to read, and the worst are the game's
+own control chips at 1.03 to 1 where 1.00 means the ink and the paper are the same
+brightness. *** MODE: RESEARCH plus this lane's own instruments. TAB: NOT IN A TAB YET.
+No game code touched.
+
+THE READABILITY FINDING, MEASURED TWICE, NOW A RATCHET IN THE SUITE. A page can dim its own
+words with a scrim drawn OVER them: every style still says gold on black and the player sees
+a grey smudge, so contrast is a PICTURE question, not a style question. The DOM gives the
+rectangle, the screenshot gives the colours, WCAG gives the number (4.5:1 body, 3:1 large).
+WITH THE MORNING CARD UP (the screen he lands on): 38 boxes under the floor. OUTFIT 1.03:1,
+MUSIC 1.06, WHOLE MAP 1.07, the status line "walking your own block." 1.07, BIKE 1.09, CITY
+1.09, SLEEP 1.10. WITH BOTH CARDS DISMISSED: 7 of 13 still under it -- status line 1.75,
+OUTFIT 1.80, WHOLE MAP 2.82, BIKE 3.46, CITY 3.67, SLEEP 3.70, STANDING 4.22. THE CHIPS ARE
+DIM ON THEIR OWN; the card only makes it worse. That is the whole left-hand column of the
+game's controls. ROUTED TO UI.
+
+THE GATE IS TEN CHECKS NOW, 81 SECONDS, GREEN: the four baseline-free faults (a live canvas,
+nothing off the glass in the phone's coordinates, no text wider than its box, nothing threw),
+the readability RATCHET frozen at 38 (it may only ever go down; proven to bite by setting it
+to 10 and watching the gate go red), and the self-test that probes a deliberately broken copy
+every run so a green from a blind instrument is impossible.
+
+AND THE THREE CLASSES I REFUSED TO FAKE. The map repeats one apartment block down a column,
+by eye -- but a lattice autocorrelation scores THE MAP 0.21, THE WALKED GAME 0.22 AND A GRID
+OF JUDGE CARDS 0.25, so it cannot tell a copy-pasted city from a correct grid, and a detector
+that ranks a judge page above the real fault is worse than none. That question belongs to the
+TABLE THE MAP IS GENERATED FROM, where a repeat is an exact match. Sprites through walls and
+draw order are the same shape of problem: a pixel test cannot separate "behind" from "inside",
+so they are marked NEEDS A HARNESS instead of shipped as guesses. Two logos, art from another
+world and "the wrong thing is loud" are marked HUMAN, and E7 is the sheet that turns those
+into measurements.
+
+ALSO FOUND AND ROUTED: the CHARACTER bench's SHOULDERS label is cut by 14px and the MAP
+caption by 484px (UI); the CUTSCENE screen carries a 94px black band under its picture
+(CITY/COOK).
+
+NEXT IN THIS LANE: E1 [pixel tells] -- banding, pillow shading, orphan pixels, mixed
+resolutions, measured against the 45-degree corpus rather than a screenshot of a tab. Then
+E6 [walk tells], E7 [reference score], E5 [missing sound] once the sound harness can prove
+the audio engine was alive for a whole walk.
+
+FOR THE COORDINATOR: this lane's VAMILY STATE line still says "nothing exists. No screenshot
+pass, no golden images, no audio measurement, no glitch checklist." All four now exist except
+golden images, which E3 argued against on measured grounds. Lanes may only change the status
+word, so it is left alone and flagged here.
+NOTHING IS PENDING HIM IN THIS LANE.
+Records: records/BOHEMIA_EYES_E2_THE_GLITCH_LIST_9_5_26.md, BOHEMIA_EYES_E4_THE_EARS_9_5_26.md,
+BOHEMIA_EYES_E3_HOW_TO_CATCH_A_VISUAL_REGRESSION_9_5_26.md, BOHEMIA_EYES_ROUND_1_WHAT_THE_MACHINE_SAW_9_5_26.md,
+BOHEMIA_EYES_READABLE_BASELINE_9_5_26.json. Banks: banks/eyes/ (checks + glitch taxonomy, all
+draft:true). Gate: gates/eyes_gate.js. Tools: bohemia_eyes_shots / _probe / _diff / _sheet /
+_glitch / _readable / _ears / _ears_live.
+
 WORDS (words-8dqrnq): 9/5 (i) LATEST -- *** VAMILY Q12 [naming people] SHIPPED. NOT ONE
 PROPER NAME IS SPOKEN ANYWHERE IN THIS GAME. 57 PEOPLE TALK ACROSS 27 QUESTS AND EVERY
 ONE OF THEM IS A JOB TITLE. *** Nothing to judge, MODE: RESEARCH, nothing entered the game.
@@ -1748,68 +1802,6 @@ NEXT IN THIS LANE (VAMILY order): [unused sounds] THE-OTHER-51, then
 [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
-
-EYES AND EARS (eyes-5vql33): 9/5 (c) LATEST -- *** E4 [audio tells] SHIPPED. THE LANE HAS
-EARS NOW: all 65 approved events and all 185 approved picks rendered through the real
-factory and measured. Nothing clips, nothing is over -1 dBTP, nothing has a phase problem
--- and the quietest approved sound is 48 dB under the loudest. ***
-MODE: RESEARCH plus this lane's own instruments. TAB: NOT IN A TAB YET (research). No game
-code touched, no sound edited, no verdict of his re-opened.
-
-THE GOOD NEWS IS REAL AND IT IS THE FACTORY'S: zero clipped samples in 185 renders, hottest
-true peak -4.44 dBTP against a -1 limit, lowest stereo correlation +0.28 so nothing hollows
-out when a phone sums it to mono, DC offset effectively zero everywhere.
-
-THE WEAK LIST, ALL MEASURED, NONE OF IT TASTE:
- * 22 events lose MORE THAN HALF THEIR ENERGY BELOW 500 Hz, which a phone speaker cannot
-   reproduce (heartbeat 92%, air_night 88%, power_on 83%). On his phone half those sounds
-   are simply not there.
- * 32 of 65 events are DEAD CENTRE (correlation > 0.995, footsteps excluded because the
-   factory says they stay dry and close on purpose) -- on a factory whose own header says
-   FFX moved its effects off mono and that this one builds space as SOURCES.
- * 12 events are A SPIKE WITH NOTHING BEHIND IT (crest over 20 dB) and 5 are SQUASHED
-   (under 6 dB). 7 are shorter than 50 ms: a click, with no room for transient, body, tail.
- * 4 are INAUDIBLE ON A PHONE: lungs_burn -59.7 dBFS RMS, sign_alive -55.3, come_up -49.6,
-   boots_go -47.8.
- * THE PATTERN UNDERNEATH: the flags land overwhelmingly on the `_more` SIBLING sounds --
-   nine of the twelve spikes, most of the dead-centre set, three of the four inaudible ones.
-   The parent sounds measure well; the variants cooked to stand beside them are quieter,
-   thinner, more centred and spikier than what they were cooked for.
-
-AND ONE NOBODY EXPECTED: 128 OF THE 185 APPROVED SOUNDS ARE SHORTER THAN 400 ms, which is
-one loudness block, so the broadcast instrument cannot measure most of our library at all.
-That is why the industry measures a game's MIX in LUFS and its assets in peak and RMS. Any
-future claim that "our sounds sit at -18 LUFS" is measuring something that does not exist.
-The standard we are judged against on a phone is ASWG-R001: -18 LUFS integrated for
-PORTABLE titles, -1 dBTP ceiling, loudness range under 20 LU. Our approved set spans 48 dB
-of RMS on its own.
-
-THE THING I DID NOT REPORT, AND WHY. The obvious next question is which of the 65 he ever
-hears in play. It CANNOT be answered by reading code: the footstep caller builds its name
-by concatenation ('step_' + surface) and three call sites pass a variable, so one grep said
-50 events are never called, a better grep said 56, AND BOTH ARE WRONG. So a live probe was
-built that wraps BOH_SFX.render itself -- the hook no caller can route around -- walks the
-city and counts. Its first run: 80 step messages posted by the city, the picture moved
-34.3%, ZERO sounds rendered. That looks like a headline. IT IS NOT ONE, because the same
-run reported the parent's music engine had no AudioContext, and a clean run proves the
-context is running immediately after the splash tap. A zero measured while the audio engine
-was down is a fact about my harness. E3 taught this lane that lesson at its own expense
-five hours ago. The probe ships, the finding waits for a harness that can prove audio was
-alive for the whole walk.
-
-STILL CANNOT: hear a MIX (this measures assets, not the game playing them together), judge
-whether a sound is right for its moment, or see a canvas defect. Next: finish the live
-probe so E5 [missing sound] has a measurement instead of a guess, then E2 [glitch list].
-
-FOR THE COORDINATOR: the STATE line of this lane's VAMILY section still says "nothing
-exists. No screenshot pass, no golden images, no audio measurement, no glitch checklist."
-Three of those four now exist. Lanes may only change the status word, so it is left alone
-and flagged here.
-NOTHING IS PENDING HIM IN THIS LANE.
-Records: records/BOHEMIA_EYES_E4_THE_EARS_9_5_26.md, BOHEMIA_EYES_EARS_MEASURED_9_5_26.json
-(185 rows), BOHEMIA_EYES_EARS_WEAK_LIST_9_5_26.json. Instruments: tools/bohemia_eyes_ears.js,
-tools/bohemia_eyes_ears_live.js. E0 and E3 above still stand: gates/eyes_gate.js is in the
-suite, 49s, green, and it tests itself every run.
 
 LIFE + CITY (city-1eztay): 9/5 (d) LATEST -- *** [century memory] CENTURY-RECORD:
 SHIPPED. THE CITY REMEMBERS WHAT YOUR FAMILY DID, PER GENERATION, AND A LATER

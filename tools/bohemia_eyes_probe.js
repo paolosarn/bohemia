@@ -56,7 +56,7 @@ const PHONE = { viewport:{width:390,height:844}, deviceScaleFactor:2, isMobile:t
    value is that its reports are true. */
 const ASK = `(() => {
   const W = innerWidth, H = innerHeight;
-  const seen = { offGlass: [], cutText: [] };
+  const seen = { offGlass: [], cutText: [], faintText: [], textRects: [] };
   const name = el => {
     const id = el.id ? '#' + el.id : '';
     const cls = (el.className && typeof el.className === 'string')
@@ -96,6 +96,41 @@ const ASK = `(() => {
       seen.offGlass.push({ el: name(el), top: Math.round(r.top), bottom: Math.round(r.bottom),
         left: Math.round(r.left), right: Math.round(r.right) });
     }
+    /* 2b. FAINT TEXT. WCAG's contrast ratio, on the colour the text is actually
+       painted in (opacity folded in) against the nearest painted background behind
+       it. 4.5:1 is the readable floor for body text, 3:1 for large. A game is not a
+       web page, but a line a player CANNOT READ is a defect in any medium, and this
+       game dims its own dialogue behind a card. */
+    if (text && text.length > 1 && el.children.length === 0) {
+      const cs = getComputedStyle(el);
+      const px = parseFloat(cs.fontSize) || 12;
+      const parse = c => { const m = (c || '').match(/[\d.]+/g); return m ? m.slice(0, 4).map(Number) : null; };
+      const lum = ([r, g, b]) => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+        return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b); };
+      let fg = parse(cs.color);
+      if (fg) {
+        const alpha = (fg.length > 3 ? fg[3] : 1) * (parseFloat(cs.opacity) || 1);
+        let bg = null;
+        for (let p2 = el; p2; p2 = p2.parentElement) {
+          const c2 = parse(getComputedStyle(p2).backgroundColor);
+          if (c2 && (c2.length < 4 || c2[3] > 0.5)) { bg = c2.slice(0, 3); break; }
+        }
+        if (bg) {
+          const mixed = fg.slice(0, 3).map((v, i) => v * alpha + bg[i] * (1 - alpha));
+          const l1 = lum(mixed), l2 = lum(bg);
+          const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+          const floor = px >= 24 ? 3 : 4.5;
+          if (ratio < floor) seen.faintText.push({ el: name(el), ratio: Math.round(ratio * 10) / 10, px: Math.round(px), floor });
+        }
+      }
+    }
+    /* AND THE RECTANGLE ITSELF, for the pixel side. A page can dim its own dialogue
+       with a scrim drawn OVER it, and no amount of reading the styles will see that:
+       the element's colour is unchanged, something else is on top. So the box goes
+       out and the finished picture is measured inside it. */
+    if (text && text.length > 2 && el.children.length === 0 && r.width > 24 && r.height > 8)
+      seen.textRects.push({ el: name(el), x: Math.round(r.left), y: Math.round(r.top),
+        w: Math.round(r.width), h: Math.round(r.height), px: Math.round(parseFloat(getComputedStyle(el).fontSize) || 12) });
     /* 2. CUT TEXT -- wider than its own box, with no way to scroll it */
     if (text && el.scrollWidth > el.clientWidth + 2 && el.clientWidth > 0) {
       const cs = getComputedStyle(el);
@@ -113,7 +148,7 @@ const ASK = `(() => {
 const GLASS = { w: PHONE.viewport.width, h: PHONE.viewport.height };
 
 async function probeSurface(page, label, out){
-  const offGlass = [], cutText = [];
+  const offGlass = [], cutText = [], faintText = [], textRects = [];
   for (const fr of page.frames()) {
     let seen, off = { x:0, y:0 };
     if (fr !== page.mainFrame()) {
@@ -133,9 +168,15 @@ async function probeSurface(page, label, out){
         offGlass.push({ el: o.el + where, belowBy: Math.max(0,belowBy), rightBy: Math.max(0,rightBy) });
     }
     for (const c of seen.cutText)  cutText.push({ ...c, el: c.el + where });
+    for (const f of (seen.faintText || [])) faintText.push({ ...f, el: f.el + where });
+    for (const t of (seen.textRects || [])) textRects.push({ ...t, el: t.el + where, x: t.x + off.x, y: t.y + off.y });
   }
   const shot = await page.screenshot();
-  out.push({ where: label, offGlass, cutText, bytes: shot.length });
+  if (process.env.EYES_SHOT_DIR) {
+    const f = require('path').join(process.env.EYES_SHOT_DIR, label.replace(/[^a-z0-9]+/gi, '_') + '.png');
+    require('fs').writeFileSync(f, shot);
+  }
+  out.push({ where: label, offGlass, cutText, faintText, textRects, bytes: shot.length });
 }
 
 async function run(){
@@ -181,8 +222,9 @@ async function run(){
   for (const s of report.surfaces) {
     console.log('==', s.surface, '|', s.stamp, '| threw', s.thrown.length, '| failed fetches', s.failed.length);
     for (const sc of s.screens) {
-      const og = (sc.offGlass||[]).length, ct = (sc.cutText||[]).length;
-      if (og || ct || sc.error) console.log('   ', sc.where, '| off the glass', og, '| cut text', ct, sc.error||'');
+      const og = (sc.offGlass||[]).length, ct = (sc.cutText||[]).length, ft = (sc.faintText||[]).length;
+      if (og || ct || ft || sc.error) console.log('   ', sc.where, '| off the glass', og, '| cut text', ct, '| too faint to read', ft, sc.error||'');
+      for (const f of (sc.faintText||[]).slice(0,6)) console.log('        FAINT ' + f.ratio + ':1 (needs ' + f.floor + ') ' + f.px + 'px', f.el);
       for (const o of (sc.offGlass||[]).slice(0,4)) console.log('        OFF GLASS', o.belowBy?('below by '+o.belowBy+'px'):('right by '+o.rightBy+'px'), o.el);
       for (const c of (sc.cutText||[]).slice(0,4)) console.log('        CUT TEXT  by ' + c.by + 'px', c.el);
     }

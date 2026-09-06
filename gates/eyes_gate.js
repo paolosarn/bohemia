@@ -38,6 +38,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.dirname(__dirname);
 const { ASK, probeSurface, PHONE } = require(path.join(ROOT, 'tools/bohemia_eyes_probe.js'));
@@ -108,6 +109,33 @@ function say(list, kind) {
     ok(name + ': no text is wider than the box it is printed in',
       r.screen.cutText.length === 0, say(r.screen.cutText, 'cut'));
     ok(name + ': nothing threw', r.thrown.length === 0, r.thrown.slice(0, 3).join(' | '));
+  }
+
+  /* AND THE TEXT HE CANNOT READ, ON A RATCHET. The contrast of a finished picture
+     is not a style question -- a scrim drawn OVER the words leaves every style saying
+     gold on black while the player sees a grey smudge -- so the picture is measured,
+     by the lane's own tool, and the COUNT is held. 38 boxes are under the readable
+     floor today (worst: the OUTFIT chip at 1.03:1, where 1.00 means the ink and the
+     paper are the same brightness). The 38 are history and this gate exists so a
+     39th cannot be added quietly. Population baseline, the pixel-craft precedent. */
+  try {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'eyes-read-'));
+    const probeJson = path.join(dir, 'probe.json');
+    execFileSync('node', [path.join(ROOT, 'tools/bohemia_eyes_probe.js'), '--out', probeJson],
+      { env: { ...process.env, EYES_SHOT_DIR: dir }, cwd: ROOT, stdio: 'pipe', timeout: 240000 });
+    const outp = execFileSync('python3', [path.join(ROOT, 'tools/bohemia_eyes_readable.py'), probeJson, dir],
+      { cwd: ROOT, encoding: 'utf8', timeout: 120000 });
+    const m = outp.match(/CANNOT READ:\s*(\d+)/);
+    const now = m ? parseInt(m[1], 10) : -1;
+    const base = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_EYES_READABLE_BASELINE_9_5_26.json'), 'utf8'));
+    ok('the count of text nobody can read has not gone up (' + now + ' against a frozen ' + base.baseline_under_floor + ')',
+      now >= 0 && now <= base.baseline_under_floor,
+      now < 0 ? 'the readability tool printed no count'
+              : 'a new unreadable label was added. Lower the baseline when a lane fixes some, never raise it');
+    if (now >= 0 && now < base.baseline_under_floor)
+      console.log('       (it went DOWN to ' + now + '. Lower the frozen number in the same commit as the fix.)');
+  } catch (e) {
+    ok('the readability ratchet ran', false, String(e).split('\n')[0].slice(0, 160));
   }
 
   /* AND THE CHECKER STILL BITES. Round one taught this lane the same lesson twice

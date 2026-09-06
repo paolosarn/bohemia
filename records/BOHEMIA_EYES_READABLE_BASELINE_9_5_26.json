@@ -1,0 +1,42 @@
+{
+ "what": "THE RATCHET FOR TEXT NOBODY CAN READ, frozen 9/5/26 on build 9/5ak.",
+ "how": "The eyes gate opens both surfaces at 390x844, taps the splash, waits for the game, and measures the WCAG contrast of every on-glass text box in the finished picture (the DOM says where the words are, the picture says what they look like, because a scrim drawn over the text is invisible to the styles).",
+ "state": "The morning card is UP, because that is the screen a player lands on and because it is the only state this harness can reach deterministically. Measured twice, same number both times.",
+ "baseline_under_floor": 38,
+ "floors": {
+  "body_text": 4.5,
+  "large_text_24px_or_more": 3.0
+ },
+ "the_rule": "This number may never go UP. It is a population baseline, the pixel-craft and style-card precedent: the 38 that exist are history, and the gate exists so a 39th cannot be added quietly. When a lane fixes some, lower this number by hand in the same commit.",
+ "worst_today": [
+  {
+   "el": "OUTFIT chip",
+   "contrast": 1.03
+  },
+  {
+   "el": "MUSIC chip",
+   "contrast": 1.06
+  },
+  {
+   "el": "WHOLE MAP chip",
+   "contrast": 1.07
+  },
+  {
+   "el": "the status line, 'walking your own block.'",
+   "contrast": 1.07
+  },
+  {
+   "el": "BIKE chip",
+   "contrast": 1.09
+  },
+  {
+   "el": "CITY chip",
+   "contrast": 1.09
+  },
+  {
+   "el": "SLEEP chip",
+   "contrast": 1.1
+  }
+ ],
+ "with_the_card_dismissed": "7 of 13 text boxes are still under the floor: the status line 1.75, OUTFIT 1.80, WHOLE MAP 2.82, BIKE 3.46, CITY 3.67, SLEEP 3.70, STANDING 4.22. So the card is not the whole story; the chips are dim on their own."
+}
