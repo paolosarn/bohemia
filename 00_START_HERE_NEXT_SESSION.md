@@ -7806,7 +7806,20 @@ street bump builds a STREET board where you stood, a front door builds THAT ROOM
 real walls as cover and starts you at the door. The only unbuilt part is what he SEES in
 the half second, which is a genuine fork with no default, so it went to him as A/B/C
 (A camera pulls back over the same ground, recommended; B hard cut; C no transition).
-Routed COMBAT [enter zoom], top of lane.
+Routed COMBAT [enter zoom], top of lane. THEN (bp) VAMILY: 53 real commits on main since
+my last round -- RUN [street encounters] and [debts named] (the reckoning card names who
+you let down), PEOPLE [outfits nearby], CHARACTER [hair sheet] eight facings, UI [settings
+pause] and [one number], FACTIONS [held ground] EVERY BLOCK HAS A NAME ON IT and [faction
+towns], LIFE+CITY the feed stream, SOUNDS' census that PLAYS the game instead of grepping
+(nine of sixty-five, and it proved a grep cannot answer the question), PLUMBER [sixty fps]
+round 2, COOK batches 5-6, DIRECTION patrol ratchet 42%, ECONOMY Q10, WORDS Q11, DYNASTY
+Q8+Q9. DIRECTION HIT ZERO OPEN and SOUNDS hit one, so the queue-never-dry rule fired:
+topped up DIRECTION 0->5, SOUNDS 1->4, ANIMATION 3->6, LIFE+CITY 4->6, UI 5->7, CHARACTER
+5->6, ECONOMY 4->6, DYNASTY 4->5. SWING: the first fight is the only tutorial we get
+(records/BOHEMIA_COORDINATOR_RESEARCH_THE_FIRST_FIGHT_TEACHES_9_6_26.md) -- one lesson per
+encounter, the obstacle must be impassable without the thing taught, so the first fight
+teaches THE BEAT ALONE. Routed COMBAT [first fight] (top), SOUNDS [beat teaches], UI [no
+text box].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
