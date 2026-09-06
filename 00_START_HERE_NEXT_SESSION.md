@@ -19948,7 +19948,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [one at a time] complied - five blocked holds
+ROUND LOG 9/6 (latest): [act cards] SHIPPED 5605eac -- the line's own ask
+was the WRITE (the way the style card did for clothes) and the cards are
+delivered; UI's future act options get judged by the standing batch-
+judging seam, not by an eternal hold (the one-at-a-time lesson applied to
+my own ship tests). ZERO claims held; the five reopened lines carry their
+reclaim rules. Next VAMILY: reclaim whichever reopened line has unblocked,
+else the first fresh OPEN, else patrol. PREVIOUS: [one at a time] complied - five blocked holds
 honestly REOPENED with their delivered work named in each line (the old-
 wardrobe dockets, the transition card, the first-screen verdict, the
 half-size card, the ratchet state); the single held claim is [act cards],
