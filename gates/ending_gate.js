@@ -29,6 +29,7 @@
 'use strict';
 var fs = require('fs');
 var path = require('path');
+var http = require('http');
 
 var ROOT = path.dirname(__dirname);
 process.chdir(ROOT);
@@ -157,11 +158,41 @@ var SETTLE = require(__dirname + '/bohemia_settle.js').settle;
    A PROBE THAT SENDS THE MESSAGE THE REAL SENDER IS SUPPOSED TO SEND IS STILL A
    SIDE DOOR. So this opens the real page, taps the real splash, and reaches into
    the frame the player is actually looking at. */
+/* *** AND IT IS SERVED, BECAUSE file:// IS A BUILD NO PLAYER GETS. ***
+   This gate opened both surfaces off disk until 9/6, and the RUN lane measured
+   on 9/5 what that hides: the demo's safety layer is injected into the city
+   frame SAME-ORIGIN from the demo side, so on file:// it silently no-ops -- the
+   walk pad reads 42 instead of 44 and THE BUILDER DRAWER IS VISIBLE, whose
+   REROLL regenerates the world under a stranger's own session. Every claim below
+   is about the LAST THIRTY SECONDS, which peak-end says is half of what anybody
+   keeps, so proving them on a build nobody opens is the worst place in the demo
+   to be testing the wrong thing. Served from the repo root so every relative
+   path a slice loads still resolves exactly as it does in production. */
+var SERVER = null;
+var TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
+             '.png': 'image/png', '.json': 'application/json',
+             '.webmanifest': 'application/manifest+json' };
+function serve() {
+  return new Promise(function (res) {
+    var s = http.createServer(function (rq, rs) {
+      var rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '');
+      var f = path.join(ROOT, rel);
+      if (f.indexOf(ROOT) !== 0 || !fs.existsSync(f) || fs.statSync(f).isDirectory()) {
+        rs.statusCode = 404; return rs.end('no');
+      }
+      rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream');
+      fs.createReadStream(f).pipe(rs);
+    });
+    s.listen(0, '127.0.0.1', function () { res(s); });
+  });
+}
+
 async function playShell(browser, file) {
   var page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   var errs = [];
   page.on('pageerror', function (e) { errs.push(String(e.message).slice(0, 140)); });
-  await page.goto('file://' + path.join(ROOT, file));
+  await page.goto('http://127.0.0.1:' + SERVER.address().port + '/' + file,
+                  { waitUntil: 'load', timeout: 240000 });
   await SETTLE(page, 12000);
   await page.evaluate(function () {
     var f = document.getElementById('fronttap') || document.getElementById('front');
@@ -226,6 +257,27 @@ async function playShell(browser, file) {
           return e.tagName === 'BUTTON' || !!e.querySelector('button'); });
         o.pressables = [].map.call(inn.querySelectorAll('.dcgo,.dcbtn'), function (e) { return e.textContent; });
         o.key = window.__ENDING && window.__ENDING.key;
+        /* *** AND WHAT IS ON THE GLASS BESIDE IT, WHICH ONLY A SERVED BUILD CAN
+           ANSWER HONESTLY. *** The demo hides the builder's drawer by reaching
+           into this frame from the demo side, same-origin -- so off disk that
+           hide silently no-ops and the 🛠 button sits there through the last
+           thirty seconds, one tap from REROLL regenerating the world under a
+           stranger's session. This gate read file:// until 9/6 and could never
+           have seen it. Measured here, on the card that is half of what anybody
+           keeps. */
+        o.devBtn = (function () {
+          var d = document.getElementById('devbtn');
+          if (!d) return 'absent';
+          var st = getComputedStyle(d);
+          return (st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0)
+                 ? 'hidden' : 'SHOWING';
+        })();
+        o.devTray = (function () {
+          var t = document.getElementById('devtray');
+          if (!t) return 'absent';
+          var st = getComputedStyle(t);
+          return (st.display === 'none' || st.visibility === 'hidden') ? 'hidden' : 'SHOWING';
+        })();
         res(o);
       }, 300);
     });
@@ -238,6 +290,7 @@ async function playShell(browser, file) {
 (async function () {
   var browser = null;
   try {
+    SERVER = await serve();
     browser = await requirePlaywright().chromium.launch({ args: ['--no-sandbox'] });
     var demo = await playShell(browser, 'slices/BOHEMIA_DEMO.html');
     var shop = await playShell(browser, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -259,6 +312,21 @@ async function playShell(browser, file) {
       demo.rolledOver === false, 'still day ' + demo.dayAfter);
 
     head('E. THE LAST THIRTY SECONDS, ON THE GLASS');
+    /* *** THE LAST THIRTY SECONDS ARE NOT SHARED WITH A DEV DRAWER. ***
+       This is the claim the file:// version of this gate could not make, and it
+       is why the load was moved to http. The demo hides the walked city's 🛠
+       from the demo side, same-origin; off disk that hide no-ops, so a stranger
+       reaching the ending -- the one screen peak-end says they will actually
+       keep -- was one tap from REROLL regenerating their world. The workshop
+       KEEPS its drawer, and that half is asserted too, because a demo fix that
+       quietly cost the bench its tools would be a worse bug than the one it
+       closed. */
+    ok('*** THE BUILDER\'S DRAWER IS GONE FROM THE ENDING, ON THE BUILD A '
+      + 'STRANGER OPENS ***', demo.devBtn === 'hidden' || demo.devBtn === 'absent',
+      'demo 🛠 ' + String(demo.devBtn) + ' / tray ' + String(demo.devTray));
+    ok('and the workshop still has its tools on the same screen',
+      shop.devBtn === 'SHOWING' || shop.devBtn === 'absent',
+      'workshop 🛠 ' + String(shop.devBtn));
     ok('the job was really taken and really finished',
       demo.taken === true && demo.outcome === 'COMPLETE',
       demo.outcome + ' ' + JSON.stringify(demo.tags));
@@ -308,6 +376,7 @@ async function playShell(browser, file) {
     ok('the ending could be played at all', false, String(e && e.message || e));
   } finally {
     if (browser) try { await browser.close(); } catch (_e) {}
+    if (SERVER) try { SERVER.close(); } catch (_e) {}
   }
 
   console.log('\nENDING GATE: ' + pass + ' passed, ' + fail + ' failed');

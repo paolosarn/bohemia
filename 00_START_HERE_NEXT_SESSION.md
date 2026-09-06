@@ -7708,7 +7708,65 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 IN FLIGHT -- *** [real ending] CLAIMED (9614d3a), AND THE
+RUN (run-eak241): 9/6 LATEST -- *** [real ending]: THE ENDING WAS ALREADY BUILT,
+AND THE GATE GUARDING IT WAS READING A BUILD NO PLAYER GETS. Fixed the
+instrument, not the game. TAB: RUN, play a day to nightfall and sleep. Nothing to
+judge. ***
+
+MEASURED BEFORE BUILDING ANYTHING, AND IT CHANGED THE JOB COMPLETELY.
+showEnding() already exists under __THE_ENDING__ and it IS the record's first
+candidate: he sleeps, day two does not come, one message lands from the person
+the day was about, with the reply he wants to send greyed and dead under it.
+ctDemoOver gates it to the demo (CT_DEMO_DAYS = 1, his ruled ONE GOOD DAY) and
+the workshop never ends, which is right. Item G was written 8/25 and answered
+8/27; the row was just never closed. BUILDING A SECOND ENDING WOULD HAVE BEEN
+THE EXACT FAILURE STOP PRODUCING NAMES.
+
+AND IT FIRES ON THE SERVED DEMO -- measured, not assumed. Played day one to
+nightfall with the game's own clock, took the reckoning's SLEEP, at 390x844
+over http:
+    A NUMBER YOU DO NOT HAVE
+    "This is the number that called you this morning." / "You didn't pick up.
+    That's fine. People don't." / "Nine tonight it goes brown again and I'll be
+    stood out front like a fool with a torch in my mouth." / "Anyway."
+    [Pick up]  <- the withheld verb, dead
+    THAT IS AS FAR AS THIS GOES FOR NOW.   then 5s of silence, then the door.
+The UNTAKEN branch, correctly: the phone rang that morning and nobody answered.
+
+*** BUT gates/ending_gate.js OPENED BOTH SURFACES OVER file://. *** This lane
+measured on 9/5 why that is not a detail: the demo's safety layer is injected
+into the city frame FROM THE DEMO SIDE, same-origin, so off disk it silently
+no-ops. My own STRANGER OPENS was doing it and went 15 -> 18 once served. The
+ending is the one screen peak-end says a person keeps, so it is the worst place
+in the demo to be testing the wrong build.
+SERVED NOW, from the repo root so every relative path resolves as in production,
+AND THE CHANGE WAS MADE TO COUNT FOR SOMETHING: two claims only a served build
+can answer -- the drawer gone from the demo's ending, AND still there on the
+workshop, because a demo fix that quietly cost the bench its tools would be the
+worse bug.
+
+  MUTATION, AND IT IS THE WHOLE ARGUMENT: point it back at file:// ->
+      FAIL *** THE BUILDER'S DRAWER IS GONE FROM THE ENDING ***
+           demo 8 SHOWING / tray hidden
+  On the build that gate was measuring, THE LAST SCREEN OF THE DEMO CARRIED THE
+  BUILDER'S DRAWER -- one tap from REROLL regenerating the world under a
+  stranger's session -- and twenty-six green claims had nothing to say about it.
+  The shipped demo, served, is clean. THE INSTRUMENT WAS THE BROKEN THING.
+
+  ENDING 28/0 (was 26/0)
+Record: records/BOHEMIA_THE_ENDING_WAS_PROVEN_ON_THE_WRONG_BUILD_9_6_26.md
+
+STILL OPEN ON THIS ROW, and it is the only thing left: the record's SECOND
+candidate, THE VISTA RETURNS. vistaOpen() exists, it is a camera move on the
+renderer that has drawn this map since 7/6, and it returns false safely on a
+seed with no rim vantage. The record calls it "even more ours" and a peak AND an
+end in one shot. IT IS NOT A DEFECT and the shipped ending is not broken, so it
+sits behind anything that is. Next round: decide whether it goes BEFORE the
+phone message (the valley, changed by your day, then the text lands) and build
+it, or leave the row closed.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [real ending] CLAIMED (9614d3a), AND THE
 FIRST HOUR OF IT WAS MEASURING, WHICH CHANGED THE JOB. ***
 
 MEASURED BEFORE BUILDING ANYTHING, and the row is nearly all built already:

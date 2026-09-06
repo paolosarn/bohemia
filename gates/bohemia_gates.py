@@ -3116,6 +3116,17 @@ GATES = [
      'standing there gets no row" has nobody to be about, and the mutation for it is '
      'observationally identical to correct behaviour in this world', False),
     ('ENDING',         ['node', 'gates/ending_gate.js'],
+     'SERVED SINCE 9/6 (RUN), AND THAT IS NOT TIDINESS: this gate opened both surfaces over '
+     'file:// until then, and the demo hides the walked city\'s builder drawer by reaching into '
+     'that frame FROM THE DEMO SIDE, same-origin -- so off disk the hide silently no-ops. '
+     'MUTATION, pointing it back at file://: "THE BUILDER\'S DRAWER IS GONE FROM THE ENDING" -> '
+     'RED, demo 8 SHOWING. On the build this gate was measuring, THE LAST SCREEN OF THE DEMO '
+     'CARRIED THE DEV DRAWER, one tap from REROLL regenerating the world under a stranger\'s own '
+     'session, and twenty-six green claims had nothing to say about it. The shipped demo, '
+     'served, is clean; the instrument was the broken thing. Two claims added that only a '
+     'served build can answer -- the drawer gone from the demo\'s ending AND still there on the '
+     'workshop, because a demo fix that quietly cost the bench its tools would be the worse '
+     'bug. Record: records/BOHEMIA_THE_ENDING_WAS_PROVEN_ON_THE_WRONG_BUILD_9_6_26.md. '
      'THE LAST THIRTY SECONDS OF THE DEMO, WHICH NOBODY HAD BUILT, AND IT ENDS ON A THING YOU '
      'ARE NOT ALLOWED TO SAY. The handoff\'s own critical path: "BUILD -> DOOR -> ENDING -> '
      'INSTRUMENT -> INVITE ... DEMO-END (the last thirty seconds, which nobody has designed and '
