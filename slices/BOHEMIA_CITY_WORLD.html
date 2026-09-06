@@ -44132,6 +44132,8 @@ function dayWhere(){
 /* WHOSE GROUND YOU CROSSED TODAY, in the order you crossed it. Cleared with the
    day's spend list at the wake, so the reckoning reports a day and not a session. */
 var TURF_TODAY=[];
+/* what the valley lost tonight, computed at nightfall and read by the card below it */
+var VALLEY_TONIGHT=null;
 function turfNote(cx,cy){
   var t=turfAt(cx,cy); if(!t||!t.faction) return;
   if(TURF_TODAY.indexOf(t.faction)<0) TURF_TODAY.push(t.faction);
@@ -44747,7 +44749,8 @@ function onNightfall(){
   /* __WHAT_TODAY_COST__ -- THE NIGHT EATS POWER. One drain per lit circuit you
      HOLD, at nightfall, in the order the night takes them. */
   try{ nightPower(); }catch(_e){}
-  try{ mktAdvanceDay(); }catch(_e){}   /* __THE_TRADING_HUB__ -- a day passes in the valley
+  try{ VALLEY_TONIGHT=mktAdvanceDay()&&valleyRunsOut(); }catch(_e){ VALLEY_TONIGHT=null; }
+  /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
      what water at thirty days costs, and that is the whole point of ruling A. */
   showReckoning();
@@ -44810,6 +44813,27 @@ function showReckoning(){
         ? (s.steps*0.75/1000).toFixed(1)+' km'
         : Math.round(s.steps*0.75)+' m') : '')+'</li>';
   if(s.districts.length)h+='<li>'+esc(s.districts.map(d=>d.name).join(', '))+'</li>';
+  /* __THE_VALLEY_RUNS_OUT__ -- AND THE VALLEY ITSELF IS A DAY OLDER.
+     He reads this card every single night, which makes it the only place a slow
+     thing can be felt. One line: what is closest to gone, counting down. And when
+     something actually runs out that is a BEAT, not a silent zero -- it is the
+     loudest sentence on the card and it only fires the night it happens.
+     draft:true, and every number in it is read off the economy rather than typed. */
+  try {
+    var _v = VALLEY_TONIGHT;
+    if (_v) {
+      for (var _gi = 0; _gi < _v.tonight.length; _gi++)
+        h += '<li style="color:#c98a5a"><b>THE ' + esc(String(_v.tonight[_gi]).toUpperCase())
+           + ' IS GONE.</b> There is none left in the valley.</li>';
+      if (_v.scarcest)
+        h += '<li>' + esc(_v.scarcest.good) + ': '
+           + (function(d){ var n=Math.floor(d);
+               return d < 1 ? 'less than a day' : (n===1 ? '1 day' : n+' days'); })(_v.scarcest.daysLeft)
+           + ' left in the valley</li>';
+      else if (!_v.tonight.length && _v.gone.length)
+        h += '<li style="color:#c98a5a">nothing left to run out of</li>';
+    }
+  } catch(_e) {}
   /* __WHO_HOLDS_THE_GROUND__ -- AND WHOSE VALLEY YOU WERE IN. BB-TURF, on his 9/4
      ruling that EVERY part of the valley is owned by a faction. He asked for
      "different parts of Vegas as different faction holdings" by name; this is the
@@ -46044,8 +46068,44 @@ function mktAgents(){
 /* THE DAY MOVES THE PRICES. Stock is produced, eaten, and what is not there is
    shortfall -- which is the whole point of the ruling he made. */
 function mktAdvanceDay(){
-  if(!MKT_LEDGER) return null;            /* never censused = never traded = nothing to age */
+  /* __THE_VALLEY_RUNS_OUT__ -- IT RUNS OUT WHETHER OR NOT YOU LOOK AT IT.
+     This used to read `if(!MKT_LEDGER) return null` with the note "never censused =
+     never traded = nothing to age". That is true of a SHOP and false of a VALLEY.
+     MEASURED: the ledger does not exist at boot, so a player who had not walked into
+     a market had a world that never ate anything -- and the first time he did walk
+     into one, on day 30, the ledger was born full and the countdown started THEN.
+     The premise of this game is a place that is running out. It cannot be a thing
+     that only starts running out when somebody checks. */
+  if(!MKT_LEDGER){ try{ mktLedger(); }catch(_e){} }
+  if(!MKT_LEDGER) return null;
   try{ return BohemiaEconomy.advanceDay(MKT_LEDGER, mktAgents()); }catch(_e){ return null; }
+}
+/* __THE_VALLEY_RUNS_OUT__ -- WHAT IS RUNNING OUT, AND WHAT HAS RUN OUT.
+   The coordinator ruled 9/5 (correct-after) that the valley eating its last shelves is
+   THE PREMISE, not a bug: this is an economic crash simulator and a place that is
+   running out is the whole point. So it has to be SEEN.
+   EVERY NUMBER HERE IS READ, NONE IS TYPED. The economy module has computed daysLeft
+   since it was written and nothing outside a market card ever asked. MEASURED on the
+   real ledger: food goes 8.4 days -> 0 across exactly TEN DAYS, which is the day-10
+   moment the ruling names, and it is DERIVED from his own stocks and needs rather than
+   scheduled by me. Nothing here sets a stock, a rate or a threshold. */
+function valleyRunsOut(){
+  var L=MKT_LEDGER; if(!L) return null;
+  var rows=[]; try{ rows=BohemiaEconomy.report(L)||[]; }catch(_e){ return null; }
+  var out={ gone:[], scarcest:null };
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    if(r.daysLeft==null) continue;          /* nobody needs it: not a countdown */
+    if(r.daysLeft<=0){ out.gone.push(r.good); continue; }
+    if(!out.scarcest||r.daysLeft<out.scarcest.daysLeft) out.scarcest=r;
+  }
+  /* WHAT RAN OUT *TONIGHT* is the beat, and it is the difference between a thing that
+     happened and a thing that is simply true now. Held on the ledger, not in a global,
+     so a reload cannot replay the moment. */
+  var was=L.__gone||[];
+  out.tonight=out.gone.filter(function(g){ return was.indexOf(g)<0; });
+  L.__gone=out.gone.slice();
+  return out;
 }
 /* THE SHELF. Goods and prices both READ, never typed. */
 function mktShelf(){
