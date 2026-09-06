@@ -1,0 +1,98 @@
+CAN YOU PICK HIM OUT OF THE CROWD? -- does a body look any different once it is
+your enemy? Measured on the walked street, through the demo.
+9/6/26, CHARACTER lane. [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT.
+
+THE BOARD'S OWN WORDS, and they CORRECT the fix the hostile verdict proposed:
+"our fix for readable hostiles was 'wear the faction colour', and in a Cartel
+ block full of Cartel people that is exactly what makes a hostile INVISIBLE.
+ Pop-out comes from FEATURE CONTRAST, not the feature. So a hostile carries ONE
+ VALUE STEP away from the bodies within a few cells of it."
+
+  bodies the renderer put on the glass   172
+    wearing a real cast body             172
+    the tinted fallback body             0
+  the fullest neighbourhood found        15,6, holding 223 residents
+  stood at world cell                    7817,3084 (found by sweeping the population, never typed in)
+  the hour on the clock                  13:00
+
+Q1. DOES A BODY LOOK ANY DIFFERENT ONCE IT IS YOUR ENEMY?
+
+  Same crowd, same bodies, THE SAME FACING ASKED FOR BOTH TIMES, matched by id.
+  And it is run against a NULL CONTROL that spans REAL TIME: several sweeps with
+  waiting between them and nothing else happening, every pair compared, so the
+  noise a body shows on its own is a measured number and not an assumption.
+  (An earlier version took two sweeps back to back, reported zero drift, and was
+  therefore controlling for less time than the test it was controlling for.)
+
+    bodies that turned hostile                    172 of 172
+
+    NOTHING HAPPENED (the null control, over a real span of time)
+      readings compared                          1720
+      readings that moved at all                 1548
+      the biggest move any body made              3.13 of 255
+
+    THEY BECAME YOUR ENEMIES
+      bodies whose value moved at all             0 of 172
+      the biggest move any body made              0.00 of 255
+
+  NOT ONE BODY IN 172 CHANGED BY A THOUSANDTH OF A SHADE.
+
+  AND A RULER THAT REPORTS ZERO FOR EVERYTHING IS NOT EVIDENCE, so here is the
+  POSITIVE CONTROL that shows this one can see a difference when there is one:
+  the SAME measurement, on the same bodies, through the same code, separates the
+  crowd into 24 distinct values spanning 37.3 shades (Q2 and Q3 below). It is
+  wide awake. It returns zero for the before-and-after comparison because there
+  is nothing there to see.
+
+  THE CODE SAYS THE SAME THING, so this is not an accident of one crowd: a
+  body's sprite comes from ctBody(), which asks ctFactionOf() and then
+  ctFitIndex() -- faction, else trade, else id. ctAgainstMe is called in exactly
+  FOUR places in the walked city and NOT ONE is the appearance path: it drives
+  following, blocking, the bark and the bump. THE VALUE CHANNEL CARRIES NO
+  INFORMATION ABOUT WHO IS DANGEROUS, because nothing is asking.
+
+  *** AND THE FIRST VERSION OF THIS MEASUREMENT SAID THE OPPOSITE. *** Read at
+  each body's REAL facing it reported all 172 bodies changing value, which
+  contradicts the code path -- and the contradiction was the tell, not a
+  discovery. 152 of them HAD TURNED TO LOOK AT ME, which is the watch behaviour
+  PEOPLE shipped working exactly as designed, and a body seen from another side
+  is another sprite. Of the 20 that did not turn, ZERO moved. The ruler was
+  measuring the turn. WHEN A NUMBER CONTRADICTS THE CODE, SUSPECT THE NUMBER.
+
+  HONESTLY, ABOUT THIS CROWD: every body on the glass witnessed the deed, so all
+  172 turned at once and the reason is "you" -- personal, not faction. In real
+  play you earn a few enemies, not a street. That does not weaken Q1, which asks
+  whether the SAME body looks different. It does mean this crowd cannot answer
+  "does a hostile stand out from civilians", because after the deed there are no
+  civilians left to stand out from. That needs a mixed crowd and it is the ship
+  test for the fix, not for the measurement.
+Q2. HOW BIG DOES ONE STEP HAVE TO BE? (for DIRECTION's [contrast rule])
+
+    darkest body in the crowd            62.8 of 255
+    median body                          90.4
+    lightest body                        100.0
+    the whole crowd fits inside          37.3 shades
+
+    how far a body already sits from its own neighbours (within 3 cells):
+      median   6.6
+      worst    34.6
+
+    A STEP HAS TO BEAT THAT MEDIAN TO READ AS DELIBERATE. Anything smaller sits
+    inside the noise the crowd already has, and a player reads it as another
+    body rather than as a warning. REPORTED, NOT DECIDED -- the number belongs
+    in the card, and the card is DIRECTION's ([contrast rule], still open).
+
+Q3. HOW MANY DIFFERENT BODIES IS THE CROWD ACTUALLY MADE OF?
+
+    distinct body values among 172 bodies   24
+
+    THE CROWD IS QUANTISED: it is drawn from a small set of baked bodies, so
+    many people share a value exactly. That decides where the fix can live --
+    a shift baked into a shared sprite would move everybody wearing it, so
+    whatever carries the step has to be applied PER BODY AT DRAW TIME.
+
+READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW
+WHAT IT IS COUNTING (9/5, the round the brown boots were called an accent). The
+finding here is Q1, and it is held by a control AND by the code path: nothing
+about how a body looks has ever asked whether that body is your enemy.
+

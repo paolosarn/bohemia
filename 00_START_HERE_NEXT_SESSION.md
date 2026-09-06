@@ -3536,7 +3536,64 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND -- *** [hair sheet] HAIR-REF-EIGHT-FACINGS SHIPPED. His 8/25 order, open on
+THIS ROUND -- *** [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT, CLAIMED, round 1 of
+the job. MEASURED, NOT YET BUILT. The line stays CLAIMED. ***
+- Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page. [hair sheet]
+  had shipped, so I took the first OPEN line, which the coordinator had just added at the
+  TOP of my section, and pushed the claim before starting.
+- THE ROW CORRECTS A FIX WE WERE ABOUT TO SHIP. DIRECTION judged the hostiles and said
+  "a hostile wears its faction's accent". The board answered: in a Cartel block full of
+  Cartel people that is what makes him INVISIBLE. Pop-out is FEATURE CONTRAST, not the
+  feature. So a hostile sits ONE VALUE STEP off the bodies within a few cells of him.
+- WHAT I MEASURED, on the walked street through the DEMO, and nobody had:
+      DOES A BODY LOOK ANY DIFFERENT ONCE IT IS YOUR ENEMY?  NO. ZERO of 172.
+  Same crowd swept before and after they turned hostile, same facing asked for both
+  times, matched by id. Not one body moved by a thousandth of a shade.
+- AND THE CODE SAYS THE SAME, so it is not one crowd's accident: a body's sprite comes
+  from ctBody() -> ctFactionOf() -> ctFitIndex(): faction, else trade, else id.
+  ctAgainstMe is called in exactly FOUR places in the walked city and NOT ONE is the
+  appearance path (following, blocking, the bark, the bump). THE VALUE CHANNEL CARRIES
+  NO INFORMATION ABOUT WHO IS DANGEROUS, because nothing asks.
+- *** THE RULER BROKE THREE TIMES AND EVERY BREAK IS WRITTEN INTO THE TOOL. ***
+  1. IT MEASURED THE DEMO'S COLD SPAWN: ONE body on the glass. Not a fact about hostiles
+     -- it is the city's own front-door finding (nearest resident 64 cells, seven
+     screens). Now it sweeps pplPeople() for the fullest neighbourhood and stands in the
+     middle of it, and prints where it stood. Teleporting to the cell DIRECTION's frame
+     names (8560,3195) gave ZERO bodies: a world position is not the whole state.
+  2. IT SAID ALL 172 BODIES CHANGED VALUE, which contradicts the code path -- and the
+     contradiction was the tell. 152 of them had TURNED TO LOOK AT ME (PEOPLE's watch
+     behaviour working as designed) and a body seen from another side is another sprite.
+     Of the 20 that did not turn, ZERO moved. The facing is pinned now.
+     WHEN A NUMBER CONTRADICTS THE CODE, SUSPECT THE NUMBER.
+  3. THE NULL CONTROL WAS UNFAIR: two sweeps back to back reported zero drift while the
+     test sweep, which happens later, reported up to 2.3. The noise is ELAPSED TIME (the
+     breath frame advances with the beat), so a control that takes less time than its
+     test is not a control. It now spans several sweeps with real waiting, every pair
+     compared: bodies drift up to 3.13 shades on their own, and hostility moves them 0.00.
+- AND A POSITIVE CONTROL, because a ruler that returns zero for everything is not
+  evidence: the same measurement separates the crowd into 24 distinct values across 37.3
+  shades. It is wide awake; it returns zero because there is nothing there.
+- FOR DIRECTION'S [contrast rule], WHICH IS STILL OPEN AND OWNS THE NUMBER: bodies
+  already sit a median 6.6 shades from their own neighbours (worst 34.6), inside a crowd
+  spanning 37.3. A step smaller than about 7 is inside the noise the crowd already has.
+  Measured here, DECIDED there.
+- TWO THINGS THE NEXT ROUND MUST NOT ASSUME:
+  * NOBODY ON THE WALKED STREET HAS A FACTION -- 172 of 172 answer none. The verdict's
+    "a Cartel block full of Cartel people" is not what the street currently holds.
+  * THE CROWD IS QUANTISED (24 values over 172 bodies): many people share a sprite
+    exactly, so the step CANNOT be baked into a shared body. It has to be applied PER
+    BODY AT DRAW TIME, which is where pplTinted already works.
+- NEXT ROUND: build it. The place is the draw pass in slices/BOHEMIA_CITY_WORLD.html
+  where a body is blitted (ctBody or the tinted fallback); the step is a per-body value
+  shift chosen against the median of the bodies within a few cells, away from the crowd
+  in whichever direction has headroom. THE SHIP TEST NEEDS A MIXED CROWD -- this round's
+  deed turned all 172 hostile at once because every one of them witnessed it, so there
+  were no civilians left to stand out from. Earning a FEW enemies is the first problem
+  to solve next round.
+- Record: records/BOHEMIA_CAN_YOU_PICK_HIM_OUT_9_6_26.txt
+  Tool:   tools/bohemia_can_you_pick_him_out.js
+
+PREVIOUS ROUND -- [hair sheet] HAIR-REF-EIGHT-FACINGS SHIPPED at 6d566d4.
 the board since August, is closed. Tab: CHARACTER, and every person in the game. ***
 - Claimed the line, committed and pushed BEFORE starting, as the front page says.
 - THE ORDER: "LOOK ONLINE FOR PIXEL HAIRSTYLES IN ALL 8 DIRECTIONS AND WE CAN GO FROM
