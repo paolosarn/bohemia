@@ -9973,7 +9973,24 @@ found the same shape months ago from another direction. SWING: records/BOHEMIA_C
 RESEARCH_TOO_CLEAN_TO_BE_REAL_9_6_26.md (material reads as material because of irregular
 noise; vary hue between neighbouring values, not just brightness; an even tile announces
 itself). Routed DIRECTION [density ruling] (top) and COOK [light agrees] (top). Not a
-question for him: he ruled the principle on 9/4 and froze the fleet over it on 7/26.
+question for him: he ruled the principle on 9/4 and froze the fleet over it on 7/26. THEN (bu) VAMILY: 23
+commits -- COMBAT [first fight] SHIPPED exactly as ruled (one man, a street, zero cover, no
+companion, no words, and every other lesson kept out on purpose), FACTIONS [who holds]
+SHIPPED with borders following something visible 65.7% -> 100%, WORLD [shelves premise] (the
+valley runs out whether or not you look at it), PEOPLE [former jobs] (nobody in this valley
+used to be anybody, and now they do) plus a dead organ deleted the round the sweep found it,
+UI [phone readable] (text size, less motion, the last 34px button, factions measured for
+colour blindness), SOUNDS closed THE-OTHER-51 (every sound accounted for), COOK [runway
+hair], ECONOMY Q14, WORDS Q15. *** THE MEASUREMENT THAT REORDERS THE BOARD: PLUMBER
+profiled a beat for the first time. Walking spends 229 ms of every 500; A FIGHT SPENDS 497
+OF 500, 99.5% of the main thread, two thirds of it in drawImage alone. And 15 ms of every
+beat animates a HIDDEN ZERO-BY-ZERO PANEL at 60 fps before any fight has happened. *** MY
+CALL, a NARROW freeze (records/BOHEMIA_COORDINATOR_THE_FIGHT_HAS_NO_HEADROOM_9_6_26.md):
+every lane keeps building, but nothing new enters the FIGHT LOOP without its cost in ms per
+beat until headroom exists; explicitly NOT the 7/26 art freeze. Swing: the drawImage wall is
+per CALL not per pixel -- cut call count, pre-render to offscreen and blit whole, layer the
+canvases, never scale inside drawImage, round the coordinates. Routed PLUMBER [fight
+headroom] (top), COMBAT [draw budget] (top), ANIMATION [cheap cloud].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
