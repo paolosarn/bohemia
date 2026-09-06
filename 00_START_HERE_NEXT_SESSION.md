@@ -1549,6 +1549,20 @@ Also still carried from last round: A FIGHT STARTING MAKES NO SOUND AT ALL
 (cityFightOnEnter posts the encounter with no sound call). Needs a new cook, so
 it belongs to [enemy heard] and [fight music].
 
+*** AND MY OWN SHIP SCRIPT THREW THE WHOLE CHANGE AWAY ONCE. READ THIS. ***
+The first push of this round rebased onto a moved main, hit a conflict in the
+alpha, and resolved it with `git checkout --ours`. DURING A REBASE, --ours IS
+THE UPSTREAM SIDE (main), NOT YOURS. So the script silently discarded every line
+of INTERIORMUS and pushed the gate, the tool and the record WITHOUT the code
+they describe -- main briefly carried a brand new gate that would go red on the
+very build shipping it. git said "Successfully rebased". CHECK THE FILE, NOT THE
+EXIT CODE: caught by counting the mark in the alpha afterwards.
+Fixed two ways, and the second is the one that matters: the alpha is now
+REBUILT, never picked -- take main's copy and re-run this lane's idempotent
+anchored tools on top of it, which is exactly what they are idempotent FOR --
+and the push REFUSES if the mark is missing from the alpha or the demo. A record
+that describes code the build does not contain is worse than no record.
+
   proof  python3 gates/bohemia_gates.py --only "ROOM SONG"
          records/BOHEMIA_THE_ROOM_HAS_ITS_OWN_SONG_9_6_26.md
          tools/bohemia_the_room_has_its_own_song.py

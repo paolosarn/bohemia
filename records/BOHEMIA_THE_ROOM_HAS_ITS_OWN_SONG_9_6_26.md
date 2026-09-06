@@ -207,6 +207,30 @@ teaches everyone to ignore red**. It was made "driven" and kept a fixed wait
 anyway. The bar line is now HELD until the applier acts, and the wait ends on
 the thing itself. **48 passed, 0 failed, three runs.**
 
+### AND THE FIRST PUSH OF THIS ROUND THREW THE WHOLE CHANGE AWAY
+
+Worth writing down because it nearly shipped a lie. Main moved while the round
+was being finished, the ship loop rebased, the alpha conflicted, and the loop
+resolved it with `git checkout --ours`.
+
+**During a rebase, `--ours` is the UPSTREAM side -- main -- not yours.** So the
+script silently discarded every line of INTERIORMUS and pushed the gate, the
+tool and the record WITHOUT the code they describe. Main briefly carried a brand
+new gate that would go red on the very build that shipped it, and git had said
+`Successfully rebased and updated refs/heads/claude/sound-xk7pjp`.
+
+**CHECK THE FILE, NOT THE EXIT CODE.** It was caught by counting the mark in the
+pushed alpha, which is the same habit that caught a live conflict marker in the
+handoff a round earlier.
+
+Fixed two ways, and the second is the one that matters:
+
+1. the push now REFUSES if the mark is missing from the alpha or from the demo;
+2. **the alpha is REBUILT, never picked.** On a conflict, take main's copy and
+   re-run this lane's idempotent, anchor-guarded tools on top of it. That is
+   exactly what those tools are idempotent and anchored FOR, and it means a
+   busy main can never quietly delete a lane's work again.
+
 ### RECORDED, NOT ACTED ON
 
 `MENUMUS.candidates()` returns **2**, while 6 songs carry the MENU tag. The
