@@ -1,0 +1,927 @@
+{
+  "what": "BOHEMIA -- where one beat actually goes. Taken by gates/bohemia_beat_profile.js, held by gates/beat_budget_gate.js.",
+  "takenOn": "2026-09-06T10:01:28.432Z",
+  "staleAfterDays": 30,
+  "refreshCommand": "node gates/bohemia_beat_profile.js --record",
+  "host": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+  "measured": {
+    "beatMs": 500,
+    "cpuYardstickMs": 29.3,
+    "walk": {
+      "msOfWorkPerBeat": 208.5,
+      "busyPercent": 41.7,
+      "beatsSampled": 13.1,
+      "samples": 31391,
+      "crossCheckDeltaPoints": 1,
+      "topFive": [
+        {
+          "name": "(program)",
+          "grouped": false,
+          "ms": 310.1,
+          "percent": 9.88,
+          "parts": [
+            "(program)"
+          ]
+        },
+        {
+          "name": "canvas blits",
+          "grouped": true,
+          "ms": 253.9,
+          "percent": 8.09,
+          "parts": [
+            "drawImage",
+            "putImageData"
+          ]
+        },
+        {
+          "name": "danger + crews",
+          "grouped": true,
+          "ms": 217.5,
+          "percent": 6.93,
+          "parts": [
+            "dangerMark (BOHEMIA_CITY_WORLD.html:34966)",
+            "__dangerAt (BOHEMIA_CITY_WORLD.html:34958)",
+            "window.BOHEMIA_DANGER.at (BOHEMIA_CITY_WORLD.html:56123)",
+            "crewsNow (BOHEMIA_CITY_WORLD.html:56094)",
+            "hostilePass (BOHEMIA_CITY_WORLD.html:41967)"
+          ]
+        },
+        {
+          "name": "canvas fills",
+          "grouped": true,
+          "ms": 85,
+          "percent": 2.72,
+          "parts": [
+            "fillRect",
+            "save",
+            "lineTo",
+            "clearRect",
+            "fill",
+            "beginPath"
+          ]
+        },
+        {
+          "name": "the map grid",
+          "grouped": true,
+          "ms": 65.3,
+          "percent": 2.09,
+          "parts": [
+            "cellAt (BOHEMIA_CITY_WORLD.html:32086)",
+            "chunkCanvas (BOHEMIA_CITY_WORLD.html:35086)",
+            "saTex (BOHEMIA_CITY_WORLD.html:34684)"
+          ]
+        }
+      ]
+    },
+    "fight": {
+      "msOfWorkPerBeat": 498.5,
+      "busyPercent": 99.7,
+      "beatsSampled": 12.6,
+      "samples": 31213,
+      "crossCheckDeltaPoints": 0.1,
+      "topFive": [
+        {
+          "name": "canvas blits",
+          "grouped": true,
+          "ms": 1928.7,
+          "percent": 61.79,
+          "parts": [
+            "drawImage"
+          ]
+        },
+        {
+          "name": "(program)",
+          "grouped": false,
+          "ms": 851.9,
+          "percent": 27.29,
+          "parts": [
+            "(program)"
+          ]
+        },
+        {
+          "name": "streetTile",
+          "grouped": false,
+          "ms": 65,
+          "percent": 2.08,
+          "parts": [
+            "streetTile (about:srcdoc:1484)"
+          ]
+        },
+        {
+          "name": "the fight",
+          "grouped": true,
+          "ms": 58.5,
+          "percent": 1.86,
+          "parts": [
+            "drawField (about:srcdoc:10244)",
+            "drawFloor (about:srcdoc:1515)",
+            "paintFireButton (about:srcdoc:9632)",
+            "renderBoard (about:srcdoc:6503)"
+          ]
+        },
+        {
+          "name": "draw",
+          "grouped": false,
+          "ms": 32.8,
+          "percent": 1.05,
+          "parts": [
+            "draw (about:srcdoc:11204)"
+          ]
+        }
+      ]
+    },
+    "hiddenFrame": {
+      "present": true,
+      "box": {
+        "width": 0,
+        "height": 0,
+        "panelDisplay": "none",
+        "panelOn": false
+      },
+      "windowMs": 5000,
+      "frames": 295,
+      "framesPerSecond": 59,
+      "draws": 5310,
+      "drawsPerSecond": 1062,
+      "callbackMs": 187,
+      "percentOfOneCore": 3.7,
+      "msOfEveryBeat": 18.7,
+      "animatingWhileHidden": true
+    }
+  },
+  "budget": {
+    "walkMsPerBeat": 303,
+    "hiddenFrameMsPerBeat": 30,
+    "takenAtCpuYardstickMs": 29.3,
+    "maxYardstickScale": 3,
+    "__basis": {
+      "rule": "Ratchet down only, with 45% headroom on the walk line because a beat cost carries the same run-to-run spread the frame rate does. The FIGHT line is deliberately absent: see the record.",
+      "tightenedThisRefresh": []
+    }
+  },
+  "framesAlive": [
+    {
+      "id": "uiFrame",
+      "src": "BOHEMIA_UI_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "looksFrame",
+      "src": "BOHEMIA_UIWALL_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "voteFrame",
+      "src": "BOHEMIA_VOTE_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "runFrame",
+      "src": "BOHEMIA_RUN_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "sliceFrame",
+      "src": "BOHEMIA_CURRENT_SLICE.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "lifeFrame",
+      "src": "BOHEMIA_LIFE_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "lookFrame",
+      "src": "BOHEMIA_LOOK_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "wordsFrame",
+      "src": "BOHEMIA_WORDS_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "artFrame",
+      "src": "BOHEMIA_ART_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    },
+    {
+      "id": "combatFrame",
+      "src": "none",
+      "visible": false,
+      "fightFns": [
+        "beatTick",
+        "renderBoard",
+        "drawField"
+      ]
+    },
+    {
+      "id": "cityFrame",
+      "src": "BOHEMIA_CITY_WORLD.html",
+      "visible": true,
+      "fightFns": []
+    },
+    {
+      "id": "mapFrame",
+      "src": "BOHEMIA_MAP_CURRENT.html",
+      "visible": false,
+      "fightFns": []
+    }
+  ],
+  "owed": [
+    "THE FIXES. The hot paths named here live in slices/ content, which this lane may not touch. Every number is a hand-off to the lane that owns the file. The row says \"fix them where a measurement says so\"; the measurement is here, the fixing is not this chat's to do."
+  ],
+  "raw": {
+    "beatMs": 500,
+    "host": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "takenOn": "2026-09-06T10:01:28.432Z",
+    "cpuYardstickMs": 29.3,
+    "walk": {
+      "wallMs": 6554,
+      "samples": 31391,
+      "idlePercent": 58.3,
+      "busyPercent": 41.7,
+      "topFunctions": [
+        {
+          "key": "(program) | :0",
+          "fn": "(program)",
+          "url": "",
+          "samples": 3101,
+          "ms": 310.1,
+          "percent": 9.88
+        },
+        {
+          "key": "drawImage | :0",
+          "fn": "drawImage",
+          "url": "",
+          "samples": 2528,
+          "ms": 252.8,
+          "percent": 8.05
+        },
+        {
+          "key": "dangerMark | BOHEMIA_CITY_WORLD.html:34966",
+          "fn": "dangerMark",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 709,
+          "ms": 70.9,
+          "percent": 2.26
+        },
+        {
+          "key": "__dangerAt | BOHEMIA_CITY_WORLD.html:34958",
+          "fn": "__dangerAt",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 654,
+          "ms": 65.4,
+          "percent": 2.08
+        },
+        {
+          "key": "fillRect | :0",
+          "fn": "fillRect",
+          "url": "",
+          "samples": 550,
+          "ms": 55,
+          "percent": 1.75
+        },
+        {
+          "key": "window.BOHEMIA_DANGER.at | BOHEMIA_CITY_WORLD.html:56123",
+          "fn": "window.BOHEMIA_DANGER.at",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 539,
+          "ms": 53.9,
+          "percent": 1.72
+        },
+        {
+          "key": "drawField | about:srcdoc:10244",
+          "fn": "drawField",
+          "url": "about:srcdoc",
+          "samples": 285,
+          "ms": 28.5,
+          "percent": 0.91
+        },
+        {
+          "key": "cellAt | BOHEMIA_CITY_WORLD.html:32086",
+          "fn": "cellAt",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 275,
+          "ms": 27.5,
+          "percent": 0.88
+        },
+        {
+          "key": "crewsNow | BOHEMIA_CITY_WORLD.html:56094",
+          "fn": "crewsNow",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 269,
+          "ms": 26.9,
+          "percent": 0.86
+        },
+        {
+          "key": "chunkCanvas | BOHEMIA_CITY_WORLD.html:35086",
+          "fn": "chunkCanvas",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 250,
+          "ms": 25,
+          "percent": 0.8
+        },
+        {
+          "key": "renderHuman | BOHEMIA_CITY_WORLD.html:42620",
+          "fn": "renderHuman",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 209,
+          "ms": 20.9,
+          "percent": 0.67
+        },
+        {
+          "key": "save | :0",
+          "fn": "save",
+          "url": "",
+          "samples": 189,
+          "ms": 18.9,
+          "percent": 0.6
+        },
+        {
+          "key": "(anonymous) | BOHEMIA_DEMO.html:15428",
+          "fn": "(anonymous)",
+          "url": "BOHEMIA_DEMO.html",
+          "samples": 162,
+          "ms": 16.2,
+          "percent": 0.52
+        },
+        {
+          "key": "wildProbe | BOHEMIA_CITY_WORLD.html:41633",
+          "fn": "wildProbe",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 141,
+          "ms": 14.1,
+          "percent": 0.45
+        },
+        {
+          "key": "querySelectorAll | :0",
+          "fn": "querySelectorAll",
+          "url": "",
+          "samples": 139,
+          "ms": 13.9,
+          "percent": 0.44
+        },
+        {
+          "key": "saTex | BOHEMIA_CITY_WORLD.html:34684",
+          "fn": "saTex",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 128,
+          "ms": 12.8,
+          "percent": 0.41
+        },
+        {
+          "key": "coverPillarAgainst | about:srcdoc:5229",
+          "fn": "coverPillarAgainst",
+          "url": "about:srcdoc",
+          "samples": 124,
+          "ms": 12.4,
+          "percent": 0.4
+        },
+        {
+          "key": "shadowPass | BOHEMIA_CITY_WORLD.html:35757",
+          "fn": "shadowPass",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 98,
+          "ms": 9.8,
+          "percent": 0.31
+        }
+      ],
+      "topSystems": [
+        {
+          "name": "(program)",
+          "grouped": false,
+          "ms": 310.1,
+          "percent": 9.88,
+          "parts": [
+            "(program)"
+          ]
+        },
+        {
+          "name": "canvas blits",
+          "grouped": true,
+          "ms": 253.9,
+          "percent": 8.09,
+          "parts": [
+            "drawImage",
+            "putImageData"
+          ]
+        },
+        {
+          "name": "danger + crews",
+          "grouped": true,
+          "ms": 217.5,
+          "percent": 6.93,
+          "parts": [
+            "dangerMark (BOHEMIA_CITY_WORLD.html:34966)",
+            "__dangerAt (BOHEMIA_CITY_WORLD.html:34958)",
+            "window.BOHEMIA_DANGER.at (BOHEMIA_CITY_WORLD.html:56123)",
+            "crewsNow (BOHEMIA_CITY_WORLD.html:56094)",
+            "hostilePass (BOHEMIA_CITY_WORLD.html:41967)"
+          ]
+        },
+        {
+          "name": "canvas fills",
+          "grouped": true,
+          "ms": 85,
+          "percent": 2.72,
+          "parts": [
+            "fillRect",
+            "save",
+            "lineTo",
+            "clearRect",
+            "fill",
+            "beginPath"
+          ]
+        },
+        {
+          "name": "the map grid",
+          "grouped": true,
+          "ms": 65.3,
+          "percent": 2.09,
+          "parts": [
+            "cellAt (BOHEMIA_CITY_WORLD.html:32086)",
+            "chunkCanvas (BOHEMIA_CITY_WORLD.html:35086)",
+            "saTex (BOHEMIA_CITY_WORLD.html:34684)"
+          ]
+        },
+        {
+          "name": "the fight",
+          "grouped": true,
+          "ms": 39.3,
+          "percent": 1.26,
+          "parts": [
+            "drawField (about:srcdoc:10244)",
+            "paintFireButton (about:srcdoc:9632)",
+            "renderBoard (about:srcdoc:6503)",
+            "drawFloor (about:srcdoc:1515)"
+          ]
+        },
+        {
+          "name": "(anonymous)",
+          "grouped": false,
+          "ms": 32.8,
+          "percent": 1.04,
+          "parts": [
+            "(anonymous) (BOHEMIA_DEMO.html:15428)",
+            "(anonymous) (BOHEMIA_DEMO.html:15427)",
+            "(anonymous) (BOHEMIA_DEMO.html:15307)",
+            "(anonymous) (BOHEMIA_DEMO.html:15425)",
+            "(anonymous) (BOHEMIA_DEMO.html:6030)",
+            "(anonymous) (BOHEMIA_CITY_WORLD.html:2244)"
+          ]
+        },
+        {
+          "name": "drawing people",
+          "grouped": true,
+          "ms": 20.9,
+          "percent": 0.67,
+          "parts": [
+            "renderHuman (BOHEMIA_CITY_WORLD.html:42620)"
+          ]
+        },
+        {
+          "name": "wildProbe",
+          "grouped": false,
+          "ms": 14.1,
+          "percent": 0.45,
+          "parts": [
+            "wildProbe (BOHEMIA_CITY_WORLD.html:41633)"
+          ]
+        },
+        {
+          "name": "querySelectorAll",
+          "grouped": false,
+          "ms": 13.9,
+          "percent": 0.44,
+          "parts": [
+            "querySelectorAll"
+          ]
+        },
+        {
+          "name": "coverPillarAgainst",
+          "grouped": false,
+          "ms": 12.4,
+          "percent": 0.4,
+          "parts": [
+            "coverPillarAgainst (about:srcdoc:5229)"
+          ]
+        },
+        {
+          "name": "shadowPass",
+          "grouped": false,
+          "ms": 9.8,
+          "percent": 0.31,
+          "parts": [
+            "shadowPass (BOHEMIA_CITY_WORLD.html:35757)"
+          ]
+        }
+      ],
+      "taskDuration": {
+        "taskS": 2.62,
+        "scriptS": 1.99,
+        "layoutS": 0.05,
+        "wallS": 6.13,
+        "busyPercent": 42.7
+      },
+      "crossCheckDeltaPoints": 1,
+      "msOfWorkPerBeat": 208.5,
+      "beatsSampled": 13.1
+    },
+    "framesAlive": [
+      {
+        "id": "uiFrame",
+        "src": "BOHEMIA_UI_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "looksFrame",
+        "src": "BOHEMIA_UIWALL_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "voteFrame",
+        "src": "BOHEMIA_VOTE_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "runFrame",
+        "src": "BOHEMIA_RUN_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "sliceFrame",
+        "src": "BOHEMIA_CURRENT_SLICE.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "lifeFrame",
+        "src": "BOHEMIA_LIFE_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "lookFrame",
+        "src": "BOHEMIA_LOOK_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "wordsFrame",
+        "src": "BOHEMIA_WORDS_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "artFrame",
+        "src": "BOHEMIA_ART_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      },
+      {
+        "id": "combatFrame",
+        "src": "none",
+        "visible": false,
+        "fightFns": [
+          "beatTick",
+          "renderBoard",
+          "drawField"
+        ]
+      },
+      {
+        "id": "cityFrame",
+        "src": "BOHEMIA_CITY_WORLD.html",
+        "visible": true,
+        "fightFns": []
+      },
+      {
+        "id": "mapFrame",
+        "src": "BOHEMIA_MAP_CURRENT.html",
+        "visible": false,
+        "fightFns": []
+      }
+    ],
+    "hiddenFrame": {
+      "present": true,
+      "box": {
+        "width": 0,
+        "height": 0,
+        "panelDisplay": "none",
+        "panelOn": false
+      },
+      "windowMs": 5000,
+      "frames": 295,
+      "framesPerSecond": 59,
+      "draws": 5310,
+      "drawsPerSecond": 1062,
+      "callbackMs": 187,
+      "percentOfOneCore": 3.7,
+      "msOfEveryBeat": 18.7,
+      "animatingWhileHidden": true
+    },
+    "fight": {
+      "wallMs": 6287,
+      "samples": 31213,
+      "idlePercent": 0.3,
+      "busyPercent": 99.7,
+      "topFunctions": [
+        {
+          "key": "drawImage | :0",
+          "fn": "drawImage",
+          "url": "",
+          "samples": 19287,
+          "ms": 1928.7,
+          "percent": 61.79
+        },
+        {
+          "key": "(program) | :0",
+          "fn": "(program)",
+          "url": "",
+          "samples": 8519,
+          "ms": 851.9,
+          "percent": 27.29
+        },
+        {
+          "key": "streetTile | about:srcdoc:1484",
+          "fn": "streetTile",
+          "url": "about:srcdoc",
+          "samples": 650,
+          "ms": 65,
+          "percent": 2.08
+        },
+        {
+          "key": "drawField | about:srcdoc:10244",
+          "fn": "drawField",
+          "url": "about:srcdoc",
+          "samples": 507,
+          "ms": 50.7,
+          "percent": 1.62
+        },
+        {
+          "key": "draw | about:srcdoc:11204",
+          "fn": "draw",
+          "url": "about:srcdoc",
+          "samples": 328,
+          "ms": 32.8,
+          "percent": 1.05
+        },
+        {
+          "key": "(garbage collector) | :0",
+          "fn": "(garbage collector)",
+          "url": "",
+          "samples": 157,
+          "ms": 15.7,
+          "percent": 0.5
+        },
+        {
+          "key": "(anonymous) | BOHEMIA_DEMO.html:15428",
+          "fn": "(anonymous)",
+          "url": "BOHEMIA_DEMO.html",
+          "samples": 143,
+          "ms": 14.3,
+          "percent": 0.46
+        },
+        {
+          "key": "proto.drawImage | :14",
+          "fn": "proto.drawImage",
+          "url": "",
+          "samples": 136,
+          "ms": 13.6,
+          "percent": 0.44
+        },
+        {
+          "key": "querySelectorAll | :0",
+          "fn": "querySelectorAll",
+          "url": "",
+          "samples": 97,
+          "ms": 9.7,
+          "percent": 0.31
+        },
+        {
+          "key": "fillRect | :0",
+          "fn": "fillRect",
+          "url": "",
+          "samples": 70,
+          "ms": 7,
+          "percent": 0.22
+        },
+        {
+          "key": "ellipse | :0",
+          "fn": "ellipse",
+          "url": "",
+          "samples": 62,
+          "ms": 6.2,
+          "percent": 0.2
+        },
+        {
+          "key": "streetKindAt | about:srcdoc:1501",
+          "fn": "streetKindAt",
+          "url": "about:srcdoc",
+          "samples": 62,
+          "ms": 6.2,
+          "percent": 0.2
+        },
+        {
+          "key": "(anonymous) | BOHEMIA_DEMO.html:15427",
+          "fn": "(anonymous)",
+          "url": "BOHEMIA_DEMO.html",
+          "samples": 59,
+          "ms": 5.9,
+          "percent": 0.19
+        },
+        {
+          "key": "coverPillarAgainst | about:srcdoc:5229",
+          "fn": "coverPillarAgainst",
+          "url": "about:srcdoc",
+          "samples": 56,
+          "ms": 5.6,
+          "percent": 0.18
+        },
+        {
+          "key": "save | :0",
+          "fn": "save",
+          "url": "",
+          "samples": 46,
+          "ms": 4.6,
+          "percent": 0.15
+        },
+        {
+          "key": "stroke | :0",
+          "fn": "stroke",
+          "url": "",
+          "samples": 46,
+          "ms": 4.6,
+          "percent": 0.15
+        },
+        {
+          "key": "drawFloor | about:srcdoc:1515",
+          "fn": "drawFloor",
+          "url": "about:srcdoc",
+          "samples": 45,
+          "ms": 4.5,
+          "percent": 0.14
+        },
+        {
+          "key": "__dangerAt | BOHEMIA_CITY_WORLD.html:34958",
+          "fn": "__dangerAt",
+          "url": "BOHEMIA_CITY_WORLD.html",
+          "samples": 38,
+          "ms": 3.8,
+          "percent": 0.12
+        }
+      ],
+      "topSystems": [
+        {
+          "name": "canvas blits",
+          "grouped": true,
+          "ms": 1928.7,
+          "percent": 61.79,
+          "parts": [
+            "drawImage"
+          ]
+        },
+        {
+          "name": "(program)",
+          "grouped": false,
+          "ms": 851.9,
+          "percent": 27.29,
+          "parts": [
+            "(program)"
+          ]
+        },
+        {
+          "name": "streetTile",
+          "grouped": false,
+          "ms": 65,
+          "percent": 2.08,
+          "parts": [
+            "streetTile (about:srcdoc:1484)"
+          ]
+        },
+        {
+          "name": "the fight",
+          "grouped": true,
+          "ms": 58.5,
+          "percent": 1.86,
+          "parts": [
+            "drawField (about:srcdoc:10244)",
+            "drawFloor (about:srcdoc:1515)",
+            "paintFireButton (about:srcdoc:9632)",
+            "renderBoard (about:srcdoc:6503)"
+          ]
+        },
+        {
+          "name": "draw",
+          "grouped": false,
+          "ms": 32.8,
+          "percent": 1.05,
+          "parts": [
+            "draw (about:srcdoc:11204)"
+          ]
+        },
+        {
+          "name": "canvas fills",
+          "grouped": true,
+          "ms": 26,
+          "percent": 0.84,
+          "parts": [
+            "fillRect",
+            "save",
+            "stroke",
+            "lineTo",
+            "fill",
+            "beginPath"
+          ]
+        },
+        {
+          "name": "(anonymous)",
+          "grouped": false,
+          "ms": 24.2,
+          "percent": 0.74,
+          "parts": [
+            "(anonymous) (BOHEMIA_DEMO.html:15428)",
+            "(anonymous) (BOHEMIA_DEMO.html:15427)",
+            "(anonymous) (BOHEMIA_DEMO.html:15425)",
+            "(anonymous) (BOHEMIA_DEMO.html:15307)",
+            "(anonymous) (about:srcdoc:6028)",
+            "(anonymous)"
+          ]
+        },
+        {
+          "name": "(garbage collector)",
+          "grouped": false,
+          "ms": 15.7,
+          "percent": 0.5,
+          "parts": [
+            "(garbage collector)"
+          ]
+        },
+        {
+          "name": "proto.drawImage",
+          "grouped": false,
+          "ms": 13.6,
+          "percent": 0.44,
+          "parts": [
+            "proto.drawImage"
+          ]
+        },
+        {
+          "name": "querySelectorAll",
+          "grouped": false,
+          "ms": 9.7,
+          "percent": 0.31,
+          "parts": [
+            "querySelectorAll"
+          ]
+        },
+        {
+          "name": "danger + crews",
+          "grouped": true,
+          "ms": 9,
+          "percent": 0.29,
+          "parts": [
+            "__dangerAt (BOHEMIA_CITY_WORLD.html:34958)",
+            "dangerMark (BOHEMIA_CITY_WORLD.html:34966)",
+            "crewsNow (BOHEMIA_CITY_WORLD.html:56094)",
+            "window.BOHEMIA_DANGER.at (BOHEMIA_CITY_WORLD.html:56123)"
+          ]
+        },
+        {
+          "name": "ellipse",
+          "grouped": false,
+          "ms": 6.2,
+          "percent": 0.2,
+          "parts": [
+            "ellipse"
+          ]
+        }
+      ],
+      "taskDuration": {
+        "taskS": 5.98,
+        "scriptS": 4.34,
+        "layoutS": 0.03,
+        "wallS": 6,
+        "busyPercent": 99.6
+      },
+      "crossCheckDeltaPoints": 0.1,
+      "msOfWorkPerBeat": 498.5,
+      "reached": true,
+      "beatsSampled": 12.6
+    },
+    "pageErrors": []
+  }
+}
