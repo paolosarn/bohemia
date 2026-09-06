@@ -73,6 +73,28 @@ included. Every span rule below reads against those two numbers.
   The paperdoll already carries the proof ramp: shoes/balenciaga,
   five dark steps.
 
+## 2B. THE HOSTILE CONTRAST (9/6 — VAMILY [contrast rule])
+Measured on the frame that proved the problem (records/target/DIRECTION_
+HOSTILES_IN_THE_CROWD_9_6_26.png): the crowd field's median luminance is
+0.44 — and 27.7% of the frame is ALREADY dark, so "hostile = dark" alone
+misreads one body in four. No single channel carries the read; the rule
+is ANY TWO OF THREE, each with its number:
+1. VALUE: the hostile's outer mid-tone sits >= 0.15 luminance from the
+   local crowd median (at the measured 0.44 crowd: <= 0.29 or >= 0.59;
+   the runway-black band's dark half, 0.15-0.29, is the natural home).
+2. COLOUR: the worn faction accent (sat >= 0.55, section 1) at a
+   VISIBLE size — the accent piece covers >= 48 px^2 at 112 (>= 12 at
+   56): a hat, a scarf, a vest panel. A ring is not a warning.
+3. SILHOUETTE: the body commits to a card pole (section 2), which by
+   the pole numbers puts its shoulder or base >= 4 px at 112 (>= 2 at
+   56) outside the civilian middle the crowd wears.
+ANY TWO, because two can never both be colour — so the read survives
+greyscale by construction (the judge's test): drain the frame, and the
+hostile still separates by value or silhouette. Feeds CHARACTER
+[stands out] (the picker dresses hostiles to this rule) and ANIMATION
+[walks at you] (motion is the fourth channel and rides on top, never
+instead).
+
 ## 3. WHAT STANDS UNDER THIS CARD (nothing here overrides a law)
 - TRENCHCOATS ARE FOR BADASSES, 10% hard cap (8/27): pole B is
   reached by stagger and taper, not by every body in a floor coat.
@@ -112,6 +134,11 @@ included. Every span rule below reads against those two numbers.
   },
   "banned": ["purple", "second saturated piece", "pure black", "pure white"],
   "coat_cap": 0.10,
+  "hostile_contrast": {"channels_required": 2,
+    "value_delta_min": 0.15, "crowd_median_measured": 0.44,
+    "accent_area_px112_min": 48, "accent_sat_min": 0.55,
+    "silhouette_pole_delta_px112": 4,
+    "greyscale_survives": "guaranteed - two channels cannot both be colour"},
   "ground": {"colours_per_kpx_min": 4.5, "ramp_hue_shift_deg_min": 3.0,
              "rulers": {"density": "tools/bohemia_eyes_reference_score.py colours_per_kpx",
                         "hue": "mean adjacent-step hue delta, luminance-ordered, usage-weighted, sat>=0.08"},
