@@ -1,0 +1,793 @@
+{
+"stamp": "9/6/26",
+"batch": "2-3 (the rest of the docket)",
+"retint": [
+{
+"name": "STEEL BLUE JEANS",
+"layer": "legs",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST BROWN TROUSERS",
+"layer": "legs",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI SHORTS",
+"layer": "legs",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE BOOTS",
+"layer": "feet",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL SNEAKERS",
+"layer": "feet",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST BROWN BOOTS",
+"layer": "feet",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD BOOTS",
+"layer": "feet",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI DUSTER",
+"layer": "outer",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE VEST",
+"layer": "outer",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE KNIT CAP",
+"layer": "head",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "COPPER FIELD CAP",
+"layer": "head",
+"hex": "#506e60",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST WORK CAP",
+"layer": "head",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI SLOUCH BEANIE",
+"layer": "head",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE DUST MASK",
+"layer": "face",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST GLOVES",
+"layer": "hands",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD GLOVES",
+"layer": "hands",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DENIM JACKET",
+"layer": "outer",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD JACKET",
+"layer": "outer",
+"hex": "#40523a",
+"sat": 0.29,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "LEATHER JACKET",
+"layer": "outer",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST PONCHO",
+"layer": "outer",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD PONCHO",
+"layer": "outer",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "RANCH BOOTS",
+"layer": "feet",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "ROLLED WORK SHIRT",
+"layer": "base",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "CHEST RIG",
+"layer": "gear",
+"hex": "#3c4230",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "RUCK PACK",
+"layer": "back",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SALVAGE SATCHEL",
+"layer": "back",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SMITH'S APRON",
+"layer": "outer",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "TATTERED FLANNEL",
+"layer": "base",
+"hex": "#586676",
+"sat": 0.25,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "WRAP SKIRT",
+"layer": "legs",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DESERT SHEMAGH",
+"layer": "head",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "WORN BRACERS",
+"layer": "gear",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "TRAILING SCARF",
+"layer": "neck",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "WORK COVERALLS",
+"layer": "base",
+"hex": "#3c4230",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SPLIT-TAIL DUSTER",
+"layer": "outer",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "ROAD CAPE",
+"layer": "back",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SHELL BANDOLIER",
+"layer": "gear",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "BIB OVERALLS",
+"layer": "base",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SCAV TOOL BELT",
+"layer": "waist",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "ANKLE WRAP SKIRT",
+"layer": "legs",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SHOULDER MANTLE",
+"layer": "back",
+"hex": "#3c4230",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "ELBOW PADS",
+"layer": "gear",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD LEG WRAPS",
+"layer": "gear",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "BLANKET SHOULDER ROLL",
+"layer": "gear",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "HIP SASH",
+"layer": "waist",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OUTLAW BANDANA",
+"layer": "face",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "CHORE COAT",
+"layer": "outer",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "BARN COAT",
+"layer": "outer",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE CHORE COAT",
+"layer": "outer",
+"hex": "#444a32",
+"sat": 0.32,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "WORK JACKET",
+"layer": "outer",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI JACKET",
+"layer": "outer",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD JACKET",
+"layer": "outer",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE CAR COAT",
+"layer": "outer",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SPLIT-TAIL WORK COAT",
+"layer": "outer",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "HOODED DUST PONCHO",
+"layer": "outer",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "SAND KNEEPADS",
+"layer": "gear",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL PAULDRON",
+"layer": "gear",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE CHEST RIG",
+"layer": "gear",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL SHIN GUARDS",
+"layer": "gear",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD BRACERS",
+"layer": "gear",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST BROWN BANDOLIER",
+"layer": "gear",
+"hex": "#624e38",
+"sat": 0.43,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "KHAKI ELBOW PADS",
+"layer": "gear",
+"hex": "#7e6e50",
+"sat": 0.37,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE LEG WRAPS",
+"layer": "gear",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE RUCK PACK",
+"layer": "back",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OXBLOOD SATCHEL",
+"layer": "back",
+"hex": "#5c302a",
+"sat": 0.54,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST BEDROLL",
+"layer": "back",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "STEEL ROAD CAPE",
+"layer": "back",
+"hex": "#4c5a6a",
+"sat": 0.28,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "OLIVE SHOULDER MANTLE",
+"layer": "back",
+"hex": "#4a5036",
+"sat": 0.33,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "LEATHER HALF APRON",
+"layer": "outer",
+"hex": "#5c422c",
+"sat": 0.52,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DUST HALF APRON",
+"layer": "outer",
+"hex": "#806e50",
+"sat": 0.38,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "DENIM SHORTALLS",
+"layer": "base",
+"hex": "#40506e",
+"sat": 0.42,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+},
+{
+"name": "FIELD SHORTALLS",
+"layer": "base",
+"hex": "#3c4230",
+"sat": 0.27,
+"target": "keep hue and value, clamp cloth mid sat to 0.22-0.25"
+}
+],
+"accent": [
+{
+"name": "RUST CARGOS",
+"layer": "legs",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST BOOTS",
+"layer": "feet",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "BRICK LONGCOAT",
+"layer": "outer",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST VEST",
+"layer": "outer",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "BRICK WATCH CAP",
+"layer": "head",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST DUST MASK",
+"layer": "face",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "ROLLED FLANNEL",
+"layer": "base",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "SCRAP PAULDRON",
+"layer": "gear",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "SHIN GUARDS",
+"layer": "gear",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "SCRAP HELM",
+"layer": "head",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "MOB PINSTRIPE SHIRT",
+"layer": "base",
+"hex": "#b08a2a",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "SIGNAL RED SHIRT",
+"layer": "base",
+"hex": "#dc2820",
+"sat": 0.85,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "SIGNAL RED BOOTS",
+"layer": "feet",
+"hex": "#dc2820",
+"sat": 0.85,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "VESTMENT GOLD SHIRT",
+"layer": "base",
+"hex": "#ffd75c",
+"sat": 0.64,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "VESTMENT GOLD BOOTS",
+"layer": "feet",
+"hex": "#ffd75c",
+"sat": 0.64,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "MOSS GREEN SHIRT",
+"layer": "base",
+"hex": "#6ebe3c",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "TEAL WORK SHIRT",
+"layer": "base",
+"hex": "#28bea0",
+"sat": 0.79,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT WORK PANTS",
+"layer": "legs",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "ROSE BANDANA",
+"layer": "face",
+"hex": "#dc4655",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "TEAL STRIPED TEE",
+"layer": "base",
+"hex": "#28bea0",
+"sat": 0.79,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT DUSTER",
+"layer": "outer",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "ROSE KNIT CAP",
+"layer": "head",
+"hex": "#dc4655",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT KNIT CAP",
+"layer": "head",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "GOLD WRAP SKIRT",
+"layer": "legs",
+"hex": "#ffd75c",
+"sat": 0.64,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "GRASS SNEAKERS",
+"layer": "feet",
+"hex": "#6ebe3c",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT SHIRT",
+"layer": "base",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT COAT",
+"layer": "outer",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT BOOTS",
+"layer": "feet",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "ROSE DUSTER",
+"layer": "outer",
+"hex": "#dc4655",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "GRASS DUSTER",
+"layer": "outer",
+"hex": "#6ebe3c",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT SNEAKERS",
+"layer": "feet",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST WORK COAT",
+"layer": "outer",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "BRICK CAR COAT",
+"layer": "outer",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "COBALT CHORE COAT",
+"layer": "outer",
+"hex": "#326ed2",
+"sat": 0.76,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "GRASS CAR COAT",
+"layer": "outer",
+"hex": "#6ebe3c",
+"sat": 0.68,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "SCRAP CHEST PLATE",
+"layer": "gear",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "BRICK SUSPENDERS",
+"layer": "gear",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST THIGH HOLSTER",
+"layer": "gear",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "BRICK SHOULDER ROLL",
+"layer": "gear",
+"hex": "#703a30",
+"sat": 0.57,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST QUIVER",
+"layer": "back",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+},
+{
+"name": "RUST GORGET",
+"layer": "gear",
+"hex": "#724830",
+"sat": 0.58,
+"note": "faction accent inventory (COBALT/SIGNAL RED/TEAL/PINSTRIPE families are uniform stock); one per body, matching faction only, picker enforces"
+}
+],
+"kill": []
+}

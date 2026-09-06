@@ -1,0 +1,24 @@
+{
+ "bank": "EYES AND EARS -- THE ORDER THIS LANE CHECKS IN",
+ "date": "9/5/26",
+ "draft": true,
+ "why_an_order": "This lane owns ten instruments. Run in any order they make a pile of numbers; run in a reviewer's order they make a REPORT, because each step is only worth doing if the one before it passed. Nobody checks a palette on a screen that never rendered.",
+ "rule_zero": "A ZERO NEEDS A POSITIVE CONTROL. Before believing that a thing did not happen, prove the counter can move. This lane published two zeros today that were blind counters, not silence, and the rule exists because of them.",
+ "the_art_order": [
+  {"at":"1s","step":"IS IT THERE","asks":"did it render at all","instrument":"gates/eyes_gate.js (a live canvas over 200x400 in any frame)"},
+  {"at":"5s","step":"THE SQUINT","asks":"shrink it: does it still read? the thumbnail test a director does first","instrument":"the reference score's read-at-play-size question"},
+  {"at":"10s","step":"VALUE, NOT COLOUR","asks":"is contrast doing the work, or is colour carrying it","instrument":"tools/bohemia_eyes_readable.py (contrast of the finished picture)"},
+  {"at":"15s","step":"DOES IT FIT THE GLASS","asks":"nothing off the edge, no text wider than its box","instrument":"gates/eyes_gate.js"},
+  {"at":"30s","step":"IS IT THE SAME WORLD","asks":"detail order, colour density, saturation, value band, grain, light","instrument":"tools/bohemia_eyes_reference_score.py"},
+  {"at":"60s","step":"THE CRAFT","asks":"orphans, banding, jaggies, mixed resolutions, the key","instrument":"pixel_craft_gate + tools/bohemia_eyes_pixel_tells.py"},
+  {"at":"then","step":"TASTE","asks":"does it belong to this world; is this the same game two taps apart","instrument":"Paolo. Never a machine"}
+ ],
+ "the_sound_order": [
+  {"at":"1s","step":"IS THERE A SOUND","asks":"did anything render at all -- WITH A POSITIVE CONTROL","instrument":"tools/bohemia_eyes_ears_live.js"},
+  {"at":"2s","step":"IS IT TOO HOT","asks":"true peak and clipping, before anything else","instrument":"tools/bohemia_eyes_ears.js"},
+  {"at":"4s","step":"CAN HE HEAR IT","asks":"on a phone speaker: level, and what survives above 500 Hz","instrument":"tools/bohemia_eyes_ears.js + the weak list"},
+  {"at":"6s","step":"IS IT THE THING","asks":"does it read as the material it is meant to be","instrument":"a person"},
+  {"at":"10s","step":"DOES IT SIT","asks":"against the music and the steps, and in mono","instrument":"NOBODY YET -- E5 gap 10, the mix has never been metered"}
+ ],
+ "grounding": "The art order is how directors actually review: the squint and thumbnail test first (does the focal point read at any size), then VALUE before colour (strip the colour: if it all blurs together, saturation was carrying the image), then silhouette, then colour, then detail. The sound order is the broadcast QC pass: clarity, no clipping at true peak, the bed never masking what matters, effects calibrated to the thing they sit under, loudness in the window, stereo image with no phase issues, and mono fold-down intelligibility."
+}

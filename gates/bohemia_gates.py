@@ -222,6 +222,28 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('ALLY WHY',       ['node', 'gates/ally_why_gate.js'],
+     'Board row [reactions explained] / BB-WHY: "THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE '
+     'DID WHAT IT DID... when the player cannot tell WHY it chose what it chose, the whole '
+     'system reads as broken instead of clever. With no manual control there is no recourse '
+     'mid-fight, so legibility is not polish, it is the safety rail. It is a LOOK problem." '
+     'MEASURED FIRST: the companion is real and decides WELL -- ROSA runs a fixed four-rung '
+     'ladder (a blade on you, then the man who gave away your cover, then whoever is nearest '
+     'to dropping, then one step onto safer ground) and she already speaks. SO SHE WAS NEVER '
+     'SILENT: she said WHAT ("FIRING", a description of a trigger pull containing no reason) '
+     'under one fixed subtitle that read the same whether she had just saved you or wandered '
+     'off, in a readout at the edge of the screen while the thing it is about is a body in '
+     'the middle of it. Every rung already HAS its reason -- the code is built out of them -- '
+     'so the reason is now recorded at the rung that produced it and DRAWN ON THE BODY: a '
+     'dashed line from her to the man she chose and three or four plain words on him, for '
+     'one beat (BPM_MS, the game\'s own clock), then gone, because a reason that stays is '
+     'furniture. No numbers, no scores, no list of what she rejected -- the row\'s hard part '
+     'is showing a reason without a debug dump. Nothing is drawn when the room is clear. '
+     'Three findings are legs: a rung can only be tested with the rungs above it silenced '
+     '(the first checker measured the spotter while claiming to measure the weakest); the '
+     'line must still point at a man she KILLED, which is the commonest case of all and the '
+     'first cut hid it; and pos[] is not a mirror of G.e, so the draw asks epos(), the same '
+     'authority the bodies themselves are drawn with.', True),
     ('PHONE READABLE', ['node', 'gates/phone_readable_gate.js'],
      'Board row [phone readable]: "text size, tap targets, colour-blind safety on faction '
      'colours, motion; the Game Accessibility Guidelines basic tier". MEASURED FIRST on the '
@@ -1105,6 +1127,25 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('THIS WEEK',      ['node', 'gates/this_week_gate.js'],
+     'BB-THIS-WEEK, day 18: "A GOAL YOU HAVE TO GO FIND IS NOT A GOAL." Day 7 found the DAILY '
+     'motor and days 9 and 11 the HUNDRED-HOUR arc; NOBODY EVER ASKED WHAT YOU ARE WORKING ON '
+     'THIS WEEK. The evidence is blunt -- forty children behind and uninterested in arithmetic, '
+     'under PROXIMAL SUB-GOALS vs a DISTAL GOAL vs "work productively": under proximal sub-goals '
+     'they progressed rapidly and grew real interest, and DISTAL GOALS HAD NO DEMONSTRABLE '
+     'EFFECTS. Not weaker. NONE. MEASURED FIRST AND BOTH HALVES OF THE ROW HELD: the middle '
+     'horizon was ALREADY BUILT AND ALREADY HIDDEN (rungRead() answers it exactly, behind the '
+     'STANDING button nobody presses) and the reckoning card, the last thing seen every single '
+     'day, said nothing about what you are working toward. So nothing was designed: the answer '
+     'the game already had went on the card he passes anyway, read from the STANDING card\'s OWN '
+     'source -- no second table, the bug this lane already shipped once on this exact card. '
+     '*** AND THE FIRST CUT OF THE WORDS FAILED THE ROW\'S OWN STUDY: it read "8 MORE FACTIONS '
+     'AND THE CITY BACKS YOU" on a fresh run, and eight from zero IS the distal goal wearing a '
+     'number. The ask is ONE MORE, every time, and the climb sits under it as progress. *** '
+     'Mutation: put the distal ask back -> 1 red on that exact claim; hide it again -> 4 red; '
+     'count the whole roster instead of the mandate -> 2 red (0 of 16 makes the goal twice as '
+     'far as it is). Also asserts the STANDING card still opens and reads the SAME number, '
+     'because a middle horizon that disagrees with itself is worse than a hidden one', True),
     ('COME BACK',      ['node', 'gates/stop_and_come_back_gate.js'],
      'VAMILY [title screen] / STOP-AND-COME-BACK, record item H: "no way to stop and come '
      'back that a stranger would recognise as such". MEASURED FIRST AND TWO THIRDS WERE '
@@ -4245,6 +4286,8 @@ GATES = [
      'the ART lane\'s master document cannot drift: all 32 laws still in it, the three '
      'honesty clauses intact, the ten-failure record un-rewritten, and the ignorance list '
      'shrinking only by CLOSING entries, never by deleting them', False),
+    ('LIGHT AGREES',  ['python3', 'gates/light_agrees_gate.py'],
+     'EYES E7 (9/5) asked the question the craft gate does not: not whether a FORM is lit consistently, but whether a re-cooked tile agrees with THE TILE IT REPLACED. It reported ten of 42 act-1 tiles lit from a different corner. Measured three ways, NONE of the ten is: key_light() flattened alpha so a corner piece read as a 67-unit gradient across pixels the game never draws, and it took the sign of a difference with no threshold, so a deliberately flat road tile was a coin flip. The ten rank 4, 5, 9, 20, 23, 27, 28, 35, 37 and 40 of 42 by actual light difference and the furthest apart was not among them. No art was changed; the question is kept instead, on opaque pixels, with a ratchet, and with the ruler tested inside the gate both ways', False),
     ('PIXEL CRAFT',    ['python3', 'gates/pixel_craft_gate.py'],
      'the pixel craft laws (7/27): orphan pixels, single-use colours, one pixel size, '
      'pillow shading, one light direction, cluster density — built like pixel art, never '

@@ -1,0 +1,77 @@
+BOHEMIA -- WHAT A CHILD LEARNS: WHO WILL STILL ANSWER THEM
+BANK, 9/5/26, DYNASTY lane, Q13 [child watches]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11). No damage, health or armour
+number anywhere, and no starting skill, stat or bonus of any kind. THE FOUR
+TRADES AND SEVEN SUBJECTS ARE ALREADY HIS CONTENT and this file invents no fifth
+trade, no eighth subject, and no answer to any of them.
+Record: records/BOHEMIA_DYNASTY_DAY_15_WHAT_A_CHILD_LEARNS_BY_WATCHING_9_5_26.md
+
+WHY THIS SHAPE
+The job says "what a child learns by WATCHING", and the learning research says
+watching is the smaller half. People pick up a trade through LEGITIMATE
+PERIPHERAL PARTICIPATION: being allowed to do real but peripheral work inside a
+working community and moving inward. The authors are explicit that a newcomer's
+position is "more than an observational lookout post". The load-bearing word is
+LEGITIMATE.
+THE CHILD DOES NOT INHERIT WHAT THEY SAW. THEY INHERIT PERMISSION TO BE THERE.
+So what the heir starts with is a DOOR, not a stat. And the games side agrees
+loudly: players say stat boosts between generations are inelegant and turn a
+challenge into a grind, and prefer progression that unlocks options and content.
+Both aisles, same answer.
+AND THE DOOR IS ALREADY BUILT. bohemia_asking.js has seven subjects (names,
+power, salvage, strangers, the hill, water, work), four trades (keeper, scav,
+watch, worker), every subject answerable by TWO DIFFERENT TRADES, and one refusal
+per trade. Knowledge in this game is ALREADY gated by which trade will talk to
+you. Nothing connects that door to a parent.
+
+---- WHAT THE HEIR STARTS WITH, AS A SHAPE ONLY ------------------------ draft:true
+Structure is ours. Every trade, subject and answer is his and already written.
+
+  A DOOR        the trades your parent worked alongside will answer you
+  A CLOSED DOOR the ones he crossed will not, and that is content too
+  NOT A SKILL   you cannot do the work. you know who to ask about it.
+  NOT A STAT    nothing is higher. something is open.
+  PERIPHERAL    small real jobs first, moving inward. never a full seat on day one.
+
+---- BEING LET IN ------------------------------------------------------- draft:true
+  THEY LET YOU STAND THERE WHILE THEY ARGUED ABOUT IT.
+  NOBODY EXPLAINED IT. YOU WERE JUST THERE FOR ALL OF IT.
+  THEY GAVE YOU THE SMALL END TO HOLD.
+  YOU WERE IN THE ROOM. THAT IS THE WHOLE OF IT.
+  YOU CANNOT DO THIS. YOU KNOW WHEN IT IS BEING DONE BADLY.
+
+---- THE DOOR THAT IS OPEN ---------------------------------------------- draft:true
+  HE KNEW YOUR FATHER. HE WILL TELL YOU.
+  ASK HIM ABOUT IT. HE WILL NOT ASK WHY.
+  THEY TALK TO YOU BECAUSE OF WHO CAME BEFORE YOU.
+  YOU DID NOT EARN THIS. YOU CAN USE IT.
+
+---- THE DOOR THAT IS SHUT ---------------------------------------------- draft:true
+  HE WILL NOT TALK TO YOU AND HE WILL NOT SAY WHY.
+  YOUR FATHER BURNED THIS ONE.
+  THEY WILL ANSWER SOMEBODY. NOT YOU.
+  THERE IS ANOTHER WAY TO FIND THIS OUT. THERE ALWAYS IS.
+
+---- WHAT YOU KNOW WITHOUT BEING ABLE TO DO IT -------------------------- draft:true
+  YOU KNOW WHAT GOOD LOOKS LIKE.
+  YOU KNOW WHICH ONE OF THEM WAS LYING.
+  YOU KNOW WHAT HE WAS AFRAID OF.
+  YOU KNOW THE ORDER IT GOES IN. YOUR HANDS DO NOT.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No starting skill, stat or bonus. Four separate findings in this study refuse it
+and so do the players quoted in the games half.
+No knowledge screen and no tech tree. The asking module's own rule is that
+nothing resolves and every answer asks a sharper question; a tree would resolve.
+No fifth trade, no eighth subject, no invented answer. That content is his and
+the destinations ship empty on purpose.
+No filled deed weights. What counts as a deed is his.
+No grind. A door that opens because you repeated something is a grind. A door
+that opens because of a particular thing your father did is an inheritance.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Which trades open and which shut, and why. What any of them actually know. What
+the parent did to earn or burn each one. At what age any of this happens. Every
+name.
