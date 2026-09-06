@@ -250,5 +250,166 @@ const done = () => {
   ok('the list is not empty, so the exclusion is doing something ('
      + listed.length + ' kinds)', listed.length >= 1);
 
+  /* ========================================================================
+     5. AND HE CAN MOVE ONE. (9/6/26, VAMILY row [town sizes] TOWN-TIERS-ARE-HIS.)
+     The row is one line with two halves: "the draft tiers off act1_power ship;
+     HE MOVES ANY FACTION HE LIKES." The first half shipped 9/5 with this gate
+     already holding it. The second did not exist -- moving one meant editing
+     BohemiaTowns.TIER in a source file, and HE MUST BE ABLE TO DIRECT IT (8/12)
+     says in as many words that "he tells me and I edit a file" is not shipped.
+     ====================================================================== */
+  {
+    const ALPHA_SRC = require('fs').readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
+    const CITY_SRC = require('fs').readFileSync(CITY, 'utf8');
+    ok('THE TIER TABLE STILL SHIPS EMPTY -- who is a fortress is his, and the '
+       + 'derived answer is only a draft until he says otherwise',
+       Object.keys(T.TIER).length === 0);
+    ok('*** AND THERE IS A DOOR HE CAN REACH WITHOUT A TEXT EDITOR. *** Tab: '
+       + 'DIRECT, a fourth mode beside CUTSCENES, QUESTS and STANDING',
+       /DIR_MODE==='towns'/.test(ALPHA_SRC) && /function dirTowns/.test(ALPHA_SRC)
+       && /TOWN SIZES/.test(ALPHA_SRC));
+    ok('it survives closing the phone', /DIR_T_KEY/.test(ALPHA_SRC)
+       && /localStorage\.setItem\(DIR_T_KEY/.test(ALPHA_SRC));
+    ok('AND THE WALKED CITY HONOURS IT, which is the half a dial usually misses: '
+       + 'the city carries its OWN inlined copy of this module, so setting the '
+       + 'table in the alpha reaches nothing down there without a message',
+       /BOHEMIA_TOWN_TIERS/.test(ALPHA_SRC) && /BOHEMIA_TOWN_TIERS/.test(CITY_SRC)
+       && /function ctTierApply/.test(CITY_SRC));
+    ok('and the city remembers it too, so a cold demo does not quietly disagree '
+       + 'with what he set', /CT_TIER_KEY/.test(CITY_SRC));
+
+    /* *** AND HE CAN ACTUALLY PRESS IT. VERIFY ON THE REAL SURFACE. ***
+       Every claim above is a grep, and a grep proves the code exists. The first
+       cut of this panel passed all of them WHILE RENDERING NOTHING: window.
+       BohemiaTowns is not in the alpha at all, and dirRender's shared branch
+       RETURNS after calling dirDial(), which hides the host when the mode is not
+       'standing'. Two separate faults, both invisible to source checks, both
+       found on the first click. */
+    const drive = await (async () => {
+      const b2 = await chromium.launch();
+      try {
+        const p2 = await b2.newPage({ viewport: { width: 390, height: 844 } });
+        const thrown = [];
+        p2.on('pageerror', e => thrown.push(String(e.message).slice(0, 120)));
+        await p2.route(/^https?:/, r => r.abort());
+        await p2.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'),
+                      { waitUntil: 'load', timeout: 180000 });
+        await p2.waitForFunction(() => typeof dirRender === 'function', { timeout: 90000 });
+        /* THE SPLASH IS TAPPED FIRST, and that is not politeness. Measured: with
+           it up, #app is display:none and every button in the panel reports
+           0x0 -- the identical false reading the FOLD button gave on 8/30, when
+           a 44x174 control looked like a law violation. */
+        await p2.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
+        await p2.waitForTimeout(16000);
+        await p2.evaluate(() => { const t = document.querySelector('.tab[data-p="direct"]'); if (t) t.click(); });
+        await p2.evaluate(() => {
+          const c = [...document.querySelectorAll('#dirMode *')].find(e => /TOWN SIZES/i.test(e.textContent || ''));
+          if (c) c.click();
+        });
+        await p2.waitForTimeout(4500);
+        return await p2.evaluate(async () => {
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          const out = { thrown: [] };
+          const host = document.getElementById('dirDial');
+          out.shown = !!host && getComputedStyle(host).display !== 'none';
+          const boxes = () => [...document.getElementById('dirDial').children];
+          const colorful = () => boxes().find(e => /COLORFUL/.test(e.textContent || ''));
+          out.rows = boxes().length;
+          const b0 = colorful();
+          out.found = !!b0;
+          if (!b0) return out;
+          out.before = (b0.textContent.match(/worked out from strength: (\w+) · sells (\d+)/) || []).slice(1);
+          const btns = [...host.querySelectorAll('button')];
+          out.buttons = btns.length;
+          out.under44 = btns.filter(e => e.getBoundingClientRect().height < 44).length;
+          const f = [...b0.querySelectorAll('button')].find(e => /^FORTRESS$/i.test((e.textContent || '').trim()));
+          if (f) f.click();
+          await sleep(2500);
+          const b1 = colorful();
+          out.after = (b1.textContent.match(/YOURS: (\w+) · sells (\d+)/) || []).slice(1);
+          out.saved = localStorage.getItem('bohemia.dir.tiers.v1');
+          /* AND THE WALKED CITY, ASKED WITH ITS OWN MODULE. */
+          out.city = await new Promise(res => {
+            const fr = document.getElementById('cityFrame');
+            const h = e => { if (e.data && e.data.type === 'BOHEMIA_TOWN_ROWS') {
+              window.removeEventListener('message', h);
+              const c = e.data.rows.find(x => x.faction === 'Colorful');
+              res(c ? c.tier + '/' + c.goods : '?'); } };
+            window.addEventListener('message', h);
+            fr.contentWindow.postMessage({ type: 'BOHEMIA_TOWN_ASK' }, '*');
+            setTimeout(() => res('no reply'), 5000);
+          });
+          const w = [...colorful().querySelectorAll('button')].find(e => /^WORK IT OUT$/i.test((e.textContent || '').trim()));
+          if (w) w.click();
+          await sleep(2500);
+          const b2 = colorful();
+          out.back = (b2.textContent.match(/worked out from strength: (\w+) · sells (\d+)/) || []).slice(1);
+          out.savedBack = localStorage.getItem('bohemia.dir.tiers.v1');
+          return out;
+        });
+      } finally { await b2.close(); }
+    })();
+
+    ok('*** THE PANEL DRAWS FOURTEEN FACTIONS WHEN HE TAPS THE CHIP. *** The first '
+       + 'cut rendered NOTHING and every source check above still passed: the towns '
+       + 'module is not in the alpha, and dirRender returns after dirDial() hides '
+       + 'the host',
+       drive.shown && drive.found && drive.rows >= 14, JSON.stringify(drive).slice(0, 200));
+
+    ok('*** AND PRESSING IT MOVES THE GAME, ON A REAL CANVAS. *** Colorful is his '
+       + 'weakest faction, a camp by derivation selling ' + (drive.before || [])[1]
+       + ' things; pressed to FORTRESS it sells ' + (drive.after || [])[1],
+       String((drive.before || [])[0]).toUpperCase() === 'CAMP'
+       && String((drive.after || [])[0]).toUpperCase() === 'FORTRESS'
+       && Number((drive.after || [])[1]) > Number((drive.before || [])[1]));
+
+    ok('…AND THE WALKED CITY AGREES THE SAME SECOND, asked with its own copy of the '
+       + 'module rather than the alpha\'s idea of it (' + drive.city + ')',
+       /^fortress\//.test(String(drive.city)));
+
+    ok('it is written down so closing the phone does not undo it',
+       String(drive.saved || '').indexOf('fortress') >= 0);
+
+    ok('AND "WORK IT OUT" REALLY PUTS IT BACK, pressed rather than assumed',
+       String((drive.back || [])[0]).toUpperCase() === 'CAMP'
+       && String(drive.savedBack || '') === '{}');
+
+    /* THE THUMB (44px), and the reading is only true with the splash tapped. */
+    ok('EVERY CHIP IS A THUMB. ' + drive.buttons + ' buttons, ' + drive.under44
+       + ' under 44px. The same measurement reads 0x0 with the splash still up, '
+       + 'which is how a 44px control was reported as a law violation on 8/30',
+       drive.buttons >= 40 && drive.under44 === 0);
+
+    /* *** THE ONLY CLAIM THAT MATTERS: THE MOVE CHANGES THE GAME. *** A dial
+       that repaints a label is worse than no dial. Colorful is act1_power 1, the
+       bottom of his own graph and a CAMP by derivation; made a fortress it has
+       to actually sell more. */
+    const goods = Object.keys(require(path.join(ROOT, 'engine/bohemia_economy.js')).GOODS);
+    const before = T.tiers(G, 1).Colorful.tier;
+    const soldBefore = T.goodsFor(before, goods).length;
+    const reachBefore = T.REACH[before];
+    T.TIER.Colorful = 'fortress';
+    const after = T.tiers(G, 1).Colorful;
+    const soldAfter = T.goodsFor(after.tier, goods).length;
+    const reachAfter = T.REACH[after.tier];
+    delete T.TIER.Colorful;
+    const back = T.tiers(G, 1).Colorful;
+    ok('*** MOVING A FACTION CHANGES WHAT ITS MARKET SELLS AND HOW FAR ITS TOWN '
+       + 'REACHES, not just a word. *** Colorful is his weakest faction and a camp '
+       + 'by derivation: ' + soldBefore + ' goods over ' + (reachBefore * 2 + 1)
+       + ' blocks. Made a fortress: ' + soldAfter + ' goods over '
+       + (reachAfter * 2 + 1) + ' blocks',
+       soldAfter > soldBefore && reachAfter > reachBefore);
+    ok('…and it is marked HIS rather than derived the moment he sets it, so '
+       + 'nothing downstream can mistake his ruling for my draft',
+       after.ruled === true && after.draft === false);
+    ok('AND "WORK IT OUT" PUTS IT BACK RATHER THAN FREEZING TODAY\'S ANSWER. The '
+       + 'day he re-ranks a faction in the graph, an unruled tier follows it '
+       + 'instead of quietly disagreeing',
+       back.tier === before && back.ruled === false && back.draft === true);
+    ok('and the table is empty again afterwards, so this gate left nothing behind',
+       Object.keys(T.TIER).length === 0);
+  }
+
   done();
 })();

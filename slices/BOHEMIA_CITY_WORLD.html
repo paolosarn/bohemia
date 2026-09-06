@@ -39064,6 +39064,24 @@ function ctDialSave(){
   try { localStorage.setItem('boh.city.deedweight',
         JSON.stringify(BohemiaStanding.DEED_WEIGHT)); } catch(_e){}
 }
+/* __DIR_TOWNS__ -- his town sizes, applied to the one table that decides them. */
+var CT_TIER_KEY='bohemia.city.tiers.v1';
+function ctTierApply(tiers, save){
+  try{
+    var T=window.BohemiaTowns; if(!T||!T.TIER) return false;
+    for(var k in T.TIER) if(Object.prototype.hasOwnProperty.call(T.TIER,k)) delete T.TIER[k];
+    for(var f in tiers) if(tiers[f]) T.TIER[f]=tiers[f];
+    /* THE SEATS CARRY THE TIER, so a town that just became a fortress has to be
+       re-derived or the market would sell camp goods under a fortress label. */
+    try{ TURF_SEATS=null; TURF_KEY=null; TURF_MAP=null; TURF_MAP_KEY=null; }catch(_e){}
+    if(save) try{ localStorage.setItem(CT_TIER_KEY, JSON.stringify(tiers)); }catch(_e){}
+    return true;
+  }catch(_e){ return false; }
+}
+try{
+  var _ct0=JSON.parse(localStorage.getItem(CT_TIER_KEY)||'{}');
+  if(_ct0 && Object.keys(_ct0).length) ctTierApply(_ct0, false);
+}catch(_e){}
 function ctDialApply(w, save){
   if (typeof BohemiaStanding === 'undefined' || !w) return 0;
   var T0 = BohemiaStanding.DEED_WEIGHT, n = 0;
@@ -39118,6 +39136,41 @@ function ctDialApply(w, save){
     }
     if (d && d.type === 'BOHEMIA_DEED_WEIGHTS' && d.weights)
       ctDialApply(d.weights, true);
+    /* __DIR_TOWNS__ -- HOW BIG EACH FACTION'S TOWN IS, WHEN HE MOVES ONE.
+       (9/6, [town sizes].) This surface carries its own inlined copy of the
+       towns module, so the alpha setting BohemiaTowns.TIER up there reaches
+       nothing down here. The tier decides how many goods a market carries and
+       how far a town spreads, and both are read live off that table, so
+       replacing its contents is the whole of the change -- no cache to bust and
+       nothing to re-derive.
+       PERSISTED ON THIS SIDE TOO, because a player who opens the demo cold never
+       loads the DIRECT tab and would otherwise get the derived tiers while the
+       alpha thinks he ruled them. */
+    if (d && d.type === 'BOHEMIA_TOWN_TIERS' && d.tiers) ctTierApply(d.tiers, true);
+    /* AND THE DIAL ASKS THIS MODULE WHAT A TIER BUYS, rather than retyping the
+       thirds, the goods fraction and the reach table into the alpha -- which is
+       the second-copy drift the STANDING dial's own comment spends a paragraph
+       on. MEASURED first: window.BohemiaTowns is not in the alpha at all, so the
+       first cut of that panel rendered nothing and every source check still
+       passed. */
+    if (d && d.type === 'BOHEMIA_TOWN_ASK') {
+      var rows = [];
+      try {
+        if (d.tiers) ctTierApply(d.tiers, true);
+        var TW = window.BohemiaTowns, GR = window.BOHEMIA_FACTION_GRAPH;
+        var gd = [];
+        try { gd = Object.keys(window.BohemiaEconomy.GOODS); } catch (_g) {}
+        var tt = TW.tiers(GR, 1);
+        rows = Object.keys(tt).sort(function (a, b) { return tt[a].rank - tt[b].rank; })
+          .map(function (f) {
+            var r = tt[f], reach = TW.REACH[r.tier] || 1;
+            return { faction: f, tier: r.tier, power: r.power, ruled: !!r.ruled,
+                     goods: TW.goodsFor(r.tier, gd).length, allGoods: gd.length,
+                     across: reach * 2 + 1 };
+          });
+      } catch (_e) { rows = []; }
+      try { ev.source.postMessage({ type: 'BOHEMIA_TOWN_ROWS', rows: rows }, '*'); } catch (_e) {}
+    }
     /* *** THE DIAL CANNOT READ THIS MODULE, SO THIS MODULE ANSWERS IT. ***
        MEASURED: the alpha reaching into the frame for BohemiaStanding throws
        SecurityError -- file:// frames are opaque origin "null" -- so a readout
