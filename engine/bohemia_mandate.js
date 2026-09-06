@@ -59,10 +59,31 @@
   var MANDATE_SHARE = 0.49;      // Paolo's number (starting instinct, not final)
   var MAYOR_SHARE = null;        // [PENDING Paolo: "enough done, enough love" is not a number]
 
-  /* WHAT EACH RUNG ACTUALLY GRANTS. EMPTY, and it is the addendum's own pending: "what
-     specifically 'easier' grants at each rung (cost multipliers? unlock tiers? restriction
-     removal?)". A multiplier invented here would ship as canon nobody ruled. */
-  var GRANTS = {};               // rung -> {...}  [PENDING Paolo]
+  /* WHAT EACH RUNG ACTUALLY GRANTS.
+     THE PENDING WAS ONLY BLOCKING BECAUSE EVERYBODY ASSUMED THE GRANT HAD TO BE A DIAL
+     (BB-THE-RUNG-PAYS, day 18). His addendum's own list offers three shapes -- "cost
+     multipliers? unlock tiers? restriction removal?" -- and TWO OF THEM ARE NUMBERS he has
+     not ruled. THE THIRD IS NOT. Restriction removal is a DOOR, and the door is already
+     written in this file's own header, in his words: "you can build in a district whose
+     local faction does not love you, because the whole city has your back and the locals do
+     not have to."
+     So MANDATE ships its grant and it invents nothing: it is this module's own sentence,
+     turned into the thing canBuild() has always returned. A place you could not build in
+     and now can is not a dial, and NO DAMAGE BEFORE THE DIAL is not violated by opening one.
+     MAYOR STAYS EMPTY AND STAYS HIS. What "markedly easier ... because you are governing"
+     grants on top of an already-open map is a real design question with no default, and
+     MAYOR_SHARE is unruled anyway so the rung cannot be reached. Rung two does not wait on
+     rung three. */
+  var GRANTS = {                 // rung -> {...}   MAYOR is [PENDING Paolo]
+    MANDATE: {
+      grant: 'build:anywhere',
+      about: 'the city backs you, so you can build on ground whose local faction does not '
+           + 'love you',
+      source: 'laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md, his own words',
+      dial: false,               /* a door, not a number: nothing here scales anything */
+      tuned: false
+    }
+  };
 
   /* WHAT A PATROLLED DISTRICT PAYS. RULED 8/15, and the ruling names this exact case:
      laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md -- "EVERY RESOURCE COST, PRICE,

@@ -27,10 +27,15 @@
  *  6. PATROL IS THE FAUCET AND LOSING IT CLOSES THE FAUCET. Holding ground is a thing you
  *     keep paying for, and LIGHT = TERRITORY means an unlit district cannot be patrolled and
  *     therefore cannot pay.
- *  7. AND EVERY NUMBER HE HAS NOT RULED IS REFUSED BY NAME. The grants table is his own
- *     [PENDING] line; a cost multiplier invented here ships as canon nobody ruled. The tax
- *     rate WAS on that list until he ruled it on 8/15 (EVERYTHING COSTS ONE), and the gate
- *     moved the same turn: A GATE MUST NEVER OUTRANK A RULING.
+ *  7. AND EVERY NUMBER HE HAS NOT RULED IS REFUSED BY NAME. A cost multiplier invented here
+ *     ships as canon nobody ruled. TWO ITEMS HAVE COME OFF THAT LIST AND THE GATE MOVED BOTH
+ *     TIMES, because A GATE MUST NEVER OUTRANK A RULING (8/1): the tax rate, when he ruled
+ *     EVERYTHING COSTS ONE on 8/15; and RUNG TWO'S GRANT on 9/6, when BB-THE-RUNG-PAYS found
+ *     that his pending only blocked because everybody read "grant" as a NUMBER. His own list
+ *     offers "cost multipliers? unlock tiers? restriction removal?" -- the third is a DOOR,
+ *     already written in this module's header in his words, and a door is not a dial. So the
+ *     assertion is no longer "the table is empty" but the thing actually forbidden: NOTHING
+ *     IN THE TABLE IS A NUMBER, only rung two has an entry, and MAYOR still refuses by name.
  *
  *   node gates/mandate_gate.js
  */
@@ -131,10 +136,26 @@ ok('a friendly district was always open', M.canBuild(facs(1), true).allowed === 
 
 // ---- 7: every unruled number refuses by name -------------------------------------------
 {
-  ok('the GRANTS table ships EMPTY (his own PENDING: what "easier" grants at each rung)',
-     Object.keys(M.GRANTS).length === 0);
-  const g = M.grantsAt(M.MANDATE);
-  ok('and asking for it refuses out loud, naming the table and whose call it is',
+  /* GRANTS WAS THIS GATE'S FIFTH REFUSAL UNTIL BB-THE-RUNG-PAYS RESOLVED HALF OF IT ON
+     9/6, AND A GATE MUST NEVER OUTRANK A RULING (8/1). His pending offers three shapes --
+     "cost multipliers? unlock tiers? restriction removal?" -- and the row's whole finding is
+     that TWO of them are numbers he has not ruled and the THIRD IS A DOOR, already written
+     in this module's own header in his own words. So the assertion moves from "the table is
+     empty" to the thing that was actually forbidden: NO INVENTED NUMBER, and the rungs he
+     has not ruled still refuse by name. */
+  ok('RUNG TWO HAS ITS GRANT and it is a DOOR, not a dial -- nothing in it scales anything',
+     M.GRANTS.MANDATE && M.GRANTS.MANDATE.dial === false
+     && M.GRANTS.MANDATE.grant === 'build:anywhere');
+  ok('and it cites his own addendum rather than inventing a source',
+     /MAYOR_6_30_26/.test((M.GRANTS.MANDATE || {}).source || ''));
+  ok('NOTHING IN THE TABLE IS A NUMBER -- a multiplier here would be canon nobody ruled',
+     Object.keys(M.GRANTS).every(k => Object.keys(M.GRANTS[k]).every(
+       f => typeof M.GRANTS[k][f] !== 'number')));
+  ok('ONLY RUNG TWO GOT ONE -- the row said rung three stays his and must not block it',
+     Object.keys(M.GRANTS).length === 1);
+  const g = M.grantsAt(M.MAYOR);
+  ok('and asking for the MAYOR grant still refuses out loud, naming the table and whose'
+     + ' call it is',
      g.reason === M.NO_RULING && g.table === 'GRANTS' && /Paolo/.test(g.about || ''));
   /* THE RATE WAS THIS GATE'S FOURTH REFUSAL UNTIL HE RULED IT ON 8/15, and A GATE MUST
      NEVER OUTRANK A RULING (8/1): EVERYTHING COSTS ONE reaches "any future resource price

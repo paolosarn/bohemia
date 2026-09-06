@@ -316,6 +316,25 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('RUNG PAYS',      ['node', 'gates/rung_pays_gate.js'],
+     'BB-THE-RUNG-PAYS. Paolo 6/30 LOCKED: "The more the city backs you, the easier building '
+     'becomes, even in areas whose local faction doesn\'t love you, because the whole city has '
+     'your back." The ladder existed and CROSSING A RUNG PAID YOU NOTHING YOU COULD USE -- '
+     'engine/bohemia_mandate.js has carried canBuild() since 8/11 and measured 9/6 it had ZERO '
+     'callers in the game, only its own gate. The two-month pending was blocking only because '
+     'everybody assumed the grant had to be a DIAL: his addendum offers "cost multipliers? '
+     'unlock tiers? restriction removal?" and two of those are numbers he has not ruled, but '
+     'the third is a DOOR already written in the module\'s own header in his own words. So '
+     'MANDATE ships its grant and MAYOR stays [PENDING Paolo] and does not block it. TWO '
+     'THINGS WOULD HAVE SHIPPED WRONG AND MEASURING CAUGHT BOTH: the player boots at share 0 '
+     'with NOT ONE friendly faction, so a permit that just asks "do they love you" refuses '
+     'EVERYWHERE on day one and takes the builder and the lights bill down with it -- the '
+     'answer was already a law, LIGHT=TERRITORY and NOBODY PATROLS THE DARK, so a faction can '
+     'only stop you where somebody is standing; and the first cut asked whether the PLOT was '
+     'lit and refused ZERO real builds, because circuits only run along STREET cells, so it '
+     'asks about the street the plot FRONTS now. This holds both numbers: ~89% of buildable '
+     'plots open at rung one so nobody is walled in, and a real count gated so the door opens '
+     'onto something', True),
     ('ROADS ARE FAST', ['node', 'gates/roads_are_fast_gate.js'],
      'BB-ROADS-ARE-FAST, quoting his reference game: "ROADS ARE FAST. Everybody, player '
      'included, moves at high speed along a road." MEASURED ON THE WALKED SURFACE BEFORE '

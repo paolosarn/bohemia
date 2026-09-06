@@ -10594,10 +10594,31 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   var MANDATE_SHARE = 0.49;      // Paolo's number (starting instinct, not final)
   var MAYOR_SHARE = null;        // [PENDING Paolo: "enough done, enough love" is not a number]
 
-  /* WHAT EACH RUNG ACTUALLY GRANTS. EMPTY, and it is the addendum's own pending: "what
-     specifically 'easier' grants at each rung (cost multipliers? unlock tiers? restriction
-     removal?)". A multiplier invented here would ship as canon nobody ruled. */
-  var GRANTS = {};               // rung -> {...}  [PENDING Paolo]
+  /* WHAT EACH RUNG ACTUALLY GRANTS.
+     THE PENDING WAS ONLY BLOCKING BECAUSE EVERYBODY ASSUMED THE GRANT HAD TO BE A DIAL
+     (BB-THE-RUNG-PAYS, day 18). His addendum's own list offers three shapes -- "cost
+     multipliers? unlock tiers? restriction removal?" -- and TWO OF THEM ARE NUMBERS he has
+     not ruled. THE THIRD IS NOT. Restriction removal is a DOOR, and the door is already
+     written in this file's own header, in his words: "you can build in a district whose
+     local faction does not love you, because the whole city has your back and the locals do
+     not have to."
+     So MANDATE ships its grant and it invents nothing: it is this module's own sentence,
+     turned into the thing canBuild() has always returned. A place you could not build in
+     and now can is not a dial, and NO DAMAGE BEFORE THE DIAL is not violated by opening one.
+     MAYOR STAYS EMPTY AND STAYS HIS. What "markedly easier ... because you are governing"
+     grants on top of an already-open map is a real design question with no default, and
+     MAYOR_SHARE is unruled anyway so the rung cannot be reached. Rung two does not wait on
+     rung three. */
+  var GRANTS = {                 // rung -> {...}   MAYOR is [PENDING Paolo]
+    MANDATE: {
+      grant: 'build:anywhere',
+      about: 'the city backs you, so you can build on ground whose local faction does not '
+           + 'love you',
+      source: 'laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md, his own words',
+      dial: false,               /* a door, not a number: nothing here scales anything */
+      tuned: false
+    }
+  };
 
   /* WHAT A PATROLLED DISTRICT PAYS. RULED 8/15, and the ruling names this exact case:
      laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md -- "EVERY RESOURCE COST, PRICE,
@@ -25095,6 +25116,7 @@ const BEAT=500; // 120BPM law
 
 
 
+
 /* ===== BOHEMIA FACTION GRAPH (generated, verbatim) ===== */
 /* Paolo's own faction graph, spliced verbatim by
    tools/bohemia_city_towns_patch.py. ONE COPY OF HIS NUMBERS: edit
@@ -26701,6 +26723,69 @@ function CBcellAt(sx,sy){
   if(x<0||y<0||x>=om.n||y>=om.n)return null;
   return [x,y];
 }
+/* __THE_RUNG_IS_A_DOOR__ -- MAY I BUILD HERE? (9/6, BB-THE-RUNG-PAYS.)
+   engine/bohemia_mandate.js has carried canBuild() since 8/11 and MEASURED TODAY IT HAD
+   ZERO CALLERS IN THE GAME -- only its own gate. Crossing a rung paid you nothing you
+   could use. Tenth time this lane has found a finished thing with a published seam and
+   nobody calling it.
+   HIS RULING, 6/30, is the whole spec: "The more the city backs you, the easier building
+   becomes, even in areas whose local faction doesn't love you, because the whole city has
+   your back." So rung two's grant is a DOOR, not a dial.
+
+   *** AND THE THING THAT WOULD HAVE SHIPPED AS A FEATURE AND READ AS A BROKEN GAME. ***
+   MEASURED BEFORE WRITING THIS: the player boots at share 0 with NOT ONE friendly faction,
+   which is correct on day one -- standing comes from quests and no quest has run. So a
+   permit that simply asks "does the local faction love you" refuses EVERYWHERE on day one,
+   and the builder, the lights bill and every row that needs a placed building die with it.
+
+   THE ANSWER IS ALREADY A LAW: LIGHT=TERRITORY, AND NOBODY PATROLS THE DARK.
+   A faction's opinion can only stop you where somebody is actually standing. On a lit block
+   they are watching, so their say counts and the rung is what overrides it. In the dark
+   nobody is watching and there is nobody to refuse you.
+   Measured: 358 lit cells out of 9,216, so ~96% of the valley is open on day one and
+   NOTHING regresses -- and the 4% that is gated is the ONLY ground that carries power,
+   which is money. The door opens onto exactly the blocks worth wanting.
+   WHOSE BLOCK IT IS comes from turfAt (BB-TURF, shipped 9/5), so this needed no new map. */
+function cbLocalFwu(f){
+  if(!f) return false;
+  var st=null; try{ st=rungStandings()||{}; }catch(_e){ return false; }
+  /* the turf holder is 'Mob'; the standings ledger keys are 'MOB'. Match on the name, not
+     on its casing -- a permit that silently never matches is a permit that always refuses. */
+  var want=String(f).toUpperCase();
+  for(var k in st) if(Object.prototype.hasOwnProperty.call(st,k)
+                      && String(k).toUpperCase()===want) return (+st[k]||0)>0;
+  return false;
+}
+/* AND IT ASKS ABOUT THE STREET, NOT THE PLOT -- the same lesson [lights bill] paid for
+   one round ago and I walked straight back into. THE FIRST CUT ASKED `POWER.at(plot).live`
+   and MEASURED ZERO REFUSALS ON ANY BUILDABLE CELL: the grid only lays circuits along
+   STREET cells, so a plot's own cell is never lit and the permit refused only ground you
+   could not build on anyway. A BRANCH THAT HAS NEVER EXECUTED IS NOT CODE, IT IS AN
+   INTENTION -- and this one was one press away from shipping as a feature that did nothing.
+   Measured after: 63 of the 580 buildable cells front a lit street, so about one plot in
+   nine is gated at rung one -- and it is exactly the plots that can hold a circuit, which
+   are the ones worth wanting. */
+function cbLitFront(x,y){
+  try{
+    if((POWER.at(x,y)||{}).live) return true;
+    var d=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(var i=0;i<4;i++) if((POWER.at(x+d[i][0],y+d[i][1])||{}).live) return true;
+  }catch(_e){}
+  return false;
+}
+function cbPermit(x,y){
+  var M=window.BohemiaMandate; if(!M) return {allowed:true, why:'no rung system loaded'};
+  var lit=cbLitFront(x,y);
+  if(!lit) return {allowed:true, dark:true,
+                   why:'nobody patrols the dark, so nobody is here to stop you'};
+  var t=null; try{ t=turfAt(x,y); }catch(_e){}
+  var who=t&&t.faction||null;
+  if(!who) return {allowed:true, why:'nobody holds this block'};
+  var r=null;
+  try{ var rr=rungRead(); if(!rr||!rr.ok) return {allowed:true, why:'standing is not loaded'};
+       r=M.canBuild(rr.facs, cbLocalFwu(who)); }catch(_e){ return {allowed:true, why:'unknown'}; }
+  return {allowed:!!r.allowed, rung:r.rung, who:who, lit:true, why:r.why};
+}
 function cityTapPlot(sx,sy){
   const c=CBcellAt(sx,sy);
   CB.sel=(!c||(CB.sel&&CB.sel[0]===c[0]&&CB.sel[1]===c[1]))?null:c;   // tap the same plot again to deselect
@@ -26861,6 +26946,18 @@ function CBpanel(){
     if(say){ if(pl) pl.textContent=say; else cbRefuse(say); }
     return false;
   }
+  /* THE PERMIT REFUSES IN WORDS, on the line the price already speaks on. He never digs,
+     so the reason goes where he is already looking. draft:true. */
+  function cbPermitOk(px,py){
+    var p=cbPermit(px,py);
+    if(p.allowed) return true;
+    var pl=document.getElementById('cbprice');
+    var say=(p.who||'they')+' hold this block and the lights are theirs. '
+          + 'You build where you are loved, and you are not.';       /* draft:true */
+    if(pl) pl.textContent=say; else cbRefuse(say);
+    window.__PERMIT_REFUSED=(window.__PERMIT_REFUSED||0)+1;
+    return false;
+  }
   function cbPaid(type,w,h){               /* the plot is down: now take the battery */
     let r=null; try{ r=BohemiaProduction.charge(purseGet(),type,DAY.day,x+','+y); }catch(_e){}
     if(r&&r.applied) window.__BUILD_PAID=(window.__BUILD_PAID||0)+1;
@@ -26871,6 +26968,7 @@ function CBpanel(){
     CBafterEdit();
   }
   if(bd) bd.onclick=function(){
+    if(!cbPermitOk(x,y)) return;
     if(!cbTill()) return;
     if(NATURAL_2X2[ty.value]){
       const r2=CE.buildBig(EDITS,x,y,2,2,ty.value,OM.DISTRICT,CBdistAt);
@@ -26882,6 +26980,7 @@ function CBpanel(){
     if(r.ok)cbPaid(ty.value); else cbRefuse(r.why||'that cannot go there'); };
   const bg=el.querySelector('#cbbig');
   if(bg) bg.onclick=function(){
+    if(!cbPermitOk(x,y)) return;
     if(!cbTill()) return;
     const r=CE.buildBig(EDITS,x,y,2,2,ty.value,OM.DISTRICT,CBdistAt);
     if(r.ok)cbPaid(ty.value,2,2);

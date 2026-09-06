@@ -4988,63 +4988,65 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [faster roads] BB-ROADS-ARE-FAST is SHIPPED 9/5.
+HOLDING: nothing. [rung unlocks] BB-THE-RUNG-PAYS is SHIPPED 9/6.
 
 WHAT SHIPPED
-  MEASURED FIRST, on the walked surface: 29 paved cells cost 2 minutes and 29 cells
-  of broken ground cost 2 minutes. IDENTICAL. Every street in the valley was
-  mechanically scenery, and we have more street than almost anything else here.
-  PAVEMENT NOW COSTS HALF. Broken ground is UNTOUCHED, so the 8.6 km day the row
-  calls a good number is unchanged; a day on the roads covers 17.1 km across a
-  9.2 km valley, which means you can cross it in a day if you stay on roads and
-  cannot if you do not. That is the GRAIN the row asked for -- places near in time
-  and far in metres, friction kept, shape changed.
-  THE SURFACE COMES FROM __surfaceOf, the classifier the FOOTSTEPS already use, so
-  the ground that sounds like asphalt walks like asphalt and there is no second
-  opinion about what a tile is. Paved = asphalt + concrete (roadway and sidewalk).
-  Gravel, dirt, sand and wood keep the baseline; a shoulder is not a road.
-  Measured: 34% of walkable ground near the spawn is paved, so the grain is real.
-  THE FACTOR IS 0.5 on REALISM FIRST (rough going is about half road pace, the
-  order every terrain-factor table has kept since Naismith), tagged tuned:false
-  with its ruling, so it lands in the one list he tunes from.
-  THE CARD SAYS HOW FAR: "78 steps - 59 m". A step count cannot show what this row
-  changed, because 412 steps reads the same on a highway and across a wash.
-  GATE: gates/roads_are_fast_gate.js, 17 checks, registered as ROADS ARE FAST.
-  RECORD: records/BOHEMIA_A_STREET_THAT_IS_NOT_FASTER_9_5_26.md
+  bohemia_mandate.js has carried canBuild() since 8/11 with ZERO CALLERS IN THE
+  GAME -- only its own gate. Crossing a rung paid you nothing you could use. Tenth
+  time this lane has found a finished seam nobody calls.
+  THE TWO-MONTH PENDING ONLY BLOCKED BECAUSE EVERYBODY READ "GRANT" AS A NUMBER.
+  His own list: "cost multipliers? unlock tiers? restriction removal?" -- two are
+  numbers he has not ruled, the THIRD IS A DOOR, and the door is already written in
+  the module's header in his words. GRANTS.MANDATE ships; MAYOR stays [PENDING
+  Paolo] and does not block rung two; MAYOR_SHARE is still null so the top rung
+  cannot be reached at all.
+  ON THE WALKED SURFACE: press BUILD on a lit block at rung one and it refuses --
+  "Blues hold this block and the lights are theirs. You build where you are loved,
+  and you are not." Cross his 49% and the SAME button on the SAME plot builds.
+  GATE: gates/rung_pays_gate.js, 21 checks, registered as RUNG PAYS. Red both ways.
+  AND mandate_gate MOVED: it asserted "the GRANTS table ships EMPTY", which was true
+  until the row resolving the pending shipped. A GATE MUST NEVER OUTRANK A RULING
+  (8/1). It now asserts the thing actually forbidden -- NOTHING IN THE TABLE IS A
+  NUMBER, only rung two has an entry, MAYOR still refuses by name. 33/0.
+  RECORD: records/BOHEMIA_THE_RUNG_IS_A_DOOR_9_6_26.md
 
-THE THING THAT WOULD HAVE GONE WRONG QUIETLY, AND DID NOT
-  The walked step handed the encounter director a hard-coded 5.04 seconds -- the
-  seconds in ONE BASELINE CELL. Right while every cell cost the same; on a fast
-  road it pays a full cell's seconds for half a cell's clock, so his approved
-  90-second gap between moments would have come TWICE AS OFTEN on pavement. Pacing
-  changed as a side effect of a movement fix is nobody's ruling. It is handed the
-  seconds really spent now. Indoors is untouched: a corridor is not a highway.
+TWO THINGS MEASURING CAUGHT, AND THE NEXT ROUND MUST NOT UNDO THEM
+  1. THE PLAYER BOOTS AT SHARE 0 WITH NOT ONE FRIENDLY FACTION. Correct on day one
+     (standing comes from quests, no quest has run). So a permit that just asks "do
+     they love you" REFUSES EVERYWHERE on day one and takes the builder, the lights
+     bill and every row needing a placed building with it. The answer was already a
+     law: LIGHT=TERRITORY and NOBODY PATROLS THE DARK -- a faction can only stop you
+     where somebody is standing. 89% of buildable plots stay open at rung one.
+  2. THE FIRST CUT ASKED WHETHER THE PLOT'S OWN CELL WAS LIT and refused ZERO real
+     builds: circuits only run along STREET cells, so a buildable cell is never lit
+     itself. A BRANCH THAT HAS NEVER EXECUTED IS NOT CODE, IT IS AN INTENTION, and
+     it was one press from shipping as a feature that did nothing. It asks about the
+     street the plot FRONTS now -- the same lesson [lights bill] paid one round ago.
+     63 of 580 buildable plots gated, and they are exactly the ones that can hold a
+     circuit, so the door opens onto the plots worth wanting.
 
-TWO THINGS THE NEXT ROUND MUST NOT RE-LEARN
-  1. THE CLOCK REPORTS WHOLE MINUTES. The walked check asserts the ORDER and a
-     clear margin, not an exact 2.000x -- a test that demands an exact ratio off a
-     rounding clock is a test about the clock.
-  2. AND MY OWN CHECK WAS THE BROKEN PART FIRST: the "indoors is untouched" regex
-     allowed 400 characters between the comment and the advance() and the real gap
-     is longer, so it went red on correct code. Widen before believing a red.
+AND ONE OF MY OWN CHECKS MEASURED THE WRONG POPULATION: it asked what share of ALL
+CELLS were open (86%) when the question is what share of BUILDABLE PLOTS are (89%).
+Streets, mountains and water are ground he could never build on at any rung.
 
-NEXT: the first OPEN line is [rung unlocks] BB-THE-RUNG-PAYS. After it:
-[enemies unite], [shelves premise], [batteries mined], [own power], [rice clock],
-[debt carried]. [century stayed] is [PENDING Paolo] and blocks nothing.
+NEXT: the first OPEN line is [enemies unite] BB-COALITION. After it:
+[shelves premise], [batteries mined], [own power], [rice clock], [debt carried].
+[century stayed] is [PENDING Paolo] and blocks nothing.
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
 7/31 with zero callers.
-ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds (a
-stale ruler another lane flagged) and faction_outfit_gate is 16/2. Both were red
-before my rounds and neither moved.
+ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds and
+faction_outfit_gate is 16/2. Both were red before my rounds and neither moved.
 
-[PENDING Paolo] -- nothing new from me.
+[PENDING Paolo] -- nothing new from me. (MAYOR_SHARE and the rung-three grant were
+already his and remain so; they block nothing.)
 
-LAST SHIPPED: [faster roads] BB-ROADS-ARE-FAST, 9/5. Before it: [held ground]
-afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
-[battery money] + [prices one] ce39270.
+LAST SHIPPED: [rung unlocks] BB-THE-RUNG-PAYS, 9/6. Before it: [faster roads]
+ba66644, [held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
+[living costs] 5b61303, [battery money] + [prices one] ce39270.
+
 
 
 
