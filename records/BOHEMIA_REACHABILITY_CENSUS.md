@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 112 |
+| SHOWN (all) | 1 | 121 |
 | SHOWN (part) | 14 | 9 |
 | LOADED ONLY | 19 | 7 |
-| NO TRACE | 77 | 11 |
+| NO TRACE | 90 | 11 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **111** | **154** |
+| **total** | **124** | **163** |
 
-**304.4 MB of 308.5 MB** sampled does not reach the shown surface.
+**304.5 MB of 308.7 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -130,14 +130,14 @@ verbatim.
 | `banks/BOHEMIA_TILECAT_NEUTRAL_7_10_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_TILECAT_GOLD_7_10_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_WINDOW_SET_7_10_26.txt` | bank | 0.01 |
+| `banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_TILECAT_COOL_7_10_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_SEWER_DEMO_MAP_DATA_7_10_26.json` | bank | 0.01 |
-| `banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt` | bank | 0.01 |
 | `engine/bohemia_slice_engine.js` | engine | 0.01 |
 | `engine/bohemia_interior_levels.js` | engine | 0.01 |
 | `engine/bohemia_brownout.js` | engine | 0.01 |
 
-*(28 more, see the .json)*
+*(41 more, see the .json)*
 
 ## REACHES HIM
 

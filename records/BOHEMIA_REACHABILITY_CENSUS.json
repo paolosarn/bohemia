@@ -1,7 +1,7 @@
 {
- "sources": 265,
- "total_mb": 308.5,
- "unreached_mb": 304.4,
+ "sources": 287,
+ "total_mb": 308.7,
+ "unreached_mb": 304.5,
  "rows": [
   {
    "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
@@ -20,6 +20,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 84227
+  },
+  {
+   "path": "banks/BOHEMIA_ACT3_THE_SAME_VERBS_FURTHER_OUT_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4236
   },
   {
    "path": "banks/BOHEMIA_ACT_PLACEMENT_MASTER_7_10_26.txt",
@@ -74,6 +83,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 425962
+  },
+  {
+   "path": "banks/BOHEMIA_CENTURY_TOWN_THREE_SPEEDS_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4874
   },
   {
    "path": "banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
@@ -208,7 +226,16 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 257215
+   "bytes": 258375
+  },
+  {
+   "path": "banks/BOHEMIA_FAMILY_WHO_TURNS_UP_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4534
   },
   {
    "path": "banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt",
@@ -227,6 +254,33 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 2642
+  },
+  {
+   "path": "banks/BOHEMIA_GEN1_ANIMAL_READOUT_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4210
+  },
+  {
+   "path": "banks/BOHEMIA_GEN1_THE_TWO_LIVES_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4954
+  },
+  {
+   "path": "banks/BOHEMIA_GEN3_THE_CROWD_AND_THE_FORGETTING_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4534
   },
   {
    "path": "banks/BOHEMIA_GORE_OVERLAY_BANK_7_10_26.txt",
@@ -290,6 +344,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 7454070
+  },
+  {
+   "path": "banks/BOHEMIA_GROWING_OLD_THE_CROSSOVER_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4328
   },
   {
    "path": "banks/BOHEMIA_HD_TILE_REPO_part1.txt",
@@ -364,6 +427,15 @@
    "bytes": 102624
   },
   {
+   "path": "banks/BOHEMIA_INHERITED_MEMORY_WHAT_SURVIVED_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4824
+  },
+  {
    "path": "banks/BOHEMIA_INTERIOR_FLOOR_POOL_8_26_26.txt",
    "kind": "bank",
    "verdict": "NO TRACE",
@@ -389,6 +461,15 @@
    "hits_shown": 3,
    "hits_loaded": 0,
    "bytes": 80760
+  },
+  {
+   "path": "banks/BOHEMIA_LASTING_DEATH_THE_SEAT_AND_THE_SCAR_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4592
   },
   {
    "path": "banks/BOHEMIA_LIGHT_TOWER_8_23_26.txt",
@@ -787,6 +868,42 @@
    "bytes": 778016
   },
   {
+   "path": "banks/BOHEMIA_THE_CARRY_LIST_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4728
+  },
+  {
+   "path": "banks/BOHEMIA_THE_FOLD_NOBODY_KNOWS_YOU_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4457
+  },
+  {
+   "path": "banks/BOHEMIA_THE_FOLD_WHAT_AN_HEIR_KEEPS_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4621
+  },
+  {
+   "path": "banks/BOHEMIA_THE_HEIRS_FIRST_HOUR_WHAT_YOU_STILL_HAVE_DRAFT_9_5_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4585
+  },
+  {
    "path": "banks/BOHEMIA_TILECAT_BROWN_7_10_26.txt",
    "kind": "bank",
    "verdict": "NO TRACE",
@@ -982,7 +1099,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 8632
+   "bytes": 9811
   },
   {
    "path": "banks/BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
@@ -1039,13 +1156,22 @@
    "bytes": 966
   },
   {
+   "path": "engine/bohemia_against.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 11313
+  },
+  {
    "path": "engine/bohemia_agents.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
    "samples": 8,
    "hits_shown": 8,
    "hits_loaded": 8,
-   "bytes": 60593
+   "bytes": 62643
   },
   {
    "path": "engine/bohemia_airfield.js",
@@ -1210,6 +1336,15 @@
    "bytes": 14792
   },
   {
+   "path": "engine/bohemia_century.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 10322
+  },
+  {
    "path": "engine/bohemia_chapel.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1255,6 +1390,15 @@
    "bytes": 3874
   },
   {
+   "path": "engine/bohemia_coalition.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 3,
+   "hits_shown": 3,
+   "hits_loaded": 2,
+   "bytes": 8812
+  },
+  {
    "path": "engine/bohemia_coldopen_set.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1262,6 +1406,15 @@
    "hits_shown": 24,
    "hits_loaded": 0,
    "bytes": 97947
+  },
+  {
+   "path": "engine/bohemia_combatfloor.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 8045
   },
   {
    "path": "engine/bohemia_commercial.js",
@@ -1341,7 +1494,7 @@
    "verdict": "SHOWN (all)",
    "samples": 6,
    "hits_shown": 6,
-   "hits_loaded": 4,
+   "hits_loaded": 6,
    "bytes": 16744
   },
   {
@@ -1471,6 +1624,15 @@
    "bytes": 9702
   },
   {
+   "path": "engine/bohemia_feedstream.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 9,
+   "hits_shown": 9,
+   "hits_loaded": 2,
+   "bytes": 15403
+  },
+  {
    "path": "engine/bohemia_firestation.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1552,6 +1714,24 @@
    "bytes": 25171
   },
   {
+   "path": "engine/bohemia_hostiles.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 0,
+   "bytes": 13264
+  },
+  {
+   "path": "engine/bohemia_housing.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 5,
+   "hits_shown": 5,
+   "hits_loaded": 2,
+   "bytes": 9972
+  },
+  {
    "path": "engine/bohemia_industrial.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1621,7 +1801,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 32,
-   "bytes": 12750
+   "bytes": 14511
   },
   {
    "path": "engine/bohemia_landmarks.js",
@@ -1666,7 +1846,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 77323
+   "bytes": 82701
   },
   {
    "path": "engine/bohemia_loop_channel_tests.js",
@@ -1774,7 +1954,7 @@
    "samples": 4,
    "hits_shown": 4,
    "hits_loaded": 2,
-   "bytes": 12421
+   "bytes": 13706
   },
   {
    "path": "engine/bohemia_medical.js",
@@ -1852,10 +2032,10 @@
    "path": "engine/bohemia_payday.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 3,
-   "hits_shown": 3,
+   "samples": 5,
+   "hits_shown": 5,
    "hits_loaded": 3,
-   "bytes": 17169
+   "bytes": 22081
   },
   {
    "path": "engine/bohemia_people.js",
@@ -1864,7 +2044,7 @@
    "samples": 10,
    "hits_shown": 10,
    "hits_loaded": 10,
-   "bytes": 111511
+   "bytes": 112810
   },
   {
    "path": "engine/bohemia_personlook.js",
@@ -1873,7 +2053,7 @@
    "samples": 1,
    "hits_shown": 1,
    "hits_loaded": 0,
-   "bytes": 10331
+   "bytes": 12452
   },
   {
    "path": "engine/bohemia_plotgen.js",
@@ -1900,16 +2080,25 @@
    "samples": 7,
    "hits_shown": 7,
    "hits_loaded": 7,
-   "bytes": 61985
+   "bytes": 67164
   },
   {
    "path": "engine/bohemia_powergrid.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 2,
-   "hits_shown": 2,
+   "samples": 3,
+   "hits_shown": 3,
    "hits_loaded": 2,
-   "bytes": 2231
+   "bytes": 8362
+  },
+  {
+   "path": "engine/bohemia_production.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 3,
+   "hits_shown": 3,
+   "hits_loaded": 2,
+   "bytes": 14147
   },
   {
    "path": "engine/bohemia_prop_scale.js",
@@ -1924,10 +2113,10 @@
    "path": "engine/bohemia_purse.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 8,
-   "hits_shown": 8,
-   "hits_loaded": 8,
-   "bytes": 16295
+   "samples": 9,
+   "hits_shown": 9,
+   "hits_loaded": 9,
+   "bytes": 24975
   },
   {
    "path": "engine/bohemia_quest_placement.js",
@@ -1981,7 +2170,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 32,
-   "bytes": 17725
+   "bytes": 20013
   },
   {
    "path": "engine/bohemia_resolve.js",
@@ -2062,7 +2251,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 0,
-   "bytes": 215782
+   "bytes": 224822
   },
   {
    "path": "engine/bohemia_slice_core.js",
@@ -2098,7 +2287,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 1,
-   "bytes": 22348
+   "bytes": 23549
   },
   {
    "path": "engine/bohemia_stadium.js",
@@ -2124,8 +2313,8 @@
    "verdict": "SHOWN (all)",
    "samples": 32,
    "hits_shown": 32,
-   "hits_loaded": 32,
-   "bytes": 18289
+   "hits_loaded": 26,
+   "bytes": 21242
   },
   {
    "path": "engine/bohemia_storage.js",
@@ -2143,7 +2332,7 @@
    "samples": 5,
    "hits_shown": 5,
    "hits_loaded": 0,
-   "bytes": 27967
+   "bytes": 29522
   },
   {
    "path": "engine/bohemia_strip.js",
@@ -2243,6 +2432,15 @@
    "hits_shown": 32,
    "hits_loaded": 1,
    "bytes": 17412
+  },
+  {
+   "path": "engine/bohemia_towns.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 1,
+   "bytes": 28708
   },
   {
    "path": "engine/bohemia_trailer.js",
@@ -2350,7 +2548,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 32,
-   "bytes": 17436
+   "bytes": 18654
   },
   {
    "path": "engine/bohemia_weather.js",
