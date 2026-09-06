@@ -30,10 +30,15 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_towns.js')
+COALITION = os.path.join(ROOT, 'engine', 'bohemia_coalition.js')
 GRAPH = os.path.join(ROOT, 'engine', 'BOHEMIA_faction_graph.json')
 
 MOD_BEGIN = '/* ==== engine/bohemia_towns.js (FACTION TOWNS, 9/5) ==== */'
 MOD_END = '/* ==== /engine/bohemia_towns.js (FACTION TOWNS) ==== */'
+# BB-COALITION rides the same splice: it reads bohemia_between.js, which the city already
+# carries, and it has to land outside every module body for the same reason towns does.
+CO_BEGIN = '/* ==== engine/bohemia_coalition.js (COALITION, 9/6) ==== */'
+CO_END = '/* ==== /engine/bohemia_coalition.js (COALITION) ==== */'
 # *** THE GRAPH GETS A MARKER THAT IS NOT THE MODULE BANNER FORM, ON PURPOSE. ***
 # bohemia_city_module_resync.py collects every `/* ==== engine/<name> ==== */` line
 # whose file exists and tries to resync that file's body. engine/BOHEMIA_faction_graph.json
@@ -69,7 +74,7 @@ def cut(text, begin, end, label):
 def main():
     if not os.path.exists(CITY):
         sys.exit('FAIL: %s not found' % CITY)
-    for p in (MODULE, GRAPH):
+    for p in (MODULE, GRAPH, COALITION):
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
@@ -77,6 +82,7 @@ def main():
     before = s
 
     s, _ = cut(s, MOD_BEGIN, MOD_END, 'the towns module')
+    s, _ = cut(s, CO_BEGIN, CO_END, 'the coalition module')
     s, _ = cut(s, GR_BEGIN, GR_END, 'the faction graph')
 
     if s.count(ANCHOR) != 1:
@@ -96,6 +102,7 @@ def main():
         sys.exit('REFUSING TO WRITE: the graph contains a sequence that would close the script tag.')
 
     mod = open(MODULE, encoding='utf8').read().rstrip('\n')
+    coa = open(COALITION, encoding='utf8').read().rstrip('\n')
 
     block = (
         GR_BEGIN + '\n'
@@ -107,7 +114,10 @@ def main():
         + GR_END + '\n'
         + MOD_BEGIN + '\n'
         + mod + '\n'
-        + MOD_END + '\n\n'
+        + MOD_END + '\n'
+        + CO_BEGIN + '\n'
+        + coa + '\n'
+        + CO_END + '\n\n'
     )
 
     s = s.replace(ANCHOR, block + ANCHOR, 1)
@@ -116,7 +126,7 @@ def main():
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY TOWNS: faction graph + towns module inlined after cityedit')
+    print('CITY TOWNS: faction graph + towns + coalition inlined after cityedit')
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 

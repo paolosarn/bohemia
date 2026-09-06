@@ -5274,50 +5274,48 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [rung unlocks] BB-THE-RUNG-PAYS is SHIPPED 9/6.
+HOLDING: nothing. [enemies unite] BB-COALITION is SHIPPED 9/6.
 
 WHAT SHIPPED
-  bohemia_mandate.js has carried canBuild() since 8/11 with ZERO CALLERS IN THE
-  GAME -- only its own gate. Crossing a rung paid you nothing you could use. Tenth
-  time this lane has found a finished seam nobody calls.
-  THE TWO-MONTH PENDING ONLY BLOCKED BECAUSE EVERYBODY READ "GRANT" AS A NUMBER.
-  His own list: "cost multipliers? unlock tiers? restriction removal?" -- two are
-  numbers he has not ruled, the THIRD IS A DOOR, and the door is already written in
-  the module's header in his words. GRANTS.MANDATE ships; MAYOR stays [PENDING
-  Paolo] and does not block rung two; MAYOR_SHARE is still null so the top rung
-  cannot be reached at all.
-  ON THE WALKED SURFACE: press BUILD on a lit block at rung one and it refuses --
-  "Blues hold this block and the lights are theirs. You build where you are loved,
-  and you are not." Cross his 49% and the SAME button on the SAME plot builds.
-  GATE: gates/rung_pays_gate.js, 21 checks, registered as RUNG PAYS. Red both ways.
-  AND mandate_gate MOVED: it asserted "the GRANTS table ships EMPTY", which was true
-  until the row resolving the pending shipped. A GATE MUST NEVER OUTRANK A RULING
-  (8/1). It now asserts the thing actually forbidden -- NOTHING IN THE TABLE IS A
-  NUMBER, only rung two has an entry, MAYOR still refuses by name. 33/0.
-  RECORD: records/BOHEMIA_THE_RUNG_IS_A_DOOR_9_6_26.md
+  ESCALATION IS A GRAPH EDIT AND THE MODULE HAS NO NUMBERS IN IT AT ALL. A and B
+  are hostile TO EACH OTHER in his authored relations AND both are hostile to YOU
+  -> they stop spending it on each other. Every term already existed.
+  NO THRESHOLD, ON PURPOSE. "When N factions hate you" is an N nobody ruled. The
+  pairwise version needs none; the only comparison in the logic is against ZERO,
+  which is the SIGN of a standing rather than a size. NO DAMAGE BEFORE THE DIAL is
+  not a blocker here, it is the specification: nothing changes anybody's strength.
+  DERIVED, NEVER STORED, so peace with one dissolves it with no dissolution rule --
+  and his feud survives underneath (between() still reads permanent-war).
+  THE CARD: "AGAINST YOU: Cartel + Remnants / They were enemies. They have stopped,
+  and that is about you. Nobody got stronger."
+  COALITIONS ships EMPTY; an authored pact holds whatever the standings say.
+  NEW: engine/bohemia_coalition.js, gates/coalition_gate.js (28 checks, registered
+  as COALITION, red three ways). The towns patcher now inlines it too.
+  RECORD: records/BOHEMIA_THE_WORLD_GETS_ORGANISED_9_6_26.md
 
-TWO THINGS MEASURING CAUGHT, AND THE NEXT ROUND MUST NOT UNDO THEM
-  1. THE PLAYER BOOTS AT SHARE 0 WITH NOT ONE FRIENDLY FACTION. Correct on day one
-     (standing comes from quests, no quest has run). So a permit that just asks "do
-     they love you" REFUSES EVERYWHERE on day one and takes the builder, the lights
-     bill and every row needing a placed building with it. The answer was already a
-     law: LIGHT=TERRITORY and NOBODY PATROLS THE DARK -- a faction can only stop you
-     where somebody is standing. 89% of buildable plots stay open at rung one.
-  2. THE FIRST CUT ASKED WHETHER THE PLOT'S OWN CELL WAS LIT and refused ZERO real
-     builds: circuits only run along STREET cells, so a buildable cell is never lit
-     itself. A BRANCH THAT HAS NEVER EXECUTED IS NOT CODE, IT IS AN INTENTION, and
-     it was one press from shipping as a feature that did nothing. It asks about the
-     street the plot FRONTS now -- the same lesson [lights bill] paid one round ago.
-     63 of 580 buildable plots gated, and they are exactly the ones that can hold a
-     circuit, so the door opens onto the plots worth wanting.
+TWO THINGS MEASURING CAUGHT
+  1. HIS PAIRS TABLE IS FIVE PAIRS AND ONLY TWO ARE HOSTILE (Caravans/Cartel and
+     Cartel/Remnants, both involving the Cartel). A first cut reading PAIRS only
+     would have shipped a mechanic capped at his starting graph, which is backwards
+     -- the world getting organised is supposed to happen BECAUSE of what you did.
+     allEarned() enumerates feuds earned in play, so those count and it grows with
+     the run. HOW MANY PAIRS ARE HOSTILE IS CONTENTS; more are his to author.
+  2. THE MODULE BOUND BohemiaBetween AT LOAD TIME and saw ZERO pairs on the walked
+     surface while node saw five -- the city inlines in an order the module does not
+     control, so it bound null forever, threw nothing, and reported "no coalitions",
+     WHICH IS INDISTINGUISHABLE FROM A PEACEFUL VALLEY. Ask for a neighbour when you
+     NEED it, never when you load. Same class as the TDZ trap the towns seats hit.
 
-AND ONE OF MY OWN CHECKS MEASURED THE WRONG POPULATION: it asked what share of ALL
-CELLS were open (86%) when the question is what share of BUILDABLE PLOTS are (89%).
-Streets, mountains and water are ground he could never build on at any rung.
+ALSO FIXED, AND IT WAS ROT I CAUSED: the STANDING card still said "Nobody holds this
+ground yet. No faction has claimed this district" -- true when written, FALSE since
+BB-TURF gave all 9,216 cells a holder. A card saying nobody is here while a faction
+refuses him a building permit two taps away is worse than one that says nothing. It
+names the holder now (THIS GROUND: Church).
 
-NEXT: the first OPEN line is [enemies unite] BB-COALITION. After it:
-[shelves premise], [batteries mined], [own power], [rice clock], [debt carried].
-[century stayed] is [PENDING Paolo] and blocks nothing.
+NEXT: the first OPEN line is [shelves premise] THE-VALLEY-RUNS-OUT. The coordinator
+harvested six more rows onto this queue on 9/6 ([someone lends], [back of house],
+[water lifted], [battery worth] and others), so read the section fresh rather than
+from this list.
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
@@ -5326,12 +5324,12 @@ refused rather than paid on day one. The purse has had an atomic convert() since
 ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds and
 faction_outfit_gate is 16/2. Both were red before my rounds and neither moved.
 
-[PENDING Paolo] -- nothing new from me. (MAYOR_SHARE and the rung-three grant were
-already his and remain so; they block nothing.)
+[PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [rung unlocks] BB-THE-RUNG-PAYS, 9/6. Before it: [faster roads]
-ba66644, [held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
-[living costs] 5b61303, [battery money] + [prices one] ce39270.
+LAST SHIPPED: [enemies unite] BB-COALITION, 9/6. Before it: [rung unlocks] 44dd7a1,
+[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
+[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
+
 
 
 

@@ -316,6 +316,24 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('COALITION',      ['node', 'gates/coalition_gate.js'],
+     'BB-COALITION: "THE WORLD DOES NOT GET STRONGER, IT GETS ORGANISED." The best '
+     'escalation mechanic in the game he named, and it costs zero balance numbers -- '
+     'factions that normally fight each other STOP, and nobody\'s stat block changes, the '
+     'RELATIONSHIP GRAPH does. So escalation is a graph edit and the module has NO NUMBERS '
+     'IN IT AT ALL: A and B are hostile to EACH OTHER in his own authored relations AND '
+     'both are hostile to YOU, and they stop spending it on each other. The obvious version '
+     'is a threshold ("when N factions hate you") and N is a number nobody ruled, so check 1 '
+     'holds the file clear of one -- the only comparison it makes is against zero, which is '
+     'the SIGN of a standing rather than a size. NO DAMAGE BEFORE THE DIAL is not a blocker '
+     'here, it is the specification: nothing changes anybody\'s strength, only who is '
+     'pointing it at whom. Derived and never stored, so making peace with one of them '
+     'dissolves it with no dissolution rule -- the same anti-stuck design as the mandate '
+     'rung. COALITIONS ships EMPTY because who allies with whom is his, and an authored pact '
+     'holds whatever the standings say. It also catches the bug that nearly shipped silently: '
+     'the module bound BohemiaBetween at LOAD time and saw ZERO pairs on the walked surface '
+     'while node saw five, reporting "no coalitions" -- indistinguishable from a peaceful '
+     'valley', True),
     ('RUNG PAYS',      ['node', 'gates/rung_pays_gate.js'],
      'BB-THE-RUNG-PAYS. Paolo 6/30 LOCKED: "The more the city backs you, the easier building '
      'becomes, even in areas whose local faction doesn\'t love you, because the whole city has '
