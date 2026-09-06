@@ -2643,6 +2643,68 @@ FILES. ***
   round 5  the ageing curve, running on memories instead of on bodies
   round 6  the memory of a person, and the fold that cannot see it
 
+ROUND 11 [lasting death], SHIPPED.
+  records/BOHEMIA_DYNASTY_DAY_11_DEATH_THAT_IS_NOT_THE_END_9_5_26.md
+  banks/BOHEMIA_LASTING_DEATH_THE_SEAT_AND_THE_SCAR_DRAFT_9_5_26.txt (draft:true)
+THE GRIEF WORDS ARE NOT THIS LANE'S. The WORDS lane already shipped Q8 [grief
+talk] and a GRIEF DINNER scene; this round stayed on the machine and did not
+restate them.
+
+SAY THE GOOD PART FIRST: A DEATH ALREADY REORGANISES THE WORLD.
+engine/bohemia_succession.js is 271 lines, IS CALLED (from the mandate module and
+the walked city), and does the thing the craft says works: roles hold
+REQUIREMENTS rather than a hardcoded person, so killing a holder writes a delta
+and the role re-queries; a vacancy is a CONTESTED EVENT WITH A WINNER, never
+silent reassignment, so killing the moderate can hand the seat to a hardliner who
+now hates you; it resolves later on a fuse; and if nobody can fill it the thread
+CLOSES WITH A CONSEQUENCE RIPPLE, never an error. That is "the world keeps the
+consequence", built, and it is the right answer for a game with NO RUNS, because
+the genre's other answer (subtract from the player) is unavailable to us and
+round 4 already showed the fold cannot subtract anyway.
+
+*** BUT THE CLOCK IS THREE ORDERS OF MAGNITUDE SHORT. *** fuseFor returns DAYS:
+two if uncontested, seventeen with five claimants. The locked succession law says
+"the struggle PLAYS OUT over time, not instant. The crazy story consequences
+intentionally bloom in DECADE 2 AND 3." THE MECHANISM IS RIGHT AND THE NUMBER
+CANNOT REACH THE STORY IT SERVES. Same class of gap as round 9's century rule.
+AND A DEATH IN THE FOLD IS ONE BOOLEAN: alive = false, and that is the entire
+consequence of dying in the dynasty engine.
+
+*** AND THE ONLY SCARS IN BOHEMIA ARE ON A MOUNTAIN. *** Searched the engine for
+scar, injury, maimed, crippled. POSITIVE CONTROL FIRST, because this is exactly
+where round 6 caught me: 18 hits for `scar` and most are `scarcity`. The real
+ones are a "rockfall scar" on a cliff face in bohemia_mountain.js ("a fresh pale
+scar", with the boulders that came from it on the talus below), and the words
+"combat scars" inside a comment listing a DISTRICT's standing pressures, which
+drift over beats and can be forward-computed for ten thousand beats.
+THE MOUNTAIN SCARS. THE DISTRICT SCARS. THE PERSON DOES NOT. WE GAVE THE GEOLOGY
+A MEMORY OF INJURY AND NOT THE FAMILY. Scope: engine searched and every hit read,
+slices not swept.
+
+THE BIOLOGY, WHICH IS WHY A SCAR CAN EXIST UNDER NO DAMAGE BEFORE THE DIAL: a
+scar is not damage, it is a repair that never finishes. Mature scar tissue never
+gets back to full strength, never regrows hair, oil or sweat glands, and its
+collagen goes down in parallel bundles instead of the basket weave real skin has,
+so it is stiffer, shinier and visibly different, permanently. Remodelling runs
+twelve to eighteen months and the structural limits stay. A SCAR IS A STATE, NOT
+A SUBTRACTION. The real fraction is deliberately NOT shipped in the bank: the
+shape is ours and the value is his.
+
+A DEATH SHOULD COST A SEAT, A PIECE OF SOMEBODY'S BODY THAT NEVER COMES BACK, AND
+ONE PERSON WHO USED TO ANSWER. Not a life, because we do not have lives.
+
+EIGHTH ROUND OF THE PATTERN, IN ITS SHARPEST FORM YET: rounds 1, 2, 5, 6 found
+the right mechanism on the wrong subject; round 7 the right answer in the wrong
+department; rounds 8 and 9 the permanent things at three-valued resolution; round
+10 the hardest structure already solved in a camera law; round 11 THE RIGHT
+MECHANISM, THE RIGHT SUBJECT, AND A CLOCK TOO SHORT TO REACH THE STORY.
+
+ROUTED (proposals only): WORLD THE-FUSE-CANNOT-REACH-A-DECADE (sits beside round
+9's century-rule row as the same class of gap). CHARACTER or COMBAT A-SCAR-IS-A
+-STATE (the mountain has one and a person does not; no damage number, no health
+number). WORLD THE-FOLD'S-DEATH-IS-ONE-BOOLEAN, folding into rounds 3 and 4's
+existing row rather than opening a new one.
+
 ROUND 10 [final act], SHIPPED.
   records/BOHEMIA_DYNASTY_DAY_10_THE_TRANSCENDENT_LAST_ACT_9_5_26.md
   banks/BOHEMIA_ACT3_THE_SAME_VERBS_FURTHER_OUT_DRAFT_9_5_26.txt (draft:true)

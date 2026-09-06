@@ -1,0 +1,85 @@
+BOHEMIA -- LASTING DEATH: THE SEAT, THE SCAR, AND THE ONE WHO DOES NOT ANSWER
+BANK, 9/5/26, DYNASTY lane, Q11 [lasting death]. RESEARCH MODE.
+
+*** NOTHING IN THIS FILE IS IN THE GAME AND NOTHING IN THIS FILE IS CANON. ***
+draft:true under ALWAYS MAKE AN ATTEMPT (8/11), written as if it ships so he has
+something to edit instead of a blank page. NO DAMAGE, HEALTH OR ARMOUR NUMBER
+APPEARS ANYWHERE, and the real four-fifths figure from the biology is
+deliberately NOT shipped: the shape is "a repair that never fully finishes" and
+how much is his dial. Who dies, when, and what it was about are his.
+THE GRIEF WORDS BELONG TO ANOTHER LANE, which already shipped them. This file is
+the machine's side only.
+Record: records/BOHEMIA_DYNASTY_DAY_11_DEATH_THAT_IS_NOT_THE_END_9_5_26.md
+
+WHY THIS SHAPE
+The old complaint is that death is a loading screen: a game calls it tragic while
+its systems undo it. The fixes that work are all one idea, either something is
+taken and does not come back, or THE WORLD KEEPS THE CONSEQUENCE. We cannot use
+the first one, because THERE ARE NO RUNS and our fold cannot subtract anything.
+We already built the second one. bohemia_succession.js is real and is called: a
+role holds requirements rather than a person, killing the holder opens a VACANCY,
+the vacancy is CONTESTED with a winner rather than silently reassigned, it
+resolves later on a fuse, and if nobody can fill it the thread closes with a
+consequence ripple instead of an error.
+Two things are missing. The fuse resolves in DAYS (two if uncontested, seventeen
+with five claimants) while the locked law says the consequences bloom in DECADE
+TWO AND THREE. And a person cannot carry a mark: the only scars in this game are
+a rockfall scar on a mountain and the words "combat scars" describing a district.
+THE MOUNTAIN SCARS. THE DISTRICT SCARS. THE PERSON DOES NOT.
+The biology says a scar is not damage, it is a repair that never finishes: it
+never gets back to full strength, it never regrows hair, oil or sweat glands, and
+the collagen goes down in parallel bundles instead of the basket weave real skin
+has. Stiffer, shinier, visibly different, permanently. THAT IS A STATE, NOT A
+SUBTRACTION, which is how a permanent injury lives inside NO DAMAGE BEFORE THE
+DIAL.
+
+---- WHAT A DEATH LEAVES, AS A SHAPE ONLY ------------------------------ draft:true
+Structure is ours. Who dies, when, and what it cost are his.
+
+  A SEAT       somebody was doing a job. now nobody is. somebody will be.
+  A SCAR       a part of a body that works differently now and always will
+  A SILENCE    one person who used to answer, and does not
+  A DEBT       whatever they were owed does not stop being owed
+
+---- THE SEAT, WHICH THE WORLD FILLS WITHOUT ASKING YOU ---------------- draft:true
+  SOMEBODY ELSE IS DOING HIS JOB NOW.
+  THEY ARE STILL ARGUING ABOUT WHO.
+  THE ONE WHO GOT IT DOES NOT LIKE YOU.
+  NOBODY TOOK IT. IT JUST STOPPED BEING A THING ANYBODY DOES.
+  THAT SEAT HAS BEEN EMPTY SINCE YOUR FATHER.
+
+---- THE SCAR, WHICH IS A STATE AND NOT A NUMBER ----------------------- draft:true
+  IT CLOSED. IT DID NOT CLOSE RIGHT.
+  NOTHING GROWS THERE NOW.
+  IT IS SHINY. IT PULLS WHEN IT IS COLD.
+  THAT SIDE HAS NOT BEEN THE SAME SINCE.
+  YOU CAN SEE WHERE IT WENT IN.
+  HE HAS THE SAME ONE. NOT FROM THE SAME NIGHT.
+
+---- THE SILENCE ------------------------------------------------------- draft:true
+  YOU WENT TO ASK HER.
+  THERE IS NOBODY TO ASK.
+  HE WAS THE ONE WHO KNEW HOW.
+  YOU STILL WALK PAST THE DOOR.
+  SOMEBODY ELSE ANSWERED. THEY WERE POLITE ABOUT IT.
+
+---- WHAT CARRIES INTO THE NEXT ONE ------------------------------------ draft:true
+  YOU WERE NOT BORN AND IT IS STILL YOURS.
+  THE MARK IS ON HIM. THE REASON IS ON YOU.
+  THEY NEVER FILLED IT AND NOW YOU COULD.
+  THE MAN WHO DID IT IS DEAD. HIS PEOPLE ARE NOT.
+
+---- WHAT THIS DELIBERATELY DOES NOT HAVE ---------------------------- (the refusals)
+No subtraction on a death: no lost money, no lost gear, no lost progress. There
+are no runs and the fold cannot subtract.
+No permadeath. Not the row and not the game.
+No damage, health or armour number, and NOT the real tensile-strength fraction
+either, even though it is true. The shape ships, the value is his.
+No second death system. Succession exists and is correct; what it needs is a
+longer clock, not a rebuild.
+No grief dialogue. Another lane owns that and already shipped it.
+
+WHAT IS HIS AND IS NOT DECIDED HERE
+Who dies and when. How long a fuse should be. How much a scar takes and whether
+it ever eases. Which seat stays empty for a generation. What anybody was owed.
+Every name.
