@@ -7009,6 +7009,90 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 20 [spine first] THE-LADDER-IS-THE-MAIN-LINE, SHIPPED. QUESTS lane, BUILD.
+  engine/bohemia_ladder_data.js   his 53 bosses + his 38 edges, GENERATED
+  engine/bohemia_ladderwalk.js    the walk: place, person, verb
+  tools/bohemia_ladder_data.js    the generator, re-run it after he edits either file
+  gates/ladder_walk_gate.js       43 passed, 0 failed, real surface driven
+  slices/BOHEMIA_CITY_WORLD.html  both modules inlined verbatim + a read-only seam
+  BUILD 9/6ap - THE LADDER IS A WALK
+
+*** THE FINDING: THE GAME HAS NO WALK AT ALL, AND IT NEVER DID. ***
+The pillar is 60 mini bosses each handing you a verb. All 53 written ones are in
+the game and every one hands over its verb, which is finished work and good work.
+But the fight picks the man UNIFORMLY AT RANDOM out of everybody you do not
+already hold:
+    const open = BOSSES.filter(b => !keyHas(b.id));
+    return open[Math.floor(r() * open.length)];
+His 38-edge prerequisite graph -- approved 8/13, with a one-sentence PHYSICAL
+reason on every edge -- is read by two gates and two tools and BY NOTHING THE
+PLAYER TOUCHES. So the fifty-third man can be the first man you meet, and a
+ladder that can be climbed in any order is not a ladder, it is a lottery.
+
+THE THREE COLUMNS THE ROW ASKED FOR, COUNTED AT THE START OF THE GAME:
+    20 men open · 20 with a VERB · 2 with a PLACE · 0 with a PERSON
+    whole ladder: 8 of 53 placed, 45 placeless
+One third of the spine was built and the other two thirds were empty.
+
+*** AND THE PLACE WAS ALREADY IN HIS OWN WRITING, WHICH IS THE GOOD NEWS. ***
+Read his HOLDS column: the last kennel, the last clinic, the golf courses, the
+cemetery, the railyard, the dam, the airfield, the lights on the Strip, the
+pyrolysis plant. HE ALREADY WROTE WHERE EVERY ONE OF THEM STANDS. So nobody has
+to decide this: the man who holds the airfield is at the airfield. The walk
+matches his words against BOH_OVERMAP.DISTRICT -- the 79 district kinds this
+valley actually generates, the city's own vocabulary and not mine -- WHOLE WORD
+ONLY, and carries the matched word out with every placement so any one of them
+can be argued with by pointing at two files. NOT ONE PAIRING IS HAND-WRITTEN.
+
+THE 45 PLACELESS MEN ARE THE REAL WORK AND THEY ARE A WORLD JOB, NOT A QUEST ONE.
+This valley does not build a kennel, a clinic under that name, a forge, a
+bioreactor, a printing press or a batch plant. Those men have nowhere to stand
+because the place does not exist yet, not because the ladder is wrong.
+
+*** A BUG CAUGHT BEFORE IT SHIPPED, AND ASSERTED DEAD FOREVER IN THE GATE. ***
+The first matcher used substrings in both directions and confidently placed
+THE LOCKSMITH at "blockgen" (block contains lock), THE CHEMIST at "agents"
+(reagents contains agents) and THE WALL at "standing". Every one of those would
+have read as CANON, because a place is not the sort of thing a player checks.
+That is the second round running where the dangerous failure was a confident
+wrong answer rather than a crash. Whole-word matching now, and those three
+specific false matches are regression-tested by name.
+
+ALSO MEASURED: the fight publishes bohemiaKeys to the parent window every time a
+key comes off a body, and NOTHING OUTSIDE THE FIGHT HAD EVER READ IT. The walk
+reads it now, so what you hold decides what is open to you.
+
+NOBODY TYPED A BOSS. The data module is generated from his ladder and his graph,
+and the gate re-parses BOTH SOURCES and compares field by field: 0 drifted. Same
+pattern the mini-boss patch has held at zero drift since 8/27. ONE RULER, always
+his two files. The walk module itself carries no ladder data at all, so it cannot
+drift: it has nothing to drift with.
+
+WHAT IS DELIBERATELY NOT DONE
+  - THE FIGHT STILL ROLLS AT RANDOM. rollBoss belongs to COMBAT, and COMBAT holds
+    a claimed row right now. Reaching into it from here is exactly the cross-lane
+    write ONE SYSTEM, ONE SESSION forbids. The walk is ready for whoever owns
+    that call to consume.
+  - NO CARD YET. The walk is computed and readable on the surface; it is not yet
+    a thing you tap.
+  - THE MISSING SEVEN OF SIXTY are not written, and the ladder's own header calls
+    itself "a pool to cut from, not a shipping list". I did not write seven
+    bosses: that is his content. AND THE REAL BOTTLENECK IS NOT THE SEVEN --
+    tools/bohemia_ladder_graph.js already measures that physics alone opens 20
+    doors against his 4-to-6 band, and that closing 14 of them needs a QUEST GATE
+    WHICH IS HIS CALL. I did not re-derive that measurement. ONE RULER.
+
+GATES: ladder_walk 43/0, asks_visible 38/0, alpha_loads 20/0, city_tab 64/0,
+inlined_fresh 3/0, one_engine 3/0, boss_ladder 87/0, ladder_graph 30/0,
+nomarkers 6/0, handoff 7/0, attempt 15/0, reply_contract 17/0,
+pages_publish 18/0, answered GREEN.
+
+[STILL NOT MINE, STILL NOT FIXED] reusefirst_gate.py is 201/4 red on four other
+lanes' tool files and was already red on main before I touched anything.
+
+NEXT OPEN QUESTS ROW: [main story] MAIN-QUEST-SPINE, which the board itself calls
+the single largest hole in the game. Eight rows open behind it.
+
 ROUND 19 [asks exist] THE-WORLD-DOES-THE-ASKING, SHIPPED. QUESTS lane, MODE:
 BUILD, so this round is CODE, not a record. The DYNASTY research rounds 1-18 are
 below and unchanged.
