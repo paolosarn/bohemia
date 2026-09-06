@@ -938,3 +938,106 @@ BROTHER  Pass the salt.                                                [time off
   A  No.
 # Without the hold the answer arrives on top of the question and reads as a
 # reflex. With it, the player watches somebody decide.
+
+## Q15 -- HOW A FEED TALKS  (9/5/26)
+# The finding: the feed stream is built right (it emits diffs, not descriptions)
+# and the VOICE is a press release wearing a warm lowercase costume. Ran the one
+# ruler that defines that register, "does this post name a human who did something,
+# or talk to a human who will":
+#     5 of 14 posts YES.  9 of 14 NO.  4 of the 9 use "somebody" as the hole
+#     where a person goes.
+# And it splits perfectly by source: ALL FOUR posts that report actual news have no
+# human agent, while five of the ten that report nothing happening do. The posts
+# that report something happening have no people in them.
+# A real neighbourhood feed measured ~116,000 posts against ~164,000 COMMENTS, and
+# the most frequent post is somebody WANTING SOMETHING. We have zero requests and
+# zero replies.
+#
+# THE RULES EVERY POST BELOW OBEYS:
+# 1. It names somebody, or it talks to the reader. If neither, it does not post.
+# 2. "somebody" is BANNED as an agent. Either we know who, or it is about the thing.
+# 3. A deed post is a report from a mouth: a place, one detail, and a distance.
+# 4. Lowercase, because that is already the feed's voice and it is correct.
+# Names below come from the engine's own generated pool. Nothing here is canon.
+
+### FIVE DEED POSTS. What you did, said by somebody who is not the game.  draft:true
+# The current shape, kept so the difference is visible:
+#   @keeper  "word is you did right by keeper."
+# Three faults in six words: "word is" is a rumour marker on a certainty the game
+# read out of its own ledger, "keeper" is a job title and not a person, and "did
+# right by" is the ledger's plus sign in a costume.
+  @nightcount   the pump on the east side ran past dark and it was not
+                Amos who turned it on. one of you knows.                    [0 hops]
+  @waterline    whoever put the pad back on the far standpipe, the queue
+                was forty minutes shorter this morning. thank you.          [0 hops]
+  @thecircuit   Delroy says the man who came for the meter left without it.
+                Delroy says a lot of things but he was standing right there. [1 hop]
+  @nobodysgas   heard somebody paid a whole month at once up on the short
+                block. nobody pays a whole month at once.                   [2 hops]
+  @thevalley    everybody has a version of what happened at the fence and
+                not one of them has a name in it. that is usually the tell. [3 hops]
+# The hop count is ALREADY COMPUTED (Q13) and it decides how much the post knows.
+# At zero hops it has the place and the detail. At three it has only a shape.
+
+### FIVE WORLD POSTS. The same four sources, with people put back in. draft:true
+# Current, all four with no human agent:
+#   "3 blocks went dark. nobody is saying why."
+#   "water is up to 3 batteries. it was 2 last week."
+#   "REDS is a town now. it was a camp."
+#   "somebody has put a roof up where there was nothing. good."
+  LIGHTS    three blocks went dark at nine. Consuelo was on her step when it
+            went and she says it did not flicker first. that matters.
+  PRICES    water is three batteries. it was two last week. Marisol has stopped
+            arguing about it, which is worse than her arguing about it.
+  SEATS     the Reds put a wall up on the north side and are calling it a town
+            now. ask anybody who lived on that side last month.
+  BUILDING  there is a roof on the corner lot. Ruben did it in four days with
+            two people and nobody has asked him how.
+  LIGHTS    the lit street is still lit. eleven years and nobody has ever changed
+            a bulb on it. somebody is paying for that and it is not us.
+# Same four data sources, same numbers, and every one now has a person standing
+# in it. Nothing new is computed; the post just says who.
+
+### THE REQUEST, WHICH IS THE MOST COMMON REAL POST AND WE HAVE NONE  draft:true
+# Measured as the single most frequent kind of post in a real neighbourhood feed.
+# It is also the cheapest quest hook a city screen could have.
+  @waterline    anybody got a length of half inch. i have got a full cell for it
+                and i am not proud.
+  @duststop     my dog went out the back on tuesday. brown, one ear up. she does
+                not come to strangers so do not chase her, just tell me.
+  @marisol_v    who is driving north friday. i will pay and i will not talk.
+  @nightcount   need two people for an hour on saturday. lifting, not fighting.
+  @thecircuit   does anyone have the old man from the ridge's actual name. i have
+                been calling him the old man from the ridge for a year.
+# That last one is the naming problem (Q12) posted to the feed by the city itself.
+
+### THE REPLY, BECAUSE A REAL FEED IS MORE THAN HALF REPLIES   draft:true
+# ~1.4 comments per post in the real measurement. We have zero. Two posts under one
+# event, disagreeing, is the deliberation shape rumour actually has (Q13).
+  @thevalley    three blocks went dark at nine.
+    @nightcount   four. the corner one has been out since eight and nobody counts it.
+    @waterline    it is not the grid. go and look at the pole.
+    @thevalley    then say what it is instead of saying what it is not.
+  @nobodysgas   water is three batteries.
+    @marisol_v    it was three last winter too and then it was five by spring.
+    @duststop     you say that every year.
+    @marisol_v    and every year i have been right, so.
+
+### THE UGLY THREAD, WHICH IS THE REAL ONE   draft:true
+# The recurring content of a real neighbourhood feed is publicly naming people who
+# are perceived not to belong, usually over something small, and it is heaviest
+# where a neighbourhood is changing hands. In a valley cut into faction territory
+# that is not a dark detail, it is the main thread. It is also where the feed, the
+# rumour system and naming become one feature: a post with a name in it that may
+# not be true.
+  @thevalley    two men on the short block this morning who i have not seen before.
+    @nightcount   they are with the Reds. look at the coats.
+    @waterline    they were carrying pipe, not looking at doors. leave it.
+    @thevalley    i am just saying what i saw.
+    @waterline    you are not, though.
+# Nobody is proved right. The player can go and look. That is the whole design.
+
+### AND THE POST THAT IS ALREADY PERFECT, KEPT   draft:true
+# When nothing is worth saying, the file already has the right line and it should
+# never be rewritten:
+  @thevalley    quiet day. nobody has anything to say and that is its own news.

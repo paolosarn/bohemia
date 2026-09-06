@@ -1,3 +1,148 @@
+WORDS (words-8dqrnq): 9/5 (l) LATEST -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
+RESEARCH QUEUE Q1 TO Q15 IS NOW ALL SHIPPED. THE CITY FEED IS A PRESS RELEASE IN A
+WARM LOWERCASE COSTUME: EVERY POST THAT CARRIES ACTUAL NEWS HAS NO PERSON IN IT. ***
+Nothing to judge, MODE: RESEARCH, nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+VAMILY row: Q15 [feed voice], MODE: RESEARCH, SHIPPED 9/5.
+Record: records/BOHEMIA_WORDS_Q15_HOW_A_FEED_TALKS_9_5_26.md
+Test material: banks/BOHEMIA_WORDS_TEST_LINES.md, section Q15, all draft:true.
+Five deed posts and five world posts, as the row asked for, plus requests and replies.
+NOTHING SHIPPED INTO THE GAME. Research round.
+
+WHAT IS ACTUALLY THERE, AND IT IS GOOD WORK: engine/bohemia_feedstream.js shipped
+this round from another lane and is built RIGHT. It emits DIFFS not descriptions, so
+the first drain is silent ("the grid is at 358" is not news, "the grid just lost a
+block" is). It reads the deed ledger, power map, price table and faction graph and
+invents nothing, and its own header says the text is draft:true and WORDS owns the
+voice. THIS ROUND IS THE VOICE, NOT A REDESIGN.
+    16 post call sites, 14 carrying text.
+     1  what YOU did      4  what the WORLD did      10  ambient life
+     8  handles: @thecircuit @nobodysgas @thevalley @eastwardEve @nightcount
+                @waterline @duststop @marisol_v
+
+THE FINDING. The literature on bureaucratic language is blunt about what makes it
+bureaucratic and it is not long words: it is nominalisation and the agentless
+passive, and its purpose is uniform, TO ERASE AND EFFACE ANY ACTIVE AGENT. So I ran
+that ruler on all fourteen posts by hand: does this name a human who did something,
+or address a human who will?
+    5 of 14  YES     9 of 14  NO     4 of the 9 use "somebody" as the hole
+AND IT SPLITS PERFECTLY BY SOURCE:
+    the DEED post           no agent    "word is you did right by X"
+    all 4 WORLD posts       no agent, 0 of 4
+    the 10 AMBIENT posts    5 of 10 have one
+THE POSTS THAT REPORT SOMETHING HAPPENING HAVE NO PEOPLE IN THEM. THE POSTS THAT
+REPORT NOTHING HAPPENING DO. Exactly backwards, and it is not a style problem, it
+is the definition of the register the question asked us to avoid.
+    NO AGENT  "3 blocks went dark. nobody is saying why."
+    NO AGENT  "water is up to 3 batteries. it was 2 last week."
+    HAS ONE   "queue at the standpipe already. bring something to sit on."
+    HAS ONE   "wind off the dry lake all afternoon. tape your windows."
+The good ones share one shape: SOMEBODY SAW A THING AND IS TELLING YOU TO DO
+SOMETHING ABOUT IT. An observer and an addressee. That is a neighbour.
+
+AND THE WEAKEST LINE IS THE ONE HE WILL READ MOST. The deed post, the whole point of
+the feature, is "word is you did right by keeper." Three faults in six words:
+"word is" is a RUMOUR MARKER stuck on a certainty the game read out of its own
+ledger (and Q13 measured the hop system, so we can say the distance and are guessing
+instead); "keeper" is a JOB TITLE not a person (Q12: 57 speakers, zero names, and
+64 given names the engine never speaks); and "did right by" is the ledger's plus
+sign in a costume, with no place, no detail and no consequence.
+
+WHAT A REAL SMALL-COMMUNITY FEED SOUNDS LIKE. A study of 30 neighbourhood feeds
+collected ~116,000 POSTS AGAINST ~164,000 COMMENTS. MORE COMMENTS THAN POSTS, about
+1.4 replies each. A real feed is MAJORITY REPLY. Ours is fourteen monologues from
+eight handles who have never once addressed each other.
+What people actually post, in measured frequency order:
+    1. SEEKING OR OFFERING SOMETHING   the most frequent kind
+    2. LOGISTICS                       lost animals, transport, events
+    3. PLEASANTRIES                    good wishes, and the weather
+NUMBER ONE IS SOMEBODY WANTING SOMETHING FROM A NEIGHBOUR AND WE HAVE NONE OF IT.
+Nobody in this valley ever asks the valley for anything. Number three is the one we
+already do best, and both our strongest posts are weather.
+AND THE UGLY ONE, WHICH BELONGS IN THIS GAME MORE THAN ANY OF IT: the recurring
+content of a real neighbourhood feed is publicly naming perceived OUTSIDERS, usually
+over something small, heaviest where a neighbourhood is changing hands. In a valley
+cut into faction territory that is not a dark detail, it is the MAIN THREAD, and it
+is where the feed, the rumour system and naming become ONE feature: a post about
+somebody who does not belong, with a name in it, that may not be true.
+
+WHAT GAMES DO, HONESTLY: NOT MUCH, and I am not inflating it. Generated activity
+feeds are mostly achievement plumbing, and one such system's own documentation
+admits its posts "typically do not provide the viewer with much context for
+understanding what happened". The real work named in that literature is deciding
+WHICH events are worth posting at all. So this is open ground and the bar to beat is
+low: not another game's feed, but whether a person reading ours learns something
+nobody told them, which is what he asked for ("you'll learn more about the world").
+
+THE SPEC:
+1. EVERY POST NAMES SOMEBODY OR TALKS TO SOMEBODY. That one rule kills the register
+   outright, because deleting the agent is the whole of what that register is. If a
+   post can do neither, it is a status bar and should not post.
+2. "SOMEBODY" IS BANNED AS AN AGENT. It is our agentless passive with a friendly face.
+3. THE DEED POST IS A REPORT FROM A MOUTH: a place, one detail, and a DISTANCE. The
+   hop count is already computed, so a thing you did in front of people should read
+   differently from a thing that reached this handle third-hand.
+4. SOMEBODY ASKS FOR SOMETHING. The most common real post, and the cheapest quest
+   hook a city screen could have.
+5. AND SOMEBODY REPLIES. Two posts under one event, disagreeing.
+6. NOT EVERY EVENT IS A POST. A feed that reports every diff is a log.
+
+ROUTED OUT OF THIS ROUND:
+- LIFE + CITY: the stream is built correctly; this is a voice pass on its strings,
+  not a change to its sources. Two shapes it lacks and a real feed leads with: a
+  REQUEST and a REPLY.
+- PEOPLE: THIRD round asking the same thing from two directions. The deed post says
+  "keeper" because the 64 names never reach a mouth (Q12) and says "word is" because
+  the hop count never reaches a mouth (Q13). The feed is the surface where both
+  would be visible to the player for the first time.
+- UI: a post that names a person is a post the player can want to tap; a post that
+  reports a number is not.
+- WORDS, held until MODE: BUILD: THE-FEED-HAS-PEOPLE-IN-IT.
+
+*** THE RESEARCH QUEUE Q1 TO Q15 IS NOW ALL SHIPPED. What remains in this lane:
+Q16 [cut off] (research, still OPEN) and four BUILD rows held until Paolo returns
+this lane to MODE: BUILD -- BB-THE-SMALL-MOMENT [small moments], BB-STILL-SAYS-IT
+[trade slang], BB-RESPONSIVE [reputation lines], SECOND-VOICE-PASS [voice pass].
+Plus the six new rows this queue generated, all held: ONE-LINE-PER-TRADE,
+KILL-THE-DISCLAIMER, MOOD-ON-EVERY-LINE, SAY-THE-NAME, NEWS-ABOUT-SOMEBODY-ELSE,
+ANSWER-IN-ONE-WORD, THE-FEED-HAS-PEOPLE-IN-IT. Only the coordinator adds rows, so
+those live in their records until he does. ***
+
+THE ONE THING THAT WOULD UNBLOCK THE MOST, ACROSS FOUR ROUNDS: engine facePerform is
+called with {} while 229 mood tags ride in the shipped demo (Q11, Q14). And the same
+shape twice more: 64 names never spoken (Q12), a hop count computed and never spoken
+(Q13, Q15). WE KEEP BUILDING THE HARD HALF AND SKIPPING THE WIRE.
+
+STILL CARRIED:
+- UI has now been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES, ALL GREEN, RUN THIS ROUND:
+    voice 111/0, attempt 15/0, dialogue catalogue 63/0, language 81/0, handoff 7/0
+
+NEXT: Q16 [cut off], the last open research row.
+
 EYES AND EARS (eyes-5vql33): 9/5 (g) LATEST -- *** E7 [reference score] SHIPPED. The 9/4
 compare law now has a SCORE SHEET: ten yes/no questions, SEVEN OF THEM A MACHINE ANSWERS,
 three only a person can. And running it to validate itself found something: THE ACT-1
@@ -266,7 +411,7 @@ NEXT IN THIS LANE: Q14 [rent share].
 
 ================================================================================
 
-WORDS (words-8dqrnq): 9/5 (k) LATEST -- *** VAMILY Q14 [one-word answers] SHIPPED. MORE
+WORDS (words-8dqrnq): 9/5 (k) -- *** VAMILY Q14 [one-word answers] SHIPPED. MORE
 THAN A THIRD OF EVERY REAL ANSWER TO A QUESTION IS ONE WORD. WE HAVE FIVE ONE-WORD
 LINES IN THE WHOLE GAME. NOT FIVE PERCENT, FIVE LINES. *** Nothing to judge, MODE:
 RESEARCH, nothing entered the game.
