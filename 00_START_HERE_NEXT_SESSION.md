@@ -3723,61 +3723,65 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/6 LATEST -- *** THE TEN TILES ARE NOT LIT FROM THE WRONG CORNER.
-The board row said "fix the ten"; measured three ways, there are none to fix, and the
-ruler that found them is backwards rather than merely noisy. NO ART WAS CHANGED. The
-question is kept as a gate instead. [light agrees] SHIPPED. NOT IN A TAB -- this round
-changed no pixel a player can see, on purpose. ***
+COOK (cook-mce6r5): 9/6 LATEST -- *** THE BORDER WEARS ITS COLOUR WHERE HE WALKS. Stand
+on the edge of a faction's ground and the wall beside you now carries that faction's own
+colour. 78% of the border reaches; the suburb is the other 22% and is round 2. TAB: CITY,
+walking. Nothing to judge. ***
 
-THE JOB WAS [light agrees] TEN TILES ARE LIT FROM THE WRONG CORNER (EYES E7, 9/5):
-road_0, road_1, road_2, road_centre, dirt, garage_bottom, roof_slope, roof_hipTL,
-roof_hipBR, roof_deck, all reported as lit from a different corner than the tile they
-REPLACED. E7's own finding REPRODUCES EXACTLY -- the same ten, to the digit. Then it
-falls apart in two places.
+THE JOB: [border marked] THE-BORDER-WEARS-ITS-COLOUR, CLAIMED, CONTINUING. Round 1 of 2.
+Both dependencies landed first and neither of them is this: FACTIONS [who holds] (8bf3a91)
+made the border REAL (100% of the places two owners meet run along a road, a rail line, a
+wash or a mountain), FACTIONS [colours fixed] (0160c71) made the colour REACHABLE, and UI
+[owner shown] painted it ON THE MAP. A MAP IS NOT WHERE HE WALKS.
 
-  1. IT MEASURES PIXELS THE GAME NEVER DRAWS. key_light() does .convert('RGB'), which
-     turns every transparent pixel BLACK. roof_hipTL is a corner piece: 48.9% opaque, and
-     the re-cooked and approved alpha masks are IDENTICAL. Flattened to RGB it reads as a
-     67-unit gradient into the lower right, the loudest number in the report. On the
-     pixels actually drawn its horizontal gradient is +3.86 against the approved +4.27.
-  2. IT TAKES THE SIGN OF A DIFFERENCE WITH NO THRESHOLD. A road tile is deliberately
-     flat top to bottom, so the sign is a coin flip: roof_deck's vertical difference is
-     0.07 of 255 on one side and 0.10 on the other. Nine of the ten were flagged on an
-     axis carrying no light direction at all, and on every axis where both tiles ARE
-     decided, they agree.
+THE REFERENCE CHECK (the 9/4 standing duty, done before any pixel): police-intelligence
+write-ups on gang boundary graffiti -- policemag.com, police1.com, the ASU Center for
+Problem-Oriented Policing, gangenforcement.com. TAKEN: (1) a boundary mark is a
+NO-TRESPASSING SIGN AIMED AT THE OTHER SIDE, so it is the holder's colour on the holder's
+edge facing out; (2) the places named are "main thoroughfares, underpasses, and walls
+bordering rival territories", WHICH IS THE ROW'S OWN LIST arrived at independently;
+(3) "large and plain surfaces are preferred, without windows or doors"; (4) a mark is a
+NAME OR SYMBOL repeated along the boundary, NOT a wash of colour. NOT TAKEN: the
+crossing-out vocabulary (a rival's mark struck through, both claims where they meet) --
+that needs the contested edge as a PAIR rather than a cell, and it is named as next rather
+than half-built. STYLE FROM US: the hue is HIS, measured off his wardrobe and never picked
+here, and the mark is thin -- a 3 px band on a 44 px face.
 
-AND IT IS BACKWARDS, NOT MERELY NOISY. Rank all 42 shared tiles by how far apart the two
-banks' gradients actually are (as a share of the tiles' own contrast) and the flagged ten
-land at ranks 4, 5, 9, 20, 23, 27, 28, 35, 37 and 40 of 42. Six sit in the BOTTOM HALF.
-roof_hipBR, flagged, is the SECOND MOST SIMILAR pair in the whole set at 0.016. The
-furthest apart, wall_0 at 0.311, was not flagged. And wall_0 is not a wrong corner either
--- vertical +2.17 against +5.92, the same direction, weaker. NOTHING IN THE 42 IS LIT FROM
-THE WRONG CORNER.
+WHAT SHIPPED, in three places: bohBorderInk() beside the turf cache (the map's copy lifts
+value AND saturation hard and is right to, because an overmap is drawn at night; A WALL IS
+NOT A MAP, so this keeps his value and lifts only saturation, and a drab faction keeps its
+drab); the tile builder sets c.turfMark on a plain wall or fence face in the band of a
+border cell that FACES THE RIVAL; the structure draw paints it on the wall and under the
+edge lines, so the shadow at the foot still falls across it.
 
-SO NO ART WAS CHANGED. Changing ten tiles to satisfy a sign test on invisible pixels is
-the thing this repo forbids in as many words: FIX THE RULER, NEVER THE TARGET (8/1). The
-alpha, the demo and the walked city are byte-identical to before this round, which is why
-there is no build stamp bump and no demo re-cut -- a stamp that moves when nothing moved
-is a lie to him.
+MEASURED ON THE REAL SURFACE, AND IT CORRECTED ME FOUR TIMES
+(tools/bohemia_border_paint_probe_9_6_26.js, the alpha's RUN tab, the frame he is inside):
+  1. THE FIRST CUT PAINTED THE WHOLE NEIGHBOURHOOD. Any plain wall anywhere in a border
+     cell, one in three -- and an overmap cell is 128 x 128 walked tiles, so that is ten
+     marks per 16,384 cells, scattered mid-block saying nothing. Now: the eighth of the
+     cell that touches the rival, on that side only, one face in two.
+  2. THE FIRST PROBE REPORTED ZERO OF EVERYTHING ON A WORKING BUILD. It asked tileMeta for
+     cells; tileMeta returns kit CODES and no cells. cellAt() is what a walk calls.
+  3. THE FILTER TESTED THE KIND, AND THE KIND IS NOT WHAT EVERY DISTRICT AGREES ON. The
+     city's legend calls code 4 kind:'fence'; a district KIT writes its own. The apartment
+     kit's 756 fences are kind:'structure' name:'fence'. Testing the kind found the solar
+     farm and missed everywhere anybody lives. THE NAME is what every kit agrees on.
+  4. AND THE SAMPLE ONLY SAW THE RIM -- twelve border cells in scan order are all solar,
+     freeway and mountain. Spread across the valley now.
 
-WHAT SHIPPED IS THE QUESTION, KEPT: gates/light_agrees_gate.py, registered as LIGHT
-AGREES. Every tile's light direction must agree with the tile it replaced on every axis
-where both have a direction, opaque pixels only; no tile may drift further from its
-predecessor than the worst does today (ratchet pinned at wall_0's 0.311); AND THE RULER IS
-SELF-TESTED BOTH WAYS EVERY RUN so it cannot quietly stop working the way its predecessor
-did -- a tile against its own mirror must be caught, a black-under-alpha corner must not.
-Mutation-tested on the real bank: turn garage_bottom upside down and it goes red twice at
-a gap of 1.274 against the 0.312 pin.
+WHAT IT DOES: marks land on border cells in the holder's measured colour; ZERO on interior
+cells (checked, and it is the point); ZERO on the 605-1290 rock faces of a mountain border
+cell (nobody sprays a cliff); 64, 8 and 3 marks on freeway cells, which is the sound wall
+and the fence along the thoroughfare -- the reference's first named place.
 
-[FOR EYES AND EARS, lane 17, E7's owner] tools/bohemia_eyes_reference_score.py,
-  key_light(). TWO LINES FIX IT and I have not touched your tool: mask to alpha > 0 before
-  taking the luminance, and return "undecided" on an axis whose half-difference is under
-  about a tenth of the tile's own standard deviation. Question 6 then reads "the lit
-  corner agrees, OR neither tile has one" instead of forcing a yes/no. The sheet is a good
-  instrument and the other six questions are unaffected; the fixed ruler is in
-  gates/light_agrees_gate.py if it is easier to lift than to rewrite.
-[FOR THE COORDINATOR] the E7 row's premise was wrong. Worth knowing before another row is
-  written straight from a research finding that no lane has re-measured.
+*** WHAT IS NOT DONE, AND IT IS 22% OF THE BORDER *** The mark rides the DISTRICT KIT path,
+which needs a kit legend to tell a fence from a window. Measured over every 7th border cell
+in the valley: 346 of 446 have a kit legend and are reached; 100 of 446 are drawn the older
+PARAMETRIC way and carry no legend -- 99 suburb, 1 gated. So the suburb, where most people
+live and where garden walls actually are, is not painted yet. Round 2 is exactly that: the
+parametric suburb path sets c.s and c.face without ever building a legend entry, so the
+branch this mark lives on never sees it.
+
 [PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (from
   [runway hair]). All eleven survivors are black, brown or sand and a worn hair garment
   draws in its own baked ramp, so RAY the father, the Church and the old wide-brim citizen
@@ -3785,32 +3789,27 @@ a gap of 1.274 against the 0.312 pin.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
 [FOR DIRECTION] the style card has NO HAIR SECTION and its cloth bands must not be applied
   to hair (cloth_sat_max 0.25 fails H_BRN at 0.54 and H_SND at 0.47 and would grey every
-  head in the valley). Two things might genuinely apply and both are COLOUR: hair ramps
-  are 3 steps against the card's 4-6 band, and H_BLK's dark step sits at value 0.063
-  against the card's floor of 0.08. Also: the card's POLE A/POLE B shoulder-span number is
-  unmeetable by any dressed sprite.
-[FOR THE PLUMBER] look_gate clocks pictures by FILE MTIME (proven: move only the
-  timestamps on unchanged origin/main and it calls all 52 stale); city_cast_gate B6 is
-  flaky (3 red of 4 runs on unchanged main); bohemia_gates.py --fast is documented
+  head in the valley). Also: the card's POLE A/POLE B shoulder-span number is unmeetable by
+  any dressed sprite.
+[FOR EYES AND EARS] tools/bohemia_eyes_reference_score.py, key_light(): mask to alpha > 0
+  and return "undecided" under about a tenth of the tile's own standard deviation. The
+  fixed ruler is in gates/light_agrees_gate.js if it is easier to lift than to rewrite.
+[FOR THE PLUMBER] look_gate clocks pictures by FILE MTIME (proven on unchanged
+  origin/main); city_cast_gate B6 is flaky (3 red of 4 runs on unchanged main, and it is
+  red on this round too for the same reason); bohemia_gates.py --fast is documented
   "~2s vs ~4min" and ran 34 minutes without finishing.
-NOT MINE, red on clean origin/main with identical counts: target_match_gate 278/1 (a
-  CBB-frozen frame changed) and canvas_memory_gate 27/3 (its own output says "reported,
-  not failed -- every lane touches the alpha every ship").
 
-FILES  gates/light_agrees_gate.py (5 checks, two of them self-tests of its own ruler),
-records/BOHEMIA_THE_TEN_TILES_ARE_NOT_LIT_WRONG_9_6_26.md. Registered in
-gates/bohemia_gates.py as LIGHT AGREES.
+FILES  tools/bohemia_border_wears_its_colour_9_6_26.py (the cook, three exact-once
+substitutions), tools/bohemia_border_paint_probe_9_6_26.js (the measurement),
+records/BOHEMIA_THE_BORDER_WEARS_ITS_COLOUR_9_6_26.md. Previous rounds:
+gates/light_agrees_gate.js, gates/hair_eight_facings_gate.js, gates/hair_graveyard_gate.js.
 
-*** WHAT COMES NEXT *** The first OPEN line in COOK is [border marked]
-THE-BORDER-WEARS-ITS-COLOUR -- cook the edge, so a territory border is marked where a
-player can see it, in the holder's colour, on the wall, the fence, the underpass (COLOUR
-IS TERRITORY 8/26, the one-pixel border law 8/16, and the real thing: gangs mark
-boundaries in paint on the landmark that divides them). Tab: CITY. IT HAS A DEPENDENCY:
-the line says it needs FACTIONS [who holds] for who owns which side, and FACTIONS has a
-[colours fixed] COLOUR-AUDIT claimed precisely because "two other lanes are blocked on a
-faction colour number that does not exist outside the alpha's wardrobe: UI [owner shown]
-and COOK [border marked]". CHECK THAT LANE'S STATE FIRST -- if the colour number still
-does not exist, say so and take the next line rather than inventing one.
+*** WHAT COMES NEXT *** [border marked] round 2: the suburb. Find where the parametric
+suburb path sets c.s and c.face for a perimeter wall or side fence, and give the same
+c.turfMark to a border cell's rival-facing band there. The mechanism is built and proven;
+what is missing is that one path cannot name its own tiles. Re-run the probe after -- the
+number to move is "346 of 446 reached" toward 446, and the suburb rows in the per-cell
+table from 0 marks to some.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
