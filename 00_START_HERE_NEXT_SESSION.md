@@ -1,3 +1,71 @@
+FACTIONS (factions-ovkjpf): 9/6 (round 10) LATEST -- *** [enemies unite]
+BB-COALITION SHIPPED, this lane's half. WORLD built the coalition and the card;
+formed() had ONE CALLER in the whole game and it was that card. Now a member of
+either side actually treats you like it. *** Nothing to judge.
+
+VAMILY row: [enemies unite] BB-COALITION (with WORLD), MODE: BUILD, SHIPPED 9/6.
+Record: records/BOHEMIA_A_COALITION_YOU_CAN_MEET_9_6_26.md
+WORLD's half: records/BOHEMIA_THE_WORLD_GETS_ORGANISED_9_6_26.md (aace2d9)
+
+WHAT THE JOINT HALF WAS
+The row's sentence is "the enemies who were spending their strength on each other
+POINT ALL OF IT AT YOU". WORLD made the coalition form and named it on the
+STANDING card. Nothing else in the game asked. ctAgainstMe -- the organ deciding
+whether a body watches you, keeps near you, refuses you or blocks a door -- reads
+only their outfit versus yours and their own opinion of you. So the card could say
+AGAINST YOU: Cartel + Remnants and a Remnant in the street stayed neutral.
+
+WHAT SHIPPED. A third reason in bohemia_against: their outfit joined a quarrel
+that was not theirs. Worst of the three wins; the coalition only explains itself
+when it IS the reason. THE LEVEL IS COPIED OFF THE ALLY, never invented -- joined
+a war, at war; joined a grudge, a grudge. No fourth level, and a coalition of
+people who merely dislike you cannot manufacture a war.
+
+ON THE WALKED SURFACE
+  clean run                   Cartel: nothing
+  two enemies who also
+    hate each other           Cartel + Remnants forms
+  either member reads         hostile / joined  (watch, keep near, refuse)
+  an uninvolved Church        nothing
+  peace with the Cartel       Remnants back to nothing
+
+*** THE FAULT TO REMEMBER. *** The first cut read the ally's level from
+ctRelToMine, which is OUTFIT VERSUS OUTFIT -- and a player with no outfit of their
+own has no ripples, so it returned null for both members and did nothing WHILE THE
+PAIR HAD REALLY FORMED. formed:["Cartel+Remnants"] and readCartel:"nothing" in the
+same measurement. A coalition forms off rungStandings, the DEED LEDGER, so that is
+the axis its level must come from.
+
+AND A GREP IS NOT A TEST. The first version of the gate claim about that fault was
+a grep; it went red on its own string arithmetic while the behaviour was correct.
+THREE SEPARATE FAULTS THIS SESSION PASSED GREPS WHILE THE THING DID NOTHING (the
+town-sizes panel rendering nothing, the buttons reading 0x0 behind the splash, and
+this). Drive the surface.
+
+GATES  coalition 38/0 (was 28), faction between 182/0, turf 43/0,
+       faction towns 48/0, demo build 25/0, alpha loads 20/0
+
+[PENDING Paolo] -- THREE, ALL CARRIED, NOTHING NEW
+  1. Anarchists, Colorful and Custom are called non-territorial by his own notes
+     and still hold ground. Should they at all?
+  2. What it COSTS to be seen with one of the four hidden factions, or taken for
+     one. (WORLD also carries: what a coalition should DO beyond pointing the same
+     strength at you.)
+  3. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
+     Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
+     Network and Mob are squatting. Also: is the Cartel drab on purpose? The law
+     names two drab factions, the gate carries three.
+
+NEXT IN THIS LANE (top unblocked, in order)
+  [broke raiders]  BB-UNPAID-TURNS-PREDATORY -- the row BB-COALITION itself names
+    as its pair: "an outfit that loses its income goes roving, and a roving outfit
+    is who somebody else recruits"
+  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- already decided, needs the dial
+  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() answers who you pay for any
+    block and the Network's circuits are already flagged free
+
+--------------------------------------------------------------------------------
+
 WORDS (words-8dqrnq): 9/6 (d) LATEST -- *** Q2 [stressed speech] SCHOOL DONE, ROUND ONE OF
 TWO. THE ROW'S OWN BRIEF NAMES HESITATION FIRST, AND HESITATION IS ON THE MEASURED LIST OF
 THINGS THAT DO NOT INDICATE LYING. We were about to write folklore, and the same folklore,
