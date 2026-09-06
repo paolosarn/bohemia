@@ -4,22 +4,9 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 330
-SUN CROP|hair|#523a26|
-DUSK SHAG|hair|#201e1b|
+# count: 317
 TEMPLE TAPER|hair|#201e1b|
-ASH SWEEP|hair|#686870|
-SALT CROWN|hair|#686870|
-BUZZ CUT|hair|#201e1b|
-CROP|hair|#523a26|
-SLICK BACK|hair|#201e1b|
-BOWL CUT|hair|#523a26|
-FRINGE|hair|#201e1b|
 SHAG|hair|#523a26|
-SHOULDER LENGTH|hair|#967850|
-LONG LOOSE|hair|#523a26|
-WOLF CUT|hair|#201e1b|
-GREY WISPS|hair|#babac2|
 ROPE LOCKS|hair|#201e1b|
 SHORT ROPES|hair|#523a26|
 DUST WEAVE|hair|#523a26|

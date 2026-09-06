@@ -134,6 +134,7 @@ fix, standing in a doorway froze a neighbour for the rest of the day.
 DRESS's freshness count was red at **231 banked vs 236 canon**. The bank was not
 stale; **the parser was**.
 
+(SUN CROP is DEAD as of 8/20/26 -- quoted here only as the row FORMAT.)
     {n:'SUN CROP',st:'canon',layer:'hair',lux:true,gen:...}
                              ^^^^^^^^^^^^ ^^^^^^^^
 

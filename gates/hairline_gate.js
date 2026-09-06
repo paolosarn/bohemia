@@ -75,18 +75,29 @@ const ok = (name, cond, note) => {
     window.G_WORN = { base:'WHITE TEE', legs:'DUST TROUSERS', feet:'BROWN BOOTS', hair:'' };
     try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
     const a = buildFrame('E','idle',0);
-    window.G_WORN = { base:'WHITE TEE', legs:'DUST TROUSERS', feet:'BROWN BOOTS', hair:'BOWL CUT' };
-    try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
-    const c = buildFrame('E','idle',0);
-    const N = a.CW; let diff = 0;
-    for (let i=0;i<N*N;i++){ const u=a.px[i], v=c.px[i];
-      if (!((!u&&!v)||(u&&v&&u[0]===v[0]&&u[1]===v[1]&&u[2]===v[2]))) diff++; }
+    /* THE FIXTURE READS THE POOL INSTEAD OF NAMING A STYLE (9/5). It named BOWL CUT,
+       which Paolo killed on 8/20 -- a ruler whose fixture is a corpse keeps working only
+       because the draw path resolves by name and never looks at `st`. Every canon cut is
+       tried and the loudest one answers the question this check actually asks: can the
+       ruler tell hair from a shaved head at all. */
+    const CUTS = (window.GARMENTS||[]).filter(g=>g.layer==='hair'&&g.st==='canon');
+    const N = a.CW; let diff = 0, which = '';
+    for (const h of CUTS) {
+      window.G_WORN = { base:'WHITE TEE', legs:'DUST TROUSERS', feet:'BROWN BOOTS', hair:h.n };
+      try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+      const c = buildFrame('E','idle',0);
+      let d = 0;
+      for (let i=0;i<N*N;i++){ const u=a.px[i], v=c.px[i];
+        if (!((!u&&!v)||(u&&v&&u[0]===v[0]&&u[1]===v[1]&&u[2]===v[2]))) d++; }
+      if (d > diff) { diff = d; which = h.n; }
+    }
     window.G_WORN = keepW; G.equipped = keepE;
     try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
-    return diff;
+    return { diff, which, n: CUTS.length };
   });
-  ok('the ruler can tell a haircut from a shaved head', blind > 60,
-     '(a bowl cut moves ' + blind + ' pixels of the profile render)');
+  ok('the ruler can tell a haircut from a shaved head', blind.diff > 60,
+     '(' + blind.which + ' moves ' + blind.diff + ' pixels of the profile render; ' +
+     blind.n + ' canon cuts tried)');
 
   /* ---- the measurement, once, on every canon style x five facings ------------- */
   const rows = await p.evaluate(MEASURE);
@@ -94,7 +105,19 @@ const ok = (name, cond, note) => {
   if (errs.length) console.log('  page errors: ' + errs.slice(0, 3).join(' | '));
 
   const E = rows.filter(r => r.dir === 'E' && !r.dead);
-  ok('every canon hairstyle renders in profile', E.length >= 15, '(' + E.length + ' styles)');
+  /* *** A COUNT OF THE POOL IS NOT A CHECK ON THE POOL. (9/5.) ***
+     This said `>= 15`, written when the game had fifteen canon haircuts. It went red on
+     a turn that did not move a pixel: enforcing Paolo's thirteen 8/20 kills (which had
+     been shipping as canon for sixteen days, because the graveyard registry spelled them
+     `HAIR - SUN CROP` and the build says `SUN CROP`) took the pool to eleven. It is the
+     same wrong-unit mistake PIECES_PCT already has a paragraph about, twenty lines up.
+     AND `>= 15` WAS ALWAYS THE WEAKER CLAIM: with thirty styles in the pool it would sit
+     green while half of them drew nothing in profile. The check's own NAME is "EVERY
+     canon hairstyle", so measure that -- every canon style that exists rendered -- with a
+     floor underneath so an empty wardrobe cannot pass by rendering nothing perfectly. */
+  const Eall = rows.filter(r => r.dir === 'E');
+  ok('every canon hairstyle renders in profile', E.length === Eall.length && E.length >= 8,
+     '(' + E.length + ' of ' + Eall.length + ' canon styles draw pixels in profile)');
 
   /* ---- 2. THE FOREHEAD (his first sentence) ---------------------------------- */
   const balding = E.filter(r => r.brow < BROW_MIN);

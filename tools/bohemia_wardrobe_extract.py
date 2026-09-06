@@ -39,6 +39,7 @@ items = []
 # AND ON 8/4 IT HAD GONE STALE ANYWAY, exactly as that comment feared, just on
 # the OTHER side of `layer`. The clothing lane's 8/1 hair batch writes the tag
 # after the layer instead of before it:
+# (SUN CROP is DEAD, KILLED 8/20/26; quoted for its TAG ORDER, not as a live row.)
 #     {n:'SUN CROP',st:'canon',layer:'hair',lux:true,gen:...}
 #                              ^^^^^^^^^^^^ ^^^^^^^^
 # Five canon garments - SUN CROP, DUSK SHAG, TEMPLE TAPER, ASH SWEEP, SALT

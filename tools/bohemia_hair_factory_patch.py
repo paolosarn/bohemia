@@ -178,6 +178,8 @@ STYLES = r'''    /* ===== HAIR (8/1): 26 SHAPES. The category had exactly ONE (h
     {n:'POMPADOUR',st:'dead',layer:'hair',gen:function(g){return genHair(g,{ramp:H_BLK,vol:3,side:0.40,front:0.08});}},
     {n:'SLICK BACK',st:'canon',layer:'hair',gen:function(g){return genHair(g,{ramp:H_BLK,vol:1,side:0.52,front:0.06});}},
     {n:'SIDE PART',st:'canon',layer:'hair',gen:function(g){return genHair(g,{ramp:H_SND,vol:1,side:0.50,front:0.26});}},
+    /* BOWL CUT, FRINGE and SLICK BACK below were KILLED 8/20/26 -- this is the
+       spent patch text, kept as the record, not a live catalogue. */
     {n:'BOWL CUT',st:'canon',layer:'hair',gen:function(g){return genHair(g,{ramp:H_BRN,vol:1,side:0.66,front:0.32});}},
     {n:'FRINGE',st:'canon',layer:'hair',gen:function(g){return genHair(g,{ramp:H_BLK,vol:0,side:0.58,front:0.34});}},
     {n:'SHAG',st:'canon',layer:'hair',gen:function(g){return genHair(g,{ramp:H_BRN,vol:1,side:0.82,front:0.30,flare:0.10});}},

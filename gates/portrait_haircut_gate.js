@@ -33,7 +33,13 @@ const LAW = path.join(REPO, 'laws/BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_
 const AGREE_MIN = 0.75;   /* portrait fall band === body band.        before 0.247 */
 const CORR_MIN  = 0.80;   /* correlation, body length dial vs drawn.  before ~0     */
 const CEIL_MIN  = 40;     /* distinct hair silhouettes renderable.    before 6      */
-const DIALS_MIN = 15;     /* canon styles whose numbers resolve.      before 0      */
+/* *** WAS `DIALS_MIN = 15`, AND FIFTEEN IS A POPULATION, NOT A STANDARD. (9/5.) ***
+   It went red on a turn that moved no pixels: enforcing Paolo's thirteen 8/20 kills took
+   the canon pool from 24 styles to 11, and 11-of-11 resolving failed a bar of 15. It was
+   also the weaker claim -- at 30 styles it would pass with half of them unresolvable. The
+   assertion below now reads "all of them", with a floor so an empty pool cannot win by
+   having nothing left to fail. */
+const DIALS_FLOOR = 8;    /* the pool may shrink, but not to nothing.                    */
 const N = 200;
 
 let pass = 0, fail = 0;
@@ -158,7 +164,7 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
   if (errs.length) console.log('  page errors: ' + errs.slice(0, 3).join(' | '));
 
   ok('every canon haircut resolves to the numbers the body draws it with',
-     r.dialsOk >= DIALS_MIN,
+     r.dialsOk === r.hairs && r.hairs >= DIALS_FLOOR,
      '(' + r.dialsOk + ' of ' + r.hairs + ', ' + r.dialDistinct + ' distinct dial sets)');
 
   ok('the portrait wears the haircut the body is wearing',

@@ -107,9 +107,21 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
       out.canonN = canon.length;
       const btns = [...feb.querySelectorAll('button')];
       out.cutBtns = canon.filter(g => btns.some(x => x.textContent === g.n.toLowerCase())).length;
+      /* *** THE RULER NAMED A STYLE AND THE STYLE DIED. (9/5.) ***
+         This clicked the button labelled 'wolf cut'. WOLF CUT is one of Paolo's thirteen
+         8/20 kills, so the moment those were actually enforced the button stopped
+         existing, nothing was clicked, and "picking one changes his face" went red while
+         picking one still changed his face perfectly. A checker that hard-codes a CONTENT
+         name has an expiry date on it -- the same shape as the graveyard registry
+         spelling `HAIR - SUN CROP` for sixteen days while the build said `SUN CROP`.
+         Read the pool instead, and click a cut the face is not already wearing so the
+         click always has something to change. */
       const before = shot();
-      const wolf = btns.find(x => x.textContent === 'wolf cut');
-      if (wolf) wolf.click();
+      const worn = String((pface.hair && pface.hair.name) || '').toLowerCase();
+      const want = canon.map(g => g.n.toLowerCase()).find(nn => nn !== worn);
+      const pick = btns.find(x => x.textContent === want);
+      if (pick) pick.click();
+      out.cutClicked = want || null;
       out.cutMoved = shot() !== before;
 
       /* ROLL A FACE produces a different face; BACK TO PUNK restores EXACTLY. */
@@ -151,7 +163,7 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
        : '(every slider driven to both ends; anatomy holds and it still renders)');
   ok('the haircuts are the body\'s own fifteen', r.cutBtns === r.canonN,
      '(' + r.cutBtns + ' of ' + r.canonN + ' canon cuts are pickable)');
-  ok('and picking one changes his face', !!r.cutMoved);
+  ok('and picking one changes his face', !!r.cutMoved, '(clicked "' + r.cutClicked + '")');
   ok('ROLL A FACE gives him a different face', !!r.rollMoved);
   ok('and a different one each time', !!r.rollVaries);
   ok('BACK TO PUNK restores the approved face EXACTLY', r.reset === r.punk,

@@ -262,14 +262,39 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      TWO JAG ATTEMPTS ARE RECORDED IN THE ALPHA rather than repeated here: a 1-in-4 step
      moved the number by 0.1 points and a 1-in-2 step by nothing, because the edge is
      tracing the face rather than wandering. That is the tell that it is anatomy. */
-  const PINNED_STRAIGHT = 0.172;   // non-profile facings: unchanged from 8/21
+  /* *** A POOLED MEAN IS NOT A RATCHET WHEN THE POPULATION CAN CHANGE. (9/5.) ***
+     This number went red on a turn that did not move a single hair pixel. Paolo's
+     thirteen 8/20 kills had been shipping as canon for sixteen days (the graveyard
+     registry spelled them `n:'HAIR - SUN CROP'`, the judging tool's DISPLAY name,
+     while the build has always said `n:'SUN CROP'` -- the gate was guarding a string
+     that never existed). Enforcing them dropped the canon pool from 24 styles to 11,
+     and the pooled average rose 17.2% -> 18.2% because the THIRTEEN THAT LEFT WERE
+     THE LESS STRAIGHT ONES: ASH SWEEP 9.3, LONG LOOSE 8.3, WOLF CUT 10.5, CROP 11.1
+     and five more sat below the old mean.
+     MEASURED ON BOTH SIDES, per style, six open-air facings -- and every one of the
+     eleven survivors is IDENTICAL to the digit:
+         TEMPLE TAPER 34.4/5  SHORT ROPES 33.0/6  DRY TAPER 25.9/4  ROPE LOCKS 21.7/6
+         COIL CROWN 20.3/4  DUST WEAVE 19.2/6  DEEP TAPER 17.6/4  LAYERED FALL 13.7/6
+         CURTAIN CUT 11.7/4  HEAVY FRINGE 10.0/4  SHAG 0.0/3
+     So the pin is re-derived, not lowered under pressure -- and the reason it could
+     drift at all is now closed rather than re-baselined: THE WORST SINGLE STYLE is
+     pinned beside it. Removing a style can never raise that number, so a pool change
+     cannot fire it and cannot hide behind it either. It was TEMPLE TAPER 34.4% before
+     this turn and it is TEMPLE TAPER 34.4% after. The pooled pin stays too, because
+     worst-alone would let every style creep to 30%; two pins, and the aggregate one is
+     the tighter of the two. The original bug this exists for moved BOTH: 50.7% pooled
+     and 68.5% on TEMPLE TAPER alone. */
+  const PINNED_STRAIGHT = 0.1822;  // pooled, 11-style canon pool (measured 0.18210; was 0.172 over 24)
+  const PINNED_WORST    = 0.344;   // the straightest single style; pool-change proof
   const PINNED_PROFILE  = 0.40;    // E and W only: the hairline follows his painted face
   const PINNED_LONGEST  = 6;       // longest straight run, non-profile
   const PINNED_LONGEST_PROFILE = 10;
   const ST = await pg.evaluate(() => {
     const HAIR = (window.GARMENTS || []).filter(g => g.layer === 'hair' && g.st === 'canon');
     let rows = 0, inLong = 0, longest = 0, pRows = 0, pInLong = 0, pLongest = 0;
+    const per = {};                       /* PER STYLE, so the pool can change (9/5) */
     for (const h of HAIR) for (const d of ['S','SE','E','NE','N','NW','W','SW']) {
+      per[h.n] = per[h.n] || { rows: 0, inLong: 0, longest: 0 };
       if (window.CLO_SET_DIR) window.CLO_SET_DIR(d);
       const f = buildFrame(d, 'idle', 0);
       let o = null; try { o = h.gen(f.grid, f.CW, f.CH); } catch (e) {}
@@ -286,18 +311,31 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
           const cont = n < ys.length && ys[n] === ys[n-1] + 1 && side[ys[n]] === side[ys[n-1]];
           if (cont) run++;
           else { if (prof) { pRows += run; if (run > pLongest) pLongest = run; if (run >= 4) pInLong += run; }
-                 else { rows += run; if (run > longest) longest = run; if (run >= 4) inLong += run; }
+                 else { rows += run; if (run > longest) longest = run; if (run >= 4) inLong += run;
+                        const q = per[h.n]; q.rows += run; if (run > q.longest) q.longest = run;
+                        if (run >= 4) q.inLong += run; }
                  run = 1; }
         }
       }
     }
     if (window.CLO_SET_DIR) window.CLO_SET_DIR('S');
+    const table = Object.keys(per).map(n => ({ n, rows: per[n].rows, longest: per[n].longest,
+      frac: per[n].rows ? per[n].inLong / per[n].rows : 0 }))
+      .sort((a, b) => b.frac - a.frac);
     return { frac: rows ? inLong / rows : 0, longest, rows, styles: HAIR.length,
-             pfrac: pRows ? pInLong / pRows : 0, pLongest, pRows };
+             pfrac: pRows ? pInLong / pRows : 0, pLongest, pRows, table };
   });
+  console.log('  per style, six open-air facings (the population-proof number is the first row):');
+  ST.table.forEach(t => console.log('    ' + t.n.padEnd(16) +
+    (t.frac * 100).toFixed(1).padStart(6) + '%   longest ' + t.longest));
   ok('CLAUSE 3, THE SIX OPEN-AIR FACINGS: hair rows in a straight run of 4+ only ever ' +
      'shrinks (' + (ST.frac * 100).toFixed(1) + '%, pinned at ' + (PINNED_STRAIGHT * 100).toFixed(1) +
      '%, over ' + ST.rows + ' edge rows across ' + ST.styles + ' styles)', ST.frac <= PINNED_STRAIGHT);
+  const worst = ST.table[0] || { n: '-', frac: 0 };
+  ok('CLAUSE 3, and the STRAIGHTEST SINGLE STYLE only ever shrinks (' + worst.n + ' at ' +
+     (worst.frac * 100).toFixed(1) + '%, pinned at ' + (PINNED_WORST * 100).toFixed(1) +
+     '%) -- this one cannot be moved by the pool changing size',
+     worst.frac <= PINNED_WORST);
   ok('CLAUSE 3, open air: no hair edge runs straight for longer than ' + PINNED_LONGEST +
      ' rows (longest is ' + ST.longest + ')', ST.longest <= PINNED_LONGEST);
   ok('CLAUSE 3, THE TWO PROFILES where the hairline traces his painted face (' +

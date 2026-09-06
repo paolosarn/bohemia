@@ -120,7 +120,58 @@ for (const d of DEAD) {
      '(' + d.what + ')');
 }
 
-/* ---- 4. AND THE REBASELINE IS HIS TO WRITE, NOT MINE -------------------------------- */
+/* ---- 3b. HIS THIRTEEN 8/20 KILLS ARE DEAD IN THE BUILD, BY NAME --------------------
+   THE GATE ABOVE MATCHES ON MECHANISMS BECAUSE A FRESH COOK ALWAYS CHANGES THE NAME.
+   That is right, and it left the plainest case unguarded: the SAME name, still canon.
+   All thirteen of Paolo's hair round 4 kills shipped as st:'canon' for SIXTEEN DAYS
+   after he killed them -- 13 of the 24 canon haircuts, in the crowd, in the face maker,
+   on the family. Nothing noticed, and the reason is check 4 below. (9/5.) */
+const ROUND4 = ['SUN CROP', 'DUSK SHAG', 'ASH SWEEP', 'SALT CROWN', 'BUZZ CUT', 'CROP',
+                'SLICK BACK', 'BOWL CUT', 'FRINGE', 'SHOULDER LENGTH', 'LONG LOOSE',
+                'WOLF CUT', 'GREY WISPS'];
+const aliveAgain = ROUND4.filter(n =>
+  alpha.indexOf("{n:'" + n + "',st:'canon',layer:'hair'") >= 0);
+const missing = ROUND4.filter(n =>
+  alpha.indexOf("{n:'" + n + "',st:'dead',layer:'hair'") < 0);
+ok('*** none of his thirteen 8/20 kills is shipping as canon ***', aliveAgain.length === 0,
+   aliveAgain.length ? '(BACK IN CANON: ' + aliveAgain.join(', ') + ')'
+     : '(13 of 13 checked; records/BOHEMIA_VERDICT_HAIR_ROUND4_8_20_26.txt)');
+ok('and all thirteen are still in the build as tombstones, not deleted', missing.length === 0,
+   missing.length ? '(no dead row found for: ' + missing.join(', ') + ')' : '');
+/* AND NOBODY IS STILL WEARING ONE. The draw path is GARMENTS.find(x => x.n === nm) --
+   it resolves by NAME and never looks at `st` -- so an authored look pointing at a
+   corpse renders the corpse. Nineteen did, on 9/5: three of the family cast, eleven
+   faction looks and the whole six-person city cast. */
+const wearing = ROUND4.filter(n => alpha.indexOf("worn:{hair:'" + n + "'") >= 0);
+ok('*** and nobody in the game is still wearing one ***', wearing.length === 0,
+   wearing.length ? '(still worn: ' + wearing.join(', ') + ' -- the draw path resolves by ' +
+     'NAME and ignores st, so these render)' : '(19 authored looks repointed 9/5)');
+
+/* ---- 4. A TOKEN THAT MATCHES NOTHING IS GUARDING NOTHING ---------------------------
+   *** THIS IS THE BUG THAT COST SIXTEEN DAYS, AND IT IS THE ONLY CHECK THAT FINDS IT. ***
+   The registry spelled all thirteen `n:'HAIR - SUN CROP'` -- the JUDGING TOOL'S DISPLAY
+   NAME, which is what the verdict export prints. The build has always said
+   `n:'SUN CROP'`. So bohemia_graveyard_gate.py swept the whole tree for a string that
+   HAS NEVER EXISTED IN THIS CODEBASE, found nothing, and reported the dead as staying
+   dead. It was green, it was thorough, and it was measuring a typo. Same family as the
+   8/25 headwear gate that passed seventeen hats drawing zero pixels.
+   A REGISTRY ENTRY IS A SEARCH STRING. If it matches nothing in the build, it is a
+   comment wearing a gate's name, and the fix is to say so out loud the day it is
+   written rather than sixteen days later. */
+const orphans = [];
+for (const line of yard.split('\n')) {
+  const t = line.split('|')[0].trim();
+  if (!/^n:'.+'$/.test(t)) continue;
+  if (!/hair|haircut/i.test(line)) continue;       /* this gate's remit is hair */
+  if (line.trim().startsWith('#')) continue;       /* reopened candidate, not a tombstone */
+  if (alpha.indexOf(t) < 0) orphans.push(t);
+}
+ok('*** every hair tombstone names a string the build actually contains ***',
+   orphans.length === 0,
+   orphans.length ? '(matches NOTHING in the build, so it guards nothing: ' +
+     orphans.join(', ') + ')' : '(every hair token in the registry resolves)');
+
+/* ---- 5. AND THE REBASELINE IS HIS TO WRITE, NOT MINE -------------------------------- */
 ok('nothing has been quietly reopened', REBASELINE.length === 0,
    REBASELINE.length ? '(reopened: ' + REBASELINE.join(', ') + ' -- needs a dated ruling)' : '');
 

@@ -170,6 +170,8 @@ src, nsub = pat.subn(addname, src)
 print('WAVE 2: named %d hair styles for the wobble seed' % nsub)
 
 # ------------------------------------------------------------- 7. SLICK BACK +1px
+# SLICK BACK was KILLED 8/20/26. This tool is spent history; the string below is
+# the row as it stood then and no longer matches the build.
 OLD_SB = "{n:'SLICK BACK',st:'canon',layer:'hair',gen:function(g){return wear(genHair(g,{name:'SLICK BACK',"
 if OLD_SB in src:
     seg_start = src.index(OLD_SB)

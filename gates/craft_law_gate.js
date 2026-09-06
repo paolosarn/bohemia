@@ -275,8 +275,27 @@ ok('clause 6: the judge board still admits candidates, so nothing enters canon u
 /* The tint must be REACHABLE, not necessarily on whatever happens to be pending
    his thumb right now -- the candidate list turns over every round. Assert the
    approved canon carries it. */
-ok('clause 6: the skin-tint is live on approved canon styles',
-  (src.match(/st:'canon',layer:'hair'[\s\S]{0,240}?fade:\s*\d/g) || []).length >= 4);
+/* *** A SHARE, NOT A COUNT -- THE THIRD TIME THIS EXACT BUG HAS BEEN WRITTEN. (9/5.) ***
+   This said `>= 4`, a count fixed when the game had fifteen canon haircuts. It went red
+   on a turn that did not touch the tint, the ramp or a single pixel: enforcing Paolo's
+   thirteen 8/20 kills (which had shipped as canon for sixteen days, because the graveyard
+   registry spelled them `HAIR - SUN CROP` while the build says `SUN CROP`) took the canon
+   pool from 24 styles to 11, and four of the seven faded styles were among the dead.
+   THE RATE WENT UP, NOT DOWN:  7 of 24 = 29.2%  ->  3 of 11 = 27.3%,  against 4 of 15 =
+   26.7% on the build this line was written for. hairline_gate has a paragraph on exactly
+   this mistake beside PIECES_PCT and it is the same one twice more, here and in that
+   gate's own `>= 15`. An absolute count on a list that is meant to change size is a gate
+   against the wardrobe moving at all. The claim is REACHABILITY -- the tint is live on
+   approved canon -- so measure the share, with a floor under the pool so an empty
+   wardrobe cannot win by having nothing left to fail. */
+{
+  const canonHair = (src.match(/st:'canon',layer:'hair'/g) || []).length;
+  const faded = (src.match(/st:'canon',layer:'hair'[\s\S]{0,240}?fade:\s*\d/g) || []).length;
+  const share = canonHair ? faded / canonHair : 0;
+  ok('clause 6: the skin-tint is live on approved canon styles (' + faded + ' of ' +
+     canonHair + ' = ' + (share * 100).toFixed(1) + '%, floor 25%)',
+     share >= 0.25 && canonHair >= 8);
+}
 
 /* ---- the rulings this law grew out of are still on file ---------------- */
 ok('the wave-1 verdict sheet is kept',

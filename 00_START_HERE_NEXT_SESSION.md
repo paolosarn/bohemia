@@ -1222,62 +1222,100 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/5 LATEST -- *** THE STYLE CARD'S SECTION 2 IS NOW BUILT AND
-HELD, ID BY ID, EXCEPT THE ONE NUMBER THAT CANNOT BE MET. Six batches: 22 new SHAPES
-+ 1 the engine could always draw and nothing wore, 50 garments. Wardrobe 79 -> 108
-shapes. Card headline 32% -> 44%. TAB: CHARACTER / RUN. Nothing to judge. ***
+COOK (cook-mce6r5): 9/6 LATEST -- *** THE THIRTEEN HAIRCUTS PAOLO KILLED ON 8/20 HAD
+BEEN SHIPPING AS CANON FOR SIXTEEN DAYS, AND NINETEEN PEOPLE WERE WEARING THEM. Canon
+hair 24 -> 11. Nobody in the game wears a shape he killed. The graveyard sweep reports
+ZERO live references for the first time. TAB: CHARACTER. Nothing to judge. ***
 
-THE JOB: [runway clothes] WARDROBE-REMAKE, still CLAIMED. The card's mechanism is
-"the wardrobe drifts dark AS BATCHES REPLACE", so this line stays open and the
-permanent [keep cooking] line is where it continues.
+THE JOB: [runway hair] HAIR-TO-THE-CARD, CLAIMED, CONTINUING. This round was the
+graveyard read this lane's own handoff says must come first, and it never got to the
+card. Round 1 of about 3.
 
-THE CARD'S SECTION 2, WORKED THROUGH ID BY ID:
-  RNWY-01 square shoulder      BUILT (corner rounding 0 px) and held
-  RNWY-02 cocoon arc shoulder  BUILT (edge step 1 px) and held -- took THREE attempts
-  RNWY-05/08 the stack         BUILT (two hem lines, 3 silhouette steps) and held
-  RNWY-06 readable at collar   a property of the layered top, measured not cooked
-  RNWY-07 asymmetric hem       BUILT (8 px and 5 px of hem across the body) and held
-  RNWY-09 the comma            BUILT (hangs 4 rows lower behind) and held
-  RNWY-10 the pant-boot column BUILT (no tonal break at the ankle) and held
-  RNWY-11 the tapering leg     BUILT (drop rise, thigh 10 -> ankle 6)
-  RNWY-12 the pedestal boot    BUILT (2 platform rows, base 10 vs foot 8)
-  RNWY-03 / the pole span      NOT BUILDABLE. The card writes it against the
-    PAPERDOLL torso; a dressed sprite's shoulder is its ARMS, 16 px before cloth
-    against a hip of 8, so a PLAIN T-SHIRT is pole A and pole B is unreachable by any
-    garment. DIRECTION's number. Measured, reported, card untouched.
+WHAT THE READ FOUND. records/BOHEMIA_VERDICT_HAIR_ROUND4_8_20_26.txt lists thirteen
+kills, "FINAL and graveyarded". All thirteen were still `st:'canon'` -- 13 of the 24
+canon haircuts, in the crowd, the face maker, the family and the city cast.
 
-*** ELEVEN RULERS HAVE BEEN WRONG IN THIS JOB AND NOT ONE SHAPE WAS EVER CHANGED TO
-FIT A BAR. *** Area ranked the dead V-NECK above the oversized shoulder; the outline
-ruler scored a wrap coat zero because a slit is a HOLE; the face check would have
-condemned his approved DUST MASK; the shoulder-corner ruler measured a drop; the
-asymmetry ruler measured a height; the arc's three; the comma was judged from the one
-facing where it is meant to look the same; and the ankle ruler looked for a width
-step where the break is TONAL, then sampled shoe-against-shoe.
-SEVEN LIVE CONTROLS now, each of which must FAIL the rule it guards: the dead V-NECK,
-his approved DUST MASK, a PLAIN COAT (level hem, and hem that does not move with the
-facing), a PLAIN TOP twice (must HAVE a shoulder point, must NOT stack), and a plain
-trouser-over-boot (must HAVE an ankle break). The last one caught the ankle ruler
-twice.
+WHY NOTHING CAUGHT IT, AND IT IS THE KEEPER. The registry spelled them
+`n:'HAIR - SUN CROP'` -- the JUDGING TOOL'S DISPLAY NAME. The build has always said
+`n:'SUN CROP'`. The graveyard gate treats a registry entry as a search string, so it
+swept the whole tree for a string THAT HAS NEVER EXISTED IN THIS CODEBASE, found
+nothing, and reported the dead as staying dead. Green, thorough, measuring a typo --
+same family as the 8/25 headwear gate that passed 17 hats drawing zero pixels.
 
-THE COLUMN TOOK THREE LOOKS, EACH A DIFFERENT MISTAKE: the boot painted straight over
-it (the composite draws feet AFTER legs, so a pant-boot must take the BOOT'S SLOT);
-then it read as a skirt because filling between the outer leg columns removes the
-ankle break and the legs with it; then it STILL read as a skirt because on this rig
-the legs are adjacent -- there is no gap, only a seam -- and shading the mass as one
-piece deleted the only thing saying "two legs".
+WHAT SHIPPED
+  1. Thirteen tokens rewritten into the form the code uses; thirteen haircuts flipped
+     canon -> dead. Canon hair 24 -> 11 (his two KEEPs plus nine cooked after).
+  2. NINETEEN AUTHORED PEOPLE REPOINTED off the corpses. The draw path is
+     `GARMENTS.find(x => x.n === nm)` -- BY NAME, `st` never consulted -- so RAY,
+     DENISE, NINA, eleven faction looks and the whole city cast were rendering dead
+     shapes. Replacement is the nearest LIVING cut by the dials that make the
+     silhouette, not taste.
+  3. FOUR NEW CHECKS in hair_graveyard_gate.js, every one mutation-tested: none of the
+     thirteen is canon; all thirteen are still tombstones; NOBODY IS WEARING ONE; and
+     *** every hair tombstone names a string the build actually contains ***, which is
+     the one that would have caught this on day one.
 
+FIVE MORE RULERS WERE WRONG (sixteen in this lane now) AND NOT ONE SHAPE WAS CHANGED
+TO FIT A BAR. Four gates went red on a turn that moved no pixels; clothes_4x_gate's
+1,744 pinned 56px hashes are unmoved and per-style straightness is identical to the
+digit for all eleven survivors, which is the proof.
+  hair_gate clause 3   a POOLED MEAN IS NOT A RATCHET when the population can change.
+    The thirteen that left were the LESS straight ones. Re-derived to 0.1822, and the
+    straightest SINGLE style is now pinned beside it (TEMPLE TAPER 34.4%, identical
+    before and after) -- removing a style can never raise that number.
+  hairline_gate        `E.length >= 15` was a COUNT OF THE POOL, and the weaker claim.
+    Now: every canon style that exists rendered. Its blind fixture named BOWL CUT, a
+    corpse; it reads the pool now.
+  portrait_haircut_gate  `DIALS_MIN = 15`. 11 of 11 failed a bar of 15. Now: all.
+  face_maker_gate      clicked the button labelled `wolf cut`. THE RULER NAMED A STYLE
+    AND THE STYLE DIED.
+  craft_law_gate cl.6  `>= 4` faded canon styles. A SHARE, NOT A COUNT -- third time
+    this exact bug has been written. THE RATE WENT UP: 29.2% -> 27.3% against 26.7%
+    on the build the line was written for. Floor 25%.
+city_cast_silhouette_gate WAS RIGHT and is the one that changed a shape: nearest-cut
+alone collapsed two of the six outlines and handed the member the table calls
+"smallest" the biggest cut in the pool. Inside that table the repoint now carries the
+table's own two authored properties (no two share a cut; a repoint may not overturn a
+member's written brief). Spread back to 14.0%; the gate is exactly as it is on main
+(its mean check was already red before this turn and is the cast lane's).
+
+[PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME. *** ASH
+  SWEEP and SALT CROWN were grey, GREY WISPS white, LOW BUN grey (died 8/2). All
+  eleven survivors are black, brown or sand, and a worn hair garment draws in its OWN
+  baked ramp -- there is no recolour on that path -- so RAY the father, the Church and
+  the old wide-brim citizen lost their grey. Nothing was faked: grey recolours are
+  "recolors, not diverse looks" (7/18) and a fresh hair SHAPE is blocked until the
+  east/west facings render (8/20: "cooking new hair into a broken render is how you
+  get a fourteenth kill"). His call, in plain words: leave them dark, or unblock hair.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
-[FOR DIRECTION] the pole shoulder-span number, above.
-[FOR THE PLUMBER] `bohemia_gates.py --fast` is documented "~2s vs ~4min" and ran
-  THIRTY-FOUR MINUTES without finishing, output fully buffered.
+[FOR DIRECTION] the card's POLE A/POLE B shoulder-span number is unmeetable by any
+  dressed sprite (it is written against the paperdoll torso).
+[FOR CHARACTER, P0, AND IT IS THE ROOT OF ALL OF IT] the EAST and WEST facings. His
+  8/20 words were "east and west hairstyles look like absolute dog shit ACROSS THE
+  BOARD" -- one render defect judged thirteen times. Until it is fixed no hair ballot
+  happens and no fresh cut answers a dead slot. hair_gate's own comment recorded the
+  profile strip bug before he ever saw it.
+[FOR THE PLUMBER] two rulers that lie:
+  - `bohemia_gates.py --fast` is documented "~2s vs ~4min", ran THIRTY-FOUR MINUTES
+    without finishing, output fully buffered.
+  - `look_gate` clocks a picture by FILE MTIME against its surface's mtime. PROVEN on
+    unchanged origin/main content: move only the timestamps and it reports ALL 52
+    pictures stale. It is green on a fresh clone and red in every live tree, for every
+    lane, whatever the content. It wants a content hash recorded at shoot time.
 
-FILES  tools/bohemia_runway_cook_9_5_26.py and _2_ .. _6_; gates/runway_gate.js (82
-checks, seven live controls); records/BOHEMIA_THE_RUNWAY_BATCHES_1_TO_6_9_5_26.md
+FILES  tools/bohemia_hair_graveyard_enforce_9_5_26.py,
+tools/bohemia_hair_repoint_the_kills_9_5_26.py, gates/hair_graveyard_gate.js (13
+checks), records/BOHEMIA_THE_THIRTEEN_KILLS_WERE_NEVER_ENFORCED_9_5_26.md.
+Previous job, still the standing wardrobe work: tools/bohemia_runway_cook_9_5_26.py
+and _2_ .. _6_; gates/runway_gate.js (82 checks, seven live controls);
+records/BOHEMIA_THE_RUNWAY_BATCHES_1_TO_6_9_5_26.md
 
-*** WHAT COMES NEXT *** Every shape the card names is built. The next OPEN line is
-[runway hair] HAIR-TO-THE-CARD -- which must NOT start until the graveyard is read TO
-THE END for that lane (8/30: seven haircuts were remakes of shapes he had killed
-twice, and the answer was one grep away).
+*** WHAT COMES NEXT *** [runway hair] continues. The graveyard is read and clean, so
+the card work can start: the eleven canon cuts measured against the style card's
+palette bands (hair ramps vs cloth_sat 0.25 / value 0.08-0.92 / 4-6 steps) and the
+45-degree read on all eight facings. DO NOT COOK A NEW HAIRCUT: fresh cuts answering
+the dead slots are blocked until CHARACTER fixes east and west, and cooking into a
+broken render is how you get a fourteenth kill.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
