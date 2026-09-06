@@ -1,3 +1,204 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral].
+Next OPEN is Q17 [wages fall]; Q18 [black market] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 16 REPORT: [debt spiral] SHIPPED ===
+*** WE BUILT THE LAST RUNG FIRST. MODE: RESEARCH, nothing implemented. NOT IN A
+TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_16_WE_BUILT_THE_LAST_RUNG_FIRST_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections BBBB-FFFF (13 lines, 231 total)
+Board:  Q16 SHIPPED. Q1-Q16 shipped; next OPEN is Q17 [wages fall], then Q18
+        [black market].
+
+ROUND 9 ALREADY ANSWERED "what is a debt here" (a person who remembers) and
+already refused interest, fees and schedules under EVERYTHING COSTS ONE. I did not
+reopen any of it. This round answers the different question: what makes a debt
+UNPAYABLE, and which rung we must not build.
+
+MEASURED: SIX WAYS TO FAIL A PAYMENT IN BOHEMIA. FIVE COST NOTHING AND ARE
+FORGOTTEN INSTANTLY (six failures write ZERO ledger entries; nothing anywhere
+records that a payment was missed). THE SIXTH IS PERMANENT AND MAKES YOU RICHER.
+  Fail the power bill and the circuit goes dark. relight() exists, two gates
+  exercise it, and IT HAS NO CALLER IN THE GAME -- the walked surface says so
+  itself: "getting the lights back is a price, and prices are his, so nothing here
+  calls relight()". ONE BATTERY SHORT FOR ONE NIGHT AND THAT BLOCK IS OUT FOREVER.
+  AND THE PUNISHMENT PAYS, three ways, all measured:
+    it STOPS THE BILL (heldCircuits skips anything not live),
+    it DOES NOT TOUCH PRODUCTION (the tick has no light check),
+    and it UNLOCKS THE MAP. The permit shipped 9/6 reads the light and its own
+    words are "nobody patrols the dark, so nobody is here to stop you".
+    ACROSS FIVE SEEDS: 311 of 2926 buildable plots are permit-gated while the
+    lights are on. AFTER THEY GO OUT: ZERO.
+  NOT PAYING YOUR POWER BILL IS THE OPTIMAL PLAY. Three correct shipped rows
+  compose into an incentive to default. Nobody wrote it; it fell out of the seams.
+
+*** THE FINDING THAT PROVES US WRONG. I came in expecting to write "be careful not
+to build a debt spiral". WE DID NOT BUILD A SPIRAL. WE BUILT THE LAST RUNG WITHOUT
+THE FIRST SIX AND THEN ATTACHED A REWARD TO IT. ***
+  rung 1 the miss                 DOES NOT EXIST (0 ledger entries from 6 failures)
+  rung 2 the fee                  refused by his 8/15 law, correctly (round 9)
+  rung 3 the fee on the fee       refused, correctly
+  rung 4 the rollover             refused, correctly
+  rung 5 the one counterparty     NOT BUILT, AND WE ARE THREE ROWS FROM IT
+  rung 6 the disconnection        SHIPPED, AND SHIPPED AS PERMANENT
+  rung 7 they take what earned    not built, and must never be
+
+THE REAL LADDER, with numbers: 1 in 7 US households is behind on energy bills (the
+miss is ordinary). Payday: 80% of loans rolled over within 14 days, $15 per $100
+on 14 days = 391% APR, the average borrower in debt five months a year paying $520
+IN FEES TO BORROW $375, nearly 1 in 4 reborrowed nine times or more, and 80%+ owing
+AS MUCH OR MORE at the end than at the start.
+AND THE RUNG THAT NEEDS NO INTEREST AT ALL, WHICH IS THE ONE THAT MATTERS TO US:
+THE COMPANY STORE. Appalachian miners were paid in SCRIP USABLE ONLY AT THE COMPANY
+STORE, advanced against unearned wages at 50-80% OF FACE, and many companies would
+not exchange scrip for dollars at any rate. Perpetually in debt. It ran to 1964.
+THE DEBT WAS NOT MADE UNPAYABLE BY INTEREST. IT WAS MADE UNPAYABLE BY HAVING ONLY
+ONE PERSON TO PAY.
+THE DISCONNECTION: $250 arrears plus a $75 reconnection fee is $325 to restore what
+you lost over $250, charged "precisely at the moment they are most financially
+distressed". ~1.5 million low-income US households cut off in one year.
+
+*** AND HERE IS THE ONE TO WATCH: WE ARE THREE SHIPPED ROWS FROM A COMPANY STORE
+AND NOBODY CHOSE IT. *** Round 13: a faction's ground mints the batteries. Round
+14: the faction that owns your block collects the cut and the rent should be its
+income. Round 13 again: money far from where it was made is REFUSED, not
+discounted. Put those together and the faction that owns your block PAYS you,
+CHARGES you, and is THE ONLY ONE WHO TAKES WHAT IT PAID YOU IN. That is the company
+store exactly, with no interest anywhere. Not automatically wrong to build -- it is
+the most realistic thing in this whole study -- but it must be a thing A FACTION
+DOES that a player can see, name and get out of, never the default shape of every
+block. The counter is the same in every real record: A SECOND PERSON WHO WILL DEAL
+WITH YOU.
+
+THE LADDER WE SHOULD MODEL (mechanism only, every price stays his):
+  1 THE MISS IS REMEMBERED. An open item with a face, no arithmetic. Round 9's
+    shape exactly, and every organ is already live (whoHears, memory, commitment).
+  2 THE MISS COSTS ACCESS, NOT PROPERTY. Doors stop opening. Nobody takes anything.
+  3 THE COLLECTOR IS A PERSON AND COLLECTION IS A SCENE (round 9: the danger moment
+    is AFTER you were helped).
+  4 THE THING THEY TAKE IS THE SERVICE, AND THE WAY BACK IS WORK, NOT MONEY. A
+    price to relight is the documented trap by name, because being broke is why the
+    lights went out. Time and effort a broke player still has; money he does not.
+  AND THE INVERSION HAS TO GO: the dark cannot keep paying.
+
+THE RUNG WE REFUSE, AND IT IS RUNG 7: NOTHING IN BOHEMIA MAY EVER TAKE THE THING
+THAT EARNS. Not the building, not the seat, not the tool. The design rule is one
+sentence -- losing an exchange must not affect your ability to avoid the next loss
+-- and the classic failure is handing over the property that produced the income.
+A player at his lowest must still earn back at the same rate he could before. That
+is also the honest reading of his 8/9 "the bar goes UP": a punishment you cannot
+recover from is not difficulty, it is an ending nobody chose.
+
+REFUSED: interest, fees, schedules, compounding (round 9 refused them and this
+round does not reopen them -- and rung 5 proves you do not need them); a negative
+balance; A PRICE TO RELIGHT; a debt meter or credit score or collections screen;
+any implementation; and DECIDING WHETHER THE COMPANY STORE HAPPENS, which is canon
+and his.
+
+ROUTED: WORLD [lights bill] gets three (not paying is the optimal play; the dark is
+permanent; the way back should cost work). PEOPLE gets rung 1. FACTIONS [block
+rent] and [power territory] get the company-store warning. COMBAT and anybody who
+writes a loss gets "never take the thing that earns". One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0, LIGHTS BILL 30/0.
+AND THAT LAST ONE IS THE POINT: lights_bill_gate is 30 for 30 and every assertion
+in it is true while the incentive is upside down. A gate can only check the
+mechanism it was written for; this incentive lives in the seams between three
+correct modules across two lanes, which is exactly where a per-row gate cannot
+look. "All gates green" was true the whole time.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days, runs dry around fifty.
+     Premise or bug?
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? FIFTH VOTE (rounds 2, 9,
+     10, 12, 13).
+  9. Can a repaired ruin house people, the way his 8/1 ruling says? And can a
+     building hold a second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY, if it cannot buy electricity?
+     Without this, [block rent] has a price and no product.
+ 12. What does the player START with? He boots with nothing, and every real first
+     week begins with somebody selling something they already had.
+ 13. (new) What does it take to get the lights back on? Already a pending, and
+     this round has an opinion for the first time: the research says a PRICE is
+     the trap. A day of work, a walk, or a favour owed to whoever holds the block
+     are all payable by somebody with nothing.
+
+NEXT IN THIS LANE: Q17 [wages fall].
+
+================================================================================
 WORDS (words-8dqrnq): 9/5 (n) LATEST -- *** VAMILY Q17 [rumour words] SHIPPED, AND THE
 WORDS RESEARCH QUEUE IS NOW EMPTY. 249 LINES NAME A PLACE YOU COULD WALK TO, 17 PASS
 ON SOMETHING SECOND-HAND, AND ZERO DO BOTH. *** Nothing to judge, MODE: RESEARCH,

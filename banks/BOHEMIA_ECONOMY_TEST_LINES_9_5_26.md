@@ -1166,3 +1166,77 @@ ZZZ3 what gets you thrown out                         draft:true
   depend on you ate, not that he is hungry, and the bank obeys it.
 - Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## BBBB. THE ONE HE MISSED (round 16, rung one: the miss is remembered)
+## (a missed payment is a person, not a number. Nobody says the word debt.)
+
+BBBB1 the one who was owed, first time                draft:true
+      "It's fine. Honestly, it's fine, I'd have done the same. Just don't make
+       me be the one who brings it up next time."
+
+BBBB2 the one who was owed, second time               draft:true
+      "I'm not asking. I'm telling you I noticed, and that's all I'm doing."
+
+BBBB3 the one who missed it                           draft:true
+      "I had it. I had it Tuesday and then the thing with the roof, and now
+       I'm standing here doing this."
+
+BBBB4 somebody who has stopped being asked            draft:true
+      "Nobody's angry at me. Nobody's anything at me. They just go round."
+
+## CCCC. THE DOOR THAT STOPS OPENING (the punishment is access, not seizure)
+## (nobody takes anything from anybody in this section.)
+
+CCCC1 somebody noticing                               draft:true
+      "It's not that they said no. It's that there was nothing to say no to,
+       there was no offer, hermano."
+
+CCCC2 somebody explaining it to a newcomer            draft:true
+      "You'll get one bad week. Everybody gets one bad week. It's the second
+       one where people start walking a different way home."
+
+CCCC3 somebody coming back from it                    draft:true
+      "Took nine months and a lot of showing up. Nine months to get back to
+       where people just say hello."
+
+## DDDD. THE ONLY MAN WHO'LL TAKE IT (rung five, the company store)
+## (the debt is not unpayable because of interest. It is unpayable because
+##  there is one person to pay. Nobody lectures.)
+
+DDDD1 somebody working it out                         draft:true
+      "He pays me, and he's the only one who takes what he pays me in, and he
+       decides what it's worth. Say that back to me slow."
+
+DDDD2 somebody who has been there years                draft:true
+      "I'm not behind because I spend. I've never been ahead. There isn't an
+       ahead, that's the thing I can't get anybody to hear."
+
+DDDD3 the way out, when there is one                  draft:true
+      "There's a guy two streets over who'll take it. That's it. That's the
+       whole difference, one guy."
+
+## EEEE. THE LIGHTS DO NOT COME BACK (rung six, and the price of returning)
+## (the research says a price is the trap. These lines never name a price.)
+
+EEEE1 somebody at the start of it                     draft:true
+      "One night. I was one short, one night, and that was six weeks ago."
+
+EEEE2 somebody who was told what it costs             draft:true
+      "So the reason I can't have it back is the reason it went off. Yeah.
+       Yeah, I've been chewing on that one too."
+
+EEEE3 somebody who worked it off instead              draft:true
+      "Three days pulling cable with his cousin and he flipped it back on
+       himself. Didn't cost me a battery, cost me three days."
+
+## FFFF. WHAT IS NOT HERE, ON PURPOSE (round 16)
+- No line names interest, a fee, a rate, a balance or a schedule. Round 9 refused
+  those under EVERYTHING COSTS ONE and this bank does not reopen them.
+- No line has anybody take a possession. The punishment in every line above is a
+  door that stops opening, which is round 9's finding, not seizure.
+- No line names a price to get the lights back. EEEE2 is the whole trap said by
+  somebody who just noticed it, and EEEE3 is the way out costing time.
+- No line names a faction, a lender or a collector by name. MAP LAW, and his.
+- Nobody is wise. DDDD1 works it out mid-sentence and is not proud of it.
+- Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.
