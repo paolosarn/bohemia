@@ -1007,3 +1007,86 @@ PPP3 the buyer, caught                                draft:true
 - No line names a faction, a market seat or a district. That is MAP LAW and his.
 - Spanish register: 3 of 16 lines, which holds the 15% he set on 8/26 and stays
   under Clark County's real 18.5%. This bank does not grow the register corpus.
+
+## RRR. THE CUT COMES DUE (round 14, the block's owner collects)
+## (nobody in these lines says a percentage, a rate or the word rent. The bill is
+##  a person at a door with a number in his head.)
+
+RRR1 the collector, doing his rounds                  draft:true
+     "Morning. Yeah, I know. I've got eleven more of these and you're the only
+      one who says morning back."
+
+RRR2 the collector, when you are short                draft:true
+     "Alright. Alright, I'll write you down. I'm writing you down, though, you
+      understand what that means."
+
+RRR3 somebody adding it up out loud                   draft:true
+     "Thirteen. I worked thirty and I'm handing him thirteen, and the lights
+      still go off at nine."
+
+RRR4 somebody who has stopped adding it up            draft:true
+     "I don't count it any more. I just know what's left, and what's left is
+      Tuesday."
+
+## SSS. GOING SMALLER (the downgrade, which is what people actually do first)
+## (Lebanon went five amps to three to two. In a mouth that is not a number, it
+##  is a list of what you gave up.)
+
+SSS1 somebody explaining what they dropped            draft:true
+     "We had the two blocks and the corner. Now it's the one block. It's fine,
+      hermana, we didn't need the corner."
+
+SSS2 somebody who dropped further                     draft:true
+     "You get used to it fast. That's the part nobody tells you, how fast you
+      get used to it."
+
+SSS3 somebody refusing to drop                        draft:true
+     "I'll pay it. I'll pay it and I'll eat worse, because the day I give one
+      back I'm never getting it back."
+
+SSS4 a kid asking                                     draft:true
+     "Is that why we moved the beds in here?"
+
+## TTT. ONE LINE, FOUR DOORS (sharing, which our feeder dedup already is)
+## (nobody calls it sharing. They call it whose it is.)
+
+TTT1 the arrangement, stated                          draft:true
+     "It's on my name. That's all it is, it's on my name and everybody puts in."
+
+TTT2 the person who put in late                       draft:true
+     "I'm two behind. I know I'm two behind, I'm going to be one behind by
+      Thursday and that's something."
+
+TTT3 what goes wrong with it                          draft:true
+     "The trouble isn't the money. The trouble is it's on one guy's name and
+      one guy gets to be angry about it."
+
+## UUU. WE JUST GO DARK (the exit, chosen, not lost)
+## (going dark is a decision here, not a punishment. Nobody is brave about it.)
+
+UUU1 somebody who cut themselves off                  draft:true
+     "We stopped paying in the spring. It's dark and it's quiet and I sleep
+      better than the people who pay."
+
+UUU2 somebody halfway to deciding                     draft:true
+     "I keep doing the sum and the sum keeps coming out the same way, and I
+      keep paying him anyway."
+
+UUU3 somebody who came back                           draft:true
+     "Six weeks. Then the little one got sick and I was back at his door with
+      the money, so."
+
+UUU4 somebody who got out the other way               draft:true
+     "I've got four panels on the roof and he came up here himself to look at
+      them. Himself. He hasn't been up a ladder in ten years."
+
+## VVV. WHAT IS NOT HERE, ON PURPOSE (round 14)
+- No line says a percentage, a rate, a share or the word rent. RRR3 does the
+  whole of 44% by saying thirty and thirteen and letting him do it.
+- No line names a faction or a collector by name. That is MAP LAW and his.
+- No line mentions amperes, a meter, a breaker or running out of charge. His 9/5
+  law says a battery is a coin and nothing else, and the bank obeys it.
+- No line is wise about the arrangement. TTT3 is the closest and it is a
+  complaint about one guy, not a lesson.
+- Spanish register: 1 of 15 lines, well under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.

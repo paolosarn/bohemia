@@ -1,3 +1,193 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share].
+Next OPEN is Q15 [first hour]; Q16 [debt spiral], Q17 [wages fall] and Q18 [black market] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 14 REPORT: [rent share] SHIPPED ===
+*** THE RENT IS NOT A SINK, AND OUR LADDER HAS NO FRACTIONS. MODE: RESEARCH,
+nothing implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_14_THE_RENT_IS_NOT_A_SINK_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections RRR-VVV (15 lines, 205 total)
+Board:  Q14 SHIPPED. Q1-Q14 shipped; next OPEN is Q15 [first hour]. The
+        coordinator added two more since last round: Q17 [wages fall] and Q18
+        [black market].
+
+I DID NOT REPEAT THE COORDINATOR'S GENERATOR-MAFIA ROUND (9/5). I read it first
+and answered the two things it routed out: THE SHARE and THE NUMBER.
+
+TWO FINDINGS.
+
+1. OUR LADDER CANNOT EXPRESS 44%. A day of work pays one battery and the smallest
+   thing in the game costs one. So a nightly bill is 0% of a day's work or it is
+   100%. There is no rung between, and there cannot be, because the fraction is
+   not a price. Lebanon's 44% and Iraq's 14% do not exist on a nightly ladder.
+   THE FRACTION LIVES IN THE CALENDAR AND IN THE GEOMETRY, and both are built.
+
+2. *** THE FINDING THAT PROVES US WRONG (the big swing, and the answer is NO).
+   THE BLOCK'S CUT CANNOT BE THE MAIN MONEY SINK, BECAUSE A RENT IS NOT A SINK. ***
+   Our own purse already draws the line: debit() posts kind 'drain' (destroyed),
+   transferOut() posts kind 'transfer' (moved), and flow() reports them apart.
+   Ran it: the same 13 batteries paid two ways leaves the SAME balance, 17, with
+   drain 13 / transferOut 0 one way and drain 0 / transferOut 13 the other.
+   A rent changes WHO is rich. It does not change how much money exists.
+   AND THERE IS NO RECEIVER: BohemiaPurse.create() is called exactly once in the
+   whole game (the player). A rent posted as a transfer today moves money to a
+   holder that does not exist. Either the faction gets a real purse or the rent
+   is honestly a drain and should say so. The real record says purse: Lebanon's
+   generator money did not vanish, it BUILT the mafia. So it is a transfer with a
+   real receiver, and that makes [block rent] and FACTIONS [power territory] one
+   system. Round 13 said the demand side is the bigger half; round 14 says the
+   same thing from the other end -- YOU CANNOT FIX A MONEY GLUT BY HANDING THE
+   MONEY TO SOMEBODY ELSE.
+
+MEASURED ON OUR OWN BUILD:
+  A WAGE IS 27 BATTERIES, EVER. PAYOUT has one row (a job pays one) and the demo
+    bank holds 27 quests. That is the entire lifetime wage income of the shipped
+    game, against 585 a night from mining (round 13). A wage is one twentieth of
+    one percent of the money a player handles, so no rent can be balanced against
+    it. That is Q17 [wages fall]'s row and I left a note on it.
+  ONE BUILDING ON A LIT STREET ALREADY COSTS A FULL DAY'S WAGE EVERY NIGHT.
+    1 building -> 1 circuit -> 100% of a day. 5 -> 500%. Every lit plot -> 4400%.
+    A player cannot be a Lebanese family here. He is at 0% or he is ruined.
+  THE FOUR REAL COPING MOVES, checked one at a time: SHARING A LINE is already
+    built and nobody built it as that (the feeder dedup; the busiest lit circuit
+    carries 5 build-legal plots for ONE bill). GOING DARK is already built and
+    already stops billing you (verified live: doused circuit 61, plots report
+    live:false, doused:true, owner kept). GOING SOLAR is WORLD [own power], open.
+    DOWNGRADING IS NOT IN THE GAME AT ALL and it is the one real families do
+    FIRST: Lebanon's minimum subscription fell 5 amps to 3 to 2. Our only
+    downgrade is DEMOLISH, which is all or nothing.
+
+THE REAL LADDER (and the baseline is what makes it land): a normal rich-world
+household spends ~3% of income on energy; the US calls 6% "high" and 10%
+"severe"; UK fuel poverty is 10%; a typical Baghdad family pays 11-17% (8,000
+dinars an ampere, 40-60k bill, 350k minimum wage); LEBANON 2023 was 44% AVERAGE
+and 88% FOR THE POOREST (HRW/CRI, 1,200+ households, March 2023) -- "while others
+went without a subscription at all". A COLLAPSE IS THE BILL GOING FROM 3% TO 44%,
+WHICH IS FIFTEEN TIMES. And 44% is NOT a steady state: it is where the system
+broke and people left it.
+
+THE NUMBER, TWO WAYS, AND NEITHER IS A PRICE:
+  THE CALENDAR. Monthly, every rung of the real ladder is a whole number of ONES
+    out of 30: 1, 2, 3, 4, 13, 26. His 8/15 law survives perfectly. Weekly works
+    at the top and collapses the bottom four rungs to zero. Nightly has no ladder.
+  THE GEOMETRY, and this needs no tuning at all. Under round 13's fixed sun pool
+    mining income is FLAT while the cut GROWS with ground, so at a pool of 30 a
+    day and one battery per block per night: 1 block = 3% (a normal household),
+    5 = 17% (Baghdad), 13 = 43% (BEIRUT 2023, THE AVERAGE), 30 = 100% (you work
+    entirely for the boss). NOBODY TYPED THOSE PERCENTAGES. It is what the
+    geometry does, and it sets its own ceiling with no number on a screen.
+
+AND THE NUMBER FOR WHAT HAPPENS WHEN PEOPLE GET OUT IS 96%. One Baalbek operator
+ran six 600 kVA sets for ~2,000 households; he is down to one small set and his
+fuel buying has fallen 96%, in about two years, because his customers bought
+panels. Lebanon's solar went 89.84 MW (end 2020) to ~870 MW (2022). Going solar
+should not shave a faction's income, it should collapse it.
+
+REFUSED: a percentage anywhere on screen (anti-spreadsheet, and the share is an
+outcome not an input); AN AMPERE ALLOWANCE -- the most realistic dial in the whole
+record and his 9/5 law forbids it in terms ("no power meter, no fuel gauge, no
+out-of-charge state anywhere"), so whatever a downgrade buys, it cannot be
+electricity; a second price for the same thing (8/15 is one); making rent a hard
+sink to fix round 13's glut (works arithmetically, lies about what rent is);
+inventing what a faction charges (balance is his).
+
+ROUTED: FACTIONS [block rent] gets four (monthly not nightly; it is a transfer
+and needs a receiver; the share comes out of blocks held; the downgrade is the
+missing move). FACTIONS [power territory] gets "the rent IS the faction's
+income". WORLD [own power] gets the 96%. Q17 gets the 27-battery wage. One goes
+to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days, runs dry around fifty.
+     Premise or bug?
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? FIFTH VOTE (rounds 2, 9,
+     10, 12, 13): a banknote far from its bank was not discounted, it was
+     REFUSED. Costs his price ladder nothing; rice still costs one.
+  9. Can a repaired ruin house people, the way his 8/1 ruling says? And can a
+     building hold a second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player in a broken city WANT that he cannot just
+     build? (Round 13: this is the bigger half.)
+ 11. (new) What does a subscription to a block BUY, if it cannot buy electricity?
+     His 9/5 law rules out a power allowance. Protection, market access, being
+     left alone, the right to build are all candidates and all of them are canon.
+     Without this, [block rent] has a price and no product.
+
+NEXT IN THIS LANE: Q15 [first hour].
+
+================================================================================
 WORDS (words-8dqrnq): 9/5 (l) LATEST -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
 RESEARCH QUEUE Q1 TO Q15 IS NOW ALL SHIPPED. THE CITY FEED IS A PRESS RELEASE IN A
 WARM LOWERCASE COSTUME: EVERY POST THAT CARRIES ACTUAL NEWS HAS NO PERSON IN IT. ***
