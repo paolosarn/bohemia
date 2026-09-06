@@ -486,34 +486,64 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
          cells this mechanism is written to choose, and does walking INTO THAT CELL
          get refused. FIX THE RULER, NEVER THE TARGET.
          Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
+      /* *** TURN AND FACE THEM, WHICH IS WHAT MAKES THIS A TEST OF THE MECHANISM
+         AND NOT OF ARITHMETIC. *** Followers TRAIL you (BohemiaAgainst.follow
+         closes to KEEP behind), so the cell in front of a walking player is two
+         steps out of any of their reach and ctBlockCell()'s branch 2 -- which
+         requires the faced cell to be within one of the BODY -- can never fire.
+         Measured 9/6, three identical runs: three followers, all of them south,
+         the player facing north. This leg was green because the walk above
+         happened to end with one of them beside the cell the player faced; it is
+         not a property the code guarantees, and LIFE + CITY moving where people
+         live (AN ADDRESS IS A FRONT DOOR, 9/6) moved the end of that walk.
+         So the leg now sets up the ONE situation the row is about: a cell the
+         player is facing, EMPTY, and within one step of a body at war. If they
+         interpose, the mechanism did it -- nothing else can put them there.
+         PROVEN THE ONLY WAY THAT COUNTS: with ctBlockCell() stubbed to return
+         null this goes red. An earlier cut that accepted a blocker ANYWHERE
+         beside you did NOT go red under that stub, because a plain follower ends
+         up beside you anyway. A leg that cannot tell the mechanism from its
+         absence is decoration.
+         Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
       var before = [hx, hy], got = null, gotAt = null;
-      for (var t = 0; t < 20 && !got; t++) {
-        try { ctFollowStep(); render(); } catch (e) {}
-        /* THE CELL IN FRONT FIRST, then the doorway, then anywhere they have put
-           themselves within arm's reach -- ctBlockCell's own order of preference,
-           and then the general case it exists to serve. */
-        var cands = [];
-        var v = (typeof PPL_DIRV !== 'undefined') ? PPL_DIRV[HFACE] : null;
-        if (v) cands.push([hx + v[0], hy + v[1]]);
-        for (var ddy = -1; ddy <= 1; ddy++) for (var ddx = -1; ddx <= 1; ddx++) {
-          if (!ddx && !ddy) continue;
-          var cc = cellAt(hx + ddx, hy + ddy);
-          if (cc && cc.enter) cands.push([hx + ddx, hy + ddy]);
+      try { ctFollowStep(); render(); } catch (e) {}
+      var occupied = function (cx, cy) { return !!ctBlocked(cx, cy); };
+      var near = function (cx, cy) {            /* within one step of a follower */
+        for (var kk in CT_FOLLOW) {
+          var f = CT_FOLLOW[kk];
+          if (Math.max(Math.abs(f[0] - cx), Math.abs(f[1] - cy)) <= 1) return true;
         }
-        /* *** AND NOT "ANYWHERE NEXT TO YOU". *** That was tried on 9/6 and it is
-           a loosened ruler, proven the only way it can be: with ctBlockCell()
-           stubbed to return null -- the whole get-in-your-way mechanism deleted --
-           the leg still passed, because an ordinary follower ends up beside you
-           anyway. A leg that cannot tell the mechanism from its absence is
-           decoration. The two cells below are the two the code chooses between,
-           and they are the only two that mean anything. */
-        for (var ci = 0; ci < cands.length && !got; ci++) {
-          var g0 = ctBlocked(cands[ci][0], cands[ci][1]);
-          if (g0) { got = g0; gotAt = cands[ci]; }
+        return false;
+      };
+      var want = null, wantFace = null;
+      for (var fd in PPL_DIRV) {
+        var vd = PPL_DIRV[fd], cx2 = hx + vd[0], cy2 = hy + vd[1];
+        if (!pplStandable(cx2, cy2)) continue;
+        if (occupied(cx2, cy2)) continue;       /* already standing there proves nothing */
+        if (!near(cx2, cy2)) continue;          /* out of reach: the code cannot fill it */
+        want = [cx2, cy2]; wantFace = fd; break;
+      }
+      o.setUpCell = want; o.setUpFace = wantFace;
+      if (want) {
+        HFACE = wantFace;
+        for (var t = 0; t < 20 && !got; t++) {
+          try { ctFollowStep(); render(); } catch (e) {}
+          var cands = [[hx + PPL_DIRV[HFACE][0], hy + PPL_DIRV[HFACE][1]]];
+          /* branch 1: a doorway beside you, which ctBlockCell prefers */
+          for (var ddy = -1; ddy <= 1; ddy++) for (var ddx = -1; ddx <= 1; ddx++) {
+            if (!ddx && !ddy) continue;
+            var cc = cellAt(hx + ddx, hy + ddy);
+            if (cc && cc.enter) cands.push([hx + ddx, hy + ddy]);
+          }
+          for (var ci = 0; ci < cands.length && !got; ci++) {
+            var g0 = ctBlocked(cands[ci][0], cands[ci][1]);
+            if (g0) { got = g0; gotAt = cands[ci]; }
+          }
         }
       }
       o.blocker = got;
       o.blockAt = gotAt;
+      o.onDoor = !!(gotAt && (cellAt(gotAt[0], gotAt[1]) || {}).enter);
       /* WHY NOT, when it is not. A leg that can only say "nobody" cannot be
          debugged by anybody who did not write it. */
       o.followers = Object.keys(CT_FOLLOW || {}).length;
@@ -530,7 +560,6 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
         }
         return n;
       })();
-      o.onDoor = !!(gotAt && (cellAt(gotAt[0], gotAt[1]) || {}).enter);
       o.face = HFACE;
       o.stillThere = (hx === before[0] && hy === before[1]);
       if (!got) return o;
@@ -564,7 +593,8 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
         ? (blk.blocker + ' stepped into your way at ' + JSON.stringify(blk.blockAt)
            + (blk.onDoor ? ' (THE DOORWAY, branch 1)' : ' (the cell in front, branch 2)')
            + ', you facing ' + blk.face)
-        : ('nobody got in the way (' + blk.drew + ' drawn, ' + blk.wantBlock
+        : ('nobody stepped into ' + JSON.stringify(blk.setUpCell) + ' facing '
+           + blk.setUpFace + ' (' + blk.drew + ' drawn, ' + blk.wantBlock
            + ' of them want to block, ' + blk.followers + ' following: '
            + (blk.followAt || 'none') + ')'));
     ok('and the gate is pushing toward the cell they are actually standing in',

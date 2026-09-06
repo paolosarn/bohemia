@@ -219,6 +219,7 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
                       roles: (DQ.Q && DQ.Q.roles || []).map(function (r) { return r.name; }) }; }
       catch (e) { quest = null; }
       var blocks = 0, castBlocks = 0, rolesSeen = {}, card = null, cardRole = null;
+      var castKeys = {}, castWhere = {};
       var runsWith = null, wantFaction = null, mismatch = null;
       for (var cx = 6; cx < 30; cx++) for (var cy = 6; cy < 30; cy++) {
         hx = cx * sp + 4; hy = cy * sp + 4; CT_SPAWN = null;
@@ -233,6 +234,12 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         if (!names.length) continue;
         castBlocks++;
         names.forEach(function (n) { rolesSeen[n] = (rolesSeen[n] || 0) + 1; });
+        /* WHICH PERSON, not just how many blocks. The law is ONE ADDRESS PER
+           ROLE -- one PERSON -- and "one block" was only ever a proxy for it. */
+        names.forEach(function (n) {
+          castKeys[n] = castKeys[n] || {}; castKeys[n][c[n].key] = 1;
+          castWhere[n] = castWhere[n] || []; castWhere[n].push(cx + ',' + cy);
+        });
 
         /* AND OPEN THAT PERSON'S CARD FOR REAL, once, on the first block that
            casts. Not cardFor(), not a return value: the text on the glass. */
@@ -240,11 +247,25 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         var nm = names[0], tgt = null;
         for (var i = 0; i < R.length; i++) if ('P:city:' + R[i].id === c[nm].key) tgt = R[i];
         if (!tgt) continue;
-        var at = ctAt(tgt), dd = [[1, 0], [-1, 0], [0, 1], [0, -1]], stood = false;
+        /* *** STAND BESIDE THE CAST PERSON, AND MAKE SURE IT IS THEM. *** This
+           used to accept any spot where ctAdjacent() found ANYBODY -- and
+           ctAdjacent returns the NEAREST body, not the one you came for. That was
+           safe while residents lived scattered on open ground and was silently
+           wrong the moment households sat down together: LIFE + CITY's
+           AN ADDRESS IS A FRONT DOOR (9/6) seats a household at one address, so
+           standing beside the fixer now usually puts you beside their housemate
+           too, the card opens on the WRONG PERSON, and the job row is correctly
+           absent from it. The gate then read that as the card being broken.
+           A card that belongs to somebody else is not a measurement of this card.
+           Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
+        var at = ctAt(tgt), stood = false;
+        var dd = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
         for (var d = 0; d < dd.length; d++) {
           hx = at[0] + dd[d][0]; hy = at[1] + dd[d][1];
+          if (!pplStandable(hx, hy)) continue;
           try { render(); } catch (e) {}
-          if (ctAdjacent()) { stood = true; break; }
+          var who = ctAdjacent();
+          if (who && who.id === tgt.id) { stood = true; break; }
         }
         if (!stood) continue;
         var vb = document.getElementById('cttalk');
@@ -260,6 +281,7 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
         try { ctClose(); } catch (e) {}
       }
       return { quest: quest, blocks: blocks, castBlocks: castBlocks, rolesSeen: rolesSeen,
+               castKeys: castKeys, castWhere: castWhere,
                card: card, cardRole: cardRole, runsWith: runsWith,
                wantFaction: wantFaction, mismatch: mismatch };
     });
@@ -277,9 +299,33 @@ var CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
        "several", exactly ONE, out of every populated block in the valley. It
        still catches a caster that quietly stops working (that reads zero) and it
        now also catches one that starts working everywhere again. */
-    ok('*** A ROLE RESOLVES TO ONE REAL PERSON, ON ONE REAL BLOCK ***',
-      m.castBlocks === 1,
-      m.castBlocks + ' of ' + m.blocks + ' populated blocks can cast somebody');
+    /* *** AND IT WAS REWRITTEN AGAIN ON 9/6, FOR THE SAME REASON AND AGAINST THE
+       SAME LAW. *** `castBlocks === 1` says THE QUEST has one block. The law three
+       paragraphs up says the opposite in its own words: "A QUEST DOES NOT HAVE AN
+       ADDRESS, IT HAS ONE PER ROLE, and going from one to the other IS the job."
+       A two-role quest whose roles both cast from one block is a quest with
+       nowhere to walk to. The leg was green because the old placement happened to
+       put both roles' people within one block; LIFE + CITY moving residents onto
+       residential ground and to their own front doors (AN ADDRESS IS A FRONT DOOR,
+       9/6) separated them, and the gate called the law being satisfied a failure.
+       A GATE MUST NEVER OUTRANK A RULING. So the claim is now the ruling, exactly:
+       EVERY ROLE resolves to ONE PERSON on ONE BLOCK, and nothing is said about
+       how many blocks the quest as a whole touches. Measured: fixer at 8,7 and
+       lineman at 18,14, one person each. It still catches a caster that stops
+       working (a role with zero) and one that works everywhere again (a role with
+       two). Record: records/BOHEMIA_AN_ADDRESS_IS_A_FRONT_DOOR_9_6_26.md */
+    var roleNames = Object.keys(m.castKeys || {});
+    var oneEach = roleNames.length > 0 && roleNames.every(function (n) {
+      return Object.keys(m.castKeys[n]).length === 1 && m.castWhere[n].length === 1; });
+    ok('*** EVERY ROLE RESOLVES TO ONE REAL PERSON, ON ONE REAL BLOCK ***',
+      oneEach,
+      roleNames.length + ' role(s) cast from ' + m.castBlocks + ' of ' + m.blocks
+      + ' populated blocks: '
+      + roleNames.map(function (n) {
+          return n + ' -> ' + Object.keys(m.castKeys[n]).join('+')
+                 + ' at ' + m.castWhere[n].slice(0, 4).join('+')
+                 + (m.castWhere[n].length > 4
+                    ? ' +' + (m.castWhere[n].length - 4) + ' MORE BLOCKS' : ''); }).join(', '));
     ok('the quest declares roles for the caster to fill',
       !!m.quest && m.quest.roles.length > 0, m.quest && m.quest.roles.join(', '));
 
