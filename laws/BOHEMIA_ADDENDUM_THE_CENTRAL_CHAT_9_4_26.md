@@ -141,3 +141,10 @@ default is a line the coordinator failed to decide; identity and names stay his,
 everything else gets picked. Disagreement is said once, plainly, then his ruling is
 done. His last sentence is a job, never the whole round. Record of the first such
 list: records/BOHEMIA_THE_MANAGERS_OWN_MIND_9_5_26.md.
+
+
+## AMENDED 9/6/26: ONE THING HE HAS NOT SEEN, EVERY ROUND (coordinator's standing rule)
+He asked for his own blind spots and the first one was that he rules only on what
+crossed his screen last. So every manager's round names ONE shipped thing in the
+game he has never opened, in plain words, with the tab, so that it crosses his
+screen. Record: records/BOHEMIA_HIS_BLIND_SPOTS_THE_PERSON_NOT_THE_BOARD_9_6_26.md.

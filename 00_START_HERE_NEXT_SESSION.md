@@ -13623,6 +13623,15 @@ hears is late, the first fight teaches the wrong beat. Routed PLUMBER [beat late
 SOUNDS [scheduled beat], EYES E14 [late beat]. OWN CALL: DIRECTION at six claimed and one
 open is structural -- every cook waits on a human -- so EYES E15 [machine judges] builds
 the pre-pass and DIRECTION rules only on what a machine cannot. Topped up ECONOMY, DYNASTY.
+THEN (ck) "what blind spots might I be having? VAMILY" -> records/BOHEMIA_HIS_BLIND_SPOTS_
+THE_PERSON_NOT_THE_BOARD_9_6_26.md, seven, plainly: he plays less than he types the word
+(one play found what 500 checkers missed); he rules on what he saw last and never on what
+he has not opened; he kills a method and the question dies with it; he has never said what
+the game SOUNDS like; everything is a thumb and he thumbs nothing (DIRECTION judged 127
+garments for him, he judged zero); he polishes a 15% game; he sees 18 chats through one.
+Standing rule added to the central-chat law: every round names ONE shipped thing he has
+never opened, with the tab. Routed EYES E16 [never opened]; SOUNDS [his sound] as the one
+question to him. Sweep: 0 commits on main since the last round.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
