@@ -194,6 +194,47 @@
     return out;
   }
 
+  /* ---- AND THE SAME RULE, POINTED AT A FACTION -------------------------------------
+     (9/6/26, FACTIONS lane, VAMILY row [broke raiders] BB-UNPAID-TURNS-PREDATORY.)
+
+     THE ROW SAYS THE INCOME RULE ABOVE IS ALSO THE AGGRESSION RULE, and it is his
+     own study that says so: the free companies "regularly made a living by plunder
+     when they were not employed"; the White Company kept notaries and treasurers
+     and signed binding contracts AND pillaged widely at the same time; Caferro on
+     the medieval mercenary -- "notoriously difficult to control and PRONE TO
+     DESERTION IF NOT PAID REGULARLY."
+
+     Day 6 said a bandit who settles acquires an interest in his block prospering.
+     Day 7 says the reverse: cut a stationary bandit's income and HE GOES ROVING
+     AGAIN. So TAKE A FACTION'S LIGHTS AND YOU HAVE NOT WEAKENED THEM, YOU HAVE
+     RELEASED THEM -- which turns dousing a circuit from a free win into a decision.
+
+     DERIVED, NEVER STORED, and it has to be. A stored "roving" flag would need a
+     rule for putting it back and would sit set forever the first time somebody
+     forgot to write one -- the same trap the coalition avoided one round ago. Ask
+     again after the lights come back and it is simply not true.
+
+     THE CONDITION IS THE INCOME RULE READ BACKWARDS, with nothing added:
+       THEY HELD GROUND (so they had settled) AND NOTHING ON IT PAYS (so nobody
+       is paying them).
+     A faction that never held anything is not roving -- it never settled, and
+     calling a camp of scavengers "released" would be a statement about people who
+     were never held in check by an income at all. */
+  function roving(h) {
+    if (!h) return null;
+    var blocks = h.blocks | 0, lit = h.lit | 0;
+    if (blocks <= 0) return null;          /* never settled: nothing to release */
+    if (lit > 0) return null;              /* still being paid */
+    return {
+      faction: h.faction || null,
+      blocks: blocks,
+      /* HIS OWN WORDS, and they are an attempt like every other line this repo
+         ships: ALWAYS MAKE AN ATTEMPT (8/11). */
+      why: 'nobody is paying them any more, so they are taking it where they are',
+      draft: true
+    };
+  }
+
   function pending() {
     return [
       { key: 'MANDATE_SHARE', value: MANDATE_SHARE,
@@ -216,7 +257,7 @@
     MANDATE_SHARE: MANDATE_SHARE, MAYOR_SHARE: MAYOR_SHARE,
     GRANTS: GRANTS, TAX_RATE: TAX_RATE, NO_RULING: NO_RULING,
     fwuShare: fwuShare, rungOf: rungOf, canBuild: canBuild, grantsAt: grantsAt,
-    mayorSeat: mayorSeat, income: income, pending: pending, PAYS_IN: PAYS_IN
+    mayorSeat: mayorSeat, income: income, roving: roving, pending: pending, PAYS_IN: PAYS_IN
   };
   if (HASREQ) module.exports = API;
   root.BohemiaMandate = API;

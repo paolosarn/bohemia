@@ -181,6 +181,73 @@ ok('a friendly district was always open', M.canBuild(facs(1), true).allowed === 
      !/multiplier\s*[:=]\s*[\d.]/.test(code) && !/discount\s*[:=]\s*[\d.]/.test(code));
 }
 
+/* ============================================================================
+   AND THE SAME RULE, POINTED AT A FACTION.
+   (9/6/26, FACTIONS lane, VAMILY row [broke raiders] BB-UNPAID-TURNS-PREDATORY.)
+
+   The row says the income rule above is ALSO the aggression rule, out of his own
+   study: the free companies "regularly made a living by plunder when they were
+   not employed", and Caferro on the medieval mercenary -- "prone to desertion if
+   not paid regularly". Cut a stationary bandit's income and he goes roving again.
+   ========================================================================== */
+{
+  const A = require(path.join(ROOT, 'engine/bohemia_against.js'));
+
+  ok('A FACTION THAT NEVER HELD ANYTHING IS NOT ROVING -- it never settled, and '
+     + 'calling a camp of scavengers "released" would be a claim about people an '
+     + 'income never held in check',
+     M.roving({ faction: 'Cartel', blocks: 0, lit: 0 }) === null);
+  ok('and one still being paid is not roving either',
+     M.roving({ faction: 'Cartel', blocks: 5, lit: 2 }) === null);
+  ok('*** BUT ONE THAT HELD GROUND AND HAS NOTHING LIT ON IT IS. *** The income '
+     + 'rule read backwards, with nothing added: they settled, and nobody is '
+     + 'paying them any more',
+     !!M.roving({ faction: 'Cartel', blocks: 5, lit: 0 }));
+  ok('it is DERIVED, so the lights coming back ends it and there is no '
+     + 'dissolution rule to forget -- the trap the coalition avoided a round ago',
+     M.roving({ faction: 'Cartel', blocks: 5, lit: 0 })
+     && M.roving({ faction: 'Cartel', blocks: 5, lit: 1 }) === null);
+  ok('and it is tagged draft, because the words in it are an attempt',
+     M.roving({ faction: 'Cartel', blocks: 5, lit: 0 }).draft === true);
+  ok('no number was smuggled into it -- the only comparisons are against zero',
+     /function roving[\s\S]*?\n  }/.test(code)
+     && !/blocks\s*[<>]=?\s*[1-9]/.test(code.split('function roving')[1].slice(0, 700)));
+
+  /* *** WHAT IT DOES, AND THE SEVERITY NOBODY RULED. *** */
+  const rv = { blocks: 5 };
+  ok('*** TAKE A FACTION\'S LIGHTS AND YOU HAVE NOT WEAKENED THEM, YOU HAVE '
+     + 'RELEASED THEM. *** A faction the player has never wronged is now watching '
+     + 'him, because "an armed group that stops being paid does not disappear, it '
+     + 'becomes SOMEBODY ELSE\'S problem" -- somebody who did nothing to them',
+     (A.read({ roving: rv }) || {}).level === 'cold'
+     && (A.read({ roving: rv }) || {}).why === 'broke');
+
+  ok('AND IT RAISES THEM ONE RUNG RATHER THAN NAMING AN ABSOLUTE. "A roving outfit '
+     + 'is HOSTILE" is a severity nobody ruled: it would make a faction with no '
+     + 'opinion of you as dangerous as one you had personally wronged. RELEASED is '
+     + 'a comparative in his own sentence',
+     A.read({ rung: 'COLD', roving: rv }).level === 'hostile'
+     && A.read({ rung: 'HOSTILE', roving: rv }).level === 'war');
+
+  ok('and it cannot manufacture a level that does not exist -- there is no rung '
+     + 'above war, so a faction already at war is unchanged and keeps its own story '
+     + 'rather than being handed a new one for a body that behaves identically',
+     A.read({ rel: { war: true }, roving: rv }).level === 'war'
+     && A.read({ rel: { war: true }, roving: rv }).why === 'them'
+     && A.read({ rel: { war: true }, roving: rv }).roving === null);
+
+  ok('THE ORGAN IS UNTOUCHED WHEN NOBODY IS ROVING -- additive, the zero-regression '
+     + 'proof', A.read({}) === null && A.read({ rung: 'COLD' }).why === 'you'
+     && A.read({ rung: 'COLD' }).level === 'cold');
+
+  /* *** AND THE ORDER THAT IS THE WHOLE ROW. *** */
+  ok('and the release is read BEFORE the no-reason check, which is the difference '
+     + 'between the mechanic working and not: below it, a roving faction the player '
+     + 'has no history with came back as NOTHING, and they are exactly who the row '
+     + 'is about',
+     A.read({ roving: rv }) !== null);
+}
+
 console.log('MANDATE GATE: ' + pass + ' passed, ' + fail + ' failed  (three rungs, his 49% ' +
             'opens a cold district, the rung is derived so favour loss demotes you, the ' +
             'mayor is a killable seat, a patrolled district pays his ONE, and every number ' +

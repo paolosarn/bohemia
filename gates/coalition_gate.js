@@ -223,9 +223,15 @@ const done = () => {
       await p2.goto('file://' + CITY, { waitUntil: 'load', timeout: 180000 });
       await SETTLE(p2, 14000);
       const out = await p2.evaluate(() => {
+        /* ASKS THE ORGAN EVERYTHING THE CITY ASKS IT. The first cut of this
+           helper predated [broke raiders] and left `roving` out, so the street
+           check for it reported "nothing" after dousing every circuit a faction
+           had -- a test measuring a call the game does not make, which is the
+           same shape as commitment_gate's D11. */
         const say = f => {
-          const c = ctCoalitionAgainst(f);
-          const a = BohemiaAgainst.read({ rel: ctRelToMine(f), rung: null, coalition: c });
+          const a = BohemiaAgainst.read({ rel: ctRelToMine(f), rung: null,
+                                          coalition: ctCoalitionAgainst(f),
+                                          roving: ctRovingFaction(f) });
           return a ? (a.level + '/' + a.why) : 'nothing';
         };
         const R = { clean: {} };
@@ -239,6 +245,33 @@ const done = () => {
         DQ.shared.faction.CARTEL = 2;
         try { ctAgainstBump(); } catch (_e) {}
         R.afterPeace = say('Remnants');
+
+        /* *** AND THE ROW BB-COALITION NAMES AS ITS PAIR, ON THE SAME SURFACE.
+           (9/6, [broke raiders] BB-UNPAID-TURNS-PREDATORY.) "An outfit that
+           loses its income goes roving, and a roving outfit is who somebody else
+           recruits." Put a faction's lights out and see what it does. */
+        DQ.shared.faction.REMNANTS = 0;
+        try { ctAgainstBump(); } catch (_e) {}
+        const g = turfGrid();
+        const lit = POWER.holdings() || {};
+        const tgt = Object.keys(lit).find(f => g && g.byFaction && g.byFaction[f]);
+        R.target = tgt || null;
+        R.roveBefore = tgt ? say(tgt) : 'n/a';
+        R.heldBefore = tgt ? !!ctRovingFaction(tgt) : null;
+        let doused = 0;
+        if (tgt) {
+          const seen = new Set();
+          for (let y = 0; y < om.n; y++) for (let x = 0; x < om.n; x++) {
+            const p = POWER.at(x, y);
+            if (!p || !p.live || p.id < 0 || seen.has(p.id)) continue;
+            seen.add(p.id);
+            if (p.faction === tgt) { POWER.douse(p.id); doused++; }
+          }
+        }
+        R.doused = doused;
+        try { ctAgainstBump(); } catch (_e) {}
+        R.roveAfter = tgt ? say(tgt) : 'n/a';
+        R.otherAfter = say(Object.keys(g.byFaction).find(f => f !== tgt));
         R.thrown = 0;
         return R;
       });
@@ -278,6 +311,19 @@ const done = () => {
      + 'street pass above having no outfit of its own, which is exactly the state '
      + 'the outfit-versus-outfit reading came back empty in',
      street.clean.cartel === 'nothing' && /^hostile\/joined$/.test(street.cartel));
+
+  /* *** THE PAIR ROW, PROVED ON THE SAME WALKED SURFACE. *** */
+  ok('*** TAKE A FACTION\'S LIGHTS AND THEY TURN ON THE STREET, NOT JUST IN A '
+     + 'TABLE. *** ' + street.target + ' held ground and ' + street.doused
+     + ' lit circuits and read "' + street.roveBefore + '"; with every one of them '
+     + 'doused they read "' + street.roveAfter + '". You have not weakened them, '
+     + 'you have released them -- which turns a free win into a decision',
+     street.heldBefore === false && street.doused > 0
+     && street.roveBefore === 'nothing' && /\/broke$/.test(street.roveAfter));
+
+  ok('and putting one faction\'s lights out does not release the whole valley -- '
+     + 'everybody else is untouched (' + street.otherAfter + ')',
+     street.otherAfter === 'nothing');
 
   ok('nothing threw on the street pass', street.thrown === 0);
 

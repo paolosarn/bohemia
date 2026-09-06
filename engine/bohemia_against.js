@@ -93,6 +93,14 @@
       cold:    'THEY HAVE TAKEN SOMEBODY ELSE\'S SIDE AGAINST YOU',
       hostile: 'THEIR OUTFIT HAS JOINED A QUARREL THAT WAS NOT THEIRS',
       war:     'THEY STOPPED FIGHTING EACH OTHER, AND IT IS ABOUT YOU'
+    },
+    /* AND THE ONES NOBODY IS PAYING. Not about him at all, which is the point:
+       he did this by putting their lights out, and now they are everybody's
+       problem instead of somebody's employees. */
+    broke: {
+      cold:    'NOBODY IS PAYING THEM ANY MORE, AND THEY ARE LOOKING AROUND',
+      hostile: 'NOBODY IS PAYING THEM. THEY ARE TAKING IT WHERE THEY ARE',
+      war:     'NOBODY IS PAYING THEM AND THEY HAVE STOPPED PRETENDING'
     }
   };
 
@@ -164,16 +172,54 @@
      bad input throws nothing and returns nothing, same as indifference, so the
      caller gets the same silence either way -- and that is why the CALLER, not
      this file, is the thing a gate has to walk. */
+  /* THE FOURTH REASON: NOBODY IS PAYING THEM ANY MORE.
+     (9/6/26, FACTIONS lane, VAMILY row [broke raiders] BB-UNPAID-TURNS-PREDATORY.)
+
+     His own study: the free companies "regularly made a living by plunder when
+     they were not employed", and Caferro on the medieval mercenary -- "prone to
+     desertion if not paid regularly". Cut a stationary bandit's income and he goes
+     roving again. TAKE A FACTION'S LIGHTS AND YOU HAVE NOT WEAKENED THEM, YOU HAVE
+     RELEASED THEM.
+
+     *** SO IT RAISES THEM ONE RUNG AND NEVER NAMES AN ABSOLUTE. *** The tempting
+     version is "a roving outfit is HOSTILE", and that is a severity nobody ruled:
+     it would make a faction that had no opinion of you suddenly as dangerous as
+     one you had personally wronged, and it would make no difference at all to a
+     faction already at war. RELEASED is a comparative in his own sentence -- they
+     are worse than they were, not a fixed thing. One step up the ladder that
+     already exists says exactly that, invents no level, and cannot manufacture a
+     war out of nothing (there is no rung above war). */
+  function releasedFrom(level, roving) {
+    if (!roving) return level || null;
+    var order = ['cold', 'hostile', 'war'];
+    var at = order.indexOf(level || '');
+    return order[Math.min(at + 1, order.length - 1)];
+  }
+
   function read(facts) {
     if (!facts) return null;
     var a = fromOutfit(facts.rel), b = fromRung(facts.rung), c = fromCoalition(facts.coalition);
-    if (!a && !b && !c) return null;
+    var rov = !!facts.roving;
+    if (!a && !b && !c && !rov) return null;
     /* THE WORST OF THEM WINS, because a person is not the average of their
        reasons. Somebody whose outfit is at war with yours does not become
        merely cold because they have never personally seen you. */
     var level = a;
     if (rankOf(b) > rankOf(level)) level = b;
+    var rawLevel = null;
     if (rankOf(c) > rankOf(level)) level = c;
+    rawLevel = level;          /* what they were before the lights went out */
+    /* *** THE RELEASE IS APPLIED BEFORE THE EMPTY CHECK, AND THAT ORDER IS THE
+       WHOLE ROW. *** Below it, a roving faction the player has NO history with
+       came back as nothing -- and they are exactly who the row is about. "An
+       armed group that stops being paid does not disappear, IT BECOMES SOMEBODY
+       ELSE'S PROBLEM": somebody who never wronged them. Measured on the first
+       cut: roving with no history read as "nothing", which is the mechanic
+       switched off for every case that matters. */
+    if (rov) {
+      var lifted0 = releasedFrom(level, true);
+      if (lifted0 !== level || !level) level = lifted0;
+    }
     if (!level) return null;
     /* AND THE COALITION ONLY GETS TO EXPLAIN ITSELF WHEN IT IS THE REASON.
        If their outfit already hated you this hard on its own, saying "they
@@ -181,6 +227,11 @@
        why the person in front of him turned around. */
     var joined = !!c && rankOf(c) > rankOf(a) && rankOf(c) >= rankOf(b);
     var why = joined ? 'joined' : ((a && b) ? 'both' : (a ? 'them' : 'you'));
+    /* AND IT ONLY GETS TO EXPLAIN ITSELF WHEN IT CHANGED SOMETHING. A faction
+       already at war does not become "released" -- there is nothing above war,
+       and telling him a new story about a body that behaves identically is worse
+       than telling him nothing. */
+    if (rov && level !== rawLevel) { why = 'broke'; }
     var spec = LEVELS[level];
     var signs = {};
     for (var i = 0; i < SIGNS.length; i++) signs[SIGNS[i]] = !!spec.signs[SIGNS[i]];
@@ -195,6 +246,8 @@
       /* WHO BROUGHT THEM IN, so a card can name the ally rather than leave him
          guessing which quarrel this is. */
       coalition: joined ? (facts.coalition || null) : null,
+      /* WHY THEY ARE WORSE THAN THEY WERE, so a card can say it was the lights. */
+      roving: (why === 'broke') ? (facts.roving || true) : null,
       word: WORDS[why][level],
       signs: signs,
       draft: true
