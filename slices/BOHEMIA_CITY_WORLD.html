@@ -58181,5 +58181,122 @@ window.BOHEMIA_FEED = (function(){
   };
 })();
 
+/* ============================================================================
+   __THE_VALLEY_TELLS_YOU_FIRST__  (9/6, UI lane 11, VAMILY [crisis warning])
+   Row: BB-FORETOLD -- "A CRISIS ANNOUNCED IN ADVANCE IS THE DESIGN, NOT A
+   COURTESY... the player has to be able to SEE the buildup. This is the display
+   half of WORLD BB-SLOWER-EVERY-TIME, and without it that row is a simulation
+   nobody can perceive. An escalation the player cannot see coming is not tension,
+   it is an ambush."
+
+   MEASURED FIRST, AND IT CHANGED WHAT THIS IS. WORLD has not shipped
+   BB-SLOWER-EVERY-TIME (critical slowing down) yet, so there is no recovery-time
+   signal to display. But THE-VALLEY-RUNS-OUT *is* shipped (9/6, 1f3d342): the
+   valley really eats its stocks every day, daysLeft is computed off real numbers
+   nobody typed, and the night a good hits zero is a beat on the nightfall card.
+   SO THE CRISIS IS REAL AND ALREADY RUNNING. What was missing is the only thing
+   this row actually asks for: YOU COULD ONLY SEE IT AT BEDTIME. It was read once
+   a night, on one card, and between those cards the approach was invisible. A
+   countdown you can only read after the day is over is exactly the ambush the row
+   names.
+
+   *** IT MUST NOT CALL valleyRunsOut(). *** That function MUTATES: it writes
+   L.__gone to work out what ran out TONIGHT, which is what makes the nightfall
+   beat fire once instead of every night forever. Calling it on the beat to have a
+   look would quietly eat another lane's shipped moment. BohemiaEconomy.report() is
+   pure, returns the same daysLeft, and is what this reads. Checked, not assumed.
+
+   THE BANDS ARE HUMAN TIME, NOT TUNING. A week, three days, a day. Those are the
+   units a person already thinks in, not numbers anybody has to rule on, and the
+   quantity underneath them is entirely WORLD's. What is mine is the CADENCE: as
+   the band tightens the valley says it more often, which is the row's own picture
+   of a buildup ("more sightings, camps creeping closer, more contracts about the
+   thing that is coming"). Silence above a week, because a warning that is always
+   on is wallpaper.
+
+   AND IT STOPS AT ZERO. The night a good actually runs out belongs to the
+   nightfall card that already says THE FOOD IS GONE. Two surfaces announcing one
+   event is how a moment stops feeling like a moment.
+
+   Words are attempts, draft:true, English (a warning is required information, and
+   language_gate holds that language never gates required information).
+   ========================================================================== */
+window.BOHEMIA_FORETOLD = (function(){
+  var BEAT_MS = (typeof BEAT==='number'? BEAT : 500);
+  /* the rungs, widest first. `every` is in BEATS between repeats: the closer it
+     gets the more often the valley brings it up. */
+  var RUNGS = [
+    { days:7, every:240, kind:'week' },
+    { days:3, every:120, kind:'close' },
+    { days:1, every: 45, kind:'last'  }
+  ];
+  /* draft:true. Two per rung so the valley does not repeat one sentence at you. */
+  var LINES = {
+    week:  ['the {g} shelf is thinning out. nobody has restocked in a while.',
+            'anybody still seeing {g} anywhere? asking for the whole street.'],
+    close: ['about three days of {g} left in this valley. that is everybody, not just you.',
+            'the {g} is nearly gone and no truck is coming.'],
+    last:  ['less than a day of {g} left. after that there is none.',
+            'this is the last of the {g}. whatever you were saving it for, it is now.']
+  };
+
+  var lastRung=null, lastPost=-1e9, turn=0, said=0, EPOCH=performance.now();
+  function nowBeat(){ return Math.floor((performance.now()-EPOCH)/BEAT_MS); }
+
+  /* READ-ONLY. report() is pure -- verified in engine/bohemia_economy.js -- and
+     valleyRunsOut() is not, which is why this does not touch it. */
+  function scarcest(){
+    try{
+      var L=(typeof MKT_LEDGER!=='undefined')?MKT_LEDGER:null;
+      if(!L||!window.BohemiaEconomy) return null;
+      var rows=BohemiaEconomy.report(L)||[], best=null;
+      for(var i=0;i<rows.length;i++){
+        var r=rows[i];
+        if(r.daysLeft==null) continue;      /* nobody needs it: not a countdown */
+        if(r.daysLeft<=0) continue;         /* already gone: the card owns that */
+        if(!best||r.daysLeft<best.daysLeft) best=r;
+      }
+      return best;
+    }catch(_e){ return null; }
+  }
+  function rungFor(d){
+    var hit=null;
+    for(var i=0;i<RUNGS.length;i++) if(d<=RUNGS[i].days) hit=RUNGS[i];
+    return hit;                              /* null above a week: say nothing */
+  }
+  function line(kind, good){
+    var set=LINES[kind]||[]; if(!set.length) return null;
+    var t=set[(turn++)%set.length];
+    return t.replace('{g}', String(good).toLowerCase());
+  }
+
+  function check(force){
+    var s=scarcest(); if(!s) return null;
+    var r=rungFor(s.daysLeft);
+    if(!r){ lastRung=null; return null; }
+    var bt=nowBeat();
+    /* A TIGHTENING BAND ALWAYS SPEAKS, because that is the news. Otherwise it
+       speaks on its own rung's cadence, which shortens as the rung does. */
+    var tightened = (lastRung===null) || (r.days < lastRung.days);
+    if(!force && !tightened && (bt-lastPost) < r.every) { lastRung=r; return null; }
+    var txt=line(r.kind, s.good); if(!txt) return null;
+    lastRung=r; lastPost=bt; said++;
+    try{ window.BOHEMIA_FEED && window.BOHEMIA_FEED.push(
+      { who:'@thevalley', txt:txt, kind:'world', draft:true }); }catch(_e){}
+    return { rung:r.kind, good:s.good, daysLeft:s.daysLeft, txt:txt };
+  }
+
+  var lastBeat=-1;
+  try{ setInterval(function(){
+    var bt=nowBeat(); if(bt===lastBeat) return; lastBeat=bt;
+    check(false);
+  }, Math.max(60, BEAT_MS/4)); }catch(_e){}
+
+  return { check:check, scarcest:scarcest, rung:function(){ return lastRung?lastRung.kind:null; },
+           said:function(){ return said; },
+           rungs:function(){ return RUNGS.map(function(r){ return {days:r.days, every:r.every, kind:r.kind}; }); },
+           reset:function(){ lastRung=null; lastPost=-1e9; said=0; } };
+})();
+
 </script>
 </body></html>

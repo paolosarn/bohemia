@@ -222,6 +222,26 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('FORETOLD',       ['node', 'gates/foretold_gate.js'],
+     'Board row [crisis warning] / BB-FORETOLD: "A CRISIS ANNOUNCED IN ADVANCE IS THE '
+     'DESIGN, NOT A COURTESY... an escalation the player cannot see coming is not tension, '
+     'it is an ambush." MEASURED FIRST AND IT CHANGED THE JOB: WORLD has NOT shipped '
+     'BB-SLOWER-EVERY-TIME, so there is no critical-slowing-down signal to display and '
+     'inventing one would be taking another lane\'s row -- but THE-VALLEY-RUNS-OUT is '
+     'shipped and real, the valley eats its stocks daily off numbers nobody typed. THE '
+     'CRISIS ALREADY RUNS; what was missing is exactly the row\'s complaint, that YOU COULD '
+     'ONLY SEE IT AT BEDTIME, once a night on one card, with the whole approach invisible in '
+     'between. Now the valley talks about it DURING PLAY on the city feed, and the closer it '
+     'gets the MORE OFTEN it comes up -- the row\'s own picture of a buildup. Bands are '
+     'human time (a week, three days, a day), never tuning; the quantity underneath is '
+     'entirely WORLD\'s. Silent above a week, because a warning that is always on is '
+     'wallpaper. THE LEG THAT MATTERS MOST: valleyRunsOut() MUTATES -- it writes L.__gone to '
+     'decide what ran out TONIGHT, which is what makes the nightfall beat fire once instead '
+     'of every night forever -- so a display that called it to have a look would quietly eat '
+     'another lane\'s shipped moment. This reads BohemiaEconomy.report(), which is pure, and '
+     'the gate proves 40 reads leave the bookkeeping untouched AND that the nightfall card '
+     'still gets its once-only beat. Mutation-proved: swapping in the mutating call takes '
+     'that beat away.', True),
     ('ALLY WHY',       ['node', 'gates/ally_why_gate.js'],
      'Board row [reactions explained] / BB-WHY: "THE PLAYER MUST BE ABLE TO SEE WHY HIS SIDE '
      'DID WHAT IT DID... when the player cannot tell WHY it chose what it chose, the whole '

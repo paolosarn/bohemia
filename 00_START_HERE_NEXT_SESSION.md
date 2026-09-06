@@ -15802,6 +15802,59 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/6 (d) LATEST -- *** [crisis warning] BUILT. THE VALLEY NOW TELLS YOU
+IT IS RUNNING OUT WHILE YOU PLAY, NOT ONLY AT BEDTIME. AND ONE READ NEARLY ATE ANOTHER
+LANE'S SHIPPED MOMENT. ***
+
+MEASURING FIRST CHANGED WHAT THE JOB WAS. BB-FORETOLD is written as the display half
+of WORLD's BB-SLOWER-EVERY-TIME (critical slowing down: the valley takes longer and
+longer to recover). THAT ROW IS NOT SHIPPED. There is no recovery-time signal in the
+build, and inventing one would be taking WORLD's row. But THE-VALLEY-RUNS-OUT *is*
+shipped (9/6, 1f3d342) and it is REAL: the valley eats its stocks every day, daysLeft
+comes off numbers nobody typed, and the night a good hits zero is a beat on the
+nightfall card. SO THE CRISIS ALREADY RUNS. What was missing is precisely the row's
+own complaint -- YOU COULD ONLY SEE IT AT BEDTIME. It was read once a night, on one
+card, and the entire approach was invisible in between. That is the ambush the row
+names, and it was a display gap, not a simulation gap.
+
+WHAT SHIPPED. The city feed now carries the approach. Silent above a week (a warning
+that is always on is wallpaper). Inside a week, three days, and a day it speaks, and
+THE CLOSER IT GETS THE MORE OFTEN IT COMES UP -- 240 beats, then 120, then 45 -- which
+is the row's own picture of a buildup ("more sightings, camps creeping closer, more
+contracts about the thing that is coming"). It names the good that is running out
+rather than sounding a generic alarm. Bands are HUMAN TIME (a week, three days, a
+day), not tuning; the quantity underneath is entirely WORLD's. It stops at zero,
+because the night a good actually runs out belongs to the nightfall card that already
+says THE FOOD IS GONE -- two surfaces announcing one event is how a moment stops being
+a moment.
+
+*** THE THING WORTH KEEPING, AND IT WOULD HAVE BEEN INVISIBLE. ***
+valleyRunsOut() LOOKS like a read and IS NOT. It writes L.__gone to work out what ran
+out TONIGHT, which is the whole mechanism that makes the nightfall beat fire ONCE
+instead of every night forever. The obvious way to build this row -- call
+valleyRunsOut() on the beat and display what comes back -- would have quietly consumed
+that moment, and WORLD's card would have gone silent on the night that matters. The
+only reason I did not is that I opened the function before calling it and read what it
+does to its argument. BohemiaEconomy.report() returns the same daysLeft and is pure;
+that is what this reads. THE GATE PROVES IT rather than trusting me: 40 reads leave
+L.__gone untouched, and the nightfall beat still fires afterwards naming the right
+good. Mutation-proved by swapping the mutating call back in -- the beat disappears.
+GENERAL RULE, WRITE IT DOWN: BEFORE READING ANOTHER LANE'S FUNCTION ON A TIMER, OPEN
+IT AND CHECK WHETHER IT WRITES. A name that sounds like a question can still be an
+answer that costs something.
+
+GATE: gates/foretold_gate.js, 11 ok 0 failed, registered in the suite. Mutation-proved
+twice (the mutating read -> 2 legs red including WORLD's beat; a flat cadence -> the
+escalation leg red).
+
+[NOT PENDING, JUST FLAGGED FOR THE COORDINATOR] When WORLD ships BB-SLOWER-EVERY-TIME,
+the display for it already exists: window.BOHEMIA_FORETOLD takes any falling quantity
+with the same shape. The recovery-time signal can ride the same rungs without a new
+surface.
+
+STILL TRUE: fix the alpha, THEN cut the demo, THEN run the gate. Read main's stamp
+letter and go one PAST it -- main was on 9/6ab and my own tree had the same letter.
+
 UI (ui-kmqmrf): 9/6 (c) LATEST -- *** [reactions explained] BUILT. THE COMPANION NOW
 SAYS WHY, ON THE BODY IT IS ABOUT, FOR ONE BEAT. ***
 
