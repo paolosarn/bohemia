@@ -48,3 +48,11 @@ to the 9/4 compare law's gate row, not to a new machine.
 - `laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md`: unchanged, it was right.
 - `laws/BOHEMIA_ADDENDUM_THE_UI_STUDY_LAW_8_26_26.md`: unchanged, it was right.
 - EYES AND EARS: the round-one [PENDING Paolo] is ANSWERED and closed.
+
+
+## AMENDED 9/6/26 BY PAOLO: FINAL FANTASY X BELONGS TO TWO
+Asked what the game sounds like, he answered "post-apocalyptic Final Fantasy X,
+especially that fantasy beach vibe." The department a reference belongs to is his
+to assign, and he has assigned FFX to SOUND as well as the INTERFACE (8/26). Two
+departments, by his word, and only those two. Nothing else in this law moves.
+Law: laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md.

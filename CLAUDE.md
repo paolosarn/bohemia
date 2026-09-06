@@ -54,7 +54,8 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - NEVER ADD A REFERENCE GAME HE HAS NOT NAMED, AND A REFERENCE BELONGS TO ONE DEPARTMENT
   (Paolo 9/5: "Ff12 is combat only"): FINAL FANTASY XII = combat gambits ONLY; ROGUE FABLE 4 =
   combat on the beat; BATTLE BROTHERS = the campaign layer; FINAL FANTASY X = the INTERFACE
-  study (8/26, round 01); FALLOUT 1 = the INTERFACE too (9/6, act-one look, his word:
+  study (8/26, round 01) AND THE SOUND (9/6, his word: "post-apocalyptic FFX, that
+  fantasy beach vibe"); FALLOUT 1 = the INTERFACE too (9/6, act-one look, his word:
   "2050 rustic"); Las Vegas = the city. Citing one outside its department is the same
   violation as citing a game he never named -> laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md,
   laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md

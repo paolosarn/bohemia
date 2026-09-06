@@ -13965,6 +13965,17 @@ garments for him, he judged zero); he polishes a 15% game; he sees 18 chats thro
 Standing rule added to the central-chat law: every round names ONE shipped thing he has
 never opened, with the tab. Routed EYES E16 [never opened]; SOUNDS [his sound] as the one
 question to him. Sweep: 0 commits on main since the last round.
+THEN (cl) HE ANSWERED THE SOUND: "post-apocalyptic Final Fantasy X, especially that fantasy
+beach vibe, it was so good" -> LOCKED, laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26
+.md. FFX is now the SOUND reference as well as the interface one, by his word (the
+one-department law amended by him, CLAUDE.md updated). Researched what that music IS so the
+lane cooks to it and does not copy it (three composers; the island theme is Hamauzu's, a
+patient picked melody over a soft beat with real violin and hand percussion; the remaster
+lost fans by shortening it, starting the beat sooner and cutting the bass line, which says
+what people loved). "Post-apocalyptic" is the hard half, same as "2050 rustic": keep the
+warmth, let the world wear it, under the 120 BPM the fight keeps. SOUNDS [his sound]
+resolved into SOUNDS [sound card], top of lane: the card, the one song he likes as the
+anchor, every song he owns sorted by distance from it.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
