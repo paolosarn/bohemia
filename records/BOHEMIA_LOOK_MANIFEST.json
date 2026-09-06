@@ -26,7 +26,7 @@
     "y": 2956,
     "zoom": 26
    },
-   "kb": 209.2,
+   "kb": 299.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html",
    "shooter": "node tools/bohemia_look_shots.js --only the-yards-lit"
