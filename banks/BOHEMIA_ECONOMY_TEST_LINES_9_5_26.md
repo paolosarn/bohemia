@@ -853,3 +853,68 @@ FFF2 somebody who prefers it                      draft:true
 - No line quotes an index, a percentage or a trend. EEE1 counts to three on her
   fingers, which is the only kind of number this game shows.
 - No line decides what a trader will and will not take. That is canon and his.
+
+# ============================================================================
+# ROUND 12 [who's housed] -- added 9/5/26.
+# Record: records/BOHEMIA_ECONOMY_DAY_12_A_VACANT_BUILDING_IS_NOT_HOUSING_9_5_26.md
+# Same rules. draft:true, none in the game, no game named, no faction named, no
+# moral stated, nothing gated behind Spanish, voice card holds.
+# THE POINT: a vacant building is not housing, habitability is. Nobody says
+# "habitable". They say the roof is gone, or that they got a room off somebody.
+# ============================================================================
+
+## HHH. EMPTY IS NOT THE SAME AS AVAILABLE
+
+HHH1 somebody who has looked                         draft:true
+     "There's nine empty houses on that street. I've been in all nine. You can
+      see the sky from the kitchen in six of them."
+
+HHH2 the obvious question, answered                  draft:true
+     "Why don't I move in? Move into what. Walls aren't a house."
+
+HHH3 somebody who did move in                        draft:true
+     "Two months on the roof before we slept in it. Two months, and it's still
+      the smallest roof you've ever seen."
+
+## III. DOUBLING UP
+
+III1 the arrangement                                 draft:true
+     "Her and the two kids have got the front. We're in the back. It works,
+      mostly, and don't ask me about mostly."
+
+III2 somebody who does not want to say it            draft:true
+     "I'm at my sister's. Yeah. Since spring."
+
+III3 the host                                        draft:true
+     "You put people up. That's it, that's the whole thing, you just put them
+      up and you don't make a speech about it."
+
+## JJJ. WHO GETS THE GOOD GROUND
+
+JJJ1 somebody stating the rule                       draft:true
+     "The good blocks belong to people who can put twenty bodies on a street.
+      That's not unfair, hermano, that's just what the word means."
+
+JJJ2 where the rest end up                           draft:true
+     "Down in the wash. Nobody argues about the wash. There's a reason nobody
+      argues about the wash."
+
+JJJ3 somebody who moved up                           draft:true
+     "I'm three streets closer in than I was. Took a year. Three streets."
+
+## KKK. THE REPAIRED STREET (his 8/1 ruling, from the inside)
+
+KKK1 somebody watching a block come back             draft:true
+     "They pulled the cars out. That's all, they just pulled the cars out, and
+      now there's four families on it."
+
+KKK2 the person who did the work                     draft:true
+     "It was standing the whole time. Everybody walked past it for years. It was
+      standing the whole time."
+
+## LLL. WHAT IS NOT HERE, ON PURPOSE
+- No line gives a capacity, a headcount or a housing number. HHH1 counts to nine
+  because a person who walked the street would.
+- No line names which faction holds which ground. That is MAP LAW and his.
+- No line says the word habitable, occupancy or capacity. HHH2 is the whole
+  finding in six words.
