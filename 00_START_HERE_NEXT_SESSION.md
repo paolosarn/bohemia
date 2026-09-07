@@ -1,3 +1,119 @@
+WORDS (words-8dqrnq): 9/6 (g) LATEST -- *** Q3 [crowd talk] SHIPPED WITH BOTH ROUNDS. AND
+WHILE RUNNING MY OWN GATES I FOUND MAIN IS RED, RIGHT NOW, AND IT IS NOT MINE: the words
+book has not been baked since other lanes' quest files landed, and BAKING IT MAKES A SECOND
+GATE RED because a quest line trips the banned-phrase ceiling. Two hands needed. ***
+Nothing to judge. Nothing entered the game. My change is markdown only and moves no gate.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+*** THE RED MAIN, FIRST, BECAUSE HIS BUGS BEAT MY QUEUE AND THIS IS EVERYBODY'S ***
+Gates on a CLEAN checkout of main with nothing of mine in it:
+    voice_gate                110 passed, 1 failed
+    dialogue_catalogue_gate    60 passed, 3 failed
+The catalogue gate says why in its own words: the book was "baked from
+c95d11ddf447f7ca, sources now hash 90a748ebfe6803f9", the book holds 2,496 lines and disk
+counts 2,684, and the fix it names is ONE COMMAND: python3 tools/bohemia_words_book.py
+Other lanes added quest content and never baked. The baked book holds 37 sources.
+AND BAKING MAKES A SECOND GATE RED, WHICH IS WHY THIS NEEDS TWO HANDS. I regenerated
+locally to check, then diffed the two books to find the single new hit:
+    quests/bq/M04_WHAT_THE_NEIGHBOUR_ASKS.bq line 87
+    "...There is this block and the people on it and that is the whole list."
+That trips the "that is the whole ___" rule and takes banned hits from 39, exactly the
+ceiling, to 40. SO MAIN IS GREEN ON THE BANNED-PHRASE CHECK ONLY BECAUSE THE ARTIFACT IT
+READS IS STALE. Same defect class this lane logged on 8/28: A CHECKER SATISFIED BY AN
+OUT-OF-DATE ARTIFACT IS NOT MEASURING THE BUILD.
+WHAT I DID AND DID NOT DO: I did NOT bake, because baking ships a red voice gate for a
+line that is not mine to rewrite, and I did NOT touch M04, because editing another lane's
+quest text is the boundary the parallel-sessions law protects. This round ships MARKDOWN
+ONLY and changes no gate state.
+ROUTED: QUESTS, fix M04 line 87 and bake, both together. PLUMBER or whoever owns the bake,
+the catalogue gate fails on staleness before anything else, which is how this was found,
+and THE VOICE GATE DOES NOT, which is why its ceiling has been passing on a stale book.
+
+AND ONE THING I BELIEVED FOR TEN MINUTES AND CHECKED BEFORE WRITING IT DOWN: I thought the
+BANK fed the words book, which would have meant every test line this lane ever wrote was
+entering the measured corpus. IT DOES NOT. The book is baked from quest files and records,
+37 sources, no bank file among them. The size growth I saw was other lanes' quests.
+
+Q3 IS DONE UNDER THE 9/6 MODE. Two records, and the row carries both paths:
+    school   records/BOHEMIA_WORDS_Q3_SCHOOL_THE_FIRST_REPEAT_IS_A_FEATURE_9_6_26.md
+    writing  records/BOHEMIA_WORDS_Q3_ROUND_TWO_THE_WRITING_9_6_26.md
+    bank     banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q3 ROUND TWO", draft:true
+
+WHICH FINDINGS FROM SCHOOL CHANGED THE LINES:
+1. THE FIRST REPEAT IS A FEATURE, so the pool has an ANCHOR written to be heard twenty
+   times. Liking rises before it falls (208 studies, r = 0.26; inverted U over 268 curve
+   estimates). The row asked how to AVOID repeating; the bank does not try to.
+2. PLAIN LINES SURVIVE REPETITION AND CLEVER ONES DO NOT, so the pool is a MIX BY
+   DURABILITY: an anchor, four body lines, and exactly ONE rare line with a hard cap. And
+   the rare one is rare BECAUSE it is the best one. A MEMORABLE LINE IS A LIABILITY.
+3. CONTEXT IS WHERE VARIETY COMES FROM. One shape crossed with the hour, the weather, what
+   the block just did, who owns it, what the price did: six readings, no new authored cost.
+   The answer to "how many lines" is that the question is wrong.
+4. SPACING BEATS VOLUME, and the bank shows both mechanisms side by side: identical words
+   back to back on one street (satiation, unforgivable) against an hour apart (the curve).
+5. THE FIX IS THE SELECTOR, so the bank names that as its own honest limit.
+
+THE CORRECTION THAT MATTERS MOST: THE 9/4 ROUND AND MY SCHOOL ROUND WERE LOOKING AT TWO
+DIFFERENT ORGANS and I did not notice until I went back to the row's own words.
+    THE ROADSIDE DIRECTOR  engine/bohemia_encounters.js
+    THE BARK SELECTOR      the line picker behind the speech bubbles
+The 9/4 round found the director burned its twelve tokens forever so the valley went
+SILENT. THAT IS FIXED: REPEAT_DAYS 3, MIN_GAP_S 90, SPICE_CAP 1, a 70/20/10 mix, and a
+comment recording the measurement that caught it. MY ROUTING FROM THAT ROUND LANDED AND
+SOMEBODY DID THE WORK. So the two organs are now at OPPOSITE ends: the director has memory,
+a calendar, a gap and a rare cap; the barks have NO memory of what was said and a
+per-person term with two values on a street. AND THE ONE WITH NO CONTROL IS THE ONE THE
+PLAYER HEARS CONSTANTLY: encounters are 90s apart at best, barks fire every few beats. WE
+PUT THE REPETITION MACHINERY IN THE ORGAN THAT SPEAKS RARELY AND NONE OF IT IN THE ORGAN
+THAT NEVER STOPS TALKING.
+
+ROUTED THIS ROUND:
+- PEOPLE: the bark selector. It records WHO spoke and never WHAT was said, and the
+  per-person term uses the LENGTH of a person key, which takes two values on one block.
+  THE DIRECTOR NEXT DOOR ALREADY SOLVED THIS PROPERLY AND ITS ANSWER CAN BE COPIED.
+- WORLD / RUN: a line that notices the hour, the weather, the price or what the block just
+  did is worth more than six new lines, and every one of those facts is already computed.
+- QUESTS and PLUMBER: the red main above.
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1, Q2 and Q3 have both rounds. Q4 to Q17 were
+each done in a single round under the old mode and are owed theirs. The coordinator has
+added Q18 [asking words], Q19 [caught out] and Q20 [no law talk], each already written as
+school first. One at a time; the sequencing is the coordinator's.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, Q2). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+GATES: attempt 15/0, language 81/0, handoff 7/0 green. voice 110/1 and catalogue 60/3 are
+RED ON MAIN ALREADY, identical numbers with and without my change, cause and fix above.
+
+NEXT: Q4 [beat speech] round one, school. Unless the red main is still red, in which case
+whoever picks this up should check whether QUESTS has baked yet before doing anything else.
+
 UI (ui-kmqmrf): 9/7 (p) LATEST -- *** [half size] IS SHIPPED AND IT IS ON. 8a130456 plus this
 round's board mark. EYES E13 named the bug that was holding it off the build and it was exactly
 right: the reach pads were lying across their neighbours, phonebtn's tap was being delivered to
@@ -673,7 +789,7 @@ one named a blocker that had shipped in this same lane hours earlier.
 
 --------------------------------------------------------------------------------
 
-WORDS (words-8dqrnq): 9/6 (f) LATEST -- *** Q3 [crowd talk] SCHOOL DONE, ROUND ONE OF TWO.
+WORDS (words-8dqrnq): 9/6 (f) -- *** Q3 [crowd talk] SCHOOL DONE, ROUND ONE OF TWO.
 WE DO NOT HAVE A REPETITION PROBLEM THAT MORE LINES WOULD FIX. THE BARK SELECTOR HAS NO
 MEMORY OF WHAT WAS SAID, AND ITS PER-PERSON TERM COLLAPSES TO TWO VALUES ON A STREET, SO
 EVERY PERSON YOU CAN SEE PICKS THE SAME INDEX ON THE SAME BEAT. *** THE ROW IS CLAIMED, NOT

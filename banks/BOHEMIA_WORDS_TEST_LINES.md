@@ -1477,3 +1477,99 @@ BROTHER  Pass the salt.                                                [time off
 # The last one is not a style rule. A scheme for reading guilt off a caller's
 # speech has featured in more than a hundred real criminal cases and researchers
 # cannot reproduce it. We are not teaching that skill.
+
+## Q3 ROUND TWO -- A CROWD THAT REPEATS ON PURPOSE, ARMED BY SCHOOL  (9/6/26)
+# Round one is records/BOHEMIA_WORDS_Q3_SCHOOL_THE_FIRST_REPEAT_IS_A_FEATURE_9_6_26.md
+# WHICH FINDINGS FROM SCHOOL CHANGED THIS SECTION, named as the mode requires:
+#
+# 1. THE FIRST REPEAT IS A FEATURE. Liking rises with exposure before it falls
+#    (208 studies, r = 0.26; the inverted U confirmed over 268 curve estimates).
+#    So this section does NOT try to eliminate repetition. It has an ANCHOR line
+#    written to be heard many times, on purpose, and that is new.
+# 2. PLAIN LINES SURVIVE REPETITION, CLEVER ONES DO NOT, because the peak moves
+#    with complexity. So a pool is written as a MIX BY DURABILITY, not as twelve
+#    equally good lines. A memorable line is a liability and gets a hard cap.
+# 3. CONTEXT IS WHERE VARIETY COMES FROM, not word count. One shape crossed with
+#    facts the game already computes reads as many lines. That is the answer to
+#    "how many lines", and the answer is NOT more.
+# 4. SPACING BEATS VOLUME, and the two mechanisms are different: the same line
+#    twice on one street is satiation over seconds, twice in a day is the curve.
+# 5. THE FIX IS THE SELECTOR, NOT THE WORD COUNT, so every line here is written
+#    ASSUMING a selector that remembers what it said. Without that they are worth
+#    no more than what we already have.
+#
+# MEASURED: 77 base bark pools, 310 lines, MEDIAN POOL SIZE 3, and 40 of 77 hold
+# three lines or fewer. So this section deliberately adds ONE well-shaped pool
+# rather than sprinkling lines across forty starved ones.
+
+### ONE POOL, BUILT AS A MIX BY DURABILITY. The standpipe queue, morning. draft:true
+# This is the deliverable: not a list, a SHAPE. Three tiers, three jobs.
+
+# TIER 1, THE ANCHOR. Plain, short, no joke in it, written to be heard twenty
+# times. This is the line that makes the standpipe a place instead of a prop.
+  Queue starts back there.
+
+# TIER 2, THE BODY. Four lines that carry the anchor's job with small variation.
+# Heard three or four times each across a long session without wearing out.
+  Queue starts back there. It moves.
+  Back of it is round the corner today.
+  You want the left tap. Right one is slow.
+  It is quicker than it looks.
+
+# TIER 3, THE RARE. ONE line, capped hard, never twice in a session. This is the
+# one a player tells somebody about, and it is the one that would ruin the pool
+# if the selector let it come round again.
+  Forty minutes yesterday. Twenty today. Somebody put a box on the line and now
+  everybody wants to know whose box.
+# The rare line is rare BECAUSE it is good. That inversion is the whole finding.
+
+### THE SAME POOL SEEN THROUGH CONTEXT, WHICH IS WHERE VARIETY ACTUALLY COMES FROM draft:true
+# One shape, crossed with facts the game already has: the hour, the weather, what
+# the block just did, who owns it. None of these is a new authored line in the
+# sense that matters, and all of them read as new.
+  SHAPE     Queue starts back there. <fact>
+  AT SIX    Queue starts back there. You are early, so it is short.
+  AT NOON   Queue starts back there. Stand in the shade bit if you can.
+  IN WIND   Queue starts back there. Keep your back to it.
+  AFTER A CUT  Queue starts back there. Everybody had the same idea about the tank.
+  RED BLOCK    Queue starts back there. And do not argue with the one in the coat.
+  PRICE UP     Queue starts back there. It went up again, before you ask.
+# Six readings of one shape. THE ANSWER TO "HOW MANY LINES" IS THAT THE QUESTION
+# IS WRONG: the count that matters is how many WORLD STATES a line can notice.
+
+### THE TWO KINDS OF REPEAT, WHICH ARE NOT THE SAME EVENT   draft:true
+# Satiation is seconds and it is brutal. The curve is hours and it is friendly.
+  ON ONE STREET, BACK TO BACK, WHICH IS THE UNFORGIVABLE ONE
+    Queue starts back there.
+    Queue starts back there.
+  # Two people, same pool, same beat. This is exactly what our selector does
+  # today, because the per-person term has two values on a street.
+  AN HOUR APART, WHICH IS THE ONE WE WANT
+    Queue starts back there.
+    ... (a street, a job, a walk) ...
+    Queue starts back there. It moves.
+# Same words. Completely different experience. THE SELECTOR DECIDES WHICH ONE THE
+# PLAYER GETS, AND NO AMOUNT OF WRITING CHANGES THAT.
+
+### WHAT A POOL OF TWELVE EQUALLY GOOD LINES ACTUALLY SOUNDS LIKE   draft:true
+# The standard advice, written out honestly so the failure is visible. Every one
+# of these is fine. Together they are worse than the four-line body above,
+# because there is no anchor to come home to and every line demands attention.
+  Somebody put a box on the line and now everybody wants to know whose box.
+  Forty minutes yesterday, twenty today, and nobody will say why.
+  I have been in this queue longer than I lived on the last street.
+  The left tap has opinions about who it likes.
+  There is a man here who counts the people in front of him out loud.
+  My mother queued for water and swore she never would again.
+# Six of the twelve and you are already exhausted. NOTHING IS PLAIN ENOUGH TO
+# REST ON. A crowd needs somewhere for the ear to land.
+
+### AND THE THING THIS SECTION REFUSES TO DO   draft:true
+# BANNED, on the evidence:
+#   answering a repetition problem by writing more lines
+#   twelve equally clever lines in one pool
+#   a memorable line without a hard cap on how often it can fire
+#   a pool with no plain anchor in it
+#   and writing any of this as if the selector remembers, until it does
+# The last one is the honest limit of this bank. Every line above is worth what
+# the selector makes of it, and today the selector has no memory of what it said.
