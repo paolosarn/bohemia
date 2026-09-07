@@ -1,3 +1,54 @@
+UI (ui-kmqmrf): 9/7 (r) LATEST -- *** THE TOP MENU BAR IS IN. He asked for one this round:
+"a top menu bar like how Battle Brothers has it, how Civilization five has it, Surviving the
+Aftermath has a... Surviving Mars has a, you know, shit like that, bro." *** One strip, 390 wide
+on a 390 phone, pinned to the top edge, 22 tall, WITH THE WORLD STARTING UNDER IT. Status left,
+day and clock centre, menu off the right end. The five chips that used to float on top of the
+city are inside it, MOVED not rebuilt, so nothing lost a handler.
+TAB: RUN (the top of the walked street).
+LAW: laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md  GATE: gates/top_bar_gate.js 12/0
+RECORD: records/BOHEMIA_THE_TOP_MENU_BAR_BUILT_9_7_26.md
+PICTURE: slices/BOHEMIA_THE_TOP_MENU_BAR_9_7_26.html (five cuts of the same bar).
+
+*** FOR THE COORDINATOR: THIS WORK HAS NO ROW. *** He gave the order straight to this chat and
+it is built, but only the coordinator adds jobs and I do not write rows I do not own. It wants a
+row on the board, and it pairs with [no tabs] and [skin swap].
+
+*** AND HE WALKED INTO A CONTRADICTION WITH HIS OWN LOCKED LAW. READ THIS BEFORE TOUCHING THE
+BAR. *** Two of the four games he just named are already in this repo as an ANTI-reference, from
+him: laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md (7/26) -- "games like that are
+called spreadsheet simulators and I'm not a fan" -- banning the Civ-5 / Surviving-the-Aftermath
+multi-currency feel. Resolved rather than steamrolled: 7/26 banned the multi-CURRENCY feel, 9/7
+orders the BAR, and a layout is not an economy. THE BAR SHIPS AND THE THREE-CURRENCY CAP STANDS.
+The line between them is a number: this strip may never show more than three currencies, because
+a fourth is that ban broken by the back door. Three new INTERFACE-only references are now in
+(Civ 5, Surviving the Aftermath, Surviving Mars), each for its top bar and nothing else.
+
+AND THE BAR SHOWS NO MONEY, ON PURPOSE. Nothing on the walked surface holds a purse -- PURSE is a
+module and no street code holds an instance, which is ECONOMY's own round-27 finding. So the bar
+shows NO currency rather than a zero that means nothing. It reads money through exactly one
+function, BOHEMIA_BAR.money(), which returns null today; the slots appear by themselves the day a
+purse is wired. The gate asserts the emptiness so it cannot quietly become a fake.
+
+THREE THINGS WENT WRONG AND ALL THREE WERE CAUGHT BY MEASURING OR LOOKING:
+  1. The bar was LYING ON TOP of the game -- pinned absolutely, pushing the world down with a
+     hardcoded 22px margin, while the bar measured 51 tall and the world started at 28. Fixed by
+     putting it in normal flow: the world now starts wherever the bar actually ends, at any
+     height. One number instead of two, same lesson the walk ring taught an hour earlier.
+  2. THE CHIPS WOKE THEIR OLD ABSOLUTE POSITIONING the moment they left #topbar -- each still
+     carries a sandbox-era position:absolute/left:NNNpx that #topbar>* was overriding. MUSIC
+     landed at 12,10 outside the bar. THIS FILE ALREADY RECORDS THE IDENTICAL BUG (RUN moved
+     three chips into #devtray on 8/16, same cause), four hundred lines above where I was
+     working, and it still cost a pass. Read before guessing.
+  3. THE OPTIONS SHEET LIED ABOUT THE GAME THREE TIMES. The mock was drawn 330 wide while the
+     real screen is 390, so it squeezed things the shipped bar does not: "HUMA", then a clock
+     crushed to "06", then ON FOOT lying across the date. Now laid out at the true 390 and
+     scaled whole, readouts 7px and chips 5px, which is what they measure on the page. A picture
+     that cannot fit what the game fits is not a picture of the game.
+
+[STILL BOUNCED, not mine, for the PLUMBER] gate_registry_gate is RED on main with 2 orphans:
+gates/a_days_work_gate.js (WORLD, 4f55d768) and gates/fold_runtime_gate.js (QUESTS, dcc1982d).
+[PENDING Paolo] Nothing blocking.
+
 UI (ui-kmqmrf): 9/7 (q) LATEST -- *** HE PICKED 1, AND THE PAD IS ONE RING NOW. [pad broken]
 SHIPPED. *** His whole message was "I want 1" -- option 1, THE DIAL, off the ring sheet he was
 asked about for four rounds. The eight loose circles are gone. The pad is ONE svg ring cut into

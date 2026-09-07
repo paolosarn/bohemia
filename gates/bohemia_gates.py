@@ -236,6 +236,21 @@ GATES = [
      'THE SHIPPED GAME\'S CONTROLS STILL WORK and the halving is OFF so the row cannot '
      'half-ship itself -- reports what the work already achieves, and carries the open defect '
      'as its own leg so nobody mistakes it for done.', True),
+    ('TOP MENU BAR',   ['node', 'gates/top_bar_gate.js'],
+     'PAOLO 9/7 LOCKED (laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md): "we need a top '
+     'menu bar like how Battle Brothers has it, how Civilization five has it, Surviving the '
+     'Aftermath has a... Surviving Mars has a, you know, shit like that, bro. Top menu." All '
+     'four of those bars are ONE STRIP pinned to the top edge, spanning the width, status '
+     'left, date centre or right, menu off the right end. Bohemia had a pile in a corner '
+     'instead: a #hud line, and five chips floating over the world under it. The gate asks '
+     'the shipped page on a phone -- one bar, full width, at the top, THE WORLD STARTING '
+     'BELOW IT (a bar lying on the game is the floating pile in a strip\'s clothes), the menu '
+     'inside it, nothing still loose up there, and PRESS PHONE / DOES THE PHONE OPEN, which '
+     'is the only question that has told the truth about these controls. AND NO INVENTED '
+     'MONEY: PURSE exists as a module and nothing on the street holds one, so the bar must '
+     'show NO currency rather than a zero that means nothing -- and never more than the three '
+     'locked currencies, because his 7/26 ban on the "spreadsheet simulator" feel still '
+     'stands and a fourth number in that strip is that ban broken by the back door.', True),
     ('PAD RING',       ['node', 'gates/pad_ring_gate.js'],
      'Board row [pad broken] THE ACTION BUTTON IS FUCKED UP -- he sent a frame of the walked '
      'pad with seven arrows out of any ring, two pointing the same way and the FACE shoved '

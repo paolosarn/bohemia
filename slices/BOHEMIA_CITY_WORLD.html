@@ -62755,5 +62755,176 @@ window.BOHEMIA_HALF = (function(){
            back:function(){ suspended=false; apply(); } };
 })();
 
+/* ============================================================================
+   *** THE TOP MENU BAR (Paolo 9/7/26, LOCKED) ***
+   laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md | gate gates/top_bar_gate.js
+
+   HIS WORDS: "we need a top menu bar like how Battle Brothers has it, how Civilization
+   five has it, Surviving the Aftermath has a... Surviving Mars has a, you know, shit like
+   that, bro. Top menu."
+
+   ONE STRIP THAT OWNS THE TOP. Before this, the top of the walked screen was two separate
+   things that did not know about each other: a #hud line of readouts, and #topbar, five
+   chips floating over the world underneath it. That is not a bar, it is a pile in a
+   corner, which is exactly what all four of his references are NOT.
+
+   IT MOVES THE NODES, IT DOES NOT REBUILD THEM. Every chip keeps its own element, its own
+   id and its own click handler; they are re-parented into the bar. Rebuilding them would
+   have quietly dropped the listeners other lanes attached to those exact nodes, and the
+   half-size module, the teaching overlay and the demo cutter all address them by id.
+
+   *** AND IT SHOWS NOTHING IT DOES NOT KNOW. *** MECHANISM-MINE / CONTENTS-PAOLO'S. The
+   bar carries WHERE YOU ARE, THE DAY AND THE CLOCK, and the menu, because those are the
+   three things the walked city can truthfully answer. The three locked currencies are not
+   in it: PURSE exists as a module and NOTHING ON THE STREET HOLDS ONE, so a number there
+   would be invented. money() is the one door they come through, it returns null today,
+   and the slots appear by themselves the day a purse is wired. A readout with a made-up
+   number in it is worse than an empty bar -- he cannot tell them apart by looking.
+   AND NEVER MORE THAN THREE: his 7/26 ban on the "spreadsheet simulator" feel still
+   stands, and a fourth number in this strip is that ban broken by the back door.
+   ========================================================================== */
+window.BOHEMIA_BAR = (function(){
+  var built=false;
+
+  /* THE ONLY DOOR THE MONEY COMES THROUGH. Returns null while nothing on the walked
+     surface holds a purse, which is the truth today. When ECONOMY wires one, return
+     {resources:n, electricity:n, clout:n} here and the bar fills itself. */
+  function money(){
+    try{
+      var p = (typeof window!=='undefined') && (window.__PLAYER_PURSE || null);
+      if(!p || typeof PURSE==='undefined' || !PURSE.balances) return null;
+      var b = PURSE.balances(p);
+      return (b && typeof b.resources==='number') ? b : null;
+    }catch(_e){ return null; }
+  }
+
+  function css(){
+    if(document.getElementById('menubarcss')) return;
+    var st=document.createElement('style');
+    st.id='menubarcss';
+    st.textContent=
+      /* *** THE BAR SITS IN THE FLOW, IT IS NOT PARKED ON TOP OF THE GAME. *** The first
+         cut pinned it absolutely and pushed the world down with a hardcoded 22px margin,
+         which is a guess about a height that is not fixed: measured, the bar came out 51
+         tall and the world started at 28, so the strip was lying across the top of the
+         city -- the floating pile again, wearing a bar's clothes. In normal flow the
+         world starts wherever the bar actually ends, at any height, at any text size,
+         with nothing to keep in step. Same lesson as the pad: one number, not two. */
+       '#menubar{position:relative;z-index:40;display:flex;flex:0 0 auto;'
+        /* .wrap carries 6px of padding, so a bar that stops at the padding is a bar with
+           a margin -- it reads as a panel, not as the top of the screen. Pull it back out
+           to the real edges. The numbers come from .wrap's own padding and nowhere else. */
+        +'margin:-6px -6px 0;'
+        +'align-items:center;gap:8px;padding:3px 8px;min-height:22px;'
+        +'background:linear-gradient(#241f16,#171309);'
+        +'border-bottom:1px solid var(--line);'
+        +'box-shadow:0 2px 10px rgba(0,0,0,.55);'
+        +'font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ink);'
+        +'pointer-events:none}'
+      +'#menubar > *{pointer-events:auto}'
+      /* *** AND THE CHIPS GET THE SAME POSITION RESET #topbar WAS GIVING THEM, BECAUSE
+         MOVING THEM OUT OF #topbar WOKE THEIR OLD ABSOLUTE OFFSETS BACK UP. *** Every one
+         of these chips still carries a sandbox-era `position:absolute; left:NNNpx;
+         top:10px` of its own. Inside #topbar that was harmless: `#topbar > *` forced
+         position:static !important over it. Re-parent them and the override stops
+         matching, so the rules wake -- measured, MUSIC landed at 12,10 and SAVE at 110,10,
+         both outside the bar's own right-hand box, while PHONE and OUTFIT stacked on each
+         other. THIS FILE ALREADY RECORDS THE IDENTICAL BUG: the RUN lane moved three chips
+         into #devtray on 8/16 and the drawer rendered as a row of overlapping chips for
+         exactly this reason. It is written down four hundred lines up, and it still cost a
+         round to rediscover, which is the argument for looking before guessing. */
+      +'#barright > *,#barleft > *{position:static!important;left:auto!important;'
+        +'right:auto!important;top:auto!important;bottom:auto!important;'
+        +'margin:0!important;transform:none!important}'
+      /* THE THREE ZONES OF EVERY BAR HE NAMED: status left, time centre, menu right. */
+      +'#barleft{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;'
+        +'overflow:hidden;white-space:nowrap}'
+      +'#barmid{flex:1 1 auto;text-align:center;white-space:nowrap;color:var(--acc)}'
+      +'#barright{display:flex;align-items:center;gap:5px;flex:0 0 auto}'
+      +'#barmoney{display:flex;align-items:center;gap:9px}'
+      +'#barmoney span{color:var(--acc)}'
+      /* the readouts the bar adopted keep their meaning and lose their own positioning */
+      +'#menubar #hmode,#menubar #hclock,#menubar #hslot{position:static;'
+        +'white-space:nowrap}'
+      /* #hud is empty once its three spans move out; leaving it drawing an empty strip
+         under the bar would push the stage down for nothing. */
+      +'#hud.barred{display:none!important}'
+      /* and #topbar is empty too, but the half-size module and the demo cutter both
+         address it, so it stays in the tree and stops taking up space. */
+      +'#topbar.barred{position:absolute!important;width:0!important;height:0!important;'
+        +'padding:0!important;margin:0!important;overflow:hidden!important;gap:0!important}'
+      /* nothing to push: the bar is in the flow, so the world already starts under it. */
+      +'';
+    (document.head||document.documentElement).appendChild(st);
+  }
+
+  function build(){
+    if(built) return false;
+    var wrap=document.querySelector('.wrap'), hud=document.getElementById('hud'),
+        top=document.getElementById('topbar');
+    if(!wrap || !hud || !top) return false;
+
+    css();
+    var bar=document.createElement('div'); bar.id='menubar';
+    var L=document.createElement('div'); L.id='barleft';
+    var M=document.createElement('div'); M.id='barmid';
+    var R=document.createElement('div'); R.id='barright';
+    var W=document.createElement('div'); W.id='barmoney';
+
+    /* LEFT: where you are. hmode says CITY MODE / STREET, hslot says the district and
+       whether he is on foot, riding or inside -- both already written by the game. */
+    var hmode=document.getElementById('hmode'), hslot=document.getElementById('hslot'),
+        hclock=document.getElementById('hclock');
+    if(hmode) L.appendChild(hmode);
+    if(hslot) L.appendChild(hslot);
+    L.appendChild(W);
+    /* CENTRE: the day and the clock, which is where all four of his references put it. */
+    if(hclock) M.appendChild(hclock);
+    /* RIGHT: the menu. Every chip that was floating over the world, in the order it was
+       already in, moved rather than remade so nothing loses a handler. */
+    while(top.firstChild){
+      var n=top.firstChild;
+      if(n.nodeType===1) R.appendChild(n); else top.removeChild(n);
+    }
+
+    bar.appendChild(L); bar.appendChild(M); bar.appendChild(R);
+    wrap.insertBefore(bar, wrap.firstChild);
+    hud.classList.add('barred');
+    top.classList.add('barred');
+    wrap.classList.add('barred');
+    built=true;
+    paint();
+    return true;
+  }
+
+  /* THE MONEY SLOTS DRAW THEMSELVES OR THEY DO NOT DRAW. No placeholder, no zero. */
+  function paint(){
+    var W=document.getElementById('barmoney'); if(!W) return;
+    var m=money();
+    if(!m){ W.textContent=''; return; }
+    var order=['resources','electricity','clout'],
+        mark={resources:'▪',electricity:'⚡',clout:'◆'};
+    var out='';
+    for(var i=0;i<order.length;i++){
+      var k=order[i]; if(typeof m[k]!=='number') continue;
+      out += (out?' ':'')+mark[k]+'<span>'+m[k]+'</span>';
+    }
+    W.innerHTML=out;
+  }
+
+  function boot(){
+    if(build()){
+      /* the readouts are rewritten by the game on its own beat; the money is the only
+         thing the bar has to come back for, and it is cheap and rare. */
+      try{ setInterval(paint, 1000); }catch(_e){}
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+
+  return { build:build, paint:paint, money:money,
+           on:function(){ return built && !!document.getElementById('menubar'); } };
+})();
+
 </script>
 </body></html>
