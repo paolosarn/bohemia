@@ -1,3 +1,211 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
+Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
+Q23 [who eats first].
+Next OPEN is Q24 [pay on time]; Q25 [batteries scarce] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 23 REPORT: [who eats first] SHIPPED ===
+*** THE ORDER IS ABOUT EARNING, NOT ABOUT SURVIVING. MODE: RESEARCH, nothing
+implemented. NOT IN A TAB YET. Nothing to judge. ***
+
+Record: records/BOHEMIA_ECONOMY_DAY_23_THE_ORDER_IS_ABOUT_EARNING_NOT_SURVIVING_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections KKKKK-OOOOO (12 lines, 322 total)
+Board:  Q23 SHIPPED. Q1-Q23 shipped; next OPEN is Q24 [pay on time], then Q25
+        [batteries scarce].
+
+Worked inside two laws and touched neither: NO DAMAGE BEFORE THE DIAL, and his 9/5
+ruling that there is no meter on the player's body ("he is not hungry, THEY are").
+
+THE GAME CANNOT ASK THIS QUESTION YET BECAUSE THERE IS NOBODY AT THE TABLE.
+  day:ate takes ONE resource at nightfall whoever is depending on you. Measured: a
+  household of 1, 2, 5 and 9 all cost exactly the same, because
+  upkeep(purse, verb, ref, day) HAS NO HEADCOUNT ANYWHERE IN ITS SIGNATURE.
+  And the valley knows the difference: bohemia_housing.js exposes residentsAt,
+  capacity and valleyPeople, live since round 12. NOTHING IN THE EATING PATH READS
+  ANY OF IT. Same class as every finding in this lane: built, correct, connected to
+  nothing.
+  AND RUNNING OUT IS DELIBERATELY NOT A FAILURE, WHICH IS RIGHT. The walked surface
+  says so where it fires: "Running out is not a failure state here, it is a refusal
+  the ledger records -- what it COSTS you is BB-OBLIGATION-BURN's row, not this
+  one." That row is still OPEN on the WORLD board as [neglect costs], AND ITS OWN
+  TEXT ALREADY CARRIES THE RIGHT DESIGN: "survival meters are the most reliably
+  hated mechanic in the genre... the punishment is a person walking away, not a bar
+  draining... You do not die of poverty in that game, YOU END UP ALONE." And: "A
+  SOCIAL BURN IS NOT DAMAGE. Hunger needs a rate. 'Three people are waiting on you'
+  needs nothing but the truth." WHAT THIS ROUND ADDS IS WHO THE THREE PEOPLE ARE.
+
+THE REAL AISLE.
+  THE ORDER IS BY CONTRIBUTION, NOT BY NEED. Studies of household food distribution
+  in Asia found allocation based on ECONOMIC CONTRIBUTION rather than need: the
+  breadwinner is fed to protect his earning. The order reported across low-income
+  settings is the earner, then the children, then adult women last INCLUDING
+  PREGNANT WOMEN; in rural Ethiopia adolescent girls eat after serving the male
+  members. It is not cruelty or ignorance -- it is a household making the same
+  calculation an economy makes: protect the thing that produces.
+  AND IT IS THE WRONG CALCULATION, MEASURED. During famines FEMALES GENERALLY HAVE
+  A MORTALITY ADVANTAGE. Modelled: a 30-year-old woman at 70 kg survives ~144 days
+  without food against ~95 for a man, and across mean body mass in 48 countries
+  WOMEN SURVIVE ABOUT 40% LONGER (observed range 5% to 210%). And the highest
+  famine mortality falls on THE VERY YOUNG AND THE ELDERLY. So the household feeds
+  the earner, who would have lasted the shortest time, and the deaths land on the
+  groups the rule ranks lowest. THE ORDER IS OPTIMISED FOR THE HOUSEHOLD'S OUTPUT,
+  NOT ITS LIVES, AND IT COSTS LIVES TO DO IT.
+  AND GOING WITHOUT DOES NOT UNDO. Undernutrition in the first 1000 days produces
+  stunting, largely irreversible -- it cannot be treated, only prevented. World
+  Bank: a 1% loss of adult height costs about 1.4% of adult productivity, and
+  stunting can cut earnings by UP TO 7%. HONEST CAVEAT because it cuts against the
+  cleaner story: catch-up growth is real, and around half of children stunted at
+  one are no longer stunted at eight. So it is a heavy weight on the scale, not a
+  sentence. A CHILD WHO WENT WITHOUT IN GENERATION ONE IS A SHORTER, POORER ADULT
+  IN GENERATION TWO -- that is not a metaphor for inheritance, it IS inheritance,
+  and it is measurable.
+
+*** THE FINDING THAT PROVES US WRONG. I came in expecting to deliver a NEED-based
+rule: the weakest eat first, because that is what a decent household does and what
+a player expects to be rewarded for. REAL HOUSEHOLDS DO THE OPPOSITE, ON PURPOSE,
+AND THEY ARE NOT WRONG TO -- a household that stops earning stops eating. AND THE
+MEASURED RESULT IS THAT THEY PROTECT THE PERSON WHO NEEDED PROTECTING LEAST. ***
+That is a better mechanic than the one I was going to write, because it is a real
+decision with a real cost on both sides and no correct answer: feed the earner and
+the household keeps its income while a child's growth does not come back; feed by
+need and you may have nobody able to work tomorrow. AND IT NEEDS NO METER, NO
+DAMAGE AND NO NUMBER HE HAS TO RULE -- it is a name and a consequence.
+
+THE RULE DELIVERED (mechanism only; nothing here adds damage or a meter):
+  1 THE DAY SHOULD COST WHAT THE HOUSEHOLD IS. Today it costs one, always. Housing
+    already answers residentsAt and the meal never asks. EVERYTHING COSTS ONE is
+    untouched: what changes is HOW MANY ONES, not what one is.
+  2 WHEN IT CANNOT BE PAID, THE ANSWER IS A NAME, NOT A FAILURE. The purse already
+    refuses honestly; what is missing is the sentence after -- somebody specific
+    went without, and it is a person the player can picture.
+  3 THE ORDER IS BY CONTRIBUTION AND THE PLAYER SHOULD FEEL THAT IT IS WRONG. Do
+    NOT offer a menu of who eats. Let the household do what real households do,
+    tell him who went without, and let him decide whether to change it. REALISM
+    FIRST says the realistic option leads, and the discomfort is the point.
+  4 GOING WITHOUT LEAVES A MARK THAT DOES NOT COME OFF. DYNASTY's, not ours, and it
+    is the strongest inheritance hook in the whole study.
+  5 AND NOBODY DIES OF IT. The household that goes without does not starve on
+    screen. IT LEAVES.
+
+REFUSED: a hunger meter on anybody; death from going without; A MENU OF WHO EATS (a
+screen that asks the player to rank people by worth is a different, worse game, and
+the real rule is that the household already decided); modelling the mortality
+difference as a stat; ruling what a household eats per head (contents are his);
+anything gratuitous (this subject is real and the record is grim -- the design is a
+name and a departure and that is as far as it should go); any implementation.
+
+ROUTED: WORLD gets two (the day eats one whoever is at the table; [neglect costs]
+is still open and its own text already has the design). LIFE+CITY gets "housing
+knows the headcount and the meal does not ask". DYNASTY gets the big one -- a child
+who went without is a poorer adult, measured. PEOPLE and WORDS get "the person who
+went without needs a name and one line". One goes to Paolo.
+
+GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
+blockers 22/0, language 81/0, HOUSING 18/0.
+EIGHTH ROUND RUNNING where a green suite and a real finding are both correct:
+housing_gate is 18/18 over the module that knows exactly how many people live in
+what the player built, while the meal that feeds them has never asked. Every
+assertion is true; nothing asks whether anything downstream reads the number,
+because that is a question about two modules rather than one.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept
+     because round 19 measured the far end: the shelf line stops moving on day 67.
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
+     found the code (BARTER_ONLY) already exists and is unreachable.
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY? Round 18's answer: the right to trade
+     at that faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
+ 16. After the valley's shelves are empty, what does a shop SAY?
+ 17. What can a person in this valley be paid to do?
+ 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
+ 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
+ 20. What is the first thing a player can be caught at, and what does it cost him?
+     DEED_WEIGHT is his table and its negative half is the list of what this valley
+     thinks is wrong.
+ 21. (new, and it blocks the whole of round 23) WHO IS AT THE PLAYER'S TABLE? The
+     four verbs say "the people who depend on you" and the game has never said who
+     they are. UNTIL SOMEBODY IS NAMED, NOBODY CAN GO WITHOUT.
+
+NEXT IN THIS LANE: Q24 [pay on time].
+
+================================================================================
 EYES AND EARS (eyes-5vql33): 9/6 (m) LATEST -- *** E12 [silence standing] ROUND ONE OF TWO IS
 DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's premise wrong with a real number
 I did not expect: WHEN THE WORLD'S TRAFFIC STOPPED IN 2020, CITIES GOT ONLY ABOUT FIVE TO SEVEN

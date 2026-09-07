@@ -1703,3 +1703,79 @@ IIIII4 the way back in, if there is one                 draft:true
   it is showing up until somebody says your name without thinking.
 - Spanish register: 1 of 16 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## KKKKK. THREE PEOPLE ARE WAITING ON YOU (round 23, the table has names)
+## (the four verbs say "the people who depend on you" and never say who. These
+##  are them. Nobody is a statistic and nobody is pitiful.)
+
+KKKKK1 somebody counting who is at home            draft:true
+       "Me, her, the boy, and her mother since March. Four. It was two when I
+        started doing this."
+
+KKKKK2 somebody who did the arithmetic once        draft:true
+       "One bag does one day for one person. I have never once brought home
+        four bags."
+
+KKKKK3 somebody at the door                        draft:true
+       "You don't have to say it. I can tell from how you're standing what
+        you've got in that bag."
+
+## LLLLL. HE EATS FIRST AND EVERYBODY AGREES (contribution, not need)
+## (the earner is fed because the household needs him working. Nobody argues,
+##  and nobody pretends it is fair either.)
+
+LLLLL1 the person who decided it                   draft:true
+       "He walks eleven kilometres. If he stops walking eleven kilometres we
+        are all finished, so he eats, and that's the end of the conversation."
+
+LLLLL2 the earner, not comfortable                 draft:true
+       "I've asked her to stop doing it. She keeps doing it. We're going to
+        have this out one of these days and I already know how it goes."
+
+LLLLL3 somebody who has seen it go wrong           draft:true
+       "They fed the wrong one. I'm not going to say more than that, hermana,
+        but they fed the wrong one and they knew at the time."
+
+## MMMMM. THE ONE WHO WENT WITHOUT (a name, not a number)
+## (the person, said plainly, once. No pity in the voice.)
+
+MMMMM1 somebody naming it                          draft:true
+       "Her mother didn't eat Tuesday. She'll tell you she wasn't hungry and
+        she'll say it in a way where you can't argue."
+
+MMMMM2 the one who went without                    draft:true
+       "I've had less than this and been fine. That's not brave, that's just
+        information about me."
+
+MMMMM3 somebody who noticed too late               draft:true
+       "Four days. Four days before anybody in that house said it out loud,
+        and I was in there twice."
+
+## NNNNN. IT DOES NOT COME OFF (going without leaves a mark)
+## (the child who went hungry is a smaller adult. Nobody explains the biology.)
+
+NNNNN1 somebody looking at a grown son             draft:true
+       "He's shorter than his brother. Two years apart, same house, same
+        everything, and one of those years was the bad one."
+
+NNNNN2 somebody who knows why                      draft:true
+       "You can feed them now all you like. I'm glad you are. It's just that
+        some of it was decided already."
+
+NNNNN3 the grown child                             draft:true
+       "I don't remember any of it. I've been told about it my whole life by
+        people who look at me while they tell it."
+
+## OOOOO. WHAT IS NOT HERE, ON PURPOSE (round 23)
+- No line has a hunger meter, a health bar, or anybody weakening on screen. NO
+  DAMAGE BEFORE THE DIAL, and his 9/5 ruling that there is no meter on the body.
+- No line has anybody die of it. The consequence in this bank is a person leaving
+  or a mark that stays, which is BB-OBLIGATION-BURN's own design.
+- No line asks the player to choose who eats. LLLLL1 says the household already
+  decided, which is what real households do.
+- No line names an amount, a ration or a calorie. KKKKK2 says one bag, one day,
+  one person, because that is his own 8/15 ONE said out loud.
+- No line is pitiful and nobody is brave about it. MMMMM2 corrects you for
+  thinking so, mid-sentence.
+- Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.
