@@ -82,8 +82,17 @@ for (const spec of DQ.DAYS) {
   const Q = DQ.make({ BQ, BQRuntime: RT, sources: SRC, loop: L });
   const open = Q.openDay(1);
   ok('day 1 opens a real parsed canon quest', !!open && open.id === 'bq_meter_reader');
-  ok('and its brief is the quest\'s own @LOG line',
-     open.log === 'The block loses half its light at the same hour every night.');
+  /* *** THE STRING WAS TYPED HERE AND THE QUEST MOVED ON WITHOUT IT (9/7). ***
+     This read `=== 'The block loses half its light at the same hour every night.'`
+     -- a sentence that exists nowhere in quests/bq any more. WORDS rewrote day
+     one's opening @LOG and this gate went on asserting the old copy, which is the
+     exact failure the check below is NAMED after: quote the quest, not me. So it
+     now reads the line out of the parsed .bq. Retyping the new sentence here
+     would have fixed the red and rebuilt the same trap for the next rewrite. */
+  const S01 = BQ.parse(SRC['S01_THE_METER_READER']);
+  const s01stage = n => (S01.stages.find(x => x.n === n) || {}).log;
+  ok('and its brief is the quest\'s own @LOG line ("' + open.log + '")',
+     !!open.log && open.log === s01stage(10));
   /* THE OBJECTIVE GREW A SECOND HALF ON 8/24 AND THIS CLAIM WAS ASSERTING THE
      OLD ONE. It read `=== 'Find why the block browns out'`, which was the whole
      HUD line until hudLine started appending the DERIVED next step. Loosening it
@@ -121,8 +130,12 @@ for (const spec of DQ.DAYS) {
   L.tick(20 * 60, 'suburb');
   const s = L.summary();
   ok('the reckoning lists the stages that actually fired', s.stages.length === 3);
-  ok('and quotes the quest, not me',
-     s.notes[2] === 'Put the current back myself. The block has light tonight. Nobody was told.');
+  /* same repair as the brief above: the reckoning's third note is whatever stage
+     30's own @LOG says today, and the gate reads it rather than remembering it. */
+  const S01b = BQ.parse(SRC['S01_THE_METER_READER']);
+  const s30 = (S01b.stages.find(x => x.n === 30) || {}).log;
+  ok('and quotes the quest, not me ("' + s.notes[2] + '")',
+     !!s30 && s.notes[2] === s30);
 }
 
 /* ---- 4. NIGHTFALL TAKES THE QUEST'S OWN FAIL BRANCH --------------------- */

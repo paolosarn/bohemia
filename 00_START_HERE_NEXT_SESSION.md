@@ -7982,6 +7982,99 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 25 [ten openings] SEVEN-OF-HIS-TEN-OPENINGS-WERE-NEVER-WRITTEN, SHIPPED. QUESTS, BUILD.
+  quests/bq/A01_THE_KILLING_SUMMER.bq
+  quests/bq/A02_THE_ELDERS_ACCIDENT.bq
+  quests/bq/A03_THE_FACTION_THAT_DIED.bq
+  quests/bq/A04_THE_WEDDING_THAT_BURNED.bq
+  quests/bq/A05_THE_DRY_TAPS.bq
+  quests/bq/A06_THE_FIRST_HARVEST.bq
+  quests/bq/A07_THE_TWO_FAMILIES.bq
+  gates/dayloop_gate.js          57/2 red on main, repaired, 59 passed 0 failed
+  BUILD 9/7q - THE SEVEN OPENINGS ARE QUESTS
+  records/BOHEMIA_THE_SEVEN_OPENINGS_ARE_QUESTS_9_7_26.md
+
+*** HE LOCKED THIS 7/19 AND NOBODY BUILT IT FOR FIFTEEN ROUNDS. *** The ruling:
+the ten opening options not used in the cold open become the first act-one quests,
+"nothing is wasted; the menu of openings is really the menu of early Act 1 content."
+I verified the row's measurement myself instead of trusting it. Three exist (The
+Long Night, The Flood, The Empty Seat). SEVEN DID NOT EXIST ANYWHERE: no file, no
+stub, no line. The one WEDDING hit in the whole tree is an incidental mention
+inside quests/BOHEMIA_QUEST_035_THE_SUNKEN_SHRINE.md, not the opening.
+
+THE SHAPE ALL SEVEN SHARE, AND IT IS THE [check the claim] ROW'S SHAPE:
+  Of 158 measured deception cues, 118 mean nothing, and people catch a lie 47% of
+  the time, which is a coin. SO THE LIAR IS BELIEVED. Nothing in a face is a tell.
+  1. Somebody makes a flat, calm, specific claim. They are not performing.
+  2. The claim is checkable ONLY by going to the thing. No highlighted dialogue
+     option, no skill roll, no stat gate, no perception check anywhere in the seven.
+     Count the crates in the store. Read the drag marks where the fence posts were.
+     Stand where he landed. Look at the seal on the pump.
+  3. What you find changes something a player can watch happen: a light, a shelf,
+     a tap running, who is standing on a piece of ground, what the block says.
+  The claim is never resolved by being clever at a person. It is resolved by
+  distance and by looking.
+
+SIX QUOTE HIS OWN SENTENCE. The headers carry his locked element-set line verbatim,
+so nobody has to go find it. A02 obeys his hard parenthesis (REVEALS NOTHING ABOUT
+THE AMALGAMATION) and A04 keeps who you marry his: no name, no face, no gender, no
+proposal, the partner is a @ROLE cast at runtime.
+
+*** THE SEVENTH HAS NOTHING BEHIND IT AND ITS FIRST LINE SAYS SO. *** THE TWO
+FAMILIES exists only as a name on line 192 of laws/BOHEMIA_ADDENDUM_ACT1_OPENING_
+VISION_7_19_26.md. Its header opens with HONESTY FIRST and says the whole file is
+an attempt with no ruling under it. Same pattern as the pinned founding errand in
+M04. A future chat must not read it as canon.
+
+TWO CONTENT BUGS THE PAY GATE CAUGHT, AND I FIXED THE FILES AND NOT THE GATE.
+Loosening my own gate to fit my own content would have been the cheap move.
+  A02: a COMPLETE ending paid nothing. Every ending takes the box, so the quiet
+    ending is paid in the box (resources) and the two loud ones in what people now
+    say about you (clout). One currency per ending, what you spent is the difference.
+  A04: the ending where you find the hole in the perimeter and go back to the table
+    was marked COMPLETE. WALKING AWAY FROM A HOLE YOU FOUND IS NOT A COMPLETION. It
+    is a FAIL now and it pays nothing. His premise is untouched; the night still
+    happens either way.
+
+THE GATE I REPAIRED, AND WHY IT IS THE SAME CLASS OF BUG AS ROUND 21's.
+gates/dayloop_gate.js was 57/2 RED ON MAIN before I touched anything (verified by
+stashing my whole tree). Both fails asserted quest sentences typed into the gate
+that no .bq has said since WORDS rewrote day one's lines. One of the two checks is
+literally NAMED "and quotes the quest, not me". It now reads both lines out of the
+parsed .bq. Retyping today's sentence would have cleared the red and rebuilt the
+identical trap for the next rewrite. Negative-controlled: pointed at the wrong
+stage, both checks go red.
+
+RULE 7, MET AND NOT CLAIMED: alpha DIRECT quest array 32 -> 39, spliced with the
+direct-tab tool's OWN parser as a one-line diff (never by re-running that tool: it
+is a whole-block replace and it clobbered another lane in round 21). The city's
+DEMO_BQ, which is the copy that actually PLAYS, 27 -> 34, same surgical splice, one
+line. Demo re-cut from the workshop. git diff --stat checked before every commit.
+
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is still stale and still
+refuses to write: its QUESTS list holds 5 of the 34 the city carries. Third round
+flagging it for the plumber.
+[STILL NOT MINE, STILL NOT FIXED] reusefirst_gate.py red on other lanes' tool files.
+GATES, MEASURED BOTH WAYS SO THE CLAIM IS REAL: the browserless tier (568 gates,
+--pure) ran on MY tree and again on a clean stashed main. Both: 35 red, THE SAME
+THIRTY-FIVE BY NAME. My round adds zero new reds. Green and named: canon_quests
+783/0 (39 files), quest_study 603/0 (55 studies, 3672 citable laws), the_job_pays
+89/0, main_spine 49/0, dayloop 59/0 (was 57/2 on main), alpha_loads 20/0,
+demo_build 25/0, shipped_truth 41/0.
+[NOT MINE, ALREADY RED ON MAIN] dialogue_catalogue_gate 60/3: the WORDS book is
+stale (baked c95d11dd, sources now 90a748eb) and its own fail line names the WORDS
+lane's own tool as the fix. My seven raise the lines it counts from 2684 to 2973,
+so the seven come in when WORDS rebakes. I did not run another lane's baker.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] BB-TERRITORY-FLAG (blocked, needs
+WORLD BB-LOOPLESS), [designs playable] DESIGNS-TO-BQ (convert prose designs 001, 002,
+013 to playable .bq, the designs are done and only the machine layer is missing),
+[haggling works] BB-ASK-FOR-MORE, [edit quests] DIRECT-COVERS-QUESTS, [act two]
+PARKED BY HIM, [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE. Note for
+whoever takes [check the claim]: the seven shipped this round are already built to
+its rule, so that row is now about making it the WORLD's behaviour and not seven
+hand-written files.
+
 ROUND 24 [generation handoff] THE-FOLD-IN-THE-RUNTIME, SHIPPED. QUESTS, BUILD.
   engine/bohemia_fold.js         the handoff, composed
   gates/fold_runtime_gate.js     35 passed, 0 failed

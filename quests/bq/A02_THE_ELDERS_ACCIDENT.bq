@@ -1,0 +1,148 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A02 -- THE ELDER'S ACCIDENT
+#
+# HIS OWN LINE, from the locked element set:
+#   "THE ELDER'S ACCIDENT -- he is ready to show you the truth about Dubai and is
+#    killed by something that does not add up before he can; you inherit the
+#    locked family box. (The mystery seed. REVEALS NOTHING ABOUT THE
+#    AMALGAMATION.)"
+#
+# *** THAT PARENTHESIS IS A HARD LIMIT AND THIS FILE OBEYS IT. *** Nobody here
+# learns anything. The box does not open. Dubai is a word an old man was about to
+# say and did not. Writing the reveal would be inventing the single most
+# expensive piece of canon in the game inside a side ask.
+#
+# THE ASK IS A CLAIM: they say it was an accident. A claim is checked by GOING TO
+# THE THING, never by a skill roll and never by a highlighted line, because 118 of
+# 158 measured deception cues mean nothing and people catch lies 47% of the time.
+# So you go and look at where he fell, and what you find is that it does not add
+# up -- which is his own words -- and NOT who did it.
+#
+# WHAT VISIBLY CHANGES: what people say. You either let the accident stand or you
+# say out loud that it was not one, and the valley's opinion of your family moves
+# either way.
+#
+# WHAT THIS JOB PAYS, AND WHY IT IS NOT THE SAME THING TWICE: every ending gets
+# the box, so the quiet ending is paid in the box (resources) and the two loud
+# endings are paid in what people now say about you (clout). One currency per
+# ending, one unit each. What you spent to get it is the difference.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q003.W8  THE WITNESS WHO KNOWS
+#   applied: the one who was actually there carries the truth the people paying for the funeral would rather not hear, and you can side with either.
+# @STUDY Q039.W9  PERCEPTION-GATED TRUTH
+#   applied: cited as the thing we REFUSE. No build, stat or perception gates whether you see the lie here; the ground does, and the ground is the same for everybody.
+# @STUDY Q046.X5  HEIRS INHERIT HATRED
+#   applied: the box passes to you and nothing else does, so the inheritance is a question rather than a bonus, which is the named fix for a handoff that feels arbitrary.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a02_the_elders_accident   The Elder's Accident
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE kin      REQ  block=same
+@ROLE witness  OPT  block=same
+
+@STAGE 10
+  @LOG The old man died on the slope behind his own house. Everybody is calling it a fall.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Went and stood where he landed. It does not add up and I cannot tell you why it does not.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Kept it to myself. Took the box he left and put it somewhere nobody looks.
+  @DO pay resources 1
+  @DO set_flag has_the_box
+  @DO learn it_does_not_add_up
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Said it at the burial, in front of everybody. That it was not a fall. Nobody argued and nobody agreed.
+  @DO pay clout 1
+  @DO set_flag has_the_box
+  @DO set_flag said_it_at_the_burial
+  @DO learn it_does_not_add_up
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Told the one person who was up there that night that I know they were up there.
+  @DO pay clout 1
+  @DO set_flag has_the_box
+  @DO set_flag named_the_witness
+  @DO learn it_does_not_add_up
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Let it be a fall. The box is still in his house and I have not been back for it.
+
+@OBJ 10  "Go and look at where he fell"   target=kin
+@OBJ 20  "Decide what it was"             target=kin
+
+# =====================================================================
+# THE CLAIM. An accident, stated by somebody who needs it to be one.
+# =====================================================================
+@TALK claim  speaker=kin  entry=stage>=10
+  @SAY He went off the slope behind the house. That is all. He was old and it was dark. #grief
+  @SAY I know what people are going to say and I am asking you not to be one of them.
+  @SAY He wanted to show you something first. He said that to me twice this month and he never said what.
+  @OPT "Show me where."             [gate: none]  -> where
+  @OPT "What did he want to show me?" [gate: none]  -> what
+  @OPT "Alright. It was a fall."    [gate: none]  -> let
+  @OPT (go and look anyway)          [gate: none]  SILENCE -> where
+  @NOVERB "Who did this"
+@END
+
+# THE HARD LIMIT, IN THE FICTION. He does not know, and nothing in this quest
+# can buy the answer, because the answer is canon nobody has ruled.
+@TALK what  speaker=kin
+  @SAY Dubai. That is the whole of it. He said the word and he said not yet and then he was going to bed. #tired
+  @SAY There is a box in his room with a lock on it he never explained either. It is yours now, he wrote that down years ago.
+  @OPT "Show me where he fell."     [gate: none]  -> where
+  @OPT (say nothing)                [gate: none]  SILENCE -> where
+@END
+
+@TALK let  speaker=kin
+  @SAY Thank you. #grief
+  @OPT (go and look anyway)         [gate: none]  SILENCE -> where
+  @OPT (leave it)                   [gate: none]  -> END  @DO set_stage 33
+@END
+
+@TALK where  speaker=kin
+  @SAY Behind the house, past the wire. Mind the loose ground. #grief
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE SLOPE. The ground is the only witness that cannot be lying, and all
+# it says is that this is wrong. It does not say who.
+# =====================================================================
+@TALK slope  speaker=witness  entry=stage>=20
+  @SAY You are standing where I was standing. #wary
+  @SAY Look at it. He came off there and landed here, and a man who falls does not land that far out. I have carried enough of them to know.
+  @SAY That is what I have got. I do not know who and I am not going to guess in front of you.
+  @OPT "Then I keep it quiet."      [gate: none]  -> quiet
+  @OPT "Then people should hear it." [gate: none]  -> loud
+  @OPT "You were up here that night." [gate: none]  TRAP -> you
+  @OPT (look at the ground a long time) [gate: none]  SILENCE -> quiet
+  @NOVERB "Tell me what was in the box"
+@END
+
+@TALK you  speaker=witness
+  @SAY I was. I have said so to anybody who asked, which is you. #dread
+  @SAY And if you go down there and say my name, that is the end of me on this block whether I did it or not. You know that.
+  @OPT (say their name anyway)      [gate: none]  -> END  @DO set_stage 32
+  @OPT "I'm not saying your name."  [gate: none]  -> quiet
+@END
+
+@TALK quiet  speaker=witness
+  @SAY Then take his box and let them bury him as a man who fell. #grief
+  @OPT (take the box, say nothing)  [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. They should hear it."   [gate: none]  -> loud
+@END
+
+@TALK loud  speaker=witness
+  @SAY At the burial, then, with all of them there, and you had better be ready for what comes after. #dread
+  @OPT (say it at the burial)       [gate: none]  -> END  @DO set_stage 31
+  @OPT (keep it quiet after all)    [gate: none]  SILENCE -> END  @DO set_stage 30
+@END

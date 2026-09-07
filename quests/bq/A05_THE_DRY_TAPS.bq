@@ -1,0 +1,134 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A05 -- THE DRY TAPS
+#
+# HIS OWN LINE, from the locked element set:
+#   "THE DRY TAPS -- a pump station is seized; the valley has days before it dies
+#    of thirst; you lead the fight to take the water back."
+#
+# THE ASK IS A CLAIM, AND IT IS THE ONE THE WHOLE ROW IS ABOUT: they say the pump
+# is broken. Broken and seized look identical from a dry tap two miles away, and
+# 118 of 158 measured deception cues mean nothing, so no face in this quest tells
+# you which it is. YOU WALK TO THE PUMP STATION AND YOU LOOK AT IT.
+#
+# WHAT VISIBLY CHANGES: the water comes back, or it does not. That is the most
+# visible thing in this valley.
+#
+# THE FIGHT IS COMBAT'S AND IS NOT WRITTEN HERE. His line says you lead the fight
+# to take it back; what a fight is belongs to the fight, so this ask ends at the
+# decision to go and the shape of how you go, and hands over.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q033.W4  DEMONSTRATED, NOT TOLD (the mechanical proof)
+#   applied: nobody announces that the pump was taken; you stand at the station and the state of it is the whole argument, so the world proves the claim instead of a character asserting it.
+# @STUDY Q018.W4  "THERE IS ALWAYS A WAY" (the trust contract)
+#   applied: every route to the water is reachable by somebody who goes and looks, and no path is gated behind a stat, so the world never cheats the player who does the walking.
+# @STUDY Q038.X1  THE HARD CLOCK ALIENATES (F1
+#   applied: his line says the valley has days, and the named failure of the water chip timer is that a hard clock alienates, so the days are in the fiction and never on a bar the player watches drain.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a05_the_dry_taps   The Dry Taps
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE neighbour REQ  block=same
+@ROLE holder    OPT  block=other
+
+@STAGE 10
+  @LOG Every tap on this side of the valley went dry inside an hour. Nobody has said why.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Walked out to the pump station. It is not broken. There are people on it.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #notable
+  @LOG Took it back with everybody watching. The taps ran that night and the whole valley knows whose doing.
+  @DO pay resources 1
+  @DO set_flag took_the_pump
+  @DO learn broken_and_held_look_the_same
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #quiet
+  @LOG Talked them off it. Cost me something I have not told anybody about. Taps ran by morning.
+  @DO pay resources 1
+  @DO set_flag bought_the_pump
+  @DO learn broken_and_held_look_the_same
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Went at night with four people and no plan worth the name. It worked. It should not have.
+  @DO pay resources 1
+  @DO set_flag took_the_pump
+  @DO set_flag went_at_night
+  @DO learn broken_and_held_look_the_same
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Came back and said it was broken, same as everybody else was saying. The taps are still dry.
+
+@OBJ 10  "Find out why the taps are dry"  target=neighbour
+@OBJ 20  "Get the water back"             target=holder
+
+# =====================================================================
+# THE CLAIM. Broken. Everybody is saying it, which is not evidence.
+# =====================================================================
+@TALK claim  speaker=neighbour  entry=stage>=10
+  @SAY Dry since this morning. All of them, all at once, which is not how a pipe fails. #dread
+  @SAY Word coming down is the pump is broken. That is the word, and I notice nobody has said who looked at it.
+  @SAY It is a walk. It is a long walk. But it is the only way anybody in this valley finds out anything.
+  @OPT "Then I'll walk it."         [gate: none]  -> walk
+  @OPT "Who said it was broken?"    [gate: none]  -> who
+  @OPT "It's broken. It happens."   [gate: none]  -> shrug
+  @OPT (start out)                  [gate: none]  SILENCE -> walk
+  @NOVERB "Who took it?"
+@END
+
+@TALK who  speaker=neighbour
+  @SAY Everybody. Which means nobody. It came down the road the way things do and it arrived already true. #wary
+  @OPT "Then I'll walk it."         [gate: none]  -> walk
+  @OPT (go)                         [gate: none]  SILENCE -> walk
+@END
+
+@TALK shrug  speaker=neighbour
+  @SAY It does happen. And every tap on one side of a valley at the same hour does not. #dread
+  @OPT "Alright. I'll walk it."     [gate: none]  -> walk
+  @OPT (leave it)                   [gate: none]  -> END  @DO set_stage 33
+@END
+
+@TALK walk  speaker=neighbour
+  @SAY Take water. There is a joke in there and I am too dry for it. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE STATION. Not broken. Held. The difference is visible from here and
+# from nowhere else.
+# =====================================================================
+@TALK station  speaker=holder  entry=stage>=20
+  @SAY Close enough. That is close enough. #wary
+  @SAY Nothing here is broken and you can see that from where you are standing, so let us not do the part where I pretend.
+  @SAY We turn it back on when we get what we are here for. Or you take it off us. Those are the two.
+  @OPT "Then we take it."           [gate: none]  -> take
+  @OPT "What do you want?"          [gate: none]  -> want
+  @OPT "Tonight, then."             [gate: none]  -> night
+  @OPT (look at the valve, say nothing) [gate: none]  SILENCE -> want
+  @NOVERB "I'll bring the whole valley up here"
+@END
+
+@TALK want  speaker=holder
+  @SAY Less than you think and more than you will want to admit to giving. #wary
+  @SAY Say yes and the taps run by morning and nobody down there ever hears what it cost.
+  @OPT (pay it, quietly)            [gate: none]  SILENCE -> END  @DO set_stage 31
+  @OPT "No. We take it."            [gate: none]  -> take
+@END
+
+@TALK take  speaker=holder
+  @SAY Then bring people and do it in daylight where everybody can see, or bring four and do it tonight. #dread
+  @OPT (bring everybody, in daylight) [gate: none]  -> END  @DO set_stage 30
+  @OPT (bring four, tonight)          [gate: none]  SILENCE -> END  @DO set_stage 32
+@END
+
+@TALK night  speaker=holder
+  @SAY Tonight is how people get killed over a pump. Yours or mine. #dread
+  @OPT (go tonight anyway)          [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT (daylight, everybody)        [gate: none]  -> END  @DO set_stage 30
+@END

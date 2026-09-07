@@ -1,0 +1,168 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A07 -- THE TWO FAMILIES
+#
+# HONESTY FIRST, BECAUSE THIS ONE IS DIFFERENT FROM THE OTHER SIX:
+#   Paolo has NO written line behind this opening. Six of the seven have his own
+#   sentence in the locked element set. This one has only its NAME, in the list of
+#   ten openings, at laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md line 192:
+#   "The Two Families". That is the whole canon. Nothing below is his and nothing
+#   below pretends to be. It is an attempt built from the name and from the rule
+#   the row itself sets, and he overwrites any word of it for free.
+#
+# THE ASK IS TWO CLAIMS THAT CANNOT BOTH BE TRUE. Two households share one block
+# and one fence. Each says the other took something off it. Neither is performing:
+# both are calm, both are specific, both are certain. That is the point. Of 158
+# measured deception cues, 118 mean nothing, and people catch a lie 47% of the
+# time, which is a coin. So THE LIAR IS BELIEVED, and no face in this quest tells
+# you anything.
+#
+# SO IT IS CHECKED BY WALKING TO THE FENCE. Not by a highlighted line, not by a
+# roll. You go and look at the posts and the ground and the gap, and the ground
+# says which way the thing went. A claim is checked by GOING TO THE THING.
+#
+# WHAT VISIBLY CHANGES: what the block says. Two houses that will not speak, or
+# one fence that stands, or a name people stop using. Talk is the surplus here,
+# so talk is the pay.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q026.W5  ACCUSE-WHO-YOU-BELIEVE *OR* WHO-DESERVES-IT
+#   applied: the fence gives you what happened, never who deserves it, so the ending splits into believing the ground and judging the household, and the player has to notice those are two different answers.
+# @STUDY Q034.W8  THE LIE IS MOTIVATED
+#   applied: whichever household is lying is lying to keep a child fed through a first winter, so the deception is theirs and not the writer's, and finding it out does not turn them into a villain.
+# @STUDY Q046.X5  HEIRS INHERIT HATRED
+#   applied: cited as the thing being planted on purpose. Whatever the player settles here becomes the reason the next generation's neighbours already distrust them, and the ledger says why, so the handoff is earned rather than a flat penalty.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a07_the_two_families   The Two Families
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE neighbour_one  REQ  block=same
+@ROLE neighbour_two  REQ  block=same
+
+@STAGE 10
+  @LOG Two houses on this block. Each one says the other took off the fence. Both are calm about it.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Heard the second one. Same story, other direction, same certainty. One of them is lying to me.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Walked the fence. Ground told me which way it went. Fixed it without saying it out loud.
+  @DO pay clout 1
+  @DO set_flag walked_the_fence
+  @DO learn a_face_is_not_evidence
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Walked the fence, then said what the ground said, in front of both houses. One of them will not forget it.
+  @DO pay clout 1
+  @DO set_flag walked_the_fence
+  @DO set_flag said_it_to_both_houses
+  @DO learn a_face_is_not_evidence
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Took the fence down. No fence, no fence argument. Both houses are furious and both houses are speaking.
+  @DO pay clout 1
+  @DO set_flag walked_the_fence
+  @DO set_flag took_the_fence_down
+  @DO learn a_face_is_not_evidence
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Picked the one I liked better and never went to look. Might have been right. Will never know.
+
+@OBJ 10  "Hear both houses"              target=neighbour_one
+@OBJ 20  "Walk the fence and look"       target=neighbour_two
+
+# =====================================================================
+# HOUSE ONE. Calm, specific, certain.
+# =====================================================================
+@TALK first  speaker=neighbour_one  entry=stage>=10
+  @SAY Four posts and the wire off the top of them, between our ground and theirs. #tired
+  @SAY I am not going to shout about it. I am telling you they carried it over there in the night and I am telling you where it is now.
+  @SAY Ask them. They will tell you the opposite in the same voice I am using.
+  @OPT "Did you see them do it?"     [gate: none]  -> saw
+  @OPT "I'll hear them too."         [gate: none]  -> other
+  @OPT "Why would they need it?"     [gate: none]  -> need
+  @OPT (go across)                   [gate: none]  SILENCE -> other
+  @NOVERB "Which of you is lying"
+@END
+
+@TALK saw  speaker=neighbour_one
+  @SAY No. I heard it. And I know what I heard the way you know your own door. #tired
+  @SAY Which is worth nothing to you, and I know that too.
+  @OPT "Then I'll go look at it."    [gate: none]  -> other
+  @OPT (say nothing)                 [gate: none]  SILENCE -> other
+@END
+
+@TALK need  speaker=neighbour_one
+  @SAY Same reason we needed it. Winter is the same length on both sides of that line. #warm
+  @OPT "I'll hear them."             [gate: none]  -> other
+  @OPT (go)                          [gate: none]  SILENCE -> other
+@END
+
+@TALK other  speaker=neighbour_one
+  @SAY Go on then. Their door is the one with the good hinge. Ours took the wire. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# HOUSE TWO. Same calm. Same specifics. Opposite direction.
+# =====================================================================
+@TALK second  speaker=neighbour_two  entry=stage>=20
+  @SAY They already told you. Four posts and the wire. Ours. #tired
+  @SAY I could stand here and be upset at you and it would not make it any more true than it already is.
+  @SAY Or you could go and look at the ground where the posts were. Nobody has looked at the ground.
+  @OPT "Then I'll look."             [gate: none]  -> fence
+  @OPT "One of you is lying to me."  [gate: none]  -> lying
+  @OPT "I already believe them."     [gate: none]  -> believe
+  @OPT (walk to the fence line)      [gate: none]  SILENCE -> fence
+  @NOVERB "Prove it to me here"
+@END
+
+@TALK lying  speaker=neighbour_two
+  @SAY Yes. And you cannot tell which by looking at either of us, so stop looking at us. #wary
+  @OPT "The fence, then."            [gate: none]  -> fence
+  @OPT (go and look)                 [gate: none]  SILENCE -> fence
+@END
+
+@TALK believe  speaker=neighbour_two
+  @SAY Then you have settled it without walking twenty steps, and my house will be the thief on this block forever. #dread
+  @OPT "You're right. I'll look."    [gate: none]  -> fence
+  @OPT (leave it settled)            [gate: none]  -> END  @DO set_stage 33
+  @OPT (say nothing and go look)     [gate: none]  SILENCE -> fence
+@END
+
+# =====================================================================
+# THE FENCE. The ground is the only witness that cannot perform.
+# =====================================================================
+@TALK fence  speaker=neighbour_two
+  @SAY Drag marks. Both directions, one deeper than the other, and the deep one is loaded. #dread
+  @SAY So now you know, and knowing is the easy half.
+  @OPT "Put it back. Quietly."       [gate: none]  -> quiet
+  @OPT "Both houses hear this."      [gate: none]  -> both
+  @OPT "Then the fence comes down."  [gate: none]  -> down
+  @OPT (stand and look at it)        [gate: none]  SILENCE -> quiet
+  @NOVERB "Tell me who to blame"
+@END
+
+@TALK quiet  speaker=neighbour_two
+  @SAY Back up tonight, nothing said. The one who took it will know that you knew. #wary
+  @OPT (let it be that)              [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. Out loud."               [gate: none]  -> both
+@END
+
+@TALK both  speaker=neighbour_two
+  @SAY Say it in front of both doors then, and say what the ground said and nothing else. #dread
+  @SAY They have to live here after you walk off.
+  @OPT (say it to both houses)       [gate: none]  -> END  @DO set_stage 31
+  @OPT (put it back quietly instead) [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK down  speaker=neighbour_two
+  @SAY No fence, no fence to argue about. And no line either, which is the part you are not thinking about. #wary
+  @OPT (take it down anyway)         [gate: none]  -> END  @DO set_stage 32
+  @OPT (put it back quietly)         [gate: none]  SILENCE -> END  @DO set_stage 30
+@END

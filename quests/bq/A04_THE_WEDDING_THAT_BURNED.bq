@@ -1,0 +1,137 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A04 -- THE WEDDING THAT BURNED
+#
+# HIS OWN LINE, from the locked element set:
+#   "THE WEDDING THAT BURNED -- your wedding, the whole block gathered, is when
+#    it hits; the happiest night of the founding becomes the worst."
+#
+# *** WHO YOU MARRY IS HIS AND IS NOT DECIDED HERE. *** There is no name, no
+# face, no gender and no proposal in this file. The partner is a @ROLE cast at
+# runtime like every other part, because who marries whom is canon he has
+# reserved and a side ask is the worst possible place to settle it.
+#
+# THE ASK IS A CLAIM, AND IT IS THE MOST ORDINARY ONE IN THE VALLEY: somebody
+# tells you the block is safe that night. A claim is checked by GOING TO THE
+# THING, so you walk the block yourself, and what you find is what everybody
+# finds when they check anything -- not a liar, just a man who was sure.
+#
+# WHAT VISIBLY CHANGES: a light. Whether the block is lit that night, and who
+# knows you were the one who walked it, are the two things this leaves behind.
+#
+# NO CLOCK AND NO DOOM COUNTER. The element set already says the night goes
+# wrong; his line is the premise, not a puzzle the player can pass or fail.
+#
+# WALKING AWAY FROM A HOLE YOU FOUND IS NOT A COMPLETION. You can end this three
+# ways and only two of them are the job: fix it, or stop the night and say it.
+# Going back to the table knowing the west end is open ends the ask as a FAIL, so
+# it pays nothing. The night still happens either way; his premise is not on the
+# table. What changes is whether the block knows you were the one who was asked.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q036.W7  MANUFACTURED ATTACHMENT, THEN FORCED BETRAYAL (Companion Cube)
+#   applied: cited as the line we do NOT cross. The night is built to be loved and then ruined, which is his premise, and the quest never asks the player to destroy it themselves to prove a point.
+# @STUDY Q022.W1  SIDE QUESTS DELIVER THE THEME (dark inverse of relief)
+#   applied: the happiest hour of the founding is where the ask lives, so the side content deepens the dread instead of relieving it.
+# @STUDY Q038.X1  THE HARD CLOCK ALIENATES (F1
+#   applied: no countdown to the attack and no failable timer, because the named failure of that design is alienation; the pressure is that you are choosing between the party and the perimeter.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a04_the_wedding_that_burned   The Wedding That Burned
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE partner  REQ  family=true
+@ROLE watch    OPT  block=same
+
+@STAGE 10
+  @LOG Whole block is coming. First time everybody has been in one yard since the burial.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Walked the perimeter myself in good clothes. He was sure and he was wrong.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Fixed it quietly and went back in. Nobody at that table knew I had left.
+  @DO pay electricity 1
+  @DO set_flag walked_the_perimeter
+  @DO learn sure_is_not_the_same_as_right
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Stopped the music and told everybody. The party ended early and the block was lit all night.
+  @DO pay electricity 1
+  @DO set_flag walked_the_perimeter
+  @DO set_flag stopped_the_music
+  @DO learn sure_is_not_the_same_as_right
+  @DO complete_objective 20
+@STAGE 32 FAIL #risky
+  @LOG Stayed at the table. Somebody else found it, later, and everybody knows I was asked first.
+  @DO set_flag stayed_at_the_table
+  @DO learn sure_is_not_the_same_as_right
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Never went out. It was my wedding and I wanted one night that was only that.
+
+@OBJ 10  "Walk the block before dark"  target=watch
+@OBJ 20  "Decide what to do about it"  target=partner
+
+# =====================================================================
+# THE CLAIM. Not a lie. A man who checked yesterday and is sure.
+# =====================================================================
+@TALK claim  speaker=watch  entry=stage>=10
+  @SAY Block is clear. I did the whole line myself yesterday, both ends, and it is clear. #warm
+  @SAY Go and enjoy your night. That is what I am here for.
+  @SAY If it makes you feel better, walk it. But you are walking it in good clothes for nothing.
+  @OPT "I'll walk it."              [gate: none]  -> walk
+  @OPT "Yesterday, or today?"       [gate: none]  -> when
+  @OPT "Alright. I trust you."      [gate: none]  -> trust
+  @OPT (go and walk it anyway)      [gate: none]  SILENCE -> walk
+  @NOVERB "Something is going to happen tonight"
+@END
+
+@TALK when  speaker=watch
+  @SAY Yesterday. Which is the same thing. #wary
+  @SAY It has been the same thing every day for a year, and I am not going to apologise for a year of nothing happening.
+  @OPT "I'll walk it."              [gate: none]  -> walk
+  @OPT "Alright."                   [gate: none]  -> trust
+@END
+
+@TALK trust  speaker=watch
+  @SAY Good. Go on in. #warm
+  @OPT (go in)                      [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT (walk it anyway)             [gate: none]  -> walk
+@END
+
+@TALK walk  speaker=watch
+  @SAY Suit yourself. West end is the long side. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE WEST END. The claim was honest and the claim was wrong, which is
+# what checking is for.
+# =====================================================================
+@TALK west  speaker=partner  entry=stage>=20
+  @SAY I came out to find you. In this. In front of everybody. #warm
+  @SAY What is it. And do not tell me nothing, you have got your hand on the wire.
+  @OPT "The west end is open."      [gate: none]  -> open
+  @OPT "Nothing. Let's go back in." [gate: none]  -> back
+  @OPT (show them the wire)         [gate: none]  SILENCE -> open
+  @NOVERB "We should not have done this tonight"
+@END
+
+@TALK open  speaker=partner
+  @SAY Then either you fix it and come back in, or you go in there and tell fifty people to go home. #dread
+  @SAY I am not going to tell you which. It is your block too.
+  @OPT (fix it and go back in)      [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT (stop the music and say it)  [gate: none]  -> END  @DO set_stage 31
+  @OPT (leave it and go back in)    [gate: none]  -> END  @DO set_stage 32
+@END
+
+@TALK back  speaker=partner
+  @SAY You are a bad liar and it is one of the things I like about you. #warm
+  @OPT (tell them about the wire)   [gate: none]  SILENCE -> open
+  @OPT (go back in anyway)          [gate: none]  -> END  @DO set_stage 32
+@END

@@ -1,0 +1,133 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A03 -- THE FACTION THAT DIED
+#
+# HIS OWN LINE, from the locked element set:
+#   "THE FACTION THAT DIED -- an allied faction is wiped by the Cartel; you
+#    survive by a bargain that stains you; their refugees flood your ground."
+#
+# THE ASK IS A CLAIM: somebody tells you the bargain was clean, that nobody sold
+# anybody. A claim is checked by GOING TO THE THING, so you walk to their ground
+# and count who is standing on it. The count is the answer and no face is.
+#
+# WHAT VISIBLY CHANGES: a block changes hands. Their people are on your ground
+# either way; what you decide is whose ground it is now.
+#
+# NO FACTION IS NAMED BEYOND THE ONE HIS LINE NAMES. Which outfit died and who
+# their refugees are is the world's to say at runtime, so every part here is a
+# @ROLE cast against whoever exists.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q015.W5  THE BETRAYAL THAT ARMS YOU
+#   applied: the bargain that stains you is also the thing that leaves you standing, so what you gain and what you are ashamed of are the same object.
+# @STUDY Q026.W5  ACCUSE-WHO-YOU-BELIEVE *OR* WHO-DESERVES-IT
+#   applied: you can settle who actually made the deal, or you can settle who ends up carrying it, and the quest lets those be different people.
+# @STUDY Q046.X5  HEIRS INHERIT HATRED
+#   applied: their refugees arrive already deciding what your family is, which is the named risk of a handoff that feels arbitrary, so the ask makes it a thing you can answer rather than a number you are given.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a03_the_faction_that_died   The Faction That Died
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE runner   REQ  block=same
+@ROLE elder    OPT  block=other
+
+@STAGE 10
+  @LOG An outfit we traded with is gone. Not beaten, gone, in one night.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Walked their ground. Counted forty and some of them are already on ours.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #notable
+  @LOG Took them in and said the ground is ours now. Everybody heard both halves of that.
+  @DO pay resources 1
+  @DO faction NONE +0
+  @DO set_flag took_them_in
+  @DO learn the_count_is_the_answer
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #quiet
+  @LOG Took them in and did not say anything about the ground. It will come up later.
+  @DO pay resources 1
+  @DO set_flag took_them_in
+  @DO learn the_count_is_the_answer
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Said out loud who made the deal that let this happen. To their faces, on their ground.
+  @DO pay resources 1
+  @DO set_flag named_the_bargain
+  @DO learn the_count_is_the_answer
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Sent them on. Somebody else's block, somebody else's problem, and I have to live here.
+
+@OBJ 10  "Go and see what is left"    target=runner
+@OBJ 20  "Decide what happens to them" target=runner
+
+# =====================================================================
+# THE CLAIM. Nobody sold anybody, he says, and he is the one who would know.
+# =====================================================================
+@TALK claim  speaker=runner  entry=stage>=10
+  @SAY They are gone. One night. I have run that road twice a week for a year and there is nobody on it. #dread
+  @SAY And before you ask: nobody sold them. There was no deal. We were not part of it.
+  @SAY Go and look if you want. I would rather you looked than wondered.
+  @OPT "I'll look."                 [gate: none]  -> walk
+  @OPT "Why would I wonder?"        [gate: none]  -> why
+  @OPT "Nobody sold them."          [gate: none]  -> flat
+  @OPT (start walking)              [gate: none]  SILENCE -> walk
+  @NOVERB "Who made the deal?"
+@END
+
+@TALK why  speaker=runner
+  @SAY Because we are still here and they are not, and that is the sort of thing people do arithmetic about. #wary
+  @OPT "I'll look."                 [gate: none]  -> walk
+  @OPT (go)                         [gate: none]  SILENCE -> walk
+@END
+
+@TALK flat  speaker=runner
+  @SAY That is what I said. #wary
+  @SAY You will notice I said it without you asking me. Go and look.
+  @OPT (go)                         [gate: none]  SILENCE -> walk
+  @OPT "I'll look."                 [gate: none]  -> walk
+@END
+
+@TALK walk  speaker=runner
+  @SAY Two hours up the road. Take water. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE COUNT. Forty people on a road, which is a number and not a face.
+# =====================================================================
+@TALK ground  speaker=elder  entry=stage>=20
+  @SAY Forty of us. There were three hundred on this ground a week ago. #grief
+  @SAY Somebody let them through and everybody here knows which somebody, and none of us can prove it and none of us is going to try.
+  @SAY What I want to know is whether we can stand on your block or not. That is the only question I have left.
+  @OPT "You can stand on it."       [gate: none]  -> take
+  @OPT "Who let them through?"      [gate: none]  TRAP -> who
+  @OPT "You cannot stay here."      [gate: none]  -> send
+  @OPT (nod them toward the block)  [gate: none]  SILENCE -> take
+  @NOVERB "I will get it back for you"
+@END
+
+@TALK who  speaker=elder
+  @SAY You already know or you would not be asking me in that voice. #dread
+  @SAY Say it out loud on this ground and forty people hear you say it, and then it is a thing that was said and it never stops being said.
+  @OPT (say it)                     [gate: none]  -> END  @DO set_stage 32
+  @OPT "Never mind. Come with me."  [gate: none]  -> take
+@END
+
+@TALK take  speaker=elder
+  @SAY Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever. #tired
+  @OPT (say it is ours, out loud)   [gate: none]  -> END  @DO set_stage 30
+  @OPT (leave that for later)       [gate: none]  SILENCE -> END  @DO set_stage 31
+@END
+
+@TALK send  speaker=elder
+  @SAY Then say it plainly so I can tell them tonight instead of tomorrow. #grief
+  @OPT (say it plainly)             [gate: none]  SILENCE -> END  @DO set_stage 33
+  @OPT "No. Come with me."          [gate: none]  -> take
+@END

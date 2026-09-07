@@ -1,0 +1,136 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A06 -- THE FIRST HARVEST
+#
+# HIS OWN LINE, from the locked element set:
+#   "THE FIRST HARVEST -- your community's first surplus, proof you will live,
+#    and raiders come for the food; you defend the future itself."
+#
+# THE ASK IS A CLAIM AND IT IS ARITHMETIC: somebody says the count is short.
+# Short means somebody took some, and every person on this block has a reason to
+# say it was not them. A claim is checked by GOING TO THE THING, so you count the
+# crates yourself, in the store, with your own hands.
+#
+# AND THE COUNT IS THE POINT: it is the only fact in the quest nobody can talk
+# their way past, which is exactly why the ask is built on one. Nothing in a face
+# is a tell; a number in a store is.
+#
+# WHAT VISIBLY CHANGES: the shelf. Whether the surplus is still there in the
+# morning, and whether it is still yours, are the same question.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q033.W4  DEMONSTRATED, NOT TOLD (the mechanical proof)
+#   applied: the count is the proof and the player does the counting, so the quest never has to assert that somebody is stealing; the store says it.
+# @STUDY Q022.W1  SIDE QUESTS DELIVER THE THEME (dark inverse of relief)
+#   applied: the first surplus is the first proof the community lives, so the ask puts the theme of the whole act in a room with sacks in it rather than in a speech.
+# @STUDY Q044.X1  RANDY'S UNFAIRNESS / UNAVOIDABLE LOSS
+#   applied: cited as the failure to avoid. Nothing here is lost to a dice roll: every crate that goes missing went somewhere a person chose to take it, so the loss reads as story rather than bad luck.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a06_the_first_harvest   The First Harvest
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE grower  REQ  block=same
+@ROLE hand    OPT  block=same
+
+@STAGE 10
+  @LOG First surplus this block has ever had. Somebody says the count is short already.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Counted it myself. It is short, and it is short by exactly what one person carries.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Sorted it without a name being said. Store is full, nobody was thrown off the block.
+  @DO pay resources 1
+  @DO set_flag counted_it_myself
+  @DO learn a_count_cannot_lie
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Said the number in front of the whole block and put a lock on the door. Everybody watched.
+  @DO pay resources 1
+  @DO set_flag counted_it_myself
+  @DO set_flag locked_the_store
+  @DO learn a_count_cannot_lie
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Named them, out loud, in front of people who have known them fifteen years.
+  @DO pay resources 1
+  @DO set_flag counted_it_myself
+  @DO set_flag named_the_hand
+  @DO learn a_count_cannot_lie
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Did not count it. Took his word. The store will be short again next week.
+
+@OBJ 10  "Count the store yourself"     target=grower
+@OBJ 20  "Decide what to do about it"   target=grower
+
+# =====================================================================
+# THE CLAIM. Short. He is sure and he is not the one who counted either.
+# =====================================================================
+@TALK claim  speaker=grower  entry=stage>=10
+  @SAY First year this ground has given us more than we eat. First year ever. #warm
+  @SAY And the store is short. I know it is short. I have looked at that room every night of my life for eight months.
+  @SAY I am not going to say a name to you. I am going to ask you to go and count it.
+  @OPT "How short?"                 [gate: none]  -> short
+  @OPT "I'll count it."             [gate: none]  -> count
+  @OPT "You would know if it was."  [gate: none]  -> know
+  @OPT (go to the store)            [gate: none]  SILENCE -> count
+  @NOVERB "Who took it?"
+@END
+
+@TALK short  speaker=grower
+  @SAY That is exactly the thing I want somebody else's hands on. If I tell you a number you will find that number. #tired
+  @OPT "Fair. I'll count it."       [gate: none]  -> count
+  @OPT (go)                         [gate: none]  SILENCE -> count
+@END
+
+@TALK know  speaker=grower
+  @SAY I would. And I have been wrong about this room twice this month and both times I was certain. #tired
+  @OPT "I'll count it."             [gate: none]  -> count
+  @OPT (go)                         [gate: none]  SILENCE -> count
+  @OPT "Then take your own word for it." [gate: none]  -> END  @DO set_stage 33
+@END
+
+@TALK count  speaker=grower
+  @SAY Door is open. It has always been open, which may be the whole answer. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE STORE. The number is short by exactly what one person carries, and
+# the person is standing in the doorway.
+# =====================================================================
+@TALK store  speaker=hand  entry=stage>=20
+  @SAY You are counting. #dread
+  @SAY Then you already know it is short and you already know by how much, so I am not going to stand here and do the other thing.
+  @SAY My family eats what I carry out of here. That is not an excuse, it is just the reason.
+  @OPT "Put it back and we're done." [gate: none]  -> back
+  @OPT "The block is going to hear this." [gate: none]  -> loud
+  @OPT "Then the door gets a lock."  [gate: none]  -> lock
+  @OPT (stand there and let them talk) [gate: none]  SILENCE -> back
+  @NOVERB "How long has this been going on"
+@END
+
+@TALK back  speaker=hand
+  @SAY Tonight. All of it. And nobody has to know it was me. #dread
+  @OPT (let it be that)             [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. They hear it."          [gate: none]  -> loud
+@END
+
+@TALK lock  speaker=hand
+  @SAY A lock says somebody on this block is a thief without saying which of us. #wary
+  @SAY Half of them will think it is them you meant.
+  @OPT (put the lock on anyway)     [gate: none]  SILENCE -> END  @DO set_stage 31
+  @OPT "Then I say the name."       [gate: none]  -> loud
+@END
+
+@TALK loud  speaker=hand
+  @SAY Then say it where they can hear you and be sure, because they have known me fifteen years and they will remember which of us said it. #dread
+  @OPT (say the name)               [gate: none]  -> END  @DO set_stage 32
+  @OPT (put a lock on instead)      [gate: none]  SILENCE -> END  @DO set_stage 31
+@END

@@ -1,0 +1,143 @@
+# BOHEMIA ACT ONE ASK -- PLAYABLE .bq (canon machine layer)
+# A01 -- THE KILLING SUMMER
+#
+# HIS RULING, 7/19, LOCKED: the ten opening options not used in the cold open
+# become THE FIRST ACT ONE QUESTS. "Nothing is wasted; the menu of openings is
+# really the menu of early Act 1 content." Seven of the ten had never been
+# written anywhere. This is one of them, and its line is his own:
+#   "THE KILLING SUMMER -- no enemy but the desert; brownout heat peaks, the
+#    die-off crests, you choose who gets water and who does not."
+#
+# THE ASK IS A CLAIM, AND A CLAIM IS CHECKED BY GOING TO THE THING. Of 158
+# measured deception cues 118 mean nothing, pauses among them, and people catch
+# lies 47% of the time. THE LIAR IS BELIEVED, and nothing in his mouth is a tell.
+# So there is no [READ] option here, no skill roll and no highlighted "he's
+# lying" line: he says the block above is taking more than its share, and the
+# only way to know is to walk up there and look at the pressure yourself.
+#
+# AND IT CHANGES SOMETHING VISIBLE, which is the whole difference between an ask
+# and filler: water moves, and the block that gets it stops being the block that
+# does not.
+#
+# NO CLOCK. His element line has a die-off cresting and the obvious build is a
+# failable timer. The study on that is blunt: a hard clock alienates, the water
+# chip timer frustrated players and the sequel removed it. The pressure here is
+# that somebody goes without either way, which is his own sentence, not a bar
+# emptying on screen.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q033.W4  DEMONSTRATED, NOT TOLD (the mechanical proof)
+#   applied: nobody tells you the upstream block is drawing more; you walk to the standpipe and the pressure is the proof, so the mechanic carries the claim instead of a line of dialogue.
+# @STUDY Q026.W5  ACCUSE-WHO-YOU-BELIEVE *OR* WHO-DESERVES-IT
+#   applied: the fork is not who is lying, it is who goes without, so truth and justice come apart exactly the way his own line says they do.
+# @STUDY Q038.X1  THE HARD CLOCK ALIENATES (F1
+#   applied: the die-off is the setting and not a failable timer, because the named failure of the water chip clock is that it alienates, so the pressure here is who suffers rather than how long you have.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_a01_the_killing_summer   The Killing Summer
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE keeper   REQ  block=same
+@ROLE upstream OPT  block=other
+
+@STAGE 10
+  @LOG Hottest week anybody remembers and our standpipe is down to a dribble by noon.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Walked up the line myself. He was right about the pressure and wrong about why.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Split it. Neither block gets what it needs and both blocks get through the week.
+  @DO pay resources 1
+  @DO set_flag summer_split
+  @DO learn pressure_is_the_proof
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Gave it to us and said so out loud. They know who did it and they know why.
+  @DO pay resources 1
+  @DO set_flag summer_took_ours
+  @DO learn pressure_is_the_proof
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Gave it upstream. Our people watched me do it and nobody has said a word to me since.
+  @DO pay resources 1
+  @DO set_flag summer_gave_it_up
+  @DO learn pressure_is_the_proof
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Left the valve where it was. The heat did the choosing instead of me.
+
+@OBJ 10  "Find out why the pressure drops"  target=keeper
+@OBJ 20  "Decide who gets the water"         target=keeper
+
+# =====================================================================
+# THE CLAIM. He states it flat and he may be wrong. Nothing in the scene
+# tells you which, because nothing in a face ever does.
+# =====================================================================
+@TALK claim  speaker=keeper  entry=stage>=10
+  @SAY By noon this pipe is spitting air and by three there is nothing. Third day running. #tired
+  @SAY The block above us is drawing more than their share. I am not guessing, I am telling you.
+  @SAY Go up and look at their standpipe yourself. Then come back and tell me I am wrong.
+  @OPT "How do you know?"           [gate: none]  -> how
+  @OPT "I'll go and look."          [gate: none]  -> walk
+  @OPT "Say they are. Then what?"   [gate: none]  -> then
+  @OPT (go, without answering)      [gate: none]  SILENCE -> walk
+  @NOVERB "Are you lying to me?"
+@END
+
+@TALK how  speaker=keeper
+  @SAY I do not, not the way you mean. I know what my own pipe does and I know it did not do this last summer. #tired
+  @SAY That is the whole of what I have. Which is why I am asking you to go instead of arguing with me.
+  @OPT "Then I'll go."              [gate: none]  -> walk
+  @OPT "Say they are. Then what?"   [gate: none]  -> then
+@END
+
+@TALK then  speaker=keeper
+  @SAY Then somebody goes without, and it is either them or it is us, and I would rather it was them. #dread
+  @SAY I am not going to pretend that is a nice thing to want.
+  @OPT "I'll look first."           [gate: none]  -> walk
+  @OPT (say nothing)                [gate: none]  SILENCE -> walk
+@END
+
+@TALK walk  speaker=keeper
+  @SAY Straight up the line. You will hear it before you see it. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE FENCE. The pressure is the proof, and it does not say what he said.
+# =====================================================================
+@TALK standpipe  speaker=upstream  entry=stage>=20
+  @SAY You are the third one up here this week and I will tell you what I told them. #wary
+  @SAY Feel it. Ours is worse than yours. Whatever is happening is happening above both of us and neither of us has the reach to go and look at it.
+  @SAY So the only thing left to decide is who gets what is coming down. That is not a lie, that is a valve.
+  @OPT "Then we split it."          [gate: none]  -> split
+  @OPT "Then it comes to us."       [gate: none]  -> ours
+  @OPT "Then keep it."              [gate: none]  -> theirs
+  @OPT (stand there and think)      [gate: none]  SILENCE -> split
+  @NOVERB "Go up and find out who is taking it"
+@END
+
+@TALK split  speaker=upstream
+  @SAY Half a week each and both of us thirsty. That is the honest one and it is nobody's favourite. #tired
+  @OPT (set it that way)            [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "No. Ours."                  [gate: none]  -> ours
+@END
+
+@TALK ours  speaker=upstream
+  @SAY Then say it where my people can hear you say it, because they are going to ask me who decided. #dread
+  @OPT (say it in front of them)    [gate: none]  -> END  @DO set_stage 31
+  @OPT "Split it instead."          [gate: none]  -> split
+@END
+
+@TALK theirs  speaker=upstream
+  @SAY You are going to have to walk back down and tell your own people that. #wary
+  @OPT (walk back down)             [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "Split it instead."          [gate: none]  -> split
+  @OPT (leave the valve alone)      [gate: none]  -> END  @DO set_stage 33
+@END
