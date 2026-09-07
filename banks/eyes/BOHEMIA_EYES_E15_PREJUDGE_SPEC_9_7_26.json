@@ -1,0 +1,69 @@
+{
+ "bank": "EYES AND EARS -- E15 [machine judges] -- THE PRE-JUDGE PASS, SPEC ONLY",
+ "date": "9/7/26",
+ "round": "1 of 2 (SCHOOL). Nothing built, nothing measured.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. School's corrections: (1) a pre-judge that annotates but still forwards everything ADDS work, because the bottleneck is his attention, not the absence of information; (2) the rubber stamp is measurable in advance and a 0% override rate is a process failure, not proof the machine is right; (3) the bottleneck MOVES, so measure the queue before accepting the premise; (4) EVERYTHING IS A THUMB already abolished the approvals queue, so the legitimate shape is fewer things reaching him, not better-prepared things.",
+ "school_record": "records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md",
+ "read_to_ground_it_not_measured": {
+  "draft": true,
+  "E7_sheet": "7 machine questions (detail order, colour density, saturation budget, value band, grain scale, light, reads at play size) and 3 human ones (same material, belongs to this world, what a stranger would call it)",
+  "DIRECTION_load": "6 open or claimed lines on the board",
+  "caution": "six claimed lines is a COUNT, not a queue measurement. it says nothing about how long each has waited or whether anything is blocked behind them."
+ },
+ "step_zero_and_it_is_not_optional": {
+  "draft": true,
+  "do": "measure the queue before accepting the premise: how many cooks are actually waiting on DIRECTION, how long has each waited, is anything blocked behind them",
+  "if_direction_is_not_the_constraint": "report that and STOP, rather than building a machine for a bottleneck that is somewhere else",
+  "why": "theory of constraints: relieve the current constraint and the focus moves to the next one. and queueing theory says wait times rise non-linearly with demand, so the classic lever is smaller batches, not faster screening."
+ },
+ "the_three_outcomes": [
+  {"verdict": "RETURNED", "draft": true, "means": "fails one of E7's 7 machine questions, or the contrast number", "goes": "back to the cook, NEVER reaches DIRECTION", "note": "THIS IS THE ONLY OUTCOME THAT SUBTRACTS FROM HIS QUEUE"},
+  {"verdict": "DECIDED", "draft": true, "means": "passes everything a machine can judge and a defensible default exists", "goes": "ships, under EVERYTHING IS A THUMB; he corrects it by playing"},
+  {"verdict": "HIS", "draft": true, "means": "passes the machine but turns on one of the 3 human questions", "goes": "reaches him, GROUPED BY WHICH QUESTION, so he rules once per decision instead of once per cook"}
+ ],
+ "the_override_meter": {
+  "draft": true,
+  "record": "every DIRECTION verdict that contradicts a machine verdict",
+  "report": "the override rate, every round",
+  "the_alarm": "a sustained 0% override rate is reported as a PROCESS FAILURE OF THIS PASS, not as proof the pass is right",
+  "why": "automation bias is documented across medicine, aviation and code review: when a system is usually right people stop checking. clinical alert systems see 49 to 96% of safety alerts dismissed. declining override rates are the named leading indicator of rubber stamping.",
+  "the_principle": "a checker that cannot notice it has been switched off is the failure this lane exists to catch"
+ },
+ "print_nothing_on_a_pass": {
+  "draft": true,
+  "rule": "the machine's job is to be SILENT when it passes; a cook that clears everything produces one word, not a report",
+  "why": "excessive nitpicking obscures serious problems. forty machine findings per cook buries the one thing he was needed for."
+ },
+ "where_it_lives": {
+  "draft": true,
+  "rule": "in the gate suite, not in a tool somebody remembers to run",
+  "why": "local validation alone gets bypassed under deadline pressure, which is exactly the rounds where it would have mattered. and this repo's own pillar law says a law without a machine gate is not enforced."
+ },
+ "rule_zero": {
+  "draft": true,
+  "trap": "a pass that returns DECIDED for everything looks exactly like a pass that is working",
+  "controls": [
+   {"plant": "a cook built to fail a specific machine question (wrong value band, or a palette that is not the world's)", "must": "come back RETURNED and NAME the question it failed"},
+   {"plant": "a known-good cook", "must": "come back DECIDED"}
+  ],
+  "rule": "if the planted failure passes, the sheet is not being applied and every verdict is void"
+ },
+ "the_law_that_reframes_the_job": {
+  "draft": true,
+  "law": "EVERYTHING IS A THUMB (Paolo 8/9, LOCKED): the default flipped from approve-before to correct-after; a numbered queue of pending verdicts is banned outright",
+  "consequence": "a pre-judge whose output is a nicer approval packet rebuilds the machine that law tore down, one level up. THE LEGITIMATE SHAPE: the machine decides, the cook ships, DIRECTION corrects what it hates.",
+  "so_the_real_job_may_be": "make the machine's decision good enough to ship on, and send DIRECTION only the cooks where no defensible default exists -- a smaller queue by construction rather than a faster one"
+ },
+ "blind_spots_to_declare": [
+  "a machine question answered on a thumbnail is not the same question answered on the real surface",
+  "E7's 7 machine questions were validated against one corpus and have not been re-validated since",
+  "the pass measures conformance to a reference and can never measure appeal, which is why the other 3 questions exist",
+  "a cook that passes every machine question can still be boring, and no machine will ever find that"
+ ],
+ "what_this_lane_may_not_do": [
+  "judge taste, or decide what any cook should look like (that is DIRECTION's, and the taste is his)",
+  "write game code or change any cook",
+  "add a job to another lane's queue beyond the one [eyes: two words] bounce-back line"
+ ]
+}

@@ -1,108 +1,96 @@
-EYES AND EARS (eyes-5vql33): 9/7 (r) LATEST -- *** E14 [late beat] SHIPPED WITH BOTH ROUNDS, AND
-IT IS A GREEN. THE BEAT HE HEARS IS THE BEAT THE GAME JUDGES, TO WITHIN 9.6 MILLISECONDS, with
-under a millisecond of wobble, inside a PERFECT band of 55. A player pressing exactly on the
-sound they hear is graded PERFECT with 45 ms to spare. NOTHING IS ROUTED, because nothing is
-broken, and a lane that only ever finds problems is not a lane anybody should trust. ***
-TAB: NOT IN A TAB YET. No game code touched, ever.
+EYES AND EARS (eyes-5vql33): 9/7 (s) LATEST -- *** E15 [machine judges] ROUND ONE OF TWO IS DONE:
+SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's own shape wrong: A PRE-JUDGE THAT
+ANNOTATES BUT STILL FORWARDS EVERYTHING ADDS WORK. The bottleneck is DIRECTION'S ATTENTION, not
+a shortage of information, so a score card stapled to every cook makes his day longer. Only two
+things unload him: REMOVING items from his queue and GROUPING what is left. *** E15 stays
+CLAIMED, round two builds the pass. TAB: NOT IN A TAB YET. No game code touched, ever.
 
-FIRST, A CORRECTION TO MY OWN SCHOOL ROUND, OUT LOUD. Round one said there were two grace values
-five times apart, 200 in the alpha and 40 in the city world, and that round two would settle
-which the fight judges by. BOTH WERE FALSE LEADS FROM A SLOPPY GREP AND NEITHER IS A BEAT WINDOW.
-The alpha's is GRACE=2000 and my pattern matched a prefix of it; the city world's SF_GRACE=40 is
-STEPS before the street may jump you, not milliseconds. I flagged them as "no claim is made",
-which was the right instinct, but killing them out loud is the honest finish.
-  THE REAL NUMBERS, READ OUT OF THE RUNNING FIGHT: BPM_MS 500 (120 exactly), PERFECT within
-  55 ms, GOOD within 110 ms, and a permission look-back of 0.24 beats which is 120 ms.
+READ TO GROUND IT, NOT MEASURED: E7's sheet is 7 machine questions (detail order, colour density,
+saturation budget, value band, grain scale, light, does it read at play size) and 3 human ones
+(same material, does it belong to this world, what would a stranger call it). DIRECTION carries 6
+open or claimed lines. BUT SIX CLAIMED LINES IS A COUNT, NOT A QUEUE MEASUREMENT: it says nothing
+about how long anything has waited or whether a single thing is blocked behind them.
 
-WHICH SCHOOL FINDING CHANGED THE INSTRUMENT: school said a tap test measures a HUMAN, not a
-phone, because people tap 20 to 100 ms early and the bias is not universal. So this tool takes no
-taps from anybody. It compares two clocks the machine already has: the clock the fight grades
-against, and getOutputTimestamp().contextTime, which the spec defines as the sample frame the
-output device is playing RIGHT NOW. Both read in the same instant, in the same frame. The
-difference between them IS the gap the job asked for. And school's second finding paid off
-immediately: the browser reports the device latency, so the audio half was a read. It said
-32 ms of outputLatency and 10 ms of baseLatency.
+COUNTER-FINDING 1, AND IT RESHAPES THE DELIVERABLE: read literally, the job produces a score card
+attached to every cook, and every cook still lands in his queue with MORE to read. The only
+pre-judge that actually unloads him changes WHAT ARRIVES, not what is stapled to it.
+  REMOVE: a cook that fails a machine question goes back to the cook and never reaches him. That
+  is the ONLY outcome that subtracts from his queue.
+  GROUP: what survives is batched by WHICH human question it turns on, so he rules once per
+  decision instead of once per cook.
+  A card that informs is not a card that unloads.
 
-WHAT THE FIGHT ALREADY DOES, AND IT IS THE RIGHT THING. Reading the running code rather than
-guessing: audioMs() is AC.currentTime minus the device's own reported latency minus the loop
-anchor. THE FIGHT READS THE DEVICE'S LATENCY AND SUBTRACTS IT. That is exactly what native games
-need a calibration screen for, already shipped, with a comment beside it that already knows the
-40 to 300 ms number school went and found. Two more it gets right and both are usually wrong:
-the beat clock is the AUDIO clock and not a frame counter, and IT GRADES THE PRESS, NEVER THE
-GRANTED SHOT -- its own comment says grading the shot would print PERFECT every time and teach
-him nothing, which is the exact tautology trap my RULE ZERO exists to catch, and the fight had
-already caught it itself.
+COUNTER-FINDING 2, AND IT IS A HARD DESIGN REQUIREMENT: THE RUBBER STAMP IS MEASURABLE IN ADVANCE.
+Automation bias is documented across medicine, aviation and code review: when a system is usually
+right, people stop genuinely checking it, and the incentives make it worse because the reviewer
+who scrutinises everything is the one slowing things down. Clinical alert systems see 49 to 96% of
+safety alerts dismissed. The named leading indicator is DECLINING OVERRIDE RATES, and the
+literature is blunt: a 0% override rate should be treated as PROCESS FAILURE, not as proof the
+machine is right.
+  SO THE PASS MUST RECORD EVERY TIME DIRECTION DISAGREES WITH IT AND PRINT THAT RATE EVERY ROUND,
+  and a sustained zero must make the pass raise the alarm about ITSELF. A checker that cannot
+  notice it has been switched off is exactly the failure this lane exists to catch.
 
-THE NUMBERS: gap median 9.6 ms, mean 9.46, jitter 0.93, worst 10.76, over 19 samples across a
-second and a half. Bands swept straight out of the fight's own grader: PERFECT inside plus or
-minus 55, GOOD inside 110, EARLY or LATE beyond. 9.6 ms of error in a 55 ms band.
+COUNTER-FINDING 3: THE BOTTLENECK MOVES. Theory of constraints says you improve the current
+constraint until it stops limiting throughput and then the focus moves to the NEXT one, and
+queueing work says wait times do not climb steadily with demand, they skyrocket, which is why the
+classic lever on a review queue is smaller batches rather than faster screening. So round two
+MEASURES THE QUEUE BEFORE ACCEPTING THE PREMISE, and if DIRECTION is not the constraint it says so
+and names the one that is.
 
-RULE ZERO: a gap of about zero could mean the fight is ear-true, or that I am reading the same
-number twice and subtracting it from itself, which is a tautology dressed as a pass. A known
-150 ms shift was injected into one side and the gap moved by -150.26 ms. PASS. The two clocks
-are genuinely being compared.
+COUNTER-FINDING 4, AND IT IS OURS: EVERYTHING IS A THUMB (8/9, LOCKED) ALREADY ABOLISHED THE THING
+THIS JOB SOUNDS LIKE. The default flipped from approve-before to correct-after, and a numbered
+queue of pending verdicts is banned outright. So a pre-judge whose output is a nicer approval
+packet rebuilds the machine that law tore down, one level up. The legitimate shape under our own
+law: THE MACHINE DECIDES, THE COOK SHIPS, DIRECTION CORRECTS WHAT IT HATES. Which means E15's real
+job may be to make the machine's decision good enough to SHIP ON, and send him only the cooks
+where no defensible default exists. A smaller queue by construction, not a faster one. If that
+reading is wrong it is the coordinator's to correct; it is written down rather than asked.
 
-THE ONE CONDITIONAL FINDING, MEASURED AND NOT ROUTED: with the music loop stopped, audioMs()
-returns null and the beat clock falls back to a frame counter, and NOTHING SUBTRACTS DEVICE
-LATENCY FROM A FRAME COUNTER. So the compensation that makes the judge ear-true is tied to the
-song being on. I am not calling that a defect: with no song there may be no beat to hear, so
-nothing to be late against. But somebody should know it is there before they turn the music off
-in a fight.
+TWO MORE THINGS SCHOOL TAUGHT:
+  A LOCAL CHECK GETS BYPASSED UNDER PRESSURE. The pipeline guidance is explicit: validators run at
+  SUBMIT time, server side, "since local validation alone gets bypassed under deadline pressure".
+  So the pass belongs in the gate suite, not in a tool somebody remembers to run. This repo
+  already believes that (a law without a machine gate is not enforced) and E11 found a promised
+  gate that never existed.
+  AND THE MACHINE'S JOB IS TO BE SILENT WHEN IT PASSES. Code review's own warning: excessive
+  nitpicking obscures serious problems. Forty machine findings per cook buries the one thing he
+  was needed for. A cook that clears everything produces ONE WORD, not a report.
 
-BLUETOOTH IS STILL THE OPEN RISK AND STAYS QUOTED, NEVER MEASURED. The good news is structural:
-the fight subtracts whatever outputLatency REPORTS rather than a hard-coded number, so if the
-browser reports a Bluetooth route honestly the compensation follows it for free and nobody has to
-build a calibration screen. The untested half is whether outputLatency follows a route change
-mid-fight, and that cannot be tested in this harness, so I am not guessing at it.
+ROUND TWO'S PLAN: step zero, measure the queue and be willing to stop. Then the pass, with exactly
+three outcomes -- RETURNED (fails a machine question, goes back to the cook, never reaches him),
+DECIDED (passes the machine and a defensible default exists, so it ships and he corrects it by
+playing), HIS (passes the machine but turns on a human question, grouped by which one). Plus the
+override meter. Plus silence on a pass. In the gate suite.
+  RULE ZERO: a pass that returns DECIDED for everything looks exactly like a pass that is working.
+  So plant a cook built to FAIL a specific machine question (wrong value band, or a palette that
+  is not the world's) which must come back RETURNED and must NAME the question it failed, and a
+  known-good one which must come back DECIDED. If the planted failure passes, the sheet is not
+  being applied and every verdict is void.
 
-MY INSTRUMENT WAS WRONG THREE TIMES:
-  1. page.click needs the element visible and the tab bar is not, so the COMBAT tab never opened
-     and the tool reported "not measurable" about the wrong frame. The shell switches tabs with an
-     ordinary JS .click(), and the heavy frames are lazy. The tool now FINDS THE FIGHT BY ASKING
-     EVERY FRAME whether it has the grader in it, rather than trusting a name.
-  2. There is no AudioContext until a real gesture, and the music loop only runs while a fight is
-     LIVE, so two runs measured a game that had never been started. It now starts with a real tap
-     on the start screen and the record says which path was used.
-  3. IT SAMPLED SIXTY TIMES INSIDE ONE TIGHT LOOP AND PRINTED A JITTER OF EXACTLY 0.00 ms. Both
-     clocks are quantised to the render quantum, so it read the SAME INSTANT sixty times. THAT
-     WOULD HAVE BETRAYED THIS ROUND'S OWN SCHOOL FINDING, which was that the gap is a bias AND a
-     jitter. Sampling now runs on requestAnimationFrame across a second and a half.
-
-NOTES INSTEAD OF A ROUTED LINE: SOUNDS' OPEN row [scheduled beat] is PARTLY ALREADY DONE inside
-the fight -- it already judges by its own audio clock and already offsets by the device's
-reported latency, so the "where a phone's delay is known, the judgement window offsets by it"
-half is satisfied here and worth reusing rather than rebuilding. And the rAF loop gave 19 samples
-in 1500 ms, about 13 frames a second, which is this headless harness with no GPU and not a
-statement about the game.
-
-BLIND SPOTS: one device, one browser, one output route, and outputLatency is explicitly an
-ESTIMATE; Bluetooth untestable here; VIDEO offset not measured at all, and school said there are
-two offsets; the fight was started from its start screen in the COMBAT tab, not by walking into a
-body on the street; and nothing here says whether the fight is fun or whether 55 ms is the right
-band, which are both his.
-
-STILL OPEN IN MY QUEUE: E15 [machine judges], E16 [never opened]. Both two rounds, school first.
-E9 the standing duty runs every round.
+STILL OPEN IN MY QUEUE AFTER THIS: E16 [never opened], E17 [locked ignored], E18 [he can hear it].
+All two rounds, school first. E9 the standing duty runs every round.
 
 [PENDING Paolo] NOTHING. I need nothing from him.
 
 FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
   1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
      audio measurement, no glitch checklist." Fifteen instruments and two suite gates exist now.
-  2. SOUNDS [scheduled beat] is partly satisfied inside the fight already, per the record.
+  2. E15's brief and EVERYTHING IS A THUMB point slightly different ways; round two builds for the
+     law (fewer things reaching him) rather than for the sentence (better-prepared things).
   3. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
   4. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist.
   5. Still unclaimed: the MIX METER (E5 gap 10).
 
 NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
 
-GATES: handoff 7/0, attempt 15/0, NO READER 7/0. The meter's own 150 ms control passed.
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
+last round: NO READER 7/0, handoff 7/0, attempt 15/0.
 
-PROOF: records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md and
-records/BOHEMIA_EYES_E14_ROUND_2_THE_BEAT_IS_EAR_TRUE_9_7_26.md;
-tools/bohemia_eyes_late_beat.js; data records/BOHEMIA_EYES_LATE_BEAT_9_7_26.json; results bank
-banks/eyes/BOHEMIA_EYES_E14_BEAT_RESULTS_9_7_26.json (draft:true); VAMILY lane 17 E14 SHIPPED
-with both rounds, NOTHING routed.
+PROOF: records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md (223
+lines, 17 sources); banks/eyes/BOHEMIA_EYES_E15_PREJUDGE_SPEC_9_7_26.json (draft:true); VAMILY
+lane 17 E15 CLAIMED ROUND 1 OF 2.
+
 
 WORDS (words-8dqrnq): 9/6 (g) LATEST -- *** Q3 [crowd talk] SHIPPED WITH BOTH ROUNDS. AND
 WHILE RUNNING MY OWN GATES I FOUND MAIN IS RED, RIGHT NOW, AND IT IS NOT MINE: the words
