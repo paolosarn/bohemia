@@ -328,7 +328,7 @@ ENCOUNTER-REPEAT-INTERVAL SHIPPED. The same thing does not keep finding you, and
 how long it stays away is a dial in DEMO SETTINGS that opens on his three days. ***
 Nothing to judge.
 
-VAMILY row: [repeat interval] ENCOUNTER-REPEAT-INTERVAL, MODE: BUILD, SHIPPED 9/7 e8d052fd.
+VAMILY row: [repeat interval] ENCOUNTER-REPEAT-INTERVAL, MODE: BUILD, SHIPPED 9/7 1c0a9036.
 Record: records/BOHEMIA_THE_SAME_THING_DOES_NOT_KEEP_HAPPENING_9_7_26.md
 
 HIS RULING IS THE SPEC (9/5, through the coordinator): "the same encounter does not

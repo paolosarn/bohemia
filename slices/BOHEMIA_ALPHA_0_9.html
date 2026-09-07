@@ -1327,7 +1327,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/6ba - TAKE THEIR LIGHTS AND YOU RELEASE THEM</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/7a - THE SAME THING STOPS HAPPENING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1445,6 +1445,14 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
       <div id="settext" class="setbars"></div></div>
     <div class="setrow"><span class="setlab">MOTION</span>
       <div id="setmotion" class="setbtn" role="button" tabindex="0">FULL</div></div>
+    <!-- [repeat interval] (FACTIONS lane 9/6). His ruling 9/5: "the same encounter
+         does not repeat for the same player inside THREE in-game days ... put it on
+         a dial in DEMO SETTINGS with that default." IT GOES HERE because this one
+         screen already reaches the walked city AND the demo, which is the whole
+         reason it lives in the shell. Plain words on the button, because the number
+         is the point and "cooldown" is not a word anybody has to learn. -->
+    <div class="setrow"><span class="setlab">EVENTS</span>
+      <div id="setenc" class="setbtn" role="button" tabindex="0">AGAIN IN 3 DAYS</div></div>
     <div class="setrow"><span class="setlab">GAME</span>
       <div id="setsave" class="setbtn" role="button" tabindex="0">SAVE</div>
       <div id="setquit" class="setbtn" role="button" tabindex="0">QUIT</div></div>
@@ -32160,6 +32168,16 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
      which is what the Game Accessibility Guidelines basic tier actually asks for.
      MOTION: false = full, true = reduce. */
   var TEXTS=3, tsize=1, lessmo=false;
+  /* [repeat interval] 9/6. HOW LONG BEFORE THE SAME EVENT MAY FIND YOU AGAIN, in
+     IN-GAME DAYS. His number is three and it is the default the screen opens on.
+     ZERO IS A REAL SETTING, not "off": his second rule -- never twice on the same
+     street in one day -- is the floor underneath and it still holds there, which
+     is why he ruled two rules and not one. The city reads this key straight out of
+     the same localStorage (same origin) and asks it fresh on every step, so moving
+     it in the middle of a walk is obeyed in the middle of a walk. */
+  var ENCD=[0,1,3,7], encd=3;
+  function encWord(n){ return n<=0 ? 'AGAIN SAME DAY'
+                     : n===1 ? 'AGAIN IN 1 DAY' : ('AGAIN IN '+n+' DAYS'); }
   function el(id){ return document.getElementById(id); }
   function load(){
     try{ var j=JSON.parse(localStorage.getItem(LS)||'{}');
@@ -32167,6 +32185,7 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
       if(typeof j.muted==='boolean') muted=j.muted;
       if(typeof j.tsize==='number') tsize=Math.max(1,Math.min(TEXTS,j.tsize|0));
       if(typeof j.lessmo==='boolean') lessmo=j.lessmo;
+      if(typeof j.encd==='number' && ENCD.indexOf(j.encd|0)>=0) encd=j.encd|0;
     }catch(_e){}
     /* AND IF THE PHONE ALREADY ASKED FOR LESS MOTION, HONOUR IT WITHOUT BEING TOLD.
        A player who set that on their device has already answered this question once;
@@ -32179,7 +32198,7 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
         lessmo=true;
     }catch(_e){}
   }
-  function save(){ try{ localStorage.setItem(LS,JSON.stringify({vol:vol,muted:muted,tsize:tsize,lessmo:lessmo})); }catch(_e){} }
+  function save(){ try{ localStorage.setItem(LS,JSON.stringify({vol:vol,muted:muted,tsize:tsize,lessmo:lessmo,encd:encd})); }catch(_e){} }
 
   /* THE ONE PLACE EVERYTHING MEETS. Not created here and not replaced here: found.
      AND IT MUST BE THE LIVE OUTPUT, NOT WHATEVER IS PARKED IN MUS.OUT RIGHT NOW.
@@ -32339,14 +32358,35 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     m.textContent = lessmo ? 'LESS' : 'FULL';
     m.setAttribute('aria-pressed', lessmo?'true':'false');
   }
+  /* [repeat interval]. THE BUTTON SAYS THE ANSWER, NOT THE SETTING'S NAME. Same
+     shape as MUTE and MOTION beside it: one 44px target that cycles, because four
+     values do not earn a row of bars and a bar row cannot say "same day". */
+  function paintEnc(){
+    var m=el('setenc'); if(!m) return;
+    m.textContent = encWord(encd);
+    m.setAttribute('aria-label','the same event can happen again '+encWord(encd).toLowerCase());
+  }
+  function nextEnc(){
+    var i=ENCD.indexOf(encd); encd=ENCD[(i<0?2:i+1)%ENCD.length]; commit();
+  }
+  /* AND TELL THE GAME, DO NOT LEAVE IT TO THE STORE. The city is a separate
+     document in a separate process; a localStorage write reaches it late, and the
+     gate measured this side on 0 while the city still read 7. The frame seam the
+     STANDING dial and the town sizes already use arrives on the tap. */
+  function pushEnc(){
+    try{ var fr=el('cityFrame');
+      if(fr&&fr.contentWindow) fr.contentWindow.postMessage(
+        {type:'BOHEMIA_ENC_DAYS', days:encd}, '*'); }catch(_e){}
+  }
 
   function commit(){ applyAudio(); applyText(); applyMotion();
-                     paintVol(); paintMute(); paintText(); paintMotion(); save(); }
+                     paintVol(); paintMute(); paintText(); paintMotion(); paintEnc();
+                     pushEnc(); save(); }
 
   function open(){
     var w=el('setwrap'); if(!w) return;
     w.classList.add('on'); w.setAttribute('aria-hidden','false');
-    paintVol(); paintMute(); paintText(); paintMotion();
+    paintVol(); paintMute(); paintText(); paintMotion(); paintEnc();
   }
   function close(){
     var w=el('setwrap'); if(!w) return;
@@ -32386,6 +32426,7 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     g.addEventListener('click', open);
     var c=el('setclose'); if(c) c.addEventListener('click', close);
     var m=el('setmute'); if(m) m.addEventListener('click', function(){ muted=!muted; commit(); });
+    var ec=el('setenc'); if(ec) ec.addEventListener('click', nextEnc);
     var sv=el('setsave'); if(sv) sv.addEventListener('click', doSave);
     var q=el('setquit'); if(q) q.addEventListener('click', doQuit);
     var w=el('setwrap');
@@ -32457,7 +32498,10 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     floor:function(){ return FLOOR[tsize]||0; },
     motion:function(){ return lessmo; },
     setText:function(n){ tsize=Math.max(1,Math.min(TEXTS,n|0)); commit(); },
-    setMotion:function(v){ lessmo=!!v; commit(); }
+    setMotion:function(v){ lessmo=!!v; commit(); },
+    encDays:function(){ return encd; },
+    encSteps:function(){ return ENCD.slice(); },
+    setEncDays:function(n){ n=n|0; if(ENCD.indexOf(n)>=0){ encd=n; commit(); } return encd; }
   };
 })();
 </script>
