@@ -1,0 +1,73 @@
+{
+ "what": "EYES AND EARS -- what the shipped game actually fetches. The reader set.",
+ "date": "9/6/26",
+ "walked": "front door, splash tapped as a finger taps it, twelve steps, both surfaces",
+ "blind_spot": "a module loaded only on a path this walk never takes reads as unfetched; the walk is listed above",
+ "surfaces": [
+  {
+   "surface": "THE ALPHA (the one link)",
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "fetched": [
+    "/home/user/bohemia/slices/BOHEMIA_ALPHA_0_9.html",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_FLOORS.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_PROPS.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILEFORMS.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_01.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_02.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_03.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_04.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_05.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_06.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_07.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_08.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_09.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_LATE.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_READY.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_WORLD.html"
+   ],
+   "pageErrors": []
+  },
+  {
+   "surface": "THE DEMO (the thing that goes to a friend)",
+   "file": "slices/BOHEMIA_DEMO.html",
+   "fetched": [
+    "/home/user/bohemia/slices/BOHEMIA_CITY_FLOORS.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_PROPS.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILEFORMS.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_01.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_02.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_03.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_04.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_05.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_06.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_07.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_08.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_09.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_LATE.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_TILES_READY.js",
+    "/home/user/bohemia/slices/BOHEMIA_CITY_WORLD.html",
+    "/home/user/bohemia/slices/BOHEMIA_DEMO.html"
+   ],
+   "pageErrors": []
+  }
+ ],
+ "bundle": [
+  "slices/BOHEMIA_ALPHA_0_9.html",
+  "slices/BOHEMIA_CITY_FLOORS.js",
+  "slices/BOHEMIA_CITY_PROPS.js",
+  "slices/BOHEMIA_CITY_TILEFORMS.js",
+  "slices/BOHEMIA_CITY_TILES_01.js",
+  "slices/BOHEMIA_CITY_TILES_02.js",
+  "slices/BOHEMIA_CITY_TILES_03.js",
+  "slices/BOHEMIA_CITY_TILES_04.js",
+  "slices/BOHEMIA_CITY_TILES_05.js",
+  "slices/BOHEMIA_CITY_TILES_06.js",
+  "slices/BOHEMIA_CITY_TILES_07.js",
+  "slices/BOHEMIA_CITY_TILES_08.js",
+  "slices/BOHEMIA_CITY_TILES_09.js",
+  "slices/BOHEMIA_CITY_TILES_LATE.js",
+  "slices/BOHEMIA_CITY_TILES_READY.js",
+  "slices/BOHEMIA_CITY_WORLD.html",
+  "slices/BOHEMIA_DEMO.html"
+ ]
+}

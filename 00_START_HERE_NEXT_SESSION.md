@@ -1,3 +1,114 @@
+EYES AND EARS (eyes-5vql33): 9/6 (l) LATEST -- *** E11 [pixels only] SHIPPED WITH BOTH ROUNDS.
+THE SWEEP FOUND A LAW THAT EVERY CHAT BELIEVES IS CHECKED AND IS NOT: reference_check_gate is
+promised by CLAUDE.md's own law index for COMPARE EVERY PIECE OF ART TO THE WORLD (9/4, LOCKED)
+and it does not exist, so DIRECTION, COOK and ANIMATION are all running a standing duty with no
+checker behind it. And I caught four bugs in my own instrument before printing a number, one of
+which would have announced that a table shipped this round did not exist. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+WHAT ROUND ONE (SCHOOL) CHANGED ABOUT HOW I MEASURED, WHICH IS THE POINT OF THE TWO-ROUND LAW:
+School proved the job's own title wrong. It is called A-RULING-THAT-LIVES-ONLY-AS-PIXELS and it
+treats "it lives as pixels" as the defect. False: encoding data in a picture is normal practice,
+and Aseprite and Lospec both treat a PNG as a real palette file next to .gpl and .pal.
+  THE CORRECTED RULE: THE DEFECT IS NOT THE CONTAINER, IT IS NO READER.
+  That forced two design changes and both flipped a result. It made the reader set something I
+  had to measure LIVE in a browser instead of grepping, because a grep cannot tell a loaded file
+  from a file that merely exists, and that difference is the whole job. And it forced a separate
+  verdict word for a data file that exists and nothing reads (ORPHAN), without which the sweep
+  would have passed the repo just by finding files.
+  MEASURED: the shipped game fetches SEVENTEEN files. Everything else in this repo, all 496 MB,
+  is unreachable at runtime.
+
+THE FIVE FINDINGS
+  1. reference_check_gate DOES NOT EXIST. CLAUDE.md's master law index carries
+     "| gate reference_check_gate" for the 9/4 compare law. There is no such file, .js or .py,
+     and the suite has never run one. DIRECTION's own SHIPPED line from 9/5 says the reference
+     index was built "so reference_check_gate can resolve a REFERENCE CHECK against it" -- an
+     index built for a reader that is not there. This is WORSE than a law with no gate: that one
+     is honestly unenforced, this one is advertised as checked in the file every chat reads first.
+     Three lanes carry it as a standing duty. ROUTED: one [eyes: gate missing] line into
+     DIRECTION, the single bounce-back this lane is allowed. I did not build it; this lane never
+     writes another lane's code.
+  2. THE FACTION COLOURS ARE LIVE NOW, AND THE BOARD DOES NOT KNOW. engine/BOHEMIA_faction_colours.json
+     exists and its values are inside the shipped bundle: Mob #572f2a, Cartel #434042, Colorful
+     #60a136, all seven I probed. COOK shipped it 9/6. So the case the job was created around is
+     closed. BUT the value is draft:true and was MEASURED OFF THE WARDROBE, not ruled by him, which
+     is school's "context gap": the value transferred and the intent did not. The honest verdict is
+     that what is missing now is a thumb, not a file.
+  3. HIS SOUND APPROVALS ARE ALL THERE. A clean result, reported on purpose. My first run flagged
+     five approved-sound banks as unread, which would have been the loudest thing I said all round.
+     I checked it pick by pick first: the newest bank holds 185 approvals across 65 sounds and misses
+     ZERO of the 132 in the older ones. Superseded snapshots, not lost rulings. A sweep that only
+     ever reports scary things is not a trustworthy sweep.
+  4. 29 ENGINE MODULES HAVE NO READER, biggest 281 KB, whose own header says it is nineteen modules
+     stitched into one for handoff. That is dead weight, not a stranded ruling. THE PLUMBER'S, and I
+     am not routing it as a defect against anyone's art.
+  5. 285 OF 428 LAWS ARE NOT NAMED BY ANY CHECKER, and I am calling that a CEILING, not a count. My
+     check asks whether a gate contains the law's filename, and a gate can enforce a law without
+     citing it. I would rather report a smaller true thing than a bigger shaky one.
+
+MY OWN INSTRUMENT WAS WRONG FOUR TIMES BEFORE IT WAS RIGHT, ALL CAUGHT BEFORE PUBLISHING:
+  v1 keyed on the build banner and reported 65 orphans; bohemia_coalition.js shipped a round ago and
+     was on the list, because its real banner has "(COALITION, 9/6)" between the name and the ====.
+  v2 fixed the regex, reported 30, still false: bohemia_sfx.js was on it while the game plainly plays
+     sounds, because the alpha inlines that one under a totally different marker. Two conventions and
+     a third would have broken it again. v3 ignores markers and matches the CODE: eight long lines out
+     of the module, three verbatim hits in the shipped bundle is LIVE. A convention can change, a body
+     cannot.
+  Bug 3: my reader globs were not recursive, so three banks read as orphans while a tool in a
+     subfolder was opening them by name the whole time.
+  Bug 4: the named-case check globbed only .js, missed the colours .json, and printed "STRANDED. No
+     colour carrier file exists at all" about a table that had shipped that same round. Then, once
+     found, it asked for the FILENAME in the bundle and got False, because this repo ships data by
+     inlining it. Both halves fixed.
+  Three of those four were caught by one habit: check a result that sounds dramatic before writing it.
+
+THE MACHINE, AND IT RE-RUNS ON EVERY SHIP
+  tools/bohemia_eyes_bundle.js opens the alpha and the demo in real Chromium at iPhone size, taps the
+  splash the way a finger taps it, and records every file the browser actually fetched. That is the
+  reader set. tools/bohemia_eyes_no_reader.py then runs four censuses against it (75 seconds).
+  gates/no_reader_ratchet_gate.js is registered in the suite as NO READER and is near-instant: it does
+  not re-count, it holds the ratchet, and it goes RED if the saved result no longer describes the
+  bundle on disk, because a green light for a game that no longer exists is worse than no gate.
+  RATCHETED, may only go down: gates_broken 1, banks_orphan 1.
+  REPORTED, never ratcheted: engine_orphan 29, laws_ungated 285. Both grow from honest work in
+  progress, and a checker that cries wolf gets muted in a week. Two numbers that mean something beat
+  four that get ignored.
+  RULE ZERO CONTROLS, and the sweep refuses to print a number unless all four pass: a planted module
+  nothing loads must read ORPHAN, a planted module made of shipped code must read LIVE, a planted law
+  no gate names must read UNGATED, and a promised gate that does not exist must read PROMISED BUT
+  MISSING. The gate has its own two and refuses to report if either fails.
+  BLIND SPOTS, written down instead of counted clean: a value assembled at runtime is invisible to any
+  text scan; a module reached only on a path the walk never takes reads as unfetched; and whether a
+  value that IS read still matches what he ruled is Q3, specified and NOT built, because a drift
+  checker that is only sometimes right is worse than none.
+
+STILL OPEN IN MY QUEUE: E12 [silence standing], then E13 [half size check]. Both take two rounds now,
+school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. WORLD's STATE line still ends "there is no faction colour table the walked surface can reach".
+     There is one and the walked surface reads it, measured this round. That sentence will send the
+     next chat down a road that closed.
+  2. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no audio
+     measurement, no glitch checklist." Twelve instruments and two suite gates exist now.
+  3. Board rewrites keep reverting my status words; E10 came back as CLAIMED after being set SHIPPED.
+  4. The lane's own unclaimed gap: the MIX METER (E5 gap 10). Nothing has ever metered the game's
+     output while music, footsteps and a bark play together.
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: NO READER 7/0 (new, registered), handoff 7/0, attempt 15/0. The sweep's own selftest 4/4.
+
+PROOF: records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md and
+records/BOHEMIA_EYES_E11_ROUND_2_THE_NO_READER_SWEEP_9_6_26.md; tools/bohemia_eyes_bundle.js,
+tools/bohemia_eyes_no_reader.py; gates/no_reader_ratchet_gate.js registered in gates/bohemia_gates.py
+as NO READER; data records/BOHEMIA_EYES_NO_READER_9_6_26.json, baseline
+records/BOHEMIA_EYES_NO_READER_BASELINE_9_6_26.json, bundle records/BOHEMIA_EYES_BUNDLE_9_6_26.json;
+VAMILY lane 17 E11 SHIPPED with both rounds, one [eyes: gate missing] line into DIRECTION.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -211,109 +322,6 @@ NEXT IN THIS LANE: Q23 [who eats first].
 
 ================================================================================
 ================================================================================
-EYES AND EARS (eyes-5vql33): 9/6 (k) LATEST -- *** E11 [pixels only] ROUND ONE OF TWO IS DONE:
-SCHOOL. NO MEASURING WAS DONE, ON PURPOSE, BECAUSE THE 9/6 LAW SAYS THIS LANE TAKES TWO ROUNDS
-AND ROUND ONE IS RESEARCH ONLY. School found the world's name for our problem (THE ARTIFACT
-GAP: the visible thing exists and the buildable thing does not) and it PROVED THE JOB'S OWN
-TITLE WRONG. *** E11 stays CLAIMED. Round two is the sweep. TAB: NOT IN A TAB YET. No game
-code touched, ever.
-
-THE COUNTER-FINDING, AND IT CHANGES WHAT ROUND TWO COUNTS:
-The job is called A-RULING-THAT-LIVES-ONLY-AS-PIXELS and it treats "it lives as pixels" as the
-defect. That is false. Encoding data in an image is an established game practice: colour-coded
-pixels standing for tiles with the image editor used as the level editor, whole libraries built
-for it, and Aseprite and Lospec both treat a PNG as a first-class palette container next to
-.gpl and .pal. A PNG can be a perfectly good source of truth.
-  THE CORRECTED RULE ROUND TWO WILL USE: the defect is not the container, the defect is NO
-  READER. A ruling is stranded when nothing the shipped game loads can turn it into a value
-  without a human looking at it.
-  TWO RESULTS THAT FLIP: our records/target PNG corpus is not automatically guilty (if a loader
-  parses one it is LIVE, and a sweep that flags it for being an image is lying); and our data
-  files are not automatically innocent (a JSON table nothing imports is WORSE than a parsed PNG,
-  because it looks answered). Hence a separate verdict word, ORPHAN.
-  ONE EXCEPTION, AND THE WEB LITERATURE IS UNANIMOUS: browser storage gets no benefit of the
-  doubt. Client state is a cache, the real truth lives elsewhere; localStorage is synchronous
-  and janks a phone, is readable by any script, and is one cleared browser from gone. A SAVE
-  KEY IS A SESSION, NEVER A RULING.
-
-THE SEVEN THINGS SCHOOL TAUGHT, EACH WITH WHAT IT CHANGES FOR US:
-  1. THE ARTIFACT GAP is the name, and there are TWO gaps not one: the VALUE never became a file,
-     and the REASON never became a file (the "context gap"). Our draft:true convention is already
-     half an answer to the second. The sweep must carry both columns or it fixes a ruling into a
-     bare number and loses it a second way.
-  2. THE FILE FORMAT IS FINALLY STANDARD: the W3C design token spec hit its first stable version
-     on 28 Oct 2025 ($value, $type, and one token referencing another by path). So round two must
-     not say "write down the hex" -- it must say "write the table, and make everything that meant
-     it point at the table". Fourteen faction colours are fourteen NAMES, not fourteen hexes.
-  3. GAMES CALL IT DATA-DRIVEN DESIGN AND THE LOAD-BEARING RULE IS "PICK ONE": the Unreal guidance
-     is pick the spreadsheet OR the editor and stick with it; Supercell ships Clash Royale in CSV.
-     So a lane that answers a STRANDED verdict by adding a SECOND table has made it worse.
-  4. THE STANDING MACHINE ALREADY EXISTS IN INFRASTRUCTURE: ClickOps (somebody clicked it, it is
-     in no file) and configuration drift, answered by drift detection that compares declared to
-     real on every change. That splits round two cleanly: a CHEAP static check (is there a file,
-     does anything read it) that runs every ship, and an EXPENSIVE live check (does the screen
-     still match) that gets specified now and built later. Half-building both is how you get a red
-     light nobody trusts.
-  5. THE SWEEP IS A LINTER AND IT LIVES OR DIES ON ITS IGNORE LIST: stylelint color-no-hex and
-     declaration-strict-value ban raw values; eslint no-literal-string and i18n-lint find hardcoded
-     text. Every one of them ships an include/exclude regex list, and that is not a convenience,
-     it is why they survive a real codebase. Our sweep ships its ignore list IN THE RECORD.
-  6. WHY IT COSTS SO MUCH: the ADR literature calls it the GROUNDHOG DAY anti-pattern -- decisions
-     re-litigated forever because nobody knows why the original was made. His faction colours are a
-     textbook case: ruled 8/26 LOCKED, never became a file, three lanes asked again. And this repo
-     has a sharper version of the risk than a normal studio, which is the strongest sentence I
-     wrote this round: A CHAT IS A PERSON WHO DOES NOT STILL WORK HERE THE MOMENT ITS CONTEXT ENDS,
-     SO EVERY DECISION IS ONE CONTEXT WINDOW FROM BEING TRIBAL KNOWLEDGE. That is the argument for
-     E11 being STANDING and not a one-time cleanup.
-  7. THE ART-PIPELINE WORD IS "BAKED", and it is better than "lost": a non-destructive source makes
-     delivery assets, an import pipeline can reprocess the source forever, an export pipeline bakes
-     and you cannot get the parameters back. The rule of thumb is that every asset should track back
-     to its source without relying on just remembering.
-
-THE SPEC ROUND TWO BUILDS FROM (written, nothing built):
-  UNIT: a RULING (his decision, dated, in his words, with a value or constraint attached).
-  THE CENSUS IS THE HARD HALF AND I SAY SO: the file check is easy; knowing which rulings exist is
-  not. Harvest from laws/ (the LOCKED lines), records/ (the verdict .txt files), the VAMILY board
-  (RULED and STATE text) and CLAUDE.md. Round two REPORTS ITS COVERAGE AS A NUMBER and never calls
-  the sweep complete.
-  THREE QUESTIONS, CHEAPEST FIRST: Q1 is there a readable file. Q2 does anything the shipped page
-  actually LOADS read it (reachability, not existence). Q3 does the surface still match (deferred).
-  FOUR VERDICTS: LIVE (file + reader), ORPHAN (file, no reader, looks answered), STRANDED (no
-  readable file at all -- the faction-colour case), DRIFTED (Q3 only, deferred).
-  CONTROLS, BECAUSE RULE ZERO SAYS A ZERO NEEDS A POSITIVE CONTROL: plant a known LIVE, a known
-  STRANDED and a known ORPHAN before trusting any result. The ORPHAN control is the important one:
-  without it a sweep passes every check just by finding files.
-  RATCHET: freeze the STRANDED count on the first honest run, it may only ever go down. That is
-  what makes "re-run on every ship" survivable.
-  WHAT THIS LANE MAY NOT DO IN ROUND TWO: write the missing files. It names the ruling, names the
-  lane that owes it, and writes ONE [eyes: two words] line into that lane's section.
-
-WHAT I SHIPPED THIS ROUND (two files, nothing in the game):
-  the school record and a draft:true spec bank. Board line stays CLAIMED, marked ROUND 1 OF 2,
-  because the 9/6 law says a job marked SHIPPED without both rounds is not shipped.
-  Also restored E10's status word to SHIPPED: 72e1def is on main with its record and both halves
-  of its machine, and a board rewrite had reverted the line to CLAIMED.
-
-STILL OPEN IN MY QUEUE: E11 round two (the sweep), then E12 [silence standing], then E13
-[half size check] which also wants school first.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, AND IT IS NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line on the board still reads "nothing exists. No screenshot pass, no
-     golden images, no audio measurement, no glitch checklist." Eleven instruments and one suite
-     gate exist now. The line is telling every future chat something false.
-  2. Board rewrites keep reverting my status words. E10 was set SHIPPED 9/5 and came back CLAIMED.
-  3. The lane's own noted gap, unclaimed: the MIX METER (E5 gap 10). Nothing has ever metered the
-     game's output while music, footsteps and a bark play together.
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round. No code changed -- two records, no tools, no gates, no game files.
-
-PROOF: records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md (377 lines, 30 sources);
-banks/eyes/BOHEMIA_EYES_E11_SWEEP_SPEC_9_6_26.json (draft:true); VAMILY.md lane 17 E11 CLAIMED
-ROUND 1 OF 2, E10 SHIPPED restored.
 
 FACTIONS (factions-ovkjpf): 9/6 (round 11) LATEST -- *** [broke raiders]
 BB-UNPAID-TURNS-PREDATORY SHIPPED. Putting a faction's lights out was a free win.

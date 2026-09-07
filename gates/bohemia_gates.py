@@ -1832,6 +1832,19 @@ GATES = [
      "bar and no builder's drawer for a stranger to tap REROLL in -- and his "
      "bench still has all sixteen of its tabs, because taking the workshop away "
      "to make a demo would trade one mistake for a worse one", True),
+    ('NO READER', ['node', 'gates/no_reader_ratchet_gate.js'],
+     "EYES AND EARS lane 17, 9/6, E11 [pixels only]: A RULING NOBODY CAN READ IS A "
+     "RULING THAT GETS ASKED AGAIN. The lane's school round found the corrected rule: "
+     "the defect is not the CONTAINER (a colour-coded PNG a loader parses is fine, and "
+     "Aseprite and Lospec both treat a PNG as a real palette file), the defect is NO "
+     "READER. tools/bohemia_eyes_no_reader.py measures the shipped bundle LIVE -- the "
+     "17 files the alpha and the demo actually fetch in Chromium -- and counts four "
+     "kinds of stranding. This gate does not re-count (that sweep is 75 seconds); it "
+     "holds the RATCHET on the two numbers that cannot grow from honest work, and it "
+     "goes red if the saved result no longer describes the bundle on disk, because a "
+     "green light for a game that no longer exists is worse than no gate at all. "
+     "gates_broken is the sharp one: CLAUDE.md's law index PROMISES a gate for a law, "
+     "every chat believes it, and reference_check_gate does not exist.", True),
     ('EYES', ['node', 'gates/eyes_gate.js'],
      "EYES AND EARS lane 17, 9/5: THE PLAYER'S SCREEN IS MEASURED, NOT EYEBALLED. "
      "This lane's round-one headline -- 'the demo's SLEEP button runs off the bottom "

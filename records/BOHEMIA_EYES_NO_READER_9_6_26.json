@@ -1,0 +1,1943 @@
+{
+ "what": "EYES AND EARS -- E11 [pixels only] round 2, THE NO-READER SWEEP",
+ "date": "9/6/26",
+ "rule": "the defect is not the container, the defect is NO READER",
+ "school": "records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md",
+ "reader_set": [
+  "slices/BOHEMIA_ALPHA_0_9.html",
+  "slices/BOHEMIA_CITY_FLOORS.js",
+  "slices/BOHEMIA_CITY_PROPS.js",
+  "slices/BOHEMIA_CITY_TILEFORMS.js",
+  "slices/BOHEMIA_CITY_TILES_01.js",
+  "slices/BOHEMIA_CITY_TILES_02.js",
+  "slices/BOHEMIA_CITY_TILES_03.js",
+  "slices/BOHEMIA_CITY_TILES_04.js",
+  "slices/BOHEMIA_CITY_TILES_05.js",
+  "slices/BOHEMIA_CITY_TILES_06.js",
+  "slices/BOHEMIA_CITY_TILES_07.js",
+  "slices/BOHEMIA_CITY_TILES_08.js",
+  "slices/BOHEMIA_CITY_TILES_09.js",
+  "slices/BOHEMIA_CITY_TILES_LATE.js",
+  "slices/BOHEMIA_CITY_TILES_READY.js",
+  "slices/BOHEMIA_CITY_WORLD.html",
+  "slices/BOHEMIA_DEMO.html"
+ ],
+ "reader_set_bytes": 45563946,
+ "blind_spots": [
+  "a value assembled at runtime out of pieces is invisible to any text scan",
+  "a module reached only on a path the bundle walk never takes",
+  "whether a value that IS read still matches what Paolo ruled (Q3, deferred)"
+ ],
+ "ignore_list": [
+  "engine/*_tests.js",
+  "banks/** with draft:true are reported DRAFT, never ORPHAN"
+ ],
+ "census_engine": [
+  {
+   "file": "engine/BOHEMIA_AGENT_LOOK_7_10_26.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 2,
+   "hits": 0,
+   "bytes": 855
+  },
+  {
+   "file": "engine/BOHEMIA_AGENT_RAGS_7_10_26.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 1,
+   "hits": 0,
+   "bytes": 1122
+  },
+  {
+   "file": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 133815
+  },
+  {
+   "file": "engine/BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 2,
+   "hits": 0,
+   "bytes": 962
+  },
+  {
+   "file": "engine/bohemia_against.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16931
+  },
+  {
+   "file": "engine/bohemia_agents.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 69388
+  },
+  {
+   "file": "engine/bohemia_airfield.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16972
+  },
+  {
+   "file": "engine/bohemia_apartment.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10732
+  },
+  {
+   "file": "engine/bohemia_arterial.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 69077
+  },
+  {
+   "file": "engine/bohemia_asking.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16274
+  },
+  {
+   "file": "engine/bohemia_asks.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 12094
+  },
+  {
+   "file": "engine/bohemia_ballpark.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 19406
+  },
+  {
+   "file": "engine/bohemia_battery.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 9863
+  },
+  {
+   "file": "engine/bohemia_belonging.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 25863
+  },
+  {
+   "file": "engine/bohemia_between.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 27827
+  },
+  {
+   "file": "engine/bohemia_blackbox.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13977
+  },
+  {
+   "file": "engine/bohemia_blockgen.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 1,
+   "bytes": 25954
+  },
+  {
+   "file": "engine/bohemia_bodyvar.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 32761
+  },
+  {
+   "file": "engine/bohemia_boneyard.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11634
+  },
+  {
+   "file": "engine/bohemia_bq.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14970
+  },
+  {
+   "file": "engine/bohemia_bq_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_brownout.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 7608
+  },
+  {
+   "file": "engine/bohemia_campus.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13804
+  },
+  {
+   "file": "engine/bohemia_casino.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15306
+  },
+  {
+   "file": "engine/bohemia_cemetery.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14769
+  },
+  {
+   "file": "engine/bohemia_century.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10320
+  },
+  {
+   "file": "engine/bohemia_chapel.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18091
+  },
+  {
+   "file": "engine/bohemia_cityedit.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 7053
+  },
+  {
+   "file": "engine/bohemia_cityhall.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 22688
+  },
+  {
+   "file": "engine/bohemia_claim.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13373
+  },
+  {
+   "file": "engine/bohemia_clout.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 3874
+  },
+  {
+   "file": "engine/bohemia_coalition.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 8810
+  },
+  {
+   "file": "engine/bohemia_coldopen_set.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 97947
+  },
+  {
+   "file": "engine/bohemia_combatfloor.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 8043
+  },
+  {
+   "file": "engine/bohemia_commercial.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 23074
+  },
+  {
+   "file": "engine/bohemia_commitment.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 29566
+  },
+  {
+   "file": "engine/bohemia_conversation.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 6129
+  },
+  {
+   "file": "engine/bohemia_courthouse.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 19213
+  },
+  {
+   "file": "engine/bohemia_crypt.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 3263
+  },
+  {
+   "file": "engine/bohemia_daycycle.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 1249
+  },
+  {
+   "file": "engine/bohemia_dayloop.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 12776
+  },
+  {
+   "file": "engine/bohemia_dead.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 52590
+  },
+  {
+   "file": "engine/bohemia_deeds.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16709
+  },
+  {
+   "file": "engine/bohemia_demoquests.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 19273
+  },
+  {
+   "file": "engine/bohemia_desert.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15263
+  },
+  {
+   "file": "engine/bohemia_district_kit.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 52873
+  },
+  {
+   "file": "engine/bohemia_downtown.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 20130
+  },
+  {
+   "file": "engine/bohemia_dress.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 1,
+   "bytes": 20281
+  },
+  {
+   "file": "engine/bohemia_drivein.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 9106
+  },
+  {
+   "file": "engine/bohemia_economy.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 12064
+  },
+  {
+   "file": "engine/bohemia_encounters.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14473
+  },
+  {
+   "file": "engine/bohemia_ending.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 7333
+  },
+  {
+   "file": "engine/bohemia_engine.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 2,
+   "bytes": 281525
+  },
+  {
+   "file": "engine/bohemia_engine_graphics_7_14_26.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 52749
+  },
+  {
+   "file": "engine/bohemia_exchanges.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 43400
+  },
+  {
+   "file": "engine/bohemia_farm.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14771
+  },
+  {
+   "file": "engine/bohemia_favour.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 9702
+  },
+  {
+   "file": "engine/bohemia_feedstream.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15401
+  },
+  {
+   "file": "engine/bohemia_firestation.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11438
+  },
+  {
+   "file": "engine/bohemia_floorplan.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 20304
+  },
+  {
+   "file": "engine/bohemia_freeway.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 35277
+  },
+  {
+   "file": "engine/bohemia_furnish.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 17649
+  },
+  {
+   "file": "engine/bohemia_fuse.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11280
+  },
+  {
+   "file": "engine/bohemia_garage.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 3976
+  },
+  {
+   "file": "engine/bohemia_golf.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 21071
+  },
+  {
+   "file": "engine/bohemia_graphics_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_hazard.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 24499
+  },
+  {
+   "file": "engine/bohemia_hostiles.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13264
+  },
+  {
+   "file": "engine/bohemia_housing.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 9970
+  },
+  {
+   "file": "engine/bohemia_industrial.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10897
+  },
+  {
+   "file": "engine/bohemia_interchange.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 25826
+  },
+  {
+   "file": "engine/bohemia_interior_ground.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18692
+  },
+  {
+   "file": "engine/bohemia_interior_levels.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 7738
+  },
+  {
+   "file": "engine/bohemia_introductions.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 29076
+  },
+  {
+   "file": "engine/bohemia_jail.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10179
+  },
+  {
+   "file": "engine/bohemia_known.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 6732
+  },
+  {
+   "file": "engine/bohemia_ladder_data.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18526
+  },
+  {
+   "file": "engine/bohemia_ladderwalk.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11484
+  },
+  {
+   "file": "engine/bohemia_landfill.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14488
+  },
+  {
+   "file": "engine/bohemia_landmarks.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 48245
+  },
+  {
+   "file": "engine/bohemia_library.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18275
+  },
+  {
+   "file": "engine/bohemia_light_pass.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 2592
+  },
+  {
+   "file": "engine/bohemia_light_registry.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 5725
+  },
+  {
+   "file": "engine/bohemia_loop.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 82490
+  },
+  {
+   "file": "engine/bohemia_loop_channel_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_clout_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_entities_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_faction_bridge_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_feed_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_ledger_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_profile_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_quests_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_slice_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_loop_talk_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_mall.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16466
+  },
+  {
+   "file": "engine/bohemia_mandate.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15934
+  },
+  {
+   "file": "engine/bohemia_medical.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11696
+  },
+  {
+   "file": "engine/bohemia_memory.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 5073
+  },
+  {
+   "file": "engine/bohemia_mountain.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15945
+  },
+  {
+   "file": "engine/bohemia_overmap.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 80653
+  },
+  {
+   "file": "engine/bohemia_overmap_bridge.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 6875
+  },
+  {
+   "file": "engine/bohemia_packs.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18219
+  },
+  {
+   "file": "engine/bohemia_park.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13530
+  },
+  {
+   "file": "engine/bohemia_patrol.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 1,
+   "bytes": 6183
+  },
+  {
+   "file": "engine/bohemia_payday.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 22079
+  },
+  {
+   "file": "engine/bohemia_people.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 123655
+  },
+  {
+   "file": "engine/bohemia_personlook.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 7,
+   "bytes": 12450
+  },
+  {
+   "file": "engine/bohemia_plotgen.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 1,
+   "bytes": 10610
+  },
+  {
+   "file": "engine/bohemia_policestation.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10628
+  },
+  {
+   "file": "engine/bohemia_population.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 67140
+  },
+  {
+   "file": "engine/bohemia_powergrid.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11967
+  },
+  {
+   "file": "engine/bohemia_production.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14145
+  },
+  {
+   "file": "engine/bohemia_prop_scale.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 5441
+  },
+  {
+   "file": "engine/bohemia_purse.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 24945
+  },
+  {
+   "file": "engine/bohemia_quest_placement.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 18960
+  },
+  {
+   "file": "engine/bohemia_quest_runtime.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16827
+  },
+  {
+   "file": "engine/bohemia_quest_runtime_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_quirk.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 27784
+  },
+  {
+   "file": "engine/bohemia_rail.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 31020
+  },
+  {
+   "file": "engine/bohemia_railyard.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 20002
+  },
+  {
+   "file": "engine/bohemia_resolve.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18541
+  },
+  {
+   "file": "engine/bohemia_resort.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16262
+  },
+  {
+   "file": "engine/bohemia_retreat.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13785
+  },
+  {
+   "file": "engine/bohemia_rooms.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 5827
+  },
+  {
+   "file": "engine/bohemia_save.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16275
+  },
+  {
+   "file": "engine/bohemia_scene.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 14265
+  },
+  {
+   "file": "engine/bohemia_scheduler.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 13841
+  },
+  {
+   "file": "engine/bohemia_school.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 27967
+  },
+  {
+   "file": "engine/bohemia_sfx.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 224754
+  },
+  {
+   "file": "engine/bohemia_slice_core.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 4496
+  },
+  {
+   "file": "engine/bohemia_slice_engine.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 2,
+   "bytes": 8325
+  },
+  {
+   "file": "engine/bohemia_solar.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13112
+  },
+  {
+   "file": "engine/bohemia_speedway.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 23523
+  },
+  {
+   "file": "engine/bohemia_stadium.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16766
+  },
+  {
+   "file": "engine/bohemia_stage.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15867
+  },
+  {
+   "file": "engine/bohemia_standing.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 21238
+  },
+  {
+   "file": "engine/bohemia_storage.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10421
+  },
+  {
+   "file": "engine/bohemia_story_surface.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 29514
+  },
+  {
+   "file": "engine/bohemia_strip.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 50342
+  },
+  {
+   "file": "engine/bohemia_substation.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10063
+  },
+  {
+   "file": "engine/bohemia_suburb.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 56757
+  },
+  {
+   "file": "engine/bohemia_succession.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13694
+  },
+  {
+   "file": "engine/bohemia_swapmeet.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10681
+  },
+  {
+   "file": "engine/bohemia_terminal.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 17883
+  },
+  {
+   "file": "engine/bohemia_terrain_noise.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 3459
+  },
+  {
+   "file": "engine/bohemia_tests.js",
+   "verdict": "IGNORED",
+   "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_ties.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 15485
+  },
+  {
+   "file": "engine/bohemia_tilepool.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 6611
+  },
+  {
+   "file": "engine/bohemia_town.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 17366
+  },
+  {
+   "file": "engine/bohemia_towns.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 43612
+  },
+  {
+   "file": "engine/bohemia_trailer.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 8867
+  },
+  {
+   "file": "engine/bohemia_transitions.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 1646
+  },
+  {
+   "file": "engine/bohemia_truckstop.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 12547
+  },
+  {
+   "file": "engine/bohemia_utility.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 87565
+  },
+  {
+   "file": "engine/bohemia_valleymap.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 12605
+  },
+  {
+   "file": "engine/bohemia_vista.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 16708
+  },
+  {
+   "file": "engine/bohemia_voice.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 29707
+  },
+  {
+   "file": "engine/bohemia_warehouse.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10700
+  },
+  {
+   "file": "engine/bohemia_wash.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 23261
+  },
+  {
+   "file": "engine/bohemia_water.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 12193
+  },
+  {
+   "file": "engine/bohemia_waterpark.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 10124
+  },
+  {
+   "file": "engine/bohemia_watertreat.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18631
+  },
+  {
+   "file": "engine/bohemia_weather.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 6990
+  },
+  {
+   "file": "engine/bohemia_wildlife.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13232
+  },
+  {
+   "file": "engine/bohemia_world.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 1,
+   "bytes": 69286
+  },
+  {
+   "file": "engine/bohemia_world_resolve.js",
+   "verdict": "ORPHAN",
+   "fingerprints": 8,
+   "hits": 0,
+   "bytes": 13988
+  }
+ ],
+ "census_laws_ungated": [
+  "laws/BOHEMIA_ABSORPTION_PREFLIGHT_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_ACT1_COMPLETION_PIPELINE_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_ACT1_PROCEDURAL_ENDING_AND_DESTROYERS_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_ACT3_MOONSHOT_STRUCTURE_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_ACT_ASSET_TIERS_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_ACT_TEXTURE_PROGRESSION_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_ALLEGIANCE_FOLLOWS_THE_GROUND_8_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_ALPHA_ABSORPTION_PLAN_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_AMALGAMATION_SCOPE_GOOD_ENDING_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_AMALGAMATION_THREAT_LOGIC_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_AMBIENT_DANGER_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
+  "laws/BOHEMIA_ADDENDUM_ANIMATION_PIXEL_LAW_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_ARTICULATION_NOT_FRAGMENTATION_8_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_ART_LAWS_VERDICT_BATCH_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_A_WALL_ENDS_AT_ITS_OWN_TILE_8_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_BABYPUNK_6_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_BATTLE_BROTHERS_AND_THE_GAMBIT_8_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_BEAT_TACTICS_RESEARCH_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_BEST_QUESTS_COLLECTION_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_BEYOND_SIDEWALK_RESEARCH_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_BLOCK_CANON_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_BONES_ARE_HUMAN_SIZED_8_11_26.md",
+  "laws/BOHEMIA_ADDENDUM_BUILDING_PARTS_TAXONOMY_7_8_26.md",
+  "laws/BOHEMIA_ADDENDUM_BUILDING_TIER_ASCENT_7_8_26.md",
+  "laws/BOHEMIA_ADDENDUM_CELL_IS_PLOT_WALLED_SUBURBS_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md",
+  "laws/BOHEMIA_ADDENDUM_CLOUT_RECKLESS_BEATS_QUIET_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_COLLAPSE_ORIGIN_AND_DEATH_MODEL_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_COMBAT_CHARACTER_MENU_ROADMAP_7_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_COMBAT_LAB_RULINGS_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_COMBAT_RESOLUTION_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_COMBINED_CURRENCY_ICONS_7_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_COMPANIONS_BROTHERHOOD_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_CONTINUITY_IS_THE_DYNASTY_8_7_26.md",
+  "laws/BOHEMIA_ADDENDUM_CURRENCY_LOGOS_IDEA_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_DEATH_IS_A_RELOAD_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_DEATH_MATH_AND_ICONS_7_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_DEMO_CLIMAX_THE_RUN_7_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_DIALOGUE_SCENE_PRODUCTION_SPEC_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_DIALOGUE_SFX_RESEARCH_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_DIAL_ODDS_SEEDS_PERF_7_3_26.md",
+  "laws/BOHEMIA_ADDENDUM_DIAL_SYNC_AND_LAB_RESEARCH_7_20_26.md",
+  "laws/BOHEMIA_ADDENDUM_DISTRICT_MERGE_LAW_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_DOOR_LAW_TWO_TILES_TALL_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_DRESS_CODE_BY_RANK_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_DUAL_SCALE_PRECEDENTS_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_DUBAI_PRECEDENT_SECRECY_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_EMERGING_TECH_RESEARCH_7_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_ENEMY_ARCHETYPE_RESEARCH_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_ENGINE_ARCHITECTURE_6_30_26.md",
+  "laws/BOHEMIA_ADDENDUM_ENGINE_SYNC_GATE_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_ENTITIES_SPAWNING_6_30_26.md",
+  "laws/BOHEMIA_ADDENDUM_EVERYTHING_IS_A_THUMB_8_9_26.md",
+  "laws/BOHEMIA_ADDENDUM_EVERYTHING_ON_BEAT_AND_THE_DOWNED_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_EVERY_DURATION_IS_A_NOTE_7_27_26.md",
+  "laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_FABLE5_AUDIT_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_FACE_SYSTEM_6_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_FACTIONS_ECONOMY_WIRING_7_22_26.md",
+  "laws/BOHEMIA_ADDENDUM_FACTION_TOWNS_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_FACTORY_LAW_7_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_FAT_AND_TALL_ON_THE_TILE_8_15_26.md",
+  "laws/BOHEMIA_ADDENDUM_FOLD_DETERMINISM_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_FRAMECACHE_PERSIST_COMBATBRIDGE_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_FULL_RESOLUTION_8_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_GAME_FIRST_LAW_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_GARMENT_CONTACT_AND_MOTION_LAWS_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_GENERATIONAL_PERSISTENCE_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_GRASS_TO_FOOD_MATH_7_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_GRAVEYARD_GATE_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_GRID_UNIT_DESIGN_7_3_26.md",
+  "laws/BOHEMIA_ADDENDUM_HERO_BUILDING_LESSONS_7_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_HOSTILITY_QUESTION_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_HOUSE_OF_CARDS_POWER_SHARE_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_HUMAN_TILES_FIRST_7_27_26.md",
+  "laws/BOHEMIA_ADDENDUM_INVENTORY_MACRO_MICRO_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_IOS_STORAGE_PATENT_RESEARCH_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_ITEM_SCALE_LAW_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_IT_COSTS_YOU_SOMEWHERE_ELSE_8_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_JUICY_COMBAT_IDEAS_7_20_26.md",
+  "laws/BOHEMIA_ADDENDUM_KERB_AND_DRIVEWAY_7_31_26.md",
+  "laws/BOHEMIA_ADDENDUM_LAKE_MEAD_HEALTHY_OASIS_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_LANDLOCKED_DISTRICT_LAW_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_LAST_FINDS_7_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_LEAF_PIXEL_GATE_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_LEARNED_RULES_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_LIFE_SUPPORT_BUILDINGS_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_LIGHTING_RESEARCH_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_LIGHT_PHILOSOPHY_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_LIGHT_REGISTRY_RESOLVED_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_LINE_COLOR_LAW_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_LOGISTICS_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md",
+  "laws/BOHEMIA_ADDENDUM_MASTER_DOWNLOAD_LAW_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_MASTER_LOOP_WIRED_7_8_26.md",
+  "laws/BOHEMIA_ADDENDUM_MICRO_EXPRESSIONS_6_29_26.md",
+  "laws/BOHEMIA_ADDENDUM_MOBILE_BASE_COMFORT_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_MODULARITY_LAW_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_MUSIC_VARIETY_HORROR_LAW_7_8_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEIGHBORHOOD_READINESS_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEIGHBORHOOD_SCALE_RESEARCH_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEUROLINK_REVEAL_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEVER_ASK_A_SETTLED_QUESTION_7_31_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEVER_ASK_HIM_TECHNICAL_QUESTIONS_8_15_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEVER_DRIFT_7_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEVER_LOSE_FILES_LAW_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_NEW_VOICES_LAW_7_7_26.md",
+  "laws/BOHEMIA_ADDENDUM_NE_ARM_UNIT_7_20_26.md",
+  "laws/BOHEMIA_ADDENDUM_NIGHTMARE_CONTENT_IDEA_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_NO_INVENTORY_GAME_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_NO_STREET_BREAK_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_OCCUPANCY_AND_LIGHT_WIRING_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_OFF_MEANS_SILENT_7_27_26.md",
+  "laws/BOHEMIA_ADDENDUM_OMNIDIRECTIONAL_ANIMATION_RESEARCH_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_ONE_PACKAGE_LAWS_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md",
+  "laws/BOHEMIA_ADDENDUM_OPENING_QUEST_CRAFT_7_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_OPEN_COAT_LAW_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_PACIFIST_PATH_LAW_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_PACK_INTAKE_FACTORY_7_7_26.md",
+  "laws/BOHEMIA_ADDENDUM_PATROL_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_PERKS_ABILITIES_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_PERSISTENCE_V1_7_7_26.md",
+  "laws/BOHEMIA_ADDENDUM_PIXEL_WORKFLOW_RESEARCH_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md",
+  "laws/BOHEMIA_ADDENDUM_PREFAB_FACTORY_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_PROCEDURAL_DISTRICTS_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md",
+  "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_PURPLE_RESERVATION_LAW_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_QUESTS_LANE_HIBERNATED_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_QUEST_AUTHORING_RESEARCH_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_QUEST_CRAFT_RESEARCH_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_QUEST_STUDY_LAW_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_REALISM_FIRST_AND_THE_QUESTION_FORMAT_8_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_REAL_COMBAT_ON_THE_WALK_7_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_REFERENCE_GRID_PIPELINE_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_REPO_DIET_7_25_26.md",
+  "laws/BOHEMIA_ADDENDUM_REPRODUCE_BEFORE_YOU_FIX_7_27_26.md",
+  "laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_REUSE_FIRST_LOCKED_7_22_26.md",
+  "laws/BOHEMIA_ADDENDUM_RHYTHM_GRID_JUICE_RESEARCH_7_3_26.md",
+  "laws/BOHEMIA_ADDENDUM_RHYTHM_IDEAS_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_RIG_AND_ZONES_6_29_26.md",
+  "laws/BOHEMIA_ADDENDUM_RUN_HANDOFF_CONTRACT_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_SAVES_AND_CLOUD_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_SEWER_DEMO_HOMELESS_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_SHADOWS_CONCEPTS_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_SHADOW_TECH_RESEARCH_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_SIDEWALK_SANCTITY_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_SIDEWALK_SANCTITY_ENFORCED_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_SINGLE_FILE_CARRY_7_8_26.md",
+  "laws/BOHEMIA_ADDENDUM_STAMINA_NEVER_COSTS_A_TURN_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_STREETLIGHT_HEIGHT_POWER_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_STREET_AWARE_DRIVABLE_LAW_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_STREET_CANON_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_STREET_COMPOSITION_LAWS_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_STREET_FLUIDITY_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_STRUCTURE_NOT_COLOR_7_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_SURVIVAL_ACCOUNTING_7_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_SURVIVAL_DIRECTION_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_SURVIVING_THE_AFTERMATH_RESEARCH_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_TALK_TO_HIM_LIKE_A_PERSON_8_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_TAN_WALL_LAW_AND_INTAKE_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_TEXT_ART_NETWORK_7_21_26.md",
+  "laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_BRAID_PROGRESSION_8_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_CART_AND_CAMP_7_24_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_DEBT_GETS_CALLED_IN_8_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_DNA_FORMULA_8_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_DYNASTY_LIVES_8_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_FIGHT_PULSE_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_GROOVE_CHAIN_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_PULSE_JOINS_THE_LADDER_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_QUANTIZED_FREEZE_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_REWIND_8_15_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_SONGS_PLAY_OUT_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_WALKED_SURFACE_IS_THE_GAME_8_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_THE_WALL_WAS_A_SIGN_8_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_THREE_TILE_WALL_7_27_26.md",
+  "laws/BOHEMIA_ADDENDUM_TILEPOOL_LAWS_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_TILE_PIPELINE_SEAMS_VARIANTS_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_TILE_TYPES_7_8_26.md",
+  "laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_TIME_MODEL_IMOVE_YOUMOVE_7_1_26.md",
+  "laws/BOHEMIA_ADDENDUM_TURNBASED_COMBAT_RESEARCH_7_3_26.md",
+  "laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_TWO_HUNDRED_PEOPLE_SEVENTEEN_NAMES_8_19_26.md",
+  "laws/BOHEMIA_ADDENDUM_UNIVERSAL_REVEAL_SYSTEM_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md",
+  "laws/BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_VEGAS_LANE_RESEARCH_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_VEGAS_NEIGHBORHOOD_ANATOMY_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_VEGAS_STREET_ANATOMY_7_13_26.md",
+  "laws/BOHEMIA_ADDENDUM_VEHICLES_AND_CELL_SIZE_7_6_26.md",
+  "laws/BOHEMIA_ADDENDUM_VERDICT_WORKFLOW_7_3_26.md",
+  "laws/BOHEMIA_ADDENDUM_VERTICALITY_STAIRS_7_10_26.md",
+  "laws/BOHEMIA_ADDENDUM_VR_COMPANIONS_XP_6_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_WHAT_EVERY_CHAT_DOES_9_4_26.md",
+  "laws/BOHEMIA_ADDENDUM_WHAT_MAKES_IT_A_RHYTHM_GAME_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_WHITELIST_CORRECTION_7_16_26.md",
+  "laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_QUESTS_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_WORLD_BREAK_ANSWERS_7_18_26.md",
+  "laws/BOHEMIA_ADDENDUM_WORLD_CLOCK_WALK_LAW_7_14_26.md",
+  "laws/BOHEMIA_ADDENDUM_WORLD_MODEL_LOD_6_30_26.md",
+  "laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md",
+  "laws/BOHEMIA_AGENT_REVEAL_INTEGRATION_7_10_26.md",
+  "laws/BOHEMIA_ANIM_GAP_RECONCILIATION_7_14_26.md",
+  "laws/BOHEMIA_ART_PHILOSOPHY.md",
+  "laws/BOHEMIA_CLOTHING_COOK_SHORTCUT_7_20_26.md",
+  "laws/BOHEMIA_CODE_DAY_ONE_7_16_26.md",
+  "laws/BOHEMIA_COORDINATOR_ARCHITECTURE_MAP.md",
+  "laws/BOHEMIA_COORDINATOR_FINDINGS_7_25_26.md",
+  "laws/BOHEMIA_COORDINATOR_PROMPT_LIBRARY_7_25_26.md",
+  "laws/BOHEMIA_COORDINATOR_SWEEP_8_11_26.md",
+  "laws/BOHEMIA_COVER_INTEGRATION_7_10_26.md",
+  "laws/BOHEMIA_CREATOR_PROFILE.md",
+  "laws/BOHEMIA_DEMO_BAKE_INTEGRATION_7_10_26.md",
+  "laws/BOHEMIA_DEMO_FLOW_7_10_26.md",
+  "laws/BOHEMIA_DISTRICT_TAXONOMY_7_18_26.md",
+  "laws/BOHEMIA_DOOR_ANIM_INTEGRATION_7_13_26.md",
+  "laws/BOHEMIA_ENGINE_CORE_README.md",
+  "laws/BOHEMIA_ENGINE_REALITY_MAP_7_28_26.md",
+  "laws/BOHEMIA_FAMILY_CONSUMER_RULES_7_10_26.md",
+  "laws/BOHEMIA_GRAPHICS_CHAT_RESTORE_7_16_26.md",
+  "laws/BOHEMIA_GRAPHICS_SESSION_LEDGER_7_10_26.md",
+  "laws/BOHEMIA_HD_REPO_MANIFEST_7_8_26.md",
+  "laws/BOHEMIA_HEARTBEAT_WIRING_GUIDE.md",
+  "laws/BOHEMIA_HOUSE_FACTORY_INTEGRATION_7_14_26.md",
+  "laws/BOHEMIA_LAUNCH_SESSION_BRIEF_7_16_26.md",
+  "laws/BOHEMIA_LAWS_MASTER_9_4_26.md",
+  "laws/BOHEMIA_LAW_A_BOSS_HANDS_YOU_A_VERB_8_27_26.md",
+  "laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md",
+  "laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md",
+  "laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md",
+  "laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md",
+  "laws/BOHEMIA_LAW_MULTIPLE_PEOPLE_FIGHT_AT_THE_SAME_TIME_8_31_26.md",
+  "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md",
+  "laws/BOHEMIA_LAW_ONE_ID_ONE_WHOLE_PERSON_8_27_26.md",
+  "laws/BOHEMIA_LAW_THE_BOHEMIA_LOOK_8_27_26.md",
+  "laws/BOHEMIA_LAW_THE_UI_HAS_THREE_ACTS_9_6_26.md",
+  "laws/BOHEMIA_LAW_WALLS_ARE_TWO_TALL_ONE_SOLID_8_2_26.md",
+  "laws/BOHEMIA_LIFE_SPEC_7_19_26.md",
+  "laws/BOHEMIA_LIGHTING_INTEGRATION_7_13_26.md",
+  "laws/BOHEMIA_MASTER_MERGE_PACKAGE_7_10_26.md",
+  "laws/BOHEMIA_MASTER_SYSTEMS_MAP_7_1_26.md",
+  "laws/BOHEMIA_MISC_SPLIT_INTEGRATION_7_10_26.md",
+  "laws/BOHEMIA_MUSIC_VERDICTS_MASTER_7_6_26.md",
+  "laws/BOHEMIA_NEXT_BUILDING_SESSION_7_8_26.md",
+  "laws/BOHEMIA_ORGANIZE_EXPLODED_CHAT_7_16_26.md",
+  "laws/BOHEMIA_PLACEMENT_PLAYBOOK_7_18_26.md",
+  "laws/BOHEMIA_PROJECT_SETUP.md",
+  "laws/BOHEMIA_PROJECT_UPLOAD_MASTER_7_16_26.md",
+  "laws/BOHEMIA_RELAY_QUEST_CHAT_7_16_26.md",
+  "laws/BOHEMIA_RENDER_CONTRACT_7_10_26.md",
+  "laws/BOHEMIA_SESSION_BRIEF_COMBAT_7_19_26.md",
+  "laws/BOHEMIA_SESSION_BRIEF_COORDINATOR_7_24_26.md",
+  "laws/BOHEMIA_SESSION_BRIEF_LIFE_7_19_26.md",
+  "laws/BOHEMIA_SESSION_BRIEF_UI_8_25_26.md",
+  "laws/BOHEMIA_SESSION_BRIEF_WORDS_8_26_26.md",
+  "laws/BOHEMIA_SESSION_MANIFEST_7_14_26.md",
+  "laws/BOHEMIA_SKIN_REGRADE_INTEGRATION_7_10_26.md",
+  "laws/BOHEMIA_STREET_RECIPE_SPEC_7_13_26.md",
+  "laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md",
+  "laws/BOHEMIA_VERDICT_RECORD_7_10_26.md",
+  "laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md",
+  "laws/BOHEMIA_WORLD_MODEL_ROADMAP_7_18_26.md"
+ ],
+ "census_laws_total": 428,
+ "census_banks": [
+  {
+   "file": "banks/BOHEMIA_SEWER_DEMO_MAP_DATA_7_10_26.json",
+   "verdict": "ORPHAN",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_7_30_26.json",
+   "verdict": "LIVE",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_12_26.json",
+   "verdict": "SUPERSEDED",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_14_26.json",
+   "verdict": "SUPERSEDED",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_15_26.json",
+   "verdict": "SUPERSEDED",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_16_26.json",
+   "verdict": "SUPERSEDED",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_16b_26.json",
+   "verdict": "SUPERSEDED",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_17_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_SFX_APPROVED_8_20_26.json",
+   "verdict": "LIVE",
+   "draft": false
+  },
+  {
+   "file": "banks/BOHEMIA_VOICES_APPROVED_8_11_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_CHECKS_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E11_SWEEP_SPEC_9_6_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_GLITCH_TAXONOMY_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_PIXEL_TELLS_CHECKLIST_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_REFERENCE_SCORE_SHEET_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_SOUND_GAP_LIST_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_THE_ORDER_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_WALK_TELLS_CHECKLIST_9_5_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-001_MAGAZINE_VOLUME_8_23_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-002_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-002_TRAILER_VOLUME_8_22_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-003_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-004_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-005_HEADSTONE_VOLUME_8_21_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-005_SEATING_VOLUME_8_21_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-006_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-007_CANDIDATES_8_19_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-008_SIDEAWNING_VOLUME_8_18_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-008_SIGNBAND_VOLUME_8_15_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-008_SMASH_VOLUME_8_15_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-009_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-010_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-011_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-012_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-015_STOCKPILE_VOLUME_8_21_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-016_INLET_VOLUME_8_20_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-016_LANE_VOLUME_8_20_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-017_CANDIDATES_8_19_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-019_CANDIDATES_8_21_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-020_CANDIDATES_8_24_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-020_ROOF_OVERFLOW_VOLUME_8_25_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-021_CANDIDATES_8_24_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-021_GALLERY_VOLUME_8_26_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-022_CANDIDATES_8_24_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-023_CANDIDATES_8_25_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-024_CANDIDATES_8_25_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-025_CANDIDATES_8_26_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-026_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-027_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-028_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-029_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-030_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-031_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-032_CANDIDATES_8_27_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-ART-033_CANDIDATES_8_30_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-CMB-004_CANDIDATES_8_16_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-CMB-005_CANDIDATES_8_8_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-RUN-005_CANDIDATES_8_19_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  },
+  {
+   "file": "banks/tileforms/TF-WORLD-010_CANDIDATES_8_19_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": false
+  }
+ ],
+ "named_case_colour_is_territory": {
+  "carrier_files": [
+   {
+    "file": "engine/BOHEMIA_faction_colours.json",
+    "values_found_in_bundle": 13,
+    "values_total": 13,
+    "in_bundle": true
+   }
+  ],
+  "faction_name_within_200_chars_of_a_hex": {
+   "Mob": 3,
+   "Cartel": 1,
+   "Remnants": 1,
+   "Caravans": 1,
+   "Colorful": 1,
+   "Homeless": 1,
+   "Volunteers": 1
+  }
+ },
+ "census_promised_gates": [
+  {
+   "gate": "art_45_gate.py",
+   "file": "gates/art_45_gate.py",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "attempt_gate.js",
+   "file": "gates/attempt_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "become_gate.js",
+   "file": "gates/become_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "border_gate.js",
+   "file": "gates/border_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "craft_law_gate.js",
+   "file": "gates/craft_law_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "dialogue_catalogue_gate.js",
+   "file": "gates/dialogue_catalogue_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "direct_gate.js",
+   "file": "gates/direct_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "district_kit_gate.js",
+   "file": "gates/district_kit_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "face_maker_gate.js",
+   "file": "gates/face_maker_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "face_thumb_gate.js",
+   "file": "gates/face_thumb_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "faction_colour_gate.js",
+   "file": "gates/faction_colour_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "family_gate.js",
+   "file": "gates/family_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "hair_gate.js",
+   "file": "gates/hair_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "hair_graveyard_gate.js",
+   "file": "gates/hair_graveyard_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "hairline_gate.js",
+   "file": "gates/hairline_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "landlocked_gate.js",
+   "file": "gates/landlocked_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "language_gate",
+   "file": "gates/language_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "portrait_haircut_gate.js",
+   "file": "gates/portrait_haircut_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "reference_check_gate",
+   "file": null,
+   "verdict": "PROMISED BUT MISSING"
+  },
+  {
+   "gate": "reusefirst_gate.py",
+   "file": "gates/reusefirst_gate.py",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "talking_portrait_gate.js",
+   "file": "gates/talking_portrait_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "trenchcoat_gate.js",
+   "file": "gates/trenchcoat_gate.js",
+   "verdict": "REAL"
+  },
+  {
+   "gate": "world_gate.js",
+   "file": "gates/world_gate.js",
+   "verdict": "REAL"
+  }
+ ],
+ "counts": {
+  "engine_live": 123,
+  "engine_orphan": 29,
+  "engine_ignored": 14,
+  "laws_total": 428,
+  "laws_ungated": 285,
+  "banks_orphan": 1,
+  "banks_draft": 8,
+  "gates_promised": 23,
+  "gates_broken": 1
+ }
+}
