@@ -14768,6 +14768,15 @@ generations fit; the craft's answer is ~15 real minutes a day (a day is a decisi
 time (leave without fear), and we need both. Routed PLUMBER [clock math], RUN [a day is]
 (a dial, default fifteen), DYNASTY [days per life]. Carrying [act two] who dies next; not
 re-asked this round.
+THEN (cr) HE PLAYED AND SENT A FRAME (records/target/PAOLO_THE_CAR_IS_ASS_9_7_26.jpg): "this is
+ass, is that the car model, c'mon bro" -> the wrecked car is a squashed photo texture ON a
+brick wall beside a six-tone pixel body; KILLED, re-cook to the card on the ground, DIRECTION
+judges beside a real car and beside the body (records/BOHEMIA_RULING_THE_CAR_IS_ASS_AND_TAP_
+TO_WALK_9_7_26.md). And "I should be able to click as well: tap the tile I want to walk on,
+it shows footprints so you see you're about to walk there, and it still goes to the BPM,
+very important" -> LOCKED: tap-to-walk with ghost footprints first, one step per beat at
+120, the pad stays. Routed COOK [car recook] (top), DIRECTION [judge the car], RUN [tap
+walk] (top), UI [footprints] (options sheet), ANIMATION [beat steps].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
