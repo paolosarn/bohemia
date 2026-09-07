@@ -14762,6 +14762,17 @@ it shows footprints so you see you're about to walk there, and it still goes to 
 very important" -> LOCKED: tap-to-walk with ghost footprints first, one step per beat at
 120, the pad stays. Routed COOK [car recook] (top), DIRECTION [judge the car], RUN [tap
 walk] (top), UI [footprints] (options sheet), ANIMATION [beat steps].
+THEN (cs) he answered ONE of the five: "No real animals bro. Animalistic era of act 1, the
+vibes, not actual animals." -> LOCKED, laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_
+9_7_26.md. I had read "Gen 1 Animal" literally; the story master (7/19, THE THREE ACTS)
+already said Animal/Human/Angel are the three ERAS, and DYNASTY's rounds 1-2 and CHARACTER
+[animal rig] were built on my misreading. Root cause: nobody re-read the story master before
+building on its vocabulary. RUN [animal first] DEAD with post-mortem; CHARACTER [animal rig]
+re-aimed to [wildlife rig]; DYNASTY STATE corrected; routed DYNASTY [animal era], WORDS [no
+law talk], COMBAT [era fights]; CLAUDE.md pillars say "ERAS, not creatures". He also said
+the rough draft of all the acts exists and he has not thought about it in some time: it is
+laws/BOHEMIA_STORY_MASTER_7_18_26.md plus the act addenda; presented to him in plain words
+this reply. Four of the five letters still open (century, act two, coats, her name).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

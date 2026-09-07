@@ -9,7 +9,7 @@ and never explains; the one word is the whole instruction. ***
 
 ## THE PILLARS, IN ONE BREATH (the long form is laws/BOHEMIA_LAWS_MASTER_9_4_26.md)
 THERE ARE NO RUNS. A full game, ~100 hours, three generations that INHERIT (Gen 1
-Animal, Gen 2 Human, Gen 3 Angel; the player lives all three). 60 mini bosses, each
+Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo 9/7; the player lives all three). 60 mini bosses, each
 handing you a VERB, parsed from records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md. Combat is
 ROGUE FABLE 4 on the beat at 120 BPM, always against a GROUP, on house-sized tiles
 (9/4), with an automated companion. Batteries are the money (9/4). Everyone dresses
