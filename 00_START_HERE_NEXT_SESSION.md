@@ -9005,6 +9005,14 @@ one boot and the run was INVALID -- after the first walk window the player stopp
 entirely, so the later arms measured nothing. Doing it properly needs one boot per throttle rate,
 and it is the same [PENDING Paolo] as [sixty fps]: a real handset.
 
+*** AND THE REGISTRY GATE EARNED ITS KEEP THE SAME ROUND IT SHIPPED. Rebasing onto main at the
+end of this round, it went RED on a gate that had landed while I was working: inside_a_day_gate.js
+(QUESTS [distance shown], dcbe0b8), unregistered on arrival, caught within minutes of the file
+existing. Registered; it runs 25/0. That is the same lane-by-lane drift the 9/7 law was written
+for, happening again in the same round the machinery to catch it went in -- which is the argument
+for the machinery. I pushed once before reading that red and had to follow it immediately; the
+rule is run the guards on the MERGED tree and read them before pushing, not after. ***
+
 ROUND 12, WHICH STILL STANDS: [unregistered gates] SHIPPED. EIGHT gates nobody ran, across QUESTS,
 COMBAT and PEOPLE, and TWO OF THEM HAD BEEN RED SINCE 8/31 (legend_kept and pack, named on
 COMBAT's row, not fixed here). The suite now goes RED on a filter that matches nothing -- it

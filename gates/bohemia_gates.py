@@ -2666,6 +2666,15 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('INSIDE A DAY',   ['node', 'gates/inside_a_day_gate.js'],
+     'QUESTS row [distance shown], shipped 9/7 (dcbe0b8) and UNREGISTERED ON ARRIVAL. Caught by '
+     'GATE REGISTRY within minutes of the file existing, which is the whole point of that gate: '
+     'the same lane-by-lane drift the 9/7 law was written for, happening again the same round the '
+     'machinery to catch it went in. Registered by PLUMBER; runs 25/0. Its own subject: a job says '
+     'how long it is before you take it, and the answer is checked against the day it has to fit '
+     'inside -- which is the same clock [clock math] measured this round at 58 to 59 real minutes '
+     'for a waking day',
+     True),
     ('CLOCK RATE',     ['node', 'gates/clock_rate_gate.js'],
      'HOW MANY IN-GAME MINUTES A REAL MINUTE BUYS, 9/7, PLUMBER lane, row [clock math]. The row: '
      '"a day is 1,440 in-game minutes, a step is 0.084 of them, standing still costs nothing, and '
