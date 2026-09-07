@@ -236,6 +236,22 @@ GATES = [
      'THE SHIPPED GAME\'S CONTROLS STILL WORK and the halving is OFF so the row cannot '
      'half-ship itself -- reports what the work already achieves, and carries the open defect '
      'as its own leg so nobody mistakes it for done.', True),
+    ('PAD RING',       ['node', 'gates/pad_ring_gate.js'],
+     'Board row [pad broken] THE ACTION BUTTON IS FUCKED UP -- he sent a frame of the walked '
+     'pad with seven arrows out of any ring, two pointing the same way and the FACE shoved '
+     'into the bottom-right corner, then picked option 1 (THE DIAL) off the ring sheet. His '
+     'words: "the action button surrounded by only ONE other circle, and that circle cut into '
+     'how many parts of the directions we need. I don\'t want them to be independent circles." '
+     'So the pad is one svg annulus cut into eight, drawn in a 180 viewBox that scales with '
+     'its box, and the face is centred in PERCENTAGES -- the corner bug was a fixed 50px '
+     'offset inside a box that half size made 90 wide. The gate asks the shipped page, at '
+     'FULL and HALF size, the four things his photograph showed broken: one ring not loose '
+     'pieces, the face dead centre (2px), nothing overlapping, and every one of the eight '
+     'segments actually walks him. THE OVERLAP CHECK CAUGHT ITSELF FIRST: a bounding-box test '
+     'reported eight overlaps on a ring whose wedges do not touch, because the box around a '
+     'pie slice contains its neighbours -- it asks the SHAPES now (isPointInFill over a grid), '
+     'which is the browser\'s own answer about its own geometry. Mutation-proved: push the '
+     'face to left:62%% and both sizes go red by 21.6 and 10.8 px.', True),
     ('READABLE RULER', ['python3', 'gates/readable_ruler_gate.py'],
      'Board row [eyes: faint chips] THE PLAYER CANNOT READ HIS OWN CONTROLS -- an EYES AND '
      'EARS bounce-back on shipped work, and this lane\'s own defect ([phone readable] shipped '

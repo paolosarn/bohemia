@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - THE RING, DRESSED FIVE WAYS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --line:#c8bda9; --hot:#c8482a; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.5px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border:2px solid var(--ink); background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ border:2px solid var(--ink); background:#fff; margin:14px 0 }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .body{ padding:12px; text-align:center }
+ .say{ margin:10px 0 0; font-size:15px; text-align:left }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a; text-align:left }
+ .cost b{ color:var(--ink) }
+ svg{ width:200px; height:200px; display:block; margin:0 auto }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--line) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px; border-radius:4px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:1px solid var(--line); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border:2px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:2px solid var(--ink);
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>THE RING, DRESSED FIVE WAYS</h1>
+ <div class="sub">You picked the dial. It is in the game now. This is the same ring, exactly the same shape, made out of five different things. Tap a thumb. 9/7</div>
+</header>
+
+<div class="now">
+ <b>NOTHING HERE CHANGES THE SHAPE.</b> Same one ring, same eight cuts, same face in the
+ middle, same size. Only what it looks like it is MADE of changes. The one in the game
+ right now is the first one.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+/* THE SAME GEOMETRY THE GAME DRAWS, so this is the ring and not a picture of a ring:
+   180 box, centre 90, ring from r50 to r86, eight segments, 3.5 degree cuts, arrows on
+   the mid-line at r68. Copied value for value from the pad builder in the city. */
+var C=90,R0=50,R1=86,N=8,GAP=3.5;
+function pt(r,a){ var t=(a-90)*Math.PI/180; return [C+r*Math.cos(t), C+r*Math.sin(t)]; }
+function f(n){ return n.toFixed(2); }
+function wedge(a0,a1){
+  var p0=pt(R1,a0),p1=pt(R1,a1),p2=pt(R0,a1),p3=pt(R0,a0);
+  return 'M'+f(p0[0])+','+f(p0[1])+'A'+R1+','+R1+' 0 0 1 '+f(p1[0])+','+f(p1[1])
+    +'L'+f(p2[0])+','+f(p2[1])+'A'+R0+','+R0+' 0 0 0 '+f(p3[0])+','+f(p3[1])+'Z';
+}
+function ring(o){
+  var step=360/N, half=GAP/2, out='', i;
+  out += '<defs>'+(o.defs||'')+'</defs>';
+  out += '<circle cx="90" cy="90" r="88" fill="'+o.back+'"/>';
+  for(i=0;i<N;i++){
+    var a=i*step, P=pt(68,a);
+    out += '<path d="'+wedge(a-step/2+half,a+step/2-half)+'" fill="'+o.seg
+        +'" stroke="'+o.edge+'" stroke-width="'+(o.sw||1)+'"/>';
+    out += '<g transform="translate('+f(P[0])+','+f(P[1])+') rotate('+a+')">'
+        +  '<path d="M0,-9 L6.48,5.94 L-6.48,5.94 Z" fill="'+o.arrow+'"/></g>';
+  }
+  out += '<circle cx="90" cy="90" r="40" fill="'+o.hub+'" stroke="'+o.hubEdge+'" stroke-width="2"/>';
+  out += '<text x="90" y="94" text-anchor="middle" font-size="9" font-family="ui-sans-serif,Arial"'
+      +  ' fill="'+o.face+'" letter-spacing="1">FACE</text>';
+  return '<svg viewBox="0 0 180 180">'+out+'</svg>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. WORN BRASS (what is in the game now)',
+   back:'#0d0b08', seg:'#1e1a13', edge:'#4a4030', arrow:'#d8c49a',
+   hub:'#2b2519', hubEdge:'#4a4030', face:'#d8c49a',
+   say:'Dark metal plate, thin brass edges, gold arrows. The palette the rest of the game already wears.',
+   cost:'<b>Costs you:</b> it looks like everything else, so the control does not stand out from the street behind it. <b>Gets you:</b> nothing to argue with. It already matches.' },
+ { k:'B', t:'B. CUT STEEL',
+   back:'#0b0c0d', seg:'#2c3136', edge:'#8b969e', arrow:'#eef2f4', sw:1.5,
+   hub:'#3a4046', hubEdge:'#8b969e', face:'#eef2f4',
+   say:'Bright machined steel with hard bright edges. Reads like a real machined part bolted to the screen.',
+   cost:'<b>Costs you:</b> cold, and it fights the warm dust of the city. <b>Gets you:</b> the clearest arrows of the five. You would never miss one in the sun.' },
+ { k:'C', t:'C. CHIPPED PAINT',
+   back:'#10100e', seg:'#7a3327', edge:'#e0d3ba', arrow:'#f4ecdc', sw:2,
+   hub:'#2a2622', hubEdge:'#e0d3ba', face:'#f4ecdc',
+   say:'Painted metal, road-sign red, thick cream edges. Like something salvaged off a machine and screwed on.',
+   cost:'<b>Costs you:</b> loud. It takes attention away from the street. <b>Gets you:</b> the most character, and it says "somebody built this by hand" without a word.' },
+ { k:'D', t:'D. BONE',
+   back:'#0e0d0b', seg:'#cfc3ab', edge:'#6b6152', arrow:'#2a251d',
+   hub:'#e2d8c4', hubEdge:'#6b6152', face:'#2a251d',
+   say:'Pale ceramic with dark arrows cut into it. The only one where the ring is light and the marks are dark.',
+   cost:'<b>Costs you:</b> a bright disc in the corner of a dark screen pulls the eye all the time. <b>Gets you:</b> the arrows read at any size, because dark on light beats light on dark.' },
+ { k:'E', t:'E. SMOKED GLASS',
+   back:'#0a0a0c', seg:'rgba(210,220,235,0.13)', edge:'rgba(220,230,245,0.55)', arrow:'#e8eef8',
+   hub:'rgba(200,215,235,0.18)', hubEdge:'rgba(220,230,245,0.5)', face:'#e8eef8',
+   say:'Nearly see-through. The street keeps showing through the control instead of being covered by it.',
+   cost:'<b>Costs you:</b> hardest to see, and it changes with whatever is behind it. <b>Gets you:</b> the most screen back. The city is never hidden by its own buttons.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2><div class="body">'+ring(o)
+    +'<p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p></div>'
+    +'<div class="judge" data-k="'+o.k+'">'
+    +'<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    +'<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    +'</div></div>';
+}).join('');
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - THE RING, DRESSED FIVE WAYS - 9/7/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_THE_RING_DRESSED_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

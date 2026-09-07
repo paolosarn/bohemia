@@ -171,15 +171,32 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    mirrors combat's corner portrait. 180x180 at right/bottom 6px so the whole
    ring (E/S buttons reach 177px) always sits on screen with margin. */
 #nav{position:absolute;right:6px;bottom:6px;width:180px;height:180px;z-index:5}
-#mode{position:absolute;left:50px;top:50px;width:80px;height:80px;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:999px;overflow:hidden;
+/* THE FACE IS THE MIDDLE OF THE RING, AT EVERY SIZE (9/7, Paolo: "I want 1").
+   It used to be pinned at left:50px top:50px inside a 180 box, which is dead
+   centre only while the box is 180. [half size] made the box 90 and the face
+   went to the bottom-right corner -- exactly the frame he sent. Percentages of
+   the box cannot come apart from the box. */
+#mode{position:absolute;left:50%;top:50%;width:44.4%;height:44.4%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;text-align:center;border-radius:999px;overflow:hidden;
   background:radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%);box-shadow:0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6);
   color:var(--ink);font-weight:700;font-size:11px;letter-spacing:2px;z-index:6}
 #mode:active{box-shadow:0 0 0 1px var(--acc),0 6px 22px rgba(0,0,0,.6);color:#fff}
 #modeFace{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;border-radius:999px}
 #modeLbl{position:absolute;left:0;right:0;bottom:7px;font-size:10px;letter-spacing:1px;font-weight:700;color:var(--ink);text-shadow:0 1px 4px #000,0 0 8px #000;pointer-events:none}
 #pad{position:absolute;inset:0;z-index:5}
-.pb{position:absolute;width:42px;height:42px;border-radius:50%;background:radial-gradient(circle at 50% 38%,#2a251d,#12100c 75%);border:1px solid var(--line);color:var(--acc);font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center}
-.pb:active{border-color:#5a4a2a;color:#fff}
+/* *** ONE RING, CUT -- NOT EIGHT LOOSE CIRCLES (Paolo 9/7, he picked option 1, THE
+   DIAL, off slices/BOHEMIA_THE_PAD_IS_ONE_RING_9_7_26.html). *** His words: "I want the
+   action button to be only surrounded by one other circle, and that circle is cut into
+   how many parts of the directions that we need. I don't want them to be independent
+   circles." So the pad is ONE svg ring around the face, sawn into eight even segments
+   with hairline cuts. Drawn in a 180 viewBox that scales with the box, which is what
+   makes half size a scale instead of a scatter. The arrow gold is #d8c49a, unchanged:
+   that exact value is the 9/6 contrast fix and it is not mine to drift. */
+#padring{position:absolute;inset:0;width:100%;height:100%;overflow:visible;touch-action:none}
+.pseg{fill:#1e1a13;stroke:var(--line);stroke-width:1}
+.parr{fill:#d8c49a}
+.parr2{display:none;fill:#d8c49a}
+.pb:active .pseg{fill:#2a2418;stroke:#5a4a2a}
+.pb:active .parr,.pb:active .parr2{fill:#fff}
 /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ (8/27): THE PAD LOOKS LIKE WHAT IT IS ABOUT TO DO.
    Zoomed out, a press is not a step -- it is ninety-six metres and ten minutes,
    and it can hand him a road encounter that costs twenty more. Same corner, same
@@ -187,10 +204,11 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    missed: a circle is a thumbstick and a square is a map tile, the arrow doubles
    because the distance does, and the ring cools off the walking accent onto the
    map's own line. No caption anywhere: this is a signifier, not a tutorial. */
-#pad.mapmove .pb{border-radius:7px;width:46px;height:46px;
-  background:radial-gradient(circle at 50% 38%,#20242a,#0d1014 75%);
-  border:1px solid #4a5a68;color:#9fb4c4;font-size:17px}
-#pad.mapmove .pb:active{border-color:#7fa8c4;color:#fff}
+#pad.mapmove .pseg{fill:#12161b;stroke:#4a5a68}
+#pad.mapmove .parr{display:none}
+#pad.mapmove .parr2{display:block;fill:#9fb4c4}
+#pad.mapmove .pb:active .pseg{stroke:#7fa8c4}
+#pad.mapmove .pb:active .parr2{fill:#fff}
 #keybtn{position:absolute;right:12px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
 #keybtn:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #savebtn{position:absolute;left:110px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
@@ -46317,8 +46335,13 @@ function padMode(){
   const map=(typeof MODE!=='undefined'&&MODE==='city');
   if(pad.classList.contains('mapmove')===map) return;   /* no churn, no relayout */
   pad.classList.toggle('mapmove',map);
+  /* THE GLYPH SWAP IS FOR THE OLD HTML PAD AND ONLY FOR IT. The ring's directions are
+     drawn shapes inside an svg group, so writing textContent here would DELETE the
+     segment and both chevrons and leave an invisible pad. The class on the pad already
+     carries the mode; the drawn faces swap in css. */
   const bs=pad.querySelectorAll('.pb');
   for(let i=0;i<bs.length;i++){
+    if(bs[i].namespaceURI==='http://www.w3.org/2000/svg') continue;
     const g=map?bs[i].dataset.mapmove:bs[i].dataset.walk;
     if(g) bs[i].textContent=g;
   }
@@ -46636,24 +46659,72 @@ document.getElementById('fitbtn').addEventListener('click',()=>{
   if(Math.abs(CZOOM-zmin)<0.02) recenter(); else fitMap();
 });
 
-// ---- 8-way pad ----
+// ---- ONE RING, CUT INTO EIGHT (Paolo 9/7: "I want 1" -- THE DIAL) ----
+/* *** THE PAD IS ONE RING WITH CUTS IN IT, AND THE FACE IS ITS MIDDLE. *** He sent a
+   frame of the old pad ([pad broken]) with seven arrows scattered out of any ring and
+   the face shoved into a corner, then picked option 1 off the ring sheet. The eight
+   loose 42px circles are gone. What replaces them is ONE svg annulus sawn into eight
+   even segments, hairline cuts, drawn in a 180 viewBox that scales with its box.
+
+   WHY SVG AND NOT EIGHT DIVS PUSHED AROUND. Every position here used to be an inline
+   left/top in pixels, which is why halving the pad meant halving eight pairs of
+   numbers by hand and why they came apart when anything moved. A viewBox scales the
+   whole shape from one number, so half size is now a scale, not a scatter.
+
+   EIGHT AND NOT FOUR, ON PURPOSE. The [pad broken] row asked for four arrows. The ring
+   sheet put four (option 3) next to eight (option 1) with the trade written on it --
+   bigger targets, no diagonals -- and he picked eight. Newest wins, and it is his own
+   pick, so it is eight. Each segment is about 1770 square px against the old circle's
+   1385, so a segment is a BIGGER target than the button it replaces. */
 (function(){
   const pad=document.getElementById('pad');
-  // ring around portrait center (90,90) in a 180 box, radius 66, 42px buttons (tl = center-21)
+  if(!pad) return;
+  const NS='http://www.w3.org/2000/svg';
+  const C=90, R0=50, R1=86, N=8, GAP=3.5;   /* 180 box; the face is a 40 radius circle */
   /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__ -- the map face of each direction, in pos order.
      A double arrow for a move that is ninety-six metres instead of one. */
   const MAPGLYPH=['⇑','⇗','⇒','⇘','⇓','⇙','⇐','⇖'];
-  const pos=[[69,3,'↑',0],[116,22,'↗',1],[135,69,'→',2],[116,116,'↘',3],[69,135,'↓',4],[22,116,'↙',5],[3,69,'←',6],[22,22,'↖',7]];
-  pos.forEach(([x,y,ch,di])=>{
-    const b=document.createElement('div'); b.className='pb'; b.textContent=ch;
-    /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__: both faces of the button live ON the button, so padMode
-       only ever swaps between two authored glyphs and can never invent one. */
-    b.dataset.walk=ch; b.dataset.mapmove=MAPGLYPH[di];
-    b.style.left=x+'px'; b.style.top=y+'px';
-    b.addEventListener('pointerdown',e=>{e.preventDefault();startHold(di);});
-    b.addEventListener('pointerup',endHold); b.addEventListener('pointerleave',endHold);
-    pad.appendChild(b);
-  });
+  const WALK=['↑','↗','→','↘','↓','↙','←','↖'];
+  const pt=(r,a)=>{ const t=(a-90)*Math.PI/180; return [C+r*Math.cos(t), C+r*Math.sin(t)]; };
+  const f=n=>n.toFixed(2);
+  function wedge(a0,a1){
+    const p0=pt(R1,a0), p1=pt(R1,a1), p2=pt(R0,a1), p3=pt(R0,a0);
+    return 'M'+f(p0[0])+','+f(p0[1])
+      +'A'+R1+','+R1+' 0 0 1 '+f(p1[0])+','+f(p1[1])
+      +'L'+f(p2[0])+','+f(p2[1])
+      +'A'+R0+','+R0+' 0 0 0 '+f(p3[0])+','+f(p3[1])+'Z';
+  }
+  function tri(cls,a,r,s){
+    const n=document.createElementNS(NS,'path'), P=pt(r,a);
+    n.setAttribute('class',cls);
+    n.setAttribute('d','M0,'+(-s)+' L'+(s*0.72)+','+(s*0.66)+' L'+(-s*0.72)+','+(s*0.66)+' Z');
+    n.setAttribute('transform','translate('+f(P[0])+','+f(P[1])+') rotate('+a+')');
+    return n;
+  }
+  const svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('id','padring');
+  svg.setAttribute('viewBox','0 0 180 180');
+  svg.setAttribute('preserveAspectRatio','xMidYMid meet');
+  const step=360/N, half=GAP/2;
+  for(let i=0;i<N;i++){
+    const a=i*step;
+    const g=document.createElementNS(NS,'g');
+    g.setAttribute('class','pb');
+    /* __THE_PAD_SAYS_WHAT_IT_WILL_DO__: both faces of the direction still live ON the
+       control, so padMode only ever swaps between two authored shapes. */
+    g.dataset.walk=WALK[i]; g.dataset.mapmove=MAPGLYPH[i];
+    const seg=document.createElementNS(NS,'path');
+    seg.setAttribute('class','pseg');
+    seg.setAttribute('d',wedge(a-step/2+half, a+step/2-half));
+    g.appendChild(seg);
+    g.appendChild(tri('parr',a,68,9));                    /* walking: one triangle */
+    g.appendChild(tri('parr2',a,61,7));                   /* travelling: the same */
+    g.appendChild(tri('parr2',a,77,7));                   /* shape said twice */
+    g.addEventListener('pointerdown',e=>{e.preventDefault();startHold(i);});
+    g.addEventListener('pointerup',endHold); g.addEventListener('pointerleave',endHold);
+    svg.appendChild(g);
+  }
+  pad.appendChild(svg);
 })();
 
 /* SCREEN FILTER (7/27): the stage box measured 764.61 CSS px tall while
@@ -62482,18 +62553,25 @@ window.BOHEMIA_HALF = (function(){
     +'#note.uihalf{ font-size:5px!important; padding:2px 4px!important }'
     +'#nav.uihalf{ width:90px!important; height:90px!important }'
     +'#pad.uihalf{ width:90px!important; height:90px!important }'
-    +'#mode.uihalf{ width:40px!important; height:40px!important }'
+    /* THE FACE KEEPS ITS SHAPE WHEN THE BOX HALVES. .uihalf sets height:auto on
+       everything it touches, which is right for a text chip and wrong for a round
+       button: measured, the face came back 40 wide and SIX tall, a gold slot where a
+       portrait should be. It is sized in percentages of the ring, so say so here too
+       and the generic rule cannot flatten it. */
+    +'#mode.uihalf{ width:44.4%!important; height:44.4%!important;'
+      /* AND IT STAYS ROUND. .uihalf also sets a 3px radius, which is right for a
+         chip and turns the portrait into a rounded square -- plain in the picture. */
+      +'border-radius:999px!important; padding:0!important }'
     +'#modeLbl.uihalf{ font-size:5px!important }'
-    /* THE PAD'S KEYS ARE FIXED 42px AND ARE PLACED BY INLINE left/top FOR A 180 RING,
-       so halving the ring alone left eight full-size keys spilling out of a 90 box --
-       plainly broken in the first photograph of the real thing. The key halves here;
-       its POSITION is halved in JS below, because the builder wrote those as inline
-       styles and a stylesheet cannot reach them. */
-    +'#pad.uihalf .pb{ width:21px!important; height:21px!important }'
-    +'#pad.uihalf .pb::before{ border-left-width:3px!important; border-right-width:3px!important;'
-      +'border-bottom-width:7px!important }'
-    +'#pad.uihalf .pb::after{ border-left-width:3px!important; border-right-width:3px!important;'
-      +'border-bottom-width:7px!important }'
+    /* *** THE PAD NEEDS NO RULES HERE ANY MORE, AND THAT IS THE POINT OF THE RING. ***
+       This used to halve a 42px key, halve two css border-triangles, and halve eight
+       inline left/top pairs in JS -- eleven numbers that all had to agree, and the one
+       photograph he sent proved they did not: keys spilling out of the box and the face
+       in the corner. The pad is now ONE svg in a 180 viewBox and the face is centred in
+       percentages, so shrinking #nav shrinks the whole ring in proportion, with no
+       second list of numbers to keep in step. The rules that used to be here are
+       DELETED, not left dead: css that no longer applies is how the next reader gets
+       sent backwards. */
     /* THE REACH, UNDER THE PICTURE. Nothing is scaled, so these numbers are real. */
     +'.uihalf.press{ position:relative }'
     +'.uihalf.press::before{ content:""; position:absolute;'
@@ -62567,20 +62645,8 @@ window.BOHEMIA_HALF = (function(){
       else list[i].e.classList.remove('press');
     }
     spread(list);
-    /* AND THE EIGHT KEYS MOVE IN WITH IT. Their left/top are inline, written once by
-       the pad builder against a 180 ring, so CSS cannot touch them and they have to be
-       halved here -- once each, remembered on the node, so the beat loop cannot walk
-       them toward the corner one halving at a time. */
-    var pd=document.getElementById('pad');
-    if(pd && pd.classList.contains('uihalf')){
-      var keys=pd.querySelectorAll('.pb');
-      for(var kk=0;kk<keys.length;kk++){
-        var K=keys[kk]; if(K.__halfPos) continue;
-        var L=parseFloat(K.style.left), T=parseFloat(K.style.top);
-        if(isFinite(L)&&isFinite(T)){ K.style.left=(L/2)+'px'; K.style.top=(T/2)+'px';
-          K.__halfPos={l:L,t:T}; }
-      }
-    }
+    /* THE EIGHT KEYS USED TO BE MOVED BY HAND HERE. They are one svg ring now and it
+       scales itself, so there is nothing left to move. */
 
     var boxes=[];
     for(i=0;i<list.length;i++){ var r=vis(list[i].e);
@@ -62685,11 +62751,6 @@ window.BOHEMIA_HALF = (function(){
                ['--hitl','--hitr','--hitt','--hitb'].forEach(function(k){ n[i].style.removeProperty(k); });
                n[i].style.removeProperty('top'); n[i].style.removeProperty('bottom');
                n[i].style.removeProperty('margin-bottom'); }
-             var pd2=document.getElementById('pad');
-             if(pd2){ var ks=pd2.querySelectorAll('.pb');
-               for(var q=0;q<ks.length;q++){ var K2=ks[q];
-                 if(K2.__halfPos){ K2.style.left=K2.__halfPos.l+'px';
-                   K2.style.top=K2.__halfPos.t+'px'; K2.__halfPos=null; } } }
              on=false; },
            back:function(){ suspended=false; apply(); } };
 })();

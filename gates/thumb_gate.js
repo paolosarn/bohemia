@@ -192,7 +192,16 @@ function serve() {
       if (r.bottom <= 0 || r.top >= window.innerHeight || r.right <= 0 || r.left >= window.innerWidth) continue;
       /* the world canvas and the page itself are surfaces, not controls */
       if (r.width >= window.innerWidth * 0.9 && r.height >= window.innerHeight * 0.9) continue;
-      out.push({ id: n.id || ('.' + String(n.className).slice(0, 18)),
+      /* *** AN SVG ELEMENT'S className IS NOT A STRING, AND THIS GATE HAS BEEN CALLING
+         EVERY ONE OF THEM "[object SVGAnimatedString]" FOR AS LONG AS IT HAS EXISTED. ***
+         It never showed because nothing measured here was svg until the walk pad became
+         one ring cut into eight (9/7). The moment it did, twelve controls reported under
+         a name no exemption and no reader could match, so a control the lane had already
+         ruled on came back looking like an unknown. Ask for the attribute when the
+         property is not a string; the name is the only handle anything downstream has. */
+      const cls = typeof n.className === 'string' ? n.className
+                : (n.getAttribute && n.getAttribute('class')) || n.tagName || '';
+      out.push({ id: n.id || ('.' + String(cls).slice(0, 18)),
                  t: (n.textContent || '').trim().slice(0, 14),
                  w: Math.round(r.width), h: Math.round(r.height) });
     }

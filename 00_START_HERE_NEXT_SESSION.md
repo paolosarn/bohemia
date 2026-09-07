@@ -1,3 +1,53 @@
+UI (ui-kmqmrf): 9/7 (q) LATEST -- *** HE PICKED 1, AND THE PAD IS ONE RING NOW. [pad broken]
+SHIPPED. *** His whole message was "I want 1" -- option 1, THE DIAL, off the ring sheet he was
+asked about for four rounds. The eight loose circles are gone. The pad is ONE svg ring cut into
+eight even segments with the action button as its centre, and the face is centred in PERCENTAGES
+instead of a fixed 50px offset, which is the actual root of the corner bug in the frame he sent:
+50px of a 90px box IS the corner.
+TAB: RUN (the walked street, bottom right).
+THE PICTURE THIS ROUND: slices/BOHEMIA_THE_RING_DRESSED_9_7_26.html -- the same ring, same shape,
+made of five different things (worn brass as shipped, cut steel, chipped paint, bone, smoked glass).
+
+MEASURED AT BOTH SIZES, NOT ASSERTED (gates/pad_ring_gate.js 19/0):
+  face 0.0,0.0 px off centre | ring 180->90 and face 80->40, both exactly 0.500x
+  8 of 8 presses reach the game at both sizes (7 or 8 of 8 also move him)
+  MUTATION-PROVED: push the face to left:62%% and it goes red by 21.6 and 10.8 px.
+EIGHT AND NOT THE FOUR THE ROW ASKED FOR: the sheet put four beside eight with the trade written
+on it and he picked eight. His own pick, and the newer one. A segment is a BIGGER target than the
+circle it replaces, about 1770 square px against 1385.
+
+THREE INSTRUMENTS CAUGHT LYING BEFORE ANY WAS TRUSTED, which is now three rounds running:
+  1. The overlap check reported EIGHT overlaps on a ring whose wedges do not touch -- a bounding
+     box around a pie slice contains its neighbours. It asks the shapes now (isPointInFill over
+     8281 probe points; 3528 land on the ring, none on two segments at once).
+  2. "Did he move" is the wrong question to ask of a BUTTON. The first version demanded all
+     eight presses move him and then called one segment dead on a re-run -- he had walked into
+     something solid by the eighth press. It asks two questions now: did the game RECEIVE the
+     press (read `held` while the finger is down; all eight must pass) and did he move (a floor,
+     not a demand, because the map is allowed to have walls in it).
+  3. thumb_gate has called every svg control "[object SVGAnimatedString]" for its entire life --
+     an svg element's className is not a string. Nothing measured on this surface was svg until
+     the pad became one. Proved mine and not pre-existing by running it in a clean origin/main
+     worktree first: 15/0 there, 14/1 in my tree. Fixed to read the attribute.
+AND THE PICTURE CAUGHT WHAT NO GATE ASKED: the face went a rounded SQUARE at half size, 40 wide
+and SIX tall, because .uihalf sets a 3px radius and height:auto. Right for a chip, wrong for a
+portrait. That is the argument for a picture every round, in one line.
+
+[BOUNCE, not mine, for the PLUMBER] gate_registry_gate is RED on main with 2 orphans:
+gates/a_days_work_gate.js (WORLD, 4f55d768) and gates/fold_runtime_gate.js (QUESTS, dcc1982d) are
+in the tree and not in the suite table. A gate the suite never runs reads as green forever. I did
+not touch them and did not write their descriptions; their lanes should.
+
+[PENDING Paolo] Nothing blocking. The ring surfaces sheet above is a look he can correct by
+thumbing; the queue moves on to [no tabs] (already DECIDED by the coordinator), then [three acts]
+and [skin swap].
+
+EYES AND EARS (eyes-5vql33): 9/7 (r) LATEST -- *** E14 [late beat] SHIPPED WITH BOTH ROUNDS, AND
+IT IS A GREEN. THE BEAT HE HEARS IS THE BEAT THE GAME JUDGES, TO WITHIN 9.6 MILLISECONDS, with
+under a millisecond of wobble, inside a PERFECT band of 55. A player pressing exactly on the
+sound they hear is graded PERFECT with 45 ms to spare. NOTHING IS ROUTED, because nothing is
+broken, and a lane that only ever finds problems is not a lane anybody should trust. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
 EYES AND EARS (eyes-5vql33): 9/7 (s) LATEST -- *** E15 [machine judges] ROUND ONE OF TWO IS DONE:
 SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's own shape wrong: A PRE-JUDGE THAT
 ANNOTATES BUT STILL FORWARDS EVERYTHING ADDS WORK. The bottleneck is DIRECTION'S ATTENTION, not
