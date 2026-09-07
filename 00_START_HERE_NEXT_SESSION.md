@@ -7322,7 +7322,16 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/7 (a) LATEST -- *** CHAT 18. ROUND 10. I CHECKED MY OWN NUMBER
+PLUMBER (plumber-ont6t5): 9/7 (b) LATEST -- *** CHAT 18. ROUND 11. NO SPEEDUP THIS ROUND: THREE
+NEGATIVE RESULTS AND ONE WARNING. The faction floor looked like a 200 ms win and was worth
+NOTHING once I stopped freezing a feature and stopped measuring dead fights. The fight already
+caps its own canvas at 2x. And a QUARTER of the pixels did not make it faster, so fill rate is
+not the wall either. THE WARNING IS THE BEST THING HERE: two runs of the SAME build, same
+canvas, same protocol, read 450.1 and 412.5 ms. THE BEAT HAS A 40 MS NOISE FLOOR, so any
+single-sample before-and-after on this fight is a coin toss, which is exactly how round 3 got it
+wrong. The fight's own JavaScript is only 103 ms of a 450 ms beat, so cutting draw calls is
+nearly spent.
+ROUND 10: I CHECKED MY OWN NUMBER
 FROM LAST ROUND AND IT DID NOT SURVIVE. I published "a settled fighting beat is under 400" --
 that was a fight NOBODY WAS PLAYING. A fight being played is 497.5 -> 347/386.8/428.4, median
 413.5 across SEVEN samples. Still an 84 ms median win and it takes the fight off the ceiling
@@ -8687,114 +8696,90 @@ instruction.
 === END OF HIS VERBATIM INSTRUCTION ===
 
 THIS ROUND, IN HIS ORDER. Pulled main and rebased. Re-read CLAUDE.md from disk. Read the
-VAMILY front page. I hold [fight headroom], so by rule 5 VAMILY = CONTINUE IT. Round 10 of this
-lane, round 4 of that row.
+VAMILY front page. I hold [fight headroom], so by rule 5 VAMILY = CONTINUE IT. Round 11 of this
+lane, round 5 of that row.
 
-*** ROUND 10 [fight headroom]: I CHECKED MY OWN NUMBER FROM LAST ROUND AND IT DID NOT SURVIVE.
-records/BOHEMIA_A_FIGHT_NOBODY_IS_PLAYING_9_7_26.md ***
+*** ROUND 11 [fight headroom]: THIS ROUND SHIPS NO SPEEDUP. It ships THREE NEGATIVE RESULTS and
+one number that changes how anybody may measure this fight from now on.
+records/BOHEMIA_NEITHER_THE_CALLS_NOR_THE_PIXELS_9_7_26.md ***
 
-WHAT I PUBLISHED LAST ROUND: a settled fighting beat 497.5 -> 364 / 394 / 393.5, "the target is
-met, three times out of three."
-WHAT IS ACTUALLY TRUE: that was a fight NOBODY WAS PLAYING. A fight being played is
-497.5 -> 347 / 386.8 / 428.4. Median 386.8 against a median of 497.5 before. Still a big win.
-NOT the clean "under 400" I claimed: the median is under and the spread crosses it.
+THE NUMBER THAT REFRAMES THE ROW. Every named draw function in the fight, wrapped and clocked in
+a driven fight:
+  the whole frame callback       102.8 ms per beat
+    drawField                     97.7        fieldFloor  86.6   (fieldFloorPaint 39.5 on misses)
+    paintFireButton                3.1        drawActionLog 1.8   drawFloor 1.4   overlays 0.6
+A driven fight is 413 to 460 ms of a 500 ms beat. THE FIGHT'S OWN JAVASCRIPT IS 103 MS OF THAT.
+The coordinator's five techniques are all call-count techniques; two were already done before I
+arrived, one shipped (the floor cache), and there are only 103 ms of JavaScript left to attack.
 
-WHY THE QUIET FIGHT IS THE WRONG FIGHT. The floor cache is keyed on the camera, because it is
-BUILT through the camera and that is what makes it pixel-exact. So it holds exactly as long as
-the camera holds still. The cover camera eases 10% of the way to its target every frame, and
-that target is a function of how far the enemies are. Two things follow, both measured:
-  - THE EASE NEVER ARRIVES: 10% of what is left, every frame, needs about 335 frames to land
-    inside float64. Six seconds at 60 fps.
-  - THE TARGET KEEPS MOVING: enemies walk at you, you step, the frame re-fits, the ease restarts.
-Over 28 seconds of a driven fight, twice: 309 and 599 DISTINCT CAMERA ZOOMS, and the cache hits
-43% to 75% of frames instead of 100%.
+NEGATIVE RESULT 1: THE FACTION FLOOR IS NOT WORTH CACHING, and it nearly went the other way.
+drawFloor paints a full-canvas fill, ~60 strokes, a motif pass over ~700 cells and a FULL-CANVAS
+RADIAL GRADIENT, every frame, for 1.4 ms of JavaScript. Swapping it for a cached bitmap read
+457/455 as-is against 297/237 cached: a 200 ms win. IT WAS WRONG TWICE. It froze the floor's BEAT
+PULSE, which is a feature (the ground is the metronome), and it measured fights that had ENDED
+mid-window, which read about 85 ms a beat. Keeping the pulse live and reviving the fight:
+  as it is   454.4   479.0   497.1
+  cached     420.2   496.4   496.9      pair deltas -34.2, +17.4, -0.2   =  NO CHANGE
+Nobody should spend a round on it.
 
-THE REPLACEMENT NUMBERS. Driven fights, same 28-second protocol, Chromium's own TaskDuration so
-raster is counted and not just my JavaScript:
-  BEFORE, 3 samples   498.0  497.5  497.3     busy 99.6 / 99.5 / 99.5 %  (pinned on the ceiling)
-  AFTER,  7 samples   347  386.8  392.9  413.5  428.4  484.6  497.5      MEDIAN 413.5
-AND THREE SAMPLES WAS NOT ENOUGH EITHER. The spread is wide and it depends on EXACTLY ONE THING:
-  distinct zooms in 28 s   cache hit rate   the driven beat
-       333                    79.6%            392.9 ms
-       863                    43.7%            413.5 ms
-      1068                    12.4%            484.6 ms
-So the honest statement is a relationship, not a number: THE FLOOR CACHE IS WORTH BETWEEN NOTHING
-AND 150 MS OF EVERY BEAT, AND WHICH END YOU GET IS DECIDED BY WHETHER THE CAMERA HAPPENS TO BE
-STILL. Median win 84 ms. Worst sample: no win at all. It does take the fight off the ceiling --
-before, every sample was pinned at 99.5% of the main thread, which is no headroom at all.
+NEGATIVE RESULT 2: THE FIGHT ALREADY CAPS ITS OWN CANVAS AT 2x. Its size() reads
+Math.min(devicePixelRatio||1,2), which is why device pixel ratio 3 and 2 give the same canvas to
+the pixel: 780x1354. Somebody already did that and nobody should re-discover it.
 
-THE ROW'S TARGET IS NOT MET. 400 ms of 500, driven median 413.5. I said last round it was met.
-It is not, and it is not close enough to round.
+NEGATIVE RESULT 3: FILL RATE IS NOT THE WALL EITHER. At device pixel ratio 1 the canvas is a
+QUARTER of the area (264,030 px against 1,056,120) and the beat read 480.2 ms, SLOWER than both
+bigger canvases. Cutting pixels did not buy anything.
 
-HOW I MISSED IT, WHICH IS THE USEFUL PART. The instrument waited for the camera to settle before
-measuring, because round 3 had found the opening of a fight was a camera transient and I did not
-want to measure a transient. That much was right. What I never asked is whether the thing left
-after the transient was still a fight. It was not. It was an idle screen with a fight on it.
+*** AND THE MOST USEFUL THING THIS ROUND FOUND IS A WARNING. Those first two rows are the SAME
+canvas, the SAME build, the SAME protocol: 450.1 and 412.5 ms. THE DRIVEN FIGHT'S BEAT HAS A
+NOISE FLOOR OF ABOUT 40 MS BETWEEN IDENTICAL RUNS. So:
+  - any single-sample before-and-after on this fight is worthless; 40 ms is a coin toss
+  - it is exactly how round 3 published "the target is met, three times out of three"
+  - the faction-floor deltas (-34.2, +17.4, -0.2) sit INSIDE that floor, which is another way of
+    saying what they said: no effect
+  - the floor cache's median win of 84 ms is twice the noise floor, so THAT one is real, barely
+Anything measured on this surface needs alternating pairs inside ONE boot, at least three. ***
 
-SO THE FIX IS IN THE GATE, NOT IN MY MEMORY. A checker that can only see a quiet fight will
-flatter every change anybody ever makes to the fight. gates/bohemia_beat_profile.js now takes
-THREE fight windows and gates/beat_budget_gate.js prints all three, with the driven one named as
-the honest one: the opening (camera still gliding), NOBODY PLAYING (labelled as the ceiling), and
-BEING PLAYED (the controls driven, TaskDuration read, the headline). Two new checks stop that
-window quietly becoming another quiet one: the drive must FIND controls and tap them at least
-three times, and there must be more than five thousand profile samples. THE GATE CAUGHT ITSELF
-TWICE WHILE I BUILT IT, both silent failures: (1) the drive landed on a fight that had already
-ENDED, which has nothing to move the camera and reads as a beautifully cheap 354.5 ms, so the
-profiler restarts the encounter now; (2) the zoom counter was a requestAnimationFrame ticker
-inside the fight frame and twice reported ONE zoom on a fight that was plainly moving, because a
-loop in there dies with its document and is throttled when the frame is not painting. The zoom is
-polled from the driver now, where a dead poll is a failed call.
-AND ONE THING I COULD NOT ASSERT, which is its own finding: "the camera moved" as a pass/fail went
-RED on a legitimately still fight, because an encounter with one stationary enemy pins the
-auto-frame at its ceiling and holds even while somebody plays. A gate red on arrival gets switched
-off. So it rides ALONGSIDE the number every run instead: ">> THE CAMERA MOVED (24 distinct zooms),
-so the number above is a fight, not a ceiling" or ">> THE CAMERA WAS ALMOST STILL THIS RUN, SO THE
-NUMBER ABOVE IS A CEILING AND NOT THE GAME." A reader who cannot tell which kind of fight was
-measured is exactly how this lane published a ceiling as a result.
-BEAT BUDGET 21/0, green twice running: 466 ms (24 zooms) and 497 ms (30 zooms).
+A THIRD SILENT FAILURE FOUND AND FIXED IN THE SHIPPED GATE. The dead-fight contamination was not
+just an experiment problem: beat_budget_gate restarted the encounter once BEFORE the driven
+window and never checked again, so a fight dying halfway handed it a cheap number. It revives
+mid-window now and prints how many times it had to. That makes three silent failures in this one
+instrument across two rounds (the drive landing on a dead fight, the zoom counter dying with its
+document, the fight dying mid-window) AND EVERY ONE OF THEM MADE THE GAME LOOK FASTER, which is
+the direction a speed checker fails in when nobody is looking.
 
-[FOR THE COORDINATOR TO ROUTE, IT IS COMBAT'S NOT MINE] WHAT WOULD ACTUALLY CLOSE THIS ROW. The
-floor cache is exact because it is built through the camera, and nothing keyed on the camera can
-hold while the camera moves every frame. The camera moves every frame because a 10%-per-frame
-ease never arrives. A cover camera that SNAPPED when it was within a fraction of a pixel of its
-target would settle in a few frames instead of never, the cache would hold through the still
-parts of a fight, and the beat would fall further. That changes how the camera FEELS, so it is
-COMBAT's call, not the plumber's. I did not touch it. The numbers are in the record.
+WHAT IS LEFT ON THIS ROW, AND NONE OF IT IS CODE I MAY WRITE:
+  - THE CAMERA THAT NEVER SETTLES (COMBAT's, routed last round with numbers). It decides whether
+    the floor cache is worth 150 ms or nothing, and it is the only lever anybody has measured
+    that is worth more than the noise floor.
+  - WHAT THE FIGHT DRAWS AT ALL. The canvas is fully painted at least three times per frame
+    before a single character: a clear, the faction fill, the vignette, the floor blit. Cutting
+    that is changing the picture, which is DIRECTION and COMBAT, not plumbing.
+  - A REAL HANDSET. Same [PENDING Paolo] as [sixty fps].
 
-WHY [fight headroom] STAYS CLAIMED:
-  - the driven median is 413.5 against a target of 400. NOT MET.
-  - and the win is a lottery on the camera, which this lane may not change.
-  - still not measured on a real handset. Same [PENDING Paolo] as [sixty fps].
-  - the target of 400 was set on the desktop harness before anybody had a driven number at all.
+ROUND 10, WHICH STILL STANDS: I checked round 9's own number and it did not survive. A "settled"
+fight was a fight NOBODY WAS PLAYING. Driven: 497.5 -> median 413.5 across seven samples, against
+a target of 400. NOT MET. The win is a lottery on the camera: 333 zooms gives 392.9 ms, 1,068
+zooms gives 484.6 ms and no win at all.
 
 ROUND 9, WHICH STILL STANDS: THE FIGHT DRAWS ITS FLOOR ONCE. 2,501 draw calls a frame became 1,
-99.9% of them the same 24x24 street tile. PIXEL FOR PIXEL THE SAME PICTURE: zero channels differ
-out of 4,224,480, proved inside ONE frame because a fight does not repeat across boots (noise
-floor 44.74, measured round 8). Two mistakes caught on the way: copying the camera matrix instead
-of replaying the ops (29,610 channels off, because getTransform hands back a float32-rounded
-matrix while the context rasterises from the ops that built it), and an optimisation that cut
-JavaScript and made the BEAT worse. tools/bohemia_fight_floor_cache_patch.py,
-gates/fight_floor_cache_gate.js 17/0.
+pixel for pixel the same picture, zero channels different out of 4,224,480, proved inside ONE
+frame. tools/bohemia_fight_floor_cache_patch.py, gates/fight_floor_cache_gate.js 17/0.
 
-THE OTHER ROWS THIS LANE TOUCHED, settled last round on the coordinator's note:
-[hot path] SHIPPED. [sixty fps] / [slim build] / [suite runs] back to OPEN, each line carrying
-what is built and what is missing. [PENDING Paolo] on two of them: is a phone-shaped Chromium
-enough to call the speed job done, and are the 445 unreachable judge pages safe to stop
-publishing.
+THE OTHER ROWS THIS LANE TOUCHED, settled on the coordinator's note: [hot path] SHIPPED.
+[sixty fps] / [slim build] / [suite runs] back to OPEN, each line carrying what is built and what
+is missing. [PENDING Paolo] on two: is a phone-shaped Chromium enough to call the speed job done,
+and are the 445 unreachable judge pages safe to stop publishing.
 
-[FOR THE COORDINATOR] THREE GATES ARE RED ON MAIN AND NONE OF THEM IS MINE. ENGINE SYNC and
-BUNDLE both come from FACTIONS' [light owners] 8cc0c6a: BOH_POWERGRID has two bodies across six
-carriers, because that commit updated engine/bohemia_powergrid.js and the walked city (both
-canon) and left the graphics engine master on the old body. One line is on their row in
-VAMILY.md with the fix. The gate also reports BOH_POWERGRID as UNDECLARED in the sync canon file,
-so it is picking canon by file mtime, which is a coin toss. And COMBAT RUNS is red too: 9
-identical "Fetch API cannot load file:// ... URL scheme file is not supported" failures for the
-city tile files, on the tree with my change and on the tree without it. The gate opens the page
-over file:// while the page fetches siblings.
+[FOR THE COORDINATOR] THREE GATES WERE RED ON MAIN LAST ROUND AND NONE OF THEM WAS MINE: ENGINE
+SYNC and BUNDLE from FACTIONS' [light owners] 8cc0c6a (BOH_POWERGRID has two bodies across six
+carriers; one line is on their row with the fix), and COMBAT RUNS, which opens the page over
+file:// while the page fetches siblings.
 
-NEXT IN THIS LANE: [fight headroom] is blocked on two things that are not code I may write (the
-camera ease, and a real handset), so the next round either takes a ruling on those or moves to
-the next OPEN line, which is [nothing baked] DERIVED-FRESHNESS-GATE.
+NEXT IN THIS LANE: [fight headroom] is blocked on rulings, not code. Three new OPEN rows landed
+at the top of this lane since last round and the first one is [unregistered gates]
+SIX-GREEN-GATES-THE-SUITE-NEVER-RAN, which is this lane's own core job: a checker that never runs
+is not a checker. That is where I go the moment this row unblocks or the coordinator releases it.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO

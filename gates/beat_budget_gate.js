@@ -218,6 +218,9 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
     console.log('    the drive found ' + (D.found || 0) + ' controls and tapped ' +
                 (D.taps || 0) + ' times' + (D.tapped && D.tapped.length ? ' (' +
                 D.tapped.join(' ') + ')' : '') +
+                (D.revives ? ', revived the fight ' + D.revives + ' times mid-window (a fight ' +
+                 'that dies halfway reads about 85 ms a beat for the rest and the window ' +
+                 'collects a number it did not earn)' : '') +
                 (L.fightPlayed && L.fightPlayed.endState ? ', and the fight ended the window with ' +
                  L.fightPlayed.endState.live + ' alive in phase ' + L.fightPlayed.endState.phase : ''));
     ok('THE DRIVE FOUND THE CONTROLS AND TAPPED THEM. A drive that silently found nothing to ' +

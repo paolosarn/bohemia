@@ -323,7 +323,7 @@ async function run(opts) {
           for (let i = 0; i < 60; i++) { await sleep(200); st = await alive();
             if (st && !st.over && st.live && st.phase === 'cover') break; }
         }
-        const driveLog = { found: 0, taps: 0, restarted: !st || !st.live, tapped: [] };
+        const driveLog = { found: 0, taps: 0, revives: 0, restarted: !st || !st.live, tapped: [] };
         /* THE ZOOM IS COUNTED FROM OUT HERE, not from a loop inside the fight.
            The first cut armed a requestAnimationFrame ticker in the frame and it
            twice reported ONE distinct zoom on a fight that was plainly moving --
@@ -358,6 +358,19 @@ async function run(opts) {
             if (r && r.found > driveLog.found) driveLog.found = r.found;
             if (r && r.hit) { driveLog.taps++; if (driveLog.tapped.length < 12) driveLog.tapped.push(r.hit); }
             for (let k = 0; k < 8 && Date.now() < until; k++) { await sleep(150); await sampleZoom(); }
+            /* AND REVIVE MID-WINDOW, not just before it. Restarting the encounter
+               once at the top is not enough: a fight that dies halfway through
+               reads about 85 ms a beat for the rest of the window, and the window
+               collects a number it did not earn. Measured while A/B-ing the
+               faction floor, where exactly that contaminated three pairs. */
+            const s2 = await cf.evaluate(() => { try {
+              return { over: !!G.over, live: (G.e || []).filter(e => !e.dead).length };
+            } catch (e) { return null; } }).catch(() => null);
+            if (!s2 || s2.over || !s2.live) {
+              driveLog.revives = (driveLog.revives || 0) + 1;
+              await page.evaluate(() => { try { cityEncounterIn({ packageId: 1, label: 'driven beat' }); } catch (e) {} });
+              await sleep(400);
+            }
           }
         };
         const p0 = await PERF.cpu(cdp);
