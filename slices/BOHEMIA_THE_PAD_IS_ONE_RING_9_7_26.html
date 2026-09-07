@@ -1,0 +1,105 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA — ONE RING, CUT</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b0a09;color:#e7d8bb;font:13px/1.55 ui-monospace,monospace;
+       letter-spacing:.4px;padding:18px 14px 60px}
+  h1{font-size:15px;letter-spacing:3px;color:#b89a6a;margin-bottom:6px}
+  .lede{color:#8d8168;font-size:12px;max-width:700px;margin-bottom:5px}
+  .lede b{color:#e7d8bb}
+  .quote{color:#b89a6a;border-left:2px solid #3a3226;padding-left:10px;margin:10px 0 4px;
+         font-size:12px;max-width:700px}
+  .row{display:flex;gap:16px;overflow-x:auto;padding:22px 0 8px;align-items:flex-start}
+  .opt{flex:0 0 auto;width:230px}
+  .cap{font-size:11px;letter-spacing:2px;color:#b89a6a;margin-bottom:3px}
+  .sub{font-size:10px;color:#8d8168;margin-bottom:10px;min-height:62px}
+  .stage{width:230px;height:230px;border-radius:10px;border:1px solid #241f16;
+         background:linear-gradient(160deg,#574b39,#3a3229 55%,#665842);
+         display:flex;align-items:center;justify-content:center}
+  .note{font-size:10px;color:#8d8168;margin-top:9px;line-height:1.5}
+  footer{margin-top:26px;color:#6a5f4c;font-size:11px;max-width:740px;line-height:1.65}
+  footer b{color:#8d8168}
+</style></head><body>
+
+<h1>ONE RING, CUT — NOT EIGHT LOOSE CIRCLES</h1>
+<p class="quote">"I want the action button to be only surrounded by one other circle,
+and that circle is cut into how many parts of the directions that we need. I don't
+want them to be independent circles. Like a circle outside of a circle, maybe kind of
+looking like a key lock or something."</p>
+<p class="lede">Five ways to cut one ring. <b>Same action button in the middle every
+time, same one ring around it</b> — what changes is how it is cut, how thick it is,
+and how much it reads as a lock. All drawn at the size it would really be.</p>
+
+<div class="row" id="row"></div>
+
+<footer>
+<b>The middle circle is the action button and it never changes.</b> The ring is one
+piece with cuts in it, so there is nothing floating.<br>
+<b>Eight or four:</b> 1, 2, 4 and 5 give you eight directions. 3 gives you four and
+gets much bigger, easier segments for a thumb — that is the trade, and it is yours.<br>
+<b>The keyhole idea</b> is strongest in 4, where the cuts go all the way through and
+the outer edge is notched like a lock cylinder. 2 is the same idea done quietly.
+</footer>
+
+<script>
+/* FIVE CUTS OF ONE RING, drawn as real SVG so the shapes are exact rather than
+   suggested. Every option shares the same geometry: one action button in the middle,
+   one ring around it, and the ring cut into N parts. draft:true. */
+var S=190, C=S/2;
+function seg(cx,cy,r0,r1,a0,a1){
+  function pt(r,a){ var t=(a-90)*Math.PI/180; return [cx+r*Math.cos(t), cy+r*Math.sin(t)]; }
+  var p0=pt(r1,a0), p1=pt(r1,a1), p2=pt(r0,a1), p3=pt(r0,a0);
+  var big=(a1-a0)>180?1:0;
+  return 'M'+p0[0].toFixed(2)+','+p0[1].toFixed(2)
+    +'A'+r1+','+r1+' 0 '+big+' 1 '+p1[0].toFixed(2)+','+p1[1].toFixed(2)
+    +'L'+p2[0].toFixed(2)+','+p2[1].toFixed(2)
+    +'A'+r0+','+r0+' 0 '+big+' 0 '+p3[0].toFixed(2)+','+p3[1].toFixed(2)+'Z';
+}
+function arrow(cx,cy,r,a,size,fill){
+  var t=(a-90)*Math.PI/180, x=cx+r*Math.cos(t), y=cy+r*Math.sin(t);
+  return '<g transform="translate('+x.toFixed(2)+','+y.toFixed(2)+') rotate('+a+')">'
+    +'<path d="M0,'+(-size)+' L'+(size*0.72)+','+(size*0.66)+' L'+(-size*0.72)+','+(size*0.66)+' Z" fill="'+fill+'"/></g>';
+}
+
+var OPTS=[
+ { n:'1 · THE DIAL', cuts:8, gap:3.5, r0:52, r1:88, notch:false, hub:44,
+   d:'Eight even segments in one ring, hairline cuts. Closest to what is there now but nothing is floating any more.' },
+ { n:'2 · DEEP CUTS', cuts:8, gap:9, r0:50, r1:90, notch:false, hub:42,
+   d:'The same eight, cut wide and deep so the ring reads as a plate that was sawn into parts. Quiet version of the lock.' },
+ { n:'3 · FOUR WAYS', cuts:4, gap:6, r0:48, r1:90, notch:false, hub:44, rot:0,
+   d:'Four big segments instead of eight. Much easier to hit with a thumb; you lose the diagonals. The trade is yours.' },
+ { n:'4 · KEY LOCK', cuts:8, gap:7, r0:46, r1:92, notch:true, hub:40,
+   d:'Cuts go all the way through and the outer edge is notched like a lock cylinder. This is the one your words point at.' },
+ { n:'5 · TICKED', cuts:8, gap:1.2, r0:58, r1:86, notch:false, hub:46, thin:true,
+   d:'One unbroken ring with the directions marked by ticks rather than gaps. The lightest of the five.' }
+];
+
+var row=document.getElementById('row');
+OPTS.forEach(function(o){
+  var step=360/o.cuts, half=o.gap/2;
+  var g='';
+  for(var i=0;i<o.cuts;i++){
+    var a=i*step - step/2 + (o.cuts===4?0:0);
+    var a0=a+half, a1=a+step-half;
+    g+='<path d="'+seg(C,C,o.r0,o.r1,a0,a1)+'" fill="'+(o.thin?'#211c15':'#1d1912')
+      +'" stroke="#6b5c44" stroke-width="'+(o.thin?0.8:1.1)+'"/>';
+    g+=arrow(C,C,(o.r0+o.r1)/2, i*step, o.cuts===4?9:7.5, '#d8c49a');
+    if(o.notch){
+      var nb=i*step+step/2;
+      g+='<path d="'+seg(C,C,o.r1-4,o.r1+4,nb-2.4,nb+2.4)+'" fill="#0b0a09"/>';
+    }
+  }
+  /* the action button in the middle -- unchanged in every option */
+  g+='<circle cx="'+C+'" cy="'+C+'" r="'+o.hub+'" fill="#7d6f5a" stroke="#6b5c44" stroke-width="1.5"/>';
+  g+='<circle cx="'+C+'" cy="'+C+'" r="'+(o.hub-7)+'" fill="none" stroke="#0000002e" stroke-width="1"/>';
+
+  var d=document.createElement('div'); d.className='opt';
+  d.innerHTML='<div class="cap">'+o.n+'</div><div class="sub">'+o.d+'</div>'
+    +'<div class="stage"><svg width="'+S+'" height="'+S+'" viewBox="0 0 '+S+' '+S+'">'+g+'</svg></div>'
+    +'<div class="note">'+o.cuts+' directions &middot; ring '+(o.r1-o.r0)+' thick &middot; '
+    +'segment about '+Math.round(2*Math.PI*((o.r0+o.r1)/2)/o.cuts - o.gap)+' across</div>';
+  row.appendChild(d);
+});
+</script>
+</body></html>
