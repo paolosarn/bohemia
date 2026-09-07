@@ -14552,6 +14552,19 @@ THEN (cn) "look at this song bro" with a screenshot: FINAL FANTASY X OST, BESAID
 section 6 and onto SOUNDS [sound card]; nobody hunts for it any more. The brief off his
 picture: "would you live here?" -- a place you would want to live, after the world ended.
 Said plainly that this seat cannot listen to audio; the lane compares by ear and number.
+THEN (co) VAMILY, 15 commits: *** PEOPLE [make it right] SHIPPED -- a deed can be settled,
+the person wronged decides, no valley-wide absolution, no clearing your own name. *** PEOPLE
+[family events]: three things now write to the family tree (runDynasty/selectHeir/family.
+tree were 0 in the alpha, city and demo). THE DEFECT OF THE ROUND: PEOPLE asked the suite
+for its newest gate and got "0 of 542 GATES" -- not red, nothing -- then found SIX shipped
+jobs whose green gates the suite had never run once. That is one lane of eighteen. New law:
+laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md (suite red on zero,
+registration derived, every lane self-sweeps); routed PLUMBER [unregistered gates] second
+after headroom. COOK [combat ground] round 2: the cover you see is smaller than the cover
+you get -> COMBAT [cover honest]. EYES E12 school: real quiet has a floor, a dead city is
+only 5-7 dB quieter than a live one -> SOUNDS [quiet floor]. ECONOMY Q23 (the order is
+about earning, not surviving); topped ECONOMY up. ONE THING HE HAS NEVER OPENED: walk
+through a front door and fight in the room, RUN tab.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
