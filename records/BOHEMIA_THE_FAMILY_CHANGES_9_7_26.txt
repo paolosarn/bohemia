@@ -88,6 +88,18 @@ TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT RATHER THAN READING IT
    nothing. Only pressing it on the real surface found it. That is the entire
    argument for VERIFY ON THE REAL SURFACE being a law and not advice.
 
+3. AND I SHIPPED THREE EXPORTS NOTHING CALLED, in the same round that found six
+   unregistered gates. The organ reach sweep did not catch them because
+   bohemia_family was never registered in it -- the SAME "it never runs" defect,
+   one level down, in my own new module. Registered now, and the sweep reads
+   BohemiaFamily 10 fns, dead 0. What came out: a LADDER array the band rewrite
+   had orphaned, RELS (read fifteen times inside the module and never once from
+   outside, so the export was the dead part, exactly like bohemia_against's
+   rankOf), and bury() -- a writer for a later death that nothing called, parked
+   for a ruling that has not come. Keeping a finished thing with a published seam
+   and no caller is what this repo keeps burning on. It is four lines when he
+   answers.
+
 THE ONE RULE, TWICE, PROVEN. The played game cannot import a handoff bundle, so
 heirOf is unavoidably a second copy of the heir rule -- and two places holding
 one rule is the bug this repo keeps paying for. So it is not left to luck: the
@@ -120,10 +132,13 @@ PROVEN ON THE REAL DEMO, THROUGH THE CARD AND THE BUTTON A PLAYER PRESSES
    count is bounded by his canon. The spacing is the only part waiting on him.
 2. WHO YOU MARRY. Reserved to him by the coordinator 9/5 and untouched here: the
    partner is a stub carrying [PENDING Paolo] and the module refuses to pick one.
-3. WHETHER ANYBODY DIES OF OLD AGE. bury() exists and nothing calls it for age.
-   Across two folds RAY reaches 101 alive, which is a visible consequence of the
-   canon 30-year handoff and not something to paper over. WHEN a person dies of
-   age is a magnitude, so it waits; the mechanism is there for whoever rules it.
+3. WHETHER ANYBODY DIES OF OLD AGE. Across two folds RAY reaches 101 alive,
+   which is a visible consequence of the canon 30-year handoff and not something
+   to paper over. WHEN a person dies of age is a magnitude, so it waits on him.
+   THE TREE ALREADY CARRIES DEATHS -- seedTree marks the sibling the cold open
+   takes as alive:false, and that rides every save and shows on the card. What
+   this does NOT ship is a writer for a death that happens LATER, and that is
+   deliberate: see the third correction below.
 4. THE CHILDREN HAVE NO NAMES, on purpose. Naming your own child is his. The
    game says YOUR FIRSTBORN until he says otherwise.
 

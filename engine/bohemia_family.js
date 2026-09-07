@@ -81,12 +81,15 @@
   var RELS = { SELF: 'self', PARENT: 'parent', SIBLING: 'sibling',
                SPOUSE: 'spouse', CHILD: 'child', NEPHEW: 'sibling_child' };
 
-  /* THE AGE LADDER IS THE CAST'S OWN. FAMILY_CAST already writes age as one of
-     'adult' / 'teen' / 'child', so those three are not mine to rename. ELDER is
-     added because a thirty-year fold has to be able to put somebody past adult
-     and the cast never needed a word for it. The ladder is one-way: nobody gets
-     younger, which is the only ordering claim this makes. */
-  var LADDER = ['newborn', 'child', 'teen', 'adult', 'elder'];
+  /* THE AGE WORDS ARE THE CAST'S OWN. FAMILY_CAST already writes age as one of
+     'adult' / 'teen' / 'child', so those three are not mine to rename. NEWBORN
+     and ELDER are added because a birth and a thirty-year fold both need a word
+     the cast never needed. bandOf below is the ONLY thing that decides which
+     word a person carries.
+     *** THERE WAS A LADDER ARRAY HERE AND IT WAS DEAD. *** The first cut walked
+     an index along it; the band rewrite replaced that with real years, and the
+     array survived as an export nothing on earth called. An organ nobody calls
+     is dead code and gets no exemption for having been useful last week. */
 
   /* WHAT EACH WORD IS IN YEARS. These are the ordinary age bands, not a taste
      call: a child is under 13, a teen is 13 to 17, an adult is 18 to 64, an
@@ -252,15 +255,14 @@
     return n;
   }
 
-  /* A DEATH. The node stays; only `alive` moves. Nothing is ever deleted from a
-     tree, for the same reason a settled deed keeps its record. */
-  function bury(tree, id, why) {
-    var n = byId(tree, id);
-    if (!n || !n.alive) return null;
-    n.alive = false;
-    n.why = why || n.why;
-    return n;
-  }
+  /* *** A bury() WRITER STOOD HERE AND NOTHING CALLED IT, SO IT IS GONE. ***
+     GDD v4 47 says the tree carries deaths, and it does: seedTree marks the
+     sibling the cold open takes as alive:false, and that death rides every save
+     and shows on the card. What had no caller was a writer for a death that
+     happens LATER -- old age, mostly -- and WHEN a person dies of age is a
+     magnitude, so it waits on Paolo. Keeping the writer parked until he rules
+     is exactly the "finished thing with a published seam and no caller" this
+     repo has burned on before. It is four lines when he answers. */
 
   /* AN AGEING. Takes the years, never assumes them: the fold hands it the canon
      ~30 and nothing else in the game is entitled to make a number up. The dead
@@ -335,8 +337,13 @@
     return null;
   }
 
-  var API = { RELS: RELS, LADDER: LADDER, KIDS_MIN: KIDS_MIN, KIDS_MAX: KIDS_MAX,
-              seedTree: seedTree, marry: marry, bear: bear, bury: bury,
+  /* RELS IS DELIBERATELY NOT EXPORTED. It is read fifteen times inside this file
+     and never once from outside, and the same sweep that would call it dead is
+     the one that correctly called bohemia_against's rankOf dead when this lane
+     exported that. Callers ask kidsOf/spouseOf what they want; nobody outside
+     has business matching on a relation string. */
+  var API = { KIDS_MIN: KIDS_MIN, KIDS_MAX: KIDS_MAX,
+              seedTree: seedTree, marry: marry, bear: bear,
               agePeople: agePeople, heirOf: heirOf, howManyKids: howManyKids,
               byId: byId, kidsOf: kidsOf, spouseOf: spouseOf, say: say };
   if (HASREQ) module.exports = API; else root.BohemiaFamily = API;

@@ -109,6 +109,7 @@ const GLOBALS = {
      invisible to its own check. The first sweep with it in cost me an export --
      rankOf was a private helper wearing a public coat. */
   bohemia_against: 'BohemiaAgainst',
+  bohemia_family: 'BohemiaFamily',
 };
 
 const argv = process.argv.slice(2);
