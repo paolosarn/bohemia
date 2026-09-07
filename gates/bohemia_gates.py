@@ -4396,6 +4396,15 @@ GATES = [
     # the frozen 9/5 baseline (82/256 register) and the purple ban. The 280 pre-card
     # garments are judged as a population, never garment by garment — the pixel-craft
     # precedent, so the gate is honest on day one instead of red on history.
+    # REGISTERED 9/6 (DIRECTION, closing EYES' [eyes: gate missing] bounce-back).
+    # CLAUDE.md has advertised '| gate reference_check_gate' for the 9/4 compare law
+    # since the day it locked, and the gate never existed - the pillar law's exact
+    # failure mode, found by EYES' no-reader sweep. Named REF-IDs must resolve in the
+    # reference library index; cook tools born after the law must carry a REFERENCE
+    # CHECK; the 85 pre-law tools are a frozen ratchet that only shrinks.
+    ('REFERENCE CHECK', ['python3', 'gates/reference_check_gate.py'],
+     'a cook that names a reference names a real one; new cooks carry their check; '
+     'the grandfathered list only shrinks', False),
     ('STYLE CARD',     ['python3', 'gates/style_card_gate.py'],
      'the runway card is machine-readable and every NEW cook lands inside its palette; '
      'the register share only ratchets up; no purple, ever', False),
