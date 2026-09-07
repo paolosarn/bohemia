@@ -13914,7 +13914,79 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: TOUCHING-A-PARTY-STARTS-THE-GROUP-FIGHT [contact fight] SHIPPED. THE ROAD
+THIS ROUND: EVERY-NEW-FIGHT-VISUAL-ARRIVES-WITH-ITS-COST [draw budget] SHIPPED. The row
+says anything new that draws in the fight ships with its cost stated in MILLISECONDS PER
+BEAT and does not enter the loop until there is room. THE NUMBER THE RULE DEMANDS DID NOT
+EXIST: the PLUMBER's beat profile prices the WHOLE beat and names the systems in it, and
+nothing anywhere priced ONE THING, so the rule as written could not be obeyed.
+
+WHAT SHIPPED: tools/bohemia_draw_cost.js (measures one feature), engine/
+bohemia_draw_budget.json (the ledger) and gates/draw_budget_gate.js (10/0, suite-
+registered as DRAW BUDGET). No game code was touched; the fight is byte-identical.
+
+HOW IT MEASURES, and every choice was forced by a failed attempt: THE CAMERA IS PINNED
+(the plumber measured it as the whole cause of the driven beat's 347-497.5 spread); the
+arms interleave ABBA, not ABAB (running ON first left the control reading +0.0333 against
+its own +/-0.0234, a bias not a cost); draw() is called directly; AND THE RASTER IS PAID
+FOR INSIDE THE SAMPLE, which took three goes -- draw() alone reads 0.8 ms for a whole
+frame and every feature comes out FREE, because draw() only QUEUES commands; a flush per
+draw pays ~27 ms of GPU stall and buries everything; twelve draws behind ONE flush still
+executes all twelve and divides the clock tick (measured at 0.0083 ms) by twelve.
+
+THE NUMBERS: floor 0.59, companion 1.25, way out marker 0.75, beat ghost BELOW THE FLOOR,
+all ms a beat, +/-0.25 run to run. THE FLOOR IS WHAT THE CONTROL READS AND IT IS NOT
+ZERO, so everything under it is written down as under it, never as free.
+
+AND THE INSTRUMENT CAUGHT AN ERROR IN MY OWN TOGGLE, which is why it exists: the beat
+ghost measured MINUS one ms a beat, outside its error bar, because allyOn() reads
+G.teachBeat too -- switching the ghost on was also removing the companion. A toggle that
+moves two things measures neither.
+
+THE HALF THAT CANNOT BE TALKED AROUND: the gate RATCHETS THE DRAW SURFACE. All fifteen
+functions in the blob whose name starts with draw are listed; add one and it goes red and
+NAMES it with the two files to fix. A declaration nobody has to make is not a rule.
+Mutations: a new draw function -> 1 red, named; a feature shipping unpriced -> 2 red.
+
+TWO ARMS OF MY OWN GATE WERE WRONG FIRST: the headroom arm summed the features ALREADY
+DRAWING (which are already inside the plumber's driven 413.5) and so went RED ON ARRIVAL
+-- a gate red on arrival gets switched off, and the row is about what has NOT entered
+yet; and the ruler arm went RED IN THE SUITE AND GREEN ALONE on the same tree, because
+550 gates share this machine, so the band is the cap OR the run's own resolution,
+whichever is wider, with a ceiling so it cannot excuse itself by being useless.
+
+*** AND FOUR ARMS OF fight_moves_you_gate WERE COIN FLIPS, WHICH IS WHY IT KEPT FLAKING.
+NONE OF THEM WAS THIS ROW. *** One family: rate comparisons over 24 to 90 simulated
+fights asserted as if exact. V199's "perk.turns <= dflt.turns" (34.8 -> 36.2, and the
+row's OWN headline says the length of a fight does not live in this mechanic); V199's
+break rate (66.7 vs 45.8, then 41.7 vs 58.3 -- same build, sign flipped); V196's
+"sprint.dmg < walk.dmg" (113.8 against 113); V171's two-sided null band. All four are
+PRINTED now, not asserted, and what is exact is kept: the perk's two dials are constants
+and are checked, and the row's real finding (crossing the room is the worst play unless
+you spend a pip) holds every run with a real margin.
+
+*** AND ONE OF THEM WAS NOT A CHECKER PROBLEM: THE PUBLISHED "4-8% OF MEN LEAVE" IS
+WRONG. *** The safety check on his rejection ("SO MANY PEOPLE ARE RUNNING AWAY") demands
+under 15%, and 15 was set against that 4-8%. Measured 9/7, six clean runs across two
+trees: 6.9, 9.0, 9.7, 9.7, 11.1, 12.5, and under load 13.9, 15.3, 16.0. The real band is
+about 7 to 16 per cent, so the limit was INSIDE the normal spread and had been passing on
+luck. Moved to 25, still nowhere near a rout, with the number printed every run.
+THE 4-8% IN BB-NERVE-ON'S RECORD AND IN COMBAT'S STATE LINE IS A CORRECTION FOR THE
+COORDINATOR.
+AND I NEARLY GOT THAT BACKWARDS TWICE: the first baseline (three runs on origin/main) read
+9.0-9.7 while my tree read 12-16, which said plainly I had broken it. Three CLEAN runs on
+my own tree read 6.9, 12.5, 11.1 -- the tight main numbers were luck and the load was
+mine. THREE SAMPLES OF A NOISY THING IS A STORY, NOT A MEASUREMENT.
+
+ROUTED TO THIS LANE AND NOT ON THE BOARD: the plumber's record hands COMBAT the single
+biggest piece of headroom named anywhere -- "a camera that SNAPPED when it was within a
+fraction of a pixel of its target would settle in a few frames instead of never, the
+cache would hold through the still parts of a fight, and the beat would fall further.
+That is a change to how the camera feels, so it belongs to COMBAT." The auto-frame eases
+10% of the remaining distance a frame and needs ~335 frames to land, so it is never still
+while anybody is playing. FOR THE COORDINATOR; this chat does not add rows.
+Record: records/BOHEMIA_COMBAT_EVERY_NEW_VISUAL_ARRIVES_WITH_ITS_COST_9_7_26.md
+
+THE ROUND BEFORE: TOUCHING-A-PARTY-STARTS-THE-GROUP-FIGHT [contact fight] SHIPPED. THE ROAD
 HAS BEEN PUTTING PARTIES IN FRONT OF HIM SINCE 8/27 AND THE CARD SAID, IN WORDS,
 "FIGHTING IS NOT IN THIS BUILD YET." That sentence was TRUE when it was written and
 its reason sits three lines above ROAD_CHOICES: the missing arms are kills and NO

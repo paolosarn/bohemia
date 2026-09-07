@@ -2067,6 +2067,16 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('DRAW BUDGET', ['node', 'gates/draw_budget_gate.js'],
+     'EVERY NEW FIGHT VISUAL ARRIVES WITH ITS COST (VAMILY [draw budget], COMBAT 9/7). The row: the fight loop is '
+     'FULL, so anything new that draws in it is designed and built but SHIPS WITH ITS COST STATED IN MILLISECONDS '
+     'PER BEAT, and does not enter the loop until there is room. There was no way to get that number: the plumber\'s '
+     'beat profile prices the WHOLE beat, nothing anywhere priced one thing. tools/bohemia_draw_cost.js does, by '
+     'pinning the camera the plumber measured as the entire cause of the beat\'s 150 ms spread, interleaving the '
+     'feature on and off in ABBA groups and calling the fight\'s own draw(). This holds the ledger, re-runs the '
+     'ruler live with the same setting in both arms, and RATCHETS THE DRAW SURFACE -- add a function whose name '
+     'starts with draw and it goes red until the name is listed and a priced row exists, because a declaration '
+     'nobody has to make is not a rule', True),
     ('ONE ENGINE', ['node', 'gates/one_engine_gate.js'],
      'ONE ENGINE LAW (Paolo 7/3/26, crunch hunt): "the studio and combat never play at once; two unsynced drum '
      'machines FLAM INTO MUSH." IT WAS WRITTEN DOWN, IT WAS WIRED, AND NOTHING EVER CHECKED IT -- so when the shell '
