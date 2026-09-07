@@ -1,113 +1,88 @@
-EYES AND EARS (eyes-5vql33): 9/6 (l) LATEST -- *** E11 [pixels only] SHIPPED WITH BOTH ROUNDS.
-THE SWEEP FOUND A LAW THAT EVERY CHAT BELIEVES IS CHECKED AND IS NOT: reference_check_gate is
-promised by CLAUDE.md's own law index for COMPARE EVERY PIECE OF ART TO THE WORLD (9/4, LOCKED)
-and it does not exist, so DIRECTION, COOK and ANIMATION are all running a standing duty with no
-checker behind it. And I caught four bugs in my own instrument before printing a number, one of
-which would have announced that a table shipped this round did not exist. ***
+EYES AND EARS (eyes-5vql33): 9/6 (m) LATEST -- *** E12 [silence standing] ROUND ONE OF TWO IS
+DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's premise wrong with a real number
+I did not expect: WHEN THE WORLD'S TRAFFIC STOPPED IN 2020, CITIES GOT ONLY ABOUT FIVE TO SEVEN
+DECIBELS QUIETER, and heavy-traffic streets dropped just 3 to 5 dB despite a 52% fall in traffic.
+A dead city is not a silent city. *** E12 stays CLAIMED, round two is the measurement.
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
-WHAT ROUND ONE (SCHOOL) CHANGED ABOUT HOW I MEASURED, WHICH IS THE POINT OF THE TWO-ROUND LAW:
-School proved the job's own title wrong. It is called A-RULING-THAT-LIVES-ONLY-AS-PIXELS and it
-treats "it lives as pixels" as the defect. False: encoding data in a picture is normal practice,
-and Aseprite and Lospec both treat a PNG as a real palette file next to .gpl and .pal.
-  THE CORRECTED RULE: THE DEFECT IS NOT THE CONTAINER, IT IS NO READER.
-  That forced two design changes and both flipped a result. It made the reader set something I
-  had to measure LIVE in a browser instead of grepping, because a grep cannot tell a loaded file
-  from a file that merely exists, and that difference is the whole job. And it forced a separate
-  verdict word for a data file that exists and nothing reads (ORPHAN), without which the sweep
-  would have passed the repo just by finding files.
-  MEASURED: the shipped game fetches SEVENTEEN files. Everything else in this repo, all 496 MB,
-  is unreachable at runtime.
+THE COUNTER-FINDING, AND IT CHANGES WHAT ROUND TWO MEASURES:
+The job says the valley going quiet when you stand still is the defect, and that the fix is to
+call the bed that is already cooked. Three things say that is the wrong shape of fix.
+  1. REAL QUIET HAS A FLOOR. Wilderness sits at 30 to 40 dBA and seldom drops below 30 to 35. A
+     quiet suburb is 45 to 50, a city 60 to 70, and night runs about 7 dB under day. There is no
+     such thing as a silent outdoor place. Our valley at night should sit near the wilderness
+     floor and a working district by day near the suburb one, which is a FIFTEEN DECIBEL SPREAD
+     the game does not have at all today.
+  2. A DEAD CITY IS ONLY 5 TO 7 dB DOWN. Measured in 2020, not guessed: Montreal 6 to 7, the
+     Ruhr 5.1, European studies about 5, and heavy-traffic areas only 3 to 5 despite half the
+     traffic gone. What changed was the CHARACTER, not the level: Parisians suddenly heard river
+     birds. So the design instruction is not "make it quiet", it is TAKE THE MACHINES OUT OF THE
+     KEYNOTE AND LET WHAT WAS ALWAYS UNDERNEATH COME UP. Wind on concrete, a loose sign, a dog
+     four blocks off, birds that were always there and always masked. Cheap, and more true than a
+     volume slider. It also explains why our silence reads as broken rather than post-apocalyptic:
+     real collapse does not remove a soundscape, it re-ranks it.
+  3. CONSTANT AMBIENCE IS A DOCUMENTED FAILURE WITH A CLOCK ON IT. Constant volume past 30 to 40
+     minutes produces listening fatigue, and a bed filling the whole frequency range MASKS the
+     sounds a player must hear. This is a 100 hour game, about 150 times that clock. So the gap
+     list may never say "turn the bed on and leave it on".
+  THE CORRECTED QUESTION, three questions with three different fixes, and only the first one is
+  "call the bed": (1) is there a floor at all, (2) does anything in the code ever DECIDE to be
+  quiet, (3) can you tell the three places apart with your eyes shut.
 
-THE FIVE FINDINGS
-  1. reference_check_gate DOES NOT EXIST. CLAUDE.md's master law index carries
-     "| gate reference_check_gate" for the 9/4 compare law. There is no such file, .js or .py,
-     and the suite has never run one. DIRECTION's own SHIPPED line from 9/5 says the reference
-     index was built "so reference_check_gate can resolve a REFERENCE CHECK against it" -- an
-     index built for a reader that is not there. This is WORSE than a law with no gate: that one
-     is honestly unenforced, this one is advertised as checked in the file every chat reads first.
-     Three lanes carry it as a standing duty. ROUTED: one [eyes: gate missing] line into
-     DIRECTION, the single bounce-back this lane is allowed. I did not build it; this lane never
-     writes another lane's code.
-  2. THE FACTION COLOURS ARE LIVE NOW, AND THE BOARD DOES NOT KNOW. engine/BOHEMIA_faction_colours.json
-     exists and its values are inside the shipped bundle: Mob #572f2a, Cartel #434042, Colorful
-     #60a136, all seven I probed. COOK shipped it 9/6. So the case the job was created around is
-     closed. BUT the value is draft:true and was MEASURED OFF THE WARDROBE, not ruled by him, which
-     is school's "context gap": the value transferred and the intent did not. The honest verdict is
-     that what is missing now is a thumb, not a file.
-  3. HIS SOUND APPROVALS ARE ALL THERE. A clean result, reported on purpose. My first run flagged
-     five approved-sound banks as unread, which would have been the loudest thing I said all round.
-     I checked it pick by pick first: the newest bank holds 185 approvals across 65 sounds and misses
-     ZERO of the 132 in the older ones. Superseded snapshots, not lost rulings. A sweep that only
-     ever reports scary things is not a trustworthy sweep.
-  4. 29 ENGINE MODULES HAVE NO READER, biggest 281 KB, whose own header says it is nineteen modules
-     stitched into one for handoff. That is dead weight, not a stranded ruling. THE PLUMBER'S, and I
-     am not routing it as a defect against anyone's art.
-  5. 285 OF 428 LAWS ARE NOT NAMED BY ANY CHECKER, and I am calling that a CEILING, not a count. My
-     check asks whether a gate contains the law's filename, and a gate can enforce a law without
-     citing it. I would rather report a smaller true thing than a bigger shaky one.
+SECOND COUNTER-FINDING: MEASURING A LEVEL IS THE WRONG INSTRUMENT FOR THIS JOB. A silent valley
+and a valley with a properly quiet bed differ by a handful of decibels and both read as "quiet".
+What separates them is EVENT RATE and SPECTRAL OCCUPANCY. A level meter alone would have
+reported "quiet, quiet, quiet" across all three places and taught us nothing. Round two measures
+four things and level is only one.
 
-MY OWN INSTRUMENT WAS WRONG FOUR TIMES BEFORE IT WAS RIGHT, ALL CAUGHT BEFORE PUBLISHING:
-  v1 keyed on the build banner and reported 65 orphans; bohemia_coalition.js shipped a round ago and
-     was on the list, because its real banner has "(COALITION, 9/6)" between the name and the ====.
-  v2 fixed the regex, reported 30, still false: bohemia_sfx.js was on it while the game plainly plays
-     sounds, because the alpha inlines that one under a totally different marker. Two conventions and
-     a third would have broken it again. v3 ignores markers and matches the CODE: eight long lines out
-     of the module, three verbatim hits in the shipped bundle is LIVE. A convention can change, a body
-     cannot.
-  Bug 3: my reader globs were not recursive, so three banks read as orphans while a tool in a
-     subfolder was opening them by name the whole time.
-  Bug 4: the named-case check globbed only .js, missed the colours .json, and printed "STRANDED. No
-     colour carrier file exists at all" about a table that had shipped that same round. Then, once
-     found, it asked for the FILENAME in the bundle and got False, because this repo ships data by
-     inlining it. Both halves fixed.
-  Three of those four were caught by one habit: check a result that sounds dramatic before writing it.
+THE THING NOBODY IN THIS PROJECT HAS EVER NAMED: the SOUNDMARK. Schafer's 1969 soundscape work
+splits any place into KEYNOTE (the background everything is heard against), SIGNAL (foreground,
+listened to on purpose) and SOUNDMARK (a sound unique to ONE place, like a landmark). We have
+signals: footsteps, barks, the fight. We have no keynote, which is the silence. And we have
+never once discussed a soundmark, which is how a blind test tells the Mob's blocks from the
+Cartel's, in a game whose whole world design is that every block has a name on it.
 
-THE MACHINE, AND IT RE-RUNS ON EVERY SHIP
-  tools/bohemia_eyes_bundle.js opens the alpha and the demo in real Chromium at iPhone size, taps the
-  splash the way a finger taps it, and records every file the browser actually fetched. That is the
-  reader set. tools/bohemia_eyes_no_reader.py then runs four censuses against it (75 seconds).
-  gates/no_reader_ratchet_gate.js is registered in the suite as NO READER and is near-instant: it does
-  not re-count, it holds the ratchet, and it goes RED if the saved result no longer describes the
-  bundle on disk, because a green light for a game that no longer exists is worse than no gate.
-  RATCHETED, may only go down: gates_broken 1, banks_orphan 1.
-  REPORTED, never ratcheted: engine_orphan 29, laws_ungated 285. Both grow from honest work in
-  progress, and a checker that cries wolf gets muted in a week. Two numbers that mean something beat
-  four that get ignored.
-  RULE ZERO CONTROLS, and the sweep refuses to print a number unless all four pass: a planted module
-  nothing loads must read ORPHAN, a planted module made of shipped code must read LIVE, a planted law
-  no gate names must read UNGATED, and a promised gate that does not exist must read PROMISED BUT
-  MISSING. The gate has its own two and refuses to report if either fails.
-  BLIND SPOTS, written down instead of counted clean: a value assembled at runtime is invisible to any
-  text scan; a module reached only on a path the walk never takes reads as unfetched; and whether a
-  value that IS read still matches what he ruled is Q3, specified and NOT built, because a drift
-  checker that is only sometimes right is worse than none.
+A BONUS THAT COSTS NOBODY ANYTHING: tempo-locked ambient scattering is a standard documented mode
+(FMOD's scatter instrument can trigger on musical tempo, not only clock time), so rule 7's 120 BPM
+is not a constraint on ambience. And its spawn RATE is automatable by a game parameter, which
+means WORLD's THE-VALLEY-RUNS-OUT can drive the ambient event rate down as the valley empties, so
+the world gets quieter as it dies with no new system written by anybody. That goes in the gap list.
 
-STILL OPEN IN MY QUEUE: E12 [silence standing], then E13 [half size check]. Both take two rounds now,
-school first. E9 the standing duty runs every round.
+ROUND TWO'S SPEC, WRITTEN NOT BUILT: ten seconds standing genuinely still, on the real surface, in
+three places (a street in the opening district, an interior, open valley). Four measurements:
+FLOOR (K-weighted loudness and true peak, the stack E4 already uses), EVENT RATE (how many
+distinct sound calls fired), SPECTRUM (occupied or a hole), DIFFERENCE (do the three differ at
+all). RULE ZERO matters more here than on any job in my queue: a ten-second capture reporting
+ZERO events is exactly what a broken harness reports, and this lane has already printed a
+confident zero off counters nobody incremented. So round two fires one known sound by hand at the
+end of every capture and refuses to report silence unless that control moved the counters. Wrap
+by BARE NAME, never through window; a top-level const is a binding, not a window property.
+
+STILL OPEN IN MY QUEUE AFTER THIS: E13 [half size check], E14 [late beat], E15 [machine judges],
+E16 [never opened]. All two rounds, school first. E9 the standing duty runs every round.
 
 [PENDING Paolo] NOTHING. I need nothing from him.
 
 FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. WORLD's STATE line still ends "there is no faction colour table the walked surface can reach".
-     There is one and the walked surface reads it, measured this round. That sentence will send the
-     next chat down a road that closed.
-  2. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no audio
-     measurement, no glitch checklist." Twelve instruments and two suite gates exist now.
-  3. Board rewrites keep reverting my status words; E10 came back as CLAIMED after being set SHIPPED.
+  1. WORLD's STATE line still ends "there is no faction colour table the walked surface can
+     reach". There is one and the walked surface reads it, measured last round.
+  2. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Twelve instruments and two suite gates exist now.
+  3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
+     the [eyes: gate missing] line is open in DIRECTION.
   4. The lane's own unclaimed gap: the MIX METER (E5 gap 10). Nothing has ever metered the game's
-     output while music, footsteps and a bark play together.
+     output while music, footsteps and a bark play together. E12 round two is the closest thing
+     to it and is not a substitute.
 
 NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
 
-GATES: NO READER 7/0 (new, registered), handoff 7/0, attempt 15/0. The sweep's own selftest 4/4.
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates from last
+round still green: NO READER 7/0, handoff 7/0, attempt 15/0.
 
-PROOF: records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md and
-records/BOHEMIA_EYES_E11_ROUND_2_THE_NO_READER_SWEEP_9_6_26.md; tools/bohemia_eyes_bundle.js,
-tools/bohemia_eyes_no_reader.py; gates/no_reader_ratchet_gate.js registered in gates/bohemia_gates.py
-as NO READER; data records/BOHEMIA_EYES_NO_READER_9_6_26.json, baseline
-records/BOHEMIA_EYES_NO_READER_BASELINE_9_6_26.json, bundle records/BOHEMIA_EYES_BUNDLE_9_6_26.json;
-VAMILY lane 17 E11 SHIPPED with both rounds, one [eyes: gate missing] line into DIRECTION.
+PROOF: records/BOHEMIA_EYES_E12_ROUND_1_SCHOOL_WHAT_A_QUIET_PLACE_SOUNDS_LIKE_9_6_26.md (264
+lines, 24 sources); banks/eyes/BOHEMIA_EYES_E12_SILENCE_SPEC_9_6_26.json (draft:true); VAMILY
+lane 17 E12 CLAIMED ROUND 1 OF 2.
+
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE

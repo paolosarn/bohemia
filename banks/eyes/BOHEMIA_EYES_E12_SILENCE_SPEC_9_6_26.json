@@ -1,0 +1,68 @@
+{
+ "bank": "EYES AND EARS -- E12 [silence standing] -- THE STANDING-STILL MEASUREMENT, SPEC ONLY",
+ "date": "9/6/26",
+ "round": "1 of 2 (SCHOOL). Nothing here has been built or run. No capture was taken.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. This is what round two builds. School's correction: the job says the valley going quiet is the defect, and that is not established. Real quiet has a FLOOR near 30 dBA, a dead city measured only 5 to 7 dB below a live one in 2020, and constant ambience is a documented failure with a 30-40 minute fatigue clock inside a 100 hour game. So the fix is not 'fill the silence', it is three separate questions with three separate fixes.",
+ "school_record": "records/BOHEMIA_EYES_E12_ROUND_1_SCHOOL_WHAT_A_QUIET_PLACE_SOUNDS_LIKE_9_6_26.md",
+ "the_vocabulary": [
+  {"word": "KEYNOTE", "draft": true, "means": "the prevailing background every other sound is heard against", "our_defect_if_missing": "the place has no floor. this is the silence the job names."},
+  {"word": "SIGNAL", "draft": true, "means": "a foreground sound listened to on purpose, carrying information", "our_state": "we have these: footsteps, barks, the fight"},
+  {"word": "SOUNDMARK", "draft": true, "means": "a sound unique to one place, like a landmark", "our_defect_if_missing": "you cannot tell one district from another with your eyes shut. NOBODY IN THIS PROJECT HAS EVER NAMED THIS ONE."}
+ ],
+ "three_questions_in_order": [
+  {"q": 1, "draft": true, "ask": "is there a floor at all", "fix_if_no": "call the bed (E5 gap 1: the work is done, the call is missing)"},
+  {"q": 2, "draft": true, "ask": "does anything in the code ever DECIDE to be quiet", "why": "a chosen silence and a missing call sound identical from outside; the only honest separator is mechanical", "fix_if_no": "the quiet is an absence, not a choice, and can be reported as one with no opinion in it"},
+  {"q": 3, "draft": true, "ask": "do the three places differ from each other at all", "fix_if_no": "no soundmark; a separate defect from silence and a separate job"}
+ ],
+ "four_measurements": [
+  {"n": 1, "draft": true, "measure": "FLOOR", "how": "K-weighted loudness (BS.1770, the stack E4 already uses) plus true peak, over ten seconds"},
+  {"n": 2, "draft": true, "measure": "EVENT RATE", "how": "count distinct sound calls fired in the ten seconds", "why": "THIS is the number that separates the cases; level barely does"},
+  {"n": 3, "draft": true, "measure": "SPECTRUM", "how": "is the frequency range occupied or is it a hole", "why": "a bed that is only low rumble is not a floor"},
+  {"n": 4, "draft": true, "measure": "DIFFERENCE", "how": "compare the three captures to each other", "why": "the soundmark question"}
+ ],
+ "where": [
+  {"draft": true, "place": "a street in the opening district"},
+  {"draft": true, "place": "an interior"},
+  {"draft": true, "place": "open valley away from any town"}
+ ],
+ "real_world_floor_dBA": {
+  "draft": true,
+  "wilderness_day_night_average": "30-40",
+  "wilderness_seldom_below": "30-35",
+  "quiet_suburb": "45-50",
+  "metropolitan_urban": "60-70",
+  "night_below_day_same_city": "about 7",
+  "note": "a 15 dB spread between our valley at night and a working district by day is the target; the game has no spread at all today"
+ },
+ "the_2020_number": {
+  "draft": true,
+  "montreal": "6-7 dB(A) down",
+  "ruhr": "5.1 dB down",
+  "european_studies_broadly": "about 5 dB",
+  "heavy_traffic_areas": "only 3-5 dBA down despite a 52% fall in traffic",
+  "what_actually_changed": "the CHARACTER, not the level: Parisians suddenly heard river birds",
+  "design_instruction": "take the machines out of the keynote and let what was always underneath come up"
+ },
+ "one_twenty_bpm": {
+  "draft": true,
+  "finding": "tempo-locked ambient scattering is a standard documented mode (FMOD scatter can trigger on musical tempo, not only on clock time), so rule 7 is not a constraint on ambience",
+  "bonus": "the spawn RATE is automatable by a game parameter, so THE VALLEY RUNS OUT can drive the ambient event rate down as the valley empties, with no new system written"
+ },
+ "rule_zero": {
+  "draft": true,
+  "why_this_job_is_the_most_dangerous_one_for_it": "a ten-second capture reporting ZERO events is exactly what a broken harness reports, and this lane has already printed a confident zero from counters nobody incremented",
+  "control": "fire one known sound by hand at the end of every capture; refuse to report silence unless that control moved the counters",
+  "wrap_rule": "wrap the sound entry points BY BARE NAME, never through window. a top-level const is a global binding and not a window property, and reading window.MUS once made this lane report 'no AudioContext' through an entire walk."
+ },
+ "blind_spots_to_declare": [
+  "standing still may not be the only quiet state (a menu, a loading beat, an interior with the door shut)",
+  "a bed may be gated on a district the walk never reaches",
+  "headphones and a phone speaker are different instruments; this measures the signal, not the speaker"
+ ],
+ "what_this_lane_may_not_do": [
+  "write the bed, call the bed, or touch any game code",
+  "decide what the valley should sound like (that is SOUNDS, and the taste is DIRECTION's and his)",
+  "add a job to another lane's queue beyond the one [eyes: two words] bounce-back line"
+ ]
+}
