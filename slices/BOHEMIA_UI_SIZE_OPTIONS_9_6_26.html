@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA — HOW BIG IS THE UI</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b0a09;color:#e7d8bb;font:13px/1.5 ui-monospace,monospace;
+       letter-spacing:.5px;padding:18px 14px 60px}
+  h1{font-size:15px;letter-spacing:3px;color:#b89a6a;margin-bottom:6px}
+  .lede{color:#8d8168;font-size:12px;max-width:640px;margin-bottom:4px}
+  .lede b{color:#e7d8bb}
+  .row{display:flex;gap:14px;overflow-x:auto;padding:18px 0 8px;align-items:flex-start}
+  .opt{flex:0 0 auto;width:250px}
+  .cap{font-size:11px;letter-spacing:2px;color:#b89a6a;margin-bottom:2px}
+  .sub{font-size:10px;color:#8d8168;margin-bottom:8px;min-height:44px}
+  .glass{position:relative;width:250px;height:430px;border:1px solid #2a2418;
+         border-radius:12px;overflow:hidden;
+         background:
+           repeating-linear-gradient(90deg,#3a3128 0 2px,transparent 2px 9px),
+           linear-gradient(160deg,#5a4d3a,#3b332a 55%,#6b5c44)}
+  .glass::after{content:"";position:absolute;inset:0;
+         background:linear-gradient(#0000 55%,#0b0a0955)}
+  .bar{position:absolute;left:0;right:0;top:0;display:flex;gap:4px;
+       padding:4px 5px;background:#0b0a09cc;border-bottom:1px solid #2a2418}
+  .chip{background:#141210;border:1px solid #2a2418;color:#b89a6a;
+        border-radius:5px;display:inline-flex;align-items:center;
+        justify-content:center;white-space:nowrap}
+  .chip.hot{background:#d8b45a;color:#191308;border-color:#d8b45a}
+  .col{position:absolute;left:5px;display:flex;flex-direction:column}
+  .pad{position:absolute;border:1px solid #6b5c44aa;border-radius:12px;
+       background:#0b0a0955}
+  .key{position:absolute;background:#191512;border:1px solid #3a3128;border-radius:50%}
+  .arrow{position:absolute;left:50%;top:50%;width:0;height:0;
+         border-left:.28em solid transparent;border-right:.28em solid transparent;
+         border-bottom:.62em solid #d8c49a;transform:translate(-50%,-57%)}
+  .face{position:absolute;border-radius:50%;background:#7d6f5aa8;border:1px solid #6b5c44}
+  .note{font-size:10px;color:#8d8168;margin-top:8px;line-height:1.45}
+  .num{color:#d8c49a}
+  .warn{color:#e8a04a}
+  footer{margin-top:26px;color:#6a5f4c;font-size:11px;max-width:700px;line-height:1.6}
+</style></head><body>
+
+<h1>HOW BIG IS THE UI ON THE RUN</h1>
+<p class="lede">You said <b>make all the UI 50% smaller</b>. Half is option C. Here is
+half next to what is there now and next to three other amounts, because the thing half
+costs is the size of the thing you press, and it is easier to pick when you can see
+them beside each other. <b>Every one of these is a real size, drawn to scale.</b></p>
+<p class="lede">The number under each one is how big the buttons are to your thumb.
+The phone standard is <span class="num">44</span>. Anything under that you have to aim at.</p>
+
+<div class="row" id="row"></div>
+
+<footer>
+Drawn at 250px wide where the real phone is 390, so everything here is 64% of life
+size — but all five are shrunk by the same amount, so the comparison is true.<br>
+Half is built and measured. It is not in the game yet because shrinking a button
+shrinks what it will answer to, and on a real tap test the halved build answered
+2 presses out of 11 where the one you are playing answers 7. That is the thing to
+solve, and which of these you want decides how hard it is.
+</footer>
+
+<script>
+/* FIVE REAL SIZES, ONE SHEET. Every chip, key and label below is generated from ONE
+   scale number, so nothing here is drawn by hand and nothing can flatter itself. The
+   sizes are the ones actually measured on the run: chips 79x44 with 10px type, the
+   pad 180 across, the top bar 44 tall. draft:true on every word. */
+var REAL = { chipW:79, chipH:44, type:10, pad:180, key:42, gap:6, colGap:6 };
+var SHEET = 250/390;                       /* the sheet is 250 wide, the phone is 390 */
+
+var OPTS = [
+  { k:'A', name:'AS IT IS NOW',   s:1.00, why:'What you are playing. Everything clears the thumb with room to spare.' },
+  { k:'B', name:'A QUARTER OFF',  s:0.75, why:'Noticeably lighter, and every button still clears 44 on its own.' },
+  { k:'C', name:'HALF — WHAT YOU ASKED FOR', s:0.50, why:'Your order. The screen opens right up. Buttons drop to 22 tall, so the reach has to be added back underneath them.' },
+  { k:'D', name:'HALF, WIDER APART', s:0.50, sp:1.9, why:'The same half, but the stack is spread so a 44 thumb fits between them. Half the size, none of the crowding.' },
+  { k:'E', name:'A THIRD OF NOW', s:0.33, why:'Past half. The interface almost disappears and the world is nearly all of the screen. Buttons at 15.' }
+];
+
+function px(n){ return (n*SHEET).toFixed(1)+'px'; }
+
+var row=document.getElementById('row');
+OPTS.forEach(function(o){
+  var s=o.s, sp=o.sp||1;
+  var chipW=REAL.chipW*s, chipH=REAL.chipH*s, type=REAL.type*s;
+  var pad=REAL.pad*s, key=REAL.key*s;
+  var stride=(chipH+REAL.colGap*s)*sp;
+
+  var d=document.createElement('div'); d.className='opt';
+  var h='<div class="cap">'+o.k+' &nbsp;'+o.name+'</div><div class="sub">'+o.why+'</div>'
+      + '<div class="glass">';
+
+  /* the top row */
+  h+='<div class="bar">';
+  ['MUSIC','SAVE','PHONE','OUTFIT'].forEach(function(t,i){
+    var w = (t==='SAVE') ? chipH : chipW;
+    h+='<div class="chip'+(t==='PHONE'?' hot':'')+'" style="width:'+px(w)+';height:'+px(chipH)
+      +';font-size:'+px(type)+'">'+t+'</div>';
+  });
+  h+='</div>';
+
+  /* the left column */
+  h+='<div class="col" style="top:'+px(REAL.chipH*s+58)+'">';
+  ['STANDING','BUILD HERE','MARKET','CITY','WHOLE MAP','SLEEP'].forEach(function(t,i){
+    h+='<div class="chip" style="width:'+px(chipW*1.25)+';height:'+px(chipH)
+      +';font-size:'+px(type)+';margin-bottom:'+px(stride-chipH)+'">'+t+'</div>';
+  });
+  h+='</div>';
+
+  /* the walk pad */
+  var padPx=pad*SHEET, keyPx=key*SHEET, r=(padPx-keyPx)/2*0.82;
+  h+='<div class="pad" style="width:'+px(pad)+';height:'+px(pad)
+    +';right:6px;bottom:6px">';
+  for(var a=0;a<8;a++){
+    var ang=a*Math.PI/4, cx=padPx/2+Math.cos(ang-Math.PI/2)*r-keyPx/2,
+        cy=padPx/2+Math.sin(ang-Math.PI/2)*r-keyPx/2;
+    h+='<div class="key" style="left:'+cx.toFixed(1)+'px;top:'+cy.toFixed(1)+'px;width:'
+      +keyPx.toFixed(1)+'px;height:'+keyPx.toFixed(1)+'px;font-size:'+px(REAL.type*s*1.5)+'">'
+      +'<i class="arrow" style="transform:translate(-50%,-57%) rotate('+(a*45)+'deg)"></i></div>';
+  }
+  h+='<div class="face" style="left:'+((padPx-keyPx*1.35)/2).toFixed(1)+'px;top:'
+    +((padPx-keyPx*1.35)/2).toFixed(1)+'px;width:'+(keyPx*1.35).toFixed(1)+'px;height:'
+    +(keyPx*1.35).toFixed(1)+'px"></div>';
+  h+='</div></div>';
+
+  var thumb=Math.round(chipH), reach=Math.round(Math.min(44, chipH+(stride-chipH)));
+  h+='<div class="note">button <span class="num">'+Math.round(chipW)+'&times;'+thumb+'</span>'
+    +' &nbsp; pad <span class="num">'+Math.round(pad)+'</span> across<br>'
+    +'thumb reach '+(reach>=44
+        ? '<span class="num">44, clears it</span>'
+        : '<span class="warn">'+reach+', under the 44 standard</span>')+'</div>';
+  d.innerHTML=h; row.appendChild(d);
+});
+</script>
+</body></html>
