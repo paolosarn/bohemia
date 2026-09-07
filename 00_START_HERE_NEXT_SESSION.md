@@ -14578,6 +14578,18 @@ BACK OF HOUSE, where people work, not a prize. KEPT FOR HIM because they are can
 two] who dies next (this round's one question) and [century stayed] (a LOCKED law). ONE
 THING HE HAS NEVER OPENED: the reckoning card at nightfall, RUN tab, it names who you let
 down and who is expecting you tomorrow.
+THEN (cq) VAMILY: 3 commits, all claims (COMBAT [draw budget], LIFE+CITY [build default],
+ECONOMY Q24). LIFE+CITY's POPULATION-DEFAULT had gone "blocked on a ruling" (one meeting
+per 400-step walk needs ~655 people in range, there are 61; GDD says 69,000, the walked
+valley holds 5,940) -- a number, so DECIDED: the ship test is met by DENSITY not headcount,
+people placed where the player is, the street never empty in daylight. SWING: HOW LONG IS A
+DAY (records/BOHEMIA_COORDINATOR_RESEARCH_HOW_LONG_IS_A_DAY_9_7_26.md): a day is 1,440
+game minutes, a step 0.084, standing still is free, and NOBODY has measured game minutes per
+real minute, so nobody can say how many days a hundred hours holds or whether three
+generations fit; the craft's answer is ~15 real minutes a day (a day is a decision) vs real
+time (leave without fear), and we need both. Routed PLUMBER [clock math], RUN [a day is]
+(a dial, default fifteen), DYNASTY [days per life]. Carrying [act two] who dies next; not
+re-asked this round.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
