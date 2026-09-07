@@ -15400,6 +15400,18 @@ right] SAYS PAID AND NOTHING IS PAID (ECONOMY found the button passes "PAID THEM
 makeRight has no purse or amount; the lanes called the amount Paolo's, a number is never
 his). DECIDED: restitution in batteries from the purse, weight for weight, the wronged
 person still decides. Routed PEOPLE [paid means paid], top with [fluent liar].
+THEN (da) HE THUMBED THE WHOLE CLIP LIST and sent a frame: 23 candidates up, 18 down, 33
+originals kept, 29 down, 2 unjudged -- saved verbatim, records/BOHEMIA_CLIP_VERDICTS_9_7_26
+.txt, frame records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg. HIS RULINGS, LOCKED
+(laws/BOHEMIA_ADDENDUM_A_KILLED_CLIP_IS_A_REDO_9_7_26.md): for CLIPS a thumbs-down is a
+REDO not a delete ("if I killed it I don't want it gone, make a new one"; graveyard-is-final
+still governs shapes); and three defects that are the RIG's, not a clip's: elbows do not
+bend and sometimes bend backwards; long coats glitch and pop, tie them to the legs, and it
+will be the nature of every long jacket; per-facing draw order is wrong (NE: hand behind
+the head when it should be in front). Order of work: fix the rig first (ANIMATION [elbows
+bend], [coat follows], [facing order]), THEN [redo killed] the 47, THEN [bake approved]
+the 23 verbatim, [judge two]. Also CHARACTER [long coats] wardrobe-wide, DIRECTION [judge
+the redo] so he never thumbs the same broken thing twice.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
