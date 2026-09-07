@@ -41,6 +41,13 @@
 #   applied: there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- proving the stores are not spoiled is food nobody throws away.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_cold_did_not_kill   What The Cold Did Not Kill
 @ACT     1
 @FACTION Volunteers
@@ -58,11 +65,13 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Logged the room's temperature for six days on a card and took the first dose myself in front of one person. She watched, and then she used it.
   @DO bond mother +30
   @DO learn insulin_survives_heat
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay resources 1
   @LOG Called the block together and said it out loud: we've been throwing away medicine that works. Half believed me. The half that didn't now has a reason to say I'm dangerous.
   @DO faction Volunteers +10
   @DO faction Church -8
@@ -70,6 +79,7 @@
   @DO set_flag said_it_to_the_block
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Broke the seal on the store in daylight and handed it out. Everyone who needed it got it. Everyone who was living off it being untouchable also found out today.
   @DO faction Volunteers +6
   @DO faction Trades -14

@@ -29,6 +29,13 @@
 #   applied: the wronged get their own scene: the hand who will not stand on the scaffold speaks for himself, and the foreman never speaks for him.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: clout -- handling a crew problem so it actually changes is standing, not stock.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_patch_under_collar   The Patch Under The Collar
 @ACT     2
 @FACTION TRADES
@@ -46,22 +53,26 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay clout 1
   @LOG Told him off the job with nobody watching. No speech, no yard, no crowd. He took his tools and went and there was nothing for anyone to rally around.
   @DO faction TRADES +6
   @DO bond foreman +12
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay clout 1
   @LOG Put it to the crew in daylight and let them write the line themselves. He stays under terms every hand can see and enforce, and the terms are the crew's, not mine.
   @DO faction TRADES +10
   @DO set_flag crew_set_the_line
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay clout 1
   @LOG Kept him and kept it quiet. The job finishes on time and I own every part of what happens the day it comes out, and it'll come out.
   @DO faction TRADES +4
   @DO bond hand -18
   @DO set_flag kept_it_quiet
   @DO complete_objective 20
 @STAGE 33 COMPLETE #reckless
+  @DO pay clout 1
   @LOG Pulled the collar down in the middle of the yard. Everybody saw it, and now everybody has to have an opinion, and half of them found out today which half they are.
   @DO faction TRADES -8
   @DO faction_posture TRADES +1

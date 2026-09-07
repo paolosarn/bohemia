@@ -26,6 +26,12 @@
 #   applied: one hour of fuel, two kinds of care, and no version where both get what they need.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# she needs boiled water and clean hands, and she is not buying anything.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_midwifes_hour   The Midwife's Hour
 @ACT     1
 @FACTION CHURCH

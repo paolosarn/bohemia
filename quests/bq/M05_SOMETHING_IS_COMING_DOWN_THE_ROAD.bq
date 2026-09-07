@@ -40,6 +40,12 @@
 #   applied: the climax is generated rather than authored, so this quest records what the player chose before it fires, which is how emergent drama reads as story instead of as bad luck.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# standing in the street for your own block is not piecework.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_m05_something_is_coming   Something Is Coming Down the Road
 @ACT     1
 @FACTION NONE

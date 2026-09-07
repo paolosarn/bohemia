@@ -27,6 +27,13 @@
 #   applied: the thing in the deep is humanized until putting it down costs the player something, which is the whole reason the bounty framing hurts.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- it is a contract, and the man says he would pay too if it cried under his children.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_deep_cry   What Cries in the Deep
 @ACT     2
 @FACTION NONE
@@ -43,16 +50,19 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Talked them up out of the deep, slow, in the dark, one word at a time. They walked out on their own feet.
   @DO bond haunt +25
   @DO faction HOMELESS +6
   @DO complete_objective 20
 @STAGE 31 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Ended it loud in the deep, for the bounty. The crying stopped. Something far below noticed the noise.
   @DO faction HOMELESS +8
   @DO set_flag looked_under_the_rock
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay resources 1
   @LOG Sealed the deep tunnel and told the elders it's gone. It isn't gone. It's just quieter now, and walled in.
   @DO faction HOMELESS +6
   @DO set_flag walled_them_in

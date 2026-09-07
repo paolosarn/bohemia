@@ -51,6 +51,13 @@
 #   applied: the fitter is technical and steady for the whole scene and breaks it exactly once, to say nobody did this on purpose, which is the only judgement she offers.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- nine houses and a water line: what is recovered is water.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_backward   The Pressure Goes Backward
 @ACT     1
 @FACTION Volunteers
@@ -68,17 +75,20 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Walked down and pulled a garden hose out of a rain barrel. That was it. Told the fitter, told nobody else, and the water came right in four days.
   @DO bond fitter +20
   @DO learn backsiphonage
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay resources 1
   @LOG Put the boil notice out on the whole block before I knew whose hose it was. Everybody boiled everything for six days and hated it, and nobody else got sick.
   @DO faction Volunteers +12
   @DO learn backsiphonage
   @DO set_flag boil_notice_called
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Opened every hydrant on the street and dumped the main to flush it, in a dry month, in front of everyone. It worked. We're also down what we're down.
   @DO faction Volunteers +6
   @DO faction Blues -12

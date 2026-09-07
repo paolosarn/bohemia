@@ -28,6 +28,13 @@
 #   applied: the trader is honest about everything, which is what makes the credit the dangerous option.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- seed and the caravan trade are the valley's only outside goods.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_seed_no_return   The Seed That Does Not Come Back
 @ACT     2
 @FACTION BLUES
@@ -44,22 +51,26 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG One small sack for this winter, planted on the far side of the ridge where the pollen can't reach her line. Nobody eats well and nobody loses anything permanent.
   @DO bond grower +18
   @DO faction BLUES +5
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay resources 1
   @LOG Got the whole block to sign a thin year on purpose. All saved seed, smaller plates, and a line that still belongs to them in ten years. Everybody had to agree out loud, which is why it'll hold.
   @DO faction BLUES +12
   @DO set_flag signed_the_thin_year
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay resources 1
   @LOG Took the full load on credit. Best harvest anyone has seen in nine years, a debt to people who travel, and a saved line the pollen got into. Next year we buy again. So does everyone.
   @DO faction CARAVANS +12
   @DO faction BLUES -6
   @DO set_flag owes_the_caravans
   @DO complete_objective 20
 @STAGE 33 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Told his buyers, standing in his own yard, that the second generation of what he sells is worthless. True, loud, and it cost him the season and me a road.
   @DO faction CARAVANS -15
   @DO faction_posture CARAVANS +1

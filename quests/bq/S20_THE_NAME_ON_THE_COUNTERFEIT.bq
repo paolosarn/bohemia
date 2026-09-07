@@ -30,6 +30,13 @@
 #   applied: the character arc is wrapped around one of OUR systems: the whole quest is the electricity economy expressed as a stamped promise.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: electricity -- its own economics are cells: "a scrapped cell pays nothing, and a stamped one pays".
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_name_on_counterfeit   The Name On The Counterfeit
 @ACT     2
 @FACTION REDS
@@ -47,22 +54,26 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay electricity 1
   @LOG Walked the bad ones back to him and made him work them good, cell by cell, on his own time. Nobody in the market ever learned there was a reason to doubt a token.
   @DO faction REDS +8
   @DO bond forger +12
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay electricity 1
   @LOG Posted every bad serial on the market wall so anybody could check their own. Trust survived. Everyone holding a hollow one ate it in public, and most of them were holding the small ones.
   @DO faction REDS +12
   @DO set_flag posted_the_serials
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay electricity 1
   @LOG Handed him to the clearing house and took the finder's cut. They'll make an example and the example will be very effective and I won't be watching it.
   @DO faction REDS +15
   @DO bond forger -25
   @DO set_flag sold_the_forger
   @DO complete_objective 20
 @STAGE 33 COMPLETE #reckless
+  @DO pay electricity 1
   @LOG Told the whole market the token was only ever a promise on somebody else's battery. True, and by nightfall nobody was taking them, and the people with nothing but tokens had nothing.
   @DO faction REDS -18
   @DO faction_posture REDS +1

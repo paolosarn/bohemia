@@ -23,6 +23,13 @@
 #   applied: warmth used deliberately as a delivery system: the block that can still play music is the same block that goes dark later.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: clout -- a performer playing when the power dies is paid in being listened to, not in goods.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_one_more_set   One More Set
 @ACT     1
 @FACTION NONE
@@ -34,17 +41,20 @@
   @LOG A busker on the strip is losing the amp mid-song. The cell is almost dead.
   @DO show_objective 10
 @STAGE 20 COMPLETE #quiet
+  @DO pay clout 1
   @LOG Killed the amp and sat close while they played it acoustic. A dozen people, very quiet.
   @DO bond busker +20
   @DO play MUS street_lament
   @DO complete_objective 10
 @STAGE 21 COMPLETE #notable
+  @DO pay clout 1
   @LOG Found a charged cell and got a crowd to stay. They played the whole set. People filmed it in text.
   @DO bond busker +15
   @DO faction COLORFUL +6
   @DO play MUS street_anthem
   @DO complete_objective 10
 @STAGE 22 COMPLETE #risky
+  @DO pay clout 1
   @LOG Spliced the amp straight into a live street line. Full volume, sparks, the whole block came. Loud and dumb and glorious.
   @DO bond busker +10
   @DO faction COLORFUL +6

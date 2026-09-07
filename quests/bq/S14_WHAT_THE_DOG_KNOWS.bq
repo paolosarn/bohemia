@@ -28,6 +28,12 @@
 #   applied: the sergeant is procedure with a person inside it: he has a method because the method is what lets him keep doing this.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# grief with no villain and nothing to win, by its own header.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_what_the_dog_knows   What The Dog Knows
 @ACT     1
 @FACTION REMNANTS

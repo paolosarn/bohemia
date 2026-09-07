@@ -28,6 +28,13 @@
 #   applied: nobody in the quest is the villain and the band still goes quiet after every polite daylight conversation.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: clout -- a broadcast nobody pays for; what it buys is that forty people heard it from you.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_voice_at_three   The Voice At Three
 @ACT     2
 @FACTION ANARCHISTS
@@ -44,19 +51,23 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay clout 1
   @LOG Taught her to be short and to be somewhere else. Four minutes a night, a different roof, no pattern. She's still on the air and nobody has ever written it down.
   @DO bond voice +20
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay clout 1
   @LOG Gave her one long night with the whole valley listening, then took the set apart at dawn and buried the pieces. One broadcast everybody heard once and nobody will ever hear again.
   @DO faction ANARCHISTS +10
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay clout 1
   @LOG Walked the finder crew a false bearing and watched them believe me. She got weeks out of it. I got a face in somebody's notebook.
   @DO faction_posture NETWORK +1
   @DO set_flag lied_to_the_finders
   @DO complete_objective 20
 @STAGE 33 COMPLETE #reckless
+  @DO pay clout 1
   @LOG Put their own method on the air. Live, at three, in plain words, so every roof in the valley knows exactly how a voice gets found. She's safer now. So is nobody else who works for them.
   @DO faction ANARCHISTS +14
   @DO faction_posture NETWORK +2

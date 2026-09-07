@@ -39,6 +39,13 @@
 #   applied: keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: electricity -- the document is about the light, and the light is what the block gets back.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_fifty_year   The Fifty Year Signature
 @ACT     1
 @FACTION Network
@@ -56,11 +63,13 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay electricity 1
   @LOG Read it, understood it, took the page and told nobody. The lit blocks stay lit and the people in them still think it's because somebody clever is keeping them lit.
   @DO bond clerk +20
   @DO learn the_allocation
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay electricity 1
   @LOG Read it out where the dark side could hear. Now everybody knows the map of the light was drawn in an office in 2016 by people who aren't here, and can't be appealed to.
   @DO faction Remnants +14
   @DO faction Network -12
@@ -68,6 +77,7 @@
   @DO set_flag the_allocation_is_public
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay electricity 1
   @LOG Took the chart off the wall and burned it in the yard. Nobody can point at the paper now. The switches didn't move an inch and the men who read it still remember what it said.
   @DO faction Network -20
   @DO faction Remnants +8

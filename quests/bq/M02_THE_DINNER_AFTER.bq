@@ -41,6 +41,12 @@
 #   applied: the loss is fixed and nothing the player did caused it, so the quest gives them the one thing they can still control, which is whether they say it out loud at the table.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# nobody is paid for sitting down with what is left of their family.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_m02_the_dinner_after   The Dinner After
 @ACT     1
 @FACTION NONE

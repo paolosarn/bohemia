@@ -25,6 +25,12 @@
 #   applied: receiving the secret quietly earns the fewest followers and the deepest bond; cashing it earns the reverse.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# the payoff is a man trusting you with his daughter; a price would cheapen it.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_behind_fence   Behind the Fence
 @ACT     1
 @FACTION NONE

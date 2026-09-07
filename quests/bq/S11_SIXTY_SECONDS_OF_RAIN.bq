@@ -27,6 +27,12 @@
 #   applied: the failure is not dramatic; it is the small delay that snowballs into the wash filling while you were being reasonable.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# walking sleeping people out of a culvert ahead of a flood is not a job with a fee.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_sixty_seconds   Sixty Seconds Of Rain
 @ACT     1
 @FACTION BLUES

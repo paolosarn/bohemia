@@ -27,6 +27,13 @@
 #   applied: the page is a list of names that outlives everyone on it, which is exactly why the short count costs food.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- "I write a number. The number becomes crates." The count IS the allocation.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_the_count   The Count That Does Not Add
 @ACT     1
 @FACTION NETWORK
@@ -43,16 +50,19 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Gave the true number, plainly, and let it go up. The block eats. The block is also on a page now.
   @DO faction VOLUNTEERS +6
   @DO bond organizer +12
   @DO complete_objective 20
 @STAGE 31 COMPLETE #risky
+  @DO pay resources 1
   @LOG Handed up a short number. The ones who can't be on any list stayed off it, and everyone eats a little less for that.
   @DO faction VOLUNTEERS +3
   @DO set_flag shaved_the_count
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Read the page out loud on the street first, every name, so nobody could be listed without knowing they were listed.
   @DO faction_posture NETWORK +1
   @DO set_flag read_the_list_out

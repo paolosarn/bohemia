@@ -42,6 +42,13 @@
 #   applied: the trap answer refuses to sell certainty at any depth -- he does not know whose current it is, he says so plainly, and no option anywhere in the quest can buy the name.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: electricity -- the whole quest is the current somebody is drinking off the block's feed.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_meter_reader   The Meter Reader
 @ACT     1
 @FACTION NONE
@@ -59,14 +66,17 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay electricity 1
   @LOG Put the current back myself. Block has light tonight. Nobody knows it was me.
   @DO bond lineman +15
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay electricity 1
   @LOG Handed the tap to the trades. Daylight patch, every name on the work order.
   @DO faction TRADES +8
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay electricity 1
   @LOG Cut the skim line in front of the whole block. Sparks, a crowd, and somebody upstream has my face now.
   @DO faction_posture NETWORK +1
   @DO complete_objective 20

@@ -26,6 +26,13 @@
 #   applied: the flaws master warns that grind flattens grief, so the pitch gets a little more reasonable every run instead of the pay just getting bigger.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- a bounty, and the quest's own words are "clean conscience, full satchel".
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_standing_bounty   The Standing Bounty
 @ACT     2
 @FACTION REMNANTS
@@ -38,10 +45,12 @@
   @LOG The remnants keep a standing bounty board. It pays in medicine. There's always another name on it.
   @DO show_objective 10
 @STAGE 20 COMPLETE #risky
+  @DO pay resources 1
   @LOG Took the clean name off the board. A raider who had it coming. Got paid in medicine and slept fine.
   @DO faction REMNANTS +5
   @DO complete_objective 10
 @STAGE 21 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Took the ugly name for the double pay. Not a raider. A debtor who ran. Did it anyway. Slept less fine.
   @DO faction REMNANTS +9
   @DO set_flag took_the_ugly_one

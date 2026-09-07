@@ -7398,6 +7398,82 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 22 [jobs pay] BB-THE-JOB-PAYS, SHIPPED. QUESTS lane, BUILD.
+  quests/bq/*.bq                 66 pay lines across 20 quests
+  gates/the_job_pays_gate.js     75 passed, 0 failed
+  BUILD 9/6bd - THE JOB PAYS
+
+*** A JOB PAYS NOW, AND UNTIL THIS ROUND NOT ONE DID. *** The row's measurement
+held exactly: 786 @DO calls across every playable quest and @DO pay appeared ZERO
+TIMES. The verb has existed in the .bq language since 8/11, built on HIS OWN
+RULING ("whatever currency the quest decides to give"). The purse was built. The
+payday bridge was built. payForQuest is genuinely called on the walked surface
+with a live quest runtime. And nothing in the valley paid a thing, because the
+last line was never typed. That is the whole bug and it is one line per quest.
+
+THE CURRENCY COMES OUT OF EACH QUEST'S OWN WORDS, never a table:
+  the meter reader pays ELECTRICITY, because the whole quest is the current
+    somebody is drinking off the block's feed
+  the standing bounty pays RESOURCES, because its own line is "clean conscience,
+    full satchel"
+  the voice at three pays CLOUT, because nobody pays for a broadcast and what it
+    buys is that forty people heard it from you
+  11 quests pay resources, 5 pay electricity, 4 pay clout.
+EVERY AMOUNT IS ONE and the gate fails on any other number, because EVERYTHING
+COSTS ONE and the amounts are his to tune. Only a COMPLETE ending pays; a FAIL
+pays nothing, so the reward can never quietly become an attendance prize.
+
+*** AND TWELVE QUESTS PAY NOTHING ON PURPOSE, EACH WITH ITS REASON WRITTEN INTO
+ITS OWN FILE. *** Nobody pays you for burying your sibling. The doctor's own words
+are "no charge, no interest, no paper". The forgiveness quest says cheap
+forgiveness is just a debt paid on time. A game where every single thing pays is a
+game where nothing means anything.
+THE GATE MAKES THAT CHECKABLE: an unpaid quest must SAY WHY in writing, so a
+deliberate refusal and an oversight stop looking identical to a machine. That is
+the check I would want if somebody else had written this round, because the
+oversight is exactly what this row found in the first place.
+
+THE ROW'S OWN SHIP TEST, MET ON THE REAL SURFACE: the gate opens the game, walks
+the meter reader to COMPLETE inside the frame the player actually looks at, hands
+it to the real payday bridge, and reads the purse back.
+  before {resources:0, electricity:0, clout:0}
+  after  {resources:0, electricity:1, clout:0}
+That is a job, done, paid, end to end.
+
+*** A THIRD COPY OF THE QUESTS, AND IT HAD GONE STALE WITH NOBODY WATCHING. ***
+The city PLAYS from its own DEMO_BQ block, which is separate from quests/bq (the
+source) and separate from the alpha's BOHEMIA_QUESTS (the DIRECT tab). My pay
+lines reached the first two and not the one the player uses.
+tools/bohemia_city_dayloop_patch.py is the tool for refreshing it and it REFUSES:
+"the installed clock was not found after the block, so replacing would eat
+somebody else's code."
+I CHECKED WHETHER I CAUSED THAT, by stashing my entire tree and re-running against
+clean main: THE SAME REFUSAL. So this is pre-existing, and no lane has been able
+to refresh the city's playing copy for some time without anyone noticing.
+The tool's refusal is GOOD behaviour, not a bug. What is broken is the anchor it
+looks for. I did not fix somebody else's tool mid-round; I refreshed that one
+object surgically (2 lines of diff, every other byte untouched) and flagged it.
+FOR THE PLUMBER: the city's quest copy currently has no working refresh path.
+
+THE SAME SURGICAL RULE APPLIED TO THE OTHER TWO SURFACES, after last round's
+lesson: the alpha's quest array was rebuilt in place rather than by re-running the
+DIRECT tab tool, so the other lane's TOWN SIZES work is untouched (verified
+present, diff is 2 lines), and the demo was re-cut normally.
+
+GATES: the_job_pays 75/0, canon_quests 643/0, quest_study 519/0, main_spine 49/0,
+direct 33/0, alpha_loads 20/0, demo_build 25/0, ladder_walk 43/0, asks_visible
+38/0, inlined_fresh 3/0, nomarkers 6/0, handoff 7/0, attempt 15/0, reply_contract
+17/0, pages_publish 18/0, answered GREEN.
+
+[STILL NOT MINE, STILL NOT FIXED] reusefirst_gate.py is 201/4 red on four other
+lanes' tool files, already red on main before I touched anything.
+
+NEXT OPEN QUESTS ROW: [distance shown] BB-INSIDE-A-DAY. Note for whoever takes
+it: [jobs pay] carried a stale parenthetical saying it waited on WORLD's first
+job; rule 4 makes the BACKLOG ROW the job, and that row said it rides behind
+BB-THE-LETTER-IS-ONE, which shipped 9/5. I verified the purse pipe was live before
+claiming rather than trusting either line. Worth doing the same on the next row.
+
 ROUND 21 [main story] MAIN-QUEST-SPINE, SHIPPED. QUESTS lane, BUILD.
   quests/bq/M01_THE_NIGHT_THEY_CAME.bq
   quests/bq/M02_THE_DINNER_AFTER.bq

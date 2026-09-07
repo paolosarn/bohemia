@@ -41,6 +41,13 @@
 #   applied: there is no objective marker on the door. The quest exists because three separate people mention the green square without being asked.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- the crime is arithmetic about water and the water is the thing at stake.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_fifty_five   Fifty-Five Gallons A Foot
 @ACT     1
 @FACTION Blues
@@ -58,17 +65,20 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Knocked on the door instead of talking about it. There's a greywater rig under the side of that house feeding the whole yard. Told the street it was handled and left it at that.
   @DO bond owner +25
   @DO learn the_grey_rig
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay resources 1
   @LOG Called the meeting and put the number up: a hundred and ten thousand gallons a year, on a corner lot, in this. Said whose lot it was. Everyone did the arithmetic with me.
   @DO faction Blues +10
   @DO bond owner -20
   @DO set_flag named_at_the_meeting
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Cut the line into that yard in daylight with people watching. The grass will be straw in nine days. Whatever was feeding it isn't feeding anything now, including the parts of that house I didn't look at.
   @DO faction Blues +6
   @DO bond owner -40

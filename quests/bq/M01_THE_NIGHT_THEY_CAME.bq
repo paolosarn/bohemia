@@ -43,6 +43,12 @@
 #   applied: the named failure of generational games is a dull first generation, so this one opens on the worst night of the family's life rather than on chores, and the fold is earned instead of waited for.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# nobody pays you for the night raiders came into your house.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_m01_the_night_they_came   The Night They Came
 @ACT     1
 @FACTION NONE

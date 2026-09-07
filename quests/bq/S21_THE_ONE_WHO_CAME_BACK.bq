@@ -31,6 +31,13 @@
 #   applied: the port instruction is rumor, then contact, then sometimes the flat truth returning. Here the third beat is deliberately withheld, because what is outside is not a side quest to decide.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: clout -- a rumour and a man held: what changes is what people say, not what anybody owns.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_one_who_came_back   The One Who Came Back
 @ACT     2
 @FACTION REMNANTS
@@ -48,21 +55,25 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay clout 1
   @LOG Sat him down with somebody who has walked a hundred miles of that road and let them talk for three hours. Whatever the two of them concluded stayed in that room, and people can go on deciding for themselves.
   @DO bond returned +15
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay clout 1
   @LOG Let him tell it in the square. The block got the best night it's had in a year and by morning four families were packing, and nobody can say whether that was a gift or the opposite.
   @DO faction CARAVANS +6
   @DO set_flag told_it_in_the_square
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay clout 1
   @LOG Held him at the gate until the story got smaller. It got smaller fast. That proved nothing about the road and quite a lot about the gate, and the gate is what everybody looked at afterward.
   @DO faction REMNANTS +10
   @DO bond returned -25
   @DO set_flag squeezed_him_at_the_gate
   @DO complete_objective 20
 @STAGE 33 COMPLETE #reckless
+  @DO pay clout 1
   @LOG Walked thirty people out the east road on the word of one man with no proof, in daylight, with everybody watching them go.
   @DO faction REMNANTS -12
   @DO faction_posture REMNANTS +1

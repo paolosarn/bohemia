@@ -38,6 +38,13 @@
 #   applied: he is flat and practical the whole way and breaks exactly twice, both mid-word: once stumbling on a thank you, once shouting.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- the journal line is "Job's done": boarding a house solid before dark is paid work.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_back_door   The Back Door
 @ACT     1
 @FACTION NONE
@@ -49,10 +56,12 @@
   @LOG The man behind the fence wants his place solid before dark. He's strange about the back of it.
   @DO show_objective 10
 @STAGE 20 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Boarded the front and side. Left the back alone, asked nothing. He won't forget that.
   @DO bond neighbor +20
   @DO complete_objective 10
 @STAGE 21 COMPLETE #notable
+  @DO pay resources 1
   @LOG Job's done, but I brought half the block to his door doing it. Solid house. Rattled man.
   @DO bond neighbor +4
   @DO complete_objective 10

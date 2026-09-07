@@ -30,6 +30,12 @@
 #   applied: the ports master literally queues a Bohemia triage quest over scarce medicine where every save is a death elsewhere. This is that build item, delivered.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# the quest refuses to score you and its own words are no charge, no interest, no paper.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_last_good_doctor   The Last Good Doctor
 @ACT     2
 @FACTION VOLUNTEERS

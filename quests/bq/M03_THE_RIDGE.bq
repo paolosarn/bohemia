@@ -35,6 +35,12 @@
 #   applied: the tutorial ends on the biggest view in the game rather than on a chore list, so the first hour closes on the reason to keep playing instead of on an errand.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# nobody is paid for burying their sibling.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_m03_the_ridge   The Ridge
 @ACT     1
 @FACTION NONE

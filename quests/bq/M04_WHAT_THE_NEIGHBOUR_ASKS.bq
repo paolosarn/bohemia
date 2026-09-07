@@ -37,6 +37,12 @@
 #   applied: the founding is one conversation and one decision, with no systems screen and no roster, because the moment a block becomes a thing should not arrive as a management interface.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# the founding is a decision, not a wage; the errand that pays is still PINNED to Paolo.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_m04_what_the_neighbour_asks   What the Neighbour Asks
 @ACT     1
 @FACTION NONE

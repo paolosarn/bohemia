@@ -28,6 +28,13 @@
 #   applied: the resolution feeds the wider system: honoring the deed really moves reds standing, burning it really moves their posture.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: electricity -- the deal on the table is stated as "work and light for the corner".
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_paper_says_so   The Paper That Says So
 @ACT     1
 @FACTION REDS
@@ -45,22 +52,26 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay electricity 1
   @LOG Brokered it in a stairwell. He gets paid in work and light, they keep the door. No witnesses, no precedent, no trouble.
   @DO faction REDS +5
   @DO bond tenant +15
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay electricity 1
   @LOG Wrote a new paper in the street with the block watching and every name on it. Now there's a precedent, and precedents are the thing his faction actually owns.
   @DO faction TRADES +8
   @DO faction REDS -6
   @DO set_flag wrote_a_new_paper
   @DO complete_objective 20
 @STAGE 32 COMPLETE #risky
+  @DO pay electricity 1
   @LOG Honored the deed. Four families out by the weekend, the paper intact, and a man who owes me a favor I won't enjoy spending.
   @DO faction REDS +12
   @DO bond tenant -25
   @DO complete_objective 20
 @STAGE 33 COMPLETE #reckless
+  @DO pay electricity 1
   @LOG Burned the deed in his hands in front of everybody. The building is theirs tonight. Paper is cheap. Being the person who burns paper isn't.
   @DO faction REDS -15
   @DO faction_posture REDS +1

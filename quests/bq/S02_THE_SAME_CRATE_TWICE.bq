@@ -41,6 +41,13 @@
 #   applied: the red boss is transactional the whole scene and drops it once, for one sentence, to say what his block actually does after dark.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: electricity -- the crate is charged batteries and the line is "Light, that's what's in it".
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_same_crate   The Same Crate Twice
 @ACT     1
 @FACTION NONE
@@ -58,16 +65,19 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #notable
+  @DO pay electricity 1
   @LOG Delivered to the reds, closed, like I said I would. The blues heard about it.
   @DO faction REDS +10
   @DO faction_posture BLUES +1
   @DO complete_objective 20
 @STAGE 31 COMPLETE #risky
+  @DO pay electricity 1
   @LOG Took it to the blues instead. Water and a full tank, and nobody saw. The reds get a year to work out who.
   @DO faction BLUES +12
   @DO faction_posture REDS +1
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay electricity 1
   @LOG Kept the crate for my own block and said so to both their faces. Two enemies in one night.
   @DO faction_posture REDS +1
   @DO faction_posture BLUES +1

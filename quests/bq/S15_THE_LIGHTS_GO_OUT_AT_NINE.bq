@@ -27,6 +27,13 @@
 #   applied: the two who asked before you are still here, one bought off and one working nights alone up a ladder.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- the whole fight is that the money keeps not coming while the lights come on anyway.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_lights_at_nine   The Lights Go Out At Nine
 @ACT     2
 @FACTION TRADES
@@ -43,17 +50,20 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Settled it in a back room. The crew gets paid weekly, the lights never blinked, and nobody had to be seen losing.
   @DO faction TRADES +8
   @DO bond steward +15
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay resources 1
   @LOG Got the rate painted on the wall by the door where every crew in the valley can read it. He hated the paint more than the number.
   @DO faction TRADES +12
   @DO faction MOB -5
   @DO set_flag rate_on_the_wall
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Killed the marquee at nine on the fullest night of the week. Four blocks went dark and quiet and everybody learned exactly whose hand is on that switch.
   @DO faction MOB -12
   @DO faction_posture MOB +1
@@ -61,6 +71,7 @@
   @DO set_flag pulled_the_switch
   @DO complete_objective 20
 @STAGE 33 COMPLETE #risky
+  @DO pay resources 1
   @LOG Took his money to keep the lights on and let the crew find out the slow way. The corner is bright and I walk the long way around it now.
   @DO faction MOB +12
   @DO bond steward -25

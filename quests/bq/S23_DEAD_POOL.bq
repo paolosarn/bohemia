@@ -43,6 +43,12 @@
 #   applied: the failure is not dying. It is the block deciding you are the kind of person who tells outsiders where the water is, or the kind who watched a caravan leave dry.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6): NOTHING, ON PURPOSE ---------
+# you fill their bladders from your own tank and tell them the truth; that is giving, not earning.
+# A game where every single thing pays is a game where nothing means anything,
+# so this one is left unpaid deliberately rather than missed. If he wants it
+# paid, it is one line.
+# ----------------------------------------------------------------------------
 @QUEST   bq_dead_pool   Dead Pool
 @ACT     1
 @FACTION Caravans

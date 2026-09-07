@@ -52,6 +52,13 @@
 #   applied: the keeper holds a flat maintenance register the whole scene and drops it exactly once, on "before I sit down about it", which is the only time he admits how close he is.
 # ----------------------------------------------------------------------------
 
+# ---- WHAT THIS JOB PAYS (BB-THE-JOB-PAYS, 9/6) ------------------------------
+# HIS 8/11 RULING: "whatever currency the quest decides to give". The reward
+# lives with the job, not in a global table, so this file says it itself.
+# CURRENCY: resources -- the competence job is a cold room and a pump kept working, which is stock saved.
+# AMOUNT IS ONE, and stays one until he tunes it (EVERYTHING COSTS ONE).
+# Only a COMPLETE ending pays. A FAIL pays nothing, because the job is not done.
+# ----------------------------------------------------------------------------
 @QUEST   bq_cold_room   The Cold Room
 @ACT     1
 @FACTION Volunteers
@@ -69,17 +76,20 @@
   @DO show_objective 20
   @DO complete_objective 10
 @STAGE 30 COMPLETE #quiet
+  @DO pay resources 1
   @LOG Pads were stone. Pulled them, soaked them, packed the frame with the spare set, and the air off it went cold in about four minutes. Nobody watched a machine start working.
   @DO bond keeper +25
   @DO faction Trades +4
   @DO complete_objective 20
 @STAGE 31 COMPLETE #notable
+  @DO pay resources 1
   @LOG Walked the block and said out loud that I didn't know how. Brought back somebody who did. Room was cold by one. Half the street watched me ask.
   @DO bond fixer +20
   @DO faction Volunteers +8
   @DO set_flag owes_the_trades
   @DO complete_objective 20
 @STAGE 32 COMPLETE #reckless
+  @DO pay resources 1
   @LOG Cut a second feed off the live line and ran a real compressor. That room got cold like the old days. It's also a lit address on somebody's map now.
   @DO faction Network -10
   @DO faction Volunteers +5
