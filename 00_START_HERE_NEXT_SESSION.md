@@ -5398,59 +5398,68 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/7 LATEST -- *** THE LOT BESIDE THE STREET IS SOMEBODY'S HOUSE, SHIPPED
-(a5b44c81, BUILD 9/6az, pages run 1389 SUCCESS on that exact sha). A quarter of the combat
-board was one generic "lot" tile; it is roofs, gravel yards and block walls now, and not one
-new pixel was cooked. ROUND 2 IS MEASURED AND NOT BUILT: the cover you see is two thirds the
-size of the cover you get. TAB: COMBAT. Nothing to judge. ***
+COOK (cook-mce6r5): 9/7 LATEST -- *** THE COVER YOU SEE IS NOT THE COVER YOU GET. A piece of
+cover stopped bullets across about two tiles and was drawn two thirds of one tile wide, so a
+third of every piece was invisible protection. It is drawn at the size it actually blocks
+now, out of the block wall the fight already had. TAB: COMBAT. Nothing to judge. ***
 
-THE JOB: [combat ground] COMBAT-GROUND-TILES, CLAIMED, CONTINUING. Round 1 of 2 SHIPPED;
-round 2 measured, see WHAT COMES NEXT at the foot of this block.
+THE JOB: [combat ground] COMBAT-GROUND-TILES. BOTH ROUNDS BUILT. Round 1 (the ground) shipped
+a5b44c81. Round 2 (cover that reads) is this round.
 
-MEASURED FIRST, AND IT CORRECTED THE GUESS I HAD FROM READING THE SOURCE. The combat module
-lives base64-encoded inside COMBAT_B64, which is why no grep finds it; decoding it said the
-tile bank had 8 kinds and no `lot`, so everything past the sidewalk fell through to a flat
-colour. THAT WAS WRONG -- the decode truncated the bank at a `};` inside it. Measured in the
-fight's own realm instead (boot to play, start an encounter, read the floor the frame draws,
-tools/bohemia_combat_ground_probe_9_6_26.js): 851 visible cells, 100% of them ALREADY
-drawing approved art. The board is not empty. IT IS A STREET AND NOTHING ELSE:
-    lot 26.1%   road 26.1%   walk 17.4%   lane 8.7%   kerb/gutter/median 4.3% each
-Half road and pavement, and the other quarter one generic "somebody's ground" tile standing
-in for every house, yard and back lot in Las Vegas. NO house kind, NO yard kind, NO wall
-kind existed on the combat board at all -- which is exactly the gap clause 3d names.
+ROUND 1, SHIPPED: a quarter of the combat board was one generic `lot` tile standing in for
+every house, yard and back lot in Vegas. lot 26.1% -> house 11.2% + yard 10.6% + wall 4.3%,
+15 tiles lifted out of the approved 7/28 starter bank, no pixels cooked.
 
-AND IT COOKS NOTHING, WHICH IS THIS ROW'S OWN PRECEDENT. The street under the fight was
-never painted either: v94 lifted it out of Paolo's approved banks and said so in capitals,
-"NO NEW GRAPHIC PIXELS ARE COOKED... the run and the fight now stand on the same street."
-The same bank (STARTER_TILESET_ACT1_RECOOK, approved 7/28, picked again 7/29, byte-locked in
-the visual constitution) has all of it at exactly 44 px, the combat tile size: roof_slope /
-ridge / eave / four hips for HOUSE, yard_0/1/2 + dirt for YARD, wall_0/1/2 + wall_base for
-WALL. So the fight stands on the same houses the walked city does.
+ROUND 2, THIS ROUND: the blocking test is `Math.sin(dA)*P.edist < P.r*0.9`, so a piece is an
+object 1.8*r tiles across. The picture was the CONSTANT s*1.1 = 0.68 tiles, the same box for
+every piece. A generic piece blocks 1.91 tiles and showed 0.68: THE PICTURE WAS 36% OF THE
+THING. Both are 101% now. Width is what it blocks, bucketed to 4 px; the face is STREET_B64
+`wall`, already in the fight from round 1, so nothing was cooked in either round.
 
-THE REFERENCE CHECK IS THIS LANE'S OWN SHEET, shipped 9/5 for this exact row:
-reference/library/tile-ground/ TG-01..07. TAKEN: TG-02, from 45 degrees a house is ROOF
-PLANES FIRST and at combat range the roof IS the house's ground read, its ridge giving the
-tile its orientation -- so `house` is roof art and it NEVER SPINS; TG-03, a Vegas yard is
-gravel or hardpan INSIDE A BLOCK WALL and "the wall runs the tile's full edge, so a yard
-tile's cover story is its WALL, not its middle" -- so the property line is a real wall
-column, not a tint; TG-01, a Vegas lot is barely bigger than its house so a fat margin of
-ground around a house is a SCALE LIE -- one house tile and one yard tile per property; and
-3d's own words, "a house with a big backyard is now one by two tiles big" -- house row,
-yard row, paired. NOT TAKEN: TG-07's cover, which is props ON the ground rather than ground,
-lives in a different bank, and is round 2.
+WHAT WAS DELIBERATELY NOT TOUCHED, and the next session should not "fix" it: HEIGHT (low
+0.9x, tall 1.6x) is the VAULT TELL and it works; the LID COLOURS are the vault signal; P.r
+is read and never written, so no damage, accuracy, range or resource number moved.
 
-WHAT CHANGED, IN ONE PLACE: streetKindAt is untouched and still answers 'lot'; the paint
-loop refines that to house / yard / wall EXACTLY where it already refines the lot's variant
-index, so the street above is byte-identical and only the lot band moves.
-    lot 26.1%  ->  house 11.2% + yard 10.6% + wall 4.3%
+FOUR THINGS I GOT WRONG AND CORRECTED, which is most of what this round is worth:
+ 1 I wrote last round that the vault state "reads by lid colour and nothing else". WRONG --
+   `_h=(P.tall===false)?s*0.9:s*1.6` is a 1.8x height difference and a real silhouette tell.
+ 2 CARS WERE NEVER ON THE PATH I CHANGED. The loop's first branch is `if(P.car){...
+   CAR_IMG[P.carArt|0]...}`: a car already draws as ONE approved wreck picture across its
+   2x3 footprint and its other five cells draw nothing. TG-07's "a dead car" was done before
+   this round began. The probe's 76% car figure described code cars never reach.
+ 3 THE ANCHOR SIGN WAS INVERTED in the first cut of the sprite (__ay=-oy) and would have
+   hung every piece of cover below its own shadow. Caught on paper, not on screen.
+ 4 THE BAKE MUST ASK FOR THE FLOOR'S PIXEL SIZE. streetTile keeps ONE cache for ONE px, so
+   round(ring)+1 against the floor's ceil(t)+1 would empty and refill the entire street
+   cache every frame that ring is fractional. A performance bug that would look like nothing.
 
-AND THE PROBE HAD TO BE FIXED TWICE BEFORE IT COULD BE BELIEVED: it took
-document.querySelector('canvas') and got a 183x54 UI STRIP, reporting the kind mix of a
-sliver as the floor (it takes the biggest canvas now, 780x1354); and after the change it
-still said lot 26.1% on a build with no lot, because it stopped at streetKindAt instead of
-following the paint loop. A PROBE THAT RE-STATES THE CODE INSTEAD OF FOLLOWING IT MEASURES
-THE OLD BOARD.
+WHAT IT COSTS, AND WHERE THE INSTRUMENT RUNS OUT. COMBAT claimed [draw budget] an hour before
+this landed (every new fight visual arrives with its cost), so it was measured properly.
+Interleaved on one tree with the zoom count beside every number: 498.0 (31 zooms) -> 497.5
+(30 zooms), no measurable cost in a fight anybody is playing -- which is NOT a good number,
+because a moving fight is already at 99.6% of the beat. In a still fight every patched run
+sits above the one unpatched run (402.5, 426.0, 492.5 against 345.5) but they spread 90 ms
+among themselves, so that is a DIRECTION AND NOT A MEASUREMENT, and calling it "55 ms" off
+n=1 would repeat the mistake the PLUMBER corrected one round earlier on this exact gate.
+WHAT NEEDS NO PROFILER: the fight paints about 3x the cover pixels, 48,000 -> 145,000 of a
+1.06 M px canvas. Three things hold that down -- the 4 px bucket, a shadow overhang that was
+a RATIO tuned for narrow blocks (124 px sprite -> 100 on an 84 px face), and A CULL THAT DID
+NOT EXIST: every piece in G.pillars was painted whether on screen or not, 17%, 24% and 27%
+off the edge across three arenas.
 
+[FOR COMBAT] *** THE COVER GENERATOR WAS SIZED BEFORE A TILE WAS A HOUSE. *** A car cell is
+  authored as exactly one tile (CAR_W 2 x CAR_L 3, r~0.5) and blocks 0.90 tiles, which is
+  right. A generic piece rolls `bulk = 0.45 + random*0.70` and blocks up to 2.07 tiles --
+  WIDER THAN THE HOUSE BESIDE IT. That generator is V89/V139; the tile became a house on 9/4.
+  The picture telling the truth is what makes it visible. The dial is yours, and shrinking it
+  makes cover smaller AND cheaper in one move, because the paint cost above IS the
+  mis-scaling measured in pixels.
+[FOR COMBAT] gates/fight_moves_you_gate.js, the V199 leftPct arm, is A COIN FLIP. Condition
+  `leftPct > 0 && leftPct < 15`; measured 16 (RED) then 14 (green) ON THE SAME TREE, and 10
+  on origin/main. It is a sampled percentage sitting inside its own noise, so it will keep
+  going red on other people's unrelated work. Needs more deals per run until it settles, or
+  a bar outside the spread -- the fix your own V164 arm already carries a note about. Not
+  touched: your gate, your number.
 [PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (from
   [runway hair]). All eleven survivors are black, brown or sand and a worn hair garment
   draws in its own baked ramp, so RAY the father, the Church and the old wide-brim citizen

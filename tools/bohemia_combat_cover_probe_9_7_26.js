@@ -47,6 +47,26 @@ const LOOK = `(() => {
   radii.sort((a, b) => a - b);
   const med = (a) => a.length ? a[(a.length / 2) | 0] : 0;
 
+  /* WHAT IT BLOCKS AGAINST WHAT IT SHOWS, per piece, and SPLIT BY CAR OR NOT --
+     because the average hides the finding. The blocking test is
+     Math.sin(dA)*P.edist < P.r*0.9, so a piece stops a sightline anywhere within
+     0.9*r of its centre: it is an object 1.8*r tiles across. The picture is
+     s*1.1 wide where s = ring*0.62, a CONSTANT: 0.68 tiles, the same for a car
+     door and for the biggest block in the lot. */
+  /* WHAT IS ACTUALLY DRAWN. Before COVER THAT READS this was the constant s*1.1 =
+     0.68 tiles for every piece; after it, it is the piece's own blocked width, so ask
+     the build rather than assuming which one this is. */
+  const HASNEW = (typeof coverWideOf === 'function');
+  const drawnOf = (p) => HASNEW ? (coverWideOf(p, ring) / ring) : (0.62 * 1.1);
+  const DRAWN = drawnOf(P[0] || { r: 1 });
+  const ratio = (p) => drawnOf(p) / (1.8 * (p.r || 0.01));
+  const carR = P.filter(p => p.car).map(ratio).sort((a, b) => a - b);
+  const genR = P.filter(p => !p.car).map(ratio).sort((a, b) => a - b);
+  const carW = P.filter(p => p.car).map(p => 1.8 * (p.r || 0)).sort((a, b) => a - b);
+  const genW = P.filter(p => !p.car).map(p => 1.8 * (p.r || 0)).sort((a, b) => a - b);
+  const carD = P.filter(p => p.car).map(drawnOf).sort((a, b) => a - b);
+  const genD = P.filter(p => !p.car).map(drawnOf).sort((a, b) => a - b);
+
   /* WHAT IT IS DRAWN WITH, read off the paint the fight actually runs rather than off
      my memory of it. The three fill styles below are the whole picture of a cover
      piece today: a shadow, a body and a lid. */
@@ -54,13 +74,31 @@ const LOOK = `(() => {
   const colours = [...new Set((src.match(/#[0-9a-f]{6}/gi) || []))];
   const drawsImage = /drawImage/.test(src);
 
-  return { W, H, ring, arena: G.arenaKind || 'street',
+  /* DID THE NEW PATH ACTUALLY RUN? A sprite that silently refuses to bake falls back to
+     the old flat box forever and everything else about this round would still look right.
+     Ask the bake itself, at the sizes the lot really uses. */
+  let baked = null;
+  if (typeof coverSprite === 'function' && typeof coverWideOf === 'function') {
+    let ok = 0, made = 0, dims = [];
+    for (const p of P.slice(0, 40)) {
+      const w = coverWideOf(p, ring);
+      const sp = coverSprite(p.tall === false, w, ring * 0.62, ring);
+      made++;
+      if (sp && sp.width > 0) { ok++; if (dims.length < 4) dims.push(w + 'px face -> ' + sp.width + 'x' + sp.height + ' sprite'); }
+    }
+    baked = { ok, made, cached: (typeof _COVER_SPRN !== 'undefined') ? _COVER_SPRN : null, dims };
+  }
+
+  return { W, H, ring, arena: G.arenaKind || 'street', baked,
            teachBeat: !!G.teachBeat, carsField: G._cars || 0,
            cars: new Set(P.filter(p => p.car).map(p => p.car)).size,
            carCells: P.filter(p => p.car).length, burnt: P.filter(p => p.burnt).length,
            n: P.length, onScreen, tall, low, placed, hardFalse,
            rMin: radii[0] || 0, rMed: med(radii), rMax: radii[radii.length - 1] || 0,
-           spanTiles: med(spans),
+           spanTiles: med(spans), drawnTiles: DRAWN, hasNew: HASNEW,
+           carDrawn: med(carD), genDrawn: med(genD),
+           carRatio: med(carR), genRatio: med(genR),
+           carWide: med(carW), genWide: med(genW), genWidest: genW[genW.length - 1] || 0,
            bodyColour: '#6e604a', lidLow: '#7a94a8', lidTall: '#94836a',
            coverBank: (typeof COVER_B64 !== 'undefined') ? Object.keys(COVER_B64) : null,
            streetKinds: (typeof STREET_B64 !== 'undefined') ? Object.keys(STREET_B64).length : null };
@@ -142,11 +180,34 @@ const LOOK = `(() => {
                ', which is a STALE FIELD from a previous lot, not a count]' : ''));
   console.log('\n  HOW BIG');
   console.log('    radius  min ' + r.rMin.toFixed(2) + '  median ' + r.rMed.toFixed(2) + '  max ' + r.rMax.toFixed(2) + ' tiles');
-  console.log('    the drawn block is ' + r.spanTiles.toFixed(2) + ' tiles wide');
+  console.log('    the drawn block is ' +
+    (r.hasNew ? 'THE PIECE\'S OWN BLOCKED WIDTH (COVER THAT READS is in this build)'
+              : r.drawnTiles.toFixed(2) + ' tiles wide, A CONSTANT, for every piece'));
+  console.log('\n  WHAT IT BLOCKS AGAINST WHAT IT SHOWS');
+  console.log('    a CAR CELL      blocks ' + r.carWide.toFixed(2) + ' tiles wide, shows ' +
+              r.carDrawn.toFixed(2) + '  -> the picture is ' + (100 * r.carRatio).toFixed(0) + '%');
+  console.log('    a GENERIC piece blocks ' + r.genWide.toFixed(2) + ' tiles wide, shows ' +
+              r.genDrawn.toFixed(2) + '  -> the picture is ' + (100 * r.genRatio).toFixed(0) + '%');
+  console.log('    the widest generic piece blocks ' + r.genWidest.toFixed(2) + ' tiles.');
+  console.log('    A TILE IS A HOUSE (9/4). A car cell is authored as one tile and blocks about one.');
+  console.log('    A GENERIC PIECE BLOCKS WIDER THAN THE HOUSE BESIDE IT. That is the ROW\'S own');
+  console.log('    finding to route: the cover generator was sized before a tile was a house.');
+  if (r.baked) {
+    console.log('\n  DOES THE NEW PATH RUN?');
+    console.log('    ' + r.baked.ok + ' of ' + r.baked.made + ' pieces baked a sprite; ' +
+                r.baked.cached + ' distinct sizes cached');
+    for (const d of r.baked.dims) console.log('      ' + d);
+    if (!r.baked.ok) console.log('    *** NOTHING BAKED -- every piece is still the old flat box. ***');
+  } else { console.log('\n  DOES THE NEW PATH RUN?  there is no coverSprite in this build.'); }
   console.log('\n  WHAT IT IS DRAWN WITH TODAY');
   console.log('    a shadow ellipse, a flat block ' + r.bodyColour + ', and a lid ellipse:');
   console.log('      ' + r.lidLow + '  = LOW, you may vault it');
   console.log('      ' + r.lidTall + '  = TALL, you may not');
-  console.log('    *** THE VAULT STATE IS SIGNALLED BY LID COLOUR AND NOTHING ELSE. ***');
-  console.log('    TG-07: "cover that only reads by its colour is not cover."');
+  console.log('    AND THE HEIGHT DIFFERS TOO, which an earlier run of this lane overstated away:');
+  console.log('      low  is 0.9x the block size tall, tall is 1.6x. That IS a silhouette tell,');
+  console.log('      so "the vault state reads by colour and nothing else" was WRONG. It reads.');
+  console.log('    WHAT DOES NOT READ IS WHAT THE PIECE *IS*: every one of them is the same');
+  console.log('    flat ' + r.bodyColour + ' box at the same width, and TG-07 asks for a block wall');
+  console.log('    segment, a dead car, a dumpster, a porch pier -- house-PART shapes, at the size');
+  console.log('    they actually block.');
 })();
