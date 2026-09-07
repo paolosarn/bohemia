@@ -46,6 +46,7 @@ const NOT_A_GATE = {
   'bohemia_gates.py':        'the suite runner itself',
   'bohemia_phone_perf.js':   'library: the speed instrument, imported by FPS ON A PHONE and others',
   'bohemia_beat_profile.js': 'library: the beat profiler, imported by BEAT BUDGET',
+  'bohemia_clock_rate.js':   'library: walks the city and reads its clock, imported by CLOCK RATE',
   'bohemia_build_size.js':   'library: the byte inventory, imported by BUILD SIZE',
   'bohemia_suite_census.py': 'library: the suite timing census, imported by SUITE FINISHES',
   'bohemia_fight_pixels.js': 'instrument: fingerprints the fight canvas across boots',

@@ -7485,7 +7485,16 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/7 (c) LATEST -- *** CHAT 18. ROUND 12. [unregistered gates] SHIPPED:
+PLUMBER (plumber-ont6t5): 9/7 (d) LATEST -- *** CHAT 18. ROUND 13. [clock math] SHIPPED: A WAKING
+DAY TAKES 58 TO 59 REAL MINUTES. Nobody had ever measured how much game time a real minute buys,
+so nobody could say whether three generations fit in a hundred hours. Walking the real city with
+a real held thumb, four runs: 16.28 / 16.38 / 16.49 / 16.53 in-game minutes per real minute, and
+ZERO standing still. A HUNDRED HOURS HOLDS 102 DAYS, so three generations get about 34 lived days
+each. The craft runs a day in 14 real minutes; ours is four times longer. MY FIRST INSTRUMENT WAS
+3.5x WRONG because it held one direction and walked into a wall -- two runs both stopped at
+EXACTLY 28 cells, and that identical number is what gave it away: a measurement that repeats to
+the unit is measuring a limit, not a rate.
+ROUND 12: [unregistered gates] SHIPPED:
 EIGHT MORE GATES NOBODY RAN, AND TWO OF THEM HAD BEEN RED SINCE 8/31. The 9/7 law came from ONE
 lane finding six of its own; its own words were "nobody has asked the others", so I asked. 567
 gate files, 542 the suite actually ran, EIGHT orphans across QUESTS, COMBAT and PEOPLE -- and
@@ -8934,84 +8943,92 @@ instruction.
 === END OF HIS VERBATIM INSTRUCTION ===
 
 THIS ROUND, IN HIS ORDER. Pulled main and rebased. Re-read CLAUDE.md from disk. Read the
-VAMILY front page. Round 12 of this lane. I HANDED [fight headroom] BACK OPEN and took the first
-OPEN line, [unregistered gates], claimed and pushed BEFORE starting, per rule 5.
+VAMILY front page. Round 13. I held nothing after [unregistered gates] shipped, so by rule 5 I
+took the FIRST OPEN line, [clock math], claimed and pushed BEFORE starting.
 
-WHY I LET [fight headroom] GO AFTER FIVE ROUNDS. Everything left in it is a ruling, not code this
-lane may write: the cover camera's ease (how the camera FEELS, COMBAT's), what the fight draws at
-all (DIRECTION and COMBAT), and a real handset ([PENDING Paolo]). It is NOT marked SHIPPED,
-because the ship test is not met: a driven fight is a median 413.5 ms of its 500 ms beat against
-a target of 400. Its board line now carries everything measured, who owns each remaining piece,
-three measured dead ends, and the 40 ms noise floor, so whoever takes it starts where I stopped.
+*** ROUND 13 [clock math] SHIPPED. A WAKING DAY TAKES 58 TO 59 REAL MINUTES.
+records/BOHEMIA_A_DAY_TAKES_FIFTY_EIGHT_REAL_MINUTES_9_7_26.md ***
 
-*** ROUND 12 [unregistered gates] SHIPPED. EIGHT MORE GATES NOBODY RAN, AND TWO OF THEM HAD BEEN
-RED SINCE 8/31. records/BOHEMIA_EIGHT_MORE_GATES_NOBODY_RAN_9_7_26.md ***
+THE NUMBER NOBODY HAD. Measured on the demo, walking the real city with a real held thumb and
+reading the game's own clock either side. Four runs:
+  in-game minutes per real minute, WALKING   16.28  16.38  16.49  16.53
+  in-game minutes per real minute, IDLE       0      0      0      0
+  minutes per cell (the day loop declares .084)  .0823  .0823  .0840  .0840
+Four samples inside a quarter of a minute of each other, tighter than anything else this lane has
+measured on this surface.
 
-The law (laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md) came from ONE lane:
-PEOPLE asked the suite for its newest gate, got "0 of 542 GATES" -- not red, NOTHING -- and found
-six shipped jobs whose proof was a gate the suite had never run. Its own words were "that is one
-lane out of eighteen and nobody has asked the others." I asked the others.
+WHAT IT MAKES:
+  A WAKING DAY (960 in-game minutes, 06:00 to nightfall at 22:00)   58 TO 59 REAL MINUTES
+  A HUNDRED HOURS OF PLAY                                            102 DAYS
+  A FIVE-MINUTE SESSION                                              8% of a day
+Standing still earns nothing, four out of four, exactly as the day loop says.
 
-THE SWEEP: 567 gate files on disk, 555 rows in the hand-written registry, 542 files those rows
-actually run. EIGHT files named like a gate that nothing ran:
-  asks_visible     QUESTS  9/6   38/0        dead_valley     COMBAT  8/31  10/0
-  ladder_walk      QUESTS  9/6   43/0        legend_kept     COMBAT  8/31   4 passed 1 FAILED ***
-  main_spine       QUESTS  9/7   49/0        pack            COMBAT  8/31  46 ok    1 FAILED ***
-  the_job_pays     QUESTS  9/7   75/0        walk_encounter  PEOPLE  9/1   25/0
-PEOPLE's original six were all registered by the time I looked; they fixed their own.
+WHY IT COULD NOT BE DIVIDED OUT ON PAPER: 0.084 is a rate PER CELL. What turns it into
+minutes-per-minute is how fast a held thumb actually moves you, which is a frame rate, a step
+animation and a repeat delay together. It had to be walked.
 
-TWO HAVE BEEN RED SINCE 8/31 AND NOBODY COULD SEE IT, which is what makes the law worth its cost.
-legend_kept: "every tile a district DECLARES, it MAKES" fails, 9 known-unplaced of 1048 declared,
-arterial(23) and strip(25). pack: "every part of it is reachable, not just its middle" fails, all
-nine cells BLOCKED, the warning button OVERLAPS a note. Both shipped in one commit citing "gate
-green", where green meant a person ran a file by hand once. SEVEN DAYS OF RED, INVISIBLE. Named
-on COMBAT's row, NOT fixed here: this lane names another lane's red, it never fixes it.
+WHAT IT MEANS FOR THE THINGS THAT DEPEND ON IT. The craft runs a day in about 14 real minutes;
+ours is FOUR TIMES LONGER. The coordinator's research offered two possibilities before anybody
+measured: about 15 real minutes a day (400 days in a hundred hours) or about 90 (66 days, and
+three generations do not exist). The truth is between them and nearer the good end: 102 days, so
+three generations get about 34 lived days each. Whether 34 days is a life is DYNASTY's question
+and the day length is RUN's dial. This lane measured it; it does not get to choose it.
 
-AND ONE OF THE EIGHT IS THE CASE FOR A GATE RATHER THAN A HABIT. walk_encounter belongs to
-PEOPLE, the lane that WROTE the law and swept its own history the same round, and they still
-missed it. A sweep somebody has to remember is a sweep that gets partly done.
+*** THE INSTRUMENT WAS WRONG FIRST, BY THREE AND A HALF TIMES, AND HOW IT WAS CAUGHT IS THE PART
+WORTH KEEPING. The first version held ONE direction on the walk pad. That walks you north until a
+wall, and then the thumb is still down and nothing is moving. TWO SEPARATE RUNS BOTH STOPPED AT
+EXACTLY 28 CELLS -- which is not a walking speed, it is the distance to the nearest obstacle.
+  holding one direction    4.6 game-min per real-min  ->  a day in 208 real minutes
+  turning when blocked    16.3 game-min per real-min  ->  a day in  59 real minutes
+THE IDENTICAL 28 IN TWO RUNS IS WHAT GAVE IT AWAY. A measurement that repeats to the unit is
+usually measuring a limit, not a rate. The walker watches the player's own coordinates and TURNS
+when they stop changing, the way a person does, and reports time moving against time blocked (22
+seconds against 5). ***
 
-WHAT I BUILT:
-1. THE SUITE FAILS ON ZERO (law rule 2). --only with no match used to print "0 of 542 GATES" and
-   exit CLEAN, which a lane reads as "the suite has no complaint". It is RED now, says so in
-   words a lane will read, and NAMES THE CLOSEST MATCHING GATES, because "no such gate" plus a
-   guess is the difference between a fix and a hunt. If nothing is close it points at the registry
-   gate by name. Verified both ways: a nonsense filter exits 1, a real filter still exits 0.
-2. REGISTRATION IS DERIVED (law rule 3). gates/gate_registry_gate.js reads the FOLDER against the
-   registry and goes red on: a gate file no row runs, a row pointing at a missing file, an
-   exemption naming a file that is gone, or the folder or table reading as empty. THE EXEMPTIONS
-   ARE NAMED ONE BY ONE WITH A REASON -- gates/ also holds libraries and instruments, and skipping
-   those by a PATTERN would let a real gate hide behind the pattern. It caught ITSELF as an orphan
-   on its first run, which is the behaviour you want.
-3. ALL EIGHT REGISTERED, the two red ones included, because the law is explicit that a gate is not
-   a gate until the suite runs it. MAIN'S SUITE NOW SHOWS TWO REDS IT ALWAYS HAD. That is the
-   honest state of the repo, not a regression, and the coordinator should know it is coming.
-   Before: 542 files run, 8 gates the suite could not see. After: 551 run, 0 it cannot see.
+WHAT THE GATE HOLDS (gates/clock_rate_gate.js, 9/0 through the suite, registered and solo):
+  HELD: standing still earns nothing.
+  HELD: the measured minutes-per-cell agrees with the 0.084 the day loop declares. One fact from
+    two directions, and it guards a real bug: on 8/19 `| 0` truncated every 0.084 to zero and
+    WALKING COULD NOT MOVE THE CLOCK AT ALL, forever. That cannot come back quietly now.
+  HELD: a deliberately WIDE band (above 4, below 120) as a tripwire for an instrument that
+    stopped walking, which is exactly how this number was first got wrong.
+  HELD: the instrument checks itself before it checks the game -- red if the walker never turned,
+    if most of the window was blocked, or if barely any ground was covered.
+  PRINTED AND NEVER ASSERTED: the real minutes a day takes and the days a hundred hours holds.
+    THE DAY LENGTH IS A DIAL AND IT IS NOT THIS LANE'S; the coordinator routed it to RUN as
+    [a day is] with the craft's 15 minutes as the default. A gate that pins a number nobody has
+    ruled is this lane deciding content, which it may not do.
 
-THE SHAPE OF THIS DEFECT, FOR THE NEXT ONE. A hand-written table of 555 rows cannot be trusted to
-list itself: adding a gate takes two steps and the second is a one-shot human step, so it drifts.
-That is NOTHING IS BAKED ONCE (9/6) in different clothes, the third time this month. The general
-form: ANYTHING DERIVED FROM SOMETHING ELSE MUST BE DERIVED AT RUN TIME, OR CHECKED AGAINST ITS
-SOURCE BY A GATE. A count nobody watches, a registry nobody re-derives, a bake nobody re-bakes.
+ONE THING NOT MEASURED, SAID PLAINLY: the walk rate depends on how fast the box steps you, so a
+slower phone lives a LONGER day in real minutes. I tried to measure that with CPU throttling in
+one boot and the run was INVALID -- after the first walk window the player stopped moving
+entirely, so the later arms measured nothing. Doing it properly needs one boot per throttle rate,
+and it is the same [PENDING Paolo] as [sixty fps]: a real handset.
 
-WHAT THIS LANE SHIPPED BEFORE THIS ROUND, still standing:
-[hot path] SHIPPED: both beats profiled for the first time, the hidden panel stopped drawing
-  (~900 blits a second to zero), the walked beat held at 302 ms.
-[fight headroom] (now OPEN again): the fight's floor is composed ONCE instead of 2,501 draw calls
-  a frame, pixel for pixel identical, 0 channels differ of 4,224,480, proved inside ONE frame
-  because a fight does not repeat across boots. A driven fight 497.5 -> median 413.5.
-  And a beat checker that DRIVES the fight it measures, after three silent failures were found in
-  it, every one of which made the game look faster.
-[sixty fps] / [slim build] / [suite runs] all OPEN with what is built and what is missing on each.
+ROUND 12, WHICH STILL STANDS: [unregistered gates] SHIPPED. EIGHT gates nobody ran, across QUESTS,
+COMBAT and PEOPLE, and TWO OF THEM HAD BEEN RED SINCE 8/31 (legend_kept and pack, named on
+COMBAT's row, not fixed here). The suite now goes RED on a filter that matches nothing -- it
+printed "0 of 542 GATES" and exited clean before -- and registration is DERIVED from the folder,
+so a gate the suite cannot see is a named red line. 542 files run before, 551 after, 0 invisible.
+
+WHAT THIS LANE SHIPPED BEFORE THAT, still standing:
+[hot path] SHIPPED: both beats profiled for the first time, the hidden panel stopped drawing.
+[fight headroom] OPEN again after five rounds: the fight's floor is composed ONCE instead of
+  2,501 draw calls a frame, pixel for pixel identical, and a driven fight went 497.5 -> a median
+  413.5 ms of its 500 ms beat. NOT shipped: the target is 400, and everything left is a ruling
+  for COMBAT, DIRECTION or Paolo.
+[sixty fps] / [slim build] / [suite runs] OPEN, each carrying what is built and what is missing.
   [PENDING Paolo] on two: is a phone-shaped Chromium enough to call the speed job done, and are
   the 445 unreachable judge pages safe to stop publishing.
 
 [FOR THE COORDINATOR] STILL RED ON MAIN AND NOT MINE: ENGINE SYNC and BUNDLE from FACTIONS'
-[light owners] 8cc0c6a (BOH_POWERGRID has two bodies across six carriers; one line is on their
-row with the fix), COMBAT RUNS (opens the page over file:// while the page fetches siblings), and
-now LEGEND KEPT and PACK, which are not new breakage but newly visible.
+[light owners] 8cc0c6a, COMBAT RUNS (opens the page over file:// while the page fetches
+siblings), and LEGEND KEPT and PACK, which are not new breakage but newly visible.
 
-NEXT IN THIS LANE: the first OPEN line, which is [clock math] HOW-MANY-GAME-MINUTES-PER-REAL-MINUTE.
+NEXT IN THIS LANE: the first OPEN line, which is [gate missing] THE-COMPARE-LAW-HAS-NO-CHECKER --
+EYES E11 found that reference_check_gate DOES NOT EXIST while CLAUDE.md advertises it as the gate
+for a LOCKED law. That is the same defect as [unregistered gates] one step further on: not a gate
+the suite cannot see, but a gate that was never written at all.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO

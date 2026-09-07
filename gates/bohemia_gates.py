@@ -2666,6 +2666,30 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('CLOCK RATE',     ['node', 'gates/clock_rate_gate.js'],
+     'HOW MANY IN-GAME MINUTES A REAL MINUTE BUYS, 9/7, PLUMBER lane, row [clock math]. The row: '
+     '"a day is 1,440 in-game minutes, a step is 0.084 of them, standing still costs nothing, and '
+     'NOBODY has measured how many in-game minutes pass per real minute of play. Without that '
+     'number nobody can say how many days a hundred hours holds or whether three generations fit." '
+     'It could not be divided out on paper: 0.084 is a rate PER CELL, and what turns it into '
+     'minutes-per-minute is how fast a held thumb actually moves you. MEASURED, four runs on the '
+     'demo: 16.28 / 16.38 / 16.49 / 16.53 in-game minutes per real minute walking, ZERO idle. So a '
+     'WAKING DAY (960 in-game minutes, 06:00 to nightfall) TAKES 58 TO 59 REAL MINUTES, a hundred '
+     'hours holds 102 DAYS, and a five-minute session is 8% of a day. The craft runs a day in about '
+     '14 real minutes, so ours is four times longer. THE INSTRUMENT WAS WRONG FIRST BY 3.5x: it '
+     'held ONE direction, which walks you into a wall and then stands there with the thumb down -- '
+     'two runs both stopped at EXACTLY 28 cells, which is not a walking speed, it is the distance '
+     'to the nearest obstacle. A measurement that repeats to the unit is measuring a limit, not a '
+     'rate. The walker turns when it stalls now, and this gate goes red if it never turned, if most '
+     'of the window was blocked, or if barely any ground was covered. IT ALSO CHECKS THE NUMBER '
+     'FROM TWO DIRECTIONS: the measured minutes-per-cell must agree with the 0.084 the day loop '
+     'declares, so the 8/19 class of bug -- where `| 0` truncated every 0.084 to zero and WALKING '
+     'COULD NOT MOVE THE CLOCK AT ALL, forever -- cannot come back quietly. THE DAY LENGTH ITSELF '
+     'IS PRINTED AND NEVER ASSERTED: it is a DIAL and it is RUN\'s, routed as [a day is] with the '
+     'craft\'s 15 minutes as the default. A gate that pins a number nobody has ruled is this lane '
+     'deciding content, which it may not do. The band it does hold (above 4, below 120) is a '
+     'tripwire for a broken instrument, not a target',
+     True),
     ('GATE REGISTRY',  ['node', 'gates/gate_registry_gate.js'],
      'A GATE THE SUITE CANNOT SEE IS A NAMED RED LINE, 9/7, PLUMBER lane, row [unregistered '
      'gates]. LAW: laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md rule 3, '
