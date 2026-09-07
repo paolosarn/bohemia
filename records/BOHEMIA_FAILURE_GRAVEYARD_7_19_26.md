@@ -7,6 +7,39 @@ it), the ROOT CAUSE, the LESSON, and the MACHINE GUARDRAIL that now prevents rec
 (a lesson without a gate is not enforced). Read this before building any district or art.
 
 ================================================================================
+## THE CAR (9/7) — a photograph standing next to a pixel body
+================================================================================
+
+### FAIL — THE PHOTOGRAPHIC CAR WRECK (token: CARFAIL-PHOTOGRAPH)
+WHAT SHIPPED: twenty top-down car wrecks, corpus photographs, dropped into the city's
+prop bank and the fight's car bank as-is. They were "shopped, not cooked" — real
+photographs of real wrecks, never put through the craft operation the rest of the art
+goes through.
+PAOLO, VERBATIM (9/7, off his own screenshot, records/target/PAOLO_THE_CAR_IS_ASS_9_7_26.jpg):
+**"this is ass, is that the car model, c'mon bro."**
+ROOT CAUSE: "corpus art, no new canon" was read as *no work needed*. Shopping the right
+OBJECT is half the job; the other half is the approved craft operation, and it was skipped
+for this one family. Our own craft law says so by a factor of 47:
+
+    median 3,031 distinct colours   the craft law's ceiling is 64      47x over
+    median 71% of pixels a colour used exactly once   ceiling 35%       2x over
+    median 90% orphan pixels
+    all twenty failed; not one was close
+
+LESSON: **A PHOTOGRAPH IS NOT A PROP.** A shopped asset enters the game through the same
+door as a cooked one — snapped to a family ramp, orphans absorbed, at most two accents off
+its own out-of-range pixels. An asset that skips that door will stand next to a six-tone
+body and read as two worlds in one frame, however good the photograph is.
+MACHINE GUARDRAIL: `gates/props_gate.js` already binds the bank to the shipped sibling and
+caught this cook halfway through when only one of them had been updated. The colour ceiling
+itself lives in `gates/pixel_craft_gate.py` (CRAFT.max_colours_in_one_tile = 64). The cook
+that fixed it, `tools/bohemia_car_recook_9_7_26.py`, REFUSES TO WRITE unless every car
+lands inside both craft thresholds.
+DEAD AND STAYING DEAD: the photographic wrecks are graveyarded. The replacements keep their
+silhouettes — the observed real vehicle — and nothing about this entry licenses re-drawing
+a car by hand.
+
+================================================================================
 ## TONIGHT'S FAILURES (the park saga, 7/19) — the freshest, deepest lessons
 ================================================================================
 

@@ -5525,55 +5525,64 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/7 LATEST -- *** A FORTRESS AND A CAMP ARE THE SAME SUBURB, ONE IS JUST
-BIGGER. Sixty percent of every faction's home ground in Vegas is a housing tract, and the only
-thing separating a stronghold from a camp is how far it spreads. TAB: CITY. Nothing to judge. ***
+COOK (cook-mce6r5): 9/7 LATEST -- *** THE CAR IS NOT A PHOTOGRAPH ANY MORE. He said "this is
+ass, is that the car model" and our own craft law agreed by a factor of 47: the twenty city
+wrecks were photographs, median 3,031 colours against a ceiling of 64. They are 9 colours now,
+in the road's own ramp, silhouettes untouched. TAB: CITY (and COMBAT). Nothing to judge. ***
 
-THE JOB: [fortress buildings] FORTRESS-BUILDINGS, CLAIMED 9/7, round 1 of 2 done and committed.
-The previous job [combat ground] SHIPPED both rounds (10929dfe, BUILD 9/6be, pages run 1421
-SUCCESS on that exact sha).
+THE JOB: [car recook] THE-CAR-IS-ASS, CLAIMED 9/7, ART HALF SHIPPED. His bugs beat the queue,
+so [fortress buildings] is paused mid-row (round 1 measured and pushed, round 2 is the wall)
+and this went first.
 
-ROUND 1 IS A MEASUREMENT AND IT REFRAMED THE ROW. The row says "the buildings a faction
-fortress needs that NOBODY HAS DRAWN". They are drawn. Matching the 55 valued district kinds
-against engine/bohemia_*.js FILENAMES said 18 have no module -- fort, arsenal, granary, prison,
-estate, convention -- which looked exactly like the answer. A FILENAME IS NOT A REGISTRY:
-DISTGEN in bohemia_world.js holds 61 generators and many kinds share a module. Only 8 valued
-kinds have no generator (airbase airport highroller luxor sign sphere strat strip); five are
-Strip landmarks worth 336 and three are worth zero, and NOT ONE is a building a fortress would
-sit on. His own law predicted it: "using the district kit's existing modules, no new art to
-start".
+WHAT WAS WRONG, IN OUR OWN NUMBERS: median 3,031 distinct colours (craft ceiling 64, 47x over),
+71% of pixels a one-off colour (ceiling 35%), 90% orphan pixels. All twenty failed. A
+photograph standing beside a six-tone body is two worlds in one frame, which is what he saw.
 
-WHAT IS ACTUALLY MISSING, measured on the real surface across all fourteen towns
-(tools/bohemia_fortress_probe_9_7_26.js):
-    Cartel   FORTRESS 30 cells  suburb x24, commercial x5, storage x1
-    Remnants FORTRESS 25 cells  suburb x21, prison x4
-    Colorful CAMP      6 cells  suburb x4,  commercial x1, apartment x1
-    all fourteen towns: suburb x131 of 218 cells
-A fortress and a camp are made of the same thing; only the size differs. `fort` appears TWICE
-in fourteen towns and is nobody's seat, `arsenal` ZERO, `granary` ZERO -- all three buildable,
-none chosen, because nothing chooses a town's buildings at all.
+THE FIX IS HIS OWN 7/28 METHOD, UNCHANGED, off the starter tileset he approved: "every pixel
+snapped to the family ramp by value, then orphans absorbed", plus "up to two accents per tile,
+taken from that tile's OWN out-of-range pixels". The ramp is not a choice: the row says "the
+value bands of the ground it sits on", the bank carries ONE PALETTE PER FAMILY, and the family
+a car sits on is the road -- asphalt, 7 tones, #101216 to #6a5e50.
+    median 3,035 -> 9 colours, single-use 0.72 -> 0.00, orphan 0.90 -> 0.00
+    20 of 20 inside both craft thresholds, and the prop bank shrank 195 KB
+Both banks and both surfaces are cooked by ONE tool so they cannot drift.
 
-*** WHAT COMES NEXT *** ROUND 2: A FORTRESS IS WALLED. "Walls" is the first word of his
-FORTRESS definition and nothing in the repo draws a wall around a town. THE LEGAL GROUND IS
-CHECKED AND WRITTEN DOWN so nobody re-litigates it: the 8/16 LOCKED ban ("no perimeter walls
-until I tell you, bro no fencing no nothing bro") is scoped to a CASINO'S PLOT by its own
-comment ("the building meeting the sidewalk is the edge"); the 7/14 WALLED SUBURBS LAW (LOCKED)
-already has Bohemia drawing CMU perimeter walls around decent tracts; and 9/4 FACTION TOWNS is
-newer than both and names Walls for a fortress by name. So the art EXISTS in the suburb
-generator, a fortress wall is legal, and it is REUSE-FIRST -- run the tract wall the suburb
-already draws around a fortress town's outer edge. Do not cook a new wall.
+*** AND THE NUMBERS WERE PERFECT WHILE THE PICTURE WAS WRONG. *** The first cook scored 8
+colours, zero orphans, zero single-use -- everything green -- and then I LOOKED at it and one
+car was covered in scarlet speckle, because the accent came off the single most saturated
+pixel and that was a tail light. Fixed twice, law-cited: an accent comes off a DISTRIBUTION
+(90th-percentile saturation, median warm colour above it), and PIXELS TRAVEL IN GROUPS applies
+to accents too, so any accent cluster under four pixels goes back to the ramp. NEVER SHIP A
+COOK YOU HAVE ONLY MEASURED.
 
-*** AND THE HAZARD IS NAMED BEFORE ANYONE STARTS, BECAUSE IT IS HIS LOUDEST COMPLAINT. ***
-laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md, LOCKED, and he was standing inside
-one when he said it: "I'm like locked in this fucking suburb. What's wrong with you? MAKE SURE
-I CAN'T BE LOCKED IN ANY CERTAIN DISTRICT EVER AGAIN it's so fucking creepy." A wall ringing a
-thirty-cell fortress is EXACTLY the shape that makes a prison. So round 2 is not "draw a ring":
-its three clauses are the acceptance test -- every built cell keeps a way out, the opening is a
-REAL passable gap the interior can walk to, and a relay into another sealed cell counts as a
-violation. Gate it with landlocked_gate.js and the walkable-land checks ON THE REAL SURFACE,
-and treat a wall that passes a source check but not a walk as not built. That is why this round
-stopped here rather than bolting a ring on at the end of it: shipping a fortress wall that
-re-creates the thing he was angriest about would be worse than having no wall at all.
+AND MY FIRST GUESS AT THE CAUSE WAS WRONG AND IS IN A COMMIT MESSAGE. Claiming the row I wrote
+that the brick wall was probably mine from [combat ground] round 2. It is not: the screenshot
+has a joystick, a portrait and a dialogue box, so it is the WALKED CITY and the wall is the
+city's own.
+
+*** WHAT COMES NEXT *** HIS COMPLAINT HAS TWO HALVES AND THIS SHIPS ONE. The row also says the
+car is "sitting ON TOP of a brick wall... on the GROUND not on a wall". That is placement, not
+pixels. Measured in the city's own draw: a car comes off a chunk's `posts` list and is stretched
+to C*pw x C*ph -- the STALL, not the master's size, so a 45x96 master is magnified to fill it --
+and when the stall is wider than deep the master turns a quarter, which is the wide horizontal
+band in his screenshot and is correct for a parking stall. Whether a stall may be laid over a
+wall band, and the draw order between a post and the wall behind it, is [FOR LIFE + CITY].
+
+[FOR THE PLUMBER] props_gate.js's second arm, "the car lattice FOLLOWS THE BLOB (a rotated plot
+  turns a 2x4 rank into 4x2)", is RED ON ORIGIN/MAIN right now -- verified in a clean worktree,
+  75 passed / 1 failed, identical to this tree. Not mine, and red for everybody.
+[FOR THE PLUMBER] bohemia_furnish.js dresses 25 rooms and the floorplan says the pool maps 36;
+  plant, dining and corridor are dressed by nothing. BUT study and garage ARE dressed today, so
+  ECONOMY's 9/5 record is stale where it says two zones place rooms nothing can furnish.
+
+THE PAUSED ROW: [fortress buildings] round 1 shipped a measurement that reframed it -- the
+buildings a fortress needs are ALREADY DRAWN (DISTGEN has 61 generators; the 8 kinds it cannot
+build are Strip landmarks and zero-worth ground). What is missing is that a fortress and a camp
+are the same suburb (131 of 218 town cells) and that nothing draws a wall around a town. Round 2
+is that wall, and its hazard is named: laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md,
+LOCKED -- "make sure I can't be locked in any certain district ever again". A ring around a
+thirty-cell fortress is exactly that shape, so its three clauses are the acceptance test and it
+gets landlocked_gate.js and a real walk, not a source check.
 
 [FOR WORLD] Nothing chooses a town's buildings. districtsOf reports what is already on the
   ground and REACH decides how much a town claims; no step says a fortress carries supply and
