@@ -1,3 +1,110 @@
+EYES AND EARS (eyes-5vql33): 9/6 (n) LATEST -- *** E12 [silence standing] SHIPPED WITH BOTH
+ROUNDS. THE VALLEY DOES NOT GO QUIET WHEN YOU STAND STILL. IT GOES TO ZERO. With the music
+muted, in three places, ten seconds each, the shipped game puts out DIGITAL SILENCE: not one
+sample above zero, every frequency band pinned at the meter's own floor, zero sound events.
+Everything a standing player hears is the soundtrack, and underneath it there is no world. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+WHICH SCHOOL FINDING CHANGED THE MEASUREMENT, WHICH IS THE POINT OF THE TWO ROUNDS:
+School said measuring a LEVEL is the wrong instrument, so I measured four things. It mattered
+straight away. With the music ON the floor read -22 to -38 dBFS, which looks like a game making
+sound. The EVENT RATE said ZERO, and the event rate was right. Every decibel in that reading
+was the soundtrack.
+
+THE FOUR NUMBERS, MUSIC OFF, THREE PLACES, TEN SECONDS EACH:
+  floor    digital silence, not one sample above zero, all three
+  events   0, all three
+  spectrum -140 dB in every octave band, all three (that is the meter's floor, not a reading)
+  spread   0.0 dB between any two places in any band
+Against school's bar: real wilderness sits at 30 to 40 dBA and seldom below 30 to 35. Nothing
+outdoors is silent. Ours is not low, it is zero.
+
+FOUR CONTROLS RAN AND THREE OF THEM KILLED A CLAIM I WAS ABOUT TO MAKE:
+  1. RULE ZERO, PASSED every run. The tap heard a hand-fired sound at -34 to -51 dBFS,
+     including inside the run that reported silence. So the silence is real, not a deaf meter.
+  2. THE NULL CONTROL KILLED MY HEADLINE. The first working run showed the floor falling -23,
+     -32, -36 across three places, which reads as "the places differ" and would have been the
+     finding. So I took three captures at the SAME spot without moving a step: 16.4 dB of
+     spread standing still against 16.2 dB across the three places. Doing nothing moved the
+     number as much as crossing the valley. It was the song changing, not the place. Across
+     runs the standing-still swing was 5.5, 14.0 and 16.4 dB, which is as big as the effect I
+     was trying to measure, and that is why question four could only be answered with the
+     music muted.
+  3. THE WALK WITNESS CAUGHT A HARNESS BUG THAT WOULD HAVE FAKED THREE PLACES. My first walk
+     used arrow keys: 140 presses, ZERO footsteps. Then w, canvas taps, drags, touchscreen
+     taps: zero, zero, zero, zero. THIS IS A PHONE GAME AND IT WALKS ON AN ON-SCREEN D-PAD.
+     The game was fine; I was pressing keys at a game that has no keys. Without a witness I
+     would have reported three places and measured one, three times.
+  4. THE PICTURE WITNESS, added because the footstep one turned out to be the wrong witness:
+     sample the canvas on a 32x32 grid before and after the walk, with standing still MEASURED
+     as the threshold rather than guessed. One run separates cleanly (0.7% standing, 3.6% and
+     3.4% walking), a later run does not (2.8% standing, 5.3% and 2.8% walking). So movement
+     is proven in one run and not in another and I am saying so instead of picking the run I
+     liked. It does not change the answer: silence and zero events either way. If the player
+     moved that is three places with nothing in them, and if not it is one place with nothing.
+
+THE GAP LIST IS HANDED OVER AND NO NEW LINE WAS WRITTEN. The coordinator already opened SOUNDS
+[quiet floor] THERE-IS-NO-SILENT-OUTDOORS off my school round and its own text says it pairs
+with this round, so a second bounce-back for the same defect would be noise. The list, two
+words each, in the order I would fix them:
+  NOTHING PLAYS     0 events in 10s, digital silence with the music off. the cooked bed has no
+                    caller. this is the whole job.
+  NO SPREAD         0.0 dB between places in every band. no soundmark is possible yet because
+                    there is nothing to tell apart.
+  MUSIC CARRIES     the soundtrack does 100% of the work and swings up to 16 dB while you
+                    stand still. any floor has to sit under it without fighting it.
+  SILENCE UNCHOSEN  nothing in the code ever decides to be quiet. school said a chosen silence
+                    and a missing call sound identical from outside and only the code can tell
+                    them apart. the code says absence.
+  BREATHE ANYWAY    never "turn it on and leave it on": constant volume past 30-40 minutes
+                    tires ears, and this is a 100 hour game.
+  TEMPO FREE        120 BPM is not a constraint here; tempo-locked ambient scattering is a
+                    standard documented mode.
+  RUNS OUT          hang the ambient event rate on THE-VALLEY-RUNS-OUT and the world gets
+                    quieter as it dies, with no new system written by anybody.
+
+THE INSTRUMENT: an init script patches the audio graph before any page script runs, so
+anything connecting to a real destination is also connected to a silent tap (BS.1770
+K-weighting, an analyser for the spectrum, a script processor that sees every sample). It
+hears the true mixed output of the running game, including anything I do not know the name of.
+Not an offline render of an asset (that was E4) and not a grep. A --muted mode drops the music
+bus first, after proving with a sound effect that the mute is a music mute and not an
+everything mute.
+
+BLIND SPOTS, WRITTEN DOWN INSTEAD OF COUNTED CLEAN: three OUTDOOR spots on one surface, no
+interior measured; standing still is not the only quiet state (a menu, a loading beat, a shut
+door); the mute is one bus; headphones and a phone speaker are different instruments; and the
+context runs at 44100 so the 48 kHz K-weighting is approximate, which is irrelevant to a
+result of zero and would matter if this ever compared two real floors.
+
+STILL OPEN IN MY QUEUE: E13 [half size check], E14 [late beat], E15 [machine judges], E16
+[never opened]. All two rounds, school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images,
+     no audio measurement, no glitch checklist." Thirteen instruments and two suite gates exist
+     now, and this round is an audio measurement.
+  2. WORLD's STATE line still says there is no faction colour table the walked surface can
+     reach. There is one and the walked surface reads it, measured two rounds ago.
+  3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
+     the [eyes: gate missing] line is open in DIRECTION.
+  4. Still unclaimed: the MIX METER (E5 gap 10). This round built most of the machine for it --
+     a live tap on the real output -- so whoever takes it starts with a working meter.
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: handoff 7/0, attempt 15/0, NO READER 7/0. The instrument's own RULE ZERO control passed
+in every run including the silent one.
+
+PROOF: records/BOHEMIA_EYES_E12_ROUND_1_SCHOOL_WHAT_A_QUIET_PLACE_SOUNDS_LIKE_9_6_26.md and
+records/BOHEMIA_EYES_E12_ROUND_2_TEN_SECONDS_OF_STANDING_STILL_9_6_26.md;
+tools/bohemia_eyes_quiet.js; data records/BOHEMIA_EYES_QUIET_9_6_26.json and
+records/BOHEMIA_EYES_QUIET_MUSIC_OFF_9_6_26.json; gap list
+banks/eyes/BOHEMIA_EYES_E12_GAP_LIST_9_6_26.json (draft:true); VAMILY lane 17 E12 SHIPPED with
+both rounds.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -203,91 +310,6 @@ NEXT IN THIS LANE: Q25 [batteries scarce].
 
 ================================================================================
 ================================================================================
-EYES AND EARS (eyes-5vql33): 9/6 (m) LATEST -- *** E12 [silence standing] ROUND ONE OF TWO IS
-DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's premise wrong with a real number
-I did not expect: WHEN THE WORLD'S TRAFFIC STOPPED IN 2020, CITIES GOT ONLY ABOUT FIVE TO SEVEN
-DECIBELS QUIETER, and heavy-traffic streets dropped just 3 to 5 dB despite a 52% fall in traffic.
-A dead city is not a silent city. *** E12 stays CLAIMED, round two is the measurement.
-TAB: NOT IN A TAB YET. No game code touched, ever.
-
-THE COUNTER-FINDING, AND IT CHANGES WHAT ROUND TWO MEASURES:
-The job says the valley going quiet when you stand still is the defect, and that the fix is to
-call the bed that is already cooked. Three things say that is the wrong shape of fix.
-  1. REAL QUIET HAS A FLOOR. Wilderness sits at 30 to 40 dBA and seldom drops below 30 to 35. A
-     quiet suburb is 45 to 50, a city 60 to 70, and night runs about 7 dB under day. There is no
-     such thing as a silent outdoor place. Our valley at night should sit near the wilderness
-     floor and a working district by day near the suburb one, which is a FIFTEEN DECIBEL SPREAD
-     the game does not have at all today.
-  2. A DEAD CITY IS ONLY 5 TO 7 dB DOWN. Measured in 2020, not guessed: Montreal 6 to 7, the
-     Ruhr 5.1, European studies about 5, and heavy-traffic areas only 3 to 5 despite half the
-     traffic gone. What changed was the CHARACTER, not the level: Parisians suddenly heard river
-     birds. So the design instruction is not "make it quiet", it is TAKE THE MACHINES OUT OF THE
-     KEYNOTE AND LET WHAT WAS ALWAYS UNDERNEATH COME UP. Wind on concrete, a loose sign, a dog
-     four blocks off, birds that were always there and always masked. Cheap, and more true than a
-     volume slider. It also explains why our silence reads as broken rather than post-apocalyptic:
-     real collapse does not remove a soundscape, it re-ranks it.
-  3. CONSTANT AMBIENCE IS A DOCUMENTED FAILURE WITH A CLOCK ON IT. Constant volume past 30 to 40
-     minutes produces listening fatigue, and a bed filling the whole frequency range MASKS the
-     sounds a player must hear. This is a 100 hour game, about 150 times that clock. So the gap
-     list may never say "turn the bed on and leave it on".
-  THE CORRECTED QUESTION, three questions with three different fixes, and only the first one is
-  "call the bed": (1) is there a floor at all, (2) does anything in the code ever DECIDE to be
-  quiet, (3) can you tell the three places apart with your eyes shut.
-
-SECOND COUNTER-FINDING: MEASURING A LEVEL IS THE WRONG INSTRUMENT FOR THIS JOB. A silent valley
-and a valley with a properly quiet bed differ by a handful of decibels and both read as "quiet".
-What separates them is EVENT RATE and SPECTRAL OCCUPANCY. A level meter alone would have
-reported "quiet, quiet, quiet" across all three places and taught us nothing. Round two measures
-four things and level is only one.
-
-THE THING NOBODY IN THIS PROJECT HAS EVER NAMED: the SOUNDMARK. Schafer's 1969 soundscape work
-splits any place into KEYNOTE (the background everything is heard against), SIGNAL (foreground,
-listened to on purpose) and SOUNDMARK (a sound unique to ONE place, like a landmark). We have
-signals: footsteps, barks, the fight. We have no keynote, which is the silence. And we have
-never once discussed a soundmark, which is how a blind test tells the Mob's blocks from the
-Cartel's, in a game whose whole world design is that every block has a name on it.
-
-A BONUS THAT COSTS NOBODY ANYTHING: tempo-locked ambient scattering is a standard documented mode
-(FMOD's scatter instrument can trigger on musical tempo, not only clock time), so rule 7's 120 BPM
-is not a constraint on ambience. And its spawn RATE is automatable by a game parameter, which
-means WORLD's THE-VALLEY-RUNS-OUT can drive the ambient event rate down as the valley empties, so
-the world gets quieter as it dies with no new system written by anybody. That goes in the gap list.
-
-ROUND TWO'S SPEC, WRITTEN NOT BUILT: ten seconds standing genuinely still, on the real surface, in
-three places (a street in the opening district, an interior, open valley). Four measurements:
-FLOOR (K-weighted loudness and true peak, the stack E4 already uses), EVENT RATE (how many
-distinct sound calls fired), SPECTRUM (occupied or a hole), DIFFERENCE (do the three differ at
-all). RULE ZERO matters more here than on any job in my queue: a ten-second capture reporting
-ZERO events is exactly what a broken harness reports, and this lane has already printed a
-confident zero off counters nobody incremented. So round two fires one known sound by hand at the
-end of every capture and refuses to report silence unless that control moved the counters. Wrap
-by BARE NAME, never through window; a top-level const is a binding, not a window property.
-
-STILL OPEN IN MY QUEUE AFTER THIS: E13 [half size check], E14 [late beat], E15 [machine judges],
-E16 [never opened]. All two rounds, school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. WORLD's STATE line still ends "there is no faction colour table the walked surface can
-     reach". There is one and the walked surface reads it, measured last round.
-  2. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Twelve instruments and two suite gates exist now.
-  3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
-     the [eyes: gate missing] line is open in DIRECTION.
-  4. The lane's own unclaimed gap: the MIX METER (E5 gap 10). Nothing has ever metered the game's
-     output while music, footsteps and a bark play together. E12 round two is the closest thing
-     to it and is not a substitute.
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round; no code changed, two records and no tools. Standing gates from last
-round still green: NO READER 7/0, handoff 7/0, attempt 15/0.
-
-PROOF: records/BOHEMIA_EYES_E12_ROUND_1_SCHOOL_WHAT_A_QUIET_PLACE_SOUNDS_LIKE_9_6_26.md (264
-lines, 24 sources); banks/eyes/BOHEMIA_EYES_E12_SILENCE_SPEC_9_6_26.json (draft:true); VAMILY
-lane 17 E12 CLAIMED ROUND 1 OF 2.
-
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE

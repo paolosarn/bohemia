@@ -1,0 +1,41 @@
+{
+ "bank": "EYES AND EARS -- E12 [silence standing] -- THE GAP LIST FOR SOUNDS",
+ "date": "9/6/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. Measured on the shipped alpha at iPhone size, ten seconds standing still, three places, twice over (music on and music off), with four controls. Attaches to SOUNDS [quiet floor] THERE-IS-NO-SILENT-OUTDOORS, whose own text says it pairs with this round. No new bounce-back line was written; a second line for the same defect would be noise.",
+ "record": "records/BOHEMIA_EYES_E12_ROUND_2_TEN_SECONDS_OF_STANDING_STILL_9_6_26.md",
+ "data": ["records/BOHEMIA_EYES_QUIET_9_6_26.json", "records/BOHEMIA_EYES_QUIET_MUSIC_OFF_9_6_26.json"],
+ "headline": "the valley does not go quiet standing still, it goes to ZERO: with the music muted, digital silence, not one sample above zero, every octave band at the meter's floor, zero events, in three places",
+ "gaps": [
+  {"n": 1, "draft": true, "verdict": "NOTHING PLAYS", "measured": "0 sound events in 10 seconds at every place; digital silence with the music off", "means": "the cooked bed has no caller. this is the whole job."},
+  {"n": 2, "draft": true, "verdict": "NO SPREAD", "measured": "0.0 dB between any two places in any octave band, music off", "means": "no soundmark is possible yet, because there is nothing to tell apart"},
+  {"n": 3, "draft": true, "verdict": "MUSIC CARRIES", "measured": "-22 to -39 dBFS with music on, and up to 16 dB of swing while standing still and doing nothing", "means": "the soundtrack is doing 100% of the work; any floor has to sit under it without fighting it"},
+  {"n": 4, "draft": true, "verdict": "SILENCE UNCHOSEN", "measured": "nothing in the code ever decides to be quiet", "means": "a chosen silence and a missing call sound identical from outside; only the code can tell them apart, and it says absence"},
+  {"n": 5, "draft": true, "verdict": "BREATHE ANYWAY", "from": "school", "means": "constant volume past 30-40 minutes causes listening fatigue and this is a 100 hour game, so never 'turn it on and leave it on'; keep detail out of the loop and scatter it as randomized one-shots"},
+  {"n": 6, "draft": true, "verdict": "TEMPO FREE", "from": "school", "means": "rule 7's 120 BPM is not a constraint here: tempo-locked ambient scattering is a standard documented mode"},
+  {"n": 7, "draft": true, "verdict": "RUNS OUT", "from": "school", "means": "hang the ambient event rate on THE-VALLEY-RUNS-OUT and the world gets quieter as it dies, with no new system written"}
+ ],
+ "the_target_from_school": {
+  "draft": true,
+  "real_floor_dBA": "wilderness 30-40 and seldom below 30-35; quiet suburb 45-50; city 60-70; night about 7 under day",
+  "a_dead_city_is_only": "5 to 7 dB below a live one (Montreal 6-7, Ruhr 5.1, heavy traffic only 3-5 despite half the traffic gone)",
+  "so_the_fix_is": "not a volume. take the machines out of the keynote and let what was always underneath come up: wind on concrete, a loose sign, a dog four blocks off, birds that were always there and always masked."
+ },
+ "controls_that_ran": [
+  {"control": "RULE ZERO positive control", "result": "PASSED every run, tap heard a hand-fired sound at -34 to -51 dBFS, including in the run that reported silence"},
+  {"control": "null control, three captures at one spot without moving", "result": "KILLED the place-difference claim with the music on: 16.4 dB spread standing still vs 16.2 dB across places"},
+  {"control": "walk witness (the game's own footstep call)", "result": "CAUGHT a harness bug: arrow keys, w, canvas taps, drags and touchscreen taps all produced zero footsteps; this game walks on an on-screen d-pad"},
+  {"control": "picture witness (32x32 canvas grid, standing still measured as the threshold)", "result": "MIXED: movement proven in one run (0.7% standing vs 3.6/3.4% walking) and not in another (2.8% vs 5.3/2.8%). Reported as mixed rather than picking the good run. Does not change the answer."}
+ ],
+ "blind_spots": [
+  "three outdoor spots on one surface; no interior was measured",
+  "standing still is not the only quiet state (a menu, a loading beat, a shut door)",
+  "the mute is one bus; a sound effect was proved to pass through it first, but a third bus would not have been caught",
+  "headphones and a phone speaker are different instruments; this measures the signal, not the speaker",
+  "44100 Hz, so the 48 kHz K-weighting coefficients are approximate; irrelevant to a result of zero"
+ ],
+ "what_this_lane_may_not_do": [
+  "write the bed or call it",
+  "decide what the valley should sound like (SOUNDS builds it, the taste is DIRECTION's and his)"
+ ]
+}
