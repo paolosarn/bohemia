@@ -1,0 +1,69 @@
+{
+ "bank": "EYES AND EARS -- E13 [half size check] -- THE UI SCALE AND TOUCH SWEEP, SPEC ONLY",
+ "date": "9/6/26",
+ "round": "1 of 2 (SCHOOL). Nothing here has been built or run. Nothing was measured.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. School's two corrections: (1) 'did it halve' is not answerable by measuring the surface, because half of WHAT, and if no file holds the before then the ruling exists only as pixels and cannot be checked at all (E11's disease in a new lane). (2) The job's test, 'every touch target still 44 px', is the AAA bar not the floor, and it points at the DRAWN rectangle when the rectangle that matters is the HIT rectangle.",
+ "school_record": "records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md",
+ "the_order_being_checked": {
+  "draft": true,
+  "who": "Paolo 9/6, LOCKED",
+  "words": "for the run right now make all the UI 50% smaller, I don't give a fuck",
+  "the_rule_that_survives": "a control is DRAWN at half size while its invisible touch target stays 44 px",
+  "status_when_school_ran": "UI's [half size] row is CLAIMED, not shipped. this lane does not grade work that has not shipped."
+ },
+ "the_four_bars": [
+  {"bar": "WCAG 2.2 SC 2.5.8 Target Size (Minimum)", "level": "AA", "size": "24x24 CSS px", "escape": "five exceptions including a spacing offset: an undersized target passes if a 24 px circle centred on it hits nothing else", "draft": true},
+  {"bar": "WCAG SC 2.5.5 Target Size (Enhanced)", "level": "AAA", "size": "44x44 CSS px", "escape": "four exceptions, NO spacing escape", "draft": true},
+  {"bar": "Apple HIG", "level": "platform guidance", "size": "44x44 pt", "escape": "guidance, not a checker", "draft": true},
+  {"bar": "Material", "level": "platform guidance", "size": "48x48 dp", "escape": "guidance, not a checker", "draft": true}
+ ],
+ "order_of_operations": [
+  {"n": 1, "draft": true, "step": "FIND THE BEFORE", "how": "a scale factor in a file (a --ui-scale custom property, a constant, a multiplier) is exact; else a ratio against git history; else declare it UNMEASURABLE and say the fix is a file, not a number"},
+  {"n": 2, "draft": true, "step": "ENUMERATE EVERY CONTROL", "how": "not two named ones: everything with a click handler, role=button, a pressable class, or a cursor that says it is pressable, across every frame, at 390x844"},
+  {"n": 3, "draft": true, "step": "THREE RECTANGLES PER CONTROL", "how": "DRAWN via getBoundingClientRect in CSS px with the frame offset added; TOUCH via elementFromPoint walking outward from the centre until the point stops resolving to the control or a descendant; SPACING to the nearest other touch rectangle"},
+  {"n": 4, "draft": true, "step": "THREE VERDICTS REPORTED SEPARATELY", "how": "clears AAA 44 / clears AA 24-with-spacing / clears neither. only the third is a defect. plus distance from screen centre, because Fitts needs it."},
+  {"n": 5, "draft": true, "step": "SAFE AREAS", "how": "flag any control inside the top or bottom inset; a 44 px button under the home indicator is 44 px and unusable"}
+ ],
+ "why_drawn_is_not_touched": {
+  "draft": true,
+  "technique": "position:relative on the control, an absolutely positioned ::after with a negative inset, wrapped in @media (pointer: coarse). a pseudo-element belongs to its parent so it acts as the parent's touch area, and unlike padding it does not touch the box model.",
+  "status": "standard and recommended; the CSS Working Group has an open issue (csswg-drafts 4708) asking for a first-class property, which says both that the need is real and that the hack is still how it is done",
+  "consequence": "getBoundingClientRect measures PAINT and cannot see a hit area at all. the sweep must hit-test."
+ },
+ "the_prediction_to_verify_in_round_two": {
+  "draft": true,
+  "about": "gates/phone_readable_gate.js",
+  "what_it_does": "takes getBoundingClientRect() on two named controls (settext, setmotion) on one screen of the demo and fails on w < 44 || h < 44",
+  "prediction_1": "it measures the DRAWN box, so a control drawn at half size with an expanded invisible hit area -- exactly what the order asks for -- will turn it red on correct work. the order and the checker are pointed at each other.",
+  "prediction_2": "there is NO general touch-target sweep anywhere in this repo. the job says 'every touch target' and nothing in the fleet can currently answer 'every'.",
+  "rule": "this is a prediction and goes nowhere as a defect until round two has measured it; if it holds it is ONE [eyes: two words] line and nothing more."
+ },
+ "rule_zero": {
+  "draft": true,
+  "the_trap": "a subtly broken hit-test silently degrades into the old wrong check: it just returns the drawn box every time and looks plausible",
+  "controls": [
+   {"plant": "a control drawn small WITH an expanded hit area", "must_measure": "touch box BIGGER than drawn box"},
+   {"plant": "a control drawn small with NO expansion", "must_measure": "touch box the SAME as drawn box"}
+  ],
+  "rule": "if the first control does not separate, the instrument is measuring paint and every number it prints is void"
+ },
+ "ratchet": {"draft": true, "freeze": "the count of controls that clear NEITHER bar", "rule": "may only ever go down"},
+ "blind_spots_to_declare": [
+  "one viewport and one device pixel ratio is not every phone",
+  "controls only reachable down a path the walk never takes are not enumerated",
+  "a control disabled or hidden at capture time is not the same as one that does not exist",
+  "this measures geometry, never whether the thing is legible; that is a different job with a different bar"
+ ],
+ "the_real_world_half": {
+  "draft": true,
+  "fitts": "time to acquire a target is a function of distance divided by size, and it holds for fingers, so halving a control has a price that grows with distance",
+  "thumb_zone": "about 49% hold a phone one-handed and about 75% of interactions are thumb-driven (Hoober), BUT Hoober later argued the zone is not fixed: people change grip constantly and prefer to touch the CENTRE, where they tap fastest",
+  "consequence": "round two does not score placement. it reports distance from centre because Fitts needs it, and stops there. a placement score would be enforcing lore its own author revised."
+ },
+ "what_this_lane_may_not_do": [
+  "change any UI size or touch target (this lane never writes game code)",
+  "decide what size anything should be (that is UI's and DIRECTION's, and the taste is his)",
+  "grade a row that has not shipped"
+ ]
+}

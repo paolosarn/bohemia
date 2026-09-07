@@ -1,109 +1,94 @@
-EYES AND EARS (eyes-5vql33): 9/6 (n) LATEST -- *** E12 [silence standing] SHIPPED WITH BOTH
-ROUNDS. THE VALLEY DOES NOT GO QUIET WHEN YOU STAND STILL. IT GOES TO ZERO. With the music
-muted, in three places, ten seconds each, the shipped game puts out DIGITAL SILENCE: not one
-sample above zero, every frequency band pinned at the meter's own floor, zero sound events.
-Everything a standing player hears is the soundtrack, and underneath it there is no world. ***
+EYES AND EARS (eyes-5vql33): 9/6 (o) LATEST -- *** E13 [half size check] ROUND ONE OF TWO IS
+DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's own test wrong twice, and found
+that our ONE existing tap-target checker measures the wrong rectangle and is set up to go RED on
+the very work Paolo just ordered. *** E13 stays CLAIMED, round two is the sweep.
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
-WHICH SCHOOL FINDING CHANGED THE MEASUREMENT, WHICH IS THE POINT OF THE TWO ROUNDS:
-School said measuring a LEVEL is the wrong instrument, so I measured four things. It mattered
-straight away. With the music ON the floor read -22 to -38 dBFS, which looks like a game making
-sound. The EVENT RATE said ZERO, and the event rate was right. Every decibel in that reading
-was the soundtrack.
+COUNTER-FINDING 1, AND IT IS BIGGER THAN THE JOB: "DID IT HALVE" MAY NOT BE ANSWERABLE AT ALL.
+Half of WHAT? Measuring the shipped surface gives you sizes, not a ratio. To answer the question
+as written you need the sizes from BEFORE the order, and if no file in the repo holds them, then
+his ruling "make it 50% smaller" exists ONLY AS PIXELS and cannot be checked by anybody, ever.
+That is exactly the disease E11 found last round, showing up one week later in a different lane.
+  SO ROUND TWO'S FIRST JOB IS NOT TO MEASURE THE AFTER. It is, in this order: (1) is there a
+  scale factor in a file, in which case the answer is that number and it is exact; (2) failing
+  that, a ratio against git history; (3) failing both, the honest verdict is UNMEASURABLE and the
+  fix is a file, not a number. The interesting deliverable may turn out to be "nobody can ever
+  tell, and here is the one line that fixes that forever".
 
-THE FOUR NUMBERS, MUSIC OFF, THREE PLACES, TEN SECONDS EACH:
-  floor    digital silence, not one sample above zero, all three
-  events   0, all three
-  spectrum -140 dB in every octave band, all three (that is the meter's floor, not a reading)
-  spread   0.0 dB between any two places in any band
-Against school's bar: real wilderness sits at 30 to 40 dBA and seldom below 30 to 35. Nothing
-outdoors is silent. Ours is not low, it is zero.
+COUNTER-FINDING 2: "EVERY TOUCH TARGET STILL 44 PX" IS THE WRONG TEST, TWO WAYS.
+  a) 44 IS NOT THE LAW. It is the AAA bar (WCAG 2.5.5) and the platform guidance (Apple 44 pt,
+     Material 48 dp). The floor anybody is actually held to is WCAG 2.2 AA at 24 x 24 CSS px WITH
+     A SPACING RULE: a small control passes if a 24 px circle centred on it hits nothing else. So
+     a check that fails everything under 44 with no exceptions reds the suite over controls that
+     are correct, and a checker that cries wolf gets muted in a week. Round two reports BOTH bars
+     separately and never collapses them.
+  b) IT POINTS AT THE WRONG RECTANGLE. Expanding a control's hit area without changing its look
+     is a standard documented technique (a pseudo-element with a negative inset, inside
+     @media (pointer: coarse), so it does not touch the box model). His order and that technique
+     fit together exactly: draw at half, keep the thumb at 44, which means the visible rectangle
+     and the tappable rectangle are DELIBERATELY DIFFERENT. getBoundingClientRect measures PAINT
+     and cannot see a hit area at all. Round two must HIT-TEST: walk outward from the centre with
+     elementFromPoint until the point stops resolving to the control.
 
-FOUR CONTROLS RAN AND THREE OF THEM KILLED A CLAIM I WAS ABOUT TO MAKE:
-  1. RULE ZERO, PASSED every run. The tap heard a hand-fired sound at -34 to -51 dBFS,
-     including inside the run that reported silence. So the silence is real, not a deaf meter.
-  2. THE NULL CONTROL KILLED MY HEADLINE. The first working run showed the floor falling -23,
-     -32, -36 across three places, which reads as "the places differ" and would have been the
-     finding. So I took three captures at the SAME spot without moving a step: 16.4 dB of
-     spread standing still against 16.2 dB across the three places. Doing nothing moved the
-     number as much as crossing the valley. It was the song changing, not the place. Across
-     runs the standing-still swing was 5.5, 14.0 and 16.4 dB, which is as big as the effect I
-     was trying to measure, and that is why question four could only be answered with the
-     music muted.
-  3. THE WALK WITNESS CAUGHT A HARNESS BUG THAT WOULD HAVE FAKED THREE PLACES. My first walk
-     used arrow keys: 140 presses, ZERO footsteps. Then w, canvas taps, drags, touchscreen
-     taps: zero, zero, zero, zero. THIS IS A PHONE GAME AND IT WALKS ON AN ON-SCREEN D-PAD.
-     The game was fine; I was pressing keys at a game that has no keys. Without a witness I
-     would have reported three places and measured one, three times.
-  4. THE PICTURE WITNESS, added because the footstep one turned out to be the wrong witness:
-     sample the canvas on a 32x32 grid before and after the walk, with standing still MEASURED
-     as the threshold rather than guessed. One run separates cleanly (0.7% standing, 3.6% and
-     3.4% walking), a later run does not (2.8% standing, 5.3% and 2.8% walking). So movement
-     is proven in one run and not in another and I am saying so instead of picking the run I
-     liked. It does not change the answer: silence and zero events either way. If the player
-     moved that is three places with nothing in them, and if not it is one place with nothing.
+AND OUR OWN CHECKER MEASURES THE WRONG ONE (a prediction, to be proved in round two, not routed
+yet): gates/phone_readable_gate.js is where the 44 px minimum came from. It takes
+getBoundingClientRect() and fails on w < 44 || h < 44. So the moment a control is drawn at half
+size with an expanded invisible hit area, that gate is set up to go red on correct work: the
+order and the checker are pointed at each other. And it is not a sweep -- it checks TWO named
+controls on ONE screen of the demo. THERE IS NO GENERAL TOUCH-TARGET CHECK ANYWHERE IN THIS REPO,
+so nothing in the fleet can currently answer the word "every" in this job. That second one is the
+bigger finding and it is the gap round two fills.
 
-THE GAP LIST IS HANDED OVER AND NO NEW LINE WAS WRITTEN. The coordinator already opened SOUNDS
-[quiet floor] THERE-IS-NO-SILENT-OUTDOORS off my school round and its own text says it pairs
-with this round, so a second bounce-back for the same defect would be noise. The list, two
-words each, in the order I would fix them:
-  NOTHING PLAYS     0 events in 10s, digital silence with the music off. the cooked bed has no
-                    caller. this is the whole job.
-  NO SPREAD         0.0 dB between places in every band. no soundmark is possible yet because
-                    there is nothing to tell apart.
-  MUSIC CARRIES     the soundtrack does 100% of the work and swings up to 16 dB while you
-                    stand still. any floor has to sit under it without fighting it.
-  SILENCE UNCHOSEN  nothing in the code ever decides to be quiet. school said a chosen silence
-                    and a missing call sound identical from outside and only the code can tell
-                    them apart. the code says absence.
-  BREATHE ANYWAY    never "turn it on and leave it on": constant volume past 30-40 minutes
-                    tires ears, and this is a 100 hour game.
-  TEMPO FREE        120 BPM is not a constraint here; tempo-locked ambient scattering is a
-                    standard documented mode.
-  RUNS OUT          hang the ambient event rate on THE-VALLEY-RUNS-OUT and the world gets
-                    quieter as it dies, with no new system written by anybody.
+FIVE OTHER THINGS SCHOOL TAUGHT:
+  1. A CSS PIXEL IS NOT A PIXEL. 96 px = 1 inch by definition; physical = CSS x devicePixelRatio.
+     This lane captures at 390x844 with deviceScaleFactor 2, so a saved screenshot is 780x1688
+     IMAGE pixels. Measuring a button in that image reads 2x too big and would pass a control at
+     half the legal size. Every number in round two comes from inside the page, in CSS px.
+  2. FITTS'S LAW is the real-world half: time to hit a target is distance divided by size, and it
+     holds for fingers. Halving a control has a price, and the price grows with distance. Round
+     two cannot rule on that but it can REPORT distance from centre, so the cost is visible.
+  3. THE THUMB ZONE, AND THE MAN WHO INVENTED IT WALKING IT BACK. Hoober's field numbers (49%
+     one-handed, 75% thumb-driven) are what everyone cites, and Hoober HIMSELF later argued the
+     zone is not fixed: people change grip constantly and prefer to touch the CENTRE, where they
+     tap fastest. So round two does not score placement; that would be enforcing lore its own
+     author revised.
+  4. SAFE AREAS: a 44 px button under the home indicator is 44 px and unusable. One cheap extra
+     column. This lane already learned the hard version when round one announced the demo's SLEEP
+     button ran off the bottom of an iPhone and it turned out to sit twelve pixels clear.
+  5. RULE ZERO HAS A SPECIFIC TRAP HERE: a subtly broken hit-test silently degrades into the old
+     wrong check, returning the drawn box every time and looking plausible. So round two plants
+     two controls first -- one drawn small WITH an expanded hit area (the touch box must measure
+     BIGGER) and one with none (they must measure the SAME). If the first does not separate, the
+     instrument is measuring paint and every number is void.
 
-THE INSTRUMENT: an init script patches the audio graph before any page script runs, so
-anything connecting to a real destination is also connected to a silent tap (BS.1770
-K-weighting, an analyser for the spectrum, a script processor that sees every sample). It
-hears the true mixed output of the running game, including anything I do not know the name of.
-Not an offline render of an asset (that was E4) and not a grep. A --muted mode drops the music
-bus first, after proving with a sound effect that the mute is a music mute and not an
-everything mute.
+NOTED, NOT ROUTED: UI's [half size] row is CLAIMED, NOT SHIPPED. If it is still unshipped when
+round two runs, the honest thing is to measure what is there, say the order has not landed yet,
+and re-run when it does. This lane does not grade work that has not shipped.
 
-BLIND SPOTS, WRITTEN DOWN INSTEAD OF COUNTED CLEAN: three OUTDOOR spots on one surface, no
-interior measured; standing still is not the only quiet state (a menu, a loading beat, a shut
-door); the mute is one bus; headphones and a phone speaker are different instruments; and the
-context runs at 44100 so the 48 kHz K-weighting is approximate, which is irrelevant to a
-result of zero and would matter if this ever compared two real floors.
-
-STILL OPEN IN MY QUEUE: E13 [half size check], E14 [late beat], E15 [machine judges], E16
-[never opened]. All two rounds, school first. E9 the standing duty runs every round.
+STILL OPEN IN MY QUEUE AFTER THIS: E14 [late beat], E15 [machine judges], E16 [never opened].
+All two rounds, school first. E9 the standing duty runs every round.
 
 [PENDING Paolo] NOTHING. I need nothing from him.
 
 FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images,
-     no audio measurement, no glitch checklist." Thirteen instruments and two suite gates exist
-     now, and this round is an audio measurement.
-  2. WORLD's STATE line still says there is no faction colour table the walked surface can
-     reach. There is one and the walked surface reads it, measured two rounds ago.
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Thirteen instruments and two suite gates exist now,
+     including a live audio meter as of last round.
+  2. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
+     There is one and the walked surface reads it, measured two rounds ago.
   3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
      the [eyes: gate missing] line is open in DIRECTION.
-  4. Still unclaimed: the MIX METER (E5 gap 10). This round built most of the machine for it --
-     a live tap on the real output -- so whoever takes it starts with a working meter.
+  4. Still unclaimed: the MIX METER (E5 gap 10). E12 built most of the machine for it.
 
 NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
 
-GATES: handoff 7/0, attempt 15/0, NO READER 7/0. The instrument's own RULE ZERO control passed
-in every run including the silent one.
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
+last round: NO READER 7/0, handoff 7/0, attempt 15/0.
 
-PROOF: records/BOHEMIA_EYES_E12_ROUND_1_SCHOOL_WHAT_A_QUIET_PLACE_SOUNDS_LIKE_9_6_26.md and
-records/BOHEMIA_EYES_E12_ROUND_2_TEN_SECONDS_OF_STANDING_STILL_9_6_26.md;
-tools/bohemia_eyes_quiet.js; data records/BOHEMIA_EYES_QUIET_9_6_26.json and
-records/BOHEMIA_EYES_QUIET_MUSIC_OFF_9_6_26.json; gap list
-banks/eyes/BOHEMIA_EYES_E12_GAP_LIST_9_6_26.json (draft:true); VAMILY lane 17 E12 SHIPPED with
-both rounds.
+PROOF: records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md (280 lines, 20
+sources); banks/eyes/BOHEMIA_EYES_E13_SCALE_SPEC_9_6_26.json (draft:true); VAMILY lane 17 E13
+CLAIMED ROUND 1 OF 2.
+
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
