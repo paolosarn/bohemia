@@ -312,6 +312,41 @@
     return { applied: done.length > 0, paid: paid, entries: done, balances: balances(purse) };
   }
 
+  /* A DAY'S WORK ENDED. PAY IT. ([a days work], 9/7, WORLD lane.)
+
+     *** THIS ROW WAS ALWAYS THIS ROW, AND ONLY A QUEST COULD EVER REACH IT. ***
+     PAYOUT.COMPLETE carries his ruled ONE in his 9/4 battery, and the comment
+     sitting on it says, in these words, "a day's work pays a battery". Measured
+     before this function existed: the ONLY caller of that row in the whole repo
+     was quest completion, so the sentence describing a day's work was reachable
+     exclusively by finishing a quest, and a player who worked all day was paid
+     nothing. Nothing here is a new number and no second table was added: it is
+     the same row, finally reachable by the thing it was written about.
+
+     THE REASON STRING SAYS WORK, NOT QUEST. audit() refuses an anonymous
+     movement, and "quest:COMPLETE" on a shift at a solar yard would be a lie the
+     ledger then tells forever -- the ledger is the record of what you DID, which
+     is the whole point of the four-verbs design. A shift reads 'work:site'.
+
+     WHAT A SHIFT IS WORTH AGAINST EVERYTHING ELSE IS STILL HIS: ECONOMY is
+     researching it as [shift pay] (Q27). When that lands it moves PAYOUT and this
+     function does not change, which is the test of whether the pipe was built
+     right. */
+  function payForWork(purse, kind, day, ref) {
+    var row = Object.prototype.hasOwnProperty.call(PAYOUT, 'COMPLETE') ? PAYOUT.COMPLETE : null;
+    if (!row) return { applied: false, reason: NO_RULING, table: 'PAYOUT', key: 'COMPLETE',
+                       about: 'what a day\'s work pays is Paolo\'s ruling' };
+    var done = [], paid = {};
+    for (var i = 0; i < CURRENCIES.length; i++) {
+      var c = CURRENCIES[i];
+      if (row[c]) { done.push(credit(purse, c, row[c], 'work:' + (kind || 'day'),
+                                     ref || null, day));
+                    paid[c] = row[c]; }
+    }
+    return { applied: done.length > 0, paid: paid, kind: kind || null,
+             entries: done, balances: balances(purse) };
+  }
+
   /* Buy something. An empty price table means the shop is real and the tag on the shelf
      is blank -- which is honest, and is not the same as free. */
   function spend(purse, goodId, day) {
@@ -409,7 +444,7 @@
     create: create, balance: balance, balances: balances,
     credit: credit, debit: debit, transferIn: transferIn, transferOut: transferOut,
     convert: convert,
-    payQuest: payQuest, spend: spend, produce: produce,
+    payQuest: payQuest, payForWork: payForWork, spend: spend, produce: produce,
     VERBS: VERBS, upkeep: upkeep,
     flow: flow, audit: audit, history: history, save: save, load: load
   };

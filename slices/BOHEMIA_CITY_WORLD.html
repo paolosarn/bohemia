@@ -391,6 +391,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   <div id="packline"></div>
   <div id="packbtn">✋ BACK OFF</div>
   <div id="mktbtn">🧺 MARKET</div><!-- __THE_TRADING_HUB__ -->
+  <div id="workbtn">🔧 WORK</div><!-- __A_DAYS_WORK__ -->
   <div id="buildbtn">⚖ BUILD HERE</div><!-- __BUILDER_WHERE_HE_WALKS__ -->
   <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">✕</span></div><div id="phoneslot"></div></div>
   <div id="savepanel"></div>
@@ -582,6 +583,14 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   background:var(--face);border:1px solid var(--acc);color:var(--acc);
   font-size:11px;font-weight:700;letter-spacing:1px;display:none}
 #mktbtn:active{background:#2a251d;color:#fff}
+/* __A_DAYS_WORK__ -- WORK sits in the same left column, one step above MARKET, and
+   borrows #mktbtn's shape rather than copying it so the two can never drift apart.
+   Its 44px thumb floor is the one [phone readable] set for every control here. */
+#workbtn{position:absolute;left:6px;bottom:107px;z-index:7;padding:7px 11px;border-radius:9px;
+  background:var(--face);border:1px solid var(--acc);color:var(--acc);
+  font-size:11px;font-weight:700;letter-spacing:1px;display:none;
+  min-height:44px;box-sizing:border-box;line-height:30px;cursor:pointer}
+#workbtn:active{background:#2a251d;color:#fff}
 /* __BUILDER_WHERE_HE_WALKS__ -- THE BUILD VERB WHERE HIS FEET ARE. Measured 9/5:
    cityTapPlot is guarded by `MODE==='city'`, so the ONLY way to put a building down
    was to leave the street and go up to the aerial view. The city he is rebuilding was
@@ -3180,6 +3189,12 @@ global.BohemiaOvermap=API;
     ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
+    /* EXPORTED 9/7 for [a days work]. bohemia_work.js asks THIS table what counts
+       as a place with work in it, rather than carrying a second copy of his
+       districts -- the same one-copy rule the faction graph splice follows, and
+       for the same reason: a hand-typed second list is how a solar yard becomes a
+       job site on one surface and not the other. */
+    JOB_DISTRICTS:JOB_DISTRICTS,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
     factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS,
     FORCES:FORCES,FORCE_BLOCK:FORCE_BLOCK,FORCE_BLOCK_RATE:FORCE_BLOCK_RATE,
@@ -9300,6 +9315,209 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 
 
 /* ==== THE WORLD YOU STAND IN (inlined verbatim) ==== */
+
+
+
+
+
+/* ==== engine/bohemia_work.js ==== */
+// BOHEMIA WORK — THE PLAYER CAN DO A DAY'S WORK (9/7/26, WORLD lane)
+// Board row [a days work] / EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER.
+//
+// ============================================================================
+// THE FINDING THIS EXISTS FOR, MEASURED IN OUR OWN CODE BEFORE A LINE WAS WRITTEN
+// ============================================================================
+//   NPC acts, from bohemia_agents.js since his 7/19 correction:
+//       errand, free, home, scav, sleep, watch, work
+//   PLAYER acts, on the walked surface:
+//       walk, talk, fight, build, buy, sleep
+//
+//   THERE IS NO PLAYER ACT CALLED WORK. Every person in the valley puts in a
+//   seven-hour day and the player is the only one locked out of it. Re-measured
+//   here across 400 seeds of the valley's own schedule builder:
+//       worker  work    08:00-16:45   479 min   (435 min .. 525 min)
+//       scav    scav    08:30-18:45   367 min   (214 min .. 526 min)
+//       watch   watch   16:15-23:25   361 min
+//       keeper  errand  08:43-12:43    75 min
+//
+//   And the money vocabulary agrees: finish a quest (+1), place a building (-1),
+//   buy a good (-1), ask somebody (-1 clout). THREE OF FOUR ARE SPENDING, ONE IS
+//   EARNING, AND NONE OF THEM IS WORK. The four verbs are the BILL, not the JOB.
+//
+// ============================================================================
+// NOTHING IN THIS FILE IS A NEW NUMBER, AND THAT IS THE WHOLE DESIGN
+// ============================================================================
+// Every part of a day's work was already built and none of it was joined up:
+//   WHERE work happens   bohemia_agents.js JOB_DISTRICTS (commercial, industrial,
+//                        medical, solar) — his map's own districts
+//   WHAT KINDS exist     bohemia_economy.js YIELD — exactly two, site and scav
+//   HOW LONG it takes    bohemia_agents.js scheduleFor() — the valley's own clock
+//   WHAT it produces     bohemia_economy.js advanceDay() — hand it one more agent
+//   WHAT it pays         the purse's PAYOUT, his RULED ONE (8/15, 9/4 battery)
+// So this module JOINS them and owns no table of its own. There is not one
+// duration, rate, price or yield typed anywhere below. If he moves a number, it
+// moves here without this file being edited — which is the only kind of number
+// this lane is allowed to have.
+//
+// *** WHY A SHIFT'S LENGTH IS READ AND NEVER TYPED. *** A typed "a shift is eight
+// hours" would be a second clock, and the day the valley's schedule changed the
+// player would be working a day nobody else in the world works. The player's
+// shift is literally the same block of minutes bohemia_agents hands an NPC of
+// that archetype on this world's seed, summed. Same world, same working day.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: the mechanism is that the player HAS the act,
+// that where they stand decides which kind of work is on offer, and that doing it
+// costs the hours and pays through the pipe that already exists. The contents —
+// what a shift is worth against everything else — is his, and ECONOMY is
+// researching it right now ([shift pay], Q27). Nothing here pre-empts that: the
+// pay comes from the purse's own table and this file never names an amount.
+//
+// NOT THIS ROW, ON PURPOSE, so two lanes do not build one thing twice:
+//   RUN [a shift]            the five-minute session shape around it
+//   PEOPLE [somebody hires you]  who offers you the job and whether they will
+//   WORLD [batteries mined]  buildings earning while you are away (work first)
+//
+// node: require('./bohemia_work.js')   Gate: gates/a_days_work_gate.js
+// ============================================================================
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  /* ASK FOR A NEIGHBOUR WHEN YOU NEED IT, NEVER WHEN YOU LOAD. Binding these at
+     load time is how BB-COALITION shipped seeing zero pairs on the walked surface
+     while node saw five: the city inlines its modules in an order no module
+     controls, so a top-level grab gets null, throws nothing, and reports an empty
+     world — which is indistinguishable from a world where nothing is happening. */
+  function AG() {
+    if (HASREQ) { try { return require('./bohemia_agents.js'); } catch (_e) {} }
+    return (typeof root !== 'undefined' && root.BohemiaAgents) || null;
+  }
+  function ECON() {
+    if (HASREQ) { try { return require('./bohemia_economy.js'); } catch (_e) {} }
+    return (typeof root !== 'undefined' && root.BohemiaEconomy) || null;
+  }
+
+  /* ------------------------------------------------------------------------
+     THE ONE BRIDGE IN THIS FILE, AND IT IS A MAPPING, NOT A NUMBER.
+     Two vocabularies already exist and nobody had ever written down how they
+     line up: the ECONOMY's job kinds (site, scav) and the SCHEDULE's acts
+     (work, scav, errand, watch, free, home, sleep). 'scav' happens to be the
+     same word in both. 'site' is the economy's word for the organized crew at a
+     real district, and the schedule's word for that person's hours is the
+     WORKER archetype's 'work' block. That is the whole of it.
+     IT IS CHECKED, NOT ASSUMED: kinds() refuses to return a kind whose archetype
+     or act has gone missing, so if either module renames anything this returns
+     fewer kinds and the gate goes red, rather than silently offering work whose
+     clock is zero minutes long. A CHECKER THAT CANNOT TELL A MENTION FROM A USE
+     IS THE BROKEN ONE (8/1), and a bridge nobody verifies is the same thing. */
+  var BRIDGE = {
+    site: { archetype: 'worker', act: 'work' },
+    scav: { archetype: 'scav',   act: 'scav' }
+  };
+
+  /* WHICH KINDS OF WORK REALLY EXIST RIGHT NOW. Read off the economy's own YIELD
+     table, then filtered to the ones whose clock this world can actually produce.
+     The economy owning exactly two is its ruling, not mine; if he adds a third,
+     it appears here the moment BRIDGE learns its hours, and until then it is
+     honestly absent rather than quietly treated as a scav. */
+  function kinds() {
+    var e = ECON(), a = AG(), out = [];
+    if (!e || !e.YIELD || !a || typeof a.scheduleFor !== 'function') return out;
+    var k;
+    for (k in e.YIELD) {
+      if (!Object.prototype.hasOwnProperty.call(e.YIELD, k)) continue;
+      var b = Object.prototype.hasOwnProperty.call(BRIDGE, k) ? BRIDGE[k] : null;
+      if (!b) continue;
+      if (!a.KINDS || a.KINDS.indexOf(b.archetype) < 0) continue;
+      out.push(k);
+    }
+    return out;
+  }
+
+  /* HOW LONG THAT WORK TAKES IN THIS VALLEY. The valley's own schedule for that
+     archetype on this seed, with the working blocks summed. Deterministic: the
+     same seed is the same working day on every device, which is what makes it a
+     fact about the world rather than a roll made when you tap the button. */
+  function minutesFor(kind, seed) {
+    var a = AG(); if (!a || typeof a.scheduleFor !== 'function') return 0;
+    var b = Object.prototype.hasOwnProperty.call(BRIDGE, kind) ? BRIDGE[kind] : null;
+    if (!b) return 0;
+    var sched = null;
+    /* The shift argument is the worker's staggered start, which bohemia_agents
+       spreads per agent. The player is not on somebody else's crew, so this asks
+       for the schedule the module itself builds and takes the LENGTH out of it;
+       what time the NPC happened to clock on does not change how long the work is. */
+    try { sched = a.scheduleFor(seed >>> 0, b.archetype, 8 * 60); } catch (_e) { return 0; }
+    if (!sched || !sched.length) return 0;
+    var mins = 0;
+    for (var i = 0; i < sched.length; i++)
+      if (sched[i] && sched[i].act === b.act) mins += (sched[i].t1 - sched[i].t0);
+    return mins;
+  }
+
+  /* WHAT WORK IS ON OFFER WHERE HE IS STANDING.
+     *** THIS IS THE ONE PLACE THE PLAYER'S POSITION MATTERS, AND IT READS HIS MAP. ***
+     bohemia_agents.js has held JOB_DISTRICTS since the commute was built — the
+     districts the valley's own workers walk to. Standing on one, the work on offer
+     is SITE work, because that is what the economy means by a site. Standing
+     anywhere else, it is a SCAV sweep, because that is what the economy means by
+     scav and it is what a person with no crew does. No list of places is typed
+     here; a district he adds to the map offers work the same hour it exists. */
+  function kindAt(worldApi, x, y) {
+    var a = AG(); if (!a) return null;
+    var jd = a.JOB_DISTRICTS;
+    var here = null;
+    try { here = worldApi && worldApi.at ? worldApi.at(x | 0, y | 0) : null; } catch (_e) { here = null; }
+    if (!here) return null;
+    var site = !!(jd && here.district && Object.prototype.hasOwnProperty.call(jd, here.district)
+                  && jd[here.district]);
+    var kind = site ? 'site' : 'scav';
+    return kinds().indexOf(kind) < 0 ? null : kind;
+  }
+
+  /* THE OFFER: what work is here, how long it takes, and whether the day still
+     holds it. minutesLeft is the caller's, because how long a day is belongs to
+     the day loop and not to this file.
+     A SHIFT THAT DOES NOT FIT IS REFUSED RATHER THAN TRUNCATED. Half a day's work
+     for a full day's pay is a number nobody ruled, and half a day's work for half
+     the pay is another one. EVERYTHING COSTS ONE (8/15) means the unit is the
+     whole shift, so the honest answer to "there are two hours of light left" is
+     that you cannot start, not that you get a smaller battery. */
+  function offer(worldApi, x, y, seed, minutesLeft) {
+    var kind = kindAt(worldApi, x, y);
+    if (!kind) return null;
+    var mins = minutesFor(kind, seed);
+    if (!mins) return null;
+    var fits = (typeof minutesLeft === 'number') ? (minutesLeft >= mins) : true;
+    return { kind: kind, act: BRIDGE[kind].act, minutes: mins, fits: fits,
+             district: (function () {
+               try { var c = worldApi.at(x | 0, y | 0); return (c && c.district) || null; }
+               catch (_e) { return null; } })() };
+  }
+
+  /* AND WHAT A DAY OF IT DOES TO THE VALLEY.
+     *** THE PLAYER BECOMES ONE MORE PAIR OF HANDS IN THE COUNT, WHICH IS THE
+     WHOLE POINT AND IS ALSO WHY NO YIELD IS COMPUTED HERE. ***
+     bohemia_economy.advanceDay() already turns a list of agents into produced
+     goods; it has done it since it was written. So a day the player worked is
+     that same list with ONE MORE AGENT of the kind they worked. Every number
+     stays inside the economy, conservation still holds, and the scav decay curve
+     applies to the player exactly as it applies to everybody else.
+     This also closes the loop THE-VALLEY-RUNS-OUT opened (9/6): the valley eats
+     its shelves down whether or not you look, and this is the first thing a
+     player can do about it with their hands. */
+  function asAgent(kind) {
+    return (kinds().indexOf(kind) < 0) ? null : { job: { kind: kind } };
+  }
+
+  var API = { BRIDGE: BRIDGE, kinds: kinds, minutesFor: minutesFor,
+              kindAt: kindAt, offer: offer, asAgent: asAgent };
+  if (HASREQ) module.exports = API;
+  root.BohemiaWork = API;
+})(typeof window !== 'undefined' ? window
+   : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_work.js ==== */
+
 /* ==== engine/bohemia_economy.js ==== */
 /* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA ECONOMY — post-collapse scarcity, grounded (7/19/26, LIFE session)
@@ -9828,6 +10046,41 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     return { applied: done.length > 0, paid: paid, entries: done, balances: balances(purse) };
   }
 
+  /* A DAY'S WORK ENDED. PAY IT. ([a days work], 9/7, WORLD lane.)
+
+     *** THIS ROW WAS ALWAYS THIS ROW, AND ONLY A QUEST COULD EVER REACH IT. ***
+     PAYOUT.COMPLETE carries his ruled ONE in his 9/4 battery, and the comment
+     sitting on it says, in these words, "a day's work pays a battery". Measured
+     before this function existed: the ONLY caller of that row in the whole repo
+     was quest completion, so the sentence describing a day's work was reachable
+     exclusively by finishing a quest, and a player who worked all day was paid
+     nothing. Nothing here is a new number and no second table was added: it is
+     the same row, finally reachable by the thing it was written about.
+
+     THE REASON STRING SAYS WORK, NOT QUEST. audit() refuses an anonymous
+     movement, and "quest:COMPLETE" on a shift at a solar yard would be a lie the
+     ledger then tells forever -- the ledger is the record of what you DID, which
+     is the whole point of the four-verbs design. A shift reads 'work:site'.
+
+     WHAT A SHIFT IS WORTH AGAINST EVERYTHING ELSE IS STILL HIS: ECONOMY is
+     researching it as [shift pay] (Q27). When that lands it moves PAYOUT and this
+     function does not change, which is the test of whether the pipe was built
+     right. */
+  function payForWork(purse, kind, day, ref) {
+    var row = Object.prototype.hasOwnProperty.call(PAYOUT, 'COMPLETE') ? PAYOUT.COMPLETE : null;
+    if (!row) return { applied: false, reason: NO_RULING, table: 'PAYOUT', key: 'COMPLETE',
+                       about: 'what a day\'s work pays is Paolo\'s ruling' };
+    var done = [], paid = {};
+    for (var i = 0; i < CURRENCIES.length; i++) {
+      var c = CURRENCIES[i];
+      if (row[c]) { done.push(credit(purse, c, row[c], 'work:' + (kind || 'day'),
+                                     ref || null, day));
+                    paid[c] = row[c]; }
+    }
+    return { applied: done.length > 0, paid: paid, kind: kind || null,
+             entries: done, balances: balances(purse) };
+  }
+
   /* Buy something. An empty price table means the shop is real and the tag on the shelf
      is blank -- which is honest, and is not the same as free. */
   function spend(purse, goodId, day) {
@@ -9925,7 +10178,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     create: create, balance: balance, balances: balances,
     credit: credit, debit: debit, transferIn: transferIn, transferOut: transferOut,
     convert: convert,
-    payQuest: payQuest, spend: spend, produce: produce,
+    payQuest: payQuest, payForWork: payForWork, spend: spend, produce: produce,
     VERBS: VERBS, upkeep: upkeep,
     flow: flow, audit: audit, history: history, save: save, load: load
   };
@@ -45733,6 +45986,7 @@ function updHud(){
   document.getElementById('note').textContent=_note;
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
   try{ buildBtnSync(); }catch(_e){}  /* __BUILDER_WHERE_HE_WALKS__ */
+  try{ workBtnSync(); }catch(_e){}   /* __A_DAYS_WORK__ */
 }
 
 // ---- mode switch: the zoom seam (button proof) ----
@@ -46668,6 +46922,11 @@ function showWake(){
   SPENT_TODAY=[];
   DARK_TONIGHT=[];
   TURF_TODAY=[];
+  /* __A_DAYS_WORK__ -- a new day is a day you have not worked yet. Cleared HERE,
+     where the day starts, for the reason the spend list's own comment above
+     records: a buffer emptied where it is READ works exactly until it has a
+     second reader. */
+  WORK_TODAY=null;
   offerRing();
   updQline();
   const o=OFFER;
@@ -47484,6 +47743,29 @@ function showReckoning(){
       var _up=_ct.built===1?'one building up':(_ct.built+' buildings up');
       var _dn=_ct.demolished?(', '+(_ct.demolished===1?'one down':(_ct.demolished+' down'))):'';
       h+='<li>this generation: '+esc(_up+_dn)+'</li>'; } }        /* draft:true */
+  /* __A_DAYS_WORK__ -- AND WHETHER HE WORKED, WHICH IS THE FIRST TIME THIS CARD HAS
+     EVER BEEN ABLE TO SAY SO. It goes ABOVE the pay line on purpose: what you did
+     comes before what it was worth, which is the whole four-verbs shape -- the
+     resource is the shadow of what you did. The hours are named because the hours
+     are what it really cost him, and they are the valley's own hours. draft:true. */
+  if(WORK_TODAY){
+    var _wh=Math.round(WORK_TODAY.minutes/60);
+    /* THE PLACE IS NAMED ONLY WHEN THE PLACE IS THE JOB. A shift belongs to a
+       site, so "a 8 hour shift at the solar yard" is a true sentence. A scav
+       sweep is not AT anything -- the first cut said "you scavenged for 8 hours
+       at the suburb", which reads like the suburb employs you, and it is exactly
+       backwards: scavving is what you do when nobody does. */
+    h+='<li>'+esc((WORK_TODAY.kind==='site'
+                   ? ('you put in a '+_wh+' hour shift'
+                      + (WORK_TODAY.district?(' at the '+String(WORK_TODAY.district)):''))
+                   : ('you scavenged for '+_wh+' hours')))+'</li>';
+    if(WORK_TODAY.paid&&WORK_TODAY.paidWhat){
+      var _wp=[]; for(var _wc in WORK_TODAY.paidWhat){ var _wa=WORK_TODAY.paidWhat[_wc];
+        _wp.push(_wc==='electricity'?battWord(_wa):(_wa+' '+_wc)); }
+      h+='<li>a day’s work paid: '+esc(_wp.join(', '))+'</li>';
+    } else if(WORK_TODAY.why==='NO_RULING')
+      h+='<li>nobody has ruled what a day’s work pays</li>';
+  }
   if(PAID_TODAY){ var pd=[]; for(var cc in PAID_TODAY){ var amt=PAID_TODAY[cc];
       pd.push(cc==='electricity'?battWord(amt):(amt+' '+cc)); }
     h+='<li>paid: '+esc(pd.join(', '))+'</li>'; }
@@ -48693,7 +48975,21 @@ function mktAdvanceDay(){
      that only starts running out when somebody checks. */
   if(!MKT_LEDGER){ try{ mktLedger(); }catch(_e){} }
   if(!MKT_LEDGER) return null;
-  try{ return BohemiaEconomy.advanceDay(MKT_LEDGER, mktAgents()); }catch(_e){ return null; }
+  /* __A_DAYS_WORK__ -- AND IF HE WORKED, HE IS ONE MORE PAIR OF HANDS IN THE COUNT.
+     No yield is computed here and none is computed in bohemia_work.js either: a day
+     he worked is the valley's own agent list with ONE MORE AGENT of the kind he
+     worked, handed to the same advanceDay() that has turned agents into goods since
+     it was written. Conservation still holds, the scav decay curve applies to him
+     exactly as it does to everybody else, and the numbers stay where they live.
+     THIS IS THE OTHER HALF OF THE-VALLEY-RUNS-OUT (9/6): the valley eats its
+     shelves down whether or not you look, and this is the first thing a player can
+     do about it with their hands. */
+  var crew=mktAgents();
+  if(WORK_TODAY){
+    var me=null; try{ me=BohemiaWork.asAgent(WORK_TODAY.kind); }catch(_e){ me=null; }
+    if(me) crew=crew.concat([me]);
+  }
+  try{ return BohemiaEconomy.advanceDay(MKT_LEDGER, crew); }catch(_e){ return null; }
 }
 /* __THE_VALLEY_RUNS_OUT__ -- WHAT IS RUNNING OUT, AND WHAT HAS RUN OUT.
    The coordinator ruled 9/5 (correct-after) that the valley eating its last shelves is
@@ -48841,6 +49137,69 @@ function buildBtnSync(){
 function mktBtnSync(){
   var el=document.getElementById('mktbtn'); if(!el)return;
   el.style.display=(mktAt()&&DAY.phase==='awake')?'block':'none';
+}
+
+/* ==========================================================================
+   __A_DAYS_WORK__ -- THE PLAYER CAN WORK. Board row [a days work] /
+   EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER.
+
+   MEASURED IN OUR OWN CODE BEFORE THIS EXISTED. The valley's people have seven
+   acts (errand, free, home, scav, sleep, watch, work) and put in a seven-hour day.
+   The player had six (walk, talk, fight, build, buy, sleep) and NOT ONE OF THEM
+   WAS WORK. The money vocabulary said the same thing: of finish-a-quest (+1),
+   build (-1), buy (-1), ask (-1 clout), three are spending, one is earning, and
+   none is work. The four verbs are the BILL. This is the JOB.
+
+   NOTHING HERE IS A NEW NUMBER. Where work happens is his JOB_DISTRICTS, what
+   kinds exist is the economy's two, how long a shift runs is the valley's own
+   schedule for that archetype on this seed, what it produces is the economy's
+   YIELD, and what it pays is the purse's ruled ONE. engine/bohemia_work.js joins
+   them and owns no table either.
+   ========================================================================== */
+var WORK_TODAY=null;      /* {kind, act, minutes, district, paid} once he has worked */
+
+/* WHERE HIS FEET ARE, in either mode -- the same expression the market uses,
+   because moving the city marker IS how you travel the valley (mktAt's rule). */
+function workCell(){
+  return (MODE==='human') ? [ (hx/FN)|0, (hy/FN)|0 ] : [ city.x, city.y ];
+}
+/* WHAT WORK IS ON OFFER RIGHT HERE, RIGHT NOW.
+   ONE SHIFT A DAY, AND THAT IS NOT A CAP I INVENTED: the shift IS the working
+   day, so a second one would be a second day inside the first. */
+function workOffer(){
+  if(typeof BohemiaWork==='undefined') return null;
+  if(WORK_TODAY) return null;
+  var c=workCell();
+  var left=((DAY.NIGHT_MIN|0)-(DAY.min|0));
+  try{ return BohemiaWork.offer(om,c[0],c[1],seed,left); }catch(_e){ return null; }
+}
+/* DO IT. The hours go first-class through advance(), which is the day loop's own
+   door -- so a shift that runs into 22:00 ends the day exactly the way walking
+   into 22:00 does, and the reckoning card draws with the work already on it. */
+function doWork(){
+  var o=workOffer(); if(!o||!o.fits) return null;
+  var p=purseGet(); if(!p) return null;
+  var r=null;
+  try{ r=BohemiaPurse.payForWork(p,o.kind,DAY.day,o.district||null); }catch(_e){ r=null; }
+  WORK_TODAY={kind:o.kind, act:o.act, minutes:o.minutes, district:o.district||null,
+              paid:!!(r&&r.applied), paidWhat:(r&&r.paid)||null,
+              why:(r&&r.reason)||null};
+  if(WORK_TODAY.paid) window.__WORKED=(window.__WORKED||0)+1;
+  else window.__WORK_UNPAID=(window.__WORK_UNPAID||0)+1;
+  try{ phonePush(true); }catch(_e){}
+  advance(o.minutes);
+  try{ workBtnSync(); }catch(_e){}
+  return WORK_TODAY;
+}
+function workBtnSync(){
+  var el=document.getElementById('workbtn'); if(!el)return;
+  var o=workOffer();
+  var on=!!(o&&o.fits&&DAY.phase==='awake');
+  el.style.display=on?'block':'none';
+  /* THE BUTTON SAYS WHAT THE WORK IS AND WHAT IT COSTS HIM: hours, because hours
+     are the only thing he spends here and he cannot get them back. */
+  if(on) el.textContent=(o.kind==='site'?'🔧 WORK':'⚒ SCAVENGE')
+                      + ' · ' + Math.round(o.minutes/60) + 'H';
 }
 
 function applyRestore(st){
@@ -60546,6 +60905,8 @@ document.getElementById('mktbtn').addEventListener('click',function(){
 });
 /* __BUILDER_WHERE_HE_WALKS__ BOOT */
 document.getElementById('buildbtn').addEventListener('click',function(){ buildHere(); });
+/* __A_DAYS_WORK__ BOOT */
+document.getElementById('workbtn').addEventListener('click',function(){ doWork(); });
 
 
 

@@ -10924,69 +10924,76 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [shelves premise] THE-VALLEY-RUNS-OUT is SHIPPED 9/6.
+HOLDING: nothing. [a days work] EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER
+is SHIPPED 9/7.
 
 WHAT SHIPPED
-  THE VALLEY RUNS OUT WHETHER OR NOT YOU LOOK AT IT. On the nightfall card he
-  already reads: the scarcest good and how long it has left ("food: 7 days left in
-  the valley"), counting down to "1 day", then "less than a day". The night a good
-  hits zero is a BEAT -- "THE FOOD IS GONE. There is none left in the valley." --
-  fired ONCE, then the countdown moves to whatever is scarcest next.
-  THE PREMISE BUG UNDERNEATH IT, AND IT IS THE WHOLE ROW. mktAdvanceDay() read
-  `if(!MKT_LEDGER) return null` with the note "never censused = never traded =
-  nothing to age". TRUE OF A SHOP, FALSE OF A VALLEY. The ledger does not exist at
-  boot, so a player who never walked into a market had a world that never ate -- and
-  his first market visit on day 30 built a FULL ledger and started the countdown
-  THEN. A place that only starts running out when somebody checks is not running out.
-  EVERY NUMBER IS READ, NONE IS TYPED. bohemia_economy.js has computed daysLeft
-  since it was written and nothing outside a market card ever asked. Measured on the
-  real ledger: food goes 8.4 days to 0 across exactly TEN DAYS -- the coordinator's
-  day-10 moment, derived from his own stocks and needs, scheduled by nobody.
-  NEW: gates/valley_runs_out_gate.js (25 checks, registered as VALLEY RUNS OUT,
-  red 4 with the fix removed). RECORD: records/BOHEMIA_THE_VALLEY_RUNS_OUT_9_6_26.md
+  THE PLAYER CAN WORK. Measured in our own code first: the valley's people have
+  seven acts (errand, free, home, scav, sleep, watch, work) and put in a seven-hour
+  day; the player had six (walk, talk, fight, build, buy, sleep) and NOT ONE OF THEM
+  WAS WORK. The money vocabulary agreed -- of finish-a-quest (+1), build (-1), buy
+  (-1), ask (-1 clout), three are spending, one is earning, none is work. The four
+  verbs are the BILL. This is the JOB.
+  A button where his feet are: SITE work on his own job districts, a SCAV sweep
+  anywhere else. It runs exactly as many minutes as the valley schedules that
+  archetype on this seed, and the nightfall card says "you put in a 8 hour shift at
+  the solar / a day's work paid: 1 battery".
+  NOTHING IN IT IS A NEW NUMBER. Where work happens is his JOB_DISTRICTS, the kinds
+  are the economy's two, the hours are bohemia_agents' own schedule, the produce is
+  the economy's YIELD, the pay is the purse's ruled ONE. The gate strips the comments
+  and greps the logic: the only numerals left are 0, 1, 8 and 60.
+  NEW: engine/bohemia_work.js, purse.payForWork(), agents exports JOB_DISTRICTS,
+  tools/bohemia_city_work_patch.py, gates/a_days_work_gate.js (37 checks, registered
+  as A DAY'S WORK, red both ways). RECORD: records/BOHEMIA_A_DAYS_WORK_9_7_26.md
 
-FOUR THINGS MEASURING CAUGHT. THREE OF THEM WERE MY OWN INSTRUMENT.
-  1. *** THE DEMO IS ONE DAY LONG ON PURPOSE AND I NEARLY FILED IT AS A FREEZE. ***
-     Twelve nights in the demo gave one count and eleven silences with DAY.phase
-     stuck on "ended". CT_DEMO_DAYS is 1 and ctDemoOver() hands day 2 to
-     showEnding(), the phone card that says THAT IS AS FAR AS THIS GOES FOR NOW.
-     Verified against a clean origin/main build, which stops in the same place. The
-     demo ENDS. Its one night is the whole ship test, and the count is on it.
-  2. MY PROBE READ ONE STALE CARD ELEVEN TIMES. The drive dismissed with .dcgo or
-     nothing; other lanes share #daycardIn and their cards do not all carry .dcgo,
-     so the night the phone card came up the loop stopped advancing and re-read
-     night one. Every card has a real ✕ (.dcx). The gate now DRAINS the night and
-     dismisses whatever is up. A NEGATIVE RESULT IS A CLAIM ABOUT YOUR INSTRUMENT.
-  3. *** THE CITY FEED WAS STARTING THE VALLEY'S CLOCK BY ACCIDENT. *** Deleting my
-     fix and watching this gate stay green: the valley was STILL aged by night 12,
-     because feedWorld() renders a post through mktShelf(), which calls mktLedger(),
-     which builds the ledger as a SIDE EFFECT -- night 4, from a panel only trying
-     to write a sentence. That is this row's own bug in a different coat, and it is
-     why "aged by night 12" is a coincidence, not a check. The gate now asserts the
-     count is on the card ON NIGHT ONE, before anything else has looked.
-  4. *** ANOTHER LANE'S RESOLVER DELETED COALITION'S ROW FROM gates/bohemia_gates.py
-     BETWEEN aace2d9 AND THIS ROUND. AN UNREGISTERED GATE NEVER RUNS, and nothing
-     goes red to tell you -- the suite just gets quietly shorter. Restored verbatim
-     from `git show aace2d9:gates/bohemia_gates.py`, and all six of this lane's other
-     registrations checked and present. IF YOU SHIP A GATE, RE-CHECK ITS REGISTRATION
-     EVERY ROUND; the row is one line in a file every lane edits. ***
+FOUR THINGS WORTH KEEPING
+  1. *** THE PAYOUT ROW WAS ALWAYS THIS ROW AND ONLY A QUEST COULD REACH IT. ***
+     PAYOUT.COMPLETE's own comment says, in these words, "a day's work pays a
+     battery". Its only caller in the whole repo was quest completion, so the
+     sentence describing a day's work was reachable exclusively by finishing a
+     quest and a player who worked all day was paid nothing. payForWork() is that
+     same row, finally reachable by the thing it was written about. NO second table
+     and NO new number. When ECONOMY's [shift pay] (Q27) lands it moves PAYOUT and
+     payForWork does not change -- that is the test of whether a pipe was built right.
+  2. THE LEDGER SAYS work:site, NOT quest:COMPLETE. audit() refuses an anonymous
+     movement, and a quest label on a shift at a solar yard is a lie the ledger then
+     tells forever. The ledger is the record of what you DID.
+  3. THE ONE NUMERAL THAT LOOKS LIKE A SHIFT LENGTH IS PROVED NOT TO BE ONE.
+     minutesFor hands scheduleFor an 8am clock-on because the function demands a
+     start. bohemia_agents builds the block as until(shift + j(480,45)) right after
+     until(shift), so the start slides and the length does not -- measured across 30
+     seeds and two clock-on times in the gate rather than argued in a comment.
+  4. MEASURED BEFORE SHIPPING, TO RULE OUT A DEAD BUTTON: both shifts always fit the
+     840-minute waking day (site 435..525 min, scav 199..526 across 2,000 seeds,
+     2000/2000 fit), and 179 of 2,304 sampled cells offer SITE work so a solar yard
+     is a place you walk to rather than a thing you never see.
+  AND ONE THING THE FIRST CUT GOT WRONG: the card said "you scavenged for 8 hours at
+  the suburb", which reads like the suburb employs you and is exactly backwards. The
+  place is named only when the place IS the job.
 
-NEXT: read the WORLD section fresh. The coordinator harvested six rows onto this
-queue on 9/6, so the list in this block is stale by design. Board order after this
-one: [batteries mined], [own power], [rice clock], [debt carried], [someone lends],
-[back of house], [water lifted], [battery worth]. [century stayed] is [PENDING
-Paolo] and blocks nothing.
+NEXT: read the WORLD section fresh; the coordinator harvests rows onto this queue
+constantly. As of this round the next OPEN line is [parties move]
+GROUPS-WITH-THEIR-OWN-BUSINESS, then [batteries mined] (amended 9/6: work comes
+first, which this round just delivered, and cap what a building earns while away),
+[century stayed] (UNBLOCKED 9/7 -- Paolo ruled it: "buildings, and some people
+depending on how many years passed"), [own power], [rice clock], [debt carried],
+[someone lends], [back of house], [water lifted], [battery worth], [fold carries],
+[visible change].
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
 7/31 with zero callers.
+STANDING DUTY THIS LANE PAID FOR ONCE: re-check your gates' REGISTRATION every
+round. Another lane's resolver dropped COALITION's row out of gates/bohemia_gates.py
+between it shipping and the next round; an unregistered gate never runs and nothing
+goes red to say so, the suite just gets quietly shorter. Restored 9/6 from aace2d9.
 ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds and
 faction_outfit_gate is 16/2. Both were red before my rounds and neither moved.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [shelves premise] THE-VALLEY-RUNS-OUT, 9/6. Before it:
+LAST SHIPPED: [a days work], 9/7. Before it: [shelves premise] 1f3d342,
 [enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
 [held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
 [living costs] 5b61303, [battery money] ce39270.

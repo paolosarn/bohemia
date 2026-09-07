@@ -1159,6 +1159,12 @@
     ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
+    /* EXPORTED 9/7 for [a days work]. bohemia_work.js asks THIS table what counts
+       as a place with work in it, rather than carrying a second copy of his
+       districts -- the same one-copy rule the faction graph splice follows, and
+       for the same reason: a hand-typed second list is how a solar yard becomes a
+       job site on one surface and not the other. */
+    JOB_DISTRICTS:JOB_DISTRICTS,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
     factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS,
     FORCES:FORCES,FORCE_BLOCK:FORCE_BLOCK,FORCE_BLOCK_RATE:FORCE_BLOCK_RATE,

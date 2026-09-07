@@ -433,6 +433,22 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ("A DAY'S WORK",  ['node', 'gates/a_days_work_gate.js'],
+     'EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER (board row [a days work], 9/7). '
+     'MEASURED IN OUR OWN CODE: the valley\'s people have seven acts (errand, free, home, '
+     'scav, sleep, watch, work) and put in a seven-hour day; the player had six (walk, talk, '
+     'fight, build, buy, sleep) and NOT ONE OF THEM WAS WORK. The money vocabulary agreed -- '
+     'of finish-a-quest (+1), build (-1), buy (-1), ask (-1 clout), three are spending, one '
+     'is earning, and none is work. The four verbs are the BILL, not the JOB. This gate holds '
+     'the fix to the rule that makes it honest: THE WORKING DAY IS READ AND NEVER TYPED. A '
+     'shift is exactly the block bohemia_agents.js gives that archetype on this seed, where '
+     'work happens is his JOB_DISTRICTS, what it produces is the economy\'s YIELD (the player '
+     'becomes one more pair of hands in advanceDay), and what it pays is the purse\'s ruled '
+     'ONE -- whose own comment always said "a day\'s work pays a battery" and which only a '
+     'quest could reach until now. A shift that will not fit before nightfall is REFUSED '
+     'rather than truncated, because half a day\'s work for a full day\'s pay is a number '
+     'nobody ruled. Red both ways: type a shift length -> 2 red; truncate instead of '
+     'refusing -> 2 red.', True),
     ('VALLEY RUNS OUT',['node', 'gates/valley_runs_out_gate.js'],
      'THE-VALLEY-RUNS-OUT, ruled by the coordinator 9/5 (correct-after): the valley eating '
      'its last shelves in ten days is THE PREMISE, NOT A BUG -- this is an economic crash '
