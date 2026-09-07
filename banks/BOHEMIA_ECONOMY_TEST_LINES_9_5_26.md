@@ -1846,3 +1846,117 @@ SSSSS2 somebody not spending                      draft:true
 - No line says the words arrears, wage theft or exploitation.
 - Spanish register: 1 of 13 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## UUUUU. THE TILL GOES QUIET (a full shelf and nobody buying)
+## (round 25's finding, and it is the opposite of what we assumed. When the
+##  money goes scarce the price does not climb, the trade just stops. Every
+##  line here is somebody standing next to something they cannot sell.)
+
+UUUUU1 seller, shelf full, no customers          draft:true
+       "Look at it. Full. Fullest it's been since spring and I've taken nothing
+        since Tuesday, so."
+
+UUUUU2 seller, being asked what's wrong          draft:true
+       "Nothing's wrong with the flour. Nothing's wrong with me either. There's
+        just nothing coming across the counter."
+
+UUUUU3 a buyer with nothing to pay with          draft:true
+       "I've got the want. I've had the want for a week. It's the other half
+        I'm short on, hermano."
+
+UUUUU4 somebody explaining the quiet             draft:true
+       "It's not dear. That's the thing people keep getting wrong. It's cheap
+        and there's still nobody buying it."
+
+UUUUU5 seller, would rather trade than sit       draft:true
+       "Take it. Take it and bring me something Thursday, I don't care what,
+        I've been looking at it for nine days."
+
+## VVVVV. THE ONE HE KEEPS AND THE ONE HE SPENDS
+## (Gresham, and it never gets said out loud. The good cell goes under the
+##  floor and the tired one does the shopping. Nobody in these lines knows
+##  they are following a law.)
+
+VVVVV1 somebody paying, picking carefully        draft:true
+       "Hang on. Not that one. That one's got a bit left in it, take this one,
+        it's the same to you."
+
+VVVVV2 a seller who noticed                      draft:true
+       "Everybody's handing me the tired ones lately. I take them. I'm just
+        saying I noticed, is all."
+
+VVVVV3 somebody with a good one                  draft:true
+       "There's one in the house that's still got a light on it. That one's not
+        for spending, that one's for when it's bad."
+
+## WWWWW. CHANGE MADE OUT OF SOMETHING ELSE
+## (Zimbabwe gave change in sweets and pens for five years. Everything here
+##  costs one, so there is no smaller coin, and the substitute is always
+##  something small and slightly annoying.)
+
+WWWWW1 seller, out of anything to give back      draft:true
+       "I can do it but you're getting the difference in tape. I know. It's tape
+        or it's nothing and I'd rather it was tape."
+
+WWWWW2 somebody accepting a bad substitute       draft:true
+       "Fine. Fine, give me the tape. My abuela used to take the change in
+        matches so, you know."
+
+WWWWW3 a buyer working out what he can pay with  draft:true
+       "What if it's not a battery. What if I bring you water, or I bring you
+        the afternoon, would you take the afternoon."
+
+## XXXXX. SOMEBODY STARTS MAKING THEM
+## (a drought does not end because it rains, it ends because somebody with the
+##  material starts issuing. The Parys Mine shape. Nobody here says the word
+##  mint, and nobody says whether it is a good thing.)
+
+XXXXX1 word going round about a place            draft:true
+       "There's a yard out past the wash where they're putting them together
+        again. Not new ones. Ones that work, which is the same to me."
+
+XXXXX2 somebody who got paid in them             draft:true
+       "They pay their own people in them first. You get one, but you get one
+        after everybody who lives there gets one."
+
+XXXXX3 a doubt, not a warning                    draft:true
+       "So the man who makes them decides what they're worth. Alright. I'm not
+        saying it's wrong, I'm saying I heard it."
+
+XXXXX4 somebody who does not care how it works   draft:true
+       "I don't care where it came from. It turns the light on. That's the whole
+        of my opinion on it."
+
+## YYYYY. THE ONE WHO FOUND THE PILE
+## (sixteen billion cowries. The money does not die of drought, it dies when
+##  somebody finds too many. These lines sit right before that, and none of
+##  them knows what is about to happen.)
+
+YYYYY1 somebody who heard about a cache          draft:true
+       "Crate of them. Whole crate, still strapped. He's not saying where and
+        I don't blame him, would you."
+
+YYYYY2 the first person to think it through      draft:true
+       "If there's a crate then there's more than a crate. And if there's more
+        than a crate then what have I got in my pocket, exactly."
+
+YYYYY3 somebody spending fast                    draft:true
+       "I'm getting rid of mine this week. Don't ask me. I'd just rather have
+        the rice than be the last one holding."
+
+## ZZZZZ. WHAT IS NOT HERE, ON PURPOSE (round 25)
+- No line has a price going up because a thing is scarce. That was our instinct
+  and round 25 is the round that proved it backwards, so the bank does not carry
+  a single line of it.
+- No line says deflation, shortage, supply, inflation or currency. UUUUU4 is the
+  whole finding and it is said as "it's cheap and nobody's buying it".
+- No line names an exchange rate, a multiplier or a second denomination. There
+  is one price and it is one, and nothing here invents a half.
+- No line names who runs the yard in XXXXX. That is a faction and factions are
+  his, and MAP LAW besides.
+- No line says whether the yard making batteries is good or bad. XXXXX3 hears
+  it, XXXXX4 does not care, and neither of them is right.
+- No line states a moral about hoarding. VVVVV is Gresham's law and nobody in
+  it has heard of Gresham.
+- Spanish register: 2 of 18 lines, 11%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.

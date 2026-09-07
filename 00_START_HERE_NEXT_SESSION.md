@@ -1,3 +1,245 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
+Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
+Q23 [who eats first], Q24 [pay on time].
+Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 25 REPORT: [batteries scarce] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_25_A_MONEY_DROUGHT_DOES_NOT_RAISE_PRICES_IT_STOPS_TRADE_9_7_26.md (408 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections UUUUU-ZZZZZ, +18 lines, 351 draft:true total
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
+
+WHAT I MEASURED IN OUR OWN CODE, BEFORE READING ANYTHING:
+- OUR MONEY IS NOT MADE OF ANYTHING. `electricity` is a number on a ledger. No
+  stock, no pool, no cap, no good called battery or cell in GOODS. It can run
+  out in your pocket and never in the valley.
+- EXACTLY ONE BATTERY TILE IN 9,216, ON ALL FIVE SEEDS, AND IT MINTS NOTHING.
+  bohemia_battery.js draws it as "indicator lights dead". The art already said
+  the mint is dead; the economy has never asked it a question.
+- NO BUILDING MINTS MONEY. production install() fills PURSE.PRODUCTION at
+  runtime from 59 buildable types, every one {resources:1}. Zero pay electricity.
+- ONE TAP, THREE DRAINS. In: PAYOUT.COMPLETE +1 per finished quest. Out: 11
+  prices at 1, a build at 1, and night:power at 1 per lit circuit per night.
+  demoquests DAYS.length = 5, SO THE DEMO'S WHOLE MONEY SUPPLY IS FIVE
+  BATTERIES against an unlimited nightly bill. We did not design a battery
+  drought, we shipped one.
+- AND THE ONE THAT MADE THE ROUND: THE SCARCITY ENGINE IS BUILT, CORRECT, AND
+  UNREACHABLE FOR EVERY GOOD IN THE GAME. economy.js has carried daysLeft() and
+  scarcityMult() (1x at 30 days, 40x at empty, its own comment calls it "siege
+  price") since it was written. payday.price() checks PURSE.PRICES first and
+  the two tables are THE SAME ELEVEN KEYS, so the economy branch can price 0 of
+  11 goods. Zero, not few.
+  MEASURED on the real ledger the walked surface builds: over twelve days food
+  goes from 10.7 days of stock to 0.4, the engine moves its price 4.22 -> 60
+  salvage (14x), and the shop charges ONE BATTERY on every one of those days
+  including the day the shelf hits zero. Across five seeds everything empties:
+  food d13, meds d32-34, fuel d33-59, water d54. No price ever notices.
+- THE SECOND DEAD ARGUMENT. price(purse, ledger, goodId) is handed the live
+  ledger by mktShelf() on every render and never reads it, exactly like buy()
+  and its hub. Two functions now, both handed the world, both returning a
+  constant. That is a pattern, not an accident, and it is what happens when a
+  ruling lands on top of an engine instead of into it.
+
+THE FINDING THAT PROVES US WRONG:
+We assumed batteries running out makes them precious and prices climb. THE REAL
+RECORD SAYS THE OPPOSITE EVERY TIME. WHEN THE MATERIAL OF THE MONEY STOPS
+ARRIVING, PRICES FALL AND TRADE STOPS. Radford's POW camp: January 1945 the Red
+Cross cigarettes ran out and prices slumped; February the food parcels went and
+the depression became severe; food, itself scarce, was almost given away. The
+15th century bullion famine: England held a tenth of the silver it had a century
+before, mints closed, and Spufford's summary is four words, everything shrinks,
+because a shortage of coin is a shortage of credit which makes the shortage
+worse. And the games agree: New World launched into a deflation crisis where
+players were afraid to spend, trade drifted to barter, and basic materials
+crashed to near-zero. A MONEY DROUGHT IS NOT A HARD MODE. IT IS AN OFF SWITCH.
+
+THE SECOND FINDING, AND IT IS THE MORE USEFUL ONE:
+COMMODITY MONEY ALMOST NEVER DIES OF DROUGHT. IT DIES WHEN SOMEBODY FINDS A
+CHEAPER PILE OF IT. Cowries were stable for centuries until a Hamburg firm
+worked out in 1845 that the same shell was cheap on Africa's east coast; sixteen
+billion went into West Africa and the money ended up useless. The Somali shilling
+kept its value for years after the state died in 1991 precisely because nobody
+could make more, until Aideed ordered 165 billion from a Canadian printer in 1996
+and businessmen imported 60 billion more in 2001. FOR US: the day nobody can find
+a working cell is a bad day. THE DAY SOMEBODY FINDS A WAREHOUSE OF THEM IS THE
+END OF THE MONEY, and that is a hard constraint on loot design for every lane.
+
+THE LADDER OF WHAT PEOPLE ACTUALLY DID, IN ORDER (history already tuned it):
+  1. HOARD THE GOOD ONES, SPEND THE BAD ONES. Gresham. The full-weight coin goes
+     under the floor. Ethiopian salt bars were packed in wood shavings against
+     wear, and were 27% of imperial tax revenue in 1903.
+  2. THE SMALL TRADES DIE FIRST. Sargent and Velde: a small-coin shortage kills
+     low-value trade while big deals carry on, because a big deal can be done on
+     credit and a loaf cannot. OUR SHARPEST MAPPING: EVERYTHING COSTS ONE, so in
+     Bohemia every trade is a small-change trade and a battery drought is total
+     on the first day.
+  3. MAKE CHANGE OUT OF SOMETHING ELSE. Zimbabwe gave change in sweets, gum and
+     ballpoint pens for five years until the 2014 bond coins. WE ALREADY PAID FOR
+     THIS RUNG: resources and clout exist and already drain.
+  4. SOMEBODY MINTS. The Royal Mint stopped striking copper for 23 years, so in
+     1787 the Parys Mine Company stamped halfpenny tokens from copper it dug to
+     pay its own workers; for a decade private tokens were almost the only coins
+     in Britain. A DROUGHT ENDS BECAUSE SOMEBODY ISSUES, NOT BECAUSE IT RAINS.
+     One battery tile, fourteen faction seats: the shape is already on our map.
+  5. CREDIT REPLACES COIN, and this is the wall again. KINDS is
+     ["source","drain","convert","transfer"] with no OWED. FIFTH ROUND RUNNING
+     TO STOP HERE.
+
+THE RULE THE ROW ASKED FOR:
+WHEN THE BATTERIES GO, THE SHOP DOES NOT RAISE ITS PRICE. IT REFUSES THE SALE.
+The shelf stays full, the till goes quiet, and the only thing that moves is what
+somebody will take your word for or take something else for. Not a multiplier, a
+refusal. Rungs, cheapest first, each on a mechanism that exists: (A) price() can
+return "not for a battery", the same shape as the NO_RULING refusal the purse
+already returns; (B) resources and clout pick up the trade; (C) whoever holds the
+one battery tile issues cells and pays its own people first.
+
+ROUTED (suggestions only; only the coordinator makes a job):
+  WORLD       the till goes quiet; the two dead arguments; the scarcity engine
+              reaching 0 of 11 goods (either the ruled price learns to move, or
+              the siege price comes out of the file)
+  LIFE + CITY the other two currencies pick up a refused sale
+  FACTIONS    somebody issues, the Parys Mine shape, one tile and fourteen seats
+  RUN         five batteries of demo income against an unlimited nightly bill
+  ALL LANES   a lootable pile of batteries ends the money; caches stay small
+
+THE GATE NOTE, WHICH I NOW WRITE EVERY ROUND: every gate went green and the round
+found a branch that has never executed for any good in the game. These gates check
+that a part does what it says. Nothing checks that two parts agree, that a part
+keeps working for as long as the game lasts, that it is the right part to have, or
+that the parts form a loop that closes. Rounds 16 through 25, same sentence. It is
+a DIFFERENT hole from the "a gate that never runs is not a gate" fix another lane
+landed, and that fix does not cover it.
+
+GATES GREEN THIS ROUND: economy 13/0, payday 38/0, purse 28/0, attempt 15/0,
+canon rot 13/0, demo blockers 22/0, language 81/0.
+
+TWENTY-FIVE ROUNDS DONE: Q1 [money dies], Q2 [money returns], Q3 [rebuild order],
+Q4 [first building], Q5 [numberless economy], Q6 [shop feel], Q7 [scarcity real],
+Q8 [what a day costs], Q9 [trust credit], Q10 [market day], Q11 [inflation
+feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share], Q15 [first
+hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market], Q19 [price moves],
+Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs], Q23 [who eats
+first], Q24 [pay on time], Q25 [batteries scarce].
+Next OPEN is Q26 [forgiveness price]; Q27 [shift pay] after it, and that is the
+last one on the board.
+
+THE TWO THINGS THIS WHOLE STUDY KEEPS CONVERGING ON, updated this round:
+  A. FIVE ROUNDS NOW (9, 18, 19, 22, 25) SAY THE ECONOMY OF BOHEMIA IS MADE OF
+     PEOPLE YOU KEEP GOING BACK TO. Round 25 adds the hardest version: without
+     credit, a money drought has nothing left for anybody to do.
+  B. TWO ROUNDS (15, 21) SAY THE MISSING PIECE IS NOT INCOME, IT IS A PLACE TO
+     PUT THINGS.
+AND THE STANDING PATTERN, TRUER THIS ROUND THAN ANY OTHER: almost every finding
+was a mechanism already built, already correct, and pointed at nothing.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
+     end is round 19's day 67, when the shelf line stops moving.
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
+     found the code (BARTER_ONLY) already exists and is unreachable.
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY? Round 18: the right to trade at that
+     faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
+ 16. After the valley's shelves are empty, what does a shop SAY?
+ 17. What can a person in this valley be paid to do?
+ 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
+ 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
+ 20. What is the first thing a player can be caught at, and what does it cost him?
+ 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
+ 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
+     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
+     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
+
+ 23. (new) WHEN A MAN CANNOT PAY, DOES THE SHOP TURN HIM AWAY OR LET HIM OWE?
+     Round 25's whole ladder stops at this wall and it is the fifth round in a
+     row to stop there. It is the same ruling as 6, 20 and 22.
+ 24. (new) HOW BIG IS THE BIGGEST PILE OF BATTERIES A PLAYER CAN FIND? Sixteen
+     billion cowries killed a currency that had worked for centuries. A cache
+     that is too big ends the money, and this is a number only he can set.
+
+NEXT IN THIS LANE: Q26 [forgiveness price], then Q27 [shift pay], and the board
+is empty after that.
+
+
+================================================================================
+================================================================================
 EYES AND EARS (eyes-5vql33): 9/6 (o) LATEST -- *** E13 [half size check] ROUND ONE OF TWO IS
 DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's own test wrong twice, and found
 that our ONE existing tap-target checker measures the wrong rectangle and is set up to go RED on
@@ -89,212 +331,6 @@ PROOF: records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md (2
 sources); banks/eyes/BOHEMIA_EYES_E13_SCALE_SPEC_9_6_26.json (draft:true); VAMILY lane 17 E13
 CLAIMED ROUND 1 OF 2.
 
-
-ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
-HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
-EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
-
-=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
-PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
-
-VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
-
-
-WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
-
-1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
-2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
-3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
-4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
-5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
-6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
-7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
-8. Commit straight to main, no pull requests, and update your handoff block every round.
-9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
-
-RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
-
-I will never paste anything to you again. From here on, the one word is the whole instruction.
-=== END OF HIS WORDS ===
-
-THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
-returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
-backstage], Q7 [water supply], Q8 [battery value],
-Q9 [trust credit], Q10 [market day],
-Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
-Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
-Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
-Q23 [who eats first], Q24 [pay on time].
-Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
-
-AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
-(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
-you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
-minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
-that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
-BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
-reading the date off commits and repeating it back to him.
-
-A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
-conflict at the TOP of this file, because every lane prepends its newest block
-there and several of us are now pasting the same long verbatim instruction into
-it. Twice that produced a stray marker or a duplicated header on main, and once it
-interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
-TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
-your own complete block to it. Then grep for stray markers before you commit.
-
-*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
-block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
-round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
-Paolo's instruction and my own section, under an ECONOMY header. Removed this
-round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
-even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
-THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
-verbatim instruction from Paolo into their own blocks, so those lines are
-byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
-It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
-for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
-your block top to bottom and confirm every line in it is yours.
-And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
-stale copies of this one. That is a real defect in a file every lane reads every
-round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.
-=== ROUND 24 REPORT: [pay on time] SHIPPED ===
-*** THE MORE THEY OWE YOU, THE LESS YOU LEAVE. MODE: RESEARCH, nothing
-implemented. NOT IN A TAB YET. Nothing to judge. ***
-
-Record: records/BOHEMIA_ECONOMY_DAY_24_THE_MORE_THEY_OWE_YOU_THE_LESS_YOU_LEAVE_9_6_26.md
-Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections PPPPP-TTTTT (11 lines, 333 total)
-Board:  Q24 SHIPPED. Q1-Q24 shipped; next OPEN is Q25 [batteries scarce], then Q26
-        [forgiveness price] and Q27 [shift pay], both added since last round.
-
-PAY IN BOHEMIA CANNOT BE LATE, BECAUSE THERE IS NO GAP FOR IT TO BE LATE IN.
-  finish a job at nightfall -> applied:true, paid {electricity:1}
-  a job that failed         -> applied:false, reason NO_RULING
-  TWO STATES EXIST: PAID, AND NOBODY RULED WHAT IT IS WORTH. THERE IS NO THIRD
-  STATE CALLED "THEY DID NOT PAY YOU". The purse's kinds are source, drain, convert
-  and transfer and none of them is OWED. payForToday() fires at nightfall off the
-  finished quest: no due date, no schedule, no arrears field.
-  AND THE PURSE CANNOT HOLD ONE, ON PURPOSE, WHICH IS RIGHT ("balances never go
-  negative, so no hidden debt system exists by accident"). Round 9 agreed with the
-  reasoning; the consequence nobody had written down is that NOBODY CAN BE OWED, IN
-  EITHER DIRECTION.
-  THE THREE ARREARS THIS DESIGN IMPLIES AND NONE IS BUILT: somebody owes the player
-  (does not exist); the player owes his people (day:ate refused, no consequence,
-  round 23); a faction stops paying (BB-UNPAID-TURNS-PREDATORY, queued).
-
-THE REAL AISLE.
-  GETTING STIFFED IS NOT AN EDGE CASE, IT IS A COIN FLIP: 49% of day labourers have
-  experienced outright wage theft and 48% underpayment, sometimes after days or
-  weeks of work. ABOUT HALF.
-  AND WHEN IT IS COMMON, PEOPLE DO NOT LEAVE, THEY STAY LONGER. Russia: by end 1999
-  NEARLY TWO THIRDS of employees were owed overdue wages, AVERAGING 4.8 MONTHLY
-  WAGES EACH -- almost five months of pay, owed, to two people in three. And the
-  quitting behaviour overturns the intuition: THE EFFECT OF ARREARS ON QUITTING
-  VARIES NEGATIVELY WITH HOW PREVALENT THE PRACTICE IS LOCALLY. Arrears were
-  highest where hiring rates were low and the practice had a history; it became
-  NORMALISED, and normalisation reduced the incentive to leave.
-  Two things hold you at once: THERE IS NOWHERE TO GO, because every employer does
-  it, and LEAVING FORFEITS WHAT YOU ARE OWED. UNPAID WAGES ARE A HOSTAGE. THE
-  LONGER THEY OWE YOU, THE MORE EXPENSIVE IT BECOMES TO WALK AWAY.
-  EXCEPT FOR THE PEOPLE WHO HAVE ANOTHER WAY TO EAT. Free companies "regularly made
-  a living by plunder when they were not employed" and Caferro's judgement is that
-  mercenaries were "notoriously difficult to control and prone to desertion if not
-  paid regularly"; in peacetime they became a marching plague of devastation,
-  plunder and blackmail, and towns paid them to go away.
-  THE DIFFERENCE IS NOT LOYALTY, IT IS WHETHER THE UNPAID PERSON HAS ANOTHER WAY TO
-  EAT. A worker with no alternative stays and is owed more. An armed man with an
-  alternative leaves and becomes the next town's problem.
-  AND WHAT IT DOES TO A TOWN, both halves: the worker who stays unpaid STOPS
-  BUYING (round 15's Argentina, shops losing 50-70% of trade in four days), and the
-  armed man who leaves becomes A BILL SOMEBODY ELSE PAYS.
-
-*** THE FINDING THAT PROVES US WRONG. I came in expecting a patience meter: miss a
-payday and they are annoyed, miss three and they walk. That is the intuitive design
-and it is what our own backlog assumes. THE REAL RECORD SAYS THE OPPOSITE. WHEN NOT
-PAYING IS NORMAL, NOBODY WALKS. THEY STAY, THEY ARE OWED MORE, AND STAYING IS THE
-RATIONAL THING BECAUSE LEAVING FORFEITS THE ARREARS. ***
-And the exception is the whole rule, and Bohemia already has both halves:
-  BB-OBLIGATION-BURN         a man with somewhere to go walks away
-  BB-UNPAID-TURNS-PREDATORY  and what he does next is somebody else's problem
-  THE MISSING HALF           a man with nowhere to go STAYS, and is owed more
-AN UNPAID SHIFT IS NOT A PUNISHMENT, IT IS A HOLD. A punishment makes a player
-stop; a hold makes him come back angrier.
-
-DELIVERED, what a shift's pay should do when it does not come:
-  1 IT HAS TO BE POSSIBLE FOR PAY NOT TO COME. A third state, and NOT a negative
-    balance -- the purse's refusal is correct and round 9 settled it.
-  2 BEING OWED IS AN OPEN ITEM WITH A FACE. Round 9's exact shape pointed the other
-    way: somebody owes the player and the player knows who. Every organ is live.
-  3 IT SHOULD BE COMMON. Half of real day labourers have been stiffed. A shift that
-    always pays is not a shift in this valley. The ratio is his.
-  4 AND BEING OWED SHOULD PULL HIM BACK, NOT PUSH HIM AWAY. A player owed four
-    shifts is a player with a reason to return to somebody he does not like. No
-    meter, no anger bar, no timer: a number of unpaid days attached to a name.
-  5 THE WAY OUT IS HAVING SOMEWHERE ELSE TO EAT -- round 18's second seat, round
-    19's second regular, round 21's container, all the same door. Walking away
-    should COST the arrears, which is what makes the alternative worth having.
-  6 WHAT THE PLAYER OWES RUNS THE SAME WAY. His people stay because they have
-    nowhere to go, until one of them does. That is BB-OBLIGATION-BURN's "you end up
-    alone" with the missing middle put in.
-
-REFUSED: a negative balance or a debt on the purse; a patience meter or anger bar;
-a timer that fires desertion at N missed paydays (whether somebody leaves depends
-on whether they have somewhere to go, not on a count); interest on arrears (rounds
-9 and 16); ruling how often a shift stiffs you (contents are his); any
-implementation.
-
-ROUTED: WORLD [a days work] and RUN [a shift] get two (a shift needs to be able to
-not pay; being owed should bring him back). PEOPLE gets "this is round 9's shape
-pointed the other way". WORLD gets "BB-OBLIGATION-BURN and BB-UNPAID-TURNS-PREDATORY
-are ONE mechanism and the missing half is the more common one". One goes to Paolo.
-
-GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
-blockers 22/0, language 81/0.
-AND A CORRECTION TO MY OWN STANDING NOTE, because somebody answered part of it this
-round: a commit landed titled "A GATE THAT NEVER RUNS IS NOT A GATE: six shipped
-jobs had green gates the suite never ran, so the suite goes red on zero". THAT IS A
-DIFFERENT HOLE FROM THE ONE THIS LANE KEPT FINDING, and a real one -- a gate that
-exists but is not in the suite. MINE WAS GATES THAT RUN, PASS, AND ARE CORRECT
-WHILE THE THING THEY CHECK IS CONNECTED TO NOTHING. Both are true and they are not
-the same defect; recorded so a future round does not read the fix as covering
-rounds 16 to 23, because it does not.
-
-[PENDING Paolo] -- for the coordinator, one at a time:
-  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
-     end is round 19's day 67, when the shelf line stops moving.
-  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
-  3. Century rule counts buildings. Should it also count who stayed?
-  4. Which building is the good FIRST one?
-  5. How many cells are in the valley at the start? (the whole money supply)
-  6. What does a broken promise cost? (round 9: exclusion, not seizure)
-  7. How long is the market week, and which seats open on which day?
-  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
-     found the code (BARTER_ONLY) already exists and is unreachable.
-  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
-     second household when there is nowhere else to go?
- 10. Once the valley is built out, eleven things in the whole game are worth a
-     battery. What should a rich player WANT that he cannot just build?
- 11. What does a subscription to a block BUY? Round 18: the right to trade at that
-     faction's seat.
- 12. What does the player START with? He boots with nothing.
- 13. What does it take to get the lights back on? A PRICE is the trap.
- 14. What does a FAILED job pay? Today it is an honest NO_RULING.
- 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
- 16. After the valley's shelves are empty, what does a shop SAY?
- 17. What can a person in this valley be paid to do?
- 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
- 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
- 20. What is the first thing a player can be caught at, and what does it cost him?
- 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
- 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
-     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
-     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
-
-NEXT IN THIS LANE: Q25 [batteries scarce].
-
-================================================================================
-================================================================================
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
