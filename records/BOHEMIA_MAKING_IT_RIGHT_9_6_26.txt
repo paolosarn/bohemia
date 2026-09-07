@@ -173,3 +173,15 @@ shards, every single one replayed against a clean origin/main worktree, and all
 70 are identical there. Two needed three runs each to settle because they flipped
 once (CITY CAST B6 and DOMINANCE SWEEP D4a): both came back red 3 of 3 on clean
 main with the same message, so the single green was the flake, not the red.
+
+--------------------------------------------------------------------------------
+THE H5 RESULT, AS PROMISED, RUN ON THE REAL TREE AFTER THE PUSH
+--------------------------------------------------------------------------------
+Before the push, on the branch: BATTLE BROTHERS GATE 73 pass / 1 fail, H5 naming
+engine/bohemia_standing.js and the three slices.
+After the push, same tree, same gate, nothing else changed:
+  PASS H5 * LAB's diff touches NO engine module and NO slice
+  BATTLE BROTHERS GATE: 74 pass / 0 fail
+So the red really was "this branch has unmerged commits" and nothing else. It
+will do the same thing to the next lane that touches an engine module, which is
+why it is carried up rather than shrugged off.
