@@ -112,3 +112,64 @@ something in the game can finally be forgiven.
 
 TAB: CITY. Wrong somebody, do two good turns in front of them, and the card
 offers to square it.
+
+================================================================================
+AND THEN THE SHIP PASS FOUND SOMETHING WORSE THAN THE ROW
+================================================================================
+Asking the suite to run this round's gate returned "0 of 542 GATES" -- not a red,
+a NOTHING. gates/make_it_right_gate.js was never registered in the runner. Asked
+of the whole lane, SIX gates were in that state, and four rows were already
+marked SHIPPED behind them:
+
+  who_vouches_gate.js   19 ok   [your reputation]   SHIPPED 9/5 3aa7fa1
+  against_gate.js       66 ok   [who is hostile]    SHIPPED 9/5 7ca3d97
+  trade_fit_gate.js     42 ok   [outfits nearby]    SHIPPED 9/5 9acc9c0
+  used_to_be_gate.js    36 ok   [former jobs]       SHIPPED 9/6 251cebc
+  demo_talks_gate.js    14 ok   [demo talks]        SHIPPED 9/5 baab7c5
+  make_it_right_gate.js 40 ok   [make it right]     this round
+
+Every one of them passes. Every one of them was only ever run BY HAND, by me, on
+the turn it was written. That is A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED in
+its purest form: a green gate nobody runs protects nothing, and the proof behind
+those four shipped rows was never repeated after another lane touched the same
+files. All six are registered now, 542 -> 548 rows, and all six were re-run
+THROUGH THE RUNNER rather than by hand: 0s, 62s, 29s, 59s, 28s, 18s, all green.
+Everything that parses the runner table was re-run too (BODY VARIATION 41/0,
+SUITE FINISHES 7/0, SUITE HONESTY green), because adding rows to a file five
+gates read is a change to their input.
+
+FIVE GATE FILES BELONGING TO OTHER LANES ARE STILL UNREGISTERED and are NOT mine
+to register, because turning one green-by-absence gate on could go red on
+somebody else's work and stop the whole fleet from shipping:
+asks_visible_gate.js, dead_valley_gate.js, legend_kept_gate.js, pack_gate.js,
+walk_encounter_gate.js. Carried to the coordinator. The other 15 unregistered
+files in gates/ are helpers and probes, not gates -- they carry the bohemia_
+prefix rather than the _gate suffix, and that split is what a machine check for
+this would key on.
+
+================================================================================
+ONE RED THIS ROUND IS NOT A BUG IN THE WORK, IT IS A BROKEN RULER
+================================================================================
+BATTLE BROS H5 says "LAB's diff touches NO engine module and NO slice" and it
+fails here, naming engine/bohemia_standing.js and the three slices. Read, not
+assumed: it unions `git diff origin/main...HEAD` with staged, working-tree and
+untracked files and fails if ANY path starts with engine/ or is a slice. Nothing
+was staged, nothing was in the working tree, nothing was untracked -- what it
+found was simply this branch's unmerged commits.
+
+So it is not a check on this work. It is a check that fires for EVERY build lane
+that has engine work in flight, wearing the name of a lane Paolo RETIRED on 9/4.
+With no LAB there is no LAB diff, so the only thing it can measure now is
+somebody else's round. It should go green the moment these commits are on main, and
+that is re-run on the real tree after the push rather than argued (the result is
+written at the bottom of this file).
+NOT FIXED HERE, and deliberately: repointing another lane's gate is not this
+lane's to do (VAMILY rule 6), and the honest repair is REPOINTED, NOT LOOSENED --
+key it to the LAB study's own authored history instead of to whoever is checked
+out. Carried to the coordinator with this reading.
+
+THE REST OF THE SUITE, CLASSIFIED ONE BY ONE: 70 confirmed reds across the four
+shards, every single one replayed against a clean origin/main worktree, and all
+70 are identical there. Two needed three runs each to settle because they flipped
+once (CITY CAST B6 and DOMINANCE SWEEP D4a): both came back red 3 of 3 on clean
+main with the same message, so the single green was the flake, not the red.

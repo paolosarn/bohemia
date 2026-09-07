@@ -6434,9 +6434,33 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/6 (b) LATEST -- *** [make it right] SHIPPED. NOTHING IN
+PEOPLE (people-7h9sfy): 9/6 (c) LATEST -- *** [make it right] SHIPPED. NOTHING IN
 THIS GAME COULD BE FORGIVEN AND NOW IT CAN. Wrong somebody, do two good turns
 in front of them, and they will square it. TAB: CITY.
+AND THE SHIP PASS FOUND SOMETHING WORSE THAN THE ROW: SIX GATES THIS LANE WROTE
+WERE NEVER REGISTERED IN THE RUNNER. Asking the suite for this round's gate
+returned "0 of 542 GATES" -- not a red, a NOTHING. who_vouches, against,
+trade_fit, used_to_be, demo_talks and make_it_right all pass, all were only ever
+run BY HAND on the turn they were written, and FOUR ROWS WERE ALREADY MARKED
+SHIPPED BEHIND THEM. That is A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED in its
+purest form. All six registered (542 -> 548) and all six re-run THROUGH THE
+RUNNER, not by hand: 0s, 62s, 29s, 59s, 28s, 18s, every one green. Everything
+that parses the runner table re-run too (BODY VARIATION 41/0, SUITE FINISHES
+7/0, SUITE HONESTY green).
+THE WHOLE SUITE WAS CLASSIFIED ONE GATE AT A TIME: 70 confirmed reds across four
+shards, every one replayed on a clean origin/main worktree, all 70 identical
+there. Two flipped once and needed three runs each to settle (CITY CAST B6,
+DOMINANCE SWEEP D4a); both came back red 3 of 3 on clean main with the same
+message, so the single green was the flake, not the red.
+ONE RED IS A BROKEN RULER, NOT A BUG IN THE WORK: BATTLE BROS H5 says "LAB's
+diff touches NO engine module and NO slice" and it unions git diff
+origin/main...HEAD with staged, working and untracked files. Nothing was staged,
+nothing was in the working tree -- what it found was this branch's unmerged
+commits. It fires for EVERY build lane with engine work in flight, wearing the
+name of a lane Paolo RETIRED on 9/4, so with no LAB the only thing it can
+measure is somebody else's round. NOT FIXED HERE on purpose: repointing another
+lane's gate is not this lane's to do, and the honest repair is REPOINTED NOT
+LOOSENED, keyed to the LAB study's own authored history.
 THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION VERBATIM, BECAUSE HE ASKED FOR IT
 TO LIVE HERE SO IT SURVIVES A MEMORY RESET, AND BECAUSE A REBASE ONTO MAIN
 DROPPED THE LAST COPY OF THIS LANE'S BLOCK ENTIRELY. ***
@@ -6512,7 +6536,19 @@ SHIPPED THIS ROUND
                                             wouldSquare, carryRight
   tools/bohemia_city_make_it_right_patch.py the card row, offer and handler
   gates/make_it_right_gate.js               40 claims, 0 red
+  gates/bohemia_gates.py                    the six unregistered gates, 542 -> 548
   records/BOHEMIA_MAKING_IT_RIGHT_9_6_26.txt
+
+FOR THE COORDINATOR, NOT A JOB I TOOK: FIVE GATE FILES BELONGING TO OTHER LANES
+ARE STILL UNREGISTERED and the suite has never run them --
+asks_visible_gate.js, dead_valley_gate.js, legend_kept_gate.js, pack_gate.js,
+walk_encounter_gate.js. I did not register them, because switching on a gate
+that has never run can go red on somebody else's work and stop the whole fleet
+shipping, and that is his call, not mine. The other 15 unregistered files in
+gates/ are helpers and probes, not gates: they carry the bohemia_ prefix instead
+of the _gate suffix, and THAT SPLIT IS WHAT A MACHINE CHECK FOR THIS WOULD KEY
+ON -- every gates/*_gate.js appears in the runner table, no exceptions. Nothing
+today catches this, which is how six of mine sat unrun.
 
 PROVEN ON THE REAL DEMO, THROUGH THE BUTTON A PLAYER PRESSES:
   wrong them        -6.00, card says THEY HOLD SOMETHING AGAINST YOU and
