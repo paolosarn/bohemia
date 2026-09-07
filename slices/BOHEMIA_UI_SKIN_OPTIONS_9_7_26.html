@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA — WHAT THE BUTTONS ARE MADE OF</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#0b0a09;color:#e7d8bb;font:13px/1.55 ui-monospace,monospace;
+       letter-spacing:.4px;padding:18px 14px 60px}
+  h1{font-size:15px;letter-spacing:3px;color:#b89a6a;margin-bottom:6px}
+  .lede{color:#8d8168;font-size:12px;max-width:660px;margin-bottom:4px}
+  .lede b{color:#e7d8bb}
+  .row{display:flex;gap:14px;overflow-x:auto;padding:20px 0 8px;align-items:flex-start}
+  .opt{flex:0 0 auto;width:236px}
+  .cap{font-size:11px;letter-spacing:2px;margin-bottom:2px}
+  .sub{font-size:10px;color:#8d8168;margin-bottom:9px;min-height:52px}
+  .glass{position:relative;width:236px;height:300px;overflow:hidden;
+         border:1px solid #241f16;border-radius:10px;
+         background:linear-gradient(160deg,#574b39,#3a3229 55%,#665842)}
+  .bar{position:absolute;left:0;right:0;top:0;display:flex;gap:5px;padding:7px}
+  .col{position:absolute;left:7px;top:52px;display:flex;flex-direction:column;gap:6px}
+  .b{display:inline-flex;align-items:center;justify-content:center;
+     padding:6px 9px;font-size:9px;letter-spacing:1.2px;white-space:nowrap}
+  .note{font-size:10px;color:#8d8168;margin-top:9px;line-height:1.5}
+
+  /* ---- 1  RUSTIC 2050 : worn metal, hand repaired, kept alive past its life */
+  .s1 .b{background:linear-gradient(#2a241b,#191510);color:#c9b287;
+         border:1px solid #4a3f2c;border-radius:2px;
+         box-shadow:inset 0 1px 0 #5c4e36,0 1px 0 #000}
+  .s1 .b.hot{background:linear-gradient(#c2a05a,#9d7f42);color:#17120a;border-color:#e0c088}
+  .s1 .glass{background:linear-gradient(160deg,#574b39,#3a3229 55%,#665842)}
+
+  /* ---- 2  TAPED : the label is a strip stuck on, nothing is a button */
+  .s2 .b{background:#d8cdb4;color:#22190f;border:0;border-radius:0;
+         font-weight:700;transform:rotate(-.6deg);
+         box-shadow:1px 1px 0 #00000055}
+  .s2 .b.hot{background:#e0b352}
+  .s2 .b:nth-child(2n){transform:rotate(.5deg)}
+
+  /* ---- 3  ETCHED : no boxes at all, the type is the control */
+  .s3 .b{background:transparent;color:#e7d8bb;border:0;border-bottom:1px solid #8d7c5e;
+         border-radius:0;padding:5px 3px;letter-spacing:2.4px}
+  .s3 .b.hot{color:#f0c86a;border-bottom-color:#f0c86a}
+
+  /* ---- 4  PLASTIC : moulded, rounded, everything a physical key */
+  .s4 .b{background:linear-gradient(#3b342a,#221d16);color:#d7c9a8;
+         border:1px solid #171310;border-radius:11px;
+         box-shadow:inset 0 1px 0 #6c5f47,0 2px 3px #0009}
+  .s4 .b.hot{background:linear-gradient(#e2bd66,#b8934a);color:#1b1409}
+
+  /* ---- 5  GLASS : a modern phone, act two, the world working again */
+  .s5 .b{background:#ffffff14;color:#eee6d6;border:1px solid #ffffff2e;
+         border-radius:9px;backdrop-filter:blur(2px)}
+  .s5 .b.hot{background:#f0c86a;color:#191308;border-color:#f0c86a}
+  footer{margin-top:26px;color:#6a5f4c;font-size:11px;max-width:720px;line-height:1.6}
+</style></head><body>
+
+<h1>WHAT THE BUTTONS ARE MADE OF</h1>
+<p class="lede">Five ways the same five buttons could look. Same words, same places,
+same sizes — <b>only what they are made of changes.</b> This is the thing that has to
+be swappable, because you said the interface changes across the three acts.</p>
+<p class="lede">Nothing here is a plan. Each one is drawn, so you can point at one.</p>
+
+<div class="row" id="row"></div>
+
+<footer>
+The buttons and the ground behind them are identical in all five; only the surface
+changes. That is the point — if the look is one named set of shapes and colours, act
+one, act two and act three are three sets, not three rewrites.<br>
+Act one you called <b>2050 rustic</b>: our own tech worn down and hand-repaired, not a
+1950s idea of the future. That is 1, 2 and 4 pulling at it from three directions.
+3 is what happens if the box goes away entirely. 5 is act two, the world working.
+</footer>
+
+<script>
+var SKINS = [
+ { c:'s1', n:'1 · WORN METAL',  d:'Stamped and scratched, a lip of light on the top edge. Machinery somebody keeps running because there is no new one.' },
+ { c:'s2', n:'2 · TAPED ON',    d:'No buttons at all — labels stuck on crooked, like the panel was relabelled by hand after the thing it came on died.' },
+ { c:'s3', n:'3 · NO BOX',      d:'The word IS the button. Nothing drawn but a rule under it. The screen almost disappears and the street is everything.' },
+ { c:'s4', n:'4 · MOULDED',     d:'Every control a physical key you could press with a glove on. Rounded, lit from above, unmistakably a thing.' },
+ { c:'5',  c:'s5', n:'5 · GLASS', d:'Act two: the world as it is now, working. Thin, cool, backlit. Here for contrast — it is what act one is NOT.' }
+];
+var TOP = ['MUSIC','SAVE','PHONE','OUTFIT'];
+var COL = ['STANDING','BUILD HERE','MARKET','WHOLE MAP','SLEEP'];
+var row=document.getElementById('row');
+SKINS.forEach(function(s){
+  var d=document.createElement('div'); d.className='opt '+s.c;
+  var h='<div class="cap">'+s.n+'</div><div class="sub">'+s.d+'</div><div class="glass">';
+  h+='<div class="bar">'+TOP.map(function(t){
+      return '<div class="b'+(t==='PHONE'?' hot':'')+'">'+t+'</div>'; }).join('')+'</div>';
+  h+='<div class="col">'+COL.map(function(t){
+      return '<div class="b">'+t+'</div>'; }).join('')+'</div>';
+  h+='</div><div class="note">same buttons, same places — only the surface changes</div>';
+  d.innerHTML=h; row.appendChild(d);
+});
+</script>
+</body></html>

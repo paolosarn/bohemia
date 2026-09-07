@@ -18235,6 +18235,56 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/7 (a) LATEST -- *** [half size] OPTION D BUILT, STILL NOT SHIPPED,
+AND THE ROUND'S REAL PRODUCT IS AN INSTRUMENT THAT FINALLY TELLS THE TRUTH. ***
+
+The coordinator decided on the board (correct-after): ship OPTION D off the options
+sheet -- the same HALF size with the stack spread so a 44px thumb fits between the
+buttons. So this round rebuilt it that way and, per my own last handoff, WROTE THE
+TEST FIRST.
+
+WHAT OPTION D NOW DOES, SWITCHED ON: widths halve (80->44, 104->47, 120->54), the pad
+halves, and ALL TWENTY controls clear a 44 reach with the stack spread -- the spread
+half of Option D works. It is built with no scaling at all: each control's OWN CSS is
+halved, so the layout box and the picture are the same box. That was the fix for last
+round's diagnosis (transform and zoom shrink the picture and leave the footprint,
+so every chip kept a full-size box sitting on its neighbour's shrunken one).
+
+*** AND IT STILL BREAKS THE PRESSES, AND THIS TIME THERE IS NO ARGUING WITH IT. ***
+THREE HARNESSES LIED BEFORE ONE TOLD THE TRUTH:
+  1. an in-page hit test said 12 of 12 controls answered -- while a driven tap got 2
+     of 11. Those rulers stop agreeing inside a scaled element.
+  2. a driven tap with a listener on each button said 4 of 10 on the UNMODIFIED
+     build, which a person can obviously use. Lying too.
+  3. moving that listener to the document (so it survives the city rebuilding its
+     chips) did not change the 4 of 10 either.
+  4. WHAT WORKED ASKS THE GAME, NOT THE DOM: press PHONE, did THE PHONE OPEN?
+        without the halving -> the phone opens.
+        with the halving    -> nothing happens.
+     A real effect a player would see, no coordinates compared against coordinates,
+     no listener that can die with its node. That is the instrument now in the gate.
+
+SO IT IS DEFAULT OFF AND THE SHIPPED GAME IS UNTOUCHED. "Ship D; he corrects it by
+playing" cannot mean handing him a build whose phone button does nothing. The code
+stays wired and does nothing until BOHEMIA_HALF.back() is called.
+
+GATE: gates/half_size_gate.js, 7 ok 0 failed. It asserts THE SHIPPED GAME'S CONTROLS
+STILL WORK and that the halving is off, reports what the work already achieves, and
+holds the open defect as its own leg -- "with the halving on, pressing PHONE does
+nothing" -- which goes green the round it is fixed. A defect asserted is a defect
+nobody can mistake for done.
+
+NEXT ROUND, AND IT IS NARROW NOW: the heights do not halve either (the chips hold 44
+from somewhere this round did not find) and the presses do not land. Those are
+probably ONE bug -- something is still holding a 44-tall box over the halved chips.
+Find what sets that height and the presses likely come back with it. Use the PHONE
+test; do not trust anything that compares a rectangle to a point.
+
+THE LESSON, THE THIRD ROUND RUNNING: when a measurement and the thing itself disagree,
+the thing itself wins. A contrast ruler measured the box instead of the letters. A hit
+test measured a coordinate space the browser does not tap in. Here, three ways of
+asking the DOM all disagreed with what the game actually did when pressed.
+
 UI (ui-kmqmrf): 9/6 (f) LATEST -- *** [half size] STILL CLAIMED, NOT SHIPPED. THE
 HALVING WORKS AND IT BREAKS TAPPING, AND THREE MEASUREMENTS IN A ROW TOLD ME IT WAS
 FINE BEFORE A REAL TAP TOLD ME IT WAS NOT. ***

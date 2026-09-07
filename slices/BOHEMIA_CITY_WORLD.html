@@ -60678,35 +60678,181 @@ window.BOHEMIA_FORETOLD = (function(){
 })();
 
 /* ============================================================================
-   __EVERY_UI_ON_THE_RUN_AT_HALF__ -- NOT SHIPPED YET, AND HERE IS WHY (9/6, UI 11)
-   VAMILY [half size]. Paolo, LOCKED: "for the run right now make all the UI 50%
-   smaller, I don't give a fuck."
+   __EVERY_UI_ON_THE_RUN_AT_HALF__ -- OPTION D  (9/7, UI lane 11, VAMILY [half size])
+   *** PAOLO 9/6, LOCKED: "for the run right now make all the UI 50% smaller, I
+   don't give a fuck." *** THE ONE RULE THAT SURVIVES: drawn at half, reach stays 44.
+   COORDINATOR 9/7, off the options sheet: ship OPTION D -- the same HALF size with
+   the stack SPREAD so a 44px thumb fits between the buttons.
 
-   THE HALVING ITSELF WORKS AND WAS MEASURED: the pad went 180x180 to 90x90, every
-   chip 79x44 to 41x22, the top bar 80x15 to 35x8, and the world canvas was left
-   alone because he asked for the interface to shrink, not the game.
+   *** WHY THIS IS NOT A SCALE, AND THE LAST ATTEMPT WAS. *** transform and zoom both
+   shrink the PICTURE and leave the LAYOUT BOX where it was, so every chip kept its
+   full-size footprint sitting on top of its neighbour's shrunken picture -- a real
+   driven tap landed 2 of 11 while an in-page hit test insisted on 12 of 12. So
+   nothing here is scaled. Each control's OWN CSS is halved: font, padding, radius,
+   and the fixed sizes of the pad. Layout box and picture are then the same box, and
+   hit testing is the browser's ordinary hit testing with nothing clever in it.
 
-   *** IT IS NOT HERE BECAUSE IT BROKE TAPPING, AND THE FIRST THREE WAYS I MEASURED
-   IT ALL SAID IT WAS FINE. *** elementFromPoint and getBoundingClientRect stop
-   agreeing with each other inside a scaled element, so an in-page hit test reported
-   twelve of twelve controls answering while a REAL browser tap, driven through the
-   mouse at the control's own centre, got TWO OF ELEVEN. Both mechanisms failed it:
-   zoom:.5 gave 2 of 11 and transform:scale(.5) gave 3 of 11. A game whose buttons
-   are half the size and do not answer is worse than one that never shrank, so it
-   goes back in the drawer until the reach is real.
+   THE REACH IS A PSEUDO-ELEMENT, AND NOW IT MEANS WHAT IT SAYS. Nothing is scaled,
+   so 44px is 44px -- no doubling, no compensating. It is only given to things you
+   PRESS: a label with a tap pad swallows presses meant for buttons, which is the
+   fourth dead end this row paid for.
 
-   WHAT THE NEXT ROUND SHOULD DO, WITH THE EVIDENCE ALREADY PAID FOR:
-     - the ONLY honest instrument here is a real driven tap. Any in-page hit test is
-       measuring a coordinate space the browser does not tap in. Write that test
-       first and let it drive the mechanism, rather than the other way round.
-     - scaling a control scales its reach with it, whatever the property. The reach
-       has to be a real box that is NOT inside the scaled element -- a sibling
-       overlay sized 44, not a pseudo-element of the thing being shrunk.
-     - halving the sizes halves the GAPS, so eight of twelve controls could not fit
-       44 between their neighbours even in principle. Spacing has to be part of the
-       job, not an afterthought.
-   Three dead ends are recorded in the round's handoff so nobody pays for them twice.
+   AND THE SPREAD IS THE POINT OF OPTION D. Halving the sizes halves the GAPS too, so
+   without it eight of twelve controls cannot fit 44 between their neighbours even in
+   principle. The column is pushed apart until every reach clears, which costs
+   nothing anybody can see: the buttons are half and the space they sit in was empty.
    ========================================================================== */
+window.BOHEMIA_HALF = (function(){
+  /* *** DEFAULT OFF, AND THAT IS THE WHOLE STATUS OF THIS ROW. ***
+     Option D is built and it still breaks the controls. Proved with no instrument at
+     all, which is what finally settled it after three harnesses disagreed with each
+     other: press PHONE and ask whether THE PHONE OPENED.
+         without the halving -> the phone opens.
+         with the halving    -> nothing happens.
+     That is a game effect, not a hit test, and it says the same thing the last
+     round's driven-tap test said. Shipping a build whose phone button does nothing
+     is not "he corrects it by playing", it is handing him a broken game. So the code
+     stays, wired and ready, and does nothing until BOHEMIA_HALF.back() is called.
+     WHAT IS ALREADY TRUE WHEN IT IS ON: the widths halve (80->44, 104->47, 120->54),
+     the pad halves, and all twenty controls clear a 44 reach with the stack spread,
+     which is exactly what Option D asked for. The heights do not halve yet -- the
+     chips hold 44 from somewhere this round did not find -- and the presses do not
+     land. Those two are the next round's job and they are probably the same bug. */
+  var BEAT_MS=(typeof BEAT==='number'?BEAT:500), WANT=44, on=false, last=[], suspended=true;
+  /* the run's own controls and labels; never the world */
+  var CTRL = ['musbtn','savebtn','phonebtn','outfitbtn','rungbtn','buildbtn','mktbtn',
+              'modechip','fitbtn','bikebtn','sleepbtn'];
+  var LABEL = ['hud','note','hmode','hclock','hslot','modeLbl'];
+
+  var css=document.createElement('style'); css.id='halfcss';
+  css.textContent=
+     /* HALF, IN THE CONTROL'S OWN PROPERTIES -- not a scale. */
+     '.uihalf{ font-size:5px!important; padding:3px 5px!important;'
+       +'border-radius:3px!important; letter-spacing:.5px!important; min-height:0!important }'
+    +'#hud.uihalf{ font-size:6px!important; padding:2px 5px!important }'
+    +'#note.uihalf{ font-size:5px!important; padding:2px 4px!important }'
+    +'#nav.uihalf{ width:90px!important; height:90px!important }'
+    +'#pad.uihalf{ width:90px!important; height:90px!important }'
+    +'#mode.uihalf{ width:40px!important; height:40px!important }'
+    +'#modeLbl.uihalf{ font-size:5px!important }'
+    /* THE REACH, UNDER THE PICTURE. Nothing is scaled, so these numbers are real. */
+    +'.uihalf.press{ position:relative }'
+    +'.uihalf.press::before{ content:""; position:absolute;'
+      +'left:var(--hitl,0px); right:var(--hitr,0px);'
+      +'top:var(--hitt,0px); bottom:var(--hitb,0px); pointer-events:auto }';
+  (document.head||document.documentElement).appendChild(css);
+
+  function el(id){ return document.getElementById(id); }
+  function seen(){
+    var out=[], i, e;
+    for(i=0;i<CTRL.length;i++){ e=el(CTRL[i]); if(e) out.push({e:e,press:true}); }
+    for(i=0;i<LABEL.length;i++){ e=el(LABEL[i]); if(e) out.push({e:e,press:false}); }
+    ['nav','pad','mode'].forEach(function(id){ var n=el(id); if(n) out.push({e:n,press:false}); });
+    return out;
+  }
+  function vis(e){
+    var cs=getComputedStyle(e);
+    if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0) return null;
+    var r=e.getBoundingClientRect(); if(r.width<1||r.height<1) return null;
+    return r;
+  }
+
+  /* PUSH THE STACK APART UNTIL 44 FITS. Only downward, only controls that are
+     absolutely placed in a column, and only as far as the reach actually needs --
+     the row asked for half, not for a rearranged screen. */
+  function spread(list){
+    var col=[], i;
+    for(i=0;i<list.length;i++){
+      var it=list[i]; if(!it.press) continue;
+      var r=vis(it.e); if(!r) continue;
+      var cs=getComputedStyle(it.e);
+      if(cs.position!=='absolute') continue;
+      if(r.width>innerWidth*0.5) continue;
+      if(r.left>innerWidth*0.5) continue;          /* the left column only */
+      col.push({e:it.e, r:r});
+    }
+    if(col.length<2) return;
+    col.sort(function(a,b){ return a.r.top-b.r.top; });
+    var floorY=null;
+    for(i=0;i<col.length;i++){
+      var c=col[i], want=c.r.top;
+      if(floorY!==null && want<floorY) want=floorY;
+      if(want>c.r.top+0.5){
+        var op=c.e.offsetParent||c.e.parentElement;
+        var pt=op?op.getBoundingClientRect().top:0;
+        c.e.style.bottom='auto';
+        c.e.style.top=(want-pt)+'px';
+      }
+      floorY=want+Math.max(c.r.height, WANT)+2;
+    }
+  }
+
+  function apply(){
+    if(suspended) return false;
+    var list=seen(); if(!list.length) return false;
+    var i;
+    for(i=0;i<list.length;i++){
+      list[i].e.classList.add('uihalf');
+      if(list[i].press) list[i].e.classList.add('press');
+    }
+    spread(list);
+
+    var boxes=[];
+    for(i=0;i<list.length;i++){ var r=vis(list[i].e);
+      if(r) boxes.push({e:list[i].e, press:list[i].press, l:r.left,t:r.top,r:r.right,b:r.bottom,
+                        w:r.width,h:r.height}); }
+    var rep=[];
+    for(i=0;i<boxes.length;i++){
+      var bx=boxes[i];
+      if(!bx.press){
+        rep.push({ id:bx.e.id, drawn:Math.round(bx.w)+'x'+Math.round(bx.h),
+                   reach:'label', full:true });
+        continue;
+      }
+      var gw=Math.max(0,(WANT-bx.w)/2), gh=Math.max(0,(WANT-bx.h)/2);
+      for(var j=0;j<boxes.length;j++){
+        var o=boxes[j]; if(o.e===bx.e) continue;
+        if(bx.e.contains(o.e)||o.e.contains(bx.e)) continue;
+        if(!(o.b<=bx.t||o.t>=bx.b)){
+          var dx=(o.l>=bx.r)?(o.l-bx.r):((o.r<=bx.l)?(bx.l-o.r):0);
+          if(dx>=0) gw=Math.min(gw,dx/2);
+        }
+        if(!(o.r<=bx.l||o.l>=bx.r)){
+          var dy=(o.t>=bx.b)?(o.t-bx.b):((o.b<=bx.t)?(bx.t-o.b):0);
+          if(dy>=0) gh=Math.min(gh,dy/2);
+        }
+      }
+      bx.e.style.setProperty('--hitl',(-gw)+'px'); bx.e.style.setProperty('--hitr',(-gw)+'px');
+      bx.e.style.setProperty('--hitt',(-gh)+'px'); bx.e.style.setProperty('--hitb',(-gh)+'px');
+      rep.push({ id:bx.e.id, drawn:Math.round(bx.w)+'x'+Math.round(bx.h),
+                 reach:Math.round(bx.w+gw*2)+'x'+Math.round(bx.h+gh*2),
+                 full:(bx.w+gw*2>=WANT-0.6 && bx.h+gh*2>=WANT-0.6) });
+    }
+    last=rep; on=true;
+    return true;
+  }
+
+  var lastBeat=-1, EPOCH=performance.now();
+  try{ setInterval(function(){
+    var bt=Math.floor((performance.now()-EPOCH)/BEAT_MS);
+    if(bt===lastBeat) return; lastBeat=bt; apply();
+  }, Math.max(60, BEAT_MS/4)); }catch(_e){}
+  apply();
+
+  return { apply:apply, on:function(){ return on; },
+           report:function(){ return last.slice(); },
+           short:function(){ return last.filter(function(r){ return r.reach!=='label'&&!r.full; }); },
+           /* AND OFF MEANS OFF. The beat loop put it straight back on within 125ms, so
+              the checker's "before" picture was the halved build wearing a baseline's
+              name and both columns came out identical. A suspend flag, not a class
+              removal, is what actually turns a thing off that re-applies itself. */
+           off:function(){ suspended=true; var n=document.querySelectorAll('.uihalf'), i;
+             for(i=0;i<n.length;i++){ n[i].classList.remove('uihalf'); n[i].classList.remove('press');
+               ['--hitl','--hitr','--hitt','--hitb'].forEach(function(k){ n[i].style.removeProperty(k); });
+               n[i].style.removeProperty('top'); n[i].style.removeProperty('bottom'); }
+             on=false; },
+           back:function(){ suspended=false; apply(); } };
+})();
 
 </script>
 </body></html>

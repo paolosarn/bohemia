@@ -222,6 +222,20 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('HALF SIZE',      ['node', 'gates/half_size_gate.js'],
+     'Board row [half size]: Paolo LOCKED, "for the run right now make all the UI 50%% '
+     'smaller", with one rule surviving -- drawn at half, reach stays 44 -- and the '
+     'coordinator deciding OPTION D off the options sheet (half size, stack spread so a 44 '
+     'thumb fits between buttons). Option D is BUILT and NOT SHIPPED: switched on it halves '
+     'the widths and all twenty controls clear a 44 reach, and it still breaks the presses. '
+     'THREE HARNESSES LIED BEFORE ONE TOLD THE TRUTH -- an in-page hit test said 12 of 12 '
+     'while a driven tap said 2 of 11; a driven tap with per-button listeners said 4 of 10 on '
+     'the UNMODIFIED build; moving the listener to the document changed nothing. What settled '
+     'it asks the GAME rather than the DOM: press PHONE, did the phone open? Without the '
+     'halving it opens; with it, nothing happens. So this gate holds the line that matters -- '
+     'THE SHIPPED GAME\'S CONTROLS STILL WORK and the halving is OFF so the row cannot '
+     'half-ship itself -- reports what the work already achieves, and carries the open defect '
+     'as its own leg so nobody mistakes it for done.', True),
     ('READABLE RULER', ['python3', 'gates/readable_ruler_gate.py'],
      'Board row [eyes: faint chips] THE PLAYER CANNOT READ HIS OWN CONTROLS -- an EYES AND '
      'EARS bounce-back on shipped work, and this lane\'s own defect ([phone readable] shipped '
