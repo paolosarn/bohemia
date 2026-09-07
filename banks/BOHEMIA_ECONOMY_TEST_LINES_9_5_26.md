@@ -2064,3 +2064,86 @@ EEEEEE4 somebody who has not been forgiven yet   draft:true
 - No line has a number of days, a counter or a meter running down on a grudge.
 - Spanish register: 2 of 17 lines, 12%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## GGGGGG. THE DAY YOU GET WORK
+## (round 27: the payout is not the design, the number of days is. Every line
+##  here is about getting picked, and none of them says the word lucky.)
+
+GGGGGG1 somebody who got taken on              draft:true
+        "Third one this week. Third. I'm not saying it out loud again in case I
+         jinx the rest of it."
+
+GGGGGG2 somebody who did not get picked        draft:true
+        "I was there at six. I'm always there at six. He took the two who were
+         there at six and then he stopped taking."
+
+GGGGGG3 the one doing the picking              draft:true
+        "I've got room for four and there's eleven of you. That's the whole
+         conversation, I'm not going to dress it up."
+
+GGGGGG4 somebody counting the week             draft:true
+        "Two days. Two out of seven and the other five still ate, so you tell me
+         how that's supposed to work."
+
+## HHHHHH. WHAT A DAY IS WORTH AGAINST A DAY
+## (a shift pays one, a day costs about one, and that is exactly the edge. The
+##  historians call it a squeeze and nobody standing in it uses that word.)
+
+HHHHHH1 somebody breaking even                 draft:true
+        "I made a battery and the battery's gone. Same as last week. I'm not
+         behind, is what I keep telling myself."
+
+HHHHHH2 somebody who noticed the shape         draft:true
+        "Working doesn't get you anywhere. Working stops you going backwards.
+         That's different and it took me a while."
+
+HHHHHH3 an older one, not bitter               draft:true
+        "You want the day to leave you something. Even a little. A day that
+         leaves you nothing is just a day you survived, mijo."
+
+## IIIIII. THE OTHER STRANDS
+## (at a real collapse ratio a wage is not how anybody eats. The rest comes
+##  from scavenging, the house, what you are owed, and going without.)
+
+IIIIII1 somebody listing it out                draft:true
+        "The work's maybe a third of it. Rest is the yard, my sister, and what
+         people still owe me from spring."
+
+IIIIII2 somebody who does not count the wage   draft:true
+        "The pay's the smallest part and it's the part everybody asks about.
+         Nobody ever asks what I found."
+
+IIIIII3 somebody with nothing else             draft:true
+        "That's the difference between me and him. He's got a brother. If I
+         don't get picked, that's it, that's the day."
+
+## JJJJJJ. THE SHOP THAT TAKES AND DOES NOT GIVE
+## (measured this round: work, buy, eat, and the eating fails. Nobody in these
+##  lines knows it is a bug, and none of them says it is.)
+
+JJJJJJ1 somebody who paid and left empty       draft:true
+        "I paid him. He took it, I watched him take it. And I'm walking home
+         with the same arms I walked up with."
+
+JJJJJJ2 the seller, not lying                  draft:true
+        "It's yours. It's paid for and it's yours, it's just not going anywhere
+         today. Come back and it'll be here."
+
+JJJJJJ3 somebody explaining it to a kid        draft:true
+        "No, we bought it. We did buy it. Buying it and having it are two
+         different afternoons round here."
+
+## KKKKKK. WHAT IS NOT HERE, ON PURPOSE (round 27)
+- No line names a wage, a rate or a number of batteries other than the ONE his
+  own rulings already set. The payout is not this bank's to invent.
+- No line says how often work comes. That is the one number this round could not
+  answer and it is [PENDING Paolo] 27.
+- No line says welfare ratio, subsistence, underemployment or day labour. HHHHHH2
+  is the whole finding and it is said as "working stops you going backwards".
+- No line has rent, a landlord or a roof you pay for. A night here costs by the
+  circuit you hold, so there is no rent to write lines about yet.
+- No line blames anybody for the shop. JJJJJJ2 is a seller telling the truth and
+  JJJJJJ3 is a parent who has stopped being surprised.
+- No line states a moral about hard work. GGGGGG2 turned up at six both times.
+- Spanish register: 1 of 13 lines, 8%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.

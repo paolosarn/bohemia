@@ -67,142 +67,120 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 26 REPORT: [forgiveness price] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_26_YOU_CANNOT_BUY_IT_BUT_IT_HAS_TO_COST_YOU_9_7_26.md (344 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections AAAAAA-FFFFFF, +17 lines, 368 draft:true total
+=== ROUND 27 REPORT: [shift pay] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_27_A_SHIFT_PAYS_ONE_THE_DESIGN_IS_HOW_MANY_DAYS_YOU_GET_ONE_9_7_26.md (264 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections GGGGGG-KKKKKK, +13 lines, 381 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
 
-WHAT I MEASURED IN OUR OWN CODE, BEFORE READING ANYTHING (PEOPLE shipped
-[make it right] this round, so a deed can be settled for the first time):
-- NOT ONE LINE OF THE SOCIAL SIDE OF THIS GAME TOUCHES MONEY. Grepped for purse,
-  electricity, resources, battery across the six modules that hold every social
-  mechanic: standing 0, favour 1 (a comment), claim 0, belonging 0, commitment 0,
-  deeds 0. And from the other side, none of PURSE.PRICES' eleven keys is a
-  person, a deed or an apology. BOHEMIA HAS TWO ECONOMIES THAT HAVE NEVER MET.
-- FORGIVENESS IS FREE, AND THE GAME ALREADY CALLS IT PAID. RIGHT_WORDS carries
-  'paid': 'PAID THEM BACK', and the one live caller in the game -- the button on
-  the walked surface at BOHEMIA_CITY_WORLD.html:59477 -- passes exactly that.
-  makeRight has arity 3, no purse, no currency, no amount. The card says PAID
-  THEM BACK and nothing is ever paid. The word for restitution is already in the
-  file with no mechanism under it.
-- WHAT IT COSTS TODAY, MEASURED. I filled DEED_WEIGHT locally in a scratch script
-  (it ships empty by law, and nothing was written to the repo) from the game's own
-  clout ladder -- quiet 8, notable 25, risky 55, reckless 110 -- and counted the
-  good turns wouldSquare needs:
-      quiet wrong    -> 1 small good turn   (or 1 notable)
-      notable wrong  -> 4                   (or 1)
-      risky wrong    -> 7                   (or 3)
-      reckless wrong -> 14                  (or 5)
-  AND WAITING NEVER WORKS, which is good and worth keeping: the grudge decays on
-  a ~3 week halflife but `rest` stays 0 if you never did anything good, so
-  wouldSquare never fires on time alone. Measured at turns 0, 1000, 5000: still
-  false, grudge -110.00 -> -108.39, rest 0.00 throughout. YOU CANNOT OUTLIVE A
-  WRONG IN THIS GAME, YOU HAVE TO EARN IT BACK.
+I RAN THE WHOLE DAY IN OUR OWN CODE BEFORE READING ANYTHING:
+- WHAT A DAY COSTS, from PURSE.VERBS, all four live: day:ate 1 resources,
+  fight:plate 1 resources, night:power 1 electricity per lit circuit held,
+  ask:leaned 1 clout. So the floor of a day is ONE RESOURCE plus one battery per
+  circuit, every night, forever.
+- WHAT WORK PAYS: PAYOUT.COMPLETE 1 electricity, a placed building 1 resources.
+  WORK PAYS BATTERIES AND EATING SPENDS RESOURCES. They are not the same
+  currency, so a day of work does not cover a day of living directly at all; it
+  covers your electricity bill and buys you the right to go to a shop.
+- SO I RAN THE FULL LOOP LIVE ON THE REAL MODULES:
+      boot                     res 0 | elec 0
+      after finishing one job  res 0 | elec 1     applied true
+      after buying food        res 0 | elec 0     applied true, paid 1
+      after the day eats       res 0 | elec 0     applied FALSE, reason INSUFFICIENT
+  A FULL DAY OF WORK BUYS A BAG OF FOOD AND YOU STILL STARVE. payday.buy()
+  debits the price and never credits the good; its comment correctly explains why
+  the MONEY is destroyed and never mentions delivering the thing.
+  SAY THE HONEST PART: this is a KNOWN GAP already on the board, WORLD's own
+  STATE line gives it to [rice clock], and I did not discover it. What this round
+  adds is that it is why the row cannot be answered with a number: NO SHIFT PAY
+  MAKES A DAY OF WORK COVER A DAY OF LIVING WHILE THAT PIPE IS OPEN AT ONE END.
+- AND THE SHIFT ALREADY HAS A LENGTH, in two modules that agree: dayloop
+  WAKE_MIN 360 / NIGHT_MIN 1320 gives 960 waking minutes, and agents worker WORK
+  is 448, so a shift is 448 minutes, 47% of the waking day, about 4 km of broken
+  ground or 8 km of road. The clock for [a days work] exists already.
 
-A CORRECTION TO MY OWN ROUNDS 24 AND 25, AND I AM CARRYING IT SO NOBODY INHERITS
-IT: I said nobody in this valley can be owed anything. That is true of the PURSE
-(KINDS has no OWED) and I generalised past the measurement. bohemia_favour.js has
-carried owedOf(), owedRow() and settle() the whole time and it is LIVE on the
-walked surface: take a favour from an outfit and you owe them, they make a CLAIM,
-and meeting it works one favour off. bohemia_claim.js cites Gouldner in its own
-comment -- "a debt you can never clear is a sentence, not a relationship" -- and
-refusing a creditor costs one extra rung per unpaid favour on top of the fall.
-SOCIAL CREDIT EXISTS IN BOHEMIA. Only material credit does not. That is a smaller
-wall than I had been describing for two rounds.
+THE FINDING THAT PROVES THE ROW'S OWN PREMISE WRONG:
+The row wants a rate "so a day of work covers a day of living and not much more".
+That is a real instrument -- economic historians call it a WELFARE RATIO, the
+number of bare-bones subsistence baskets a wage buys, and Allen's method is the
+standard. A ratio at or near 1.0 is described in that literature as a SEVERE
+LIFE-CYCLE SQUEEZE: the edge of the cliff, not a resting place.
+AND THEN THE THING THAT BREAKS IT: NOBODY WORKS EVERY DAY. Measured in a Gujarat
+survey, casual workers averaged 254 days a year against 354 for salaried, AND THE
+BOTTOM THIRD WORKED 137 DAYS. Rural village studies find under six months a year.
+So a shift at ratio 1.0 pays you, across a year, 0.70 of a living at 254 days and
+0.38 at 137. A DAY RATE THAT COVERS A DAY IS A STARVATION WAGE, BECAUSE THE DAYS
+YOU DO NOT WORK STILL EAT. The theory has an answer -- a casual loading, commonly
+25%, to pay for the insecurity -- and it does not hold: measured across
+occupations most casual workers get 2% to 5%, three carry a PENALTY of 3% to 6%,
+and 34.3% report no loading at all. Day labourers are not poor because of the
+rate. THEY ARE POOR BECAUSE OF THE GAPS.
 
-THE FINDING THAT PROVES US WRONG:
-The row is called [forgiveness price] and the instinct in that framing, mine
-included, is that settling a wrong has a price and the price is material. THE
-RESEARCH ON WHAT WRONGED PEOPLE ACTUALLY WANT SAYS OTHERWISE, from randomised
-trials rather than opinion: what victims came for is an explanation, questions
-answered, and an apology they believe. Face to face they report higher
-satisfaction, rate apologies as sincere, want revenge less and carry fewer
-post-traumatic symptoms. Money is not what they came for.
-SO A SHOP THAT SELLS FORGIVENESS IS THE WRONG MECHANISM, and it is also the most
-common way games do it: pay off the bounty and the guards forget.
-BUT THE OTHER HALF IS WHY THIS IS NOT SIMPLY "MAKE IT FREE". An apology that
-costs nothing is not believed, because if saying sorry works then people who are
-sorry say it AND SO DO PEOPLE WHO ARE NOT. The costly-signalling work finds
-exactly that: an apology carrying a real cost is rated sincere, one carrying none
-reads as cheap talk, across every country tested.
-THE RESOLUTION IS THE ROUND'S ANSWER: THE PAYMENT IS NOT WHAT BUYS THE
-FORGIVENESS, IT IS WHAT MAKES THE APOLOGY BELIEVABLE. YOU CANNOT PAY INSTEAD OF
-SHOWING UP. YOU HAVE TO SHOW UP, AND SHOWING UP HAS TO COST YOU SOMETHING.
-Our built mechanism already has the first half exactly right -- go do something
-for the person you wronged, in front of them, then ask. What is missing is that
-the something never costs you anything you own, so a rich player and a broke
-player pay the identical price for the identical wrong.
+AND IN AN ACTUAL COLLAPSE THE RATIO IS NOT 1.0, IT IS ABOUT 0.2:
+Venezuela, the minimum wage covers under 0.2% of the basic basket -- IT TAKES
+FIFTEEN MONTHS OF THE MINIMUM WAGE TO EAT FOR ONE MONTH, with the family-of-five
+basket going $322 to $471 in a year. Lebanon, July 2021, a family's food alone
+was FIVE TIMES the minimum wage and more recent reporting says nearly ten; a
+month's bread alone hit 44% of it. IN THE CRASH THIS GAME SIMULATES, WAGES STOP
+BEING HOW ANYBODY EATS -- the same sentence this study has now reached from five
+directions (15, 21, 23, 24, 26).
 
-WHAT PEOPLE ACTUALLY PAID, AND THE SPREAD IS THE PART TO STEAL:
-Aethelberht's laws are the earliest English injury tariff, priced per tooth,
-finger, ear, rib, for damaged speech and a ruined face. Under Alfred: little
-finger 9 shillings, thumb 20, big toe 20, ear 30, nose 60. And a man by rank:
-freeman 200, thegn 1,200, a Mercian king 7,200. NINE SHILLINGS TO SEVEN THOUSAND
-TWO HUNDRED IS EIGHT HUNDRED TIMES. OUR LADDER IS 8 TO 110, FOURTEEN TIMES.
-Diya: 100 camels for a wilful killing, still live law in four countries, and the
-family picks one of THREE doors -- qisas (take it back), diya (take payment), afw
-(take nothing). OUR FOUR WORDS ARE ALMOST THAT LIST ALREADY: settled, paid,
-forgiven, spared.
-Melanesian compensation states its own function plainly: the payment SIGNALS THE
-TERMINATION OF THE DISAGREEMENT. A full stop, not a purchase, and everybody
-watches.
-AND THE FAILURE MODE, THE MOST USEFUL THING IN THE ROUND: PNG's Law Reform
-Commission had to draft an ANTI-EXCESSIVE-COMPENSATION BILL because the payments
-ran away, until paying aggravated the dispute instead of ending it. IF BEING
-WRONGED PAYS WELL ENOUGH, BEING WRONGED BECOMES A BUSINESS. Any version of this
-needs a ceiling imposed from outside, because nobody inside the exchange wants one.
+AND THE DESIGN SIDE AGREES FROM THE OTHER DIRECTION: income that exactly equals
+upkeep is called THE TREADMILL, running faster to stay in place. The historians
+say 1.0 is a cliff edge and the designers say 1.0 feels like a chore, so a shift
+should leave a real surplus and the days you cannot get one should take it back.
 
-THE LADDER DELIVERED (five rungs, only the first two cheap):
-  1. SHOW UP. Already built, already correct. Keep it exactly as it is.
-  2. THE LADDER HAS TO GET STEEPER AT THE TOP. Our worst deed is 14 small good
-     turns from settled. Every real tariff put hundreds of times between the
-     smallest wrong and the largest. A thing that ought to follow you should not
-     be a fortnight of errands.
-  3. THE PAYMENT IS THE PROOF, NOT THE PURCHASE. 'paid' is a word with nothing
-     under it. Payment ON TOP OF showing up makes the apology believable;
-     payment INSTEAD OF showing up is the bounty shop.
-  4. WHAT IT COSTS DEPENDS ON WHAT YOU HAVE. Wergild priced by rank. Every price
-     here is one. Genuine tension with EVERYTHING COSTS ONE and it is his call.
-  5. THERE IS A CEILING AND SOMEBODY IMPOSES IT.
-AND THE THING TO KEEP: FORGIVEN IS NOT FORGOTTEN. madeRightBy keeps the deed, its
-reason and how it was settled forever; only the force goes. That single property
-separates this from every pay-the-fine-and-they-forget system, and it is what the
-real record agrees with hardest. Nobody forgets. They stop holding it against you.
+THE NUMBER THE ROW ASKED FOR: A SHIFT PAYS ONE BATTERY. That is not me picking
+one -- EVERYTHING COSTS ONE (8/15) and BATTERIES ARE THE MONEY (9/4) picked it,
+PAYOUT.COMPLETE already carries it with both rulings on the row, and nothing this
+round gives a reason to move it. THE DELIVERABLE IS NOT THE PAYOUT, IT IS THE
+THREE THINGS AROUND IT:
+  1. HOW MANY DAYS YOU GET ONE IS THE WHOLE DESIGN. 137 to 254 out of 365 is the
+     measured spread. A shift you can take every day is a salary with a day
+     labourer's name on it, and every finding above stops applying.
+  2. THE SHIFT MUST NOT BE THE ONLY WAY TO EAT, because it never was. The other
+     strands are already built or already found: scav yield decaying at half
+     every 180 days, a placed building's daily yield, favours owed, and going
+     without, which round 23 priced.
+  3. THE SURPLUS IS THE POINT AND SO IS LOSING IT. Never exactly break-even, or
+     it is a treadmill by construction.
 
 ROUTED (suggestions only; only the coordinator makes a job):
-  PEOPLE      the flat ladder (rung 2); 'paid' is a word with nothing under it (rung 3)
-  WORLD       the first crossing: a payment that settles anything means the purse
-              and the standing web must touch, and today six social modules
-              contain zero references to money
-  LIFE + CITY the payment is public or it is not a payment; witness() already
-              works exactly that way
+  WORLD [a days work]  the shift is 448 minutes, the clock exists in two modules
+                       that agree, it pays ONE off his own rulings, and NOTHING
+                       NEW HAS TO BE TUNED. The design is the availability.
+  WORLD [rice clock]   already theirs; this round is the arithmetic proof of why
+                       it blocks everything: work, buy, eat, INSUFFICIENT.
+  LIFE + CITY          work pays batteries and eating spends resources, and the
+                       only bridge between them is a shop that does not deliver.
 
-THE GATE NOTE: eight gates green including PEOPLE's own make-it-right gate at
-40/0, and the round found that the game's one live forgiveness caller says PAID
-THEM BACK while nothing is paid. These gates check that a part does what it says.
-Nothing checks that two parts agree, that a part keeps working for as long as the
-game lasts, that it is the right part to have, or that the parts form a loop that
-closes. Rounds 16 through 26, same sentence. A gate asking "does makeRight settle
-the deed" passes; a gate asking "does the word on the card describe what happened"
-does not exist.
+THE GATE NOTE: seven gates green, and a run of the game's own modules in the
+game's own order ends in INSUFFICIENT. These gates check that a part does what it
+says. Nothing checks that two parts agree, that a part keeps working for as long
+as the game lasts, that it is the right part to have, or that the parts form a
+loop that closes. Rounds 16 through 27, and this is the plainest statement of the
+last clause the study has produced: THE LOOP IS WORK, BUY, EAT, AND IT DOES NOT
+CLOSE, AND ALL THREE PARTS PASS THEIR OWN GATES.
 
 GATES GREEN THIS ROUND: economy 13/0, payday 38/0, purse 28/0, attempt 15/0,
-canon rot 13/0, demo blockers 22/0, language 81/0, make it right 40/0.
+canon rot 13/0, demo blockers 22/0, language 81/0.
 
-TWENTY-SIX ROUNDS DONE: Q1 [money dies], Q2 [money returns], Q3 [rebuild order],
-Q4 [first building], Q5 [numberless economy], Q6 [shop feel], Q7 [scarcity real],
-Q8 [what a day costs], Q9 [trust credit], Q10 [market day], Q11 [inflation
-feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share], Q15 [first
-hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market], Q19 [price moves],
-Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs], Q23 [who eats
-first], Q24 [pay on time], Q25 [batteries scarce], Q26 [forgiveness price].
+TWENTY-SEVEN ROUNDS DONE: Q1 [money dies], Q2 [money returns], Q3 [rebuild
+order], Q4 [first building], Q5 [numberless economy], Q6 [shop feel], Q7
+[scarcity real], Q8 [what a day costs], Q9 [trust credit], Q10 [market day], Q11
+[inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market], Q19
+[price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
+Q23 [who eats first], Q24 [pay on time], Q25 [batteries scarce], Q26 [forgiveness
+price], Q27 [shift pay].
 
 WHAT THIS WHOLE STUDY KEEPS CONVERGING ON, updated:
-  A. SIX ROUNDS NOW (9, 18, 19, 22, 25, 26) SAY THE ECONOMY OF BOHEMIA IS MADE OF
-     PEOPLE YOU KEEP GOING BACK TO. Round 26 is the strongest: the game's social
-     ledger is more complete than its money ledger, and the two have never met.
+  A. SEVEN ROUNDS NOW (9, 18, 19, 22, 24, 25, 26) SAY THE ECONOMY OF BOHEMIA IS
+     MADE OF PEOPLE YOU KEEP GOING BACK TO.
   B. TWO ROUNDS (15, 21) SAY THE MISSING PIECE IS NOT INCOME, IT IS A PLACE TO
      PUT THINGS.
+  C. AND SIX ROUNDS NOW (15, 21, 23, 24, 26, 27) SAY A WAGE IS ONE STRAND AND
+     NEVER THE THICKEST ONE, WHICH IS WHY NO PAYOUT NUMBER FIXES ANYTHING ON ITS
+     OWN.
 AND THE STANDING PATTERN: almost every finding was a mechanism already built,
 already correct, and pointed at nothing.
 
@@ -252,8 +230,13 @@ already correct, and pointed at nothing.
      because a fixed number is no cost to a rich man. EVERYTHING COSTS ONE says
      it does not. Genuine tension, and genuinely his.
 
-NEXT IN THIS LANE: Q27 [shift pay], and it is the LAST OPEN LINE ON MY BOARD.
-After it ships this queue is empty and only the coordinator can add to it.
+ 27. (new) HOW OFTEN CAN A PLAYER GET A SHIFT? The only number in round 27 that
+     his own rulings do not already answer, and it is the one that decides
+     everything. The measured real spread is 137 to 254 days out of 365, bottom
+     third at the bottom of it. A shift you can take every day is a salary.
+
+NEXT IN THIS LANE: Q28 [ridge worth], then Q29 [nothing left]. The coordinator
+added both this round, so the queue is NOT empty.
 
 
 ================================================================================
