@@ -130,7 +130,8 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
   console.log('\n  yardstick: ' + why);
   show('WALKING THE STREET', L.walk);
   show('IN A FIGHT, CAMERA STILL GLIDING (the opening)', L.fight);
-  show('IN A FIGHT, CAMERA SETTLED (where a fight is spent)', L.fightSettled);
+  show('IN A FIGHT, CAMERA SETTLED (nobody playing: the ceiling)', L.fightSettled);
+  show('IN A FIGHT BEING PLAYED (the honest one)', L.fightPlayed);
 
   /* ---- the anti-silent-pass floors, before any ceiling ---- */
   ok('THE PROFILER ACTUALLY SAW THE WALK (' + L.walk.samples + ' samples over ' +
@@ -178,11 +179,25 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
                 (L.fight.topSystems[0] || {}).percent + '% of everything it does is ' +
                 (L.fight.topSystems[0] || {}).name + '.');
     if (L.fightSettled && L.fightSettled.reached !== false)
-      console.log('    ONCE THE CAMERA SETTLES it is at ' + L.fightSettled.busyPercent +
+      console.log('    WITH NOBODY PLAYING it is at ' + L.fightSettled.busyPercent +
                   '% (' + L.fightSettled.msOfWorkPerBeat + ' of 500 ms)' +
                   (L.fightSettled.cameraSettled ? '' : ' -- BUT THE CAMERA NEVER SETTLED THIS RUN') +
-                  '. The cover zoom eases 10% a frame, so it takes about 335 frames to land; a ' +
-                  'fight lasts far longer than that, so the settled number is the fight.');
+                  '. That is the CEILING, not the game.');
+    if (L.fightPlayed && L.fightPlayed.reached !== false) {
+      console.log('    AND IN A FIGHT BEING PLAYED, which is the honest number: ' +
+                  L.fightPlayed.taskMsPerBeat + ' of 500 ms (' +
+                  L.fightPlayed.taskBusyPercent + '% of the main thread, counted by Chromium ' +
+                  'itself so raster is in it). AN UPPER BOUND: the sampling profiler is ' +
+                  'attached while this is read, so its own cost is inside the number. Compare ' +
+                  'it to other runs of this gate, never to a figure taken with nothing attached.');
+      console.log('    THE QUIET NUMBER FLATTERS THE GAME AND THIS LANE PUBLISHED IT ONCE. The ' +
+                  'cover zoom eases 10% a frame toward a target set by how far the enemies are, ' +
+                  'so while anyone is playing the camera is almost never still' +
+                  (L.fightPlayed.distinctZooms ? ' (' + L.fightPlayed.distinctZooms +
+                   ' distinct zooms seen this run by a SPARSE poll, so that is a floor and not ' +
+                   'the per-frame count; measured densely it is 309 to 1,068 in 28 seconds)' : '') +
+                  ' and a camera-keyed cache cannot hold.');
+    }
     console.log('    NOT ASSERTED, ON PURPOSE: any ceiling here is above 100% and can never ' +
                 'fail, or below today and is red on arrival. Printed instead, every run,');
     console.log('    until the fight has headroom and a real line can be set. Recorded: ' +
@@ -194,6 +209,46 @@ ok('the profile is not stale (taken ' + ageDays.toFixed(1) + ' days ago, limit '
        'measuring only that and calling it the fight is how a real win reads as no change',
        !!(L.fightSettled && L.fightSettled.reached !== false && L.fightSettled.samples > 5000),
        L.fightSettled && L.fightSettled.samples ? L.fightSettled.samples + ' samples' : 'not taken');
+    ok('AND A FIGHT SOMEBODY IS PLAYING WAS PROFILED, which is the one that counts. A quiet ' +
+       'fight measures the ceiling; this lane quoted that ceiling once as if it were the game, ' +
+       'and a gate that can only see a quiet fight is how that happens twice',
+       !!(L.fightPlayed && L.fightPlayed.reached !== false && L.fightPlayed.samples > 5000),
+       L.fightPlayed && L.fightPlayed.samples ? L.fightPlayed.samples + ' samples' : 'not taken');
+    const D = (L.fightPlayed && L.fightPlayed.drive) || {};
+    console.log('    the drive found ' + (D.found || 0) + ' controls and tapped ' +
+                (D.taps || 0) + ' times' + (D.tapped && D.tapped.length ? ' (' +
+                D.tapped.join(' ') + ')' : '') +
+                (L.fightPlayed && L.fightPlayed.endState ? ', and the fight ended the window with ' +
+                 L.fightPlayed.endState.live + ' alive in phase ' + L.fightPlayed.endState.phase : ''));
+    ok('THE DRIVE FOUND THE CONTROLS AND TAPPED THEM. A drive that silently found nothing to ' +
+       'press is a quiet window wearing a driven name',
+       (D.found || 0) > 0 && (D.taps || 0) >= 3, (D.found || 0) + ' controls, ' + (D.taps || 0) + ' taps');
+    /* WHETHER THE CAMERA MOVED IS PRINTED, NOT ASSERTED, and that was a correction.
+       Asserting it went red on a legitimately still fight -- an encounter with one
+       stationary enemy pins the auto-frame at its ceiling and holds there even
+       while somebody is playing -- and a gate red on arrival gets switched off by
+       the next session that meets it, which is this file's own rule three screens
+       up. So the fact rides ALONGSIDE the number instead, every run, because a
+       reader who cannot tell which kind of fight was measured is exactly how this
+       lane published a ceiling as a result in the first place. */
+    const moved = L.fightPlayed && L.fightPlayed.distinctZooms > 10;
+    console.log('    ' + (moved
+      ? '>> THE CAMERA MOVED (' + L.fightPlayed.distinctZooms + ' distinct zooms seen), so the '
+        + 'number above is a fight, not a ceiling.'
+      : '>> THE CAMERA WAS ALMOST STILL THIS RUN (' +
+        (L.fightPlayed ? L.fightPlayed.distinctZooms : '?') + ' distinct zooms' +
+        (L.fightPlayed && L.fightPlayed.zoomSamples && L.fightPlayed.zoomSamples.length
+         ? ' at ' + L.fightPlayed.zoomSamples.map(z => (+z).toFixed(4)).join(' ') : '') +
+        '), SO THE NUMBER ABOVE IS A CEILING AND NOT THE GAME. A fight with nothing moving '
+        + 'in it pins the auto-frame and the floor cache holds all the way through.'));
+    ok('THE CAMERA WAS WATCHED AT ALL while the fight was driven. Counted by POLLING FROM OUT ' +
+       'HERE, because a counter running inside the fight twice reported one zoom on a fight ' +
+       'that was plainly moving: a loop in there dies with its document and is throttled when ' +
+       'the frame is not painting, and it fails SILENTLY, which is the one thing a check may ' +
+       'not do. This only asserts the poll ran; whether it moved is printed above',
+       !!(L.fightPlayed && L.fightPlayed.zoomSamples && L.fightPlayed.zoomSamples.length > 0),
+       (L.fightPlayed && L.fightPlayed.zoomSamples ? L.fightPlayed.zoomSamples.length : 0) +
+       ' zoom readings');
   } else {
     ok('THE FIGHT WAS REACHED AND PROFILED', false, (L.fight && L.fight.why) || 'no sample');
   }

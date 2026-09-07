@@ -295,6 +295,83 @@ async function run(opts) {
         out.fightSettled.cameraSettled = settled;
         out.fightSettled.zoom = last;
         out.fightSettled.beatsSampled = +(out.fightSettled.wallMs / BEAT_MS).toFixed(1);
+        /* ===== A FIGHT NOBODY IS PLAYING IS NOT A FIGHT =========================
+           THIS WINDOW EXISTS BECAUSE THE OTHER TWO LIED TO ME (9/6, PLUMBER).
+           I shipped the floor cache and reported "a settled fight is under 400 ms
+           of the beat" off the window above. Then I drove a real fight -- taps on
+           the action ring, the player stepping, the auto-frame re-fitting -- and
+           the camera produced 309 to 599 DISTINCT ZOOMS in 28 seconds. The cover
+           zoom eases 10% of the way to its target every frame and the target is a
+           function of how far the enemies are, so in a fight being played the
+           camera is almost never still, and a cache keyed on the camera hits 43%
+           to 75% of frames instead of 100%.
+           A quiet fight measures the ceiling. A driven fight measures the game.
+           So this window DRIVES the controls and reads Chromium's own
+           TaskDuration, which counts raster, because the frame callback and the
+           frame rate disagreed and the beat is the whole main thread. */
+        /* THE FIGHT HAS TO STILL BE A FIGHT WHEN THE DRIVE STARTS. By this point
+           two profiling windows and a settle wait have gone by, and the encounter
+           can be over -- a dead fight has nothing to move the camera, which reads
+           as a beautifully cheap beat. Start a fresh one if so. */
+        const alive = async () => cf.evaluate(() => {
+          try { return { over: !!G.over, live: (G.e || []).filter(e => !e.dead).length,
+                         phase: G.phase }; } catch (e) { return null; }
+        }).catch(() => null);
+        let st = await alive();
+        if (!st || st.over || !st.live) {
+          await page.evaluate(() => { try { cityEncounterIn({ packageId: 1, label: 'driven beat' }); } catch (e) {} });
+          for (let i = 0; i < 60; i++) { await sleep(200); st = await alive();
+            if (st && !st.over && st.live && st.phase === 'cover') break; }
+        }
+        const driveLog = { found: 0, taps: 0, restarted: !st || !st.live, tapped: [] };
+        /* THE ZOOM IS COUNTED FROM OUT HERE, not from a loop inside the fight.
+           The first cut armed a requestAnimationFrame ticker in the frame and it
+           twice reported ONE distinct zoom on a fight that was plainly moving --
+           a rAF loop dies with its document (the encounter can be rebuilt under
+           it) and gets throttled when the frame is not painting, and either way
+           it fails SILENTLY, which is the one thing a check may not do. Polling
+           from the driver cannot die without the poll itself failing. */
+        const zooms = new Set();
+        const sampleZoom = async () => {
+          const z = await cf.evaluate(() => { try {
+            return (typeof G !== 'undefined' && G && G._uzE != null) ? String(G._uzE) : null;
+          } catch (e) { return null; } }).catch(() => null);
+          if (z != null) zooms.add(z);
+        };
+        const drive = async () => {
+          const until = Date.now() + opts.fightMs;
+          while (Date.now() < until) {
+            const r = await cf.evaluate(() => {
+              const words = ['ENGAGE','RUN','N','S','E','W','NE','NW','SE','SW'];
+              const hits = [];
+              for (const el of document.querySelectorAll('div,button,span')) {
+                const t = (el.textContent || '').trim();
+                if (words.includes(t) && el.offsetWidth > 20 && el.offsetWidth < 260) hits.push(el);
+              }
+              if (!hits.length) return { found: 0, hit: null };
+              const el = hits[Math.floor(Math.random() * hits.length)];
+              try { el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+                    el.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+                    el.click(); } catch (e) { return { found: hits.length, hit: null }; }
+              return { found: hits.length, hit: (el.textContent || '').trim() };
+            }).catch(() => ({ found: 0, hit: null }));
+            if (r && r.found > driveLog.found) driveLog.found = r.found;
+            if (r && r.hit) { driveLog.taps++; if (driveLog.tapped.length < 12) driveLog.tapped.push(r.hit); }
+            for (let k = 0; k < 8 && Date.now() < until; k++) { await sleep(150); await sampleZoom(); }
+          }
+        };
+        const p0 = await PERF.cpu(cdp);
+        out.fightPlayed = await profileWhile(cdp, drive, 100);
+        const p1 = await PERF.cpu(cdp);
+        out.fightPlayed.reached = true;
+        out.fightPlayed.beatsSampled = +(out.fightPlayed.wallMs / BEAT_MS).toFixed(1);
+        const wallS = Math.max(0.001, p1.ts - p0.ts);
+        out.fightPlayed.taskBusyPercent = +(100 * (p1.task - p0.task) / wallS).toFixed(1);
+        out.fightPlayed.taskMsPerBeat = +(1000 * (p1.task - p0.task) / (wallS * 2)).toFixed(1);
+        out.fightPlayed.drive = driveLog;
+        out.fightPlayed.endState = await alive();
+        out.fightPlayed.distinctZooms = zooms.size;
+        out.fightPlayed.zoomSamples = zooms.size ? [...zooms].slice(0, 4) : [];
       }
     }
     out.pageErrors = [];
@@ -308,7 +385,7 @@ async function run(opts) {
 
 /* ---- THE RECORD --------------------------------------------------------- */
 function buildRecord(R, prevPath) {
-  const w = R.walk, f = R.fight, H = R.hiddenFrame, fs = R.fightSettled;
+  const w = R.walk, f = R.fight, H = R.hiddenFrame, fs = R.fightSettled, fp = R.fightPlayed;
   const measured = {
     beatMs: BEAT_MS,
     cpuYardstickMs: R.cpuYardstickMs,
@@ -316,6 +393,12 @@ function buildRecord(R, prevPath) {
             beatsSampled: w.beatsSampled, samples: w.samples,
             crossCheckDeltaPoints: w.crossCheckDeltaPoints,
             topFive: w.topSystems.slice(0, 5) },
+    fightPlayed: fp && fp.reached ? { msOfWorkPerBeat: fp.msOfWorkPerBeat, busyPercent: fp.busyPercent,
+                 taskMsPerBeat: fp.taskMsPerBeat, taskBusyPercent: fp.taskBusyPercent,
+                 beatsSampled: fp.beatsSampled, topFive: fp.topFive, samples: fp.samples,
+                 distinctZooms: fp.distinctZooms, zoomSamples: fp.zoomSamples,
+                 drive: fp.drive, endState: fp.endState }
+               : { reached: false, why: (fp && fp.why) || 'not taken' },
     fightSettled: fs && fs.reached ? { msOfWorkPerBeat: fs.msOfWorkPerBeat, busyPercent: fs.busyPercent,
                  beatsSampled: fs.beatsSampled, cameraSettled: !!fs.cameraSettled, zoom: fs.zoom,
                  topFive: fs.topFive } : { reached: false, why: (fs && fs.why) || 'not taken' },

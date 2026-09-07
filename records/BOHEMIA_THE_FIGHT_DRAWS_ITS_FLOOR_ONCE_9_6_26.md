@@ -4,6 +4,16 @@ PLUMBER lane, VAMILY row [fight headroom] THE-FIGHT-HAS-NO-HEADROOM, round 3.
 Round 1 took the hidden panel. Round 2 found the wall and said the honest way to
 cut it. This is the cut.
 
+> **CORRECTED THE NEXT ROUND, AND THE CORRECTION IS THE POINT.** The headline below
+> is measured on a fight NOBODY IS PLAYING. Driving a real fight -- taps on the
+> action ring, the player stepping, the auto-frame re-fitting -- the cover camera
+> produces 309 to 599 DISTINCT ZOOMS in 28 seconds, so a cache keyed on the camera
+> hits 43% to 75% of frames, not 100%. THE HONEST NUMBER FOR A FIGHT BEING PLAYED
+> IS 497.5 ms -> 386.8 ms MEDIAN (347, 386.8, 428.4 against 497.3, 497.5, 498).
+> Still a large win, still not the comfortable "under 400" this page claimed.
+> The full correction and the instrument that stops it happening again:
+> records/BOHEMIA_A_FIGHT_NOBODY_IS_PLAYING_9_7_26.md
+
 ## THE HEADLINE
 
 ```
