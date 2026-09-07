@@ -200,6 +200,104 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
       m.blindFires + ' fired with nothing drawn (' + (m.blindSaw || '') + '), '
         + m.blindAnimals + ' of them animals'
         + (m.blindErr ? ' | ' + m.blindErr : ''));
+    /* ---- F. THE SAME THING DOES NOT KEEP HAPPENING TO YOU ------------------
+       [repeat interval], 9/6. His ruling 9/5 through the coordinator: "the same
+       encounter does not repeat for the same player inside THREE in-game days, and
+       never twice on the same street in one day. Put it on a dial in DEMO SETTINGS
+       with that default." IT IS CHECKED HERE because this gate is already standing
+       on the DEMO, which is the surface the ruling named. */
+    head('F. AND THE SAME THING DOES NOT KEEP HAPPENING TO YOU');
+    var dial = await page.evaluate(function () {
+      var g = document.getElementById('gearbtn'); if (g) g.click();
+      var b = document.getElementById('setenc');
+      if (!b) return { none: true };
+      var r = b.getBoundingClientRect();
+      var was = b.textContent.trim(), seq = [was];
+      for (var i = 0; i < 4; i++) { b.click(); seq.push(b.textContent.trim()); }
+      var saved = null; try { saved = JSON.parse(localStorage.getItem('BOH_SETTINGS') || '{}'); } catch (e) {}
+      try { window.BOHEMIA_SETTINGS.setEncDays(3); } catch (e) {}
+      var c = document.getElementById('setclose'); if (c) c.click();
+      return { opens: was, w: Math.round(r.width), h: Math.round(r.height),
+               seq: seq, saved: saved && saved.encd, back: window.BOHEMIA_SETTINGS.encDays() };
+    });
+    ok('*** THE DIAL IS IN THE DEMO SETTINGS, AND IT OPENS ON HIS THREE DAYS ***',
+      !dial.none && dial.opens === 'AGAIN IN 3 DAYS', JSON.stringify(dial.opens));
+    ok('a thumb can hit it (44px is the floor)', dial.h >= 44 && dial.w >= 44,
+      dial.w + 'x' + dial.h);
+    ok('and it says the answer in words, not a number to decode',
+      dial.seq.join(' -> ') === 'AGAIN IN 3 DAYS -> AGAIN IN 7 DAYS -> AGAIN SAME DAY '
+        + '-> AGAIN IN 1 DAY -> AGAIN IN 3 DAYS', dial.seq.join(' -> '));
+    ok('the phone remembers where he left it', dial.saved === 3 && dial.back === 3,
+      'saved=' + dial.saved + ' back=' + dial.back);
+
+    var rule = await fr.evaluate(function () {
+      var o = { reads: null, day: null, place: null, keys: [], oneStreet: [], spread: [], floor: [] };
+      o.reads = encRepeatDays(); o.day = encDay(); o.place = encWhere();
+      var x0 = hx;
+      for (var i = 0; i < 3; i++) { hx = x0 + i * 900; o.keys.push(encWhere()); }
+      hx = x0;
+      /* drive the REAL walk director, not a stand-in */
+      function drive(days, streets) {
+        WALK_DIR = null;
+        var dir = walkDirector(), out = [];
+        for (var d = 1; d <= days; d++) for (var i = 0; i < 30; i++) {
+          var r = dir.consider({ district: 'suburb', phase: 'night', health: 1, heat: 0,
+            day: d, place: 'B' + (i % streets), can: function () { return true; } }, 120);
+          if (r.fired) out.push(d + ' ' + 'B' + (i % streets) + ' ' + r.id);
+        }
+        return out;
+      }
+      o.oneStreet = drive(5, 1);
+      window.__DRIVE = drive;          /* asked again after the dial is really moved */
+      return o;
+    });
+    /* MOVE THE DIAL THE WAY A PLAYER DOES: on the settings screen, in the shell.
+       The first cut reached window.parent.BOHEMIA_SETTINGS from inside the city
+       frame and got nothing back, so the city read 3 after a tap that never
+       happened -- a probe measuring a route the game does not use. The button is
+       the route. */
+    var taps = await page.evaluate(function () {
+      var g = document.getElementById('gearbtn'); if (g) g.click();
+      var b = document.getElementById('setenc'), n = 0;
+      /* LOOP ON THE VALUE, NOT ON THE LABEL. Reading the button's words back to
+         decide whether to press it again couples this to the wording, and the
+         wording is the one part of a draft line that is meant to change. */
+      while (n < 5 && window.BOHEMIA_SETTINGS.encDays() !== 0) { b.click(); n++; }
+      var c = document.getElementById('setclose'); if (c) c.click();
+      var raw = null; try { raw = localStorage.getItem('BOH_SETTINGS'); } catch (e) { raw = 'THREW ' + e.name; }
+      return { taps: n, now: window.BOHEMIA_SETTINGS.encDays(),
+               says: b.textContent.trim(), raw: raw };
+    });
+    var after = await fr.evaluate(function () {
+      var raw = null; try { raw = localStorage.getItem('BOH_SETTINGS'); } catch (e) { raw = 'THREW ' + e.name; }
+      return { afterDial: encRepeatDays(), raw: raw,
+               spread: window.__DRIVE(1, 3), floor: window.__DRIVE(1, 1) };
+    });
+    await page.evaluate(function () { try { window.BOHEMIA_SETTINGS.setEncDays(3); } catch (e) {} });
+    rule.afterDial = after.afterDial; rule.spread = after.spread; rule.floor = after.floor;
+    ok('the walked city reads the dial, knows what day it is, and knows what street '
+      + 'he is standing on', rule.reads === 3 && rule.day >= 1 && /^B-?\d+,-?\d+$/.test(rule.place),
+      'days=' + rule.reads + ' day=' + rule.day + ' street=' + rule.place);
+    ok('and the street changes as he walks', new Set(rule.keys).size === rule.keys.length,
+      rule.keys.join(' '));
+    var oneDays = rule.oneStreet.map(function (l) { return +l.split(' ')[0]; });
+    ok('*** FIVE IN-GAME DAYS ON ONE STREET, AND NOTHING COMES BACK INSIDE THREE ***',
+      oneDays.length > 0 && oneDays.indexOf(2) < 0 && oneDays.indexOf(3) < 0,
+      rule.oneStreet.join(' | ') || 'nothing fired');
+    ok('*** MOVING THE DIAL IS OBEYED BY THE WALKED CITY IMMEDIATELY ***',
+      rule.afterDial === 0 && taps.now === 0,
+      taps.taps + ' taps to reach "' + taps.says + '", city then read ' + rule.afterDial
+      + '  | shell store ' + taps.raw + '  | city store ' + after.raw);
+    var byId = {};
+    rule.floor.forEach(function (l) { var id = l.split(' ')[2]; byId[id] = (byId[id] || 0) + 1; });
+    ok('*** AND WITH THE CALENDAR TURNED OFF, STILL NEVER TWICE ON THE SAME STREET '
+      + 'IN ONE DAY *** -- that rule is the floor underneath the dial',
+      rule.floor.length > 0 && Object.keys(byId).every(function (k) { return byId[k] === 1; }),
+      rule.floor.length + ' fires on one block, ' + Object.keys(byId).length + ' distinct');
+    ok('while three streets in the same day let something find him twice',
+      rule.spread.length > rule.floor.length,
+      rule.spread.length + ' across three streets vs ' + rule.floor.length + ' on one');
+
     ok('nothing threw on the page', errs.length === 0, errs.slice(0, 2).join(' | '));
     await page.close();
   } catch (e) {

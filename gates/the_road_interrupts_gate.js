@@ -250,6 +250,17 @@ const CITY_SRC = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.h
        nothing about what a thumb could press. */
     const reach = await city.evaluate(async () => {
       MODE = 'city';
+      /* START THE DIRECTOR OVER FOR THIS ONE CHECK, and it is the SETUP that is
+         being reset, never the claim. This block is about ONE THING: with a road
+         card on screen, can a thumb still reach the pad, the chip and the world.
+         It needs a card, and the crossing above has just spent the roster --
+         [repeat interval] (9/6) means a token he has already met is gone for
+         three in-game days, and sixty more cells is ten hours, not three days.
+         So a page that had already crossed the valley could never raise a second
+         card no matter how long it walked. Resetting the director is asking the
+         question the claim asks; loosening the reachability test would have been
+         answering a different one. */
+      try { ROAD_DIR = null; } catch (_e) {}
       let ev = null;
       for (let i = 0; i < 60 && !ev; i++) {
         const nx = city.x + 1;
@@ -292,9 +303,16 @@ const CITY_SRC = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.h
       + JSON.stringify(Object.keys(run.cost).map(k => k + ':' + run.cost[k][0]))
       + ' · quiet steps by reason ' + JSON.stringify(run.reasons));
     console.log('  MINE, NOT HIS, AND CORRECTABLE: interruption costs are '
-      + 'ambient 0 / interactive 10 / forced 20 minutes, and a token may come '
-      + 'round again after 7200s of travel. The roster, the 70/20/10 mix, the 90s '
-      + 'floor and the spice cap are all his, approved 7/27.');
+      + 'ambient 0 / interactive 10 / forced 20 minutes. The roster, the 70/20/10 '
+      + 'mix, the 90s floor and the spice cap are all his, approved 7/27 -- and so '
+      + 'is how long before a token may come round again, ruled 9/5 at THREE '
+      + 'IN-GAME DAYS and now on a dial in SETTINGS. It used to be 7200 seconds of '
+      + 'travel, which was mine only because nothing was ruled.');
+    console.log('  AND FOUR IS THE RULE\'S OWN ARITHMETIC, NOT A COINCIDENCE: this '
+      + 'crossing is 1400 in-game minutes, which is under ONE day, and twelve '
+      + 'approved tokens each allowed once every three days is four a day. A '
+      + 'future run that comes in under four means something took a token away, '
+      + 'not that the bound was set too high.');
   } catch (e) {
     ok('the gate ran to the end [' + String(e.message).slice(0, 160) + ']', false);
   }

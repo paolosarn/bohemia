@@ -22,6 +22,10 @@
      5. RARE IS SACRED: a spice token fires at most once in a session, ever.
      6. NO REPEAT-SPAM: a token cannot come round again inside its cooldown, and
         with no cooldown ruled it fires at most once.
+     6b. AND THE SAME THING DOES NOT KEEP HAPPENING TO YOU (Paolo 9/5, through the
+        coordinator): not inside THREE IN-GAME DAYS, and never twice on the same
+        street in one day. Two rules, both load-bearing, the second being the floor
+        that survives when the dial turns the first off.
      7. NO GLOBAL SPAWNS EVER. A district with no table spawns nothing, and there is
         no fallback table anywhere to spawn from.
      8. NO BACKGROUND TICKING (Paolo's pacing ruling). The module owns no clock at
@@ -228,6 +232,165 @@ function walk(dir, world, steps, spent) {
   const noCan = EN.makeDirector({ seed: 13, repeatAfterS: 600, tableFor: () => ['bounty_squad'] });
   ok('a caller that cannot answer a precondition gets no spawn, not a free one',
      walk(noCan, { district: 'suburb', phase: 'night', health: 1, heat: 0 }, 2000, 30).length === 0);
+}
+
+// ---- 11. THE SAME THING DOES NOT KEEP HAPPENING TO YOU ----------------------
+/* His ruling, 9/5, through the coordinator: "the same encounter does not repeat for
+   the same player inside THREE in-game days, and never twice on the same street in
+   one day. Put it on a dial in DEMO SETTINGS with that default." */
+{
+  const CITY = fs.readFileSync('slices/BOHEMIA_CITY_WORLD.html', 'utf8');
+  const ALPHA = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
+  /* one walk, on a calendar. `streets` of 1 means he never leaves the block. */
+  function days(opt) {
+    const dir = EN.makeDirector({ seed: 7, repeatDays: opt.dial, tableFor: () => ALL });
+    const seen = [];
+    for (let d = 1; d <= opt.days; d++) for (let i = 0; i < 30; i++) {
+      const place = opt.streets ? ('B' + (i % opt.streets)) : null;
+      const r = dir.consider({ district: 'suburb', phase: 'night', health: 1, heat: 0,
+                               day: d, place: place, can: () => true }, 120);
+      if (r.fired) seen.push({ day: d, place: place, id: r.id });
+    }
+    return { seen, dir };
+  }
+
+  ok('HIS NUMBER IS THREE, and the module carries it as the default rather than a '
+     + 'caller having to know it (' + EN.REPEAT_DAYS + ')', EN.REPEAT_DAYS === 3);
+
+  /* ZERO REGRESSION. Every caller that has no calendar -- the resolver, the gate,
+     anything headless -- must behave exactly as it did before this row. */
+  {
+    const noDay = EN.makeDirector({ seed: 7, tableFor: () => ALL });
+    const f = walk(noDay, openWorld, 4000, 30);
+    ok('a caller that reports no day still fires each token at most once, which is '
+       + 'what it did before there was a calendar (' + f.length + ' fires, '
+       + new Set(f.map(e => e.id)).size + ' distinct)',
+       f.length === new Set(f.map(e => e.id)).size);
+    const withGap = EN.makeDirector({ seed: 7, repeatAfterS: 600, tableFor: () => ALL });
+    const g = walk(withGap, openWorld, 4000, 30);
+    ok('and the seconds cooldown still works for it (' + g.length + ' fires with a '
+       + '600s cooldown, more than the ' + f.length + ' without one)', g.length > f.length);
+  }
+
+  /* THE FAULT THAT WAS THE WHOLE ROW. With both memories live the seconds one said
+     no first, so his three days was never asked and the dial moved nothing. */
+  {
+    const r = days({ days: 20, streets: 1 });
+    const daysHit = [...new Set(r.seen.map(e => e.day))];
+    ok('*** ONE MEMORY ANSWERS, NEVER TWO *** -- twenty in-game days on one street '
+       + 'produced fires on ' + daysHit.length + ' different days (' + daysHit.join(',')
+       + '). Before the fix it was FIVE fires, every one of them on day one, because '
+       + 'the seconds memory vetoed before the calendar was consulted',
+       daysHit.length >= 5);
+    /* PICK A TOKEN THAT IS ALLOWED TO COME BACK. The first thing that fires can be
+       a SPICE token, and rare-is-sacred means those never repeat at all -- a rule
+       older than this row. Measuring the repeat interval on one of those measures
+       the wrong rule. */
+    const repeatable = EN.ROSTER.filter(t => !t.spice).map(t => t.id);
+    const back = repeatable.map(id => r.seen.filter(e => e.id === id).map(e => e.day))
+                           .filter(d => d.length >= 2);
+    ok('something he met really did come back (' + back.length + ' of the '
+       + repeatable.length + ' repeatable tokens did)', back.length > 0);
+    ok('and every gap is exactly his three days ('
+       + back.map(d => d.join('->')).slice(0, 3).join('  ') + ')',
+       back.length > 0 && back.every(d => {
+         for (let i = 1; i < d.length; i++) if (d[i] - d[i - 1] < 3) return false;
+         return true;
+       }) && back.some(d => d[1] - d[0] === 3));
+    ok('and nothing at all fires on day 2 or day 3',
+       r.seen.every(e => e.day !== 2 && e.day !== 3));
+  }
+
+  /* THE DIAL IS READ WHEN THE QUESTION IS ASKED, never copied at load -- the same
+     late-binding lesson the grid owner cost this lane one round earlier. */
+  {
+    let dial = 3;
+    const dir = EN.makeDirector({ seed: 7, repeatDays: () => dial, tableFor: () => ALL });
+    const ask = (d) => dir.consider({ district: 'suburb', phase: 'night', health: 1,
+                                      heat: 0, day: d, place: 'B0', can: () => true }, 120);
+    for (let i = 0; i < 30; i++) ask(1);
+    let got = 0; for (let i = 0; i < 30; i++) if (ask(2).fired) got++;
+    ok('with the dial at three, day 2 is silent (' + got + ' fires)', got === 0);
+    dial = 0;
+    let got2 = 0; for (let i = 0; i < 30; i++) if (ask(2).fired) got2++;
+    ok('*** AND MOVING THE DIAL MID-WALK IS OBEYED MID-WALK *** -- the same director, '
+       + 'the same day, turned down to nothing: ' + got2 + ' fires', got2 > 0);
+  }
+
+  /* HIS SECOND RULE IS THE FLOOR, and this is why he ruled two and not one. */
+  {
+    const spread = days({ days: 1, streets: 4, dial: 0 }).seen;
+    const twice = {};
+    spread.forEach(e => { (twice[e.id] = twice[e.id] || []).push(e.place); });
+    const came = Object.keys(twice).filter(id => twice[id].length > 1);
+    ok('at zero days the same token CAN find him again the same day on a different '
+       + 'street (' + came.map(id => id + ' on ' + twice[id].join(',')).slice(0, 2).join(' | ')
+       + ')', came.length > 0);
+    ok('and never on a street it already found him on today',
+       came.every(id => new Set(twice[id]).size === twice[id].length));
+
+    const one = days({ days: 1, streets: 1, dial: 0 }).seen;
+    const byId = {};
+    one.forEach(e => { byId[e.id] = (byId[e.id] || 0) + 1; });
+    ok('*** AND NEVER TWICE ON THE SAME STREET IN ONE DAY *** -- with the calendar '
+       + 'turned all the way off, one street still gives at most one of each ('
+       + one.length + ' fires, ' + Object.keys(byId).length + ' distinct)',
+       Object.values(byId).every(n => n === 1));
+
+    const two = days({ days: 2, streets: 1, dial: 0 }).seen;
+    ok('and tomorrow that street is clean again (' + two.filter(e => e.day === 2).length
+       + ' fires on day 2)', two.filter(e => e.day === 2).length > 0);
+
+    ok('the street rule is per token, not a lock on the street itself ('
+       + Object.keys(byId).length + ' different things happened on that one block)',
+       Object.keys(byId).length > 1);
+  }
+
+  /* RARE IS SACRED SURVIVES A CALENDAR. A day rule that could bring a spice token
+     back would be a new rule about something already ruled. */
+  {
+    const r = days({ days: 40, streets: 1, dial: 0 }).seen;
+    const spice = EN.ROSTER.filter(t => t.spice).map(t => t.id);
+    const hits = r.filter(e => spice.indexOf(e.id) >= 0);
+    ok('forty in-game days cannot bring a spice token back twice (' + hits.length
+       + ' spice fires, cap is ' + EN.SPICE_CAP + ')', hits.length <= EN.SPICE_CAP);
+  }
+
+  /* AND IT DOES NOT REMEMBER STREETS FOREVER. A hundred-hour game over three
+     generations would otherwise carry one entry per street per token, for the life
+     of the save, to answer a question that only ever asks about today. */
+  {
+    const r = days({ days: 30, streets: 12, dial: 0 });
+    const held = Object.keys(r.dir.state.firedHere).length;
+    ok('after thirty in-game days across twelve streets it is holding ' + held
+       + ' street memories, not one for every day it ever saw', held <= 12 * ALL.length
+       && held < r.seen.length);
+    ok('and every one of them is about today', Object.keys(r.dir.state.firedHere)
+       .every(k => r.dir.state.firedHere[k] === 30));
+  }
+
+  /* NO CLOCK CHECK HERE ON PURPOSE. Section 8 already holds it, and it reads the
+     source with COMMENTS STRIPPED -- the first cut of this claim read raw source and
+     went red on the module's own sentence "no Date.now, nothing that advances while
+     the player stands still". A gate that fails on the comment describing the rule
+     it is enforcing is measuring its own invention, which is the third time that
+     shape has come up this session. */
+
+  /* THE REAL SURFACES ASK THE REAL QUESTION. A rule the game never passes a day to
+     is a rule that does nothing, which is the class of fault that passed a grep
+     three separate times this session. */
+  ok('the walked city knows what day it is and what street he is on',
+     /function encDay\(\)/.test(CITY) && /function encWhere\(\)/.test(CITY));
+  ok('both directors on the real surface are handed the dial, not a number frozen '
+     + 'at page load', (CITY.match(/repeatDays:\s*encRepeatDays/g) || []).length === 2);
+  ok('and both of them pass a day and a street on every step',
+     (CITY.match(/day:\s*encDay\(\),\s*place:\s*encWhere\(\)/g) || []).length === 2);
+  ok('the invented seconds cooldowns are gone from the surface, so there is only one '
+     + 'answer to how long before it comes round again',
+     !/repeatAfterS:\s*(3600|7200)/.test(CITY));
+  ok('the dial is in the SETTINGS screen that reaches the walked city AND the demo',
+     /id="setenc"/.test(ALPHA) && /BOH_SETTINGS/.test(CITY));
+  ok('and it opens on HIS number', /var ENCD=\[0,1,3,7\], encd=3;/.test(ALPHA));
 }
 
 // ---- 10. IT PLUGS INTO THE APPROVED RESOLVER --------------------------------

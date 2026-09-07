@@ -31,6 +31,17 @@
 
    RARE IS SACRED — spice tokens carry a hard session cap and cannot repeat.
 
+  AND THE SAME THING DOES NOT KEEP HAPPENING TO YOU (Paolo, 9/5, through the
+    coordinator): "the same encounter does not repeat for the same player inside
+    THREE in-game days, and never twice on the same street in one day. Put it on
+    a dial in DEMO SETTINGS with that default."
+    TWO RULES, NOT ONE, and both are load-bearing. The three days is on a dial and
+    can be turned all the way down to nothing; the street rule is the floor that
+    survives when it is. Held by two memories keyed off numbers THE CALLER GIVES,
+    `world.day` and `world.place`, because this file owns no clock and does not
+    know what a street is, and inventing either here would be a second opinion
+    about where the player is standing.
+
    ----------------------------------------------------------------------------
    NO BACKGROUND TICKING (Paolo, pacing, recorded in the backlog)
    ----------------------------------------------------------------------------
@@ -103,6 +114,11 @@
   var MIN_GAP_S = 90;                 // "~90s min gap"
   var SPICE_CAP = 1;                  // "rare is sacred: never twice a session"
   var KINDS = ['ambient', 'interactive', 'forced'];
+  /* HIS NUMBER, 9/5, and the dial in SETTINGS opens on it. Three IN-GAME DAYS,
+     counted on the day the caller reports, never converted into seconds of
+     walking, because a day of game time and a minute of spent time are two
+     different rulers and the ruling named the day. */
+  var REPEAT_DAYS = 3;
 
   function byId(id) { for (var i = 0; i < ROSTER.length; i++) if (ROSTER[i].id === id) return ROSTER[i]; return null; }
 
@@ -124,10 +140,25 @@
                  entry spawns nothing. That is the "no global spawns ever" law
                  held by construction rather than by discipline.
        gapS    : override the approved 90s floor (the gate uses this; canon does not)
-       repeatAfterS : how long before a token may come round again. NOT RULED, so
-                 there is no default: without one, a token fires at most once in a
-                 session, which is the strictest reading of "no repeat-spam" and
-                 invents nothing.
+       repeatAfterS : how long in SPENT SECONDS before a token may come round
+                 again. Still here and still unruled, so still no default. It is
+                 the only cooldown a caller with no calendar can offer, which is
+                 every headless caller and the gate.
+       repeatDays : how many IN-GAME DAYS before a token may come round again.
+                 RULED 9/5 and defaults to three. A number, or a function read at
+                 the moment the question is asked, so a dial the player moves
+                 mid-session is obeyed mid-session instead of at page load.
+                 IT DOES NOTHING UNLESS THE CALLER REPORTS A DAY. No day means no
+                 calendar, and a director that guessed one would be the clock this
+                 file is forbidden to own.
+
+     WHAT THE CALLER PUTS IN `world`
+       district, phase : the table key. No global table, ever.
+       health, heat, can : the budget and the preconditions.
+       day   : the in-game day number, if the caller has one. Drives the repeat.
+       place : where the player is standing, at whatever grain the CALLER calls a
+               street — a block on foot, a map cell on the road. Any stable key.
+               Drives "never twice on the same street in one day".
      ------------------------------------------------------------------------ */
   function makeDirector(opts) {
     opts = opts || {};
@@ -135,11 +166,25 @@
     var tableFor = typeof opts.tableFor === 'function' ? opts.tableFor : null;
     var gapS = (opts.gapS != null) ? opts.gapS : MIN_GAP_S;
     var repeatAfterS = (opts.repeatAfterS != null) ? opts.repeatAfterS : null;
+    var repeatDays = (opts.repeatDays != null) ? opts.repeatDays : REPEAT_DAYS;
+
+    /* LATE, NEVER AT LOAD. The dial lives in a settings screen the player can open
+       in the middle of a walk, and a number copied at construction would be the
+       one that was true when the page opened. Same lesson the grid owner cost. */
+    function daysNow() {
+      var v = (typeof repeatDays === 'function') ? repeatDays() : repeatDays;
+      v = (v == null || v !== v) ? REPEAT_DAYS : (v | 0);
+      return v < 0 ? 0 : v;
+    }
 
     var state = {
       tension: 0, elapsedS: 0, lastFireS: -1e9, seq: 0,
       counts: { ambient: 0, interactive: 0, forced: 0 }, total: 0,
-      fired: {}, spice: 0, log: []
+      /* THREE MEMORIES, BECAUSE THEY ANSWER THREE DIFFERENT QUESTIONS.
+         fired     : how long ago, in spent seconds  (the unruled cooldown)
+         firedDay  : which in-game day it last happened at all   (his three days)
+         firedHere : which day it last happened ON THIS STREET   (his second rule) */
+      fired: {}, firedDay: {}, firedHere: {}, day: null, spice: 0, log: []
     };
 
     /* THE STORYTELLER BUDGET. Spends big when the player is healthy and it has
@@ -169,7 +214,26 @@
     function eligible(tok, world) {
       if (!tok) return false;
       if (tok.spice && state.spice >= SPICE_CAP) return false;      // rare is sacred
-      if (state.fired[tok.id]) return false;                        // no repeat-spam
+      /* WHO GETS TO ANSWER "HAS THIS ALREADY HAPPENED" -- ONE OF THEM, NEVER BOTH,
+         and this is the whole row. MEASURED with both in: the seconds memory said
+         no first, so his three days was never even asked. Twenty in-game days of
+         walking gave FIVE encounters, every one of them on day one, and the dial
+         in SETTINGS moved nothing wherever it was set. Two rules answering one
+         question do not add up; the stricter one silently eats the other, and
+         here that is a control that does nothing, which the settings screen's own
+         rule calls worse than no control at all.
+         A CALENDAR WINS. The seconds cooldown is what a caller with no days has,
+         which is every headless caller and the gate, and they are untouched. */
+      var day = world && world.day;
+      if (day == null) {
+        if (state.fired[tok.id]) return false;                      // no repeat-spam
+      } else {
+        var was = state.firedDay[tok.id];
+        if (was != null && (day - was) < daysNow()) return false;   // not inside three days
+        var place = world.place;
+        if (place != null && state.firedHere[place + '|' + tok.id] === day)
+          return false;                                             // not twice on this street today
+      }
       if (!tok.needs) return true;
       var f = world && world.can;
       return typeof f === 'function' ? !!f(tok.needs, tok) : false; // unproven need = no spawn
@@ -187,6 +251,17 @@
       state.elapsedS += spent;
       state.tension += spent;
       if (repeatAfterS != null) refresh(repeatAfterS);
+      /* THE DAY TURNS OVER AND TODAY'S STREETS ARE FORGOTTEN. A hundred-hour game
+         over three generations would otherwise carry one entry per street per
+         token for the life of the save, to answer a question that only ever asks
+         about today. Once per day change, not once per step. */
+      var dnow = world && world.day;
+      if (dnow != null && dnow !== state.day) {
+        state.day = dnow;
+        Object.keys(state.firedHere).forEach(function (k) {
+          if (state.firedHere[k] !== dnow) delete state.firedHere[k];
+        });
+      }
       var since = state.elapsedS - state.lastFireS;
       if (since < gapS) return { fired: false, reason: 'GAP', since: since, need: gapS };
 
@@ -221,6 +296,10 @@
       state.counts[pick.kind]++;
       state.total++;
       state.fired[pick.id] = state.elapsedS;
+      if (world && world.day != null) {
+        state.firedDay[pick.id] = world.day;
+        if (world.place != null) state.firedHere[world.place + '|' + pick.id] = world.day;
+      }
       if (pick.spice) state.spice++;
       var out = { fired: true, id: pick.id, name: pick.name, kind: pick.kind,
                   verb: pick.verb, telegraph: pick.telegraph || null, ends: pick.ends,
@@ -230,7 +309,9 @@
     }
 
     /* A token may come round again once it is no longer the freshest thing that
-       happened. Spice never does. */
+       happened. Spice never does. AND THIS DOES NOT TOUCH THE DAY MEMORIES: they
+       are counted in days, so letting a seconds cooldown clear them would be one
+       ruler wiping another's answer. */
     function refresh(afterS) {
       Object.keys(state.fired).forEach(function (id) {
         var t = byId(id);
@@ -252,7 +333,8 @@
   }
 
   var API = { makeDirector: makeDirector, ROSTER: ROSTER.slice(), MIX: MIX,
-              MIN_GAP_S: MIN_GAP_S, SPICE_CAP: SPICE_CAP, KINDS: KINDS.slice(), byId: byId };
+              MIN_GAP_S: MIN_GAP_S, SPICE_CAP: SPICE_CAP, REPEAT_DAYS: REPEAT_DAYS,
+              KINDS: KINDS.slice(), byId: byId };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaEncounters = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
