@@ -5534,7 +5534,9 @@ ass, is that the car model" and our own craft law agreed by a factor of 47: the 
 wrecks were photographs, median 3,031 colours against a ceiling of 64. They are 9 colours now,
 in the road's own ramp, silhouettes untouched. TAB: CITY (and COMBAT). Nothing to judge. ***
 
-THE JOB: [car recook] THE-CAR-IS-ASS, CLAIMED 9/7, ART HALF SHIPPED. His bugs beat the queue,
+THE JOB: [car recook] THE-CAR-IS-ASS, CLAIMED 9/7, ART HALF SHIPPED TWICE -- once at
+BUILD 9/7b and corrected at 9/7c after comparing it to the body, which the row asked for and
+the first ship skipped. His bugs beat the queue,
 so [fortress buildings] is paused mid-row (round 1 measured and pushed, round 2 is the wall)
 and this went first.
 
@@ -5550,6 +5552,26 @@ a car sits on is the road -- asphalt, 7 tones, #101216 to #6a5e50.
     median 3,035 -> 9 colours, single-use 0.72 -> 0.00, orphan 0.90 -> 0.00
     20 of 20 inside both craft thresholds, and the prop bank shrank 195 KB
 Both banks and both surfaces are cooked by ONE tool so they cannot drift.
+
+*** AND THEN I SHIPPED IT AND PUT IT NEXT TO THE BODY AND IT WAS STILL WRONG. *** The row
+asks for TWO comparisons -- "a real wrecked car AND the body standing beside it" -- and the
+first ship only did one. Done properly with his own frame (the citizen cropped out of his
+screenshot, the car beside it at the same size): it read as bright paint on a grey car, and
+the number said why -- his body's saturation maxes at 54, my accent was 169, three times
+louder than anything the body wears, one flat colour with no shading. THE BANK ALREADY HAD
+THE ANSWER: it carries a rust family, terracotta, so rust is RAMPED BY VALUE exactly as the
+shell is, and only its corroded end (oxidised iron is dark red-brown; the bright end of that
+ramp is the fresh clay tile it was sampled from). Dead glass went the same way -- it was
+still photo-sampled for the sake of a near-black asphalt's darkest tone already is.
+    v1  max sat 169, flat photo-sampled rust, photo-sampled glass
+    v3  max sat 139, rust ramped across four approved tones, glass = ramp[0]
+    ACROSS ALL TWENTY CARS: ZERO COLOURS NOT FROM AN APPROVED RAMP. The whole wreck is
+    11 colours -- asphalt's seven plus terracotta's corroded four -- and nothing survives
+    from the photograph except the shape.
+AND I NEARLY COOKED THE COOK: re-running the tool on the working tree ran it on V1'S OUTPUT,
+not the photographs ("median 9 -> 8 colours" instead of "3,035 -> 10"). Caught by reading the
+tool's own BEFORE column, which is why it prints one. The originals were restored out of git
+and the operation run once, cleanly, from source.
 
 *** AND THE NUMBERS WERE PERFECT WHILE THE PICTURE WAS WRONG. *** The first cook scored 8
 colours, zero orphans, zero single-use -- everything green -- and then I LOOKED at it and one

@@ -79,6 +79,46 @@ Two fixes, both law-cited rather than nudged:
 a gate had looked at the same build and said nothing. My own cook then passed every number
 while producing a red-speckled car. Numbers cannot see.
 
+## ROUND TWO: I SHIPPED IT, THEN PUT IT NEXT TO THE BODY, AND IT WAS STILL WRONG
+
+The row asks for two comparisons and the first ship only did one. *"compared to a real
+wrecked car AND **to the body standing beside it**"* — I checked the reference sheet and
+skipped the body. So I went back and did it with his own frame: the citizen cropped out of
+his screenshot, my car beside it at the same on-screen size.
+
+**It read as bright paint splashed on a grey car.** And the number said why:
+
+    his body      saturation  median 32   p90 40   MAX  54
+    my car v1     saturation  median  6   p90 18   MAX 169
+
+The car was *greyer* than the body overall and its accent was **three times louder than
+anything the body wears**. One flat colour, sampled off the photograph, stamped with no
+shading.
+
+**THE BANK ALREADY HAD THE ANSWER AND I HAD NOT LOOKED.** It carries a rust family —
+`terracotta`, seven approved tones — so rust does not need inventing from a photo at all.
+It gets **ramped by value exactly as the shell is**, which gives it real shading and keeps
+every colour approved. And only the corroded end of it: oxidised iron on a car left in the
+Mojave is dark red-brown, while the bright end of that ramp is the fresh clay tile it was
+sampled from. That is observation, per PROP-02, not taste.
+
+The dead glass went the same way — it was still a colour lifted off the photograph, for the
+sake of a near-black that `asphalt`'s darkest tone already is.
+
+    v1   max saturation 169, rust a flat photo-sampled stamp, glass photo-sampled
+    v3   max saturation 139, rust ramped across four approved tones, glass = ramp[0]
+    ACROSS ALL TWENTY CARS: 0 COLOURS THAT ARE NOT FROM AN APPROVED RAMP.
+    The whole wreck is 11 colours: asphalt's seven, plus terracotta's corroded four.
+
+Nothing survives from the photograph except the shape, which is the only part of it that
+was ever the real observed vehicle.
+
+### AND I NEARLY COOKED THE COOK
+Re-running the tool on the working tree ran it on **v1's output, not the photographs** —
+"median 9 → 8 colours" instead of "3,035 → 10". Caught by reading the tool's own before
+column, which is the reason it prints one. The originals were restored out of git and the
+operation run once, cleanly, from the source.
+
 ## THE GATE CAUGHT ME HALFWAY THROUGH, AND IT WAS RIGHT
 `props_gate.js` binds the bank to the shipped sibling — *"every banked object actually
 reached the sibling"* — and went red at 85 of 105 the moment I cooked
