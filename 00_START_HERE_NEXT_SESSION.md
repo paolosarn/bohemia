@@ -13337,7 +13337,78 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: THE-FIRST-FIGHT-TEACHES-THE-BEAT [first fight] SHIPPED. A STRANGER OPENS
+THIS ROUND: TOUCHING-A-PARTY-STARTS-THE-GROUP-FIGHT [contact fight] SHIPPED. THE ROAD
+HAS BEEN PUTTING PARTIES IN FRONT OF HIM SINCE 8/27 AND THE CARD SAID, IN WORDS,
+"FIGHTING IS NOT IN THIS BUILD YET." That sentence was TRUE when it was written and
+its reason sits three lines above ROAD_CHOICES: the missing arms are kills and NO
+DAMAGE BEFORE THE DIAL. It stopped being true when the fight got a door (V161), a
+street (V201) and a first lesson (V202) -- handing an encounter to the shipped fight
+authors no damage number, because the fight owns every one of them already.
+
+WHO IS IN THE PARTY IS HIS, read off the words he approved: "Four of them have the
+ramp" is 4, "Three of them, spread wide" is 3, "A guy steps out with a length of pipe"
+is 1, "A man comes up the middle of the road" is 1, "It rolls out from under the porte
+cochere" is 1 and a MACHINE, "Six, maybe eight" is read as the range it is. Nothing
+invents a headcount and nothing invents a hostility. THE ANIMALS ARE NOT IN IT: the dog
+pack, the coyote and the snake are parties too and CREATURES is an open row with nobody
+on it, so they fall through exactly as they do today.
+
+A FORCED PARTY DOES NOT ASK -- forced is his own class and already means this happens
+to you -- so contact starts the fight with no card, and the three that are a choice get
+the fight as a real arm on his card, priced A FIGHT. The board is a STREET, the ground
+you met them on, and the objective names who it is.
+
+*** AND THE PARTY THAT ARRIVES IS THE PARTY THAT WAS SENT, WHICH IS THE ROW'S OWN
+SENTENCE AND WAS NOT TRUE. *** THREE writers of that number, not two: enter() takes it
+from the roster, rollEncounterSize() writes over it, AND THE BOSS LINE WRITES OVER
+THAT. The first cut knew about two and a one-man encounter arrived as seven. Plus a
+fourth hole beside them: applyRoster only copied name, hp and eid, so the ARCHETYPE
+rode in from the city and was dropped at the door -- the one machine in the game turned
+up as a man with a pistol. Mutation: cut the fix and the toll crew is 3 men and the
+machine is a SNIPER AT 45 HP. It also took a default OUT of startEncounter, where hp:60
+was invented at the door and was overwriting the machine's 160. BOTH DRAWS STILL HAPPEN
+and both answers are discarded; skipping one would shift the seeded stream.
+
+ONE STEP MAKES AT MOST ONE FIGHT: streetFightOnStep and roadInterrupt both run on the
+walked step and neither knows about the other, which is correct and is why they must
+not be merged -- they share one flag and it is a FUSE, armed by stepOnce.
+
+REACHABLE, MEASURED WITH THE REAL DIRECTOR: 201 map steps, 19 road moments, five kinds,
+three of them parties, two became fights.
+
+*** THE FLAKE THIS LANE HAS BEEN CARRYING SINCE 9/5 WAS MINE, AND IT TOOK A BASELINE TO
+SEE. *** fight_moves_you_gate went red two runs in three on THREE different arms (V171,
+V197, V199) -- exactly the shape of the flake my own handoff calls "about one run in
+four, never captured". Captured it, then ran the same gate three times on ORIGIN/MAIN:
+170/0, 170/0, 170/0. IT WAS NOT THE OLD FLAKE, IT WAS THIS ROW. G._rosterN and
+G._rosterArch were written by enter() and never cleared, and a BENCH fight never goes
+through enter(), so every later bench fight inherited the last encounter's roster and
+was pinned to its size -- the same latch pattern V202 shipped one row earlier and I did
+not use here. Consumed and cleared now; 170/0 three runs in a row, matching main.
+A GATE THAT IS RED ON YOUR TREE AND GREEN ON MAIN IS NOT A FLAKE.
+
+TWO MORE CHECKERS WERE WRONG BEFORE THE CODE WAS: my own new arms flaked because the
+bench can leave the BOSS DICE armed and a boss REPLACES the archetype and the size (one
+run read the machine as a BAT at 187 hp) -- the dice are off for those arms now; and
+the fuse check stringified stepOnce, which is REASSIGNED by the interiors wrapper, the
+exact lesson V201 paid for and wrote down, walked into again one row later.
+AND ONE GENUINE RULER FIX: fight_moves_you's "a far-off blade does not hold the line"
+arm used a TWO-SIDED null band, so it punished noise that argues FOR the claim. It is
+one-sided now and the 1.5-tile separation, which is the discriminating half, is
+untouched.
+
+NOT BUILT AND NOT FAKED: relative strength deciding who chases whom, and breaking line
+of sight as the escape. There are no parties standing on the map to have a strength
+(RUN [travel map], [parties move]), and bohemia_standing.js ships DEED_WEIGHT EMPTY by
+his own ruling so every standing is NEUTRAL until he rules. What exists instead is his
+own FORCED class, which already decides who comes for you without a number.
+ALSO NOTED, NOT FIXED: bounty_squad can never fire, because roadCan('murders') answers
+false -- the fight has a kill ledger now but what counts as a MURDER is canon.
+Tool: tools/bohemia_contact_fight_patch.py (replayable, MARK-idempotent; replay order
+v197 -> v198 -> v199 -> v200 -> street v201 -> first fight v202 -> THIS).
+Record: records/BOHEMIA_COMBAT_TOUCHING_A_PARTY_STARTS_THE_FIGHT_9_6_26.md
+
+THE ROUND BEFORE: THE-FIRST-FIGHT-TEACHES-THE-BEAT [first fight] SHIPPED. A STRANGER OPENS
 THE DEMO WITH NO MANUAL, AND THE FIRST FIGHT IS NOW A LESSON IN THE BEAT AND NOTHING
 ELSE. Four rules have to be in their head inside a minute (the beat, it is a group, a
 tile is a house, the companion acts) and NOTHING taught any of them. The coordinator's
@@ -13460,6 +13531,11 @@ part that is about you.
 [PENDING Paolo] Where a scoped rifle stops on the house-scale board. It ships at 3
 houses as an attempt (rifle is 2). From BB-A-TILE-IS-A-HOUSE.
 
+ANSWERED 9/6 AND IT WAS NOT A FLAKE AT ALL, IT WAS MY OWN UNCLEARED LATCH (see the
+[contact fight] block above): main ran 170/0 three times while this tree went red two
+in three. THE HABIT THAT FOUND IT IS THE ONE TO KEEP: baseline the gate on origin/main
+before calling anything flaky. The old note is kept below because the habit it asks for
+is what caught this.
 KNOWN AND NOT YET CAUGHT: fight_moves_you_gate flakes about one run in four -- seen at
 159/1, 164/1, then 165/0 on the same tree, and the failing arm has never been captured
 because the runs that fail were not the ones being logged. NEXT TIME IT GOES RED,

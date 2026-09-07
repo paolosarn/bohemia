@@ -364,12 +364,15 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     const hostWas = (typeof HOST_DREW !== 'undefined') ? HOST_DREW : null;
     HOST_DREW = [{ at: [hx + 1, hy], count: 3, state: 'close' }];
     SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedOnCrew = streetFightOnStep();
     SF_LAST = -9999;
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedTwiceSameCrew = streetFightOnStep();
     /* a crew that is only WATCHING has clocked you and is not coming: not a fight */
     HOST_DREW = [{ at: [hx + 4, hy], count: 3, state: 'watch' }];
     SF_LAST = -9999; SF_DONE = {};
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedOnWatching = streetFightOnStep();
     HOST_DREW = hostWas || [];
 
@@ -378,25 +381,31 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        row lands with no second wire. */
     window.ctAdjacent = () => ({ id: 'gate_foe_1', home: [1, 1], hostile: true });
     SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedOnHostile = streetFightOnStep();
     /* HE ONLY AMBUSHES YOU ONCE */
     SF_LAST = -9999;
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedTwiceSamePerson = streetFightOnStep();
     /* A COOLDOWN, so one bad block is not a corridor of fights */
     window.ctAdjacent = () => ({ id: 'gate_foe_2', home: [2, 2], hostile: true });
     SF_LAST = SF_STEPS - 1;
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedInsideCooldown = streetFightOnStep();
     SF_LAST = SF_STEPS - SF_COOLDOWN;
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedAfterCooldown = streetFightOnStep();
     /* AND NOBODY IS JUMPED BEFORE THEY ARE OUT OF THEIR OWN STREET */
     window.ctAdjacent = () => ({ id: 'gate_foe_3', home: [3, 3], hostile: true });
     SF_STEPS = 0; SF_LAST = -9999; SF_DONE = {};
     let early = 0;
-    for (let i = 0; i < SF_GRACE - 1; i++) if (streetFightOnStep()) early++;
+    for (let i = 0; i < SF_GRACE - 1; i++) { try{ contactClear(); }catch(_e){}
+      if (streetFightOnStep()) early++; }
     o.firedInGrace = early;
     /* AND A STRANGER STARTS NOTHING */
     window.ctAdjacent = () => ({ id: 'gate_stranger', home: [4, 4] });
     SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
     o.firedOnStranger = streetFightOnStep();
     window.ctAdjacent = realAdj;
     return o;
@@ -479,6 +488,12 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
      is proved by pressing the REAL trigger through the REAL aim door, once off
      the beat and once on it, and reading what happened to the man. */
   const cframe = page.frames().find(f => { try { return f.name() === 'combatFrame'; } catch (e) { return false; } });
+  /* THE BOSS DICE ARE OFF FOR EVERYTHING BELOW, and that is not tidying: a boss
+     REPLACES the archetype and the size, so a rolled boss makes the teaching
+     board and the machine's own table unreadable. Caught by running this gate
+     twice and getting a machine that was a BAT at 187 hp on one of them. This is
+     the same switch fight_moves_you_gate throws at boot, for the same reason. */
+  if (cframe) await cframe.evaluate(() => { G.bossOff = true; G.bossPick = null; });
   let ff = null, ffOff = null, ffOn = null, ffTell = null, ffSecond = null, ffShell = null, ffQuest = null;
   if (cframe) {
     ff = await cframe.evaluate(() => ({
@@ -669,6 +684,190 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '). The lesson waits for a fight the world produced on its own, which is the only kind a stranger meets anyway',
     !!ffQuest && ffQuest.stillUnlearned === true && !!ffQuest.board
     && ffQuest.board.teachBeat === false && ffQuest.board.men > 1 && ffQuest.board.allyOn === true);
+
+  /* ================= V203 __CONTACT_FIGHT__ ============================
+     TOUCHING A PARTY STARTS THE GROUP FIGHT. The road director has put parties
+     in front of the player since 8/27 -- his approved twelve, on the map and on
+     the walked street -- and the card printed, in words, "Fighting is not in
+     this build yet." That was TRUE when it was written; it stopped being true
+     when the fight got a door (V161), a street (V201) and a lesson (V202).
+     THE DIRECTOR IS STUBBED AND NOTHING ELSE IS. His pacing module is the INPUT
+     to this entry; everything downstream of it is the shipped path, driven. */
+  const contact = {};
+  /* CHECKED IN THE SOURCE, not by stringifying stepOnce: that function is
+     REASSIGNED by the interiors wrapper, so String(stepOnce) reads the wrapper
+     and reports the hook missing while it sits in the original. V201 paid for
+     this lesson and the first cut of this arm walked into it anyway. */
+  const contactFuseArmed =
+    /function stepOnce\(di\)\{[\s\S]{0,200}?contactClear\(\);/.test(_citySrc);
+  contact.wired = await cityFrame.evaluate(() => ({
+    parties: (typeof ROAD_PARTY !== 'undefined') ? Object.keys(ROAD_PARTY).length : 0,
+    entry: typeof roadContactFight === 'function',
+    fuse: typeof CITY_CONTACT_POSTED !== 'undefined',
+    /* THE FUSE IS ARMED BY stepOnce, AND IT IS CHECKED IN THE SOURCE. That
+       function is REASSIGNED by the interiors wrapper, so String(stepOnce) reads
+       the wrapper and reports it missing while it sits in the original -- V201
+       paid for this lesson once and the first cut of this arm paid for it again. */
+    arms: ['scavenger_shakedown', 'toll_crew', 'patrols_collide']
+      .filter(id => (ROAD_CHOICES[id].opts || []).some(o => o.a === 'fight')).length,
+    /* THE ANIMALS ARE NOT IN IT: CREATURES is an open row with nobody on it */
+    animalsExcluded: !ROAD_PARTY.feral_dog_pack && !ROAD_PARTY.coyote_shadow
+      && !ROAD_PARTY.rattlesnake && !ROAD_PARTY.ghost_robotaxi,
+    stillSaysNotInBuild: /Fighting is not in this build yet/.test(String(roadCard)),
+    /* every count read off HIS approved words in ROAD_WORDS */
+    n: { scavenger: roadPartySize(ROAD_PARTY.scavenger_shakedown, { seq: 0 }),
+         toll: roadPartySize(ROAD_PARTY.toll_crew, { seq: 0 }),
+         wanderer: roadPartySize(ROAD_PARTY.crazed_wanderer, { seq: 0 }),
+         bounty: roadPartySize(ROAD_PARTY.bounty_squad, { seq: 0 }),
+         patrols: [0, 1, 2].map(q => roadPartySize(ROAD_PARTY.patrols_collide, { seq: q })) }
+  }));
+
+  /* --- A FORCED PARTY DOES NOT ASK ------------------------------------- */
+  await page.evaluate(() => { window.__enc203 = [];
+    window.addEventListener('message', e => { const d = e && e.data;
+      if (d && d.type === 'BOHEMIA_CITY_ENCOUNTER') window.__enc203.push(d); }); });
+  contact.forced = await cityFrame.evaluate(() => {
+    const was = (typeof ROAD_DIR !== 'undefined') ? ROAD_DIR : null;
+    ROAD_DIR = { consider: () => ({ fired: true, id: 'crazed_wanderer', name: 'crazed wanderer',
+      kind: 'forced', seq: 3, at: { district: 'arterial', phase: 'day' } }) };
+    contactClear();
+    const r = roadInterrupt(600);
+    const out = { fired: !!(r && r.fired), posted: CITY_CONTACT_POSTED,
+      cardOpened: !!document.querySelector('#daycard.roadcard') };
+    ROAD_DIR = was;
+    return out;
+  });
+  await SETTLE(page, 7000);
+  contact.msg = await page.evaluate(() => {
+    const m = (window.__enc203 || [])[0] || null;
+    return { count: (window.__enc203 || []).length, label: m && m.label,
+      roster: (m && m.roster) ? m.roster.length : 0, street: !!(m && m.street),
+      noRoom: !!(m && m.room == null), draft: !!(m && m.draft) };
+  });
+  const cf203 = page.frames().find(f => { try { return f.name() === 'combatFrame'; } catch (e) { return false; } });
+  contact.board = cf203 ? await cf203.evaluate(() => ({ arenaKind: G.arenaKind,
+    men: (G.e || []).length, roomIsNull: G.cityRoom == null,
+    objective: (G._ctx && G._ctx.objective) || null })) : null;
+
+  /* --- AND THE PARTY THAT ARRIVES IS THE ONE THAT WAS SENT -------------- */
+  await cityFrame.evaluate(() => {
+    const was = ROAD_DIR;
+    ROAD_DIR = { consider: () => ({ fired: true, id: 'toll_crew', name: 'toll crew',
+      kind: 'forced', seq: 1, at: { district: 'freeway', phase: 'day' } }) };
+    contactClear(); roadInterrupt(600); ROAD_DIR = was;
+  });
+  await SETTLE(page, 7000);
+  const cf203b = page.frames().find(f => { try { return f.name() === 'combatFrame'; } catch (e) { return false; } });
+  contact.four = cf203b ? await cf203b.evaluate(() => ({ men: (G.e || []).length,
+    teachBeat: !!G.teachBeat })) : null;
+
+  await cityFrame.evaluate(() => {
+    const was = ROAD_DIR;
+    ROAD_DIR = { consider: () => ({ fired: true, id: 'casino_security_bot',
+      name: 'dead casino security bot', kind: 'forced', seq: 2,
+      at: { district: 'strip', phase: 'day' } }) };
+    contactClear(); roadInterrupt(600); ROAD_DIR = was;
+  });
+  await SETTLE(page, 7000);
+  const cf203c = page.frames().find(f => { try { return f.name() === 'combatFrame'; } catch (e) { return false; } });
+  contact.machine = cf203c ? await cf203c.evaluate(() => ({ men: (G.e || []).length,
+    arch: (G.e[0] || {}).arch, isMachine: !!((G.e[0] || {}).E || {}).bot,
+    hp: (G.e[0] || {}).max })) : null;
+
+  /* --- ONE STEP MAKES AT MOST ONE FIGHT -------------------------------- */
+  contact.fuse = await cityFrame.evaluate(() => {
+    contactClear();
+    const ev = { fired: true, id: 'toll_crew', name: 'toll crew', kind: 'interactive',
+      seq: 1, at: { district: 'freeway', phase: 'day' } };
+    const first = roadContactFight(ev);
+    const second = roadContactFight(ev);
+    let street = null;
+    const realAdj = window.ctAdjacent;
+    try { window.ctAdjacent = () => ({ id: 'fuse_foe', home: [9, 9], hostile: true });
+      SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
+      street = streetFightOnStep(); } catch (e) { street = 'threw'; }
+    window.ctAdjacent = realAdj;
+    contactClear();
+    return { first, second, streetAfter: street,
+      /* WHY, when it says no, because a false with no reason is a guess */
+      why: { inside: (typeof INSIDE !== 'undefined' && !!INSIDE),
+             party: !!roadPartyOf('toll_crew'),
+             framed: !!(window.parent && window.parent !== window) } };
+  });
+
+  /* --- AN ANIMAL IS NOT A PARTY IN THIS ROW ---------------------------- */
+  contact.animal = await cityFrame.evaluate(() => {
+    const was = ROAD_DIR;
+    ROAD_DIR = { consider: () => ({ fired: true, id: 'feral_dog_pack', name: 'feral dog pack',
+      kind: 'forced', seq: 5, at: { district: 'wash', phase: 'day' } }) };
+    contactClear();
+    const before = CITY_CONTACT_POSTED;
+    const r = roadInterrupt(600);
+    const out = { fired: !!(r && r.fired), posted: CITY_CONTACT_POSTED,
+      stillShowsTheCard: !!document.querySelector('#daycard.roadcard') };
+    try { cardHide(); } catch (e) {}
+    ROAD_DIR = was;
+    return out;
+  });
+
+  console.log('  V203 touching a party starts the group fight:'
+    + '\n    wired    ' + JSON.stringify(contact.wired)
+    + '\n    forced   ' + JSON.stringify(contact.forced) + ' ' + JSON.stringify(contact.msg)
+    + '\n    board    ' + JSON.stringify(contact.board)
+    + '\n    the four ' + JSON.stringify(contact.four) + '  machine ' + JSON.stringify(contact.machine)
+    + '\n    fuse     ' + JSON.stringify(contact.fuse)
+    + '\n    animal   ' + JSON.stringify(contact.animal));
+
+  ok('V203 *** THE ROAD HAS BEEN PUTTING PARTIES IN FRONT OF HIM SINCE 8/27 AND THE CARD SAID, IN WORDS, "FIGHTING IS NOT IN THIS BUILD YET." *** That sentence was TRUE when it was written and its reason is three lines above ROAD_CHOICES: the missing arms are kills and NO DAMAGE BEFORE THE DIAL. It stopped being true when the fight got a door (V161), a street (V201) and a first lesson (V202) -- handing an encounter to the shipped fight authors no damage number at all, because the fight owns every one of them already. The sentence is gone (' + (contact.wired && contact.wired.stillSaysNotInBuild)
+    + '), ' + (contact.wired && contact.wired.parties) + ' of his twelve are parties you can fight, and ' + (contact.wired && contact.wired.arms)
+    + ' of them carry a real arm on his own card',
+    !!contact.wired && contact.wired.stillSaysNotInBuild === false
+    && contact.wired.entry === true && contact.wired.parties === 6 && contact.wired.arms === 3);
+
+  ok('V203 AND WHO IS IN THE PARTY IS HIS, read straight off the words he approved in ROAD_WORDS: "Four of them have the ramp" is ' + (contact.wired && contact.wired.n.toll)
+    + ', "Three of them, spread wide" is ' + (contact.wired && contact.wired.n.bounty)
+    + ', "A guy steps out with a length of pipe" is ' + (contact.wired && contact.wired.n.scavenger)
+    + ', "A man comes up the middle of the road" is ' + (contact.wired && contact.wired.n.wanderer)
+    + ', and "Six, maybe eight" is read as the range it is (' + JSON.stringify(contact.wired && contact.wired.n.patrols)
+    + '), deterministic off the encounter\'s own seq exactly like the cab\'s heading, so it rolls no seeded stream. Nothing here invents a headcount and nothing here invents a hostility. AND THE ANIMALS ARE NOT IN IT (' + (contact.wired && contact.wired.animalsExcluded)
+    + '): the dog pack, the coyote and the snake are parties too, and CREATURES is an open row with nobody on it -- what they are and how they fight is canon this lane does not hold',
+    !!contact.wired && contact.wired.n.toll === 4 && contact.wired.n.bounty === 3
+    && contact.wired.n.scavenger === 1 && contact.wired.n.wanderer === 1
+    && JSON.stringify(contact.wired.n.patrols) === '[6,7,8]'
+    && contact.wired.animalsExcluded === true);
+
+  ok('V203 A FORCED PARTY DOES NOT ASK, because "forced" is his own class out of the approved verdict and it already means this happens to you -- he does not slow down, they have done this before, it keeps coming. So contact starts the fight (' + (contact.forced && contact.forced.fired)
+    + ') with no card to press (' + (contact.forced && contact.forced.cardOpened)
+    + '), the door\'s own message reaches the shell (' + (contact.msg && contact.msg.count)
+    + ') carrying ' + (contact.msg && contact.msg.roster) + ' of them and NO ROOM (' + (contact.msg && contact.msg.noRoom)
+    + '), and the fight builds a ' + (contact.board && contact.board.arenaKind) + ' board -- the ground you met them on -- with the objective naming who it is (' + JSON.stringify(contact.board && contact.board.objective)
+    + '). A card with one button on it is a choice pretending it is not',
+    !!contact.forced && contact.forced.fired === true && contact.forced.cardOpened === false
+    && !!contact.msg && contact.msg.count === 1 && contact.msg.roster === 1
+    && contact.msg.street === true && contact.msg.noRoom === true && contact.msg.draft === true
+    && !!contact.board && contact.board.arenaKind === 'street' && contact.board.roomIsNull === true
+    && contact.board.objective === 'crazed wanderer');
+
+  ok('V203 *** AND THE PARTY THAT ARRIVES IS THE PARTY THAT WAS SENT, WHICH IS THE ROW\'S OWN SENTENCE AND WAS NOT TRUE. *** Two holes in one wire, both measured: enter() set numEnemies from the roster and setupEnemies then OVERWROTE it with rollEncounterSize(), so a four-man toll crew arrived as three to six strangers (recorded as a pre-existing defect on 9/5 and it is this row\'s to close, because a roster nobody honours is not a party); and applyRoster only ever copied name, hp and eid, so the ARCHETYPE rode all the way in from the city and was dropped at the door. The toll crew is ' + (contact.four && contact.four.men)
+    + ' men now, and the one machine in the table turns up as a machine (' + (contact.machine && contact.machine.arch) + ', bot ' + (contact.machine && contact.machine.isMachine)
+    + ', ' + (contact.machine && contact.machine.hp) + ' hp against a goon\'s 60, with the boss dice off so it is the table talking) instead of a man with a pistol -- which also took a default OUT of startEncounter, where hp:60 was invented at the door for a body whose own table already had one. THE DRAW STILL HAPPENS AND ITS ANSWER IS DISCARDED, never skipped: a feature that costs a seeded stream one draw rewrites the whole board',
+    !!contact.four && contact.four.men === 4 && contact.four.teachBeat === false
+    && !!contact.machine && contact.machine.arch === 'bot'
+    && contact.machine.isMachine === true && contact.machine.hp === 160);
+
+  ok('V203 AND ONE STEP MAKES AT MOST ONE FIGHT. streetFightOnStep and roadInterrupt both run on the walked step, in that order, and neither knows about the other -- which is correct and is exactly why they must not be merged, but two entries that cannot see each other can post two encounters for one footfall. They share one thing and it is not a merge, it is a fuse: the second contact on the same step refuses (' + (contact.fuse && contact.fuse.second)
+    + '), the street bump refuses after a road fight (' + (contact.fuse && contact.fuse.streetAfter)
+    + '), and the fuse is armed by stepOnce (' + contactFuseArmed
+    + '), the one function every step in either mode goes through',
+    !!contact.fuse && contact.fuse.first === true && contact.fuse.second === false
+    && contact.fuse.streetAfter === false && contactFuseArmed === true);
+
+  ok('V203 AND AN ANIMAL IS STILL AN ANIMAL: the dog pack fires exactly as it does today (' + (contact.animal && contact.animal.fired)
+    + '), starts no fight (' + (contact.animal && contact.animal.posted)
+    + ') and still shows his card (' + (contact.animal && contact.animal.stillShowsTheCard)
+    + '). Six of his twelve are people or a machine and those are the ones that fight; the rest fall through untouched',
+    !!contact.animal && contact.animal.fired === true && contact.animal.posted === false
+    && contact.animal.stillShowsTheCard === true);
 
   ok('no page errors through the whole round trip', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

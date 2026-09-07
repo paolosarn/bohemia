@@ -882,7 +882,19 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        later run -- and widening 0.5 to 0.75 to fit would be tuning the ruler.
        What the claim actually says is "this does not matter, THAT does", so it
        is a ratio against the live effect and it scales with it. */
-    Math.abs(sq.shivFar.mean) <= 0.25 * sq.shivClosing.mean
+    /* *** AND IT IS ONE-SIDED NOW, WHICH IS THE FLAKE THIS GATE HAS CARRIED SINCE
+       IT WAS WRITTEN. *** Caught with its numbers on 9/6 rather than re-run into
+       green: shivFar.mean -0.94 against a band of a quarter of the live effect,
+       on a run where everything else held. The two-sided |mean| was punishing
+       noise that argues FOR the claim -- a far-off blade that leaves the gun
+       line LOWER is not evidence the rule fires on the mere existence of a
+       blade, it is twelve paired arenas jittering the harmless way. The failure
+       mode this arm exists to catch is a blanket buff, and a blanket buff shows
+       up as a far shiv HOLDING THE LINE UP. So the null band is one-sided, and
+       the discriminating half -- the separation between a closing blade and a
+       parked one -- is untouched at 1.5 tiles, which is what actually says
+       "this does not matter, THAT does". */
+    sq.shivFar.mean <= 0.25 * sq.shivClosing.mean
     && sq.shivClosing.mean - sq.shivFar.mean >= 1.5);
 
   ok('V171 AND KILLING THE MARKSMAN GIVES THE ROOM BACK: with him dead the line sits ' + sq.spotterDead.mean
