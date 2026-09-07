@@ -14790,6 +14790,9 @@ law talk], COMBAT [era fights]; CLAUDE.md pillars say "ERAS, not creatures". He 
 the rough draft of all the acts exists and he has not thought about it in some time: it is
 laws/BOHEMIA_STORY_MASTER_7_18_26.md plus the act addenda; presented to him in plain words
 this reply. Four of the five letters still open (century, act two, coats, her name).
+THEN (ct) "Keep the cap." -> the 10% long-coat cap STAYS, reaffirmed on the trenchcoat law
+(8/27) and marked settled on the runway law (9/4); COOK header note. Three letters open:
+century, act two, her name.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

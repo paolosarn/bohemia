@@ -34,7 +34,8 @@
     by cut and proportion (cropped, asymmetric, wide shoulders, layered
     short pieces, long jersey UNDER a short outer) rather than by every
     body wearing a floor-length coat. If he wants the cap lifted for the
-    look, that is one word from him and it is his to say.
+    look, that is one word from him and it is his to say. (ASKED 9/7, ANSWERED: "Keep
+    the cap." Settled.)
   - STRUCTURE-NOT-COLOR (7/19): a remake counts as progress only where it
     brings a new SHAPE. Most of this remake will, because the register is
     about silhouette.

@@ -224,3 +224,10 @@ first.
 *Open: the heat should eventually cost something in the simulation, not just in the
 wardrobe. A coat at noon in a valley this hot is a stamina question, and that is a
 COMBAT/LIFE row, not a clothing one.*
+
+
+## REAFFIRMED 9/7/26 BY PAOLO: THE CAP STAYS
+Asked directly, with the runway pulling toward long drape: "Keep the cap." The 10%
+hard cap on long coats stands. The runway look (9/4) is reached by CUT, PROPORTION
+and LAYERING -- cropped, asymmetric, wide shoulders, long jersey UNDER a short outer
+-- never by more bodies in floor-length coats. The heat has not changed.
