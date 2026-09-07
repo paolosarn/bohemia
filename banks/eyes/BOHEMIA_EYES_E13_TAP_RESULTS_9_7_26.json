@@ -1,0 +1,63 @@
+{
+ "bank": "EYES AND EARS -- E13 [half size check] -- WHAT THE TAP SWEEP FOUND",
+ "date": "9/7/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. Measured on the shipped alpha at 390x844, halving off and on, with the screen reset between every control and three planted controls proving the instrument separates paint from reach before any number was believed.",
+ "record": "records/BOHEMIA_EYES_E13_ROUND_2_WHO_ACTUALLY_GETS_THE_TAP_9_7_26.md",
+ "data": "records/BOHEMIA_EYES_THUMBS_9_7_26.json",
+ "did_it_halve": {
+  "draft": true,
+  "buttons": "six of eight pressable controls come out at x0.47 to x0.50 in BOTH width and height",
+  "labels": "do not halve: x0.56 to x0.84",
+  "outlier": "musbtn gets WIDER, x1.21, though its height halves",
+  "median_width_ratio_across_everything": 0.56,
+  "how_the_before_was_obtained": "the halving ships as a SWITCH that is off, so both states were measured in one run seconds apart. a live toggle is a better baseline than a recorded number because it cannot drift."
+ },
+ "is_every_touch_target_44": {
+  "draft": true,
+  "halving_off": {"clear_44": 0, "clear_24": 10, "clear_neither": 4, "tap_lands": "13 of 14"},
+  "halving_on": {"clear_44": 2, "clear_24": 0, "clear_neither": 12, "tap_lands": "7 of 14"},
+  "plain": "zero controls clear 44 today, before the order and after it. the tallest control on the walked surface is 32 px."
+ },
+ "the_reach_spills": {
+  "draft": true,
+  "mechanism": "two controls get a reach far larger than their paint and lie on top of their neighbours",
+  "savebtn": {"paint": "18.8x15", "reach": "236x54", "steals": ["musbtn", "phonebtn", "outfitbtn"]},
+  "fitbtn": {"paint": "51.5x15", "reach": "147x48", "steals": ["modechip", "note"]},
+  "consequence": "five controls that work today stop working when the halving is turned on, and every one is taken by savebtn or fitbtn",
+  "why_the_phone_button_does_nothing": "phonebtn's tap is delivered to savebtn",
+  "why_three_harnesses_disagreed": "an in-page hit test asks 'is this control at this point' and savebtn answers yes across a 236 px band, so a hit test scores 12 of 12 while a finger scores 2 of 11. both measurements were correct; they answered different questions."
+ },
+ "the_instruments_four_bugs": [
+  {"n": 1, "draft": true, "bug": "MEASURE was a template string; Playwright evaluates a string as an expression, so a string holding an arrow function came back undefined", "caught_by": "the tool refusing to report because it could not see a control it planted itself"},
+  {"n": 2, "draft": true, "bug": "the day card was up over the whole screen and 11 of 14 controls read as unpressable", "fix": "refuse to measure while anything covers the screen, and clear it by tapping the scrim the way the game says it is cleared, never by calling the game's own hide function"},
+  {"n": 3, "draft": true, "bug": "the recorder only listened inside the frame, so six controls reported NOBODY received the tap", "fix": "the shell the frame sits in records taps too"},
+  {"n": 4, "draft": true, "bug": "THE SWEEP'S OWN TAPS CHANGED THE SCREEN IT WAS MEASURING: tapping phonebtn opens the phone panel and every later control was measured under it", "fix": "put the screen back between every single control", "general_lesson": "a sweep that interacts is a sweep that changes its own subject; any future instrument that taps, drags or types must reset between subjects or it is measuring its own wake"}
+ ],
+ "rule_zero": {
+  "draft": true,
+  "trap": "a broken hit-test silently degrades into the old wrong check by returning the drawn box every time, and looks completely plausible",
+  "controls": [
+   {"planted": "a control with an expanded reach", "expect": "reach BIGGER than paint", "measured": "10x10 -> 50x50", "result": "PASS"},
+   {"planted": "a control with no expansion", "expect": "reach SAME as paint", "measured": "10x10 -> 10x10", "result": "PASS"},
+   {"planted": "a real driven tap", "expect": "reaches the page at all", "result": "PASS"}
+  ]
+ },
+ "the_school_prediction_that_did_not_hold": {
+  "draft": true,
+  "predicted": "gates/phone_readable_gate.js would go red on correct work once controls were drawn at half with expanded reach",
+  "measured": "not true and NOT ROUTED: that gate checks two named controls on one screen of the demo and never looks at the run's controls at all",
+  "what_school_got_right": "there was no general touch-target check anywhere in this repo, so nothing could answer the word 'every'. now something can."
+ },
+ "blind_spots": [
+  "one viewport (390x844) and one device pixel ratio is not every phone",
+  "controls appear and disappear with the game's own state; a control missing from a run is not a control that does not exist",
+  "the AA bar is 24 px OR a spacing offset; this measured size only, the stricter half, so a 'clears neither' might still pass AA on spacing",
+  "this measures geometry and event delivery, never whether anything is legible",
+  "the halving was turned on by the tool for the measurement and turned off again; it is off in the shipped build and this round did not change that"
+ ],
+ "what_this_lane_may_not_do": [
+  "change any UI size, reach or layout (this lane never writes game code)",
+  "decide what size anything should be (UI and DIRECTION, and the taste is his)"
+ ]
+}

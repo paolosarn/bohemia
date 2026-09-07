@@ -1,0 +1,980 @@
+{
+ "what": "EYES AND EARS -- E13 [half size check] round 2. Who actually gets the tap.",
+ "date": "9/7/26",
+ "school": "records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md",
+ "bars": {
+  "AAA_enhanced": 44,
+  "AA_minimum": 24,
+  "note": "WCAG 2.2 AA is 24x24 CSS px with a spacing rule; 44 is the AAA bar and the Apple guideline. Both are reported, never collapsed."
+ },
+ "phone": {
+  "viewport": {
+   "width": 390,
+   "height": 844
+  },
+  "deviceScaleFactor": 2,
+  "isMobile": true,
+  "hasTouch": true
+ },
+ "frameOffset": {
+  "x": 0,
+  "y": 42
+ },
+ "ruleZero": {
+  "plantedBig": {
+   "id": "__eyes_reach_big",
+   "drawn": {
+    "w": 10,
+    "h": 10,
+    "left": 40,
+    "top": 300
+   },
+   "reach": {
+    "w": 50,
+    "h": 50
+   },
+   "centreIsMine": true,
+   "topAtCentre": "__eyes_reach_big",
+   "centre": {
+    "x": 45,
+    "y": 305
+   }
+  },
+  "plantedNone": {
+   "id": "__eyes_reach_none",
+   "drawn": {
+    "w": 10,
+    "h": 10,
+    "left": 40,
+    "top": 400
+   },
+   "reach": {
+    "w": 10,
+    "h": 10
+   },
+   "centreIsMine": true,
+   "topAtCentre": "__eyes_reach_none",
+   "centre": {
+    "x": 45,
+    "y": 405
+   }
+  },
+  "passed": true
+ },
+ "overlays": {
+  "cleared": true,
+  "log": [
+   {
+    "pass": 0,
+    "covering": "daycard",
+    "z": 40,
+    "size": "378x773",
+    "tappedAt": {
+     "x": 195,
+     "y": 166
+    }
+   }
+  ]
+ },
+ "halfPresent": true,
+ "halfWasOn": false,
+ "turnedOn": true,
+ "blind_spots": [
+  "one viewport and one device pixel ratio is not every phone",
+  "controls only reachable down a path this walk never takes are not enumerated",
+  "a control hidden at capture time is not the same as one that does not exist",
+  "this measures geometry and event delivery, never whether the thing is legible"
+ ],
+ "passOff": [
+  {
+   "id": "musbtn",
+   "drawn": {
+    "w": 79.5,
+    "h": 30,
+    "left": 12,
+    "top": 38.1
+   },
+   "reach": {
+    "w": 80,
+    "h": 30
+   },
+   "centreIsMine": true,
+   "topAtCentre": "musbtn",
+   "centre": {
+    "x": 51.7,
+    "y": 53.1
+   },
+   "tap": {
+    "at": {
+     "x": 52,
+     "y": 95
+    },
+    "landed": true,
+    "receivedBy": "musbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "savebtn",
+   "drawn": {
+    "w": 37.5,
+    "h": 30,
+    "left": 209.5,
+    "top": 37.4
+   },
+   "reach": {
+    "w": 38,
+    "h": 30
+   },
+   "centreIsMine": true,
+   "topAtCentre": "savebtn",
+   "centre": {
+    "x": 228.2,
+    "y": 52.4
+   },
+   "tap": {
+    "at": {
+     "x": 228,
+     "y": 94
+    },
+    "landed": true,
+    "receivedBy": "savebtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "phonebtn",
+   "drawn": {
+    "w": 79.5,
+    "h": 30,
+    "left": 253,
+    "top": 37.4
+   },
+   "reach": {
+    "w": 80,
+    "h": 30
+   },
+   "centreIsMine": true,
+   "topAtCentre": "phonebtn",
+   "centre": {
+    "x": 292.7,
+    "y": 52.4
+   },
+   "tap": {
+    "at": {
+     "x": 293,
+     "y": 94
+    },
+    "landed": true,
+    "receivedBy": "phonebtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "outfitbtn",
+   "drawn": {
+    "w": 80,
+    "h": 30,
+    "left": 12,
+    "top": 74.1
+   },
+   "reach": {
+    "w": 81,
+    "h": 30
+   },
+   "centreIsMine": true,
+   "topAtCentre": "outfitbtn",
+   "centre": {
+    "x": 52,
+    "y": 89.1
+   },
+   "tap": {
+    "at": {
+     "x": 52,
+     "y": 131
+    },
+    "landed": true,
+    "receivedBy": "outfitbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "rungbtn",
+   "drawn": {
+    "w": 100,
+    "h": 31.4,
+    "left": 8,
+    "top": 609.8
+   },
+   "reach": {
+    "w": 101,
+    "h": 31
+   },
+   "centreIsMine": true,
+   "topAtCentre": "rungbtn",
+   "centre": {
+    "x": 58,
+    "y": 625.5
+   },
+   "tap": {
+    "at": {
+     "x": 58,
+     "y": 668
+    },
+    "landed": true,
+    "receivedBy": "rungbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "buildbtn",
+   "drawn": {
+    "w": 115.2,
+    "h": 31.4,
+    "left": 8,
+    "top": 647.2
+   },
+   "reach": {
+    "w": 116,
+    "h": 32
+   },
+   "centreIsMine": true,
+   "topAtCentre": "buildbtn",
+   "centre": {
+    "x": 65.6,
+    "y": 662.9
+   },
+   "tap": {
+    "at": {
+     "x": 66,
+     "y": 705
+    },
+    "landed": true,
+    "receivedBy": "buildbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "mktbtn",
+   "hidden": true
+  },
+  {
+   "id": "modechip",
+   "drawn": {
+    "w": 62.4,
+    "h": 30,
+    "left": 8,
+    "top": 684.6
+   },
+   "reach": {
+    "w": 63,
+    "h": 30
+   },
+   "centreIsMine": true,
+   "topAtCentre": "modechip",
+   "centre": {
+    "x": 39.2,
+    "y": 699.6
+   },
+   "tap": {
+    "at": {
+     "x": 39,
+     "y": 742
+    },
+    "landed": true,
+    "receivedBy": "modechip",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "fitbtn",
+   "drawn": {
+    "w": 103,
+    "h": 32,
+    "left": 8,
+    "top": 720.6
+   },
+   "reach": {
+    "w": 104,
+    "h": 32
+   },
+   "centreIsMine": true,
+   "topAtCentre": "fitbtn",
+   "centre": {
+    "x": 59.5,
+    "y": 736.6
+   },
+   "tap": {
+    "at": {
+     "x": 60,
+     "y": 779
+    },
+    "landed": true,
+    "receivedBy": "fitbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "bikebtn",
+   "hidden": true
+  },
+  {
+   "id": "sleepbtn",
+   "drawn": {
+    "w": 81.6,
+    "h": 31.4,
+    "left": 8,
+    "top": 758.6
+   },
+   "reach": {
+    "w": 81,
+    "h": 31
+   },
+   "centreIsMine": true,
+   "topAtCentre": "sleepbtn",
+   "centre": {
+    "x": 48.8,
+    "y": 774.3
+   },
+   "tap": {
+    "at": {
+     "x": 49,
+     "y": 816
+    },
+    "landed": true,
+    "receivedBy": "sleepbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hud",
+   "drawn": {
+    "w": 378,
+    "h": 23.4,
+    "left": 6,
+    "top": 6
+   },
+   "reach": {
+    "w": 241,
+    "h": 23
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hclock",
+   "centre": {
+    "x": 195,
+    "y": 17.7
+   },
+   "tap": {
+    "at": {
+     "x": 195,
+     "y": 60
+    },
+    "landed": false,
+    "receivedBy": "hclock",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "note",
+   "drawn": {
+    "w": 186,
+    "h": 40,
+    "left": 8,
+    "top": 601.2
+   },
+   "reach": {
+    "w": 186,
+    "h": 40
+   },
+   "centreIsMine": true,
+   "topAtCentre": "note",
+   "centre": {
+    "x": 101,
+    "y": 621.2
+   },
+   "tap": {
+    "at": {
+     "x": 101,
+     "y": 663
+    },
+    "landed": true,
+    "receivedBy": "note",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hmode",
+   "drawn": {
+    "w": 68.4,
+    "h": 15.4,
+    "left": 16,
+    "top": 10
+   },
+   "reach": {
+    "w": 70,
+    "h": 16
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hmode",
+   "centre": {
+    "x": 50.2,
+    "y": 17.7
+   },
+   "tap": {
+    "at": {
+     "x": 50,
+     "y": 60
+    },
+    "landed": true,
+    "receivedBy": "hmode",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hclock",
+   "drawn": {
+    "w": 98.8,
+    "h": 15.4,
+    "left": 157,
+    "top": 10
+   },
+   "reach": {
+    "w": 100,
+    "h": 16
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hclock",
+   "centre": {
+    "x": 206.4,
+    "y": 17.7
+   },
+   "tap": {
+    "at": {
+     "x": 206,
+     "y": 60
+    },
+    "landed": true,
+    "receivedBy": "hclock",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hslot",
+   "drawn": {
+    "w": 45.6,
+    "h": 15.4,
+    "left": 328.4,
+    "top": 10
+   },
+   "reach": {
+    "w": 47,
+    "h": 16
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hslot",
+   "centre": {
+    "x": 351.2,
+    "y": 17.7
+   },
+   "tap": {
+    "at": {
+     "x": 351,
+     "y": 60
+    },
+    "landed": true,
+    "receivedBy": "hslot",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "modeLbl",
+   "hidden": true
+  },
+  {
+   "id": "cttalk",
+   "hidden": true
+  }
+ ],
+ "passOn": [
+  {
+   "id": "musbtn",
+   "drawn": {
+    "w": 95.8,
+    "h": 15,
+    "left": 12,
+    "top": 39.2
+   },
+   "reach": {
+    "w": 0,
+    "h": 0
+   },
+   "centreIsMine": false,
+   "topAtCentre": "savebtn",
+   "centre": {
+    "x": 59.9,
+    "y": 46.7
+   },
+   "tap": {
+    "at": {
+     "x": 60,
+     "y": 89
+    },
+    "landed": false,
+    "receivedBy": "savebtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "savebtn",
+   "drawn": {
+    "w": 18.8,
+    "h": 15,
+    "left": 113.8,
+    "top": 39.2
+   },
+   "reach": {
+    "w": 236,
+    "h": 54
+   },
+   "centreIsMine": true,
+   "topAtCentre": "savebtn",
+   "centre": {
+    "x": 123.1,
+    "y": 46.7
+   },
+   "tap": {
+    "at": {
+     "x": 123,
+     "y": 89
+    },
+    "landed": true,
+    "receivedBy": "savebtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "phonebtn",
+   "drawn": {
+    "w": 39.8,
+    "h": 15,
+    "left": 138.5,
+    "top": 39.2
+   },
+   "reach": {
+    "w": 0,
+    "h": 0
+   },
+   "centreIsMine": false,
+   "topAtCentre": "savebtn",
+   "centre": {
+    "x": 158.4,
+    "y": 46.7
+   },
+   "tap": {
+    "at": {
+     "x": 158,
+     "y": 89
+    },
+    "landed": false,
+    "receivedBy": "savebtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "outfitbtn",
+   "drawn": {
+    "w": 40,
+    "h": 15,
+    "left": 184.3,
+    "top": 39.2
+   },
+   "reach": {
+    "w": 0,
+    "h": 0
+   },
+   "centreIsMine": false,
+   "topAtCentre": "savebtn",
+   "centre": {
+    "x": 204.3,
+    "y": 46.7
+   },
+   "tap": {
+    "at": {
+     "x": 204,
+     "y": 89
+    },
+    "landed": false,
+    "receivedBy": "savebtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "rungbtn",
+   "drawn": {
+    "w": 47,
+    "h": 15,
+    "left": 8,
+    "top": 712
+   },
+   "reach": {
+    "w": 43,
+    "h": 15
+   },
+   "centreIsMine": true,
+   "topAtCentre": "rungbtn",
+   "centre": {
+    "x": 31.5,
+    "y": 719.5
+   },
+   "tap": {
+    "at": {
+     "x": 32,
+     "y": 762
+    },
+    "landed": true,
+    "receivedBy": "rungbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "buildbtn",
+   "hidden": true
+  },
+  {
+   "id": "mktbtn",
+   "hidden": true
+  },
+  {
+   "id": "modechip",
+   "drawn": {
+    "w": 42.7,
+    "h": 15,
+    "left": 8,
+    "top": 733
+   },
+   "reach": {
+    "w": 0,
+    "h": 0
+   },
+   "centreIsMine": false,
+   "topAtCentre": "fitbtn",
+   "centre": {
+    "x": 29.4,
+    "y": 740.5
+   },
+   "tap": {
+    "at": {
+     "x": 29,
+     "y": 783
+    },
+    "landed": false,
+    "receivedBy": "fitbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "fitbtn",
+   "drawn": {
+    "w": 51.5,
+    "h": 15,
+    "left": 8,
+    "top": 754
+   },
+   "reach": {
+    "w": 147,
+    "h": 48
+   },
+   "centreIsMine": true,
+   "topAtCentre": "fitbtn",
+   "centre": {
+    "x": 33.8,
+    "y": 761.5
+   },
+   "tap": {
+    "at": {
+     "x": 34,
+     "y": 804
+    },
+    "landed": true,
+    "receivedBy": "fitbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "bikebtn",
+   "hidden": true
+  },
+  {
+   "id": "sleepbtn",
+   "drawn": {
+    "w": 38.5,
+    "h": 15,
+    "left": 8,
+    "top": 775
+   },
+   "reach": {
+    "w": 33,
+    "h": 15
+   },
+   "centreIsMine": true,
+   "topAtCentre": "sleepbtn",
+   "centre": {
+    "x": 27.3,
+    "y": 782.5
+   },
+   "tap": {
+    "at": {
+     "x": 27,
+     "y": 825
+    },
+    "landed": true,
+    "receivedBy": "sleepbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hud",
+   "drawn": {
+    "w": 378,
+    "h": 17,
+    "left": 6,
+    "top": 6
+   },
+   "reach": {
+    "w": 241,
+    "h": 17
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hclock",
+   "centre": {
+    "x": 195,
+    "y": 14.5
+   },
+   "tap": {
+    "at": {
+     "x": 195,
+     "y": 57
+    },
+    "landed": false,
+    "receivedBy": "hclock",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "note",
+   "drawn": {
+    "w": 171,
+    "h": 13,
+    "left": 8,
+    "top": 693
+   },
+   "reach": {
+    "w": 0,
+    "h": 0
+   },
+   "centreIsMine": false,
+   "topAtCentre": "fitbtn",
+   "centre": {
+    "x": 93.5,
+    "y": 699.5
+   },
+   "tap": {
+    "at": {
+     "x": 94,
+     "y": 742
+    },
+    "landed": false,
+    "receivedBy": "fitbtn",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hmode",
+   "drawn": {
+    "w": 41.5,
+    "h": 13,
+    "left": 11,
+    "top": 8
+   },
+   "reach": {
+    "w": 42,
+    "h": 14
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hmode",
+   "centre": {
+    "x": 31.8,
+    "y": 14.5
+   },
+   "tap": {
+    "at": {
+     "x": 32,
+     "y": 57
+    },
+    "landed": true,
+    "receivedBy": "hmode",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hclock",
+   "drawn": {
+    "w": 55.5,
+    "h": 13,
+    "left": 172.5,
+    "top": 8
+   },
+   "reach": {
+    "w": 56,
+    "h": 14
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hclock",
+   "centre": {
+    "x": 200.2,
+    "y": 14.5
+   },
+   "tap": {
+    "at": {
+     "x": 200,
+     "y": 57
+    },
+    "landed": true,
+    "receivedBy": "hclock",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "hslot",
+   "drawn": {
+    "w": 31,
+    "h": 13,
+    "left": 348,
+    "top": 8
+   },
+   "reach": {
+    "w": 32,
+    "h": 14
+   },
+   "centreIsMine": true,
+   "topAtCentre": "hslot",
+   "centre": {
+    "x": 363.5,
+    "y": 14.5
+   },
+   "tap": {
+    "at": {
+     "x": 364,
+     "y": 57
+    },
+    "landed": true,
+    "receivedBy": "hslot",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "modeLbl",
+   "drawn": {
+    "w": 40,
+    "h": 6,
+    "left": 338,
+    "top": 783
+   },
+   "reach": {
+    "w": 0,
+    "h": 0
+   },
+   "centreIsMine": false,
+   "topAtCentre": "modeFace",
+   "centre": {
+    "x": 358,
+    "y": 786
+   },
+   "tap": {
+    "at": {
+     "x": 358,
+     "y": 828
+    },
+    "landed": false,
+    "receivedBy": "modeFace",
+    "insideFrame": 2,
+    "inShell": 0,
+    "err": null
+   }
+  },
+  {
+   "id": "cttalk",
+   "hidden": true
+  }
+ ],
+ "summaryOff": {
+  "measured": 14,
+  "landed": 13,
+  "clears44": 0,
+  "clears24": 10,
+  "neither": 4
+ },
+ "summaryOn": {
+  "measured": 14,
+  "landed": 7,
+  "clears44": 2,
+  "clears24": 0,
+  "neither": 12
+ },
+ "pageErrors": [],
+ "note": "the before exists because the halving ships as a switch that is off, so both states are measured in one run"
+}

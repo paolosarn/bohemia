@@ -1,3 +1,103 @@
+EYES AND EARS (eyes-5vql33): 9/7 (p) LATEST -- *** E13 [half size check] SHIPPED WITH BOTH
+ROUNDS, AND IT NAMES THE BUG THAT IS HOLDING THE HALF-SIZE ORDER OFF THE BUILD. Turning the
+halving on, TWO controls grow a reach far bigger than their picture and lie on top of five
+neighbours: savebtn is painted 18.8x15 and reaches 236x54, fitbtn is painted 51.5x15 and reaches
+147x48. A real driven tap says who takes whose press by name. THAT is why the phone button does
+nothing when the halving is on: phonebtn's tap is delivered to savebtn. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+THE TWO ANSWERS THE JOB ASKED FOR:
+  DID IT HALVE? For the buttons, yes, almost exactly. Six of eight pressable controls land at
+  x0.47 to x0.50 in BOTH width and height. The labels do not halve (x0.56 to x0.84), musbtn gets
+  WIDER (x1.21) though its height halves, and the median across everything is x0.56.
+  IS EVERY TOUCH TARGET STILL 44? No, and it was not before either. With the halving OFF, which
+  is what ships today, ZERO of fourteen controls clear 44 and ten clear 24. The tallest control
+  on the walked surface is 32 px. That is a fact about the build before the order, not something
+  the order broke, and what to do about it is UI's and DIRECTION's.
+
+WHO TAKES WHOSE TAP, WITH THE HALVING ON:
+  musbtn     -> savebtn        savebtn  paint 18.8x15   reach 236x54
+  phonebtn   -> savebtn        fitbtn   paint 51.5x15   reach 147x48
+  outfitbtn  -> savebtn
+  modechip   -> fitbtn
+  note       -> fitbtn
+  Five controls that work today stop working when it is turned on, all five taken by those two.
+  AND IT EXPLAINS THE THREE HARNESSES THAT DISAGREED. An in-page hit test asks "is this control
+  at this point" and savebtn answers yes across a 236 px band, so a hit test scores 12 of 12
+  while a finger scores 2 of 11. Both measurements were correct. They answered different
+  questions. The real driven tap is the one the player performs.
+
+SCHOOL'S COUNTER-FINDING RESOLVED, AND NOT THE WAY IT EXPECTED. Round one argued "did it halve"
+might be unanswerable, because half of WHAT if no file holds the before. It is answerable, for a
+reason school did not predict: THE HALVING SHIPS AS A SWITCH THAT IS OFF, so both states are
+measured in one run seconds apart and the ratio is exact. A live toggle is a better baseline than
+a recorded number because it cannot drift. Worth keeping as a pattern: when a lane ships a change
+behind a switch, the checker gets its baseline for free.
+
+MY INSTRUMENT WAS WRONG FOUR TIMES AND THE FOURTH IS THE ONE WORTH REMEMBERING:
+  1. MEASURE was a template string. Playwright evaluates a string as an EXPRESSION, so a string
+     holding an arrow function came back undefined. The tool refused to report because it could
+     not see a control it had planted itself, which is what I wanted, but the fault was mine.
+  2. THE DAY CARD WAS UP. The first run said 11 of 14 controls clear no bar and 8 take no tap --
+     a game with unpressable buttons. False: #daycard, z 40, 378x773, covering everything. A
+     modal blocking what is under it is CORRECT. The sweep now refuses to measure while anything
+     covers the screen, and clears it by tapping the scrim the way the game says it is cleared,
+     never by calling the game's own hide function.
+  3. THE RECORDER ONLY LISTENED INSIDE THE FRAME, so six controls reported "NOBODY" got the tap,
+     which tells you nothing. The shell the frame sits in records taps too now.
+  4. THE SWEEP'S OWN TAPS CHANGED THE SCREEN IT WAS MEASURING. Tapping the controls in order
+     meant tapping phonebtn, which OPENS THE PHONE PANEL, and every control after that was
+     measured underneath an open phone. Six more false "unpressable". The screen is put back
+     between every single control now. THE GENERAL LESSON, and it is not specific to this job:
+     A SWEEP THAT INTERACTS IS A SWEEP THAT CHANGES ITS OWN SUBJECT. Any future instrument in
+     this lane that taps, drags or types must reset between subjects or it is measuring its
+     own wake.
+
+RULE ZERO: three controls planted before any number was believed, all passing every run -- a
+planted control with an expanded reach must measure BIGGER than its paint (10x10 -> 50x50), one
+with no expansion must measure the SAME (10x10 -> 10x10), and a real driven tap must reach the
+page at all.
+
+THE SCHOOL PREDICTION THAT DID NOT HOLD, AND IS NOT ROUTED: round one predicted
+phone_readable_gate.js would go red on correct work. Measured: not true. It checks two named
+controls on one screen of the demo and never looks at the run's controls at all. What school got
+right is the part that mattered: there was no general touch-target check anywhere in this repo,
+so nothing could answer the word "every". Now something can.
+
+ROUTED: one [eyes: reach spills] line into UI's [half size] row, the single bounce-back this lane
+may write, carrying the two reach measurements and the five names.
+
+BLIND SPOTS, WRITTEN DOWN INSTEAD OF COUNTED CLEAN: one viewport and one pixel ratio is not every
+phone; controls appear and disappear with the game's own state, so a control missing from a run
+is not a control that does not exist; the AA bar is 24 px OR a spacing offset and I measured size
+only, the stricter half, so a "clears neither" might still pass AA on spacing; this measures
+geometry and event delivery, never legibility; and the halving was turned on by the tool for the
+measurement and turned off again, so the shipped build is unchanged.
+
+STILL OPEN IN MY QUEUE: E14 [late beat], E15 [machine judges], E16 [never opened]. All two
+rounds, school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Fourteen instruments and two suite gates exist now.
+  2. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
+     There is one and the walked surface reads it.
+  3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
+     the [eyes: gate missing] line is open in DIRECTION.
+  4. Still unclaimed: the MIX METER (E5 gap 10).
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: handoff 7/0, attempt 15/0, NO READER 7/0. The sweep's own three planted controls passed.
+
+PROOF: records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md and
+records/BOHEMIA_EYES_E13_ROUND_2_WHO_ACTUALLY_GETS_THE_TAP_9_7_26.md;
+tools/bohemia_eyes_thumbs.js; data records/BOHEMIA_EYES_THUMBS_9_7_26.json; results bank
+banks/eyes/BOHEMIA_EYES_E13_TAP_RESULTS_9_7_26.json (draft:true); VAMILY lane 17 E13 SHIPPED with
+both rounds, one [eyes: reach spills] line into UI.
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -240,97 +340,6 @@ is empty after that.
 
 ================================================================================
 ================================================================================
-EYES AND EARS (eyes-5vql33): 9/6 (o) LATEST -- *** E13 [half size check] ROUND ONE OF TWO IS
-DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's own test wrong twice, and found
-that our ONE existing tap-target checker measures the wrong rectangle and is set up to go RED on
-the very work Paolo just ordered. *** E13 stays CLAIMED, round two is the sweep.
-TAB: NOT IN A TAB YET. No game code touched, ever.
-
-COUNTER-FINDING 1, AND IT IS BIGGER THAN THE JOB: "DID IT HALVE" MAY NOT BE ANSWERABLE AT ALL.
-Half of WHAT? Measuring the shipped surface gives you sizes, not a ratio. To answer the question
-as written you need the sizes from BEFORE the order, and if no file in the repo holds them, then
-his ruling "make it 50% smaller" exists ONLY AS PIXELS and cannot be checked by anybody, ever.
-That is exactly the disease E11 found last round, showing up one week later in a different lane.
-  SO ROUND TWO'S FIRST JOB IS NOT TO MEASURE THE AFTER. It is, in this order: (1) is there a
-  scale factor in a file, in which case the answer is that number and it is exact; (2) failing
-  that, a ratio against git history; (3) failing both, the honest verdict is UNMEASURABLE and the
-  fix is a file, not a number. The interesting deliverable may turn out to be "nobody can ever
-  tell, and here is the one line that fixes that forever".
-
-COUNTER-FINDING 2: "EVERY TOUCH TARGET STILL 44 PX" IS THE WRONG TEST, TWO WAYS.
-  a) 44 IS NOT THE LAW. It is the AAA bar (WCAG 2.5.5) and the platform guidance (Apple 44 pt,
-     Material 48 dp). The floor anybody is actually held to is WCAG 2.2 AA at 24 x 24 CSS px WITH
-     A SPACING RULE: a small control passes if a 24 px circle centred on it hits nothing else. So
-     a check that fails everything under 44 with no exceptions reds the suite over controls that
-     are correct, and a checker that cries wolf gets muted in a week. Round two reports BOTH bars
-     separately and never collapses them.
-  b) IT POINTS AT THE WRONG RECTANGLE. Expanding a control's hit area without changing its look
-     is a standard documented technique (a pseudo-element with a negative inset, inside
-     @media (pointer: coarse), so it does not touch the box model). His order and that technique
-     fit together exactly: draw at half, keep the thumb at 44, which means the visible rectangle
-     and the tappable rectangle are DELIBERATELY DIFFERENT. getBoundingClientRect measures PAINT
-     and cannot see a hit area at all. Round two must HIT-TEST: walk outward from the centre with
-     elementFromPoint until the point stops resolving to the control.
-
-AND OUR OWN CHECKER MEASURES THE WRONG ONE (a prediction, to be proved in round two, not routed
-yet): gates/phone_readable_gate.js is where the 44 px minimum came from. It takes
-getBoundingClientRect() and fails on w < 44 || h < 44. So the moment a control is drawn at half
-size with an expanded invisible hit area, that gate is set up to go red on correct work: the
-order and the checker are pointed at each other. And it is not a sweep -- it checks TWO named
-controls on ONE screen of the demo. THERE IS NO GENERAL TOUCH-TARGET CHECK ANYWHERE IN THIS REPO,
-so nothing in the fleet can currently answer the word "every" in this job. That second one is the
-bigger finding and it is the gap round two fills.
-
-FIVE OTHER THINGS SCHOOL TAUGHT:
-  1. A CSS PIXEL IS NOT A PIXEL. 96 px = 1 inch by definition; physical = CSS x devicePixelRatio.
-     This lane captures at 390x844 with deviceScaleFactor 2, so a saved screenshot is 780x1688
-     IMAGE pixels. Measuring a button in that image reads 2x too big and would pass a control at
-     half the legal size. Every number in round two comes from inside the page, in CSS px.
-  2. FITTS'S LAW is the real-world half: time to hit a target is distance divided by size, and it
-     holds for fingers. Halving a control has a price, and the price grows with distance. Round
-     two cannot rule on that but it can REPORT distance from centre, so the cost is visible.
-  3. THE THUMB ZONE, AND THE MAN WHO INVENTED IT WALKING IT BACK. Hoober's field numbers (49%
-     one-handed, 75% thumb-driven) are what everyone cites, and Hoober HIMSELF later argued the
-     zone is not fixed: people change grip constantly and prefer to touch the CENTRE, where they
-     tap fastest. So round two does not score placement; that would be enforcing lore its own
-     author revised.
-  4. SAFE AREAS: a 44 px button under the home indicator is 44 px and unusable. One cheap extra
-     column. This lane already learned the hard version when round one announced the demo's SLEEP
-     button ran off the bottom of an iPhone and it turned out to sit twelve pixels clear.
-  5. RULE ZERO HAS A SPECIFIC TRAP HERE: a subtly broken hit-test silently degrades into the old
-     wrong check, returning the drawn box every time and looking plausible. So round two plants
-     two controls first -- one drawn small WITH an expanded hit area (the touch box must measure
-     BIGGER) and one with none (they must measure the SAME). If the first does not separate, the
-     instrument is measuring paint and every number is void.
-
-NOTED, NOT ROUTED: UI's [half size] row is CLAIMED, NOT SHIPPED. If it is still unshipped when
-round two runs, the honest thing is to measure what is there, say the order has not landed yet,
-and re-run when it does. This lane does not grade work that has not shipped.
-
-STILL OPEN IN MY QUEUE AFTER THIS: E14 [late beat], E15 [machine judges], E16 [never opened].
-All two rounds, school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Thirteen instruments and two suite gates exist now,
-     including a live audio meter as of last round.
-  2. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
-     There is one and the walked surface reads it, measured two rounds ago.
-  3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
-     the [eyes: gate missing] line is open in DIRECTION.
-  4. Still unclaimed: the MIX METER (E5 gap 10). E12 built most of the machine for it.
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
-last round: NO READER 7/0, handoff 7/0, attempt 15/0.
-
-PROOF: records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md (280 lines, 20
-sources); banks/eyes/BOHEMIA_EYES_E13_SCALE_SPEC_9_6_26.json (draft:true); VAMILY lane 17 E13
-CLAIMED ROUND 1 OF 2.
-
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
