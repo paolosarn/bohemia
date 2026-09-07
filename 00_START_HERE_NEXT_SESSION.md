@@ -15412,6 +15412,16 @@ the head when it should be in front). Order of work: fix the rig first (ANIMATIO
 bend], [coat follows], [facing order]), THEN [redo killed] the 47, THEN [bake approved]
 the 23 verbatim, [judge two]. Also CHARACTER [long coats] wardrobe-wide, DIRECTION [judge
 the redo] so he never thumbs the same broken thing twice.
+THEN (db) VAMILY: ZERO commits on main; UI (pad broken), ANIMATION (his verdicts) and
+PLUMBER all at 0 claimed -- the word has not landed in their windows. Sweep pass three
+(records/BOHEMIA_COORDINATOR_SWEEP_PASS_THREE_9_7_26.md): the two headshot clips he just
+killed have HIS OWN LOCKED SPEC beside them (7/2, four beats, verbatim) -- noted on [redo
+killed]; the 120 BPM REQUEST LAW (7/6) holds on foot (BEAT 500 in both files) and is
+UNVERIFIED in city mode, routed as a measurement not a verdict (RUN [map on beat]); the
+walled-suburb numbers pending since 7/14 DECIDED (top-half quality walls itself, one gate on
+the arterial plus a rear service gate over twelve cells, wall tiles from the bank) -> WORLD
+[suburb walls]. ONE THING HE HAS NEVER OPENED: the room's own song -- walk into a house and
+listen, RUN tab; 82 songs that played nowhere play indoors now.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
