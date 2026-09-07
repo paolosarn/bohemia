@@ -56,7 +56,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
   combat on the beat; BATTLE BROTHERS = the campaign layer; FINAL FANTASY X = the INTERFACE
   study (8/26, round 01) AND THE SOUND (9/6, his word: "post-apocalyptic FFX, that
   fantasy beach vibe"); FALLOUT 1 = the INTERFACE too (9/6, act-one look, his word:
-  "2050 rustic"); Las Vegas = the city. Citing one outside its department is the same
+  "2050 rustic"); POCKET CITY 2 = the city-mode DROP-IN TRANSITION only (7/1, laws/BOHEMIA_ADDENDUM_CAMERA_TIMESTEP_FUSED_7_1_26.md, his word "no issue with any of it"); Las Vegas = the city. Citing one outside its department is the same
   violation as citing a game he never named -> laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md,
   laws/BOHEMIA_ADDENDUM_A_REFERENCE_GAME_BELONGS_TO_ONE_DEPARTMENT_9_5_26.md
 - MECHANISM-MINE / CONTENTS-PAOLO'S, AMENDED 8/11 FOR WORDS: tables and whitelists ship EMPTY except what has a ruling, BUT every piece of player-facing text ships as a real attempt tagged draft:true (words get an attempt, decisions wait) -> laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | gate attempt_gate.js

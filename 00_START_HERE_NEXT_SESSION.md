@@ -15032,6 +15032,17 @@ records/BOHEMIA_COORDINATOR_THE_TITLE_SCREEN_WAS_ALREADY_RULED_9_7_26.md. Routed
 [locked ignored] (sweep every LOCKED line against the shipped surface) and E18 [he can hear
 it]; topped up ECONOMY (Q28 ridge worth, Q29 nothing left). ONE THING HE HAS NEVER OPENED:
 the phone feed in CITY mode, it scrolls what you did and what the world did.
+THEN (cx) VAMILY: 2 commits, both claims (QUESTS [generation handoff], ECONOMY Q26); lanes
+still idle. Ran the first hand pass of the locked-rulings sweep (285 files carry LOCKED):
+records/BOHEMIA_COORDINATOR_THREE_LOCKED_RULINGS_THE_BUILD_IGNORED_9_7_26.md. (1) THE
+TWO-SCALE CAMERA, 7/1, LOCKED, already ruled two zoom levels with a seamless drop-in
+transition "as fast as Pocket City 2's" -- the CITY/MAP buttons contradicted it for two
+months; he repeated himself on 9/6. Pocket City 2 was named by him 7/1, in 15 law files,
+and missing from CLAUDE.md's reference list: ADDED, one department (the drop-in
+transition). (2) THE TEN START-OPTIONS BECOME THE FIRST QUESTS, 7/19, LOCKED, "nothing is
+wasted": three of ten exist anywhere, seven were never written -> QUESTS [ten openings].
+(3) the ridge, found last round. Pattern: all three are July locks below the lanes'
+horizon; this hand sweep runs every round until EYES E17 is a machine.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
