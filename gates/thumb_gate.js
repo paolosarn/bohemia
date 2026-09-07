@@ -234,9 +234,42 @@ function serve() {
   ok('and it looked at the opening overlay too, where the first two buttons of the '
      + 'whole game live (' + shell.length + ' found there)', shell.length >= 2);
 
-  const small = ctrls.filter(c => c.w < MIN || c.h < MIN);
+  /* ==== THE 44 FLOOR, AND THE ONE THING THAT NOW OVERRIDES IT ==================
+     PAOLO 9/6, LOCKED, AFTER this floor shipped: "for the run right now make all the
+     UI 50% smaller, I don't give a fuck." NEWEST DATE WINS is this repo's own truth
+     hierarchy, and [half size] is his newest word about the run's controls. That row
+     also pre-answers this exact collision in its own text: "THE ONE RULE THAT SURVIVES
+     is tap targets... If something cannot survive that, SHRINK IT ANYWAY and put the
+     fact in the record for him to see."
+     AND IT COULD NOT SURVIVE, measured rather than assumed: the invisible 44 reach was
+     built, and a pad big enough to matter lies across the control beside it -- on the
+     real screen SAVEBTN's reach sat on PHONE and the press died. A tap that does the
+     WRONG thing is worse than one you have to aim at, so the reach is the button.
+     SO THE EXEMPTION IS NARROW, NAMED AND LOUD. It covers ONLY controls the halving
+     actually shrank, it prints every one of them every run so nothing hides inside it,
+     and the floor still bites everywhere else -- including the moment the halving is
+     switched off. Widening this is not a licence: a control that is small for any
+     OTHER reason still fails.
+     ============================================================================ */
+  const halved = await city.evaluate(() => {
+    try { return !!(window.BOHEMIA_HALF && window.BOHEMIA_HALF.on()); } catch (_e) { return false; }
+  });
+  const HALVED_IDS = await city.evaluate(() => {
+    try { return (window.BOHEMIA_HALF ? window.BOHEMIA_HALF.report() : []).map(r => r.id); }
+    catch (_e) { return []; }
+  });
+  const exempt = c => halved && (HALVED_IDS.indexOf((c.id || '').replace(/^\./, '')) >= 0
+                                 || /^\.pb/.test(c.id || ''));
+  const small = ctrls.filter(c => (c.w < MIN || c.h < MIN) && !exempt(c));
+  const shrunk = ctrls.filter(c => (c.w < MIN || c.h < MIN) && exempt(c));
+  if (halved) {
+    console.log('       [half size] is ON, so ' + shrunk.length + ' controls are under '
+      + MIN + ' BY HIS ORDER, and here they all are:');
+    shrunk.forEach(c => console.log('         ' + c.id + ' ' + c.w + 'x' + c.h));
+  }
   ok('every tappable control a stranger can reach is at least ' + MIN + 'px, in every '
-     + 'document'
+     + 'document' + (halved ? ' (except the ' + shrunk.length + ' [half size] shrank on '
+     + 'his 9/6 order, listed above)' : '')
      + (small.length ? ' -- ' + small.length + ' of ' + ctrls.length + ' are not: '
         + small.map(c => c.id + ' ' + c.w + 'x' + c.h + ' (' + c.where + ')').join(', ') : ''),
      small.length === 0);

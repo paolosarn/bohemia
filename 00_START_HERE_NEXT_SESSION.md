@@ -18630,6 +18630,18 @@ It asserts THE HALVING IS ON and THE CONTROLS STILL WORK WITH IT ON (press PHONE
 the phone open), which is the only instrument in this whole row that ever told the
 truth.
 
+AND THE 44 FLOOR HAD TO GIVE, WHICH IS A RULING COLLISION AND NOT A BUG. thumb_gate
+went red the moment the halving shipped: 20 of 37 controls under 44. Two of his own
+LOCKED orders were pointing opposite ways -- [phone readable]'s 44 floor and [half
+size]'s "make all the UI 50% smaller, I don't give a fuck". NEWEST DATE WINS is this
+repo's own truth hierarchy and [half size] is his newest word on the run's controls,
+and that row pre-answers the collision in its own text ("shrink it anyway and put the
+fact in the record"). So the exemption is encoded IN thumb_gate: NARROW (only controls
+the halving actually shrank), NAMED (his 9/6 order, quoted), and LOUD (every exempted
+control is printed on every run, so nothing hides inside it). MUTATION-PROVED that it
+is not a licence: putting the day card's close button back to 30px -- small for a
+reason that is NOT the halving -- still fails the gate.
+
 STILL IMPERFECT, SAID OUT LOUD: 11 of 22 controls are under 44 (they are 14 tall). The
 gear in the shell and the teaching caption do not halve. The pad's portrait sits
 off-centre in the smaller ring. None of it breaks anything; all of it is visible.
