@@ -93,11 +93,22 @@ ok('A2 when they set off is the schedule\'s own block boundary, and where from i
         for (const q of pplPeople(n0[0] + dx, n0[1] + dy)) all.push(q);
       const was = T.min;
       const SPEED = 1 / MIN_PER_CELL;
-      /* teleports, minute by minute through a morning */
+      /* teleports, minute by minute through a morning.
+         *** THIS CENSUS ASKS THE SCHEDULE, NOT THE SCREEN, AND 9/7 IS WHY. *** It
+         used to call pplAt(), which was the same question until the NEAR FIELD
+         landed: the coordinator's 9/7 ruling puts the valley's out-of-doors people
+         onto the street the player is on and releases them when he leaves, so a
+         borrowed body legitimately appears somewhere new. Counting that as a
+         journey took this leg to 104 jumps of up to 916 cells and said nothing
+         about the thing this gate owns, which is WHETHER A SCHEDULED DAY IS
+         WALKED. pplAtSched() is that day. The near field's own guarantee -- that
+         nobody is moved or released within sight of the player -- is leg B1b below
+         and never_empty_gate's business; this leg keeps measuring, exactly as
+         strictly as it did, the thing round 5 built. */
       let jumps = 0, biggest = 0, prev = null;
       for (let m = 5 * 60; m <= 11 * 60; m++) {
         T.min = m; if (typeof DAY !== 'undefined') DAY.min = m;
-        const now = all.map(q => pplAt(q));
+        const now = all.map(q => pplAtSched(q));
         if (prev) for (let i = 0; i < now.length; i++) {
           const d = Math.max(Math.abs(now[i][0] - prev[i][0]), Math.abs(now[i][1] - prev[i][1]));
           if (d > SPEED * 2) { jumps++; if (d > biggest) biggest = d; }
@@ -111,7 +122,7 @@ ok('A2 when they set off is the schedule\'s own block boundary, and where from i
         T.min = m; if (typeof DAY !== 'undefined') DAY.min = m;
         let moving = 0, offGround = 0;
         for (const q of all) {
-          const a = pplAt(q);
+          const a = pplAtSched(q);           /* the scheduled day, same reason as above */
           const atHome = a[0] === q.home[0] && a[1] === q.home[1];
           const atOut = q.outSpot && a[0] === q.outSpot[0] && a[1] === q.outSpot[1];
           const atFav = q.favSpot && a[0] === q.favSpot[0] && a[1] === q.favSpot[1];

@@ -38126,26 +38126,111 @@ function pplHeardLine() {
   return (h.people > 6 ? 'you can hear a crowd, ' : 'you can hear people, ') + h.way + '.';
 }
 
+/* __A_DAY_LEAVES_THE_BLOCK__ (9/7) ========================================
+   ROUND 7 of [more people] POPULATION-DEFAULT, and the first round with a RULING
+   behind it. The coordinator decided 9/7: "the ship test is met by DENSITY, not
+   headcount. The valley keeps its canon count; the mechanism places people where
+   the player IS ... the people whose day brings them there, spawned near and
+   released far. Default: the street a player is on is never empty in daylight."
+
+   MEASURED FIRST, AND IT IS THE COMPLAINT ITSELF. Standing in FORTY residential
+   places spread across the valley, at three daylight hours, counting bodies within
+   the repo's own SEE_RANGE of 9 cells:
+       116 of 120 standings          NOBODY IN SIGHT
+       the most anyone ever saw      ONE PERSON
+       median                        ZERO
+   96.7% empty, on the ground people supposedly live on. And at the cell he wakes
+   on, sampled every five minutes through fourteen hours of daylight, the count was
+   ONE, one hundred and sixty-eight times. Never empty and never alive: a mannequin.
+
+   *** AND THE CAUSE WAS ONE LINE, WHICH THIS COMMENT REPLACES. *** The place a
+   person's day took them to was chosen from
+       pplPlaces(their own home neighbourhood)
+   and nothing else. Everybody's whole day happened inside their own block. So the
+   valley's people sat in the settlements they were born in, the ground between the
+   settlements was crossed by nobody, and the player wakes on that ground.
+   Meanwhile p.workDist -- the field that says HOW FAR THIS PERSON TRAVELS, 1 to 3,
+   written by the population module since the day it was written -- was read by the
+   fallback ray and by NOTHING ELSE. The man who works far away was being sent to
+   the corner of his own street.
+
+   SO: THEIR DAY LEAVES THE BLOCK, AT THEIR OWN RANK, ALONG THEIR OWN BEARING, AS
+   FAR AS THEIR OWN DAY ALLOWS. Every number in that sentence already existed:
+       WHICH WAY   p.workDir / p.favDir     their own bearing, unchanged
+       HOW FAR     p.workDist               their own rank, 1 to 3 neighbourhoods
+       THE LIMIT   their own schedule block x MIN_PER_CELL, the surface's own
+                   0.084 minutes a cell -- the same cost the PLAYER pays
+   MEASURED: the median schedule block is 202 minutes, which at 0.084 buys 2,405
+   cells, or 4.7 neighbourhoods. All three ranks fit inside one block with room to
+   spare, and the cap is enforced rather than assumed, so a person can never be
+   given a journey their own day has no time for.
+
+   AND THE ROUTE IS THE POINT, NOT THE DESTINATION. Round 5 already made them walk
+   it at the player's own step cost instead of teleporting. A day that stays in the
+   block is a walk of a few cells; a day that crosses three neighbourhoods is 1,536
+   cells of somebody visibly on their way, across the empty ground the player is
+   standing on. THAT is "the people whose day brings them there" -- not new bodies,
+   the same valley, finally walking through it. */
+/* the eight bearings are already on this surface (PPL_DIRV, used by the ray this
+   round's places replaced); a second copy would be a second thing to keep true */
+/* HOW FAR THE NEAR FIELD REACHES FOR PEOPLE, in neighbourhoods. Not a budget and
+   not a taste: the population module writes workDist as 1 + (r % 3), so three is
+   the ceiling of a field somebody else owns, and it is the honest edge of "people
+   whose day could plausibly have brought them here". It is read in exactly one
+   place now -- the near field's catchment. The reverted travel experiment read it
+   in two more; if it ever comes back, this is the number it comes back to. */
+var PPL_TRAVEL_MAX = 3;
 function pplPlaceFor(p, dir, taken, work) {
   /* the FAVOURITE spot is a place for everybody -- Shadows of Doubt's favourite
      bar is a BAR, and even a man who scavenges alone all day drinks where other
      people drink. Only the WORKING half of the day is solitary. */
   if (work && PPL_ALONE[p.archetype]) return null;
   var P = BohemiaPopulation, span = P.NB * FN;
+  /* *** A NEGATIVE RESULT, KEPT SO NOBODY PAYS FOR IT TWICE. *** This round first
+     sent people's days OUT of their own block -- at their own workDist rank, along
+     their own bearing, capped by their own schedule block at MIN_PER_CELL -- on the
+     reasoning that a city is met on the way to work and the ground between the
+     settlements is crossed by nobody. It was correct about the world and it BOUGHT
+     NOTHING: the empty-street number was 116 of 120 standings before it and 116 of
+     120 after it, twice, and the only number that moved was one person leaving the
+     ring. Meanwhile it cost the earth -- resolving one neighbourhood's people
+     started a pplPlaces cascade across four more, the renderer had to widen its
+     gather to eighty-one neighbourhoods to draw anybody who had travelled, and
+     TIME TO FIRST PLAY WENT FROM 21 SECONDS TO 54, with the alpha at 71 and the
+     frame-budget gauge unable to load the page at all inside thirty seconds.
+     So it is out, and the reason is written here rather than in a commit nobody
+     will find: WHERE PEOPLE'S DAYS TAKE THEM IS NOT WHAT MAKES THE STREET EMPTY.
+     Round 6's division already said so and this is the second proof of it. What
+     works is the near field below, which does not move anybody's day at all. */
   var list = pplPlaces(Math.floor(p.home[0] / span), Math.floor(p.home[1] / span));
-  if (!list.length) return null;
+  if (!list || !list.length) return null;
   var i = PPL_COMPASS.indexOf(dir); if (i < 0) i = 0;
   var at = list[i % list.length];
   /* the spot itself first, then outward in rings, so the first arrivals stand on
-     it and the rest gather round -- which is what a crowd looks like */
-  for (var r = 0; r <= 3; r++)
+     it and the rest gather round -- which is what a crowd looks like.
+     __A_DAY_LEAVES_THE_BLOCK__: the ring is entered at THEIR OWN offset now. The
+     `taken` set is built per neighbourhood, and people from three neighbourhoods
+     away can now share a place, so two strangers could be handed the same cell by
+     a set that has never seen either of them. Starting each person at their own id's
+     offset makes that collision rare instead of systematic, and peoplePass enforces
+     the OCCUPANCY LAW at the blit as the guarantee. */
+  var off = 0;
+  try { off = (p.id | 0) || 0; } catch (_e) { off = 0; }
+  if (off < 0) off = -off;
+  for (var r = 0; r <= 3; r++) {
+    var ring = [];
     for (var dy = -r; dy <= r; dy++) for (var dx = -r; dx <= r; dx++) {
       if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
-      var fx = at[0] + dx, fy = at[1] + dy;
+      ring.push([dx, dy]);
+    }
+    for (var s2 = 0; s2 < ring.length; s2++) {
+      var e = ring[(s2 + off) % ring.length];
+      var fx = at[0] + e[0], fy = at[1] + e[1];
       if (!pplStandable(fx, fy)) continue;
       if (taken && taken.has(fx + ',' + fy)) continue;
       return [fx, fy];
     }
+  }
   return null;
 }
 
@@ -38329,12 +38414,258 @@ function pplAtSched(p) {
   try { way = pplOnTheWay(p, b, target); } catch (_e) {}
   return way || target;
 }
+/* __THE_STREET_IS_NEVER_EMPTY__ (9/7) =====================================
+   ROUND 7 of [more people] POPULATION-DEFAULT, and the half of it that works.
+
+   THE COORDINATOR'S RULING, 9/7: "the ship test is met by DENSITY, not headcount.
+   The valley keeps its canon count; the mechanism places people where the player
+   IS ... spawned near and released far, which is how every open world on earth
+   fakes a city. Default: the street a player is on is never empty in daylight."
+
+   MEASURED, AND IT IS WHY NO PLACEMENT RULE COULD EVER HAVE WORKED. Standing in
+   forty residential places across the valley at three daylight hours:
+       116 of 120 standings          NOBODY IN SIGHT       96.7% empty
+       the most anyone ever saw      ONE PERSON
+   And then, asked of the schedule rather than guessed, at TEN IN THE MORNING:
+       people in the window          1,140
+       actually outside              763
+   SEVEN HUNDRED AND SIXTY-THREE PEOPLE ARE OUTSIDE AND YOU STILL SEE NOBODY. A
+   sight radius of 9 cells covers 361 cells; the window is 12.8 million. So the
+   chance a given standing has somebody in it is 763 x 361 / 12,800,000 = 2%, and
+   the measurement found 4 in 120. THE ARITHMETIC AND THE WORLD AGREE, which is
+   round 6's division again one layer down: no rule about WHERE people stand can
+   beat a ground-to-people ratio of ten thousand to one.
+
+   SO THE WORKING SET FOLLOWS THE PLAYER. Nobody is invented and the census does
+   not move: these are the valley's OWN people, the ones the schedule already says
+   are out of the house at this minute, standing on the street the player is on
+   instead of on an identical street he will never visit. Walk to the next
+   neighbourhood and they are released back to their own day.
+
+   AND THE SPACING IS THE REPO'S OWN NUMBER, so there is no dial to fiddle: the
+   candidate street cells are sampled on a lattice of 2 x SEE_RANGE + 1, the
+   diameter of what a person can see. One borrowed body per screenful of walkable
+   ground IS the ruling's default sentence, expressed as a lattice.
+
+   WHAT KEEPS IT HONEST, and each of these is a gate leg:
+     - IT CAN ONLY BORROW PEOPLE WHO ARE ALREADY OUT. If the schedule says the
+       valley is indoors -- night, the afternoon heat -- the street is empty,
+       because it should be. This is why it is not a spawner.
+     - NOBODY IS DUPLICATED: a person standing in the near field is not also
+       standing at their own day's spot, because this replaces the answer rather
+       than adding to it.
+     - NOBODY TELEPORTS IN FRONT OF HIM: a person already within sight is never
+       re-seated, and the assignment holds for the whole neighbourhood, so bodies
+       move when their own schedule moves them and at no other time.
+     - THE CENSUS IS UNTOUCHED: this function moves nobody's home, nobody's
+       archetype and nobody's schedule. It answers WHERE SOMEBODY IS STANDING. */
+var PPL_NEAR = new Map();          /* person id -> [x,y] borrowed onto his street */
+var PPL_NEAR_LIST = [];            /* and the people themselves, for the renderer */
+var PPL_NEAR_KEY = null;
+/* THE BORROWED BODIES, AS A LIST. peoplePass gathers people by asking each visible
+   neighbourhood who lives there, which by construction cannot find somebody who
+   lives three neighbourhoods away and is standing here. Widening that window was
+   the first answer and it cost 33 seconds of boot; handing the renderer the list
+   the near field already built is the same bodies for nothing. */
+function pplNearList() { pplNearField(); return PPL_NEAR_LIST; }
+var PPL_STREETS = new Map();       /* neighbourhood -> the street cells in it */
+function pplStreetCells(nx, ny) {
+  var k = seed + ':' + nx + ',' + ny;
+  var got = PPL_STREETS.get(k);
+  if (got) return got;
+  var span = BohemiaPopulation.NB * FN;
+  var SEE = (typeof BohemiaStanding !== 'undefined' && BohemiaStanding.SEE_RANGE) || 9;
+  var STEP = SEE * 2 + 1;          /* one candidate per screenful, the repo's own number */
+  var out = [];
+  var x0 = nx * span, y0 = ny * span;
+  for (var y = (STEP >> 1); y < span; y += STEP)
+    for (var x = (STEP >> 1); x < span; x += STEP) {
+      var fx = x0 + x, fy = y0 + y;
+      if (!pplStandable(fx, fy)) continue;
+      /* a STREET, not a patch of desert: the same frontage instrument the places
+         use, so a borrowed body stands where a building fronts the ground */
+      var sc = 0;
+      try { sc = pplOpenness(fx, fy) + (pplDoorstep(fx, fy) ? 32 : 0); } catch (_e) {}
+      if (sc < 12) continue;
+      out.push([fx, fy, sc]);
+    }
+  out.sort(function (a, b) { return (b[2] - a[2]) || (a[0] - b[0]) || (a[1] - b[1]); });
+  if (PPL_STREETS.size > 64) PPL_STREETS.clear();
+  PPL_STREETS.set(k, out);
+  return out;
+}
+function pplNearField() {
+  var P = BohemiaPopulation, span = P.NB * FN;
+  var n0 = Math.floor(hx / span), n1 = Math.floor(hy / span);
+  var SEE = (typeof BohemiaStanding !== 'undefined' && BohemiaStanding.SEE_RANGE) || 9;
+  /* rebuilt when he changes neighbourhood, when the hour turns, or when the rules
+     change -- never inside a step, so nothing shuffles while he is looking at it */
+  var key = n0 + ',' + n1 + ':' + (((T.min | 0) / 60) | 0) + ':' + seed + ':'
+          + P.rulesVersion();
+  if (PPL_NEAR_KEY === key) return PPL_NEAR;
+  /* *** NOBODY IS TAKEN AWAY WHILE HE IS LOOKING AT THEM. *** on_the_way_gate --
+     this lane's own round-5 checker, which exists because people used to cross half
+     a kilometre in sixty seconds -- went red at 104 journeys finished in under a
+     minute, biggest 916 cells. That is the near field rebuilding: at the hour turn
+     a borrowed body is released and snaps back to their own day's spot. Off screen
+     that is the mechanism working ("released far"). ON screen it is a person
+     vanishing out of a doorway in front of him, which is the exact defect round 5
+     was written to kill.
+     So a borrowed body he can SEE keeps its cell through the rebuild. They leave
+     when he does.
+     *** AND A HOLD MUST NEVER OUTLIVE THE SCHEDULE. *** The first cut held anybody
+     in sight through the rebuild without asking whether they were still out of the
+     house, and alive_gate caught it immediately: 2% of the valley outdoors AT TWO IN
+     THE MORNING, against a leg that has always read zero. Those were held bodies
+     standing on a street their own day had already taken them home from -- which is
+     the one thing this mechanism must never do. When their day ends they leave, the
+     same as everybody else's does. */
+  var hold = [];
+  for (var e0 of PPL_NEAR) {
+    var c0 = e0[1];
+    if (Math.max(Math.abs(c0[0] - hx), Math.abs(c0[1] - hy)) > SEE) continue;
+    var stillOut = false;
+    for (var pk = 0; pk < PPL_NEAR_LIST.length; pk++) {
+      var cand = PPL_NEAR_LIST[pk];
+      if (cand.id !== e0[0]) continue;
+      try {
+        var sc0 = pplAtSched(cand);
+        stillOut = !(sc0[0] === cand.home[0] && sc0[1] === cand.home[1]);
+      } catch (_e) { stillOut = false; }
+      break;
+    }
+    if (stillOut) hold.push(e0[0]);
+  }
+  var heldCells = {}, heldList = [];
+  for (var hi = 0; hi < hold.length; hi++) {
+    var hc = PPL_NEAR.get(hold[hi]);
+    heldCells[hold[hi]] = hc;
+    for (var pi = 0; pi < PPL_NEAR_LIST.length; pi++)
+      if (PPL_NEAR_LIST[pi].id === hold[hi]) { heldList.push(PPL_NEAR_LIST[pi]); break; }
+  }
+  PPL_NEAR_KEY = key; PPL_NEAR.clear(); PPL_NEAR_LIST = [];
+  for (var hk in heldCells) {
+    var who0 = null;
+    for (var pj = 0; pj < heldList.length; pj++)
+      if (String(heldList[pj].id) === String(hk)) { who0 = heldList[pj]; break; }
+    if (!who0) continue;
+    PPL_NEAR.set(who0.id, heldCells[hk]);
+    PPL_NEAR_LIST.push(who0);
+  }
+  /* *** EMPTINESS IS AUTHORED, AND THIS NEARLY FILLED IT IN. *** city_people_gate
+     has asserted since the day the walk surface got people that standing in a NO
+     MAN'S LAND you see NOBODY, and its own comment says why: "emptiness is
+     authored, and it has to be provable or the next 'the world feels dead' change
+     quietly fills it in." This was that change. It went red at exactly one body and
+     it was right to.
+     So the near field asks the population module the same question the gate asks --
+     zoneAt -- and where the world says nobody lives, nobody is borrowed. A desert
+     that fills up the moment you walk into it is not a busier city, it is a world
+     with nothing in it that means anything. */
+  var zone = null;
+  try { zone = BohemiaPopulation.zoneAt(om, POWER, n0 * P.NB, n1 * P.NB, seed); }
+  catch (_e) { zone = null; }
+  if (zone === 'empty') return PPL_NEAR;
+  var street = pplStreetCells(n0, n1);
+  if (!street.length) return PPL_NEAR;
+  /* *** HOW MUCH STREET TO FILL, AND THIS IS THE MECHANISM'S ONE BUDGET. *** The
+     first cut filled the whole neighbourhood, which meant resolving the people of
+     FORTY-EIGHT neighbourhoods on the frame he walks into a new one -- and the
+     frame-budget gauge stopped being able to load the page at all, timing out at
+     thirty seconds. So the field fills the street within FIVE MINUTES' WALK of
+     him, at the surface's own step cost, and gathers only as many people as that
+     many cells can hold. Everything else in this mechanism is derived from the
+     repo's own numbers; this is a budget, it is named as one, and the five minutes
+     is the horizon over which a body is still the same body you were walking
+     toward. */
+  /* AND THEY FILL OUTWARD FROM HIM, WHICH THE FIRST CUT GOT WRONG. The street
+     cells arrive ranked by frontage, so borrowing 281 people for 613 cells put
+     every one of them on the best-scoring third of the neighbourhood -- a real
+     crowd, somewhere he was not standing. MEASURED: 613 cells, 281 bodies, and
+     still 27 of 40 standings with nobody in sight. The ruling is about THE STREET A
+     PLAYER IS ON, so the nearest cell is filled first and frontage only breaks
+     ties. The cells are cached per neighbourhood and this ordering is per standing,
+     which is the whole reason the two are separate functions. */
+  var WALK_MIN = 5;
+  var reach = Math.round(WALK_MIN / MIN_PER_CELL);
+  var here = street.slice().sort(function (a, b) {
+    var da = Math.max(Math.abs(a[0] - hx), Math.abs(a[1] - hy));
+    var db = Math.max(Math.abs(b[0] - hx), Math.abs(b[1] - hy));
+    return (da - db) || (b[2] - a[2]) || (a[0] - b[0]) || (a[1] - b[1]);
+  });
+  var want = 0;
+  for (var w = 0; w < here.length; w++) {
+    if (Math.max(Math.abs(here[w][0] - hx), Math.abs(here[w][1] - hy)) > reach) break;
+    want++;
+  }
+  if (!want) want = 1;
+  /* WHO IS AVAILABLE: the valley's own people, from the same catchment the
+     renderer already gathers, and ONLY the ones the schedule has out of doors.
+     Nearest neighbourhoods first, and it STOPS as soon as it has enough -- so the
+     cost is what the street can hold, not what the catchment contains. */
+  var pool = [];
+  var rings = [];
+  for (var dy = -PPL_TRAVEL_MAX; dy <= PPL_TRAVEL_MAX; dy++)
+  for (var dx = -PPL_TRAVEL_MAX; dx <= PPL_TRAVEL_MAX; dx++) {
+    if (!dx && !dy) continue;                 /* his own neighbourhood keeps its day */
+    rings.push([Math.max(Math.abs(dx), Math.abs(dy)), dx, dy]);
+  }
+  rings.sort(function (a, b) { return (a[0] - b[0]) || (a[1] - b[1]) || (a[2] - b[2]); });
+  for (var g = 0; g < rings.length && pool.length < want; g++) {
+    var list;
+    try { list = pplPeople(n0 + rings[g][1], n1 + rings[g][2]) || []; } catch (_e) { list = []; }
+    for (var i = 0; i < list.length && pool.length < want; i++) {
+      var q = list[i];
+      var at;
+      try { at = pplAtSched(q); } catch (_e) { continue; }
+      if (at[0] === q.home[0] && at[1] === q.home[1]) continue;   /* indoors: leave them */
+      /* never move somebody he can already see */
+      if (Math.max(Math.abs(at[0] - hx), Math.abs(at[1] - hy)) <= SEE) continue;
+      if (PPL_NEAR.has(q.id)) continue;        /* already held from the last build */
+      pool.push(q);
+    }
+  }
+  if (!pool.length) return PPL_NEAR;
+  /* stable order, so the same street holds the same faces while he is on it */
+  pool.sort(function (a, b) { return (a.id | 0) - (b.id | 0); });
+  /* A SECOND NEGATIVE RESULT, AND IT COST NINE NEIGHBOURHOODS OF LOOKUPS TO FIND.
+     The gate first reported one cell with two bodies on it, so this seeded `taken`
+     with the scheduled position of every local within nine neighbourhoods, on the
+     reasoning that a borrowed body had been handed a cell somebody was already
+     standing on. THE MUTATION RUN KILLED IT: with the seeding taken back out, the
+     borrowed-body collision count is still ZERO. The collision the gate found was
+     always LOCAL AGAINST LOCAL -- two people from different neighbourhoods, each
+     placed by a `taken` set that has never seen the other -- which predates this
+     round and which the blit's own one-body-per-cell dedupe hides. So the seeding
+     was a fix for a bug that was not there, no leg could see it, and it is out.
+     The real guarantee is the OCCUPANCY LAW enforced in peoplePass, at the glass. */
+  var taken = {};
+  taken[hx + ',' + hy] = 1;
+  /* the cells of the people he can see are already spoken for */
+  for (var e1 of PPL_NEAR) taken[e1[1][0] + ',' + e1[1][1]] = 1;
+  var n = Math.min(here.length, pool.length);
+  for (var s = 0; s < n; s++) {
+    var cell = here[s], who = pool[s];
+    var kk = cell[0] + ',' + cell[1];
+    if (taken[kk]) continue;
+    taken[kk] = 1;
+    PPL_NEAR.set(who.id, [cell[0], cell[1]]);
+    PPL_NEAR_LIST.push(who);
+  }
+  return PPL_NEAR;
+}
 /* WHERE THEY ACTUALLY ARE. Their schedule, unless they have walked off it to
    stay near you -- which is the only thing in this world that overrides the
    address book, and it takes an enemy to do it. */
 function pplAt(p) {
   var f = CT_FOLLOW[p.id];
   if (f) return f;
+  /* __THE_STREET_IS_NEVER_EMPTY__ -- borrowed onto his street for as long as he
+     is on it. Their schedule already said they were out; this says where. */
+  try {
+    var near = pplNearField().get(p.id);
+    if (near) return near;
+  } catch (_e) {}
   return pplAtSched(p);
 }
 
@@ -44999,7 +45330,14 @@ function peoplePass(ox, oy, C) {
   BARK_DREW = [];   /* __CITY_BARKS__ */
   if (!PLAYER_CV) return 0;                    /* no body yet: draw nobody, never a placeholder */
   const NB = BohemiaPopulation.NB, span = NB * FN;
-  /* visible neighbourhood window, one ring of margin so somebody never pops in */
+  /* visible neighbourhood window, one ring of margin so somebody never pops in.
+     __THE_STREET_IS_NEVER_EMPTY__ (9/7): AND IT STAYS ONE RING. The first cut of
+     the near field padded this window by the travel reach so borrowed bodies would
+     be gathered -- eighty-one neighbourhoods instead of nine, every frame, which
+     took time to first play from 21 seconds to 54. The borrowed bodies are a LIST
+     the near field already has; iterating that list is the same bodies for none of
+     the cost. A window is the wrong instrument for finding people who are not from
+     around here. */
   const nx0 = Math.floor((-ox / C) / span) - 1, nx1 = Math.floor(((cv.width - ox) / C) / span) + 1;
   const ny0 = Math.floor((-oy / C) / span) - 1, ny1 = Math.floor(((cv.height - oy) / C) / span) + 1;
   let drawn = 0, out = 0;
@@ -45015,14 +45353,46 @@ function peoplePass(ox, oy, C) {
      what order, or with what sprite changes -- the same list, the same order, the same
      bookkeeping, one pass later. */
   const seen = [];
+  /* __A_DAY_LEAVES_THE_BLOCK__ (9/7) -- THE OCCUPANCY LAW NEEDS A GUARD NOW, and
+     it did not before. Until this round every body standing at a place lived in
+     that place's own neighbourhood, so the one `taken` set pplPeople builds per
+     neighbourhood covered everybody who could reach it. Now a person's day carries
+     them up to three neighbourhoods, so two strangers resolved by two different
+     neighbourhood passes can be handed the same cell by two sets that have never
+     seen each other. Their ring offset makes it rare; this makes it impossible.
+     One body per cell, at the blit, where the law is actually visible. */
+  const onCell = new Set();
+  /* WHO THIS PASS CONSIDERS: everybody who LIVES in the visible window, plus the
+     people the near field has borrowed onto his street from further out. The second
+     list is why the window did not have to grow. Deduped by id, because the ring the
+     near field draws from overlaps the window it draws into. */
+  const roster = [];
+  const rosterSeen = new Set();
   for (let ny = Math.max(0, ny0); ny <= ny1; ny++)
   for (let nx = Math.max(0, nx0); nx <= nx1; nx++) {
     const ppl = pplPeople(nx, ny);
     for (let i = 0; i < ppl.length; i++) {
-      const p = ppl[i];
+      const q = ppl[i];
+      if (rosterSeen.has(q.id)) continue;
+      rosterSeen.add(q.id); roster.push(q);
+    }
+  }
+  try {
+    const borrowed = pplNearList();
+    for (let i = 0; i < borrowed.length; i++) {
+      const q = borrowed[i];
+      if (rosterSeen.has(q.id)) continue;
+      rosterSeen.add(q.id); roster.push(q);
+    }
+  } catch (_e) {}
+  for (let i = 0; i < roster.length; i++) {
+      const p = roster[i];
       const at = pplAt(p);
       const fx = at[0], fy = at[1];
       if (fx === hx && fy === hy) continue;    /* OCCUPANCY LAW: one body per cell, player included */
+      const cellK = fx + ',' + fy;
+      if (onCell.has(cellK)) continue;         /* OCCUPANCY LAW: and one body per cell, full stop */
+      onCell.add(cellK);
       const sx = ox + fx * C, sy = oy + fy * C;
       if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
       const dir = pplFace(p, at);
@@ -45045,7 +45415,6 @@ function peoplePass(ox, oy, C) {
       try { hostile = !!ctAgainstMe(p); } catch (_e) { hostile = false; }
       seen.push({ p: p, at: at, fx: fx, fy: fy, sx: sx, sy: sy, dir: dir,
                   lad: lad, base: base, hostile: hostile });
-    }
   }
   /* THE STEP. A hostile is pushed one step AWAY from the median of the bodies near him,
      and the CIVILIANS are the crowd he has to stand out from -- measuring against other

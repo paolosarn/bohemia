@@ -4738,7 +4738,103 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/7 (b) LATEST -- *** [build default] SHIPPED. THE FIRST
+LIFE + CITY (city-1eztay): 9/7 (c) LATEST -- *** [more people] ROUND 7, THE FIRST ROUND
+OF THIS ROW WITH A RULING BEHIND IT INSTEAD OF A PENDING. THE STREET WAS EMPTY ON 116 OF
+120 STANDINGS ACROSS THE VALLEY; IT IS NOW 44 OF 120, AND THE TYPICAL STANDING HAS
+SOMEBODY IN IT WHERE IT USED TO HAVE NOBODY. *** MODE: BUILD. TAB: CITY, or just walk.
+Nothing to judge.
+
+  THE RULING THAT UNBLOCKED IT (coordinator, 9/7): the ship test is met by DENSITY, not
+headcount; the valley keeps its canon count and the mechanism puts people where the
+player IS, spawned near and released far. Six rounds had been asking whether the valley
+is 69,000 or 5,940. THE RULING SAYS THE QUESTION DOES NOT MATTER, AND IT IS RIGHT.
+  MEASURED BEFORE ANYTHING WAS TOUCHED, standing in FORTY residential places across the
+valley at three daylight hours, counting bodies within the repo's own 9-cell sight:
+116 of 120 standings with NOBODY IN SIGHT, the most anyone ever saw was ONE, median
+ZERO. And at the cell he wakes on, every five minutes through fourteen hours: ONE, a
+hundred and sixty-eight times out of a hundred and sixty-eight. Never empty and never
+alive.
+  *** AND THEN THE NUMBER THAT ENDED THE PLACEMENT ERA FOR GOOD. *** Asked of the
+schedule rather than guessed, at TEN IN THE MORNING: 763 of 1,140 people ARE OUTSIDE
+AND YOU STILL SEE NOBODY. Sight covers 361 cells; the window is 12,800,000. So a
+standing contains somebody 2% of the time, and the measurement found 4 in 120. That is
+round 6's division one layer down, proven now from two directions: no rule about where
+the valley's people live can beat a ground-to-people ratio of ten thousand to one.
+  WHAT SHIPPED: the working set follows him. The valley's OWN people, the ones the
+schedule already has out of the house this minute, stand on the street he is on instead
+of an identical street he will never visit; walk on and they are released back to their
+own day. Nobody invented, census unmoved. THE SPACING IS THE REPO'S OWN NUMBER so there
+is no dial: candidates sit on a lattice of 2 x SEE_RANGE + 1, the diameter of what a
+person can see, which makes "one body per screenful" the ruling's sentence expressed as
+a lattice. AND THEY FILL OUTWARD FROM HIM -- the first cut ranked cells by frontage and
+put all 281 borrowed people on the best third of the neighbourhood, a real crowd
+somewhere he was not standing; the nearest cell fills first now, and that one reordering
+is most of the result.
+  AFTER, AND THE SPLIT IS THE FINDING RATHER THAN A CAVEAT: on ALL residential ground
+65 of 120 standings are empty (was 116 of 120); on SETTLED ground 32 of 87 (36.8%) with
+a MEDIAN OF 1 where it was 0; on AUTHORED-EMPTY ground ZERO bodies, which is the point.
+Eleven of those forty residential spots sit in zones the module calls EMPTY, so the
+single average was 44 of 120 before the no-man's-land fix and 65 after, and neither
+number meant anything. AN AVERAGE OVER TWO POPULATIONS THAT ARE MEANT TO DIFFER MEASURES
+NEITHER -- this lane's own standing note, earned a second time.
+  *** AND THREE OTHER GATES WENT RED, EVERY ONE OF THEM RIGHT. This is the part worth
+reading: a near field changes what the world IS, and three checkers with nothing to do
+with this row caught three different ways it was lying. ***
+  (a) CITY PEOPLE: "standing in a NO MAN'S LAND you see NOBODY", and its own comment says
+why it exists -- "emptiness is authored, and it has to be provable or the next 'the world
+feels dead' change quietly fills it in". THIS ROUND WAS THAT CHANGE. It went red at one
+body. The near field now asks the population module the same question the gate asks and
+refuses to borrow anybody into an empty zone. A desert that fills up the moment you walk
+into it is not a busier city, it is a world with nothing in it that means anything.
+  (b) ON THE WAY (this lane's own round-5 checker): 104 journeys finished in under a
+minute, biggest 916 cells. Its census asked pplAt(), which was the same question as
+"where does their day put them" only until the near field existed. Its census asks the
+SCHEDULE now, which is what round 5 actually built -- and its numbers came out BETTER
+than its own baseline, 26 teleports against 34. The guarantee it was really protecting
+moved here as a leg: A BORROWED BODY HE CAN SEE KEEPS ITS CELL THROUGH A REBUILD. Off
+screen, appearing somewhere new IS the ruling; on screen it is somebody vanishing out of
+a doorway in front of him.
+  (c) ALIVE: two percent of the valley outdoors AT TWO IN THE MORNING. The in-sight hold
+from (b) was keeping people on the street after their own day had taken them home. A HOLD
+MUST NEVER OUTLIVE THE SCHEDULE -- that is inventing people, and the promise not to
+vanish does not outrank it. When their day ends they leave, same as everybody else.
+  *** TWO NEGATIVE RESULTS, AND THEY ARE THE MOST USEFUL THING HERE. ***
+  (1) SENDING PEOPLE'S DAYS OUT OF THEIR OWN BLOCK BOUGHT NOTHING AND COST THE EARTH.
+The round started there and the reasoning was good: a person's whole day was chosen from
+their own home neighbourhood's places, and workDist -- the field that says how far this
+person travels -- was read by the fallback ray and NOTHING ELSE, so the man who works far
+away was sent to the corner of his own street. Fixed it properly, capped by their own
+schedule block at the surface's own step cost. IT MOVED THE EMPTY-STREET NUMBER FROM 116
+OF 120 TO 116 OF 120, TWICE. And it took TIME TO FIRST PLAY FROM 21 SECONDS TO 54, the
+alpha to 71, and the frame-budget gauge could no longer load the page inside thirty
+seconds. Reverted, with the reasoning left in the file so nobody rebuilds it.
+  (2) THE OCCUPANCY FIX WAS A FIX FOR A BUG THAT WAS NOT THERE. The gate found one cell
+with two bodies, so the near field was taught to look at where the locals stand. THE
+MUTATION RUN KILLED IT: with that code taken back out the borrowed-body collision count
+is still ZERO. The collision was always local against local and predates this round.
+  GATE: gates/never_empty_gate.js, 14/0, in the cut demo, registered. A near field is a
+spawner unless something stops it, so four legs are about cheating: every borrowed body
+was already outdoors by its own schedule (checked at 10:00 AND 03:00 so a quiet world
+cannot pass it by accident), the census does not move, nobody is in two places, and the
+occupancy law with a borrowed/local breakdown. Mutation-tested three ways; the third
+mutation stayed GREEN and that is what deleted negative result 2. AND B3'S FIRST CUT WAS
+WRONG AND THE WORLD WAS RIGHT: it demanded an EMPTY street at three in the morning and
+caught the night watchman.
+  PERF: boot 22.0s (21.1s before this round), main thread 53.3% of 56, fps 35/0, frame
+budget 22/0 -- all measured with the CPU gates run ALONE, per the note below.
+  RECORD: records/BOHEMIA_THE_STREET_IS_NEVER_EMPTY_9_7_26.md
+  *** THE ROW STAYS CLAIMED, AND WHAT IS LEFT IS THE PEAKS, NOT THE FLOOR. *** The most
+anyone ever sees at once is 2, because one body per screenful is exactly what the lattice
+promises. A city needs knots as well as a floor. Next round is the crowd, not the census.
+  HANDED TO PEOPLE (or whoever owns pplPeople's seating): two locals from different
+neighbourhoods can be placed on ONE CELL, because the `taken` set is built per
+neighbourhood and neither sees the other. Measured at 1 collision in a four-neighbourhood
+window at 10:00. The blit dedupes so it is invisible, which is exactly why it will stay
+broken until somebody counts it.
+
+--- THE BUILD-DEFAULT ROUND BELOW ---
+
+LIFE + CITY (city-1eztay): 9/7 (b) -- *** [build default] SHIPPED. THE FIRST
 BUILDING A PLAYER EVER PLACES WAS AN AIRBASE, BECAUSE THE LIST WAS ALPHABETICAL AND A
 BROWSER PICKS OPTION ZERO. IT IS A HOUSE NOW. *** AND THE SAME BUG WAS IN FOUR PLACES,
 NOT ONE: the price line, the affordability check and the build itself all fell back to

@@ -188,8 +188,18 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
       m.outPct[13] < m.outPct[10] / 2, m.outPct[13] + '% at 13:00');
 
     head('C. THE ROW\'S OWN SENTENCE: HE SEES SOMEBODY WITHOUT HUNTING');
-    ok('the authored neighbour is excluded, so this measures strangers only',
-      m.pinned === 1, m.pinned + ' body on screen before a single step');
+    /* *** THIS USED TO ASSERT `pinned === 1` AND 9/7 IS WHY IT NO LONGER CAN. ***
+       The exclusion is the point and it is untouched: everybody already on screen
+       before a single step is struck from the stranger count, so a walk only ever
+       gets credit for somebody it actually walked up to. What CHANGED is that the
+       count is no longer always one. The coordinator's 9/7 density ruling put the
+       near field on the walked surface -- the valley's own out-of-doors people
+       standing on the street the player is on -- so the spawn can legitimately have
+       company now. Demanding exactly one body was, without meaning to, an assertion
+       that the street is empty, which is the thing this gate's own row was opened to
+       fix. It asserts the guarantee instead: there IS a baseline and it IS excluded. */
+    ok('everybody already on screen is excluded, so this measures strangers only',
+      m.pinned >= 1, m.pinned + ' bodies on screen before a single step, all excluded');
     /* THE CLAIM THAT WAS RED BEFORE THIS SHIPPED. At the old default this number
        was ZERO: thirty-two walks, up to twenty-five thousand steps, nobody. */
     ok('*** A WALK MEETS A STRANGER, WHICH IT DID NOT BEFORE ***',
