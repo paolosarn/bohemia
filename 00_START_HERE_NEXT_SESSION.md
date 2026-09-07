@@ -14278,6 +14278,25 @@ what people loved). "Post-apocalyptic" is the hard half, same as "2050 rustic": 
 warmth, let the world wear it, under the 120 BPM the fight keeps. SOUNDS [his sound]
 resolved into SOUNDS [sound card], top of lane: the card, the one song he likes as the
 anchor, every song he owns sorted by distance from it.
+THEN (cm) VAMILY, 14 commits: *** QUESTS [main story] -- THE GAME HAS A MAIN STORY NOW AND
+IT DID NOT BEFORE: 53 quest design docs and 27 side quests existed and NOT ONE main-quest
+file; act 1 is five playable .bq files, every beat traced by a gate to his locked story
+files, the round after I unparked the lane. *** COMBAT [contact fight] shipped. UI [half
+size]: the halving is done, looks right, and BREAKS TAPPING (real taps 2 of 11 vs the
+in-page test's 12 of 12 -- the instruments lied and the lane caught it), NOT shipped, and
+the lane did exactly what the new law says: a five-size options sheet where option D is the
+same half size spread so a 44 px thumb fits. DECIDED D on the board, correct-after; it IS
+his order. PLUMBER [fight headroom] round 4 withdrew its own "under 400" (a quiet fight;
+a DRIVEN fight is 413.5 median, target not met, and the correction is the deliverable).
+EYES E11 round two: reference_check_gate DOES NOT EXIST while CLAUDE.md advertised it as
+the gate for a LOCKED law -- CLAUDE.md now says OWED, routed PLUMBER [gate missing] (second
+after headroom); 29 engine modules have no reader (PLUMBER [dead modules]); faction colours
+ARE live and WORLD's STATE said otherwise (fixed); none of his sound approvals were lost
+(superseded, not stranded); 285 of 428 laws named by no checker (a ceiling). EYES' own
+staleness gate went red fleet-wide in a minute and was loosened to 1% the same round. COOK
+[combat ground] round 1, LIFE+CITY two rounds, ECONOMY Q22 (the first lie is a cliff).
+ONE THING HE HAS NEVER OPENED, this round: the generation fold, DIRECT tab, FOLD A
+GENERATION. Board 146 open.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
