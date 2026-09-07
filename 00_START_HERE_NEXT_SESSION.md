@@ -14942,6 +14942,12 @@ companion, no fixed name: drawn from the people already around you who would pla
 follow, shuffled per save, named from the existing pools, draft:true; Rosa is one card in the
 deck. PEOPLE [walking companion] amended, research record appended. Two letters open:
 century, act two.
+THEN (cv) "Idk who dies at the end of act one, ask me later" -> [act two] PARKED BY HIM, carried
+silently, not re-asked. "Buildings and some people depending on how many years passed, I know
+we wrote it down" -> found it (laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md, rule
+4, the city is the long memory) and amended it in his words: buildings count, and a person
+counts for as long as they could still be alive given the years between acts, then what they
+left counts; the years are the dial. WORLD [century stayed] unblocked. ZERO letters open.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

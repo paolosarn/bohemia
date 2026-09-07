@@ -25,3 +25,20 @@ LOCKED:
    visibly poorer; invest and it's visibly rebuilt. The city is the game's
    long memory. Mechanism to be designed (research commissioned); numbers
    are Paolo's when the mechanism is ruled.
+
+
+## AMENDED 9/7/26 BY PAOLO: THE CENTURY RULE COUNTS BUILDINGS AND SOME PEOPLE
+Asked whether the century rule should count who stayed, not only buildings:
+"Buildings, and some people depending on how many years passed. I know we wrote it
+down." So rule 4 reads, from now:
+- **BUILDINGS COUNT**, as before: what the dynasty built, kept powered and kept
+  producing compounds into act three's city.
+- **SOME PEOPLE COUNT, BY THE YEARS PASSED.** A person you kept in the valley
+  counts toward what survived only for as long as they could still plausibly be
+  alive given the years between the acts; after that, what counts is what they left
+  (their children, their trade, their name on a block). A short skip keeps many; a
+  long skip keeps their heirs. "Some people, depending on how many years passed" is
+  the whole rule and the years are the dial.
+- The years between acts are the number that decides it, and that number is tied
+  to RUN [a day is] and DYNASTY [days per life]; it is his when the mechanism is
+  ruled, per the original clause.
