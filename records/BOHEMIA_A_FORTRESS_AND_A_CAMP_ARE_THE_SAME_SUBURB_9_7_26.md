@@ -98,6 +98,25 @@ both reuse:
    `arsenal` and `granary` are drawn, buildable, and unused. Which districts a town gets is
    the towns module's business, so that half is routed rather than taken.
 
+## AND ROUND 2'S HAZARD IS NAMED NOW, WHICH IS WHY THIS ROUND STOPS HERE
+
+`laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md`, LOCKED, and he was standing
+inside one when he said it:
+
+> "I'm like locked in this fucking suburb. What's wrong with you? **Make sure I can't be
+> locked in any certain district ever again** it's so fucking creepy."
+
+**A wall ringing a thirty-cell fortress is exactly the shape that makes a prison.** The
+law's three clauses are round 2's acceptance test, not its footnote: every built cell keeps
+a way out, the opening is a *real* passable gap the block's own interior can walk to, and a
+relay that hands you to another sealed cell is a violation. It has to be gated with
+`landlocked_gate.js` and the walkable-land checks **on the real surface**, and a wall that
+passes a source check but not a walk is not built.
+
+That is a full round of careful work. Bolting a ring on at the end of this one and calling
+the row shipped would risk re-creating the single thing he has been angriest about, and
+`STOP PRODUCING` is explicit that a green gate is never the argument. The row stays CLAIMED.
+
 ## ROUTED, NOT DONE
 **[FOR WORLD]** Nothing chooses a town's buildings. `districtsOf` reports what is already on
 the ground and `REACH` decides how much of it a town claims; there is no step that says a

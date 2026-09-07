@@ -5527,6 +5527,18 @@ newer than both and names Walls for a fortress by name. So the art EXISTS in the
 generator, a fortress wall is legal, and it is REUSE-FIRST -- run the tract wall the suburb
 already draws around a fortress town's outer edge. Do not cook a new wall.
 
+*** AND THE HAZARD IS NAMED BEFORE ANYONE STARTS, BECAUSE IT IS HIS LOUDEST COMPLAINT. ***
+laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md, LOCKED, and he was standing inside
+one when he said it: "I'm like locked in this fucking suburb. What's wrong with you? MAKE SURE
+I CAN'T BE LOCKED IN ANY CERTAIN DISTRICT EVER AGAIN it's so fucking creepy." A wall ringing a
+thirty-cell fortress is EXACTLY the shape that makes a prison. So round 2 is not "draw a ring":
+its three clauses are the acceptance test -- every built cell keeps a way out, the opening is a
+REAL passable gap the interior can walk to, and a relay into another sealed cell counts as a
+violation. Gate it with landlocked_gate.js and the walkable-land checks ON THE REAL SURFACE,
+and treat a wall that passes a source check but not a walk as not built. That is why this round
+stopped here rather than bolting a ring on at the end of it: shipping a fortress wall that
+re-creates the thing he was angriest about would be worse than having no wall at all.
+
 [FOR WORLD] Nothing chooses a town's buildings. districtsOf reports what is already on the
   ground and REACH decides how much a town claims; no step says a fortress carries supply and
   a camp a stall. That is why 60% of every town is suburb. fort, arsenal and granary are all
