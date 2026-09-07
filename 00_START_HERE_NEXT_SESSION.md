@@ -20604,7 +20604,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [eyes: gate missing] SHIPPED 7f59b0e -- the compare
+ROUND LOG 9/6 (latest): [rule not run] complied - the lane already stands
+where the note orders (zero claims held, every blocked line reopened with
+its delivered work and reclaim rule written in). Patrol: style card
+112/112, reference gate 3/3, ratchet holds 43%, and the LOOK tab's stale
+set is retaking via the new self-resolving chain (it reads the gate's own
+stale list and maps ids to shooters - no more hand-built lists). Waiting
+on EYES E15's machine pre-pass to turn cooking-judgment into ruling-on-
+what-the-machine-could-not, exactly as the note says. PREVIOUS: [eyes: gate missing] SHIPPED 7f59b0e -- the compare
 law's advertised gate finally exists and runs in the suite (REF-IDs must
 resolve in the library index, new cook tools must carry their REFERENCE
 CHECK, the 85 pre-law tools are a shrink-only frozen ratchet). Proven to
