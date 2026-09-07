@@ -20853,7 +20853,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [rule not run] complied - the lane already stands
+ROUND LOG 9/7 (latest): patrol round - COOK's [combat ground] batch JUDGED
+PASS at the standing seam (a wiring pass lifting approved art, zero new
+pixels, and its record cites TG-07/TG-01/CGRD-01/CGRD-02 which all resolve
+in the library index; round 2 fixes exactly the invisible-cover sin TG-07
+names - cover now drawn the size of what it blocks). Rulers green: card
+112/112, ratchet holds 43%, reference gate 3/3. The churned wardrobe
+photos are retaking on the self-resolving chain; bytes commit when it
+lands. Retints still unexecuted (the reopened lines hold). PREVIOUS: [rule not run] complied - the lane already stands
 where the note orders (zero claims held, every blocked line reopened with
 its delivered work and reclaim rule written in). Patrol: style card
 112/112, reference gate 3/3, ratchet holds 43%, and the LOOK tab's stale
