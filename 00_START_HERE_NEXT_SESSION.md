@@ -14948,6 +14948,18 @@ we wrote it down" -> found it (laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_
 4, the city is the long memory) and amended it in his words: buildings count, and a person
 counts for as long as they could still be alive given the years between acts, then what they
 left counts; the years are the dial. WORLD [century stayed] unblocked. ZERO letters open.
+THEN (cw) VAMILY: ZERO commits, the lanes are idle (PLUMBER 14 open 0 claimed, EYES and
+DIRECTION 0 claimed); he is typing the word here and not in them, said so plainly. THE ROUND'S
+FINDING, canon against build: HIS OWN 7/19 LOCK says THE RIDGE IS THE MENU / TITLE SCREEN, a
+living hundred-year record of the city your family built, framed by the grave; RUN shipped
+the title as "the wordmark on its plate", the void DIRECTION then judged. Same defect as the
+Animal era this morning: a locked sentence nobody re-read. The burial scene exists in the
+build (72 ridge / 28 burial strings), so it is wiring. CORRECTED MY OWN ROW: RUN [first
+world] is now THE DOOR IS THE RIDGE, and the opening order's step 1 is the ridge. Record:
+records/BOHEMIA_COORDINATOR_THE_TITLE_SCREEN_WAS_ALREADY_RULED_9_7_26.md. Routed EYES E17
+[locked ignored] (sweep every LOCKED line against the shipped surface) and E18 [he can hear
+it]; topped up ECONOMY (Q28 ridge worth, Q29 nothing left). ONE THING HE HAS NEVER OPENED:
+the phone feed in CITY mode, it scrolls what you did and what the world did.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
