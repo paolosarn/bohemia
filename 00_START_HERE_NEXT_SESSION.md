@@ -5441,6 +5441,11 @@ because a moving fight is already at 99.6% of the beat. In a still fight every p
 sits above the one unpatched run (402.5, 426.0, 492.5 against 345.5) but they spread 90 ms
 among themselves, so that is a DIRECTION AND NOT A MEASUREMENT, and calling it "55 ms" off
 n=1 would repeat the mistake the PLUMBER corrected one round earlier on this exact gate.
+AND THE PLUMBER PUT A NUMBER ON THIS ONE COMMIT EARLIER: their [fight headroom] round five
+(3de44b4b) measured the same build twice at 450.1 and 412.5 and published "THE DRIVEN FIGHT'S
+BEAT HAS A NOISE FLOOR OF ABOUT 40 MS BETWEEN IDENTICAL RUNS... any single-sample before-and-
+after on this fight is worthless". My matched pair is -0.5 ms, inside it; my still-fight spread
+is 90 ms, twice it. Two lanes reached the same conclusion in the same hour.
 WHAT NEEDS NO PROFILER: the fight paints about 3x the cover pixels, 48,000 -> 145,000 of a
 1.06 M px canvas. Three things hold that down -- the 4 px bucket, a shadow overhang that was
 a RATIO tuned for narrow blocks (124 px sprite -> 100 on an 84 px face), and A CULL THAT DID

@@ -146,6 +146,17 @@ So the honest statement is a boundary, not a number:
   "55 ms" off n=1 against a 90 ms spread would be the same mistake the PLUMBER's round
   four corrected on 9/7, one round earlier, on this exact gate.
 
+**AND THE PLUMBER PUT A NUMBER ON EXACTLY THIS, ONE COMMIT BEFORE THIS ONE.** Their
+[fight headroom] round five (3de44b4b, 9/7) measured the same build twice under one protocol
+at 450.1 and 412.5 ms and concluded: *"THE DRIVEN FIGHT'S BEAT HAS A NOISE FLOOR OF ABOUT
+40 MS BETWEEN IDENTICAL RUNS. Therefore: any single-sample before-and-after on this fight is
+worthless; 40 ms is a coin toss… Anything measured on this surface needs alternating pairs
+inside ONE boot, at least three."* The matched pair here is −0.5 ms, comfortably inside that
+floor; the still-fight spread is 90 ms, more than twice it. Two lanes arrived at the same
+conclusion from opposite directions in the same hour, which is the strongest form this
+answer could take: **the effect is not resolvable on this instrument, and saying so is the
+result.**
+
 **WHAT CAN BE STATED EXACTLY IS THE ARITHMETIC, BECAUSE IT DOES NOT NEED A PROFILER.**
 A generic piece went from 30 px wide to about 90, so the fight paints roughly three times
 the cover pixels: **48,000 px of cover per frame became 145,000**, on a 1.06 M px canvas —
