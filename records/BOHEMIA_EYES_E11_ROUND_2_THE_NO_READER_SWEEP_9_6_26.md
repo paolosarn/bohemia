@@ -183,6 +183,25 @@ Every one of those would have been a confident, specific, wrong sentence in fron
 Paolo. Three of the four were caught by the same habit: check a result that sounds
 dramatic before you write it down.
 
+### BUG 5, FOUND ONE MINUTE AFTER THE GATE LANDED ON MAIN
+The staleness check demanded a **byte-exact** match between the saved sweep and the
+bundle on disk. It went red inside a minute, because another lane pushed 60 KB into the
+alpha between my measurement and my push. The lanes ship to main about every thirteen
+minutes, so a byte-exact check is red almost permanently, **for the whole fleet**, over
+changes that are the same game. That is the false-alarm death school warned about, in its
+worst form: my checker reddening other people's suite over their unrelated work.
+
+Fixed the same turn. Drift is always printed; it only fails past **1% of the reader set**,
+about 455 KB of 45.5 MB. The threshold is a judgement call and it is written into the gate
+as one: under it the shipped bundle is the same game and the saved numbers still mean
+something; over it the game really moved and a green would be a green for something that
+no longer exists. Both controls still bite, because the control drives the baseline to a
+wholly different value, not a nearby one.
+
+This is the fifth wrong version of an instrument in one round, and it is the only one that
+was caught by shipping rather than by checking. Worth writing down for that reason alone:
+a gate cannot be proven correct against a repo that stands still, because the repo does not.
+
 ---
 
 ## RULE ZERO: THE CONTROLS

@@ -43,14 +43,32 @@ function run(result, base) {
   const out = [];
   const ok = (name, good, detail) => out.push({ name, good, detail });
 
-  // 1. the result must actually be about the game that is on disk right now
+  // 1. the result must actually be about the game that is on disk right now.
+  //
+  //    FIXED THE MOMENT IT SHIPPED, AND THE FIX IS THE POINT OF THE GATE:
+  //    the first cut demanded a BYTE-EXACT match and went red within a minute of
+  //    landing, because another lane shipped 60 KB into the alpha between the
+  //    measurement and the push. The lanes push to main about every thirteen
+  //    minutes. A byte-exact staleness check is therefore red almost permanently,
+  //    for everybody, over changes that are the same game -- which is precisely the
+  //    false-alarm death school warned about, except worse, because it reds the
+  //    whole fleet's suite over another lane's unrelated work.
+  //
+  //    So: drift is always PRINTED, and it only FAILS past 1% of the reader set
+  //    (about 455 KB of the 45.5 MB the game fetches). That threshold is a
+  //    judgement call and it is written down as one: under it the shipped bundle is
+  //    the same game and the saved numbers still mean something; over it, the game
+  //    has really moved and a green would be a green for something that no longer
+  //    exists.
   const nowBytes = readerBytes(result);
-  const savedBytes = result.reader_set_bytes;
-  // reader_set_bytes is the concatenated TEXT length; compare the recorded stat sum instead
-  ok('the saved sweep is about the bundle that is on disk now',
-     result.reader_set.every(r => fs.existsSync(path.join(ROOT, r))) && nowBytes === base.reader_set_stat_bytes,
-     'reader set ' + result.reader_set.length + ' files, ' + nowBytes + ' bytes on disk, baseline ' + base.reader_set_stat_bytes +
-     (nowBytes === base.reader_set_stat_bytes ? '' : '  <- THE SHIPPED BUNDLE MOVED. re-run: python3 tools/bohemia_eyes_no_reader.py'));
+  const baseBytes = base.reader_set_stat_bytes;
+  const drift = baseBytes ? Math.abs(nowBytes - baseBytes) / baseBytes : 1;
+  const allThere = result.reader_set.every(r => fs.existsSync(path.join(ROOT, r)));
+  ok('the saved sweep still describes the bundle on disk (drift under 1%)',
+     allThere && drift <= 0.01,
+     'reader set ' + result.reader_set.length + ' files, ' + nowBytes + ' bytes now, ' + baseBytes +
+     ' when measured, drift ' + (drift * 100).toFixed(3) + '%' +
+     (allThere && drift <= 0.01 ? '' : '  <- THE SHIPPED BUNDLE REALLY MOVED. re-run: python3 tools/bohemia_eyes_no_reader.py'));
 
   // 2. the ratchet -- ONLY on the two numbers that cannot grow from honest work.
   //    engine_orphan and laws_ungated BOTH grow legitimately (a lane writes a new
@@ -85,10 +103,10 @@ function selftest() {
   const a = run(grown, base).find(r => r.name === 'ratchet banks_orphan');
   const staleBase = JSON.parse(JSON.stringify(base));
   staleBase.reader_set_stat_bytes = 1;
-  const b = run(result, staleBase).find(r => r.name.startsWith('the saved sweep is about'));
+  const b = run(result, staleBase).find(r => r.name.startsWith('the saved sweep still describes'));
   const checks = [
     ['one more stranded data bank than the baseline goes RED', a && !a.good],
-    ['a result that does not match the bundle on disk goes RED', b && !b.good],
+    ['a result measured against a wholly different bundle goes RED', b && !b.good],
   ];
   console.log('SELFTEST -- RULE ZERO: a zero needs a positive control');
   let ok = true;
