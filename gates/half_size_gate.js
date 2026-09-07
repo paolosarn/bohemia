@@ -100,8 +100,8 @@ async function phoneOpens(b, turnHalfOn) {
   /* ---- THE LINE THAT MATTERS MOST --------------------------------------- */
   ok('*** THE SHIPPED GAME\'S CONTROLS STILL WORK *** -- pressing PHONE opens the '
      + 'phone on the build as it ships', shipped.opened === true);
-  ok('and the halving is OFF in the shipped build, so this row cannot half-ship '
-     + 'itself into his hands', shipped.on === false);
+  ok('*** THE HALVING IS ON IN THE SHIPPED BUILD *** -- his locked order, and the '
+     + 'controls still work with it on', shipped.on === true && shipped.opened === true);
 
   /* ---- WHAT THE WORK ALREADY DOES, REPORTED SO THE NEXT ROUND HAS FACTS --- */
   console.log('\n  with the halving switched on:');
@@ -114,20 +114,37 @@ async function phoneOpens(b, turnHalfOn) {
   ok('switched on, it really does halve the widths (Option D exists, it is the '
      + 'presses that are unfinished)', halved.on === true
      && halved.sizes.length > 0 && halved.sizes.every(s => s.w <= 60));
-  /* THE SECOND OPEN DEFECT, HELD THE SAME WAY AS THE FIRST. The sizes halve now, and
-     halving them made the reach problem WORSE rather than better: a 14-tall chip needs
-     15px of reach on each side and its neighbour is 6px away. The spread that is
-     supposed to buy that room does not reach these controls -- they are flex children
-     of #blstack and a margin written onto them comes back 0px. Asserted as an open
-     defect so it cannot be mistaken for done, and it goes green the round it is fixed. */
-  ok('THE SECOND OPEN DEFECT: with the halving on the reach is ' + (21 - short.length)
-     + ' of ' + (halved.rep||[]).length + ' clear -- the sizes halve but the SPREAD half '
-     + 'of Option D does not land on flex children yet', short.length > 0);
+  /* THE SPREAD WORKS NOW, AND WHAT UNBLOCKED IT WAS READING THE FILE. Two rounds were
+     spent pushing chips with top and margin and measuring nothing, because four lines
+     above those controls sit `#blstack>*{ margin:0 !important; top:auto !important }`
+     and the same for #topbar -- so a margin written onto a chip reads back 0px and a
+     top does nothing. There is no specificity fight to win: GAP belongs to the
+     CONTAINER and nothing overrides it. Reach went 10 of 21 to 18 of 22. */
+  /* *** WHAT HALF COSTS, SAID PLAINLY RATHER THAN DRESSED UP. *** The row: "If
+     something cannot survive that, shrink it anyway and put the fact in the record for
+     him to see." It could not survive. A reach pad big enough to matter is a pad that
+     lies across the control next to it -- proved on the real screen, where SAVEBTN's
+     pad sat on PHONE and killed the press. So the pixels are halved and THE REACH IS
+     THE BUTTON: 14 tall instead of 44. Nothing is unhittable and nothing does the
+     wrong thing; some things want aiming at. That is the trade, on the record. */
+  ok('and the report says what is actually applied -- with the pad off the reach IS '
+     + 'the button (' + ((halved.rep||[]).length - short.length) + ' of '
+     + (halved.rep||[]).length + ' at 44, ' + short.length + ' smaller, and the drawn '
+     + 'size and the reach are the same number)',
+     (halved.rep||[]).length > 0
+     && (halved.rep||[]).filter(r => r.reach !== 'label' && r.drawn !== r.reach).length === 0);
 
-  /* the open defect, asserted as a defect so nobody mistakes it for done */
-  ok('THE OPEN DEFECT, RECORDED RATHER THAN HIDDEN: with the halving on, pressing '
-     + 'PHONE does nothing. That is why the row is not shipped, and this leg goes '
-     + 'green the round it is fixed', halved.opened === false);
+  /* *** AND THIS IS THE LEG THAT WAS WRITTEN TO GO GREEN THE ROUND IT WAS FIXED. ***
+     The reach pads were never a harmless bonus under the buttons: they WERE the thing
+     that broke the game. At the PHONE chip's own centre the topmost element was
+     SAVEBTN -- and it stayed SAVEBTN even after the pad's size was zeroed, because
+     gating the size left the class on, and #topbar>* forces position:static, so a
+     pseudo-element of a chip that cannot be positioned lands against a distant
+     ancestor and becomes a sheet over the whole container. Turning the pad off
+     properly, class and all, and the phone opens. The pixels are halved and the reach
+     is the button itself -- the row's own escape hatch, used and recorded. */
+  ok('*** AND THE CONTROLS STILL WORK WITH IT ON: pressing PHONE opens the phone at '
+     + 'half size ***', halved.opened === true);
 
   const errs = (shipped.errs||[]).concat(halved.errs||[]);
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''),

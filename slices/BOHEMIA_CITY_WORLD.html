@@ -60975,11 +60975,12 @@ window.BOHEMIA_HALF = (function(){
      which is exactly what Option D asked for. The heights do not halve yet -- the
      chips hold 44 from somewhere this round did not find -- and the presses do not
      land. Those two are the next round's job and they are probably the same bug. */
-  var BEAT_MS=(typeof BEAT==='number'?BEAT:500), WANT=44, on=false, last=[], suspended=true;
+  var BEAT_MS=(typeof BEAT==='number'?BEAT:500), WANT=44, on=false, last=[], suspended=false;
+  var PADS=false;   /* the reach pad -- see the note where it is applied */
   /* the run's own controls and labels; never the world */
   var CTRL = ['musbtn','savebtn','phonebtn','outfitbtn','rungbtn','buildbtn','mktbtn',
               'modechip','fitbtn','bikebtn','sleepbtn'];
-  var LABEL = ['hud','note','hmode','hclock','hslot','modeLbl','topbar'];
+  var LABEL = ['hud','note','hmode','hclock','hslot','modeLbl','topbar','blstack'];
 
   var css=document.createElement('style'); css.id='halfcss';
   css.textContent=
@@ -61004,6 +61005,17 @@ window.BOHEMIA_HALF = (function(){
        whole fix. The floor is right and stays right: the REACH is still 44, it is
        just no longer made of a 44-tall BOX that sits on the control beneath it. */
     +'#topbar > .uihalf, #blstack > .uihalf{ min-height:0!important; height:auto!important }'
+    /* *** AND THE SPREAD IS THE CONTAINER'S gap, BECAUSE THE CHILDREN CANNOT BE MOVED
+       AT ALL. *** Two rounds were spent pushing chips around with top and margin and
+       measuring nothing. The reason is four lines above these controls in this very
+       file: `#blstack>*{ margin:0 !important; top:auto !important }` and the same for
+       #topbar -- id-plus-universal and !important, so a margin written onto a chip
+       reads back 0px and a top does nothing, exactly as observed. There is no fight to
+       win here: gap belongs to the CONTAINER and nothing overrides it. 14-tall chips
+       plus a 30 gap is a 44 pitch, which is the reach the thumb rule asks for and the
+       whole point of Option D. */
+    +'#blstack.uihalf{ gap:30px!important }'
+    +'#topbar.uihalf{ gap:30px!important }'
     +'#hud.uihalf{ font-size:6px!important; padding:2px 5px!important }'
     +'#note.uihalf{ font-size:5px!important; padding:2px 4px!important }'
     +'#nav.uihalf{ width:90px!important; height:90px!important }'
@@ -61083,7 +61095,14 @@ window.BOHEMIA_HALF = (function(){
     var i;
     for(i=0;i<list.length;i++){
       list[i].e.classList.add('uihalf');
-      if(list[i].press) list[i].e.classList.add('press');
+      /* AND THE CLASS GOES WITH IT. Gating only the pad's SIZE left the .press class on,
+         so the pseudo-element still existed with zero insets -- and because #topbar>*
+         and #blstack>* force position:static !important, a pseudo of a static chip
+         positions against a distant ancestor instead of the chip, which is how SAVEBTN
+         ended up lying across PHONE. A pad on an element that cannot be positioned is
+         not a small pad, it is a sheet over the whole container. */
+      if(list[i].press && PADS) list[i].e.classList.add('press');
+      else list[i].e.classList.remove('press');
     }
     spread(list);
     /* AND THE EIGHT KEYS MOVE IN WITH IT. Their left/top are inline, written once by
@@ -61126,11 +61145,60 @@ window.BOHEMIA_HALF = (function(){
           if(dy>=0) gh=Math.min(gh,dy/2);
         }
       }
-      bx.e.style.setProperty('--hitl',(-gw)+'px'); bx.e.style.setProperty('--hitr',(-gw)+'px');
-      bx.e.style.setProperty('--hitt',(-gh)+'px'); bx.e.style.setProperty('--hitb',(-gh)+'px');
+      /* *** THE REACH PAD IS OFF, AND THAT IS THE ROW'S OWN ESCAPE HATCH BEING USED. ***
+         MEASURED, and it is the finding of this round: with the pads ON, pressing PHONE
+         does nothing; with the pads OFF, the phone opens. The pads were never a bonus
+         sitting harmlessly under the buttons -- they are the thing that broke the game.
+         At the PHONE chip's own centre the topmost element was SAVEBTN, one chip's
+         reach lying across its neighbour, and a tap that does the WRONG thing is worse
+         than a tap you have to aim at.
+         So the pixels are halved and the reach is the button itself. The row says
+         exactly what to do when the 44 cannot survive: "shrink it anyway and put the
+         fact in the record for him to see." The fact: half-size controls are 14 tall
+         and that is what your thumb gets. The pad code stays, computed and reported,
+         and simply is not applied -- flip PADS to true to try it again, and check the
+         PHONE test before believing it. */
+      if(PADS){
+        bx.e.style.setProperty('--hitl',(-gw)+'px'); bx.e.style.setProperty('--hitr',(-gw)+'px');
+        bx.e.style.setProperty('--hitt',(-gh)+'px'); bx.e.style.setProperty('--hitb',(-gh)+'px');
+      }
+      /* AND THE REPORT SAYS WHAT IS ACTUALLY APPLIED. With the pad off, the reach IS
+         the button -- printing the number the pad WOULD have given would be a figure
+         nobody can press, which is the kind of number this lane has spent three rounds
+         being lied to by. */
+      var rw = PADS ? (bx.w+gw*2) : bx.w, rh = PADS ? (bx.h+gh*2) : bx.h;
       rep.push({ id:bx.e.id, drawn:Math.round(bx.w)+'x'+Math.round(bx.h),
-                 reach:Math.round(bx.w+gw*2)+'x'+Math.round(bx.h+gh*2),
-                 full:(bx.w+gw*2>=WANT-0.6 && bx.h+gh*2>=WANT-0.6) });
+                 reach:Math.round(rw)+'x'+Math.round(rh),
+                 full:(rw>=WANT-0.6 && rh>=WANT-0.6) });
+    }
+    /* *** AND NOW IT CHECKS ITS OWN PADS, AND THIS TIME THE CHECK IS TRUSTWORTHY. ***
+       Measured: at the PHONE chip's own centre the topmost element was SAVEBTN -- one
+       chip's reach lying across its neighbour, which is a tap that does the wrong
+       thing. An earlier round tried this same self-check and it was worthless, because
+       back then the controls were SCALED and elementFromPoint does not agree with
+       getBoundingClientRect inside a scaled element. Nothing is scaled any more, so
+       the browser's answer is the real one: ask what is on top of each control, and
+       any pad found sitting on somebody else is taken away. A short reach is a control
+       you aim at; a covered one is a control that does the wrong thing. */
+    for(var pass=0; pass<3; pass++){
+      var stole=0;
+      for(var q=0;q<boxes.length;q++){
+        var tgt=boxes[q]; if(!tgt.press) continue;
+        var tr=tgt.e.getBoundingClientRect(); if(tr.width<1||tr.height<1) continue;
+        var mid=document.elementFromPoint(tr.left+tr.width/2, tr.top+tr.height/2);
+        if(!mid || mid===tgt.e || tgt.e.contains(mid)) continue;
+        var thief=mid;
+        while(thief && thief!==document.body && !(thief.classList&&thief.classList.contains('uihalf')))
+          thief=thief.parentElement;
+        if(thief && thief!==tgt.e && thief.classList && thief.classList.contains('uihalf')){
+          ['--hitl','--hitr','--hitt','--hitb'].forEach(function(k){ thief.style.removeProperty(k); });
+          for(var z=0;z<rep.length;z++) if(rep[z].id===thief.id){
+            rep[z].reach='no pad (it was covering '+(tgt.e.id||'another control')+')';
+            rep[z].full=false; }
+          stole++;
+        }
+      }
+      if(!stole) break;
     }
     last=rep; on=true;
     return true;

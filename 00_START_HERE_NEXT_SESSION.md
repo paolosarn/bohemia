@@ -18590,6 +18590,50 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/7 (c) LATEST -- *** [half size] WORKS AND IS ON. THE REACH PADS WERE
+NEVER A BONUS UNDER THE BUTTONS -- THEY WERE THE THING BREAKING THE GAME. ***
+
+TWO BLOCKERS FELL THIS ROUND, BOTH FOUND BY READING THE FILE INSTEAD OF GUESSING.
+
+1. THE SPREAD. Two rounds were spent pushing chips with `top` and `margin` and
+   measuring no movement at all. Four lines above those controls, in this same file:
+       #blstack>*{ margin:0 !important; top:auto !important }
+       #topbar>* { margin:0 !important; top:auto !important }
+   id-plus-universal and !important, so a margin written onto a chip reads back 0px and
+   a top does nothing. THERE IS NO SPECIFICITY FIGHT TO WIN: gap belongs to the
+   CONTAINER and nothing overrides it. Reach went 10 of 21 to 18 of 22.
+
+2. THE DEAD PRESSES, AND THIS IS THE ONE WORTH REMEMBERING. The reach pads were the
+   cause. At the PHONE chip's own centre the topmost element was SAVEBTN -- one chip's
+   reach lying across its neighbour. And it STAYED savebtn after I zeroed the pad's
+   size, because gating the size left the .press class on: #topbar>* forces
+   position:static !important, so a pseudo-element of a chip that cannot be positioned
+   anchors to a distant ancestor and becomes A SHEET OVER THE WHOLE CONTAINER. Turn the
+   pad off properly, class and all, and the phone opens.
+
+SO WHAT SHIPS IS HALF, AND THE REACH IS THE BUTTON. The row's own escape hatch: "If
+something cannot survive that, shrink it anyway and put the fact in the record for him
+to see." It could not survive -- a pad big enough to matter is a pad that lies across
+the control beside it, and a tap that does the WRONG thing is worse than one you have
+to aim at. Chips are 44x14 and that is what a thumb gets. Nothing is unhittable and
+nothing does the wrong thing. The pad code stays, computed, reported and NOT applied;
+flip PADS to true to try it again and check the PHONE test before believing it.
+
+AND THE REPORT SAYS WHAT IS APPLIED. With the pad off the reach IS the button, so the
+report prints the button's own size rather than the number a pad would have given --
+after three rounds of being lied to by instruments, this lane does not print a figure
+nobody can press.
+
+GATE: gates/half_size_gate.js 7/0, and its two "open defect" legs are now real
+assertions -- they were written to go green the round they were fixed, and they did.
+It asserts THE HALVING IS ON and THE CONTROLS STILL WORK WITH IT ON (press PHONE, did
+the phone open), which is the only instrument in this whole row that ever told the
+truth.
+
+STILL IMPERFECT, SAID OUT LOUD: 11 of 22 controls are under 44 (they are 14 tall). The
+gear in the shell and the teaching caption do not halve. The pad's portrait sits
+off-centre in the smaller ring. None of it breaks anything; all of it is visible.
+
 UI (ui-kmqmrf): 9/7 (b) LATEST -- *** [half size] THE SIZES NOW REALLY HALVE, PAD
 INCLUDED. THE BLOCKER MY OWN HANDOFF PREDICTED WAS ONE CSS LINE. STILL NOT SHIPPED. ***
 
