@@ -15422,6 +15422,15 @@ walled-suburb numbers pending since 7/14 DECIDED (top-half quality walls itself,
 the arterial plus a rear service gate over twelve cells, wall tiles from the bank) -> WORLD
 [suburb walls]. ONE THING HE HAS NEVER OPENED: the room's own song -- walk into a house and
 listen, RUN tab; 82 songs that played nowhere play indoors now.
+THEN (dc) VAMILY: ZERO commits, no claims, the lanes have not moved since his verdicts. Sweep
+pass four (records/BOHEMIA_COORDINATOR_SWEEP_PASS_FOUR_9_7_26.md): his 7/1 LOCKED intent
+"perks become a PERCEPTION system on the zoomed-out layer, not just combat stats" -- the
+shipped tree is 23 fight stats and nothing in the build touches sight or the map (a text
+search, not proof, but it agrees with COMBAT's own STATE line). It matters NOW because the
+zoomed-out layer is being built this week (sight circle, tracks, the tell, the feed) and
+without the branch every one of those is a fixed number forever. Routed COMBAT [perks see],
+UI [what you notice]; topped up ECONOMY (Q30 perk price, Q31 cheap eyes). ONE THING HE HAS
+NEVER OPENED: the perk tree itself, COMBAT tab, 23 perks he has never bought one of.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
