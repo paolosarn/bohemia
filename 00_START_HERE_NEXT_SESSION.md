@@ -15131,6 +15131,14 @@ out equals the city's closest in, the renderer switch happens at that number, no
 changes size; the 7/1 seamless lock made exact. RUN [zoom meets] top of RUN; PLUMBER
 [scale gate] measures one house tile on both sides of the switch. Record: records/BOHEMIA_
 RULING_THE_PAD_IS_BROKEN_AND_THE_ZOOM_MEETS_IN_THE_MIDDLE_9_7_26.md.
+THEN (cz) VAMILY: 1 commit (a PEOPLE handoff note), lanes idle, the pad fix NOT yet claimed.
+Sweep pass two (records/BOHEMIA_COORDINATOR_SWEEP_PASS_TWO_9_7_26.md): NO CLAWBACK (7/8)
+HOLDS -- zero code lowers a building tier, the only "tier --" hits are a comment; THE EMPTY
+CHAIR (7/19) is PRESENT in the grief dinner and nine times in the alpha; and [make it
+right] SAYS PAID AND NOTHING IS PAID (ECONOMY found the button passes "PAID THEM BACK" and
+makeRight has no purse or amount; the lanes called the amount Paolo's, a number is never
+his). DECIDED: restitution in batteries from the purse, weight for weight, the wronged
+person still decides. Routed PEOPLE [paid means paid], top with [fluent liar].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
