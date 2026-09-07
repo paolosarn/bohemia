@@ -14297,6 +14297,11 @@ staleness gate went red fleet-wide in a minute and was loosened to 1% the same r
 [combat ground] round 1, LIFE+CITY two rounds, ECONOMY Q22 (the first lie is a cliff).
 ONE THING HE HAS NEVER OPENED, this round: the generation fold, DIRECT tab, FOLD A
 GENERATION. Board 146 open.
+THEN (cn) "look at this song bro" with a screenshot: FINAL FANTASY X OST, BESAID ISLAND
+(original, Hamauzu). NOTES ARE RULINGS: that is THE ANCHOR, written into the sound law
+section 6 and onto SOUNDS [sound card]; nobody hunts for it any more. The brief off his
+picture: "would you live here?" -- a place you would want to live, after the world ended.
+Said plainly that this seat cannot listen to audio; the lane compares by ear and number.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

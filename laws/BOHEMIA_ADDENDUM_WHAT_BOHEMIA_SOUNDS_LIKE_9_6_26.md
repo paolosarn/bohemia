@@ -45,3 +45,17 @@ under the beat the fight already keeps. The sun is still there. The city is not.
 - The one he likes is the anchor. Find it, name it, measure everything against it.
 - COMPARE EVERY PIECE OF ART TO THE WORLD (9/4) applies to sound: reference beside
   candidate, before it is called done.
+
+
+## 6. THE ANCHOR, NAMED BY HIM (9/7, "look at this song bro")
+He sent the track: **"Final Fantasy X OST -- Besaid Island"** (the original, not the
+remaster; Hamauzu). THAT IS THE ANCHOR. Nobody hunts for it any more; every candidate
+in the sound lane is measured against this one track first.
+What the picture he sent says, for a cook who cannot hear it: green cliffs, three
+waterfalls into blue sea, a dirt path with a chain fence, a person standing in the
+sun, and under the next video the caption "would you live here?" THAT is the brief.
+The sound of Bohemia is a place you would want to live, after the world ended.
+Ours keeps the waterfalls' patience and the path's ease and swaps the cliffs for a
+dead casino, on instruments that survived. (The coordinator cannot listen to audio
+and says so; the lane compares by ear and by measurement, reference beside
+candidate, per the 9/4 compare law.)
