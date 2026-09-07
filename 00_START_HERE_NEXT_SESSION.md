@@ -15105,6 +15105,17 @@ transition). (2) THE TEN START-OPTIONS BECOME THE FIRST QUESTS, 7/19, LOCKED, "n
 wasted": three of ten exist anywhere, seven were never written -> QUESTS [ten openings].
 (3) the ridge, found last round. Pattern: all three are July locks below the lanes'
 horizon; this hand sweep runs every round until EYES E17 is a machine.
+THEN (cy) HE PLAYED AND SENT A FRAME (records/target/PAOLO_THE_PAD_IS_BROKEN_9_7_26.jpg): "the
+action button is fucked up now" -> a REGRESSION from [half size]: seven scattered arrows,
+two the same way, the face (the action button) shoved into a corner box; spreading the ring
+broke the ring. UI [pad broken] top of UI above everything, with a gate (four arrows, one
+each way, face in the centre, nothing overlapping). And the zoom ruling, LOCKED: "zoom out
+a little more from the street, zoom in a little more from the city builder, they meet
+exactly in the middle at the same scale" -> one continuous scale, the street's farthest
+out equals the city's closest in, the renderer switch happens at that number, nothing
+changes size; the 7/1 seamless lock made exact. RUN [zoom meets] top of RUN; PLUMBER
+[scale gate] measures one house tile on both sides of the switch. Record: records/BOHEMIA_
+RULING_THE_PAD_IS_BROKEN_AND_THE_ZOOM_MEETS_IN_THE_MIDDLE_9_7_26.md.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
