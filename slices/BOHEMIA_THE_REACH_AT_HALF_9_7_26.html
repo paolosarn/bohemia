@@ -1,0 +1,140 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - THE REACH AT HALF - 5 OPTIONS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --line:#c8bda9; --hot:#c8482a; --cool:#2f6f6a; }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.5px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border:2px solid var(--ink); background:#fff }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ border:2px solid var(--ink); background:#fff; margin:14px 0 }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .body{ padding:12px }
+ .say{ margin:0 0 10px; font-size:15px }
+ .cost{ margin:0; font-size:14px; color:#5b544a }
+ .cost b{ color:var(--ink) }
+ /* the little phone, drawn at true pixel sizes */
+ .phone{ width:170px; height:300px; border:2px solid var(--line); background:#efe9dd;
+         position:relative; float:right; margin:0 0 8px 14px; overflow:hidden }
+ .strip{ position:absolute; left:6px; right:6px; display:flex; }
+ .chip{ height:14px; background:#2b2622; color:#f4efe6; font:5px/14px ui-sans-serif,Arial;
+        text-align:center; letter-spacing:.5px; position:relative; border-radius:3px }
+ .reach{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+         background:rgba(200,72,42,.20); border:1px dashed var(--hot); pointer-events:none }
+ .ring{ position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+        width:90px; height:90px; border:2px solid #2b2622; border-radius:50% }
+ .clear{ clear:both }
+ @media (max-width:560px){ .phone{ float:none; margin:0 auto 12px } }
+ /* judging */
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--line) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px; border-radius:4px }
+ .tb.on{ background:var(--cool); color:#fff }
+ .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:1px solid var(--line); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border:2px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:2px solid var(--ink);
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>THE REACH AT HALF - FIVE OPTIONS</h1>
+ <div class="sub">Everything on the walked screen is half size now, like you said. This is the one thing it broke, and five ways to fix it. Tap a thumb. 9/7</div>
+</header>
+
+<div class="now">
+ <b>WHAT IS TRUE RIGHT NOW:</b> every button on the street is 14 pixels tall. A thumb is
+ about 44. Nothing is impossible to press and nothing does the wrong thing, but the small
+ ones want aiming at. I could not just put a big invisible pad under each button: the pad
+ lay across the button next to it and ate the press. That is why the phone would not open.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+/* draw one little phone: rows of chips at the TRUE size they are on the street */
+function phone(mode){
+  var rows = [['MUSIC','SAVE','PHONE','FIT'],['RUNG','BUILD','MARKET'],['MODE','BIKE','SLEEP']];
+  var gap = mode==='spread' ? 22 : 12;
+  var h   = mode==='tall' ? 44 : 14;
+  var top = 14, out='';
+  if(mode==='tworows') rows = [['MUSIC','SAVE'],['PHONE','FIT'],['RUNG','BUILD'],['MARKET','MODE'],['BIKE','SLEEP']];
+  for(var r=0;r<rows.length;r++){
+    out += '<div class="strip" style="top:'+top+'px;gap:6px">';
+    for(var i=0;i<rows[r].length;i++){
+      var reach='';
+      if(mode==='snap') reach='<span class="reach" style="width:100%;height:'+gap+'px"></span>';
+      if(mode==='tall') reach='';
+      out += '<div class="chip" style="flex:1;height:'+h+'px;line-height:'+h+'px">'+rows[r][i]+reach+'</div>';
+    }
+    out += '</div>';
+    top += h + gap;
+  }
+  return '<div class="phone">'+out+'<div class="ring"></div></div>';
+}
+
+var OPTS = [
+ { k:'A', t:'A. LEAVE IT. THE BUTTON IS THE BUTTON.',
+   m:'plain',
+   say:'Half size, nothing added. What you see is what you press. 14 pixels tall.',
+   cost:'<b>Costs you:</b> you have to aim. On a bumpy bus you will miss some. <b>Gets you:</b> the screen is exactly as small as you asked and nothing is hiding under anything.' },
+ { k:'B', t:'B. HALF AS WIDE, BUT STILL THUMB TALL.',
+   m:'tall',
+   say:'Cut the width in half and leave the height alone. Buttons stay 44 tall.',
+   cost:'<b>Costs you:</b> it is not really half, it is half in one direction. The bar still takes the same band of screen. <b>Gets you:</b> every press lands, every time, with no aiming.' },
+ { k:'C', t:'C. SAME TINY BUTTONS, PUSHED FURTHER APART.',
+   m:'spread',
+   say:'Keep them 14 tall but put real air between them so a fat press cannot touch two.',
+   cost:'<b>Costs you:</b> the stack gets taller and eats screen you wanted back. <b>Gets you:</b> tiny look, and a miss is a miss instead of the wrong button.' },
+ { k:'D', t:'D. THE SCREEN GUESSES WHICH ONE YOU MEANT.',
+   m:'snap',
+   say:'Press anywhere near the row and it goes to the closest button. No pads stacked on each other, just one listener doing the maths.',
+   cost:'<b>Costs you:</b> once in a while it guesses wrong and you undo something. <b>Gets you:</b> half size AND a full thumb of reach, which is the only way to get both.' },
+ { k:'E', t:'E. BREAK THE LONG ROW INTO SHORT ONES.',
+   m:'tworows',
+   say:'Two buttons per row instead of four, so each one is fat and wide even at half height.',
+   cost:'<b>Costs you:</b> more rows down the side of the screen. <b>Gets you:</b> wide targets without making anything taller.' }
+];
+
+var box = document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2><div class="body">'
+    + phone(o.m)
+    + '<p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p><div class="clear"></div></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+box.addEventListener('click', function(e){
+  var b = e.target.closest('.tb'); if(!b) return;
+  var j = b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out = ['BOHEMIA - THE REACH AT HALF - 9/7/26', ''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on = j.querySelector('.tb.on');
+    var v = on ? (on.classList.contains('yes') ? 'YES' : 'NO') : '-';
+    out.push(j.dataset.k + ': ' + v + '   ' + (j.querySelector('textarea').value || ''));
+  });
+  out.push('', 'ANYTHING ELSE: ' + (document.getElementById('all').value || ''));
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([out.join('\n')], {type:'text/plain'}));
+  a.download = 'BOHEMIA_REACH_AT_HALF_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

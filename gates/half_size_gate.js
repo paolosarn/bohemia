@@ -16,9 +16,11 @@
    node it was attached to -- a real effect a player would see. It answers cleanly:
    without the halving the phone opens, with the halving nothing happens.
 
-   SO THE ROW IS NOT SHIPPED AND THIS GATE HOLDS THE LINE THAT MATTERS MOST: the
-   shipped game's controls still work. The halving is default OFF, the work is kept,
-   and what it already achieves is reported so the next round starts from facts.
+   THE ROW IS SHIPPED (9/7) AND THIS GATE HOLDS THE LINE THAT MATTERS MOST: the
+   shipped game's controls still work WITH THE HALVING ON. The pads came off, because
+   the pads were what broke the presses, so the reach IS the drawn button -- the row's
+   own escape hatch, used and written down in
+   records/BOHEMIA_HALF_SIZE_WHAT_IT_COST_9_7_26.md.
 
      node gates/half_size_gate.js
    ========================================================================== */

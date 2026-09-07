@@ -1,3 +1,35 @@
+UI (ui-kmqmrf): 9/7 (p) LATEST -- *** [half size] IS SHIPPED AND IT IS ON. 8a130456 plus this
+round's board mark. EYES E13 named the bug that was holding it off the build and it was exactly
+right: the reach pads were lying across their neighbours, phonebtn's tap was being delivered to
+savebtn, and that is why pressing PHONE did nothing. THE PADS ARE OFF, class and variables and
+all, and pressing PHONE opens the phone with the halving on. ***
+TAB: RUN (the walked street -- every chip, the walk ring and the mode button are half size).
+THE PICTURE THIS ROUND: slices/BOHEMIA_THE_REACH_AT_HALF_9_7_26.html, five options for the one
+thing half size broke.
+
+WHAT HALF COST, IN THE OPEN (records/BOHEMIA_HALF_SIZE_WHAT_IT_COST_9_7_26.md):
+  Eleven pressable controls, every one now 14 px tall, and the reach IS the drawn button --
+  drawn size and touch size are the same number. A pad big enough to matter is a pad that eats
+  the button next to it; that was proved on the real screen, not argued. The row's own words
+  were "shrink it anyway and put the fact in the record", so that is what this is.
+  Not halved and known: the shell gear and the teaching caption. They are drawn by the outer
+  shell, outside the city frame, so the city's stylesheet cannot reach them.
+
+THE 44 FLOOR YIELDED, NARROWLY AND LOUDLY. thumb_gate.js still enforces 44 for everything else.
+It exempts only the ids BOHEMIA_HALF reports, only while the halving is on, and it PRINTS every
+shrunk control by name every single run so this can never go quiet. Mutation-proved: put a
+control back to 30 px outside that list and the gate still fails. NEWEST DATE WINS is why the
+9/6 halving order beats the 9/6 44-px floor -- his halving order is the louder, later one.
+
+[PENDING Paolo] TWO PICTURES ARE WAITING ON HIM, AND I AM NOT BLOCKED ON EITHER:
+  1. THE RING (asked three rounds running): slices/BOHEMIA_THE_PAD_IS_ONE_RING_9_7_26.html --
+     which of five ring cuts, 1 to 5. He ruled the walk pad must be ONE ring cut into segments
+     around the action button, not eight independent circles.
+  2. THE REACH AT HALF: slices/BOHEMIA_THE_REACH_AT_HALF_9_7_26.html -- five ways to give the
+     thumb back at half size (leave it / half-wide-full-tall / spread / nearest-button guess /
+     two per row). Option D is the only one that gets both half size and a full thumb.
+  Neither blocks the queue. Next up in this lane is [no tabs], already DECIDED by the
+  coordinator, then [three acts] and [skin swap].
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
