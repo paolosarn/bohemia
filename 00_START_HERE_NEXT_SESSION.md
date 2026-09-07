@@ -5199,113 +5199,90 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/6 LATEST -- *** THE BORDER WEARS ITS COLOUR, AND THE SUBURB WALL
-WEARS IT TOO. Walk to the edge of a faction's ground and the block wall beside you carries
-that faction's colour; two streets in it is a plain wall again. [border marked] SHIPPED in
-two rounds. TAB: CITY, walking. Nothing to judge. ***
+COOK (cook-mce6r5): 9/7 LATEST -- *** THE LOT BESIDE THE STREET IS SOMEBODY'S HOUSE. A
+quarter of the combat board was one generic "lot" tile; it is roofs, gravel yards and block
+walls now, and not one new pixel was cooked. TAB: COMBAT. Nothing to judge. ***
 
-THE JOB WAS [border marked] THE-BORDER-WEARS-ITS-COLOUR. Both dependencies landed first and
-neither was this: FACTIONS [who holds] (8bf3a91) made the border REAL, FACTIONS
-[colours fixed] (0160c71) made the colour REACHABLE, UI [owner shown] painted it ON THE MAP.
-A MAP IS NOT WHERE HE WALKS.
+THE JOB: [combat ground] COMBAT-GROUND-TILES, CLAIMED, CONTINUING. Round 1 of 2.
 
-THE REFERENCE CHECK (the 9/4 standing duty, done before any pixel): police-intelligence
-write-ups on gang boundary graffiti -- policemag.com, police1.com, the ASU Center for
-Problem-Oriented Policing, gangenforcement.com. TAKEN: a boundary mark is a NO-TRESPASSING
-SIGN AIMED AT THE OTHER SIDE, so it is the holder's colour on the holder's edge facing out;
-the places named are "main thoroughfares, underpasses, and walls bordering rival
-territories", WHICH IS THE ROW'S OWN LIST arrived at independently; "large and plain
-surfaces are preferred, without windows or doors"; and a mark is a NAME OR SYMBOL repeated
-along the boundary, NOT a wash of colour. NOT TAKEN: the crossing-out vocabulary (a rival's
-mark struck through, both claims where they meet) -- it needs the contested edge as a PAIR
-rather than a cell, and it is named as next rather than half-built. STYLE FROM US: the hue
-is HIS, measured off his wardrobe and never picked here; the mark is thin, a 3 px band on a
-44 px face.
+MEASURED FIRST, AND IT CORRECTED THE GUESS I HAD FROM READING THE SOURCE. The combat module
+lives base64-encoded inside COMBAT_B64, which is why no grep finds it; decoding it said the
+tile bank had 8 kinds and no `lot`, so everything past the sidewalk fell through to a flat
+colour. THAT WAS WRONG -- the decode truncated the bank at a `};` inside it. Measured in the
+fight's own realm instead (boot to play, start an encounter, read the floor the frame draws,
+tools/bohemia_combat_ground_probe_9_6_26.js): 851 visible cells, 100% of them ALREADY
+drawing approved art. The board is not empty. IT IS A STREET AND NOTHING ELSE:
+    lot 26.1%   road 26.1%   walk 17.4%   lane 8.7%   kerb/gutter/median 4.3% each
+Half road and pavement, and the other quarter one generic "somebody's ground" tile standing
+in for every house, yard and back lot in Las Vegas. NO house kind, NO yard kind, NO wall
+kind existed on the combat board at all -- which is exactly the gap clause 3d names.
 
-ROUND 1 built it and MEASURED that it reached 78% of the border: 346 of 446 sampled border
-cells carry a district kit legend, 100 do not (99 suburb, 1 gated). ROUND 2 closed that.
-The parametric suburb's v===4 branch IS the block perimeter wall and has been since 7/27
--- its own pool, its own thirteen approved keys, its own height, its own law that perimeter
-and building walls never share a pool. Nothing needed identifying; it just sat on a path the
-kit-legend test could not see. Suburb border cells went 0 -> 135 and 0 -> 76 marks.
+AND IT COOKS NOTHING, WHICH IS THIS ROW'S OWN PRECEDENT. The street under the fight was
+never painted either: v94 lifted it out of Paolo's approved banks and said so in capitals,
+"NO NEW GRAPHIC PIXELS ARE COOKED... the run and the fight now stand on the same street."
+The same bank (STARTER_TILESET_ACT1_RECOOK, approved 7/28, picked again 7/29, byte-locked in
+the visual constitution) has all of it at exactly 44 px, the combat tile size: roof_slope /
+ridge / eave / four hips for HOUSE, yard_0/1/2 + dirt for YARD, wall_0/1/2 + wall_base for
+WALL. So the fight stands on the same houses the walked city does.
 
-AND THE TEST WAS FACTORED OUT RATHER THAN COPIED. Round 1 inlined the per-tile turf memo in
-the kit branch; a second copy in the suburb branch is what REUSE-FIRST exists to stop, and
-this file has fixed that same bug under six names. One function now (bohTurfEdgeOf /
-bohBorderMark), memoised on the tile, both call sites three lines. The cook REFUSES TO WRITE
-ITSELF if the turf test ends up in the file more than once.
+THE REFERENCE CHECK IS THIS LANE'S OWN SHEET, shipped 9/5 for this exact row:
+reference/library/tile-ground/ TG-01..07. TAKEN: TG-02, from 45 degrees a house is ROOF
+PLANES FIRST and at combat range the roof IS the house's ground read, its ridge giving the
+tile its orientation -- so `house` is roof art and it NEVER SPINS; TG-03, a Vegas yard is
+gravel or hardpan INSIDE A BLOCK WALL and "the wall runs the tile's full edge, so a yard
+tile's cover story is its WALL, not its middle" -- so the property line is a real wall
+column, not a tint; TG-01, a Vegas lot is barely bigger than its house so a fat margin of
+ground around a house is a SCALE LIE -- one house tile and one yard tile per property; and
+3d's own words, "a house with a big backyard is now one by two tiles big" -- house row,
+yard row, paired. NOT TAKEN: TG-07's cover, which is props ON the ground rather than ground,
+lives in a different bank, and is round 2.
 
-AND ROUND 2 COST 30 POINTS OF THE BEAT BEFORE IT COST NOTHING. The first cut asked the
-turf question BEFORE the arithmetic ones, for every perimeter-wall cell in the district the
-player spawns in. Four interleaved phone-beat runs, same machine: 42.9% and 51.7% of beats
-late WITHOUT it, 77.1% and 77.4% WITH -- non-overlapping, and THE GATE'S EXIT CODE WAS 0
-BOTH TIMES, so nothing would have stopped it shipping except measuring it. The turf answer
-was never the cost: instrumented on a real boot, only 2 tiles in 144 ever carry the memo.
-The cost was ASKING AT ALL, millions of times. The hash and the position test are pure
-arithmetic and go first now, and the CALL is skipped rather than shortened: 47.1% (541 ms),
-back inside the baseline band, with the suburb marks unchanged at 135 and 76.
+WHAT CHANGED, IN ONE PLACE: streetKindAt is untouched and still answers 'lot'; the paint
+loop refines that to house / yard / wall EXACTLY where it already refines the lot's variant
+index, so the street above is byte-identical and only the lot band moves.
+    lot 26.1%  ->  house 11.2% + yard 10.6% + wall 4.3%
 
-MEASURING CORRECTED ME SIX TIMES ACROSS THE TWO ROUNDS, all written into the record:
-the first cut painted whole neighbourhoods (an overmap cell is 128 x 128 walked tiles, so
-one-in-three anywhere is ten marks per 16,384 cells, mid-block, saying nothing); the first
-probe reported zero of everything on a working build (it asked tileMeta for cells; tileMeta
-returns kit CODES, and cellAt() is what a walk calls); the filter tested the KIND when a
-district KIT writes its own legend (the apartment kit's 756 fences are kind:'structure'
-name:'fence', so testing the kind found the solar farm and missed everywhere anybody
-lives -- THE NAME is what every kit agrees on); the sample only saw the valley rim; and the
-turf lookup was asked per cell instead of once per tile.
-
-THE ROW'S THIRD WORD, "THE UNDERPASS", IS ANSWERED AND NOT QUIETLY DROPPED: there is no
-underpass WALL in this build. An underpass here is a grade-separated crossing where an
-arterial meets a freeway (his 7/5 ruling, bohemia_overmap.js) and a two-lane street
-generator -- a road under a road, not a wall kind with a legend. The vertical surfaces at
-those crossings are freeway structures and take the same rule as any other structure there,
-which is why the freeway border cells paint (64, 8 and 3 marks).
-
-WHAT IS STILL UNPAINTED IS NOT A GAP IN THE RULE: nine of sixteen sampled border cells have
-NO wall face in the band at all -- arterial, desert, mountain. That is FACTIONS' design
-working: every border runs along a road, a rail line, a wash or a mountain, and most of
-those have nothing standing on them. Painting there would mean inventing a wall. The
-mountain cells carry 605-1290 rock faces and take zero marks: nobody sprays a cliff.
-
-[EYES BOUNCED BACK A ROW AND ITS PREMISE IS THE ONE I ALREADY DISPROVED] The board now
-carries [eyes: light drift] repeating E7's ten-tiles-lit-wrong finding verbatim, directly
-under COOK's own SHIPPED line (b5b877c) that measured it three ways and found NONE of the
-ten lit from the wrong corner. It contains no counter-measurement -- it looks re-added from
-the E7 record rather than written against the result. gates/light_agrees_gate.js is
-registered, green, and self-tests its own ruler both ways every run. DO NOT SPEND A ROUND
-"FIXING THE TEN": read records/BOHEMIA_THE_TEN_TILES_ARE_NOT_LIT_WRONG_9_6_26.md first. The
-SECOND half of that line is new and is NOT mine -- the re-cook's median 0.16x colour density
-against the approved set was routed by E7 itself to DIRECTION, and two independent
-instruments now point at it, so it wants a ruling and not a quiet cook.
+AND THE PROBE HAD TO BE FIXED TWICE BEFORE IT COULD BE BELIEVED: it took
+document.querySelector('canvas') and got a 183x54 UI STRIP, reporting the kind mix of a
+sliver as the floor (it takes the biggest canvas now, 780x1354); and after the change it
+still said lot 26.1% on a build with no lot, because it stopped at streetKindAt instead of
+following the paint loop. A PROBE THAT RE-STATES THE CODE INSTEAD OF FOLLOWING IT MEASURES
+THE OLD BOARD.
 
 [PENDING Paolo] *** THERE IS NO GREY AND NO WHITE HAIRCUT LEFT IN THE GAME *** (from
   [runway hair]). All eleven survivors are black, brown or sand and a worn hair garment
   draws in its own baked ramp, so RAY the father, the Church and the old wide-brim citizen
   lost their grey. Leave them dark, cook grey colourways, or unblock fresh hair shapes.
 [PENDING Paolo] A BALACLAVA CANNOT BE COOKED UNDER THE DURAG LINE (his 7/18 ruling).
+[FOR COMBAT] the 1.5-to-2 sprite-widths tile is your dial (TILE WIDTH in DEMO SETTINGS,
+  clause 3d), not a cook -- the law says the exact ratio is his, by eye. The ground is ready
+  for it either way; nothing here assumes a tile size.
 [FOR DIRECTION] the style card has NO HAIR SECTION and its cloth bands must not be applied
   to hair; the card's POLE A/POLE B shoulder-span number is unmeetable by any dressed
-  sprite; and E7's colour-density finding above is yours.
+  sprite; and E7's colour-density finding (the re-cook at a median 0.16x the approved set)
+  is yours -- it was routed to you and the board tried to hand it to COOK.
 [FOR EYES AND EARS] tools/bohemia_eyes_reference_score.py, key_light(): mask to alpha > 0
-  and return "undecided" under about a tenth of the tile's own standard deviation.
+  and return "undecided" under about a tenth of the tile's own standard deviation. Your
+  [eyes: light drift] bounce-back was answered from the measurement on 9/6 and closed --
+  its premise is the one gates/light_agrees_gate.js disproves and holds, and nobody should
+  spend a round "fixing the ten".
 [FOR THE PLUMBER] look_gate clocks pictures by FILE MTIME; city_cast_gate B6 is flaky
   (3 red of 4 runs on unchanged main); bohemia_gates.py --fast is documented "~2s vs ~4min"
   and ran 34 minutes without finishing.
 
-FILES  tools/bohemia_border_wears_its_colour_9_6_26.py (round 1),
-tools/bohemia_border_the_suburb_wall_9_6_26.py (round 2, and it refactors round 1 rather
-than copying it), tools/bohemia_border_paint_probe_9_6_26.js (the measurement),
-records/BOHEMIA_THE_BORDER_WEARS_ITS_COLOUR_9_6_26.md and
-records/BOHEMIA_AND_THE_SUBURB_WALL_WEARS_IT_TOO_9_6_26.md.
+FILES  tools/bohemia_combat_the_lot_is_a_house_9_6_26.py (the wiring, both surfaces,
+idempotent, and it refuses to overwrite a kind the fight already has),
+tools/bohemia_combat_ground_probe_9_6_26.js (the measurement),
+records/BOHEMIA_THE_LOT_BESIDE_THE_STREET_IS_A_HOUSE_9_6_26.md.
 
-*** WHAT COMES NEXT *** The first OPEN line in COOK is [combat ground] COMBAT-GROUND-TILES
--- the combat floor tile at 1.5 to 2 sprite-widths on the 45-degree corpus: house, yard,
-street, lot, cover that reads, and a house with a backyard spanning 1x2 (the 9/4 tile law).
-COOK already shipped the reference for it: reference/library/tile-ground/ (7 entries, the
-1x2 house-and-yard ruling checked against real Vegas lot numbers) and
-reference/library/combat-ground/. Claim the line before starting. If [eyes: light drift] is
-still OPEN, answer it from the record above rather than re-doing the measurement.
+*** WHAT COMES NEXT *** [combat ground] round 2: COVER THAT READS (TG-07). "At one house per
+tile, cover is HOUSE-PART SIZED -- a block wall segment, a dead car, a dumpster, a porch
+pier -- and each must break the ground's silhouette at the tile edge where it blocks; cover
+that only reads by its colour is not cover." The approved wrecks are in
+banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (20 top-down wrecks, already wired in CITY) and
+the city's prop bank is BOHEMIA_CITY_PROPS.js (20 corpus objects, 11 families). Same rule as
+this round: lift, do not cook, and measure on the real surface before and after. The probe
+already reports the kind mix; add a cover count to it.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
