@@ -39523,6 +39523,353 @@ function ctKnowsMe(id){
   if (HASREQ) module.exports = API; else root.BohemiaAgainst = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 /* ==== /engine/bohemia_against.js (THE CROWD CARRIES THE SIGN) ==== */
+/* ==== engine/bohemia_family.js (THE FAMILY TREE, inlined verbatim) ==== */
+// BOHEMIA FAMILY — THE TREE, AND THE THINGS THAT WRITE TO IT.
+// (9/7/26, PEOPLE lane. VAMILY [family events], row FAMILY-EVENTS.)
+//
+// THE ROW: "something writes a child, a marriage, an ageing into family.tree;
+// selectHeir has zero callers."
+//
+// *** MEASURED BEFORE A LINE WAS WRITTEN, WITH COMMENTS STRIPPED FIRST,
+// BECAUSE A COMMENT IS A BLOCK AND NOT A LINE. *** In the two files that ARE
+// the game, plus the demo a stranger opens:
+//
+//                      ALPHA   CITY   DEMO
+//   runDynasty           0      0      0
+//   selectHeir           0      0      0
+//   family.tree          0      0      0
+//   foldGeneration       0      0      0
+//   emptyInheritance     0      0      0
+//   FAMILY_CAST         25      0     25
+//
+// So the row holds, and it is worse than it says. The RUN lane put the family
+// CAST into the game on 9/4 -- four named people, one of them lost in the cold
+// open, on a card he can open -- and that is real. But there is no TREE for
+// them to be in, nothing that writes one, and the heir rule has never once been
+// called anywhere a player could reach. The whole dynasty is three generations
+// (Paolo 8/28: "YEAH THREE GENERATIONS BRO CMON") and generation two arrives by
+// a rule the game cannot run.
+//
+// AND selectHeir HAS NO SOURCE MODULE. It exists ONLY inside
+// engine/bohemia_engine.js, which its own header calls a "COMBINED ENGINE
+// BUNDLE ... stitched into one file for handoff". A bundle is an artifact, not
+// a source, and it is in no played file. See THE ONE RULE, TWICE, PROVEN below.
+//
+// ============================================================================
+// NOTHING HERE IS INVENTED. EVERY SHAPE IS CITED, AND WHAT IS NOT RULED IS LEFT
+// ============================================================================
+// GDD v4 line 47   the inheritance block carries "family tree (marriages,
+//                  children, deaths, heir, traits/wounds -- the emotional
+//                  spine)". Those five are exactly what this module writes.
+// GDD v4 line 51   "heir selection from the family tree (child or sibling's
+//                  child)".
+// GDD v4 line 58   "Heir selection is DERIVED, not streamed: selectHeir(family,
+//                  seedText, gen) hashes seed + gen + candidate ids. Same
+//                  family + seed = same heir forever, regardless of reload
+//                  timing."
+// GDD v2 line 245  "The founding character. Loses a parent at the start of act
+//                  one. Finds a partner and marries them by end of act one --
+//                  this is a permanent act one decision. Has three to four
+//                  children from this marriage." (GDD v5 keeps v2 as the lore
+//                  foundation, so this is live.)
+// PERSISTENT CONSEQUENCE / MAYOR 6/30, LOCKED: the handoff is "Act 1->2->3, ~30
+//                  years and a new dynasty character each time". That is where
+//                  the ageing number comes from. I did not pick 30.
+// ACT1 OPENING VISION 7/19 + FAMILY_CAST.survivesIf: who walks out of the cold
+//                  open. Read off the cast, never re-decided here.
+// COORDINATOR 9/5, on the neighbouring row [heir moment]: "WHO YOU CAN MARRY
+//                  stays Paolo's (identity). Build the inheritance; leave
+//                  marriage a stub with his name on it."
+//
+// *** SO THIS MODULE NEVER INVENTS A PERSON. *** marry() REFUSES to run without
+// a partner handed to it, and there is no name pool anywhere in this file. A
+// module that could conjure a spouse would be authoring the one thing he
+// reserved. Children are born with name:null on purpose, and say() offers
+// player-facing words for them -- YOUR FIRSTBORN, YOUR SECOND -- which is an
+// attempt at the TEXT (8/11) without authoring an identity.
+//
+// ============================================================================
+// WHAT IS DELIBERATELY NOT BUILT, AND WHY IT WOULD BE A NUMBER HE NEVER RULED
+// ============================================================================
+// AGEING INSIDE AN ACT. A handoff is ~30 years and that is canon, so age() at a
+// fold is derived. But "how many game days is a year" is a mapping NOBODY HAS
+// RULED, and a child growing up mid-act needs it. Rather than pick one and hide
+// it in a module, age() takes the years as an argument and the fold hands it
+// the canon 30. Mid-act ageing is [PENDING Paolo] and is named in the record.
+// Everything else here works without it.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  /* THE RELATIONS. 'child' and 'sibling_child' are NOT free choices: they are
+     the two strings the heir rule reads (GDD v4 line 51), so they are spelled
+     the way the rule spells them and a third name for either would be a bug. */
+  var RELS = { SELF: 'self', PARENT: 'parent', SIBLING: 'sibling',
+               SPOUSE: 'spouse', CHILD: 'child', NEPHEW: 'sibling_child' };
+
+  /* THE AGE LADDER IS THE CAST'S OWN. FAMILY_CAST already writes age as one of
+     'adult' / 'teen' / 'child', so those three are not mine to rename. ELDER is
+     added because a thirty-year fold has to be able to put somebody past adult
+     and the cast never needed a word for it. The ladder is one-way: nobody gets
+     younger, which is the only ordering claim this makes. */
+  var LADDER = ['newborn', 'child', 'teen', 'adult', 'elder'];
+
+  /* WHAT EACH WORD IS IN YEARS. These are the ordinary age bands, not a taste
+     call: a child is under 13, a teen is 13 to 17, an adult is 18 to 64, an
+     elder is 65 and over. The band is the fact; the MIDPOINT is the estimator
+     you use when all you have is the word, which is all FAMILY_CAST gives.
+     Elder is open-ended so it uses its floor.
+     *** THE FIRST CUT OF THIS WAS WRONG AND DRIVING IT CAUGHT IT. *** It added
+     a flat three rungs to everybody at a fold, which made MARCO -- a teen --
+     an ELDER after thirty years. A teen plus thirty is forty-five, which is an
+     adult. A ladder position is not a number of years and adding to the wrong
+     one is exactly the class of thing that reads fine and is false. */
+  var BAND = { newborn: 0, child: 6.5, teen: 15, adult: 41, elder: 65 };
+  function bandOf(years) {
+    var y = Number(years) || 0;
+    if (y < 1) return 'newborn';
+    if (y < 13) return 'child';
+    if (y < 18) return 'teen';
+    if (y < 65) return 'adult';
+    return 'elder';
+  }
+
+  /* xmur3, the same string hash the engine's own derivations use, so a family
+     derived here and a family derived there cannot drift on the hash alone. */
+  function xmur3(str) {
+    var h = 1779033703 ^ str.length;
+    for (var i = 0; i < str.length; i++) {
+      h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+      h = (h << 13) | (h >>> 19);
+    }
+    return function () {
+      h = Math.imul(h ^ (h >>> 16), 2246822507);
+      h = Math.imul(h ^ (h >>> 13), 3266489909);
+      return (h ^= h >>> 16) >>> 0;
+    };
+  }
+
+  function node(id, rel, opts) {
+    var o = opts || {};
+    return { id: id, rel: rel,
+             name: (o.name === undefined ? null : o.name),
+             draft: !!o.draft,
+             alive: (o.alive === undefined ? true : !!o.alive),
+             age: o.age || 'adult',
+             years: (o.years === undefined ? null : o.years),
+             born: (o.born === undefined ? null : o.born),
+             why: o.why || null,
+             pending: !!o.pending };
+  }
+
+  /* ==========================================================================
+     THE SEED: THE TREE THE COLD OPEN LEAVES YOU WITH.
+     Read straight off FAMILY_CAST, which is handed in -- this module reads no
+     global and holds no copy of the cast, because TWO PLACES HOLDING ONE NAME
+     is how the mother came back as a DENISE from a table the scene module had
+     never heard of (the RUN lane's own 9/4 note). survivesIf is the cast's own
+     field and it alone decides who walks out.
+     THE LOST ONE STAYS IN THE TREE, DEAD. A tree that lists only survivors is
+     the counterfeit family the whole story is against, and the heir rule reads
+     `alive` anyway, so the dead cost nothing and carry the grief.
+     ========================================================================== */
+  function seedTree(cast, sex) {
+    if (!cast || !cast.length)
+      throw new Error('BohemiaFamily.seedTree needs the real FAMILY_CAST handed '
+        + 'in. It will not invent a family, and a second copy of the cast is '
+        + 'the exact bug the 9/4 note names.');
+    var who = String(sex || '').toLowerCase();
+    var tree = [];
+    for (var i = 0; i < cast.length; i++) {
+      var m = cast[i];
+      var role = String(m.role || '').toUpperCase();
+      var rel = (role === 'FATHER' || role === 'MOTHER') ? RELS.PARENT
+              : RELS.SIBLING;
+      /* *** WHO IS LOST IS NEVER DECIDED TWICE. *** If the caller hands a family
+         whose `alive` is already resolved -- which is exactly what the walked
+         city holds, because the shell applied his 7/19 ruling at the cold open
+         and persisted the answer -- that answer is USED, not recomputed. Only a
+         caller holding the RAW cast, with no alive field at all, falls through
+         to survivesIf. Two places deciding one thing is how the mother came back
+         as a DENISE nobody had heard of, and it would be worse here: the game
+         would disagree with itself about which sibling died. */
+      var lives;
+      if (typeof m.alive === 'boolean') {
+        lives = m.alive;
+      } else {
+        var s = String(m.survivesIf || 'always');
+        lives = (s === 'always') || (s === who);
+      }
+      tree.push(node('cast:' + role, rel, {
+        name: m.name || null, draft: !!m.draft, alive: lives,
+        age: m.age || 'adult',
+        why: lives ? (m.why || null) : 'lost in the cold open'
+      }));
+    }
+    return tree;
+  }
+
+  function byId(tree, id) {
+    for (var i = 0; i < (tree || []).length; i++)
+      if (tree[i].id === id) return tree[i];
+    return null;
+  }
+  function kidsOf(tree) {
+    return (tree || []).filter(function (n) {
+      return n.rel === RELS.CHILD && n.alive; });
+  }
+  function spouseOf(tree) {
+    return (tree || []).filter(function (n) {
+      return n.rel === RELS.SPOUSE && n.alive; })[0] || null;
+  }
+
+  /* ==========================================================================
+     A MARRIAGE. Canon calls it "a permanent act one decision" (GDD v2 245) and
+     the coordinator reserved WHO to Paolo, so this writes the EVENT and refuses
+     to choose the person. Hand it a partner or it throws -- there is no default
+     partner, no pool, and no fallback, because a silent default here would BE
+     the decision he reserved.
+     ========================================================================== */
+  function marry(tree, partner, opts) {
+    if (!tree) throw new Error('BohemiaFamily.marry needs a tree.');
+    if (!partner || typeof partner !== 'object')
+      throw new Error('BohemiaFamily.marry needs a partner handed to it. WHO '
+        + 'YOU CAN MARRY IS PAOLO\'S (coordinator 9/5) and this module will not '
+        + 'pick one, not even as a default.');
+    if (spouseOf(tree)) return null;      /* permanent: one act-one marriage */
+    var o = opts || {};
+    var n = node('spouse', RELS.SPOUSE, {
+      name: partner.name || null,
+      draft: partner.draft === undefined ? true : !!partner.draft,
+      pending: partner.pending === undefined ? true : !!partner.pending,
+      age: partner.age || 'adult',
+      born: (o.turn === undefined ? null : o.turn),
+      why: 'married by the end of act one'
+    });
+    tree.push(n);
+    return n;
+  }
+
+  /* ==========================================================================
+     CHILDREN. "Has three to four children from this marriage" (GDD v2 245), so
+     the COUNT is canon and which of the two is derived from the seed the same
+     way the heir is -- deterministic, so a reload cannot change how many
+     children you have. Born with name:null: naming your own child is his.
+     ========================================================================== */
+  var KIDS_MIN = 3, KIDS_MAX = 4;
+
+  function howManyKids(seedText) {
+    var h = xmur3(String(seedText || '') + '::kids')();
+    return KIDS_MIN + (h % (KIDS_MAX - KIDS_MIN + 1));
+  }
+
+  function bear(tree, seedText, opts) {
+    if (!spouseOf(tree)) return null;    /* canon: children come from the marriage */
+    var o = opts || {};
+    var have = (tree || []).filter(function (n) {
+      return n.rel === RELS.CHILD; }).length;
+    if (have >= howManyKids(seedText)) return null;
+    var n = node('kid:' + (have + 1), RELS.CHILD, {
+      name: null, draft: true, pending: true, age: 'newborn', years: 0,
+      born: (o.turn === undefined ? null : o.turn),
+      why: 'born in act one'
+    });
+    tree.push(n);
+    return n;
+  }
+
+  /* A DEATH. The node stays; only `alive` moves. Nothing is ever deleted from a
+     tree, for the same reason a settled deed keeps its record. */
+  function bury(tree, id, why) {
+    var n = byId(tree, id);
+    if (!n || !n.alive) return null;
+    n.alive = false;
+    n.why = why || n.why;
+    return n;
+  }
+
+  /* AN AGEING. Takes the years, never assumes them: the fold hands it the canon
+     ~30 and nothing else in the game is entitled to make a number up. The dead
+     do not age. */
+  function agePeople(tree, years) {
+    var add = Number(years) || 0;
+    if (add <= 0) return 0;
+    var moved = 0;
+    for (var i = 0; i < (tree || []).length; i++) {
+      var n = tree[i];
+      if (!n.alive) continue;
+      /* SOMEBODY BORN IN PLAY CARRIES REAL YEARS, so use them. Everybody else
+         only ever had a word, so the band's midpoint is the best that word can
+         give -- and once they have been aged once they carry years too, which
+         is strictly better than the word they started with. */
+      var from = (typeof n.years === 'number') ? n.years
+               : (BAND[n.age] === undefined ? BAND.adult : BAND[n.age]);
+      var to = from + add;
+      n.years = to;
+      var word = bandOf(to);
+      if (word !== n.age) { n.age = word; moved++; }
+    }
+    return moved;
+  }
+
+  /* ==========================================================================
+     THE ONE RULE, TWICE, PROVEN -- and this comment is the honest part.
+     GDD v4 line 58 fixes heir selection exactly: hash seed + gen + candidate
+     ids, child first, else sibling's child. The implementation exists inside
+     engine/bohemia_engine.js, which its own header calls a COMBINED ENGINE
+     BUNDLE stitched for handoff, and which is in NO played file. So the played
+     game cannot call it, and that is why the row says selectHeir has zero
+     callers.
+     Two places holding one rule is the bug this repo keeps paying for, so it is
+     not left to luck: heir_gate.js runs THIS function and the bundle's
+     selectHeir over hundreds of randomised trees and seeds and fails unless
+     every single answer is identical. Proven agreement is the only honest form
+     of a duplicate, and the duplicate only exists because a handoff bundle
+     cannot be imported by a browser slice.
+     ========================================================================== */
+  function heirOf(tree, seedText, gen) {
+    var kids = (tree || []).filter(function (n) {
+      return n.rel === RELS.CHILD && n.alive; });
+    if (kids.length) return kids[derivedIndex(seedText, gen, 'child', kids)].id;
+    var nieces = (tree || []).filter(function (n) {
+      return n.rel === RELS.NEPHEW && n.alive; });
+    if (nieces.length) return nieces[derivedIndex(seedText, gen, 'niece', nieces)].id;
+    return null;      /* a dynasty in crisis is a real state, not an error */
+  }
+
+  function derivedIndex(seedText, gen, tag, list) {
+    var ids = list.map(function (n) { return n.id; }).join(',');
+    var key = String(seedText || '') + '::heir::' + gen + '::' + tag + '::' + ids;
+    var h = xmur3(key)();
+    return (h >>> 0) % list.length;
+  }
+
+  /* PLAYER-FACING WORDS, ALL draft:true (8/11: words get an attempt, decisions
+     wait). These name NOBODY -- they say what the game actually knows about a
+     person, which is their place in the family, so a child can be spoken about
+     before Paolo has named one. */
+  var ORDINALS = ['FIRSTBORN', 'SECOND', 'THIRD', 'FOURTH', 'FIFTH'];
+  function say(tree, n) {
+    if (!n) return null;
+    if (n.name) return String(n.name);
+    if (n.rel === RELS.CHILD) {
+      var order = (tree || []).filter(function (k) {
+        return k.rel === RELS.CHILD; }).indexOf(n) ;
+      return 'YOUR ' + (ORDINALS[order] || 'YOUNGEST');
+    }
+    if (n.rel === RELS.SPOUSE) return 'THE ONE YOU MARRIED';
+    return null;
+  }
+
+  var API = { RELS: RELS, LADDER: LADDER, KIDS_MIN: KIDS_MIN, KIDS_MAX: KIDS_MAX,
+              seedTree: seedTree, marry: marry, bear: bear, bury: bury,
+              agePeople: agePeople, heirOf: heirOf, howManyKids: howManyKids,
+              byId: byId, kidsOf: kidsOf, spouseOf: spouseOf, say: say };
+  if (HASREQ) module.exports = API; else root.BohemiaFamily = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* ==== /engine/bohemia_family.js (THE FAMILY TREE) ==== */
+
 
 
 /* ==== engine/bohemia_clout.js (HOW LOUD, inlined verbatim) ==== */
@@ -46542,6 +46889,110 @@ function famLiving(){
   var f = famHydrate() || [];
   return f.filter(function(m){ return m.alive; });
 }
+/* ============================================================================
+   __CITY_FAMILY_EVENTS__ (9/7) -- AND NOW SOMETHING WRITES TO IT.
+
+   The family ARRIVED on 9/4 and then never changed again. Measured before this:
+   family.tree 0, selectHeir 0, runDynasty 0, in both files that make up the game
+   and in the demo. Four people frozen at the cold open, in a game whose whole
+   spine is THREE GENERATIONS.
+
+   NOTHING BELOW DECIDES ANYTHING THE CANON ALREADY DECIDED:
+     GDD v4 47   the tree carries marriages, children, deaths, heir
+     GDD v4 51   the heir is a child, else a sibling's child
+     GDD v4 58   DERIVED, hashing seed + gen + candidate ids -- so a reload
+                 cannot change who your heir is
+     GDD v2 245  married by the end of act one, a permanent act one decision,
+                 and THREE TO FOUR CHILDREN from that marriage
+     MAYOR 6/30  the handoff is "~30 years", which is the ageing number
+
+   AND WHO IS LOST IS NOT RE-DECIDED HERE. famHydrate's list already carries
+   `alive`, resolved by the shell from his 7/19 ruling, and seedTree uses that
+   answer rather than recomputing it. The game must never disagree with itself
+   about which sibling died.
+   ========================================================================== */
+var FAMTREE = null;
+var FAMT_KEY = 'boh.city.famtree';
+
+/* THE SAME RULE THE FAMILY SAVE SETS: an unreadable blob is discarded WHOLE.
+   A half-restored tree is worse than none, because you cannot see it is wrong. */
+function famTree(){
+  if(FAMTREE) return FAMTREE;
+  try{
+    var raw = JSON.parse(localStorage.getItem(FAMT_KEY) || 'null');
+    if(raw && raw.length && raw[0] && raw[0].rel) FAMTREE = raw;
+  }catch(_e){ FAMTREE = null; }
+  if(!FAMTREE){
+    var fam = famHydrate();
+    if(!fam || !fam.length) return null;       /* no family yet, no tree yet */
+    try{ FAMTREE = BohemiaFamily.seedTree(fam, null); }catch(_e){ return null; }
+    famTreeSave();
+  }
+  return FAMTREE;
+}
+function famTreeSave(){
+  try{ localStorage.setItem(FAMT_KEY, JSON.stringify(FAMTREE||[])); }catch(_e){}
+}
+/* THE SEED THE HEIR IS DERIVED FROM. It must be the same string every load or
+   the heir changes when he reloads, which GDD v4 58 explicitly forbids. The
+   world seed is that string and the game already holds it. */
+function famSeedText(){
+  try{ if(typeof SEED!=='undefined' && SEED) return String(SEED); }catch(_e){}
+  try{ if(typeof WORLD_SEED!=='undefined' && WORLD_SEED) return String(WORLD_SEED); }catch(_e){}
+  return 'bohemia';
+}
+
+/* A MARRIAGE. His decision, and the PARTNER IS NOT MINE: the coordinator ruled
+   9/5 that who you can marry is identity and stays Paolo's. So this hands in a
+   STUB carrying his name, and BohemiaFamily.marry throws if anybody ever calls
+   it without a partner -- there is no default, on purpose. */
+function famMarry(){
+  var t = famTree(); if(!t) return null;
+  var n = null;
+  try{
+    n = BohemiaFamily.marry(t, { name:null, draft:true, pending:true,
+                                 age:'adult' }, { turn: ctMinuteNow() });
+  }catch(_e){ return null; }
+  if(n) famTreeSave();
+  return n;
+}
+
+/* A CHILD, ON A NIGHT THAT PASSES. Canon fixes the COUNT (three to four) and
+   BohemiaFamily stops at it, so this cannot run away. THE SPACING IS NOT MINE
+   AND IS NOT INVENTED: one per night is the game's own existing beat, and how
+   many game days ought to sit between two births needs a days-per-year mapping
+   NOBODY HAS RULED. That is [PENDING Paolo] and it is named in the record
+   rather than guessed at here. */
+function famBorn(){
+  var t = famTree(); if(!t) return null;
+  var n = null;
+  try{ n = BohemiaFamily.bear(t, famSeedText(), { turn: ctMinuteNow() }); }
+  catch(_e){ return null; }
+  if(n) famTreeSave();
+  return n;
+}
+
+/* AN AGEING. Takes the years; the fold hands it the canon ~30 and nothing here
+   makes a number up. */
+function famAge(years){
+  var t = famTree(); if(!t) return 0;
+  var moved = 0;
+  try{ moved = BohemiaFamily.agePeople(t, years); }catch(_e){ return 0; }
+  if(moved) famTreeSave();
+  return moved;
+}
+
+/* THE HEIR RULE, FINALLY CALLED SOMEWHERE A PLAYER CAN REACH. */
+function famHeir(gen){
+  var t = famTree(); if(!t) return null;
+  try{ return BohemiaFamily.heirOf(t, famSeedText(), gen||1); }catch(_e){ return null; }
+}
+function famHeirSay(gen){
+  var t = famTree(); if(!t) return null;
+  var id = famHeir(gen); if(!id) return null;
+  var n = BohemiaFamily.byId(t, id);
+  return n ? BohemiaFamily.say(t, n) : null;
+}
 var FB_KEY  = 'boh.demo.card';
 var FB      = null;      /* the record */
 var FB_T0   = 0;         /* wall clock this sitting started */
@@ -46819,6 +47270,11 @@ function showEnding(){
   }, 5000); }catch(_e){}
 }
 function onNightfall(){
+  /* __CITY_FAMILY_EVENTS__ -- A NIGHT PASSES AND THE FAMILY CHANGES. Canon
+     gives the marriage three to four children (GDD v2 245) and the module stops
+     at that count, so this is bounded by his own document and not by a timer.
+     Before today the tree could not be written at all. */
+  try{ famBorn(); }catch(_e){}
   /* __THE_PHONE_RINGS__ -- NOT TAKING A JOB IS NOT FAILING IT. The old code could not
      say this: a quest that started itself could only ever be resolved or FAILED at
      nightfall. If he never accepted the offer, no quest ever ran, so there is
@@ -59974,6 +60430,34 @@ function showStanding(){
            + esc(_lost.name) + '</span></div>';
     }
   }catch(_e){}
+  /* __CITY_FAMILY_EVENTS__ -- WHAT THE FAMILY HAS BECOME SINCE, under the two
+     rows that say who you started with. A family that never changes is not a
+     dynasty, and this is the first surface that can show it changing.
+     THE HEIR IS SHOWN because GDD v4 51 makes it a fact about the tree, not a
+     thing that happens later: there is always an answer, including NOBODY, and
+     "a dynasty in crisis" is a real state worth seeing coming. */
+  try{
+    var _t = famTree();
+    if(_t){
+      var _sp = BohemiaFamily.spouseOf(_t), _kd = BohemiaFamily.kidsOf(_t);
+      if(_sp){
+        h += '<div class="rrow"><span class="rk">MARRIED</span><span class="rv">'
+           + esc(_sp.name || '[PENDING Paolo]') + '</span></div>';
+      } else {
+        h += '<div class="rrow"><span class="rk">NOT MARRIED</span><span class="rv">'
+           + 'BY THE END OF ACT ONE</span></div>'
+           + '<button id="fammarry">Marry</button>';
+      }
+      if(_kd.length){
+        h += '<div class="rrow"><span class="rk">YOUR CHILDREN</span><span class="rv">'
+           + esc(_kd.map(function(k){ return BohemiaFamily.say(_t,k); }).join(' · '))
+           + '</span></div>';
+        var _hs = famHeirSay(1);
+        h += '<div class="rrow"><span class="rk">WHO INHERITS</span><span class="rv">'
+           + esc(_hs || 'NOBODY YET') + '</span></div>';
+      }
+    }
+  }catch(_e){}
   h += '<div class="rrow"><span class="rk">YOUR RUNG</span>'
      + '<span class="rv">' + r.rung + '</span></div>';
   h += '<div class="rrow"><span class="rk">THE VALLEY</span><span class="rv">'
@@ -60036,6 +60520,24 @@ function showStanding(){
      working cards use. */
   h += '<div class="dcgo" data-act="close">CLOSE</div>';   /* draft:true */
   cardShow(h, cardHide);
+  /* __CITY_FAMILY_EVENTS__ -- AND THE BUTTON IS BOUND WHERE THE CARD REALLY IS.
+     THE FIRST CUT BOUND THIS IN ctDraw, WITH THE PERSON CARD'S OTHER BUTTONS,
+     and it could never have worked: this row renders on the STANDING card, which
+     is a different element built by a different function. Nothing threw, nothing
+     logged, and the button simply did nothing -- the failure mode that only a
+     real press finds, which is why the rule is verify on the real surface.
+     Bound AFTER cardShow because the node does not exist until the card is in
+     the document. The marriage is a decision, so it is a button he presses;
+     canon calls it "a permanent act one decision" and the module enforces that
+     permanence -- marry() returns null once a spouse exists, so a second press
+     cannot write a second marriage. */
+  try{
+    var _fmar = document.getElementById('fammarry');
+    if(_fmar) _fmar.addEventListener('click', function(){
+      try{ famMarry(); }catch(_e){}
+      try{ showStanding(); }catch(_e){}   /* redraw the card he is looking at */
+    });
+  }catch(_e){}
 }
 
 document.getElementById('rungbtn').addEventListener('click', showStanding);

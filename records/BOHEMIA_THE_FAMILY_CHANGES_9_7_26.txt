@@ -1,0 +1,135 @@
+BOHEMIA -- THE FAMILY CHANGES (9/7/26, PEOPLE lane)
+VAMILY job [family events], row FAMILY-EVENTS
+
+THE ROW: "something writes a child, a marriage, an ageing into family.tree;
+selectHeir has zero callers."
+
+================================================================================
+MEASURED BEFORE BUILDING, COMMENTS STRIPPED FIRST
+================================================================================
+A comment is a BLOCK, not a line, and counting a symbol without stripping them
+is how this lane got its own claims wrong three separate times in one session.
+Stripped, in the two files that ARE the game plus the demo a stranger opens:
+
+                     ALPHA   CITY   DEMO
+  runDynasty           0      0      0
+  selectHeir           0      0      0
+  family.tree          0      0      0
+  foldGeneration       0      0      0
+  emptyInheritance     0      0      0
+  FAMILY_CAST         25      0     25
+
+The row holds, and it is worse than it says. RUN put the family CAST into the
+walked world on 9/4 and that work is real -- four people, one lost in the cold
+open, on a card he already opens, gate 14/0. But nothing could ever CHANGE it.
+Four people frozen at the cold open, in a game whose whole spine is three
+generations ("YEAH THREE GENERATIONS BRO CMON", 8/28).
+
+AND selectHeir HAS NO SOURCE MODULE. It exists only inside
+engine/bohemia_engine.js, which its own header calls a "COMBINED ENGINE BUNDLE
+... stitched into one file for handoff". A bundle is an artifact, not a source,
+and it is in no played file. That is the mechanical reason the rule had zero
+callers: there was nothing a browser slice could call.
+
+================================================================================
+NOTHING HERE IS INVENTED. EVERY SHAPE IS CITED
+================================================================================
+GDD v4 line 47   the inheritance block carries "family tree (marriages, children,
+                 deaths, heir, traits/wounds -- the emotional spine)"
+GDD v4 line 51   "heir selection from the family tree (child or sibling's child)"
+GDD v4 line 58   "DERIVED, not streamed ... Same family + seed = same heir
+                 forever, regardless of reload timing"
+GDD v2 line 245  "Finds a partner and marries them by end of act one -- this is a
+                 permanent act one decision. Has three to four children from this
+                 marriage." (v5 keeps v2 as the lore foundation, so it is live.)
+MAYOR 6/30       the handoff is "~30 years", which is where ageing gets its
+                 number. I did not pick 30.
+FAMILY_CAST      survivesIf decides who walks out. Read, never re-decided.
+COORDINATOR 9/5  "WHO YOU CAN MARRY stays Paolo's (identity) ... leave marriage a
+                 stub with his name on it."
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_family.js                  the tree, the three writers, the heir
+tools/bohemia_city_family_events_patch.py the wire, the card, the button
+gates/family_events_gate.js               30 claims, 0 red
+gates/bohemia_gates.py                    registered, 553 -> 554
+
+SO THE MODULE CANNOT INVENT A PERSON, AND THAT IS THE LOAD-BEARING PART.
+marry() THROWS without a partner handed in. No pool, no default, no fallback: a
+silent default would BE the decision he reserved. Every `name:` the module
+writes is null or read off an object somebody else handed in -- the gate proves
+that by parsing the module rather than trusting the comment. Children are born
+name:null and say() offers YOUR FIRSTBORN / YOUR SECOND, an attempt at the WORDS
+(8/11) that authors no identity.
+
+AND WHO WAS LOST IS NEVER DECIDED TWICE. The city's family already carries
+`alive`, resolved by the shell from his 7/19 ruling. seedTree USES that answer
+and only falls through to survivesIf for a caller holding the raw cast. Proved
+both ways in the gate: hand it a family whose BROTHER is marked gone and the
+brother stays gone even when sex would have said otherwise.
+
+================================================================================
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT RATHER THAN READING IT
+================================================================================
+1. THE AGEING MODEL WAS WRONG AND IT READ FINE. The first cut added a flat three
+   rungs at a fold, which made MARCO -- a teen -- an ELDER after thirty years. A
+   teen plus thirty is forty-five, which is an adult. A LADDER POSITION IS NOT A
+   NUMBER OF YEARS. It now uses the ordinary age bands (child under 13, teen
+   13-17, adult 18-64, elder 65+) with the band midpoint as the estimator when
+   all you have is a word, which is all the cast gives. Across two folds now:
+   MARCO teen -> 45 adult -> 75 elder; a newborn -> 30 adult -> 60 adult; RAY
+   adult -> 71 elder.
+2. THE BUTTON WAS BOUND TO THE WRONG CARD AND COULD NEVER HAVE WORKED. The first
+   cut bound the Marry handler in ctDraw, with the person card's other buttons.
+   The row renders on the STANDING card, which is a different element built by a
+   different function. Nothing threw, nothing logged, and the button simply did
+   nothing. Only pressing it on the real surface found it. That is the entire
+   argument for VERIFY ON THE REAL SURFACE being a law and not advice.
+
+THE ONE RULE, TWICE, PROVEN. The played game cannot import a handoff bundle, so
+heirOf is unavoidably a second copy of the heir rule -- and two places holding
+one rule is the bug this repo keeps paying for. So it is not left to luck: the
+gate runs heirOf and the bundle's selectHeir over 600 randomised families and
+seeds and fails on a single disagreement. 0 disagreements, and the sweep really
+exercises all three answers (435 child, 101 sibling's child, 64 nobody) so it is
+not 600 easy cases.
+
+================================================================================
+PROVEN ON THE REAL DEMO, THROUGH THE CARD AND THE BUTTON A PLAYER PRESSES
+================================================================================
+  open WHERE YOU STAND    YOUR PEOPLE: RAY, DENISE, MARCO. WHO YOU LOST: NINA.
+                          NOT MARRIED / BY THE END OF ACT ONE, and a button.
+  who inherits?           NOBODY -- a dynasty with no children has no heir, and
+                          the engine calls that a real state, not an error
+  press Marry             MARRIED / [PENDING Paolo], the button is gone, and a
+                          second press cannot write a second marriage
+  nights pass             YOUR CHILDREN: YOUR FIRSTBORN, YOUR SECOND, YOUR THIRD
+                          and it stops at the canon count for that seed
+  who inherits now?       YOUR FIRSTBORN
+  reload                  the tree survives and THE HEIR DOES NOT CHANGE
+
+================================================================================
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+================================================================================
+1. HOW MANY GAME DAYS IS A YEAR. Nothing in the repo rules it. A handoff is ~30
+   years (canon) so ageing AT a fold is derived, but a child growing up DURING an
+   act needs this mapping, and so does the spacing between births. Today a child
+   arrives on a night that passes, which is the game's own existing beat, and the
+   count is bounded by his canon. The spacing is the only part waiting on him.
+2. WHO YOU MARRY. Reserved to him by the coordinator 9/5 and untouched here: the
+   partner is a stub carrying [PENDING Paolo] and the module refuses to pick one.
+3. WHETHER ANYBODY DIES OF OLD AGE. bury() exists and nothing calls it for age.
+   Across two folds RAY reaches 101 alive, which is a visible consequence of the
+   canon 30-year handoff and not something to paper over. WHEN a person dies of
+   age is a magnitude, so it waits; the mechanism is there for whoever rules it.
+4. THE CHILDREN HAVE NO NAMES, on purpose. Naming your own child is his. The
+   game says YOUR FIRSTBORN until he says otherwise.
+
+FEEDS: [heir moment] SUCCESSION-BEAT, which the coordinator already ruled (an
+heir inherits the house, the purse, every debt in full, half the standing and the
+wardrobe) and which needed a tree to select an heir FROM. That row is now
+unblocked. Also [creditor stands], which needs an heir to visit.
+
+TAB: CITY. Open WHERE YOU STAND and the family is at the top of the card.

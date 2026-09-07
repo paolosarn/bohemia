@@ -6620,7 +6620,34 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/6 (c) LATEST -- *** [make it right] SHIPPED. NOTHING IN
+PEOPLE (people-7h9sfy): 9/7 LATEST -- *** [family events] SHIPPED. THE FAMILY
+CAN CHANGE NOW. It arrived 9/4 and then never moved again: family.tree 0,
+selectHeir 0, runDynasty 0 in both files that make up the game -- four people
+frozen at the cold open, in a game whose spine is three generations. There is a
+MARRIAGE (canon calls it a permanent act one decision; WHO is still his and the
+module THROWS rather than invent a partner), THREE TO FOUR CHILDREN (his own
+GDD's count), an AGEING at the canon ~30-year handoff, and THE HEIR RULE FINALLY
+CALLED on the card he already opens. Tab: CITY, open WHERE YOU STAND.
+selectHeir HAD NO SOURCE MODULE -- it lives only inside engine/bohemia_engine.js,
+which its own header calls a handoff BUNDLE, and no browser slice can import one.
+That is the mechanical reason it had zero callers. So the played copy is
+unavoidable, and it is PROVED identical to the bundle over 600 randomised
+families (0 disagreements, and the sweep hits all three answers) rather than
+hoped to be.
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT: a flat-rung ageing model made
+MARCO, a teen, an ELDER after one thirty-year fold (a ladder position is not a
+number of years; it uses real age bands now), and the Marry button was bound in
+ctDraw with the PERSON card's buttons while the row renders on the STANDING card
+-- nothing threw, nothing logged, the button just did nothing. Only pressing it
+on the real surface found that.
+[PENDING Paolo] how many game days is a year (nothing rules it; ageing at a fold
+is canon, but a child growing up mid-act and the spacing between births both
+need it), who you marry, whether anybody dies of old age (RAY reaches 101 alive
+across two folds), and the children have no names on purpose.
+UNBLOCKS [heir moment], which the coordinator already ruled and which needed a
+tree to select an heir from. ***
+
+PEOPLE (people-7h9sfy): 9/6 (c) -- *** [make it right] SHIPPED. NOTHING IN
 THIS GAME COULD BE FORGIVEN AND NOW IT CAN. Wrong somebody, do two good turns
 in front of them, and they will square it. TAB: CITY.
 AND THE SHIP PASS FOUND SOMETHING WORSE THAN THE ROW: SIX GATES THIS LANE WROTE

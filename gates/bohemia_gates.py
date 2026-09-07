@@ -4229,6 +4229,18 @@ GATES = [
      "settled by somebody else's choice), whether they WOULD is derived from what they have actually "
      "seen rather than from a forgiveness dial nobody ruled, and forgiven is not forgotten -- the deed "
      "keeps its record and its reason, it only stops carrying force", False),
+    ('FAMILY EVENTS',  ['node', 'gates/family_events_gate.js'],
+     "THE FAMILY ARRIVED ON 9/4 AND THEN NEVER CHANGED AGAIN. family.tree 0, selectHeir 0, runDynasty 0 "
+     "in both files that make up the game -- four people frozen at the cold open, in a game whose whole "
+     "spine is three generations. This holds the other half: a marriage (canon calls it a permanent act "
+     "one decision), three to four children (his own GDD's count, not a dial), an ageing at the canon "
+     "~30-year handoff, and THE HEIR RULE FINALLY CALLED somewhere a player can see the answer. The "
+     "three claims that matter most are the ones about what it REFUSES: it cannot invent a spouse "
+     "(every `name:` it writes is null or handed in, because who you marry is Paolo's), it does not "
+     "re-decide which sibling was lost (the shell already answered that and the game must never "
+     "disagree with itself), and its heir rule is proved identical to the engine bundle's selectHeir "
+     "over 600 random families rather than hoped to be -- a browser slice cannot import a handoff "
+     "bundle, so the copy is unavoidable and only proven agreement makes it honest", False),
     ('PAYLOAD WALL',   ['python3', 'gates/payload_wall_gate.py'],
      "THE CLIFF NOBODY HAD MEASURED. GitHub REJECTS any file over 100 MB - not a warning, the push fails - and the alpha was 38.7 MB gaining ~1.4-2 MB/day, so every lane in the fleet would have lost the ability to push on an ordinary Tuesday about six weeks out, with no obvious cause. 96% of it was two inlined base64 blobs, and base64 costs 33% on top of what it carries. This measures every tracked file, projects the date off real git history, and fails at a budget well under the wall so somebody sees it with weeks of room", False),
     ('FACTION MEMBERSHIP', ['node', 'gates/faction_membership_gate.js'],

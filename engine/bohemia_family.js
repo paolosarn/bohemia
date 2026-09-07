@@ -159,8 +159,21 @@
       var role = String(m.role || '').toUpperCase();
       var rel = (role === 'FATHER' || role === 'MOTHER') ? RELS.PARENT
               : RELS.SIBLING;
-      var s = String(m.survivesIf || 'always');
-      var lives = (s === 'always') || (s === who);
+      /* *** WHO IS LOST IS NEVER DECIDED TWICE. *** If the caller hands a family
+         whose `alive` is already resolved -- which is exactly what the walked
+         city holds, because the shell applied his 7/19 ruling at the cold open
+         and persisted the answer -- that answer is USED, not recomputed. Only a
+         caller holding the RAW cast, with no alive field at all, falls through
+         to survivesIf. Two places deciding one thing is how the mother came back
+         as a DENISE nobody had heard of, and it would be worse here: the game
+         would disagree with itself about which sibling died. */
+      var lives;
+      if (typeof m.alive === 'boolean') {
+        lives = m.alive;
+      } else {
+        var s = String(m.survivesIf || 'always');
+        lives = (s === 'always') || (s === who);
+      }
       tree.push(node('cast:' + role, rel, {
         name: m.name || null, draft: !!m.draft, alive: lives,
         age: m.age || 'adult',
