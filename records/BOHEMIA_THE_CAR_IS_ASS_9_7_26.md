@@ -125,6 +125,55 @@ reached the sibling"* — and went red at 85 of 105 the moment I cooked
 `slices/BOHEMIA_CITY_PROPS.js` and not `banks/BOHEMIA_STREET_FURNITURE_8_21_26.txt`. Both
 are cooked now, in one tool, so they cannot drift.
 
+## ROUND THREE: "SQUASHED FLAT" IS A NUMBER, AND IT WAS THE HALF I HAD ROUTED AWAY
+
+His complaint, as the row reads it back, is "a smeared photograph **squashed flat** and
+sitting on top of a brick wall". Rounds one and two fixed the photograph. I had routed the
+rest to LIFE + CITY as placement. **Measuring it says one half of that was mine all along.**
+
+**THE WALL: the placement is correct and I was wrong to suspect it.** `engine/bohemia_suburb.js`
+paints code 16 as a **solid rectangle**, 2x3 or 3x2, cell by cell, and only over bare yard or
+gravel — it checks every cell before it paints one. The city then asks for a 4x2 stall and
+**clamps it to that patch**, so a car may not overhang its drive. I had hypothesised an
+L-shaped drive letting a car spill onto a wall; that hypothesis is dead. What the screenshot
+shows is the car's rectangle meeting a wall band beside it, which is draw order, and that
+half really is LIFE + CITY's.
+
+**THE SQUASH: mine, and it is every car in the city.**
+
+    the car master            45 x 96 px     aspect 1 : 2.13
+    the stall it is drawn in   2 x 3 cells   aspect 1 : 1.50
+    -> EVERY CAR IN THE VALLEY IS DRAWN AT 70% OF ITS OWN LENGTH
+
+The stall is right, the ground is right, the clamp is right. The draw call stretched the
+master to fill the stall instead of fitting it. **The distortion is in the presentation, and
+presentation is a cook's and nobody else's.**
+
+The fix is the one any gallery uses: fit the master inside its stall at its **own** aspect
+and centre it. One helper, both branches (the rotated car and the upright one), so they
+cannot drift. Nothing about the ground, the footprint, the clamp or the walkable land moves,
+and it **cannot** overhang — a fit is only ever smaller than the stall it was already
+confined to.
+
+## AND A GATE WAS RED FOR THE WHOLE FLEET WHILE THE CODE WAS RIGHT
+
+`props_gate.js`, the arm *"the car lattice FOLLOWS THE BLOB (a rotated plot turns a 2x4 rank
+into 4x2)"*, has been red on `origin/main` — verified in a clean worktree. It greps the page
+for the literal `_sx=_lie?4:2, _sy=_lie?2:4`.
+
+On 8/28 the ART lane generalised exactly those digits, and its own comment says why: **a
+boxcar is not a car.** The railyard authors rolling stock and locomotives as 7x4 blobs, so
+the branch reads `_vlong`/`_vshort` per vehicle and a car's numbers are still 4 and 2. **The
+claim never changed** — a rotated plot still swaps the rank's long and short axes — but a
+checker that hardcodes a content value cannot see a claim it still holds.
+
+That is the **seventh** time this lane has found the same bug: *a checker with a fixed number
+where it needs a measurement.* The arm now asserts the claim — the lattice keys off the
+blob's own extents, the stall swaps its axes on that flag, and a car is still 4 by 2 — so it
+survives the next vehicle that is not a car. **PROPS 75/1 -> 76/0**, and mutation-tested three
+ways: remove the swap, change a car's numbers, or stop keying off the blob, and it goes red
+for each.
+
 ## WHAT IS NOT DONE, AND IT IS THE OTHER HALF OF HIS SENTENCE
 His complaint has two parts and this ships one. The row also says the car is **"sitting ON
 TOP of a brick wall… on the GROUND not on a wall"**. That is placement, not pixels. What I

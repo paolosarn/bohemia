@@ -195,8 +195,19 @@ ok('the bank carries the approved car wrecks', Array.isArray(bank.families.car) 
 ok('a car LIES FLAT -- rise 0, because a top-down master is a thing on the ground',
    Array.isArray(fp.car) && fp.car[2] === 0);
 ok('the kit path has a vehicle branch', /entry\.kind==='vehicle'/.test(page) && /c\.post=\{p:'car'/.test(page));
-ok('the car lattice FOLLOWS THE BLOB (a rotated plot turns a 2x4 rank into 4x2)',
-   /_lie=\(_ex-_ox\) > \(_ey-_oy\)/.test(page) && /_sx=_lie\?4:2, _sy=_lie\?2:4/.test(page));
+// THIS ARM WAS RED FOR THE WHOLE FLEET AND THE CODE WAS RIGHT (9/7, COOK). It grepped for
+// the literal `_sx=_lie?4:2, _sy=_lie?2:4`, and on 8/28 the ART lane generalised those digits
+// because A BOXCAR IS NOT A CAR: the railyard authors rolling stock and locomotives as 7x4
+// blobs, so the branch reads `_vlong`/`_vshort` per vehicle and a car's own numbers are still
+// 4 and 2. The CLAIM never changed -- a rotated plot still swaps the rank's long and short
+// axes -- but a checker that hardcodes a content value cannot see a claim it still holds, and
+// a gate that is permanently red gets switched off by the next session that meets it. So this
+// asserts the CLAIM: the lattice keys off the blob's own extents, the stall swaps its axes on
+// that flag, and a car is still 4 by 2. It survives the next vehicle that is not a car.
+ok('the car lattice FOLLOWS THE BLOB (a rotated plot swaps the rank\'s long and short axes)',
+   /_lie=\(_ex-_ox\) > \(_ey-_oy\)/.test(page) &&
+   /_sx=_lie\?_vlong:_vshort,\s*_sy=_lie\?_vshort:_vlong/.test(page) &&
+   /_vlong\s*=\s*4,\s*_vshort\s*=\s*2/.test(page));
 ok('one car per sub-block, not one per blob (a merged rank must not draw one giant car)',
    /\(\(\(lx-_ox\)%_sx\)===0\) && \(\(\(ly-_oy\)%_sy\)===0\)/.test(page));
 ok('the collector carries the per-cell extent', /ch2\.posts\.push\(\[i2,y,c\.post\.p,c\.post\.v,c\.post\.w,c\.post\.h\]\)/.test(page));

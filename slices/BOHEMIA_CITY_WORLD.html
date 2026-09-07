@@ -45432,6 +45432,13 @@ function renderHuman(){
         if(_d>0) dangerMark(g,bx+dx2*C,by+dy2*C,C,_gx,_gy,_d);
       }
     }
+/* __A_CAR_IS_NOT_SQUASHED__ -- the largest rectangle of the master's OWN shape that fits a
+   stall. One helper, both branches, so the rotated car and the upright one cannot drift. */
+function fitProp(im, w, h){
+  var iw=im.naturalWidth||im.width||1, ih=im.naturalHeight||im.height||1;
+  var s=Math.min(w/iw, h/ih);
+  return [iw*s, ih*s];
+}
     if(ch.posts&&ch.posts.length)for(const [px2,py2,pfam,pvar,pw,ph] of ch.posts){
       /* __A_VERTICAL_IS_A_FAMILY_DRAW__ -- one draw for every standing object in the game.
          The family picks the sprite pool and the FOOTPRINT; a 96px master cannot say how big
@@ -45462,10 +45469,17 @@ function renderHuman(){
              it still fills the stall it was parked in. */
           const _mx=bx+px2*C+(C*pw)/2, _my=by+py2*C+(C*ph)/2;
           g.save(); g.translate(_mx,_my); g.rotate(Math.PI/2);
-          g.drawImage(im, -(C*ph)/2, -(C*pw)/2, C*ph, C*pw);
+          /* __A_CAR_IS_NOT_SQUASHED__ -- FIT, DO NOT STRETCH: a 45x96 master in a 2x3 stall was
+             drawn at 70% of its own length. The why is in the tool. AND IT SITS AFTER THE
+             ROTATE ON PURPOSE: props_gate asserts the rotate follows its branch inside 400
+             characters, and that is a real claim, so the comment moves rather than the gate. */
+          const _fitR=fitProp(im, C*ph, C*pw);
+          g.drawImage(im, -_fitR[0]/2, -_fitR[1]/2, _fitR[0], _fitR[1]);
           g.restore();
         } else {
-          g.drawImage(im, bx+px2*C-C*(_fp[0]-1)/2*(pw?0:1), by+(py2-_fp[2])*C, C*_fp[0], C*_fp[1]);
+          const _fw=C*_fp[0], _fh=C*_fp[1], _fit=fitProp(im, _fw, _fh);
+          g.drawImage(im, bx+px2*C-C*(_fp[0]-1)/2*(pw?0:1)+(_fw-_fit[0])/2,
+                      by+(py2-_fp[2])*C+(_fh-_fit[1])/2, _fit[0], _fit[1]);
         }
       }
       /* THE GLOW IS A LAMP THING. A bin does not light a street, and CLUSTERED POWER /

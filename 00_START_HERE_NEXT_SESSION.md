@@ -5587,7 +5587,38 @@ that the brick wall was probably mine from [combat ground] round 2. It is not: t
 has a joystick, a portrait and a dialogue box, so it is the WALKED CITY and the wall is the
 city's own.
 
-*** WHAT COMES NEXT *** HIS COMPLAINT HAS TWO HALVES AND THIS SHIPS ONE. The row also says the
+ROUND 3: "SQUASHED FLAT" IS A NUMBER, AND IT WAS THE HALF I HAD ROUTED AWAY. His complaint,
+as the row reads it back, is "a smeared photograph SQUASHED FLAT and sitting on top of a
+brick wall". Rounds 1-2 fixed the photograph and I routed the rest as placement. Measuring
+says one half of that was mine all along.
+  THE WALL IS NOT A BUG AND I WAS WRONG TO SUSPECT IT. engine/bohemia_suburb.js paints code
+  16 as a SOLID RECTANGLE, 2x3 or 3x2, cell by cell, and only over bare yard or gravel; the
+  city then asks for a 4x2 stall and CLAMPS it to that patch, so a car cannot overhang its
+  drive. My L-shaped-drive hypothesis is dead. What the screenshot shows is the car's
+  rectangle meeting a wall band beside it, which is DRAW ORDER and genuinely LIFE + CITY's.
+  THE SQUASH IS MINE AND IT IS EVERY CAR IN THE CITY:
+      master 45x96 (1:2.13) drawn into a 2x3 stall (1:1.50)
+      -> EVERY CAR IN THE VALLEY WAS DRAWN AT 70% OF ITS OWN LENGTH
+  The stall, the ground and the clamp are all right; the draw call STRETCHED the master to
+  fill instead of fitting it. Distortion is presentation and presentation is a cook's. Fixed
+  with one fitProp helper used by both branches (rotated and upright): fit at the master's own
+  aspect, centre it. Nothing about ground, footprint, clamp or walkable land moves, and it can
+  never overhang because a fit is only ever SMALLER than the stall it was already confined to.
+
+AND A GATE WAS RED FOR THE WHOLE FLEET WHILE THE CODE WAS RIGHT. props_gate.js's arm "the car
+lattice FOLLOWS THE BLOB" grepped for the LITERAL `_sx=_lie?4:2, _sy=_lie?2:4`. On 8/28 the
+ART lane generalised exactly those digits because A BOXCAR IS NOT A CAR (rolling stock and
+locomotives are 7x4 blobs), so the branch reads _vlong/_vshort and a car is still 4 and 2. The
+CLAIM never changed. THAT IS THE SEVENTH TIME THIS LANE HAS FOUND THE SAME BUG: a checker with
+a fixed number where it needs a measurement. The arm now asserts the claim and survives the
+next vehicle that is not a car. PROPS 75/1 -> 76/0, mutation-tested three ways (remove the
+swap, change a car's numbers, stop keying off the blob -- red for each).
+AND MY OWN COMMENT BROKE A DIFFERENT ARM OF THAT SAME GATE: props_gate asserts the rotate
+follows its branch within 400 characters, and my explanation pushed it to 583. That is a real
+claim, so THE COMMENT MOVED RATHER THAN THE GATE -- the fit now sits after the rotate. Do not
+loosen another lane's checker to make room for your own prose.
+
+*** WHAT COMES NEXT *** ONE HALF OF HIS SENTENCE REMAINS AND IT IS NOT A COOK'S. The row also says the
 car is "sitting ON TOP of a brick wall... on the GROUND not on a wall". That is placement, not
 pixels. Measured in the city's own draw: a car comes off a chunk's `posts` list and is stretched
 to C*pw x C*ph -- the STALL, not the master's size, so a 45x96 master is magnified to fill it --
