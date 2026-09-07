@@ -20323,7 +20323,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/6 (latest): [act cards] SHIPPED 5605eac -- the line's own ask
+ROUND LOG 9/6 (latest): [eyes: gate missing] SHIPPED 7f59b0e -- the compare
+law's advertised gate finally exists and runs in the suite (REF-IDs must
+resolve in the library index, new cook tools must carry their REFERENCE
+CHECK, the 85 pre-law tools are a shrink-only frozen ratchet). Proven to
+bite twice with fakes; its own first run caught my baseline freeze missing
+.js tools and the freeze was corrected BEFORE registration. Zero claims
+held again; the reopened lines keep their reclaim rules. PREVIOUS: [act cards] SHIPPED 5605eac -- the line's own ask
 was the WRITE (the way the style card did for clothes) and the cards are
 delivered; UI's future act options get judged by the standing batch-
 judging seam, not by an eternal hold (the one-at-a-time lesson applied to
