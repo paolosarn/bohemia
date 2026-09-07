@@ -255,7 +255,7 @@ STATE: talking on foot with nine verbs, a real witness memory, schedules and hom
 - SHIPPED 9/5 baab7c5  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file
 - SHIPPED 9/5 9acc9c0  [outfits nearby]  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one
 - SHIPPED 9/6 251cebc  [former jobs]  BB-WHAT-YOU-WERE
-- OPEN  [family events]  FAMILY-EVENTS -- something writes a child, a marriage, an ageing into family.tree; selectHeir has zero callers
+- CLAIMED 9/7 people-7h9sfy  [family events]  FAMILY-EVENTS -- something writes a child, a marriage, an ageing into family.tree; selectHeir has zero callers
 - OPEN  [neglect costs]  BB-OBLIGATION-BURN
 - OPEN  [enemies remember]  BB-THE-SHADOW
 - OPEN  [heir moment]  SUCCESSION-BEAT -- DECIDED by the coordinator 9/5 (correct-after): an heir inherits the house, the purse, every debt in full, half the standing, and the wardrobe. WHO YOU CAN MARRY stays Paolo's (identity). Build the inheritance; leave marriage a stub with his name on it.
