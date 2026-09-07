@@ -5218,11 +5218,14 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/7 LATEST -- *** THE LOT BESIDE THE STREET IS SOMEBODY'S HOUSE. A
-quarter of the combat board was one generic "lot" tile; it is roofs, gravel yards and block
-walls now, and not one new pixel was cooked. TAB: COMBAT. Nothing to judge. ***
+COOK (cook-mce6r5): 9/7 LATEST -- *** THE LOT BESIDE THE STREET IS SOMEBODY'S HOUSE, SHIPPED
+(a5b44c81, BUILD 9/6az, pages run 1389 SUCCESS on that exact sha). A quarter of the combat
+board was one generic "lot" tile; it is roofs, gravel yards and block walls now, and not one
+new pixel was cooked. ROUND 2 IS MEASURED AND NOT BUILT: the cover you see is two thirds the
+size of the cover you get. TAB: COMBAT. Nothing to judge. ***
 
-THE JOB: [combat ground] COMBAT-GROUND-TILES, CLAIMED, CONTINUING. Round 1 of 2.
+THE JOB: [combat ground] COMBAT-GROUND-TILES, CLAIMED, CONTINUING. Round 1 of 2 SHIPPED;
+round 2 measured, see WHAT COMES NEXT at the foot of this block.
 
 MEASURED FIRST, AND IT CORRECTED THE GUESS I HAD FROM READING THE SOURCE. The combat module
 lives base64-encoded inside COMBAT_B64, which is why no grep finds it; decoding it said the
@@ -5294,14 +5297,51 @@ idempotent, and it refuses to overwrite a kind the fight already has),
 tools/bohemia_combat_ground_probe_9_6_26.js (the measurement),
 records/BOHEMIA_THE_LOT_BESIDE_THE_STREET_IS_A_HOUSE_9_6_26.md.
 
-*** WHAT COMES NEXT *** [combat ground] round 2: COVER THAT READS (TG-07). "At one house per
-tile, cover is HOUSE-PART SIZED -- a block wall segment, a dead car, a dumpster, a porch
-pier -- and each must break the ground's silhouette at the tile edge where it blocks; cover
-that only reads by its colour is not cover." The approved wrecks are in
-banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt (20 top-down wrecks, already wired in CITY) and
-the city's prop bank is BOHEMIA_CITY_PROPS.js (20 corpus objects, 11 families). Same rule as
-this round: lift, do not cook, and measure on the real surface before and after. The probe
-already reports the kind mix; add a cover count to it.
+ROUND 2 IS MEASURED AND NOT YET BUILT. [combat ground] round 2 is COVER THAT READS (TG-07):
+"At one house per tile, cover is HOUSE-PART SIZED -- a block wall segment, a dead car, a
+dumpster, a porch pier -- and each must break the ground's silhouette at the tile edge where
+it blocks; cover that only reads by its colour is not cover."
+
+WHAT A REAL STREET ARENA IS, on the real surface (tools/bohemia_combat_cover_probe_9_7_26.js):
+    51 cover pieces in the lot, 42 OF THEM ON SCREEN AT ONCE
+    28 tall (no vault), 23 low (vaultable)
+    1 car, exactly 6 cells of it, and its three rows are three different rules
+    a piece's radius: min 0.50, MEDIAN 1.04, max 1.15 tiles
+
+AND THE FINDING THAT IS NOT ABOUT TASTE, WHICH IS WHERE ROUND 2 STARTS. A piece BLOCKS at a
+median radius of 1.04 tiles and is DRAWN 0.68 tiles wide. The picture is two thirds the size
+of the thing it is a picture of, so it never reaches the tile edge where it stops you -- and
+"break the ground's silhouette AT THE TILE EDGE WHERE IT BLOCKS" is TG-07's own test. That
+is a correctness gap in the read, not a style note, and it is cheap to close.
+
+Beside it: the vault state is signalled by LID COLOUR ALONE (#7a94a8 you may vault, #94836a
+you may not) on an otherwise identical flat #6e604a block, which is the exact thing TG-07
+rules out. And the car's three rows -- ENGINE hard, CABIN concealment only (hard=false, the
+only cover in the game that lies), BOOT low and hard over the tank that cooks off -- are
+three consequences wearing one box. NOTE, BEFORE ANYONE "FIXES" THE CABIN: it is SUPPOSED to
+look solid. Drawing the car as a car keeps the lie and makes it better; giving the cabin its
+own tell would delete a mechanic.
+
+WHAT DECIDES THE FIX IS 42, NOT AN OPINION. The fight already spends about 92% of a 500 ms
+beat and roughly half of that is canvas blits (gates/beat_budget_gate.js, 9/7). Swapping 42
+flat boxes for 42 pictures removes about 126 path fills and adds 42 blits. Which way that
+goes MUST be measured with the beat gate before and after, and if pictures lose, the answer
+is one baked sprite per piece-kind rather than per piece, or none at all.
+
+THE ART IS ALREADY APPROVED AND MUST BE LIFTED, NOT COOKED, exactly like round 1:
+banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt has 20 top-down car wrecks; slices/
+BOHEMIA_CITY_PROPS.js has 105 pictures over 16 families with real footprints in cells
+(car 2.0x4.0, dumpster 1.6x1.3, barricade, bin, pallet, tyre, rubble x41); and the block
+wall segments are already in the fight from round 1 (wall_0/1/2, wall_base). The prop bank
+is a LAZY SIDECAR the CITY loads and the FIGHT does not, so the pictures have to be lifted
+into the combat module the way STREET_B64 was, not fetched.
+
+THE INSTRUMENT TOOK THREE TRIES AND EVERY WRONG ANSWER WAS CONFIDENT. It measured the
+TEACHING fight (V202 gives it no cover on purpose) and reported 0; then re-read the same
+lesson, because asking for a second encounter from inside a fight does not take, and
+reported 3 cars off G._cars, which is a stale field from a previous lot rather than a count.
+setupEnemiesBody() is the function the fight itself calls to lay out a lot. NEVER TRUST A
+FIGHT NUMBER TAKEN FROM THE FIRST ENCOUNTER.
 
 ================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
