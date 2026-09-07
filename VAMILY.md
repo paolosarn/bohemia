@@ -120,7 +120,7 @@ STATE ADDED 9/6 by [jobs pay]: *** A JOB PAYS NOW. *** The row's measurement hel
 - SHIPPED 9/6 66 pay lines across 20 quests + gates/the_job_pays_gate.js (75/0, purse credited on the walked surface)  [jobs pay]  BB-THE-JOB-PAYS
 - SHIPPED 9/7 engine/bohemia_reach.js + gates/inside_a_day_gate.js (25/0), on the offer before he takes it  [distance shown]  BB-INSIDE-A-DAY
 - OPEN  [map moves]  BB-TERRITORY-FLAG  (after WORLD BB-TURF)
-- OPEN  [generation handoff]  THE-FOLD-IN-THE-RUNTIME -- the gen 1 to gen 2 handoff as quest runtime: what carries, what the heir inherits, the beat itself; canon is his, the machine is ours
+- CLAIMED 9/7 dynasty-vamily-w4yxiz  [generation handoff]  THE-FOLD-IN-THE-RUNTIME -- the gen 1 to gen 2 handoff as quest runtime: what carries, what the heir inherits, the beat itself; canon is his, the machine is ours
 - OPEN  [designs playable]  DESIGNS-TO-BQ -- convert prose designs 001, 002, 013 to playable .bq; the designs are done, only the machine layer is missing
 - OPEN  [haggling works]  BB-ASK-FOR-MORE
 - OPEN  [edit quests]  DIRECT-COVERS-QUESTS -- the DIRECT tab edits quest stages, not only cutscene beats (8/12 law)
