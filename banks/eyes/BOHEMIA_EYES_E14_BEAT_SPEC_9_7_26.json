@@ -1,0 +1,77 @@
+{
+ "bank": "EYES AND EARS -- E14 [late beat] -- THE BEAT vs THE JUDGE, SPEC ONLY",
+ "date": "9/7/26",
+ "round": "1 of 2 (SCHOOL). Nothing built, nothing measured on our surface.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. School's corrections: (1) 'the gap' is not a number, it is a bias plus a jitter and it moves at runtime; (2) a tap test measures a HUMAN, not a phone, because people tap 20 to 100 ms EARLY and that bias is not even universal; (3) the browser reports the device's audio latency directly, so the audio half is a read, not a survey.",
+ "school_record": "records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md",
+ "our_numbers_read_off_disk": {
+  "draft": true,
+  "BEAT_MS": 500,
+  "bpm": 120,
+  "grace_values_found": {"alpha": 200, "city_world": 40},
+  "the_problem": "two grace values five times apart. until round two establishes which one the fight judges by, 'is the beat late' has no denominator. NO CLAIM is made here about which is right."
+ },
+ "bluetooth_against_our_numbers": {
+  "draft": true,
+  "sbc_baseline": "150-200 ms or higher",
+  "typical_consumer_device": "150-300 ms round trip",
+  "aptx_low_latency_best_case": "30-40 ms codec level, more system-wide, and only when both ends support it",
+  "against_grace_40": "the SMALLEST realistic Bluetooth delay is about four whole windows late. impossible by construction, not hard.",
+  "against_grace_200": "a typical 150-300 ms delay straddles the entire window; some devices land inside it by luck",
+  "the_worse_half": "Bluetooth latency arrives AFTER calibration. a player calibrates on the speaker, puts headphones on, and the correction is now wrong by 200 ms."
+ },
+ "the_browser_answers_the_audio_half": {
+  "draft": true,
+  "outputLatency": "seconds between the browser handing a buffer to the host audio system and the first sample reaching the output device",
+  "baseLatency": "seconds of processing latency inside the graph, destination node into the host audio system",
+  "getOutputTimestamp": "contextTime (the sample frame playing now, audio clock) and performanceTime (the same instant in performance.now terms) -- it exists to bridge the two clock domains for games",
+  "consequence": "a calibration screen exists because native games cannot ask the device how late it is. on the web we can. the audio half is a READ."
+ },
+ "the_human_taps_early": {
+  "draft": true,
+  "effect": "negative mean asynchrony: finger taps typically PRECEDE the pacing sound",
+  "size": "roughly 20 to 100 ms early",
+  "reference": "Repp, Sensorimotor synchronization: a review of the tapping literature",
+  "and_it_is_not_universal": "a cross-cultural study finds the effect is not universal, so it cannot be subtracted as a constant either",
+  "consequence": "every tap-based calibration measures device latency PLUS the player's anticipation and cannot separate them. MEASURE THE MACHINE WITH THE MACHINE. Never ask a human to calibrate a number a browser already reports."
+ },
+ "two_offsets_not_one": {
+  "draft": true,
+  "audio": "how late the sound leaves the device",
+  "video": "how late the picture arrives",
+  "real_examples": "Rhythm Doctor calibrates in two phases (line up picture and sound, then a tap test for input); Chunithm names them Offset A and Offset B",
+  "the_classic_bug": "the two get ADDED, so the game compensates for the sum rather than the true audio latency",
+  "consequence": "round two says WHICH PAIR OF CLOCKS it measured instead of reporting 'the gap' as if there were one"
+ },
+ "order_of_operations": [
+  {"n": 1, "draft": true, "step": "ASK THE DEVICE", "how": "read outputLatency and baseLatency on the real surface at iPhone size in the shipped alpha"},
+  {"n": 2, "draft": true, "step": "FIND THE DENOMINATOR", "how": "establish which grace the fight actually judges by, by reading the code path the fight runs, not by guessing between 200 and 40"},
+  {"n": 3, "draft": true, "step": "BEAT vs JUDGE, MACHINE TO MACHINE", "how": "wrap the scheduler and the judge, collect many beats, report BIAS and JITTER and the worst beat, never one gap"},
+  {"n": 4, "draft": true, "step": "CAN A PERFECT PLAYER PASS", "how": "drive taps exactly on the audio-clock beat corrected by outputLatency and see what the fight scores. no human, no calibration screen, no opinion."},
+  {"n": 5, "draft": true, "step": "REPORT AGAINST THE BLUETOOTH NUMBERS", "why": "a window that survives a wired phone and dies on headphones is a finding the player meets on day one"}
+ ],
+ "rule_zero": {
+  "draft": true,
+  "trap": "a simulated perfect player scoring 100% proves nothing on its own: it may mean the fight is fair, or that the judge is reading taps off the same clock that generated them, which is a tautology dressed as a pass",
+  "control": "plant a DELIBERATELY LATE player, the same taps shifted by a known amount such as 150 ms, and the score MUST drop. if a 150 ms late player still scores perfect, the judge is not judging and every number is meaningless.",
+  "second_control": "from E13: a sweep that interacts changes its own subject. driving taps into a fight changes the fight's state, so each run starts from a fresh fight."
+ },
+ "what_players_and_games_get_wrong": [
+  {"draft": true, "wrong": "calibrating by eye", "why": "watching the pulsing line makes players doubt their own rhythm; the advice is to close your eyes and listen for the accent. a calibration that SHOWS you something is measuring the wrong sense."},
+  {"draft": true, "wrong": "believing offset fixes accuracy", "why": "it moves the centre of the window, not the width of the error"},
+  {"draft": true, "wrong": "conflating per-song and global offset", "why": "osu! separates local from universal offset; conflating them fixes one song and breaks the rest"}
+ ],
+ "blind_spots_to_declare": [
+  "one device, one browser, one output route: this measures the harness's audio path, not a real phone's",
+  "outputLatency is explicitly an ESTIMATE",
+  "Bluetooth cannot be tested here at all; its numbers stay quoted, never measured",
+  "video offset is not measured",
+  "nothing here says whether the fight is FUN, which is his"
+ ],
+ "what_this_lane_may_not_do": [
+  "change any timing, window or offset (this lane never writes game code)",
+  "build a calibration screen",
+  "decide how hard the fight should be"
+ ]
+}

@@ -1,102 +1,97 @@
-EYES AND EARS (eyes-5vql33): 9/7 (p) LATEST -- *** E13 [half size check] SHIPPED WITH BOTH
-ROUNDS, AND IT NAMES THE BUG THAT IS HOLDING THE HALF-SIZE ORDER OFF THE BUILD. Turning the
-halving on, TWO controls grow a reach far bigger than their picture and lie on top of five
-neighbours: savebtn is painted 18.8x15 and reaches 236x54, fitbtn is painted 51.5x15 and reaches
-147x48. A real driven tap says who takes whose press by name. THAT is why the phone button does
-nothing when the halving is on: phonebtn's tap is delivered to savebtn. ***
+EYES AND EARS (eyes-5vql33): 9/7 (q) LATEST -- *** E14 [late beat] ROUND ONE OF TWO IS DONE:
+SCHOOL. NO MEASURING, ON PURPOSE. Two things landed hard. THE HUMAN TAPS EARLY, 20 to 100 ms
+before the beat, so every tap-based calibration in the world measures a person plus a phone and
+cannot separate them. And BLUETOOTH IS 150 TO 300 ms, which against one of our two grace values
+is four whole windows late. *** E14 stays CLAIMED, round two is the measurement.
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
-THE TWO ANSWERS THE JOB ASKED FOR:
-  DID IT HALVE? For the buttons, yes, almost exactly. Six of eight pressable controls land at
-  x0.47 to x0.50 in BOTH width and height. The labels do not halve (x0.56 to x0.84), musbtn gets
-  WIDER (x1.21) though its height halves, and the median across everything is x0.56.
-  IS EVERY TOUCH TARGET STILL 44? No, and it was not before either. With the halving OFF, which
-  is what ships today, ZERO of fourteen controls clear 44 and ten clear 24. The tallest control
-  on the walked surface is 32 px. That is a fact about the build before the order, not something
-  the order broke, and what to do about it is UI's and DIRECTION's.
+READ OFF DISK TO GROUND THE RESEARCH, NOT MEASURED: BEAT_MS is 500, which is 120 BPM exactly and
+correct. AND THERE ARE TWO GRACE VALUES IN THE SHIPPED FILES, 200 in the alpha and 40 in the city
+world, five times apart. Until round two establishes which one the fight actually judges by,
+"is the beat late" has no denominator. That is round two's first question and I make no claim
+here about which is right.
 
-WHO TAKES WHOSE TAP, WITH THE HALVING ON:
-  musbtn     -> savebtn        savebtn  paint 18.8x15   reach 236x54
-  phonebtn   -> savebtn        fitbtn   paint 51.5x15   reach 147x48
-  outfitbtn  -> savebtn
-  modechip   -> fitbtn
-  note       -> fitbtn
-  Five controls that work today stop working when it is turned on, all five taken by those two.
-  AND IT EXPLAINS THE THREE HARNESSES THAT DISAGREED. An in-page hit test asks "is this control
-  at this point" and savebtn answers yes across a 236 px band, so a hit test scores 12 of 12
-  while a finger scores 2 of 11. Both measurements were correct. They answered different
-  questions. The real driven tap is the one the player performs.
+COUNTER-FINDING 1: "THE GAP" IS NOT A NUMBER. The job asks for the gap between the beat the
+player hears and the beat the fight scores. A single number is the wrong instrument. Latency has
+a BIAS (how late on average) and a JITTER (how much that varies beat to beat) and it MOVES at
+runtime when an output route changes or Bluetooth connects. A fight can be perfectly centred and
+still unplayable if the jitter is wider than the window, and a fight can be 30 ms late and
+completely fine. Round two reports bias and jitter over many beats and the worst beat, never one
+gap, and says whether anything re-reads latency after it changes.
 
-SCHOOL'S COUNTER-FINDING RESOLVED, AND NOT THE WAY IT EXPECTED. Round one argued "did it halve"
-might be unanswerable, because half of WHAT if no file holds the before. It is answerable, for a
-reason school did not predict: THE HALVING SHIPS AS A SWITCH THAT IS OFF, so both states are
-measured in one run seconds apart and the ratio is exact. A live toggle is a better baseline than
-a recorded number because it cannot drift. Worth keeping as a pattern: when a lane ships a change
-behind a switch, the checker gets its baseline for free.
+COUNTER-FINDING 2, AND IT IS THE SHARPEST: A TAP TEST MEASURES A HUMAN, NOT A PHONE. In paced
+tapping the finger lands BEFORE the sound. The effect is called negative mean asynchrony, it is
+about 20 to 100 ms, it is the standard result in the tapping literature, and a cross-cultural
+study finds it is NOT UNIVERSAL, so it cannot even be subtracted as a constant. So a calibration
+built from taps bakes in the player's own anticipation, calls it device latency, and applies it
+on a different device where it is simply wrong.
+  THE CLEAN SPLIT ROUND TWO WILL HOLD TO: measure the machine with the machine. Never ask a human
+  to calibrate a number a browser already reports.
 
-MY INSTRUMENT WAS WRONG FOUR TIMES AND THE FOURTH IS THE ONE WORTH REMEMBERING:
-  1. MEASURE was a template string. Playwright evaluates a string as an EXPRESSION, so a string
-     holding an arrow function came back undefined. The tool refused to report because it could
-     not see a control it had planted itself, which is what I wanted, but the fault was mine.
-  2. THE DAY CARD WAS UP. The first run said 11 of 14 controls clear no bar and 8 take no tap --
-     a game with unpressable buttons. False: #daycard, z 40, 378x773, covering everything. A
-     modal blocking what is under it is CORRECT. The sweep now refuses to measure while anything
-     covers the screen, and clears it by tapping the scrim the way the game says it is cleared,
-     never by calling the game's own hide function.
-  3. THE RECORDER ONLY LISTENED INSIDE THE FRAME, so six controls reported "NOBODY" got the tap,
-     which tells you nothing. The shell the frame sits in records taps too now.
-  4. THE SWEEP'S OWN TAPS CHANGED THE SCREEN IT WAS MEASURING. Tapping the controls in order
-     meant tapping phonebtn, which OPENS THE PHONE PANEL, and every control after that was
-     measured underneath an open phone. Six more false "unpressable". The screen is put back
-     between every single control now. THE GENERAL LESSON, and it is not specific to this job:
-     A SWEEP THAT INTERACTS IS A SWEEP THAT CHANGES ITS OWN SUBJECT. Any future instrument in
-     this lane that taps, drags or types must reset between subjects or it is measuring its
-     own wake.
+AND THE BROWSER DOES REPORT IT, WHICH REMOVES HALF THE PROBLEM FOR FREE. AudioContext gives
+outputLatency (seconds from the browser handing over a buffer to the first sample reaching the
+output device), baseLatency (the graph's own processing delay), and getOutputTimestamp(), which
+returns the same instant in BOTH the audio clock and the performance.now clock and exists
+precisely to bridge them for games. A calibration screen exists because native games cannot ask
+the device how late it is. On the web we can. THE AUDIO HALF IS A READ, NOT A SURVEY.
 
-RULE ZERO: three controls planted before any number was believed, all passing every run -- a
-planted control with an expanded reach must measure BIGGER than its paint (10x10 -> 50x50), one
-with no expansion must measure the SAME (10x10 -> 10x10), and a real driven tap must reach the
-page at all.
+BLUETOOTH, AGAINST OUR OWN NUMBERS: SBC baseline is 150 to 200 ms, typical consumer devices 150
+to 300, and the best case anywhere is aptX Low Latency at 30 to 40 and only when both ends
+support it. Against a 40 ms grace the smallest realistic Bluetooth delay is about FOUR WHOLE
+WINDOWS late: the fight is not hard on wireless headphones, it is impossible by construction.
+Against a 200 ms grace a typical delay straddles the whole window and some devices land inside
+it by luck. And the worse half: BLUETOOTH ARRIVES AFTER CALIBRATION. A player calibrates on the
+speaker, puts headphones on, and the correction is now wrong by 200 ms.
 
-THE SCHOOL PREDICTION THAT DID NOT HOLD, AND IS NOT ROUTED: round one predicted
-phone_readable_gate.js would go red on correct work. Measured: not true. It checks two named
-controls on one screen of the demo and never looks at the run's controls at all. What school got
-right is the part that mattered: there was no general touch-target check anywhere in this repo,
-so nothing could answer the word "every". Now something can.
+TWO OFFSETS, NOT ONE. Real games split audio latency from video latency (Rhythm Doctor calibrates
+in two phases, Chunithm names them Offset A and Offset B) and the documented bug is that the two
+get ADDED so the game compensates for the sum. Round two will say WHICH PAIR OF CLOCKS it
+measured instead of reporting "the gap" as if there were one.
 
-ROUTED: one [eyes: reach spills] line into UI's [half size] row, the single bounce-back this lane
-may write, carrying the two reach measurements and the five names.
+WHAT PLAYERS GET WRONG, WORTH KNOWING IF THIS EVER BECOMES A SCREEN: calibrating BY EYE is the
+documented mistake (the pulsing line makes people doubt their own rhythm; the advice is close
+your eyes and listen for the accent), players believe offset fixes bad accuracy when it only
+moves the centre of the window, and osu! has to keep per-song and global offset separate because
+conflating them fixes one song and breaks the rest.
 
-BLIND SPOTS, WRITTEN DOWN INSTEAD OF COUNTED CLEAN: one viewport and one pixel ratio is not every
-phone; controls appear and disappear with the game's own state, so a control missing from a run
-is not a control that does not exist; the AA bar is 24 px OR a spacing offset and I measured size
-only, the stricter half, so a "clears neither" might still pass AA on spacing; this measures
-geometry and event delivery, never legibility; and the halving was turned on by the tool for the
-measurement and turned off again, so the shipped build is unchanged.
+ROUND TWO'S PLAN: (1) ask the device, read outputLatency and baseLatency on the real surface;
+(2) find the denominator, establish which grace the fight judges by from the code path it runs;
+(3) wrap the scheduler and the judge and measure beat against judge machine to machine, reporting
+bias and jitter; (4) answer the real question by driving taps exactly on the audio-clock beat
+corrected by outputLatency and seeing what the fight scores, with no human anywhere in it;
+(5) report against the Bluetooth numbers.
+  RULE ZERO, AND THIS TRAP IS A GOOD ONE: a simulated perfect player scoring 100% proves nothing
+  on its own, because it may mean the judge is reading my taps off the same clock that generated
+  them, which is a tautology dressed as a pass. So round two plants a DELIBERATELY LATE player,
+  the same taps shifted 150 ms, and the score MUST drop. If a 150 ms late player still scores
+  perfect, the judge is not judging and every number is meaningless.
+  SECOND CONTROL, from E13's hardest lesson: a sweep that interacts changes its own subject, so
+  each run starts from a fresh fight.
 
-STILL OPEN IN MY QUEUE: E14 [late beat], E15 [machine judges], E16 [never opened]. All two
-rounds, school first. E9 the standing duty runs every round.
+STILL OPEN IN MY QUEUE AFTER THIS: E15 [machine judges], E16 [never opened]. Both two rounds,
+school first. E9 the standing duty runs every round.
 
 [PENDING Paolo] NOTHING. I need nothing from him.
 
 FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
   1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
      audio measurement, no glitch checklist." Fourteen instruments and two suite gates exist now.
-  2. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
+  2. SOUNDS' OPEN row [scheduled beat] THE-BEAT-IS-SCHEDULED-NOT-FIRED is confirmed by school as
+     the standard practice and not a preference. It is the right row and it is still open.
+  3. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
      There is one and the walked surface reads it.
-  3. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist;
-     the [eyes: gate missing] line is open in DIRECTION.
-  4. Still unclaimed: the MIX METER (E5 gap 10).
+  4. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist.
+  5. Still unclaimed: the MIX METER (E5 gap 10).
 
 NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
 
-GATES: handoff 7/0, attempt 15/0, NO READER 7/0. The sweep's own three planted controls passed.
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
+last round: NO READER 7/0, handoff 7/0, attempt 15/0.
 
-PROOF: records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md and
-records/BOHEMIA_EYES_E13_ROUND_2_WHO_ACTUALLY_GETS_THE_TAP_9_7_26.md;
-tools/bohemia_eyes_thumbs.js; data records/BOHEMIA_EYES_THUMBS_9_7_26.json; results bank
-banks/eyes/BOHEMIA_EYES_E13_TAP_RESULTS_9_7_26.json (draft:true); VAMILY lane 17 E13 SHIPPED with
-both rounds, one [eyes: reach spills] line into UI.
+PROOF: records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md (243 lines, 19
+sources); banks/eyes/BOHEMIA_EYES_E14_BEAT_SPEC_9_7_26.json (draft:true); VAMILY lane 17 E14
+CLAIMED ROUND 1 OF 2.
+
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
