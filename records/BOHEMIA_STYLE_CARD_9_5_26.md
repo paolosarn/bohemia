@@ -95,6 +95,28 @@ hostile still separates by value or silhouette. Feeds CHARACTER
 [walks at you] (motion is the fourth channel and rides on top, never
 instead).
 
+## 2C. NO PHOTOGRAPH STANDS BESIDE A PIXEL BODY (9/7 — VAMILY [judge the car])
+Paolo killed the photo-texture car on sight (records/target/PAOLO_THE_CAR
+_IS_ASS_9_7_26.jpg — a photograph parked in a pixel world, beside a
+10-colour body with a one-pixel border; the clash needs no measurement,
+and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
+- ANY OBJECT drawn at body scale on the walked surface — a vehicle, a
+  prop, cover, furniture — is PIXEL-NATIVE by the 7/27 craft rulers the
+  repo already holds (pixel_craft_gate's own bars: bounded unique
+  colours, no orphan-pixel soup, authored at the real cell). A
+  photographic or photo-derived texture on an OBJECT is dead on arrival,
+  whatever pack it came from.
+- GROUND IS THE ONE EXCEPTION, exactly as far as his approvals already
+  reach: the bought ground textures he approved read as MATERIAL under
+  everything and stay. The line is OBJECT versus GROUND — the moment a
+  texture has a silhouette and stands beside a body, it must speak the
+  body's language.
+- THE RE-COOK'S BAR (for the car and everything after it): built to
+  this card (register palette, 4-6 step hue-shifted ramps), the craft
+  rulers green, compared side by side against a REAL wrecked car for
+  structure (the compare law) and against the pixel body it will stand
+  beside for language — the two comparisons the kill frame failed.
+
 ## 3. WHAT STANDS UNDER THIS CARD (nothing here overrides a law)
 - TRENCHCOATS ARE FOR BADASSES, 10% hard cap (8/27): pole B is
   reached by stagger and taper, not by every body in a floor coat.
@@ -134,6 +156,7 @@ instead).
   },
   "banned": ["purple", "second saturated piece", "pure black", "pure white"],
   "coat_cap": 0.10,
+  "objects_pixel_native": {"rule": "any body-scale object passes the 7/27 pixel craft bars; photographic texture on objects is dead; ground keeps only what he already approved", "judge": "side by side against a real wreck AND the body beside it"},
   "hostile_contrast": {"channels_required": 2,
     "value_delta_min": 0.15, "crowd_median_measured": 0.44,
     "accent_area_px112_min": 48, "accent_sat_min": 0.55,

@@ -21021,7 +21021,20 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/7 (latest): patrol round - COOK's [combat ground] batch JUDGED
+ROUND LOG 9/7 (latest): [judge the car] SHIPPED - the general case is RULED
+and in the card: section 2C, NO PHOTOGRAPH STANDS BESIDE A PIXEL BODY. Any
+object at body scale on the walked surface is pixel-native by the 7/27
+craft rulers; ground is the one exception (the object/ground line). The
+machine block carries objects_pixel_native so the judge test is parseable.
+Benchmark measured off approved art: the pixel boxcar holds 23 total
+unique colours; Paolo's kill frame (records/target/PAOLO_THE_CAR_IS_ASS
+_9_7_26.jpg) is a photo-texture car beside a 24x50 pixel body - that is
+the sin the section bans. COOK's actual re-cooked car does NOT exist yet
+(04c7799 was the kill + ruling record only); when it lands it gets the
+side-by-side (real wreck AND the body beside it) at the standing seam
+like every cook - no separate hold needed, the seam catches it. Card gate
+112/112 with 2C in. LOOK tab retake chain landed green (gate exit 0);
+retaken bytes commit this round. PREVIOUS: patrol round - COOK's [combat ground] batch JUDGED
 PASS at the standing seam (a wiring pass lifting approved art, zero new
 pixels, and its record cites TG-07/TG-01/CGRD-01/CGRD-02 which all resolve
 in the library index; round 2 fixes exactly the invisible-cover sin TG-07
