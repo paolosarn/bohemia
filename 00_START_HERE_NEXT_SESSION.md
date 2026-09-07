@@ -6996,7 +6996,43 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/7 LATEST -- *** [family events] SHIPPED. THE FAMILY
+PEOPLE (people-7h9sfy): 9/7 (b) LATEST -- *** [neglect costs] SHIPPED. THE STAKES
+TABLE HAS ITS FIRST ENTRY EVER, and it is an obligation rather than a meter.
+Measured first and it was worse than the row said: the socket has been applied at
+every reckoning since the day loop shipped and held NOTHING; upkeep() debits
+exactly 1 with no headcount, so a household of nine costs what one costs; and
+desert/leaves/quit/abandon are ZERO across commitment, favour, standing and
+claim, so nobody in this valley had ever stopped waiting for the player. And
+neglectFor() already returned a per-stage cost with every value tagged
+"neglectPlaceholder": true -- a cost nobody ruled, consumed by nothing.
+IT SHIPS WITHOUT PAOLO RULING ONE NUMBER, which is the row's own unlock and the
+thing that has frozen every stakes conversation since NO DAMAGE BEFORE THE DIAL.
+A hunger meter needs a RATE. "Three people are waiting on you" needs only the
+truth, and the truth is already in the save. So it COUNTS who is waiting, READS
+the deed ledger's own turns for whether you showed up, and asks the standing web
+whether somebody has had enough of you. No threshold, and the placeholders are
+never read (the gate parses the module to prove it).
+THE PUNISHMENT IS A PERSON. Somebody you wronged AND then ignored stops waiting;
+showing up for them that day is what stops it; somebody who thinks well of you
+gets a quiet day for free. Tab: CITY -- marry, have children, swear to an outfit,
+sleep, and the morning tells you how many are waiting and how many you showed up
+for.
+THE ENTRY WAS NEVER IN THE SOCKET ON THE FIRST CUT and everything looked fine: I
+pushed it beside `const DAY = ...`, nine thousand lines before the module exists,
+and the guard meant to make that safe swallowed it in silence -- no throw, no
+log, an empty table, a reckoning that would have reported nothing forever. A
+GUARD AROUND AN ORDERING BUG HIDES THE ORDERING BUG. That is twice in two rounds
+for this shape (the Marry button was bound to the wrong card): a thing that is
+present, reads correctly, throws nothing and does nothing.
+*** [PENDING Paolo] AND THE NEXT THING THIS LANE SHOULD TAKE: YOUR FAMILY IS ON
+THE LIST AND THE GAME GIVES YOU NO WAY TO BE THERE FOR THEM. *** Kin are not
+bodies on the street, so they witness nothing (ctDeed collects minds from what is
+DRAWN) and hear nothing (the gossip pass needs two drawn people together). They
+are counted as waiting and can never leave. Punishing a player for failing at
+something the game offers no way to do would be a lie, so it is named rather than
+hidden. The fix: kin need minds and a way to be shown up for. ***
+
+PEOPLE (people-7h9sfy): 9/7 -- *** [family events] SHIPPED. THE FAMILY
 CAN CHANGE NOW. It arrived 9/4 and then never moved again: family.tree 0,
 selectHeir 0, runDynasty 0 in both files that make up the game -- four people
 frozen at the cold open, in a game whose spine is three generations. There is a

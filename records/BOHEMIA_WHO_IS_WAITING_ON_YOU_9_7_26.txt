@@ -1,0 +1,126 @@
+BOHEMIA -- WHO IS WAITING ON YOU (9/7/26, PEOPLE lane)
+VAMILY job [neglect costs], row BB-OBLIGATION-BURN
+
+THE ROW: "THE STAKES TABLE GETS ITS FIRST ENTRY AND IT IS AN OBLIGATION, NOT A
+METER ... ONE thing not five meters; it SCALES WITH SUCCESS so a bigger operation
+is a bigger obligation; the punishment is a person walking away, not a bar
+draining."
+
+================================================================================
+MEASURED BEFORE BUILDING, AND IT WAS WORSE THAN THE ROW SAYS
+================================================================================
+  STAKES: []            the socket is built, applied at every single reckoning,
+                        and has held nothing since the day loop shipped
+  upkeep(purse, verb,   debits exactly 1, always. No headcount anywhere in the
+        ref, day)       signature, so a household of nine costs what one costs.
+                        (ECONOMY round 23 measured the same hole from the other
+                        side and routed it straight to this row.)
+  desert / leaves /     ZERO across bohemia_commitment, bohemia_favour,
+  quit / abandon /      bohemia_standing and bohemia_claim. NOBODY IN THIS VALLEY
+  walk away             HAS EVER STOPPED WAITING FOR THE PLAYER.
+  neglectFor(state)     EXISTS, returns a per-stage cost, and every one of those
+                        numbers is tagged "neglectPlaceholder": true. A cost
+                        nobody ruled, consumed by nothing.
+
+So the mechanism was half-built and inert: a ladder that knew what neglect WOULD
+cost, a day loop with a socket for it, and nothing that ever charged it.
+
+================================================================================
+WHY IT SHIPS WITHOUT PAOLO RULING A SINGLE NUMBER
+================================================================================
+NO DAMAGE BEFORE THE DIAL froze every stakes conversation, and correctly: a
+hunger meter needs a RATE and rates are his. The row's own unlock is that a
+SOCIAL burn is not damage -- "Hunger needs a rate. 'Three people are waiting on
+you' needs nothing but the truth."
+So this states truths and applies no rate:
+  how many people are waiting on you      counted, not tuned
+  which of them you showed up for today   read off the deed ledger's own turns
+  who has stopped waiting                 the standing web's answer, not a
+                                          threshold this module picked
+THE PLACEHOLDER NEGLECT NUMBERS ARE DELIBERATELY NEVER READ, and the gate proves
+that by parsing the module. Consuming a number tagged as a placeholder is how a
+guess becomes canon by accident.
+
+AND THE LEAVING RULE INVENTS NO THRESHOLD EITHER. Battle Brothers is the named
+study and its punishment is loneliness rather than death -- miss what you owe and
+men desert -- but it does not hand us "after how many days", so that is not
+copied. Somebody stops waiting only when BOTH things the game already computes
+are true: everything they have seen of you comes out negative, AND you did not
+show up for them in the day just reckoned. A person who thinks well of you gets a
+quiet day for free, which is true of people. The one you wronged and then ignored
+is the one who goes.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_obligation.js               who is waiting, who stops waiting
+tools/bohemia_city_obligation_patch.py     the facts, the socket, the morning
+gates/neglect_costs_gate.js                22 claims, 0 red
+gates/bohemia_gates.py                     registered, 568 -> 569
+
+THE FAMILY YOU WERE BORN INTO IS NOT ON THE LIST, and that is a reading of the
+story rather than an oversight: act one opens by losing them, and the ones who
+walk out walked out WITH you. What you TOOK ON is the marriage and the children.
+An outfit at "NOTHING SAID" is not an obligation either -- that is the commitment
+ladder's own first rung and it means you have promised nobody anything.
+
+IT SCALES BY COUNTING, NOT BY A CURVE. Every outfit you swear to adds exactly
+one, and there is no weighting, because weighting is exactly where a number
+nobody ruled would sneak in.
+
+================================================================================
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT
+================================================================================
+1. *** THE ENTRY WAS NEVER IN THE SOCKET AND EVERYTHING LOOKED FINE. *** The
+   first cut pushed it beside `const DAY = BohemiaDayLoop.make()`, which runs
+   about nine thousand lines BEFORE the module is defined. The guard meant to
+   make that safe -- `if (typeof BohemiaObligation !== 'undefined')` -- did its
+   job perfectly and silently: no throw, no log, an empty STAKES table, and a
+   reckoning that would have reported nothing forever. A GUARD AROUND AN ORDERING
+   BUG HIDES THE ORDERING BUG. It is pushed directly under the module now, where
+   there is no order to get wrong, and the gate checks the socket's CONTENTS on
+   the played surface rather than that the code exists.
+2. And the same shape bit this lane on the previous row, where a button was bound
+   to the wrong card. Twice in two rounds, the same failure mode: a thing that is
+   present, reads correctly, throws nothing, and does nothing.
+
+================================================================================
+PROVEN ON THE REAL DEMO
+================================================================================
+  a player who has taken nobody on     0 waiting, and the morning says nothing
+  marry, three children, swear to      5 waiting
+    one outfit
+  sleep                                the reckoning writes waiting 5, showedUp 0,
+                                       missed 5
+  the morning card                     "5 PEOPLE ARE WAITING ON YOU AND YOU
+                                       SHOWED UP FOR NONE OF THEM", beside what
+                                       his city made while he slept
+  an outfit you wronged and ignored    stops waiting for you
+  the same outfit, one deed for them   stays. SHOWING UP IS WHAT STOPS IT.
+    that day
+  after somebody goes                  the list drops and they are gone for good
+
+================================================================================
+[PENDING Paolo] AND ONE HOLE I AM NAMING RATHER THAN PAPERING OVER
+================================================================================
+1. *** YOUR FAMILY IS ON THE LIST AND THE GAME GIVES YOU NO WAY TO BE THERE FOR
+   THEM. *** Kin are not bodies on the street, so they witness nothing (ctDeed
+   collects minds from what is DRAWN) and they hear nothing (the gossip pass
+   needs two drawn people standing together). So they are counted as waiting and
+   they can never leave. That is the honest state, not a bug I hid: punishing a
+   player for failing at something the game offers no way to do would be a lie.
+   The fix is a real one and it is the next thing this lane should take: kin need
+   minds and a way to be shown up for -- going home, being seen.
+2. THE COMMITMENT LADDER'S NEGLECT NUMBERS ARE STILL PLACEHOLDERS. Nothing reads
+   them and nothing here needs them. If he ever rules them they become a second,
+   sharper answer to the same question, and that is his call.
+3. WHAT HAPPENS AFTER SOMEBODY GOES. Today they are simply off the list. Whether
+   an outfit that stopped waiting turns hostile, or a spouse who leaves takes the
+   children, is a story decision and it is his.
+
+FEEDS: ECONOMY rounds 23 and 26, which measured this hole from the purse side and
+routed it here. And it is the first entry the STAKES table has ever held, so
+anything else that wants to cost a day now has a working example to copy.
+
+TAB: CITY. Marry, have children, swear to an outfit, then sleep -- the morning
+tells you how many people are waiting on you and how many you showed up for.

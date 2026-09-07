@@ -31182,6 +31182,7 @@ let DAY_RESTORED=false;
    the save all read it, and none of them should have to know the loop exists. */
 const T={day:1, min:6*60};
 const DAY=BohemiaDayLoop.make();
+
 DAY.wake();
 function daySync(){ T.day=DAY.day; T.min=DAY.min; }
 function advance(mins){
@@ -40479,6 +40480,242 @@ function ctKnowsMe(id){
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 
 /* ==== /engine/bohemia_family.js (THE FAMILY TREE) ==== */
+/* ==== engine/bohemia_obligation.js (WHO IS WAITING ON YOU, inlined verbatim) ==== */
+// BOHEMIA OBLIGATION — WHO IS WAITING ON YOU, AND WHO STOPS WAITING.
+// (9/7/26, PEOPLE lane. VAMILY [neglect costs], row BB-OBLIGATION-BURN.)
+//
+// THE ROW, IN ITS OWN WORDS: "THE STAKES TABLE GETS ITS FIRST ENTRY AND IT IS AN
+// OBLIGATION, NOT A METER ... ONE thing not five meters; it SCALES WITH SUCCESS
+// so a bigger operation is a bigger obligation; the punishment is a person
+// walking away, not a bar draining."
+//
+// *** MEASURED BEFORE A LINE WAS WRITTEN. ***
+//   STAKES: []                     the socket is built, applied at every
+//                                  reckoning, and EMPTY. This is its first entry.
+//   upkeep(purse, verb, ref, day)  debits exactly 1, always. No headcount is in
+//                                  its signature, so a household of nine costs
+//                                  what a household of one costs. (ECONOMY
+//                                  round 23 measured the same thing from the
+//                                  other side and routed it here.)
+//   desert / leaves / quit /       ZERO across bohemia_commitment,
+//   abandon / walk away            bohemia_favour, bohemia_standing and
+//                                  bohemia_claim. NOBODY IN THIS VALLEY HAS EVER
+//                                  STOPPED WAITING FOR THE PLAYER.
+//   neglectFor(state)              EXISTS, returns a per-stage number, and every
+//                                  one of those numbers is tagged
+//                                  "neglectPlaceholder": true. A cost nobody
+//                                  ruled, consumed by nothing.
+//
+// So the mechanism was half-built and inert: a ladder that knows what neglect
+// WOULD cost, a day loop with a socket for it, and nothing that ever charges it.
+//
+// ============================================================================
+// WHY THIS SHIPS WITHOUT PAOLO RULING A SINGLE NUMBER
+// ============================================================================
+// NO DAMAGE BEFORE THE DIAL froze every stakes conversation, and correctly: a
+// hunger meter needs a RATE, and rates are his. The row's own unlock is that a
+// SOCIAL burn is not damage -- "Hunger needs a rate. 'Three people are waiting
+// on you' needs nothing but the truth."
+// So this module states truths and never applies a rate:
+//   how many people are waiting on you        counted, not tuned
+//   which of them you showed up for today     read off the deed ledger's turns
+//   who has stopped waiting                   derived from what THEY have seen
+// The placeholder neglect numbers are DELIBERATELY NOT READ here. Consuming a
+// number tagged as a placeholder is how a guess becomes canon by accident.
+//
+// AND THE LEAVING RULE INVENTS NO THRESHOLD EITHER. Battle Brothers is the named
+// study and its punishment is loneliness, not death: miss what you owe and men
+// desert. What it does NOT hand us is "after how many days", so that is not
+// copied. Somebody stops waiting when BOTH of two things the game already
+// computes are true:
+//   1. everything they have seen of you now comes out NEGATIVE, which is the
+//      standing web's own arithmetic (the same sum wouldSquare asks), and
+//   2. you did not show up for them on the day that was just reckoned.
+// Neither half is a dial. A person with a good opinion of you forgives a quiet
+// day; a person you have wronged and then ignored is the one who goes. That is
+// the harder, truer version and it costs nothing to defend.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  /* WHAT COUNTS AS SOMEBODY WAITING ON YOU. Two kinds, and both are read off
+     state the game already keeps rather than a list this module invents:
+       KIN     the living family the tree holds -- the one you married and the
+               children you had. They do not choose to be waiting on you.
+       SWORN   every outfit you have committed to, at any stage past 'none'.
+               These DID choose, which is why walking away means something. */
+  var KIN = 'kin', SWORN = 'sworn';
+
+  function norm(x) { return String(x == null ? '' : x).toLowerCase().trim(); }
+
+  /* ==========================================================================
+     WHO IS WAITING ON YOU. Handed the facts; reads no global and keeps no copy.
+       facts.tree     the family tree (BohemiaFamily's shape) or null
+       facts.commit   save.meta.commit, factionId -> commitment state
+       facts.gone     ids that have already walked, so they are not re-counted
+     RETURNS one flat list, because the row says ONE THING NOT FIVE METERS and a
+     list you have to add up in three places is five meters wearing a coat.
+     ========================================================================== */
+  function waitingOn(facts) {
+    facts = facts || {};
+    var gone = facts.gone || {};
+    var out = [];
+
+    var tree = facts.tree || [];
+    for (var i = 0; i < tree.length; i++) {
+      var n = tree[i];
+      if (!n || !n.alive) continue;
+      /* THE PARENTS AND THE SIBLING ARE NOT ON THIS LIST, and that is a reading
+         of the story rather than an oversight: act one opens by losing them and
+         the ones who walk out walked out with you. What you TOOK ON is the
+         marriage and the children -- the two things the player chose. */
+      if (n.rel !== 'spouse' && n.rel !== 'child') continue;
+      if (gone[n.id]) continue;
+      out.push({ id: n.id, kind: KIN, rel: n.rel, name: n.name || null });
+    }
+
+    var commit = facts.commit || {};
+    for (var fid in commit) {
+      if (!Object.prototype.hasOwnProperty.call(commit, fid)) continue;
+      var st = norm(commit[fid]);
+      if (!st || st === 'none') continue;      /* 'NOTHING SAID' is not an obligation */
+      if (gone['fac:' + fid]) continue;
+      out.push({ id: 'fac:' + fid, kind: SWORN, fid: fid, state: st, name: null });
+    }
+    return out;
+  }
+
+  /* IT SCALES WITH SUCCESS, WHICH IS THE ROW'S OWN WORDS, AND IT IS A COUNT
+     RATHER THAN A CURVE. A bigger operation is a bigger obligation because more
+     people are waiting, full stop. No weighting, because weighting is where a
+     number nobody ruled would sneak in. */
+  function sizeOf(facts) { return waitingOn(facts).length; }
+
+  /* ==========================================================================
+     DID YOU SHOW UP FOR THEM. Read off the deed ledger the game already writes:
+     a deed with a turn on it, witnessed by that person, inside the day being
+     reckoned. Nothing new is recorded and nothing is rolled.
+       facts.deedsFor(id)  -> array of {turn} the caller resolves however it
+                              stores them. REQUIRED: this module will not guess
+                              at a ledger shape.
+       dayStart/dayEnd     the minute bounds of the day being reckoned
+     ========================================================================== */
+  function showedUpFor(facts, id, dayStart, dayEnd) {
+    var f = facts && facts.deedsFor;
+    if (typeof f !== 'function')
+      throw new Error('BohemiaObligation needs facts.deedsFor(id) handed in. It '
+        + 'will not guess how deeds are stored, because guessing a ledger shape '
+        + 'is how a check silently starts measuring nothing.');
+    var list = f(id) || [];
+    for (var i = 0; i < list.length; i++) {
+      var t = list[i] && list[i].turn;
+      if (typeof t !== 'number') continue;
+      if (t >= dayStart && t <= dayEnd) return true;
+    }
+    return false;
+  }
+
+  /* ==========================================================================
+     WHO STOPS WAITING. Both halves are truths the game already computes, and
+     there is no threshold, no counter and no rate.
+       facts.opinionOf(id) -> a number, the standing web's own sum. Negative
+                              means everything they have seen of you comes out
+                              against you.
+     A person leaves only when their opinion is negative AND you did not show up
+     for them in the day just reckoned. Somebody who thinks well of you gets a
+     quiet day for free, which is true of people.
+     KIN ARE NOT EXEMPT AND THAT IS THE POINT OF THE ROW. "You do not die of
+     poverty in that game, YOU END UP ALONE."
+     ========================================================================== */
+  function whoWalks(facts, dayStart, dayEnd) {
+    var op = facts && facts.opinionOf;
+    if (typeof op !== 'function')
+      throw new Error('BohemiaObligation needs facts.opinionOf(id) handed in. '
+        + 'Whether somebody has had enough of you is the standing web\'s answer, '
+        + 'not a number this module is entitled to invent.');
+    var list = waitingOn(facts), out = [];
+    for (var i = 0; i < list.length; i++) {
+      var p = list[i];
+      var v = op(p.id);
+      if (typeof v !== 'number' || v >= 0) continue;
+      if (showedUpFor(facts, p.id, dayStart, dayEnd)) continue;
+      out.push(p);
+    }
+    return out;
+  }
+
+  /* ==========================================================================
+     THE STAKES ENTRY. The day loop's contract is {name, apply(ledger, state)},
+     and the reckoning REPORTS -- it does not starve you, drain you or kill you.
+     So apply() writes what is true onto the ledger and nothing else. Who
+     actually leaves is the surface's to act on, because removing a person from
+     the world is a write and a pure module does not reach out and do that.
+     ========================================================================== */
+  function stakesEntry(read) {
+    if (typeof read !== 'function')
+      throw new Error('BohemiaObligation.stakesEntry needs a read() that hands '
+        + 'back the facts at reckoning time. A stakes entry that captured them '
+        + 'once would report yesterday forever.');
+    return {
+      name: 'obligation',
+      apply: function (ledger, L) {
+        var facts = read(L) || {};
+        var dayEnd = (L && typeof L.min === 'number') ? L.min : 0;
+        var day = (L && L.day) || 1;
+        var dayStart = (L && typeof L.WAKE_MIN === 'number') ? L.WAKE_MIN : 0;
+        /* the deed ledger stamps absolute minutes, so lift the bounds to them */
+        var base = (day - 1) * 1440;
+        var list = waitingOn(facts);
+        var kept = [], missed = [];
+        for (var i = 0; i < list.length; i++) {
+          (showedUpFor(facts, list[i].id, base + dayStart, base + dayEnd)
+            ? kept : missed).push(list[i]);
+        }
+        ledger.obligation = {
+          waiting: list.length,
+          showedUp: kept.length,
+          missed: missed.length,
+          leaving: whoWalks(facts, base + dayStart, base + dayEnd)
+                     .map(function (p) { return p.id; })
+        };
+        return ledger.obligation;
+      }
+    };
+  }
+
+  /* PLAYER-FACING WORDS, ALL draft:true (8/11: words get an attempt, decisions
+     wait). They state the count, because the row's whole argument is that the
+     truth is enough and needs no dial under it. */
+  function say(o) {
+    if (!o || !o.waiting) return 'NOBODY IS WAITING ON YOU';
+    var n = o.waiting;
+    var people = n === 1 ? 'ONE PERSON IS' : (n + ' PEOPLE ARE');
+    if (!o.missed) return people + ' WAITING ON YOU, AND YOU SHOWED UP FOR ALL OF THEM';
+    if (!o.showedUp) return people + ' WAITING ON YOU AND YOU SHOWED UP FOR NONE OF THEM';
+    return people + ' WAITING ON YOU. YOU SHOWED UP FOR ' + o.showedUp;
+  }
+
+  var API = { KIN: KIN, SWORN: SWORN,
+              waitingOn: waitingOn, sizeOf: sizeOf, showedUpFor: showedUpFor,
+              whoWalks: whoWalks, stakesEntry: stakesEntry, say: say };
+  if (HASREQ) module.exports = API; else root.BohemiaObligation = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* ==== /engine/bohemia_obligation.js (WHO IS WAITING ON YOU) ==== */
+/* __CITY_OBLIGATION__ -- THE STAKES TABLE'S FIRST ENTRY, AND IT IS AN OBLIGATION
+   RATHER THAN A METER. The socket has been applied at every reckoning since the
+   day loop shipped and has had nothing in it.
+   *** IT IS PUSHED HERE, DIRECTLY UNDER THE MODULE, AND THE FIRST CUT PUT IT
+   BESIDE `const DAY = ...` INSTEAD -- WHICH RUNS ABOUT NINE THOUSAND LINES
+   EARLIER, BEFORE THIS MODULE EXISTS. *** The guard that was supposed to make
+   that safe (`if typeof BohemiaObligation !== 'undefined'`) did its job
+   perfectly and silently: no throw, no log, an empty STAKES table, and a
+   reckoning that reported nothing forever. A guard around an ordering bug hides
+   the ordering bug. Under the module there is no ordering to get wrong. */
+try{
+  DAY.STAKES.push(BohemiaObligation.stakesEntry(function(){ return ctOblFacts(); }));
+}catch(_e){}
+
 
 
 
@@ -47381,6 +47618,25 @@ function showWake(){
   if(_pl) h+='<p>'+esc(_pl)+'</p>';                                 /* draft:true */
   var _hl=''; try{ _hl=houseLine(); }catch(_e){}
   if(_hl) h+='<p>'+esc(_hl)+'</p>';                                 /* draft:true */
+  /* __CITY_OBLIGATION__ -- WHO WAS WAITING ON YOU YESTERDAY. It goes here, with
+     what his city made while he slept, because it is the same kind of sentence:
+     what happened because of choices he already made. A morning with nobody
+     waiting says nothing at all, which is the honest empty state and not a zero.
+     AND WHOEVER STOPPED WAITING IS NAMED, because "a person walking away" that
+     you never hear about is a bar draining with extra steps. draft:true. */
+  try{
+    var _ob = (DAY.history && DAY.history.length)
+            ? DAY.history[DAY.history.length-1].obligation : null;
+    if(_ob && _ob.waiting){
+      h += '<p>'+esc(BohemiaObligation.say(_ob))+'</p>';
+      if(_ob.leaving && _ob.leaving.length){
+        ctOblApply(_ob.leaving);
+        h += '<p>'+esc(_ob.leaving.length===1
+              ? 'SOMEBODY STOPPED WAITING FOR YOU.'
+              : _ob.leaving.length+' PEOPLE STOPPED WAITING FOR YOU.')+'</p>';
+      }
+    }
+  }catch(_e){}
   if(o){ h+='<p>Something came in on your phone overnight.</p>'
           +'<h3>'+esc((o.title||'').toUpperCase())+'</h3>'
           +'<div class="sub">nobody has picked it up yet</div>';
@@ -47708,6 +47964,107 @@ function famHeir(gen){
   var t = famTree(); if(!t) return null;
   try{ return BohemiaFamily.heirOf(t, famSeedText(), gen||1); }catch(_e){ return null; }
 }
+/* ============================================================================
+   __CITY_OBLIGATION__ (9/7) -- WHO IS WAITING ON YOU, AND WHO STOPS WAITING.
+
+   The STAKES table has been empty since the day loop shipped, and its own header
+   says why: "what a day costs to live is Paolo's ruling, not mine." That is
+   right about a HUNGER meter, which needs a rate. It is not right about an
+   obligation, which needs only the truth -- and the truth is already in the
+   save: who you married, the children you had, and every outfit you swore to.
+
+   NOTHING BELOW READS THE PLACEHOLDER NEGLECT NUMBERS. bohemia_commitment's
+   per-stage `neglect` values are all tagged "neglectPlaceholder": true, and
+   consuming a number tagged as a placeholder is how a guess becomes canon by
+   accident.
+   ========================================================================== */
+var CT_GONE = {}, CT_GONE_KEY = 'boh.city.gone';
+function ctGoneLoad(){
+  try{ var raw = JSON.parse(localStorage.getItem(CT_GONE_KEY) || 'null');
+       if(raw && typeof raw === 'object') CT_GONE = raw; }catch(_e){ CT_GONE = {}; }
+  return CT_GONE;
+}
+function ctGoneSave(){
+  try{ localStorage.setItem(CT_GONE_KEY, JSON.stringify(CT_GONE)); }catch(_e){}
+}
+
+/* WHAT AN OUTFIT YOU SWORE TO THINKS OF YOU. Not a new number: the against organ
+   already answers this, and it is the organ this lane shipped for [who is
+   hostile], so there is exactly one rule for "are they against you" in the game.
+   Negative means against, positive means not. */
+function ctOblOutfit(fid){
+  try{
+    if (typeof BohemiaAgainst === 'undefined') return null;
+    var rel = ctRelToMine(fid);
+    var ans = BohemiaAgainst.read({ rel: rel, rung: null,
+                                    coalition: null, roving: null });
+    return (ans && ans.level) ? -1 : 1;
+  }catch(_e){ return null; }
+}
+
+/* DID YOU DO ANYTHING FOR THEM. Read off the ledger the game already writes.
+   A deed done ABOUT an outfit is stamped with that outfit on the eyewitness
+   copies (ctDeed does it), so showing up for the Cartel means a deed today that
+   an eyewitness knows was about the Cartel. Nothing new is recorded. */
+function ctOblDeeds(id){
+  var out = [];
+  try{
+    if (String(id).indexOf('fac:') === 0){
+      var want = String(id).slice(4).toUpperCase().replace(/[\s_]/g,'');
+      for (var k in CT_MINDS){
+        var m = CT_MINDS[k]; if (!m || !m.deeds) continue;
+        for (var i = 0; i < m.deeds.length; i++){
+          var d = m.deeds[i];
+          if (!d || d.hops) continue;                 /* eyewitness only */
+          if (!d.of) continue;
+          if (String(d.of).toUpperCase().replace(/[\s_]/g,'') !== want) continue;
+          out.push({ turn: d.turn });
+        }
+      }
+      return out;
+    }
+    /* KIN. Their mind is the same shape as anybody's, if they have one. */
+    var mm = CT_MINDS[id];
+    if (mm && mm.deeds) for (var j = 0; j < mm.deeds.length; j++)
+      out.push({ turn: mm.deeds[j].turn });
+  }catch(_e){}
+  return out;
+}
+
+function ctOblFacts(){
+  var commit = {};
+  try{ var sv = ctBelongSave(); commit = (sv && sv.meta && sv.meta.commit) || {}; }
+  catch(_e){ commit = {}; }
+  return {
+    tree: famTree(),
+    commit: commit,
+    gone: ctGoneLoad(),
+    deedsFor: ctOblDeeds,
+    opinionOf: function(id){
+      if (String(id).indexOf('fac:') === 0) return ctOblOutfit(String(id).slice(4));
+      /* *** KIN CANNOT FORM AN OPINION YET AND THAT IS THE HONEST ANSWER. ***
+         They are not bodies on the street, so they witness nothing and hear
+         nothing: the gossip pass needs two DRAWN people standing together. So
+         they are COUNTED as waiting on you and they never leave, because the
+         game gives you no way to be there for them and it would be a lie to
+         punish you for it. That gap is the next row, and it is written down
+         rather than papered over. */
+      var op = null; try{ op = ctOpinionOf(id); }catch(_e){}
+      return op ? op.value : null;
+    }
+  };
+}
+
+/* WHO ACTUALLY WENT. The module decides; this is the write, because a pure
+   module does not reach out and remove somebody from the world. */
+function ctOblApply(ids){
+  if (!ids || !ids.length) return 0;
+  ctGoneLoad();
+  for (var i = 0; i < ids.length; i++) CT_GONE[ids[i]] = (T.day|0);
+  ctGoneSave();
+  return ids.length;
+}
+
 function famHeirSay(gen){
   var t = famTree(); if(!t) return null;
   var id = famHeir(gen); if(!id) return null;

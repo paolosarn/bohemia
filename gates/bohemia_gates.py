@@ -4276,6 +4276,18 @@ GATES = [
      "settled by somebody else's choice), whether they WOULD is derived from what they have actually "
      "seen rather than from a forgiveness dial nobody ruled, and forgiven is not forgotten -- the deed "
      "keeps its record and its reason, it only stops carrying force", False),
+    ('NEGLECT COSTS',  ['node', 'gates/neglect_costs_gate.js'],
+     "THE STAKES TABLE HAD BEEN EMPTY SINCE THE DAY LOOP SHIPPED and its own header said why: what a day "
+     "costs to live is Paolo's ruling. That is right about a HUNGER meter, which needs a rate, and wrong "
+     "about an OBLIGATION, which needs only the truth -- who you married, the children you had, and every "
+     "outfit you swore to are all already in the save. Measured first: nobody in this valley had ever "
+     "stopped waiting for the player (desert/leaves/quit/abandon ZERO across four social modules), upkeep() "
+     "debits exactly 1 with no headcount, and neglectFor() returns per-stage costs every one of which is "
+     "tagged neglectPlaceholder. So the entry COUNTS and REPORTS and reads no placeholder. The claims that "
+     "matter: the entry is really IN THE SOCKET on the played surface (the first cut pushed it nine "
+     "thousand lines before the module existed and a guard swallowed it in silence), it costs nothing "
+     "until you take somebody on, it scales by counting, and the punishment is a PERSON -- somebody you "
+     "wronged and then ignored stops waiting, while showing up for them that day is what stops it", False),
     ('FAMILY EVENTS',  ['node', 'gates/family_events_gate.js'],
      "THE FAMILY ARRIVED ON 9/4 AND THEN NEVER CHANGED AGAIN. family.tree 0, selectHeir 0, runDynasty 0 "
      "in both files that make up the game -- four people frozen at the cold open, in a game whose whole "
