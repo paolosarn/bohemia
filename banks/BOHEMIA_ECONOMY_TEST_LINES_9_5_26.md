@@ -1779,3 +1779,70 @@ NNNNN3 the grown child                             draft:true
   thinking so, mid-sentence.
 - Spanish register: 1 of 15 lines, under the 15% he set on 8/26. This bank does
   not grow the register corpus and language_gate's cap is untouched.
+
+## PPPPP. HE DIDN'T PAY ME (round 24, and it is about half of all shifts)
+## (worked the day, walked home with nothing. Nobody is shocked.)
+
+PPPPP1 somebody at the end of a day               draft:true
+       "Tomorrow, he says. He said tomorrow last Tuesday as well and I still
+        turned up on Wednesday, so what does that tell you about me."
+
+PPPPP2 somebody warning a newcomer                draft:true
+       "About half. That's not me being bitter, that's just what it is, about
+        half of them pay and you find out which at the end."
+
+PPPPP3 somebody who counts it anyway              draft:true
+       "I did the work. Whatever else is true, I did the work, and I'm going
+        to keep saying that out loud until somebody agrees with me."
+
+## QQQQQ. I CAN'T LEAVE NOW (the arrears are the hostage)
+## (the more he owes you the more stuck you are. Nobody calls it a trap.)
+
+QQQQQ1 somebody doing the arithmetic              draft:true
+       "Four days he's got of mine. If I walk today that's four days I gave
+        him for free, so I'll be there in the morning, won't I."
+
+QQQQQ2 somebody who has been at it longer         draft:true
+       "It was two days once. Then it was a week. You never leave on the week
+        you should leave on, hermano, that's the whole thing."
+
+QQQQQ3 somebody explaining the street             draft:true
+       "Go where? He's the same. The one on the corner's the same. They're all
+        the same and they all know they're all the same."
+
+## RRRRR. THE ONES WHO CAN LEAVE (having somewhere else to eat)
+## (the exit exists only for somebody with an alternative.)
+
+RRRRR1 somebody who walked                        draft:true
+       "I had one other thing I could do. One. That's the only reason I'm
+        standing here instead of standing there."
+
+RRRRR2 somebody watching armed men go             draft:true
+       "They stopped getting paid and they didn't go home. That's the part
+        people get wrong. They didn't go home, they went somewhere."
+
+RRRRR3 somebody in the next town                  draft:true
+       "Somebody up the road saved a wage and we're the ones paying it. Nobody
+        will ever put those two things next to each other but me."
+
+## SSSSS. WHAT IT DOES TO THE STREET (unpaid people stop buying)
+## (the shop side of arrears, from round 15's four-day collapse.)
+
+SSSSS1 a seller with nobody coming in             draft:true
+       "It's not that they've got no money. Half of them are owed money, which
+        is a different thing and it's worse for me."
+
+SSSSS2 somebody not spending                      draft:true
+       "I'm not buying anything until he settles up. Not because I'm making a
+        point. Because I can't."
+
+## TTTTT. WHAT IS NOT HERE, ON PURPOSE (round 24)
+- No line has a debt in a purse or a number going negative. Being owed here is a
+  person and a count of days, which is round 9's shape.
+- No line has a patience meter, an anger bar or a countdown to walking out.
+  QQQQQ2 says you never leave on the week you should, which is the finding.
+- No line charges interest on what is owed. It grows by not being paid.
+- No line names an employer, a faction or a town. MAP LAW, and his.
+- No line says the words arrears, wage theft or exploitation.
+- Spanish register: 1 of 13 lines, under the 15% he set on 8/26. This bank does
+  not grow the register corpus and language_gate's cap is untouched.

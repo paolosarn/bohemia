@@ -32,8 +32,8 @@ Q9 [trust credit], Q10 [market day],
 Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
 Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
 Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
-Q23 [who eats first].
-Next OPEN is Q24 [pay on time]; Q25 [batteries scarce] after it.
+Q23 [who eats first], Q24 [pay on time].
+Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
 
 AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
 (Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
@@ -67,113 +67,110 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 23 REPORT: [who eats first] SHIPPED ===
-*** THE ORDER IS ABOUT EARNING, NOT ABOUT SURVIVING. MODE: RESEARCH, nothing
+=== ROUND 24 REPORT: [pay on time] SHIPPED ===
+*** THE MORE THEY OWE YOU, THE LESS YOU LEAVE. MODE: RESEARCH, nothing
 implemented. NOT IN A TAB YET. Nothing to judge. ***
 
-Record: records/BOHEMIA_ECONOMY_DAY_23_THE_ORDER_IS_ABOUT_EARNING_NOT_SURVIVING_9_6_26.md
-Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections KKKKK-OOOOO (12 lines, 322 total)
-Board:  Q23 SHIPPED. Q1-Q23 shipped; next OPEN is Q24 [pay on time], then Q25
-        [batteries scarce].
+Record: records/BOHEMIA_ECONOMY_DAY_24_THE_MORE_THEY_OWE_YOU_THE_LESS_YOU_LEAVE_9_6_26.md
+Bank:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections PPPPP-TTTTT (11 lines, 333 total)
+Board:  Q24 SHIPPED. Q1-Q24 shipped; next OPEN is Q25 [batteries scarce], then Q26
+        [forgiveness price] and Q27 [shift pay], both added since last round.
 
-Worked inside two laws and touched neither: NO DAMAGE BEFORE THE DIAL, and his 9/5
-ruling that there is no meter on the player's body ("he is not hungry, THEY are").
-
-THE GAME CANNOT ASK THIS QUESTION YET BECAUSE THERE IS NOBODY AT THE TABLE.
-  day:ate takes ONE resource at nightfall whoever is depending on you. Measured: a
-  household of 1, 2, 5 and 9 all cost exactly the same, because
-  upkeep(purse, verb, ref, day) HAS NO HEADCOUNT ANYWHERE IN ITS SIGNATURE.
-  And the valley knows the difference: bohemia_housing.js exposes residentsAt,
-  capacity and valleyPeople, live since round 12. NOTHING IN THE EATING PATH READS
-  ANY OF IT. Same class as every finding in this lane: built, correct, connected to
-  nothing.
-  AND RUNNING OUT IS DELIBERATELY NOT A FAILURE, WHICH IS RIGHT. The walked surface
-  says so where it fires: "Running out is not a failure state here, it is a refusal
-  the ledger records -- what it COSTS you is BB-OBLIGATION-BURN's row, not this
-  one." That row is still OPEN on the WORLD board as [neglect costs], AND ITS OWN
-  TEXT ALREADY CARRIES THE RIGHT DESIGN: "survival meters are the most reliably
-  hated mechanic in the genre... the punishment is a person walking away, not a bar
-  draining... You do not die of poverty in that game, YOU END UP ALONE." And: "A
-  SOCIAL BURN IS NOT DAMAGE. Hunger needs a rate. 'Three people are waiting on you'
-  needs nothing but the truth." WHAT THIS ROUND ADDS IS WHO THE THREE PEOPLE ARE.
+PAY IN BOHEMIA CANNOT BE LATE, BECAUSE THERE IS NO GAP FOR IT TO BE LATE IN.
+  finish a job at nightfall -> applied:true, paid {electricity:1}
+  a job that failed         -> applied:false, reason NO_RULING
+  TWO STATES EXIST: PAID, AND NOBODY RULED WHAT IT IS WORTH. THERE IS NO THIRD
+  STATE CALLED "THEY DID NOT PAY YOU". The purse's kinds are source, drain, convert
+  and transfer and none of them is OWED. payForToday() fires at nightfall off the
+  finished quest: no due date, no schedule, no arrears field.
+  AND THE PURSE CANNOT HOLD ONE, ON PURPOSE, WHICH IS RIGHT ("balances never go
+  negative, so no hidden debt system exists by accident"). Round 9 agreed with the
+  reasoning; the consequence nobody had written down is that NOBODY CAN BE OWED, IN
+  EITHER DIRECTION.
+  THE THREE ARREARS THIS DESIGN IMPLIES AND NONE IS BUILT: somebody owes the player
+  (does not exist); the player owes his people (day:ate refused, no consequence,
+  round 23); a faction stops paying (BB-UNPAID-TURNS-PREDATORY, queued).
 
 THE REAL AISLE.
-  THE ORDER IS BY CONTRIBUTION, NOT BY NEED. Studies of household food distribution
-  in Asia found allocation based on ECONOMIC CONTRIBUTION rather than need: the
-  breadwinner is fed to protect his earning. The order reported across low-income
-  settings is the earner, then the children, then adult women last INCLUDING
-  PREGNANT WOMEN; in rural Ethiopia adolescent girls eat after serving the male
-  members. It is not cruelty or ignorance -- it is a household making the same
-  calculation an economy makes: protect the thing that produces.
-  AND IT IS THE WRONG CALCULATION, MEASURED. During famines FEMALES GENERALLY HAVE
-  A MORTALITY ADVANTAGE. Modelled: a 30-year-old woman at 70 kg survives ~144 days
-  without food against ~95 for a man, and across mean body mass in 48 countries
-  WOMEN SURVIVE ABOUT 40% LONGER (observed range 5% to 210%). And the highest
-  famine mortality falls on THE VERY YOUNG AND THE ELDERLY. So the household feeds
-  the earner, who would have lasted the shortest time, and the deaths land on the
-  groups the rule ranks lowest. THE ORDER IS OPTIMISED FOR THE HOUSEHOLD'S OUTPUT,
-  NOT ITS LIVES, AND IT COSTS LIVES TO DO IT.
-  AND GOING WITHOUT DOES NOT UNDO. Undernutrition in the first 1000 days produces
-  stunting, largely irreversible -- it cannot be treated, only prevented. World
-  Bank: a 1% loss of adult height costs about 1.4% of adult productivity, and
-  stunting can cut earnings by UP TO 7%. HONEST CAVEAT because it cuts against the
-  cleaner story: catch-up growth is real, and around half of children stunted at
-  one are no longer stunted at eight. So it is a heavy weight on the scale, not a
-  sentence. A CHILD WHO WENT WITHOUT IN GENERATION ONE IS A SHORTER, POORER ADULT
-  IN GENERATION TWO -- that is not a metaphor for inheritance, it IS inheritance,
-  and it is measurable.
+  GETTING STIFFED IS NOT AN EDGE CASE, IT IS A COIN FLIP: 49% of day labourers have
+  experienced outright wage theft and 48% underpayment, sometimes after days or
+  weeks of work. ABOUT HALF.
+  AND WHEN IT IS COMMON, PEOPLE DO NOT LEAVE, THEY STAY LONGER. Russia: by end 1999
+  NEARLY TWO THIRDS of employees were owed overdue wages, AVERAGING 4.8 MONTHLY
+  WAGES EACH -- almost five months of pay, owed, to two people in three. And the
+  quitting behaviour overturns the intuition: THE EFFECT OF ARREARS ON QUITTING
+  VARIES NEGATIVELY WITH HOW PREVALENT THE PRACTICE IS LOCALLY. Arrears were
+  highest where hiring rates were low and the practice had a history; it became
+  NORMALISED, and normalisation reduced the incentive to leave.
+  Two things hold you at once: THERE IS NOWHERE TO GO, because every employer does
+  it, and LEAVING FORFEITS WHAT YOU ARE OWED. UNPAID WAGES ARE A HOSTAGE. THE
+  LONGER THEY OWE YOU, THE MORE EXPENSIVE IT BECOMES TO WALK AWAY.
+  EXCEPT FOR THE PEOPLE WHO HAVE ANOTHER WAY TO EAT. Free companies "regularly made
+  a living by plunder when they were not employed" and Caferro's judgement is that
+  mercenaries were "notoriously difficult to control and prone to desertion if not
+  paid regularly"; in peacetime they became a marching plague of devastation,
+  plunder and blackmail, and towns paid them to go away.
+  THE DIFFERENCE IS NOT LOYALTY, IT IS WHETHER THE UNPAID PERSON HAS ANOTHER WAY TO
+  EAT. A worker with no alternative stays and is owed more. An armed man with an
+  alternative leaves and becomes the next town's problem.
+  AND WHAT IT DOES TO A TOWN, both halves: the worker who stays unpaid STOPS
+  BUYING (round 15's Argentina, shops losing 50-70% of trade in four days), and the
+  armed man who leaves becomes A BILL SOMEBODY ELSE PAYS.
 
-*** THE FINDING THAT PROVES US WRONG. I came in expecting to deliver a NEED-based
-rule: the weakest eat first, because that is what a decent household does and what
-a player expects to be rewarded for. REAL HOUSEHOLDS DO THE OPPOSITE, ON PURPOSE,
-AND THEY ARE NOT WRONG TO -- a household that stops earning stops eating. AND THE
-MEASURED RESULT IS THAT THEY PROTECT THE PERSON WHO NEEDED PROTECTING LEAST. ***
-That is a better mechanic than the one I was going to write, because it is a real
-decision with a real cost on both sides and no correct answer: feed the earner and
-the household keeps its income while a child's growth does not come back; feed by
-need and you may have nobody able to work tomorrow. AND IT NEEDS NO METER, NO
-DAMAGE AND NO NUMBER HE HAS TO RULE -- it is a name and a consequence.
+*** THE FINDING THAT PROVES US WRONG. I came in expecting a patience meter: miss a
+payday and they are annoyed, miss three and they walk. That is the intuitive design
+and it is what our own backlog assumes. THE REAL RECORD SAYS THE OPPOSITE. WHEN NOT
+PAYING IS NORMAL, NOBODY WALKS. THEY STAY, THEY ARE OWED MORE, AND STAYING IS THE
+RATIONAL THING BECAUSE LEAVING FORFEITS THE ARREARS. ***
+And the exception is the whole rule, and Bohemia already has both halves:
+  BB-OBLIGATION-BURN         a man with somewhere to go walks away
+  BB-UNPAID-TURNS-PREDATORY  and what he does next is somebody else's problem
+  THE MISSING HALF           a man with nowhere to go STAYS, and is owed more
+AN UNPAID SHIFT IS NOT A PUNISHMENT, IT IS A HOLD. A punishment makes a player
+stop; a hold makes him come back angrier.
 
-THE RULE DELIVERED (mechanism only; nothing here adds damage or a meter):
-  1 THE DAY SHOULD COST WHAT THE HOUSEHOLD IS. Today it costs one, always. Housing
-    already answers residentsAt and the meal never asks. EVERYTHING COSTS ONE is
-    untouched: what changes is HOW MANY ONES, not what one is.
-  2 WHEN IT CANNOT BE PAID, THE ANSWER IS A NAME, NOT A FAILURE. The purse already
-    refuses honestly; what is missing is the sentence after -- somebody specific
-    went without, and it is a person the player can picture.
-  3 THE ORDER IS BY CONTRIBUTION AND THE PLAYER SHOULD FEEL THAT IT IS WRONG. Do
-    NOT offer a menu of who eats. Let the household do what real households do,
-    tell him who went without, and let him decide whether to change it. REALISM
-    FIRST says the realistic option leads, and the discomfort is the point.
-  4 GOING WITHOUT LEAVES A MARK THAT DOES NOT COME OFF. DYNASTY's, not ours, and it
-    is the strongest inheritance hook in the whole study.
-  5 AND NOBODY DIES OF IT. The household that goes without does not starve on
-    screen. IT LEAVES.
+DELIVERED, what a shift's pay should do when it does not come:
+  1 IT HAS TO BE POSSIBLE FOR PAY NOT TO COME. A third state, and NOT a negative
+    balance -- the purse's refusal is correct and round 9 settled it.
+  2 BEING OWED IS AN OPEN ITEM WITH A FACE. Round 9's exact shape pointed the other
+    way: somebody owes the player and the player knows who. Every organ is live.
+  3 IT SHOULD BE COMMON. Half of real day labourers have been stiffed. A shift that
+    always pays is not a shift in this valley. The ratio is his.
+  4 AND BEING OWED SHOULD PULL HIM BACK, NOT PUSH HIM AWAY. A player owed four
+    shifts is a player with a reason to return to somebody he does not like. No
+    meter, no anger bar, no timer: a number of unpaid days attached to a name.
+  5 THE WAY OUT IS HAVING SOMEWHERE ELSE TO EAT -- round 18's second seat, round
+    19's second regular, round 21's container, all the same door. Walking away
+    should COST the arrears, which is what makes the alternative worth having.
+  6 WHAT THE PLAYER OWES RUNS THE SAME WAY. His people stay because they have
+    nowhere to go, until one of them does. That is BB-OBLIGATION-BURN's "you end up
+    alone" with the missing middle put in.
 
-REFUSED: a hunger meter on anybody; death from going without; A MENU OF WHO EATS (a
-screen that asks the player to rank people by worth is a different, worse game, and
-the real rule is that the household already decided); modelling the mortality
-difference as a stat; ruling what a household eats per head (contents are his);
-anything gratuitous (this subject is real and the record is grim -- the design is a
-name and a departure and that is as far as it should go); any implementation.
+REFUSED: a negative balance or a debt on the purse; a patience meter or anger bar;
+a timer that fires desertion at N missed paydays (whether somebody leaves depends
+on whether they have somewhere to go, not on a count); interest on arrears (rounds
+9 and 16); ruling how often a shift stiffs you (contents are his); any
+implementation.
 
-ROUTED: WORLD gets two (the day eats one whoever is at the table; [neglect costs]
-is still open and its own text already has the design). LIFE+CITY gets "housing
-knows the headcount and the meal does not ask". DYNASTY gets the big one -- a child
-who went without is a poorer adult, measured. PEOPLE and WORDS get "the person who
-went without needs a name and one line". One goes to Paolo.
+ROUTED: WORLD [a days work] and RUN [a shift] get two (a shift needs to be able to
+not pay; being owed should bring him back). PEOPLE gets "this is round 9's shape
+pointed the other way". WORLD gets "BB-OBLIGATION-BURN and BB-UNPAID-TURNS-PREDATORY
+are ONE mechanism and the missing half is the more common one". One goes to Paolo.
 
 GATES: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
-blockers 22/0, language 81/0, HOUSING 18/0.
-EIGHTH ROUND RUNNING where a green suite and a real finding are both correct:
-housing_gate is 18/18 over the module that knows exactly how many people live in
-what the player built, while the meal that feeds them has never asked. Every
-assertion is true; nothing asks whether anything downstream reads the number,
-because that is a question about two modules rather than one.
+blockers 22/0, language 81/0.
+AND A CORRECTION TO MY OWN STANDING NOTE, because somebody answered part of it this
+round: a commit landed titled "A GATE THAT NEVER RUNS IS NOT A GATE: six shipped
+jobs had green gates the suite never ran, so the suite goes red on zero". THAT IS A
+DIFFERENT HOLE FROM THE ONE THIS LANE KEPT FINDING, and a real one -- a gate that
+exists but is not in the suite. MINE WAS GATES THAT RUN, PASS, AND ARE CORRECT
+WHILE THE THING THEY CHECK IS CONNECTED TO NOTHING. Both are true and they are not
+the same defect; recorded so a future round does not read the fix as covering
+rounds 16 to 23, because it does not.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
-  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; kept
-     because round 19 measured the far end: the shelf line stops moving on day 67.
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
+     end is round 19's day 67, when the shelf line stops moving.
   2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
   3. Century rule counts buildings. Should it also count who stayed?
   4. Which building is the good FIRST one?
@@ -186,8 +183,8 @@ because that is a question about two modules rather than one.
      second household when there is nowhere else to go?
  10. Once the valley is built out, eleven things in the whole game are worth a
      battery. What should a rich player WANT that he cannot just build?
- 11. What does a subscription to a block BUY? Round 18's answer: the right to trade
-     at that faction's seat.
+ 11. What does a subscription to a block BUY? Round 18: the right to trade at that
+     faction's seat.
  12. What does the player START with? He boots with nothing.
  13. What does it take to get the lights back on? A PRICE is the trap.
  14. What does a FAILED job pay? Today it is an honest NO_RULING.
@@ -197,14 +194,14 @@ because that is a question about two modules rather than one.
  18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
  19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
  20. What is the first thing a player can be caught at, and what does it cost him?
-     DEED_WEIGHT is his table and its negative half is the list of what this valley
-     thinks is wrong.
- 21. (new, and it blocks the whole of round 23) WHO IS AT THE PLAYER'S TABLE? The
-     four verbs say "the people who depend on you" and the game has never said who
-     they are. UNTIL SOMEBODY IS NAMED, NOBODY CAN GO WITHOUT.
+ 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
+ 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
+     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
+     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
 
-NEXT IN THIS LANE: Q24 [pay on time].
+NEXT IN THIS LANE: Q25 [batteries scarce].
 
+================================================================================
 ================================================================================
 EYES AND EARS (eyes-5vql33): 9/6 (m) LATEST -- *** E12 [silence standing] ROUND ONE OF TWO IS
 DONE: SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's premise wrong with a real number
