@@ -4080,6 +4080,54 @@ GATES = [
      "act in the corpus, in front of a whole faction, moves exactly one rung. An untagged deed still "
      "reaches exactly SEE_RANGE and earns exactly MAX_HOPS, so nothing already in the world changed. "
      "Fifteen planted mistakes self-tested every run", False),
+    # FIVE GATES THE PEOPLE LANE WROTE AND NEVER REGISTERED (9/6). Every one of
+    # them passed every time it was run BY HAND, and the suite had never run one
+    # of them, which is the exact shape of A LAW WITHOUT A MACHINE GATE IS NOT
+    # ENFORCED: a green gate nobody runs protects nothing. Four rows shipped
+    # behind them ([your reputation], [who is hostile], [outfits nearby],
+    # [former jobs]) and their proof was a hand-run I did not repeat after the
+    # next lane touched the same files. They are here now, so a lane that breaks
+    # one finds out from the suite instead of from Paolo.
+    ('WHO VOUCHES',    ['node', 'gates/who_vouches_gate.js'],
+     "THE PLAYER IS A NODE IN STANDING, NOT A SCOREBOARD ROW. Reputation used to be a number the "
+     "world agreed on instantly and from nowhere; this holds the other shape -- a named person has "
+     "SEEN a thing or HEARD it, second-hand carries less than an eyewitness, and WHO WILL VOUCH FOR "
+     "YOU is answered out of individual minds rather than a global tally. If this goes red, standing "
+     "has quietly gone back to being a scoreboard", False),
+    ('AGAINST',        ['node', 'gates/against_gate.js'],
+     "THE CROWD CARRIES THE SIGN. The between-ledger always knew who was hostile to the player and "
+     "none of it reached the street. This holds the three-rung ladder (cold/hostile/war) and its four "
+     "signs on the walked surface: they watch, they follow, they refuse to deal, they block a door. "
+     "It also holds the two things that broke while it was being built -- followers stop closing at "
+     "KEEP cells rather than being leashed inside it, and ONE BODY PER CELL survives a follow, which "
+     "it did not: three Cartel bodies stood in the same cell for 600 steps and the occupancy law was "
+     "broken in front of me", True),
+    ('TRADE FIT',      ['node', 'gates/trade_fit_gate.js'],
+     "WHAT YOU WEAR SAYS WHAT YOU DO. A person's clothes are asked of their trade, not sprayed at "
+     "random, and the city asks for a handful of looks rather than all thirteen -- every request "
+     "coming back as a real body on the walked surface. The claim in here has been repointed twice "
+     "rather than loosened, both times because another lane's good work changed what standing near a "
+     "faction base means, and repointing is the only honest response to that", False),
+    ('USED TO BE',     ['node', 'gates/used_to_be_gate.js'],
+     "WHAT YOU WERE BEFORE THE CRASH, and it is the same person every time you ask. Fifteen former "
+     "trades split back/front/off the house, weighted to real Las Vegas leisure-and-hospitality "
+     "employment rather than a number anybody liked the sound of. It exists because ONE HUMAN HAD TWO "
+     "PASTS: the draw fell back to person.id, the roster and the card carry different ids for the same "
+     "human, and a person's history changed depending on which surface asked", True),
+    ('DEMO TALKS',     ['node', 'gates/demo_talks_gate.js'],
+     "236 @TALK NODES AND 504 @SAY LINES WERE PARSED AND MUTE IN THE DEMO FILE. The conversation "
+     "chain existed, the demo loaded it, and nobody in it opened their mouth. This holds the wiring on "
+     "the file a stranger actually opens -- somebody talks on every one of the opening days, and a "
+     "speaker who belongs to a later stage is SILENT until the quest reaches them, which is the half "
+     "that proves the chain is being read rather than sprayed", False),
+    ('MAKE IT RIGHT',  ['node', 'gates/make_it_right_gate.js'],
+     "NOTHING IN THIS GAME COULD BE FORGIVEN. The web wrote deeds, carried them, faded them, and never "
+     "settled one, so standing was a one-way ratchet toward being hated and generation three is the "
+     "ANGEL. This holds the other half AND the three things that stop it being an eraser: the person "
+     "who was wronged decides (makeRight takes ONE mind, and a witness who saw the same thing is not "
+     "settled by somebody else's choice), whether they WOULD is derived from what they have actually "
+     "seen rather than from a forgiveness dial nobody ruled, and forgiven is not forgotten -- the deed "
+     "keeps its record and its reason, it only stops carrying force", False),
     ('PAYLOAD WALL',   ['python3', 'gates/payload_wall_gate.py'],
      "THE CLIFF NOBODY HAD MEASURED. GitHub REJECTS any file over 100 MB - not a warning, the push fails - and the alpha was 38.7 MB gaining ~1.4-2 MB/day, so every lane in the fleet would have lost the ability to push on an ordinary Tuesday about six weeks out, with no obvious cause. 96% of it was two inlined base64 blobs, and base64 costs 33% on top of what it carries. This measures every tracked file, projects the date off real git history, and fails at a budget well under the wall so somebody sees it with weeks of room", False),
     ('FACTION MEMBERSHIP', ['node', 'gates/faction_membership_gate.js'],
