@@ -28182,14 +28182,33 @@ function cityTapPlot(sx,sy){
    are the currency". A building costs ONE BATTERY, out of the same pocket the shop
    already charges. One building, one battery -- a 2x2 is still one building, the same
    unit demolish and produce() count. */
+/* __THE_FIRST_BUILDING_IS_NOT_AN_AIRBASE__ -- AND THE FALLBACK WAS AN AIRBASE TOO.
+   Three places read the picker's value and fell back to buildableTypes()[0] when the
+   panel was not open -- and [0] is alphabetical, which is `airbase`. So the price
+   line, the affordability check and the build itself all defaulted to the same wrong
+   thing the select did, in three separate copies. ONE function now, and its fallback
+   is the same home the picker opens on. */
+function cbDefaultType(){
+  var all = [];
+  try{ all = CE.buildableTypes(OM.DISTRICT) || []; }catch(_e){ return null; }
+  var RES = {};
+  try{ RES = BohemiaPopulation.RESIDENTIAL || {}; }catch(_e){}
+  if(RES.suburb && all.indexOf('suburb') >= 0) return 'suburb';
+  for(var i=0;i<all.length;i++) if(RES[all[i]]) return all[i];
+  return all[0] || null;
+}
+function cbPickedType(){
+  var el = document.getElementById('cbtype');
+  return (el && el.value) || cbDefaultType();
+}
 function cbCost(){                                  /* the row, or null if unruled */
   try{ return BohemiaProduction.priceOf(
-    (document.getElementById('cbtype')||{}).value || CE.buildableTypes(OM.DISTRICT)[0]); }
+    cbPickedType()); }
   catch(_e){ return null; }
 }
 function cbAfford(){
   try{ return BohemiaProduction.canAfford(purseGet(),
-    (document.getElementById('cbtype')||{}).value || CE.buildableTypes(OM.DISTRICT)[0]); }
+    cbPickedType()); }
   catch(_e){ return null; }
 }
 /* HIS WORDS FOR THE TAG, draft:true. Batteries, never "1 electricity" -- the thing in
@@ -28210,8 +28229,7 @@ function cbPriceLine(){                                             /* draft:tru
    price because the two questions a builder asks are "what does it cost" and "what
    does it do", in that order. draft:true. */
 function cbWho(){
-  try{ return (document.getElementById('cbtype')||{}).value
-    || CE.buildableTypes(OM.DISTRICT)[0]; }catch(_e){ return null; }
+  try{ return cbPickedType(); }catch(_e){ return null; }   /* one answer, not a fourth copy */
 }
 function cbHouseLine(){                                             /* draft:true */
   var t=cbWho(); if(!t) return '';
@@ -28284,9 +28302,60 @@ function CBpanel(){
   el.innerHTML=html;
   { const cx2=el.querySelector('#cbclose');
     if(cx2) cx2.onclick=function(){ CB.sel=null; CBpanel(); buildBtnSync(); }; }
+  /* __THE_FIRST_BUILDING_IS_NOT_AN_AIRBASE__ (9/7) ========================
+     THE ROW, harvested from ECONOMY round 4 by playing the game rather than
+     grepping it: "Tap an empty plot in CITY: 59 district types in ALPHABETICAL
+     ORDER, no default, no grouping, no placeholder, so the browser picks the first
+     and BUILD places an airbase. This is the worst first-hour moment in the game."
+     MEASURED BEFORE TOUCHING IT, on the cut demo: 59 options, ZERO groups, the
+     select reads AIRBASE, and the first three labels are AIRBASE / AIRPORT /
+     APARTMENT. Every word of the row is true.
+
+     WHAT THE REPO ACTUALLY KNOWS ABOUT THESE 59 THINGS, AND IT IS ONE FACT:
+     BohemiaPopulation.RESIDENTIAL names the six that are homes. That is a ruled,
+     derived list this lane already counts the valley with. Nothing else in the
+     codebase says what any other district is FOR -- and WHICH TYPES MAKE POWER OR
+     CLOUT IS [PENDING Paolo] BY THIS LANE'S OWN STATE LINE, so a POWER group here
+     would be inventing content the row does not have the right to invent.
+     So the grouping is exactly as deep as the repo's knowledge: HOMES, and
+     EVERYTHING ELSE. That fixes the whole defect -- the browser's default is now a
+     house on the suburb ground he wakes on -- without one invented fact.
+
+     THE DEFAULT IS A HOME, WHICH IS THE ROW'S OWN INSTRUCTION ("put a sensible
+     first building at the top (a home, a shop, a power building)"). SUBURB, because
+     it is the ground he wakes standing on, so the first thing he can build is the
+     thing he can already see.
+
+     AND THE GROUP SAYS WHAT IT IS FOR, from the module's own number: every home
+     holds HOUSEHOLD_MEAN. MEASURED: all six are 2.2 -- an apartment houses exactly
+     what a trailer does -- which is its own [PENDING Paolo] and is printed here as
+     the honest fact rather than six identical numbers pretending to be a choice. */
   const ty=el.querySelector('#cbtype');
-  if(ty) CE.buildableTypes(OM.DISTRICT).forEach(function(t){
-    const o=document.createElement('option'); o.value=t; o.textContent=t.toUpperCase(); ty.appendChild(o); });
+  if(ty){
+    var __all = CE.buildableTypes(OM.DISTRICT) || [];
+    var __RES = {};
+    try{ __RES = BohemiaPopulation.RESIDENTIAL || {}; }catch(_e){}
+    var __homes = __all.filter(function(t){ return __RES[t]; });
+    var __rest  = __all.filter(function(t){ return !__RES[t]; });
+    var __mean = null;
+    try{ __mean = BohemiaPopulation.HOUSEHOLD_MEAN; }catch(_e){}
+    var __add = function(list, label){
+      if(!list.length) return;
+      var g = document.createElement('optgroup');
+      g.label = label;
+      list.forEach(function(t){
+        var o = document.createElement('option');
+        o.value = t; o.textContent = t.toUpperCase();
+        g.appendChild(o);
+      });
+      ty.appendChild(g);
+    };
+    __add(__homes, __mean ? ('HOMES \u00b7 each houses ' + __mean) : 'HOMES');
+    __add(__rest, 'EVERYTHING ELSE');
+    /* the default: a home, and the one he is standing on */
+    if(__homes.indexOf('suburb') >= 0) ty.value = 'suburb';
+    else if(__homes.length) ty.value = __homes[0];
+  }
   const dem=el.querySelector('#cbdem');
   if(dem) dem.onclick=function(){
     /* __THE_CITY_IS_THE_LONG_MEMORY__ -- the TYPE is read BEFORE the verb runs, because

@@ -4553,7 +4553,60 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/7 (a) LATEST -- *** [more people] POPULATION-DEFAULT:
+LIFE + CITY (city-1eztay): 9/7 (b) LATEST -- *** [build default] SHIPPED. THE FIRST
+BUILDING A PLAYER EVER PLACES WAS AN AIRBASE, BECAUSE THE LIST WAS ALPHABETICAL AND A
+BROWSER PICKS OPTION ZERO. IT IS A HOUSE NOW. *** AND THE SAME BUG WAS IN FOUR PLACES,
+NOT ONE: the price line, the affordability check and the build itself all fell back to
+the same alphabetical [0]. MODE: BUILD. TAB: CITY. Nothing to judge.
+
+  MEASURED FIRST, ON THE CUT DEMO, BEFORE TOUCHING ANYTHING: 59 options, ZERO groups,
+the select reads "airbase", first three labels AIRBASE / AIRPORT / APARTMENT. Every word
+of the row was true and it was found by PLAYING, not grepping.
+  *** THE DEFECT WAS FOUR COPIES OF ITSELF. *** The row names the picker. Three other
+reads answered the same wrong thing whenever the panel was shut, and they are the ones
+that actually place the building: the price, the afford check and the build all read
+CE.buildableTypes(OM.DISTRICT)[0], and [0] is alphabetical. They are one pair of
+functions now (cbDefaultType / cbPickedType) and that string appears nowhere in the
+surface. A fix that only touched the picker would have been a quarter of a fix.
+  *** THE GROUPING IS EXACTLY AS DEEP AS THE REPO'S KNOWLEDGE, AND NO DEEPER. *** The
+row asked for groups "by what it is for (a home, a shop, a power building)".
+BohemiaPopulation.RESIDENTIAL names the six that are homes. NOTHING ELSE IN THE CODEBASE
+SAYS WHAT ANY OTHER DISTRICT IS FOR, and which types make power or clout is [PENDING
+Paolo] by this lane's own state line -- so a POWER group would be this lane inventing his
+content. Two groups: "HOMES · each houses 2.2" (the number read live from HOUSEHOLD_MEAN,
+not typed) and "EVERYTHING ELSE". Leg A2 goes red if a third group ever appears, so the
+day somebody adds one without a ruling, a gate says so.
+  *** AND THE DEFAULT BEING SUBURB IS A DECISION, NOT A SIDE EFFECT. *** Grouping alone
+already stops the airbase, because the first home alphabetically is APARTMENT -- the
+mutation run proved it, deleting the explicit default left every other leg green. THE
+STANDING NOTE: A DECISION NO LEG STATES IS A DECISION THAT DRIFTS. The sensible first
+building is not "whichever home wins the alphabet", it is the ground he wakes up standing
+on, so leg B1b fails if suburb is ever removed and prints what it would have fallen to.
+  AFTER: the select says suburb; two groups; first three APARTMENT / ESTATE / GATED; with
+the panel shut, all three other reads say suburb; ALL 59 STILL OFFERED (leg B2 exists
+because fixing a default by deleting choices is a worse bug).
+  A FINDING ON THE WAY: every home holds EXACTLY 2.2. An apartment houses what a trailer
+houses. That is HOUSEHOLD_MEAN applied flat, it is the [PENDING Paolo] this lane raised in
+round 4 of the other row, and it is why the label carries the number ONCE instead of six
+identical numbers pretending to be a choice.
+  GATE: gates/build_default_gate.js, 9/0, registered as BUILD DEFAULT, measured in the
+CUT DEMO through the iframe (the standalone surface is the trap this lane has been caught
+by three times: PLAYER_CV only exists once the parent frame posts to it). MUTATION-TESTED
+THREE WAYS, each turning a different leg red: remove the suburb default -> B1b red at
+APARTMENT; flatten the groups -> A2/B2/B3 red, back to AIRBASE/AIRPORT/APARTMENT; restore
+the [0] fallback -> B4 red at "airbase".
+  RECORD: records/BOHEMIA_THE_FIRST_BUILDING_IS_A_HOUSE_9_7_26.md
+  STILL [PENDING Paolo], UNCHANGED AND CARRIED: (1) is the valley the GDD's ~69,000 or the
+zone map's ruled 5,940 (that is the blocker on [more people]); (2) which building types
+make electricity or clout -- answering it is what unlocks a third group in this picker;
+(3) does a 2x2 cost more than a 1x1; (4) does an apartment hold more than a trailer
+(measured: all six hold 2.2).
+  NEXT IN THIS LANE: [buildings appear], then [power buildings] (which (2) unblocks),
+[owner shown], [bill lands], [draw budget].
+
+--- THE BUILD-DEFAULT ROUND ABOVE, THE POPULATION ROUNDS BELOW ---
+
+LIFE + CITY (city-1eztay): 9/7 (a) -- *** [more people] POPULATION-DEFAULT:
 ROUND 6 SHIPPED AND IT IS NOT A MECHANISM, IT IS ONE DIVISION. A 400-STEP WALK SEES
 0.153% OF THE GROUND AROUND HIM, SO ONE MEETING PER WALK NEEDS ~655 PEOPLE AND THERE
 ARE 61. PLACEMENT CANNOT CLOSE THAT. *** AND THE SHORTFALL (10.7x) IS THE SAME NUMBER
