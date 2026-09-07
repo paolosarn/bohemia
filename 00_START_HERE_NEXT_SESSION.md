@@ -6663,7 +6663,22 @@ is canon, but a child growing up mid-act and the spacing between births both
 need it), who you marry, whether anybody dies of old age (RAY reaches 101 alive
 across two folds), and the children have no names on purpose.
 UNBLOCKS [heir moment], which the coordinator already ruled and which needed a
-tree to select an heir from. ***
+tree to select an heir from.
+
+TWO THINGS THE NEXT PEOPLE ROUND SHOULD KNOW.
+(1) ECONOMY BUILT ON [make it right] THE SAME ROUND AND FOUND A REAL GAP IN IT:
+    RIGHT_WORDS carries 'paid': 'PAID THEM BACK', the live button passes exactly
+    that word, and makeRight has no purse, no currency and no amount. THE CARD
+    SAYS PAID THEM BACK AND NOTHING IS EVER PAID. Their read is that the payment
+    should be what makes the apology BELIEVABLE, not what buys the forgiveness --
+    you cannot pay instead of showing up -- and that our clout ladder (8 to 110,
+    14x) is far too flat against the real tariffs (9 to 7,200, 800x). That is a
+    magnitude and a design fork, so it is his, but the WORD is ours and it is
+    currently writing a cheque the mechanism does not cash.
+(2) WRITE THE BOARD SHA AFTER THE PUSH, NEVER BEFORE. It chased the rebase three
+    times this round -- b6b99a58, then dc3ca2ac, neither of which exists on main.
+    The fleet pushes every few minutes, so a lane that writes the sha first
+    always loses that race. Push, read the sha off main, then write the board. ***
 
 PEOPLE (people-7h9sfy): 9/6 (c) -- *** [make it right] SHIPPED. NOTHING IN
 THIS GAME COULD BE FORGIVEN AND NOW IT CAN. Wrong somebody, do two good turns
