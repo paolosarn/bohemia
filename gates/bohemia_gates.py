@@ -4815,6 +4815,28 @@ GATES = [
      'slower than a person walks here, so once people were actually walking it counted '
      'every honest step as a teleport and reported the number going UP from 59 to 610. A '
      'THRESHOLD THAT IS NOT THE WORLD\'S OWN NUMBER MEASURES THE PROBE.', False),
+    ('ENOUGH PEOPLE', ['node', 'gates/enough_people_gate.js'],
+     'VAMILY [more people] / POPULATION-DEFAULT round 6, AND IT CHECKS AN ARITHMETIC '
+     'RATHER THAN A MECHANISM. Five rounds of placement -- front doors, gathering places, '
+     'the map, earshot, the commute -- took a walk from 2 meetings in 32 to 9 and then '
+     'stopped: rounds 4 and 5 were both correct, both cheap, both shipped, and both moved '
+     'the meeting rate by nothing. So the question became whether ANY placement rule can '
+     'get further, and it is one division: a 400-step walk sweeps 3,600 cells (400 steps x '
+     'a 9-cell screen) of the 2,359,296 in the nine neighbourhoods around him, which is '
+     '0.153% OF THE GROUND, so ONE meeting per walk needs about 655 people in them and '
+     'there are 61. PLACEMENT MOVES WHERE PEOPLE ARE INSIDE THAT FRACTION; IT CANNOT '
+     'CHANGE THE FRACTION. *** AND B3 IS THE FINDING: THE SHORTFALL (10.7x) AND THE GAP '
+     'BETWEEN HIS GDD AND HIS GAME (11.6x -- 69,000 against the walked valley\'s 5,940) '
+     'ARE THE SAME NUMBER. *** At the GDD\'s population those neighbourhoods hold ~708 '
+     'people and a 400-step walk expects 1.08 meetings: HIS DESIGN DOCUMENT ALREADY '
+     'CONTAINS THE ANSWER TO HIS COMPLAINT, and the decision is still his ([PENDING '
+     'Paolo], standing since round 1). This is a gate so the arithmetic cannot rot and so '
+     'the day anybody changes the population it reports what that bought. PROVED LIVE '
+     'rather than hard-coded by running it at four times the population: people around him '
+     '61 -> 241, shortfall 10.7x -> 2.7x, GDD gap 11.6x -> 2.9x -- the two numbers TRACK '
+     'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
+     'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
+     'GREEN 6/0 in the cut demo.', False),
     ('BLOCKING CHUNK', ['node', 'gates/blocking_chunk_gate.js'],
      'CHUNK 1 IS THE ONLY FILE THE WORLD WAITS ON, and a rebase keeps handing it another '
      'lane\'s 4.4 MB hero bake. Measured on a throttled weak-4G profile, same tree, same day, '

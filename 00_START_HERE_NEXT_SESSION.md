@@ -4324,7 +4324,54 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/6 (e) LATEST -- *** [more people] POPULATION-DEFAULT:
+LIFE + CITY (city-1eztay): 9/7 (a) LATEST -- *** [more people] POPULATION-DEFAULT:
+ROUND 6 SHIPPED AND IT IS NOT A MECHANISM, IT IS ONE DIVISION. A 400-STEP WALK SEES
+0.153% OF THE GROUND AROUND HIM, SO ONE MEETING PER WALK NEEDS ~655 PEOPLE AND THERE
+ARE 61. PLACEMENT CANNOT CLOSE THAT. *** AND THE SHORTFALL (10.7x) IS THE SAME NUMBER
+AS THE GAP BETWEEN HIS GDD AND HIS GAME (11.6x). HIS DESIGN DOCUMENT ALREADY CONTAINS
+THE ANSWER TO HIS COMPLAINT. *** MODE: BUILD. TAB: zoom out for the map, or just walk.
+Nothing to judge.
+
+  *** ROUND 6: ENOUGH PEOPLE. SHIPPED, ROW STILL OPEN, AND THE ROW NOW HAS ONE THING
+LEFT IN IT AND IT IS HIS. ***
+  WHY THIS ROUND WAS A MEASUREMENT AND NOT A SIXTH MECHANISM: rounds 4 and 5 were both
+correct, both cheap, both shipped, and BOTH MOVED THE MEETING RATE BY NOTHING (3 of 12
+walks before and after, twice). When two rounds in a row move every number except the
+one the job is about, stop building and divide.
+  THE DIVISION: a 400-step walk sweeps 3,600 cells (400 steps x a 9-cell screen) of the
+2,359,296 in the nine neighbourhoods around him = 0.153% OF THE GROUND. One meeting per
+walk therefore needs ~655 people in them. There are 61. PLACEMENT MOVES *WHERE* PEOPLE
+ARE INSIDE THAT FRACTION; IT CANNOT CHANGE THE FRACTION. Five rounds got from 2 of 32 to
+9 of 32 by concentrating people onto the corridors he happens to walk, and that is the
+whole of what concentration can buy.
+  *** THE FINDING: THE TWO NUMBERS ARE THE SAME NUMBER. *** The shortfall placement
+cannot close is 10.7x. The gap between the GDD's ~69,000 and the walked valley's 5,940
+is 11.6x. At the GDD's population those nine neighbourhoods hold ~708 people and a
+400-step walk expects 1.08 MEETINGS. His design document has contained the answer to his
+own complaint the whole time and the game has been running at a twelfth of it. THE
+DECISION IS STILL HIS AND NOTHING HERE TAKES IT.
+  GATE: gates/enough_people_gate.js, 6/0, in the cut demo, registered. It checks the
+READING, not a mechanism, so the arithmetic cannot rot and so THE DAY ANYBODY CHANGES
+THE POPULATION THE GATE SAYS WHAT IT BOUGHT. Proved live rather than hard-coded by
+running it at 4x: people around him 61 -> 241, shortfall 10.7x -> 2.7x, GDD gap 11.6x ->
+2.9x. THE TWO NUMBERS TRACK EACH OTHER, which is the claim; and A1 goes red the moment
+the dial stops being the module's own GDD landmark, which is the gate noticing somebody
+moved it rather than the gate breaking.
+  RECORD: records/BOHEMIA_ENOUGH_PEOPLE_9_7_26.md
+  *** [PENDING Paolo], AND IT IS NOW A DECISION WITH ONE OBVIOUS ANSWER AND THE
+ARITHMETIC ATTACHED: IS THE VALLEY THE GDD'S ~69,000, OR THE ZONE MAP'S RULED 297 TIMES
+THE DIAL (5,940 ON THE SURFACE HE WALKS)? *** Standing since round 1. Every mechanism
+this lane shipped reads about eleven times louder at the larger number, and no mechanism
+closes a gap of eleven. FOR THE COORDINATOR TO CARRY. If he says the GDD number, the
+change is one line in bohemia_population.js (the dial) and this lane can measure what it
+bought the same round -- the gate is already written to report it.
+  THE STANDING NOTE: WHEN TWO ROUNDS IN A ROW MOVE EVERY NUMBER EXCEPT THE ONE THE JOB
+IS ABOUT, STOP BUILDING AND DIVIDE. The division took twenty minutes and produced the
+only thing that can actually finish this row.
+
+--- ROUND 5 BELOW ---
+
+LIFE + CITY (city-1eztay): 9/6 (e) -- *** [more people] POPULATION-DEFAULT:
 ROUND 5 SHIPPED, THE JOB CONTINUES. PEOPLE WERE STILL TELEPORTING -- 34 journeys a
 morning finished in under a minute AND THE BIGGEST WAS 477 CELLS, half a kilometre in
 sixty seconds, with NOBODY EVER VISIBLY ON THE WAY at any hour. They walk now, at the
