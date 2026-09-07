@@ -1960,3 +1960,107 @@ YYYYY3 somebody spending fast                    draft:true
   it has heard of Gresham.
 - Spanish register: 2 of 18 lines, 11%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## AAAAAA. SHOWING UP (the part you cannot send somebody else to do)
+## (round 26: an apology that costs nothing is not believed, and one that is
+##  only a payment is not an apology. Every line is somebody standing in front
+##  of somebody. None of them says the word sorry first.)
+
+AAAAAA1 somebody who came back                   draft:true
+        "I'm not here for anything. I know how that sounds. I just wasn't going
+         to do it from the road."
+
+AAAAAA2 somebody who tried to send it instead    draft:true
+        "I sent it with the kid because I thought that was better. Turns out
+         that was me being a coward about it, so."
+
+AAAAAA3 the one who was wronged, not softening   draft:true
+        "You could've come Tuesday. You could've come any of the days. You came
+         when you needed something, which I noticed."
+
+AAAAAA4 somebody working out what it takes       draft:true
+        "So what do I do. Genuinely. Tell me the thing and I'll go do the
+         thing, I'm not going to argue about it."
+
+## BBBBBB. THE ONE WHO WILL NOT TAKE IT
+## (money offered and refused. The research is that a payment on its own reads
+##  as buying your way out, and everybody can tell. Nobody here explains that.)
+
+BBBBBB1 refusing a payment                       draft:true
+        "Put it away. I'm not being proud, I just don't want it, and you handing
+         it to me is worse than you not."
+
+BBBBBB2 somebody who took it and felt worse      draft:true
+        "I took it. Course I took it, I needed it. Doesn't mean we're alright,
+         he knows that, he was there."
+
+BBBBBB3 offering the wrong thing                 draft:true
+        "I brought what I had. I know it's not, I know. It's what I've got and
+         I didn't want to turn up empty, hermano."
+
+## CCCCCC. WHAT THEY ACTUALLY WANTED
+## (the finding: an explanation and a question answered, above anything
+##  material. Nobody in these lines knows they are describing research.)
+
+CCCCCC1 the wronged one, asked what would fix it draft:true
+        "Tell me why. That's it, that's the whole thing. Everybody keeps trying
+         to give me stuff and nobody's told me why."
+
+CCCCCC2 somebody who finally got the answer      draft:true
+        "He said it out loud, in front of his own people. I didn't get anything
+         back. I sleep now, though."
+
+CCCCCC3 somebody who got paid and not told       draft:true
+        "The count came out even. That's what they keep saying to me. Even.
+         Like even was what I asked for."
+
+## DDDDDD. THE PRICE THAT RAN AWAY
+## (compensation escalating until paying is the new grievance. It happened for
+##  real and somebody had to legislate against it. None of these lines says so.)
+
+DDDDDD1 somebody who has heard the going rate    draft:true
+        "It was two last spring. Now it's five, and next time somebody gets
+         hurt it'll be eight, and everybody knows it."
+
+DDDDDD2 somebody who noticed a pattern           draft:true
+        "That family's been wronged four times this year. Four. They're doing
+         alright out of being wronged, is all I'll say."
+
+DDDDDD3 the one who has to pay it                draft:true
+        "I'll pay it. I'll pay it and then I'll be the one who's owed something,
+         and we go round again, don't we."
+
+## EEEEEE. FORGIVEN IS NOT FORGOTTEN
+## (our own module keeps the deed and drops only its force. That is the part
+##  the real record agrees with hardest. Nobody here calls it forgiveness.)
+
+EEEEEE1 somebody who squared it, years back      draft:true
+        "We're fine. We've been fine a long time. I still know what he did,
+         that's not the same as holding it."
+
+EEEEEE2 somebody explaining it to a third party  draft:true
+        "Yeah, that's the one. No, don't bring it up, it's done. It's done, it's
+         just not gone, you know what I mean."
+
+EEEEEE3 the one who was forgiven                 draft:true
+        "She's alright with me now. She'll still tell the story at a table,
+         and I sit there while she tells it. That's the deal."
+
+EEEEEE4 somebody who has not been forgiven yet   draft:true
+        "Mi tia says he'll come round. He hasn't come round in two years, so
+         I've stopped planning my week around it."
+
+## FFFFFF. WHAT IS NOT HERE, ON PURPOSE (round 26)
+- No line has a price on a wrong. The whole round says the payment proves the
+  apology rather than buying it, so the bank does not carry a tariff.
+- No line has somebody paying a fine and walking away clean. That is the bounty
+  shop and round 26 is the round that argues against it.
+- No line says sorry, apology, forgive, restitution, compensation or amends. The
+  words a person actually uses are "what do I do" and "tell me why".
+- No line names what was done. The wrong is never described, because severity is
+  a weight somebody has to rule and CCCCCC works either way.
+- No line states a moral about mercy. EEEEEE3 is the whole finding and it is
+  said as "she'll still tell the story and I sit there while she tells it".
+- No line has a number of days, a counter or a meter running down on a grudge.
+- Spanish register: 2 of 17 lines, 12%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.
