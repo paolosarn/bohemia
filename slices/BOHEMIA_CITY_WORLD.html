@@ -60791,19 +60791,47 @@ window.BOHEMIA_HALF = (function(){
   /* the run's own controls and labels; never the world */
   var CTRL = ['musbtn','savebtn','phonebtn','outfitbtn','rungbtn','buildbtn','mktbtn',
               'modechip','fitbtn','bikebtn','sleepbtn'];
-  var LABEL = ['hud','note','hmode','hclock','hslot','modeLbl'];
+  var LABEL = ['hud','note','hmode','hclock','hslot','modeLbl','topbar'];
 
   var css=document.createElement('style'); css.id='halfcss';
   css.textContent=
      /* HALF, IN THE CONTROL'S OWN PROPERTIES -- not a scale. */
+     /* height:auto IS THE WHOLE BUG, AND IT WAS BOTH SYMPTOMS AT ONCE. The chips carry
+        an explicit height:44px as well as a min-height, and the first cut only reset the
+        min -- so every chip stayed 44 TALL while its width halved, and a column of
+        44-tall boxes at a 22 pitch OVERLAPS ITSELF. That is why the heights would not
+        halve AND why the presses landed on the wrong control: the box above was sitting
+        on the one you aimed at. One property, two symptoms, exactly as the handoff
+        guessed. And #topbar is a 44-tall flex row, so it holds its own children up too. */
      '.uihalf{ font-size:5px!important; padding:3px 5px!important;'
-       +'border-radius:3px!important; letter-spacing:.5px!important; min-height:0!important }'
+       +'border-radius:3px!important; letter-spacing:.5px!important;'
+       +'min-height:0!important; height:auto!important; line-height:1.25!important }'
+    +'#topbar.uihalf{ height:auto!important; min-height:0!important }'
+    /* *** AND IT HAD TO OUT-SPECIFY THE THUMB RULE, WHICH IS WHY height:auto ALONE
+       DID NOTHING. *** Asked the browser which rule was actually winning instead of
+       guessing a third time: a stylesheet the demo cutter injects, "demo-cut-city",
+       declares `#topbar > *, #blstack > * { min-height:44px !important }` -- the 44px
+       thumb floor. Both that and mine are !important, so SPECIFICITY decides, and an
+       id plus a universal beats a bare class. Matching it with id-plus-class is the
+       whole fix. The floor is right and stays right: the REACH is still 44, it is
+       just no longer made of a 44-tall BOX that sits on the control beneath it. */
+    +'#topbar > .uihalf, #blstack > .uihalf{ min-height:0!important; height:auto!important }'
     +'#hud.uihalf{ font-size:6px!important; padding:2px 5px!important }'
     +'#note.uihalf{ font-size:5px!important; padding:2px 4px!important }'
     +'#nav.uihalf{ width:90px!important; height:90px!important }'
     +'#pad.uihalf{ width:90px!important; height:90px!important }'
     +'#mode.uihalf{ width:40px!important; height:40px!important }'
     +'#modeLbl.uihalf{ font-size:5px!important }'
+    /* THE PAD'S KEYS ARE FIXED 42px AND ARE PLACED BY INLINE left/top FOR A 180 RING,
+       so halving the ring alone left eight full-size keys spilling out of a 90 box --
+       plainly broken in the first photograph of the real thing. The key halves here;
+       its POSITION is halved in JS below, because the builder wrote those as inline
+       styles and a stylesheet cannot reach them. */
+    +'#pad.uihalf .pb{ width:21px!important; height:21px!important }'
+    +'#pad.uihalf .pb::before{ border-left-width:3px!important; border-right-width:3px!important;'
+      +'border-bottom-width:7px!important }'
+    +'#pad.uihalf .pb::after{ border-left-width:3px!important; border-right-width:3px!important;'
+      +'border-bottom-width:7px!important }'
     /* THE REACH, UNDER THE PICTURE. Nothing is scaled, so these numbers are real. */
     +'.uihalf.press{ position:relative }'
     +'.uihalf.press::before{ content:""; position:absolute;'
@@ -60834,11 +60862,9 @@ window.BOHEMIA_HALF = (function(){
     for(i=0;i<list.length;i++){
       var it=list[i]; if(!it.press) continue;
       var r=vis(it.e); if(!r) continue;
-      var cs=getComputedStyle(it.e);
-      if(cs.position!=='absolute') continue;
       if(r.width>innerWidth*0.5) continue;
       if(r.left>innerWidth*0.5) continue;          /* the left column only */
-      col.push({e:it.e, r:r});
+      col.push({e:it.e, r:r, flex:(getComputedStyle(it.e.parentElement||it.e).display.indexOf('flex')>=0)});
     }
     if(col.length<2) return;
     col.sort(function(a,b){ return a.r.top-b.r.top; });
@@ -60846,7 +60872,14 @@ window.BOHEMIA_HALF = (function(){
     for(i=0;i<col.length;i++){
       var c=col[i], want=c.r.top;
       if(floorY!==null && want<floorY) want=floorY;
-      if(want>c.r.top+0.5){
+      /* A FLEX CHILD CANNOT BE MOVED WITH top. Half these chips are flex children of
+         #blstack, and setting top on them did nothing at all -- which is why the reach
+         stayed short after the sizes finally halved. A flex column is spread with
+         MARGIN; only the genuinely absolute ones take a top. */
+      if(c.flex){
+        var needGap=Math.max(0, WANT-c.r.height);
+        c.e.style.marginBottom=needGap.toFixed(1)+'px';
+      } else if(want>c.r.top+0.5){
         var op=c.e.offsetParent||c.e.parentElement;
         var pt=op?op.getBoundingClientRect().top:0;
         c.e.style.bottom='auto';
@@ -60865,6 +60898,20 @@ window.BOHEMIA_HALF = (function(){
       if(list[i].press) list[i].e.classList.add('press');
     }
     spread(list);
+    /* AND THE EIGHT KEYS MOVE IN WITH IT. Their left/top are inline, written once by
+       the pad builder against a 180 ring, so CSS cannot touch them and they have to be
+       halved here -- once each, remembered on the node, so the beat loop cannot walk
+       them toward the corner one halving at a time. */
+    var pd=document.getElementById('pad');
+    if(pd && pd.classList.contains('uihalf')){
+      var keys=pd.querySelectorAll('.pb');
+      for(var kk=0;kk<keys.length;kk++){
+        var K=keys[kk]; if(K.__halfPos) continue;
+        var L=parseFloat(K.style.left), T=parseFloat(K.style.top);
+        if(isFinite(L)&&isFinite(T)){ K.style.left=(L/2)+'px'; K.style.top=(T/2)+'px';
+          K.__halfPos={l:L,t:T}; }
+      }
+    }
 
     var boxes=[];
     for(i=0;i<list.length;i++){ var r=vis(list[i].e);
@@ -60918,7 +60965,13 @@ window.BOHEMIA_HALF = (function(){
            off:function(){ suspended=true; var n=document.querySelectorAll('.uihalf'), i;
              for(i=0;i<n.length;i++){ n[i].classList.remove('uihalf'); n[i].classList.remove('press');
                ['--hitl','--hitr','--hitt','--hitb'].forEach(function(k){ n[i].style.removeProperty(k); });
-               n[i].style.removeProperty('top'); n[i].style.removeProperty('bottom'); }
+               n[i].style.removeProperty('top'); n[i].style.removeProperty('bottom');
+               n[i].style.removeProperty('margin-bottom'); }
+             var pd2=document.getElementById('pad');
+             if(pd2){ var ks=pd2.querySelectorAll('.pb');
+               for(var q=0;q<ks.length;q++){ var K2=ks[q];
+                 if(K2.__halfPos){ K2.style.left=K2.__halfPos.l+'px';
+                   K2.style.top=K2.__halfPos.t+'px'; K2.__halfPos=null; } } }
              on=false; },
            back:function(){ suspended=false; apply(); } };
 })();

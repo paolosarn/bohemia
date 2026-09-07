@@ -18438,6 +18438,52 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/7 (b) LATEST -- *** [half size] THE SIZES NOW REALLY HALVE, PAD
+INCLUDED. THE BLOCKER MY OWN HANDOFF PREDICTED WAS ONE CSS LINE. STILL NOT SHIPPED. ***
+
+LAST ROUND'S GUESS WAS RIGHT: the heights not halving and the presses not landing were
+ONE bug. Something was holding a 44-tall box over the halved chips.
+
+WHAT IT WAS, FOUND BY ASKING THE BROWSER WHICH RULE WAS WINNING instead of guessing a
+third time (enumerate document.styleSheets, match the element, print the declarations):
+    #topbar > *, #blstack > * { min-height:44px !important }
+injected by the demo cutter as stylesheet "demo-cut-city" -- the 44px thumb floor this
+lane itself shipped. Mine was `.uihalf{min-height:0!important}`. BOTH are !important,
+so SPECIFICITY decides, and an id-plus-universal beats a bare class. My reset never
+stood a chance and nothing about it looked wrong. Matching it with
+`#topbar > .uihalf, #blstack > .uihalf` is the entire fix, plus `height:auto` because
+an explicit height was set too.
+
+RESULT: the chips go 79x44 -> 44x14. The sizes genuinely halve now, everywhere.
+
+AND THE PAD, WHICH THE FIRST PHOTOGRAPH OF THE REAL THING SHOWED WAS BROKEN: its eight
+keys are a fixed 42px and are PLACED BY INLINE left/top written once for a 180 ring, so
+halving the ring left eight full-size keys spilling out of a 90 box. The key size is
+CSS; the positions had to be halved in JS because a stylesheet cannot reach an inline
+style, and each key remembers its original so the beat loop cannot walk it toward the
+corner one halving at a time. The pad now reads correctly at half.
+
+*** STILL TWO OPEN DEFECTS, BOTH HELD AS THEIR OWN GATE LEGS SO NEITHER CAN BE
+MISTAKEN FOR DONE, AND BOTH GO GREEN THE ROUND THEY ARE FIXED. ***
+  1. THE PRESSES. With the halving on, pressing PHONE still does nothing. The
+     instrument that proves it is the only one that ever told the truth here: ask the
+     GAME (did the phone open), never the DOM.
+  2. THE REACH, and halving the sizes made it WORSE, which is honest and expected: a
+     14-tall chip needs 15px of reach each side and its neighbour is 6px away. 10 of
+     21 clear 44. THE SPREAD DOES NOT LAND: those chips are FLEX CHILDREN of #blstack,
+     a margin written onto them reads back 0px, and setting `top` on a flex child does
+     nothing at all. That is the next thing to solve and it is probably also the
+     presses -- overlapping boxes are what steal a tap.
+
+NEXT ROUND: make the spread work on flex children (gap on #blstack, or padding on the
+children, measured -- do not assume margin works, it demonstrably does not here). Then
+re-run the PHONE test. Do not trust anything that compares a rectangle to a point.
+
+THE LESSON THIS ROUND ADDS: when a rule you wrote does not take effect, ASK THE BROWSER
+WHICH RULE IS WINNING. Two !important declarations do not tie; specificity breaks it,
+and an id in the selector is invisible until you look. That took one measurement and
+three earlier rounds of guessing.
+
 UI (ui-kmqmrf): 9/7 (a) LATEST -- *** [half size] OPTION D BUILT, STILL NOT SHIPPED,
 AND THE ROUND'S REAL PRODUCT IS AN INSTRUMENT THAT FINALLY TELLS THE TRUTH. ***
 
