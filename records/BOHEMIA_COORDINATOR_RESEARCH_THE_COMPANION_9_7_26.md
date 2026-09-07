@@ -53,3 +53,15 @@ Sources: [AI RPG companions: a character is only real if they can refuse you](ht
   place people WORK, not a prize on a map.
 - KEPT FOR HIM, because they are canon: [act two] who dies next (carried as this
   round's one question), and [century stayed] (changes a LOCKED law).
+
+
+## HIS ANSWER, 9/7: SHUFFLE MODE
+"I don't know about the companion right now, have it on shuffle mode." So there is no
+fixed companion and no fixed name. The companion is drawn from the world -- one of
+the people already around you who would plausibly follow, with the job, standing and
+debt they already have -- shuffled per save, named from the existing pools,
+draft:true. Rosa is one card in the deck. Every rule above (wants something, refuses
+one thing, talks rarely, never blocks) holds for whoever is drawn. He picks a
+favourite when he meets one, or never. This is MECHANISM MINE, CONTENTS HIS in its
+purest form: the deck is ours, the pick is his, and nothing is authored until he
+wants it.

@@ -14793,6 +14793,11 @@ this reply. Four of the five letters still open (century, act two, coats, her na
 THEN (ct) "Keep the cap." -> the 10% long-coat cap STAYS, reaffirmed on the trenchcoat law
 (8/27) and marked settled on the runway law (9/4); COOK header note. Three letters open:
 century, act two, her name.
+THEN (cu) "I don't know about the companion right now, have it on shuffle mode." -> no fixed
+companion, no fixed name: drawn from the people already around you who would plausibly
+follow, shuffled per save, named from the existing pools, draft:true; Rosa is one card in the
+deck. PEOPLE [walking companion] amended, research record appended. Two letters open:
+century, act two.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
