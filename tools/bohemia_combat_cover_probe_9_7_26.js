@@ -55,7 +55,8 @@ const LOOK = `(() => {
   const drawsImage = /drawImage/.test(src);
 
   return { W, H, ring, arena: G.arenaKind || 'street',
-           teachBeat: !!G.teachBeat, cars: G._cars || 0,
+           teachBeat: !!G.teachBeat, carsField: G._cars || 0,
+           cars: new Set(P.filter(p => p.car).map(p => p.car)).size,
            carCells: P.filter(p => p.car).length, burnt: P.filter(p => p.burnt).length,
            n: P.length, onScreen, tall, low, placed, hardFalse,
            rMin: radii[0] || 0, rMed: med(radii), rMax: radii[radii.length - 1] || 0,
@@ -102,11 +103,18 @@ const LOOK = `(() => {
       else {
         await sleep(2500);
         const lesson = await cf.evaluate(LOOK).catch(e => ({ err: String(e) }));
-        /* now a real one */
-        await page.evaluate(() => {
-          try { cityEncounterIn({ packageId: 2, label: 'cover probe, a real arena' }); } catch (e) {}
-        });
-        await sleep(3500);
+        /* NOW A REAL ARENA. Asking for a second encounter from inside a fight does not
+           take -- COMBAT's 9/6 fuse is explicit that one step makes at most one fight --
+           and the first attempt at this came back with teachBeat still true and the same
+           zeroes, which is the instrument agreeing with itself instead of measuring.
+           setupEnemiesBody() is the function the fight itself calls to lay out a lot; it
+           reads G._teachReq at the top and clears it. Clearing the flag and calling it is
+           following the fight's own path, not re-stating it. */
+        await cf.evaluate(() => {
+          try { G._teachReq = false; G.teachBeat = false; setupEnemiesBody(); return 'ok'; }
+          catch (e) { return 'threw: ' + e.message; }
+        }).catch(() => null);
+        await sleep(2000);
         r = await cf.evaluate(LOOK).catch(e => ({ err: String(e) }));
         if (r && !r.err) r.lesson = lesson;
       }
@@ -129,7 +137,9 @@ const LOOK = `(() => {
   console.log('    tall (no vault)   ' + String(r.tall).padStart(4));
   console.log('    low  (vaultable)  ' + String(r.low).padStart(4));
   console.log('    cars in the lot   ' + String(r.cars).padStart(4) + '   (' + r.carCells +
-              ' of the pieces are car cells, ' + r.burnt + ' burnt)');
+              ' of the pieces are car cells, ' + r.burnt + ' burnt)' +
+              (r.carsField !== r.cars ? '   [G._cars still says ' + r.carsField +
+               ', which is a STALE FIELD from a previous lot, not a count]' : ''));
   console.log('\n  HOW BIG');
   console.log('    radius  min ' + r.rMin.toFixed(2) + '  median ' + r.rMed.toFixed(2) + '  max ' + r.rMax.toFixed(2) + ' tiles');
   console.log('    the drawn block is ' + r.spanTiles.toFixed(2) + ' tiles wide');
