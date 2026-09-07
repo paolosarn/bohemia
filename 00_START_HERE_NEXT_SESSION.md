@@ -15431,6 +15431,12 @@ zoomed-out layer is being built this week (sight circle, tracks, the tell, the f
 without the branch every one of those is a fixed number forever. Routed COMBAT [perks see],
 UI [what you notice]; topped up ECONOMY (Q30 perk price, Q31 cheap eyes). ONE THING HE HAS
 NEVER OPENED: the perk tree itself, COMBAT tab, 23 perks he has never bought one of.
+THEN (dd) VAMILY: ZERO commits, zero claims, fourth round running with no lane moving.
+STOPPED ON PURPOSE (STOP PRODUCING, 7/26, LOCKED: a turn that says "I stopped, here is the
+one thing blocking everything" is a good turn). No sweep pass, no new jobs, nothing
+manufactured. The one thing blocking everything: the word has not landed in any lane's
+window since his clip verdicts; the pad is broken in the live game and UI holds the fix
+unclaimed. Told him in one line and stopped.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
