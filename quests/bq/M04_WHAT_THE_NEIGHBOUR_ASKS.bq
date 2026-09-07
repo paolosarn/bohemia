@@ -1,0 +1,137 @@
+# BOHEMIA MAIN QUEST -- PLAYABLE .bq (canon machine layer)
+# M04 -- WHAT THE NEIGHBOUR ASKS
+#
+# HIS BEAT (story master, 7/18): after the burial, "the founder builds a
+# pseudo-faction from nothing (the neighbor's founding)."
+#
+# *** AND THE ERRAND ITSELF IS PINNED. *** His own file says it, in the section
+# headed OPEN, EXPLORING TOGETHER (not locked, do not invent unilaterally):
+#   "THE NEIGHBOR'S FIRST QUEST (the founding) is designed but its specific
+#    plan/errand is PINNED pending Paolo."
+# So this file builds THE FOUNDING CONVERSATION, which is his and is locked, and it
+# STOPS at the exact line where the errand would be named. The neighbour asks you
+# to start something with him; what he then sends you to do is a ruling nobody has
+# made, and a main quest is the worst possible place to quietly make it.
+#
+# WHY THIS IS A REAL QUEST AND NOT A PLACEHOLDER. The decision that founds a
+# faction is the yes, not the errand. Every route here reaches an answer and the
+# answer is recorded, so when he rules on the errand it attaches to a decision the
+# player has already made rather than replacing this file.
+#
+# THE PSEUDO-FACTION IS UNNAMED ON PURPOSE. Naming it is IDENTITY, which is
+# reserved to him under EVERYTHING IS A THUMB. The quest calls it "this" and "the
+# block", the way people actually talk about a thing that has no name yet.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine can
+# check, never a name-drop.
+# @STUDY Q061.W7  FOUND YOUR OWN KINGDOM (the ceiling)
+#   applied: the founding is the player's own thing from the first sentence, not a faction they join: the neighbour brings the idea and the yes belongs to the player, which is the ceiling this quest opens.
+# @STUDY Q025.W8  THE FORCED-BUT-OPEN ALLIANCE
+#   applied: there is a real third path: in it, in it on your own terms, or out, and the terms answer is neither the good one nor the bad one, it is the one that costs you goodwill and keeps your hands free.
+# @STUDY Q046.X2  CRUSHING COMPLEXITY / TUTORIAL OVERWHELM
+#   applied: the founding is one conversation and one decision, with no systems screen and no roster, because the moment a block becomes a thing should not arrive as a management interface.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_m04_what_the_neighbour_asks   What the Neighbour Asks
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE neighbour  REQ  block=same
+@ROLE mother     OPT  family=true
+
+@STAGE 10
+  @LOG The man from up the road came down the day after the burial. Did not knock.
+  @DO show_objective 10
+@STAGE 20 COMPLETE #notable
+  @LOG Told him yes, in front of people. Whatever this is, it is a thing now and my name is on it.
+  @DO set_flag act1_founding_done
+  @DO set_flag founded_with_the_neighbour
+  @DO learn a_block_is_a_thing_you_choose
+  @DO complete_objective 10
+@STAGE 21 COMPLETE #quiet
+  @LOG Told him yes with nobody else around. Same answer, fewer witnesses.
+  @DO set_flag act1_founding_done
+  @DO set_flag founded_with_the_neighbour
+  @DO learn a_block_is_a_thing_you_choose
+  @DO complete_objective 10
+@STAGE 22 COMPLETE #risky
+  @LOG Told him I would do it my way or not at all. He did not like it and he is still standing there.
+  @DO set_flag act1_founding_done
+  @DO set_flag founded_on_my_terms
+  @DO learn a_block_is_a_thing_you_choose
+  @DO complete_objective 10
+@STAGE 23 FAIL #quiet
+  @LOG Told him no. He said it is going to happen with me or without me and walked back up the road.
+  @DO set_flag act1_founding_done
+  @DO set_flag refused_the_founding
+
+@OBJ 10  "Answer the neighbour"  target=neighbour
+
+# =====================================================================
+# THE ASK. The theme is in the first line: nobody is coming, so it is us.
+# =====================================================================
+@TALK ask  speaker=neighbour  entry=stage>=10
+  @SAY I am sorry about your sibling. I am. And I am here about something else, and I am not going to pretend otherwise. #tired
+  @SAY There is nobody coming. Not this year and not next year. There is this block and the people on it and that is the whole list.
+  @SAY So I want to put something together. Us, the houses either side, the ones down by the wash. Something with a shape to it.
+  @OPT "Something like what?"          [gate: none]  -> what
+  @OPT "Who else has said yes?"        [gate: none]  -> who
+  @OPT "We buried somebody yesterday." [gate: none]  -> yesterday
+  @OPT (let him keep going)            [gate: none]  SILENCE -> what
+  @NOVERB "What's the first job?"
+@END
+
+# *** THE PIN, IN THE FICTION. *** He does not have the errand either, and that is
+# the honest version of a ruling nobody has made. When Paolo rules, the errand
+# attaches here and this node keeps its words.
+@TALK what  speaker=neighbour
+  @SAY I do not know yet. I know that is a terrible answer. #tired
+  @SAY I know what it is FOR. Water gets shared, the fires get watched, and when somebody comes down that road again there are twelve of us in the street instead of one family in a hallway.
+  @SAY The first job I will have in a day or two. What I need before that is whether you are in it.
+  @OPT "I'm in."                       [gate: none]  -> yes
+  @OPT "My way, or not at all."        [gate: none]  -> terms
+  @OPT "No."                           [gate: none]  -> no
+  @OPT (nod)                           [gate: none]  SILENCE -> yes
+@END
+
+@TALK who  speaker=neighbour
+  @SAY Nobody yet. You are the first door I came to and I think you know why. #tired
+  @SAY Everybody on this road heard what happened in your house. If you are in it, they are in it.
+  @OPT "Something like what?"          [gate: none]  -> what
+  @OPT "I'm in."                       [gate: none]  -> yes
+  @OPT "No."                           [gate: none]  -> no
+@END
+
+@TALK yesterday  speaker=neighbour
+  @SAY I know. I was up there. I stood at the back. #grief
+  @SAY And I am here today because I do not want to stand at the back of another one.
+  @OPT "Something like what?"          [gate: none]  -> what
+  @OPT (say nothing)                   [gate: none]  SILENCE -> what
+@END
+
+@TALK yes  speaker=neighbour
+  @SAY Then that is a thing that exists now. #warm
+  @SAY Say it where people can hear it or keep it between us. Both count. One of them counts louder.
+  @OPT (say it in the street)          [gate: none]  -> END  @DO set_stage 20
+  @OPT (keep it between us)            [gate: none]  SILENCE -> END  @DO set_stage 21
+@END
+
+@TALK terms  speaker=neighbour
+  @SAY Your way. All right. #wary
+  @SAY I am not going to argue on the day after. But you should know that is how it starts, and everybody after us will say you set it up that way on purpose.
+  @OPT (let them say it)               [gate: none]  SILENCE -> END  @DO set_stage 22
+  @OPT "Together, then."               [gate: none]  -> yes
+@END
+
+@TALK no  speaker=neighbour
+  @SAY All right. #tired
+  @SAY It is going to happen with you or without you. I would rather it was with.
+  @OPT (let him go)                    [gate: none]  SILENCE -> END  @DO set_stage 23
+  @OPT "Wait."                         [gate: none]  -> yes
+@END

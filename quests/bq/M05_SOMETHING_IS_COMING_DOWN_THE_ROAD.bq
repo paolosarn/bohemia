@@ -1,0 +1,129 @@
+# BOHEMIA MAIN QUEST -- PLAYABLE .bq (canon machine layer)
+# M05 -- SOMETHING IS COMING DOWN THE ROAD
+#
+# THE LAST BEAT OF ACT 1, AND THE ONE THAT MUST NOT BE WRITTEN.
+#
+# His ruling (ACT1_PROCEDURAL_ENDING_AND_DESTROYERS, 7/19), LOCKED:
+#   "The Act 1 climax is NOT one fixed scripted scene. It is a COMBINATION of
+#    approved climax-elements, generated and shaped by HOW the player played
+#    Act 1."
+# With nine approved elements and a constant theme underneath: THOSE WHO SUPPORT
+# AND BUILD CIVILIZATION versus THOSE WHO TEAR IT DOWN.
+#
+# *** SO THIS FILE NAMES NO ELEMENT AND PICKS NO CLIMAX. *** A main quest that
+# scripted one would quietly overturn a locked ruling, and it would do it in the
+# most expensive place in the game. What this is instead is THE DOOR: the last
+# quiet hour before whatever the generator hands you, the moment the player is
+# asked which side of his line they are standing on, and the flags that answer
+# recorded so the climax can be shaped by them exactly as he ruled.
+#
+# THE DESTROYERS ARE A FORCE, NOT A FACTION (his word), NOT JOINABLE, AND THEIR
+# NAME IS [PENDING] IN HIS OWN FILE. So they are never named here either. They are
+# "whoever is coming", which is also how the people in the street would say it.
+#
+# WHAT THIS QUEST ACTUALLY RECORDS, and it is the whole job: whether you spent Act
+# 1 building something or not, and whether you say so out loud when it is about to
+# cost you. Those are the two inputs his ending generator was described as reading.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine can
+# check, never a name-drop.
+# @STUDY Q003.W2  ENVIRONMENTAL WARNING
+#   applied: what is coming is described only by what it leaves behind, never named and never shown, so the dread is carried by the shape of the thing rather than by a reveal the quest cannot afford.
+# @STUDY Q025.W8  THE FORCED-BUT-OPEN ALLIANCE
+#   applied: the question is which side of his line you stand on, and the honest answer, saying out loud that you do not know if you hold, is a real third path with a real cost in people.
+# @STUDY Q044.X1  RANDY'S UNFAIRNESS / UNAVOIDABLE LOSS
+#   applied: the climax is generated rather than authored, so this quest records what the player chose before it fires, which is how emergent drama reads as story instead of as bad luck.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_m05_something_is_coming   Something Is Coming Down the Road
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE neighbour  REQ  block=same
+@ROLE watcher    OPT  block=same
+
+@STAGE 10
+  @LOG Somebody came in off the road saying there is a column behind them. Nobody laughed it off.
+  @DO show_objective 10
+@STAGE 20 COMPLETE #notable
+  @LOG Stood up in front of the block and said we hold it. Whatever comes down that road, it finds us in the street.
+  @DO set_flag act1_climax_open
+  @DO set_flag stood_for_the_block
+  @DO learn the_line_has_two_sides
+  @DO complete_objective 10
+@STAGE 21 COMPLETE #quiet
+  @LOG Did not make a speech. Went round every house on the road one at a time instead.
+  @DO set_flag act1_climax_open
+  @DO set_flag stood_for_the_block
+  @DO set_flag went_door_to_door
+  @DO learn the_line_has_two_sides
+  @DO complete_objective 10
+@STAGE 22 COMPLETE #risky
+  @LOG Said the honest thing: I do not know if we hold. Told them anyway and told them to choose.
+  @DO set_flag act1_climax_open
+  @DO set_flag stood_for_the_block
+  @DO set_flag told_them_the_truth
+  @DO learn the_line_has_two_sides
+  @DO complete_objective 10
+@STAGE 23 COMPLETE #reckless
+  @LOG Told them to take what they can carry and go. Some did. I am still here and so is the road.
+  @DO set_flag act1_climax_open
+  @DO set_flag told_them_to_run
+  @DO learn the_line_has_two_sides
+  @DO complete_objective 10
+
+@OBJ 10  "Answer the road"  target=neighbour
+
+# =====================================================================
+# THE WARNING. The theme is in the first line and it is his theme: the
+# ones who build against the ones who pull down. No element is named.
+# =====================================================================
+@TALK road  speaker=neighbour  entry=stage>=10
+  @SAY Somebody came in off the road an hour ago and they are not the sort to make things up. #dread
+  @SAY There is something behind them. Not raiders the way we mean raiders. This is organised and it is not stopping to trade.
+  @SAY Everything we have put together since the burial is on this street. So it is a short question. Do we hold it.
+  @OPT "We hold it."                   [gate: none]  -> hold
+  @OPT "Who is it?"                    [gate: none]  -> who
+  @OPT "Then people should run."       [gate: none]  -> run
+  @OPT (say nothing yet)               [gate: none]  SILENCE -> who
+  @NOVERB "Can we buy them off?"
+@END
+
+# THE DESTROYERS ARE UNNAMED AND UNKNOWABLE HERE, per his file: a FORCE, not a
+# faction, not joinable, name PENDING. Nothing in this quest can buy the name.
+@TALK who  speaker=neighbour
+  @SAY Nobody has a name for them and I have asked. #dread
+  @SAY What I know is what they leave. They do not take a place off you and hold it. They take it apart so nobody can hold it.
+  @SAY Which is the difference between them and us, and it is the only thing about this I am sure of.
+  @OPT "We hold it."                   [gate: none]  -> hold
+  @OPT "Then people should run."       [gate: none]  -> run
+  @OPT (think about it)                [gate: none]  SILENCE -> hold
+@END
+
+@TALK hold  speaker=neighbour
+  @SAY Then everybody on this road needs to hear it from you and not from me. #tired
+  @SAY How you say it is going to matter more than what you say. It always does.
+  @OPT (say it in the street, all of them at once)  [gate: none]  -> END  @DO set_stage 20
+  @OPT (go house to house instead)                  [gate: none]  SILENCE -> END  @DO set_stage 21
+  @OPT "I'll tell them I don't know if we hold."    [gate: none]  -> honest
+@END
+
+@TALK honest  speaker=neighbour
+  @SAY That is going to cost us people. #wary
+  @SAY It is also the only version anybody will forgive you for afterwards. Your call.
+  @OPT (tell them the truth)           [gate: none]  SILENCE -> END  @DO set_stage 22
+  @OPT (tell them we hold)             [gate: none]  -> END  @DO set_stage 20
+@END
+
+@TALK run  speaker=neighbour
+  @SAY Then say that, out loud, and mean it, because half of them will and half of them will not. #dread
+  @SAY And the ones who stay will be standing in a street you told them to leave.
+  @OPT (tell them to go)               [gate: none]  SILENCE -> END  @DO set_stage 23
+  @OPT "No. We hold it."               [gate: none]  -> hold
+@END

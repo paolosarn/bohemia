@@ -1,0 +1,133 @@
+# BOHEMIA MAIN QUEST -- PLAYABLE .bq (canon machine layer)
+# M03 -- THE RIDGE
+#
+# HIS BEAT (opening vision, 7/19): "THE BURIAL ON THE RIDGE (tutorial ends here):
+# the family climbs a beautiful ridge overlooking Bohemia and buries the sibling
+# together. This is ALSO the first full-scope reveal of the whole valley (the BotW
+# vista). So the first time you ever see Bohemia's beauty, you see it through
+# tears, over a fresh grave. The city's beauty is bound to loss from the first
+# frame, and you can never take that view again without the grave in the
+# foreground."
+#
+# AND THE RIDGE IS THE MENU (locked, his): every boot and every return to menu is
+# this view, from your sibling's grave, and it UPGRADES per act. So the flag this
+# quest sets is not decoration -- it is the title screen's first state, and the far
+# end of the bookend he approved on 8/26 ("VERY NICE IDEA TO, LIKE, SWITCH").
+#
+# THE VERB HERE IS LOOKING, AND THAT IS THE POINT. There is no fight on the ridge
+# and nothing to carry away. The tutorial ends with the player standing still.
+#
+# The cutscene exists (records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json, 15 beats) and
+# this re-writes none of it.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine can
+# check, never a name-drop.
+# @STUDY Q049.W2  PERSISTENT FAMILY META-PROGRESSION (the manor)
+#   applied: the ridge is the family's permanent object across a hundred years, the way the manor is: individuals die and the view keeps the record, which is why the flag it sets is the title screen's first state.
+# @STUDY Q020.W6  BACKGROUND REACTIVITY (build opens world)
+#   applied: the vista is not a cutscene you watch once, it is a place that reads the world back to you differently every act, so the same climb means a different thing in act three.
+# @STUDY Q067.X4  FIRST GENERATION IS A BORING SLOG (weak opening
+#   applied: the tutorial ends on the biggest view in the game rather than on a chore list, so the first hour closes on the reason to keep playing instead of on an errand.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_m03_the_ridge   The Ridge
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE father   REQ  family=true
+@ROLE mother   REQ  family=true
+
+@STAGE 10
+  @LOG We carried them up ourselves. Nobody offered and we would have said no.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Dug it on the ridge, where you can see the whole valley. That was on purpose.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Stood up there a long time after. First time I have seen all of it at once. It is beautiful and I hate that.
+  @DO set_flag act1_ridge_done
+  @DO set_flag the_ridge_is_ours
+  @DO learn the_whole_valley
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Said something over the grave with everybody standing there. Meant it. Then we all looked at the valley.
+  @DO set_flag act1_ridge_done
+  @DO set_flag the_ridge_is_ours
+  @DO set_flag spoke_at_the_grave
+  @DO learn the_whole_valley
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #risky
+  @LOG Walked out to the edge on my own and looked at the city until it got dark. They let me.
+  @DO set_flag act1_ridge_done
+  @DO set_flag the_ridge_is_ours
+  @DO learn the_whole_valley
+  @DO complete_objective 20
+
+@OBJ 10  "Carry them up"          target=father
+@OBJ 20  "Bury them on the ridge" target=mother
+
+# =====================================================================
+# THE CLIMB. The theme is in the first line: the view costs a grave.
+# =====================================================================
+@TALK climb  speaker=father  entry=stage>=10
+  @SAY Up here. All the way up, I know. There is a reason. #tired
+  @SAY You have never seen the whole thing at once. Nobody has, not from the street.
+  @SAY From up here you see every bit of it. That is what I want them looking at.
+  @OPT "Then let's get up there."     [gate: none]  -> dig
+  @OPT "Why does it matter what they see?"  [gate: none]  -> why
+  @OPT (keep climbing, say nothing)   [gate: none]  SILENCE -> dig
+  @NOVERB "Somewhere closer would do"
+@END
+
+@TALK why  speaker=father
+  @SAY Because in ten years I want to come up here and be able to point. #tired
+  @SAY There. And there. We did that. That is what it matters for.
+  @OPT (keep climbing)                [gate: none]  SILENCE -> dig
+  @OPT "Then we come back up."        [gate: none]  -> dig  @DO learn we_come_back_here
+@END
+
+@TALK dig  speaker=father
+  @SAY Here. This is the spot. #grief
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE GRAVE, AND THE FIRST TIME YOU SEE BOHEMIA. His locked bind: the
+# beauty and the loss arrive in the same frame and never come apart.
+# =====================================================================
+@TALK grave  speaker=mother  entry=stage>=20
+  @SAY Look at it. Go on. #grief
+  @SAY Ten years I have lived down in that and I did not know it looked like this.
+  @SAY Somebody should say something. It does not have to be good.
+  @OPT "I'll say it."                 [gate: none]  -> speak
+  @OPT "I can't."                     [gate: none]  -> cant
+  @OPT (look at the valley, say nothing)  [gate: none]  SILENCE -> look
+  @NOVERB "We should have moved years ago"
+@END
+
+@TALK speak  speaker=mother
+  @SAY Then say it in front of all of us and all of that. #grief
+  @OPT (say it)                       [gate: none]  SILENCE -> END  @DO set_stage 31
+  @OPT "Not in front of the whole valley."  [gate: none]  -> look
+@END
+
+@TALK cant  speaker=mother
+  @SAY Nobody is making you. #grief
+  @SAY Stand here, then. That is a thing you can do for them too.
+  @OPT (stand there)                  [gate: none]  SILENCE -> look
+  @OPT "Alright. I'll say it."        [gate: none]  -> speak
+@END
+
+@TALK look  speaker=mother
+  @SAY It is going to look like this every time you come up here. #grief
+  @SAY And they are going to be right there in front of it, every time.
+  @OPT (stay with everybody)          [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT (walk out to the edge alone)   [gate: none]  -> END  @DO set_stage 32
+@END

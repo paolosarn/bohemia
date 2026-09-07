@@ -7094,6 +7094,112 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 21 [main story] MAIN-QUEST-SPINE, SHIPPED. QUESTS lane, BUILD.
+  quests/bq/M01_THE_NIGHT_THEY_CAME.bq
+  quests/bq/M02_THE_DINNER_AFTER.bq
+  quests/bq/M03_THE_RIDGE.bq
+  quests/bq/M04_WHAT_THE_NEIGHBOUR_ASKS.bq
+  quests/bq/M05_SOMETHING_IS_COMING_DOWN_THE_ROAD.bq
+  gates/main_spine_gate.js        49 passed, 0 failed
+  BUILD 9/6aw - THE MAIN STORY EXISTS
+
+*** THE GAME HAS A MAIN STORY NOW, AND IT DID NOT BEFORE. *** This repo held 53
+fully-produced quest design documents and 27 playable side quests and NOT ONE
+main-quest file. The board called it the single largest hole in the game and it
+was right: the whole story existed as prose nobody could play.
+
+FIVE FILES CARRY ACT 1 END TO END, AND EVERY BEAT IS HIS, traced by the gate back
+to a phrase in laws/BOHEMIA_STORY_MASTER_7_18_26.md and
+laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md:
+  M01  the match-cut open, the night raid, a SIBLING lost (his 7/19 reconcile,
+       not a parent), ending on saving the mother, assault inferred never shown
+  M02  the grief dinner
+  M03  the burial on the ridge, which is also the vista and the title screen
+  M04  the neighbour's founding
+  M05  the last hour before the climax
+71 spoken lines, 84 choices, 17 endings, 8 things the game will not let you say.
+All draft:true. Nothing about the story is invented.
+
+THEY MEET THE EXISTING BAR UNCHANGED, which is a high one: parse, lossless round
+trip, ZERO errors AND ZERO warnings, every reachable path explored, at least one
+reaching COMPLETE, exactly one clout tag per ending and two distinct tags per
+quest, at least one silence option, no stat or karma gate ever, and no hardcoded
+name anywhere (everyone is a @ROLE cast at runtime, which is also what lets M01
+work with his ruling that the surviving sibling is the same gender as the
+player). Canon quests gate 643/0 across 32 files. Quest study gate 519/0 with 16
+new citations into the 3,672-finding questbook index, id AND title verified
+verbatim.
+
+IN THE WORKSHOP AND IN THE DEMO. Re-baked with the direct tab patch and re-cut
+with tools/bohemia_cut_the_demo.js, so rule 7 is met rather than claimed, and
+demo_build_gate confirms the demo is still a cut of the workshop and not a fork.
+
+*** AND TWO THINGS ARE DELIBERATELY NOT WRITTEN. *** A main quest is the most
+expensive place in this game to invent canon, because anything in it reads as his
+forever to everybody who plays it.
+  1. THE FOUNDING ERRAND STAYS PINNED. His story master lists it under "OPEN,
+     EXPLORING TOGETHER (not locked, do not invent unilaterally)" and says the
+     neighbour's first quest "is designed but its specific plan/errand is PINNED
+     pending Paolo". So M04 builds the founding CONVERSATION, which IS locked and
+     IS his, and stops at the exact line where a job would be named. The
+     neighbour says out loud that he does not have the first job yet, which is
+     the honest version of a ruling nobody has made. When Paolo rules, the errand
+     attaches to a decision the player has already made instead of replacing the
+     file.
+  2. THE ACT 1 CLIMAX IS NEVER SCRIPTED. His 7/19 ruling is that it is NOT one
+     fixed scene but a combination of nine approved elements shaped by how the
+     act was played. So M05 names NONE of the nine and picks no climax. It is the
+     door: it records whether the player built something and whether they say so
+     out loud when it is about to cost them, which are the two inputs his
+     generator was described as reading. The Destroyers are never named either,
+     because his own file marks that name PENDING and calls them a FORCE, not a
+     faction.
+gates/main_spine_gate.js holds both refusals BY NAME, checks all nine elements,
+and traces every beat.
+
+*** A BUG IN MY OWN GATE, CAUGHT BY A NEGATIVE CONTROL, AND THIS IS THE THIRD
+ROUND RUNNING WHERE THE DANGEROUS FAILURE WAS A CONFIDENT WRONG ANSWER RATHER
+THAN A CRASH. *** The pinned-errand check read `Q.nodes` when the parser's field
+is `Q.talks`, so it scanned an empty string and passed no matter what M04 said. I
+found it by injecting a real errand ("go and bring me the pump housing") and
+watching that check stay green while the climax check beside it correctly went
+red. It now asserts it is reading real text, and four SELF-TESTS fire every
+detector in the gate at a string it must catch.
+  THE LESSON, WRITTEN DOWN: A CHECK NOBODY HAS SEEN FAIL IS A CHECK NOBODY HAS
+  TESTED. Run the negative control, every time.
+
+GATES: main_spine 49/0, canon_quests 643/0, quest_study 519/0, direct 33/0,
+alpha_loads 20/0, demo_build GREEN, ladder_walk 43/0, asks_visible 38/0,
+inlined_fresh 3/0, nomarkers 6/0, handoff 7/0, attempt 15/0, reply_contract 17/0,
+pages_publish 18/0, answered GREEN.
+
+*** A TRAP EVERY LANE SHOULD KNOW ABOUT, BECAUSE I FELL IN IT THIS ROUND AND
+ALMOST SHIPPED IT. *** tools/bohemia_direct_tab_patch.py does not patch the DIRECT
+tab, it REPLACES THE WHOLE 266 KB SCRIPT BLOCK from its own source. Another lane
+had hand-edited that block in the alpha this round (TOWN SIZES, [town sizes]
+TOWN-TIERS-ARE-HIS, plus DIR_FAMILY), and my re-run of the bake tool wiped 232
+lines of their work. My rebase then kept MY copy of the alpha, so the deletion sat
+in my commit looking like a normal diff.
+WHAT CAUGHT IT: reading `git diff --stat` before pushing and asking why a commit
+that ADDS five quests was REMOVING 232 lines from two files.
+THE FIX I SHIPPED: restore both surfaces from origin/main, then splice the five
+quests into the BOHEMIA_QUESTS array ONLY, using the tool's own parse_bq so the
+entries are identical to what it would emit, and leave every other byte of their
+block alone. Verified after: their work present in both files, my five present in
+both, and zero of their lines in my diff.
+THE STANDING HAZARD, WHICH IS NOT MINE TO FIX: anything hand-edited into the
+DIRECT block is lost the next time ANY lane re-bakes. Either that work belongs in
+the tool, or the tool needs to stop being a whole-block replace. Flagged for the
+plumber or the coordinator.
+
+[STILL NOT MINE, STILL NOT FIXED] reusefirst_gate.py is 201/4 red on four other
+lanes' tool files and was already red on main before I touched anything.
+
+NEXT OPEN QUESTS ROW: [jobs pay] BB-THE-JOB-PAYS, which its own line says waits on
+WORLD's first job landing. After it: [distance shown], [map moves], [generation
+handoff], [designs playable], [haggling works], [edit quests], [act two] (which
+needs Paolo: who dies next), [check the claim].
+
 ROUND 20 [spine first] THE-LADDER-IS-THE-MAIN-LINE, SHIPPED. QUESTS lane, BUILD.
   engine/bohemia_ladder_data.js   his 53 bosses + his 38 edges, GENERATED
   engine/bohemia_ladderwalk.js    the walk: place, person, verb

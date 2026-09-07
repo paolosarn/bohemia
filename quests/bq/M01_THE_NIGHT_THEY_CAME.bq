@@ -1,0 +1,178 @@
+# BOHEMIA MAIN QUEST -- PLAYABLE .bq (canon machine layer)
+# M01 -- THE NIGHT THEY CAME
+#
+# THE FIRST MAIN-QUEST FILE THIS REPO HAS EVER HAD. Fifty-three quest design docs
+# and twenty-seven playable side quests existed before this batch and NOT ONE main
+# quest, which is why the board called it the single largest hole in the game.
+#
+# EVERY BEAT HERE IS HIS, out of laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md
+# and laws/BOHEMIA_STORY_MASTER_7_18_26.md. Nothing about the story is invented:
+#   - the match-cut open (child at the table, blink, the same table ten years on)
+#   - July 4th, ten years after the crash, fireworks over a dead country
+#   - the father wakes you, the tutorial IS the family defending the house
+#   - a SIBLING is lost, not a parent (his 7/19 reconcile)
+#   - it ends saving the MOTHER, and the assault is INFERRED, never shown
+#
+# WHAT THIS FILE IS AND IS NOT. The cutscene already exists
+# (records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json, 26 beats) and the fight belongs to
+# COMBAT. This is the QUEST layer that was missing: the thing that sequences the
+# night, records what the player actually did in it, and hands Act 1 forward. It
+# re-writes neither.
+#
+# THE ROLES ARE ROLES. No hardcoded names anywhere, so the same file works whoever
+# the family turns out to be -- and his 7/19 ruling that the surviving sibling is
+# the SAME GENDER as the player is exactly why: sibling is cast, never written.
+#
+# CLOUT RIDES HOW YOU GET THROUGH THE NIGHT, never a label. Quiet room-to-room and
+# nobody outside hears; loud and the whole street knows there was a fight in that
+# house before morning.
+#
+# draft:true. Every line is a real attempt under ALWAYS MAKE AN ATTEMPT (8/11) and
+# not one word of it is approved. No damage, health or armour number appears.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine can
+# check, never a name-drop.
+# @STUDY Q053.W9  THE COHESIVE, SEDUCTIVE OPENING
+#   applied: the whole open is one unbroken hook and never a menu: a warm table, one blink, and the house is already being entered, so the player is inside the story before they are asked to learn anything.
+# @STUDY Q046.X2  CRUSHING COMPLEXITY / TUTORIAL OVERWHELM
+#   applied: the tutorial teaches exactly one thing, which is moving through a house room to room, and it explains nothing in a tooltip: the father says go that way and the player goes.
+# @STUDY Q067.X4  FIRST GENERATION IS A BORING SLOG (weak opening
+#   applied: the named failure of generational games is a dull first generation, so this one opens on the worst night of the family's life rather than on chores, and the fold is earned instead of waited for.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_m01_the_night_they_came   The Night They Came
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+# ---- ROLES. Cast at runtime against whoever the family is.
+@ROLE father   REQ  family=true
+@ROLE mother   REQ  family=true
+@ROLE sibling  REQ  family=true
+
+@STAGE 10
+  @LOG Fireworks all night. I was a kid at this table once, and I blinked, and it was this.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Dad had me up before I heard anything. They were already in the house.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30
+  @LOG Room to room, all the way to the back. I could not tell a firework from a muzzle flash.
+  @DO show_objective 30
+  @DO complete_objective 20
+@STAGE 40 COMPLETE #quiet
+  @LOG Got Mom out. Nobody on the street heard a thing. We lost my sibling in the hallway.
+  @DO set_flag act1_open_done
+  @DO learn the_family_holds
+  @DO complete_objective 30
+@STAGE 41 COMPLETE #reckless
+  @LOG Got Mom out and the whole block knows there was a fight in this house. We lost my sibling in the hallway.
+  @DO set_flag act1_open_done
+  @DO set_flag the_street_heard_it
+  @DO learn the_family_holds
+  @DO complete_objective 30
+@STAGE 42 COMPLETE #risky
+  @LOG Went back for my sibling first. It did not change anything. Got Mom out after.
+  @DO set_flag act1_open_done
+  @DO set_flag went_back_first
+  @DO learn the_family_holds
+  @DO complete_objective 30
+
+@OBJ 10  "Sit down to dinner"        target=father
+@OBJ 20  "Get to the back of the house"  target=father
+@OBJ 30  "Get your mother out"       target=mother
+
+# =====================================================================
+# THE TABLE. His match cut: the same room, ten years apart, one blink.
+# The theme is in the first line, never in an optional node.
+# =====================================================================
+@TALK table  speaker=father  entry=stage>=10
+  @SAY Sit down. It is the fourth, and I do not care what anybody says about that any more, we are eating at a table. #warm
+  @SAY Listen to them out there. Ten years and people still put fireworks up over a country that is not there.
+  @SAY Eat something. You are going to want to have eaten.
+  @OPT "It's still a good night."      [gate: none]  -> good
+  @OPT "Nobody believes in it."        [gate: none]  -> dead
+  @OPT (eat, say nothing)              [gate: none]  SILENCE -> good
+  @NOVERB "Tell them what is coming"
+@END
+
+@TALK good  speaker=father
+  @SAY It is. They are all here and it is a good night. #warm
+  @DO set_stage 20
+@END
+
+@TALK dead  speaker=father
+  @SAY No. But they light them anyway, and I think that is the part worth keeping. #tired
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE WAKE. He is already up. The assault on the house is inferred.
+# =====================================================================
+@TALK wake  speaker=father  entry=stage>=20
+  @SAY Up. Up, now, they are in the house. Do not put a light on. #dread
+  @SAY Your mother is at the back. Your sibling went that way. You go that way too.
+  @OPT "Where are you going?"          [gate: none]  -> him
+  @OPT "Quiet, then."                  [gate: none]  -> quiet  @DO learn go_quiet
+  @OPT (go, without a word)            [gate: none]  SILENCE -> quiet  @DO learn go_quiet
+@END
+
+@TALK him  speaker=father
+  @SAY Front. Somebody has to be at the front. #dread
+  @SAY Go. I am not asking.
+  @OPT "Quiet, then."                  [gate: none]  -> quiet  @DO learn go_quiet
+  @OPT (go)                            [gate: none]  SILENCE -> quiet  @DO learn go_quiet
+@END
+
+@TALK quiet  speaker=father
+  @SAY Room to room. Do not run past a door you have not looked through. #dread
+  @DO set_stage 30
+@END
+
+# =====================================================================
+# THE HALLWAY. The loss is a SIBLING (his 7/19 reconcile) and the game
+# does not linger on it. It implies and moves.
+# =====================================================================
+@TALK hallway  speaker=sibling  entry=stage>=30
+  @SAY Go. She is behind the last door and I have got this one. #dread
+  @SAY Go.
+  @OPT "I'm not leaving you here."     [gate: none]  -> back
+  @OPT "Hold it. I'll be back."        [gate: none]  -> onward
+  @OPT (go for the last door)           [gate: none]  SILENCE -> onward
+  @NOVERB "Both of us, right now"
+@END
+
+@TALK back  speaker=sibling
+  @SAY You are. Now. #dread
+  @OPT "Then I'm fast."                [gate: none]  -> mother  @DO set_flag went_back_first
+  @OPT (go)                            [gate: none]  SILENCE -> onward
+@END
+
+@TALK onward  speaker=sibling
+  @SAY Last door. Go. #dread
+  @OPT (the last door)                 [gate: none]  SILENCE -> mother
+  @OPT "Thirty seconds."               [gate: none]  -> mother
+@END
+
+# =====================================================================
+# THE LAST DOOR. You open it, and you act. Nothing is shown. His line.
+# =====================================================================
+@TALK mother  speaker=mother
+  @SAY Do not look at me. Get the door shut. Get the door shut. #dread
+  @SAY Is your father up. Is your sibling. Answer me.
+  @OPT "Dad's at the front."           [gate: none]  -> out
+  @OPT "We have to go. Now."           [gate: none]  -> out
+  @OPT (get her up and out)            [gate: none]  SILENCE -> out
+  @NOVERB "Tell her about the hallway"
+@END
+
+@TALK out  speaker=mother
+  @SAY Out the back. Do not stop in the yard. #dread
+  @OPT (out, quiet, nobody hears)                    [gate: none]  SILENCE -> END  @DO set_stage 40
+  @OPT (out the front, loud, straight through them)  [gate: none]  -> END  @DO set_stage 41
+  @OPT "The hallway first."   [gate: flag:went_back_first]  -> END  @DO set_stage 42
+@END

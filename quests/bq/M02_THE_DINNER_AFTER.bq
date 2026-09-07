@@ -1,0 +1,121 @@
+# BOHEMIA MAIN QUEST -- PLAYABLE .bq (canon machine layer)
+# M02 -- THE DINNER AFTER
+#
+# HIS BEAT, WORD FOR WORD OUT OF THE OPENING VISION (7/19): "THE GRIEF DINNER
+# (next day, before the burial): the surviving family sits down to a real meal and
+# a raw, genuinely sad conversation. People crying at the table. 'I miss them so
+# much, I can't.' 'I hate this.' Bohemia commits to grief most games flinch from.
+# This is the family-conversation mechanic's first and definitive beat."
+#
+# AND THE PILLAR IT SERVES, also his: DEPRESSING / REAL CONVERSATIONS ARE A PILLAR.
+# "Bohemia makes you feel more in five minutes than other games do in their whole
+# runtime." So this quest has no fight, no errand and no reward, and that is the
+# design rather than a gap.
+#
+# WHAT IS DELIBERATELY NOT IN HERE: the EMPTY CHAIR motif. It is a good idea and it
+# is marked in his own file as "MOTIF SEED (Claude, [PENDING])". A pending motif
+# does not get quietly promoted to canon by being built into the first main quest
+# in the repo. When he rules on it, it goes in.
+#
+# THE ONE THING THE QUEST ACTUALLY TRACKS: whether you could say it out loud. Every
+# route reaches the burial; what changes is what your family heard from you, which
+# is the only currency a dinner has.
+#
+# The cutscene exists (records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json, 16 beats).
+# This is the quest layer, and it re-writes none of it.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine can
+# check, never a name-drop.
+# @STUDY Q035.W9  GRIEF + GUILT AS THE ENGINE (not gore)
+#   applied: the whole scene is emotional and nothing is shown: no body, no wound, no violence on screen, only four people at a table who cannot get through a sentence.
+# @STUDY Q058.W7  TRAUMA + GRIEF AS THE ROOT
+#   applied: the grief is the root and there is no monster on top of it: the quest is four people and a meal, and the only mechanic is whether the player can name what they feel.
+# @STUDY Q022.W8  THE ATTENTIVE UNEARTH THE GRIEF
+#   applied: the player who says the hard line out loud gets the mother's real answer, and the player who stays silent is never punished for it, only told less.
+# @STUDY Q044.X1  RANDY'S UNFAIRNESS / UNAVOIDABLE LOSS
+#   applied: the loss is fixed and nothing the player did caused it, so the quest gives them the one thing they can still control, which is whether they say it out loud at the table.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_m02_the_dinner_after   The Dinner After
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE mother   REQ  family=true
+@ROLE father   REQ  family=true
+
+@STAGE 10
+  @LOG Nobody wanted to eat. Mom cooked anyway and made us sit down.
+  @DO show_objective 10
+@STAGE 20 COMPLETE #quiet
+  @LOG I said it out loud at the table. All of it. Everybody cried and nobody left.
+  @DO set_flag act1_dinner_done
+  @DO set_flag said_it_out_loud
+  @DO learn grief_is_spoken
+  @DO complete_objective 10
+@STAGE 21 COMPLETE #notable
+  @LOG Could not say it. Sat there and ate and let them talk. They know anyway.
+  @DO set_flag act1_dinner_done
+  @DO learn grief_is_spoken
+  @DO complete_objective 10
+@STAGE 22 FAIL #quiet
+  @LOG Got up from the table. Ate outside, on my own, and that is where I stayed.
+  @DO set_flag act1_dinner_done
+  @DO set_flag left_the_table
+
+@OBJ 10  "Sit down with what is left of them"  target=mother
+
+# =====================================================================
+# THE TABLE. The theme is in the first line. She is not making it easier.
+# =====================================================================
+@TALK sit  speaker=mother  entry=stage>=10
+  @SAY Sit down. I know. Sit down anyway. #tired
+  @SAY I cooked because if I did not cook I was going to do something else, and this was the better one.
+  @SAY Say something. Anybody. Say anything.
+  @OPT "I miss them so much, I can't."  [gate: none]  -> spoken  @DO learn grief_is_spoken
+  @OPT "I hate this."                   [gate: none]  -> hate
+  @OPT "What do you want me to say?"    [gate: none]  -> ask
+  @OPT (sit down, eat, say nothing)     [gate: none]  SILENCE -> quiet
+  @NOVERB "It's going to be alright"
+@END
+
+@TALK spoken  speaker=mother
+  @SAY I know. I know you do. #grief
+  @SAY That is the first true thing anybody has said in this house since it happened, so thank you.
+  @OPT (let her hold on)               [gate: none]  SILENCE -> END  @DO set_stage 20
+  @OPT "I'm not going anywhere."       [gate: none]  -> END  @DO set_stage 20
+@END
+
+@TALK hate  speaker=father
+  @SAY Good. Hate it. Hate it at this table with us and not out in the yard on your own. #tired
+  @OPT "I miss them so much, I can't." [gate: none]  -> spoken  @DO learn grief_is_spoken
+  @OPT (stay, and eat)                 [gate: none]  SILENCE -> END  @DO set_stage 21
+  @OPT "I need air."                   [gate: none]  -> leave
+@END
+
+@TALK ask  speaker=father
+  @SAY Nothing clever. Nobody here needs you to be clever. #tired
+  @SAY Say the thing you have been carrying around the house all morning, or eat. Either one is fine.
+  @OPT "I miss them so much, I can't." [gate: none]  -> spoken  @DO learn grief_is_spoken
+  @OPT (eat)                           [gate: none]  SILENCE -> END  @DO set_stage 21
+@END
+
+@TALK quiet  speaker=mother
+  @SAY All right. All right, you do not have to. #grief
+  @SAY But you are staying at this table while we do.
+  @OPT (stay)                          [gate: none]  SILENCE -> END  @DO set_stage 21
+  @OPT "I miss them so much, I can't." [gate: none]  -> spoken  @DO learn grief_is_spoken
+  @OPT "I need air."                   [gate: none]  -> leave
+@END
+
+@TALK leave  speaker=mother
+  @SAY Then go. #grief
+  @SAY The door is not locked and it is not going to be. Come back in when you can.
+  @OPT (go outside)                    [gate: none]  SILENCE -> END  @DO set_stage 22
+  @OPT (sit back down)                 [gate: none]  -> END  @DO set_stage 21
+@END
