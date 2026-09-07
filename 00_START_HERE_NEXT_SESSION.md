@@ -323,55 +323,68 @@ NEXT IN THIS LANE: Q23 [who eats first].
 ================================================================================
 ================================================================================
 
-FACTIONS (factions-ovkjpf): 9/6 (round 11) LATEST -- *** [broke raiders]
-BB-UNPAID-TURNS-PREDATORY SHIPPED. Putting a faction's lights out was a free win.
-It costs something now: you have not weakened them, you have released them. ***
+FACTIONS (factions-ovkjpf): 9/7 (round 12) LATEST -- *** [repeat interval]
+ENCOUNTER-REPEAT-INTERVAL SHIPPED. The same thing does not keep finding you, and
+how long it stays away is a dial in DEMO SETTINGS that opens on his three days. ***
 Nothing to judge.
 
-VAMILY row: [broke raiders] BB-UNPAID-TURNS-PREDATORY, MODE: BUILD, SHIPPED 9/6 c25e98dc.
-Record: records/BOHEMIA_TAKE_THEIR_LIGHTS_AND_YOU_RELEASE_THEM_9_6_26.md
+VAMILY row: [repeat interval] ENCOUNTER-REPEAT-INTERVAL, MODE: BUILD, SHIPPED 9/7 e8d052fd.
+Record: records/BOHEMIA_THE_SAME_THING_DOES_NOT_KEEP_HAPPENING_9_7_26.md
 
-HIS OWN STUDY IS THE SPEC. The free companies "regularly made a living by plunder
-when they were not employed"; Caferro on the medieval mercenary, "prone to
-desertion if not paid regularly". And the row names the mechanism itself:
-bohemia_mandate's income rule -- a district pays only while it is yours AND lit
-AND patrolled -- IS ALSO THE AGGRESSION RULE.
+HIS RULING IS THE SPEC (9/5, through the coordinator): "the same encounter does not
+repeat for the same player inside THREE in-game days, and never twice on the same
+street in one day. Put it on a dial in DEMO SETTINGS with that default."
+TWO RULES, BOTH LOAD-BEARING. The days sit on the dial and can be turned all the
+way down; the street rule is the floor that survives when it is.
 
-WHAT SHIPPED. BohemiaMandate.roving() is that rule read backwards, nothing added:
-they HELD ground (so they settled) and NOTHING ON IT IS LIT (so nobody pays them).
-Derived, never stored -- the lights coming back ends it, no dissolution rule to
-forget. A faction that never held anything is not roving; it never settled.
+THE RULER WAS WRONG, NOT THE TARGET. repeatAfterS counts SPENT SECONDS, and three
+in-game days through that ruler is 259,200 of them, which no walk ever spends -- so
+his sentence read through the old mechanism means "never again". The game already
+owns the right ruler and prints it on the top bar: T.day. The rule counts DAYS.
+Nothing was converted and no conversion factor was invented.
 
-*** THE SEVERITY NOBODY RULED. *** "A roving outfit is HOSTILE" is a number nobody
-gave me. RELEASED is a COMPARATIVE in his own sentence, so it raises them ONE RUNG
-on the existing ladder: no new level, cannot make a war out of nothing, and a
-faction already at war is unchanged AND KEEPS ITS OWN STORY -- a body that behaves
-identically must not be handed a new explanation.
+WHAT A STREET IS, AND WHO SAYS. The director owns no clock and no map and must not
+learn one, so the CALLER passes world.day and world.place beside the district it
+already passed. On foot that is the BLOCK (bounded by roads, so to somebody walking
+it IS the street); on the road it is the overmap CELL. Measured: B12,12 -> B13,12
+-> B15,12 -> B17,12 as he walks.
 
-*** THE ORDER THAT IS THE WHOLE ROW, AND THE THING TO REMEMBER. *** The first cut
-applied the release AFTER the no-reason-at-all check, so a roving faction the
-player had no history with came back as NOTHING -- and they are exactly who the
-row is about ("it becomes SOMEBODY ELSE'S problem" means somebody who did nothing
-to them). If you add a fifth reason to bohemia_against, decide FIRST whether it
-can stand alone, and put it above that early return if it can.
+*** THE FAULT THAT WAS THE WHOLE ROW: TWO RULES ANSWERING ONE QUESTION DO NOT ADD
+UP. *** With both memories live the seconds one said no first and the calendar was
+never asked -- twenty in-game days gave FIVE encounters, all on day one, and the
+dial moved nothing wherever it was set. The stricter one silently eats the other,
+and here that is a control that does nothing, which the settings screen's own rule
+calls worse than no control at all. A CALENDAR WINS; the seconds cooldown is what a
+caller with no days has, and every headless caller is untouched.
 
-ON THE WALKED SURFACE
-  the Mob holds 1490 blocks, 7 lit circuits    reads: nothing
-  douse all 7                                  reads: cold / broke
-  every other faction                          untouched
+*** AND THE STORE IS NOT A LIVE WIRE. *** localStorage looked right and the gate
+caught it on the demo: shell store encd:0 while the city store still said encd:7,
+ONE TAP BEHIND. The shell and the walked city are separate documents in separate
+processes and a write crosses LATE. The store is now only the boot value; the live
+move rides the frame seam the STANDING dial and the town sizes already use. The
+proof line still prints both stores disagreeing while the city reads right.
 
-AND A TEST MEASURING A CALL THE GAME DOES NOT MAKE, AGAIN. coalition_gate's street
-helper predated this row and passed {rel, rung, coalition} with no `roving`, so it
-said "nothing" after dousing every circuit a faction had while the game was right.
-Same shape as commitment_gate's D11 this session. WHEN A HELPER ASKS AN ORGAN A
-QUESTION, IT MUST ASK EVERYTHING THE CITY ASKS.
+ON THE WALKED SURFACE AND ON THE DEMO
+  the dial, in DEMO SETTINGS      AGAIN IN 3 DAYS, 156x44, his number
+  five in-game days, one street   fires on day 1 and day 4, nothing in 2 or 3
+  turned to SAME DAY              the city reads 0 on the tap
+    one day, three streets        5 events, one token found him on three of them
+    one day, ONE street           2 events, each thing once   <- the floor
 
-GATES  mandate 44/0 (was 33), coalition 40/0 (was 38), rung pays 21/0, turf 43/0,
-       faction between 182/0, demo build 25/0, alpha loads 20/0
+COST, MEASURED AND NOT HIDDEN: crossing the valley goes from 12 road moments a day
+to 4. That is the rule's own arithmetic (12 tokens, once per 3 days = 4 a day) and
+the gate prints that sentence beside the number so nobody later reads the bound as
+too high and nudges it.
 
-THE AGAINST ORGAN NOW HAS FOUR REASONS, all shipped in this lane today:
-  their outfit vs yours | their own opinion of you | their outfit joined a
-  coalition against you | nobody is paying them any more
+GATES  encounter 69/0 (was 46), walk encounter 25/0 (was 15, all of section F on
+       the DEMO itself), the road interrupts 19/0, road on foot 12/0
+
+AND TWO GATE FAULTS WERE MINE, NOT THE GAME'S. The road card check reused a
+director that had already spent its roster for three days, so it could never raise
+a second card -- the SETUP was reset, never the claim. And a probe measured the
+repeat gap on a SPICE token, which never repeats by a rule older than this row.
+THE STANDING LESSON, THIRD TIME THIS SESSION: when a check goes red, ask whether it
+is measuring the game or measuring its own invention.
 
 [PENDING Paolo] -- THREE, ALL CARRIED, NOTHING NEW
   1. Anarchists, Colorful and Custom are called non-territorial by his own notes
@@ -384,13 +397,19 @@ THE AGAINST ORGAN NOW HAS FOUR REASONS, all shipped in this lane today:
      Network and Mob are squatting. Also: is the Cartel drab on purpose? The law
      names two drab factions, the gate carries three.
 
+THE AGAINST ORGAN HAS FOUR REASONS, all shipped in this lane this session:
+  their outfit vs yours | their own opinion of you | their outfit joined a
+  coalition against you | nobody is paying them any more
+
 NEXT IN THIS LANE (top unblocked, in order)
-  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- already decided by the
-    coordinator, just needs the dial in DEMO SETTINGS with the stated default
   [power territory]  A-FACTION-MINES-ITS-LAND
-  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() answers who you pay for any
-    block, the Network's circuits are flagged free, and roving() is what happens
-    when a block stops paying
+  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() already answers who you pay for
+    any block, the Network's circuits are flagged free, and roving() is what
+    happens when a block stops paying
+
+BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
+Two rows this session said "needs Paolo" and needed nothing: one wanted a door, and
+one named a blocker that had shipped in this same lane hours earlier.
 
 --------------------------------------------------------------------------------
 
