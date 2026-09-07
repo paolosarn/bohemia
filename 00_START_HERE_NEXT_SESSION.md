@@ -1,3 +1,109 @@
+EYES AND EARS (eyes-5vql33): 9/7 (r) LATEST -- *** E14 [late beat] SHIPPED WITH BOTH ROUNDS, AND
+IT IS A GREEN. THE BEAT HE HEARS IS THE BEAT THE GAME JUDGES, TO WITHIN 9.6 MILLISECONDS, with
+under a millisecond of wobble, inside a PERFECT band of 55. A player pressing exactly on the
+sound they hear is graded PERFECT with 45 ms to spare. NOTHING IS ROUTED, because nothing is
+broken, and a lane that only ever finds problems is not a lane anybody should trust. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+FIRST, A CORRECTION TO MY OWN SCHOOL ROUND, OUT LOUD. Round one said there were two grace values
+five times apart, 200 in the alpha and 40 in the city world, and that round two would settle
+which the fight judges by. BOTH WERE FALSE LEADS FROM A SLOPPY GREP AND NEITHER IS A BEAT WINDOW.
+The alpha's is GRACE=2000 and my pattern matched a prefix of it; the city world's SF_GRACE=40 is
+STEPS before the street may jump you, not milliseconds. I flagged them as "no claim is made",
+which was the right instinct, but killing them out loud is the honest finish.
+  THE REAL NUMBERS, READ OUT OF THE RUNNING FIGHT: BPM_MS 500 (120 exactly), PERFECT within
+  55 ms, GOOD within 110 ms, and a permission look-back of 0.24 beats which is 120 ms.
+
+WHICH SCHOOL FINDING CHANGED THE INSTRUMENT: school said a tap test measures a HUMAN, not a
+phone, because people tap 20 to 100 ms early and the bias is not universal. So this tool takes no
+taps from anybody. It compares two clocks the machine already has: the clock the fight grades
+against, and getOutputTimestamp().contextTime, which the spec defines as the sample frame the
+output device is playing RIGHT NOW. Both read in the same instant, in the same frame. The
+difference between them IS the gap the job asked for. And school's second finding paid off
+immediately: the browser reports the device latency, so the audio half was a read. It said
+32 ms of outputLatency and 10 ms of baseLatency.
+
+WHAT THE FIGHT ALREADY DOES, AND IT IS THE RIGHT THING. Reading the running code rather than
+guessing: audioMs() is AC.currentTime minus the device's own reported latency minus the loop
+anchor. THE FIGHT READS THE DEVICE'S LATENCY AND SUBTRACTS IT. That is exactly what native games
+need a calibration screen for, already shipped, with a comment beside it that already knows the
+40 to 300 ms number school went and found. Two more it gets right and both are usually wrong:
+the beat clock is the AUDIO clock and not a frame counter, and IT GRADES THE PRESS, NEVER THE
+GRANTED SHOT -- its own comment says grading the shot would print PERFECT every time and teach
+him nothing, which is the exact tautology trap my RULE ZERO exists to catch, and the fight had
+already caught it itself.
+
+THE NUMBERS: gap median 9.6 ms, mean 9.46, jitter 0.93, worst 10.76, over 19 samples across a
+second and a half. Bands swept straight out of the fight's own grader: PERFECT inside plus or
+minus 55, GOOD inside 110, EARLY or LATE beyond. 9.6 ms of error in a 55 ms band.
+
+RULE ZERO: a gap of about zero could mean the fight is ear-true, or that I am reading the same
+number twice and subtracting it from itself, which is a tautology dressed as a pass. A known
+150 ms shift was injected into one side and the gap moved by -150.26 ms. PASS. The two clocks
+are genuinely being compared.
+
+THE ONE CONDITIONAL FINDING, MEASURED AND NOT ROUTED: with the music loop stopped, audioMs()
+returns null and the beat clock falls back to a frame counter, and NOTHING SUBTRACTS DEVICE
+LATENCY FROM A FRAME COUNTER. So the compensation that makes the judge ear-true is tied to the
+song being on. I am not calling that a defect: with no song there may be no beat to hear, so
+nothing to be late against. But somebody should know it is there before they turn the music off
+in a fight.
+
+BLUETOOTH IS STILL THE OPEN RISK AND STAYS QUOTED, NEVER MEASURED. The good news is structural:
+the fight subtracts whatever outputLatency REPORTS rather than a hard-coded number, so if the
+browser reports a Bluetooth route honestly the compensation follows it for free and nobody has to
+build a calibration screen. The untested half is whether outputLatency follows a route change
+mid-fight, and that cannot be tested in this harness, so I am not guessing at it.
+
+MY INSTRUMENT WAS WRONG THREE TIMES:
+  1. page.click needs the element visible and the tab bar is not, so the COMBAT tab never opened
+     and the tool reported "not measurable" about the wrong frame. The shell switches tabs with an
+     ordinary JS .click(), and the heavy frames are lazy. The tool now FINDS THE FIGHT BY ASKING
+     EVERY FRAME whether it has the grader in it, rather than trusting a name.
+  2. There is no AudioContext until a real gesture, and the music loop only runs while a fight is
+     LIVE, so two runs measured a game that had never been started. It now starts with a real tap
+     on the start screen and the record says which path was used.
+  3. IT SAMPLED SIXTY TIMES INSIDE ONE TIGHT LOOP AND PRINTED A JITTER OF EXACTLY 0.00 ms. Both
+     clocks are quantised to the render quantum, so it read the SAME INSTANT sixty times. THAT
+     WOULD HAVE BETRAYED THIS ROUND'S OWN SCHOOL FINDING, which was that the gap is a bias AND a
+     jitter. Sampling now runs on requestAnimationFrame across a second and a half.
+
+NOTES INSTEAD OF A ROUTED LINE: SOUNDS' OPEN row [scheduled beat] is PARTLY ALREADY DONE inside
+the fight -- it already judges by its own audio clock and already offsets by the device's
+reported latency, so the "where a phone's delay is known, the judgement window offsets by it"
+half is satisfied here and worth reusing rather than rebuilding. And the rAF loop gave 19 samples
+in 1500 ms, about 13 frames a second, which is this headless harness with no GPU and not a
+statement about the game.
+
+BLIND SPOTS: one device, one browser, one output route, and outputLatency is explicitly an
+ESTIMATE; Bluetooth untestable here; VIDEO offset not measured at all, and school said there are
+two offsets; the fight was started from its start screen in the COMBAT tab, not by walking into a
+body on the street; and nothing here says whether the fight is fun or whether 55 ms is the right
+band, which are both his.
+
+STILL OPEN IN MY QUEUE: E15 [machine judges], E16 [never opened]. Both two rounds, school first.
+E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Fifteen instruments and two suite gates exist now.
+  2. SOUNDS [scheduled beat] is partly satisfied inside the fight already, per the record.
+  3. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
+  4. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist.
+  5. Still unclaimed: the MIX METER (E5 gap 10).
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: handoff 7/0, attempt 15/0, NO READER 7/0. The meter's own 150 ms control passed.
+
+PROOF: records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md and
+records/BOHEMIA_EYES_E14_ROUND_2_THE_BEAT_IS_EAR_TRUE_9_7_26.md;
+tools/bohemia_eyes_late_beat.js; data records/BOHEMIA_EYES_LATE_BEAT_9_7_26.json; results bank
+banks/eyes/BOHEMIA_EYES_E14_BEAT_RESULTS_9_7_26.json (draft:true); VAMILY lane 17 E14 SHIPPED
+with both rounds, NOTHING routed.
+
 WORDS (words-8dqrnq): 9/6 (g) LATEST -- *** Q3 [crowd talk] SHIPPED WITH BOTH ROUNDS. AND
 WHILE RUNNING MY OWN GATES I FOUND MAIN IS RED, RIGHT NOW, AND IT IS NOT MINE: the words
 book has not been baked since other lanes' quest files landed, and BAKING IT MAKES A SECOND
@@ -389,101 +495,6 @@ added both this round, so the queue is NOT empty.
 
 ================================================================================
 ================================================================================
-
-EYES AND EARS (eyes-5vql33): 9/7 (q) LATEST -- *** E14 [late beat] ROUND ONE OF TWO IS DONE:
-SCHOOL. NO MEASURING, ON PURPOSE. Two things landed hard. THE HUMAN TAPS EARLY, 20 to 100 ms
-before the beat, so every tap-based calibration in the world measures a person plus a phone and
-cannot separate them. And BLUETOOTH IS 150 TO 300 ms, which against one of our two grace values
-is four whole windows late. *** E14 stays CLAIMED, round two is the measurement.
-TAB: NOT IN A TAB YET. No game code touched, ever.
-
-READ OFF DISK TO GROUND THE RESEARCH, NOT MEASURED: BEAT_MS is 500, which is 120 BPM exactly and
-correct. AND THERE ARE TWO GRACE VALUES IN THE SHIPPED FILES, 200 in the alpha and 40 in the city
-world, five times apart. Until round two establishes which one the fight actually judges by,
-"is the beat late" has no denominator. That is round two's first question and I make no claim
-here about which is right.
-
-COUNTER-FINDING 1: "THE GAP" IS NOT A NUMBER. The job asks for the gap between the beat the
-player hears and the beat the fight scores. A single number is the wrong instrument. Latency has
-a BIAS (how late on average) and a JITTER (how much that varies beat to beat) and it MOVES at
-runtime when an output route changes or Bluetooth connects. A fight can be perfectly centred and
-still unplayable if the jitter is wider than the window, and a fight can be 30 ms late and
-completely fine. Round two reports bias and jitter over many beats and the worst beat, never one
-gap, and says whether anything re-reads latency after it changes.
-
-COUNTER-FINDING 2, AND IT IS THE SHARPEST: A TAP TEST MEASURES A HUMAN, NOT A PHONE. In paced
-tapping the finger lands BEFORE the sound. The effect is called negative mean asynchrony, it is
-about 20 to 100 ms, it is the standard result in the tapping literature, and a cross-cultural
-study finds it is NOT UNIVERSAL, so it cannot even be subtracted as a constant. So a calibration
-built from taps bakes in the player's own anticipation, calls it device latency, and applies it
-on a different device where it is simply wrong.
-  THE CLEAN SPLIT ROUND TWO WILL HOLD TO: measure the machine with the machine. Never ask a human
-  to calibrate a number a browser already reports.
-
-AND THE BROWSER DOES REPORT IT, WHICH REMOVES HALF THE PROBLEM FOR FREE. AudioContext gives
-outputLatency (seconds from the browser handing over a buffer to the first sample reaching the
-output device), baseLatency (the graph's own processing delay), and getOutputTimestamp(), which
-returns the same instant in BOTH the audio clock and the performance.now clock and exists
-precisely to bridge them for games. A calibration screen exists because native games cannot ask
-the device how late it is. On the web we can. THE AUDIO HALF IS A READ, NOT A SURVEY.
-
-BLUETOOTH, AGAINST OUR OWN NUMBERS: SBC baseline is 150 to 200 ms, typical consumer devices 150
-to 300, and the best case anywhere is aptX Low Latency at 30 to 40 and only when both ends
-support it. Against a 40 ms grace the smallest realistic Bluetooth delay is about FOUR WHOLE
-WINDOWS late: the fight is not hard on wireless headphones, it is impossible by construction.
-Against a 200 ms grace a typical delay straddles the whole window and some devices land inside
-it by luck. And the worse half: BLUETOOTH ARRIVES AFTER CALIBRATION. A player calibrates on the
-speaker, puts headphones on, and the correction is now wrong by 200 ms.
-
-TWO OFFSETS, NOT ONE. Real games split audio latency from video latency (Rhythm Doctor calibrates
-in two phases, Chunithm names them Offset A and Offset B) and the documented bug is that the two
-get ADDED so the game compensates for the sum. Round two will say WHICH PAIR OF CLOCKS it
-measured instead of reporting "the gap" as if there were one.
-
-WHAT PLAYERS GET WRONG, WORTH KNOWING IF THIS EVER BECOMES A SCREEN: calibrating BY EYE is the
-documented mistake (the pulsing line makes people doubt their own rhythm; the advice is close
-your eyes and listen for the accent), players believe offset fixes bad accuracy when it only
-moves the centre of the window, and osu! has to keep per-song and global offset separate because
-conflating them fixes one song and breaks the rest.
-
-ROUND TWO'S PLAN: (1) ask the device, read outputLatency and baseLatency on the real surface;
-(2) find the denominator, establish which grace the fight judges by from the code path it runs;
-(3) wrap the scheduler and the judge and measure beat against judge machine to machine, reporting
-bias and jitter; (4) answer the real question by driving taps exactly on the audio-clock beat
-corrected by outputLatency and seeing what the fight scores, with no human anywhere in it;
-(5) report against the Bluetooth numbers.
-  RULE ZERO, AND THIS TRAP IS A GOOD ONE: a simulated perfect player scoring 100% proves nothing
-  on its own, because it may mean the judge is reading my taps off the same clock that generated
-  them, which is a tautology dressed as a pass. So round two plants a DELIBERATELY LATE player,
-  the same taps shifted 150 ms, and the score MUST drop. If a 150 ms late player still scores
-  perfect, the judge is not judging and every number is meaningless.
-  SECOND CONTROL, from E13's hardest lesson: a sweep that interacts changes its own subject, so
-  each run starts from a fresh fight.
-
-STILL OPEN IN MY QUEUE AFTER THIS: E15 [machine judges], E16 [never opened]. Both two rounds,
-school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Fourteen instruments and two suite gates exist now.
-  2. SOUNDS' OPEN row [scheduled beat] THE-BEAT-IS-SCHEDULED-NOT-FIRED is confirmed by school as
-     the standard practice and not a preference. It is the right row and it is still open.
-  3. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
-     There is one and the walked surface reads it.
-  4. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist.
-  5. Still unclaimed: the MIX METER (E5 gap 10).
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
-last round: NO READER 7/0, handoff 7/0, attempt 15/0.
-
-PROOF: records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md (243 lines, 19
-sources); banks/eyes/BOHEMIA_EYES_E14_BEAT_SPEC_9_7_26.json (draft:true); VAMILY lane 17 E14
-CLAIMED ROUND 1 OF 2.
-
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE

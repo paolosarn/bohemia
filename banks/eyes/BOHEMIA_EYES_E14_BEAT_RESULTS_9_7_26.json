@@ -1,0 +1,50 @@
+{
+ "bank": "EYES AND EARS -- E14 [late beat] -- WHAT THE BEAT METER FOUND",
+ "date": "9/7/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. Measured in the running fight on the shipped alpha at 390x844, with a 150 ms control proving the two clocks are genuinely being compared before any number was believed. NO TAPS WERE TAKEN FROM A HUMAN: school found that people tap 20-100 ms early and the bias is not universal, so the tool compares two clocks the machine already has.",
+ "record": "records/BOHEMIA_EYES_E14_ROUND_2_THE_BEAT_IS_EAR_TRUE_9_7_26.md",
+ "data": "records/BOHEMIA_EYES_LATE_BEAT_9_7_26.json",
+ "headline": "the gap is 9.6 ms with 0.93 ms of jitter, inside a 55 ms PERFECT band. a player pressing exactly on the sound they hear is graded PERFECT with 45 ms to spare.",
+ "the_correction_to_my_own_school_round": {
+  "draft": true,
+  "school_said": "two grace values in the shipped files, 200 and 40, five times apart",
+  "measured": "BOTH WERE FALSE LEADS FROM A SLOPPY GREP AND NEITHER IS A BEAT WINDOW. GRACE=2000 in the alpha is not a timing window (the pattern matched a prefix), and SF_GRACE=40 in the city world is STEPS before the street may jump you, not milliseconds.",
+  "the_real_numbers": {"BPM_MS": 500, "PERFECT_MS": 55, "GOOD_MS": 110, "BEAT_GRACE_beats": 0.24, "BEAT_GRACE_ms": 120}
+ },
+ "the_device": {"draft": true, "outputLatency_ms": 32.0, "baseLatency_ms": 10.0, "getOutputTimestamp": true, "sampleRate": 44100},
+ "the_gap": {"draft": true, "median_ms": 9.6, "mean_ms": 9.46, "jitter_sd_ms": 0.93, "worst_ms": 10.76, "samples": 19, "span_ms": 1500,
+   "method": "judge clock (AC.currentTime - outputLatency - _seq.t0) minus ear clock (getOutputTimestamp().contextTime - _seq.t0), both read in the same instant in the same frame"},
+ "the_bands_swept_from_the_fights_own_grader": {"draft": true, "PERFECT": "within +/-55 ms", "GOOD": "within +/-110 ms", "beyond": "EARLY if negative, LATE if positive"},
+ "what_the_fight_already_does_right": [
+  {"draft": true, "thing": "it reads the device's own latency and subtracts it", "code": "audioMs() = AC.currentTime - (outputLatency||baseLatency) - _seq.t0", "why_it_matters": "this is what native games need a calibration screen for, and the web makes it a read"},
+  {"draft": true, "thing": "the beat clock is the AUDIO clock, not a frame counter", "code": "_bpmClock = audioMs() while the song plays"},
+  {"draft": true, "thing": "it grades the PRESS, never the granted shot", "why_it_matters": "its own comment says grading the shot would print PERFECT every time and teach him nothing. that is the tautology trap RULE ZERO exists to catch, and the fight had already caught it itself."}
+ ],
+ "the_one_conditional_finding": {
+  "draft": true,
+  "measured": "with the music loop stopped, audioMs() returns null and the beat clock falls back to a frame counter",
+  "consequence": "nothing subtracts device latency from a frame counter, so the compensation that makes the judge ear-true is tied to the song being on",
+  "not_routed_because": "with no song there may be no beat for the player to hear either, so there is nothing to be late against. it is a real conditional, not a proven defect."
+ },
+ "bluetooth": {
+  "draft": true,
+  "status": "quoted from school, never measured here",
+  "good_news_is_structural": "the fight subtracts whatever outputLatency reports rather than a hard-coded number, so if the browser reports a Bluetooth route honestly the compensation follows it for free",
+  "untested": "whether outputLatency follows a route change mid-fight. not testable in this harness and not guessed at."
+ },
+ "the_instruments_three_bugs": [
+  {"n": 1, "draft": true, "bug": "page.click needs the element visible and the tab bar is not, so the COMBAT tab never opened and the tool reported 'not measurable' about the wrong frame", "fix": "switch tabs with an ordinary JS .click(), set the lazy data-src, and FIND THE FIGHT BY ASKING EVERY FRAME whether it has the grader in it rather than trusting a name"},
+  {"n": 2, "draft": true, "bug": "there is no AudioContext until a real gesture, and the music loop only runs while a fight is live, so two runs measured a game that had never been started", "fix": "start it with a real tap on the start screen, and record which path was used"},
+  {"n": 3, "draft": true, "bug": "sampled 60 times inside one tight synchronous loop and printed a jitter of exactly 0.00 ms", "why_it_matters": "both clocks are quantised to the render quantum, so it read the SAME INSTANT sixty times. THIS WOULD HAVE BETRAYED THIS ROUND'S OWN SCHOOL FINDING, which was that the gap is a bias AND a jitter.", "fix": "sample on requestAnimationFrame across 1.5 seconds so consecutive samples are genuinely different instants"}
+ ],
+ "rule_zero": {"draft": true, "trap": "a gap of about zero could mean the fight is ear-true, or that I am reading the same number twice and subtracting it from itself", "control": "inject a known 150 ms shift into one side; the gap must move by 150", "result": "PASS, moved by -150.26 ms"},
+ "routed": "NOTHING. There is no defect to bounce back, and a lane that only ever finds problems is not a lane anybody should trust.",
+ "blind_spots": [
+  "one device, one browser, one output route: the harness's audio path, not a phone's, and outputLatency is explicitly an estimate",
+  "Bluetooth cannot be tested here at all",
+  "VIDEO offset is not measured; school said there are two offsets and this round measured one",
+  "the fight was started from its start screen in the COMBAT tab, not by walking into a body on the street",
+  "nothing here says whether the fight is fun or whether 55 ms is the right band; both are his"
+ ]
+}

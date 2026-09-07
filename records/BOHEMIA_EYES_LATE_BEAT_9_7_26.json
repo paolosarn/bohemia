@@ -1,0 +1,141 @@
+{
+ "what": "EYES AND EARS -- E14 [late beat] round 2. The judge clock against the ear clock.",
+ "date": "9/7/26",
+ "school": "records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md",
+ "method": "judge = AC.currentTime - outputLatency - _seq.t0 (what the fight grades against). ear = getOutputTimestamp().contextTime - _seq.t0 (the sample frame the device is playing now). both read in the same instant, in the same frame, with no human anywhere.",
+ "blind_spots": [
+  "one device, one browser, one output route: this is the harness audio path, not a real phone",
+  "outputLatency is explicitly an ESTIMATE, and this environment may report a different one from a phone",
+  "Bluetooth cannot be tested here at all; its numbers stay quoted, never measured",
+  "video offset is not measured",
+  "nothing here says whether the fight is FUN"
+ ],
+ "startedBy": "real tap on the start screen",
+ "live": {
+  "shiftMs": 0,
+  "hasAC": true,
+  "sampleRate": 44100,
+  "state": "running",
+  "outputLatencyMs": 32,
+  "baseLatencyMs": 10,
+  "hasTimestamp": true,
+  "seqOn": true,
+  "seqT0": 0.05,
+  "bands": {
+   "PERFECT_MS": 55,
+   "GOOD_MS": 110,
+   "BEAT_GRACE": 0.24,
+   "BPM_MS": 500
+  },
+  "audioMs": 4039.541950113379,
+  "samples": [
+   8.445,
+   8.422,
+   8.067,
+   10.598,
+   9.921,
+   10.208,
+   9.58,
+   8.285,
+   10.439,
+   9.598,
+   8.938,
+   7.934,
+   10.13,
+   10.762,
+   8.426,
+   10.63,
+   9.962,
+   9.295,
+   10.091
+  ],
+  "spanMs": 1894
+ },
+ "control": {
+  "shiftMs": 150,
+  "hasAC": true,
+  "sampleRate": 44100,
+  "state": "running",
+  "outputLatencyMs": 32,
+  "baseLatencyMs": 10,
+  "hasTimestamp": true,
+  "seqOn": true,
+  "seqT0": 0.05,
+  "bands": {
+   "PERFECT_MS": 55,
+   "GOOD_MS": 110,
+   "BEAT_GRACE": 0.24,
+   "BPM_MS": 500
+  },
+  "audioMs": 5940.675736961452,
+  "samples": [
+   -140.581,
+   -139.868,
+   -140.251,
+   -139.613,
+   -140.246,
+   -141.437,
+   -142.103,
+   -141.471,
+   -139.434,
+   -140.065,
+   -139.549,
+   -140.125,
+   -139.435,
+   -140.058,
+   -139.36,
+   -140.126,
+   -140.639,
+   -141.201,
+   -140.558,
+   -141.282,
+   -141.917,
+   -141.341,
+   -141.974,
+   -141.311,
+   -141.986,
+   -141.325,
+   -141.976,
+   -141.308,
+   -140.659,
+   -141.322,
+   -140.692,
+   -141.458
+  ],
+  "spanMs": 1529
+ },
+ "bands": {
+  "edges": {
+   "56": "GOOD",
+   "111": "LATE",
+   "-220": "EARLY",
+   "-110": "GOOD",
+   "-55": "PERFECT"
+  },
+  "atZero": "PERFECT",
+  "beatErrOfHalf": -250
+ },
+ "silent": {
+  "seqOn": false,
+  "audioMs": null
+ },
+ "stats": {
+  "live": {
+   "n": 19,
+   "median": 9.6,
+   "mean": 9.46,
+   "sd": 0.93,
+   "min": 7.93,
+   "max": 10.76
+  },
+  "control": {
+   "n": 32,
+   "median": -140.66,
+   "mean": -140.77,
+   "sd": 0.84,
+   "min": -142.1,
+   "max": -139.36
+  }
+ },
+ "pageErrors": []
+}
