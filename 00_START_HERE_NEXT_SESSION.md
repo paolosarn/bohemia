@@ -5489,59 +5489,60 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/7 LATEST -- *** THE COVER YOU SEE IS NOT THE COVER YOU GET. A piece of
-cover stopped bullets across about two tiles and was drawn two thirds of one tile wide, so a
-third of every piece was invisible protection. It is drawn at the size it actually blocks
-now, out of the block wall the fight already had. TAB: COMBAT. Nothing to judge. ***
+COOK (cook-mce6r5): 9/7 LATEST -- *** A FORTRESS AND A CAMP ARE THE SAME SUBURB, ONE IS JUST
+BIGGER. Sixty percent of every faction's home ground in Vegas is a housing tract, and the only
+thing separating a stronghold from a camp is how far it spreads. TAB: CITY. Nothing to judge. ***
 
-THE JOB: [combat ground] COMBAT-GROUND-TILES. BOTH ROUNDS BUILT. Round 1 (the ground) shipped
-a5b44c81. Round 2 (cover that reads) is this round.
+THE JOB: [fortress buildings] FORTRESS-BUILDINGS, CLAIMED 9/7, round 1 of 2 done and committed.
+The previous job [combat ground] SHIPPED both rounds (10929dfe, BUILD 9/6be, pages run 1421
+SUCCESS on that exact sha).
 
-ROUND 1, SHIPPED: a quarter of the combat board was one generic `lot` tile standing in for
-every house, yard and back lot in Vegas. lot 26.1% -> house 11.2% + yard 10.6% + wall 4.3%,
-15 tiles lifted out of the approved 7/28 starter bank, no pixels cooked.
+ROUND 1 IS A MEASUREMENT AND IT REFRAMED THE ROW. The row says "the buildings a faction
+fortress needs that NOBODY HAS DRAWN". They are drawn. Matching the 55 valued district kinds
+against engine/bohemia_*.js FILENAMES said 18 have no module -- fort, arsenal, granary, prison,
+estate, convention -- which looked exactly like the answer. A FILENAME IS NOT A REGISTRY:
+DISTGEN in bohemia_world.js holds 61 generators and many kinds share a module. Only 8 valued
+kinds have no generator (airbase airport highroller luxor sign sphere strat strip); five are
+Strip landmarks worth 336 and three are worth zero, and NOT ONE is a building a fortress would
+sit on. His own law predicted it: "using the district kit's existing modules, no new art to
+start".
 
-ROUND 2, THIS ROUND: the blocking test is `Math.sin(dA)*P.edist < P.r*0.9`, so a piece is an
-object 1.8*r tiles across. The picture was the CONSTANT s*1.1 = 0.68 tiles, the same box for
-every piece. A generic piece blocks 1.91 tiles and showed 0.68: THE PICTURE WAS 36% OF THE
-THING. Both are 101% now. Width is what it blocks, bucketed to 4 px; the face is STREET_B64
-`wall`, already in the fight from round 1, so nothing was cooked in either round.
+WHAT IS ACTUALLY MISSING, measured on the real surface across all fourteen towns
+(tools/bohemia_fortress_probe_9_7_26.js):
+    Cartel   FORTRESS 30 cells  suburb x24, commercial x5, storage x1
+    Remnants FORTRESS 25 cells  suburb x21, prison x4
+    Colorful CAMP      6 cells  suburb x4,  commercial x1, apartment x1
+    all fourteen towns: suburb x131 of 218 cells
+A fortress and a camp are made of the same thing; only the size differs. `fort` appears TWICE
+in fourteen towns and is nobody's seat, `arsenal` ZERO, `granary` ZERO -- all three buildable,
+none chosen, because nothing chooses a town's buildings at all.
 
-WHAT WAS DELIBERATELY NOT TOUCHED, and the next session should not "fix" it: HEIGHT (low
-0.9x, tall 1.6x) is the VAULT TELL and it works; the LID COLOURS are the vault signal; P.r
-is read and never written, so no damage, accuracy, range or resource number moved.
+*** WHAT COMES NEXT *** ROUND 2: A FORTRESS IS WALLED. "Walls" is the first word of his
+FORTRESS definition and nothing in the repo draws a wall around a town. THE LEGAL GROUND IS
+CHECKED AND WRITTEN DOWN so nobody re-litigates it: the 8/16 LOCKED ban ("no perimeter walls
+until I tell you, bro no fencing no nothing bro") is scoped to a CASINO'S PLOT by its own
+comment ("the building meeting the sidewalk is the edge"); the 7/14 WALLED SUBURBS LAW (LOCKED)
+already has Bohemia drawing CMU perimeter walls around decent tracts; and 9/4 FACTION TOWNS is
+newer than both and names Walls for a fortress by name. So the art EXISTS in the suburb
+generator, a fortress wall is legal, and it is REUSE-FIRST -- run the tract wall the suburb
+already draws around a fortress town's outer edge. Do not cook a new wall.
 
-FOUR THINGS I GOT WRONG AND CORRECTED, which is most of what this round is worth:
- 1 I wrote last round that the vault state "reads by lid colour and nothing else". WRONG --
-   `_h=(P.tall===false)?s*0.9:s*1.6` is a 1.8x height difference and a real silhouette tell.
- 2 CARS WERE NEVER ON THE PATH I CHANGED. The loop's first branch is `if(P.car){...
-   CAR_IMG[P.carArt|0]...}`: a car already draws as ONE approved wreck picture across its
-   2x3 footprint and its other five cells draw nothing. TG-07's "a dead car" was done before
-   this round began. The probe's 76% car figure described code cars never reach.
- 3 THE ANCHOR SIGN WAS INVERTED in the first cut of the sprite (__ay=-oy) and would have
-   hung every piece of cover below its own shadow. Caught on paper, not on screen.
- 4 THE BAKE MUST ASK FOR THE FLOOR'S PIXEL SIZE. streetTile keeps ONE cache for ONE px, so
-   round(ring)+1 against the floor's ceil(t)+1 would empty and refill the entire street
-   cache every frame that ring is fractional. A performance bug that would look like nothing.
+[FOR WORLD] Nothing chooses a town's buildings. districtsOf reports what is already on the
+  ground and REACH decides how much a town claims; no step says a fortress carries supply and
+  a camp a stall. That is why 60% of every town is suburb. fort, arsenal and granary are all
+  drawn and all unused.
+[FOR THE PLUMBER] bohemia_furnish.js dresses 25 rooms and the floorplan says the pool maps 36;
+  plant, dining and corridor are dressed by nothing. BUT study and garage ARE dressed today, so
+  ECONOMY's 9/5 record is stale where it says two zones place rooms nothing can furnish.
 
-WHAT IT COSTS, AND WHERE THE INSTRUMENT RUNS OUT. COMBAT claimed [draw budget] an hour before
-this landed (every new fight visual arrives with its cost), so it was measured properly.
-Interleaved on one tree with the zoom count beside every number: 498.0 (31 zooms) -> 497.5
-(30 zooms), no measurable cost in a fight anybody is playing -- which is NOT a good number,
-because a moving fight is already at 99.6% of the beat. In a still fight every patched run
-sits above the one unpatched run (402.5, 426.0, 492.5 against 345.5) but they spread 90 ms
-among themselves, so that is a DIRECTION AND NOT A MEASUREMENT, and calling it "55 ms" off
-n=1 would repeat the mistake the PLUMBER corrected one round earlier on this exact gate.
-AND THE PLUMBER PUT A NUMBER ON THIS ONE COMMIT EARLIER: their [fight headroom] round five
-(3de44b4b) measured the same build twice at 450.1 and 412.5 and published "THE DRIVEN FIGHT'S
-BEAT HAS A NOISE FLOOR OF ABOUT 40 MS BETWEEN IDENTICAL RUNS... any single-sample before-and-
-after on this fight is worthless". My matched pair is -0.5 ms, inside it; my still-fight spread
-is 90 ms, twice it. Two lanes reached the same conclusion in the same hour.
-WHAT NEEDS NO PROFILER: the fight paints about 3x the cover pixels, 48,000 -> 145,000 of a
-1.06 M px canvas. Three things hold that down -- the 4 px bucket, a shadow overhang that was
-a RATIO tuned for narrow blocks (124 px sprite -> 100 on an 84 px face), and A CULL THAT DID
-NOT EXIST: every piece in G.pillars was painted whether on screen or not, 17%, 24% and 27%
-off the edge across three arenas.
+AND THE INSTRUMENT WAS WRONG FIVE TIMES FIRST, all caught before publishing: the harness taps
+through page.__cdp; a `const cat` in the probe shadowed the page's own `cat` so the expression
+looking for it threw; the comment explaining that used backticks and closed the template
+literal; and guessing at cityCat/catOf found nothing and printed FOUR TIERS OF CLEAN ZEROES
+THAT READ EXACTLY LIKE A FINDING. The probe now prints whether it could see the map and the
+category function at all, and says in capitals that its zeroes are the instrument and not the
+game when it could not. The city's own call, BohemiaTowns.turf(om, BohemiaCityEdit.cat, seats),
+had the right names the whole time.
 
 [FOR COMBAT] *** THE COVER GENERATOR WAS SIZED BEFORE A TILE WAS A HOUSE. *** A car cell is
   authored as exactly one tile (CAR_W 2 x CAR_L 3, r~0.5) and blocks 0.90 tiles, which is
