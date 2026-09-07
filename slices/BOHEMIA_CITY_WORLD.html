@@ -46315,7 +46315,11 @@ function showWake(){
   if(_hl) h+='<p>'+esc(_hl)+'</p>';                                 /* draft:true */
   if(o){ h+='<p>Something came in on your phone overnight.</p>'
           +'<h3>'+esc((o.title||'').toUpperCase())+'</h3>'
-          +'<div class="sub">nobody has picked it up yet</div>'; }
+          +'<div class="sub">nobody has picked it up yet</div>';
+         /* AND HOW LONG IT IS, BEFORE HE PRESSES ANYTHING. Its own row, never
+            folded into the quest's words: the offer's text is the quest's and
+            this is the game's. draft:true. */
+         if(o.how) h+='<div class="sub">'+esc(o.how)+'</div>'; }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
   cardShow(h,function(){ cardHide();
@@ -46338,6 +46342,43 @@ function offerRing(){
   var Q=null; try{ Q=BQ.parse(DEMO_BQ[spec.file]); }catch(_e){ return; }
   var st=(Q.stages||[]).filter(function(s){ return s.n===spec.open; })[0];
   OFFER={ id:spec.id, title:Q.title||spec.id, text:(st&&st.log)||spec.brief, day:DAY.day };
+  /* __INSIDE_A_DAY__ -- HOW LONG IT IS, ON THE OFFER, BEFORE HE TAKES IT.
+     (9/7, QUESTS [distance shown] BB-INSIDE-A-DAY.)
+     THE ROW: day one's job needs a TRADES role, the nearest one is five blocks,
+     and at the valley's own measured nine metres a minute that is about three
+     and a half hours each way. SEVEN HOURS THERE AND BACK, forty-four percent of
+     the first day anybody plays, and nothing on the offer said so.
+     *** IT HAS TO BE HERE AND NOT ON THE ADDRESS LINE. *** My first cut put it on
+     ctAddress(), which reads beautifully and is on the WRONG SIDE OF THE
+     DECISION: the address needs the day cast, the day cast only exists after
+     DQ.openDay, and openDay only runs when he ACCEPTS. That version told him how
+     long the walk was after he had already agreed to it, which is the exact
+     failure this row exists to end.
+     DISCLOSURE, NOT RELOCATION: nothing moves, nothing shortens, MAP LAW is
+     untouched. The walk is as long as it was; he just knows first.
+     IT CASTS WITH THE SAME CALL ctDayCast USES, deliberately, so the offer and
+     the address can never quote two different distances for one person. */
+  try {
+    OFFER.reach = null; OFFER.how = null;
+    var _cast = BohemiaPeople.castAddresses(Q.roles || [], {
+      peopleAt: ctPeopleAt, originFor: ctOriginFor, radius: CT_DAYCAST_R,
+      questId: Q.id || '', factionOf: function(w){ return ctFactionOf(w.__p); } }) || {};
+    /* THE PART THE JOB REQUIRES, in the quest's own order -- the same rule
+       ctJobRole falls back to before any conversation is open. */
+    var _rs = Q.roles || [], _far = null;
+    for (var _i = 0; _i < _rs.length; _i++) {
+      var _c = _rs[_i].req && _cast[_rs[_i].name];
+      if (_c && _c.block) {
+        var _here = ctBlockOf(hx, hy);
+        _far = Math.max(Math.abs(_c.block[0] - _here[0]), Math.abs(_c.block[1] - _here[1]));
+        break;
+      }
+    }
+    if (_far != null && typeof BohemiaReach !== 'undefined') {
+      OFFER.reach = BohemiaReach.insideADay(_far);
+      OFFER.how = BohemiaReach.sayIt(_far);                       /* draft:true */
+    }
+  } catch(_e){}
   window.__OFFER_RANG=(window.__OFFER_RANG||0)+1;
   phoneBadge();
   /* __THE_PHONE_BUZZES__ -- HIS OWN SOUND, APPROVED AND UNUSED. He judged the ten
@@ -54995,8 +55036,46 @@ function ctAddress(){
     try { var q = qkOf(c.key); t = q && q.tell; } catch(_e){}
     if (t) line += ' \u00b7 look for the one who ' + t;   /* draft:true */
   }
+  /* __INSIDE_A_DAY__ -- AND HOW LONG IT IS, BEFORE HE TAKES IT.
+     (9/7, QUESTS [distance shown] BB-INSIDE-A-DAY.) The address has always said
+     how FAR. It has never once said how LONG, and day one's job is a seven-hour
+     round trip: at the valley's own measured nine metres a minute the nearest
+     TRADES person is five blocks, which is about three and a half hours each
+     way, forty-four percent of the first day anybody ever plays.
+     DISCLOSURE, NOT RELOCATION: nothing here moves anybody or shortens anything,
+     and MAP LAW is untouched. The walk is exactly as long as it was; the
+     difference is that he knows before he sets off.
+     IT RIDES THE SENTENCE HE ALREADY READS, rather than arriving as a second
+     card, because the distance and the duration are one fact and splitting them
+     across two surfaces is how they end up disagreeing. */
+  try {
+    if (line && typeof BohemiaReach !== 'undefined') {
+      var far = Math.max(Math.abs(c.block[0] - here[0]), Math.abs(c.block[1] - here[1]));
+      var howLong = BohemiaReach.sayIt(far);
+      if (howLong) line += ' \u00b7 ' + howLong;              /* draft:true */
+    }
+  } catch(_e){}
   return line;
 }
+/* ctReachOf() -- the same answer as data, so the gate can read it without
+   scraping a sentence, and so any other surface that wants it never re-derives
+   it. Read only. */
+function ctReachOf(){
+  try {
+    var d = ctDayCast(); if (!d || !d.cast) return null;
+    var role = ctJobRole(); if (!role) return null;
+    var c = d.cast[role]; if (!c || !c.block) return null;
+    var here = ctBlockOf(hx, hy);
+    var far = Math.max(Math.abs(c.block[0] - here[0]), Math.abs(c.block[1] - here[1]));
+    var r = BohemiaReach.insideADay(far);
+    r.say = BohemiaReach.sayIt(far);
+    return r;
+  } catch(_e){ return null; }
+}
+try { window.ctReachOf = ctReachOf; } catch(_e){}
+/* AND THE OFFER'S OWN ANSWER, which is the one that matters: it exists BEFORE
+   the job is accepted, where ctReachOf cannot. */
+try { window.ctOfferReach = function(){ try { return OFFER ? {how:OFFER.how, reach:OFFER.reach, taken:!!OFFER_TAKEN} : null; } catch(_e){ return null; } }; } catch(_e){}
 function ctOnJobBlock(){
   var d = ctDayCast(); if (!d || !d.cast) return false;
   var here = ctBlockOf(hx, hy);
@@ -56462,6 +56541,115 @@ function ctGenSave(){
    player's own, which is exactly "you are born owing what your father owed".
    legendOf() is what tells the two apart again: it counts ONLY deeds carrying
    `inherited`, so what your father did is still nameable as his. */
+/* ==== engine/bohemia_reach.js (HOW LONG THAT JOB IS, inlined verbatim) ==== */
+// BOHEMIA REACH -- HOW LONG THAT JOB IS, BEFORE YOU TAKE IT
+// (9/7/26, QUESTS lane, [distance shown] BB-INSIDE-A-DAY)
+//
+// THE ROW: day one's quest requires a TRADES role, the nearest TRADES person is
+// five blocks away, and at the valley's own measured walking speed that is about
+// three and a half hours each way. SEVEN HOURS THERE AND BACK, forty-four percent
+// of the first day anybody ever plays, walking to the person the first job is
+// about. Nobody had multiplied the two numbers together.
+//
+// *** THIS IS DISCLOSURE, NOT RELOCATION. *** Where people are is HIS and MAP LAW
+// holds: nothing here moves anybody, shortens anything, or touches a layout. The
+// walk stays exactly as long as it is. The only thing that changes is that THE
+// JOB SAYS SO BEFORE YOU TAKE IT.
+//
+// THE STANDARD IS THE ROW'S OWN, and it is a real one: the City of London
+// controlled markets within six and two thirds miles, "the distance a person
+// could be expected to walk to market, sell his produce and return in a day".
+// A DAY THERE AND BACK IS THE REACHABLE SET, and an offer outside it announces
+// itself. That is the ONE threshold in this file, and it is his, not mine.
+//
+// EVERY NUMBER BELOW IS MEASURED, NOT PICKED, and the gate re-derives the row's
+// own three published figures from them so the arithmetic can be argued with:
+//   0.084 minutes per fine cell, which the walked surface calls "12 cells a
+//     minute, about nine metres a minute"
+//   a block is NB(4) x FN x the fine cell, which comes out at 384 m -- and 5
+//     blocks is the 1.9 km the row measured, 7 blocks its 2.7 km
+//   a 16-hour day therefore walks about 8.6 km across a 9.2 km valley, which is
+//     the row's own "the whole valley is one market town's catchment"
+//
+// WHAT IS DELIBERATELY NOT HERE
+// - NO SECOND THRESHOLD. "Most of a day", "a fair walk", "quite far" are all
+//   numbers nobody ruled. The file states the minutes and answers one yes-or-no
+//   question, and everything else is left to the player's own arithmetic.
+// - NO ROUTING. This is straight-line block distance, the same unit the address
+//   line already speaks in, because a router that disagreed with the address
+//   would give the player two answers to one question.
+// - NO SPEED-UP. BB-ROADS-ARE-FAST is a different row and a different lane's
+//   ruling; the baseline here is the baseline as measured today.
+//
+// REUSE CHECK: cooks no pixels, opens no bank, writes no save, moves nothing.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  /* ---- THE MEASURED WORLD. Defaults, overridable, never invented. -------- */
+  var METRES_PER_MINUTE = 9;      /* 12 fine cells a minute at 0.75 m a cell   */
+  var METRES_PER_BLOCK  = 384;    /* NB 4 x FN x the fine cell                 */
+  var WAKING_HOURS      = 16;     /* the day loop wakes you at 06:00 and spends
+                                     sixteen of them; the row's 8.6 km is this  */
+
+  function day(o) { return ((o && o.wakingHours) || WAKING_HOURS) * 60; }
+  function mpm(o) { return (o && o.metresPerMinute) || METRES_PER_MINUTE; }
+  function mpb(o) { return (o && o.metresPerBlock)  || METRES_PER_BLOCK; }
+
+  /* metresFor(blocks) -- the address line counts blocks the same way, as the
+     longer of the two axes, so this takes what it already has. */
+  function metresFor(blocks, o) { return Math.max(0, blocks || 0) * mpb(o); }
+
+  /* minutesFor(blocks) -- one way, on foot, at the valley's own clock. */
+  function minutesFor(blocks, o) { return metresFor(blocks, o) / mpm(o); }
+
+  /* thereAndBack(blocks) -- the number the row is actually about. */
+  function thereAndBack(blocks, o) { return 2 * minutesFor(blocks, o); }
+
+  /* insideADay(blocks) -- HIS standard, and the only judgement in this file.
+     Returns the whole answer rather than a bare boolean, because a caller that
+     wants to say WHY needs the parts. */
+  function insideADay(blocks, o) {
+    var one = minutesFor(blocks, o), both = 2 * one, have = day(o);
+    return { blocks: blocks, oneWay: one, roundTrip: both, dayMinutes: have,
+             fits: both <= have, leftOver: have - both };
+  }
+
+  /* ---- THE WORDS. Every one an attempt, none of them approved. ---------- */
+  /* hoursWord(minutes) -- plain English for a length of time, and never a
+     decimal: nobody says "3.6 hours" out loud. */
+  function hoursWord(min) {
+    min = Math.round(min);
+    if (min < 1)  return 'no time at all';
+    /* Anything an hour or more speaks in hours: "about 85 minutes there and
+       back" is arithmetic, not speech. A formatting choice, not a threshold. */
+    if (min < 60) return 'about ' + min + ' minutes';
+    var h = min / 60, whole = Math.floor(h), rest = h - whole;
+    var half = (rest >= 0.25 && rest < 0.75);
+    if (rest >= 0.75) { whole += 1; half = false; }
+    return 'about ' + whole + (half ? ' and a half' : '') + ' hours';
+  }
+
+  /* sayIt(blocks) -- the line the offer wears. Two sentences at most: how long
+     the walk is, and whether the day can hold it. draft:true. */
+  function sayIt(blocks, o) {
+    var r = insideADay(blocks, o);
+    if (!blocks) return null;                       /* right here: say nothing */
+    var s = hoursWord(r.oneWay) + ' on foot, ' + hoursWord(r.roundTrip) + ' there and back';
+    if (!r.fits) s += '. You will not be back inside a day';
+    return s;                                                    /* draft:true */
+  }
+
+  var API = {
+    METRES_PER_MINUTE: METRES_PER_MINUTE, METRES_PER_BLOCK: METRES_PER_BLOCK,
+    WAKING_HOURS: WAKING_HOURS,
+    metresFor: metresFor, minutesFor: minutesFor, thereAndBack: thereAndBack,
+    insideADay: insideADay, hoursWord: hoursWord, sayIt: sayIt
+  };
+  if (HASREQ) module.exports = API; else root.BohemiaReach = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* ==== /engine/bohemia_reach.js (HOW LONG THAT JOB IS) ==== */
+
 /* ==== engine/bohemia_ladder_data.js (HIS 53 BOSSES AND 38 EDGES, inlined verbatim) ==== */
 // BOHEMIA LADDER DATA -- GENERATED, DO NOT HAND-EDIT (9/6/26, QUESTS lane)
 //

@@ -7571,6 +7571,71 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 23 [distance shown] BB-INSIDE-A-DAY, SHIPPED. QUESTS lane, BUILD.
+  engine/bohemia_reach.js        the arithmetic
+  gates/inside_a_day_gate.js     25 passed, 0 failed
+  BUILD 9/7a - THE JOB SAYS HOW FAR
+
+*** A JOB SAYS HOW LONG IT IS BEFORE YOU TAKE IT, AND IT NEVER DID. *** The row's
+arithmetic held. Re-derived by the gate from the walked surface's own measured
+constants, so the numbers can be argued with by pointing at his file:
+  nine metres a minute (the surface's own "12 cells a minute, about nine metres")
+  a block is 384 m (NB 4 x FN x the fine cell)
+  five blocks is therefore the row's 1.9 km and about 211 minutes ONE WAY
+  seven hours there and back, which is what the row is named for
+  a sixteen-hour day walks the row's 8.6 km across a 9.2 km valley
+MEASURED LIVE ON DAY ONE: the required role casts SIX blocks out. 256 minutes each
+way. 512 of the day's 960 minutes of light, spent walking, and nothing said so.
+The wake card now reads:
+  THE METER READER
+  nobody has picked it up yet
+  about 4 and a half hours on foot, about 8 and a half hours there and back
+  GET UP
+
+*** DISCLOSURE, NOT RELOCATION. *** Nothing moved, nothing shortened, MAP LAW
+untouched, and the gate asserts it rather than trusting me: the module writes into
+no other system and never touches a block, a layout or a person. The walk is
+exactly as long as it always was. He just knows before he sets off.
+
+ONE THRESHOLD, AND IT IS HIS: a day there and back is the reachable set, from the
+City of London market isochrone the row cites. Anything finer ("a fair walk",
+"most of a day") is a number nobody ruled, so the file states the minutes and
+answers one yes-or-no question. The gate NAMES EVERY NUMBER in the code with what
+it is for and fails on any it cannot account for, which is how it caught two
+rounding constants I had not justified.
+
+*** THE ROUND'S REAL LESSON, AND IT IS A MISTAKE I MADE AND THEN CAUGHT. ***
+My first cut hung the line on ctAddress(). It reads beautifully. IT IS ON THE
+WRONG SIDE OF THE DECISION: the address needs the day cast, the cast only exists
+after DQ.openDay, and openDay only runs when he ACCEPTS. So that version told him
+the walk was seven hours AFTER he had already agreed to it. I rebuilt this row's
+exact failure inside the fix for it, and only found it by probing the live frame
+and seeing the address come back null while the offer was sitting there unread.
+  IT NOW RIDES THE OFFER, and the gate demands the sentence exist while
+  OFFER_TAKEN is still false. A negative control confirms the check bites: blank
+  the line and four checks go red.
+  WRITTEN DOWN BECAUSE IT GENERALISES: A DISCLOSURE ON THE WRONG SIDE OF THE
+  DECISION IS NOT A DISCLOSURE. Ask where the player is standing when they decide,
+  not where the sentence reads best.
+
+The offer measures with the SAME castAddresses call the address line uses,
+deliberately, so one person can never be quoted two different distances.
+Proven on the workshop AND the demo, both showing it before acceptance.
+
+GATES: inside_a_day 25/0, the_job_pays 75/0, canon_quests 643/0, main_spine 49/0,
+direct 33/0, alpha_loads 20/0, demo_build 25/0, ladder_walk 43/0, asks_visible
+38/0, inlined_fresh 3/0, one_engine 3/0, nomarkers 6/0, handoff 7/0, attempt 15/0,
+reply_contract 17/0, pages_publish 18/0, answered GREEN.
+
+[STILL NOT MINE] reusefirst_gate.py 201/4, already red on main. And the city's
+DEMO_BQ still has no working refresh path (round 22's finding).
+
+NEXT OPEN QUESTS ROW: [map moves] BB-TERRITORY-FLAG, whose own line says it waits
+on WORLD BB-TURF, which SHIPPED 9/5 (afc3bf7). Its backlog row says ten of our
+quests use @DO advance_territory, the flag is set on the walked surface, and the
+only code that reads it lives in the RETIRED slice. Verify that is still true
+before claiming, the way [jobs pay] was verified this time.
+
 ROUND 22 [jobs pay] BB-THE-JOB-PAYS, SHIPPED. QUESTS lane, BUILD.
   quests/bq/*.bq                 66 pay lines across 20 quests
   gates/the_job_pays_gate.js     75 passed, 0 failed
