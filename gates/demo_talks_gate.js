@@ -1,14 +1,24 @@
 /* BOHEMIA DEMO TALKS GATE (9/5/26, PEOPLE lane).
  * VAMILY [demo talks] -- TALK-REACHES-THE-DEMO.
  *
- * THE BOARD SAYS: "236 @TALK nodes and 504 @SAY lines are parsed and mute in the
- * demo file." THE COUNTS ARE EXACT. "MUTE" IS NOT, and this gate is the proof
- * either way, because the only honest answer is a number.
+ * THE BOARD SAID: "236 @TALK nodes and 504 @SAY lines are parsed and mute in the
+ * demo file." THE COUNTS WERE EXACT ON 9/5. "MUTE" WAS NOT, and this gate is the
+ * proof either way, because the only honest answer is a number.
  *
- * MEASURED: the demo ships FIVE DAYS and opens five quests. Those five hold 43
- * of the 236 talk nodes (18%) and 88 spoken lines. The other 193 belong to 22
- * quests the demo never opens -- that is the demo being five days long, not a
- * defect, and this gate pins it so nobody re-discovers it as a bug.
+ * MEASURED 9/5: the demo ships FIVE DAYS and opens five quests. Those five held 43
+ * of the 236 talk nodes (18%) and 88 spoken lines. The rest belong to quests the
+ * demo never opens -- that is the demo being five days long, not a defect, and
+ * this gate says so out loud so nobody re-discovers it as a bug.
+ *
+ * REPOINTED 9/7, NOT LOOSENED. The corpus checks were EQUALITIES against those
+ * 9/5 numbers, so they went red the moment WORDS grew the corpus to 272 and 575 --
+ * punishing the exact work we want. A GATE MUST NEVER OUTRANK A RULING. They are
+ * now FLOORS carrying the date they were measured, because the corpus only ever
+ * grows and the defect worth catching is the SILENT one: a drop, meaning a parser
+ * stopped seeing nodes or .bq files went missing. The pinned remainder (193) was
+ * the same constant wearing a different hat; it now counts the nodes in the files
+ * the demo does not open and requires the two counts to agree, which proves the
+ * sentence -- nothing inside a demo day is mute -- instead of a number.
  *
  * AND THE WHOLE CHAIN WALKS, on the real demo:
  *   offerRing() -> OFFER, offerAccept() -> true, DQ.Q and DQ.rt live,
@@ -60,8 +70,17 @@ all.forEach(function (f) {
   totalTalk += (t.match(/@TALK/g) || []).length;
   totalSay += (t.match(/@SAY/g) || []).length;
 });
-ok('*** THE BOARD\'S COUNTS ARE EXACT: 236 TALK NODES AND 504 SAY LINES ***',
-  totalTalk === 236 && totalSay === 504,
+/* REPOINTED 9/7, NOT LOOSENED. This pinned totalTalk === 236 && totalSay === 504,
+   the counts as they stood the round the row shipped, and it went red the moment
+   WORDS grew the corpus to 272 and 575 -- which is their good work, not a defect.
+   A GATE MUST NEVER OUTRANK A RULING, and "write more dialogue" is the ruling.
+   WHAT IS ACTUALLY WORTH PROTECTING IS THE OTHER DIRECTION: this corpus only ever
+   grows, so a DROP means a parser stopped seeing nodes or .bq files went missing,
+   and that is silent -- nobody notices dialogue that quietly stops being found.
+   So the baseline is a FLOOR with the date it was measured, not an equality. */
+ok('*** THE CORPUS NEVER SHRINKS: AT LEAST THE 236 TALK NODES AND 504 SAY LINES '
+  + 'MEASURED 9/5, AND A DROP IS A PARSER OR A MISSING FILE ***',
+  totalTalk >= 236 && totalSay >= 504,
   totalTalk + ' @TALK and ' + totalSay + ' @SAY across ' + all.length + ' quests');
 ok('the demo opens five days', DEMO_FILES.length === 5, DEMO_FILES.join(', '));
 var reach = 0, lines = 0, orphans = [];
@@ -74,13 +93,31 @@ DEMO_FILES.forEach(function (f) {
     if (roles.indexOf(n.speaker) < 0) orphans.push(f + ':' + n.speaker);
   });
 });
-ok('*** AND THE DEMO\'S FIVE DAYS HOLD 43 OF THEM, WITH 88 SPOKEN LINES ***',
-  reach === 43 && lines === 88,
+/* SAME REPOINT, SAME REASON: adding a line to a demo day is good work, losing one
+   is the defect this can see and a person cannot. */
+ok('*** AND THE DEMO\'S FIVE DAYS HOLD AT LEAST THE 43 NODES AND 88 SPOKEN LINES '
+  + 'MEASURED 9/5 ***',
+  reach >= 43 && lines >= 88,
   reach + ' nodes, ' + lines + ' lines, ' + (100 * reach / totalTalk).toFixed(0) + '% of the corpus');
-/* THE OTHER 193 ARE NOT MUTE, THEY ARE NOT IN THIS DEMO. Pinned so the next
-   session does not re-file "82% of the talk never plays" as a bug. */
-ok('and the rest belong to quests this demo never opens, which is not a defect',
-  totalTalk - reach === 193, (totalTalk - reach) + ' nodes in ' + (all.length - 5) + ' unopened quests');
+/* THE REST ARE NOT MUTE, THEY ARE NOT IN THIS DEMO -- said so the next session
+   does not re-file "most of the talk never plays" as a bug.
+   REPOINTED 9/7: this pinned the remainder at 193, which is the same pinned corpus
+   size wearing a different number, so it broke for the same reason. It now proves
+   the SENTENCE instead of an arithmetic constant: every node the demo does not
+   reach is counted straight out of the files the demo does not open, and the two
+   ways of counting have to agree. That catches the real defect the prose is
+   guarding against -- a node inside a demo day that the demo never reaches, which
+   WOULD be mute -- and no longer cares how big the corpus is. */
+var unopened = 0;
+all.forEach(function (f) {
+  if (DEMO_FILES.indexOf(f.replace(/\.bq$/, '')) >= 0) return;
+  unopened += (fs.readFileSync('quests/bq/' + f, 'utf8').match(/@TALK/g) || []).length;
+});
+ok('and every node the demo does not reach sits in a quest it never opens, so '
+  + 'nothing inside a demo day is mute',
+  unopened === totalTalk - reach,
+  unopened + ' nodes in ' + (all.length - 5) + ' unopened quests, and the demo '
+  + 'leaves ' + (totalTalk - reach) + ' unreached');
 
 head('B. EVERY SPEAKER IN A DEMO QUEST CAN BE CAST');
 ok('*** NO TALK NODE IS SPOKEN BY SOMEBODY THE QUEST CANNOT CAST ***',
