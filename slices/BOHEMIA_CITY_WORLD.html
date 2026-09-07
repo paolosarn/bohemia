@@ -60188,5 +60188,36 @@ window.BOHEMIA_FORETOLD = (function(){
            reset:function(){ lastRung=null; lastPost=-1e9; said=0; } };
 })();
 
+/* ============================================================================
+   __EVERY_UI_ON_THE_RUN_AT_HALF__ -- NOT SHIPPED YET, AND HERE IS WHY (9/6, UI 11)
+   VAMILY [half size]. Paolo, LOCKED: "for the run right now make all the UI 50%
+   smaller, I don't give a fuck."
+
+   THE HALVING ITSELF WORKS AND WAS MEASURED: the pad went 180x180 to 90x90, every
+   chip 79x44 to 41x22, the top bar 80x15 to 35x8, and the world canvas was left
+   alone because he asked for the interface to shrink, not the game.
+
+   *** IT IS NOT HERE BECAUSE IT BROKE TAPPING, AND THE FIRST THREE WAYS I MEASURED
+   IT ALL SAID IT WAS FINE. *** elementFromPoint and getBoundingClientRect stop
+   agreeing with each other inside a scaled element, so an in-page hit test reported
+   twelve of twelve controls answering while a REAL browser tap, driven through the
+   mouse at the control's own centre, got TWO OF ELEVEN. Both mechanisms failed it:
+   zoom:.5 gave 2 of 11 and transform:scale(.5) gave 3 of 11. A game whose buttons
+   are half the size and do not answer is worse than one that never shrank, so it
+   goes back in the drawer until the reach is real.
+
+   WHAT THE NEXT ROUND SHOULD DO, WITH THE EVIDENCE ALREADY PAID FOR:
+     - the ONLY honest instrument here is a real driven tap. Any in-page hit test is
+       measuring a coordinate space the browser does not tap in. Write that test
+       first and let it drive the mechanism, rather than the other way round.
+     - scaling a control scales its reach with it, whatever the property. The reach
+       has to be a real box that is NOT inside the scaled element -- a sibling
+       overlay sized 44, not a pseudo-element of the thing being shrunk.
+     - halving the sizes halves the GAPS, so eight of twelve controls could not fit
+       44 between their neighbours even in principle. Spacing has to be part of the
+       job, not an afterthought.
+   Three dead ends are recorded in the round's handoff so nobody pays for them twice.
+   ========================================================================== */
+
 </script>
 </body></html>

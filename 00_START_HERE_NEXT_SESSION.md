@@ -17839,6 +17839,60 @@ WHAT COMES AFTER, AND MOST OF IT IS NOT COMBAT'S
 
 ------------------------------------------------------------------------
 
+UI (ui-kmqmrf): 9/6 (f) LATEST -- *** [half size] STILL CLAIMED, NOT SHIPPED. THE
+HALVING WORKS AND IT BREAKS TAPPING, AND THREE MEASUREMENTS IN A ROW TOLD ME IT WAS
+FINE BEFORE A REAL TAP TOLD ME IT WAS NOT. ***
+
+THE ROW: Paolo, LOCKED, "for the run right now make all the UI 50% smaller, I don't
+give a fuck", with one rule surviving -- a control is DRAWN at half while its touch
+area stays 44. Marked top of this lane above everything, which is why it was taken
+ahead of the rows listed above it.
+
+THE HALVING ITSELF IS DONE AND MEASURED: the pad 180x180 -> 90x90, every chip 79x44 ->
+41x22, the top bar 80x15 -> 35x8, the world canvas untouched because he asked for the
+interface to shrink and not the game. On screen it looks right.
+
+*** WHY IT IS NOT SHIPPED. *** Scaling a control takes its tap with it, and I could
+not see that because the instruments lied:
+  - an in-page hit test (elementFromPoint against getBoundingClientRect) said TWELVE
+    OF TWELVE controls answered at their own centre.
+  - a REAL browser tap, driven through the mouse at the same coordinates, got TWO OF
+    ELEVEN. Those two rulers do not agree inside a scaled element.
+  - both mechanisms fail it: zoom:.5 -> 2 of 11, transform:scale(.5) -> 3 of 11,
+    against 7 of 11 for the UNMODIFIED build (that 7 is the instrument's own floor,
+    measured after withdrawing everything, so the comparison is 7 -> 2/3 and the loss
+    is real rather than an artifact).
+A game whose buttons are half the size and do not answer is worse than one that never
+shrank, so it went back in the drawer. The row is still CLAIMED.
+
+*** FOUR DEAD ENDS, PAID FOR, SO NOBODY BUYS THEM AGAIN. ***
+  1. zoom COMPOUNDS. Put it on a row and again on the chips inside it and they come
+     out at a QUARTER (79x44 -> 24x11). Halve the OUTERMOST element only.
+  2. A HIT PAD MADE OF A PSEUDO-ELEMENT OF THE SHRUNK THING IS SCALED TOO, so it needs
+     doubling (88 -> 44) -- and it still cannot work, because the pad belongs to the
+     element being shrunk. The reach has to be a SIBLING overlay that is not inside
+     the scaled box.
+  3. AN ASYMMETRIC REACH (take room from whichever side is free) went BACKWARDS: fewer
+     controls short of 44, but a pad reaching hard into its free side lands on the
+     control over there. A tap that hits the wrong button is worse than one that needs
+     aiming.
+  4. GIVING A LABEL A PAD STEALS PRESSES. Adding the teaching caption to the halving
+     gave it a tappable pad, and the teaching overlay's whole promise is that it never
+     takes a press.
+  AND A FIFTH THING THAT IS NOT A DEAD END BUT A CONSTRAINT: halving the sizes halves
+  the GAPS, so eight of twelve controls cannot fit 44 between their neighbours even in
+  principle. Spacing has to be part of the job, not an afterthought.
+
+WHAT THE NEXT ROUND SHOULD DO: write the REAL DRIVEN TAP test FIRST and let it drive
+the mechanism, instead of building a mechanism and asking an in-page hit test whether
+it worked. Every wrong turn above came from an instrument that agreed with me.
+
+THE LESSON, AND IT IS THE SAME ONE AS THE LAST TWO ROUNDS: when a measurement and the
+thing itself disagree, the thing itself wins. Last round it was a contrast ruler
+measuring the box instead of the letters. This round it was a hit test measuring a
+coordinate space the browser does not tap in. I keep finding these because I keep
+checking, and the cost of not checking is a build that looks right and does not work.
+
 UI (ui-kmqmrf): 9/6 (e) LATEST -- *** [eyes: faint chips] DONE. THE ROW WAS RIGHT THAT
 SOMETHING WAS WRONG AND WRONG ABOUT WHAT. THE RULER WAS BROKEN, IN BOTH DIRECTIONS. ***
 

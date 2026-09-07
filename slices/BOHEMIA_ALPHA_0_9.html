@@ -32412,6 +32412,8 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     var inv=el('openInvite');
     var asking = !!(inv && getComputedStyle(inv).display!=='none');
     if(g) g.classList.toggle('on', !!up && !asking);
+    /* the gear's halving went with the rest of [half size]: see the note in
+       BOHEMIA_CITY_WORLD.html -- shrinking a control took its tap with it. */
     /* SIT UNDER THE CHIP ROW, WHEREVER IT ENDS. Same lesson the city feed earned: the
        row's height is not fixed because the music chip shows the current track name, so
        a long title wraps it and it grows down onto anything parked at a constant
