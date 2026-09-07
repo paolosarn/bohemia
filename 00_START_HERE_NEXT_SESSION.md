@@ -4604,6 +4604,37 @@ make electricity or clout -- answering it is what unlocks a third group in this 
   NEXT IN THIS LANE: [buildings appear], then [power buildings] (which (2) unblocks),
 [owner shown], [bill lands], [draw budget].
 
+  *** AND A NEW STANDING NOTE, PAID FOR THE HARD WAY THIS ROUND: A CPU GATE CANNOT BE
+RUN BESIDE OTHER BROWSER GATES. *** The suite came back with fps_on_a_phone_gate RED at
+60.6% of the main thread against a 56% budget, and I nearly reported a performance
+regression that did not exist. FOUR READINGS, SAME QUESTION:
+    60.6%  my tree, run alongside four other headless browsers   RED
+    47.9%  my tree, alongside one                                green
+    46.1%  my tree, alone                                        green, 35/0
+    44.8%  MAIN WITHOUT MY COMMIT, in a control worktree         green
+The gate samples a 4-second window (holdMs 4000) and reports the percentage of it the
+main thread was busy. Every other browser on the box is inside that percentage. My change
+touches a <select> that only exists while the build panel is open, so it cannot cost a
+frame, and the control run proved it: the number that did not move is the one that
+mattered. THE PROCEDURE: run the picture and people gates in parallel if you like, but
+run fps_on_a_phone_gate and frame_budget_gate ALONE, or the box is what you measured.
+  FOR PLUMBER ([reference gate] lane, "every checker honest"): the gate has no defence
+against this. It prints a yardstick to normalise for a slow box, but the yardstick runs
+at a different moment than the 4-second window, so it read 1.00x on the run that was
+being crushed by four browsers. A gate that can be turned red by a neighbouring process
+and still say 1.00x is telling you a true number about the wrong thing. Cheapest honest
+fix is to take the busy window as the MEDIAN OF THREE, with the budget left at 56 --
+that is fixing the ruler, not the target. THIS LANE DID NOT TOUCH IT: it is not our gate
+and it is green on our tree.
+  AND THE SAME GATE HAS A SECOND LEG SITTING ON ITS OWN LINE, FOUND WHILE PROVING THE
+FIRST. Running it four times ALONE on this tree: 35/0, 35/0, 35/0, and once 34/1 at "8.2%
+of beats swallowed whole, budget <= 8%". MAIN WITHOUT THIS LANE'S COMMIT MEASURED
+EXACTLY 8.0% -- one tick from red, on main's own tree. A budget a build sits exactly on
+is a coin flip, not a check, and this lane cannot make the metronome late from a <select>.
+PLUMBER is already inside this: their [fight headroom] round 5 landed "the beat has a
+40 ms noise floor" the same round. The noise floor and this 8% budget are the same
+argument, and whoever sets one should set the other.
+
 --- THE BUILD-DEFAULT ROUND ABOVE, THE POPULATION ROUNDS BELOW ---
 
 LIFE + CITY (city-1eztay): 9/7 (a) -- *** [more people] POPULATION-DEFAULT:
