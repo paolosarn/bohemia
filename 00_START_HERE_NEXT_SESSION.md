@@ -14565,6 +14565,19 @@ you get -> COMBAT [cover honest]. EYES E12 school: real quiet has a floor, a dea
 only 5-7 dB quieter than a live one -> SOUNDS [quiet floor]. ECONOMY Q23 (the order is
 about earning, not surviving); topped ECONOMY up. ONE THING HE HAS NEVER OPENED: walk
 through a front door and fight in the room, RUN tab.
+THEN (cp) VAMILY: ZERO commits on main, so the round is mine. Swept every line still
+marked needs-Paolo and decided four with defaults (records/BOHEMIA_COORDINATOR_RESEARCH_THE
+_COMPANION_9_7_26.md): [walking companion] -- ROSA walks the street now under the draft name
+draft:true, wants something of her own already in the world (owes or is owed), refuses one
+thing from her standing, talks rarely and never on a fight beat, never blocks a door (the
+research: competence is the floor, interruption is what gets a companion hated, a companion
+who only responds is furniture, one who wants something is alive); [sixty bosses] -- audit
+the 53 verbs now, the seven missing ship as draft:true attempts; [look verdict] x2 -- he
+does not thumb, so DIRECTION judges round 7 against the card; [strip ruling] -- build it as
+BACK OF HOUSE, where people work, not a prize. KEPT FOR HIM because they are canon: [act
+two] who dies next (this round's one question) and [century stayed] (a LOCKED law). ONE
+THING HE HAS NEVER OPENED: the reckoning card at nightfall, RUN tab, it names who you let
+down and who is expecting you tomorrow.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
