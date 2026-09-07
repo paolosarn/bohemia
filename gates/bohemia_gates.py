@@ -2666,6 +2666,50 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('GATE REGISTRY',  ['node', 'gates/gate_registry_gate.js'],
+     'A GATE THE SUITE CANNOT SEE IS A NAMED RED LINE, 9/7, PLUMBER lane, row [unregistered '
+     'gates]. LAW: laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md rule 3, '
+     '"registration is derived, never hand-kept". WHAT HAPPENED: PEOPLE asked this runner for '
+     'its newest gate and got "0 of 542 GATES" -- not red, NOTHING -- then swept its own history '
+     'and found SIX shipped jobs whose proof was a gate the suite had never run once. That was '
+     'ONE lane. This gate asked the same question of all eighteen and found EIGHT MORE orphans, '
+     'and TWO OF THEM WERE RED: legend_kept (a district declares 9 tiles of 1048 that the '
+     'generator never emits) and pack (a warning button whose corners are unreachable). Both had '
+     'sat failing since 8/31 while "gate green" was cited as proof, because green meant a person '
+     'ran a file by hand. THE DEFECT IS STRUCTURAL: this file keeps a hand-written table of 555 '
+     'rows, so adding a gate means adding a file AND editing the table, and the second half is a '
+     'one-shot human step that drifts -- NOTHING IS BAKED ONCE (9/6) in different clothes. A '
+     'hand-kept registry cannot be trusted to list itself; only the FOLDER can. IT GOES RED ON: '
+     'a file named like a gate that no row runs, a row pointing at a file that does not exist, '
+     'an exemption for a file that no longer exists, or the folder or the table reading as '
+     'empty. THE EXEMPTIONS ARE NAMED ONE BY ONE WITH A REASON -- gates/ also holds libraries '
+     'and instruments, and skipping them by pattern would let a real gate hide behind the '
+     'pattern. It caught ITSELF as an orphan on its first run, which is the behaviour you want',
+     False),
+    ('ASKS VISIBLE', ['node', 'gates/asks_visible_gate.js'],
+     'QUESTS row [asks exist], shipped 9/6 (6d2d765) and NEVER RUN BY THE SUITE until 9/7. Registered by PLUMBER under the 9/7 law "a gate that never runs is not a gate". Runs 38/0. Its own subject: the world does the asking, and an ask that changes nothing visible is not an ask',
+     True),
+    ('DEAD VALLEY', ['node', 'gates/dead_valley_gate.js'],
+     'COMBAT lane, shipped 8/31 (d69cce4) and NEVER RUN BY THE SUITE until 9/7. Registered by PLUMBER under the 9/7 law. Runs 10/0',
+     True),
+    ('LADDER WALK', ['node', 'gates/ladder_walk_gate.js'],
+     'QUESTS row [spine first], shipped 9/6 (568425e) and NEVER RUN BY THE SUITE until 9/7. Registered by PLUMBER under the 9/7 law. Runs 43/0',
+     True),
+    ('LEGEND KEPT', ['node', 'gates/legend_kept_gate.js'],
+     'COMBAT lane, shipped 8/31 (d69cce4), NEVER RUN BY THE SUITE until 9/7 -- AND IT IS RED: "every tile a district DECLARES, it MAKES" fails with 9 known-unplaced of 1048 declared, arterial(23) and strip(25). It has been failing since 8/31 with nobody able to see it, which is the whole case for the law. Registered by PLUMBER; the failure is COMBAT\'s and is named on their row',
+     True),
+    ('MAIN SPINE', ['node', 'gates/main_spine_gate.js'],
+     'QUESTS row [main story], shipped 9/7 (fa8301b) and NEVER RUN BY THE SUITE. Registered by PLUMBER under the 9/7 law. Runs 49/0',
+     True),
+    ('PACK', ['node', 'gates/pack_gate.js'],
+     'COMBAT lane, shipped 8/31 (d69cce4), NEVER RUN BY THE SUITE until 9/7 -- AND IT IS RED: "every part of it is reachable, not just its middle" fails, all nine cells BLOCKED, the warning button OVERLAPS a note. Failing since 8/31, invisible. Registered by PLUMBER; the failure is COMBAT\'s and is named on their row',
+     True),
+    ('THE JOB PAYS', ['node', 'gates/the_job_pays_gate.js'],
+     'QUESTS row [jobs pay], shipped 9/7 (242108f) and NEVER RUN BY THE SUITE. Registered by PLUMBER under the 9/7 law. Runs 75/0',
+     True),
+    ('WALK ENCOUNTER', ['node', 'gates/walk_encounter_gate.js'],
+     'PEOPLE lane, shipped 9/1 (bf3c1b3) and NEVER RUN BY THE SUITE until 9/7 -- and PEOPLE swept its own history on 9/7 and still missed this one, which is why the sweep is a GATE and not a habit. Registered by PLUMBER under the 9/7 law. Runs 25/0',
+     True),
     ('BUILD SIZE',     ['node', 'gates/build_size_gate.js'],
      'THE SIZE BUDGET, 9/6, PLUMBER lane, row [slim build]. The row asked what is in the '
      'shipped files byte by byte, what is dead, what is duplicated, what could load later, '
@@ -5501,6 +5545,46 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
         if pure and is_browser_gate(argv):
             continue
         work.append((i, name, argv, what))
+
+    # ===== THE SUITE FAILS ON ZERO (9/7, PLUMBER, row [unregistered gates]) =====
+    # LAW: laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md rule 2,
+    # "Any filter or lane run that collects zero gates is red, never a quiet
+    # nothing."
+    # WHAT HAPPENED: PEOPLE asked this runner for its newest gate with
+    # --only "MAKE IT RIGHT" and got "0 of 542 GATES". Not red. NOTHING. The exit
+    # code was clean, so the lane read it as "the suite has no complaint" and
+    # shipped on a gate this runner had never executed. The craft's name for it is
+    # GREEN OVER NOTHING: a run that executes zero checks, prints a tick and exits
+    # zero, because nobody watches the COUNT.
+    # A filter that matches nothing is ALWAYS a mistake -- a typo, a renamed gate,
+    # a gate that was never registered -- and it is never a pass. It says so in
+    # the words a lane will actually read, and it names the closest matches,
+    # because "no such gate" plus a guess is the difference between a fix and a
+    # hunt.
+    # This sits BEFORE the solo/pool split below on purpose: at this point `work`
+    # still holds every gate the filter matched, solo ones included, so an empty
+    # `work` means the filter really did match nothing.
+    if not work:
+        print()
+        print('=' * 78)
+        print('  RED: THIS RUN COLLECTED ZERO GATES.')
+        if only:
+            print('  --only %r matched no gate name out of %d.' % (only, len(GATES)))
+            near = [g[0] for g in GATES
+                    if any(w and w.upper() in g[0].upper() for w in only.split())][:8]
+            if near:
+                print('  Did you mean: %s' % ', '.join(near))
+            else:
+                print('  Nothing close. If the gate file exists, it is probably NOT REGISTERED:')
+                print('  run  node gates/gate_registry_gate.js  -- it names every gate file the')
+                print('  suite cannot see.')
+        else:
+            print('  No --only was given, so this is the whole table filtering to nothing.')
+            print('  fast=%s pure=%s shard=%s' % (fast, pure, shard))
+        print('  ZERO IS NOT A PASS. A run that executes no checks and exits clean is how six')
+        print('  shipped jobs came to cite gates the suite had never run (9/7 law).')
+        print('=' * 78)
+        return 1
 
     # THE SOLO PHASE RUNS FIRST, AND FIRST IS THE POINT. These are the gates whose
     # subject IS time -- frames a second, milliseconds per beat, time to first

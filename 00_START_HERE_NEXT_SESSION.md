@@ -7427,7 +7427,17 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/7 (b) LATEST -- *** CHAT 18. ROUND 11. NO SPEEDUP THIS ROUND: THREE
+PLUMBER (plumber-ont6t5): 9/7 (c) LATEST -- *** CHAT 18. ROUND 12. [unregistered gates] SHIPPED:
+EIGHT MORE GATES NOBODY RAN, AND TWO OF THEM HAD BEEN RED SINCE 8/31. The 9/7 law came from ONE
+lane finding six of its own; its own words were "nobody has asked the others", so I asked. 567
+gate files, 542 the suite actually ran, EIGHT orphans across QUESTS, COMBAT and PEOPLE -- and
+legend_kept and pack have been FAILING for seven days with nobody able to see it, both citing
+"gate green" as their proof, where green meant a person ran a file by hand once. The suite now
+goes RED on a filter that matches nothing (it printed "0 of 542 GATES" and exited clean before),
+registration is DERIVED from the folder, and all eight are wired, so main shows two reds it
+always had. Also handed [fight headroom] back OPEN after five rounds: everything left in it is a
+ruling for COMBAT, DIRECTION or Paolo, not code I may write.
+ROUND 11: NO SPEEDUP: THREE
 NEGATIVE RESULTS AND ONE WARNING. The faction floor looked like a 200 ms win and was worth
 NOTHING once I stopped freezing a feature and stopped measuring dead fights. The fight already
 caps its own canvas at 2x. And a QUARTER of the pixels did not make it faster, so fill rate is
@@ -8801,90 +8811,84 @@ instruction.
 === END OF HIS VERBATIM INSTRUCTION ===
 
 THIS ROUND, IN HIS ORDER. Pulled main and rebased. Re-read CLAUDE.md from disk. Read the
-VAMILY front page. I hold [fight headroom], so by rule 5 VAMILY = CONTINUE IT. Round 11 of this
-lane, round 5 of that row.
+VAMILY front page. Round 12 of this lane. I HANDED [fight headroom] BACK OPEN and took the first
+OPEN line, [unregistered gates], claimed and pushed BEFORE starting, per rule 5.
 
-*** ROUND 11 [fight headroom]: THIS ROUND SHIPS NO SPEEDUP. It ships THREE NEGATIVE RESULTS and
-one number that changes how anybody may measure this fight from now on.
-records/BOHEMIA_NEITHER_THE_CALLS_NOR_THE_PIXELS_9_7_26.md ***
+WHY I LET [fight headroom] GO AFTER FIVE ROUNDS. Everything left in it is a ruling, not code this
+lane may write: the cover camera's ease (how the camera FEELS, COMBAT's), what the fight draws at
+all (DIRECTION and COMBAT), and a real handset ([PENDING Paolo]). It is NOT marked SHIPPED,
+because the ship test is not met: a driven fight is a median 413.5 ms of its 500 ms beat against
+a target of 400. Its board line now carries everything measured, who owns each remaining piece,
+three measured dead ends, and the 40 ms noise floor, so whoever takes it starts where I stopped.
 
-THE NUMBER THAT REFRAMES THE ROW. Every named draw function in the fight, wrapped and clocked in
-a driven fight:
-  the whole frame callback       102.8 ms per beat
-    drawField                     97.7        fieldFloor  86.6   (fieldFloorPaint 39.5 on misses)
-    paintFireButton                3.1        drawActionLog 1.8   drawFloor 1.4   overlays 0.6
-A driven fight is 413 to 460 ms of a 500 ms beat. THE FIGHT'S OWN JAVASCRIPT IS 103 MS OF THAT.
-The coordinator's five techniques are all call-count techniques; two were already done before I
-arrived, one shipped (the floor cache), and there are only 103 ms of JavaScript left to attack.
+*** ROUND 12 [unregistered gates] SHIPPED. EIGHT MORE GATES NOBODY RAN, AND TWO OF THEM HAD BEEN
+RED SINCE 8/31. records/BOHEMIA_EIGHT_MORE_GATES_NOBODY_RAN_9_7_26.md ***
 
-NEGATIVE RESULT 1: THE FACTION FLOOR IS NOT WORTH CACHING, and it nearly went the other way.
-drawFloor paints a full-canvas fill, ~60 strokes, a motif pass over ~700 cells and a FULL-CANVAS
-RADIAL GRADIENT, every frame, for 1.4 ms of JavaScript. Swapping it for a cached bitmap read
-457/455 as-is against 297/237 cached: a 200 ms win. IT WAS WRONG TWICE. It froze the floor's BEAT
-PULSE, which is a feature (the ground is the metronome), and it measured fights that had ENDED
-mid-window, which read about 85 ms a beat. Keeping the pulse live and reviving the fight:
-  as it is   454.4   479.0   497.1
-  cached     420.2   496.4   496.9      pair deltas -34.2, +17.4, -0.2   =  NO CHANGE
-Nobody should spend a round on it.
+The law (laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md) came from ONE lane:
+PEOPLE asked the suite for its newest gate, got "0 of 542 GATES" -- not red, NOTHING -- and found
+six shipped jobs whose proof was a gate the suite had never run. Its own words were "that is one
+lane out of eighteen and nobody has asked the others." I asked the others.
 
-NEGATIVE RESULT 2: THE FIGHT ALREADY CAPS ITS OWN CANVAS AT 2x. Its size() reads
-Math.min(devicePixelRatio||1,2), which is why device pixel ratio 3 and 2 give the same canvas to
-the pixel: 780x1354. Somebody already did that and nobody should re-discover it.
+THE SWEEP: 567 gate files on disk, 555 rows in the hand-written registry, 542 files those rows
+actually run. EIGHT files named like a gate that nothing ran:
+  asks_visible     QUESTS  9/6   38/0        dead_valley     COMBAT  8/31  10/0
+  ladder_walk      QUESTS  9/6   43/0        legend_kept     COMBAT  8/31   4 passed 1 FAILED ***
+  main_spine       QUESTS  9/7   49/0        pack            COMBAT  8/31  46 ok    1 FAILED ***
+  the_job_pays     QUESTS  9/7   75/0        walk_encounter  PEOPLE  9/1   25/0
+PEOPLE's original six were all registered by the time I looked; they fixed their own.
 
-NEGATIVE RESULT 3: FILL RATE IS NOT THE WALL EITHER. At device pixel ratio 1 the canvas is a
-QUARTER of the area (264,030 px against 1,056,120) and the beat read 480.2 ms, SLOWER than both
-bigger canvases. Cutting pixels did not buy anything.
+TWO HAVE BEEN RED SINCE 8/31 AND NOBODY COULD SEE IT, which is what makes the law worth its cost.
+legend_kept: "every tile a district DECLARES, it MAKES" fails, 9 known-unplaced of 1048 declared,
+arterial(23) and strip(25). pack: "every part of it is reachable, not just its middle" fails, all
+nine cells BLOCKED, the warning button OVERLAPS a note. Both shipped in one commit citing "gate
+green", where green meant a person ran a file by hand once. SEVEN DAYS OF RED, INVISIBLE. Named
+on COMBAT's row, NOT fixed here: this lane names another lane's red, it never fixes it.
 
-*** AND THE MOST USEFUL THING THIS ROUND FOUND IS A WARNING. Those first two rows are the SAME
-canvas, the SAME build, the SAME protocol: 450.1 and 412.5 ms. THE DRIVEN FIGHT'S BEAT HAS A
-NOISE FLOOR OF ABOUT 40 MS BETWEEN IDENTICAL RUNS. So:
-  - any single-sample before-and-after on this fight is worthless; 40 ms is a coin toss
-  - it is exactly how round 3 published "the target is met, three times out of three"
-  - the faction-floor deltas (-34.2, +17.4, -0.2) sit INSIDE that floor, which is another way of
-    saying what they said: no effect
-  - the floor cache's median win of 84 ms is twice the noise floor, so THAT one is real, barely
-Anything measured on this surface needs alternating pairs inside ONE boot, at least three. ***
+AND ONE OF THE EIGHT IS THE CASE FOR A GATE RATHER THAN A HABIT. walk_encounter belongs to
+PEOPLE, the lane that WROTE the law and swept its own history the same round, and they still
+missed it. A sweep somebody has to remember is a sweep that gets partly done.
 
-A THIRD SILENT FAILURE FOUND AND FIXED IN THE SHIPPED GATE. The dead-fight contamination was not
-just an experiment problem: beat_budget_gate restarted the encounter once BEFORE the driven
-window and never checked again, so a fight dying halfway handed it a cheap number. It revives
-mid-window now and prints how many times it had to. That makes three silent failures in this one
-instrument across two rounds (the drive landing on a dead fight, the zoom counter dying with its
-document, the fight dying mid-window) AND EVERY ONE OF THEM MADE THE GAME LOOK FASTER, which is
-the direction a speed checker fails in when nobody is looking.
+WHAT I BUILT:
+1. THE SUITE FAILS ON ZERO (law rule 2). --only with no match used to print "0 of 542 GATES" and
+   exit CLEAN, which a lane reads as "the suite has no complaint". It is RED now, says so in
+   words a lane will read, and NAMES THE CLOSEST MATCHING GATES, because "no such gate" plus a
+   guess is the difference between a fix and a hunt. If nothing is close it points at the registry
+   gate by name. Verified both ways: a nonsense filter exits 1, a real filter still exits 0.
+2. REGISTRATION IS DERIVED (law rule 3). gates/gate_registry_gate.js reads the FOLDER against the
+   registry and goes red on: a gate file no row runs, a row pointing at a missing file, an
+   exemption naming a file that is gone, or the folder or table reading as empty. THE EXEMPTIONS
+   ARE NAMED ONE BY ONE WITH A REASON -- gates/ also holds libraries and instruments, and skipping
+   those by a PATTERN would let a real gate hide behind the pattern. It caught ITSELF as an orphan
+   on its first run, which is the behaviour you want.
+3. ALL EIGHT REGISTERED, the two red ones included, because the law is explicit that a gate is not
+   a gate until the suite runs it. MAIN'S SUITE NOW SHOWS TWO REDS IT ALWAYS HAD. That is the
+   honest state of the repo, not a regression, and the coordinator should know it is coming.
+   Before: 542 files run, 8 gates the suite could not see. After: 551 run, 0 it cannot see.
 
-WHAT IS LEFT ON THIS ROW, AND NONE OF IT IS CODE I MAY WRITE:
-  - THE CAMERA THAT NEVER SETTLES (COMBAT's, routed last round with numbers). It decides whether
-    the floor cache is worth 150 ms or nothing, and it is the only lever anybody has measured
-    that is worth more than the noise floor.
-  - WHAT THE FIGHT DRAWS AT ALL. The canvas is fully painted at least three times per frame
-    before a single character: a clear, the faction fill, the vignette, the floor blit. Cutting
-    that is changing the picture, which is DIRECTION and COMBAT, not plumbing.
-  - A REAL HANDSET. Same [PENDING Paolo] as [sixty fps].
+THE SHAPE OF THIS DEFECT, FOR THE NEXT ONE. A hand-written table of 555 rows cannot be trusted to
+list itself: adding a gate takes two steps and the second is a one-shot human step, so it drifts.
+That is NOTHING IS BAKED ONCE (9/6) in different clothes, the third time this month. The general
+form: ANYTHING DERIVED FROM SOMETHING ELSE MUST BE DERIVED AT RUN TIME, OR CHECKED AGAINST ITS
+SOURCE BY A GATE. A count nobody watches, a registry nobody re-derives, a bake nobody re-bakes.
 
-ROUND 10, WHICH STILL STANDS: I checked round 9's own number and it did not survive. A "settled"
-fight was a fight NOBODY WAS PLAYING. Driven: 497.5 -> median 413.5 across seven samples, against
-a target of 400. NOT MET. The win is a lottery on the camera: 333 zooms gives 392.9 ms, 1,068
-zooms gives 484.6 ms and no win at all.
+WHAT THIS LANE SHIPPED BEFORE THIS ROUND, still standing:
+[hot path] SHIPPED: both beats profiled for the first time, the hidden panel stopped drawing
+  (~900 blits a second to zero), the walked beat held at 302 ms.
+[fight headroom] (now OPEN again): the fight's floor is composed ONCE instead of 2,501 draw calls
+  a frame, pixel for pixel identical, 0 channels differ of 4,224,480, proved inside ONE frame
+  because a fight does not repeat across boots. A driven fight 497.5 -> median 413.5.
+  And a beat checker that DRIVES the fight it measures, after three silent failures were found in
+  it, every one of which made the game look faster.
+[sixty fps] / [slim build] / [suite runs] all OPEN with what is built and what is missing on each.
+  [PENDING Paolo] on two: is a phone-shaped Chromium enough to call the speed job done, and are
+  the 445 unreachable judge pages safe to stop publishing.
 
-ROUND 9, WHICH STILL STANDS: THE FIGHT DRAWS ITS FLOOR ONCE. 2,501 draw calls a frame became 1,
-pixel for pixel the same picture, zero channels different out of 4,224,480, proved inside ONE
-frame. tools/bohemia_fight_floor_cache_patch.py, gates/fight_floor_cache_gate.js 17/0.
+[FOR THE COORDINATOR] STILL RED ON MAIN AND NOT MINE: ENGINE SYNC and BUNDLE from FACTIONS'
+[light owners] 8cc0c6a (BOH_POWERGRID has two bodies across six carriers; one line is on their
+row with the fix), COMBAT RUNS (opens the page over file:// while the page fetches siblings), and
+now LEGEND KEPT and PACK, which are not new breakage but newly visible.
 
-THE OTHER ROWS THIS LANE TOUCHED, settled on the coordinator's note: [hot path] SHIPPED.
-[sixty fps] / [slim build] / [suite runs] back to OPEN, each line carrying what is built and what
-is missing. [PENDING Paolo] on two: is a phone-shaped Chromium enough to call the speed job done,
-and are the 445 unreachable judge pages safe to stop publishing.
-
-[FOR THE COORDINATOR] THREE GATES WERE RED ON MAIN LAST ROUND AND NONE OF THEM WAS MINE: ENGINE
-SYNC and BUNDLE from FACTIONS' [light owners] 8cc0c6a (BOH_POWERGRID has two bodies across six
-carriers; one line is on their row with the fix), and COMBAT RUNS, which opens the page over
-file:// while the page fetches siblings.
-
-NEXT IN THIS LANE: [fight headroom] is blocked on rulings, not code. Three new OPEN rows landed
-at the top of this lane since last round and the first one is [unregistered gates]
-SIX-GREEN-GATES-THE-SUITE-NEVER-RAN, which is this lane's own core job: a checker that never runs
-is not a checker. That is where I go the moment this row unblocks or the coordinator releases it.
+NEXT IN THIS LANE: the first OPEN line, which is [clock math] HOW-MANY-GAME-MINUTES-PER-REAL-MINUTE.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO
