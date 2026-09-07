@@ -7675,6 +7675,87 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 24 [generation handoff] THE-FOLD-IN-THE-RUNTIME, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_fold.js         the handoff, composed
+  gates/fold_runtime_gate.js     35 passed, 0 failed
+  BUILD 9/7f - THE FOLD SAYS WHAT YOU KEPT
+
+*** THERE ARE TWO FOLDS IN THIS REPO AND NEITHER KNEW THE OTHER EXISTED. ***
+  foldGeneration in the dynasty engine carries THE LEDGER: standings, territory,
+    builds, economyCapacity, invest, karma, virtues, family, wounds, blindSpot,
+    recordedKnown. ZERO callers outside the retired slice.
+  the walked city's ctFold carries THE MEMORY, and returned three bare numbers
+    that appeared in exactly two places in the whole file: where they were
+    computed and where they were returned. NOTHING CONSUMED THEM.
+Those two numbers are what the heir's first hour is made of, and nobody was
+listening. A handoff that runs one side and returns a confident answer is half a
+handoff wearing a whole one's clothes.
+
+WHAT SHIPPED: engine/bohemia_fold.js COMPOSES the two. It replaces neither,
+because both belong to other systems and rewriting a working fold is the
+cross-lane edit ONE SYSTEM, ONE SESSION forbids. Hand it what each fold returned
+and it answers the row's three questions: what carries, what the heir gets, and
+what the beat has to say.
+
+THE CARRY LIST IS THE STUDY'S, NOT MINE. Thirteen fields, each with the measured
+reason it says what it says, lifted from this session's own round 13 record. The
+gate traces every field back to that record, so a field somebody adds by hand
+goes red.
+
+WHAT YOU KEPT COMES FIRST, and what died follows. Losses are felt harder than
+equal gains, so the thing that answers "did I lose everything" leads. The order
+is asserted by the gate because the order IS the design.
+
+DEBT IS THE ONE THING ON THE LIST THAT DIES. A child is not personally liable for
+a parent's unsecured debts. You inherit less, and you inherit the people he owed,
+still standing there. That is a standing-web query, not a purse line.
+
+*** AND IT INVENTS NO DECAY, WHICH IS THE PART I CARE MOST ABOUT. ***
+EIGHT of the thirteen fields have no ruled rate (territory, builds,
+economyCapacity, invest, karma, virtues, family, wounds). They are LISTED as
+unruled and carry whole, rather than getting a number I picked, and the gate fails
+on any fraction in the module's logic.
+The one rate this game has is the engine's STANDING_DECAY_TO_NEUTRAL at 0.25, and
+THIS ROUND DID NOT MOVE IT. The study measured real status persistence at about
+0.79, so 0.75 is very nearly right AND IT IS ON THE WRONG FIELD: it is the only
+field that decays, while wealth, which really persists at 0.3 to 0.4, carries
+whole forever. That is a ruling about how his hundred years feel, so the module
+reports it and changes nothing.
+
+MEASURED ON THE REAL SURFACE: the dynasty engine is genuinely not in the walked
+city (zero hits for foldGeneration there), so the beat returns missing:'ledger'
+every single time rather than a confident half. A negative control proves the
+check bites: make the beat claim it is whole and the gate goes red.
+
+NOT DONE ON PURPOSE: NO SCENE. The row says "the beat itself; canon is his", and
+who dies at the end of act one is PARKED on Paolo's own words ("I don't know who
+dies at the end of act one, ask me later"). So this is the MACHINE for the moment
+and not one line of its story.
+
+*** AND I SKIPPED THE ROW ABOVE THIS ONE, WITH A REASON I CHECKED. ***
+[map moves] BB-TERRITORY-FLAG depends on SHARED BB-LOOPLESS and WORLD BB-TURF.
+BB-TURF shipped 9/5. BB-LOOPLESS is still OPEN and its dependency is real TODAY,
+measured rather than assumed: on the walked surface FactionWorld 0,
+factionAdjacency 0, shiftStanding 0, factionTurn 0, and the single advanceRound
+hit is the PACING LAW comment rather than code. The city says it in its own words:
+"walked city loads BohemiaClout and NOT BohemiaLoop, so LOOP is null there."
+Ten quests promise the map changes hands and there is nothing there to advance.
+That row cannot be built until SHARED makes the BB-LOOPLESS decision, which is
+explicitly a decision and not a bug to fix quietly.
+
+GATES: fold_runtime 35/0, inside_a_day 25/0, the_job_pays 75/0, canon_quests
+643/0, main_spine 49/0, ladder_walk 43/0, asks_visible 38/0, direct 33/0,
+alpha_loads 20/0, demo_build 25/0, inlined_fresh 3/0, one_engine 3/0, nomarkers
+6/0, handoff 7/0, attempt 15/0, reply_contract 17/0, pages_publish 18/0,
+answered GREEN.
+
+[STILL NOT MINE] reusefirst_gate.py 201/4, red on main before I touched anything.
+The city's DEMO_BQ still has no working refresh path (round 22).
+
+NEXT OPEN QUESTS ROW: [designs playable] DESIGNS-TO-BQ, converting prose designs
+001, 002 and 013 to playable .bq. The designs are done; only the machine layer is
+missing, which is the same shape as round 21 and should go the same way.
+
 ROUND 23 [distance shown] BB-INSIDE-A-DAY, SHIPPED. QUESTS lane, BUILD.
   engine/bohemia_reach.js        the arithmetic
   gates/inside_a_day_gate.js     25 passed, 0 failed
