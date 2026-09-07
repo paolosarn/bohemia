@@ -21283,7 +21283,22 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/7 (latest): [judge the car] SHIPPED - the general case is RULED
+ROUND LOG 9/7 (latest): THE CAR RE-COOK JUDGED AT THE SEAM - PASS. COOK's
+re-cook (5c5ae7a) judged on the LIVE surface: probe found a real vehicle
+cell (freeway, OM 58,20), teleported the body one tile from the wreck, and
+the frame is the judge sheet (records/target/DIRECTION_THE_CAR_RECOOK_
+JUDGED_9_7_26.png, before/after; verdict record records/BOHEMIA_VERDICT_
+THE_CAR_RECOOK_9_7_26.md). One craft one world now: 20/20 cars at 9
+colours, 0 single-use, 0 orphans (was median 3,031 / 71% / 90%); shell +
+dead glass + clustered rust = the three readable parts PROP-02 asks;
+silhouette preserved. This closes the deferred half of [judge the car].
+ROUTED FINDING for the coordinator (not the re-cook's sin, seen by
+looking): THE WRECK PARKS ON A PLINTH - the vehicle cell paints a
+blue-grey stippled pad the size of the car's bounding box under the
+sprite (dotted border, reads as a museum mat); the pad predates the
+re-cook (the photo car stood on it too). A wreck should sit on its
+family's own ground with a contact shadow (PROP-01). Belongs to whoever
+owns the city's vehicle-cell ground draw. PREVIOUS: [judge the car] SHIPPED - the general case is RULED
 and in the card: section 2C, NO PHOTOGRAPH STANDS BESIDE A PIXEL BODY. Any
 object at body scale on the walked surface is pixel-native by the 7/27
 craft rulers; ground is the one exception (the object/ground line). The
