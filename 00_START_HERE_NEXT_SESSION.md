@@ -15759,6 +15759,15 @@ NEVER EMPTY (763 people were outside and he still saw nobody, so the working set
 the player -- my density decision, built); PEOPLE [neglect costs] (the stakes table's first
 entry is an obligation); EYES E15 school round. 161 open, 6 claimed. Answered him as a
 person, no new jobs.
+THEN (df) HE ZOOMED OUT AND SENT A FRAME (records/target/PAOLO_WHY_DOES_THE_CITY_LOOK_LIKE_
+THIS_9_8_26.png): "why does the city keep looking like this when I'm zoomed out, bro, come
+on." MEASURED: city mode is 19 fillRect against 9 drawImage, coloured slabs with edge lines,
+the builder's diagram standing in since the builder was wired; nobody owns the aerial as a
+picture. HIS 7/1 LOCK says "same pixel style, reading as a realistic city from above, not
+chibi" -- the fourth locked ruling this week the build never read. Record: records/BOHEMIA_
+RULING_THE_CITY_FROM_ABOVE_IS_A_DIAGRAM_9_8_26.md. Routed COOK [city from above] (top,
+above the car), DIRECTION [city look] (the card that never existed, against real Vegas
+aerials), LIFE+CITY [tiles not slabs] (the diagram becomes a layer, off by default).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
