@@ -15768,6 +15768,14 @@ chibi" -- the fourth locked ruling this week the build never read. Record: recor
 RULING_THE_CITY_FROM_ABOVE_IS_A_DIAGRAM_9_8_26.md. Routed COOK [city from above] (top,
 above the car), DIRECTION [city look] (the card that never existed, against real Vegas
 aerials), LIFE+CITY [tiles not slabs] (the diagram becomes a layer, off by default).
+THEN (dg) ANOTHER FRAME (records/target/PAOLO_THE_TAP_PICKS_THE_WRONG_TILE_9_8_26.png): "when
+I click a tile in city builder mode it's not the tile it's sitting on, it's below, very
+awkward." READ THE CODE: CBcellAt inverts the ground-plane projection with one fixed
+half-tile offset while the aerial draws tiles LIFTED (LIFT = 1.6), so the roof under the
+finger belongs to the diamond behind it, one row off; plus page-vs-canvas pixels on a phone.
+Fix shape written (pick against the drawn tile, scale the tap first); gate = a real driven
+tap, the pad lesson. Routed LIFE+CITY [tap picks] (top), PLUMBER [tap gate]. Also noted:
+this frame shows real tiles at a nearer zoom, so the slabs are the FAR level only.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
