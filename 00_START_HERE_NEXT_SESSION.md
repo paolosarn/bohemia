@@ -15783,6 +15783,12 @@ order (amended on records/BOHEMIA_RULING_THE_FIRST_SIXTY_SECONDS_9_6_26.md). Rou
 [loading screen] (top), UI [loading look] (options sheet, act-one register), PLUMBER [late
 loads] (the measured list of what arrives after first paint, and a gate that nothing
 visible pops in after the door).
+THEN (di) A FRAME OF THE FEED (records/target/PAOLO_THE_FEED_IS_NOT_A_PHONE_9_8_26.jpg): "this
+doesn't look like a cool post-economic-apocalyptic phone, does it, bro, come on?" -> the
+feed is a flat black monospace panel, a debug console, against his 9/4 law (a PHONE screen)
+and his 9/6 three-acts law (act one's interface is an in-world object, 2050 rustic). The
+words are fine; the OBJECT is the job. Routed UI [phone object] (top, options sheet of 3-5
+phones, drawn from the skin), DIRECTION [phone card] (real worn phones as reference).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
