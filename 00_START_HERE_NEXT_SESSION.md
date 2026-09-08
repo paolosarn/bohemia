@@ -15751,6 +15751,14 @@ one thing blocking everything" is a good turn). No sweep pass, no new jobs, noth
 manufactured. The one thing blocking everything: the word has not landed in any lane's
 window since his clip verdicts; the pad is broken in the live game and UI holds the fix
 unclaimed. Told him in one line and stopped.
+THEN (de) "how's it going" -> the lanes MOVED since the stopped round, 9 commits: UI [pad
+broken] SHIPPED (he answered that chat directly, "he picked 1": ONE RING cut into eight
+with the face at its centre) and THE TOP MENU BAR (he asked that chat for one); QUESTS
+[ten openings] SHIPPED (the seven he locked 7/19 finally exist); LIFE+CITY THE STREET IS
+NEVER EMPTY (763 people were outside and he still saw nobody, so the working set follows
+the player -- my density decision, built); PEOPLE [neglect costs] (the stakes table's first
+entry is an obligation); EYES E15 school round. 161 open, 6 claimed. Answered him as a
+person, no new jobs.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
