@@ -47,3 +47,11 @@ discovered by accident.
 - RUN [one question]: the opening sequenced, never two at once, the DAY panel out
   of the stack.
 - PLUMBER [stamp stripped]: the demo cut strips the build stamp; the alpha keeps it.
+
+
+## AMENDED 9/8 BY PAOLO: STEP ZERO IS A LOADING SCREEN
+"We seriously need a loading screen. It's bullshit when I go in the demo, all the
+loading shit that you might need to do, handle it, it's so awkward looking." So the
+order gains a step before the door: ONE loading screen holds everything that loads,
+and the ridge appears only when the game is ready. Nothing pops in after the door.
+Routed RUN [loading screen], UI [loading look], PLUMBER [late loads].

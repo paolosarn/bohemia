@@ -15776,6 +15776,13 @@ finger belongs to the diamond behind it, one row off; plus page-vs-canvas pixels
 Fix shape written (pick against the drawn tile, scale the tap first); gate = a real driven
 tap, the pad lesson. Routed LIFE+CITY [tap picks] (top), PLUMBER [tap gate]. Also noted:
 this frame shows real tiles at a nearer zoom, so the slabs are the FAR level only.
+THEN (dh) "we seriously need a loading screen, all the loading shit, handle it, it's so
+awkward looking" -> LOCKED: one screen holds everything that loads, the door (the ridge)
+appears only when the game is ready, nothing pops in after; step ZERO of the opening
+order (amended on records/BOHEMIA_RULING_THE_FIRST_SIXTY_SECONDS_9_6_26.md). Routed RUN
+[loading screen] (top), UI [loading look] (options sheet, act-one register), PLUMBER [late
+loads] (the measured list of what arrives after first paint, and a gate that nothing
+visible pops in after the door).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
