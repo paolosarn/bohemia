@@ -1,3 +1,102 @@
+EYES AND EARS (eyes-5vql33): 9/11 (v) LATEST -- *** E16 [never opened] SHIPPED WITH BOTH ROUNDS.
+THE LINK BETWEEN HIS WORDS AND THE WORK IS NOT MISSING, IT IS DELETED. An OPEN row cites a ruling
+of his 34% of the time and a CLAIMED one 38%, but a SHIPPED row only 12%. The row gets rewritten
+as a result summary when it lands and the ruling it answered goes with it, so the link dies at the
+exact moment the work becomes history. That is why two separate attempts to compute "has he seen
+this" both came back near zero. *** TAB: NOT IN A TAB YET. No game code touched, ever.
+
+FIRST, THE PRIOR QUESTION IS ANSWERED YES, AND IT CORRECTS MY OWN SCHOOL ROUND. School said answer
+this before building anything: if nothing has ever got him to open a named thing, a rota is a file
+nobody opens. MEASURED: 76 verdict records on disk and 39 CARRY HIS OWN VERBATIM WORDS, oldest
+7/17, newest 9/7. A judge page has got rulings out of him thirty-nine times. My school round's
+counter-finding was too pessimistic: "he has thumbed zero" is true of those 127 garments, it is NOT
+true of the repo's history. A rota can ride on something that has worked 39 times.
+
+TWO ATTEMPTS, BOTH FAILED, AND THE SECOND EXPLAINED THE FIRST.
+  ATTEMPT 1, MATCH A ROW TO HIS RULINGS BY WORDS: 3 hits in 205 and at least 2 SPURIOUS. PEOPLE
+  [your reputation] "matched" a quote about the player's daily hub; UI [one number] "matched" a
+  quote about phone numbers being personal. And the one that should obviously have matched did not:
+  BB-BATTERIES-ARE-THE-MONEY came back UNSEEN, because THERE IS NO QUOTE OF HIS containing both
+  "batteries" and "money" -- CLAUDE.md's "Batteries are the money" is a SUMMARY, not his words, and
+  the precision-first bar correctly refused it. THE FINDING: THE BOARD'S ROWS AND HIS RULINGS DO
+  NOT SHARE A VOCABULARY. Rows are named after mechanics, he talks about intent. Abandoned, with
+  the false positives written down as the evidence for abandoning it.
+  ATTEMPT 2, THE EXACT LINK THE BOARD ALREADY CARRIES (a row built off a ruling usually quotes him
+  in its own text): 4 of 205, 2%. So low it demanded its own explanation, and that is where the
+  real finding came from.
+
+THE MECHANISM, MEASURED: open 34%, claimed 38%, SHIPPED 12%, a gap of 22 points. The citation is
+present while the work is in flight and gone once it lands. SO THE ANSWER TO THIS JOB IS NOT A
+LIST, IT IS ONE FIELD: keep the ruling citation on the row when it ships and coverage becomes
+computable forever, by anybody, in one grep. Which is exactly what school's first finding said --
+real production trackers make this a STATUS and our board has no field for it.
+
+THE MATRIX: 205 shipped rows graded, 201 carry no citation of a ruling of his, and 58 of those sit
+in the first minute of the game. Biggest blocks with no ruling cited: ECONOMY 28, DIRECTION 23,
+WORDS 17, DYNASTY 17, and EYES AND EARS 15, which is my own lane and the fair place for that
+number to land.
+  AND WHAT THE MATRIX DOES NOT SUPPORT, said plainly: it does not support "he has never seen these
+  201 things". It supports the narrower true claim, that NOTHING ON THE BOARD RECORDS THAT HE RULED
+  ON THEM. Those are different statements and this lane will not blur them.
+
+THE ONE ITEM FOR THIS ROUND, BY RISK AND NEVER BY AGE:
+  WORLD [living costs] BB-FOUR-VERBS-THREE-CURRENCIES -- shipped, no ruling of his on the row, and
+  it sits in the first minute: the day eats food, the fight eats tape, the night eats power, asking
+  eats clout. One item, not a list, because a list aimed at one person is the queue EVERYTHING IS A
+  THUMB abolished. The other two hundred do not wait.
+
+RULE ZERO EARNED ITS KEEP. Eight controls, and one FAILED on the first run and caught a real bug:
+"a thing he demonstrably ruled on is findable in the corpus (the UI at 50%)". The harvester matched
+quotes across the whole file, so ONE unbalanced quote mark put every later pairing off by one, and
+the harvest came back with sentences glued to board rows -- one "quote" ended with
+"- SHIPPED 9/7 8a13045". A quote may not cross a newline now. The corpus went from 690 garbled
+strings to 341 real quoted rulings of his. WITHOUT THAT CONTROL I WOULD HAVE PUBLISHED A MATRIX
+BUILT ON NONSENSE AND IT WOULD HAVE LOOKED FINE.
+
+THE GATE: registered as SEEN BY HIM and it holds ONE number, the citation gap, frozen at 22 points
+and may only shrink. Closing it means rulings survive shipping. It deliberately does NOT hold a raw
+count: new rows arrive honestly and would push any absolute number around, while the gap is immune
+to growth because both halves move together when the board gets bigger. Same lesson as the NO
+READER gate, which went red for the whole fleet inside a minute on a byte-exact check.
+
+ROUTED: NOTHING. The board records what it was designed to record. What it was never designed to
+record is the link, and that is a board change, not a lane's defect.
+
+BLIND SPOTS: the board is not the game and a SHIPPED line is a CLAIM, which E11 and E13 both caught
+being false on the surface; "no ruling on record" is NOT "he has never seen it", because his rulings
+from before the board existed live in transcripts nobody kept; the matrix grades 205 rows while the
+gate counts 210, because a row needs a two-word label or a NAME-IN-CAPS to be gradeable and five
+have neither; the risk column is a keyword guess at "first minute", a heuristic for ordering one
+item per round and not a claim about importance; and nothing here measures whether he would LIKE
+any of it, which is the whole point of putting something in front of him.
+
+STILL OPEN IN MY QUEUE: E17 [locked ignored], E18 [he can hear it], E19 [slop count]. All two
+rounds, school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. THE ONE FIELD: keep the ruling citation on a row when it ships. That single change makes
+     "what has he ruled on" computable forever. It is the whole deliverable of this job.
+  2. THE ONE ITEM THIS ROUND: WORLD [living costs] BB-FOUR-VERBS-THREE-CURRENCIES.
+  3. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Seventeen instruments and four suite gates exist now.
+  4. The E15 scope hole still stands: a building, a face, a prop or a vehicle is graded by no
+     machine on E7's sheet.
+  5. Still unclaimed: the MIX METER (E5 gap 10).
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: SEEN BY HIM 2/0 (new, registered), PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0,
+attempt 15/0. The sweep's own eight RULE ZERO controls pass.
+
+PROOF: records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md and
+records/BOHEMIA_EYES_E16_ROUND_2_THE_CITATION_IS_DELETED_ON_SHIP_9_11_26.md;
+tools/bohemia_eyes_seen.py; gate registered as SEEN BY HIM in gates/bohemia_gates.py; data
+records/BOHEMIA_EYES_SEEN_9_11_26.json, baseline records/BOHEMIA_EYES_SEEN_BASELINE_9_11_26.json;
+results bank banks/eyes/BOHEMIA_EYES_E16_SEEN_RESULTS_9_11_26.json (draft:true); VAMILY lane 17
+E16 SHIPPED with both rounds, NOTHING routed.
+
 WORDS (words-8dqrnq): 9/11 (c) LATEST -- *** Q19 [caught out] SCHOOL DONE, ROUND ONE OF TWO.
 FILM SAYS THEY CRUMBLE. THE REAL RECORD SAYS THEY REVISE, CALMLY, ABSORBING WHATEVER YOU JUST
 SHOWED THEM, AND THERE IS AN ENTIRE INTERVIEW TECHNIQUE BUILT FOR NO OTHER PURPOSE THAN TO
@@ -167,105 +266,6 @@ their own lanes.
 [PENDING Paolo] Nothing blocking. Queue next: [three acts], [skin swap].
 
 ================================================================================
-EYES AND EARS (eyes-5vql33): 9/11 (u) LATEST -- *** E16 [never opened] ROUND ONE OF TWO IS DONE:
-SCHOOL. NO MEASURING, ON PURPOSE. The structural finding: REAL PRODUCTION TRACKERS MAKE "NOT
-REVIEWED YET" A FIRST-CLASS STATUS, with a Pending Director Review state and a whole tab for it.
-OUR BOARD HAS SHIPPED AND NO FIELD AT ALL FOR WHETHER HE HAS EVER LOOKED, so "he has not seen
-this" is not a state anything in this repo can hold. It is an absence, and an absence is
-invisible. *** E16 stays CLAIMED, round two builds the matrix.
-TAB: NOT IN A TAB YET. No game code touched, ever.
-
-COUNTER-FINDING 1: "HE MENTIONED IT" IS NOT "HE REVIEWED IT", AND THE ERROR IS LOPSIDED. The job
-says check whether any ruling of his has ever MENTIONED a thing. A machine that greps his rulings
-for a name will mark things SEEN that he only went past, and the two mistakes do not cost the
-same. A false SEEN removes the item from the rota FOREVER and hides the exact thing this job
-exists to find. A false UNSEEN costs one look and he says "yeah I ruled on that".
-  SO ROUND TWO IS TUNED THE OPPOSITE WAY TO THIS LANE'S USUAL INSTINCT. Normally I tune against
-  false alarms because a checker that cries wolf gets muted. Here PRECISION ON THE SEEN SIDE is
-  what matters: count as seen only what carries an explicit judgement, and treat everything
-  ambiguous as unseen. A slightly long rota is cheap. A permanently hidden item is not.
-
-COUNTER-FINDING 2: A LIST OF UNSEEN THINGS IS A BACKLOG, AND A BACKLOG AIMED AT ONE PERSON IS
-WHAT EVERYTHING IS A THUMB ABOLISHED. So the brief's "one of them goes in front of him every time"
-is not a preference, it is the only legal shape. And the corollary has to be said out loud: THE
-OTHERS DO NOT WAIT. Under the same law the machine decides and he corrects. What round two
-produces is a ROTA, not a queue.
-
-COUNTER-FINDING 3, AND IT COULD MAKE THE WHOLE JOB MOOT, SO IT IS WRITTEN DOWN NOW RATHER THAN
-DISCOVERED LATER. The record this job came from says, four blind spots further down, that the art
-director has judged 127 garments FOR him AND HE HAS THUMBED ZERO. If that is true then telling him
-WHICH things he has not seen changes nothing, because the bottleneck is not knowledge of the gap,
-it is that a thing he has to go and open does not get opened.
-  SO ROUND TWO HAS A PRIOR QUESTION BEFORE IT BUILDS A ROTA: has any mechanism in this repo's
-  history ever got him to look at a specific named thing? If the honest answer is only "what
-  appeared in the reply itself" and "what he met while playing", then the deliverable is ONE
-  PARAGRAPH IN A REPLY and nothing else gets built. Building a file nobody opens would be a
-  particularly stupid way to fail at a job about things nobody opens.
-
-THE TWO PATTERNS SCHOOL HANDED OVER:
-  THE PRODUCTION TRACKER. Every version of every shot carries a review status: Pending Review by
-  default, PENDING DIRECTOR REVIEW when it has been reviewed once but still needs the director,
-  then Final. And the tool ships the views that follow: a Need to Review tab, a DIRECTOR NEEDS TO
-  REVIEW tab, and a Finals tab. Notes attach to a specific VERSION, so an approval is traceable to
-  what was actually on screen when it was given. Their unit is a thing plus who has looked at it,
-  not a task that got done.
-  THE TRACEABILITY MATRIX. QA's version: map every requirement to the test that verifies it, and
-  the value is that it makes the GAPS visible, because a requirement with no linked test is a risk
-  that has not been mitigated. E16 is that matrix with his rulings in place of the tests, and the
-  interesting cell is the empty one. It also gives the number nobody in this project has ever
-  computed: COVERAGE, the share of shipped things on screen that have ever had a word from him.
-
-THE ORDERING IS THE REAL DESIGN DECISION, AND OLDEST-UNSEEN IS WRONG. Nobody reviews everything;
-risk-based approaches exist so effort is focused rather than spread equally. Sorting by age puts
-the oldest trivial thing in front of him while something load-bearing stays unseen forever. Round
-two carries a RISK column and surfaces one item chosen by risk, with the reason stated. Highest
-risk is a thing on the player's path in the first minute, or a thing the loop leans on.
-
-AND THE BIAS HAS A NAME THAT SHARPENS THE FIX: the availability heuristic, and the part that
-matters is not "recency" but that availability bias is a tendency to be influenced by information
-that is VISIBLE and to IGNORE HIDDEN INFORMATION, with the out-of-sight effect depending on
-whether the element is PRESENT at the moment of deciding. A list he does not open IS hidden
-information. The fix is to make the unseen thing present in the reply he is already reading.
-
-RULE ZERO, AND THIS JOB HAS UNUSUALLY GOOD GROUND TRUTH ALREADY WRITTEN DOWN. The blind-spot
-record names both sides: things he ruled on (the UI at 50%, the zoom, the tutorial pop-up, the
-cloud) and things he has not (the fold, the animal opening, the perk tree, the reckoning card, the
-room fight, the room's own song). So round two plants both. A known-SEEN item must come back SEEN
-or the sweep is blind to his rulings and its rota is noise. A known-UNSEEN item must come back
-UNSEEN or the sweep is overcounting SEEN, which by counter-finding 1 is the failure that hides
-things forever. Both pass or no number is printed.
-
-BLIND SPOTS TO DECLARE IN ROUND TWO: the board is not the game, and a SHIPPED line is a CLAIM, not
-a thing on screen -- E11 and E13 both found shipped claims that were not true on the surface.
-"Reaches a tab" is a proxy for reachable and this lane has already caught itself measuring a frame
-the player never sees. His rulings from before the board existed live in transcripts nobody kept,
-so the matrix can only ever say "no ruling ON RECORD". And nothing in it measures whether he would
-LIKE any of it, which is the whole point of putting it in front of him.
-
-STILL OPEN IN MY QUEUE AFTER THIS: E17 [locked ignored], E18 [he can hear it]. Both two rounds,
-school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Sixteen instruments and three suite gates exist now.
-  2. THE BOARD HAS NO SEEN-BY-HIM FIELD. Real trackers make it a status with its own tab. That is
-     a board change, not a lane change, so it is noted here and not made.
-  3. Counter-finding 3 above is a question about the person, out of the coordinator's own record:
-     he has thumbed zero of 127. Round two tests it rather than assuming the rota will work.
-  4. THE SCOPE HOLE from E15 still stands: a building, a face, a prop or a vehicle is graded by no
-     machine on E7's sheet.
-  5. Still unclaimed: the MIX METER (E5 gap 10).
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
-last round: PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0, attempt 15/0.
-
-PROOF: records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md (226 lines,
-14 sources); banks/eyes/BOHEMIA_EYES_E16_ROTA_SPEC_9_11_26.json (draft:true); VAMILY lane 17 E16
-CLAIMED ROUND 1 OF 2.
 
 WORDS (words-8dqrnq): 9/11 (b) -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
 School reshaped every ask: not one is written as a plea, because the ask almost always works

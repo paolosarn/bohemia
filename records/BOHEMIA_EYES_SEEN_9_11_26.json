@@ -1,0 +1,2627 @@
+{
+ "what": "EYES AND EARS -- E16 [never opened] round 2. What he has never seen.",
+ "date": "9/11/26",
+ "school": "records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md",
+ "prior_question": {
+  "verdict_records": 76,
+  "records_carrying_his_own_verbatim_words": 39,
+  "newest_that_is_his": "BOHEMIA_CLIP_VERDICTS_9_7_26.txt",
+  "oldest_that_is_his": "BOHEMIA_MARKING_VERDICTS_7_17_26.txt",
+  "answer": "YES -- a judge page has repeatedly got his words out of him, 39 times, most recently BOHEMIA_CLIP_VERDICTS_9_7_26.txt. A rota can ride on that."
+ },
+ "where_the_citation_goes": {
+  "OPEN": {
+   "rows": 161,
+   "citing_him": 54,
+   "pct": 33.5
+  },
+  "CLAIMED": {
+   "rows": 16,
+   "citing_him": 6,
+   "pct": 37.5
+  },
+  "SHIPPED": {
+   "rows": 210,
+   "citing_him": 25,
+   "pct": 11.9
+  }
+ },
+ "rulings_read": 341,
+ "counts": {
+  "shipped_rows": 205,
+  "seen": 4,
+  "unseen": 201,
+  "unseen_in_the_first_minute": 58,
+  "coverage_pct": 2.0
+ },
+ "seen_bar": "the row cites a ruling of his in its own text. keyword matching was tried first and abandoned: 3 hits in 205, at least 2 spurious, and the batteries row did not match because CLAUDE.md summarises him rather than quoting him. the board and his rulings do not share a vocabulary.",
+ "blind_spots": [
+  "the board is not the game: a SHIPPED line is a claim, not a thing on screen",
+  "his rulings from before the board existed live in transcripts nobody kept, so this can only say \"no ruling ON RECORD\"",
+  "matching a row to a quote is by distinctive words, so a row he ruled on in different words reads UNSEEN -- which is the safe direction on purpose",
+  "nothing here measures whether he would LIKE any of it"
+ ],
+ "rows": [
+  {
+   "lane": "WORLD",
+   "label": "a days work",
+   "name": "EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER",
+   "keys": [
+    "everybody",
+    "valley",
+    "except",
+    "player"
+   ],
+   "text": "9/7 4f55d76  [a days work]  EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER  (the player has the act the whole valley already had: a WORK button where his feet are, SITE work on his own job distri",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "parties move",
+   "name": "GROUPS-WITH-THEIR-OWN-BUSINESS",
+   "keys": [
+    "groups",
+    "business"
+   ],
+   "text": "9/11 75ac79c  [parties move]  GROUPS-WITH-THEIR-OWN-BUSINESS  (28 parties out of the 14 seats with his three agendas -- a caravan carrying, a patrol holding a border, a crew going to take something --",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "battery money",
+   "name": "BB-BATTERIES-ARE-THE-MONEY",
+   "keys": [
+    "batteries",
+    "money"
+   ],
+   "text": "9/5 ce39270  [battery money]  BB-BATTERIES-ARE-THE-MONEY  (with BB-THE-LETTER-IS-ONE, one job)",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "prices one",
+   "name": "BB-THE-LETTER-IS-ONE",
+   "keys": [
+    "letter"
+   ],
+   "text": "9/5 ce39270  [prices one]  BB-THE-LETTER-IS-ONE  (shipped inside [battery money]; the queue marks them one job)",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "living costs",
+   "name": "BB-FOUR-VERBS-THREE-CURRENCIES",
+   "keys": [
+    "verbs",
+    "three",
+    "currencies"
+   ],
+   "text": "9/5 5b61303  [living costs]  BB-FOUR-VERBS-THREE-CURRENCIES  (all four verbs post on the walked surface and in the demo, the reckoning names each one; records/BOHEMIA_THE_FOUR_VERBS_EAT_9_5_26.md)",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "WORLD",
+   "label": "lights bill",
+   "name": "BB-THE-NIGHT-EATS-POWER",
+   "keys": [
+    "night",
+    "power"
+   ],
+   "text": "9/5 94ca570  [lights bill]  BB-THE-NIGHT-EATS-POWER  (a held circuit is billed at nightfall and an unpaid one goes dark and stays dark; what makes a circuit his is a building HE placed; records/BOHEMI",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "faction towns",
+   "name": "",
+   "keys": [
+    "faction",
+    "towns"
+   ],
+   "text": "9/5 fd484b9  [faction towns]  FACTION-TOWNS  (14 seats, each a market on the walked surface and in the demo; FORTRESS/TOWN/CAMP derived from his act1_power, draft:true; the loop and the walked surface",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "WORLD",
+   "label": "held ground",
+   "name": "",
+   "keys": [
+    "ground"
+   ],
+   "text": "9/5 afc3bf7  [held ground]  BB-TURF  (the circuit owner has a real faction name off his own graph; every one of the 9,216 cells in the valley is held, by 14 factions; the card says \"you crossed Mob in",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "WORLD",
+   "label": "faster roads",
+   "name": "BB-ROADS-ARE-FAST",
+   "keys": [
+    "roads"
+   ],
+   "text": "9/5 ba66644  [faster roads]  BB-ROADS-ARE-FAST  (pavement costs half what broken ground costs, so a day on the roads covers 17.1 km against 8.6 off them, across a 9.2 km valley; the baseline never mov",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "rung unlocks",
+   "name": "BB-THE-RUNG-PAYS",
+   "keys": [
+    "unlocks"
+   ],
+   "text": "9/6 44dd7a1  [rung unlocks]  BB-THE-RUNG-PAYS  (rung two grants a DOOR, not a dial: you can build on lit ground a faction holds and does not love you for; a two-month PENDING unblocked without asking ",
+   "seen": true,
+   "ruling": "the row cites him: \"ot love you for; a two-month PENDING unblocked without asking \"",
+   "risk": "later"
+  },
+  {
+   "lane": "WORLD",
+   "label": "enemies unite",
+   "name": "",
+   "keys": [
+    "enemies",
+    "unite"
+   ],
+   "text": "9/6 aace2d9  [enemies unite]  BB-COALITION  (factions who hate each other STOP when they both hate you; a graph edit with no numbers in it, derived so peace dissolves it; the STANDING card names them;",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "WORLD",
+   "label": "shelves premise",
+   "name": "THE-VALLEY-RUNS-OUT",
+   "keys": [
+    "valley"
+   ],
+   "text": "9/6 1f3d342  [shelves premise]  THE-VALLEY-RUNS-OUT  (the nightfall card counts the scarcest good down -- food 7 days, 1 day, less than a day -- and the night it hits zero says THE FOOD IS GONE, once;",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "ten openings",
+   "name": "SEVEN-OF-HIS-TEN-OPENINGS-WERE-NEVER-WRITTEN",
+   "keys": [
+    "seven",
+    "openings",
+    "written"
+   ],
+   "text": "9/7 quests/bq/A01..A07, in the workshop AND the demo AND the city  [ten openings]  SEVEN-OF-HIS-TEN-OPENINGS-WERE-NEVER-WRITTEN -- from the coordinator's locked-rulings sweep (records/BOHEMIA_COORDINA",
+   "seen": true,
+   "ruling": "the row cites him: \"NEVER-WRITTEN -- from the coordinator's locked-rulings sweep (records/BOHEMIA_COORDINA\"",
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "asks exist",
+   "name": "THE-WORLD-DOES-THE-ASKING",
+   "keys": [
+    "world",
+    "asking"
+   ],
+   "text": "9/6 engine/bohemia_asks.js + gates/asks_visible_gate.js (38/0, real surface)  [asks exist]  THE-WORLD-DOES-THE-ASKING -- the generator: turn a running system into somebody standing in front of you who",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "spine first",
+   "name": "THE-LADDER-IS-THE-MAIN-LINE",
+   "keys": [
+    "ladder"
+   ],
+   "text": "9/6 engine/bohemia_ladderwalk.js + bohemia_ladder_data.js + gates/ladder_walk_gate.js (43/0, real surface)  [spine first]  THE-LADDER-IS-THE-MAIN-LINE -- walk the sixty-boss ladder end to end as the s",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "main story",
+   "name": "MAIN-QUEST-SPINE",
+   "keys": [
+    "quest",
+    "spine"
+   ],
+   "text": "9/6 quests/bq/M01..M05 + gates/main_spine_gate.js (49/0), in the workshop AND the demo  [main story]  MAIN-QUEST-SPINE -- Act 1 main quest as .bq stubs from laws/BOHEMIA_STORY_MASTER_7_18_26.md; not o",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "jobs pay",
+   "name": "BB-THE-JOB-PAYS",
+   "keys": [],
+   "text": "9/6 66 pay lines across 20 quests + gates/the_job_pays_gate.js (75/0, purse credited on the walked surface)  [jobs pay]  BB-THE-JOB-PAYS",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "distance shown",
+   "name": "BB-INSIDE-A-DAY",
+   "keys": [
+    "inside"
+   ],
+   "text": "9/7 engine/bohemia_reach.js + gates/inside_a_day_gate.js (25/0), on the offer before he takes it  [distance shown]  BB-INSIDE-A-DAY",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "generation handoff",
+   "name": "THE-FOLD-IN-THE-RUNTIME",
+   "keys": [
+    "runtime"
+   ],
+   "text": "9/7 engine/bohemia_fold.js + gates/fold_runtime_gate.js (35/0), the fold says what you kept and names its missing half  [generation handoff]  THE-FOLD-IN-THE-RUNTIME -- the gen 1 to gen 2 handoff as q",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "QUESTS",
+   "label": "designs playable",
+   "name": "DESIGNS-TO-BQ",
+   "keys": [
+    "designs"
+   ],
+   "text": "9/11 quests/bq/D001 + D002 + D013, in the workshop AND the demo AND the city  [designs playable]  DESIGNS-TO-BQ  *** SHIPPED: 738 lines of finished 7/10 production design had no machine layer and nobo",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "SOUNDS",
+   "label": "heartbeat first",
+   "name": "THE-BEAT-BEFORE-THE-SONG",
+   "keys": [
+    "heartbeat",
+    "first"
+   ],
+   "text": "9/5 [heartbeat first]  THE-BEAT-BEFORE-THE-SONG -- THE MANAGER'S OWN CALL (9/5): the city makes no sound (day 22) and the law is 120 BPM. Put a heartbeat on the walked street from the first second, be",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "SOUNDS",
+   "label": "background sound",
+   "name": "BB-THE-CITY-SENDS-WHERE",
+   "keys": [
+    "sends"
+   ],
+   "text": "9/5 [background sound]  BB-THE-CITY-SENDS-WHERE",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "SOUNDS",
+   "label": "daytime music",
+   "name": "BB-THE-DAY-SONG-PLAYS",
+   "keys": [
+    "plays"
+   ],
+   "text": "9/5 [daytime music]  BB-THE-DAY-SONG-PLAYS",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "SOUNDS",
+   "label": "district sound",
+   "name": "BB-THE-BED-IS-THE-PLACE",
+   "keys": [
+    "place"
+   ],
+   "text": "9/5 [district sound]  BB-THE-BED-IS-THE-PLACE",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "SOUNDS",
+   "label": "power hums",
+   "name": "BB-A-LIT-BLOCK-HUMS",
+   "keys": [
+    "block"
+   ],
+   "text": "9/5 [power hums]  BB-A-LIT-BLOCK-HUMS",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "SOUNDS",
+   "label": "unused sounds",
+   "name": "THE-OTHER-51",
+   "keys": [
+    "other"
+   ],
+   "text": "9/6 [unused sounds]  THE-OTHER-51  (4 rounds. EVERY ONE OF THE 65 APPROVED SOUNDS IS ACCOUNTED FOR: 13 heard on the walked surface, 52 with their own written reason, 0 unexplained. The row was a grep ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "tap picks",
+   "name": "THE-TAP-PICKS-THE-TILE-BELOW",
+   "keys": [
+    "picks",
+    "below"
+   ],
+   "text": "9/11 city-1eztay  [tap picks]  THE-TAP-PICKS-THE-TILE-BELOW -- FIXED, AND THE ROUTING RULING'S TWO NAMED CAUSES WERE BOTH WRONG (the LIFT=1.6 it cites is FORCE_POVERTY_LIFT, an economics constant; toC",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "build default",
+   "name": "THE-FIRST-BUILDING-A-PLAYER-PLACES-IS-AN-AIRBASE",
+   "keys": [
+    "first",
+    "building",
+    "player",
+    "places",
+    "airbase"
+   ],
+   "text": "9/7 city-1eztay  [build default]  THE-FIRST-BUILDING-A-PLAYER-PLACES-IS-AN-AIRBASE -- harvested from ECONOMY round 4 by the coordinator (records/BOHEMIA_THE_HARVEST_9_6_26.md). Tap an empty plot in CI",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "builder works",
+   "name": "BUILDER-ON-A-PHONE",
+   "keys": [
+    "builder",
+    "phone"
+   ],
+   "text": "9/5 93a0c3f  [builder works]  BUILDER-ON-A-PHONE -- prove the aerial build panel works by touch on a real iPhone, or fix it; the backlog says it crashed once and nobody re-checked",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "buildings produce",
+   "name": "",
+   "keys": [
+    "buildings",
+    "produce"
+   ],
+   "text": "9/5 c9504be  [buildings produce]  PRODUCTION-TICK -- on the wake beat, walk every placed building and call produce(); today produce() has one caller and it is a gate",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "building costs",
+   "name": "BUILD-COSTS-ITS-PRICE",
+   "keys": [
+    "costs",
+    "price"
+   ],
+   "text": "9/5 0a258b9  [building costs]  BUILD-COSTS-ITS-PRICE -- CE.build debits PRICES; building is free today and the 8/15 law says the pipe must be exercised",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "builder reachable",
+   "name": "BUILDER-WHERE-HE-WALKS",
+   "keys": [
+    "builder",
+    "walks"
+   ],
+   "text": "9/5 9ddef52  [builder reachable]  BUILDER-WHERE-HE-WALKS -- the build verbs and panel reach the walked surface and the demo; today they live only in the aerial tab",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "people housed",
+   "name": "",
+   "keys": [
+    "people",
+    "housed"
+   ],
+   "text": "9/5 24eb078  [people housed]  HOUSING -- residents per plot, capacity, a population number that moves; the other half of the 7/26 economy law, zero built",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "century memory",
+   "name": "",
+   "keys": [
+    "century",
+    "memory"
+   ],
+   "text": "9/5 66544a0  [century memory]  CENTURY-RECORD -- persist per-act build totals so act 3's city can differ; mechanism ours, every number his",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "feed posts",
+   "name": "THE-FEED-STREAM",
+   "keys": [
+    "stream"
+   ],
+   "text": "9/5 237a79b  [feed posts]  THE-FEED-STREAM -- one event stream the city-screen feed reads: the deed ledger first (exists), then faction/territory events, then ambient life posts; with PEOPLE",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "LIFE + CITY",
+   "label": "combat floor",
+   "name": "THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR",
+   "keys": [
+    "aerial",
+    "combat",
+    "floor"
+   ],
+   "text": "9/5 ffc2d3d  [combat floor]  THE-AERIAL-VIEW-IS-THE-COMBAT-FLOOR -- with COMBAT: the zoomed-out city render is what the fight stands on (9/4 tile law 3b); expose it as a drawable layer COMBAT can cent",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "contact fight",
+   "name": "",
+   "keys": [
+    "contact",
+    "fight"
+   ],
+   "text": "9/6 32de0bf  [contact fight]  TOUCHING A PARTY STARTS THE GROUP FIGHT -- the road has put parties in front of him since 8/27 and the card said, in words, \"Fighting is not in this build yet.\" It is now",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "draw budget",
+   "name": "",
+   "keys": [
+    "budget"
+   ],
+   "text": "9/7 7ee1ed7  [draw budget]  EVERY NEW FIGHT VISUAL ARRIVES WITH ITS COST -- the number the rule demands did not exist: the beat profile prices the WHOLE beat and nothing priced one thing. tools/bohemi",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "first fight",
+   "name": "THE-FIRST-FIGHT-TEACHES-THE-BEAT",
+   "keys": [
+    "first",
+    "fight",
+    "teaches"
+   ],
+   "text": "9/6 2567989  [first fight]  THE-FIRST-FIGHT-TEACHES-THE-BEAT -- one man, on a street, nowhere to hide, no companion, no words: off the beat nothing lands on him and on the beat he goes down, so the ob",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "street fight",
+   "name": "THE-FIGHT-STARTS-WHERE-YOU-STAND",
+   "keys": [
+    "fight",
+    "starts",
+    "stand"
+   ],
+   "text": "9/5 f572532  [street fight]  THE-FIGHT-STARTS-WHERE-YOU-STAND",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "house tiles",
+   "name": "BB-A-TILE-IS-A-HOUSE",
+   "keys": [
+    "house"
+   ],
+   "text": "9/5 91cbd15  [house tiles]  BB-A-TILE-IS-A-HOUSE",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "fights end",
+   "name": "BB-NERVE-ON",
+   "keys": [
+    "nerve"
+   ],
+   "text": "9/5 0d5b24d  [fights end]  BB-NERVE-ON",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COMBAT",
+   "label": "indoor fights",
+   "name": "THE-INDOOR-FIGHT",
+   "keys": [
+    "indoor",
+    "fight"
+   ],
+   "text": "9/5 8646115  [indoor fights]  THE-INDOOR-FIGHT",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "enemies exist",
+   "name": "THERE-ARE-NO-ENEMIES-ON-THE-STREET",
+   "keys": [
+    "enemies",
+    "street"
+   ],
+   "text": "9/5 bb2057b  [enemies exist]  THERE-ARE-NO-ENEMIES-ON-THE-STREET -- ENEMIES EXIST 27/0. Crews of people stand on a corner, clock you while they are still on screen, and CLOSE on you; drawn with the bo",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "hands now",
+   "name": "",
+   "keys": [
+    "hands"
+   ],
+   "text": "9/5 5faf227  [hands now]  HANDS-NOW -- the demo was re-cut and is BYTE-IDENTICAL (the link is today's game), it opens cold on a phone in 572ms, one tap puts a walked world up in 1,669ms, zero page err",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "people saved",
+   "name": "BB-THE-PEOPLE-RIDE-THE-SAVE",
+   "keys": [
+    "people"
+   ],
+   "text": "9/4 df04973  [people saved]  BB-THE-PEOPLE-RIDE-THE-SAVE",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "RUN",
+   "label": "save checked",
+   "name": "BB-THE-GATE-WALKS-THE-PEOPLE",
+   "keys": [
+    "walks",
+    "people"
+   ],
+   "text": "9/5 fb3f19c  [save checked]  BB-THE-GATE-WALKS-THE-PEOPLE",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "demo current",
+   "name": "DEMO-IS-CURRENT",
+   "keys": [
+    "current"
+   ],
+   "text": "9/5 b2db8ca  [demo current]  DEMO-IS-CURRENT -- DEMO CURRENT 16/0. Both surfaces name ONE world and it is the same name; the city's own code is hashed live out of both running frames (not the DOM, whi",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "RUN",
+   "label": "cold hand",
+   "name": "BB-COLD-HAND",
+   "keys": [],
+   "text": "9/5 0c5f568  [cold hand]  BB-COLD-HAND -- COLD HAND 6/0. The one-off from 8/25 is a harness now: it presses the LOUDEST thing on screen (ink area, then contrast, clusters counted as one control) and N",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "RUN",
+   "label": "home screen",
+   "name": "BB-HOME-SCREEN-IS-THE-SAVE",
+   "keys": [
+    "screen"
+   ],
+   "text": "9/5 a3c597a  [home screen]  BB-HOME-SCREEN-IS-THE-SAVE -- INSTALL PATH 27/0. RE-CHECKED THE PLATFORM RULE FIRST as the row demanded: WebKit still deletes all script-writable storage after seven days w",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "RUN",
+   "label": "street encounters",
+   "name": "ROAD-INTERRUPTS-ON-FOOT",
+   "keys": [
+    "interrupts"
+   ],
+   "text": "9/5 868e37f  [street encounters]  ROAD-INTERRUPTS-ON-FOOT -- ROAD ON FOOT 12/0. The twelve road moments now fire on the walked street, not just on the map. TWO THINGS WERE WRONG AND ONLY ONE WAS THE M",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "debts named",
+   "name": "BB-WHAT-YOU-OWE",
+   "keys": [
+    "debts",
+    "named"
+   ],
+   "text": "9/5 4407ef8  [debts named]  BB-WHAT-YOU-OWE -- WHAT YOU OWE 17/0. The reckoning card NAMES WHO YOU LET DOWN now, and who is expecting you tomorrow. The mechanic was already right and completely silent",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "drains shown",
+   "name": "BB-THE-SHADOW-OF-WHAT-YOU-DID",
+   "keys": [
+    "shadow"
+   ],
+   "text": "9/6 5504050  [drains shown]  BB-THE-SHADOW-OF-WHAT-YOU-DID -- DRAINS SHOWN 17/0. HALF WAS ALREADY BUILT (WORLD's living-costs verb lines, kept) and the missing half was the row's clause in capitals: S",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "RUN",
+   "label": "auto walk",
+   "name": "BB-THE-TIME-NOT-THE-TAPS",
+   "keys": [],
+   "text": "9/6 76d29c4  [auto walk]  BB-THE-TIME-NOT-THE-TAPS -- TIME NOT TAPS 19/0. MEASURED FIRST AND IT CHANGED THE JOB: a held press ALREADY keeps going (4s of hold moved 5 cells), so half the row was built ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "title screen",
+   "name": "STOP-AND-COME-BACK",
+   "keys": [
+    "title",
+    "screen"
+   ],
+   "text": "9/6 3ce0f01  [title screen]  STOP-AND-COME-BACK -- COME BACK 25/0, FRONT DOOR 4/0, ALPHA LOADS 20/0, WHOLE DEMO 23/0, DEMO BLOCKERS 22/0. MEASURED FIRST AND TWO THIRDS WERE ALREADY BUILT: the wordmark",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "RUN",
+   "label": "real ending",
+   "name": "AN-ENDING-THAT-IS-NOT-BED",
+   "keys": [
+    "ending"
+   ],
+   "text": "9/6 e4e71e1  [real ending]  AN-ENDING-THAT-IS-NOT-BED -- ENDING 28/0 (was 26/0). *** MEASURED FIRST AND THE ENDING WAS ALREADY BUILT, so no game code changed this round and building a second one would",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "RUN",
+   "label": "weekly goal",
+   "name": "BB-THIS-WEEK",
+   "keys": [
+    "weekly"
+   ],
+   "text": "9/6 c531164  [weekly goal]  BB-THIS-WEEK -- THIS WEEK 15/0. The last card of the day now says WHAT YOU ARE WORKING ON: \"ONE MORE FACTION WITH YOU / 0 of 8 toward the city backing you\". *** MEASURED FI",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "ANIMATION",
+   "label": "elbows bend",
+   "name": "AN-ELBOW-BENDS-ONE-WAY",
+   "keys": [
+    "elbow",
+    "bends"
+   ],
+   "text": "9/11 982c6e0  [elbows bend]  AN-ELBOW-BENDS-ONE-WAY -- every IK clip passed bend:'auto', which solved BOTH elbows each frame and kept whichever hung LOWER on screen: gravity, not a joint, and a knife-",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ANIMATION",
+   "label": "walks at you",
+   "name": "THE-APPROACH-IS-THE-TELL",
+   "keys": [
+    "approach"
+   ],
+   "text": "9/6 d79f0af  [walks at you]  THE-APPROACH-IS-THE-TELL -- MEASURED FIRST: watching, every body stood STILL on its corner; at closeAt four TELEPORTED onto [-1,0][-1,1][1,0][0,1] and never moved again, a",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "ANIMATION",
+   "label": "clip audit",
+   "name": "THE-63-CLIP-AUDIT",
+   "keys": [
+    "audit"
+   ],
+   "text": "9/5  [clip audit]  THE-63-CLIP-AUDIT -- all 105 clips (not 63: 64 canon + 41 candidates) played on the real surface and listed. records/BOHEMIA_THE_63_CLIP_AUDIT_9_5_26.md, gates/clip_audit_gate.js (5",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ANIMATION",
+   "label": "your verdicts",
+   "name": "SHOW-HIM-THE-LIST",
+   "keys": [
+    "verdicts"
+   ],
+   "text": "9/5 07bf561  [your verdicts]  SHOW-HIM-THE-LIST -- the JUDGE ALL panel existed since 7/19 and read \"105 clips, 105 UNJUDGED\" because every row was A WORD AND TWO THUMBS, 1,464px below the picture. Eve",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ANIMATION",
+   "label": "crowd moves",
+   "name": "ANIMATE-THE-CROWD",
+   "keys": [
+    "animate",
+    "crowd"
+   ],
+   "text": "9/5  [crowd moves]  ANIMATE-THE-CROWD -- the valley redraws on the beat while you stand still (renders 1 -> 7 per 3s, 0.2% of a core) and the city cast is baked with a 4-frame breath instead of one st",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "CHARACTER",
+   "label": "stands out",
+   "name": "ONE-STEP-FROM-THE-CROWD-AROUND-IT",
+   "keys": [
+    "crowd",
+    "around"
+   ],
+   "text": "9/6 f7f9f68  [stands out]  ONE-STEP-FROM-THE-CROWD-AROUND-IT (a hostile now sits one value step off the CIVILIANS within four cells of him, light in a dark crowd and dark in a light one, hue kept and ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "CHARACTER",
+   "label": "clothes wired",
+   "name": "WIRE-THE-REMAKE",
+   "keys": [
+    "remake"
+   ],
+   "text": "9/5 16aaf9a  [clothes wired]  WIRE-THE-REMAKE (COOK batches 1-4 landed: canon 280 -> 320, 0 unworn over 4000 citizens, every layer wired, all 320 on a bench and in the demo; the card's one-accent rule",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "CHARACTER",
+   "label": "hair sheet",
+   "name": "HAIR-REF-EIGHT-FACINGS",
+   "keys": [
+    "eight",
+    "facings"
+   ],
+   "text": "9/5 6d566d4  [hair sheet]  HAIR-REF-EIGHT-FACINGS (the generator had THREE facings and the game has eight: NE was the same picture as NW on 23 of 24 cuts, 18 of 24 showed six pictures out of eight, an",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "make it right",
+   "name": "NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN",
+   "keys": [
+    "nothing",
+    "forgiven"
+   ],
+   "text": "9/7 63646ffd  [make it right]  NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN  (the other half of standing exists: a deed can be SETTLED. Verified first, because a row is a claim until you run it -- all eight w",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "who is hostile",
+   "name": "THE-CROWD-CARRIES-THE-SIGN",
+   "keys": [
+    "crowd",
+    "carries"
+   ],
+   "text": "9/5 7ca3d97  [who is hostile]  THE-CROWD-CARRIES-THE-SIGN -- the between-ledger already computes who is hostile to you (sorted hostile-first, they charge more, \"only enemies watch you\"). None of that ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "your reputation",
+   "name": "BB-STANDING-PLAYER",
+   "keys": [
+    "standing",
+    "player"
+   ],
+   "text": "9/5 3aa7fa1  [your reputation]  BB-STANDING-PLAYER",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "gate red",
+   "name": "PEOPLE-GATE-RED",
+   "keys": [
+    "people"
+   ],
+   "text": "9/5 35e44ba  [gate red]  PEOPLE-GATE-RED -- gates/people_gate.js runs 148 passed, 10 failed as of 9/4 (measured by the coordinator; it reads engine/, tools/ and slices/, none of which the coordinator ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "demo talks",
+   "name": "TALK-REACHES-THE-DEMO",
+   "keys": [
+    "reaches"
+   ],
+   "text": "9/5 baab7c5  [demo talks]  TALK-REACHES-THE-DEMO -- 236 @TALK nodes and 504 @SAY lines are parsed and mute in the demo file",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "outfits nearby",
+   "name": "OUTFITS-AT-SPAWN",
+   "keys": [
+    "outfits",
+    "spawn"
+   ],
+   "text": "9/5 9acc9c0  [outfits nearby]  OUTFITS-AT-SPAWN -- zero of 34 people within six cells wear one",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "former jobs",
+   "name": "BB-WHAT-YOU-WERE",
+   "keys": [
+    "former"
+   ],
+   "text": "9/6 251cebc  [former jobs]  BB-WHAT-YOU-WERE",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "family events",
+   "name": "",
+   "keys": [
+    "family",
+    "events"
+   ],
+   "text": "9/7 500f3285  [family events]  FAMILY-EVENTS  (the family arrived 9/4 and then never changed again -- family.tree 0, selectHeir 0, runDynasty 0 in both files that make up the game, four people frozen ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PEOPLE",
+   "label": "neglect costs",
+   "name": "BB-OBLIGATION-BURN",
+   "keys": [
+    "obligation"
+   ],
+   "text": "9/7 d403bdc6  [neglect costs]  BB-OBLIGATION-BURN  (THE STAKES TABLE HAS ITS FIRST ENTRY EVER and it is an obligation, not a meter. Measured first and it was worse than the row said: the socket has be",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "who holds",
+   "name": "EVERY-DISTRICT-HAS-AN-OWNER",
+   "keys": [
+    "every",
+    "district",
+    "owner"
+   ],
+   "text": "9/6 8bf3a91  [who holds]  EVERY-DISTRICT-HAS-AN-OWNER  (every one of the 9216 cells belongs to a faction AND every place two owners meet now runs along a road, a freeway, a rail line, a wash, a mounta",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "faction homes",
+   "name": "",
+   "keys": [
+    "faction",
+    "homes"
+   ],
+   "text": "9/5 1ec213f  [faction homes]  FACTION-SEATS  (all 14 seated on ground their own note in his faction graph names -- Mob on the Strip, Remnants on law-enforcement ground, Homeless on sewer works; ONE pl",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "hidden factions",
+   "name": "THE-OTHER-FOUR",
+   "keys": [
+    "other"
+   ],
+   "text": "9/6 f554a28  [hidden factions]  THE-OTHER-FOUR  (measured first: 0 of 5148 people could carry Pures, Panthers, La Familia or Triads, while all four already had an authored line nobody could ever hear ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "colours fixed",
+   "name": "",
+   "keys": [
+    "colours",
+    "fixed"
+   ],
+   "text": "9/6 0160c71  [colours fixed]  COLOUR-AUDIT  (every faction already HAD a colour -- he answered it garment by garment 8/26 -- and it existed only as rendered pixels, so nothing in the game could reach ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "town sizes",
+   "name": "TOWN-TIERS-ARE-HIS",
+   "keys": [
+    "tiers"
+   ],
+   "text": "9/6 a04fc969  [town sizes]  TOWN-TIERS-ARE-HIS  (the derivation shipped 9/5; what was missing was HIS DOOR, and it did not need him. Tab: DIRECT, a fourth mode beside CUTSCENES/QUESTS/STANDING: fourte",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "light owners",
+   "name": "NAME-THE-CIRCUIT-OWNER",
+   "keys": [
+    "circuit",
+    "owner"
+   ],
+   "text": "9/6 8cc0c6ad  [light owners]  NAME-THE-CIRCUIT-OWNER  (it said \"needs Paolo (who holds what)\" and who holds what shipped earlier the same round, so the blocker was gone. Measured: 204 lit circuits, on",
+   "seen": true,
+   "ruling": "the row cites him: \"NAME-THE-CIRCUIT-OWNER  (it said \"needs Paolo (who holds what)\" and who holds what shipped earlier the same round, so the blocker was g\"",
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "enemies unite",
+   "name": "",
+   "keys": [
+    "enemies",
+    "unite"
+   ],
+   "text": "9/6 388284d6  [enemies unite]  BB-COALITION  (with WORLD, who shipped the graph edit and the card aace2d9. MEASURED after that landed: formed() had EXACTLY ONE CALLER in the whole game and it was that",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "broke raiders",
+   "name": "BB-UNPAID-TURNS-PREDATORY",
+   "keys": [
+    "unpaid",
+    "turns",
+    "predatory"
+   ],
+   "text": "9/6 c25e98dc  [broke raiders]  BB-UNPAID-TURNS-PREDATORY  (putting a faction's lights out was a free win and costs something now. His own study is the spec -- the free companies \"made a living by plun",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "FACTIONS",
+   "label": "repeat interval",
+   "name": "ENCOUNTER-REPEAT-INTERVAL",
+   "keys": [
+    "encounter",
+    "repeat",
+    "interval"
+   ],
+   "text": "9/7 1c0a9036  [repeat interval]  ENCOUNTER-REPEAT-INTERVAL -- DECIDED by the coordinator 9/5 (a number is never his question): the same encounter does not repeat for the same player inside THREE in-ga",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "telling apart",
+   "name": "",
+   "keys": [
+    "telling",
+    "apart"
+   ],
+   "text": "9/6 school records/BOHEMIA_WORDS_Q1_SCHOOL_WHY_THREE_LINES_CANNOT_CARRY_A_FINGERPRINT_9_6_26.md + writing records/BOHEMIA_WORDS_Q1_ROUND_TWO_THE_WRITING_9_6_26.md (both rounds, per the 9/6 mode)  [tel",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "stressed speech",
+   "name": "",
+   "keys": [
+    "stressed",
+    "speech"
+   ],
+   "text": "9/6 school records/BOHEMIA_WORDS_Q2_SCHOOL_THE_HESITATION_IS_A_MYTH_9_6_26.md + writing records/BOHEMIA_WORDS_Q2_ROUND_TWO_THE_WRITING_9_6_26.md (both rounds, per the 9/6 mode)  [stressed speech]  Q2 ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "crowd talk",
+   "name": "",
+   "keys": [
+    "crowd"
+   ],
+   "text": "9/6 school records/BOHEMIA_WORDS_Q3_SCHOOL_THE_FIRST_REPEAT_IS_A_FEATURE_9_6_26.md + writing records/BOHEMIA_WORDS_Q3_ROUND_TWO_THE_WRITING_9_6_26.md (both rounds, per the 9/6 mode)  [crowd talk]  Q3 ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "beat speech",
+   "name": "",
+   "keys": [
+    "speech"
+   ],
+   "text": "9/4 records/BOHEMIA_WORDS_Q4_SPEECH_ON_A_BEAT_9_4_26.md  [beat speech]  Q4  Speech on a beat. At 120 BPM how many words fit one beat, two, four; how the best rhythm-aware games pace a line; what a lin",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "refusing answers",
+   "name": "",
+   "keys": [
+    "refusing",
+    "answers"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q5_REFUSAL_9_5_26.md  [refusing answers]  Q5  Refusal. How the best games let a character NOT answer, change the subject, or lie by omission, and how the player still learns ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "power talk",
+   "name": "",
+   "keys": [
+    "power"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q6_TALKING_ACROSS_A_POWER_GAP_9_5_26.md  [power talk]  Q6  Talking across a power gap. Sociolinguistics of address: how a boss talks to a hand, a stranger to a fortress, a ca",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "second meeting",
+   "name": "",
+   "keys": [
+    "second",
+    "meeting"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q7_THE_SECOND_CONVERSATION_9_5_26.md  [second meeting]  Q7  The second conversation. How speech changes when a person REMEMBERS you (our memory organ already tracks it). What",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "grief talk",
+   "name": "",
+   "keys": [
+    "grief"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q8_GRIEF_SPEECH_9_5_26.md  [grief talk]  Q8  Grief speech. The cold open kills the sister. How real people talk in the first hour, the first day, the first month, and which g",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "WORDS",
+   "label": "trade talk",
+   "name": "",
+   "keys": [
+    "trade"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q9_WHAT_A_TRADE_LEAVES_IN_A_MOUTH_9_5_26.md  [trade talk]  Q9  What a former trade sounds like. A dealer, a lineman, a laundry chief, a pit boss: the vocabulary and metaphors",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "threat talk",
+   "name": "",
+   "keys": [
+    "threat"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q10_THREATS_THAT_ESCALATE_AND_THREATS_THAT_DE_ESCALATE_9_5_26.md  [threat talk]  Q10 Threats that de-escalate and threats that escalate. What real negotiators and the best-wr",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "face carries",
+   "name": "",
+   "keys": [
+    "carries"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q11_WHAT_THE_FACE_CAN_CARRY_9_5_26.md  [face carries]  Q11 What the face can carry so the words do not have to. At 64 px with mouth, blink and brow, which emotions read witho",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "naming people",
+   "name": "",
+   "keys": [
+    "naming",
+    "people"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q12_NAMES_AND_NICKNAMES_9_5_26.md  [naming people]  Q12 Names and nicknames. How people in a collapsed city name each other and places (real post-disaster naming, gang and cr",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "rumours spread",
+   "name": "",
+   "keys": [
+    "rumours",
+    "spread"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q13_HOW_A_RUMOUR_TRAVELS_9_5_26.md  [rumours spread]  Q13 Rumour. How true and false news moves through a small world by speech alone, in the real record and in the best game",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "feed voice",
+   "name": "",
+   "keys": [
+    "voice"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q15_HOW_A_FEED_TALKS_9_5_26.md  [feed voice]  Q15 How a feed talks. The city screen scrolls posts about what you did and what the world did. What real small-community feeds a",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "cut off",
+   "name": "",
+   "keys": [],
+   "text": "9/5 records/BOHEMIA_WORDS_Q16_THE_COLLECTOR_AND_THE_CUT_OFF_9_5_26.md  [cut off]  Q16 How the collector talks and how a cut-off is said. Real testimony from Lebanese and Iraqi households about the gen",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "rumour words",
+   "name": "",
+   "keys": [
+    "rumour",
+    "words"
+   ],
+   "text": "9/5 records/BOHEMIA_WORDS_Q17_WHAT_A_DISTORTED_RUMOUR_SOUNDS_LIKE_9_5_26.md  [rumour words]  Q17 What a distorted rumour sounds like. PEOPLE is building rumours that travel about somebody who is not y",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "WORDS",
+   "label": "asking words",
+   "name": "",
+   "keys": [
+    "asking",
+    "words"
+   ],
+   "text": "9/11 school records/BOHEMIA_WORDS_Q18_SCHOOL_THE_ASK_WORKS_AND_THE_ASKER_DOES_NOT_KNOW_IT_9_11_26.md + writing records/BOHEMIA_WORDS_Q18_ROUND_TWO_THE_WRITING_9_11_26.md (both rounds, per the 9/6 mode",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "UI",
+   "label": "phone object",
+   "name": "THE-FEED-IS-A-BLACK-BOX-NOT-A-PHONE",
+   "keys": [
+    "black",
+    "phone"
+   ],
+   "text": "9/11 (gates/phone_object_gate.js 18/0, both battery branches proved; records/BOHEMIA_THE_PHONE_IS_AN_OBJECT_9_11_26.md; sheet slices/BOHEMIA_THE_PHONE_IS_AN_OBJECT_9_11_26.html)  [phone object]  THE-F",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "UI",
+   "label": "pad broken",
+   "name": "THE-ACTION-BUTTON-IS-FUCKED-UP",
+   "keys": [
+    "action",
+    "button",
+    "fucked"
+   ],
+   "text": "9/7 (gates/pad_ring_gate.js 19/0, mutation-proved; records/BOHEMIA_THE_PAD_IS_ONE_RING_BUILT_9_7_26.md; his pick off slices/BOHEMIA_THE_PAD_IS_ONE_RING_9_7_26.html)  [pad broken]  THE-ACTION-BUTTON-IS",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "UI",
+   "label": "half size",
+   "name": "",
+   "keys": [],
+   "text": "9/7 8a130456 (gates/half_size_gate.js 7/0; slices/BOHEMIA_CITY_WORLD.html BOHEMIA_HALF; the record of what did not survive is records/BOHEMIA_HALF_SIZE_WHAT_IT_COST_9_7_26.md)  [half size]  EVERY UI O",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "UI",
+   "label": "danger visible",
+   "name": "YOU-CAN-SEE-IT-COMING",
+   "keys": [
+    "coming"
+   ],
+   "text": "9/5 86da925d  [danger visible]  YOU-CAN-SEE-IT-COMING -- THE MANAGER'S OWN CALL (9/5): a fight that arrives with no warning on a phone is a rage quit. Before you walk into a dangerous block you can SE",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "UI",
+   "label": "city feed",
+   "name": "THE-FEED-ON-THE-CITY-SCREEN",
+   "keys": [
+    "screen"
+   ],
+   "text": "9/5 1d5137d3  [city feed]  THE-FEED-ON-THE-CITY-SCREEN -- in CITY mode a phone screen on the UI scrolls a social feed: your finished quests, what the world did, auto-generated life; reads the deed led",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "UI",
+   "label": "one number",
+   "name": "BB-ONE-NUMBER",
+   "keys": [
+    "number"
+   ],
+   "text": "9/5 fa34aebc  [one number]  BB-ONE-NUMBER",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "UI",
+   "label": "settings pause",
+   "name": "SETTINGS-AND-PAUSE",
+   "keys": [
+    "settings",
+    "pause"
+   ],
+   "text": "9/5 b0625a24  [settings pause]  SETTINGS-AND-PAUSE -- volume, mute, quit, save; NO pause button, because I-MOVE-YOU-MOVE means there is no clock to stop",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "UI",
+   "label": "first teaching",
+   "name": "FIRST-RUN-TEACHING",
+   "keys": [
+    "first",
+    "teaching"
+   ],
+   "text": "9/6 0c2f728d  [first teaching]  FIRST-RUN-TEACHING -- three nudges, one at a time: the pad, the phone, DROP IN. A ring on the real control and one line, cleared by DOING THE THING, never seen again. N",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "UI",
+   "label": "phone readable",
+   "name": "ACCESSIBLE-ON-A-PHONE",
+   "keys": [
+    "accessible",
+    "phone"
+   ],
+   "text": "9/6 4c397639  [phone readable]  ACCESSIBLE-ON-A-PHONE -- text size, tap targets, colour-blind safety on faction colours, motion; the Game Accessibility Guidelines basic tier that the sound and colour ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "UI",
+   "label": "reactions explained",
+   "name": "",
+   "keys": [
+    "reactions",
+    "explained"
+   ],
+   "text": "9/6 ce2ec931  [reactions explained]  BB-WHY -- the companion says WHY, not what: the reason is drawn ON the body she chose, a line from her to him and three or four plain words, for one beat, then gon",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "UI",
+   "label": "crisis warning",
+   "name": "",
+   "keys": [
+    "crisis",
+    "warning"
+   ],
+   "text": "9/6 c385d0a5  [crisis warning]  BB-FORETOLD -- the valley says it is running out WHILE YOU PLAY, on the feed, and the closer it gets the more often it says so; silent above a week, stops at zero becau",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "city look",
+   "name": "WHAT-A-REALISTIC-CITY-FROM-ABOVE-IS-IN-OUR-PIXELS",
+   "keys": [
+    "realistic",
+    "above",
+    "pixels"
+   ],
+   "text": "9/11 f7fcaf4  [city look]  WHAT-A-REALISTIC-CITY-FROM-ABOVE-IS-IN-OUR-PIXELS (records/BOHEMIA_CITY_FROM_ABOVE_LOOK_CARD_9_11_26.md: measured off the approved act-1 corpus - ground brightest 0.47-0.74 ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "density ruling",
+   "name": "THE-RE-COOK-IS-TOO-CLEAN",
+   "keys": [
+    "clean"
+   ],
+   "text": "9/6 182a572  [density ruling]  THE-RE-COOK-IS-TOO-CLEAN (ruled in the style card 5A: density >= 4.5 colours/kpx, adjacent-step hue >= 3.0 deg, both at the leanest art he approved; re-measured both set",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "",
+   "name": "REFERENCE-BESIDE-EVERY-CANDIDATE",
+   "keys": [
+    "reference",
+    "beside",
+    "every",
+    "candidate"
+   ],
+   "text": "9/5 09c83ba  REFERENCE-BESIDE-EVERY-CANDIDATE -- every judge sheet (VOTE, look sheets, district renders) shows the reference the cook was compared against, side by side; DIRECTION judges the compariso",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "reference library",
+   "name": "THE-REFERENCE-LIBRARY",
+   "keys": [
+    "reference",
+    "library"
+   ],
+   "text": "9/5 191fd5d  [reference library]  THE-REFERENCE-LIBRARY (reference/library/, 9 kinds, 31 entries, machine-parseable for REFERENCE-INDEX) -- one folder per asset kind (district, building, garment, hair",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "reference index",
+   "name": "",
+   "keys": [
+    "reference",
+    "index"
+   ],
+   "text": "9/5 b416bc6  [reference index]  REFERENCE-INDEX (derived by tools/bohemia_reference_index.py; 31 refs, hard-fails on malformed entries) -- an index file the reference_check_gate can resolve a REFERENC",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "",
+   "name": "THE-REFERENCE-GATE-IS-NOT-THERE",
+   "keys": [
+    "reference"
+   ],
+   "text": "9/6 7f59b0e  [eyes: gate missing]  THE-REFERENCE-GATE-IS-NOT-THERE (gates/reference_check_gate.py exists and is suite-registered: REF-IDs resolve or red, new cooks carry checks or red, 85 pre-law tool",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "runway shapes",
+   "name": "",
+   "keys": [
+    "runway",
+    "shapes"
+   ],
+   "text": "9/5 32338e1  [runway shapes]  RUNWAY-REFERENCE (reference/library/runway/, 13 shapes: shoulder x3, drape x3, hem x3, leg-and-boot x3, the two whole-figure poles) -- the Balenciaga and Rick Owens silho",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "style card",
+   "name": "THE-STYLE-CARD",
+   "keys": [
+    "style"
+   ],
+   "text": "9/5 468fbcb  [style card]  THE-STYLE-CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md: palette measured off the 280-garment canon, the two poles in px at 56/112, machine block for the gate) -- the runway in",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "builder references",
+   "name": "PIXEL-CITY-BUILDER-REFERENCE",
+   "keys": [
+    "pixel",
+    "builder",
+    "reference"
+   ],
+   "text": "9/5 30c01de  [builder references]  PIXEL-CITY-BUILDER-REFERENCE (reference/library/city-builder/, 7 entries annotated at our 44px cell / house-tile / mile-grid scale) -- the best pixel city-builder di",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "opening references",
+   "name": "FIRST-HOUR-REFERENCE",
+   "keys": [
+    "first",
+    "reference"
+   ],
+   "text": "9/5 1a06017  [opening references]  FIRST-HOUR-REFERENCE (reference/library/first-hour/, 6 openings as beats, each with the one rule it teaches) -- the first ten minutes of the best games ever made, wr",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "style checker",
+   "name": "STYLE-CARD-GATE",
+   "keys": [
+    "style"
+   ],
+   "text": "9/5 5e6ef42  [style checker]  STYLE-CARD-GATE (gates/style_card_gate.py, registered in the suite; born green and proven to bite: register-or-accent for new cooks, runway-black outers, the 82/256 ratch",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "batch judging",
+   "name": "JUDGE-EVERY-ART-BATCH",
+   "keys": [
+    "judge",
+    "every",
+    "batch"
+   ],
+   "text": "9/5 bb04050  [batch judging]  JUDGE-EVERY-ART-BATCH (the VOTE build itself: a red card aborts it, an unregistered cook is refused by name into records/BOHEMIA_VOTE_REFUSALS.txt; pre-law candidates gra",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "fortress look",
+   "name": "FORTRESS-TOWN-CAMP-REFERENCE",
+   "keys": [
+    "fortress",
+    "reference"
+   ],
+   "text": "9/5 6c25769  [fortress look]  FORTRESS-TOWN-CAMP-REFERENCE (reference/library/faction-town/, 3 sheets x 3 entries: baffled gates and claimed podiums, one-street towns, camps whose age is how far the g",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "feed look",
+   "name": "THE-FEED-LOOK",
+   "keys": [],
+   "text": "9/5 4aa52d6  [feed look]  THE-FEED-LOOK (reference/library/feed/, 5 entries: the four-part post, varied heights under one skeleton, ratios at our px, one mark per post kind, the phone stays a phone) -",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "tile ground",
+   "name": "HOUSE-TILE-GROUND-REFERENCE",
+   "keys": [
+    "house",
+    "ground",
+    "reference"
+   ],
+   "text": "9/5 6a29c84  [tile ground]  HOUSE-TILE-GROUND-REFERENCE (reference/library/tile-ground/, 7 entries; the 1x2 house-and-yard ruling verified against real Vegas lot numbers) -- the combat ground now that",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "judge enemies",
+   "name": "THE-HOSTILES-GET-JUDGED",
+   "keys": [
+    "hostiles",
+    "judged"
+   ],
+   "text": "9/6 66ba929  [judge enemies]  THE-HOSTILES-GET-JUDGED (verdict: two war-rank bodies in frame and you cannot find them - all three questions NO; the fix is dressing rules on art that exists, zero new c",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "border card",
+   "name": "THE-TERRITORY-LOOK",
+   "keys": [
+    "territory"
+   ],
+   "text": "9/6 88c2a24  [border card]  THE-TERRITORY-LOOK (records/BOHEMIA_TERRITORY_LOOK_CARD_9_6_26.md: value first / colour on marks under 2% / one-pixel rim on the holder side; clean tag = recent; greyscale ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "cloud look",
+   "name": "WHAT-THE-CLOUD-LOOKS-LIKE",
+   "keys": [
+    "cloud"
+   ],
+   "text": "9/6 e30ce69  [cloud look]  WHAT-THE-CLOUD-LOOKS-LIKE (in the transition card, one mechanism one card: core covers <= 60% of the frame and never all four edges, clears by beat two with zero residue, mu",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "contrast rule",
+   "name": "THE-CONTRAST-RULE-GOES-IN-THE-CARD",
+   "keys": [
+    "contrast"
+   ],
+   "text": "9/6 90f3d56  [contrast rule]  THE-CONTRAST-RULE-GOES-IN-THE-CARD (card section 2B: any TWO of value >= 0.15 from the crowd median / accent >= 48 px^2 / pole silhouette >= 4 px - two can never both be ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "act cards",
+   "name": "",
+   "keys": [
+    "cards"
+   ],
+   "text": "9/6 5605eac  [act cards]  A LOOK CARD PER ACT (records/BOHEMIA_ACT_LOOK_CARDS_9_6_26.md: one grammar three materials - hand-made / printed / made-of-light; layout constant so hands never relearn; purp",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "one at a time",
+   "name": "",
+   "keys": [],
+   "text": "9/6 (this commit)  [one at a time]  NOTE 9/6 FROM THE COORDINATOR: this lane is holding FIVE jobs claimed at once and one open. Same note PLUMBER got: the front page rule is one at a time. Finish or h",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "rule not run",
+   "name": "",
+   "keys": [],
+   "text": "9/6 (this commit)  [rule not run]  NOTE 9/6 FROM THE COORDINATOR: six claimed, one open, and the reason is structural, not effort -- every cook waits on a human judgement. EYES E15 [machine judges] bu",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "judge the car",
+   "name": "THE-CAR-BESIDE-THE-BODY",
+   "keys": [
+    "beside"
+   ],
+   "text": "9/7 815de5b  [judge the car]  THE-CAR-BESIDE-THE-BODY -- Paolo killed the car on sight (records/target/PAOLO_THE_CAR_IS_ASS_9_7_26.jpg). Judge COOK's re-cook against a real wrecked car and against the",
+   "seen": true,
+   "ruling": "the row cites him: \"ge the car]  THE-CAR-BESIDE-THE-BODY -- Paolo killed the car on sight (records/target/PAOLO_THE_CAR_IS_ASS_9_7_26.jpg). Judge COOK's re\"",
+   "risk": "later"
+  },
+  {
+   "lane": "DIRECTION",
+   "label": "phone card",
+   "name": "WHAT-A-2050-RUSTIC-PHONE-LOOKS-LIKE",
+   "keys": [
+    "rustic",
+    "phone"
+   ],
+   "text": "9/11 19456ad  [phone card]  WHAT-A-2050-RUSTIC-PHONE-LOOKS-LIKE (records/BOHEMIA_PHONE_LOOK_CARD_9_11_26.md: the survivor object - slab/tape/glass, 9:19.5, one crack never over text, glass never true ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COOK",
+   "label": "light agrees",
+   "name": "",
+   "keys": [
+    "light",
+    "agrees"
+   ],
+   "text": "9/6 b5b877c  [light agrees]  TEN TILES ARE LIT FROM THE WRONG CORNER (THE PREMISE WAS WRONG AND NO ART NEEDED CHANGING. E7's finding reproduces exactly, then falls apart twice: key_light() flattens al",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "COOK",
+   "label": "border marked",
+   "name": "THE-BORDER-WEARS-ITS-COLOUR",
+   "keys": [
+    "border",
+    "wears",
+    "colour"
+   ],
+   "text": "9/6 82d6900  [border marked]  THE-BORDER-WEARS-ITS-COLOUR (two rounds. Walk to the edge of a faction's ground and the wall or fence beside you carries that faction's own measured colour; two streets i",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COOK",
+   "label": "runway clothes",
+   "name": "",
+   "keys": [
+    "runway",
+    "clothes"
+   ],
+   "text": "9/5 8851e11  [runway clothes]  WARDROBE-REMAKE (batches 1-6: 22 new SHAPES + 1 the engine could always draw and nothing wore, 50 garments, wardrobe 79 -> 108 shapes, card headline 32% -> 44%; every sh",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COOK",
+   "label": "runway hair",
+   "name": "HAIR-TO-THE-CARD",
+   "keys": [
+    "runway"
+   ],
+   "text": "9/6 e8cbdd6  [runway hair]  HAIR-TO-THE-CARD (three rounds. 1: thirteen haircuts he killed on 8/20 were still shipping as canon sixteen days on and nineteen authored people were wearing them -- the re",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "COOK",
+   "label": "combat ground",
+   "name": "COMBAT-GROUND-TILES",
+   "keys": [
+    "combat",
+    "ground",
+    "tiles"
+   ],
+   "text": "9/7 10929dfe  [combat ground]  COMBAT-GROUND-TILES (two rounds, no pixels cooked in either. ROUND 1 THE GROUND: a quarter of every combat board was one generic `lot` tile standing in for every house, ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "COOK",
+   "label": "light agrees",
+   "name": "",
+   "keys": [
+    "light",
+    "agrees"
+   ],
+   "text": "9/6 b5b877c  [eyes: light drift]  ANSWERED FROM THE MEASUREMENT, NOT RE-DONE. This row repeats E7 verbatim and its premise is the one COOK's [light agrees] line above already disproved on 9/6, three w",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "money dies",
+   "name": "",
+   "keys": [
+    "money"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_1_THE_PRICE_IS_NOT_THE_STORY_9_5_26.md  [money dies]  Q1  The first thirty days after a currency dies. What actually happened to prices, wages and shops in Argentin",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "money returns",
+   "name": "",
+   "keys": [
+    "money",
+    "returns"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_2_THE_MONEY_IS_THE_CHARGE_9_5_26.md  [money returns]  Q2  How money comes back. How a good becomes money when the money is gone (POW-camp cigarettes, prison mackere",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "rebuild order",
+   "name": "",
+   "keys": [
+    "rebuild",
+    "order"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_3_NOBODY_REBUILDS_A_BUILDING_FIRST_9_5_26.md  [rebuild order]  Q3  What people rebuild first. Cuba's Special Period, post-Katrina New Orleans, Detroit, post-Soviet ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "first building",
+   "name": "",
+   "keys": [
+    "first",
+    "building"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_4_THE_FIRST_BUILDING_IS_AN_AIRBASE_9_5_26.md  [first building]  Q4  Placing a building that feels good in the first hour. What the best builder games ever made do i",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "numberless economy",
+   "name": "",
+   "keys": [
+    "numberless",
+    "economy"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_5_FIFTEEN_NUMBERS_ON_THE_SHOP_CARD_9_5_26.md  [numberless economy]  Q5  An economy with no numbers on screen. How the best games show scarcity, price and wealth wit",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "casino backstage",
+   "name": "",
+   "keys": [
+    "casino",
+    "backstage"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_6_A_CASINO_IS_A_JOB_NOT_A_PRIZE_9_5_26.md  [casino backstage]  Q6  Who runs a casino when the money is gone. The back of house as an economy: laundry, kitchens, boi",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "water supply",
+   "name": "",
+   "keys": [
+    "water",
+    "supply"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_7_THE_CITY_SITS_ABOVE_ITS_OWN_WATER_9_5_26.md  [water supply]  Q7  Water. Lake Mead, the real constraint on Las Vegas. What a valley of a few thousand people actual",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "battery value",
+   "name": "",
+   "keys": [
+    "battery",
+    "value"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_8_THE_MONEY_SUPPLY_IS_THE_CELLS_9_5_26.md  [battery value]  Q8  Electricity as money in the real world. Microgrids, battery economics, Nevada solar, what a AA is re",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "trust credit",
+   "name": "",
+   "keys": [
+    "trust",
+    "credit"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_9_A_DEBT_IS_A_PERSON_WHO_REMEMBERS_9_5_26.md  [trust credit]  Q9  Credit without courts. Rotating savings circles, hawala, tabs at a bar: how debt works when nobody",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "market day",
+   "name": "",
+   "keys": [
+    "market"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_10_FOURTEEN_SHOPS_FOR_A_FEW_THOUSAND_PEOPLE_9_5_26.md  [market day]  Q10 The market day. How real periodic markets work (who comes, from how far, how often) and wha",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "inflation feeling",
+   "name": "",
+   "keys": [
+    "inflation",
+    "feeling"
+   ],
+   "text": "9/5/26  records/BOHEMIA_ECONOMY_DAY_11_THE_PRICE_CANNOT_MOVE_AND_THAT_IS_RIGHT_9_5_26.md  [inflation feeling]  Q11 Inflation as a feeling. What runaway prices do to behaviour (spend today, hoard, bart",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "printed money",
+   "name": "",
+   "keys": [
+    "printed",
+    "money"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_13_THE_VALLEY_FILLS_ITSELF_IN_ELEVEN_DAYS_9_6_26.md  [printed money]  Q13 When anyone who owns a building can make money, what happens? The real history of money th",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "rent share",
+   "name": "",
+   "keys": [
+    "share"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_14_THE_RENT_IS_NOT_A_SINK_9_6_26.md  [rent share]  Q14 What share of a family's income goes to the local power boss in a real collapse (Lebanon 44% average, 88% for",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "first hour",
+   "name": "",
+   "keys": [
+    "first"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_15_THE_MISSING_THING_IS_NOT_THE_RICE_IT_IS_THE_BAG_9_6_26.md  [first hour]  Q15 What a player must own by the end of their first hour for the economy to be felt: ho",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "debt spiral",
+   "name": "",
+   "keys": [
+    "spiral"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_16_WE_BUILT_THE_LAST_RUNG_FIRST_9_6_26.md  [debt spiral]  Q16 How a debt becomes unpayable in the real world, step by step (interest, fees, the missed payment, the ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "wages fall",
+   "name": "",
+   "keys": [
+    "wages"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_17_THE_WAGE_LINE_SURVIVES_AND_STOPS_BEING_THE_PAY_9_6_26.md  [wages fall]  Q17 What a day of work is worth when money dies: real wage data from currency collapses (",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "black market",
+   "name": "",
+   "keys": [
+    "black",
+    "market"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_18_A_MARKET_IS_WHAT_IT_REFUSES_9_6_26.md  [black market]  Q18 How a black market actually organises: who sets the price, where it meets, what it refuses to trade, h",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "price moves",
+   "name": "",
+   "keys": [
+    "price",
+    "moves"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_19_THE_WORLD_STOPS_TALKING_ON_DAY_SIXTY_SEVEN_9_6_26.md  [price moves]  Q19 What makes a price move in a place with no market data: how prices actually get set and ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "work feels",
+   "name": "",
+   "keys": [
+    "feels"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_20_EVERYBODY_HAS_A_JOB_EXCEPT_THE_PLAYER_9_6_26.md  [work feels]  Q20 What makes work in a game feel like work worth doing rather than a chore: real research on tas",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "five minute money",
+   "name": "",
+   "keys": [
+    "minute",
+    "money"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_21_THE_ONLY_LOOP_THAT_CLOSES_IS_THE_EXPLOIT_9_6_26.md  [five minute money]  Q21 What an economy can give a player in five minutes that is worth coming back for, fro",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "what a lie costs",
+   "name": "",
+   "keys": [
+    "costs"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_22_THE_FIRST_ONE_IS_A_CLIFF_9_6_26.md  [what a lie costs]  Q22 What being caught lying costs a person in a place with no courts: real material on reputation collaps",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "who eats first",
+   "name": "",
+   "keys": [
+    "first"
+   ],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_23_THE_ORDER_IS_ABOUT_EARNING_NOT_SURVIVING_9_6_26.md  [who eats first]  Q23 When a household cannot feed everybody, who eats: real research on how families ration ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "pay on time",
+   "name": "",
+   "keys": [],
+   "text": "9/6/26  records/BOHEMIA_ECONOMY_DAY_24_THE_MORE_THEY_OWE_YOU_THE_LESS_YOU_LEAVE_9_6_26.md  [pay on time]  Q24 What being paid late does to a person and a town: real research on wage arrears in informa",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "batteries scarce",
+   "name": "",
+   "keys": [
+    "batteries",
+    "scarce"
+   ],
+   "text": "9/7/26  records/BOHEMIA_ECONOMY_DAY_25_A_MONEY_DROUGHT_DOES_NOT_RAISE_PRICES_IT_STOPS_TRADE_9_7_26.md  [batteries scarce]  Q25 What happens to a currency when the thing it is made of stops being made:",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "forgiveness price",
+   "name": "",
+   "keys": [
+    "forgiveness",
+    "price"
+   ],
+   "text": "9/7/26  records/BOHEMIA_ECONOMY_DAY_26_YOU_CANNOT_BUY_IT_BUT_IT_HAS_TO_COST_YOU_9_7_26.md  [forgiveness price]  Q26 What settling a wrong actually costs in the real world: restitution customs, blood m",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "shift pay",
+   "name": "",
+   "keys": [
+    "shift"
+   ],
+   "text": "9/7/26  records/BOHEMIA_ECONOMY_DAY_27_A_SHIFT_PAYS_ONE_THE_DESIGN_IS_HOW_MANY_DAYS_YOU_GET_ONE_9_7_26.md  [shift pay]  Q27 What a shift is worth against everything else: with WORLD [a days work] comi",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "ridge worth",
+   "name": "",
+   "keys": [
+    "ridge",
+    "worth"
+   ],
+   "text": "9/11/26  records/BOHEMIA_ECONOMY_DAY_28_THE_RIDGE_IS_NOT_ABOUT_WHAT_CHANGED_9_11_26.md  [ridge worth]  Q28 What a hundred-year view is worth: the title screen is now the ridge looking down at the city",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "ECONOMY",
+   "label": "nothing left",
+   "name": "",
+   "keys": [
+    "nothing"
+   ],
+   "text": "9/11/26  records/BOHEMIA_ECONOMY_DAY_29_THE_SHELVES_FILL_UP_AND_NOBODY_CAN_BUY_9_11_26.md  [nothing left]  Q29 What people do when the last of a currency runs out for good, and the day after: real end",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "animal play",
+   "name": "",
+   "keys": [
+    "animal"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_1_WHAT_YOU_CAN_DO_WITH_NO_HANDS_9_5_26.md  [animal play]  Q1  Playing as an animal. What the best games ever made do when you are not human: what you can do, what you c",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "coyote life",
+   "name": "",
+   "keys": [
+    "coyote"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_2_A_COYOTE_IN_LAS_VEGAS_9_5_26.md  [coyote life]  Q2  A coyote in Las Vegas. The real ethology of urban coyotes (range, diet, how they read people, how they die) as the",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "heir keeps",
+   "name": "",
+   "keys": [
+    "keeps"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_3_WHAT_CARRIES_ACROSS_A_GENERATION_9_5_26.md  [heir keeps]  Q3  What carries across a generation. In the best games with inheritance, what the heir keeps, what they los",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "third generation",
+   "name": "",
+   "keys": [
+    "third",
+    "generation"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_4_THE_THIRD_GENERATION_9_5_26.md  [third generation]  Q4  The third-generation curse. How real family businesses and dynasties survive or die by the third generation, a",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "growing old",
+   "name": "",
+   "keys": [
+    "growing"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_5_GROWING_OLD_ON_SCREEN_9_5_26.md  [growing old]  Q5  Growing old on screen. How the best games show a character ageing in a way that changes play, not only the portrai",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "time skip",
+   "name": "",
+   "keys": [],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_6_THE_TIME_SKIP_9_5_26.md  [time skip]  Q6  The time skip. How to jump ten years and make the player feel it; what the best games do at a cut like ours (the match cut a",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "family arrives",
+   "name": "",
+   "keys": [
+    "family",
+    "arrives"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_7_A_PARTNER_AND_A_CHILD_9_5_26.md  [family arrives]  Q7  A partner and a child without a chore. How the best games handle a companion becoming family and a child arrivi",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "inherited memory",
+   "name": "",
+   "keys": [
+    "inherited",
+    "memory"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_8_INHERITED_MEMORY_9_5_26.md  [inherited memory]  Q8  Remembering a life you did not play. How the second generation remembers the first: what the game shows the heir a",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "century town",
+   "name": "",
+   "keys": [
+    "century"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_9_A_PLACE_ACROSS_A_HUNDRED_YEARS_9_5_26.md  [century town]  Q9  A place across a hundred years. Real succession of a town (what stays, what is renamed, what is forgotte",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "final act",
+   "name": "",
+   "keys": [
+    "final"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_10_THE_TRANSCENDENT_LAST_ACT_9_5_26.md  [final act]  Q10 The transcendent last act. Not the lore, the SHAPE: how the best games handle a final act where the rules chang",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "lasting death",
+   "name": "",
+   "keys": [
+    "lasting",
+    "death"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_11_DEATH_THAT_IS_NOT_THE_END_9_5_26.md  [lasting death]  Q11 Death that is not the end. How games without permadeath and without a run still make a death matter across ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "what carries",
+   "name": "",
+   "keys": [
+    "carries"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_13_WHAT_CARRIES_AND_WHAT_MUST_DIE_9_5_26.md  [what carries]  Q11 What should carry across the fold and what must die. Both aisles: real family histories (what a child o",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "heir plays",
+   "name": "",
+   "keys": [
+    "plays"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_14_WHAT_THE_HEIR_DOES_DIFFERENTLY_9_5_26.md  [heir plays]  Q12 What the heir DOES differently in their first ten minutes: how real second generations diverge from their",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "child watches",
+   "name": "",
+   "keys": [
+    "child",
+    "watches"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_15_WHAT_A_CHILD_LEARNS_BY_WATCHING_9_5_26.md  [child watches]  Q13 What a child learns by watching a parent work: real research on what children of tradespeople, dealer",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "three arcs",
+   "name": "",
+   "keys": [
+    "three"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_16_THE_THREE_ARCS_AS_VERBS_9_5_26.md  [three arcs]  Q14 Animal, Human, Angel: what those three actually mean as ways of PLAYING, not as story. What changes in the verbs",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "angel means",
+   "name": "",
+   "keys": [
+    "angel",
+    "means"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_17_WHAT_ANGEL_MEANS_AS_VERBS_9_5_26.md  [angel means]  Q15 What \"Angel\" is as a way of playing, not as a story word. Real material: what people across history have mean",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "DYNASTY",
+   "label": "hundred hours",
+   "name": "",
+   "keys": [
+    "hundred",
+    "hours"
+   ],
+   "text": "9/5 records/BOHEMIA_DYNASTY_DAY_18_A_HUNDRED_HOUR_GAME_9_5_26.md  [hundred hours]  Q16 What a hundred-hour game actually asks of a player: real research on session length, return rate and what makes s",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "first pictures",
+   "name": "",
+   "keys": [
+    "first",
+    "pictures"
+   ],
+   "text": "9/5 (47afdb0)  [first pictures]  E0  FIRST ROUND, BEFORE ANY RESEARCH: take a real screenshot of every tab of the alpha and the demo at iPhone size with the Chromium that is installed here, save them ",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "screenshot diffs",
+   "name": "",
+   "keys": [
+    "screenshot",
+    "diffs"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E3_HOW_TO_CATCH_A_VISUAL_REGRESSION_9_5_26.md, gate eyes_gate.js)  [screenshot diffs]  E3  How studios catch visual regressions by machine: golden images, screenshot diffing,",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "audio tells",
+   "name": "",
+   "keys": [
+    "audio",
+    "tells"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E4_THE_EARS_9_5_26.md, 185 picks measured)  [audio tells]  E4  How game audio is judged: loudness standards, clipping, phase, noise floor, the tells of a weak sound effect. R",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "glitch list",
+   "name": "",
+   "keys": [
+    "glitch"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E2_THE_GLITCH_LIST_9_5_26.md, 18 classes, 8 running)  [glitch list]  E2  A glitch taxonomy for OUR game: floating windows, wall gaps, wrong draw order, sprites clipping throu",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "pixel tells",
+   "name": "",
+   "keys": [
+    "pixel",
+    "tells"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E1_THE_PIXEL_TELLS_9_5_26.md, 15 tells, 2 added)  [pixel tells]  E1  How the best pixel art is judged: the objective tells of bad pixel art (banding, pillow shading, jaggies,",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "walk tells",
+   "name": "",
+   "keys": [
+    "tells"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E6_THE_WALK_TELLS_9_5_26.md, 105 clips read)  [walk tells]  E6  What makes a walk or idle cycle read wrong: foot sliding, popping, off-beat timing, a limb that snaps. A check",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "reference score",
+   "name": "",
+   "keys": [
+    "reference",
+    "score"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E7_THE_REFERENCE_SCORE_9_5_26.md, 10 questions, 7 by machine)  [reference score]  E7  A scoring sheet for the compare-to-the-world law: given a cook and its reference side by",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "missing sound",
+   "name": "",
+   "keys": [
+    "missing",
+    "sound"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E5_THE_SOUND_GAP_LIST_9_5_26.md, 10 gaps measured)  [missing sound]  E5  What we are missing against the best-sounding games: occlusion, reverb by space, distance colour, the",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "first minute",
+   "name": "",
+   "keys": [
+    "first",
+    "minute"
+   ],
+   "text": "9/5 (records/BOHEMIA_EYES_E8_THE_FIRST_MINUTE_9_5_26.md, the order + the round runner)  [first minute]  E8  What a human art reviewer does in the first sixty seconds with a new asset, and what a human",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "find them",
+   "name": "CAN-YOU-FIND-THE-ENEMY",
+   "keys": [
+    "enemy"
+   ],
+   "text": "9/5 72e1def (records/BOHEMIA_EYES_E10_CAN_YOU_FIND_THE_ENEMY_9_5_26.md, tools/bohemia_eyes_find_the_enemy.js+.py; shipped 9/5, BEFORE the 9/6 two-round school law, so it had one round not two)  [find ",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "pixels only",
+   "name": "A-RULING-THAT-LIVES-ONLY-AS-PIXELS",
+   "keys": [
+    "ruling",
+    "lives",
+    "pixels"
+   ],
+   "text": "9/6 (BOTH ROUNDS: school records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md, check records/BOHEMIA_EYES_E11_ROUND_2_THE_NO_READER_SWEEP_9_6_26.md; tools/bohemia_eyes_bundle.js + tools/",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "quiet floor",
+   "name": "THE-VALLEY-IS-SILENT-STANDING-STILL",
+   "keys": [
+    "valley",
+    "silent",
+    "standing"
+   ],
+   "text": "9/6 (BOTH ROUNDS: school records/BOHEMIA_EYES_E12_ROUND_1_SCHOOL_WHAT_A_QUIET_PLACE_SOUNDS_LIKE_9_6_26.md, check records/BOHEMIA_EYES_E12_ROUND_2_TEN_SECONDS_OF_STANDING_STILL_9_6_26.md; tools/bohemia",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "half size check",
+   "name": "DID-THE-UI-ACTUALLY-HALVE",
+   "keys": [
+    "actually",
+    "halve"
+   ],
+   "text": "9/7 (BOTH ROUNDS: school records/BOHEMIA_EYES_E13_ROUND_1_SCHOOL_DRAWN_IS_NOT_TOUCHED_9_6_26.md, check records/BOHEMIA_EYES_E13_ROUND_2_WHO_ACTUALLY_GETS_THE_TAP_9_7_26.md; tools/bohemia_eyes_thumbs.j",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "late beat",
+   "name": "IS-THE-BEAT-HE-HEARS-THE-BEAT-THE-GAME-JUDGES",
+   "keys": [
+    "hears",
+    "judges"
+   ],
+   "text": "9/7 (BOTH ROUNDS: school records/BOHEMIA_EYES_E14_ROUND_1_SCHOOL_THE_HUMAN_TAPS_EARLY_9_7_26.md, check records/BOHEMIA_EYES_E14_ROUND_2_THE_BEAT_IS_EAR_TRUE_9_7_26.md; tools/bohemia_eyes_late_beat.js.",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "EYES AND EARS",
+   "label": "machine judges",
+   "name": "THE-MACHINE-PRE-JUDGES-SO-DIRECTION-ONLY-RULES",
+   "keys": [
+    "machine",
+    "judges",
+    "direction",
+    "rules"
+   ],
+   "text": "9/11 (BOTH ROUNDS: school records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md, check records/BOHEMIA_EYES_E15_ROUND_2_THE_JUDGE_ALREADY_EXISTS_9_11_26.md; tools/bohem",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PLUMBER",
+   "label": "unregistered gates",
+   "name": "SIX-GREEN-GATES-THE-SUITE-NEVER-RAN",
+   "keys": [
+    "green",
+    "gates",
+    "suite"
+   ],
+   "text": "9/7 plumber-ont6t5  [unregistered gates]  SIX-GREEN-GATES-THE-SUITE-NEVER-RAN -- all three parts done. (1) SWEPT: 567 gate files against 542 the suite actually ran; EIGHT orphans, listed by lane -- QU",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PLUMBER",
+   "label": "clock math",
+   "name": "HOW-MANY-GAME-MINUTES-PER-REAL-MINUTE",
+   "keys": [
+    "minutes",
+    "minute"
+   ],
+   "text": "9/7 plumber-ont6t5  [clock math]  HOW-MANY-GAME-MINUTES-PER-REAL-MINUTE -- MEASURED, PUBLISHED AND GATED. Four runs on the demo, walking the real city with a real held thumb and reading the game's own",
+   "seen": false,
+   "ruling": null,
+   "risk": "FIRST MINUTE"
+  },
+  {
+   "lane": "PLUMBER",
+   "label": "gate missing",
+   "name": "THE-COMPARE-LAW-HAS-NO-CHECKER",
+   "keys": [
+    "compare",
+    "checker"
+   ],
+   "text": "9/11 plumber-ont6t5  [gate missing]  THE-COMPARE-LAW-HAS-NO-CHECKER -- *** THE ROW WAS STALE: DIRECTION HAD ALREADY BUILT THE ART GATE (7f59b0e) AND I NEARLY SHIPPED A DUPLICATE. I read the board line",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  },
+  {
+   "lane": "PLUMBER",
+   "label": "hot path",
+   "name": "THE-BEAT-LOOP-IS-CLEAN",
+   "keys": [
+    "clean"
+   ],
+   "text": "9/6 plumber-ont6t5  [hot path]  THE-BEAT-LOOP-IS-CLEAN -- both beats profiled for the first time, the five most expensive things named, the ones a measurement justified fixed (the hidden panel, then t",
+   "seen": false,
+   "ruling": null,
+   "risk": "later"
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "what": "EYES AND EARS -- E16 [never opened] -- the citation gap ratchet",
+ "date": "9/11/26",
+ "rule": "the gap between how often an OPEN row cites a ruling of his and how often a SHIPPED row does may only ever SHRINK. closing it means rulings survive shipping.",
+ "frozen_gap": 22.0,
+ "measured": {
+  "open_pct": 34.0,
+  "claimed_pct": 38.0,
+  "shipped_pct": 12.0
+ },
+ "why_the_gap_and_not_a_count": "new rows arrive honestly and would push any absolute number around; the gap is immune to that because both halves move together when the board simply grows."
+}

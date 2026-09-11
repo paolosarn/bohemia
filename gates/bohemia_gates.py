@@ -1945,6 +1945,16 @@ GATES = [
      "bar and no builder's drawer for a stranger to tap REROLL in -- and his "
      "bench still has all sixteen of its tabs, because taking the workshop away "
      "to make a demo would trade one mistake for a worse one", True),
+    ('SEEN BY HIM', ['python3', 'tools/bohemia_eyes_seen.py', '--gate'],
+     "EYES AND EARS lane 17, 9/11, E16 [never opened]: A RULING THE SHIPPED ROW DOES "
+     "NOT CITE IS A RULING NOBODY CAN TRACE. Measured: an OPEN row cites a ruling of "
+     "his 34% of the time and a CLAIMED one 38%, but a SHIPPED row only 12%. The row "
+     "gets rewritten as a result summary when it lands and the ruling it answered goes "
+     "with it, so the link is not missing -- it is DELETED at the exact moment the work "
+     "becomes history. That is why two separate attempts to compute 'has he seen this' "
+     "both came back near zero. This gate freezes THE GAP, not a count, because new "
+     "rows arrive honestly and would push any absolute number around while the gap is "
+     "immune to growth. It may only shrink; closing it means rulings survive shipping.", True),
     ('PRE-JUDGE COVERAGE', ['python3', 'tools/bohemia_eyes_prejudge.py', '--gate'],
      "EYES AND EARS lane 17, 9/11, E15 [machine judges]: A QUESTION THE FLEET THINKS IS "
      "GATED AND IS NOT IS WORSE THAN ONE NOBODY CLAIMS. E7's score sheet splits a cook "
