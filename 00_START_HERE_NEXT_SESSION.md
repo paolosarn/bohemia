@@ -1,3 +1,103 @@
+EYES AND EARS (eyes-5vql33): 9/11 (u) LATEST -- *** E16 [never opened] ROUND ONE OF TWO IS DONE:
+SCHOOL. NO MEASURING, ON PURPOSE. The structural finding: REAL PRODUCTION TRACKERS MAKE "NOT
+REVIEWED YET" A FIRST-CLASS STATUS, with a Pending Director Review state and a whole tab for it.
+OUR BOARD HAS SHIPPED AND NO FIELD AT ALL FOR WHETHER HE HAS EVER LOOKED, so "he has not seen
+this" is not a state anything in this repo can hold. It is an absence, and an absence is
+invisible. *** E16 stays CLAIMED, round two builds the matrix.
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+COUNTER-FINDING 1: "HE MENTIONED IT" IS NOT "HE REVIEWED IT", AND THE ERROR IS LOPSIDED. The job
+says check whether any ruling of his has ever MENTIONED a thing. A machine that greps his rulings
+for a name will mark things SEEN that he only went past, and the two mistakes do not cost the
+same. A false SEEN removes the item from the rota FOREVER and hides the exact thing this job
+exists to find. A false UNSEEN costs one look and he says "yeah I ruled on that".
+  SO ROUND TWO IS TUNED THE OPPOSITE WAY TO THIS LANE'S USUAL INSTINCT. Normally I tune against
+  false alarms because a checker that cries wolf gets muted. Here PRECISION ON THE SEEN SIDE is
+  what matters: count as seen only what carries an explicit judgement, and treat everything
+  ambiguous as unseen. A slightly long rota is cheap. A permanently hidden item is not.
+
+COUNTER-FINDING 2: A LIST OF UNSEEN THINGS IS A BACKLOG, AND A BACKLOG AIMED AT ONE PERSON IS
+WHAT EVERYTHING IS A THUMB ABOLISHED. So the brief's "one of them goes in front of him every time"
+is not a preference, it is the only legal shape. And the corollary has to be said out loud: THE
+OTHERS DO NOT WAIT. Under the same law the machine decides and he corrects. What round two
+produces is a ROTA, not a queue.
+
+COUNTER-FINDING 3, AND IT COULD MAKE THE WHOLE JOB MOOT, SO IT IS WRITTEN DOWN NOW RATHER THAN
+DISCOVERED LATER. The record this job came from says, four blind spots further down, that the art
+director has judged 127 garments FOR him AND HE HAS THUMBED ZERO. If that is true then telling him
+WHICH things he has not seen changes nothing, because the bottleneck is not knowledge of the gap,
+it is that a thing he has to go and open does not get opened.
+  SO ROUND TWO HAS A PRIOR QUESTION BEFORE IT BUILDS A ROTA: has any mechanism in this repo's
+  history ever got him to look at a specific named thing? If the honest answer is only "what
+  appeared in the reply itself" and "what he met while playing", then the deliverable is ONE
+  PARAGRAPH IN A REPLY and nothing else gets built. Building a file nobody opens would be a
+  particularly stupid way to fail at a job about things nobody opens.
+
+THE TWO PATTERNS SCHOOL HANDED OVER:
+  THE PRODUCTION TRACKER. Every version of every shot carries a review status: Pending Review by
+  default, PENDING DIRECTOR REVIEW when it has been reviewed once but still needs the director,
+  then Final. And the tool ships the views that follow: a Need to Review tab, a DIRECTOR NEEDS TO
+  REVIEW tab, and a Finals tab. Notes attach to a specific VERSION, so an approval is traceable to
+  what was actually on screen when it was given. Their unit is a thing plus who has looked at it,
+  not a task that got done.
+  THE TRACEABILITY MATRIX. QA's version: map every requirement to the test that verifies it, and
+  the value is that it makes the GAPS visible, because a requirement with no linked test is a risk
+  that has not been mitigated. E16 is that matrix with his rulings in place of the tests, and the
+  interesting cell is the empty one. It also gives the number nobody in this project has ever
+  computed: COVERAGE, the share of shipped things on screen that have ever had a word from him.
+
+THE ORDERING IS THE REAL DESIGN DECISION, AND OLDEST-UNSEEN IS WRONG. Nobody reviews everything;
+risk-based approaches exist so effort is focused rather than spread equally. Sorting by age puts
+the oldest trivial thing in front of him while something load-bearing stays unseen forever. Round
+two carries a RISK column and surfaces one item chosen by risk, with the reason stated. Highest
+risk is a thing on the player's path in the first minute, or a thing the loop leans on.
+
+AND THE BIAS HAS A NAME THAT SHARPENS THE FIX: the availability heuristic, and the part that
+matters is not "recency" but that availability bias is a tendency to be influenced by information
+that is VISIBLE and to IGNORE HIDDEN INFORMATION, with the out-of-sight effect depending on
+whether the element is PRESENT at the moment of deciding. A list he does not open IS hidden
+information. The fix is to make the unseen thing present in the reply he is already reading.
+
+RULE ZERO, AND THIS JOB HAS UNUSUALLY GOOD GROUND TRUTH ALREADY WRITTEN DOWN. The blind-spot
+record names both sides: things he ruled on (the UI at 50%, the zoom, the tutorial pop-up, the
+cloud) and things he has not (the fold, the animal opening, the perk tree, the reckoning card, the
+room fight, the room's own song). So round two plants both. A known-SEEN item must come back SEEN
+or the sweep is blind to his rulings and its rota is noise. A known-UNSEEN item must come back
+UNSEEN or the sweep is overcounting SEEN, which by counter-finding 1 is the failure that hides
+things forever. Both pass or no number is printed.
+
+BLIND SPOTS TO DECLARE IN ROUND TWO: the board is not the game, and a SHIPPED line is a CLAIM, not
+a thing on screen -- E11 and E13 both found shipped claims that were not true on the surface.
+"Reaches a tab" is a proxy for reachable and this lane has already caught itself measuring a frame
+the player never sees. His rulings from before the board existed live in transcripts nobody kept,
+so the matrix can only ever say "no ruling ON RECORD". And nothing in it measures whether he would
+LIKE any of it, which is the whole point of putting it in front of him.
+
+STILL OPEN IN MY QUEUE AFTER THIS: E17 [locked ignored], E18 [he can hear it]. Both two rounds,
+school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Sixteen instruments and three suite gates exist now.
+  2. THE BOARD HAS NO SEEN-BY-HIM FIELD. Real trackers make it a status with its own tab. That is
+     a board change, not a lane change, so it is noted here and not made.
+  3. Counter-finding 3 above is a question about the person, out of the coordinator's own record:
+     he has thumbed zero of 127. Round two tests it rather than assuming the rota will work.
+  4. THE SCOPE HOLE from E15 still stands: a building, a face, a prop or a vehicle is graded by no
+     machine on E7's sheet.
+  5. Still unclaimed: the MIX METER (E5 gap 10).
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
+last round: PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0, attempt 15/0.
+
+PROOF: records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md (226 lines,
+14 sources); banks/eyes/BOHEMIA_EYES_E16_ROTA_SPEC_9_11_26.json (draft:true); VAMILY lane 17 E16
+CLAIMED ROUND 1 OF 2.
+
 WORDS (words-8dqrnq): 9/11 (b) LATEST -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
 School reshaped every ask: not one is written as a plea, because the ask almost always works
 and the person asking has no idea. And the truest thing in the section is the scene where
@@ -297,121 +397,6 @@ STILL CARRIED, AND STILL NOBODY'S:
 NEXT: Q18 round two, the writing, ten asks from people in different positions, naming which
 of the seven findings above changed them.
 
-EYES AND EARS (eyes-5vql33): 9/11 (t) LATEST -- *** E15 [machine judges] SHIPPED WITH BOTH ROUNDS,
-AND IT DID NOT BUILD WHAT THE JOB ASKED FOR, ON PURPOSE. STEP 0 FOUND THE PREMISE HAD MOVED:
-DIRECTION holds ZERO claimed jobs now, not six. And REUSE-FIRST found the pass mostly already
-built: STYLE CARD, TARGET MATCH and TEXTURE MATCH are all registered and all already grade cooks
-by machine. So building a third judge over the same art would have been a law violation. What
-shipped instead is the thing nobody had: a self-verifying COVERAGE MAP, behind a new registered
-gate, and it found TWO of E7's seven machine questions are performed by NO GATE ANYWHERE. ***
-TAB: NOT IN A TAB YET. No game code touched, ever.
-
-STEP 0, AND SCHOOL IS THE ONLY REASON I RAN IT: "the bottleneck moves, so measure the queue before
-accepting the premise." Measured off the board: LIFE + CITY holds the oldest unshipped claim on the
-whole board. DIRECTION holds 0 CLAIMED and 8 OPEN. The six claims the job was written around have
-cleared.
-  AND WHAT THOSE EIGHT OPEN ROWS ACTUALLY ARE IS THE REAL SHAPE: five of the eight say the card is
-  DELIVERED and the row was reopened per [one at a time]. THE WORK IS DONE. The rows are waiting on
-  a thumb. No pre-judge touches that. It is a queue of finished cards waiting on one person, which
-  is exactly the shape EVERYTHING IS A THUMB was written to abolish, one level up. School's fourth
-  counter-finding predicted it and there it is on the board.
-
-REUSE-FIRST: DIRECTION's own STATE line says the style card gate is suite-registered and that the
-batch-judging seam is closed, and it checks out. STYLE CARD checks a new cook sits in the register
-or is a clear accent, keeps its value inside the card, wears runway black on outers, never drops
-the register share, never wears purple. TEXTURE MATCH checks every cooked tile lands inside the
-edge-and-grain band measured off HIS art. TARGET MATCH checks the constitution exists, is in force
-and carries the verdict it came from. So the literal instruction would have produced a THIRD judge
-over the same garments and tiles.
-
-THE COVERAGE MAP, AND 5 OF 7 ARE COVERED:
-  1 Same DETAIL ORDER?          texture_match_gate       TILES only
-  2 Same COLOUR DENSITY?        target_screen_gate       the target screen only
-  3 Same SATURATION BUDGET?     style_card_gate          WARDROBE only
-  4 Same VALUE BAND?            style_card_gate          WARDROBE only
-  5 Same GRAIN SCALE?           NOTHING                  no gate anywhere does autocorrelation
-  6 Same LIGHT?                 pixel_craft_gate         the pixel-craft corpus only
-  7 Reads at play size?         NOTHING                  no gate shrinks art to 24px and compares
-                                                         the surviving contrast
-  AND THE SCOPE COLUMN IS THE BIGGER FINDING. Every covered question is covered over ONE KIND of
-  art. A cook that is neither wardrobe nor a tile nor the target screen -- A BUILDING, A FACE, A
-  PROP, A VEHICLE -- IS GRADED BY NOTHING ON THIS SHEET AT ALL. The seam that was called closed is
-  closed for garments and tiles.
-  EVERY ROW CARRIES THE GATE'S OWN CHECK STRING AND THE TOOL VERIFIES THE STRING IS STILL THERE
-  rather than asserting coverage. A map that asserts rots the day somebody edits a gate, and the
-  fleet then believes a question is checked when it is not. That is precisely the rot E11 found
-  inside CLAUDE.md's own law index, and this map refuses to repeat it.
-
-THE OVERRIDE METER CANNOT BE COMPUTED, AND THAT IS THE FINDING. School's hardest requirement was
-that the pass must watch itself for becoming a rubber stamp, because the named leading indicator is
-a DECLINING override rate and a sustained zero is a process failure, not proof the machine is right.
-Measured: 76 verdict records on disk, 43 mention both a machine call and a human one IN PROSE, and
-NOT ONE stores, per cook, the machine verdict beside the human verdict that followed it. So the
-override rate cannot be computed today, which means nobody would notice it going to zero. E11's
-disease in a third form: a number that exists only in prose is a number no machine can read.
-  THE ONE LINE THAT FIXES IT, written down so it is not lost: when a cook clears the machine pass,
-  write its machine verdict into the same verdict record the human thumb lands in. One field, and
-  the rate becomes a number forever after.
-
-WHAT SHIPPED: tools/bohemia_eyes_prejudge.py plus its gate half, registered in the suite as
-PRE-JUDGE COVERAGE, holding exactly two things. (1) NO COVERAGE CLAIM MAY GO STALE -- if a gate
-stops carrying the check the map credits it with, it goes red IMMEDIATELY, not on a ratchet,
-because a question the fleet thinks is gated and is not is worse than one nobody claims. (2) THE
-GAP COUNT MAY ONLY GO DOWN, frozen at 2.
-
-DELIBERATELY NOT BUILT: a third judge over garments and tiles (reuse-first), a score card stapled
-to every cook (school: a pre-judge that annotates but still forwards everything adds work), and a
-queue of prepared verdicts for DIRECTION (everything is a thumb).
-
-RULE ZERO, three controls, and the tool refuses to print a coverage number unless all three pass:
-a claim whose check is gone must read STALE; a claim pointed at a missing gate must read NOT
-COVERED; and THE REAL CLAIMS MUST STILL COME BACK COVERED, because a map that is always false would
-pass the first two and be useless.
-
-MY INSTRUMENT WAS WRONG ONCE: I read E7's sheet with the wrong field names and the first run
-printed 0 machine questions and 10 human ones with every question text as None. A coverage map
-built on that would have been confidently, completely wrong AND WOULD HAVE LOOKED TIDY. The loader
-now asserts both groups came back non-empty so the same slip cannot pass silently again.
-
-ROUTED: NOTHING. The gates that exist do what they say, and the two gaps are work nobody ever
-claimed to have done.
-
-BLIND SPOTS: the queue was measured off the board's own dates, and a row's date is when it was
-claimed, not when its work stalled; the map is MY READING of which gate performs which test,
-verified only that the gate still carries the string I credited it with; five of the seven covered
-questions are covered PARTIALLY, because the gate performs something in the same family and not
-necessarily E7's exact arithmetic; and nothing here measures whether any cook is any good, which is
-the three human questions and correctly nobody's machine.
-
-STILL OPEN IN MY QUEUE: E16 [never opened], E17 [locked ignored], E18 [he can hear it]. All two
-rounds, school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Sixteen instruments and three suite gates exist now.
-  2. E15's brief is out of date: DIRECTION holds 0 claimed, and five of its eight open rows are
-     DELIVERED cards waiting on a thumb, not unstarted work.
-  3. THE SCOPE HOLE: a building, a face, a prop or a vehicle is graded by nothing on E7's sheet.
-     That is a bigger gap than either uncovered question and it belongs to whoever owns the sheet.
-  4. The one line that makes the override rate computable, above.
-  5. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
-  6. Still unclaimed: the MIX METER (E5 gap 10).
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: PRE-JUDGE COVERAGE 3/0 (new, registered), NO READER 7/0, handoff 7/0, attempt 15/0. The
-map's own three RULE ZERO controls passed.
-
-PROOF: records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md and
-records/BOHEMIA_EYES_E15_ROUND_2_THE_JUDGE_ALREADY_EXISTS_9_11_26.md;
-tools/bohemia_eyes_prejudge.py; gate registered as PRE-JUDGE COVERAGE in gates/bohemia_gates.py;
-data records/BOHEMIA_EYES_PREJUDGE_9_11_26.json, baseline
-records/BOHEMIA_EYES_PREJUDGE_BASELINE_9_11_26.json; coverage map
-banks/eyes/BOHEMIA_EYES_E15_COVERAGE_MAP_9_11_26.json (draft:true); VAMILY lane 17 E15 SHIPPED
-with both rounds, NOTHING routed.
-=======
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

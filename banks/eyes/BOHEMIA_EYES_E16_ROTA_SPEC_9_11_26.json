@@ -1,0 +1,74 @@
+{
+ "bank": "EYES AND EARS -- E16 [never opened] -- THE SEEN-BY-HIM MATRIX, SPEC ONLY",
+ "date": "9/11/26",
+ "round": "1 of 2 (SCHOOL). Nothing built, nothing measured.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. School's corrections: (1) 'he mentioned it' is not 'he reviewed it', and the error is LOPSIDED, so this sweep is tuned for precision on the SEEN side, the opposite of this lane's usual instinct; (2) a list of unseen things is a backlog and a backlog aimed at one person is banned, so the output is a ROTA not a queue; (3) the binding constraint may not be that he does not KNOW what he has not seen -- he has thumbed zero of 127 judged garments -- so round two answers a prior question before building anything.",
+ "school_record": "records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md",
+ "the_industry_answer": {
+  "draft": true,
+  "finding": "real production trackers make NOT REVIEWED YET a first-class STATUS, not an absence",
+  "statuses": ["Pending Review (the default for a new version)", "Pending Director Review (reviewed once, still needs the director)", "Final / Approved"],
+  "views_that_follow": ["a Need to Review tab showing only what nobody has reviewed", "a Director Needs to Review tab showing only what waits on the director", "a Finals tab"],
+  "notes_attach_to_a_version": "so an approval is traceable to what was actually on screen when it was given, and rework is detectable",
+  "against_our_repo": "our board has SHIPPED and NO FIELD AT ALL for whether he has ever looked. so 'he has not seen this' is not a state anything in this repo can hold -- it is an absence, and an absence is invisible."
+ },
+ "the_qa_pattern": {
+  "draft": true,
+  "finding": "a requirements traceability matrix exists so that forward traceability makes coverage GAPS visible; a requirement with no linked test is a risk that has not been mitigated",
+  "consequence": "E16 is a traceability matrix with his rulings in the place of the tests, and the interesting cell is the EMPTY one",
+  "the_number_nobody_has_computed": "coverage: the share of shipped things on screen that have ever had a word from him"
+ },
+ "the_ordering_is_the_real_design_decision": {
+  "draft": true,
+  "finding": "nobody reviews everything; risk-based approaches exist so effort is focused rather than spread equally, and critical items are highlighted",
+  "so": "oldest-unseen is the WRONG ordering. it puts the oldest trivial thing in front of him while something load-bearing stays unseen forever.",
+  "round_two": "carries a RISK column and surfaces ONE item chosen by risk, with the reason stated. highest risk is a thing on the player's path in the first minute, or a thing the loop leans on."
+ },
+ "the_bias": {
+  "draft": true,
+  "name": "the availability heuristic",
+  "the_part_that_matters": "availability bias is a tendency to be influenced by information that is VISIBLE and to IGNORE HIDDEN INFORMATION; the out-of-sight effect depends on whether the element is PRESENT during decision-making",
+  "consequence": "the fix is not a list he must remember to open -- a list he does not open IS hidden information. the fix is to make the unseen thing present in the reply he is already reading."
+ },
+ "counter_findings": [
+  {"n": "a", "draft": true, "finding": "'he mentioned it' is not 'he reviewed it'",
+   "the_lopsided_error": "a false SEEN removes the item from the rota FOREVER and hides the exact thing E16 exists to find; a false UNSEEN costs one look",
+   "so": "tuned for PRECISION ON THE SEEN SIDE: count as seen only what carries an explicit judgement, treat everything ambiguous as unseen. this is the opposite of this lane's usual instinct and it is right here because the costs are lopsided."},
+  {"n": "b", "draft": true, "finding": "a list of unseen things is a backlog, and a backlog aimed at one person is what EVERYTHING IS A THUMB abolished",
+   "so": "the brief's 'one per round' is the only legal shape, and the corollary must be said out loud: THE OTHERS DO NOT WAIT. the machine decides and he corrects. the output is a ROTA, not a queue."},
+  {"n": "c", "draft": true, "finding": "THE BINDING CONSTRAINT MAY NOT BE KNOWLEDGE OF THE GAP",
+   "evidence": "the same record says the art director judged 127 garments FOR him and he has thumbed ZERO",
+   "so": "telling him WHICH things he has not seen may change nothing, because the bottleneck is that a thing he has to go and open does not get opened. ROUND TWO HAS A PRIOR QUESTION: has any mechanism in this repo's history ever got him to look at a specific named thing? if the honest answer is only 'the reply' and 'playing', the deliverable is ONE PARAGRAPH IN A REPLY and nothing else gets built -- because building a file nobody opens would be a particularly stupid way to fail at a job about things nobody opens."}
+ ],
+ "where_his_rulings_come_from": [
+  "quoted lines in laws/",
+  "the verdict .txt files in records/",
+  "the 'Paolo <date>' quotes the board itself carries",
+  "CLAUDE.md"
+ ],
+ "coverage_honesty": "round two reports its coverage of those sources as a number and does not pretend to have read transcripts nobody kept. the matrix can only ever say 'no ruling ON RECORD'.",
+ "rule_zero": {
+  "draft": true,
+  "ground_truth_already_exists": "the blind-spot record names both sides",
+  "known_seen": ["the UI at 50%", "the zoom", "the tutorial pop-up", "the cloud"],
+  "known_unseen": ["the fold", "the animal opening", "the perk tree", "the reckoning card", "the room fight", "the room's own song"],
+  "controls": [
+   {"plant": "a known-SEEN item", "must": "come back SEEN", "else": "the sweep is blind to his rulings and its rota is noise"},
+   {"plant": "a known-UNSEEN item", "must": "come back UNSEEN", "else": "the sweep is overcounting SEEN, which is the failure that hides things forever"}
+  ],
+  "rule": "both must pass or no number is printed"
+ },
+ "ratchet": {"draft": true, "freeze": "the count of shipped-and-on-screen-and-never-seen", "rule": "may only go down"},
+ "blind_spots_to_declare": [
+  "the board is not the game: a SHIPPED line is a claim, not a thing on screen, and E11 and E13 both found shipped claims that were not true on the surface",
+  "'reaches a tab' is a proxy for reachable, and this lane has already caught itself measuring a frame the player never sees",
+  "his rulings before the board existed live in transcripts nobody has",
+  "nothing here measures whether he would LIKE any of it, which is the whole point of putting it in front of him"
+ ],
+ "what_this_lane_may_not_do": [
+  "judge any of the unseen work (that is DIRECTION's and his)",
+  "write game code",
+  "hand him a queue, or block anything on him"
+ ]
+}
