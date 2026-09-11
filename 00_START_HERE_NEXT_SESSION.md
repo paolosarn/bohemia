@@ -16321,6 +16321,24 @@ trade); a one-tap lock from the first hour with a real cost; recruiting by where
 company members inside the asks. Story deaths, enemies and time across the fold still kill.
 Routed PEOPLE [down not dead] (top) and [lock them], COMBAT [downed body], FACTIONS
 [recruit anywhere], QUESTS [company in asks], ECONOMY Q32 [long injury].
+THEN (dl) VAMILY, 25 commits: LIFE+CITY [tap picks] SHIPPED (tapping the building you
+see selected it 0 of 38; the picker now asks the painted pixels, last painted wins), UI
+[phone object] SHIPPED (an object with thickness, gateable, the words untouched), ANIMATION
+[elbows bend] SHIPPED (bend:'auto' kept whichever elbow hung lower, a knife edge that
+snapped every frame; the machine found the same eleven clips he killed), WORLD [parties
+move] SHIPPED, QUESTS [designs playable], PLUMBER [gate missing], COOK [city from above]
+round 1, DIRECTION the city-from-above card, CHARACTER hair bands, ECONOMY Q28, WORDS Q18
+school, EYES E15 round two, FACTIONS three red gates closed. TWO OF MY DIAGNOSES WERE
+WRONG AND THE LANES CAUGHT THEM BY MEASURING: the tap "LIFT 1.6" was an economics constant
+and the pixel scaling already existed; the city count was of the alpha shell, the real
+number is 73 fillRect and ZERO images. New rule on this seat (central-chat law amendment):
+a cause I hand down is a premise to test, never a finding. AND RUN [drop in] found THE COLD
+OPEN HAS ZERO CALLERS -- his 8/4 cut's first beat does not play -- and the first minute
+meets nothing (suburb spawn, no road row by design, hostiles 0, 128 tiles to a road
+district). Routed RUN [cold open wired] (top) and [wake near] (the spawn moves, not the
+table). Record: records/BOHEMIA_COORDINATOR_TWO_DIAGNOSES_I_GOT_WRONG_9_11_26.md. (The
+first attempt at this block crashed on a claimed line and only the record was committed;
+this is the real one.)
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

@@ -148,3 +148,13 @@ He asked for his own blind spots and the first one was that he rules only on wha
 crossed his screen last. So every manager's round names ONE shipped thing in the
 game he has never opened, in plain words, with the tab, so that it crosses his
 screen. Record: records/BOHEMIA_HIS_BLIND_SPOTS_THE_PERSON_NOT_THE_BOARD_9_6_26.md.
+
+
+## AMENDED 9/11/26: A CAUSE I HAND DOWN IS A PREMISE, NOT A FINDING (coordinator's own rule)
+Two diagnoses handed to lanes in one round were wrong: a constant read by its name
+(a "LIFT" that was an economics number) and a count taken from the wrong file (the
+alpha shell instead of the city file that draws the screen). Both lanes measured
+before building and were right to. From now: anything this seat names as a cause is
+written as a premise to test, never as "read, not guessed"; a count is taken in the
+file that draws the screen he photographed; a constant's name is not its meaning.
+Record: records/BOHEMIA_COORDINATOR_TWO_DIAGNOSES_I_GOT_WRONG_9_11_26.md.
