@@ -15798,6 +15798,18 @@ comment fixing exactly this by hand for one element, plus four duplicate footing
 merges. Routed UI [rail collides] (top: one flex stack, no hand offsets, a no-overlap gate at
 phone size), LIFE+CITY [white rings] (four white ring markers at once, one is him; measure
 what draws them).
+THEN (dk) "how's the Battle Brothers shit going... I don't want anyone to permanently die
+or have permanent debuffs... I like the recruiting from factions and cities and how your
+company gets incorporated into quests autonomously... an easy way to LOCK characters you
+don't want to die, not endgame bullshit." STATUS given: 14 BB rows shipped (money, prices,
+living costs, lights bill, held ground, fast roads, rung door, coalition, contact fight,
+house tiles, fights end, four sound rows), [parties move] and the travel map in flight, nine
+open. RULINGS LOCKED (laws/BOHEMIA_ADDENDUM_YOUR_PEOPLE_DO_NOT_DIE_FOR_GOOD_9_11_26.md): no
+permadeath and no permanent debuffs for your people (long injuries that heal; his realism
+trade); a one-tap lock from the first hour with a real cost; recruiting by where you stand;
+company members inside the asks. Story deaths, enemies and time across the fold still kill.
+Routed PEOPLE [down not dead] (top) and [lock them], COMBAT [downed body], FACTIONS
+[recruit anywhere], QUESTS [company in asks], ECONOMY Q32 [long injury].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
