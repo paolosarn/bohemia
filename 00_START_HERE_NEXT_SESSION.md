@@ -1050,68 +1050,71 @@ NEXT IN THIS LANE: Q23 [who eats first].
 ================================================================================
 ================================================================================
 
-FACTIONS (factions-ovkjpf): 9/7 (round 12) LATEST -- *** [repeat interval]
-ENCOUNTER-REPEAT-INTERVAL SHIPPED. The same thing does not keep finding you, and
-how long it stays away is a dial in DEMO SETTINGS that opens on his three days. ***
+FACTIONS (factions-ovkjpf): 9/11 (round 13) LATEST -- *** THREE RED GATES CLOSED,
+all three from this lane. The sweep that keeps engine copies honest could not see
+one of its own modules, and canon was being guessed by file date six times over. ***
 Nothing to judge.
 
-VAMILY row: [repeat interval] ENCOUNTER-REPEAT-INTERVAL, MODE: BUILD, SHIPPED 9/7 1c0a9036.
-Record: records/BOHEMIA_THE_SAME_THING_DOES_NOT_KEEP_HAPPENING_9_7_26.md
+VAMILY: the PLUMBER's 9/6 bounce-back on [light owners] is CLOSED 9/11 a9e6cc7a.
+Record: records/BOHEMIA_THE_SWEEP_COULD_NOT_SEE_ITS_OWN_MODULE_9_11_26.md
 
-HIS RULING IS THE SPEC (9/5, through the coordinator): "the same encounter does not
-repeat for the same player inside THREE in-game days, and never twice on the same
-street in one day. Put it on a dial in DEMO SETTINGS with that default."
-TWO RULES, BOTH LOAD-BEARING. The days sit on the dial and can be turned all the
-way down; the street rule is the floor that survives when it is.
+*** A HANDED-OVER DIAGNOSIS IS WHERE YOU START MEASURING, NOT A WORK ORDER. ***
+The bounce-back was right in direction and short on scope, three ways:
+  named 1 stale carrier      -- there were 4 copies across 3 files, one file holding TWO
+  named 1 undeclared module  -- there were 6, and BOH_FLOORPLAN rides ELEVEN carriers
+  named 2 red gates          -- there were 3, and the third was mine from [repeat interval]
 
-THE RULER WAS WRONG, NOT THE TARGET. repeatAfterS counts SPENT SECONDS, and three
-in-game days through that ruler is 259,200 of them, which no walk ever spends -- so
-his sentence read through the old mechanism means "never again". The game already
-owns the right ruler and prints it on the top bar: T.day. The rule counts DAYS.
-Nothing was converted and no conversion factor was invented.
+FAULT ONE, THE GRID. Canon is 10,038 chars; the stale copies are 1,811. That is not
+a missed edit, it is the 7/14 PROTOTYPE still wearing the name -- the one whose
+owner was a CATEGORY (settlement/faction/network/solar_lone), which is exactly what
+[held ground] and [light owners] shipped to delete. Both real call sites survive
+because canon's at() is a SUPERSET: {live,owner} -> {live,owner,id,faction,ground,
+free}. The bundle is an archive, not runnable code (node --check dies on its own
+==== rails), and 12 of its 14 members match their standalone byte for byte, so the
+two drifted members were rebuilt to that invariant, md5 header and size label too.
 
-WHAT A STREET IS, AND WHO SAYS. The director owns no clock and no map and must not
-learn one, so the CALLER passes world.day and world.place beside the district it
-already passed. On foot that is the BLOCK (bounded by roads, so to somebody walking
-it IS the street); on the road it is the overmap CELL. Measured: B12,12 -> B13,12
--> B15,12 -> B17,12 as he walks.
+FAULT TWO, CANON WAS A COIN TOSS. bohemia_sync_canon.txt opens with its OWN 7/16
+warning that mtime is not authority and that trusting it already burned this repo
+once. Six modules were never declared, so the gate fell back to exactly that guess.
+IT GUESSED RIGHT, BY LUCK. All six declared now, including two with no standalone
+file, which name a page -- that is where the body is really authored, and writing
+it down is the entire point of declaring instead of inferring.
 
-*** THE FAULT THAT WAS THE WHOLE ROW: TWO RULES ANSWERING ONE QUESTION DO NOT ADD
-UP. *** With both memories live the seconds one said no first and the calendar was
-never asked -- twenty in-game days gave FIVE encounters, all on day one, and the
-dial moved nothing wherever it was set. The stricter one silently eats the other,
-and here that is a control that does nothing, which the settings screen's own rule
-calls worse than no control at all. A CALENDAR WINS; the seconds cooldown is what a
-caller with no days has, and every headless caller is untouched.
+*** FAULT THREE WAS MINE, AND IT EXPLAINS A HAND-PATCH FROM LAST ROUND. *** The
+city's bohemia_encounters.js banner opened a multi-line comment, so its first line
+never closed, so neither the resync tool nor banner_gate could see the module. A
+block whose own words claim to hold the ENGINE SYNC LAW opted out of it in its
+first line. THAT is why the tool said "113 embedded, 113 already fresh" while the
+body was a revision old and I replaced it by hand. One-line banner now, prose
+underneath, and the tool maintains it again. The KNOWN_HIDDEN ratchet was NOT
+widened -- it is still zero, as its own comment demands of anybody who finds it red.
 
-*** AND THE STORE IS NOT A LIVE WIRE. *** localStorage looked right and the gate
-caught it on the demo: shell store encd:0 while the city store still said encd:7,
-ONE TAP BEHIND. The shell and the walked city are separate documents in separate
-processes and a write crosses LATE. The store is now only the boot value; the live
-move rides the frame seam the STANDING dial and the town sizes already use. The
-proof line still prints both stores disagreeing while the city reads right.
+ON BOTH REAL SURFACES, phone sized, no page errors
+  walked city   79 lit circuits sampled, 20 naming a faction
+  run slice     at() returns faction,free,ground,id,live,owner   <- SIX fields
+The six fields ARE the proof it is live and not merely on disk: the old body could
+only ever answer with two. The run slice is not downloaded by the product (8/21,
+the RUN tab shows the city), so it was opened through __loadRunSlice, the named
+door its own four gates use.
 
-ON THE WALKED SURFACE AND ON THE DEMO
-  the dial, in DEMO SETTINGS      AGAIN IN 3 DAYS, 156x44, his number
-  five in-game days, one street   fires on day 1 and day 4, nothing in 2 or 3
-  turned to SAME DAY              the city reads 0 on the tap
-    one day, three streets        5 events, one token found him on three of them
-    one day, ONE street           2 events, each thing once   <- the floor
+GATES  engine sync 18 modules ZERO drift and ZERO undeclared (was 1 drifted, 6
+       undeclared), bundle 16/0 (was 15/1), banner 14/0 (was 12/2), map bound 8/0.
+       Green alongside: demo build 25/0, alpha loads 20/0, encounter 69/0, walk
+       encounter 25/0, turf 43/0, coalition 40/0, mandate 44/0.
 
-COST, MEASURED AND NOT HIDDEN: crossing the valley goes from 12 road moments a day
-to 4. That is the rule's own arithmetic (12 tokens, once per 3 days = 4 a day) and
-the gate prints that sentence beside the number so nobody later reads the bound as
-too high and nudges it.
-
-GATES  encounter 69/0 (was 46), walk encounter 25/0 (was 15, all of section F on
-       the DEMO itself), the road interrupts 19/0, road on foot 12/0
-
-AND TWO GATE FAULTS WERE MINE, NOT THE GAME'S. The road card check reused a
-director that had already spent its roster for three days, so it could never raise
-a second card -- the SETUP was reset, never the claim. And a probe measured the
-repeat gap on a SPICE token, which never repeats by a rule older than this row.
-THE STANDING LESSON, THIRD TIME THIS SESSION: when a check goes red, ask whether it
-is measuring the game or measuring its own invention.
+*** [FOR QUESTS] ONE RED IS LEFT IN faction_between_gate AND IT IS NOT MINE. ***
+180/2, and VERIFIED INHERITED: a clean checkout of origin/main gives the identical
+180/2 with the identical two claims, so nothing this round caused it.
+  R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
+      outfit named "NONE", which is not one of the 18 in BOHEMIA_faction_graph.json.
+      The gate's own words say this must fail here rather than be folded quietly
+      into something that exists, so the gate is working and the CONTENT is the fix.
+      From [ten openings], shipped 9/7.
+  R8  the corpus max is 20 across 83 rows; the claim is about loadCorpus normalising
+      every weight by the largest deed, so a partial corpus moves every rung
+      boundary in the game.
+Not fixed here, on the PLUMBER's own precedent: a lane names another lane's red, it
+does not reach into it.
 
 [PENDING Paolo] -- THREE, ALL CARRIED, NOTHING NEW
   1. Anarchists, Colorful and Custom are called non-territorial by his own notes
@@ -1123,20 +1126,26 @@ is measuring the game or measuring its own invention.
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
      Network and Mob are squatting. Also: is the Cartel drab on purpose? The law
      names two drab factions, the gate carries three.
-
-THE AGAINST ORGAN HAS FOUR REASONS, all shipped in this lane this session:
-  their outfit vs yours | their own opinion of you | their outfit joined a
-  coalition against you | nobody is paying them any more
+     (STATE NOTE 9/7 from the coordinator says the colour table IS live and what is
+     missing is his thumb, not a file. That matches this lane's own finding.)
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [power territory]  A-FACTION-MINES-ITS-LAND
+  [power territory]  A-FACTION-MINES-ITS-LAND -- its numbers are said to flow from
+    WORLD [batteries mined], which is still OPEN. CHECK THAT BEFORE ASSUMING IT
+    BLOCKS: WORLD [a days work] shipped 9/7 and the coordinator's 9/6 amendment
+    says work comes before a building earns, so the ordering may already be settled.
   [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() already answers who you pay for
-    any block, the Network's circuits are flagged free, and roving() is what
-    happens when a block stops paying
+    any block, the Network's circuits are flagged free, and roving() is what happens
+    when a block stops paying
+  [crossing costs]  THE-WRONG-COLOUR-REACTS -- the colour table is live in a file
+    the game can read, so this is wiring now, not invention
 
-BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-Two rows this session said "needs Paolo" and needed nothing: one wanted a door, and
-one named a blocker that had shipped in this same lane hours earlier.
+TWO STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+  BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
+  Two rows needed nothing: one wanted a door, one named a blocker that had shipped
+  hours earlier in this same lane.
+  AND WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN
+  INVENTION. Four times now a gate was wrong while the game was right.
 
 --------------------------------------------------------------------------------
 
