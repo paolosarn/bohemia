@@ -5506,7 +5506,53 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/11 (a) LATEST -- *** [tap picks] SHIPPED. HIS OWN BUG, FROM
+LIFE + CITY (city-1eztay): 9/11 (b) LATEST -- *** [white rings] SHIPPED, AND THREE OF THE
+FOUR RINGS IN HIS FRAME WERE THIS LANE'S OWN. THE MARK FOR "A TOWN IS HERE" WAS TWICE THE
+SIZE OF THE MARK FOR "YOU ARE HERE". *** MODE: BUILD. TAB: CITY. Nothing to judge.
+
+  HIS FRAME 9/8: four white rings on the city at once, one of them supposed to be him.
+  THEY WERE MINE. Three are the SETTLEMENT RINGS this lane shipped in round 3 of [more
+people], whose own comment promises "NOT A HUD PIN, it does not follow him and it is not
+on the walking screen". They keep that promise exactly. They still caused this, because
+nobody ever checked them against the mark they sit beside.
+  MEASURED ON THE ALPHA BEFORE ANYTHING WAS TOUCHED, at the zoom his frame was taken at:
+4 town rings at RADIUS 10.2px, and the mark that means YOU at RADIUS 5.0. Both a pale
+disc. The loudest thing on his screen was never him. And it got worse the closer he
+looked, because his mark was a FIXED 5px at every zoom while the towns scale with the
+tile: at TW=48 a town is 16px and he was still 5.
+  THE FIX IS SHAPE, NOT BRIGHTNESS. Dimming the towns would fight the ruling that put them
+there -- round 3 measured 38 pieces of text too faint to read and built them to clear a
+3:1 contrast floor on purpose -- so the towns are UNTOUCHED and leg A1 holds that. A RING
+IS A PLACE, A PIN IS A PERSON: he stands on a stem with a foot, so his silhouette cannot
+be read as a hollow ring at any size, and he carries his own colour where a town carries a
+dark hole. Scaled off the tile, drawn last so nothing covers him.
+  AFTER: 86 bright pixels against a town's 74, 260 against 236, 684 at the closest zoom,
+and his centre 212 apart in rgb from a town's.
+  GATE: gates/the_one_that_is_you_gate.js, 7/0, registered, measuring RENDERED PIXELS on
+the alpha -- because two marks can be written differently and still look identical on the
+glass, and looking identical on the glass is the entire complaint.
+  *** AND THE GATE CAUGHT ME TWICE, WHICH IS THE PART WORTH READING. *** (1) ITS OWN FIRST
+CUT COULD NOT FAIL: it computed the player's size from its OWN copy of the drawing
+formula, so when the mutation run put the old fixed 5px disc back, the size legs never
+moved and it still printed the new numbers. A GATE THAT CANNOT FAIL IS WORSE THAN NONE.
+Both legs count bright pixels in an identical box round each mark now. (2) Once it was
+honest it CAUGHT THE FIX: by height the pin looked done, by pixels it was still 106
+against a town's 236, because a town is a FILLED disc and a pin was a thin ring on a stem.
+HEIGHT IS NOT LOUDNESS. Two cuts were wrong before the third was right.
+  MUTATIONS: restore the fixed 5px disc -> A2, B1, B3 red, B3 printing 52 -> 52 -> 52,
+which is the old defect exactly; give him a town's dark centre -> B2 red at 0 apart in rgb.
+  RECORD: records/BOHEMIA_THE_ONE_THAT_IS_YOU_9_11_26.md
+  *** THE STANDING NOTE THIS ROUND EARNED: A MARK IS ONLY EVER RIGHT NEXT TO THE OTHER
+MARKS. *** Round 3 measured its ring against the GROUND it sits on, cleared the contrast
+floor, and shipped something correct in isolation that broke the one thing on the screen a
+player must never lose. Nothing in that round was wrong; the missing step was looking at
+the whole screen with everything on it.
+  NEXT IN THIS LANE: [more people] round 8 (the crowds, not the floor), then [tiles not
+slabs], [buildings appear], [power buildings].
+
+--- THE TAP ROUND BELOW ---
+
+LIFE + CITY (city-1eztay): 9/11 (a) -- *** [tap picks] SHIPPED. HIS OWN BUG, FROM
 HIS OWN FRAME, AND THE ROUTING RULING'S TWO NAMED CAUSES WERE BOTH WRONG. TAPPING THE
 BUILDING YOU ARE LOOKING AT USED TO SELECT IT 0 TIMES OUT OF 38; IT NOW SELECTS IT 38 TIMES
 OUT OF 40. *** MODE: BUILD. TAB: CITY. Nothing to judge.

@@ -37034,10 +37034,56 @@ function renderCity(){
       window.__GROUNDLABELS = __boxes;
     }
   } catch(_e){}
-  // THE MARKER (you)
+  /* __THE_ONE_THAT_IS_YOU__ (9/11) ========================================
+     VAMILY [white rings] WHAT-ARE-THE-FOUR-WHITE-RINGS. HIS FRAME, 9/8
+     (records/target/PAOLO_THE_RAIL_COLLIDES_9_8_26.jpg): four white rings on the city
+     at once and one of them is supposed to be him.
+
+     *** THEY WERE THIS LANE'S OWN, AND THE MEASUREMENT IS EMBARRASSING. *** The other
+     three are the SETTLEMENT RINGS this lane shipped in round 3 of [more people], whose
+     own comment promises "NOT A HUD PIN, it does not follow him". They keep that promise
+     and still caused this, because nobody checked them against the mark they sit beside.
+     MEASURED ON THE ALPHA, at the zoom his frame was taken at:
+         settlement rings on screen        4        radius 10.2 px
+         the mark that means YOU           1        radius  5.0 px
+     THE MARKS FOR "A TOWN IS HERE" WERE TWICE THE SIZE OF THE MARK FOR "YOU ARE HERE",
+     and both were a pale disc. The loudest thing on his screen was never him.
+     And the player's mark was a FIXED 5 px at every zoom while the rings scale with the
+     tile, so zooming in made it worse: at TW=48 the rings are 16 px and he is still 5.
+
+     SO THE DIFFERENCE IS SHAPE, NOT BRIGHTNESS. Dimming the rings would fight the ruling
+     that put them there -- round 3 measured 38 pieces of text too faint to read and
+     deliberately built these to clear a 3:1 contrast floor. A ring is a PLACE. A PIN is a
+     PERSON: it stands above the ground, it has a stem and a foot, and its silhouette
+     cannot be confused with a hollow ring at any size. He keeps his own colour inside it.
+     It scales with the tile like everything else on this map, and it is drawn LAST so
+     nothing can cover him. */
   { const p=iso(city.x,city.y,ox,oy);
-    g.fillStyle='#fff'; g.beginPath(); g.arc(p.sx,p.sy+TH*0.2,5,0,7); g.fill();
-    g.fillStyle='#BA8E78'; g.beginPath(); g.arc(p.sx,p.sy+TH*0.2,3,0,7); g.fill(); }
+    const __gx=p.sx, __gy=p.sy+TH*0.4;                 /* where he is standing */
+    /* SIZED AGAINST THE THING IT WAS BEING CONFUSED WITH. A town mark is a disc of
+       2 x max(4, TW*0.34) of solid cream, so he is built to put MORE BRIGHT PIXELS on
+       the glass than that at every zoom. Two cuts of this got it wrong and the gate
+       caught both: 82% of a town's height, and then -- once the gate started counting
+       rendered pixels instead of trusting its own copy of this formula -- 106 bright
+       pixels against a town's 236, because a town is a FILLED disc and a pin is a thin
+       ring on a stem. Height is not loudness. The loudest mark on his screen is him. */
+    const __hr=Math.max(6, TW*0.36);                   /* the head, at the map's own scale */
+    const __st=Math.max(8, TW*0.50);                   /* how far the pin stands up */
+    g.save(); g.globalAlpha=1;
+    /* the foot: a dark ellipse on the ground, so the pin is planted rather than floating */
+    g.fillStyle='rgba(20,16,12,0.55)';
+    g.beginPath(); g.ellipse(__gx,__gy,__hr*0.62,__hr*0.30,0,0,7); g.fill();
+    /* the stem, rimmed dark so it holds on pale ground as well as dark */
+    g.strokeStyle='#241d16'; g.lineWidth=Math.max(3,__hr*0.42);
+    g.beginPath(); g.moveTo(__gx,__gy); g.lineTo(__gx,__gy-__st); g.stroke();
+    g.strokeStyle='#fff'; g.lineWidth=Math.max(1,__hr*0.18);
+    g.beginPath(); g.moveTo(__gx,__gy); g.lineTo(__gx,__gy-__st); g.stroke();
+    /* the head: his own colour, inside a white body, inside a dark rim */
+    const __hy=__gy-__st;
+    g.beginPath(); g.arc(__gx,__hy,__hr+1.5,0,7); g.fillStyle='#241d16'; g.fill();
+    g.beginPath(); g.arc(__gx,__hy,__hr,0,7);     g.fillStyle='#fff';    g.fill();
+    g.beginPath(); g.arc(__gx,__hy,__hr*0.50,0,7);g.fillStyle='#BA8E78'; g.fill();
+    g.restore(); }
   if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 
