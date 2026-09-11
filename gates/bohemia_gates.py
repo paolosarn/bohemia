@@ -498,6 +498,27 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('BATTERIES MINED',['node', 'gates/batteries_mined_gate.js'],
+     'BUILDINGS-MAKE-BATTERIES (board row [batteries mined], 9/11). PAOLO 9/5 LOCKED: '
+     '"there could be ways where you auto-mine batteries, set up certain buildings wherever '
+     'you\'re doing and that\'s just more batteries", and on what money is for, "do you need '
+     'batteries to turn a laptop on? no". THIS CLOSES A PENDING THE PIPE ITSELF NAMED: '
+     'bohemia_production.js wired every placed building to pay on the wake beat and wrote '
+     '"[PENDING Paolo: which building types produce electricity or clout]" plus "DELIBERATELY '
+     'NOT ELECTRICITY ... making every placed building mint electricity would turn the build '
+     'button into a printing press". Both were right -- he ruled that CERTAIN buildings mint, '
+     'not every one -- so three do and fifty-six do not, which is the door install() wrote by '
+     'never overwriting a row that is already there. THE THREE ARE HIS MAP\'S OWN ELECTRICAL '
+     'DISTRICTS and each row quotes the overmap\'s own line for itself verbatim: solar makes '
+     'it, the battery farm holds it ("solar without storage dies every night"), the substation '
+     'moves it ("solar -> city distribution nodes"). MAP LAW holds: his other two examples, a '
+     'generator and a wind rig, have no district in the enum and are NAMED as missing rather '
+     'than invented. THE INSTALL ORDER IS LOAD-BEARING -- run after production it is a silent '
+     'no-op that looks exactly like a working feature -- and is proved both ways here and on '
+     'the walked surface. THE 9/6 CAP AMENDMENT IS ALREADY THE ARCHITECTURE: the tick is keyed '
+     'on the day and the game owns no wall clock (NO BACKGROUND TICKING), so ten in-game days '
+     'away pay one day, measured. Red both ways: swap the install order -> 6 red; let every '
+     'building mint -> 10 red.', True),
     ('PARTIES MOVE',  ['node', 'gates/parties_move_gate.js'],
      'GROUPS-WITH-THEIR-OWN-BUSINESS (board row [parties move], 9/11). The row: "the map is '
      'populated by the world\'s own business, not by a spawner aimed at the player. Places BUY '
@@ -516,7 +537,14 @@ GATES = [
      'BohemiaBetween, and how far it gets in a day is the walked surface\'s own ROADS-ARE-FAST '
      'rule re-derived here so a typed speed shows up as a disagreement. Red both ways: type a '
      'party count -> 2 red; let the player decide what exists -> 2 red.', True),
-    ("A DAY'S WORK",  ['node', 'gates/a_days_work_gate.js'],
+    # NAMED WITHOUT AN APOSTROPHE ON PURPOSE, 9/11. This row was "A DAY'S WORK" and so
+    # had to be double-quoted, and gate_registry_gate.js scans rows with a SINGLE-quote
+    # regex. The checker could not see this row, reported the gate it runs as an orphan,
+    # and a second row was wired for the same file -- which ran this 37-check browser
+    # gate twice every suite. Measured: 581 rows visible, 1 invisible, and it was this
+    # one. Hardening the regex is PLUMBER's; not needing an apostrophe is mine.
+    ('A DAYS WORK',    ['node', 'gates/a_days_work_gate.js'],
+
      'EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER (board row [a days work], 9/7). '
      'MEASURED IN OUR OWN CODE: the valley\'s people have seven acts (errand, free, home, '
      'scav, sleep, watch, work) and put in a seven-hour day; the player had six (walk, talk, '
@@ -2859,12 +2887,6 @@ GATES = [
      'craft\'s 15 minutes as the default. A gate that pins a number nobody has ruled is this lane '
      'deciding content, which it may not do. The band it does hold (above 4, below 120) is a '
      'tripwire for a broken instrument, not a target',
-     True),
-    ('A DAYS WORK',    ['node', 'gates/a_days_work_gate.js'],
-     'WORLD row [a days work], shipped 9/7 (4f55d76) and UNREGISTERED ON ARRIVAL. Caught by GATE '
-     'REGISTRY and wired by PLUMBER under the 9/7 law that a gate the suite never runs is not a '
-     'gate. Runs 37/0. Its own subject: the player can do a day\'s work -- the same day [clock '
-     'math] measured at 58 to 59 real minutes',
      True),
     ('FOLD RUNTIME',   ['node', 'gates/fold_runtime_gate.js'],
      'QUESTS row [generation handoff], shipped 9/7 (dcc1982) and UNREGISTERED ON ARRIVAL. Caught by '

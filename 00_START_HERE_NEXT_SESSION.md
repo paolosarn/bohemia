@@ -12086,90 +12086,91 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [parties move] GROUPS-WITH-THEIR-OWN-BUSINESS is SHIPPED 9/11.
+HOLDING: nothing. [batteries mined] BUILDINGS-MAKE-BATTERIES is SHIPPED 9/11.
 
 WHAT SHIPPED
-  THE VALLEY HAS BUSINESS OF ITS OWN. 28 parties out of the 14 seats, carrying his
-  three agendas: a caravan carrying, a patrol holding a border, a crew going to take
-  something. PLACES send them and the player is nowhere in any decision about what
-  exists, where it goes or how strong it is -- near() is the only function that takes
-  his position and it only LOOKS.
-  MEASURED BEFORE IT WAS BUILT: the only thing that had ever put anybody in front of
-  the player was bohemia_encounters.js, whose own header says it is PULLED by the
-  player's spent time and owns no clock BY RULING. Right for ambient encounters, and
-  exactly what this row is set against. bohemia_patrol.js is a BLOCK's sidewalk loop.
-  Nothing in the valley had business of its own; nobody was going anywhere.
-  NOT ONE NUMBER IS TYPED. How many a place sends is BohemiaTowns.REACH (fortress 3,
-  town 2, camp 1); how strong it is is his act power column unchanged (Remnants 14
-  down to Colorful 1, and it is NOT a damage number -- NO DAMAGE BEFORE THE DIAL
-  stands); who a crew is sent at is BohemiaBetween; whose ground is whose is BB-TURF's
-  catchment; and how far it gets in a day is the walked surface's own ROADS-ARE-FAST
-  rule, 89.3 cells against a 96-cell map, re-derived in the gate so a typed speed
-  would show up as a disagreement rather than a comment nobody checks.
-  THEY MOVE ON advance(mins), NOT ON NIGHTFALL -- nightfall would mean a caravan
-  teleports once a day. Proved travelling with him standing absolutely still: he moved
-  not one cell over half a day, 27 of 28 parties did, nearest ever 19 cells away.
-  THE CARD SAYS WHAT THE VALLEY DID: "Cartel sent a crew onto Caravans' ground (6
-  parties moved in the valley today)". One line, not eight.
-  NEW: engine/bohemia_parties.js, gates/parties_move_gate.js (39 checks, registered as
-  PARTIES MOVE, suite 574, red both ways). The work patcher now inlines it too.
-  RECORD: records/BOHEMIA_PARTIES_MOVE_9_11_26.md
+  CERTAIN BUILDINGS MAKE BATTERIES, AND THE OTHER FIFTY-SIX DO NOT. Paolo 9/5,
+  LOCKED: "set up certain buildings wherever you're doing and that's just more
+  batteries." Three electrical districts his own map already has -- solar makes it,
+  the battery farm holds it, the substation moves it -- each row quoting the
+  overmap's own comment for itself, verbatim and gate-checked. One battery a day off
+  his ruled ONE, paid through the production tick that already existed.
+  THIS CLOSED A [PENDING Paolo] THAT THE PIPE NAMED IN ITS OWN HEADER.
+  bohemia_production.js wrote "[PENDING Paolo: which building types produce
+  electricity or clout]" AND "DELIBERATELY NOT ELECTRICITY ... would turn the build
+  button into a printing press". Both right. He ruled CERTAIN buildings, not every
+  one, so 3 mint and 56 keep resources -- the exact door install() wrote by never
+  overwriting a row that is already there.
+  MAP LAW HELD: his other two examples, a generator and a wind rig, have NO district
+  among the enum's 79 kinds. They are named as missing in data (NO_DISTRICT_YET)
+  rather than invented, because adding a district is map content and his.
+  NEW: engine/bohemia_powerbuild.js, gates/batteries_mined_gate.js (36 checks,
+  registered as BATTERIES MINED, red both ways). RECORD:
+  records/BOHEMIA_BATTERIES_MINED_9_11_26.md
 
-THREE THINGS MEASURING CAUGHT, AND ONE WAS A REAL DESIGN FLAW
-  1. *** A PATROL THAT PARKS IS A STATUE. *** The first cut had a patrol stop dead on
-     its border cell for ever, reading "holding a border" as standing on it. MEASURED:
-     that froze FOURTEEN of twenty-eight parties after day one, so half the valley's
-     business was statues and the row's own words were only half true. A patrol holds
-     a border by WALKING it -- which is what this repo's own block-scale
-     bohemia_patrol.js has modelled since 7/16 ("a patrol that never closes its loop is
-     a guard teleporting home every lap, and the eye catches that immediately").
-  2. A STATE THAT LIES FOR ONE TICK. Arrival was checked at the TOP of the step, so a
-     party standing on its destination reported "still walking" for a whole day and
-     anything reading it was told the wrong thing. The flag is set in the step that
-     arrives now.
-  3. THE CARD LINE WAS NEARLY DEAD ON ARRIVAL, and only measuring first caught it. How
-     often does a party come within sight of a standing player? At radius 1: ZERO times
-     in twenty days. A "what passed your window" line would have been a branch that
-     never executes. What does happen is ARRIVALS -- 6 to 10 a day once the first day
-     settles -- so the card reports the valley's business, not your window.
-  AND TWO GRAMMAR BUGS, both caught by reading the real sentence on the real card
-  rather than by thinking about it: 'a ' + faction gave "a Anarchists patrol" (his
-  names are plural, so no article is ever right and it is gone), and a bare possessive
-  gave "Caravans's ground".
+THE INSTALL ORDER IS LOAD-BEARING, AND IT IS THE THING TO REMEMBER
+  BohemiaPowerBuild.install() MUST run BEFORE BohemiaProduction.install(). The other
+  way round every row already exists and the call does nothing at all -- A SILENT
+  NO-OP THAT LOOKS EXACTLY LIKE A WORKING FEATURE. Swapping the two lines on the
+  walked surface turns the gate red six ways and the card quietly falls back to its
+  old sentence. Proved both ways and written beside the call site.
 
-AND ONE CHECK OF MINE THAT WAS SIMPLY WRONG, worth keeping because it is a class:
-  the first surface check drove four NIGHTS and failed because the player had moved
-  from 48,48 to 17,36. He had -- waking puts him back at his own house, which is the
-  day loop doing its job. The claim I wanted is that the valley's business needs him
-  nowhere, so it is measured inside a single day now. A CHECK THAT CANNOT BE TRUE IS
-  NOT A STRICTER CHECK, IT IS A BROKEN ONE.
+THE 9/6 CAP AMENDMENT NEEDED NOTHING BUILT, AND THAT IS THE HONEST ANSWER
+  It asked that what a building earns while the player is away be capped. MEASURED:
+  the tick is keyed on the day and refuses a day it already paid, and this game owns
+  no wall clock at all (NO BACKGROUND TICKING). Ten in-game days pass and exactly one
+  day is paid -- electricity 2 to 4, not 2 to 20, in node and on the real surface.
+  Nothing was added; the gate holds it so it cannot regress.
+
+BATTERIES ARE MONEY ONLY, CHECKED RATHER THAN ASSUMED
+  "do you need batteries to turn a laptop on? no." With an emptied purse on the real
+  surface: the work offer is still there, a day's work still runs and still pays, and
+  the day still ends. The only thing that refuses when broke is the BUILD button, and
+  that is buying a building, which is what money is for.
+
+TWO THINGS MEASURING CAUGHT
+  1. A SILENT CATCH AROUND A REAL ERROR. install() threw when kinds() and POWER
+     disagreed, and the walked surface calls it inside a try/catch -- so the whole
+     table would have gone uninstalled and every building would have quietly fallen
+     back to resources. It skips an unknown kind now.
+  2. *** THE REGISTRY CHECKER COULD NOT SEE MY OWN GATE, AND A DUPLICATE GOT WIRED.
+     *** A DAY'S WORK had to be DOUBLE-quoted in the registry because its name has an
+     apostrophe, and gate_registry_gate.js scans rows with a SINGLE-quote regex. It
+     never saw the row, reported the gate as an orphan, and a second row was wired for
+     the same file -- so that 37-check browser gate ran TWICE every suite. Measured:
+     581 rows visible, 1 invisible, and it was mine. Renamed to A DAYS WORK so no
+     apostrophe is needed and the duplicate removed. 581 visible, 0 invisible now.
+
+[FOR PLUMBER, NOT EDITED BY ME] gates/gate_registry_gate.js parses the registry with
+/^ {4}\('([^']+)',/ -- single quote only -- so ANY future gate whose name contains an
+apostrophe is invisible to it and will be reported as an orphan. It is one row wide
+today only because I renamed mine out of the way. That file is PLUMBER's; hardening
+the regex to accept either quote is a two-character fix there. A CHECKER THAT CANNOT
+SEE A ROW IS THE BROKEN ONE (8/1), and a duplicate row is a symptom, not a fix.
 
 NEXT: read the WORLD section fresh; the coordinator harvests rows onto this queue
-constantly. As of this round the next OPEN line is [batteries mined] (amended 9/6:
-work comes first, which [a days work] delivered, and cap what a building earns while
-away), then [century stayed] (UNBLOCKED 9/7, Paolo ruled it: "buildings, and some
-people depending on how many years passed"), [own power], [rice clock], [debt
-carried], [someone lends], [back of house], [water lifted], [battery worth],
-[fold carries], [visible change], [suburb walls].
+constantly. As of this round the next OPEN line is [century stayed] (UNBLOCKED 9/7,
+Paolo ruled it: "buildings, and some people depending on how many years passed"),
+then [own power] (which now has its dependency: [batteries mined] just shipped),
+[rice clock], [debt carried], [someone lends], [back of house], [water lifted],
+[battery worth], [fold carries], [visible change], [suburb walls].
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
 7/31 with zero callers.
-STANDING DUTY THIS LANE PAID FOR ONCE: re-check your gates' REGISTRATION every round.
-Another lane's resolver dropped COALITION's row out of gates/bohemia_gates.py between
-it shipping and the next round; an unregistered gate never runs and nothing goes red
-to say so, the suite just gets quietly shorter. All five of this lane's gates were
-checked present this round.
-NO LONGER TRUE, and worth saying out loud: DAY LOOP was 57/2 on main for several
-rounds and is 59/0 now, fixed by somebody else. MARKET was still 22/10 last round.
+STANDING DUTY THIS LANE HAS NOW PAID FOR TWICE: re-check your gates' REGISTRATION
+every round, AND check it the way the registry checker does rather than with your own
+grep. My first check this round used a single-quote grep, reported my own gate as
+unregistered, and was itself the broken ruler.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [parties move], 9/11. Before it: [a days work] 4f55d76,
-[shelves premise] 1f3d342, [enemies unite] aace2d9, [rung unlocks] 44dd7a1,
-[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
-[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [batteries mined], 9/11. Before it: [parties move] 75ac79c,
+[a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
+[rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
+[faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
+[battery money] ce39270.
 
 
 

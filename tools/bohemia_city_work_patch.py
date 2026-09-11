@@ -25,6 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_work.js')
 PARTIES = os.path.join(ROOT, 'engine', 'bohemia_parties.js')
+POWERB = os.path.join(ROOT, 'engine', 'bohemia_powerbuild.js')
 
 BEGIN = '/* ==== engine/bohemia_work.js ==== */'
 END = '/* ==== /engine/bohemia_work.js ==== */'
@@ -33,13 +34,18 @@ END = '/* ==== /engine/bohemia_work.js ==== */'
 # outside every module body for the same reason work does.
 P_BEGIN = '/* ==== engine/bohemia_parties.js ==== */'
 P_END = '/* ==== /engine/bohemia_parties.js ==== */'
+# [batteries mined] rides the same splice: it reads bohemia_purse.js and
+# bohemia_cityedit.js, both already in the city, and must land outside every
+# module body for the same reason the other two do.
+B_BEGIN = '/* ==== engine/bohemia_powerbuild.js ==== */'
+B_END = '/* ==== /engine/bohemia_powerbuild.js ==== */'
 # The economy's banner: bohemia_work.js reads YIELD off that module, so landing
 # beside it keeps the two things a reader has to hold together in one place.
 ANCHOR = '/* ==== engine/bohemia_economy.js ==== */'
 
 
 def main():
-    for p in (CITY, MODULE, PARTIES):
+    for p in (CITY, MODULE, PARTIES, POWERB):
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
@@ -61,6 +67,7 @@ def main():
 
     s = cut(s, BEGIN, END, 'the work module')
     s = cut(s, P_BEGIN, P_END, 'the parties module')
+    s = cut(s, B_BEGIN, B_END, 'the power buildings module')
 
     if s.count(ANCHOR) != 1:
         sys.exit('REFUSING TO WRITE: the anchor resolves %d times, not 1.' % s.count(ANCHOR))
@@ -75,15 +82,21 @@ def main():
         sys.exit('REFUSING TO WRITE: the parties module contains a sequence that would '
                  'close the script tag.')
 
+    pwr = open(POWERB, encoding='utf8').read().rstrip('\n')
+    if '</' in pwr:
+        sys.exit('REFUSING TO WRITE: the power buildings module contains a sequence '
+                 'that would close the script tag.')
+
     block = (BEGIN + '\n' + mod + '\n' + END + '\n'
-             + P_BEGIN + '\n' + par + '\n' + P_END + '\n\n')
+             + P_BEGIN + '\n' + par + '\n' + P_END + '\n'
+             + B_BEGIN + '\n' + pwr + '\n' + B_END + '\n\n')
     s = s.replace(ANCHOR, block + ANCHOR, 1)
 
     if s == before:
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY WORK: bohemia_work.js + bohemia_parties.js inlined before the economy module')
+    print('CITY WORK: work + parties + powerbuild inlined before the economy module')
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 
