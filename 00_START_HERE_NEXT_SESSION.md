@@ -5096,7 +5096,67 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/7 (c) LATEST -- *** [more people] ROUND 7, THE FIRST ROUND
+LIFE + CITY (city-1eztay): 9/11 (a) LATEST -- *** [tap picks] SHIPPED. HIS OWN BUG, FROM
+HIS OWN FRAME, AND THE ROUTING RULING'S TWO NAMED CAUSES WERE BOTH WRONG. TAPPING THE
+BUILDING YOU ARE LOOKING AT USED TO SELECT IT 0 TIMES OUT OF 38; IT NOW SELECTS IT 38 TIMES
+OUT OF 40. *** MODE: BUILD. TAB: CITY. Nothing to judge.
+
+  HIS WORDS 9/8: "when I click a tile in city builder mode it's not the tile it's sitting
+on, it's like below, very awkward, can you fix that?" Standing duty 8 says his bugs beat
+the queue, so [more people] round 8 waited and this went first.
+  *** THE RULING SAID "READ, NOT GUESSED" AND HAD READ IT WRONG. *** It named a draw-time
+LIFT of 1.6 -- that constant is FORCE_POVERTY_LIFT, an economics number with nothing to do
+with drawing -- and page pixels not being scaled to canvas pixels, which toCv() has always
+done. A premise handed down is still a premise.
+  MEASURED WITH DRIVEN TAPS INSTEAD: tapping a tile's GROUND CENTRE was 25 of 25 EXACT at
+every zoom, and tapping THE BUILDING YOU CAN SEE was 0 OF 38. The picker inverted the
+ground plane, which is exact arithmetic and was never wrong; the eye is on the ART, which
+is painted above its own footprint. Those two agree only on flat ground, which is why a
+road always worked, a tower never did, and it read as awkward rather than broken.
+  AND THE FIRST CUT WAS A DEAD END: it taught the picker about prism(), the procedural
+block fallback, then measured ZERO PRISM CALLS AT EVERY ZOOM. The valley is painted with
+baked hero art. That fix would have gone green on a body the renderer never draws.
+  WHAT SHIPPED: the renderer records the rectangle it really blits and the picker asks the
+art's own pixels, taking the tile painted LAST. One source of truth, so the pick cannot
+disagree with the picture.
+  *** THE PART THAT TOOK FOUR ATTEMPTS AND A SCREENSHOT TO SEE. *** "Whose paint did you
+touch" is the wrong question for flat ground: a ROAD plate is opaque well outside its own
+diamond, so the first working cut sent a tap on open tarmac to the plot in front -- HIS
+EXACT BUG, REINTRODUCED BY THE FIX FOR HIS BUG. Caught by looking at a marked screenshot,
+not by a number. Three attempts failed because I reached for a threshold before measuring
+the thing I was thresholding: the plate's RECTANGLE says nothing (the arterial plate
+reaches 37px above a 24px tile, as tall as a small building, because a plate is mostly
+transparent margin), and a first cut at 1.5 tiles sat INSIDE the building cluster and threw
+away every school and shop in the valley.
+  THE CUT POINT WAS READ OFF THE ART. Opaque height in tile-heights, measured at TW=48:
+ground runs 1.05 (desert, wash, rail, water) through 1.23 (farm, suburb, arterial);
+buildings start at 1.54 (school, strip, commercial) and run to 2.06 (courthouse, resort).
+NOTHING LIVES IN THE GAP, so the number inside it changes nothing -- which is the whole
+difference between a measured threshold and a tuned one.
+  AFTER: buildings 38 of 40 (16/16, 15/16, 7/8 across three zooms), open ground 36 of 36.
+  GATE: gates/tap_picks_gate.js, 6/0, registered, DRIVEN POINTER EVENTS ON THE ALPHA at
+390x844 -- his own surface. Only a driven tap counts: the pad taught the fleet this a week
+ago, when an in-page hit test said 12 of 12 while real taps landed 2 of 11. Mutation-tested
+two ways, each caught by a different leg: restore the old picker (buildings 0 of 40), drop
+the standing-up rule (open ground 0 of 36).
+  AND THE PROBE WAS WRONG TWICE BEFORE THE GAME WAS: it had to DISMISS THE MORNING CARD the
+way a player does (#daycard covers the whole canvas on boot, and three runs reported every
+tap landing nowhere because of it), and its ground leg first tapped ANY flat tile's ground
+centre and scored 0 of 12 at the far zoom -- which was the LEG being wrong, because at that
+zoom a tower's art legitimately lies across several rows of its neighbours' ground, so the
+right answer there IS the tower.
+  RECORD: records/BOHEMIA_THE_TAP_PICKS_WHAT_YOU_SEE_9_11_26.md
+  STILL OPEN, REPORTED NOT HIDDEN: at the deepest zoom, one tap in eight lands on a
+neighbour (7 of 8 sampled). Below the gate's bar.
+  FOR PLUMBER [tap gate]: the shared driven-tap gate. The hard half is written here --
+drive real pointer events, dismiss what covers the canvas, and select the sample by the
+art's own measurements rather than by a name.
+  NEXT IN THIS LANE: [more people] round 8 (the crowds, not the floor), then [tiles not
+slabs], [buildings appear], [power buildings].
+
+--- THE POPULATION ROUND BELOW ---
+
+LIFE + CITY (city-1eztay): 9/7 (c) -- *** [more people] ROUND 7, THE FIRST ROUND
 OF THIS ROW WITH A RULING BEHIND IT INSTEAD OF A PENDING. THE STREET WAS EMPTY ON 116 OF
 120 STANDINGS ACROSS THE VALLEY; IT IS NOW 44 OF 120, AND THE TYPICAL STANDING HAS
 SOMEBODY IN IT WHERE IT USED TO HAVE NOBODY. *** MODE: BUILD. TAB: CITY, or just walk.

@@ -28937,12 +28937,129 @@ function CBafterEdit(){
   CBpanel(); render();
 }
 // exact inverse of iso(): p is the tile's TOP vertex, so centre is (sx, sy+TH/2)
+/* __THE_TAP_PICKS_WHAT_YOU_SEE__ (9/11) -- IS THIS POINT ON THAT TILE'S BODY?
+   A prism is its ground diamond swept upward by h pixels, so the painted body is the
+   diamond at every lift from 0 to h. The point is on it if, at the best lift, it falls
+   inside the diamond -- one expression, no loop over pixels:
+       across  = |px - sx| / (TW/2)
+       down    = how far the point sits outside the band the sweep covers
+       on the body when across + down <= 1
+   A tile with no recorded prism is flat, which is h = 0 and the ordinary diamond. */
+function cbOnDiamond(px,py,sx,sy,h){
+  const ax=Math.abs(px-sx)/(TW/2);
+  if(ax>1) return false;
+  const dy=py-(sy+TH/2);                      /* relative to the ground diamond's centre */
+  const out = dy>=0 ? dy : (dy<=-h ? -(dy+h) : 0);
+  return ax + out/(TH/2) <= 1;
+}
+/* __THE_TAP_PICKS_WHAT_YOU_SEE__ -- IS THERE PAINT UNDER THE FINGER?
+   A hero plate is a rectangle with a lot of transparent sky in it: a roof occupies the
+   middle and the corners are empty. Testing the rectangle alone would hand the tap to a
+   tower whose empty corner happens to hang over the street you were aiming at. So the
+   art's own pixel decides, sampled one pixel at a time out of a scratch canvas -- which
+   costs nothing, because this runs once per tap and never in a frame. */
+/* __THE_TAP_PICKS_WHAT_YOU_SEE__ -- IS THIS ART A BUILDING, OR IS IT GROUND?
+   The question matters because only a thing that STANDS UP can legitimately take a tap
+   away from the ground under it. MEASURED, and it is why two earlier cuts of this fix were
+   wrong: a plate's RECTANGLE says nothing -- the arterial road plate reaches 37 px above
+   its own tile on a 24 px tile, as tall as a small building, because a plate is mostly
+   transparent margin. So measure the OPAQUE MASS instead: a road's paint is one diamond
+   tall, a tower's is many. Once per image, cached, because the art does not change. */
+var CB_RISE=new Map();
+function cbArtRise(im){
+  var k=im.src||im; var v=CB_RISE.get(k); if(v!==undefined) return v;
+  var out=0;
+  try{
+    var W=Math.min(48,im.naturalWidth), H=Math.min(96,im.naturalHeight);
+    var c=document.createElement('canvas'); c.width=W; c.height=H;
+    var gg=c.getContext('2d',{willReadFrequently:true});
+    gg.drawImage(im,0,0,im.naturalWidth,im.naturalHeight,0,0,W,H);
+    var d=gg.getImageData(0,0,W,H).data, top=-1, bot=-1;
+    for(var yy=0;yy<H;yy++) for(var xx=0;xx<W;xx++){
+      if(d[(yy*W+xx)*4+3]>24){ if(top<0)top=yy; bot=yy; break; } }
+    out = (top<0)?0:((bot-top+1)/H);          /* the opaque share of the plate's height */
+  }catch(_e){ out=0; }
+  CB_RISE.set(k,out); return out;
+}
+var CB_PIX=null, CB_PIXG=null;
+function cbPaintAt(rec,px,py){
+  /* *** THE MIRROR MOVES THE RECTANGLE, NOT JUST THE PICTURE INSIDE IT. *** The first cut
+     tested [dx, dx+w] for every plate and only flipped the lookup inside it. A flipped
+     blit is issued at dx but LANDS at [2sx-dx-w, 2sx-dx], so for every mirrored tile the
+     test was asking about a patch of screen the art was never on -- and a tap on open road
+     was handed to the plot in front of it, which is the exact bug this round is fixing.
+     Caught by looking at a screenshot, not by a number. */
+  var x0 = rec.flip ? (2*rec.sx - rec.dx - rec.w) : rec.dx;
+  if(px<x0||py<rec.dy||px>=x0+rec.w||py>=rec.dy+rec.h) return false;
+  var u=(px-x0)/rec.w, v=(py-rec.dy)/rec.h;
+  if(rec.flip) u=1-u;
+  var ix=Math.max(0,Math.min(rec.im.naturalWidth-1, Math.floor(u*rec.im.naturalWidth)));
+  var iy=Math.max(0,Math.min(rec.im.naturalHeight-1, Math.floor(v*rec.im.naturalHeight)));
+  try{
+    if(!CB_PIX){ CB_PIX=document.createElement('canvas'); CB_PIX.width=CB_PIX.height=1;
+                 CB_PIXG=CB_PIX.getContext('2d',{willReadFrequently:true}); }
+    CB_PIXG.clearRect(0,0,1,1);
+    CB_PIXG.drawImage(rec.im, ix, iy, 1, 1, 0, 0, 1, 1);
+    return CB_PIXG.getImageData(0,0,1,1).data[3] > 24;     /* anything but sky */
+  }catch(_e){ return true; }   /* a tainted or unreadable plate: trust the rectangle */
+}
 function CBcellAt(sx,sy){
   const ox=Math.round(cv.width/2-(city.x-city.y)*TW/2+panX), oy=Math.round(cv.height/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const dx=sx-ox, dy=sy-oy-TH/2;
   const x=Math.round(dx/TW+dy/TH), y=Math.round(dy/TH-dx/TW);
-  if(x<0||y<0||x>=om.n||y>=om.n)return null;
-  return [x,y];
+  /* THE GROUND ANSWER, which is exact for a flat tile and was measured 25 of 25 at every
+     zoom. It stays the fallback, so nothing regresses on ground the renderer did not
+     record -- and it is the FLOOR of the search, because lifting a roof can only ever move
+     it UP the screen, which is toward a HIGHER x+y. */
+  const flat = (x<0||y<0||x>=om.n||y>=om.n) ? null : [x,y];
+  if(!CB_DREW || !CB_DREW.size) return flat;
+  /* how many rows a roof can possibly be lifted by, from the tallest body actually drawn
+     this frame -- not a constant, because it depends on the zoom and on what is on screen */
+  /* how far above its own footprint a body can reach, from the tallest thing actually on
+     the glass this frame -- not a constant, because it depends on the zoom and on which
+     art is in view */
+  let lift=0;
+  CB_DREW.forEach(v=>{ const up=(v.sy+TH/2)-v.dy; if(up>lift) lift=up; });
+  const K = Math.min(24, Math.ceil(lift/Math.max(1,TH/2))+2);
+  /* THE EYE SEES WHAT WAS PAINTED LAST. The render loop walks s = x+y ascending, so a
+     later tile paints over an earlier one: the tile under the finger is the one with the
+     LARGEST x+y that has paint there. Search from the front of the screen backwards and
+     take the first hit, which is that tile by construction. */
+  /* *** AND IT HAS TO LOOK SIDEWAYS, NOT JUST FORWARD. *** The first cut walked only
+     tiles with BOTH coordinates increased, on the reasoning that lifted art moves up the
+     screen and up the screen means a larger x+y. True about the SUM, false about each
+     coordinate: a tile at (x+3, y-1) also has a larger sum and was never looked at. That
+     is what left the far zoom answering null and, once, a tile eleven rows away. */
+  let best=null, bestK=-1;
+  for(let ddx=-K; ddx<=K; ddx++) for(let ddy=-K; ddy<=K; ddy++){
+    const k=ddx+ddy; if(k<0||k>K||k<=bestK) continue;
+    const tx=x+ddx, ty=y+ddy;
+    if(tx<0||ty<0||tx>=om.n||ty>=om.n) continue;
+    const rec=CB_DREW.get(tx+','+ty); if(!rec) continue;
+    /* *** ONLY ART THAT STANDS UP CAN TAKE A TAP OFF THE GROUND. *** Measured with a
+       screenshot after the first cut sent a tap on open road to the plot in front of it:
+       tile (49,49)'s ARTERIAL plate painted a solid pixel over tile (48,48)'s ground
+       centre, so "whose paint did you touch" is the wrong question for flat ground.
+       Tarmac bleeding onto next door is texture; a building that rises is a body, and
+       ground defers to the ground answer, which was measured exact 25 of 25.
+       The test is the art's OPAQUE mass against one tile's own height, AND THE CUT POINT
+       WAS READ OFF THE ART RATHER THAN TUNED. Measured, every district drawn at TW=48:
+           desert wash rail cemetery water         1.05 tiles
+           mall park trailer storage freeway       1.09 - 1.14
+           farm suburb arterial                    1.20 - 1.23
+           ---------------- nothing at all lives in here ----------------
+           school strip commercial                 1.54 - 1.56
+           terminal chapel apartment campus        1.71 - 1.76
+           substation courthouse resort            1.83 - 2.06
+       Ground runs to 1.23 and buildings start at 1.54, so the boundary is an EMPTY GAP in
+       the art itself and the exact number inside it changes nothing -- which is the whole
+       difference between a measured threshold and a tuned one. A first cut at 1.5 sat
+       inside the building cluster and threw away every school and shop in the valley. */
+    const solid = cbArtRise(rec.im) * rec.h;
+    if(solid <= TH*1.35) continue;
+    if(cbPaintAt(rec,sx,sy)){ bestK=k; best=[tx,ty]; }
+  }
+  return best || flat;
 }
 /* __THE_RUNG_IS_A_DOOR__ -- MAY I BUILD HERE? (9/6, BB-THE-RUNG-PAYS.)
    engine/bohemia_mandate.js has carried canBuild() since 8/11 and MEASURED TODAY IT HAD
@@ -35717,7 +35834,25 @@ function lerpHex(a,b,t){const A=parseInt(a.slice(1),16),B=parseInt(b.slice(1),16
   return 'rgb('+r+','+g2+','+bl+')';}
 function dia(p,col){ g.fillStyle=col; g.beginPath();
   g.moveTo(p.sx,p.sy); g.lineTo(p.sx+TW/2,p.sy+TH/2); g.lineTo(p.sx,p.sy+TH); g.lineTo(p.sx-TW/2,p.sy+TH/2); g.closePath(); g.fill(); }
+/* __THE_TAP_PICKS_WHAT_YOU_SEE__ (9/11) -- WHAT THE RENDERER ACTUALLY DREW.
+   Paolo 9/8, from his own frame: "when I click a tile in city builder mode it's not the
+   tile it's sitting on, it's like below, very awkward."
+   The picker inverted the GROUND plane and the eye is on the ROOF, and these two answers
+   are only the same for a flat tile. A prism is drawn with its roof h pixels ABOVE its own
+   footprint, so aiming at a building selects whatever ground happens to lie under that
+   patch of sky. MEASURED with driven taps before anything was changed: ground-centre taps
+   25 of 25 exact at every zoom, ROOF-CENTRE TAPS 11 OF 25, wrong by up to SEVEN ROWS on a
+   tall district -- and always exact on short ones, which is why it read as awkward rather
+   than broken.
+   The height comes from a per-tile RNG that is advanced as the row draws, so it cannot be
+   recomputed later without drifting out of step with the drawing -- which is the same
+   class of bug all over again. So the renderer RECORDS what it put on the glass, and the
+   picker reads that. One source of truth, by construction: the pick cannot disagree with
+   the picture unless somebody stops recording. */
+var CB_DREW = new Map();          /* "x,y" -> the body this tile actually painted */
+var CB_DREW_AT = null;            /* the tile the render loop is on right now */
 function prism(p,h,wall,roof){
+  if(CB_DREW_AT) CB_DREW.set(CB_DREW_AT,{sx:p.sx,sy:p.sy,h:h});
   g.fillStyle=shade(wall,0.78); g.beginPath();
   g.moveTo(p.sx-TW/2,p.sy+TH/2-h); g.lineTo(p.sx,p.sy+TH-h); g.lineTo(p.sx,p.sy+TH); g.lineTo(p.sx-TW/2,p.sy+TH/2); g.closePath(); g.fill();
   g.fillStyle=shade(wall,0.58); g.beginPath();
@@ -35916,6 +36051,14 @@ function overpassAt(x,y){
 function drawHero(name,p,flip,span){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;
   var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),sc=TW*(span||1)/plate,a=HERO_ANCH[name];
   var dx=p.sx-a.bx*sc, dy=p.sy+TH/2-a.by*sc, w=im.naturalWidth*sc, h=im.naturalHeight*sc;
+  /* __THE_TAP_PICKS_WHAT_YOU_SEE__ (9/11) -- AND THIS IS WHERE THE CITY IS ACTUALLY
+     DRAWN. The first cut of this fix recorded prism(), the procedural block fallback,
+     and measured ZERO prism calls at every zoom: the valley is painted with BAKED HERO
+     ART, and the prism path is legacy. A picker taught about prisms would have been a
+     fix for a body the renderer never puts on the glass.
+     So the art records the rectangle it really blits, and the picker tests the point
+     against it. */
+  if(CB_DREW_AT) CB_DREW.set(CB_DREW_AT,{sx:p.sx,sy:p.sy,dx:dx,dy:dy,w:w,h:h,im:im,flip:!!flip});
   if(flip){
     /* mirror about the tile's OWN centre line, not the canvas: the anchor is
        what keeps a tile butted up against its neighbour, so the flip has to
@@ -36020,6 +36163,9 @@ function renderCity(){
   const N=om.n;
   const ox=Math.round(cv.width/2-(city.x-city.y)*TW/2+panX), oy=Math.round(cv.height/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const night=isNight(); window.__LAMPQ=null;
+  /* __THE_TAP_PICKS_WHAT_YOU_SEE__ -- this frame's record starts empty, so the picker can
+     never answer from a body that is no longer on the glass. */
+  CB_DREW.clear(); CB_DREW_AT=null;
   if(UNDERV){ g.fillStyle='#0a0806'; g.fillRect(0,0,cv.width,cv.height); drawUnder(ox,oy); return; }
   /* THE VISTA GETS A REAL BACKDROP; the normal city view keeps its flat field.
      A map on flat blue is a map -- an overlook is sky, then the far side of the
@@ -36041,6 +36187,7 @@ function renderCity(){
       const p=iso(x,y,ox,oy);
       if(p.sx<-TW||p.sx>cv.width+TW||p.sy<-40||p.sy>cv.height+40)continue;
       g.globalAlpha=cellActive(t)?1:0.15;
+      CB_DREW_AT=x+','+y;            /* __THE_TAP_PICKS_WHAT_YOU_SEE__ */
       const d=t.district, r=OM.rng(t.seed);
       /* GRADE SEPARATION (Paolo 8/15): "there has to be an intersection of when
          the freeway meets the street you gotta look decent like you gotta be
