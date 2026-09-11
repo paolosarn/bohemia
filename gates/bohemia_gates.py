@@ -1893,6 +1893,18 @@ GATES = [
      "bar and no builder's drawer for a stranger to tap REROLL in -- and his "
      "bench still has all sixteen of its tabs, because taking the workshop away "
      "to make a demo would trade one mistake for a worse one", True),
+    ('PRE-JUDGE COVERAGE', ['python3', 'tools/bohemia_eyes_prejudge.py', '--gate'],
+     "EYES AND EARS lane 17, 9/11, E15 [machine judges]: A QUESTION THE FLEET THINKS IS "
+     "GATED AND IS NOT IS WORSE THAN ONE NOBODY CLAIMS. E7's score sheet splits a cook "
+     "against its reference into 7 machine questions and 3 human ones. STYLE CARD and "
+     "TARGET MATCH already grade cooks, so this lane did not build a second judge -- it "
+     "built the honest map of which of the 7 is already gated, by what, and over which "
+     "art, and every claim in that map carries the gate's own check string and is "
+     "VERIFIED present rather than asserted. Two of the seven are performed by no gate "
+     "anywhere (grain scale by autocorrelation, and does it still read at play size), "
+     "frozen at two and may only go down. A claim that goes stale because a gate stopped "
+     "carrying its check is an immediate red, not a ratchet, because that is exactly the "
+     "rot E11 found in CLAUDE.md's own law index.", True),
     ('NO READER', ['node', 'gates/no_reader_ratchet_gate.js'],
      "EYES AND EARS lane 17, 9/6, E11 [pixels only]: A RULING NOBODY CAN READ IS A "
      "RULING THAT GETS ASKED AGAIN. The lane's school round found the corrected rule: "

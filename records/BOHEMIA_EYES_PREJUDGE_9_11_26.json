@@ -1,0 +1,307 @@
+{
+ "what": "EYES AND EARS -- E15 [machine judges] round 2. Step 0: where the queue actually is.",
+ "override_meter": {
+  "verdict_records": 76,
+  "records_mentioning_both_a_machine_and_a_human_call": 43,
+  "examples": [
+   "BOHEMIA_16_HOUSES_VERDICT_7_31_26.txt",
+   "BOHEMIA_COMBAT_LAB_VERDICT_2_7_20_26.txt",
+   "BOHEMIA_COMBAT_LAB_VERDICT_7_19_26.txt",
+   "BOHEMIA_GRIME_VERDICT_8_9_26.txt",
+   "BOHEMIA_HOUSE_01_VERDICT_7_29_26.txt"
+  ],
+  "computable": false,
+  "why_not": "no record stores, per cook, the MACHINE verdict beside the HUMAN verdict that followed it. Files that mention both mention them in prose, not as a pair a machine can compare. So the override rate cannot be computed today.",
+  "the_one_line_that_would_fix_it": "when a cook clears the machine pass, write its machine verdict into the same verdict record the human thumb lands in. One field, and the rate becomes a number forever after."
+ },
+ "date": "9/11/26",
+ "school": "records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md",
+ "step_zero": [
+  {
+   "lane": "LIFE + CITY",
+   "claimed": 1,
+   "open": 7,
+   "shipped": 9,
+   "oldest_claim_days": 6,
+   "median_claim_days": 6
+  },
+  {
+   "lane": "SOUNDS",
+   "claimed": 1,
+   "open": 9,
+   "shipped": 6,
+   "oldest_claim_days": 5,
+   "median_claim_days": 5
+  },
+  {
+   "lane": "RUN",
+   "claimed": 1,
+   "open": 13,
+   "shipped": 14,
+   "oldest_claim_days": 5,
+   "median_claim_days": 5
+  },
+  {
+   "lane": "COOK",
+   "claimed": 2,
+   "open": 7,
+   "shipped": 6,
+   "oldest_claim_days": 4,
+   "median_claim_days": 4
+  },
+  {
+   "lane": "EYES AND EARS",
+   "claimed": 1,
+   "open": 3,
+   "shipped": 14,
+   "oldest_claim_days": 4,
+   "median_claim_days": 4
+  },
+  {
+   "lane": "READ THIS FRONT PAGE EVERY SINGLE TIME YOU HEAR THE WORD VAMILY",
+   "claimed": 0,
+   "open": 0,
+   "shipped": 0,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "THE NINETEEN CHATS",
+   "claimed": 0,
+   "open": 0,
+   "shipped": 0,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "WORLD",
+   "claimed": 0,
+   "open": 13,
+   "shipped": 11,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "QUESTS",
+   "claimed": 0,
+   "open": 6,
+   "shipped": 7,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "COMBAT",
+   "claimed": 0,
+   "open": 15,
+   "shipped": 7,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "ANIMATION",
+   "claimed": 0,
+   "open": 16,
+   "shipped": 4,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "CHARACTER",
+   "claimed": 0,
+   "open": 8,
+   "shipped": 3,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "PEOPLE",
+   "claimed": 0,
+   "open": 8,
+   "shipped": 9,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "FACTIONS",
+   "claimed": 0,
+   "open": 5,
+   "shipped": 9,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "WORDS",
+   "claimed": 0,
+   "open": 7,
+   "shipped": 17,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "UI",
+   "claimed": 0,
+   "open": 16,
+   "shipped": 11,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "DIRECTION",
+   "claimed": 0,
+   "open": 8,
+   "shipped": 22,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "ECONOMY",
+   "claimed": 0,
+   "open": 4,
+   "shipped": 27,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "DYNASTY",
+   "claimed": 0,
+   "open": 7,
+   "shipped": 18,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "PLUMBER",
+   "claimed": 0,
+   "open": 17,
+   "shipped": 3,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "SHARED",
+   "claimed": 0,
+   "open": 2,
+   "shipped": 0,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  {
+   "lane": "HISTORY",
+   "claimed": 0,
+   "open": 0,
+   "shipped": 0,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  }
+ ],
+ "premise_tested": {
+  "the_premise": "DIRECTION is the bottleneck because every cook waits on a human judgement",
+  "direction": {
+   "lane": "DIRECTION",
+   "claimed": 0,
+   "open": 8,
+   "shipped": 22,
+   "oldest_claim_days": null,
+   "median_claim_days": null
+  },
+  "oldest_unshipped_claim_on_the_board": {
+   "lane": "LIFE + CITY",
+   "claimed": 1,
+   "open": 7,
+   "shipped": 9,
+   "oldest_claim_days": 6,
+   "median_claim_days": 6
+  }
+ },
+ "sheet": {
+  "machine": [
+   "Same DETAIL ORDER?",
+   "Same COLOUR DENSITY?",
+   "Same SATURATION BUDGET?",
+   "Same VALUE BAND?",
+   "Same GRAIN SCALE?",
+   "Same LIGHT?",
+   "Does it still READ at play size?"
+  ],
+  "human": [
+   "Is it the same MATERIAL?",
+   "Does it belong to THIS world?",
+   "What would a stranger call it, in one word, for each picture?"
+  ]
+ },
+ "coverage": [
+  {
+   "n": 1,
+   "question": "Same DETAIL ORDER?",
+   "test": "local contrast (mean neighbour step) within 2.5x of the reference",
+   "covered": true,
+   "gate": "gates/texture_match_gate.py",
+   "scope": "TILES only",
+   "evidence": "every cooked tile lands inside the band measured off HIS art",
+   "why": "the gate still carries the check"
+  },
+  {
+   "n": 2,
+   "question": "Same COLOUR DENSITY?",
+   "test": "unique colours per 1000 pixels within 3x",
+   "covered": true,
+   "gate": "gates/target_screen_gate.py",
+   "scope": "the target screen only",
+   "evidence": "unique colour",
+   "why": "the gate still carries the check"
+  },
+  {
+   "n": 3,
+   "question": "Same SATURATION BUDGET?",
+   "test": "median saturation within 0.10",
+   "covered": true,
+   "gate": "gates/style_card_gate.py",
+   "scope": "WARDROBE only",
+   "evidence": "sits in the register or is a clear accent",
+   "why": "the gate still carries the check"
+  },
+  {
+   "n": 4,
+   "question": "Same VALUE BAND?",
+   "test": "the 5th-95th percentile luminance bands overlap by at least 60%",
+   "covered": true,
+   "gate": "gates/style_card_gate.py",
+   "scope": "WARDROBE only",
+   "evidence": "keeps its value inside the card",
+   "why": "the gate still carries the check"
+  },
+  {
+   "n": 5,
+   "question": "Same GRAIN SCALE?",
+   "test": "the structure repeats at a similar size (first autocorrelation peak within 2x)",
+   "covered": false,
+   "gate": null,
+   "scope": null,
+   "why": "no gate in the suite performs this test"
+  },
+  {
+   "n": 6,
+   "question": "Same LIGHT?",
+   "test": "the lit corner agrees",
+   "covered": true,
+   "gate": "gates/pixel_craft_gate.py",
+   "scope": "the pixel-craft corpus only",
+   "evidence": "lit corner",
+   "why": "the gate still carries the check"
+  },
+  {
+   "n": 7,
+   "question": "Does it still READ at play size?",
+   "test": "shrink both to 24px and compare the surviving contrast, within 2x",
+   "covered": false,
+   "gate": null,
+   "scope": null,
+   "why": "no gate in the suite performs this test"
+  }
+ ],
+ "gaps": [
+  "Same GRAIN SCALE?",
+  "Does it still READ at play size?"
+ ],
+ "reuse_first": "STYLE CARD and TARGET MATCH are registered in the suite and already grade cooks by machine; the pass E15 asks for largely exists, so this round maps the gap instead of rebuilding it"
+}
