@@ -8752,18 +8752,58 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/7 (e) LATEST -- *** CHAT 18. ROUND 14. [gate missing] SHIPPED, AND I
-NEARLY SHIPPED A DUPLICATE. The row said the art reference gate did not exist; DIRECTION HAD
-ALREADY BUILT IT. I read the board line instead of the folder and wrote a second one. The suite
-caught me by printing TWO rows of the same name. Theirs restored untouched, mine deleted. THE
-LESSON: a board line is a claim about the world, not the world -- ask the folder first. WHAT THE
-ROUND REALLY CONTRIBUTED IS THE HALF NOBODY HAD: the art gate was the symptom, the defect was in
-THE INDEX. CLAUDE.md told every chat a LOCKED law was enforced while nothing ran, for three days.
-A LAW WITH AN IMAGINARY GATE IS WORSE THAN A LAW WITH NO GATE, BECAUSE THE FIRST ONE STOPS
-ANYBODY LOOKING. Now every gate the law index promises must exist AND be run. I also found a
-REUSE-FIRST violation in MY OWN tool from 9/6 and fixed it, and handed DIRECTION a measured gap:
-their gate sweeps 92 tools, the reuse law sweeps 170, so 84 drawing patch tools sit outside the
-art law.
+PLUMBER (plumber-ont6t5): 9/11 (b) LATEST -- *** CHAT 18. ROUND 15. [dead modules] SHIPPED, AND
+THE ANSWER IS DO NOTHING. The row said 29 engine modules are dead weight, the biggest 281 KB,
+archive them. THAT 281 KB MODULE IS LIVE: all 1277 of its body lines are in the shipped game word
+for word. Archiving it would have deleted the canon copy of running code and broken ENGINE SYNC
+silently. WHY THE ROW LOOKED RIGHT: the measurement behind it was correct (the game fetches 17
+files and nothing else), but this repo INLINES engine modules into the slices, so "unreachable as
+a file" is not "dead" -- the file is never requested AND is what every carrier is compared
+against. MEASURED on the real tree: of 172 modules / 3820 KB, 103 are inlined with their marker,
+38 more have their code in a shipped slice without one, and only 31 are nowhere in the game (334
+KB). 91% of the engine is carried by the game. Of the 31 truly absent, 25 are read by a gate or a
+tool and 9 sit whole inside a bundle a gate checks by md5, so archiving them turns a checker red.
+EXACTLY ONE, bohemia_tests.js at 15 KB, is read by nothing and carried by nothing, and it is
+NAMED rather than assumed -- not this lane's to delete. SO THE MOST [slim build] COULD EVER HAVE
+SAVED HERE IS 15 KB OF 3820, which is 0.4%. gates/engine_census_gate.js (ENGINE CENSUS, 10/0, 7s,
+registered, seen by GATE REGISTRY and LAW INDEX) holds it, red on: a module recorded as live that
+vanished from disk, a NEW orphan, a named orphan that stopped being one, a module drifting into
+the half-inlined middle, and an empty sweep of any of its three inputs. All four teeth proven to
+bite with throwaway files first. TWO WRONG ATTEMPTS BEFORE IT WAS RIGHT, both written down
+because both are reusable mistakes: v1 matched ONE "signature" line per module, which let a 151 KB
+STORAGE BUNDLE pass as live off a single prose sentence -- it now matches every body line over 45
+characters and asks what fraction landed (live 72-100%, dead 0-20%, and a check holds that gap
+open so no threshold decides quietly). And v2 CAUGHT ITSELF READING ITSELF: naming the orphan
+inside the gate made the reader scan find the gate, so every orphan would have read as
+looked-after the moment it was written down. Green over nothing, inside the gate written against
+green over nothing. AND THEN IT HAPPENED AGAIN ONE STEP REMOVED: registering the gate means
+writing a paragraph that NAMES the orphan, and the suite catalogue counted as a reader too. That
+one is the MENTION-VS-USE hole reusefirst_gate closed on 8/20, in a new place -- in that file a
+module is read only if a row RUNS it, because nine bohemia_loop_*_tests.js have it as their ONLY
+reader and all nine are genuinely run by it. Both directions proven with throwaway edits. TWICE IN
+ONE GATE, THE SAME DEFECT: something written to DESCRIBE a thing counted as something USING it. A
+scan that matches substrings cannot tell a sentence from a call.
+[FOUND, NOT MINE, FOR WHOEVER TAKES [handoff cut]] NO MARKERS is RED on main and has been since
+a3e6f42: line 369 of THIS FILE is a bare seven-character `=======`, a git conflict divider, sitting
+between two lane blocks. It is an ORPHAN -- zero `<<<<<<<` and zero `>>>>>>>` anywhere in the file,
+so nothing is unresolved and no content is at risk, it is one stray line from an old merge. Proven
+pre-existing: the same two failures come up byte for byte on a clean worktree of origin/main with
+my commit absent. Not fixed here because this lane's remit on the pile files is verbatim moves
+only, and deleting a line is not a move. It is one line of work for whoever opens [handoff cut].
+Same check on TOP OF THE DOCUMENT: 8 passed / 2 failed, identical on clean main, also not mine.
+records/BOHEMIA_THE_DEAD_MODULES_ARE_MOSTLY_ALIVE_9_11_26.md plus the
+module-by-module census at records/BOHEMIA_ENGINE_CENSUS.json. SAME LESSON AS LAST ROUND, other
+direction: a board line is a claim about the world, not the world. Ask the tree, not the row.
+ROUND 14: [gate missing] SHIPPED, AND I NEARLY SHIPPED A DUPLICATE. The row said the art
+reference gate did not exist; DIRECTION HAD ALREADY BUILT IT. I read the board line instead of
+the folder and wrote a second one. The suite caught me by printing TWO rows of the same name.
+Theirs restored untouched, mine deleted. WHAT THE ROUND REALLY CONTRIBUTED IS THE HALF NOBODY
+HAD: the art gate was the symptom, the defect was in THE INDEX. CLAUDE.md told every chat a
+LOCKED law was enforced while nothing ran, for three days. A LAW WITH AN IMAGINARY GATE IS WORSE
+THAN A LAW WITH NO GATE, BECAUSE THE FIRST ONE STOPS ANYBODY LOOKING. Now every gate the law
+index promises must exist AND be run. I also found a REUSE-FIRST violation in MY OWN tool from
+9/6 and fixed it, and handed DIRECTION a measured gap: their gate sweeps 92 tools, the reuse law
+sweeps 170, so 84 drawing patch tools sit outside the art law.
 ROUND 13: [clock math] SHIPPED: A WAKING
 DAY TAKES 58 TO 59 REAL MINUTES. Nobody had ever measured how much game time a real minute buys,
 so nobody could say whether three generations fit in a hundred hours. Walking the real city with
