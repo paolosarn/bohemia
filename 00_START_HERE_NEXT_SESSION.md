@@ -16570,6 +16570,15 @@ monospace 178, one-pixel borders 144, rounded corners 115+, gradients 31, letter
 labels 188, emoji in buttons 27, dark always -- we carry the whole list. Law: none survive,
 the look comes from the world (an object, 2050 rustic), the font is researched, a gate
 counts the tells. Routed UI [no slop] (top), DIRECTION [the font], EYES E19 [slop count].
+THEN (dn) VAMILY: 2 ships, 16 jobs claimed across the fleet (busy). SOUNDS [music owned]
+round 2: the music never stopped once in twelve minutes, every song gets EXACTLY 128 s (the
+engine's loop length) back to back, and the ambience bed is masked underneath forever.
+ECONOMY Q29: the day after the money dies the shelves fill and nobody can buy anything.
+ECONOMY also flagged, twice, the language gate RED 80/1 on a PEOPLE quirk line with no
+Spanish in it -> routed PEOPLE [spanglish red], first thing; and a "bare conflict marker"
+in the handoff -> checked, only the 80-char decorative separators found, routed EYES E21
+[marker sweep] so a machine tells the two apart. Harvested WORLD [full shelves]; topped up
+ECONOMY (Q33 barter day, Q34 who profits) and EYES (E20 song length).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
