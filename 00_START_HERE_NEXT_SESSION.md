@@ -15789,6 +15789,15 @@ feed is a flat black monospace panel, a debug console, against his 9/4 law (a PH
 and his 9/6 three-acts law (act one's interface is an in-world object, 2050 rustic). The
 words are fine; the OBJECT is the job. Routed UI [phone object] (top, options sheet of 3-5
 phones, drawn from the skin), DIRECTION [phone card] (real worn phones as reference).
+THEN (dj) A FRAME OF THE LEFT RAIL (records/target/PAOLO_THE_RAIL_COLLIDES_9_8_26.jpg): "what
+is this part of the UI? it's colliding with each other." IT IS the city screen's left rail
+of chips plus the day's JOB CARD (SCAVENGE, 9H) that the shift work added; READ IN THE FILE:
+every chip has its own hand-typed top/left, nothing lays the rail out as a stack, so a new
+card lands on whatever sat at that height (DROP IN, WHOLE MAP); the file carries an older
+comment fixing exactly this by hand for one element, plus four duplicate footing divs from
+merges. Routed UI [rail collides] (top: one flex stack, no hand offsets, a no-overlap gate at
+phone size), LIFE+CITY [white rings] (four white ring markers at once, one is him; measure
+what draws them).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
