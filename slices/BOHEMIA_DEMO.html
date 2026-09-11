@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/7s - SOMEBODY IS WAITING ON YOU</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/11a - THE PARTING WANDERS LIKE HAIR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -25163,6 +25163,37 @@ window.CLO=(function(){
       var _sd2=0, _sn=(opt.name||'');
       for(var _si=0;_si<_sn.length;_si++){_sd2=(Math.imul(_sd2^_sn.charCodeAt(_si),16777619))>>>0;}
       var _ph=(_sd2>>>11)%(4*S);
+      /* THE WALK, built once per style per frame and read by cell row. Cumulative, so the
+         parting remembers where it got to; clamped to +/-2 cells so it wanders without
+         sliding off the skull; memoised because it is asked for once per painted pixel
+         and a random walk recomputed per pixel is the same answer bought thousands of
+         times. */
+      /* *** AND MOVING EVERY PARTING THE SAME WAY IS NOT MOVING THEM AT ALL. ***
+         The first cut of this walked the parting down the head as one cumulative drift
+         read off the cell row -- which is right about the walk and wrong about WHOSE walk
+         it is. Every parting on the skull asked the same row and got the same answer, so
+         the whole comb shifted TOGETHER and the distance between neighbouring partings
+         never changed by a pixel. Measured: banding 25.3% -> 23.4%, a rounding error,
+         because BANDING IS ABOUT THE GAP BETWEEN BOUNDARIES, NOT ABOUT WHERE THEY SIT.
+         Slide a picket fence sideways and it is still a picket fence.
+         So each parting carries its OWN walk, seeded by which parting it is. Neighbours
+         now close up and open out as they run down the head, which is what hair does and
+         what the detector is actually looking for. */
+      var _drift={};
+      var _driftAt=function(seg,line){
+        if(seg<0)seg=0;
+        var key=line|0;
+        var arr=_drift[key]||(_drift[key]=[]);
+        for(var q=arr.length;q<=seg;q++){
+          var h4=(Math.imul(_sd2^(((q+1)*2654435761)^((key+7)*40503)),2246822507))>>>0;
+          var step=((h4>>>9)%3)-1;                     /* -1, 0 or +1, off the style seed */
+          var prev=q?arr[q-1]:0;
+          var v=prev+step;
+          if(v>2)v=2; if(v<-2)v=-2;                    /* the leash: never off the skull */
+          arr.push(v);
+        }
+        return arr[seg];
+      };
       for(var k3 in oo){ var i3=+k3, x3=i3%CW, y3=(i3/CW)|0;
         /* the flow axis, exactly as texSkip picks it */
         var ax=prof?(y3-hTop):(x3-hMn);
@@ -25185,7 +25216,32 @@ window.CLO=(function(){
            Half the segment: it steps every cell, so a fourteen-pixel run gets seven
            moves instead of three. Same hash, same determinism, no new travel -- the
            parting still only ever moves by one pixel (8/25, and 8/1 clause 5). */
-        var _wb=((Math.imul(_sd2^(((_cr/S)|0)+1),2654435761)>>>0)%3)-1;
+        /* *** A PARTING THAT JITTERS AROUND ONE COLUMN IS STILL A STRAIGHT LINE.
+           (9/11, EYES AND EARS bounce-back [eyes: hair bands].) ***
+           The double measured this art as the most banded in the repo and said what it
+           looked like: "the player's head from behind is a flat cream mass with one
+           straight black mark on it." Rendering the backs at 9x, that is exactly what is
+           there -- two or three dark rules running the FULL height of the mass, evenly
+           spaced, on DEEP TAPER, BUZZ CUT, BOWL CUT and SHAG alike.
+           WHY, and it is not that the drift was missing: this hash is keyed on the cell
+           row, so every row picks a FRESH -1/0/+1. That is NOISE AROUND A FIXED COLUMN,
+           amplitude one pixel, and a one-pixel wobble on a 22-cell head reads as a ruled
+           line with a burr on it. The 8/28 note that added it was right that a parting
+           must move and wrong about what moving means: a value that is re-rolled every
+           row has no memory, so it can never go anywhere.
+           A REAL PARTING WANDERS, which is a WALK, not a jitter: each step is still one
+           cell and still hashed off the style seed, but it ADDS TO WHERE THE LAST ROW
+           GOT TO. Same determinism (same style, same row, same answer, forever, so
+           nobody in a crowd shimmers), same one-cell step, and now the line actually
+           leaves the column it started in.
+           HELD ON A LEASH, because a parting that wanders off the head is a scar: the
+           walk is clamped to two cells either side of where it began, which is about a
+           fifth of a skull's width. */
+        /* WHICH parting this pixel belongs to, so each one walks its own way. Taken off
+           the nominal pitch rather than the drifted position, or the line's identity
+           would change as it wandered and the walk would fight itself. */
+        var _line=Math.round((ax-_ph)/(4*S));
+        var _wb=_driftAt((_cr/S)|0,_line);
         if(((ax+_wb+4*S)%(4*S))!==_ph)continue;
         var c3=oo[k3];
         if(c3[0]===r.dk[0]&&c3[1]===r.dk[1]&&c3[2]===r.dk[2])continue;   /* already the shadow */

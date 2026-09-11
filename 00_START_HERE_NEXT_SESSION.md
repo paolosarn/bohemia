@@ -7622,50 +7622,63 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND -- *** [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT, round 2. BUILT AND
-MEASURED ON THE REAL SURFACE. Tab: RUN, the walked street. ***
-- A hostile now stands ONE VALUE STEP away from the bodies near him: light in a dark
-  crowd, dark in a light one, measured against the CIVILIANS actually within four cells
-  of him in the frame. No badge, no outline, no name, no health bar.
-- WHERE IT LIVES: peoplePass in slices/BOHEMIA_CITY_WORLD.html. The pass used to draw as
-  it walked the neighbourhoods; a step measured against the bodies AROUND somebody cannot
-  be computed until everyone near them is resolved, so it now gathers every visible body
-  first and blits in a second pass. Same list, same order, same bookkeeping.
-- MEASURED, mixed crowd earned the way the game earns it (deed at the crowd's EDGE, so
-  only who is on the glass turns): 88 hostile, 83 civilian, 171 on the glass, one frame.
-      hostile distance from the crowd near him, BEFORE   median  7.6 shades
-      an ORDINARY CIVILIAN's distance, same measure       median  8.4
-      hostile distance AFTER                              median 14.0
-  BEFORE THE CHANGE A HOSTILE SAT CLOSER TO HIS NEIGHBOURS THAN AN AVERAGE CIVILIAN DID.
-  31 of the 88 had no civilian in reach and correctly take no step.
-- PERF: 5.1 ms/render before, 5.2 after, same 171-body frame. The luma read and the
-  shifted body are cached per sprite, so a crowd costs about 24 reads, not 171.
-- *** I GOT IT WRONG ONCE AND ONLY LOOKING AT IT CAUGHT THAT. *** The first version
-  composited white or black over the body at an alpha solved for the target. It hit the
-  number exactly and looked WRONG: white over a dun body drains the colour as it lightens,
-  so a hostile came out MILKY -- a pale person, not a lit one, in a valley whose register
-  is dust and ash. Invisible to the measurement, because the target luma was correct both
-  times. It now MULTIPLIES every channel by one factor, which moves the value and leaves
-  the hue exactly where it was. THE NUMBER WAS RIGHT AND THE PICTURE WAS WRONG.
-- THE NUMBER IS NOT MINE. CT_STEP.delta = 14 shades, set to beat the measured 6.6-shade
-  noise the crowd already carries, and it READS DIRECTION's style card the moment that
-  card carries hostile_value_step. Their [contrast rule] row owns the magnitude and is
-  still OPEN. MECHANISM-MINE / CONTENTS-PAOLO'S.
-- HONESTLY, WHAT IT LOOKS LIKE: at 14, with ONE enemy in a dense frame at phone size, the
-  read is PRESENT BUT QUIET. Evidence pair (same frame, same crowd, same one enemy):
-  records/target/CHARACTER_ONE_STEP_FROM_THE_CROWD_9_6_26.png. That is a magnitude
-  question and the magnitude is DIRECTION's; the mechanism now exists for a number to be
-  set on, and if the card asks for more, one field changes.
-- GATES: city_cast_gate 8/8, city_barks_gate 13/13. city_cast_silhouette_gate is RED at
-  5/1 -- AND IT IS RED IDENTICALLY ON origin/main (mean 0.079, floor 0.085). It is about
-  the cast's silhouette VARIETY, which this change never touches (alpha is never written,
-  so no silhouette can move by a pixel). NOT MINE, not fixed, said out loud.
-- NOT DONE, said plainly: the separate __THERE_ARE_ENEMIES__ pass draws its own bodies
-  beside the people and was NOT touched. Whether those need the same step is a different
-  question and not this row's.
-- Record: records/BOHEMIA_ONE_STEP_FROM_THE_CROWD_9_6_26.md
-  Round-1 measurement: records/BOHEMIA_CAN_YOU_PICK_HIM_OUT_9_6_26.txt
-  Tool: tools/bohemia_can_you_pick_him_out.js
+THIS ROUND -- *** [eyes: hair bands] SHIPPED. The double's bounce-back on art this lane
+had already shipped. Tab: CHARACTER, and every head in the game. ***
+- Took this ahead of [more clothes] on purpose: it is an EYES AND EARS bounce-back on a
+  SHIPPED item, which is a measured defect in art already in the game. A defect beats a
+  new feature. [look verdict] sits above it and is not takeable -- its own text re-routes
+  the judging to DIRECTION against the style card (9/7), so there is no CHARACTER work in
+  it.
+- THEIR FINDING: "THE HAIR IS THE MOST BANDED ART IN THE REPO -- 62.0%, against 31.8% for
+  the CMU block and 0.0% for every tile bank ... the player's head from behind is a flat
+  cream mass with one straight black mark on it."
+- *** THE FINDING IS RIGHT AND THE SIZE WAS NOT, and the correction goes back to them. ***
+  EVERY BANK IN THIS REPO STORES ITS ART BLOWN UP -- tiles at 4x, hair sheets at 3x -- and
+  a nearest-neighbour blow-up turns every source row into k identical rows. The detector
+  calls six similar rows a band, so at 3x two source rows that merely rhyme are already
+  six. Measured, with their own instrument, zoom found per piece and never assumed:
+        face + hair bank   51.5% as baked   14.5% native
+        CMU block          31.8% as baked    0.0% native
+        every tile bank     0.0%             0.0%
+  THE HAIR IS STILL THE MOST BANDED ART IN THE REPO -- everything else in the building
+  reads 0.0 at native scale and the hair does not, so their call stands and it is mine.
+  But the CMU comparison was ENTIRELY its own 4x zoom, so the hair was never "twice as bad
+  as the block", and the honest gap is against zero at a fraction of 62.
+- A WRONG GUESS THAT COST A BUILD, kept in the tool: the obvious suspect was the flat cream
+  SHIRT under every head on the sheet. Splitting a sheet says otherwise -- head 71.9%, body
+  78.0% -- so both band and a fix aimed at the shirt would have missed.
+- WHAT WAS ACTUALLY WRONG, seen by rendering the backs at 9x: two or three dark rules
+  running the FULL height of the mass, evenly spaced, on DEEP TAPER, BUZZ CUT, BOWL CUT and
+  SHAG alike. The 8/28 drift that was supposed to prevent exactly this re-rolled a fresh
+  -1/0/+1 EVERY ROW -- noise around a fixed column, amplitude one pixel, which is a ruled
+  line with a burr on it. A value re-rolled every row has no memory, so it can never go
+  anywhere.
+- *** AND MY FIRST FIX FAILED, WHICH IS THE LESSON OF THE ROUND. *** I replaced it with a
+  real cumulative walk read off the cell row. Banding moved 25.3% -> 23.4%, a rounding
+  error. Every parting asked the same row and got the same answer, so THE WHOLE COMB
+  SHIFTED TOGETHER and the distance between neighbouring partings never changed by a pixel.
+  BANDING IS ABOUT THE GAP BETWEEN BOUNDARIES, NOT ABOUT WHERE THEY SIT. Slide a picket
+  fence sideways and it is still a picket fence.
+  Each parting now carries its OWN walk, seeded by which parting it is, leashed to two
+  cells so it never leaves the skull:  25.3% -> 15.4% native.
+- I LOOKED AT IT, not just the number: the partings now bow and wander with the head
+  instead of ruling straight down it, clearest on DEEP TAPER and BOWL CUT.
+- THE 56 WARDROBE IS UNTOUCHED and the pin did NOT need a rebaseline: the strand pass
+  returns early at S<2, so this is a 112-only change. clothes_4x_gate 13/13 green proves it.
+- GATES: hair 39/39, craft_law 39/39, clothes_4x 13/13, hairline 12/12, face_thumb 23/23,
+  demo_build 25/25. Vote bank rebaked and the vote page rebuilt.
+- STILL OPEN AND SAID OUT LOUD: the OTHER half of their sentence. "A flat cream mass" is
+  about the FORM of the back of the head -- no light on the crown, no falloff at the nape,
+  so the mass reads as a cut-out. That is a separate fix and it is not in this round. If
+  the coordinator wants it, it is the obvious next piece of this defect.
+- Record: records/BOHEMIA_THE_HAIR_IS_BANDED_9_11_26.txt
+  Tool:   tools/bohemia_the_hair_is_banded.js  (imports THEIR banding(), never a copy)
+- NEXT FOR THIS LANE: the first takeable OPEN line is [more clothes] WARDROBE-VOLUME, then
+  [runway hair] HAIR-TO-THE-CARD.
+
+PREVIOUS ROUND -- [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT SHIPPED at f7f9f68: a
+hostile now sits one value step off the civilians within four cells of him.
+
 
 PREVIOUS ROUND -- [stands out] round 1, the measurement: nothing about how a body looks
 had ever asked whether that body is your enemy (ZERO of 172 changed). Landed at 439f73b.

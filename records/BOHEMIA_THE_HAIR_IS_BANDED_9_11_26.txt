@@ -1,0 +1,78 @@
+IS THE HAIR REALLY BANDED, AND BY HOW MUCH? -- the eyes bounce-back, re-measured
+with the eyes lane's own instrument, at the scale the art is actually drawn
+9/11/26, CHARACTER lane. VAMILY [eyes: hair bands].
+
+THE BOUNCE-BACK: "THE HAIR IS THE MOST BANDED ART IN THE REPO -- 62.0%, against
+31.8% for the CMU block and 0.0% for every tile bank ... the player's head from
+behind is a flat cream mass with one straight black mark on it."
+records/BOHEMIA_EYES_E1_THE_PIXEL_TELLS_9_5_26.md
+
+THE FINDING IS RIGHT AND THIS LANE OWNS IT. The correction is only to the SIZE.
+
+WHY THE SIZE WAS WRONG: every bank stores its art BLOWN UP -- tiles at 4x, hair
+sheets at 3x -- and a nearest-neighbour blow-up turns every source row into k
+identical rows. The detector calls six similar rows a band, so at 3x two source
+rows that merely rhyme are already six. The zoom is found per piece, never
+assumed: the largest k for which shrinking and re-expanding is bit-identical.
+
+  bank                                            n   zoom   as baked     native
+  BOHEMIA_FACE_CANDIDATES_8_28_26.txt            27  [3,4]       52.7       10.5
+  BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt          9    [4]        0.0        0.0
+  BOHEMIA_BRIDGE_SET_7_10_26.txt                  1    [4]        0.0        0.0
+  BOHEMIA_CIVIC_OPENINGS_8_3_26.txt               4  [1,2]        0.0        0.0
+  BOHEMIA_CMU_BLOCK_7_29_26.txt                   4    [4]       31.8        0.0
+  BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt         1    [4]        0.0        0.0
+  BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt      30    [4]        0.0        0.0
+  BOHEMIA_OPENINGS_8_2_26.txt                     8  [1,4]        0.0        0.0
+  BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt          15    [4]        0.0        0.0
+  BOHEMIA_PERIMETER_8_2_26.txt                   30    [4]        0.0        0.0
+  BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt         30    [4]        0.0        0.0
+  BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt          17    [4]        0.0        0.0
+  BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt        30    [4]        0.0        0.0
+  BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt       30    [4]        0.0        0.0
+  BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.   30    [4]        1.0        0.0
+  BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt        15    [4]        0.0        0.0
+  BOHEMIA_TEXTURE_MATCH_8_1_26.txt               30    [4]        0.0        0.0
+  BOHEMIA_TRANSITION_SET_7_10_26.txt             12    [4]        0.0        0.0
+  BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt           3    [4]        0.0        0.0
+  BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt         30    [4]        0.0        0.0
+
+WHAT THAT MEANS, said plainly:
+  - THE HAIR IS STILL THE MOST BANDED ART IN THE REPO at native scale. Every other
+    bank in the building reads 0.0 and the hair does not. The bounce-back stands.
+  - THE CMU COMPARISON IS GONE. 31.8% as baked, 0.0% native -- that number was its
+    4x zoom, nothing else, so the hair was never "twice as bad as the block".
+  - The honest gap is against ZERO, not against 31.8, and the honest magnitude is
+    a fraction of 62.
+
+  the haircut sheets alone   77.0% as baked, 15.4% native  (11 sheets)
+
+A WRONG GUESS, KEPT BECAUSE IT COST A BUILD: the obvious suspect was the flat cream
+SHIRT under every head on the sheet. Splitting a sheet in two says otherwise --
+head 71.9%, body 78.0% as baked -- so both band and the shirt is not the cause. A
+fix aimed there would have missed.
+
+WHAT WAS FIXED THIS ROUND, and the number it moved (native scale, the honest one):
+  the partings ran DEAD STRAIGHT down the whole mass. The 8/28 drift that was
+  supposed to stop that re-rolled a fresh -1/0/+1 EVERY ROW, which is noise around
+  a fixed column, amplitude one pixel -- a ruled line with a burr on it. Replaced
+  with a real walk that remembers where the last row got to, leashed to two cells
+  so it never leaves the skull.
+     first attempt, one walk for the whole head    25.3% -> 23.4%   (a rounding error)
+  AND THAT FAILURE IS THE LESSON: every parting asked the same row and got the same
+  answer, so the whole comb shifted TOGETHER and the distance between neighbouring
+  partings never changed. BANDING IS ABOUT THE GAP, NOT ABOUT WHERE THE LINES SIT.
+  Slide a picket fence sideways and it is still a picket fence.
+     each parting walking its own way             25.3% -> 15.4%
+
+STILL NOT DONE, said plainly: the other half of their sentence. "A flat cream mass"
+is about the FORM of the back of the head -- there is no light on the crown and no
+falloff at the nape, so the mass reads as a cut-out. That is a separate fix and it
+is not in this round.
+
+READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW
+WHAT IT IS COUNTING. This instrument reads a PICTURE, and a picture of a head
+contains a head; a skull is nearly the same width for many rows all by itself.
+That is why the comparison that matters is hair against the other banks AT THE
+SAME SCALE, which is the last column and nothing else.
+
