@@ -1,3 +1,12 @@
+ANIMATION (animation-lr9y9i): 9/11 LATEST -- *** THE ELBOW RULE IS IN. His first
+rig complaint is answered and the machine found the SAME ELEVEN CLIPS HE KILLED,
+on its own, before anybody compared the lists. TAB: ANIMATION. Nothing to judge
+yet; the other two rig fixes come before the 47 redos. ***
+
+TAB: ANIMATION. Build 9/11b - AN ELBOW BENDS ONE WAY.
+
+ROW SHIPPED: [elbows bend] AN-ELBOW-BENDS-ONE-WAY.
+
 UI (ui-kmqmrf): 9/11 LATEST -- *** [phone object] SHIPPED. THE FEED IS A PHONE YOU CAN SEE. ***
 He looked at the shipped feed on 9/8 and said "this doesn't look like a cool post-economic-
 apocalyptic phone, does it, bro, come on?" He was right: a rounded rectangle of monospace text
