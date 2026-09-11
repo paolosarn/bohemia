@@ -31604,6 +31604,23 @@ function dirTowns(){
       + String(r.tier).toUpperCase() + ' · sells ' + r.goods + ' of ' + r.allGoods
       + ' things · covers ' + r.across + ' blocks across';
     box.appendChild(out);
+
+    /* __A_FACTION_MINES_ITS_LAND__ (9/11, [power territory]). WHAT THIS FACTION'S
+       LAND MAKES, in his own money. The row's sentence is "what a faction is worth
+       is what its land makes", and this panel is where he already reads what each
+       faction is worth, so it belongs on the same card rather than a new one.
+       IT IS NOT A DIAL AND MUST NOT LOOK LIKE ONE: the tier chips above are his to
+       press, and this is the map answering. A faction with nothing says so in plain
+       words instead of showing a 0, because 0 reads as broken and "its land makes
+       no power" reads as true -- which it is for ten of the fourteen. */
+    var mk=document.createElement('div');
+    mk.style.cssText='margin-top:4px;font-size:11px;line-height:1.45;opacity:.78';
+    mk.textContent = (r.perDay>0)
+      ? ('its land makes ' + (r.makes || (r.perDay + ' a day')))
+      : 'its land makes no power';
+    if(r.perDay>0) mk.style.color='#d8b45a';
+    box.appendChild(mk);
+
     host.appendChild(box);
   });
 
