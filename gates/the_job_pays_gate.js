@@ -92,8 +92,23 @@ function endings(text) {
 let paidQuests = 0, unpaidQuests = 0, totalPayLines = 0;
 const problems = [];
 
+/* *** A GATE THAT READS A COMMENT AS CODE IS THE BROKEN ONE (9/11). ***
+   This scanned the RAW file for /@DO pay .../, and a .bq header that EXPLAINS
+   why it does not use the pay verb -- the sentence "not written with the @DO pay
+   verb here" -- was read as a pay line paying the currency "verb" the amount
+   "here,". Third time this lane has been bitten by prose-read-as-code (round 20's
+   rollBoss sentence, round 24's quoted research figures), and the fix is the same
+   one both times: strip the comments before you scan. A .bq comment is a whole
+   line starting with # -- the language has no trailing comment -- so this is
+   exact, not a guess. Self-tested at the bottom of this file both ways: a real
+   pay line still counts, and a commented one never does. */
+function codeOf(text) {
+  return String(text).split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+}
+
 files.forEach(f => {
-  const text = fs.readFileSync(path.join(DIR, f), 'utf8');
+  const raw = fs.readFileSync(path.join(DIR, f), 'utf8');
+  const text = codeOf(raw);
   const tag = f.slice(0, 3);
   const payLines = (text.match(/@DO pay\s+\S+\s+\S+/g) || []);
   totalPayLines += payLines.length;
@@ -132,7 +147,7 @@ files.forEach(f => {
     unpaidQuests++;
     /* *** THE OVERSIGHT CHECK. An unpaid quest must say so in writing. *** */
     ok(tag + ' pays nothing and says why, in the file',
-       /WHAT THIS JOB PAYS[^\n]*NOTHING, ON PURPOSE/.test(text),
+       /WHAT THIS JOB PAYS[^\n]*NOTHING, ON PURPOSE/.test(raw),
        'no written reason');
     ok(tag + ' and really pays nothing at runtime',
        complete.every(e => !e.reward || Object.keys(e.reward).length === 0));
@@ -241,6 +256,19 @@ function pw() {
          })());
     }
     ok('R6 nothing threw while the job was paid', errs.length === 0, errs.slice(0, 3).join(' | '));
+
+  /* *** THE SELF-TEST FOR THE COMMENT FIX, BOTH WAYS. *** A stripper that ate too
+     much would hide every real pay line and this gate would go quietly green on a
+     game where nothing pays -- the exact disease it was written to catch. So it is
+     fired at a string it MUST see and a string it MUST NOT. */
+  ok('S1 the comment stripper still sees a real pay line',
+     /@DO pay\s+\S+\s+\S+/.test(codeOf('@STAGE 30 COMPLETE #quiet\n  @DO pay clout 1')));
+  ok('S2 and never sees one inside a comment',
+     !/@DO pay\s+\S+\s+\S+/.test(codeOf('# it is not written with the @DO pay verb here, on purpose')));
+  ok('S3 and an indented comment is still a comment',
+     !/@DO pay\s+\S+\s+\S+/.test(codeOf('   #   @DO pay resources 1')));
+  ok('S4 and a pay line that follows a comment survives it',
+     (codeOf('# @DO pay nothing here\n  @DO pay clout 1').match(/@DO pay\s+\S+\s+\S+/g) || []).length === 1);
   } finally {
     await b.close();
   }

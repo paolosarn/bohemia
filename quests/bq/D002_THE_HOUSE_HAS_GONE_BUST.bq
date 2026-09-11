@@ -1,0 +1,197 @@
+# BOHEMIA DESIGN-TO-PLAY -- PLAYABLE .bq (canon machine layer)
+# D002 -- THE HOUSE HAS GONE BUST
+#
+# THE DESIGN IS DONE AND WAS NEVER PLAYABLE. quests/BOHEMIA_QUEST_002_BLOOD_FEUD.md
+# is 261 lines of finished production design and had no machine layer. The soul is
+# the document's own: "the villain grants your wish and lets your own hunger be the
+# knife." A broker offers you a whole block if you set two crews on each other. He
+# never lies to you. He does not have to.
+#
+# *** WHERE THE DESIGN AND TODAY'S LAWS DISAGREE, THE LAW WINS, AND IT IS WRITTEN
+# DOWN RATHER THAN QUIETLY DROPPED. *** Four things changed on the way in:
+#
+#  1. NO HARDCODED NAMES. The design names VANCE OKONKWO-REED, SETH MARROW and ORA
+#     MENDEZ. Everybody is a @ROLE cast at runtime: BROKER, and the two crew heads
+#     as WATER and POWER, because what each one keeps running is the only thing
+#     about them that matters mechanically. Names are canon Paolo has not given.
+#  2. NO STAT GATES. The design gates the best lines on [READ], [BARTER] and
+#     [INTIMIDATE] skill levels. Skill gates are banned by the parser, and
+#     INTIMIDATE is a banned word outright. THE REPLACEMENT IS THE SAME RULE THE
+#     ACT ONE ASKS RUN ON: you earn the line by GOING AND LOOKING. Visit both
+#     blocks and you can say what each one keeps alive; hear the broker's own
+#     arithmetic line and you can ask who he answers to. The accusation scene is
+#     gated on knowing the plan and having the tokens, exactly as the design's own
+#     Landsmeet note asks: evidence wins the room, overreach loses it.
+#  3. NO STANDING NUMBER TO ENTER. The design requires standing >= 15 with a
+#     faction. Fifteen is a number nobody ruled, so it is not in here.
+#  4. EVERYTHING COSTS ONE. The design's Route A pays "a generation of income."
+#     Three currencies, one unit each: take the job and you hold the block's power
+#     (electricity), broker it and you get a working block's goods (resources),
+#     expose him and you get what people say about you afterwards (clout). Which
+#     ending is richest is HIS to tune. The shape is here; the thumb is not mine.
+#
+# AND THE ONE THING THE DESIGN IS RIGHT ABOUT THAT WE KEPT WHOLE: the filthy road
+# is fully built and it is genuinely the most useful one this generation. An evil
+# path that is also worse for you is not a temptation, it is a tax.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q002.W5  THE VILLAIN ROUTE IS FULLY BUILT
+#   applied: the job is authored end to end, with its own planting scene, its own ending and its own payment, so taking it is a real road and not a punished dead end the game sulks about.
+# @STUDY Q002.W7  THE ENDING IS A BRANCH TOO
+#   applied: the last conversation forks. What you are paid is not a fixed pile at the bottom of the quest, it is which of his three currencies you walked out holding, and that choice is the ending.
+# @STUDY Q004.W3  NO CLEAN OPTION
+#   applied: walking away does not save the block. The broker says out loud that the arithmetic finds somebody else, so refusing keeps your own hands clean and nothing else, which the player is allowed to find out too late.
+# @STUDY Q004.P1  W1/W5 (hidden load + delayed displaced consequence
+#   applied: the flag this sets is invisible at the moment you set it, and what it decides is whether an heir inherits a working block or a hollow one with people in it who remember.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_d002_the_house_has_gone_bust   The House Has Gone Bust
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE broker  REQ  block=other
+@ROLE water   OPT  block=same
+@ROLE power   OPT  block=same
+
+@STAGE 10
+  @LOG A broker poured me a drink and called two crews on one block a friction problem.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Walked both blocks. One keeps the water on, the other keeps the lights on, and neither is the monster he described.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #reckless
+  @LOG Set the spark. They went at each other and his people walked in at dawn. The block is mine to license.
+  @DO pay electricity 1
+  @DO set_flag lit_the_feud
+  @DO learn arithmetic_is_a_name_for_it
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Put the tokens on a table in front of both crews. They took a truce and the broker lost the block.
+  @DO pay clout 1
+  @DO set_flag the_block_remembers
+  @DO learn arithmetic_is_a_name_for_it
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #quiet
+  @LOG Brokered them into one licence instead. Smaller cut, nobody died, both crews still standing.
+  @DO pay resources 1
+  @DO set_flag the_third_way
+  @DO learn arithmetic_is_a_name_for_it
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Walked. Hands clean. He said the arithmetic finds somebody else and I believe him.
+
+@OBJ 10  "Hear the broker out"                   target=broker
+@OBJ 20  "Decide what happens to the block"      target=broker
+
+# =====================================================================
+# THE OFFER. He never raises his voice and he never lies.
+# =====================================================================
+@TALK offer  speaker=broker  entry=stage>=10
+  @SAY You have a reputation for getting things done. Good. I have a friction problem. #warm
+  @SAY Two crews strangling a perfectly good block. I would like them re-sorted.
+  @OPT "Re-sorted how?"              [gate: none]  -> how
+  @OPT "What does it pay?"           [gate: none]  -> pays
+  @OPT "Who do you answer to?"       [gate: knows:he_says_arithmetic]  -> above
+  @OPT "I will look at them first."  [gate: none]  -> look
+  @OPT (say nothing and wait)        [gate: none]  SILENCE -> how
+  @OPT "Not interested."             [gate: none]  -> END  @DO set_stage 33
+  @NOVERB "Which of them do you want dead"
+@END
+
+@TALK how  speaker=broker
+  @SAY A misunderstanding. Each believes the other moved first. Feelings do the rest. #warm
+  @SAY I only need a spark set in the right doorway. You need not stay to watch the fire.
+  @DO learn the_frameup_plan
+  @OPT "What does it pay?"           [gate: none]  -> pays
+  @OPT "I will look at them first."  [gate: none]  -> look
+  @OPT (say nothing)                 [gate: none]  SILENCE -> offer
+@END
+
+@TALK pays  speaker=broker
+  @SAY The block, when it is quiet. Yours to licence. Water, power, tolls. #warm
+  @SAY A generation of income for an evening's discretion. I answer to arithmetic, friend.
+  @DO learn he_says_arithmetic
+  @OPT "Who do you answer to?"       [gate: knows:he_says_arithmetic]  -> above
+  @OPT "I will look at them first."  [gate: none]  -> look
+  @OPT (say nothing)                 [gate: none]  SILENCE -> offer
+@END
+
+@TALK above  speaker=broker
+  @SAY I answer to arithmetic. As do the people I answer arithmetic FOR. #wary
+  @SAY Leave it there.
+  @DO learn somebody_is_above_him
+  @OPT "I will look at them first."  [gate: none]  -> look
+  @OPT (leave it there)              [gate: none]  SILENCE -> offer
+@END
+
+@TALK look  speaker=broker
+  @SAY By all means. Look at them. They will each tell you the other one is the problem. #warm
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# BOTH BLOCKS. This is the part that makes the betrayal a choice instead
+# of a rail, so neither of them is a monster and both of them are right.
+# =====================================================================
+@TALK crews  speaker=water  entry=stage>=20
+  @SAY He sent you. Of course he did. We will not sell the water rights, so now we are friction. #tired
+  @SAY Tell him the block eats before it pays.
+  @DO learn water_stays_on
+  @OPT "What about the other crew?"  [gate: none]  -> other
+  @OPT (go and see the other one)    [gate: none]  SILENCE -> other
+  @OPT (go back to him now)          [gate: none]  -> commit
+@END
+
+@TALK other  speaker=power
+  @SAY I keep three hundred people in light. He keeps a spreadsheet. #tired
+  @SAY If he wants this block quiet, it is because quiet blocks do not organise. Work out which side of that you are on.
+  @DO learn power_stays_on
+  @OPT (go back to him)              [gate: none]  SILENCE -> commit
+  @OPT "Then neither of you moved first." [gate: knows:water_stays_on]  -> both
+@END
+
+@TALK both  speaker=power
+  @SAY No. Neither of us did. Which means somebody wants us to think we did. #dread
+  @DO learn nobody_moved_first
+  @OPT (go back to him)              [gate: none]  SILENCE -> commit
+@END
+
+# =====================================================================
+# THE FORK. Three roads out and a fourth that is walking away, and the
+# design is right that walking away saves nobody.
+# =====================================================================
+@TALK commit  speaker=broker
+  @SAY Well? #warm
+  @OPT (set the spark)               [gate: none]  -> spark
+  @OPT "Show them what you gave me." [gate: knows:nobody_moved_first]  -> table
+  @OPT "The block goes quiet if it goes profitable." [gate: knows:power_stays_on]  -> deal
+  @OPT (say nothing and walk)        [gate: none]  SILENCE -> END  @DO set_stage 33
+  @NOVERB "Tell me which of them deserves it"
+@END
+
+@TALK spark  speaker=broker
+  @SAY Sensible. A token from each crew's supplier. Leave one where the other sits. #warm
+  @SAY That is all. Arithmetic does the rest.
+  @OPT (do it)                       [gate: none]  -> END  @DO set_stage 30
+  @OPT (put the tokens on a table instead) [gate: knows:nobody_moved_first]  -> table
+  @OPT (put them down and walk)      [gate: none]  SILENCE -> END  @DO set_stage 33
+@END
+
+@TALK table  speaker=water
+  @SAY ...Planted. Both of us. #dread
+  @SAY Truce. We burn his paper, not each other.
+  @OPT (stand with them)             [gate: none]  -> END  @DO set_stage 31
+  @OPT (say nothing and let them have it) [gate: none]  SILENCE -> END  @DO set_stage 31
+@END
+
+@TALK deal  speaker=broker
+  @SAY Less elegant. But arithmetic is arithmetic. #wary
+  @SAY If the block pays, I do not care whose blood it is not. Broker it. Smaller cut. Quiet costs less than war.
+  @OPT (go and broker it)            [gate: none]  -> END  @DO set_stage 32
+  @OPT (say nothing and do it)       [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT (change your mind and set the spark) [gate: none]  -> spark
+@END

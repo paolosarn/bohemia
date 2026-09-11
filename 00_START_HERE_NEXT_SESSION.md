@@ -8351,6 +8351,113 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 26 [designs playable] DESIGNS-TO-BQ, SHIPPED. QUESTS, BUILD.
+  quests/bq/D001_MOTHS_AROUND_THE_LAST_LIGHT.bq
+  quests/bq/D002_THE_HOUSE_HAS_GONE_BUST.bq
+  quests/bq/D013_LONG_WALK_HOME.bq
+  gates/the_job_pays_gate.js     fixed (comment read as code) + 4 self-tests, 99/0
+  BUILD 9/11f - THREE FINISHED DESIGNS ARE PLAYABLE
+  records/BOHEMIA_THREE_FINISHED_DESIGNS_ARE_PLAYABLE_9_11_26.md
+
+WHY I SKIPPED [map moves], WITH A MEASUREMENT AND NOT A MEMORY. It sits above this
+row. Its backlog row depends on SHARED BB-LOOPLESS and WORLD BB-TURF. BB-TURF
+shipped 9/5; I re-measured the other half on today's tree rather than trusting my
+own note from last round: bohemia_loop.js is inlined in NEITHER the city nor the
+alpha (0 hits each), the city's own comment still says "walked city loads
+BohemiaClout and NOT BohemiaLoop, so LOOP is null there", and the ONLY code in the
+repo that reads s.advanceTerritory is bohemia_loop.js line 681. Ten quests still
+say the map changes hands and nothing is listening. Which way that goes is an
+explicit decision SHARED owns, not something to fix quietly inside a quest file.
+
+*** THE ROW WAS RIGHT AND THE WORK WAS NOT TYPING. *** 738 lines of finished 7/10
+production design across three documents: cast, node trees, branch patterns,
+presentation passes, fold consequences, all done. Nobody could play a word of any
+of it.
+
+THE FINDING, AND IT IS FOR WHOEVER CONVERTS THE NEXT FIFTY-THREE: A STRAIGHT
+TRANSCRIPTION DOES NOT PARSE. These documents predate three laws.
+  - They gate their best lines on skill levels: [MEDICINE], [TRADES], [BARTER],
+    [READ], [INTIMIDATE]. The parser bans stat gates outright and INTIMIDATE is a
+    banned word.
+  - They name six people (ETHAN, VANCE OKONKWO-REED, SETH MARROW, ORA MENDEZ,
+    AGA HOLT, ESROM). The name law forbids it.
+  - They pay in caps, and 002 requires standing >= 15 to even start.
+EVERY ONE OF THOSE CONVERTS TO SOMETHING BETTER, NOT SOMETHING LESS:
+  - A skill gate becomes a thing you learn by GOING AND LOOKING, which is the rule
+    the seven act-one asks already run on. 002's own Landsmeet note asks for
+    evidence to win the room and overreach to lose it -- it was reaching for
+    exactly this and asked for it with a number. Now: visit both blocks and you can
+    say neither crew moved first, and THAT is what unlocks the accusation scene.
+  - A proper name becomes a @ROLE cast at runtime. The two crew heads became WATER
+    and POWER, because what each keeps running is the only thing about them that
+    matters mechanically, and it is also the fastest way to understand the quest.
+  - Caps and the standing number are gone. Every ending pays one unit of one of his
+    three. Which ending is richest is his thumb.
+
+THE RULE THIS LANE IS NOW APPLYING TO ALL OF THEM: resolve every disagreement in
+favour of the law AND WRITE IT INTO THE HEAD OF THE FILE in plain words. A chat
+opening D001 finds out in its first twenty lines exactly what changed and why.
+Nobody silently loses a design decision, and nobody later "restores" a skill gate
+thinking it was an oversight.
+
+WHAT WAS KEPT WHOLE, BECAUSE THE DESIGNS ARE GOOD: 001's refusal (offering to fix
+the cells is honoured as DECLINED -- "I do not want them to last, I want them to
+shine, then rest, same as me" -- the quest is about letting go, so the fix HAS to
+be refused or there is no quest); its anti-saviour beat ("her door is HERE"); its
+ending with no prompt, no timer and no score. 002's filthy road fully built with
+its own planting scene and its own payment, because an evil path that is also worse
+for you is a tax and not a temptation; and its walk-away that saves nobody. 013's
+carry, where the stage that matters is the one where nothing happens except walking.
+
+THE GATE I FIXED, AND IT IS THE THIRD TIME THIS EXACT BUG HAS BITTEN THIS LANE.
+the_job_pays_gate scanned the RAW file for a pay line. D001's header explains why
+it does NOT use the pay verb, and that sentence contains "the @DO pay verb here," --
+counted as a pay line paying the currency "verb" the amount "here,". Round 20 was
+the ladder gate reading its own header sentence about rollBoss; round 24 was the
+fold gate reading quoted research figures as invented rates. Same fix all three
+times: strip the comments before you scan. FOUR SELF-TESTS went in under it, because
+a stripper that ate too much would hide every real pay line and this gate would go
+quietly green on a game where nothing pays, which is the exact disease it exists to
+catch: it must see a real pay line, must not see a commented one, must treat an
+indented comment as a comment, and must still find a pay line that follows one.
+
+GATES: canon_quests 843/0 (42 files), quest_study 642/0 (55 studies, 3672 citable
+laws), the_job_pays 99/0, main_spine 49/0, dayloop 59/0, alpha_loads 20/0,
+demo_build 25/0, shipped_truth 41/0, pages_publish 18/0.
+
+RULE 7: alpha DIRECT quest array 39 -> 42, the city's DEMO_BQ (the copy that PLAYS)
+34 -> 37, both spliced surgically as one-line diffs with the tools' own parsers.
+Never by re-running bohemia_direct_tab_patch.py, which is a whole-block replace and
+clobbered another lane in round 21. Demo re-cut.
+
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is still stale and still
+refuses to write: its QUESTS list holds 5 of the 37 the city carries. Fourth round
+flagging it for the plumber.
+
+MEASURED, AND HANDED TO THE PLUMBER: fps_on_a_phone's "bytes to first play" MOVES
+2.86 MB ON AN UNCHANGED TREE. I thought I had added 2.88 MB to what a stranger
+downloads, so I went and checked instead of shrugging: my three surfaces grew 81,300
+bytes in total (alpha 25,187, city 30,926, demo 25,187), and two consecutive runs of
+that gate on CLEAN origin/main read 50,928,507 bytes and then 48,069,363. The number
+is a race between the first-play mark and whatever finished downloading by then, not
+a property of the build. The gate's own header says the opposite in its own words:
+"bytes and percentages are properties of the build, not of the afternoon." A budget
+with a 2.9 MB invisible spread cannot catch a 2 MB regression, which is the size of
+regression it exists to catch. That gate is already red by 14 MB on main and is not
+mine to rewrite; the ratchet needs a spread or a deterministic count of the bytes
+the page ASKS FOR rather than the bytes that happened to land.
+[NOT MINE, ALREADY RED] build_size 20/1 reads IDENTICAL on my tree and on clean main
+(80.75 MB reachable from nothing, budget 78.85 MB). It counts files no page loads,
+which is not what a quest file is.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] (blocked, see the measurement
+above), [haggling works] BB-ASK-FOR-MORE, [edit quests] DIRECT-COVERS-QUESTS,
+[act two] PARKED BY HIM, [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE.
+Note for whoever takes the next design conversion: 53 prose designs are still
+unconverted, and the three hardest parts of each one (the skill gates, the names,
+the money) now have a worked answer in D001, D002 and D013. Copy the header
+pattern, not just the node shapes.
+
 ROUND 25 [ten openings] SEVEN-OF-HIS-TEN-OPENINGS-WERE-NEVER-WRITTEN, SHIPPED. QUESTS, BUILD.
   quests/bq/A01_THE_KILLING_SUMMER.bq
   quests/bq/A02_THE_ELDERS_ACCIDENT.bq

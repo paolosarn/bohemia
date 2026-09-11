@@ -1,0 +1,166 @@
+# BOHEMIA DESIGN-TO-PLAY -- PLAYABLE .bq (canon machine layer)
+# D013 -- LONG WALK HOME
+#
+# THE DESIGN IS DONE AND WAS NEVER PLAYABLE. quests/BOHEMIA_QUEST_013_LONG_WALK_HOME.md
+# is 220 lines of finished production design and had no machine layer. The soul is
+# the document's own: "a small favour with a heavy body... the labour of carrying
+# the dead home in a world that stopped having the room for it. The grief is the
+# quest." No twist. No villain. The walk is the mechanic.
+#
+# *** WHERE THE DESIGN AND TODAY'S LAWS DISAGREE, THE LAW WINS, AND IT IS WRITTEN
+# DOWN RATHER THAN QUIETLY DROPPED. *** Three things changed on the way in:
+#
+#  1. NO HARDCODED NAMES. The design names AGA HOLT and her husband ESROM. She is
+#     the WIDOW here and he is never named, because a man nobody can ask about is
+#     exactly what the design is about. The one who holds the ruin is the WARDEN,
+#     which is a job and not a name.
+#  2. NO STAT GATES. The design gates three lines on [MEDICINE] and [TRADES] skill
+#     levels. Skill gates are banned by the parser. THE REPLACEMENT IS THE SAME
+#     RULE THE ACT ONE ASKS RUN ON: you earn the line by GOING AND LOOKING. Ask her
+#     about him and you learn he has been out there two weeks in this heat; stand
+#     in front of the warden long enough to hear him and you learn what he has
+#     actually been doing out there, which is the only thing that opens the way past
+#     him without hurting anybody.
+#  3. NO DAMAGE BEFORE THE DIAL. The design's provoke road hands to a fight. There
+#     are no damage numbers anywhere in here. Going through him is a choice with a
+#     name and a consequence, and what a swing does is the dial's business.
+#
+# WHAT THIS JOB PAYS: clout, one, and only because of what the word means here. The
+# design says it straight: "the pay is almost nothing in caps, the reward is what
+# you become by walking." Clout is not coin, it is what people say about you after,
+# and the whole last scene is somebody deciding what to say about your family for
+# the rest of their life. That is the payment. There is no other.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q001.W6  PEREGRINATION (duration AS emotion)
+#   applied: this is the law this quest is made of. The carry back is deliberately the long way with no timer and nothing to fight, so the distance is the grief, and the stage that matters is the one where nothing happens except walking.
+# @STUDY Q003.W8  THE WITNESS WHO KNOWS
+#   applied: the warden is the one who has actually been out there, so the truth of the place comes from him and never from the person paying, and hearing him out is what opens the only road that costs nobody anything.
+# @STUDY Q004.P1  W1/W5 (hidden load + delayed displaced consequence
+#   applied: whether there is a tended grave in the east, or a man still walking a ruin, or neither, is decided here and read a generation later by somebody who will never know who did it.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_d013_long_walk_home   Long Walk Home
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE widow   REQ  block=same
+@ROLE warden  OPT  block=other
+
+@STAGE 10
+  @LOG A widow at the district edge. Her husband went into the east ruins for cable and did not come back.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Took her cloth. Somebody is holding that ruin and he has been keeping the birds off the dead.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #notable
+  @LOG Carried him the whole way and brought people to stand for him. She said there will always be a plate for the one who walked.
+  @DO pay clout 1
+  @DO set_flag you_carried_him
+  @DO set_flag a_tended_grave
+  @DO learn somebody_should_stay
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #quiet
+  @LOG Carried him the whole way and handed him over with nobody watching. She said that is how he would have wanted it.
+  @DO pay clout 1
+  @DO set_flag you_carried_him
+  @DO learn somebody_should_stay
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Went through the man holding the ruin to get to the body. Carried him home over somebody who was keeping him safe.
+  @DO pay clout 1
+  @DO set_flag you_carried_him
+  @DO set_flag went_through_the_warden
+  @DO learn somebody_should_stay
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Did not go. He is still out there and she is still asking people.
+
+@OBJ 10  "Hear the widow out"                    target=widow
+@OBJ 20  "Bring him home"                        target=widow
+
+# =====================================================================
+# THE ASK. She cannot pay and she says so, and that is the whole offer.
+# =====================================================================
+@TALK ask  speaker=widow  entry=stage>=10
+  @SAY You look like you can walk into a bad place and walk back out. #tired
+  @SAY Mine went into the east ruins for cable and did not. Nobody will fetch a body out of there. I cannot pay much.
+  @SAY I cannot go see him like that. But he should not be LEFT there. Nobody should. Will you bring him home?
+  @OPT "Tell me about him."          [gate: none]  -> him
+  @OPT "How do you know?"            [gate: none]  -> know
+  @OPT "I will bring him home."      [gate: none]  -> accept
+  @OPT (wait and let her finish)     [gate: none]  SILENCE -> him
+  @OPT "No."                         [gate: none]  -> END  @DO set_stage 33
+  @NOVERB "What is in it for me"
+@END
+
+@TALK him  speaker=widow
+  @SAY Forty years a cable man. Could splice anything, mend anything but his own knees. #warm
+  @SAY Hummed when he worked. I keep listening for it. House is too quiet to sleep in.
+  @OPT "How do you know he is gone?" [gate: none]  -> know
+  @OPT "I will bring him home."      [gate: none]  -> accept
+  @OPT (say nothing)                 [gate: none]  SILENCE -> ask
+@END
+
+@TALK know  speaker=widow
+  @SAY His partner made it back. Said he went down and did not get up, and the one out there would not let him drag him clear. #dread
+  @SAY So he is there. Two weeks. In this heat. I KNOW what that means. Bring me what is left. He gets a grave.
+  @DO learn two_weeks_in_the_heat
+  @OPT "I will bring him home."      [gate: none]  -> accept
+  @OPT (nod)                         [gate: none]  SILENCE -> accept
+@END
+
+@TALK accept  speaker=widow
+  @SAY Thank you. Take this. His cloth. Wrap him in it. #warm
+  @SAY He would want to go home in something of ours.
+  @DO have the_cloth
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE RUIN. He is not a monster and the design says so twice. Hearing him
+# out is the road, and it is open to anybody who stands still for it.
+# =====================================================================
+@TALK ruin  speaker=warden  entry=stage>=20
+  @SAY Territory. Held. No taking. Nothing leaves. Nothing. #wary
+  @SAY He will not wake. I kept the birds off him. I keep them all off. Nobody comes for them.
+  @SAY Did somebody come? Did somebody finally come?
+  @OPT (stand still and let him talk) [gate: none]  SILENCE -> heard
+  @OPT "Somebody came. His wife sent me." [gate: none]  -> sent
+  @OPT (go round him for the body)   [gate: none]  -> through
+  @NOVERB "Move or I will move you"
+@END
+
+@TALK heard  speaker=warden
+  @SAY Years. Nobody. I stay with all of them because somebody should. #dread
+  @DO learn he_keeps_the_dead
+  @OPT "His wife sent me. Let me take him home." [gate: none]  -> sent
+  @OPT (go round him for the body)   [gate: none]  -> through
+@END
+
+@TALK sent  speaker=warden
+  @SAY Home. Yes. Take him home. #warm
+  @SAY Tell her he was not alone. I stayed.
+  @OPT (wrap him and pick him up)    [gate: has:the_cloth]  SILENCE -> carry
+  @OPT (pick him up)                 [gate: none]  -> carry
+@END
+
+@TALK through  speaker=warden
+  @SAY NO TAKING. HELD. HELD. #dread
+  @OPT (go through him)              [gate: none]  -> END  @DO set_stage 32
+  @OPT (back off and hear him out)   [gate: none]  SILENCE -> heard
+@END
+
+# =====================================================================
+# THE WALK. The design's own note: the labour IS the beat. Nothing here
+# is a puzzle and nothing here can go wrong. You just carry him.
+# =====================================================================
+@TALK carry  speaker=widow
+  @SAY (He is light. Two weeks and the heat and he is so light. It is a long walk and you take every step of it.) #dread
+  @OPT (knock, with the people who came to stand for him) [gate: none]  -> END  @DO set_stage 30
+  @OPT (knock, with nobody)          [gate: none]  SILENCE -> END  @DO set_stage 31
+@END

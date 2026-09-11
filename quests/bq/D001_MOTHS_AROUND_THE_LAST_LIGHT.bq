@@ -1,0 +1,221 @@
+# BOHEMIA DESIGN-TO-PLAY -- PLAYABLE .bq (canon machine layer)
+# D001 -- MOTHS AROUND THE LAST LIGHT
+#
+# THE DESIGN IS DONE AND WAS NEVER PLAYABLE. quests/BOHEMIA_QUEST_001_LAST_LIGHT.md
+# is 257 lines of finished production design, written 7/10, and the machine layer
+# was the only missing half. This file is that half. The soul below is the
+# document's own: "what do you owe the people the system erased. No villain.
+# Restraint is the weapon. No timer, no nag, no score."
+#
+# *** WHERE THE DESIGN AND TODAY'S LAWS DISAGREE, THE LAW WINS, AND IT IS WRITTEN
+# DOWN HERE RATHER THAN QUIETLY DROPPED. *** The document was written before three
+# rules landed, so three things changed on the way in:
+#
+#  1. NO HARDCODED NAMES. The design names him ETHAN. Everybody in a .bq is a
+#     @ROLE cast at runtime, so he is the KEEPER: the one who keeps the lights on.
+#     Who he is by name is canon Paolo has not given, and a side quest is the worst
+#     place to invent one.
+#  2. NO STAT GATES. The design gates two lines on [MEDICINE] and [TRADES] skill
+#     levels. Skill gates are banned outright by the parser. THE REPLACEMENT IS
+#     BETTER AND IT IS THE SAME RULE THE ACT ONE ASKS RUN ON: you earn the line by
+#     GOING AND LOOKING. Stand close enough to hear the lanterns and you learn the
+#     hum went thin; stay with him long enough and you see what he will not say.
+#     A thing you noticed, not a number on your sheet.
+#  3. NO CAPS. The design pays the scavengers off in caps. Caps are dead; the three
+#     currencies are his. And the paying is not written with the @DO pay verb here,
+#     because that verb is the REWARD verb and this is a cost. Handing somebody
+#     something to make them go away is the purse lane's verb to build, not a
+#     negative reward invented inside a quest file. The choice is in the file and
+#     the arithmetic is not faked.
+#
+# WHAT THIS JOB PAYS: NOTHING, ON PURPOSE. The whole quest is about letting go of
+# a thing you cannot keep. A man asks you to carry his lights up high, let them all
+# shine at once, and then let them go. Being paid for that would make it a delivery
+# job. The design says it plainest: he does not want them to last, he wants them to
+# shine and then rest, same as him.
+#
+# draft:true. Every line is an attempt and not one word is approved.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# @STUDY Q001.W6  PEREGRINATION (duration AS emotion)
+#   applied: the carry to the marquee is deliberately the long way and nothing hurries it, so the distance itself is the feeling; there is no timer anywhere in this file and the player may stand at the top as long as they want.
+# @STUDY Q001.W1  TRANSACTION-CARRIES-EMOTION
+#   applied: it opens as a small errand about cords and lanterns, never as a sad story, and the grief arrives underneath the job the way the study says it has to.
+# @STUDY Q004.P1  W1/W5 (hidden load + delayed displaced consequence
+#   applied: the flag this quest sets is the one the player never sees, and what it changes is whether the marquee is still lit for somebody who has not been born yet. The stakes are invisible at the moment of the decision, which is the point.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_d001_the_last_light   Moths Around The Last Light
+@ACT     1
+@FACTION NONE
+@ONCE    true
+
+@ROLE keeper  REQ  block=same
+@ROLE scav    OPT  block=other
+
+@STAGE 10
+  @LOG Storefront full of salvaged lanterns, all of them burning, and a man tending the cords.
+  @DO show_objective 10
+@STAGE 20
+  @LOG He asked me to carry them up to the old marquee and let them all shine at once. Then let them go.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Took them up. Lit the whole marquee at once. Walked back down and said nothing to anybody.
+  @DO set_flag lit_the_marquee
+  @DO learn a_light_is_a_door
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Lit it with half the block watching. People came out to look at it. Loud as morning, he said.
+  @DO set_flag lit_the_marquee
+  @DO set_flag the_block_watched
+  @DO learn a_light_is_a_door
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Somebody wanted the cells and I put them down for it. The marquee is lit and it cost two people.
+  @DO set_flag lit_the_marquee
+  @DO set_flag blood_for_light
+  @DO learn a_light_is_a_door
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Left him with it. The cells have a couple of nights left and then he is out there in the dark.
+
+@OBJ 10  "Sit with the man keeping the lights"   target=keeper
+@OBJ 20  "Take the lanterns up to the marquee"   target=keeper
+
+# =====================================================================
+# THE STOREFRONT. Hub and spoke, exactly as the design has it: he asks
+# for nothing until you ask him, and no branch here pushes.
+# =====================================================================
+@TALK open  speaker=keeper  entry=stage>=10
+  @SAY Careful of the cords, friend. Lanterns do not like to be tripped. #warm
+  @OPT "Why keep them lit?"          [gate: none]  -> light
+  @OPT "You been out here long?"     [gate: none]  -> history
+  @OPT "That hum has gone thin."     [gate: knows:the_hum_went_thin]  -> cells
+  @OPT "You are not well."           [gate: knows:he_is_not_well]  -> unwell
+  @OPT (stand still and listen to them) [gate: none]  SILENCE -> listen
+  @OPT "Can I do anything?"          [gate: flag:sat_with_him]  -> ask
+  @OPT (walk on)                     [gate: none]  -> END  @DO set_stage 33
+  @NOVERB "How long have you got"
+@END
+
+@TALK listen  speaker=keeper
+  @SAY You hear it too. Most people walk past a sound like that. #tired
+  @DO learn the_hum_went_thin
+  @OPT (keep listening)              [gate: none]  SILENCE -> open
+  @OPT "How many nights is that?"    [gate: none]  -> cells
+@END
+
+@TALK light  speaker=keeper
+  @SAY My wife had no sense of direction. Forty years and she would still lose the car. #warm
+  @SAY I keep them burning so if she is out there, she finds the door.
+  @DO set_flag sat_with_him
+  @OPT (say nothing)                 [gate: none]  SILENCE -> open
+  @OPT "How long ago?"               [gate: none]  -> history
+@END
+
+@TALK history  speaker=keeper
+  @SAY Cooked the graveyard line at a place that does not exist any more. Twenty years. #tired
+  @SAY Then the tables went cold and so did the kitchens. Then so did she.
+  @DO set_flag sat_with_him
+  @DO learn he_is_not_well
+  @OPT (stay where you are)          [gate: none]  SILENCE -> open
+  @OPT "You are not well."           [gate: knows:he_is_not_well]  -> unwell
+@END
+
+@TALK unwell  speaker=keeper
+  @SAY You have got a healer's eye. Do not waste it on me. #tired
+  @SAY I know what is coming. I just want the lights on when it does.
+  @DO set_flag sat_with_him
+  @OPT (let that sit)                [gate: none]  SILENCE -> open
+  @OPT "Then let me do something."   [gate: none]  -> ask
+@END
+
+@TALK cells  speaker=keeper
+  @SAY Couple of nights left in them, maybe. After that it is just me and the dark out here. #tired
+  @DO set_flag sat_with_him
+  @DO learn the_hum_went_thin
+  @OPT "I can fix those."            [gate: none]  -> fix
+  @OPT (say nothing)                 [gate: none]  SILENCE -> open
+@END
+
+# =====================================================================
+# THE REFUSAL THAT IS THE WHOLE QUEST. The design is explicit: fixing
+# them is honoured as DECLINED. He does not want them to last.
+# =====================================================================
+@TALK fix  speaker=keeper
+  @SAY Kind of you. But I do not want them to last. #warm
+  @SAY I want them to shine, then rest. Same as me.
+  @OPT (let it go)                   [gate: none]  SILENCE -> open
+  @OPT "Then what do you want?"      [gate: none]  -> ask
+@END
+
+@TALK ask  speaker=keeper
+  @SAY There is one thing. When the cells die, do not let them just flicker out. #dread
+  @SAY Take them up high, the old marquee, and let them all shine at once. One last time. Loud as morning.
+  @SAY Then let them go. Will you?
+  @OPT "I will."                     [gate: none]  -> accept
+  @OPT (nod)                         [gate: none]  SILENCE -> accept
+  @OPT "Come with me instead. There are people who help." [gate: none]  -> offer
+  @OPT "No."                         [gate: none]  -> END  @DO set_stage 33
+@END
+
+# ANTI-SAVIOUR BEAT, kept verbatim from the design: the save you want is
+# not the save he wants, and the quest lets him refuse it.
+@TALK offer  speaker=keeper
+  @SAY They came by. Good folks. But her door is HERE. I am not leaving the door. #warm
+  @OPT "Then I will take them up."   [gate: none]  -> accept
+  @OPT (nod and go)                  [gate: none]  SILENCE -> accept
+@END
+
+@TALK accept  speaker=keeper
+  @SAY Thank you. Go on now. I will watch from here. #warm
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE WALK UP. The world is not safe even here, and the design says
+# combat is NEVER required. Four ways past and three of them are quiet.
+# =====================================================================
+@TALK road  speaker=scav  entry=stage>=20
+  @SAY Those cells. Hand them over and nobody's night gets worse. #wary
+  @OPT "These are not worth dying for." [gate: none]  -> backdown
+  @OPT "Take this instead."          [gate: none]  -> paid
+  @OPT (keep walking and do not stop) [gate: none]  SILENCE -> past
+  @OPT (put them down and go at them) [gate: none]  -> fight
+  @NOVERB "Do you know whose these are"
+@END
+
+@TALK backdown  speaker=scav
+  @SAY ...Not worth it. Come on. #tired
+  @OPT (go up)                       [gate: none]  SILENCE -> top
+  @OPT "Wait. Take this anyway."     [gate: none]  -> paid
+@END
+
+@TALK paid  speaker=scav
+  @SAY You did not have to do that. #warm
+  @DO set_flag paid_them_off
+  @OPT (go up)                       [gate: none]  SILENCE -> top
+@END
+
+@TALK past  speaker=scav
+  @SAY Hey. HEY. ...Ah, let them go. #tired
+  @OPT (go up)                       [gate: none]  SILENCE -> top
+@END
+
+@TALK fight  speaker=scav
+  @SAY Then it gets worse. #dread
+  @OPT (finish it and go up)         [gate: none]  -> END  @DO set_stage 32
+  @OPT (back off and go around)      [gate: none]  SILENCE -> top
+@END
+
+# =====================================================================
+# THE MARQUEE. No prompt, no timer, no score. The design's own note:
+# the player may leave whenever, and is never told what it meant.
+# =====================================================================
+@TALK top  speaker=keeper
+  @SAY (Every lantern up on the ledge. They come on together and the whole street goes white.) #warm
+  @OPT (stand there a while)         [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT (call the block up to see it) [gate: none]  -> END  @DO set_stage 31
+  @NOVERB "Tell him it is done"
+@END
