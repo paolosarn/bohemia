@@ -34053,11 +34053,21 @@ window.__WALKFEEL={ mode:function(){ return WALKFEEL; }, set:walkFeelSet,
   gliding:function(){ return !!GLIDE; } };
 /* ==== end __WALK_FEEL_SLIDE__ ============================================= */
 let animRAF=0;
-/* ==== engine/bohemia_encounters.js (inlined verbatim, __THE_ROAD_INTERRUPTS__) ====
-   ONE CANONICAL BODY. This is a machine copy of the engine file, not a retype,
-   and the gate compares the two normalized bodies so they can never drift.
-   ENGINE SYNC LAW, held for a module the BOH_* sync gate cannot see (this one is
-   an IIFE on window.BohemiaEncounters, not a `const BOH_x=`). */
+/* ==== engine/bohemia_encounters.js ==== */
+/* __THE_ROAD_INTERRUPTS__. ONE CANONICAL BODY: a machine copy of the engine file,
+   never a retype, and the gate compares the two normalized bodies so they cannot
+   drift. ENGINE SYNC LAW, held for a module the BOH_* sync gate cannot see -- this
+   one is an IIFE on window.BohemiaEncounters, not a `const BOH_x=`.
+
+   *** AND THE BANNER ABOVE IS ONE LINE FOR A MEASURED REASON. *** It used to carry
+   "(inlined verbatim, __THE_ROAD_INTERRUPTS__)" and open this very comment, so the
+   line did not END with the closing rail. The resync tool and the banner gate both
+   accept a banner only when the trimmed line starts with the opener AND ends with
+   the closer, so this module was INVISIBLE to the sweep that exists to keep it
+   fresh: the tool reported "113 embedded, 113 already fresh" while the body down
+   there was a revision old, and it had to be hand-patched. A block whose own words
+   claim to hold the ENGINE SYNC LAW, opted out of it in its first line. The prose
+   lives here now and the rail is left alone. */
 /* ============================================================================
    BOHEMIA — THE AMBIENT ENCOUNTER DIRECTOR   (bohemia_encounters.js, 7/27/26)
 

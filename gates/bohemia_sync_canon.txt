@@ -15,3 +15,26 @@ BOH_TILEPOOL     bohemia_tilepool.js
 BOH_BODYVAR      bohemia_bodyvar.js
 BOH_RESOLVE      bohemia_resolve.js
 BOH_SFX          bohemia_sfx.js
+
+# ---------------------------------------------------------------------------
+# THE SIX THAT WERE NEVER DECLARED (9/11, FACTIONS, closing the PLUMBER's 9/6
+# bounce-back on [light owners]).
+# The gate falls back to "newest file on disk" when a module is missing here,
+# which is the exact coin toss the header above this file warns about. It cost
+# this lane two red gates: BOH_POWERGRID drifted across six carriers and the
+# report had to GUESS which body was right. It guessed correctly, by luck.
+# The bounce-back named one. Measured, the hole was SIX, and BOH_FLOORPLAN is
+# the widest of them at eleven carriers.
+BOH_POWERGRID    bohemia_powergrid.js
+BOH_FLOORPLAN    bohemia_floorplan.js
+BOH_PLOTGEN      bohemia_plotgen.js
+BOH_TRANSITIONS  bohemia_transitions.js
+# AND TWO HAVE NO STANDALONE ENGINE FILE AT ALL, so the carrier named here is a
+# page. That is not a workaround, it is where the body is actually authored, and
+# writing it down is the whole point of declaring rather than inferring.
+#   BOH_AGE       lives only in the alpha; the demo's copy is CUT from the alpha
+#                 by tools/bohemia_cut_the_demo.js, so the alpha is upstream.
+#   BOH_SEED_TEXT has exactly one carrier today. Declared anyway, so the day a
+#                 second one appears the gate knows which way to point.
+BOH_AGE          BOHEMIA_ALPHA_0_9.html
+BOH_SEED_TEXT    BOHEMIA_CITY_WORLD.html
