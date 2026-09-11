@@ -6028,101 +6028,89 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/7 LATEST -- *** THE CAR IS NOT A PHOTOGRAPH ANY MORE. He said "this is
-ass, is that the car model" and our own craft law agreed by a factor of 47: the twenty city
-wrecks were photographs, median 3,031 colours against a ceiling of 64. They are 9 colours now,
-in the road's own ramp, silhouettes untouched. TAB: CITY (and COMBAT). Nothing to judge. ***
+COOK (cook-mce6r5): 9/11 LATEST -- *** THE ZOOMED-OUT CITY HAS NO ART IN IT AT ALL. The screen
+he photographed makes 73 fillRect, 8 strokeRect, 17 stroke() and ZERO drawImage -- 98 vector
+operations, not one image. It has 56 real district tiles now, DERIVED from the street art so
+they cannot drift. TAB: CITY, once LIFE + CITY draws them. Nothing to judge yet. ***
 
-THE JOB: [car recook] THE-CAR-IS-ASS, CLAIMED 9/7, ART HALF SHIPPED TWICE -- once at
-BUILD 9/7b and corrected at 9/7c after comparing it to the body, which the row asked for and
-the first ship skipped. His bugs beat the queue,
-so [fortress buildings] is paused mid-row (round 1 measured and pushed, round 2 is the wall)
-and this went first.
+THE JOB: [city from above], CLAIMED 9/11, top of this lane ABOVE the car, so [car recook] and
+[fortress buildings] both paused.
 
-WHAT WAS WRONG, IN OUR OWN NUMBERS: median 3,031 distinct colours (craft ceiling 64, 47x over),
-71% of pixels a one-off colour (ceiling 35%), 90% orphan pixels. All twenty failed. A
-photograph standing beside a six-tone body is two worlds in one frame, which is what he saw.
+AND THE ROW'S OWN NUMBER COUNTS THE WRONG FILE, WHICH MAKES IT WORSE NOT BETTER. The 9/8
+ruling says "19 filled rectangles against 9 image draws" -- that is the ALPHA's whole file, and
+the alpha is a shell that does not even contain the string CITY MODE. His screen is drawn by
+renderCity() in slices/BOHEMIA_CITY_WORLD.html: 73 fillRect, 8 strokeRect, 17 stroke(), ZERO
+drawImage.
 
-THE FIX IS HIS OWN 7/28 METHOD, UNCHANGED, off the starter tileset he approved: "every pixel
-snapped to the family ramp by value, then orphans absorbed", plus "up to two accents per tile,
-taken from that tile's OWN out-of-range pixels". The ramp is not a choice: the row says "the
-value bands of the ground it sits on", the bank carries ONE PALETTE PER FAMILY, and the family
-a car sits on is the road -- asphalt, 7 tones, #101216 to #6a5e50.
-    median 3,035 -> 9 colours, single-use 0.72 -> 0.00, orphan 0.90 -> 0.00
-    20 of 20 inside both craft thresholds, and the prop bank shrank 195 KB
-Both banks and both surfaces are cooked by ONE tool so they cannot drift.
+WHAT THIS ROUND IS AND IS NOT. The 9/8 ruling splits the job three ways: COOK makes the TILES,
+DIRECTION [city look] writes the card, LIFE + CITY [tiles not slabs] draws them. This produced
+tiles and touched NO renderer. NOTHING ON HIS SCREEN CHANGES until LIFE + CITY draws them.
 
-*** AND THEN I SHIPPED IT AND PUT IT NEXT TO THE BODY AND IT WAS STILL WRONG. *** The row
-asks for TWO comparisons -- "a real wrecked car AND the body standing beside it" -- and the
-first ship only did one. Done properly with his own frame (the citizen cropped out of his
-screenshot, the car beside it at the same size): it read as bright paint on a grey car, and
-the number said why -- his body's saturation maxes at 54, my accent was 169, three times
-louder than anything the body wears, one flat colour with no shading. THE BANK ALREADY HAD
-THE ANSWER: it carries a rust family, terracotta, so rust is RAMPED BY VALUE exactly as the
-shell is, and only its corroded end (oxidised iron is dark red-brown; the bright end of that
-ramp is the fresh clay tile it was sampled from). Dead glass went the same way -- it was
-still photo-sampled for the sake of a near-black asphalt's darkest tone already is.
-    v1  max sat 169, flat photo-sampled rust, photo-sampled glass
-    v3  max sat 139, rust ramped across four approved tones, glass = ramp[0]
-    ACROSS ALL TWENTY CARS: ZERO COLOURS NOT FROM AN APPROVED RAMP. The whole wreck is
-    11 colours -- asphalt's seven plus terracotta's corroded four -- and nothing survives
-    from the photograph except the shape.
-AND I NEARLY COOKED THE COOK: re-running the tool on the working tree ran it on V1'S OUTPUT,
-not the photographs ("median 9 -> 8 colours" instead of "3,035 -> 10"). Caught by reading the
-tool's own BEFORE column, which is why it prints one. The originals were restored out of git
-and the operation run once, cleanly, from source.
+DERIVED, NEVER DRAWN, WHICH IS THE WHOLE DESIGN. EVERY DISTRICT GENERATOR RUNS HEADLESSLY and
+returns its own 128x128 grid of legend codes plus its own palette, so a coarse tile is not a new
+picture of a district -- it IS that district's real art reduced. 128 -> 32, a clean 4x integer
+reduction; one city cell is an isometric diamond TW=18 x TH=9 at zoom 1 and his frame is ~5x
+that, so 32px covers the band without inventing detail. Median 10 colours a tile, every one off
+that district's own ramp. A district that changes at street scale changes up here in the same
+commit -- the anti-drift clause satisfied by construction, not by discipline.
 
-*** AND THE NUMBERS WERE PERFECT WHILE THE PICTURE WAS WRONG. *** The first cook scored 8
-colours, zero orphans, zero single-use -- everything green -- and then I LOOKED at it and one
-car was covered in scarlet speckle, because the accent came off the single most saturated
-pixel and that was a tail light. Fixed twice, law-cited: an accent comes off a DISTRIBUTION
-(90th-percentile saturation, median warm colour above it), and PIXELS TRAVEL IN GROUPS applies
-to accents too, so any accent cluster under four pixels goes back to the ramp. NEVER SHIP A
-COOK YOU HAVE ONLY MEASURED.
+DOMINANT CODE, NOT AVERAGE COLOUR, AND THAT IS HIS LOCK NOT MY TASTE. Averaging a 4x4 block is
+what a photograph does: a red roof beside a grey road averages to a brown nothing and the
+palette stops being the palette -- the exact mistake the car round had to undo. The most common
+CODE keeps every pixel a real colour off that district's ramp, which is "SAME PIXEL STYLE" in
+one operation. Both were rendered side by side and LOOKED AT; average smears structure into
+bands, worst on farm and downtown.
 
-AND MY FIRST GUESS AT THE CAUSE WAS WRONG AND IS IN A COMMIT MESSAGE. Claiming the row I wrote
-that the brick wall was probably mine from [combat ground] round 2. It is not: the screenshot
-has a joystick, a portrait and a dialogue box, so it is the WALKED CITY and the wall is the
-city's own.
+THE REFERENCE CHECK, AND ITS DANGEROUS ARM WAS MEASURED. reference/library/city-builder CB-04
+says the road grid is the first thing legible at every zoom -- and a street ONE fine-cell wide
+loses the vote in a 4x4 block and vanishes, which would have killed the method. Measured: road
+cells fine 18.6% -> coarse 20.3%, worst district loses 1.0 point. Roads survive and slightly
+gain, because a road is a wide contiguous run that wins its blocks. CB-01 (density reads from
+roofscape) and CB-05 (identity survives the switch) both hold.
 
-ROUND 3: "SQUASHED FLAT" IS A NUMBER, AND IT WAS THE HALF I HAD ROUTED AWAY. His complaint,
-as the row reads it back, is "a smeared photograph SQUASHED FLAT and sitting on top of a
-brick wall". Rounds 1-2 fixed the photograph and I routed the rest as placement. Measuring
-says one half of that was mine all along.
-  THE WALL IS NOT A BUG AND I WAS WRONG TO SUSPECT IT. engine/bohemia_suburb.js paints code
-  16 as a SOLID RECTANGLE, 2x3 or 3x2, cell by cell, and only over bare yard or gravel; the
-  city then asks for a 4x2 stall and CLAMPS it to that patch, so a car cannot overhang its
-  drive. My L-shaped-drive hypothesis is dead. What the screenshot shows is the car's
-  rectangle meeting a wall band beside it, which is DRAW ORDER and genuinely LIFE + CITY's.
-  THE SQUASH IS MINE AND IT IS EVERY CAR IN THE CITY:
-      master 45x96 (1:2.13) drawn into a 2x3 stall (1:1.50)
-      -> EVERY CAR IN THE VALLEY WAS DRAWN AT 70% OF ITS OWN LENGTH
-  The stall, the ground and the clamp are all right; the draw call STRETCHED the master to
-  fill instead of fitting it. Distortion is presentation and presentation is a cook's. Fixed
-  with one fitProp helper used by both branches (rotated and upright): fit at the master's own
-  aspect, centre it. Nothing about ground, footprint, clamp or walkable land moves, and it can
-  never overhang because a fit is only ever SMALLER than the stall it was already confined to.
+AND IT WAS LOOKED AT AT HIS OWN ZOOM, not only as thumbnails: a patch of valley laid out
+isometrically at TW=90 TH=45 reads as an aerial city -- rows of houses with streets between
+them, red-roofed blocks, long warehouse roofs, parking, towers.
 
-AND A GATE WAS RED FOR THE WHOLE FLEET WHILE THE CODE WAS RIGHT. props_gate.js's arm "the car
-lattice FOLLOWS THE BLOB" grepped for the LITERAL `_sx=_lie?4:2, _sy=_lie?2:4`. On 8/28 the
-ART lane generalised exactly those digits because A BOXCAR IS NOT A CAR (rolling stock and
-locomotives are 7x4 blobs), so the branch reads _vlong/_vshort and a car is still 4 and 2. The
-CLAIM never changed. THAT IS THE SEVENTH TIME THIS LANE HAS FOUND THE SAME BUG: a checker with
-a fixed number where it needs a measurement. The arm now asserts the claim and survives the
-next vehicle that is not a car. PROPS 75/1 -> 76/0, mutation-tested three ways (remove the
-swap, change a car's numbers, stop keying off the blob -- red for each).
-AND MY OWN COMMENT BROKE A DIFFERENT ARM OF THAT SAME GATE: props_gate asserts the rotate
-follows its branch within 400 characters, and my explanation pushed it to 583. That is a real
-claim, so THE COMMENT MOVED RATHER THAN THE GATE -- the fit now sits after the rotate. Do not
-loosen another lane's checker to make room for your own prose.
+AND A FILENAME IS NOT A REGISTRY, WHICH THIS LANE HAD ALREADY LOST A ROUND TO. The first pass
+matched kinds against engine/bohemia_<kind>.js, got 42, and concluded the other nineteen had no
+art -- the same mistake [fortress buildings] made. DISTGEN names the MODULE each kind builds
+through and nineteen share one: gated and estate build through the suburb generator, and eleven
+utility kinds are SUB-OBJECTS on one file (U.arsenal.generate, U.radio.generate). Following the
+mod field and then looking INSIDE the module took it 42 -> 56 of 61.
 
-*** WHAT COMES NEXT *** ONE HALF OF HIS SENTENCE REMAINS AND IT IS NOT A COOK'S. The row also says the
-car is "sitting ON TOP of a brick wall... on the GROUND not on a wall". That is placement, not
-pixels. Measured in the city's own draw: a car comes off a chunk's `posts` list and is stretched
-to C*pw x C*ph -- the STALL, not the master's size, so a 45x96 master is magnified to fill it --
-and when the stall is wider than deep the master turns a quarter, which is the wide horizontal
-band in his screenshot and is correct for a parking stall. Whether a stall may be laid over a
-wall band, and the draw order between a post and the wall behind it, is [FOR LIFE + CITY].
+*** WHAT COMES NEXT *** THE FIVE THAT REMAIN, NAMED RATHER THAN ROUNDED AWAY: convention, dam,
+fort, minigp, prison. All five carry mod: KIT -- they build through the district KIT, a factory
+with no generate() of its own, so they are authored as kit ENTRIES and need the entry path
+followed instead. Bounded, and `fort` is on that list, which [fortress buildings] cares about.
+
+AND A BANK NOBODY CAN INLINE IS A BANK NOBODY USES. The first emit was 786 KB (56 kinds of
+1,024 repeated hex strings). A tile has a median of 10 colours and at most 18, so one character
+indexes it: packed as palette + index string it is 68 KB, decodes in two lines, and all 56
+kinds round-trip to exactly the derivation with 0 differing.
+
+[FOR THE PLUMBER] build_size_gate.js's unreachable-bytes ratchet is OVER BUDGET ON MAIN (80.75
+  against 78.85) and red for the whole fleet. Verified by stashing every change in this round
+  and re-running: identical number, identical failure. This bank does not move it -- banks/ is
+  not in the set it counts. A ratchet that is red on arrival gets switched off by the next
+  session that meets it.
+
+[FOR LIFE + CITY] The renderer is yours and it is the whole of what he sees. renderCity() still
+  draws 98 vector operations and no images. The bank is
+  banks/BOHEMIA_CITY_FROM_ABOVE_9_11_26.txt, keyed by district kind, 32x32 of hex per kind,
+  ready to blit into the isometric diamond. The diagram becoming a toggleable layer is the
+  same row. Also still yours from [car recook]: the draw order between a post and the wall
+  behind it.
+[FOR DIRECTION] [city look] is still open and this cooked without the card, because the row
+  said to and the ruling wrote the brief out in full. If the card lands and disagrees, the
+  tiles regenerate with ONE command -- that is what deriving them buys.
+
+THE PAUSED ROWS: [car recook] art half shipped three times (photograph -> 11 approved colours,
+then un-squashed: the master is 45x96 and the stall 2x3, so every car in the valley was drawn
+at 70% of its own length). [fortress buildings] round 1 measured that the buildings a fortress
+needs are ALREADY DRAWN; what is missing is that a fortress and a camp are the same suburb (131
+of 218 town cells) and that nothing draws a wall around a town. Round 2 is that wall, and its
+hazard is laws/BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md.
 
 [FOR THE PLUMBER] props_gate.js's second arm, "the car lattice FOLLOWS THE BLOB (a rotated plot
   turns a 2x4 rank into 4x2)", is RED ON ORIGIN/MAIN right now -- verified in a clean worktree,
