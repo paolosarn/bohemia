@@ -31,3 +31,8 @@ enters the design vocabulary (8/28): rulers only.
 - WHERE: https://developer.apple.com/design/human-interface-guidelines
 - KIND: real
 - TEACHES: the on-screen phone keeps a real phone's proportion (about 9:19.5) and sits where the thumb lives; if it cannot afford 11 px body text at that proportion it is a WIDGET, not a phone - shrink the world view, not the type.
+
+### FEED-06  The survivor phone (the object the feed lives on)
+- WHERE: search the real object ("cracked phone taped corner", "phone screen dim low brightness") + records/BOHEMIA_PHONE_LOOK_CARD_9_11_26.md
+- KIND: real
+- TEACHES: a kept-alive phone shows ONE repair (tape at a corner or seam), ONE crack from a single impact point, and uneven wear (the hand edge polishes, the other edge deadens); a dim screen glows grey-warm rather than going black, and its owner raises text contrast, not text size.
