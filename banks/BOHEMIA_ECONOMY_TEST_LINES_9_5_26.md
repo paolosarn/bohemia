@@ -2147,3 +2147,92 @@ JJJJJJ3 somebody explaining it to a kid        draft:true
 - No line states a moral about hard work. GGGGGG2 turned up at six both times.
 - Spanish register: 1 of 13 lines, 8%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## LLLLLL. THE THING THAT DIDN'T CHANGE
+## (round 28's finding, and it is the opposite of what the row assumed. The
+##  years are carried by a constant standing next to a difference. Nobody in
+##  these lines says the word remember.)
+
+LLLLLL1 somebody up on the ridge                draft:true
+        "Everything's different and that's the same rock. Same rock, same spot,
+         my knees just take longer getting to it."
+
+LLLLLL2 somebody naming the one fixed thing     draft:true
+        "You can't see the water tower from here any more. Can't see half of it.
+         But the road still bends where it bends."
+
+LLLLLL3 somebody who came back                  draft:true
+        "It's smaller. That's the first thing. I don't know if it shrunk or I
+         did, mijo, but it's smaller."
+
+LLLLLL4 somebody who never left                 draft:true
+        "I didn't go anywhere. That's what nobody gets. I stayed put and the
+         place left without me."
+
+## MMMMMM. THE LIGHTS FROM UP HERE
+## (a quarter of the valley is lit and three quarters is dark, measured, right
+##  now. And a dark block is a block that could not pay. Nobody says that.)
+
+MMMMMM1 counting from the ridge                 draft:true
+        "Used to be you couldn't pick out a street from up here. Now you can
+         count them. That's not a nice thing to be able to do."
+
+MMMMMM2 somebody pointing                       draft:true
+        "That one there, the bright one. That's ours. Took eleven years to get
+         that one to stay on."
+
+MMMMMM3 somebody watching one go out            draft:true
+        "There. Did you see it. Somebody's night just ended and we watched it
+         from a mile off, like it was weather."
+
+## NNNNNN. THE COUNT (what went up and what came down)
+## (the century ledger can say net negative. The fold cannot. These lines are
+##  the middle act, which is the one nothing can currently name.)
+
+NNNNNN1 somebody doing the arithmetic           draft:true
+        "We put up four. Two are still standing. I'd call that two, but my
+         brother calls it four, so."
+
+NNNNNN2 somebody who watched one come down      draft:true
+        "Took a season to build and an afternoon to pull. Nobody stood around
+         for the pulling, which I noticed."
+
+NNNNNN3 an older one, not making a point        draft:true
+        "You'll get a stretch where nothing goes up and nothing comes down and
+         you'll think that's peace. It isn't, it's just quiet."
+
+## OOOOOO. THE LIGHTS COME BACK BEFORE THE PEOPLE
+## (measured order of a real recovery: power, then buildings, then people, and
+##  the people never all come. None of these lines calls it a recovery.)
+
+OOOOOO1 somebody in a full street, nearly empty draft:true
+        "Twelve houses on this block, all of them standing, all of them fixed.
+         Four have anybody in them."
+
+OOOOOO2 somebody waiting on a return            draft:true
+        "Her room's ready. Been ready four years. I keep it ready because
+         keeping it ready is the part I can do."
+
+OOOOOO3 somebody who came back and regrets it   draft:true
+        "I'm one of the ones who came back. I'm not saying it was right. I'm
+         saying somebody had to be here, abuela."
+
+OOOOOO4 somebody who noticed the order          draft:true
+        "Power came on in the spring. Roofs went up after. Still waiting on the
+         part where anybody moves in."
+
+## PPPPPP. WHAT IS NOT HERE, ON PURPOSE (round 28)
+- No line says the word act, generation, century or year. A hundred years is
+  said as "eleven years to get that one to stay on" and "four years ready".
+- No line describes what a rebuilt city looks like. That is an empty table with
+  a `look` field and it is his ruling, in the module's own words.
+- No line says how many people live in a house. Same reason: the capacity table
+  is empty by law and round 28 did not fill it.
+- No line has a before-and-after speech, a montage or a summary of the family's
+  work. LLLLLL1 is the whole finding and it is about a rock.
+- No line calls the dark blocks poor, and no line calls the lit ones rich.
+  MMMMMM1 counts streets and stops.
+- No line states a moral about time passing. NNNNNN3 comes closest and is wrong
+  about it on purpose.
+- Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.
