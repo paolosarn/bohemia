@@ -229,7 +229,7 @@ const INTERIORMUS={
        step counter cannot break: never sooner than 16 seconds, always on a
        phrase. */
     const musical = (s>=this.armed.at || s<this.armed.from);
-    const dwelt = (Date.now()-this.armed.t) >= (this.PHRASE/16)*(60/120)*1000;
+    const dwelt = (Date.now()-this.armed.t) >= phraseMs();
     if(!(musical&&dwelt))return;
     this.armed=null;
     if(this.inside) this.takeOver(); else this.handBack();
@@ -270,11 +270,47 @@ WHERE_REPLACE = (
     "        return; }")
 
 
+HELPER_MARK = '__ONE_PHRASE_IS_ONE_PHRASE__'
+HELPER_ANCHOR = 'const CITYMUS={on:false,watch:null,'
+HELPER = '/* __ONE_PHRASE_IS_ONE_PHRASE__ (9/11, SOUNDS lane) -- HOW LONG A PHRASE IS, ONCE.\n   I GOT THIS ARITHMETIC WRONG AND MY OWN PROBE CAUGHT IT. Two systems in this\n   lane wanted "one phrase" in milliseconds and both of them computed\n   (128/16)*(60/120)*1000, which is 8 bars times the length of a BEAT -- 4000 ms.\n   A phrase is 8 bars and a bar at 120 BPM in 4/4 is TWO seconds, so a phrase is\n   SIXTEEN THOUSAND. INTERIORMUS\'s door debounce was running at a quarter of the\n   size its own comment claimed, and the rest below would have been a three\n   second hiccup instead of a breath.\n   SO IT IS ONE FORMULA NOW, AND IT ASKS THE ENGINE INSTEAD OF DOING SUMS.\n   MUS.stepDur() is the transport\'s own sixteenth, so 128 steps of it IS the\n   phrase by construction, and if the tempo ever moves the phrase moves with it.\n   A LANE THAT WRITES THE SAME CONSTANT TWICE WILL GET IT WRONG TWICE. */\nfunction phraseMs(){\n  var d = 0.125;                              /* the engine\'s own sixteenth */\n  try{ if(MUS && MUS.stepDur) d = MUS.stepDur(); }catch(_e){}\n  return 128 * d * 1000;\n}\nwindow.__phraseMs = phraseMs;\n'
+
+
+def ensure_phrase_helper(src):
+    """ONE FORMULA FOR A PHRASE, installed by whichever tool runs first."""
+    if HELPER_MARK in src:
+        return src, False
+    if src.count(HELPER_ANCHOR) != 1:
+        return None, False
+    return src.replace(HELPER_ANCHOR, HELPER + HELPER_ANCHOR, 1), True
+
+
 def main():
     print('=== THE ROOM HAS ITS OWN SONG ===')
     src = open(ALPHA, encoding='utf8').read()
     if MARK in src:
-        print('  already installed (idempotent, nothing to do)')
+        # NOT A NO-OP ANY MORE. The shipped alpha carries this player with the
+        # QUARTER-SIZE dwell I got wrong, so an already-installed build still
+        # needs repairing. An idempotent tool that refuses to fix its own old
+        # output is how a bug outlives the round that found it.
+        fixed = False
+        src2, did = ensure_phrase_helper(src)
+        if src2 is None:
+            print('FAIL: cannot place the phrase helper')
+            return 1
+        src, fixed = src2, did
+        bad = ("    const dwelt = (Date.now()-this.armed.t) >= "
+               "(this.PHRASE/16)*(60/120)*1000;")
+        if bad in src:
+            src = src.replace(bad,
+                "    const dwelt = (Date.now()-this.armed.t) >= phraseMs();", 1)
+            fixed = True
+            print('  REPAIRED  the door debounce was 4000ms, a quarter of the '
+                  'phrase its own comment claimed. One formula now, asked of '
+                  'the engine.')
+        if fixed:
+            open(ALPHA, 'w', encoding='utf8').write(src)
+        else:
+            print('  already installed (idempotent, nothing to do)')
         return 0
 
     for what, anchor in (('the player site', PLAYER_ANCHOR),
@@ -292,6 +328,10 @@ def main():
               'so the premise of the pool rule is false')
         return 1
 
+    src, _ = ensure_phrase_helper(src)
+    if src is None:
+        print('FAIL: cannot place the phrase helper')
+        return 1
     src = src.replace(PLAYER_ANCHOR, PLAYER, 1)
     print('  BUILT  INTERIORMUS -- the third room in his 7/7 law finally has a player')
     src = src.replace(WHERE_ANCHOR, WHERE_REPLACE, 1)

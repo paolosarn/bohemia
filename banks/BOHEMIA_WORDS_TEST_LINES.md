@@ -1573,3 +1573,100 @@ BROTHER  Pass the salt.                                                [time off
 #   and writing any of this as if the selector remembers, until it does
 # The last one is the honest limit of this bank. Every line above is worth what
 # the selector makes of it, and today the selector has no memory of what it said.
+
+## Q18 ROUND TWO -- TEN ASKS, ARMED BY SCHOOL  (9/11/26)
+# Round one is records/BOHEMIA_WORDS_Q18_SCHOOL_THE_ASK_WORKS_AND_THE_ASKER_DOES_NOT_KNOW_IT_9_11_26.md
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES, named as the mode requires:
+#
+# 1. THE ASK WORKS AND THE ASKER DOES NOT KNOW IT. People underestimate by as much
+#    as 50% how likely a stranger is to say yes. So not one ask below is written as
+#    a plea aimed at winning a verdict. They are written as people getting the
+#    sentence out. The tension is before the words, not after them.
+# 2. THE COST OF ASKING IS THE THING THAT MAKES REFUSING EXPENSIVE. Helpers are
+#    moved by the social cost of saying no, and that cost scales with what the ask
+#    cost the asker. So every ask below shows its price.
+# 3. RESOURCEFULNESS FIRST. Real testimony leads with it, not with desperation, so
+#    every ask arrives wrapped in evidence that this person is normally fine.
+# 4. THE PROUD ASK LAST AND ASK WORST. High self-esteem predicts LESS help seeking,
+#    so the person in the deepest trouble has the clumsiest ask in the set.
+# 5. THEY ASK THE STRANGER BEFORE THE NEIGHBOUR, because a peer is the comparison.
+#    The player is the safest person in this valley to ask.
+# 6. SURVIVAL FATIGUE. The longer it has run, the HARDER it is to say, which is the
+#    opposite of a rising dramatic curve.
+# 7. AND SOMEBODY HAS TO SAY THEY CANNOT PAY IT BACK. Measured across our 1,669
+#    lines, not one person in this valley has ever said it.
+#
+# MEASURED BEFORE WRITING: 2 lines in 1,669 name what asking costs. ZERO name an
+# inability to repay. These ten are written against that baseline.
+
+### TEN ASKS, TEN POSITIONS   draft:true
+
+# 1. THE FIRST TIME. Resourcefulness first: the competence comes before the ask.
+  I have not done this before and I have thought about how to not do it. I fix
+  what I can fix. This one I cannot fix by Thursday.
+
+# 2. THE PROUD ONE, WHOSE ASK IS THE WORST IN THE SET BECAUSE HE IS THE WORST OFF.
+  You do not have to. Obviously. I only mention it because you were walking past
+  anyway and it is nothing, it is a small thing, forget I said it.
+
+# 3. WHY YOU AND NOT THE NEIGHBOUR. The player is safe precisely by being nobody.
+  I could knock on four doors on this street and every one would open. And then I
+  would live next to it. You are leaving.
+
+# 4. LONG TROUBLE, AND IT IS HARDER NOW THAN IT WAS AT THE START.
+  Nine weeks. I had a whole speech in month one. I cannot find it now. There is
+  just the thing itself and I am asking you about it.
+
+# 5. THE ONE WHO SAYS IT OUT LOUD.
+  I cannot pay you back. Not in work, not in cells, not next year. If that is the
+  answer then it is the answer and I will not ask twice.
+
+# 6. THE ONE WHO DOES NOT KNOW SHE IS ALLOWED. Half of not asking is not knowing.
+  Is this the kind of thing a person can ask about? I do not know the rule. Nobody
+  told me there was a rule and I have been guessing for a month.
+
+# 7. THE PUBLIC ASK, WHICH COSTS DOUBLE.
+  Not here. Walk to the end with me. I am not going to say it where Rosa can count
+  how many times I have said it.
+
+# 8. THE CHILD, WHO HAS NO STANDING TO LOSE AND THEREFORE ASKS BEST.
+  Can you carry it? It is heavy and you are big.
+
+# 9. ASKING FOR SOMEBODY ELSE, WHICH IS THE ONLY EASY ASK IN THE SET.
+  This is not for me. I want to be clear about that because if it were for me I
+  would be handling it.
+
+# 10. AND THE ONE WHO HAS ALREADY DECIDED YOU WILL SAY NO.
+  Do not answer now. I would rather you thought about it and told me tomorrow than
+  said yes standing here because I put you on the spot.
+
+### WHAT HAPPENS WHEN IT WORKS, WHICH IS MOST OF THE TIME   draft:true
+# People underestimate compliance by up to half. So the accurate beat after a yes
+# is not gratitude. It is SURPRISE, and gratitude arrives a second later.
+  ...Right. Okay. I had about four more things ready to say.
+  You could have said no. I want you to know I knew you could say no.
+  I will not make it weird. I am going to make it a bit weird.
+
+### THE NON-ASK, WHICH IS THE TRUEST LINE IN THE SECTION   draft:true
+# The proud ask least and survival fatigue makes it harder over time. So the most
+# accurate version of this scene is the one where the ask does not happen.
+  You are busy. It was not important.
+  No, honestly. I came up here for the walk.
+  Next time you are round this way.
+# Nothing is requested. Everything is visible. If a player walks away from this and
+# only understands it three streets later, that is the scene working.
+
+### AND THE ASK THAT IS SECRETLY AN OFFER   draft:true
+# A way to ask that costs the asker less, and real people use it constantly.
+  I have got more beans than I can eat and no way to keep them cold. You have got
+  the cold room. Seems like that solves itself.
+# Nobody admitted needing anything. Both people know exactly what just happened.
+
+### THE REFUSALS: WHAT THIS LANE WILL NOT WRITE ABOUT ASKING   draft:true
+# BANNED, on the evidence:
+#   an ask written as a plea aimed at winning a verdict
+#   anybody leading with helplessness instead of competence
+#   the person in the worst trouble having the most eloquent ask
+#   an ask that costs the asker nothing, which is a task with a face on it
+#   gratitude arriving before surprise
+#   and a quest marker doing the work a sentence should do

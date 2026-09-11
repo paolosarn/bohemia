@@ -1,3 +1,481 @@
+ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
+HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
+EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
+
+=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
+PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
+
+VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
+
+
+WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
+
+1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
+4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
+5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
+8. Commit straight to main, no pull requests, and update your handoff block every round.
+9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
+
+RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
+
+I will never paste anything to you again. From here on, the one word is the whole instruction.
+=== END OF HIS WORDS ===
+
+THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
+returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
+backstage], Q7 [water supply], Q8 [battery value],
+Q9 [trust credit], Q10 [market day],
+Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
+Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
+Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
+Q23 [who eats first], Q24 [pay on time].
+Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
+
+AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
+(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
+you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
+minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
+that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
+BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
+reading the date off commits and repeating it back to him.
+
+A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
+conflict at the TOP of this file, because every lane prepends its newest block
+there and several of us are now pasting the same long verbatim instruction into
+it. Twice that produced a stray marker or a duplicated header on main, and once it
+interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
+TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
+your own complete block to it. Then grep for stray markers before you commit.
+
+*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
+block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
+round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
+Paolo's instruction and my own section, under an ECONOMY header. Removed this
+round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
+even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
+THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
+verbatim instruction from Paolo into their own blocks, so those lines are
+byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
+It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
+for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
+your block top to bottom and confirm every line in it is yours.
+And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
+stale copies of this one. That is a real defect in a file every lane reads every
+round. It is a job for the coordinator to place (18 PLUMBER's remit), not
+something a lane should do to another lane's block.
+=== ROUND 29 REPORT: [nothing left] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_29_THE_SHELVES_FILL_UP_AND_NOBODY_CAN_BUY_9_11_26.md (263 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections QQQQQQ-UUUUUU, +15 lines, 410 draft:true total
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
+
+*** THE SAME RED IS STILL ON MAIN AND IT IS STILL NOT MINE. SECOND ROUND I HAVE
+FLAGGED IT. language_gate RED 80/1, failing check "A SPANGLISH NEIGHBOUR ANSWERS
+IN SPANGLISH", line engine/bohemia_quirk.js:69 "keeping one light on for
+somebody", no Spanish word in it. That file is unchanged since bf3c1b3 (PEOPLE
+lane, 8/31). Proved not mine last round by stashing my work and re-running on a
+clean origin/main. Not edited here: MODE RESEARCH does not implement and ONE
+SYSTEM ONE SESSION says that file is PEOPLE's. ***
+
+Round 25 did the DROUGHT. This one did the END.
+
+WHAT I MEASURED IN OUR OWN CODE FIRST:
+- A CORRECTION I AM CARRYING RATHER THAN HIDING: my first probe emptied the whole
+  purse and reported every verb refusing, which conflated "the batteries are
+  gone" with "you have nothing at all". Re-ran properly, resources and clout
+  full, electricity at zero.
+- THE DAY THE BATTERIES ARE GONE, WITH A FULL LARDER AND FULL STANDING:
+      day:ate      (resources)    WORKS
+      fight:plate  (resources)    WORKS
+      ask:leaned   (clout)        WORKS
+      night:power  (electricity)  REFUSED  INSUFFICIENT
+      goods you can buy: 0 of 11. THE WHOLE SHELF IS SHUT.
+  LIFE GOES ON AND TRADE STOPS. That is round 25's finding at its end state.
+- NO OVERDRAFT AND NO DEBT. A debit on an empty pocket returns INSUFFICIENT with
+  have 0 / wanted 1 / short 1 and the balance stays at zero; the audit flags any
+  currency that went negative in history as a problem. The floor is hard.
+- AND NOTHING NOTICES. Swept the purse, payday and the feed for anything firing
+  at a zero balance: no event, no post, no card line, no beat. THE GAME HANDLES
+  THE DEATH OF ITS OWN CURRENCY BY REFUSING ELEVEN PURCHASES ONE AT A TIME,
+  SILENTLY. The biggest moment an economic crash simulator gets is currently
+  eleven identical error strings.
+- AND THE WAY BACK IS ALREADY BUILT AND HAS NEVER BEEN CALLED. convert(purse,
+  fromCur, fromAmt, toCur, toAmt, reason, ref, day) takes ANY rate the caller
+  names, so it presumes no exchange rate nobody ruled, and it is ATOMIC (pops leg
+  one back off if leg two fails, comment: "a half-applied conversion would mint
+  or burn"). I ran it: one resource in, one battery out, balances correct.
+  CALLERS IN THE WHOLE GAME: ZERO.
+
+THE FINDING THAT PROVES US WRONG:
+The instinct behind "and the day after" is that the pressure lifts. THE CLEANEST
+REAL CASE SAYS THE OPPOSITE. Zimbabwe abandoned its dollar in 2009 for the US
+dollar and the rand after 230 million percent inflation. The day after, THE
+SHELVES FILLED UP -- reporting from April 2009 is headlined almost exactly "shop
+shelves fill up but customers stay away" -- because the new money was real and
+worth stocking for. AND ORDINARY PEOPLE STILL COULD NOT FEED THEMSELVES, BECAUSE
+THEY HAD NONE OF THE NEW MONEY. A new currency does not appear in everybody's
+pocket at once. IT APPEARS IN SOMEBODY'S FIRST. The shelves coming back is not
+the recovery, it is the moment the difference between people becomes visible.
+FOR US: THE DAY AFTER SHOULD LOOK BETTER AND FEEL WORSE.
+
+WHAT ACTUALLY REPLACED THEM: US federal prisons banned smoking in 2004 and the
+cigarette died almost overnight. THE ECONOMY DID NOT COLLAPSE, IT AUDITIONED
+REPLACEMENTS -- within a few years three had taken over, no meeting called, no
+announcement made. Mackerel won in most of the federal system, and the reason is
+a design rule: worth about a dollar, and NOBODY WANTED TO EAT IT.
+THE MONEY IS THE THING NOBODY WANTS FOR ITSELF. That is an uncomfortable test for
+a battery and I am saying so plainly: everybody wants a battery, and the night
+eats one per circuit held by law, so our money is consumed OUT of the supply
+every night by the exact verb that gives it value. Money you can eat gets eaten.
+NOT an argument against his ruling -- it is the pressure his ruling creates and
+the reason [nothing left] is a real question.
+AND THE ANTI-GOAL: Radford's camp ended not in scarcity but in ABUNDANCE. At
+liberation "every want could be satisfied without effort", and he concluded that
+with infinite means economic organisation is redundant. A generous valley kills
+the economy as completely as a drought does.
+
+WHAT PEOPLE DID IN BETWEEN: THEY WENT ON THE TAB, AND THE LENDER IS THE SHOP.
+In Udaipur, 60%+ of people on under a dollar a day carried a standing debt:
+  37% from SHOPKEEPERS | 23% from relatives | 18% from moneylenders
+THE SHOP IS THE LARGEST SINGLE SOURCE OF CREDIT FOR POOR PEOPLE, ahead of family
+and ahead of moneylenders, and twice as many adults borrow informally as from a
+bank. Barter is not the fallback anybody wants: it needs a double coincidence of
+wants and the time goes into the bartering instead of the work.
+
+THE RULE DELIVERED: THE DAY THE LAST BATTERY GOES, THE SHOP DOES NOT SHUT. IT
+STARTS A TAB. Three rungs: (A) THE MOMENT HAS TO EXIST -- nothing notices zero,
+and one named beat on the card and in the feed needs no ruling because the purse
+knows the balance and the feed takes posts; (B) THE TAB -- the shop is the lender
+in the real record by a distance, and our shop's only answer is CANNOT_AFFORD;
+(C) THE AUDITION -- people pick a replacement in months, by themselves, and
+convert() already does the arithmetic and has never been called.
+AND THE WARNING: THE NEW MONEY ARRIVES IN SOMEBODY'S HANDS FIRST. Whoever holds
+it on day one is rich and did nothing to become rich. That is a scene, not a bug.
+
+ALSO FOUND AND NOT MINE TO FIX: there is a BARE ======= CONFLICT MARKER sitting
+in this handoff file at the seam between the EYES AND EARS block and the UI
+block. It was already in HEAD before my write (verified: git show HEAD counts 1).
+That is the exact fusion-class defect this lane root-caused in round 13 -- lanes
+paste byte-identical instruction text, a line merge cannot tell whose is whose,
+and the seam breaks with no marker OR with a stray one. It is inside two other
+lanes' blocks so I did not touch it. Somebody who owns those blocks, or PLUMBER,
+should clear it.
+
+ROUTED (suggestions only; only the coordinator makes a job):
+  PLUMBER / EYES / UI   a stray ======= marker at the EYES/UI block seam in the
+                        handoff, pre-existing in HEAD, not mine to edit
+  PEOPLE                language_gate red, second round flagged, bohemia_quirk.js:69
+  WORLD / LIFE + CITY   RUNG A, the moment: nothing notices a balance of zero
+  WORLD                 RUNG C, convert() has zero callers
+  WORLD                 the shelf shuts completely: 0 of 11 buyable
+  LIFE + CITY           the day after looks BETTER and feels WORSE
+
+THE GATE NOTE: six gates green, the seventh red before I touched anything and
+routed above. The round found the game has no moment for the death of its own
+currency and that the one function that would end that death has never been
+called. These gates check that a part does what it says. Nothing checks that two
+parts agree, that a part keeps working for as long as the game lasts, that it is
+the right part to have, or that the parts form a loop that closes. Rounds 16
+through 29. convert() passes its gate and has zero callers: a gate asking "does
+convert move two currencies atomically" is green; a gate asking "can a player
+ever reach this" does not exist.
+
+GATES THIS ROUND: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot
+13/0, demo blockers 22/0. language_gate 80/1 RED, PRE-EXISTING AND NOT MINE.
+
+TWENTY-NINE ROUNDS DONE. The last five: Q25 [batteries scarce], Q26 [forgiveness
+price], Q27 [shift pay], Q28 [ridge worth], Q29 [nothing left].
+
+WHAT THIS WHOLE STUDY KEEPS CONVERGING ON, updated:
+  A. EIGHT ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29) SAY THE ECONOMY OF BOHEMIA
+     IS MADE OF PEOPLE YOU KEEP GOING BACK TO. Round 29 adds the number: the shop
+     is the biggest lender there is, at 37%, ahead of family.
+  B. THREE ROUNDS (15, 21, 28) SAY THE MISSING PIECE IS NOT INCOME, IT IS A PLACE
+     TO PUT THINGS.
+  C. SIX ROUNDS (15, 21, 23, 24, 26, 27) SAY A WAGE IS ONE STRAND AND NEVER THE
+     THICKEST ONE.
+  D. AND FIVE ROUNDS NOW (24, 25, 26, 27, 29) END AT THE SAME WALL: THERE IS NO
+     OWED. Round 29 is the first one where it is the ANSWER and not just the gap.
+AND THE STANDING PATTERN: almost every finding was a mechanism already built,
+already correct, and pointed at nothing. This round it is convert(), atomic and
+rate-agnostic, with zero callers.
+
+[PENDING Paolo] -- for the coordinator, one at a time:
+  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
+     end is round 19's day 67, when the shelf line stops moving.
+  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
+  3. Century rule counts buildings. Should it also count who stayed?
+  4. Which building is the good FIRST one?
+  5. How many cells are in the valley at the start? (the whole money supply)
+  6. What does a broken promise cost? (round 9: exclusion, not seizure)
+  7. How long is the market week, and which seats open on which day?
+  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
+     found the code (BARTER_ONLY) already exists and is unreachable.
+  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
+     second household when there is nowhere else to go?
+ 10. Once the valley is built out, eleven things in the whole game are worth a
+     battery. What should a rich player WANT that he cannot just build?
+ 11. What does a subscription to a block BUY? Round 18: the right to trade at that
+     faction's seat.
+ 12. What does the player START with? He boots with nothing.
+ 13. What does it take to get the lights back on? A PRICE is the trap.
+ 14. What does a FAILED job pay? Today it is an honest NO_RULING.
+ 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
+ 16. After the valley's shelves are empty, what does a shop SAY?
+ 17. What can a person in this valley be paid to do?
+ 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
+ 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
+ 20. What is the first thing a player can be caught at, and what does it cost him?
+ 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
+ 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
+     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
+     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
+
+ 23. (new) WHEN A MAN CANNOT PAY, DOES THE SHOP TURN HIM AWAY OR LET HIM OWE?
+     Round 25's whole ladder stops at this wall and it is the fifth round in a
+     row to stop there. It is the same ruling as 6, 20 and 22.
+ 24. (new) HOW BIG IS THE BIGGEST PILE OF BATTERIES A PLAYER CAN FIND? Sixteen
+     billion cowries killed a currency that had worked for centuries. A cache
+     that is too big ends the money, and this is a number only he can set.
+
+ 25. (new) WHAT DOES IT TAKE TO BE FORGIVEN, AND CAN IT EVER BE BOUGHT? The real
+     record has three doors -- take payment, take nothing, or take it back by
+     force -- and the wronged party picks. Our module already has words for all
+     three and a mechanism under none of them.
+ 26. (new) DOES A WRONG COST MORE IF YOU HAVE MORE? Wergild priced a man by rank
+     because a fixed number is no cost to a rich man. EVERYTHING COSTS ONE says
+     it does not. Genuine tension, and genuinely his.
+
+ 27. (new) HOW OFTEN CAN A PLAYER GET A SHIFT? The only number in round 27 that
+     his own rulings do not already answer, and it is the one that decides
+     everything. The measured real spread is 137 to 254 days out of 365, bottom
+     third at the bottom of it. A shift you can take every day is a salary.
+
+ 28. (new) WHAT DOES A POOR CITY AND A REBUILT CITY LOOK LIKE? Not my phrasing:
+     bohemia_century.js has an empty TIERS table with a `look` field and asks him
+     this question in exactly those words. It is the whole act-by-act ridge.
+ 29. (new) HOW MANY PEOPLE DOES A HOUSE HOLD? The housing CAP is empty, so
+     capacityOf returns 0 for house, shop, apartment and trailer, so the century
+     ledger's `housed` column reads zero by law and the ridge cannot say who
+     lives there. Act three is the people.
+
+ 30. (new) WHAT DOES THE VALLEY USE WHEN THE BATTERIES ARE GONE? The mechanism
+     is built -- convert() takes any rate and unwinds cleanly -- and has ZERO
+     callers. What the thing IS, is his. The historical test is that the winner
+     is always something NOBODY WANTS FOR ITSELF (mackerel beat cigarettes
+     because nobody would eat it), which is an uncomfortable test for a battery.
+
+NEXT IN THIS LANE: Q30 [perk price], then Q31 [cheap eyes] and Q32 [long
+injury]. The coordinator added Q32 since last round.
+
+
+
+
+================================================================================
+================================================================================
+EYES AND EARS (eyes-5vql33): 9/11 (u) LATEST -- *** E16 [never opened] ROUND ONE OF TWO IS DONE:
+SCHOOL. NO MEASURING, ON PURPOSE. The structural finding: REAL PRODUCTION TRACKERS MAKE "NOT
+REVIEWED YET" A FIRST-CLASS STATUS, with a Pending Director Review state and a whole tab for it.
+OUR BOARD HAS SHIPPED AND NO FIELD AT ALL FOR WHETHER HE HAS EVER LOOKED, so "he has not seen
+this" is not a state anything in this repo can hold. It is an absence, and an absence is
+invisible. *** E16 stays CLAIMED, round two builds the matrix.
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+COUNTER-FINDING 1: "HE MENTIONED IT" IS NOT "HE REVIEWED IT", AND THE ERROR IS LOPSIDED. The job
+says check whether any ruling of his has ever MENTIONED a thing. A machine that greps his rulings
+for a name will mark things SEEN that he only went past, and the two mistakes do not cost the
+same. A false SEEN removes the item from the rota FOREVER and hides the exact thing this job
+exists to find. A false UNSEEN costs one look and he says "yeah I ruled on that".
+  SO ROUND TWO IS TUNED THE OPPOSITE WAY TO THIS LANE'S USUAL INSTINCT. Normally I tune against
+  false alarms because a checker that cries wolf gets muted. Here PRECISION ON THE SEEN SIDE is
+  what matters: count as seen only what carries an explicit judgement, and treat everything
+  ambiguous as unseen. A slightly long rota is cheap. A permanently hidden item is not.
+
+COUNTER-FINDING 2: A LIST OF UNSEEN THINGS IS A BACKLOG, AND A BACKLOG AIMED AT ONE PERSON IS
+WHAT EVERYTHING IS A THUMB ABOLISHED. So the brief's "one of them goes in front of him every time"
+is not a preference, it is the only legal shape. And the corollary has to be said out loud: THE
+OTHERS DO NOT WAIT. Under the same law the machine decides and he corrects. What round two
+produces is a ROTA, not a queue.
+
+COUNTER-FINDING 3, AND IT COULD MAKE THE WHOLE JOB MOOT, SO IT IS WRITTEN DOWN NOW RATHER THAN
+DISCOVERED LATER. The record this job came from says, four blind spots further down, that the art
+director has judged 127 garments FOR him AND HE HAS THUMBED ZERO. If that is true then telling him
+WHICH things he has not seen changes nothing, because the bottleneck is not knowledge of the gap,
+it is that a thing he has to go and open does not get opened.
+  SO ROUND TWO HAS A PRIOR QUESTION BEFORE IT BUILDS A ROTA: has any mechanism in this repo's
+  history ever got him to look at a specific named thing? If the honest answer is only "what
+  appeared in the reply itself" and "what he met while playing", then the deliverable is ONE
+  PARAGRAPH IN A REPLY and nothing else gets built. Building a file nobody opens would be a
+  particularly stupid way to fail at a job about things nobody opens.
+
+THE TWO PATTERNS SCHOOL HANDED OVER:
+  THE PRODUCTION TRACKER. Every version of every shot carries a review status: Pending Review by
+  default, PENDING DIRECTOR REVIEW when it has been reviewed once but still needs the director,
+  then Final. And the tool ships the views that follow: a Need to Review tab, a DIRECTOR NEEDS TO
+  REVIEW tab, and a Finals tab. Notes attach to a specific VERSION, so an approval is traceable to
+  what was actually on screen when it was given. Their unit is a thing plus who has looked at it,
+  not a task that got done.
+  THE TRACEABILITY MATRIX. QA's version: map every requirement to the test that verifies it, and
+  the value is that it makes the GAPS visible, because a requirement with no linked test is a risk
+  that has not been mitigated. E16 is that matrix with his rulings in place of the tests, and the
+  interesting cell is the empty one. It also gives the number nobody in this project has ever
+  computed: COVERAGE, the share of shipped things on screen that have ever had a word from him.
+
+THE ORDERING IS THE REAL DESIGN DECISION, AND OLDEST-UNSEEN IS WRONG. Nobody reviews everything;
+risk-based approaches exist so effort is focused rather than spread equally. Sorting by age puts
+the oldest trivial thing in front of him while something load-bearing stays unseen forever. Round
+two carries a RISK column and surfaces one item chosen by risk, with the reason stated. Highest
+risk is a thing on the player's path in the first minute, or a thing the loop leans on.
+
+AND THE BIAS HAS A NAME THAT SHARPENS THE FIX: the availability heuristic, and the part that
+matters is not "recency" but that availability bias is a tendency to be influenced by information
+that is VISIBLE and to IGNORE HIDDEN INFORMATION, with the out-of-sight effect depending on
+whether the element is PRESENT at the moment of deciding. A list he does not open IS hidden
+information. The fix is to make the unseen thing present in the reply he is already reading.
+
+RULE ZERO, AND THIS JOB HAS UNUSUALLY GOOD GROUND TRUTH ALREADY WRITTEN DOWN. The blind-spot
+record names both sides: things he ruled on (the UI at 50%, the zoom, the tutorial pop-up, the
+cloud) and things he has not (the fold, the animal opening, the perk tree, the reckoning card, the
+room fight, the room's own song). So round two plants both. A known-SEEN item must come back SEEN
+or the sweep is blind to his rulings and its rota is noise. A known-UNSEEN item must come back
+UNSEEN or the sweep is overcounting SEEN, which by counter-finding 1 is the failure that hides
+things forever. Both pass or no number is printed.
+
+BLIND SPOTS TO DECLARE IN ROUND TWO: the board is not the game, and a SHIPPED line is a CLAIM, not
+a thing on screen -- E11 and E13 both found shipped claims that were not true on the surface.
+"Reaches a tab" is a proxy for reachable and this lane has already caught itself measuring a frame
+the player never sees. His rulings from before the board existed live in transcripts nobody kept,
+so the matrix can only ever say "no ruling ON RECORD". And nothing in it measures whether he would
+LIKE any of it, which is the whole point of putting it in front of him.
+
+STILL OPEN IN MY QUEUE AFTER THIS: E17 [locked ignored], E18 [he can hear it]. Both two rounds,
+school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Sixteen instruments and three suite gates exist now.
+  2. THE BOARD HAS NO SEEN-BY-HIM FIELD. Real trackers make it a status with its own tab. That is
+     a board change, not a lane change, so it is noted here and not made.
+  3. Counter-finding 3 above is a question about the person, out of the coordinator's own record:
+     he has thumbed zero of 127. Round two tests it rather than assuming the rota will work.
+  4. THE SCOPE HOLE from E15 still stands: a building, a face, a prop or a vehicle is graded by no
+     machine on E7's sheet.
+  5. Still unclaimed: the MIX METER (E5 gap 10).
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
+last round: PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0, attempt 15/0.
+
+PROOF: records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md (226 lines,
+14 sources); banks/eyes/BOHEMIA_EYES_E16_ROTA_SPEC_9_11_26.json (draft:true); VAMILY lane 17 E16
+CLAIMED ROUND 1 OF 2.
+
+WORDS (words-8dqrnq): 9/11 (b) LATEST -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
+School reshaped every ask: not one is written as a plea, because the ask almost always works
+and the person asking has no idea. And the truest thing in the section is the scene where
+the ask never happens. *** Nothing to judge. Nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q18 IS DONE UNDER THE 9/6 MODE. Two records, and the row carries both paths:
+    school   records/BOHEMIA_WORDS_Q18_SCHOOL_THE_ASK_WORKS_AND_THE_ASKER_DOES_NOT_KNOW_IT_9_11_26.md
+    writing  records/BOHEMIA_WORDS_Q18_ROUND_TWO_THE_WRITING_9_11_26.md
+    bank     banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q18 ROUND TWO", draft:true
+Ten asks in ten positions, as the row asked for, plus three short sections and the refusals.
+
+WHICH FINDINGS FROM SCHOOL CHANGED THE LINES:
+1. THE ASK WORKS AND THE ASKER DOES NOT KNOW IT, so NOT ONE ASK IS WRITTEN AS A PLEA. People
+   underestimate by as much as 50% how likely a stranger is to agree. The instinct is to
+   write an ask as a case being argued; all ten are people GETTING A SENTENCE OUT, because
+   the outcome was never much in doubt. The tension sits before the words.
+2. THE COST OF ASKING IS WHAT MAKES REFUSING EXPENSIVE, so every ask shows its price. Helpers
+   are moved by the social cost of saying no, and that cost scales with what the ask cost the
+   asker. AN ERRAND THAT COSTS THE ASKER NOTHING IS A TASK WITH A FACE ON IT. That is also
+   the answer to the row's "without being a quest marker".
+3. RESOURCEFULNESS FIRST, so nobody leads with helplessness. Ask 1 opens with what this man
+   normally fixes himself.
+4. THE PROUD ASK WORST, so the clumsiest sentence in the set belongs to the man in the
+   deepest trouble. The 9/4 round would have given him the best speech.
+5. THEY ASK THE STRANGER BEFORE THE NEIGHBOUR, and ask 3 says the mechanism in the
+   character's own mouth: four doors would open, and then he would live next to it.
+6. SURVIVAL FATIGUE, so the long trouble is the hardest to say. Ask 4 is nine weeks in and
+   the man has LOST the speech he had in month one.
+7. SOMEBODY SAYS THEY CANNOT PAY IT BACK. Measured across 1,669 lines, not one person in this
+   valley had ever said it. Ask 5 exists to end that.
+
+AND TWO THINGS SCHOOL PRODUCED THAT ARE NOT IN THE ROW'S BRIEF:
+THE SURPRISE BEAT. If compliance is underestimated by half, the accurate moment after a yes
+is not gratitude, it is ASTONISHMENT, with gratitude a second later. Three lines this lane
+would never have thought to write.
+AND THE NON-ASK, THE TRUEST THING IN THE SECTION. Findings 4 and 6 together mean the most
+accurate version of this scene is the one where the ask DOES NOT HAPPEN: a man walks up,
+talks about the weather, leaves. Nothing requested, everything visible. If the player only
+understands it three streets later, the scene worked.
+Plus THE ASK THAT IS SECRETLY AN OFFER, which is how real people dodge the cost entirely.
+
+A NOTE ON MY OWN HYGIENE: I ran the banned-phrase list over my new section before committing
+and it caught one hit, in my own comment text rather than in a test line. Fixed. The bank is
+NOT baked into the words book so no gate would have seen it, which is exactly why I checked
+by hand.
+
+ROUTED THIS ROUND:
+- QUESTS: finding 2 is theirs as much as mine. A request whose asker could plainly have done
+  it himself is not a request. IF A QUEST OPENS WITH SOMEBODY ASKING, THE ASK HAS TO COST
+  THEM SOMETHING THE PLAYER CAN SEE, or the sentence is doing nothing a marker was not.
+- PEOPLE: finding 5 is free content. The player is the safest person in the valley to ask
+  because the player is nobody's peer. That is a reason for a stranger to open a conversation
+  and it needs no quest attached.
+
+*** MAIN WAS RED ON THREE GATES LAST ROUND AND NONE OF IT IS MINE. Re-check before doing
+anything else: the words book is unbaked (M04 absent) and M04_WHAT_THE_NEIGHBOUR_ASKS.bq
+line 87 carries the banned phrase "that is the whole list", so baking turns voice red until
+that line changes. And language_gate went 81/0 to 80/1: a spanglish neighbour answers in pure
+English because the spanglish variant IS authored at engine/bohemia_quirk.js line 271 and the
+picker returns the English base at 269. A SELECTION DEFECT, NOT A MISSING TRANSLATION. That
+same line also contains "that's the whole trick", so it breaks two laws at once. Routed to
+QUESTS, PEOPLE and PLUMBER across the last two rounds. ***
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1, Q2, Q3 and Q18 have both rounds. Q4 to Q17 were
+each done in a single round under the old mode and are owed theirs. Q19 [caught out] and Q20
+[no law talk] are open and both already say school first. One at a time; sequencing is the
+coordinator's.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, Q2). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17); the bark selector has no memory of what it said (Q3).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
+directly on top of Q2's finding that a lie is caught by the question and never by the manner.
+
 ANIMATION (animation-lr9y9i): 9/11 LATEST -- *** THE ELBOW RULE IS IN. His first
 rig complaint is answered and the machine found the SAME ELEVEN CLIPS HE KILLED,
 on its own, before anybody compared the lists. TAB: ANIMATION. Nothing to judge
@@ -58,7 +536,7 @@ write their own descriptions.
 
 ================================================================================
 
-WORDS (words-8dqrnq): 9/11 LATEST -- *** Q18 [asking words] SCHOOL DONE, ROUND ONE OF TWO.
+WORDS (words-8dqrnq): 9/11 -- *** Q18 [asking words] SCHOOL DONE, ROUND ONE OF TWO.
 THE ASK ALMOST ALWAYS WORKS AND THE PERSON ASKING HAS NO IDEA: people underestimate by as
 much as HALF how likely a stranger is to say yes. And in a game whose whole premise is that
 nobody can repay anything, NOBODY EVER SAYS THEY CANNOT REPAY. *** THE ROW IS CLAIMED, NOT
@@ -196,411 +674,6 @@ STILL CARRIED, AND STILL NOBODY'S:
 
 NEXT: Q18 round two, the writing, ten asks from people in different positions, naming which
 of the seven findings above changed them.
-
-EYES AND EARS (eyes-5vql33): 9/11 (t) LATEST -- *** E15 [machine judges] SHIPPED WITH BOTH ROUNDS,
-AND IT DID NOT BUILD WHAT THE JOB ASKED FOR, ON PURPOSE. STEP 0 FOUND THE PREMISE HAD MOVED:
-DIRECTION holds ZERO claimed jobs now, not six. And REUSE-FIRST found the pass mostly already
-built: STYLE CARD, TARGET MATCH and TEXTURE MATCH are all registered and all already grade cooks
-by machine. So building a third judge over the same art would have been a law violation. What
-shipped instead is the thing nobody had: a self-verifying COVERAGE MAP, behind a new registered
-gate, and it found TWO of E7's seven machine questions are performed by NO GATE ANYWHERE. ***
-TAB: NOT IN A TAB YET. No game code touched, ever.
-
-STEP 0, AND SCHOOL IS THE ONLY REASON I RAN IT: "the bottleneck moves, so measure the queue before
-accepting the premise." Measured off the board: LIFE + CITY holds the oldest unshipped claim on the
-whole board. DIRECTION holds 0 CLAIMED and 8 OPEN. The six claims the job was written around have
-cleared.
-  AND WHAT THOSE EIGHT OPEN ROWS ACTUALLY ARE IS THE REAL SHAPE: five of the eight say the card is
-  DELIVERED and the row was reopened per [one at a time]. THE WORK IS DONE. The rows are waiting on
-  a thumb. No pre-judge touches that. It is a queue of finished cards waiting on one person, which
-  is exactly the shape EVERYTHING IS A THUMB was written to abolish, one level up. School's fourth
-  counter-finding predicted it and there it is on the board.
-
-REUSE-FIRST: DIRECTION's own STATE line says the style card gate is suite-registered and that the
-batch-judging seam is closed, and it checks out. STYLE CARD checks a new cook sits in the register
-or is a clear accent, keeps its value inside the card, wears runway black on outers, never drops
-the register share, never wears purple. TEXTURE MATCH checks every cooked tile lands inside the
-edge-and-grain band measured off HIS art. TARGET MATCH checks the constitution exists, is in force
-and carries the verdict it came from. So the literal instruction would have produced a THIRD judge
-over the same garments and tiles.
-
-THE COVERAGE MAP, AND 5 OF 7 ARE COVERED:
-  1 Same DETAIL ORDER?          texture_match_gate       TILES only
-  2 Same COLOUR DENSITY?        target_screen_gate       the target screen only
-  3 Same SATURATION BUDGET?     style_card_gate          WARDROBE only
-  4 Same VALUE BAND?            style_card_gate          WARDROBE only
-  5 Same GRAIN SCALE?           NOTHING                  no gate anywhere does autocorrelation
-  6 Same LIGHT?                 pixel_craft_gate         the pixel-craft corpus only
-  7 Reads at play size?         NOTHING                  no gate shrinks art to 24px and compares
-                                                         the surviving contrast
-  AND THE SCOPE COLUMN IS THE BIGGER FINDING. Every covered question is covered over ONE KIND of
-  art. A cook that is neither wardrobe nor a tile nor the target screen -- A BUILDING, A FACE, A
-  PROP, A VEHICLE -- IS GRADED BY NOTHING ON THIS SHEET AT ALL. The seam that was called closed is
-  closed for garments and tiles.
-  EVERY ROW CARRIES THE GATE'S OWN CHECK STRING AND THE TOOL VERIFIES THE STRING IS STILL THERE
-  rather than asserting coverage. A map that asserts rots the day somebody edits a gate, and the
-  fleet then believes a question is checked when it is not. That is precisely the rot E11 found
-  inside CLAUDE.md's own law index, and this map refuses to repeat it.
-
-THE OVERRIDE METER CANNOT BE COMPUTED, AND THAT IS THE FINDING. School's hardest requirement was
-that the pass must watch itself for becoming a rubber stamp, because the named leading indicator is
-a DECLINING override rate and a sustained zero is a process failure, not proof the machine is right.
-Measured: 76 verdict records on disk, 43 mention both a machine call and a human one IN PROSE, and
-NOT ONE stores, per cook, the machine verdict beside the human verdict that followed it. So the
-override rate cannot be computed today, which means nobody would notice it going to zero. E11's
-disease in a third form: a number that exists only in prose is a number no machine can read.
-  THE ONE LINE THAT FIXES IT, written down so it is not lost: when a cook clears the machine pass,
-  write its machine verdict into the same verdict record the human thumb lands in. One field, and
-  the rate becomes a number forever after.
-
-WHAT SHIPPED: tools/bohemia_eyes_prejudge.py plus its gate half, registered in the suite as
-PRE-JUDGE COVERAGE, holding exactly two things. (1) NO COVERAGE CLAIM MAY GO STALE -- if a gate
-stops carrying the check the map credits it with, it goes red IMMEDIATELY, not on a ratchet,
-because a question the fleet thinks is gated and is not is worse than one nobody claims. (2) THE
-GAP COUNT MAY ONLY GO DOWN, frozen at 2.
-
-DELIBERATELY NOT BUILT: a third judge over garments and tiles (reuse-first), a score card stapled
-to every cook (school: a pre-judge that annotates but still forwards everything adds work), and a
-queue of prepared verdicts for DIRECTION (everything is a thumb).
-
-RULE ZERO, three controls, and the tool refuses to print a coverage number unless all three pass:
-a claim whose check is gone must read STALE; a claim pointed at a missing gate must read NOT
-COVERED; and THE REAL CLAIMS MUST STILL COME BACK COVERED, because a map that is always false would
-pass the first two and be useless.
-
-MY INSTRUMENT WAS WRONG ONCE: I read E7's sheet with the wrong field names and the first run
-printed 0 machine questions and 10 human ones with every question text as None. A coverage map
-built on that would have been confidently, completely wrong AND WOULD HAVE LOOKED TIDY. The loader
-now asserts both groups came back non-empty so the same slip cannot pass silently again.
-
-ROUTED: NOTHING. The gates that exist do what they say, and the two gaps are work nobody ever
-claimed to have done.
-
-BLIND SPOTS: the queue was measured off the board's own dates, and a row's date is when it was
-claimed, not when its work stalled; the map is MY READING of which gate performs which test,
-verified only that the gate still carries the string I credited it with; five of the seven covered
-questions are covered PARTIALLY, because the gate performs something in the same family and not
-necessarily E7's exact arithmetic; and nothing here measures whether any cook is any good, which is
-the three human questions and correctly nobody's machine.
-
-STILL OPEN IN MY QUEUE: E16 [never opened], E17 [locked ignored], E18 [he can hear it]. All two
-rounds, school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Sixteen instruments and three suite gates exist now.
-  2. E15's brief is out of date: DIRECTION holds 0 claimed, and five of its eight open rows are
-     DELIVERED cards waiting on a thumb, not unstarted work.
-  3. THE SCOPE HOLE: a building, a face, a prop or a vehicle is graded by nothing on E7's sheet.
-     That is a bigger gap than either uncovered question and it belongs to whoever owns the sheet.
-  4. The one line that makes the override rate computable, above.
-  5. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
-  6. Still unclaimed: the MIX METER (E5 gap 10).
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: PRE-JUDGE COVERAGE 3/0 (new, registered), NO READER 7/0, handoff 7/0, attempt 15/0. The
-map's own three RULE ZERO controls passed.
-
-PROOF: records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md and
-records/BOHEMIA_EYES_E15_ROUND_2_THE_JUDGE_ALREADY_EXISTS_9_11_26.md;
-tools/bohemia_eyes_prejudge.py; gate registered as PRE-JUDGE COVERAGE in gates/bohemia_gates.py;
-data records/BOHEMIA_EYES_PREJUDGE_9_11_26.json, baseline
-records/BOHEMIA_EYES_PREJUDGE_BASELINE_9_11_26.json; coverage map
-banks/eyes/BOHEMIA_EYES_E15_COVERAGE_MAP_9_11_26.json (draft:true); VAMILY lane 17 E15 SHIPPED
-with both rounds, NOTHING routed.
-=======
-ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
-HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
-EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
-
-=== BEGIN PAOLO'S WORDS, WORD FOR WORD ===
-PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
-
-VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
-
-
-WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
-
-1. Pull main first (git fetch origin main, rebase onto it). The board changes every hour.
-2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten 9/4.
-3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there and change there. Never trust your memory of them.
-4. Find your section. There are 18 chats, each with a number and a name: 01 RUN, 02 WORLD, 03 LIFE + CITY, 04 COMBAT, 05 CHARACTER, 06 DIRECTION (art director), 08 SOUNDS, 09 PEOPLE, 10 FACTIONS, 11 UI, 12 WORDS, 13 ECONOMY, 14 ANIMATION, 15 DYNASTY, 16 COOK (production artist), 17 EYES AND EARS, 18 PLUMBER. Your chat's title is your name. If you are a brand-new chat with no name, you are 18 PLUMBER: write CLAIMED on its line, commit, and that is your role for life.
-5. Do your section's job: continue the job you already hold, or claim the first OPEN line by writing CLAIMED <date> <your session slug> on it and committing. Build or research according to your section's MODE. A job takes as many rounds as it takes. Write SHIPPED <date> <commit> only when the ship test is met on the real surface.
-6. Only build what is on the board. Never invent a job. Never add a job to any section; only the coordinator adds jobs. Your only writes to the board are CLAIMED and SHIPPED on your own lines.
-7. Never ask me anything. A ruling you need goes in your handoff block in 00_START_HERE_NEXT_SESSION.md as [PENDING Paolo]. The coordinator carries it to me.
-8. Commit straight to main, no pull requests, and update your handoff block every round.
-9. Reply to me with two words (the job's [bracket] label) and one short line: "continuing, about N of M", "shipped", or "queue empty". Then work.
-
-RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
-
-I will never paste anything to you again. From here on, the one word is the whole instruction.
-=== END OF HIS WORDS ===
-
-THIS CHAT'S ROLE: 13 ECONOMY (research). SHIPPED: Q1 [money dies], Q2 [money
-returns], Q3 [rebuild order], Q4 [first building]. Q5 [numberless economy], Q6 [casino
-backstage], Q7 [water supply], Q8 [battery value],
-Q9 [trust credit], Q10 [market day],
-Q11 [inflation feeling], Q12 [who's housed], Q13 [printed money], Q14 [rent share],
-Q15 [first hour], Q16 [debt spiral], Q17 [wages fall], Q18 [black market],
-Q19 [price moves], Q20 [work feels], Q21 [five minute money], Q22 [what a lie costs],
-Q23 [who eats first], Q24 [pay on time].
-Next OPEN is Q25 [batteries scarce]; Q26 [forgiveness price] and Q27 [shift pay] after it.
-
-AND A CORRECTION TO MYSELF, FROM THE LAW THAT LANDED THIS ROUND: NO CALENDAR TALK
-(Paolo 9/5, LOCKED). "why do you keep referring to it as days, yesterday... are
-you tweaking?" Never yesterday/today/tomorrow/overnight/day N to him. Rounds,
-minutes, hours. A research unit is a ROUND. My four records are named DAY 1-4 and
-that stays, because records are for the machine, but MY REPLIES TO HIM HAVE BEEN
-BREAKING THIS and they stop now. Root cause on my side is the coordinator's:
-reading the date off commits and repeating it back to him.
-
-A NOTE ON THIS FILE, FOR EVERY LANE: three of my last four rounds hit a merge
-conflict at the TOP of this file, because every lane prepends its newest block
-there and several of us are now pasting the same long verbatim instruction into
-it. Twice that produced a stray marker or a duplicated header on main, and once it
-interleaved two lanes' blocks line by line. IF YOU RESOLVE A CONFLICT HERE, DO NOT
-TAKE BOTH SIDES LINE BY LINE. Take the whole file from origin/main, then prepend
-your own complete block to it. Then grep for stray markers before you commit.
-
-*** AND IT ALREADY HAPPENED, SILENTLY, AND I ONLY CAUGHT IT IN ROUND 13. *** This
-block had 113 lines of OTHER LANES' work fused into the middle of it: CHARACTER's
-round-2 [clothes wired] notes and DYNASTY's round-3 report, sitting between
-Paolo's instruction and my own section, under an ECONOMY header. Removed this
-round. Both lanes have newer, superseding copies elsewhere in this file (DYNASTY
-even labelled theirs "THIS IS THE ONE GOOD COPY"), so nothing was lost.
-THE CAUSE, AND IT WILL DO IT AGAIN TO SOMEBODY: several lanes paste the SAME
-verbatim instruction from Paolo into their own blocks, so those lines are
-byte-identical across blocks and a line-by-line merge CANNOT TELL WHOSE THEY ARE.
-It welds two lanes together at the seam and NO CONFLICT MARKER APPEARS, so a grep
-for markers will not catch it. THE ONLY CHECK THAT DOES: after you resolve, read
-your block top to bottom and confirm every line in it is yours.
-And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
-stale copies of this one. That is a real defect in a file every lane reads every
-round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.
-=== ROUND 28 REPORT: [ridge worth] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_28_THE_RIDGE_IS_NOT_ABOUT_WHAT_CHANGED_9_11_26.md (324 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections LLLLLL-PPPPPP, +14 lines, 395 draft:true total
-TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
-
-*** READ THIS FIRST, IT IS NOT MINE AND IT IS RED ON MAIN: language_gate is
-RED 80/1 on a CLEAN origin/main tree with my work stashed, so it was red before
-I started and my change did not cause it. The failing check is "A SPANGLISH
-NEIGHBOUR ANSWERS IN SPANGLISH" and the line it picks is in engine/
-bohemia_quirk.js line 69, "keeping one light on for somebody", which carries no
-Spanish word. That file was last touched by the PEOPLE lane (bf3c1b3, 8/31).
-I did NOT edit another lane's module: MODE RESEARCH does not implement and ONE
-SYSTEM ONE SESSION says that file is not mine. ROUTED TO PEOPLE below. ***
-
-WHAT I MEASURED IN OUR OWN CODE FIRST:
-- THE RIDGE IS WORDS WITH NO ART, and the shipped scene says so out loud: "NO
-  RIDGE ART EXISTS YET and that is named out loud rather than hidden."
-- WE HAVE TWO RECORDS OF THE CENTURY AND THEY DISAGREE ABOUT DECLINE. I ran three
-  centuries through the fold:
-      a century of BUILDING        -> invest 9  builds tier 3  texture modern
-      one good gen then NEGLECT    -> invest 9  builds tier 3  texture modern
-      a gen that actively LOSES it -> invest 0  builds tier 3  texture apocalypse
-  `builds` is Math.max, a HARD RATCHET: a choice saying tier 0 left tier 3
-  standing. `invest` and `economyCapacity` are +=, so a NEGATIVE amount really
-  does pull them down and the texture really does fall to apocalypse, so DECLINE
-  IS REPRESENTABLE and nothing in the game ever authors a negative. AND NEGLECT
-  DOES NOTHING AT ALL: a century of silence after one good generation leaves the
-  texture at modern. YOU CAN LOSE THE VALLEY BUT YOU CANNOT LET IT GO, and
-  letting it go is how every real place I read about actually went.
-  districtTexture is THREE STRINGS OFF ONE NUMBER for the whole century.
-- AND THE OTHER RECORD IS THE RIGHT ONE AND NOBODY IS LOOKING AT IT.
-  engine/bohemia_century.js, run for real:
-      act 1 (lived)       built 3  pulled down 0  NET  3
-      act 2 (lived)       built 0  pulled down 2  NET -2
-      act 3 (not reached) built 0  pulled down 0  NET  0
-  NET GOES NEGATIVE. It counts per act, knows which acts were lived, and setAct
-  refuses to run backwards because "a century that can run in reverse is not a
-  memory."
-- THE ACT-BY-ACT LOOK IS ALREADY AN EMPTY TABLE WITH THE RIGHT FIELD NAMED.
-  TIERS = {}, tierOf returns NO_RULING with about: "what a poor city and a
-  rebuilt city are is Paolo's ruling", and the comment says a row would be
-  {act, need:{built:N, housed:N}, look:'...'}. The row asked me what the ridge
-  shows act by act and THE TABLE FOR THAT ANSWER IS ALREADY WRITTEN AND EMPTY.
-- THE ACT IS TWO-VALUED ON THE SURFACE HE WALKS, measured this round not quoted:
-  walked city act1 963, act2 ZERO, act3 38; the alpha act1 14, act2 ZERO, act3
-  ZERO. The only two story-act reads are (opts.act===3)?3:1 and
-  (act===3)?f.act3_power:f.act1_power. Fifty act1_power, forty-three act3_power,
-  NO act2_power. The row asks for three acts and the city can say 1 or 3.
-- THE CENTURY LEDGER IS NOT IN THE GAME HE OPENS: 8 references in the walked
-  city, ZERO in BOHEMIA_ALPHA_0_9.html.
-- HOUSING CAP IS EMPTY: capacityOf returns 0 for house, shop, apartment and
-  trailer, so the century's `housed` column reads zero by law.
-- WHAT A RIDGE COULD SEE TONIGHT, five seeds: 1690/400 lit 23.7%, 1637/424
-  25.9%, 1601/473 29.5%, 1664/381 22.9%, 1592/394 24.7%. THREE QUARTERS OF THE
-  VALLEY IS DARK ON EVERY SEED, already true, no new art, and nobody has ever
-  shown it to him. And it is the money: a circuit goes dark when its holder
-  cannot pay the night's battery.
-
-THE FINDING THAT PROVES US WRONG:
-The row says "what the ridge should SHOW CHANGING" and the instinct under it is
-that more change makes more feeling. THE RETURN LITERATURE SAYS THE OPPOSITE IN
-ONE SENTENCE: THE PLACE DIDN'T CHANGE NEARLY AS MUCH AS THE PERSON DID. What
-people name when they go back after decades is not the new thing, it is the
-CONSTANT -- the old tree, the bend in the road, the shape of the hill -- and
-places read SMALLER than remembered. THE YEARS ARE CARRIED BY A CONSTANT
-STANDING NEXT TO A DIFFERENCE. A ridge where everything changed reads as a
-different valley, not as yours a century on. We already have the right anchor
-for free: the street plan is seed-fixed.
-AND THE EMOTION HAS A NAME AND A LITERATURE: SOLASTALGIA, coined by Glenn
-Albrecht in 2003, the distress of your home changing around you while you are
-still in it. His own gloss: "the homesickness you have when you are still at
-home." It is NOT nostalgia, and the difference is the design: nostalgia needs you
-to have left; this needs you to still be standing there. That is the ridge.
-
-THE SECOND FINDING, AND IT IS UNCOMFORTABLE: Tulane's post-Katrina oral history,
-about 350 interviews, and the most common thing across all of them was that
-PEOPLE COULD NOT NARRATE THEIR LIVES AS A CONTINUUM, ONLY BEFORE AND AFTER. A
-hundred years does not feel like three acts to the person who lived it. Our code
-has exactly two act values and no act 2, and that is a hole, not a defence -- but
-the middle act being the hardest to make anybody feel is a property of people,
-not only of our build.
-AND THE RETURN NUMBERS ARE THE SHAPE ACT THREE SHOULD HAVE: New Orleans about
-484,000 before, about 230,000 a year after, about 351,000 twenty years later,
-STILL ONLY 80%. Return is two-phase everywhere it is measured: the first 80% come
-back fast and the last 20% mostly do not. Neighbourhoods rebuilt and stayed empty
-of the lives that were in them. And the one thing that most brings people back is
-repairing the housing stock, because nobody returns without somewhere to live --
-which lands straight on our own empty capacity table. SO THE TRUE ACT THREE IS
-NOT A TRIUMPH, IT IS A REBUILT SKYLINE OVER A THINNER CITY.
-
-WHAT THE RIDGE SHOULD SHOW, IN ORDER (the deliverable):
-  RUNG 0, ALL THREE ACTS: THE THING THAT DOES NOT CHANGE. The ridge, the valley
-    outline, the street plan, plus one small silhouette that survives all three.
-    Ours is seed-fixed already. The anchor is what makes the differences legible.
-  ACT ONE: THE LIGHT. A quarter of the valley lit, measured, already true,
-    readable from any distance with no new art, and it is literally the money.
-    Nothing to build, only to show. It is also the fastest-moving, which is why
-    it is first.
-  ACT TWO: THE COUNT. What went up and what came down. The century ledger already
-    returns built / pulled down / net per act and net already goes negative. THIS
-    IS THE ONLY ACT THAT CAN SHOW LOSS AND IT IS THE ONE THE GAME CANNOT NAME.
-  ACT THREE: WHO IS IN IT. Housing and occupancy. One ruled number turns the
-    `housed` column on, and then the ridge can do the only thing a hundred-year
-    view is for: the lights came back, the buildings came back, and the city is
-    still thinner than it was.
-  AND THE ORDER IS THE FINDING, NOT A PREFERENCE: light, then buildings, then
-  people. That is the measured speed of every real recovery.
-  ONE MORE RULE, FROM THE GAMES SIDE: a vista works because it is a RECEIPT --
-  you look at it to see ground you covered. So everything on our ridge has to be
-  a thing the player DID. A ridge that shows weather is scenery.
-
-ROUTED (suggestions only; only the coordinator makes a job):
-  PEOPLE            language_gate is RED on main, not from my change: bohemia_
-                    quirk.js:69 "keeping one light on for somebody" carries no
-                    Spanish word and the check demands one.
-  RUN / LIFE + CITY THE RIDGE AT NIGHT COSTS NO NEW ART. Three quarters dark on
-                    every seed and nothing has ever shown it.
-  WORLD             two records of the century that disagree; the one that can
-                    lose should be the one that counts.
-  WORLD             the century ledger is not in the alpha (8 refs in the walked
-                    city, 0 in the link he plays).
-  LIFE + CITY       nothing weathers: a century of neglect leaves 'modern'.
-  PLUMBER / WORLD   act2 is ZERO on both surfaces; already on the board as
-                    BB-THE-ACT-IS-A-STATE and this is another lane arriving at it.
-
-THE GATE NOTE: seven of my eight gates green (century record 18/0), the eighth
-red before I touched anything and routed above. The round found that the game
-carries TWO contradictory records of its own century and that the act the ridge
-is meant to change across does not exist as a value. These gates check that a
-part does what it says. Nothing checks that two parts agree, that a part keeps
-working for as long as the game lasts, that it is the right part to have, or that
-the parts form a loop that closes. Rounds 16 through 28, and this is the clearest
-case of the FIRST clause the study has produced: the fold and the century ledger
-both pass their own gates and answer the same question two different ways.
-
-GATES THIS ROUND: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot
-13/0, demo blockers 22/0, century record 18/0. language_gate 80/1 RED, PRE-EXISTING
-AND NOT MINE (proved by stashing my work and re-running on clean origin/main).
-
-TWENTY-EIGHT ROUNDS DONE: Q1 [money dies] through Q27 [shift pay], plus Q28
-[ridge worth]. The full list is in the record files; the last five are Q24 [pay
-on time], Q25 [batteries scarce], Q26 [forgiveness price], Q27 [shift pay], Q28
-[ridge worth].
-
-WHAT THIS WHOLE STUDY KEEPS CONVERGING ON, updated:
-  A. SEVEN ROUNDS (9, 18, 19, 22, 24, 25, 26) SAY THE ECONOMY OF BOHEMIA IS MADE
-     OF PEOPLE YOU KEEP GOING BACK TO.
-  B. THREE ROUNDS NOW (15, 21, 28) SAY THE MISSING PIECE IS NOT INCOME, IT IS A
-     PLACE TO PUT THINGS -- and round 28 adds that in the real record, housing is
-     also what brings the people back at all.
-  C. SIX ROUNDS (15, 21, 23, 24, 26, 27) SAY A WAGE IS ONE STRAND AND NEVER THE
-     THICKEST ONE.
-AND THE STANDING PATTERN, TRUE AGAIN THIS ROUND IN ITS PUREST FORM: almost every
-finding was a mechanism already built, already correct, and pointed at nothing.
-bohemia_century.js is the whole ridge, written, gated at 18/0, and not loaded in
-the game he opens.
-
-[PENDING Paolo] -- for the coordinator, one at a time:
-  1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
-     end is round 19's day 67, when the shelf line stops moving.
-  2. Nothing charges a battery. Player DOES it, or a faction SELLS it?
-  3. Century rule counts buildings. Should it also count who stayed?
-  4. Which building is the good FIRST one?
-  5. How many cells are in the valley at the start? (the whole money supply)
-  6. What does a broken promise cost? (round 9: exclusion, not seizure)
-  7. How long is the market week, and which seats open on which day?
-  8. Will a trader ever refuse money and ask for goods? SIXTH VOTE, and round 18
-     found the code (BARTER_ONLY) already exists and is unreachable.
-  9. Can a repaired ruin house people, per his 8/1 ruling? Can a building hold a
-     second household when there is nowhere else to go?
- 10. Once the valley is built out, eleven things in the whole game are worth a
-     battery. What should a rich player WANT that he cannot just build?
- 11. What does a subscription to a block BUY? Round 18: the right to trade at that
-     faction's seat.
- 12. What does the player START with? He boots with nothing.
- 13. What does it take to get the lights back on? A PRICE is the trap.
- 14. What does a FAILED job pay? Today it is an honest NO_RULING.
- 15. What will each faction NOT trade? Fourteen answers, one short phrase each.
- 16. After the valley's shelves are empty, what does a shop SAY?
- 17. What can a person in this valley be paid to do?
- 18. What does a day COST to live? The day loop's STAKES table is empty on purpose.
- 19. WHAT DOES A PLAYER KEEP HIS MONEY AND GOODS IN? Two rounds' finding (15, 21).
- 20. What is the first thing a player can be caught at, and what does it cost him?
- 21. WHO IS AT THE PLAYER'S TABLE? Until somebody is named, nobody can go without.
- 22. (new) CAN SOMEBODY IN THIS VALLEY OWE THE PLAYER, AND BE SEEN NOT PAYING? It
-     is the mirror of 20 and of 6, and all three are the same ruling: WHETHER AN
-     UNSETTLED THING BETWEEN TWO PEOPLE IS A THING THIS GAME KEEPS.
-
- 23. (new) WHEN A MAN CANNOT PAY, DOES THE SHOP TURN HIM AWAY OR LET HIM OWE?
-     Round 25's whole ladder stops at this wall and it is the fifth round in a
-     row to stop there. It is the same ruling as 6, 20 and 22.
- 24. (new) HOW BIG IS THE BIGGEST PILE OF BATTERIES A PLAYER CAN FIND? Sixteen
-     billion cowries killed a currency that had worked for centuries. A cache
-     that is too big ends the money, and this is a number only he can set.
-
- 25. (new) WHAT DOES IT TAKE TO BE FORGIVEN, AND CAN IT EVER BE BOUGHT? The real
-     record has three doors -- take payment, take nothing, or take it back by
-     force -- and the wronged party picks. Our module already has words for all
-     three and a mechanism under none of them.
- 26. (new) DOES A WRONG COST MORE IF YOU HAVE MORE? Wergild priced a man by rank
-     because a fixed number is no cost to a rich man. EVERYTHING COSTS ONE says
-     it does not. Genuine tension, and genuinely his.
-
- 27. (new) HOW OFTEN CAN A PLAYER GET A SHIFT? The only number in round 27 that
-     his own rulings do not already answer, and it is the one that decides
-     everything. The measured real spread is 137 to 254 days out of 365, bottom
-     third at the bottom of it. A shift you can take every day is a salary.
-
- 28. (new) WHAT DOES A POOR CITY AND A REBUILT CITY LOOK LIKE? Not my phrasing:
-     bohemia_century.js has an empty TIERS table with a `look` field and asks him
-     this question in exactly those words. It is the whole act-by-act ridge.
- 29. (new) HOW MANY PEOPLE DOES A HOUSE HOLD? The housing CAP is empty, so
-     capacityOf returns 0 for house, shop, apartment and trailer, so the century
-     ledger's `housed` column reads zero by law and the ridge cannot say who
-     lives there. Act three is the people.
-
-NEXT IN THIS LANE: Q29 [nothing left], then Q30 [perk price] and Q31 [cheap
-eyes]. The coordinator added Q30 and Q31 since last round.
-
-
 
 UI (ui-kmqmrf): 9/7 (r) LATEST -- *** THE TOP MENU BAR IS IN. He asked for one this round:
 "a top menu bar like how Battle Brothers has it, how Civilization five has it, Surviving the
@@ -4377,6 +4450,154 @@ NEXT IN THIS LANE (top unblocked, in order)
     and the holder's colour on the edge. Tab: MAP and CITY.
   [hidden factions]  THE-OTHER-FOUR
   [colours fixed]  COLOUR-AUDIT
+
+--------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/11 (a) LATEST -- *** THE MUSIC NEVER STOPPED. NOT ONCE IN
+TWELVE MINUTES, AND IT WOULD HAVE BEEN A HUNDRED HOURS. THE STREET BREATHES NOW:
+ONE PHRASE OF AIR BETWEEN SONGS, AND IN IT YOU HEAR THE BLOCK YOU ARE STANDING
+ON. TAB: RUN. Nothing to judge -- nothing was cooked. ***
+
+Build 9/11g - THE STREET BREATHES.
+
+MEASURED FIRST with a recorder in the page, not guessed:
+    DUSK  6 min: 3 changes, TWO distinct songs, held 128s and 128s
+    NIGHT 6 min: 4 changes, 4 distinct songs, held 24s, 128s, 128s
+    EVER SILENT: false, in either phase.
+Every song gets EXACTLY 128 seconds -- the 64-bar pass, the engine's loop length,
+a number about buffers and not about music -- and the next one starts on the very
+next beat with nothing in between.
+
+AND THE THING THAT SHOULD BE IN THE GAP WAS ALREADY BUILT AND PERMANENTLY MASKED:
+the ambience bed from 9/5 (79 districts, the lit block that hums, the desert
+speaking every 60 to 130 seconds) plays underneath a song that never stops. The
+quietest work in this lane was buried twenty-four hours a day.
+
+HIS OWN DEMO FLOW ALREADY CALLS SILENCE AN INSTRUMENT, in his own file
+(laws/BOHEMIA_DEMO_FLOW_7_10_26.md): "silence is the calm", and "single sting,
+then silence over the purple. The quiet IS the reveal."
+
+A DUCK, NOT A STOP, AND THAT IS THE WHOLE SAFETY ARGUMENT. MUS.stop() clears the
+scheduler and cuts the master, and the engine's own comment at the combat hook
+says why that is dangerous: combat swaps the song IN PLACE on the running
+transport and never calls start(), so a fight on a stopped transport is SILENT.
+The transport runs throughout; only the music master is ducked. The beat survives
+(the 120 BPM law), the bed is on the SFX bus so it is the only thing left, and the
+level is CAPTURED not typed -- 0.8 already exists in two places and a third copy
+would rot.
+
+*** AND THE FIRST CUT PRODUCED A PERMANENTLY SILENT FIGHT. READ THIS BEFORE YOU
+DUCK ANYTHING. *** It relied on CITYMUS's own setInterval to ramp the master
+back. FIGHTMUS.enter() CLEARS CITYMUS.watch (it has since 8/19, for its own good
+reasons), so the only thing that could undo the duck was deleted and the music
+never returned. A REST WHOSE ONLY WAY OUT IS A TIMER ANOTHER SYSTEM MAY DELETE IS
+A TRAP. Fixed twice over: both ramps are booked UP FRONT on the AudioParam so the
+audio thread brings it back even with every timer dead (measured: 14,737ms with
+CITYMUS.watch deleted), and FIGHTMUS.enter() also ends the rest so a fight does
+not wait out a phrase (measured: 201ms).
+
+*** I GOT THE ARITHMETIC WRONG LAST ROUND AND THIS ROUND FOUND IT. ***
+(128/16)*(60/120)*1000 is 8 bars times a BEAT = 4000ms. A bar at 120 BPM in 4/4 is
+TWO seconds, so a phrase is 16000. INTERIORMUS's door debounce has been running at
+a QUARTER of the size its own comment claimed since 9/6 -- the 15.8s switch
+measured then is real but came from the STEP condition, not the dwell. It is ONE
+function now, phraseMs(), and it asks MUS.stepDur() instead of doing sums, so the
+transport owns the tempo. The round-1 record carries a correction. A LANE THAT
+WRITES THE SAME CONSTANT TWICE WILL GET IT WRONG TWICE.
+
+THREE INSTRUMENT MISTAKES, ALL MINE, ALL WOULD HAVE REPORTED A BUG THAT WAS NOT
+THERE:
+  * (duckedTo or 1) < 0.02 -- a PERFECT ZERO is falsy in Python and read as the
+    default 1. THIS LANE HAS MADE THAT EXACT MISTAKE BEFORE on a peak floor.
+    There are below()/above() helpers now that never coerce.
+  * I CALLED THE CHOOSER AND EXPECTED SOUND: AMB.pick() only returns a NAME,
+    AMB.tick() is the player. It reported "0 renders", which reads exactly like a
+    bed silenced by the duck.
+  * A TEST BROKE THE STATE THE NEXT TEST NEEDED: the three hazards ran in
+    sequence and the fight test leaves CITYMUS.on false, so the two after it said
+    "never saw a rest". Each one puts the state back now.
+
+NEW gates/street_breathes_gate.py, registered, 25 claims, mostly the ways a duck
+can strand the master. The pass end is DRIVEN (step=1020), the same trick the
+fight music gate defends, because real 128s passes would put minutes on a suite
+with no headroom. Mutation proved three ways: no rest at all 8 fail, the timer
+trap 5 fail, and THE QUARTER-SIZE PHRASE -- the bug I actually shipped -- 4 fail.
+
+*** RECORDED, NOT ACTED ON, AND BOTH SAVE THE NEXT ROUND WORK. ***
+  * DUSK AND DAWN ARE THE SAME TWO SONGS. One shared category,
+    OVERWORLD DUSK/DAWN, so the pool is 2 and dawn and dusk are musically
+    identical, every day of a hundred-hour game. The rest makes two sound like an
+    intention rather than a ping-pong, but two is still two, and widening it means
+    TAGGING, which is his, in the MUSIC tab.
+  * SONG 2 IS A FACTION-ONLY THING. Checked before designing around it: only the
+    14 faction slots have a second arrangement, all CANON, and combat already
+    round-robins 1 and 2 per his 7/19 pool clause. NO MLOOPS song has one, so
+    there is no orphaned song 2 to rescue and the street pool cannot be widened
+    that way. Do not go looking.
+Still carried: A FIGHT STARTING MAKES NO SOUND AT ALL (cityFightOnEnter posts the
+encounter with no sound call). Needs a new cook, so it belongs to [enemy heard]
+and [fight music].
+
+*** AND RUNNING THE LANE'S GATES FOUND THE WHOLE CITY INTERFACE SILENT. ***
+SOUND REACHABLE came back 21/2: ui_tap "not reached and with no written reason",
+12 of 65 instead of 13. Checked against plain origin/main in a clean worktree
+BEFORE blaming my own diff -- identical there, so pre-existing -- but it
+CONTRADICTED A SHIPPED CLAIM OF MINE (THE-OTHER-51 closed on "0 unexplained").
+MEASURED by asking the running city where its own button lives: #phonebtn moved
+from #topbar into #menubar>#barright, another lane's ordinary UI change, and the
+city's tap policy NAMES ITS CONTAINERS BY ID -- every selector false, so ui_tap,
+ui_back AND ui_deny all went silent across the walked city.
+THIS IS THE SIXTH OF THE SAME BUG IN A FUNCTION WHOSE OWN COMMENTS WARN ABOUT THE
+FOURTH AND FIFTH. Six is not six mistakes, it is ONE WRONG SHAPE DEFENDED FIVE
+TIMES. #menubar>div would have been the seventh. So the allowlist became a
+DENYLIST, which is what the function's own comment always said ("everything else
+is ui_tap"): a tap sounds unless the thing tapped already makes its own noise --
+the pad, THE WORLD CANVAS, sleep, the day-card GO, [data-noui]. The allowlist
+still picks WHOSE LABEL to read; it is no longer the gate.
+TWO RULES MEASURED AND THROWN AWAY so nobody spends the time again: cursor:pointer
+is on THREE elements in the whole city document (#phonebtn, #sleepbtn, #rungbtn,
+#pad all report `auto`), and role/tabindex are null on all of them. A PLAUSIBLE
+RULE THE DOM DOES NOT CARRY IS WORSE THAN A NARROW ONE.
+
+*** AND A SECOND BUG FELL OUT: EVERY CLOSE BUTTON IN THE GAME ANSWERED WITH A
+TAP. *** #phoneclose renders U+2715, the BALLOT X. The label test listed U+00D7,
+the MULTIPLICATION SIGN. Identical on screen, different characters, so close never
+matched -- in the city AND in the shell, which carries the same list. A GLYPH THAT
+LOOKS LIKE THE ONE YOU TYPED IS NOT THE ONE YOU TYPED.
+AND FIXING IT MADE A WRITTEN REASON GO STALE, WHICH A GATE CAUGHT THE SAME RUN:
+ui_back's excuse in the census ("a panel this drive does not open") was false --
+the drive clicks #phoneclose, it just never sounded -- so "nothing is counted
+twice" went red. That is exactly the job that claim was added for last round.
+
+THREE MORE INSTRUMENT MISTAKES, ALL MINE:
+  * I REPORTED "WALKING TICKS TWELVE TIMES" and nearly called the fix an
+    over-trigger. elementFromPoint showed all twelve landing on #daycard, the
+    morning card covering the screen. A TAP ON A CARD SHOULD TICK. Dismiss it and
+    the same taps hit CANVAS#cv with ZERO ui sounds.
+  * I WROTE THESE CLAIMS INTO THE SOUND CENSUS AND BROKE IT: it is a sequenced
+    drive, and dismissing the card plus tapping the world moved the clock, so the
+    hour chime went red. A CHECK THAT DISTURBS A SEQUENCED DRIVE REPORTS A BUG
+    THAT IS NOT THERE. They live in their own gate now.
+  * my first mutation test left [id$="btn"] in, so the control still sounded and
+    the mutation proved nothing. Re-run against EXACTLY the pre-9/11 code.
+
+NEW gates/city_ui_voice_gate.py, registered, 12 claims, counted PER CONTROL
+because "ui_tap was heard somewhere" is also true of a build where every control
+answers the same and where walking ticks every step: the world says NOTHING, a
+control taps ONCE, a way out is ui_back and never a tap, sleep carries sleep_sink
+without a tick. Mutation proved twice (the pre-9/11 code 3 fail, the glyph hole
+2 fail).
+
+  proof  python3 gates/bohemia_gates.py --only "CITY UI VOICE"
+         records/BOHEMIA_THE_SIXTH_TOO_NARROW_MATCHER_9_11_26.md
+         tools/bohemia_the_sixth_too_narrow_matcher.py
+  proof  python3 gates/bohemia_gates.py --only "STREET BREATHES"
+         records/BOHEMIA_THE_STREET_BREATHES_9_11_26.md
+         tools/bohemia_the_street_breathes.py
+  next   [music owned] continues. The two measured holes left in the street are
+         both HIS to fill (the dusk pool is a tagging job). The unmeasured ones
+         are the INTERIOR pool's variety and whether the hour chime and the bed
+         read correctly now that there is air for them to land in.
 
 --------------------------------------------------------------------------------
 
@@ -16322,6 +16543,33 @@ trade); a one-tap lock from the first hour with a real cost; recruiting by where
 company members inside the asks. Story deaths, enemies and time across the fold still kill.
 Routed PEOPLE [down not dead] (top) and [lock them], COMBAT [downed body], FACTIONS
 [recruit anywhere], QUESTS [company in asks], ECONOMY Q32 [long injury].
+THEN (dl) VAMILY, 25 commits: LIFE+CITY [tap picks] SHIPPED (tapping the building you
+see selected it 0 of 38; the picker now asks the painted pixels, last painted wins), UI
+[phone object] SHIPPED (an object with thickness, gateable, the words untouched), ANIMATION
+[elbows bend] SHIPPED (bend:'auto' kept whichever elbow hung lower, a knife edge that
+snapped every frame; the machine found the same eleven clips he killed), WORLD [parties
+move] SHIPPED, QUESTS [designs playable], PLUMBER [gate missing], COOK [city from above]
+round 1, DIRECTION the city-from-above card, CHARACTER hair bands, ECONOMY Q28, WORDS Q18
+school, EYES E15 round two, FACTIONS three red gates closed. TWO OF MY DIAGNOSES WERE
+WRONG AND THE LANES CAUGHT THEM BY MEASURING: the tap "LIFT 1.6" was an economics constant
+and the pixel scaling already existed; the city count was of the alpha shell, the real
+number is 73 fillRect and ZERO images. New rule on this seat (central-chat law amendment):
+a cause I hand down is a premise to test, never a finding. AND RUN [drop in] found THE COLD
+OPEN HAS ZERO CALLERS -- his 8/4 cut's first beat does not play -- and the first minute
+meets nothing (suburb spawn, no road row by design, hostiles 0, 128 tiles to a road
+district). Routed RUN [cold open wired] (top) and [wake near] (the spawn moves, not the
+table). Record: records/BOHEMIA_COORDINATOR_TWO_DIAGNOSES_I_GOT_WRONG_9_11_26.md. (The
+first attempt at this block crashed on a claimed line and only the record was committed;
+this is the real one.)
+THEN (dm) "the UI has to run as far away as possible from the standard look of vibe-coding
+with Claude, people can tell, even down to the font" -> LOCKED, laws/BOHEMIA_LAW_THE_UI_
+MUST_NOT_LOOK_VIBE_CODED_9_11_26.md. Researched the tells (default fonts, dark by reflex,
+one-pixel borders on every card, rounded cards, gradients and glow, letter-spaced uppercase,
+emoji icons) and COUNTED OURS in the two files that draw his screen: Space Grotesk 10,
+monospace 178, one-pixel borders 144, rounded corners 115+, gradients 31, letter-spaced
+labels 188, emoji in buttons 27, dark always -- we carry the whole list. Law: none survive,
+the look comes from the world (an object, 2050 rustic), the font is researched, a gate
+counts the tells. Routed UI [no slop] (top), DIRECTION [the font], EYES E19 [slop count].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -22500,7 +22748,18 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/11 (latest): [city look] SHIPPED (c4e8a5d) - the aerial look
+ROUND LOG 9/11 (latest): [phone card] SHIPPED - the 2050 rustic phone
+card exists (records/BOHEMIA_PHONE_LOOK_CARD_9_11_26.md), answering the
+9/8 kill of the bare black feed panel. Object = survivor phone (slab /
+one tape band / glass, real ratio, asymmetric wear, 1px grit); glass
+never true black, four inks, one crack never over text, no filters or
+fades; FEED-01..05 and the 11px floor unchanged inside the glass;
+three acts, one layout. FEED-06 added, index rebuilt at 84 refs, gates
+green. UI [phone object] builds 3-5 options to it; I judge them beside
+a named real worn phone and the act-1 splash plate before Paolo sees
+any. Remaining blocked line new this week: [judge the redo] (waits on
+ANIMATION's 47 remakes - their [redo killed] row is still open).
+PREVIOUS: [city look] SHIPPED (c4e8a5d) - the aerial look
 card exists (records/BOHEMIA_CITY_FROM_ABOVE_LOOK_CARD_9_11_26.md),
 answering Paolo's 9/8 kill of the diagram city against his 7/1 lock. The
 numbers are MEASURED, not chosen: every act-1 approved tile in the roof/

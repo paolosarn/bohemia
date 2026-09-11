@@ -62691,7 +62691,26 @@ document.getElementById('rungbtn').addEventListener('click', showStanding);
    is the thing this policy exists to avoid, not to cause. [data-noui] stays the
    escape hatch for any panel built later. */
 (function(){
-  var NOUI='#pad,#sleepbtn,.dcgo,[data-noui]';
+  /* __THE_SIXTH_TOO_NARROW_MATCHER__ (9/11, SOUNDS lane) -- THE DENYLIST IS THE
+     POLICY NOW, AND THE ALLOWLIST BELOW ONLY PICKS WHOSE LABEL TO READ.
+     MEASURED: #phonebtn moved from #topbar into #menubar > #barright -- another
+     lane's ordinary UI change -- and every selector this function tried came
+     back false, so ui_tap, ui_back and ui_deny ALL went silent across the whole
+     walked city. My own census gate caught it: 12 of 65 heard instead of 13,
+     with ui_tap "not reached and with no written reason".
+     SIX OF THE SAME BUG IS NOT SIX MISTAKES, IT IS ONE WRONG SHAPE DEFENDED FIVE
+     TIMES. The comments below still warn about the fourth and the fifth. An
+     ALLOWLIST OF CONTAINERS has to be right about every place a control will
+     ever live; `#menubar>div` would have been the seventh, already waiting.
+     So a tap SOUNDS unless the thing tapped already makes its own noise, which
+     is what the comment under this always said: "everything else is ui_tap".
+     THE CANVAS IS IN HERE NOW AND IT MATTERS: walking already makes a footstep,
+     and ticking on every step is the 8/4 two-sounds complaint at its worst.
+     TWO RULES MEASURED AND THROWN AWAY so nobody tries them again: cursor:pointer
+     is set on THREE elements in this whole document and #phonebtn, #sleepbtn,
+     #rungbtn and #pad all report `auto`; role and tabindex are null on all of
+     them. A PLAUSIBLE RULE THE DOM DOES NOT CARRY IS WORSE THAN A NARROW ONE. */
+  var NOUI='#pad,#sleepbtn,.dcgo,canvas,[data-noui]';
   document.addEventListener('click',function(e){
     try{
       var t=e&&e.target; if(!t||!t.closest) return;
@@ -62717,8 +62736,18 @@ document.getElementById('rungbtn').addEventListener('click', showStanding);
          as broken, not as deliberate, and the whole designed effect inverts. */
       var nov=t.closest('.noverb')||t.closest('.endnoverb');
       var btn=nov||t.closest('button')||t.closest('.dcbtn')||t.closest('.tab')||t.closest('.opt')
+             ||t.closest('[id$="btn"]')
              ||t.closest('#topbar>div')||t.closest('#devtray>div');
-      if(!btn) return;
+      /* NOT MATCHING IS NO LONGER SILENCE. The allowlist above now only resolves
+         WHICH element's label to read -- a badge SPAN inside PHONE has to come up
+         to the control it sits in for the back/refusal test to mean anything. If
+         none of it matches, read the label off what was actually clicked and
+         tick anyway, because he tapped something and the game answered. */
+      if(!btn) btn=t;
+      /* EXCEPT THE PAGE ITSELF. Tapping the body or the outer wrapper is not
+         tapping a control, and the world layer is already in NOUI above. */
+      if(btn===document.body||btn===document.documentElement) return;
+      if(btn.classList&&btn.classList.contains('wrap')) return;
       var lab=(((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
                 (btn.textContent||''))).trim().toLowerCase();
       /* A WITHHELD VERB IS A REFUSAL BY CONSTRUCTION, never by reading a label.
@@ -62730,7 +62759,15 @@ document.getElementById('rungbtn').addEventListener('click', showStanding);
                  || (btn.classList && (btn.classList.contains('off')
                                     || btn.classList.contains('disabled')));
       var ev = refused ? 'ui_deny'
-             : (/^(back|close|cancel|done|x|<|\u2039|\u00d7|\u2190)$/.test(lab) ? 'ui_back'
+             /* A CLOSE BUTTON IN THIS GAME IS A MULTIPLICATION X (U+00D7) IN
+                THIS LIST AND A BALLOT X (U+2715) ON SCREEN. MEASURED: #phoneclose
+                is exactly one character, U+2715, so every close control in the
+                city has been answering with a TAP instead of a way OUT since the
+                day this policy shipped. A GLYPH THAT LOOKS LIKE THE ONE YOU
+                TYPED IS NOT THE ONE YOU TYPED. The ballot and heavy-ballot X and
+                the vector cross are in now, and they are the ones a designer
+                actually reaches for. */
+             : (/^(back|close|cancel|done|x|<|\u2039|\u00d7|\u2190|\u2715|\u2716|\u2a2f)$/.test(lab) ? 'ui_back'
              : 'ui_tap');
       if(window.parent&&window.parent!==window)
         window.parent.postMessage({bohemiaCitySfx:{ev:ev}},'*');
