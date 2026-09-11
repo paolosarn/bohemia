@@ -1300,102 +1300,113 @@ NEXT IN THIS LANE: Q23 [who eats first].
 ================================================================================
 ================================================================================
 
-FACTIONS (factions-ovkjpf): 9/11 (round 13) LATEST -- *** THREE RED GATES CLOSED,
-all three from this lane. The sweep that keeps engine copies honest could not see
-one of its own modules, and canon was being guessed by file date six times over. ***
-Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/11 (round 14) LATEST -- *** [power territory]
+A-FACTION-MINES-ITS-LAND SHIPPED. A faction's strength was a number typed once that
+never moved. What its LAND is worth is a real reading now, and losing the block
+loses the output. *** Nothing to judge.
 
-VAMILY: the PLUMBER's 9/6 bounce-back on [light owners] is CLOSED 9/11 a9e6cc7a.
-Record: records/BOHEMIA_THE_SWEEP_COULD_NOT_SEE_ITS_OWN_MODULE_9_11_26.md
+VAMILY row: [power territory], MODE: BUILD, SHIPPED 9/11 7cc0e815.
+Record: records/BOHEMIA_A_FACTION_MINES_ITS_LAND_9_11_26.md
 
-*** A HANDED-OVER DIAGNOSIS IS WHERE YOU START MEASURING, NOT A WORK ORDER. ***
-The bounce-back was right in direction and short on scope, three ways:
-  named 1 stale carrier      -- there were 4 copies across 3 files, one file holding TWO
-  named 1 undeclared module  -- there were 6, and BOH_FLOORPLAN rides ELEVEN carriers
-  named 2 red gates          -- there were 3, and the third was mine from [repeat interval]
+MEASURED FIRST, AND IT IS THE WHOLE REASON THE ROW EXISTS. Faction strength is
+act1_power, and his own graph's meta calls it what it is: "Power = ordinal rank
+(1=weakest) per act". It is read in exactly two places, both setup -- the TIER
+(thirds) and the TURF DRAFT ORDER (strongest picks first) -- and then never again.
+Take every block off the Mob and the Mob is still 13.
 
-FAULT ONE, THE GRID. Canon is 10,038 chars; the stale copies are 1,811. That is not
-a missed edit, it is the 7/14 PROTOTYPE still wearing the name -- the one whose
-owner was a CATEGORY (settlement/faction/network/solar_lone), which is exactly what
-[held ground] and [light owners] shipped to delete. Both real call sites survive
-because canon's at() is a SUPERSET: {live,owner} -> {live,owner,id,faction,ground,
-free}. The bundle is an archive, not runnable code (node --check dies on its own
-==== rails), and 12 of its 14 members match their standalone byte for byte, so the
-two drifted members were rebuilt to that invariant, md5 header and size label too.
+THE NAMED BLOCKER WAS NOT TRUE. THIRD TIME IN THIS LANE. The row says the numbers
+flow from WORLD [batteries mined], which is still OPEN. The yield was already ruled
+and already written down TWICE: "7/26 BUILDINGS PRODUCE ONE OF THE THREE + 8/15
+EVERYTHING COSTS ONE", carried verbatim by bohemia_production.js, and spelled out in
+WORLD's own row as "start at ONE battery per day per building".
 
-FAULT TWO, CANON WAS A COIN TOSS. bohemia_sync_canon.txt opens with its OWN 7/16
-warning that mtime is not authority and that trusting it already burned this repo
-once. Six modules were never declared, so the gate fell back to exactly that guess.
-IT GUESSED RIGHT, BY LUCK. All six declared now, including two with no standalone
-file, which name a page -- that is where the body is really authored, and writing
-it down is the entire point of declaring instead of inferring.
+WHAT MAKES POWER: solar, dam, battery. A SUBSTATION IS DELIBERATELY NOT ON THE LIST
+-- it steps voltage down and passes it along, and counting it would be counting the
+wire as the well.
 
-*** FAULT THREE WAS MINE, AND IT EXPLAINS A HAND-PATCH FROM LAST ROUND. *** The
-city's bohemia_encounters.js banner opened a multi-line comment, so its first line
-never closed, so neither the resync tool nor banner_gate could see the module. A
-block whose own words claim to hold the ENGINE SYNC LAW opted out of it in its
-first line. THAT is why the tool said "113 embedded, 113 already fresh" while the
-body was a revision old and I replaced it by hand. One-line banner now, prose
-underneath, and the tool maintains it again. The KNOWN_HIDDEN ratchet was NOT
-widened -- it is still zero, as its own comment demands of anybody who finds it red.
+A SITE IS A BUILDING, NOT A CELL, and the dam is the check that the unit is right:
+four cells, ONE site, which is Hoover. 301 solar cells are THREE farms.
 
-ON BOTH REAL SURFACES, phone sized, no page errors
-  walked city   79 lit circuits sampled, 20 naming a faction
-  run slice     at() returns faction,free,ground,id,live,owner   <- SIX fields
-The six fields ARE the proof it is live and not merely on disk: the old body could
-only ever answer with two. The run slice is not downloaded by the product (8/21,
-the RUN tab shows the city), so it was opened through __loadRunSlice, the named
-door its own four gates use.
+  THE WHOLE VALLEY MAKES POWER IN FIVE PLACES
+    solar farm  188 cells  Network        battery plant  1 cell   Volunteers
+    solar farm   84 cells  Network        the dam        4 cells  Cartel
+    solar farm   29 cells  Trades
+  Network 2 a day, Trades 1, Volunteers 1, Cartel 1, TEN OF FOURTEEN make nothing.
 
-GATES  engine sync 18 modules ZERO drift and ZERO undeclared (was 1 drifted, 6
-       undeclared), bundle 16/0 (was 15/1), banner 14/0 (was 12/2), map bound 8/0.
-       Green alongside: demo build 25/0, alpha loads 20/0, encounter 69/0, walk
-       encounter 25/0, turf 43/0, coalition 40/0, mandate 44/0.
+*** THE TRAP I WALKED INTO AND MEASURED MY WAY OUT OF. *** The obvious version gates
+output on the lights, because this lane's own income rule is "yours AND lit AND
+patrolled". MEASURED: ALL FIVE SITES HAVE ZERO LIT CELLS, because circuits only run
+along STREET cells and a solar farm stands in the desert. That version makes the
+ENTIRE VALLEY produce nothing while every check stays green. A generator MAKES
+power; whether it reaches anybody is the grid's job, which the grid already models.
+The income rule governs what a district PAYS, not what a plant MAKES.
 
-*** [FOR QUESTS] ONE RED IS LEFT IN faction_between_gate AND IT IS NOT MINE. ***
-180/2, and VERIFIED INHERITED: a clean checkout of origin/main gives the identical
-180/2 with the identical two claims, so nothing this round caused it.
-  R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
-      outfit named "NONE", which is not one of the 18 in BOHEMIA_faction_graph.json.
-      The gate's own words say this must fail here rather than be folded quietly
-      into something that exists, so the gate is working and the CONTENT is the fix.
-      From [ten openings], shipped 9/7.
-  R8  the corpus max is 20 across 83 rows; the claim is about loadCorpus normalising
-      every weight by the largest deed, so a partial corpus moves every rung
-      boundary in the game.
-Not fixed here, on the PLUMBER's own precedent: a lane names another lane's red, it
-does not reach into it.
+*** AND HIS SENTENCE IS FALSE ON HIS OWN MAP, SO IT IS REPORTED, NOT FORCED. *** The
+row says "a fortress makes more than a camp". The Mob is a fortress at strength 13
+holding 1,490 cells and makes NOTHING; the Remnants are the strongest faction he
+wrote, at 14, and make NOTHING. Forcing it true meant typing a tier multiplier
+nobody ruled on top of a map that is his (MAP LAW). NO tier scaling is applied --
+output is sites held, and DEPTH/REACH keep scaling only what they already scaled.
+The counterexample is named in the gate so nobody later tunes it away.
 
-[PENDING Paolo] -- THREE, ALL CARRIED, NOTHING NEW
-  1. Anarchists, Colorful and Custom are called non-territorial by his own notes
+DERIVED, NEVER STORED, so "losing a block loses its output" needs no rule of its
+own. Proved by taking a holder's seats and asking again: their output goes to zero,
+the valley keeps all five sites, somebody else picked it up -- output MOVES rather
+than evaporating. A split site goes to whoever holds most of it, and that rule is
+exercised for real: on the boot seed the dam is split 3 Anarchists / 1 Mob.
+
+WHERE HE SEES IT, both phone-sized, no page errors, and the demo proved separately
+because it loads the same walked city
+  DIRECT tab, TOWN SIZES   all 14 rows under the tier chips
+                           "its land makes 2 batteries a day off 2 solar farms"
+                           "its land makes no power"   (a real sentence, never a 0)
+  the walked city          the nightfall card, riding the line that already names
+                           whose ground he crossed
+
+GATES  faction_towns 65/0 (was 48), seventeen new claims. Green alongside: turf
+       43/0, engine sync 18 modules zero drift, demo build 25/0, alpha loads 20/0.
+
+[PENDING Paolo] -- FOUR NOW, AND THE NEW ONE IS A REAL FORK
+  1. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
+     kitchens and THE PLANT" while a camp has a stall. If "the plant" is a GENERATOR,
+     every fortress makes power off its own seat and his "a fortress makes more than
+     a camp" becomes true everywhere. If it is a back-of-house boiler room, today's
+     answer stands and the map decides. THAT READING WOULD AUTHOR CANON ABOUT WHAT
+     THE MONEY SUPPLY IS AND WHO HOLDS IT, so it was not taken.
+  2. Anarchists, Colorful and Custom are called non-territorial by his own notes
      and still hold ground. Should they at all?
-  2. What it COSTS to be seen with one of the four hidden factions, or taken for
-     one. (WORLD also carries: what a coalition, or a roving outfit, should DO
-     beyond turning on whoever is in front of it.)
-  3. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
+  3. What it COSTS to be seen with one of the four hidden factions, or taken for one.
+  4. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
-     Network and Mob are squatting. Also: is the Cartel drab on purpose? The law
-     names two drab factions, the gate carries three.
-     (STATE NOTE 9/7 from the coordinator says the colour table IS live and what is
-     missing is his thumb, not a file. That matches this lane's own finding.)
+     Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
+     drab factions, the gate carries three. (The coordinator's 9/7 note agrees: the
+     colour table IS live and what is missing is his thumb, not a file.)
+
+*** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
+verified inherited on a clean origin/main worktree last round and unchanged.
+  R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
+      outfit named "NONE", which is not one of the 18 in the faction graph. The
+      gate's own words say this must fail there rather than be folded quietly into
+      something that exists, so the gate is right and the CONTENT is the fix.
+  R8  corpus max is 20 across 83 rows; loadCorpus normalises every weight by the
+      largest deed, so a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [power territory]  A-FACTION-MINES-ITS-LAND -- its numbers are said to flow from
-    WORLD [batteries mined], which is still OPEN. CHECK THAT BEFORE ASSUMING IT
-    BLOCKS: WORLD [a days work] shipped 9/7 and the coordinator's 9/6 amendment
-    says work comes before a building earns, so the ordering may already be settled.
   [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() already answers who you pay for
-    any block, the Network's circuits are flagged free, and roving() is what happens
-    when a block stops paying
+    any block, the Network's circuits are flagged free, roving() is what happens
+    when a block stops paying, and minesOf() now says what a block's owner MAKES,
+    which is the other half of the same ledger
   [crossing costs]  THE-WRONG-COLOUR-REACTS -- the colour table is live in a file
     the game can read, so this is wiring now, not invention
+  [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11)
 
-TWO STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+THREE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  Two rows needed nothing: one wanted a door, one named a blocker that had shipped
-  hours earlier in this same lane.
-  AND WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN
-  INVENTION. Four times now a gate was wrong while the game was right.
+  Three rows now: one wanted a door, one named a blocker that had shipped hours
+  earlier in this same lane, and this one's number was ruled twice already.
+  WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
+  AND WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT. Forcing it true costs a
+  number nobody ruled, and the map is his.
 
 --------------------------------------------------------------------------------
 
