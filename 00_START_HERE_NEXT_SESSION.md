@@ -1,3 +1,118 @@
+EYES AND EARS (eyes-5vql33): 9/11 (t) LATEST -- *** E15 [machine judges] SHIPPED WITH BOTH ROUNDS,
+AND IT DID NOT BUILD WHAT THE JOB ASKED FOR, ON PURPOSE. STEP 0 FOUND THE PREMISE HAD MOVED:
+DIRECTION holds ZERO claimed jobs now, not six. And REUSE-FIRST found the pass mostly already
+built: STYLE CARD, TARGET MATCH and TEXTURE MATCH are all registered and all already grade cooks
+by machine. So building a third judge over the same art would have been a law violation. What
+shipped instead is the thing nobody had: a self-verifying COVERAGE MAP, behind a new registered
+gate, and it found TWO of E7's seven machine questions are performed by NO GATE ANYWHERE. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+STEP 0, AND SCHOOL IS THE ONLY REASON I RAN IT: "the bottleneck moves, so measure the queue before
+accepting the premise." Measured off the board: LIFE + CITY holds the oldest unshipped claim on the
+whole board. DIRECTION holds 0 CLAIMED and 8 OPEN. The six claims the job was written around have
+cleared.
+  AND WHAT THOSE EIGHT OPEN ROWS ACTUALLY ARE IS THE REAL SHAPE: five of the eight say the card is
+  DELIVERED and the row was reopened per [one at a time]. THE WORK IS DONE. The rows are waiting on
+  a thumb. No pre-judge touches that. It is a queue of finished cards waiting on one person, which
+  is exactly the shape EVERYTHING IS A THUMB was written to abolish, one level up. School's fourth
+  counter-finding predicted it and there it is on the board.
+
+REUSE-FIRST: DIRECTION's own STATE line says the style card gate is suite-registered and that the
+batch-judging seam is closed, and it checks out. STYLE CARD checks a new cook sits in the register
+or is a clear accent, keeps its value inside the card, wears runway black on outers, never drops
+the register share, never wears purple. TEXTURE MATCH checks every cooked tile lands inside the
+edge-and-grain band measured off HIS art. TARGET MATCH checks the constitution exists, is in force
+and carries the verdict it came from. So the literal instruction would have produced a THIRD judge
+over the same garments and tiles.
+
+THE COVERAGE MAP, AND 5 OF 7 ARE COVERED:
+  1 Same DETAIL ORDER?          texture_match_gate       TILES only
+  2 Same COLOUR DENSITY?        target_screen_gate       the target screen only
+  3 Same SATURATION BUDGET?     style_card_gate          WARDROBE only
+  4 Same VALUE BAND?            style_card_gate          WARDROBE only
+  5 Same GRAIN SCALE?           NOTHING                  no gate anywhere does autocorrelation
+  6 Same LIGHT?                 pixel_craft_gate         the pixel-craft corpus only
+  7 Reads at play size?         NOTHING                  no gate shrinks art to 24px and compares
+                                                         the surviving contrast
+  AND THE SCOPE COLUMN IS THE BIGGER FINDING. Every covered question is covered over ONE KIND of
+  art. A cook that is neither wardrobe nor a tile nor the target screen -- A BUILDING, A FACE, A
+  PROP, A VEHICLE -- IS GRADED BY NOTHING ON THIS SHEET AT ALL. The seam that was called closed is
+  closed for garments and tiles.
+  EVERY ROW CARRIES THE GATE'S OWN CHECK STRING AND THE TOOL VERIFIES THE STRING IS STILL THERE
+  rather than asserting coverage. A map that asserts rots the day somebody edits a gate, and the
+  fleet then believes a question is checked when it is not. That is precisely the rot E11 found
+  inside CLAUDE.md's own law index, and this map refuses to repeat it.
+
+THE OVERRIDE METER CANNOT BE COMPUTED, AND THAT IS THE FINDING. School's hardest requirement was
+that the pass must watch itself for becoming a rubber stamp, because the named leading indicator is
+a DECLINING override rate and a sustained zero is a process failure, not proof the machine is right.
+Measured: 76 verdict records on disk, 43 mention both a machine call and a human one IN PROSE, and
+NOT ONE stores, per cook, the machine verdict beside the human verdict that followed it. So the
+override rate cannot be computed today, which means nobody would notice it going to zero. E11's
+disease in a third form: a number that exists only in prose is a number no machine can read.
+  THE ONE LINE THAT FIXES IT, written down so it is not lost: when a cook clears the machine pass,
+  write its machine verdict into the same verdict record the human thumb lands in. One field, and
+  the rate becomes a number forever after.
+
+WHAT SHIPPED: tools/bohemia_eyes_prejudge.py plus its gate half, registered in the suite as
+PRE-JUDGE COVERAGE, holding exactly two things. (1) NO COVERAGE CLAIM MAY GO STALE -- if a gate
+stops carrying the check the map credits it with, it goes red IMMEDIATELY, not on a ratchet,
+because a question the fleet thinks is gated and is not is worse than one nobody claims. (2) THE
+GAP COUNT MAY ONLY GO DOWN, frozen at 2.
+
+DELIBERATELY NOT BUILT: a third judge over garments and tiles (reuse-first), a score card stapled
+to every cook (school: a pre-judge that annotates but still forwards everything adds work), and a
+queue of prepared verdicts for DIRECTION (everything is a thumb).
+
+RULE ZERO, three controls, and the tool refuses to print a coverage number unless all three pass:
+a claim whose check is gone must read STALE; a claim pointed at a missing gate must read NOT
+COVERED; and THE REAL CLAIMS MUST STILL COME BACK COVERED, because a map that is always false would
+pass the first two and be useless.
+
+MY INSTRUMENT WAS WRONG ONCE: I read E7's sheet with the wrong field names and the first run
+printed 0 machine questions and 10 human ones with every question text as None. A coverage map
+built on that would have been confidently, completely wrong AND WOULD HAVE LOOKED TIDY. The loader
+now asserts both groups came back non-empty so the same slip cannot pass silently again.
+
+ROUTED: NOTHING. The gates that exist do what they say, and the two gaps are work nobody ever
+claimed to have done.
+
+BLIND SPOTS: the queue was measured off the board's own dates, and a row's date is when it was
+claimed, not when its work stalled; the map is MY READING of which gate performs which test,
+verified only that the gate still carries the string I credited it with; five of the seven covered
+questions are covered PARTIALLY, because the gate performs something in the same family and not
+necessarily E7's exact arithmetic; and nothing here measures whether any cook is any good, which is
+the three human questions and correctly nobody's machine.
+
+STILL OPEN IN MY QUEUE: E16 [never opened], E17 [locked ignored], E18 [he can hear it]. All two
+rounds, school first. E9 the standing duty runs every round.
+
+[PENDING Paolo] NOTHING. I need nothing from him.
+
+FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
+  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
+     audio measurement, no glitch checklist." Sixteen instruments and three suite gates exist now.
+  2. E15's brief is out of date: DIRECTION holds 0 claimed, and five of its eight open rows are
+     DELIVERED cards waiting on a thumb, not unstarted work.
+  3. THE SCOPE HOLE: a building, a face, a prop or a vehicle is graded by nothing on E7's sheet.
+     That is a bigger gap than either uncovered question and it belongs to whoever owns the sheet.
+  4. The one line that makes the override rate computable, above.
+  5. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
+  6. Still unclaimed: the MIX METER (E5 gap 10).
+
+NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
+
+GATES: PRE-JUDGE COVERAGE 3/0 (new, registered), NO READER 7/0, handoff 7/0, attempt 15/0. The
+map's own three RULE ZERO controls passed.
+
+PROOF: records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md and
+records/BOHEMIA_EYES_E15_ROUND_2_THE_JUDGE_ALREADY_EXISTS_9_11_26.md;
+tools/bohemia_eyes_prejudge.py; gate registered as PRE-JUDGE COVERAGE in gates/bohemia_gates.py;
+data records/BOHEMIA_EYES_PREJUDGE_9_11_26.json, baseline
+records/BOHEMIA_EYES_PREJUDGE_BASELINE_9_11_26.json; coverage map
+banks/eyes/BOHEMIA_EYES_E15_COVERAGE_MAP_9_11_26.json (draft:true); VAMILY lane 17 E15 SHIPPED
+with both rounds, NOTHING routed.
+
 UI (ui-kmqmrf): 9/7 (r) LATEST -- *** THE TOP MENU BAR IS IN. He asked for one this round:
 "a top menu bar like how Battle Brothers has it, how Civilization five has it, Surviving the
 Aftermath has a... Surviving Mars has a, you know, shit like that, bro." *** One strip, 390 wide
@@ -92,106 +207,6 @@ not touch them and did not write their descriptions; their lanes should.
 [PENDING Paolo] Nothing blocking. The ring surfaces sheet above is a look he can correct by
 thumbing; the queue moves on to [no tabs] (already DECIDED by the coordinator), then [three acts]
 and [skin swap].
-
-EYES AND EARS (eyes-5vql33): 9/7 (r) LATEST -- *** E14 [late beat] SHIPPED WITH BOTH ROUNDS, AND
-IT IS A GREEN. THE BEAT HE HEARS IS THE BEAT THE GAME JUDGES, TO WITHIN 9.6 MILLISECONDS, with
-under a millisecond of wobble, inside a PERFECT band of 55. A player pressing exactly on the
-sound they hear is graded PERFECT with 45 ms to spare. NOTHING IS ROUTED, because nothing is
-broken, and a lane that only ever finds problems is not a lane anybody should trust. ***
-TAB: NOT IN A TAB YET. No game code touched, ever.
-EYES AND EARS (eyes-5vql33): 9/7 (s) LATEST -- *** E15 [machine judges] ROUND ONE OF TWO IS DONE:
-SCHOOL. NO MEASURING, ON PURPOSE. School proved the job's own shape wrong: A PRE-JUDGE THAT
-ANNOTATES BUT STILL FORWARDS EVERYTHING ADDS WORK. The bottleneck is DIRECTION'S ATTENTION, not
-a shortage of information, so a score card stapled to every cook makes his day longer. Only two
-things unload him: REMOVING items from his queue and GROUPING what is left. *** E15 stays
-CLAIMED, round two builds the pass. TAB: NOT IN A TAB YET. No game code touched, ever.
-
-READ TO GROUND IT, NOT MEASURED: E7's sheet is 7 machine questions (detail order, colour density,
-saturation budget, value band, grain scale, light, does it read at play size) and 3 human ones
-(same material, does it belong to this world, what would a stranger call it). DIRECTION carries 6
-open or claimed lines. BUT SIX CLAIMED LINES IS A COUNT, NOT A QUEUE MEASUREMENT: it says nothing
-about how long anything has waited or whether a single thing is blocked behind them.
-
-COUNTER-FINDING 1, AND IT RESHAPES THE DELIVERABLE: read literally, the job produces a score card
-attached to every cook, and every cook still lands in his queue with MORE to read. The only
-pre-judge that actually unloads him changes WHAT ARRIVES, not what is stapled to it.
-  REMOVE: a cook that fails a machine question goes back to the cook and never reaches him. That
-  is the ONLY outcome that subtracts from his queue.
-  GROUP: what survives is batched by WHICH human question it turns on, so he rules once per
-  decision instead of once per cook.
-  A card that informs is not a card that unloads.
-
-COUNTER-FINDING 2, AND IT IS A HARD DESIGN REQUIREMENT: THE RUBBER STAMP IS MEASURABLE IN ADVANCE.
-Automation bias is documented across medicine, aviation and code review: when a system is usually
-right, people stop genuinely checking it, and the incentives make it worse because the reviewer
-who scrutinises everything is the one slowing things down. Clinical alert systems see 49 to 96% of
-safety alerts dismissed. The named leading indicator is DECLINING OVERRIDE RATES, and the
-literature is blunt: a 0% override rate should be treated as PROCESS FAILURE, not as proof the
-machine is right.
-  SO THE PASS MUST RECORD EVERY TIME DIRECTION DISAGREES WITH IT AND PRINT THAT RATE EVERY ROUND,
-  and a sustained zero must make the pass raise the alarm about ITSELF. A checker that cannot
-  notice it has been switched off is exactly the failure this lane exists to catch.
-
-COUNTER-FINDING 3: THE BOTTLENECK MOVES. Theory of constraints says you improve the current
-constraint until it stops limiting throughput and then the focus moves to the NEXT one, and
-queueing work says wait times do not climb steadily with demand, they skyrocket, which is why the
-classic lever on a review queue is smaller batches rather than faster screening. So round two
-MEASURES THE QUEUE BEFORE ACCEPTING THE PREMISE, and if DIRECTION is not the constraint it says so
-and names the one that is.
-
-COUNTER-FINDING 4, AND IT IS OURS: EVERYTHING IS A THUMB (8/9, LOCKED) ALREADY ABOLISHED THE THING
-THIS JOB SOUNDS LIKE. The default flipped from approve-before to correct-after, and a numbered
-queue of pending verdicts is banned outright. So a pre-judge whose output is a nicer approval
-packet rebuilds the machine that law tore down, one level up. The legitimate shape under our own
-law: THE MACHINE DECIDES, THE COOK SHIPS, DIRECTION CORRECTS WHAT IT HATES. Which means E15's real
-job may be to make the machine's decision good enough to SHIP ON, and send him only the cooks
-where no defensible default exists. A smaller queue by construction, not a faster one. If that
-reading is wrong it is the coordinator's to correct; it is written down rather than asked.
-
-TWO MORE THINGS SCHOOL TAUGHT:
-  A LOCAL CHECK GETS BYPASSED UNDER PRESSURE. The pipeline guidance is explicit: validators run at
-  SUBMIT time, server side, "since local validation alone gets bypassed under deadline pressure".
-  So the pass belongs in the gate suite, not in a tool somebody remembers to run. This repo
-  already believes that (a law without a machine gate is not enforced) and E11 found a promised
-  gate that never existed.
-  AND THE MACHINE'S JOB IS TO BE SILENT WHEN IT PASSES. Code review's own warning: excessive
-  nitpicking obscures serious problems. Forty machine findings per cook buries the one thing he
-  was needed for. A cook that clears everything produces ONE WORD, not a report.
-
-ROUND TWO'S PLAN: step zero, measure the queue and be willing to stop. Then the pass, with exactly
-three outcomes -- RETURNED (fails a machine question, goes back to the cook, never reaches him),
-DECIDED (passes the machine and a defensible default exists, so it ships and he corrects it by
-playing), HIS (passes the machine but turns on a human question, grouped by which one). Plus the
-override meter. Plus silence on a pass. In the gate suite.
-  RULE ZERO: a pass that returns DECIDED for everything looks exactly like a pass that is working.
-  So plant a cook built to FAIL a specific machine question (wrong value band, or a palette that
-  is not the world's) which must come back RETURNED and must NAME the question it failed, and a
-  known-good one which must come back DECIDED. If the planted failure passes, the sheet is not
-  being applied and every verdict is void.
-
-STILL OPEN IN MY QUEUE AFTER THIS: E16 [never opened], E17 [locked ignored], E18 [he can hear it].
-All two rounds, school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Fifteen instruments and two suite gates exist now.
-  2. E15's brief and EVERYTHING IS A THUMB point slightly different ways; round two builds for the
-     law (fewer things reaching him) rather than for the sentence (better-prepared things).
-  3. WORLD's STATE line still says there is no faction colour table the walked surface can reach.
-  4. reference_check_gate is still promised by CLAUDE.md's law index and still does not exist.
-  5. Still unclaimed: the MIX METER (E5 gap 10).
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round; no code changed, two records and no tools. Standing gates green
-last round: NO READER 7/0, handoff 7/0, attempt 15/0.
-
-PROOF: records/BOHEMIA_EYES_E15_ROUND_1_SCHOOL_A_PREJUDGE_THAT_FORWARDS_EVERYTHING_9_7_26.md (223
-lines, 17 sources); banks/eyes/BOHEMIA_EYES_E15_PREJUDGE_SPEC_9_7_26.json (draft:true); VAMILY
-lane 17 E15 CLAIMED ROUND 1 OF 2.
-
 
 WORDS (words-8dqrnq): 9/6 (g) LATEST -- *** Q3 [crowd talk] SHIPPED WITH BOTH ROUNDS. AND
 WHILE RUNNING MY OWN GATES I FOUND MAIN IS RED, RIGHT NOW, AND IT IS NOT MINE: the words

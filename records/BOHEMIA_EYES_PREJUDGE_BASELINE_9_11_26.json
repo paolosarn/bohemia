@@ -1,0 +1,11 @@
+{
+ "what": "EYES AND EARS -- E15 [machine judges] -- the coverage ratchet",
+ "date": "9/11/26",
+ "rule": "the number of E7 machine questions that NO gate performs may only ever go DOWN. a coverage claim that goes stale is an immediate red, never a ratchet.",
+ "frozen_gaps": 2,
+ "the_two_gaps": [
+  "#5 Same GRAIN SCALE? (no gate does autocorrelation)",
+  "#7 Does it still READ at play size? (no gate shrinks art to 24px and compares surviving contrast)"
+ ],
+ "note": "every COVERED question is also SCOPED (wardrobe, tiles, the target screen, the pixel-craft corpus). a cook that is none of those is graded by nothing on this sheet. scope is reported, not ratcheted, because new art kinds arrive honestly."
+}

@@ -1,0 +1,77 @@
+{
+ "bank": "EYES AND EARS -- E15 [machine judges] -- THE COVERAGE MAP",
+ "date": "9/11/26",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. Step 0 found the premise had moved and REUSE-FIRST found the pass mostly built, so what shipped is the map instead of a third judge. Every claim here carries the gate's own check string and the tool VERIFIES the string is still in the gate rather than asserting coverage.",
+ "record": "records/BOHEMIA_EYES_E15_ROUND_2_THE_JUDGE_ALREADY_EXISTS_9_11_26.md",
+ "data": "records/BOHEMIA_EYES_PREJUDGE_9_11_26.json",
+ "step_zero_the_premise_moved": {
+  "draft": true,
+  "the_premise": "DIRECTION is holding SIX claimed jobs; the art director is the bottleneck because every cook waits on a human judgement",
+  "measured": "DIRECTION holds 0 CLAIMED and 8 OPEN. the six claims cleared. the oldest unshipped claim on the whole board is LIFE + CITY.",
+  "what_the_eight_open_rows_actually_are": "five of the eight say the card is DELIVERED and the row was reopened per [one at a time]. the work is DONE and the rows wait on a thumb. no pre-judge touches that: it is a queue of finished cards waiting on one person, which is the shape EVERYTHING IS A THUMB was written to abolish, one level up."
+ },
+ "reuse_first": {
+  "draft": true,
+  "already_registered_and_running": ["STYLE CARD (style_card_gate.py)", "TARGET MATCH (target_match_gate.py)", "TEXTURE MATCH (texture_match_gate.py)"],
+  "consequence": "E15's literal instruction would have produced a THIRD judge over the same art. REUSE-FIRST is a law, so the deliverable became the map of what is already covered."
+ },
+ "the_coverage_map": [
+  {"n": 1, "q": "Same DETAIL ORDER?", "gate": "texture_match_gate.py", "scope": "TILES only", "covered": true},
+  {"n": 2, "q": "Same COLOUR DENSITY?", "gate": "target_screen_gate.py", "scope": "the target screen only", "covered": true},
+  {"n": 3, "q": "Same SATURATION BUDGET?", "gate": "style_card_gate.py", "scope": "WARDROBE only", "covered": true},
+  {"n": 4, "q": "Same VALUE BAND?", "gate": "style_card_gate.py", "scope": "WARDROBE only", "covered": true},
+  {"n": 5, "q": "Same GRAIN SCALE?", "gate": null, "scope": null, "covered": false, "why": "no gate anywhere does autocorrelation"},
+  {"n": 6, "q": "Same LIGHT?", "gate": "pixel_craft_gate.py", "scope": "the pixel-craft corpus only", "covered": true},
+  {"n": 7, "q": "Does it still READ at play size?", "gate": null, "scope": null, "covered": false, "why": "no gate shrinks art to 24 px and compares the surviving contrast"}
+ ],
+ "covered": "5 of 7",
+ "the_bigger_gap_than_either": {
+  "draft": true,
+  "finding": "every COVERED question is covered over ONE KIND of art. a cook that is neither wardrobe nor a tile nor the target screen -- a building, a face, a prop, a vehicle -- is graded by NOTHING on this sheet.",
+  "so": "the seam DIRECTION called closed is closed for garments and tiles"
+ },
+ "the_override_meter": {
+  "draft": true,
+  "requirement_from_school": "automation bias's named leading indicator is a DECLINING override rate, and a sustained 0% is a process failure, not proof the machine is right",
+  "measured": "76 verdict records on disk; 43 mention both a machine call and a human one, IN PROSE. not one stores, per cook, the machine verdict beside the human verdict that followed.",
+  "consequence": "THE OVERRIDE RATE CANNOT BE COMPUTED TODAY, which means nobody would notice it going to zero. E11's disease in a third form: a number that exists only in prose is a number no machine can read.",
+  "the_one_line_that_fixes_it": "when a cook clears the machine pass, write its machine verdict into the same verdict record the human thumb lands in. one field, and the rate becomes a number forever after."
+ },
+ "the_gate_that_shipped": {
+  "draft": true,
+  "name": "PRE-JUDGE COVERAGE",
+  "holds": [
+   {"check": "no coverage claim may go stale", "kind": "IMMEDIATE RED, not a ratchet", "why": "a question the fleet thinks is gated and is not is worse than one nobody claims; that is exactly the rot E11 found in CLAUDE.md's own law index"},
+   {"check": "the number of E7 machine questions no gate performs has not grown", "kind": "ratchet, frozen at 2", "why": "a checker that fails on absolute badness gets muted in a week; one that fails on GROWTH survives"},
+   {"check": "the sheet still parses into 7 machine and 3 human questions", "kind": "immediate", "why": "the field names moved once already and produced a confidently empty map"}
+  ]
+ },
+ "deliberately_not_built": [
+  "a third judge over garments and tiles (REUSE-FIRST)",
+  "a score card stapled to every cook (school: a pre-judge that annotates but still forwards everything adds work)",
+  "a queue of prepared verdicts for DIRECTION (EVERYTHING IS A THUMB)"
+ ],
+ "rule_zero": {
+  "draft": true,
+  "trap": "a coverage map that asserts instead of checking looks identical to one that works, right up until a gate is edited underneath it",
+  "controls": [
+   {"control": "a coverage claim whose check is gone must read STALE", "result": "PASS"},
+   {"control": "a coverage claim pointed at a missing gate must read NOT COVERED", "result": "PASS"},
+   {"control": "the real claims must still come back COVERED, or the map is just always-false", "result": "PASS"}
+  ]
+ },
+ "the_instruments_one_bug": {
+  "draft": true,
+  "bug": "I read E7's sheet with the wrong field names (by/ask instead of who/q) and the first run printed 0 machine questions and 10 human ones with every question text as None",
+  "why_it_mattered": "a coverage map built on that would have been confidently, completely wrong, and it would have looked tidy",
+  "fix": "the real keys are n/who/q/test/why, and the loader now asserts both groups came back non-empty so the same slip cannot pass silently again"
+ },
+ "blind_spots": [
+  "the queue was measured off the board's own dates; a row's date is when it was claimed, not when its work stalled",
+  "the coverage map is my reading of which gate performs which test, verified only to the extent that the gate still carries the check string I credited it with",
+  "five of the seven covered questions are covered PARTIALLY: the gate performs something in the same family, not necessarily E7's exact numeric test",
+  "nothing here measures whether any cook is any good; that is the three human questions and they are correctly nobody's machine"
+ ],
+ "routed": "NOTHING. the gates that exist do what they say, and the two gaps are work nobody ever claimed to have done."
+}
