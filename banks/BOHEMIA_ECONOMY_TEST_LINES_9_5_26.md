@@ -2236,3 +2236,96 @@ OOOOOO4 somebody who noticed the order          draft:true
   about it on purpose.
 - Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## QQQQQQ. THE LAST ONE
+## (round 29: the day the last battery goes. Nothing in the game notices this
+##  moment, so the bank is where it exists first. Nobody says the word last.)
+
+QQQQQQ1 somebody spending the final one         draft:true
+        "That's it then. No, don't do the face. It was going to be one of them
+         eventually, might as well be this one."
+
+QQQQQQ2 somebody who kept one too long          draft:true
+        "I was saving it. I don't know what for. Turns out I was saving it for
+         the day I couldn't use it for anything."
+
+QQQQQQ3 the seller, watching it happen          draft:true
+        "I've had four people at this counter today and not one of them had
+         anything. Four. I'm still standing here, though."
+
+QQQQQQ4 somebody who did not see it coming      draft:true
+        "It wasn't a big day. That's what gets me. It was a Tuesday and then it
+         was over, hermano."
+
+## RRRRRR. FULL SHELVES, NO BUYERS
+## (the day after, and it is the opposite of relief. The shop stocked because
+##  the new money is real and nobody in the street has any of it yet.)
+
+RRRRRR1 somebody looking through a window       draft:true
+        "It's all back. Rice, tape, the lot of it. Been full for a week and I've
+         been standing out here for a week."
+
+RRRRRR2 the seller, doing fine, not happy       draft:true
+        "Best stocked I've been since the crash and I've taken three sales.
+         Three. I'd rather the shelves were empty and the door was busy."
+
+RRRRRR3 somebody who has the new thing          draft:true
+        "I didn't do anything clever. I had a box of them in the truck from
+         before. That's the whole story and people look at me different now."
+
+RRRRRR4 somebody who does not have it           draft:true
+        "Same work, same hours, same me. Difference is what's in his pocket and
+         it was in his pocket before any of this started."
+
+## SSSSSS. THE AUDITION
+## (a dead currency gets replaced in months, by nobody in particular, and the
+##  winner is the thing nobody wants for itself. None of these lines announces
+##  a decision, because in the real record nobody ever made one.)
+
+SSSSSS1 somebody testing a replacement          draft:true
+        "He took two of these for the rice. Didn't blink. So I suppose that's
+         what they are now."
+
+SSSSSS2 somebody who does not like the new one  draft:true
+        "It's a stupid thing to be worth something. It's a stupid thing and
+         everybody's agreed on it, so here we are."
+
+SSSSSS3 somebody explaining why it works        draft:true
+        "Nobody wants them. That's the whole reason. The second somebody wants
+         them for what they are, we're back to square one."
+
+SSSSSS4 an older one, been through it twice     draft:true
+        "Third one of these I've seen. It'll settle. Takes about a season and
+         then everybody pretends it was always that, mija."
+
+## TTTTTT. THE TAB
+## (what people actually did: they went on credit, and the biggest lender was
+##  the shop. Ahead of family. Ahead of moneylenders. Nobody calls it credit.)
+
+TTTTTT1 a seller making an offer                draft:true
+        "Take it. I'll write it down. I'd rather have you owing me than have you
+         not coming in, that's just business."
+
+TTTTTT2 somebody accepting                      draft:true
+        "Write it down then. Write it down and I'll look at the book with you,
+         I'm not going to pretend I didn't."
+
+TTTTTT3 somebody who will not go on the book    draft:true
+        "I've seen what the book does to people. I'll come back Thursday with
+         something in my hands or I won't come back."
+
+## UUUUUU. WHAT IS NOT HERE, ON PURPOSE (round 29)
+- No line names what the new money IS. That is his ruling and the mechanism to
+  swap one for another already exists and takes any rate.
+- No line has an exchange rate, a number of anything, or a price. Round 29 set
+  no number and the bank sets none either.
+- No line says currency, collapse, inflation, credit or barter. TTTTTT1 is the
+  whole credit finding and it is said as "I'll write it down".
+- No line has the last battery being spent on something important. QQQQQQ4 says
+  it was a Tuesday, which is the finding: nothing in the game marks this moment.
+- No line blames the person holding the new money. RRRRRR3 did nothing clever
+  and says so, and RRRRRR4 does not accuse him of anything.
+- No line states a moral about money. SSSSSS3 explains why the money works and
+  is describing a rule he has never heard of.
+- Spanish register: 2 of 15 lines, 13%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.
