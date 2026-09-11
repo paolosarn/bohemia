@@ -7939,59 +7939,60 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND -- *** [eyes: hair bands] SHIPPED. The double's bounce-back on art this lane
-had already shipped. Tab: CHARACTER, and every head in the game. ***
-- Took this ahead of [more clothes] on purpose: it is an EYES AND EARS bounce-back on a
-  SHIPPED item, which is a measured defect in art already in the game. A defect beats a
-  new feature. [look verdict] sits above it and is not takeable -- its own text re-routes
-  the judging to DIRECTION against the style card (9/7), so there is no CHARACTER work in
-  it.
-- THEIR FINDING: "THE HAIR IS THE MOST BANDED ART IN THE REPO -- 62.0%, against 31.8% for
-  the CMU block and 0.0% for every tile bank ... the player's head from behind is a flat
-  cream mass with one straight black mark on it."
-- *** THE FINDING IS RIGHT AND THE SIZE WAS NOT, and the correction goes back to them. ***
-  EVERY BANK IN THIS REPO STORES ITS ART BLOWN UP -- tiles at 4x, hair sheets at 3x -- and
-  a nearest-neighbour blow-up turns every source row into k identical rows. The detector
-  calls six similar rows a band, so at 3x two source rows that merely rhyme are already
-  six. Measured, with their own instrument, zoom found per piece and never assumed:
-        face + hair bank   51.5% as baked   14.5% native
-        CMU block          31.8% as baked    0.0% native
-        every tile bank     0.0%             0.0%
-  THE HAIR IS STILL THE MOST BANDED ART IN THE REPO -- everything else in the building
-  reads 0.0 at native scale and the hair does not, so their call stands and it is mine.
-  But the CMU comparison was ENTIRELY its own 4x zoom, so the hair was never "twice as bad
-  as the block", and the honest gap is against zero at a fraction of 62.
-- A WRONG GUESS THAT COST A BUILD, kept in the tool: the obvious suspect was the flat cream
-  SHIRT under every head on the sheet. Splitting a sheet says otherwise -- head 71.9%, body
-  78.0% -- so both band and a fix aimed at the shirt would have missed.
-- WHAT WAS ACTUALLY WRONG, seen by rendering the backs at 9x: two or three dark rules
-  running the FULL height of the mass, evenly spaced, on DEEP TAPER, BUZZ CUT, BOWL CUT and
-  SHAG alike. The 8/28 drift that was supposed to prevent exactly this re-rolled a fresh
-  -1/0/+1 EVERY ROW -- noise around a fixed column, amplitude one pixel, which is a ruled
-  line with a burr on it. A value re-rolled every row has no memory, so it can never go
-  anywhere.
-- *** AND MY FIRST FIX FAILED, WHICH IS THE LESSON OF THE ROUND. *** I replaced it with a
-  real cumulative walk read off the cell row. Banding moved 25.3% -> 23.4%, a rounding
-  error. Every parting asked the same row and got the same answer, so THE WHOLE COMB
-  SHIFTED TOGETHER and the distance between neighbouring partings never changed by a pixel.
-  BANDING IS ABOUT THE GAP BETWEEN BOUNDARIES, NOT ABOUT WHERE THEY SIT. Slide a picket
-  fence sideways and it is still a picket fence.
-  Each parting now carries its OWN walk, seeded by which parting it is, leashed to two
-  cells so it never leaves the skull:  25.3% -> 15.4% native.
-- I LOOKED AT IT, not just the number: the partings now bow and wander with the head
-  instead of ruling straight down it, clearest on DEEP TAPER and BOWL CUT.
-- THE 56 WARDROBE IS UNTOUCHED and the pin did NOT need a rebaseline: the strand pass
-  returns early at S<2, so this is a 112-only change. clothes_4x_gate 13/13 green proves it.
-- GATES: hair 39/39, craft_law 39/39, clothes_4x 13/13, hairline 12/12, face_thumb 23/23,
-  demo_build 25/25. Vote bank rebaked and the vote page rebuilt.
-- STILL OPEN AND SAID OUT LOUD: the OTHER half of their sentence. "A flat cream mass" is
-  about the FORM of the back of the head -- no light on the crown, no falloff at the nape,
-  so the mass reads as a cut-out. That is a separate fix and it is not in this round. If
-  the coordinator wants it, it is the obvious next piece of this defect.
-- Record: records/BOHEMIA_THE_HAIR_IS_BANDED_9_11_26.txt
-  Tool:   tools/bohemia_the_hair_is_banded.js  (imports THEIR banding(), never a copy)
-- NEXT FOR THIS LANE: the first takeable OPEN line is [more clothes] WARDROBE-VOLUME, then
-  [runway hair] HAIR-TO-THE-CARD.
+THIS ROUND -- *** [more clothes] WARDROBE-VOLUME SHIPPED. 317 GARMENTS, 105 SHAPES.
+The structure law now has a machine gate on the wardrobe for the first time.
+Tab: CHARACTER (the CLOTHES rail) and everybody in the game. ***
+- CHECKED FOR A COLLISION BEFORE CLAIMING, per ONE SYSTEM ONE SESSION: COOK holds no
+  garment row (its claimed rows are city, car, fortress) and its WARDROBE-REMAKE is
+  SHIPPED at 8851e11 covering batches 1-6. The wire for those batches was already intact,
+  15/15, so the ratchet picked up batches 5 and 6 on its own and there was no wiring debt.
+- I DID NOT COOK, AND THAT WAS THE POINT. COOK owns cooking and had just landed 22 new
+  shapes. Adding garments on top of six fresh batches without checking whether the
+  wardrobe is short is producing for its own sake (STOP PRODUCING, 7/26). So the round
+  measured first.
+- AND THE FIRST MEASUREMENT SAID DO NOT COOK: asked of the real picker, 3000 citizens wore
+  3000 DIFFERENT OUTFITS. Not one repeat, every canon garment used, no layer starved. By
+  that count the rail is not short at all.
+- *** THEN THE SAME CROWD WAS RENDERED AND THE PICTURE DISAGREED. *** Hashing the painted
+  body with COLOUR THROWN AWAY: 300 citizens, 223 silhouettes. And it is the PLAIN people
+  who repeat -- with three extra layers a citizen is 98% one of a kind, with none it is
+  70%, and half the crowd wears nothing over the base. THE OUTFITS ARE UNIQUE AND THE
+  PEOPLE ARE NOT.
+- SO THE STRUCTURE LAW'S OWN QUESTION, GARMENT BY GARMENT, asked for the first time ever:
+      *** 317 CANON GARMENTS. 105 DISTINCT SHAPES. THREE IN FOUR ADD NO SHAPE. ***
+      base 80 -> 20    outer 63 -> 16    legs 34 -> 8    feet 32 -> 7
+      HAIR 11 -> 11, the ONE category that passes outright, and the one with a gate on it.
+  RED SHIRT, WHITE TEE, GREEN FLANNEL, SCAVENGER FLANNEL and BONE HENLEY all paint exactly
+  the same pixels. So do five longcoats and four pairs of gloves.
+- HOW A SHAPE IS COUNTED, and it is not a new idea: render the garment ALONE on the bare
+  body, diff, hash WHICH PIXELS CHANGED with colour discarded. That is the ruler hair_gate
+  has used since 8/1, pointed at the wardrobe. THE POSITIVE CONTROL IS FREE: the same
+  harness WITH colour gives 313 distinct, without colour 105. The ruler plainly separates
+  cut from paint, and the gap between those two numbers IS the finding.
+- WHAT I AM CAREFUL NOT TO CLAIM: a plaid shirt and a solid shirt of one cut honestly ARE
+  one cut, and whether 105 is enough volume is DIRECTION's call against the style card.
+  This lane can only say, with a number, how much of the rail is CUT and how much is PAINT.
+- SHIPPED AS A MACHINE GATE: STRUCTURE-NOT-COLOR (7/19, LOCKED) had NO gate anywhere in
+  the repo, and a law without a machine gate is not enforced. wardrobe_wired_gate now
+  holds the shape count as a RATCHET (pinned 105, hair 11) so a re-cook that swaps shapes
+  for colourways is caught -- invisible to every other gate, because the garment COUNT
+  would not move. Mutation-tested: raise the pin by one and both checks go red.
+  Gate 15/15 -> 17/17.
+- NOT DONE ON PURPOSE, both said out loud: I did not cook garments (COOK's job, and the
+  shape count is the number for them to move), and I did not retune the picker's odds to
+  make plain citizens rarer -- that would HIDE the finding rather than fix it, and how
+  often a coat appears is a look decision for the card.
+- Records: records/BOHEMIA_HOW_MANY_SHAPES_ARE_THERE_REALLY_9_11_26.txt
+            records/BOHEMIA_DOES_THE_CROWD_REPEAT_9_11_26.txt
+  Tools:   tools/bohemia_how_many_shapes_are_there_really.js
+            tools/bohemia_does_the_crowd_repeat.js
+- NEXT FOR THIS LANE: the first takeable OPEN line is [runway hair] HAIR-TO-THE-CARD.
+  [look verdict] stays untakeable (re-routed to DIRECTION, 9/7).
+
+PREVIOUS ROUND -- [eyes: hair bands] SHIPPED at 9ffbbe4: the eyes bounce-back. Their
+finding was right and the size was not (every bank is stored blown up, which inflates the
+number); the partings ran dead straight and each one now walks its own way, 25.3% -> 15.4%.
+
 
 PREVIOUS ROUND -- [stands out] ONE-STEP-FROM-THE-CROWD-AROUND-IT SHIPPED at f7f9f68: a
 hostile now sits one value step off the civilians within four cells of him.

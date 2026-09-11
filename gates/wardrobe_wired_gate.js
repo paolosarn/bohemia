@@ -199,6 +199,76 @@ const ok = (n, c, note) => { if (c) { pass++; console.log('  ok   ' + n + (note 
       return { ok: true, canon: canon.length, missing: missing.map(g => g.layer + '/' + g.n) };
     }, cloTxt);
   } catch (_e) {}
+  /* ==================================================================== *
+   *  STRUCTURE-NOT-COLOR, HELD ON THE WARDROBE FOR THE FIRST TIME
+   *  (9/11, VAMILY [more clothes] WARDROBE-VOLUME)
+   *
+   *  The law (7/19, LOCKED) says progress is new SHAPES, never recolours. It had
+   *  NO machine gate anywhere in this repo, and A LAW WITHOUT A MACHINE GATE IS
+   *  NOT ENFORCED (proven 7/16). Counted for the first time on 9/11:
+   *      317 canon garments  ->  105 DISTINCT SHAPES.  Three in four add no shape.
+   *      base 80->20, outer 63->16, legs 34->8, feet 32->7, and HAIR 11->11, the
+   *      one category that passes outright and the one category with a gate on it.
+   *
+   *  WHAT THIS CHECK IS AND IS NOT. It is a RATCHET, not a verdict: whether 105 is
+   *  enough volume is DIRECTION's call against the style card, and a plaid shirt and
+   *  a solid shirt of one cut honestly ARE one cut. What must never happen quietly is
+   *  the number going DOWN -- a re-cook that replaces shapes with colourways, or a
+   *  generator change that collapses two cuts into one, would be invisible to every
+   *  other gate in the building because the garment COUNT would not move.
+   *
+   *  HOW A SHAPE IS COUNTED, and it is not a new idea: render the garment ALONE on
+   *  the bare body, diff, and hash WHICH PIXELS CHANGED, colour discarded. That is
+   *  the ruler hair_gate has used for haircuts since 8/1, pointed at the wardrobe.
+   *
+   *  RAISING THE PIN IS CORRECT AND EXPECTED. When COOK lands real new cuts this
+   *  goes up; edit SHAPE_PIN and say so in the commit. Lowering it needs a reason
+   *  written down, exactly like the 56 pin's rebaseline log.
+   * ==================================================================== */
+  const SHAPE_PIN = { total: 105, hair: 11 };
+  const shp = await p3.evaluate(() => {
+    const keepW = window.G_WORN, keepE = G.equipped;
+    const clear = () => { try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {} };
+    const shot = (worn) => {
+      const eq = {}; for (const k in keepE) eq[k] = keepE[k];
+      for (const s of ['hat', 'glasses', 'hair', 'shirt', 'jacket', 'pants', 'shoes']) eq[s] = '';
+      G.equipped = eq; window.G_WORN = worn; clear();
+      return buildFrame('S', 'idle', 0);
+    };
+    const BARE = { base: '', legs: '', feet: '', hair: '' };
+    const bare = shot(BARE);
+    const canon = GARMENTS.filter(g => g && g.st === 'canon' && g.layer);
+    const all = {}, byLayer = {};
+    for (const g of canon) {
+      const w = {}; for (const k in BARE) w[k] = '';
+      w[g.layer] = g.n;
+      let fr; try { fr = shot(w); } catch (e) { continue; }
+      let h = 2166136261 >>> 0;
+      for (let i = 0; i < fr.px.length; i++) {
+        const a = fr.px[i], z = bare.px[i];
+        const changed = (!!a !== !!z) || (a && z && (a[0] !== z[0] || a[1] !== z[1] || a[2] !== z[2]));
+        if (changed) { h ^= i; h = Math.imul(h, 16777619) >>> 0; }
+      }
+      const k = g.layer + '|' + h.toString(36);
+      all[k] = 1;
+      (byLayer[g.layer] = byLayer[g.layer] || {})[h.toString(36)] = 1;
+    }
+    window.G_WORN = keepW; G.equipped = keepE; clear();
+    const per = {};
+    for (const lay in byLayer) per[lay] = Object.keys(byLayer[lay]).length;
+    return { total: Object.keys(all).length, per: per, canon: canon.length };
+  });
+  ok('*** STRUCTURE-NOT-COLOR: the wardrobe still draws at least ' + SHAPE_PIN.total +
+     ' distinct SHAPES ***',
+     shp.total >= SHAPE_PIN.total,
+     shp.canon + ' garments -> ' + shp.total + ' shapes' +
+     (shp.total > SHAPE_PIN.total ? '  (UP: raise SHAPE_PIN to ' + shp.total + ')' : ''));
+  ok('and HAIR, the one category that passes the law outright, still does',
+     (shp.per.hair || 0) >= SHAPE_PIN.hair,
+     (shp.per.hair || 0) + ' haircuts, ' + (shp.per.hair || 0) + ' shapes');
+  console.log('  note shapes per layer: ' + Object.keys(shp.per).sort()
+    .map(l => l + ' ' + shp.per[l]).join(', '));
+
   await b3.close();
 
   ok('he can find every garment on a bench and put it on', bench.ok && bench.missing.length === 0,

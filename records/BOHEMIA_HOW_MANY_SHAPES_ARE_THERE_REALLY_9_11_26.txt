@@ -1,0 +1,76 @@
+HOW MANY SHAPES ARE THERE REALLY? -- the wardrobe counted against the structure law
+9/11/26, CHARACTER lane. VAMILY [more clothes] WARDROBE-VOLUME.
+
+THE ROW SAYS "new garment shapes behind the structure law". STRUCTURE-NOT-COLOR
+(7/19, LOCKED) says progress is new SHAPES, never recolours -- and it has no
+machine gate anywhere in this repo, so nobody had ever counted.
+
+*** 317 CANON GARMENTS. 105 DISTINCT SHAPES. ***
+
+  layer     garments  shapes  colours   are new shapes
+  base            80      20       78   25%
+  outer           63      16       62   25%
+  legs            34       8       34   24%
+  feet            32       7       31   22%
+  gear            26      13       26   50%
+  head            21       8       20   38%
+  face            14       6       14   43%
+  back            14       7       14   50%
+  hair            11      11       11   100%
+  neck             9       3        9   33%
+  waist            7       4        7   57%
+  hands            6       2        6   33%
+  TOTAL          317     105            33%
+
+HOW A SHAPE IS COUNTED: each garment is rendered ALONE on the same body, diffed
+against the bare body, and the pixels it CHANGED are hashed -- indices only,
+colour thrown away. Two garments that change exactly the same pixels are one cut
+wearing two paints. This is not a rule invented here: it is the ruler hair_gate
+has used for haircuts since 8/1, pointed at the wardrobe for the first time.
+
+THE GARMENTS SHARING ONE CUT, biggest group per layer
+
+  base:  RED SHIRT, WHITE TEE, GREEN FLANNEL, SCAVENGER FLANNEL, BONE HENLEY, COPPER WORK SHIRT ...
+  outer:  WASTELAND DUSTER, RANGER LONGCOAT, STORM GREY LONGCOAT, BONE DUSTER, BRICK LONGCOAT, KHAKI DUSTER ...
+  legs:  BLUE JEANS, BLACK CARGOS, GREY SWEATS, DUST TROUSERS, PATCHED WORK PANTS, SOOT CARGOS ...
+  feet:  WHITE SNEAKERS, BROWN BOOTS, WRAPPED BOOTS, SANDWALKERS, RED CLAY BOOTS, GREY SNEAKERS ...
+  gear:  SCAV KNEEPADS, SAND KNEEPADS
+  head:  STORM KNIT CAP, SAND KNIT CAP, OXBLOOD SLOUCH BEANIE, BONE KNIT CAP, OLIVE KNIT CAP, STORM SLOUCH BEANIE ...
+  face:  BONE DUST MASK, OXBLOOD DUST MASK, CHARCOAL DUST MASK, OLIVE DUST MASK, RUST DUST MASK
+  back:  ROAD CAPE, CHARCOAL ROAD CAPE, STEEL ROAD CAPE
+  neck:  DUST SCARF, OXBLOOD SCARF, COPPER SCARF, CHARCOAL SCARF, SAGE SCARF, BONE SCARF ...
+  waist:  LEATHER BELT, CHARCOAL BELT
+  hands:  LEATHER GLOVES, SOOT GLOVES, DUST GLOVES, OXBLOOD GLOVES
+
+AND WHY IT MATTERS ON THE STREET, measured on the real picker:
+
+  3000 citizens wore 3000 DIFFERENT OUTFITS. Not one repeat, every garment used,
+  no layer starved. By that count the rail is not short at all.
+  Then the same crowd was RENDERED and the picture disagreed:
+     300 citizens produced 223 different silhouettes
+     of the 46 wearing nothing over the base, only 32 looked different
+  THE OUTFITS ARE UNIQUE AND THE PEOPLE ARE NOT. Half the crowd wears nothing
+  over the base, and those are the ones who repeat -- with three extra layers a
+  citizen is 98% likely to be one of a kind, with none it is 70%.
+
+WHAT THIS DOES AND DOES NOT SAY, because the difference decides who acts:
+  - It does NOT say any pair is lazy. A plaid shirt and a solid shirt of the same
+    cut ARE the same cut, honestly. Whether that is enough volume is DIRECTION's
+    call against the style card, never this lane's.
+  - It DOES say, with a number, how much of the rail is CUT and how much is
+    PAINT: three garments in four add no new shape to the game.
+  - The one layer that passes its own law outright is HAIR, at 100%: every
+    haircut is a shape no other haircut draws. That is what the law looks like
+    when it is enforced, and hair is the only category with a gate holding it.
+
+ROUTED, and this lane did not do it on purpose: COOK cooks, so the next batch
+should be CUTS and not colourways -- the shape count is the number to move, and
+it is now held by a machine so it cannot quietly fall. Nothing here retunes the
+picker either: making plain citizens rarer would hide the finding rather than fix
+it, and how often a coat appears is a look decision for the card.
+
+READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW
+WHAT IT IS COUNTING. "Same shape" here means the game paints the same pixels, on
+one body, at one facing, at 112. A garment that differs only where this body does
+not show it would read as a twin and is not one.
+

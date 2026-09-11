@@ -1,0 +1,67 @@
+DOES THE CROWD REPEAT? -- how many genuinely different people the wardrobe can
+actually make, asked of the real picker
+9/11/26, CHARACTER lane. VAMILY [more clothes] WARDROBE-VOLUME.
+
+WHY A MEASUREMENT AND NOT A COOK. COOK owns cooking and its WARDROBE-REMAKE just
+shipped batches 1-6 with 22 new shapes; this lane's job is to make them WORN, and
+the wire is already green (every canon garment worn by somebody over 4000
+citizens, all reachable on a bench). Adding garments on top of six fresh batches
+without checking whether the wardrobe is short is producing for its own sake.
+VOLUME IS NOT THE SIZE OF THE RAIL. It is how far you walk before you meet
+somebody wearing your outfit.
+
+  canon garments on the rail      317
+  people asked of the picker      3000
+
+Q1. HOW OFTEN DOES AN OUTFIT COME BACK?
+
+  different outfits in 3000        3000   (100.0%)
+  people wearing a repeat          0
+  FIRST TIME TWO PEOPLE MATCHED    never, in 3000
+
+  The last line is the one a player would feel: it is how many people can walk
+  past before two of them are wearing the same thing.
+
+Q2. WHERE IS THE WARDROBE THIN? (shapes offered against times actually worn)
+
+  layer       offered   used     worn   share of the crowd
+  base             80     80     3000   100.0%
+  outer            63     60     1357   45.2%
+  legs             34     34     3000   100.0%
+  feet             32     32     2904   96.8%
+  gear             26     26      341   11.4%
+  head             21     21      888   29.6%
+  face             14     14      321   10.7%
+  back             14     14      479   16.0%
+  hair             11     11     2800   93.3%
+  neck              9      9      619   20.6%
+  waist             7      7      517   17.2%
+  hands             6      6      420   14.0%
+
+  READ BOTH COLUMNS TOGETHER OR NEITHER. A layer with three shapes behind a high
+  wear chance is a UNIFORM -- everybody has one and there are only three. A layer
+  with forty shapes behind a 12% chance is a wardrobe nobody sees. Those are
+  opposite problems and cooking is only the answer to the first.
+
+Q3. AND WHAT DOES IT LOOK LIKE FROM ACROSS THE STREET?
+
+  Two outfits that differ only in a hat nobody can make out at 56 px are ONE
+  outfit to a player. So the body is rendered and hashed two ways: by SHAPE alone
+  (colour thrown away) and by shape AND colour.
+
+  bodies rendered                 300
+  different SILHOUETTES            223   (74.3%)
+  the commonest silhouette worn by 9 of them
+  different once colour counts     300   (100.0%)
+  the commonest whole look worn by 1 of them
+
+  A WARDROBE CAN BE RICH ON PAPER AND A UNIFORM ON THE STREET. If the outfit
+  count is high and the silhouette count is low, the rail is not short -- the
+  SHAPES are, and that is what "behind the structure law" means: progress is new
+  SHAPES, never recolours (STRUCTURE-NOT-COLOR, 7/19).
+
+READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW
+WHAT IT IS COUNTING. These are counts of what the PICKER produces, which is the
+honest question for this lane; whether any single garment is good art is DIRECTION
+judging COOK against the card, and nothing here touches that.
+
