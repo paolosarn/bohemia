@@ -109,8 +109,14 @@ CANNOT_DRIVE = {
     'phone_buzz': 'it fires when a JOB ARRIVES, not when you open the phone. '
                   'Opening the phone is not its trigger and driving it that way '
                   'would be a lie',
-    'ui_back': 'a BACK button on a panel this drive does not open; the city UI '
-               'policy posts it off the button label',
+    # 'ui_back' LIVED HERE UNTIL 9/11 AND ITS REASON WAS TRUE WHEN IT WAS WRITTEN:
+    # "a BACK button on a panel this drive does not open". It is gone because the
+    # drive DOES open one -- it clicks #phoneclose -- and that control renders a
+    # BALLOT X (U+2715) while the city's label test only listed a MULTIPLICATION
+    # X (U+00D7), so the close button answered with a TAP and ui_back never
+    # sounded. Fixing the glyph made it heard, and the "nothing is counted twice"
+    # claim below went red the same run, which is exactly the job it was added
+    # for: A WRITTEN REASON GOES STALE THE MOMENT SOMEBODY FIXES THE WIRE.
     'ui_deny': 'a REFUSAL, which needs a thing the game will not let you do; '
                'silent_play_gate drives it and proved it changes no pixels',
     'generator': 'needs a LIVE CIRCUIT within three cells. That is the whole of '

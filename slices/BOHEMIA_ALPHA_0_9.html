@@ -14214,6 +14214,24 @@ const CAT_DEFAULTS={
 /* CITY SHUFFLE (7/6/26): the city tab's 🎵 button drives the ONE music
    engine over the bus. Random shuffle across every built song, weighted by
    verdict tier, new pick each 64-bar pass. */
+/* __ONE_PHRASE_IS_ONE_PHRASE__ (9/11, SOUNDS lane) -- HOW LONG A PHRASE IS, ONCE.
+   I GOT THIS ARITHMETIC WRONG AND MY OWN PROBE CAUGHT IT. Two systems in this
+   lane wanted "one phrase" in milliseconds and both of them computed
+   (128/16)*(60/120)*1000, which is 8 bars times the length of a BEAT -- 4000 ms.
+   A phrase is 8 bars and a bar at 120 BPM in 4/4 is TWO seconds, so a phrase is
+   SIXTEEN THOUSAND. INTERIORMUS's door debounce was running at a quarter of the
+   size its own comment claimed, and the rest below would have been a three
+   second hiccup instead of a breath.
+   SO IT IS ONE FORMULA NOW, AND IT ASKS THE ENGINE INSTEAD OF DOING SUMS.
+   MUS.stepDur() is the transport's own sixteenth, so 128 steps of it IS the
+   phrase by construction, and if the tempo ever moves the phrase moves with it.
+   A LANE THAT WRITES THE SAME CONSTANT TWICE WILL GET IT WRONG TWICE. */
+function phraseMs(){
+  var d = 0.125;                              /* the engine's own sixteenth */
+  try{ if(MUS && MUS.stepDur) d = MUS.stepDur(); }catch(_e){}
+  return 128 * d * 1000;
+}
+window.__phraseMs = phraseMs;
 const CITYMUS={on:false,watch:null,
   /* OVERWORLD PLAYLIST LAW (Paolo 7/7/26): the overworld plays ONLY the
      creepers. Faction/action themes are for scenes, dialogue, interiors. */
@@ -14257,10 +14275,101 @@ const CITYMUS={on:false,watch:null,
     const f=(c.fi<MFACTIONS.length)?MFACTIONS[c.fi]:MLOOPS[c.fi-MFACTIONS.length];
     const fr=document.getElementById('cityFrame');
     if(fr&&fr.contentWindow)try{fr.contentWindow.postMessage({bohemiaCityMusicState:{on:true,now:f.n}},'*');}catch(e){} },
+  /* __THE_STREET_BREATHES__ (9/11, SOUNDS lane) -- A REST BETWEEN SONGS.
+     MEASURED, twelve minutes with a recorder in the page: the music NEVER stops
+     and every song is swapped at EXACTLY 128 seconds. Dusk was two songs
+     ping-ponging, 128s and 128s. 128s is the 64-bar pass -- the engine's loop
+     length, a number about buffers and not about music -- and the next song
+     starts on the very next beat with nothing in between.
+     AND THE THING THAT SHOULD BE IN THE GAP IS ALREADY BUILT AND PERMANENTLY
+     MASKED: the ambience bed (79 districts, the lit block that hums, the desert
+     speaking every 60 to 130 seconds) plays underneath a song that never stops.
+     HIS OWN DEMO FLOW CALLS SILENCE AN INSTRUMENT, in his own file
+     (laws/BOHEMIA_DEMO_FLOW_7_10_26.md): "silence is the calm", and "single
+     sting, then silence over the purple. The quiet IS the reveal." The valley is
+     a dead city with the power out; REALISM FIRST says it has no soundtrack
+     running every minute of every day.
+     A DUCK, NOT A STOP, AND THAT IS THE WHOLE SAFETY ARGUMENT. MUS.stop() clears
+     the scheduler and cuts the master, and the engine's own comment at the
+     combat hook says why that is dangerous: combat swaps the song IN PLACE on
+     the running transport and never calls start(), so a fight beginning on a
+     stopped transport would be SILENT. And the 120 BPM LAW is about a clock that
+     does not stop. So the transport runs throughout and only the music master is
+     ducked -- the beat survives, the bed (on the SFX bus, not this master) is
+     untouched and is the only thing left, and anything that wants the music back
+     gets it on the next beat.
+     THE LEVEL IS CAPTURED, NOT TYPED. The engine's full master is 0.8 and that
+     literal already exists in two places; a third copy would rot the first time
+     anybody moved it. The rest reads the gain it is about to duck and restores
+     exactly that, so if he turns the master down the rest returns to HIS level. */
+  PHRASE:128,                   /* 8 bars x 16 steps, the engine's own unit */
+  resting:false, restUntil:0, restGain:null,
+  restLen(){ return phraseMs(); },        /* ONE formula, asked of the engine */
+  /* SOMEBODY ELSE OWNS THE MUSIC. Never rest over them, never fight them. */
+  restBlocked(){
+    try{ if(window.FIGHTMUS&&FIGHTMUS.on)return true; }catch(e){}
+    try{ if(window.MENUMUS&&MENUMUS.on)return true; }catch(e){}
+    try{ if(window.INTERIORMUS&&INTERIORMUS.on)return true; }catch(e){}
+    return false; },
+  beginRest(){
+    if(this.resting)return false;
+    if(this.restBlocked())return false;
+    var g=null; try{ g=MUS.MAST; }catch(e){}
+    if(!g||!MUS.AC)return false;
+    if(!(g.gain.value>0.01))return false;       /* already silent: nothing to rest */
+    this.restGain=g.gain.value;                 /* HIS level, captured not typed */
+    var t0=MUS.AC.currentTime, len=this.restLen()/1000;
+    /* *** THE WAY BACK IS BOOKED ON THE AUDIO CLOCK, NOT LEFT TO A TIMER, AND
+       MY OWN PROBE IS WHY. *** The first cut ducked here and relied on this
+       object's own setInterval to ramp back. Measured: start a fight during a
+       rest and the music NEVER RETURNS -- because FIGHTMUS.enter() CLEARS
+       CITYMUS.watch, which is the only thing that could have undone the duck.
+       A silent fight, from a system whose whole safety argument was "a duck can
+       be taken back instantly".
+       A REST WHOSE ONLY WAY OUT IS A TIMER ANOTHER SYSTEM MAY DELETE IS A TRAP.
+       So both ramps are booked up front, at absolute times, on the AudioParam:
+       the audio thread brings the music back at the end of the phrase even if
+       every timer in this document dies. endRest() below can still pull it back
+       EARLIER, which is what a fight needs; this is the floor, not the plan. */
+    try{ g.gain.cancelScheduledValues(t0);
+      g.gain.setValueAtTime(this.restGain,t0);
+      g.gain.linearRampToValueAtTime(0,t0+1.2);
+      g.gain.setValueAtTime(0,t0+len);
+      g.gain.linearRampToValueAtTime(this.restGain,t0+len+0.25); }catch(e){ return false; }
+    this.resting=true; this.restUntil=Date.now()+this.restLen();
+    return true; },
+  /* RESTORE IS IDEMPOTENT AND IS THE ONLY WAY OUT, so no path can leave the
+     master ducked for whatever plays next. */
+  endRest(){
+    if(!this.resting)return;
+    this.resting=false; this.restUntil=0;
+    var lvl=this.restGain; this.restGain=null;
+    try{ var g=MUS.MAST, t0=MUS.AC.currentTime;
+      if(g&&lvl!=null){ g.gain.cancelScheduledValues(t0);
+        g.gain.setValueAtTime(g.gain.value,t0);
+        g.gain.linearRampToValueAtTime(lvl,t0+0.25); } }catch(e){} },
   startShuffle(){ this.on=true; try{MUS.build();}catch(e){} this.play();   /* build() first: song2/V load, same as the studio tab (7/6 fix) */
     if(this.watch)clearInterval(this.watch);
     this.watch=setInterval(()=>{ if(!CITYMUS.on)return;
-      if(MUS.step>=1024){ CITYMUS.pend=false; CITYMUS.pendAt=null; CITYMUS.play(); return; }
+      /* __THE_STREET_BREATHES__ -- THE REST, HANDLED BEFORE ANYTHING ELSE.
+         Four ways it ends early, because a rest must never be in the way: a
+         FIGHT or the OPENING or a ROOM taking the music (not ours any more), and
+         the CLOCK CROSSING A PHASE, which is the one thing the music exists to
+         announce -- if dawn breaks mid-rest the rest is over. */
+      if(CITYMUS.resting){
+        if(CITYMUS.restBlocked()){ CITYMUS.endRest(); return; }
+        if(CITYMUS.pend || Date.now()>=CITYMUS.restUntil){
+          CITYMUS.pend=false; CITYMUS.pendAt=null;
+          CITYMUS.play();          /* the new song starts from its beginning */
+          CITYMUS.endRest(); }
+        return; }
+      /* AND THE PASS ENDING NOW BUYS AIR INSTEAD OF A HARD CUT. If the rest
+         cannot be taken (somebody else owns the master, or it is already
+         silent) this falls through to exactly the old behaviour, so the streets
+         can never end up with no music because a rest failed. */
+      if(MUS.step>=1024){ CITYMUS.pend=false; CITYMUS.pendAt=null;
+        if(CITYMUS.beginRest()) return;
+        CITYMUS.play(); return; }
       /* A PHASE CHANGE IS HEARD AT THE NEXT 8-BAR BOUNDARY (8/7). The shuffle
          only reconsidered at the end of a 64-bar pass, which at 120 BPM is 128
          seconds -- so dawn could break and the night pool would keep playing
@@ -14276,7 +14385,14 @@ const CITYMUS={on:false,watch:null,
      any desync of that one flag left OFF pressed and the audio still running
      with nothing willing to stop it. stop() is idempotent; the guard only ever
      cost us. */
-  stopShuffle(){ this.on=false; if(this.watch)clearInterval(this.watch); this.watch=null; MUS.stop();
+  stopShuffle(){ this.on=false; if(this.watch)clearInterval(this.watch); this.watch=null;
+    /* __THE_STREET_BREATHES__ -- GIVE THE MASTER BACK BEFORE LETTING GO.
+       Turning the shuffle off during a rest would otherwise hand the next
+       system a master ducked to zero, and it would have no idea why it was
+       silent. endRest() is idempotent, so this costs nothing when there is
+       no rest running. */
+    try{ this.endRest(); }catch(_e){}
+    MUS.stop();
     const fr=document.getElementById('cityFrame');
     if(fr&&fr.contentWindow)try{fr.contentWindow.postMessage({bohemiaCityMusicState:{on:false}},'*');}catch(e){} }
 };
@@ -14438,7 +14554,7 @@ const INTERIORMUS={
        step counter cannot break: never sooner than 16 seconds, always on a
        phrase. */
     const musical = (s>=this.armed.at || s<this.armed.from);
-    const dwelt = (Date.now()-this.armed.t) >= (this.PHRASE/16)*(60/120)*1000;
+    const dwelt = (Date.now()-this.armed.t) >= phraseMs();
     if(!(musical&&dwelt))return;
     this.armed=null;
     if(this.inside) this.takeOver(); else this.handBack();
@@ -14495,6 +14611,13 @@ const FIGHTMUS={
     if(this.watch){clearInterval(this.watch); this.watch=null;}
     try{
       this.cityWas=!!CITYMUS.on;
+      /* __THE_STREET_BREATHES__ -- AND IF THE STREET WAS RESTING, END THE REST
+         NOW. This function clears CITYMUS.watch two lines down, so a rest left
+         running here would have nothing left alive to undo it. The duck heals
+         itself on the audio clock as a floor, but a fight cannot wait out a
+         phrase to become audible: DANGER IS NOW, which is the same reason
+         FIGHTMUS takes the music immediately and hands it back on a phrase. */
+      try{ if(CITYMUS.resting) CITYMUS.endRest(); }catch(_e){}
       /* STAND DOWN, do not STOP. Silencing here would cut the music the player
          is already hearing at the exact instant the fight starts, which is a
          worse artefact than the bug being fixed. */

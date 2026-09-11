@@ -88,6 +88,16 @@ carries). So a song changing during those three seconds would fire the swap
 anyway. Wall time cannot be wrapped. One phrase of dwell as well as the phrase
 boundary: never sooner than 16 seconds, always on a phrase.
 
+> **CORRECTED 9/11, and the correction matters.** The dwell shipped at **4000 ms,
+> not 16000** -- `(PHRASE/16)*(60/120)*1000` is 8 bars times the length of a
+> BEAT, and a bar at 120 BPM in 4/4 is TWO seconds. The measured 15.8-second
+> switch above is real, but it came from the STEP condition, not from the dwell,
+> so the reasoning in this section was right and the arithmetic under it was a
+> quarter of the size it claimed. Found by round 2, which needed the same number
+> and got 4000 out of the same formula. It is ONE function now, `phraseMs()`,
+> and it asks `MUS.stepDur()` instead of doing sums, so the transport owns the
+> tempo. A LANE THAT WRITES THE SAME CONSTANT TWICE WILL GET IT WRONG TWICE.
+
 ### IT TOOK THREE CUTS AND THE PROBE CAUGHT BOTH FAILURES
 
 **CUT ONE armed once, on the doorway, and gave up.** If anything else owned the

@@ -4453,6 +4453,154 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/11 (a) LATEST -- *** THE MUSIC NEVER STOPPED. NOT ONCE IN
+TWELVE MINUTES, AND IT WOULD HAVE BEEN A HUNDRED HOURS. THE STREET BREATHES NOW:
+ONE PHRASE OF AIR BETWEEN SONGS, AND IN IT YOU HEAR THE BLOCK YOU ARE STANDING
+ON. TAB: RUN. Nothing to judge -- nothing was cooked. ***
+
+Build 9/11g - THE STREET BREATHES.
+
+MEASURED FIRST with a recorder in the page, not guessed:
+    DUSK  6 min: 3 changes, TWO distinct songs, held 128s and 128s
+    NIGHT 6 min: 4 changes, 4 distinct songs, held 24s, 128s, 128s
+    EVER SILENT: false, in either phase.
+Every song gets EXACTLY 128 seconds -- the 64-bar pass, the engine's loop length,
+a number about buffers and not about music -- and the next one starts on the very
+next beat with nothing in between.
+
+AND THE THING THAT SHOULD BE IN THE GAP WAS ALREADY BUILT AND PERMANENTLY MASKED:
+the ambience bed from 9/5 (79 districts, the lit block that hums, the desert
+speaking every 60 to 130 seconds) plays underneath a song that never stops. The
+quietest work in this lane was buried twenty-four hours a day.
+
+HIS OWN DEMO FLOW ALREADY CALLS SILENCE AN INSTRUMENT, in his own file
+(laws/BOHEMIA_DEMO_FLOW_7_10_26.md): "silence is the calm", and "single sting,
+then silence over the purple. The quiet IS the reveal."
+
+A DUCK, NOT A STOP, AND THAT IS THE WHOLE SAFETY ARGUMENT. MUS.stop() clears the
+scheduler and cuts the master, and the engine's own comment at the combat hook
+says why that is dangerous: combat swaps the song IN PLACE on the running
+transport and never calls start(), so a fight on a stopped transport is SILENT.
+The transport runs throughout; only the music master is ducked. The beat survives
+(the 120 BPM law), the bed is on the SFX bus so it is the only thing left, and the
+level is CAPTURED not typed -- 0.8 already exists in two places and a third copy
+would rot.
+
+*** AND THE FIRST CUT PRODUCED A PERMANENTLY SILENT FIGHT. READ THIS BEFORE YOU
+DUCK ANYTHING. *** It relied on CITYMUS's own setInterval to ramp the master
+back. FIGHTMUS.enter() CLEARS CITYMUS.watch (it has since 8/19, for its own good
+reasons), so the only thing that could undo the duck was deleted and the music
+never returned. A REST WHOSE ONLY WAY OUT IS A TIMER ANOTHER SYSTEM MAY DELETE IS
+A TRAP. Fixed twice over: both ramps are booked UP FRONT on the AudioParam so the
+audio thread brings it back even with every timer dead (measured: 14,737ms with
+CITYMUS.watch deleted), and FIGHTMUS.enter() also ends the rest so a fight does
+not wait out a phrase (measured: 201ms).
+
+*** I GOT THE ARITHMETIC WRONG LAST ROUND AND THIS ROUND FOUND IT. ***
+(128/16)*(60/120)*1000 is 8 bars times a BEAT = 4000ms. A bar at 120 BPM in 4/4 is
+TWO seconds, so a phrase is 16000. INTERIORMUS's door debounce has been running at
+a QUARTER of the size its own comment claimed since 9/6 -- the 15.8s switch
+measured then is real but came from the STEP condition, not the dwell. It is ONE
+function now, phraseMs(), and it asks MUS.stepDur() instead of doing sums, so the
+transport owns the tempo. The round-1 record carries a correction. A LANE THAT
+WRITES THE SAME CONSTANT TWICE WILL GET IT WRONG TWICE.
+
+THREE INSTRUMENT MISTAKES, ALL MINE, ALL WOULD HAVE REPORTED A BUG THAT WAS NOT
+THERE:
+  * (duckedTo or 1) < 0.02 -- a PERFECT ZERO is falsy in Python and read as the
+    default 1. THIS LANE HAS MADE THAT EXACT MISTAKE BEFORE on a peak floor.
+    There are below()/above() helpers now that never coerce.
+  * I CALLED THE CHOOSER AND EXPECTED SOUND: AMB.pick() only returns a NAME,
+    AMB.tick() is the player. It reported "0 renders", which reads exactly like a
+    bed silenced by the duck.
+  * A TEST BROKE THE STATE THE NEXT TEST NEEDED: the three hazards ran in
+    sequence and the fight test leaves CITYMUS.on false, so the two after it said
+    "never saw a rest". Each one puts the state back now.
+
+NEW gates/street_breathes_gate.py, registered, 25 claims, mostly the ways a duck
+can strand the master. The pass end is DRIVEN (step=1020), the same trick the
+fight music gate defends, because real 128s passes would put minutes on a suite
+with no headroom. Mutation proved three ways: no rest at all 8 fail, the timer
+trap 5 fail, and THE QUARTER-SIZE PHRASE -- the bug I actually shipped -- 4 fail.
+
+*** RECORDED, NOT ACTED ON, AND BOTH SAVE THE NEXT ROUND WORK. ***
+  * DUSK AND DAWN ARE THE SAME TWO SONGS. One shared category,
+    OVERWORLD DUSK/DAWN, so the pool is 2 and dawn and dusk are musically
+    identical, every day of a hundred-hour game. The rest makes two sound like an
+    intention rather than a ping-pong, but two is still two, and widening it means
+    TAGGING, which is his, in the MUSIC tab.
+  * SONG 2 IS A FACTION-ONLY THING. Checked before designing around it: only the
+    14 faction slots have a second arrangement, all CANON, and combat already
+    round-robins 1 and 2 per his 7/19 pool clause. NO MLOOPS song has one, so
+    there is no orphaned song 2 to rescue and the street pool cannot be widened
+    that way. Do not go looking.
+Still carried: A FIGHT STARTING MAKES NO SOUND AT ALL (cityFightOnEnter posts the
+encounter with no sound call). Needs a new cook, so it belongs to [enemy heard]
+and [fight music].
+
+*** AND RUNNING THE LANE'S GATES FOUND THE WHOLE CITY INTERFACE SILENT. ***
+SOUND REACHABLE came back 21/2: ui_tap "not reached and with no written reason",
+12 of 65 instead of 13. Checked against plain origin/main in a clean worktree
+BEFORE blaming my own diff -- identical there, so pre-existing -- but it
+CONTRADICTED A SHIPPED CLAIM OF MINE (THE-OTHER-51 closed on "0 unexplained").
+MEASURED by asking the running city where its own button lives: #phonebtn moved
+from #topbar into #menubar>#barright, another lane's ordinary UI change, and the
+city's tap policy NAMES ITS CONTAINERS BY ID -- every selector false, so ui_tap,
+ui_back AND ui_deny all went silent across the walked city.
+THIS IS THE SIXTH OF THE SAME BUG IN A FUNCTION WHOSE OWN COMMENTS WARN ABOUT THE
+FOURTH AND FIFTH. Six is not six mistakes, it is ONE WRONG SHAPE DEFENDED FIVE
+TIMES. #menubar>div would have been the seventh. So the allowlist became a
+DENYLIST, which is what the function's own comment always said ("everything else
+is ui_tap"): a tap sounds unless the thing tapped already makes its own noise --
+the pad, THE WORLD CANVAS, sleep, the day-card GO, [data-noui]. The allowlist
+still picks WHOSE LABEL to read; it is no longer the gate.
+TWO RULES MEASURED AND THROWN AWAY so nobody spends the time again: cursor:pointer
+is on THREE elements in the whole city document (#phonebtn, #sleepbtn, #rungbtn,
+#pad all report `auto`), and role/tabindex are null on all of them. A PLAUSIBLE
+RULE THE DOM DOES NOT CARRY IS WORSE THAN A NARROW ONE.
+
+*** AND A SECOND BUG FELL OUT: EVERY CLOSE BUTTON IN THE GAME ANSWERED WITH A
+TAP. *** #phoneclose renders U+2715, the BALLOT X. The label test listed U+00D7,
+the MULTIPLICATION SIGN. Identical on screen, different characters, so close never
+matched -- in the city AND in the shell, which carries the same list. A GLYPH THAT
+LOOKS LIKE THE ONE YOU TYPED IS NOT THE ONE YOU TYPED.
+AND FIXING IT MADE A WRITTEN REASON GO STALE, WHICH A GATE CAUGHT THE SAME RUN:
+ui_back's excuse in the census ("a panel this drive does not open") was false --
+the drive clicks #phoneclose, it just never sounded -- so "nothing is counted
+twice" went red. That is exactly the job that claim was added for last round.
+
+THREE MORE INSTRUMENT MISTAKES, ALL MINE:
+  * I REPORTED "WALKING TICKS TWELVE TIMES" and nearly called the fix an
+    over-trigger. elementFromPoint showed all twelve landing on #daycard, the
+    morning card covering the screen. A TAP ON A CARD SHOULD TICK. Dismiss it and
+    the same taps hit CANVAS#cv with ZERO ui sounds.
+  * I WROTE THESE CLAIMS INTO THE SOUND CENSUS AND BROKE IT: it is a sequenced
+    drive, and dismissing the card plus tapping the world moved the clock, so the
+    hour chime went red. A CHECK THAT DISTURBS A SEQUENCED DRIVE REPORTS A BUG
+    THAT IS NOT THERE. They live in their own gate now.
+  * my first mutation test left [id$="btn"] in, so the control still sounded and
+    the mutation proved nothing. Re-run against EXACTLY the pre-9/11 code.
+
+NEW gates/city_ui_voice_gate.py, registered, 12 claims, counted PER CONTROL
+because "ui_tap was heard somewhere" is also true of a build where every control
+answers the same and where walking ticks every step: the world says NOTHING, a
+control taps ONCE, a way out is ui_back and never a tap, sleep carries sleep_sink
+without a tick. Mutation proved twice (the pre-9/11 code 3 fail, the glyph hole
+2 fail).
+
+  proof  python3 gates/bohemia_gates.py --only "CITY UI VOICE"
+         records/BOHEMIA_THE_SIXTH_TOO_NARROW_MATCHER_9_11_26.md
+         tools/bohemia_the_sixth_too_narrow_matcher.py
+  proof  python3 gates/bohemia_gates.py --only "STREET BREATHES"
+         records/BOHEMIA_THE_STREET_BREATHES_9_11_26.md
+         tools/bohemia_the_street_breathes.py
+  next   [music owned] continues. The two measured holes left in the street are
+         both HIS to fill (the dusk pool is a tagging job). The unmeasured ones
+         are the INTERIOR pool's variety and whether the hour chime and the bed
+         read correctly now that there is air for them to land in.
+
+--------------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 9/6 (b) LATEST -- *** 82 SONGS HE THUMBED CANON PLAYED
 NOWHERE IN THIS GAME. THEY PLAY INDOORS NOW, AND NOT ONE OF THEM WAS ASSIGNED
 TO ANYTHING BY ME. TAB: RUN (walk into any building). Nothing to judge --

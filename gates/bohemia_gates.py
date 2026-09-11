@@ -2008,6 +2008,34 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('CITY UI VOICE',['python3', 'gates/city_ui_voice_gate.py'],
+     "DOES THE CITY INTERFACE ANSWER, AND IN THREE VOICES? On 9/11 the WHOLE "
+     "city interface went silent and nothing asked: #phonebtn moved from #topbar "
+     "into #menubar>#barright -- another lane's ordinary UI change -- and the "
+     "city's tap policy NAMES ITS CONTAINERS BY ID, so every selector missed and "
+     "ui_tap, ui_back and ui_deny all stopped. The sound census caught it only as "
+     "a count, which is weak: 'ui_tap was heard somewhere' is also true of a "
+     "build where every control answers with the same tick, or where WALKING "
+     "ticks on every step. So this counts PER CONTROL -- a control taps once, a "
+     "way out is ui_back and never a tap, the world says NOTHING, and sleep "
+     "carries sleep_sink without also ticking. It also pins that a close button "
+     "renders U+2715 while the policy only listed U+00D7, which made every close "
+     "in the game answer with a tick", True),
+    ('STREET BREATHES',['python3', 'gates/street_breathes_gate.py'],
+     "DOES THE MUSIC EVER STOP, AND CAN A REST STRAND THE MASTER AT ZERO? "
+     "MEASURED first, twelve minutes with a recorder in the page: the street "
+     "music never went quiet ONCE and every song was swapped at EXACTLY 128 "
+     "seconds -- the 64-bar pass, the engine's loop length, a number about "
+     "buffers and not about music -- while the ambience bed built on 9/5 played "
+     "permanently underneath. The street now rests one phrase between songs, and "
+     "this gate is mostly the ways that could go wrong, because a rest is a DUCK "
+     "on the music master and a ducked master that never returns is a dead "
+     "soundtrack: a FIGHT mid-rest gets the music on the next beat; EVERY TIMER "
+     "KILLED mid-rest still returns, because the way out is booked on the AUDIO "
+     "CLOCK (FIGHTMUS.enter CLEARS CITYMUS.watch, and the first cut of this "
+     "produced a permanently SILENT FIGHT); and OFF mid-rest leaves no rest "
+     "behind. It also pins ONE formula for a phrase, because there were two and "
+     "BOTH WERE WRONG by a factor of four", True),
     ('ROOM SONG',['python3', 'gates/room_song_gate.py'],
      "CAN THIS SONG BE HEARD ANYWHERE? music_reach_gate (8/4) asks whether a "
      "song HE TAGGED can be heard, and a gate built around his tag table can "
