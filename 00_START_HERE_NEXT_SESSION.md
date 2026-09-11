@@ -21988,7 +21988,29 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/7 (latest): fourth quiet patrol, readings unchanged (card
+ROUND LOG 9/11 (latest): [city look] SHIPPED (c4e8a5d) - the aerial look
+card exists (records/BOHEMIA_CITY_FROM_ABOVE_LOOK_CARD_9_11_26.md),
+answering Paolo's 9/8 kill of the diagram city against his 7/1 lock. The
+numbers are MEASURED, not chosen: every act-1 approved tile in the roof/
+road/ground/burned families box-filtered to its mean (36/76/70/36 tiles) -
+ground is the brightest surface (0.47-0.74 warm tan), roads are dark
+low-sat ribbons (0.22-0.43, sat <= 0.31, edge lines dead), roofs sit
+between on value and carry the saturation, burned darkest. Suburb blocks
+= roof rows + hardpan seams (TG-01/02); commercial = pale striped slab
+(TG-05); crowd = 2-3px runway-dark dots, contrast rule binds at dot size;
+wrecks keep silhouette; faction colour = 1px border rim + sub-2% marks,
+filled slabs never, purple = Amalgamation; coarse tiles machine-resampled
+from fine (NOTHING IS BAKED ONCE), tier swap below 4px/house, shared stop
+owned by the 9/7 zoom ruling; diagram becomes a builder toggle, off by
+default. Machine block parses; judge test: real LV aerial (TG-02) AND the
+walked street, greyscale still reads city. COOK [city from above] cooks
+to this; first batch judged at the standing seam. Wikimedia aerial fetch
+was policy-blocked; the measured basis is the approved corpus itself,
+which the derivation rule makes the truer source anyway. Two more new
+lines sit in this lane's queue: [judge the redo] (waits on ANIMATION's
+47 remakes) and [phone card] (with UI [phone object]) - [phone card] is
+the next claim if nothing unblocks first.
+PREVIOUS: fourth quiet patrol, readings unchanged (card
 112/112, reference 6/6, LOOK 24/24); board unchanged in this lane, only a
 QUESTS claim elsewhere. Same five blockers.
 PREVIOUS: third quiet patrol in a row, readings unchanged
