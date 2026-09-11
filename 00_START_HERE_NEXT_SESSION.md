@@ -1,3 +1,127 @@
+WORDS (words-8dqrnq): 9/11 (c) LATEST -- *** Q19 [caught out] SCHOOL DONE, ROUND ONE OF TWO.
+FILM SAYS THEY CRUMBLE. THE REAL RECORD SAYS THEY REVISE, CALMLY, ABSORBING WHATEVER YOU JUST
+SHOWED THEM, AND THERE IS AN ENTIRE INTERVIEW TECHNIQUE BUILT FOR NO OTHER PURPOSE THAN TO
+STOP THEM DOING IT. *** THE ROW IS CLAIMED, NOT SHIPPED, because round two is owed. No test
+lines were written.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q19 SCHOOL, ROUND ONE OF TWO. Record:
+    records/BOHEMIA_WORDS_Q19_SCHOOL_THEY_DO_NOT_COLLAPSE_THEY_REVISE_9_11_26.md
+    191 lines. NO test lines. banks/ deliberately untouched.
+
+THE FINDING THAT PROVES US WRONG, AND IT IS IN THE TECHNIQUE'S OWN RATIONALE. The Strategic
+Use of Evidence approach holds evidence back and takes the full account FIRST, and the stated
+reason is that LATE DISCLOSURE PREVENTS SUSPECTS FROM CHANGING THEIR ACCOUNTS to explain
+already revealed evidence. THE ENTIRE METHOD EXISTS BECAUSE PEOPLE REVISE, not because they
+break. If confrontation produced collapse you would disclose early and watch it happen.
+AND THE NUMBERS CLOSE A LOOP Q2 OPENED. Q2 measured behavioural cues at d = 0.25 and people
+scoring 54% reading a person. Here: STATEMENT-EVIDENCE INCONSISTENCY, one of the strongest
+cues in the whole literature, d = 1.83; trained interviewers 65 to 85%, untrained 43 to 56%.
+CHECKING THE CLAIM IS ROUGHLY SEVEN TIMES THE SIGNAL OF READING THE PERSON. Q2 reached
+"catch a lie by checking, never by reading" from the null side; this round reaches it from
+the positive side, different literature, with a number. TWO ROUNDS, INDEPENDENT EVIDENCE,
+SAME RULE, and it is the row's own pairing with QUESTS [check the claim].
+
+WHAT THEY ACTUALLY SAY, CATALOGUED SINCE 1968. The sociology of this moment is ACCOUNTS, and
+there are two families and eight moves.
+EXCUSES admit the act was wrong and deny responsibility: appeal to accident; appeal to
+defeasibility (I did not know, I was not told); appeal to biological drives; scapegoating.
+JUSTIFICATIONS accept responsibility and deny the act was wrong: denial of injury; denial of
+the victim; condemnation of the condemners; appeal to loyalties.
+AND THE PURPOSE LINE IS THE WHOLE WRITING RULE: AN ACCOUNT IS OFFERED SO THE PERSON CAN KEEP
+THE SOCIAL IDENTITY THEY HAD A MINUTE AGO. They are not primarily dodging a consequence, they
+are trying to still be the same man when the conversation ends. SO WHICH OF THE EIGHT THEY
+REACH FOR TELLS YOU WHO THEY THINK THEY ARE, free, at the hottest moment in the scene. A man
+who says "nobody got hurt" and a man who says "I did it for my people" have been caught doing
+the identical thing and are two completely different people.
+
+THE APOLOGY, RANKED, AND THE TWO PARTS THAT WORK ARE NOT THE ONES WE WRITE:
+    1. acknowledgement of responsibility   strongest
+    2. offer of repair                     second
+    3. regret / explanation / repentance   tied third
+    6. request for forgiveness             weakest
+THE TWO THAT WORK ARE THE TWO THAT COST SOMETHING: admitting fault, and offering to fix it.
+"I am sorry" is middle tier and "please forgive me" is the weakest thing on the list. AND
+THAT IS EXACTLY THE APOLOGY FILM CONVENTION WRITES: regret plus a plea, the two weakest
+components and nothing else.
+
+THE GAMES HALF, AND ITS COMMON FAILURE IS THE INVERSE OF REAL BEHAVIOUR. The good sentence:
+A CONTRADICTION IS VALUABLE WHEN TWO STATEMENTS CANNOT COMFORTABLY EXIST TOGETHER, and the
+pleasure is in the MATCH, not the search. Plus a pacing rule that matches the evidence
+technique by feel: hold the strongest contradiction until the story is established. AND THE
+FAILURE PLAYERS ACTUALLY REPORT IS CHARACTERS WHO DO NOT ADAPT THEIR STANCE WHEN CONFRONTED,
+repeating a line that has just been disproved. REAL PEOPLE REVISE TOO FLUIDLY; GAME
+CHARACTERS REVISE NOT AT ALL. Both wrong, in opposite directions, and nobody occupies the
+middle.
+
+OUR OWN BUILD, MEASURED, EVERY HIT READ BY HAND. Ten patterns across 1,669 lines:
+    excuses of any kind             0
+    justifications of any kind      0
+    apologies for a transgression   0
+    real admissions of being wrong  1
+Raw pattern hits were 2, 4, 1 and 2 and almost all were FALSE POSITIVES on reading: "nothing
+runs that clean by accident" is an inference, "I am just going to look at you" is a threat my
+regex mistook for condemning the condemner. THE ONE REAL HIT IS GOOD AND ALONE: a watcher
+saying "both times I was wrong I was early", owning two bad weather calls. The strongest
+apology component, once, in the whole game.
+AND THE SORRY COUNT IS THE BEST THING IN THE ROUND. My first pattern said zero, which was my
+pattern being too narrow, so I widened it and read all eight hits: "Sorry, I'm counting."
+"Sorry. I do that. I've been alone a lot." "Sorry. I know. I keep doing it. My mother did it,
+I hated it, and here we absolutely are." EIGHT SORRIES AND EVERY SINGLE ONE IS FOR A
+MANNERISM. NOBODY APOLOGISES FOR ANYTHING THEY DID. THEY APOLOGISE FOR BEING THEMSELVES.
+AND THE CHAIN IS NOW THREE ROUNDS LONG AND CONSISTENT: Q2 measured that nobody in this game
+lies, Q17 that no rumour is ever wrong, Q19 that nobody is ever caught and no account is ever
+offered. ONE HOLE WITH THREE NAMES, and it is where the moral weight of a city goes.
+
+WHAT SCHOOL LEAVES ME HOLDING FOR ROUND TWO:
+    1. nobody collapses; the first line after the catch is a calm REVISION
+    2. the revision uses one of eight moves, and the choice IS the character
+    3. what they protect is the IDENTITY, not the story
+    4. an apology that is only regret and a plea is the two weakest parts
+    5. the catch is a collision between two statements, worth seven times a face read
+    6. and our cast apologises only for existing, a voice we already have to play against
+
+*** MAIN'S THREE RED GATES ARE STILL THERE AND STILL NOT MINE. The words book is unbaked, the
+M04 quest line blocks baking because it carries a banned phrase, and a spanglish neighbour
+answers in English because the picker never reaches the authored spanglish variant at
+engine/bohemia_quirk.js line 271. Routed to QUESTS, PEOPLE and PLUMBER across three rounds. ***
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1, Q2, Q3 and Q18 have both rounds. Q19 has
+school. Q4 to Q17 were each done in a single round under the old mode and are owed theirs.
+Q20 [no law talk] is open and already says school first. One at a time; sequencing is the
+coordinator's.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, Q2). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17); the bark selector has no memory of what it said (Q3).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+NEXT: Q19 round two, the writing, naming which of the six findings changed the lines, and
+routing the QUESTS [check the claim] pairing alongside written material.
+
 UI (ui-kmqmrf): 9/11 (b) LATEST -- *** [rail collides] SHIPPED. THE JOB CARD IS OFF YOUR BUTTONS. ***
 His frame (9/8): "what is this part of the UI? it's colliding with each other, what's up with that?"
 -- the day's job card sitting on top of DROP IN and WHOLE MAP.
@@ -143,7 +267,7 @@ PROOF: records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_2
 14 sources); banks/eyes/BOHEMIA_EYES_E16_ROTA_SPEC_9_11_26.json (draft:true); VAMILY lane 17 E16
 CLAIMED ROUND 1 OF 2.
 
-WORDS (words-8dqrnq): 9/11 (b) LATEST -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
+WORDS (words-8dqrnq): 9/11 (b) -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
 School reshaped every ask: not one is written as a plea, because the ask almost always works
 and the person asking has no idea. And the truest thing in the section is the scene where
 the ask never happens. *** Nothing to judge. Nothing entered the game.
