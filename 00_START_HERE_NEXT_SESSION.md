@@ -16424,6 +16424,15 @@ district). Routed RUN [cold open wired] (top) and [wake near] (the spawn moves, 
 table). Record: records/BOHEMIA_COORDINATOR_TWO_DIAGNOSES_I_GOT_WRONG_9_11_26.md. (The
 first attempt at this block crashed on a claimed line and only the record was committed;
 this is the real one.)
+THEN (dm) "the UI has to run as far away as possible from the standard look of vibe-coding
+with Claude, people can tell, even down to the font" -> LOCKED, laws/BOHEMIA_LAW_THE_UI_
+MUST_NOT_LOOK_VIBE_CODED_9_11_26.md. Researched the tells (default fonts, dark by reflex,
+one-pixel borders on every card, rounded cards, gradients and glow, letter-spaced uppercase,
+emoji icons) and COUNTED OURS in the two files that draw his screen: Space Grotesk 10,
+monospace 178, one-pixel borders 144, rounded corners 115+, gradients 31, letter-spaced
+labels 188, emoji in buttons 27, dark always -- we carry the whole list. Law: none survive,
+the look comes from the world (an object, 2050 rustic), the font is researched, a gate
+counts the tells. Routed UI [no slop] (top), DIRECTION [the font], EYES E19 [slop count].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
