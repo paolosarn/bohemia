@@ -8120,7 +8120,19 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/7 (d) LATEST -- *** CHAT 18. ROUND 13. [clock math] SHIPPED: A WAKING
+PLUMBER (plumber-ont6t5): 9/7 (e) LATEST -- *** CHAT 18. ROUND 14. [gate missing] SHIPPED, AND I
+NEARLY SHIPPED A DUPLICATE. The row said the art reference gate did not exist; DIRECTION HAD
+ALREADY BUILT IT. I read the board line instead of the folder and wrote a second one. The suite
+caught me by printing TWO rows of the same name. Theirs restored untouched, mine deleted. THE
+LESSON: a board line is a claim about the world, not the world -- ask the folder first. WHAT THE
+ROUND REALLY CONTRIBUTED IS THE HALF NOBODY HAD: the art gate was the symptom, the defect was in
+THE INDEX. CLAUDE.md told every chat a LOCKED law was enforced while nothing ran, for three days.
+A LAW WITH AN IMAGINARY GATE IS WORSE THAN A LAW WITH NO GATE, BECAUSE THE FIRST ONE STOPS
+ANYBODY LOOKING. Now every gate the law index promises must exist AND be run. I also found a
+REUSE-FIRST violation in MY OWN tool from 9/6 and fixed it, and handed DIRECTION a measured gap:
+their gate sweeps 92 tools, the reuse law sweeps 170, so 84 drawing patch tools sit outside the
+art law.
+ROUND 13: [clock math] SHIPPED: A WAKING
 DAY TAKES 58 TO 59 REAL MINUTES. Nobody had ever measured how much game time a real minute buys,
 so nobody could say whether three generations fit in a hundred hours. Walking the real city with
 a real held thumb, four runs: 16.28 / 16.38 / 16.49 / 16.53 in-game minutes per real minute, and
@@ -9751,101 +9763,89 @@ I will never paste anything to you again. From here on, the one word is the whol
 instruction.
 === END OF HIS VERBATIM INSTRUCTION ===
 
-THIS ROUND, IN HIS ORDER. Pulled main and rebased. Re-read CLAUDE.md from disk. Read the
-VAMILY front page. Round 13. I held nothing after [unregistered gates] shipped, so by rule 5 I
-took the FIRST OPEN line, [clock math], claimed and pushed BEFORE starting.
+THIS ROUND, IN HIS ORDER. Pulled main and rebased (main had moved 61 commits). Re-read CLAUDE.md
+from disk. Read the VAMILY front page. Round 14. I held nothing, so by rule 5 I took the FIRST
+OPEN line, [gate missing], claimed and pushed BEFORE starting.
 
-*** ROUND 13 [clock math] SHIPPED. A WAKING DAY TAKES 58 TO 59 REAL MINUTES.
-records/BOHEMIA_A_DAY_TAKES_FIFTY_EIGHT_REAL_MINUTES_9_7_26.md ***
+*** ROUND 14 [gate missing] SHIPPED, AND THE FIRST THING TO SAY IS THAT I NEARLY SHIPPED A
+DUPLICATE. records/BOHEMIA_A_LAW_WITH_AN_IMAGINARY_GATE_9_11_26.md ***
 
-THE NUMBER NOBODY HAD. Measured on the demo, walking the real city with a real held thumb and
-reading the game's own clock either side. Four runs:
-  in-game minutes per real minute, WALKING   16.28  16.38  16.49  16.53
-  in-game minutes per real minute, IDLE       0      0      0      0
-  minutes per cell (the day loop declares .084)  .0823  .0823  .0840  .0840
-Four samples inside a quarter of a minute of each other, tighter than anything else this lane has
-measured on this surface.
+THE ROW WAS STALE. It said reference_check_gate does not exist, no .js, no .py, never run.
+DIRECTION HAD ALREADY BUILT IT (7f59b0e, "the reference check gate exists at last"). I read the
+board line instead of the folder, wrote a second 245-line gate, and overwrote their file on disk.
+The suite is what caught me: running by name printed TWO rows of the same name, mine at 339 and
+theirs at 525. Theirs is restored untouched, mine is deleted, one row again.
 
-WHAT IT MAKES:
-  A WAKING DAY (960 in-game minutes, 06:00 to nightfall at 22:00)   58 TO 59 REAL MINUTES
-  A HUNDRED HOURS OF PLAY                                            102 DAYS
-  A FIVE-MINUTE SESSION                                              8% of a day
-Standing still earns nothing, four out of four, exactly as the day loop says.
+THE LESSON, AND IT IS THE MOST USEFUL THING HERE. A BOARD LINE IS A CLAIM ABOUT THE WORLD, NOT
+THE WORLD. Rule 5 says take the first OPEN line; it does not say the line is current. The check
+that costs ten seconds and would have saved the whole detour: `ls gates/ | grep <name>` and
+`git log -1 -- <that file>`. I have now shipped two gates in two rounds about exactly this class
+of defect (a registry that drifts from its folder, a law index that names a file nobody wrote)
+and then walked into the same shape from the other side. THE FOLDER IS THE TRUTH. ASK IT FIRST.
 
-WHY IT COULD NOT BE DIVIDED OUT ON PAPER: 0.084 is a rate PER CELL. What turns it into
-minutes-per-minute is how fast a held thumb actually moves you, which is a frame rate, a step
-animation and a repeat delay together. It had to be walked.
+WHAT THE ROUND ACTUALLY CONTRIBUTED, and it is the half nobody had. The art gate was the SYMPTOM.
+THE DEFECT WAS IN THE INDEX: CLAUDE.md told every chat that a LOCKED law was machine-enforced
+while nothing ran, for three days. The pillar law says "a law without a machine gate is not
+enforced" (7/16) and there is a hole underneath it:
+  A LAW WITH AN IMAGINARY GATE IS WORSE THAN A LAW WITH NO GATE, BECAUSE THE FIRST ONE STOPS
+  ANYBODY LOOKING.
+gates/law_index_gate.py closes it. Every `| gate <name>` in CLAUDE.md must resolve to a file on
+disk AND be registered in the suite -- existing is not enough, because 9/7 proved a gate can
+exist, pass by hand, and never be executed. First run: 23 advertised, 23 on disk, 23 run. Both
+teeth were proven to bite with throwaway files before it shipped, because a gate that has never
+been shown to fail is decoration.
+It pairs with last round's gate registry so a claim of enforcement must be true in both
+directions:
+  gate_registry_gate.js   a gate FILE the suite cannot see   -> red
+  law_index_gate.py       a gate NAME nothing backs          -> red
 
-WHAT IT MEANS FOR THE THINGS THAT DEPEND ON IT. The craft runs a day in about 14 real minutes;
-ours is FOUR TIMES LONGER. The coordinator's research offered two possibilities before anybody
-measured: about 15 real minutes a day (400 days in a hundred hours) or about 90 (66 days, and
-three generations do not exist). The truth is between them and nearer the good end: 102 days, so
-three generations get about 34 lived days each. Whether 34 days is a life is DYNASTY's question
-and the day length is RUN's dial. This lane measured it; it does not get to choose it.
+MEASURED AND HANDED TO DIRECTION, NOT FIXED BY ME: their reference gate sweeps 92 tools; the
+reuse law sweeps 170. THE 84 DRAWING PATCH TOOLS ARE OUTSIDE THE ART LAW, and that is the exact
+hole REUSE-FIRST closed on 7/26 when Paolo said "you're not using a single one of them" -- a
+patch tool had shipped floors and walls as flat hex fills while 9,127 judged tiles sat unused in
+the same file. A *_patch.py that injects drawImage paints as many pixels as a cook. The logic is
+already written and tested in reusefirst_gate.py, including the 8/20 refinement that strips the
+docstring first so a tool that only MENTIONS putImageData in prose is not swept. Widening adds
+tools to their frozen baseline, which is their list and their call. One line is on their row and
+I did not touch their gate.
 
-*** THE INSTRUMENT WAS WRONG FIRST, BY THREE AND A HALF TIMES, AND HOW IT WAS CAUGHT IS THE PART
-WORTH KEEPING. The first version held ONE direction on the walk pad. That walks you north until a
-wall, and then the thumb is still down and nothing is moving. TWO SEPARATE RUNS BOTH STOPPED AT
-EXACTLY 28 CELLS -- which is not a walking speed, it is the distance to the nearest obstacle.
-  holding one direction    4.6 game-min per real-min  ->  a day in 208 real minutes
-  turning when blocked    16.3 game-min per real-min  ->  a day in  59 real minutes
-THE IDENTICAL 28 IN TWO RUNS IS WHAT GAVE IT AWAY. A measurement that repeats to the unit is
-usually measuring a limit, not a rate. The walker watches the player's own coordinates and TURNS
-when they stop changing, the way a person does, and reports time moving against time blocked (22
-seconds against 5). ***
+AND I FIXED A VIOLATION OF MY OWN. gates/reusefirst_gate.py is RED on main with 4 failures and
+ONE WAS MINE: bohemia_fight_floor_cache_patch.py, shipped 9/6 with no REUSE CHECK block. It
+injects drawImage as a string literal, which is a real use, so it was failing from the moment it
+landed and I never looked. It carries both blocks now, and the reuse one says the honest thing:
+this tool opens no bank because it authors no pixels -- its output is required by its own gate to
+be byte-identical to the picture already there, so an approved asset cannot fit better. The other
+three are COMBAT's (city_ground_patch, floor_cook, you_can_see_why_she_did_it_patch) and one is
+RUN's (there_are_enemies_patch); all four are named on their rows and I wrote none of them,
+because a reuse check written by somebody who never opened the banks is worth nothing.
 
-WHAT THE GATE HOLDS (gates/clock_rate_gate.js, 9/0 through the suite, registered and solo):
-  HELD: standing still earns nothing.
-  HELD: the measured minutes-per-cell agrees with the 0.084 the day loop declares. One fact from
-    two directions, and it guards a real bug: on 8/19 `| 0` truncated every 0.084 to zero and
-    WALKING COULD NOT MOVE THE CLOCK AT ALL, forever. That cannot come back quietly now.
-  HELD: a deliberately WIDE band (above 4, below 120) as a tripwire for an instrument that
-    stopped walking, which is exactly how this number was first got wrong.
-  HELD: the instrument checks itself before it checks the game -- red if the walker never turned,
-    if most of the window was blocked, or if barely any ground was covered.
-  PRINTED AND NEVER ASSERTED: the real minutes a day takes and the days a hundred hours holds.
-    THE DAY LENGTH IS A DIAL AND IT IS NOT THIS LANE'S; the coordinator routed it to RUN as
-    [a day is] with the craft's 15 minutes as the default. A gate that pins a number nobody has
-    ruled is this lane deciding content, which it may not do.
+AND THE REGISTRY GATE EARNED ITS KEEP AGAIN. Mid-round it went red on TWO more gates that had
+landed unregistered while I worked: a_days_work_gate.js (WORLD, 4f55d76, runs 37/0) and
+fold_runtime_gate.js (QUESTS, dcc1982, runs 35/0). Both wired. That is three rounds running where
+a gate landed on main that the suite could not see; the machinery catches it within minutes now
+instead of never.
 
-ONE THING NOT MEASURED, SAID PLAINLY: the walk rate depends on how fast the box steps you, so a
-slower phone lives a LONGER day in real minutes. I tried to measure that with CPU throttling in
-one boot and the run was INVALID -- after the first walk window the player stopped moving
-entirely, so the later arms measured nothing. Doing it properly needs one boot per throttle rate,
-and it is the same [PENDING Paolo] as [sixty fps]: a real handset.
+ROUND 13, WHICH STILL STANDS: [clock math] SHIPPED. A WAKING DAY TAKES 58 TO 59 REAL MINUTES.
+Four runs, 16.28 / 16.38 / 16.49 / 16.53 in-game minutes per real minute walking, ZERO idle. A
+hundred hours holds 102 DAYS, so three generations get about 34 lived days each. My first
+instrument was 3.5x wrong because it held one direction and walked into a wall -- two runs both
+stopped at EXACTLY 28 cells, and that identical number is what gave it away.
 
-*** AND THE REGISTRY GATE EARNED ITS KEEP THE SAME ROUND IT SHIPPED. Rebasing onto main at the
-end of this round, it went RED on a gate that had landed while I was working: inside_a_day_gate.js
-(QUESTS [distance shown], dcbe0b8), unregistered on arrival, caught within minutes of the file
-existing. Registered; it runs 25/0. That is the same lane-by-lane drift the 9/7 law was written
-for, happening again in the same round the machinery to catch it went in -- which is the argument
-for the machinery. I pushed once before reading that red and had to follow it immediately; the
-rule is run the guards on the MERGED tree and read them before pushing, not after. ***
+ROUND 12: [unregistered gates] SHIPPED. Eight gates nobody ran, two of them RED since 8/31. The
+suite goes red on a filter that matches nothing, and registration is derived from the folder.
 
-ROUND 12, WHICH STILL STANDS: [unregistered gates] SHIPPED. EIGHT gates nobody ran, across QUESTS,
-COMBAT and PEOPLE, and TWO OF THEM HAD BEEN RED SINCE 8/31 (legend_kept and pack, named on
-COMBAT's row, not fixed here). The suite now goes RED on a filter that matches nothing -- it
-printed "0 of 542 GATES" and exited clean before -- and registration is DERIVED from the folder,
-so a gate the suite cannot see is a named red line. 542 files run before, 551 after, 0 invisible.
+WHAT THIS LANE SHIPPED BEFORE THAT: [hot path]. And [fight headroom] is OPEN again after five
+rounds, carrying everything measured, because all that is left in it is a ruling for COMBAT,
+DIRECTION or Paolo. [sixty fps] / [slim build] / [suite runs] OPEN with what is built and what is
+missing. [PENDING Paolo] on two: is a phone-shaped Chromium enough to call the speed job done,
+and are the 445 unreachable judge pages safe to stop publishing.
 
-WHAT THIS LANE SHIPPED BEFORE THAT, still standing:
-[hot path] SHIPPED: both beats profiled for the first time, the hidden panel stopped drawing.
-[fight headroom] OPEN again after five rounds: the fight's floor is composed ONCE instead of
-  2,501 draw calls a frame, pixel for pixel identical, and a driven fight went 497.5 -> a median
-  413.5 ms of its 500 ms beat. NOT shipped: the target is 400, and everything left is a ruling
-  for COMBAT, DIRECTION or Paolo.
-[sixty fps] / [slim build] / [suite runs] OPEN, each carrying what is built and what is missing.
-  [PENDING Paolo] on two: is a phone-shaped Chromium enough to call the speed job done, and are
-  the 445 unreachable judge pages safe to stop publishing.
+[FOR THE COORDINATOR] STILL RED ON MAIN AND NOT MINE: REUSE-FIRST (4 failures, COMBAT x3 and
+RUN x1, named on their rows), ENGINE SYNC and BUNDLE from FACTIONS' [light owners] 8cc0c6a,
+COMBAT RUNS (opens the page over file:// while the page fetches siblings), and LEGEND KEPT and
+PACK from COMBAT, which are not new breakage but newly visible.
 
-[FOR THE COORDINATOR] STILL RED ON MAIN AND NOT MINE: ENGINE SYNC and BUNDLE from FACTIONS'
-[light owners] 8cc0c6a, COMBAT RUNS (opens the page over file:// while the page fetches
-siblings), and LEGEND KEPT and PACK, which are not new breakage but newly visible.
-
-NEXT IN THIS LANE: the first OPEN line, which is [gate missing] THE-COMPARE-LAW-HAS-NO-CHECKER --
-EYES E11 found that reference_check_gate DOES NOT EXIST while CLAUDE.md advertises it as the gate
-for a LOCKED law. That is the same defect as [unregistered gates] one step further on: not a gate
-the suite cannot see, but a gate that was never written at all.
+NEXT IN THIS LANE: the first OPEN line, and I will check the folder before I believe it.
 
 FACTIONS (factions-ovkjpf): 9/5 LATEST -- *** [faction homes] IN PROGRESS. THE
 ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY. NOT SHIPPED, NOT PUSHED TO

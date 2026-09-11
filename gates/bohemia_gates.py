@@ -2768,6 +2768,33 @@ GATES = [
      'deciding content, which it may not do. The band it does hold (above 4, below 120) is a '
      'tripwire for a broken instrument, not a target',
      True),
+    ('A DAYS WORK',    ['node', 'gates/a_days_work_gate.js'],
+     'WORLD row [a days work], shipped 9/7 (4f55d76) and UNREGISTERED ON ARRIVAL. Caught by GATE '
+     'REGISTRY and wired by PLUMBER under the 9/7 law that a gate the suite never runs is not a '
+     'gate. Runs 37/0. Its own subject: the player can do a day\'s work -- the same day [clock '
+     'math] measured at 58 to 59 real minutes',
+     True),
+    ('FOLD RUNTIME',   ['node', 'gates/fold_runtime_gate.js'],
+     'QUESTS row [generation handoff], shipped 9/7 (dcc1982) and UNREGISTERED ON ARRIVAL. Caught by '
+     'GATE REGISTRY and wired by PLUMBER under the 9/7 law. Runs 35/0. Its own subject: the fold '
+     'says what you kept when one generation hands over to the next',
+     True),
+    ('LAW INDEX',      ['python3', 'gates/law_index_gate.py'],
+     'CLAUDE.md MAY NOT ADVERTISE A GATE THAT IS NOT THERE, 9/7, PLUMBER lane, row [gate missing]. '
+     'The row was "the compare law has no checker": CLAUDE.md listed `| gate reference_check_gate` '
+     'beside a LOCKED law while no such file existed, EYES E11 found it, and every chat had read '
+     'that the law was enforced for three days. DIRECTION built the art gate and it is theirs. THIS '
+     'IS THE OTHER HALF, and it is not about art: the defect was in THE INDEX. "A law without a '
+     'machine gate is not enforced" (7/16) has a hole under it -- A LAW WITH AN IMAGINARY GATE IS '
+     'WORSE THAN ONE WITH NO GATE, because the first one stops anybody looking. It is the same '
+     'shape as the gate registry shipped the same round: that one catches a gate FILE the suite '
+     'cannot see, this one catches a gate NAME nothing backs. Together a claim of enforcement has '
+     'to be true in both directions. RED ON: a `| gate <name>` with no such file on disk, or a '
+     'gate advertised and not registered in the suite so it exists and never runs. It does NOT '
+     'judge whether the gate is any good or truly enforces its law -- no machine can grade that; '
+     'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
+     'it shipped. First run: 23 advertised, 23 on disk, 23 run',
+     False),
     ('GATE REGISTRY',  ['node', 'gates/gate_registry_gate.js'],
      'A GATE THE SUITE CANNOT SEE IS A NAMED RED LINE, 9/7, PLUMBER lane, row [unregistered '
      'gates]. LAW: laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md rule 3, '

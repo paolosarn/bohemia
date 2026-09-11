@@ -73,6 +73,27 @@ WHY IT IS SAFE:
 
 Applied to both shipped surfaces so they stay identical. Idempotent, and it
 refuses rather than guesses if the anchor is not found exactly once.
+
+REUSE CHECK (REUSE-FIRST, Paolo 7/22): NO BANK WAS OPENED AND NONE SHOULD BE.
+This tool authors no pixels. It moves the fight's existing floor code into a
+function VERBATIM -- not one character of the drawing is edited -- and wraps it
+with a cache that replays the same calls into an offscreen canvas. Every pixel it
+puts on screen was cooked by whatever cooked it before; the gate for that claim is
+gates/fight_floor_cache_gate.js, which composes the floor BOTH WAYS inside one
+frame and requires ZERO channels of 4,224,480 to differ. An approved asset cannot
+"fit better" here, because the correct output is defined as byte-identical to what
+the game already draws. THE BLOCK WAS MISSING WHEN THIS SHIPPED ON 9/6 and
+REUSE-FIRST caught it: the tool injects drawImage as a string literal, which is a
+real use and is swept. Found and fixed 9/11 by the PLUMBER lane on its own work.
+
+REFERENCE CHECK (COMPARE EVERY PIECE OF ART, Paolo 9/4): NOT APPLICABLE, AND THIS
+SAYS WHY RATHER THAN STAYING SILENT. That law governs a cook that DECIDES what a
+piece of art looks like -- where a window sits in a wall, how a shoulder joins a
+torso. This tool decides nothing: its output is required by its own gate to be
+pixel-identical to the picture that was already there, so there is no structure to
+take from a reference and no aesthetic liberty available to take. Comparing this
+against a reference online would be comparing the fight's existing floor, which is
+the job of whoever cooked those tiles, not of the cache in front of them.
 """
 import base64
 import sys

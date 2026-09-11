@@ -63,7 +63,7 @@ laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md, laws/BOHEMIA_ADDENDUM_TH
 - HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT -> laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md | gate direct_gate.js
 - DIALOGUE ALWAYS REFERS TO THE CATALOGUE -> laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md | gate dialogue_catalogue_gate.js
 - THEY SPEAK SPANGLISH -> laws/BOHEMIA_ADDENDUM_THEY_SPEAK_SPANGLISH_8_25_26.md | gate language_gate
-- COMPARE EVERY PIECE OF ART TO THE WORLD BEFORE CALLING IT DONE -> laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md | gate reference_check_gate (OWED: EYES E11 found 9/7 that no such gate exists; PLUMBER [reference gate] builds it; until then this law is NOT machine-enforced)
+- COMPARE EVERY PIECE OF ART TO THE WORLD BEFORE CALLING IT DONE -> laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md | gate reference_check_gate.py (BUILT BY DIRECTION 9/7, 7f59b0e, closing EYES' bounce-back; in the suite as REFERENCE CHECK. It bites on every cook written from now and grandfathers a frozen pre-law baseline, so the debt can only shrink. KNOWN GAP, measured by PLUMBER 9/11 and on DIRECTION's row: it sweeps 92 cook and factory tools, while REUSE-FIRST sweeps 170 because it also sweeps the 84 tools/*_patch.py files that actually draw -- the hole REUSE-FIRST itself closed on 7/26)
 - 45 DEGREE ART LAW | gate art_45_gate.py
 - VERIFY ON THE REAL SURFACE
 - STREET-AWARE / DRIVABLE ACCESS LAW | gate district_kit_gate.js
