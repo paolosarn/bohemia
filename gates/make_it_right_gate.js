@@ -203,8 +203,22 @@ ok('and when they would not, it says what is still owed rather than greying out'
 /* A STALE CARD MUST NOT SETTLE SOMETHING THEY WOULD NO LONGER SETTLE. */
 ok('*** AND THE BUTTON ASKS AGAIN WHEN IT IS PRESSED ***',
   /right\.addEventListener[\s\S]{0,400}wouldSquare\(m,'@',ctMinuteNow\(\)\)\.would/.test(CITY));
+/* REPOINTED 9/11, NOT LOOSENED. This measured the DISTANCE IN CHARACTERS between
+   the listener and the carryRight call -- a 900-byte window -- and [paid means
+   paid] added about seven hundred bytes of payment code between them, so a claim
+   about gossip went red because of a claim about money. THE FEATURE NEVER MOVED.
+   A byte distance is not what this is about, and the browser pass below already
+   proves the retelling really dies on the real surface, so this holds the thing
+   that is actually structural: BOTH calls live in the same handler, whatever
+   grows between them. */
 ok('pressing it also tells the people who only heard about it',
-  /right\.addEventListener[\s\S]{0,900}carryRight\(m,o\)/.test(CITY));
+  (function () {
+    var i = CITY.indexOf("right.addEventListener");
+    if (i < 0) return false;
+    var j = CITY.indexOf("ctgive", i);           /* the next button's handler */
+    var block = CITY.slice(i, j > i ? j : i + 4000);
+    return block.indexOf("carryRight(m,o)") > 0;
+  })());
 ok('and the city carries the version of the module that can do this',
   CITY.indexOf('function makeRight') > 0 && CITY.indexOf('function wouldSquare') > 0
   && CITY.indexOf('function carryRight') > 0);
@@ -290,7 +304,24 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
         o.after = { opinion: opinion(),
                     squared: BohemiaStanding.madeRightBy(CT_MINDS[t.p.id], '@').length,
                     saysSquared: card().indexOf('YOU SQUARED IT') >= 0,
-                    saysHow: card().indexOf(BohemiaStanding.RIGHT_WORDS.paid) >= 0,
+                    /* REPOINTED 9/11 AND IT IS A STRONGER CLAIM NOW. This asked
+                       for RIGHT_WORDS.paid, written in a round where 'paid' was
+                       the only word the button could produce AND WAS A LIE --
+                       nothing was ever paid. [paid means paid] fixed that, so on
+                       an empty purse the honest word is THEY LET IT GO and this
+                       went red for telling the truth. What the card must do is
+                       say WHICH of the four ways it was squared, so that is what
+                       is asked, and the word has to be one the module would
+                       actually produce. */
+                    saysHow: (function () {
+                      var t = card(), W = BohemiaStanding.RIGHT_WORDS;
+                      for (var k in W) if (t.indexOf(W[k]) >= 0) return true;
+                      return false; })(),
+                    /* WHETHER THE WORD MATCHES WHAT WAS ACTUALLY PAID is
+                       proved end to end, both ways, by paid_means_paid_gate on
+                       this same surface. It is not half-checked here: a claim
+                       that leans on a variable this file does not own is how a
+                       check starts measuring nothing. */
                     buttonGone: !document.getElementById('ctright') };
       }
       return o;
