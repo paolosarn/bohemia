@@ -22757,7 +22757,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/11 (latest): [phone card] SHIPPED - the 2050 rustic phone
+ROUND LOG 9/11 (latest): [the font] SHIPPED - the research round under
+the new vibe-coded law. The honest centre: MY OWN act cards and phone
+card carried the banned defaults (stencilled monospace + letter-spaced;
+family: monospace) - corrected in the same commit. Five candidates with
+references (ROM font/HD44780, DIN 1451 stencil, DSEG OFL, licensed pixel
+body pool, FO1+FFX structure-only), one ruled per act, fixed-pitch only
+where the in-world device is character-cell, object language ruled
+(edges 2px are things' edges, labels applied, panels thick, dark is a
+material). UI's option sheets now name a register per type surface; the
+EYES tell-gate reads the banned list as spec.
+PREVIOUS: [phone card] SHIPPED - the 2050 rustic phone
 card exists (records/BOHEMIA_PHONE_LOOK_CARD_9_11_26.md), answering the
 9/8 kill of the bare black feed panel. Object = survivor phone (slab /
 one tape band / glass, real ratio, asymmetric wear, 1px grit); glass
