@@ -12763,7 +12763,70 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): 9/6 IN FLIGHT -- *** [animal first] HANDED BACK TO OPEN
+RUN (run-eak241): LATEST -- *** [drop in] MEASURED TO THE BOTTOM. The first
+minute is empty for a structural reason, and THE RULED FIRST BEAT OF THE DEMO HAS
+ZERO CALLERS. Nothing built on purpose. TAB: RUN. Nothing to judge. ***
+
+THE FIRST MINUTE, AS IT ACTUALLY PLAYS (served demo, 390x844, walking on the beat,
+tapping cards like a stranger):
+     6.5s  the walked world is up
+    ~20s   DAY 1 card, and IT DOES CARRY THE JOB: "Something came in on your phone
+           overnight." THE METER READER / "nobody has picked it up yet" / "about 4
+           and a half hours on foot"
+    15.6s  TEACHING: WALK WITH THIS
+    27.8s  TEACHING: THE PHONE IS HOW THEY REACH YOU
+    40.4s  TEACHING: STEP BACK AND SEE THE CITY
+    60s    nothing else. 13 fine tiles walked, one in-game minute spent.
+
+*** CORRECTING MY OWN LAST HANDOFF: the phone DOES ring in the first minute. I
+wrote that it did not, and I was reading OFFER before showWake had run (offerRing
+is called inside it). Entering is not being ready, and that time it put something
+false in this file. ***
+
+WHY NOTHING HAPPENS, INSTRUMENTED LIVE: he wakes in `suburb`, and the road
+director logged 13 CALLS, 0 FIRED, reason NO_TABLE, with 65 seconds of walking
+handed to it. The 9/5 wiring works perfectly; there is nothing for it to pick.
+ROAD_TABLE has seven rows and all seven are transport districts (arterial, strip,
+freeway, beltway, interchange, rail, wash). SUBURB IS DELIBERATELY NOT ONE -- the
+table's own comment says "NO GLOBAL SPAWNS EVER: a district with no row spawns
+nothing, and there is deliberately nothing to fall back on". Correct design; not a
+bug to fix in the table.
+THE NEAREST ROAD DISTRICT IS 1 OVERMAP CELL = 128 FINE TILES. And the walk rate is
+real, not harness pacing: 50 back-to-back steps with 60 clear cells ahead moved
+the SAME 13 tiles, so ONE STEP IS ABOUT A QUARTER OF A TILE. Several minutes of
+continuous walking, for a sixty-second row.
+The other two systems are out of reach too: hostileProbe() returns 0 near the
+spawn and the nearest at-odds base is null; the wildlife query answered 0 for that
+cell and hour (weakest line -- I inferred its argument shape instead of reading a
+caller, so re-check that one before citing it).
+
+*** AND THE RULED FIRST BEAT IS NOT WIRED AT ALL. startColdOpen HAS ZERO CALLERS.
+*** His cut is COLD OPEN -> THE VISTA -> ONE GOOD DAY -> sleep, and the cold open
+is built (COLD_OPEN, coldOpenSpec, startColdOpen) -- the only other hits in the
+alpha are a comment saying when it SHOULD be called and two scene records naming
+it as their `call`. THE DEMO'S OPENING BEAT DOES NOT PLAY. Already unreachable
+from two directions: COLD_OPEN.cast and .place are both [PENDING, Paolo's call],
+and DEMO DAY's own not-asserted list says "THE FIGHT -- combat has no entry point
+on the walked surface", under NO DAMAGE BEFORE THE DIAL.
+
+NOTHING WAS BUILT, ON PURPOSE. Three ways to force a first minute were available
+and all three are somebody else's call or a law break: a suburb row contradicts
+the feature's own design and invents contents; moving the spawn is MAP LAW; wiring
+the cold open needs combat entry on the walked surface and his cast/place.
+
+[PENDING Paolo -- FOR THE COORDINATOR TO CARRY] The cold open is the demo's first
+beat, it is fully built, and it has never been connected. Two of its fields are
+his: WHO is behind you (cast) and WHAT you are standing in front of (place).
+Without those the demo opens on a card and three button labels.
+
+NEXT: this row cannot close on its own. Either the coordinator routes the cold
+open (COMBAT owns the entry point on the walked surface), or [drop in] becomes a
+smaller row about the ORDER of what already exists -- the job currently arrives
+FIRST, at ~20s, before he has taken a step, and the row asks for it THIRD.
+Record: records/BOHEMIA_THE_FIRST_MINUTE_IS_A_QUIET_SUBURB_9_11_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [animal first] HANDED BACK TO OPEN
 (blocked on CHARACTER), [drop in] CLAIMED AND MEASURED. Nothing shipped to the
 game this round; two findings did. ***
 
