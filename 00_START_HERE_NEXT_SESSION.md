@@ -22517,7 +22517,18 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/11 (latest): [city look] SHIPPED (c4e8a5d) - the aerial look
+ROUND LOG 9/11 (latest): [phone card] SHIPPED - the 2050 rustic phone
+card exists (records/BOHEMIA_PHONE_LOOK_CARD_9_11_26.md), answering the
+9/8 kill of the bare black feed panel. Object = survivor phone (slab /
+one tape band / glass, real ratio, asymmetric wear, 1px grit); glass
+never true black, four inks, one crack never over text, no filters or
+fades; FEED-01..05 and the 11px floor unchanged inside the glass;
+three acts, one layout. FEED-06 added, index rebuilt at 84 refs, gates
+green. UI [phone object] builds 3-5 options to it; I judge them beside
+a named real worn phone and the act-1 splash plate before Paolo sees
+any. Remaining blocked line new this week: [judge the redo] (waits on
+ANIMATION's 47 remakes - their [redo killed] row is still open).
+PREVIOUS: [city look] SHIPPED (c4e8a5d) - the aerial look
 card exists (records/BOHEMIA_CITY_FROM_ABOVE_LOOK_CARD_9_11_26.md),
 answering Paolo's 9/8 kill of the diagram city against his 7/1 lock. The
 numbers are MEASURED, not chosen: every act-1 approved tile in the roof/
