@@ -436,141 +436,143 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 29 REPORT: [nothing left] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_29_THE_SHELVES_FILL_UP_AND_NOBODY_CAN_BUY_9_11_26.md (263 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections QQQQQQ-UUUUUU, +15 lines, 410 draft:true total
+=== ROUND 30 REPORT: [perk price] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_30_THE_RUNNER_AND_THE_ENFORCER_ARE_PAID_THE_SAME_9_11_26.md (308 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections VVVVVV-ZZZZZZ, +14 lines, 424 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
 
-*** THE SAME RED IS STILL ON MAIN AND IT IS STILL NOT MINE. SECOND ROUND I HAVE
-FLAGGED IT. language_gate RED 80/1, failing check "A SPANGLISH NEIGHBOUR ANSWERS
-IN SPANGLISH", line engine/bohemia_quirk.js:69 "keeping one light on for
-somebody", no Spanish word in it. That file is unchanged since bf3c1b3 (PEOPLE
-lane, 8/31). Proved not mine last round by stashing my work and re-running on a
-clean origin/main. Not edited here: MODE RESEARCH does not implement and ONE
-SYSTEM ONE SESSION says that file is PEOPLE's. ***
+*** THIRD ROUND I HAVE FLAGGED THE SAME RED AND IT IS STILL NOT MINE AND STILL
+NOT FIXED. language_gate RED 80/1, check "A SPANGLISH NEIGHBOUR ANSWERS IN
+SPANGLISH", line engine/bohemia_quirk.js:69 "keeping one light on for somebody",
+no Spanish word in it. Unchanged since bf3c1b3 (PEOPLE lane, 8/31) and still
+unchanged on origin/main. Proved not mine in round 28 by stashing and re-running
+on a clean tree. Not edited here: MODE RESEARCH does not implement and ONE SYSTEM
+ONE SESSION says that file is PEOPLE's. ***
 
-Round 25 did the DROUGHT. This one did the END.
+This round feeds COMBAT [perks see], whose row carries his 7/1 LOCKED intent:
+"perks become a PERCEPTION system on the zoomed-out layer, not just combat stats."
 
 WHAT I MEASURED IN OUR OWN CODE FIRST:
-- A CORRECTION I AM CARRYING RATHER THAN HIDING: my first probe emptied the whole
-  purse and reported every verb refusing, which conflated "the batteries are
-  gone" with "you have nothing at all". Re-ran properly, resources and clout
-  full, electricity at zero.
-- THE DAY THE BATTERIES ARE GONE, WITH A FULL LARDER AND FULL STANDING:
-      day:ate      (resources)    WORKS
-      fight:plate  (resources)    WORKS
-      ask:leaned   (clout)        WORKS
-      night:power  (electricity)  REFUSED  INSUFFICIENT
-      goods you can buy: 0 of 11. THE WHOLE SHELF IS SHUT.
-  LIFE GOES ON AND TRADE STOPS. That is round 25's finding at its end state.
-- NO OVERDRAFT AND NO DEBT. A debit on an empty pocket returns INSUFFICIENT with
-  have 0 / wanted 1 / short 1 and the balance stays at zero; the audit flags any
-  currency that went negative in history as a problem. The floor is hard.
-- AND NOTHING NOTICES. Swept the purse, payday and the feed for anything firing
-  at a zero balance: no event, no post, no card line, no beat. THE GAME HANDLES
-  THE DEATH OF ITS OWN CURRENCY BY REFUSING ELEVEN PURCHASES ONE AT A TIME,
-  SILENTLY. The biggest moment an economic crash simulator gets is currently
-  eleven identical error strings.
-- AND THE WAY BACK IS ALREADY BUILT AND HAS NEVER BEEN CALLED. convert(purse,
-  fromCur, fromAmt, toCur, toAmt, reason, ref, day) takes ANY rate the caller
-  names, so it presumes no exchange rate nobody ruled, and it is ATOMIC (pops leg
-  one back off if leg two fails, comment: "a half-applied conversion would mint
-  or burn"). I ran it: one resource in, one battery out, balances correct.
-  CALLERS IN THE WHOLE GAME: ZERO.
+- THE GAME HAS A SOUND FOR TAKING A PERK AND IT HAS NO PERKS. `perk` appears
+  SEVEN times in the alpha and I read all seven: four are comments (two of them
+  the same block duplicated), one is a sound event label 'perk_taken' -> "A PERK
+  COMES ON", and two are that sound's definition and comment. The 23-perk tree
+  lives in a record, not in the game. The walked city has ZERO mentions.
+- EVERY SIGHT NUMBER IN THE GAME IS A FROZEN CONSTANT, and this is the branch
+  already enumerated: SEE_RANGE 9, MAX_HOPS 2, HEARSAY_LOSS 0.55, GOSSIP_WINDOW
+  45, and deed reach quiet 7 / notable 12 / risky 17 / reckless 24 with hops
+  1/3/4/5. EIGHT NUMBERS, none reachable by anything a player does.
+- AND THE INFORMATION MARKET IS ALREADY BUILT, IN TWO TIERS, AND IT IS FREE.
+  bohemia_asking.js: 14 rows, 7 subjects, 4 trades. ROWS WITH A `deeper` LAYER:
+  14 OF 14. ROWS WITH ANY PRICE FIELD: 0. The walked surface posts ask:leaned
+  (one clout), prints the surface answer, writes the deeper layer into a notebook
+  (bohemia_known.js, capped 200) AND RENDERS IT: "YOU HEARD <line>", "WHICH
+  LEAVES <implies>", plus a count across subjects.
+  I NEARLY GOT THIS WRONG AND AM SAYING SO: the deeper layer is NOT hidden. It is
+  written, stored and shown. What is missing is A PRICE ON DEPTH. Information
+  costs one clout and returns the same two tiers to everybody every time, so a
+  sharp player and a dull one learn exactly the same thing, and a perception perk
+  today would have nothing to buy.
+
+WHAT THE REAL RECORD PAYS FOR KNOWING:
+- THE ONE ORGANISATION WITH REAL BOOKS PAYS THE RUNNER AND THE ENFORCER THE SAME.
+  Levitt and Venkatesh, four years of a drug-selling gang's monthly accounts:
+  local leader ~$8,500 a month; OFFICERS -- enforcers, treasurers AND RUNNERS --
+  ~$1,000 a month each; foot soldiers on the corner ~$3.30 an hour, near or below
+  minimum wage, against an org average of $6 to $11. THE ONE WHO CARRIES
+  INFORMATION AND THE ONE WHO APPLIES FORCE ARE PEERS, and both are far above the
+  one standing in the open.
+- THE MOST EXPENSIVE THING A POOR PERSON BUYS IS A ROUTE. Smuggling fees run from
+  under $20 to over $15,000; Mexico to the US about $2,000, from further out up
+  to $10,000; the Channel 3,000-7,000 euros; Central America to the US averaged
+  ~$7,500 including food and travel, and three countries paid $2.2 billion in one
+  accounting. AND THE STRUCTURE IS THE PART TO STEAL: a PACKAGE for whoever can
+  pay once, PAY-AS-YOU-GO for whoever cannot, and the pieces cost more in total.
+- WHO SELLS IT: WHOEVER STANDS STILL. Our own asking module worked this out
+  already -- its four refusal lines are the sociology in four sentences. The
+  counter and the sentry sell; the one who moves and the one who is heads-down
+  do not.
 
 THE FINDING THAT PROVES US WRONG:
-The instinct behind "and the day after" is that the pressure lifts. THE CLEANEST
-REAL CASE SAYS THE OPPOSITE. Zimbabwe abandoned its dollar in 2009 for the US
-dollar and the rand after 230 million percent inflation. The day after, THE
-SHELVES FILLED UP -- reporting from April 2009 is headlined almost exactly "shop
-shelves fill up but customers stay away" -- because the new money was real and
-worth stocking for. AND ORDINARY PEOPLE STILL COULD NOT FEED THEMSELVES, BECAUSE
-THEY HAD NONE OF THE NEW MONEY. A new currency does not appear in everybody's
-pocket at once. IT APPEARS IN SOMEBODY'S FIRST. The shelves coming back is not
-the recovery, it is the moment the difference between people becomes visible.
-FOR US: THE DAY AFTER SHOULD LOOK BETTER AND FEEL WORSE.
+The instinct is that a collapse is full of rumour because it is dangerous. IT IS
+BACKWARDS AND THE FORMULA IS EIGHTY YEARS OLD. Allport and Postman 1947: rumour =
+IMPORTANCE x AMBIGUITY, MULTIPLICATIVE, so if either goes to zero the rumour
+dies. Rumour thrives only where there are no secure standards of evidence.
+THEIR OWN EXAMPLE SETTLES IT: almost NO fear rumours in Britain during the worst
+of the Blitz, because people believed the government was telling them the truth
+about the damage. Bombs every night and the talk stayed quiet.
+SO THE VALLEY DOES NOT TALK BECAUSE IT IS BAD, IT TALKS BECAUSE NOTHING CAN BE
+CHECKED. And that flips the valuation: A FIGHT PERK IS WORTH THE SAME EVERYWHERE;
+A PERCEPTION PERK IS WORTH WHATEVER THE FOG IS WORTH. We own half that machine
+already -- HEARSAY_LOSS 0.55 and MAX_HOPS 2 are a distortion model, our stories
+already get worse as they travel, and nothing lets a player be better at seeing
+through it.
 
-WHAT ACTUALLY REPLACED THEM: US federal prisons banned smoking in 2004 and the
-cigarette died almost overnight. THE ECONOMY DID NOT COLLAPSE, IT AUDITIONED
-REPLACEMENTS -- within a few years three had taken over, no meeting called, no
-announcement made. Mackerel won in most of the federal system, and the reason is
-a design rule: worth about a dollar, and NOBODY WANTED TO EAT IT.
-THE MONEY IS THE THING NOBODY WANTS FOR ITSELF. That is an uncomfortable test for
-a battery and I am saying so plainly: everybody wants a battery, and the night
-eats one per circuit held by law, so our money is consumed OUT of the supply
-every night by the exact verb that gives it value. Money you can eat gets eaten.
-NOT an argument against his ruling -- it is the pressure his ruling creates and
-the reason [nothing left] is a real question.
-AND THE ANTI-GOAL: Radford's camp ended not in scarcity but in ABUNDANCE. At
-liberation "every want could be satisfied without effort", and he concluded that
-with infinite means economic organisation is redundant. A generous valley kills
-the economy as completely as a drought does.
+AND THE GAMES SIDE COMPLICATES IT: PLAYERS WILL NOT TAKE IT AT THAT PRICE. The
+design research is consistent -- damage is immediate and measurable, utility
+works indirectly, and players report characters as weak when the numbers say they
+are fine. So: THE REAL RECORD SAYS SEEING AND HITTING ARE WORTH THE SAME, AND
+PLAYERS SAY SEEING IS WORTH LESS AND ARE WRONG.
 
-WHAT PEOPLE DID IN BETWEEN: THEY WENT ON THE TAB, AND THE LENDER IS THE SHOP.
-In Udaipur, 60%+ of people on under a dollar a day carried a standing debt:
-  37% from SHOPKEEPERS | 23% from relatives | 18% from moneylenders
-THE SHOP IS THE LARGEST SINGLE SOURCE OF CREDIT FOR POOR PEOPLE, ahead of family
-and ahead of moneylenders, and twice as many adults borrow informally as from a
-bank. Barter is not the fallback anybody wants: it needs a double coincidence of
-wants and the time goes into the bartering instead of the work.
-
-THE RULE DELIVERED: THE DAY THE LAST BATTERY GOES, THE SHOP DOES NOT SHUT. IT
-STARTS A TAB. Three rungs: (A) THE MOMENT HAS TO EXIST -- nothing notices zero,
-and one named beat on the card and in the feed needs no ruling because the purse
-knows the balance and the feed takes posts; (B) THE TAB -- the shop is the lender
-in the real record by a distance, and our shop's only answer is CANNOT_AFFORD;
-(C) THE AUDITION -- people pick a replacement in months, by themselves, and
-convert() already does the arithmetic and has never been called.
-AND THE WARNING: THE NEW MONEY ARRIVES IN SOMEBODY'S HANDS FIRST. Whoever holds
-it on day one is rich and did nothing to become rich. That is a scene, not a bug.
-
-ALSO FOUND AND NOT MINE TO FIX: there is a BARE ======= CONFLICT MARKER sitting
-in this handoff file at the seam between the EYES AND EARS block and the UI
-block. It was already in HEAD before my write (verified: git show HEAD counts 1).
-That is the exact fusion-class defect this lane root-caused in round 13 -- lanes
-paste byte-identical instruction text, a line merge cannot tell whose is whose,
-and the seam breaks with no marker OR with a stray one. It is inside two other
-lanes' blocks so I did not touch it. Somebody who owns those blocks, or PLUMBER,
-should clear it.
+THE ANSWER DELIVERED: YES, THE SAME ONE. Everything costs one and nothing earns
+an exception -- the one payroll with real numbers puts the runner and the
+enforcer in the same band. THE DIFFERENCE GOES IN THE CURRENCY, NOT THE NUMBER:
+    A FIGHT PERK IS BOUGHT WITH WHAT YOU SURVIVED.
+    A PERCEPTION PERK IS BOUGHT WITH WHAT YOU WERE TOLD.
+Both cost one; they are one of different things. Not a new mechanism -- we have
+three currencies and clout already drains on ask:leaned with NO FAUCET, which the
+walked surface names in its own comment. THIS IS THAT FAUCET'S REASON TO EXIST.
+You do not buy eyes with batteries, you buy them by being somebody people talk to.
+FOUR RUNGS: (1) what it buys is DEPTH not distance -- the `deeper` layer is on 14
+of 14 rows and free today, so a thing that is free becomes a thing you earned,
+with nothing new authored; (2) the eight frozen numbers ARE the branch; (3) it is
+worth more where less is known -- R = i x a, so no flat bonus, which is also the
+answer to the player-bias problem because a perk that is dead weight at home and
+decisive at the edge teaches its own value; (4) the poor buy it one leg at a time.
+AND THE WARNING: a perception perk priced the same AND PRESENTED THE SAME will
+not be taken. Same price, different currency, and the first one has to pay off
+somewhere the player can see it pay off.
 
 ROUTED (suggestions only; only the coordinator makes a job):
-  PLUMBER / EYES / UI   a stray ======= marker at the EYES/UI block seam in the
-                        handoff, pre-existing in HEAD, not mine to edit
-  PEOPLE                language_gate red, second round flagged, bohemia_quirk.js:69
-  WORLD / LIFE + CITY   RUNG A, the moment: nothing notices a balance of zero
-  WORLD                 RUNG C, convert() has zero callers
-  WORLD                 the shelf shuts completely: 0 of 11 buyable
-  LIFE + CITY           the day after looks BETTER and feels WORSE
+  COMBAT [perks see]   the answer, and the branch already enumerated as eight
+                       frozen sight numbers
+  COMBAT / WORDS       rung 1, cheapest: the `deeper` layer is free to everybody
+  WORLD                THE CLOUT FAUCET. Clout drains and has no source, and the
+                       walked surface says so in its own comment.
+  WORLD / LIFE + CITY  rung 3: almost nothing where things can be confirmed, a
+                       lot where they cannot
+  PEOPLE               language_gate red, THIRD round flagged, quirk.js:69
 
 THE GATE NOTE: six gates green, the seventh red before I touched anything and
-routed above. The round found the game has no moment for the death of its own
-currency and that the one function that would end that death has never been
-called. These gates check that a part does what it says. Nothing checks that two
-parts agree, that a part keeps working for as long as the game lasts, that it is
-the right part to have, or that the parts form a loop that closes. Rounds 16
-through 29. convert() passes its gate and has zero callers: a gate asking "does
-convert move two currencies atomically" is green; a gate asking "can a player
-ever reach this" does not exist.
+routed above for the third time. The round found the game ships a sound effect
+for taking a perk and has no perks. These gates check that a part does what it
+says. Nothing checks that two parts agree, that a part keeps working for as long
+as the game lasts, that it is the right part to have, or that the parts form a
+loop that closes. Rounds 16 through 30. A gate asking "does the perk sound event
+exist and is it reachable from the sound bank" is green; a gate asking "is there
+anything to make that sound about" does not exist.
 
 GATES THIS ROUND: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot
 13/0, demo blockers 22/0. language_gate 80/1 RED, PRE-EXISTING AND NOT MINE.
 
-TWENTY-NINE ROUNDS DONE. The last five: Q25 [batteries scarce], Q26 [forgiveness
-price], Q27 [shift pay], Q28 [ridge worth], Q29 [nothing left].
+THIRTY ROUNDS DONE. The last five: Q26 [forgiveness price], Q27 [shift pay],
+Q28 [ridge worth], Q29 [nothing left], Q30 [perk price].
 
 WHAT THIS WHOLE STUDY KEEPS CONVERGING ON, updated:
-  A. EIGHT ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29) SAY THE ECONOMY OF BOHEMIA
-     IS MADE OF PEOPLE YOU KEEP GOING BACK TO. Round 29 adds the number: the shop
-     is the biggest lender there is, at 37%, ahead of family.
+  A. NINE ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29, 30) SAY THE ECONOMY OF
+     BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO. Round 30 adds that even
+     SEEING is bought from people, not from a shop.
   B. THREE ROUNDS (15, 21, 28) SAY THE MISSING PIECE IS NOT INCOME, IT IS A PLACE
      TO PUT THINGS.
   C. SIX ROUNDS (15, 21, 23, 24, 26, 27) SAY A WAGE IS ONE STRAND AND NEVER THE
      THICKEST ONE.
-  D. AND FIVE ROUNDS NOW (24, 25, 26, 27, 29) END AT THE SAME WALL: THERE IS NO
-     OWED. Round 29 is the first one where it is the ANSWER and not just the gap.
+  D. FIVE ROUNDS (24, 25, 26, 27, 29) END AT THE SAME WALL: THERE IS NO OWED.
+  E. AND NEW THIS ROUND: CLOUT SPENDS AND NEVER FILLS. Round 30 is the first
+     round where that is the answer to something rather than a note.
 AND THE STANDING PATTERN: almost every finding was a mechanism already built,
-already correct, and pointed at nothing. This round it is convert(), atomic and
-rate-agnostic, with zero callers.
+already correct, and pointed at nothing. This round it is the two-tier asking
+module: 14 of 14 rows carry a deeper layer, it is stored and rendered, and it
+costs everybody the same nothing.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
@@ -637,8 +639,16 @@ rate-agnostic, with zero callers.
      is always something NOBODY WANTS FOR ITSELF (mackerel beat cigarettes
      because nobody would eat it), which is an uncomfortable test for a battery.
 
-NEXT IN THIS LANE: Q30 [perk price], then Q31 [cheap eyes] and Q32 [long
-injury]. The coordinator added Q32 since last round.
+ 31. (new) IS CLOUT WHAT YOU SPEND TO SEE MORE? Round 30's answer is that a
+     perception perk costs the SAME ONE as a fight perk and the difference goes
+     in the CURRENCY: a fight perk is bought with what you survived, a perception
+     perk with what you were told. EVERYTHING COSTS ONE is untouched either way.
+     Which pocket a perk comes out of is his, and it would put a floor under
+     clout, which today drains on ask:leaned and has no faucet at all.
+
+NEXT IN THIS LANE: Q31 [cheap eyes], then Q32 [long injury]. Q31 is the direct
+sequel to this round: what seeing more you get FREE by living somewhere long
+enough, against what you must buy.
 
 
 

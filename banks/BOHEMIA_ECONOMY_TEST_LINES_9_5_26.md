@@ -2329,3 +2329,90 @@ TTTTTT3 somebody who will not go on the book    draft:true
   is describing a rule he has never heard of.
 - Spanish register: 2 of 15 lines, 13%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## VVVVVV. WHAT IT COSTS TO KNOW
+## (round 30: the runner and the enforcer are paid the same. Seeing is not the
+##  cheap option in the real record, it is a peer. Nobody says the word
+##  information.)
+
+VVVVVV1 somebody who sells what he sees         draft:true
+        "I stand here all day. That's the job, that's the whole job, and people
+         are surprised it costs them something."
+
+VVVVVV2 somebody being quoted a price           draft:true
+        "For that? For just telling me which way. Alright. Alright, no, I get
+         it, I just wasn't ready for it."
+
+VVVVVV3 somebody who paid it and was right to   draft:true
+        "Cost me more than the water did. And the water would've been no use to
+         me on the wrong road, so."
+
+VVVVVV4 the one who moves and does not know     draft:true
+        "I'm never anywhere long enough to know anything. Ask somebody who
+         stands still for a living, mano."
+
+## WWWWWW. ONE LEG AT A TIME
+## (the poor buy the way in pieces, the rich buy it in one go, and the pieces
+##  cost more in total. Nobody in these lines does the arithmetic out loud.)
+
+WWWWWW1 somebody buying a piece of a route      draft:true
+        "Just to the wash. That's all I'm paying for. I'll worry about after the
+         wash when I'm at the wash."
+
+WWWWWW2 somebody who paid once for the whole    draft:true
+        "I did it all in one. People say I got done. I got there, though, and
+         they're still at the first bit."
+
+WWWWWW3 somebody counting up what it came to    draft:true
+        "Four times I've paid somebody now. Four. If I'd had it all at the start
+         I'd have paid it once and had change."
+
+## XXXXXX. WHAT NOBODY CAN CHECK
+## (rumour is importance times not being able to confirm it. A bad place with
+##  good news is quiet. Nobody here knows they are describing a formula.)
+
+XXXXXX1 somebody explaining why the block talks draft:true
+        "It's not that it's worse here. It's that there's nobody you can go and
+         ask, so everybody just says things."
+
+XXXXXX2 somebody who stopped listening          draft:true
+        "Six versions of the same night. Six. One of them's true and I'm not
+         going to be the one who guesses wrong."
+
+XXXXXX3 somebody who had a straight answer once draft:true
+        "When the watch was still reporting, nobody made anything up. Didn't
+         need to. That's the bit I miss, mija."
+
+XXXXXX4 somebody at the edge of what is known   draft:true
+        "Out past the ridge I've got nothing. No idea. Anything anybody tells me
+         about out there, I have to just take it."
+
+## YYYYYY. THE ONE WHO NOTICES
+## (what a perception perk actually is, as a person: the difference between
+##  hearing what was said and hearing what it meant.)
+
+YYYYYY1 somebody who heard the second thing     draft:true
+        "He told me the same as he told you. He just told me a bit slower and I
+         was still listening at the end of it."
+
+YYYYYY2 somebody who did not                    draft:true
+        "That's what he said. That's exactly what he said, word for word. What
+         do you mean what did he mean."
+
+YYYYYY3 an older one, not making a point        draft:true
+        "You'll learn what a man's not saying before you learn what he is.
+         Takes about a year on the same street."
+
+## ZZZZZZ. WHAT IS NOT HERE, ON PURPOSE (round 30)
+- No line names a perk, a point, a level or a skill. Round 30 priced one and the
+  bank does not put the vocabulary in anybody's mouth.
+- No line has a price on knowing, in batteries or anything else. What a perk
+  comes out of is [PENDING Paolo] 31.
+- No line says rumour, information, perception, intel or fog. XXXXXX1 is the
+  whole Allport finding and it is said as "there's nobody you can go and ask".
+- No line has somebody being clever at somebody else. YYYYYY1 was listening
+  longer, which is the finding, and YYYYYY2 is not stupid.
+- No line names a route, a road or a place outside the valley. MAP LAW.
+- No line states a moral about paying attention. YYYYYY3 says a year and stops.
+- Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.
