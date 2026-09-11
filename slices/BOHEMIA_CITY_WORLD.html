@@ -27155,8 +27155,141 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
                     cells: bd, draft: true } : null;
   }
 
+  /* ==========================================================================
+     A FACTION MINES ITS LAND   (9/11, VAMILY row [power territory])
+
+     THE ROW: "every faction's territory carries its own battery-making
+     buildings, so what a faction is worth is what its land makes; a fortress
+     makes more than a camp; losing a block loses its output."
+
+     WHAT IT IS SET AGAINST, MEASURED FIRST. A faction's strength in this game is
+     act1_power / act3_power, and his graph's own meta calls it an ORDINAL RANK.
+     It is a number typed once. It decides the tier and the turf draft order and
+     it NEVER MOVES: take every block off the Mob and the Mob is still 13. There
+     was no reading anywhere that answered "what does this faction's land make".
+
+     ---------------------------------------------------------------------------
+     GROUND THAT MAKES ELECTRICITY, AND THE ONE THAT DOES NOT
+     ---------------------------------------------------------------------------
+     A SUBSTATION IS NOT IN THIS LIST AND THAT IS THE WHOLE POINT OF THE LIST. It
+     steps voltage down and passes it along; it generates nothing. Counting it
+     would be counting the wire as the well. Three kinds make power in this
+     valley and they are the three real things that make it in a desert. */
+  var MAKES = ['solar', 'dam', 'battery'];
+
+  /* HIS RULING, NOT A NUMBER OF MINE. 7/26 BUILDINGS PRODUCE ONE OF THE THREE,
+     8/15 EVERYTHING COSTS ONE, and WORLD's own [batteries mined] row says it in
+     as many words: "start at ONE battery per day per building". Carried as a
+     string beside the value the same way bohemia_production.js carries it, so a
+     reader can see there is no hand-picked number here. */
+  var MINE_RULING = '7/26 BUILDINGS PRODUCE ONE OF THE THREE + 8/15 EVERYTHING COSTS ONE';
+  var PER_SITE_PER_DAY = 1;
+
+  /* A SITE IS A BUILDING, NOT A CELL, and the map settles it rather than a rule
+     of thumb: flood-filled runs of one kind. MEASURED ON THE REAL SURFACE -- 301
+     solar cells are THREE arrays, and the dam comes back as ONE site of four
+     cells, which is Hoover and is the check that this unit is right. Counting
+     cells would have said the valley holds 301 generators. */
+  function minesOf(m, cat, towns) {
+    var out = { sites: [], byFaction: {}, perDay: {}, kinds: MAKES.slice(),
+                ruling: MINE_RULING };
+    if (!m || typeof m.at !== 'function') return out;
+    var n = m.n | 0, seen = {}, x, y;
+    function kindAt(px, py) {
+      if (px < 0 || py < 0 || px >= n || py >= n) return null;
+      var c = null; try { c = m.at(px, py); } catch (_e) { return null; }
+      return (c && c.district) || null;
+    }
+    var holder = (typeof turf === 'function' && towns && towns.length)
+                 ? turf(m, cat, towns) : null;
+    function heldAt(px, py) {
+      if (!holder || typeof holder.at !== 'function') return null;
+      var t = null; try { t = holder.at(px, py); } catch (_e) { return null; }
+      return (t && t.faction) || null;
+    }
+    for (y = 0; y < n; y++) for (x = 0; x < n; x++) {
+      var k = kindAt(x, y);
+      if (!k || MAKES.indexOf(k) < 0 || seen[x + ',' + y]) continue;
+      var stack = [[x, y]], cells = [];
+      seen[x + ',' + y] = 1;
+      while (stack.length) {
+        var cur = stack.pop(); cells.push(cur);
+        var nb = [[cur[0] + 1, cur[1]], [cur[0] - 1, cur[1]],
+                  [cur[0], cur[1] + 1], [cur[0], cur[1] - 1]];
+        for (var i = 0; i < nb.length; i++) {
+          var nx = nb[i][0], ny = nb[i][1];
+          if (nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+          if (seen[nx + ',' + ny] || kindAt(nx, ny) !== k) continue;
+          seen[nx + ',' + ny] = 1; stack.push([nx, ny]);
+        }
+      }
+      /* WHOSE IS A SITE THAT STRADDLES A BORDER? Whoever holds most of it, and
+         this rule EARNS ITS KEEP rather than sitting there for a rainy day: the
+         dam really is split on the boot seed, 3 cells to the Anarchists and 1 to
+         the Mob, so a rule was needed and the majority is the one that does not
+         depend on which cell the scan happened to reach first. Ties break on the
+         faction name, stably, never on iteration order. */
+      var hold = {}, f, c2;
+      for (var j = 0; j < cells.length; j++) {
+        f = heldAt(cells[j][0], cells[j][1]) || null;
+        if (f) hold[f] = (hold[f] || 0) + 1;
+      }
+      var own = null, bestN = -1;
+      for (c2 in hold) if (Object.prototype.hasOwnProperty.call(hold, c2)) {
+        if (hold[c2] > bestN || (hold[c2] === bestN && own && c2 < own)) {
+          bestN = hold[c2]; own = c2;
+        }
+      }
+      out.sites.push({ kind: k, cells: cells.length, x: cells[0][0], y: cells[0][1],
+                       faction: own, held: bestN < 0 ? 0 : bestN,
+                       split: Object.keys(hold).length > 1, holders: hold });
+      if (own) {
+        if (!out.byFaction[own]) out.byFaction[own] = { sites: 0, cells: 0, kinds: {} };
+        out.byFaction[own].sites++;
+        out.byFaction[own].cells += cells.length;
+        out.byFaction[own].kinds[k] = (out.byFaction[own].kinds[k] || 0) + 1;
+      }
+    }
+    for (var fk in out.byFaction) if (Object.prototype.hasOwnProperty.call(out.byFaction, fk))
+      out.perDay[fk] = out.byFaction[fk].sites * PER_SITE_PER_DAY;
+    return out;
+  }
+
+  /* WHAT ONE FACTION'S LAND MAKES, per day, in batteries.
+     DERIVED, NEVER STORED, so "losing a block loses its output" needs no rule of
+     its own: the block changes hands, the site changes hands with it, and asking
+     again is simply a different answer. A stored figure would need somebody to
+     remember to move it, which is the trap the coalition and the roving rule both
+     avoided in this lane already.
+
+     *** AND IT IS NOT GATED ON THE LIGHTS, WHICH IS A TRAP I WALKED INTO AND
+     MEASURED MY WAY OUT OF. *** The obvious version reads "a district pays only
+     while it is yours AND lit AND patrolled" and asks the grid whether the site
+     is live. Measured on the walked surface: ALL FIVE SITES HAVE ZERO LIT CELLS,
+     because circuits only run along STREET cells and a solar array stands in the
+     desert. That version would have made the entire valley produce nothing while
+     every check stayed green. A generator MAKES power; whether the power reaches
+     anybody is the grid's job and the grid already models it. The income rule
+     governs what a district PAYS, not what a plant MAKES. */
+  function minesFor(faction, m, cat, towns) {
+    if (!faction) return null;
+    var all = minesOf(m, cat, towns);
+    var row = all.byFaction[faction] || null;
+    return { faction: faction,
+             sites: row ? row.sites : 0,
+             cells: row ? row.cells : 0,
+             kinds: row ? row.kinds : {},
+             perDay: row ? row.sites * PER_SITE_PER_DAY : 0,
+             ruling: MINE_RULING,
+             /* an honest zero, said out loud, because ten of the fourteen really
+                do hold nothing that makes power and that is the map, not a gap */
+             makesNothing: !row };
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
+    MAKES: MAKES.slice(), MINE_RULING: MINE_RULING,
+    PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
     HOMES: HOMES, placeHomes: placeHomes, MIN_APART: MIN_APART,
@@ -28795,6 +28928,58 @@ function turfAt(x,y){
     var seats=turfSeats(); if(!seats||!seats.length) return null;
     return window.BohemiaTowns.holderOf(seats,x,y);
   }catch(_e){ return null; }
+}
+
+/* ==== __A_FACTION_MINES_ITS_LAND__ (9/11, [power territory]) ================
+   WHAT EACH FACTION'S LAND MAKES, in batteries a day. Cached on the same key the
+   turf map uses, because it is read off the turf map: change the seed or the
+   seats and both fall together rather than one going stale under the other.
+
+   MEASURED BEFORE BUILDING, and it is the reason the row exists: a faction's
+   strength in this game is act1_power, which his graph's own meta calls an
+   ORDINAL RANK. It is typed once and never moves. Take every block off the Mob
+   and the Mob is still 13. Nothing anywhere could answer what a faction's LAND
+   was worth. */
+var MINES_MAP=null, MINES_KEY=null;
+function minesGrid(){
+  var k=seed+':'+((om&&om.n)|0);
+  if(MINES_KEY===k&&MINES_MAP) return MINES_MAP;
+  try{
+    var seats=turfSeats();
+    if(seats&&seats.length&&window.BohemiaTowns&&window.BohemiaTowns.minesOf&&window.BohemiaCityEdit){
+      MINES_MAP=window.BohemiaTowns.minesOf(om, window.BohemiaCityEdit.cat, seats);
+      MINES_KEY=k; return MINES_MAP;
+    }
+  }catch(_e){}
+  return null;
+}
+/* batteries a day off the ground this faction holds. 0 is a real answer here and
+   it is the common one: most of the valley's factions hold nothing that makes
+   power, which is the map and not a gap. */
+function minesPerDay(faction){
+  try{ var g=minesGrid(); if(!g||!faction) return 0; return g.perDay[faction]|0; }
+  catch(_e){ return 0; }
+}
+/* the plain sentence, for a card. Silent when there is nothing to say. */
+function minesLine(faction){
+  try{
+    var g=minesGrid(); if(!g||!faction) return '';
+    var row=g.byFaction[faction]; if(!row||!row.sites) return '';
+    /* PLAIN WORDS FOR THE THREE THINGS THAT MAKE POWER. The map's own ids are
+       `solar`, `dam` and `battery`, and "a battery" would read as one AA in a
+       game where a battery is the money. draft:true, like every line. */
+    var NAME={ solar:['a solar farm','solar farms'],
+               dam:['the dam','dams'],
+               battery:['a battery plant','battery plants'] };
+    var kinds=[], k, n;
+    for(k in row.kinds) if(Object.prototype.hasOwnProperty.call(row.kinds,k)){
+      n=row.kinds[k];
+      var w=NAME[k]||[k,k+'s'];
+      kinds.push(n>1 ? (n+' '+w[1]) : w[0]);
+    }
+    return row.sites + (row.sites===1?' battery a day':' batteries a day')
+         + (kinds.length ? ' off ' + kinds.join(' and ') : '');
+  }catch(_e){ return ''; }
 }
 /* __LIGHT_OWNERS__ -- WHICH FACTION HOLDS THE LIT GRID, READ OUT OF HIS FILE.
    (9/6, [light owners] NAME-THE-CIRCUIT-OWNER.) The powergrid has a `network`
@@ -42241,9 +42426,16 @@ function ctDialApply(w, save){
         rows = Object.keys(tt).sort(function (a, b) { return tt[a].rank - tt[b].rank; })
           .map(function (f) {
             var r = tt[f], reach = TW.REACH[r.tier] || 1;
+            /* __A_FACTION_MINES_ITS_LAND__ (9/11, [power territory]) -- and what
+               that faction's GROUND makes, off the real module, on the real map.
+               It rides this reply rather than getting one of its own because the
+               panel already asks once and renders fourteen rows: a second round
+               trip for a number computed from the same seats is a second copy of
+               the same question. */
             return { faction: f, tier: r.tier, power: r.power, ruled: !!r.ruled,
                      goods: TW.goodsFor(r.tier, gd).length, allGoods: gd.length,
-                     across: reach * 2 + 1 };
+                     across: reach * 2 + 1,
+                     perDay: minesPerDay(f), makes: minesLine(f) };
           });
       } catch (_e) { rows = []; }
       try { ev.source.postMessage({ type: 'BOHEMIA_TOWN_ROWS', rows: rows }, '*'); } catch (_e) {}
@@ -49248,6 +49440,18 @@ function showReckoning(){
   if(TURF_TODAY.length===1) h+='<li>'+esc(TURF_TODAY[0])+' ground</li>';
   else if(TURF_TODAY.length>1)
     h+='<li>you crossed '+esc(TURF_TODAY.join(' into '))+'</li>';
+  /* __A_FACTION_MINES_ITS_LAND__ (9/11, [power territory]) -- AND WHAT THAT
+     GROUND MAKES. The row: "what a faction is worth is what its land makes."
+     It rides the line that already names whose ground he was on, so it costs no
+     new row on a card that is already long, and it is SILENT for a faction whose
+     land makes nothing -- which is most of them, and saying "0 a day" fourteen
+     times would bury the four that matter. draft:true. */
+  try{
+    for(var _mi=0;_mi<TURF_TODAY.length;_mi++){
+      var _ml=minesLine(TURF_TODAY[_mi]);
+      if(_ml) h+='<li>'+esc(TURF_TODAY[_mi])+' land makes '+esc(_ml)+'</li>';
+    }
+  }catch(_e){}
   if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
   const oc=OFFER_TAKEN?DQ.outcome():null;
   if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)

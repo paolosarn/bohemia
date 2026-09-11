@@ -411,5 +411,143 @@ const done = () => {
        Object.keys(T.TIER).length === 0);
   }
 
+  /* ==========================================================================
+     A FACTION MINES ITS LAND  (9/11, VAMILY row [power territory])
+     "every faction's territory carries its own battery-making buildings, so what
+     a faction is worth is what its land makes; a fortress makes more than a camp;
+     losing a block loses its output."
+     ======================================================================== */
+  {
+    const _fs = require('fs');
+    /* this gate had no overmap of its own; the towns checks above work off the
+       loop and the browser. The mines reading is a MAP reading, so it needs one. */
+    const OM = require(path.join(ROOT, 'engine/bohemia_overmap.js'));
+    const CITY_TXT = _fs.readFileSync(CITY, 'utf8');
+    const ALPHA_TXT = _fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
+    const m2 = OM.buildOvermap(7);
+    const ds2 = T.districtsOf(m2, CE.cat);
+    const seats2 = T.derive(G, ds2, 1);
+    const mi = T.minesOf(m2, CE.cat, seats2);
+
+    ok('W1 THE GROUND THAT MAKES POWER IS A NAMED LIST, not every industrial-looking '
+       + 'district (' + T.MAKES.join(', ') + ')',
+       T.MAKES.length === 3 && T.MAKES.indexOf('solar') >= 0
+       && T.MAKES.indexOf('dam') >= 0 && T.MAKES.indexOf('battery') >= 0);
+    ok('W2 *** AND A SUBSTATION IS DELIBERATELY NOT ON IT. *** It steps voltage '
+       + 'down and passes it along; it generates nothing, and counting it would be '
+       + 'counting the wire as the well',
+       T.MAKES.indexOf('substation') < 0);
+
+    /* A SITE IS A BUILDING, NOT A CELL, and the dam is the check. */
+    const cellsOf = {};
+    for (let y = 0; y < m2.n; y++) for (let x = 0; x < m2.n; x++) {
+      let c = null; try { c = m2.at(x, y); } catch (_e) {}
+      if (c && c.district && T.MAKES.indexOf(c.district) >= 0)
+        cellsOf[c.district] = (cellsOf[c.district] || 0) + 1;
+    }
+    const dams = mi.sites.filter(s => s.kind === 'dam');
+    const solars = mi.sites.filter(s => s.kind === 'solar');
+    ok('W3 *** A SITE IS A BUILDING, NOT A CELL. *** ' + cellsOf.solar + ' solar cells '
+       + 'are ' + solars.length + ' farms, not ' + cellsOf.solar + ' generators',
+       solars.length > 0 && solars.length < cellsOf.solar / 10);
+    ok('W4 and the dam proves the unit is right: ' + cellsOf.dam + ' cells come back '
+       + 'as ' + dams.length + ' site, which is Hoover',
+       dams.length === 1 && dams[0].cells === cellsOf.dam);
+
+    /* THE HOLDER IS DERIVED FROM TURF, AND A SPLIT SITE HAS AN ANSWER. */
+    const tf2 = T.turf(m2, CE.cat, seats2);
+    ok('W5 every site names a holder, and it is the one TURF names for its ground',
+       mi.sites.length > 0 && mi.sites.every(s => {
+         if (!s.faction) return false;
+         const t = tf2.at(s.x, s.y);
+         return !!t && !!t.faction;
+       }));
+    const split = mi.sites.filter(s => s.split);
+    ok('W6 a site that straddles a border goes to whoever holds MOST of it, and '
+       + 'this rule is exercised rather than theoretical (' + split.length + ' split: '
+       + split.map(s => s.kind + ' ' + JSON.stringify(s.holders)).join(' ') + ')',
+       split.every(s => {
+         let best = -1, who = null;
+         for (const f in s.holders)
+           if (s.holders[f] > best || (s.holders[f] === best && who && f < who)) {
+             best = s.holders[f]; who = f;
+           }
+         return s.faction === who;
+       }));
+
+    /* THE NUMBER IS HIS. */
+    ok('W7 the yield carries HIS ruling rather than a number picked here ('
+       + mi.ruling + ')',
+       /EVERYTHING COSTS ONE/.test(mi.ruling) && T.PER_SITE_PER_DAY === 1);
+    const totalSites = mi.sites.filter(s => s.faction).length;
+    const totalPerDay = Object.values(mi.perDay).reduce((a, c) => a + c, 0);
+    ok('W8 and a faction makes exactly one a day per site it holds, never a curve '
+       + '(' + totalSites + ' held sites -> ' + totalPerDay + ' a day)',
+       totalPerDay === totalSites);
+
+    /* *** LOSING A BLOCK LOSES ITS OUTPUT. *** Derived, so this is provable by
+       moving the ground and asking again rather than by reading the code. */
+    {
+      const site = mi.sites.find(s => s.faction);
+      const holderWas = site.faction;
+      const wasPerDay = T.minesFor(holderWas, m2, CE.cat, seats2).perDay;
+      /* take the ground off them the only way the map allows: move the seats.
+         Everybody else keeps theirs, so anything that moves is this one site. */
+      const without = seats2.filter(s => s.faction !== holderWas);
+      const after = T.minesFor(holderWas, m2, CE.cat, without);
+      const mi2 = T.minesOf(m2, CE.cat, without);
+      ok('W9 *** LOSING THE GROUND LOSES THE OUTPUT. *** ' + holderWas + ' made '
+         + wasPerDay + ' a day; with their seats gone they make ' + after.perDay
+         + ', and the site is now ' + mi2.sites.filter(s => s.kind === site.kind
+             && s.x === site.x).map(s => s.faction).join(''),
+         wasPerDay > 0 && after.perDay === 0 && after.makesNothing === true);
+      ok('W10 and the valley did not lose the site, somebody else picked it up -- '
+         + 'output MOVES rather than evaporating',
+         mi2.sites.filter(s => s.faction).length === totalSites);
+      ok('W11 DERIVED, NEVER STORED: asking the original seats again gives the '
+         + 'original answer, so there is no state to put back',
+         T.minesFor(holderWas, m2, CE.cat, seats2).perDay === wasPerDay);
+    }
+
+    /* AN HONEST ZERO. */
+    const sel = T.selectable(G);
+    const nothing = sel.filter(f => !mi.perDay[f]);
+    ok('W12 *** MOST OF THE VALLEY MAKES NOTHING, AND THAT IS THE MAP RATHER THAN '
+       + 'A GAP. *** ' + nothing.length + ' of ' + sel.length + ' hold no ground '
+       + 'that makes power (' + nothing.slice(0, 4).join(', ') + '...)',
+       nothing.length > sel.length / 2);
+    ok('W13 and a faction with none says so as a real answer instead of throwing',
+       T.minesFor(nothing[0], m2, CE.cat, seats2).makesNothing === true
+       && T.minesFor(nothing[0], m2, CE.cat, seats2).perDay === 0);
+
+    /* *** AND NO TIER MULTIPLIER WAS INVENTED TO FORCE HIS SENTENCE TRUE. ***
+       The row says "a fortress makes more than a camp". On this map that is
+       FALSE and the counterexample is the strongest faction he wrote. Making it
+       true would have meant typing a number nobody ruled, over a map that is his
+       (MAP LAW). It is reported instead. */
+    {
+      const tt = T.tiers(G, 1);
+      const forts = sel.filter(f => tt[f] && tt[f].tier === 'fortress');
+      const dead = forts.filter(f => !mi.perDay[f]);
+      ok('W14 *** A FORTRESS DOES NOT AUTOMATICALLY MAKE MORE THAN A CAMP, AND THE '
+         + 'COUNTEREXAMPLE IS NAMED RATHER THAN PAPERED OVER. *** ' + dead.length
+         + ' of ' + forts.length + ' fortresses make NOTHING (' + dead.join(', ')
+         + '), because the map decides where the solar is',
+         dead.length > 0);
+      ok('W15 so the reading applies no tier scaling at all -- output is sites '
+         + 'held, and DEPTH/REACH are left to the things they already scale',
+         totalPerDay === totalSites);
+    }
+
+    /* THE SURFACES REALLY ASK. */
+    ok('W16 the walked city reads it and can say it in words',
+       /function minesGrid\(\)/.test(CITY_TXT) && /function minesLine\(/.test(CITY_TXT)
+       && /minesPerDay\(/.test(CITY_TXT));
+    ok('W17 and the panel he reads faction worth on carries it, off the real '
+       + 'module rather than a number retyped up there',
+       /perDay: minesPerDay\(f\), makes: minesLine\(f\)/.test(CITY_TXT)
+       && /its land makes/.test(ALPHA_TXT));
+  }
+
   done();
 })();

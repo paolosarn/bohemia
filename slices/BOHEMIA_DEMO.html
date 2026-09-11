@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/11h - THE TAP PICKS WHAT YOU SEE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/11i - A FACTION MINES ITS LAND</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -31604,6 +31604,22 @@ function dirTowns(){
       + String(r.tier).toUpperCase() + ' · sells ' + r.goods + ' of ' + r.allGoods
       + ' things · covers ' + r.across + ' blocks across';
     box.appendChild(out);
+
+    /* __A_FACTION_MINES_ITS_LAND__ (9/11, [power territory]). WHAT THIS FACTION'S
+       LAND MAKES, in his own money. The row's sentence is "what a faction is worth
+       is what its land makes", and this panel is where he already reads what each
+       faction is worth, so it belongs on the same card rather than a new one.
+       IT IS NOT A DIAL AND MUST NOT LOOK LIKE ONE: the tier chips above are his to
+       press, and this is the map answering. A faction with nothing says so in
+       plain words instead of showing a 0, because 0 reads as broken and "nothing
+       on its land makes power" reads as true. */
+    var mk=document.createElement('div');
+    mk.style.cssText='margin-top:4px;font-size:11px;line-height:1.45;opacity:.78';
+    mk.textContent = (r.perDay>0)
+      ? ('its land makes ' + (r.makes || (r.perDay + ' a day')))
+      : 'its land makes no power';
+    if(r.perDay>0) mk.style.color='#d8b45a';
+    box.appendChild(mk);
     host.appendChild(box);
   });
 
