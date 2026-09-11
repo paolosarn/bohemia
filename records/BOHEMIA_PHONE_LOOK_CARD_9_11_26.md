@@ -52,7 +52,9 @@ that reference, style from us; the object is PIXEL-NATIVE by style card 2C
   anatomy, varying heights under one skeleton, avatar = 3 body lines, gutter
   = half a line, 1 px divider with one visible break (act-1 rule), one mark
   per post kind on the identity line.
-- 11 px monospace body is the floor, always (the eighth-grade law is a type
+- 11 px body is the floor, always, in the ROM register (fixed-cell,
+  because a character-cell display is fixed-pitch - the 9/11 font ruling
+  names the reason; monospace-as-default is dead) (the eighth-grade law is a type
   law). On the dim ground the body ink must sit at least 0.58 value above
   it — dimness is paid by the GROUND, never by the text.
 - SPANGLISH survives verbatim: the feed's voice is content, not chrome, and
@@ -99,7 +101,7 @@ pass reach him.
     "crack": {"count_max": 1, "width_px": 1, "value": [0.30, 0.40], "over_text": "never"},
     "filters": "none", "fades": "none", "moving_glare": "none"
   },
-  "type": {"body_px_min": 11, "family": "monospace"},
+  "type": {"body_px_min": 11, "family": "ROM register (fixed-cell), per the 9/11 font ruling"},
   "feed_rules": "FEED-01..05 unchanged inside the glass",
   "acts": {"act1": "taped survivor", "act2": "printed, damage gone", "act3": "hairline glass, fades legal, purple only on amalgamation surfaces"},
   "judge": "3-5 UI options beside a named real worn-phone reference AND the act-1 splash plate; four questions in section 5, any NO kills"

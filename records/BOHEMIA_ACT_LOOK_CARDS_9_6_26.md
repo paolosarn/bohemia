@@ -28,7 +28,13 @@
   register — the current splash plate is already this act done right).
 - EDGES: rough by ONE pixel — a stencil bleed, a chipped corner; never
   more (one pixel of grit reads as hand-made, two reads as damage).
-- TYPE: stencilled monospace, letter-spaced; labels look painted, not
+- TYPE (AMENDED 9/11, the font ruling): screens = the ROM register (a
+  5x8 dot-grid cut, fixed-cell because a character-cell display is);
+  casing labels = DIN-stencil caps with the bars, painted or stamped;
+  meters = seven-segment register; prose on paper or board = a
+  proportional pixel body with lowercase. Letter-spaced uppercase is
+  dead as a default (records/BOHEMIA_THE_FONT_RESEARCH_9_11_26.md).
+  Labels look painted, not
   printed. Rules and dividers are single painted strokes with one
   visible break somewhere along their run.
 - MOTION: things ARRIVE like objects — a panel slides as a board would,
@@ -43,7 +49,9 @@
   rule still governs anything brighter.
 - EDGES: clean and square, radius <= 2 px at 112; the one-pixel grit is
   GONE — its absence is the act change the player feels first.
-- TYPE: the same monospace family, tighter tracking, true-printed
+- TYPE (AMENDED 9/11): a proportional grotesque in the DIN 1451
+  register, pixel-cut, no stencil bars; fixed-pitch only on real
+  terminals. True-printed
   weight; dividers are unbroken hairlines. Labels sit in cases/chips.
 - MOTION: mechanical ease — panels snap to rest in 2 frames; still no
   fades. Precision is the act's voice.
@@ -57,7 +65,8 @@
 - EDGES: exact, radius <= 1 px, hairline weight everywhere; the glow
   is a ONE-pixel halo at 30% alpha, never a bloom (a bloom is the fog
   ban's UI cousin).
-- TYPE: the same monospace, thin weight, wide tracking; light through
+- TYPE (AMENDED 9/11): the 14-segment light register for display type
+  over a thin proportional pixel body; light through
   glass, not ink on board.
 - MOTION: fades become LEGAL here for the first time — light is what
   this chrome is made of — 2 beats maximum, and the arrival of act 3's
