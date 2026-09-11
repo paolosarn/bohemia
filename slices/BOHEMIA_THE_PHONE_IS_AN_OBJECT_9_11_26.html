@@ -1,0 +1,222 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - THE PHONE IS AN OBJECT - 5 OPTIONS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --line:#c8bda9; --hot:#c8482a; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.5px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border:2px solid var(--ink); background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ border:2px solid var(--ink); background:#fff; margin:14px 0 }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .body{ padding:12px }
+ .say{ margin:10px 0 0; font-size:15px }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a }
+ .cost b{ color:var(--ink) }
+ .real{ margin:6px 0 0; font-size:13px; color:#6b6355; font-style:italic }
+ /* THE STAGE. Every phone is built at the TRUE 132px the panel occupies in the game and
+    then scaled up 2x to be looked at, so nothing here is a proportion I invented for a
+    picture. The city behind them is a stand-in for the zoomed-out valley. */
+ .stage{ background:
+     repeating-linear-gradient(90deg,#6f6450 0 18px,#675c49 18px 36px),
+     linear-gradient(#6b6150,#48412f);
+   padding:16px; display:flex; justify-content:center; overflow:hidden }
+ .scaler{ width:264px; height:400px; position:relative }
+ .ph{ width:132px; height:200px; transform:scale(2); transform-origin:top left;
+      position:absolute; left:0; top:0; display:flex; flex-direction:column;
+      font:10px/1.42 ui-monospace,monospace }
+ .scr{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column;
+       position:relative; overflow:hidden }
+ .bar{ flex:0 0 auto; display:flex; align-items:center; gap:4px; padding:4px 6px; overflow:hidden;
+       border-bottom:1px solid #241d13; color:#8d8168; font-size:8px; letter-spacing:1px;
+       position:relative; z-index:1 }
+ .sig{ color:#6f6a52; flex:0 0 auto }
+ /* THE NAME IS THE ONLY THING ALLOWED TO SHRINK. On the thick-cased option the
+    header wrapped to two lines and the clock pushed out past the casing -- a
+    rendering fault reading as a design trade, which is the one thing a comparison
+    sheet must never do. The narrow screen IS the cost of that option; the clock
+    falling off the phone is not. */
+ .nm{ flex:1 1 auto; min-width:0; overflow:hidden; white-space:nowrap;
+      color:#c8b681; letter-spacing:1.5px }
+ .bar > span:last-child{ flex:0 0 auto }
+ .bt{ display:inline-block; width:11px; height:6px; position:relative;
+      border:1px solid #6f6a52; border-radius:1px; flex:0 0 auto }
+ .bt::after{ content:''; position:absolute; right:-3px; top:1px; width:1.5px; height:2px; background:#6f6a52 }
+ .bt::before{ content:''; position:absolute; left:1px; top:1px; bottom:1px; width:19%; background:#c07a4a }
+ .list{ flex:1 1 auto; min-height:0; overflow:hidden; padding:5px 7px 9px; position:relative; z-index:1 }
+ .fp{ margin:0 0 7px } .who{ color:#c8b681; letter-spacing:.6px; font-size:9px }
+ .txt{ color:#a99e86; margin-top:1px }
+ .glass{ position:absolute; inset:0; z-index:2; pointer-events:none }
+ .glass svg{ position:absolute; inset:0; width:100%; height:100%; display:block }
+ .crk{ fill:none; stroke:rgba(233,222,190,.30); stroke-width:.7;
+       vector-effect:non-scaling-stroke; stroke-linecap:round }
+ .crk.rng{ stroke:rgba(233,222,190,.16); stroke-width:.5 }
+ .tape{ position:absolute; left:-3px; width:calc(100% + 6px); z-index:4;
+   background:repeating-linear-gradient(115deg,rgba(206,188,140,.30) 0 3px,rgba(176,158,112,.22) 3px 6px);
+   border-top:1px solid rgba(240,226,184,.16); border-bottom:1px solid rgba(0,0,0,.35) }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--line) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px; border-radius:4px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:1px solid var(--line); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border:2px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:2px solid var(--ink);
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>THE PHONE IS AN OBJECT - FIVE OF THEM</h1>
+ <div class="sub">You said the feed doesn't look like a cool post-apocalyptic phone. It didn't. It was a black box with text in it. Option A is built and in the game now. Four others here. Tap a thumb. 9/11</div>
+</header>
+
+<div class="now">
+ <b>THE WORDS DID NOT CHANGE.</b> Not one post, not one voice. What changed is the thing
+ the words sit in. All five are shown at double size so you can see them; in the game the
+ phone is 132 pixels wide, which is what these are actually built at.
+ <br><br>
+ <b>AND THE BATTERY IS REAL.</b> It is not a fake percentage. It asks the game whether the
+ street you are standing on is on a live circuit. On the grid it charges. Off it, the phone
+ is running on what is left. That is why it is low and orange in every picture here.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+/* THE SAME POSTS IN EVERY PHONE, so the only thing changing between the five is the
+   OBJECT. Lines copied from the shipped feed's own life list, draft:true, WORDS owns them. */
+var POSTS=[
+ {who:'@marisol_v', txt:'water is one battery today. no se, pero we drink anyway.'},
+ {who:'@waterline', txt:'queue at the standpipe already. bring something to sit on.'},
+ {who:'@thecircuit',txt:'lights held all night on the west side.'}
+];
+
+/* THE FRACTURE, drawn the way glass actually breaks: one impact point, lines radiating
+   out of it, a couple of ring cracks around the hit. The shipped phone uses this exact
+   path data. */
+var CRACK='<svg viewBox="0 0 100 300" preserveAspectRatio="none">'
+ +'<g class="crk">'
+ +'<path d="M88 18 L61 74 L44 143 L31 232"/><path d="M88 18 L97 61 L92 119"/>'
+ +'<path d="M88 18 L53 31 L14 29"/><path d="M88 18 L74 45 L69 86"/>'
+ +'<path d="M61 74 L79 96"/><path d="M44 143 L21 160"/><path d="M53 31 L47 12"/></g>'
+ +'<g class="crk rng"><path d="M78 13 L84 27 L95 26"/><path d="M70 9 L73 33 L91 40"/></g></svg>';
+
+function posts(){
+  return POSTS.map(function(p){
+    return '<div class="fp"><div class="who">'+p.who+'</div><div class="txt">'+p.txt+'</div></div>';
+  }).join('');
+}
+
+function phone(o){
+  var body='style="'
+    +'padding:'+o.bezel+';border-radius:'+o.round+';background:'+o.case_+';'
+    +'border:1px solid '+o.edge+';'
+    +'box-shadow:0 7px 20px rgba(0,0,0,.66),inset 0 1px 0 rgba(226,210,160,.16),inset 0 -2px 3px rgba(0,0,0,.5);'
+    +(o.extra||'')+'"';
+  var scr='style="border-radius:'+o.scrRound+';background:'+o.screen
+    +';box-shadow:inset 0 0 0 1px #0a0906,inset 0 2px 7px rgba(0,0,0,.7),0 0 9px rgba(200,182,129,.09)"';
+  return '<div class="scaler"><div class="ph" '+body+'>'
+    + (o.tape ? '<div class="tape" style="top:'+o.tape.y+';height:'+o.tape.h+';transform:rotate('+o.tape.rot+')"></div>' : '')
+    + (o.strap || '')
+    + '<div class="scr" '+scr+'>'
+    +   '<div class="bar"><span class="sig">▮▮▮</span><span class="nm">THE VALLEY</span>'
+    +     '<span class="bt"></span><span>06:12</span></div>'
+    +   '<div class="list">'+posts()+'</div>'
+    +   (o.crack===false ? '<div class="glass"></div>' : '<div class="glass">'+CRACK+'</div>')
+    + '</div></div></div>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. SALVAGE - what is in the game right now',
+   case_:'linear-gradient(150deg,#3b342a,#221d16 58%,#2f2920)', edge:'#4a4133',
+   bezel:'5px 5px 9px', round:'13px', scrRound:'4px',
+   screen:'linear-gradient(#14120d,#0d0b08 70%,#100e0a)',
+   tape:{y:'-3px',h:'8px',rot:'-1.4deg'},
+   real:'Real wear it copies: a drop crack out of one corner, tape over the top edge, the greasy band a thumb leaves across the bottom third of every phone.',
+   say:'A normal slab phone that somebody kept alive. Thick scuffed case, cracked glass, a strip of tape over the top, and the screen is ON.',
+   cost:'<b>Costs you:</b> the crack runs across the words, so it is always slightly in the way. <b>Gets you:</b> it reads as a thing in the world instead of a box on the screen, and it took nothing away from the writing.' },
+
+ { k:'B', t:'B. THE BRICK - a rugged case around a smaller screen',
+   case_:'linear-gradient(150deg,#4a4336,#2a251c 55%,#3a342a)', edge:'#5d5341',
+   bezel:'11px 10px 14px', round:'8px', scrRound:'2px',
+   screen:'linear-gradient(#14120d,#0d0b08 70%,#100e0a)',
+   extra:'box-shadow:0 7px 20px rgba(0,0,0,.7),inset 0 2px 0 rgba(226,210,160,.12),inset 0 -3px 4px rgba(0,0,0,.6)',
+   real:'Real wear it copies: a hard rubber case with thick corner bumpers, the kind that survives a drop and swallows a third of the phone.',
+   say:'Wrapped in a fat protective shell. The case is the object; the screen is a window in the middle of it.',
+   cost:'<b>Costs you:</b> the shell eats the screen, so about a third fewer words fit. <b>Gets you:</b> the most obviously PHYSICAL of the five. Nobody would call this a panel.' },
+
+ { k:'C', t:'C. CLEAN GLASS - the same phone, undamaged',
+   case_:'linear-gradient(150deg,#3b342a,#221d16 58%,#2f2920)', edge:'#4a4133',
+   bezel:'5px 5px 9px', round:'13px', scrRound:'4px',
+   screen:'linear-gradient(#15130e,#0d0b08 70%,#100e0a)', crack:false,
+   real:'Real wear it copies: none. This is the object with the damage taken off.',
+   say:'Exactly option A with no crack and no tape. Here so you can see whether you actually want the damage or just wanted it to be a thing.',
+   cost:'<b>Costs you:</b> without the wear it drifts back toward looking like a clean menu. <b>Gets you:</b> the words are never crossed by anything, and it will still read right in act two when the world works again.' },
+
+ { k:'D', t:'D. STRAPPED - held in something handmade',
+   case_:'linear-gradient(150deg,#403629,#241e15 58%,#332c21)', edge:'#5a4a33',
+   bezel:'7px 6px 11px', round:'10px', scrRound:'3px',
+   screen:'linear-gradient(#14120d,#0d0b08 70%,#100e0a)',
+   tape:{y:'-3px',h:'6px',rot:'-1deg'},
+   strap:'<div style="position:absolute;left:-6px;right:-6px;top:58%;height:13px;z-index:4;'
+        +'background:linear-gradient(#6a5a3c,#3d3220 60%,#57492f);'
+        +'border-top:1px solid rgba(240,226,184,.14);border-bottom:1px solid rgba(0,0,0,.5);'
+        +'box-shadow:0 2px 5px rgba(0,0,0,.5)"></div>'
+        +'<div style="position:absolute;left:44%;top:58%;width:12px;height:13px;z-index:5;'
+        +'background:linear-gradient(#8d8168,#4a4133);border:1px solid #2a2418"></div>',
+   real:'Real wear it copies: a phone carried in a webbing strap or a cut-down holster, the way people carry a tool they cannot afford to drop.',
+   say:'The phone is mounted in something somebody made for it. A strap runs across the body with a buckle on it.',
+   cost:'<b>Costs you:</b> the strap lies across the middle of the screen, so it hides a line of the feed. <b>Gets you:</b> it says somebody OWNS this and carries it, which none of the others say.' },
+
+ { k:'E', t:'E. THE FOLD - a hinge kept alive past its life',
+   case_:'linear-gradient(150deg,#38312a,#1f1b15 58%,#2c2620)', edge:'#4a4133',
+   bezel:'5px 5px 9px', round:'6px', scrRound:'2px',
+   screen:'linear-gradient(#14120d,#0d0b08 44%,#171410 46%,#0d0b08 70%,#100e0a)',
+   tape:{y:'44%',h:'7px',rot:'0deg'},
+   real:'Real wear it copies: a folding screen whose crease never goes away, taped along the hinge once the hinge starts to go.',
+   say:'A folding phone with a permanent crease across the middle and tape along the hinge. Old tech that has been opened ten thousand times.',
+   cost:'<b>Costs you:</b> the crease cuts the feed in half visually, every single time you look at it. <b>Gets you:</b> the strongest 2050-gone-rustic read of the five. It is the tech we use now, worn out, not a retro prop.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2>'
+    + '<div class="stage">'+phone(o)+'</div>'
+    + '<div class="body"><p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p>'
+    + '<p class="real">'+o.real+'</p></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - THE PHONE IS AN OBJECT - 9/11/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_THE_PHONE_IS_AN_OBJECT_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

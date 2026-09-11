@@ -244,7 +244,12 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* 4.16:1 measured against a 4.5 floor (9/6, [eyes: faint chips]) -- the one label on
    this screen that both rulers agreed was too faint. Lifted inside the same family. */
 #note{position:absolute;left:10px;top:10px;font-size:10px;color:#b3a488;background:rgba(12,10,8,0.85);border:1px solid var(--line);padding:5px 9px;border-radius:5px;z-index:4;letter-spacing:.5px}
-#bikebtn{display:none;position:absolute;left:12px;bottom:14px;padding:8px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}
+/* THE ONE CONTROL STILL UNDER THE READABLE FLOOR, CLOSED. Measured on the played
+   screen: BIKE's letters came back 4.48 against a 4.5 floor -- the only one of
+   seventeen under it, and it has been under it on main. It takes the lighter tint of
+   the same gold the walk arrows were given on 9/6 for this exact problem, so the
+   palette does not change and no other chip moves. */
+#bikebtn{display:none;position:absolute;left:12px;bottom:14px;padding:8px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:#d8c49a;font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}
 #bikebtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 
 /* ==== TOP-LEFT STACK (8/24, __HUD_NEVER_OVERLAPS__) ==========================
@@ -427,10 +432,43 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        cannot become a tap target smaller than a thumb.
        ARIA: aria-live so a screen reader announces a post instead of a stranger having
        to notice a silent panel. -->
+  <!-- *** THE FEED IS A PHONE YOU CAN SEE, NOT A BLACK BOX (Paolo 9/8, from his own
+       frame). *** He looked at the shipped panel and said "this doesn't look like a cool
+       post-economic-apocalyptic phone, does it, bro, come on?" -- and he was right: it
+       was a rounded rectangle of monospace text, a debug console. The WORDS were never
+       the problem and are untouched. What is added is the OBJECT around them: a casing
+       with a thick worn bezel, a glass with a real crack running out of one corner, a
+       strip of tape holding the top edge, and a screen that is lit rather than black.
+       Every colour and thickness here comes from the SKIN, so act two and act three
+       swap the whole object without touching a word of the feed. -->
   <div id="cityfeed" aria-hidden="true">
-    <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedclock">--:--</span></div>
-    <div id="cityfeedlist" role="log" aria-live="polite"></div>
-    <div id="cityfeedfade"></div>
+    <div id="cityfeedtape" aria-hidden="true"></div>
+    <div id="cityfeedscreen">
+      <div id="cityfeedbar"><span id="cityfeedsig">▮▮▮</span><span id="cityfeedname">THE VALLEY</span><span id="cityfeedbatt" title="the grid where you are standing"></span><span id="cityfeedclock">--:--</span></div>
+      <div id="cityfeedlist" role="log" aria-live="polite"></div>
+      <div id="cityfeedfade"></div>
+      <!-- THE FRACTURE. Three full-length diagonals were the first cut and they read as
+           SCRATCHES ON A WINDOW, which is what looking at the picture showed: a real
+           crack starts at ONE impact point and radiates, with short branches and a
+           couple of ring fractures around the hit. Drawn, so it is a shape and not a
+           gradient pretending; preserveAspectRatio none so it stretches with whatever
+           height the panel takes. The skin owns its colour and how visible it is. -->
+      <div id="cityfeedglass" aria-hidden="true"><svg viewBox="0 0 100 300" preserveAspectRatio="none">
+        <g class="crk">
+          <path d="M88 18 L61 74 L44 143 L31 232"/>
+          <path d="M88 18 L97 61 L92 119"/>
+          <path d="M88 18 L53 31 L14 29"/>
+          <path d="M88 18 L74 45 L69 86"/>
+          <path d="M61 74 L79 96"/>
+          <path d="M44 143 L21 160"/>
+          <path d="M53 31 L47 12"/>
+        </g>
+        <g class="crk rng">
+          <path d="M78 13 L84 27 L95 26"/>
+          <path d="M70 9 L73 33 L91 40"/>
+        </g>
+      </svg></div>
+    </div>
   </div>
   <div id="nav"><div id="pad"></div><div id="mode"><canvas id="modeFace" width="64" height="64"></canvas><span id="modeLbl">⤓ DROP IN</span></div></div>
 </div>
@@ -555,17 +593,81 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    It never covers the pad and it carries no control, so it cannot fail the thumb.
    HIDDEN IN HUMAN MODE. The module toggles .on by polling MODE on the beat, so this
    panel adds nothing to the city's own render path and cannot break it. */
+/* *** THE SKIN. *** laws/BOHEMIA_LAW_THE_UI_HAS_THREE_ACTS_9_6_26.md makes this the one
+   piece of architecture this lane owes: every element is drawn from ONE NAMED SET of
+   shapes, colours and type, so swapping the set swaps the interface without touching what
+   the game does. The phone is the FIRST element moved onto it -- the rest follows on the
+   [skin swap] row. Change these eight values and act two's phone is a different object
+   with the same words in it. ACT ONE is named SALVAGE: our own era's tech worn down and
+   kept alive past its life, which is his phrase "2050 rustic" and not a 1950s future. */
 #cityfeed{position:absolute;right:7px;top:92px;width:132px;max-height:44%;z-index:26;
-  display:none;flex-direction:column;overflow:hidden;
-  border-radius:9px;background:linear-gradient(#12100c,#0b0a07);
-  border:1px solid #2c2418;box-shadow:0 6px 18px rgba(0,0,0,.6),inset 0 1px 0 rgba(226,210,160,.14);
+  display:none;flex-direction:column;
+  /* THE CASING. A phone you can see is a thing with a THICKNESS: the bezel is padding,
+     not a border, because a 1px line reads as a box and 5px of case reads as an object. */
+  padding:var(--skin-bezel,5px) var(--skin-bezel,5px) calc(var(--skin-bezel,5px) * 1.8);
+  border-radius:var(--skin-round,13px);
+  background:var(--skin-case,linear-gradient(150deg,#3b342a,#221d16 60%,#2e2820));
+  border:1px solid var(--skin-caseedge,#4a4133);
+  box-shadow:0 7px 20px rgba(0,0,0,.66),
+             inset 0 1px 0 var(--skin-casetop,rgba(226,210,160,.16)),
+             inset 0 -2px 3px rgba(0,0,0,.5);
   font:10px/1.42 var(--fmono,ui-monospace,monospace);pointer-events:none;}
 #cityfeed.on{display:flex}
-#cityfeedbar{flex:0 0 auto;display:flex;align-items:center;gap:5px;padding:4px 7px;
-  border-bottom:1px solid #241d13;color:#8d8168;font-size:8px;letter-spacing:1px;}
+/* THE TAPE. Somebody kept this thing alive. It sits ON the casing, over the top corner,
+   because that is where a cracked screen gets held together in every photograph of a
+   phone that has been repaired by its owner rather than by a shop. */
+#cityfeedtape{position:absolute;left:-3px;top:var(--skin-tapey,-3px);width:calc(100% + 6px);
+  height:var(--skin-tapeh,8px);z-index:4;pointer-events:none;
+  background:var(--skin-tape,repeating-linear-gradient(115deg,rgba(206,188,140,.30) 0 3px,rgba(176,158,112,.22) 3px 6px));
+  border-top:1px solid rgba(240,226,184,.16);border-bottom:1px solid rgba(0,0,0,.35);
+  transform:rotate(var(--skin-taperot,-1.4deg));opacity:var(--skin-tapeop,.85)}
+/* THE SCREEN. Inset into the casing, and LIT rather than black -- a dark screen is an
+   off phone, and his frame was a picture of an off phone with words on it. */
+#cityfeedscreen{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  border-radius:var(--skin-screenround,4px);
+  background:var(--skin-screen,linear-gradient(#14120d,#0d0b08 70%,#100e0a));
+  box-shadow:inset 0 0 0 1px var(--skin-screenedge,#0a0906),
+             inset 0 2px 7px rgba(0,0,0,.7),
+             0 0 var(--skin-glowr,9px) var(--skin-glow,rgba(200,182,129,.09))}
+/* THE GLASS, AND THE CRACK IN IT. One fracture running out of the corner it was dropped
+   on, plus the greasy band a thumb leaves across the bottom of every phone anybody has
+   ever owned. Drawn over the words, never instead of them: the text stays exactly as
+   legible as it shipped, which is why the crack is hairline and the smear is 4%. */
+#cityfeedglass{position:absolute;inset:0;z-index:2;pointer-events:none;
+  opacity:var(--skin-glassop,1);
+  background:
+    /* the thumb smear along the bottom third */
+    linear-gradient(rgba(255,255,255,0) 62%,rgba(228,216,182,.035) 84%,rgba(255,255,255,0)),
+    /* the shine off the glass */
+    linear-gradient(155deg,rgba(238,228,198,.055),rgba(255,255,255,0) 42%)}
+#cityfeedglass svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+#cityfeedglass .crk{fill:none;stroke:var(--skin-crack,rgba(233,222,190,.30));
+  stroke-width:.7;vector-effect:non-scaling-stroke;stroke-linecap:round}
+#cityfeedglass .crk.rng{stroke:var(--skin-crack2,rgba(233,222,190,.16));stroke-width:.5}
+#cityfeedbar{flex:0 0 auto;display:flex;align-items:center;gap:4px;padding:4px 6px;
+  border-bottom:1px solid #241d13;color:#8d8168;font-size:8px;letter-spacing:1px;
+  position:relative;z-index:1}
 #cityfeedsig{color:#6f6a52;letter-spacing:0}
-#cityfeedname{flex:1;color:#c8b681;letter-spacing:1.5px}
-#cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative}
+/* THE NAME IS THE ONLY THING ALLOWED TO SHRINK, so a narrow casing never pushes the
+   clock or the battery off the phone. Caught on the options sheet's thick-cased
+   option, where the clock walked out past the case. */
+#cityfeedname{flex:1 1 auto;min-width:0;overflow:hidden;white-space:nowrap;
+  color:#c8b681;letter-spacing:1.5px}
+#cityfeedclock{flex:0 0 auto}
+/* THE BATTERY IS A REAL READING AND NOTHING ELSE WOULD BE ALLOWED. It is not a made-up
+   percentage: it asks the game whether the street where the player is standing is on a
+   LIVE CIRCUIT, through the city's own cbLitFront(), the same function the build permit
+   uses. On the grid it charges; off it, it is running on what is left. */
+#cityfeedbatt{display:inline-block;width:11px;height:6px;position:relative;
+  border:1px solid var(--skin-batt,#6f6a52);border-radius:1px;flex:0 0 auto}
+#cityfeedbatt::after{content:'';position:absolute;right:-3px;top:1px;width:1.5px;height:2px;
+  background:var(--skin-batt,#6f6a52)}
+#cityfeedbatt::before{content:'';position:absolute;left:1px;top:1px;bottom:1px;
+  width:var(--battw,20%);background:var(--battc,#8a6a3a);transition:width .4s linear}
+#cityfeedbatt.lit{--battw:78%;--battc:var(--skin-battlit,#9adfd0)}
+#cityfeedbatt.dark{--battw:19%;--battc:var(--skin-battdark,#c07a4a)}
+#cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative;z-index:1}
 #cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
   transition:opacity .28s linear,transform .28s linear}
 #cityfeed .fp.in{opacity:1;transform:none}
@@ -63769,6 +63871,120 @@ window.BOHEMIA_BAR = (function(){
 
   return { build:build, paint:paint, money:money,
            on:function(){ return built && !!document.getElementById('menubar'); } };
+})();
+
+/* ============================================================================
+   *** THE SKIN, AND THE FIRST ELEMENT DRAWN FROM IT (9/11/26, UI lane 11) ***
+   Row [phone object]. laws/BOHEMIA_LAW_THE_UI_HAS_THREE_ACTS_9_6_26.md
+
+   PAOLO 9/8, from his own frame (records/target/PAOLO_THE_FEED_IS_NOT_A_PHONE_9_8_26.jpg):
+   "this doesn't look like a cool post-economic-apocalyptic phone, does it, bro, come on?"
+   He was right. What shipped was a rounded rectangle of monospace text on black -- a
+   debug console with good writing in it.
+
+   THE WORDS WERE NEVER THE PROBLEM AND ARE NOT TOUCHED. Not one post, not one voice.
+   The OBJECT around them is the job.
+
+   AND IT IS THE LANE'S ONE PIECE OF OWED ARCHITECTURE. His three-acts law says every
+   element must be drawn from ONE NAMED SKIN so swapping the skin swaps the interface
+   without touching what the game does -- three acts on one system instead of three
+   rewrites. The phone is the FIRST element moved onto it. Every colour, thickness and
+   radius of the object lives in a skin below and NOWHERE ELSE; the stylesheet only
+   reads variables. Add a second skin here and act two's phone exists.
+
+   ACT ONE IS NAMED "SALVAGE", which is his phrase 2050 RUSTIC taken literally: not a
+   1950s idea of the future, but OUR era's technology worn down, hand-repaired and kept
+   alive past its life. What that means in the picture, taken from how phones actually
+   wear rather than from a mood: a thick scuffed casing (the bezel is PADDING, because 5
+   px of case reads as an object and a 1px line reads as a box), one fracture running out
+   of the corner it was dropped on, the greasy band a thumb leaves across the bottom
+   third of every phone anybody has ever owned, a strip of tape over the top, and a
+   screen that is LIT -- his frame was a picture of an OFF phone with words on it.
+   ========================================================================== */
+window.BOHEMIA_SKIN = (function(){
+
+  var SKINS = {
+    /* ACT ONE. Kept alive past its life. */
+    salvage: {
+      name:'SALVAGE (act one)',
+      vars:{
+        '--skin-case':'linear-gradient(150deg,#3b342a,#221d16 58%,#2f2920)',
+        '--skin-caseedge':'#4a4133',
+        '--skin-casetop':'rgba(226,210,160,.16)',
+        '--skin-bezel':'5px',
+        '--skin-round':'13px',
+        '--skin-screen':'linear-gradient(#14120d,#0d0b08 70%,#100e0a)',
+        '--skin-screenedge':'#0a0906',
+        '--skin-screenround':'4px',
+        '--skin-glow':'rgba(200,182,129,.09)',
+        '--skin-glowr':'9px',
+        '--skin-crack':'rgba(233,222,190,.30)',
+        '--skin-crack2':'rgba(233,222,190,.16)',
+        '--skin-glassop':'1',
+        '--skin-tape':'repeating-linear-gradient(115deg,rgba(206,188,140,.30) 0 3px,rgba(176,158,112,.22) 3px 6px)',
+        '--skin-tapey':'-3px', '--skin-tapeh':'8px',
+        '--skin-taperot':'-1.4deg', '--skin-tapeop':'.85',
+        '--skin-batt':'#6f6a52', '--skin-battlit':'#9adfd0', '--skin-battdark':'#c07a4a'
+      }
+    }
+    /* ACT TWO and ACT THREE go here, as siblings. Nothing else in the file changes. */
+  };
+
+  var current=null;
+
+  function wear(which){
+    var sk = SKINS[which] || SKINS.salvage;
+    var r = document.documentElement;
+    for(var k in sk.vars){
+      if(Object.prototype.hasOwnProperty.call(sk.vars,k)) r.style.setProperty(k, sk.vars[k]);
+    }
+    current = (SKINS[which] ? which : 'salvage');
+    return current;
+  }
+
+  /* *** THE BATTERY IS A REAL READING OR IT DOES NOT DRAW. *** MECHANISM-MINE /
+     CONTENTS-PAOLO'S. A percentage invented to look good is worse than no battery,
+     because he cannot tell an invented number from a real one by looking at it. So it
+     asks the game a question the game already answers for its own build permit: IS THE
+     STREET WHERE HE IS STANDING ON A LIVE CIRCUIT. cbLitFront() is the city's own
+     function for that, and it exists precisely because asking about the plot instead of
+     the street returns false everywhere (the grid only lays circuits along street
+     cells -- that lesson is written in the file above it and cost another lane a round).
+     On the grid the cell charges; off it, the phone is running on what is left.
+     Returns null when the city has not finished booting, and a null draws NOTHING. */
+  function litHere(){
+    try{
+      var P = window.__proof; if(!P || typeof cbLitFront!=='function') return null;
+      var FN = P.FN; if(!FN) return null;
+      var tx = (P.hx / FN) | 0, ty = (P.hy / FN) | 0;
+      if(!isFinite(tx) || !isFinite(ty)) return null;
+      return !!cbLitFront(tx, ty);
+    }catch(_e){ return null; }
+  }
+
+  function paintBattery(){
+    var b = document.getElementById('cityfeedbatt'); if(!b) return null;
+    var lit = litHere();
+    b.classList.toggle('lit',  lit === true);
+    b.classList.toggle('dark', lit === false);
+    b.setAttribute('title', lit === null ? 'no reading yet'
+      : (lit ? 'on the grid here' : 'off the grid here'));
+    return lit;
+  }
+
+  function boot(){
+    wear('salvage');
+    paintBattery();
+    /* the grid does not change under a standing man, and it is one lookup, so a
+       half-second poll is already more often than it can possibly matter. */
+    try{ setInterval(paintBattery, 500); }catch(_e){}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
+  else boot();
+
+  return { wear:wear, current:function(){ return current; },
+           list:function(){ return Object.keys(SKINS); },
+           litHere:litHere, paintBattery:paintBattery };
 })();
 
 </script>

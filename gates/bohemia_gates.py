@@ -236,6 +236,24 @@ GATES = [
      'THE SHIPPED GAME\'S CONTROLS STILL WORK and the halving is OFF so the row cannot '
      'half-ship itself -- reports what the work already achieves, and carries the open defect '
      'as its own leg so nobody mistakes it for done.', True),
+    ('PHONE OBJECT',   ['node', 'gates/phone_object_gate.js'],
+     'Board row [phone object]. PAOLO 9/8 from his own frame: "this doesn\'t look like a '
+     'cool post-economic-apocalyptic phone, does it, bro, come on?" What shipped was a '
+     'rounded rectangle of monospace text on black -- a debug console with good writing in '
+     'it. The WORDS were never the problem and are untouched; the OBJECT around them is the '
+     'job. What makes it gateable rather than taste is that a panel and an object differ by '
+     'something you can MEASURE: a casing with real thickness on every side, a screen inset '
+     'strictly inside it, and a fracture that is a DRAWN shape radiating from an impact '
+     'point (the first cut was three full-length diagonals and looking at it showed '
+     'scratches on a window). THE LEG THAT MATTERS MOST IS THE BATTERY: it is not an '
+     'invented percentage, it asks the city\'s OWN cbLitFront() whether the street the '
+     'player is standing on is a live circuit, and the gate stands him on a lit street and '
+     'then off it to prove BOTH states -- one branch is not a reading, and this city has '
+     'already paid once for a permit that asked about the plot instead of the street and so '
+     'refused nothing. It must also never print a number it does not have. And the object '
+     'is drawn from a SKIN (the three-acts law\'s one required piece of architecture), '
+     'proved by mutation: change one skin value and the phone repaints, put it back and it '
+     'restores.', True),
     ('TOP MENU BAR',   ['node', 'gates/top_bar_gate.js'],
      'PAOLO 9/7 LOCKED (laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md): "we need a top '
      'menu bar like how Battle Brothers has it, how Civilization five has it, Surviving the '
