@@ -464,6 +464,24 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('PARTIES MOVE',  ['node', 'gates/parties_move_gate.js'],
+     'GROUPS-WITH-THEIR-OWN-BUSINESS (board row [parties move], 9/11). The row: "the map is '
+     'populated by the world\'s own business, not by a spawner aimed at the player. Places BUY '
+     'and SEND parties out of what they have, each with an agenda (a caravan carrying, a patrol '
+     'holding a border, a crew going to take something), and they travel whether or not the '
+     'player is looking. A party\'s strength is real and readable, because pursuit depends on how '
+     'strong you look next to it." MEASURED BEFORE IT WAS BUILT: the only thing that ever put '
+     'anybody in front of the player was the ambient encounter director, whose own header says it '
+     'is PULLED by the player\'s spent time and owns no clock by ruling -- right for ambient '
+     'encounters, and exactly what this row is set against. Nothing in the valley had business of '
+     'its own. THE CHECK THAT BITES: not one function that decides what exists, where it goes or '
+     'how strong it is may take the player\'s position; near() is the only one allowed to, and it '
+     'only looks. Everything else is somebody else\'s number -- how many a place sends is '
+     'BohemiaTowns.REACH (fortress 3, town 2, camp 1), how strong it is is his act power column '
+     'unchanged (NOT a damage number: NO DAMAGE BEFORE THE DIAL stands), who it is sent at is '
+     'BohemiaBetween, and how far it gets in a day is the walked surface\'s own ROADS-ARE-FAST '
+     'rule re-derived here so a typed speed shows up as a disagreement. Red both ways: type a '
+     'party count -> 2 red; let the player decide what exists -> 2 red.', True),
     ("A DAY'S WORK",  ['node', 'gates/a_days_work_gate.js'],
      'EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER (board row [a days work], 9/7). '
      'MEASURED IN OUR OWN CODE: the valley\'s people have seven acts (errand, free, home, '

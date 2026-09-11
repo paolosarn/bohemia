@@ -24,32 +24,43 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_work.js')
+PARTIES = os.path.join(ROOT, 'engine', 'bohemia_parties.js')
 
 BEGIN = '/* ==== engine/bohemia_work.js ==== */'
 END = '/* ==== /engine/bohemia_work.js ==== */'
+# [parties move] rides the same splice: it reads bohemia_towns.js and
+# bohemia_between.js, both of which the city already carries, and it has to land
+# outside every module body for the same reason work does.
+P_BEGIN = '/* ==== engine/bohemia_parties.js ==== */'
+P_END = '/* ==== /engine/bohemia_parties.js ==== */'
 # The economy's banner: bohemia_work.js reads YIELD off that module, so landing
 # beside it keeps the two things a reader has to hold together in one place.
 ANCHOR = '/* ==== engine/bohemia_economy.js ==== */'
 
 
 def main():
-    for p in (CITY, MODULE):
+    for p in (CITY, MODULE, PARTIES):
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
     s = open(CITY, encoding='utf8').read()
     before = s
 
-    i = s.find(BEGIN)
-    if i >= 0:
-        j = s.find(END, i)
+    def cut(text, begin, end, label):
+        i = text.find(begin)
+        if i < 0:
+            return text
+        j = text.find(end, i)
         if j < 0:
-            sys.exit('REFUSING TO WRITE: the work module has an opening marker and no '
-                     'closing one. Fix the page by hand rather than letting this guess.')
-        k = j + len(END)
-        if s[k:k + 1] == '\n':
+            sys.exit('REFUSING TO WRITE: %s has an opening marker and no closing one. '
+                     'Fix the page by hand rather than letting this guess.' % label)
+        k = j + len(end)
+        if text[k:k + 1] == '\n':
             k += 1
-        s = s[:i] + s[k:]
+        return text[:i] + text[k:]
+
+    s = cut(s, BEGIN, END, 'the work module')
+    s = cut(s, P_BEGIN, P_END, 'the parties module')
 
     if s.count(ANCHOR) != 1:
         sys.exit('REFUSING TO WRITE: the anchor resolves %d times, not 1.' % s.count(ANCHOR))
@@ -59,14 +70,20 @@ def main():
         sys.exit('REFUSING TO WRITE: the module contains a sequence that would close '
                  'the script tag.')
 
-    block = BEGIN + '\n' + mod + '\n' + END + '\n\n'
+    par = open(PARTIES, encoding='utf8').read().rstrip('\n')
+    if '</' in par:
+        sys.exit('REFUSING TO WRITE: the parties module contains a sequence that would '
+                 'close the script tag.')
+
+    block = (BEGIN + '\n' + mod + '\n' + END + '\n'
+             + P_BEGIN + '\n' + par + '\n' + P_END + '\n\n')
     s = s.replace(ANCHOR, block + ANCHOR, 1)
 
     if s == before:
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY WORK: engine/bohemia_work.js inlined before the economy module')
+    print('CITY WORK: bohemia_work.js + bohemia_parties.js inlined before the economy module')
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 

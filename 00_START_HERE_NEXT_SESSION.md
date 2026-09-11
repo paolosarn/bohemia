@@ -11441,79 +11441,90 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [a days work] EVERYBODY-IN-THE-VALLEY-HAS-A-JOB-EXCEPT-THE-PLAYER
-is SHIPPED 9/7.
+HOLDING: nothing. [parties move] GROUPS-WITH-THEIR-OWN-BUSINESS is SHIPPED 9/11.
 
 WHAT SHIPPED
-  THE PLAYER CAN WORK. Measured in our own code first: the valley's people have
-  seven acts (errand, free, home, scav, sleep, watch, work) and put in a seven-hour
-  day; the player had six (walk, talk, fight, build, buy, sleep) and NOT ONE OF THEM
-  WAS WORK. The money vocabulary agreed -- of finish-a-quest (+1), build (-1), buy
-  (-1), ask (-1 clout), three are spending, one is earning, none is work. The four
-  verbs are the BILL. This is the JOB.
-  A button where his feet are: SITE work on his own job districts, a SCAV sweep
-  anywhere else. It runs exactly as many minutes as the valley schedules that
-  archetype on this seed, and the nightfall card says "you put in a 8 hour shift at
-  the solar / a day's work paid: 1 battery".
-  NOTHING IN IT IS A NEW NUMBER. Where work happens is his JOB_DISTRICTS, the kinds
-  are the economy's two, the hours are bohemia_agents' own schedule, the produce is
-  the economy's YIELD, the pay is the purse's ruled ONE. The gate strips the comments
-  and greps the logic: the only numerals left are 0, 1, 8 and 60.
-  NEW: engine/bohemia_work.js, purse.payForWork(), agents exports JOB_DISTRICTS,
-  tools/bohemia_city_work_patch.py, gates/a_days_work_gate.js (37 checks, registered
-  as A DAY'S WORK, red both ways). RECORD: records/BOHEMIA_A_DAYS_WORK_9_7_26.md
+  THE VALLEY HAS BUSINESS OF ITS OWN. 28 parties out of the 14 seats, carrying his
+  three agendas: a caravan carrying, a patrol holding a border, a crew going to take
+  something. PLACES send them and the player is nowhere in any decision about what
+  exists, where it goes or how strong it is -- near() is the only function that takes
+  his position and it only LOOKS.
+  MEASURED BEFORE IT WAS BUILT: the only thing that had ever put anybody in front of
+  the player was bohemia_encounters.js, whose own header says it is PULLED by the
+  player's spent time and owns no clock BY RULING. Right for ambient encounters, and
+  exactly what this row is set against. bohemia_patrol.js is a BLOCK's sidewalk loop.
+  Nothing in the valley had business of its own; nobody was going anywhere.
+  NOT ONE NUMBER IS TYPED. How many a place sends is BohemiaTowns.REACH (fortress 3,
+  town 2, camp 1); how strong it is is his act power column unchanged (Remnants 14
+  down to Colorful 1, and it is NOT a damage number -- NO DAMAGE BEFORE THE DIAL
+  stands); who a crew is sent at is BohemiaBetween; whose ground is whose is BB-TURF's
+  catchment; and how far it gets in a day is the walked surface's own ROADS-ARE-FAST
+  rule, 89.3 cells against a 96-cell map, re-derived in the gate so a typed speed
+  would show up as a disagreement rather than a comment nobody checks.
+  THEY MOVE ON advance(mins), NOT ON NIGHTFALL -- nightfall would mean a caravan
+  teleports once a day. Proved travelling with him standing absolutely still: he moved
+  not one cell over half a day, 27 of 28 parties did, nearest ever 19 cells away.
+  THE CARD SAYS WHAT THE VALLEY DID: "Cartel sent a crew onto Caravans' ground (6
+  parties moved in the valley today)". One line, not eight.
+  NEW: engine/bohemia_parties.js, gates/parties_move_gate.js (39 checks, registered as
+  PARTIES MOVE, suite 574, red both ways). The work patcher now inlines it too.
+  RECORD: records/BOHEMIA_PARTIES_MOVE_9_11_26.md
 
-FOUR THINGS WORTH KEEPING
-  1. *** THE PAYOUT ROW WAS ALWAYS THIS ROW AND ONLY A QUEST COULD REACH IT. ***
-     PAYOUT.COMPLETE's own comment says, in these words, "a day's work pays a
-     battery". Its only caller in the whole repo was quest completion, so the
-     sentence describing a day's work was reachable exclusively by finishing a
-     quest and a player who worked all day was paid nothing. payForWork() is that
-     same row, finally reachable by the thing it was written about. NO second table
-     and NO new number. When ECONOMY's [shift pay] (Q27) lands it moves PAYOUT and
-     payForWork does not change -- that is the test of whether a pipe was built right.
-  2. THE LEDGER SAYS work:site, NOT quest:COMPLETE. audit() refuses an anonymous
-     movement, and a quest label on a shift at a solar yard is a lie the ledger then
-     tells forever. The ledger is the record of what you DID.
-  3. THE ONE NUMERAL THAT LOOKS LIKE A SHIFT LENGTH IS PROVED NOT TO BE ONE.
-     minutesFor hands scheduleFor an 8am clock-on because the function demands a
-     start. bohemia_agents builds the block as until(shift + j(480,45)) right after
-     until(shift), so the start slides and the length does not -- measured across 30
-     seeds and two clock-on times in the gate rather than argued in a comment.
-  4. MEASURED BEFORE SHIPPING, TO RULE OUT A DEAD BUTTON: both shifts always fit the
-     840-minute waking day (site 435..525 min, scav 199..526 across 2,000 seeds,
-     2000/2000 fit), and 179 of 2,304 sampled cells offer SITE work so a solar yard
-     is a place you walk to rather than a thing you never see.
-  AND ONE THING THE FIRST CUT GOT WRONG: the card said "you scavenged for 8 hours at
-  the suburb", which reads like the suburb employs you and is exactly backwards. The
-  place is named only when the place IS the job.
+THREE THINGS MEASURING CAUGHT, AND ONE WAS A REAL DESIGN FLAW
+  1. *** A PATROL THAT PARKS IS A STATUE. *** The first cut had a patrol stop dead on
+     its border cell for ever, reading "holding a border" as standing on it. MEASURED:
+     that froze FOURTEEN of twenty-eight parties after day one, so half the valley's
+     business was statues and the row's own words were only half true. A patrol holds
+     a border by WALKING it -- which is what this repo's own block-scale
+     bohemia_patrol.js has modelled since 7/16 ("a patrol that never closes its loop is
+     a guard teleporting home every lap, and the eye catches that immediately").
+  2. A STATE THAT LIES FOR ONE TICK. Arrival was checked at the TOP of the step, so a
+     party standing on its destination reported "still walking" for a whole day and
+     anything reading it was told the wrong thing. The flag is set in the step that
+     arrives now.
+  3. THE CARD LINE WAS NEARLY DEAD ON ARRIVAL, and only measuring first caught it. How
+     often does a party come within sight of a standing player? At radius 1: ZERO times
+     in twenty days. A "what passed your window" line would have been a branch that
+     never executes. What does happen is ARRIVALS -- 6 to 10 a day once the first day
+     settles -- so the card reports the valley's business, not your window.
+  AND TWO GRAMMAR BUGS, both caught by reading the real sentence on the real card
+  rather than by thinking about it: 'a ' + faction gave "a Anarchists patrol" (his
+  names are plural, so no article is ever right and it is gone), and a bare possessive
+  gave "Caravans's ground".
+
+AND ONE CHECK OF MINE THAT WAS SIMPLY WRONG, worth keeping because it is a class:
+  the first surface check drove four NIGHTS and failed because the player had moved
+  from 48,48 to 17,36. He had -- waking puts him back at his own house, which is the
+  day loop doing its job. The claim I wanted is that the valley's business needs him
+  nowhere, so it is measured inside a single day now. A CHECK THAT CANNOT BE TRUE IS
+  NOT A STRICTER CHECK, IT IS A BROKEN ONE.
 
 NEXT: read the WORLD section fresh; the coordinator harvests rows onto this queue
-constantly. As of this round the next OPEN line is [parties move]
-GROUPS-WITH-THEIR-OWN-BUSINESS, then [batteries mined] (amended 9/6: work comes
-first, which this round just delivered, and cap what a building earns while away),
-[century stayed] (UNBLOCKED 9/7 -- Paolo ruled it: "buildings, and some people
-depending on how many years passed"), [own power], [rice clock], [debt carried],
-[someone lends], [back of house], [water lifted], [battery worth], [fold carries],
-[visible change].
+constantly. As of this round the next OPEN line is [batteries mined] (amended 9/6:
+work comes first, which [a days work] delivered, and cap what a building earns while
+away), then [century stayed] (UNBLOCKED 9/7, Paolo ruled it: "buildings, and some
+people depending on how many years passed"), [own power], [rice clock], [debt
+carried], [someone lends], [back of house], [water lifted], [battery worth],
+[fold carries], [visible change], [suburb walls].
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
 7/31 with zero callers.
-STANDING DUTY THIS LANE PAID FOR ONCE: re-check your gates' REGISTRATION every
-round. Another lane's resolver dropped COALITION's row out of gates/bohemia_gates.py
-between it shipping and the next round; an unregistered gate never runs and nothing
-goes red to say so, the suite just gets quietly shorter. Restored 9/6 from aace2d9.
-ALSO NOTED, AND NOT MINE: market_gate has been 22/10 on main for several rounds and
-faction_outfit_gate is 16/2. Both were red before my rounds and neither moved.
+STANDING DUTY THIS LANE PAID FOR ONCE: re-check your gates' REGISTRATION every round.
+Another lane's resolver dropped COALITION's row out of gates/bohemia_gates.py between
+it shipping and the next round; an unregistered gate never runs and nothing goes red
+to say so, the suite just gets quietly shorter. All five of this lane's gates were
+checked present this round.
+NO LONGER TRUE, and worth saying out loud: DAY LOOP was 57/2 on main for several
+rounds and is 59/0 now, fixed by somebody else. MARKET was still 22/10 last round.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [a days work], 9/7. Before it: [shelves premise] 1f3d342,
-[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
-[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
-[living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [parties move], 9/11. Before it: [a days work] 4f55d76,
+[shelves premise] 1f3d342, [enemies unite] aace2d9, [rung unlocks] 44dd7a1,
+[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
+[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
 
 
 
