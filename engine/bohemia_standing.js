@@ -264,18 +264,52 @@
     spared:   'YOU HAD THEM AND DID NOT'/* draft:true */
   };
 
-  /* makeRight(mind, actorId, opts) -> {settled, deeds, how}
+  /* ==========================================================================
+     WHAT IT COSTS TO MAKE IT RIGHT, IN BATTERIES. (9/11, [paid means paid].)
+     ECONOMY round 26 read this module the round after it shipped and found the
+     hole: RIGHT_WORDS says 'PAID THEM BACK', the one live caller passed exactly
+     that word, and makeRight had no purse, no currency and no amount. The card
+     said paid and nothing was ever paid.
+     THE COORDINATOR RULED IT 9/7: restitution is paid in batteries to the person
+     wronged, WEIGHT FOR WEIGHT -- a wrong that weighs three costs three -- under
+     EVERYTHING COSTS ONE.
+     SO THE PRICE IS NOT A NEW NUMBER. It is the grudge itself: the same sum
+     wouldSquare already adds up, which is the same sum forceOf already weighs,
+     which is his STANDING dial and nothing else. A heavier wrong costs more
+     because it IS more, and if he never rules the deed table it costs nothing --
+     which is the honest answer, not a hidden default. */
+  function priceOf(mind, actorId, now){
+    var w = wouldSquare(mind, actorId, now);
+    /* ROUNDED UP, because EVERYTHING COSTS ONE means a wrong you can feel cannot
+       cost zero, and a fraction of a battery is not a thing anybody can hand
+       over. A grudge of 0.2 costs one battery. */
+    return Math.ceil(-w.grudge) || 0;
+  }
+
+  /* makeRight(mind, actorId, opts) -> {settled, deeds, how, paid}
        mind     the person doing the forgiving. THEIRS is the only opinion this
                 changes, because theirs is the only one it is.
        actorId  who is being forgiven.
        opts.how one of RIGHT_WORDS. Defaults to 'settled'.
        opts.kind settle only this deed kind; default every held grudge.
-       opts.turn when, so a surface can say how long ago it was squared. */
+       opts.turn when, so a surface can say how long ago it was squared.
+       opts.paid how many batteries actually changed hands. Zero or absent is a
+                legal, ordinary case: it means words alone.
+
+     *** AND THE WORD 'paid' IS REFUSED UNLESS SOMETHING WAS ACTUALLY PAID. ***
+     That is the whole of this row. A surface can still settle a wrong with
+     nothing but an apology -- the coordinator's ruling says so explicitly, "if
+     the purse cannot cover it the apology is still offered and the wronged
+     person decides whether words alone will do" -- but then the record says
+     THEY LET IT GO, which is what happened, instead of PAID THEM BACK, which is
+     not. The caller cannot lie to the ledger even by accident. */
   function makeRight(mind, actorId, opts){
     opts = opts || {};
     var how = RIGHT_WORDS[opts.how] ? opts.how : 'settled';
+    var paid = Math.max(0, (opts.paid|0));
+    if(how === 'paid' && !paid) how = 'forgiven';
     var now = (opts.turn==null) ? 0 : (opts.turn|0);
-    var out = {settled:0, deeds:[], how:how};
+    var out = {settled:0, deeds:[], how:how, paid:paid};
     if(!mind || !mind.deeds || actorId==null) return out;
     for(var i=0;i<mind.deeds.length;i++){
       var d=mind.deeds[i];
@@ -287,7 +321,7 @@
          A weightless deed is not a grudge and there is nothing to forgive. */
       var f = forceOf(mind, d, now);
       if(!(f<0)) continue;                        /* only a thing held AGAINST you */
-      d.right = {how:how, turn:now};
+      d.right = {how:how, turn:now, paid:paid};
       out.settled++; out.deeds.push(d.kind);
     }
     return out;
@@ -564,7 +598,7 @@
     witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
     whoVouches:whoVouches, whoWont:whoWont,
     becauseOf:becauseOf, rungFor:rungFor,
-    RIGHT_WORDS:RIGHT_WORDS, makeRight:makeRight, madeRightBy:madeRightBy,
+    RIGHT_WORDS:RIGHT_WORDS, priceOf:priceOf, makeRight:makeRight, madeRightBy:madeRightBy,
     wouldSquare:wouldSquare,
     carryRight:carryRight,
     inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,

@@ -4497,6 +4497,17 @@ GATES = [
      "the file a stranger actually opens -- somebody talks on every one of the opening days, and a "
      "speaker who belongs to a later stage is SILENT until the quest reaches them, which is the half "
      "that proves the chain is being read rather than sprayed", False),
+    ('PAID MEANS PAID',['node', 'gates/paid_means_paid_gate.js'],
+     "THE CARD SAID PAID THEM BACK AND NOTHING WAS EVER PAID. ECONOMY read this lane's own forgiveness "
+     "work the round after it shipped and found it: RIGHT_WORDS carries 'paid', the one live caller "
+     "passed exactly that word, and makeRight had no purse, no currency and no amount. Restitution is "
+     "now paid in batteries WEIGHT FOR WEIGHT (coordinator 9/7) -- and the price is not a new number, it "
+     "is the grudge itself, the same sum wouldSquare already adds up, so it is his STANDING dial and "
+     "while the deed table is empty it is honestly ZERO. THE CLAIM THAT IS THE WHOLE ROW: the word "
+     "'paid' is REFUSED when nothing was paid, so a caller cannot lie to the ledger even by accident -- "
+     "it becomes THEY LET IT GO, which is what happened. Driven on the real demo both ways: broke, the "
+     "card says so and the apology still stands and nothing leaves; flush, six batteries really leave "
+     "the purse as a TRANSFER rather than a drain, because restitution goes TO the person wronged", False),
     ('MAKE IT RIGHT',  ['node', 'gates/make_it_right_gate.js'],
      "NOTHING IN THIS GAME COULD BE FORGIVEN. The web wrote deeds, carried them, faded them, and never "
      "settled one, so standing was a one-way ratchet toward being hated and generation three is the "

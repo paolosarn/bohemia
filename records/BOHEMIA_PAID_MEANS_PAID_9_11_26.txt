@@ -1,0 +1,113 @@
+BOHEMIA -- PAID MEANS PAID (9/11/26, PEOPLE lane)
+VAMILY job [paid means paid], row THE-CARD-SAYS-PAID-AND-NOTHING-IS-PAID
+
+THE ROW, AND IT IS THIS LANE'S OWN DEFECT: ECONOMY round 26 read [make it right]
+the round after this lane shipped it and found the hole. RIGHT_WORDS carries
+'paid': 'PAID THEM BACK'. The one live caller in the game -- the button on the
+person card -- passed exactly that word. makeRight had arity 3: no purse, no
+currency, no amount. THE CARD SAID PAID THEM BACK AND NOTHING WAS EVER PAID.
+
+That is the worst kind of bug this repo has, because every gate was green. The
+mechanism did what it said it did; it just said the wrong thing about itself, and
+nothing checks that two parts agree.
+
+================================================================================
+THE RULING, AND IT IS NOT MINE
+================================================================================
+COORDINATOR 9/7 (records/BOHEMIA_COORDINATOR_SWEEP_PASS_TWO_9_7_26.md):
+  restitution is paid in batteries from the purse to the person wronged, WEIGHT
+  FOR WEIGHT -- a wrong that weighs three costs three to make right, under
+  EVERYTHING COSTS ONE. If the purse cannot cover it the apology is still offered
+  and the wronged person decides whether words alone will do. The payment makes
+  the apology believable; it does not buy forgiveness.
+
+================================================================================
+MEASURED BEFORE BUILDING
+================================================================================
+  BohemiaPurse.CURRENCIES   ['resources','electricity','clout'], and ELECTRICITY
+                            is the battery line in the purse's OWN header
+                            ("ELECTRICITY  batteries, tech"), not my reading
+  purseGet()                the walked city DOES hold a live purse instance and
+                            saves it. Another lane's recent note said no street
+                            code holds one; that was stale by the time I read it,
+                            and I checked rather than repeating it
+  DEED_WEIGHT               0 keys. Ships EMPTY. So a wrong weighs nothing until
+                            he turns the STANDING dial
+  makeRight                 arity 3, no purse, no currency, no amount
+
+================================================================================
+THE PRICE IS NOT A NEW NUMBER, WHICH IS THE PART WORTH KEEPING
+================================================================================
+priceOf() is the GRUDGE ITSELF: the same negative sum wouldSquare already adds
+up, which is the same sum forceOf already weighs, which is his STANDING dial and
+nothing else. A heavier wrong costs more because it IS more. Rounded UP, because
+EVERYTHING COSTS ONE means a wrong you can feel cannot cost zero and half a
+battery is not a thing anybody can hand over.
+AND WHILE HIS DEED TABLE IS EMPTY IT COSTS NOTHING. That is the truth, not a
+hidden default: nobody has ruled what a wrong weighs, so nobody is owed anything
+for it. The gate holds that case on purpose so a future round cannot quietly slip
+a number in underneath it.
+
+*** AND THE WORD 'paid' IS NOW REFUSED WHEN NOTHING WAS PAID. *** That is the
+whole row. makeRight takes opts.paid; ask for 'paid' with nothing handed over and
+the record says 'forgiven' -- THEY LET IT GO -- because that is what happened. The
+wrong is still settled either way: this refuses the WORD, never the forgiveness,
+exactly as the ruling's second half requires. A caller cannot lie to the ledger
+even by accident, which is the only real fix for a bug whose cause was a caller
+lying to the ledger by accident.
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+engine/bohemia_standing.js                 priceOf; makeRight takes and enforces
+                                           an amount; the mark carries it
+tools/bohemia_city_paid_means_paid_patch.py the price on the card, the payment
+                                           on the button
+gates/paid_means_paid_gate.js              25 claims, 0 red
+gates/bohemia_gates.py                     registered, 573 -> 574
+
+IT IS A TRANSFER, NOT A DRAIN. The purse has both and they mean different things:
+a drain is consumed, a transfer goes TO somebody. Restitution goes to the person
+wronged, so transferOut is the right door and the ledger row says so.
+
+================================================================================
+PROVEN ON THE REAL DEMO, BOTH WAYS, THROUGH THE BUTTON A PLAYER PRESSES
+================================================================================
+The weights come from his STANDING dial (ctDialApply, the real one the DIRECT tab
+posts). Nothing writes a weight by hand, or the price would be measuring the gate.
+
+  BROKE
+    purse 0 batteries, price 6
+    the card says TO PUT IT RIGHT / 6 BATTERIES, and under it "You do not have
+      it. You can still say it, and it is theirs to accept."
+    press it   -> THEY LET IT GO. Purse still 0. Nothing was taken and nothing
+                  was claimed.
+  FLUSH
+    purse 10 batteries, price 6
+    the card names the price and does not say he is short
+    press it   -> PAID THEM BACK. Purse 10 -> 4. The ledger row is
+                  {kind: transfer, amount: -6, currency: electricity}, reason
+                  'restitution'.
+
+================================================================================
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+================================================================================
+1. THE 82-ROW DEED TABLE IS STILL UNRULED, and now it decides money as well as
+   standing. Until he turns the dial, every wrong is weightless and every
+   restitution is free. That is the same [PENDING] this lane has carried since
+   [make it right]; it just got more expensive to leave open.
+2. WHETHER THE LADDER SHOULD BE STEEPER. ECONOMY's round 26 found our clout
+   ladder runs 8 to 110, fourteen times, against real tariffs that ran nine
+   shillings to seven thousand two hundred, EIGHT HUNDRED times. Weight for
+   weight is now wired to whatever shape he gives it, so making the top heavier
+   is a dial turn and not a rebuild.
+3. WHAT THE PERSON DOES WITH THE BATTERIES. Today they leave the player's purse
+   as a transfer and the world does not model the other end. Whether being paid
+   makes somebody richer, or just less angry, is his.
+
+FEEDS: ECONOMY, which found this and whose round 26 record is the research behind
+the ruling. And it closes the loop on [make it right]: the four words now differ
+by something real, since 'paid' means paid and 'forgiven' means they let it go.
+
+TAB: CITY. Wrong somebody, do two good turns in front of them, and the card names
+what it costs to put right before you press anything.

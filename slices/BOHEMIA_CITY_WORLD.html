@@ -40892,18 +40892,52 @@ function ctKnowsMe(id){
     spared:   'YOU HAD THEM AND DID NOT'/* draft:true */
   };
 
-  /* makeRight(mind, actorId, opts) -> {settled, deeds, how}
+  /* ==========================================================================
+     WHAT IT COSTS TO MAKE IT RIGHT, IN BATTERIES. (9/11, [paid means paid].)
+     ECONOMY round 26 read this module the round after it shipped and found the
+     hole: RIGHT_WORDS says 'PAID THEM BACK', the one live caller passed exactly
+     that word, and makeRight had no purse, no currency and no amount. The card
+     said paid and nothing was ever paid.
+     THE COORDINATOR RULED IT 9/7: restitution is paid in batteries to the person
+     wronged, WEIGHT FOR WEIGHT -- a wrong that weighs three costs three -- under
+     EVERYTHING COSTS ONE.
+     SO THE PRICE IS NOT A NEW NUMBER. It is the grudge itself: the same sum
+     wouldSquare already adds up, which is the same sum forceOf already weighs,
+     which is his STANDING dial and nothing else. A heavier wrong costs more
+     because it IS more, and if he never rules the deed table it costs nothing --
+     which is the honest answer, not a hidden default. */
+  function priceOf(mind, actorId, now){
+    var w = wouldSquare(mind, actorId, now);
+    /* ROUNDED UP, because EVERYTHING COSTS ONE means a wrong you can feel cannot
+       cost zero, and a fraction of a battery is not a thing anybody can hand
+       over. A grudge of 0.2 costs one battery. */
+    return Math.ceil(-w.grudge) || 0;
+  }
+
+  /* makeRight(mind, actorId, opts) -> {settled, deeds, how, paid}
        mind     the person doing the forgiving. THEIRS is the only opinion this
                 changes, because theirs is the only one it is.
        actorId  who is being forgiven.
        opts.how one of RIGHT_WORDS. Defaults to 'settled'.
        opts.kind settle only this deed kind; default every held grudge.
-       opts.turn when, so a surface can say how long ago it was squared. */
+       opts.turn when, so a surface can say how long ago it was squared.
+       opts.paid how many batteries actually changed hands. Zero or absent is a
+                legal, ordinary case: it means words alone.
+
+     *** AND THE WORD 'paid' IS REFUSED UNLESS SOMETHING WAS ACTUALLY PAID. ***
+     That is the whole of this row. A surface can still settle a wrong with
+     nothing but an apology -- the coordinator's ruling says so explicitly, "if
+     the purse cannot cover it the apology is still offered and the wronged
+     person decides whether words alone will do" -- but then the record says
+     THEY LET IT GO, which is what happened, instead of PAID THEM BACK, which is
+     not. The caller cannot lie to the ledger even by accident. */
   function makeRight(mind, actorId, opts){
     opts = opts || {};
     var how = RIGHT_WORDS[opts.how] ? opts.how : 'settled';
+    var paid = Math.max(0, (opts.paid|0));
+    if(how === 'paid' && !paid) how = 'forgiven';
     var now = (opts.turn==null) ? 0 : (opts.turn|0);
-    var out = {settled:0, deeds:[], how:how};
+    var out = {settled:0, deeds:[], how:how, paid:paid};
     if(!mind || !mind.deeds || actorId==null) return out;
     for(var i=0;i<mind.deeds.length;i++){
       var d=mind.deeds[i];
@@ -40915,7 +40949,7 @@ function ctKnowsMe(id){
          A weightless deed is not a grudge and there is nothing to forgive. */
       var f = forceOf(mind, d, now);
       if(!(f<0)) continue;                        /* only a thing held AGAINST you */
-      d.right = {how:how, turn:now};
+      d.right = {how:how, turn:now, paid:paid};
       out.settled++; out.deeds.push(d.kind);
     }
     return out;
@@ -41192,7 +41226,7 @@ function ctKnowsMe(id){
     witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
     whoVouches:whoVouches, whoWont:whoWont,
     becauseOf:becauseOf, rungFor:rungFor,
-    RIGHT_WORDS:RIGHT_WORDS, makeRight:makeRight, madeRightBy:madeRightBy,
+    RIGHT_WORDS:RIGHT_WORDS, priceOf:priceOf, makeRight:makeRight, madeRightBy:madeRightBy,
     wouldSquare:wouldSquare,
     carryRight:carryRight,
     inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
@@ -62573,6 +62607,28 @@ function ctDraw(){
                module decides again when it is pressed, so a stale card cannot
                settle something the person would no longer settle. */
             body += ctRow('THEY HOLD SOMETHING AGAINST YOU', 'AND THEY WOULD LET IT GO');
+            /* __CITY_PAID_MEANS_PAID__ -- AND WHAT IT COSTS, BEFORE HE PRESSES.
+               Weight for weight (coordinator 9/7): a wrong that weighs three
+               costs three batteries. The price is the grudge itself, so it is
+               his STANDING dial and not a number anybody typed here -- and while
+               the deed table is empty it is ZERO, which the card says plainly
+               rather than hiding. draft:true. */
+            var ctPrice = 0;
+            try{ ctPrice = BohemiaStanding.priceOf(ctMR, '@', ctMinuteNow()); }catch(_e){}
+            var ctHave = 0;
+            try{ ctHave = BohemiaPurse.balance(purseGet(), 'electricity') || 0; }catch(_e){}
+            if (ctPrice > 0) {
+              body += ctRow('TO PUT IT RIGHT',
+                            ctPrice + (ctPrice === 1 ? ' BATTERY' : ' BATTERIES'));
+              if (ctHave < ctPrice) {
+                /* THE RULING'S OWN SECOND HALF: the apology is still offered and
+                   THEY decide whether words alone will do. So the button stays,
+                   and what it writes will say THEY LET IT GO rather than PAID
+                   THEM BACK, because that is what happened. */
+                body += ctNote('You do not have it. You can still say it, and it '
+                             + 'is theirs to accept.');
+              }
+            }
             body += '<button id="ctright">Make it right</button>';
           } else {
             /* WHAT IS STILL OWED, IN PLAIN WORDS. draft:true. */
@@ -63284,10 +63340,29 @@ function ctDraw(){
     try{
       var m=CT_MINDS[CT_OPEN && CT_OPEN.id];
       if(m && BohemiaStanding.wouldSquare(m,'@',ctMinuteNow()).would){
-        /* WHICH WORD IT IS: they are letting it go because of what you have
-           since done for them, so it is PAID rather than a free pardon.
-           draft:true, and the module keeps all four so he can rule them apart. */
-        BohemiaStanding.makeRight(m,'@',{how:'paid',turn:ctMinuteNow()});
+        /* __CITY_PAID_MEANS_PAID__ -- AND NOW SOMETHING IS ACTUALLY PAID.
+           This line used to pass how:'paid' with no amount anywhere in the call,
+           so the card said PAID THEM BACK and nothing ever left the purse.
+           ECONOMY found it the round after it shipped.
+           WEIGHT FOR WEIGHT, and the batteries really leave: transferOut, not
+           debit, because restitution GOES TO the person wronged rather than
+           being consumed. If the purse cannot cover it, nothing is taken and the
+           apology still stands -- the module then records THEY LET IT GO, which
+           is true, instead of PAID THEM BACK, which would not be. */
+        var mrPrice = 0, mrPaid = 0;
+        try{ mrPrice = BohemiaStanding.priceOf(m,'@',ctMinuteNow()); }catch(_e){}
+        if(mrPrice > 0){
+          var mrHave = 0;
+          try{ mrHave = BohemiaPurse.balance(purseGet(),'electricity') || 0; }catch(_e){}
+          if(mrHave >= mrPrice){
+            try{
+              var mrR = BohemiaPurse.transferOut(purseGet(),'electricity',mrPrice,
+                          'restitution', String(CT_OPEN && CT_OPEN.id), DAY.day);
+              if(mrR && mrR.applied !== false) mrPaid = mrPrice;
+            }catch(_e){}
+          }
+        }
+        BohemiaStanding.makeRight(m,'@',{how:'paid', paid:mrPaid, turn:ctMinuteNow()});
         /* AND THE WEB LEARNS IT. Same pairs the gossip pass walks, so the news
            of a settlement travels the paths the grudge travelled. */
         try{

@@ -7867,7 +7867,38 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/7 (b) LATEST -- *** [neglect costs] SHIPPED. THE STAKES
+PEOPLE (people-7h9sfy): 9/11 LATEST -- *** [paid means paid] SHIPPED, AND IT WAS
+THIS LANE'S OWN DEFECT. *** ECONOMY read [make it right] the round after I
+shipped it and found the hole: RIGHT_WORDS carries 'paid': 'PAID THEM BACK', the
+one live caller passed exactly that word, and makeRight had arity 3 with no
+purse, no currency and no amount. THE CARD SAID PAID THEM BACK AND NOTHING WAS
+EVER PAID. That is the worst kind of bug here, because every gate was green: the
+mechanism did what it said it did, it just said the wrong thing about itself, and
+nothing checks that two parts agree.
+THE PRICE IS NOT A NEW NUMBER, which is the part worth keeping. priceOf is the
+GRUDGE ITSELF -- the same negative sum wouldSquare already adds up, which is the
+same sum forceOf weighs, which is his STANDING dial. A heavier wrong costs more
+because it IS more, rounded up because EVERYTHING COSTS ONE. AND WHILE HIS DEED
+TABLE IS EMPTY IT COSTS NOTHING, which is the truth and not a hidden default; the
+gate holds that case on purpose so a later round cannot slip a number in
+underneath it.
+AND THE WORD IS REFUSED WHEN NOTHING WAS PAID. Ask makeRight for 'paid' with
+nothing handed over and the record says 'forgiven' -- THEY LET IT GO -- because
+that is what happened. The wrong is still SETTLED either way: it refuses the
+WORD, never the forgiveness, which is the ruling's own second half. A caller
+cannot lie to the ledger even by accident, which is the only real fix for a bug
+whose cause was a caller lying to the ledger by accident.
+Proven on the real demo both ways, off his own dial: broke, the card says "You do
+not have it", the apology stands, purse untouched, record says THEY LET IT GO.
+Flush, six batteries really leave, record says PAID THEM BACK, and the ledger row
+is a TRANSFER not a drain because restitution goes TO the person wronged.
+Tab: CITY. gates/paid_means_paid_gate.js 25/0, registered 573 -> 574.
+[PENDING Paolo] the 82-row deed table now decides MONEY as well as standing, so
+leaving it unruled got more expensive. ECONOMY also measured our clout ladder at
+8-to-110 (14x) against real tariffs of 800x; weight for weight is wired to
+whatever shape he gives it, so steepening the top is a dial turn now. ***
+
+PEOPLE (people-7h9sfy): 9/7 (b) -- *** [neglect costs] SHIPPED. THE STAKES
 TABLE HAS ITS FIRST ENTRY EVER, and it is an obligation rather than a meter.
 Measured first and it was worse than the row said: the socket has been applied at
 every reckoning since the day loop shipped and held NOTHING; upkeep() debits
