@@ -315,27 +315,6 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 <div id="stage">
   <canvas id="cv"></canvas>
   <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
-  <div id="footing"></div><!-- __FLOOR_DOES_SOMETHING__ -->
   <div id="note">move on the streets. time moves when you move.</div>
   <div id="fitbtn">⤢ WHOLE MAP</div>
   <div id="bikebtn">🚲 BIKE</div>
@@ -706,7 +685,10 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* __A_DAYS_WORK__ -- WORK sits in the same left column, one step above MARKET, and
    borrows #mktbtn's shape rather than copying it so the two can never drift apart.
    Its 44px thumb floor is the one [phone readable] set for every control here. */
-#workbtn{position:absolute;left:6px;bottom:107px;z-index:7;padding:7px 11px;border-radius:9px;
+/* NO HAND-TYPED OFFSET. The column lays this out now (see blStack); a left/bottom
+   here would be a second opinion about where it goes, and the first one is what
+   put it on top of DROP IN. */
+#workbtn{z-index:7;padding:7px 11px;border-radius:9px;
   background:var(--face);border:1px solid var(--acc);color:var(--acc);
   font-size:11px;font-weight:700;letter-spacing:1px;display:none;
   min-height:44px;box-sizing:border-box;line-height:30px;cursor:pointer}
@@ -37815,7 +37797,18 @@ function blStack(){
      it exists; it is offered because it can be pressed. */
   /* __BUILDER_WHERE_HE_WALKS__ -- #buildbtn JOINS THE COLUMN THE DAY IT IS BORN,
      because every chip that did not is a bug this function has a paragraph about. */
-  ['sleepbtn','bikebtn','fitbtn','modechip','mktbtn','buildbtn','rungbtn','note'].forEach(function(id){
+  /* *** THE JOB CARD JOINS THE COLUMN, AND IT IS WHY HIS FRAME COLLIDES (9/11). ***
+     PAOLO 9/8: "what is this part of the UI? it's colliding with each other, what's up
+     with that?" Measured on the real page at phone size before touching anything: eight
+     of the nine things in this rail were position:static children of this column, and
+     workbtn -- the day's job card, added later by the shift work -- was the one that was
+     not. It kept its own `left:6px; bottom:107px` and landed ON TOP of WHOLE MAP (52x11)
+     and DROP IN (44x5), exactly the two chips buried in his photograph.
+     THE BUG WAS NEVER THE OFFSET, IT WAS THAT SOMETHING NEW ARRIVED AND NOBODY TOLD THE
+     COLUMN. A hand-typed offset is right until the next element exists. This list is the
+     one place that decides, so the fix is one name in it -- and the card sits one step
+     above MARKET, which is where its own stylesheet always said it belonged. */
+  ['sleepbtn','bikebtn','fitbtn','modechip','mktbtn','workbtn','buildbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
     /* NEVER DETACH A HIDDEN CHIP, AND THE FIRST CUT OF THIS DID. It said "a
@@ -63652,8 +63645,14 @@ window.BOHEMIA_HALF = (function(){
   var BEAT_MS=(typeof BEAT==='number'?BEAT:500), WANT=44, on=false, last=[], suspended=false;
   var PADS=false;   /* the reach pad -- see the note where it is applied */
   /* the run's own controls and labels; never the world */
+  /* *** AND THE JOB CARD IS ON THE LIST TOO, BECAUSE IT ESCAPED THE SAME WAY IT ESCAPED
+     THE COLUMN (9/11, [rail collides]). *** Measured after the column adopted it: the card
+     drew 144x46 in a rail of 44x14 chips -- more than three times everything around it, on
+     a screen he ordered halved. Same root cause as the collision, one layer up: a new
+     element arrived and nobody told the list that owns the sizes. Two lists, one miss
+     each, one photograph. */
   var CTRL = ['musbtn','savebtn','phonebtn','outfitbtn','rungbtn','buildbtn','mktbtn',
-              'modechip','fitbtn','bikebtn','sleepbtn'];
+              'modechip','fitbtn','bikebtn','sleepbtn','workbtn'];
   var LABEL = ['hud','note','hmode','hclock','hslot','modeLbl','topbar','blstack'];
 
   var css=document.createElement('style'); css.id='halfcss';

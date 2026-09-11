@@ -1,0 +1,172 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - THE LEFT RAIL - 5 OPTIONS</title>
+<style>
+ :root{ --ink:#141210; --paper:#f4efe6; --line:#c8bda9; --hot:#c8482a; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 10px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px; letter-spacing:.5px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border:2px solid var(--ink); background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ border:2px solid var(--ink); background:#fff; margin:14px 0 }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .body{ padding:12px }
+ .say{ margin:10px 0 0; font-size:15px }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a }
+ .cost b{ color:var(--ink) }
+ /* THE PHONE IS DRAWN AT THE REAL 390 AND SCALED WHOLE, so no chip is re-proportioned
+    to make a picture fit -- the same rule the top-bar sheet had to learn the hard way. */
+ /* *** THE MOCK IS A WHOLE PHONE, 390x844, NOT A CROP OF ONE. *** First cut drew a
+    300-tall screen and the spread column ran off the top of it, so option A -- the one
+    actually in the game -- looked like it overflowed into the bar. It does not; the real
+    screen is 844 tall and the column fits with room. A picture that cannot fit what the
+    game fits is not a picture of the game, which is the same lesson the top-bar sheet
+    paid for. Narrower on the page so five whole phones still fit down it. */
+ .box{ width:100%; max-width:212px; margin:0 auto; border:2px solid #3a3227;
+       background:#5d5443; overflow:hidden }
+ .scr{ width:390px; height:844px; transform-origin:top left; position:relative;
+       background:
+         repeating-linear-gradient(90deg,#6f6450 0 18px,#675c49 18px 36px),
+         linear-gradient(#6b6150,#48412f);
+       font:5px/1.3 ui-monospace,monospace; letter-spacing:.5px }
+ .bar{ position:absolute; left:0; right:0; top:0; height:22px; display:flex; align-items:center;
+       gap:6px; padding:3px 8px; background:linear-gradient(#241f16,#171309);
+       border-bottom:1px solid #4a4030; color:#e6dcc4; font-size:7px; letter-spacing:.8px }
+ .bar .m{ flex:1; text-align:center; color:#d8c49a }
+ .rail{ position:absolute; left:8px; display:flex; flex-direction:column-reverse;
+        align-items:flex-start }
+ .chip{ height:14px; line-height:14px; padding:0 5px; border-radius:3px; background:#141210;
+        border:1px solid #2a2418; color:#d8c49a; white-space:nowrap }
+ .chip.card{ border-color:#b89a6a; color:#e7d8bb }
+ .pad{ position:absolute; right:6px; bottom:6px; width:90px; height:90px;
+       border:2px solid #2b2622; border-radius:50%; background:rgba(20,18,13,.35) }
+ .feed{ position:absolute; right:7px; top:30px; width:66px; height:110px; border-radius:7px;
+        background:linear-gradient(#241f16,#171309); border:1px solid #4a4133 }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--line) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px; border-radius:4px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:1px solid var(--line); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border:2px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:2px solid var(--ink);
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>THE LEFT RAIL - FIVE OPTIONS</h1>
+ <div class="sub">You sent a picture of the job card sitting on top of two of your buttons. That is fixed and option A is what is in the game now. Here are four other ways to lay that side out. Tap a thumb. 9/11</div>
+</header>
+
+<div class="now">
+ <b>WHAT WAS ACTUALLY WRONG.</b> Eight of the nine things down that side were in one column
+ that lays them out. The job card was not. It had its own hard-coded spot, which was right
+ the day somebody typed it and wrong the second anything else showed up at that height. It
+ landed on WHOLE MAP and DROP IN. Nothing was nudged: the card joined the column, and now a
+ test fails the moment anyone adds a button without telling the column.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+var CHIPS=['◆ STANDING','⚖ BUILD HERE','⚒ SCAVENGE · 8H','🧺 MARKET','⤓ DROP IN','⤢ WHOLE MAP','🚲 BIKE','🛏 SLEEP'];
+var CARD=2;   /* the job card's place in that list */
+
+function screen(o){
+  var chips=(o.order||CHIPS).map(function(t,i){
+    var isCard=(t===CHIPS[CARD]);
+    return '<div class="chip'+(isCard?' card':'')+'">'+t+'</div>';
+  });
+  var rail='';
+  if(o.split){
+    var half=Math.ceil(chips.length/2);
+    rail = '<div class="rail" style="bottom:6px;gap:'+o.gap+'px">'+chips.slice(0,half).join('')+'</div>'
+         + '<div class="rail" style="bottom:6px;left:auto;right:104px;gap:'+o.gap+'px;align-items:flex-end">'
+         + chips.slice(half).join('')+'</div>';
+  } else if(o.cardInBar){
+    var rest=chips.filter(function(_,i){ return i!==CARD; });
+    rail = '<div class="rail" style="bottom:6px;gap:'+o.gap+'px">'+rest.join('')+'</div>';
+  } else if(o.collapsed){
+    rail = '<div class="rail" style="bottom:6px;gap:'+o.gap+'px">'
+         + '<div class="chip">⋯ MORE</div>'
+         + '<div class="chip card">'+CHIPS[CARD]+'</div></div>';
+  } else {
+    rail = '<div class="rail" style="bottom:6px;gap:'+o.gap+'px">'+chips.join('')+'</div>';
+  }
+  return '<div class="box"><div class="scr">'
+    + '<div class="bar"><span>HUMAN MODE</span><span>SUBURB · ON FOOT</span>'
+    +   '<span class="m">DAY 1 · 06:00</span>'
+    +   (o.cardInBar ? '<span style="color:#e7d8bb;border:1px solid #b89a6a;border-radius:3px;padding:0 4px">⚒ 8H</span>' : '')
+    + '</div>'
+    + rail + '<div class="feed"></div><div class="pad"></div>'
+    + '</div></div>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. ONE COLUMN, SPREAD - what is in the game now', gap:30,
+   say:'Every button down the left in one column, with a thumb-sized gap between them. The job card sits in line with the rest.',
+   cost:'<b>Costs you:</b> it takes the bottom third of the left edge, so the city under it is covered. <b>Gets you:</b> nothing can ever sit on anything, and a new button just joins the line.' },
+ { k:'B', t:'B. THE SAME COLUMN, PULLED TIGHT', gap:8,
+   say:'Identical, just closer together. The whole rail becomes a short block at the bottom corner.',
+   cost:'<b>Costs you:</b> the gaps drop under a thumb width, so fat fingers will hit the wrong one. <b>Gets you:</b> most of the left side of the city is visible again.' },
+ { k:'C', t:'C. SPLIT IN TWO', gap:16, split:true,
+   say:'Half the buttons on the left, half on the right above the walk ring. Nothing stacks very high.',
+   cost:'<b>Costs you:</b> you have to learn which side a button lives on. <b>Gets you:</b> the shortest stacks of the five, and the middle of the screen stays clear.' },
+ { k:'D', t:'D. THE JOB GOES UP TOP', gap:30, cardInBar:true,
+   say:'The day’s work moves into the top bar as a small tag. The left column is only buttons.',
+   cost:'<b>Costs you:</b> the job is the biggest thing in your day and it becomes the smallest thing on screen. <b>Gets you:</b> the left column gets shorter and the job is always in the same place.' },
+ { k:'E', t:'E. HIDE THEM BEHIND ONE BUTTON', gap:30, collapsed:true,
+   say:'Only the job card and a MORE button. Everything else opens when you tap it.',
+   cost:'<b>Costs you:</b> every button is now two taps instead of one. <b>Gets you:</b> almost the entire screen is the city, which is the thing you actually want to look at.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2><div class="body">'+screen(o)
+    + '<p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+function fit(){
+  document.querySelectorAll('.box').forEach(function(b){
+    var s=b.firstElementChild; if(!s) return;
+    s.style.transform='none'; b.style.height='auto';
+    var k=b.clientWidth/390;
+    s.style.transform='scale('+k+')';
+    b.style.height=Math.round(844*k)+'px';
+  });
+}
+fit(); window.addEventListener('resize',fit);
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - THE LEFT RAIL - 9/11/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_THE_LEFT_RAIL_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

@@ -236,6 +236,22 @@ GATES = [
      'THE SHIPPED GAME\'S CONTROLS STILL WORK and the halving is OFF so the row cannot '
      'half-ship itself -- reports what the work already achieves, and carries the open defect '
      'as its own leg so nobody mistakes it for done.', True),
+    ('CITY RAIL',      ['node', 'gates/city_rail_gate.js'],
+     'Board row [rail collides]. PAOLO 9/8 from his own frame: "what is this part of the UI? '
+     'it\'s colliding with each other, what\'s up with that?" -- the day\'s job card sitting on '
+     'top of DROP IN and WHOLE MAP. Read in the file and then MEASURED on the real page at '
+     'phone size: eight of the nine things in that rail were position:static children of one '
+     'flex column and the job card, added later by the shift work, was the one that was not. '
+     'It carried its own left:6px/bottom:107px -- correct the day it was typed, wrong the '
+     'moment anything else existed at that height. Measured before: workbtn x fitbtn 52x11, '
+     'workbtn x modechip 44x5, exactly the two chips buried in his photograph. The gate asks '
+     'the two things that keep it fixed: NOTHING OVERLAPS (every visible pair on the city '
+     'screen, with the card forced showing, because a gate that only measures the easy state '
+     'is not measuring the bug), and EVERY CHIP IS LAID OUT BY THE COLUMN -- which is the '
+     'assertion that catches the NEXT element somebody adds without telling it, the actual '
+     'bug and the reason a one-off nudge would not have been a fix. It also holds the card to '
+     'his half-size order, which it had escaped the same way: 144x46 in a rail of 44x14 chips. '
+     'Mutation-proved: put the card back the way it was and the gate reports his exact frame.', True),
     ('PHONE OBJECT',   ['node', 'gates/phone_object_gate.js'],
      'Board row [phone object]. PAOLO 9/8 from his own frame: "this doesn\'t look like a '
      'cool post-economic-apocalyptic phone, does it, bro, come on?" What shipped was a '
