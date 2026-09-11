@@ -1,3 +1,103 @@
+WORDS (words-8dqrnq): 9/11 (b) LATEST -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
+School reshaped every ask: not one is written as a plea, because the ask almost always works
+and the person asking has no idea. And the truest thing in the section is the scene where
+the ask never happens. *** Nothing to judge. Nothing entered the game.
+
+HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT SURVIVES ANY MEMORY RESET:
+1. Pull main first (git fetch origin main, rebase onto it). The board changes
+   every hour.
+2. Re-read CLAUDE.md from disk. The one in your memory is old; it was rewritten
+   9/4.
+3. Open VAMILY.md at the repo root and READ ITS FRONT PAGE. The rules live there
+   and change there. Never trust your memory of them.
+4. Find your section (18 chats; 12 WORDS is mine).
+5. Continue the job you hold, or claim the first OPEN line by writing
+   CLAIMED <date> <session slug> and committing. Write SHIPPED <date> <commit>
+   only when the ship test is met on the real surface.
+6. Only build what is on the board. Never invent a job. Never add a job to any
+   section; only the coordinator adds jobs. Your only writes to the board are
+   CLAIMED and SHIPPED on your own lines.
+7. Never ask me anything. A ruling you need goes in your handoff block here as
+   [PENDING Paolo].
+8. Commit straight to main, no pull requests, and update your handoff block every
+   round.
+9. Reply with two words (the job's [bracket] label) and one short line.
+
+Q18 IS DONE UNDER THE 9/6 MODE. Two records, and the row carries both paths:
+    school   records/BOHEMIA_WORDS_Q18_SCHOOL_THE_ASK_WORKS_AND_THE_ASKER_DOES_NOT_KNOW_IT_9_11_26.md
+    writing  records/BOHEMIA_WORDS_Q18_ROUND_TWO_THE_WRITING_9_11_26.md
+    bank     banks/BOHEMIA_WORDS_TEST_LINES.md, section "Q18 ROUND TWO", draft:true
+Ten asks in ten positions, as the row asked for, plus three short sections and the refusals.
+
+WHICH FINDINGS FROM SCHOOL CHANGED THE LINES:
+1. THE ASK WORKS AND THE ASKER DOES NOT KNOW IT, so NOT ONE ASK IS WRITTEN AS A PLEA. People
+   underestimate by as much as 50% how likely a stranger is to agree. The instinct is to
+   write an ask as a case being argued; all ten are people GETTING A SENTENCE OUT, because
+   the outcome was never much in doubt. The tension sits before the words.
+2. THE COST OF ASKING IS WHAT MAKES REFUSING EXPENSIVE, so every ask shows its price. Helpers
+   are moved by the social cost of saying no, and that cost scales with what the ask cost the
+   asker. AN ERRAND THAT COSTS THE ASKER NOTHING IS A TASK WITH A FACE ON IT. That is also
+   the answer to the row's "without being a quest marker".
+3. RESOURCEFULNESS FIRST, so nobody leads with helplessness. Ask 1 opens with what this man
+   normally fixes himself.
+4. THE PROUD ASK WORST, so the clumsiest sentence in the set belongs to the man in the
+   deepest trouble. The 9/4 round would have given him the best speech.
+5. THEY ASK THE STRANGER BEFORE THE NEIGHBOUR, and ask 3 says the mechanism in the
+   character's own mouth: four doors would open, and then he would live next to it.
+6. SURVIVAL FATIGUE, so the long trouble is the hardest to say. Ask 4 is nine weeks in and
+   the man has LOST the speech he had in month one.
+7. SOMEBODY SAYS THEY CANNOT PAY IT BACK. Measured across 1,669 lines, not one person in this
+   valley had ever said it. Ask 5 exists to end that.
+
+AND TWO THINGS SCHOOL PRODUCED THAT ARE NOT IN THE ROW'S BRIEF:
+THE SURPRISE BEAT. If compliance is underestimated by half, the accurate moment after a yes
+is not gratitude, it is ASTONISHMENT, with gratitude a second later. Three lines this lane
+would never have thought to write.
+AND THE NON-ASK, THE TRUEST THING IN THE SECTION. Findings 4 and 6 together mean the most
+accurate version of this scene is the one where the ask DOES NOT HAPPEN: a man walks up,
+talks about the weather, leaves. Nothing requested, everything visible. If the player only
+understands it three streets later, the scene worked.
+Plus THE ASK THAT IS SECRETLY AN OFFER, which is how real people dodge the cost entirely.
+
+A NOTE ON MY OWN HYGIENE: I ran the banned-phrase list over my new section before committing
+and it caught one hit, in my own comment text rather than in a test line. Fixed. The bank is
+NOT baked into the words book so no gate would have seen it, which is exactly why I checked
+by hand.
+
+ROUTED THIS ROUND:
+- QUESTS: finding 2 is theirs as much as mine. A request whose asker could plainly have done
+  it himself is not a request. IF A QUEST OPENS WITH SOMEBODY ASKING, THE ASK HAS TO COST
+  THEM SOMETHING THE PLAYER CAN SEE, or the sentence is doing nothing a marker was not.
+- PEOPLE: finding 5 is free content. The player is the safest person in the valley to ask
+  because the player is nobody's peer. That is a reason for a stranger to open a conversation
+  and it needs no quest attached.
+
+*** MAIN WAS RED ON THREE GATES LAST ROUND AND NONE OF IT IS MINE. Re-check before doing
+anything else: the words book is unbaked (M04 absent) and M04_WHAT_THE_NEIGHBOUR_ASKS.bq
+line 87 carries the banned phrase "that is the whole list", so baking turns voice red until
+that line changes. And language_gate went 81/0 to 80/1: a spanglish neighbour answers in pure
+English because the spanglish variant IS authored at engine/bohemia_quirk.js line 271 and the
+picker returns the English base at 269. A SELECTION DEFECT, NOT A MISSING TRANSLATION. That
+same line also contains "that's the whole trick", so it breaks two laws at once. Routed to
+QUESTS, PEOPLE and PLUMBER across the last two rounds. ***
+
+WHERE THE LANE STANDS UNDER THE 9/6 MODE: Q1, Q2, Q3 and Q18 have both rounds. Q4 to Q17 were
+each done in a single round under the old mode and are owed theirs. Q19 [caught out] and Q20
+[no law talk] are open and both already say school first. One at a time; sequencing is the
+coordinator's.
+
+STILL CARRIED, AND STILL NOBODY'S:
+- CHARACTER: facePerform is called with {} while 229 mood tags ride in the shipped demo
+  (Q11, Q14, Q2). One argument.
+- PEOPLE: 64 given names never spoken (Q12, Q15); the hop count computed and never spoken
+  (Q13, Q15, Q17); the bark selector has no memory of what it said (Q3).
+- UI has been asked SEVEN rounds running for one beat of hold before a line.
+- engine/bohemia_memory.js tracks familiarity and NO DIALOGUE READS IT (Q7).
+- [PENDING Paolo] the encounter repeat interval (Q3). Blocks nothing.
+
+NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
+directly on top of Q2's finding that a lie is caught by the question and never by the manner.
+
 ANIMATION (animation-lr9y9i): 9/11 LATEST -- *** THE ELBOW RULE IS IN. His first
 rig complaint is answered and the machine found the SAME ELEVEN CLIPS HE KILLED,
 on its own, before anybody compared the lists. TAB: ANIMATION. Nothing to judge
@@ -58,7 +158,7 @@ write their own descriptions.
 
 ================================================================================
 
-WORDS (words-8dqrnq): 9/11 LATEST -- *** Q18 [asking words] SCHOOL DONE, ROUND ONE OF TWO.
+WORDS (words-8dqrnq): 9/11 -- *** Q18 [asking words] SCHOOL DONE, ROUND ONE OF TWO.
 THE ASK ALMOST ALWAYS WORKS AND THE PERSON ASKING HAS NO IDEA: people underestimate by as
 much as HALF how likely a stranger is to say yes. And in a game whose whole premise is that
 nobody can repay anything, NOBODY EVER SAYS THEY CANNOT REPAY. *** THE ROW IS CLAIMED, NOT
