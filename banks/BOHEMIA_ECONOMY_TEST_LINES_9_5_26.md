@@ -2503,3 +2503,99 @@ DDDDDDD3 somebody who can hold the whole thing     draft:true
 - No line states a moral about belonging. CCCCCCC4 still does not know why.
 - Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## FFFFFFF. STILL NOT RIGHT FOR WORK
+## (round 32: the bone knits and the man still cannot lift. Return to work runs
+##  two to three times the healing time. Nobody here says the word injury.)
+
+FFFFFFF1 somebody cleared by the bone and not the body draft:true
+         "It's knitted. Everybody keeps telling me it's knitted. I still can't
+          carry a crate up a step, so."
+
+FFFFFFF2 somebody who went back too early              draft:true
+         "I gave it six weeks and went back and now I'm giving it another ten.
+          Clever, that was. Really clever."
+
+FFFFFFF3 somebody doing what he can                    draft:true
+         "I can sit and I can count and I can talk. That's three things. Nobody
+          pays for any of them round here."
+
+## GGGGGGG. THE SAME BREAK, TWO DIFFERENT YEARS
+## (the spread is wider than the middle: the same bone is two months or two
+##  years depending on whether anybody looked after it.)
+
+GGGGGGG1 two men comparing                             draft:true
+         "Same arm. Same night, even. He was back in the spring and I'm still
+          doing this, and I've stopped asking why."
+
+GGGGGGG2 somebody who had it seen to                   draft:true
+         "Somebody cleaned it out properly the first night. I didn't think it
+          mattered. It was the whole thing that mattered."
+
+GGGGGGG3 somebody who did not                          draft:true
+         "We didn't have the last bit. Had the rest, had all of the rest. Turns
+          out the rest without the last bit is just practice, mano."
+
+## HHHHHHH. WHO FEEDS HIM
+## (borrow, sell, spend what is saved, ask family, cut food, send somebody out.
+##  Several at once, and the last two are where it hurts.)
+
+HHHHHHH1 somebody listing what went                    draft:true
+         "Borrowed first. Then the generator went. Then my sister's been sending
+          things. We're eating less, is the short version."
+
+HHHHHHH2 somebody being carried by the block           draft:true
+         "Four different people this week and not one of them made it a thing.
+          That's what I'll remember out of all of it."
+
+HHHHHHH3 the one who had to go out instead             draft:true
+         "I'm doing his rounds now. I'm fourteen. Nobody said that's what was
+          happening, it's just what happened."
+
+HHHHHHH4 somebody who will not ask                     draft:true
+         "I'm not going round with my hand out. I'll sell the other one first,
+          and then I'll think about it, mija."
+
+## IIIIIII. THE HELP RUNS OUT BEFORE THE LEG DOES
+## (the taper: a third to a half, stepping down by the week. Nothing about the
+##  person gets worse. The help runs out.)
+
+IIIIIII1 somebody in the third month                   draft:true
+         "First few weeks everybody's round. Then it's every other week. Then
+          it's you and the wall, and my leg's exactly the same."
+
+IIIIIII2 somebody running the club, not cruel          draft:true
+         "It steps down after six. That's how it works, that's how it's always
+          worked, and I didn't write it."
+
+IIIIIII3 somebody who noticed the shape                draft:true
+         "It's not that they stopped caring. They stopped being able to. There's
+          a difference and it doesn't help much."
+
+## JJJJJJJ. THE BENCH
+## (the one mercy the mechanic needs: resting costs nothing. Nobody resents
+##  being carried, and nobody in these lines apologises for it either.)
+
+JJJJJJJ1 somebody sitting one out                      draft:true
+         "I'll be here. I'm not going anywhere and I'm not going to sulk about
+          it, I'd rather be here than dead weight out there."
+
+JJJJJJJ2 somebody sending him home                     draft:true
+         "You're out. Not a punishment, not a conversation. You're out and
+          you're still ours, go and sit down."
+
+## KKKKKKK. WHAT IS NOT HERE, ON PURPOSE (round 32)
+- No line names a number of days, weeks or batteries. The ladders are in the
+  record and the exact figures are the coordinator's and his.
+- No line has anybody dying, and no line has a permanent mark. His 9/11 ruling
+  says nothing on a person you keep is forever, and the bank obeys it.
+- No line says injury, recovery, treatment, convalescence or infection. GGGGGGG3
+  is the antibiotics finding and it is said as "the rest without the last bit".
+- No line names the kit, a medicine or a piece of equipment. Those are five rows
+  in the goods table and they are already written.
+- No line has a hospital in it. We drew one and the game has no reason to send
+  anybody there yet, so the bank does not pretend otherwise.
+- No line states a moral about being looked after. HHHHHHH2 counts four people
+  and stops.
+- Spanish register: 2 of 15 lines, 13%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.

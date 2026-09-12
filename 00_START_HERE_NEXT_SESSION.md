@@ -1,41 +1,3 @@
-WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
-NOBODY COLLAPSES WHEN THEY ARE CAUGHT. THEY REVISE, CALMLY, IN THE SAME SECOND. *** TAB: NOT IN A
-TAB YET. No game code touched, ever. Everything is draft:true in the bank.
-
-THE FINDING THAT DELETED THE SCENE I WOULD HAVE WRITTEN. The whole reason a real interviewer holds
-evidence back is to stop the person REVISING to fit what was just shown to them. The revision is so
-reliable that a professional technique exists for no other purpose. So the stammering collapse is
-film, not life. In this set the collapse is ONE rare block, marked rare, and every other first line
-after the catch is calm and absorbs the new fact.
-
-THE STRUCTURE CAME FROM A 1968 CATALOGUE: eight account moves, four excuses and four
-justifications. The centrepiece is the SAME man caught for the SAME cable in the SAME second,
-answering eight different ways, one per move. Eight different people fall out of one crime. That is
-a per-character setting for PEOPLE, one field, and it buys the whole cast a reaction.
-
-WHAT IS IN THE BANK, section Q19 ROUND TWO, all draft:true:
-  THE COLLISION       the catch is two statements that cannot both be true, never a face read
-  EIGHT CAUGHT MEN    one crime, eight moves, each named
-  THE REVISION LADDER three proofs, three concessions, the self-description never moves
-  TWO APOLOGIES       the weak one built on purpose from the two weakest ranked parts
-  THE RARE COLLAPSE   three lines and a pause
-  THE REFLEX SORRY    a man who apologises for talking over you and not for what he did
-  SIX REFUSALS        what this lane will not write about being caught
-
-ROUTED. QUESTS [check the claim] is the paired row and the handshake is one sentence: a claim is
-checked by holding it next to another claim, worth about seven times a read of somebody's face. A
-"suspicious" reaction on screen is doing work the evidence says it cannot do. PEOPLE gets the
-eight-move knob.
-
-MAIN IS RED AND IT IS STILL NOT MINE, ROUND FOUR OF SAYING SO. voice 110/1, catalogue 60/3,
-language 80/1, the same three, unchanged by anything I did. The words book has not been baked since
-QUESTS added quest files (book 2496 lines, 3147 on disk), baking turns voice red because a QUESTS
-line carries a banned phrase, and language is red because the spanglish picker hands back the
-English base. Routed to QUESTS, PEOPLE and PLUMBER four rounds running. I did not bake and I did
-not touch another lane's text. My own gates: attempt 15/0, handoff 7/0.
-
-NEXT. Q20 [no law talk], school first. Q4 to Q17 are still owed their school rounds, one row at a
-time, never a shelf.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -105,136 +67,148 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 31 REPORT: [cheap eyes] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_31_THE_PLAYER_IS_THE_ONLY_ONE_WHO_DOES_NOT_GET_BETTER_AT_KNOWING_THE_VALLEY_9_12_26.md (325 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections AAAAAAA-EEEEEEE, +14 lines, 438 draft:true total
+=== ROUND 32 REPORT: [long injury] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_32_THE_BONE_IS_NOT_THE_TIMER_9_12_26.md (361 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections FFFFFFF-KKKKKKK, +15 lines, 453 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
 
-*** FOURTH ROUND FLAGGING THE SAME RED AND IT IS STILL NOT MINE AND STILL NOT
-FIXED. language_gate RED 80/1, check "A SPANGLISH NEIGHBOUR ANSWERS IN SPANGLISH",
-line engine/bohemia_quirk.js:69 "keeping one light on for somebody", no Spanish
-word in it. Still unchanged on origin/main since bf3c1b3 (PEOPLE lane, 8/31).
-Proved not mine in round 28 by stashing and re-running on a clean tree. ***
+*** AND THE RED I FLAGGED FOUR ROUNDS RUNNING IS CLOSED. language_gate is GREEN
+81/0 this round. PEOPLE fixed it. ALL SEVEN OF MY GATES ARE GREEN for the first
+time since round 27. Nothing owed to any other lane out of this block. ***
 
-Direct sequel to round 30: that round priced a perk, this one says what a perk
-may NOT charge for.
+This round serves his 9/11 LOCKED ruling (laws/BOHEMIA_ADDENDUM_YOUR_PEOPLE_DO_NOT
+_DIE_FOR_GOOD_9_11_26.md), which names two rungs itself -- "a leg that takes a
+season, a hand that takes a year of the valley's time" -- and closes with THE
+NUMBERS ARE THE COORDINATOR'S, THE SHAPE IS HIS. So this round brought numbers,
+from outside the studio.
 
-WHAT I MEASURED IN OUR OWN CODE FIRST. Three things exist and none touch:
-- ONE: the game ALREADY records every cell the player has stood in.
-  ctSawCell() -> sv.meta.seen["x,y"]=1, and its ONLY use anywhere is
-  `somethingToTell: seen > told`. A flat set of cells with no curve on it, spent
-  entirely on whether a faction has something new to hear from you.
-- TWO: THE FAMILIARITY CURVE IS BUILT, CORRECT AND MEASURED, AND THE PLAYER IS
-  NOT IN IT. bohemia_memory.js: BASE_HALFLIFE 720 min, REFRESH_WINDOW 30,
-  MIN_CLARITY 0.05, RADIUS 8, and
-      halflife = BASE * (1 + log2(1 + familiarity))   // "familiarity slows the fog"
-  Run on a real mind, walking past one corner 128 times:
-      1 visit 1440 min | 2 -> 1861 | 4 -> 2392 | 8 -> 3002 | 16 -> 3663
-      32 -> 4352 | 64 -> 5056 | 128 -> 5768   (4.01x a single glance)
-  It front-loads: +29% on the first doubling, +14% on the last.
-  AND WHAT IT ACTUALLY BUYS IS NOT SHARPNESS, IT IS ABSENCE:
-      away:  1 h -> stranger 0.972 / local 0.993
-             1 day -> 0.500 / 0.841
-             3 days -> 0.125 / 0.595
-             1 week -> 0.008 / 0.298
-             1 month -> 0.000 / 0.006
-  Standing in front of it they see nearly the same. A stranger drops under the
-  usable floor at 4.3 days; the local is still at 0.47.
-  WHAT TIME BUYS IS NOT SHARPER SIGHT, IT IS MEMORY THAT SURVIVES BEING AWAY.
-  AND ALL SEVEN CALL SITES ARE NPC MINDS -- NPCs watching the PLAYER, NPCs
-  watching each other, and recall() asked of NPCs. There is no CT_MINDS['@'], no
-  makeMind('@'), nowhere. THE PLAYER HAS NO MIND.
-- THREE: the eight frozen sight constants from round 30, still frozen.
-  SO: THE LEDGER HAS NO CURVE, THE CURVE HAS NO PLAYER, AND THE SIGHT NUMBERS HAVE
-  NO DIAL. THE PLAYER IS THE ONLY PERSON IN THE VALLEY WHO DOES NOT GET BETTER AT
-  KNOWING IT.
+WHAT I MEASURED IN OUR OWN CODE FIRST:
+- WE BUILT THE HOSPITAL AND WE NEVER BUILT BEING HURT. bohemia_medical.js is 100%
+  art and it is thorough: hospital plus ER wing, a separate ambulance court with
+  staging bays and a HELIPAD, an entrance canopy and drop-off, a decked parking
+  garage, a visitor lot, a medical office building, and an interior floorplan of
+  ER, intake, wards, halls and back-of-house, referenced off real hospital site
+  guides. On the overmap: 2, 4, 4, 2, 2 medical tiles across five seeds, in a
+  9,216-tile valley. AND NOT ONE LINE OF IT IS ABOUT AN INJURY. No wound state, no
+  downed state, no treatment, no recovery clock anywhere in the engine.
+- AND THE TREATMENT LADDER IS ALREADY WRITTEN, IN THE GOODS TABLE, IN STEPS. Five
+  of the eleven goods carry kit:'field_surgery', every one base 1 and draft:true:
+  step 1 iodine, step 1 sterilewater, step 2 lidocaine, step 4 tweezers (DURABLE,
+  "the one piece you keep"), step 5 antibiotics ("THE SCARCE LINK... everything
+  before it is just practice if you skip it"). STEPS PRESENT 1,1,2,4,5 and STEP 3
+  IS NOT A GAP -- the sterilewater note says boiling substitutes, "which is why
+  step 3 exists at all", so step 3 is a step paid in TIME rather than goods, which
+  is already right for a place with no hospital.
+- AND THE ONE FIELD THAT WOULD HOLD A LASTING INJURY IS WRITE-ONLY. `wounds`
+  appears EXACTLY TWICE in bohemia_engine.js: declared once, pushed once, read
+  never. Re-ran it; DYNASTY's finding holds.
+- THE LONGEST CLOCKS THE GAME OWNS: GOSSIP_WINDOW 45 min, memory BASE_HALFLIFE 720,
+  a day 1440, awake 960, NEWS_LIFE 20160 (14 days), DEED_HALFLIFE 30240 (21 days),
+  scav decay halflife 180 DAYS. AND THERE IS NO SEASON AND NO YEAR IN THE CODE --
+  swept the day loop and the century module for both words, nothing. So his season
+  and his year have to land as DAYS, and 180 days is the longest thing the build
+  counts.
 
-WHAT THE RESEARCH SAYS COMES FREE: Siegel and White, fifty years old -- LANDMARK,
-then ROUTE, then SURVEY. Adults acquire LANDMARKS IMMEDIATELY; direction and
-distance estimates improve over early sessions then LEVEL OFF AND NEVER REACH
-PERFECT ACCURACY. OUR OWN log2 CURVE IS EXACTLY THAT SHAPE -- we wrote the right
-function and pointed it at everybody except the person learning the valley.
-AND THE HARD END IS NOT FREE: a London cab driver spends THREE TO FOUR YEARS on a
-moped for 25,000 streets in a 10 km radius and about HALF WHO TRY FAIL. Maguire
-found their hippocampus larger, tracking CAREER LENGTH, and growing in the ones
-who qualified and not in the ones who failed. SURVEY MASTERY IS BOUGHT WITH
-DELIBERATE DAILY EFFORT FOR YEARS, NOT ACCUMULATED BY LIVING.
+THE FINDING THAT PROVES US WRONG: the row asks how long a broken leg keeps someone
+out, and the instinct is to look up bone healing. THE BONE IS NOT THE TIMER. GOING
+BACK TO WORK IS, AND IT IS TWO TO THREE TIMES LONGER.
+  bone union: clavicle 6-8 wk (42-56 d) | wrist 6-8 wk | tibia 8-16 wk (56-112 d)
+              | femur 8-20 wk (56-140 d)
+  return to work, SAME INJURY, workers' comp records for clavicle fractures:
+              without surgery  69 days (sd 94)   |   with surgery  196 days (sd 287)
+A collarbone knits in six to eight weeks and keeps a working man out TEN WEEKS if
+it goes well and SIX AND A HALF MONTHS if it needed cutting.
+AND THE STANDARD DEVIATIONS ARE THE DESIGN: 196 plus or minus 287. THE SPREAD IS
+WIDER THAN THE MEDIAN. The same break in the same bone is two months or two years
+depending on whether it went bad. That settles his two rungs against the medicine:
+A LEG = A SEASON is the tibia band almost exactly (56-112 days, a season is ~90),
+and A HAND = A YEAR is not the median of anything and does not need to be -- it is
+the TAIL, the one that went wrong, and the real distributions have a tail that long.
 
-THE FINDING THAT PROVES US WRONG: the row frames it as reading the same STREET,
-and the instinct is that local knowledge is geographic. THE DISASTER RESEARCH SAYS
-THE GEOGRAPHY IS THE SMALL PART. Local knowledge is three things in this order:
-SOCIAL CAPITAL, CONTEXTUAL HISTORICAL MEMORY, ADAPTATION -- the value being the
-ability to situate an event "in the broader and deeper context of community
-relationships". The shortest route gets a mention and sits underneath.
-WHAT A LOCAL HAS THAT A STRANGER CANNOT BUY IS NOT THE MAP, IT IS WHO, AND WHAT
-HAPPENED HERE BEFORE. And our code does the reverse: sv.meta.seen records
-GEOGRAPHY and spends it on PEOPLE, which is accidentally almost right and exactly
-the wrong way round.
-AND FROM THE GAMES SIDE: KNOWLEDGE IN THE PLAYER, NOT THE CHARACTER. Take the
-marker off and the player's own head learns it. A perk cannot learn the valley on
-his behalf, so whatever we hand over for time has to be a thing his memory is
-already doing, made to count.
+THE SECOND FINDING: THE PRICE IS NOT A PRICE, IT IS AN ORDER OF THINGS YOU GIVE UP,
+and it is the same order everywhere it has been studied: BORROW, SELL SOMETHING,
+SPEND WHAT IS SAVED, ASK FAMILY, CUT FOOD, TAKE SOMEBODY OUT OF SCHOOL OR SEND A
+CHILD TO WORK. Households use several at once. The last two are the damage: high
+disability significantly raised the odds of cutting food and of withdrawing
+children. And the household reshapes -- when the breadwinner falls ill it becomes
+female-centred and needs the community, worst when he was the only earner. (That is
+round 23 [who eats first] arriving from a second direction; cutting food is rung
+five here and was the whole subject there.)
+AND WHO FEEDS HIM WITH NO STATE: EACH OTHER, ON A SUBSCRIPTION, AND IT TAPERS.
+Friendly societies: contributions a few pence a week; sick pay eight to ten
+shillings, in some cases designed to cover A THIRD TO A HALF of lost wages, AND IT
+REDUCED AFTER A SPECIFIED NUMBER OF WEEKS; about 32,000 societies and 5 million
+members in the 1870s, 9.5 million by 1910, providing most of Britain's insurance
+and benefits by the end of the century.
+THE TAPER IS THE MECHANISM TO STEAL: month three is much harder than month one and
+NOTHING ABOUT THE PERSON CHANGED. That is exactly what his no-permanent-debuffs
+rule needs.
 
-THE LINE DELIVERED:
-  FREE WITH TIME -- F1 landmarks, immediately, nothing to unlock. F2 MEMORY THAT
-  SURVIVES ABSENCE, the measured prize: GIVE THE PLAYER A MIND, one makeMind('@')
-  and the module's own 8-tile radius, and a hundred-hour game's most important
-  feeling starts working with no new arithmetic. F3 it SATURATES and that is the
-  feature, do not flatten or extend the curve. F4 WHO, AND WHAT HAPPENED HERE --
-  the social half, which we currently spend rather than accrue.
-  BOUGHT WITH A PERK -- P1 THE SURVEY MAP, the one thing time provably does not
-  deliver because the estimates level off and never reach accuracy. P2 DEPTH,
-  round 30's answer.
-  AND THE LINE IN ONE SENTENCE: TIME GIVES YOU WHAT YOU WOULD HAVE NOTICED
-  ANYWAY. A PERK GIVES YOU WHAT YOU WOULD HAVE HAD TO STUDY.
-  EVERYTHING COSTS ONE is untouched, because none of the free half has a price.
+THE CAMPAIGN LAYER (its one department, and the reference his own ruling quotes):
+severity comes off HOW BIG THE HIT WAS, not a roll after; recovery varies by injury;
+TREATMENT COSTS MONEY AND BUYS TIME (heals faster, does not go bad while you
+travel) but never removes it; the sensible play is a bench and injured people in
+reserve DO NOT COMPLAIN. THE MERCY IS THE BENCH AND IT IS NOT OPTIONAL -- charge
+standing for resting and the mechanic becomes a punishment for using your people.
+
+THE TIMER LADDER DELIVERED (in DAYS, as RANGES, because the spread is the design):
+  RUNG 1 KNOCKED ABOUT     2-4 days. No kit. Most fights cost nothing lasting.
+  RUNG 2 AN ARM OR A HAND  45 days to walk with it, 70 DAYS BEFORE REAL WORK.
+  RUNG 3 A LEG             56-112 DAYS, AND THIS IS HIS SEASON, straight off the
+                           tibia band with ~90 in the middle of it.
+  RUNG 4 THE ONE THAT WENT BAD  196 DAYS, TAIL PAST A YEAR. Same injury as rung 2.
+AND THE RULE THAT HOLDS IT TOGETHER: THE RUNG IS NOT PICKED BY THE INJURY, IT IS
+PICKED BY WHETHER SOMEBODY LOOKED AFTER IT.
+
+THE PRICE LADDER DELIVERED:
+  P1 TREATMENT COSTS ONE, FIVE TIMES -- five goods, five steps, base 1 each, and
+     ONE IS DURABLE, so the second patient is cheaper than the first. No new number.
+  P2 THE MONEY BUYS TIME, NOT THE CURE.
+  P3 A PARTIAL KIT IS NOT A PARTIAL CURE -- step 5 is the scarce link and the table
+     says so; step 3 costs time, not goods.
+  P4 WHEN YOU CANNOT PAY, THE HOUSEHOLD PAYS IN ORDER, several at once, and the
+     last two rungs should be visible rather than silent.
+  P5 THE HELP TAPERS -- a third to a half, stepping down by the week. The single
+     most useful thing in the round.
+  P6 AND THE BENCH IS FREE. Not a number, a refusal to charge one.
 
 ROUTED (suggestions only; only the coordinator makes a job):
-  LIFE + CITY        GIVE THE PLAYER A MIND. Cheapest real thing in the round.
-  COMBAT [perks see] the free/bought line above
-  LIFE + CITY        sv.meta.seen is a flat count; the curve is one file away
-  WORLD / PEOPLE     local knowledge is social first, and nothing joins the
-                     standing web or the known ledger to time in a place
+  PEOPLE [down not dead]  both ladders above, and THE TAPER
+  COMBAT [downed body]    severity off the size of the hit, not a roll after
+  WORLD                   the five-step surgery kit has NO CALLER
+  WORLD / LIFE + CITY     a hospital campus with a helipad on 2-4 tiles of every
+                          seed, in a game with no concept of being hurt
+  WORLD                   `wounds` in the fold: declared once, pushed once, read never
 
-AND FOR EYES E21 [marker sweep], OPENED ON MY ROUND 29 REPORT WITH A NOTE THAT THE
-COORDINATOR'S CHECK FOUND ONLY DECORATIVE SEPARATORS: THE REPORT WAS ACCURATE AND
-HERE IS THE PROOF. In the handoff as it stood before my round-29 push, `^={7}$`
--- EXACTLY seven equals, nothing else on the line -- matched line 314. The
-decorative separators in the same file measured 57 and 55 characters and do not
-match that pattern. One such marker was in the file again at the seam immediately
-above THIS lane's block, which is why this round removed it: my block's own
-opening seam, and nothing inside another lane's text was touched.
-THE RULE FOR THE GATE: `^={7}$`, `^<{7}` and `^>{7}` are merge debris; `^={8,}$`
-is decoration. LENGTH IS THE WHOLE DISCRIMINATOR and a loose match cannot tell
-them apart.
+THE GATE NOTE: seven gates green, all of them, for the first time since round 27.
+The round found a fully drawn hospital in a game with no injuries and a five-step
+surgery kit with no caller. These gates check that a part does what it says.
+Nothing checks that two parts agree, that a part keeps working for as long as the
+game lasts, that it is the right part to have, or that the parts form a loop that
+closes. Rounds 16 through 32. The medical district kit passes every art gate it
+has; a gate asking "is there anything in this game that would send somebody here"
+does not exist.
 
-THE GATE NOTE: six gates green, the seventh red before I touched anything and
-routed for the fourth time. The round found the player is the only person in the
-valley without a memory. These gates check that a part does what it says. Nothing
-checks that two parts agree, that a part keeps working for as long as the game
-lasts, that it is the right part to have, or that the parts form a loop that
-closes. Rounds 16 through 31. A gate asking "does familiarity extend the halflife"
-is green; a gate asking "whose mind is this for" does not exist.
+GATES THIS ROUND, ALL GREEN: economy 13/0, payday 38/0, purse 28/0, attempt 15/0,
+canon rot 13/0, demo blockers 22/0, language 81/0.
 
-GATES THIS ROUND: economy 13/0, payday 38/0, purse 28/0, attempt 15/0, canon rot
-13/0, demo blockers 22/0. language_gate 80/1 RED, PRE-EXISTING AND NOT MINE.
-
-THIRTY-ONE ROUNDS DONE. The last five: Q27 [shift pay], Q28 [ridge worth], Q29
-[nothing left], Q30 [perk price], Q31 [cheap eyes].
+THIRTY-TWO ROUNDS DONE. The last five: Q28 [ridge worth], Q29 [nothing left],
+Q30 [perk price], Q31 [cheap eyes], Q32 [long injury].
 
 WHAT THIS WHOLE STUDY KEEPS CONVERGING ON, updated:
-  A. TEN ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29, 30, 31) SAY THE ECONOMY OF
-     BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO. Round 31 adds that even
-     KNOWING A PLACE is mostly knowing who is in it.
+  A. ELEVEN ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29, 30, 31, 32) SAY THE ECONOMY
+     OF BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO. Round 32 adds that when
+     you cannot work, the community IS the welfare state, on a subscription.
   B. THREE ROUNDS (15, 21, 28) SAY THE MISSING PIECE IS NOT INCOME, IT IS A PLACE
      TO PUT THINGS.
-  C. SIX ROUNDS (15, 21, 23, 24, 26, 27) SAY A WAGE IS ONE STRAND AND NEVER THE
-     THICKEST ONE.
+  C. SEVEN ROUNDS NOW (15, 21, 23, 24, 26, 27, 32) SAY A WAGE IS ONE STRAND AND
+     NEVER THE THICKEST ONE.
   D. FIVE ROUNDS (24, 25, 26, 27, 29) END AT THE SAME WALL: THERE IS NO OWED.
+     Round 32 makes it six: BORROW IS RUNG ONE of what a household does.
   E. CLOUT SPENDS AND NEVER FILLS (30, 31).
-AND THE STANDING PATTERN, AT ITS PUREST THIS ROUND: almost every finding was a
-mechanism already built, already correct, and pointed at nothing. Here it is
-pointed at everybody EXCEPT the player.
+AND THE STANDING PATTERN: almost every finding was a mechanism already built,
+already correct, and pointed at nothing. This round it is a hospital with a
+helipad and a five-step surgery kit, both finished, neither reachable.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
@@ -314,8 +288,14 @@ pointed at everybody EXCEPT the player.
      him one is the difference between coming back after a week as a local and
      coming back as a stranger, and the curve is already written and measured.
 
-NEXT IN THIS LANE: Q32 [long injury], then Q33 [barter day] and Q34 [who
-profits]. The coordinator added Q33 and Q34 since last round.
+ 33. (new) IS A YEAR-LONG INJURY A CLOCK OR A STORY BEAT? The longest clock in
+     the build is the 180-day scavenge decay, and there is NO SEASON AND NO YEAR
+     anywhere in the code (swept the day loop and the century module for both
+     words: nothing). His "a hand that takes a year of the valley's time" is
+     either a new clock longer than anything the game counts, or it is a scene.
+     That is a shape question, not a number, which is why it is his.
+
+NEXT IN THIS LANE: Q33 [barter day], then Q34 [who profits].
 
 
 
@@ -323,6 +303,44 @@ profits]. The coordinator added Q33 and Q34 since last round.
 
 ================================================================================
 ================================================================================
+WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
+NOBODY COLLAPSES WHEN THEY ARE CAUGHT. THEY REVISE, CALMLY, IN THE SAME SECOND. *** TAB: NOT IN A
+TAB YET. No game code touched, ever. Everything is draft:true in the bank.
+
+THE FINDING THAT DELETED THE SCENE I WOULD HAVE WRITTEN. The whole reason a real interviewer holds
+evidence back is to stop the person REVISING to fit what was just shown to them. The revision is so
+reliable that a professional technique exists for no other purpose. So the stammering collapse is
+film, not life. In this set the collapse is ONE rare block, marked rare, and every other first line
+after the catch is calm and absorbs the new fact.
+
+THE STRUCTURE CAME FROM A 1968 CATALOGUE: eight account moves, four excuses and four
+justifications. The centrepiece is the SAME man caught for the SAME cable in the SAME second,
+answering eight different ways, one per move. Eight different people fall out of one crime. That is
+a per-character setting for PEOPLE, one field, and it buys the whole cast a reaction.
+
+WHAT IS IN THE BANK, section Q19 ROUND TWO, all draft:true:
+  THE COLLISION       the catch is two statements that cannot both be true, never a face read
+  EIGHT CAUGHT MEN    one crime, eight moves, each named
+  THE REVISION LADDER three proofs, three concessions, the self-description never moves
+  TWO APOLOGIES       the weak one built on purpose from the two weakest ranked parts
+  THE RARE COLLAPSE   three lines and a pause
+  THE REFLEX SORRY    a man who apologises for talking over you and not for what he did
+  SIX REFUSALS        what this lane will not write about being caught
+
+ROUTED. QUESTS [check the claim] is the paired row and the handshake is one sentence: a claim is
+checked by holding it next to another claim, worth about seven times a read of somebody's face. A
+"suspicious" reaction on screen is doing work the evidence says it cannot do. PEOPLE gets the
+eight-move knob.
+
+MAIN IS RED AND IT IS STILL NOT MINE, ROUND FOUR OF SAYING SO. voice 110/1, catalogue 60/3,
+language 80/1, the same three, unchanged by anything I did. The words book has not been baked since
+QUESTS added quest files (book 2496 lines, 3147 on disk), baking turns voice red because a QUESTS
+line carries a banned phrase, and language is red because the spanglish picker hands back the
+English base. Routed to QUESTS, PEOPLE and PLUMBER four rounds running. I did not bake and I did
+not touch another lane's text. My own gates: attempt 15/0, handoff 7/0.
+
+NEXT. Q20 [no law talk], school first. Q4 to Q17 are still owed their school rounds, one row at a
+time, never a shelf.
 UI (ui-kmqmrf): 9/12 LATEST -- *** [no slop] ROUND ONE. THE ROW STAYS CLAIMED ON PURPOSE. ***
 Paolo 9/11, LOCKED: "as far away as possible from the standard look of vibe-coding with Claude;
 people can tell; do the research, even down to the font." The ship test says NONE of the tells
