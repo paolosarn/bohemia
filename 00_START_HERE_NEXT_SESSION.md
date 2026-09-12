@@ -6351,7 +6351,68 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/12 (c) LATEST -- *** [lab reds] SHIPPED. THREE RED ART CHECKS
+LIFE + CITY (city-1eztay): 9/12 (d) LATEST -- *** [lab reds] LANDED ON MAIN AT 9ce4372, AND
+GETTING IT THERE MEASURED SOMETHING THE WHOLE FLEET SHOULD SEE: THE FULL SUITE CANNOT RUN TO
+THE END ON THIS BOX, AND WHAT IT DID REACH WAS 15% RED. *** MODE: BUILD. TAB: none, gate
+round. Nothing to judge.
+
+  THE SHIP. combat_lab_gate 932/0, re-run on the rebased tree after main moved 100 files
+under me (including 314 lines of the alpha and 2,341 of the city), plus the lane's four:
+NEVER EMPTY 14/0, TAP PICKS 6/0, THE ONE THAT IS YOU 7/0, A CROWD TO WALK INTO 7/0. The suite
+ALSO ran COMBAT LAB itself and printed GREEN 932 pass / 0 fail at [252/599], which is the
+confirmation that matters: my change was verified by the suite, on the merge tree, not only
+by me running it by hand.
+
+  *** THE SUITE, MEASURED TWICE, AND THIS IS FOR THE COORDINATOR, NOT FOR ME TO FIX. ***
+Attempt 1: killed at its own 2700s budget having printed NOTHING (my fault, I piped it
+through `tail`, so fifty minutes produced zero information -- NEVER PIPE A LONG SUITE THROUGH
+tail, send it to a file with python3 -u). Attempt 2, given 5400s: KILLED AGAIN at 90 minutes,
+having reached [471/599].
+    suite_finishes_gate.py says the FLOOR is 4281s = 71.3 min against a 2700s budget, and
+    the row it serves wants under 10. OBSERVED IS WORSE THAN THE FLOOR: 90 minutes did not
+    finish. "Getting there needs LESS BROWSER WORK, not better packing" is the gate's own
+    line -- 202 minutes of browser work over 4 cores is 50 min even at four slots.
+  OF THE 372 GATES THAT REPORTED: 318 GREEN, 56 RED. Fifteen percent. Named, in order:
+PAD SAYS, ROAD LEAVINGS, ROAD DECISION, ROAD ON FOOT, ENEMIES EXIST, DEMO CURRENT, STRANGER
+OPENS, FIRST NIGHT, INSTALL CARD, ONE VALLEY, BUILD THE WORLD, NO CANOPIES, LOOK, VOICE
+SURFACES, EYES, FRESH DOORS, SPATIAL SOUND, SFX DIVERSITY, STREET BREATHES, BEAT FIRST, TIME
+PASS, RUN BEAT, COMBAT RUNS, ENTER ZOOM, ONE ENGINE, PERSON LOOK, MOTION VISIBLE, RIG CHECK,
+FIELD SURGERY, OUTFITS 13, CAST SHAPES, WALK DEADLOCK, ENGINE CENSUS, LEGEND KEPT, PACK,
+BUILD SIZE, FPS ON A PHONE, SKY TOUCH, MANDATE FACE, QUEST PLACEMENT, VOICE, ADDRESS, THE RUN,
+BANKS USED, ZOOM BUILD, RENDER PIXEL, RUN PEOPLE, CITY CAST, CITY MEMORY, CITY DEEDS, CITY
+DIAL, ORGAN REACH, FACTION BETWEEN.
+  THREE HONESTY CLAUSES ON THAT NUMBER, because a number handed over without them is a
+rumour: (1) NONE OF THE 56 IS MINE -- my entire diff was 4 files, one gate and three
+documents, ZERO product code, so every one of them was already red on main. (2) IT IS A
+SNAPSHOT OF A TREE THAT NO LONGER EXISTS: the run was based on 0f2c433 and main has since
+moved 100 files, so the list needs re-measuring before anybody acts on a specific row. (3)
+SOME OF THESE ARE RED BY DESIGN and must not be "fixed" -- CITY DEEDS and CITY DIAL fail on
+"DEED_WEIGHT is STILL EMPTY (83 rows)... because he has not ruled", which is MECHANISM-MINE /
+CONTENTS-PAOLO'S working exactly as written. A sweep that closes those by inventing contents
+is the violation, not the cure.
+  WHY IT MATTERS MORE THAN THE COUNT: every lane's "I ran the suite" has been either a
+90-minute wait or a partial run, and a gate that never ran has held nothing while looking
+like it did. That is PLUMBER's row [suite runs] and it is already red. I am reporting the
+measurement, not claiming the job.
+
+  ALSO SEEN, NOT MINE, NOT TOUCHED: running the suite leaves
+records/BOHEMIA_BANK_LAW_INDEX.md dirty -- a generated index that is stale on main and picks
+up EYES' new 9/12 file when regenerated. Discarded rather than committed, because committing
+another lane's generated artefact crosses ONE SYSTEM, ONE SESSION.
+
+  NEXT: [more people] round 10. The probe is written and running: it repeats the gate's own
+16 walks and, on every sample, recovers the knot from public state (PPL_NEAR_AT plus the
+bodies within the seating radius) so the 8 misses get split into three causes -- (a) no crowd
+big enough ever formed, which would make it THE CAP, since __want is min(HEADS.cluster,
+floor(pool/2)) and pool is capped by the lattice cells inside his five-minute reach, so sparse
+ground can make a crowd of 7 arithmetically impossible; (b) a big crowd formed BEHIND him,
+which would make it THE BEARING, to be handled carefully because round 9 proved rebuilding on
+HIS position is a mirage (4 of 16, worse than 5); or (c) big and ahead and still missed. Aim
+the next cut at whichever the number names.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/12 (c) -- *** [lab reds] SHIPPED. THREE RED ART CHECKS
 CLOSED, 929/3 -> 932/0, AND THE GAME DID NOT CHANGE BY ONE BYTE. ALL THREE FIXES WERE IN
 THE RULER. *** MODE: BUILD. TAB: none, this is a gate round -- nothing on his screen moved,
 which is the honest headline. Nothing to judge.
