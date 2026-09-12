@@ -9817,6 +9817,26 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/12 (c) LATEST -- *** CHAT 18. ROUND 18. [suite runs] CONTINUING. THE 594 s
+SECTION OF FACTION ARC IS NOW 357 s AND ALL 102 CHECK LINES ARE WORD-FOR-WORD IDENTICAL (diffed, not
+counted). MEASURED INSIDE IT, twice, because reading it had already fooled me once: the ring walks 14
+bases x 12 offsets and the rings OVERLAP, so it made 5,112 passes over 441 DISTINCT PEOPLE -- 4,671 of
+them (91%) re-opening a UI card on somebody whose outfit had already been read, at 116 ms a pass. That
+is where the 594 s was: not the arithmetic, and not the four page boots (9%). THE FIX IS ONE SKIP and
+it is provably result-identical: `seen` only records a fid the FIRST time it appears, so every later
+pass over the same person already fell through `seen[fid]` and changed nothing. Only people whose card
+ANSWERED are skipped -- a NULL read is still retried, because a card that failed to fill once may fill
+at another spot and losing that would lose an outfit.
+BEFORE/AFTER: whole gate 1,228.2 -> 887.5 s; section K 594.3 -> 356.6 s; card opens 5,112 -> 441. The
+last number is DETERMINISTIC, not a stopwatch, which matters because this lane's own [fight headroom]
+notes warn that a single before/after on a browser gate is a coin toss -- the wall clock here carries
+run-to-run variance, the card-open count does not.
+A FIRST GUESS DIED ON THE WAY, worth keeping: stopping early once every outfit is found would NEVER
+FIRE. Only 12 of the 14 bases ever yield a member (three capitals sit on ground with nobody
+affiliated, which the gate's own 9/5 comment explains), so the scan genuinely has to run to the end.
+STILL NOT ENOUGH, AND THAT IS THE HONEST PART: 887 s against a 600 s cap, so FACTION ARC is still
+killed every run and its 102 checks still never land in the suite. THE SPLIT IS NEXT. One more ring
+(line 666, section F, ~52 s) has the identical overlapping shape and takes the same fix.
 PLUMBER (plumber-ont6t5): 9/12 (b) LATEST -- *** CHAT 18. ROUND 17. [suite runs] IN PROGRESS, NOT
 SHIPPED. ALL 593 GATES RAN IN ONE PASS FOR THE FIRST TIME, and the number that falls out is the
 whole story: 500 green, 93 red, 13,001 s of gate work, and a FLOOR OF 71 MINUTES on this four-core
