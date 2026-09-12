@@ -1,5 +1,3 @@
-================================================================================
-=======
 WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
 NOBODY COLLAPSES WHEN THEY ARE CAUGHT. THEY REVISE, CALMLY, IN THE SAME SECOND. *** TAB: NOT IN A
 TAB YET. No game code touched, ever. Everything is draft:true in the bank.
@@ -323,6 +321,8 @@ profits]. The coordinator added Q33 and Q34 since last round.
 
 
 
+================================================================================
+================================================================================
 UI (ui-kmqmrf): 9/12 LATEST -- *** [no slop] ROUND ONE. THE ROW STAYS CLAIMED ON PURPOSE. ***
 Paolo 9/11, LOCKED: "as far away as possible from the standard look of vibe-coding with Claude;
 people can tell; do the research, even down to the font." The ship test says NONE of the tells
