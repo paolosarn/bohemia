@@ -1556,78 +1556,78 @@ NEXT IN THIS LANE: Q23 [who eats first].
 ================================================================================
 ================================================================================
 
-FACTIONS (factions-ovkjpf): 9/12 (round 15) LATEST -- *** [block rent]
-THE-BLOCK-PAYS-ITS-OWNER SHIPPED. Living on somebody's ground was free. It costs
-now, it is paid to a faction with a name, and the faction that does not get paid
-cuts the lights. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/12 (round 16) LATEST -- *** [crossing costs]
+THE-WRONG-COLOUR-REACTS SHIPPED. Every block has an owner and walking onto somebody
+else's cost nothing. A stranger on your block now gets a look, then a tail, then a
+stop, and how far it goes is how far that faction reaches. *** Nothing to judge.
 
-VAMILY row: [block rent], MODE: BUILD, SHIPPED 9/12 4869e2f0.
-Record: records/BOHEMIA_THE_BLOCK_PAYS_ITS_OWNER_9_12_26.md
+VAMILY row: [crossing costs], MODE: BUILD, SHIPPED 9/12 7d7cf776.
+Record: records/BOHEMIA_THE_WRONG_COLOUR_REACTS_9_12_26.md
 
-MEASURED FIRST. payTo() has answered "who do you pay for this block" since [light
-owners] and had EXACTLY ONE CALLER IN THE WHOLE GAME, and it was a gate. Same shape
-as formed() in [enemies unite]: built, gated, never called by the product.
+MEASURED FIRST, AND HIS SENTENCE WAS LITERALLY TRUE. The player wakes on the Mob's
+FORTRESS ground with 61 people on screen and EVERY ONE reads `nothing`. Church
+ground begins two cells away and crossing it changes nothing either. The against
+organ reads four facts -- their outfit vs yours, their opinion of you, a coalition,
+whether anybody still pays them -- and NOT ONE is "you are standing on their ground".
 
-*** AND payTo IS THE WRONG DOOR FOR RENT. *** It reads the GRID, and the grid only
-carries status on STREET cells. Sampled on the walked surface, 2,304 cells:
-  somebody to pay   831        flagged free   6
-  NOBODY           1467        <- including the block the player wakes on
-The grid says who owns the WIRE. Turf says who owns the GROUND, for 100% of the
-valley since [who holds]. Rent is ground, so rent asks turf.
+*** IT GRANTS SIGNS, NEVER A LEVEL, AND THAT IS THE WHOLE CARE IN IT. *** The
+obvious build reads "a stop", reaches for the `block` sign, and `block` lives on
+WAR -- which would put a stranger who walked three blocks AT WAR with a faction he
+has never met, a severity nobody ruled, over a map that is his. But the module's own
+header already says the SIGNS are the escalation and the levels merely bundle them:
+  a look -> watch      a tail -> follow      a stop -> block
+`refuse` is deliberately excluded: withholding trade is what an unpaid landlord does
+([block rent]), not what a stranger on a street earns. And when they already had a
+reason the ground ADDS to it -- signs unioned, LEVEL UNTOUCHED. Walking onto a block
+cannot talk a cold body into a war.
 
-*** IT IS A TRANSFER, NOT A FIFTH VERB, AND THAT IS THE WHOLE SHAPE. *** The four
-verbs are FROZEN and the purse says so in its own refusal ("a fifth is a design
-change, and design changes are Paolo's"); the day-23 study is stricter still, "each
-resource is spent by exactly one verb, so you always know what drained it", and
-electricity is already spent by night:power. A drain CONSUMES; rent MOVES, to
-somebody with a name. transferOut has existed for exactly that since the purse was
-built, posting kind 'transfer', and NOTHING HAD EVER CALLED IT. The frozen four are
-untouched and a fifth is still refused by name.
+HOW FAR IT GOES IS THEIR REACH, NOT A NUMBER I PICKED
+  fortress 3   a look, then a tail, then a stop
+  town     2   a look, then a tail, and never more
+  camp     1   a look, however deep you go
+That is REACH, the table that already decides how far a town's arm extends, so
+"a fortress reaches further than a camp" (turf_gate's own headline) now applies to
+people as well as ground. How many blocks you crossed is TURF_USED, which
+[block rent] already counts and already dedupes. NOTHING NEW IS TRACKED.
 
-A FORTRESS CHARGES MORE THAN A CAMP WITHOUT A PRICE NOBODY RULED. EVERYTHING COSTS
-ONE, so it cannot charge a bigger number; what a bigger operator really does is
-collect on MORE OF WHAT YOU USED. That scaling is HIS THIRDS, already in the towns
-module as DEPTH, applied to a COUNT through the same Math.ceil goodsFor uses.
-  nine blocks of each   fortress bills 9   town bills 6   camp bills 3
-HONEST LIMIT, ASSERTED IN THE GATE so nobody later reads it as a fault: at ONE block
-they all bill one, because a third of one block rounds up to one. The tiers only
-separate once he has walked more of somebody's ground, which is when it matters.
+ONLY THE FACTION UNDER YOUR FEET REACTS. Standing on Cartel ground having walked
+NINE blocks of Anarchist ground, the Anarchists get nothing. His sentence is "the
+moment you cross INTO a block", which is where you are standing, not where you
+have been.
 
-CUT OFF IS THE LIGHTS, which is what the research says literally ("cuts you off
-without warning"). One circuit per unpaid block, on THAT faction's OWN ground, via
-the douse the grid already ships and the save already carries. NOTHING HERE INVENTS
-A STANDING CHANGE: what an unpaid debt does to how they FEEL about you is a weight,
-and weights are his.
+THE BEHAVIOUR WAS ALREADY BUILT AND GATED. ctFollowStep already moves bodies toward
+you on `follow`, already stands one in a doorway on `block`, already turns heads on
+`watch`. THIS ROW ADDED THE REASON, NOT THE REACTION.
 
-DRIVEN ON THE WALKED SURFACE AND THE DEMO, deliberately two batteries short
-  Blues    (town)     used 2   billed 2   paid 2
-  Church   (town)     used 4   billed 3   paid 3    <- the tier, visible
-  Mob      (fortress) used 16  billed 16  paid 14   <- 2 short
-  purse electricity 22 -> 0     lit circuits 358 -> 356, the Mob cutting its OWN
-  ledger kinds ["transfer"], never "drain", every entry naming who received it
-Identical on the demo. No page errors on either.
+DRIVEN THROUGH THE CITY'S OWN ctAgainstMe, ON A REAL BODY, ON THEIR OWN GROUND
+  off their ground              nothing
+  one block in                  watch
+  two blocks in                 watch, follow
+  nine into a FORTRESS          watch, follow, block
+  nine into a TOWN              watch, follow   <- capped, and that is the point
+  level at every depth          null, rank 0
 
-WHAT HE READS AT NIGHTFALL (Tab: CITY)
-  Church (town) took 3 batteries for 3 of the 4 blocks of theirs you used
-  Mob (fortress) wanted 6 for the 6 blocks of theirs you used and you had 4
-  so the Mob cut 2 of their own streets off
-The first wording said "1 of the 1 block" and "took 4 for 6" beside the shortfall.
-Both were what a machine says, not what a person reads.
+TWO HONEST FINDINGS, REPORTED RATHER THAN PAPERED OVER
+  A BLOCK IS BIGGER THAN A LONG WALK. 420 real steps through stepOnce never left
+  ONE block, so the tail was never owed; the gate says so in its own output instead
+  of forcing a follower to appear.
+  AND MOST OF THE VALLEY HAS NOBODY OF THE HOLDER STANDING ON IT. A faction holds
+  hundreds of blocks; its members live within about twelve cells of its seat. At the
+  spawn, 0 of 61 people run with the Mob who hold that ground -- the same fact the
+  against module's own header recorded on 9/5. Where it fires is where a faction's
+  people actually are. NOT MINE TO FIX: who stands where is the population's.
 
-GATES  faction_towns 81/0 (was 65), sixteen new claims. Green alongside: turf 43/0,
-       mandate 44/0, engine sync zero drift, demo build 25/0, alpha loads 20/0.
+GATES  against_gate 78/0 (was 66), eleven new claims, on a FRESH PAGE because the
+       sections above it deliberately make the player an enemy and this one is about
+       a stranger. Green alongside: coalition 40/0, faction towns 81/0, engine sync
+       zero drift, demo build 25/0, alpha loads 20/0.
 
-AND ONE GATE PROBE WAS MINE, NOT THE GAME'S. The turf-not-grid claim first ran a
-regex for "payTo ... rent" across the whole 4 MB page -- string arithmetic that can
-match anything -- and went red while the behaviour was correct. It reads the two
-function bodies now. FOURTH TIME THIS SESSION a check was wrong while the game was
-right.
-
-TOOLING FIXED THIS ROUND, AND IT WAS LYING. My land script ran `git push | tail -1`
-inside an `if`, and a pipeline's status is the LAST command's, so `tail` always
-succeeded: every land printed PUSHED and exited 0 EVEN WHEN THE PUSH WAS REJECTED.
-One really was, this round, and the claim reported as landed was not on main. It
-takes the status from git now and prints the rejection.
+*** FOUR OF MY OWN PROBES WERE WRONG BEFORE ONE WAS RIGHT, AND EVERY ONE WAS THE
+INSTRUMENT. *** Zeroing the block counter while standing on the block (it floors at
+one, correctly). Teleporting the player and asking about a frame that was never
+painted. Moving the MAP CURSOR in walk mode, which is the exact fault this file
+records under __ROAD_INTERRUPTS_ON_FOOT__. And pre-setting the block count before a
+walk that immediately recounted it. The game was right every time.
 
 [PENDING Paolo] -- FOUR, ALL CARRIED, NOTHING NEW
   1. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
@@ -1644,28 +1644,28 @@ takes the status from git now and prints the rejection.
      drab factions, the gate carries three.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
-verified inherited on a clean origin/main worktree two rounds ago and unchanged.
+verified inherited on a clean origin/main worktree and unchanged since.
   R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
       outfit named "NONE", which is not one of the 18 in the faction graph.
-  R8  corpus max is 20 across 83 rows; loadCorpus normalises every weight by the
-      largest deed, so a partial corpus moves every rung boundary in the game.
+  R8  corpus max is 20 across 83 rows; loadCorpus normalises by the largest deed, so
+      a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [crossing costs]  THE-WRONG-COLOUR-REACTS -- the colour table is live in a file the
-    game can read, so this is wiring now, not invention. And rent gives it a reason:
-    a faction that just cut your lights off has a standing grievance you can walk into.
-  [collector heir]  THE-LENDER-VISITS-THE-HEIR -- needs WORLD [debt carried]
-  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]
-  [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11)
+  [collector heir]  THE-LENDER-VISITS-THE-HEIR -- needs WORLD [debt carried]; CHECK
+    IT, because this lane has now had FOUR rows whose named blocker was already gone
+  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]; the faction
+    colours are in a file the game can read, so this is wiring
+  [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11) --
+    and crossing now gives it its shape: who will join you where you are standing
 
-FOUR STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FIVE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
-  WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT; forcing it true costs a number
-  nobody ruled, and the map is his.
-  AND WHEN A LAW BLOCKS THE OBVIOUS BUILD, THE LAW IS USUALLY POINTING AT A BETTER
-  ONE. The frozen verbs looked like a wall; they were the reason rent is a transfer,
-  which is what it actually is.
+  WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
+  number nobody ruled.
+  WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
+  AND A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE
+  THAT CHECKED NOTHING. Make the guard itself a claim.
 
 --------------------------------------------------------------------------------
 
