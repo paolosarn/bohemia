@@ -7154,6 +7154,50 @@ function paoloOrder(d){
      authored baseline (including the NE/SW swap) when the pose says nothing. */
 function handOrder(d,present,P){
   let ord=paoloOrder(d);
+  /* ================= THE NEAR HAND DRAWS IN FRONT (Paolo 9/7) =================
+     "when it's facing north-east the hand was behind the head even though it's
+      supposed to be in front; some of the directions look like dog shit."
+     Two defects, both measured over all 105 clips x 8 facings x 8 phases.
+
+     ONE: A HAND WAS LEAVING ITS OWN ARM BEHIND. 460 frames draw a hand BEHIND
+     the head while its own forearm is drawn IN FRONT of it -- a wrist cut in
+     half by the skull -- and every one of them is a gun clip, 66 of them on NE,
+     the facing he named. The GUN-UNIT law's own first words are "hands holding a
+     weapon are ONE unit with it", and the code moved parts 7 and 8 and left 5
+     and 6 exactly where they were. Every depth move here now moves the PAIR, and
+     keeps the pair's own authored inside order.
+
+     TWO: THE HEAD WAS ORDERED INCONSISTENTLY AGAINST THE FAR ARM. On S and SE
+     the far arm is behind the head; on E, NE, N, NW, W and SW it is in front of
+     it, so on six of the eight facings an arm on the far side of the body paints
+     over a skull that is between it and the camera: 35,229 cells, worst on NW
+     (8,469) and NE (8,228). And on N the head sat BETWEEN the two arms, which
+     split every two-handed grip down the middle -- two-hand, deadeye,
+     crouch-aim-2h, spear-drive, pray -- one grip, two depths, 2,577 cells.
+     THE RULE IS DERIVED, NOT GUESSED, and that matters because the two dynamic
+     depth rules retired on 7/26 were guesses off a continuous signal and
+     oscillated mid-swing. This one reads NOTHING from the pose: the NEAR arm is
+     whichever the authored order already places in front of the torso, and the
+     head simply goes between near and far. Same answer every frame of a clip, so
+     it cannot flicker. RIG LAW holds: the baked layerOverride is untouched. */
+  const _pairOf=function(o,a,h){ return o.indexOf(h)<o.indexOf(a)?[h,a]:[a,h]; };
+  const _pairMove=function(o,a,h,toFront){
+    const pr=_pairOf(o,a,h), r=o.filter(p=>p!==a&&p!==h);
+    return toFront?pr.concat(r):r.concat(pr); };
+  /* the head goes between the near arm-unit and the far arm-unit. Only the FAR
+     pair moves, to just behind the face; everything else keeps its authored
+     place. Both arms near (S) or already behind the head (SE) is a no-op. */
+  const _headBetween=function(o){
+    const t=o.indexOf(4); let far=[];
+    if(o.indexOf(5)>t) far=far.concat(_pairOf(o,5,7));
+    if(o.indexOf(6)>t) far=far.concat(_pairOf(o,6,8));
+    if(!far.length) return o;
+    const hi=Math.max(o.indexOf(1),o.indexOf(2));
+    if(far.every(p=>o.indexOf(p)>hi)) return o;
+    const rest=o.filter(p=>far.indexOf(p)<0);
+    const at=Math.max(rest.indexOf(1),rest.indexOf(2))+1;
+    return rest.slice(0,at).concat(far).concat(rest.slice(at)); };
+  try{ if(typeof window!=='undefined'){ window.__pairMove=_pairMove; window.__headBetween=_headBetween; } }catch(_e){}
   /* NE/NW ARM-UNIT DEPTH (Paolo 7/20/26: "the hand and arm layering behind
      in front of the torso is fucked up" on NE). ROOT CAUSE: every layer law
      below re-places only the HANDS (7/8) and reads only X displacement --
@@ -7189,16 +7233,16 @@ function handOrder(d,present,P){
      unit renders NEAREST; aiming away, it goes BEHIND the body. Covers
      deadeye, pistol, two-hand, and any future weapon clip. */
   if(present&&present._gun){
-    const aim=present._gun[3];
-    const hands=ord.filter(p=>p===7||p===8),rest=ord.filter(p=>p!==7&&p!==8);
-    return (Math.sin(aim)>-0.25)?hands.concat(rest):rest.concat(hands);
+    const aim=present._gun[3], toF=(Math.sin(aim)>-0.25);
+    let o2=_pairMove(ord,5,7,toF); o2=_pairMove(o2,6,8,toF);
+    return _headBetween(o2);                                   /* the pair, never the bare hands */
   }
   if(d==='S'||d==='N'){
     if(present&&present._handsBack){
-      const hands=ord.filter(p=>p===7||p===8),rest=ord.filter(p=>p!==7&&p!==8);
-      ord=(d==='S')?rest.concat(hands):hands.concat(rest);
+      const toF=(d==='N');                                     /* facing away, hands behind the body are the ones toward camera */
+      ord=_pairMove(ord,5,7,toF); ord=_pairMove(ord,6,8,toF);
     }
-    return ord;
+    return _headBetween(ord);
   }
   /* AUTHORED LAYERING IS THE LAW (Paolo 7/26/26): the rest-relative hand guess is RETIRED
      on every facing. Same defect as the arm-unit rule above -- a +-2.5px
@@ -7233,7 +7277,7 @@ function handOrder(d,present,P){
   /* RETIRED 7/2/26: DIAG_HAND_LAW removed, superseded by Paolo's re-authored
      rig layer export. The authored baseline carries the per-facing truth;
      only the dynamic per-pose logic and _handsBack ride on top. */
-  return ord;
+  return _headBetween(ord);
 }
 const REST_GRID={};
 /* HAT LINE: the durag's southernmost row per direction = max south for ANY hat */
