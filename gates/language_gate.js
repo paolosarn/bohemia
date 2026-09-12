@@ -158,6 +158,47 @@ ok('*** THE REGISTER CORPUS DOES NOT GROW. ENOUGH IS ENOUGH (Paolo 8/26). ***',
           + 'from him and raise the cap with his quote beside it, or take the '
           + 'lines back out.' : ''));
 
+/* ==========================================================================
+   EVERY SPANGLISH SPEAKER, NOT THE FIRST ONE YOU BUMP INTO. (9/12, PEOPLE lane,
+   VAMILY [spanglish red].)
+
+   THE BROWSER PASS AT THE BOTTOM OF THIS FILE WALKS THE CITY AND ASKS THE FIRST
+   SPANGLISH SPEAKER IT REACHES. That is a real check on the real surface and it
+   stays. But ONE SAMPLE OFF A SPATIAL WALK IS A COIN FLIP WEARING A CLAIM'S
+   CLOTHES: which person you reach first depends on what else is in the tree, so
+   the same claim read RED for the ECONOMY lane two rounds running and GREEN
+   here, on the same law, with nobody's content at fault. A check that answers
+   differently depending on who is looking teaches nothing and gets ignored.
+
+   So this sweeps the quirk organ directly: four thousand people, both light
+   states, and EVERY Spanglish line they can say has to carry a Spanish word.
+   Measured when this was added: 8,000 lines, 0 without Spanish -- the defect the
+   row named is really gone at the source, not hidden behind a lucky draw.
+   Fast, no browser, and it cannot flap. */
+var sweepQ = null;
+try { sweepQ = require(ROOT + '/engine/bohemia_quirk.js'); } catch (e) { }
+ok('the quirk organ is reachable, or the sweep below is VACUOUS', !!sweepQ);
+if (sweepQ) {
+  var swept = 0, dry = [];
+  for (var sp = 0; sp < 4000; sp++) {
+    var swho = { id: 'sweep' + sp, key: 'sweep' + sp, seed: sp };
+    var sq = null;
+    try { sq = sweepQ.quirkOf(swho); } catch (e) { continue; }
+    if (!sq) continue;
+    for (var sd = 0; sd < 2; sd++) {
+      var sline = null;
+      try { sline = sweepQ.lineFor(swho, sd === 1, 'spanglish'); } catch (e) { continue; }
+      if (!sline) continue;
+      swept++;
+      if (P.esWordsIn(sline).length === 0 && dry.length < 5) dry.push(String(sline).slice(0, 70));
+    }
+  }
+  ok('*** AND EVERY SPANGLISH LINE A PERSON CAN SAY CARRIES SPANISH, ACROSS '
+    + swept + ' OF THEM *** -- not the one the walk happened to reach',
+    swept > 1000 && dry.length === 0,
+    swept + ' swept, ' + dry.length + ' with no Spanish' + (dry.length ? ': ' + dry.join(' | ') : ''));
+}
+
 ok('SPANGLISH IS THE HEADLINE REGISTER, not broken English',
   (byReg.spanglish || 0) >= (byReg.es || 0),
   'spanglish ' + (byReg.spanglish || 0) + ' vs poor-english ' + (byReg.es || 0));
