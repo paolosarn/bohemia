@@ -1,0 +1,79 @@
+DOES THE BODY WEAR THE BLOCK? -- COLOUR IS TERRITORY, measured on the walked
+street through the demo
+9/12/26, CHARACTER lane. VAMILY [faction colour] THE-BODY-WEARS-THE-TERRITORY.
+
+THE ROW: "every dressed person's dominant colour matches the faction that owns
+the block they stand on; measure the miss rate and fix the picker where it misses."
+THE LAW (8/26, his words): "people get shot in Los Angeles for wearing the wrong
+color ... how we wanna communicate, like, who would defend us."
+
+  bodies the renderer put on the glass    171
+  the faction colour module is loaded     NO
+
+Q1. WHO OWNS THE GROUND THEY STAND ON?
+
+  resident spots probed across the valley  2199
+  standing on ground somebody HOLDS        0   0.0%
+      NOBODY HOLDS ANY GROUND A RESIDENT STANDS ON.
+
+Q2. WHOSE IS EACH BODY?
+
+  bodies answering a faction of their own  0 of 171   0.0%
+
+Q3. AND WHAT COLOUR ARE THEY ACTUALLY WEARING?
+
+  bodies with any real colour on them      171 of 171   100.0%
+  (a body is "coloured" when at least 12% of its pixels carry a hue at all --
+   grey and near-black are excluded, because a dun body is mostly grey and
+   counting it would elect "no colour" every time and say nothing)
+
+Q4. AND IF A BODY DID HAVE A FACTION, WOULD IT BE DRESSED IN ONE?
+
+  trade bodies baked and ready             6
+  faction bodies baked, before asking      0
+  ... after asking, and waiting            0   (nothing landed)
+
+  THE FACTION CAST NEVER BAKES. The trade cast is there and works, the request
+  function exists and throws nothing, and the faction cast stays empty. So even
+  handing somebody a faction would not put them in its colours today.
+
+  A PROBE THAT COULD NOT ANSWER THIS IS WORTH RECORDING: the first attempt gave
+  bodies a faction and compared their sprites. It read 12 of 12 changed, then on
+  a re-run 0 of 12, then 6 of 12. A body's breath frame advances with the beat,
+  so ANY two samples taken seconds apart differ whatever you did in between --
+  the null control changed 12 of 12 with no faction at all. The question is
+  answered above by reading a TABLE instead of a PICTURE, which has no clock in
+  it. WHEN A MEASUREMENT FLIPS BETWEEN RUNS, STOP READING IT.
+
+THE MISS RATE
+
+  *** IT CANNOT BE COMPUTED, AND THAT IS THE FINDING. ***
+
+  NOT ONE BODY ON THE STREET BELONGS TO A FACTION. 171 of 171 answer none.
+  AND NO RESIDENT IS STANDING ON GROUND ANYBODY HOLDS (0 of 2199).
+  AND THE WALKED CITY NEVER LOADS THE FACTION COLOUR MODULE AT ALL.
+  AND THE FACTION CAST NEVER BAKES, so there is nothing to dress them in.
+
+  A miss rate needs two things to compare. The colours exist, the law exists,
+  the ground can answer who holds it -- but on the surface Paolo walks there is
+  no affiliated person and no claimed block under them, so "does this body wear
+  this block's colour" has no subject. Fixing the picker would be fixing the
+  half of the sentence that is not broken.
+
+*** AND THE ROW'S OWN WORDING HIDES A TRAP, NAMED HERE RATHER THAN WALKED INTO.
+"EVERY dressed person's colour matches the faction that owns the block" would,
+read literally, put the whole street in gang colours -- every shopkeeper, every
+kid, in Cartel brown for standing on Cartel ground. That is the opposite of the
+law it cites. The law calls colour "a statement of who would defend you" and says
+wearing your colours is A CHOICE WITH A COST; the style card allows ONE saturated
+piece per body and lists dust, ash, bone and lead as legal cloth. A valley where
+everybody is in uniform has no signal in it, because a colour only means
+something against another colour -- the law's own line about the Bloods taking
+red to contrast the Crips' blue. So the miss rate above is for AFFILIATED bodies,
+and civilians are reported, never counted as misses.
+
+READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW
+WHAT IT IS COUNTING. Hue is read off the PIXELS THE GAME BLITTED, in twelve bins,
+ignoring grey -- so "wrong colour" here means the body is visibly a different hue,
+not that a hex differs by a shade.
+

@@ -8395,55 +8395,62 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND -- *** [more clothes] WARDROBE-VOLUME SHIPPED. 317 GARMENTS, 105 SHAPES.
-The structure law now has a machine gate on the wardrobe for the first time.
-Tab: CHARACTER (the CLOTHES rail) and everybody in the game. ***
-- CHECKED FOR A COLLISION BEFORE CLAIMING, per ONE SYSTEM ONE SESSION: COOK holds no
-  garment row (its claimed rows are city, car, fortress) and its WARDROBE-REMAKE is
-  SHIPPED at 8851e11 covering batches 1-6. The wire for those batches was already intact,
-  15/15, so the ratchet picked up batches 5 and 6 on its own and there was no wiring debt.
-- I DID NOT COOK, AND THAT WAS THE POINT. COOK owns cooking and had just landed 22 new
-  shapes. Adding garments on top of six fresh batches without checking whether the
-  wardrobe is short is producing for its own sake (STOP PRODUCING, 7/26). So the round
-  measured first.
-- AND THE FIRST MEASUREMENT SAID DO NOT COOK: asked of the real picker, 3000 citizens wore
-  3000 DIFFERENT OUTFITS. Not one repeat, every canon garment used, no layer starved. By
-  that count the rail is not short at all.
-- *** THEN THE SAME CROWD WAS RENDERED AND THE PICTURE DISAGREED. *** Hashing the painted
-  body with COLOUR THROWN AWAY: 300 citizens, 223 silhouettes. And it is the PLAIN people
-  who repeat -- with three extra layers a citizen is 98% one of a kind, with none it is
-  70%, and half the crowd wears nothing over the base. THE OUTFITS ARE UNIQUE AND THE
-  PEOPLE ARE NOT.
-- SO THE STRUCTURE LAW'S OWN QUESTION, GARMENT BY GARMENT, asked for the first time ever:
-      *** 317 CANON GARMENTS. 105 DISTINCT SHAPES. THREE IN FOUR ADD NO SHAPE. ***
-      base 80 -> 20    outer 63 -> 16    legs 34 -> 8    feet 32 -> 7
-      HAIR 11 -> 11, the ONE category that passes outright, and the one with a gate on it.
-  RED SHIRT, WHITE TEE, GREEN FLANNEL, SCAVENGER FLANNEL and BONE HENLEY all paint exactly
-  the same pixels. So do five longcoats and four pairs of gloves.
-- HOW A SHAPE IS COUNTED, and it is not a new idea: render the garment ALONE on the bare
-  body, diff, hash WHICH PIXELS CHANGED with colour discarded. That is the ruler hair_gate
-  has used since 8/1, pointed at the wardrobe. THE POSITIVE CONTROL IS FREE: the same
-  harness WITH colour gives 313 distinct, without colour 105. The ruler plainly separates
-  cut from paint, and the gap between those two numbers IS the finding.
-- WHAT I AM CAREFUL NOT TO CLAIM: a plaid shirt and a solid shirt of one cut honestly ARE
-  one cut, and whether 105 is enough volume is DIRECTION's call against the style card.
-  This lane can only say, with a number, how much of the rail is CUT and how much is PAINT.
-- SHIPPED AS A MACHINE GATE: STRUCTURE-NOT-COLOR (7/19, LOCKED) had NO gate anywhere in
-  the repo, and a law without a machine gate is not enforced. wardrobe_wired_gate now
-  holds the shape count as a RATCHET (pinned 105, hair 11) so a re-cook that swaps shapes
-  for colourways is caught -- invisible to every other gate, because the garment COUNT
-  would not move. Mutation-tested: raise the pin by one and both checks go red.
-  Gate 15/15 -> 17/17.
-- NOT DONE ON PURPOSE, both said out loud: I did not cook garments (COOK's job, and the
-  shape count is the number for them to move), and I did not retune the picker's odds to
-  make plain citizens rarer -- that would HIDE the finding rather than fix it, and how
-  often a coat appears is a look decision for the card.
-- Records: records/BOHEMIA_HOW_MANY_SHAPES_ARE_THERE_REALLY_9_11_26.txt
-            records/BOHEMIA_DOES_THE_CROWD_REPEAT_9_11_26.txt
-  Tools:   tools/bohemia_how_many_shapes_are_there_really.js
-            tools/bohemia_does_the_crowd_repeat.js
-- NEXT FOR THIS LANE: the first takeable OPEN line is [runway hair] HAIR-TO-THE-CARD.
-  [look verdict] stays untakeable (re-routed to DIRECTION, 9/7).
+THIS ROUND -- *** [faction colour] THE-BODY-WEARS-THE-TERRITORY. STILL CLAIMED, NOT
+SHIPPED. The row asks me to fix the picker and the picker is not what is broken:
+FOUR HOLES, ALL UPSTREAM OF IT, ALL VERIFIED. ***
+- Also closed a DUPLICATE: [runway hair] HAIR-TO-THE-CARD sat OPEN in this section and is
+  the row COOK shipped at e8cbdd6 over three rounds (canon hair 24 -> 11, nineteen looks
+  repointed). Verified before closing -- runway library on disk, graveyard gate 13/13,
+  canon hair reads 11 -- and the line now carries COOK's sha and says who did it.
+- THE ROW: "every dressed person's dominant colour matches the faction that owns the block
+  they stand on; measure the miss rate and fix the picker where it misses."
+- *** THE MISS RATE CANNOT BE COMPUTED, AND THAT IS THE FINDING. *** On the walked street,
+  through the demo, 171 bodies on the glass:
+      1. NOT ONE BODY BELONGS TO A FACTION.            171 of 171 answer none.
+      2. NO RESIDENT STANDS ON GROUND ANYBODY HOLDS.   0 of 2199 spots swept.
+      3. THE WALKED CITY NEVER LOADS THE FACTION COLOUR MODULE. BohemiaDress is
+         undefined in that frame; the twelve faction colours are unreachable there.
+      4. AND THE FACTION CAST NEVER BAKES. Trade bodies: 6, ready. Ask for a faction
+         cast, wait 30 seconds: still zero. The request function exists and throws
+         nothing.
+  A miss rate needs two things to compare. Fixing the picker would be fixing the half of
+  the sentence that is not broken.
+- *** AND I NEARLY SHIPPED A BACKWARDS ANSWER. *** To test hole 4 I gave bodies a faction
+  and compared their sprites: 12 of 12 changed. Then the null control -- same wait, NO
+  faction -- also changed 12 of 12. A body's breath frame advances with the beat, so any
+  two samples seconds apart differ whatever you did between them. Re-runs gave 0 of 12,
+  then 6 of 12. WHEN A MEASUREMENT FLIPS BETWEEN RUNS, STOP READING IT. Hole 4 is
+  answered by reading a TABLE instead of a PICTURE, which has no clock in it, and that
+  answer is stable across every run.
+- A TRAP IN THE ROW'S OWN WORDING, named rather than walked into: "EVERY dressed person's
+  colour matches the faction that owns the block" would put the whole street in gang
+  colours -- every shopkeeper, every kid, in Cartel brown for standing on Cartel ground.
+  That is the opposite of the law it cites, which calls colour "a statement of who would
+  defend you" and says wearing your colours is A CHOICE WITH A COST, and of the style
+  card, which allows ONE saturated piece and lists dust, ash, bone and lead as legal
+  cloth. A valley in uniform has no signal in it, because a colour only means something
+  against another colour. So the rule must be for AFFILIATED bodies, and civilians must
+  stay dun. [PENDING coordinator] if anyone disagrees, say so before the fix is built.
+- A SECOND, SMALLER FINDING, ROUTED NOT GATED: the law's test 3 (two factions may not own
+  the same hue) already has a gate, faction_colour_gate, green at 17/17 with clashes
+  pinned at 4. Measured with the DRESS MODULE'S OWN family tolerance instead (colorDist
+  <= 95, the number the game itself uses to decide two colours are one family), SIXTEEN of
+  the 66 faction pairs clash -- TRADES and HOMELESS are 33 apart, MOB and TRADES 36. The
+  two rulers disagree about the same law. I did NOT add a competing check: one law, one
+  ruler, and which one it should be is DIRECTION's and FACTIONS' call, not mine.
+- NOTHING WAS BUILT ON PURPOSE. Three of the four holes are FACTIONS' (who belongs to a
+  faction, who holds ground) and the module load is the city's. Hole 4, the faction cast
+  never baking, is the one nearest this lane and is the obvious next piece -- the evidence
+  is in the record and it needs no new measurement to start from.
+- Record: records/BOHEMIA_DOES_THE_BODY_WEAR_THE_BLOCK_9_12_26.txt
+  Tool:   tools/bohemia_does_the_body_wear_the_block.js
+- NEXT ROUND: hole 4 if it stays in this lane, else [enemy dressed] A-HOSTILE-WEARS-ITS-
+  FACTION, which sits on exactly the same four holes and cannot ship before them.
+
+PREVIOUS ROUND -- [more clothes] WARDROBE-VOLUME SHIPPED at cff0c30: 317 canon garments
+draw only 105 distinct SHAPES, three in four adding none, and STRUCTURE-NOT-COLOR now has
+its first machine gate on the wardrobe (ratchet pinned 105, mutation-tested).
+
 
 PREVIOUS ROUND -- [eyes: hair bands] SHIPPED at 9ffbbe4: the eyes bounce-back. Their
 finding was right and the size was not (every bank is stored blown up, which inflates the
