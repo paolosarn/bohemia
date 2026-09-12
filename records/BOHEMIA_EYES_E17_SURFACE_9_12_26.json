@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "when": "2026-09-12T04:38:03.953Z",
+  "splash_png": "records/target/EYES_E17_SPLASH.png",
+  "furniture": {
+    "parts": [
+      {
+        "id": "logoplate",
+        "w": 351,
+        "h": 116.8
+      },
+      {
+        "id": "frontsub",
+        "w": 276,
+        "h": 13
+      },
+      {
+        "id": "fronttap",
+        "w": 122.4,
+        "h": 15
+      }
+    ],
+    "share": 0.141
+  },
+  "city_png": "records/target/EYES_E17_CITY.png"
+}

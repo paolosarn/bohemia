@@ -1,0 +1,444 @@
+{
+  "bank": "EYES E17 [locked ignored] -- the hand labels the classifier is scored against",
+  "date": "9/12/26",
+  "draft": true,
+  "note": "Fifty lock lines read by a person, one at a time, and labelled by hand. SAMPLE A (30) was read FIRST and the classifier's rules were written while looking at it, so agreement on A is optimistic by construction and is printed only for comparison. SAMPLE B (20) was read AFTER the rules were finished and never used to change them. B is the honest number and B is the one the gate holds. Sampling is deterministic: every lock line in laws/ sorted by the sha1 of its file and line, A is the first thirty and B the next twenty, so the sample cannot be quietly reshuffled into a flattering one. SAMPLE C (20 more) was read after sample B had already been used to FIX the rules, which contaminated B: 100% on B is a number the rules were repaired into. C is the only clean one left and C is what the record leads with. That is the whole reason three samples exist instead of one.",
+  "labels": {
+    "MARKER": "the line declares something locked",
+    "ORDINARY": "the ordinary English word: a locked door, a locked camera, a beat-locked scrub",
+    "MENTION": "the line talks about locking without declaring one: not yet locked, why it locked, the locked canon"
+  },
+  "borderline": [
+    "CHARACTER_ART:285 \"standing 360 is the locked base\" was hand-called MENTION. It asserts a lock while referring to one. A second reader could fairly call it MARKER.",
+    "DRESS_CODE_BY_RANK:18 \"wants the outer locked too\" was hand-called ORDINARY: it is a clothing layer being pinned, not a ruling.",
+    "CITYBUILDER_MODEL:55 \"LOCKED in shape; ... PENDING Paolo\" was hand-called MARKER even though half the line is pending, because the shape really is locked.",
+    "PLAYABLE_SIDE_QUESTS:60 'THE LOCKED CRAFT RULES (baked in, gate-enforced)' was hand-called MARKER: it titles a block of locks. The machine calls it MENTION because 'the locked <noun>' is how this repo refers to locks that already happened. A known and accepted miss.",
+    "ANIMATION_AND_RAGDOLL:6 '**[LOCKED]** = decided, build to it.' was hand-called MENTION: it is the file's LEGEND explaining the tag, not a lock. The machine sees a bracket tag and calls it MARKER. The second known miss, and both are in sample C on purpose -- they are what the held-out number is for."
+  ],
+  "A": [
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_PLAYTEST_DISPATCH_8_25_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# ADDENDUM \u2014 THE PLAYTEST DISPATCH (Paolo 8/25/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_REPAIR_A_DISTRICT_8_1_26.md",
+      "line": 13,
+      "label": "MENTION",
+      "text": "STATUS: **DIRECTION, not yet locked.** He said \"I'll be introducing\" and \"let's"
+    },
+    {
+      "file": "laws/BOHEMIA_GDD_v4.md",
+      "line": 185,
+      "label": "MARKER",
+      "text": "## The Rig \u2014 Bohemian Rig, the Law of the Land (LOCKED, sacred)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_OPEN_COAT_LAW_7_18_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA \u2014 OPEN-COAT LAW (7/18/26, Paolo, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md",
+      "line": 55,
+      "label": "MARKER",
+      "text": "*Status: construction-mechanics layer LOCKED in shape; catalog, naming, demand-display, grid-abstraction, logistics ladder, and instant-vs-over-time all PENDING Paolo. Nothing here contradicts the Mayor Arc, the texture "
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md",
+      "line": 133,
+      "label": "MARKER",
+      "text": "### Pixel-art rotation safety (locked)"
+    },
+    {
+      "file": "laws/BOHEMIA_GDD_v3.md",
+      "line": 310,
+      "label": "MARKER",
+      "text": "## The Amalgamation Doesn't Compete Anymore (LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_GDD_v5.md",
+      "line": 31,
+      "label": "MENTION",
+      "text": "The road here: 512 was locked first (true scale, 22.9 mi), then comparative research (Project Zomboid 256-300 tile cells, CDDA 24m tiles, GTA 1:3-1:4 compression, Stardew's 13,200-tile town) plus Paolo's content-density "
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_RIG_AND_ZONES_6_29_26.md",
+      "line": 207,
+      "label": "MARKER",
+      "text": "## ALL FIVE FACINGS LOCKED (6.29.26) \u2014 Paolo hand-mapped"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_NAME_THE_TAB_7_28_26.md",
+      "line": 16,
+      "label": "MENTION",
+      "text": "## WHY IT LOCKED"
+    },
+    {
+      "file": "laws/BOHEMIA_GDD_v5.md",
+      "line": 36,
+      "label": "MARKER",
+      "text": "## The Continuous Walk Law (LOCKED 7/6, BUILT + SHIPPED same day)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_TEXT_ART_NETWORK_7_21_26.md",
+      "line": 34,
+      "label": "ORDINARY",
+      "text": "**Built 7/21**: the phone can now be manually LOCKED at any time (a new lock icon in the status bar) as a stand-in for \"putting the phone away\" until a real overworld exists to actually walk away into \u2014 tapping it re-tri"
+    },
+    {
+      "file": "laws/BOHEMIA_GDD_v5.md",
+      "line": 79,
+      "label": "MARKER",
+      "text": "## The Interactive KEY (LOCKED, alpha-grade)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md",
+      "line": 51,
+      "label": "MARKER",
+      "text": "## RULING 2 \u2014 YOU DO NOT KNOW ANYONE'S NAME UNTIL YOU ASK. **LOCKED.**"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md",
+      "line": 221,
+      "label": "MARKER",
+      "text": "## [DECISION \u2014 LOCKED] 2x HD RESOLUTION STANDARD  [6.29.26]"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
+      "line": 23,
+      "label": "MARKER",
+      "text": "- **[LOCKED] Hallucinate holes, never flat-fill.** Any time a limb/leg/torso moves and"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_PERKS_ABILITIES_7_1_26.md",
+      "line": 54,
+      "label": "MARKER",
+      "text": "3. **[LOCKED] Ties to the Ghost Time Layer (GDD v2 \u00a720).** The read-ahead / see-the-future powers are the combat expression of the Ghost Time Layer, the same projected-trajectory visual used for city builds, pointed at e"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM -- WHAT BOHEMIA SOUNDS LIKE (Paolo 9/6/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_VEHICLES_AND_CELL_SIZE_7_6_26.md",
+      "line": 100,
+      "label": "ORDINARY",
+      "text": "  double-tap resets. Range 10-52 px/cell (default 22). Camera stays locked"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 TIME IS SPENT BY ACTIONS (Paolo 7/26/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# THE TOP MENU BAR (Paolo 9/7/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_VR_COMPANIONS_XP_6_28_26.md",
+      "line": 90,
+      "label": "MARKER",
+      "text": "- Companion thresholds: **locked intent**, implementation open."
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 THE RESOLVE MOMENT IS ANY SPENT BLOCK, NOT JUST SLEEP (Paolo 7/26/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_SURVIVAL_DIRECTION_7_26_26.md",
+      "line": 17,
+      "label": "ORDINARY",
+      "text": "   (water, lunch, chill) + sleep. Natural mechanical home: the locked smart"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_REWIND_8_15_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 THE REWIND / GHOST TIME (Paolo 8/15/26, LOCKED in"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md",
+      "line": 355,
+      "label": "MARKER",
+      "text": "- **[LOCKED principle] The world ROUTES AROUND the body instead of freezing.** Kill a"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md",
+      "line": 137,
+      "label": "MARKER",
+      "text": "## PROPORTIONS \u2014 TALLER THAN STARDEW  [LOCKED: MID]"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md",
+      "line": 156,
+      "label": "MARKER",
+      "text": "## 4. RULED 9/5: BATTERIES ARE MONEY ONLY, AND BUILDINGS MAKE THEM (Paolo, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_GRAPHICS_SESSION_LEDGER_7_10_26.md",
+      "line": 443,
+      "label": "MARKER",
+      "text": "## 7/14 CELL-IS-PLOT + WALLED SUBURBS LOCKED (Paolo rulings)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md",
+      "line": 22,
+      "label": "MARKER",
+      "text": "| vehicle | footprint 3x2 | **PAOLO LOCKED** \u2014 \"2x3 i told you\" |"
+    }
+  ],
+  "B": [
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_WALL_AND_WHO_FINDS_OUT_8_15_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 THE WALL, AND WHO FINDS OUT (8/15/26, FACTIONS lane, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_LOOP_DROPPED_7_19_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA \u2014 THE LOOP IS DROPPED (7/19/26, Paolo, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_DRESS_CODE_BY_RANK_7_21_26.md",
+      "line": 18,
+      "label": "ORDINARY",
+      "text": "  wants the outer locked too, he lists it and it's honored exactly like"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md",
+      "line": 274,
+      "label": "MARKER",
+      "text": "## [v2.4 \u2014 naked 360 LOCKED + clothing/lab pass]  [6.29.26]"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CLOTHES_FOLLOW_THE_BODY_7_28_26.md",
+      "line": 147,
+      "label": "MARKER",
+      "text": "**Paolo, 7/29/26. LOCKED.**"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_COMBAT_RESOLUTION_7_1_26.md",
+      "line": 10,
+      "label": "MENTION",
+      "text": "## Honors the locked combat canon"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_COLLAPSE_ORIGIN_AND_DEATH_MODEL_7_18_26.md",
+      "line": 54,
+      "label": "MENTION",
+      "text": "## THE RECONSTRUCTION RULE (strongly implied by locked canon; [PENDING] explicit lock)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md",
+      "line": 28,
+      "label": "MARKER",
+      "text": "## 9. HEADSHOT CLIP (locked physicality, Paolo's spec verbatim)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_PAUSE_IS_EMPTY_7_27_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 THE PAUSE IS EMPTY (7/27/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
+      "line": 43,
+      "label": "ORDINARY",
+      "text": "(ragdoll death). 8-direction dial, wear toggles, play/pause, beat-locked scrub, Amalgam"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_WHAT_YOU_CAN_ASK_OF_THEM_8_16_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 WHAT YOU CAN ASK OF THEM (8/16/26, FACTIONS lane, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_RIG_IS_LAW_7_26_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 THE RIG IS LAW (Paolo 7/26/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md",
+      "line": 11,
+      "label": "MARKER",
+      "text": "but Paolo's cardinal layout is the game's authored truth. Locked.)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_FACE_SYSTEM_6_28_26.md",
+      "line": 71,
+      "label": "MARKER",
+      "text": "## BABYPUNK HAIR  [LOCKED]"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_RIG_AND_ZONES_6_29_26.md",
+      "line": 121,
+      "label": "MARKER",
+      "text": "### The torso hole \u2014 UNDER-ARM underlayer (locked)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_OWN_CANVAS_7_26_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 EVERY PART GETS ITS OWN CANVAS (Paolo 7/26/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_LAW_THE_PORTRAIT_WEARS_YOUR_HAIRCUT_8_28_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA LAW \u2014 THE PORTRAIT WEARS THE HAIRCUT THE BODY IS WEARING (8/28/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md",
+      "line": 20,
+      "label": "MARKER",
+      "text": "**[LOCKED \u2014 enemy fire visual, 6.28.26]** The swing is the PLAYER's dial only; **enemies never swing.**"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_CHARACTER_ART_6_28_26.md",
+      "line": 285,
+      "label": "MENTION",
+      "text": "1. **POSES** (standing 360 is the locked base): **sit** (simple, sit-anywhere), **sleep** (looks dead or asleep), **crouch** (reasonable, strategic for cover), and a NEW category **lean-on-wall** (chilling on a wall OR t"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md",
+      "line": 36,
+      "label": "MENTION",
+      "text": "   locked the same day \u2014 see laws/BOHEMIA_ADDENDUM_MARCO_THE_NEIGHBOR_7_23_26.md). The"
+    }
+  ],
+  "C": [
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_COMBAT_RESOLUTION_7_1_26.md",
+      "line": 14,
+      "label": "MENTION",
+      "text": "- **No stun-lock.** A vital stuns a survivor, but a second vital canNOT refresh the freeze until the target has had a full turn back (tickStuns advances the clock once per world turn). Re-vitaling still chips HP, just ca"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md",
+      "line": 153,
+      "label": "MARKER",
+      "text": "- REVEAL TIMING (locked 7/23, Paolo): the daughter is NOT revealed during the pre-wall"
+    },
+    {
+      "file": "laws/BOHEMIA_GDD_v3.md",
+      "line": 366,
+      "label": "MARKER",
+      "text": "## Brownouts & Blackouts (LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ACT3_MOONSHOT_STRUCTURE_7_19_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 ACT 3 MOONSHOT + THE NETWORK'S CRUMBLING (7/19/26, Paolo, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA \u2014 ADDENDUM: THE FIRST PLAYABLE CANON SIDE QUESTS (LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
+      "line": 30,
+      "label": "MARKER",
+      "text": "- **[LOCKED] Paolo does NOT tune animations.** No nudge/aim/raise/export UI. That row"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_EMERGING_TECH_RESEARCH_7_24_26.md",
+      "line": 29,
+      "label": "MARKER",
+      "text": "## LOCKED #2 \u2014 THE ECONOMIC ACCELERANT (Paolo's premise, now grounded)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_PLAYABLE_SIDE_QUESTS_7_23_26.md",
+      "line": 60,
+      "label": "MARKER",
+      "text": "## THE LOCKED CRAFT RULES (baked in, gate-enforced)"
+    },
+    {
+      "file": "laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA CRAFT LAW \u2014 HOW HAIR AND SHAPE ACTUALLY WORK (Paolo 8/1/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md",
+      "line": 568,
+      "label": "MARKER",
+      "text": "### CORE PHILOSOPHY (LOCKED, applies to the WHOLE game) \u2014 RHYTHM IS PRIMARY"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_WORLD_BEFORE_QUESTS_7_26_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA \u2014 ADDENDUM: WORLD BEFORE QUESTS (Paolo 7/26/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_TIME_MODEL_IMOVE_YOUMOVE_7_1_26.md",
+      "line": 5,
+      "label": "MARKER",
+      "text": "Bohemia is a **roguetime / \"I move, you move\"** game \u2014 the RF4 / WazHack / Enter-the-Chronosphere lineage Paolo fell in love with. The world advances only when the player acts. BUT with one hard refinement Paolo locked e"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_MATERIALS_ARE_COOKED_8_28_26.md",
+      "line": 2,
+      "label": "MARKER",
+      "text": "# (Paolo 8/28/26, LOCKED)"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md",
+      "line": 81,
+      "label": "MENTION",
+      "text": "  is locked, and neglect has to bite somehow. Without upkeep the bite must be"
+    },
+    {
+      "file": "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md",
+      "line": 8,
+      "label": "MENTION",
+      "text": "2. **His colour answer was locked in a browser.** He ruled every faction's colour"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_GARMENT_CONTACT_AND_MOTION_LAWS_7_2_26.md",
+      "line": 15,
+      "label": "MARKER",
+      "text": "## 2. IDLE LAW (locked)"
+    },
+    {
+      "file": "laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA \u2014 THE SUITE IS THE PRODUCT NOW (Paolo 8/19/26, LOCKED,"
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
+      "line": 6,
+      "label": "MENTION",
+      "text": "**[LOCKED]** = decided, build to it. **[BUILT]** = exists in the prototype now."
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_NOBODY_HAS_A_NAME_UNTIL_YOU_ASK_7_31_26.md",
+      "line": 2,
+      "label": "MARKER",
+      "text": "## Paolo, 7/31/26. TWO RULINGS LOCKED, ONE IDEA EXPLICITLY NOT."
+    },
+    {
+      "file": "laws/BOHEMIA_ADDENDUM_THE_CHIN_LAW_8_11_26.md",
+      "line": 1,
+      "label": "MARKER",
+      "text": "# BOHEMIA ADDENDUM \u2014 THE CHIN LAW (Paolo 8/11/26, LOCKED)"
+    }
+  ]
+}

@@ -1,0 +1,638 @@
+{
+  "what": "E17 [locked ignored] round two: every LOCKED line in laws/ against the shipped surface",
+  "date": "9/12/26",
+  "school": "records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md",
+  "reader_set": [
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    "slices/BOHEMIA_CITY_FLOORS.js",
+    "slices/BOHEMIA_CITY_PROPS.js",
+    "slices/BOHEMIA_CITY_TILEFORMS.js",
+    "slices/BOHEMIA_CITY_TILES_01.js",
+    "slices/BOHEMIA_CITY_TILES_02.js",
+    "slices/BOHEMIA_CITY_TILES_03.js",
+    "slices/BOHEMIA_CITY_TILES_04.js",
+    "slices/BOHEMIA_CITY_TILES_05.js",
+    "slices/BOHEMIA_CITY_TILES_06.js",
+    "slices/BOHEMIA_CITY_TILES_07.js",
+    "slices/BOHEMIA_CITY_TILES_08.js",
+    "slices/BOHEMIA_CITY_TILES_09.js",
+    "slices/BOHEMIA_CITY_TILES_LATE.js",
+    "slices/BOHEMIA_CITY_TILES_READY.js",
+    "slices/BOHEMIA_CITY_WORLD.html",
+    "slices/BOHEMIA_DEMO.html"
+  ],
+  "reader_bytes": 46230448,
+  "reader_stat_bytes": 46235363,
+  "decoded_blobs": 14,
+  "controls": [
+    {
+      "name": "C1 lowercase (locked, Paolo) is harvested and read as a lock",
+      "pass": true
+    },
+    {
+      "name": "C2 ordinary English (\"stays locked\") is not read as a lock",
+      "pass": true
+    },
+    {
+      "name": "C2b a negated line (\"not yet locked\") is not read as a lock",
+      "pass": true
+    },
+    {
+      "name": "C3 a lock the surface plainly satisfies reads SATISFIED",
+      "pass": true
+    },
+    {
+      "name": "C4 a lock the surface plainly contradicts reads EROSION",
+      "pass": true
+    },
+    {
+      "name": "C5 the reader blob really contains the fight (base64 decoded)",
+      "pass": true
+    },
+    {
+      "name": "C6 the title-screen measure separates a drawn scene from a flat one",
+      "pass": true
+    }
+  ],
+  "classifier_agreement": {
+    "A": {
+      "n": 30,
+      "agree": 30,
+      "pct": 100.0,
+      "misses": []
+    },
+    "B": {
+      "n": 20,
+      "agree": 20,
+      "pct": 100.0,
+      "misses": []
+    },
+    "C": {
+      "n": 20,
+      "agree": 18,
+      "pct": 90.0,
+      "misses": [
+        {
+          "file": "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md",
+          "line": 8,
+          "hand": "MENTION",
+          "machine": "MARKER"
+        },
+        {
+          "file": "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
+          "line": 6,
+          "hand": "MENTION",
+          "machine": "MARKER"
+        }
+      ]
+    }
+  },
+  "counts": {
+    "law_files": 336,
+    "lock_lines": 1046,
+    "marker": 856,
+    "ordinary": 10,
+    "mention": 180,
+    "his": 330,
+    "lane": 526,
+    "his_machine": 35,
+    "his_by_eye": 3,
+    "his_not_checkable": 292,
+    "checked": 12,
+    "satisfied": 8,
+    "erosion": 3,
+    "drift": 0,
+    "not_built": 1,
+    "checked_ungated": 6,
+    "case_upper": 740,
+    "case_lower": 298,
+    "superseded_gdd_locks": 69
+  },
+  "checks": [
+    {
+      "id": "RIDGE-IS-THE-TITLE-SCREEN",
+      "law": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md",
+      "line": 88,
+      "lock": "## THE RIDGE = THE MENU / TITLE SCREEN (locked, Paolo)",
+      "ruled": "7/19",
+      "claim": "the first screen is the ridge, not a name on nothing",
+      "verdict": "EROSION",
+      "enforced": true,
+      "gate": "gates/main_spine_gate.js",
+      "release": null,
+      "detail": "strip above the name: 1 colours, 0.0% not flat. the walked city in the same strip: 22 colours.",
+      "not_covered": "does not judge whether a ridge that WAS drawn would be the right ridge. taste is DIRECTION."
+    },
+    {
+      "id": "ANIMAL-IS-AN-ERA-NOT-AN-ANIMAL",
+      "law": "laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_9_7_26.md",
+      "line": 1,
+      "lock": "# BOHEMIA ADDENDUM -- ANIMAL IS AN ERA, NOT AN ANIMAL (Paolo 9/7/26, LOCKED)",
+      "ruled": "9/7",
+      "claim": "generation one is an era of the story, not a creature you play",
+      "verdict": "SATISFIED",
+      "enforced": false,
+      "gate": null,
+      "release": null,
+      "detail": "2 generation labels on the surface, 0 of them name a creature. the 60 coyote mentions are the city wildlife module, which is a different thing.",
+      "not_covered": ""
+    },
+    {
+      "id": "120-BPM",
+      "law": "laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md",
+      "line": 3,
+      "lock": "## 120 BPM REQUEST LAW (LOCKED, Paolo 7/6/26)",
+      "ruled": "7/6",
+      "claim": "everything runs on one clock at 120 beats a minute",
+      "verdict": "SATISFIED",
+      "enforced": false,
+      "gate": null,
+      "release": null,
+      "detail": "124 places on the surface say 120 BPM or a 500 ms beat.",
+      "not_covered": ""
+    },
+    {
+      "id": "BATTERIES-ARE-MONEY-ONLY",
+      "law": "laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md",
+      "line": 156,
+      "lock": "## 4. RULED 9/5: BATTERIES ARE MONEY ONLY, AND BUILDINGS MAKE THEM (Paolo, LOCKED)",
+      "ruled": "9/5",
+      "claim": "batteries are the money and there is no other money",
+      "verdict": "SATISFIED",
+      "enforced": false,
+      "gate": null,
+      "release": null,
+      "detail": "207 battery mentions, 0 rival currencies declared with a value.",
+      "not_covered": ""
+    },
+    {
+      "id": "VEHICLE-FOOTPRINT-IS-2x3",
+      "law": "laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md",
+      "line": 22,
+      "lock": "| vehicle | footprint 3x2 | **PAOLO LOCKED** -- \"2x3 i told you\" |",
+      "ruled": "7/16",
+      "claim": "a car takes up two cells by three, the way he said it",
+      "verdict": "NOT-BUILT",
+      "enforced": false,
+      "gate": null,
+      "release": null,
+      "detail": "146 vehicle mentions on the surface and 0 footprint declarations that carry a size. The loose version of this probe found four and all four were something else: two prop footprints, a parking deck and a doorway. A ruling about a thing nobody has built yet is not a contradiction, which is why NOT-BUILT is a verdict.",
+      "not_covered": ""
+    },
+    {
+      "id": "NO-DAMAGE-BEFORE-THE-DIAL",
+      "law": "laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md",
+      "line": 20,
+      "lock": "**[LOCKED -- enemy fire visual, 6.28.26]** The swing is the PLAYER's dial only",
+      "ruled": "6/28",
+      "claim": "nothing takes damage until the dial is swung",
+      "verdict": "SATISFIED",
+      "enforced": true,
+      "gate": "gates/battle_brothers_gate.js",
+      "release": null,
+      "detail": "1112 places in the fight name the dial, 27 of them state the no-damage rule in the code itself.",
+      "not_covered": ""
+    },
+    {
+      "id": "EVERYTHING-COSTS-ONE",
+      "law": "laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md",
+      "line": 1,
+      "lock": "# BOHEMIA ADDENDUM -- EVERYTHING COSTS ONE (Paolo 8/15/26, LOCKED)",
+      "ruled": "8/15",
+      "claim": "every action costs exactly one, until he says otherwise",
+      "verdict": "EROSION",
+      "enforced": true,
+      "gate": "gates/placeholder_number_gate.js",
+      "release": null,
+      "detail": "4 cost constants on the surface and 2 of them are 1. The first version of this probe passed on ANY constant being 1, which is not what he ruled: he ruled that everything costs one.",
+      "not_covered": "reads the constants the surface declares. a cost written as a literal inside a call is invisible to it."
+    },
+    {
+      "id": "TRENCHCOATS-ARE-RESERVED",
+      "law": "laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md",
+      "line": 1,
+      "lock": "# BOHEMIA LAW -- TRENCHCOATS ARE FOR BADASSES (Paolo, 8/27/26, LOCKED)",
+      "ruled": "8/27",
+      "claim": "only the badasses wear the trenchcoat",
+      "verdict": "SATISFIED",
+      "enforced": true,
+      "gate": "gates/trenchcoat_gate.js",
+      "release": null,
+      "detail": "60 trenchcoat mentions on the surface and the fleet runs a trenchcoat gate over who may wear one.",
+      "not_covered": "this lane checks that the rule is enforced by a gate, not that every wearer is a badass. who is a badass is not a machine question."
+    },
+    {
+      "id": "THE-FEED-ON-THE-CITY-SCREEN",
+      "law": "laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md",
+      "line": 1,
+      "lock": "THE FEED ON THE CITY SCREEN (Paolo 9/4, LOCKED)",
+      "ruled": "9/4",
+      "claim": "in city mode a phone screen scrolls the feed",
+      "verdict": "SATISFIED",
+      "enforced": true,
+      "gate": "gates/feed_gate.js",
+      "release": null,
+      "detail": "2 references to the feed bar and 6 to the posts that scroll through it.",
+      "not_covered": "checks that the feed exists and has posts. whether the posts are worth reading is WORDS and DIRECTION, not this lane."
+    },
+    {
+      "id": "PURPLE-RESERVATION",
+      "law": "laws/BOHEMIA_ADDENDUM_PURPLE_RESERVATION_LAW_7_10_26.md",
+      "line": 1,
+      "lock": "# BOHEMIA -- PURPLE RESERVATION LAW (7/10/26, Paolo, LOCKED)",
+      "ruled": "7/10",
+      "claim": "purple belongs to the hatch and the Amalgamation, nowhere else",
+      "verdict": "EROSION",
+      "enforced": false,
+      "gate": null,
+      "release": null,
+      "detail": "9556 tile pictures swept. 32 are a third or more saturated purple, and NONE of them sit in a hatch or Amalgamation bank: misc 15, sign 5, light 5, wall 3, concrete 1, container 1, foliage 1, door 1. 10 of those are sign and light, where Vegas neon is an argument; the other 22 are wall, door, concrete, container, foliage and misc, which the law names out loud.",
+      "not_covered": "says WHERE purple is, never whether a purple is pretty. which of the 32 to repaint is DIRECTION's call."
+    },
+    {
+      "id": "THE-TOP-MENU-BAR",
+      "law": "laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md",
+      "line": 1,
+      "lock": "# THE TOP MENU BAR (Paolo 9/7/26, LOCKED)",
+      "ruled": "9/7",
+      "claim": "one strip owns the top of the screen and the loose buttons live in it",
+      "verdict": "SATISFIED",
+      "enforced": true,
+      "gate": "gates/bohemia_gates.py",
+      "release": null,
+      "detail": "a pinned strip exists and the music, save and phone chips are inside it.",
+      "not_covered": "does not check that the bar carries the status he asked for. the lane that built it says the currencies are deliberately left out because nothing on the street holds one."
+    },
+    {
+      "id": "THE-BORDER-IS-ONE-PIXEL",
+      "law": "laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md",
+      "line": 1,
+      "lock": "THE BORDER IS ONE PIXEL WHERE HE SEES IT (Paolo 8/14 + 8/15, LOCKED)",
+      "ruled": "8/15",
+      "claim": "the black line around things is one pixel thick where he looks at it",
+      "verdict": "SATISFIED",
+      "enforced": false,
+      "gate": null,
+      "release": null,
+      "detail": "599 border widths on the surface and gates/border_gate.js runs over them. That gate does not name its own law file anywhere in its text, which is why this row reads NO GATE: the link from the ruling to the checker is missing even though the checker is real.",
+      "not_covered": ""
+    }
+  ],
+  "purple": {
+    "tiles": 9556,
+    "px": 8719930,
+    "purple_px": 22068,
+    "purple_tiles": 32,
+    "out_of_place": 32,
+    "neon_arguable": 10,
+    "by_category": {
+      "concrete": 1,
+      "misc": 15,
+      "container": 1,
+      "foliage": 1,
+      "sign": 5,
+      "wall": 3,
+      "door": 1,
+      "light": 5
+    },
+    "category_sizes": {
+      "concrete": 536,
+      "misc": 2845,
+      "container": 549,
+      "foliage": 724,
+      "sign": 314,
+      "wall": 696,
+      "door": 406,
+      "light": 198
+    },
+    "worst": [
+      {
+        "share": 0.738,
+        "cat": "sign",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          27,
+          28
+        ]
+      },
+      {
+        "share": 0.712,
+        "cat": "sign",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          28,
+          22
+        ]
+      },
+      {
+        "share": 0.615,
+        "cat": "concrete",
+        "file": "BOHEMIA_CITY_TILES_04.js",
+        "size": [
+          25,
+          28
+        ]
+      },
+      {
+        "share": 0.607,
+        "cat": "light",
+        "file": "BOHEMIA_CITY_TILES_09.js",
+        "size": [
+          13,
+          28
+        ]
+      },
+      {
+        "share": 0.577,
+        "cat": "foliage",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          28,
+          18
+        ]
+      },
+      {
+        "share": 0.55,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_06.js",
+        "size": [
+          28,
+          19
+        ]
+      },
+      {
+        "share": 0.534,
+        "cat": "sign",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          28,
+          18
+        ]
+      },
+      {
+        "share": 0.458,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_06.js",
+        "size": [
+          28,
+          24
+        ]
+      },
+      {
+        "share": 0.451,
+        "cat": "light",
+        "file": "BOHEMIA_CITY_TILES_09.js",
+        "size": [
+          13,
+          28
+        ]
+      },
+      {
+        "share": 0.437,
+        "cat": "light",
+        "file": "BOHEMIA_CITY_TILES_09.js",
+        "size": [
+          13,
+          28
+        ]
+      },
+      {
+        "share": 0.434,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_06.js",
+        "size": [
+          21,
+          28
+        ]
+      },
+      {
+        "share": 0.424,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_06.js",
+        "size": [
+          26,
+          28
+        ]
+      },
+      {
+        "share": 0.417,
+        "cat": "container",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          22,
+          28
+        ]
+      },
+      {
+        "share": 0.411,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          25,
+          28
+        ]
+      },
+      {
+        "share": 0.397,
+        "cat": "wall",
+        "file": "BOHEMIA_CITY_TILES_08.js",
+        "size": [
+          28,
+          20
+        ]
+      },
+      {
+        "share": 0.395,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          28,
+          23
+        ]
+      },
+      {
+        "share": 0.385,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          21,
+          28
+        ]
+      },
+      {
+        "share": 0.374,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_06.js",
+        "size": [
+          20,
+          28
+        ]
+      },
+      {
+        "share": 0.371,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          22,
+          28
+        ]
+      },
+      {
+        "share": 0.37,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          20,
+          28
+        ]
+      },
+      {
+        "share": 0.358,
+        "cat": "sign",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          15,
+          28
+        ]
+      },
+      {
+        "share": 0.353,
+        "cat": "door",
+        "file": "BOHEMIA_CITY_TILES_09.js",
+        "size": [
+          24,
+          28
+        ]
+      },
+      {
+        "share": 0.338,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          27,
+          28
+        ]
+      },
+      {
+        "share": 0.337,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          28,
+          23
+        ]
+      },
+      {
+        "share": 0.332,
+        "cat": "sign",
+        "file": "BOHEMIA_CITY_TILES_07.js",
+        "size": [
+          14,
+          28
+        ]
+      },
+      {
+        "share": 0.331,
+        "cat": "light",
+        "file": "BOHEMIA_CITY_TILES_09.js",
+        "size": [
+          18,
+          28
+        ]
+      },
+      {
+        "share": 0.326,
+        "cat": "light",
+        "file": "BOHEMIA_CITY_TILES_09.js",
+        "size": [
+          16,
+          28
+        ]
+      },
+      {
+        "share": 0.324,
+        "cat": "wall",
+        "file": "BOHEMIA_CITY_TILES_08.js",
+        "size": [
+          28,
+          24
+        ]
+      },
+      {
+        "share": 0.315,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          24,
+          28
+        ]
+      },
+      {
+        "share": 0.311,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_06.js",
+        "size": [
+          16,
+          28
+        ]
+      },
+      {
+        "share": 0.309,
+        "cat": "wall",
+        "file": "BOHEMIA_CITY_TILES_08.js",
+        "size": [
+          28,
+          22
+        ]
+      },
+      {
+        "share": 0.307,
+        "cat": "misc",
+        "file": "BOHEMIA_CITY_TILES_05.js",
+        "size": [
+          16,
+          28
+        ]
+      }
+    ]
+  },
+  "surface": {
+    "splash_png": "records/target/EYES_E17_SPLASH.png",
+    "city_png": "records/target/EYES_E17_CITY.png",
+    "splash_top": {
+      "colours": 1,
+      "not_ground": 0.0
+    },
+    "city_top": {
+      "colours": 22,
+      "not_ground": 0.0783
+    },
+    "furniture": {
+      "parts": [
+        {
+          "id": "logoplate",
+          "w": 351,
+          "h": 116.8
+        },
+        {
+          "id": "frontsub",
+          "w": 276,
+          "h": 13
+        },
+        {
+          "id": "fronttap",
+          "w": 122.4,
+          "h": 15
+        }
+      ],
+      "share": 0.141
+    }
+  },
+  "blind_spots": [
+    "a law file is dated when it was written, not when he ruled. he rules out loud first.",
+    "twelve checks is not the corpus. every other machine-checkable lock of his is unchecked until somebody writes its probe.",
+    "NO GATE CITES IT means no file in gates/ contains that law file name. It does not prove nothing checks the rule: gates/border_gate.js plainly checks the border law and never names it. The missing thing is the link from the ruling to its checker, which is the same rot E11 found pointing the other way.",
+    "nothing here can tell a ruling he withdrew from one he has not repeated.",
+    "the classifier is rules, not understanding. its held-out agreement is printed so the number can be argued with."
+  ]
+}

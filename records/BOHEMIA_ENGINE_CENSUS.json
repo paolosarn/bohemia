@@ -2,7 +2,7 @@
  "what": "Which engine modules the shipped game actually carries. Written by gates/engine_census_gate.js.",
  "why": "The [dead modules] row called 29 modules dead including a 281 KB one that is LIVE. The game INLINES engine modules, so a module unreachable as a file can be running code whose canon copy is that file. Deleting one breaks ENGINE SYNC quietly.",
  "how": "A module is LIVE if the shipped slices carry its inline marker, or if at least 65% of its body lines over 45 characters appear verbatim in the shipped text.",
- "taken": "2026-09-12T05:25:37.148Z",
+ "taken": "2026-09-12T05:09:31.105Z",
  "counts": {
   "modules": 175,
   "inlinedWithMarker": 105,

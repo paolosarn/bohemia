@@ -439,6 +439,13 @@ def main():
         'school': 'records/BOHEMIA_EYES_E11_ROUND_1_SCHOOL_THE_ARTIFACT_GAP_9_6_26.md',
         'reader_set': files,
         'reader_set_bytes': len(bundle_text),
+        # THE STALENESS ANCHOR LIVES IN THE RESULT, NOT THE BASELINE (fixed 9/12, E17).
+        # The gate was dating the bundle against the BASELINE's stat bytes, frozen 9/6,
+        # so re-running the sweep refreshed every count and could not clear the staleness
+        # flag: the tool said "re-run me" and re-running did nothing. The baseline exists
+        # to freeze COUNTS. What the bundle weighed when a sweep ran belongs to that sweep.
+        'reader_set_stat_bytes': sum(os.path.getsize(os.path.join(ROOT, f))
+                                     for f in files if os.path.exists(os.path.join(ROOT, f))),
         'blind_spots': [
             'a value assembled at runtime out of pieces is invisible to any text scan',
             'a module reached only on a path the bundle walk never takes',

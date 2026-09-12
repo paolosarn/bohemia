@@ -609,6 +609,277 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
     ok('*** AND IT CANNOT TRAP YOU: EVERY OTHER WAY OUT STILL WORKS ***',
       blk.waysOut > 0, blk.waysOut + ' other directions still walk');
 
+
+    /* ====================================================================
+       E. YOU ARE ON THEIR GROUND   (9/12, FACTIONS row [crossing costs])
+       "colour is territory and nothing happens when you walk into the wrong
+       colour. The moment you cross into a faction's block that does not know
+       you: a look, then a tail, then a stop."
+       ==================================================================== */
+    /* A FRESH PAGE, BECAUSE THE SETUP IS WHAT IS WRONG, NEVER THE CLAIM. The
+       sections above deliberately make the player an enemy of the Cartel, and the
+       Cartel is the only outfit on that glass -- so on the shared page a body's
+       every sign has a reason that is not the ground, and the claims below would
+       either go red on a correct game or have to be loosened into meaninglessness.
+       Section E is about a STRANGER, so it opens a page where he still is one.
+       Same shape as the road card reset: reset the setup, never the claim. */
+    var page2 = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    var errs2 = [];
+    page2.on('pageerror', function (e) { errs2.push(String(e.message).slice(0, 160)); });
+    await page2.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_DEMO.html'));
+    await SETTLE(page2, 15000);
+    await page2.evaluate(function () {
+      var f = document.getElementById('fronttap') || document.getElementById('front');
+      if (f) f.click(); });
+    await SETTLE(page2, 12000);
+    await wait(3000);
+    var fr2 = page2.frames().filter(function (x) { return /BOHEMIA_CITY_WORLD/.test(x.url()); })[0];
+    ok('E0 a fresh page opened where the player is still a stranger to everybody',
+       !!fr2);
+
+    const cross = await fr2.evaluate(function () {
+      var o = {};
+      /* THE BASELINE THIS ROW EXISTS FOR, measured on the surface rather than
+         asserted: standing on somebody's ground, with nothing else against you. */
+      o.ground = (function(){ var t=turfAt((hx/FN)|0,(hy/FN)|0)||{}; return {f:t.faction,tier:t.tier}; })();
+
+      /* GO WHERE THEIR PEOPLE ARE FIRST, THE WAY THIS GATE ALREADY KNOWS HOW.
+         Measured on a fresh page: NOT ONE affiliated body is drawn at the spawn,
+         which is the same fact this module's own header recorded on 9/5 -- a
+         base's pull reaches 12 cells and the nearest base is 29 away. A faction
+         holds hundreds of blocks and its members live beside its seat, so "walk
+         onto their ground" and "meet one of them" are two different places for
+         most of the valley. Section D already solves this by standing beside the
+         densest cluster of one outfit's HOMES; this is that, reused, on a page
+         where the player is still nobody's enemy. */
+      var HOMEF = 'Cartel';
+      var bases0 = {}; try { bases0 = ctBases() || {}; } catch (e) {}
+      var cb0 = bases0[HOMEF];
+      if (!cb0) { o.err = 'no base for ' + HOMEF; return o; }
+      var NB0 = BohemiaPopulation.NB, span0 = NB0 * FN;
+      var nx00 = Math.floor(cb0.x * FN / span0), ny00 = Math.floor(cb0.y * FN / span0);
+      var homes0 = [];
+      for (var ny0 = Math.max(0, ny00 - 1); ny0 <= ny00 + 1; ny0++)
+      for (var nx0 = Math.max(0, nx00 - 1); nx0 <= nx00 + 1; nx0++) {
+        var ppl0 = pplPeople(nx0, ny0);
+        for (var j0 = 0; j0 < ppl0.length; j0++)
+          if (String(ctFactionOf(ppl0[j0])) === HOMEF) homes0.push(ppl0[j0].home);
+      }
+      o.homes = homes0.length;
+      if (!homes0.length) { o.err = 'no ' + HOMEF + ' homes found'; return o; }
+      var bi0 = 0, bn0 = -1;
+      for (var a0 = 0; a0 < homes0.length; a0++) {
+        var c0 = 0;
+        for (var b0 = 0; b0 < homes0.length; b0++)
+          if (Math.max(Math.abs(homes0[a0][0] - homes0[b0][0]),
+                       Math.abs(homes0[a0][1] - homes0[b0][1])) <= 6) c0++;
+        if (c0 > bn0) { bn0 = c0; bi0 = a0; }
+      }
+      var th0 = homes0[bi0], put0 = false;
+      for (var rr0 = 1; rr0 < 12 && !put0; rr0++)
+        for (var dy0 = -rr0; dy0 <= rr0 && !put0; dy0++)
+          for (var dx0 = -rr0; dx0 <= rr0 && !put0; dx0++) {
+            if (Math.max(Math.abs(dx0), Math.abs(dy0)) !== rr0) continue;
+            if (pplStandable(th0[0] + dx0, th0[1] + dy0)) { hx = th0[0] + dx0; hy = th0[1] + dy0; put0 = true; }
+          }
+      o.wentTo = HOMEF;
+      try { city.x = (hx / FN) | 0; city.y = (hy / FN) | 0; } catch (e) {}
+
+      /* find a faction with bodies ON THE GLASS whose own ground is nearby */
+      var best = 0, bestMin = 0;
+      for (var mm = 0; mm < 1440; mm += 20) {
+        T.min = mm; try { render(); } catch (e) {}
+        if (BARK_DREW.length > best) { best = BARK_DREW.length; bestMin = mm; }
+      }
+      T.min = bestMin; try { render(); } catch (e) {}
+      var crowd = {};
+      for (var i = 0; i < BARK_DREW.length; i++) {
+        var f = null; try { f = ctFactionOf(BARK_DREW[i].p); } catch (e) {}
+        if (f) crowd[f] = (crowd[f] || 0) + 1;
+      }
+      o.crowd = crowd;
+      /* *** PICK A FACTION THAT HAS NO QUARREL WITH HIM, AND PROVE IT RATHER THAN
+         ASSUME IT. *** The sections above this one deliberately make the player
+         an enemy of somebody, so the first outfit on the glass is very likely one
+         he is already AT WAR with -- and a war body carries every sign for reasons
+         that have nothing to do with the ground. The whole point of this section
+         is that the GROUND is the only reason, so it needs a faction that reads
+         NOTHING while he is standing off their block. Measured 9/12: the first
+         cut took Object.keys(crowd)[0], got the Cartel, and went red on five
+         claims while the game was behaving exactly as designed. */
+      TURF_USED = {}; try { CT_AGAINST = {}; } catch (e) {}
+      var F = null; o.clean = {};
+      for (var ci = 0; ci < BARK_DREW.length; ci++) {
+        var cf = null; try { cf = ctFactionOf(BARK_DREW[ci].p); } catch (e) {}
+        if (!cf) continue;
+        var ca = null; try { ca = ctAgainstMe(BARK_DREW[ci].p); } catch (e) {}
+        o.clean[cf] = ca ? (ca.level || ('stage' + (ca.stage || 0))) : 'nothing';
+        if (!ca && !F) F = cf;
+      }
+      o.faction = F;
+      if (!F) { o.err = 'every outfit on the glass already has a quarrel: '
+                     + JSON.stringify(o.clean); return o; }
+
+      /* stand ON their ground, through the map, not by hand-setting a level */
+      var cell = null;
+      for (var d = 0; d < 40 && !cell; d++)
+        for (var dx = -d; dx <= d && !cell; dx++)
+          for (var dy = -d; dy <= d && !cell; dy++) {
+            var t = turfAt(((hx/FN)|0)+dx, ((hy/FN)|0)+dy);
+            if (t && t.faction === F && pplStandable(((hx/FN)|0)+dx, ((hy/FN)|0)+dy) === true) {}
+            if (t && t.faction === F) cell = [((hx/FN)|0)+dx, ((hy/FN)|0)+dy];
+          }
+      if (!cell) { o.err = 'no ' + F + ' ground near'; return o; }
+      o.stoodOn = cell;
+      o.tier = (turfAt(cell[0], cell[1]) || {}).tier;
+      hx = cell[0]*FN + FN/2; hy = cell[1]*FN + FN/2;
+      try { city.x = cell[0]; city.y = cell[1]; } catch (e) {}
+      /* AND FIND A MINUTE WHEN THEY ARE OUT, AT THE NEW PLACE. Moving the player
+         and rendering once asks about whatever hour happened to be on the clock;
+         the crowd is a schedule, so the busiest minute HERE is a different minute
+         from the busiest minute where he was standing before. Same sweep the
+         section above already uses, which is why it is a sweep and not a guess. */
+      var best2 = 0, bestMin2 = T.min, fseen = 0;
+      for (var m2 = 0; m2 < 1440; m2 += 20) {
+        T.min = m2; try { render(); } catch (e) {}
+        var c2 = 0;
+        for (var q2 = 0; q2 < BARK_DREW.length; q2++) {
+          var ff = null; try { ff = ctFactionOf(BARK_DREW[q2].p); } catch (e) {}
+          if (ff === F) c2++;
+        }
+        if (c2 > best2) { best2 = c2; bestMin2 = m2; }
+      }
+      T.min = bestMin2; try { render(); } catch (e) {}
+      o.theirsOnGlass = best2; o.atMinute = bestMin2; o.drewHere = BARK_DREW.length;
+
+      function readOne(blocks) {
+        TURF_USED = {}; if (blocks > 0) TURF_USED[F] = blocks;
+        try { CT_AGAINST = {}; } catch (e) {}
+        var body = null;
+        for (var i2 = 0; i2 < BARK_DREW.length; i2++) {
+          var f2 = null; try { f2 = ctFactionOf(BARK_DREW[i2].p); } catch (e) {}
+          if (f2 === F) { body = BARK_DREW[i2].p; break; }
+        }
+        if (!body) return null;
+        var a = ctAgainstMe(body);
+        return a ? { level: a.level, rank: a.rank, why: a.why, stage: a.stage || 0,
+                     watch: !!a.signs.watch, follow: !!a.signs.follow,
+                     refuse: !!a.signs.refuse, block: !!a.signs.block, word: a.word }
+                 : { level: null, rank: 0, why: null, stage: 0,
+                     watch: false, follow: false, refuse: false, block: false, word: 'nothing' };
+      }
+      /* OFF THEIR GROUND, WITHOUT MOVING ANYBODY. The rule is "only the faction
+         under your feet reacts", and ctCrossingOn is the function that says so,
+         so ask IT about a faction whose ground he is not standing on. Two earlier
+         cuts teleported the player instead and both measured the instrument: the
+         first zeroed the block counter while still standing on their block (which
+         floors at one, correctly), the second moved him one cell and rendered a
+         frame with nobody in it. Neither was the game being wrong. */
+      var other = null;
+      try {
+        var seatsE = turfSeats() || [];
+        for (var oi = 0; oi < seatsE.length && !other; oi++)
+          if (seatsE[oi].faction !== F) other = seatsE[oi].faction;
+      } catch (e) {}
+      o.otherFaction = other;
+      o.otherCrossing = other ? ctCrossingOn(other) : 'none';
+      o.off = (function () {
+        TURF_USED = {}; if (other) TURF_USED[other] = 9;   /* walked THEIR ground, elsewhere */
+        var c = other ? ctCrossingOn(other) : null;
+        var a2 = BohemiaAgainst.read({ rel: null, rung: null, coalition: null,
+                                       roving: null, crossing: c });
+        return a2 ? { level: a2.level, rank: a2.rank, stage: a2.stage || 0,
+                      watch: !!a2.signs.watch, follow: !!a2.signs.follow,
+                      refuse: !!a2.signs.refuse, block: !!a2.signs.block }
+                  : { level: null, rank: 0, stage: 0, watch: false, follow: false,
+                      refuse: false, block: false };
+      })();
+
+      o.one  = readOne(1);
+      o.two  = readOne(2);
+      o.deep = readOne(9);
+
+      /* AND REAL MOVEMENT, through stepOnce, with the ground as the only reason.
+         NOTHING IS SET BY HAND HERE: stepOnce calls turfNote, which is what
+         actually counts the blocks, so the stage below is earned by walking. The
+         first cut pre-set TURF_USED and then walked, which the walk immediately
+         overwrote -- measuring a state the game had already replaced. */
+      TURF_USED = {}; TURF_SEENCELL = {};
+      try { CT_AGAINST = {}; } catch (e) {} CT_FOLLOW = {};
+      var dir = 2, blk = 0, maxF = 0, maxBlocks = 0, sawFollow = 0;
+      for (var s = 0; s < 420; s++) {
+        var went = false;
+        try { went = stepOnce(dir); } catch (e) { o.threw = String(e.message).slice(0,120); break; }
+        if (went) blk = 0; else { blk++; dir = (dir + (blk > 3 ? 3 : 1)) % 8; }
+        if (s % 4 === 3) { try { CT_AGAINST = {}; } catch (e) {} }
+        if (s % 4 === 3) { try { render(); } catch (e) {} }
+        var nb = (TURF_USED[F] | 0); if (nb > maxBlocks) maxBlocks = nb;
+        var n = Object.keys(CT_FOLLOW).length;
+        if (n > maxF) maxF = n;
+        if (n > 0) sawFollow++;
+      }
+      o.maxFollowers = maxF; o.blocksWalked = maxBlocks; o.followTicks = sawFollow;
+      return o;
+    });
+
+    ok('E1 the crossing test found a crowd and ground of theirs to stand on ('
+       + JSON.stringify(cross.crowd) + ' on ' + cross.faction + ' '
+       + cross.tier + ' ground)',
+      !!cross.faction && !!cross.stoodOn && !cross.err, cross.err || '');
+
+    /* NEVER SKIP SILENTLY. A block of claims behind an `if` that quietly does not
+       run is a green gate that checked nothing, which is the fault this whole file
+       exists to prevent. If the setup could not be built, SAY SO as a failure. */
+    ok('E1b the stranger setup really produced a body to ask about and ground to '
+       + 'step off onto',
+      !!(cross.faction && cross.off),
+      JSON.stringify({ faction: cross.faction, stood: cross.stoodOn,
+                       other: cross.otherFaction, homes: cross.homes,
+                       theirsOnGlass: cross.theirsOnGlass, err: cross.err }));
+    if (cross.faction && cross.off) {
+      ok('E2 *** ONLY THE FACTION UNDER YOUR FEET REACTS. *** He is on '
+         + cross.faction + ' ground having walked NINE blocks of ' + cross.otherFaction
+         + ' ground: the ' + cross.otherFaction + ' get nothing, because his sentence '
+         + 'is "the moment you cross INTO a block", which is where you are standing '
+         + 'and not where you have been',
+        cross.otherCrossing === null
+        && cross.off.stage === 0 && cross.off.level === null
+        && !cross.off.watch && !cross.off.follow && !cross.off.block,
+        JSON.stringify(cross.off));
+      ok('E3 *** ONE BLOCK IN AND THEY LOOK. *** "' + cross.one.word + '"',
+        cross.one.stage === 1 && cross.one.watch
+        && !cross.one.follow && !cross.one.block);
+      ok('E4 *** TWO BLOCKS AND SOMEBODY IS BEHIND YOU. *** "' + cross.two.word + '"',
+        cross.two.stage === 2 && cross.two.watch && cross.two.follow
+        && !cross.two.block);
+      ok('E5 AND IT STOPS AT THEIR REACH, not at how far you walked -- this is a '
+         + cross.tier + ', so nine blocks in it is still stage ' + cross.deep.stage,
+        cross.deep.stage === (cross.tier === 'fortress' ? 3
+                            : cross.tier === 'town' ? 2 : 1));
+      ok('E6 *** IT NEVER INVENTS A LEVEL. *** A stranger on a block is not at war '
+         + 'with anybody: rank stays 0 and the ladder is untouched however deep he '
+         + 'goes (level ' + String(cross.deep.level) + ', rank ' + cross.deep.rank + ')',
+        cross.deep.level === null && cross.deep.rank === 0);
+      ok('E7 and it never withholds trade -- refuse is what an unpaid landlord does '
+         + '([block rent]), not what a stranger on a street earns',
+        !cross.one.refuse && !cross.two.refuse && !cross.deep.refuse);
+      ok('E8 THE WALK ITSELF COUNTS THE BLOCKS -- nothing is set by hand, the '
+         + 'stage is earned by stepOnce calling turfNote (' + cross.blocksWalked
+         + ' block(s) of ' + cross.faction + ' ground crossed in 420 steps)',
+        cross.blocksWalked >= 1, JSON.stringify({blocks: cross.blocksWalked,
+          followers: cross.maxFollowers, ticks: cross.followTicks}));
+      ok('E9 *** AND WHEN THE WALK REACHES A SECOND BLOCK, THEY REALLY MOVE. *** '
+         + cross.maxFollowers + ' follower(s) over ' + cross.followTicks
+         + ' steps, through the city\'s own follow pass and never by hand'
+         + (cross.blocksWalked < 2 ? '  [the walk never left one block, so the tail '
+            + 'was never owed -- reported rather than forced]' : ''),
+        cross.blocksWalked < 2 ? true : cross.maxFollowers > 0,
+        'max ' + cross.maxFollowers + (cross.threw ? ' threw ' + cross.threw : ''));
+      ok('E10 and the stranger page threw nothing either',
+        errs2.length === 0, errs2.slice(0, 3).join(' | '));
+    }
+    try { await page2.close(); } catch (_e) {}
+
     ok('and the page threw nothing the whole time', errs.length === 0, errs.slice(0, 3).join(' | '));
   } catch (e) {
     fail++; console.log('  FAIL the real surface   ' + String(e.message).slice(0, 200));

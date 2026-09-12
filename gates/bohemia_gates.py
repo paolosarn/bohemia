@@ -498,6 +498,24 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('OWN POWER',     ['node', 'gates/own_power_gate.js'],
+     'YOUR-OWN-POWER-IS-YOUR-WAY-OUT (board row [own power], 9/12). From the 9/5 '
+     'generator-mafia research: the Lebanese families who built their own rooftop solar were '
+     'buying their way out of the block\'s owner. "A power building you place on your land '
+     'takes you OFF the block\'s line: the monthly cut stops, your batteries are yours, and the '
+     'faction that owned the line notices." BOTH HALVES WERE ALREADY BUILT AND THIS IS THE '
+     'JOIN: [block rent] 9/12 bills a cut per BLOCK of a faction\'s ground you used, and '
+     '[batteries mined] 9/11 makes solar, the battery farm and the substation mint. So this is '
+     'NOT a new charge and NOT a new table -- it is THE SAME BILL with your own blocks taken '
+     'out of it, which is why rentOn() is never touched: it is another lane\'s and it is '
+     'already right. Measured on the walked surface: standing on six blocks of their ground '
+     'bills 5 batteries, generators on his own ground take 3 blocks off the line, and the bill '
+     'goes 5 to 3. THE LINE THIS ROW MUST NOT CROSS: "a standing hit, a visit" is a WEIGHT and '
+     'an ENCOUNTER, bohemia_standing.js ships DEED_WEIGHT empty and says why, and [block rent] '
+     'made the same call one row earlier -- so the noticing is real, named and said out loud, '
+     'and nothing here writes a standing number. The gate asserts that directly. Red both '
+     'ways: let the discount go negative (which would PAY him rent) -> 1 red; count plots '
+     'instead of blocks -> 1 red.', True),
     ('CENTURY STAYED',['node', 'gates/century_stayed_gate.js'],
      'WHO-STAYED-COUNTS (board row [century stayed], 9/12). PAOLO 9/7 RULED IT: "buildings, '
      'and some people depending on how many years passed." The century rule counted BUILDINGS '
@@ -2012,6 +2030,20 @@ GATES = [
      "frozen at two and may only go down. A claim that goes stale because a gate stopped "
      "carrying its check is an immediate red, not a ratchet, because that is exactly the "
      "rot E11 found in CLAUDE.md's own law index.", True),
+    ('LOCKED RATCHET', ['node', 'gates/locked_ratchet_gate.js'],
+     "EYES AND EARS lane 17, 9/12, E17 [locked ignored]: A RULING HE MARKED LOCKED THAT THE "
+     "BUILD CONTRADICTS. 1,046 lines in laws/ carry the word; 856 are a real lock, 330 of those "
+     "are HIS and not a lane locking its own mechanism, and only 35 of his name something a "
+     "machine could ever check. Twelve are checked against the 17 files the shipped game actually "
+     "loads: 8 satisfied, 3 EROSION, 1 not built yet. EROSION is the ratcheted number and it means "
+     "one thing only -- the surface disagrees with his ruling AND a search of laws/ finds no newer "
+     "ruling releasing it. DRIFT and NOT-BUILT are deliberately not ratcheted, because a law going "
+     "stale when he rules again is the system working. The sweep's counts rest on a classifier that "
+     "decides whether a line saying 'locked' is a ruling at all, so that classifier is scored "
+     "against fifty lines read by hand and only the sample read AFTER the rules were last repaired "
+     "counts; that score is floored here too. Round one's verdict table had this backwards and said "
+     "a later build retires an older ruling, which would let any lane overturn any lock by shipping "
+     "after it.", True),
     ('NO READER', ['node', 'gates/no_reader_ratchet_gate.js'],
      "EYES AND EARS lane 17, 9/6, E11 [pixels only]: A RULING NOBODY CAN READ IS A "
      "RULING THAT GETS ASKED AGAIN. The lane's school round found the corrected rule: "
@@ -2261,6 +2293,45 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('GUNS CLOSE', ['node', 'gates/guns_close_gate.js'],
+     'A GUN IS IN ITS OWN WAY UP CLOSE (VAMILY [guns close] = BB-GUNS-CLOSE, COMBAT 9/12). The row: '
+     '"GUNS ARE BAD IN CLOSE. Forever, on every weapon," and its reason is history rather than taste -- '
+     'guns and melee coexisted for two centuries and it only ended when the bayonet let a gun fight up '
+     'close, so if our guns are good in close the positional game dies and the fight becomes '
+     'stand-and-shoot. MEASURED, AND THE BUILD WAS THE EXACT OPPOSITE: the dial pulled its EASIEST '
+     'patterns at point blank and said so in its own comment. The row wrote this gate into itself -- an '
+     'invariant over EVERY weapon, not a habit -- so this sweeps the whole weapon table and every claim '
+     'is a SHAPE and never a number: each gun has a band it is bad inside, the penalty only eases as you '
+     'back off, no gun is penalised at its own range, and every gun now has a BEST distance that is not '
+     'in contact. The band is a fraction of each weapon\'s OWN effective range, so the shotgun the game '
+     'already calls "brutal up close" is least bothered and the rifle most, because a rifle at two feet '
+     'is a club. AND PAOLO\'S 7/27 RULING IS UNTOUCHED: a man in your face still hits you, so both sides '
+     'point the same way', True),
+    ('FIGHT KNOWS DAY', ['node', 'gates/fight_knows_day_gate.js'],
+     'THE FIGHT KNOWS WHAT TIME IT IS (VAMILY [loot kept] third of three = BB-THE-FIGHT-KNOWS-THE-DAY, '
+     'COMBAT 9/12). Measured: enter(G,d,env) received the player\'s HP, a roster, a package id and a stamina '
+     'max, and NO hour, NO weather, NO shade -- in a game whose walked city organises its entire day around '
+     'the heat and whose every person carries a heatTol. The desert is the setting of the whole game and the '
+     'arena was climate controlled. EVERY NUMBER IN THE PAYLOAD IS THE CITY\'S OWN: T.min, isNight(), '
+     'BohemiaWeather.at and wetness, the heat window READ OFF BohemiaPopulation rather than copied, and shade '
+     'derived from sunVec plus the same cell test that PAINTS the shadows. AND NO TEMPERATURE IN DEGREES, '
+     'because nothing in the repo holds one and inventing the climate of his valley is not a patch tool\'s to '
+     'do. This drives the real game at two different hours -- a payload that is correct once can be a '
+     'constant -- and checks the wire, the fight after cleanSlate, and the echo back out. NO DAMAGE BEFORE '
+     'THE DIAL: the fight knows the hour and does nothing with it', True),
+    ('LOOT KEPT', ['node', 'gates/loot_kept_gate.js'],
+     'WHAT YOU TOOK LEAVES THE FIGHT WITH YOU (VAMILY [loot kept] = BB-LOOT-LEAVES + BB-KEYS-LAND, COMBAT 9/12). '
+     'Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE the arena on 9/2 and never '
+     'once left it: the fight\'s one message out was a body count and a health number, with no loot, no experience, '
+     'no plates and no keys, while every one of those numbers was already being counted in G.rc. AND THE KEYS HAD A '
+     'LIVE CUSTOMER NOBODY NOTICED: the walked city\'s ctLadderHeld() was written 9/6 to read window.parent.'
+     'bohemiaKeys, the fight published the keys with NO TYPE FIELD, the shell routes all twenty of its message '
+     'types by d.type, so the boss ladder answered EMPTY no matter what you carried. This drives the real game: it '
+     'opens a fight, puts one body\'s worth of takings on the ground, walks onto it through the shipped pickup, '
+     'ends the fight through the shipped one-send path, and asks the message, the shell and the city what they '
+     'think happened. IT SERVES THE GAME OVER HTTP ON PURPOSE, because on file:// every frame has a null origin '
+     'and the city\'s cross-frame read throws however correct the build is -- a file:// harness would have called '
+     'this row impossible to finish', True),
     ('ENTER ZOOM', ['node', 'gates/enter_zoom_gate.js'],
      'HOW THE FIGHT BEGINS: THE CAMERA PULLS BACK (VAMILY [enter zoom], COMBAT 9/11). Paolo 9/6, option A: '
      '"Yes definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." You never leave the '
@@ -2882,6 +2953,32 @@ GATES = [
      'ops that built it. The cache replays the camera ops now, and the control arm (the '
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
+     True),
+    ('DIRECT QUESTS',  ['node', 'gates/direct_quests_gate.js'],
+     'QUESTS row [edit quests] DIRECT-COVERS-QUESTS, 9/12, against the 8/12 law HE MUST BE ABLE '
+     'TO DIRECT IT. His words: "I CANT DIRECT QUESTS OR CUTSCENES RN WTF IS WRONG WITH YOU." The '
+     'law names eight verbs for anything ordered and one test: "where does he change this '
+     'himself? If the answer is he tells me and I edit a file, the system is not shipped yet." '
+     'MEASURED ON THE REAL ALPHA FIRST: a cutscene got all eight, a quest got five and a half. '
+     'dirWhere() opened with `if(DIR_MODE!==cutscene) return;` so a quest had NO where control at '
+     'all (1142 bytes of controls on a scene, 0 on a quest); dirPlay() said in the alpha\'s own '
+     'words "Quests do not play in here yet"; and the ADD row offered LINE, CHOICE and JOURNAL, so '
+     'the half of a quest that decides HOW IT ENDS -- COMPLETE or FAIL, how loud (his 7/21 clout '
+     'ruling), what it pays (shipped 9/11) -- was not in the tab in any form. AND THE REASON WAS '
+     'HONEST, which is why the fix is what it is: the old row reader said of itself "deliberately '
+     'not a full parser ... pretending to edit something that DOES NOT ROUND-TRIP would be worse '
+     'than not showing it." So the rows are lossless now, one per line of his file, and everything '
+     'else is allowed. THE GATE HOLDS: every quest rebuilds BYTE-IDENTICAL from its rows; a FORCED '
+     'rebuild of every line of every quest still parses and validates at zero errors and zero '
+     'warnings; and *** the forced rebuild MEANS THE SAME THING *** -- same stages, outcomes, '
+     'clout tags, effects and routes -- which is the check the negative controls earned, because '
+     'deleting COMPLETE from a stage leaves perfectly legal .bq and validity alone stayed green '
+     'while the rebuilder threw away whether the job succeeded. Plus the surface: the stage is a '
+     'control, the role condition is a quest\'s real RELOCATE, ADD covers stages and objectives, '
+     'and A QUEST PLAYS IN THE TAB through the SAME parser and the SAME runtime the city uses, '
+     'with his edit on the stage rather than the shipped line, and a quest he breaks reported in '
+     'the machine\'s own words instead of repaired. Four negative controls, all caught: lossy '
+     'rows, a dropped stage outcome, a dropped route, and PLAY running the shipped quest',
      True),
     ('ASK FOR MORE',   ['node', 'gates/ask_for_more_gate.js'],
      'QUESTS row [haggling works] BB-ASK-FOR-MORE, 9/11. REGISTERED THE ROUND IT WAS WRITTEN, '

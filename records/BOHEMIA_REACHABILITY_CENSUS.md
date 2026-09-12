@@ -22,13 +22,13 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 133 |
+| SHOWN (all) | 1 | 134 |
 | SHOWN (part) | 14 | 9 |
 | LOADED ONLY | 19 | 7 |
 | NO TRACE | 96 | 11 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **130** | **175** |
+| **total** | **130** | **176** |
 
 **304.3 MB of 308.8 MB** sampled does not reach the shown surface.
 
@@ -118,9 +118,9 @@ verbatim.
 | `banks/BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt` | bank | 0.09 |
 | `banks/BOHEMIA_ACT1_SWEEP_VERDICTS_MASTER.txt` | bank | 0.08 |
 | `banks/BOHEMIA_STANDING_SET_7_10_26.txt` | bank | 0.08 |
+| `banks/BOHEMIA_CITY_FROM_ABOVE_9_11_26.txt` | bank | 0.08 |
 | `banks/BOHEMIA_TRANSITION_SET_7_10_26.txt` | bank | 0.08 |
 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | bank | 0.07 |
-| `banks/BOHEMIA_CITY_FROM_ABOVE_9_11_26.txt` | bank | 0.07 |
 | `banks/BOHEMIA_INTERIOR_FLOOR_POOL_8_26_26.txt` | bank | 0.07 |
 | `banks/BOHEMIA_LIGHT_TOWER_8_23_26.txt` | bank | 0.06 |
 | `banks/BOHEMIA_POWER_POLE_8_23_26.txt` | bank | 0.05 |

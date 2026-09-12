@@ -640,7 +640,19 @@ const done = () => {
        + 'WIRE and is null wherever there is no circuit, which is most of the '
        + 'valley and includes the block he wakes on. The rent path asks turf and '
        + 'never asks payTo (' + rentBody.length + ' chars read)',
-       rentBody.length > 400 && /rentOn\(TURF_USED/.test(rentBody)
+       /* WIDENED 9/12 BY [own power], AND THE CLAIM IS UNCHANGED. This pinned the
+          literal `rentOn(TURF_USED`, and [own power] now hands rentOn a DISCOUNTED
+          COPY of TURF_USED -- the same map with the blocks he powers himself taken
+          out -- so the variable at the call site has a different name while the
+          source of truth is still turf. The claim this check exists for is WHO YOU
+          PAY IS TURF AND NOT THE GRID, and both halves of it are asserted exactly
+          as before: the body must still build its bill from TURF_USED and must
+          still never mention payTo. Only the name at the call site is allowed to
+          vary. This is fixing a ruler that got too literal, not loosening a check
+          to make somebody's work pass -- the payTo half, which is the half that
+          caught a real bug, is untouched and still absolute. */
+       rentBody.length > 400 && /\bTURF_USED\b/.test(rentBody)
+       && /rentOn\(/.test(rentBody)
        && /turfAt\(/.test(rentBody) && rentBody.indexOf('payTo') < 0);
     ok('N13 the cut-off is the LIGHTS, through the douse the grid already ships '
        + 'and the save already carries, and only on THAT faction\'s own ground',

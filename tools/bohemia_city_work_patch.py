@@ -27,6 +27,7 @@ MODULE = os.path.join(ROOT, 'engine', 'bohemia_work.js')
 PARTIES = os.path.join(ROOT, 'engine', 'bohemia_parties.js')
 POWERB = os.path.join(ROOT, 'engine', 'bohemia_powerbuild.js')
 STAYED = os.path.join(ROOT, 'engine', 'bohemia_stayed.js')
+OWNPOW = os.path.join(ROOT, 'engine', 'bohemia_ownpower.js')
 
 BEGIN = '/* ==== engine/bohemia_work.js ==== */'
 END = '/* ==== /engine/bohemia_work.js ==== */'
@@ -45,13 +46,18 @@ B_END = '/* ==== /engine/bohemia_powerbuild.js ==== */'
 # module body for the same reason the others do.
 S_BEGIN = '/* ==== engine/bohemia_stayed.js ==== */'
 S_END = '/* ==== /engine/bohemia_stayed.js ==== */'
+# [own power] rides the same splice: it reads bohemia_powerbuild.js and
+# bohemia_towns.js, both already in the city, and must land outside every
+# module body for the same reason the others do.
+O_BEGIN = '/* ==== engine/bohemia_ownpower.js ==== */'
+O_END = '/* ==== /engine/bohemia_ownpower.js ==== */'
 # The economy's banner: bohemia_work.js reads YIELD off that module, so landing
 # beside it keeps the two things a reader has to hold together in one place.
 ANCHOR = '/* ==== engine/bohemia_economy.js ==== */'
 
 
 def main():
-    for p in (CITY, MODULE, PARTIES, POWERB, STAYED):
+    for p in (CITY, MODULE, PARTIES, POWERB, STAYED, OWNPOW):
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
@@ -75,6 +81,7 @@ def main():
     s = cut(s, P_BEGIN, P_END, 'the parties module')
     s = cut(s, B_BEGIN, B_END, 'the power buildings module')
     s = cut(s, S_BEGIN, S_END, 'the stayed module')
+    s = cut(s, O_BEGIN, O_END, 'the own power module')
 
     if s.count(ANCHOR) != 1:
         sys.exit('REFUSING TO WRITE: the anchor resolves %d times, not 1.' % s.count(ANCHOR))
@@ -99,17 +106,23 @@ def main():
         sys.exit('REFUSING TO WRITE: the stayed module contains a sequence that would '
                  'close the script tag.')
 
+    own = open(OWNPOW, encoding='utf8').read().rstrip('\n')
+    if '</' in own:
+        sys.exit('REFUSING TO WRITE: the own power module contains a sequence that '
+                 'would close the script tag.')
+
     block = (BEGIN + '\n' + mod + '\n' + END + '\n'
              + P_BEGIN + '\n' + par + '\n' + P_END + '\n'
              + B_BEGIN + '\n' + pwr + '\n' + B_END + '\n'
-             + S_BEGIN + '\n' + sty + '\n' + S_END + '\n\n')
+             + S_BEGIN + '\n' + sty + '\n' + S_END + '\n'
+             + O_BEGIN + '\n' + own + '\n' + O_END + '\n\n')
     s = s.replace(ANCHOR, block + ANCHOR, 1)
 
     if s == before:
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY WORK: work + parties + powerbuild + stayed inlined before the economy module')
+    print('CITY WORK: work + parties + powerbuild + stayed + ownpower inlined before the economy module')
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 

@@ -1049,7 +1049,15 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
   ok('V66 RUN HANDOFF wiring: the demo delegates the whole bus to HANDOFF CORE (install/outcome/end), win AND loss both route through the one send',
     demo.includes('BohemiaHandoff.install(window,G,{') &&
     demo.includes('function encounterOutcome(){ return BohemiaHandoff.outcome(G); }') &&
-    demo.includes('function sendCombatEnd(win,reason){ BohemiaHandoff.end(G,win,reason||(win?\'cleared\':\'down\'),') &&
+    /* THE DELEGATION IS PINNED, NOT ITS SPELLING (9/12). This demanded the whole
+       line verbatim, so V206 went red for CAPTURING THE RETURN VALUE -- the
+       payload is needed to credit the pocket from the very message that just went
+       out. The claim is that the one send is HANDOFF CORE's and that win and loss
+       both route through it, and all three of those are still checked below. A
+       checker that fails a change preserving everything it claims is pinned to the
+       wrong thing. */
+    demo.includes('function sendCombatEnd(win,reason){') &&
+    demo.includes('BohemiaHandoff.end(G,win,reason||(win?\'cleared\':\'down\'),') &&
     demo.includes('sendCombatEnd(true);   /* V59 RUN HANDOFF: one clean outcome */') &&
     demo.includes('sendCombatEnd(false);   /* V59 RUN HANDOFF: one clean outcome */') &&
     // the old hand-rolled listener is GONE: one bus, not two
@@ -2679,8 +2687,15 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
       fgv.length > 0 &&
       /pkgDiff/.test(fgv) && /_steadyAtPop/.test(fgv) && /killStreak/.test(fgv) &&
       !/dist|edist|distT|ea\b|elev|flank|angle/.test(fgv));
+    /* THE CLAIM IS PINNED, NOT THE SPELLING (9/12, V208). This held the whole line
+       verbatim and went red when BB-GUNS-CLOSE added the close end to the dial --
+       on a change that keeps every word of the claim true. What the claim is about
+       is that range decides WHICH PATTERN and never your output, so that is what is
+       checked: the tier is a rounded pattern index scaled by the difficulty, and
+       there is no damage symbol anywhere in the function. */
     ok('and range touches only WHICH PATTERN you get, never your output -- an execution effect, not a damage one',
-      demo.includes('function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }'));
+      /function distPkg\(e\)\{ return Math\.round\([^\n]*\(G\.userPkg\|\|0\)\); \}/.test(demo)
+      && !/function distPkg\(e\)\{[^\n]*(dmg|damage|hp|wound)/i.test(demo));
   }
 
   ok('THE TEST THE NORTH STAR LEAVES IS RECORDED: does it change how much damage I deal or take, through position, spend, or knowledge? If no, it is not a combat feature and it never leads a pick-list',
@@ -3267,10 +3282,25 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('return Math.min(1,Math.max(0,(d-hd(PT_BLANK))/(F-hd(PT_BLANK)))); }') &&   /* V198 RE-POINTED: still subtracts the point-blank band before dividing, so it is still exactly 0 inside it */
     demo.includes('const PT_BLANK=4, FAR_TILE=26'));
 
-  ok('V98 IT MOVES BOTH SIDES OFF ONE NUMBER: my dial (distPkg), their hit chance (distAccuracy) and the range words+colour all read distT, so there is no second accuracy system to keep in step',
-    demo.includes('function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }') &&
+  /* *** AMENDED 9/12 BY V208 [guns close], AND THE AMENDMENT IS THE INTERESTING PART.
+     *** This said the dial and their hit chance both read distT and nothing else, and
+     BB-GUNS-CLOSE forced a divergence: the player's dial now also reads closeT, the
+     close-range term, while THEIR up-close accuracy is deliberately untouched because
+     it carries Paolo's 7/27 ruling ("up close was already lethal"). So the two sides
+     no longer move off one number, ON PURPOSE -- a man in your face still hits you and
+     your own gun is at its worst there.
+     WHAT THE INVARIANT WAS ACTUALLY PROTECTING IS KEPT AND STILL CHECKED: there is no
+     second ACCURACY SYSTEM and no second DISTANCE SOURCE. Every range effect still
+     derives from the same e.edist and the same weapon table -- closeT included -- and
+     his 7/27 line is pinned here exactly as it always was. */
+  ok('V98 IT MOVES BOTH SIDES OFF ONE DISTANCE: my dial (distPkg, which since V208 reads the close end too), their hit chance (distAccuracy, untouched because it carries his 7/27 ruling) and the range words+colour all derive from the same distance and the same weapon table, so there is no second accuracy system to keep in step',
+    /function distPkg\(e\)\{ return Math\.round\(Math\.max\(distT\(e\),closeTMine\(e\)\)\*\(G\.userPkg\|\|0\)\); \}/.test(demo) &&
+    demo.includes('function closeTMine(e){ return closeT((e&&e.edist)||10, myRange()); }') &&
+    demo.includes('function closeBand(R){ return Math.max(hd(1), ((R&&R.eff)||6)*CLOSE_FRAC); }') &&
     demo.includes('const base=0.97 - distTFrom(e)*0.60;') &&   /* MIGRATED BY V121: the difficulty divides the miss out of it. MIGRATED AGAIN BY V138: still ONE curve and one shape, but read off HIS gun instead of a global one, because a pistol and a rifle were never the same range */
-    demo.includes('function rangeTier(e){ const t=distT(e);'));
+    /* the words still read the same distance; V208 only gave them a band name for
+       the close end, which is the opposite of a hidden second system */
+    /function rangeTier\(e\)\{ if\(tooClose\(e\)\)return 'TOO CLOSE';[\s\S]{0,120}const t=distT\(e\);/.test(demo));
 
   ok('V98 AND THE READ SAYS WHY: a man who reads LONG RANGE at night when he read MID RANGE at noon is explained, not mysterious',
     demo.includes('function isDark(){ return rangeMult()<0.999; }') &&

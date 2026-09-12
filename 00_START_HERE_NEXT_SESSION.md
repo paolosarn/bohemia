@@ -1,3 +1,28 @@
+EYES AND EARS (eyes-5vql33): 9/12 (x) LATEST -- *** E17 [locked ignored] IS SHIPPED, BOTH ROUNDS. THREE RULINGS HE MARKED LOCKED ARE CONTRADICTED BY THE SHIPPED GAME. *** TAB: the three are in RUN (the title screen), CITY (the purple tiles you walk past) and COMBAT (the cover cost). The instruments themselves are NOT IN A TAB YET; this lane never writes game code.
+E17 [locked ignored] IS SHIPPED at 545fa7c, BOTH ROUNDS. School: records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md. The sweep: records/BOHEMIA_EYES_E17_ROUND_2_THE_LOCK_IS_NOT_THE_RULING_9_12_26.md. Tool tools/bohemia_eyes_locked.py plus the real-screen half tools/bohemia_eyes_locked_surface.js. Gate gates/locked_ratchet_gate.js, suite LOCKED RATCHET, proven to bite on four separate failures before it was registered.
+
+THE NUMBERS: 1,046 lines in laws/ carry the word. 856 are a real lock, 10 are the ordinary English word, 180 only talk about locking. 330 of the locks are HIS; 526 are a lane freezing its own mechanism, which is legitimate and is not his ruling. Of his 330, only 35 name anything a machine could ever check, 3 are look-and-feel and belong to DIRECTION, and 292 are intent, lore or process. Twelve are checked against the 17 files the shipped game actually loads: 8 SATISFIED, 3 EROSION, 1 NOT-BUILT, 0 DRIFT.
+
+THE THREE EROSION ROWS, EACH WITH AN OWNER:
+ 1. RUN -- THE RIDGE = THE MENU / TITLE SCREEN (locked, Paolo, 7/19). Measured on the real screen in Chromium at phone size, not read out of source: the strip above the name is ONE colour, 0.00% not flat, against 22 colours in the same strip of the walked city. No ridge is drawn. The release search found no newer ruling about the title screen anywhere in laws/. Pictures records/target/EYES_E17_SPLASH.png and EYES_E17_CITY.png.
+ 2. DIRECTION and COOK -- 32 purple tiles. Bounced back onto DIRECTION's queue as [eyes: purple leak], the one bounce-back line rule 10 allows this lane. Contact sheet records/target/EYES_E17_PURPLE_TILES.png.
+ 3. COMBAT, then the coordinator -- the fight ships RUN_COVER_COST=2 commented "his number" and NOTHING in laws/ carries that ruling. Either EVERYTHING COSTS ONE (8/15) needs the exception written into it or the constant needs to be 1. That is a decision and it is not this lane's.
+
+ROUND TWO CORRECTED ROUND ONE TWICE, OUT LOUD. (a) Round one's verdict table said a contradiction where the BUILD is newer is DRIFT, the document's defect. That is backwards: NEWEST DATE WINS settles two RULINGS, and a lane shipping later is not a ruling. If it were, any lane could overturn any lock by shipping after it. Corrected, DRIFT needs a newer RULING that releases the old line, and that release is a SEARCH of laws/, not a table somebody fills in. Under the old table the Ridge would have been filed as the document's fault. (b) The harvest needed a third answer: the word is often just the English word (a locked door, a beat-locked scrub), and those cluster in lowercase, so round one's own case-insensitive fix made that worse.
+
+A CONTROL FAILED AND CHANGED THE INSTRUMENT, WHICH IS THE ROUND'S BEST MOMENT. The title-screen measure first counted colours across the whole picture with the walked city as the positive control. The control came back WORSE than the thing it was controlling: the city 31 colours and 5% non-ground, the splash 41 and 13%, because the city at that zoom is mostly flat desert and a wordmark is busy. Fixed by measuring the strip above the name where the splash's own furniture cannot reach. The first version's number would have been a lie in this lane's own headline.
+
+THE PURPLE PROBE WAS WRONG TWICE BEFORE IT WAS RIGHT, and all three versions are in the tool's docstring. A text scan of the tile pools read a clean ZERO because every tile is a base64 PNG and there is no hex anywhere. A loose pixel threshold then flagged 61,323 pixels that turned out to be near-black shadow tints, night grading, not fantasy purple; shipping that would have been a false accusation aimed at every artist on the fleet. The right unit is the TILE, and the right question is which BANK it sits in, because purple in a hatch bank is the law being obeyed.
+
+THE CLASSIFIER IS SCORED AGAINST A HUMAN AND THE HONEST SCORE IS THE THIRD ONE. Fifty lines read by hand, deterministically sampled. Sample A (30) scores 100% and is worth nothing because the rules were written looking at it. Sample B (20) scores 100% and is ALSO worth nothing because its misses were used to repair the rules; a held-out sample stops being held out the moment you fix anything with it. Sample C (20), read after the last repair and untouched, scores 90%, and that is the number the gate floors at 85%. Both misses in C are written down.
+
+FOR THE COORDINATOR, NOT MINE TO FIX:
+ - THREE SUPERSEDED GDDs ARE STILL IN laws/. BOHEMIA_GDD_v2, v3 and v4 sit beside v5 and carry 69 lock lines between them, so 6.6% of this corpus is dead rulings reading as live. The truth hierarchy says a superseded file moves to /archive the same turn with a registry line. Nothing in this lane may move a law file.
+ - SIX OF THE TWELVE RULINGS CHECKED ARE NAMED BY NO GATE, and the rot runs both ways: gates/border_gate.js plainly checks the border law and never names it, so that ruling reads NO GATE although a real checker exists. E11 found CLAUDE.md promising gates that do not exist; this is the same break pointing the other way.
+ - STILL STANDING FROM EARLIER ROUNDS: lane 17's own STATE line still says "nothing exists" and is now wrong by eighteen instruments and five suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
+
+NEXT: E18 [he can hear it] -- the one song he likes, measured against Besaid Island on a music supervisor's axes. School first, always; every job in this lane is two rounds and never one. E9 is STANDING and runs every round.
+
 UI (ui-kmqmrf): 9/12 (b) LATEST -- *** [no slop] ROUND TWO, THE TYPE. ROW STILL CLAIMED. ***
 TAB: CITY and RUN.  RULER: tools/bohemia_count_the_tells.js
 RECORD: records/BOHEMIA_NO_SLOP_THE_REGISTERS_9_12_26.md
@@ -34,7 +59,6 @@ other lanes' panels (day card, market, outfit). The alpha shell's 467 is RUN's s
 GATES: CITY RAIL 8/0, PHONE OBJECT 18/0, TOP MENU BAR 12/0, HALF SIZE 7/0, FEED 15/0, THUMB 15/0,
 READABLE RULER 7/0, ALPHA LOADS 20/0, DEMO BUILD 25/0, PAGES PUBLISH 18/0.
 [PENDING Paolo] Nothing blocking.
-
 WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
 WORDS (words-8dqrnq): 9/12 (b) LATEST -- *** Q20 [no law talk] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. TAKE THE LAW AWAY AND PEOPLE TALK MORE CAREFULLY, NOT ROUGHER, AND
@@ -434,8 +458,6 @@ NEXT IN THIS LANE: Q33 [barter day], then Q34 [who profits].
 
 
 
-================================================================================
-================================================================================
 WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
 NOBODY COLLAPSES WHEN THEY ARE CAUGHT. THEY REVISE, CALMLY, IN THE SAME SECOND. *** TAB: NOT IN A
 TAB YET. No game code touched, ever. Everything is draft:true in the bank.
@@ -524,111 +546,6 @@ STILL THERE AND NOT HIDDEN: monospace 36, spaced caps 80, named fonts 14, gradie
 walked city. Those are the feed's type, the day card, the market, the phone panel -- surfaces this
 round did not open. The font registers landing in the skin are the next round of this row.
 [PENDING Paolo] Nothing blocking.
-
-EYES AND EARS (eyes-5vql33): 9/11 (v) LATEST -- *** E16 [never opened] SHIPPED WITH BOTH ROUNDS.
-THE LINK BETWEEN HIS WORDS AND THE WORK IS NOT MISSING, IT IS DELETED. An OPEN row cites a ruling
-of his 34% of the time and a CLAIMED one 38%, but a SHIPPED row only 12%. The row gets rewritten
-as a result summary when it lands and the ruling it answered goes with it, so the link dies at the
-exact moment the work becomes history. That is why two separate attempts to compute "has he seen
-this" both came back near zero. *** TAB: NOT IN A TAB YET. No game code touched, ever.
-EYES AND EARS (eyes-5vql33): 9/12 (w) LATEST -- *** E17 [locked ignored] ROUND ONE OF TWO IS DONE:
-SCHOOL. NOTHING ON THE SHIPPED SURFACE WAS MEASURED. THE SWEEP AS WRITTEN CANNOT SEE ITS OWN
-EXAMPLE: the job says sweep "every line marked LOCKED", and the RIDGE ruling it cites is written
-"(locked, Paolo)" in LOWERCASE, at line 88 of the act-one opening vision. Counted: 747 uppercase
-LOCKED, 306 lowercase, 13 title case. THIRTY PER CENT OF THE CORPUS IS INVISIBLE TO THE OBVIOUS
-GREP, AND THE BRIEF'S OWN EXAMPLE IS IN THE INVISIBLE THIRTY PER CENT. *** E17 stays CLAIMED,
-round two is the sweep. TAB: NOT IN A TAB YET. No game code touched, ever.
-
-COUNTER-FINDING 1, AND IT RESHAPES THE WHOLE JOB: THE FIELD SPLITS THIS IN TWO AND THE JOB PICKED
-THE WRONG HALF. The architecture literature is explicit: "architecture erosion differs from drift;
-while DRIFT IS A DOCUMENTATION ACCURACY PROBLEM, EROSION IS THE ACTUAL DEGRADATION". So a law and
-a build that disagree are two different defects wearing one face.
-  EROSION: the ruling is current and the build broke it. A build defect. What the job assumes.
-  DRIFT:   the build moved on and the document did not. A DOCUMENT defect, and the build may be
-           the more current truth.
-  OUR TIEBREAKER ALREADY EXISTS: NEWEST DATE WINS. So every contradiction round two finds must
-  report WHICH SIDE IS NEWER. Reporting them all as "the build ignored him" would put a
-  documentation defect on a lane's record and, worse, would tell him his rulings are being ignored
-  when some of them were superseded by his own later words.
-
-COUNTER-FINDING 2: ONE OF THE TWO EXAMPLES IS ALREADY FIXED, AND IT WAS FIXED BY CHANGING THE
-DOCUMENT. CLAUDE.md now reads "Gen 1 Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo
-9/7". The Animal contradiction the brief offers as evidence closed on 9/7, by making the document
-current, which is the drift reading and not the erosion reading. A brief written on 9/6 describes a
-9/6 repo, so round two re-checks both examples on the surface before quoting either.
-
-COUNTER-FINDING 3: MOST LOCKED RULINGS ARE NOT MACHINE-CHECKABLE AT ALL, and claiming 747 verdicts
-would be fiction. A LOCKED line is usually intent: what the world is, what a thing means, how he
-wants it to feel. So round two's FIRST output is not verdicts, it is a classification reported as
-the headline: MACHINE-CHECKABLE, ONLY BY LOOKING, NOT CHECKABLE. A number in the first column is
-worth more than 747 guesses.
-
-COUNTER-FINDING 4: "A LINE MARKED LOCKED" IS NOT "A LOCKED RULING OF HIS", AND THE GAP IS FIVE TO
-ONE. Of the 747 uppercase mentions, only 161 are in the form "Paolo <date>, LOCKED". The rest are
-lanes writing LOCKED about their own decisions, which is legitimately how this repo freezes a
-mechanism. BUT A LANE'S OWN LOCK IS NOT HIS RULING, and treating them alike would put a lane's
-words in his mouth, which is the worst error this particular lane could make.
-
-WHAT SCHOOL HANDED OVER:
-  THE GAME-DOC LITERATURE IS BRUTAL AND IT BLAMES THE DOCUMENT. "If it has drifted from the build,
-  the document has already failed." "The monolithic hundred-page bible is functionally dead...
-  the moment the build moves, the document is wrong." "A GDD goes stale when changing it is slower
-  than changing the game." "When the design changes, change the doc the same day." Our laws/ holds
-  435 FILES, which is that bible several times over, grown by accretion, which is the exact failure
-  mode named. So the prior going in is not "the lanes ignore him", it is that some fraction of 747
-  lines are simply older than the game.
-  THE CURE IS AN EXECUTABLE RULE, AND OUR PILLAR LAW IS ALREADY THAT SENTENCE. "A diagram answers
-  what did we INTEND. It never answers what is the structure RIGHT NOW. An executable rule converts
-  a statement into something the pipeline can evaluate." And the BDD side: a scenario is spec, test
-  and documentation at once, so the requirement must stay current or the test fails. That is
-  A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, word for word, and E11 already found the worst case
-  of the class: a gate the law index PROMISED and that did not exist. Round two reuses that.
-  AND THE TRACEABILITY DIRECTION IS THE OTHER ONE FROM E16: that was forward (a ruling with no
-  work). This is BACKWARD: from the shipped thing back to the ruling it was supposed to satisfy.
-
-ROUND TWO'S SPEC: harvest case-insensitively, including the "(locked, Paolo)" parenthetical form.
-Split HIS from A LANE'S. Classify before verdicting. Then four verdicts, and each names whose
-defect it is: SATISFIED (nobody's), EROSION (the build's, his ruling is newer), DRIFT (the
-document's, the build is newer), UNENFORCED (no gate at all, reuse E11). Reuse E11's reader set and
-E13's surface sweep rather than rebuilding either.
-  RULE ZERO: a planted law the build satisfies must read SATISFIED; a planted law the build
-  contradicts must read CONTRADICTED; and the one that matters most, A PLANTED LOWERCASE
-  "(locked, Paolo)" LINE MUST BE FOUND, because missing it is the failure that silently hides
-  thirty per cent of the corpus. All three pass or no number is printed.
-  RATCHET: freeze EROSION only. DRIFT is a documentation backlog that grows honestly as the game
-  moves, and ratcheting it would red the suite for other lanes doing correct work. Same reasoning
-  as E16's citation gap and E11's two reported-not-ratcheted numbers.
-
-BLIND SPOTS FOR ROUND TWO: a law file's date is when it was WRITTEN, not when he ruled, and he
-rules in voice before anything is a file; a contradiction found in TEXT is not a contradiction on
-the SURFACE, which is the mistake E11 and E13 both caught this lane making; and nothing here can
-tell a ruling he WITHDREW from one he simply has not repeated.
-
-STILL OPEN IN MY QUEUE: E18 [he can hear it], E19 [slop count], E20 [song length], E21 [marker
-sweep]. All two rounds, school first. E9 the standing duty runs every round.
-
-[PENDING Paolo] NOTHING. I need nothing from him.
-
-FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. THE CASE PROBLEM IS A BOARD-WIDE ONE: 306 lowercase and 13 title-case locks mean any checker
-     anybody writes against "LOCKED" has a thirty per cent blind spot. One convention would fix it
-     for every future checker, not just mine.
-  2. E16's ONE FIELD still stands: keep the ruling citation on a row when it ships.
-  3. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
-     audio measurement, no glitch checklist." Seventeen instruments and four suite gates exist now.
-  4. The E15 scope hole still stands: a building, a face, a prop or a vehicle is graded by no
-     machine on E7's sheet.
-  5. Still unclaimed: the MIX METER (E5 gap 10).
-
-NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
-
-GATES: none re-run this round; no code changed, two records and no tools. Standing gates green last
-round: SEEN BY HIM 2/0, PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0, attempt 15/0.
-
-PROOF: records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md (235 lines, 13
-sources); banks/eyes/BOHEMIA_EYES_E17_LOCKED_SWEEP_SPEC_9_12_26.json (draft:true); VAMILY lane 17
-E17 CLAIMED ROUND 1 OF 2.
-
 
 WORDS (words-8dqrnq): 9/11 (c) -- *** Q19 [caught out] SCHOOL DONE, ROUND ONE OF TWO.
 FILM SAYS THEY CRUMBLE. THE REAL RECORD SAYS THEY REVISE, CALMLY, ABSORBING WHATEVER YOU JUST
@@ -798,7 +715,6 @@ gate_registry_gate is GREEN again (6/0) -- the two orphans I bounced last round 
 their own lanes.
 [PENDING Paolo] Nothing blocking. Queue next: [three acts], [skin swap].
 
-================================================================================
 
 WORDS (words-8dqrnq): 9/11 (b) -- *** Q18 [asking words] SHIPPED WITH BOTH ROUNDS.
 School reshaped every ask: not one is written as a plea, because the ask almost always works
@@ -958,7 +874,6 @@ gates/a_days_work_gate.js (WORLD) and gates/fold_runtime_gate.js (QUESTS), whose
 write their own descriptions.
 [PENDING Paolo] Nothing blocking. Queue next: [three acts], [skin swap].
 
-================================================================================
 
 WORDS (words-8dqrnq): 9/11 -- *** Q18 [asking words] SCHOOL DONE, ROUND ONE OF TWO.
 THE ASK ALMOST ALWAYS WORKS AND THE PERSON ASKING HAS NO IDEA: people underestimate by as
@@ -1553,81 +1468,79 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 
 NEXT IN THIS LANE: Q23 [who eats first].
 
-================================================================================
-================================================================================
 
-FACTIONS (factions-ovkjpf): 9/12 (round 15) LATEST -- *** [block rent]
-THE-BLOCK-PAYS-ITS-OWNER SHIPPED. Living on somebody's ground was free. It costs
-now, it is paid to a faction with a name, and the faction that does not get paid
-cuts the lights. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/12 (round 16) LATEST -- *** [crossing costs]
+THE-WRONG-COLOUR-REACTS SHIPPED. Every block has an owner and walking onto somebody
+else's cost nothing. A stranger on your block now gets a look, then a tail, then a
+stop, and how far it goes is how far that faction reaches. *** Nothing to judge.
 
-VAMILY row: [block rent], MODE: BUILD, SHIPPED 9/12 4869e2f0.
-Record: records/BOHEMIA_THE_BLOCK_PAYS_ITS_OWNER_9_12_26.md
+VAMILY row: [crossing costs], MODE: BUILD, SHIPPED 9/12 7d7cf776.
+Record: records/BOHEMIA_THE_WRONG_COLOUR_REACTS_9_12_26.md
 
-MEASURED FIRST. payTo() has answered "who do you pay for this block" since [light
-owners] and had EXACTLY ONE CALLER IN THE WHOLE GAME, and it was a gate. Same shape
-as formed() in [enemies unite]: built, gated, never called by the product.
+MEASURED FIRST, AND HIS SENTENCE WAS LITERALLY TRUE. The player wakes on the Mob's
+FORTRESS ground with 61 people on screen and EVERY ONE reads `nothing`. Church
+ground begins two cells away and crossing it changes nothing either. The against
+organ reads four facts -- their outfit vs yours, their opinion of you, a coalition,
+whether anybody still pays them -- and NOT ONE is "you are standing on their ground".
 
-*** AND payTo IS THE WRONG DOOR FOR RENT. *** It reads the GRID, and the grid only
-carries status on STREET cells. Sampled on the walked surface, 2,304 cells:
-  somebody to pay   831        flagged free   6
-  NOBODY           1467        <- including the block the player wakes on
-The grid says who owns the WIRE. Turf says who owns the GROUND, for 100% of the
-valley since [who holds]. Rent is ground, so rent asks turf.
+*** IT GRANTS SIGNS, NEVER A LEVEL, AND THAT IS THE WHOLE CARE IN IT. *** The
+obvious build reads "a stop", reaches for the `block` sign, and `block` lives on
+WAR -- which would put a stranger who walked three blocks AT WAR with a faction he
+has never met, a severity nobody ruled, over a map that is his. But the module's own
+header already says the SIGNS are the escalation and the levels merely bundle them:
+  a look -> watch      a tail -> follow      a stop -> block
+`refuse` is deliberately excluded: withholding trade is what an unpaid landlord does
+([block rent]), not what a stranger on a street earns. And when they already had a
+reason the ground ADDS to it -- signs unioned, LEVEL UNTOUCHED. Walking onto a block
+cannot talk a cold body into a war.
 
-*** IT IS A TRANSFER, NOT A FIFTH VERB, AND THAT IS THE WHOLE SHAPE. *** The four
-verbs are FROZEN and the purse says so in its own refusal ("a fifth is a design
-change, and design changes are Paolo's"); the day-23 study is stricter still, "each
-resource is spent by exactly one verb, so you always know what drained it", and
-electricity is already spent by night:power. A drain CONSUMES; rent MOVES, to
-somebody with a name. transferOut has existed for exactly that since the purse was
-built, posting kind 'transfer', and NOTHING HAD EVER CALLED IT. The frozen four are
-untouched and a fifth is still refused by name.
+HOW FAR IT GOES IS THEIR REACH, NOT A NUMBER I PICKED
+  fortress 3   a look, then a tail, then a stop
+  town     2   a look, then a tail, and never more
+  camp     1   a look, however deep you go
+That is REACH, the table that already decides how far a town's arm extends, so
+"a fortress reaches further than a camp" (turf_gate's own headline) now applies to
+people as well as ground. How many blocks you crossed is TURF_USED, which
+[block rent] already counts and already dedupes. NOTHING NEW IS TRACKED.
 
-A FORTRESS CHARGES MORE THAN A CAMP WITHOUT A PRICE NOBODY RULED. EVERYTHING COSTS
-ONE, so it cannot charge a bigger number; what a bigger operator really does is
-collect on MORE OF WHAT YOU USED. That scaling is HIS THIRDS, already in the towns
-module as DEPTH, applied to a COUNT through the same Math.ceil goodsFor uses.
-  nine blocks of each   fortress bills 9   town bills 6   camp bills 3
-HONEST LIMIT, ASSERTED IN THE GATE so nobody later reads it as a fault: at ONE block
-they all bill one, because a third of one block rounds up to one. The tiers only
-separate once he has walked more of somebody's ground, which is when it matters.
+ONLY THE FACTION UNDER YOUR FEET REACTS. Standing on Cartel ground having walked
+NINE blocks of Anarchist ground, the Anarchists get nothing. His sentence is "the
+moment you cross INTO a block", which is where you are standing, not where you
+have been.
 
-CUT OFF IS THE LIGHTS, which is what the research says literally ("cuts you off
-without warning"). One circuit per unpaid block, on THAT faction's OWN ground, via
-the douse the grid already ships and the save already carries. NOTHING HERE INVENTS
-A STANDING CHANGE: what an unpaid debt does to how they FEEL about you is a weight,
-and weights are his.
+THE BEHAVIOUR WAS ALREADY BUILT AND GATED. ctFollowStep already moves bodies toward
+you on `follow`, already stands one in a doorway on `block`, already turns heads on
+`watch`. THIS ROW ADDED THE REASON, NOT THE REACTION.
 
-DRIVEN ON THE WALKED SURFACE AND THE DEMO, deliberately two batteries short
-  Blues    (town)     used 2   billed 2   paid 2
-  Church   (town)     used 4   billed 3   paid 3    <- the tier, visible
-  Mob      (fortress) used 16  billed 16  paid 14   <- 2 short
-  purse electricity 22 -> 0     lit circuits 358 -> 356, the Mob cutting its OWN
-  ledger kinds ["transfer"], never "drain", every entry naming who received it
-Identical on the demo. No page errors on either.
+DRIVEN THROUGH THE CITY'S OWN ctAgainstMe, ON A REAL BODY, ON THEIR OWN GROUND
+  off their ground              nothing
+  one block in                  watch
+  two blocks in                 watch, follow
+  nine into a FORTRESS          watch, follow, block
+  nine into a TOWN              watch, follow   <- capped, and that is the point
+  level at every depth          null, rank 0
 
-WHAT HE READS AT NIGHTFALL (Tab: CITY)
-  Church (town) took 3 batteries for 3 of the 4 blocks of theirs you used
-  Mob (fortress) wanted 6 for the 6 blocks of theirs you used and you had 4
-  so the Mob cut 2 of their own streets off
-The first wording said "1 of the 1 block" and "took 4 for 6" beside the shortfall.
-Both were what a machine says, not what a person reads.
+TWO HONEST FINDINGS, REPORTED RATHER THAN PAPERED OVER
+  A BLOCK IS BIGGER THAN A LONG WALK. 420 real steps through stepOnce never left
+  ONE block, so the tail was never owed; the gate says so in its own output instead
+  of forcing a follower to appear.
+  AND MOST OF THE VALLEY HAS NOBODY OF THE HOLDER STANDING ON IT. A faction holds
+  hundreds of blocks; its members live within about twelve cells of its seat. At the
+  spawn, 0 of 61 people run with the Mob who hold that ground -- the same fact the
+  against module's own header recorded on 9/5. Where it fires is where a faction's
+  people actually are. NOT MINE TO FIX: who stands where is the population's.
 
-GATES  faction_towns 81/0 (was 65), sixteen new claims. Green alongside: turf 43/0,
-       mandate 44/0, engine sync zero drift, demo build 25/0, alpha loads 20/0.
+GATES  against_gate 78/0 (was 66), eleven new claims, on a FRESH PAGE because the
+       sections above it deliberately make the player an enemy and this one is about
+       a stranger. Green alongside: coalition 40/0, faction towns 81/0, engine sync
+       zero drift, demo build 25/0, alpha loads 20/0.
 
-AND ONE GATE PROBE WAS MINE, NOT THE GAME'S. The turf-not-grid claim first ran a
-regex for "payTo ... rent" across the whole 4 MB page -- string arithmetic that can
-match anything -- and went red while the behaviour was correct. It reads the two
-function bodies now. FOURTH TIME THIS SESSION a check was wrong while the game was
-right.
-
-TOOLING FIXED THIS ROUND, AND IT WAS LYING. My land script ran `git push | tail -1`
-inside an `if`, and a pipeline's status is the LAST command's, so `tail` always
-succeeded: every land printed PUSHED and exited 0 EVEN WHEN THE PUSH WAS REJECTED.
-One really was, this round, and the claim reported as landed was not on main. It
-takes the status from git now and prints the rejection.
+*** FOUR OF MY OWN PROBES WERE WRONG BEFORE ONE WAS RIGHT, AND EVERY ONE WAS THE
+INSTRUMENT. *** Zeroing the block counter while standing on the block (it floors at
+one, correctly). Teleporting the player and asking about a frame that was never
+painted. Moving the MAP CURSOR in walk mode, which is the exact fault this file
+records under __ROAD_INTERRUPTS_ON_FOOT__. And pre-setting the block count before a
+walk that immediately recounted it. The game was right every time.
 
 [PENDING Paolo] -- FOUR, ALL CARRIED, NOTHING NEW
   1. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
@@ -1644,28 +1557,28 @@ takes the status from git now and prints the rejection.
      drab factions, the gate carries three.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
-verified inherited on a clean origin/main worktree two rounds ago and unchanged.
+verified inherited on a clean origin/main worktree and unchanged since.
   R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
       outfit named "NONE", which is not one of the 18 in the faction graph.
-  R8  corpus max is 20 across 83 rows; loadCorpus normalises every weight by the
-      largest deed, so a partial corpus moves every rung boundary in the game.
+  R8  corpus max is 20 across 83 rows; loadCorpus normalises by the largest deed, so
+      a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [crossing costs]  THE-WRONG-COLOUR-REACTS -- the colour table is live in a file the
-    game can read, so this is wiring now, not invention. And rent gives it a reason:
-    a faction that just cut your lights off has a standing grievance you can walk into.
-  [collector heir]  THE-LENDER-VISITS-THE-HEIR -- needs WORLD [debt carried]
-  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]
-  [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11)
+  [collector heir]  THE-LENDER-VISITS-THE-HEIR -- needs WORLD [debt carried]; CHECK
+    IT, because this lane has now had FOUR rows whose named blocker was already gone
+  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]; the faction
+    colours are in a file the game can read, so this is wiring
+  [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11) --
+    and crossing now gives it its shape: who will join you where you are standing
 
-FOUR STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FIVE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
-  WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT; forcing it true costs a number
-  nobody ruled, and the map is his.
-  AND WHEN A LAW BLOCKS THE OBVIOUS BUILD, THE LAW IS USUALLY POINTING AT A BETTER
-  ONE. The frozen verbs looked like a wall; they were the reason rent is a transfer,
-  which is what it actually is.
+  WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
+  number nobody ruled.
+  WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
+  AND A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE
+  THAT CHECKED NOTHING. Make the guard itself a claim.
 
 --------------------------------------------------------------------------------
 
@@ -2103,8 +2016,6 @@ TO HAVE.
 
 NEXT IN THIS LANE: Q21 [five minute money].
 
-================================================================================
-================================================================================
 FACTIONS (factions-ovkjpf): 9/6 (round 10) LATEST -- *** [enemies unite]
 BB-COALITION SHIPPED, this lane's half. WORLD built the coalition and the card;
 formed() had ONE CALLER in the whole game and it was that card. Now a member of
@@ -2509,7 +2420,6 @@ and all three findings this lane has produced in a row lived in exactly that gap
 
 NEXT IN THIS LANE: Q19 [price moves].
 
-================================================================================
 WORDS (words-8dqrnq): 9/6 (c) -- *** Q1 [telling apart] SHIPPED WITH BOTH ROUNDS,
 THE FIRST QUESTION IN THIS LANE TO MEET THE 9/6 MODE. School changed the writing: not one
 pair is built on how anybody talks, because 33 words is far below the floor where that
@@ -3020,7 +2930,6 @@ quest says what it pays, because until 8/12 no quest could.
 
 NEXT IN THIS LANE: Q18 [black market].
 
-================================================================================
 WORDS (words-8dqrnq): 9/6 -- *** QUEUE EMPTY. NO TAKEABLE ROW. Every research row
 Q1 to Q17 is SHIPPED, and the only four rows left in this section are BUILD rows explicitly
 held until Paolo returns this lane to MODE: BUILD. I did not invent a job and I did not add
@@ -3363,7 +3272,6 @@ look. "All gates green" was true the whole time.
 
 NEXT IN THIS LANE: Q17 [wages fall].
 
-================================================================================
 WORDS (words-8dqrnq): 9/5 (n) -- *** VAMILY Q17 [rumour words] SHIPPED, AND THE
 WORDS RESEARCH QUEUE IS NOW EMPTY. 249 LINES NAME A PLACE YOU COULD WALK TO, 17 PASS
 ON SOMETHING SECOND-HAND, AND ZERO DO BOTH. *** Nothing to judge, MODE: RESEARCH,
@@ -3912,7 +3820,6 @@ mine and not this lane's.
 
 NEXT IN THIS LANE: Q16 [debt spiral].
 
-================================================================================
 WORDS (words-8dqrnq): 9/5 (m) -- *** VAMILY Q16 [cut off] SHIPPED. A CUT-OFF IS
 NOT SAID. IT IS A BREAKER TRIPPING AND THE FRIDGE STOPS, AND THE MOST COMMON WAY YOUR
 POWER GOES OUT IS YOUR OWN KETTLE. *** Nothing to judge, MODE: RESEARCH, nothing
@@ -4322,7 +4229,6 @@ blockers 22/0, language 81/0.
 
 NEXT IN THIS LANE: Q15 [first hour].
 
-================================================================================
 WORDS (words-8dqrnq): 9/5 (l) -- *** VAMILY Q15 [feed voice] SHIPPED, AND THE
 RESEARCH QUEUE Q1 TO Q15 IS NOW ALL SHIPPED. THE CITY FEED IS A PRESS RELEASE IN A
 WARM LOWERCASE COSTUME: EVERY POST THAT CARRIES ACTUAL NEWS HAS NO PERSON IN IT. ***
@@ -4682,7 +4588,6 @@ NO SYSTEM READ IT. READ THE CANON BEFORE RESEARCHING ANYTHING.
 
 NEXT IN THIS LANE: Q14 [rent share].
 
-================================================================================
 
 WORDS (words-8dqrnq): 9/5 (k) -- *** VAMILY Q14 [one-word answers] SHIPPED. MORE
 THAN A THIRD OF EVERY REAL ANSWER TO A QUESTION IS ONE WORD. WE HAVE FIVE ONE-WORD
@@ -5032,10 +4937,20 @@ without a tick. Mutation proved twice (the pre-9/11 code 3 fail, the glyph hole
   proof  python3 gates/bohemia_gates.py --only "STREET BREATHES"
          records/BOHEMIA_THE_STREET_BREATHES_9_11_26.md
          tools/bohemia_the_street_breathes.py
-  next   [music owned] continues. The two measured holes left in the street are
-         both HIS to fill (the dusk pool is a tagging job). The unmeasured ones
-         are the INTERIOR pool's variety and whether the hour chime and the bed
-         read correctly now that there is air for them to land in.
+  next   *** READ THE BOARD BEFORE CONTINUING: [sound card] WHAT-BOHEMIA-SOUNDS-LIKE
+         IS MARKED "TOP OF THIS LANE" AND IT IS STILL OPEN. *** It was not in the
+         copy of the rules this session first read, so it was missed for two
+         rounds. His 9/6 ruling names FINAL FANTASY X as the SOUND reference, not
+         only the interface one ("post-apocalyptic Final Fantasy X, especially
+         that fantasy beach vibe, it was so good"), and on 9/7 he NAMED THE
+         ANCHOR himself: FFX OST, BESAID ISLAND, the ORIGINAL not the remaster,
+         with the brief in four words off the picture he sent, WOULD YOU LIVE
+         HERE. The law is laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md
+         and the row already carries the research. THAT ROW COMES FIRST.
+         [music owned] then continues, and its two measured holes in the street
+         are both HIS to fill (the dusk pool of two is a TAGGING job, in the MUSIC
+         tab). The unmeasured ones are the INTERIOR pool's variety and whether the
+         hour chime and the bed read right now that there is air to land in.
 
 --------------------------------------------------------------------------------
 
@@ -5442,7 +5357,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
 
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
 - Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
@@ -5691,7 +5605,6 @@ CANON BEFORE RESEARCHING ANYTHING.
 
 NEXT IN THIS LANE: Q13 [printed money].
 
-================================================================================
 
 SOUND (sound-xk7pjp): 9/5 (f) LATEST -- *** THE DESERT WAS PLAYING A SUBURBAN
 
@@ -5755,7 +5668,46 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/12 (a) LATEST -- *** [more people] ROUND 8: THE PEAKS. A WALK
+LIFE + CITY (city-1eztay): 9/12 (b) LATEST -- *** [more people] ROUND 9: HALF OF ALL WALKS
+NOW MEET A CROWD, 5 OF 16 -> 8 OF 16. AND THE ROUND OPENED BY FIXING MY OWN BOARD LINE
+UNDER THE NEW RULE 11. *** MODE: BUILD. TAB: CITY, or just walk. Nothing to judge.
+
+  FIRST, RULE 11, WHICH LANDED 9/12 FROM EYES E16: a SHIPPED line keeps the ruling it
+answered, because an OPEN line cites one of his rulings 34% of the time and a SHIPPED line
+only 12% -- the line gets rewritten as a result summary when it lands and his words go with
+it. THIS LANE HAD DONE EXACTLY THAT: round 8 replaced the whole [more people] line and took
+the row's own brief ("dead is not the default"; the number is his, the mechanism is ours)
+AND the coordinator's 9/7 ruling with it. Both recovered verbatim from 9a44b85 and put back,
+with the result kept as an addition. The lane's other two recent lines were checked against
+the same rule and were clean ([tap picks] still carries PAOLO 9/8, [white rings] still
+carries his frame path).
+  *** AND THE ELEVEN MISSING WALKS HAD NOTHING TO DO WITH CROWDS. *** The near field
+rebuilt when he crossed a 512-CELL NEIGHBOURHOOD BOUNDARY -- an arbitrary line on a grid --
+so a 400-step walk got one or two chances at a crowd however far it went, and the rest was
+luck.
+  THE FIRST FIX WAS WORSE AND THE WALK SAID SO: anchoring the rebuild on HIS OWN POSITION
+measured 4 of 16, DOWN from 5, because every sixty cells it threw away the crowd he might
+have been walking toward and built another somewhere else. HE WAS CHASING A MIRAGE.
+  WHAT SHIPPED: THE ANCHOR IS THE CROWD. The field rebuilds when he has left the crowd
+behind, not when he has moved. A crowd he is approaching is never discarded -- it stands
+until he has genuinely gone past it, and only then does the next one form.
+  AFTER: walks that met a crowd 5 of 16 -> 8 OF 16; biggest group seen 14, unchanged; walks
+that met anybody 16 of 16, unchanged; empty standings 65 of 120, unchanged.
+  AND ONE OF MY OWN GATES CAUGHT A SLOPPY EDIT: hoisting the walking budget to the top of
+the function turned WALK_MIN into a bare 5, and never_empty_gate's A2 went red -- "the
+comment calls it a budget instead of pretending". The leg was right: a budget that stops
+looking like a budget is how a dial gets smuggled in. Restored to its name, 14/0.
+  GATE: gates/a_crowd_to_walk_into_gate.js 7/0, RATCHETED -- B1 now demands 6 of 16 where
+it demanded 3, so round 9's result cannot quietly slip back to round 8's. Mutation-tested:
+put the anchor back on his own position and it reproduces the worse cut exactly, 4 of 16.
+  RECORD: records/BOHEMIA_A_CROWD_IS_NOT_ONE_CROWD_9_12_26.md
+  THE ROW STAYS CLAIMED. Half of all walks meeting a crowd is the closest this row has been
+to its own ship test. EIGHT WALKS IN SIXTEEN STILL FIND ONLY THE FLOOR.
+  NEXT IN THIS LANE AFTER THAT: [tiles not slabs], [buildings appear], [power buildings].
+
+--- THE ROUND-8 BLOCK BELOW ---
+
+LIFE + CITY (city-1eztay): 9/12 (a) -- *** [more people] ROUND 8: THE PEAKS. A WALK
 MET A CROWD 0 TIMES IN 16 AND NOW MEETS ONE 5 TIMES IN 16; THE BIGGEST GROUP HE CAN GET IN
 FRONT OF WENT FROM 3 TO 14. *** MODE: BUILD. TAB: CITY, or just walk. Nothing to judge.
 
@@ -6957,7 +6909,6 @@ kept in ONE place in a file eleven lanes rewrite is not kept. ***
 THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
-================================================================================
 
 COOK (cook-mce6r5): 9/12 LATEST -- *** [city from above] ROUND 2: 56 OF 61 -> 61 OF 61, AND
 THE FIVE I NAMED AS "A DIFFERENT MECHANISM" WERE NOT ONE. *** Nothing on his screen changed;
@@ -7010,7 +6961,6 @@ FACE-03, CB-04, CB-05, DIST-04) with what was taken and what changed.
    a KNOWN GAP on this gate (92 vs REUSE-FIRST's 170 because of tools/*_patch.py); the hole is
    wider than that entry says. Their gate, their row; not fixed from here.
 
-================================================================================
 
 COOK (cook-mce6r5): 9/11 -- *** HAIR HAS 21 COLOURS, AND THE BUG WAS A SEVEN-ENTRY
 LIST, NOT A MISSING MECHANISM. Paolo ruled it directly this round: "The more the better I
@@ -7188,7 +7138,6 @@ THE BOARD JOBS, ALL THREE STILL CLAIMED AND PAUSED BY HIS RULING:
   [car recook]         art shipped; the placement half routed to LIFE + CITY.
   [fortress buildings] round 2 is the fortress wall; hazard is NO DISTRICT IS A PRISON (8/1).
 
-================================================================================
 
 COOK (cook-mce6r5): 9/11 -- *** THE ZOOMED-OUT CITY HAS NO ART IN IT AT ALL. The screen
 he photographed makes 73 fillRect, 8 strokeRect, 17 stroke() and ZERO drawImage -- 98 vector
@@ -7392,7 +7341,6 @@ reported 3 cars off G._cars, which is a stale field from a previous lot rather t
 setupEnemiesBody() is the function the fight itself calls to lay out a lot. NEVER TRUST A
 FIGHT NUMBER TAKEN FROM THE FIRST ENCOUNTER.
 
-================================================================================
 ANIMATION (animation-lr9y9i): 9/5 LATEST -- *** THE LIST HE COULD NEVER JUDGE FROM
 NOW MOVES. Every one of the 105 animations plays on its own row, next to its own
 thumbs, with what the audit measured about it. TAB: ANIMATION, the JUDGE ALL
@@ -7851,7 +7799,6 @@ kept in ONE place in a file eleven lanes rewrite is not kept. ***
 THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
-================================================================================
 
 
 COOK (cook-mce6r5): 9/5 LATEST -- *** THE TWO SHAPES THE CARD ASKS FOR BY NAME AND
@@ -7938,7 +7885,6 @@ number, which is DIRECTION's. The next OPEN line is [runway hair] HAIR-TO-THE-CA
 seven haircuts were remakes of shapes he had killed twice, and the answer was one
 grep away).
 
-================================================================================
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -7964,7 +7910,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
 
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
 - Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
@@ -8224,7 +8169,6 @@ banks-used, dialogue catalogue.
 NEXT IN THIS LANE: Q10 [market day], how real periodic markets work and what the
 best games do with a trading trip.
 
-================================================================================
 
 FACTIONS (factions-ovkjpf): 9/5 (round 2) LATEST -- *** [faction homes] STILL IN
 PROGRESS. THE ALPHABET WAS DECIDING THE GEOGRAPHY OF THE VALLEY, AND THE GATE
@@ -8466,11 +8410,9 @@ THIS BLOCK CARRIES HIS PERMANENT INSTRUCTION VERBATIM, BECAUSE HE ASKED FOR IT
 TO LIVE HERE SO IT SURVIVES A MEMORY RESET, AND BECAUSE A REBASE ONTO MAIN
 DROPPED THE LAST COPY OF THIS LANE'S BLOCK ENTIRELY. ***
 
-=============================================================================
 PAOLO'S PERMANENT INSTRUCTION, WORD FOR WORD (9/5). HE SAID: write it into your
 own handoff block first so it survives any memory reset. DO NOT EDIT, SUMMARISE
 OR "IMPROVE" THIS TEXT. It is his, verbatim.
-=============================================================================
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
 VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
@@ -8490,9 +8432,7 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-=============================================================================
 END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
-=============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
 THE JOB JUST SHIPPED: [make it right] NOTHING-IN-THIS-GAME-CAN-BE-FORGIVEN.
@@ -8981,7 +8921,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
 
 THIS ROUND -- *** [faction colour] THE-BODY-WEARS-THE-TERRITORY, ROUND 2. SHIPPED TWO
 FIXES AND WITHDREW ONE OF MY OWN FINDINGS IN PUBLIC. ***
@@ -9384,8 +9323,66 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
-================================================================================
 
+PLUMBER (plumber-ont6t5): 9/12 (b) LATEST -- *** CHAT 18. ROUND 17. [suite runs] IN PROGRESS, NOT
+SHIPPED. ALL 593 GATES RAN IN ONE PASS FOR THE FIRST TIME, and the number that falls out is the
+whole story: 500 green, 93 red, 13,001 s of gate work, and a FLOOR OF 71 MINUTES on this four-core
+box against a 45-minute budget and the row's 10-minute target. THE SUITE CANNOT FIT ITS BUDGET HERE
+AND SHARDING CANNOT CHANGE THAT -- sharding splits one 71-minute run into several; the box time is
+the same. The levers are less browser work or more machines, and that is a fork, not a coding task.
+*** THE NUMBER WAS HIDDEN BEHIND A STALE CENSUS, AND IT IS MINE. *** suite_finishes_gate computes
+the floor from a census of a real run; the census was built 9/6 from a TRUNCATED log, so it only
+ever saw the gates fast enough to be reached. It said the floor was 1,322 s (22 min, comfortable).
+The truth is 4,261 s (71 min, 58% over). Wrong by 3.2x in the flattering direction. A census taken
+from a run that could not finish is the most biased sample available -- NOTHING IS BAKED ONCE, in
+the one file whose job is to say whether the suite is healthy. Refreshed from the complete run; the
+gate is now red for the true reason instead of red for a stale input.
+TWO OF THE ROW'S THREE CLAUSES WERE ALREADY BUILT and I checked the runner instead of trusting the
+row: --shard i/n exists, interleaved, with a gate that counts the union and the multiplicity; and
+the never-ran count already prints, names the gates, and RETURNS 1. The third (retire the dead) the
+census itself routes to [dead gates]. So this row's buildable part was mostly done before it was
+claimed; what it lacked was the measurement.
+*** FACTION ARC IS NOT RED, IT IS BEING KILLED. *** 600.0 s is exactly GATE_CAP. It hit the ceiling,
+was killed, and is reported as a failure like any other, so it sits inside the 93 reds having
+verified NOTHING -- green over nothing, in red clothes, which is worse because a red sends somebody
+hunting a bug that is not there. It was 429 s in the old census, so it has grown past the cap. *** AND MEASURING IT OVERTURNED MY OWN FIRST ANSWER, ALREADY PUSHED. *** I wrote that almost all
+of the 600 s was repeated city boots, read off the source. MEASURED: one boot is 8.0 s, fourteen are
+112 s, and RUN ALONE WITH THE CAP LIFTED IT IS GREEN -- 102 passed, 0 failed, 1,228 s (20.5 min). So
+it is not a slow failing gate, it is 102 WORKING CHECKS ON THE FACTION SYSTEM THE SUITE HAS NEVER
+ONCE SEEN, filed under the 93 reds the whole time -- a RED over 102 real greens, which is worse than
+green over nothing. Boots are 9%. ONE SECTION IS 48%: K, WHAT ASKING COSTS, 594 s for 3 checks, so
+splitting the gate means splitting K and K alone is already near the cap. Reading the source told me
+where the time went and was wrong by five times. TIME IS MEASURED, NEVER READ. Splitting it is the biggest
+item left and it is a gate, so it is ours. (OPENING at 438.5 s is honest by contrast: it waits for
+the opening cinematic to actually play.)
+*** THE SUITE MUTATES THE TREE IT CHECKS. *** Mid-run, a build tool ran against the LIVE repo and
+rebuilt slices/BOHEMIA_SUBURB_WALK_7_18_26.html in place. Two consequences: the confirm pass then
+judged a different tree than the main pass (the runner's own words: green alone is "usually load,
+but a changed tree does this too"), and the rebuild exposed a SIXTH stale bake, +124/-1, missing
+FACTIONS' own 9/6 THE OTHER FOUR block. Restored, not committed -- slices are not this lane's to
+edit -- and named on FACTIONS. It is also the strongest argument for last round's design: the
+freshness gate regenerates in a throwaway worktree precisely so this cannot happen.
+AND IT FOUND A REAL HOLE IN LAST ROUND'S GATE: makers were discovered by reading headers, and that
+slice has no header, so its maker was invisible. Discovery-by-running covered outputs but not
+makers -- the same hand-kept-list weakness one level up. MEASURED AND NOW PRINTED EVERY RUN: 715
+files under tools/ write into the repo and the gate names 15 (2.1%). It cannot just run the other
+700 (most are one-shot PATCH tools that re-apply rather than re-derive), so coverage is published
+and RATCHETED: it may rise, never fall. Two more fixes to that gate, both found by the run and not
+by reasoning: it rewrote its own record on every suite pass because it stored its own runtime, and
+the missed maker is added with its drift frozen.
+THE RATCHET FIRED ON ANOTHER LANE WITHIN HOURS, which is the point of the whole design. COOK hit it
+on [hair colours] and took two files off the frozen list, leaving the reasoning in the file: the
+gate's own message named the command, BOTH SLICES INLINE THE ENGINE, and the +938/-55 was TWO WEEKS
+OF EVERY LANE'S ENGINE WORK sitting unrebuilt, not one careless bake. The list went 7 to 6 without
+this lane touching it.
+WHAT IS LEFT ON THE ROW: split FACTION ARC; decide what "every gate runs every time" can mean on one
+four-core box when the floor is 71 minutes; retire the dead ([dead gates]). ROW STAYS CLAIMED --
+ship test not met, and a half-done row marked SHIPPED is worse than an open one.
+records/BOHEMIA_EVERY_GATE_RAN_ONCE_9_12_26.md
+[CORRECTION TO MY OWN LAST NOTE] I wrote that the suite paces at two hours. That was measured while
+I was running worktree checkouts and eleven build tools on the same four cores -- I was timing my
+own interference. On a quiet box the main pass is about 2h05 for 593 gates with the budget lifted,
+and the FLOOR is 71 minutes. Do not quote the two-hour figure.
 PLUMBER (plumber-ont6t5): 9/12 LATEST -- *** CHAT 18. ROUND 16. [nothing baked] SHIPPED, AND IT
 FOUND FIVE MORE STALE BAKES ON ITS FIRST RUN, THREE OF THEM IN FILES THAT SHIP. The law NOTHING IS
 BAKED ONCE ends with the sentence "This one gets a gate: derived_freshness_gate" and nobody had
@@ -9552,6 +9549,99 @@ FILES. ***
 since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
+
+ROUND 28 [edit quests] DIRECT-COVERS-QUESTS, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_direct_bq.js      a quest as rows he can change, and back again
+  gates/direct_quests_gate.js      37 passed, 0 failed, REGISTERED the same round
+  slices/BOHEMIA_ALPHA_0_9.html    3 modules inlined, the array carries his SOURCE,
+                                   stage + role controls, + STAGE / + OBJECTIVE, PLAY
+  BUILD 9/12h - YOU CAN DIRECT A QUEST
+  records/BOHEMIA_YOU_CAN_DIRECT_A_QUEST_9_12_26.md
+
+THE RULING THIS ANSWERS, KEPT ON THE BOARD PER THE NEW RULE 11. Paolo 8/11: "Bro
+this is the same fucking problem we had with the questing shit! I CANT DIRECT
+QUESTS OR CUTSCENES RN WTF IS WRONG WITH YOU." The 8/12 law names eight verbs for
+anything ordered and one test: "where does he change this himself? If the answer is
+he tells me and I edit a file, the system is not shipped yet."
+
+MEASURED ON THE REAL ALPHA BEFORE A LINE WAS WRITTEN. A cutscene got all eight. A
+quest got five and a half, and two of the three gaps were in the alpha's own words:
+  - dirWhere() opened `if(DIR_MODE!=='cutscene') return;` -- 1142 bytes of controls
+    on a scene, 0 on a quest
+  - dirPlay() printed "Quests do not play in here yet"
+  - and the ADD row offered LINE, CHOICE, JOURNAL, so the half of a quest that
+    decides HOW IT ENDS -- COMPLETE or FAIL, how loud (his 7/21 clout ruling), what
+    it pays (shipped 9/11) -- was not in the tab in any form
+
+*** AND THE REASON WAS HONEST, WHICH IS THE WHOLE FINDING. *** The old row reader
+said so about itself: "deliberately not a full parser -- a director does not need
+@DO effects, and pretending to edit something that DOES NOT ROUND-TRIP would be
+worse than not showing it." That was RIGHT with a lossy reader. So the fix was never
+to show more of a lossy thing:
+  A LOSSY VIEW IS NOT A SMALL VERSION OF AN EDITOR. IT IS A CEILING ON ONE, AND YOU
+  PAY FOR IT LATER IN FEATURES YOU CANNOT BUILD.
+Rows are lossless now -- one per line of his file, each carrying its own line -- and
+every verb the law asks for is then simply allowed. The array carries each quest's
+SOURCE (397 KB, against 314 KB for the generated rows it replaced) and the rows are
+parsed in the browser by one parser, so there is nothing to drift.
+
+WHAT HE CAN DO NOW: end a stage (COMPLETE / FAIL / neither); set how loud it was (a
+picker over his four canon clout words, never a free text box that could invent a
+fifth); set what it pays (one of his three or nothing -- the amount is not a control
+because EVERYTHING COSTS ONE); + STAGE and + OBJECTIVE, with the next stage number
+read off his own file so it lands at 32 and not at 5; move the role's condition,
+which is a quest's real RELOCATE (its people are @ROLEs cast at runtime, so where it
+happens IS the condition, and a room picker would have been inventing a field the
+language does not have); and PLAY IT IN THE TAB.
+
+PLAY IS THE REAL PARSER AND THE REAL RUNTIME, 32 KB inlined, deliberately. The law's
+word is IMMEDIATELY and its phrase is "the thing he built, not a preview of a plan",
+and a second player written for the tab would have been exactly that preview.
+
+TWO BUGS I MADE, BOTH FROM ASSUMING AN API INSTEAD OF READING IT:
+  1. I called load() then read view(). A runtime that has not been STARTED returns
+     {ended:true}, so his quest would have opened on "It ends here" every time and
+     the quest would have been fine. It needs start(), available(), begin().
+  2. I chose options by screen position. view() drops options whose gate does not
+     hold, so the fourth thing he SEES is often not the fourth option in the file --
+     it would have quietly pressed a different line than the one he tapped. It
+     passes the option's own index now.
+
+*** THE CHECK THE NEGATIVE CONTROLS EARNED, AND IT IS THE ONE TO COPY. *** The gate
+already held that a forced rebuild of every line of every quest still PARSES and
+VALIDATES at zero errors and zero warnings. A mutation proved that was not enough:
+deleting COMPLETE from a stage leaves perfectly legal .bq, so validity stayed green
+while the rebuilder quietly threw away whether the job succeeded, and only an
+unrelated check about the clout tag noticed.
+A REBUILDER THAT LOSES MEANING WITHOUT LOSING LEGALITY IS THE WORST FAILURE THERE
+IS: his file comes back looking fine and playing differently. The gate now parses
+the original and the rebuild and compares WHAT THEY MEAN -- same stages, outcomes,
+clout tags, effects, routes.
+Four mutations, all caught: lossy rows (1a, 0/42), a dropped stage outcome (2b), a
+dropped route (2a, 2b), and PLAY running the shipped quest instead of his (R12, R13).
+
+TWO GATE CHECKS OF MINE WERE WRONG ABOUT HONEST CODE AND WERE FIXED, NOT LOOSENED:
+one demanded that editing ONE ending's pay silently rewrite the other three; the
+other searched the raw alpha for "Quests do not play in here yet" and found it in
+the QUOTED measurement in my own module header -- prose read as code, the same bug
+this lane fixed in the pay gate on 9/11. It reads the alpha's code now.
+
+GATES: direct_quests 37/0, direct 33/0, canon_quests 843/0, quest_study 642/0,
+the_job_pays 99/0, ask_for_more 43/0, alpha_loads 20/0, demo_build 25/0,
+shipped_truth 41/0, pages_publish 18/0, gate_registry 6/0, nomarkers 6/0.
+
+[STILL NOT MINE] tools/bohemia_direct_tab_patch.py now generates a row shape the
+alpha no longer uses. It is a whole-block replace that clobbered another lane in
+round 21 and I did not run it; whoever owns it should retire its parse_bq or point
+it at engine/bohemia_direct_bq.js, which is the one parser now.
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is stale and refuses to write:
+its QUESTS list holds 5 of the 37 the city carries. Sixth round flagging it.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] (still blocked, re-measured this
+round: bohemia_loop.js inlined in neither the city nor the alpha, 0 hits each, and
+the only reader of s.advanceTerritory is bohemia_loop.js line 681 -- SHARED's
+BB-LOOPLESS, still OPEN), [act two] PARKED BY HIM, [check the claim]
+YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE, [company in asks] (Paolo 9/11).
 
 ROUND 27 [haggling works] BB-ASK-FOR-MORE, SHIPPED. QUESTS, BUILD.
   engine/bohemia_haggle.js        the terms, headless
@@ -11602,7 +11692,6 @@ CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WO
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
 
-================================ HIS WORDS, VERBATIM ===========================
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
 VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
@@ -11622,7 +11711,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
 
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
 - Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
@@ -11866,7 +11954,6 @@ HAIR-TO-THE-CARD -- which must NOT start until the graveyard is read TO THE END 
 that lane (8/30: seven haircuts were remakes of shapes he had killed twice, and the
 answer was one grep away).
 
-================================================================================
 
 
 WORDS (words-8dqrnq): 9/5 (d) -- *** VAMILY Q7 [second meeting] SHIPPED. A SECOND
@@ -12061,7 +12148,6 @@ CHARACTER (character-0lurbs): 9/5 -- THE PERMANENT INSTRUCTION, KEPT WORD FOR WO
 Anything below this block is state. THIS block is the standing order, and it is copied
 here on his direct order so it survives a memory reset. Read it before anything else.
 
-================================ HIS WORDS, VERBATIM ===========================
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
 VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
@@ -12081,7 +12167,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
 
 THIS ROUND (round 3 of [clothes wired], still CLAIMED)
 - DIRECTION SHIPPED THE STYLE CARD (records/BOHEMIA_STYLE_CARD_9_5_26.md, 9/5). COOK's
@@ -12346,7 +12431,6 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-================================ END, VERBATIM =================================
 
 THIS ROUND (round 2 of [clothes wired], still CLAIMED)
 - Pulled main, re-read CLAUDE.md from disk, re-read the VAMILY front page, confirmed 05
@@ -12649,7 +12733,6 @@ dialogue catalogue.
 NEXT IN THIS LANE: Q6 [casino backstage], who runs a casino when the money is
 gone, and what a fortress actually produces.
 
-================================================================================
 
 WORDS (words-8dqrnq): 9/5 (a) -- *** HIS PERMANENT INSTRUCTION, WORD FOR WORD, SO IT
 SURVIVES A MEMORY RESET. IT REPLACES THE ONE IN THE 9/4 (d) BLOCK BELOW. THEN VAMILY Q5
@@ -12925,86 +13008,89 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [century stayed] WHO-STAYED-COUNTS is SHIPPED 9/12.
+HOLDING: nothing. [own power] YOUR-OWN-POWER-IS-YOUR-WAY-OUT is SHIPPED 9/12.
 
 WHAT SHIPPED
-  THE CENTURY RULE COUNTS BUILDINGS AND SOME PEOPLE, which is his 9/7 ruling word
-  for word: "buildings, and some people depending on how many years passed." A
-  person you kept counts for as long as they could still be alive across the
-  handoffs; after that what counts is WHAT THEY LEFT.
-  EVERY YEAR IS CANON SOMEBODY ELSE WROTE DOWN, CARRIED WITH ITS SOURCE, AND THE
-  GATE RE-READS THE SOURCE. ~100 years across three acts (the century law, clause
-  4), ~30 a handoff (bohemia_family.js in its own words), adult 41 and elder 65
-  ASKED of that module rather than copied -- BAND is private, so this probes the
-  module's public agePeople instead of reaching in, and the gate proves the reading
-  is live by ageing its own probe and checking both files agree to the year.
-  THE ONLY ARITHMETIC IN THE FILE: past living = elder + one whole handoff = 95, on
-  a dial, tuned:false. Nothing in this repo ages anybody to death and adding that to
-  bohemia_family.js would be editing another lane's system.
-  A PERSON YOU KEPT IS SOMEBODY UNDER A ROOF YOU PUT UP -- the century record has
-  stamped the household on every build entry since it was written, so nothing new is
-  stored and no second census is taken. A solar farm keeps nobody, which is an
-  answer and not a gap.
-  MEASURED ON A REAL RECORD, three homes in act one and two flats in act two:
-  act 1 -> 6 here; act 2 (thirty years on) -> they are 71 and still here, 10 here;
-  act 3 (sixty years on) -> the first six are 101, so 4 here and 6 who left what
-  they built behind them.
-  NEW: engine/bohemia_stayed.js, gates/century_stayed_gate.js (34 checks, registered
-  as CENTURY STAYED, suite 587, red both ways).
-  RECORD: records/BOHEMIA_CENTURY_STAYED_9_12_26.md
+  A GENERATOR ON YOUR LAND TAKES THAT BLOCK OFF THE BLOCK OWNER'S LINE. From the
+  9/5 generator-mafia research: the Lebanese families who built their own rooftop
+  solar were buying their way out of the block's owner.
+  BOTH HALVES WERE ALREADY BUILT AND THIS IS THE JOIN: [block rent] (FACTIONS, 9/12)
+  bills a cut per BLOCK of a faction's ground you used; [batteries mined] (mine,
+  9/11) makes solar, the battery farm and the substation mint. So this is NOT a new
+  charge and NOT a new table -- it is THE SAME BILL with your own blocks taken out
+  of it, which is why rentOn() is never touched: another lane's, already right.
+  THE BLOCK IS THE UNIT BECAUSE THE BILL IS, so two generators on one block is one
+  block, and the discount can NEVER go below zero or it would pay him rent.
+  MEASURED ON THE WALKED SURFACE: six blocks of their ground bills 5 batteries;
+  generators on his own ground take 3 blocks off the line; the bill goes 5 to 3.
+  The card says "3 blocks of yours run on your own power now, and it kept 2
+  batteries out of their hands -- Church noticed."
+  NEW: engine/bohemia_ownpower.js, gates/own_power_gate.js (29 checks, registered as
+  OWN POWER, suite 594, red both ways).
+  RECORD: records/BOHEMIA_OWN_POWER_9_12_26.md
 
-THE CHECK THAT MATTERS MOST, AND WHY IT NEEDED DRIVING
-  "after that what counts is what they left" IS A BRANCH, and in play today the act
-  never moves, because the generation fold is another line's job (QUESTS, parked).
-  A BRANCH THAT HAS NEVER EXECUTED IS NOT CODE, IT IS AN INTENTION -- so the gate
-  drives a real record through three acts, in node AND on the walked surface, and
-  watches six people become six who left what they built behind them.
+THE LINE THIS ROW MUST NOT CROSS, AND DID NOT
+  "the faction that owned the line notices (A STANDING HIT, A VISIT)". The hit is a
+  WEIGHT and bohemia_standing.js ships DEED_WEIGHT empty and says why; the visit is
+  an ENCOUNTER and those tables are his. [block rent] made the identical call one
+  row earlier. So the noticing is REAL, NAMED AND SAID OUT LOUD on the card, and the
+  size of the grudge is left to him. The gate asserts directly that this module
+  writes no standing and calls no encounter.
+  AND IT DID NOT FORCE THE DEED DOOR: witness() needs minds within sight and a
+  where() for each. A faction knowing about its own wire is not a person seeing you
+  do something, and pushing it through there would be the exact mistake [block rent]
+  wrote down about payTo -- using the function whose NAME matches rather than the
+  one whose QUESTION matches.
 
-ONE THING THAT LOOKED LIKE A BUG AND WAS THE GAME WORKING
-  Driving the surface by hand, I set the act back to 1 and the card still answered
-  for act 2. That is bohemia_century.js refusing to run backwards, by its own rule:
-  "a century that can run in reverse is not a memory". My probe was the confused
-  one, not the card. Worth keeping because the next person to drive acts by hand
-  will see exactly this.
+A CHECK OF ANOTHER LANE'S THAT I BROKE, AND HOW I FIXED IT
+  faction_towns_gate N12 pinned the literal string `rentOn(TURF_USED`. I now hand
+  rentOn a DISCOUNTED COPY of that map, so the name at the call site changed while
+  the source of truth is still turf -- and their check went red on a claim that is
+  still completely true. Widened to assert the same claim without pinning the name:
+  the rent body must still build from TURF_USED, still call rentOn, still ask
+  turfAt, and STILL NEVER MENTION payTo. That last half caught a real bug and is
+  untouched -- proved by putting payTo back and watching N12 go red again. FIXING A
+  RULER THAT GOT TOO LITERAL IS NOT LOOSENING A CHECK TO MAKE YOUR OWN WORK PASS,
+  and the difference is written into the gate beside the change.
 
-NEXT: read the WORLD section fresh; the coordinator harvests rows onto this queue
-constantly. As of this round the next OPEN line is [own power], which now has its
-dependency since [batteries mined] shipped, then [rice clock], [debt carried],
-[someone lends], [back of house], [water lifted], [battery worth], [fold carries],
-[visible change], [suburb walls], [full shelves].
+AND I FIXED TWO OF MY OWN SHIPPED LINES UNDER THE NEW FRONT-PAGE RULE 11
+  The coordinator added it 9/12 out of EYES E16: a SHIPPED line keeps the
+  [two-word label] AND the "Paolo <date>" citation exactly as the OPEN line carried
+  them; you may ADD the sha and a result clause, you never delete the ruling.
+  Measured there: an OPEN line cites one of his rulings 34% of the time, a SHIPPED
+  line only 12%, because the line gets rewritten as a result summary when it lands.
+  I checked all eleven of this lane's shipped rows against the OPEN text git still
+  has. Nine never carried a Paolo citation (BB- rows and coordinator calls). TWO OF
+  MINE HAD DROPPED ONE and are restored verbatim with the result added after:
+  [batteries mined] and [century stayed]. This round's line was written that way
+  from the start.
+
+NEXT: read the WORLD section fresh. As of this round the next OPEN line is
+[rice clock], then [debt carried], [someone lends], [back of house], [water lifted],
+[battery worth], [fold carries], [visible change], [suburb walls], [full shelves].
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
-7/31 with zero callers.
+7/31 with zero callers. That row is next, so this finally gets fixed.
 
-CORRECTING SOMETHING ANOTHER LANE PUBLISHED, because it cost me half a round:
-ECONOMY round 28 reported "HOUSING CAP IS EMPTY, so the century's housed column
-reads zero by law". IT IS NOT EMPTY. installCap() fills every residential type with
-BohemiaPopulation's researched HOUSEHOLD_MEAN of 2.2, and the walked surface calls
-it at boot. My own first node run reproduced their zero only because I had not
-called installCap. A table that reads empty until somebody installs it is not an
-empty table, and the difference is a whole feature.
+PIN THE BOARD SHA BY READING IT OFF MAIN AFTER THE PUSH, NEVER BEFORE. Last round I
+pinned a sha and the rebase in the push loop rewrote every commit, so the board
+pointed at something that does not exist on main. Run
+`git merge-base --is-ancestor <pinned> origin/main` on the BOARD line before calling
+a row shipped, the same containment check the ship flow already demands for deploys.
 
 STANDING DUTY THIS LANE HAS PAID FOR TWICE: re-check your gates' REGISTRATION every
 round, AND check it the way the registry checker reads the table rather than with
-your own grep. All seven of this lane's gates verified present this round, and 0
-rows are invisible to the checker.
+your own grep. All eight verified present this round, 0 rows invisible.
 
 [PENDING Paolo] -- nothing new from me.
 
-PIN THE BOARD SHA BY READING IT OFF MAIN AFTER THE PUSH, NEVER BEFORE. I pinned
-6245126 and the rebase in the push loop rewrote every commit, so the board pointed
-at a sha that does not exist on main. The real one is 8538cd0. Caught by running
-`git merge-base --is-ancestor <pinned> origin/main` and watching it say no -- which
-is the same containment check the ship flow already demands for the deploy, applied
-to the board line. Do that check every round before calling a row shipped.
-
-LAST SHIPPED: [century stayed] 8538cd0, 9/12. Before it: [batteries mined] 6562436,
-[parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
-[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
-[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
-[living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [own power], 9/12. Before it: [century stayed] 8538cd0,
+[batteries mined] 6562436, [parties move] 75ac79c, [a days work] 4f55d76,
+[shelves premise] 1f3d342, [enemies unite] aace2d9, [rung unlocks] 44dd7a1,
+[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
+[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
 
 
 
@@ -13013,15 +13099,12 @@ LAST SHIPPED: [century stayed] 8538cd0, 9/12. Before it: [batteries mined] 65624
 
 
 
-================================================================================
 PEOPLE (people-7h9sfy): 9/5 LATEST -- *** [demo talks] IN HAND. THE PERMANENT VAMILY
 INSTRUCTION IS WRITTEN VERBATIM BELOW SO IT SURVIVES ANY MEMORY RESET. ***
 
-=============================================================================
 PAOLO'S PERMANENT INSTRUCTION, WORD FOR WORD (9/5). HE SAID: write it into your
 own handoff block first so it survives any memory reset. DO NOT EDIT, SUMMARISE
 OR "IMPROVE" THIS TEXT. It is his, verbatim.
-=============================================================================
 PERMANENT INSTRUCTION. Do this now and every time from now on. Write it into your own handoff block first so it survives any memory reset.
 
 VAMILY is a keyword. It has NOTHING to do with families or dynasties. It means: go to the meeting hall and do your job. From now on I will only ever type that one word to you.
@@ -13041,9 +13124,7 @@ WHEN YOU SEE THE WORD VAMILY, DO EXACTLY THIS, EVERY TIME:
 RIGHT NOW: (a) write this whole instruction, word for word, into your own handoff block in 00_START_HERE_NEXT_SESSION.md; (b) then treat this message as your first VAMILY and do steps 1 to 9.
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
-=============================================================================
 END OF HIS INSTRUCTION. Everything below this line is this lane's own notes.
-=============================================================================
 
 THIS LANE IS 09 PEOPLE, MODE: BUILD, session slug people-7h9sfy.
 THE JOB JUST SHIPPED: [demo talks] TALK-REACHES-THE-DEMO (baab7c5).
@@ -13244,7 +13325,6 @@ engine sync (BOH_FLOORPLAN, 2 bodies), banks-used, dialogue catalogue.
 NEXT IN THIS LANE: Q5 [numberless economy], how the best games show scarcity,
 price and wealth without a spreadsheet, against our one-number rule.
 
-================================================================================
 DYNASTY (dynasty-w4yxiz): 9/5 LATEST -- *** WE SHIPPED BOTH HALVES OF THE
 COYOTE'S LIFE AND NEVER NOTICED THEY WERE THE SAME ANIMAL. RESEARCH ONLY,
 NOTHING BUILT. NOT IN A TAB. ***
@@ -13688,7 +13768,6 @@ prints).
 NEXT IN THIS LANE: Q4 [first building], what makes a placed building feel like it
 did something in the first ten minutes.
 
-================================================================================
 WORDS (words-8dqrnq): 9/4 (e) -- *** VAMILY Q4 [beat speech] SHIPPED. THE 120 BPM
 LAW HAS NEVER REACHED THE WORDS: OUR LINES LAND ON THE BAR AT 23.7% AND CHANCE IS 25%. ***
 MODE: RESEARCH, nothing implemented. TAB: NOT IN A TAB YET. Nothing to judge.
@@ -13835,7 +13914,6 @@ I will never paste anything to you again. From here on, the one word is the whol
 THIS CHAT'S ROLE: 13 ECONOMY (research). Claimed 9/5/26, session economy-knxaeh.
 SHIPPED SO FAR: Q1 [money dies], Q2 [money returns]. See the dated blocks below.
 
-================================================================================
 
 PEOPLE (people-7h9sfy): 9/5 (earlier) -- *** VAMILY [your reputation]. THE STANDING
 WEB CAN NAME A PERSON WHO WOULD SPEAK FOR YOU, AND SAY WHO TOLD THEM. Nothing to
@@ -14215,7 +14293,6 @@ A GATE.
 NEXT IN THIS LANE: Q3 [rebuild order], what people rebuild first, for the century
 rule's sequence.
 
-================================================================================
 
 LIFE + CITY (city-1eztay): 9/5 (a) LATEST -- *** VAMILY [builder works]
 BUILDER-ON-A-PHONE: SHIPPED. THE AERIAL BUILDER ANSWERS A THUMB. *** The job was
@@ -15326,7 +15403,6 @@ PREVIOUS ROUND -- *** VAMILY [save checked] SHIPPED. The harness
 that proves the save survives an iPhone had never been shown the people. TAB:
 RUN. Nothing to judge. ***
 
-============================ READ THIS FIRST, EVERY TIME ======================
 PERMANENT INSTRUCTION FROM PAOLO, 9/4/26, WORD FOR WORD. It lives here so it
 survives any memory reset. It outranks everything else in this block. He said:
 "I will never paste anything to you again. From here on, the one word is the
@@ -15361,7 +15437,6 @@ whole instruction."
 
 THIS LANE IS 01 THE RUN. MODE: BUILD. Never ask him which lane. Never ask him
 anything at all. Two words back, then work.
-===============================================================================
 
 THIS ROUND: BB-THE-GATE-WALKS-THE-PEOPLE, the row straight after the last one,
 claimed and pushed before starting per the front page.
@@ -15616,7 +15691,6 @@ implementation at all, because the lane is MODE: RESEARCH.
 NEXT IN THIS LANE: ECONOMY Q2, how money comes back, and the battery tested
 against every way a commodity money has ever failed.
 
-================================================================================
 WORDS (words-8dqrnq): 9/4 (b) -- *** VAMILY Q2. WE ALREADY TAG THE EMOTION ON 229
 LINES AND IT NEVER REACHES THE WORDS. *** MODE: RESEARCH, nothing implemented.
 TAB: NOT IN A TAB YET (research day). Nothing to judge.
@@ -15815,7 +15889,6 @@ what a bag of rice costs.
 
 RECORD: records/BOHEMIA_BATTERIES_ARE_THE_MONEY_9_5_26.md
 
-================================================================================
 
 CHARACTER (character-0lurbs): 8/31 (f) LATEST -- *** HE SAID ONE WORD, "VAMILY". THE
 FAMILY IN THE COLD OPEN WAS LESS ALIKE THAN FOUR PEOPLE OFF THE STREET, ON EVERY
@@ -16264,7 +16337,6 @@ Law: laws/BOHEMIA_LAW_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.md
 Record: records/BOHEMIA_THE_CUT_ASKS_WHO_YOU_BECAME_8_30_26.txt
 Tab: RUN (the opening) / CHARACTER (same controls on the bench) / DIRECT (move it)
 
-================================================================================
 FACTIONS (factions-ovkjpf): 8/30 LATEST -- *** THE MAN WHO GAVE YOU THE JOB NEVER
 FOUND OUT HOW YOU DID IT, AND IN THE DEMO NOBODY EVER COULD. *** Nothing to judge.
 
@@ -16422,7 +16494,157 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND (the one after [enter zoom]): THE REUSE-FIRST REDS. Not a row; a red gate on main
+THIS ROUND: [loot kept] IS SHIPPED, ALL THREE OF IT: fe43746 (the two outbound) and f8fe423 (the
+inbound), both shas read off main after the push.
+
+THE THIRD ONE, BB-THE-FIGHT-KNOWS-THE-DAY: enter(G,d,env) got HP, a roster, a package id and a
+stamina max and NO hour, NO weather, NO shade, then ran cleanSlate. The walked city organises its
+whole day around the heat and the arena was climate controlled. IT NOW ARRIVES KNOWING the clock,
+night, sunny/cloudy/rain, whether it is raining, how wet the ground still is, whether it is inside
+the heat window and WHETHER YOU ARE IN SHADE.
+EVERY NUMBER IS THE CITY'S OWN: T.min/T.day, isNight(), BohemiaWeather.at and wetness, the heat
+window READ OFF BohemiaPopulation.HEAT_FROM/HEAT_TO rather than copied (11:00-16:00 is what every
+person's heatTol is judged against; a second copy is a second truth), and shade derived from
+sunVec plus THE SAME CELL TEST THAT PAINTS THE SHADOWS, so being in shade means the shadow he can
+see. AND NO TEMPERATURE IN DEGREES: nothing in the repo holds one ("summer 40C+ afternoons" is a
+sentence in a comment), and putting 41C in a patch tool is authoring the climate of his valley.
+STAMPED IN ONE PLACE because V205 already routed all four entries through one door, so every way
+into a fight carries it and an entry built later gets it free. It rides as its OWN message ahead
+of the encounter (V200's pattern) so the shared handoff contract is untouched, and G.world
+survives cleanSlate the way G.cityRoom does. Said once on the bell, standing down for the
+teaching fight and for a quest objective, and echoed back out with the result.
+MEASURED AT TWO HOURS, because a payload right once can be a constant: 13:00 in the heat, not
+night, open ground; 23:00 night, not in the heat, all shade with the sun down; window [660,960]
+matching the population module exactly; degrees null. AND THE SHADE VARIES BY PLACE -- the same
+13:00 reads shade beside a building and open ground where the fight started.
+gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-proved both ways
+(delete the stamp -> 5 red; a local copy of the heat window that disagrees -> 1 red, named).
+NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
+Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
+
+QUEUE STATE: [loot kept] and [guns close] are both SHIPPED (efd64c7 carries [guns close] and the
+key-guard fix; sha read off main after the push). THE NEXT OPEN LINE IN THIS SECTION IS
+[rescue her] BB-PICKUP.
+
+[guns close]: "GUNS ARE BAD IN CLOSE. Forever, on every weapon." MEASURED FIRST AND THE BUILD WAS
+THE EXACT OPPOSITE, in its own comment: rangeT is 0 inside PT_BLANK, and the dial's pattern tier
+read "point blank pulls EASIER patterns, even on Bohemian". A gun was at its most forgiving with
+a man in your face, which is the stand-and-shoot fight the row exists to prevent.
+
+*** AND HALF OF THAT DEFECT IS PAOLO'S OWN RULING, SO IT IS UNTOUCHED. *** The men's up-close
+accuracy carries his words in the code beside it: "up close nothing moves, because up close was
+already lethal and that is his 7/27 ruling." A backlog row is OUR mechanism and his ruling is
+CONTENTS, so only the PLAYER's side moved -- and the two are not in conflict once you read what
+the row is for: a man in your face still hits you, AND your own gun is at its worst there. Both
+sides point the same way, which is the positional pressure the row wanted, and nothing of his was
+taken away to get it.
+
+*** AND "EVERY WEAPON" CANNOT MEAN A FLAT PENALTY, BECAUSE THE SHIPPED GUNS SAY OTHERWISE. ***
+WEAPON_ID calls the shotgun "brutal up close" and WEAPON_RANGE calls it "a knife with a bang"
+(eff 5, against the rifle's 20), and REALISM FIRST is a law. So the penalty is PROPORTIONAL TO HOW
+UNWIELDY THE GUN IS, derived from each weapon's OWN effective range: bands come out shotgun 2.25,
+pistol 2.7, smg 4.5, rifle 9 tiles. Nothing is exempt (the row's "every weapon") and the order is
+the weapons' own. THIS READING IS THE ONE JUDGEMENT IN THE PATCH; IT IS FOR THE COORDINATOR.
+
+THE RESULT, measured by walking the whole curve per weapon at the hardest difficulty: every gun
+now has a BEST distance and it is not in contact (shotgun tier 0 at 2.2 tiles against 2 in
+contact, pistol 0 at 2.6 against 3, smg 0 at 4.6 against 3, rifle 0 at 9.4 against 4). The
+readout says TOO CLOSE inside the band, because a dial that quietly gets mean is a bug to the man
+holding it.
+
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY THE FIRST RUN: (1) the band scaled with the LIGHT, because
+I read it through rangeMult() like every other distance, and on the bench that halved it -- a
+shotgun band of 1.1 tiles against a point-blank anchor of 4, so the constraint existed and could
+not be felt. It is wrong on its own terms too: how unwieldy a gun is in a doorway is PHYSICAL and
+the dark does not change it. (2) MY OWN GATE ASKED AN IMPOSSIBLE QUESTION -- it demanded contact
+be harder than the gun's stated effective range, which cannot be true for a pistol, because the
+shipped far curve already clamps to its hardest tier at 4.8 tiles while the pistol's eff is 6.
+Nothing can be harder than hardest. The arm walks the whole curve now and asks the row's actual
+question: does the gun have a best distance, and is it away from contact.
+
+gates/guns_close_gate.js 10/0, registered as GUNS CLOSE, an invariant over the WHOLE weapon table
+because the row demanded "an invariant over every weapon, not a habit". Mutation-proved: take the
+close end off the dial -> the dial arm red; one flat band for every weapon -> the order arm red.
+NO DAMAGE BEFORE THE DIAL: one constant, no damage number, and the band is derived from the
+weapon table rather than a second private table of per-gun numbers, which the gate also checks.
+Record: records/BOHEMIA_COMBAT_A_GUN_IS_IN_ITS_OWN_WAY_UP_CLOSE_9_12_26.md
+
+*** AND THE SAME ROUND I FOUND AND FIXED A REAL BUG I HAD ALREADY SHIPPED IN V206. ***
+fight_moves_you_gate went 170/0 -> 168/2 on two arms about abilities and verbs. THE CAUSE: every
+fight's setup calls keysLoad(), which REPLACED KEYS.taken with whatever localStorage held. On a
+fresh profile that key had never been WRITTEN, so the read returned null, the branch was skipped
+and keys held in memory survived -- which is why nobody had ever been bitten by it. V206's shell
+keeper then started mirroring the published list into that same key so the city could see your
+hand, AND THE FIRST THING THE FIGHT PUBLISHES ON BOOT IS AN EMPTY HAND. So the record said "[]"
+and the next fight handed back nothing: PATCH IT, LIGHT IT and SEND HIM (the ward, burn and dogs
+keys) dropped out of the kit.
+
+*** AND MY FIRST INSTINCT WAS WRONG: I CHECKED WHETHER IT WAS MINE AND CONCLUDED IT WAS NOT. ***
+The comparison ran the gate without [guns close], the row I was holding, read 168/2 there too and
+I called it pre-existing. It took a SECOND baseline, back to the slices from before any of my
+three rows this round, to read 170/0 and prove one of mine had done it -- then the tree with only
+[loot kept] read 168/2 and named it. A BASELINE THAT ONLY GOES BACK ONE COMMIT ANSWERS A DIFFERENT
+QUESTION THAN THE ONE YOU ASKED. And the measurement after that was ONE PROBE, not a theory: I had
+three guesses (a name collision, a second accuracy system, an unfinished wire) and all three were
+wrong. The probe staged the keys, ran the shipped setupCombat and read them back as an EMPTY ARRAY.
+
+HOW I SHIPPED IT: my lane pass for V206 ran the loot, zoom, entry, lab, demo-build and
+blob-integrity gates AND NOT fight_moves_you, because I had run it the round before and it was
+170/0. A GATE YOU RAN LAST ROUND IS NOT A GATE YOU RAN. The bug was in the one I skipped.
+
+THE GUARD IS THE RULE AND NOT THE SYMPTOM, at both ends: the FIGHT treats loading as restoring a
+hand and never as emptying one (if the record says nothing and you are holding something, the
+record is what is behind), and the SHELL never writes an empty hand over a real one (the cheapest
+place to not lose something is to not write the loss down). Either alone fixes it; both are there
+because they are two different mistakes. Its own tool, tools/bohemia_keys_guard_patch.py, because
+V206 is shipped and a repair has to land on a build that already carries what it repairs --
+applied twice in a row on purpose, the second run changes nothing. 170/0 again.
+Record: records/BOHEMIA_COMBAT_AN_EMPTY_RECORD_IS_NOT_EVIDENCE_9_12_26.md
+
+BB-LOOT-LEAVES. Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE
+the arena on 9/2 and never left it. A body drops rounds, experience, an item at 55%, a plate at
+22% and a boss key, all lying where he fell so you cross ground under fire for it -- and the
+fight's one message out was a body count and a health number. It carries took:{loot,xp,plates,
+keys,rounds} now, READ OFF G.rc, which cleanSlate rebuilds at the top of every fight and the
+pickup has been filling the whole time: a read, not a new mechanic, so it cannot disagree with
+what the readout said when he walked onto the body. Two things genuinely had NO per-fight
+counter and now do: a plate (there was a local for the readout line that died with the function)
+and a key (KEYS.taken is all-time and cannot answer "what did THIS fight give me"). And what you
+took is KEPT -- localStorage['bohemia.pocket'], the FIGHT'S own storage beside bohemia.tree and
+bohemia.keys, credited FROM THE PAYLOAD THAT JUST WENT OUT so the two can never disagree. RUN's
+bohemia.save.v1 is not touched: ONE SYSTEM, ONE SESSION.
+
+*** BB-KEYS-LAND STOPPED BEING TIDYING WHILE NOBODY WAS LOOKING. *** It was written 8/28 when
+nothing outside the fight read the keys. SOMEBODY BUILT THE READER ON 9/6: the walked city's
+ctLadderHeld(), whose own comment says "MEASURED 9/6: nothing outside the fight had ever read
+it." It reads window.parent.bohemiaKeys, the SHELL's global. The fight set the global on its OWN
+window and posted the message UNTYPED; the shell routes all twenty of its message types by
+d.type; so nothing ever caught it and THE BOSS LADDER IN THE CITY ANSWERED EMPTY HAND HOWEVER
+MANY KEYS YOU WERE CARRYING. The message has a type now, the shell keeps it (and mirrors it to
+storage, because the city can ask before combat has ever booted), and the old untyped field
+rides along for any reader written against the old shape.
+
+*** AND THE HARNESS HAD TO CHANGE TO SEE IT: gates/loot_kept_gate.js SERVES THE GAME OVER HTTP.
+*** The last link is one frame reading another frame's global. On file:// every frame has a NULL
+ORIGIN and they are cross-origin to each other, so that read THROWS however correct the build
+is, and the first run reported "the city sees nothing" on a build where the city sees
+everything. The deployed game is ONE ORIGIN OVER HTTPS. A file:// harness would have called this
+row impossible to finish. 9/0, mutation-proved both ways (strip the type, strip took -> 4 arms
+red naming the message, the pocket, the shell and the city, while the pickup stays green).
+
+AND ONE OF THIS LANE'S CHECKERS WAS PINNED TO A SPELLING: combat_lab_gate's V66 arm demanded the
+sendCombatEnd line verbatim and went red (929/3 -> 928/4) because this row captures the return
+value. The pin holds the DELEGATION and the function now; the win/loss routing checks are
+untouched; 929/3 again.
+
+STILL OPEN ON THE ROW, MEASURED AGAIN THIS ROUND: BB-THE-FIGHT-KNOWS-THE-DAY, the inbound half.
+enter(G,d,env) receives the player's HP, a roster, a package id and a stamina max -- no hour, no
+temperature, no weather, no shade -- and the first thing it does is cleanSlate. Meanwhile the
+walked city organises its entire day around the heat and every person in it carries a heatTol.
+NEXT ROUND STARTS THERE.
+Record: records/BOHEMIA_COMBAT_WHAT_YOU_TOOK_COMES_WITH_YOU_9_12_26.md
+
+THE ROUND BEFORE: THE REUSE-FIRST REDS. Not a row; a red gate on main
 with my lane's name on it, which the standing duties put ahead of the queue.
 
 *** AND THE FIRST THING I FOUND WAS MY OWN. *** gates/reusefirst_gate.py was RED with FIVE
@@ -17243,7 +17465,6 @@ WHAT COMES AFTER
 
 RECORD: records/BOHEMIA_THE_WORLD_YOU_CAN_WALK_TO_8_30_26.md
 
-================================================================================
 
 COORDINATOR (coordinator-checkin-1y6dtv): 9/5 (bf) LATEST -- *** THE MANAGER'S ROUND:
 FRIEND JOBS KILLED, SEVEN LANES SHIPPED, UI CHAT STILL READS VAMILY AS FAMILY, FIVE
@@ -19872,9 +20093,7 @@ CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carri
 embedded wardrobe bank far behind and nothing gates it; two duplicate top-level function
 names in COMBAT (CombatBridge, clampPkg).
 
-================================================================================
 
-================================================================================
 
 *** URGENT, FOR THE WORLD LANE, FROM RUN (8/28) -- HE REPORTED STREET FACING
 AGAIN TODAY AND A GREEN GATE HAS BEEN SITTING ON IT SINCE 8/15. ***
@@ -20162,11 +20381,8 @@ CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carri
 embedded wardrobe bank ~70 garments behind and nothing gates it; two duplicate top-level
 function names in COMBAT (CombatBridge, clampPkg).
 
-================================================================================
 
-================================================================================
 
-================================================================================
 
 COMBAT (combat-nfnki9): 8/28 (e) LATEST -- *** RF4-14 SAID OF ITSELF "NOT
 MEASURED, AND IT IS THE RIGHT QUESTION TO ASK OF OUR FIGHT". IT IS MEASURED NOW
@@ -20334,7 +20550,6 @@ Law: laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.m
 Record: records/BOHEMIA_SEVEN_HAIRCUTS_SEVEN_REMAKES_8_30_26.txt
 Tab: CHARACTER (try them on) / VOTE (thumb them) / RUN (the crowd)
 
-================================================================================
 
 
 WORLD (world-9lfjtf): 8/29 (d) LATEST -- *** ONE LINE HAD BUILT EVERY FREEWAY IN
@@ -20493,9 +20708,7 @@ CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carri
 embedded wardrobe bank far behind and nothing gates it; two duplicate top-level function
 names in COMBAT (CombatBridge, clampPkg).
 
-================================================================================
 
-================================================================================
 
 *** URGENT, FOR THE WORLD LANE, FROM RUN (8/28) -- HE REPORTED STREET FACING
 AGAIN TODAY AND A GREEN GATE HAS BEEN SITTING ON IT SINCE 8/15. ***
@@ -20783,11 +20996,8 @@ CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carri
 embedded wardrobe bank ~70 garments behind and nothing gates it; two duplicate top-level
 function names in COMBAT (CombatBridge, clampPkg).
 
-================================================================================
 
-================================================================================
 
-================================================================================
 
 COMBAT (combat-nfnki9): 8/28 (e) LATEST -- *** RF4-14 SAID OF ITSELF "NOT
 MEASURED, AND IT IS THE RIGHT QUESTION TO ASK OF OUR FIGHT". IT IS MEASURED NOW
@@ -20957,7 +21167,6 @@ GATES
 
 RECORD: records/BOHEMIA_THE_ROAD_MEETS_WHAT_IS_NOT_A_ROAD_8_28_26.md
 
-================================================================================
 FACTIONS (factions-ovkjpf): 8/28 (o) LATEST -- *** I SHIPPED A PROMISE
 YESTERDAY AND NOTHING KEPT IT. Now it does. Nothing to judge. ***
 
@@ -21245,9 +21454,7 @@ CARRIED, NOT MINE: RUN's person-card has no speech or face; the LIFE slice carri
 embedded wardrobe bank ~50 garments behind and nothing gates it; two duplicate top-level
 function names in COMBAT (CombatBridge, clampPkg).
 
-================================================================================
 
-================================================================================
 
 FACTIONS (factions-ovkjpf): 8/28 (n) LATEST -- *** THE TOP OF THE LADDER BOUGHT
 NOTHING FOR SIXTEEN DAYS, AND THE RUNG ITSELF SAID WHAT IT WAS FOR. Nothing to
@@ -21493,7 +21700,6 @@ RECORDS
   records/BOHEMIA_THE_VALLEY_WAS_STILL_GREEN_8_27_26.md
   records/BOHEMIA_THE_ROAD_STOPPED_IN_THE_MIDDLE_OF_THE_BOULEVARD_8_27_26.md
 
-================================================================================
 
 COMBAT (combat-nfnki9): 8/28 (h) LATEST -- *** A BOSS NOW HANDS YOU AN ABILITY
 THAT DID NOT EXIST BEFORE YOU BEAT HIM, NOT JUST A DOOR HE WAS HOLDING SHUT. ***
@@ -23317,9 +23523,7 @@ CARRIED, NOT MINE: RUN's person-card has no speech or face (another lane's file)
 slice carries an embedded wardrobe bank 47 garments behind and nothing gates it; two duplicate
 top-level function names in COMBAT (CombatBridge, clampPkg) found by talking_portrait_gate.
 
-================================================================================
 
-================================================================================
 
 FACTIONS (factions-ovkjpf): 8/28 (d) LATEST -- *** YOU COULD OPEN THE MAP OF THE
 VALLEY AND IT DID NOT SAY WHOSE GROUND WAS WHOSE. Nothing to judge. ***
@@ -25768,7 +25972,6 @@ verification from here on: three shards, not one run that quietly stops at 373.
   records/BOHEMIA_EVERYBODY_HAS_A_FACE_8_27_26.txt
   laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md
 
-================================================================================
 WORDS (words-8dqrnq): 8/26 (a) -- *** THE LANE OPENED AND THE FIRST THING IT DID WAS
 COUNT. Our quest scenes contract 2.2% of the time. Our street barks contract 75%. TAB: WORDS,
 open THE VOICE PASS at the top to see one scene written both ways. Nothing to judge. ***
@@ -26777,7 +26980,6 @@ WHAT THE NEXT CHARACTER SESSION PICKS UP:
   node tools/bohemia_garment_identity_audit.js   the audit, ruler and all
   records/BOHEMIA_THE_WARDROBE_HOLDS_AND_THE_RULER_DID_NOT_8_26_26.txt
 
-=========================================================================
 
 SOUND (sound-xk7pjp): 8/26 (a) -- *** THE DEMO BUILD EXISTS. Item A on the
 gap list, the one the coordinator put in capitals as the headline, is done: a
@@ -26960,7 +27162,6 @@ FIXING THE RULER, NOT THE TARGET:
   node tools/bohemia_garment_identity_audit.js   the audit that found them
   records/BOHEMIA_SEVENTEEN_GARMENTS_DREW_NOTHING_8_25_26.txt
 
-================================================================================
 
 SOUND (sound-xk7pjp): 8/25 (b) -- *** THE STALENESS GATE WAS GETTING
 HAPPIER EVERY TIME A SOUND DIED, AND RUN BEAT SPENT FOUR DAYS CALLING THE RUN
@@ -27216,7 +27417,6 @@ WHAT THE NEXT CHARACTER SESSION PICKS UP:
   node tools/bohemia_hair_identity_audit.js      the four identity rulers
   records/BOHEMIA_A_HAIRCUT_IS_ONE_HAIRCUT_8_25_26.txt
 
-================================================================================
 
 WORLD (world-9lfjtf): 8/25 (c) -- *** EVERY METAL THING IN THE CITY WAS ALSO WEARING A
 HOUSE ROOF. 25 steel objects now read as steel. And the tool that should have existed two turns
@@ -97769,4 +97969,3 @@ BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
 --------------------------------------------------------------------------------
 
       /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN. */
-    
