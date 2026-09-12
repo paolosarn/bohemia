@@ -48695,7 +48695,72 @@ function fightZoomIn(skin){
    door -- and all four used to hand over with a hard cut. They go through here
    now, so the picture is the same wherever the fight came from, which is the
    row's own sentence: SAME MOVE for a street fight and for a room. */
+/* ===== V207 __FIGHT_KNOWS_DAY__ -- THE WORLD RIDES IN WITH THE FIGHT ========
+   BB-THE-FIGHT-KNOWS-THE-DAY: the fight received a roster and a health number and
+   nothing about the world it is happening in. The desert is the setting of the
+   whole game and the arena was climate controlled.
+   EVERY FIELD IS READ OFF A SYSTEM THAT ALREADY OWNS IT. Nothing here decides
+   anything about weather, time or heat; it asks the city. */
+
+/* ARE YOU STANDING IN SHADE? Derived from sunVec() and THE SAME CELL TEST
+   shadowPass uses to paint the shadows -- walk back along the sun direction and
+   see whether a solid cell is close enough for its shadow to reach you -- so the
+   answer means the same thing as the shadow he can see on the ground. Two
+   separate rules for one shadow would drift the first time either moved. */
+function cityShadeAt(gx, gy){
+  var S=null; try{ S=(typeof sunVec==='function')?sunVec():null; }catch(_e){}
+  if(!S) return true;                 /* the sun is below the horizon: all shade */
+  for(var k=1;k<=SHADOW_MAX;k++){
+    var c=null;
+    try{ c=cellAt(Math.round(gx-k*S.dx), Math.round(gy-k*S.dy)); }catch(_e){}
+    if(!c||!c.s) continue;
+    var wh=c.wallH||((c.face||c.artPool==='hroof')?WALL_H:1);
+    if(k<=Math.max(1,Math.min(SHADOW_MAX,Math.round(S.len*wh)))) return true;
+  }
+  return false;
+}
+
+/* WHAT THE WORLD IS DOING, AT THE PLACE THE FIGHT IS HAPPENING. The place comes
+   from the encounter's own `at`, which every entry already fills in, so the shade
+   is sampled where the fight is and not where the camera happens to be. */
+function cityWorldNow(at){
+  var min=T.min|0, day=T.day|0, t=min/1440;
+  var w=null, wet=0, seed=0;
+  try{ seed=BOH_ONE_SEED(); }catch(_e){}
+  try{ w=BohemiaWeather.at(seed, day, t); }catch(_e){}
+  try{ wet=BohemiaWeather.wetness(seed, day, t)||0; }catch(_e){}
+  /* THE HEAT WINDOW IS THE POPULATION MODULE'S, not a copy of it: 11:00-16:00 is
+     what every person's heatTol is judged against, and the valley's people and
+     its fights must be hiding from the same sun. */
+  var hf=null, ht=null;
+  try{ if(typeof BohemiaPopulation!=='undefined' && BohemiaPopulation
+        && BohemiaPopulation.HEAT_FROM!=null){
+    hf=BohemiaPopulation.HEAT_FROM|0; ht=BohemiaPopulation.HEAT_TO|0; } }catch(_e){}
+  var hh=Math.floor(min/60), mm=min%60;
+  return {
+    day: day, min: min, hour: hh,
+    clock: ('0'+hh).slice(-2)+':'+('0'+mm).slice(-2),
+    night: (function(){ try{ return !!isNight(); }catch(_e){ return null; } })(),
+    state: (w&&w.state)||null,
+    raining: !!(w&&w.raining),
+    wet: Math.round(wet*100)/100,
+    inHeat: (hf!=null)?(min>=hf&&min<ht):null,
+    heatWindow: (hf!=null)?[hf,ht]:null,
+    heatFrom: 'BohemiaPopulation',   /* so a reader can see it is not a second copy */
+    shade: (at&&at.gx!=null)?cityShadeAt(at.gx|0,at.gy|0):null,
+    /* NO TEMPERATURE IN DEGREES. Nothing in this repo holds one -- "summer 40C+
+       afternoons" is a sentence in a comment -- and inventing a number for the
+       climate of his valley is not this tool's to do. */
+    degrees: null, draft: true };
+}
+/* ===== /V207 __FIGHT_KNOWS_DAY__ ===== */
 function cityHandOver(msg, skin){
+  /* V207 __FIGHT_KNOWS_DAY__: THE WORLD IS STAMPED ON EVERY ENTRY, IN ONE PLACE.
+     All four ways into a fight already come through this door (V205), so the
+     hour, the weather and the shade ride with a street bump, a crew, a road
+     party and a door into a room without four copies of anything -- and an
+     entry built after this one gets it without knowing it exists. */
+  try{ if(msg && !msg.world) msg.world=cityWorldNow(msg.at||null); }catch(_e){}
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}

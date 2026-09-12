@@ -2279,6 +2279,18 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('FIGHT KNOWS DAY', ['node', 'gates/fight_knows_day_gate.js'],
+     'THE FIGHT KNOWS WHAT TIME IT IS (VAMILY [loot kept] third of three = BB-THE-FIGHT-KNOWS-THE-DAY, '
+     'COMBAT 9/12). Measured: enter(G,d,env) received the player\'s HP, a roster, a package id and a stamina '
+     'max, and NO hour, NO weather, NO shade -- in a game whose walked city organises its entire day around '
+     'the heat and whose every person carries a heatTol. The desert is the setting of the whole game and the '
+     'arena was climate controlled. EVERY NUMBER IN THE PAYLOAD IS THE CITY\'S OWN: T.min, isNight(), '
+     'BohemiaWeather.at and wetness, the heat window READ OFF BohemiaPopulation rather than copied, and shade '
+     'derived from sunVec plus the same cell test that PAINTS the shadows. AND NO TEMPERATURE IN DEGREES, '
+     'because nothing in the repo holds one and inventing the climate of his valley is not a patch tool\'s to '
+     'do. This drives the real game at two different hours -- a payload that is correct once can be a '
+     'constant -- and checks the wire, the fight after cleanSlate, and the echo back out. NO DAMAGE BEFORE '
+     'THE DIAL: the fight knows the hour and does nothing with it', True),
     ('LOOT KEPT', ['node', 'gates/loot_kept_gate.js'],
      'WHAT YOU TOOK LEAVES THE FIGHT WITH YOU (VAMILY [loot kept] = BB-LOOT-LEAVES + BB-KEYS-LAND, COMBAT 9/12). '
      'Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE the arena on 9/2 and never '
