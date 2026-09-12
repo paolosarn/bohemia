@@ -1,0 +1,119 @@
+{
+  "bank": "EYES E18 [he can hear it] -- the axis card spec, round one of two",
+  "date": "9/12/26",
+  "draft": true,
+  "note": "SCHOOL ROUND. Nothing here is a measurement and nothing here is in the game. This is the spec round two builds, with every decision traced to the finding that forced it.",
+  "school_record": "records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md",
+  "the_anchor": {
+    "track": "BESAID ISLAND, FINAL FANTASY X Original Soundtrack, disc 1 track 18",
+    "composed_and_arranged_by": "Masashi Hamauzu",
+    "named_by": "Paolo 9/7, \"look at this song bro\"",
+    "which_version": "THE ORIGINAL, not the HD Remaster, his words",
+    "law": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md section 6"
+  },
+  "the_candidate": {
+    "name": "THE MARKER ON THE DOOR",
+    "his_words": "The marker on the door at full intensity is now one of my new favorite songs that you've made great job",
+    "ruled": "Paolo 8/2, batch 22 verdict",
+    "category": "OVERWORLD DAY, tagged by him",
+    "row": {
+      "root": 48,
+      "scale": [
+        0,
+        2,
+        4,
+        7,
+        9
+      ],
+      "wave": "sawtooth",
+      "kick": [
+        0,
+        4,
+        8,
+        11
+      ],
+      "bass": [
+        0,
+        4,
+        9,
+        12
+      ],
+      "hat": [
+        2,
+        6,
+        10,
+        14
+      ],
+      "lead": "brokenrosary",
+      "bassvoice": "abyssbass",
+      "pad": "nightpad",
+      "kit": [
+        "knock",
+        "tight"
+      ],
+      "mel": "longs",
+      "swing": 0.1,
+      "feel": "normal",
+      "intensity": "full",
+      "batch": 22
+    },
+    "where_it_lives": "the alpha and the demo. NOT in the walked city file, which is the permanently-NIGHT music gap the laws master already carries."
+  },
+  "axes": [
+    {
+      "axis": "tempo",
+      "ours": "120 BPM, fixed by the 120 BPM LAW",
+      "reference": "UNKNOWN. every public number is for a cover",
+      "comparable": "as a stated constraint only",
+      "why": "counter-finding (c): changing our tempo breaks a pillar law, so a gap here is not a defect"
+    },
+    {
+      "axis": "entry of the beat",
+      "ours": "first percussive onset in seconds, off a real render",
+      "reference": "CITED TEXT, from a source, no invented number",
+      "comparable": true,
+      "why": "the axis he actually responded to, and an onset time needs no beat tracker"
+    },
+    {
+      "axis": "bass",
+      "ours": "step pattern and named voice, presence and register off the render",
+      "reference": "CITED TEXT",
+      "comparable": "presence and register only",
+      "why": "a played bass line and a step pattern are comparable as floor-holding, not as performance"
+    },
+    {
+      "axis": "melody shape",
+      "ours": "pentatonic contour off the row, Parsons code plus DTW",
+      "reference": "CITED TEXT",
+      "comparable": true,
+      "why": "Parsons showed interval direction alone separates a large number of tunes; DTW handles two different speeds"
+    },
+    {
+      "axis": "instrumentation",
+      "ours": "a sawtooth through a synth voice",
+      "reference": "real violin, hand percussion, picked strings",
+      "comparable": false,
+      "why": "counter-finding (e): a synth patch and a violin are not two points on one ruler. what CAN be checked is the ROLE each voice plays: lead carries the tune, bass holds the floor, pad holds the room."
+    }
+  ],
+  "banned_by_school": [
+    "a similarity score, a percentage, or a ranking of 200 songs by distance from Besaid. Temp love outside, and our own 8/27 batch-25 post-mortem inside, both say a distance metric walks away from his taste.",
+    "any BPM or key lifted off a BPM database. Those entries are covers by Celestial Aeon Project, Franco Albertini, Josh Barron, Jeremy Ng, Game Soundtrack Cat and PianoDreams, spread from about 103 to 175 BPM, E major on one and C#/Db minor on another.",
+    "inheriting our own law's original-versus-remaster description, which points the opposite way to every source reachable this round.",
+    "reaching for the standard reference-comparison plugin. Metric AB and Reference 2 measure loudness, spectrum, stereo image, correlation and dynamics: production, not one of the five axes."
+  ],
+  "controls": [
+    "RENDER: the song must come back as sound, not silence. Reuse E12's tap.",
+    "OCTAVE ERROR: a click train at a known 120 reads 120, and the same train at half speed reads 60 and NOT 120. Mandatory, because the standard DBN's 55 BPM floor forces double-tempo on slow music and percussion presence changes performance.",
+    "CONTOUR: a melody against itself reads identical, against its own inversion reads maximally different.",
+    "BEAT ENTRY: a planted onset at a known time is found at that time.",
+    "all controls pass or no number is printed."
+  ],
+  "reuse_not_rebuild": [
+    "tools/bohemia_sfx_instrument_measure.py already reaches the live 602-voice rack in the one alpha",
+    "tools/bohemia_eyes_quiet.js already taps the audio graph and does BS.1770 loudness",
+    "loudness is matched before any A/B, which is the one thing the standard tool gets right"
+  ],
+  "no_ratchet": "Nothing here can only get worse, so nothing is frozen. What can go stale is a reference-side value with no source behind it, so any gate from round two holds that every reference value carries its own source string and is verified present, the shape PRE-JUDGE COVERAGE already uses.",
+  "what_this_lane_may_not_do": "decide whether the song is good. That is DIRECTION and SOUNDS. This lane reports numbers and says which side each one is from."
+}
