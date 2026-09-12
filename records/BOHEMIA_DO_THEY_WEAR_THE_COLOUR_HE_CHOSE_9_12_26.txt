@@ -1,0 +1,81 @@
+DO THEY WEAR THE COLOUR HE CHOSE? -- CHARACTER lane, 9/12/26
+VAMILY row [one colour table], round 1 (measurement, nothing built)
+
+=== THE ROW'S PREMISE IS MINE AND I NOW THINK IT IS WRONG ===
+I reported "two live faction colour tables disagree on 10 of 12" and asked which
+wins. That framing treats an AIM and a LANDING SPOT as two copies of one fact.
+  engine/bohemia_dress.js FACTION_LOOK   = the colour the picker AIMS at. Six are
+    his 7/21 clothing rulings; seven are copied BYTE FOR BYTE from the alpha's
+    MFACTIONS table, his own chosen accent per faction, and faction_dossier_gate
+    re-reads MFACTIONS every run and fails if one drifts.
+  engine/BOHEMIA_faction_colours.json    = the colour MEASURED off the rendered
+    wardrobe. Its own header says so.
+POINTING THE AIM AT THE LANDING SPOT IS NOT ONE SOURCE, IT IS A FEEDBACK LOOP:
+dress people from a measurement of dressed people, and every re-bake drifts further
+from what he picked. It would also delete his six 7/21 rulings outright.
+Same mistake this lane made twice last round, in a new place: COMPARING TWO THINGS
+THAT WERE NEVER THE SAME KIND OF THING.
+
+=== SO HERE IS THE QUESTION WORTH ASKING INSTEAD ===
+His table is the aim. The derived file is where the shot landed. DOES WHAT WE BUILT
+WEAR WHAT HE CHOSE? Nobody has ever measured that.
+
+Hue in degrees (0 red, 60 yellow, 120 green, 210 blue, 300 magenta).
+Under 30 degrees apart is still the same colour to a person.
+SHARE is how much of the coloured cloth is that hue; NEUTRAL is the dun fraction,
+which does not vote, because the style card allows one saturated piece per body.
+
+FACTION       HE CHOSE     HUE   BUILT   HUE    GAP  WEARS IT?  SHARE  NEUTRAL
+Caravans    #caa05a       38   #6c5b41    30      8        YES    67%      24%
+Colorful    #e85aa0      330   #60a136    90    120         NO    57%       4%
+Anarchists  #c026a0      312   #573f2a    30     78         NO    90%      10%
+Blues       #2e6fae      210   #2d5fb3   210      0        YES    94%       5%
+Homeless    #b8642a       25   #968b82     -      -  drab(law)    44%      44%
+Church      #d8a23a       39   #826c3e    30      9        YES    45%       8%
+Reds        #c0392b        6   #773229     0      6        YES    78%       5%
+Cartel      #a01818        0   #434042     -      -    drab(?)    39%      39%
+Trades      #d07a2a       29   #496558   150    121         NO    48%      14%
+Mob         #caa83a       46   #572f2a     0     46         NO    53%       5%
+Network     #1fbf9c      167   #465362   210     43         NO    62%       7%
+Volunteers  #5aae6a      131   #c1bdb5     -      -  drab(law)    69%      69%
+Remnants    #9aa23a       65   #4c5238    60      5        YES    46%       7%
+
+WEARS THE COLOUR HE CHOSE: 5 of 10 factions that are supposed to have a colour at all
+(3 are drab: Homeless drab(law), Cartel drab(?), Volunteers drab(law)).
+
+*** THESE FACTIONS ARE NOT WEARING WHAT HE PICKED ***
+  Trades      he chose #d07a2a, they wear #496558 -- 121 degrees off
+  Colorful    he chose #e85aa0, they wear #60a136 -- 120 degrees off
+  Anarchists  he chose #c026a0, they wear #573f2a -- 78 degrees off
+  Mob         he chose #caa83a, they wear #572f2a -- 46 degrees off
+  Network     he chose #1fbf9c, they wear #465362 -- 43 degrees off
+
+COLOUR IS TERRITORY (8/26, his words): "people get shot in Los Angeles for wearing
+the wrong color ... how we wanna communicate, like, who would defend us." A faction
+wearing a colour he did not pick is not a smaller version of that law working. It
+is the law not working, on that faction, completely.
+
+=== AND A SECOND FINDING, BIGGER THAN THE FIRST, FOUND BY TRYING THE ROW ===
+Before arguing that the row's prescription is wrong, I did it: repointed NETWORK in
+FACTION_LOOK from his teal #1fbf9c to the derived slate #465362, exactly as the row
+says, and ran the gate that the module's own comment says protects it.
+ALL 761 CHECKS STAYED GREEN.
+The comment in engine/bohemia_dress.js reads, word for word: "these seven hexes are
+copied from that table, byte for byte, and gates/faction_dossier_gate.py re-reads
+MFACTIONS out of the alpha every run and fails if a single one drifts - so nobody has
+to trust that I typed them right."
+NOBODY HAD TO TRUST IT AND NOBODY SHOULD HAVE. The gate did re-read his table, but it
+compared it against the DOSSIER FILES, never against the live FACTION_LOOK the game
+dresses from, and then threw those seven away one line later. They were checked for
+PRESENCE and never once for VALUE. A colour he had to choose twice could be changed
+by anybody, at any time, with nothing going red, under a comment saying it could not.
+A PROMISE IN A COMMENT IS NOT A GATE.
+FIXED THIS ROUND: the seven are now checked BY VALUE against his MFACTIONS table.
+faction_dossier_gate 761 -> 768 green, and proven to bite -- the same NETWORK edit
+now fails by name, naming his colour.
+
+=== WHAT THIS ROUND DELIBERATELY DID NOT DO ===
+Nothing was built and no colour was changed. WHICH faction owns which hue is HIS
+(MECHANISM-MINE / CONTENTS-PAOLO'S) and he answered it twice. The fix is to put a
+garment in his colour on the factions that are missing one, which is a COOK request
+and a wiring job, not a table edit, and it starts from this list.

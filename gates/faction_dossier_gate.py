@@ -652,6 +652,35 @@ def main():
     chk(len(ruled) == 13,
         'FACTION_LOOK should now carry all 13 map factions (his 6 plus the 7 from his own '
         'faction table); found %d' % len(ruled))
+
+    # *** THE MODULE PROMISED THIS GUARD IN A COMMENT AND THE GUARD DID NOT EXIST. ***
+    # (9/12, CHARACTER, found while answering VAMILY row [one colour table].)
+    # bohemia_dress.js says of these seven, in its own words: "these seven hexes are copied
+    # from that table, byte for byte, and gates/faction_dossier_gate.py re-reads MFACTIONS
+    # out of the alpha every run and fails if a single one drifts - so nobody has to trust
+    # that I typed them right."
+    # NOBODY HAD TO TRUST IT AND NOBODY SHOULD HAVE. This gate did re-read MFACTIONS, but
+    # it compared it against the DOSSIER FILES' dress.look, never against the live
+    # FACTION_LOOK the game actually dresses from, and then threw the seven away one line
+    # below (`ruled = {... if k in RULED_7_21}`). The seven were checked for PRESENCE and
+    # never for VALUE.
+    # MEASURED, by doing it: NETWORK was repointed from his teal #1fbf9c to a slate grey
+    # and all 761 checks stayed green. A colour Paolo had to choose twice -- "BRO WE
+    # ALREADY CHOSE COLORS FIND IT IN THE PROJECT" -- could be changed by anybody, at any
+    # time, with nothing anywhere going red, under a comment saying it could not.
+    # A PROMISE IN A COMMENT IS NOT A GATE. This is that promise, as a gate.
+    HIS_SEVEN = {k: v for k, v in FD.CHOSEN.items() if k not in RULED_7_21}
+    for k, his in sorted(HIS_SEVEN.items()):
+        live = (ruled.get(k) or {}).get('color') or ''
+        if k not in ruled:
+            continue                      # the count check above already owns a missing one
+        chk(live.lower() == his['acc'].lower(),
+            'FACTION_LOOK has %s on %s but Paolo chose %s for them in the alpha\'s own '
+            'faction table. These seven are HIS and they are copied, not decided here.'
+            % (live or '(none)', k, his['acc']))
+    note('%d of his faction-table colours now checked BY VALUE against the live '
+         'FACTION_LOOK, not just counted' % len(HIS_SEVEN))
+
     ruled = {k: v for k, v in ruled.items() if k in RULED_7_21}
     bank = read_bank()
     chk(len(bank) > 200, 'the wardrobe bank looks truncated (%d rows)' % len(bank))

@@ -8922,7 +8922,71 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [faction colour] THE-BODY-WEARS-THE-TERRITORY, ROUND 2. SHIPPED TWO
+THIS ROUND -- *** [one colour table] ROUND 1. I ASKED FOR THIS ROW AND ITS PREMISE WAS
+MINE AND THE PREMISE IS WRONG. Measured, said in public, and the round found something
+bigger underneath it. ***
+
+THE ROW: the coordinator turned my own [PENDING coordinator] into a job and put it top of
+this lane -- "two live faction colour tables disagree on 10 of 12; one source: the derived
+file, the dress module READS it and keeps no table of its own."
+
+*** WHAT THE TWO "TABLES" ACTUALLY ARE, read instead of assumed ***
+  engine/bohemia_dress.js FACTION_LOOK = an INPUT. The colour the picker AIMS a garment at.
+    Six are his 7/21 clothing rulings; seven are copied byte for byte out of the alpha's
+    MFACTIONS table, his own chosen accent per faction ("BRO WE ALREADY CHOSE COLORS FIND IT
+    IN THE PROJECT", 8/2, having to say it twice).
+  engine/BOHEMIA_faction_colours.json = an OUTPUT. The colour MEASURED off the rendered
+    wardrobe. Its own header says exactly that.
+ONE IS THE AIM AND ONE IS WHERE THE SHOT LANDED. Pointing the aim at the landing spot is
+not one source, it is a FEEDBACK LOOP -- dress people from a measurement of dressed people
+-- and it deletes his six rulings outright. My "10 of 12 disagree" compared two things that
+were never the same kind of thing, which is the same mistake this lane made twice last
+round in a different place.
+
+*** SO I DID THE ROW BEFORE ARGUING WITH IT, AND THAT IS WHERE THE REAL FINDING WAS. ***
+Repointed NETWORK from his teal #1fbf9c to the derived slate #465362, exactly as the row
+prescribes, and ran the gate the module's own comment says protects it.
+ALL 761 CHECKS STAYED GREEN.
+The comment reads: "these seven hexes are copied from that table, byte for byte, and
+gates/faction_dossier_gate.py re-reads MFACTIONS out of the alpha every run and fails if a
+single one drifts - so nobody has to trust that I typed them right."
+The gate DID re-read his table -- and compared it against the DOSSIER FILES, never against
+the live FACTION_LOOK the game dresses from, then threw those seven away one line later.
+CHECKED FOR PRESENCE, NEVER ONCE FOR VALUE. A colour he had to choose twice could be
+changed by anybody with nothing going red, under a comment saying it could not.
+A PROMISE IN A COMMENT IS NOT A GATE.
+SHIPPED: the seven are now checked BY VALUE against his MFACTIONS table. 761 -> 768 green,
+and PROVEN TO BITE -- the same NETWORK edit now fails by name and names his colour.
+
+*** AND THE MEASUREMENT THE ROW SHOULD HAVE ASKED FOR: DO THEY WEAR WHAT HE CHOSE? ***
+His table is the aim, the derived file is the landing spot, and nobody had ever measured
+the gap. Among the cloth that HAS a hue (the dun does not vote, per the style card):
+    WEARS THE COLOUR HE CHOSE: 5 of 10. Three are drab.
+    Trades      he chose #d07a2a, they wear #496558 -- 121 degrees off
+    Colorful    he chose #e85aa0, they wear #60a136 -- 120 degrees off
+    Anarchists  he chose #c026a0, they wear #573f2a --  78 degrees off
+    Mob         he chose #caa83a, they wear #572f2a --  46 degrees off
+    Network     he chose #1fbf9c, they wear #465362 --  43 degrees off
+FIVE FACTIONS ARE NOT WEARING WHAT HE PICKED, two of them a third of the way around the
+wheel. That is COLOUR IS TERRITORY not working on those factions at all.
+NOTHING WAS RECOLOURED: which faction owns which hue is HIS and he answered it twice. The
+fix is a garment in his colour on the five that lack one -- a COOK request plus wiring --
+and it starts from this list.
+
+AND A FOURTH READER THROWN AWAY, in the same family as last round's four: my first cut read
+his table with `[^\n]*?` and reported CARTEL "not in his table". Cartel's MFACTIONS entry
+carries a graveyard comment that wraps, so its acc: sits on the next physical line. Not a
+gap in his table, a gap in my reader, and it would have gone into the record as a fact
+about the game. It reads entry by entry now and throws if it finds fewer than 13.
+
+- Record: records/BOHEMIA_DO_THEY_WEAR_THE_COLOUR_HE_CHOSE_9_12_26.txt
+  Tool:   tools/bohemia_do_they_wear_the_colour_he_chose.js
+- ROW STATUS: still CLAIMED. The guard is shipped, but the row's own question -- one source
+  for faction colour -- is answered NO, THAT IS THE WRONG QUESTION, and the right one
+  (five factions do not wear his colour) needs cook work this lane does not own alone.
+  [PENDING coordinator] the row's prescription should be struck; the real job is the five.
+
+PREVIOUS ROUND -- *** [faction colour] THE-BODY-WEARS-THE-TERRITORY, ROUND 2. SHIPPED TWO
 FIXES AND WITHDREW ONE OF MY OWN FINDINGS IN PUBLIC. ***
 
 *** THE CORRECTION FIRST, BECAUSE IT IS THE MOST IMPORTANT THING IN THIS BLOCK. ***
