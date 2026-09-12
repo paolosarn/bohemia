@@ -12497,7 +12497,14 @@ rows are invisible to the checker.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [century stayed], 9/12. Before it: [batteries mined] 6562436,
+PIN THE BOARD SHA BY READING IT OFF MAIN AFTER THE PUSH, NEVER BEFORE. I pinned
+6245126 and the rebase in the push loop rewrote every commit, so the board pointed
+at a sha that does not exist on main. The real one is 8538cd0. Caught by running
+`git merge-base --is-ancestor <pinned> origin/main` and watching it say no -- which
+is the same containment check the ship flow already demands for the deploy, applied
+to the board line. Do that check every round before calling a row shipped.
+
+LAST SHIPPED: [century stayed] 8538cd0, 9/12. Before it: [batteries mined] 6562436,
 [parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
 [enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
 [held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
