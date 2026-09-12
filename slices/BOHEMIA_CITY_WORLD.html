@@ -41290,6 +41290,12 @@ var PPL_NEAR = new Map();          /* person id -> [x,y] borrowed onto his stree
 var PPL_NEAR_LIST = [];            /* and the people themselves, for the renderer */
 var PPL_NEAR_KEY = null;
 var PPL_NEAR_AT = null;   /* where the field was built, so it follows a walk and not a grid */
+/* __A_CROWD_IS_WHERE_HE_IS_GOING__ (9/12, round 10) -- WHERE HE STOOD AT THE LAST
+   REBUILD, which is the only way to know which way he is walking. The walked surface
+   has no heading of its own: nothing anywhere stores a facing for the player, and
+   inventing one would be a second source of truth for something the positions already
+   say. Two rebuilds apart IS the heading, and it costs one array. */
+var PPL_NEAR_FROM = null;
 /* THE BORROWED BODIES, AS A LIST. peoplePass gathers people by asking each visible
    neighbourhood who lives there, which by construction cannot find somebody who
    lives three neighbourhoods away and is standing here. Widening that window was
@@ -41352,6 +41358,12 @@ function pplNearField() {
            : 1e9;
   var key = (((T.min | 0) / 60) | 0) + ':' + seed + ':' + P.rulesVersion();
   if (PPL_NEAR_KEY === key && gone <= SCREEN0 * 3) return PPL_NEAR;
+  /* __A_CROWD_IS_WHERE_HE_IS_GOING__ (9/12, round 10) -- WE ARE REBUILDING, so this
+     is the heading for the crowd placed below: where he stood when the LAST field was
+     built, against where he stands now. Read before it is overwritten, and overwritten
+     here rather than at the end so an early return cannot leave it stale. */
+  var __wasFrom = PPL_NEAR_FROM;
+  PPL_NEAR_FROM = [hx, hy];
   /* *** NOBODY IS TAKEN AWAY WHILE HE IS LOOKING AT THEM. *** on_the_way_gate --
      this lane's own round-5 checker, which exists because people used to cross half
      a kilometre in sixty seconds -- went red at 104 journeys finished in under a
@@ -41533,13 +41545,70 @@ function pplNearField() {
        floor's lattice uses; a crowd within TWO screenfuls is the next thing he walks
        into, and beyond one SEE_RANGE so nobody ever forms up inside his own view. */
     var __SCREEN = SEE * 2 + 1;
+    /* __A_CROWD_IS_WHERE_HE_IS_GOING__ (9/12, round 10) =======================
+       ROUND 9 LEFT 8 OF 16 WALKS MEETING A CROWD AND I ASSUMED THE OTHER EIGHT
+       WERE TOO SMALL. THE PROBE SAID THE OPPOSITE, AND IT WAS NOT CLOSE:
+
+           of the 8 misses, crowd never big enough : 0
+                             big enough but BEHIND : 8
+                             big enough and ahead  : 0
+
+       Every single miss had a real knot of 12 or 13 standing in it, against a
+       threshold of 7. Not one walk failed for want of people. They failed because
+       the crowd was at his back. The tell was in the winning walks too: their
+       'ahead' sample counts were 1 to 3 against 23 to 49 behind, so even the
+       successes met the crowd in the first few steps and then spent the rest of
+       the walk leaving it.
+       THAT IS WHAT ROUND 8 BOUGHT AND NEVER SPENT. The crowd was already the right
+       size, already inside two screenfuls, already on good frontage. It was placed
+       on the best frontage in ANY BEARING, and a straight walk has even odds.
+
+       SO THE CANDIDATE SET IS CUT TO THE HALF-PLANE HE IS WALKING INTO, and the
+       SAME instrument picks the best frontage inside it. This is a FILTER, NOT A
+       WEIGHT, on purpose: a bonus added to the frontage score would be a tuning
+       constant nobody could defend, and "the crowd gathers on the best forecourt"
+       stays exactly as true as it was -- it just stops counting forecourts he has
+       already walked past.
+
+       IT IS NOT ROUND 9'S MIRAGE, AND THE DIFFERENCE IS THE WHOLE REASON THIS IS
+       SAFE. That cut REBUILT the field on his position every sixty cells, throwing
+       away the crowd he was walking toward. Nothing here changes when a field is
+       discarded: the anchor is still the crowd, a crowd he is approaching still
+       stands until he has genuinely left it behind. This only changes WHICH WAY the
+       NEXT one forms, once the old one is already gone.
+       AND IT FALLS BACK: with no heading yet (the first build) or no frontage
+       forward, it takes the best spot anywhere, which is exactly round 8's rule. */
+    var __hd = null;
+    if (__wasFrom) {
+      var __hdx = hx - __wasFrom[0], __hdy = hy - __wasFrom[1];
+      if (__hdx || __hdy) __hd = [__hdx, __hdy];
+    }
     var __spot = null, __sc = -1;
-    for (var __i = 0; __i < here.length; __i++) {
-      var __c = here[__i];
-      var __d = Math.max(Math.abs(__c[0] - hx), Math.abs(__c[1] - hy));
-      if (__d > __SCREEN * 2) break;
-      if (__d <= SEE) continue;
-      if (__c[2] > __sc) { __sc = __c[2]; __spot = __c; }
+    /* pass 1 forward only; pass 2 is round 8's rule, and runs only if pass 1 found
+       nothing -- so a street with no frontage ahead still gets its crowd */
+    for (var __pass = 0; __pass < 2 && !__spot; __pass++) {
+      for (var __i = 0; __i < here.length; __i++) {
+        var __c = here[__i];
+        var __d = Math.max(Math.abs(__c[0] - hx), Math.abs(__c[1] - hy));
+        if (__d > __SCREEN * 2) break;
+        if (__d <= SEE) continue;
+        if (!__pass && __hd) {
+          var __vx = __c[0] - hx, __vy = __c[1] - hy;
+          if (__vx * __hd[0] + __vy * __hd[1] <= 0) continue;   /* behind him */
+          /* *** AND NEAR HIS LINE, NOT MERELY IN FRONT OF HIM. *** A half-plane is
+             180 degrees wide: measured, a crowd inside it sat 80 degrees off his
+             line and he walked past at fourteen cells while SEE_RANGE is nine.
+             Four walks, hundreds of cells each, CLOSEST APPROACH 13, 14, 15, 15 --
+             never once inside seeing range. So the test is the PERPENDICULAR
+             offset from the line he is walking, and the number is SEE itself,
+             which is not a tuning constant but the definition of the thing being
+             asked: when he draws level with the crowd, it has to be close enough
+             to SEE. Integer cross product over the heading's length. */
+          var __hl = Math.sqrt(__hd[0] * __hd[0] + __hd[1] * __hd[1]) || 1;
+          if (Math.abs(__vx * __hd[1] - __vy * __hd[0]) / __hl > SEE) continue;
+        }
+        if (__c[2] > __sc) { __sc = __c[2]; __spot = __c; }
+      }
     }
     if (__spot) {
       /* how many make a crowd is the module's own settlement size, and never more than

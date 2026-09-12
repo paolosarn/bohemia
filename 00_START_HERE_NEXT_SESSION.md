@@ -6351,7 +6351,69 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/12 (d) LATEST -- *** [lab reds] LANDED ON MAIN AT 9ce4372, AND
+LIFE + CITY (city-1eztay): 9/12 (e) LATEST -- *** [more people] ROUND 10: 13 OF 16 WALKS NOW
+MEET A CROWD (8 -> 13), AND THE ROUND OPENED BY BEING WRONG ABOUT WHY, TWICE. *** MODE: BUILD.
+TAB: CITY, or just walk in any direction. Nothing to judge.
+
+  I ASSUMED THE EIGHT MISSES WERE CROWDS TOO SMALL. A probe that repeated the gate's own 16
+walks and recovered the knot from public state on every sample said the opposite, and it was
+not close: of the 8 misses, crowd never big enough 0, big enough but BEHIND 8, big enough and
+ahead 0. Every miss had 12 or 13 bodies standing in it against a threshold of 7. NOT ONE WALK
+EVER FAILED FOR WANT OF PEOPLE. Round 8 had already bought the crowd and never spent it: the
+spot was the best frontage in ANY BEARING, and a straight walk has even odds.
+
+  THE FIRST CUT WAS A HALF-PLANE AND IT BOUGHT ONE WALK, 8 -> 9, WHICH IS NOISE. The walk that
+went the OTHER way named the real cause: crowd ahead for 43 of 50 samples, peak seen 1. I
+suspected a CARROT -- the field re-placing it further ahead each rebuild so he chases it
+forever -- and MEASURED IT DEAD: on four misses with hundreds of cells of travel each, the
+anchor moved 0 or 1 times in a whole walk. The crowd stands still; round 9 is doing its job.
+What the same run did show:
+       walk 0  358 moves  closest he ever got 15        walk 1  399 moves, 398 net, closest 14
+       walk 6  271 moves  closest 15                    walk 7  376 moves, closest 13
+  SEE_RANGE IS 9. Walk 1 went 398 cells dead straight and passed the crowd at fourteen. A
+HALF-PLANE IS 180 DEGREES WIDE, so a crowd eighty degrees off his line is "ahead" by the dot
+product and he walks straight past it.
+
+  SHIPPED: the crowd must stand forward of him AND WITHIN ONE SEE_RANGE OF THE LINE HE IS
+WALKING -- the perpendicular offset, integer cross product over the heading's length. SEE is
+not a tuning constant here, it is the definition of the question: when he draws level with the
+crowd, it has to be close enough to SEE. Still a FILTER, NOT A WEIGHT (a bonus on the frontage
+score would be a constant nobody could defend), so "the crowd gathers on the best forecourt"
+stays exactly as true -- it just stops counting forecourts he has already walked past. Falls
+back to round 8's rule with no heading or no frontage on his line. THE HEADING IS READ, NOT
+INVENTED: the walked surface stores no facing for the player and adding one would be a second
+source of truth for what the positions already answer, so where he stood at the last rebuild
+against where he stands now IS the heading, at the cost of one array. AND IT IS NOT ROUND 9'S
+MIRAGE: nothing changes about WHEN a field is discarded, only which way the NEXT crowd forms
+once the old one is already gone.
+
+  AFTER: walks that met a crowd 8 -> 13 of 16. Floor UNMOVED, 16 of 16 still meet somebody.
+Biggest group 13. Three in the morning still 0, and that is correct.
+  MUTATIONS, RUN ON DISK, AND THEY RE-MEASURED THE HISTORY FROM THE OTHER DIRECTION: drop the
+perpendicular rule and keep the half-plane -> A3 and B1 red, walk reads 9 of 16; drop the
+heading entirely -> A4 and B1 red, walk reads 8 of 16. The gate can re-derive both earlier cuts
+rather than taking my word for them. B1 ratcheted 6 -> 11.
+  GATES: A CROWD TO WALK INTO 9/0 (A3 and A4 are new), NEVER EMPTY 14/0, ON THE WAY 8/0, ALIVE
+16/0, COMBAT LAB 932/0. Demo re-cut. Build stamp 9/13h A CROWD ON YOUR WAY.
+  Record: records/BOHEMIA_IN_FRONT_OF_HIM_IS_NOT_ON_HIS_WAY_9_12_26.md
+
+  TWO STANDING NOTES, AND THE SECOND IS THE ONE THAT KEEPS EARNING ITS KEEP:
+  *** IN FRONT OF HIM AND ON HIS WAY ARE NOT THE SAME THING, AND THE FIRST IS WORTH ALMOST
+NOTHING. *** A half-plane feels like aiming and is barely better than random. The useful
+version had to name the LINE, not the direction, and measure width in the one unit that
+already meant "he can see it".
+  *** THE THEORY THAT EXPLAINS THE FAILURE IS NOT THE CAUSE UNTIL IT IS MEASURED. *** Two
+plausible theories died in one round -- the cap, then the carrot -- each in a single probe run,
+because the measurement came BEFORE the fix instead of after it. Guessing first would have
+shipped the half-plane as a win at 9 of 16.
+
+  NEXT: the three remaining misses are all still "big enough but behind". Then the OPEN rows:
+[tiles not slabs], [buildings appear], [power buildings], [owner shown], [bill lands],
+[shelves seen].
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/12 (d) -- *** [lab reds] LANDED ON MAIN AT 9ce4372, AND
 GETTING IT THERE MEASURED SOMETHING THE WHOLE FLEET SHOULD SEE: THE FULL SUITE CANNOT RUN TO
 THE END ON THIS BOX, AND WHAT IT DID REACH WAS 15% RED. *** MODE: BUILD. TAB: none, gate
 round. Nothing to judge.

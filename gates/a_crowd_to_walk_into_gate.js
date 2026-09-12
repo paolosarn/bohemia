@@ -29,6 +29,34 @@
 
    AFTER, ON THE WALK:  0 of 16 walks met a crowd -> 5 of 16.  Biggest group seen 3 -> 14.
 
+   *** ROUND 10 TOOK IT TO 13 OF 16, AND IT OPENED BY BEING WRONG ABOUT WHY. *** I
+   assumed the eight misses were crowds too small. A probe that recovered the knot from
+   public state on every sample said the opposite, and it was not close:
+
+       of the 8 misses:  crowd never big enough  0
+                         big enough but BEHIND   8
+                         big enough and ahead    0
+
+   Every miss had 12 or 13 bodies standing in it against a threshold of 7. Not one walk
+   ever failed for want of people. Round 8 had already bought the crowd and never spent
+   it: the spot was the best frontage in ANY BEARING, and a straight walk has even odds.
+
+   THE FIRST CUT WAS A HALF-PLANE AND IT BOUGHT ONE WALK, 8 -> 9, WHICH IS NOISE. The
+   walk that went from met to missed is what named the real cause: the crowd was ahead
+   of him for 43 of 50 samples and he never saw it. A half-plane is 180 DEGREES WIDE, so
+   a crowd 80 degrees off his line is "ahead" and he walks straight past it. Measured on
+   four misses, hundreds of cells of travel each, with the crowd standing still (the
+   anchor moved 0 or 1 times in a whole walk, so it was never a carrot):
+
+       CLOSEST HE EVER GOT:  13, 14, 15, 15        SEE_RANGE is 9
+
+   Never once inside seeing range. SO THE TEST IS THE PERPENDICULAR OFFSET FROM THE LINE
+   HE IS WALKING, and the number is SEE itself -- not a tuning constant but the
+   definition of the question: when he draws level with the crowd, it has to be close
+   enough to SEE. 8 of 16 -> 13 of 16, and the floor did not move (16 of 16 still meet
+   somebody). THE LESSON: IN FRONT OF HIM AND ON HIS WAY ARE NOT THE SAME THING, and the
+   first is worth almost nothing.
+
    ROUND 9 TOOK IT TO 8 OF 16, and the change was not about crowds at all. The field
    rebuilt when he crossed a 512-cell NEIGHBOURHOOD BOUNDARY -- an arbitrary line on a
    grid -- so a 400-step walk got one or two chances at a crowd however far it went.
@@ -67,6 +95,25 @@ ok('A2 the crowd stands within two screenfuls and beyond one SEE_RANGE, in the r
    + 'own unit rather than a distance somebody liked',
    /var __SCREEN = SEE \* 2 \+ 1;/.test(CITY)
    && /__d > __SCREEN \* 2/.test(CITY) && /__d <= SEE\) continue;/.test(CITY));
+
+/* A3. AND IT STANDS ON HIS WAY, NOT MERELY IN FRONT OF HIM -- the round 10 rule, with
+   the repo's own SEE as the width. A half-plane test shipped for one measurement and
+   bought one walk in sixteen; this is what replaced it, and the leg names both the
+   forward test and the perpendicular one so neither can be dropped back to the other. */
+ok('A3 the crowd stands ON THE LINE HE IS WALKING -- forward of him AND within one '
+   + 'SEE_RANGE of his heading, so he is level with it while it is still close enough '
+   + 'to see, rather than anywhere in the 180 degrees a half-plane allows',
+   /__vx \* __hd\[0\] \+ __vy \* __hd\[1\] <= 0\) continue;/.test(CITY)
+   && /Math\.abs\(__vx \* __hd\[1\] - __vy \* __hd\[0\]\) \/ __hl > SEE\) continue;/.test(CITY));
+
+/* A4. AND THE HEADING IS READ, NOT INVENTED. The walked surface stores no facing for
+   the player; two rebuilds apart IS the heading. A stored facing would be a second
+   source of truth for something the positions already answer. */
+ok('A4 the heading comes from where he stood at the last rebuild against where he '
+   + 'stands now, so nothing invents a second source of truth for which way he faces',
+   /var PPL_NEAR_FROM = null;/.test(CITY)
+   && /var __wasFrom = PPL_NEAR_FROM;\s*\n\s*PPL_NEAR_FROM = \[hx, hy\];/.test(CITY)
+   && /if \(__wasFrom\) \{/.test(CITY));
 
 (async () => {
   const server = http.createServer((req, res) => {
@@ -156,9 +203,10 @@ ok('A2 the crowd stands within two screenfuls and beyond one SEE_RANGE, in the r
      different cuts that both passed a standing test. */
   ok('B1 *** A WALK MEETS A CROWD *** — ' + m.metCrowd + ' of ' + m.walks
      + ' walks saw ' + m.crowdIs + ' or more at once. It was 0 of 16 before round 8, 5 of '
-     + '16 when round 8 shipped, and 8 of 16 once the rebuild was anchored on the CROWD '
-     + 'instead of on a grid line',
-     !m.err && m.metCrowd >= 6);
+     + '16 when round 8 shipped, 8 of 16 once the rebuild was anchored on the CROWD '
+     + 'instead of on a grid line, and 13 of 16 once the crowd had to stand ON HIS WAY '
+     + 'rather than merely in front of him',
+     !m.err && m.metCrowd >= 11);
 
   /* B2. AND THE BIGGEST GROUP HE CAN GET IN FRONT OF. */
   ok('B2 the biggest group seen on a walk is ' + m.peakAll + ', and it was 3',
