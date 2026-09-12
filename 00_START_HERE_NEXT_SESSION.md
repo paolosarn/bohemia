@@ -14605,112 +14605,118 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [someone lends] WE-BUILT-THE-COURTHOUSE-AND-NEVER-ISSUED-A-LOAN is
-SHIPPED 9/13. [debt carried] shipped db51665 the round before and this is built on it.
+HOLDING: nothing. [back of house] THE-CASINO-HAS-NO-BACK is SHIPPED 9/13.
+Before it this round: [someone lends] 1ffb2d2, [debt carried] db51665.
 
-WHAT SHIPPED: SOMEBODY LENDS YOU BATTERIES, WHICH NOTHING IN THIS GAME DID
-  MEASURED FIRST AND THE ROW WAS EXACTLY RIGHT: zero hits for lend, loan or borrow
-  anywhere in engine/ that are not prose. The only two that read like credit are
-  BARKS in bohemia_people.js -- "Everything's a loan. The only question is who's
-  holding it." PEOPLE IN THIS GAME TALK ABOUT LENDING AND NOBODY LENDS.
+*** RULE 12 ON ITS FIRST OUTING, AND THE NAMED BLOCKER WAS NOT THE BLOCKER AGAIN ***
+  The row says "needs COOK for the rooms". MEASURED: not true, and that is the
+  seventh row running where the named blocker was not what stood in the way.
+  THE ROOMS EXIST. bohemia_floorplan generates twelve zones of real rooms; a casino
+  is zone `leisure` and already laid out concourse, counter, kitchen, locker,
+  restroom and service; a shop already gets a stockroom; a warehouse a dock;
+  bohemia_furnish already fills a stockroom wall to wall with racking and pallets;
+  67 tiles declare an `enter` line and the surface reads them. ALL OF IT GENERATED
+  AND FURNISHED BY CODE, so NOT ONE PIECE OF ART was needed for this row.
 
-  A LOAN IS NOT A NEGATIVE BALANCE, WHICH IS WHY THE PURSE NEVER HAD TO BEND. Its
-  own header: "Balances never go negative, so no hidden debt system exists by
-  accident -- debt would be canon, and canon is Paolo's." That rule was never in the
-  way. A real loan is TWO FACTS: the batteries really arrive (a credit, positive,
-  through the purse's own writer) and an obligation is recorded beside them naming
-  who it is to. The purse stays a purse and the book stays a book.
+WHAT WAS REALLY MISSING WAS TWO THINGS
+  ONE -- THE ONE ROOM THE ECONOMY ASKS FOR BY NAME WAS THE ONE ROOM IT NEVER GOT.
+  bohemia_economy's header, since 7/19: "deep casino/resort dry stores -- THE reason
+  downtown matters." `leisure` was the goods-heavy zone with no store in its list.
+  It has one now and it is the stockroom THAT ALREADY EXISTED and is ALREADY
+  FURNISHED. REUSE-FIRST: a new name would have been a new thing to draw, which is
+  the only part that would ever have needed COOK.
 
-  WHO LENDS IS THE GAME'S OWN ANSWER, NOT A NUMBER I PICKED. A lender is somebody
-  who gives before you have earned it, and bohemia_favour's GIVES table already
-  carries `owes:true` for exactly those outfits -- the same flag THE DEBT GETS
-  CALLED IN (8/18) was written about. MEASURED ON THE SURFACE: 4 lend, 12 will not.
-  A rung or a standing floor would have been a threshold nobody ruled, and it would
-  have disagreed with that table the moment either one moved.
+  TWO, AND THIS IS THE WHOLE ROW -- NOTHING THAT PAYS YOU COULD SEE ANY ROOM AT ALL.
+      bohemia_economy.YIELD = { site:{salvage:3.0}, scav:{salvage:1.2} }
+      bohemia_work          = ZERO occurrences of room, zone or interior
+  Two flat numbers, and the room never entered the arithmetic. A sweep through the
+  back of a casino paid exactly what a sweep across a car park paid. Every interior
+  in the valley -- built, furnished, walkable -- was INVISIBLE to the only thing
+  that rewards you for being in it. That is what "every job happens in a room that
+  does not exist" really meant: not that the room is missing, but that nothing could
+  see it.
 
-  ONE BATTERY ON A HANDSHAKE, BACK ONE A NIGHT -- the shape the night already has
-  for rent, so NOTHING NEW WAS INVENTED TO MAKE A LOAN BITE; it bites the way the
-  lights already bite. Runs after rent: the ground you stand on is collected before
-  a handshake is. How much you may owe, what interest is and how long they wait are
-  PRICES AND PRICES ARE HIS -- empty and enumerable in placeholders().
+AND THE FIX INVENTS NO NUMBER
+  The economy already has two kinds and already says what separates them: SITE is
+  working a real place that holds something, SCAV is sweeping, already 3.0 against
+  1.2, already untuned, already his. A DRY STORE IS A SITE. A CONCOURSE IS NOT.
+  The room wins BOTH WAYS: a dry store on a nothing block is still a site; a casino
+  concourse on a job district is still a sweep.
+  WHICH ROOMS HOLD GOODS IS DERIVED, NEVER LISTED. bohemia_furnish already says what
+  is in every room, so a room holds goods when the game already puts racking,
+  pallets or a fridge in it. The gate proves the join by EMPTYING the furniture out
+  of a stockroom and watching it stop holding goods. Six rooms qualify, none typed.
 
-  AND IT CAN BE PAID OFF, WHICH IS THE MECHANIC AND NOT A KINDNESS. 8/18 rule 2: an
-  interval that cannot close is a sentence, not a relationship. The account is
-  DELETED at zero, and INTEREST SHIPS EMPTY because a rate is exactly the thing that
-  would make the interval uncloseable.
+MEASURED INSIDE A REAL CASINO: 61 rooms; concourse, counter, locker and restroom a
+sweep; kitchen, service and stockroom a site; the button reads
+"WORK - 8H - THE DRY STORE, RACKING STILL STACKED".
 
-  IT RIDES [debt carried] FOR FREE. The one book gains a third kind and nothing else
-  changed: a loan is named on the nightfall card beside the favours and the rent,
-  dies at the fold, and leaves its lender standing -- with no part of that machinery
-  knowing what a loan is.
+*** AND THE FIRST RUN OF THAT PROBE HAD NO DRY STORE IN IT. *** The walked surface
+carries its OWN INLINED COPY of every engine module, and the floorplan is kept fresh
+by bohemia_city_module_resync.py, NOT by this lane's splicer (which only re-inlines
+the nine modules it owns). A SOURCE EDIT IS NOT A SHIPPED EDIT ON THIS SURFACE. One
+resync and the room appeared. Remember this for any row that edits an engine module
+this lane did not write.
 
-  A NIGHT YOU GO SHORT IS PUBLISHED AS A DEED, so it is witnessed by whoever is
-  standing there and retold across the acquaintance graph with the hops and decay
-  that were already built.
+A GUESS AT A FIELD NAME IS NOT A READ. The first cut asked the furnisher's pieces for
+.what / .name / .piece; the real field is .id. Every piece came back null, every room
+came back empty, and every room came back a sweep -- a silent no-op that looks
+exactly like a world with nothing in it.
 
-*** I ASSUMED THE WRONG REASON ABOUT THE STANDING AND MEASURING CORRECTED ME ***
-  I wrote into the module that a missed night moves no standing BECAUSE his
-  DEED_WEIGHT ships empty, waiting on a ruling. WRONG, and I shipped the sentence
-  before checking it. MEASURED: DEED_WEIGHT has 83 ROWS, every one keyed
-  q:<quest>:<stage>@<FACTION> -- the weights are DERIVED FROM THE AUTHORED QUEST
-  CORPUS, off the @DO lines. And NOT ONE of the five deed kinds the walked city
-  publishes is in it: claim:met, claim:refused, commit, favour and loan:short are
-  all missing. EVERY ACT THIS SURFACE PUBLISHES IS WITNESSED, RETOLD, AND WEIGHS
-  NOTHING. This one is the fifth in that position rather than a hole of its own.
-  ONE GAP FOR ALL FIVE, ROUTED, never patched with a number invented here.
+*** A REPAIR I MADE ON THE WAY, AND IT WAS NOT ALL MINE ***
+  My own control-character check from [debt carried] went RED ON ARRIVAL this round:
+  the walked surface had TWO CORRUPT BYTES in it.
+    - a NUL used as a map key separator (_o.faction + NUL + rung), which is the
+      EXACT mistake this lane made and fixed in its own module one round earlier,
+      made by another lane. Repaired to '::'.
+    - a backspace inside a comment where two word-boundary escapes were meant.
+  Either one stops a 4.8 MB file being a text file: grep calls it binary and every
+  gate that reads the city with a regex is one step from quietly lying about it.
+  AND MY OWN CHECK WAS WRITTEN WITH THE VERY BYTES IT FORBIDS: its regex escapes
+  landed as literal bytes, so gates/debt_carried_gate.js was ITSELF binary -- the
+  fault it exists to catch, in the file doing the catching. Built from character
+  codes now: no escapes, nothing for a writer to mangle, it says WHERE, and it
+  checks itself. DEBT CARRIED is 49/0.
 
-*** THE GATE WAS BROKEN TWICE AND THE MUTATIONS FOUND BOTH ***
-  1. IT RE-IMPLEMENTED THE BUTTON INSTEAD OF PRESSING IT. The surface drive ran
-     BohemiaLend.take and BohemiaPurse.credit side by side -- the handler's own two
-     lines copied into the test. Deleting the credit from the REAL handler, so the
-     loan recorded a debt and handed over nothing, left the gate GREEN.
-     *** A GATE THAT RE-IMPLEMENTS THE THING IT IS TESTING CANNOT SEE IT BREAK. ***
-     It now stands next to somebody from a lending outfit, opens their card the way
-     walking up to them does, and clicks. That mutation is red.
-  2. AND MY FIRST TRY AT THAT FOUND NO BUTTON AND I NEARLY BLAMED THE BUTTON. I used
-     ctDraw(), which only repaints the world; ctSawCell() + ctOpen() is what walking
-     up to somebody does. A negative result is a claim about your instrument until
-     you have shown the instrument could have seen a positive one.
-  3. AND ONE CHECK COULD NOT TELL A MENTION FROM A USE (8/1): "no threshold is typed
-     here" read the whole module and went red on its own HEADER, which explains why
-     no threshold is typed by naming the ones it refused to type.
+PROOF: BACK OF HOUSE 38/0, registered, driven on the walked surface AND the demo by
+  walking into a real casino and standing in every room. Red FIVE ways: take the dry
+  store back out -> 2; make the room stop deciding -> 6; hard-code the room list
+  instead of deriving it -> 1; stop the button naming the room -> 1; count every room
+  as a store -> 5. A DAY'S WORK 37/0 and DEBT CARRIED 49/0, both unchanged by this.
+  records/BOHEMIA_BACK_OF_HOUSE_9_13_26.md
 
-PROOF: SOMEONE LENDS 58/0, registered, driven on the walked surface AND the demo.
-  Red SIX ways: make the debt never close -> 3; let anybody lend -> 1; take the whole
-  lot in one night -> 3; never publish the deed -> 1; hand over nothing -> 1 (the one
-  that caught the gate itself); keep it out of the one book -> 3.
-  DEBT CARRIED 48/0, unchanged by the third kind.
-  records/BOHEMIA_SOMEONE_LENDS_9_13_26.md
+STILL OWED BY THIS ROW, named rather than glossed: "and steal from". Taking goods
+that belong to somebody is an act against a faction, not a yield, and it belongs with
+the deed machinery rather than the work button.
 
-ROUTED: whoever owns the standing web -- the five deed kinds the walked city
-publishes have NO WEIGHT AT ALL, because DEED_WEIGHT is derived from quest @DO lines
-and a city act is not a quest. The news travels and nobody's opinion moves. One row,
-five kinds.
+ROUTED, STILL OPEN FROM LAST ROUND: whoever owns the standing web -- the five deed
+kinds the walked city publishes (claim:met, claim:refused, commit, favour,
+loan:short) have NO WEIGHT AT ALL, because DEED_WEIGHT is derived from quest @DO
+lines and a city act is not a quest. The news travels and nobody's opinion moves.
 
 NEXT: read the WORLD section fresh. As of this round the next OPEN line is
-[back of house], then [water lifted], [battery worth], [fold carries],
-[visible change], [suburb walls], [full shelves].
+[water lifted], then [battery worth], [fold carries], [visible change],
+[suburb walls], [full shelves].
 
 NOT MINE AND UNCHANGED: market_gate 22/10. It still expects `resources` to be the
-money and has been red since the money became batteries on 9/5. Somebody whose lane
-that gate is should retire or rewrite it; it is the oldest red on this surface.
+money and has been red since the money became batteries on 9/5.
 
 STANDING DUTIES THIS LANE HAS PAID FOR: pin the board sha by reading it off main
-AFTER the push (a rebase rewrites every commit); check gate REGISTRATION the way the
-registry checker reads the table, not with your own grep; MUTATION-TEST EVERY CHECK
-including in a gate that is already green, because a tautology passes forever and
-looks like proof; and NEVER LET A GATE RE-IMPLEMENT WHAT IT TESTS -- press the
-button a player presses, or you are testing your own copy of the code.
+AFTER the push; check gate REGISTRATION the way the registry checker reads the table;
+MUTATION-TEST EVERY CHECK even in a green gate, because a tautology passes forever;
+NEVER LET A GATE RE-IMPLEMENT WHAT IT TESTS -- press the button a player presses; and
+RESYNC THE CITY after editing any engine module this lane's splicer does not own.
 
 [PENDING Paolo] -- nothing new from me. The one that touches these rows is FACTIONS':
 does a debt cross the fold. Built to follow whichever way he answers.
 
-LAST SHIPPED: [someone lends] 1ffb2d2, 9/13. Before it: [debt carried] db51665,
-[rice clock] 0f793c2, [own power] 38e3412, [century stayed] 8538cd0,
-[batteries mined] 6562436, [parties move] 75ac79c, [a days work] 4f55d76,
-[shelves premise] 1f3d342, [enemies unite] aace2d9, [rung unlocks] 44dd7a1,
-[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
-[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [back of house] <SHA>, 9/13. Before it: [someone lends] 1ffb2d2,
+[debt carried] db51665, [rice clock] 0f793c2, [own power] 38e3412,
+[century stayed] 8538cd0, [batteries mined] 6562436, [parties move] 75ac79c,
+[a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
+[rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
+[faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
+[battery money] ce39270.
 
 
 
