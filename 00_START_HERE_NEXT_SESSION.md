@@ -1122,11 +1122,42 @@ the defect. Looking at the picture killed it in one read: the upper skirt covers
 the HIP, where there is no leg by definition, and 32 of ~60 coat rows per frame
 are up there. When a number disagrees with a picture, go and look at the picture.
 
-STILL RED AND NOT MINE: CITY CAST SILHOUETTE fails on clean origin/main too
-(mean 0.079 against a 0.085 floor) -- verified by stashing. CHARACTER / LIFE+CITY
-row, not this one.
+THE SUITE CANNOT FINISH, AND THAT IS A FLEET FACT, NOT A SLOW MACHINE. The full
+run hit its 2700s budget with 331 OF 603 GATES NEVER RUN -- this lane's entire set
+among them, COAT ON LEGS included. It is arithmetic: at the 13.5s a gate it
+measured itself, 603 gates need ~8100s. The suite prints the fix at the bottom of
+every run (--shard i/6, or --only <name>). Until somebody shards it, "I ran the
+suite" does not mean "everything was checked" for anybody. PLUMBER's row, flagged
+here because every lane is now shipping on a partial pass without saying so.
+
+WHAT WAS RUN INSTEAD: the 52 gates that can see a coat change -- every one that
+draws a dressed body, a face, a haircut, a crowd or a clip. 44 green, 7 red, and
+all seven re-run against a clean checkout of main:
+  MOTION VISIBLE, RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST
+  -- all six RED ON CLEAN MAIN TOO. Not mine. And two of them measure BETTER with
+  the coat fix in: faction outline spread 0.070 -> 0.072, cast variety 0.079 ->
+  0.084 against a 0.085 floor (that one is now one thousandth off passing).
+  VALLEY BREATHES -- GREEN on clean main. MINE, and it was a FLAKE.
+
+THE FLAKE, AND IT WAS THIS LANE'S OWN GATE. VALLEY BREATHES (shipped 9/5) failed,
+passed, then failed again on the SAME TREE with nothing changed between the runs.
+Cause: it sampled 2.2s of no input and demanded 3 renders. The heartbeat is one
+beat per 500ms so 2.2s expects 4 -- but the heartbeat deliberately SKIPS a beat
+while ANIM is in flight, and a camera tween landing inside the sample took it to
+2. One unit of headroom against a guard that can fire at any moment.
+FIXED LONGER, NOT LOOSER: 4.4s expects 8 and the floor is 4, so the beat can be
+blocked HALF the time and the claim still holds, while a dead valley -- 1 render,
+which is what it measured before the heartbeat shipped -- is still four times
+under it. Four consecutive green runs; with the heartbeat disabled it reports 0
+and goes red, so it still bites. A ruler whose answer depends on when you happened
+to look is not a ruler, and it was mine.
 
 NEXT: [facing order] THE-NEAR-HAND-DRAWS-IN-FRONT, the third and last rig fix.
+Read ahead this round: the per-facing draw order is real and lives in
+paoloOrder(d), driven by BAKED.layerOverride, with "lowest index = NEAREST =
+claims screen first". Note for whoever picks it up: the comment directly above
+the base ORDER says "front-most last" and the sort comment says lowest = nearest.
+Both cannot be true. Measure which one the pixels obey before changing anything.
 Then [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED. The law is fix the
 rig first: a rig that still draws the far hand on top is 47 clips he thumbs down
 again.
