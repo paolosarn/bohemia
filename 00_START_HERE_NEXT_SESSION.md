@@ -1,84 +1,86 @@
-EYES AND EARS (eyes-5vql33): 9/11 (v) LATEST -- *** E16 [never opened] SHIPPED WITH BOTH ROUNDS.
-THE LINK BETWEEN HIS WORDS AND THE WORK IS NOT MISSING, IT IS DELETED. An OPEN row cites a ruling
-of his 34% of the time and a CLAIMED one 38%, but a SHIPPED row only 12%. The row gets rewritten
-as a result summary when it lands and the ruling it answered goes with it, so the link dies at the
-exact moment the work becomes history. That is why two separate attempts to compute "has he seen
-this" both came back near zero. *** TAB: NOT IN A TAB YET. No game code touched, ever.
+EYES AND EARS (eyes-5vql33): 9/12 (w) LATEST -- *** E17 [locked ignored] ROUND ONE OF TWO IS DONE:
+SCHOOL. NOTHING ON THE SHIPPED SURFACE WAS MEASURED. THE SWEEP AS WRITTEN CANNOT SEE ITS OWN
+EXAMPLE: the job says sweep "every line marked LOCKED", and the RIDGE ruling it cites is written
+"(locked, Paolo)" in LOWERCASE, at line 88 of the act-one opening vision. Counted: 747 uppercase
+LOCKED, 306 lowercase, 13 title case. THIRTY PER CENT OF THE CORPUS IS INVISIBLE TO THE OBVIOUS
+GREP, AND THE BRIEF'S OWN EXAMPLE IS IN THE INVISIBLE THIRTY PER CENT. *** E17 stays CLAIMED,
+round two is the sweep. TAB: NOT IN A TAB YET. No game code touched, ever.
 
-FIRST, THE PRIOR QUESTION IS ANSWERED YES, AND IT CORRECTS MY OWN SCHOOL ROUND. School said answer
-this before building anything: if nothing has ever got him to open a named thing, a rota is a file
-nobody opens. MEASURED: 76 verdict records on disk and 39 CARRY HIS OWN VERBATIM WORDS, oldest
-7/17, newest 9/7. A judge page has got rulings out of him thirty-nine times. My school round's
-counter-finding was too pessimistic: "he has thumbed zero" is true of those 127 garments, it is NOT
-true of the repo's history. A rota can ride on something that has worked 39 times.
+COUNTER-FINDING 1, AND IT RESHAPES THE WHOLE JOB: THE FIELD SPLITS THIS IN TWO AND THE JOB PICKED
+THE WRONG HALF. The architecture literature is explicit: "architecture erosion differs from drift;
+while DRIFT IS A DOCUMENTATION ACCURACY PROBLEM, EROSION IS THE ACTUAL DEGRADATION". So a law and
+a build that disagree are two different defects wearing one face.
+  EROSION: the ruling is current and the build broke it. A build defect. What the job assumes.
+  DRIFT:   the build moved on and the document did not. A DOCUMENT defect, and the build may be
+           the more current truth.
+  OUR TIEBREAKER ALREADY EXISTS: NEWEST DATE WINS. So every contradiction round two finds must
+  report WHICH SIDE IS NEWER. Reporting them all as "the build ignored him" would put a
+  documentation defect on a lane's record and, worse, would tell him his rulings are being ignored
+  when some of them were superseded by his own later words.
 
-TWO ATTEMPTS, BOTH FAILED, AND THE SECOND EXPLAINED THE FIRST.
-  ATTEMPT 1, MATCH A ROW TO HIS RULINGS BY WORDS: 3 hits in 205 and at least 2 SPURIOUS. PEOPLE
-  [your reputation] "matched" a quote about the player's daily hub; UI [one number] "matched" a
-  quote about phone numbers being personal. And the one that should obviously have matched did not:
-  BB-BATTERIES-ARE-THE-MONEY came back UNSEEN, because THERE IS NO QUOTE OF HIS containing both
-  "batteries" and "money" -- CLAUDE.md's "Batteries are the money" is a SUMMARY, not his words, and
-  the precision-first bar correctly refused it. THE FINDING: THE BOARD'S ROWS AND HIS RULINGS DO
-  NOT SHARE A VOCABULARY. Rows are named after mechanics, he talks about intent. Abandoned, with
-  the false positives written down as the evidence for abandoning it.
-  ATTEMPT 2, THE EXACT LINK THE BOARD ALREADY CARRIES (a row built off a ruling usually quotes him
-  in its own text): 4 of 205, 2%. So low it demanded its own explanation, and that is where the
-  real finding came from.
+COUNTER-FINDING 2: ONE OF THE TWO EXAMPLES IS ALREADY FIXED, AND IT WAS FIXED BY CHANGING THE
+DOCUMENT. CLAUDE.md now reads "Gen 1 Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo
+9/7". The Animal contradiction the brief offers as evidence closed on 9/7, by making the document
+current, which is the drift reading and not the erosion reading. A brief written on 9/6 describes a
+9/6 repo, so round two re-checks both examples on the surface before quoting either.
 
-THE MECHANISM, MEASURED: open 34%, claimed 38%, SHIPPED 12%, a gap of 22 points. The citation is
-present while the work is in flight and gone once it lands. SO THE ANSWER TO THIS JOB IS NOT A
-LIST, IT IS ONE FIELD: keep the ruling citation on the row when it ships and coverage becomes
-computable forever, by anybody, in one grep. Which is exactly what school's first finding said --
-real production trackers make this a STATUS and our board has no field for it.
+COUNTER-FINDING 3: MOST LOCKED RULINGS ARE NOT MACHINE-CHECKABLE AT ALL, and claiming 747 verdicts
+would be fiction. A LOCKED line is usually intent: what the world is, what a thing means, how he
+wants it to feel. So round two's FIRST output is not verdicts, it is a classification reported as
+the headline: MACHINE-CHECKABLE, ONLY BY LOOKING, NOT CHECKABLE. A number in the first column is
+worth more than 747 guesses.
 
-THE MATRIX: 205 shipped rows graded, 201 carry no citation of a ruling of his, and 58 of those sit
-in the first minute of the game. Biggest blocks with no ruling cited: ECONOMY 28, DIRECTION 23,
-WORDS 17, DYNASTY 17, and EYES AND EARS 15, which is my own lane and the fair place for that
-number to land.
-  AND WHAT THE MATRIX DOES NOT SUPPORT, said plainly: it does not support "he has never seen these
-  201 things". It supports the narrower true claim, that NOTHING ON THE BOARD RECORDS THAT HE RULED
-  ON THEM. Those are different statements and this lane will not blur them.
+COUNTER-FINDING 4: "A LINE MARKED LOCKED" IS NOT "A LOCKED RULING OF HIS", AND THE GAP IS FIVE TO
+ONE. Of the 747 uppercase mentions, only 161 are in the form "Paolo <date>, LOCKED". The rest are
+lanes writing LOCKED about their own decisions, which is legitimately how this repo freezes a
+mechanism. BUT A LANE'S OWN LOCK IS NOT HIS RULING, and treating them alike would put a lane's
+words in his mouth, which is the worst error this particular lane could make.
 
-THE ONE ITEM FOR THIS ROUND, BY RISK AND NEVER BY AGE:
-  WORLD [living costs] BB-FOUR-VERBS-THREE-CURRENCIES -- shipped, no ruling of his on the row, and
-  it sits in the first minute: the day eats food, the fight eats tape, the night eats power, asking
-  eats clout. One item, not a list, because a list aimed at one person is the queue EVERYTHING IS A
-  THUMB abolished. The other two hundred do not wait.
+WHAT SCHOOL HANDED OVER:
+  THE GAME-DOC LITERATURE IS BRUTAL AND IT BLAMES THE DOCUMENT. "If it has drifted from the build,
+  the document has already failed." "The monolithic hundred-page bible is functionally dead...
+  the moment the build moves, the document is wrong." "A GDD goes stale when changing it is slower
+  than changing the game." "When the design changes, change the doc the same day." Our laws/ holds
+  435 FILES, which is that bible several times over, grown by accretion, which is the exact failure
+  mode named. So the prior going in is not "the lanes ignore him", it is that some fraction of 747
+  lines are simply older than the game.
+  THE CURE IS AN EXECUTABLE RULE, AND OUR PILLAR LAW IS ALREADY THAT SENTENCE. "A diagram answers
+  what did we INTEND. It never answers what is the structure RIGHT NOW. An executable rule converts
+  a statement into something the pipeline can evaluate." And the BDD side: a scenario is spec, test
+  and documentation at once, so the requirement must stay current or the test fails. That is
+  A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, word for word, and E11 already found the worst case
+  of the class: a gate the law index PROMISED and that did not exist. Round two reuses that.
+  AND THE TRACEABILITY DIRECTION IS THE OTHER ONE FROM E16: that was forward (a ruling with no
+  work). This is BACKWARD: from the shipped thing back to the ruling it was supposed to satisfy.
 
-RULE ZERO EARNED ITS KEEP. Eight controls, and one FAILED on the first run and caught a real bug:
-"a thing he demonstrably ruled on is findable in the corpus (the UI at 50%)". The harvester matched
-quotes across the whole file, so ONE unbalanced quote mark put every later pairing off by one, and
-the harvest came back with sentences glued to board rows -- one "quote" ended with
-"- SHIPPED 9/7 8a13045". A quote may not cross a newline now. The corpus went from 690 garbled
-strings to 341 real quoted rulings of his. WITHOUT THAT CONTROL I WOULD HAVE PUBLISHED A MATRIX
-BUILT ON NONSENSE AND IT WOULD HAVE LOOKED FINE.
+ROUND TWO'S SPEC: harvest case-insensitively, including the "(locked, Paolo)" parenthetical form.
+Split HIS from A LANE'S. Classify before verdicting. Then four verdicts, and each names whose
+defect it is: SATISFIED (nobody's), EROSION (the build's, his ruling is newer), DRIFT (the
+document's, the build is newer), UNENFORCED (no gate at all, reuse E11). Reuse E11's reader set and
+E13's surface sweep rather than rebuilding either.
+  RULE ZERO: a planted law the build satisfies must read SATISFIED; a planted law the build
+  contradicts must read CONTRADICTED; and the one that matters most, A PLANTED LOWERCASE
+  "(locked, Paolo)" LINE MUST BE FOUND, because missing it is the failure that silently hides
+  thirty per cent of the corpus. All three pass or no number is printed.
+  RATCHET: freeze EROSION only. DRIFT is a documentation backlog that grows honestly as the game
+  moves, and ratcheting it would red the suite for other lanes doing correct work. Same reasoning
+  as E16's citation gap and E11's two reported-not-ratcheted numbers.
 
-THE GATE: registered as SEEN BY HIM and it holds ONE number, the citation gap, frozen at 22 points
-and may only shrink. Closing it means rulings survive shipping. It deliberately does NOT hold a raw
-count: new rows arrive honestly and would push any absolute number around, while the gap is immune
-to growth because both halves move together when the board gets bigger. Same lesson as the NO
-READER gate, which went red for the whole fleet inside a minute on a byte-exact check.
+BLIND SPOTS FOR ROUND TWO: a law file's date is when it was WRITTEN, not when he ruled, and he
+rules in voice before anything is a file; a contradiction found in TEXT is not a contradiction on
+the SURFACE, which is the mistake E11 and E13 both caught this lane making; and nothing here can
+tell a ruling he WITHDREW from one he simply has not repeated.
 
-ROUTED: NOTHING. The board records what it was designed to record. What it was never designed to
-record is the link, and that is a board change, not a lane's defect.
-
-BLIND SPOTS: the board is not the game and a SHIPPED line is a CLAIM, which E11 and E13 both caught
-being false on the surface; "no ruling on record" is NOT "he has never seen it", because his rulings
-from before the board existed live in transcripts nobody kept; the matrix grades 205 rows while the
-gate counts 210, because a row needs a two-word label or a NAME-IN-CAPS to be gradeable and five
-have neither; the risk column is a keyword guess at "first minute", a heuristic for ordering one
-item per round and not a claim about importance; and nothing here measures whether he would LIKE
-any of it, which is the whole point of putting something in front of him.
-
-STILL OPEN IN MY QUEUE: E17 [locked ignored], E18 [he can hear it], E19 [slop count]. All two
-rounds, school first. E9 the standing duty runs every round.
+STILL OPEN IN MY QUEUE: E18 [he can hear it], E19 [slop count], E20 [song length], E21 [marker
+sweep]. All two rounds, school first. E9 the standing duty runs every round.
 
 [PENDING Paolo] NOTHING. I need nothing from him.
 
 FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
-  1. THE ONE FIELD: keep the ruling citation on a row when it ships. That single change makes
-     "what has he ruled on" computable forever. It is the whole deliverable of this job.
-  2. THE ONE ITEM THIS ROUND: WORLD [living costs] BB-FOUR-VERBS-THREE-CURRENCIES.
+  1. THE CASE PROBLEM IS A BOARD-WIDE ONE: 306 lowercase and 13 title-case locks mean any checker
+     anybody writes against "LOCKED" has a thirty per cent blind spot. One convention would fix it
+     for every future checker, not just mine.
+  2. E16's ONE FIELD still stands: keep the ruling citation on a row when it ships.
   3. This lane's STATE line still says "nothing exists. No screenshot pass, no golden images, no
      audio measurement, no glitch checklist." Seventeen instruments and four suite gates exist now.
   4. The E15 scope hole still stands: a building, a face, a prop or a vehicle is graded by no
@@ -87,15 +89,13 @@ FOR THE COORDINATOR, NOT MINE TO EDIT (lanes change status words only):
 
 NOTHING TO JUDGE. Nothing entered the game. Nothing is on a tab.
 
-GATES: SEEN BY HIM 2/0 (new, registered), PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0,
-attempt 15/0. The sweep's own eight RULE ZERO controls pass.
+GATES: none re-run this round; no code changed, two records and no tools. Standing gates green last
+round: SEEN BY HIM 2/0, PRE-JUDGE COVERAGE 3/0, NO READER 7/0, handoff 7/0, attempt 15/0.
 
-PROOF: records/BOHEMIA_EYES_E16_ROUND_1_SCHOOL_NEVER_REVIEWED_IS_A_STATUS_9_11_26.md and
-records/BOHEMIA_EYES_E16_ROUND_2_THE_CITATION_IS_DELETED_ON_SHIP_9_11_26.md;
-tools/bohemia_eyes_seen.py; gate registered as SEEN BY HIM in gates/bohemia_gates.py; data
-records/BOHEMIA_EYES_SEEN_9_11_26.json, baseline records/BOHEMIA_EYES_SEEN_BASELINE_9_11_26.json;
-results bank banks/eyes/BOHEMIA_EYES_E16_SEEN_RESULTS_9_11_26.json (draft:true); VAMILY lane 17
-E16 SHIPPED with both rounds, NOTHING routed.
+PROOF: records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md (235 lines, 13
+sources); banks/eyes/BOHEMIA_EYES_E17_LOCKED_SWEEP_SPEC_9_12_26.json (draft:true); VAMILY lane 17
+E17 CLAIMED ROUND 1 OF 2.
+
 
 WORDS (words-8dqrnq): 9/11 (c) LATEST -- *** Q19 [caught out] SCHOOL DONE, ROUND ONE OF TWO.
 FILM SAYS THEY CRUMBLE. THE REAL RECORD SAYS THEY REVISE, CALMLY, ABSORBING WHATEVER YOU JUST

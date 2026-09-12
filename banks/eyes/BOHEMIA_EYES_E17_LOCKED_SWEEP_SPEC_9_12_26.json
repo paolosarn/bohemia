@@ -1,0 +1,76 @@
+{
+ "bank": "EYES AND EARS -- E17 [locked ignored] -- THE LOCKED SWEEP, SPEC ONLY",
+ "date": "9/12/26",
+ "round": "1 of 2 (SCHOOL). Nothing built. Nothing on the shipped surface measured.",
+ "draft": true,
+ "note": "DRAFT MATERIAL, NEVER WIRED INTO THE GAME. School's corrections: (1) the field splits this in two and the job picked the wrong half -- DRIFT is a documentation problem, EROSION is a build problem, and our own NEWEST DATE WINS decides which; (2) THE SWEEP AS WRITTEN CANNOT SEE ITS OWN EXAMPLE, because the Ridge ruling is written lowercase; (3) most LOCKED lines are intent and not machine-checkable, so classify before verdicting; (4) a line marked LOCKED is not a ruling of HIS, and the gap is five to one.",
+ "school_record": "records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md",
+ "the_distinction_that_reshapes_the_job": {
+  "draft": true,
+  "quote": "architecture erosion differs from drift; while DRIFT IS A DOCUMENTATION ACCURACY PROBLEM, EROSION IS THE ACTUAL DEGRADATION",
+  "erosion": "the ruling is current and the build broke it -- a BUILD defect, which is what the job assumes",
+  "drift": "the build moved on and the document did not -- a DOCUMENT defect, and the build may be the more current truth",
+  "our_tiebreaker_already_exists": "NEWEST DATE WINS",
+  "consequence": "every contradiction must report WHICH SIDE IS NEWER. reporting them all as 'the build ignored him' would put a documentation defect on a lane's record and would tell him his rulings are ignored when some were superseded by his own later words."
+ },
+ "counted_in_the_repo_not_on_the_surface": {
+  "draft": true,
+  "law_files": 435,
+  "LOCKED_upper": 747,
+  "locked_lower": 306,
+  "Locked_title": 13,
+  "files_with_any_case": "338 of 435",
+  "paolo_date_LOCKED_form": 161,
+  "the_two_numbers_that_matter": "30% of the corpus is invisible to a case-sensitive grep, and only 161 of 747 carry his attribution in that form"
+ },
+ "counter_findings": [
+  {"n": "a", "draft": true, "finding": "THE SWEEP AS WRITTEN CANNOT SEE ITS OWN EXAMPLE",
+   "evidence": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md line 88 reads '## THE RIDGE = THE MENU / TITLE SCREEN (locked, Paolo)' -- LOWERCASE",
+   "so": "a sweep of 'every line marked LOCKED' walks straight past the brief's own example, and past 306 lowercase plus 13 title-case instances. it would have produced a confident, clean, wrong sweep."},
+  {"n": "b", "draft": true, "finding": "one of the two examples is ALREADY FIXED, and it was fixed by changing the DOCUMENT",
+   "evidence": "CLAUDE.md now reads 'Gen 1 Animal, Gen 2 Human, Gen 3 Angel: ERAS, not creatures, Paolo 9/7'",
+   "so": "the Animal contradiction closed on 9/7 by making the document current. that is the DRIFT reading. a brief written on 9/6 is describing a 9/6 repo, so round two re-checks both examples before quoting them."},
+  {"n": "c", "draft": true, "finding": "most LOCKED rulings are not machine-checkable at all, and claiming 747 verdicts would be fiction",
+   "so": "round two's first output is a CLASSIFICATION, reported as the headline: MACHINE-CHECKABLE / ONLY BY LOOKING / NOT CHECKABLE. a number in column one is worth more than 747 guesses."},
+  {"n": "d", "draft": true, "finding": "'a line marked LOCKED' is not 'a LOCKED ruling of his', and the gap is five to one",
+   "evidence": "161 of 747 are in the form 'Paolo <date>, LOCKED'; the rest are lanes freezing their own mechanisms",
+   "so": "treating them alike would put a lane's words in his mouth, which is the worst error this particular lane could make. HIS and A LANE'S are separated, and only HIS can be reported as a ruling the build contradicts."}
+ ],
+ "the_four_verdicts": [
+  {"verdict": "SATISFIED", "draft": true, "when": "the surface satisfies the ruling", "whose_defect": "nobody's"},
+  {"verdict": "EROSION", "draft": true, "when": "the surface contradicts it AND the ruling is newer", "whose_defect": "the build's"},
+  {"verdict": "DRIFT", "draft": true, "when": "the surface contradicts it AND the build is newer", "whose_defect": "the document's"},
+  {"verdict": "UNENFORCED", "draft": true, "when": "no gate exists for it at all", "whose_defect": "reuse E11, do not rediscover"}
+ ],
+ "reuse_not_rebuild": [
+  "E11's reader set already knows what the shipped game loads",
+  "E13's sweep already drives the real surface",
+  "E11 already found the promised-gate-that-does-not-exist class",
+  "REUSE-FIRST is a law and E15 was the reminder of what ignoring it costs"
+ ],
+ "rule_zero": {
+  "draft": true,
+  "controls": [
+   {"plant": "a law the build demonstrably satisfies", "must": "come back SATISFIED"},
+   {"plant": "a law the build demonstrably contradicts", "must": "come back CONTRADICTED"},
+   {"plant": "a lowercase '(locked, Paolo)' line", "must": "BE FOUND", "why": "missing it is the failure that silently hides thirty per cent of the corpus"}
+  ],
+  "rule": "all three pass or no number is printed"
+ },
+ "ratchet": {
+  "draft": true,
+  "freeze": "the count of EROSION only -- contradictions where his ruling is the newer side",
+  "not_ratcheted": "DRIFT, because a documentation backlog grows honestly as the game moves and ratcheting it would red the suite for other lanes doing correct work",
+  "precedent": "the citation gap in E16, and the two reported-not-ratcheted numbers in E11"
+ },
+ "blind_spots_to_declare": [
+  "a law file's date is when it was WRITTEN, not when the ruling was made; he rules in voice before anything is a file",
+  "a contradiction found in TEXT is not a contradiction on the SURFACE, which is the mistake E11 and E13 both caught this lane making",
+  "nothing here can tell a ruling he WITHDREW from one he simply has not repeated"
+ ],
+ "what_this_lane_may_not_do": [
+  "change any law, or any game code",
+  "decide which side of a contradiction is right when it is a matter of taste",
+  "report a lane's own lock as a ruling of his"
+ ]
+}
