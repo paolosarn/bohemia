@@ -13299,89 +13299,87 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [own power] YOUR-OWN-POWER-IS-YOUR-WAY-OUT is SHIPPED 9/12.
+HOLDING: nothing. [rice clock] THE-BAG-OF-RICE-IS-THE-TUTORIAL is SHIPPED 9/12.
 
-WHAT SHIPPED
-  A GENERATOR ON YOUR LAND TAKES THAT BLOCK OFF THE BLOCK OWNER'S LINE. From the
-  9/5 generator-mafia research: the Lebanese families who built their own rooftop
-  solar were buying their way out of the block's owner.
-  BOTH HALVES WERE ALREADY BUILT AND THIS IS THE JOIN: [block rent] (FACTIONS, 9/12)
-  bills a cut per BLOCK of a faction's ground you used; [batteries mined] (mine,
-  9/11) makes solar, the battery farm and the substation mint. So this is NOT a new
-  charge and NOT a new table -- it is THE SAME BILL with your own blocks taken out
-  of it, which is why rentOn() is never touched: another lane's, already right.
-  THE BLOCK IS THE UNIT BECAUSE THE BILL IS, so two generators on one block is one
-  block, and the discount can NEVER go below zero or it would pay him rent.
-  MEASURED ON THE WALKED SURFACE: six blocks of their ground bills 5 batteries;
-  generators on his own ground take 3 blocks off the line; the bill goes 5 to 3.
-  The card says "3 blocks of yours run on your own power now, and it kept 2
-  batteries out of their hands -- Church noticed."
-  NEW: engine/bohemia_ownpower.js, gates/own_power_gate.js (29 checks, registered as
-  OWN POWER, suite 594, red both ways).
-  RECORD: records/BOHEMIA_OWN_POWER_9_12_26.md
+WHAT SHIPPED, AND IT CLOSES THE BUG THIS LANE CARRIED FOR SIX ROUNDS
+  MEASURED ON THE WALKED SURFACE with five batteries in the purse:
+      buy food      applied:true, paid:1    electricity 5 -> 4
+      resources                             0 -> 0
+      the day eats  day:ate REFUSED, INSUFFICIENT
+  YOU BOUGHT FOOD, THE FOOD DID NOT EXIST, AND THEN YOU STARVED. buy() debited the
+  battery and credited NOTHING, on its own reasoning: "A HARD SINK, on purpose: the
+  goods leave the world when you consume them." The second half of that sentence is
+  right and the code did the first half AT THE WRONG MOMENT.
+  THE FIX WAS ALREADY IN THE LAW AND ALREADY BUILT IN THE PURSE. The four-verbs law:
+  "each resource is spent by exactly one verb", and the verb that spends resources
+  is day:ate. SHOPPING MOVES VALUE, EATING DESTROYS IT. convert() had been in
+  bohemia_purse.js since 7/31 with ZERO callers and is atomic, so a battery can
+  never leave without the good arriving. It was built for this.
+  AFTER: convert electricity -1 buy:food | convert resources +1 buy:food | drain
+  resources -1 day:ate. Work -> battery -> rice -> eaten. Closed.
+  THE GOOD LANDS IN `resources` because that is the pocket both verbs that consume a
+  good drain -- the game's own statement, not a mapping invented here.
+  NEW: engine/bohemia_hunger.js, gates/rice_clock_gate.js (28 checks, registered as
+  RICE CLOCK, suite 601, red both ways). bohemia_payday.js buy() rewritten.
+  RECORD: records/BOHEMIA_RICE_CLOCK_9_12_26.md
 
-THE LINE THIS ROW MUST NOT CROSS, AND DID NOT
-  "the faction that owned the line notices (A STANDING HIT, A VISIT)". The hit is a
-  WEIGHT and bohemia_standing.js ships DEED_WEIGHT empty and says why; the visit is
-  an ENCOUNTER and those tables are his. [block rent] made the identical call one
-  row earlier. So the noticing is REAL, NAMED AND SAID OUT LOUD on the card, and the
-  size of the grudge is left to him. The gate asserts directly that this module
-  writes no standing and calls no encounter.
-  AND IT DID NOT FORCE THE DEED DOOR: witness() needs minds within sight and a
-  where() for each. A faction knowing about its own wire is not a person seeing you
-  do something, and pushing it through there would be the exact mistake [block rent]
-  wrote down about payTo -- using the function whose NAME matches rather than the
-  one whose QUESTION matches.
+HUNGER COUNTS AND SAYS, AND NEVER BITES
+  "a day without the bag shows on the BODY and the purse." What a week without food
+  does to a body is DAMAGE and NO DAMAGE BEFORE THE DIAL is locked -- the day loop
+  had already written the same sentence about this same moment: "the reckoning
+  REPORTS; it does not starve you." So the clock counts and says, rising in words
+  ("Nobody ate today" -> "They are asking" -> "Somebody has to buy food" -> "They
+  are not asking any more"), NAMES THE THING TO BUY because taught-by-wanting-it
+  means the game says what is missing, and takes nothing off him. What it finally
+  costs a body is his dial.
+  THE COUNT IS DERIVED FROM THE LEDGER, NEVER STORED. The purse already records
+  every day:ate that applied and every one that did not; a second counter beside it
+  is how two records of one fact start disagreeing.
+  AND IT READS THE DAY THAT HAS HAD ITS NIGHTFALL. The verb fires at nightfall, so
+  asking mid-morning would report every day as hungry all day -- a clock running one
+  day behind reality.
+  DRIVEN ON THE REAL SURFACE: five nights, streak 1 2 3 4 5 with the right sentence
+  each night, then one battery buys one bag of rice and that night the streak is 0,
+  the line is gone and the food is eaten.
 
-A CHECK OF ANOTHER LANE'S THAT I BROKE, AND HOW I FIXED IT
-  faction_towns_gate N12 pinned the literal string `rentOn(TURF_USED`. I now hand
-  rentOn a DISCOUNTED COPY of that map, so the name at the call site changed while
-  the source of truth is still turf -- and their check went red on a claim that is
-  still completely true. Widened to assert the same claim without pinning the name:
-  the rent body must still build from TURF_USED, still call rentOn, still ask
-  turfAt, and STILL NEVER MENTION payTo. That last half caught a real bug and is
-  untouched -- proved by putting payTo back and watching N12 go red again. FIXING A
-  RULER THAT GOT TOO LITERAL IS NOT LOOSENING A CHECK TO MAKE YOUR OWN WORK PASS,
-  and the difference is written into the gate beside the change.
-
-AND I FIXED TWO OF MY OWN SHIPPED LINES UNDER THE NEW FRONT-PAGE RULE 11
-  The coordinator added it 9/12 out of EYES E16: a SHIPPED line keeps the
-  [two-word label] AND the "Paolo <date>" citation exactly as the OPEN line carried
-  them; you may ADD the sha and a result clause, you never delete the ruling.
-  Measured there: an OPEN line cites one of his rulings 34% of the time, a SHIPPED
-  line only 12%, because the line gets rewritten as a result summary when it lands.
-  I checked all eleven of this lane's shipped rows against the OPEN text git still
-  has. Nine never carried a Paolo citation (BB- rows and coordinator calls). TWO OF
-  MINE HAD DROPPED ONE and are restored verbatim with the result added after:
-  [batteries mined] and [century stayed]. This round's line was written that way
-  from the start.
+ONE CHECK OF MINE WHOSE SUBJECT LEGITIMATELY MOVED, AND IT IS A DIFFERENT CASE FROM
+LAST ROUND'S BROKEN RULER, WHICH IS WHY IT IS WRITTEN DOWN SEPARATELY
+  payday_gate asserted "the spend is recorded as a HARD SINK, not a transfer" by
+  checking that BUYING posts a drain. It does not any more, and that is the fix
+  rather than a regression: the design moved the sink to the meal. Last round's N12
+  was a ruler pinned to a variable NAME while its claim stayed true; this one's
+  claim about the shop became genuinely FALSE. So it was rewritten to guard the
+  property it exists for, in both halves -- buying is never a TRANSFER (nobody is
+  paid; that is rent's shape), the good really arrives, and the hard sink is still
+  there one step later when the day eats it. A faucet with no drain is still the
+  thing being guarded against. Proved still biting by putting a plain drain back:
+  3 red. PAYDAY 40/0 (was 38/0; the rewrite adds two).
 
 NEXT: read the WORLD section fresh. As of this round the next OPEN line is
-[rice clock], then [debt carried], [someone lends], [back of house], [water lifted],
+[debt carried], then [someone lends], [back of house], [water lifted],
 [battery worth], [fold carries], [visible change], [suburb walls], [full shelves].
 
-STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
-never lands in the purse as `resources`, so the shop is a dead end and day:ate is
-refused rather than paid on day one. The purse has had an atomic convert() since
-7/31 with zero callers. That row is next, so this finally gets fixed.
+NO LONGER CARRIED: the buy()/convert() gap that sat in this block for six rounds is
+closed. Nothing is carried forward from it.
 
-PIN THE BOARD SHA BY READING IT OFF MAIN AFTER THE PUSH, NEVER BEFORE. Last round I
-pinned a sha and the rebase in the push loop rewrote every commit, so the board
-pointed at something that does not exist on main. Run
-`git merge-base --is-ancestor <pinned> origin/main` on the BOARD line before calling
-a row shipped, the same containment check the ship flow already demands for deploys.
+NOT MINE AND UNCHANGED: market_gate 22/10. It still expects `resources` to be the
+money and has been red since the money became batteries on 9/5. Its ten failures
+name `resources` and "500 -> 500" and none of them moved this round. Somebody whose
+lane that gate is should retire or rewrite it; it is the oldest red on this surface.
 
-STANDING DUTY THIS LANE HAS PAID FOR TWICE: re-check your gates' REGISTRATION every
-round, AND check it the way the registry checker reads the table rather than with
-your own grep. All eight verified present this round, 0 rows invisible.
+STANDING DUTIES THIS LANE HAS PAID FOR: pin the board sha by reading it off main
+AFTER the push (a rebase rewrites every commit); re-check your gates' REGISTRATION
+every round and check it the way the registry checker reads the table, not with your
+own grep. Nine verified present this round, 0 rows invisible.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [own power], 9/12. Before it: [century stayed] 8538cd0,
-[batteries mined] 6562436, [parties move] 75ac79c, [a days work] 4f55d76,
-[shelves premise] 1f3d342, [enemies unite] aace2d9, [rung unlocks] 44dd7a1,
-[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
-[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [rice clock], 9/12. Before it: [own power] 38e3412,
+[century stayed] 8538cd0, [batteries mined] 6562436, [parties move] 75ac79c,
+[a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
+[rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
+[faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
+[battery money] ce39270.
 
 
 

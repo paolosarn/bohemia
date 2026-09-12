@@ -327,6 +327,11 @@
      AND IT DOUBLES THE DRAIN, free: "the night eats power" now means YOUR LIGHTS
      BURN YOUR MONEY. Holding a lit block costs what a bag of rice costs. */
   var SALVAGE_CURRENCY = 'electricity';
+  /* WHERE A GOOD YOU BOUGHT GOES. Not a mapping invented here: it is the pocket the
+     verbs that CONSUME a good drain -- day:ate and fight:plate both spend
+     `resources` -- so the game had already said where goods live and nothing was
+     putting anything there. [rice clock], 9/12. */
+  var GOODS_POCKET = 'resources';
 
   function buy(purse, hubOrNull, goodId, day, ledger) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
@@ -349,12 +354,46 @@
       return { applied: false, reason: 'CANNOT_AFFORD', key: goodId, price: p.price,
                currency: cur, have: PURSE.balance(purse, cur) };
     }
-    /* A HARD SINK, on purpose: the goods leave the world when you consume them, so the
-       value is DESTROYED rather than moved. That is the half of a faucet-and-drain economy
-       that actually fights inflation, and the reason the purse is a ledger not a counter. */
-    var e = PURSE.debit(purse, cur, p.price, 'buy:' + goodId, goodId, day);
-    return { applied: true, good: goodId, paid: p.price, source: p.source,
-             currency: cur, entry: e, balances: PURSE.balances(purse) };
+    /* *** BUYING IS A CONVERSION, NOT A DRAIN, AND THAT IS THE WHOLE OF [rice clock].
+       (9/12, THE-BAG-OF-RICE-IS-THE-TUTORIAL.) ***
+
+       THE OLD COMMENT HERE SAID "A HARD SINK, on purpose: the goods leave the world
+       when you consume them, so the value is DESTROYED rather than moved." The
+       second half of that sentence is right and the code did the first half at the
+       wrong moment. It destroyed the battery AT THE SHOP and handed back nothing,
+       so the good never existed.
+
+       MEASURED ON THE WALKED SURFACE BEFORE THIS CHANGED, with five batteries in
+       the purse:
+           buy food      applied:true, paid:1     electricity 5 -> 4
+           resources                              0 -> 0
+           the day eats  day:ate REFUSED, INSUFFICIENT
+       You bought food, the food did not exist, and then you starved. One drain
+       entry, `buy:food`, and nothing ever came back.
+
+       THE FOUR-VERBS LAW ALREADY SAYS WHERE THE SINK BELONGS: "each resource is
+       spent by exactly one verb, so you always know what took it", and the verb
+       that spends resources is day:ate. SHOPPING MOVES VALUE; EATING DESTROYS IT.
+       So the battery converts into the good, and the day's meal is the hard sink --
+       which is both truer and the only version where the verb has something to eat.
+
+       convert() HAS BEEN IN THE PURSE SINCE 7/31 WITH ZERO CALLERS, and it is
+       atomic on purpose: it unwinds the first leg if the second fails, so a battery
+       can never leave without the good arriving. It was built for this.
+
+       THE GOOD LANDS IN `resources` BECAUSE THAT IS WHERE GOODS LIVE -- it is the
+       pocket both verbs that consume a good drain (day:ate, fight:plate), which is
+       the game's own statement about it rather than a mapping invented here. ONE
+       battery buys ONE of the good (EVERYTHING COSTS ONE, 8/15); if the scarcity
+       sim quotes more, you pay more for the same one thing, which is what scarcity
+       means and what a purchase means. */
+    var e = PURSE.convert(purse, cur, p.price, GOODS_POCKET, 1,
+                          'buy:' + goodId, goodId, day);
+    if (!e || !e.applied) return { applied: false, reason: (e && e.reason) || 'NO_CONVERT',
+                                   key: goodId, price: p.price, currency: cur };
+    return { applied: true, good: goodId, paid: p.price, got: 1, source: p.source,
+             currency: cur, pocket: GOODS_POCKET, entry: e.out, entryIn: e['in'],
+             balances: PURSE.balances(purse) };
   }
 
   /* ---------------------------------------------------------------------------

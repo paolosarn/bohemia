@@ -28,6 +28,7 @@ PARTIES = os.path.join(ROOT, 'engine', 'bohemia_parties.js')
 POWERB = os.path.join(ROOT, 'engine', 'bohemia_powerbuild.js')
 STAYED = os.path.join(ROOT, 'engine', 'bohemia_stayed.js')
 OWNPOW = os.path.join(ROOT, 'engine', 'bohemia_ownpower.js')
+HUNGER = os.path.join(ROOT, 'engine', 'bohemia_hunger.js')
 
 BEGIN = '/* ==== engine/bohemia_work.js ==== */'
 END = '/* ==== /engine/bohemia_work.js ==== */'
@@ -51,13 +52,17 @@ S_END = '/* ==== /engine/bohemia_stayed.js ==== */'
 # module body for the same reason the others do.
 O_BEGIN = '/* ==== engine/bohemia_ownpower.js ==== */'
 O_END = '/* ==== /engine/bohemia_ownpower.js ==== */'
+# [rice clock] rides the same splice: it reads bohemia_purse.js, already in the
+# city, and must land outside every module body for the same reason the rest do.
+H_BEGIN = '/* ==== engine/bohemia_hunger.js ==== */'
+H_END = '/* ==== /engine/bohemia_hunger.js ==== */'
 # The economy's banner: bohemia_work.js reads YIELD off that module, so landing
 # beside it keeps the two things a reader has to hold together in one place.
 ANCHOR = '/* ==== engine/bohemia_economy.js ==== */'
 
 
 def main():
-    for p in (CITY, MODULE, PARTIES, POWERB, STAYED, OWNPOW):
+    for p in (CITY, MODULE, PARTIES, POWERB, STAYED, OWNPOW, HUNGER):
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
@@ -82,6 +87,7 @@ def main():
     s = cut(s, B_BEGIN, B_END, 'the power buildings module')
     s = cut(s, S_BEGIN, S_END, 'the stayed module')
     s = cut(s, O_BEGIN, O_END, 'the own power module')
+    s = cut(s, H_BEGIN, H_END, 'the hunger module')
 
     if s.count(ANCHOR) != 1:
         sys.exit('REFUSING TO WRITE: the anchor resolves %d times, not 1.' % s.count(ANCHOR))
@@ -111,18 +117,24 @@ def main():
         sys.exit('REFUSING TO WRITE: the own power module contains a sequence that '
                  'would close the script tag.')
 
+    hun = open(HUNGER, encoding='utf8').read().rstrip('\n')
+    if '</' in hun:
+        sys.exit('REFUSING TO WRITE: the hunger module contains a sequence that would '
+                 'close the script tag.')
+
     block = (BEGIN + '\n' + mod + '\n' + END + '\n'
              + P_BEGIN + '\n' + par + '\n' + P_END + '\n'
              + B_BEGIN + '\n' + pwr + '\n' + B_END + '\n'
              + S_BEGIN + '\n' + sty + '\n' + S_END + '\n'
-             + O_BEGIN + '\n' + own + '\n' + O_END + '\n\n')
+             + O_BEGIN + '\n' + own + '\n' + O_END + '\n'
+             + H_BEGIN + '\n' + hun + '\n' + H_END + '\n\n')
     s = s.replace(ANCHOR, block + ANCHOR, 1)
 
     if s == before:
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY WORK: work + parties + powerbuild + stayed + ownpower inlined before the economy module')
+    print('CITY WORK: work + parties + powerbuild + stayed + ownpower + hunger inlined before the economy module')
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 

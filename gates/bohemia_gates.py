@@ -498,6 +498,24 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('RICE CLOCK',    ['node', 'gates/rice_clock_gate.js'],
+     'THE-BAG-OF-RICE-IS-THE-TUTORIAL (board row [rice clock], 9/12). THE MANAGER\'S OWN CALL '
+     '(9/5): "everything costs one and a day of work pays one; the one thing you must buy every '
+     'day is the whole economy in miniature. Hunger is the clock: a day without the bag shows on '
+     'the body and the purse, and the first purchase of the game is rice, taught by wanting it, '
+     'not by a text box." THE BUG UNDERNEATH IT WAS THE WHOLE LOOP, measured on the walked '
+     'surface: buy food returned applied:true and took the battery, resources went 0 -> 0, and '
+     'then day:ate was REFUSED as INSUFFICIENT. You bought food, the food did not exist, and '
+     'then you starved -- because buy() read SHOPPING as the hard sink and credited nothing. The '
+     'four-verbs law already says where the sink belongs (each resource is spent by exactly one '
+     'verb, and the verb that spends resources is day:ate), so SHOPPING MOVES VALUE AND EATING '
+     'DESTROYS IT: buy() now goes through the purse\'s own convert(), which had sat there since '
+     '7/31 with zero callers and is atomic, so a battery can never leave without the good '
+     'arriving. AND HUNGER IS COUNTED AND SAID, NEVER SUFFERED: NO DAMAGE BEFORE THE DIAL is '
+     'locked and the day loop wrote the same sentence about this same moment ("the reckoning '
+     'REPORTS; it does not starve you"), so the streak is read back out of the LEDGER rather '
+     'than stored beside it, rises in words, names the thing to buy, and takes nothing off him. '
+     'Red both ways: put the original bug back -> 7 red; make the clock never run -> 3 red.', True),
     ('OWN POWER',     ['node', 'gates/own_power_gate.js'],
      'YOUR-OWN-POWER-IS-YOUR-WAY-OUT (board row [own power], 9/12). From the 9/5 '
      'generator-mafia research: the Lebanese families who built their own rooftop solar were '

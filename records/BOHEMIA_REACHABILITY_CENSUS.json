@@ -1,6 +1,6 @@
 {
- "sources": 306,
- "total_mb": 308.8,
+ "sources": 309,
+ "total_mb": 308.9,
  "unreached_mb": 304.3,
  "rows": [
   {
@@ -253,7 +253,7 @@
    "samples": 27,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 172650
+   "bytes": 172894
   },
   {
    "path": "banks/BOHEMIA_FAMILY_WHO_TURNS_UP_DRAFT_9_5_26.txt",
@@ -1216,7 +1216,7 @@
    "samples": 1,
    "hits_shown": 1,
    "hits_loaded": 1,
-   "bytes": 16933
+   "bytes": 21686
   },
   {
    "path": "engine/bohemia_agents.js",
@@ -1579,6 +1579,15 @@
    "bytes": 15267
   },
   {
+   "path": "engine/bohemia_direct_bq.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 9,
+   "hits_shown": 9,
+   "hits_loaded": 1,
+   "bytes": 11632
+  },
+  {
    "path": "engine/bohemia_district_kit.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1586,6 +1595,15 @@
    "hits_shown": 32,
    "hits_loaded": 32,
    "bytes": 52902
+  },
+  {
+   "path": "engine/bohemia_down.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 6,
+   "hits_loaded": 4,
+   "bytes": 7030
   },
   {
    "path": "engine/bohemia_downtown.js",
@@ -1820,6 +1838,15 @@
    "hits_shown": 5,
    "hits_loaded": 2,
    "bytes": 9972
+  },
+  {
+   "path": "engine/bohemia_hunger.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 6359
   },
   {
    "path": "engine/bohemia_industrial.js",
@@ -2170,7 +2197,7 @@
    "samples": 5,
    "hits_shown": 5,
    "hits_loaded": 5,
-   "bytes": 22081
+   "bytes": 24453
   },
   {
    "path": "engine/bohemia_people.js",
@@ -2602,7 +2629,7 @@
    "samples": 4,
    "hits_shown": 4,
    "hits_loaded": 1,
-   "bytes": 53914
+   "bytes": 57995
   },
   {
    "path": "engine/bohemia_trailer.js",

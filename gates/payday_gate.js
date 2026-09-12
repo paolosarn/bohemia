@@ -171,8 +171,32 @@ const bought = PD.buy(buyer, null, 'water', 1, led);
 ok('and with a purse you can: the hub is SPENDABLE, in batteries (' +
    bought.paid + ' ' + bought.currency + ')',
    bought.applied === true && bought.paid > 0 && bought.currency === 'electricity');
-ok('the spend is recorded as a HARD SINK, not a transfer',
-   PURSE.flow(buyer).electricity.drain > 0);
+/* *** THE HARD SINK MOVED TO THE MEAL, AND THIS CHECK MOVED WITH IT (9/12,
+   [rice clock]). *** This asserted `flow(buyer).electricity.drain > 0` -- that
+   BUYING posts a drain. It does not any more, and that is the fix rather than a
+   regression: buy() credited nothing, so a battery bought food that never arrived
+   and day:ate was then REFUSED as INSUFFICIENT. Measured on the walked surface
+   before it changed: electricity 5 -> 4, resources 0 -> 0, the day starves.
+   The four-verbs law says each resource is spent by exactly one verb and the verb
+   that spends resources is day:ate. SHOPPING MOVES VALUE; EATING DESTROYS IT.
+   THE PROPERTY THIS CHECK EXISTS FOR IS KEPT WHOLE AND IS NOW ASSERTED IN BOTH
+   HALVES: buying is never a TRANSFER (nobody is paid; that is rent's shape, not a
+   shop's), and the value really is destroyed one step later when the day eats it.
+   A faucet with no drain is still the thing being guarded against. */
+ok('buying MOVES the value rather than paying somebody -- a convert, never a transfer',
+   PURSE.flow(buyer).electricity.convertOut > 0
+   && PURSE.flow(buyer).electricity.transferOut === 0);
+ok('and the good really arrives, which is the whole reason it is a convert',
+   PURSE.balance(buyer, 'resources') > 0);
+ok('*** AND THE HARD SINK IS STILL THERE, ONE STEP LATER: the day eats it and the'
+   + ' value is destroyed ***',
+   (function () {
+     const before = PURSE.balance(buyer, 'resources');
+     const ate = PURSE.upkeep(buyer, 'day:ate', null, 1);
+     return ate.applied === true
+         && PURSE.balance(buyer, 'resources') === before - 1
+         && PURSE.flow(buyer).resources.drain > 0;
+   })());
 
 // WHAT A QUEST PAYS IS THE QUEST'S OWN BUSINESS -- ruled 8/11: "Whatever currency the quest
 // decida to give." Not a global table keyed on outcome tier; the reward rides with the job.
