@@ -10575,6 +10575,35 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/12 (e) LATEST -- *** CHAT 18. ROUND 20. [suite runs] CONTINUING. THE 93
+REDS NOW SAY SOMETHING. The row's own words: a red count on a suite that cannot finish says nothing
+about anything. With a complete run it can finally be cut. 85 of the 93 have a parsed time, and one
+was FACTION ARC at exactly 600.0 s -- a cap-kill that checked nothing, split last round and now
+green, so that red is gone.
+THE CUT: a gate that fails in UNDER A SECOND never opened a browser and never waited on anything, so
+it cannot have failed for load and no re-run can excuse it. EIGHTEEN of them, and Pillow and numpy
+were both present in that run so none is the missing-image-stack failure the runner warns about:
+BATTLE BROS, CANVAS MEMORY, INTERIORS, LOOK, MAP TAB, NO BULLSHIT Qs, NO CANOPIES, PERSON LOOK, REPO
+BUDGET, REUSE FIRST, RIG CHECK, SUITE FINISHES, TARGET MATCH, TASTE, TOP OF THE DOC, VOICE, WIRED IN
+A TAB, ZOOM BUILD.
+*** SIX OF THE EIGHTEEN GUARD A RULING PAOLO LOCKED: *** BATTLE BROS, LOOK, NO BULLSHIT Qs, NO
+CANOPIES, TOP OF THE DOC, WIRED IN A TAB. Those rulings are being broken right now and the reds
+saying so were invisible inside a suite that never finished. FOR THE COORDINATOR, that is the whole
+argument for this row in one line.
+AND AT LEAST TWO ARE THE FRESHNESS DISEASE IN A NEW PLACE: LOOK fails with "40 stale: no picture is
+more than six hours behind the surface it photographs", WIRED IN A TAB fails on a live screenshot
+that is not live. PICTURES OF THE GAME ROT THE WAY BAKES DO, and nothing was watching them either.
+SUITE FINISHES is in the list and it is OURS -- red because the floor is 71.9 min against a 45 min
+budget, which is the true statement it exists to make.
+IT DOES NOT CLAIM THE OTHER 75 ARE FAKE. The slow reds still need the confirm pass, and that pass is
+only trustworthy on a run where the tree does not move under it -- which is its own finding two
+rounds up.
+[THE RATCHET FIRED AGAIN, SECOND TIME IN THREE ROUNDS] Last round I named RUN_CURRENT drifting +45/-6
+and deliberately did NOT park it on the frozen list. COOK rebuilt it (58e62e8) and derived_freshness
+is green again. Naming it was enough; parking it would have buried it.
+WHAT IS LEFT ON THE ROW: re-measure the floor on a full run now that FACTION ARC is split (running as
+this round ends); the 71.9 min floor itself, which sharding cannot fix -- less browser work or more
+machines, and that is a fork, not a coding task; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/12 (d) LATEST -- *** CHAT 18. ROUND 19. [suite runs] CONTINUING. THE SPLIT
 IS DONE: 102 CHECKS THAT HAD NEVER ONCE RUN NOW RUN. FACTION ARC was green (102 passed) and needed
 1,228 s against a 600 s cap, so the suite killed it every run and filed it under the reds -- a RED

@@ -2,7 +2,7 @@
  "what": "Every derived file re-derived and compared. Written by gates/derived_freshness_gate.js.",
  "why": "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md names this gate by name. A bake is correct the day it is made and rots silently after.",
  "how": "Each maker runs in a throwaway git worktree (HEAD plus the working tree's own changes). The repo itself is never written to. Outputs are discovered by asking git what moved, not by reading headers, because the file most likely to be stale is the one whose header nobody wrote.",
- "taken": "2026-09-12T06:31:49.566Z",
+ "taken": "2026-09-12T22:20:13.063Z",
  "counts": {
   "makersRun": 12,
   "makersExcluded": 3,
@@ -12,7 +12,7 @@
   "drifting": 4,
   "missingAMakerHeader": 8
  },
- "secondsToRun": 5.6,
+ "secondsToRun": 10.8,
  "drifting": [
   {
    "file": "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md",
@@ -29,8 +29,8 @@
   {
    "file": "slices/BOHEMIA_MAP_CURRENT.html",
    "maker": "tools/bohemia_map_tab.py",
-   "plus": 92,
-   "minus": 7
+   "plus": 98,
+   "minus": 8
   },
   {
    "file": "slices/BOHEMIA_SUBURB_WALK_7_18_26.html",
