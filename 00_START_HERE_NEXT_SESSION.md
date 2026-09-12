@@ -63,6 +63,100 @@ Gates all green: voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, hando
 
 NEXT: Q21 round two, three asks, three refusals, three thanks. Then Q4 to Q17 still owe their
 school rounds, one row at a time.
+
+UI (ui-kmqmrf): 9/12 (d) LATEST -- *** [no slop] ROUND FOUR. TRACKING IS A MACHINE NOW. ***
+Row STILL CLAIMED and that is correct: its ship test is that NONE of the tells survive, and
+six kinds still do.
+
+WHAT LANDED. Spaced caps on the walked city 80 -> 0. Eighty hand-typed tracking numbers --
+58 of them the identical 1px -- became THREE registers, one per face register, each number
+taken from a real machine: casing .4px (a cut stencil plate holds its letters at the plate's
+pitch, which is the .4px the chips already shipped on), screen 1px (the HD44780 cell has a
+one-dot gutter, so that gap is REAL and stays counted -- the ruler is not told to forgive it),
+body 0. The skin's --skin-chiptrack now reads the casing register instead of holding a second
+copy. DIRECTION's rule, implemented: a label is spaced only if the stencil that painted it was.
+
+THE PART THAT MATTERS MORE THAN THE NUMBER, FOR WHOEVER TOUCHES A RULER NEXT. I could have
+taken 80 to 0 without changing one pixel. The spaced-caps row only matched a value starting
+with a digit, so letter-spacing:2px counted and letter-spacing:var(--track,2px) did not. One
+find-and-replace, identical screen, and the record would have claimed the slop was cut. So the
+ruler was fixed BEFORE any tracking value was touched, and twice, because the first fix had the
+same hole one level down: a var is not its name (resolve what it paints), AND a fallback is not
+the value (read the DECLARATION and let it win, or a register set to 2px goes wide on screen
+while the ruler reads the stale fallback at the call sites). Proved on a probe -- three labels
+written 2px, var(--t,2px), var(--t,var(--u,3px)): the old ruler counted ONE of three, the new
+one counts three -- and on the real surface: set --track-casing:2px and all 91 hits come back,
+set it to .4px and they go.
+
+THE COUNT ALSO WENT UP, WHICH IS THE HONEST HALF. Seeing through the tokens revealed real hits
+the face registers had been hiding: monospace 44 -> 66 on the city, 160 -> 170 on the shell.
+Nothing got worse, the ruler got less wrong. ANY COMPARISON WITH ROUNDS ONE TO THREE MUST USE
+THE NEW NUMBERS. Current: named fonts 0/3, monospace 66/170, 1px borders 56/86, rounded 60/76,
+gradients 11/21, glow 9/3, spaced caps 0/90, emoji 2/36.
+
+AND I CAUGHT A LIE IN MY OWN EVIDENCE. The first draft of that comment claimed the total went
+UP when the var fix landed, as proof the hole was real. It had not moved. Removed and replaced
+with the probe. A lie sitting in the evidence is worse than the hole it was covering.
+
+A REGRESSION OF THIS LANE'S OWN, FOUND BY RUNNING MY OWN GATES AND FIXED. phone_readable_gate
+was 17 ok 2 FAILED on clean origin/main. [phone readable] shipped 9/6 and [half size] broke it
+on 9/7, both rows of this lane. The text-size floor is written as a plain inline font-size,
+which beats a normal rule and loses to an important one; nothing used important on font-size on
+9/6, so it was right for exactly one round, and then halving shipped as .uihalf{font-size:5px
+!important}. From that round on the biggest text setting in the game did NOTHING to the walked
+city while the shell obeyed it (shell 19px, city 5px, against a 12px floor). The floor is now
+written with important and the restore puts back the priority as well as the value. 19 ok, 0
+failed. THE LESSON: the half-size record wrote down that the 44px TAP floor yielded, and never
+noticed the TEXT floor had. A cost you write down is paid; a cost you do not notice is a
+regression, and this one sat on main for five rounds next to a green half-size gate.
+AND IT LOOKED LIKE THE FIX HAD FAILED UNTIL THE DEMO WAS RE-CUT, because the gate loads the
+demo and the demo is cut from the alpha. It was not broken, it was not there yet.
+
+AND THE SECOND RED WAS MY GATE BEING OUT OF DATE, NOT THE GAME. thumb_gate was 14 ok 1 FAILED
+on clean origin/main and I nearly filed it as RUN's and moved on. Measuring it instead was the
+right call. The leg demanded the demo's opening overlay carry two buttons (WATCH, NOT NOW).
+Chain, all measured: never visible in 20s of sampling, so not a flake -> openShould() TRUE and
+CITY_BUSY false, so the game wants to show it -> inline display:block but COMPUTED none -> one
+rule wins, #openInvite{display:none !important} -> written by tools/bohemia_cut_the_demo.js ON
+PURPOSE, with its reasoning: the deferred cold-open scene never ends (same pixels for 85s, still
+mid-flight at 128s), so the demo does not offer a door to a scene that hangs; the workshop keeps
+both. The game was right, my gate was stale, and a red that is just an out-of-date gate teaches
+everyone to ignore the gate. NOT softened to >=1: the leg now asks what it was always really
+asking -- does the sweep reach the OUTER document, and if the invite is on screen are ITS
+buttons in what got swept -- which hiding it cannot pass by accident and which measures those
+two buttons again, with no edit here, the day the scene is fixed. 16 ok 0 failed, mutation-proved
+two ways. SAME LESSON TWICE THIS ROUND: an important rule beating an inline style was a
+deliberate override here and an accident eating a feature in the text floor, and nothing about
+the CSS tells them apart -- only opening the file that wrote the rule does.
+
+AND A WARNING ABOUT THIS LANE'S OWN STANDING TRICK. look_gate went red on 48 of 52 pictures
+being stale against the surfaces this round edited. Clean origin/main said GREEN and THAT GREEN
+WAS WORTHLESS: a fresh worktree gives every file the same mtime, so nothing can be six hours
+behind anything, and touching both surfaces there still said green. Proving a red is not mine by
+measuring a clean worktree DOES NOT WORK ON A CHECK THAT READS MTIMES. The red was honest (this
+session has run over six hours, so the pictures really did predate the build). Cleared the way
+the gate prescribes -- the manifest names the exact command per shot -- all 52 retaken off the
+live build. 24 ok 0 failed. Published surface still 247 MB against the 260 MB cap.
+
+THE SUITE: clean origin/main is 7 red (DISTRICT FILL, SUITE FINISHES, MANDATE FACE, QUEST
+PLACEMENT, VOICE, INTERIORS, CANVAS MEMORY). This tree was 8 (those plus LOOK) and ships at the
+same 7. None of them this lane's, none of them new, all other lanes' surfaces, untouched here.
+
+[PENDING Paolo] nothing. He has a sheet: slices/BOHEMIA_HOW_A_LABEL_IS_SPACED_9_12_26.html,
+five ways a label is spaced, same buttons and same metal with only the gap changing.
+
+BLOCKED, AND NAMED FOR DIRECTION AND COOK: monospace 66 is the biggest remaining tell and it
+cannot fall, because THE RULED FACES ARE NOT IN THIS REPO. All three registers resolve to the
+game's own embedded face. DSEG is free under the OFL and is the easiest real one to land; the
+HD44780 cut can be drawn from its published 5x8 grid; the DIN 1451 stencil needs a real font
+file. Until one lands, the casing and screen registers are names for the same face.
+
+NEXT ROUND OF [no slop]: rounded corners 60 and 1px borders 56 on the walked city, which are
+the two that can move without a font file. Owners are known -- run
+`node tools/bohemia_count_the_tells.js --where`.
+Record: records/BOHEMIA_NO_SLOP_THE_TRACKING_IS_A_MACHINE_9_12_26.md
+
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

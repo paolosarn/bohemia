@@ -45,6 +45,25 @@
   --face-casing:'BohemiaMono',ui-monospace,monospace;
   --face-screen:'BohemiaMono',ui-monospace,monospace;
   --face-body:'BohemiaMono',ui-monospace,monospace;
+
+  /* *** TRACKING IS A PROPERTY OF THE MACHINE THAT PAINTED THE LABEL, NOT A STYLE CHOICE.
+     (9/12, row [no slop].) DIRECTION's rule is "a label is spaced only if the stencil that
+     painted it was", and before this there were EIGHTY hand-typed tracking numbers on this
+     surface -- 58 of them the same 1px -- which is not a rule, it is a habit. Tiny wide-spaced
+     capitals are on the law's own list of what gives a bot-built UI away, and the reason they
+     read that way is that nothing physical made the gap; somebody typed it to look designed.
+     So each FACE register gets a TRACKING register, and the number comes from the machine:
+       casing  a cut stencil plate or a struck stamp. The letters sit at the plate's own pitch.
+               Nothing tracks them out, so this is glyph fitting only -- the .4px the chips
+               already shipped on in round three, not a look.
+       screen  a character-cell readout (the HD44780 cell is five dots wide inside a grid with
+               a one-dot gutter). The gap is the gutter, so it is REAL and it stays counted;
+               the ruler is not told to forgive it. No element claims this register yet.
+       body    writing. A person writing does not space out their letters.
+     One token each, so the next person changes a register and not eighty lines. */
+  --track-casing:.4px;
+  --track-screen:1px;
+  --track-body:0;
   --bcut:10px; --bbw:2px;
   --bclip:polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
   --bclipin:polygon(8.83px 0, 100% 0, 100% calc(100% - 8.83px), calc(100% - 8.83px) 100%, 0 100%, 0 8.83px);
@@ -80,7 +99,7 @@
    Typewriter type is wider than the face this bar used to ask for and never
    load, so the day line ran from one edge of the phone to the other with
    nothing either side of it. */
-body #hud{ padding:4px 10px; letter-spacing:1px; }
+body #hud{ padding:4px 10px; letter-spacing:var(--track-casing,.4px); }
 /* SPECIFICITY, NOT ORDER. This block is stamped at the TOP of the city's own
    stylesheet, so its own #hud rule comes later and wins a tie. A body-prefixed rule is one
    step heavier and settles it without moving anybody's code around. Measured
@@ -171,15 +190,15 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    alone (PURPLE RESERVATION). */
 #footing{position:absolute;left:8px;top:46px;z-index:6;display:none;padding:5px 9px;
   background:rgba(12,10,8,.88);border-left:3px solid #8a7a58;border-radius:2px;
-  font-size:11px;font-weight:700;letter-spacing:1.4px;color:#e8dfc8;
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:#e8dfc8;
   text-shadow:0 1px 3px rgba(0,0,0,.8);max-width:80%;pointer-events:none}
-#footing .fdoes{display:block;font-weight:400;letter-spacing:.4px;font-size:10px;
+#footing .fdoes{display:block;font-weight:400;letter-spacing:var(--track-casing,.4px);font-size:10px;
   color:#c3b89c;margin-top:3px;text-transform:none}
 #footing.kills{border-left-color:#b4452f}
 #footing.amplifies{border-left-color:#c08a2e}
 #footing.disables{border-left-color:#4d7f96}
 /* ==== end footing readout css ==== */
-#hud{display:flex;justify-content:space-between;align-items:center;padding:2px 6px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--ink);text-shadow:0 1px 3px rgba(0,0,0,.6)}
+#hud{display:flex;justify-content:space-between;align-items:center;padding:2px 6px;font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink);text-shadow:0 1px 3px rgba(0,0,0,.6)}
 #stage{flex:1;position:relative;min-height:0;border-radius:12px;overflow:hidden;background:#1c1a15}
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* NAV CLUSTER (7/6/26): portrait dead center, 8 dir buttons ringed around it,
@@ -193,10 +212,10 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    the box cannot come apart from the box. */
 #mode{position:absolute;left:50%;top:50%;width:44.4%;height:44.4%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;text-align:center;border-radius:999px;overflow:hidden;
   background:radial-gradient(circle at 50% 38%,#3a342a,#15120d 72%);box-shadow:0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6);
-  color:var(--ink);font-weight:700;font-size:11px;letter-spacing:2px;z-index:6}
+  color:var(--ink);font-weight:700;font-size:11px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #mode:active{box-shadow:0 0 0 1px var(--acc),0 6px 22px rgba(0,0,0,.6);color:#fff}
 #modeFace{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;border-radius:999px}
-#modeLbl{position:absolute;left:0;right:0;bottom:7px;font-size:10px;letter-spacing:1px;font-weight:700;color:var(--ink);text-shadow:0 1px 4px #000,0 0 8px #000;pointer-events:none}
+#modeLbl{position:absolute;left:0;right:0;bottom:7px;font-size:10px;letter-spacing:var(--track-casing,.4px);font-weight:700;color:var(--ink);text-shadow:0 1px 4px #000,0 0 8px #000;pointer-events:none}
 #pad{position:absolute;inset:0;z-index:5}
 /* *** ONE RING, CUT -- NOT EIGHT LOOSE CIRCLES (Paolo 9/7, he picked option 1, THE
    DIAL, off slices/BOHEMIA_THE_PAD_IS_ONE_RING_9_7_26.html). *** His words: "I want the
@@ -224,9 +243,9 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #pad.mapmove .parr2{display:block;fill:#9fb4c4}
 #pad.mapmove .pb:active .pseg{stroke:#7fa8c4}
 #pad.mapmove .pb:active .parr2{fill:#fff}
-#keybtn{position:absolute;right:12px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
+#keybtn{position:absolute;right:12px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #keybtn:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
-#savebtn{position:absolute;left:110px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
+#savebtn{position:absolute;left:110px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 /* *** A MODAL UNDER THE RAIL IS NOT A MODAL. *** Seen in the picture: the STANDING chip
    and the note were drawing ON TOP of this panel's own buttons, because #blstack sits
    at z-index 39 and this sat at 9. Same family as [rail collides] and found the same
@@ -234,10 +253,10 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    be above the furniture. */
 #savepanel{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90%,360px);background:rgba(12,10,8,0.97);padding:14px;z-index:60}
 #savepanel textarea{width:100%;height:70px;background:#15120d;border:1px solid var(--line);color:var(--ink);border-radius:5px;font-size:10px;margin:8px 0}
-#savepanel .sbtn{display:inline-block;padding:8px 11px;background:var(--face);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;margin-right:8px}
-#musbtn{position:absolute;left:12px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
+#savepanel .sbtn{display:inline-block;padding:8px 11px;background:var(--face);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:var(--track-casing,.4px);margin-right:8px}
+#musbtn{position:absolute;left:12px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #musbtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
-#pfbtn{position:absolute;right:236px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
+#pfbtn{position:absolute;right:236px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #pfbtn:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #pfpanel{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92%,420px);max-height:82%;overflow-y:auto;background:rgba(12,10,8,0.97);border:1px solid var(--line);border-radius:8px;padding:12px;z-index:8;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 #pfgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
@@ -247,11 +266,11 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 .pfv span{font-size:15px;opacity:0.35;padding:2px 8px}
 .pfv span.on{opacity:1}
 .pfbar{display:flex;gap:8px;justify-content:space-between;align-items:center}
-.pfbar div{padding:7px 10px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px}
+.pfbar div{padding:7px 10px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:var(--track-casing,.4px)}
 .pfbar div:active{color:#fff;border-color:#5a4a2a}
-#reroll{position:absolute;right:158px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
+#reroll{position:absolute;right:158px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #reroll:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
-#underbtn{position:absolute;right:74px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
+#underbtn{position:absolute;right:74px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #underbtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #keypanel{display:none;position:absolute;right:12px;top:44px;max-height:64%;overflow-y:auto;background:rgba(12,10,8,0.95);padding:9px 11px;font-size:10px;line-height:1.85;color:var(--ink);z-index:60;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;max-height:74%}
 #keypanel .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle;border:1px solid rgba(255,255,255,0.2)}
@@ -260,16 +279,16 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #keypanel .krow:active{background:rgba(184,154,106,0.22)}
 #keypanel .krow.on{border-color:var(--acc);background:rgba(184,154,106,0.16)}
 #keypanel .krow.leg{opacity:0.7}
-#keypanel .krow.clear{color:var(--acc);font-weight:700;letter-spacing:1px;margin-bottom:4px}
+#keypanel .krow.clear{color:var(--acc);font-weight:700;letter-spacing:var(--track-casing,.4px);margin-bottom:4px}
 /* 4.16:1 measured against a 4.5 floor (9/6, [eyes: faint chips]) -- the one label on
    this screen that both rulers agreed was too faint. Lifted inside the same family. */
-#note{position:absolute;left:10px;top:10px;font-size:10px;color:#b3a488;background:rgba(12,10,8,0.85);border:1px solid var(--line);padding:5px 9px;border-radius:5px;z-index:4;letter-spacing:.5px}
+#note{position:absolute;left:10px;top:10px;font-size:10px;color:#b3a488;background:rgba(12,10,8,0.85);border:1px solid var(--line);padding:5px 9px;border-radius:5px;z-index:4;letter-spacing:var(--track-casing,.4px)}
 /* THE ONE CONTROL STILL UNDER THE READABLE FLOOR, CLOSED. Measured on the played
    screen: BIKE's letters came back 4.48 against a 4.5 floor -- the only one of
    seventeen under it, and it has been under it on main. It takes the lighter tint of
    the same gold the walk arrows were given on 9/6 for this exact problem, so the
    palette does not change and no other chip moves. */
-#bikebtn{display:none;position:absolute;left:12px;bottom:14px;padding:8px 11px;background:var(--face);color:#d8c49a;font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}
+#bikebtn{display:none;position:absolute;left:12px;bottom:14px;padding:8px 11px;background:var(--face);color:#d8c49a;font-weight:600;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #bikebtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 
 /* ==== TOP-LEFT STACK (8/24, __HUD_NEVER_OVERLAPS__) ==========================
@@ -297,7 +316,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #blstack>*{position:static !important;left:auto !important;right:auto !important;
   top:auto !important;bottom:auto !important;transform:none !important;
   margin:0 !important;max-width:100% !important;pointer-events:auto}
-#fitbtn{position:absolute;left:12px;bottom:14px;padding:8px 11px;background:var(--face);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;z-index:6}
+#fitbtn{position:absolute;left:12px;bottom:14px;padding:8px 11px;background:var(--face);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:var(--track-casing,.4px);z-index:6}
 #fitbtn:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 
 /* ==== TOOLBAR TIDY (7/25): the five top chips overlapped on a phone - each
@@ -396,7 +415,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
      background:#0d0b07;border:1px solid #2a2114;border-radius:6px;padding:11px 12px;
      font:12px/1.5 ui-monospace,monospace;color:#cdbd8a;max-width:430px;margin:0 auto">
   <div style="display:flex;align-items:baseline;gap:8px">
-    <div style="color:#d8b45a;letter-spacing:1px;font-size:11px">HOW MANY PEOPLE ON YOUR STREET</div>
+    <div style="color:#d8b45a;letter-spacing:var(--track-casing,.4px);font-size:11px">HOW MANY PEOPLE ON YOUR STREET</div>
     <div style="flex:1"></div>
     <div id="popclose" style="color:#8d8168;padding:0 6px">&#10005;</div>
   </div>
@@ -489,25 +508,25 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #outfitpanel .obvwhy{flex:1 1 100%;padding:3px 0 1px;line-height:1.5}
 #outfitpanel .obvwant{display:block;font-size:9px;opacity:.75}
 #outfitpanel .obvpays{display:block;font-size:9px;color:var(--acc);opacity:.9;
-  letter-spacing:1px;padding-top:2px}
+  letter-spacing:var(--track-casing,.4px);padding-top:2px}
 /* ==== __CITY_VALLEY__ -- the valley half of the board. Same tokens, same
    geometry; nothing new is designed. */
-#outfitpanel .obhead2{color:var(--acc);font-size:11px;letter-spacing:3px;
+#outfitpanel .obhead2{color:var(--acc);font-size:11px;letter-spacing:var(--track-casing,.4px);
   padding:16px 4px 8px;border-top:1px solid var(--line);margin-top:10px}
 #outfitpanel .obnext{font-size:10px;line-height:1.6;opacity:.85;padding:2px 4px 10px}
 #outfitpanel .obnext b{color:var(--ink)}
 #outfitpanel .obv{display:flex;justify-content:space-between;align-items:baseline;
   gap:6px;padding:5px 6px;border-bottom:1px solid var(--line);font-size:10px}
 #outfitpanel .obv.isyours{opacity:.55}
-#outfitpanel .obvwho{color:var(--ink);letter-spacing:2px;flex:0 0 auto}
-#outfitpanel .obvwhere{color:var(--acc);letter-spacing:1px;text-align:right;flex:1 1 auto}
-#outfitpanel .obvmet{font-size:8px;opacity:.5;letter-spacing:1px;flex:0 0 auto}
+#outfitpanel .obvwho{color:var(--ink);letter-spacing:var(--track-casing,.4px);flex:0 0 auto}
+#outfitpanel .obvwhere{color:var(--acc);letter-spacing:var(--track-casing,.4px);text-align:right;flex:1 1 auto}
+#outfitpanel .obvmet{font-size:8px;opacity:.5;letter-spacing:var(--track-casing,.4px);flex:0 0 auto}
 /* ==== __CITY_OUTFIT__ -- board chrome. Reuses the city's own tokens
    (--face, --line, --acc, --ink) and #keypanel's panel geometry; nothing new
    is designed here. */
 #outfitbtn{padding:7px 11px;background:var(--face);
   color:var(--acc);font-weight:500;font-size:10px;
-  letter-spacing:1px}
+  letter-spacing:var(--track-casing,.4px)}
 #outfitbtn:active{border-color:var(--acc);color:#fff}
 #outfitbtn.ring{background:#d8b45a;border-color:#d8b45a;color:#191308;font-weight:700}
 #outfitpanel{display:none;position:absolute;left:8px;right:8px;top:52px;bottom:64px;
@@ -516,10 +535,10 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #outfitpanel.on{display:flex}
 #outfitpanel .obbar{display:flex;justify-content:space-between;align-items:center;
   padding:9px 11px;border-bottom:1px solid var(--line);color:var(--acc);
-  font-size:11px;letter-spacing:2px;flex:0 0 auto}
+  font-size:11px;letter-spacing:var(--track-casing,.4px);flex:0 0 auto}
 #outfitpanel #obclose{padding:0 6px}
 #outfitpanel .obbody{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px}
-#outfitpanel .obhead{color:var(--ink);font-size:15px;letter-spacing:3px;
+#outfitpanel .obhead{color:var(--ink);font-size:15px;letter-spacing:var(--track-casing,.4px);
   padding:6px 4px 12px}
 #outfitpanel .obempty{color:var(--ink);opacity:.7;font-size:11px;line-height:1.6;
   padding:4px}
@@ -529,17 +548,17 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #outfitpanel .obrow.warm{border-left-color:#5a8a4a}
 #outfitpanel .obrow.neutral,#outfitpanel .obrow.unknown{border-left-color:var(--line)}
 #outfitpanel .obwho{display:flex;justify-content:space-between;align-items:baseline;
-  color:var(--ink);font-size:12px;letter-spacing:2px}
-#outfitpanel .obtag{font-size:8px;letter-spacing:1px;opacity:.55}
-#outfitpanel .obword{color:var(--acc);font-size:10px;letter-spacing:1px;padding-top:3px}
-#outfitpanel .obvia{font-size:9px;opacity:.6;padding-top:2px;letter-spacing:1px}
+  color:var(--ink);font-size:12px;letter-spacing:var(--track-casing,.4px)}
+#outfitpanel .obtag{font-size:8px;letter-spacing:var(--track-casing,.4px);opacity:.55}
+#outfitpanel .obword{color:var(--acc);font-size:10px;letter-spacing:var(--track-casing,.4px);padding-top:3px}
+#outfitpanel .obvia{font-size:9px;opacity:.6;padding-top:2px;letter-spacing:var(--track-casing,.4px)}
 #outfitpanel .obnote{font-size:10px;line-height:1.5;opacity:.8;padding-top:5px}
-#outfitpanel .obstand{font-size:9px;opacity:.5;padding-top:5px;letter-spacing:1px}
+#outfitpanel .obstand{font-size:9px;opacity:.5;padding-top:5px;letter-spacing:var(--track-casing,.4px)}
 
 /* __PHONE_IN_POCKET__ / __YOUR_HOUSE__ -- the phone button reuses the topbar
    button face already defined for #keybtn; nothing new is designed here. */
 #phonebtn{padding:7px 11px;background:var(--face);
-  color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px}
+  color:var(--acc);font-weight:500;font-size:10px;letter-spacing:var(--track-casing,.4px)}
 #phonebtn:active{border-color:var(--acc);color:#fff}
 /* __THE_PHONE_IS_THE_HANDLE__ (8/25) -- A RINGING PHONE LOOKS LIKE A BUTTON YOU PRESS.
    MEASURED with a cold hand that presses the loudest control on screen and never
@@ -561,7 +580,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* __BUILDERS_TOOLS_IN_A_DRAWER__ -- the builder's tray. Same treatment as the toolbar buttons
    it holds, so nothing looks like a different app; hidden until asked for. */
 #devbtn{padding:7px 9px;background:var(--face);
-  color:#6f6350;font-size:11px;font-weight:700;letter-spacing:1px}
+  color:#6f6350;font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px)}
 #devbtn.on{color:var(--acc);border-color:var(--acc)}
 #devtray{position:absolute;right:6px;top:44px;z-index:9;display:none;
   flex-direction:column;gap:5px;padding:6px;border-radius:8px;
@@ -569,7 +588,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #devtray.on{display:flex}
 #devtray > div{padding:7px 11px;border-radius:5px;background:var(--face);
   border:1px solid var(--line);color:var(--acc);font-size:11px;font-weight:700;
-  letter-spacing:1px;white-space:nowrap;text-align:center}
+  letter-spacing:var(--track-casing,.4px);white-space:nowrap;text-align:center}
 #devtray > div:active{border-color:var(--acc);color:#fff}
 #phonebadge{display:none;position:absolute;top:-5px;right:-5px;min-width:14px;height:14px;
   border-radius:7px;background:#c8503a;color:#fff;font-size:9px;font-weight:700;
@@ -652,14 +671,14 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   stroke-width:.7;vector-effect:non-scaling-stroke;stroke-linecap:round}
 #cityfeedglass .crk.rng{stroke:var(--skin-crack2,rgba(233,222,190,.16));stroke-width:.5}
 #cityfeedbar{flex:0 0 auto;display:flex;align-items:center;gap:4px;padding:4px 6px;
-  border-bottom:1px solid #241d13;color:#8d8168;font-size:8px;letter-spacing:1px;
+  border-bottom:1px solid #241d13;color:#8d8168;font-size:8px;letter-spacing:var(--track-casing,.4px);
   position:relative;z-index:1}
 #cityfeedsig{color:#6f6a52;letter-spacing:0}
 /* THE NAME IS THE ONLY THING ALLOWED TO SHRINK, so a narrow casing never pushes the
    clock or the battery off the phone. Caught on the options sheet's thick-cased
    option, where the clock walked out past the case. */
 #cityfeedname{flex:1 1 auto;min-width:0;overflow:hidden;white-space:nowrap;
-  color:#c8b681;letter-spacing:1.5px}
+  color:#c8b681;letter-spacing:var(--track-casing,.4px)}
 #cityfeedclock{flex:0 0 auto}
 /* THE BATTERY IS A REAL READING AND NOTHING ELSE WOULD BE ALLOWED. It is not a made-up
    percentage: it asks the game whether the street where the player is standing is on a
@@ -677,7 +696,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
   transition:opacity .28s linear,transform .28s linear}
 #cityfeed .fp.in{opacity:1;transform:none}
-#cityfeed .fp .who{color:#c8b681;letter-spacing:.6px;font-size:9px}
+#cityfeed .fp .who{color:#c8b681;letter-spacing:var(--track-casing,.4px);font-size:9px}
 #cityfeed .fp .txt{color:#a99e86;margin-top:1px}
 #cityfeed .fp.mine .who{color:#9adfd0}
 #cityfeed .fp.world .who{color:#cfa96a}
@@ -688,7 +707,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #phonewrap.on{display:flex}
 #phonebar{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
   padding:7px 11px;background:var(--face);border-bottom:1px solid var(--line);
-  color:var(--acc);font-size:10px;font-weight:700;letter-spacing:1px}
+  color:var(--acc);font-size:10px;font-weight:700;letter-spacing:var(--track-casing,.4px)}
 #phoneclose{padding:0 6px;font-size:14px;color:var(--ink)}
 #phoneslot{flex:1;min-height:0;position:relative}
 #phoneslot iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
@@ -697,17 +716,17 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* __DAY_LOOP__ -- the day loop's surface, in the app's own palette. No new
    art: this is the Dead Eye Dial language the whole city already speaks. */
 #qline{position:absolute;left:6px;right:6px;top:6px;z-index:7;pointer-events:none;
-  font-size:11px;font-weight:700;letter-spacing:1px;color:var(--acc);
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--acc);
   text-shadow:0 1px 4px #000,0 0 10px #000;line-height:1.35}
 #sleepbtn{position:absolute;left:6px;bottom:6px;z-index:7;padding:7px 11px;
   background:var(--face);color:var(--acc);
-  font-size:11px;font-weight:700;letter-spacing:1px}
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px)}
 #sleepbtn:active{border-color:var(--acc);color:#fff}
 /* __THE_TRADING_HUB__ -- the market button sits beside SLEEP and is only there when he
    is standing in the hub, because a market is a place. */
 #mktbtn{position:absolute;left:6px;bottom:40px;z-index:7;padding:7px 11px;
   background:var(--face);color:var(--acc);
-  font-size:11px;font-weight:700;letter-spacing:1px;display:none}
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);display:none}
 #mktbtn:active{background:#2a251d;color:#fff}
 /* __A_DAYS_WORK__ -- WORK sits in the same left column, one step above MARKET, and
    borrows #mktbtn's shape rather than copying it so the two can never drift apart.
@@ -717,7 +736,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    put it on top of DROP IN. */
 #workbtn{z-index:7;padding:7px 11px;
   background:var(--face);color:var(--acc);
-  font-size:11px;font-weight:700;letter-spacing:1px;display:none;
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);display:none;
   min-height:44px;box-sizing:border-box;line-height:30px;cursor:pointer}
 #workbtn:active{background:#2a251d;color:#fff}
 /* __BUILDER_WHERE_HE_WALKS__ -- THE BUILD VERB WHERE HIS FEET ARE. Measured 9/5:
@@ -728,7 +747,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    two can never drift apart. */
 #buildbtn{position:absolute;left:6px;bottom:40px;z-index:7;padding:7px 11px;
   background:var(--face);color:var(--acc);
-  font-size:11px;font-weight:700;letter-spacing:1px;display:none}
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px);display:none}
 #buildbtn:active{background:#2a251d;color:#fff}
 #buildbtn.on{background:#2a251d;color:#fff}
 /* ==== mandate face css ==== */
@@ -736,20 +755,20 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    and borrows #mktbtn's rule rather than copying it so the two can never drift apart. */
 #packbtn{position:absolute;left:6px;bottom:193px;z-index:7;padding:7px 11px;
   display:none;background:#241a12;color:#e6b877;font-weight:700;
-  font:600 12px ui-monospace,monospace;letter-spacing:1px;cursor:pointer}
+  font:600 12px ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);cursor:pointer}
 #packbtn:active{background:#3a2a18}
 #packline{position:absolute;left:6px;bottom:229px;z-index:7;max-width:62%;
   display:none;padding:5px 9px;border-radius:6px;background:rgba(12,10,8,0.88);
-  border:1px solid var(--line);color:#cbb68e;font:11px ui-monospace,monospace;letter-spacing:0.5px}
+  border:1px solid var(--line);color:#cbb68e;font:11px ui-monospace,monospace;letter-spacing:var(--track-casing,.4px)}
 #rungbtn{position:absolute;left:6px;bottom:74px;z-index:7;padding:7px 11px;
   background:var(--face);color:var(--acc);
-  font-size:11px;font-weight:700;letter-spacing:1px}
+  font-size:11px;font-weight:700;letter-spacing:var(--track-casing,.4px)}
 #rungbtn:active{background:#2a251d;color:#fff}
 #daycardIn .rrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
   padding:8px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
-#daycardIn .rk{font-size:10px;letter-spacing:1px;color:var(--acc);opacity:.85}
-#daycardIn .rv{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--ink);
+#daycardIn .rk{font-size:10px;letter-spacing:var(--track-casing,.4px);color:var(--acc);opacity:.85}
+#daycardIn .rv{font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink);
   text-align:right}
 #daycardIn .rwhy{font-size:11px;line-height:1.45;color:var(--ink);opacity:.8;
   padding:2px 2px 8px}
@@ -783,8 +802,8 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   border:1px solid var(--line)}
 #daycardIn .mrow:active{border-color:var(--acc)}
 #daycardIn .mrow.no{opacity:.45}
-#daycardIn .mgood{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--ink)}
-#daycardIn .mnote{font-size:10px;color:#8d7c5e;letter-spacing:.5px}
+#daycardIn .mgood{font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink)}
+#daycardIn .mnote{font-size:10px;color:#8d7c5e;letter-spacing:var(--track-casing,.4px)}
 #daycardIn .mprice{font-size:12px;font-weight:700;color:var(--acc);white-space:nowrap}
 /* __CITY_FEEDBACK__ 8/27 -- THE CARD WAS UNDER THE CHROME AND ONLY LOOKING SAW IT.
    The 8/25 rule three hundred lines below is written down and correct: world under
@@ -844,19 +863,19 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   color:#8d7c5e;font-size:15px;line-height:1;cursor:pointer;
   border:1px solid transparent}
 #daycardIn .dcx:active{color:#fff;border-color:var(--line);background:#2a251d}
-#daycardIn h2{font-size:13px;letter-spacing:3px;color:var(--acc);margin-bottom:4px}
-#daycardIn h3{font-size:11px;letter-spacing:2px;color:#8d7c5e;margin:12px 0 5px}
+#daycardIn h2{font-size:13px;letter-spacing:var(--track-casing,.4px);color:var(--acc);margin-bottom:4px}
+#daycardIn h3{font-size:11px;letter-spacing:var(--track-casing,.4px);color:#8d7c5e;margin:12px 0 5px}
 #daycardIn p{font-size:13px;line-height:1.5;color:var(--ink);margin-bottom:8px}
-#daycardIn .sub{font-size:11px;color:#8d7c5e;letter-spacing:1px;margin-bottom:10px}
+#daycardIn .sub{font-size:11px;color:#8d7c5e;letter-spacing:var(--track-casing,.4px);margin-bottom:10px}
 #daycardIn ul{list-style:none;margin-bottom:6px}
 #daycardIn li{font-size:12px;line-height:1.5;color:var(--ink);padding-left:12px;position:relative;margin-bottom:3px}
 #daycardIn li:before{content:'\00b7';position:absolute;left:2px;color:var(--acc)}
 .dcbtn{display:block;width:100%;text-align:left;margin-top:9px;padding:11px 12px;border-radius:9px;
   background:#1b1813;border:1px solid var(--line);color:var(--ink);font-size:13px;line-height:1.45}
 .dcbtn:active{border-color:var(--acc);color:#fff}
-.dcbtn .tag{display:block;font-size:10px;letter-spacing:2px;color:var(--acc);margin-bottom:3px}
+.dcbtn .tag{display:block;font-size:10px;letter-spacing:var(--track-casing,.4px);color:var(--acc);margin-bottom:3px}
 .dcgo{margin-top:14px;padding:12px;border-radius:9px;background:#1b1813;border:1px solid var(--acc);
-  color:var(--acc);font-size:12px;font-weight:700;letter-spacing:2px;text-align:center}
+  color:var(--acc);font-size:12px;font-weight:700;letter-spacing:var(--track-casing,.4px);text-align:center}
 .dcgo:active{background:#2a251d;color:#fff}
 </style>
 <style id="tjScrollFix">#tjPanel,#tjPanel *{touch-action:pan-y !important}#tjPanel img[data-place]{touch-action:manipulation !important}#tjPanel textarea{touch-action:auto !important}</style>
@@ -34396,7 +34415,7 @@ function plabApplyVotes(){
 }
 function plabRender(){
   const p=document.getElementById('pfpanel');
-  let html='<div class="pfbar"><b style="color:var(--acc);font-size:11px;letter-spacing:1px">PREFAB LAB · SUBURB HOUSES · seed '+PLAB.seed+'</b></div><div id="pfgrid"></div>'+
+  let html='<div class="pfbar"><b style="color:var(--acc);font-size:11px;letter-spacing:var(--track-casing,.4px)">PREFAB LAB · SUBURB HOUSES · seed '+PLAB.seed+'</b></div><div id="pfgrid"></div>'+
     '<div class="pfbar"><div id="pfnew">↻ NEW BATCH</div><div id="pfexp">EXPORT VERDICTS</div><div id="pfclose">CLOSE</div></div>';
   p.innerHTML=html;
   const grid=p.querySelector('#pfgrid');
@@ -39790,10 +39809,10 @@ function tpShowJudge(){
   if(!panel){ panel=document.createElement('div'); panel.id='tpJudge';
     panel.style.cssText='position:absolute;left:0;right:0;bottom:74px;z-index:40;padding:10px;pointer-events:none';
     panel.innerHTML='<div style="max-width:440px;margin:0 auto;background:#120f0c;border:1px solid #2a2216;border-radius:10px;padding:10px;pointer-events:auto">'
-      +'<div id="tpT" style="font-size:10px;letter-spacing:1px;color:#b89a6a;margin-bottom:8px"></div>'
+      +'<div id="tpT" style="font-size:10px;letter-spacing:var(--track-casing,.4px);color:#b89a6a;margin-bottom:8px"></div>'
       +'<div style="display:flex;gap:8px">'
-      +'<button id="tpUp" style="flex:1;padding:12px;border-radius:8px;border:1px solid #3a5a2a;background:#1a1510;color:#8fce7a;font:inherit;font-weight:600;font-size:12px;letter-spacing:1px">GOOD DIRECTION</button>'
-      +'<button id="tpDn" style="flex:1;padding:12px;border-radius:8px;border:1px solid #5a2a2a;background:#1a1510;color:#ce7a7a;font:inherit;font-weight:600;font-size:12px;letter-spacing:1px">NOT IT</button>'
+      +'<button id="tpUp" style="flex:1;padding:12px;border-radius:8px;border:1px solid #3a5a2a;background:#1a1510;color:#8fce7a;font:inherit;font-weight:600;font-size:12px;letter-spacing:var(--track-casing,.4px)">GOOD DIRECTION</button>'
+      +'<button id="tpDn" style="flex:1;padding:12px;border-radius:8px;border:1px solid #5a2a2a;background:#1a1510;color:#ce7a7a;font:inherit;font-weight:600;font-size:12px;letter-spacing:var(--track-casing,.4px)">NOT IT</button>'
       +'<button id="tpXx" style="flex:0 0 44px;padding:12px;border-radius:8px;border:1px solid #2a2216;background:#1a1510;color:#7a6f5c;font:inherit">X</button>'
       +'</div></div>';
     document.body.appendChild(panel);
@@ -39814,7 +39833,7 @@ function tpTogglePalette(){
   if(pal.style.display==='block'){ pal.style.display='none'; return; }
   pal.style.display='block';
   let h='<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">';
-  TP_CATS.forEach(c=>{ h+='<button data-cat="'+c+'" style="padding:6px 10px;border-radius:6px;border:1px solid '+(c===TP.cat?'#5a4a2a':'#2a2216')+';background:'+(c===TP.cat?'#1f1a10':'#141210')+';color:#cbb684;font:inherit;font-size:10px;letter-spacing:1px">'+c.toUpperCase()+'</button>'; });
+  TP_CATS.forEach(c=>{ h+='<button data-cat="'+c+'" style="padding:6px 10px;border-radius:6px;border:1px solid '+(c===TP.cat?'#5a4a2a':'#2a2216')+';background:'+(c===TP.cat?'#1f1a10':'#141210')+';color:#cbb684;font:inherit;font-size:10px;letter-spacing:var(--track-casing,.4px)">'+c.toUpperCase()+'</button>'; });
   h+='</div><div id="tpGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px"></div>';
   pal.innerHTML=h;
   pal.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{ TP.cat=b.dataset.cat; TP.idx=0; tpTogglePalette(); tpTogglePalette(); });
@@ -39938,9 +39957,9 @@ function tpInitButtons(){
   const bar=document.createElement('div');
   /* BOTTOM-LEFT STACK: no offsets of its own any more - the column places it. */
   bar.style.cssText='display:flex;gap:6px;flex-wrap:wrap';
-  bar.innerHTML='<div id="tpScatBtn" style="padding:8px 12px;border-radius:6px;border:1px solid #2a2418;background:#141210;color:#b89a6a;font:inherit;font-size:11px;letter-spacing:1px;font-weight:600">BUFFET ON</div>'
-    +'<div id="tpModeBtn" style="padding:8px 12px;border-radius:6px;border:1px solid #2a2418;background:#141210;color:#b89a6a;font:inherit;font-size:11px;letter-spacing:1px;font-weight:600">PLACE</div>'
-    +'<div id="tpJudgeBtn" style="padding:8px 12px;border-radius:6px;border:1px solid #5a4a2a;background:#1a1510;color:#e7d29a;font:inherit;font-size:11px;letter-spacing:1px;font-weight:600">TILES</div>';
+  bar.innerHTML='<div id="tpScatBtn" style="padding:8px 12px;border-radius:6px;border:1px solid #2a2418;background:#141210;color:#b89a6a;font:inherit;font-size:11px;letter-spacing:var(--track-casing,.4px);font-weight:600">BUFFET ON</div>'
+    +'<div id="tpModeBtn" style="padding:8px 12px;border-radius:6px;border:1px solid #2a2418;background:#141210;color:#b89a6a;font:inherit;font-size:11px;letter-spacing:var(--track-casing,.4px);font-weight:600">PLACE</div>'
+    +'<div id="tpJudgeBtn" style="padding:8px 12px;border-radius:6px;border:1px solid #5a4a2a;background:#1a1510;color:#e7d29a;font:inherit;font-size:11px;letter-spacing:var(--track-casing,.4px);font-weight:600">TILES</div>';
   (blStack()||document.body).appendChild(bar);
   document.getElementById('tpScatBtn').onclick=()=>{ TP.scatter=!TP.scatter; tpUpdateBtn(); render(); };
   document.getElementById('tpModeBtn').onclick=()=>{ TP.on=!TP.on; tpUpdateBtn(); render(); };
@@ -39998,18 +40017,18 @@ function tjCount(v){ let n=0; for(const k in TP.cut)if(TP.cut[k]===v)n++; return
 function tjRender(){
   const p=document.getElementById('tjPanel'); if(!p)return;
   let h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
-    +'<b style="color:#e7d29a;font-size:12px;letter-spacing:1px">TILE JUDGING</b>'
+    +'<b style="color:#e7d29a;font-size:12px;letter-spacing:var(--track-casing,.4px)">TILE JUDGING</b>'
     +'<div id="tjX" style="color:#7a6f5c;padding:4px 8px;cursor:pointer">CLOSE</div></div>';
-  h+='<div style="font-size:9px;color:#7a6f5c;letter-spacing:.5px;margin-bottom:8px">Tap the PICTURE to place that tile in the world. Buttons below each tile: GOOD keeps it, NOT IT rejects, BAD CUT flags it for me to re-slice. Rejects go to graveyard (last 75, undoable).</div>';
+  h+='<div style="font-size:9px;color:#7a6f5c;letter-spacing:var(--track-casing,.4px);margin-bottom:8px">Tap the PICTURE to place that tile in the world. Buttons below each tile: GOOD keeps it, NOT IT rejects, BAD CUT flags it for me to re-slice. Rejects go to graveyard (last 75, undoable).</div>';
   // category tabs
   h+='<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px">';
-  TP_CATS.forEach(c=>{ h+='<button data-tab="'+c+'" style="padding:5px 9px;border-radius:5px;border:1px solid '+(c===TJ.cat?'#5a4a2a':'#2a2216')+';background:'+(c===TJ.cat?'#1f1a10':'#141210')+';color:#cbb684;font:inherit;font-size:10px;letter-spacing:1px">'+c.toUpperCase()+'</button>'; });
+  TP_CATS.forEach(c=>{ h+='<button data-tab="'+c+'" style="padding:5px 9px;border-radius:5px;border:1px solid '+(c===TJ.cat?'#5a4a2a':'#2a2216')+';background:'+(c===TJ.cat?'#1f1a10':'#141210')+';color:#cbb684;font:inherit;font-size:10px;letter-spacing:var(--track-casing,.4px)">'+c.toUpperCase()+'</button>'; });
   h+='</div>';
   // bulk bar
   h+='<div style="display:flex;gap:6px;margin-bottom:8px">'
-    +'<button id="tjNotes" style="flex:1;padding:8px;border-radius:6px;border:1px solid #4a4a5a;background:#1a1510;color:#a8b0d0;font:inherit;font-size:10px;letter-spacing:1px;font-weight:600">NOTES'+(TP.note&&TP.note.length?' \u2022':'')+'</button>'
-    +'<button id="tjExp" style="flex:0 0 auto;padding:8px 12px;border-radius:6px;border:1px solid #5a4a2a;background:#1a1510;color:#e7d29a;font:inherit;font-size:10px;letter-spacing:1px;font-weight:600">EXPORT TO CHAT</button>'
-    +'<button id="tjGrave" style="flex:0 0 auto;padding:8px 10px;border-radius:6px;border:1px solid #5a2a5a;background:#1a1510;color:#c88ac8;font:inherit;font-size:10px;letter-spacing:1px;font-weight:600">GRAVE ('+TP.grave.length+')</button>'
+    +'<button id="tjNotes" style="flex:1;padding:8px;border-radius:6px;border:1px solid #4a4a5a;background:#1a1510;color:#a8b0d0;font:inherit;font-size:10px;letter-spacing:var(--track-casing,.4px);font-weight:600">NOTES'+(TP.note&&TP.note.length?' \u2022':'')+'</button>'
+    +'<button id="tjExp" style="flex:0 0 auto;padding:8px 12px;border-radius:6px;border:1px solid #5a4a2a;background:#1a1510;color:#e7d29a;font:inherit;font-size:10px;letter-spacing:var(--track-casing,.4px);font-weight:600">EXPORT TO CHAT</button>'
+    +'<button id="tjGrave" style="flex:0 0 auto;padding:8px 10px;border-radius:6px;border:1px solid #5a2a5a;background:#1a1510;color:#c88ac8;font:inherit;font-size:10px;letter-spacing:var(--track-casing,.4px);font-weight:600">GRAVE ('+TP.grave.length+')</button>'
     +'</div>';
   // expanding notes box (font-size 16px kills iOS zoom-on-focus)
   h+='<div id="tjNoteBox" style="display:'+(TJ.notesOpen?'block':'none')+';margin-bottom:8px">'
@@ -40033,11 +40052,11 @@ function tjRender(){
     if(v==='badcut'||v==='notit'){} // still show it
     cell.innerHTML='<img data-place="'+i+'" src="data:image/png;base64,'+b64+'" style="width:100%;aspect-ratio:1;object-fit:cover;image-rendering:pixelated;display:block;cursor:pointer">'
       +'<div style="display:flex">'
-      +'<div data-a="good" data-i="'+i+'" style="flex:1;text-align:center;padding:6px 0;font-size:9px;letter-spacing:.5px;color:'+(v==='good'?'#fff':'#6a8a5a')+';background:'+(v==='good'?'#2a3a1a':'#121410')+'">GOOD</div>'
-      +'<div data-a="notit" data-i="'+i+'" style="flex:1;text-align:center;padding:6px 0;font-size:9px;letter-spacing:.5px;color:'+(v==='notit'?'#fff':'#8a5a5a')+';background:'+(v==='notit'?'#3a1a1a':'#121410')+'">NOT IT</div>'
-      +'<div data-a="badcut" data-i="'+i+'" style="flex:1;text-align:center;padding:6px 0;font-size:9px;letter-spacing:.5px;color:'+(v==='badcut'?'#fff':'#8a7a5a')+';background:'+(v==='badcut'?'#3a2f1a':'#121410')+'">BAD CUT</div>'
+      +'<div data-a="good" data-i="'+i+'" style="flex:1;text-align:center;padding:6px 0;font-size:9px;letter-spacing:var(--track-casing,.4px);color:'+(v==='good'?'#fff':'#6a8a5a')+';background:'+(v==='good'?'#2a3a1a':'#121410')+'">GOOD</div>'
+      +'<div data-a="notit" data-i="'+i+'" style="flex:1;text-align:center;padding:6px 0;font-size:9px;letter-spacing:var(--track-casing,.4px);color:'+(v==='notit'?'#fff':'#8a5a5a')+';background:'+(v==='notit'?'#3a1a1a':'#121410')+'">NOT IT</div>'
+      +'<div data-a="badcut" data-i="'+i+'" style="flex:1;text-align:center;padding:6px 0;font-size:9px;letter-spacing:var(--track-casing,.4px);color:'+(v==='badcut'?'#fff':'#8a7a5a')+';background:'+(v==='badcut'?'#3a2f1a':'#121410')+'">BAD CUT</div>'
       +'</div>'
-      +'<div data-type="'+i+'" style="text-align:center;padding:5px 0;font-size:9px;letter-spacing:1px;color:#a8b0d0;background:#14131a;border-top:1px solid #241f18">'+tpTypeOf(TJ.cat,i)+'</div>';
+      +'<div data-type="'+i+'" style="text-align:center;padding:5px 0;font-size:9px;letter-spacing:var(--track-casing,.4px);color:#a8b0d0;background:#14131a;border-top:1px solid #241f18">'+tpTypeOf(TJ.cat,i)+'</div>';
     cell.querySelectorAll('[data-a]').forEach(btn=>btn.onclick=()=>{ tjSet(TJ.cat,parseInt(btn.dataset.i),btn.dataset.a); tjRender(); render&&render(); });
     const pim=cell.querySelector('[data-place]'); if(pim)pim.onclick=()=>{ TP.cat=TJ.cat; TP.idx=i; TP.on=true; tpUpdateBtn&&tpUpdateBtn(); tjClose(); render&&render(); };
     const tbtn=cell.querySelector('[data-type]'); if(tbtn)tbtn.onclick=()=>{ tpCycleType(TJ.cat,parseInt(tbtn.dataset.type)); tjRender(); };
@@ -40047,14 +40066,14 @@ function tjRender(){
 function tjGraveOpen(){
   const p=document.getElementById('tjPanel'); if(!p)return;
   let h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
-    +'<b style="color:#c88ac8;font-size:12px;letter-spacing:1px">GRAVEYARD ('+TP.grave.length+'/75)</b>'
+    +'<b style="color:#c88ac8;font-size:12px;letter-spacing:var(--track-casing,.4px)">GRAVEYARD ('+TP.grave.length+'/75)</b>'
     +'<div id="tjBack" style="color:#7a6f5c;padding:4px 8px;cursor:pointer">BACK</div></div>';
   h+='<div style="font-size:9px;color:#7a6f5c;margin-bottom:8px">Tap RESTORE to pull a tile back from the dead.</div>';
   h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">';
   TP.grave.forEach((gr,gi)=>{ const b64=TP_TILES[gr.cat] && TP_TILES[gr.cat][gr.idx]; if(!b64)return;
     h+='<div style="border-radius:6px;overflow:hidden;border:2px solid #3a2a3a;background:#0d0b09">'
       +'<img src="data:image/png;base64,'+b64+'" style="width:100%;aspect-ratio:1;object-fit:cover;image-rendering:pixelated;display:block;opacity:.6">'
-      +'<div data-g="'+gi+'" style="text-align:center;padding:6px 0;font-size:9px;letter-spacing:.5px;color:#c8a848;background:#1a1510">RESTORE</div></div>';
+      +'<div data-g="'+gi+'" style="text-align:center;padding:6px 0;font-size:9px;letter-spacing:var(--track-casing,.4px);color:#c8a848;background:#1a1510">RESTORE</div></div>';
   });
   h+='</div>';
   p.innerHTML=h;
@@ -49243,7 +49262,7 @@ function vistaCardDraw(){
        one of the ways out. It used to be `none`, so the card could not even be
        tapped -- and there was nothing else to tap either. */
     el.style.cssText='position:absolute;left:0;right:0;top:64px;z-index:45;text-align:center;'
-      +'pointer-events:auto;cursor:pointer;font:12px ui-monospace,monospace;letter-spacing:2px';
+      +'pointer-events:auto;cursor:pointer;font:12px ui-monospace,monospace;letter-spacing:var(--track-casing,.4px)';
     el.addEventListener('click',function(){ try{ vistaClose(); }catch(_e){} });
     (document.getElementById('wrap')||document.body).appendChild(el); }
   /* __THE_VISTA_LETS_YOU_LEAVE__: it was top:64px, hardcoded, while the toolbar sits at
@@ -50322,7 +50341,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
        kill, and #blstack>* forces position:static over any of it anyway. */
     st.textContent='#modechip{padding:7px 10px;'
       +'background:var(--face);'
-      +'color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px}'
+      +'color:var(--acc);font-weight:600;font-size:10px;letter-spacing:var(--track-casing,.4px)}'
       +'#modechip:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}'
       /* the round button, when there is nothing in front of him, is quiet rather
          than gone -- a control that vanishes reads as broken. */
@@ -54160,7 +54179,7 @@ window.addEventListener('message',ev=>{ const d=ev&&ev.data;
 document.getElementById('savebtn').addEventListener('click',()=>{
   const p=document.getElementById('savepanel');
   if(p.style.display==='block'){ p.style.display='none'; return; }
-  p.innerHTML='<b style="color:var(--acc);font-size:11px;letter-spacing:1px">SUSPEND SAVE</b>'+
+  p.innerHTML='<b style="color:var(--acc);font-size:11px;letter-spacing:var(--track-casing,.4px)">SUSPEND SAVE</b>'+
    '<div style="font-size:10px;opacity:0.7;margin:6px 0">saves itself as you go · one save · picks up where you left off<br>kept in: <span id="sv-mode">…</span></div>'+
    '<div class="sbtn" id="sv-exp">EXPORT SAVE</div><div class="sbtn" id="sv-imp">IMPORT</div><div class="sbtn" id="sv-close">CLOSE</div>'+
    /* __CITY_FEEDBACK__ -- THE DOOR A QUIT CAN FIND. An end-of-day card is
@@ -54317,7 +54336,7 @@ function popApply(v){
     b.setAttribute('data-k', r[0]);
     b.className = 'popmark';
     b.style.cssText = 'padding:4px 7px;border:1px solid #2a2114;border-radius:4px;' +
-      'font-size:9px;letter-spacing:1px;color:#8d8168';
+      'font-size:9px;letter-spacing:var(--track-casing,.4px);color:#8d8168';
     b.textContent = r[2];
     b.addEventListener('click', function(){ s.value = String(r[1]); popApply(r[1]); });
     marks.appendChild(b);
@@ -61330,7 +61349,7 @@ function ctAdjacent(){
     '#cttalk{position:absolute;left:50%;transform:translateX(-50%);bottom:74px;z-index:40;'+
       'display:none;padding:11px 18px;border:1px solid var(--line);background:var(--face);'+
       'color:var(--acc);font:700 12px/1 var(--face-body);'+
-      'letter-spacing:2px;border-radius:9px}'+
+      'letter-spacing:var(--track-casing,.4px);border-radius:9px}'+
     '#cttalk:active{background:#31280f}'+
     /* __CITY_TELL__ -- what you notice about them.
        *** THE POSITION IS MEASURED, NOT CHOSEN. *** The first cut put it at
@@ -61357,9 +61376,9 @@ function ctAdjacent(){
       'max-height:calc(100% - 16px);overflow-y:auto;-webkit-overflow-scrolling:touch;'+
       'background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px}'+
     '#ctcard .who{font:700 15px/1.2 var(--face-body);color:var(--ink);'+
-      'letter-spacing:1px}'+
+      'letter-spacing:var(--track-casing,.4px)}'+
     '#ctcard .r{display:flex;gap:10px;align-items:baseline;margin-top:7px}'+
-    '#ctcard .k{font:9px/1 ui-monospace,monospace;letter-spacing:1.2px;color:#8a7a5a;'+
+    '#ctcard .k{font:9px/1 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);color:#8a7a5a;'+
       'text-transform:uppercase;width:76px;flex:none}'+
     '#ctcard .v{font:12px/1.3 var(--face-body);color:var(--ink)}'+
     /* __CITY_CONVERSATION__ -- A SPOKEN LINE IS NOT A KEY/VALUE ROW. The card
@@ -61374,13 +61393,13 @@ function ctAdjacent(){
        exactly what a struck-through line means. */
     '#daycardIn .endnoverb{font:italic 12px/1.4 var(--face-body);'+
       'color:#7b6c50;margin-top:20px;text-decoration:line-through;opacity:.8}'+
-    '#daycardIn .endstop{font:10px/1.6 ui-monospace,monospace;letter-spacing:2px;'+
+    '#daycardIn .endstop{font:10px/1.6 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);'+
       'color:#6a5a3e;margin-top:26px}'+
     /* __CITY_FEEDBACK__ -- THE CARD THAT IS NOT THE GAME. It uses the game's
        card so it inherits the scrim, the X, Escape and the tap-outside, and it
        deliberately does not use the game's VOICE: monospace, no serif prose, so
        the frame break is visible before a word is read. */
-    '#daycardIn .fbq{font:700 11px/1.4 ui-monospace,monospace;letter-spacing:1.4px;'+
+    '#daycardIn .fbq{font:700 11px/1.4 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);'+
       'color:#c9bda2;margin-top:18px;text-transform:uppercase}'+
     '#daycardIn .fbnote{font:11px/1.5 ui-monospace,monospace;color:#8a7a5a;margin-top:8px}'+
     '#daycardIn .fbopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}'+
@@ -61393,11 +61412,11 @@ function ctAdjacent(){
       'border:1px solid var(--line);border-radius:8px;color:#e8e2d4;'+
       'font:12px/1.45 ui-monospace,monospace;resize:vertical}'+
     '#daycardIn .fbgo{padding:11px 15px;border:1px solid #c9a24a;background:#3a3320;'+
-      'color:#f0e4c4;font:700 11px/1 ui-monospace,monospace;letter-spacing:1.6px;'+
+      'color:#f0e4c4;font:700 11px/1 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);'+
       'border-radius:8px;margin-top:6px}'+
     /* AND THE DOOR UNDER THE ENDING IS THE QUIETEST THING ON THAT SCREEN. */
     '#daycardIn .fbdoor{margin-top:30px;padding:10px 0;border-top:1px solid #2a2418;'+
-      'font:10px/1.6 ui-monospace,monospace;letter-spacing:2px;color:#7b6c50}'+
+      'font:10px/1.6 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);color:#7b6c50}'+
 '#ctcard .say{font:13px/1.45 var(--face-body);color:var(--ink);'+
       'margin-top:9px}'+
     /* AND THE THING YOU CANNOT SAY, WHICH THE CORPUS SAYS IS THE LOUDEST PART OF
@@ -61406,7 +61425,7 @@ function ctAdjacent(){
       'color:#7b6c50;margin-top:9px;text-decoration:line-through;opacity:.75}'+
     '#ctcard button{margin-top:11px;margin-right:8px;padding:9px 13px;border:1px solid var(--line);'+
       'background:var(--face);color:var(--acc);font:700 11px/1 var(--face-body);'+
-      'letter-spacing:1.4px;border-radius:8px}';
+      'letter-spacing:var(--track-casing,.4px);border-radius:8px}';
   document.head.appendChild(css);
   var b=document.createElement('button'); b.id='cttalk'; b.textContent='TALK';
   var c=document.createElement('div'); c.id='ctcard';
@@ -68003,7 +68022,7 @@ window.BOHEMIA_FEED = (function(){
      +'transition:opacity .18s linear;opacity:.95}'
    +'#teachring.beat{opacity:.45}'
    +'#teachsay{position:absolute;font:600 12px/1.35 ui-monospace,monospace;'
-     +'letter-spacing:1px;color:var(--ink);background:rgba(11,10,9,.92);'
+     +'letter-spacing:var(--track-casing,.4px);color:var(--ink);background:rgba(11,10,9,.92);'
      +'border:1px solid var(--line);border-radius:8px;padding:7px 10px;'
      +'text-align:center;max-width:80vw}';
   document.head.appendChild(css);
@@ -68345,7 +68364,7 @@ window.BOHEMIA_HALF = (function(){
         on the one you aimed at. One property, two symptoms, exactly as the handoff
         guessed. And #topbar is a 44-tall flex row, so it holds its own children up too. */
      '.uihalf{ font-size:5px!important; padding:3px 5px!important;'
-       +'border-radius:3px!important; letter-spacing:.5px!important;'
+       +'border-radius:3px!important; letter-spacing:var(--track-casing,.4px)!important;'
        +'min-height:0!important; height:auto!important; line-height:1.25!important }'
     +'#topbar.uihalf{ height:auto!important; min-height:0!important }'
     /* *** AND IT HAD TO OUT-SPECIFY THE THUMB RULE, WHICH IS WHY height:auto ALONE
@@ -68638,7 +68657,7 @@ window.BOHEMIA_BAR = (function(){
         +'background:linear-gradient(#241f16,#171309);'
         +'border-bottom:1px solid var(--line);'
         +'box-shadow:0 2px 10px rgba(0,0,0,.55);'
-        +'font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--ink);'
+        +'font-size:10px;font-weight:700;letter-spacing:var(--track-casing,.4px);color:var(--ink);'
         +'pointer-events:none}'
       +'#menubar > *{pointer-events:auto}'
       /* *** AND THE CHIPS GET THE SAME POSITION RESET #topbar WAS GIVING THEM, BECAUSE
@@ -68810,7 +68829,7 @@ window.BOHEMIA_SKIN = (function(){
         '--skin-chipunder':'rgba(0,0,0,.55)',
         '--skin-chipink':'#d8c49a',
         '--skin-chipround':'2px',
-        '--skin-chiptrack':'.4px',
+        '--skin-chiptrack':'var(--track-casing,.4px)',   /* the chips read the casing register, not a second copy of it */
         '--skin-panelround':'3px',
         '--skin-paneltop':'#4c412f',
         '--skin-panelbase':'#0a0806',

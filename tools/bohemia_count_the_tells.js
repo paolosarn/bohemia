@@ -47,6 +47,55 @@ function strip(src) {
     .replace(/^[ \t]*\/\/.*$/gm, ' ');      // js line comments
 }
 
+/* *** A TOKEN IS NOT A CURE, AND THIS RULER COULD NOT TELL THE DIFFERENCE (round four). ***
+   Found before touching the tracking work, which is what makes it worth writing down. The
+   spaced-caps row only matched a value that starts with a digit, so `letter-spacing:2px`
+   counted and `letter-spacing:var(--track,2px)` did not -- same painted pixel, half the
+   score. Eighty hits could have gone to zero in one pass of find-and-replace, the screen
+   unchanged, the record claiming the slop was cut. THAT IS THE EXACT MOVE THIS LANE HAS
+   BANNED ITSELF FROM: never tune the ruler so a number falls. So the ruler now resolves
+   what a var would paint before it counts. Innermost first, repeatedly, because a fallback
+   can hold another var; a var with no fallback paints nothing, so it becomes nothing.
+
+   THE REPO'S OWN TOTAL DID NOT MOVE WHEN THIS LANDED, and the first draft of this comment
+   claimed it had gone up, which would have been a lie sitting in the evidence. It did not
+   move because the one var-wrapped tracking value in the tree today is .4px, under the
+   threshold either way. The hole is real anyway and is proved on a probe, not asserted:
+   three labels written 2px, var(--t,2px) and var(--t,var(--u,3px)) paint three spaced
+   labels; the old ruler counted ONE, this one counts THREE. A hole you can only demonstrate
+   on a probe is still a hole -- it is the one the next round would have fallen into, since
+   the next round is the one that moves tracking onto tokens. */
+function inline(src) {
+  /* *** AND THE FALLBACK IS NOT THE VALUE EITHER. *** Resolving var(--track,.4px) to .4px
+     is only right while the token is DECLARED .4px. Set --track-casing:2px at the top of
+     the file and every label on screen goes wide while the ruler keeps reading the stale
+     .4px written at the call sites and reports nothing. That is the same hole one level up,
+     so the declarations are read first and they win. Where a token is declared more than
+     once with different values -- the skin does this on purpose, one act per value -- there
+     is no single answer from the source alone, so the fallback is kept and that limit is
+     named here rather than guessed at. */
+  const declared = new Map(), seen = new Map();
+  const DECL = /(--[\w-]+)\s*:\s*([^;{}]+)/g;
+  let d;
+  while ((d = DECL.exec(src))) {
+    const k = d[1], v = d[2].trim().replace(/!important$/, '').trim();
+    if (!seen.has(k)) seen.set(k, new Set());
+    seen.get(k).add(v);
+  }
+  for (const [k, vs] of seen) if (vs.size === 1) declared.set(k, [...vs][0]);
+
+  let out = src, n = 0;
+  for (;;) {
+    const next = out
+      .replace(/var\(\s*(--[\w-]+)\s*,([^()]*)\)/g,
+               (m, k, fb) => (declared.has(k) ? declared.get(k) : fb))
+      .replace(/var\(\s*(--[\w-]+)\s*\)/g,
+               (m, k) => (declared.has(k) ? declared.get(k) : ''));
+    if (next === out || ++n > 12) return next;
+    out = next;
+  }
+}
+
 const TELLS = [
   { key: 'named fonts',        note: 'Inter / Poppins / Space Grotesk / Geist',
     re: /\b(Inter|Poppins|Space\s+Grotesk|Geist)\b/gi },
@@ -76,7 +125,7 @@ const TELLS = [
 ];
 
 function count(file) {
-  const src = strip(fs.readFileSync(path.join(ROOT, file), 'utf8'));
+  const src = inline(strip(fs.readFileSync(path.join(ROOT, file), 'utf8')));
   const out = {};
   for (const t of TELLS) {
     const m = src.match(t.re);
@@ -87,16 +136,19 @@ function count(file) {
 
 /* *** WHERE, NOT JUST HOW MANY (round three). *** "62 one-pixel borders" is a number
    nobody can act on: it does not say whose panel, so it cannot be cut and it cannot be
-   routed. Every hit is attributed to the nearest CSS selector or html id above it, and the
-   hits are grouped, so the count stops being a score and starts being a list of jobs.
-   The attribution is the nearest id-ish anchor above the match, which is a heuristic and
-   is named as one -- it lands a hit inside #daycard on "#daycard" and a hit in a bare
-   `.fp .txt` rule on the last id it saw. Good enough to route by, not evidence. */
+   routed. Every hit is attributed to the nearest ANCHOR above it, and the hits are grouped,
+   so the count stops being a score and starts being a list of jobs.
+   AN ANCHOR IS NOT ANY WORD STARTING WITH A HASH -- that cut is dead and the block below
+   says what killed it. It is exactly two things: an id written in the MARKUP, or an id that
+   OPENS A CSS RULE. Everything else is skipped, so a hex colour and a word inside quest text
+   can no longer be credited with somebody's panel.
+   It is still nearest-above, so a hit inside a bare `.fp .txt` rule lands on the last real
+   anchor before it. Good enough to route by, not evidence. */
 function locate(file) {
   const raw = fs.readFileSync(path.join(ROOT, file), 'utf8');
-  const src = strip(raw);
+  const src = inline(strip(raw));
   /* *** AN ANCHOR MUST BE A SELECTOR OR AN ID, NOT ANY WORD THAT STARTS WITH A HASH. ***
-     Two wrong cuts before this one, and the second nearly sent другим lanes a list of jobs
+     Two wrong cuts before this one, and the second nearly sent other lanes a list of jobs
      that did not exist:
        1. a HEX COLOUR read as an id -- six hits attributed to "#c9a24a", a shade of gold.
        2. a WORD INSIDE QUEST DATA read as an id -- "#namedbody" and "#dread" are strings in

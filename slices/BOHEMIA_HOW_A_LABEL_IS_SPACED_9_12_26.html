@@ -1,0 +1,143 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - FIVE WAYS A LABEL IS SPACED</title>
+<style>
+ /* Held to the list it shows. No named font, no hairline as an edge, no card radius as
+    the way to group, no gradient-and-glow, no spaced caps as the way to label, no emoji.
+    The chips are drawn at the size they are in the game (14px tall on his half-size
+    order) and the whole block is scaled, so nothing is re-proportioned to fit a picture. */
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot); background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ background:#fff; margin:16px 0; border-bottom:3px solid var(--ink) }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .stage{ padding:18px 14px; background:#6b6150; overflow:hidden }
+ .row{ transform:scale(2.4); transform-origin:top left; display:flex; flex-direction:column;
+       align-items:flex-start; gap:7px; width:140px }
+ /* every chip is the shipped casing plate; the ONLY thing that changes down the page
+    is the tracking, so the comparison is about one thing */
+ .c{ height:14px; line-height:14px; padding:0 5px; font-size:7px; white-space:nowrap;
+     background:#1a160f; color:#d8c49a; border-radius:2px;
+     box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55) }
+ .body{ padding:12px }
+ .say{ margin:0; font-size:15px }
+ .mach{ margin:6px 0 0; font-size:13px; color:#6b6355 }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a } .cost b{ color:var(--ink) }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--rule) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:2px solid var(--rule); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border-left:5px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:0;
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>FIVE WAYS A LABEL IS SPACED</h1>
+ <div class="sub">Same buttons, same metal, one thing different: how far apart the letters sit. Option A is what is in the game now. Tap a thumb. 9/12</div>
+</header>
+
+<div class="now">
+ <b>TINY WIDE CAPITALS ARE ON THE LIST OF WHAT GIVES A BOT-BUILT SCREEN AWAY,</b> and we
+ had eighty of them on the walked city. Fifty-eight were the exact same number, typed out
+ fifty-eight separate times. That is not a rule, it is a habit.
+ <br><br>
+ <b>SO THE GAP NOW COMES FROM A MACHINE, NOT FROM TASTE.</b> A stencil plate holds its
+ letters where the plate cut them. A label-maker steps its wheel the same distance every
+ time whether the letter is an I or a W. An old lit readout has a one-dot gap built into
+ the screen itself. Each one below is a real machine, and the number under it is that
+ machine's number, not one I liked the look of.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+var WORDS=['STANDING','BUILD HERE','SCAVENGE 8H','MARKET','DROP IN'];
+
+function chips(track){
+  return '<div class="stage"><div class="row">' + WORDS.map(function(w){
+    return '<div class="c" style="letter-spacing:'+track+'">'+w+'</div>';
+  }).join('') + '</div></div>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. THE STENCIL - what is in the game now', track:'.4px',
+   mach:'The machine: a cut steel plate. 0.4px, which is letter fitting and nothing more.',
+   say:'The letters sit where the plate cut them. Nothing is pushed apart, so the word reads as one stamped thing rather than a row of separate capitals.',
+   cost:'<b>Costs you:</b> the least room to breathe of the five, so a long word looks like a block. <b>Gets you:</b> it is the only one of the five that is not on the tell list, and it is what the chips already ship on.' },
+
+ { k:'B', t:'B. WHAT WE HAD BEFORE THIS ROUND', track:'2px',
+   mach:'The machine: none. Somebody typed 2px because it looked designed.',
+   say:'Wide. This is the look the research names first when it is asked what a bot-built screen looks like, and we had it on eighty labels.',
+   cost:'<b>Costs you:</b> it is the tell itself, and long words run past the edge of the button. <b>Gets you:</b> honestly, it is the easiest to read at a glance, and that is why everybody does it.' },
+
+ { k:'C', t:'C. THE LIT READOUT', track:'1px',
+   mach:'The machine: a character-cell screen. The letter is five dots wide and the grid leaves one dot between cells, so the gap is the gutter.',
+   say:'One dot apart, because the screen physically cannot put them closer. Every letter takes the same width whether it is an I or a W.',
+   cost:'<b>Costs you:</b> it says the power is on, which is a lie in most of this valley. <b>Gets you:</b> a real reason for the gap, so it reads as hardware instead of styling.' },
+
+ { k:'D', t:'D. THE LABEL MAKER', track:'1.4px',
+   mach:'The machine: an embossed tape gun. The wheel steps the same distance every press.',
+   say:'Wider than the letters need, and unevenly so, because the machine does not care how wide the letter was. A person squeezed this out by hand.',
+   cost:'<b>Costs you:</b> it looks like the tell even though a real machine made it, and nobody can see the difference. <b>Gets you:</b> it says a person labelled this, which no other option says.' },
+
+ { k:'E', t:'E. NO GAP AT ALL', track:'0',
+   mach:'The machine: a struck stamp, hit hard into metal.',
+   say:'The letters touch. Cheapest, hardest, most industrial of the five, and the furthest from anything a screen would do on its own.',
+   cost:'<b>Costs you:</b> at this size a few letter pairs close up and get hard to tell apart. <b>Gets you:</b> the furthest from the tell of anything here, by a distance.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2>'+chips(o.track)
+    + '<div class="body"><p class="say">'+o.say+'</p>'
+    + '<p class="mach">'+o.mach+'</p><p class="cost">'+o.cost+'</p></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+/* the stage is only as tall as the scaled chips actually are */
+function fit(){
+  document.querySelectorAll('.stage').forEach(function(s){
+    var r=s.firstElementChild; if(!r) return;
+    s.style.height=(r.getBoundingClientRect().height+36)+'px';
+  });
+}
+fit(); window.addEventListener('resize',fit);
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - HOW A LABEL IS SPACED - 9/12/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_LABEL_SPACING_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

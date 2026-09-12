@@ -240,17 +240,42 @@ function serve() {
   ok('the sweep actually found the controls (it found ' + ctrls.length + ' across '
      + 'both documents; three earlier methods each confidently found zero on the city '
      + 'screen alone)', ctrls.length >= 10);
-  /* *** THE LAW IS "EVERY VISIBLE CONTROL IS A THUMB TARGET", NOT "THERE ARE TWO
-     BUTTONS HERE". *** This read shell.length >= 2 because the opening overlay
-     carried WATCH and NOT NOW as the first two buttons of the whole game. The
-     coordinator amended [one question] on 9/12 under the no-story ruling -- THE
-     COLD OPEN IS DEFERRED WITH THE STORY -- and the demo stopped offering it, so
-     the overlay now shows SKIP alone and a count of two can never be met again.
-     Counting the furniture is how a gate goes red at a decision it was never
-     asked about. What has to hold is that whatever the overlay DOES put on
-     screen gets measured, and the 44 floor below measures all of it. */
-  ok('and it looked at the opening overlay too, where the first buttons of the '
-     + 'whole game live (' + shell.length + ' found there)', shell.length >= 1);
+  /* *** THIS LEG USED TO DEMAND TWO BUTTONS THAT THE DEMO DELIBERATELY REMOVES. ***
+     Two sessions reached this red independently and this keeps both findings.
+     WHY THE TWO BUTTONS ARE GONE, which is the half this session did not have: the
+     coordinator amended [one question] on 9/12 under the no-story ruling -- THE COLD
+     OPEN IS DEFERRED WITH THE STORY -- so the demo stopped offering it and the overlay
+     shows SKIP alone. tools/bohemia_cut_the_demo.js writes the rule that does it,
+     `#openInvite{display:none !important}`, with its reasoning beside it: the deferred
+     scene never ends (measured -- the same pixels for eighty-five seconds, still
+     mid-flight at 128), so the demo does not offer a door to a scene that hangs. Hidden
+     from the demo side only; the workshop keeps the invite and the scene. A count of two
+     can never be met again, and COUNTING THE FURNITURE is how a gate goes red at a
+     decision it was never asked about.
+     WHAT IS NOT SOFTENED, which is the other half: dropping to `>= 1` alone would leave
+     nothing asking the question this leg exists for. Its own sin is recorded above --
+     this gate once measured the city frame only, while the first buttons anybody touches
+     sat in the OUTER document, unmeasured, at 57% of the minimum. So the law is "every
+     visible control is a thumb target", asked as two questions: the sweep must REACH the
+     outer document, and whatever the overlay does put on screen must be IN what got
+     swept. Hiding the invite cannot pass that by accident, and the day the scene is fixed
+     and the invite comes back, its buttons are measured again with no edit here. */
+  const inviteUp = await p.evaluate(() => {
+    const i = document.getElementById('openInvite');
+    if (!i) return { there: false, btns: 0 };
+    const c = getComputedStyle(i), r = i.getBoundingClientRect();
+    const up = c.display !== 'none' && c.visibility !== 'hidden' && +c.opacity !== 0
+               && r.width > 0 && r.height > 0;
+    return { there: up, btns: up ? i.querySelectorAll('button,[onclick],[role=button]').length : 0 };
+  });
+  ok('the sweep reaches the OUTER document, not just the city frame -- the first buttons '
+     + 'anybody touches live out there and went unmeasured for a whole round once ('
+     + shell.length + ' found there)', shell.length >= 1);
+  ok('and the cold open\'s own buttons are measured WHENEVER IT IS ON SCREEN -- it is '
+     + (inviteUp.there ? 'up, with ' + inviteUp.btns + ' buttons, all swept'
+        : 'hidden here, which the demo cut does on purpose because the deferred scene '
+          + 'never ends, so there is nothing to measure'),
+     !inviteUp.there || shell.length >= inviteUp.btns);
 
   /* ==== THE 44 FLOOR, AND THE ONE THING THAT NOW OVERRIDES IT ==================
      PAOLO 9/6, LOCKED, AFTER this floor shipped: "for the run right now make all the
