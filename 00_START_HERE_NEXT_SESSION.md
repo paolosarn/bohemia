@@ -23107,7 +23107,23 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/11 (latest): [the font] SHIPPED - the research round under
+ROUND LOG 9/12 (latest): [small and clear] RECLAIMED AND SHIPPED - the
+built shrink judged PASS at the street stop on the live page (rail one
+stack zero overlaps, ring a ring with the face dead centre, barks and
+spenders keep words; frames in records/target). The half-size card's
+11px chip floor GAVE to his newer order and the card now records that
+(Goodhart guard in the honest direction). Three-stop shots wait for the
+continuous zoom - the seam catches them. TWO SEAM FINDINGS, ROUTED (for
+the coordinator to hand to UI): (1) the built phone drifts from the
+phone card twice - fracture is nine paths with several crossing the
+text column (card: two-three branches, never over text) and the body
+reads ~9:24 against the card's sacred 9:19.5 real-phone ratio; both
+small fixes on an otherwise right build. (2) THE AERIAL LANDED as tiles
+(diagram gone from the player view) - next DIRECTION seam judgment is
+the aerial card's three questions beside a real LV aerial; first read
+says it may sit darker than the card's ground band. NEXT ROUND: that
+aerial judge frame is the first thing to do.
+PREVIOUS: [the font] SHIPPED - the research round under
 the new vibe-coded law. The honest centre: MY OWN act cards and phone
 card carried the banned defaults (stencilled monospace + letter-spaced;
 family: monospace) - corrected in the same commit. Five candidates with
