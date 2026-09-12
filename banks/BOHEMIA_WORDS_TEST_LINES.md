@@ -1774,3 +1774,108 @@ BROTHER  Pass the salt.                                                [time off
 #   a confession that arrives before the person has tried to revise
 #   and an account that gives up the self-description, because that is the one
 #   thing people hold
+
+## Q20 ROUND TWO -- NO LAW TALK, ARMED BY SCHOOL  (9/12/26)
+# Round one is records/BOHEMIA_WORDS_Q20_SCHOOL_THE_ANIMAL_ERA_IS_THE_MOST_FORMAL_9_12_26.md
+# The row asks for FIFTEEN ACT-ONE LINES THAT WOULD SOUND WRONG IN ACT TWO. School
+# gave the test a rule: a line is act-one if act two could answer it with an
+# INSTITUTION. Every line below carries its act-two kill, so the wrongness is
+# checkable and not a matter of taste.
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. ACT ONE IS THE MOST FORMAL ERA. Courtesy is armour. The corridor experiment:
+#    honour-culture people gave way at 2.7 m by default and at 0.94 m once
+#    insulted, against a flat 1.4 m for law-culture people. So the default is
+#    exaggerated deference with a switch behind it, and NOT ONE line below is the
+#    clipped feral register the genre advice produces.
+# 2. THE VOCABULARY OF RECOURSE IS GONE, so the consequence sits inside the
+#    sentence or nowhere. No line threatens to fetch anybody.
+# 3. THE NAME AND THE HOUSE ARE THE PASSWORD. Our build has ZERO lines asking who
+#    is asking or whose block this is. Three below do nothing else.
+# 4. A RULE LIVES INSIDE A FIXED PHRASE, because a repeatable sentence is the only
+#    storage a place with no paper has. Three below quote one AS law.
+# 5. THE WORST THINGS ARE SAID SIDEWAYS, which our corpus already does best.
+# 6. A PROMISE IS A BESA: sworn on the house, and it outlives the man who gave it.
+#
+# ADDRESS TERMS ARE DELIBERATE HERE. School measured 5 real vocatives in 2,442
+# lines, 5.4 sd under film. Spanglish carries most of them, per THEY SPEAK
+# SPANGLISH (8/25).
+
+### 1 TO 3: COURTESY IS ARMOUR, AND THE SWITCH BEHIND IT   draft:true
+  1  ON THE STAIR   After you. No, please, I have got all night and you have got
+                    an arm full. After you, I insist on it.
+# ACT TWO KILLS IT: two people pass on a stair and nobody performs anything.
+  2  THE SWITCH     I have been polite to you twice now, hermano. I would like to
+                    stay polite. Tell me you understand that.
+# ACT TWO KILLS IT: politeness is not a resource being spent down in act two.
+  3  AFTER          (quieter, closer) No, say it again. I want it said properly
+                    this time, with my name in it.
+# ACT TWO KILLS IT: the insulted man files something instead of stepping closer.
+
+### 4 AND 5: THE CONSEQUENCE LIVES INSIDE THE SENTENCE   draft:true
+  4  THE WARNING    I am not going to go and get anybody. There is nobody to go
+                    and get. There is me, and I am telling you now while it is
+                    still cheap.
+# ACT TWO KILLS IT: "I'll report it" exists again, so the sentence is unnecessary.
+  5  THE COLLECTOR  Nobody is coming to take it off you. I would have to come
+                    myself, and then we would both be in it, and I would rather
+                    neither of us was.
+# ACT TWO KILLS IT: a bailiff is a job again and the man stops being the mechanism.
+
+### 6 TO 8: THE NAME AND THE HOUSE ARE THE PASSWORD   draft:true
+  6  THE ASK        Name, and whose you are. In that order, and take your time.
+# ACT TWO KILLS IT: a card answers this and nobody has to speak.
+  7  THE ANSWER     Mi nombre, and my mother's house is the one with the blue
+                    tank, and the man on the corner will say so if you walk him
+                    over. Ask him before dark, he sleeps early.
+# ACT TWO KILLS IT: you would be naming a document, not three people who vouch.
+  8  THE REFUSAL    You can have my name or you can have the load. Not both, and I
+                    am being honest with you about which one I would rather keep.
+# ACT TWO KILLS IT: a name is not a thing you can decline to hand over any more.
+
+### 9 TO 11: THE RULE ARRIVES AS A FIXED PHRASE   draft:true
+  9  QUOTED AS LAW  Nobody in this house goes to sleep con hambre. That is not me
+                    being soft at you, primo. That is the thing we say, and we say
+                    it because it is the rule.
+# ACT TWO KILLS IT: the rule would be posted somewhere and nobody would recite it.
+ 10  COMPLETED      HIM: You touch it, you have bought it.
+                    HER: You touch it, you have bought it. Yes. Everybody knows.
+                    Now put it down.
+# ACT TWO KILLS IT: a shared saying stops being proof once proof is written down.
+ 11  TAUGHT         Say it back to me. Say it the way I said it, not your own
+                    words, because your own words will be gone by winter and the
+                    saying will not.
+# ACT TWO KILLS IT: you would hand a child the page instead of drilling the line.
+
+### 12 AND 13: THE WORST THINGS ARE SAID SIDEWAYS   draft:true
+ 12  THE SIDEWAYS   There is water until Thursday. After Thursday somebody walks
+                    up here and we find out what kind of week everybody is having.
+# ACT TWO KILLS IT: the plain sentence is available again, so the fog is affectation.
+ 13  THE RATE       I will not name a number in front of your people, jefe. Walk
+                    with me to the gate and I will say it once, and you can tell
+                    them whatever you want afterwards.
+# ACT TWO KILLS IT: a posted rate means nobody has to protect anybody's face.
+
+### 14 AND 15: THE PROMISE, AND IT OUTLIVES THE MAN   draft:true
+ 14  GIVEN          On my mother's house and on my name in this valley: the water
+                    runs to your side first, every night, while I am standing.
+                    Everybody here heard me say it.
+# ACT TWO KILLS IT: you would sign something and nobody would need to be listening.
+ 15  COLLECTED      Your father stood where you are standing and said it to my
+                    father. I am not asking whether you remember. I am asking what
+                    you are going to do about it, because the house that made the
+                    promise is still the house you sleep in.
+# ACT TWO KILLS IT: a dead man's word does not travel to his son through the air.
+# THIS IS THE ONE THAT REACHES ACT TWO ANYWAY. School: a besa is generational, and
+# the Kanun has no enforcement at all without it. A promise made in the animal era
+# can still be owed by somebody in the human one who never made it.
+
+### THE REFUSALS: WHAT THIS LANE WILL NOT WRITE FOR ACT ONE   draft:true
+# BANNED, on the evidence in round one:
+#   the clipped feral register, which the genre advice manufactures and which the
+#   corridor measurement says is simply wrong about people
+#   a blunt threat as anybody's opening move
+#   any sentence that fetches a third party to enforce it
+#   an encounter that opens with business instead of identity
+#   a rule stated as fresh original wording rather than a phrase everybody has
+#   and elaborate courtesy written as weakness, because it is the armour

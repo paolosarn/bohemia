@@ -2599,3 +2599,86 @@ JJJJJJJ2 somebody sending him home                     draft:true
   and stops.
 - Spanish register: 2 of 15 lines, 13%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## LLLLLLL. THE WEEKS OF SWAPPING
+## (round 33: pure barter is the small slow annoying slice and everybody
+##  abandons it as soon as they can. Nobody here says the word barter.)
+
+LLLLLLL1 somebody carrying the wrong thing       draft:true
+         "I've got tape. Everybody's got tape. I've been round four people with
+          this tape and they've all got tape."
+
+LLLLLLL2 somebody who found the one match        draft:true
+         "He wanted exactly what I had. Exactly it. That's happened once this
+          month and I'm still pleased about it."
+
+LLLLLLL3 somebody tired of the arithmetic        draft:true
+         "Two of those for one of these, and then he wants to know what a day's
+          worth. I used to just hand him a battery, mano."
+
+## MMMMMMM. THE TALLY MOVES FIRST
+## (offsets were the biggest slice of a moneyless economy: what you already owe
+##  gets settled in goods. Nobody calls it a tally.)
+
+MMMMMMM1 somebody squaring an old one           draft:true
+         "You know what you've got outstanding with me. Bring me the water and
+          we'll call that the half of it."
+
+MMMMMMM2 somebody who would rather owe          draft:true
+         "Put it against what I've got with you. I'd rather be level with you
+          than carry a thing round all day looking for a match."
+
+MMMMMMM3 somebody keeping their own count       draft:true
+         "Everybody's got their own book. Mine says eleven, his says nine, and
+          we'll meet at ten like we always do."
+
+## NNNNNNN. SOMEBODY STARTS PRINTING
+## (the Argentina shape: a node, its own rules, its own printed thing, and how
+##  much you get handed when you join. Nobody announces a currency.)
+
+NNNNNNN1 somebody explaining a new thing         draft:true
+         "They hand you twenty when you come in. That's it, that's the whole
+          system, and four streets are taking them now."
+
+NNNNNNN2 somebody who does not trust it          draft:true
+         "It's a piece of card. I know what it's for, I know who makes it, and
+          that's exactly the bit that bothers me."
+
+NNNNNNN3 somebody who uses it anyway             draft:true
+         "Course I take them. Everybody takes them. Nobody wanted to be the one
+          who stopped taking them first, mija."
+
+NNNNNNN4 somebody watching it stop mattering     draft:true
+         "Nobody's asked me for one in weeks. We went back to the other thing
+          and nobody made a speech about it."
+
+## OOOOOOO. ONE HOUR IS ONE HOUR
+## (the founding rule of a real tally: a surgeon's hour and a sweeper's hour
+##  settle the same, and that is the reason it works, not a simplification.)
+
+OOOOOOO1 somebody who thinks they are worth more draft:true
+         "I've got a trade. Twenty years of it. And it's the same as him sweeping
+          and I'm still getting used to that."
+
+OOOOOOO2 somebody explaining why it has to be    draft:true
+         "The minute your hour's worth more than mine we're back to arguing.
+          Nobody's got time for the arguing."
+
+OOOOOOO3 somebody it gave a place to             draft:true
+         "I can't do much. I can sit with somebody's kid for an afternoon, and
+          that counts the same, which nobody's ever said to me before."
+
+## PPPPPPP. WHAT IS NOT HERE, ON PURPOSE (round 33)
+- No line names a rate, a count of goods or a number of anything except the
+  twenty handed out in NNNNNNN1, which is a RULE somebody else made up and not
+  a price this bank is setting.
+- No line says barter, currency, credit, offset or tally. MMMMMMM3 is the whole
+  who-keeps-the-ledger finding and it is said as "everybody's got their own book".
+- No line names what a faction will not trade. That is [PENDING Paolo] 15 and it
+  is the field that makes a market, so the bank leaves it empty.
+- No line has a haggle with a winner. LLLLLLL3 is tired, not beaten.
+- No line says who prints the thing in NNNNNNN. A faction is his and MAP LAW holds.
+- No line states a moral about fairness. OOOOOOO2 says nobody has time for the
+  arguing, which is the real reason and not a noble one.
+- Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.
