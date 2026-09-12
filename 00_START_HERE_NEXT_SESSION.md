@@ -18186,6 +18186,14 @@ E17 round two swept 856 real locks, 330 his, 12 machine-checkable against the 17
 files: 8 satisfied, 3 eroded (the ridge -> RUN [first world] already; 32 purple tiles ->
 COOK [purple leak]; a cover cost of 2 "his number" with no ruling on file -> COMBAT
 [cover costs one]: produce his words or make it one).
+THEN (ds) VAMILY: 1 ship, 13 in flight. PEOPLE [down not dead] BUILT: measured first that
+there is NO company roster, no companion state, no injury model, so his no-permadeath law
+held only because there was nobody to lose; the injury model now carries his three lengths
+(a week, a season, a year of the valley's time) and fall() cannot kill a kept person, no
+flag, no option. Swing: in the games that made companions unkillable, the weight of a fall
+is what you LOSE while they are down (their contribution goes with them for the timer) --
+written onto PEOPLE [lock them] as the lock's cost, nothing else to invent. Routed FACTIONS
+[who follows] (the roster from the block's side), ECONOMY Q37 [carry cost].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
