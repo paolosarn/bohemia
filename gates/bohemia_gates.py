@@ -2293,6 +2293,20 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('GUNS CLOSE', ['node', 'gates/guns_close_gate.js'],
+     'A GUN IS IN ITS OWN WAY UP CLOSE (VAMILY [guns close] = BB-GUNS-CLOSE, COMBAT 9/12). The row: '
+     '"GUNS ARE BAD IN CLOSE. Forever, on every weapon," and its reason is history rather than taste -- '
+     'guns and melee coexisted for two centuries and it only ended when the bayonet let a gun fight up '
+     'close, so if our guns are good in close the positional game dies and the fight becomes '
+     'stand-and-shoot. MEASURED, AND THE BUILD WAS THE EXACT OPPOSITE: the dial pulled its EASIEST '
+     'patterns at point blank and said so in its own comment. The row wrote this gate into itself -- an '
+     'invariant over EVERY weapon, not a habit -- so this sweeps the whole weapon table and every claim '
+     'is a SHAPE and never a number: each gun has a band it is bad inside, the penalty only eases as you '
+     'back off, no gun is penalised at its own range, and every gun now has a BEST distance that is not '
+     'in contact. The band is a fraction of each weapon\'s OWN effective range, so the shotgun the game '
+     'already calls "brutal up close" is least bothered and the rifle most, because a rifle at two feet '
+     'is a club. AND PAOLO\'S 7/27 RULING IS UNTOUCHED: a man in your face still hits you, so both sides '
+     'point the same way', True),
     ('FIGHT KNOWS DAY', ['node', 'gates/fight_knows_day_gate.js'],
      'THE FIGHT KNOWS WHAT TIME IT IS (VAMILY [loot kept] third of three = BB-THE-FIGHT-KNOWS-THE-DAY, '
      'COMBAT 9/12). Measured: enter(G,d,env) received the player\'s HP, a roster, a package id and a stamina '

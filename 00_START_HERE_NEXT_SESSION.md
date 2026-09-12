@@ -16427,8 +16427,51 @@ gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-prov
 NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
 Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
 
-QUEUE STATE: [loot kept] is closed. The next OPEN line in this section is [guns close]
-BB-GUNS-CLOSE.
+QUEUE STATE: [loot kept] is closed, and [guns close] BB-GUNS-CLOSE was claimed and built in the
+same round.
+
+[guns close]: "GUNS ARE BAD IN CLOSE. Forever, on every weapon." MEASURED FIRST AND THE BUILD WAS
+THE EXACT OPPOSITE, in its own comment: rangeT is 0 inside PT_BLANK, and the dial's pattern tier
+read "point blank pulls EASIER patterns, even on Bohemian". A gun was at its most forgiving with
+a man in your face, which is the stand-and-shoot fight the row exists to prevent.
+
+*** AND HALF OF THAT DEFECT IS PAOLO'S OWN RULING, SO IT IS UNTOUCHED. *** The men's up-close
+accuracy carries his words in the code beside it: "up close nothing moves, because up close was
+already lethal and that is his 7/27 ruling." A backlog row is OUR mechanism and his ruling is
+CONTENTS, so only the PLAYER's side moved -- and the two are not in conflict once you read what
+the row is for: a man in your face still hits you, AND your own gun is at its worst there. Both
+sides point the same way, which is the positional pressure the row wanted, and nothing of his was
+taken away to get it.
+
+*** AND "EVERY WEAPON" CANNOT MEAN A FLAT PENALTY, BECAUSE THE SHIPPED GUNS SAY OTHERWISE. ***
+WEAPON_ID calls the shotgun "brutal up close" and WEAPON_RANGE calls it "a knife with a bang"
+(eff 5, against the rifle's 20), and REALISM FIRST is a law. So the penalty is PROPORTIONAL TO HOW
+UNWIELDY THE GUN IS, derived from each weapon's OWN effective range: bands come out shotgun 2.25,
+pistol 2.7, smg 4.5, rifle 9 tiles. Nothing is exempt (the row's "every weapon") and the order is
+the weapons' own. THIS READING IS THE ONE JUDGEMENT IN THE PATCH; IT IS FOR THE COORDINATOR.
+
+THE RESULT, measured by walking the whole curve per weapon at the hardest difficulty: every gun
+now has a BEST distance and it is not in contact (shotgun tier 0 at 2.2 tiles against 2 in
+contact, pistol 0 at 2.6 against 3, smg 0 at 4.6 against 3, rifle 0 at 9.4 against 4). The
+readout says TOO CLOSE inside the band, because a dial that quietly gets mean is a bug to the man
+holding it.
+
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY THE FIRST RUN: (1) the band scaled with the LIGHT, because
+I read it through rangeMult() like every other distance, and on the bench that halved it -- a
+shotgun band of 1.1 tiles against a point-blank anchor of 4, so the constraint existed and could
+not be felt. It is wrong on its own terms too: how unwieldy a gun is in a doorway is PHYSICAL and
+the dark does not change it. (2) MY OWN GATE ASKED AN IMPOSSIBLE QUESTION -- it demanded contact
+be harder than the gun's stated effective range, which cannot be true for a pistol, because the
+shipped far curve already clamps to its hardest tier at 4.8 tiles while the pistol's eff is 6.
+Nothing can be harder than hardest. The arm walks the whole curve now and asks the row's actual
+question: does the gun have a best distance, and is it away from contact.
+
+gates/guns_close_gate.js 10/0, registered as GUNS CLOSE, an invariant over the WHOLE weapon table
+because the row demanded "an invariant over every weapon, not a habit". Mutation-proved: take the
+close end off the dial -> the dial arm red; one flat band for every weapon -> the order arm red.
+NO DAMAGE BEFORE THE DIAL: one constant, no damage number, and the band is derived from the
+weapon table rather than a second private table of per-gun numbers, which the gate also checks.
+Record: records/BOHEMIA_COMBAT_A_GUN_IS_IN_ITS_OWN_WAY_UP_CLOSE_9_12_26.md
 
 BB-LOOT-LEAVES. Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE
 the arena on 9/2 and never left it. A body drops rounds, experience, an item at 55%, a plate at
