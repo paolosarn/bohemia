@@ -49435,6 +49435,36 @@ function cityWorldNow(at){
     degrees: null, draft: true };
 }
 /* ===== /V207 __FIGHT_KNOWS_DAY__ ===== */
+/* ===== V211 __PLATE_COSTS_TAPE__ -- WHAT A PLATE COSTS, ASKED OF THE PURSE ===
+   BB-THE-FIGHT-EATS-TAPE. The fight has never been able to ask: the decoded combat
+   source has zero mentions of the purse. This is the question, asked on the city
+   side where the purse lives, and stamped on the one door V205 built so all four
+   ways into a fight carry it.
+
+   *** THE AMOUNT IS NOT WRITTEN HERE AND MUST NEVER BE. *** Asking "is the balance
+   at least one" would copy his 8/15 ONE into a second place, and a copy drifts the
+   day he tunes it. So this builds a THROWAWAY purse holding exactly what you hold
+   and runs the purse's OWN upkeep('fight:plate') on it. The answer is the purse's,
+   the currency is read off the purse's own verb table, and your real purse is never
+   touched -- nothing here debits anything. The spend still happens where it already
+   happened, in the handler that fires when the fight comes home. */
+function cityPlateNow(){
+  try{
+    if(typeof BohemiaPurse==='undefined'||!BohemiaPurse)return null;
+    var v=(BohemiaPurse.VERBS||{})['fight:plate']; if(!v)return null;
+    var p=purseGet(); if(!p)return null;
+    var have=BohemiaPurse.balance(p, v.currency);
+    /* the dry run: the purse's own refusal, on a purse that is not yours */
+    var probe=BohemiaPurse.create({id:'plate-dryrun', day:0});
+    if(have>0)BohemiaPurse.credit(probe, v.currency, have, 'plate:dryrun', null, 0);
+    var r=BohemiaPurse.upkeep(probe, 'fight:plate', null, 0);
+    return {can:!!(r&&r.applied), have:have, wanted:(r&&r.wanted!=null)?r.wanted:null,
+            short:(r&&r.short!=null)?r.short:null, why:(r&&r.reason)||null,
+            currency:v.currency, verb:'fight:plate', about:v.about,
+            from:'BohemiaPurse.upkeep', draft:true};
+  }catch(_e){ return null; }
+}
+/* ===== /V211 __PLATE_COSTS_TAPE__ ===== */
 function cityHandOver(msg, skin){
   /* V207 __FIGHT_KNOWS_DAY__: THE WORLD IS STAMPED ON EVERY ENTRY, IN ONE PLACE.
      All four ways into a fight already come through this door (V205), so the
@@ -49442,6 +49472,10 @@ function cityHandOver(msg, skin){
      party and a door into a room without four copies of anything -- and an
      entry built after this one gets it without knowing it exists. */
   try{ if(msg && !msg.world) msg.world=cityWorldNow(msg.at||null); }catch(_e){}
+  /* V211 __PLATE_COSTS_TAPE__: AND WHAT A PLATE COSTS RIDES THE SAME DOOR, for the
+     same reason V207 put the hour on it -- one place, and an entry built after
+     this one gets it without knowing it exists. */
+  try{ if(msg && !msg.plate) msg.plate=cityPlateNow(); }catch(_e){}
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}

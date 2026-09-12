@@ -2768,3 +2768,89 @@ TTTTTTT3 an older one, no bitterness left       draft:true
   and stops.
 - Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## VVVVVVV. THE WHOLE STREET STOPPED
+## (round 35: a block refusing together, and none of these lines calls it a
+##  strike because nobody involved ever did.)
+
+VVVVVVV1 somebody explaining how it started     draft:true
+         "Nobody organised it. Three doors stopped and then the rest of us looked
+          at each other and that was that."
+
+VVVVVVV2 somebody who paid anyway              draft:true
+         "I paid. I'm not going to pretend I didn't. Somebody has to be the one
+          who can still look at him and I drew it."
+
+VVVVVVV3 the one who went door to door         draft:true
+         "I'm not asking you to do anything. I'm telling you what number four is
+          doing, and then you do what you want."
+
+## WWWWWWW. THE EMPTY HOUSE
+## (the mechanism, and it is not withholding. A landlord loses money when he
+##  cannot replace you. Nobody here says the word vacancy.)
+
+WWWWWWW1 somebody outside an empty door        draft:true
+         "Nobody's moving in there. Not today, not Thursday. We'll be sat right
+          here when the cart comes."
+
+WWWWWWW2 the would-be new tenant               draft:true
+         "I need somewhere. I know what this is and I know whose side I'd be on
+          next month and I still need somewhere."
+
+WWWWWWW3 the owner working it out              draft:true
+         "So I put you out and then what. Then I've got an empty room and eleven
+          people sat in front of it."
+
+WWWWWWW4 somebody who has seen it fail         draft:true
+         "It works until somebody's desperate enough. That's all it ever comes
+          down to, mano, and somebody always is."
+
+## XXXXXXX. SAME STREET, DIFFERENT BILL
+## (three neighbours, same service, one paid more than twice the other. The
+##  price was whatever the man with the generator decided about you.)
+
+XXXXXXX1 somebody who found out                draft:true
+         "He pays half what I pay. Same wire, same hours, same everything. I only
+          found out because his wife mentioned it."
+
+XXXXXXX2 the man with the generator            draft:true
+         "I charge what I charge. I'm not going to stand here and explain it to
+          you, and you can't go anywhere else, so."
+
+XXXXXXX3 somebody doing the sums out loud      draft:true
+         "Four of us on this side and four different numbers. That's not a price,
+          that's him deciding what he thinks of us."
+
+XXXXXXX4 somebody who wanted it written down   draft:true
+         "I don't want it cheaper. I want it the same as him. Put it on a board
+          where everybody can see it and I'll pay whatever it says."
+
+## YYYYYYY. THE LIGHTS STAY OFF
+## (the stable dark: cut, still cut, and nobody billed for it any more. Not a
+##  spiral, a new state, and these lines sit inside it.)
+
+YYYYYYY1 somebody a month into the dark        draft:true
+         "It's been off five weeks. Nobody's come, nobody's asked, nobody's
+          billed me. We just live in it now."
+
+YYYYYYY2 somebody who expected worse           draft:true
+         "I thought it'd get worse every week. It didn't. It got exactly this bad
+          and then it stopped, mija."
+
+YYYYYYY3 somebody who will not ask for it back draft:true
+         "I could probably get it back on. I'd have to go and ask him, and I've
+          worked out I'd rather the dark."
+
+## ZZZZZZZ. WHAT IS NOT HERE, ON PURPOSE (round 35)
+- No line has a price in it, in batteries or anything else. XXXXXXX3 counts four
+  different numbers and never says one.
+- No line names the owner, the generator man's faction or a street. MAP LAW.
+- No line has the block winning. WWWWWWW3 is the owner doing the arithmetic and
+  WWWWWWW4 is why it fails, and which way it goes is not the bank's to settle.
+- No line has a spiral in it. YYYYYYY2 is the stable dark, which is the thing
+  WORLD already chose and this round says to keep.
+- No line says strike, rent, tariff, boycott or organise. VVVVVVV1 is the whole
+  collective finding and it is said as "three doors stopped".
+- No line states a moral about solidarity. VVVVVVV2 paid and says so.
+- Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.
