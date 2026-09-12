@@ -5,6 +5,42 @@ V205 -- HOW THE FIGHT BEGINS: THE CAMERA PULLS BACK  (COMBAT lane, [enter zoom])
   PAOLO RULED IT 9/6, OPTION A: "Yes definitely, and the map will zoom out
   nicely, maybe a cloud opacity somewhere."
 
+REUSE CHECK (REUSE-FIRST, Paolo 7/22, LOCKED):
+  MY OWN VIOLATION AND MY OWN FIX. This tool shipped 9/12 with no block at all and
+  put a fifth red on gates/reusefirst_gate.py, which is exactly the defect the
+  plumber names in this lane's section about three other files. A tool that draws
+  answers to the law whatever it is named, and this one draws.
+  OPENED BEFORE COOKING A PIXEL, and rejected, each for a reason in the thing
+  being drawn:
+    BOHEMIA_OVERLAY_BANK_7_10_26.txt -- 174 overlays, and its own note says what
+      they are: "plants/rubble/stains sit ON real ground textures... All
+      transparent-edged, ground-hugging silhouettes... Render rule: draw after
+      ground, alpha-composite, walkable." Those are WORLD-SPACE, cell-pitched,
+      walkable marks. The shade here is SCREEN-SPACE, covers up to 48% of the
+      frame at once and travels across it in one second. A ground-hugging
+      silhouette cannot be either of those things.
+    BOHEMIA_FX_STRIPS_7_10_26.txt -- the closest thing in the repo to weather
+      (fire barrels, burned ground, lightning), and it carries PAOLO'S OWN FAILED
+      VERDICT in the bank's note. GRAVEYARD IS FINAL: a failed bank is not an
+      approved asset and reaching into it would be the worse violation.
+    BOHEMIA_GRIME_8_3_26.txt -- one continuous sheet sampled by world position. It
+      is the right SHAPE of idea (a mark that carries across cells rather than
+      repeating at cell pitch) and still wrong here: it is dirt baked in world
+      space, and putting grime over the frame as weather paints stains on the
+      camera rather than shade on the ground.
+    BOHEMIA_LIGHT_TOWER_8_23_26.txt (6 tower structures) and
+      BOHEMIA_GROUND_MASTER_SET_7_10_26.txt (1019 ground tiles) -- structures and
+      ground, neither of which this tool draws.
+  AND THE SPEC FORBIDS A BITMAP ANYWAY, which is the real answer: DIRECTION's look
+  card of 9/6 rules the cover a VALUE MULTIPLIER that "multiplies value and touches
+  NOTHING else - no hue rotation, no saturation change, no blur", so the only
+  correct implementation is black at an alpha in a gradient. Any textured art,
+  approved or not, breaks the rule by existing.
+  AND THE BIGGEST REUSE IN THIS TOOL IS NOT A BANK: the pull-back cooks NO new
+  pixels of the street at all. It photographs the frame the city already drew and
+  scales that one bitmap, so every pixel of the world in this move is the city's
+  existing approved art, reused exactly as it stands.
+
 The row: you never leave the street. When a fight starts the view zooms out from
 person-scale to house-scale over the SAME ground you are standing on, on the beat
 at 120 BPM, and comes back in when it ends. HIS DETAIL, LOCKED: a cloud passes in

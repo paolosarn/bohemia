@@ -1,6 +1,36 @@
 #!/usr/bin/env python3
 """COVER THAT READS -- COOK, VAMILY [combat ground], round 2, 9/7/26.
 
+REUSE CHECK (REUSE-FIRST, Paolo 7/22, LOCKED): WRITTEN 9/12, AND IT REPORTS A REAL
+VIOLATION RATHER THAN A CLEAN BILL. This file cooks pixels and carried no block, and the gate
+never asked for one because it sweeps tools/*_patch.py and this file is named
+..._9_7_26.py. So the law was unenforced here by an accident of spelling, and nobody
+opened a bank before cooking. OPENED NOW, and the honest answer is that the art exists:
+  banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt -- UP-ONLY, and its own law line says every
+    tile in it "carries a Paolo UP verdict from the Great Sweep... A DOWN tile cannot be
+    in this file and neither can an UNJUDGED one." Its buckets include BARRIER 36,
+    CRATE 36 and WRECK 36: a hundred and eight of the strongest-graded tiles in the
+    repo, all of them house-part sized cover.
+  banks/BOHEMIA_CMU_BLOCK_7_29_26.txt -- four pieces, cmu_wall, cmu_cap, cmu_pilaster
+    and cmu_vent. TG-07, this lane's OWN reference sheet, defines cover as "a block wall
+    segment, a dead car, a dumpster, a porch pier". cmu_wall IS the block wall segment
+    and cmu_pilaster IS the porch pier.
+  banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt -- 314 gated props, including 13 under
+    "5. Barricades and defenses".
+WHAT THIS FILE ACTUALLY DRAWS INSTEAD: three flat fills per piece, a shadow ellipse at
+rgba(0,0,0,0.25), a box at #6e604a and a cap ellipse at #94836a or #7a94a8, baked once
+per size. That is the 7/26 defect word for word -- the sweep was widened that round
+because a tool "shipped floors and walls as flat hex fills while 9,127 judged tiles sat
+unused in the same file" -- and it is the same shape here.
+NOT FIXED IN THIS BLOCK, ON PURPOSE, BECAUSE A REUSE CHECK IS NOT A PLACE TO CHANGE ART.
+Swapping 108 approved tiles in for the flat fills changes what Paolo sees in every fight,
+and COMBAT already carries the OPEN row that owns it: [cover honest]
+THE-COVER-YOU-SEE-IS-SMALLER-THAN-THE-COVER-YOU-GET. This block is the measurement that
+row starts from, and the one thing it must not do is claim nothing fit.
+A car cell is the exception and was already right before this round: it blits one approved
+wreck picture (CAR_IMG) across its 2x3 footprint, which is what reuse looks like when it
+is done.
+
 AND CARS WERE NEVER ON THIS PATH, WHICH THE FIRST WRITE-UP OF THIS ROUND GOT WRONG. The
 loop's very first branch is `if(P.car){ if(!P.nose)continue; ... CAR_IMG[P.carArt|0] ... }`:
 a car already draws as ONE approved wreck picture across its whole 2x3 footprint, and the

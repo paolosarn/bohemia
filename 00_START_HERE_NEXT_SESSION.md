@@ -16144,7 +16144,61 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: HOW-THE-FIGHT-BEGINS [enter zoom] SHIPPED, 1bbc666 on main (sha read off main AFTER the push, which is WORLD's 9/12 lesson). Paolo ruled it 9/6, OPTION A: "Yes
+THIS ROUND (the one after [enter zoom]): THE REUSE-FIRST REDS. Not a row; a red gate on main
+with my lane's name on it, which the standing duties put ahead of the queue.
+
+*** AND THE FIRST THING I FOUND WAS MY OWN. *** gates/reusefirst_gate.py was RED with FIVE
+failures, not the four the notice lists, and the fifth was tools/bohemia_enter_zoom_patch.py --
+the tool I shipped last round. I put a new red on main. REUSE-FIRST (Paolo 7/22, LOCKED) asks
+anything that cooks pixels to name which approved banks it opened first, so I opened them and
+wrote it down: the OVERLAY bank's 174 pieces are ground-hugging, cell-pitched and walkable
+while this shade is screen-space and crosses the whole frame in a second; the FX strips are the
+closest thing to weather in the repo AND CARRY PAOLO'S OWN FAILED VERDICT, so reaching into
+them would be the worse violation (GRAVEYARD IS FINAL); GRIME is the right shape of idea and
+still wrong, because it is dirt in world space and weather is not a stain on the camera. The
+spec settles it anyway: DIRECTION's card rules the cover a VALUE MULTIPLIER that touches
+nothing but value, so any textured bitmap breaks the rule by existing. AND THE REAL REUSE IN
+THAT TOOL IS NOT A BANK: the pull-back cooks no new pixels of the street at all, it photographs
+the frame the city already drew. 203 passed / 4 failed after the fix, and my one is green.
+
+*** AND THE THREE THE NOTICE CALLS MINE ARE NOT MINE, PROVED THE SAME WAY AS LAST TIME. *** Each
+file declares another lane in its own first line, and none was added by the commit the notice
+cites:
+    bohemia_floor_cook.py                        "(8/26/26, WORLD lane)"     added by d5cafc2
+    bohemia_city_ground_patch.py                 "(8/27/26, FACTIONS lane)"  added by 9aeec5a
+    bohemia_combat_you_can_see_why_she_did_it_patch.py  "(9/6/26, UI lane 11)"  added by ce2ec93
+d69cce4 IS a COMBAT commit and it added exactly ONE tool, bohemia_combat_two_of_you_patch.py;
+it never touched the other two (git show --stat, 0 hits for either name). ce2ec93 is the UI
+row [reactions explained]'s own commit, not this lane's. THAT IS THE SECOND MISATTRIBUTION FROM
+THE SAME SOURCE in five rounds (the first was legend_kept_gate.js and pack_gate.js, WORLD's and
+PEOPLE's). The pattern is the method, not the instances: naming an owner off a sha that appears
+near a file instead of off `git log --diff-filter=A` on the file itself. FOR THE COORDINATOR.
+
+*** AND THE GATE HAS A HOLE THAT HID ONE OF MY OWN DRAWING TOOLS. *** reusefirst_gate.py sweeps
+tools/*_patch.py, *_cook*.py and *_factory.py -- so a drawing tool named ..._9_7_26.py is never
+asked for a block. MEASURED: of 724 files under tools/ it sweeps 171; TWENTY-SEVEN MORE ACTUALLY
+DRAW AND ARE NEVER SWEPT, and 19 of those carried no block. Exactly one was mine and it is now
+written: tools/bohemia_combat_cover_that_reads_9_7_26.py. The other 18 belong to other lanes
+(city, suburb, lamps, markings, the judges). FOR THE PLUMBER, WITH A WARNING: widening the glob
+turns 18 files red in one run across lanes that have not been told, which is the red-on-arrival
+trap your own notice names -- the derived-freshness pattern (a frozen list that can only shrink)
+is the shape this wants.
+
+*** AND WRITING THAT BLOCK TURNED UP A REAL DEFECT, NOT PAPERWORK. *** I opened the banks for
+the hidden cover tool and the art is already there and already approved:
+BOHEMIA_EXTERIOR_POOL_8_5_26.txt is UP-ONLY ("every tile carries a Paolo UP verdict... a DOWN
+tile cannot be in this file and neither can an UNJUDGED one") and its buckets hold BARRIER 36,
+CRATE 36 and WRECK 36; BOHEMIA_CMU_BLOCK_7_29_26.txt holds cmu_wall and cmu_pilaster, which are
+two of the four shapes TG-07 -- this lane's own reference sheet -- names as cover ("a block wall
+segment, a dead car, a dumpster, a porch pier"). WHAT THE TOOL DRAWS INSTEAD: three flat fills a
+piece, a shadow ellipse, a #6e604a box and a #94836a cap. That is the 7/26 defect word for word
+("flat hex fills while 9,127 judged tiles sat unused"). I did NOT swap the art in: 108 approved
+tiles replacing flat fills changes what he sees in every fight, and the OPEN row [cover honest]
+THE-COVER-YOU-SEE-IS-SMALLER-THAN-THE-COVER-YOU-GET already owns it. The block is the
+measurement that row starts from. The car cell was already right: it blits one approved wreck
+picture across its 2x3 footprint.
+
+THE ROUND BEFORE: HOW-THE-FIGHT-BEGINS [enter zoom] SHIPPED, 1bbc666 on main (sha read off main AFTER the push, which is WORLD's 9/12 lesson). Paolo ruled it 9/6, OPTION A: "Yes
 definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." When a fight
 starts the street you are standing on pulls back toward house scale over the same ground and a
 cloud passes across the moment the scale changes; the same move for a street bump and for
