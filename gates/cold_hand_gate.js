@@ -101,7 +101,26 @@ function serve() {
 const PRESSES = 40;
 
 /* THE LOUDEST THING ON SCREEN. Runs inside the page. Reads no text. */
-const LOUDEST = function () {
+/* *** AND WHEN NOTHING IS HAPPENING, IT TRIES SOMETHING IT HAS NOT TRIED. ***
+   A hand that always takes the single loudest thing alternates forever the moment
+   two controls swap which of them is loudest -- measured 9/12: TALK opened a
+   conversation, LEAVE closed it, TALK was loudest again, and twenty presses went
+   by with the clock frozen. That read as a dead end and it was not one: the
+   conversation behind it carries four real choices and two of them spend an hour
+   of the day.
+   THE SKIP LIST DOES NOT MAKE IT READ. It still scores nothing but ink and
+   contrast; it just refuses to press the same two things once the clock has
+   stopped answering, which is the crudest thing a bored person does. A dead end
+   still reads as a dead end, because there everything it has not pressed is
+   pressed too, and the clock still never moves. */
+const LOUDEST = function (skip) {
+  skip = skip || [];
+  /* AN SVG ELEMENT'S className IS NOT A STRING, it is an SVGAnimatedString, and
+     String() on it gives "[object SVGAnimatedString]" -- which showed up in the
+     trail as a control name and, worse, went into the skip list as a key that
+     matches nothing. The pad is SVG since 9/7, so this is now the common case. */
+  const cname = e => (typeof e.className === 'string')
+    ? e.className : ((e.className && e.className.baseVal) || '');
   const vis = el => {
     const r = el.getBoundingClientRect(), s = getComputedStyle(el);
     if (s.display === 'none' || s.visibility === 'hidden' || +s.opacity < 0.15) return false;
@@ -165,9 +184,12 @@ const LOUDEST = function () {
     const l = lum(getComputedStyle(kid).backgroundColor);
     const contrast = l === null ? 0 : Math.abs(l - base);
     const score = area * (1 + 2 * contrast);
+    const key = (parent.id || cname(parent).slice(0, 24)
+                 || parent.tagName.toLowerCase());
+    if (skip.indexOf(key) >= 0) return;
     if (!best || score > best.score) {
       best = { score: score, area: Math.round(area), x: cx, y: cy, el: kid,
-               id: parent.id || '', cls: String(parent.className || '').slice(0, 24),
+               id: parent.id || '', cls: cname(parent).slice(0, 24),
                tag: parent.tagName.toLowerCase(), group: kids.length };
     }
   });
@@ -185,9 +207,12 @@ const LOUDEST = function () {
     /* AREA FIRST, CONTRAST SECOND. A stranger's eye is crude and so is this. */
     const contrast = l === null ? 0 : Math.abs(l - base);
     const score = area * (1 + 2 * contrast);
+    const key2 = (el.id || cname(el).slice(0, 24)
+                  || el.tagName.toLowerCase());
+    if (skip.indexOf(key2) >= 0) return;
     if (!best || score > best.score) {
       best = { score: score, area: Math.round(area), x: cx, y: cy, el: el,
-               id: el.id || '', cls: String(el.className || '').slice(0, 24),
+               id: el.id || '', cls: cname(el).slice(0, 24),
                tag: el.tagName.toLowerCase() };
     }
   });
@@ -242,24 +267,31 @@ const LOUDEST = function () {
 
     /* ---- THE HAND ------------------------------------------------------- */
     const seen = [];          /* what it pressed, in order, by id */
-    let firstClock = null, lastClock = null, tailStart = null;
+    let stuckFor = 0; const tried = [];
+  let firstClock = null, lastClock = null, tailStart = null;
     let cityUp = false;
 
     for (let i = 0; i < PRESSES; i++) {
       /* look at BOTH surfaces -- the shell and the walked world -- and press
          whichever holds the louder thing, because the player sees one screen */
-      const shell = await page.evaluate(LOUDEST);
+      /* STUCK MEANS STUCK: once the clock has stopped answering for four presses
+         in a row, stop taking the same loudest thing and take the loudest thing
+         it has NOT tried. It still reads nothing. */
+      const skip = (stuckFor >= 4) ? tried.slice(-6) : [];
+      const shell = await page.evaluate(LOUDEST, skip);
       let frame = null, inCity = null;
       const cf = page.frames().find(x => x.name() === 'cityFrame');
       if (cf) {
         cityUp = true;
-        try { inCity = await cf.evaluate(LOUDEST); } catch (e) { inCity = null; }
+        try { inCity = await cf.evaluate(LOUDEST, skip); } catch (e) { inCity = null; }
         frame = cf;
       }
       const useCity = inCity && (!shell || inCity.score > shell.score);
       const pick = useCity ? inCity : shell;
       if (!pick) { seen.push('(nothing)'); break; }
-      seen.push((useCity ? 'city:' : 'shell:') + (pick.id || pick.cls || pick.tag));
+      const label = (pick.id || pick.cls || pick.tag);
+      seen.push((useCity ? 'city:' : 'shell:') + label);
+      if (tried.indexOf(label) < 0) tried.push(label);
       const target = useCity ? frame : page;
       /* A REAL TAP, on the element the eye picked. Never a synthetic click. */
       try { await target.tap('[data-coldhand]', { timeout: 3000 }); }
@@ -268,7 +300,13 @@ const LOUDEST = function () {
       }
       await SETTLE(page, useCity ? 320 : 700);
       const c = await clock();
-      if (c) { if (!firstClock) firstClock = c; lastClock = c; }
+      if (c) {
+        if (!firstClock) firstClock = c;
+        if (lastClock && (c.day !== lastClock.day || c.min !== lastClock.min)) {
+          stuckFor = 0; tried.length = 0;       /* it moved: start fresh */
+        } else { stuckFor++; }
+        lastClock = c;
+      }
       if (i === PRESSES - 13) tailStart = c;      /* the last twelve, on their own */
     }
 
