@@ -1665,85 +1665,87 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/12 (round 17) LATEST -- *** [collector heir]
-THE-LENDER-VISITS-THE-HEIR SHIPPED. The first thing the heir reads on their first
-morning is that somebody their parent went short with is at the door. They are not
-asking the heir for money. They are just there. *** ONE PENDING, AND IT IS A REAL
-CONTRADICTION IN THE CANON.
+FACTIONS (factions-ovkjpf): 9/13 (round 18) LATEST -- *** [tracks read]
+WHOSE-FOOTPRINTS-ARE-THESE SHIPPED. Twenty-eight parties have been walking this
+valley since [parties move] landed and they left nothing behind. They leave tracks
+now, in their own faction's colour, and the bright end tells you which way they
+went. *** Nothing to judge.
 
-VAMILY row: [collector heir], MODE: BUILD, SHIPPED 9/12 fc41326f.
-Record: records/BOHEMIA_THE_LENDER_VISITS_THE_HEIR_9_12_26.md
+VAMILY row: [tracks read], MODE: BUILD, SHIPPED 9/13 22d50ce5.
+Record: records/BOHEMIA_WHOSE_FOOTPRINTS_ARE_THESE_9_13_26.md
 
-*** TWO LIVE BOARD ROWS CONTRADICT EACH OTHER AND THE SHIPPED CODE SETTLES IT. ***
-WORLD's [debt carried] says every debt "survives the generation fold to the heir IN
-FULL". engine/bohemia_fold.js, shipped 9/7 and marked ruled:true off the DYNASTY
-study, says the opposite and says WHY:
-  "a child is not personally liable for a parent's unsecured debts... YOU DO NOT
-   INHERIT A BILL, YOU INHERIT LESS AND YOU INHERIT THE PEOPLE HE OWED, still
-   standing there. That is a standing-web query, not a purse line."
-THAT SENTENCE IS THIS ROW. The balance dies; the creditor does not. I built the
-ruling that has a machine gate behind it. Which one stands is his -- see PENDING 1.
+THE NAMED BLOCKER WAS NOT THE BLOCKER. SIXTH ROW RUNNING. The row says "with RUN
+[travel map]" and that row is still OPEN. Measured before building:
+  parties out       28          factions with one moving   14 of 14
+  speed             89 cells a day, and they really advance
+  ground they walk  the overmap, which the player already looks at
+A track needs somebody to have WALKED, not a new map.
 
-THE NAMED BLOCKER WAS NOT THE BLOCKER. FIFTH ROW RUNNING. [debt carried] is still
-OPEN and WORLD's [someone lends] says in its own first line that nothing in the game
-ever lends anybody anything. True, and it does not block this: THERE IS EXACTLY ONE
-WAY TO OWE A FACTION TODAY and this lane shipped it last round -- rent you could not
-pay. A collector built on anything else would be a pipe with no water.
+DERIVED, NEVER STORED. A party's route is a straight sign-step walk between two
+points it already carries (from, to, at, arrived), so the cells it has covered ARE
+those fields put through the same step rule the mover uses. Nothing is written to a
+party, nothing is saved, and there is NO RULE FOR WHEN TO FORGET -- the trap the
+coalition and the roving rule both avoided in this lane.
+A PARTY THAT HAS TURNED ROUND LEAVES A DIFFERENT TRAIL: its leg begins at the border
+it reached, not back at its seat, so the trail always points the way it walks NOW.
 
-WHAT IS KEPT IS A COUNT OF NIGHTS, NEVER A BALANCE. How many times they were stiffed
-is a FACT; what a night of unpaid rent is WORTH is a weight, and weights are his.
-Nothing touches standing, the same refusal [block rent] made one round earlier. It
-rides its own save key beside the doused set, so a valley reset cannot quietly
-forgive everybody.
+NO MEMORY LENGTH IS INVENTED. How long a track is, is how far that party has walked
+on this leg, and how far it walks is the distance between two of HIS seats. No fade
+constant, no "tracks last N days", no decay. The one cap in the renderer is named a
+RENDERING bound in its own comment: what fits on a screen without becoming a
+scribble.
 
-DRIVEN END TO END, WALKED SURFACE AND DEMO, NO PAGE ERRORS
-  1 nobody owed at the start, no visit due
-  2 an empty purse through the REAL nightfall bill writes five factions into the
-    book (Mob 16 billed 0 paid, Church 3/0, Cartel 2/0, Blues 2/0, Colorful 1/0)
-  3 no visit while the parent is alive
-  4 the fold: generation 1 -> 2
-  5 the heir's first morning card, at the TOP:
-      DAY 1 / 06:00 light until 22:00
-      SOMEBODY IS AT THE DOOR AND THEY ARE NOT HERE FOR YOU
-      BLUES. YOUR FATHER WENT A NIGHT WITHOUT PAYING THEM. THEY REMEMBER
-      THE DEBT DIED WITH HIM. THEY DID NOT
-  6 the second morning is quiet
-  7 no inherited bill anywhere in the purse
+IT RIDES HIS OWN COLOURS, AND IT IS A TRAIL NOT A DOT. Tracks use __holderInk, the
+SAME function the territory borders use, so a Mob track and Mob ground read as the
+same people with no second colour decision. COLOUR IS TERRITORY, and a track is
+territory moving. A marker would say "somebody is there"; FOOTPRINTS SAY WHICH WAY
+THEY WENT, which is the half the row is named for -- follow or avoid. So the trail
+fades along its length, brightest where they are standing now.
 
-*** THE MISTAKE THAT TOOK THREE GOES, AND IT IS THE SAME ONE EACH TIME. *** Built as
-its OWN card the collector was DRAWN, COUNTED AND NEVER SEEN: buried by the phone
-offer, then by the showChoice on the next line, then by my editing the end of a
-DIFFERENT function. The morning is ONE card -- showWake builds its whole html and
-ends by calling cardShow with it -- so the collector belongs at the TOP of that
-html, which is also exactly what the row asks for. SHOWN, COUNTED AND NEVER SEEN IS
-THE SAME AS NOT BUILT, and a counter going up is not proof anybody saw it. The
-orphaned card function was deleted rather than left with no caller.
+TWO SURFACES, BECAUSE THEY ANSWER DIFFERENT QUESTIONS
+  THE MAP IS FOR DECIDING     zoomed out you see trails and plan around them
+  THE STREET IS FOR NOTICING  down there you cannot see a trail, you see that
+                              somebody came past:
+      "Anarchists came through here just now. a patrol, and they are close."
+  It speaks only when the answer CHANGES: one string compare per block crossed,
+  nothing per frame, the same shape as the address countdown beside it.
 
-IT ASKS FOR NOTHING, DELIBERATELY. What a collector WANTS is a price and prices are
-his. NOT ONE NUMBER appears in any of the three lines, which the gate checks: naming
-a sum would be collecting a bill the game has already ruled the heir does not owe.
+THE FAULT I CAUGHT BY WALKING OFF THE TRACK. Stepping onto empty ground left the old
+sentence on screen, and a line that was true one cell ago and is a lie now is worse
+than silence. AND IT ONLY CLEARS ITS OWN WORDS: the street line is SHARED with the
+pack and the road, so it is cleared only while it still says exactly what this put
+there.
 
-GATES  faction_towns 95/0 (was 81), fourteen new claims. Green alongside: turf 43/0,
+DRIVEN ON THE WALKED SURFACE AND THE DEMO, NO PAGE ERRORS
+  20 of 28 parties with a trail, longest drawn 13 cells
+  EIGHT FACTIONS' TRACKS PAINTED ON A REAL CANVAS in their own ink
+    Blues #0052db  Mob #db1800  Network #4a8ddb  Caravans #db9324
+    Church #db9400  Cartel #c8a558        alongside 14 turf borders
+  stood on an Anarchist patrol's prints -> the street said so
+  stepped off -> the line cleared;  two more steps -> it did not repeat
+The Cartel comes out in the default gold because its measured wardrobe colour is
+DRAB and there is no hue to lift. Existing deliberate behaviour, and the same fact
+behind standing PENDING 5.
+
+GATES  faction_towns 111/0 (was 95), sixteen new claims. Green alongside: turf 43/0,
        engine sync zero drift, demo build 25/0, alpha loads 20/0.
 
-[PENDING Paolo] -- FIVE NOW, AND THE NEW ONE IS A CANON BUG
+[PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. *** DOES A DEBT CROSS THE FOLD? *** engine/bohemia_fold.js says it DIES and is
      marked ruled. WORLD's [debt carried] row says it survives IN FULL. BOTH ARE
-     LIVE. Two live sources disagreeing is a bug in the canon, not an interpretation
-     choice. I built the shipped one, and its other half (you inherit the PEOPLE he
-     owed) is the better mechanic, but the call is his.
+     LIVE. I built the shipped one ([collector heir]); the call is his.
   2. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
      kitchens and THE PLANT" while a camp has a stall. If "the plant" is a GENERATOR,
-     every fortress makes power off its own seat and "a fortress makes more than a
-     camp" becomes true everywhere. That would author canon about what the money
-     supply is and who holds it, so it was not taken.
+     every fortress makes power off its own seat. That would author canon about what
+     the money supply is, so it was not taken.
   3. Anarchists, Colorful and Custom are called non-territorial by his own notes and
      still hold ground. Should they at all?
   4. What it COSTS to be seen with one of the four hidden factions, or taken for one.
   5. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
      Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
-     drab factions, the gate carries three.
+     drab factions, the gate carries three -- and the tracks just made that visible
+     on a second surface, because a drab faction's trail falls back to plain gold.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
 verified inherited on a clean origin/main worktree and unchanged since.
@@ -1753,16 +1755,15 @@ verified inherited on a clean origin/main worktree and unchanged since.
       a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]; the faction
-    colours are in a file the game can read, so this is wiring
   [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11) --
     [crossing costs] gave it its shape: who will join you where you are standing
   [rent visible]  YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES -- the coordinator's follow-on to
     [block rent]: show what a block takes BEFORE you decide to live or work on it
+  [who follows]  WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK -- with PEOPLE [down not dead]
 
 SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  Five rows now.
+  SIX rows now. It has been wrong every single time.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
   number nobody ruled.
@@ -1770,7 +1771,8 @@ SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE THAT
   CHECKED NOTHING. Make the guard itself a claim.
   AND SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT. A counter that goes up
-  proves the code ran, never that anybody saw it. Read the surface.
+  proves the code ran, never that anybody saw it. Read the surface, and walk OFF the
+  thing as well as onto it -- this round's fault was only visible on the way out.
 
 --------------------------------------------------------------------------------
 
