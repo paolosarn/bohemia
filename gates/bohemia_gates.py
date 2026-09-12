@@ -498,6 +498,24 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('OWN POWER',     ['node', 'gates/own_power_gate.js'],
+     'YOUR-OWN-POWER-IS-YOUR-WAY-OUT (board row [own power], 9/12). From the 9/5 '
+     'generator-mafia research: the Lebanese families who built their own rooftop solar were '
+     'buying their way out of the block\'s owner. "A power building you place on your land '
+     'takes you OFF the block\'s line: the monthly cut stops, your batteries are yours, and the '
+     'faction that owned the line notices." BOTH HALVES WERE ALREADY BUILT AND THIS IS THE '
+     'JOIN: [block rent] 9/12 bills a cut per BLOCK of a faction\'s ground you used, and '
+     '[batteries mined] 9/11 makes solar, the battery farm and the substation mint. So this is '
+     'NOT a new charge and NOT a new table -- it is THE SAME BILL with your own blocks taken '
+     'out of it, which is why rentOn() is never touched: it is another lane\'s and it is '
+     'already right. Measured on the walked surface: standing on six blocks of their ground '
+     'bills 5 batteries, generators on his own ground take 3 blocks off the line, and the bill '
+     'goes 5 to 3. THE LINE THIS ROW MUST NOT CROSS: "a standing hit, a visit" is a WEIGHT and '
+     'an ENCOUNTER, bohemia_standing.js ships DEED_WEIGHT empty and says why, and [block rent] '
+     'made the same call one row earlier -- so the noticing is real, named and said out loud, '
+     'and nothing here writes a standing number. The gate asserts that directly. Red both '
+     'ways: let the discount go negative (which would PAY him rent) -> 1 red; count plots '
+     'instead of blocks -> 1 red.', True),
     ('CENTURY STAYED',['node', 'gates/century_stayed_gate.js'],
      'WHO-STAYED-COUNTS (board row [century stayed], 9/12). PAOLO 9/7 RULED IT: "buildings, '
      'and some people depending on how many years passed." The century rule counted BUILDINGS '

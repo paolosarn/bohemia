@@ -12899,86 +12899,89 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [century stayed] WHO-STAYED-COUNTS is SHIPPED 9/12.
+HOLDING: nothing. [own power] YOUR-OWN-POWER-IS-YOUR-WAY-OUT is SHIPPED 9/12.
 
 WHAT SHIPPED
-  THE CENTURY RULE COUNTS BUILDINGS AND SOME PEOPLE, which is his 9/7 ruling word
-  for word: "buildings, and some people depending on how many years passed." A
-  person you kept counts for as long as they could still be alive across the
-  handoffs; after that what counts is WHAT THEY LEFT.
-  EVERY YEAR IS CANON SOMEBODY ELSE WROTE DOWN, CARRIED WITH ITS SOURCE, AND THE
-  GATE RE-READS THE SOURCE. ~100 years across three acts (the century law, clause
-  4), ~30 a handoff (bohemia_family.js in its own words), adult 41 and elder 65
-  ASKED of that module rather than copied -- BAND is private, so this probes the
-  module's public agePeople instead of reaching in, and the gate proves the reading
-  is live by ageing its own probe and checking both files agree to the year.
-  THE ONLY ARITHMETIC IN THE FILE: past living = elder + one whole handoff = 95, on
-  a dial, tuned:false. Nothing in this repo ages anybody to death and adding that to
-  bohemia_family.js would be editing another lane's system.
-  A PERSON YOU KEPT IS SOMEBODY UNDER A ROOF YOU PUT UP -- the century record has
-  stamped the household on every build entry since it was written, so nothing new is
-  stored and no second census is taken. A solar farm keeps nobody, which is an
-  answer and not a gap.
-  MEASURED ON A REAL RECORD, three homes in act one and two flats in act two:
-  act 1 -> 6 here; act 2 (thirty years on) -> they are 71 and still here, 10 here;
-  act 3 (sixty years on) -> the first six are 101, so 4 here and 6 who left what
-  they built behind them.
-  NEW: engine/bohemia_stayed.js, gates/century_stayed_gate.js (34 checks, registered
-  as CENTURY STAYED, suite 587, red both ways).
-  RECORD: records/BOHEMIA_CENTURY_STAYED_9_12_26.md
+  A GENERATOR ON YOUR LAND TAKES THAT BLOCK OFF THE BLOCK OWNER'S LINE. From the
+  9/5 generator-mafia research: the Lebanese families who built their own rooftop
+  solar were buying their way out of the block's owner.
+  BOTH HALVES WERE ALREADY BUILT AND THIS IS THE JOIN: [block rent] (FACTIONS, 9/12)
+  bills a cut per BLOCK of a faction's ground you used; [batteries mined] (mine,
+  9/11) makes solar, the battery farm and the substation mint. So this is NOT a new
+  charge and NOT a new table -- it is THE SAME BILL with your own blocks taken out
+  of it, which is why rentOn() is never touched: another lane's, already right.
+  THE BLOCK IS THE UNIT BECAUSE THE BILL IS, so two generators on one block is one
+  block, and the discount can NEVER go below zero or it would pay him rent.
+  MEASURED ON THE WALKED SURFACE: six blocks of their ground bills 5 batteries;
+  generators on his own ground take 3 blocks off the line; the bill goes 5 to 3.
+  The card says "3 blocks of yours run on your own power now, and it kept 2
+  batteries out of their hands -- Church noticed."
+  NEW: engine/bohemia_ownpower.js, gates/own_power_gate.js (29 checks, registered as
+  OWN POWER, suite 594, red both ways).
+  RECORD: records/BOHEMIA_OWN_POWER_9_12_26.md
 
-THE CHECK THAT MATTERS MOST, AND WHY IT NEEDED DRIVING
-  "after that what counts is what they left" IS A BRANCH, and in play today the act
-  never moves, because the generation fold is another line's job (QUESTS, parked).
-  A BRANCH THAT HAS NEVER EXECUTED IS NOT CODE, IT IS AN INTENTION -- so the gate
-  drives a real record through three acts, in node AND on the walked surface, and
-  watches six people become six who left what they built behind them.
+THE LINE THIS ROW MUST NOT CROSS, AND DID NOT
+  "the faction that owned the line notices (A STANDING HIT, A VISIT)". The hit is a
+  WEIGHT and bohemia_standing.js ships DEED_WEIGHT empty and says why; the visit is
+  an ENCOUNTER and those tables are his. [block rent] made the identical call one
+  row earlier. So the noticing is REAL, NAMED AND SAID OUT LOUD on the card, and the
+  size of the grudge is left to him. The gate asserts directly that this module
+  writes no standing and calls no encounter.
+  AND IT DID NOT FORCE THE DEED DOOR: witness() needs minds within sight and a
+  where() for each. A faction knowing about its own wire is not a person seeing you
+  do something, and pushing it through there would be the exact mistake [block rent]
+  wrote down about payTo -- using the function whose NAME matches rather than the
+  one whose QUESTION matches.
 
-ONE THING THAT LOOKED LIKE A BUG AND WAS THE GAME WORKING
-  Driving the surface by hand, I set the act back to 1 and the card still answered
-  for act 2. That is bohemia_century.js refusing to run backwards, by its own rule:
-  "a century that can run in reverse is not a memory". My probe was the confused
-  one, not the card. Worth keeping because the next person to drive acts by hand
-  will see exactly this.
+A CHECK OF ANOTHER LANE'S THAT I BROKE, AND HOW I FIXED IT
+  faction_towns_gate N12 pinned the literal string `rentOn(TURF_USED`. I now hand
+  rentOn a DISCOUNTED COPY of that map, so the name at the call site changed while
+  the source of truth is still turf -- and their check went red on a claim that is
+  still completely true. Widened to assert the same claim without pinning the name:
+  the rent body must still build from TURF_USED, still call rentOn, still ask
+  turfAt, and STILL NEVER MENTION payTo. That last half caught a real bug and is
+  untouched -- proved by putting payTo back and watching N12 go red again. FIXING A
+  RULER THAT GOT TOO LITERAL IS NOT LOOSENING A CHECK TO MAKE YOUR OWN WORK PASS,
+  and the difference is written into the gate beside the change.
 
-NEXT: read the WORLD section fresh; the coordinator harvests rows onto this queue
-constantly. As of this round the next OPEN line is [own power], which now has its
-dependency since [batteries mined] shipped, then [rice clock], [debt carried],
-[someone lends], [back of house], [water lifted], [battery worth], [fold carries],
-[visible change], [suburb walls], [full shelves].
+AND I FIXED TWO OF MY OWN SHIPPED LINES UNDER THE NEW FRONT-PAGE RULE 11
+  The coordinator added it 9/12 out of EYES E16: a SHIPPED line keeps the
+  [two-word label] AND the "Paolo <date>" citation exactly as the OPEN line carried
+  them; you may ADD the sha and a result clause, you never delete the ruling.
+  Measured there: an OPEN line cites one of his rulings 34% of the time, a SHIPPED
+  line only 12%, because the line gets rewritten as a result summary when it lands.
+  I checked all eleven of this lane's shipped rows against the OPEN text git still
+  has. Nine never carried a Paolo citation (BB- rows and coordinator calls). TWO OF
+  MINE HAD DROPPED ONE and are restored verbatim with the result added after:
+  [batteries mined] and [century stayed]. This round's line was written that way
+  from the start.
+
+NEXT: read the WORLD section fresh. As of this round the next OPEN line is
+[rice clock], then [debt carried], [someone lends], [back of house], [water lifted],
+[battery worth], [fold carries], [visible change], [suburb walls], [full shelves].
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
-7/31 with zero callers.
+7/31 with zero callers. That row is next, so this finally gets fixed.
 
-CORRECTING SOMETHING ANOTHER LANE PUBLISHED, because it cost me half a round:
-ECONOMY round 28 reported "HOUSING CAP IS EMPTY, so the century's housed column
-reads zero by law". IT IS NOT EMPTY. installCap() fills every residential type with
-BohemiaPopulation's researched HOUSEHOLD_MEAN of 2.2, and the walked surface calls
-it at boot. My own first node run reproduced their zero only because I had not
-called installCap. A table that reads empty until somebody installs it is not an
-empty table, and the difference is a whole feature.
+PIN THE BOARD SHA BY READING IT OFF MAIN AFTER THE PUSH, NEVER BEFORE. Last round I
+pinned a sha and the rebase in the push loop rewrote every commit, so the board
+pointed at something that does not exist on main. Run
+`git merge-base --is-ancestor <pinned> origin/main` on the BOARD line before calling
+a row shipped, the same containment check the ship flow already demands for deploys.
 
 STANDING DUTY THIS LANE HAS PAID FOR TWICE: re-check your gates' REGISTRATION every
 round, AND check it the way the registry checker reads the table rather than with
-your own grep. All seven of this lane's gates verified present this round, and 0
-rows are invisible to the checker.
+your own grep. All eight verified present this round, 0 rows invisible.
 
 [PENDING Paolo] -- nothing new from me.
 
-PIN THE BOARD SHA BY READING IT OFF MAIN AFTER THE PUSH, NEVER BEFORE. I pinned
-6245126 and the rebase in the push loop rewrote every commit, so the board pointed
-at a sha that does not exist on main. The real one is 8538cd0. Caught by running
-`git merge-base --is-ancestor <pinned> origin/main` and watching it say no -- which
-is the same containment check the ship flow already demands for the deploy, applied
-to the board line. Do that check every round before calling a row shipped.
-
-LAST SHIPPED: [century stayed] 8538cd0, 9/12. Before it: [batteries mined] 6562436,
-[parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
-[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
-[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
-[living costs] 5b61303, [battery money] ce39270.
+LAST SHIPPED: [own power], 9/12. Before it: [century stayed] 8538cd0,
+[batteries mined] 6562436, [parties move] 75ac79c, [a days work] 4f55d76,
+[shelves premise] 1f3d342, [enemies unite] aace2d9, [rung unlocks] 44dd7a1,
+[faster roads] ba66644, [held ground] afc3bf7, [faction towns] fd484b9,
+[lights bill] 94ca570, [living costs] 5b61303, [battery money] ce39270.
 
 
 
