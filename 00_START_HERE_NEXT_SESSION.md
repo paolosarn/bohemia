@@ -1,3 +1,98 @@
+WORDS (words-8dqrnq): 9/12 (b) LATEST -- *** Q20 [no law talk] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. TAKE THE LAW AWAY AND PEOPLE TALK MORE CAREFULLY, NOT ROUGHER, AND
+OUR OWN TEXT IS SIX SIGMA THE WRONG WAY. *** TAB: NOT IN A TAB YET. No game code touched, ever.
+
+THE FINDING THAT PROVES US WRONG. Act one is the animal era, instinct before rules, so the instinct
+is to write it feral and clipped. The standard genre advice says exactly that: write the dialogue,
+then cut every unnecessary word, and you get the terse lawless character. The same guides list the
+gruff silent type as the genre's tiredest cliche without noticing their own technique builds it.
+The real record is the opposite. Where nobody can get back what is stolen from you, courtesy is
+armour. The keystone is a 1996 experiment: a big man walks straight at you down a narrow corridor
+and they measure when you give way. Law-culture subjects gave way at 1.4 m whatever was done to
+them. Honour-culture subjects gave way at 2.7 m, nearly twice as early, until they were insulted,
+and then at 0.94 m, closer than anyone in the study. Extreme courtesy is the resting state and the
+switch is behind it.
+
+AND THE MECHANISM IS HIS OWN LOCKED ECONOMY. The literature says honour cultures come from wealth
+that is portable and stealable overnight plus a governing body too weak to get it back. That is
+BATTERIES ARE THE MONEY plus no state. Act one's register is predicted by the economy he already
+locked. We did not have to pick it.
+
+MEASURED, 2,442 spoken lines against 617 films, film samples drawn to match OUR token count:
+  deference (please, sir, no disrespect)   11 lines   0.38 per 1k   film 2.00   -6.2 sd
+  address terms (hermano, jefe, boss)      16 lines   0.55         film 2.02   -5.4 sd
+  the oath (I swear, on my name)            1 line    0.03         film 0.10   -1.1 sd
+  the fixed saying (that's the rule)        5 lines   0.17         film 0.09   +1.5 sd
+  collective liability (your people)       30 lines   1.04         film 0.52   +4.0 sd
+READING THE HITS CHANGED TWO NUMBERS. The address ruler first said 134 lines and -8.6 sd; the top
+hit was "Don't touch that, it's live", because \bdon\b matches inside "don't". Fixed, and 16 is
+still too kind: most of the 16 are talking ABOUT a brother or a sister, not TO anybody. Real
+address to a face is about five lines in 2,442.
+
+WHAT WE ALREADY GOT RIGHT: the law words are gone (4 hits, all one argument about lake water), the
+family is already in the sentence (+4 sd), and the euphemism is the best thing in the corpus
+("There's water till Thursday. After Thursday there's a conversation."). WHAT IS MISSING: the
+courtesy, the address, the oath, the fixed saying, and the name at the border. NOT ONE LINE IN THE
+BUILD ASKS WHO'S ASKING, WHERE YOU'RE FROM, OR WHOSE BLOCK, in a valley made entirely of faction
+ground with checkpoints in its own fiction.
+
+THE PROMISE WITH NOTHING BEHIND IT is the Albanian besa, and the Kanun has no enforcement at all
+without it. It costs the family's name, not a fine, and IT IS GENERATIONAL: your father's pledge
+becomes yours. In a game of three inherited generations that reaches act two by itself.
+
+SIX THINGS HELD FOR ROUND TWO: act one is the most formal era; the recourse words are already gone;
+the name and the house are the password; a rule arrives as a fixed phrase; the worst things are said
+sideways; a promise outlives the man. The row's test is fifteen act-one lines that would sound
+wrong in act two, and the rule for wrongness is that act two could answer them with an institution.
+
+MAIN IS RED AND IT IS STILL NOT MINE, BUT ONE OF THE THREE IS FIXED. LANGUAGE IS GREEN, 81/0: the
+spanglish picker that handed back the English base got fixed by the lane that owns it, five rounds
+after I routed it. Still red: voice 110/1 and catalogue 60/3, both waiting on the words book being
+baked, which turns voice red on a QUESTS line carrying a banned phrase. Still routed, still not
+mine, still not baked by me. My own: attempt 15/0, handoff 7/0.
+ALSO FIXED THIS ROUND: my own rebase auto-resolver corrupted the top of this file last round by
+treating a "====" divider as a conflict marker. Repaired, nothing lost, and the resolver now anchors
+on the full marker triple.
+
+NEXT: Q20 round two, the writing. Then Q4 to Q17 still owe their school rounds, one row at a time.
+WORDS (words-8dqrnq): 9/12 -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
+NOBODY COLLAPSES WHEN THEY ARE CAUGHT. THEY REVISE, CALMLY, IN THE SAME SECOND. *** TAB: NOT IN A
+TAB YET. No game code touched, ever. Everything is draft:true in the bank.
+
+THE FINDING THAT DELETED THE SCENE I WOULD HAVE WRITTEN. The whole reason a real interviewer holds
+evidence back is to stop the person REVISING to fit what was just shown to them. The revision is so
+reliable that a professional technique exists for no other purpose. So the stammering collapse is
+film, not life. In this set the collapse is ONE rare block, marked rare, and every other first line
+after the catch is calm and absorbs the new fact.
+
+THE STRUCTURE CAME FROM A 1968 CATALOGUE: eight account moves, four excuses and four
+justifications. The centrepiece is the SAME man caught for the SAME cable in the SAME second,
+answering eight different ways, one per move. Eight different people fall out of one crime. That is
+a per-character setting for PEOPLE, one field, and it buys the whole cast a reaction.
+
+WHAT IS IN THE BANK, section Q19 ROUND TWO, all draft:true:
+  THE COLLISION       the catch is two statements that cannot both be true, never a face read
+  EIGHT CAUGHT MEN    one crime, eight moves, each named
+  THE REVISION LADDER three proofs, three concessions, the self-description never moves
+  TWO APOLOGIES       the weak one built on purpose from the two weakest ranked parts
+  THE RARE COLLAPSE   three lines and a pause
+  THE REFLEX SORRY    a man who apologises for talking over you and not for what he did
+  SIX REFUSALS        what this lane will not write about being caught
+
+ROUTED. QUESTS [check the claim] is the paired row and the handshake is one sentence: a claim is
+checked by holding it next to another claim, worth about seven times a read of somebody's face. A
+"suspicious" reaction on screen is doing work the evidence says it cannot do. PEOPLE gets the
+eight-move knob.
+
+MAIN IS RED AND IT IS STILL NOT MINE, ROUND FOUR OF SAYING SO. voice 110/1, catalogue 60/3,
+language 80/1, the same three, unchanged by anything I did. The words book has not been baked since
+QUESTS added quest files (book 2496 lines, 3147 on disk), baking turns voice red because a QUESTS
+line carries a banned phrase, and language is red because the spanglish picker hands back the
+English base. Routed to QUESTS, PEOPLE and PLUMBER four rounds running. I did not bake and I did
+not touch another lane's text. My own gates: attempt 15/0, handoff 7/0.
+
+NEXT. Q20 [no law talk], school first. Q4 to Q17 are still owed their school rounds, one row at a
+time, never a shelf.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
