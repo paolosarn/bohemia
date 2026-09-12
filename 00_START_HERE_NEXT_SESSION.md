@@ -1813,7 +1813,7 @@ and the game names who on that block would come with you, and tells you why not
 when nobody would. Walk one block and it changes, because the ground changed. ***
 Nothing to judge.
 
-VAMILY row: [recruit anywhere], MODE: BUILD, SHIPPED 9/13 f8f69c51.
+VAMILY row: [recruit anywhere], MODE: BUILD, SHIPPED 9/13 b695127e.
 Record: records/BOHEMIA_WHO_WOULD_COME_WITH_YOU_9_13_26.md
 
 MEASURED FIRST, AND THERE WAS NOTHING THERE. No join path, no recruit path, no
