@@ -10259,6 +10259,33 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/12 (d) LATEST -- *** CHAT 18. ROUND 19. [suite runs] CONTINUING. THE SPLIT
+IS DONE: 102 CHECKS THAT HAD NEVER ONCE RUN NOW RUN. FACTION ARC was green (102 passed) and needed
+1,228 s against a 600 s cap, so the suite killed it every run and filed it under the reds -- a RED
+OVER 102 REAL GREENS, worse than green over nothing, because a red sends somebody hunting a bug that
+is not there. Two steps, both measured: the repeat-skip took it to 887 s (still killed), so section K
+came out into gates/faction_ask_cost_gate.js. NOW: FACTION ARC 529.1 s / 97 passed, FACTION ASK COST
+359.6 s / 5 passed, 102 together, both under the cap, registered, GATE REGISTRY and LAW INDEX green.
+PROVED BY DIFF, NOT BY COUNT: both runs stripped of timestamps, sorted and compared line by line --
+all 102 match word for word, including the exact wording of the three outfits that charge for a
+direct ask. Nothing about the checks changed; the moved block is section K verbatim against the same
+preamble, and the checks stay FACTIONS' work -- only the file is ours.
+THE FLOOR HAS NOT MOVED YET AND THAT IS DELIBERATE: suite_finishes still reads "longest gate 600 s"
+and a 71.9 min floor because it computes from the CENSUS, and the last complete suite log predates
+this split. It will only reflect it after the next full run. A number that updated itself without a
+measurement behind it is exactly the stale-census problem this row already found once.
+[RED I FOUND, NOT MINE, AND NOT PARKED] slices/BOHEMIA_RUN_CURRENT.html is drifting AGAIN, +45/-6,
+NOT on the frozen list, so derived_freshness is RED -- the ratchet working as designed. COOK rebuilt
+it two rounds ago and left the instruction inside the gate: REBUILD BOTH WHENEVER YOU TOUCH THE
+ENGINE. The engine has moved since (WORLD [debt carried], QUESTS [company in asks]) and it was not
+rebuilt. Not fixed here because slices are not this lane's, and deliberately NOT added to the frozen
+list, because hiding a fresh problem behind a named excuse is the one thing that list exists to
+prevent. One command for the owner: node tools/build_current_slice.js && node tools/build_run_slice.js
+IT WILL KEEP HAPPENING. Two shipped slices inline the engine, so every lane that touches the engine
+owes a rebuild, and nothing in the workflow reminds them -- only this gate, after the fact. That is a
+job for somebody: a rebuild step, or a gate on the engine side that says so at the time.
+WHAT IS LEFT ON THE ROW: the 71.9 min floor itself (sharding cannot fix it -- less browser work or
+more machines, which is a fork); re-measure the floor after a full run; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/12 (c) LATEST -- *** CHAT 18. ROUND 18. [suite runs] CONTINUING. THE 594 s
 SECTION OF FACTION ARC IS NOW 357 s AND ALL 102 CHECK LINES ARE WORD-FOR-WORD IDENTICAL (diffed, not
 counted). MEASURED INSIDE IT, twice, because reading it had already fooled me once: the ring walks 14

@@ -4569,6 +4569,27 @@ GATES = [
      "'NOBODY WHO COULD CHARGE YOU FOR IT IS CLOSE ENOUGH TO KNOW' because there are TWO "
      "whoHears calls in the city and only one had been taught. Seven mutations, each biting "
      "the claim written for it.", True),
+    ('FACTION ASK COST', ['node', 'gates/faction_ask_cost_gate.js'],
+     'SECTION K OF FACTION ARC, MOVED OUT SO IT CAN ACTUALLY RUN. 9/12, PLUMBER lane, row [suite '
+     'runs]. The checks are FACTIONS\' work, verbatim; only the file is this lane\'s. WHY: FACTION '
+     'ARC is GREEN -- 102 checks pass -- and the suite had NEVER SEEN ONE OF THEM, because the gate '
+     'needed 1,228 s against a 600 s GATE_CAP. It was killed every run and filed under the reds, so '
+     '102 working checks on the faction system read as a failure for weeks and would have sent '
+     'somebody hunting a bug that is not there. A RED OVER 102 REAL GREENS is worse than the green '
+     'over nothing this lane has been chasing. TWO STEPS, BOTH MEASURED: first the repeat-skip in '
+     'the ring scan (5,112 card opens over 441 distinct people, 91% of them re-asking somebody '
+     'already answered) took section K from 594 s to 357 s and the whole gate from 1,228 s to 887 s '
+     '-- still killed. So the section came out. NOW BOTH FIT: FACTION ARC 529.1 s / 97 passed, this '
+     '359.6 s / 5 passed, 102 together, which is exactly what the one gate printed. PROVED BY DIFF, '
+     'NOT BY COUNT: both runs stripped of timestamps, sorted and compared line by line -- all 102 '
+     'match word for word, including the exact wording of the three outfits that charge for a direct '
+     'ask (ANARCHISTS "AN INSULT. YOU GET TO MAKE IT ONCE.", CARTEL "A SMILE AND A REDIRECT. EVERY '
+     'TIME. FOREVER.", MOB "A SMALL PERMANENT MARK AGAINST YOU."). ITS OWN SUBJECT, which is '
+     'FACTIONS\': BohemiaIntros.askOutcome says what a direct ask costs and three of sixteen charge '
+     'for one; the other thirteen are free, which is exactly why it stayed invisible -- the common '
+     'case looked fine. The law is the 8/15 one in a line: the consequence is printed BEFORE the '
+     'button, never after',
+     True),
     ('FACTION ARC',    ['node', 'gates/faction_arc_gate.js'],
      "NINE GATES COVER THIS STACK AND EVERY ONE OF THEM VERIFIES A LAYER -- the organ "
      "clamps, the card displays, the rule derives, the save round-trips -- and every one "

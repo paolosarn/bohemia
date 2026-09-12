@@ -182,3 +182,65 @@ frozen list went from seven entries to six without this lane touching it.
 
 The row stays CLAIMED. Its ship test is not met, and a half-done row marked SHIPPED is
 worse than an open one.
+
+
+---
+
+## ROUND 3: THE SPLIT. 102 CHECKS THAT NEVER RAN NOW RUN.
+
+Speeding section K up was not enough — 887 s against a 600 s cap is still killed —
+so the section came out into its own file.
+
+```
+  BEFORE   FACTION ARC            1,228 s   102 passed   KILLED at 600, filed as a red
+  STEP 1   repeat-skip in ring      887 s   102 passed   still killed
+  STEP 2   section K moved out
+             FACTION ARC            529.1 s   97 passed   under the cap
+             FACTION ASK COST       359.6 s    5 passed   under the cap  (new file)
+                                              102 total
+```
+
+**Both halves now fit, and 102 checks on the faction system finally land in the suite
+instead of being reported as a failure nobody could act on.**
+
+### PROVED BY DIFF, NOT BY COUNT
+
+Every run was stripped of timestamps, sorted, and compared line by line. The two
+halves together print **exactly the 102 lines the single gate printed**, word for
+word — including the precise wording of the three outfits that charge for a direct
+ask (ANARCHISTS "AN INSULT. YOU GET TO MAKE IT ONCE.", CARTEL "A SMILE AND A REDIRECT.
+EVERY TIME. FOREVER.", MOB "A SMALL PERMANENT MARK AGAINST YOU.").
+
+Nothing about the checks changed. The moved block is section K verbatim against the
+same preamble it always ran under. The checks are FACTIONS' work; only the file they
+live in is this lane's.
+
+### THE FLOOR HAS NOT MOVED YET, AND THAT IS HONEST
+
+`suite_finishes_gate` still reads "longest gate 600 s" and a 71.9 min floor, because
+it computes from the **census**, and the census is built from a real suite log. The
+last complete log predates this split. The floor will only reflect it after the next
+full run. A number that updates itself without a measurement behind it would be
+exactly the stale-census problem this row already found once.
+
+### AND THE FRESHNESS GATE CAUGHT A NEW ONE WHILE THIS LANDED
+
+`slices/BOHEMIA_RUN_CURRENT.html` is drifting again, **+45/-6**, and it is NOT on the
+frozen list, so the gate is RED — which is the ratchet working exactly as designed.
+
+COOK rebuilt that slice two rounds ago and left the instruction in the gate:
+**"REBUILD BOTH WHENEVER YOU TOUCH THE ENGINE."** Since then the engine moved again
+(WORLD `[debt carried]`, QUESTS `[company in asks]`) and the slice was not rebuilt.
+
+Not fixed here: this lane may not edit `slices/` content, and it was not added to the
+frozen list either, because parking a fresh problem behind a named excuse is the one
+thing that list is designed to prevent. It is one command for whoever owns it:
+
+```
+    node tools/build_current_slice.js
+    node tools/build_run_slice.js
+```
+
+**This will keep happening.** Two shipped slices inline the engine, so every lane that
+touches the engine owes a rebuild, and nothing in the workflow reminds them — only
+this gate, after the fact.
