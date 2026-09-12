@@ -240,8 +240,17 @@ function serve() {
   ok('the sweep actually found the controls (it found ' + ctrls.length + ' across '
      + 'both documents; three earlier methods each confidently found zero on the city '
      + 'screen alone)', ctrls.length >= 10);
-  ok('and it looked at the opening overlay too, where the first two buttons of the '
-     + 'whole game live (' + shell.length + ' found there)', shell.length >= 2);
+  /* *** THE LAW IS "EVERY VISIBLE CONTROL IS A THUMB TARGET", NOT "THERE ARE TWO
+     BUTTONS HERE". *** This read shell.length >= 2 because the opening overlay
+     carried WATCH and NOT NOW as the first two buttons of the whole game. The
+     coordinator amended [one question] on 9/12 under the no-story ruling -- THE
+     COLD OPEN IS DEFERRED WITH THE STORY -- and the demo stopped offering it, so
+     the overlay now shows SKIP alone and a count of two can never be met again.
+     Counting the furniture is how a gate goes red at a decision it was never
+     asked about. What has to hold is that whatever the overlay DOES put on
+     screen gets measured, and the 44 floor below measures all of it. */
+  ok('and it looked at the opening overlay too, where the first buttons of the '
+     + 'whole game live (' + shell.length + ' found there)', shell.length >= 1);
 
   /* ==== THE 44 FLOOR, AND THE ONE THING THAT NOW OVERRIDES IT ==================
      PAOLO 9/6, LOCKED, AFTER this floor shipped: "for the run right now make all the
