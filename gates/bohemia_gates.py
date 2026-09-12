@@ -2279,6 +2279,19 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('LOOT KEPT', ['node', 'gates/loot_kept_gate.js'],
+     'WHAT YOU TOOK LEAVES THE FIGHT WITH YOU (VAMILY [loot kept] = BB-LOOT-LEAVES + BB-KEYS-LAND, COMBAT 9/12). '
+     'Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE the arena on 9/2 and never '
+     'once left it: the fight\'s one message out was a body count and a health number, with no loot, no experience, '
+     'no plates and no keys, while every one of those numbers was already being counted in G.rc. AND THE KEYS HAD A '
+     'LIVE CUSTOMER NOBODY NOTICED: the walked city\'s ctLadderHeld() was written 9/6 to read window.parent.'
+     'bohemiaKeys, the fight published the keys with NO TYPE FIELD, the shell routes all twenty of its message '
+     'types by d.type, so the boss ladder answered EMPTY no matter what you carried. This drives the real game: it '
+     'opens a fight, puts one body\'s worth of takings on the ground, walks onto it through the shipped pickup, '
+     'ends the fight through the shipped one-send path, and asks the message, the shell and the city what they '
+     'think happened. IT SERVES THE GAME OVER HTTP ON PURPOSE, because on file:// every frame has a null origin '
+     'and the city\'s cross-frame read throws however correct the build is -- a file:// harness would have called '
+     'this row impossible to finish', True),
     ('ENTER ZOOM', ['node', 'gates/enter_zoom_gate.js'],
      'HOW THE FIGHT BEGINS: THE CAMERA PULLS BACK (VAMILY [enter zoom], COMBAT 9/11). Paolo 9/6, option A: '
      '"Yes definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." You never leave the '

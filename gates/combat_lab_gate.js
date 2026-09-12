@@ -1049,7 +1049,15 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
   ok('V66 RUN HANDOFF wiring: the demo delegates the whole bus to HANDOFF CORE (install/outcome/end), win AND loss both route through the one send',
     demo.includes('BohemiaHandoff.install(window,G,{') &&
     demo.includes('function encounterOutcome(){ return BohemiaHandoff.outcome(G); }') &&
-    demo.includes('function sendCombatEnd(win,reason){ BohemiaHandoff.end(G,win,reason||(win?\'cleared\':\'down\'),') &&
+    /* THE DELEGATION IS PINNED, NOT ITS SPELLING (9/12). This demanded the whole
+       line verbatim, so V206 went red for CAPTURING THE RETURN VALUE -- the
+       payload is needed to credit the pocket from the very message that just went
+       out. The claim is that the one send is HANDOFF CORE's and that win and loss
+       both route through it, and all three of those are still checked below. A
+       checker that fails a change preserving everything it claims is pinned to the
+       wrong thing. */
+    demo.includes('function sendCombatEnd(win,reason){') &&
+    demo.includes('BohemiaHandoff.end(G,win,reason||(win?\'cleared\':\'down\'),') &&
     demo.includes('sendCombatEnd(true);   /* V59 RUN HANDOFF: one clean outcome */') &&
     demo.includes('sendCombatEnd(false);   /* V59 RUN HANDOFF: one clean outcome */') &&
     // the old hand-rolled listener is GONE: one bus, not two
