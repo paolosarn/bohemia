@@ -1405,113 +1405,116 @@ NEXT IN THIS LANE: Q23 [who eats first].
 ================================================================================
 ================================================================================
 
-FACTIONS (factions-ovkjpf): 9/11 (round 14) LATEST -- *** [power territory]
-A-FACTION-MINES-ITS-LAND SHIPPED. A faction's strength was a number typed once that
-never moved. What its LAND is worth is a real reading now, and losing the block
-loses the output. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/12 (round 15) LATEST -- *** [block rent]
+THE-BLOCK-PAYS-ITS-OWNER SHIPPED. Living on somebody's ground was free. It costs
+now, it is paid to a faction with a name, and the faction that does not get paid
+cuts the lights. *** Nothing to judge.
 
-VAMILY row: [power territory], MODE: BUILD, SHIPPED 9/11 7cc0e815.
-Record: records/BOHEMIA_A_FACTION_MINES_ITS_LAND_9_11_26.md
+VAMILY row: [block rent], MODE: BUILD, SHIPPED 9/12 4869e2f0.
+Record: records/BOHEMIA_THE_BLOCK_PAYS_ITS_OWNER_9_12_26.md
 
-MEASURED FIRST, AND IT IS THE WHOLE REASON THE ROW EXISTS. Faction strength is
-act1_power, and his own graph's meta calls it what it is: "Power = ordinal rank
-(1=weakest) per act". It is read in exactly two places, both setup -- the TIER
-(thirds) and the TURF DRAFT ORDER (strongest picks first) -- and then never again.
-Take every block off the Mob and the Mob is still 13.
+MEASURED FIRST. payTo() has answered "who do you pay for this block" since [light
+owners] and had EXACTLY ONE CALLER IN THE WHOLE GAME, and it was a gate. Same shape
+as formed() in [enemies unite]: built, gated, never called by the product.
 
-THE NAMED BLOCKER WAS NOT TRUE. THIRD TIME IN THIS LANE. The row says the numbers
-flow from WORLD [batteries mined], which is still OPEN. The yield was already ruled
-and already written down TWICE: "7/26 BUILDINGS PRODUCE ONE OF THE THREE + 8/15
-EVERYTHING COSTS ONE", carried verbatim by bohemia_production.js, and spelled out in
-WORLD's own row as "start at ONE battery per day per building".
+*** AND payTo IS THE WRONG DOOR FOR RENT. *** It reads the GRID, and the grid only
+carries status on STREET cells. Sampled on the walked surface, 2,304 cells:
+  somebody to pay   831        flagged free   6
+  NOBODY           1467        <- including the block the player wakes on
+The grid says who owns the WIRE. Turf says who owns the GROUND, for 100% of the
+valley since [who holds]. Rent is ground, so rent asks turf.
 
-WHAT MAKES POWER: solar, dam, battery. A SUBSTATION IS DELIBERATELY NOT ON THE LIST
--- it steps voltage down and passes it along, and counting it would be counting the
-wire as the well.
+*** IT IS A TRANSFER, NOT A FIFTH VERB, AND THAT IS THE WHOLE SHAPE. *** The four
+verbs are FROZEN and the purse says so in its own refusal ("a fifth is a design
+change, and design changes are Paolo's"); the day-23 study is stricter still, "each
+resource is spent by exactly one verb, so you always know what drained it", and
+electricity is already spent by night:power. A drain CONSUMES; rent MOVES, to
+somebody with a name. transferOut has existed for exactly that since the purse was
+built, posting kind 'transfer', and NOTHING HAD EVER CALLED IT. The frozen four are
+untouched and a fifth is still refused by name.
 
-A SITE IS A BUILDING, NOT A CELL, and the dam is the check that the unit is right:
-four cells, ONE site, which is Hoover. 301 solar cells are THREE farms.
+A FORTRESS CHARGES MORE THAN A CAMP WITHOUT A PRICE NOBODY RULED. EVERYTHING COSTS
+ONE, so it cannot charge a bigger number; what a bigger operator really does is
+collect on MORE OF WHAT YOU USED. That scaling is HIS THIRDS, already in the towns
+module as DEPTH, applied to a COUNT through the same Math.ceil goodsFor uses.
+  nine blocks of each   fortress bills 9   town bills 6   camp bills 3
+HONEST LIMIT, ASSERTED IN THE GATE so nobody later reads it as a fault: at ONE block
+they all bill one, because a third of one block rounds up to one. The tiers only
+separate once he has walked more of somebody's ground, which is when it matters.
 
-  THE WHOLE VALLEY MAKES POWER IN FIVE PLACES
-    solar farm  188 cells  Network        battery plant  1 cell   Volunteers
-    solar farm   84 cells  Network        the dam        4 cells  Cartel
-    solar farm   29 cells  Trades
-  Network 2 a day, Trades 1, Volunteers 1, Cartel 1, TEN OF FOURTEEN make nothing.
+CUT OFF IS THE LIGHTS, which is what the research says literally ("cuts you off
+without warning"). One circuit per unpaid block, on THAT faction's OWN ground, via
+the douse the grid already ships and the save already carries. NOTHING HERE INVENTS
+A STANDING CHANGE: what an unpaid debt does to how they FEEL about you is a weight,
+and weights are his.
 
-*** THE TRAP I WALKED INTO AND MEASURED MY WAY OUT OF. *** The obvious version gates
-output on the lights, because this lane's own income rule is "yours AND lit AND
-patrolled". MEASURED: ALL FIVE SITES HAVE ZERO LIT CELLS, because circuits only run
-along STREET cells and a solar farm stands in the desert. That version makes the
-ENTIRE VALLEY produce nothing while every check stays green. A generator MAKES
-power; whether it reaches anybody is the grid's job, which the grid already models.
-The income rule governs what a district PAYS, not what a plant MAKES.
+DRIVEN ON THE WALKED SURFACE AND THE DEMO, deliberately two batteries short
+  Blues    (town)     used 2   billed 2   paid 2
+  Church   (town)     used 4   billed 3   paid 3    <- the tier, visible
+  Mob      (fortress) used 16  billed 16  paid 14   <- 2 short
+  purse electricity 22 -> 0     lit circuits 358 -> 356, the Mob cutting its OWN
+  ledger kinds ["transfer"], never "drain", every entry naming who received it
+Identical on the demo. No page errors on either.
 
-*** AND HIS SENTENCE IS FALSE ON HIS OWN MAP, SO IT IS REPORTED, NOT FORCED. *** The
-row says "a fortress makes more than a camp". The Mob is a fortress at strength 13
-holding 1,490 cells and makes NOTHING; the Remnants are the strongest faction he
-wrote, at 14, and make NOTHING. Forcing it true meant typing a tier multiplier
-nobody ruled on top of a map that is his (MAP LAW). NO tier scaling is applied --
-output is sites held, and DEPTH/REACH keep scaling only what they already scaled.
-The counterexample is named in the gate so nobody later tunes it away.
+WHAT HE READS AT NIGHTFALL (Tab: CITY)
+  Church (town) took 3 batteries for 3 of the 4 blocks of theirs you used
+  Mob (fortress) wanted 6 for the 6 blocks of theirs you used and you had 4
+  so the Mob cut 2 of their own streets off
+The first wording said "1 of the 1 block" and "took 4 for 6" beside the shortfall.
+Both were what a machine says, not what a person reads.
 
-DERIVED, NEVER STORED, so "losing a block loses its output" needs no rule of its
-own. Proved by taking a holder's seats and asking again: their output goes to zero,
-the valley keeps all five sites, somebody else picked it up -- output MOVES rather
-than evaporating. A split site goes to whoever holds most of it, and that rule is
-exercised for real: on the boot seed the dam is split 3 Anarchists / 1 Mob.
+GATES  faction_towns 81/0 (was 65), sixteen new claims. Green alongside: turf 43/0,
+       mandate 44/0, engine sync zero drift, demo build 25/0, alpha loads 20/0.
 
-WHERE HE SEES IT, both phone-sized, no page errors, and the demo proved separately
-because it loads the same walked city
-  DIRECT tab, TOWN SIZES   all 14 rows under the tier chips
-                           "its land makes 2 batteries a day off 2 solar farms"
-                           "its land makes no power"   (a real sentence, never a 0)
-  the walked city          the nightfall card, riding the line that already names
-                           whose ground he crossed
+AND ONE GATE PROBE WAS MINE, NOT THE GAME'S. The turf-not-grid claim first ran a
+regex for "payTo ... rent" across the whole 4 MB page -- string arithmetic that can
+match anything -- and went red while the behaviour was correct. It reads the two
+function bodies now. FOURTH TIME THIS SESSION a check was wrong while the game was
+right.
 
-GATES  faction_towns 65/0 (was 48), seventeen new claims. Green alongside: turf
-       43/0, engine sync 18 modules zero drift, demo build 25/0, alpha loads 20/0.
+TOOLING FIXED THIS ROUND, AND IT WAS LYING. My land script ran `git push | tail -1`
+inside an `if`, and a pipeline's status is the LAST command's, so `tail` always
+succeeded: every land printed PUSHED and exited 0 EVEN WHEN THE PUSH WAS REJECTED.
+One really was, this round, and the claim reported as landed was not on main. It
+takes the status from git now and prints the rejection.
 
-[PENDING Paolo] -- FOUR NOW, AND THE NEW ONE IS A REAL FORK
+[PENDING Paolo] -- FOUR, ALL CARRIED, NOTHING NEW
   1. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
      kitchens and THE PLANT" while a camp has a stall. If "the plant" is a GENERATOR,
      every fortress makes power off its own seat and his "a fortress makes more than
-     a camp" becomes true everywhere. If it is a back-of-house boiler room, today's
-     answer stands and the map decides. THAT READING WOULD AUTHOR CANON ABOUT WHAT
-     THE MONEY SUPPLY IS AND WHO HOLDS IT, so it was not taken.
-  2. Anarchists, Colorful and Custom are called non-territorial by his own notes
-     and still hold ground. Should they at all?
+     a camp" becomes true everywhere. That reading would author canon about what the
+     money supply is and who holds it, so it was not taken.
+  2. Anarchists, Colorful and Custom are called non-territorial by his own notes and
+     still hold ground. Should they at all?
   3. What it COSTS to be seen with one of the four hidden factions, or taken for one.
   4. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
      Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
-     drab factions, the gate carries three. (The coordinator's 9/7 note agrees: the
-     colour table IS live and what is missing is his thumb, not a file.)
+     drab factions, the gate carries three.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
-verified inherited on a clean origin/main worktree last round and unchanged.
+verified inherited on a clean origin/main worktree two rounds ago and unchanged.
   R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
-      outfit named "NONE", which is not one of the 18 in the faction graph. The
-      gate's own words say this must fail there rather than be folded quietly into
-      something that exists, so the gate is right and the CONTENT is the fix.
+      outfit named "NONE", which is not one of the 18 in the faction graph.
   R8  corpus max is 20 across 83 rows; loadCorpus normalises every weight by the
       largest deed, so a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [block rent]  THE-BLOCK-PAYS-ITS-OWNER -- payTo() already answers who you pay for
-    any block, the Network's circuits are flagged free, roving() is what happens
-    when a block stops paying, and minesOf() now says what a block's owner MAKES,
-    which is the other half of the same ledger
-  [crossing costs]  THE-WRONG-COLOUR-REACTS -- the colour table is live in a file
-    the game can read, so this is wiring now, not invention
+  [crossing costs]  THE-WRONG-COLOUR-REACTS -- the colour table is live in a file the
+    game can read, so this is wiring now, not invention. And rent gives it a reason:
+    a faction that just cut your lights off has a standing grievance you can walk into.
+  [collector heir]  THE-LENDER-VISITS-THE-HEIR -- needs WORLD [debt carried]
+  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]
   [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11)
 
-THREE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FOUR STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  Three rows now: one wanted a door, one named a blocker that had shipped hours
-  earlier in this same lane, and this one's number was ruled twice already.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
-  AND WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT. Forcing it true costs a
-  number nobody ruled, and the map is his.
+  WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT; forcing it true costs a number
+  nobody ruled, and the map is his.
+  AND WHEN A LAW BLOCKS THE OBVIOUS BUILD, THE LAW IS USUALLY POINTING AT A BETTER
+  ONE. The frozen verbs looked like a wall; they were the reason rent is a transfer,
+  which is what it actually is.
 
 --------------------------------------------------------------------------------
 
