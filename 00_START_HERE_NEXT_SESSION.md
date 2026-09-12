@@ -8901,48 +8901,59 @@ NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 ================================================================================
 
-PLUMBER (plumber-ont6t5): 9/11 (b) LATEST -- *** CHAT 18. ROUND 15. [dead modules] SHIPPED, AND
-THE ANSWER IS DO NOTHING. The row said 29 engine modules are dead weight, the biggest 281 KB,
-archive them. THAT 281 KB MODULE IS LIVE: all 1277 of its body lines are in the shipped game word
-for word. Archiving it would have deleted the canon copy of running code and broken ENGINE SYNC
-silently. WHY THE ROW LOOKED RIGHT: the measurement behind it was correct (the game fetches 17
-files and nothing else), but this repo INLINES engine modules into the slices, so "unreachable as
-a file" is not "dead" -- the file is never requested AND is what every carrier is compared
-against. MEASURED on the real tree: of 172 modules / 3820 KB, 103 are inlined with their marker,
-38 more have their code in a shipped slice without one, and only 31 are nowhere in the game (334
-KB). 91% of the engine is carried by the game. Of the 31 truly absent, 25 are read by a gate or a
-tool and 9 sit whole inside a bundle a gate checks by md5, so archiving them turns a checker red.
-EXACTLY ONE, bohemia_tests.js at 15 KB, is read by nothing and carried by nothing, and it is
-NAMED rather than assumed -- not this lane's to delete. SO THE MOST [slim build] COULD EVER HAVE
-SAVED HERE IS 15 KB OF 3820, which is 0.4%. gates/engine_census_gate.js (ENGINE CENSUS, 10/0, 7s,
-registered, seen by GATE REGISTRY and LAW INDEX) holds it, red on: a module recorded as live that
-vanished from disk, a NEW orphan, a named orphan that stopped being one, a module drifting into
-the half-inlined middle, and an empty sweep of any of its three inputs. All four teeth proven to
-bite with throwaway files first. TWO WRONG ATTEMPTS BEFORE IT WAS RIGHT, both written down
-because both are reusable mistakes: v1 matched ONE "signature" line per module, which let a 151 KB
-STORAGE BUNDLE pass as live off a single prose sentence -- it now matches every body line over 45
-characters and asks what fraction landed (live 72-100%, dead 0-20%, and a check holds that gap
-open so no threshold decides quietly). And v2 CAUGHT ITSELF READING ITSELF: naming the orphan
-inside the gate made the reader scan find the gate, so every orphan would have read as
-looked-after the moment it was written down. Green over nothing, inside the gate written against
-green over nothing. AND THEN IT HAPPENED AGAIN ONE STEP REMOVED: registering the gate means
-writing a paragraph that NAMES the orphan, and the suite catalogue counted as a reader too. That
-one is the MENTION-VS-USE hole reusefirst_gate closed on 8/20, in a new place -- in that file a
-module is read only if a row RUNS it, because nine bohemia_loop_*_tests.js have it as their ONLY
-reader and all nine are genuinely run by it. Both directions proven with throwaway edits. TWICE IN
-ONE GATE, THE SAME DEFECT: something written to DESCRIBE a thing counted as something USING it. A
-scan that matches substrings cannot tell a sentence from a call.
+PLUMBER (plumber-ont6t5): 9/12 LATEST -- *** CHAT 18. ROUND 16. [nothing baked] SHIPPED, AND IT
+FOUND FIVE MORE STALE BAKES ON ITS FIRST RUN, THREE OF THEM IN FILES THAT SHIP. The law NOTHING IS
+BAKED ONCE ends with the sentence "This one gets a gate: derived_freshness_gate" and nobody had
+built it, so for six days the law was advertised and unenforced -- the exact shape [gate missing]
+was about. WHAT IT FOUND, none of it this lane's to fix: BOHEMIA_RUN_CURRENT.html is +938/-55
+against its own builder (22 MB, shipped); BOHEMIA_CURRENT_SLICE.html is +107/-11 and STILL CARRIES
+THE OLD QUEST CANON, "SIDE QUEST S01 THE METER READER", where the source now says "ACT ONE ASK A01
+THE KILLING SUMMER", and is missing the 9/5 faction-towns seat rule; BOHEMIA_MAP_CURRENT.html is
++92/-7 with engine md5 stamps that no longer match the files they name; the 8/15 surface audit says
+6 things are on the walked surface when the truth is 22, backwards, and other lanes read it to pick
+work; the reachability census is +20/-11. Named by lane on the board: RUN owns two slices, WORLD
+owns the map slice and the audit, the census is ours. THE GOOD HALF, and it is worth as much: 37 of
+42 derived files re-derive BYTE FOR BYTE, including the alpha he taps. HOW IT IS SAFE: it
+regenerates in a throwaway git worktree -- HEAD overlaid with the working tree, so it checks what is
+about to be PUSHED -- and never writes to the repo, proven by hashing git status before and after.
+The obvious "regenerate in place, git checkout to restore" would have eaten an uncommitted change
+the first time two lanes worked at once. DISCOVERY IS BY RUNNING, NOT BY READING: makers come from
+the headers the law asks for, outputs come from which files the run TOUCHED, because the file most
+likely to be stale is the one whose header nobody wrote. That paid immediately -- the 92-line-stale
+map slice declares no maker at all. ITS OWN FLOOR CAUGHT ITS FIRST MECHANISM: asking git what
+CHANGED made the 37 correct files invisible (a maker whose output is right leaves the tree clean),
+so it announced "1 of 6" where the truth was 37 of 42; writes are found by mtime now. THIRD ROUND
+RUNNING that a floor caught the mechanism rather than the subject. Five teeth proven with throwaway
+edits, including a file made stale only in the working tree. Three makers are deliberately not run,
+each named with its reason. FOR THE COORDINATOR: CLAUDE.md's law index does not list this law at
+all, which is why nothing noticed the missing gate -- the index catches a law that NAMES a gate that
+does not exist, not a law that is ABSENT from the index. records/BOHEMIA_FIVE_MORE_STALE_BAKES_9_12_26.md
+and records/BOHEMIA_DERIVED_FRESHNESS.json.
+[NOTE ON THE FULL SUITE, 9/12] The ship flow says run the whole suite once before pushing. Measured
+this round: the suite paces at about 64 gates in 14 minutes, so 584 gates is roughly TWO HOURS,
+while main moves every ~13 minutes. Under that arithmetic the rule can never be satisfied -- the
+same deadlock shape as the Pages builds on 8/6. What this lane did instead, and what it recommends
+until [suite runs] lands: compute the change's BLAST RADIUS mechanically (every gate that reads a
+file the commit touches, plus every gate that sweeps the folders it touches), run exactly those,
+and prove any red is pre-existing by running it on a clean worktree of origin/main with the commit
+absent. Both reds found that way this round were byte-identical without it.
+ROUND 15: [dead modules] SHIPPED, AND THE ANSWER WAS DO NOTHING. The row said 29 engine modules are
+dead weight, the biggest 281 KB, archive them. THAT 281 KB MODULE IS LIVE: all 1277 of its body
+lines are in the shipped game word for word. The game INLINES engine modules, so "unreachable as a
+file" is not "dead" -- the file is never fetched AND is the canon copy ENGINE SYNC compares against.
+Of 172 modules only 31 are nowhere in the game, 25 of those are read by a gate or tool, 9 sit inside
+a bundle a gate checks by md5, and exactly ONE (bohemia_tests.js, 15 KB) is read by nothing. So the
+most [slim build] could have saved was 0.4%. gates/engine_census_gate.js holds it. TWICE IN THAT
+GATE the same defect: something written to DESCRIBE a thing counted as something USING it -- the
+gate read itself, then the suite catalogue read it. A scan that matches substrings cannot tell a
+sentence from a call.
 [FOUND, NOT MINE, FOR WHOEVER TAKES [handoff cut]] NO MARKERS is RED on main and has been since
-a3e6f42: line 369 of THIS FILE is a bare seven-character `=======`, a git conflict divider, sitting
-between two lane blocks. It is an ORPHAN -- zero `<<<<<<<` and zero `>>>>>>>` anywhere in the file,
+a3e6f42: line 369 of THIS FILE is a bare seven-character divider, a git conflict marker, sitting
+between two lane blocks. It is an ORPHAN -- zero open and zero close markers anywhere in the file --
 so nothing is unresolved and no content is at risk, it is one stray line from an old merge. Proven
-pre-existing: the same two failures come up byte for byte on a clean worktree of origin/main with
-my commit absent. Not fixed here because this lane's remit on the pile files is verbatim moves
-only, and deleting a line is not a move. It is one line of work for whoever opens [handoff cut].
-Same check on TOP OF THE DOCUMENT: 8 passed / 2 failed, identical on clean main, also not mine.
-records/BOHEMIA_THE_DEAD_MODULES_ARE_MOSTLY_ALIVE_9_11_26.md plus the
-module-by-module census at records/BOHEMIA_ENGINE_CENSUS.json. SAME LESSON AS LAST ROUND, other
-direction: a board line is a claim about the world, not the world. Ask the tree, not the row.
+pre-existing on a clean worktree of origin/main. Not fixed here because this lane's remit on the
+pile files is verbatim moves only, and deleting a line is not a move. TOP OF THE DOCUMENT is 8/2 and
+also identical on clean main, also not mine.
 ROUND 14: [gate missing] SHIPPED, AND I NEARLY SHIPPED A DUPLICATE. The row said the art
 reference gate did not exist; DIRECTION HAD ALREADY BUILT IT. I read the board line instead of
 the folder and wrote a second one. The suite caught me by printing TWO rows of the same name.
