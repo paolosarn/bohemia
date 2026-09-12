@@ -1919,7 +1919,7 @@ YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES SHIPPED. The block has charged you rent since
 spent. It tells you while you are standing on it now, and when they cut your
 lights you can see which streets went out. *** Nothing to judge.
 
-VAMILY row: [rent visible], MODE: BUILD, SHIPPED 9/13 1486bfe4.
+VAMILY row: [rent visible], MODE: BUILD, SHIPPED 9/13 e60eb4a2.
 Record: records/BOHEMIA_YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES_9_13_26.md
 
 THE GAME ALREADY HAD THE WORDS AND THEY WERE IN THE WRONG PLACE. Measured before
