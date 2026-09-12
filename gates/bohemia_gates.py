@@ -4983,6 +4983,19 @@ GATES = [
      "settled by somebody else's choice), whether they WOULD is derived from what they have actually "
      "seen rather than from a forgiveness dial nobody ruled, and forgiven is not forgotten -- the deed "
      "keeps its record and its reason, it only stops carrying force", False),
+    ('DOWN NOT DEAD',  ['node', 'gates/down_not_dead_gate.js'],
+     "PAOLO 9/11 LOCKED: nobody you keep permanently dies and nothing on them is a permanent debuff, but "
+     "there can be debuffs a lot longer than others. MEASURED FIRST: no company roster, no companion state, "
+     "no downed state, no injury model, nothing that could kill a person you keep -- so the law was true BY "
+     "ACCIDENT, which is the worst way for a law to hold, because the first system that can hurt a "
+     "companion breaks it silently. THE CLAIM THAT MATTERS IS PROVED BY ATTEMPTING THE FORBIDDEN THING "
+     "rather than by reading a comment: a fourth argument, an options object asking for permanence, an "
+     "invented kind -- none of them reach past the longest length he named, and fall() has no slot to "
+     "smuggle one through. 5000 falls across every kind and day, every one heals, none runs forever. The "
+     "lengths are HIS OWN examples (a leg a season, a hand a year) with a week at the bottom so 'a lot "
+     "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
+     "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
+     "the promise out loud", False),
     ('NEGLECT COSTS',  ['node', 'gates/neglect_costs_gate.js'],
      "THE STAKES TABLE HAD BEEN EMPTY SINCE THE DAY LOOP SHIPPED and its own header said why: what a day "
      "costs to live is Paolo's ruling. That is right about a HUNGER meter, which needs a rate, and wrong "

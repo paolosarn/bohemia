@@ -110,6 +110,7 @@ const GLOBALS = {
      rankOf was a private helper wearing a public coat. */
   bohemia_against: 'BohemiaAgainst',
   bohemia_family: 'BohemiaFamily',
+  bohemia_down: 'BohemiaDown',
 };
 
 const argv = process.argv.slice(2);

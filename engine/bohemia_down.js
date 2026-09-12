@@ -98,7 +98,6 @@
     var r = book && book[id];
     return !!(r && (day | 0) < r.until);
   }
-  function hurtOf(book, id) { return (book && book[id]) || null; }
 
   /* HOW LONG LEFT, in days. Never negative, and never Infinity: the arithmetic
      itself is what makes "every one heals" true rather than a comment saying so. */
@@ -108,24 +107,16 @@
     return Math.max(0, r.until - (day | 0));
   }
 
-  /* AND THEY COME BACK. healed() is the whole of the promise: for ANY record and
-     ANY day far enough out, this is true. There is no kind, no id and no seed
-     that can make it false, because `until` is always from + a finite length. */
-  function healed(book, id, day) {
-    var r = book && book[id];
-    if (!r) return true;
-    return (day | 0) >= r.until;
-  }
-
-  /* WHO IS DOWN, for a surface that wants to say so. */
-  function downNow(book, day) {
-    var out = [];
-    for (var id in book) {
-      if (!Object.prototype.hasOwnProperty.call(book, id)) continue;
-      if (isDown(book, id, day)) out.push(id);
-    }
-    return out;
-  }
+  /* *** THREE EXPORTS STOOD HERE AND NOTHING IN THE GAME CALLED THEM. ***
+     healed(), downNow() and hurtOf() all read well and all were dead: healed is
+     exactly !isDown, downNow re-walked a list the city already filters by family
+     itself, and hurtOf answered a question no surface asked. The organ reach
+     sweep caught all three the first time it looked, which is the second time
+     this lane has shipped a dead export into a brand new module.
+     THEY COME BACK IS NOT A FUNCTION, IT IS THE ARITHMETIC: `until` is always
+     `from` plus a finite length, so isDown goes false on its own and there is
+     nothing for a caller to ask. A helper that restates a fact the numbers
+     already carry is decoration with a published seam. */
 
   /* PLAYER-FACING WORDS, draft:true (8/11: words get an attempt, decisions
      wait). They say the injury and how long, because "a long time" is the whole
@@ -141,7 +132,6 @@
   }
 
   var API = { HURT: HURT, KINDS: KINDS,
-              fall: fall, isDown: isDown, hurtOf: hurtOf, daysLeft: daysLeft,
-              healed: healed, downNow: downNow, say: say };
+              fall: fall, isDown: isDown, daysLeft: daysLeft, say: say };
   if (HASREQ) module.exports = API; else root.BohemiaDown = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
