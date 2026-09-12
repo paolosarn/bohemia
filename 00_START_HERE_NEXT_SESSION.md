@@ -1,3 +1,41 @@
+WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
+NOBODY COLLAPSES WHEN THEY ARE CAUGHT. THEY REVISE, CALMLY, IN THE SAME SECOND. *** TAB: NOT IN A
+TAB YET. No game code touched, ever. Everything is draft:true in the bank.
+
+THE FINDING THAT DELETED THE SCENE I WOULD HAVE WRITTEN. The whole reason a real interviewer holds
+evidence back is to stop the person REVISING to fit what was just shown to them. The revision is so
+reliable that a professional technique exists for no other purpose. So the stammering collapse is
+film, not life. In this set the collapse is ONE rare block, marked rare, and every other first line
+after the catch is calm and absorbs the new fact.
+
+THE STRUCTURE CAME FROM A 1968 CATALOGUE: eight account moves, four excuses and four
+justifications. The centrepiece is the SAME man caught for the SAME cable in the SAME second,
+answering eight different ways, one per move. Eight different people fall out of one crime. That is
+a per-character setting for PEOPLE, one field, and it buys the whole cast a reaction.
+
+WHAT IS IN THE BANK, section Q19 ROUND TWO, all draft:true:
+  THE COLLISION       the catch is two statements that cannot both be true, never a face read
+  EIGHT CAUGHT MEN    one crime, eight moves, each named
+  THE REVISION LADDER three proofs, three concessions, the self-description never moves
+  TWO APOLOGIES       the weak one built on purpose from the two weakest ranked parts
+  THE RARE COLLAPSE   three lines and a pause
+  THE REFLEX SORRY    a man who apologises for talking over you and not for what he did
+  SIX REFUSALS        what this lane will not write about being caught
+
+ROUTED. QUESTS [check the claim] is the paired row and the handshake is one sentence: a claim is
+checked by holding it next to another claim, worth about seven times a read of somebody's face. A
+"suspicious" reaction on screen is doing work the evidence says it cannot do. PEOPLE gets the
+eight-move knob.
+
+MAIN IS RED AND IT IS STILL NOT MINE, ROUND FOUR OF SAYING SO. voice 110/1, catalogue 60/3,
+language 80/1, the same three, unchanged by anything I did. The words book has not been baked since
+QUESTS added quest files (book 2496 lines, 3147 on disk), baking turns voice red because a QUESTS
+line carries a banned phrase, and language is red because the spanglish picker hands back the
+English base. Routed to QUESTS, PEOPLE and PLUMBER four rounds running. I did not bake and I did
+not touch another lane's text. My own gates: attempt 15/0, handoff 7/0.
+
+NEXT. Q20 [no law talk], school first. Q4 to Q17 are still owed their school rounds, one row at a
+time, never a shelf.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -441,7 +479,7 @@ sources); banks/eyes/BOHEMIA_EYES_E17_LOCKED_SWEEP_SPEC_9_12_26.json (draft:true
 E17 CLAIMED ROUND 1 OF 2.
 
 
-WORDS (words-8dqrnq): 9/11 (c) LATEST -- *** Q19 [caught out] SCHOOL DONE, ROUND ONE OF TWO.
+WORDS (words-8dqrnq): 9/11 (c) -- *** Q19 [caught out] SCHOOL DONE, ROUND ONE OF TWO.
 FILM SAYS THEY CRUMBLE. THE REAL RECORD SAYS THEY REVISE, CALMLY, ABSORBING WHATEVER YOU JUST
 SHOWED THEM, AND THERE IS AN ENTIRE INTERVIEW TECHNIQUE BUILT FOR NO OTHER PURPOSE THAN TO
 STOP THEM DOING IT. *** THE ROW IS CLAIMED, NOT SHIPPED, because round two is owed. No test

@@ -1670,3 +1670,107 @@ BROTHER  Pass the salt.                                                [time off
 #   an ask that costs the asker nothing, which is a task with a face on it
 #   gratitude arriving before surprise
 #   and a quest marker doing the work a sentence should do
+
+## Q19 ROUND TWO -- CAUGHT OUT, ARMED BY SCHOOL  (9/12/26)
+# Round one is records/BOHEMIA_WORDS_Q19_SCHOOL_THEY_DO_NOT_COLLAPSE_THEY_REVISE_9_11_26.md
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES, named as the mode requires:
+#
+# 1. NOBODY COLLAPSES. The interview technique that holds evidence back exists
+#    for one reason: late disclosure stops people REVISING to fit what you just
+#    showed them. So not one line below is a stammer or a confession. Every first
+#    line after the catch is CALM and absorbs the new fact.
+# 2. THE REVISION USES ONE OF EIGHT MOVES AND THE CHOICE IS THE CHARACTER. Four
+#    excuses, four justifications, catalogued since 1968. Below, the SAME man is
+#    caught doing the SAME thing eight times, and each time he reaches for a
+#    different one. Read them in a row and eight different people appear.
+# 3. WHAT THEY PROTECT IS THE IDENTITY, NOT THE STORY. An account is offered so a
+#    person can keep being who they were a minute ago, so they will surrender
+#    facts freely and never surrender the self-description.
+# 4. THE APOLOGY THAT WORKS IS THE ONE THAT COSTS. Ranked: owning it, then
+#    offering to fix it. Regret is middle and asking forgiveness is weakest. The
+#    two versions below are built to show the difference.
+# 5. THE CATCH IS A COLLISION BETWEEN TWO STATEMENTS, worth about seven times a
+#    read of somebody's face. So the player brings a sentence, not a suspicion.
+# 6. AND OUR CAST APOLOGISES ONLY FOR EXISTING (eight sorries, all for
+#    mannerisms), which is a voice already in the build to play against.
+
+### THE COLLISION. The catch is two statements that cannot both be true.  draft:true
+# The puzzle is the MATCH, not the search. The player is holding a sentence.
+  HE SAID, MONDAY  I have not been up past the fence since the spring.
+  SHE SAID, FRIDAY He was up past the fence Tuesday. He waved at me.
+  THE PLAYER       You waved at her on Tuesday.
+# Nothing about his face. A second statement, and it does not fit the first.
+
+### THE SAME MAN CAUGHT THE SAME WAY, EIGHT TIMES, EIGHT PEOPLE   draft:true
+# He took cable off the line behind the yard. The player has just proved it.
+# Four EXCUSES: the act was wrong, the responsibility is not his.
+  ACCIDENT       It came away in my hand. I am not going to pretend I put it
+                 back, but I did not go up there to take anything.
+  DID NOT KNOW   Nobody told me that stretch was spoken for. If there is a list
+                 of what is whose, I have never been shown it.
+  BUILT LIKE IT  I have never been able to walk past a thing that is going to
+                 waste. Ask anybody who has known me longer than a week.
+  SOMEBODY ELSE  I carried it. I did not decide it. You want the man who decided
+                 it, he is two streets over and he sleeps fine.
+# Four JUSTIFICATIONS: it was his, and it was not wrong.
+  NO HARM        That line has been dead since before the water went. Nothing on
+                 it, nothing off it, nobody the poorer.
+  THEY DESERVED  They took the pad off the standpipe in July and watched us queue
+                 in it. I am not going to be lectured about a wire.
+  WHO IS ASKING  You have been in this valley about a week. Come back when you
+                 have had to choose something and then tell me about it.
+  FOR MY PEOPLE  There are four people in that house and one of them is nine. I
+                 will say that part out loud as many times as you need.
+# Same crime, same proof, same second. EIGHT DIFFERENT MEN. Nobody stammered.
+
+### THE REVISION LADDER. Show him more and he moves, he does not break. draft:true
+  PROOF ONE   You were up past the fence Tuesday.
+  HIM         I was up there Tuesday. I never said I was not up there in general.
+  PROOF TWO   You said not since the spring.
+  HIM         Then I was wrong about the spring. I have been up there plenty.
+              There is no secret in it. It is a fence.
+  PROOF THREE You were carrying something coming back.
+  HIM         I was carrying my own bag, which I brought up with me, which is why
+              it was on me coming back.
+# Every step he surrenders a fact and keeps the self-description. He is not
+# losing. He is spending.
+
+### THE TWO APOLOGIES, WHICH ARE NOT THE SAME SIZE   draft:true
+# The weak one is what film writes: regret plus a plea, the two lowest-rated
+# components and nothing else.
+  WEAK    I am so sorry. I am. I feel sick about it. Please just tell me we are
+          alright, because I cannot stand you looking at me like that.
+# The strong one is the two that cost: owning it, and offering repair.
+  STRONG  It was me. Nobody else, no reason worth your time. I will have it back
+          on the pole before dark and I will do the far run all week.
+# The weak one asks you for something. The strong one hands you something.
+
+### THE ONE WHO ACTUALLY DOES COLLAPSE, WHICH MUST BE RARE  draft:true
+# Real collapse happens. It is just not the default, so it has to be spent
+# carefully or it stops meaning anything.
+  ...
+  Yeah.
+  Yeah, it was me. I have been sat here the whole time working out which way to
+  go and there is not one.
+# Three lines, no excuse, no justification, and the pause before them doing the
+# work that a paragraph would not.
+
+### PLAYING AGAINST THE VOICE WE ALREADY HAVE   draft:true
+# Our build has eight sorries and every one is for a mannerism. So a man who
+# apologises constantly for being himself, and NEVER for what he did, is a
+# character we can already hear.
+  Sorry. Sorry, I talk over people, I know I do it.
+  Sorry, I am doing it again.
+  No, that part I would do again.
+# Two reflex apologies and then a flat refusal to apologise for the thing that
+# matters. The contrast is the character.
+
+### THE REFUSALS: WHAT THIS LANE WILL NOT WRITE ABOUT BEING CAUGHT  draft:true
+# BANNED, on the evidence:
+#   a stammering collapse as the default response
+#   a character who repeats a line the player has just disproved
+#   an apology made only of regret and a plea for forgiveness
+#   the player catching somebody by reading their face, ever
+#   a confession that arrives before the person has tried to revise
+#   and an account that gives up the self-description, because that is the one
+#   thing people hold
