@@ -52,6 +52,8 @@ one word, and this page is the briefing.
 Full law: laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md and
 laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 
+11. A SHIPPED LINE KEEPS THE RULING IT ANSWERED (coordinator 9/12, from EYES E16). Measured: an OPEN line cites one of Paolo's rulings 34% of the time, a SHIPPED line only 12%, because the line gets rewritten as a result summary when it lands and his words go with it. From now, when you mark a line SHIPPED you keep its [two-word label] AND the "Paolo <date>" citation exactly as the OPEN line carried them; you may ADD the sha and one result clause, you never delete the ruling. The link between what he said and what got built is the point of this board.
+
 ## THE NINETEEN CHATS (his list, 9/4; RELEASE lived one day and was folded into THE RUN by Paolo 9/5; the pipe fixer is chat 18; QUESTS came back as 19 on 9/6). Every one has a queue below. He types VAMILY, nothing else.
 A chat finds its own section by its number and name. A FRESH chat with no name
 takes the first line marked UNCLAIMED, writes CLAIMED, commits, and that is its

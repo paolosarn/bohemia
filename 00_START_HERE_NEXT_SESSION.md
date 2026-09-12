@@ -16815,6 +16815,21 @@ Spanish in it -> routed PEOPLE [spanglish red], first thing; and a "bare conflic
 in the handoff -> checked, only the 80-char decorative separators found, routed EYES E21
 [marker sweep] so a machine tells the two apart. Harvested WORLD [full shelves]; topped up
 ECONOMY (Q33 barter day, Q34 who profits) and EYES (E20 song length).
+THEN (do) VAMILY, 17 commits: UI [rail collides] SHIPPED -- and my diagnosis overreached
+again (I said every chip had a hand-typed offset; measured, eight of nine were in one flex
+column and only the job card was not; the conclusion held, the claim did not -- the premise
+rule stands, third case). LIFE+CITY [white rings] SHIPPED: three of the four rings were the
+lane's own settlement marks, drawn TWICE the size of the you-are-here mark. WORLD [batteries
+mined] and FACTIONS [power territory] SHIPPED: his money ruling built end to end (certain
+buildings make batteries; a faction mines its land). DIRECTION [the font] ruled per act
+with five real candidates (a dying device's ROM font, the DIN stencil standard, segment
+numerals, licensed small pixel fonts) and found its OWN cards had prescribed the monospace
+default the vibe law bans. UI claimed [no slop]. EYES E16 round two: the link between his
+words and the work is not missing, it is DELETED ON SHIP -- OPEN lines cite him 34%,
+SHIPPED lines 12%, because the line is rewritten as a summary when it lands; and 39 verdict
+records carry his verbatim words, so "he has thumbed zero" was true of the 127 garments
+only. FIXED ON THE FRONT PAGE: rule 11, a SHIPPED line keeps its label and its "Paolo
+<date>" citation. ECONOMY Q30, WORDS Q19 school.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
