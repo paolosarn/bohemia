@@ -63,16 +63,26 @@ const done = () => { console.log(`\n=== VALLEY BREATHES GATE: ${p} passed, ${f} 
   ok('the walked city frame is up', !!cf);
   if (!cf) { await b.close(); done(); }
 
-  /* 1. THE HEARTBEAT BEATS -- no input at all for two and a bit seconds. */
+  /* 1. THE HEARTBEAT BEATS -- no input at all, for long enough that the sample
+     is not a coin flip. THIS WINDOW WAS 2.2s AND IT FLAKED (found 9/12 by the
+     ANIMATION lane's own coat run: the same tree passed, failed, then failed
+     again with nothing changed between them). The beat is one per 500ms, so 2.2s
+     expects 4 -- but the heartbeat SKIPS a beat whenever ANIM is in flight, and
+     a camera tween landing inside the sample took it to 2 against a floor of 3.
+     A ruler whose answer depends on when you happened to look is not a ruler.
+     4.4s expects 8 and the floor is 4, so the beat can be blocked HALF the time
+     and the claim still holds, while the thing it guards -- a dead valley, which
+     measured 1 render before the heartbeat shipped -- is still four times under
+     it. Longer, not looser. */
   const beatR = await cf.evaluate(async () => {
     let n = 0; const orig = window.render;
     window.render = function () { n++; return orig.apply(this, arguments); };
-    await new Promise(r => setTimeout(r, 2200));
+    await new Promise(r => setTimeout(r, 4400));
     window.render = orig;
     return { calls: n, mode: MODE };
   });
-  ok(`the valley redraws while the player stands still (${beatR.calls} renders in 2.2s of no input; before this shipped it was 1)`,
-     beatR.calls >= 3);
+  ok(`the valley redraws while the player stands still (${beatR.calls} renders in 4.4s of no input; one beat per 500ms expects 8, and before this shipped it was 1)`,
+     beatR.calls >= 4);
 
   /* 2 + 3. THE CROWD, read off the DECODED cast and the REAL roster. */
   const crowd = await cf.evaluate(() => {

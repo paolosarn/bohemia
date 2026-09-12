@@ -130,3 +130,34 @@ LIFE+CITY's row, not this one.
 The collar's top row still steps two rows between poses facing you. That is the
 body's own walk bob and the collar following it is correct, so it was measured and
 left. Nothing pending Paolo.
+
+## WHAT THE GATE RUN SAID, AND THE ONE RED THAT WAS MINE
+The full suite could not finish: it hit its 2700s budget with 331 of 603 gates
+NEVER RUN, this lane's entire set among them. That is arithmetic, not slowness --
+at the 13.5s a gate it measured, 603 gates need ~8100s -- and the suite prints the
+shard command itself. So the 52 gates that can see a coat change were run by name
+instead: every one that draws a dressed body, a face, a haircut, a crowd or a clip.
+44 green, 7 red. All seven were then re-run against a clean checkout of main:
+
+    MOTION VISIBLE   red on clean main too   not mine
+    RIG CHECK        red on clean main too   not mine
+    FIELD SURGERY    red on clean main too   not mine
+    OUTFITS 13       red on clean main too   not mine (and BETTER with this in:
+                                             faction outline spread 0.070 -> 0.072)
+    CAST SHAPES      red on clean main too   not mine (and BETTER with this in:
+                                             cast variety 0.079 -> 0.084, floor 0.085)
+    CITY CAST        red on clean main too   not mine
+    VALLEY BREATHES  GREEN on clean main     MINE, and it was a FLAKE
+
+VALLEY BREATHES is this lane's own gate from 9/5. It failed, then passed, then
+failed again on the SAME TREE with nothing changed between the runs, which is the
+definition of a ruler that is not a ruler. The cause: the claim sampled 2.2s of no
+input and demanded 3 renders. The heartbeat is one beat per 500ms so 2.2s expects
+4 -- but the heartbeat deliberately SKIPS a beat while ANIM is in flight, and a
+camera tween landing inside the sample took it to 2.
+
+Fixed by making the window LONGER, not the floor lower: 4.4s expects 8 and the
+floor is 4, so the beat can be blocked half the time and the claim still holds,
+while a dead valley -- 1 render, which is what it measured before the heartbeat
+shipped -- is still four times under it. Four consecutive green runs, and with the
+heartbeat disabled it reports 0 renders and goes red, so it still bites.
