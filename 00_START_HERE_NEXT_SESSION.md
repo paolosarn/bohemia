@@ -9002,6 +9002,42 @@ wins (engine/BOHEMIA_faction_colours.json vs engine/bohemia_dress.js FACTION_LOO
 12 disagree), and confirmation that the colour rule is for AFFILIATED bodies only with
 civilians staying dun.
 
+THE WHOLE SUITE WAS CLASSIFIED, TWICE, BEFORE ANY OF THIS SHIPPED. 593 gates in four
+shards on this tree, then the same four shards on a clean origin/main worktree, and the
+two red lists diffed name by name.
+    87 red here. 85 red on clean main. TWO differences, both mine to answer:
+      FACE THUMB -- the candidate bank had fallen behind the build it photographs. Re-shot
+        with the tool the gate names, vote page rebuilt from it. 22/1 -> 23/0.
+      LOOK -- 40 stale pictures. Re-shot the THREE that photograph what this round
+        changed (colour-is-territory, six-neighbours, thirteen-outfits). 40 -> 37.
+    NOTHING red here is green on main. NOTHING red on main is green here.
+*** AND I HAD TO CORRECT MYSELF ON BOTH OF THOSE, WHICH IS THE PART TO CARRY FORWARD. ***
+I first wrote that FACE THUMB was mine. It was not. Measured by COMMIT DATE on main: the
+bank sat 6.6h behind the alpha there, already over the gate's 6h limit, before I existed
+in this file. My edit widened it to 6.8. LOOK the same: those pictures were last committed
+between 8/23 and 9/7 against an alpha committed 9/12.
+THE HOLE IN THE METHOD: a fresh `git worktree add` gives EVERY FILE THE SAME CHECKOUT
+TIMESTAMP, so every gate holding a law with an MTIME COMPARISON passes there no matter how
+stale the content is. The baseline literally cannot see that class of red, so it reports it
+as "green on main" and hands it back to you as yours. If you use this method, settle every
+mtime gate with COMMIT DATES, not file dates.
+
+AND A FOURTH BROKEN RULER, found while verifying the merge and fixed because it is this
+lane's gate: HAIR GATE was 38/1 here AND 38/1 on clean main. Its json check was
+`!/hair[^\n]*\.json/i` -- any "hair" then any ".json" on the same PHYSICAL line. A lane
+inlined a quest file as one JS string with ESCAPED newlines, so 30,000 characters of quest
+prose are a single line to a regex; it contains "chairs pushed in" and, far away, an
+unrelated ".json". Red, for a month, about nothing. REPOINTED NOT LOOSENED to look for a
+BOHEMIA_HAIR...json filename, which is the one thing the law forbids, and PROVEN to still
+catch a real violation before shipping. 38/1 -> 39/0.
+
+FOUR RULERS THROWN AWAY IN ONE ROUND, and that is the round's real headline:
+  a hue reader that compared bucket numbers instead of angles
+  a reader compared against a differently-built reader (cloth-only vs cloth-and-skin)
+  a baseline whose uniform timestamps blind it to every mtime gate
+  a regex that cannot see a line break that was never there
+A RULER THAT CANNOT REPRESENT THE THING IT MEASURES WILL ANSWER CONFIDENTLY ANYWAY.
+
 - Record: records/BOHEMIA_DOES_THE_COLOUR_SURVIVE_THE_BAKE_9_12_26.txt
   Tool:   tools/bohemia_does_the_colour_survive_the_bake.js
   Round 1 record, now carrying its correction:
