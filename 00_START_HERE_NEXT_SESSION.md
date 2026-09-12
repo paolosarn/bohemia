@@ -7826,7 +7826,65 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
+COOK (cook-mce6r5): 9/13 LATEST -- *** [magenta piece]: HIS MAGENTA IS PURPLE BY HIS OWN
+PURPLE RESERVATION'S TEST. NOTHING COOKED, AND THAT IS THE FINDING. *** NOT IN A TAB YET.
+
+*** [PENDING Paolo] -- THE ONE RULING THAT UNBLOCKS THIS ROW AND CHARACTER'S ***
+Purple means the Amalgamation. The Anarchists' colour IS a purple. Which gives way?
+  A. The Anarchists move to a hot red-pink near 345 degrees -- still their colour to a
+     person, and it clears the law. THE REALISTIC DEFAULT: one faction's hex moves, a
+     pillar law holds.
+  B. They keep #c026a0 and the allowlist blesses faction colour as a third exception beside
+     the hatch and the agents. Purple then means Amalgamation OR Anarchists; the signal splits.
+  C. The Colorful's #e85aa0 sits in the same band with the same problem -- rule both at once.
+
+THE MEASUREMENT. #c026a0 is hue 312.5, lightness 0.451, saturation 0.670. The reserved band
+is hue 265-330, sat > 0.45, lightness 0.25-0.75. INSIDE IT, and not on the allowlist (hatch,
+network_hatch, agent_iris, neurolink). The law, from that allowlist's own header (7/10,
+LOCKED): "purple/magenta/violet is RESERVED. ONLY the door/hatch from the tunnel into the
+Network build may carry that purple." MAGENTA IS NAMED IN THE LAW BY WORD.
+
+RULE 12 LANDED THIS ROUND (a dependency on a line is a premise, not a gate) and it is exactly
+why this was caught: I measured the row's own colour before cooking a pixel.
+
+*** AND I MISSED THE MACHINE HALF OF THIS LAST ROUND. READ THIS. ***
+records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md said six weeks ago, under "reported and not
+touched": the Anarchists' magenta reads purple, so does the Colorful's pink, and "the purity
+sweep never caught either, BECAUSE THAT SWEEP ONLY EVER LOOKED AT ART PIXELS AND NEVER AT A
+COLOUR WRITTEN IN CODE." Two things in one paragraph -- one his to decide, ONE MINE. On 9/12 I
+fixed that very gate (2,232 violations, exit 0) and added a whole new scope for the shipped
+tile pools, and IT STILL ONLY COUNTED PIXELS. A hex literal is not a pixel. Three sweeps in a
+row walked past the one magenta that ends up on a walking NPC.
+
+CLOSED NOW: the purity gate sweeps colours written in code. 1,983 hex literals across the
+alpha and engine/*.js, 11 in the reserved band, 5 unique -- #c848a0 NEON NECROPOLIS and
+#b83a8a RAVE IN THE RUINS (song accents), #c81e8c a fillStyle, and #c026a0 the Anarchists in
+BOTH the alpha and engine/bohemia_dress.js. Ratcheted at 11, may only fall.
+MUTATION-TESTED WITH THE EXACT COOK THE ROW ASKED FOR: adding a three-tone magenta garment
+ramp to bohemia_dress.js takes it 11 -> 14 and the gate goes RED. The row cannot be built as
+written, and a machine says so rather than me.
+
+WHY IT IS HIS CALL: two of his own rulings collide and DATE CANNOT RESOLVE IT. PURPLE
+RESERVATION is 7/10; the fourteen faction colours were already live "for weeks" by 8/2, the
+same July. CLAUDE.md says a canon-level contradiction is flagged [PENDING Paolo], and this is
+both categories EVERYTHING IS A THUMB still sends him: identity he reserved (he picked all
+fourteen) and a fork with no defensible default, since either answer overrides a locked
+ruling of his. Cooking it anyway is finding a legal way to ship what the law forbids, which
+STOP PRODUCING names as the violation itself.
+
+CHARACTER IS NOT BLOCKED ON THE WIRING, only on the hue. The moment a colour is ruled the cook
+is one tool run: same generator, new ramp, shirt first then one leg or foot piece so the
+outfit agrees with itself at 38%.
+
+A PROBE OF MINE REPORTED A CLEAN ZERO AND MEANT NOTHING, AND THE FLAG SAVED IT. My first
+attempt to measure the wardrobe rendered every canon garment and reported "0 garments in the
+purple band" -- with drawn:0 printed beside it, because garment gen() needs a source grid I
+had not given it. ALWAYS PRINT WHETHER THE PROBE COULD SEE ITS TARGET.
+RECORD: records/BOHEMIA_COOK_HIS_MAGENTA_IS_INSIDE_HIS_OWN_RESERVED_BAND_9_13_26.md
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
 SIGN IS DRAWN. 7 UNDRAWN LANDMARKS -> 6. *** TAB: none yet; it is at cell 55,65, the south end
 of the boulevard. Nothing changes on his screen until he walks there.
 

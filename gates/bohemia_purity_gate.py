@@ -112,6 +112,42 @@ def walk(node, path, out):
             else:
                 walk(v, path + '[%d]' % i, out)
 
+def code_purple(root):
+    """COLOURS WRITTEN IN CODE, WHICH THIS GATE HAS NEVER LOOKED AT (closed 9/13, COOK).
+
+    THE 8/2 FACTION-GAPS RESEARCH SAID THIS OUT LOUD AND NOBODY CLOSED IT:
+        "THE ANARCHISTS' MAGENTA #c026a0 READS PURPLE on the purple-reservation test ...
+         So does the Colorful's pink #e85aa0. Both have been live in the alpha for weeks
+         and the purity sweep never caught either, BECAUSE THAT SWEEP ONLY EVER LOOKED AT
+         ART PIXELS AND NEVER AT A COLOUR WRITTEN IN CODE. That is a real hole in the
+         machine regardless of what he decides about the colours."
+
+    Six weeks later it was still open, and my own 9/12 pass over this gate did not close it
+    either -- I added a scope for the SHIPPED TILE POOLS and still only counted pixels. A
+    hex literal in a source file is not a pixel, so three sweeps in a row walked straight
+    past the one magenta that ends up on a walking NPC.
+
+    Same band as every other arm here: hue 265-330, saturation over 0.45, mid lightness.
+    """
+    import colorsys, glob
+    files = [os.path.join(root, 'slices', 'BOHEMIA_ALPHA_0_9.html')]
+    files += sorted(glob.glob(os.path.join(root, 'engine', '*.js')))
+    hits = []
+    swept = 0
+    for f in files:
+        if not os.path.exists(f):
+            continue
+        src = io.open(f, encoding='utf-8', errors='replace').read()
+        for m in re.finditer(r'#([0-9a-fA-F]{6})\b', src):
+            v = m.group(1)
+            r, g, b = int(v[0:2], 16), int(v[2:4], 16), int(v[4:6], 16)
+            swept += 1
+            h, l, sat = colorsys.rgb_to_hls(r / 255.0, g / 255.0, b / 255.0)
+            if 265 <= h * 360 <= 330 and sat > 0.45 and 0.25 < l < 0.75:
+                hits.append((os.path.basename(f), src.count('\n', 0, m.start()) + 1, '#' + v))
+    return {'swept': swept, 'hits': hits}
+
+
 def ship_purple(root):
     """THE POOLS THE WALKED CITY ACTUALLY LOADS, which this gate never swept.
 
@@ -286,6 +322,11 @@ def main():
             'total': sum(per.values()),
             'per_file': per,
             'shipped_total': ship_purple(root)['tiles'],
+            'code_total': len(code_purple(root)['hits']),
+            'code_note': ('hex literals in the alpha and engine/*.js that sit in the reserved '
+                          'purple band. The 8/2 faction-gaps research named this hole and it '
+                          'stayed open six weeks, through a 9/12 pass over this very gate that '
+                          'added a pixel scope and still counted only pixels.'),
             'shipped_note': ('the pools slices/BOHEMIA_CITY_TILES*.js -- what the walked city '
                              'loads. This gate never swept them until 9/12, which is why EYES '
                              'had to find these 32 by hand. Ratcheted separately because it is '
@@ -320,6 +361,13 @@ def main():
     #
     # This scope is counted and ratcheted SEPARATELY, because it is the one that
     # can reach a player. 32 today, and it may only fall.
+    code = code_purple(root)
+    code_frozen = base.get('code_total') if base else None
+    print('\n  COLOURS WRITTEN IN CODE: %d in the reserved band, of %d hex literals swept'
+          % (len(code['hits']), code['swept']))
+    for f, ln, hx in code['hits'][:12]:
+        print('    %-30s :%-6d %s' % (f[:30], ln, hx))
+
     shipped = ship_purple(root)
     ship_frozen = base.get('shipped_total') if base else None
     print('\n  SHIPPED POOLS: %d tiles a third or more purple, in %s'
@@ -337,6 +385,9 @@ def main():
     if improved:
         print('  FELL (re-freeze the baseline downward): '
               + ', '.join('%s %d->%d' % r for r in improved[:6]))
+    if code_frozen is not None and len(code['hits']) > code_frozen:
+        regressions.append('A COLOUR WRITTEN IN CODE went %d -> %d in the reserved band'
+                           % (code_frozen, len(code['hits'])))
     if ship_frozen is not None and shipped['tiles'] > ship_frozen:
         regressions.append('THE SHIPPED POOLS went %d -> %d -- this is the scope a player '
                            'can actually reach' % (ship_frozen, shipped['tiles']))
