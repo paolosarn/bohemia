@@ -13742,68 +13742,99 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [rice clock] THE-BAG-OF-RICE-IS-THE-TUTORIAL is SHIPPED 9/12.
+HOLDING: nothing. [debt carried] THE-DEBT-NAMES-ITS-LENDER-AND-OUTLIVES-YOU is SHIPPED 9/12.
 
-WHAT SHIPPED, AND IT CLOSES THE BUG THIS LANE CARRIED FOR SIX ROUNDS
-  MEASURED ON THE WALKED SURFACE with five batteries in the purse:
-      buy food      applied:true, paid:1    electricity 5 -> 4
-      resources                             0 -> 0
-      the day eats  day:ate REFUSED, INSUFFICIENT
-  YOU BOUGHT FOOD, THE FOOD DID NOT EXIST, AND THEN YOU STARVED. buy() debited the
-  battery and credited NOTHING, on its own reasoning: "A HARD SINK, on purpose: the
-  goods leave the world when you consume them." The second half of that sentence is
-  right and the code did the first half AT THE WRONG MOMENT.
-  THE FIX WAS ALREADY IN THE LAW AND ALREADY BUILT IN THE PURSE. The four-verbs law:
-  "each resource is spent by exactly one verb", and the verb that spends resources
-  is day:ate. SHOPPING MOVES VALUE, EATING DESTROYS IT. convert() had been in
-  bohemia_purse.js since 7/31 with ZERO callers and is atomic, so a battery can
-  never leave without the good arriving. It was built for this.
-  AFTER: convert electricity -1 buy:food | convert resources +1 buy:food | drain
-  resources -1 day:ate. Work -> battery -> rice -> eaten. Closed.
-  THE GOOD LANDS IN `resources` because that is the pocket both verbs that consume a
-  good drain -- the game's own statement, not a mapping invented here.
-  NEW: engine/bohemia_hunger.js, gates/rice_clock_gate.js (28 checks, registered as
-  RICE CLOCK, suite 601, red both ways). bohemia_payday.js buy() rewritten.
-  RECORD: records/BOHEMIA_RICE_CLOCK_9_12_26.md
+WHAT SHIPPED, AND BOTH HALVES WERE MEASURED BEFORE A LINE WAS WRITTEN
+  ONE -- "DEBT" WAS THREE UNRELATED SYSTEMS SHARING A WORD, no shared code, no
+  shared key, and NOTHING ASKED ALL OF THEM:
+      favours taken for free   save.meta.owed        bohemia_favour writes it
+      rent gone short          OWED_BOOK             the walked surface writes it
+      people you stood up      ctNeglectFor          A CHARGE, NOT AN ACCOUNT
+  The third is not an account and putting it in a book of running accounts would
+  have been inventing a debt nobody built; it is named in the module so the next
+  reader does not go hunting for it. The first has real teeth and was nearly
+  invisible: bohemia_claim reads it, so an outfit you owe BYPASSES THE WEEKLY
+  RATION and COSTS YOU AN EXTRA RUNG EVERY TIME YOU REFUSE THEM. You could see it
+  only by standing in front of that one outfit; you could see the rent book only
+  after you died. engine/bohemia_owing.js is now the one place that answers WHO DO
+  I OWE, on the nightfall card he already reads, worst first, silent when clean.
+  A COUNT AND NEVER AN AMOUNT: what a favour or a night is WORTH is a weight and
+  weights are his, so nothing totals, prices or multiplies, and the gate fails any
+  sentence carrying a number that did not come straight off a count.
+  IT OWNS NEITHER STORE. THE DEBT GETS CALLED IN (8/18) rule 4: two ledgers, two
+  owners, numbers between them. Both books are handed in as plain data.
 
-HUNGER COUNTS AND SAYS, AND NEVER BITES
-  "a day without the bag shows on the BODY and the purse." What a week without food
-  does to a body is DAMAGE and NO DAMAGE BEFORE THE DIAL is locked -- the day loop
-  had already written the same sentence about this same moment: "the reckoning
-  REPORTS; it does not starve you." So the clock counts and says, rising in words
-  ("Nobody ate today" -> "They are asking" -> "Somebody has to buy food" -> "They
-  are not asking any more"), NAMES THE THING TO BUY because taught-by-wanting-it
-  means the game says what is missing, and takes nothing off him. What it finally
-  costs a body is his dial.
-  THE COUNT IS DERIVED FROM THE LEDGER, NEVER STORED. The purse already records
-  every day:ate that applied and every one that did not; a second counter beside it
-  is how two records of one fact start disagreeing.
-  AND IT READS THE DAY THAT HAS HAD ITS NIGHTFALL. The verb fires at nightfall, so
-  asking mid-morning would report every day as hungry all day -- a clock running one
-  day behind reality.
-  DRIVEN ON THE REAL SURFACE: five nights, streak 1 2 3 4 5 with the right sentence
-  each night, then one battery buys one bag of rice and that night the streak is 0,
-  the line is gone and the food is eaten.
+  TWO -- THE FOLD RULED THE BILL DIES AND NOTHING HAD EVER EXECUTED IT. Measured on
+  the walked surface, twelve favour debts across four outfits:
+      BEFORE  {"CARTEL":3,"CHURCH":3,"NETWORK":3,"SOCIAL_FORCES":3}
+      AFTER   {"CARTEL":3,"CHURCH":3,"NETWORK":3,"SOCIAL_FORCES":3}
+  TWELVE WENT IN AND TWELVE CAME OUT, while engine/bohemia_fold.js has said
+  `debt: dies, ruled:true` since 9/7. That module MOVES NO DATA AT ALL -- its carry
+  table is documentation shaped like code -- so the heir inherited the parent's
+  bill and went on paying for it on every refusal. Now the bill dies, CLEARED
+  THROUGH bohemia_favour's OWN WRITER (that file declares itself the one writer of
+  the account), and the creditors are kept BY NAME on their own save key, which is
+  the fold's own other half: "you do not inherit a bill, you inherit less and you
+  inherit the people he owed, still standing there." 12 -> 0, six people kept.
 
-ONE CHECK OF MINE WHOSE SUBJECT LEGITIMATELY MOVED, AND IT IS A DIFFERENT CASE FROM
-LAST ROUND'S BROKEN RULER, WHICH IS WHY IT IS WRITTEN DOWN SEPARATELY
-  payday_gate asserted "the spend is recorded as a HARD SINK, not a transfer" by
-  checking that BUYING posts a drain. It does not any more, and that is the fix
-  rather than a regression: the design moved the sink to the meal. Last round's N12
-  was a ruler pinned to a variable NAME while its claim stayed true; this one's
-  claim about the shop became genuinely FALSE. So it was rewritten to guard the
-  property it exists for, in both halves -- buying is never a TRANSFER (nobody is
-  paid; that is rent's shape), the good really arrives, and the hard sink is still
-  there one step later when the day eats it. A faucet with no drain is still the
-  thing being guarded against. Proved still biting by putting a plain drain back:
-  3 red. PAYDAY 40/0 (was 38/0; the rewrite adds two).
+THE CONTRADICTION, AND WHY THIS DID NOT ASK HIM A SECOND TIME
+  This row as written says a debt survives IN FULL; the fold says it dies. FACTIONS
+  hit the same wall on [collector heir] this round, shipped the fold's reading, and
+  left ONE [PENDING Paolo]: which of the two stands. NEWEST DATE WINS (9/7 over
+  9/5), the fold's version has a gate behind it, and its other half is the better
+  mechanic -- so this follows the same ruling they shipped and does NOT raise the
+  same pending twice. But it does not COPY the answer either: billDies() ASKS the
+  fold's table. Flip that one row and this stops clearing, with nothing here to
+  edit. Whichever way he rules, the ruling is one line and the game follows it.
+
+THREE FAULTS THIS ROUND, AND EVERY ONE CAME FROM MEASURING RATHER THAN READING
+  1. ONE OUTFIT UNDER TWO SPELLINGS WAS TWO CREDITORS. The favour account stores
+     SOCIAL_FORCES, the rent book stores whatever turfAt calls them (title case).
+     Normalising the name is what lets the two stores agree on who a person is;
+     MERGING is what stops that agreement arriving as a double. Found only because
+     a real blockRent() ran during the probe and wrote "Mob" beside my seeded "MOB".
+  2. *** A NUL BYTE WENT INTO THE WALKED SURFACE. *** The merge first keyed on a
+     joined string using the NUL escape as the separator and THE BYTE WENT IN
+     LITERALLY, so the module and then the whole 4.7 MB city STOPPED BEING A TEXT
+     FILE: grep called it binary and every gate that reads the city with a regex
+     was one step from quietly lying about it. A nested map needs no separator at
+     all. THE LESSON: a separator is a character a name is not allowed to contain,
+     and nobody has ruled what a faction name may contain. The gate now fails on
+     any control character reaching the surface.
+  3. *** ONE OF MY OWN CHECKS WAS A TAUTOLOGY AND THE GATE WAS GREEN. *** "It reads
+     the ruling, never copies it" compared billDies() to the same table it reads,
+     which is true whether the module asks or hard-codes the answer -- a hard-coded
+     `return true` PASSED IT at 44/0. A CHECK THAT CANNOT TELL A COPY FROM A READ IS
+     THE BROKEN ONE. It now flips the fold's row under the module and watches it
+     follow. That check exists only because I mutation-tested a gate already green.
+
+PROOF: DEBT CARRIED 48/0, registered and run by the suite as gate 67 of 604, driven
+  on the walked surface AND the demo.
+  Red SIX ways: break the merge -> 2; hard-code the ruling -> 2; stop clearing at
+  the fold -> 2 (and the failure message reads 12 -> 12, the original bug verbatim);
+  take the heading off the card -> 3; reach into a store it does not own -> 1; price
+  a debt in a sentence -> 1.
+  records/BOHEMIA_DEBT_CARRIED_9_12_26.md
+
+ALSO IN THIS SHIP: tools/bohemia_city_work_patch.py was six copy-pasted pairs of
+constants and six copy-pasted read-and-check blocks; a seventh would have been the
+seventh place to make the same typo. It is one table now. Verified byte-safe: after
+the refactor a re-splice removed ZERO lines from the city and added only the new
+block.
+
+ROUTED TO FACTIONS: their collector's door (owedVisitDue -> collectorAt) reads the
+rent book only. owingParentCreditors() now hands back every outfit the parent owed,
+favours included, as names with no amounts -- the same shape their book takes.
+Widening it is their card and their row, not this lane's to edit.
+
+ROUTED TO PLUMBER: the gate suite REFUSES TO RUN when another suite holds the tree
+and then EXITS 0. A refusal that exits 0 looks exactly like a pass to anything
+reading the exit code. Also: `--list` is not a flag it knows, and instead of saying
+so it ran the whole suite.
 
 NEXT: read the WORLD section fresh. As of this round the next OPEN line is
-[debt carried], then [someone lends], [back of house], [water lifted],
-[battery worth], [fold carries], [visible change], [suburb walls], [full shelves].
-
-NO LONGER CARRIED: the buy()/convert() gap that sat in this block for six rounds is
-closed. Nothing is carried forward from it.
+[someone lends], then [back of house], [water lifted], [battery worth],
+[fold carries], [visible change], [suburb walls], [full shelves].
 
 NOT MINE AND UNCHANGED: market_gate 22/10. It still expects `resources` to be the
 money and has been red since the money became batteries on 9/5. Its ten failures
@@ -13813,16 +13844,18 @@ lane that gate is should retire or rewrite it; it is the oldest red on this surf
 STANDING DUTIES THIS LANE HAS PAID FOR: pin the board sha by reading it off main
 AFTER the push (a rebase rewrites every commit); re-check your gates' REGISTRATION
 every round and check it the way the registry checker reads the table, not with your
-own grep. Nine verified present this round, 0 rows invisible.
+own grep; and MUTATION-TEST EVERY CHECK, including the ones in a gate that is
+already green, because a tautology passes forever and looks like proof.
 
-[PENDING Paolo] -- nothing new from me.
+[PENDING Paolo] -- nothing new from me. The one that touches this row is FACTIONS':
+does a debt cross the fold. Built to follow whichever way he answers.
 
-LAST SHIPPED: [rice clock] 0f793c2, 9/12. Before it: [own power] 38e3412,
-[century stayed] 8538cd0, [batteries mined] 6562436, [parties move] 75ac79c,
-[a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
-[rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
-[faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
-[battery money] ce39270.
+LAST SHIPPED: [debt carried] <SHA>, 9/12. Before it: [rice clock] 0f793c2,
+[own power] 38e3412, [century stayed] 8538cd0, [batteries mined] 6562436,
+[parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
+[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
+[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
+[living costs] 5b61303, [battery money] ce39270.
 
 
 

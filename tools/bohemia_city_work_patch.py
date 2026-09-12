@@ -23,46 +23,43 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
-MODULE = os.path.join(ROOT, 'engine', 'bohemia_work.js')
-PARTIES = os.path.join(ROOT, 'engine', 'bohemia_parties.js')
-POWERB = os.path.join(ROOT, 'engine', 'bohemia_powerbuild.js')
-STAYED = os.path.join(ROOT, 'engine', 'bohemia_stayed.js')
-OWNPOW = os.path.join(ROOT, 'engine', 'bohemia_ownpower.js')
-HUNGER = os.path.join(ROOT, 'engine', 'bohemia_hunger.js')
+# EVERY MODULE THAT RIDES THIS SPLICE, in the order it lands on the page. Each
+# one reads only modules the city already carries, and each has to land OUTSIDE
+# every module body for the same reason work does (see the banner note above).
+# This was six copy-pasted pairs of constants and six copy-pasted read-and-check
+# blocks; a seventh would have been the seventh place to make the same typo.
+#   [a days work]     work        reads bohemia_economy.js
+#   [parties move]    parties     reads bohemia_towns.js, bohemia_between.js
+#   [batteries mined] powerbuild  reads bohemia_purse.js, bohemia_cityedit.js
+#   [century stayed]  stayed      reads bohemia_century.js, bohemia_family.js
+#   [own power]       ownpower    reads bohemia_powerbuild.js, bohemia_towns.js
+#   [rice clock]      hunger      reads bohemia_purse.js
+#   [debt carried]    owing       reads bohemia_fold.js -- AT CALL TIME, never at
+#                                 load, which is why it may land above it
+RIDERS = [
+    ('bohemia_work.js', 'the work module'),
+    ('bohemia_parties.js', 'the parties module'),
+    ('bohemia_powerbuild.js', 'the power buildings module'),
+    ('bohemia_stayed.js', 'the stayed module'),
+    ('bohemia_ownpower.js', 'the own power module'),
+    ('bohemia_hunger.js', 'the hunger module'),
+    ('bohemia_owing.js', 'the owing module'),
+]
 
-BEGIN = '/* ==== engine/bohemia_work.js ==== */'
-END = '/* ==== /engine/bohemia_work.js ==== */'
-# [parties move] rides the same splice: it reads bohemia_towns.js and
-# bohemia_between.js, both of which the city already carries, and it has to land
-# outside every module body for the same reason work does.
-P_BEGIN = '/* ==== engine/bohemia_parties.js ==== */'
-P_END = '/* ==== /engine/bohemia_parties.js ==== */'
-# [batteries mined] rides the same splice: it reads bohemia_purse.js and
-# bohemia_cityedit.js, both already in the city, and must land outside every
-# module body for the same reason the other two do.
-B_BEGIN = '/* ==== engine/bohemia_powerbuild.js ==== */'
-B_END = '/* ==== /engine/bohemia_powerbuild.js ==== */'
-# [century stayed] rides the same splice: it reads bohemia_century.js and
-# bohemia_family.js, both already in the city, and must land outside every
-# module body for the same reason the others do.
-S_BEGIN = '/* ==== engine/bohemia_stayed.js ==== */'
-S_END = '/* ==== /engine/bohemia_stayed.js ==== */'
-# [own power] rides the same splice: it reads bohemia_powerbuild.js and
-# bohemia_towns.js, both already in the city, and must land outside every
-# module body for the same reason the others do.
-O_BEGIN = '/* ==== engine/bohemia_ownpower.js ==== */'
-O_END = '/* ==== /engine/bohemia_ownpower.js ==== */'
-# [rice clock] rides the same splice: it reads bohemia_purse.js, already in the
-# city, and must land outside every module body for the same reason the rest do.
-H_BEGIN = '/* ==== engine/bohemia_hunger.js ==== */'
-H_END = '/* ==== /engine/bohemia_hunger.js ==== */'
+
+def marks(fname):
+    return ('/* ==== engine/%s ==== */' % fname,
+            '/* ==== /engine/%s ==== */' % fname)
+
+
 # The economy's banner: bohemia_work.js reads YIELD off that module, so landing
 # beside it keeps the two things a reader has to hold together in one place.
 ANCHOR = '/* ==== engine/bohemia_economy.js ==== */'
 
 
 def main():
-    for p in (CITY, MODULE, PARTIES, POWERB, STAYED, OWNPOW, HUNGER):
+    paths = [os.path.join(ROOT, 'engine', f) for f, _ in RIDERS]
+    for p in [CITY] + paths:
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
@@ -82,59 +79,32 @@ def main():
             k += 1
         return text[:i] + text[k:]
 
-    s = cut(s, BEGIN, END, 'the work module')
-    s = cut(s, P_BEGIN, P_END, 'the parties module')
-    s = cut(s, B_BEGIN, B_END, 'the power buildings module')
-    s = cut(s, S_BEGIN, S_END, 'the stayed module')
-    s = cut(s, O_BEGIN, O_END, 'the own power module')
-    s = cut(s, H_BEGIN, H_END, 'the hunger module')
+    for fname, label in RIDERS:
+        begin, end = marks(fname)
+        s = cut(s, begin, end, label)
 
     if s.count(ANCHOR) != 1:
         sys.exit('REFUSING TO WRITE: the anchor resolves %d times, not 1.' % s.count(ANCHOR))
 
-    mod = open(MODULE, encoding='utf8').read().rstrip('\n')
-    if '</' in mod:
-        sys.exit('REFUSING TO WRITE: the module contains a sequence that would close '
-                 'the script tag.')
-
-    par = open(PARTIES, encoding='utf8').read().rstrip('\n')
-    if '</' in par:
-        sys.exit('REFUSING TO WRITE: the parties module contains a sequence that would '
-                 'close the script tag.')
-
-    pwr = open(POWERB, encoding='utf8').read().rstrip('\n')
-    if '</' in pwr:
-        sys.exit('REFUSING TO WRITE: the power buildings module contains a sequence '
-                 'that would close the script tag.')
-
-    sty = open(STAYED, encoding='utf8').read().rstrip('\n')
-    if '</' in sty:
-        sys.exit('REFUSING TO WRITE: the stayed module contains a sequence that would '
-                 'close the script tag.')
-
-    own = open(OWNPOW, encoding='utf8').read().rstrip('\n')
-    if '</' in own:
-        sys.exit('REFUSING TO WRITE: the own power module contains a sequence that '
-                 'would close the script tag.')
-
-    hun = open(HUNGER, encoding='utf8').read().rstrip('\n')
-    if '</' in hun:
-        sys.exit('REFUSING TO WRITE: the hunger module contains a sequence that would '
-                 'close the script tag.')
-
-    block = (BEGIN + '\n' + mod + '\n' + END + '\n'
-             + P_BEGIN + '\n' + par + '\n' + P_END + '\n'
-             + B_BEGIN + '\n' + pwr + '\n' + B_END + '\n'
-             + S_BEGIN + '\n' + sty + '\n' + S_END + '\n'
-             + O_BEGIN + '\n' + own + '\n' + O_END + '\n'
-             + H_BEGIN + '\n' + hun + '\n' + H_END + '\n\n')
+    block = ''
+    for (fname, label), path in zip(RIDERS, paths):
+        begin, end = marks(fname)
+        body = open(path, encoding='utf8').read().rstrip('\n')
+        if '</' in body:
+            sys.exit('REFUSING TO WRITE: %s contains a sequence that would close '
+                     'the script tag.' % label)
+        block += begin + '\n' + body + '\n' + end + '\n'
+    block += '\n'
     s = s.replace(ANCHOR, block + ANCHOR, 1)
 
     if s == before:
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY WORK: work + parties + powerbuild + stayed + ownpower + hunger inlined before the economy module')
+    print('CITY WORK: %d modules inlined before the economy module'
+          % len(RIDERS))
+    print('  ' + ', '.join(f.replace('bohemia_', '').replace('.js', '')
+                           for f, _ in RIDERS))
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 
