@@ -25260,7 +25260,21 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/12 (latest): [judge the zoom] SHIPPED - the handoff half
+ROUND LOG 9/13 (latest): THE AERIAL JUDGED AT THE SEAM - FAIL on the
+card's first question, with respect for what landed: the diagram is
+gone, tiles are live, hue and grid and greyscale all pass. But 71.6% of
+the world sits below 0.43 luminance and the ground band holds 16% - the
+frame is dark blocks seamed by BRIGHT streets, a real Vegas aerial
+inverted (the card's own upside-down test). Likely cause named in the
+verdict: the coarse view draws eye-level wall detail at distance
+instead of the tile's aerial average. ROUTED to COOK [city from above]
+round 2 and LIFE+CITY [tiles not slabs]: land the coarse lot in the
+card's bands (ground 0.47-0.74 warm, roads <= 0.43 and darker than what
+they cut); records/BOHEMIA_VERDICT_THE_AERIAL_9_13_26.md + two frames
+in records/target. Re-judge at the seam when their next round lands.
+My four remaining board lines all still blocked (retints x2, RUN's
+first-sixty, ANIMATION's 47).
+PREVIOUS: [judge the zoom] SHIPPED - the handoff half
 measured on a real encounter fired through the game's own door: the
 street body arrives at the swap at ~14px, the fight board draws ~15px,
 the person continuous within a pixel (the eye's own object), the grid
