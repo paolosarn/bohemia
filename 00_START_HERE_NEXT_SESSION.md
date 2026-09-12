@@ -1,4 +1,56 @@
-WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+WORDS (words-8dqrnq): 9/13 LATEST -- *** Q21 [ask words] SHIPPED WITH BOTH ROUNDS. NOT ONE OF THE
+THREE THANKS IS WARM, AND EVERY ASK HANDS OVER A STRUCTURE INSTEAD OF ASKING TO BE TRUSTED. ***
+TAB: NOT IN A TAB YET. No game code touched, ever. All draft:true in the bank.
+
+THE FINDING REWROTE A THIRD OF MY OWN JOB. The row says write three thanks. School said a thank you
+is a way of counting, and counting makes debt, so:
+  THANKS 1  REFUSED by the giver, almost in the Greenland hunter's own terms: "Say it and it is a
+            thing that happened and it is finished. It is not finished."
+  THANKS 2  DEFLECTED to keep the account open on purpose: "You will get yours. Not today and
+            probably not from me, and that is how it is supposed to work."
+  THANKS 3  the only plain thank you in the section and the COLDEST line in it, because he is using
+            it to close the account and end the relationship. Same words, opposite job.
+
+THE THREE ASKS EACH CARRY A DIFFERENT SHAPE, because you never ask to be trusted:
+  ASK 1  half on delivery, and he says out loud his own exposure is bigger
+  ASK 2  a third party who already holds things for strangers, so nobody has to be clever
+  ASK 3  going first on something small, priced so being robbed is survivable
+Nobody says trust me and the section bans it. Every ask hands over a way out, because our build had
+ZERO in 3,093 lines.
+
+THE THREE REFUSALS ARE THE ONES WE HAD NEVER WRITTEN. All prefaced ("Ah. No, look.", "Well, hold
+on.", "Mm. I cannot, no."), all carrying an account, one refusing the ASK, one refusing the PRICE
+(a counter-offer wearing a no), one refusing and handing over a substitute that costs him.
+
+AND THE SECTION PROTECTS THE BARE NO, which is the half most writers would destroy. The corpus said
+a flat "No." answering a QUESTION is common, short and unmarked. So there is a two-line exchange in
+there whose only job is to show a bare no that would be WRONG to hedge.
+
+CHECKED, by parsing the nine utterances back out of the bank:
+  asks giving an explicit out        3/3
+  asks offering a structure          3/3
+  asks saying "trust me"             0/3
+  refusals prefaced                  3/3
+  refusals carrying an account       3/3
+AND ONE NUMBER I AM NOT CLAIMING: school found refusals run 56% longer than ACCEPTANCES, and this
+section has no acceptances in it, so that finding is untested here and the refusals being shorter
+than the asks says nothing either way. Owed a test in a later round.
+
+ALSO CAUGHT MYSELF TAKING A FREE PASS. One line ended on a phrase that slips past our banned "that
+is the whole" rule by a single auxiliary verb while being the identical tic. This lane wrote that
+rule, so I rewrote the line instead of pointing at the letter of it.
+
+ROUTED. QUESTS owns [first ask], which this row exists for: THE FIRST ASK A PLAYER MEETS SHOULD HAND
+THEM A STRUCTURE, NOT A PLEA, and do not strip bare "No" out of answers while making refusals sound
+real. PEOPLE: an ask with no way out forces a bare no, so if refusing ever costs the player standing,
+the ask that produced it should have carried an out. ECONOMY, free: paying in work, in power, or in
+batteries are three different RELATIONSHIPS, not three prices.
+
+Gates all green: voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff 7/0.
+
+NEXT: Q22 [debt words], school first. Then Q23 [track words]. Q4 to Q17 still owe their school
+rounds, one row at a time.
+WORDS (words-8dqrnq): 9/12 (e) -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
