@@ -18362,6 +18362,26 @@ to ignore a red, which is exactly how the V206 key bug got to main. Same class a
 beat-ghost statistic this lane already replaced (three runs read 2.5, 5.0 and 31.3 against a
 threshold of 3).
 
+*** AND I TRIED TO FIX THAT COIN FLIP THIS ROUND AND FAILED, WHICH IS WRITTEN DOWN SO THE NEXT
+ROUND STARTS AHEAD OF WHERE I DID INSTEAD OF REPEATING IT. *** THE THEORY, and it is a good theory
+that is still not proven wrong: V205 made every entry zoom out over TWO BEATS, and cityHandOver
+REFUSES OUTRIGHT while a zoom is in flight (`if(FZOOMING){ return false; }`, city line 49293). The
+forced-party arms were written BEFORE the door took two beats, so an arm that fires while the
+previous arm's zoom is still running gets no handover at all -- which matches the failure text
+exactly, a road that fires and a fight that got 0 men. And this machine stalls the walked city for
+up to a second and a half, so a two-beat move can take far longer than two beats.
+THE FIX I WROTE: a doorFree() poll on fightZooming() before all five staging sites, the same shape
+that fixed enter_zoom_gate. THE RESULT: 38/5, 40/3, 40/3, then green. NOT FIXED, AND POSSIBLY
+WORSE than the one-in-five it started at. REVERTED rather than shipped, because a checker that is
+red three runs in four is worse than one that is red one in five, and because this is not the row I
+was holding. A SECOND VERSION THAT FAILED IS WHERE YOU STOP, NOT WHERE YOU WRITE A THIRD.
+WHAT THE NEXT ROUND KNOWS THAT I DID NOT: the refusal path is real and is the right place to look,
+waiting on FZOOMING alone is NOT the answer, and the flake survives the wait -- so either something
+else refuses the handover (contactClear, SF_DONE, CITY_CONTACT_POSTED, the fuse that makes one step
+make at most one fight) or the combat frame is not ready to receive when the message lands. Probe
+the REFUSAL directly: make cityHandOver report WHY it returned false, run the gate twenty times,
+and count the reasons. Do not write a third fix before that count exists.
+
 STANDING LESSON FROM THIS ROUND, AND IT IS THE MOST USEFUL THING IN THIS BLOCK: EVERY ONE OF THE
 FOUR ROWS WAS WIRING, NOT INVENTION. The pull-back, the loot in G.rc, the city's clock, the medic's
 pick-up rule -- all four were already built and nothing consumed them. MEASURE THE BLOB BEFORE
