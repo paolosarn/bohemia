@@ -75,6 +75,18 @@ cloud skin is used. One direction is what makes the tenth fight read as
 weather instead of a random effect; canon may later name a prevailing
 wind and this line inherits it.
 
+## 5C. THE DEPTH IS DERIVED, NOT TUNED (ruled 9/12, judging the handoff)
+COMBAT left the pull depth draft:true at 0.34. Measured on the live
+handover: the street body arrives at the swap at ~14 px wide (40 px at
+rest x 0.34) and the fight board draws its bodies at ~15 px - THE PERSON
+crosses the swap at one size, which is what the eye tracks; the tile
+grid re-derives beneath and no size jump reads. RULED: the depth is not
+a taste number, it is DERIVED - pull depth = (fight body px / street
+body px at rest). Today that computes to 0.34; if either surface's body
+scale ever changes, the dial recomputes instead of somebody retuning it
+by eye. Both directions, same number (the way in is the same two beats
+reversed).
+
 ## 6. THE JUDGE'S TEST (what DIRECTION checks when it lands)
 Freeze any frame of the half second: it must still look like the walked
 street (same palette, same tiles, territory and accent reads intact),
