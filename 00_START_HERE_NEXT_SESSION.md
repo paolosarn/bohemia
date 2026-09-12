@@ -17538,6 +17538,22 @@ SHIPPED lines 12%, because the line is rewritten as a summary when it lands; and
 records carry his verbatim words, so "he has thumbed zero" was true of the 127 garments
 only. FIXED ON THE FRONT PAGE: rule 11, a SHIPPED line keeps its label and its "Paolo
 <date>" citation. ECONOMY Q30, WORDS Q19 school.
+THEN (dp) VAMILY, 40 commits. HIS WORDS TO THE RUN CHAT 9/11: "we don't have a story yet
+bro, your job is to make sure the rest of the game is playable and fun" -> RUN wrote laws/
+BOHEMIA_ADDENDUM_THERE_IS_NO_STORY_YET_9_11_26.md; it OVERRULES my 9/11 decision to wire the
+cold open first (a story hole, not a decision to make) -> [cold open wired] DEFERRED; QUESTS
+header notes the main story and ten openings are playable attempts from his rough draft,
+never canon. SHIPPED: COMBAT [enter zoom] (the camera pulls back; the half second is the
+art director's card), LIFE+CITY a crowd to walk into (0 of 16 walks met a crowd, now 5),
+PLUMBER [nothing baked] (the freshness gate, five more stale bakes found), WORLD [century
+stayed], FACTIONS [block rent], PEOPLE [paid means paid], QUESTS [haggling works], COOK hair
+has 21 colours, DIRECTION [small and clear] PASS, UI [no slop] round one (the tells counted,
+the skin draws every control), ECONOMY Q31, WORDS [caught out]. FINDINGS ROUTED: the suite
+cannot finish (589 gates x 9.4 s vs a 2,700 s budget, 198 never ran, 53 red, 32 never
+re-checked) -> PLUMBER [suite runs] top; five RUN gates red on main -> RUN [reds mine]; three
+city-art reds -> LIFE+CITY [lab reds]; TWO live faction colour tables disagreeing on 10 of
+12 -> CHARACTER [one colour table]; PLUMBER proved EYES' "29 dead modules" wrong (engine
+modules are inlined; nothing archived, on purpose). Topped up FACTIONS, ECONOMY.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
