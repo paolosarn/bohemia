@@ -1,0 +1,5460 @@
+{
+  "ok": true,
+  "song": "THE MARKER ON THE DOOR",
+  "bars": 24,
+  "when": "2026-09-12T19:36:28.999Z",
+  "wav": "records/BOHEMIA_EYES_E18_MARKER.wav",
+  "seconds": 51,
+  "rate": 44100,
+  "row": {
+    "n": "THE MARKER ON THE DOOR",
+    "acc": "#a06a5a",
+    "root": 48,
+    "scale": [
+      0,
+      2,
+      4,
+      7,
+      9
+    ],
+    "wave": "sawtooth",
+    "kick": [
+      0,
+      4,
+      8,
+      11
+    ],
+    "bass": [
+      0,
+      4,
+      9,
+      12
+    ],
+    "hat": [
+      2,
+      6,
+      10,
+      14
+    ],
+    "inst": {
+      "b": "abyssbass",
+      "l": "brokenrosary"
+    },
+    "am": "nightpad",
+    "kit": {
+      "k": "knock",
+      "h": "tight"
+    },
+    "mel": "longs",
+    "swing": 0.1,
+    "feel": "normal",
+    "klay": "melody",
+    "ff": true,
+    "bt": 22
+  },
+  "stepDur": 0.125,
+  "notes": [
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 0.5
+    },
+    {
+      "kind": "oi",
+      "t": 0.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 0.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 0.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 0.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 0.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 0.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 0.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 0.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 0.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 1
+    },
+    {
+      "kind": "oi",
+      "t": 1,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 1,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 1,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 1,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 1.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 1.5
+    },
+    {
+      "kind": "oi",
+      "t": 1.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 1.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 1.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 1.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 1.75
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 1.75,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 1.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 1.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 1.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 1.88125
+    },
+    {
+      "kind": "oi",
+      "t": 1.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 2,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 2,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 2,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 2.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 2.5
+    },
+    {
+      "kind": "oi",
+      "t": 2.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 2.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 2.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 2.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 2.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 2.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 2.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 2.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 2.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 3
+    },
+    {
+      "kind": "oi",
+      "t": 3,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 3,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 3,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 3,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 3.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 3.5
+    },
+    {
+      "kind": "oi",
+      "t": 3.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 3.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 3.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 3.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 3.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 3.88125
+    },
+    {
+      "kind": "oi",
+      "t": 3.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 4,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 4,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 4,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 4.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 4.5
+    },
+    {
+      "kind": "oi",
+      "t": 4.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 4.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 4.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 4.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 4.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 4.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 4.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 4.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 4.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 5
+    },
+    {
+      "kind": "oi",
+      "t": 5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 5.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 5.5
+    },
+    {
+      "kind": "oi",
+      "t": 5.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 5.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 5.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 5.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 5.75
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 5.75,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 5.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 5.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 5.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 5.88125
+    },
+    {
+      "kind": "oi",
+      "t": 5.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 6,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 6,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 6,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 6.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 6.5
+    },
+    {
+      "kind": "oi",
+      "t": 6.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 6.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 6.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 6.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 6.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 6.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 6.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 6.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 6.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 7
+    },
+    {
+      "kind": "oi",
+      "t": 7,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 7,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 7,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 7,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 7.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 7.5
+    },
+    {
+      "kind": "oi",
+      "t": 7.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 7.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 7.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 7.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 7.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 7.88125
+    },
+    {
+      "kind": "oi",
+      "t": 7.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 8
+    },
+    {
+      "kind": "oi",
+      "t": 8,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 8,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 8,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 8,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 8.13125
+    },
+    {
+      "kind": "oi",
+      "t": 8.13125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 8.25
+    },
+    {
+      "kind": "oi",
+      "t": 8.25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 8.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 8.38125
+    },
+    {
+      "kind": "oi",
+      "t": 8.38125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 8.5
+    },
+    {
+      "kind": "oi",
+      "t": 8.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 8.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 8.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 8.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 8.5,
+      "hz": 369.9944152832031,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 8.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 8.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 9
+    },
+    {
+      "kind": "oi",
+      "t": 9,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 14,
+      "t": 9,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 9,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 9,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 9.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 9.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 9.5
+    },
+    {
+      "kind": "oi",
+      "t": 9.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 9.5,
+      "hz": 493.88330078125,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 9.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 9.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 9.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 9.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 9.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 9.88125
+    },
+    {
+      "kind": "oi",
+      "t": 9.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 10,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 10,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 10,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 10.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 10.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 10.5
+    },
+    {
+      "kind": "oi",
+      "t": 10.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 10.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 10.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 10.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 10.5,
+      "hz": 329.6275634765625,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 10.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 10.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 11
+    },
+    {
+      "kind": "oi",
+      "t": 11,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 14,
+      "t": 11,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 11,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 11,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 11.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 11.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 11.5
+    },
+    {
+      "kind": "oi",
+      "t": 11.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 11.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 11.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 11.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 11.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 11.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 11.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 11.88125
+    },
+    {
+      "kind": "oi",
+      "t": 11.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 12,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 12,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 12,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 12.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 12.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 12.5
+    },
+    {
+      "kind": "oi",
+      "t": 12.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 12.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 12.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 12.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 12.5,
+      "hz": 293.6647644042969,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 12.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 12.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 13
+    },
+    {
+      "kind": "oi",
+      "t": 13,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 14,
+      "t": 13,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 13,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 13,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 13.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 13.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 13.5
+    },
+    {
+      "kind": "oi",
+      "t": 13.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 13.5,
+      "hz": 369.9944152832031,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 13.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 13.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 13.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 13.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 13.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 13.88125
+    },
+    {
+      "kind": "oi",
+      "t": 13.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 14,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 14,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 14,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 14.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 14.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 14.5
+    },
+    {
+      "kind": "oi",
+      "t": 14.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 14.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 14.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 14.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 14.5,
+      "hz": 493.88330078125,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 14.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 14.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 15
+    },
+    {
+      "kind": "oi",
+      "t": 15,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 14,
+      "t": 15,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 15,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 15,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 15.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 15.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 15.5
+    },
+    {
+      "kind": "oi",
+      "t": 15.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 15.5,
+      "hz": 329.6275634765625,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 15.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 15.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 15.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 15.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 15.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 15.88125
+    },
+    {
+      "kind": "oi",
+      "t": 15.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 16
+    },
+    {
+      "kind": "oi",
+      "t": 16,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 16,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 16,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 16,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 16.13125
+    },
+    {
+      "kind": "oi",
+      "t": 16.13125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 16.13125
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 16.25
+    },
+    {
+      "kind": "oi",
+      "t": 16.25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 16.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 16.38125
+    },
+    {
+      "kind": "oi",
+      "t": 16.38125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 16.5
+    },
+    {
+      "kind": "oi",
+      "t": 16.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 16.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 16.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 16.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 16.5,
+      "hz": 466.16375732421875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 16.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 16.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 17
+    },
+    {
+      "kind": "oi",
+      "t": 17,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 17,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 17,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 17,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 17.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 17.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 17.5
+    },
+    {
+      "kind": "oi",
+      "t": 17.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 17.5,
+      "hz": 622.2539672851562,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 17.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 17.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 17.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 17.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 17.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 17.88125
+    },
+    {
+      "kind": "oi",
+      "t": 17.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 18,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 18,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 18,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 18.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 18.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 18.5
+    },
+    {
+      "kind": "oi",
+      "t": 18.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 18.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 18.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 18.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 18.5,
+      "hz": 415.3046875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 18.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 18.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 19
+    },
+    {
+      "kind": "oi",
+      "t": 19,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 19,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 19,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 19,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 19.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 19.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 19.5
+    },
+    {
+      "kind": "oi",
+      "t": 19.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 19.5,
+      "hz": 554.365234375,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 19.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 19.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 19.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 19.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 19.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 19.88125
+    },
+    {
+      "kind": "oi",
+      "t": 19.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 20,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 20,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 20,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 20.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 20.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 20.5
+    },
+    {
+      "kind": "oi",
+      "t": 20.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 20.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 20.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 20.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 20.5,
+      "hz": 369.9944152832031,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 20.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 20.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 21
+    },
+    {
+      "kind": "oi",
+      "t": 21,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 21,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 21,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 21,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 21.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 21.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 21.5
+    },
+    {
+      "kind": "oi",
+      "t": 21.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 21.5,
+      "hz": 466.16375732421875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 21.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 21.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 21.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 21.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 21.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 21.88125
+    },
+    {
+      "kind": "oi",
+      "t": 21.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 22,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 22,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 22,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 22.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 22.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 22.5
+    },
+    {
+      "kind": "oi",
+      "t": 22.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 22.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 22.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 22.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 22.5,
+      "hz": 622.2539672851562,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 22.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 22.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 23
+    },
+    {
+      "kind": "oi",
+      "t": 23,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 23,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 23,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 23,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 23.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 23.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 23.5
+    },
+    {
+      "kind": "oi",
+      "t": 23.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 23.5,
+      "hz": 415.3046875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 23.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 23.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 23.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 23.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 23.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 23.88125
+    },
+    {
+      "kind": "oi",
+      "t": 23.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 24
+    },
+    {
+      "kind": "oi",
+      "t": 24,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 24,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 24,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 24,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 24.13125
+    },
+    {
+      "kind": "oi",
+      "t": 24.13125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 24.13125
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 24.25
+    },
+    {
+      "kind": "oi",
+      "t": 24.25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 24.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 24.38125
+    },
+    {
+      "kind": "oi",
+      "t": 24.38125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 24.5
+    },
+    {
+      "kind": "oi",
+      "t": 24.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 24.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 24.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 24.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 24.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 24.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 24.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 24.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 24.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 25
+    },
+    {
+      "kind": "oi",
+      "t": 25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 25,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 25,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 25.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 25.5
+    },
+    {
+      "kind": "oi",
+      "t": 25.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 25.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 25.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 25.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 25.75
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 25.75,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 25.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 25.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 25.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 25.88125
+    },
+    {
+      "kind": "oi",
+      "t": 25.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 26,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 26,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 26,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 26.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 26.5
+    },
+    {
+      "kind": "oi",
+      "t": 26.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 26.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 26.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 26.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 26.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 26.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 26.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 26.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 26.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 27
+    },
+    {
+      "kind": "oi",
+      "t": 27,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 27,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 27,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 27,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 27.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 27.5
+    },
+    {
+      "kind": "oi",
+      "t": 27.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 27.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 27.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 27.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 27.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 27.88125
+    },
+    {
+      "kind": "oi",
+      "t": 27.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 28,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 28,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 28,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 28.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 28.5
+    },
+    {
+      "kind": "oi",
+      "t": 28.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 28.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 28.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 28.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 28.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 28.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 28.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 28.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 28.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 29
+    },
+    {
+      "kind": "oi",
+      "t": 29,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 29,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 29,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 29,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 29.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 29.5
+    },
+    {
+      "kind": "oi",
+      "t": 29.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 29.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 29.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 29.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 29.75
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 29.75,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 29.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 29.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 29.75,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 29.88125
+    },
+    {
+      "kind": "oi",
+      "t": 29.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 30,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 30,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 30,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 30.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 30.5
+    },
+    {
+      "kind": "oi",
+      "t": 30.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 30.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 30.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 30.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 30.5,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 30.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 30.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 30.5,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 30.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 31
+    },
+    {
+      "kind": "oi",
+      "t": 31,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 31,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 31,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 31,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 31.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 31.5
+    },
+    {
+      "kind": "oi",
+      "t": 31.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 2,
+      "t": 31.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 31.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 31.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 31.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 31.88125
+    },
+    {
+      "kind": "oi",
+      "t": 31.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 32
+    },
+    {
+      "kind": "oi",
+      "t": 32,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 32,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 32,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 32,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 32.13125
+    },
+    {
+      "kind": "oi",
+      "t": 32.13125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 32.25
+    },
+    {
+      "kind": "oi",
+      "t": 32.25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 32.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 32.38125
+    },
+    {
+      "kind": "oi",
+      "t": 32.38125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 32.5
+    },
+    {
+      "kind": "oi",
+      "t": 32.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 0,
+      "t": 32.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 32.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 32.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 33
+    },
+    {
+      "kind": "oi",
+      "t": 33,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 33,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 33,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 33,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 33.5
+    },
+    {
+      "kind": "oi",
+      "t": 33.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 33.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 33.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 33.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 33.88125
+    },
+    {
+      "kind": "oi",
+      "t": 33.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 4,
+      "t": 34,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 34,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 34,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 34.5
+    },
+    {
+      "kind": "oi",
+      "t": 34.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 0,
+      "t": 34.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 34.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 34.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 35
+    },
+    {
+      "kind": "oi",
+      "t": 35,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 35,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 35,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 35,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 35.5
+    },
+    {
+      "kind": "oi",
+      "t": 35.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 35.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 35.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 35.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 35.88125
+    },
+    {
+      "kind": "oi",
+      "t": 35.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 4,
+      "t": 36,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 36,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 36,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 36.5
+    },
+    {
+      "kind": "oi",
+      "t": 36.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 0,
+      "t": 36.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 36.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 36.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 37
+    },
+    {
+      "kind": "oi",
+      "t": 37,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 37,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 37,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 37,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 37.5
+    },
+    {
+      "kind": "oi",
+      "t": 37.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 37.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 37.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 37.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 37.88125
+    },
+    {
+      "kind": "oi",
+      "t": 37.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 4,
+      "t": 38,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 38,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 38,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 38.5
+    },
+    {
+      "kind": "oi",
+      "t": 38.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 0,
+      "t": 38.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 38.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 38.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 39
+    },
+    {
+      "kind": "oi",
+      "t": 39,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 39,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 39,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 39,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 39.5
+    },
+    {
+      "kind": "oi",
+      "t": 39.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 9,
+      "t": 39.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 39.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 39.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 39.88125
+    },
+    {
+      "kind": "oi",
+      "t": 39.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 40
+    },
+    {
+      "kind": "oi",
+      "t": 40,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 4,
+      "t": 40,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 40,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 40,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 40.13125
+    },
+    {
+      "kind": "oi",
+      "t": 40.13125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 40.25
+    },
+    {
+      "kind": "oi",
+      "t": 40.25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 40.38125
+    },
+    {
+      "kind": "oi",
+      "t": 40.38125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 40.5
+    },
+    {
+      "kind": "oi",
+      "t": 40.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 40.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 40.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 40.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 40.5,
+      "hz": 466.16375732421875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 40.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 40.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 41
+    },
+    {
+      "kind": "oi",
+      "t": 41,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 41,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 41,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 41,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 41.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 41.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 41.5
+    },
+    {
+      "kind": "oi",
+      "t": 41.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 41.5,
+      "hz": 622.2539672851562,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 41.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 41.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 41.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 41.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 41.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 41.88125
+    },
+    {
+      "kind": "oi",
+      "t": 41.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 42,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 42,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 42,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 42.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 42.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 42.5
+    },
+    {
+      "kind": "oi",
+      "t": 42.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 42.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 42.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 42.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 42.5,
+      "hz": 415.3046875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 42.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 42.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 43
+    },
+    {
+      "kind": "oi",
+      "t": 43,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 43,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 43,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 43,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 43.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 43.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 43.5
+    },
+    {
+      "kind": "oi",
+      "t": 43.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 43.5,
+      "hz": 554.365234375,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 43.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 43.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 43.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 43.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 43.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 43.88125
+    },
+    {
+      "kind": "oi",
+      "t": 43.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 44,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 44,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 44,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 44.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 44.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 44.5
+    },
+    {
+      "kind": "oi",
+      "t": 44.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 44.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 44.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 44.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 44.5,
+      "hz": 369.9944152832031,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 44.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 44.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 45
+    },
+    {
+      "kind": "oi",
+      "t": 45,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 45,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 45,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 45,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 45.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 45.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 45.5
+    },
+    {
+      "kind": "oi",
+      "t": 45.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 45.5,
+      "hz": 466.16375732421875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 45.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 45.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 45.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 45.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 45.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 45.88125
+    },
+    {
+      "kind": "oi",
+      "t": 45.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 46,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 46,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 46,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 46.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 46.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 46.5
+    },
+    {
+      "kind": "oi",
+      "t": 46.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -3,
+      "t": 46.5,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 46.5,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 46.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 46.5,
+      "hz": 622.2539672851562,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 46.63125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 46.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 47
+    },
+    {
+      "kind": "oi",
+      "t": 47,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 18,
+      "t": 47,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 47,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 47,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 47.13125
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 47.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 47.5
+    },
+    {
+      "kind": "oi",
+      "t": 47.5,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "o",
+      "t": 47.5,
+      "hz": 415.3046875,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 47.63125
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 6,
+      "t": 47.63125,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 47.63125,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 47.63125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 47.75
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 47.88125
+    },
+    {
+      "kind": "oi",
+      "t": 47.88125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 48
+    },
+    {
+      "kind": "oi",
+      "t": 48,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": 13,
+      "t": 48,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 48,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 48,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 48.13125
+    },
+    {
+      "kind": "oi",
+      "t": 48.13125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 48.13125
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 48.25
+    },
+    {
+      "kind": "oi",
+      "t": 48.25,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "tight",
+      "t": 48.25
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 48.38125
+    },
+    {
+      "kind": "oi",
+      "t": 48.38125,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 22.43532879818594
+    },
+    {
+      "kind": "oi",
+      "t": 22.43532879818594,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 22.43532879818594,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 22.43532879818594,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 22.43532879818594,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 22.43532879818594,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 22.43532879818594,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 22.43532879818594,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 22.43532879818594,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 23.92140589569161
+    },
+    {
+      "kind": "oi",
+      "t": 23.92140589569161,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 23.92140589569161,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 23.92140589569161,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 23.92140589569161,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 23.92140589569161,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 23.92140589569161,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 23.92140589569161,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 23.92140589569161,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 27.906530612244897
+    },
+    {
+      "kind": "oi",
+      "t": 27.906530612244897,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 27.906530612244897,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 27.906530612244897,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 27.906530612244897,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 27.906530612244897,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 27.906530612244897,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 27.906530612244897,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 27.906530612244897,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 29.717687074829932
+    },
+    {
+      "kind": "oi",
+      "t": 29.717687074829932,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 29.717687074829932,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 29.717687074829932,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 29.717687074829932,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 29.717687074829932,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 29.717687074829932,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 29.717687074829932,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 29.717687074829932,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 31.557868480725624
+    },
+    {
+      "kind": "oi",
+      "t": 31.557868480725624,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 31.557868480725624,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 31.557868480725624,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 31.557868480725624,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 31.557868480725624,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 31.557868480725624,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 31.557868480725624,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 31.557868480725624,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 33.0178231292517
+    },
+    {
+      "kind": "oi",
+      "t": 33.0178231292517,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 33.0178231292517,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 33.0178231292517,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 33.0178231292517,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 33.0178231292517,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 33.0178231292517,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 33.0178231292517,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 33.0178231292517,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 34.72448979591837
+    },
+    {
+      "kind": "oi",
+      "t": 34.72448979591837,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 34.72448979591837,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 34.72448979591837,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 34.72448979591837,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 34.72448979591837,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 34.72448979591837,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 34.72448979591837,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 34.72448979591837,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 36.152517006802725
+    },
+    {
+      "kind": "oi",
+      "t": 36.152517006802725,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 36.152517006802725,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 36.152517006802725,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 36.152517006802725,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 36.152517006802725,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 36.152517006802725,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 36.152517006802725,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 36.152517006802725,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 37.12195011337869
+    },
+    {
+      "kind": "oi",
+      "t": 37.12195011337869,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 37.12195011337869,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 37.12195011337869,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 37.12195011337869,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 37.12195011337869,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 37.12195011337869,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 37.12195011337869,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 37.12195011337869,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 38.46
+    },
+    {
+      "kind": "oi",
+      "t": 38.46,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 38.46,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 38.46,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 38.46,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 38.46,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 38.46,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 38.46,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 38.46,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 39.58326530612245
+    },
+    {
+      "kind": "oi",
+      "t": 39.58326530612245,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 39.58326530612245,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 39.58326530612245,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 39.58326530612245,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 39.58326530612245,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 39.58326530612245,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 39.58326530612245,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 39.58326530612245,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 40.33791383219955
+    },
+    {
+      "kind": "oi",
+      "t": 40.33791383219955,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 40.33791383219955,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 40.33791383219955,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 40.33791383219955,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 40.33791383219955,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 40.33791383219955,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 40.33791383219955,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 40.33791383219955,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 41.64113378684807
+    },
+    {
+      "kind": "oi",
+      "t": 41.64113378684807,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 41.64113378684807,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 41.64113378684807,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 41.64113378684807,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 41.64113378684807,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 41.64113378684807,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 41.64113378684807,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 41.64113378684807,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 42.80503401360544
+    },
+    {
+      "kind": "oi",
+      "t": 42.80503401360544,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 42.80503401360544,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 42.80503401360544,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 42.80503401360544,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 42.80503401360544,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 42.80503401360544,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 42.80503401360544,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 42.80503401360544,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 43.687392290249434
+    },
+    {
+      "kind": "oi",
+      "t": 43.687392290249434,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 43.687392290249434,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 43.687392290249434,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 43.687392290249434,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 43.687392290249434,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 43.687392290249434,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 43.687392290249434,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 43.687392290249434,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 45.42888888888889
+    },
+    {
+      "kind": "oi",
+      "t": 45.42888888888889,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 45.42888888888889,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 45.42888888888889,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 45.42888888888889,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 45.42888888888889,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 45.42888888888889,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 45.42888888888889,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 45.42888888888889,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 46.987528344671205
+    },
+    {
+      "kind": "oi",
+      "t": 46.987528344671205,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 46.987528344671205,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 46.987528344671205,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 46.987528344671205,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 46.987528344671205,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 46.987528344671205,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 46.987528344671205,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 46.987528344671205,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "d",
+      "name": "knock",
+      "t": 48.39233560090703
+    },
+    {
+      "kind": "oi",
+      "t": 48.39233560090703,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "abyssbass",
+      "semi": -7,
+      "t": 48.39233560090703,
+      "amp": 0.13
+    },
+    {
+      "kind": "oi",
+      "t": 48.39233560090703,
+      "hz": 440,
+      "wave": "sine"
+    },
+    {
+      "kind": "oi",
+      "t": 48.39233560090703,
+      "hz": 440,
+      "wave": "triangle"
+    },
+    {
+      "kind": "v",
+      "name": "nightpad",
+      "semi": 31,
+      "t": 48.39233560090703,
+      "amp": 0.05
+    },
+    {
+      "kind": "oi",
+      "t": 48.39233560090703,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 48.39233560090703,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    },
+    {
+      "kind": "oi",
+      "t": 48.39233560090703,
+      "hz": 329.6275634765625,
+      "wave": "sawtooth"
+    }
+  ],
+  "arr": [
+    "A",
+    "B",
+    "B",
+    "A",
+    "C",
+    "B",
+    "D",
+    "B",
+    "A",
+    "B",
+    "C",
+    "A",
+    "D",
+    "D",
+    "B",
+    "A"
+  ],
+  "rt": [
+    0,
+    0,
+    2,
+    0,
+    3,
+    2,
+    0,
+    1,
+    0,
+    2,
+    3,
+    0,
+    1,
+    2,
+    0,
+    0
+  ],
+  "sections": [
+    {
+      "bar": 0,
+      "sec": "A",
+      "rs": 0,
+      "t": 0
+    },
+    {
+      "bar": 1,
+      "sec": "A",
+      "rs": 0,
+      "t": 2
+    },
+    {
+      "bar": 2,
+      "sec": "A",
+      "rs": 0,
+      "t": 4
+    },
+    {
+      "bar": 3,
+      "sec": "A",
+      "rs": 0,
+      "t": 6
+    },
+    {
+      "bar": 4,
+      "sec": "B",
+      "rs": 0,
+      "t": 8
+    },
+    {
+      "bar": 5,
+      "sec": "B",
+      "rs": 0,
+      "t": 10
+    },
+    {
+      "bar": 6,
+      "sec": "B",
+      "rs": 0,
+      "t": 12
+    },
+    {
+      "bar": 7,
+      "sec": "B",
+      "rs": 0,
+      "t": 14
+    },
+    {
+      "bar": 8,
+      "sec": "B",
+      "rs": 2,
+      "t": 16
+    },
+    {
+      "bar": 9,
+      "sec": "B",
+      "rs": 2,
+      "t": 18
+    },
+    {
+      "bar": 10,
+      "sec": "B",
+      "rs": 2,
+      "t": 20
+    },
+    {
+      "bar": 11,
+      "sec": "B",
+      "rs": 2,
+      "t": 22
+    },
+    {
+      "bar": 12,
+      "sec": "A",
+      "rs": 0,
+      "t": 24
+    },
+    {
+      "bar": 13,
+      "sec": "A",
+      "rs": 0,
+      "t": 26
+    },
+    {
+      "bar": 14,
+      "sec": "A",
+      "rs": 0,
+      "t": 28
+    },
+    {
+      "bar": 15,
+      "sec": "A",
+      "rs": 0,
+      "t": 30
+    },
+    {
+      "bar": 16,
+      "sec": "C",
+      "rs": 3,
+      "t": 32
+    },
+    {
+      "bar": 17,
+      "sec": "C",
+      "rs": 3,
+      "t": 34
+    },
+    {
+      "bar": 18,
+      "sec": "C",
+      "rs": 3,
+      "t": 36
+    },
+    {
+      "bar": 19,
+      "sec": "C",
+      "rs": 3,
+      "t": 38
+    },
+    {
+      "bar": 20,
+      "sec": "B",
+      "rs": 2,
+      "t": 40
+    },
+    {
+      "bar": 21,
+      "sec": "B",
+      "rs": 2,
+      "t": 42
+    },
+    {
+      "bar": 22,
+      "sec": "B",
+      "rs": 2,
+      "t": 44
+    },
+    {
+      "bar": 23,
+      "sec": "B",
+      "rs": 2,
+      "t": 46
+    }
+  ],
+  "leadin": 0.5,
+  "pageerrors": []
+}

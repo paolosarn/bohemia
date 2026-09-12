@@ -1,0 +1,232 @@
+{
+  "what": "E18 [he can hear it] round two: the axis card, measured",
+  "date": "9/12/26",
+  "school": "records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md",
+  "candidate": {
+    "name": "THE MARKER ON THE DOOR",
+    "row": {
+      "n": "THE MARKER ON THE DOOR",
+      "acc": "#a06a5a",
+      "root": 48,
+      "scale": [
+        0,
+        2,
+        4,
+        7,
+        9
+      ],
+      "wave": "sawtooth",
+      "kick": [
+        0,
+        4,
+        8,
+        11
+      ],
+      "bass": [
+        0,
+        4,
+        9,
+        12
+      ],
+      "hat": [
+        2,
+        6,
+        10,
+        14
+      ],
+      "inst": {
+        "b": "abyssbass",
+        "l": "brokenrosary"
+      },
+      "am": "nightpad",
+      "kit": {
+        "k": "knock",
+        "h": "tight"
+      },
+      "mel": "longs",
+      "swing": 0.1,
+      "feel": "normal",
+      "klay": "melody",
+      "ff": true,
+      "bt": 22
+    },
+    "his_words": "The marker on the door at full intensity is now one of my new favorite songs that you've made great job (Paolo 8/2)"
+  },
+  "anchor": {
+    "track": "BESAID ISLAND, FINAL FANTASY X Original Soundtrack, disc 1 track 18",
+    "composer": "composed AND arranged by Masashi Hamauzu, not Uematsu",
+    "tempo_bpm": "UNKNOWN for the original recording",
+    "key_and_mode": "UNKNOWN for the original recording. Cover entries disagree: E major on one, C#/Db minor on another",
+    "beat_entry": "the beat arrives LATE, over a picked melody that is already playing. That lateness is named as part of what listeners loved.",
+    "bass": "a played bass line sits under the melody",
+    "instrumentation": "real violin, hand percussion and picked strings, played by people",
+    "melody_shape": "a picked, patient melodic line; warm and hopeful with something sad underneath",
+    "loudness": "UNKNOWN. The recording is not in this repo and is not going to be, so the loudness match the trade performs first cannot be performed at all."
+  },
+  "anchor_sources": {
+    "track": "Besaid (Final Fantasy X theme) -- https://finalfantasy.fandom.com/wiki/Besaid_(Final_Fantasy_X_theme)",
+    "composer": "Besaid (Final Fantasy X theme), and Music of Final Fantasy X -- https://en.wikipedia.org/wiki/Music_of_Final_Fantasy_X",
+    "tempo_bpm": "every public BPM entry is a cover or arrangement (Celestial Aeon Project, Franco Albertini, Josh Barron, Jeremy Ng, Game Soundtrack Cat, PianoDreams), spread about 103 to 175 BPM. He named the original. records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md section 4(a)",
+    "key_and_mode": "same as tempo_bpm -- the entries are covers",
+    "beat_entry": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md, our own sound card, whose original-versus-remaster direction is separately FLAGGED as unverified",
+    "bass": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+    "instrumentation": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+    "melody_shape": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+    "loudness": "round one section 2: Metric AB and Reference 2 both match loudness before any A/B, and both need the reference audio in the machine to do it"
+  },
+  "render": {
+    "wav": "records/BOHEMIA_EYES_E18_MARKER.wav",
+    "seconds": 51,
+    "rate": 44100,
+    "bars": 24,
+    "step_seconds": 0.125,
+    "notes_logged": 890,
+    "drums": 266,
+    "named_voice_notes": 144,
+    "raw_scheduler_notes": 24
+  },
+  "loudness_ours": {
+    "rms_dbfs": -31.06,
+    "peak_dbfs": -7.82,
+    "crest_db": 23.24
+  },
+  "loudness_match": "UNKNOWN. The recording is not in this repo and is not going to be, so the loudness match the trade performs first cannot be performed at all.",
+  "bands": {
+    "under_150hz": 0.7735,
+    "mid_150_800hz": 0.2167,
+    "over_800hz": 0.0098
+  },
+  "axes": [
+    {
+      "axis": "TEMPO",
+      "ours": "120.0 BPM. The engine steps every 0.125 s, four steps to a beat, so the beat is 0.5 s. The drum onsets measure a median spacing of 0.13125 s, which is the 0.125 s step PLUS the swing: the row asks for 6.25 ms of it and the odd sixteenths measure 6.25 ms late. The measured spacing is not a different tempo, it is the swing showing up in the measurement, and saying so is the difference between a number and a mistake.",
+      "reference": "UNKNOWN for the original recording",
+      "reference_source": "every public BPM entry is a cover or arrangement (Celestial Aeon Project, Franco Albertini, Josh Barron, Jeremy Ng, Game Soundtrack Cat, PianoDreams), spread about 103 to 175 BPM. He named the original. records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md section 4(a)",
+      "verdict": "FIXED BY LAW, NOT A GAP",
+      "note": "120 BPM is a pillar law and the music runs the game's one clock. Whatever the original's tempo is, ours cannot move without breaking the law the fight, the walk and the mouth all keep."
+    },
+    {
+      "axis": "ENTRY OF THE BEAT",
+      "ours": "the drums start at 0.000 s, the bass at 0.000 s, and THE MELODY DOES NOT ARRIVE UNTIL 8.000 s (bar 4, the first B section)",
+      "reference": "the beat arrives LATE, over a picked melody that is already playing. That lateness is named as part of what listeners loved.",
+      "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md, our own sound card, whose original-versus-remaster direction is separately FLAGGED as unverified",
+      "verdict": "THE ARRANGEMENT IS INVERTED",
+      "note": "Ours is patient with the TUNE and instant with the BEAT: eight seconds of drums and bass before a melody note. The reference is described the other way round, a melody already playing when the beat arrives. Same patience, opposite element. This is the one axis where a change is both possible and cheap, and what to change is SOUNDS' call, not this lane's."
+    },
+    {
+      "axis": "BASS",
+      "ours": "114 bass notes on the voice named ABYSSBASS, first at 0.000 s, median pitch UNKNOWN (the bass voice is not a bare oscillator, so its pitch is not in the log); 77.3% of the song's energy sits under 150 Hz",
+      "reference": "a played bass line sits under the melody",
+      "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+      "verdict": "PRESENT ON BOTH SIDES",
+      "note": "Presence and register only, per round one. A played bass line and a step pattern are comparable as floor-holding, never as performance."
+    },
+    {
+      "axis": "SHAPE OF THE MELODY",
+      "ours": "24 melody notes, the row's own scale [0, 2, 4, 7, 9], which is major pentatonic, played from D and then F#, from D4 to D#5, one note every 1.00 s. Parsons code UDUDUUDUUDUDUUDUUDUDUUD. Longest rise 2 steps, longest fall 1 steps.",
+      "reference": "a picked, patient melodic line; warm and hopeful with something sad underneath",
+      "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+      "verdict": "MEASURED ON OURS, CITED ON THE REFERENCE",
+      "note": "One five-note pattern, moved by the engine's own root-shift table between sections. That pattern is a major pentatonic, which contains no minor second and no tritone, and that is the mechanical reason such a line reads warm and cannot read sour. It is the closest a machine gets to \"warm and hopeful\" without deciding taste, and deciding taste is DIRECTION's.",
+      "scales_per_section": [
+        {
+          "section": "B",
+          "root_shift_index": 0,
+          "pitch_classes": [
+            "D",
+            "E",
+            "F#",
+            "A",
+            "B"
+          ],
+          "is_the_rows_pattern_from": "D"
+        },
+        {
+          "section": "B",
+          "root_shift_index": 2,
+          "pitch_classes": [
+            "C#",
+            "D#",
+            "F#",
+            "G#",
+            "A#"
+          ],
+          "is_the_rows_pattern_from": "F#"
+        }
+      ]
+    },
+    {
+      "axis": "INSTRUMENTATION",
+      "ours": "a triangle oscillator through a 2200 Hz lowpass carries the tune; ABYSSBASS holds the floor; NIGHTPAD holds the room; KNOCK and TIGHT are the kit",
+      "reference": "real violin, hand percussion and picked strings, played by people",
+      "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
+      "verdict": "NOT COMPARABLE, ON PURPOSE",
+      "note": "A synth patch and a violin are not two points on one ruler. What IS checkable is the ROLE each voice plays, and that check found the thing below."
+    }
+  ],
+  "role_check": {
+    "lead_named_in_the_row": "brokenrosary",
+    "times_that_voice_was_scheduled": 0,
+    "what_actually_carries_the_tune": "a bare triangle oscillator through a lowpass",
+    "why": "the engine's melody branch calls the named lead voice ONLY when mel is 'hymn' or the lead is 'bell'. This song is mel='longs', so the melody falls to the raw oscillator branch and the named lead is never reached.",
+    "his_words_on_it": "the batch 22 verdict records the song as \"lead brokenrosary\" and says \"brokenrosary is the lead he named\"",
+    "not_this_lane_to_fix": true
+  },
+  "controls": [
+    {
+      "name": "C2a a click train at 120 reads 120",
+      "pass": true,
+      "detail": "120.0"
+    },
+    {
+      "name": "C2b the same train at half speed reads 60 and NOT 120",
+      "pass": true,
+      "detail": "60.0"
+    },
+    {
+      "name": "C3a a melody against itself reads identical",
+      "pass": true,
+      "detail": "1.0"
+    },
+    {
+      "name": "C3b the same melody against its own inversion reads maximally different",
+      "pass": true,
+      "detail": "0.0"
+    },
+    {
+      "name": "C4 a planted onset at 1.25 s is found within 30 ms",
+      "pass": true,
+      "detail": "found [1.24]"
+    },
+    {
+      "name": "C1a the render is sound, not silence",
+      "pass": true,
+      "detail": "peak 0.4067"
+    },
+    {
+      "name": "C1b the note log can see EVERY way this engine makes a note",
+      "pass": true,
+      "detail": "24 raw scheduler notes, 144 named-voice notes, 266 drum hits"
+    },
+    {
+      "name": "C1c the audio agrees with the engine schedule on the first onset",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "C1c the audio agrees with the engine schedule on the first onset",
+      "pass": true,
+      "detail": "audio -0.010000000000000009 vs schedule 0.0"
+    }
+  ],
+  "flags_for_the_coordinator": [
+    "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md describes the original-versus-remaster difference in the opposite direction to every source reachable in round one, and implies the wrong composer for the one track he named. Every reference value above that leans on that law is marked with it.",
+    "The lead voice named in the song row and in his own verdict is scheduled zero times in twenty-four bars. SOUNDS and COMBAT own the engine; this lane only measured it."
+  ],
+  "blind_spots": [
+    "no loudness match was performed, because the reference recording is not in this repo and is not going to be. The trade matches loudness first; we cannot.",
+    "the reference column is description, not measurement. Nothing here compares two waveforms, and nothing here is a score.",
+    "the bass voice is a rack voice, so its pitch is not in the note log. Its register is reported as band energy instead of as a number of semitones.",
+    "twenty-four bars is the arrangement this measured. A longer run reaches sections C and D, which schedule differently."
+  ]
+}

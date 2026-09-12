@@ -2048,6 +2048,27 @@ GATES = [
      "frozen at two and may only go down. A claim that goes stale because a gate stopped "
      "carrying its check is an immediate red, not a ratchet, because that is exactly the "
      "rot E11 found in CLAUDE.md's own law index.", True),
+    ('HE CAN HEAR IT', ['python3', 'tools/bohemia_eyes_hear.py', '--gate'],
+     "EYES AND EARS lane 17, 9/12, E18 [he can hear it]: THE ONE SONG HE LIKES, MEASURED "
+     "AGAINST THE ONE HE SENT. Both sides are named by him: THE MARKER ON THE DOOR (Paolo "
+     "8/2, 'one of my new favorite songs') against BESAID ISLAND, FFX Original Soundtrack "
+     "disc 1 track 18, composed AND arranged by Masashi Hamauzu, the original (Paolo 9/7). "
+     "The song is rendered through the ENGINE'S OWN scheduler in an offline context, with "
+     "synthV, drumV and createOscillator wrapped, so the note list is what the engine "
+     "actually played and not a re-reading of the row. Four axes measured, one declared "
+     "uncomparable: 120 BPM fixed by law and never a gap; the drums and bass start at 0.000 "
+     "s and THE MELODY DOES NOT ARRIVE UNTIL 8.000 s, which is the reference's patience "
+     "pointed at the opposite element; the bass is present with 77% of the energy under 150 "
+     "Hz; one major-pentatonic pattern moved by the engine's root-shift table. AND THE ROLE "
+     "CHECK FOUND THAT THE LEAD VOICE NAMED IN THE ROW AND IN HIS OWN VERDICT, BROKENROSARY, "
+     "IS SCHEDULED ZERO TIMES: for mel='longs' the melody falls to a bare oscillator branch "
+     "that never reaches the named lead. This gate holds three things and ratchets nothing, "
+     "because nothing here can only get worse: every reference value carries the source that "
+     "says it (a value that loses its source is a number somebody made up); the shipped song "
+     "row still matches the row that was measured, or the numbers describe a song that no "
+     "longer exists; and all nine controls pass, including the octave-error control round "
+     "one made mandatory and the control for the note log being blind to half the ways this "
+     "engine makes a note, which is a mistake this lane made and turned into a control.", True),
     ('LOCKED RATCHET', ['node', 'gates/locked_ratchet_gate.js'],
      "EYES AND EARS lane 17, 9/12, E17 [locked ignored]: A RULING HE MARKED LOCKED THAT THE "
      "BUILD CONTRADICTS. 1,046 lines in laws/ carry the word; 856 are a real lock, 330 of those "
