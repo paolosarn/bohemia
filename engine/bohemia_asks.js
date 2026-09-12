@@ -151,10 +151,22 @@
        want, and the thing that visibly moves is the shelf. */
     function readShelf(snap) {
       return arr(pick(snap, 'shelves')).filter(function (s) {
-        return s && s.empty === true;         /* the world says empty, not us */
+        /* *** TWO SHELF FACTS, AND BOTH ARE THE WORLD'S OWN. (9/13, [first ask].) ***
+           This read `empty === true` only, so the shelf could not ask for anything
+           until a good was ALREADY GONE -- which is far too late to be the first
+           thing a stranger meets, and measured on the real surface nothing is gone
+           on day one (food 8.4 days, water 59.6, meds 30.4). The countdown is what
+           is true at minute one.
+           SO IT ALSO TAKES THE SCARCEST, AND THERE IS NO THRESHOLD IN THAT. "The
+           thing this valley has least of" is always exactly one good, whatever the
+           numbers are, and the nightfall card has shown it with no threshold since
+           THE-VALLEY-RUNS-OUT shipped. Both flags are set by the world and read
+           here; this file still decides nothing about how few days is few. */
+        return s && (s.empty === true || s.scarcest === true);
       }).map(function (s) {
         return { changes: 'shelf_refills', who: s.who, where: s.where,
-                 about: s.good, from: 'the block ledger' };
+                 about: s.good, from: 'the block ledger',
+                 gone: s.empty === true };   /* gone, or merely the least of */
       });
     },
     /* THE GRID. A dead circuit is the most visible thing in this valley:

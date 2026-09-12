@@ -10872,6 +10872,96 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 31 [first ask] THE-FIRST-ASK-A-STRANGER-MEETS, SHIPPED. QUESTS, BUILD.
+  slices/BOHEMIA_CITY_WORLD.html   ctAskSnapshot rewritten in map-cell space + ctFirstAsks()
+  engine/bohemia_asks.js           the shelf reader also takes the SCARCEST good, not only GONE
+  gates/first_ask_gate.js          50 passed, 0 failed, REGISTERED the same round
+  BUILD 9/13j - THE FIRST THREE ASKS
+  TAB: RUN (the walked city). The three asks are mechanism and are NOT ON SCREEN YET.
+
+THE THREE, MEASURED ON THE WALKED SURFACE AT MINUTE ONE, AND ALL THREE ARE A WALK:
+  1. the shelf   food is the scarcest good, 8.4 days left, at the market (47,50)
+  2. the grid    circuit 757 is dark, one cell over (47,49)
+  3. the border  Mob ground underfoot, Church ground at (50,46)
+
+*** THE THING WORTH READING IN THIS WHOLE BLOCK, AND IT IS A CORRECTION TO MY OWN
+LAST TWO ROUNDS. I SHIPPED A CONCLUSION THAT WAS MEASURED CAREFULLY AND WAS STILL
+WRONG, BECAUSE THE QUESTION WAS WRONG. ***
+
+Last round I wrote, in a shipped comment, that this valley has no circuits: 120,801
+cells probed around the waking block, zero real ones. That number is real. It is
+also meaningless, because the power grid and the turf map are both keyed by MAP
+CELL and I was asking in the player's FINE coordinates. FN is 128. The player's
+feet are 6205,6271 and the cell is 48,48. I was asking a 96-wide map about cell
+6,205, which answers "nothing here" forever, for every cell, every seed, every
+player. In the right space the same grid holds 3,494 circuits, 3,136 of them dark,
+one of them a single cell from where you wake up, and the ground under your feet
+belongs to the Mob.
+
+It cost the game something real. The one ask a stranger met in the first ten
+minutes was {changes:'light_comes_back', about:-1} -- a circuit numbered MINUS ONE
+-- because POWER.at answers {live:false,id:-1} for EVERY coordinate in existence,
+so a wrong question still gets a confident answer. The first sentence the world
+said to a new player was false, and 38 green checks said it was fine.
+
+THE LESSON, WHICH IS THE ONE THIS SEAM ALREADY LEARNED ONCE ABOUT PEOPLE AND DID
+NOT GENERALISE:
+
+    A READER THAT ANSWERS "NOTHING" EVERYWHERE IS NOT A QUIET WORLD. IT IS A
+    WRONG QUESTION. AND "QUIET IS A LEGAL ANSWER" IS EXACTLY WHAT LETS IT HIDE.
+
+The seam's own header confesses the identical bug about people (it asked for
+residents with cell coordinates when people are keyed by neighbourhood, found
+nobody in 289 cells, and read as a quiet valley). Same bug, different axis, one
+round apart. Anywhere a seam reads another system's grid, THE SPACE IS THE FIRST
+THING TO CHECK, before the logic, before the data.
+
+WHAT ELSE THIS FIXED, both found by the same look:
+  - THE BORDER WAS NAILED TO THE STANDING WEB. A block with an owner could only be
+    seen if somebody also refused to vouch for you -- two unrelated systems sharing
+    one `if`. At minute one the valley has no opinion of you yet, so the border
+    could not fire in the first ten minutes by construction. It is its own read now.
+  - AND THE BORDER IS NOT THE GROUND UNDER YOU. Measured: all 9,216 cells in this
+    valley are owned by somebody, so "this block has an owner" is true everywhere
+    and is a label, not a want. The want is where your ground stops and somebody
+    else's starts, so it walks out to the first cell held by a different name.
+  - THE ASKS NAME A PLACE YOU GO TO, not the cell you are standing on. His row:
+    "each checkable by walking somewhere." An ask about your own feet is checkable
+    by standing still.
+  - THE SHELF CAN FIRE AT MINUTE ONE AT ALL. It read `empty === true` only, so it
+    was silent until a good was already GONE, which is far too late to be the first
+    thing anybody meets. It also takes the SCARCEST now, and there is no threshold
+    in that: "the least of" is always exactly one good, which is the same no-number
+    rule the nightfall card has used since THE-VALLEY-RUNS-OUT shipped.
+  - AND IT DOES NOT READ valleyRunsOut(). That function WRITES L.__gone, which is
+    how nightfall knows what ran out TONIGHT rather than what is merely true now.
+    Calling it from a reader would set the mark early and kill that beat silently,
+    forever. A reader must not cost the world a moment.
+
+HIS THIRD EXAMPLE IS NOT HERE AND IS NOT FAKED. The row named a shelf, a bill, and
+a person who owes. The shelf is real. The other two are the same change,
+debt_moves, and it carries proof:null in the generator because nothing in the repo
+owns a balance with a name on it that anybody can clear. The valley agrees: owed to
+you 0, due tomorrow 0, favours 0, purse empty on day 0. So the third ask is the
+BORDER, which does run, and the gate asserts debt_moves is still unwired so nobody
+can close this row later by writing a confident table row. [PENDING Paolo] is not
+needed; this is a wiring job somebody owns, not a ruling.
+
+THE GATE BITES, PROVED WITH THREE MUTATIONS, not claimed:
+  fine coordinates put back      -> 10 red (and the ask is about -1 again)
+  the id !== -1 guard removed    ->  3 red
+  the ask naming your own feet   ->  3 red
+It walks to every place an ask names and re-opens it against the live world: the
+circuit id must be THAT id at THAT cell and still dark, the border cell must be
+held by THAT faction and a different one from underfoot, the good must be the one
+the real shelf has least of, and the market's cell must be the market.
+
+NOT DONE, AND SAID PLAINLY: THE THREE ASKS ARE NOT DRAWN ON SCREEN. They run in
+the frame the player looks at and are published as ctFirstAsks(), but no panel
+shows them. The row's own words are "these are mechanism", and where a thing sits
+on screen is his by eye and UI's lane, so I did not invent a panel in somebody
+else's system. That is the one thing between this row and a player seeing it.
+
 ROUND 30 [company in asks] YOUR-PEOPLE-SHOW-UP-IN-THE-ASKING, SHIPPED. QUESTS, BUILD.
   engine/bohemia_company.js        who is yours, computed and never stored
   gates/company_in_asks_gate.js    53 passed, 0 failed, REGISTERED the same round

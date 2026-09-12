@@ -64188,10 +64188,22 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
        want, and the thing that visibly moves is the shelf. */
     function readShelf(snap) {
       return arr(pick(snap, 'shelves')).filter(function (s) {
-        return s && s.empty === true;         /* the world says empty, not us */
+        /* *** TWO SHELF FACTS, AND BOTH ARE THE WORLD'S OWN. (9/13, [first ask].) ***
+           This read `empty === true` only, so the shelf could not ask for anything
+           until a good was ALREADY GONE -- which is far too late to be the first
+           thing a stranger meets, and measured on the real surface nothing is gone
+           on day one (food 8.4 days, water 59.6, meds 30.4). The countdown is what
+           is true at minute one.
+           SO IT ALSO TAKES THE SCARCEST, AND THERE IS NO THRESHOLD IN THAT. "The
+           thing this valley has least of" is always exactly one good, whatever the
+           numbers are, and the nightfall card has shown it with no threshold since
+           THE-VALLEY-RUNS-OUT shipped. Both flags are set by the world and read
+           here; this file still decides nothing about how few days is few. */
+        return s && (s.empty === true || s.scarcest === true);
       }).map(function (s) {
         return { changes: 'shelf_refills', who: s.who, where: s.where,
-                 about: s.good, from: 'the block ledger' };
+                 about: s.good, from: 'the block ledger',
+                 gone: s.empty === true };   /* gone, or merely the least of */
       });
     },
     /* THE GRID. A dead circuit is the most visible thing in this valley:
@@ -64896,25 +64908,157 @@ function ctAskSnapshot(){
   /* NOBODY STANDING HERE MEANS NOBODY ASKS. An ask is a person in front of you,
      not a notification, so an empty block is silent by design. */
   if(!who) return snap;
-  where=hx+','+hy;
 
-  /* THE GRID. A dark cell under your feet. */
+  /* ====================================================================== */
+  /* *** EVERY PLACE IN THIS SEAM IS A MAP CELL, AND THAT IS THE WHOLE BUG   */
+  /*     I SHIPPED LAST ROUND. (9/13, [first ask].) ***                      */
+  /*                                                                        */
+  /* hx,hy are the player's FINE coordinates. The turf map and the power     */
+  /* grid are both keyed by MAP CELL, and the city converts between them the */
+  /* one same way everywhere else in this file: (hx/FN)|0. Measured: FN is   */
+  /* 128, the player's feet are 6205,6271, and the cell is 48,48.            */
+  /*                                                                        */
+  /* Asking either grid in fine coordinates is asking about a cell 6,205     */
+  /* across a map that is 96 wide, so both answer "nothing here" -- FOREVER, */
+  /* for every cell, for every player, in every seed. That is what I read as */
+  /* "the valley has no circuits" last round after probing 120,801 cells. It */
+  /* was never the valley. In the right space the same grid holds 3,494      */
+  /* circuits, 3,136 of them dark, with a dark one ONE CELL from the waking  */
+  /* block, and the block underfoot belongs to the Mob. The lesson is the    */
+  /* one this seam already learned once about people and did not generalise: */
+  /* A READER THAT ANSWERS "NOTHING" EVERYWHERE IS NOT A QUIET WORLD, IT IS  */
+  /* A WRONG QUESTION, and quiet being a legal answer is exactly what hides  */
+  /* it. So the space is converted ONCE, here, and named.                    */
+  /* ====================================================================== */
+  var cx=(hx/FN)|0, cy=(hy/FN)|0;
+  where=cx+','+cy;
+  var N=0; try{ N=(om&&om.n)|0; }catch(_e){ N=0; }
+  function inMap(x,y){ return N>0&&x>=0&&y>=0&&x<N&&y<N; }
+  /* THE NEAREST THING, WHICH IS ALSO WHY IT IS A WALK. His row: "each
+     checkable by walking somewhere." An ask about the cell under your feet is
+     checkable by standing still, which is not a want, it is a label. So the
+     readers below look OUTWARD and stop at the first hit, and the place the ask
+     names is the place you have to go. The rings stop at the edge of the map,
+     so there is no number in here that is not the map's own size. */
+  function nearest(hit){
+    if(N<=0) return null;
+    for(var r=0;r<=N;r++){
+      for(var dx=-r;dx<=r;dx++) for(var dy=-r;dy<=r;dy++){
+        if(Math.max(Math.abs(dx),Math.abs(dy))!==r) continue;
+        var x=cx+dx, y=cy+dy; if(!inMap(x,y)) continue;
+        var got=null; try{ got=hit(x,y); }catch(_e){}
+        if(got) return got;
+      }
+    }
+    return null;
+  }
+
+  /* THE GRID. A dark block you can walk to.
+     *** AND IT HAS TO BE A CIRCUIT THAT EXISTS. *** POWER.at answers
+     {live:false, id:-1} for EVERY coordinate in existence -- measured by asking
+     it about NaN and about a cell a million away -- so id:-1 is the grid's own
+     way of saying THERE IS NO CIRCUIT HERE, and without this test the one ask a
+     stranger met was about a circuit that does not exist, with `about` literally
+     -1. The first thing the world said to a new player was false.
+     Measured in the right space: the cell under the waking block has no circuit
+     of its own, and circuit 757 is one cell away and dark. So this reader is
+     correctly silent about your feet and correctly loud about the block next
+     door, which is the difference between a label and a want. */
+  var _dark=nearest(function(x,y){
+    var c=POWER&&POWER.at?POWER.at(x,y):null;
+    if(c&&c.live===false&&c.id!=null&&c.id!==-1)
+      return {live:false,who:who,where:x+','+y,id:c.id};
+    return null;
+  });
+  if(_dark) snap.circuits.push(_dark);
+
+  /* THE SHELF, WHICH IS THE ONE THING THAT IS TRUE AT MINUTE ONE. (9/13.)
+     The seam's own header used to say "THE SHELF has no live per-block ledger
+     reachable from here yet" and fed the reader nothing. That stopped being
+     true: mktShelf() is live in this file and carries daysLeft per good off the
+     real economy. Measured: water 59.6 days, food 8.4, meds 30.4.
+
+     TWO SHELF FACTS, AND BOTH ARE THE WORLD'S OWN, NEITHER INVENTED HERE:
+     GONE is daysLeft <= 0 and SCARCEST is the smallest daysLeft. That is the
+     same rule valleyRunsOut() already runs at nightfall, with no threshold in
+     it, because "the least of" is always exactly one good and needs no number.
+
+     AND IT IS READ OFF THE SHELF, NOT OFF valleyRunsOut(), FOR TWO MEASURED
+     REASONS. One: valleyRunsOut() reads MKT_LEDGER raw and answers null until
+     somebody trades, so at minute one -- the only ten minutes this row is about
+     -- it has no answer at all. mktShelf() goes through mktLedger(), which
+     builds the ledger the first time it is asked, so the fact exists from the
+     first minute whether or not the player has opened a market. Two, and this
+     is the one that would have been a silent bug: valleyRunsOut() WRITES
+     L.__gone, which is how nightfall knows what ran out TONIGHT as opposed to
+     what is simply true now. Calling it from here would set that mark early and
+     the real nightfall call would then find nothing new, killing the beat for
+     good. A reader must not cost the world a moment. So when nightfall HAS run,
+     its own answer is used; otherwise the shelf is read, and nothing is written.
+
+     THE PLACE IS THE MARKET, NOT YOUR FEET, for the same walking reason as the
+     grid: the hub is where the shelf is, and mktHub() is the city's own answer
+     to which one you trade at. */
   try{
-    var c=POWER&&POWER.at?POWER.at(hx,hy):null;
-    if(c&&c.live===false) snap.circuits.push({live:false,who:who,where:where,id:c.id});
+    var _v=(typeof VALLEY_TONIGHT!=='undefined'&&VALLEY_TONIGHT)?VALLEY_TONIGHT:null;
+    var _gone=[], _sc=null;
+    if(_v){
+      _gone=(_v.gone||[]).slice();
+      if(_v.scarcest&&_v.scarcest.good) _sc={good:_v.scarcest.good,daysLeft:_v.scarcest.daysLeft};
+    }else{
+      var _sh=[]; try{ _sh=mktShelf()||[]; }catch(_e2){ _sh=[]; }
+      for(var _i=0;_i<_sh.length;_i++){
+        var _r=_sh[_i]; if(!_r||_r.daysLeft==null) continue;   /* nobody needs it: not a countdown */
+        if(_r.daysLeft<=0){ _gone.push(_r.good); continue; }
+        if(!_sc||_r.daysLeft<_sc.daysLeft) _sc={good:_r.good,daysLeft:_r.daysLeft};
+      }
+    }
+    var _shw=where;
+    try{ var _hb=mktHub(); if(_hb&&_hb.x!=null&&_hb.y!=null) _shw=(_hb.x|0)+','+(_hb.y|0); }catch(_e3){}
+    for(var _g=0;_g<_gone.length;_g++)
+      snap.shelves.push({empty:true,scarcest:false,who:who,where:_shw,good:_gone[_g]});
+    if(_sc&&_sc.good)
+      snap.shelves.push({empty:false,scarcest:true,who:who,where:_shw,
+                         good:_sc.good,daysLeft:_sc.daysLeft});
   }catch(_e){}
 
-  /* WHAT PEOPLE SAY, and THE BORDER, which both wait on the same ruling. */
+  /* THE BORDER, WHICH IS A FACT OF ITS OWN AND USED TO BE NAILED TO ANOTHER.
+     (9/13, [first ask].) This lived INSIDE the standing test below, so a block
+     with an owner could only ever be seen if somebody also refused to vouch for
+     you -- two unrelated systems, one `if`, and the border silent whenever the
+     valley had no opinion of you yet. At minute one it never has one, so the
+     border could not fire in the first ten minutes by construction.
+
+     AND THE BORDER IS NOT THE GROUND UNDER YOU. Measured: every one of the
+     9,216 cells in this valley is owned by somebody, so "this block has an
+     owner" is true everywhere and is therefore not a want at all. The want is
+     where YOUR ground stops and somebody else's starts, so this walks out to
+     the first cell held by a different name. Measured from the waking block:
+     Mob ground underfoot, Church two cells away. That is a border, and it is a
+     walk, and it is somebody's to take. */
+  try{
+    var _g2=turfGrid();
+    var _mine=_g2?_g2.at(cx,cy):null;
+    if(_mine&&_mine.faction){
+      var _b=nearest(function(x,y){
+        var o=_g2.at(x,y);
+        if(o&&o.faction&&o.faction!==_mine.faction)
+          return {blocked:true,who:who,where:x+','+y,owner:o.faction};
+        return null;
+      });
+      if(_b) snap.borders.push(_b);
+    }
+  }catch(_e){}
+
+  /* WHAT PEOPLE SAY. Measured at minute one: nobody will refuse to vouch for
+     you, because you have not done anything yet, so this is honestly silent in
+     the first ten minutes and is NOT one of the three. It stays wired for the
+     hour after that, when the standing web has something to say. */
   try{
     if(typeof BohemiaStanding!=='undefined'&&BohemiaStanding.whoWont){
       var minds=ctMindsList(), now=ctMinuteNow();
       var wont=(minds&&minds.length)?BohemiaStanding.whoWont(minds,'@',now,{limit:1}):[];
-      if(wont&&wont.length){
-        snap.talk.push({against:true,who:who,where:where,about:'@'});
-        var h=null;
-        try{ var g=turfGrid(); h=g?g.at(hx,hy):null; }catch(_e2){}
-        if(h) snap.borders.push({blocked:true,who:who,where:where,owner:h});
-      }
+      if(wont&&wont.length) snap.talk.push({against:true,who:who,where:where,about:'@'});
     }
   }catch(_e){}
   return snap;
@@ -64926,7 +65070,39 @@ function ctAskNow(){
 /* THE REAL SURFACE HAS TO BE DRIVABLE OR THE GATE IS GUESSING (7/18 VERIFY ON
    THE REAL SURFACE). These are the only two things published, and both are
    read-only. */
-try{ window.ctAskSnapshot=ctAskSnapshot; window.ctAskNow=ctAskNow; }catch(_e){}
+/* ctFirstAsks() -- EVERY ask the running valley has for you right now, in the
+   world's own order, not one.
+
+   THE ROW ASKED FOR THREE AND offer() HANDS BACK ONE, so this is the honest way
+   to see all of them without touching the pick. offer() choosing the first is a
+   stated non-ruling ("which one to offer first when several are live is a ruling
+   nobody has made"), and nothing here changes it: this filters the generator's
+   own candidates by the generator's own test and adds no order, no score and no
+   preference. It exists so the first three can be PROVEN to fire, and so the
+   surface can show them, which is rule 7: not shipped until it is in the walked
+   surface.
+
+   Measured at minute one on the waking block, and these are the three:
+     1. the shelf   food is the scarcest good, 8.4 days, at the market (47,50)
+     2. the grid    circuit 757 is dark, one cell over (47,49)
+     3. the border  Mob ground underfoot, Church ground at (50,46)
+   His fourth example, a bill or a person who owes, is NOT here and is not
+   faked: debt_moves carries proof:null in the generator because nothing in the
+   repo owns a balance with a name on it that anybody can clear, and the valley
+   agrees -- owed to you 0, due tomorrow 0, favours 0, purse empty on day 0. */
+function ctFirstAsks(){
+  try{
+    var snap=ctAskSnapshot();
+    return BohemiaAsks.candidates(snap).filter(function(c){ return BohemiaAsks.isAsk(c); })
+      .map(function(c){
+        var ch=BohemiaAsks.CHANGES[c.changes];
+        return { changes:c.changes, who:c.who, where:c.where, about:c.about,
+                 from:c.from, visible:ch.says, does:ch.does, draft:true };
+      });
+  }catch(_e){ return []; }
+}
+try{ window.ctAskSnapshot=ctAskSnapshot; window.ctAskNow=ctAskNow;
+     window.ctFirstAsks=ctFirstAsks; }catch(_e){}
 
 /* __YOU_CATCH_A_LIAR_BY_WALKING_TO_THE_FENCE__ -- the same running valley, read as
    something somebody SAYS rather than something they want. (9/12, QUESTS

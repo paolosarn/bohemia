@@ -3382,6 +3382,28 @@ GATES = [
      'and instruments, and skipping them by pattern would let a real gate hide behind the '
      'pattern. It caught ITSELF as an orphan on its first run, which is the behaviour you want',
      False),
+    ('FIRST ASK', ['node', 'gates/first_ask_gate.js'],
+     'QUESTS row [first ask] THE-FIRST-ASK-A-STRANGER-MEETS, 9/13. The row: with the cold open '
+     'deferred and [wake near] moving the spawn, the first thing a player meets that wants '
+     'something is an ASK from the world, so author the first three that can fire in the first '
+     'ten minutes from what already runs, each checkable by walking somewhere. THE REASON THIS '
+     'GATE IS SHAPED THE WAY IT IS: the generator and its own gate were already 38/0 green while '
+     'the one ask a stranger actually met was {changes:light_comes_back, about:-1} -- a circuit '
+     'numbered MINUS ONE. Two bugs, the same bug twice: POWER.at answers {live:false,id:-1} for '
+     'EVERY coordinate that exists (proved by asking it about NaN and a cell a million away), AND '
+     'the seam was asking in FINE coordinates when the power grid and the turf map are both keyed '
+     'by MAP CELL -- (hx/FN)|0, FN 128, feet 6205,6271, cell 48,48. Asking a 96-wide map about '
+     'cell 6,205 answers nothing forever, which is how I concluded out loud that this valley had '
+     'no circuits after probing 120,801 of them. In the right space it holds 3,494 circuits, '
+     '3,136 dark, one a single cell from the waking block, and the ground underfoot is the Mob. '
+     'THE MEASUREMENT WAS NOT WRONG, THE QUESTION WAS -- a reader that answers nothing everywhere '
+     'is not a quiet world, and \'quiet is a legal answer\' is what lets it hide. So the gate '
+     'walks to every place an ask names and re-opens it against the live world: the circuit id '
+     'must be that id at that cell and still dark, the border cell must be held by that faction '
+     'and a different one from underfoot, the good must be the one the real shelf has least of. '
+     'Three mutations proved it bites: fine coordinates back -> 10 red, the id!=-1 guard removed '
+     '-> 3 red (and the ask is about -1 again), the ask naming your own feet -> 3 red. Runs 50/0',
+     True),
     ('ASKS VISIBLE', ['node', 'gates/asks_visible_gate.js'],
      'QUESTS row [asks exist], shipped 9/6 (6d2d765) and NEVER RUN BY THE SUITE until 9/7. Registered by PLUMBER under the 9/7 law "a gate that never runs is not a gate". Runs 38/0. Its own subject: the world does the asking, and an ask that changes nothing visible is not an ask',
      True),
