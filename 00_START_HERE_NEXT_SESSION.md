@@ -17116,6 +17116,20 @@ QUEUE STATE: [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [plates cost] BB-THE-FIGHT-EATS-TAPE, then [enemies flee] BB-THE-ROUT.
 
+*** AND THE SECOND GATE PASS AFTER THE MERGE FOUND A COIN FLIP IN THIS LANE'S OWN GATE. PICK THIS
+UP FIRST NEXT ROUND, BEFORE [plates cost]. *** combat_entry_gate read 43/0 before the rebase onto
+main and 42/1 after it, which looks exactly like a regression somebody else's commit caused. IT IS
+NOT: nine runs on the SAME tree read 43/0 seven times, 41/2 once and 40/3 once, so it is roughly a
+ONE-IN-FIVE FLAKE and it has nothing to do with the merge. THE FLAKING ARMS ARE BOTH V203's
+FORCED-PARTY ONES, and their own failure text names the cause: on a bad run the roster arrives with
+0 men in it, the party size is 1 and the objective is null, so the gate is measuring a fight that
+never got a party -- the STAGING sometimes fails to deliver one. The game's wire is not in doubt
+(seven runs in nine prove it); the checker is. NOT FIXED IN V210 because it is not that row, and
+V210's own gate is stable at 9/0. AN UNSTABLE CHECKER IS WORTH LESS THAN NO CHECKER: it teaches you
+to ignore a red, which is exactly how the V206 key bug got to main. Same class as the V202
+beat-ghost statistic this lane already replaced (three runs read 2.5, 5.0 and 31.3 against a
+threshold of 3).
+
 STANDING LESSON FROM THIS ROUND, AND IT IS THE MOST USEFUL THING IN THIS BLOCK: EVERY ONE OF THE
 FOUR ROWS WAS WIRING, NOT INVENTION. The pull-back, the loot in G.rc, the city's clock, the medic's
 pick-up rule -- all four were already built and nothing consumed them. MEASURE THE BLOB BEFORE
