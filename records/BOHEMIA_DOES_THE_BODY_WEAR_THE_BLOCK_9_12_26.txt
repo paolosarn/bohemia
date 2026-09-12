@@ -72,6 +72,36 @@ something against another colour -- the law's own line about the Bloods taking
 red to contrast the Crips' blue. So the miss rate above is for AFFILIATED bodies,
 and civilians are reported, never counted as misses.
 
+*** AND A FIFTH HOLE, WHICH CORRECTS THIS TOOL'S OWN FIRST REPORT. ***
+
+THERE ARE TWO LIVE FACTION COLOUR TABLES AND THEY DO NOT AGREE.
+  engine/BOHEMIA_faction_colours.json  -- the one the board's 9/7 state note calls
+     live, measured off the wardrobe he actually chose
+  engine/bohemia_dress.js FACTION_LOOK -- a second set of hexes for the same names
+
+  faction     live json  dress.js   apart
+  Anarchists  #573f2a    #c026a0      160   different colour entirely
+  Blues       #2d5fb3    #2e6fae       17
+  Caravans    #6c5b41    #caa05a      119   different colour entirely
+  Cartel      #434042    #5c302a       38
+  Church      #826c3e    #ffd75c      167   different colour entirely
+  Homeless    #968b82    #b8642a      102   different colour entirely
+  Mob         #572f2a    #b08a2a      127   different colour entirely
+  Network     #465362    #1fbf9c      129   different colour entirely
+  Reds        #773229    #dc2820      102   different colour entirely
+  Remnants    #4c5238    #9aa23a      112   different colour entirely
+  Trades      #496558    #d07a2a      144   different colour entirely
+  Volunteers  #c1bdb5    #5aae6a      128   different colour entirely
+
+  10 of 12 factions are a DIFFERENT COLOUR in the two files, by more than
+  the game's own family tolerance. Church is gold in one and olive-brown in the
+  other; Network is teal in one and slate in the other.
+
+  CLAUDE.md calls a contradiction between two live files a BUG, not an
+  interpretation choice. Until it is settled, "the faction's colour" has no
+  single answer to dress anybody in -- and my own first pass measured the wrong
+  one, which is exactly the rot the truth hierarchy exists to catch.
+
 READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW
 WHAT IT IS COUNTING. Hue is read off the PIXELS THE GAME BLITTED, in twelve bins,
 ignoring grey -- so "wrong colour" here means the body is visibly a different hue,

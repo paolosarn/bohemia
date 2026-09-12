@@ -304,6 +304,48 @@ const wait = (ms) => new Promise(r => setTimeout(r, ms));
   L.push('red to contrast the Crips\' blue. So the miss rate above is for AFFILIATED bodies,');
   L.push('and civilians are reported, never counted as misses.');
   L.push('');
+  /* *** THE FIFTH HOLE, AND IT CORRECTS THIS TOOL'S OWN FIRST REPORT. ***
+     The first run measured the faction colours in engine/bohemia_dress.js and found 16
+     clashing pairs. Then the board's own 9/7 state note turned up: "the faction colour
+     table IS live (engine/BOHEMIA_faction_colours.json, measured off the wardrobe he
+     chose)". A DIFFERENT FILE. Both are live, both name the same factions, and they do
+     not agree -- so the first number was measured on a table that is not the one the
+     coordinator calls current. Read on disk rather than in the page, because the walked
+     city loads neither. */
+  const liveJson = JSON.parse(fs.readFileSync(path.join(REPO, 'engine/BOHEMIA_faction_colours.json'), 'utf8')).factions;
+  const dressSrc = fs.readFileSync(path.join(REPO, 'engine/bohemia_dress.js'), 'utf8');
+  const lookBlk = (dressSrc.match(/var FACTION_LOOK=\{([\s\S]*?)\n  \};/) || [, ''])[1];
+  const look = {};
+  for (const m of lookBlk.matchAll(/(\w+)\s*:\s*\{[^}]*?color:'(#\w{6})'/g)) look[m[1]] = m[2];
+  const rgbOf = (h) => { const n = parseInt(String(h).replace('#', ''), 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+  const dist = (x, y) => { const A = rgbOf(x), B = rgbOf(y);
+    return Math.round(Math.sqrt((A[0]-B[0])**2 + (A[1]-B[1])**2 + (A[2]-B[2])**2)); };
+  const pairs = Object.keys(liveJson).sort()
+    .filter(k => look[k.toUpperCase()] && liveJson[k].hex)
+    .map(k => [k, liveJson[k].hex, look[k.toUpperCase()], dist(liveJson[k].hex, look[k.toUpperCase()])]);
+  const apart = pairs.filter(x => x[3] > 95);
+  L.push('*** AND A FIFTH HOLE, WHICH CORRECTS THIS TOOL\'S OWN FIRST REPORT. ***');
+  L.push('');
+  L.push('THERE ARE TWO LIVE FACTION COLOUR TABLES AND THEY DO NOT AGREE.');
+  L.push('  engine/BOHEMIA_faction_colours.json  -- the one the board\'s 9/7 state note calls');
+  L.push('     live, measured off the wardrobe he actually chose');
+  L.push('  engine/bohemia_dress.js FACTION_LOOK -- a second set of hexes for the same names');
+  L.push('');
+  L.push('  ' + 'faction'.padEnd(12) + 'live json'.padEnd(11) + 'dress.js'.padEnd(11) + 'apart');
+  for (const x of pairs)
+    L.push('  ' + x[0].padEnd(12) + x[1].padEnd(11) + x[2].padEnd(11) + String(x[3]).padStart(5) +
+      (x[3] > 95 ? '   different colour entirely' : ''));
+  L.push('');
+  L.push('  ' + apart.length + ' of ' + pairs.length + ' factions are a DIFFERENT COLOUR in the two files, by more than');
+  L.push('  the game\'s own family tolerance. Church is gold in one and olive-brown in the');
+  L.push('  other; Network is teal in one and slate in the other.');
+  L.push('');
+  L.push('  CLAUDE.md calls a contradiction between two live files a BUG, not an');
+  L.push('  interpretation choice. Until it is settled, "the faction\'s colour" has no');
+  L.push('  single answer to dress anybody in -- and my own first pass measured the wrong');
+  L.push('  one, which is exactly the rot the truth hierarchy exists to catch.');
+  L.push('');
   L.push('READ THIS BEFORE DRAWING A CONCLUSION. A NUMBER IS NOT A FINDING UNTIL YOU KNOW');
   L.push('WHAT IT IS COUNTING. Hue is read off the PIXELS THE GAME BLITTED, in twelve bins,');
   L.push('ignoring grey -- so "wrong colour" here means the body is visibly a different hue,');

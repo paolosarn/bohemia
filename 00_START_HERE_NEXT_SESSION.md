@@ -8488,13 +8488,26 @@ FOUR HOLES, ALL UPSTREAM OF IT, ALL VERIFIED. ***
   cloth. A valley in uniform has no signal in it, because a colour only means something
   against another colour. So the rule must be for AFFILIATED bodies, and civilians must
   stay dun. [PENDING coordinator] if anyone disagrees, say so before the fix is built.
-- A SECOND, SMALLER FINDING, ROUTED NOT GATED: the law's test 3 (two factions may not own
-  the same hue) already has a gate, faction_colour_gate, green at 17/17 with clashes
-  pinned at 4. Measured with the DRESS MODULE'S OWN family tolerance instead (colorDist
-  <= 95, the number the game itself uses to decide two colours are one family), SIXTEEN of
-  the 66 faction pairs clash -- TRADES and HOMELESS are 33 apart, MOB and TRADES 36. The
-  two rulers disagree about the same law. I did NOT add a competing check: one law, one
-  ruler, and which one it should be is DIRECTION's and FACTIONS' call, not mine.
+- *** A FIFTH HOLE, AND IT CORRECTED MY OWN FIRST REPORT MID-ROUND. *** I measured the
+  faction colours in engine/bohemia_dress.js and was about to report 16 clashing pairs.
+  Then the board's own 9/7 state note turned up: "the faction colour table IS live
+  (engine/BOHEMIA_faction_colours.json, measured off the wardrobe he chose)". A DIFFERENT
+  FILE. So I had measured a table the coordinator does not call current.
+  THERE ARE TWO LIVE FACTION COLOUR TABLES AND THEY DO NOT AGREE:
+      10 of the 12 factions in BOTH files are a DIFFERENT COLOUR, by more than the
+      game's own family tolerance. Church is gold (#ffd75c) in one and olive-brown
+      (#826c3e) in the other. Network is teal in one, slate in the other. Anarchists
+      are magenta in one and brown in the other, 160 apart.
+  CLAUDE.md calls a contradiction between two live files a BUG, not an interpretation
+  choice. Until it is settled, "the faction's colour" has no single answer to dress
+  anybody in -- and my own first pass measured the wrong one, which is exactly the rot
+  the truth hierarchy exists to catch. [PENDING coordinator] which file wins.
+- AND I DID NOT ADD A COMPETING UNIQUENESS CHECK. The law's test 3 already has a gate,
+  faction_colour_gate, green at 17/17 with clashes pinned at 4. Measuring the live table
+  with the dress module's own family tolerance instead gives 45 clashing pairs of 78.
+  Two rulers, one law -- but that tolerance was written to match a garment to a faction,
+  not to tell two factions apart at fifty yards, so it may simply be the wrong use of it.
+  One law, one ruler, and choosing it is DIRECTION's and FACTIONS' call, not mine.
 - NOTHING WAS BUILT ON PURPOSE. Three of the four holes are FACTIONS' (who belongs to a
   faction, who holds ground) and the module load is the city's. Hole 4, the faction cast
   never baking, is the one nearest this lane and is the obvious next piece -- the evidence
