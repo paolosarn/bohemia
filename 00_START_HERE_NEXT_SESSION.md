@@ -154,6 +154,23 @@ file. Until one lands, the casing and screen registers are names for the same fa
 NEXT ROUND OF [no slop]: rounded corners 60 and 1px borders 56 on the walked city, which are
 the two that can move without a font file. Owners are known -- run
 `node tools/bohemia_count_the_tells.js --where`.
+AFTER THE REBASE (main moved twice mid-round): rebased onto fe14c3ef and re-ran. Same 6 reds as
+clean origin/main at that commit -- DISTRICT FILL, ROUND + DOORS, COMBAT LAB, OUTFITS 13, MAP
+TAB, TOP OF THE DOC. None this lane's, none new. Two conflicts resolved by KEEPING BOTH SIDES:
+the handoff (main's newest WORDS block plus my UI block, superseded copy dropped) and thumb_gate,
+where another session hit the same red and softened the leg to >=1 -- their comment carried the
+half I did not have (the coordinator amended [one question] on 9/12 under the no-story ruling,
+which is WHY the demo stopped offering the overlay), so the merge keeps their ruling and my
+two-question check. AND A WARNING FOR THIS FILE SPECIFICALLY: checking for leftover markers by
+substring FAILS here, because this handoff's own history talks about past marker incidents. Ask
+whether a LINE IS a marker.
+
+FOUR REDS ARRIVED IN THIS LANE'S GATE FROM SOMEBODY ELSE'S CHANGE -- FOR DIRECTION/FACTIONS:
+phone_readable_gate is 13 ok 6 FAILED on clean origin/main and 15 ok 4 FAILED here. The two
+text-floor legs this round fixed are green; four colour-collision ratchets have GROWN on main
+(normal 5 vs ratchet 3, protan 14 vs 13, deutan 12 vs 11, tritan 13 vs 9). Nothing this round
+touches a faction colour. Named, not silently carried. The row is this lane's OPEN [colour reaches].
+
 Record: records/BOHEMIA_NO_SLOP_THE_TRACKING_IS_A_MACHINE_9_12_26.md
 
 

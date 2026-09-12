@@ -186,3 +186,29 @@ every shot: all 52 retaken off the live build. **24 ok, 0 failed.** Published su
     this tree, shipped  7 red: the same 7, none of them this lane's and none of them new
 
 The seven are other lanes' surfaces and are untouched here.
+
+## AFTER THE REBASE (main moved twice while this round ran)
+Rebased onto `fe14c3ef` and re-ran, which is the one case where the second suite pass earns
+its keep. **Same 6 reds as clean origin/main at that commit, exactly: DISTRICT FILL, ROUND +
+DOORS, COMBAT LAB, OUTFITS 13, MAP TAB, TOP OF THE DOC.** None this lane's, none new.
+
+TWO CONFLICTS WERE RESOLVED BY KEEPING BOTH SIDES, NOT BY PICKING ONE:
+* The handoff: main carried WORDS' newest block, my side carried mine over an older WORDS
+  block. Kept main's newest WORDS block AND my UI block, dropped the superseded copy. Checked
+  line by line for markers, because this lane has pushed conflict markers into this exact file
+  before -- and the blunt check nearly failed me again: the handoff's own history TALKS about
+  past marker incidents, so a substring search for `<<<<<<<` matches prose. The check has to
+  ask whether a LINE IS a marker, not whether the text mentions one.
+* `gates/thumb_gate.js`: another session hit the identical red and fixed it by softening the
+  leg to `>= 1`. **Their comment carried the half I did not have** -- the coordinator amended
+  [one question] on 9/12 under the no-story ruling, THE COLD OPEN IS DEFERRED WITH THE STORY,
+  which is WHY the demo stopped offering it and why the overlay shows SKIP alone. Merged: their
+  ruling and reasoning, my two-question check that cannot be passed by hiding the overlay. 16/0.
+
+AND FOUR REDS ARRIVED IN THIS LANE'S GATE FROM SOMEBODY ELSE'S CHANGE. `phone_readable_gate`
+is **13 ok 6 failed on clean origin/main** and **15 ok 4 failed here**: the two text-floor legs
+this round fixed are green, and four colour-collision ratchets have GROWN on main (normal 5 vs
+ratchet 3, protan 14 vs 13, deutan 12 vs 11, tritan 13 vs 9). Not this round's -- nothing here
+touches a faction colour -- but it is this lane's gate going red at somebody's palette edit, so
+it is named here and in the handoff rather than left to be discovered. The row it belongs to,
+[colour reaches], is already OPEN in this lane's queue.
