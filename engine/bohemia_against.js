@@ -104,6 +104,15 @@
     }
   };
 
+  /* AND THE ONES WHO SIMPLY DO NOT KNOW YOU. Indexed by STAGE, not by level,
+     because there is no level here -- you are on their block and they are
+     deciding what you are. Attempts, draft:true, eighth grade, said out loud. */
+  WORDS.ground = [
+    'YOU ARE ON THEIR BLOCK AND THEY DO NOT KNOW YOU',
+    'YOU ARE STILL ON THEIR BLOCK, AND SOMEBODY IS WALKING BEHIND YOU',
+    'YOU WENT TOO FAR ONTO THEIR GROUND AND SOMEBODY IS IN FRONT OF YOU'
+  ];
+
   /* WHAT THE SIGN LOOKS LIKE, SAID PLAINLY, for a card that has to explain a
      body's behaviour rather than leave the player guessing why somebody turned
      around. Attempts, draft:true. */
@@ -196,11 +205,60 @@
     return order[Math.min(at + 1, order.length - 1)];
   }
 
+  /* ==========================================================================
+     YOU ARE ON THEIR GROUND   (9/12, VAMILY row [crossing costs])
+
+     THE MANAGER'S CALL, 9/5: "colour is territory and nothing happens when you
+     walk into the wrong colour. The moment you cross into a faction's block that
+     does not know you: A LOOK, THEN A TAIL, THEN A STOP, on the beat, before any
+     fight; the block's colour is the only warning."
+
+     MEASURED ON THE WALKED SURFACE BEFORE BUILDING: the player wakes on the Mob's
+     FORTRESS ground with 61 people on screen, and every single one of them reads
+     `nothing`. Church ground begins two cells away and crossing it changes
+     nothing either. His sentence was literally true.
+
+     *** IT GRANTS SIGNS, NOT A LEVEL, AND THAT IS THE WHOLE CARE IN IT. ***
+     The obvious build reads "a stop" and reaches for `block`, which lives on
+     `war`. That would mean a stranger who walked three blocks is AT WAR with a
+     faction he has never met -- a severity nobody ruled, over the map, which is
+     his. But this module's own header already says the SIGNS are the escalation
+     ("they watch, they follow, they block a door, they refuse") and the levels
+     merely bundle them. So crossing hands out the signs directly and never
+     touches the ladder. A body watching you because you are on their block is
+     not a body at war with you, and the card can say which it is.
+
+     THE THREE STAGES ARE HIS THREE WORDS, IN THIS MODULE'S OWN VOCABULARY:
+       a look  -> watch      a tail -> follow      a stop -> block
+     `refuse` is deliberately NOT among them: withholding trade is what an unpaid
+     landlord does ([block rent]), not what a stranger on a street earns.
+
+     HOW FAR IT GOES IS THEIR REACH, NOT A NUMBER PICKED HERE. The caller passes
+     how many blocks of their ground you have crossed and how far that faction
+     reaches -- BohemiaTowns.REACH, fortress 3 / town 2 / camp 1, the table that
+     already decides how far a town's arm extends. So a CAMP never manages more
+     than a look however deep you go, and only a FORTRESS ever stands in your
+     way. "A fortress reaches further than a camp" is turf_gate's own headline
+     and this is the same sentence applied to people instead of ground. */
+  var CROSS_SIGNS = ['watch', 'follow', 'block'];
+  function fromCrossing(cross) {
+    if (!cross) return 0;
+    var blocks = cross.blocks | 0;
+    if (blocks <= 0) return 0;
+    /* no reach given is not a licence to escalate: it is one step, a look. */
+    var reach = (cross.reach == null) ? 1 : (cross.reach | 0);
+    if (reach < 1) reach = 1;
+    if (reach > CROSS_SIGNS.length) reach = CROSS_SIGNS.length;
+    var stage = blocks < reach ? blocks : reach;
+    return stage > CROSS_SIGNS.length ? CROSS_SIGNS.length : stage;
+  }
+
   function read(facts) {
     if (!facts) return null;
     var a = fromOutfit(facts.rel), b = fromRung(facts.rung), c = fromCoalition(facts.coalition);
     var rov = !!facts.roving;
-    if (!a && !b && !c && !rov) return null;
+    var stage = fromCrossing(facts.crossing);
+    if (!a && !b && !c && !rov && !stage) return null;
     /* THE WORST OF THEM WINS, because a person is not the average of their
        reasons. Somebody whose outfit is at war with yours does not become
        merely cold because they have never personally seen you. */
@@ -220,7 +278,20 @@
       var lifted0 = releasedFrom(level, true);
       if (lifted0 !== level || !level) level = lifted0;
     }
-    if (!level) return null;
+    /* *** A STRANGER ON THEIR BLOCK HAS NO LEVEL, AND THAT IS CORRECT. *** They
+       have no quarrel with you; you are simply standing on their ground. So the
+       answer carries signs and no rung, and every reader that asks "how bad is
+       this" gets rank 0 rather than a level invented to carry a look. */
+    if (!level) {
+      if (!stage) return null;
+      var gsigns = {};
+      for (var gi = 0; gi < SIGNS.length; gi++) gsigns[SIGNS[gi]] = false;
+      for (var gj = 0; gj < stage; gj++) gsigns[CROSS_SIGNS[gj]] = true;
+      return { level: null, rank: 0, why: 'ground',
+               outfit: null, personal: null, coalition: null, roving: null,
+               crossing: facts.crossing || true, stage: stage,
+               word: WORDS.ground[stage - 1], signs: gsigns, draft: true };
+    }
     /* AND THE COALITION ONLY GETS TO EXPLAIN ITSELF WHEN IT IS THE REASON.
        If their outfit already hated you this hard on its own, saying "they
        joined somebody's quarrel" would be telling him the wrong story about
@@ -235,10 +306,19 @@
     var spec = LEVELS[level];
     var signs = {};
     for (var i = 0; i < SIGNS.length; i++) signs[SIGNS[i]] = !!spec.signs[SIGNS[i]];
+    /* AND IF THEY ALREADY HAD A REASON, BEING ON THEIR GROUND ADDS TO IT RATHER
+       THAN REPLACING IT. Somebody who dislikes you does not dislike you LESS
+       because you are also trespassing. The signs are unioned and the LEVEL IS
+       NOT TOUCHED: walking onto a block cannot talk a cold body into a war, and
+       the ladder is still the record of why they are against you. */
+    for (var cs = 0; cs < stage; cs++) signs[CROSS_SIGNS[cs]] = true;
     return {
       level: level,
       rank: spec.rank,
       why: why,
+      /* what the ground added, so a card can say it was the block and not a grudge */
+      crossing: stage ? (facts.crossing || true) : null,
+      stage: stage || 0,
       /* BOTH HALVES SURVIVE THE JOIN, so a card can say which one it is even
          when only one of them set the level. */
       outfit: a || null,
