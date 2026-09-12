@@ -2682,3 +2682,89 @@ OOOOOOO3 somebody it gave a place to             draft:true
   arguing, which is the real reason and not a noble one.
 - Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## QQQQQQQ. THE ONE WHO GETS IT AT THE OLD PRICE
+## (round 34: the biggest road in the real record is not holding or guarding,
+##  it is access at a price nobody else gets. Nobody here says arbitrage.)
+
+QQQQQQQ1 somebody who noticed two prices       draft:true
+         "It's four over there and it's one here. That's it. That's the whole
+          thing I'm doing and I'd rather you didn't repeat it."
+
+QQQQQQQ2 somebody explaining why he is rich     draft:true
+         "I'm not clever. I know a man at the gate. That's the difference between
+          me and you and it isn't a flattering one."
+
+QQQQQQQ3 somebody locked out of it              draft:true
+         "Same stock, same day, same cart. He gets it at the old price because of
+          who he drinks with, mano."
+
+QQQQQQQ4 somebody who used to do the hauling    draft:true
+         "I carried it for eleven years. He never touched it once and he made
+          four times what I did on it."
+
+## RRRRRRR. THE ROOF
+## (three quarters of businesses paid for this in a real collapse, and what they
+##  bought was somebody who could make a deal stick. Nobody calls it protection.)
+
+RRRRRRR1 somebody explaining what he pays for   draft:true
+         "It's not about getting hit. It's that if somebody stiffs me, one person
+          in this valley can do something about it."
+
+RRRRRRR2 the one people come to                 draft:true
+         "Both of you sit down. I'll hear him, then I'll hear you, and then it's
+          finished. That's what you've been paying for."
+
+RRRRRRR3 somebody who tried going without       draft:true
+         "I stopped paying for six weeks. Nothing happened to me. Just nobody
+          would deal with me either, which was the point."
+
+RRRRRRR4 somebody uneasy about it               draft:true
+         "He's the closest thing we've got to a judge and nobody picked him.
+          That's the bit I can't get comfortable with."
+
+## SSSSSSS. FOUR PLACES MAKE IT
+## (3.3% of the valley makes power and it comes down to four sites, one of them
+##  the only battery plant there is. Nobody in these lines owns one.)
+
+SSSSSSS1 somebody pointing at a far hill        draft:true
+         "See the panels? That's one of four. Four, in the whole valley, and a
+          man at each of them who decides."
+
+SSSSSSS2 somebody who worked at one             draft:true
+         "I was inside it for two years. Never took one home, never thought about
+          it, and now I think about it most days."
+
+SSSSSSS3 somebody who understands the position  draft:true
+         "You don't have to be greedy when you're the only one making it. You
+          just have to be there tomorrow, mija."
+
+## TTTTTTT. IT WAS NEVER CLEVERNESS
+## (in every real case the winner was connected, not clever. The line the whole
+##  round rests on, and none of these people are proud of it.)
+
+TTTTTTT1 somebody being honest about it         draft:true
+         "Ask me what I did. Go on. I turned up to the right dinner in 'twenty
+          nine and I've been coasting on it since."
+
+TTTTTTT2 somebody who did everything right      draft:true
+         "I worked it out. I had it worked out before any of them. Turns out
+          working it out was the easy half."
+
+TTTTTTT3 an older one, no bitterness left       draft:true
+         "The ones who came out of it weren't the sharp ones. They were the ones
+          somebody already owed."
+
+## UUUUUUU. WHAT IS NOT HERE, ON PURPOSE (round 34)
+- No line has two actual prices in it. There is ONE price in sixteen markets
+  today and what a second one would be is not this bank's to invent.
+- No line names a faction, a gate or a hill you could find. MAP LAW.
+- No line has the player collecting rent. Whether he can ever stand on that side
+  of it is [PENDING Paolo] 35.
+- No line makes the roof a villain. RRRRRRR2 is arbitration and RRRRRRR4 is
+  uneasy about the same man, which is the honest pair.
+- No line has a number of batteries, a rate of interest or a cut.
+- No line states a moral about fairness or luck. TTTTTTT3 says who came out of it
+  and stops.
+- Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.

@@ -5754,6 +5754,17 @@ GATES = [
      'structure frozen in every clip', True),
     ('PURITY',         ['python3', 'gates/bohemia_purity_gate.py'],
      'purple is the Amalgamation alone', True),
+    ('MAP NAMES IT',   ['node', 'gates/map_names_it_gate.js'],
+     'IF THE MAP NAMES IT, SOMETHING MUST BE ABLE TO DRAW IT (9/12, COOK). Every district '
+     'name the overmap can put on a cell must resolve to a generator, or the player walks to '
+     'a place the map promised and finds bare ground. The board had said "about 20 map-only '
+     'districts nobody draws" and the 9/4 towns law built an ART row on that number; the real '
+     'figure is EIGHT, and getting there meant asking FOUR registries -- DISTGEN (61), '
+     'SURFACEGEN (10, the roads and raw land), the KIT registry (reached by KIT.get AFTER a '
+     'registrar module is required, never a property on the module) and the overmap itself. '
+     'Ask three and you get 18. It counts CELLS, not names, because a name nothing places '
+     'costs a player nothing: beltway is known to the graphics engine and the kit ROADSET and '
+     'sits on ZERO cells. Ratcheted at 7 names over 10 cells, all Vegas landmarks.', True),
     ('SUITE HONESTY',  ['node', 'gates/suite_honesty_gate.js'],
      "SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN. A LAW WITHOUT A MACHINE GATE IS "
      "NOT ENFORCED makes this suite the net and 'green or it does not ship' the rule -- and "

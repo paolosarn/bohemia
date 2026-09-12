@@ -1081,9 +1081,80 @@
              draft: true };
   }
 
+  /* ==========================================================================
+     WHOSE FOOTPRINTS ARE THESE   (9/12, VAMILY row [tracks read])
+
+     THE ROW: "every faction leaves its own tracks on the travel map, so a player
+     can look at the ground and know who went through and whether to follow or
+     avoid them. It is also a fence a claim can be checked against."
+
+     THE NAMED BLOCKER IS RUN's [travel map], STILL OPEN, AND IT IS NOT WHAT
+     BLOCKS THIS. Measured on the walked surface: WORLD's [parties move] shipped
+     9/11 and the valley already has TWENTY-EIGHT parties out, at least one for
+     every one of the fourteen factions, really walking (89 cells a day, positions
+     move when the clock does). They walk the overmap, which is ground the player
+     already looks at. A track needs somebody to have walked, not a new map.
+
+     *** DERIVED, NEVER STORED, SO NOTHING HAS TO REMEMBER TO CLEAN UP. *** A
+     party's route is a straight sign-step walk between two points it already
+     carries -- from, to, at, and whether it has turned round. So the cells it has
+     covered ARE its from/at pair put through the same step rule the mover uses.
+     Storing a breadcrumb trail would mean a save that grows for ever and a rule
+     for when to forget, which is the trap the coalition and the roving rule both
+     avoided in this lane already.
+
+     NO NUMBER IS PICKED HERE. How long a track is, is how far that party has
+     walked on this leg, and how far it walks is the distance between two seats on
+     his map. There is no fade constant, no memory length, no "tracks last N
+     days" -- those would all be numbers nobody ruled. What a SURFACE chooses to
+     draw of it is a rendering bound, not a design one. */
+  function stepToward(ax, ay, bx, by) {
+    var sx = bx > ax ? 1 : (bx < ax ? -1 : 0);
+    var sy = by > ay ? 1 : (by < ay ? -1 : 0);
+    return [ax + sx, ay + sy];
+  }
+  /* THE CELLS THIS PARTY HAS ALREADY COVERED ON THE LEG IT IS ON, oldest first.
+     A patrol that has turned round is walking BACK, so its leg starts at the
+     border it reached and not at its seat -- which is why `arrived` decides the
+     origin rather than a flag anybody has to set. */
+  function trackOf(party, cap) {
+    if (!party || !party.from || !party.to || !party.at) return [];
+    var o = party.arrived ? party.to : party.from;
+    var ax = o.x | 0, ay = o.y | 0, tx = party.at.x | 0, ty = party.at.y | 0;
+    var out = [[ax, ay]], guard = 0;
+    /* the same guard the mover has: a step that cannot close is a loop, and a
+       loop in a draw path is a frozen frame rather than a wrong picture. */
+    while ((ax !== tx || ay !== ty) && guard++ < 4096) {
+      var n = stepToward(ax, ay, tx, ty);
+      ax = n[0]; ay = n[1];
+      out.push([ax, ay]);
+    }
+    if (cap != null && cap > 0 && out.length > cap) out = out.slice(out.length - cap);
+    return out;
+  }
+  /* WHO WENT THROUGH THIS CELL, and how long ago in steps. Null where nobody did.
+     THE FRESHEST WINS: two parties crossing the same cell is one set of prints on
+     top of another, and the one on top is the one you read. */
+  function tracksAt(parties, x, y, cap) {
+    var best = null;
+    for (var i = 0; i < (parties || []).length; i++) {
+      var p = parties[i];
+      var t = trackOf(p, cap);
+      for (var k = 0; k < t.length; k++) {
+        if (t[k][0] !== x || t[k][1] !== y) continue;
+        var age = t.length - 1 - k;              /* 0 = they are standing here */
+        if (!best || age < best.age)
+          best = { faction: p.from.faction, agenda: p.agenda, age: age,
+                   leg: p.arrived ? 'back' : 'out', draft: true };
+      }
+    }
+    return best;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
+    trackOf: trackOf, tracksAt: tracksAt,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,

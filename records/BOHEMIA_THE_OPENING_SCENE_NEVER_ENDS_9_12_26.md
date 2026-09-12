@@ -116,6 +116,48 @@ time**. A person would read and choose; a cold hand alternates forever.
 That is the next thing to chase, and it is a much smaller thing than what it
 replaced.
 
+## THEN THE TALK LOOP, CHASED THE SAME WAY, AND IT WAS NOT WHAT IT LOOKED LIKE
+
+The remaining red pointed at `cttalk > ctgo` forever. Standing next to a scavenger
+on the served demo and opening the conversation shows a game that is **very much
+alive**:
+
+    SCAVENGER / THEY ARE AGAINST YOU / YOU ARE ON THEIR BLOCK AND THEY DO NOT
+    KNOW YOU / NAME: YOU HAVE NOT ASKED / USED TO BE: FIXED ENGINES / SPEAKS:
+    ENGLISH / LIVES: right about here
+      [Ask their name] [Show up for them] [Take it] [Leave them to it]
+
+**And two of those choices really spend the day**, measured: "Show up for them"
+and "Take it" each cost **60 minutes**. Asking a name is free, which is right.
+
+**I nearly "fixed" a styling fault that does not exist.** `ctgo` measured 5035px²
+against `ctfavour`'s 2691 and I read that as the exit shouting down the choices.
+Measured properly, all four are **the same height and the same colour** — the
+widths differ only because "Leave them to it" is a longer label than "Take it".
+The cold hand picks the biggest ink, so the longest sentence wins. That is the
+instrument being blunt, not the screen being wrong.
+
+## *** WHAT WAS REAL: THE FOUR MOST MEANINGFUL BUTTONS WERE UNDER THE THUMB LAW ***
+
+All four are **31px tall**. The law is **44px**, and the demo's cut already enforces
+it on the cold-open buttons. Two of these spend an hour of a player's day.
+
+**No checker had ever seen them**, because none stands next to a person and opens a
+conversation — the thumb sweep only ever measured the first screen. That is a real
+gap in a green gate, and it is filed rather than papered over.
+
+Held to 44px now, from the demo side, height only, width left alone — the same
+pattern and the same reasoning as the cold-open row. The workshop keeps its 31px.
+
+**And the first cut of that rule did nothing at all**, which is worth writing down:
+I put the style in the demo's shell, and **the conversation lives in the city
+frame, a different document**, so a style tag in the page cannot reach it. It sits
+with the walk pad's rule now, inside the frame.
+
+    before:  ctask 146x31  ctgive 162x31  ctfavour 87x31  ctgo 162x31
+    after:   ctask 146x44  ctgive 162x44  ctfavour 87x44  ctgo 162x44
+
 ## RESULT
 
-    COLD HAND 4/3 -> 5/2, and the frozen opening is out of the demo
+    COLD HAND 4/3 -> 5/2, the frozen opening is out of the demo, and the four
+    conversation choices meet the thumb law on the surface a friend taps

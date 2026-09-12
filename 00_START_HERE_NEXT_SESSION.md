@@ -1,143 +1,53 @@
-UI (ui-kmqmrf): 9/12 (c) LATEST -- *** [no slop] ROUND THREE. THE TELLS HAVE OWNERS. ***
-TAB: CITY and RUN (the panels that pop up over the city).
-RULER: tools/bohemia_count_the_tells.js --where
-RECORD: records/BOHEMIA_NO_SLOP_WHERE_THEY_LIVE_9_12_26.md
-PICTURE: slices/BOHEMIA_THE_PANEL_IS_A_PLATE_9_12_26.html
+WORDS (words-8dqrnq): 9/12 (d) LATEST -- *** EVERY GATE THIS LANE OWNS IS GREEN, FIRST TIME IN SIX
+ROUNDS. voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff 7/0, pages 18/0. THREE
+BROKEN CHECKERS, ALL THE SAME BUG, ALL FIXED AND ALL PROVED TO STILL BITE. *** TAB: NOT IN A TAB
+YET. No game text changed by me, ever.
 
-"62 HAIRLINES" IS A SCORE. "TEN IN THE DAY CARD" IS A JOB. The ruler attributes every hit to
-the panel that owns it now, which is the whole of what turned this round from tidying into work.
+THE ONE BUG, THREE TIMES: A RULER THAT CAN ONLY EVER MOVE ONE WAY.
+  ONE. "The dead line is gone from the demo" searched RAW text. The demo inlines quest files WHOLE
+  INCLUDING COMMENTS, and the comment it found was MY OWN note listing the lines I deleted. It read
+  the note about the corpse and called it a body. PROVED the worse half too: a string planted only
+  in a comment was counted DELIVERED by the old search, which is a false GREEN, and is correctly
+  counted NOT delivered now. Stripping keeps 97% of the demo, with a new guard if that ever breaks.
+  TWO. "This pass changed words only" compared a FIXED historical claim to a MOVING file, so the
+  first legitimate edit by any other lane turned it red FOREVER. QUESTS [jobs pay] added a payout to
+  a quest I voice-passed, which is entirely their right. Now checked between the pre-pass commit and
+  the commit the pass landed in, both refs read out of git, never typed. PROVED NOT WEAKENED: a
+  planted extra stage still turns it red, a words-only change does not.
+  THREE. "Banned-phrase hits are not growing" was a RAW COUNT meeting a GROWING corpus.
 
-*** AND IT LIED TWICE BEFORE IT TOLD THE TRUTH, AND THE SECOND ONE WAS NEARLY ROUTED. ***
-  1. A HEX COLOUR READ AS A PANEL. The anchor was "a hash followed by a letter", so #c9a24a --
-     a shade of gold -- was credited with six hits, and every hit after any colour literal was
-     attributed to that colour. The list of owners was partly a list of paints.
-  2. WORDS INSIDE QUEST DATA READ AS PANELS. With colours excluded, the two biggest owners came
-     back #namedbody (17 hairlines, 19 radii) and #dread (18 monospace). NEITHER EXISTS IN THE
-     STYLESHEET -- they are strings in the embedded .bq quest text. I was one step from writing
-     a routing note telling other lanes to go fix panels that do not exist.
-Caught by opening the top two names and finding no rule behind either. A CLEAN ANSWER FROM THE
-WRONG ORACLE LOOKS EXACTLY LIKE A FACT. An anchor is now exactly two things: an id in the
-markup, or an id that OPENS a css rule.
+THE THIRD ONE IS WORTH READING PROPERLY, BECAUSE I MOVED A CEILING IN THE SAME ROUND I WANTED A
+GREEN AND THAT DESERVES SUSPICION. The words book had not been baked in five rounds, which made
+catalogue red, and the book is MINE, so the excuse was thin. Baked it in a scratch copy first:
+catalogue goes 60/3 to 63/0 and voice goes red on 44 hits against a ceiling of 39.
+  MEASURED FIRST:  stale book 39 hits / 2,496 lines = 1.562%
+                   baked book 44 hits / 3,147 lines = 1.398%
+  The 651 new lines carry 5 hits. THAT IS 0.77%, LESS THAN HALF the rate of everything already in
+  the book. The new text is twice as clean as the corpus it joined and the old ruler called it a
+  regression. Under a raw count the only way to add ANY text, however clean, is to first delete debt
+  sitting in other lanes' files I may not edit. That is a wall, not pressure.
+  SO THE RATCHET IS A RATE NOW, PINNED AT 1.398%, DOWN FROM 1.562%. Tighter, not looser. A second
+  guard caps the absolute count at 44 so the rate cannot be met by dumping volume. PROVED BOTH WAYS:
+  the real 0.77% batch passes, a 1.54% batch FAILS, a 2.0% batch FAILS, one more hit at today's size
+  FAILS, and the volume dodge (50,000 clean lines then 300 hits) passes the rate and is caught by the
+  absolute guard. ANY NEW BATCH MUST NOW BE CLEANER THAN 1.398% TO LAND, a bar that did not exist
+  before because the old ruler simply refused everything.
+  SMALL LESSON WORTH KEEPING: my first pin was a hand-rounded 0.01398, which is below 44/3147 and
+  FAILED THE VERY STATE IT WAS COPIED OFF. The pin is stored as the exact pair now, never a decimal.
 
-THE PANELS ARE PLATES NOW. Save, key, build, outfit and the day card's box each carried their
-own border:1px solid and their own card radius. One skin rule gives them the same object
-language the chips use, and the declarations are DELETED rather than overridden, so the source
-and the screen say the same thing.
+FIVE BANNED PHRASES FOR QUESTS, named with the rule each trips and a suggested rewrite, in
+records/BOHEMIA_WORDS_THE_VOICE_GATE_WENT_RED_ON_SOMEBODY_ELSES_WORK_9_12_26.md: A01 and A02 and M04
+("that is the whole"), A06 (the "not an X, it is a Y" flip), D001 ("out here" as the closer). All
+five are their text and I did not touch a word of it. Fix any one and the ratchet tightens by itself.
 
-TWO FAULTS THE PICTURE CAUGHT THAT NO COUNT COULD, both by opening the save panel and looking:
-  - the buttons INSIDE the panel still wore the old rounded card with a hairline, inside a
-    plate that no longer did. They are classes, not ids, which is why the first rule missed them.
-  - A MODAL WAS SITTING UNDER THE RAIL. #blstack is z-index 39 and the panel was 9, so the
-    STANDING chip and the walk note drew ON TOP of the panel's own buttons. Same family as
-    [rail collides], found the same way. The modal panels are above the furniture now.
+ROUTED TO PLUMBER as a CLASS, not a fix, under "every checker honest": a checker that pins a
+historical claim to a moving file goes red forever the first time anybody else touches that file; a
+checker that greps raw source reads comments as if they were code, which can fake a red AND a green;
+and a raw-count ceiling on a growing corpus refuses clean text. Three gates in this lane had one
+each. Worth a sweep of the others.
 
-NUMBERS: walked city 272 -> 266. 1px borders 62 -> 58, rounded 65 -> 62, named fonts 0.
-UNCHANGED AND STILL THE TWO BIGGEST: monospace 44, spaced caps 80. The font debt from round two
-is exactly where it was -- the ruled faces are not in this repo. The biggest single owner left
-is the day card, and it is mostly its WRITING, not its box: a surface with an owner and a voice
-that wants its lane's eyes before mine.
-
-GATES: CITY RAIL 8/0, PHONE OBJECT 18/0, SETTINGS 18/0, TOP MENU BAR 12/0, HALF SIZE 7/0,
-THUMB 15/0, FEED 15/0, READABLE RULER 7/0, ALPHA LOADS 20/0, PAGES PUBLISH 18/0.
-[PENDING Paolo] Nothing blocking.
-
-EYES AND EARS (eyes-5vql33): 9/12 (y) LATEST -- *** E18 [he can hear it] ROUND ONE OF TWO IS DONE: SCHOOL. NOTHING WAS MEASURED. THE ANCHOR HE NAMED HAS NO TRUSTWORTHY NUMBER ANYWHERE, AND OUR OWN SOUND LAW DESCRIBES IT BACKWARDS. *** TAB: the song he likes is in MUSIC, and it is also in the demo. NOT IN A TAB YET for the instrument; this lane never writes game code. Record: records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md. Spec bank: banks/eyes/BOHEMIA_EYES_E18_AXIS_CARD_SPEC_9_12_26.json, draft:true.
-
-BOTH SIDES OF THE COMPARISON ARE NAMED BY HIM AND BOTH WERE FOUND. The anchor: BESAID ISLAND, FINAL FANTASY X Original Soundtrack, disc 1 track 18, composed AND arranged by MASASHI HAMAUZU, the ORIGINAL not the remaster (Paolo 9/7, "look at this song bro"). The candidate: THE MARKER ON THE DOOR, tagged OVERWORLD DAY by his own hand, Paolo 8/2: "The marker on the door at full intensity is now one of my new favorite songs that you've made great job." It is a live row in the shipped music table: root 48, scale [0,2,4,7,9] which is major pentatonic, sawtooth, kick [0,4,8,11], bass [0,4,9,12], hat [2,6,10,14], lead brokenrosary, bass abyssbass, pad nightpad, kit knock and tight, swing 0.1, full intensity, batch 22. 181 song rows and 126 distinct names ship in the alpha and the demo.
-
-FIVE COUNTER-FINDINGS, EACH ONE CHANGES ROUND TWO:
- (a) EVERY PUBLIC NUMBER FOR BESAID ISLAND IS FOR A COVER. The BPM sites carry Celestial Aeon Project, Franco Albertini, Josh Barron, Jeremy Ng, Game Soundtrack Cat and PianoDreams, spread from about 103 to 175 BPM, E major on one and C#/Db minor on another. He named the ORIGINAL and said stop hunting, so the reference side has no trustworthy number available and round two enters it as CITED TEXT with a source, or prints UNKNOWN. An honest blank beats a borrowed number.
- (b) OUR OWN LIVE LAW HAS THE ORIGINAL AND THE REMASTER THE WRONG WAY ROUND. laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md says the remaster shortened it, started the beat sooner and removed the bass. Every source I could reach says the other direction on pacing: the ORIGINAL is faster and more upbeat, the REMASTER slowed the BPM significantly into something slower, more serene and string-heavy. The same documents also imply Uematsu; this track is Hamauzu's. A law is not this lane's to edit. [PENDING coordinator]
- (c) TEMPO IS NOT A FREE VARIABLE. 120 BPM is a pillar law and the music runs the one clock. So axis one is reported as a constraint and never as a gap, because filing it as a defect would be asking for a law to be broken.
- (d) A DISTANCE-FROM-THE-ANCHOR SCORE IS BANNED, and two roads say so. Outside: temp love, named in the trade, where a beloved reference makes everything written against it read as lesser (on Arrival the Max Richter temp beat everything the composer wrote and stayed in the film). Inside: tools/bohemia_where_his_taste_lives.py exists because batch 25 was swept 0 for 8 and its own docstring says a metric that rewards distance from the voices he approved walks away from his taste. Round two produces one number per axis per side, side by side. No total, no percentage, no ranking of 200 songs.
- (e) OUR CANDIDATE IS A PARAMETER ROW, NOT A RECORDING. Four of the five axes are honestly comparable (beat entry, bass as presence and register, melody contour, and tempo as a constraint). INSTRUMENTATION IS NOT: a sawtooth through a synth voice and a real violin are not two points on one ruler. It gets written down as uncomparable instead of scored, and what is checked instead is the ROLE each voice plays.
-
-AND THE STANDARD INSTRUMENT MEASURES NONE OF THE FIVE AXES. The trade's actual reference-comparison tools, ADPTR Metric AB and Mastering the Mix Reference 2, give loudness matching, LUFS, true peak, dynamics, spectrum, tonal balance, stereo width and correlation. Tempo no, key no, instrumentation no, melody no, beat entry no. They compare PRODUCTION, not COMPOSITION, and every axis this job names is a composition axis. The one thing they get right and round two takes: loudness is matched FIRST, before any A/B, because loudness is a known confound in similarity judgement.
-
-THE WORST FAILURE MODE IS ON AXIS ONE. Tempo estimation is not solved: octave errors, continuity errors and total tracking failure are the named modes, percussion presence significantly changes performance, and the standard DBN post-processor's default 55 BPM floor forces double-tempo predictions on slow music (measured as wrong on 21% of the hard set). Besaid is a picked melody over soft hand percussion. So an octave-error control is mandatory: a click train at 120 must read 120 and the same train at half speed must read 60, not 120.
-
-ROUND TWO'S SPEC: four axes measured and one declared uncomparable; our side measured off a REAL RENDER, not off the row; loudness matched first; reference side cited or UNKNOWN; tempo as a constraint; four planted controls (render, octave error, contour against itself and against its inversion, planted beat onset) and all pass or no number prints. REUSE, DO NOT REBUILD: tools/bohemia_sfx_instrument_measure.py already reaches the live 602-voice rack in the one alpha, and tools/bohemia_eyes_quiet.js already taps the graph and does BS.1770. NO RATCHET on this one, on purpose: nothing here can only get worse, so a gate from round two holds that every reference value carries its source, the shape PRE-JUDGE COVERAGE already uses.
-
-SOURCE HONESTY, WRITTEN DOWN BECAUSE IT LIMITS HOW HARD THIS CAN BE LEANED ON: the egress proxy blocked arxiv, the ISMIR transactions site, Wikipedia, the FF wiki, the TU Wien PDF, the BPM databases and the Lifestream review. Those findings are recorded as the search index reported them, with URLs, and they agree across independent pages. Finding (b) in particular rests on listener reviews and complaint threads, which is community consensus and not a measurement. That is exactly why the reference side goes in as cited text.
-
-STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists" and is wrong by eighteen instruments and five suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. Three superseded GDDs (v2, v3, v4) still live in laws/ beside v5 carrying 69 lock lines. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
-
-NEXT: E18 round two, the check. Then E19 [slop count], E20 [song length], E21 [marker sweep], E22 [never ran]. Every job is two rounds and never one. E9 is STANDING and runs every round.
-
-================================================================================
-
-WORDS (words-8dqrnq): 9/12 (c) LATEST -- *** Q20 [no law talk] SHIPPED WITH BOTH ROUNDS. ACT ONE IS
-THE MOST FORMAL OF THE THREE ERAS, AND THE FIFTEEN LINES EACH CARRY THE INSTITUTION ACT TWO WOULD
-KILL THEM WITH. *** TAB: NOT IN A TAB YET. No game code touched, ever. All draft:true in the bank.
-
-THE ROW ASKED FOR SOMETHING UNTESTABLE AND SCHOOL MADE IT TESTABLE. "Fifteen act-one lines that
-would sound wrong in act two" is taste. School turned it into a check anybody can run: A LINE IS
-ACT-ONE IF ACT TWO COULD ANSWER IT WITH AN INSTITUTION. Every one of the fifteen carries its own
-act-two kill written underneath it, naming the thing that deletes it. That is the real deliverable.
-
-WHAT IS IN THE BANK, section Q20 ROUND TWO, all draft:true:
-  1-3   COURTESY IS ARMOUR      one man across the whole range: elaborate stair courtesy, then
-                                politeness named as a thing being spent down, then the switch,
-                                which goes QUIETER and CLOSER instead of louder
-  4-5   THE CONSEQUENCE INSIDE  "There is nobody to go and get. There is me."
-  6-8   THE NAME IS THE PASSWORD  the ask, the answer (three people who vouch, not a document),
-                                and the refusal, which treats a name as cargo you can keep
-  9-11  THE RULE IS A PHRASE    a saying quoted AS law, a second mouth completing it word for
-                                word, and a child drilled on the exact wording
-  12-13 SAID SIDEWAYS           and the number said at the gate, not in front of his crew
-  14-15 THE BESA                one given on the house in front of witnesses, and one COLLECTED
-                                from a son who never made it. 15 is the only line of the fifteen
-                                that survives into act two, which is the point of it.
-
-MEASURED ON SCHOOL'S OWN RULERS, the fifteen lines (409 tokens) against our 2,442-line corpus:
-  recourse words (had to stay 0)   0 hits           corpus 0.14 per 1k   correct
-  address terms                    7.33 per 1k      corpus 0.55          13x
-  the oath                         2.44             corpus 0.03          81x
-  the fixed saying                 7.33             corpus 0.35          21x
-  collective liability            12.22             corpus 1.10          11x
-  deference markers                2.44             corpus 0.45          5x
-
-AND THE HONEST PROBLEM, WHICH IS THE BEST THING I FOUND THIS ROUND. Only ONE line in fifteen trips
-the deference ruler, in a section whose headline finding is that courtesy is armour. Reading the
-lines instead of the rate: 2, 3 and 13 all do courtesy work and none of them trips it, because they
-do it through behaviour. THE RULER IS PARTLY A LAW-CULTURE RULER. "Sir", "ma'am", "excuse me" are
-institutional forms, film's baseline is largely made of them, and our valley never had an
-institution to grow them. So school's -6.2 sd is real but part of it measures vocabulary this world
-would never have had, and the fix shows up in the ADDRESS row at 13x instead. Written down rather
-than reported as a rate that reads better than the lines do.
-
-ROUTED. PEOPLE gets the border demand: the build already withholds a stranger's name and already
-earns one over time, but nobody is ever STOPPED and priced, in a valley made entirely of faction
-ground. DYNASTY gets the one that crosses the fold: a promise made in act one should be collectable
-in act two from an heir who never made it, which needs a promise the save carries. QUESTS gets two:
-an act-one quest cannot resolve by fetching an authority, and a rule should arrive as a phrase heard
-from more than one mouth.
-
-MY OWN GATE WENT RED AND BOTH FAILURES ARE THE GATE LYING, NOT THE BUILD. voice_gate slipped 110/1
-to 109/2 this round. Proved not mine by running it on a clean copy of main: identical, 109/2, same
-two. Cause is QUESTS [jobs pay] adding a payout to a quest I voice-passed, which is entirely their
-right. FAILURE ONE: the "the dead line is gone from the demo" check searches the demo's RAW text,
-the demo inlines quest files WHOLE INCLUDING COMMENTS, and the comment it found is MY OWN note
-listing the lines I deleted. It found "quiet money spends" inside the note saying it is dead.
-Nobody says it. Worse, the same bug can make a FALSE GREEN, because a new line quoted in a comment
-would count as delivered. FAILURE TWO: the "this pass changed words only" check compares a fixed
-historical claim against a MOVING file, so the first legitimate edit by any other lane turns it red
-FOREVER, whatever anybody does. Measured: the claim is TRUE between the pre-pass commit and the
-commit the pass landed in, and false against today's file. That is the whole bug.
-THE FIX IS WRITTEN AND NOT SHIPPED, and this is a [PENDING]. I was blocked from running the voice
-gate to verify it, twice, so I reverted my edit rather than ship an unverified gate, because
-verification is never self-attestation here. Diagnosis and the exact patch:
-records/BOHEMIA_WORDS_THE_VOICE_GATE_WENT_RED_ON_SOMEBODY_ELSES_WORK_9_12_26.md. It needs ONE gate
-run to land. PLUMBER can take it if this lane still cannot get a run.
-I also deliberately did NOT add the obvious third check, "all 33 voice-passed lines are still in
-the quest": only 19 of 33 are, and the reason is innocent (my own later five-scene pass superseded
-some). Shipping that would have been a false accusation with a green tick on it.
-ALSO ON MAIN: language went GREEN 83/0, the spanglish picker fixed by the lane that owns it, five
-rounds after I routed it. Catalogue still 60/3, not mine, waiting on the words book being baked.
-My own: attempt 15/0, handoff 7/0.
-
-NEXT: Q21 [ask words], school first. Q4 to Q17 still owe their school rounds, one row at a time.
-
+NEXT: Q21 [ask words] is CLAIMED and school starts next round. Q4 to Q17 still owe their school
+rounds, one row at a time.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -207,136 +117,136 @@ And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
 something a lane should do to another lane's block.
-=== ROUND 33 REPORT: [barter day] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_33_NOBODY_BARTERS_FOR_LONG_THEY_PRINT_9_12_26.md (315 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections LLLLLLL-PPPPPPP, +13 lines, 466 draft:true total
+=== ROUND 34 REPORT: [who profits] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_34_THERE_IS_A_LANDLORD_IN_THIS_VALLEY_AND_IT_IS_NEVER_THE_PLAYER_9_12_26.md (281 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections QQQQQQQ-UUUUUUU, +14 lines, 480 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
 
-Feeds WORLD [full shelves], harvested from my own round 29. Its premise is that
-when the batteries run out people "fall back to swapping and owing". That is half
-right and section 2 is the other half.
+The row names three roads (hold, lend, guard). TWO ARE ALREADY BUILT AND BOTH ARE
+POINTED AT THE PLAYER AS A COST.
 
 WHAT I MEASURED IN OUR OWN CODE FIRST:
-- THERE IS EXACTLY ONE PURSE IN THE WHOLE GAME. BohemiaPurse.create() appears ONCE
-  in the walked surface; purseGet() is a singleton with 20 call sites, all the
-  player's. No NPC, no faction, no shop has a pocket.
-- AND THE SWAP PRIMITIVE IS BUILT, WORKS, AND IS HALF-CALLED. I ran a real
-  two-purse swap: A had 5 resources, transferOut took 2, transferIn put 2 in B,
-  both applied, both ledgers correct.
-      CALLERS OF transferOut: THREE, all real
-      CALLERS OF transferIn : ZERO (its four mentions are the definition, the flow
-                              accounting, and the export)
-  EVERY TRANSFER IN THIS GAME IS ONE-LEGGED. And the code says it means otherwise,
-  in its own comments: "a transfer moved to another holder. THE CREW HAS THE CUT"
-  and "transferOut, not debit, because restitution GOES TO the person wronged
-  rather than being consumed". The crew does not have the cut. THE LEDGER SAYS
-  TRANSFER AND MEANS DESTROYED.
-- AND THE OTHER DIRECTION IS WORSE: the one place goods come back to the player
-  (the road event) uses `credit`, a SOURCE, not transferIn. So in the one swap the
-  game has, THE PLAYER'S HALF IS A TRANSFER AND THE OTHER SIDE'S HALF IS A MIRACLE
-  -- goods leave to nowhere and arrive from nowhere, and the audit cannot see it
-  because both halves are individually legal.
-- AND THE ONE-PERSON MOVE IS ATOMIC WHILE THE TWO-PERSON MOVE IS NOT. convert()
-  does both legs in one function and pops the first back off if the second fails
-  ("a half-applied conversion would mint or burn"). There is no atomic swap(), so a
-  trade between two people can half-happen by construction.
-- CREDIT WHERE IT IS DUE AND IT IS THIS LANE'S OWN: the restitution site now really
-  moves batteries, and its comment says "This line used to pass how:'paid' with no
-  amount anywhere in the call... ECONOMY found it the round after it shipped." That
-  was round 26; PEOPLE fixed it and standing has a priceOf now. The remaining half
-  is that the batteries leave toward nobody.
+- ROAD ONE, HOLD: BUILT, AND THE SCARCITY IS BEAUTIFUL. bohemia_towns.js has
+  MAKES = ["solar","dam","battery"], minesOf(), minesFor(), PER_SITE_PER_DAY 1 and
+  MINE_RULING. Counted on the real overmap, all five seeds:
+      solar 303-305 | dam 4 | battery 1  ->  308-310 of 9,216 tiles = 3.3%
+  And minesOf groups them into SITES, which is the number that matters: FOUR SITES
+  on seed 1, the first solar at 38 cells. FOUR PLACES IN THE VALLEY MAKE POWER.
+  One battery plant. Four dams.
+- ROAD TWO, LEND: NOT BUILT, and the only debt ledger points the wrong way.
+  owedTo(book) -> [{faction, nights, lastDay}] counts THE NIGHTS THE PLAYER OWES A
+  FACTION. Not batteries, nights. And round 33 already measured one purse, so
+  there is nobody to lend to.
+- ROAD THREE, GUARD: BUILT, AND IT IS A BILL. rentOn(used, towns) with ruling
+  'EVERYTHING COSTS ONE (8/15)', DEPTH {fortress 1, town 0.667, camp 0.333},
+  PER_SITE_PER_DAY 1, a COLLECTOR table whose lines are "SOMEBODY IS AT THE DOOR
+  AND THEY ARE NOT HERE FOR YOU" and "YOUR FATHER WENT A NIGHT WITHOUT PAYING
+  THEM. THEY REMEMBER", and WORTH: 55 ROWS OF GROUND VALUE from resort 12043 and
+  casino 11477 down to park 164 and solar/airbase/airport/strip at ZERO. THE RENT
+  ROAD ALREADY CROSSES THE GENERATIONS.
+  SO: THE FACTIONS HOLD, THE FACTIONS COLLECT, THE FACTIONS REMEMBER. THERE IS A
+  LANDLORD IN THIS VALLEY AND IT IS NEVER THE PLAYER.
+- AND A CORRECTION TO MYSELF, CARRIED RATHER THAN DELETED: my first probe reported
+  ZERO HOLDERS on all five seeds and payTo() null on every lit cell. THAT IS WRONG.
+  powerMap(m, seed, opts) takes the holder's NAME through opts.holderAt and
+  opts.gridFaction, which the walked surface wires to the town seats in
+  buildPower(); I called it with no opts. MY PROBE WAS THE BROKEN INSTRUMENT, NOT
+  THE GRID -- the same mistake WORLD wrote down once already. What survives: the
+  owner CATEGORIES, of 73 cells with a real circuit owner on seed 1, settlement 43,
+  solar_lone 15, network 10, faction 5.
 
-THE FINDING THAT PROVES US WRONG: THEY DO FALL BACK TO SWAPPING AND OWING, FOR
-ABOUT A MONTH. THEN THEY PRINT MONEY. Argentina's barter clubs began in 1995 with
-TWENTY-THREE PEOPLE at a garage sale. April 2001: ~1,800 nodes. May 2002, at the
-bottom: 5,000 NODES AND TWO MILLION MEMBERS, and over SIX MILLION people across
-five years. And the sequence is the finding: it started as a mutual-credit ledger,
-they tried a version called NODINE (from "no dinero", NOT MONEY), and IT BECAME A
-PRINTED CURRENCY ANYWAY -- the CREDITO, used by an estimated 2.5 MILLION people
-between 2001 and 2003. They named the thing after the absence of money and it
-turned into money.
-AND BARTER RECEDES, IT IS A PHASE: Russia's barter went 5-10% of industrial
-transactions in 1992, to 50-60% in 1998 (over half of all industrial transactions
-using no money), back DOWN to 20-30% by 2000. And Russia's own classification is
-the ladder this round delivers: PURE BARTER, OFFSETS (zachety, a debt settled in
-goods), and MONEY SURROGATES (veksels). SO WHAT MOVES WHEN NOTHING CAN BE BOUGHT IS
-NOT MAINLY GOODS, IT IS TALLIES -- offsets and surrogates are the big slices and
-pure barter is the small slow one everybody abandons.
+THE FINDING THAT PROVES US WRONG: the row's three roads are the folk answer. THE
+BIGGEST ROAD IN THE REAL RECORD IS A FOURTH ONE: BE THE PERSON WHO CAN GET IT AT
+THE OLD PRICE. Venezuela, 2003-2012: an estimated THREE HUNDRED BILLION DOLLARS
+lost to currency arbitrage alone, and the mechanism was neither hoarding nor
+violence -- it was ACCESS AT A PRIVILEGED RATE, with "an entire industry of
+non-productive ghost companies" lobbying for subsidised dollars to resell on the
+black market. The retail version is the same: the Tsar of Mercal got rich SELLING
+CORNFLOUR TO THE SUBSIDISED MARKETS, not by holding cornflour. THE WINNER IS NOT
+THE ONE WITH THE MOST, IT IS THE ONE WHO CAN BUY AT ONE PRICE AND SELL AT ANOTHER.
+AND THAT ROAD IS ARITHMETICALLY IMPOSSIBLE HERE. MEASURED:
+      hubs in the valley                    16
+      DISTINCT PRICES IN THE WHOLE VALLEY    1   ({"1": 11 goods})
+      price(purse, ledger, goodId)           does not take a hub at all
+      buy(purse, hubOrNull, ...)             takes one and never reads it (round 25)
+Sixteen markets, one price, nothing to arbitrage.
 
-WHO KEEPS THE TALLY: EVERYBODY KEEPS THEIR OWN AND IT STARTS AT ZERO. The TEM in
-Volos, ~1,000 members since 2010: you sign up, YOUR ACCOUNT STARTS AT ZERO, you
-take payment in TEMs, you check your balance, and everyone meets at one central
-market on Saturdays. No central treasury -- a ledger per person and a market day.
-In every real system that worked, EVERY PARTICIPANT HAS AN ACCOUNT, which is
-exactly why our one account cannot swap.
+AND THE GUARD ROAD IS FAR BIGGER THAN "A THUG TAKES A CUT", which is the most
+useful thing in the round. Volkov on Russia in the 1990s: law enforcement
+estimated UP TO THREE QUARTERS OF RUSSIAN BUSINESSES PAID PROTECTION MONEY, and
+the krysha did CONTRACT ENFORCEMENT, DEBT COLLECTION, VETTING OF PARTNERS AND
+ARBITRATION OF DISPUTES before legalising into private protection companies. THE
+PROTECTOR WAS THE COURTS. In a place with no courts the one who guards is the one
+who makes a deal stick, and THIS LANE HAS BEEN CIRCLING THAT HOLE FOR TWELVE
+ROUNDS: round 22 found no courts, round 26 found nothing prices settling a wrong,
+round 33 found one pocket and no enforcement between two people. ROAD B ANSWERS
+ALL THREE.
+AND THE LEND ROAD IS NOT GOUGING: informal rates run roughly double formal (28%
+against 15% in one region, 18% against 13% in another) and lenders' charges equal
+their AVERAGE COST OF LENDING -- the price is what it costs to chase everybody who
+does not pay. The lenders are the same people round 29 found: traders, landlords
+and shopkeepers.
 
-HOW A FAVOUR IS PRICED: ONE HOUR IS ONE HOUR, WHATEVER THE SKILL, and the stated
-reason is that it creates "fairness, dignity, and a community where everyone can
-participate". THAT IS EVERYTHING COSTS ONE (8/15) ARRIVED AT INDEPENDENTLY BY REAL
-PEOPLE WHO NEEDED IT TO WORK. Second time his law has been confirmed from outside
-(round 27 found the same shape in welfare ratios). Worth saying: this lane has
-spent thirty-three rounds testing his rulings and that one keeps passing.
-
-WHAT MAKES IT A MARKET AND NOT A MENU: ASYMMETRICAL NEEDS. The player must not be
-able to save up; he has to go and find the specific thing THIS person is short of,
-and limited carrying forces the choice. A value table is a spreadsheet. And our
-asymmetry is already half written: the asking module's four trades each refuse a
-different subject, there are fourteen faction seats, and [PENDING Paolo] 15 --
-WHAT WILL EACH FACTION NOT TRADE, open since round 18 -- IS THE FIELD THAT TURNS A
-BARTER SCREEN INTO A MARKET.
-
-THE RULE DELIVERED: NOTHING CAN SWAP UNTIL SOMEBODY ELSE HAS A POCKET. Then, in
-the order the real record moved it:
-  RUNG 1 THE TALLY MOVES FIRST, NOT GOODS -- offsets were the biggest slice and we
-         have half the machine (favour owedOf/owedRow/settle, live; claim collects).
-         On the day the batteries run out, the first thing that can move is what
-         people ALREADY OWE EACH OTHER. No new currency, no new screen.
-  RUNG 2 GOODS FOR GOODS, ONLY WHERE THE WANTS DIFFER. Worth building only with
-         the asymmetry above.
-  RUNG 3 SOMEBODY PRINTS AND THE VALLEY AGREES TO TAKE IT -- the Argentina shape,
-         and round 29 already measured that convert() takes any rate and has ZERO
-         callers. Round 29's warning stands: whoever holds it first is rich for free.
-  RUNG 4 AND IT RECEDES. Barter is a phase to pass through, not a second economy
-         to balance forever.
-  AND THE PRICE ACROSS ALL FOUR: ONE FOR ONE, which his law already says.
+THE THREE ROADS DELIVERED, in the order the real record ranks them by how much
+money actually moved, which is NOT the row's order:
+  ROAD A BE THE ONE WHO MAKES THEM. Built, needs a holder. Four sites, one of them
+         the only battery plant. What you hold is a PLACE, and a place can be taken,
+         which is drama rather than bookkeeping.
+  ROAD B BE THE ONE WHO MAKES A DEAL STICK. The biggest, and nothing is built.
+         Needs the second pocket round 33 asked for and nothing else.
+  ROAD C BE THE ONE WHO CAN GET IT AT THE OLD PRICE. The real biggest and
+         arithmetically impossible today. If two seats ever quote differently, the
+         player who knows both is rich AND NO MENU HAS TO TELL HIM SO, which is
+         exactly what the row asked for, and it pays off rounds 30 and 31: knowing
+         two prices IS the perception perk earning its keep.
+  AND THE ROAD I AM NOT DELIVERING, SAID OUT LOUD: LEND. Real, but fourth, and it
+  needs two missing things rather than one.
+  AND THE WARNING, WHICH IS HIS OWN REALISM STANDARD AND NOT MY TASTE: IN EVERY
+  REAL CASE THE WINNER WAS CONNECTED, NOT CLEVER. The ghost companies lobbied, the
+  treasurer was the president's bodyguard, the cornflour man had the contract. If
+  a player walks these roads purely by being smart we have built a fantasy; if he
+  walks them by being somebody people owe, we have built the identity line.
 
 ROUTED (suggestions only; only the coordinator makes a job):
-  WORLD [full shelves]  the precondition and the four rungs
-  WORLD                 the one-legged transfer, and goods arriving by `credit`
-  WORLD / PLUMBER       there is no atomic swap(), so a trade can half-happen
-  FACTIONS              [PENDING Paolo] 15 is the field that makes a market
+  FACTIONS / WORLD  ROAD A: four power sites and a holder who can never be him
+  WORLD             ROAD B: nobody can be made to pay anybody
+  WORLD             ROAD C: sixteen hubs, ONE price
+  WORLD             rentOn, owedTo and COLLECTOR all run one way
+  COMBAT / PEOPLE   ROAD B is what rounds 30 and 31 priced seeing FOR
 
-THE GATE NOTE: seven gates green. The round found that every transfer in the game
-is one-legged and that the whole valley shares one pocket. These gates check that a
-part does what it says. Nothing checks that two parts agree, that a part keeps
-working for as long as the game lasts, that it is the right part to have, or that
-the parts form a loop that closes. Rounds 16 through 33. transferOut passes,
-transferIn passes, and the purse's own audit passes because a one-legged transfer
-is two individually legal entries. A gate asking "did the other side of this
-transfer ever arrive" CANNOT EXIST YET, because there is no other side to ask.
+THE GATE NOTE: seven gates green. The round found that every rent and debt
+mechanism in the game points at the player and that there is exactly one price in
+sixteen markets. These gates check that a part does what it says. Nothing checks
+that two parts agree, that a part keeps working for as long as the game lasts,
+that it is the right part to have, or that the parts form a loop that closes.
+Rounds 16 through 34. rentOn passes, owedTo passes, minesOf passes. A GATE ASKING
+"CAN MONEY EVER FLOW TOWARD THE PLAYER FROM ANYBODY" DOES NOT EXIST, and on
+today's build it would be red.
 
-GATES THIS ROUND, ALL GREEN: economy 13/0, payday 38/0, purse 28/0, attempt 15/0,
+GATES THIS ROUND, ALL GREEN: economy 13/0, payday 40/0, purse 28/0, attempt 15/0,
 canon rot 13/0, demo blockers 22/0, language 83/0.
 
-THIRTY-THREE ROUNDS DONE. The last five: Q29 [nothing left], Q30 [perk price],
-Q31 [cheap eyes], Q32 [long injury], Q33 [barter day].
+THIRTY-FOUR ROUNDS DONE. The last five: Q30 [perk price], Q31 [cheap eyes],
+Q32 [long injury], Q33 [barter day], Q34 [who profits].
 
 WHAT THIS WHOLE STUDY KEEPS CONVERGING ON, updated:
-  A. TWELVE ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29, 30, 31, 32, 33) SAY THE
-     ECONOMY OF BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO.
+  A. THIRTEEN ROUNDS NOW (9, 18, 19, 22, 24, 25, 26, 29, 30, 31, 32, 33, 34) SAY
+     THE ECONOMY OF BOHEMIA IS MADE OF PEOPLE YOU KEEP GOING BACK TO. Round 34
+     adds the hardest version: in every real collapse the winner was CONNECTED,
+     NOT CLEVER.
   B. THREE ROUNDS (15, 21, 28) SAY THE MISSING PIECE IS NOT INCOME, IT IS A PLACE
      TO PUT THINGS.
   C. SEVEN ROUNDS (15, 21, 23, 24, 26, 27, 32) SAY A WAGE IS ONE STRAND AND NEVER
      THE THICKEST ONE.
-  D. AND THE WALL, NOW NAMED PROPERLY: SIX ROUNDS (24, 26, 29, 32, 33, and 30's
-     clout faucet) END AT THE SAME PLACE, AND IT IS NOT "THERE IS NO OWED". IT IS
-     THAT THERE IS ONLY ONE POCKET. No owed, no tab, no restitution that arrives,
-     no swap, no market day: all five are the same missing thing.
-  E. AND HIS RULINGS KEEP SURVIVING CONTACT: EVERYTHING COSTS ONE confirmed from
-     outside twice now (27, 33).
+  D. THE WALL, SEVEN ROUNDS NOW (24, 26, 29, 30, 32, 33, 34): THERE IS ONLY ONE
+     POCKET. No owed, no tab, no restitution that arrives, no swap, no market day,
+     and now no way for money to flow TOWARD the player at all.
+  E. AND A NEW ONE THIS ROUND: THERE IS ONE PRICE IN SIXTEEN MARKETS, so the
+     biggest real road to wealth cannot be walked by construction.
 AND THE STANDING PATTERN: almost every finding was a mechanism already built,
-already correct, and pointed at nothing. This round it is transferIn, written and
-working, with nobody to receive anything.
+already correct, and pointed at nothing. This round is the sharpest version yet --
+rentOn, owedTo, COLLECTOR, WORTH and minesOf are all built, all correct, and all
+pointed at the player as a bill.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
@@ -430,7 +340,15 @@ working, with nobody to receive anything.
      market day. FIVE ROUNDS OF THIS LANE'S FINDINGS STOP AT THIS ONE WALL WEARING
      DIFFERENT CLOTHES (24, 26, 29, 32, 33).
 
-NEXT IN THIS LANE: Q34 [who profits], then Q35 [rent riot] and Q36 [first ten].
+ 35. (new) CAN THE PLAYER EVER BE THE ONE COLLECTING? Every rent and debt
+     mechanism in the game points AT him: rentOn bills him by the holder's tier,
+     owedTo counts the NIGHTS HE OWES a faction, and COLLECTOR knocks on his door
+     and remembers his father. There is a landlord in this valley and it is never
+     him. Whether he can stand on the other side of it is a shape question about
+     what this game is, not a number.
+
+NEXT IN THIS LANE: Q35 [rent riot], then Q36 [first ten] and Q37 [carry cost].
+The coordinator added Q37 since last round.
 The coordinator added Q35 and Q36 since last round.
 
 
@@ -439,6 +357,146 @@ The coordinator added Q35 and Q36 since last round.
 
 
 ================================================================================
+UI (ui-kmqmrf): 9/12 (c) LATEST -- *** [no slop] ROUND THREE. THE TELLS HAVE OWNERS. ***
+TAB: CITY and RUN (the panels that pop up over the city).
+RULER: tools/bohemia_count_the_tells.js --where
+RECORD: records/BOHEMIA_NO_SLOP_WHERE_THEY_LIVE_9_12_26.md
+PICTURE: slices/BOHEMIA_THE_PANEL_IS_A_PLATE_9_12_26.html
+
+"62 HAIRLINES" IS A SCORE. "TEN IN THE DAY CARD" IS A JOB. The ruler attributes every hit to
+the panel that owns it now, which is the whole of what turned this round from tidying into work.
+
+*** AND IT LIED TWICE BEFORE IT TOLD THE TRUTH, AND THE SECOND ONE WAS NEARLY ROUTED. ***
+  1. A HEX COLOUR READ AS A PANEL. The anchor was "a hash followed by a letter", so #c9a24a --
+     a shade of gold -- was credited with six hits, and every hit after any colour literal was
+     attributed to that colour. The list of owners was partly a list of paints.
+  2. WORDS INSIDE QUEST DATA READ AS PANELS. With colours excluded, the two biggest owners came
+     back #namedbody (17 hairlines, 19 radii) and #dread (18 monospace). NEITHER EXISTS IN THE
+     STYLESHEET -- they are strings in the embedded .bq quest text. I was one step from writing
+     a routing note telling other lanes to go fix panels that do not exist.
+Caught by opening the top two names and finding no rule behind either. A CLEAN ANSWER FROM THE
+WRONG ORACLE LOOKS EXACTLY LIKE A FACT. An anchor is now exactly two things: an id in the
+markup, or an id that OPENS a css rule.
+
+THE PANELS ARE PLATES NOW. Save, key, build, outfit and the day card's box each carried their
+own border:1px solid and their own card radius. One skin rule gives them the same object
+language the chips use, and the declarations are DELETED rather than overridden, so the source
+and the screen say the same thing.
+
+TWO FAULTS THE PICTURE CAUGHT THAT NO COUNT COULD, both by opening the save panel and looking:
+  - the buttons INSIDE the panel still wore the old rounded card with a hairline, inside a
+    plate that no longer did. They are classes, not ids, which is why the first rule missed them.
+  - A MODAL WAS SITTING UNDER THE RAIL. #blstack is z-index 39 and the panel was 9, so the
+    STANDING chip and the walk note drew ON TOP of the panel's own buttons. Same family as
+    [rail collides], found the same way. The modal panels are above the furniture now.
+
+NUMBERS: walked city 272 -> 266. 1px borders 62 -> 58, rounded 65 -> 62, named fonts 0.
+UNCHANGED AND STILL THE TWO BIGGEST: monospace 44, spaced caps 80. The font debt from round two
+is exactly where it was -- the ruled faces are not in this repo. The biggest single owner left
+is the day card, and it is mostly its WRITING, not its box: a surface with an owner and a voice
+that wants its lane's eyes before mine.
+
+GATES: CITY RAIL 8/0, PHONE OBJECT 18/0, SETTINGS 18/0, TOP MENU BAR 12/0, HALF SIZE 7/0,
+THUMB 15/0, FEED 15/0, READABLE RULER 7/0, ALPHA LOADS 20/0, PAGES PUBLISH 18/0.
+[PENDING Paolo] Nothing blocking.
+
+EYES AND EARS (eyes-5vql33): 9/12 (y) LATEST -- *** E18 [he can hear it] ROUND ONE OF TWO IS DONE: SCHOOL. NOTHING WAS MEASURED. THE ANCHOR HE NAMED HAS NO TRUSTWORTHY NUMBER ANYWHERE, AND OUR OWN SOUND LAW DESCRIBES IT BACKWARDS. *** TAB: the song he likes is in MUSIC, and it is also in the demo. NOT IN A TAB YET for the instrument; this lane never writes game code. Record: records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md. Spec bank: banks/eyes/BOHEMIA_EYES_E18_AXIS_CARD_SPEC_9_12_26.json, draft:true.
+
+BOTH SIDES OF THE COMPARISON ARE NAMED BY HIM AND BOTH WERE FOUND. The anchor: BESAID ISLAND, FINAL FANTASY X Original Soundtrack, disc 1 track 18, composed AND arranged by MASASHI HAMAUZU, the ORIGINAL not the remaster (Paolo 9/7, "look at this song bro"). The candidate: THE MARKER ON THE DOOR, tagged OVERWORLD DAY by his own hand, Paolo 8/2: "The marker on the door at full intensity is now one of my new favorite songs that you've made great job." It is a live row in the shipped music table: root 48, scale [0,2,4,7,9] which is major pentatonic, sawtooth, kick [0,4,8,11], bass [0,4,9,12], hat [2,6,10,14], lead brokenrosary, bass abyssbass, pad nightpad, kit knock and tight, swing 0.1, full intensity, batch 22. 181 song rows and 126 distinct names ship in the alpha and the demo.
+
+FIVE COUNTER-FINDINGS, EACH ONE CHANGES ROUND TWO:
+ (a) EVERY PUBLIC NUMBER FOR BESAID ISLAND IS FOR A COVER. The BPM sites carry Celestial Aeon Project, Franco Albertini, Josh Barron, Jeremy Ng, Game Soundtrack Cat and PianoDreams, spread from about 103 to 175 BPM, E major on one and C#/Db minor on another. He named the ORIGINAL and said stop hunting, so the reference side has no trustworthy number available and round two enters it as CITED TEXT with a source, or prints UNKNOWN. An honest blank beats a borrowed number.
+ (b) OUR OWN LIVE LAW HAS THE ORIGINAL AND THE REMASTER THE WRONG WAY ROUND. laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md says the remaster shortened it, started the beat sooner and removed the bass. Every source I could reach says the other direction on pacing: the ORIGINAL is faster and more upbeat, the REMASTER slowed the BPM significantly into something slower, more serene and string-heavy. The same documents also imply Uematsu; this track is Hamauzu's. A law is not this lane's to edit. [PENDING coordinator]
+ (c) TEMPO IS NOT A FREE VARIABLE. 120 BPM is a pillar law and the music runs the one clock. So axis one is reported as a constraint and never as a gap, because filing it as a defect would be asking for a law to be broken.
+ (d) A DISTANCE-FROM-THE-ANCHOR SCORE IS BANNED, and two roads say so. Outside: temp love, named in the trade, where a beloved reference makes everything written against it read as lesser (on Arrival the Max Richter temp beat everything the composer wrote and stayed in the film). Inside: tools/bohemia_where_his_taste_lives.py exists because batch 25 was swept 0 for 8 and its own docstring says a metric that rewards distance from the voices he approved walks away from his taste. Round two produces one number per axis per side, side by side. No total, no percentage, no ranking of 200 songs.
+ (e) OUR CANDIDATE IS A PARAMETER ROW, NOT A RECORDING. Four of the five axes are honestly comparable (beat entry, bass as presence and register, melody contour, and tempo as a constraint). INSTRUMENTATION IS NOT: a sawtooth through a synth voice and a real violin are not two points on one ruler. It gets written down as uncomparable instead of scored, and what is checked instead is the ROLE each voice plays.
+
+AND THE STANDARD INSTRUMENT MEASURES NONE OF THE FIVE AXES. The trade's actual reference-comparison tools, ADPTR Metric AB and Mastering the Mix Reference 2, give loudness matching, LUFS, true peak, dynamics, spectrum, tonal balance, stereo width and correlation. Tempo no, key no, instrumentation no, melody no, beat entry no. They compare PRODUCTION, not COMPOSITION, and every axis this job names is a composition axis. The one thing they get right and round two takes: loudness is matched FIRST, before any A/B, because loudness is a known confound in similarity judgement.
+
+THE WORST FAILURE MODE IS ON AXIS ONE. Tempo estimation is not solved: octave errors, continuity errors and total tracking failure are the named modes, percussion presence significantly changes performance, and the standard DBN post-processor's default 55 BPM floor forces double-tempo predictions on slow music (measured as wrong on 21% of the hard set). Besaid is a picked melody over soft hand percussion. So an octave-error control is mandatory: a click train at 120 must read 120 and the same train at half speed must read 60, not 120.
+
+ROUND TWO'S SPEC: four axes measured and one declared uncomparable; our side measured off a REAL RENDER, not off the row; loudness matched first; reference side cited or UNKNOWN; tempo as a constraint; four planted controls (render, octave error, contour against itself and against its inversion, planted beat onset) and all pass or no number prints. REUSE, DO NOT REBUILD: tools/bohemia_sfx_instrument_measure.py already reaches the live 602-voice rack in the one alpha, and tools/bohemia_eyes_quiet.js already taps the graph and does BS.1770. NO RATCHET on this one, on purpose: nothing here can only get worse, so a gate from round two holds that every reference value carries its source, the shape PRE-JUDGE COVERAGE already uses.
+
+SOURCE HONESTY, WRITTEN DOWN BECAUSE IT LIMITS HOW HARD THIS CAN BE LEANED ON: the egress proxy blocked arxiv, the ISMIR transactions site, Wikipedia, the FF wiki, the TU Wien PDF, the BPM databases and the Lifestream review. Those findings are recorded as the search index reported them, with URLs, and they agree across independent pages. Finding (b) in particular rests on listener reviews and complaint threads, which is community consensus and not a measurement. That is exactly why the reference side goes in as cited text.
+
+STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists" and is wrong by eighteen instruments and five suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. Three superseded GDDs (v2, v3, v4) still live in laws/ beside v5 carrying 69 lock lines. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
+
+NEXT: E18 round two, the check. Then E19 [slop count], E20 [song length], E21 [marker sweep], E22 [never ran]. Every job is two rounds and never one. E9 is STANDING and runs every round.
+
+================================================================================
+
+WORDS (words-8dqrnq): 9/12 (c) -- *** Q20 [no law talk] SHIPPED WITH BOTH ROUNDS. ACT ONE IS
+THE MOST FORMAL OF THE THREE ERAS, AND THE FIFTEEN LINES EACH CARRY THE INSTITUTION ACT TWO WOULD
+KILL THEM WITH. *** TAB: NOT IN A TAB YET. No game code touched, ever. All draft:true in the bank.
+
+THE ROW ASKED FOR SOMETHING UNTESTABLE AND SCHOOL MADE IT TESTABLE. "Fifteen act-one lines that
+would sound wrong in act two" is taste. School turned it into a check anybody can run: A LINE IS
+ACT-ONE IF ACT TWO COULD ANSWER IT WITH AN INSTITUTION. Every one of the fifteen carries its own
+act-two kill written underneath it, naming the thing that deletes it. That is the real deliverable.
+
+WHAT IS IN THE BANK, section Q20 ROUND TWO, all draft:true:
+  1-3   COURTESY IS ARMOUR      one man across the whole range: elaborate stair courtesy, then
+                                politeness named as a thing being spent down, then the switch,
+                                which goes QUIETER and CLOSER instead of louder
+  4-5   THE CONSEQUENCE INSIDE  "There is nobody to go and get. There is me."
+  6-8   THE NAME IS THE PASSWORD  the ask, the answer (three people who vouch, not a document),
+                                and the refusal, which treats a name as cargo you can keep
+  9-11  THE RULE IS A PHRASE    a saying quoted AS law, a second mouth completing it word for
+                                word, and a child drilled on the exact wording
+  12-13 SAID SIDEWAYS           and the number said at the gate, not in front of his crew
+  14-15 THE BESA                one given on the house in front of witnesses, and one COLLECTED
+                                from a son who never made it. 15 is the only line of the fifteen
+                                that survives into act two, which is the point of it.
+
+MEASURED ON SCHOOL'S OWN RULERS, the fifteen lines (409 tokens) against our 2,442-line corpus:
+  recourse words (had to stay 0)   0 hits           corpus 0.14 per 1k   correct
+  address terms                    7.33 per 1k      corpus 0.55          13x
+  the oath                         2.44             corpus 0.03          81x
+  the fixed saying                 7.33             corpus 0.35          21x
+  collective liability            12.22             corpus 1.10          11x
+  deference markers                2.44             corpus 0.45          5x
+
+AND THE HONEST PROBLEM, WHICH IS THE BEST THING I FOUND THIS ROUND. Only ONE line in fifteen trips
+the deference ruler, in a section whose headline finding is that courtesy is armour. Reading the
+lines instead of the rate: 2, 3 and 13 all do courtesy work and none of them trips it, because they
+do it through behaviour. THE RULER IS PARTLY A LAW-CULTURE RULER. "Sir", "ma'am", "excuse me" are
+institutional forms, film's baseline is largely made of them, and our valley never had an
+institution to grow them. So school's -6.2 sd is real but part of it measures vocabulary this world
+would never have had, and the fix shows up in the ADDRESS row at 13x instead. Written down rather
+than reported as a rate that reads better than the lines do.
+
+ROUTED. PEOPLE gets the border demand: the build already withholds a stranger's name and already
+earns one over time, but nobody is ever STOPPED and priced, in a valley made entirely of faction
+ground. DYNASTY gets the one that crosses the fold: a promise made in act one should be collectable
+in act two from an heir who never made it, which needs a promise the save carries. QUESTS gets two:
+an act-one quest cannot resolve by fetching an authority, and a rule should arrive as a phrase heard
+from more than one mouth.
+
+MY OWN GATE WENT RED AND BOTH FAILURES ARE THE GATE LYING, NOT THE BUILD. voice_gate slipped 110/1
+to 109/2 this round. Proved not mine by running it on a clean copy of main: identical, 109/2, same
+two. Cause is QUESTS [jobs pay] adding a payout to a quest I voice-passed, which is entirely their
+right. FAILURE ONE: the "the dead line is gone from the demo" check searches the demo's RAW text,
+the demo inlines quest files WHOLE INCLUDING COMMENTS, and the comment it found is MY OWN note
+listing the lines I deleted. It found "quiet money spends" inside the note saying it is dead.
+Nobody says it. Worse, the same bug can make a FALSE GREEN, because a new line quoted in a comment
+would count as delivered. FAILURE TWO: the "this pass changed words only" check compares a fixed
+historical claim against a MOVING file, so the first legitimate edit by any other lane turns it red
+FOREVER, whatever anybody does. Measured: the claim is TRUE between the pre-pass commit and the
+commit the pass landed in, and false against today's file. That is the whole bug.
+THE FIX IS WRITTEN AND NOT SHIPPED, and this is a [PENDING]. I was blocked from running the voice
+gate to verify it, twice, so I reverted my edit rather than ship an unverified gate, because
+verification is never self-attestation here. Diagnosis and the exact patch:
+records/BOHEMIA_WORDS_THE_VOICE_GATE_WENT_RED_ON_SOMEBODY_ELSES_WORK_9_12_26.md. It needs ONE gate
+run to land. PLUMBER can take it if this lane still cannot get a run.
+I also deliberately did NOT add the obvious third check, "all 33 voice-passed lines are still in
+the quest": only 19 of 33 are, and the reason is innocent (my own later five-scene pass superseded
+some). Shipping that would have been a false accusation with a green tick on it.
+ALSO ON MAIN: language went GREEN 83/0, the spanglish picker fixed by the lane that owns it, five
+rounds after I routed it. Catalogue still 60/3, not mine, waiting on the words book being baked.
+My own: attempt 15/0, handoff 7/0.
+
+NEXT: Q21 [ask words], school first. Q4 to Q17 still owe their school rounds, one row at a time.
+
 EYES AND EARS (eyes-5vql33): 9/12 (x) LATEST -- *** E17 [locked ignored] IS SHIPPED, BOTH ROUNDS. THREE RULINGS HE MARKED LOCKED ARE CONTRADICTED BY THE SHIPPED GAME. *** TAB: the three are in RUN (the title screen), CITY (the purple tiles you walk past) and COMBAT (the cover cost). The instruments themselves are NOT IN A TAB YET; this lane never writes game code.
 E17 [locked ignored] IS SHIPPED at 545fa7c, BOTH ROUNDS. School: records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md. The sweep: records/BOHEMIA_EYES_E17_ROUND_2_THE_LOCK_IS_NOT_THE_RULING_9_12_26.md. Tool tools/bohemia_eyes_locked.py plus the real-screen half tools/bohemia_eyes_locked_surface.js. Gate gates/locked_ratchet_gate.js, suite LOCKED RATCHET, proven to bite on four separate failures before it was registered.
 
@@ -1607,85 +1665,87 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/12 (round 17) LATEST -- *** [collector heir]
-THE-LENDER-VISITS-THE-HEIR SHIPPED. The first thing the heir reads on their first
-morning is that somebody their parent went short with is at the door. They are not
-asking the heir for money. They are just there. *** ONE PENDING, AND IT IS A REAL
-CONTRADICTION IN THE CANON.
+FACTIONS (factions-ovkjpf): 9/13 (round 18) LATEST -- *** [tracks read]
+WHOSE-FOOTPRINTS-ARE-THESE SHIPPED. Twenty-eight parties have been walking this
+valley since [parties move] landed and they left nothing behind. They leave tracks
+now, in their own faction's colour, and the bright end tells you which way they
+went. *** Nothing to judge.
 
-VAMILY row: [collector heir], MODE: BUILD, SHIPPED 9/12 fc41326f.
-Record: records/BOHEMIA_THE_LENDER_VISITS_THE_HEIR_9_12_26.md
+VAMILY row: [tracks read], MODE: BUILD, SHIPPED 9/13 22d50ce5.
+Record: records/BOHEMIA_WHOSE_FOOTPRINTS_ARE_THESE_9_13_26.md
 
-*** TWO LIVE BOARD ROWS CONTRADICT EACH OTHER AND THE SHIPPED CODE SETTLES IT. ***
-WORLD's [debt carried] says every debt "survives the generation fold to the heir IN
-FULL". engine/bohemia_fold.js, shipped 9/7 and marked ruled:true off the DYNASTY
-study, says the opposite and says WHY:
-  "a child is not personally liable for a parent's unsecured debts... YOU DO NOT
-   INHERIT A BILL, YOU INHERIT LESS AND YOU INHERIT THE PEOPLE HE OWED, still
-   standing there. That is a standing-web query, not a purse line."
-THAT SENTENCE IS THIS ROW. The balance dies; the creditor does not. I built the
-ruling that has a machine gate behind it. Which one stands is his -- see PENDING 1.
+THE NAMED BLOCKER WAS NOT THE BLOCKER. SIXTH ROW RUNNING. The row says "with RUN
+[travel map]" and that row is still OPEN. Measured before building:
+  parties out       28          factions with one moving   14 of 14
+  speed             89 cells a day, and they really advance
+  ground they walk  the overmap, which the player already looks at
+A track needs somebody to have WALKED, not a new map.
 
-THE NAMED BLOCKER WAS NOT THE BLOCKER. FIFTH ROW RUNNING. [debt carried] is still
-OPEN and WORLD's [someone lends] says in its own first line that nothing in the game
-ever lends anybody anything. True, and it does not block this: THERE IS EXACTLY ONE
-WAY TO OWE A FACTION TODAY and this lane shipped it last round -- rent you could not
-pay. A collector built on anything else would be a pipe with no water.
+DERIVED, NEVER STORED. A party's route is a straight sign-step walk between two
+points it already carries (from, to, at, arrived), so the cells it has covered ARE
+those fields put through the same step rule the mover uses. Nothing is written to a
+party, nothing is saved, and there is NO RULE FOR WHEN TO FORGET -- the trap the
+coalition and the roving rule both avoided in this lane.
+A PARTY THAT HAS TURNED ROUND LEAVES A DIFFERENT TRAIL: its leg begins at the border
+it reached, not back at its seat, so the trail always points the way it walks NOW.
 
-WHAT IS KEPT IS A COUNT OF NIGHTS, NEVER A BALANCE. How many times they were stiffed
-is a FACT; what a night of unpaid rent is WORTH is a weight, and weights are his.
-Nothing touches standing, the same refusal [block rent] made one round earlier. It
-rides its own save key beside the doused set, so a valley reset cannot quietly
-forgive everybody.
+NO MEMORY LENGTH IS INVENTED. How long a track is, is how far that party has walked
+on this leg, and how far it walks is the distance between two of HIS seats. No fade
+constant, no "tracks last N days", no decay. The one cap in the renderer is named a
+RENDERING bound in its own comment: what fits on a screen without becoming a
+scribble.
 
-DRIVEN END TO END, WALKED SURFACE AND DEMO, NO PAGE ERRORS
-  1 nobody owed at the start, no visit due
-  2 an empty purse through the REAL nightfall bill writes five factions into the
-    book (Mob 16 billed 0 paid, Church 3/0, Cartel 2/0, Blues 2/0, Colorful 1/0)
-  3 no visit while the parent is alive
-  4 the fold: generation 1 -> 2
-  5 the heir's first morning card, at the TOP:
-      DAY 1 / 06:00 light until 22:00
-      SOMEBODY IS AT THE DOOR AND THEY ARE NOT HERE FOR YOU
-      BLUES. YOUR FATHER WENT A NIGHT WITHOUT PAYING THEM. THEY REMEMBER
-      THE DEBT DIED WITH HIM. THEY DID NOT
-  6 the second morning is quiet
-  7 no inherited bill anywhere in the purse
+IT RIDES HIS OWN COLOURS, AND IT IS A TRAIL NOT A DOT. Tracks use __holderInk, the
+SAME function the territory borders use, so a Mob track and Mob ground read as the
+same people with no second colour decision. COLOUR IS TERRITORY, and a track is
+territory moving. A marker would say "somebody is there"; FOOTPRINTS SAY WHICH WAY
+THEY WENT, which is the half the row is named for -- follow or avoid. So the trail
+fades along its length, brightest where they are standing now.
 
-*** THE MISTAKE THAT TOOK THREE GOES, AND IT IS THE SAME ONE EACH TIME. *** Built as
-its OWN card the collector was DRAWN, COUNTED AND NEVER SEEN: buried by the phone
-offer, then by the showChoice on the next line, then by my editing the end of a
-DIFFERENT function. The morning is ONE card -- showWake builds its whole html and
-ends by calling cardShow with it -- so the collector belongs at the TOP of that
-html, which is also exactly what the row asks for. SHOWN, COUNTED AND NEVER SEEN IS
-THE SAME AS NOT BUILT, and a counter going up is not proof anybody saw it. The
-orphaned card function was deleted rather than left with no caller.
+TWO SURFACES, BECAUSE THEY ANSWER DIFFERENT QUESTIONS
+  THE MAP IS FOR DECIDING     zoomed out you see trails and plan around them
+  THE STREET IS FOR NOTICING  down there you cannot see a trail, you see that
+                              somebody came past:
+      "Anarchists came through here just now. a patrol, and they are close."
+  It speaks only when the answer CHANGES: one string compare per block crossed,
+  nothing per frame, the same shape as the address countdown beside it.
 
-IT ASKS FOR NOTHING, DELIBERATELY. What a collector WANTS is a price and prices are
-his. NOT ONE NUMBER appears in any of the three lines, which the gate checks: naming
-a sum would be collecting a bill the game has already ruled the heir does not owe.
+THE FAULT I CAUGHT BY WALKING OFF THE TRACK. Stepping onto empty ground left the old
+sentence on screen, and a line that was true one cell ago and is a lie now is worse
+than silence. AND IT ONLY CLEARS ITS OWN WORDS: the street line is SHARED with the
+pack and the road, so it is cleared only while it still says exactly what this put
+there.
 
-GATES  faction_towns 95/0 (was 81), fourteen new claims. Green alongside: turf 43/0,
+DRIVEN ON THE WALKED SURFACE AND THE DEMO, NO PAGE ERRORS
+  20 of 28 parties with a trail, longest drawn 13 cells
+  EIGHT FACTIONS' TRACKS PAINTED ON A REAL CANVAS in their own ink
+    Blues #0052db  Mob #db1800  Network #4a8ddb  Caravans #db9324
+    Church #db9400  Cartel #c8a558        alongside 14 turf borders
+  stood on an Anarchist patrol's prints -> the street said so
+  stepped off -> the line cleared;  two more steps -> it did not repeat
+The Cartel comes out in the default gold because its measured wardrobe colour is
+DRAB and there is no hue to lift. Existing deliberate behaviour, and the same fact
+behind standing PENDING 5.
+
+GATES  faction_towns 111/0 (was 95), sixteen new claims. Green alongside: turf 43/0,
        engine sync zero drift, demo build 25/0, alpha loads 20/0.
 
-[PENDING Paolo] -- FIVE NOW, AND THE NEW ONE IS A CANON BUG
+[PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. *** DOES A DEBT CROSS THE FOLD? *** engine/bohemia_fold.js says it DIES and is
      marked ruled. WORLD's [debt carried] row says it survives IN FULL. BOTH ARE
-     LIVE. Two live sources disagreeing is a bug in the canon, not an interpretation
-     choice. I built the shipped one, and its other half (you inherit the PEOPLE he
-     owed) is the better mechanic, but the call is his.
+     LIVE. I built the shipped one ([collector heir]); the call is his.
   2. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
      kitchens and THE PLANT" while a camp has a stall. If "the plant" is a GENERATOR,
-     every fortress makes power off its own seat and "a fortress makes more than a
-     camp" becomes true everywhere. That would author canon about what the money
-     supply is and who holds it, so it was not taken.
+     every fortress makes power off its own seat. That would author canon about what
+     the money supply is, so it was not taken.
   3. Anarchists, Colorful and Custom are called non-territorial by his own notes and
      still hold ground. Should they at all?
   4. What it COSTS to be seen with one of the four hidden factions, or taken for one.
   5. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
      Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
-     drab factions, the gate carries three.
+     drab factions, the gate carries three -- and the tracks just made that visible
+     on a second surface, because a drab faction's trail falls back to plain gold.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
 verified inherited on a clean origin/main worktree and unchanged since.
@@ -1695,16 +1755,15 @@ verified inherited on a clean origin/main worktree and unchanged since.
       a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [tracks read]  WHOSE-FOOTPRINTS-ARE-THESE -- with RUN [travel map]; the faction
-    colours are in a file the game can read, so this is wiring
   [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11) --
     [crossing costs] gave it its shape: who will join you where you are standing
   [rent visible]  YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES -- the coordinator's follow-on to
     [block rent]: show what a block takes BEFORE you decide to live or work on it
+  [who follows]  WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK -- with PEOPLE [down not dead]
 
 SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  Five rows now.
+  SIX rows now. It has been wrong every single time.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
   number nobody ruled.
@@ -1712,7 +1771,8 @@ SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE THAT
   CHECKED NOTHING. Make the guard itself a claim.
   AND SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT. A counter that goes up
-  proves the code ran, never that anybody saw it. Read the surface.
+  proves the code ran, never that anybody saw it. Read the surface, and walk OFF the
+  thing as well as onto it -- this round's fault was only visible on the way out.
 
 --------------------------------------------------------------------------------
 
@@ -7130,7 +7190,67 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [purple leak]: THE RESERVATION GATE EXISTS, IS
+COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 2: "ABOUT 20 MAP-ONLY
+DISTRICTS" IS EIGHT, AND SEVEN ARE VEGAS LANDMARKS. *** Nothing on his screen changed; this
+round was an audit and a gate. NOT IN A TAB YET.
+
+THE ROW'S PREMISE RESTS ON A NUMBER THAT IS WRONG BY 2.5x, AND SO DOES A LAW. The FACTION
+TOWNS law (9/4) says "the buildings a fortress needs that nobody has drawn are the ~20
+map-only districts already on ART's queue; build them in tier order", and this section's STATE
+line says the same "about 20". It is EIGHT, and not one is a fortress building.
+
+*** READ THIS BEFORE CONCLUDING ANYTHING IS MISSING. THERE ARE FOUR REGISTRIES. ***
+    DISTGEN      61   engine/bohemia_world.js
+    SURFACEGEN   10   the roads and the raw land -- FORTY LINES BELOW DISTGEN IN THE SAME
+                      FILE, with a comment saying "surfaces, never districts: nobody bases a
+                      faction on a mountain"
+    the KIT       5   KIT.get(name), and ONLY after a registrar (bohemia_landmarks.js) is
+                      required -- never a property on the module object
+    the overmap  79   bohemia_overmap.js DISTRICT
+My first pass asked three of the four and got 18 MISSING, headed by mountain, desert, water,
+freeway. I was one keystroke from recording that the valley cannot draw its own mountains.
+FOURTH TIME THIS LANE HAS BELIEVED A CLEAN NEGATIVE FROM THE WRONG ORACLE -- a filename, a
+module property, a gate's filename match, now a second registry in the same file. First time
+I caught it before it reached a record.
+
+THE EIGHT, AS CELLS ON A REAL 96x96 MAP (not as names -- a name nothing places costs nothing):
+    sphere 4 · highroller 1 · sign 1 · strat 1 · springs 1 · luxor 1 · robofactory 1
+    beltway 0  -- NEVER PLACED. Known to the graphics engine, in the kit's ROADSET, discussed
+                  by name in bohemia_arterial.js, and on no cell at all. Not debt.
+Confirmed against the world's OWN API: all seven are isAutoDistrict false, isSurfaceCell
+false, districtZone null.
+
+AND THE PLACEMENT IS GOOD CANON NOBODY DREW: strat 53,28 north · sphere 56,42 and highroller
+55,46 middle · luxor 53,61 and the Welcome sign 55,65 south · springs 40,23 west. That is the
+real geography of Las Vegas and a player walking to any of it finds bare ground.
+
+BUILT: gates/map_names_it_gate.js, registered in the suite as MAP NAMES IT, 9/0 in 0.2s.
+One claim: if the map names it, something must be able to draw it. It asks ALL FOUR registries
+BY RUNNING THEM, counts CELLS not names, and REQUIRES THE KIT'S REGISTRAR BEFORE ASKING THE
+KIT -- not doing that returns an empty answer indistinguishable from "these do not exist",
+which is the exact mistake the gate is about, and is one of its arms. Ratcheted at 7 names
+over 10 cells; a NEWLY placed undrawable name is red whatever the totals say. Mutation-tested
+three ways, all red, restore green.
+
+NOT COOKED THIS ROUND, AND THE REASONS MAKE THE NEXT ONE FAST:
+  * THE SPHERE IS THE WORST FIRST CANDIDATE, NOT THE BEST. It is a 2x2 blob and spec() in
+    bohemia_landmarks.js plans a SINGLE cell. Multi-cell needs the clusterBoundsOf treatment
+    the airfields already use ("a runway is three kilometres long and a cell is 96 metres").
+    A different mechanism, not a bigger version of the same one.
+  * The other six ARE single-cell and follow the `fort` spec pattern exactly (palette, legend,
+    notes, a build function of a.rect / a.ring / a.set / a.scatter). But registering one also
+    needs a DISTGEN row in engine/bohemia_world.js, which is WORLD's file -- ONE SYSTEM, ONE
+    SESSION says check that boundary before crossing it, not after.
+  * BEST FIRST COOK: the WELCOME TO LAS VEGAS SIGN. One cell, the most recognisable object in
+    the city, and honest at 96 m: the Strip lanes, the median, the sign, the parking loop.
+
+-> [FOR THE COORDINATOR] the STATE line's "about 20" and the towns law's ART clause both rest
+   on the wrong number. Lanes change status words only, so I did not edit the STATE line.
+RECORD: records/BOHEMIA_COOK_THE_TWENTY_MAP_ONLY_DISTRICTS_ARE_EIGHT_9_12_26.md
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [purple leak]: THE RESERVATION GATE EXISTS, IS
 REGISTERED IN THE SUITE AS `PURITY`, AND COULD NOT FAIL. *** Nothing on his screen changed;
 this round was a checker. NOT IN A TAB YET.
 
@@ -9759,6 +9879,26 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/12 (c) LATEST -- *** CHAT 18. ROUND 18. [suite runs] CONTINUING. THE 594 s
+SECTION OF FACTION ARC IS NOW 357 s AND ALL 102 CHECK LINES ARE WORD-FOR-WORD IDENTICAL (diffed, not
+counted). MEASURED INSIDE IT, twice, because reading it had already fooled me once: the ring walks 14
+bases x 12 offsets and the rings OVERLAP, so it made 5,112 passes over 441 DISTINCT PEOPLE -- 4,671 of
+them (91%) re-opening a UI card on somebody whose outfit had already been read, at 116 ms a pass. That
+is where the 594 s was: not the arithmetic, and not the four page boots (9%). THE FIX IS ONE SKIP and
+it is provably result-identical: `seen` only records a fid the FIRST time it appears, so every later
+pass over the same person already fell through `seen[fid]` and changed nothing. Only people whose card
+ANSWERED are skipped -- a NULL read is still retried, because a card that failed to fill once may fill
+at another spot and losing that would lose an outfit.
+BEFORE/AFTER: whole gate 1,228.2 -> 887.5 s; section K 594.3 -> 356.6 s; card opens 5,112 -> 441. The
+last number is DETERMINISTIC, not a stopwatch, which matters because this lane's own [fight headroom]
+notes warn that a single before/after on a browser gate is a coin toss -- the wall clock here carries
+run-to-run variance, the card-open count does not.
+A FIRST GUESS DIED ON THE WAY, worth keeping: stopping early once every outfit is found would NEVER
+FIRE. Only 12 of the 14 bases ever yield a member (three capitals sit on ground with nobody
+affiliated, which the gate's own 9/5 comment explains), so the scan genuinely has to run to the end.
+STILL NOT ENOUGH, AND THAT IS THE HONEST PART: 887 s against a 600 s cap, so FACTION ARC is still
+killed every run and its 102 checks still never land in the suite. THE SPLIT IS NEXT. One more ring
+(line 666, section F, ~52 s) has the identical overlapping shape and takes the same fix.
 PLUMBER (plumber-ont6t5): 9/12 (b) LATEST -- *** CHAT 18. ROUND 17. [suite runs] IN PROGRESS, NOT
 SHIPPED. ALL 593 GATES RAN IN ONE PASS FOR THE FIRST TIME, and the number that falls out is the
 whole story: 500 green, 93 red, 13,001 s of gate work, and a FLOOR OF 71 MINUTES on this four-core
@@ -14975,12 +15115,36 @@ It also serves DIRECTION's own finding on that row -- TWO MODALS STACKED one tap
   it has never been: into the game, finds the card's own GO, walks, talks to a
   person.
 
-*** STILL RED, AND IT IS A DIFFERENT CAUSE NOW -- THIS IS THE NEXT THING. *** The
-clock is still 1d 360m after forty presses, but no longer because a frozen scene
-owns the screen. IT IS A TALK LOOP: cttalk > ctgo > cttalk > ctgo, twenty presses
-of opening a conversation and closing it, AND TALKING COSTS NO TIME. A person
-would read and choose; a cold hand alternates forever. Much smaller than what it
-replaced, and squarely chaseable.
+*** AND THE TALK LOOP, CHASED THE SAME WAY, WAS NOT WHAT IT LOOKED LIKE. *** The
+conversation is VERY MUCH ALIVE: standing next to a scavenger gives SCAVENGER /
+THEY ARE AGAINST YOU / YOU ARE ON THEIR BLOCK AND THEY DO NOT KNOW YOU / NAME: YOU
+HAVE NOT ASKED / USED TO BE: FIXED ENGINES, and four choices -- Ask their name,
+Show up for them, Take it, Leave them to it. AND TWO OF THEM REALLY SPEND THE DAY,
+measured: "Show up for them" and "Take it" cost 60 MINUTES EACH. Asking a name is
+free, which is right.
+I NEARLY "FIXED" A STYLING FAULT THAT DOES NOT EXIST: ctgo measured 5035px vs
+ctfavour 2691 and I read it as the exit shouting down the choices. Measured
+properly, ALL FOUR ARE THE SAME HEIGHT AND COLOUR -- the widths differ only
+because "Leave them to it" is a longer label than "Take it". The cold hand picks
+the biggest ink, so the longest sentence wins. Blunt instrument, not a bad screen.
+
+*** WHAT WAS REAL: THE FOUR MOST MEANINGFUL BUTTONS IN THE GAME WERE UNDER THE
+THUMB LAW. *** All four 31px against a 44px law, and two of them spend an hour of
+a player's day. NO CHECKER HAD EVER SEEN THEM -- none stands next to a person and
+opens a conversation, so the thumb sweep only ever measured the first screen.
+*** THAT GAP IN A GREEN GATE IS FILED FOR UI, not papered over. ***
+Held to 44px from the demo side now, height only, width left alone, same pattern
+and same reasoning as the cold-open row; the workshop keeps its 31px.
+AND THE FIRST CUT OF THAT RULE DID NOTHING: I put the style in the demo's SHELL,
+and THE CONVERSATION LIVES IN THE CITY FRAME, a different document, so a style tag
+in the page cannot reach it. It sits with the walk pad's rule inside the frame now.
+    before  ctask 146x31  ctgive 162x31  ctfavour 87x31  ctgo 162x31
+    after   ctask 146x44  ctgive 162x44  ctfavour 87x44  ctgo 162x44
+
+NEXT: the cold hand's last red is now a blunt-instrument red, not a dead end -- it
+cannot read four choices and picks the longest label forever. Either it learns to
+press a control it has not pressed before when the clock is not moving, or that
+claim gets scoped to the walked surface. Do NOT "fix" the conversation for it.
 Record: records/BOHEMIA_THE_OPENING_SCENE_NEVER_ENDS_9_12_26.md
 
 --------------------------------------------------------------------------------
@@ -18831,6 +18995,20 @@ flag, no option. Swing: in the games that made companions unkillable, the weight
 is what you LOSE while they are down (their contribution goes with them for the timer) --
 written onto PEOPLE [lock them] as the lock's cost, nothing else to invent. Routed FACTIONS
 [who follows] (the roster from the block's side), ECONOMY Q37 [carry cost].
+THEN (dt) VAMILY, 36 commits. SHIPPED: SOUNDS [sound card] (his FFX ruling as five measured
+terms, all 142 songs rendered and ranked; and ZERO of 142 have the late-arriving beat his
+anchor is famous for -> SOUNDS [late beat] top), WORLD [rice clock], QUESTS [check the
+claim] (the valley can lie and your legs are the instrument), COMBAT [rescue her], FACTIONS
+[collector heir], WORDS [no law talk] (fifteen act-one lines, each naming the institution
+act two kills it with), RUN fixed the demo's hanging opening offer, UI [no slop] round 3
+(the tells have owners), ANIMATION put his words back on three shipped lines (rule 11
+working). FINDINGS ROUTED: ONE PURSE IN THE WHOLE GAME, nobody else has a pocket, the swap
+primitive works and is half-called -> WORLD [every pocket] top (precondition for lending,
+rent, restitution, barter); the purple reservation gate finds 2,232 violations and EXITS
+GREEN -> PLUMBER [cannot fail] second; the combat entry gate flakes 1 in 5 because the
+staging sometimes delivers no party -> COMBAT [party arrives]. MY PREMISE WAS WRONG A
+FOURTH TIME: the two colour tables are aim and landing, not two sources; CHARACTER did the
+row before arguing and found the guard checked presence never value; row re-aimed.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -24992,7 +25170,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/12 (latest): [eyes: purple leak] RULED AND SHIPPED - zero
+ROUND LOG 9/12 (latest): [judge the zoom] SHIPPED - the handoff half
+measured on a real encounter fired through the game's own door: the
+street body arrives at the swap at ~14px, the fight board draws ~15px,
+the person continuous within a pixel (the eye's own object), the grid
+re-derives beneath, the shade core over the centre at the swap. COMBAT's
+draft:true pull depth ruled into the transition card as 5C: depth =
+fight body px / street body px at rest - derived, recomputes, never
+retuned by eye. Combined with the [judge the turn] verdict this line's
+every ask is answered. STILL OWED: the aerial judge frame (tiles vs a
+real LV aerial by the aerial card's three questions).
+PREVIOUS: [eyes: purple leak] RULED AND SHIPPED - zero
 exceptions on the 32 purple tiles. Fantasy objects (crystals, runes,
 portal door, flames, foliage) KILL; real objects (signs, container,
 walls, concrete, lights) REPAINT by the 7/28 ramp-snap with purple

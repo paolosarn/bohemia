@@ -1,0 +1,18 @@
+{
+ "what": "IF THE MAP NAMES IT, SOMETHING MUST BE ABLE TO DRAW IT — frozen debt.",
+ "why": "Frozen 9/12/26 by COOK the turn this gate was written. The board had said \"about 20 map-only districts nobody draws\" and the towns law built an ART row on that number; asking all four registries instead of three gives EIGHT.",
+ "rule": "MAY ONLY SHRINK. A newly placed undrawable name is RED whatever the totals say.",
+ "placed_undrawable": [
+  "sphere",
+  "highroller",
+  "sign",
+  "strat",
+  "springs",
+  "luxor",
+  "robofactory"
+ ],
+ "lost_cells": 10,
+ "dead_names": [
+  "beltway"
+ ]
+}

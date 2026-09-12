@@ -28152,9 +28152,80 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
              draft: true };
   }
 
+  /* ==========================================================================
+     WHOSE FOOTPRINTS ARE THESE   (9/12, VAMILY row [tracks read])
+
+     THE ROW: "every faction leaves its own tracks on the travel map, so a player
+     can look at the ground and know who went through and whether to follow or
+     avoid them. It is also a fence a claim can be checked against."
+
+     THE NAMED BLOCKER IS RUN's [travel map], STILL OPEN, AND IT IS NOT WHAT
+     BLOCKS THIS. Measured on the walked surface: WORLD's [parties move] shipped
+     9/11 and the valley already has TWENTY-EIGHT parties out, at least one for
+     every one of the fourteen factions, really walking (89 cells a day, positions
+     move when the clock does). They walk the overmap, which is ground the player
+     already looks at. A track needs somebody to have walked, not a new map.
+
+     *** DERIVED, NEVER STORED, SO NOTHING HAS TO REMEMBER TO CLEAN UP. *** A
+     party's route is a straight sign-step walk between two points it already
+     carries -- from, to, at, and whether it has turned round. So the cells it has
+     covered ARE its from/at pair put through the same step rule the mover uses.
+     Storing a breadcrumb trail would mean a save that grows for ever and a rule
+     for when to forget, which is the trap the coalition and the roving rule both
+     avoided in this lane already.
+
+     NO NUMBER IS PICKED HERE. How long a track is, is how far that party has
+     walked on this leg, and how far it walks is the distance between two seats on
+     his map. There is no fade constant, no memory length, no "tracks last N
+     days" -- those would all be numbers nobody ruled. What a SURFACE chooses to
+     draw of it is a rendering bound, not a design one. */
+  function stepToward(ax, ay, bx, by) {
+    var sx = bx > ax ? 1 : (bx < ax ? -1 : 0);
+    var sy = by > ay ? 1 : (by < ay ? -1 : 0);
+    return [ax + sx, ay + sy];
+  }
+  /* THE CELLS THIS PARTY HAS ALREADY COVERED ON THE LEG IT IS ON, oldest first.
+     A patrol that has turned round is walking BACK, so its leg starts at the
+     border it reached and not at its seat -- which is why `arrived` decides the
+     origin rather than a flag anybody has to set. */
+  function trackOf(party, cap) {
+    if (!party || !party.from || !party.to || !party.at) return [];
+    var o = party.arrived ? party.to : party.from;
+    var ax = o.x | 0, ay = o.y | 0, tx = party.at.x | 0, ty = party.at.y | 0;
+    var out = [[ax, ay]], guard = 0;
+    /* the same guard the mover has: a step that cannot close is a loop, and a
+       loop in a draw path is a frozen frame rather than a wrong picture. */
+    while ((ax !== tx || ay !== ty) && guard++ < 4096) {
+      var n = stepToward(ax, ay, tx, ty);
+      ax = n[0]; ay = n[1];
+      out.push([ax, ay]);
+    }
+    if (cap != null && cap > 0 && out.length > cap) out = out.slice(out.length - cap);
+    return out;
+  }
+  /* WHO WENT THROUGH THIS CELL, and how long ago in steps. Null where nobody did.
+     THE FRESHEST WINS: two parties crossing the same cell is one set of prints on
+     top of another, and the one on top is the one you read. */
+  function tracksAt(parties, x, y, cap) {
+    var best = null;
+    for (var i = 0; i < (parties || []).length; i++) {
+      var p = parties[i];
+      var t = trackOf(p, cap);
+      for (var k = 0; k < t.length; k++) {
+        if (t[k][0] !== x || t[k][1] !== y) continue;
+        var age = t.length - 1 - k;              /* 0 = they are standing here */
+        if (!best || age < best.age)
+          best = { faction: p.from.faction, agenda: p.agenda, age: age,
+                   leg: p.arrived ? 'back' : 'out', draft: true };
+      }
+    }
+    return best;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
+    trackOf: trackOf, tracksAt: tracksAt,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
@@ -37543,6 +37614,66 @@ function renderCity(){
       g.restore();
       g.globalAlpha = 1;
       try { window.__TURF_INK = __drew; } catch(_e2){}
+
+      /* ==== __WHOSE_FOOTPRINTS_ARE_THESE__ (9/12, [tracks read]) =============
+         "every faction leaves its own tracks on the map, so a player can look at
+         the ground and know who went through and whether to follow or avoid
+         them."
+
+         IT RIDES THE SAME INK AS THE BORDERS, deliberately: colour is territory
+         (8/26) and a track is territory moving. __holderInk is right above this
+         and already carries his hue lifted for a night map, so a Mob track and
+         Mob ground read as the same people without a second colour decision.
+
+         *** IT IS A TRAIL, NOT A DOT, AND THAT IS THE WHOLE READ. *** A marker
+         would say "somebody is there". Footprints say WHICH WAY THEY WENT, which
+         is the half the row is named for -- follow or avoid. So it fades along
+         its length: faintest where they set out, brightest where they are now,
+         and the bright end is the direction of travel.
+
+         NO MEMORY LENGTH IS INVENTED. What is drawn is the leg they are on, and
+         how long that is, is the distance between two of his seats. The cap below
+         is a RENDERING bound (what fits on a screen without becoming a scribble),
+         not a rule about how long footprints last. */
+      try {
+        var __pl = partiesAll() || [];
+        if (__pl.length) {
+          g.save();
+          g.lineCap = 'round';
+          var __TRACK_DRAW = 14;          /* cells of trail drawn, a screen bound */
+          var __tk = {};
+          for (var __pi = 0; __pi < __pl.length; __pi++) {
+            var __pp = __pl[__pi];
+            var __who = __pp && __pp.from && __pp.from.faction;
+            if (!__who) continue;
+            var __tr = window.BohemiaTowns.trackOf(__pp, __TRACK_DRAW);
+            if (!__tr || __tr.length < 2) continue;
+            var __mineP = !!(__tm && __tn(__who) === __tn(__tm));
+            g.strokeStyle = __holderInk(__who, __mineP);
+            for (var __ci = 1; __ci < __tr.length; __ci++) {
+              var __a = iso(__tr[__ci - 1][0], __tr[__ci - 1][1], ox, oy);
+              var __b2 = iso(__tr[__ci][0], __tr[__ci][1], ox, oy);
+              if (__b2.sx < -60 || __b2.sx > cv.width + 60) continue;
+              if (__b2.sy < -60 || __b2.sy > cv.height + 60) continue;
+              /* brightest at the head, which is where they are standing now */
+              var __f = __ci / (__tr.length - 1);
+              g.globalAlpha = (__mineP ? 0.30 : 0.18) + __f * (__mineP ? 0.55 : 0.42);
+              g.lineWidth = Math.max(1, Math.min(TW * 0.06, 2)) * (0.6 + __f * 0.7);
+              g.beginPath();
+              g.moveTo(__a.sx, __a.sy + TH / 2);
+              g.lineTo(__b2.sx, __b2.sy + TH / 2);
+              g.stroke();
+              __tk[__who] = g.strokeStyle;
+            }
+          }
+          g.restore();
+          g.globalAlpha = 1;
+          /* THE RENDER SAYS WHAT IT ACTUALLY PAINTED, the same way the borders do
+             one block up. A grep proves the code exists; only this proves a track
+             was drawn in a faction's own colour on a real canvas. */
+          try { window.__TRACK_INK = __tk; } catch(_e3){}
+        }
+      } catch(_e3){}
     }
   } catch(_e){}
 
@@ -49982,8 +50113,63 @@ function dayAddressTick(){
     _lastJobBlock=k; updQline();
   }catch(_e){}
 }
+/* __WHOSE_FOOTPRINTS_ARE_THESE__ (9/12, [tracks read]) -- THE OTHER HALF OF THE
+   ROW: reading the ground you are standing on, not the map you are looking at.
+
+   THE MAP IS FOR DECIDING AND THE STREET IS FOR NOTICING. On the overmap the
+   tracks are a trail you plan around; down here you cannot see a trail, you see
+   that somebody came past. So this says WHO and WHICH WAY, once, when the cell
+   under you first carries somebody's prints -- and nothing at all when it does
+   not, which is most of the valley.
+
+   IT SPEAKS ONLY WHEN THE ANSWER CHANGES. Posting on every step would bury the
+   street line under a faction's name, and the line is shared with the pack and
+   the road. Same shape as the address countdown right beside it: one string
+   compare per block crossed, and nothing per frame. draft:true. */
+var _lastTrack='';
+function tracksHere(){
+  try{
+    var c = (MODE==='human') ? [(hx/FN)|0,(hy/FN)|0] : [city.x, city.y];
+    var t = window.BohemiaTowns.tracksAt(partiesAll()||[], c[0], c[1], 14);
+    return t || null;
+  }catch(_e){ return null; }
+}
+var _trackWrote='';
+function trackSay(){
+  var t=tracksHere();
+  var k = t ? (t.faction+'|'+t.agenda+'|'+(t.age<2?'hot':'cold')) : '';
+  if(k===_lastTrack) return;
+  _lastTrack=k;
+  var l=document.getElementById('packline');
+  if(!t){
+    /* *** STEP OFF THE PRINTS AND THE GROUND STOPS SAYING THEY ARE THERE. ***
+       MEASURED: without this, walking off a track left "Anarchists came through
+       here just now" on screen over empty desert -- a line that was true one cell
+       ago and is a lie now, which is worse than silence.
+       AND IT ONLY CLEARS ITS OWN WORDS. The street line is SHARED: the pack and
+       the road write it too, so wiping it unconditionally would delete somebody
+       else's sentence. It is cleared only while it still says exactly what this
+       put there. */
+    if(l && _trackWrote && l.textContent===_trackWrote){ l.textContent=''; l.style.display='none'; }
+    _trackWrote='';
+    return;
+  }
+  if(!l) return;
+  /* WHAT THE GROUND SAYS, in the fewest words that are true. The AGE is the part
+     that decides follow or avoid: prints you are standing in the middle of mean
+     they are still here. */
+  var what = t.agenda==='crew' ? 'a crew' : (t.agenda==='caravan' ? 'a caravan' : 'a patrol');
+  l.textContent = t.age<2
+    ? (t.faction+' came through here just now. '+what+', and they are close.')
+    : (t.faction+' came through here. '+what+'.');
+  l.style.display='block';
+  _trackWrote=l.textContent;
+  try{ window.__TRACK_SAID=(window.__TRACK_SAID||0)+1; }catch(_e){}
+}
+
 function dayDistrictCheck(){
   dayAddressTick();
+  try{ trackSay(); }catch(_e){}
   const d=dayWhere();
   if(!d||d===_lastDistrict)return;
   _lastDistrict=d;

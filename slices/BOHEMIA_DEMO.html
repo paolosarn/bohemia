@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/12x - THEY WEAR YOUR COLOURS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/13c - THEY WEAR YOUR COLOURS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -34124,6 +34124,22 @@ var DEMO_CITY_CSS = [
   '#topbar>*,#blstack>*{min-height:44px !important;min-width:44px !important;'
     + 'display:flex !important;align-items:center !important;justify-content:center !important}',
   '.pb{width:44px !important;height:44px !important;margin:-1px !important}',
+  /* AND THE FOUR MOST MEANINGFUL BUTTONS IN THE GAME (9/12, RUN). Measured on
+     this build, standing next to a scavenger with the conversation open:
+     ctask "Ask their name" 146x31, ctgive "Show up for them" 162x31,
+     ctfavour "Take it" 87x31, ctgo "Leave them to it" 162x31.
+     THIRTY-ONE PIXELS against a 44px law, and two of them SPEND AN HOUR OF THE
+     DAY when pressed (measured: +60 minutes each). No checker had ever seen
+     them, because none stands next to a person and opens a conversation -- the
+     thumb sweep only ever measured the first screen.
+     AND THE FIRST CUT OF THIS PUT THE RULE IN THE SHELL, WHERE IT DID NOTHING:
+     the conversation lives in the city FRAME, a different document, so a style
+     tag in the demo page cannot reach it. It belongs here, with the walk pad.
+     Height only, width left alone: they sit in a wrapped row inside a 390px
+     card and stretching them is a layout change in another lane's scene. */
+  '#ctask,#ctgive,#ctfavour,#ctgo{min-height:44px !important;'
+    + 'display:inline-flex !important;align-items:center !important;'
+    + 'justify-content:center !important}',
   /* EVERY WALK BUTTON WAS DRAWING TWO ARROWS. The city already carries UI-12's
      fix -- the direction is a CSS border triangle on .pb::before, and its eight
      rotations measure exactly 0/45/90/135/180/225/270/315, correct for all

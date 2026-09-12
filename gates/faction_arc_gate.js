@@ -1310,7 +1310,7 @@ function requirePlaywright() {
         await pg.waitForTimeout(6000);
         await pg.evaluate(SPARSE);
         return await pg.evaluate(() => {
-          const bases = ctBases() || {}, seen = {};
+          const bases = ctBases() || {}, seen = {}, answered = {};
           const row = (k) => {
             const rows = [...document.querySelectorAll('#ctcard .r')];
             const r = rows.find(x => { const kk = x.querySelector('.k');
@@ -1330,10 +1330,26 @@ function requirePlaywright() {
              in a suburb was always measuring the suburb. */
             for (const d of [2, 4, 6, 8, 10, 12, -2, -4, -6, -8, -10, -12]) {
               hx = b.x * FN + d; hy = b.y * FN + d;
+              /* DO NOT RE-OPEN A CARD ON SOMEBODY ALREADY ANSWERED (PLUMBER 9/12).
+                 The ring walks 14 bases x 12 offsets, and the rings overlap heavily, so
+                 the SAME PEOPLE keep turning up. MEASURED on this scan: 5,112 passes over
+                 441 DISTINCT PEOPLE -- 4,671 of them (91%) re-opening a card on somebody
+                 whose outfit was already read. At 116 ms a pass that is where this section's
+                 594 s went, not in the arithmetic and not in the four page boots (9%).
+                 SKIPPING IS RESULT-IDENTICAL, and the reason is in the line below: `seen`
+                 only ever records a fid the FIRST time it appears, so every later pass over
+                 the same person already fell through `seen[fid]` and changed nothing. Only
+                 people whose card ANSWERED are skipped -- a null read is retried, because a
+                 card that failed to fill once may fill at another spot, and losing that would
+                 lose an outfit. The scan still visits every distinct person the ring reaches.
+                 Before 594 s, after: see the commit. */
               for (const q of ctEveryone()) {
+                const pk = (q && (q.id || q.key || q.name)) || null;
+                if (pk && answered[pk]) continue;
                 __standBeside(q);
                 ctSawCell(); ctClose(); ctOpen();
                 const fid = row('RUNS WITH');
+                if (pk && fid) answered[pk] = 1;
                 if (!fid || seen[fid]) { ctClose(); continue; }
                 const rule = BohemiaIntros.ruleOf(fid);
                 const organCost = (BohemiaIntros.askOutcome(rule,
