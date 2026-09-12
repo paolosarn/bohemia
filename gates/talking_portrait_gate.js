@@ -33,8 +33,13 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
 const done = () => { console.log('\n=== TALKING PORTRAIT GATE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
 
 /* PINS. Distances are FLOORS that may only rise; the dye share is a CEILING. */
-const PINNED_CLOSEST = 0.012;   /* closest of 60 faces, measured 0.015 */
-const PINNED_MEAN    = 0.080;   /* mean distance, measured 0.100 */
+/* RATCHETED 9/11 WHEN THE HAIR PALETTE WENT 7 -> 21. More colours on more heads pushes
+   every face further from every other face, and the gate said so itself: closest 0.0194
+   against a 0.012 floor, mean 0.0884 against 0.080. Raised, but NOT to the measurement --
+   a floor set flush against today's number is a red handed to the next lane that touches
+   a palette for a perfectly good reason. Headroom is the point of a ratchet. */
+const PINNED_CLOSEST = 0.017;   /* closest of 60 faces, measured 0.0194 */
+const PINNED_MEAN    = 0.085;   /* mean distance, measured 0.0884 */
 const DYE_CAP        = 8.0;     /* % of a crowd with dyed hair, measured ~5 */
 const N              = 60;
 
@@ -98,16 +103,99 @@ const N              = 60;
        searched for a colour NOBODY WEARS ANY MORE and reported a confident
        0.0%, which is a check that has stopped watching anything.
        A CHECK THAT CANNOT FIND THE THING IT IS LOOKING FOR REPORTS PERFECTION. */
+    /* *** AND THE PALETTE NOW SAYS WHICH OF ITS OWN ENTRIES ARE DYE (9/11). ***
+       The warning two lines up came true the first time somebody widened the list: this
+       held the two triples [196,150,150] and [200,60,40] by hand, so a palette that grew
+       to twenty-one colours -- five of them new dye -- would still have measured those two
+       and reported a comfortable 1%. THE RULER CANNOT NAME ITS OWN TARGET. NPCFactory
+       carries hairDyes and hairColorNames beside hairColors, and this reads them, so what
+       counts as dye is decided where the colours are decided and the two cannot drift. */
     let dyed = 0;
     const NBIG = 600;
-    const dyeSet = { '196,150,150': 1, '200,60,40': 1 };   /* NPCFactory's pink and red */
+    const F = (typeof NPC_FACTORY !== 'undefined') ? NPC_FACTORY : null;
+    const dyeSet = {};
+    let declared = 0, resolved = 0;
+    if (F && F.hairDyes && F.hairColorNames && F.hairColors) {
+      declared = F.hairDyes.length;
+      F.hairDyes.forEach(nm => {
+        const i = F.hairColorNames.indexOf(nm);
+        const c = i >= 0 ? F.hairColors[i] : null;
+        if (c) { dyeSet[c.join(',')] = 1; resolved++; }
+      });
+    }
     for (let i = 0; i < NBIG; i++) { const c = faceFor('gate:pop:' + i).hair.color;
       if (c && dyeSet[c.join(',')]) dyed++; }
     out.dyedPct = 100 * dyed / NBIG; out.dyedOf = NBIG;
+    out.dyesDeclared = declared; out.dyesResolved = resolved;
     /* and prove the ruler can SEE those colours at all, so a future palette
-       change makes this go red instead of quietly reading zero forever */
-    out.dyeColoursExistInFactory = (typeof NPC_FACTORY !== 'undefined') &&
-      NPC_FACTORY.hairColors.filter(c => c && dyeSet[c.join(',')]).length === 2;
+       change makes this go red instead of quietly reading zero forever.
+       THREE WAYS THIS GOES RED INSTEAD OF QUIET: the palette declares no dye at all,
+       it declares a name that is not in the colour list, or it drops below two. */
+    out.dyeColoursExistInFactory = declared >= 2 && resolved === declared;
+
+    /* ---- 1e-bis. *** THE BODY WEARS THE COLOUR THE PORTRAIT IS WEARING *** (9/11).
+       1f below proves the portrait reads NPCFactory. It does. WHAT NOBODY CHECKED IS THE
+       OTHER HALF: does the BODY? Measured 9/11, before the fix -- 92.4% of citizens wear a
+       PERSONLOOK hair GARMENT, a worn garment makes the draw SKIP the PD hair layer, and the
+       luminance tint by `hairColor` lives inside that skipped branch. So for nine citizens in
+       ten the portrait had magenta hair and the body's closest pixel was 65 away. Same bug
+       8/28 found for the haircut SHAPE, in the COLOUR, unnoticed for two weeks.
+       IT IS MEASURED ON RENDERED PIXELS, NOT ON THE DIALS THAT PRODUCED THEM, because the
+       dials agreed the whole time -- both halves were reading the same `hairColor` and one
+       of them was throwing it away at draw. */
+    out.bodyHairChecked = 0; out.bodyHairAgreed = 0; out.bodyHairWorst = 0;
+    /* and the invariant the fix stands on: every non-null crowd colour must resolve to a
+       ramp, or a body silently keeps the cut's colour. Paolo's own pink and red were exactly
+       that hole -- in the palette since 7/2, no ramp, so they never reached a body. */
+    out.coloursWithoutRamp = [];
+    if (F && F.hairColors && F.hairColorNames && typeof HAIR_RAMPS !== 'undefined') {
+      F.hairColors.forEach((c, i) => {
+        if (c && !HAIR_RAMPS[F.hairColorNames[i]]) out.coloursWithoutRamp.push(F.hairColorNames[i]);
+      });
+    } else { out.coloursWithoutRamp.push('COULD NOT READ THE PALETTE AT ALL'); }
+
+    if (F && typeof BOH_PERSONLOOK !== 'undefined' && typeof drawChar === 'function') {
+      const pool = GARMENTS.filter(x => x.st === 'canon');
+      const kV = G.bodyVar, kW = window.G_WORN, kE = G.equipped;
+      const kS = skinTone, kH = hairColor, kF = G.faceAs;
+      try {
+        /* the LOUD colours, because a near-black wearing a near-black ramp agrees by
+           accident and would let this pass on a build where nothing works */
+        const loud = ['MAGENTA', 'VIOLET', 'TEAL', 'ACID', 'GINGER', 'PINK', 'RED', 'WHITE'];
+        for (const want of loud) {
+          const wi = F.hairColorNames.indexOf(want);
+          if (wi < 0) continue;
+          const tgt = F.hairColors[wi]; if (!tgt) continue;
+          let id = null;
+          for (let i = 0; i < 60000; i++) { const c = F.npcFrom('gate:body:' + i).hairColor;
+            if (c && c.join(',') === tgt.join(',')) { id = 'gate:body:' + i; break; } }
+          if (!id) continue;
+          const lk = BOH_PERSONLOOK.lookFor(id, pool);
+          if (!(lk.worn || {}).hair) continue;   /* only the worn-garment path is at issue */
+          const eq = {}; for (const p in kE) eq[p] = kE[p];
+          ['shirt','jacket','pants','shoes','hat','glasses'].forEach(x => eq[x] = '');
+          const worn = {}; for (const w in lk.worn) if (w !== 'head') worn[w] = lk.worn[w];
+          G.bodyVar = lk.body; window.G_WORN = worn; G.equipped = eq;
+          const np = F.npcFrom(id);
+          const tn = SKIN_TONES.find(x => x[0] === np.skinToneName); if (tn) skinTone = tn;
+          hairColor = np.hairColor;
+          G.faceAs = (typeof faceFor === 'function') ? faceFor(id) : null;
+          const cv = document.createElement('canvas'); cv.width = 56; cv.height = 56;
+          drawChar(cv, G.dir, 'idle', 0);
+          const d = cv.getContext('2d').getImageData(0, 0, 56, 56).data;
+          let best = 1e9;
+          for (let q = 0; q < d.length; q += 4) { if (d[q + 3] < 200) continue;
+            const dd = (d[q]-tgt[0])**2 + (d[q+1]-tgt[1])**2 + (d[q+2]-tgt[2])**2;
+            if (dd < best) best = dd; }
+          best = Math.sqrt(best);
+          out.bodyHairChecked++;
+          if (best <= 2) out.bodyHairAgreed++;
+          if (best > out.bodyHairWorst) out.bodyHairWorst = Math.round(best);
+        }
+      } catch (e) { out.bodyHairErr = String(e); }
+      finally { G.bodyVar = kV; window.G_WORN = kW; G.equipped = kE;
+                skinTone = kS; hairColor = kH; G.faceAs = kF; }
+    }
 
     /* ---- 1f. *** ONE ID, ONE WHOLE PERSON *** (Paolo 8/26: "eye colors matching
        the portrait again"). THE PORTRAIT AND THE BODY MUST BE THE SAME PERSON.
@@ -227,8 +315,17 @@ const N              = 60;
   ok('THE SAME PERSON IS THE SAME PERSON, on any device, with nothing stored', R.deterministic);
   ok('*** EVERY DIAL MOVES THE PIXELS *** (a dial stuck on one value is a comment' +
      (R.deadDials.length ? ' -- DEAD: ' + R.deadDials.join(', ') : '') + ')', R.deadDials.length === 0);
-  ok('the dye check is looking at colours that actually exist in the factory ' +
-     '(a check that cannot find its target reports perfection)', R.dyeColoursExistInFactory);
+  ok('the dye check reads the palette\'s OWN dye list, and every name in it is a colour ' +
+     'somebody wears (' + R.dyesResolved + '/' + R.dyesDeclared + ' resolved; a check that ' +
+     'cannot find its target reports perfection)', R.dyeColoursExistInFactory);
+  ok('every colour a citizen can wear resolves to a ramp' +
+     (R.coloursWithoutRamp.length ? ' -- NO RAMP: ' + R.coloursWithoutRamp.join(', ') : '') +
+     ' (without one a body silently keeps the cut\'s colour)', R.coloursWithoutRamp.length === 0);
+  ok('*** THE BODY WEARS THE COLOUR THE PORTRAIT IS WEARING *** (' + R.bodyHairAgreed + '/' +
+     R.bodyHairChecked + ' loud colours found exact on rendered body pixels, worst ' +
+     R.bodyHairWorst + ' away; was 65 for 92.4% of the valley)' +
+     (R.bodyHairErr ? ' -- ' + R.bodyHairErr : ''),
+     R.bodyHairChecked >= 5 && R.bodyHairAgreed === R.bodyHairChecked);
   ok('dyed hair is rare enough to be a statement (' + R.dyedPct.toFixed(1) + '% of ' + R.dyedOf + ' <= ' + DYE_CAP + '%)',
      R.dyedPct <= DYE_CAP);
   ok('a child is not a small adult (bigger cranium, shorter face)', R.childDiffersFromAdult);

@@ -140,12 +140,17 @@ const VOLATILE = [
 /* KNOWN STALE, measured 9/12/26. THIS LIST MAY ONLY SHRINK. Each entry names the lane
  * that owns the file, because this lane may not edit slices/, laws/, art or features. */
 const KNOWN_STALE = {
-  'slices/BOHEMIA_RUN_CURRENT.html':
-    'RUN. +938/-55 against what tools/build_run_slice.js produces now. A 22 MB shipped slice.',
-  'slices/BOHEMIA_CURRENT_SLICE.html':
-    'RUN. +107/-11 against tools/build_current_slice.js. Still carries the OLD quest canon '
-    + '("SIDE QUEST S01 THE METER READER") where the source now says "ACT ONE ASK A01 THE '
-    + 'KILLING SUMMER"), and is missing the 9/5 faction-towns seat rule.',
+  /* RUN_CURRENT and CURRENT_SLICE CAME OFF THIS LIST 9/12 (COOK, [hair colours]), and the
+     gate is what told me to delete them -- "a file that re-derives clean again has been
+     fixed, and leaving it listed lets the next stale bake hide behind a stale excuse".
+     They came off almost by accident, which is the part worth writing down: I changed
+     engine/bohemia_engine.js, current_slice_gate went red, and its own message named the
+     command. BOTH SLICES INLINE THE ENGINE -- the run slice carries 67 modules -- so both
+     had been serving the old seven-colour hair palette while the alpha carried twenty-one,
+     and the +938/-55 was two weeks of every lane's engine work, not one bad bake.
+     REBUILD BOTH WHENEVER YOU TOUCH THE ENGINE:
+         node tools/build_current_slice.js
+         node tools/build_run_slice.js */
   'slices/BOHEMIA_MAP_CURRENT.html':
     'WORLD. +92/-7 against tools/bohemia_map_tab.py, including engine md5 stamps that no '
     + 'longer match the engine files they name. It declares no maker header at all.',

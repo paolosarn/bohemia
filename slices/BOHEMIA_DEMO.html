@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/12a - THE CAMERA PULLS BACK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/12b - HAIR HAS 21 COLOURS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3698,7 +3698,10 @@ const PUNK={skin:'fair',
  details:{stubble:1},
  top:[20,20,24]};
 const SKIN_TONES=[["chalk",[[236,227,221],[204,191,183],[166,151,143]]],["porcelain",[[224,211,203],[191,175,166],[153,137,129]]],["pale",[[188,160,138],[153,127,108],[112,94,84]]],["fair",[[203,169,140],[167,137,113],[124,102,87]]],["olive",[[186,151,116],[154,123,94],[114,94,78]]],["tan",[[179,140,103],[147,115,87],[109,88,71]]],["bronze",[[156,118,87],[118,96,78],[90,70,56]]],["brown",[[118,94,78],[94,74,59],[71,54,44]]],["deep",[[83,66,54],[65,51,42],[48,38,31]]],["ebony",[[66,51,43],[49,38,31],[35,26,22]]],["onyx",[[51,40,34],[37,28,24],[26,19,16]]]]; /* WORLD-GRADED (Paolo 7/18 look revamp): skin graded to world ambient RGB(67,61,56) so the character sits IN the scene, not on top of it. Was the brighter ungraded set. */
-const HAIR_COLORS=[["platinum",null],["black",[34,32,40]],["blonde",[214,178,96]],["auburn",[150,64,44]],["white",[238,238,244]],["violet",[150,90,200]],["pink",[222,120,170]]];
+/* __HAIR_ON_EVERY_HEAD__ -- THE SWATCH ROW OFFERS WHAT THE VALLEY WEARS. HE CAN BUILD
+   HIS OWN FACE is a law and this row was seven colours wide while the crowd
+   palette went to twenty-one. Same names, same mids, one palette everywhere. */
+const HAIR_COLORS=[["art default",null],["jet",[26,28,40]],["black",[32,30,27]],["ash",[70,66,62]],["brown",[82,58,38]],["auburn",[104,44,30]],["ginger",[158,80,28]],["rust",[124,58,34]],["sand",[150,120,80]],["platinum",[196,178,132]],["bleach",[210,202,178]],["steel",[112,112,116]],["grey",[104,104,112]],["white",[186,186,194]],["acid",[110,164,52]],["moss",[98,104,54]],["magenta",[142,32,92]],["teal",[26,110,108]],["violet",[84,52,134]],["pink",[196,150,150]],["red",[200,60,40]]];
 
 const IRIS=[[150,160,150],[110,80,50],[80,110,150],[90,140,90],[120,120,128],[176,130,60]];
 const LIPS=[[184,120,114],[150,82,80],[170,100,110],[120,70,66],[196,150,150]];
@@ -5913,7 +5916,10 @@ const NPCFactoryAPI=(function(){
 var CORE_SLOTS=['body','facial','pants','shoes','shirt','hair'];   // always dressed
 var OPT_SLOTS={jacket:0.55,hat:0.35,glasses:0.3};                  // chance to wear
 var SKIN_TONE_NAMES=['pale','fair','olive','tan','bronze','brown','deep','ebony','onyx']; // Paolo's locked ramps
-var HAIR_COLORS=[null,[20,18,22],[150,120,80],[110,70,50],[196,150,150],[80,80,90],[200,60,40]]; // null = art default
+var HAIR_COLORS=[[32,30,27],[82,58,38],[70,66,62],[26,28,40],null,[150,120,80],[104,44,30],[196,178,132],[158,80,28],[124,58,34],[210,202,178],[104,104,112],[112,112,116],[186,186,194],[110,164,52],[98,104,54],[142,32,92],[26,110,108],[84,52,134],[196,150,150],[200,60,40]];   // null = art default
+/* __HAIR_ON_EVERY_HEAD__ -- NAMES, PARALLEL TO HAIR_COLORS, so a colour can be talked
+   about instead of matched on three numbers. */
+var HAIR_COLOR_NAMES=['BLACK','BROWN','ASH','JET','ART','SAND','AUBURN','PLATINUM','GINGER','RUST','BLEACH','GREY','STEEL','WHITE','ACID','MOSS','MAGENTA','TEAL','VIOLET','PINK','RED'];
 /* HAIR COLOUR IS NOT A COIN FLIP BETWEEN BLACK AND PINK (8/27).
    MEASURED ON 600 CITIZENS through this exact factory, before this line existed:
        200,60,40  bright red   16.2%      <- one person in six
@@ -5935,7 +5941,25 @@ var HAIR_COLORS=[null,[20,18,22],[150,120,80],[110,70,50],[196,150,150],[80,80,9
    EXACTLY ONE rng.next() IS CONSUMED, same as the uniform pick it replaces, so
    every citizen's clothes, body and skin are byte-for-byte what they were and the
    ONLY thing that moved is hair. Verified, not assumed. */
-var HAIR_WEIGHTS=[22, 34, 13, 20, 2, 7, 2];   // parallel to HAIR_COLORS
+/* __HAIR_ON_EVERY_HEAD__ (Paolo 9/11: "the more the better ... of course add them, bro")
+   THE LIST WENT 7 -> 21 AND THE 8/27 RULING BELOW STILL HOLDS ITS SHAPE. The mids
+   are READ OUT OF HAIR_RAMPS by the cook, not retyped, so the colour a hair GARMENT
+   bakes and the colour the crowd TINTS with cannot drift into two different blondes.
+   Paolo's own pink and red are kept; his colours do not get deleted to make room.
+   Out of 200:  natural dark 87 · art default 24 · natural light 46 ·
+   the grey family 32 · dye 11 (5.5%, and the cap is 8).
+   GREY WENT 7% -> 16%, which is the half of his complaint that was real: RAY, the
+   Church and the old wide-brim citizen could not go grey because grey was one entry
+   in seven. *** IT IS FLAT, NOT AGED, BECAUSE THE CROWD HAS NO AGE. *** :5226 says
+   so already, in somebody else's hand, and it is right: bodyFor returns six numeric
+   dials and no age band. Faking one is how NINA came out grey at a family dinner.
+   WHO is grey waits on the crowd having real ages; this is the share, applied flat. */
+var HAIR_WEIGHTS=[30, 30, 15, 12, 24, 20, 8, 6, 4, 4, 4, 16, 10, 6, 2, 2, 2, 2, 1, 1, 1];   // parallel to HAIR_COLORS, out of 200
+/* WHICH ENTRIES ARE DYE, DECLARED WHERE THE PALETTE LIVES. talking_portrait_gate
+   counted dye against two hardcoded triples and warns in its own comment that a
+   palette change would make it "quietly read zero forever". It reads this now, so
+   the ruler cannot lose sight of what it measures. */
+var HAIR_DYES=['ACID','MOSS','MAGENTA','TEAL','VIOLET','PINK','RED'];
 
 function catalogsFromWardrobe(PD){
   var slots={};
@@ -5950,6 +5974,11 @@ function NPCFactory(opts){
   this.skinTones=opts.skinTones||SKIN_TONE_NAMES.slice();
   this.hairColors=opts.hairColors||HAIR_COLORS.slice();
   this.hairWeights=opts.hairWeights||HAIR_WEIGHTS.slice();
+  /* __HAIR_ON_EVERY_HEAD__ -- the palette declares its own dye and its own names, and
+     the factory carries them, so a ruler can ask what dye IS instead of
+     hardcoding three numbers and quietly reading zero forever. */
+  this.hairDyes=opts.hairDyes||HAIR_DYES.slice();
+  this.hairColorNames=opts.hairColorNames||HAIR_COLOR_NAMES.slice();
   this.optOdds=opts.optOdds||OPT_SLOTS;
   this.RNG=opts.RNG||(typeof BohemiaEngine!=='undefined'&&BohemiaEngine.Core?BohemiaEngine.Core.RNG:null);
   if(!this.RNG)throw new Error('NPCFactory needs Core.RNG');
@@ -8421,7 +8450,19 @@ function buildFrame(d,clip,ph,_noOutline){
     const ORD=['base','legs','feet','outer','waist','gear','back','neck','hands','hair','head','face'];
     for(const lay of ORD){ const nm=window.G_WORN[lay]; if(!nm)continue;
       const gg=window.GARMENTS.find(x=>x.n===nm); if(!gg||!gg.gen)continue;
-      let out=null; try{ out=gg.gen(_gsrc,_gw,_gh); }catch(e){}
+      let out=null;
+      /* __THE_BODY_WEARS_IT__ -- THIS IS THE LINE THAT WAS MISSING. `hairColor` is the colour
+         NPCFactory picked for whoever is being drawn, and every caller already sets it: the
+         RUN through applyLook, the CHARACTER crowd grid by hand. The portrait has read it all
+         along. The body never did, because a worn hair garment skips the layer that reads it.
+         SET AND CLEARED AROUND ONE gen() CALL, IN A finally. A colour left standing would
+         paint the next head drawn, which is how a per-person property quietly becomes a
+         global one -- and gen() is inside a catch that swallows, so a throw must not be able
+         to leave it set. */
+      const _hw = (lay==='hair'&&window.hairWear)
+        ? window.hairWear(typeof hairColor!=='undefined'?hairColor:null) : null;
+      try{ out=gg.gen(_gsrc,_gw,_gh); }catch(e){}
+      finally { if(lay==='hair'&&window.hairWear) window.hairWear(null); }
       _stampG(out); }
     } finally { if(window.CLO_SET_DIR) window.CLO_SET_DIR(_cdWas); } }
   /* INTERIOR HOLE FILL LAW (Paolo 7/2/26): any empty cell fully ENCLOSED
@@ -25157,7 +25198,16 @@ window.CLO=(function(){
       oo[b1]=isDk?(r.mid||r.lt):r.dk; }
     return oo; }
   function genHair(g,opt){
-    var r=opt.ramp,i,o={},S=rsc();
+    /* __THE_BODY_WEARS_IT__ -- A CUT IS A SHAPE; THE COLOUR BELONGS TO THE PERSON.
+       When somebody is wearing this cut, their colour wins. Nobody wearing it means the cut
+       keeps the ramp it was authored with, so every approved look and all 1,744 pinned
+       garment hashes are byte-for-byte what they were.
+       `typeof` IS NOT A STYLE CHOICE. clothes_4x_gate rebuilds this function with
+       `new Function` out of its extracted body, where neither the wearer variable nor
+       `window` exists. The first cut of this reached for the wearer ramp as a property of
+       `window`, which THREW there -- hair drew nothing and 560 of the 1,744 hashes moved.
+       typeof is the one form that cannot throw on an identifier never declared. */
+    var r=((typeof HAIR_WEAR!=='undefined'&&HAIR_WEAR)||opt.ramp),i,o={},S=rsc();
     var hMn=CW,hMx=-1,hTop=CH,hBot=-1;
     for(i=0;i<g.length;i++){var p=g[i]; if(p===1||p===2){var x=i%CW,y=(i/CW)|0;
       if(x<hMn)hMn=x; if(x>hMx)hMx=x; if(y<hTop)hTop=y; if(y>hBot)hBot=y;}}
@@ -27185,6 +27235,69 @@ window.CLO=(function(){
   var H_GRY={dk:[62,62,68],mid:[104,104,112],lt:[148,148,156]};
   var H_WHT={dk:[130,130,138],mid:[186,186,194],lt:[228,228,236]};
   var H_ACD={dk:[58,88,26],mid:[110,164,52],lt:[158,208,96]};
+  /* __HAIR_HAS_COLOURS__ (Paolo 9/11: "the more the better... of course add them, bro")
+     MEASURED FIRST: seven ramps existed and the canon cuts used THREE of them (H_BLK,
+     H_BRN, H_SND), so grey and white were never missing from the game -- they were in
+     the file, unused. Eleven more below, real heads first and then the dye, because
+     EVERYONE DRESSES LIKE A RUNWAY. Every dye sits at or under the saturation the
+     WARDROBE itself already reaches (the loudest approved garment measures 188), so hair
+     never out-shouts clothes and COLOUR IS TERRITORY is undisturbed. */
+  var H_JET={dk:[12,13,20],mid:[26,28,40],lt:[46,50,68]};
+  var H_ASH={dk:[38,36,34],mid:[70,66,62],lt:[104,99,92]};
+  var H_AUB={dk:[58,24,18],mid:[104,44,30],lt:[150,72,48]};
+  var H_GNG={dk:[92,42,16],mid:[158,80,28],lt:[212,124,56]};
+  var H_PLT={dk:[128,112,78],mid:[196,178,132],lt:[238,226,186]};
+  var H_STL={dk:[52,52,54],mid:[112,112,116],lt:[178,178,184]};
+  var H_BLC={dk:[150,142,120],mid:[210,202,178],lt:[244,240,224]};
+  var H_MAG={dk:[72,16,48],mid:[142,32,92],lt:[196,74,140]};
+  var H_TEA={dk:[14,58,58],mid:[26,110,108],lt:[60,164,158]};
+  var H_VIO={dk:[44,26,72],mid:[84,52,134],lt:[132,96,186]};
+  var H_MOS={dk:[54,58,30],mid:[98,104,54],lt:[146,152,86]};
+  /* PAOLO'S OWN TWO, GIVEN RAMPS SO THEY REACH A BODY. His dusty pink and his red have
+     been in the crowd palette since 7/2 and had no ramp, so a citizen wearing either got
+     the right colour in their PORTRAIT and the cut's own colour on their BODY -- the exact
+     bug cook 3 exists to close, surviving in the two colours that were his. The mid of each
+     is HIS VALUE UNCHANGED; only the dark and light ends are derived, at the same
+     proportions every ramp above uses. NOW EVERY NON-NULL CROWD COLOUR IS A RAMP MID, which
+     is a claim a gate can hold rather than a habit I have to keep. */
+  var H_PNK={dk:[104,72,74],mid:[196,150,150],lt:[230,194,194]};
+  var H_RED={dk:[102,28,18],mid:[200,60,40],lt:[234,114,82]};
+  /* ONE NAMED TABLE, so a citizen, the face maker or a faction picks a colour BY NAME
+     instead of reaching for a variable. Order is the order a head of hair goes grey.
+     THE CROWD PALETTE IS BUILT FROM THESE SAME MIDS (cook 2), by a tool that reads them
+     out of this file rather than retyping them, so the colour a hair GARMENT bakes and
+     the colour the crowd TINTS with cannot drift into two different blondes.
+     NO BEHAVIOUR LIVES HERE. Per-person hair colour is NPCFactory's and has been since
+     7/2; a second setter beside it is what ENGINE SYNC LAW forbids, and the first cut of
+     this cook wrote one before checking. This is a palette. */
+  var HAIR_RAMPS=window.HAIR_RAMPS={
+    JET:H_JET, BLACK:H_BLK, ASH:H_ASH, BROWN:H_BRN, AUBURN:H_AUB, GINGER:H_GNG,
+    RUST:H_RUS, SAND:H_SND, PLATINUM:H_PLT, BLEACH:H_BLC, STEEL:H_STL, GREY:H_GRY,
+    WHITE:H_WHT, ACID:H_ACD, MOSS:H_MOS, MAGENTA:H_MAG, TEAL:H_TEA, VIOLET:H_VIO,
+    PINK:H_PNK, RED:H_RED };
+  /* __THE_BODY_WEARS_IT__ -- THE BODY WEARS THE COLOUR THE PORTRAIT IS WEARING.
+     MEASURED: 92.4% of citizens wear a hair GARMENT, and a worn garment makes the draw skip
+     the PD hair layer -- which is where the luminance tint by `hairColor` lives. So nine
+     citizens in ten had the right hair colour in their portrait and the cut's baked colour
+     on their body. ONE ID, ONE WHOLE PERSON, broken for colour exactly the way 8/28 found it
+     broken for the cut.
+     THIS CHOOSES NOTHING. NPCFactory picked the colour off your id; this looks that same rgb
+     back up in the same palette it came from and hands over the authored ramp. A second
+     PICKER is what ENGINE SYNC LAW forbids, and removing one is why cook 1 overcorrected.
+     A LOOKUP, NOT A BLEND, and only possible because cook 2 built the crowd entries FROM
+     these mids: the two tables are one table read from two ends. If they ever drift, this
+     returns null and the cut keeps its own ramp -- visibly wrong, never silently blended.
+     Null, the painted art default, and an unknown colour both fall through to the cut. */
+  var HAIR_WEAR=null;
+  window.hairWear=function(rgb){
+    HAIR_WEAR=null;
+    var F=(typeof NPC_FACTORY!=='undefined')?NPC_FACTORY:null;
+    if(rgb&&F&&F.hairColors&&F.hairColorNames){
+      var k=rgb.join(','),cs=F.hairColors,i;
+      for(i=0;i<cs.length;i++){
+        if(cs[i]&&cs[i].join(',')===k){ HAIR_WEAR=HAIR_RAMPS[F.hairColorNames[i]]||null; break; } }
+    }
+    return HAIR_WEAR; };
   var GARMENTS=window.GARMENTS=[
     /* ===== HAIR (8/1): 26 SHAPES. The category had exactly ONE (his painted
        curtain-bob, which stays his and is untouched). STRUCTURE-NOT-COLOR:

@@ -2,17 +2,17 @@
  "what": "Every derived file re-derived and compared. Written by gates/derived_freshness_gate.js.",
  "why": "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md names this gate by name. A bake is correct the day it is made and rots silently after.",
  "how": "Each maker runs in a throwaway git worktree (HEAD plus the working tree's own changes). The repo itself is never written to. Outputs are discovered by asking git what moved, not by reading headers, because the file most likely to be stale is the one whose header nobody wrote.",
- "taken": "2026-09-12T00:23:23.180Z",
+ "taken": "2026-09-12T02:20:40.637Z",
  "counts": {
   "makersRun": 11,
   "makersExcluded": 3,
   "filesRewritten": 42,
   "compared": 42,
-  "fresh": 37,
-  "drifting": 5,
+  "fresh": 39,
+  "drifting": 3,
   "missingAMakerHeader": 7
  },
- "secondsToRun": 5.8,
+ "secondsToRun": 7.1,
  "drifting": [
   {
    "file": "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md",
@@ -31,23 +31,9 @@
    "maker": "tools/bohemia_map_tab.py",
    "plus": 92,
    "minus": 7
-  },
-  {
-   "file": "slices/BOHEMIA_CURRENT_SLICE.html",
-   "maker": "tools/build_current_slice.js",
-   "plus": 107,
-   "minus": 11
-  },
-  {
-   "file": "slices/BOHEMIA_RUN_CURRENT.html",
-   "maker": "tools/build_run_slice.js",
-   "plus": 938,
-   "minus": 55
   }
  ],
  "frozen": {
-  "slices/BOHEMIA_RUN_CURRENT.html": "RUN. +938/-55 against what tools/build_run_slice.js produces now. A 22 MB shipped slice.",
-  "slices/BOHEMIA_CURRENT_SLICE.html": "RUN. +107/-11 against tools/build_current_slice.js. Still carries the OLD quest canon (\"SIDE QUEST S01 THE METER READER\") where the source now says \"ACT ONE ASK A01 THE KILLING SUMMER\"), and is missing the 9/5 faction-towns seat rule.",
   "slices/BOHEMIA_MAP_CURRENT.html": "WORLD. +92/-7 against tools/bohemia_map_tab.py, including engine md5 stamps that no longer match the engine files they name. It declares no maker header at all.",
   "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md": "WORLD. +19/-19 against tools/bohemia_surface_audit.py. It says 6 things are on the walked surface and 22 only on the one he never sees; regenerated it says 22 and 7.",
   "slices/BOHEMIA_WHICH_SURFACE_8_15_26.html": "WORLD. +1/-1, the same audit rendered as a page.",

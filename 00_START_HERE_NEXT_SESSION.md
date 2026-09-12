@@ -6808,7 +6808,177 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/11 LATEST -- *** THE ZOOMED-OUT CITY HAS NO ART IN IT AT ALL. The screen
+COOK (cook-mce6r5): 9/11 LATEST -- *** HAIR HAS 21 COLOURS, AND THE BUG WAS A SEVEN-ENTRY
+LIST, NOT A MISSING MECHANISM. Paolo ruled it directly this round: "The more the better I
+don't know why you're asking me if you want hair colors, bro of course add them, bro." TAB:
+CHARACTER, the NEW CROWD button, and every person in the RUN and the CITY. ***
+
+HIS CORRECTION IS THE BIGGER HALF OF THAT SENTENCE. The hair-colour question had been sitting
+in my WHAT I NEED FROM YOU block for four rounds. EVERYTHING IS A THUMB (8/9) killed exactly
+that: I decide, I build it, he corrects what he hates. Do not put a taste question to him
+again when a default is defensible.
+
+WHAT WAS ACTUALLY WRONG. Per-person hair colour has shipped since 7/2 -- NPCFactory picks one
+rgb off your id, the draw luminance-tints your hair layer with it. Nineteen hair colours
+existed in the file and SEVEN were reachable by a citizen. That is the whole of "the more the
+better". List 7 -> 21, and NOT retyped: the tool reads the eighteen ramp mids out of
+HAIR_RAMPS and builds the crowd entries from them, so a hair GARMENT and the crowd TINT can
+never drift into two different blondes. His own pink and red are KEPT.
+
+MEASURED ON 4,000 CITIZENS: natural dark 43.5%, art default 11.7%, natural light 23.4%, grey
+family 15.6% (was 7%), dye 5.6% against a cap of 8, all 21 reachable. The portrait path
+independently reads 5.67% dye, so portrait and body share one palette.
+
+*** I WROTE TWO WRONG VERSIONS FIRST AND BOTH WERE ALREADY ANSWERED IN THE FILE, IN SOMEBODY
+ELSE'S HAND. DO NOT REPEAT THIS. *** The first added a wearer-colour setter beside NPCFactory;
+:16571 names that as the second mechanism ENGINE SYNC LAW forbids. The second leaned grey on
+an age band, with a comment claiming the look module carries one -- bodyFor returns six
+numeric dials and NO AGE, it measured 20.1% dyed and 3.5% grey, and :5226 had already written
+"the street has no age at all ... a system, not a line". A CLAIM ABOUT THE CODEBASE MADE FROM
+ONE OF THE TWO PLACES IS A GUESS: written 8/1, quoted 8/28, done again 9/11. READ BOTH PLACES.
+
+GREY IS FLAT, NOT AGED, AND THAT IS SAID PLAINLY. 15.6% is a mixed adult street's share
+applied evenly. WHO is grey waits on the crowd having real ages.
+-> [FOR PEOPLE] grey should follow age once a citizen HAS one. The hook is HAIR_WEIGHTS.
+
+*** AND THEN I LOOKED AT IT, AND EVERY NUMBER WAS TRUE AND THE PICTURE WAS WRONG. MAGENTA,
+VIOLET AND PINK WERE BLONDE. *** Second time this session a cook scored perfectly and looked
+wrong. MEASURED AFTER: 92.4% of citizens wear a PERSONLOOK hair GARMENT; a worn garment makes
+the draw SKIP the PD hair layer; the luminance tint by hairColor lives INSIDE that skipped
+branch. Citizen bp:95 picked MAGENTA -- portrait EXACT, closest pixel anywhere on the BODY 65
+away. VIOLET 68, TEAL 59, ACID 66. THE PORTRAIT THAT POPS UP WHEN SOMEBODY TALKS HAD MAGENTA
+HAIR AND THE PERSON IN FRONT OF YOU DID NOT, FOR NINE CITIZENS IN TEN. ONE ID, ONE WHOLE
+PERSON has been broken for hair COLOUR the whole time -- the identical bug 8/28 found for the
+haircut SHAPE, same two renderers, nobody checked the colour half.
+
+AND THAT MEANS COOK 1 OVERCORRECTED. I removed a wearer-colour override calling it the second
+mechanism ENGINE SYNC LAW forbids. Wrong reading: there is ONE colour (NPCFactory picks it off
+your id) and TWO renderers, and only the portrait honoured it. Making the body honour the SAME
+colour is that law satisfied. A second PICKER would break it. Cook 3 chooses nothing --
+IT LOOKS ONE UP: rgb -> hairColors index -> hairColorNames -> HAIR_RAMPS. A lookup, not a
+blend, and only possible because cook 2 built the crowd entries FROM those mids. AFTER:
+MAGENTA, VIOLET, TEAL, ACID all EXACT on rendered body pixels, 0 away from 59-68.
+
+AND THE LAST TWO THAT STILL DID NOT REACH A BODY WERE HIS. His dusty pink and his red have
+been in the palette since 7/2 with no ramp, so the lookup fell through. Both have ramps now
+whose MID IS HIS VALUE UNCHANGED. Every non-null crowd colour is a ramp mid, which is a claim
+a gate holds instead of a habit I have to keep.
+
+THREE MORE BUGS FOUND ON THE WAY, ALL FIXED THIS ROUND:
+  1. THE ENGINE NEVER GOT THE 8/27 WEIGHTING. engine/bohemia_engine.js had HAIR_COLORS but no
+     HAIR_WEIGHTS and no pickHair, so npcFrom called the UNIFORM pick -- the engine's crowd
+     has been the one-head-in-seven-bright-red parade that measurement condemned, for two
+     weeks, while the alpha was fixed. Both copies now agree and the cook asserts it.
+  2. THE DYE GATE WAS ONE PALETTE CHANGE FROM GOING BLIND, and said so in its own comment. It
+     counted dye against two hardcoded triples; five new dyes would still have measured two.
+     The palette DECLARES its own dye and names now, the factory carries them, the gate reads
+     them. Mutation-tested three ways.
+  3. THE FACE MAKER'S SWATCH ROW OFFERED SEVEN while the crowd wore 21.
+
+AND A PROBE SAVED A FALSE FINDING: the first measurement printed portraitDyePct 0.0, which
+reads exactly like a result. Only the sawDyes:false line above it showed the probe could not
+see its target at all. ALWAYS PRINT WHETHER THE PROBE CAN SEE THE THING.
+
+GATES: clothes_4x 13/0 (all 1,744 pinned garment hashes byte-for-byte unmoved: genHair still
+bakes opt.ramp when nobody is wearing it, and the wearer read is typeof-guarded because the
+gate rebuilds genHair with `new Function` where neither the variable nor `window` exists --
+reaching for it as a property of `window` threw there and moved 560 hashes, and the gate was
+right), talking_portrait 29/0 with two new arms -- 'every colour resolves to a ramp' and
+'THE BODY WEARS THE COLOUR THE PORTRAIT IS WEARING' (eight LOUD colours on RENDERED pixels,
+because the dials agreed the whole time and a near-black on a near-black ramp agrees by
+accident), both mutation-tested -- and its face-distance floors ratcheted 0.012 -> 0.017 and
+0.080 -> 0.085 (deliberately NOT flush with the measurement; a floor with no headroom is a red
+handed to the next lane), hair 39/0, craft 39/0, eight-facings 19/0, graveyard 13/0,
+portrait-haircut 12/0, hairline 12/0, face-maker 13/0, face-canon 9/0.
+RECORD: records/BOHEMIA_COOK_HAIR_HAS_21_COLOURS_9_11_26.md
+COOKS: tools/bohemia_hair_has_colours_9_11_26.py (the palette, 20 ramps, zero behaviour),
+       tools/bohemia_hair_colour_on_people_9_11_26.py (the crowd, the engine, the face maker),
+       tools/bohemia_hair_the_body_wears_it_9_11_26.py (the body honours the person's colour).
+PROOF PICTURE: records/target/COOK_HAIR_21_COLOURS_9_11_26.png -- one real citizen per colour,
+hats off and it says so. The first cast took the FIRST matching citizen and RED landed on a
+shaved head: true people, useless picture. It scores ten real candidates now and photographs
+the one whose cut shows the colour. Casting, not fiction.
+AND MY OWN COMMENT TRIPPED MY OWN GUARD: cook 3 refuses if the wearer ramp is reached for as a
+property of `window`, and my COMMENT explaining that contained the literal string. Same shape
+as the props_gate arm my comment broke earlier this session. THE COMMENT MOVED, NOT THE GUARD.
+
+THE SUITE ENDS WITH 42 RED GATES AND THAT IS THIS REPO'S STANDING STATE, NOT A VERDICT ON
+YOUR CHANGE. A RED IS ONLY YOURS IF IT IS NOT RED ON MAIN. I re-ran all 42 against a clean
+`git worktree` of origin/main and compared tallies: 33 IDENTICAL. Two were mine
+(CURRENT SLICE, fixed) and one was better (THE RUN 123/3 -> 124/2). Do this every round; it
+takes one script and it is the difference between shipping and guessing.
+
+THE FROZEN LIST SHRANK BY TWO AND THAT IS THE PART THAT LASTS. Main landed
+derived_freshness_gate this round (PLUMBER, "nothing is baked once") with a KNOWN_STALE list
+that MAY ONLY SHRINK. BOHEMIA_RUN_CURRENT.html (+938/-55) and BOHEMIA_CURRENT_SLICE.html
+(+107/-11) were both on it; rebuilding them took both entries off and the gate itself demanded
+the deletion. 8/1 ON MAIN -> 9/0 HERE. A gate whose message NAMES ITS OWN FIX gets fixed.
+
+TWO PUBLISHED SLICES EMBED THE ENGINE AND NEITHER REBUILDS ITSELF. BOHEMIA_CURRENT_SLICE.html
+(`node tools/build_current_slice.js`) and BOHEMIA_RUN_CURRENT.html (`node
+tools/build_run_slice.js`). TOUCHING engine/bohemia_engine.js MEANS REBUILDING BOTH. The run
+slice was ALREADY stale on main -- it inlines 67 engine modules and was carrying the old
+seven-colour palette. Regenerating it cleared a red that was not even mine.
+-> [FOR THE PLUMBER] one gate that fails when a slice's embedded engine is behind the engine
+   file, naming the command. Both gates half-do this today, each only for its own slice.
+
+A FLAKY GATE LOOKS EXACTLY LIKE A REGRESSION UNTIL YOU RUN IT TWICE. BUILDER WHERE HE WALKS
+read 15/1 on main and 12/4 here, which is the shape of a real break. Ruled out in two steps:
+re-cut the demo INSIDE the main worktree and re-ran it there (still 15/1, so not demo
+staleness), then ran it twice in my own unchanged tree -- 12/4, THEN 15/1. Flaky. And because
+my resolver sits in the draw loop and the phone must hold 60, I measured rather than argued:
+1.43 MICROSECONDS per resolver call against a 27.94 MILLISECOND full person draw, 0.005% of
+it. That is also why the resolver stays a plain scan -- a cache would buy five thousandths of
+a percent and cost an invalidation bug.
+
+A GATE TIMING OUT IS NOT A GATE FAILING, AND THE TWO LOOK THE SAME FROM A DISTANCE. THE RUN
+came back with no tally at a 500s budget and I nearly wrote it down as a difference. It needs
+longer. The number was 123/3, same as main.
+
+BATTLE BROS LOOKED LIKE MINE AND WAS NOT: its failure text literally lists
+engine/bohemia_engine.js, the file I changed. 73/1 on both. READ THE BASELINE, NOT THE MESSAGE.
+
+DO NOT COMMIT WHAT THE GATES WROTE. Running the suite leaves records/BOHEMIA_AUTHORED_UNREAD.json
+and slices/BOHEMIA_SUBURB_WALK_7_18_26.html dirty -- a gate ledger and another lane's
+half-landed FACTIONS block. Neither is yours. Stage your own files by name, never `git add -A`.
+
+A BASELINE IS THE ONLY WAY TO KNOW A RED IS YOURS, AND ONE KIND OF BASELINE LIES. I ran every
+failing gate near this work against a clean `git worktree` of origin/main and compared:
+personlook 21/1, city_cast_silhouette 5/1, faction_outfit 16/2, dialogue_catalogue 60/3,
+organ_reach 7/1, mandate_face 13/2 -- ALL IDENTICAL, none mine. TWO WERE NOT IDENTICAL AND
+BOTH MATTERED:
+  * current_slice_gate 5/1 -> and it WAS mine. BOHEMIA_CURRENT_SLICE.html EMBEDS THE ENGINE,
+    and I changed the engine without regenerating it. `node tools/build_current_slice.js`
+    clears it; its own message names that command. 6/0 now. REMEMBER THIS: touching
+    engine/bohemia_engine.js means rebuilding the current slice.
+  * look_gate 24/0 on main, 23/1 here -- AND THE BASELINE WAS THE LIE, NOT THE RED.
+    look_gate compares FILE MTIMES, and a worktree checkout stamps everything with now, so it
+    is green there whatever you do: touching only the alpha in that worktree STILL read 24/0.
+    In a real tree, CITY_WORLD.html carries an mtime I never touched and 23 pictures clocked
+    against it were stale before I began. IT MEASURES HOW LONG THE CONTAINER HAS BEEN ALIVE.
+    I re-shot the thirteen pictures a hair change actually makes false (51 stale -> 38); the
+    other 38 are other lanes' surfaces.
+    -> [FOR THE PLUMBER] clock it on a CONTENT hash of the surface, not mtime. Unclearable in
+       any tree older than six hours, free in a fresh one. Its own header says "A CHECKER THAT
+       CANNOT TELL WHAT IT IS LOOKING AT IS THE BROKEN ONE."
+
+FOUND RED ON MAIN, NOT MINE, ROUTED: mandate_face_gate is 13/2 and I proved it on a clean
+worktree of origin/main before saying so. Its two failures are "the card does NOT name a
+faction as holding the ground you stand on" and "it puts NO number on the top rung". Both are
+canon only Paolo can rule, and the gate is RIGHT to refuse -- MAP LAW says Claude never
+designs the map, and guessing a top-rung share off the 49% would be canon nobody ruled. The
+handoff records it at 15/0, so it went red after 8/31.
+-> [FOR FACTIONS + DIRECTION] two rulings, not two fixes. [PENDING Paolo] both.
+
+THE BOARD JOBS, ALL THREE STILL CLAIMED AND PAUSED BY HIS RULING:
+  [city from above]    round 2 = convention, dam, fort, minigp, prison. All five carry
+                       mod: KIT and are authored as kit ENTRIES, a different mechanism.
+  [car recook]         art shipped; the placement half routed to LIFE + CITY.
+  [fortress buildings] round 2 is the fortress wall; hazard is NO DISTRICT IS A PRISON (8/1).
+
+================================================================================
+
+COOK (cook-mce6r5): 9/11 -- *** THE ZOOMED-OUT CITY HAS NO ART IN IT AT ALL. The screen
 he photographed makes 73 fillRect, 8 strokeRect, 17 stroke() and ZERO drawImage -- 98 vector
 operations, not one image. It has 56 real district tiles now, DERIVED from the street art so
 they cannot drift. TAB: CITY, once LIFE + CITY draws them. Nothing to judge yet. ***

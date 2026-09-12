@@ -3308,7 +3308,29 @@ BohemiaEngine.NPCFactory=(function(){
 var CORE_SLOTS=['body','facial','pants','shoes','shirt','hair'];   // always dressed
 var OPT_SLOTS={jacket:0.55,hat:0.35,glasses:0.3};                  // chance to wear
 var SKIN_TONE_NAMES=['pale','fair','olive','tan','bronze','brown','deep','ebony','onyx']; // Paolo's locked ramps
-var HAIR_COLORS=[null,[20,18,22],[150,120,80],[110,70,50],[196,150,150],[80,80,90],[200,60,40]]; // null = art default
+var HAIR_COLORS=[[32,30,27],[82,58,38],[70,66,62],[26,28,40],null,[150,120,80],[104,44,30],[196,178,132],[158,80,28],[124,58,34],[210,202,178],[104,104,112],[112,112,116],[186,186,194],[110,164,52],[98,104,54],[142,32,92],[26,110,108],[84,52,134],[196,150,150],[200,60,40]];   // null = art default
+/* __HAIR_ON_EVERY_HEAD__ -- NAMES, PARALLEL TO HAIR_COLORS, so a colour can be talked
+   about instead of matched on three numbers. */
+var HAIR_COLOR_NAMES=['BLACK','BROWN','ASH','JET','ART','SAND','AUBURN','PLATINUM','GINGER','RUST','BLEACH','GREY','STEEL','WHITE','ACID','MOSS','MAGENTA','TEAL','VIOLET','PINK','RED'];
+/* __HAIR_ON_EVERY_HEAD__ (Paolo 9/11: "the more the better ... of course add them, bro")
+   THE LIST WENT 7 -> 21 AND THE 8/27 RULING BELOW STILL HOLDS ITS SHAPE. The mids
+   are READ OUT OF HAIR_RAMPS by the cook, not retyped, so the colour a hair GARMENT
+   bakes and the colour the crowd TINTS with cannot drift into two different blondes.
+   Paolo's own pink and red are kept; his colours do not get deleted to make room.
+   Out of 200:  natural dark 87 · art default 24 · natural light 46 ·
+   the grey family 32 · dye 11 (5.5%, and the cap is 8).
+   GREY WENT 7% -> 16%, which is the half of his complaint that was real: RAY, the
+   Church and the old wide-brim citizen could not go grey because grey was one entry
+   in seven. *** IT IS FLAT, NOT AGED, BECAUSE THE CROWD HAS NO AGE. *** :5226 says
+   so already, in somebody else's hand, and it is right: bodyFor returns six numeric
+   dials and no age band. Faking one is how NINA came out grey at a family dinner.
+   WHO is grey waits on the crowd having real ages; this is the share, applied flat. */
+var HAIR_WEIGHTS=[30, 30, 15, 12, 24, 20, 8, 6, 4, 4, 4, 16, 10, 6, 2, 2, 2, 2, 1, 1, 1];   // parallel to HAIR_COLORS, out of 200
+/* WHICH ENTRIES ARE DYE, DECLARED WHERE THE PALETTE LIVES. talking_portrait_gate
+   counted dye against two hardcoded triples and warns in its own comment that a
+   palette change would make it "quietly read zero forever". It reads this now, so
+   the ruler cannot lose sight of what it measures. */
+var HAIR_DYES=['ACID','MOSS','MAGENTA','TEAL','VIOLET','PINK','RED'];
 
 function catalogsFromWardrobe(PD){
   var slots={};
@@ -3322,11 +3344,32 @@ function NPCFactory(opts){
   this.slots=opts.slots||catalogsFromWardrobe(PD);
   this.skinTones=opts.skinTones||SKIN_TONE_NAMES.slice();
   this.hairColors=opts.hairColors||HAIR_COLORS.slice();
+  this.hairWeights=opts.hairWeights||HAIR_WEIGHTS.slice();
+  /* __HAIR_ON_EVERY_HEAD__ -- the palette declares its own dye and its own names, and
+     the factory carries them, so a ruler can ask what dye IS instead of
+     hardcoding three numbers and quietly reading zero forever. */
+  this.hairDyes=opts.hairDyes||HAIR_DYES.slice();
+  this.hairColorNames=opts.hairColorNames||HAIR_COLOR_NAMES.slice();
   this.optOdds=opts.optOdds||OPT_SLOTS;
   this.RNG=opts.RNG||(typeof BohemiaEngine!=='undefined'&&BohemiaEngine.Core?BohemiaEngine.Core.RNG:null);
   if(!this.RNG)throw new Error('NPCFactory needs Core.RNG');
 }
 NPCFactory.prototype.pick=function(rng,arr){if(!arr||!arr.length)return null;return arr[Math.floor(rng.next()*arr.length)%arr.length];};
+/* __HAIR_ON_EVERY_HEAD__ -- THE ENGINE NEVER GOT THE 8/27 WEIGHTING AND NOBODY NOTICED.
+   The alpha grew pickHair on 8/27 after measuring that a uniform pick over seven entries
+   made bright red the most common head in the valley. This file kept calling the uniform
+   pick, so the engine's crowd has been that parade ever since. ENGINE SYNC LAW: the two
+   copies agree. ONE rng.next(), same as the uniform pick it replaces, so clothes, body and
+   skin are byte-for-byte unchanged and only hair moves. */
+NPCFactory.prototype.pickHair=function(rng){
+  var a=this.hairColors,w=this.hairWeights;
+  if(!a||!a.length)return null;
+  if(!w||w.length!==a.length)return a[Math.floor(rng.next()*a.length)%a.length];
+  var t=0,i;for(i=0;i<w.length;i++)t+=w[i];
+  var r=rng.next()*t;
+  for(i=0;i<w.length;i++){r-=w[i];if(r<=0)return a[i];}
+  return a[a.length-1];
+};
 NPCFactory.prototype.npcFrom=function(seed){
   var rng=new this.RNG('npc:'+seed);
   var equipped={};
@@ -3337,7 +3380,7 @@ NPCFactory.prototype.npcFrom=function(seed){
     seed:String(seed),
     equipped:equipped,
     skinToneName:this.pick(rng,this.skinTones),
-    hairColor:this.pick(rng,this.hairColors)
+    hairColor:this.pickHair(rng)
   };
   return look;
 };
