@@ -9958,7 +9958,71 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [one colour table] ROUND 3. THE COORDINATOR RE-AIMED THE ROW AND ASKED
+THIS ROUND -- *** [faction colour] ROUND 3. FRONT-PAGE RULE 12 LANDED, I RE-CHECKED MY OWN
+BLOCKER, AND MY OWN BLOCKER WAS WRONG. TWO OF THE FOUR HOLES THAT STOPPED THIS ROW FOR
+THREE ROUNDS DO NOT EXIST. ***
+
+RULE 12 (coordinator 9/13): "A DEPENDENCY ON A LINE IS A PREMISE, NOT A GATE ... the lane
+MEASURES FIRST whether X is actually needed ... Nothing on this board waits on a line the
+coordinator wrote; only on a measurement the lane made." This row waited on a measurement
+I made. Here is what it actually said:
+
+  HOLE 2, ROUND 1: "NO RESIDENT STANDS ON GROUND ANYBODY HOLDS -- 0 of 2199."
+  IT ASKED POWER.holderAt(), WHICH IS WHO OWNS THE ELECTRICAL CIRCUIT. Its own comment
+  says so. Most of the valley is not on a named faction's wire, so it answers null nearly
+  everywhere, correctly. WHOSE LAND IT IS has been POWER.groundAt() since FACTIONS shipped
+  [who holds] on 9/6, and its comment says exactly this: "a settlement pooling its own
+  lights is nobody's circuit and is still standing on somebody's block."
+  MEASURED, same 1681 cells, both functions, one run: holderAt 24 (1.4%), groundAt 656
+  (39.0%), across ten factions. THE GROUND WAS OWNED ALL ALONG.
+  AND IT WAS WRONG TWICE OVER: round 1 also passed pplAt()'s FINE coordinates straight
+  into a function that answers in overmap CELLS, so even the circuit question was being
+  asked about a cell a hundred blocks from the person.
+
+  HOLE 1, ROUND 1: "NOT ONE BODY BELONGS TO A FACTION -- 171 of 171 answer none."
+  RE-MEASURED: 3604 people swept, 417 AFFILIATED -- 11.6% -- across twelve factions
+  (Trades 70, Blues 60, Church 55, Colorful 53, Remnants 39, Cartel 37, Homeless 28,
+  Volunteers 27, Network 25, Mob 11, Anarchists 11, Reds 1).
+
+SEVENTH RULER THIS LANE HAS THROWN AWAY, AND THE MOST EXPENSIVE: the other six produced a
+wrong number, this one produced a wrong STOP and cost the row three rounds.
+TWO FUNCTIONS ONE WORD APART ARE NOT TWO SPELLINGS OF ONE QUESTION.
+
+WHAT IS ACTUALLY BROKEN, measured in ONE run so the halves cannot be about different
+worlds (two separate runs disagreed first, and a measurement that flips must not be read):
+    cells within 20 of the player           1681
+    of those, owned by somebody              656   39.0%
+    distinct cells the PEOPLE stand on       499
+    of THOSE, owned by somebody                2    0.4%
+    affiliated people on their OWN ground      0
+*** THE TERRITORY AND THE POPULATION DO NOT OVERLAP. *** Ownership is real and clustered
+and the people are not standing in the clusters. That is a fact about where the population
+sits against where the territory is, and it is the map's and the population's, not this
+lane's.
+
+AND THE HALF THAT IS THIS LANE'S IS FINE: all 417 affiliated people belong to factions that
+HAVE an outfit, so the dressing chain is not what is broken.
+
+AND I CAUGHT THREE HARNESS BUGS IN THIS ROUND BEFORE PUBLISHING ANY OF THEM, which is the
+only reason the numbers above are worth anything:
+  1. Swept ZERO people, because pplPeople() is keyed to the population grid and I passed
+     overmap cells. THE HARNESS FAILING LOOKS EXACTLY LIKE THE WORLD BEING EMPTY.
+  2. Read "0 on owned ground" while a direct cell sweep said 39%, because of the fine-vs-cell
+     coordinate mismatch above.
+  3. Read "417 people have NO outfit, all twelve factions" -- a catastrophe number -- purely
+     because FACTION_LOOKS lives in the ALPHA and I asked for it inside the CITY frame. The
+     list is now handed out of the frame and compared outside. Answer: 417 of 417 dressable.
+
+- Record: records/BOHEMIA_WHOSE_GROUND_ARE_THEY_STANDING_ON_9_13_26.txt
+  Tool:   tools/bohemia_whose_ground_are_they_standing_on.js
+- ROW STATUS: still CLAIMED, and for the first time the reason is honest. The dressing half
+  works; the remaining blocker is that affiliated people do not stand on owned ground, which
+  is the map and the two dials AFFILIATED_RATE and REACH_CELLS the city file marks
+  [PENDING Paolo]. [PENDING coordinator] this belongs to FACTIONS or WORLD, not here.
+- NEXT ROUND: [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION -- now genuinely unblocked, since
+  there ARE affiliated people (417) and every one of their factions has an outfit.
+
+PREVIOUS ROUND -- *** [one colour table] ROUND 3. THE COORDINATOR RE-AIMED THE ROW AND ASKED
 FOR "THE AIM-TO-LANDING DISTANCE PER FACTION AS A NUMBER HE CAN READ". IT IS BUILT, IN A
 TAB, ON THE REAL SURFACE. ***
 

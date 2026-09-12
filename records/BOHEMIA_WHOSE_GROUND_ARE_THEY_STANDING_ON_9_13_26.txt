@@ -1,0 +1,73 @@
+WHOSE GROUND ARE THEY STANDING ON? -- CHARACTER lane, 9/13/26
+VAMILY row [faction colour] THE-BODY-WEARS-THE-TERRITORY, round 3
+
+*** THE CORRECTION THAT OPENS THIS ROUND, AND IT UNBLOCKS THE ROW ***
+Round 1 reported "NO RESIDENT STANDS ON GROUND ANYBODY HOLDS -- 0 of 2199" and
+this lane sat on the row for three rounds behind it. THAT MEASUREMENT ASKED THE
+WRONG FUNCTION. POWER.holderAt() is who owns the electrical CIRCUIT; most of the
+valley is not on a named faction's wire, so it answers null nearly everywhere, and
+correctly. Whose LAND it is has been POWER.groundAt() since FACTIONS shipped
+[who holds] on 9/6.
+MEASURED, the same 1681 cells, both functions, one run:
+    holderAt    24 cells    1.4%
+    groundAt   656 cells   39.0%   across ten factions
+THE GROUND WAS OWNED ALL ALONG. Seventh ruler this lane has thrown away, and the
+most expensive: the other six produced a wrong number, this one produced a wrong
+STOP. TWO FUNCTIONS ONE WORD APART ARE NOT TWO SPELLINGS OF ONE QUESTION.
+
+=== THE SWEEP (every person in a 17x17 neighbourhood block around the spawn) ===
+  people probed                      3604
+  standing on ground somebody owns   3   0.1%
+  belonging to a faction themselves  417   11.6%
+  affiliated AND on their own ground 0
+  faction bases in reach             13
+
+AND THE SAME POWER MAP ASKED ABOUT CELLS, IN THE SAME RUN, because two separate
+runs disagreed and a measurement that flips between runs must not be read:
+  cells within 20 of the player        1681
+  of those, owned by somebody          656   39.0%
+  distinct cells the people stand on   499
+  of THOSE, owned by somebody          2   0.4%
+
+*** THAT GAP IS THE FINDING. *** Both numbers are true and they are about
+DIFFERENT CELLS: ownership is real and clustered, and the people are not standing
+in the clusters. So the row's question -- does this body wear the colour of the
+block it stands on -- has an owner for the BLOCK almost nowhere a PERSON is,
+which is a fact about where the population sits against where the territory is,
+and it belongs to whoever owns the map and the population, not to this lane.
+
+WHOSE GROUND THE PEOPLE ARE ON:
+    Mob                2
+    Trades             1
+
+WHO THE PEOPLE RUN WITH:
+    Trades            70
+    Blues             60
+    Church            55
+    Colorful          53
+    Remnants          39
+    Cartel            37
+    Homeless          28
+    Volunteers        27
+    Network           25
+    Mob               11
+    Anarchists        11
+    Reds               1
+
+AFFILIATED PEOPLE, BY WHOSE GROUND THEY STAND ON:
+    Colorful on Mob                       1
+
+=== AND THE HALF OF THE ROW THAT IS THIS LANE OWNS: CAN THEY BE DRESSED? ===
+  affiliated people whose faction HAS an outfit   417
+  affiliated people whose faction has NONE        0
+  EVERY faction anybody here runs with can be dressed in its own outfit, so the
+  dressing half of this row is not the thing that is broken.
+
+=== THE TRAP IN THE ROW'S OWN WORDING, kept from round 1 because it still holds ===
+"EVERY dressed person's colour matches the faction that owns the block" would put
+the whole street in gang colours -- every shopkeeper, every kid, in Cartel brown
+for standing on Cartel ground. That is the opposite of the law it cites. COLOUR IS
+TERRITORY calls colour "a statement of who would defend you" and says wearing your
+colours is A CHOICE WITH A COST; the style card allows ONE saturated piece and
+lists dust, ash, bone and lead as legal cloth. A valley in uniform has no signal in
+it, because a colour only means something against another colour.
