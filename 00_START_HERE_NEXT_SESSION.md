@@ -16531,8 +16531,36 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: [loot kept] TWO OF ITS THREE ARE IN, fe43746 on main (sha read off main after the
-push). THE ROW STAYS CLAIMED; the inbound half is not built.
+THIS ROUND: [loot kept] IS SHIPPED, ALL THREE OF IT: fe43746 (the two outbound) and f8fe423 (the
+inbound), both shas read off main after the push.
+
+THE THIRD ONE, BB-THE-FIGHT-KNOWS-THE-DAY: enter(G,d,env) got HP, a roster, a package id and a
+stamina max and NO hour, NO weather, NO shade, then ran cleanSlate. The walked city organises its
+whole day around the heat and the arena was climate controlled. IT NOW ARRIVES KNOWING the clock,
+night, sunny/cloudy/rain, whether it is raining, how wet the ground still is, whether it is inside
+the heat window and WHETHER YOU ARE IN SHADE.
+EVERY NUMBER IS THE CITY'S OWN: T.min/T.day, isNight(), BohemiaWeather.at and wetness, the heat
+window READ OFF BohemiaPopulation.HEAT_FROM/HEAT_TO rather than copied (11:00-16:00 is what every
+person's heatTol is judged against; a second copy is a second truth), and shade derived from
+sunVec plus THE SAME CELL TEST THAT PAINTS THE SHADOWS, so being in shade means the shadow he can
+see. AND NO TEMPERATURE IN DEGREES: nothing in the repo holds one ("summer 40C+ afternoons" is a
+sentence in a comment), and putting 41C in a patch tool is authoring the climate of his valley.
+STAMPED IN ONE PLACE because V205 already routed all four entries through one door, so every way
+into a fight carries it and an entry built later gets it free. It rides as its OWN message ahead
+of the encounter (V200's pattern) so the shared handoff contract is untouched, and G.world
+survives cleanSlate the way G.cityRoom does. Said once on the bell, standing down for the
+teaching fight and for a quest objective, and echoed back out with the result.
+MEASURED AT TWO HOURS, because a payload right once can be a constant: 13:00 in the heat, not
+night, open ground; 23:00 night, not in the heat, all shade with the sun down; window [660,960]
+matching the population module exactly; degrees null. AND THE SHADE VARIES BY PLACE -- the same
+13:00 reads shade beside a building and open ground where the fight started.
+gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-proved both ways
+(delete the stamp -> 5 red; a local copy of the heat window that disagrees -> 1 red, named).
+NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
+Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
+
+QUEUE STATE: [loot kept] is closed. The next OPEN line in this section is [guns close]
+BB-GUNS-CLOSE.
 
 BB-LOOT-LEAVES. Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE
 the arena on 9/2 and never left it. A body drops rounds, experience, an item at 55%, a plate at
