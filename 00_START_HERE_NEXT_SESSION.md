@@ -6240,7 +6240,65 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/12 (b) LATEST -- *** [more people] ROUND 9: HALF OF ALL WALKS
+LIFE + CITY (city-1eztay): 9/12 (c) LATEST -- *** [lab reds] SHIPPED. THREE RED ART CHECKS
+CLOSED, 929/3 -> 932/0, AND THE GAME DID NOT CHANGE BY ONE BYTE. ALL THREE FIXES WERE IN
+THE RULER. *** MODE: BUILD. TAB: none, this is a gate round -- nothing on his screen moved,
+which is the honest headline. Nothing to judge.
+
+  THE ROW SAID "fix or honestly retire each, with the number". Three fixed, none retired,
+and NOT ONE of the three was a defect in the city art it pointed at.
+
+  1. THE RUNG TABLE was a GATE OUTRANKING A LOCKED RULING. It asserted the 7/3 four-kill
+TIERS table; grep says that string is in the alpha 0 times. It is not missing, it is
+SUPERSEDED -- PAOLO 8/26, LOCKED: "overworld calmness lvl 1 then an enemy trying to hurt you
+or someone is talking to you is lvl 2 then you either kill 2 enemies or theresa whole bunch
+of people close together talking type shit for lvl 3." The top of the ladder moved from FOUR
+kills to TWO and kills stopped being the only input; the alpha carries exactly that
+(LAYERS:[0,0,2,4], level() 3 on kills>=2||crowdNear, 2 on threat||talkingTo). The leg was
+standing there demanding his newer ruling be reverted. *** AND THE LEG DIRECTLY ABOVE IT IN
+THE SAME FILE IS A TWENTY-LINE NOTE ABOUT THIS EXACT FAILURE MODE, written after it happened
+in the 8/20 RUN lane. *** The ruler had the lesson printed on it and broke the same way.
+Re-pointed onto the 8/26 rungs, because the rungs are HIS and a gate is what stops a re-tune.
+
+  2. THE MEDIAN was A CHECK THAT MATCHED A COMMENT. Clause by clause: dead colour never
+drawn TRUE, hand-painted rect never drawn TRUE, comment banner present FALSE. The invariant
+held and the leg was red on a sentence -- while its OWN note two lines above says "a check
+that matches a comment is not a check". Grepped the tree: that banner now lives in exactly
+one file, the gate asserting it. Replaced with the thing it stood in for -- the median came
+BACK as approved tile art, so it now checks the PNG is in the street bank and streetKindAt
+routes the centre lane to it. That cannot be satisfied by typing a sentence.
+
+  3. THE QUARTER TURNS pinned THE BYTES OF A SET instead of the rule the set obeys. It
+demanded {road:1,walk:1,lot:1}; main reads {road:1,walk:1,lot:1,yard:1} plus a later
+ST_SPIN.slab=1. A yard and an indoor slab are FLAT, so spinning them is free repeat-killing,
+the exact thing the leg exists to encourage: IT WENT RED FOR THE WORK GOING RIGHT, same
+shape as #1. The set is now BUILT and read (declaration plus every later assignment) and all
+seven directional kinds are checked by name: median, lane, gutterL, gutterR, kerbL, kerbR,
+house.
+
+  FIVE MUTATIONS RUN ON DISK, NOT ASSERTED: rung back to four kills RED; median art removed
+RED; kerbL:1 in the declaration RED; ST_SPIN.median=1 as a LATER line RED (the old byte check
+could never have caught that one); a genuinely flat dirt:1 added GREEN (proof the fix did not
+just re-freeze today's bytes).
+
+  STANDING NOTE FOR EVERY LANE: A GATE THAT GOES RED FOR THE WORK GOING RIGHT IS NOT A STRICT
+GATE, IT IS A BROKEN ONE. Two of these three fired BECAUSE the product improved. Each pinned
+an artefact -- a table, a comment, a byte string -- where it should have pinned the rule the
+artefact expressed. WHEN A LEG FIRES, READ WHAT IT ASSERTS AGAINST THE NEWEST RULING BEFORE
+YOU READ IT AGAINST THE CODE. A stale table is not a regression.
+
+  Lane gates green: COMBAT LAB 932/0, NEVER EMPTY 14/0, TAP PICKS 6/0, THE ONE THAT IS YOU
+7/0, A CROWD TO WALK INTO 7/0. Record: records/BOHEMIA_THE_RULER_WAS_THE_BROKEN_THING_9_12_26.md
+
+  NEXT: back to [more people] round 10 -- eight walks in sixteen still find only the floor.
+Then the OPEN rows: [tiles not slabs], [buildings appear], [power buildings], [owner shown],
+[bill lands], [shelves seen]. NOT MINE, REPORTED: fps_on_a_phone_gate is 33/2 on clean main
+(wake card over the pad; 45,176,644 bytes to first play against a 34,005,978 budget), and it
+must be run ALONE -- beside other browser gates it reads 60.6% contended vs 46.1% alone.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/12 (b) -- *** [more people] ROUND 9: HALF OF ALL WALKS
 NOW MEET A CROWD, 5 OF 16 -> 8 OF 16. AND THE ROUND OPENED BY FIXING MY OWN BOARD LINE
 UNDER THE NEW RULE 11. *** MODE: BUILD. TAB: CITY, or just walk. Nothing to judge.
 
