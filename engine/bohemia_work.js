@@ -69,6 +69,13 @@
     if (HASREQ) { try { return require('./bohemia_agents.js'); } catch (_e) {} }
     return (typeof root !== 'undefined' && root.BohemiaAgents) || null;
   }
+  /* [back of house], 9/13. ASKED WHEN NEEDED, NEVER AT LOAD: it is spliced into the
+     walked surface above this file, and a neighbour fetched at load time would be
+     undefined there. */
+  function BH() {
+    if (HASREQ) { try { return require('./bohemia_backhouse.js'); } catch (_e) {} }
+    return (typeof root !== 'undefined' && root.BohemiaBackhouse) || null;
+  }
   function ECON() {
     if (HASREQ) { try { return require('./bohemia_economy.js'); } catch (_e) {} }
     return (typeof root !== 'undefined' && root.BohemiaEconomy) || null;
@@ -140,7 +147,26 @@
      anywhere else, it is a SCAV sweep, because that is what the economy means by
      scav and it is what a person with no crew does. No list of places is typed
      here; a district he adds to the map offers work the same hour it exists. */
-  function kindAt(worldApi, x, y) {
+  /* *** AND INSIDE, THE ROOM DECIDES, WHICH IS [back of house], 9/13. ***
+     Until this, the room never entered the arithmetic anywhere: bohemia_economy's
+     YIELD is two flat numbers and this file did not contain the word room. So a
+     sweep through the back of a casino paid exactly what a sweep across a car park
+     paid, and every interior in the valley -- built, furnished, walkable -- was
+     invisible to the only thing that rewards you for being in it.
+     THE ROOM YOU ARE STANDING IN IS A TRUER ANSWER THAN THE DISTRICT YOU ARE IN, so
+     when a room is given it wins outright, both ways: a dry store on a nothing block
+     is still a site, and a casino concourse on a job district is still a sweep.
+     WHICH ROOMS COUNT IS NOT DECIDED HERE AND NOT LISTED ANYWHERE: bohemia_backhouse
+     asks the furnisher what is actually in the room. And NO NEW NUMBER IS BORN --
+     site against scav is the economy's own pair, already 3.0 against 1.2, already
+     untuned and already his. */
+  function kindAt(worldApi, x, y, room) {
+    var byRoom = null;
+    if (room) {
+      var B = BH();
+      if (B) { try { byRoom = B.workIn(room); } catch (_e) { byRoom = null; } }
+      if (byRoom) return kinds().indexOf(byRoom) < 0 ? null : byRoom;
+    }
     var a = AG(); if (!a) return null;
     var jd = a.JOB_DISTRICTS;
     var here = null;
@@ -160,13 +186,16 @@
      the pay is another one. EVERYTHING COSTS ONE (8/15) means the unit is the
      whole shift, so the honest answer to "there are two hours of light left" is
      that you cannot start, not that you get a smaller battery. */
-  function offer(worldApi, x, y, seed, minutesLeft) {
-    var kind = kindAt(worldApi, x, y);
+  function offer(worldApi, x, y, seed, minutesLeft, room) {
+    var kind = kindAt(worldApi, x, y, room);
     if (!kind) return null;
     var mins = minutesFor(kind, seed);
     if (!mins) return null;
     var fits = (typeof minutesLeft === 'number') ? (minutesLeft >= mins) : true;
+    var B = room ? BH() : null, where = null;
+    if (B) { try { where = B.say(room) || null; } catch (_e) { where = null; } }
     return { kind: kind, act: BRIDGE[kind].act, minutes: mins, fits: fits,
+             room: room || null, where: where,
              district: (function () {
                try { var c = worldApi.at(x | 0, y | 0); return (c && c.district) || null; }
                catch (_e) { return null; } })() };
