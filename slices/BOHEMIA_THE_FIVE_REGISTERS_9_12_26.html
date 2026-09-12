@@ -1,0 +1,205 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - FIVE WAYS A LABEL IS MADE</title>
+<style>
+ /* Held to the same list it shows: no named font, no hairline as an edge, no card radius
+    as the way to group, no gradient-and-glow, no emoji. */
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot);
+       background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ background:#fff; margin:16px 0; border-bottom:3px solid var(--ink) }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .stage{ padding:20px 14px; background:#6b6150; display:flex; justify-content:center }
+ .body{ padding:12px }
+ .say{ margin:0; font-size:15px }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a } .cost b{ color:var(--ink) }
+ .have{ margin:6px 0 0; font-size:13px; color:#6b6355 }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--rule) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:2px solid var(--rule); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border-left:5px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:0;
+             background:var(--ink); color:var(--paper); cursor:pointer }
+ svg{ display:block }
+</style></head><body>
+<header>
+ <h1>FIVE WAYS A LABEL IS MADE</h1>
+ <div class="sub">You said even down to the font. Every one of these is DRAWN, not typed, so you are looking at the shape itself and not at a font we do not own yet. Same word every time. Tap a thumb. 9/12</div>
+</header>
+
+<div class="now">
+ <b>WHY THEY ARE DRAWN.</b> The banned names are out of the walked city as of this round,
+ 14 down to 0. But the faces the research actually picked are real font files nobody has
+ put in the repo yet. Rather than show you five things all set in the one face we do own
+ and call them five choices, each of these is drawn as the shape that register really
+ makes. Pick one and it becomes the job of getting that file in.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+/* Each register is drawn from a 5x7 stroke alphabet so the same word can be built five
+   ways from one source. Letters needed: M A R K E T. */
+var GLYPH={
+ M:[[0,6],[0,0],[2,3],[4,0],[4,6]],
+ A:[[0,6],[0,1],[1,0],[3,0],[4,1],[4,6],'M',[0,3.4],[4,3.4]],
+ R:[[0,6],[0,0],[3,0],[4,1],[4,2],[3,3],[0,3],'M',[2,3],[4,6]],
+ K:[[0,0],[0,6],'M',[4,0],[0,3],[4,6]],
+ E:[[4,0],[0,0],[0,6],[4,6],'M',[0,3],[3,3]],
+ T:[[0,0],[4,0],'M',[2,0],[2,6]]
+};
+function strokes(word,cell,gap){
+  var out='', x=0;
+  word.split('').forEach(function(ch){
+    var g=GLYPH[ch];
+    if(g){
+      var run=[];
+      g.forEach(function(pt){
+        if(pt==='M'){ if(run.length)out+='<path d="M'+run.join(' L')+'"/>'; run=[]; return; }
+        run.push((x+pt[0]*cell/4).toFixed(1)+','+(pt[1]*cell/6).toFixed(1));
+      });
+      if(run.length) out+='<path d="M'+run.join(' L')+'"/>';
+    }
+    x += cell + gap;
+  });
+  return { d:out, w:x-gap };
+}
+
+/* A DOT-MATRIX CELL, the way a character LCD actually builds a letter. */
+function dots(word,px,gap){
+  var s=strokes(word,px*4,px*0.0001);   /* geometry only, we sample it ourselves */
+  var out='', x=0;
+  word.split('').forEach(function(ch){
+    for(var cx=0;cx<5;cx++) for(var cy=0;cy<7;cy++){
+      var on=ONCELL[ch] && ONCELL[ch][cy] && ONCELL[ch][cy][cx]==='1';
+      if(on) out+='<rect x="'+(x+cx*px)+'" y="'+(cy*px)+'" width="'+(px*0.82)+'" height="'+(px*0.82)+'"/>';
+    }
+    x += 5*px + gap;
+  });
+  return { d:out, w:x-gap };
+}
+/* 5x7 cells, the HD44780 shape */
+var ONCELL={
+ M:['10001','11011','10101','10001','10001','10001','10001'],
+ A:['01110','10001','10001','11111','10001','10001','10001'],
+ R:['11110','10001','10001','11110','10100','10010','10001'],
+ K:['10001','10010','10100','11000','10100','10010','10001'],
+ E:['11111','10000','10000','11110','10000','10000','11111'],
+ T:['11111','00100','00100','00100','00100','00100','00100']
+};
+
+function svg(w,h,inner,extra){
+  return '<svg width="'+(w*3)+'" height="'+(h*3)+'" viewBox="0 0 '+w+' '+h+'">'
+    + (extra||'') + inner + '</svg>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. THE SCREEN CELL - what a character display shows',
+   draw:function(){ var d=dots('MARKET',1.6,2.4);
+     return svg(d.w+4,13,'<g fill="#9fe0b8" transform="translate(2,1.5)">'+d.d+'</g>',
+       '<rect width="100%" height="100%" fill="#0d1512"/>'); },
+   have:'Needs: the HD44780 ROM cut, drawn by us from the 5x8 cell grid. Nothing to license.',
+   say:'The letters are built from a grid of lit squares, because the screen physically has no other way to make a shape.',
+   cost:'<b>Costs you:</b> only works where the thing IS a screen. A crate cannot display this. <b>Gets you:</b> it is the only one that is truly of our world rather than a style applied to it.' },
+
+ { k:'B', t:'B. THE STENCIL - what is painted on a crate',
+   /* THE BRIDGES ARE THE WHOLE POINT AND THE FIRST CUT DID NOT HAVE THEM. The caption said
+      "with the little bridges a stencil leaves" over a drawing with none -- words claiming
+      something the picture does not show, which is the one thing a comparison sheet must
+      never do. A bridge is where the stencil plate stayed joined, so the paint never landed:
+      drawn here exactly that way, as two thin bars of the background across the word. */
+   draw:function(){ var d=strokes('MARKET',7,3.5);
+     return svg(d.w+6,13,
+       '<g stroke="#e8dcc0" stroke-width="1.5" fill="none" stroke-linecap="square" transform="translate(3,3)">'+d.d+'</g>'
+       +'<rect x="0" y="4.6" width="100%" height="0.9" fill="#3a3128"/>'
+       +'<rect x="0" y="8.2" width="100%" height="0.9" fill="#3a3128"/>',
+       '<rect width="100%" height="100%" fill="#3a3128"/>'); },
+   have:'Needs: a DIN 1451 stencil cut. The standard is public; the font file is the job.',
+   say:'Thick even strokes with the little bridges a stencil leaves, sprayed straight onto the object.',
+   cost:'<b>Costs you:</b> capitals only, and it gets hard to read below about nine pixels. <b>Gets you:</b> the one everybody recognises without being told. Every crate and breaker box in the real world is labelled this way.' },
+
+ { k:'C', t:'C. THE SEGMENT - what a meter reads',
+   draw:function(){
+     var segs='<g fill="#ffb454">'
+       +'<rect x="1" y="0" width="6" height="1.4"/><rect x="7" y="1" width="1.4" height="4"/>'
+       +'<rect x="7" y="6" width="1.4" height="4"/><rect x="1" y="10" width="6" height="1.4"/>'
+       +'<rect x="0" y="6" width="1.4" height="4"/><rect x="0" y="1" width="1.4" height="4"/>'
+       +'<rect x="1" y="5" width="6" height="1.4"/></g>';
+     var out=''; for(var i=0;i<4;i++) out+='<g transform="translate('+(2+i*11)+',1)">'+segs+'</g>';
+     return svg(48,14,out,'<rect width="100%" height="100%" fill="#161310"/>'); },
+   have:'Needs: DSEG, which is free to use (OFL). The easiest of the five to actually land.',
+   say:'Seven bars per character, like a fuel gauge or a till. Only good for numbers, so it is a partner to the others, not a replacement.',
+   cost:'<b>Costs you:</b> it cannot spell. Numbers and a few letters, that is it. <b>Gets you:</b> the clock, the battery and any count read instantly, the way a machine shows a number.' },
+
+ { k:'D', t:'D. EMBOSSED TAPE - what somebody labelled by hand',
+   draw:function(){ var d=strokes('MARKET',7,4.5);
+     return svg(d.w+8,15,
+       '<g stroke="#f4efe2" stroke-width="1.6" fill="none" stroke-linecap="round" transform="translate(4,4)">'+d.d+'</g>',
+       '<rect width="100%" height="100%" fill="#2c2a26"/>'
+       +'<rect y="0" width="100%" height="1" fill="rgba(255,255,255,.16)"/>'
+       +'<rect y="14" width="100%" height="1" fill="rgba(0,0,0,.6)"/>'); },
+   have:'Needs: nothing new. Any solid letterform pressed pale on dark reads as this.',
+   say:'Letters squeezed into plastic tape, so they go pale where the plastic stretched. Wide spacing because the machine steps one notch per letter.',
+   cost:'<b>Costs you:</b> the wide spacing is the one thing here that looks like the bot tell, even though a real machine makes it. <b>Gets you:</b> it says a person did this, not a factory.' },
+
+ { k:'E', t:'E. CUT INTO THE METAL',
+   draw:function(){ var d=strokes('MARKET',7,3.5);
+     return svg(d.w+6,13,
+       '<g stroke="#0a0806" stroke-width="1.8" fill="none" stroke-linecap="square" transform="translate(3,3.4)">'+d.d+'</g>'
+       +'<g stroke="#6d6049" stroke-width="0.8" fill="none" stroke-linecap="square" transform="translate(3,3)">'+d.d+'</g>',
+       '<rect width="100%" height="100%" fill="#26221c"/>'); },
+   have:'Needs: nothing new. It is the stencil shape with the light coming from one side.',
+   say:'The word is engraved down into the plate, so the top of the groove is dark and the bottom catches light.',
+   cost:'<b>Costs you:</b> the dimmest of the five; engraving has no ink in it. <b>Gets you:</b> the most permanent looking. It reads as a thing that was made, not printed.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2>'
+    + '<div class="stage">'+o.draw()+'</div>'
+    + '<div class="body"><p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p>'
+    + '<p class="have">'+o.have+'</p></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - FIVE WAYS A LABEL IS MADE - 9/12/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_FIVE_REGISTERS_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

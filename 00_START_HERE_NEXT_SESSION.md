@@ -1,3 +1,41 @@
+UI (ui-kmqmrf): 9/12 (b) LATEST -- *** [no slop] ROUND TWO, THE TYPE. ROW STILL CLAIMED. ***
+TAB: CITY and RUN.  RULER: tools/bohemia_count_the_tells.js
+RECORD: records/BOHEMIA_NO_SLOP_THE_REGISTERS_9_12_26.md
+PICTURE: slices/BOHEMIA_THE_FIVE_REGISTERS_9_12_26.html -- five registers, DRAWN not typed.
+
+THE BANNED NAMES ARE OUT OF THE WALKED CITY. Space Grotesk was named FOURTEEN TIMES in fourteen
+separate places; it is 0 now. Type goes through three REGISTERS on the root -- CASING, SCREEN,
+BODY -- from DIRECTION's [the font] ruling, so fourteen call sites became one place.
+
+*** CANVAS DOES NOT UNDERSTAND var(), AND THAT WOULD HAVE SHIPPED SILENTLY. *** Four of the
+fourteen were ctx.font, not CSS. A canvas font string containing a custom property is not
+resolved, it is REJECTED WHOLE, and the context keeps whatever face it had. The map's district
+labels would have kept drawing in the wrong font with nothing red anywhere. Caught by reading the
+change I had just made, not by a gate. Canvas asks the page what the register resolves to now.
+
+*** THE COUNT WENT UP AND THAT IS THE HONEST PART OF THE ROUND. *** monospace 36 -> 44, because
+every register declares a fallback stack ending in monospace and the canvas resolver has one too.
+The ruler is telling the truth: THE NAMES ARE GONE AND THE TELL IS NOT. All three registers
+resolve to the game's own embedded face today, so monospace-for-everything is still what the
+screen does. The ruled faces -- DIN 1451 stencil, HD44780 ROM, DSEG, a proportional pixel body --
+ARE NOT IN THIS REPO. I did not swap the body register to a system sans to make the number fall:
+that trades a named tell for the actual disease the law is about, the reflex default.
+WHAT IT WOULD TAKE: DSEG is free (OFL), easiest to land. The ROM cut can be drawn by us from the
+published 5x8 cell grid, no licence. The stencil is the one needing a real font file. DIRECTION's
+and COOK's to land; the seam is ready and named.
+
+THE PICTURE IS DRAWN, NOT TYPED, for that reason: five things all set in the one face we own and
+called five choices would be a sheet that lies. Each option says what it would take to have it.
+The sheet caught itself once -- the stencil caption promised "the little bridges a stencil leaves"
+over a drawing with none. Drawn now as what a bridge is: where the plate stayed joined.
+
+WALKED CITY 278 -> 272. STILL THERE: 1px borders 62, rounded 65, spaced caps 80, gradients 11 --
+other lanes' panels (day card, market, outfit). The alpha shell's 467 is RUN's surface, unopened.
+GATES: CITY RAIL 8/0, PHONE OBJECT 18/0, TOP MENU BAR 12/0, HALF SIZE 7/0, FEED 15/0, THUMB 15/0,
+READABLE RULER 7/0, ALPHA LOADS 20/0, DEMO BUILD 25/0, PAGES PUBLISH 18/0.
+[PENDING Paolo] Nothing blocking.
+
+WORDS (words-8dqrnq): 9/12 LATEST -- *** Q19 [caught out] SHIPPED WITH BOTH ROUNDS.
 WORDS (words-8dqrnq): 9/12 (b) LATEST -- *** Q20 [no law talk] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. TAKE THE LAW AWAY AND PEOPLE TALK MORE CAREFULLY, NOT ROUGHER, AND
 OUR OWN TEXT IS SIX SIGMA THE WRONG WAY. *** TAB: NOT IN A TAB YET. No game code touched, ever.
