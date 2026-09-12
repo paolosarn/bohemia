@@ -16492,7 +16492,53 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND (the one after [enter zoom]): THE REUSE-FIRST REDS. Not a row; a red gate on main
+THIS ROUND: [loot kept] TWO OF ITS THREE ARE IN, fe43746 on main (sha read off main after the
+push). THE ROW STAYS CLAIMED; the inbound half is not built.
+
+BB-LOOT-LEAVES. Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE
+the arena on 9/2 and never left it. A body drops rounds, experience, an item at 55%, a plate at
+22% and a boss key, all lying where he fell so you cross ground under fire for it -- and the
+fight's one message out was a body count and a health number. It carries took:{loot,xp,plates,
+keys,rounds} now, READ OFF G.rc, which cleanSlate rebuilds at the top of every fight and the
+pickup has been filling the whole time: a read, not a new mechanic, so it cannot disagree with
+what the readout said when he walked onto the body. Two things genuinely had NO per-fight
+counter and now do: a plate (there was a local for the readout line that died with the function)
+and a key (KEYS.taken is all-time and cannot answer "what did THIS fight give me"). And what you
+took is KEPT -- localStorage['bohemia.pocket'], the FIGHT'S own storage beside bohemia.tree and
+bohemia.keys, credited FROM THE PAYLOAD THAT JUST WENT OUT so the two can never disagree. RUN's
+bohemia.save.v1 is not touched: ONE SYSTEM, ONE SESSION.
+
+*** BB-KEYS-LAND STOPPED BEING TIDYING WHILE NOBODY WAS LOOKING. *** It was written 8/28 when
+nothing outside the fight read the keys. SOMEBODY BUILT THE READER ON 9/6: the walked city's
+ctLadderHeld(), whose own comment says "MEASURED 9/6: nothing outside the fight had ever read
+it." It reads window.parent.bohemiaKeys, the SHELL's global. The fight set the global on its OWN
+window and posted the message UNTYPED; the shell routes all twenty of its message types by
+d.type; so nothing ever caught it and THE BOSS LADDER IN THE CITY ANSWERED EMPTY HAND HOWEVER
+MANY KEYS YOU WERE CARRYING. The message has a type now, the shell keeps it (and mirrors it to
+storage, because the city can ask before combat has ever booted), and the old untyped field
+rides along for any reader written against the old shape.
+
+*** AND THE HARNESS HAD TO CHANGE TO SEE IT: gates/loot_kept_gate.js SERVES THE GAME OVER HTTP.
+*** The last link is one frame reading another frame's global. On file:// every frame has a NULL
+ORIGIN and they are cross-origin to each other, so that read THROWS however correct the build
+is, and the first run reported "the city sees nothing" on a build where the city sees
+everything. The deployed game is ONE ORIGIN OVER HTTPS. A file:// harness would have called this
+row impossible to finish. 9/0, mutation-proved both ways (strip the type, strip took -> 4 arms
+red naming the message, the pocket, the shell and the city, while the pickup stays green).
+
+AND ONE OF THIS LANE'S CHECKERS WAS PINNED TO A SPELLING: combat_lab_gate's V66 arm demanded the
+sendCombatEnd line verbatim and went red (929/3 -> 928/4) because this row captures the return
+value. The pin holds the DELEGATION and the function now; the win/loss routing checks are
+untouched; 929/3 again.
+
+STILL OPEN ON THE ROW, MEASURED AGAIN THIS ROUND: BB-THE-FIGHT-KNOWS-THE-DAY, the inbound half.
+enter(G,d,env) receives the player's HP, a roster, a package id and a stamina max -- no hour, no
+temperature, no weather, no shade -- and the first thing it does is cleanSlate. Meanwhile the
+walked city organises its entire day around the heat and every person in it carries a heatTol.
+NEXT ROUND STARTS THERE.
+Record: records/BOHEMIA_COMBAT_WHAT_YOU_TOOK_COMES_WITH_YOU_9_12_26.md
+
+THE ROUND BEFORE: THE REUSE-FIRST REDS. Not a row; a red gate on main
 with my lane's name on it, which the standing duties put ahead of the queue.
 
 *** AND THE FIRST THING I FOUND WAS MY OWN. *** gates/reusefirst_gate.py was RED with FIVE

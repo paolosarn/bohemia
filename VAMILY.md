@@ -194,7 +194,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - SHIPPED 9/5 91cbd15  [house tiles]  BB-A-TILE-IS-A-HOUSE
 - SHIPPED 9/5 0d5b24d  [fights end]  BB-NERVE-ON
 - SHIPPED 9/5 8646115  [indoor fights]  THE-INDOOR-FIGHT
-- CLAIMED 9/12 combat-nfnki9  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
+- CLAIMED 9/12 combat-nfnki9  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)  -- TWO OF THE THREE ARE IN, fe43746: the fight's one message out carries took:{loot,xp,plates,keys,rounds} and what you took is KEPT in the fight's own storage (BB-LOOT-LEAVES), and the keys message has a TYPE so the shell can route it (BB-KEYS-LAND) -- which matters because the city's ctLadderHeld(), written 9/6 to read exactly this, had been answering EMPTY HAND whatever you carried. gates/loot_kept_gate.js 9/0, mutation-proved both ways, and it serves the game over HTTP because on file:// the city's cross-frame read throws however correct the build is. STILL OPEN ON THIS ROW: BB-THE-FIGHT-KNOWS-THE-DAY, the inbound half -- enter(G,d,env) still gets no hour, no heat and no shade. records/BOHEMIA_COMBAT_WHAT_YOU_TOOK_COMES_WITH_YOU_9_12_26.md
 - OPEN  [guns close]  BB-GUNS-CLOSE
 - OPEN  [rescue her]  BB-PICKUP
 - OPEN  [plates cost]  BB-THE-FIGHT-EATS-TAPE
