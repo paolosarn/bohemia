@@ -1987,11 +1987,33 @@ ok('and the app really does hold his OVERWORLD assignments (>= the 7/19 floor of
       + 'caller, so the melody-klay creepers can bloom in a real fight and not just '
       + 'under a preview button',
       mus > 0 && alpha.includes('layers:0') && km > 0 && /window\.KILLMUS\s*=\s*KILLMUS/.test(alpha));
-    /* HIS OWN THRESHOLDS, IN HIS OWN NUMBERS -- 7/3, hats at 2 kills, bass at 4.
-       MECHANISM-MINE / CONTENTS-PAOLO'S: the ladder is mechanism, the rungs are
-       his, and a gate is the only thing that keeps somebody from re-tuning them. */
-    ok('...on HIS 7/3 rungs and nobody else\'s: 4 kills and 2 kills, counted down',
-      /TIERS:\[\[4,4\],\[2,2\],\[0,0\]\]/.test(alpha));
+    /* *** RE-POINTED 9/12 (LIFE + CITY, [lab reds]). THIS LEG WAS A GATE
+       OUTRANKING A RULING, WHICH IS THE EXACT FAILURE ITS OWN NEIGHBOUR ABOVE
+       IS WRITTEN ABOUT. ***
+       It asserted /TIERS:\[\[4,4\],\[2,2\],\[0,0\]\]/ -- the 7/3 rung table,
+       four kills at the top. Measured on main: `grep -c "TIERS:" alpha` = 0.
+       The table is not late, it is SUPERSEDED. Paolo 8/26, LOCKED: "overworld
+       calmness lvl 1 then an enemy trying to hurt you or someone is talking to
+       you is lvl 2 then you either kill 2 enemies or theresa whole bunch of
+       people close together talking type shit for lvl 3."
+       TWO THINGS HE CHANGED: the top of the ladder moved from FOUR kills to
+       TWO, and kills stopped being the only input. A leg still demanding the
+       four-kill table was demanding that his newer ruling be reverted.
+       MECHANISM-MINE / CONTENTS-PAOLO'S is unchanged and is why this leg still
+       exists: the ladder is mechanism, the rungs are HIS, and a gate is the
+       only thing that stops somebody re-tuning them. So it now pins the 8/26
+       rungs instead of the 7/3 ones, and it still bites -- move the 2 back to
+       a 4, drop the crowd or the talking trigger, or flatten the arrangement
+       tiers, and it goes red. */
+    ok('...on HIS 8/26 rungs and nobody else\'s: level 3 at TWO kills or a crowd, '
+      + 'level 2 when something is threatening you or talking to you, and the '
+      + 'arrangement climbing 0 -> 2 -> 4 underneath (this replaced the 7/3 '
+      + 'four-kill table by his own locked ruling, and a gate never outranks one)',
+      /this\.kills>=2 \|\| this\.crowdNear\) return 3;/.test(alpha)
+      && /this\.threat\s*\|\| this\.talkingTo\)\s*return 2;/.test(alpha)
+      && /LAYERS:\[0,0,2,4\]/.test(alpha)
+      && /setThreat\(on\)\{/.test(alpha) && /talking\(on\)\{/.test(alpha)
+      && /crowd\(on\)\{/.test(alpha));
     /* AND IT LANDS ON THE BAR LINE. A part that arrives halfway through a bar
        does not read as the music intensifying, it reads as a mistake. */
     ok('...and it lands the lift at the TOP OF A BAR rather than the instant of '
@@ -2287,10 +2309,26 @@ ok('and the app really does hold his OVERWORLD assignments (>= the 7/19 floor of
    the object was ours to draw. It is gone: the median is an approved tile that
    obeys Paolo's own 30-year wash law. The invariant is now absolute -- that
    colour is not drawn by this file AT ALL, at any alpha. */
+/* *** RE-POINTED 9/12 (LIFE + CITY, [lab reds]). THE THIRD CLAUSE WAS THE ONE
+   THING THIS LEG'S OWN COMMENT SAYS NOT TO DO. ***
+   Measured on main, clause by clause: the dead colour is not drawn (true), the
+   hand-painted rect is not drawn (true), and `V94 THE HAND-PAINTED MARKINGS
+   ARE GONE` is present (FALSE). So the invariant held and the leg was red
+   anyway, because the third clause matched a COMMENT -- and the note two lines
+   up says in as many words "a check that matches a comment is not a check".
+   Somebody tidied the v94 comment block and a banner that describes the work
+   is not the work. Grepped the whole tree: that sentence now lives in exactly
+   one file, this gate.
+   THE MARKER IS REPLACED BY THE THING IT WAS STANDING IN FOR. The median is
+   gone as a hand-painted stripe because it came BACK as approved tile art, so
+   the leg now checks the art is there: `median` is a real PNG in the street
+   bank and streetKindAt hands the centre lane to it. That cannot be satisfied
+   by writing a sentence. */
 ok('V84C/V94 THE ORANGE WAS NEVER THE DIAL: it was the road\'s hand-painted DOUBLE-YELLOW MEDIAN, rgba(184,160,40) as a full-height stripe. The object is now DELETED, not dimmed -- the median is approved art carrying his own washed-out ruling',
     !/fillStyle='rgba\(184,160,40/.test(demo) &&   /* the DRAW, not the word: v94's own comment quotes the dead colour to explain why it is dead, and a check that matches a comment is not a check */
     !/x\.fillRect\(medX/.test(demo) &&
-    demo.includes('V94 THE HAND-PAINTED MARKINGS ARE GONE'));
+    /"median":\["iVBORw0KGgo/.test(demo) &&        /* it came back as approved art, not as a fill */
+    demo.includes("if(wx===ST_MED)return 'median';"));
   /* V94 RE-POINTED. The invariant is that the ENVIRONMENT steps back during a kill.
    v84C did that to two hand-drawn stripes; now the whole ground does it, which is
    strictly broader, and it reads visNow() so a held freeze holds it. */
@@ -3191,12 +3229,43 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     demo.includes("if(wx>=ST_LANE_L-4&&wx<=ST_LANE_R+4)return 'walk';") &&
     demo.includes("return 'lot'; }"));
 
-  ok('V96 QUARTER TURNS KILL THE REPEAT AT ZERO PAYLOAD -- and DIRECTIONAL tiles are never spun, because the kerb lip and the gutter shadow have to keep facing the road (v94 measured which way that is)',
-    demo.includes('const ST_SPIN={road:1,walk:1,lot:1};') &&
-    demo.includes('rot=ST_SPIN[kind]?((rot|0)&3):0;') &&
-    !/ST_SPIN=\{[^}]*kerb/.test(demo) &&
-    !/ST_SPIN=\{[^}]*gutter/.test(demo) &&
-    !/ST_SPIN=\{[^}]*median/.test(demo));
+  /* *** RE-POINTED 9/12 (LIFE + CITY, [lab reds]). IT PINNED THE BYTES OF THE
+     SET INSTEAD OF THE RULE THE SET OBEYS. ***
+     It demanded the literal `const ST_SPIN={road:1,walk:1,lot:1};`. On main the
+     line reads `{road:1,walk:1,lot:1,yard:1}` with `ST_SPIN.slab=1;` added
+     later by v101. Both of those are FLAT GROUND -- a yard and an indoor slab
+     have no direction, so spinning them is free repeat-killing and is exactly
+     what this leg exists to encourage. The leg went red for the work going
+     RIGHT, which is the same shape as the KILL LADDER leg above.
+     THE RULE, NOT THE BYTES. The invariant is: the isotropic kinds spin, and
+     the DIRECTIONAL ones never do, because the kerb lip and the gutter shadow
+     have to keep facing the road (v94 measured which way). So the set is now
+     BUILT and read -- declaration plus every later `ST_SPIN.x=` assignment --
+     and every directional kind streetKindAt can return is checked against it
+     by name. Add a sixth flat surface and it stays green; put `kerbL` in and
+     it goes red, which is the job. */
+  {
+    const spin = {};
+    const decl = demo.match(/const ST_SPIN=\{([^}]*)\}/);
+    if (decl) for (const p of decl[1].split(',')) {
+      const kv = p.split(':'); if (kv.length === 2) spin[kv[0].trim()] = +kv[1];
+    }
+    for (const a of demo.match(/ST_SPIN\.(\w+)\s*=\s*(\d)/g) || []) {
+      const kv = a.match(/ST_SPIN\.(\w+)\s*=\s*(\d)/); spin[kv[1]] = +kv[2];
+    }
+    /* every kind streetKindAt hands back that HAS a facing. `house` is named in
+       the v96 comment for the same reason: a ridge has a direction. */
+    const DIRECTIONAL = ['median', 'lane', 'gutterL', 'gutterR', 'kerbL', 'kerbR', 'house'];
+    const spun = DIRECTIONAL.filter(k => spin[k]);
+    ok('V96 QUARTER TURNS KILL THE REPEAT AT ZERO PAYLOAD -- the flat surfaces spin ('
+      + Object.keys(spin).filter(k => spin[k]).join(', ') + ') and DIRECTIONAL tiles are '
+      + 'never spun, because the kerb lip and the gutter shadow have to keep facing the '
+      + 'road (v94 measured which way that is)'
+      + (spun.length ? ' -- SPUN ANYWAY: ' + spun.join(', ') : ''),
+      !!decl && spin.road === 1 && spin.walk === 1 && spin.lot === 1 &&
+      spun.length === 0 &&
+      demo.includes('rot=ST_SPIN[kind]?((rot|0)&3):0;'));
+  }
 
   ok("V97 PAOLO'S OWN DOMINANCE LAW IS OBEYED ON THE LOT. The street bank says dominant 0.85, accents one tile per region, BANNED: per-cell random shuffle (Paolo 7/14: \"too much diversity with the desert tiles\"). v96 shuffled per cell and the ground came out a checkerboard. One hash per 4x4 region now, and a region is dominant or a single accent, never a mix",
     demo.includes('V97 THE DOMINANCE LAW') &&
