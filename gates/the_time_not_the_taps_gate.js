@@ -94,9 +94,15 @@ function serve() {
 /* ---- 1. THE SHAPE, IN THE SOURCE ---------------------------------------- */
 {
   const city = fs.readFileSync(path.join(SLICES, 'BOHEMIA_CITY_WORLD.html'), 'utf8');
+  /* *** DO NOT PIN THE PARAMETER NAME. *** This read startHold(di) verbatim and
+     went red the moment the pad was rebuilt (9/7) into an SVG ring whose loop
+     variable is `i`. The claim is that the pad's own buttons drive the SAME hold
+     handlers a thumb drives -- not that somebody kept my spelling. Retyping the
+     code you are checking is the same fault this lane fixed in two other gates
+     this round, and here it was in my own. */
   ok('the pad still drives the same hold handlers a thumb drives',
-     /addEventListener\('pointerdown',e=>\{e\.preventDefault\(\);startHold\(di\);\}\)/.test(city)
-     && /addEventListener\('pointerup',endHold\)/.test(city));
+     /addEventListener\('pointerdown'[\s\S]{0,80}?startHold\(\s*\w+\s*\)/.test(city)
+     && /addEventListener\('pointerup',\s*endHold\)/.test(city));
   ok('a hold latches only after a real hold, never on a tap',
      /heldBeats >= LATCH_AFTER\)\{ LATCH_DIR = held/.test(city));
   ok('and any press clears one, so it is always interruptible',
@@ -155,9 +161,15 @@ function serve() {
     };
     await clearCards();
 
+    /* FIND THE WEDGE BY THE DIRECTION IT CARRIES, NOT BY ITS TEXT. The pad used
+       to be buttons with a glyph inside; since 9/7 it is an SVG ring whose arrows
+       are DRAWN, so textContent is empty and a text match can never hit. The
+       wedge still declares its own direction in dataset.walk, which is the pad
+       telling us what it is instead of us reading its paint. */
     const padAt = g => city.evaluate(gl => {
       const el = [...document.querySelectorAll('#pad .pb')]
-        .find(b => (b.textContent || '').trim() === gl);
+        .find(b => (b.dataset && b.dataset.walk === gl)
+                || (b.textContent || '').trim() === gl);
       if (!el) return null;
       const r = el.getBoundingClientRect();
       return { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2) };
