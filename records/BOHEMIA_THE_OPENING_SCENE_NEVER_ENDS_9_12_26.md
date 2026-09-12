@@ -77,6 +77,45 @@ freeze is named, and the exit is already a legal thumb target.
 Nothing threw. No page error at any point, which is why this was invisible: it is
 not a crash, it is a scene that stops advancing and never reports that it did.
 
+## AND THEN THE DEMO STOPPED OFFERING IT
+
+Two rulings made that the right move rather than a judgement call. Paolo, the same
+round: *"we don't have a story yet... your job is to make sure the rest of the game
+is playable and fun."* And the coordinator amended `[one question]` on 9/12:
+**step (2) THE COLD OPEN IS DEFERRED WITH THE STORY**, so it is not part of the
+opening order any more at all.
+
+So the demo hides `#openInvite`. **From the demo side only**, the same pattern the
+builder drawer already uses: the cutscene engine is another lane's file and the cut
+tool does not touch it, **the workshop keeps the invite and the scene**, and the
+demo simply does not show the door to it. When the scene ends on its own again,
+deleting three lines gives it straight back.
+
+It also serves DIRECTION's own finding on that row, which judged the public demo's
+first screen and found **two modals stacked one tap in** — the cutscene offer and
+the DAY panel together. One of the two is gone from the demo now, and it is the one
+that was ruled deferred.
+
+## THE SAME INSTRUMENT, AFTER
+
+    before:  4 passed, 3 failed   front > openWatch > rungbtn > padring > daycardIn x20
+    after:   5 passed, 2 failed   front > rungbtn > padring > daycardIn x3 > dcgo
+                                        > padring x2 > cttalk > ctgo > cttalk > ctgo ...
+
+**The opening-scene claim passes.** The trap is gone, and the trail is alive in a
+way it has never been: the cold hand gets into the game, finds the card's own GO,
+walks, and ends up talking to a person.
+
+## WHAT IS STILL RED, AND IT IS A DIFFERENT CAUSE NOW
+
+The clock is still `1d 360m` after forty presses — but no longer because a frozen
+scene owns the screen. **It is a talk loop**: `cttalk > ctgo > cttalk > ctgo`,
+twenty presses of opening a conversation and closing it, and **talking costs no
+time**. A person would read and choose; a cold hand alternates forever.
+
+That is the next thing to chase, and it is a much smaller thing than what it
+replaced.
+
 ## RESULT
 
-    COLD HAND -- the red now names the opening scene instead of the clock
+    COLD HAND 4/3 -> 5/2, and the frozen opening is out of the demo
