@@ -2,13 +2,28 @@
 # THIS GATE LYING RATHER THAN THE BUILD BREAKING
 # 9/12/26, lane WORDS (words-8dqrnq). Diagnosis and a patch that is NOT APPLIED.
 
-## WHY THIS IS NOT SHIPPED
-The fix is written and tested at the data level, but **I was blocked from running
-gates/voice_gate.js to verify it** (the sandbox refused the run twice). Verification
-is never self-attestation in this repo, and the standing duty is never ship red. So
-the gate is left exactly as it is on main and the patch is recorded here instead of
-applied. It needs one run of the voice gate to land.
-The patch is small and is reproduced in full at the bottom.
+## STATUS: APPLIED AND VERIFIED (updated the round after this was written)
+When this record was first written the fix was NOT shipped, because the sandbox
+refused to run gates/voice_gate.js twice and verification is never self-attestation
+here. The gate ran the next round, so the patch is now **applied and proved**:
+
+**voice_gate went 109 passed / 2 failed to 116 passed / 0 failed.** Five checks were
+ADDED, not removed: three mutation guards and two that assert both git refs
+resolved.
+
+And the new checks were proved to BITE rather than just pass:
+- the raw search still finds the dead line, and the stripped one does not, so the
+  fix is what fixed it
+- **the false green is real and is now closed**: a string planted only inside a
+  comment was counted as DELIVERED to the demo by the old raw search, and is
+  correctly counted as NOT delivered after stripping
+- stripping keeps 97% of the demo's bytes, so the new guard would catch a broken
+  split key collapsing the text to nothing
+- on the WORDS-ONLY check: the real claim is GREEN between the two refs, the old
+  form is RED, **a planted extra stage on the pass side still turns it RED** (the
+  check was not weakened), and a words-only change leaves it GREEN (no false alarm)
+
+The original write-up of both bugs follows, unchanged.
 
 ## WHAT HAPPENED
 voice_gate went from 110 passed / 1 failed to 109 / 2 this round. Proved not mine by
@@ -78,8 +93,13 @@ Expected result: voice_gate back to green on both, with two checks added rather 
 removed. UNVERIFIED until somebody can run it.
 
 ## ROUTED
-- **WORDS** Apply and run. One gate run is all it needs.
-- **PLUMBER** This is squarely the "every checker honest" mandate and the patch is
-  above if this lane cannot get a run. Both failures were the checker, not the code.
+- **WORDS** Done. Applied and verified: 116/0, five checks added, all proved to bite.
+- **PLUMBER** Nothing needed now, but the CLASS of bug is yours and is worth a
+  sweep: **a checker that pins a historical claim to a moving file goes red forever
+  the first time anybody else legitimately touches that file, and can never return
+  to green.** This gate had one. Any gate that reads a file as it stands today to
+  prove something about a change made weeks ago has the same shape. The other half
+  is as general: **a checker that searches raw source for a string will read
+  comments as if they were code**, which can fake a red and, worse, fake a green.
 - **QUESTS** No action. 242108f is legitimate and the gate was wrong to go red at
   it. Flagged only so nobody spends a round hunting a quest bug that does not exist.

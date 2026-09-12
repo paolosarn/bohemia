@@ -320,12 +320,35 @@ const OLD_IN_DEMO = [
   [3, 'I pay better, and I pay now'],
   [4, 'It is on, it is wet'],
 ];
+/* FIXED 9/12 (WORDS), AND IT WAS THIS GATE LYING, NOT THE DEMO. The demo inlines
+   the .bq sources WHOLE, comments included, and a .bq comment is where this lane
+   writes its own post-mortem naming the line it removed. S01 carries the note
+   'This scene had FOUR: ... "quiet money spends the same as loud money" ...'. So
+   the raw-text search found the dead line inside the note that says it is dead,
+   and called the demo red. Reading a comment as if the demo spoke it is the same
+   error either way round: it can manufacture a false RED here and a false GREEN
+   on the NEW list, where a line quoted in a comment would count as delivered. So
+   both lists now read the demo with comment lines dropped, which makes this check
+   STRICTER, not looser. Measured on the built demo when this was fixed: the four
+   other OLD strings were already absent from the raw text too, and all five NEW
+   strings are still found after stripping, so nothing but the lie moves.
+   Diagnosis: records/BOHEMIA_WORDS_THE_VOICE_GATE_WENT_RED_ON_SOMEBODY_ELSES_WORK_9_12_26.md */
+const demoSpoken = demoHtml.split('\\n').filter(l => !/^\s*#/.test(l)).join('\\n');
 NEW_IN_DEMO.forEach(([d, t]) =>
   ok('DEMO DAY ' + d + ": the rewritten words reached the built demo (\"" + t + '")',
-    demoHtml.indexOf(t) >= 0));
+    demoSpoken.indexOf(t) >= 0));
 OLD_IN_DEMO.forEach(([d, t]) =>
-  ok('DEMO DAY ' + d + ': the OLD line is gone from the built demo ("' + t.slice(0, 34) + '")',
-    demoHtml.indexOf(t) < 0));
+  ok('DEMO DAY ' + d + ': the OLD line is gone from what the built demo SAYS ("' +
+    t.slice(0, 34) + '")', demoSpoken.indexOf(t) < 0));
+/* MUTATION: the stripper has to actually strip, or both lists above go quietly
+   meaningless without anything turning red. */
+ok('MUTATION: the comment stripper drops a .bq comment line',
+  ['a', '# dead line here', 'b'].filter(l => !/^\s*#/.test(l)).join('') === 'ab');
+/* AND THE STRIPPER MUST NOT EAT THE DEMO. If the split key ever stops matching how
+   the demo escapes its newlines, demoSpoken collapses to one line and every OLD
+   check passes for free. */
+ok('MUTATION: stripping leaves the demo essentially whole (>90% of its bytes)',
+  demoHtml.length > 0 && demoSpoken.length > demoHtml.length * 0.9);
 
 /* ---- 4d. THE WORDS BEFORE ANYBODY SPEAKS --------------------------------- */
 /* ALWAYS MAKE AN ATTEMPT (8/11) names the whole list of player-facing text and
@@ -467,26 +490,56 @@ function skeleton(src) {
     .map(l => l.replace(/\s+/g, ' ').trim())
     .filter(Boolean).join('\n');
 }
-let before = null;
+/* FIXED 9/12 (WORDS). This compared a FIXED historical claim against a MOVING
+   file, so the first time another lane legitimately edited the quest it went red
+   and could never go green again, whatever anybody did. QUESTS [jobs pay]
+   (242108f) added a payout to S01, which is entirely their business: WORDS owns
+   how it sounds, QUESTS owns what happens, and that boundary cuts both ways. The
+   claim this check exists to prove is about THE PASS, that when this lane rewrote
+   the words it changed nothing structural, so it is now checked where it happened,
+   between the pre-pass commit and the commit the pass landed in. Neither ref is
+   typed in: the pass ref is read out of git as the commit that ADDED the
+   side-by-side record, which IS the pass. Measured when this was fixed: the claim
+   is TRUE at those two refs and false against the working tree, which is the
+   entire bug. A checker that cannot return to green is not a checker. */
+let passRef = null;
+try {
+  passRef = execFileSync('git',
+    ['log', '--format=%H', '--diff-filter=A', '-1', '--', REWRITE],
+    { cwd: ROOT, maxBuffer: 4e6 }).toString('utf8').trim() || null;
+} catch (e) { passRef = null; }
+ok('the commit the words pass landed in is read out of git, never typed in', !!passRef);
+let before = null, atPass = null;
 try {
   before = execFileSync('git', ['show', rw._meta.before_ref + ':' + QUEST],
     { cwd: ROOT, maxBuffer: 4e6 }).toString('utf8');
 } catch (e) { before = null; }
+try {
+  atPass = execFileSync('git', ['show', passRef + ':' + QUEST],
+    { cwd: ROOT, maxBuffer: 4e6 }).toString('utf8');
+} catch (e) { atPass = null; }
 ok('the pre-pass version of the quest is reachable in git', !!before);
-if (before) {
-  const now = fs.readFileSync(QUEST, 'utf8');
+ok('and so is the version the pass itself produced', !!atPass);
+/* MUTATION: the two refs must actually differ, or this check is comparing a file
+   to itself and would pass over any amount of structural drift. */
+ok('MUTATION: the two refs are different commits, so this is a real comparison',
+  !!passRef && passRef !== rw._meta.before_ref);
+if (before && atPass) {
+  const now = atPass;
   const same = skeleton(before) === skeleton(now);
-  ok('WORDS ONLY: every structural line of the quest is byte-identical to the ' +
-    'pre-pass commit (same stages, branches, gates, effects, roles, objectives)', same);
+  ok('WORDS ONLY: every structural line of the quest is byte-identical between the ' +
+    'pre-pass commit and the pass (same stages, branches, gates, effects, roles, objectives)', same);
   if (!same) {
     const a = skeleton(before).split('\n'), b = skeleton(now).split('\n');
     for (let i = 0; i < Math.max(a.length, b.length); i++) {
       if (a[i] !== b[i]) { console.log('         first drift: ' + a[i] + '  ->  ' + b[i]); break; }
     }
   }
-  /* and the other direction: it is not a no-op dressed as a pass */
-  ok('and the WORDS did change (the pass is not a no-op)',
-    before !== fs.readFileSync(QUEST, 'utf8'));
+  /* and the other direction: it is not a no-op dressed as a pass. Repointed 9/12
+     with the check above: this asks whether THE PASS changed the words, so it
+     compares the same two refs, not the working tree, which would answer yes for
+     any later edit by anybody and say nothing about the pass. */
+  ok('and the WORDS did change (the pass is not a no-op)', before !== atPass);
 }
 
 /* the new citations are real. quest_study_gate proves the ids and titles
