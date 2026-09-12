@@ -2,6 +2,26 @@ DOES THE BODY WEAR THE BLOCK? -- COLOUR IS TERRITORY, measured on the walked
 street through the demo
 9/12/26, CHARACTER lane. VAMILY [faction colour] THE-BODY-WEARS-THE-TERRITORY.
 
+*** CORRECTION, WRITTEN IN THE ROUND AFTER THIS ONE. READ IT BEFORE THE REPORT. ***
+ONE OF THE FOUR HOLES BELOW IS NOT A HOLE. Everywhere this file says "THE FACTION
+CAST NEVER BAKES", it is wrong, and the bug was MINE, not the game's.
+The probe asked for ctNeedFaction('REDS'). The canon spelling is 'Reds'.
+cityBakeFaction matches the name with a bare === against FACTION_LOOKS, found
+nothing, and returned false into an empty catch, so nothing threw and nothing said
+anything. A typo in a test became a recorded fact about the machinery.
+RE-MEASURED on the walked surface with a real vouch, so a real drawn person really
+runs with somebody: trade fit d9e665d6 -> ask -> still d9e665d6 while it bakes,
+exactly as the code claims -> 247bb4a0 eight seconds later. THE BODY CHANGES.
+All thirteen outfits bake and land. The chain works end to end.
+The other three findings stand and were re-checked: no affiliated bodies near the
+spawn, no resident on held ground, and the city frame does not load the colour
+module (which it does not need to, because the alpha bakes the pixels and posts
+them in). Full re-measurement and the fixes it produced:
+records/BOHEMIA_DOES_THE_COLOUR_SURVIVE_THE_BAKE_9_12_26.txt
+THE LESSON, kept: A MISS THAT SAYS NOTHING WILL EVENTUALLY BE READ AS A FACT ABOUT
+THE WORLD. cityBakeFaction now says so out loud, and faction_colour_gate goes red
+if that voice is ever muted again.
+
 THE ROW: "every dressed person's dominant colour matches the faction that owns
 the block they stand on; measure the miss rate and fix the picker where it misses."
 THE LAW (8/26, his words): "people get shot in Los Angeles for wearing the wrong
@@ -33,9 +53,9 @@ Q4. AND IF A BODY DID HAVE A FACTION, WOULD IT BE DRESSED IN ONE?
   faction bodies baked, before asking      0
   ... after asking, and waiting            0   (nothing landed)
 
-  THE FACTION CAST NEVER BAKES. The trade cast is there and works, the request
-  function exists and throws nothing, and the faction cast stays empty. So even
-  handing somebody a faction would not put them in its colours today.
+  [WITHDRAWN -- SEE THE CORRECTION AT THE TOP OF THIS FILE. This paragraph said
+  the faction cast never bakes. It bakes. The probe asked for 'REDS' and the name
+  is 'Reds', and a silent miss made my typo look like a broken machine.]
 
   A PROBE THAT COULD NOT ANSWER THIS IS WORTH RECORDING: the first attempt gave
   bodies a faction and compared their sprites. It read 12 of 12 changed, then on
@@ -52,7 +72,7 @@ THE MISS RATE
   NOT ONE BODY ON THE STREET BELONGS TO A FACTION. 171 of 171 answer none.
   AND NO RESIDENT IS STANDING ON GROUND ANYBODY HOLDS (0 of 2199).
   AND THE WALKED CITY NEVER LOADS THE FACTION COLOUR MODULE AT ALL.
-  AND THE FACTION CAST NEVER BAKES, so there is nothing to dress them in.
+  [WITHDRAWN: the faction cast DOES bake -- see the correction at the top.]
 
   A miss rate needs two things to compare. The colours exist, the law exists,
   the ground can answer who holds it -- but on the surface Paolo walks there is

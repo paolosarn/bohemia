@@ -8983,70 +8983,96 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 ================================ END, VERBATIM =================================
 
-THIS ROUND -- *** [faction colour] THE-BODY-WEARS-THE-TERRITORY. STILL CLAIMED, NOT
-SHIPPED. The row asks me to fix the picker and the picker is not what is broken:
-FOUR HOLES, ALL UPSTREAM OF IT, ALL VERIFIED. ***
-- Also closed a DUPLICATE: [runway hair] HAIR-TO-THE-CARD sat OPEN in this section and is
-  the row COOK shipped at e8cbdd6 over three rounds (canon hair 24 -> 11, nineteen looks
-  repointed). Verified before closing -- runway library on disk, graveyard gate 13/13,
-  canon hair reads 11 -- and the line now carries COOK's sha and says who did it.
-- THE ROW: "every dressed person's dominant colour matches the faction that owns the block
-  they stand on; measure the miss rate and fix the picker where it misses."
-- *** THE MISS RATE CANNOT BE COMPUTED, AND THAT IS THE FINDING. *** On the walked street,
-  through the demo, 171 bodies on the glass:
-      1. NOT ONE BODY BELONGS TO A FACTION.            171 of 171 answer none.
-      2. NO RESIDENT STANDS ON GROUND ANYBODY HOLDS.   0 of 2199 spots swept.
-      3. THE WALKED CITY NEVER LOADS THE FACTION COLOUR MODULE. BohemiaDress is
-         undefined in that frame; the twelve faction colours are unreachable there.
-      4. AND THE FACTION CAST NEVER BAKES. Trade bodies: 6, ready. Ask for a faction
-         cast, wait 30 seconds: still zero. The request function exists and throws
-         nothing.
-  A miss rate needs two things to compare. Fixing the picker would be fixing the half of
-  the sentence that is not broken.
-- *** AND I NEARLY SHIPPED A BACKWARDS ANSWER. *** To test hole 4 I gave bodies a faction
-  and compared their sprites: 12 of 12 changed. Then the null control -- same wait, NO
-  faction -- also changed 12 of 12. A body's breath frame advances with the beat, so any
-  two samples seconds apart differ whatever you did between them. Re-runs gave 0 of 12,
-  then 6 of 12. WHEN A MEASUREMENT FLIPS BETWEEN RUNS, STOP READING IT. Hole 4 is
-  answered by reading a TABLE instead of a PICTURE, which has no clock in it, and that
-  answer is stable across every run.
-- A TRAP IN THE ROW'S OWN WORDING, named rather than walked into: "EVERY dressed person's
-  colour matches the faction that owns the block" would put the whole street in gang
-  colours -- every shopkeeper, every kid, in Cartel brown for standing on Cartel ground.
-  That is the opposite of the law it cites, which calls colour "a statement of who would
-  defend you" and says wearing your colours is A CHOICE WITH A COST, and of the style
-  card, which allows ONE saturated piece and lists dust, ash, bone and lead as legal
-  cloth. A valley in uniform has no signal in it, because a colour only means something
-  against another colour. So the rule must be for AFFILIATED bodies, and civilians must
-  stay dun. [PENDING coordinator] if anyone disagrees, say so before the fix is built.
-- *** A FIFTH HOLE, AND IT CORRECTED MY OWN FIRST REPORT MID-ROUND. *** I measured the
-  faction colours in engine/bohemia_dress.js and was about to report 16 clashing pairs.
-  Then the board's own 9/7 state note turned up: "the faction colour table IS live
-  (engine/BOHEMIA_faction_colours.json, measured off the wardrobe he chose)". A DIFFERENT
-  FILE. So I had measured a table the coordinator does not call current.
-  THERE ARE TWO LIVE FACTION COLOUR TABLES AND THEY DO NOT AGREE:
-      10 of the 12 factions in BOTH files are a DIFFERENT COLOUR, by more than the
-      game's own family tolerance. Church is gold (#ffd75c) in one and olive-brown
-      (#826c3e) in the other. Network is teal in one, slate in the other. Anarchists
-      are magenta in one and brown in the other, 160 apart.
-  CLAUDE.md calls a contradiction between two live files a BUG, not an interpretation
-  choice. Until it is settled, "the faction's colour" has no single answer to dress
-  anybody in -- and my own first pass measured the wrong one, which is exactly the rot
-  the truth hierarchy exists to catch. [PENDING coordinator] which file wins.
-- AND I DID NOT ADD A COMPETING UNIQUENESS CHECK. The law's test 3 already has a gate,
-  faction_colour_gate, green at 17/17 with clashes pinned at 4. Measuring the live table
-  with the dress module's own family tolerance instead gives 45 clashing pairs of 78.
-  Two rulers, one law -- but that tolerance was written to match a garment to a faction,
-  not to tell two factions apart at fifty yards, so it may simply be the wrong use of it.
-  One law, one ruler, and choosing it is DIRECTION's and FACTIONS' call, not mine.
-- NOTHING WAS BUILT ON PURPOSE. Three of the four holes are FACTIONS' (who belongs to a
-  faction, who holds ground) and the module load is the city's. Hole 4, the faction cast
-  never baking, is the one nearest this lane and is the obvious next piece -- the evidence
-  is in the record and it needs no new measurement to start from.
-- Record: records/BOHEMIA_DOES_THE_BODY_WEAR_THE_BLOCK_9_12_26.txt
-  Tool:   tools/bohemia_does_the_body_wear_the_block.js
-- NEXT ROUND: hole 4 if it stays in this lane, else [enemy dressed] A-HOSTILE-WEARS-ITS-
-  FACTION, which sits on exactly the same four holes and cannot ship before them.
+THIS ROUND -- *** [faction colour] THE-BODY-WEARS-THE-TERRITORY, ROUND 2. SHIPPED TWO
+FIXES AND WITHDREW ONE OF MY OWN FINDINGS IN PUBLIC. ***
+
+*** THE CORRECTION FIRST, BECAUSE IT IS THE MOST IMPORTANT THING IN THIS BLOCK. ***
+LAST ROUND I RECORDED A FOURTH HOLE THAT DOES NOT EXIST. "The faction cast never bakes"
+was MY BUG, not the game's. My probe asked ctNeedFaction('REDS'); the canon spelling is
+'Reds'; cityBakeFaction matches the name with a bare === against FACTION_LOOKS, found
+nothing, and returned false into an empty catch. Nothing threw. Nothing said anything.
+A TYPO IN A TEST BECAME A RECORDED FACT ABOUT THE MACHINERY, and I carried it into a
+handoff and a record where the next session would have believed it.
+RE-MEASURED on the walked surface with a real vouch, so a real drawn person really runs
+with somebody: trade fit d9e665d6 -> ask -> still d9e665d6 while it bakes, exactly as the
+code claims -> 247bb4a0 eight seconds later. THE BODY CHANGES. All thirteen outfits bake
+and land. The chain works end to end. The round 1 record now carries the correction at
+the top and both claims are struck in place.
+LESSON, and it is the one this whole file keeps re-learning: A MISS THAT SAYS NOTHING
+WILL EVENTUALLY BE READ AS A FACT ABOUT THE WORLD.
+
+SHIPPED 1 -- THE SILENCE NOW SPEAKS. cityBakeFaction says so, once per name, when a
+faction has no outfit, and prints the spellings that do exist so a typo is obvious on
+sight. Behaviour is unchanged and deliberately so: a faction with genuinely no outfit
+SHOULD leave its people anonymous. Alpha, demo and the patch tool that owns the block.
+
+SHIPPED 2 -- *** MY OWN 9/6 CODE WAS BREAKING COLOUR IS TERRITORY AND NOTHING CAUGHT IT
+FOR SIX DAYS. *** The hostile value step from [stands out] multiplies every channel by
+one factor, and its own comment claimed that holds the hue exactly. It does -- until a
+channel hits 255. Brighten a red body and R saturates first while G and B keep climbing
+into the ceiling behind it, so the gap closes and the hue rotates toward yellow.
+MEASURED across the thirteen shipped outfits: twelve held, and MOB -- a red body, 85%
+coloured -- SWUNG 35 DEGREES ON BECOMING HOSTILE. A Mob soldier changing colour because
+he noticed me, in a game whose law is that colour says whose you are.
+THE FIX IS PER PIXEL AND EXACT: no pixel is ever scaled past the factor that would clip
+its own brightest channel, so nothing saturates and the ratios cannot move. The factor is
+then SOLVED by bisection rather than assumed, so the sprite still lands on its target
+value. AFTER: hue drift 0 degrees on all thirteen, and the step still moved 59 of the 60
+it was asked for on average, never less than 42. The shortfall is the ceiling and it is
+deliberate: value is the thing allowed to fall short, colour is not.
+AND IT WAS TIMED, because a solver in a draw path deserves a number and 60 on a phone is
+the standing bar: 0.82ms for a cache miss on a 56x56 body, nothing at all for a hit,
+against a 16.7ms frame at 120 BPM. Twelve passes over 3,136 pixels, once per body per
+target.
+
+THE GATE, because a law without a machine gate is not enforced. faction_colour_gate gains
+a fifth section: DOES THE COLOUR REACH THE STREET. The first four tests all stop in the
+changing room -- wardrobe, alpha, native 112. Nothing had ever checked that any of it
+arrives after the bake, the halve, the pack, the frame hop, the unpack and the value step.
+Four new checks, all four PROVEN TO GO RED by breaking the thing they watch:
+   every faction outfit bakes and reaches the walked city (13 of 13)
+   the colour survives the trip (0 degrees on all of them)
+   a hostile does not change whose he is (broke it -> "Mob 35deg", red)
+   and it holds the hue by clipping carefully, NOT by doing nothing (>= 40 of 60)
+   and a faction with no outfit says so out loud (muted it -> red)
+Gate is 23/23, was 17/17. It runs its own second browser on purpose: the first four tests
+close theirs at line 80, and hanging a new surface off a closed handle is the trap that
+cost this lane a run on 9/11.
+
+AND A RULER I HAD TO THROW AWAY MID-ROUND, TWICE. The first cut bucketed hue into twelve
+30-degree slices and compared slice numbers, so it called three of thirteen a miss when
+all three were ONE BIN apart -- a table hue of 30 against a baked 29 read as a miss while
+31 against 59 read as a match. Rewritten to measure the ANGLE. The second cut then
+compared my reader against the wardrobe colour file's, which counts CLOTH PIXELS ONLY
+while mine counts skin, and reported a 43-degree "drift" on Mob that was entirely the two
+rulers. Rewritten again to read the SAME LOOK with the SAME READER on both sides of the
+bake, which left the round trip and nothing else: 0 degrees, all thirteen. The table is
+still printed, as a cross-reference, never as the judge.
+A RULER THAT COMPARES TWO DIFFERENT RULERS IS NOT MEASURING THE THING.
+
+WHAT IS STILL NOT MINE, unchanged and re-verified: nobody near the spawn is affiliated
+(171 of 171) and no resident stands on held ground (0 of 2199). Both are facts about the
+map and the two dials AFFILIATED_RATE and REACH_CELLS, which the city file itself marks
+[PENDING Paolo]. Hole 3 (the city frame never loads the dress module) turns out not to
+matter: the alpha bakes the pixels and posts them in, which is why the colour arrives.
+THE DRESSING HALF OF THIS ROW IS DONE AND PROVEN. THE POPULATION HALF IS SOMEBODY ELSE'S
+GROUND AND THIS LANE WILL NOT PAPER OVER IT.
+
+[PENDING coordinator] STILL OPEN, unchanged from last round: which faction colour file
+wins (engine/BOHEMIA_faction_colours.json vs engine/bohemia_dress.js FACTION_LOOK -- 10 of
+12 disagree), and confirmation that the colour rule is for AFFILIATED bodies only with
+civilians staying dun.
+
+- Record: records/BOHEMIA_DOES_THE_COLOUR_SURVIVE_THE_BAKE_9_12_26.txt
+  Tool:   tools/bohemia_does_the_colour_survive_the_bake.js
+  Round 1 record, now carrying its correction:
+          records/BOHEMIA_DOES_THE_BODY_WEAR_THE_BLOCK_9_12_26.txt
+- ROW STATUS: still CLAIMED, not SHIPPED. The ship test is a miss rate on the walked
+  street and that needs affiliated people standing on held ground, which is not this
+  lane's to make happen.
+- NEXT ROUND: [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. It sits on the same
+  population holes, but the dressing chain and the value step underneath it are now
+  proven and gated, which is most of what it needed.
 
 PREVIOUS ROUND -- [more clothes] WARDROBE-VOLUME SHIPPED at cff0c30: 317 canon garments
 draw only 105 distinct SHAPES, three in four adding none, and STRUCTURE-NOT-COLOR now has

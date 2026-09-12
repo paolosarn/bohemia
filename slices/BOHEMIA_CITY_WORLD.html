@@ -47081,11 +47081,39 @@ function ctStepped(spr, want) {
      and the ratios between them, which are the colour, do not move at all. It is the
      textbook value step and it is what a painter means by one.
      Done on the pixels rather than through a composite because no blend mode multiplies
-     by a constant greater than one; the cost is a single read per cached variant. */
-  const k = Math.max(0.35, Math.min(2.2, want / Math.max(1, have)));
-  if (Math.abs(k - 1) < 0.02) return spr;
+     by a constant greater than one; the cost is a single read per cached variant.
+
+     *** AND THAT PARAGRAPH WAS TRUE RIGHT UP TO THE POINT WHERE A CHANNEL HITS 255. ***
+     (9/12, CHARACTER, measured by tools/bohemia_does_the_colour_survive_the_bake.js.)
+     Scaling holds the ratios only while nothing clips. Brighten a red-dominant body and R
+     saturates FIRST; G and B keep climbing into the ceiling behind it, the gap between
+     them closes, and the hue rotates toward yellow. MEASURED on the thirteen shipped
+     outfits: twelve held, and MOB -- a red body, 85% coloured -- swung 35 DEGREES on
+     becoming hostile. That is a Mob soldier changing colour because he noticed me, in a
+     game whose law is that colour says whose you are. Exactly the fight with COLOUR IS
+     TERRITORY the white-wash version lost, arriving by a different door, and the comment
+     above confidently said it could not happen.
+     THE FIX IS PER PIXEL AND IT IS EXACT: a pixel is never scaled past the factor that
+     would clip its own brightest channel, so nothing ever saturates and the ratios cannot
+     move. That alone would undershoot the target, because the bright pixels stop pulling
+     their weight, so the factor is SOLVED rather than assumed -- bisect k until the whole
+     sprite lands on the target luma, or until no k can get there because the body is
+     already too bright to lift without clipping, which is an honest ceiling and not a
+     failure. The direction picker upstairs already chooses up or down by the crowd, so a
+     body against that ceiling steps down instead.
+     WHAT IT COSTS IN COLOUR: a body that is already bright lifts less than it used to.
+     That is the trade, taken deliberately -- the law says the colour is the message, so
+     the colour is what cannot move. Value is the thing allowed to fall short. MEASURED
+     across the thirteen: the step still moved 59 of the 60 it was asked for on average and
+     never less than 42, so it did not buy the hue by giving up the job.
+     WHAT IT COSTS IN TIME, because 60 ON A PHONE is the standing bar and a solver in a
+     draw path deserves a number rather than a shrug: MEASURED on the real surface, 0.82ms
+     for a cache MISS on a 56x56 body and nothing at all for a hit. The bisection is twelve
+     passes over 3,136 pixels, once per body per target, and a frame at 120 BPM is 16.7ms. */
+  const k0 = Math.max(0.35, Math.min(2.2, want / Math.max(1, have)));
+  if (Math.abs(k0 - 1) < 0.02) return spr;
   if (spr.__ctSid == null) spr.__ctSid = ++CT_SPR_N;
-  const key = spr.__ctSid + '|k' + Math.round(k * 100);
+  const key = spr.__ctSid + '|w' + Math.round(want);
   const got = CT_STEP_CV.get(key);
   if (got) return got;
   try {
@@ -47094,13 +47122,40 @@ function ctStepped(spr, want) {
     const x = c.getContext('2d'); x.imageSmoothingEnabled = false;
     x.drawImage(spr, 0, 0);
     const im = x.getImageData(0, 0, c.width, c.height), d2 = im.data;
+    /* HOW BRIGHT DOES THIS SPRITE COME OUT AT FACTOR k, with every pixel held below its
+       own clip point? Darkening never clips, so the cap only ever bites going up. */
+    const lumaAt = (k) => {
+      let s = 0, n = 0;
+      for (let i = 0; i < d2.length; i += 4) {
+        if (!d2[i + 3]) continue;
+        const R = d2[i], G = d2[i + 1], B = d2[i + 2];
+        const mx = R > G ? (R > B ? R : B) : (G > B ? G : B);
+        const kp = (mx > 0 && k > 1) ? Math.min(k, 255 / mx) : k;
+        s += 0.2126 * R * kp + 0.7152 * G * kp + 0.0722 * B * kp; n++;
+      }
+      return n ? s / n : 0;
+    };
+    /* SOLVED, NOT ASSUMED. Twelve halvings on a monotonic function is well past pixel
+       precision and costs a handful of passes over one 56px sprite, once, cached. */
+    let k = k0;
+    if (k0 > 1) {
+      let lo = 1, hi = 2.2;
+      for (let it = 0; it < 12; it++) {
+        const mid = (lo + hi) / 2;
+        if (lumaAt(mid) < want) lo = mid; else hi = mid;
+      }
+      k = hi;
+    }
     for (let i = 0; i < d2.length; i += 4) {
       /* ALPHA IS NEVER TOUCHED, so the silhouette cannot move by one pixel -- the same
          guarantee source-atop gave, kept explicitly now that this writes pixels. */
       if (!d2[i + 3]) continue;
-      d2[i]     = Math.max(0, Math.min(255, Math.round(d2[i]     * k)));
-      d2[i + 1] = Math.max(0, Math.min(255, Math.round(d2[i + 1] * k)));
-      d2[i + 2] = Math.max(0, Math.min(255, Math.round(d2[i + 2] * k)));
+      const R = d2[i], G = d2[i + 1], B = d2[i + 2];
+      const mx = R > G ? (R > B ? R : B) : (G > B ? G : B);
+      const kp = (mx > 0 && k > 1) ? Math.min(k, 255 / mx) : k;
+      d2[i]     = Math.max(0, Math.min(255, Math.round(R * kp)));
+      d2[i + 1] = Math.max(0, Math.min(255, Math.round(G * kp)));
+      d2[i + 2] = Math.max(0, Math.min(255, Math.round(B * kp)));
     }
     x.putImageData(im, 0, 0);
     CT_STEP_CV.set(key, c); return c;

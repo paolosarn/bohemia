@@ -1,0 +1,64 @@
+DOES THE COLOUR SURVIVE THE BAKE? -- CHARACTER lane, 9/12/26
+VAMILY row [faction colour] THE-BODY-WEARS-THE-TERRITORY, round 2
+
+=== THE CORRECTION THAT OPENS THIS ROUND ===
+Round 1 recorded a fourth hole: "the faction cast never bakes". IT IS NOT A HOLE.
+My tool asked ctNeedFaction("REDS"); the canon spelling is "Reds"; cityBakeFaction
+matches with a bare === and returned false in silence. Measured on the walked
+surface with a real vouch: trade fit d9e665d6 -> asked -> still d9e665d6 while it
+bakes -> 247bb4a0 eight seconds later. THE BODY CHANGES. The chain works.
+THE REAL FINDING UNDERNEATH IT: a faction asked for with no outfit says NOTHING,
+ever, and that body stays in its trade fit for the life of the session.
+
+=== THE BAKE ===
+asked for 13, landed 13
+every one landed.
+
+=== THE ROUND TRIP: does the colour the wardrobe made reach the city? ===
+Hue in DEGREES on the colour wheel (0 red, 60 yellow, 120 green, 240 blue).
+ALPHA is the look as the character renderer draws it at native 112. CITY is the
+sprite the walked street is holding after the bake, the halve, the pack, the frame
+hop and the unpack. SAME READER BOTH SIDES, so TRIP is the round trip and nothing
+else. Anything under 30 degrees is still the same colour to a person.
+TABLE is the wardrobe colour file, printed as a CROSS-REFERENCE only: it was
+measured on CLOTH PIXELS ONLY and this reader counts skin too, so a gap there is a
+difference between two rulers and is not evidence of anything.
+
+AND THE LAST COLUMN IS THE CHECK ON MY OWN FIX. Holding the hue would be easy if
+the step stopped stepping. STEP-GOT is how far the value ACTUALLY moved against the
+60 it was asked for, so a hue held by doing nothing shows up as a zero right here.
+
+FACTION       ALPHA   CITY   TRIP  HELD?  COLOURED%  DRAB?  HOSTILE-TRIP  STEP-GOT
+Caravans       37.5   37.5      0    YES        70%     no             0     60/60
+Colorful       97.5   97.5      0    YES        89%     no             0     60/60
+Anarchists     27.5   27.5      0    YES        77%     no             0     60/60
+Blues         217.5  217.5      0    YES        87%     no             0     42/60
+Homeless        7.5    7.5      0      -        45%    YES             0     60/60
+Church         47.5   47.5      0    YES        77%     no             0     60/60
+Reds            7.5    7.5      0    YES        86%     no             0     60/60
+Cartel         37.5   37.5      0      -        43%    YES             0     60/60
+Trades        152.5  152.5      0    YES        78%     no             0     60/60
+Mob            42.5   42.5      0    YES        85%     no             0     60/60
+Network       212.5  212.5      0    YES        74%     no             0     60/60
+Volunteers     37.5   37.5      0      -        26%    YES             0     60/60
+Remnants       72.5   72.5      0    YES        82%     no             0     60/60
+
+THE VALUE STEP STILL STEPS: it moved 59 of the 60 it was asked for on average, and
+never less than 42. The shortfall is the ceiling and it is deliberate: a pixel is
+never lifted past the point where its brightest channel would clip, because a clip
+is what rotates the hue. Value is the thing allowed to fall short; colour is not.
+
+COLOUR SURVIVES THE ROUND TRIP: 10 of 10 bodies that have a hue at all (3 are drab by the wardrobe's own
+measure and have no hue to lose). WORST TRIP: 0 degrees (none).
+COLOUR SURVIVES THE HOSTILE VALUE STEP: 10 of 10, worst 0 degrees. That step is
+built to move VALUE and hold HUE, and this is the first thing that has ever checked
+that claim against the faction colours it could have broken.
+
+=== WHAT THIS DOES AND DOES NOT SETTLE ===
+SETTLED, in this lane: a faction body bakes, crosses the frame, and reaches the
+street wearing its colour, and the hostile step moves value without moving hue.
+NOT SETTLED, and NOT IN THIS LANE: nobody near the spawn is affiliated (171 of 171
+answer none) and no resident stands on held ground (0 of 2199). Both are facts
+about the map and the two dials AFFILIATED_RATE and REACH_CELLS, which the city
+file itself marks [PENDING Paolo]. The dressing half is done; the population half
+is somebody else's ground and this lane will not paper over it.

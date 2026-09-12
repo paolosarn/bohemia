@@ -264,5 +264,151 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
   console.log('\n  faction        colour strength   biggest hue   share');
   for (const q of R) console.log('  ' + q.n.padEnd(14) + q.sat.toFixed(2).padStart(13) +
     String(q.dom).padStart(14) + ((100 * q.domShare).toFixed(0) + '%').padStart(8));
+
+  /* ==== 5  DOES THE COLOUR REACH THE STREET? (9/12/26, CHARACTER) ==========
+     The four tests above all measure the wardrobe, in the alpha, at native 112. NOTHING
+     HAS EVER CHECKED THAT ANY OF IT ARRIVES. Between the wardrobe and a person you walk
+     past there is a bake to 56, a halve, a pack, a postMessage across a frame boundary,
+     an unpack, a scale back up, and -- since 9/6 -- a VALUE STEP that repaints every
+     hostile body's pixels. A law about what people wear is not enforced by a gate that
+     stops at the changing room.
+     WHY IT IS HERE AND NOT IN ITS OWN FILE: two rulers for one law is worse than one.
+     This is the same law, measured one room further along.
+     ITS OWN BROWSER, ON PURPOSE. The four tests above finish with the page's numbers in
+     hand and close the browser at line 80, which is right -- everything between there and
+     here is arithmetic on data already collected. Hanging a second surface off the closed
+     handle is the trap that cost this lane a run on 9/11; a fresh one costs a few seconds
+     and cannot rot. */
+  const DEMO = path.join(__dirname, '../slices/BOHEMIA_DEMO.html');
+  const { settle: SETTLE } = require(path.join(__dirname, 'bohemia_settle.js'));
+  const b2 = await chromium.launch({ args: ['--no-sandbox'] });
+  const pg2 = await b2.newPage({ viewport: { width: 390, height: 844 } });
+  const cerr = [];
+  pg2.on('console', m => { if (m.type() === 'error') cerr.push(m.text()); });
+  await pg2.goto('file://' + DEMO);
+  await SETTLE(pg2, 15000);
+  await pg2.evaluate(() => { const f = document.getElementById('fronttap') || document.getElementById('front'); if (f) f.click(); });
+  await SETTLE(pg2, 12000);
+  await new Promise(r => setTimeout(r, 3000));
+  const cf = pg2.frames().filter(x => /BOHEMIA_CITY_WORLD/.test(x.url()))[0];
+  ok('the walked city is reachable from the demo at all', !!cf);
+
+  if (cf) {
+    /* ONE READER, USED ON BOTH SIDES. A hue gap between two DIFFERENT readers is a fact
+       about the readers. This is the whole reason the 9/12 measurement had to be redone:
+       its first cut compared this gate's cloth-only numbers against a reader that counts
+       skin, and reported a 43-degree "drift" that was entirely the two rulers. */
+    const READER = `(px) => { const B5=new Array(72).fill(0); let col=0,tot=0,lum=0;
+      for(let i=0;i<px.length;i++){ const q=px[i]; if(!q) continue;
+        const R=q[0],G=q[1],B=q[2]; tot++; lum+=0.2126*R+0.7152*G+0.0722*B;
+        const mx=Math.max(R,G,B),mn=Math.min(R,G,B);
+        if((mx?(mx-mn)/mx:0)<0.25||mx<40) continue; col++;
+        let h; if(mx===mn)h=0; else if(mx===R)h=60*(((G-B)/(mx-mn))%6);
+        else if(mx===G)h=60*(((B-R)/(mx-mn))+2); else h=60*(((R-G)/(mx-mn))+4);
+        if(h<0)h+=360; B5[Math.floor(h/5)%72]++; }
+      let bi=0; for(let i=1;i<72;i++) if(B5[i]>B5[bi]) bi=i;
+      return { hue: B5[bi]? bi*5+2.5 : null, coloured: tot? col/tot : 0,
+               luma: tot? lum/tot : 0 }; }`;
+
+    const names = await pg2.evaluate(() => (window.FACTION_LOOKS || []).map(f => f.faction));
+    /* the alpha side: the very px array bake56 halves */
+    const A = await pg2.evaluate(([NS, SRC]) => {
+      const hueOfPx = eval(SRC);
+      const PD = ['shirt', 'jacket', 'pants', 'shoes', 'hat', 'glasses', 'hair'];
+      const kW = window.G_WORN, kD = G.bodyVar, kA = G.age, kE = {};
+      PD.forEach(s => { if (s in G.equipped) { kE[s] = G.equipped[s]; G.equipped[s] = ''; } });
+      const out = {};
+      try {
+        for (const n of NS) {
+          const src = (window.FACTION_LOOKS || []).filter(f => f.faction === n)[0];
+          if (!src) continue;
+          window.G_WORN = src.worn; G.bodyVar = src.dials; G.age = src.age || 'adult';
+          rebuildFromRig();
+          out[n] = hueOfPx(buildFrame('S', 'idle', 0.25, true).px);
+        }
+      } catch (e) { out.__err = String(e.message); }
+      finally {
+        window.G_WORN = kW; G.bodyVar = kD; G.age = kA;
+        for (const s in kE) G.equipped[s] = kE[s];
+        try { rebuildFromRig(); } catch (e) {}
+        try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+      }
+      return out;
+    }, [names, READER]);
+
+    await cf.evaluate((NS) => { NS.forEach(n => ctNeedFaction(n)); }, names);
+    for (let i = 0; i < 30; i++) {
+      await new Promise(r => setTimeout(r, 1000));
+      if (await cf.evaluate(() => Object.keys(CAST_FID).length) >= names.length) break;
+    }
+    const landed = await cf.evaluate(() => Object.keys(CAST_FID));
+    ok('*** EVERY FACTION OUTFIT ACTUALLY BAKES AND REACHES THE WALKED CITY *** '
+       + '(' + landed.length + ' of ' + names.length + ')', landed.length === names.length);
+
+    const C = await cf.evaluate((SRC) => {
+      const hueOfPx = eval(SRC);
+      const readImg = (img) => {
+        const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+        const x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(img, 0, 0);
+        const d = x.getImageData(0, 0, c.width, c.height).data, px = [];
+        for (let i = 0; i < d.length; i += 4) px.push(d[i + 3] < 128 ? null : [d[i], d[i + 1], d[i + 2]]);
+        return hueOfPx(px);
+      };
+      const out = {};
+      for (const f in CAST_FID) {
+        const s = CAST_FID[f].S || CAST_FID[f][Object.keys(CAST_FID[f])[0]];
+        if (!s || !s.idle) continue;
+        const plain = readImg(s.idle);
+        const want = plain.luma <= 127 ? plain.luma + 60 : plain.luma - 60;
+        let hostile = null;
+        try { hostile = readImg(ctStepped(s.idle, want)); } catch (e) {}
+        out[f] = { plain, hostile };
+      }
+      return out;
+    }, READER);
+
+    const dH = (a, b) => { const d = Math.abs(((a - b) % 360 + 360) % 360); return d > 180 ? 360 - d : d; };
+    const NEAR = 30;                       /* one twelfth of the wheel: still the same colour */
+    const tripBad = [], hostBad = []; let moved = 0, movedN = 0;
+    for (const f of names) {
+      const a = A[f], c = C[f];
+      if (!a || !c || a.hue == null || c.plain.hue == null) continue;
+      if (c.plain.coloured < 0.35) continue;          /* drab: no hue to lose */
+      const t = dH(a.hue, c.plain.hue);
+      if (t > NEAR) tripBad.push(f + ' ' + t.toFixed(0) + 'deg');
+      if (c.hostile && c.hostile.hue != null) {
+        const h = dH(c.hostile.hue, c.plain.hue);
+        if (h > NEAR) hostBad.push(f + ' ' + h.toFixed(0) + 'deg');
+        moved += Math.abs(c.hostile.luma - c.plain.luma); movedN++;
+      }
+    }
+    ok('*** THE COLOUR SURVIVES THE TRIP FROM THE WARDROBE TO THE STREET *** -- bake, '
+       + 'halve, pack, frame hop, unpack, and the hue is still the same colour'
+       + (tripBad.length ? ' -- BUT: ' + tripBad.join(', ') : ''), tripBad.length === 0);
+    /* THE 9/6 VALUE STEP BROKE THIS LAW AND NOTHING CAUGHT IT FOR SIX DAYS. Scaling every
+       channel holds the ratios only while nothing clips; a red body's R saturates first and
+       the hue rotates toward yellow. MEASURED before the 9/12 fix: Mob swung 35 degrees on
+       becoming hostile -- a soldier changing colour because he noticed you. */
+    ok('*** AND A HOSTILE DOES NOT CHANGE WHOSE HE IS *** -- the value step that makes an '
+       + 'enemy stand out of the crowd moves VALUE only, never hue'
+       + (hostBad.length ? ' -- BUT: ' + hostBad.join(', ') : ''), hostBad.length === 0);
+    /* AND THE CHECK ON THAT CHECK: holding the hue is trivial if the step stops stepping. */
+    const avg = movedN ? moved / movedN : 0;
+    ok('and it holds that hue by clipping carefully, NOT by doing nothing: the step still '
+       + 'moved ' + avg.toFixed(0) + ' of the 60 it was asked for', avg >= 40);
+
+    /* THE SILENCE THAT MADE A TYPO LOOK LIKE A BROKEN MACHINE (9/12). A faction with no
+       outfit returned false into an empty catch, so a body stayed in its trade fit for the
+       session with nothing anywhere going red -- and a test that asked for 'REDS' instead
+       of 'Reds' got a hole written into the record that was never in the game. */
+    cerr.length = 0;
+    await pg2.evaluate(() => { try { cityBakeFaction('NOBODY_WEARS_THIS'); } catch (e) {} });
+    await new Promise(r => setTimeout(r, 300));
+    ok('*** A FACTION WITH NO OUTFIT SAYS SO OUT LOUD *** -- silence here is how a typo '
+       + 'becomes a recorded fact about the world',
+       cerr.some(t => /no outfit for faction/.test(t)));
+  }
+  await b2.close();
+
   done();
 })();

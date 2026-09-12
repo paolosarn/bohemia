@@ -65,7 +65,29 @@ function cityBakeFaction(name){
   if(!fr||!fr.contentWindow) return false;
   if(CFACT_SENT[name]) return true;              /* one bake per faction, ever */
   const src=(window.FACTION_LOOKS||[]).filter(f=>f.faction===name)[0];
-  if(!src) return false;                          /* no outfit for them: stay anonymous */
+  /* *** A MISS HERE USED TO SAY NOTHING, AND THAT SILENCE GOT READ AS A FACT ABOUT
+     THE WORLD. *** (9/12, CHARACTER.) The name is matched with a bare === against
+     FACTION_LOOKS. A caller that asks for 'REDS' when the canon spelling is 'Reds'
+     gets false, into an empty catch upstairs, and that body wears its trade fit for
+     the life of the session with nothing anywhere going red. It cost this lane a
+     round and put a hole in a record that was never in the machinery: the bake works,
+     the test asked for a faction that does not exist.
+     SAME FAMILY AS ctFactionOf's own 7/29 lesson, written in the city file three
+     hundred lines from here -- "a swallowed TypeError looks exactly like an honest
+     'they run with nobody'" -- which cost that lane thirteen days.
+     THE BEHAVIOUR IS UNCHANGED AND DELIBERATELY SO: a faction with genuinely no
+     outfit SHOULD leave its people anonymous. What changes is that it says so, once
+     per name, and prints the spellings that do exist so a typo is obvious on sight. */
+  if(!src){
+    if(!cityBakeFaction.__said) cityBakeFaction.__said = {};
+    if(!cityBakeFaction.__said[name]){
+      cityBakeFaction.__said[name] = 1;
+      console.error('BOHEMIA: no outfit for faction "' + name + '" -- nobody who runs '
+        + 'with them will ever be dressed. FACTION_LOOKS has: '
+        + (window.FACTION_LOOKS||[]).map(f=>f.faction).join(', '));
+    }
+    return false;                                 /* no outfit for them: stay anonymous */
+  }
   CFACT_SENT[name]=1;
   const L={id:'faction:'+name,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
   const PD_CLOTHES=['shirt','jacket','pants','shoes','hat','glasses','hair'];
