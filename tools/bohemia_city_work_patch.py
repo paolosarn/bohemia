@@ -26,6 +26,7 @@ CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 MODULE = os.path.join(ROOT, 'engine', 'bohemia_work.js')
 PARTIES = os.path.join(ROOT, 'engine', 'bohemia_parties.js')
 POWERB = os.path.join(ROOT, 'engine', 'bohemia_powerbuild.js')
+STAYED = os.path.join(ROOT, 'engine', 'bohemia_stayed.js')
 
 BEGIN = '/* ==== engine/bohemia_work.js ==== */'
 END = '/* ==== /engine/bohemia_work.js ==== */'
@@ -39,13 +40,18 @@ P_END = '/* ==== /engine/bohemia_parties.js ==== */'
 # module body for the same reason the other two do.
 B_BEGIN = '/* ==== engine/bohemia_powerbuild.js ==== */'
 B_END = '/* ==== /engine/bohemia_powerbuild.js ==== */'
+# [century stayed] rides the same splice: it reads bohemia_century.js and
+# bohemia_family.js, both already in the city, and must land outside every
+# module body for the same reason the others do.
+S_BEGIN = '/* ==== engine/bohemia_stayed.js ==== */'
+S_END = '/* ==== /engine/bohemia_stayed.js ==== */'
 # The economy's banner: bohemia_work.js reads YIELD off that module, so landing
 # beside it keeps the two things a reader has to hold together in one place.
 ANCHOR = '/* ==== engine/bohemia_economy.js ==== */'
 
 
 def main():
-    for p in (CITY, MODULE, PARTIES, POWERB):
+    for p in (CITY, MODULE, PARTIES, POWERB, STAYED):
         if not os.path.exists(p):
             sys.exit('FAIL: %s not found' % p)
 
@@ -68,6 +74,7 @@ def main():
     s = cut(s, BEGIN, END, 'the work module')
     s = cut(s, P_BEGIN, P_END, 'the parties module')
     s = cut(s, B_BEGIN, B_END, 'the power buildings module')
+    s = cut(s, S_BEGIN, S_END, 'the stayed module')
 
     if s.count(ANCHOR) != 1:
         sys.exit('REFUSING TO WRITE: the anchor resolves %d times, not 1.' % s.count(ANCHOR))
@@ -87,16 +94,22 @@ def main():
         sys.exit('REFUSING TO WRITE: the power buildings module contains a sequence '
                  'that would close the script tag.')
 
+    sty = open(STAYED, encoding='utf8').read().rstrip('\n')
+    if '</' in sty:
+        sys.exit('REFUSING TO WRITE: the stayed module contains a sequence that would '
+                 'close the script tag.')
+
     block = (BEGIN + '\n' + mod + '\n' + END + '\n'
              + P_BEGIN + '\n' + par + '\n' + P_END + '\n'
-             + B_BEGIN + '\n' + pwr + '\n' + B_END + '\n\n')
+             + B_BEGIN + '\n' + pwr + '\n' + B_END + '\n'
+             + S_BEGIN + '\n' + sty + '\n' + S_END + '\n\n')
     s = s.replace(ANCHOR, block + ANCHOR, 1)
 
     if s == before:
         print('  -> nothing to do')
         return
     open(CITY, 'w', encoding='utf8').write(s)
-    print('CITY WORK: work + parties + powerbuild inlined before the economy module')
+    print('CITY WORK: work + parties + powerbuild + stayed inlined before the economy module')
     print('  city : %.1f MB' % (len(s) / 1e6))
 
 

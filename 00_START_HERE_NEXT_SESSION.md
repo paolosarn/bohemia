@@ -12398,91 +12398,79 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [batteries mined] BUILDINGS-MAKE-BATTERIES is SHIPPED 9/11.
+HOLDING: nothing. [century stayed] WHO-STAYED-COUNTS is SHIPPED 9/12.
 
 WHAT SHIPPED
-  CERTAIN BUILDINGS MAKE BATTERIES, AND THE OTHER FIFTY-SIX DO NOT. Paolo 9/5,
-  LOCKED: "set up certain buildings wherever you're doing and that's just more
-  batteries." Three electrical districts his own map already has -- solar makes it,
-  the battery farm holds it, the substation moves it -- each row quoting the
-  overmap's own comment for itself, verbatim and gate-checked. One battery a day off
-  his ruled ONE, paid through the production tick that already existed.
-  THIS CLOSED A [PENDING Paolo] THAT THE PIPE NAMED IN ITS OWN HEADER.
-  bohemia_production.js wrote "[PENDING Paolo: which building types produce
-  electricity or clout]" AND "DELIBERATELY NOT ELECTRICITY ... would turn the build
-  button into a printing press". Both right. He ruled CERTAIN buildings, not every
-  one, so 3 mint and 56 keep resources -- the exact door install() wrote by never
-  overwriting a row that is already there.
-  MAP LAW HELD: his other two examples, a generator and a wind rig, have NO district
-  among the enum's 79 kinds. They are named as missing in data (NO_DISTRICT_YET)
-  rather than invented, because adding a district is map content and his.
-  NEW: engine/bohemia_powerbuild.js, gates/batteries_mined_gate.js (36 checks,
-  registered as BATTERIES MINED, red both ways). RECORD:
-  records/BOHEMIA_BATTERIES_MINED_9_11_26.md
+  THE CENTURY RULE COUNTS BUILDINGS AND SOME PEOPLE, which is his 9/7 ruling word
+  for word: "buildings, and some people depending on how many years passed." A
+  person you kept counts for as long as they could still be alive across the
+  handoffs; after that what counts is WHAT THEY LEFT.
+  EVERY YEAR IS CANON SOMEBODY ELSE WROTE DOWN, CARRIED WITH ITS SOURCE, AND THE
+  GATE RE-READS THE SOURCE. ~100 years across three acts (the century law, clause
+  4), ~30 a handoff (bohemia_family.js in its own words), adult 41 and elder 65
+  ASKED of that module rather than copied -- BAND is private, so this probes the
+  module's public agePeople instead of reaching in, and the gate proves the reading
+  is live by ageing its own probe and checking both files agree to the year.
+  THE ONLY ARITHMETIC IN THE FILE: past living = elder + one whole handoff = 95, on
+  a dial, tuned:false. Nothing in this repo ages anybody to death and adding that to
+  bohemia_family.js would be editing another lane's system.
+  A PERSON YOU KEPT IS SOMEBODY UNDER A ROOF YOU PUT UP -- the century record has
+  stamped the household on every build entry since it was written, so nothing new is
+  stored and no second census is taken. A solar farm keeps nobody, which is an
+  answer and not a gap.
+  MEASURED ON A REAL RECORD, three homes in act one and two flats in act two:
+  act 1 -> 6 here; act 2 (thirty years on) -> they are 71 and still here, 10 here;
+  act 3 (sixty years on) -> the first six are 101, so 4 here and 6 who left what
+  they built behind them.
+  NEW: engine/bohemia_stayed.js, gates/century_stayed_gate.js (34 checks, registered
+  as CENTURY STAYED, suite 587, red both ways).
+  RECORD: records/BOHEMIA_CENTURY_STAYED_9_12_26.md
 
-THE INSTALL ORDER IS LOAD-BEARING, AND IT IS THE THING TO REMEMBER
-  BohemiaPowerBuild.install() MUST run BEFORE BohemiaProduction.install(). The other
-  way round every row already exists and the call does nothing at all -- A SILENT
-  NO-OP THAT LOOKS EXACTLY LIKE A WORKING FEATURE. Swapping the two lines on the
-  walked surface turns the gate red six ways and the card quietly falls back to its
-  old sentence. Proved both ways and written beside the call site.
+THE CHECK THAT MATTERS MOST, AND WHY IT NEEDED DRIVING
+  "after that what counts is what they left" IS A BRANCH, and in play today the act
+  never moves, because the generation fold is another line's job (QUESTS, parked).
+  A BRANCH THAT HAS NEVER EXECUTED IS NOT CODE, IT IS AN INTENTION -- so the gate
+  drives a real record through three acts, in node AND on the walked surface, and
+  watches six people become six who left what they built behind them.
 
-THE 9/6 CAP AMENDMENT NEEDED NOTHING BUILT, AND THAT IS THE HONEST ANSWER
-  It asked that what a building earns while the player is away be capped. MEASURED:
-  the tick is keyed on the day and refuses a day it already paid, and this game owns
-  no wall clock at all (NO BACKGROUND TICKING). Ten in-game days pass and exactly one
-  day is paid -- electricity 2 to 4, not 2 to 20, in node and on the real surface.
-  Nothing was added; the gate holds it so it cannot regress.
-
-BATTERIES ARE MONEY ONLY, CHECKED RATHER THAN ASSUMED
-  "do you need batteries to turn a laptop on? no." With an emptied purse on the real
-  surface: the work offer is still there, a day's work still runs and still pays, and
-  the day still ends. The only thing that refuses when broke is the BUILD button, and
-  that is buying a building, which is what money is for.
-
-TWO THINGS MEASURING CAUGHT
-  1. A SILENT CATCH AROUND A REAL ERROR. install() threw when kinds() and POWER
-     disagreed, and the walked surface calls it inside a try/catch -- so the whole
-     table would have gone uninstalled and every building would have quietly fallen
-     back to resources. It skips an unknown kind now.
-  2. *** THE REGISTRY CHECKER COULD NOT SEE MY OWN GATE, AND A DUPLICATE GOT WIRED.
-     *** A DAY'S WORK had to be DOUBLE-quoted in the registry because its name has an
-     apostrophe, and gate_registry_gate.js scans rows with a SINGLE-quote regex. It
-     never saw the row, reported the gate as an orphan, and a second row was wired for
-     the same file -- so that 37-check browser gate ran TWICE every suite. Measured:
-     581 rows visible, 1 invisible, and it was mine. Renamed to A DAYS WORK so no
-     apostrophe is needed and the duplicate removed. 581 visible, 0 invisible now.
-
-[FOR PLUMBER, NOT EDITED BY ME] gates/gate_registry_gate.js parses the registry with
-/^ {4}\('([^']+)',/ -- single quote only -- so ANY future gate whose name contains an
-apostrophe is invisible to it and will be reported as an orphan. It is one row wide
-today only because I renamed mine out of the way. That file is PLUMBER's; hardening
-the regex to accept either quote is a two-character fix there. A CHECKER THAT CANNOT
-SEE A ROW IS THE BROKEN ONE (8/1), and a duplicate row is a symptom, not a fix.
+ONE THING THAT LOOKED LIKE A BUG AND WAS THE GAME WORKING
+  Driving the surface by hand, I set the act back to 1 and the card still answered
+  for act 2. That is bohemia_century.js refusing to run backwards, by its own rule:
+  "a century that can run in reverse is not a memory". My probe was the confused
+  one, not the card. Worth keeping because the next person to drive acts by hand
+  will see exactly this.
 
 NEXT: read the WORLD section fresh; the coordinator harvests rows onto this queue
-constantly. As of this round the next OPEN line is [century stayed] (UNBLOCKED 9/7,
-Paolo ruled it: "buildings, and some people depending on how many years passed"),
-then [own power] (which now has its dependency: [batteries mined] just shipped),
-[rice clock], [debt carried], [someone lends], [back of house], [water lifted],
-[battery worth], [fold carries], [visible change], [suburb walls].
+constantly. As of this round the next OPEN line is [own power], which now has its
+dependency since [batteries mined] shipped, then [rice clock], [debt carried],
+[someone lends], [back of house], [water lifted], [battery worth], [fold carries],
+[visible change], [suburb walls], [full shelves].
 
 STILL CARRIED, AND IT IS [rice clock]'s ROW: buy() debits the battery and the good
 never lands in the purse as `resources`, so the shop is a dead end and day:ate is
 refused rather than paid on day one. The purse has had an atomic convert() since
 7/31 with zero callers.
-STANDING DUTY THIS LANE HAS NOW PAID FOR TWICE: re-check your gates' REGISTRATION
-every round, AND check it the way the registry checker does rather than with your own
-grep. My first check this round used a single-quote grep, reported my own gate as
-unregistered, and was itself the broken ruler.
+
+CORRECTING SOMETHING ANOTHER LANE PUBLISHED, because it cost me half a round:
+ECONOMY round 28 reported "HOUSING CAP IS EMPTY, so the century's housed column
+reads zero by law". IT IS NOT EMPTY. installCap() fills every residential type with
+BohemiaPopulation's researched HOUSEHOLD_MEAN of 2.2, and the walked surface calls
+it at boot. My own first node run reproduced their zero only because I had not
+called installCap. A table that reads empty until somebody installs it is not an
+empty table, and the difference is a whole feature.
+
+STANDING DUTY THIS LANE HAS PAID FOR TWICE: re-check your gates' REGISTRATION every
+round, AND check it the way the registry checker reads the table rather than with
+your own grep. All seven of this lane's gates verified present this round, and 0
+rows are invisible to the checker.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [batteries mined], 9/11. Before it: [parties move] 75ac79c,
-[a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
-[rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
-[faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
-[battery money] ce39270.
+LAST SHIPPED: [century stayed], 9/12. Before it: [batteries mined] 6562436,
+[parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
+[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
+[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
+[living costs] 5b61303, [battery money] ce39270.
 
 
 

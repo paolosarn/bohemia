@@ -498,6 +498,23 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('CENTURY STAYED',['node', 'gates/century_stayed_gate.js'],
+     'WHO-STAYED-COUNTS (board row [century stayed], 9/12). PAOLO 9/7 RULED IT: "buildings, '
+     'and some people depending on how many years passed." The century rule counted BUILDINGS '
+     'and nothing else; it counts SOME PEOPLE now. A person you kept in the valley counts for '
+     'as long as they could still be alive across the handoffs, and after that what counts is '
+     'WHAT THEY LEFT. EVERY YEAR IN IT IS CANON SOMEBODY ELSE WROTE DOWN, carried with its '
+     'source, and this gate checks the source STILL SAYS IT: ~100 years across the three acts '
+     '(the century law clause 4) and ~30 years a handoff (bohemia_family.js, in its own '
+     'words). The ages are ASKED of the family module rather than copied -- adult 41, elder 65 '
+     '-- and the only arithmetic in the file is PAST LIVING = elder + one whole handoff = 95. '
+     'A person you kept is somebody under a roof you put up, which the century record has '
+     'stamped on every build entry since it was written, so nothing new is stored. THE CHECK '
+     'THAT MATTERS MOST: "after that what counts is what they left" is a BRANCH, and a branch '
+     'that has never executed is not code, it is an intention -- so this drives a real record '
+     'through three acts, in node AND on the walked surface, and watches six people become six '
+     'who left what they built behind them. Red both ways: let nobody age out -> 4 red; put in '
+     'a handoff year nobody ruled -> 7 red.', True),
     ('BATTERIES MINED',['node', 'gates/batteries_mined_gate.js'],
      'BUILDINGS-MAKE-BATTERIES (board row [batteries mined], 9/11). PAOLO 9/5 LOCKED: '
      '"there could be ways where you auto-mine batteries, set up certain buildings wherever '
