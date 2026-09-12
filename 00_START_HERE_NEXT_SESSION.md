@@ -16473,6 +16473,38 @@ NO DAMAGE BEFORE THE DIAL: one constant, no damage number, and the band is deriv
 weapon table rather than a second private table of per-gun numbers, which the gate also checks.
 Record: records/BOHEMIA_COMBAT_A_GUN_IS_IN_ITS_OWN_WAY_UP_CLOSE_9_12_26.md
 
+*** AND THE SAME ROUND I FOUND AND FIXED A REAL BUG I HAD ALREADY SHIPPED IN V206. ***
+fight_moves_you_gate went 170/0 -> 168/2 on two arms about abilities and verbs. THE CAUSE: every
+fight's setup calls keysLoad(), which REPLACED KEYS.taken with whatever localStorage held. On a
+fresh profile that key had never been WRITTEN, so the read returned null, the branch was skipped
+and keys held in memory survived -- which is why nobody had ever been bitten by it. V206's shell
+keeper then started mirroring the published list into that same key so the city could see your
+hand, AND THE FIRST THING THE FIGHT PUBLISHES ON BOOT IS AN EMPTY HAND. So the record said "[]"
+and the next fight handed back nothing: PATCH IT, LIGHT IT and SEND HIM (the ward, burn and dogs
+keys) dropped out of the kit.
+
+*** AND MY FIRST INSTINCT WAS WRONG: I CHECKED WHETHER IT WAS MINE AND CONCLUDED IT WAS NOT. ***
+The comparison ran the gate without [guns close], the row I was holding, read 168/2 there too and
+I called it pre-existing. It took a SECOND baseline, back to the slices from before any of my
+three rows this round, to read 170/0 and prove one of mine had done it -- then the tree with only
+[loot kept] read 168/2 and named it. A BASELINE THAT ONLY GOES BACK ONE COMMIT ANSWERS A DIFFERENT
+QUESTION THAN THE ONE YOU ASKED. And the measurement after that was ONE PROBE, not a theory: I had
+three guesses (a name collision, a second accuracy system, an unfinished wire) and all three were
+wrong. The probe staged the keys, ran the shipped setupCombat and read them back as an EMPTY ARRAY.
+
+HOW I SHIPPED IT: my lane pass for V206 ran the loot, zoom, entry, lab, demo-build and
+blob-integrity gates AND NOT fight_moves_you, because I had run it the round before and it was
+170/0. A GATE YOU RAN LAST ROUND IS NOT A GATE YOU RAN. The bug was in the one I skipped.
+
+THE GUARD IS THE RULE AND NOT THE SYMPTOM, at both ends: the FIGHT treats loading as restoring a
+hand and never as emptying one (if the record says nothing and you are holding something, the
+record is what is behind), and the SHELL never writes an empty hand over a real one (the cheapest
+place to not lose something is to not write the loss down). Either alone fixes it; both are there
+because they are two different mistakes. Its own tool, tools/bohemia_keys_guard_patch.py, because
+V206 is shipped and a repair has to land on a build that already carries what it repairs --
+applied twice in a row on purpose, the second run changes nothing. 170/0 again.
+Record: records/BOHEMIA_COMBAT_AN_EMPTY_RECORD_IS_NOT_EVIDENCE_9_12_26.md
+
 BB-LOOT-LEAVES. Paolo 8/25: "you get experience and loot OFF THEIR BODIES." That shipped INSIDE
 the arena on 9/2 and never left it. A body drops rounds, experience, an item at 55%, a plate at
 22% and a boss key, all lying where he fell so you cross ground under fire for it -- and the
