@@ -71,7 +71,7 @@ function grab(name) {
   for (let k = s; k < src.length; k++) { if (src[k] === '{') d++; else if (src[k] === '}') { d--; if (!d) return src.slice(i, k + 1); } }
   return null;
 }
-const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genAcc', 'genCape'];
+const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'legSpan', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genAcc', 'genCape'];
 const bodies = NAMES.map(grab);
 ok('every generator this gate measures was found in the alpha', bodies.every(Boolean));
 if (!bodies.every(Boolean)) done();

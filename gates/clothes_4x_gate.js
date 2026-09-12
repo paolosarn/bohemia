@@ -95,7 +95,7 @@ ok('the PD layers and the skin brush still block-stamp (RIG LAW: his pixels are 
 
 /* ------------------------------------------------------------- the harness */
 function build(s, CW, dir) {
-  const help = ['rsc', 'fr', 'mix', 'grade', 'bshade', 'ext', 'pExt', 'hemStitch'].map(n => grab(s, n)).filter(Boolean);
+  const help = ['rsc', 'fr', 'mix', 'grade', 'bshade', 'ext', 'pExt', 'hemStitch', 'legSpan'].map(n => grab(s, n)).filter(Boolean);
   const bodies = help.concat(GENS.map(n => grab(s, n)).filter(Boolean));
   return new Function('CW', 'CH', 'curDir', 'var AMB=[67,61,56];\n' + bodies.join('\n') +
     '\nreturn {' + GENS.join(',') + '};')(CW, CW, dir);

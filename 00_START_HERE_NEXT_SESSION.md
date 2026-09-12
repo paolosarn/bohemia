@@ -1053,15 +1053,85 @@ STILL CARRIED, AND STILL NOBODY'S:
 NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
 directly on top of Q2's finding that a lie is caught by the question and never by the manner.
 --- (this line was a bare row of equals signs, which is a git conflict marker; it sat between two lanes' blocks and belonged to neither, and it made gates/nomarkers_gate.js red for every lane that ran the suite. Replaced 9/11 by QUESTS with a plain rule. Nobody's handoff text was touched.)
-ANIMATION (animation-lr9y9i): 9/11 LATEST -- *** THE ELBOW RULE IS IN. His first
-rig complaint is answered and the machine found the SAME ELEVEN CLIPS HE KILLED,
-on its own, before anybody compared the lists. TAB: ANIMATION. Nothing to judge
-yet; the other two rig fixes come before the 47 redos. ***
+ANIMATION (animation-lr9y9i): 9/12 LATEST -- *** THE COAT FOLLOWS THE LEGS NOW.
+His second rig complaint is answered. TAB: CHARACTER (put a long coat on and walk
+it) and ANIMATION. Nothing to judge yet; one rig fix left before the 47 redos. ***
 
-TAB: ANIMATION. Build 9/11b - AN ELBOW BENDS ONE WAY.
+TAB: CHARACTER and ANIMATION. Build 9/12w - THE COAT FOLLOWS THE LEGS.
 
-ROW SHIPPED: [elbows bend] AN-ELBOW-BENDS-ONE-WAY.
+ROW SHIPPED: [coat follows] THE-COAT-IS-TIED-TO-THE-LEGS.
+Paolo 9/7: "the trenchcoat, as will be the nature for any long jackets and coats,
+has to be done a lot better; it's glitching and popping out of place; tie it more
+to the legs, it feels like it's freestyling where to go."
 
+TWO defects, and his one sentence named both. Measured on buildFrame's real posed
+grids, all eight facings, all 24 walk buckets. NOT on the gate mannequin: a
+mannequin has no stride and no swinging arm and cannot show either. (Proof: the
+CLOTHES 4X frozen-pixel hashes came back 1744/1744 UNCHANGED after this shipped.)
+
+1 THE FREESTYLING. The skirt was an A-line cone about the TORSO's pixel centroid.
+  It consulted the legs exactly once -- for where to STOP -- and never for where
+  to BE. A stride opens the legs wider than a hip-width cone, so the coat ran in
+  the GAP BETWEEN TWO THIGHS with a whole thigh hanging outside it on each side.
+  Leg pixels sitting outside the coat, on rows the coat covers:
+    before 12.21%, worst facing 23%, worst single row 16 px
+    after   3.92%, worst facing 6.5%, worst single row  9 px
+  New rig helper legSpan(g) hands ANY generator the leg extent on every row; the
+  skirt reaches out to whichever leg swung, relaxes toward the hem so the boot
+  still comes out at the edge, and is capped so a wide stride bells the skirt
+  instead of pitching a tent (widest coat row / widest body row 1.19 with the cap,
+  1.56 without).
+  BUILT AND CUT: a centre-blend that also slid the panel's middle toward the leg
+  mass. With the reach already in it moved spill 4.07% -> 3.93% and made the
+  head-on coat track the legs WORSE (-0.93 -> -0.95), because in a stride two
+  legs' AVERAGE barely moves while their EDGES do. Code that measures the same
+  with and without it does not ship. Same call as the dead LOCK clamp on 9/11.
+
+2 THE POPPING, and this one was hiding. The skirt's base width came from the
+  torso's extent on exactly ONE row, its last. THE TORSO IS NOT WHAT IS VISIBLE
+  THERE: whichever arm is swinging covers part of that row and uncovers a sliver
+  of torso past it. Facing you, two CONSECUTIVE walk frames read the hip at 4 px
+  and then 14 px with nothing in the body moving. halfW snapped 6 -> 9 and the
+  whole skirt changed width three pixels a side, twice a beat. The coat changed
+  31% of its own area in one frame while the body changed 9.7% -- churning 2.3x
+  harder than the man wearing it. A hip is the torso's TYPICAL width, so it is
+  AREA OVER HEIGHT now. Six estimators were measured across all facings and
+  buckets first; every one that reads a row or a band still jitters 5-10 px. This
+  one jitters 4, and it needs no scale factor: 14.3 px against the old scanline's
+  13.1 on the real rig, 8 against its 7 on the mannequin. 30.8% -> 17.9%.
+
+genCape's back drape was measured too (the other garment long enough to cover a
+striding leg): 0% spill N and NE, 0.1% NW. Already a wide panel. Left alone rather
+than touched for symmetry.
+
+GATE: gates/coat_tied_to_the_legs_gate.js, in the suite as COAT ON LEGS. Ten
+claims: spill overall <= 7%, worst facing <= 12%, worst row <= 12 px, tent ceiling
+1.30, pop ceiling 22% facing you, a code claim that the width is not a scanline,
+and a CONTROL that runs the same spill ruler over a VEST (no skirt) and demands
+60%+ -- a ruler scoring the vest like the coat is measuring the body, not the
+garment. 4 mutations, all caught: skirt stops asking legSpan -> 3 red; hip back to
+one scanline -> 2 red; reach loses its cap -> tent red; vest grows a skirt ->
+control red.
+The hip claim is a CODE claim ON PURPOSE. A gate that recomputes the hip itself
+and checks its own arithmetic is testing the gate, not the game -- that mistake
+was made three times on the judge-list rulers on 9/5. The pop ceiling is its data.
+
+A RULER WAS THROWN AWAY THIS ROUND, WHICH IS THE PART WORTH KEEPING. The first
+one counted 1036 "orphan rows" -- coat rows with no leg on them -- and called them
+the defect. Looking at the picture killed it in one read: the upper skirt covers
+the HIP, where there is no leg by definition, and 32 of ~60 coat rows per frame
+are up there. When a number disagrees with a picture, go and look at the picture.
+
+STILL RED AND NOT MINE: CITY CAST SILHOUETTE fails on clean origin/main too
+(mean 0.079 against a 0.085 floor) -- verified by stashing. CHARACTER / LIFE+CITY
+row, not this one.
+
+NEXT: [facing order] THE-NEAR-HAND-DRAWS-IN-FRONT, the third and last rig fix.
+Then [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED. The law is fix the
+rig first: a rig that still draws the far hand on top is 47 clips he thumbs down
+again.
+
+Nothing [PENDING Paolo].
 UI (ui-kmqmrf): 9/11 LATEST -- *** [phone object] SHIPPED. THE FEED IS A PHONE YOU CAN SEE. ***
 He looked at the shipped feed on 9/8 and said "this doesn't look like a cool post-economic-
 apocalyptic phone, does it, bro, come on?" He was right: a rounded rectangle of monospace text

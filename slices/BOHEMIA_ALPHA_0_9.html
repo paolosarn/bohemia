@@ -1327,7 +1327,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/13h - SOMEBODY LENDS YOU BATTERIES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/13i - THE COAT FOLLOWS THE LEGS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -24718,6 +24718,31 @@ window.CLO=(function(){
     return r.mid; }
   function ext(w){var mnY=1e9,mxY=-1,cT={},cB={};for(var k in w){var i=+k,x=i%CW,y=(i/CW)|0;if(y<mnY)mnY=y;if(y>mxY)mxY=y;if(cT[x]===undefined||y<cT[x])cT[x]=y;if(cB[x]===undefined||y>cB[x])cB[x]=y;}return {mnY:mnY,mxY:mxY,cT:cT,cB:cB};}
   function pExt(g,pid){var mn=1e9,mx=-1;for(var i=0;i<g.length;i++)if(g[i]===pid){var y=(i/CW)|0;if(y<mn)mn=y;if(y>mx)mx=y;}return {mn:mn,mx:mx};}
+  /* THE COAT IS TIED TO THE LEGS (Paolo 9/7: "the trenchcoat, as will be the
+     nature for any long jackets and coats, has to be done a lot better; it's
+     glitching and popping out of place; tie it more to the legs, it feels like
+     it's freestyling where to go").
+     Every long garment on this rig hung as a cone about the TORSO's centroid and
+     never once looked at a leg. Measured on the walk across all eight facings:
+     12.2% of leg pixels sat OUTSIDE the coat's own span on rows the coat covered
+     -- 23% facing away, 16 pixels on the worst row. The coat was running in the
+     GAP between two thighs instead of draping on them, which is the freestyling
+     he named. legSpan hands back, per row, where the legs actually are, so a
+     skirt can reach out to whichever one swung. It is a rig rule, not a
+     trenchcoat patch: any generator with a skirt asks it the same question.
+     THE CENTRE IS NOT IN HERE, AND THAT WAS MEASURED TOO. Blending the panel's
+     centre toward the leg mass as well took spill from 4.07% to 3.93% -- a
+     seventh of a percent -- and made the head-on coat track the legs WORSE
+     (correlation -0.93 to -0.95), because in a stride the two legs' average
+     barely moves while their edges do. Code that measures the same with and
+     without it does not ship. The front opening stays on the sternum, which is
+     where a real coat's opening is. */
+  function legSpan(g){
+    var mn=new Int16Array(CH), mx=new Int16Array(CH), has=new Uint8Array(CH), y,x;
+    for(y=0;y<CH;y++){ var a=CW,b=-1;
+      for(x=0;x<CW;x++){ var p=g[y*CW+x]; if(p>=9&&p<=12){ if(x<a)a=x; if(x>b)b=x; } }
+      mn[y]=a; mx[y]=b; has[y]=(b>=0)?1:0; }
+    return {mn:mn, mx:mx, has:has}; }
   /* TOP: crew neck done RIGHT (Paolo 7/18: "you thought a collarbone was a
      neckline"). The shirt covers the WHOLE chest+shoulders; the neckline is only
      a thin collar RING hugging the neck's own columns -- never a dark band traced
@@ -26808,6 +26833,7 @@ window.CLO=(function(){
     var openTop=opt.vest?ttop-S:ttop+3*S;
     var le=pExt(g,9),re=pExt(g,10), legTop=Math.min(le.mn,re.mn), legBot=Math.max(le.mx,re.mx);
     var hemY=legTop+fr(legTop,legBot,(opt.len||0.86))+S-1;
+    var span=hemY-tb+1;
     /* the open front only exists when you FACE the front. From the side/back a
        trenchcoat is a SOLID silhouette -- a slit down a profile = wrong (Paolo). */
     var dir=(typeof curDir!=='undefined')?curDir:((opt&&opt.dir)||'S');
@@ -26844,9 +26870,31 @@ window.CLO=(function(){
       if(p===4){ if(isOpen(x,y))continue; w[i]=1; } else if((p===5||p===6)&&!vest)w[i]=1; }
     /* skirt: A-line panel hip-width -> flared, minus the slit. A vest has NO skirt
        (ends at the waist), so the shirt sleeves + pants show -- still open-front. */
-    var hipMn=CW,hipMx=-1; for(var hx=0;hx<CW;hx++){ if(g[tb*CW+hx]===4){if(hx<hipMn)hipMn=hx;if(hx>hipMx)hipMx=hx;} }
-    if(hipMx<0){hipMn=cx-3*S;hipMx=cx+3*S;}
-    var halfW=Math.max(3*S,Math.ceil((hipMx-hipMn)/2)+S), span=hemY-tb+1, skirt={};
+    /* AND THE HIP IS NOT A SCANLINE -- that one line WAS the popping.
+       The skirt's base width used to come from the torso's extent on exactly ONE
+       row, its last, and THE TORSO IS NOT WHAT IS VISIBLE THERE: whichever arm is
+       swinging covers part of it and uncovers a sliver past it. Facing you on the
+       walk, the measured hip read 4 px wide on one frame and 14 on the very next
+       with nothing in the body moving to explain it; halfW snapped 6 -> 9 and the
+       whole skirt changed width three pixels a side, twice a beat. Measured: the
+       coat changed 31% of its own area in a single frame while the body changed
+       9.7%, churning 2.3x harder than the man wearing it.
+       A HIP IS THE TORSO'S TYPICAL WIDTH, so measure it that way: its area over
+       its height. An average across thirty rows barely moves when an arm covers
+       three of them. Six estimators were measured across all eight facings and
+       all 24 buckets; every one that reads a row or a band of rows still jitters
+       5 to 10 px because the arms hang over the hip for most of the cycle. This
+       one jitters at most 4, and it is not a fudge: it reads 14.3 px against the
+       old scanline's 13.1 on the real rig and 8 against its 7 on the gates'
+       mannequin, so the garments keep the width DIRECTION approved and lose only
+       the snapping. */
+    var tArea=0; for(i=0;i<g.length;i++) if(g[i]===4)tArea++;
+    var hipW=tArea?Math.round(tArea/(tb-ttop+1)):6*S;
+    var halfW=Math.max(3*S,Math.ceil(hipW/2)+S), skirt={};
+    /* where the legs are on every row, for the skirt to reach out to. Only a
+       garment that HAS a skirt pays for the scan: a vest and a jacket stop at
+       the waist and never ask. */
+    var LD=(!vest&&!jacket)?legSpan(g):null;
     /* ASYM: the hem per COLUMN, not one number for the whole garment. It rises
        across the body so the left side hangs and the right side is cut away --
        the amount is a third of the skirt's own depth, which is enough to read at
@@ -26877,7 +26925,21 @@ window.CLO=(function(){
          toward the hem. Same one line that makes every other coat an A-line. */
       var hw=cocoon?(halfW+3*S-Math.round((y2-tb)/span*4*S)):(halfW+Math.round((y2-tb)/span*3*S));
       if(hw<2*S)hw=2*S;
-      for(var xx=cx-hw;xx<=cx+hw;xx++){ if(xx<0||xx>=CW)continue; if(isOpen(xx,y2))continue;
+      /* IT DRAPES ON THE THIGH, IT DOES NOT RUN IN THE GAP BETWEEN TWO.
+         The cone is hip-width plus three cells; a stride opens the legs wider
+         than that, so the old panel hung as a narrow strip with a whole thigh
+         outside it on each side -- 23% of leg pixels facing away. The panel now
+         reaches out to whichever leg swung, and the reach RELAXES toward the hem
+         so the lower leg still comes out at the edge instead of the coat
+         swallowing the boot. Capped, so a wide stride bells the skirt and never
+         pitches a tent. */
+      var L=cx-hw, R=cx+hw;
+      if(LD.has[y2]){ var t2=(y2-tb)/span; if(t2>1)t2=1;
+        var reach=1-0.30*t2*t2, cap=halfW+6*S;
+        var lL=Math.round(cx-(cx-LD.mn[y2])*reach), lR=Math.round(cx+(LD.mx[y2]-cx)*reach);
+        if(lL<cx-cap)lL=cx-cap; if(lR>cx+cap)lR=cx+cap;
+        if(lL<L)L=lL; if(lR>R)R=lR; }
+      for(var xx=L;xx<=R;xx++){ if(xx<0||xx>=CW)continue; if(isOpen(xx,y2))continue;
         if(y2>hemAt(xx))continue;                                        /* the slanted hem cuts here */
         if(opt.split&&backV&&y2>ventY&&Math.abs(xx-cx)<=Math.round((y2-ventY)/(hemY-ventY+1)*3*S))continue;   /* the vent */
         skirt[y2*CW+xx]=1; } }

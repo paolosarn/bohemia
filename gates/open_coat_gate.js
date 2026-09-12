@@ -29,7 +29,7 @@ function grab(name) {
    harness that lifts a generator out of the alpha must lift its dependencies with
    it, or every gen() throws "rsc is not defined" and this gate reports a WARDROBE
    failure for a HARNESS one. Fix the ruler, never the target (8/1). */
-const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genCoat'];
+const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'legSpan', 'genCoat'];
 const bodies = NAMES.map(grab);
 ok('genCoat + pure helpers found in the alpha', bodies.every(Boolean));
 

@@ -31,7 +31,7 @@ function grab(name) {
    harness that lifts a generator out of the alpha must lift its dependencies with
    it, or every gen() throws "rsc is not defined" and this gate reports a WARDROBE
    failure for a HARNESS one. Fix the ruler, never the target (8/1). */
-const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
+const NAMES = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'legSpan', 'genTop', 'genPants', 'genCoat', 'genShoes', 'genPoncho', 'genGear', 'genBag', 'genApron'];
 const bodies = NAMES.map(grab);
 ok('all seven generators + helpers found in the alpha', bodies.every(Boolean));
 const makeG = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies.join('\n') + '\nreturn {genTop,genPants,genCoat,genShoes,genPoncho,genGear,genBag,genApron};')(56, 56, dir); } catch (e) { console.log('  eval error: ' + e.message); return null; } };
@@ -233,7 +233,7 @@ if (G) {
   ok('wave-4 candidates ship (hoods toggleable everywhere)', /hoodUp:CLO_HOODUP/.test(gbAll()) && /hood:CLO_HOODUP/.test(gbAll()) && /kind:'chestplate'/.test(gbAll()) && /hoodDefaultUp:true/.test(gbAll()));
 
   // WAVE 6: coveralls / split-tail duster / cape / bandolier -- four new shapes
-  const NAMES3 = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'genCoat', 'genCoverall', 'genCape', 'genGear'];
+  const NAMES3 = ['rsc', 'fr', 'mix', 'bshade', 'ext', 'pExt', 'legSpan', 'genCoat', 'genCoverall', 'genCape', 'genGear'];
   const bodies3 = NAMES3.map(grab);
   ok('wave-6 generators found (genCoverall + genCape are real machinery)', bodies3.every(Boolean));
   const makeW6 = (dir) => { try { return new Function('CW', 'CH', 'curDir', bodies3.join('\n') + '\nreturn {genCoat,genCoverall,genCape,genGear};')(56, 56, dir); } catch (e) { console.log('  eval3: ' + e.message); return null; } };
