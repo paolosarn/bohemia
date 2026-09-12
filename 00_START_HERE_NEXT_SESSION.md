@@ -26264,7 +26264,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): THE AERIAL JUDGED AT THE SEAM - FAIL on the
+ROUND LOG 9/13 (latest): [judge tracks] SHIPPED - PASS. Trails fade
+along their length with the head brightest (the red one reads direction
+at a glance), holders' inks stay thin marks, no scribble at map zoom
+(border rims do not draw there) and the keep-it-true rule is in the
+verdict: a trail is the only mark with a luminance gradient along a
+path. ROUTED CATCH for UI via the coordinator: at whole-map zoom the
+feed phone covers the north-east quarter of the valley - the one view
+meant to show everything sits under the phone; it should yield or dock
+there. NEXT: [judge the swaps] is the next OPEN judgeable line (Trades
+flannel + Mob charcoal on the walked surface).
+PREVIOUS: THE AERIAL JUDGED AT THE SEAM - FAIL on the
 card's first question, with respect for what landed: the diagram is
 gone, tiles are live, hue and grid and greyscale all pass. But 71.6% of
 the world sits below 0.43 luminance and the ground band holds 16% - the
