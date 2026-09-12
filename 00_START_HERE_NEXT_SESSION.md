@@ -7130,7 +7130,67 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [purple leak]: THE RESERVATION GATE EXISTS, IS
+COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 2: "ABOUT 20 MAP-ONLY
+DISTRICTS" IS EIGHT, AND SEVEN ARE VEGAS LANDMARKS. *** Nothing on his screen changed; this
+round was an audit and a gate. NOT IN A TAB YET.
+
+THE ROW'S PREMISE RESTS ON A NUMBER THAT IS WRONG BY 2.5x, AND SO DOES A LAW. The FACTION
+TOWNS law (9/4) says "the buildings a fortress needs that nobody has drawn are the ~20
+map-only districts already on ART's queue; build them in tier order", and this section's STATE
+line says the same "about 20". It is EIGHT, and not one is a fortress building.
+
+*** READ THIS BEFORE CONCLUDING ANYTHING IS MISSING. THERE ARE FOUR REGISTRIES. ***
+    DISTGEN      61   engine/bohemia_world.js
+    SURFACEGEN   10   the roads and the raw land -- FORTY LINES BELOW DISTGEN IN THE SAME
+                      FILE, with a comment saying "surfaces, never districts: nobody bases a
+                      faction on a mountain"
+    the KIT       5   KIT.get(name), and ONLY after a registrar (bohemia_landmarks.js) is
+                      required -- never a property on the module object
+    the overmap  79   bohemia_overmap.js DISTRICT
+My first pass asked three of the four and got 18 MISSING, headed by mountain, desert, water,
+freeway. I was one keystroke from recording that the valley cannot draw its own mountains.
+FOURTH TIME THIS LANE HAS BELIEVED A CLEAN NEGATIVE FROM THE WRONG ORACLE -- a filename, a
+module property, a gate's filename match, now a second registry in the same file. First time
+I caught it before it reached a record.
+
+THE EIGHT, AS CELLS ON A REAL 96x96 MAP (not as names -- a name nothing places costs nothing):
+    sphere 4 · highroller 1 · sign 1 · strat 1 · springs 1 · luxor 1 · robofactory 1
+    beltway 0  -- NEVER PLACED. Known to the graphics engine, in the kit's ROADSET, discussed
+                  by name in bohemia_arterial.js, and on no cell at all. Not debt.
+Confirmed against the world's OWN API: all seven are isAutoDistrict false, isSurfaceCell
+false, districtZone null.
+
+AND THE PLACEMENT IS GOOD CANON NOBODY DREW: strat 53,28 north · sphere 56,42 and highroller
+55,46 middle · luxor 53,61 and the Welcome sign 55,65 south · springs 40,23 west. That is the
+real geography of Las Vegas and a player walking to any of it finds bare ground.
+
+BUILT: gates/map_names_it_gate.js, registered in the suite as MAP NAMES IT, 9/0 in 0.2s.
+One claim: if the map names it, something must be able to draw it. It asks ALL FOUR registries
+BY RUNNING THEM, counts CELLS not names, and REQUIRES THE KIT'S REGISTRAR BEFORE ASKING THE
+KIT -- not doing that returns an empty answer indistinguishable from "these do not exist",
+which is the exact mistake the gate is about, and is one of its arms. Ratcheted at 7 names
+over 10 cells; a NEWLY placed undrawable name is red whatever the totals say. Mutation-tested
+three ways, all red, restore green.
+
+NOT COOKED THIS ROUND, AND THE REASONS MAKE THE NEXT ONE FAST:
+  * THE SPHERE IS THE WORST FIRST CANDIDATE, NOT THE BEST. It is a 2x2 blob and spec() in
+    bohemia_landmarks.js plans a SINGLE cell. Multi-cell needs the clusterBoundsOf treatment
+    the airfields already use ("a runway is three kilometres long and a cell is 96 metres").
+    A different mechanism, not a bigger version of the same one.
+  * The other six ARE single-cell and follow the `fort` spec pattern exactly (palette, legend,
+    notes, a build function of a.rect / a.ring / a.set / a.scatter). But registering one also
+    needs a DISTGEN row in engine/bohemia_world.js, which is WORLD's file -- ONE SYSTEM, ONE
+    SESSION says check that boundary before crossing it, not after.
+  * BEST FIRST COOK: the WELCOME TO LAS VEGAS SIGN. One cell, the most recognisable object in
+    the city, and honest at 96 m: the Strip lanes, the median, the sign, the parking loop.
+
+-> [FOR THE COORDINATOR] the STATE line's "about 20" and the towns law's ART clause both rest
+   on the wrong number. Lanes change status words only, so I did not edit the STATE line.
+RECORD: records/BOHEMIA_COOK_THE_TWENTY_MAP_ONLY_DISTRICTS_ARE_EIGHT_9_12_26.md
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [purple leak]: THE RESERVATION GATE EXISTS, IS
 REGISTERED IN THE SUITE AS `PURITY`, AND COULD NOT FAIL. *** Nothing on his screen changed;
 this round was a checker. NOT IN A TAB YET.
 
