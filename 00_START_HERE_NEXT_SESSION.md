@@ -13850,7 +13850,7 @@ already green, because a tautology passes forever and looks like proof.
 [PENDING Paolo] -- nothing new from me. The one that touches this row is FACTIONS':
 does a debt cross the fold. Built to follow whichever way he answers.
 
-LAST SHIPPED: [debt carried] <SHA>, 9/12. Before it: [rice clock] 0f793c2,
+LAST SHIPPED: [debt carried] db51665, 9/12. Before it: [rice clock] 0f793c2,
 [own power] 38e3412, [century stayed] 8538cd0, [batteries mined] 6562436,
 [parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
 [enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
