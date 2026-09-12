@@ -2988,6 +2988,33 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('CHECK THE CLAIM', ['node', 'gates/check_the_claim_gate.js'],
+     'QUESTS row [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE, 9/12. THE RESEARCH: '
+     'of 158 measured deception cues 118 mean NOTHING, pauses among them, and people catch a lie '
+     '47% of the time, which is a coin. So THE LIAR IS BELIEVED and nothing in his mouth is a '
+     'tell, and the design rule is that an ask can be a CLAIM checked by GOING TO THE THING -- '
+     'never a highlighted option, never a roll, never a face. Measured before a line was written: '
+     'nothing in engine/ checked a claim; the seven act-one asks are each hand-written to the rule '
+     'and that is where it stopped. THE ADMISSION TICKET IS STOLEN FROM ITS SIBLING: bohemia_asks '
+     'refuses any candidate that names no visible change, so this refuses any candidate that '
+     'cannot be checked by walking somewhere -- an unfalsifiable statement is atmosphere, not a '
+     'claim. *** AND THE CHECK THIS GATE EXISTS FOR IS THAT A TELL MUST NOT PREDICT. *** The '
+     'tempting version is the one every game ships, where the liar fidgets, which is the 118 '
+     'meaningless cues rebuilt as a mechanic and would delete the row, because if manner predicts '
+     'nobody ever walks. Manner is a hash of the PLACE, so it cannot carry truth even in '
+     'principle, and the gate splits 480 claims by true and false and fails if the distributions '
+     'differ at all: the control that makes liars speak quickly opens a 48-point gap and goes red. '
+     'SEVEN NEGATIVE CONTROLS, all caught. THREE MEASUREMENTS ON THE WALKED SURFACE CHANGED THE '
+     'DESIGN: 25,921 cells swept and every one dark; POWER.at answers {live:false,id:-1} for EVERY '
+     'coordinate including NaN and a million cells outside the valley, so the grid NEVER says it '
+     'does not know and a naive seam would settle a claim about a place that does not exist; and '
+     '120,801 cells probed for a real circuit id found ZERO. The seam reads id:-1 as no answer '
+     'because of that, so a claim about nothing comes back UNSETTLED instead of quietly TRUE. '
+     'AND ONE CHECK IS STRUCTURAL AND SAYS WHY: a seam reading the player\'s feet instead of the '
+     'claim\'s place cannot be caught by walking today, because his feet answer nothing either, '
+     'so the gate holds it by reading the code and says out loud that the behavioural half is '
+     'blind to it until the grid has circuits',
+     True),
     ('DIRECT QUESTS',  ['node', 'gates/direct_quests_gate.js'],
      'QUESTS row [edit quests] DIRECT-COVERS-QUESTS, 9/12, against the 8/12 law HE MUST BE ABLE '
      'TO DIRECT IT. His words: "I CANT DIRECT QUESTS OR CUTSCENES RN WTF IS WRONG WITH YOU." The '

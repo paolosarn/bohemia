@@ -9925,6 +9925,108 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 29 [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_claims.js         the same valley, read as something somebody SAYS
+  gates/check_the_claim_gate.js    58 passed, 0 failed, REGISTERED the same round
+  slices/BOHEMIA_CITY_WORLD.html   the module inlined + 5 read-only seams
+  BUILD 9/12v - GO AND SEE FOR YOURSELF
+  records/BOHEMIA_GO_AND_SEE_FOR_YOURSELF_9_12_26.md
+
+THE RESEARCH, KEPT ON THE BOARD PER RULE 11: of 158 measured deception cues 118 mean
+NOTHING, pauses among them, and people catch a lie 47% of the time, which is a coin.
+THE LIAR IS BELIEVED and nothing in his mouth is a tell. An ask can be a CLAIM, and a
+claim is checked by GOING TO THE THING.
+
+MEASURED BEFORE A LINE WAS WRITTEN: nothing in engine/ checked a claim. The seven
+act-one asks are each hand-written to the rule and that is where it stopped. This
+makes it the WORLD's behaviour: the same snapshot bohemia_asks.js reads, asked a
+different question -- not what does this person want, but what do they SAY.
+
+THE ADMISSION TICKET IS ITS SIBLING'S, DELIBERATELY. bohemia_asks refuses a candidate
+that names no visible change, before anybody is asked anything. So this refuses one
+that cannot be checked by walking somewhere. An unfalsifiable statement is atmosphere,
+not a claim, and atmosphere does not get to waste a player's day.
+
+*** THE HARD PART WAS REFUSING THE OBVIOUS FEATURE. *** Every game makes the liar
+fidget. That is the 118 cues that mean nothing, rebuilt as a mechanic, and it would
+have quietly deleted this row: if manner predicts, nobody ever walks. So manner is a
+hash of the PLACE, which means it cannot carry truth even in principle, and the gate
+splits 480 claims by true and false and fails if the distributions differ at all.
+The control that makes liars speak quickly opens a 48-POINT GAP and turns it red.
+
+BELIEVING IS THE DEFAULT AND NOT A MENU STATE: before anybody walks, the world ACTS
+ON THE CLAIM. A lie nobody checked leaves NO MARK. Catching one hands a deed row to
+the ledger that already exists, so no second standing system was built.
+
+*** THREE MEASUREMENTS ON THE WALKED SURFACE, EACH ONE KILLING THE VERSION BEFORE IT,
+AND THE BIGGEST FINDING IS ABOUT THE GRID AND NOT ABOUT CLAIMS. ***
+  1. Swept 25,921 cells across a 4,000-cell span: every one reads dark.
+  2. Asked the grid outside the valley. POWER.at ANSWERS {live:false, id:-1} FOR
+     EVERY COORDINATE IN EXISTENCE -- a million cells away, negative cells, even NaN.
+     IT NEVER SAYS IT DOES NOT KNOW. Any system that trusts it will confidently
+     report a place that does not exist as dark. id:-1 is its own marker for "no
+     circuit here", and the seam reads it that way because of this probe.
+  3. Probed 120,801 cells for a REAL circuit id. ZERO. The grid holds no circuit
+     anywhere the player can reach.
+
+AND THAT MADE THE DESIGN BETTER RATHER THAN SMALLER. The live seam fires: ctClaimNow
+returns a real claim. It rides the same snapshot row the live ASK rides, and that row
+is a circuit with id:-1 -- one that does not exist. THE CLAIM MACHINERY CATCHES THAT
+BY ITSELF: somebody says the block is dark, you walk there, and the world cannot
+settle it. UNSETTLED is the honest answer and the module produces it without being
+told. A design that only answered true or false would have called a claim about
+nothing TRUE.
+
+THE BUG I MADE: mannerFor used the repo's usual 32-bit FNV with a plain `*`. In
+JavaScript that product runs past 2^53 and THE LOW BITS ARE LOST, so `% 8` collapsed
+-- b01, b07, b12 and b20 all landed in one bucket and every person on every block
+would have said it the same way. Math.imul is the multiply this needs. The spread is
+checked by the gate (200 block ids, all 8 manners) rather than eyeballed.
+FOR ANY LANE USING strHash: THE SAME PATTERN IS IN THE REPO'S OWN strHash, and it has
+the same collapse for short keys. Not mine to fix; worth knowing before you hash a
+block id.
+
+AND A CHECK THAT PASSED FOR THE WRONG REASON, WHICH IS THE LESSON TO COPY. My first
+surface proof took any cell the grid answered about. A mutation that made the seam
+read the PLAYER'S FEET instead of the claim's place SAILED STRAIGHT THROUGH, because
+both cells were dark so both readings gave the same verdict. On today's world that
+mutation cannot be caught by walking at all -- his feet answer nothing either -- so
+the gate holds it STRUCTURALLY, by reading the seam's code, AND SAYS OUT LOUD that
+the behavioural half is blind to it until the grid has circuits. A test that passes
+for the wrong reason is worse than no test.
+
+SEVEN NEGATIVE CONTROLS, ALL CAUGHT: the tell that predicts (2b, 2c); the claim
+settling itself (2a, 6a-6d, 7b, 7c); marking a lie nobody checked (7a, 7e); a claim
+with nowhere to go (1a); the broken multiply (9a, 9b); the seam settling a place with
+no circuit (R5, R6, R8, R9, R10b); the seam reading the player's feet (S5, S6).
+And one the controls earned: a mutation that emptied the sample used to KILL the gate
+mid-run instead of reporting. A gate that dies is a gate nobody can read.
+
+GATES: check_the_claim 58/0, asks_visible 38/0, direct_quests 37/0, canon_quests
+843/0, quest_study 642/0, the_job_pays 99/0, ask_for_more 43/0, alpha_loads 20/0,
+demo_build 25/0, shipped_truth 41/0, pages_publish 18/0, gate_registry 6/0,
+nomarkers 6/0.
+
+*** THIS LANE'S NEXT ROW, AND IT CAME OUT OF THIS ONE: THE ONE LIVE ASK THE GAME
+PRODUCES IS ABOUT A CIRCUIT THAT DOES NOT EXIST. *** ctAskNow returns
+light_comes_back with `about: -1`, because ctAskSnapshot reports POWER.at's id:-1 row
+as a dark circuit. asks_visible_gate R6 demands "a dark block with somebody on it
+produces an ask in the browser", so fixing it would take [asks exist]'s own shipped
+ship test red inside a different job, which rule 6 forbids. It is named here and it
+is the first thing to pick up.
+
+[STILL NOT MINE] tools/bohemia_direct_tab_patch.py generates a row shape the alpha no
+longer uses (round 28 replaced it with engine/bohemia_direct_bq.js). Second round
+flagging it.
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is stale and refuses to write:
+its QUESTS list holds 5 of the 37 the city carries. Seventh round flagging it.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] (still blocked, re-measured again
+this round: bohemia_loop.js inlined in neither the city nor the alpha, 0 hits each,
+and the only reader of s.advanceTerritory is bohemia_loop.js line 681 -- SHARED's
+BB-LOOPLESS, still OPEN), [act two] PARKED BY HIM, [company in asks] (Paolo 9/11),
+[first ask] THE-FIRST-ASK-A-STRANGER-MEETS.
+
 ROUND 28 [edit quests] DIRECT-COVERS-QUESTS, SHIPPED. QUESTS, BUILD.
   engine/bohemia_direct_bq.js      a quest as rows he can change, and back again
   gates/direct_quests_gate.js      37 passed, 0 failed, REGISTERED the same round
