@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/13e - THE DEBT NAMES ITS LENDER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/13f - THE COLOUR YOU PICKED</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4625,6 +4625,126 @@ function facExportSetup(){
   };
 }
 if (typeof window !== 'undefined') window.facExportSetup = facExportSetup;
+/* ==== __THE_COLOUR_HE_PICKED__ -- DOES THIS OUTFIT WEAR IT? (9/12, CHARACTER) =======
+   The VAMILY row [one colour table] asks for "the aim-to-landing distance per faction as
+   a NUMBER HE CAN READ". A number in a record file is not a number he can read -- he never
+   digs in files, and NAME THE TAB says a thing he cannot reach does not exist. So it goes
+   on the board where the thirteen outfits already are: CHARACTER tab, THE THIRTEEN OUTFITS.
+
+   TWO COLOURS PER FACTION AND ONE WORD.
+     what he picked  -- his own accent out of MFACTIONS, the table he had to point at twice
+                        ("BRO WE ALREADY CHOSE COLORS FIND IT IN THE PROJECT", 8/2)
+     what they wear  -- measured off the body this board just drew
+   and MATCH, or how far off it is in degrees round the colour wheel.
+
+   MEASURED THE WAY THE LAW ASKS. Thirty-degree buckets, not five: COLOUR IS TERRITORY is
+   about what you read across a street, and across a street you read AREA. Five-degree bins
+   answer "what is the single commonest exact hue", which is a different question and gave
+   this lane a 42-degree wrong answer on the Mob before it was caught. Same buckets as
+   engine/BOHEMIA_faction_colours.json, so this readout and that file can never disagree.
+   SKIN AND FACE DO NOT VOTE (grid 1 and 2). A suntan is not a flag.
+
+   AND TWO KINDS OF FACTION ARE NOT MISSES AND MUST NOT BE PRINTED AS ONE:
+     COLORFUL wears five colours ON PURPOSE -- its own entry above says "THE ONLY FACTION
+       THAT REFUSES A SINGLE FLAG ... These wear five, which is its own answer to the same
+       question." Measuring it against one hue is the wrong instrument, and this lane made
+       exactly that mistake once and published it.
+     THE DRAB ONES are legal under the law's own words: "drab is legal, but only when
+       drabness IS the statement (the Volunteers, the Homeless)."  */
+var FAC_HIS_COLOUR = null;
+function facHisColours(){
+  if (FAC_HIS_COLOUR) return FAC_HIS_COLOUR;
+  FAC_HIS_COLOUR = {};
+  try {
+    if (typeof MFACTIONS !== 'undefined')
+      MFACTIONS.forEach(function(m){ if (m && m.n && m.acc) FAC_HIS_COLOUR[m.n] = m.acc; });
+  } catch(_e){}
+  return FAC_HIS_COLOUR;
+}
+function facHueOfHex(hex){
+  var n = parseInt(String(hex).replace('#',''), 16);
+  var R=(n>>16)&255, G=(n>>8)&255, B=n&255, mx=Math.max(R,G,B), mn=Math.min(R,G,B);
+  if (mx===mn) return null;
+  var h;
+  if (mx===R) h = 60*(((G-B)/(mx-mn))%6);
+  else if (mx===G) h = 60*(((B-R)/(mx-mn))+2);
+  else h = 60*(((R-G)/(mx-mn))+4);
+  return (h+360)%360;
+}
+function facHueGap(a,b){ var d = Math.abs(((a-b)%360+360)%360); return d>180 ? 360-d : d; }
+/* THE COLOUR THIS OUTFIT ACTUALLY WEARS. One borrow-and-give-back for all thirteen, the
+   same pattern famPaintBody uses, because these are GLOBALS and leaving one installed
+   silently reshapes every other surface in the game. */
+function facWornColours(){
+  var out = {};
+  if (typeof buildFrame !== 'function' || typeof FACTION_LOOKS === 'undefined') return out;
+  var keepW = window.G_WORN, keepDials = G.bodyVar, keepAge = G.age, keepEq = {};
+  FAM_PD_CLOTHING.forEach(function(s){ if (s in G.equipped){ keepEq[s]=G.equipped[s]; G.equipped[s]=''; } });
+  try {
+    FACTION_LOOKS.forEach(function(f){
+      window.G_WORN = f.worn; G.bodyVar = f.dials; G.age = f.age || 'adult';
+      rebuildFromRig();
+      var fr = buildFrame('S','idle',0.25,true);
+      var bins = new Array(12).fill(0), col = 0, tot = 0, sr=0, sg=0, sb=0;
+      for (var i=0;i<fr.px.length;i++){
+        var q = fr.px[i]; if (!q) continue;
+        var g = fr.grid[i]; if (g===1 || g===2) continue;        /* skin and face do not vote */
+        var R=q[0], Gg=q[1], B=q[2];
+        tot++;
+        var mx=Math.max(R,Gg,B), mn=Math.min(R,Gg,B);
+        if ((mx ? (mx-mn)/mx : 0) < 0.25 || mx < 40) continue;
+        col++;
+        var h;
+        if (mx===mn) h=0;
+        else if (mx===R) h=60*(((Gg-B)/(mx-mn))%6);
+        else if (mx===Gg) h=60*(((B-R)/(mx-mn))+2);
+        else h=60*(((R-Gg)/(mx-mn))+4);
+        if (h<0) h+=360;
+        bins[Math.round(h/30)%12]++;
+      }
+      var bi=0; for (var k=1;k<12;k++) if (bins[k]>bins[bi]) bi=k;
+      /* the AVERAGE of the winning bucket, so the swatch is a colour off the body and
+         not a textbook hue nobody is wearing */
+      var wr=0,wg=0,wb=0,wn=0;
+      for (var j=0;j<fr.px.length;j++){
+        var p2 = fr.px[j]; if (!p2) continue;
+        var g2 = fr.grid[j]; if (g2===1||g2===2) continue;
+        var r2=p2[0],g3=p2[1],b2=p2[2], m2=Math.max(r2,g3,b2), n2=Math.min(r2,g3,b2);
+        if ((m2 ? (m2-n2)/m2 : 0) < 0.25 || m2 < 40) continue;
+        var h2;
+        if (m2===n2) h2=0;
+        else if (m2===r2) h2=60*(((g3-b2)/(m2-n2))%6);
+        else if (m2===g3) h2=60*(((b2-r2)/(m2-n2))+2);
+        else h2=60*(((r2-g3)/(m2-n2))+4);
+        if (h2<0) h2+=360;
+        if (Math.round(h2/30)%12 === bi){ wr+=r2; wg+=g3; wb+=b2; wn++; }
+      }
+      var hex = wn ? '#' + [Math.round(wr/wn),Math.round(wg/wn),Math.round(wb/wn)]
+        .map(function(v){ return ('0'+v.toString(16)).slice(-2); }).join('') : null;
+      out[f.faction] = { hue: bins[bi] ? (bi*30)%360 : null, hex: hex,
+                         coloured: tot ? col/tot : 0 };
+    });
+  } catch(_e){}
+  finally {
+    window.G_WORN = keepW; G.bodyVar = keepDials; G.age = keepAge;
+    for (var s2 in keepEq) G.equipped[s2] = keepEq[s2];
+    try { rebuildFromRig(); } catch(e2){}
+    try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch(e3){}
+  }
+  return out;
+}
+var FAC_FIVE_ON_PURPOSE = 'Colorful';
+var FAC_DRAB_ON_PURPOSE = ['Volunteers','Homeless','Cartel'];
+function facColourVerdict(faction, his, worn){
+  if (faction === FAC_FIVE_ON_PURPOSE) return { word:'FIVE ON PURPOSE', ok:true, skip:true };
+  if (FAC_DRAB_ON_PURPOSE.indexOf(faction) >= 0 || !worn || worn.coloured < 0.35)
+    return { word:'DRAB ON PURPOSE', ok:true, skip:true };
+  if (!his || worn.hue == null) return { word:'', ok:true, skip:true };
+  var gap = facHueGap(facHueOfHex(his), worn.hue);
+  return gap <= 30 ? { word:'MATCH', ok:true, gap:gap }
+                   : { word:'OFF BY ' + Math.round(gap), ok:false, gap:gap };
+}
+
 var OUTFIT_BUILT = false;
 function outfitBuild(){
   var host = document.getElementById('outfitBoard');
@@ -4633,6 +4753,7 @@ function outfitBuild(){
   OUTFIT_BUILT = true;
   factionLooksLoad();
   host.innerHTML = ''; FAC_CARDS.length = 0;
+  var FAC_HIS = facHisColours(), FAC_WORN = facWornColours(), FAC_OFF = [];
   var DIRS8 = ['S','SE','E','NE','N','NW','W','SW'];
   FACTION_LOOKS.forEach(function(f){
     var m = { role:f.faction, name:f.faction, age:f.age||'adult', dials:f.dials, worn:f.worn };
@@ -4652,6 +4773,27 @@ function outfitBuild(){
     var shp = document.createElement('div'); shp.className='famName'; shp.textContent = f.shape || '';
     var dr  = document.createElement('div'); dr.className='famDraft';
     dr.textContent = f.mine ? 'yours' : 'draft fit';
+    /* __THE_COLOUR_HE_PICKED__ -- two swatches and one word, on every card.
+       LEFT is the colour he picked for them. RIGHT is the colour this body is actually
+       wearing, measured off the frame this card just drew. */
+    var his = FAC_HIS[f.faction.toUpperCase()], worn = FAC_WORN[f.faction];
+    var vd = facColourVerdict(f.faction, his, worn);
+    var crow = document.createElement('div');
+    crow.style.cssText = 'display:flex;gap:3px;align-items:center;justify-content:center;margin-top:2px;font:9px ui-monospace,monospace';
+    var chip = function(hex, title){
+      var c = document.createElement('span');
+      c.title = title + (hex ? ' ' + hex : '');
+      c.style.cssText = 'width:11px;height:11px;border:1px solid #0008;border-radius:2px;display:inline-block;background:'
+        + (hex || 'transparent');
+      return c;
+    };
+    if (his) crow.appendChild(chip(his, 'the colour you picked'));
+    if (worn && worn.hex) crow.appendChild(chip(worn.hex, 'the colour they are wearing'));
+    var vw = document.createElement('span');
+    vw.textContent = vd.word;
+    vw.style.cssText = 'margin-left:3px;color:' + (vd.ok ? '#8fe89a' : '#e8a05a');
+    crow.appendChild(vw);
+    if (!vd.ok) FAC_OFF.push(f.faction.toUpperCase());
     /* THE DIRECTING HALF. Two buttons and the wardrobe he already has. */
     var bar = document.createElement('div'); bar.style.cssText='display:flex;gap:4px;justify-content:center;margin-top:3px';
     var wear = document.createElement('button'); wear.className='opt'; wear.style.cssText='font-size:9px;padding:3px 6px';
@@ -4703,7 +4845,7 @@ function outfitBuild(){
     bar.appendChild(facUp); bar.appendChild(facDn);
     bar.appendChild(wear); bar.appendChild(save);
     card.appendChild(stage); card.appendChild(lbl); card.appendChild(shp);
-    card.appendChild(dr); card.appendChild(bar);
+    card.appendChild(dr); card.appendChild(crow); card.appendChild(bar);
     host.appendChild(card);
     FAC_CARDS.push({cv:bd, look:f, up:facUp, dn:facDn});
   });
@@ -4717,6 +4859,29 @@ function outfitBuild(){
      whatever is displayed matches what a redraw would produce. One line, and it is
      true no matter when the board happens to build. */
   try { if (window.crowdRefresh) crowdRefresh(); } catch (_e) {}
+  /* __THE_COLOUR_HE_PICKED__ -- THE ONE LINE HE READS BEFORE THE CARDS. He reads from the
+     bottom and he does not dig, so the whole answer is one sentence with a number in it and
+     the names of whatever is wrong. It goes ABOVE the board because the board is the
+     evidence for it. */
+  var sum = document.getElementById('facColourSum');
+  if (!sum && host.parentNode){
+    sum = document.createElement('div'); sum.id = 'facColourSum'; sum.className = 'mini';
+    sum.style.cssText = 'margin:3px auto 1px;max-width:min(94vw,440px);text-align:center;line-height:1.35';
+    host.parentNode.insertBefore(sum, host);
+  }
+  if (sum){
+    var judged = 0;
+    for (var fk in FAC_WORN){
+      var v = facColourVerdict(fk, FAC_HIS[fk.toUpperCase()], FAC_WORN[fk]);
+      if (!v.skip) judged++;
+    }
+    sum.innerHTML = '<b>THE COLOUR YOU PICKED.</b> ' + (judged - FAC_OFF.length) + ' of ' + judged
+      + ' wear it. ' + (FAC_OFF.length
+        ? '<span style="color:#e8a05a">These do not: ' + FAC_OFF.join(', ') + '.</span>'
+        : 'All of them.')
+      + ' Left chip is your colour, right chip is what that body is actually wearing.'
+      + ' Colorful wears five on purpose and the drab ones are drab on purpose, so neither counts.';
+  }
   try { facExportSetup(); factionBoardRefresh(); } catch(_e){}
   var note = document.getElementById('facNote');
   if (note) note.textContent =

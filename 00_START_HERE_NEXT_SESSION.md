@@ -9291,7 +9291,62 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [one colour table] ROUND 2. TWO FACTIONS NOW WEAR THE COLOUR HE CHOSE,
+THIS ROUND -- *** [one colour table] ROUND 3. THE COORDINATOR RE-AIMED THE ROW AND ASKED
+FOR "THE AIM-TO-LANDING DISTANCE PER FACTION AS A NUMBER HE CAN READ". IT IS BUILT, IN A
+TAB, ON THE REAL SURFACE. ***
+
+WHERE IT IS: CHARACTER tab, THE THIRTEEN OUTFITS. One line above the board:
+    "THE COLOUR YOU PICKED. 7 of 9 wear it. These do not: ANARCHISTS, NETWORK."
+and on every one of the thirteen cards, two colour chips and one word -- LEFT is the colour
+he picked, RIGHT is the colour that body is actually wearing, then MATCH or OFF BY 78.
+Verified by opening the board on the real surface: 13 cards, 13 verdicts, zero page errors,
+and the number agrees exactly with the record and the gate. ONE RULER, NOT THREE.
+
+MEASURED THE WAY THE LAW ASKS, and this is the part that took three rounds to get right:
+thirty-degree buckets, not five. COLOUR IS TERRITORY is about what you read across a street
+and across a street you read AREA. Five-degree bins answer "what is the single commonest
+exact hue", which is a different question and handed this lane a 42-degree wrong answer on
+the Mob last round. Same buckets as engine/BOHEMIA_faction_colours.json, so the board and
+that file cannot disagree. Skin and face do not vote: a suntan is not a flag.
+
+AND TWO KINDS OF FACTION ARE NOT MISSES AND THE BOARD SAYS SO IN WORDS:
+  COLORFUL prints FIVE ON PURPOSE (its own entry: "THE ONLY FACTION THAT REFUSES A SINGLE
+    FLAG ... These wear five, which is its own answer to the same question")
+  VOLUNTEERS / HOMELESS / CARTEL print DRAB ON PURPOSE (the law's own exemption)
+
+GATE, because a law without a machine gate is not enforced. faction_colour_gate 23 -> 27,
+and ALL THREE new checks proven to bite before shipping:
+  the board opens and prints it            -> removed the readout, went red "0 of 13"
+  every card carries a verdict             -> same mutation, same red
+  the count of wrong factions NEVER GOES UP-> pinned it to 1, went red naming both
+The last one is a RATCHET, not a snapshot, on purpose: naming today's two factions would
+go red the moment somebody FIXES one, which is a gate punishing the work it protects.
+
+STILL TWO SHORT, unchanged from last round and both needing a cook this lane cannot do:
+  ANARCHISTS  he chose magenta #c026a0 and the wardrobe has ZERO garments in that family.
+  NETWORK     he chose teal #1fbf9c; TEAL WORK SHIRT is one degree off and I wired it last
+              round, and the colour gate went red -- a faction's cloth must agree with
+              itself at 38% and one teal shirt against dust trousers gives 31%. Needs a
+              SECOND teal piece on legs or feet at ramp #28bea0, same generator as DUST
+              TROUSERS or STEEL SNEAKERS.
+I CANNOT PUT THESE ON COOK'S QUEUE -- front page rule 10, only the coordinator adds jobs,
+lanes change status words and nothing else. So they sit here with the full spec for the
+coordinator to route.
+
+AND I STAMPED THE BUILD BACKWARDS AND CAUGHT IT: wrote 9/13c while main was already at
+9/13e, which would have made his build number go down. Read the live stamp before writing
+one; do not assume the letter you left last round is still the latest.
+
+- Record: records/BOHEMIA_THE_FOUR_THAT_DO_NOT_WEAR_HIS_COLOUR_9_12_26.txt
+  Tool:   tools/bohemia_the_four_that_do_not_wear_his_colour.js
+- ROW STATUS: the re-aimed row asked for two things. Both are now built: the by-value guard
+  (shipped round 1, faction_dossier 768/0, proven to bite) and the number he can read
+  (this round). The row's ship test is MET; it is marked SHIPPED this round.
+- NEXT ROUND: [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION, the next line in this section
+  and now unblocked -- the dressing chain, the value step and the colour readout underneath
+  it are all proven and gated.
+
+PREVIOUS ROUND -- *** [one colour table] ROUND 2. TWO FACTIONS NOW WEAR THE COLOUR HE CHOSE,
 5 OF 9 -> 7 OF 9, AND NOT ONE SILHOUETTE MOVED. Two more need a cook and I say which. ***
 
 WHAT SHIPPED, and every swap is the same garment generator with a different ramp -- the

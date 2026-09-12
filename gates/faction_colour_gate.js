@@ -261,6 +261,62 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
      /BOHEMIA_FACTION_OUTFIT_VERDICTS\.txt/.test(src) && !/faction[^\n]*verdicts[^\n]*\.json/i.test(src));
   ok('and it has a notes box, because every judge board does', /id="facNotes"/.test(src));
 
+  /* ---- 4b  AND HE CAN SEE WHETHER THEY WEAR THE COLOUR HE PICKED (9/12) -----
+     The VAMILY row [one colour table] asks for "the aim-to-landing distance per faction as
+     a NUMBER HE CAN READ". A number in a record file is not that: he never digs in files,
+     and NAME THE TAB says a thing he cannot reach does not exist. So it is on the board in
+     the CHARACTER tab, and this holds it there.
+     A SOURCE GREP IS NOT ENOUGH FOR THIS ONE. The readout is computed at build time from
+     his MFACTIONS table and a live render, so the only honest check opens the board and
+     reads what it says -- which is also the check that catches it agreeing with nothing. */
+  {
+    /* its own browser: the four tests above closed theirs at line 80 and everything
+       between there and here is arithmetic on numbers already in hand. */
+    const bB = await chromium.launch({ args: ['--no-sandbox'] });
+    const pgB = await bB.newPage({ viewport: { width: 390, height: 844 } });
+    const bErr = [];
+    pgB.on('pageerror', e => bErr.push(String(e.message).slice(0, 120)));
+    await pgB.goto('file://' + ALPHA, { waitUntil: 'load' });
+    await pgB.waitForFunction(() => typeof outfitBuild === 'function' && window.FACTION_LOOKS, { timeout: 30000 });
+    const B = await pgB.evaluate(() => {
+      try { outfitBuild(); } catch (e) { return { threw: String(e.message) }; }
+      const sum = document.getElementById('facColourSum');
+      const cards = [...document.querySelectorAll('#outfitBoard .famCard')];
+      return {
+        summary: sum ? sum.textContent : null,
+        cards: cards.length,
+        verdicts: cards.filter(c => /MATCH|OFF BY|ON PURPOSE/.test(c.textContent)).length,
+        /* the faction names the board itself calls wrong, read off the board */
+        off: (function () {
+          const m = (sum ? sum.textContent : '').match(/These do not: ([^.]*)\./);
+          return m ? m[1].split(',').map(s => s.trim()).filter(Boolean) : [];
+        })(),
+        wear: (function () {
+          const m = (sum ? sum.textContent : '').match(/(\d+) of (\d+) wear it/);
+          return m ? [ +m[1], +m[2] ] : null;
+        })(),
+      };
+    });
+    await pgB.close(); await bB.close();
+    ok('*** HE CAN SEE WHETHER THEY WEAR THE COLOUR HE PICKED *** -- the thirteen-outfit '
+       + 'board opens with no page error and prints it' + (B.threw ? ' -- THREW: ' + B.threw : ''),
+       !B.threw && bErr.length === 0);
+    ok('and EVERY card carries a verdict, not just the broken ones ('
+       + B.verdicts + ' of ' + B.cards + ')', B.cards === 13 && B.verdicts === 13);
+    ok('and the headline is a NUMBER he can read, not an adjective ("'
+       + String(B.summary || '').slice(0, 60) + '...")', !!(B.wear && B.wear[1] > 0));
+    /* A RATCHET, NOT A SNAPSHOT. Naming today's two factions here would go red the moment
+       somebody FIXES one, which is a gate punishing the work it exists to protect. The
+       debt may shrink and may never grow: two are off today (ANARCHISTS and NETWORK, both
+       needing a cook this lane cannot do alone -- the wardrobe has no magenta at all, and
+       Network's teal shirt alone fails the coordination floor). Lower this number when one
+       lands; never raise it. */
+    const OFF_PIN = 2;
+    ok('*** AND THE NUMBER OF FACTIONS NOT WEARING HIS COLOUR NEVER GOES UP *** (at most '
+       + OFF_PIN + '; the board says ' + B.off.length + ' [' + B.off.join(', ') + '])',
+       B.off.length <= OFF_PIN);
+  }
+
   console.log('\n  faction        colour strength   biggest hue   share');
   for (const q of R) console.log('  ' + q.n.padEnd(14) + q.sat.toFixed(2).padStart(13) +
     String(q.dom).padStart(14) + ((100 * q.domShare).toFixed(0) + '%').padStart(8));
