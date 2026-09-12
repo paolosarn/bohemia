@@ -1188,114 +1188,85 @@ STILL CARRIED, AND STILL NOBODY'S:
 NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
 directly on top of Q2's finding that a lie is caught by the question and never by the manner.
 --- (this line was a bare row of equals signs, which is a git conflict marker; it sat between two lanes' blocks and belonged to neither, and it made gates/nomarkers_gate.js red for every lane that ran the suite. Replaced 9/11 by QUESTS with a plain rule. Nobody's handoff text was touched.)
-ANIMATION (animation-lr9y9i): 9/12 LATEST -- *** THE COAT FOLLOWS THE LEGS NOW.
-His second rig complaint is answered. TAB: CHARACTER (put a long coat on and walk
-it) and ANIMATION. Nothing to judge yet; one rig fix left before the 47 redos. ***
+ANIMATION (animation-lr9y9i): 9/13 LATEST -- *** ALL THREE OF HIS 9/7 RIG
+COMPLAINTS ARE ANSWERED. Elbows 9/11, the coat 9/12, the facing order now. The
+47 clips he thumbed down can be redone on a rig that no longer breaks them.
+TAB: ANIMATION and CHARACTER. Nothing to judge yet. ***
 
-TAB: CHARACTER and ANIMATION. Build 9/12w - THE COAT FOLLOWS THE LEGS.
+TAB: ANIMATION and CHARACTER. Build 9/13l - THE NEAR HAND DRAWS IN FRONT.
 
-ROW SHIPPED: [coat follows] THE-COAT-IS-TIED-TO-THE-LEGS.
-Paolo 9/7: "the trenchcoat, as will be the nature for any long jackets and coats,
-has to be done a lot better; it's glitching and popping out of place; tie it more
-to the legs, it feels like it's freestyling where to go."
+ROW SHIPPED: [facing order] THE-NEAR-HAND-DRAWS-IN-FRONT.
+Paolo 9/7: "when it's facing north-east the hand was behind the head even though
+it's supposed to be in front; some of the directions look like dog shit."
 
-TWO defects, and his one sentence named both. Measured on buildFrame's real posed
-grids, all eight facings, all 24 walk buckets. NOT on the gate mannequin: a
-mannequin has no stride and no swinging arm and cannot show either. (Proof: the
-CLOTHES 4X frozen-pixel hashes came back 1744/1744 UNCHANGED after this shipped.)
+FIRST, WHAT THE DRAW ORDER ACTUALLY IS, because two comments in the file disagree
+and one is wrong. The compositor keeps the FIRST part to claim a screen cell, so
+INDEX 0 IS NEAREST. paoloOrder(d) sorts the base list by BAKED.layerOverride[d],
+which exists for all eight facings and is his own authored export. The comment
+above the base ORDER still says "front-most last" from an older implementation;
+the sort's own comment is the true one. handOrder() rides on top and, before this
+round, changed that order for exactly two things: a clip declaring _gun, and S/N
+with _handsBack. Both once-dynamic per-pose rules are if(false&&...), retired 7/26
+because they inferred depth from a continuous signal and flipped an arm mid-swing.
 
-1 THE FREESTYLING. The skirt was an A-line cone about the TORSO's pixel centroid.
-  It consulted the legs exactly once -- for where to STOP -- and never for where
-  to BE. A stride opens the legs wider than a hip-width cone, so the coat ran in
-  the GAP BETWEEN TWO THIGHS with a whole thigh hanging outside it on each side.
-  Leg pixels sitting outside the coat, on rows the coat covers:
-    before 12.21%, worst facing 23%, worst single row 16 px
-    after   3.92%, worst facing 6.5%, worst single row  9 px
-  New rig helper legSpan(g) hands ANY generator the leg extent on every row; the
-  skirt reaches out to whichever leg swung, relaxes toward the hem so the boot
-  still comes out at the edge, and is capped so a wide stride bells the skirt
-  instead of pitching a tent (widest coat row / widest body row 1.19 with the cap,
-  1.56 without).
-  BUILT AND CUT: a centre-blend that also slid the panel's middle toward the leg
-  mass. With the reach already in it moved spill 4.07% -> 3.93% and made the
-  head-on coat track the legs WORSE (-0.93 -> -0.95), because in a stride two
-  legs' AVERAGE barely moves while their EDGES do. Code that measures the same
-  with and without it does not ship. Same call as the dead LOCK clamp on 9/11.
+DEFECT ONE, HIS SENTENCE WORD FOR WORD. 460 frames drew a hand BEHIND the head
+while its own forearm was drawn IN FRONT of it -- a wrist cut in half by the
+skull. EVERY ONE a gun clip, 66 of them on NE, the facing he named. The GUN-UNIT
+law's own first words are "hands holding a weapon are ONE unit with it" and the
+code moved parts 7 and 8 and left 5 and 6 exactly where they were. Every depth
+move takes the PAIR now, keeping the pair's authored inside order.
 
-2 THE POPPING, and this one was hiding. The skirt's base width came from the
-  torso's extent on exactly ONE row, its last. THE TORSO IS NOT WHAT IS VISIBLE
-  THERE: whichever arm is swinging covers part of that row and uncovers a sliver
-  of torso past it. Facing you, two CONSECUTIVE walk frames read the hip at 4 px
-  and then 14 px with nothing in the body moving. halfW snapped 6 -> 9 and the
-  whole skirt changed width three pixels a side, twice a beat. The coat changed
-  31% of its own area in one frame while the body changed 9.7% -- churning 2.3x
-  harder than the man wearing it. A hip is the torso's TYPICAL width, so it is
-  AREA OVER HEIGHT now. Six estimators were measured across all facings and
-  buckets first; every one that reads a row or a band still jitters 5-10 px. This
-  one jitters 4, and it needs no scale factor: 14.3 px against the old scanline's
-  13.1 on the real rig, 8 against its 7 on the mannequin. 30.8% -> 17.9%.
+DEFECT TWO. The head was behind the far arm on S and SE and IN FRONT of it on the
+other six, so an arm on the far side of the body painted over a skull sitting
+between it and the camera:
+    S 0   SE 0   E 4343   NE 8228   N 2577   NW 8469   W 4217   SW 7395  = 35,229
+And N was the worst kind: the head sat BETWEEN the two arms (armL 6, handL 7,
+head 8, face 9, armR 10, handR 11), so on a HEAD-ON facing -- where neither arm is
+nearer the camera -- every two-handed grip was split down the middle. two-hand,
+deadeye, crouch-aim-2h, spear-drive, pray, floor-rise: one grip, two depths.
 
-genCape's back drape was measured too (the other garment long enough to cover a
-striding leg): 0% spill N and NE, 0.1% NW. Already a wide panel. Left alone rather
-than touched for symmetry.
+THE RULE READS NOTHING FROM THE POSE, ON PURPOSE. Near is whichever arm THE
+AUTHORED ORDER ALREADY PUTS IN FRONT OF THE TORSO, so the answer is identical on
+every frame of a clip and cannot flicker the way the 7/26 rules did. Both arms
+near (S) leaves the head alone; both far (N) puts it in front of both, which is
+also what closes the grip split. Only the far pair moves, to just behind the face.
+RIG LAW holds: BAKED.layerOverride is untouched, pipeline law only. 35,229 -> 0
+and 460 -> 0.
 
-GATE: gates/coat_tied_to_the_legs_gate.js, in the suite as COAT ON LEGS. Ten
-claims: spill overall <= 7%, worst facing <= 12%, worst row <= 12 px, tent ceiling
-1.30, pop ceiling 22% facing you, a code claim that the width is not a scanline,
-and a CONTROL that runs the same spill ruler over a VEST (no skirt) and demands
-60%+ -- a ruler scoring the vest like the coat is measuring the body, not the
-garment. 4 mutations, all caught: skirt stops asking legSpan -> 3 red; hip back to
-one scanline -> 2 red; reach loses its cap -> tent red; vest grows a skirt ->
-control red.
-The hip claim is a CODE claim ON PURPOSE. A gate that recomputes the hip itself
-and checks its own arithmetic is testing the gate, not the game -- that mistake
-was made three times on the judge-list rulers on 9/5. The pop ceiling is its data.
+GATE: gates/near_hand_draws_in_front_gate.js, in the suite as NEAR HAND. Six
+claims over 6,720 frames. 3 mutations caught: bare hands in the gun rule -> 4 red;
+head rule skipped on laterals -> 3,840 frames red; head shoved in front of BOTH
+arms -> the CONTROL red and nothing else.
+THE CONTROL IS THE ONE THAT MATTERS: facing you both arms are near, so the head
+must stay BEHIND both. Every other claim would pass a rule that just shoved the
+head forward, which would silently change the S picture he has already seen. Its
+first cut went red for a good reason: a gun aimed AWAY on S is a hand on the far
+side of the body, so that pair belongs behind the head, and counting it as a
+failure was the ruler arguing with the geometry. Declared frames are excluded;
+768 undeclared S frames hold it.
 
-A RULER WAS THROWN AWAY THIS ROUND, WHICH IS THE PART WORTH KEEPING. The first
-one counted 1036 "orphan rows" -- coat rows with no leg on them -- and called them
-the defect. Looking at the picture killed it in one read: the upper skirt covers
-the HIP, where there is no leg by definition, and 32 of ~60 coat rows per frame
-are up there. When a number disagrees with a picture, go and look at the picture.
+GATES: the 52 that can see a body were run by name again (the suite still cannot
+finish -- see below). 46 green, 6 red, and the six are the SAME six that were red
+on clean origin/main earlier this round, with the same numbers: MOTION VISIBLE,
+RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST. None of them mine.
+VALLEY BREATHES is green now -- the flake fix from the coat round held.
 
-THE SUITE CANNOT FINISH, AND THAT IS A FLEET FACT, NOT A SLOW MACHINE. The full
-run hit its 2700s budget with 331 OF 603 GATES NEVER RUN -- this lane's entire set
-among them, COAT ON LEGS included. It is arithmetic: at the 13.5s a gate it
-measured itself, 603 gates need ~8100s. The suite prints the fix at the bottom of
-every run (--shard i/6, or --only <name>). Until somebody shards it, "I ran the
-suite" does not mean "everything was checked" for anybody. PLUMBER's row, flagged
-here because every lane is now shipping on a partial pass without saying so.
+THE SUITE STILL CANNOT FINISH and it is arithmetic, not a slow machine: it hit its
+2700s budget with 331 of 603 gates NEVER RUN, this lane's whole set among them, at
+13.5s a gate against ~8100s of work. It prints the shard command itself. PLUMBER's
+row; flagged again because every lane is shipping on a partial pass.
 
-WHAT WAS RUN INSTEAD: the 52 gates that can see a coat change -- every one that
-draws a dressed body, a face, a haircut, a crowd or a clip. 44 green, 7 red, and
-all seven re-run against a clean checkout of main:
-  MOTION VISIBLE, RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST
-  -- all six RED ON CLEAN MAIN TOO. Not mine. And two of them measure BETTER with
-  the coat fix in: faction outline spread 0.070 -> 0.072, cast variety 0.079 ->
-  0.084 against a 0.085 floor (that one is now one thousandth off passing).
-  VALLEY BREATHES -- GREEN on clean main. MINE, and it was a FLAKE.
+NOT DRAW ORDER, AND STILL WRONG, FOUND BY LOOKING AT HIS OWN FRAME
+(records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg): on NE the head sits up
+and to the RIGHT of the shoulders with a visible gap, joined by a thin pale strip.
+That is the POSE, not the layering, and no order can close it. It belongs to the
+redo, and whoever takes [redo killed] should start by looking at that panel.
 
-THE FLAKE, AND IT WAS THIS LANE'S OWN GATE. VALLEY BREATHES (shipped 9/5) failed,
-passed, then failed again on the SAME TREE with nothing changed between the runs.
-Cause: it sampled 2.2s of no input and demanded 3 renders. The heartbeat is one
-beat per 500ms so 2.2s expects 4 -- but the heartbeat deliberately SKIPS a beat
-while ANIM is in flight, and a camera tween landing inside the sample took it to
-2. One unit of headroom against a guard that can fire at any moment.
-FIXED LONGER, NOT LOOSER: 4.4s expects 8 and the floor is 4, so the beat can be
-blocked HALF the time and the claim still holds, while a dead valley -- 1 render,
-which is what it measured before the heartbeat shipped -- is still four times
-under it. Four consecutive green runs; with the heartbeat disabled it reports 0
-and goes red, so it still bites. A ruler whose answer depends on when you happened
-to look is not a ruler, and it was mine.
-
-NEXT: [facing order] THE-NEAR-HAND-DRAWS-IN-FRONT, the third and last rig fix.
-Read ahead this round: the per-facing draw order is real and lives in
-paoloOrder(d), driven by BAKED.layerOverride, with "lowest index = NEAREST =
-claims screen first". Note for whoever picks it up: the comment directly above
-the base ORDER says "front-most last" and the sort comment says lowest = nearest.
-Both cannot be true. Measure which one the pixels obey before changing anything.
-Then [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED. The law is fix the
-rig first: a rig that still draws the far hand on top is 47 clips he thumbs down
-again.
+NEXT: [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED. It is unblocked now:
+the law said not before the three rig fixes, and all three are in. Note in that
+row: the two headshot clips have HIS OWN LOCKED SPEC beside them
+(laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md section 9, four
+beats, verbatim) -- redo those to that text beat for beat.
 
 Nothing [PENDING Paolo].
 UI (ui-kmqmrf): 9/11 LATEST -- *** [phone object] SHIPPED. THE FEED IS A PHONE YOU CAN SEE. ***
