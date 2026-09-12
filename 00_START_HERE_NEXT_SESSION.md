@@ -17419,6 +17419,74 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [plates cost] BB-THE-FIGHT-EATS-TAPE -- NO TAPE, NO PLATE. V211. SHIPPED. ***
+MEASURED FIRST AND HALF OF IT WAS ALREADY BUILT BY ANOTHER LANE: the purse declares
+fight:plate, it spends `resources`, it ALREADY REFUSES at zero (INSUFFICIENT, wanted 1, short 1),
+and the city already spends when the fight comes home (live since 8/21, and another lane's gate
+asserts it) -- while THE BELL HANDED THE PLATE OVER AT pp:1 WITH THE POCKET EMPTY, and the decoded
+fight had ZERO mentions of a purse. A BILL YOU ALWAYS PAY AND NEVER FAIL IS NOT A RESOURCE YOU
+MANAGE. That is the half that was missing and it is the half that makes this a cost.
+
+*** AND THE RESET THE ROW ASSUMED EXISTED DOES NOT, MEASURED ON CLEAN MAIN SO IT IS NOT MINE. ***
+The row quotes day 10: "G.pp=PLATE_START runs at the top of every fight, so plates come back full
+at the next bell." ONLY TRUE ON THE TEST BENCH. That line lives in resetFightState, which V107
+wrote saying "EVERY PER-FIGHT FIELD LIVES HERE NOW, and both doors call it", and THE CITY IS A
+THIRD DOOR THAT CALLS NEITHER. Driven twice through a real street bump with the plate cracked in
+between: fight two started with 0 against a PLATE_START of 1, kit sentinel survived, while NEW
+ENCOUNTER on the bench correctly gave it back. ARMOUR HAD NEVER COME BACK AT A REAL BELL -- worse
+for the player than the row thought -- so YOU HAVE TO BUILD THE RESET TO BE ABLE TO CHARGE FOR IT.
+ROUTED, NOT FIXED: the same hole leaks the KIT and POWER between fights. The plate is this row's
+subject; power is a number this lane does not get to move on the way past, and the gate asserts the
+kit sentinel is still sitting there afterwards so the boundary is on the glass and not just claimed.
+
+THE AMOUNT IS NEVER WRITTEN DOWN ANYWHERE IN THE ROW. The door does not ask "is the balance at
+least one" -- that copies his 8/15 ONE into a second place and a copy drifts the day he tunes it.
+It builds a THROWAWAY purse holding exactly what you hold, runs the purse's OWN
+upkeep('fight:plate') on it, and reads the answer; the currency comes off the purse's own verb
+table; your real purse is never touched (five in the pocket, three questions, still five). AND THE
+GATE TUNES THE PURSE TO TWO to prove the bell follows his ruling rather than a copy: a pocket
+holding one starts refusing with not one line of the fight or the door edited.
+
+AND THE BELL DELIBERATELY DOES NOT DEBIT, which is the one place the build departs from the row's
+wording and it is named out loud. The spend is built, shipped, owned by the purse lane and held by
+its gate. A SECOND DEBIT WOULD CHARGE TWICE FOR ONE PLATE, which is worse than charging at the far
+end of the fight. THE BELL READS, THE EXISTING HANDLER SPENDS; measured, starting a fight moves the
+pocket by nothing. Every branch at the bell is a state the game already reaches: can pay, nothing
+changes; cannot pay, pp 0 (a cracked plate already leaves 0 and the fight says PLATE GONE); no
+stamp, nothing changes (the bench cannot reach a purse); the lesson, nothing changes (V207's
+stand-down, and the gate proves it is a stand-down by running the same stamp with the lesson off).
+THE PLATE PERKS GO WITH IT, a decision not an oversight: the row's words are absolute, PLATE
+CARRIER is the first BODY perk at level 1 so sparing perks would leave this decoration, and "no
+tape, no armour" is a rule a player can say out loud. The readout names how many it cancelled. The
+allowance duplicates NO perk list: applyPerks is idempotent for everything but pp and power, so the
+base pair plus the game's own applies IS the answer, and power goes straight back.
+
+*** AND A BUG IN MY OWN V207, FOUND BECAUSE IT WAS EATING THIS ROW'S LINE. *** The NO PLATE line
+did not appear. worldRead stood down when the fight carried an objective, commented "his objective
+owns it" -- AND THAT PREMISE IS FALSE: showObjective writes its own chip and never touches the
+readout. Every city fight carries a label, so that ONE condition meant V207's weather line could
+not speak on ANY of the four real entries. A row that only ever spoke on the test bench, which is
+exactly where I measured it. Fixed in both places; the gate asserts NO PLATE speaks WHILE an
+objective is present, and putting V207's condition back turns it red.
+TWO ROUNDS RUNNING THE DEFECT HAS BEEN THE SAME SHAPE: a thing that works when you call it yourself
+and never happens in the game. Last round a gate arm calling the function directly; this round a
+stand-down guarding nothing.
+
+gates/plate_costs_tape_gate.js 15/0, registered as PLATE COSTS TAPE. Mutation-proved FOUR ways,
+each landing on the right arm: the tape rule never bites -> 4 red; the amount copied into the door
+-> 1 red (the tune arm); the bell stops resetting -> 3 red; an objective silences the line again
+-> 1 red (the readout arm). NO DAMAGE BEFORE THE DIAL: PLATE_START still 1, PP_MAX still 3,
+applyDamage knows nothing about tape, and the bell authors no comparison against an amount.
+NOT MINE, checked by baselining clean main: four_verbs_gate is 31/1 on "A DAY OF WORK STILL PAYS
+ONE BATTERY", which is the purse lane's own arm and reads the same without V211.
+Record: records/BOHEMIA_COMBAT_NO_TAPE_NO_PLATE_9_12_26.md
+
+STILL OPEN FOR THIS LANE, from the PLUMBER's two notes on my board section and not touched this
+round: three of my tools DRAW and carry no REUSE CHECK block (city_ground, floor_cook,
+you_can_see_why_she_did_it), and two of my gates are red (legend_kept, pack). The plumber is right
+that a reuse check written by somebody who never opened the banks is worth nothing, so that one
+needs a real round and not a paragraph.
+
 THIS ROUND: FOUR ROWS SHIPPED -- [loot kept] (fe43746 and f8fe423), [guns close] plus the
 key-guard repair (efd64c7), and [rescue her] BB-PICKUP, the last one the Battle Brothers study's
 own "smallest row, highest feeling per line". Every sha read off main AFTER the push.
@@ -17493,9 +17561,9 @@ gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-prov
 NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
 Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
 
-QUEUE STATE: [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+QUEUE STATE: [plates cost] IS SHIPPED TOO. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
-THIS SECTION IS [plates cost] BB-THE-FIGHT-EATS-TAPE, then [enemies flee] BB-THE-ROUT.
+THIS SECTION IS [enemies flee] BB-THE-ROUT, after the entry-gate coin flip.
 
 *** AND THE SECOND GATE PASS AFTER THE MERGE FOUND A COIN FLIP IN THIS LANE'S OWN GATE. PICK THIS
 UP FIRST NEXT ROUND, BEFORE [plates cost]. *** combat_entry_gate read 43/0 before the rebase onto

@@ -2374,6 +2374,23 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('PLATE COSTS TAPE', ['node', 'gates/plate_costs_tape_gate.js'],
+     'NO TAPE, NO PLATE (VAMILY [plates cost] = BB-THE-FIGHT-EATS-TAPE, COMBAT 9/12). The row: "THE PLATE '
+     'YOU WEAR AT EVERY BELL IS FREE, AND IT SHOULD COST TAPE," because in the game he named the tools drain '
+     'after every fight and that is the single resource a player manages most. MEASURED FIRST AND HALF OF IT '
+     'WAS ALREADY BUILT BY ANOTHER LANE: the purse declares fight:plate, it spends `resources`, it already '
+     'REFUSES at zero (INSUFFICIENT, wanted 1, short 1), and the city already spends when the fight comes '
+     'home -- while the bell handed the plate over at pp:1 with the pocket empty, and the decoded fight had '
+     'ZERO mentions of a purse. A bill you always pay and never fail is not a resource you manage. '
+     'AND THE RESET THE ROW ASSUMED EXISTED DOES NOT, measured on clean main: G.pp=PLATE_START lives in '
+     'resetFightState, which V107 wrote saying "both doors call it", and THE CITY IS A THIRD DOOR THAT CALLS '
+     'NEITHER -- driven twice through a real street bump, fight two started with the cracked plate it walked '
+     'out with. So armour had never come back at a real bell and you have to build the reset to charge for '
+     'it. THE AMOUNT IS NEVER WRITTEN DOWN: the door runs the purse\'s OWN upkeep on a throwaway purse, and '
+     'this gate TUNES the purse to two to prove the bell follows his ruling instead of a copy of it. '
+     'Also held: with tape nothing changes, the bell never debits (the spend stays where it was, or you pay '
+     'twice), the perks go with it staged through the real tree, the bench and the teaching fight stand '
+     'down, and NO DAMAGE BEFORE THE DIAL with applyDamage knowing nothing about tape', True),
     ('PICKUP', ['node', 'gates/pickup_gate.js'],
      'YOU CAN GO BACK FOR HER (VAMILY [rescue her] = BB-PICKUP, COMBAT 9/12). The companion went down and '
      'stayed down forever: ALLY_DOWN_TURNS was declared and never read, with a comment admitting "picking him '
