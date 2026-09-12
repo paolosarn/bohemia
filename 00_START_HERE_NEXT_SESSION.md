@@ -13583,10 +13583,16 @@ freeway, beltway, interchange, rail, wash). SUBURB IS DELIBERATELY NOT ONE -- th
 table's own comment says "NO GLOBAL SPAWNS EVER: a district with no row spawns
 nothing, and there is deliberately nothing to fall back on". Correct design; not a
 bug to fix in the table.
-THE NEAREST ROAD DISTRICT IS 1 OVERMAP CELL = 128 FINE TILES. And the walk rate is
-real, not harness pacing: 50 back-to-back steps with 60 clear cells ahead moved
-the SAME 13 tiles, so ONE STEP IS ABOUT A QUARTER OF A TILE. Several minutes of
-continuous walking, for a sixty-second row.
+THE NEAREST ROAD DISTRICT IS 1 OVERMAP CELL = 128 FINE TILES.
+*** AND I GOT THE WALK RATE WRONG AND CORRECTED IT THE NEXT ROUND. *** I wrote
+"13 tiles a minute, a quarter tile per step, ten minutes to the nearest road" and
+insisted it was not harness pacing. IT WAS. Both readings came through a probe
+doing four round trips plus a 500ms sleep per step, so it timed itself.
+MEASURED WITH A REAL HELD PRESS AND A WALL CLOCK: one step moves a FULL tile, ten
+seconds of holding covers 20 tiles = 1.94 TILES A SECOND, and the nearest road is
+ABOUT 66 SECONDS of holding. WALKING IS FINE. The first minute is not empty
+because the valley is far; it is empty because nothing tells a stranger that
+holding a direction gets them anywhere.
 The other two systems are out of reach too: hostileProbe() returns 0 near the
 spawn and the nearest at-odds base is null; the wildlife query answered 0 for that
 cell and hour (weakest line -- I inferred its argument shape instead of reading a
@@ -13606,10 +13612,16 @@ and all three are somebody else's call or a law break: a suburb row contradicts
 the feature's own design and invents contents; moving the spawn is MAP LAW; wiring
 the cold open needs combat entry on the walked surface and his cast/place.
 
-[PENDING Paolo -- FOR THE COORDINATOR TO CARRY] The cold open is the demo's first
-beat, it is fully built, and it has never been connected. Two of its fields are
-his: WHO is behind you (cast) and WHAT you are standing in front of (place).
-Without those the demo opens on a card and three button labels.
+*** RULED BY PAOLO 9/11, AND IT KILLED THE PENDING I HAD JUST WRITTEN HERE: ***
+"we don't have a story yet bro so I don't have the final answer for you. Your job
+is to make sure the rest of the game is playable and fun."
+I had put the cold open's cast and place in front of him as the blocker. Those are
+STORY -- who stands behind you, what building you stand in front of -- and there
+is no story yet, so the question had no answer and never would have.
+THE COLD OPEN IS SET ASIDE until there is a story to put in it. Nothing waits on
+it. A [PENDING Paolo] that turns out to be a story question is a hole in a story
+nobody has written, NOT a blocker: never surface it, never park a row on it.
+Law: laws/BOHEMIA_ADDENDUM_THERE_IS_NO_STORY_YET_9_11_26.md (binds every lane).
 
 NEXT: this row cannot close on its own. Either the coordinator routes the cold
 open (COMBAT owns the entry point on the walked surface), or [drop in] becomes a

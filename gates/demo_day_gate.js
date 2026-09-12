@@ -217,17 +217,45 @@ async function worldFrame(page, tries) {
       const good = mktShelf().sort((a, b) => a.price - b.price)[0];
       /* a day's pay is [PENDING Paolo], so the purse is topped up HERE, in the
          gate, purely so the sale can be exercised. This is a test fixture and it
-         is not canon: the moment a .bq says `@DO pay resources 3` the real day
-         funds this and these two lines come out. */
-      BohemiaPurse.credit(purseGet(), 'resources', 500, 'demo gate fixture', DAY.day);
-      const before = purseBalances().resources;
+         is not canon: the moment a .bq says `@DO pay <cur> 3` the real day funds
+         this and these two lines come out.
+
+         *** AND IT FUNDS THE POCKET THE SHELF ACTUALLY CHARGES, READ OFF THE
+         GOOD ITSELF. *** This gate funded and read `resources` and went red for
+         weeks reading "500 -> 500", which looked exactly like a broken till: the
+         buy applied, and no money moved. THE GAME WAS RIGHT AND THE CHECKER WAS
+         STALE. Paolo ruled 9/4 "i dont want there to be money money maybe
+         electronics like batteries are the currency", the shelf moved to
+         electricity on 9/5, and this fixture stayed on the money of the day
+         before. A red that is lying is worse than no gate, because every real
+         red behind it is invisible.
+         The currency is taken from the row being bought (falling back to the
+         till's own default) rather than typed in here, so the next ruling that
+         moves the money cannot make this lie again. */
+      /* FUND EVERY POCKET AND LET THE TILL TELL US WHICH ONE IT TOOK. Naming the
+         currency here is what rotted last time, so this names none: it funds all
+         of them, then finds the one that actually dropped. A future ruling can
+         move the money anywhere and this still reads the truth. */
+      var _p = purseGet();
+      Object.keys(purseBalances() || {}).forEach(function (c) {
+        try { BohemiaPurse.credit(_p, c, 500, 'demo gate fixture', DAY.day); } catch (e) { }
+      });
+      const before = Object.assign({}, purseBalances());
       const cell = document.querySelector('#daycardIn .mrow[data-act="buy:' + good.good + '"]');
       if (cell) cell.click();                       /* CLICKED, like a player */
-      const after = purseBalances().resources;
+      const after = Object.assign({}, purseBalances());
+      let CUR = null, DROP = 0;
+      Object.keys(before).forEach(function (c) {
+        const d = (before[c] || 0) - (after[c] || 0);
+        if (d > DROP) { DROP = d; CUR = c; }
+      });
       const stock = MKT_LEDGER ? MKT_LEDGER.stocks[good.good] : null;
       document.querySelector('#daycardIn .dcgo').click();     /* LEAVE */
       return { away: away, btn: btn, rows: rows, good: good.good, price: good.price,
-               before: before, after: after, stock: stock, bought: window.__BOUGHT || 0 };
+               before: before[CUR], after: after[CUR], stock: stock,
+               bought: window.__BOUGHT || 0, cur: CUR, drop: DROP,
+               pockets: Object.keys(before).join('/'),
+               refused: window.__BUY_REFUSED || 0 };
     });
     ok('THE MARKET IS A PLACE: standing at his own job there is no market button',
        spent.away === false);
@@ -235,8 +263,14 @@ async function worldFrame(page, tries) {
        spent.btn === 'block' && spent.rows >= 3);
     ok('HE SPENDS AT A TRADING HUB, by tapping the row (' + spent.good + ' for '
        + spent.price + ')', spent.bought >= 1);
-    ok('and the money really left the purse (' + spent.before + ' -> ' + spent.after + ')',
-       Math.abs((spent.before - spent.after) - spent.price) < 1e-9);
+    ok('and the money really left the purse (' + spent.cur + ' ' + spent.before
+      + ' -> ' + spent.after + ', price ' + spent.price
+      + ', pockets ' + spent.pockets + ')',
+       !!spent.cur && Math.abs(spent.drop - spent.price) < 1e-9);
+    /* AND NOTHING WAS QUIETLY REFUSED. A till that says no and a till that says
+       nothing look identical from the balance alone. */
+    ok('and the shelf refused nothing (' + spent.refused + ' refusals)',
+       spent.refused === 0);
 
     /* ---- SLEEP -> DAY 2 ------------------------------------------------- */
     await f.evaluate(() => { document.getElementById('sleepbtn').click(); });
