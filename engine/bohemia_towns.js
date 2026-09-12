@@ -1151,10 +1151,200 @@
     return best;
   }
 
+  /* ==========================================================================
+     WHO WILL JOIN YOU DEPENDS ON WHERE YOU STAND
+     [recruit anywhere], 9/13/26. Paolo 9/11 kept this from the reference:
+     "recruiting from different factions and cities."
+
+     HIS THREE SENTENCES ARE THE WHOLE SPEC AND EVERY ONE OF THEM IS ANSWERED BY
+     SOMETHING THIS GAME ALREADY KNOWS:
+
+       "who is available depends on the ground you are on and who holds it"
+            -> turf() already says who holds every one of the 9,216 cells, and
+               the people standing there are the ones the city already spawned
+               with their own homes, jobs and days.
+       "and your standing there"
+            -> BohemiaBelonging's rung ladder, which is a COUNT of the times you
+               did what an outfit wanted. Not a number picked here.
+       "a fortress offers different people than a camp"
+            -> goodsFor(), the SAME function that decides what a camp's shelf
+               carries, pointed at the trades standing on the ground instead of
+               the goods on a shelf. One table, one rule, no second idea of what
+               a camp being thinner means.
+       "a faction that hates you offers nobody"
+            -> `refuse` is already one of the four signs in the against organ and
+               it already means will-not-deal-with-you. Hostile and war carry it,
+               cold does not, and a stranger on their block does not. So the line
+               between hates-you and merely-watches-you was drawn months ago and
+               this asks for it rather than picking a rank.
+
+     *** AND THERE IS NO LIST IN HERE, WHICH IS THE OTHER LANE'S HARD-WON RULE.
+     bohemia_company.js (9/13) says it plainly: do not build the roster, because
+     a list is a thing somebody has to maintain and the moment it exists it can
+     disagree with the world. So this COMPUTES who would come, every call, out of
+     the ground under your feet and the people on it. Walk one block and the
+     answer changes because the facts did, not because anything was updated. ***
+
+     WHAT IS DELIBERATELY NOT HERE: the act of taking somebody on. Nothing in
+     this file adds a person to anything, and what a hand costs is a price, which
+     is his. This answers WHO WOULD, on this ground, today. */
+
+  /* WHY SOMEBODY IS NOT ON THE LIST, in plain words. Attempts, draft:true
+     (ALWAYS MAKE AN ATTEMPT, 8/11): he rewrites these and nothing downstream
+     reads them as data -- every reader keys off the `why` word beside them. */
+  var JOIN_NO = {
+    ground:   'THIS IS THEIR GROUND AND THEY WANT YOU OFF IT',
+    refuses:  'THEIR OUTFIT WILL NOT DEAL WITH YOU',
+    stranger: 'YOU ARE NOBODY TO THEIR OUTFIT',
+    spare:    'THIS PLACE HAS NOBODY LIKE THEM TO SPARE',
+    mine:     'THEY ARE ALREADY WITH YOU'
+  };
+  var JOIN_SAY = {
+    none:    'NOBODY HERE WOULD COME WITH YOU',
+    refused: 'NOBODY HERE WOULD COME WITH YOU. YOU ARE STANDING ON THEIR GROUND',
+    some:    'WOULD COME WITH YOU FROM THIS BLOCK'
+  };
+
+  /* THE ONE RUNG THAT MATTERS, AND IT IS HIS OWN. BohemiaBelonging's ladder
+     starts at `stranger` (at 0) and its second rung is `peripheral` (at 1) whose
+     own note reads "You did the thing once ... this is the whole entry, and it
+     is meant to be small". That IS the door: a stranger does not get to walk
+     onto somebody's ground and take one of their people, and doing the thing
+     once is the smallest possible way in. Naming the rung rather than a number
+     means his ladder can be re-cut without touching this file. */
+  var JOIN_RUNG = 'stranger';        /* at or below this, their outfit is closed */
+
+  function kindCounts(people, order) {
+    var seen = {}, out = [];
+    for (var i = 0; i < (people || []).length; i++) {
+      var k = people[i] && people[i].kind;
+      if (k == null) continue;
+      if (!Object.prototype.hasOwnProperty.call(seen, k)) { seen[k] = 0; out.push(k); }
+      seen[k]++;
+    }
+    /* COMMONEST FIRST, because what a piece of ground has to spare is what it
+       has most of. Ties break on the order the caller handed in (the world's own
+       archetype list) so two runs of the same block can never disagree. */
+    var rank = {};
+    for (var r = 0; r < (order || []).length; r++) rank[order[r]] = r;
+    out.sort(function (a, b) {
+      if (seen[b] !== seen[a]) return seen[b] - seen[a];
+      var ra = (rank[a] == null) ? 999 : rank[a], rb = (rank[b] == null) ? 999 : rank[b];
+      if (ra !== rb) return ra - rb;
+      return a < b ? -1 : (a > b ? 1 : 0);
+    });
+    return { order: out, count: seen };
+  }
+
+  /* here    { faction, tier }              -- the ground, straight off turf()
+     people  [{ who, kind, faction, against, mine }]
+                 who      an id, whatever the surface calls a person
+                 kind     their archetype, the world's own word
+                 faction  their outfit, or null for the most of the valley
+                 against  the against organ's reading for THEM, or null
+                 mine     true if they are already yours (the company module)
+     opt     { holderAgainst, rungWith, order, cap }
+                 holderAgainst  the against reading for the HOLDER of this ground
+                 rungWith       function(factionId) -> rung key. A FUNCTION, not a
+                                map, so a rung that moves mid-session is obeyed
+                                mid-session -- the late-binding lesson this lane
+                                already paid for once on the repeat dial.
+                 order          the world's archetype list, for stable ties
+                 cap            a RENDERING bound and nothing else: how many rows
+                                a screen can hold. Never a design limit, and the
+                                counts below are of the whole answer. */
+  function joinersOn(here, people, opt) {
+    opt = opt || {};
+    var all = people || [];
+    var tier = (here && here.tier) || null;
+    var holder = (here && here.faction) || null;
+    var out = { holder: holder, tier: tier, offers: [], passed: [],
+                kinds: [], spare: [], here: all.length, refused: null,
+                say: null, draft: true };
+
+    /* 1. A FACTION THAT HATES YOU OFFERS NOBODY. Asked of the ground's holder,
+       and asked as `refuse` -- their own sign for will-not-deal-with-you -- so
+       cold ground still offers and hostile ground does not. */
+    var hs = opt.holderAgainst && opt.holderAgainst.signs;
+    if (hs && hs.refuse === true) {
+      out.refused = 'ground';
+      out.total = 0;          /* a refusal is still a complete answer, not a gap */
+      out.say = JOIN_SAY.refused;
+      for (var q = 0; q < all.length; q++)
+        out.passed.push({ who: all[q].who, kind: all[q].kind,
+                          faction: all[q].faction || null,
+                          why: 'ground', word: JOIN_NO.ground });
+      return out;
+    }
+
+    /* 2. WHAT THIS PLACE HAS TO SPARE. The trades standing here, commonest
+       first, cut by the tier through goodsFor -- the same call, on the same
+       DEPTH table, that decides a camp's shelf. Four trades gives fortress 4,
+       town 3, camp 2 and nobody typed any of those. */
+    var kc = kindCounts(all, opt.order);
+    out.kinds = kc.order.slice();
+    out.count = kc.count;
+    out.spare = goodsFor(tier, kc.order);
+    var spareSet = {};
+    for (var s = 0; s < out.spare.length; s++) spareSet[out.spare[s]] = 1;
+
+    var rungWith = (typeof opt.rungWith === 'function') ? opt.rungWith : null;
+
+    for (var i = 0; i < all.length; i++) {
+      var p = all[i] || {};
+      var row = { who: p.who, kind: p.kind || null, faction: p.faction || null };
+      /* already yours: you cannot recruit somebody who is standing next to you */
+      if (p.mine) { row.why = 'mine'; row.word = JOIN_NO.mine; out.passed.push(row); continue; }
+      /* their own outfit refusing you beats the ground being calm */
+      var ps = p.against && p.against.signs;
+      if (ps && ps.refuse === true) {
+        row.why = 'refuses'; row.word = JOIN_NO.refuses; out.passed.push(row); continue;
+      }
+      /* AN OUTFIT ANSWERS TO ITS OWN LADDER, NEVER THE HOLDER'S. The Church
+         people standing on Mob ground are Church people; how far in you are with
+         the Mob is nothing to them. Somebody who belongs to nobody has no ladder
+         to climb, which is why on the first morning of the game the people who
+         would come with you are the ones who run with nobody. */
+      if (row.faction) {
+        /* NULL IS NOT THE SAME AS STRANGER, and BohemiaBelonging is the one who
+           draws that line: rungOf answers null for an outfit that wants nothing,
+           because "you are a stranger to it" would be a lie -- it is not a club.
+           An outfit with no ladder has no door to stand outside of, so its
+           people are judged like anybody else's. Only a real ladder you are at
+           the bottom of closes them off. */
+        var rung = rungWith ? rungWith(row.faction) : null;
+        if (rung === JOIN_RUNG) {
+          row.why = 'stranger'; row.word = JOIN_NO.stranger; out.passed.push(row); continue;
+        }
+        if (rung) row.rung = rung;
+      }
+      if (!spareSet[row.kind]) {
+        row.why = 'spare'; row.word = JOIN_NO.spare; out.passed.push(row); continue;
+      }
+      out.offers.push(row);
+    }
+
+    /* the offered list reads in the same order the ground does: commonest trade
+       first, then stable by id, so two calls one frame apart never reshuffle. */
+    var kr = {};
+    for (var k = 0; k < out.kinds.length; k++) kr[out.kinds[k]] = k;
+    out.offers.sort(function (a, b) {
+      var ra = (kr[a.kind] == null) ? 999 : kr[a.kind], rb = (kr[b.kind] == null) ? 999 : kr[b.kind];
+      if (ra !== rb) return ra - rb;
+      return String(a.who) < String(b.who) ? -1 : (String(a.who) > String(b.who) ? 1 : 0);
+    });
+    out.total = out.offers.length;
+    if (opt.cap != null && opt.cap > 0 && out.offers.length > opt.cap)
+      out.offers = out.offers.slice(0, opt.cap);
+    out.say = out.total ? JOIN_SAY.some : JOIN_SAY.none;
+    return out;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
     trackOf: trackOf, tracksAt: tracksAt,
+    joinersOn: joinersOn, JOIN_NO: JOIN_NO, JOIN_SAY: JOIN_SAY, JOIN_RUNG: JOIN_RUNG,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,

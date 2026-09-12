@@ -1807,70 +1807,89 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 18) LATEST -- *** [tracks read]
-WHOSE-FOOTPRINTS-ARE-THESE SHIPPED. Twenty-eight parties have been walking this
-valley since [parties move] landed and they left nothing behind. They leave tracks
-now, in their own faction's colour, and the bright end tells you which way they
-went. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/13 (round 19) LATEST -- *** [recruit anywhere]
+WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND SHIPPED. Stand anywhere in the valley
+and the game names who on that block would come with you, and tells you why not
+when nobody would. Walk one block and it changes, because the ground changed. ***
+Nothing to judge.
 
-VAMILY row: [tracks read], MODE: BUILD, SHIPPED 9/13 22d50ce5.
-Record: records/BOHEMIA_WHOSE_FOOTPRINTS_ARE_THESE_9_13_26.md
+VAMILY row: [recruit anywhere], MODE: BUILD, SHIPPED 9/13 PENDING_SHA.
+Record: records/BOHEMIA_WHO_WOULD_COME_WITH_YOU_9_13_26.md
 
-THE NAMED BLOCKER WAS NOT THE BLOCKER. SIXTH ROW RUNNING. The row says "with RUN
-[travel map]" and that row is still OPEN. Measured before building:
-  parties out       28          factions with one moving   14 of 14
-  speed             89 cells a day, and they really advance
-  ground they walk  the overmap, which the player already looks at
-A track needs somebody to have WALKED, not a new map.
+MEASURED FIRST, AND THERE WAS NOTHING THERE. No join path, no recruit path, no
+roster, nowhere in the game. Sixty-one people stand on the block he wakes on and
+none of them could be asked anything.
 
-DERIVED, NEVER STORED. A party's route is a straight sign-step walk between two
-points it already carries (from, to, at, arrived), so the cells it has covered ARE
-those fields put through the same step rule the mover uses. Nothing is written to a
-party, nothing is saved, and there is NO RULE FOR WHEN TO FORGET -- the trap the
-coalition and the roving rule both avoided in this lane.
-A PARTY THAT HAS TURNED ROUND LEAVES A DIFFERENT TRAIL: its leg begins at the border
-it reached, not back at its seat, so the trail always points the way it walks NOW.
+HIS FOUR SENTENCES WERE EACH ALREADY ANSWERED BY SOMETHING BUILT, WHICH IS WHY
+THIS ROW HAD NO BLOCKER AND DID NOT NAME ONE.
+  the ground and its holder   turf(), every one of the 9,216 cells, since [held ground]
+  your standing there         the belonging ladder: a COUNT of the times you did
+                              what an outfit actually wanted. Not a number I picked.
+  a fortress vs a camp        goodsFor -- THE SAME CALL THAT CUTS A CAMP'S SHELF,
+                              pointed at the trades standing on the ground. Four
+                              trades through his DEPTH thirds = fortress 4, town 3,
+                              camp 2, and nobody typed any of those.
+  a faction that hates you    `refuse`, the against organ's OWN sign for will-not-
+                              deal-with-you. hostile and war carry it; cold does
+                              not; a stranger on their block does not. The line was
+                              drawn months ago; I asked for it rather than pick a rank.
 
-NO MEMORY LENGTH IS INVENTED. How long a track is, is how far that party has walked
-on this leg, and how far it walks is the distance between two of HIS seats. No fade
-constant, no "tracks last N days", no decay. The one cap in the renderer is named a
-RENDERING bound in its own comment: what fits on a screen without becoming a
-scribble.
+NO LIST IS KEPT, AND THAT IS THE OTHER LANE'S RULE HONOURED. bohemia_company.js
+(9/13) says do not build the roster, because a list is a thing somebody has to
+maintain and the moment it exists it can disagree with the world. So membership is
+COMPUTED every call, nothing is written on anybody, nothing is saved, and there is
+no rule for when to forget. Same shape as coalition, roving, mines, rent and tracks.
 
-IT RIDES HIS OWN COLOURS, AND IT IS A TRAIL NOT A DOT. Tracks use __holderInk, the
-SAME function the territory borders use, so a Mob track and Mob ground read as the
-same people with no second colour decision. COLOUR IS TERRITORY, and a track is
-territory moving. A marker would say "somebody is there"; FOOTPRINTS SAY WHICH WAY
-THEY WENT, which is the half the row is named for -- follow or avoid. So the trail
-fades along its length, brightest where they are standing now.
+A CROWD SIZE IS NOT A TIER, AND MEASURING SAVED THE DESIGN. The fortress seat has
+20 people standing on it and a camp seat has 100. How many bodies are somewhere is
+a fact about where the map put HOUSES, not about the faction, so sizing the offer by
+headcount would have inverted his own sentence. The tier cuts the KINDS, and the
+order of the kinds is itself a measured fact: commonest first, because what a piece
+of ground has to spare is what it has most of.
 
-TWO SURFACES, BECAUSE THEY ANSWER DIFFERENT QUESTIONS
-  THE MAP IS FOR DECIDING     zoomed out you see trails and plan around them
-  THE STREET IS FOR NOTICING  down there you cannot see a trail, you see that
-                              somebody came past:
-      "Anarchists came through here just now. a patrol, and they are close."
-  It speaks only when the answer CHANGES: one string compare per block crossed,
-  nothing per frame, the same shape as the address countdown beside it.
+AN OUTFIT ANSWERS TO ITS OWN LADDER, NEVER THE HOLDER'S. Fifteen Church people stand
+on Mob fortress ground on the first morning; how far in you are with the Mob is
+nothing to them. And NULL IS NOT STRANGER: BohemiaBelonging answers null for an
+outfit that wants nothing, because calling you a stranger to something that is not a
+club would be a lie, so its people are judged like anybody else's.
 
-THE FAULT I CAUGHT BY WALKING OFF THE TRACK. Stepping onto empty ground left the old
-sentence on screen, and a line that was true one cell ago and is a lie now is worse
-than silence. AND IT ONLY CLEARS ITS OWN WORDS: the street line is SHARED with the
-pack and the road, so it is cleared only while it still says exactly what this put
-there.
+DRIVEN ON THE WALKED SURFACE AND THE DEMO, IDENTICAL, NO PAGE ERRORS
+  the waking block   Mob fortress, 61 here, 46 would come, 15 held back as
+                     strangers to the Church; a fortress spares all four trades
+  all fourteen seats every fortress spares 4 trades, every town 3, every camp 2
+                     Colorful camp 45 of 100 come, spares scavenger and keeper
+  the enemy          side with the Remnants (their between-ledger's own rule) ->
+                     CARTEL hostile, war. The busiest Cartel block: 219 -> 0.
+                     An uninvolved faction's ground untouched.
+  the ladder         three acts for the Church -> rung stranger to useful ->
+                     the waking block 46 of 61 -> 61 of 61, and the card names
+                     them: CHURCH 15 · useful
+  the sweep          484 blocks walked, 484 offer somebody on day one
 
-DRIVEN ON THE WALKED SURFACE AND THE DEMO, NO PAGE ERRORS
-  20 of 28 parties with a trail, longest drawn 13 cells
-  EIGHT FACTIONS' TRACKS PAINTED ON A REAL CANVAS in their own ink
-    Blues #0052db  Mob #db1800  Network #4a8ddb  Caravans #db9324
-    Church #db9400  Cartel #c8a558        alongside 14 turf borders
-  stood on an Anarchist patrol's prints -> the street said so
-  stepped off -> the line cleared;  two more steps -> it did not repeat
-The Cartel comes out in the default gold because its measured wardrobe colour is
-DRAB and there is no hue to lift. Existing deliberate behaviour, and the same fact
-behind standing PENDING 5.
+ON DAY ONE THE VALLEY IS OPEN, AND THAT IS REPORTED RATHER THAN TUNED. Three in
+four people belong to nobody and you have not yet given anybody a reason, so every
+block offers somebody. That is what a valley of strangers looks like; a threshold to
+"fix" it would be a number nobody ruled. One decision took 219 people off the table.
 
-GATES  faction_towns 111/0 (was 95), sixteen new claims. Green alongside: turf 43/0,
-       engine sync zero drift, demo build 25/0, alpha loads 20/0.
+TWO SURFACES. The STANDING card (◆ STANDING, reachable anywhere on foot) already
+says whose ground this is, so the answer goes under that row and behind no new
+button. It reads BY TRADE with a count, not one line per body -- forty-six
+unaffiliated scavengers are one fact about a block, not forty-six decisions -- and
+anybody who runs with an outfit gets their own grouped row, which is the half he
+named: recruiting FROM different factions. The town's MARKET card carries the one
+line at a seat, under the shelf cut by the same rule.
+
+NOT BUILT ON PURPOSE: THE ACT OF TAKING SOMEBODY ON. Nothing here adds a person to
+anything. What a hand costs is a price and prices are his, and there is no ledger
+for "I hired somebody" -- inventing one would be building the roster the company
+module had just finished refusing to build. That is [who follows], the next row.
+
+GATES  faction_towns 144/0 (was 111), thirty-three new claims, EIGHT of them driving
+       the real surface. Negative-controlled both halves: removing the hates-you gate
+       in the module turned L5+L6 red, and stopping the LIVE surface from asking the
+       holder turned L28 red on its own, which is what proves the drive is not
+       self-fulfilling. Green alongside: engine sync zero drift, demo build,
+       alpha loads, bundle, banner.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. *** DOES A DEBT CROSS THE FOLD? *** engine/bohemia_fold.js says it DIES and is
@@ -1886,8 +1905,8 @@ GATES  faction_towns 111/0 (was 95), sixteen new claims. Green alongside: turf 4
   5. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
      Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
-     drab factions, the gate carries three -- and the tracks just made that visible
-     on a second surface, because a drab faction's trail falls back to plain gold.
+     drab factions, the gate carries three -- and the tracks made that visible on a
+     second surface, because a drab faction's trail falls back to plain gold.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
 verified inherited on a clean origin/main worktree and unchanged since.
@@ -1897,24 +1916,29 @@ verified inherited on a clean origin/main worktree and unchanged since.
       a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [recruit anywhere]  WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND (Paolo 9/11) --
-    [crossing costs] gave it its shape: who will join you where you are standing
   [rent visible]  YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES -- the coordinator's follow-on to
-    [block rent]: show what a block takes BEFORE you decide to live or work on it
-  [who follows]  WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK -- with PEOPLE [down not dead]
+    [block rent]: show what a block takes BEFORE you decide to live or work on it.
+    rentOn() already answers it; this is a surface row, not a mechanism one.
+  [who follows]  WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK -- with PEOPLE [down not dead].
+    [recruit anywhere] just built the WHO-WOULD half as a reading; what is missing is
+    the act of taking somebody on and what it costs, and a price is his.
 
-SIX STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+SEVEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  SIX rows now. It has been wrong every single time.
+  SIX rows now. It has been wrong every single time. (This round's row named none.)
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
   number nobody ruled.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE THAT
   CHECKED NOTHING. Make the guard itself a claim.
-  AND SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT. A counter that goes up
-  proves the code ran, never that anybody saw it. Read the surface, and walk OFF the
-  thing as well as onto it -- this round's fault was only visible on the way out.
+  SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT. A counter that goes up
+  proves the code ran, never that anybody saw it.
+  AND AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM. This round's
+  own gate passed for the wrong reason: the sentence it was looking for also lives in
+  the INLINED module forty thousand lines above the card, so it was measuring the
+  module's position, not the card's. Read inside the function you are making a claim
+  about.
 
 --------------------------------------------------------------------------------
 

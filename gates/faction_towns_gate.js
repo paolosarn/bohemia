@@ -824,5 +824,296 @@ const done = () => {
        /a RENDERING bound/.test(CITY4) || /a screen bound/.test(CITY4));
   }
 
+  /* *** THE WALKED SURFACE, DRIVEN, FOR [recruit anywhere]. ***
+     A grep proves the code exists. This opens the game, stands on real ground,
+     makes a real enemy through the between ledger's own door, climbs a real
+     outfit's ladder with the belonging module's own writer, and reads the card
+     he taps. Nothing below is computed by this gate: every number comes back
+     from the page. */
+  let RECRUIT = null;
+  try {
+    const b3 = await chromium.launch();
+    try {
+      const p3 = await b3.newPage({ viewport: { width: 390, height: 844 } });
+      const e3 = []; p3.on('pageerror', e => e3.push(e.message));
+      await p3.route(/^https?:/, r => r.abort());
+      await p3.goto('file://' + CITY, { waitUntil: 'load', timeout: 180000 });
+      for (let i = 0; i < 200; i++) { if (await p3.$('#daycardIn .dcgo')) break; await SETTLE(p3, 200); }
+      await p3.$eval('#daycardIn .dcgo', el => el.click());
+      await SETTLE(p3, 400);
+      RECRUIT = await p3.evaluate(() => {
+        const at = (x, y) => { MODE = 'human'; hx = x * FN + (FN >> 1); hy = y * FN + (FN >> 1); };
+        const R = {};
+        const w = ctJoinersHere();
+        R.waking = { holder: w.holder, tier: w.tier, here: w.here, total: w.total };
+
+        /* every seat, so the tier difference is measured and not anecdotal */
+        const hs = BohemiaPayday.hubs(om).filter(h => h.kind === 'seat');
+        const best = { fortress: 0, town: 0, camp: 0 };
+        hs.forEach(h => { at(h.x, h.y); const j = ctJoinersHere();
+          if (j && best[j.tier] != null && j.spare.length > best[j.tier]) best[j.tier] = j.spare.length; });
+        R.spareByTier = best;
+
+        /* A FACTION THAT HATES YOU: earned, not asserted. */
+        /* THE BUSIEST CARTEL BLOCK, not the first one found. The first cut took
+           the first match and landed on a cell with ONE person on it, so "their
+           ground now offers nobody" was a claim about a single body -- true, and
+           far too thin to be proof. */
+        let cc = null, ccN = -1;
+        for (let x = 0; x < 96; x += 3) for (let y = 0; y < 96; y += 3) {
+          const t = turfAt(x, y);
+          if (!t || String(t.faction).toUpperCase() !== 'CARTEL') continue;
+          at(x, y); const n = (ctEveryone() || []).length;
+          if (n > ccN) { ccN = n; cc = [x, y]; }
+        }
+        at(cc[0], cc[1]);
+        const b4 = ctJoinersHere();
+        const made = BohemiaBetween.earn(ctBelongSave(), 'Remnants', 'inside', 1);
+        ctAgainstBump();
+        const a4 = ctJoinersHere();
+        R.cartel = { earned: made.some(e => String(e.to).toUpperCase() === 'CARTEL' && e.war),
+                     before: b4.total, after: a4.total, why: a4.refused };
+        /* and somebody uninvolved */
+        let oc = null, ocN = -1;
+        for (let x = 0; x < 96; x += 6) for (let y = 0; y < 96; y += 6) {
+          const t = turfAt(x, y);
+          if (!t || !t.faction || String(t.faction).toUpperCase() === 'CARTEL') continue;
+          at(x, y); const n = (ctEveryone() || []).length;
+          if (n > ocN) { ocN = n; oc = [x, y]; }
+        }
+        at(oc[0], oc[1]);
+        const oo = ctJoinersHere();
+        R.other = { total: oo.total, refused: oo.refused };
+
+        /* YOUR STANDING THERE, moved with the belonging module's own writer */
+        at(48, 48);
+        const c1 = ctJoinersHere();
+        const rb = ctRungWith('Church');
+        for (let d = 1; d <= 3; d++) BohemiaBelonging.record(ctBelongSave(), 'Church', d);
+        const c2 = ctJoinersHere();
+        R.church = { before: c1.total, after: c2.total, rungBefore: rb,
+                     rungAfter: ctRungWith('Church'),
+                     strangerAfter: c2.passed.filter(p => p.why === 'stranger').length };
+
+        /* THE CARD HE TAPS */
+        showStanding();
+        R.card = (document.getElementById('daycardIn') || {}).textContent || '';
+        R.cardBits = (R.card.match(/WOULD COME WITH YOU\d+ of \d+ here/) || [''])[0];
+        try { cardHide(); } catch (e) {}
+        /* AND THE TOWN'S MARKET CARD */
+        const seat = hs[0];
+        at(seat.x, seat.y); MKT_HUB_KEY = null;
+        showMarket();
+        R.marketCard = (document.getElementById('daycardIn') || {}).textContent || '';
+        return R;
+      });
+      RECRUIT.errs = e3.length;
+    } finally { await b3.close(); }
+  } catch (e) { RECRUIT = null; }
+
+  /* ==========================================================================
+     WHO WILL JOIN YOU DEPENDS ON WHERE YOU STAND  (9/13, row [recruit anywhere])
+     Paolo 9/11: "recruiting from different factions and cities." Who is
+     available depends on the ground you are on, who holds it, and your standing
+     there; a fortress offers different people than a camp; a faction that hates
+     you offers nobody; the people are the ones already in the valley with jobs
+     and standing, never spawned for the menu.
+     ======================================================================== */
+  {
+    const _fs5 = require('fs');
+    const CITY5 = _fs5.readFileSync(CITY, 'utf8');
+    const ORDER = ['worker', 'scav', 'keeper', 'watch'];
+    const crowd = (spec) => {
+      const out = [];
+      Object.keys(spec).forEach(k => { for (let i = 0; i < spec[k]; i++)
+        out.push({ who: k + i, kind: k, faction: null, against: null, mine: false }); });
+      return out;
+    };
+    const MIX = crowd({ scav: 5, worker: 3, keeper: 2, watch: 1 });
+
+    /* --- A FORTRESS OFFERS DIFFERENT PEOPLE THAN A CAMP --- */
+    const f = T.joinersOn({ faction: 'Mob', tier: 'fortress' }, MIX, { order: ORDER });
+    const t = T.joinersOn({ faction: 'Mob', tier: 'town' }, MIX, { order: ORDER });
+    const c = T.joinersOn({ faction: 'Mob', tier: 'camp' }, MIX, { order: ORDER });
+    ok('L1 *** A FORTRESS OFFERS DIFFERENT PEOPLE THAN A CAMP, and it is his own '
+       + 'DEPTH table doing it -- goodsFor, the SAME call that cuts a camp\'s '
+       + 'shelf, pointed at the trades standing on the ground *** ('
+       + f.spare.length + '/' + t.spare.length + '/' + c.spare.length + ' trades)',
+       f.spare.length === 4 && t.spare.length === 3 && c.spare.length === 2);
+    ok('L2 and nobody typed those: four trades through DEPTH is ceil(4), ceil(4*2/3), '
+       + 'ceil(4/3), which is exactly what goodsFor answers',
+       T.goodsFor('town', ORDER).length === t.spare.length
+       && T.goodsFor('camp', ORDER).length === c.spare.length);
+    ok('L3 COMMONEST FIRST, because what a piece of ground has to spare is what it '
+       + 'has most of -- so the trades a camp offers are a fact about that ground '
+       + 'and not a list order',
+       c.spare[0] === 'scav' && c.kinds[0] === 'scav');
+    ok('L4 a camp really does turn people away for it, and a fortress does not',
+       c.passed.filter(p => p.why === 'spare').length === 3
+       && f.passed.filter(p => p.why === 'spare').length === 0);
+
+    /* --- A FACTION THAT HATES YOU OFFERS NOBODY --- */
+    const sign = (o) => ({ signs: Object.assign(
+      { watch: false, follow: false, refuse: false, block: false }, o) });
+    const hated = T.joinersOn({ faction: 'Mob', tier: 'fortress' }, MIX,
+      { order: ORDER, holderAgainst: sign({ watch: true, follow: true, refuse: true }) });
+    ok('L5 *** A FACTION THAT HATES YOU OFFERS NOBODY *** ' + hated.say,
+       hated.total === 0 && hated.offers.length === 0 && hated.refused === 'ground');
+    ok('L6 and it says so about every single person on the block, so nothing is '
+       + 'silently dropped',
+       hated.passed.length === MIX.length && hated.passed.every(p => p.why === 'ground'));
+    ok('L7 *** THE LINE IS THEIR OWN SIGN AND NOT A RANK I PICKED. *** `refuse` has '
+       + 'meant will-not-deal-with-you since the against organ was written: hostile '
+       + 'and war carry it, cold does not, and a stranger on their block does not',
+       T.joinersOn({ faction: 'Mob', tier: 'fortress' }, MIX,
+         { order: ORDER, holderAgainst: sign({ watch: true }) }).total === MIX.length
+       && require(path.join(ROOT, 'engine/bohemia_against.js'))
+            .LEVELS.hostile.signs.refuse === true
+       && !require(path.join(ROOT, 'engine/bohemia_against.js'))
+            .LEVELS.cold.signs.refuse);
+    ok('L8 and a person whose OWN outfit refuses you is out even on calm ground',
+       (function () {
+         const m = MIX.slice(); m[0] = Object.assign({}, m[0],
+           { faction: 'Cartel', against: sign({ refuse: true }) });
+         const r = T.joinersOn({ faction: 'Mob', tier: 'fortress' }, m, { order: ORDER });
+         return r.passed.filter(p => p.why === 'refuses').length === 1;
+       })());
+
+    /* --- YOUR STANDING THERE --- */
+    const withChurch = MIX.map((p, i) => i < 3 ? Object.assign({}, p, { faction: 'Church' }) : p);
+    ok('L9 *** YOU ARE NOBODY TO AN OUTFIT YOU HAVE NEVER DONE ANYTHING FOR, so a '
+       + 'stranger cannot walk onto a block and take one of their people ***',
+       T.joinersOn({ faction: 'Mob', tier: 'fortress' }, withChurch,
+         { order: ORDER, rungWith: () => 'stranger' })
+         .passed.filter(p => p.why === 'stranger').length === 3);
+    ok('L10 and doing the thing they want ONCE opens it -- his own ladder\'s second '
+       + 'rung, whose note says "this is the whole entry, and it is meant to be '
+       + 'small". The rung is named, never a number, so re-cutting his ladder '
+       + 'never touches this file',
+       T.JOIN_RUNG === 'stranger'
+       && T.joinersOn({ faction: 'Mob', tier: 'fortress' }, withChurch,
+            { order: ORDER, rungWith: () => 'peripheral' }).total === withChurch.length
+       && require(path.join(ROOT, 'engine/bohemia_belonging.js'))
+            .RUNGS[1].key === 'peripheral'
+       && require(path.join(ROOT, 'engine/bohemia_belonging.js')).RUNGS[1].at === 1);
+    ok('L11 AN OUTFIT ANSWERS TO ITS OWN LADDER AND NEVER THE HOLDER\'S: how far in '
+       + 'you are with the Mob is nothing to a Church body standing on Mob ground',
+       (function () {
+         const r = T.joinersOn({ faction: 'Mob', tier: 'fortress' }, withChurch,
+           { order: ORDER, rungWith: (f) => f === 'Church' ? 'useful' : 'stranger' });
+         return r.total === withChurch.length;
+       })());
+    ok('L12 and NULL IS NOT STRANGER: BohemiaBelonging answers null for an outfit '
+       + 'that wants nothing, because calling you a stranger to something that is '
+       + 'not a club would be a lie -- so its people are judged like anybody else',
+       T.joinersOn({ faction: 'Mob', tier: 'fortress' }, withChurch,
+         { order: ORDER, rungWith: () => null }).total === withChurch.length
+       && require(path.join(ROOT, 'engine/bohemia_belonging.js'))
+            .rungOf({ wants: 'nothing' }, 99) === null);
+
+    /* --- NEVER SPAWNED, NEVER STORED --- */
+    ok('L13 *** NOTHING IS STORED. *** The same ground asked twice gives the same '
+       + 'answer and not one field is written on anybody, so there is no roster to '
+       + 'maintain and no rule for when to forget -- the shape bohemia_company.js '
+       + 'paid for in its own round',
+       JSON.stringify(T.joinersOn({ faction: 'Mob', tier: 'camp' }, MIX, { order: ORDER }))
+         === JSON.stringify(c)
+       && MIX.every(p => Object.keys(p).join(',') === 'who,kind,faction,against,mine'));
+    ok('L14 NOBODY IS SPAWNED FOR THE MENU: every person in the answer came in on '
+       + 'the list the caller handed over, and the count of everybody here is '
+       + 'carried so the two can be compared',
+       f.here === MIX.length && (f.offers.length + f.passed.length) === MIX.length);
+    ok('L15 somebody already yours is not offered to you a second time',
+       (function () {
+         const m = MIX.map((p, i) => i === 0 ? Object.assign({}, p, { mine: true }) : p);
+         const r = T.joinersOn({ faction: 'Mob', tier: 'fortress' }, m, { order: ORDER });
+         return r.passed.filter(p => p.why === 'mine').length === 1
+             && r.total === MIX.length - 1;
+       })());
+    ok('L16 NO NUMBER IS INVENTED IN THE MODULE: the only cap is the caller\'s and '
+       + 'it is named a rendering bound, with the true total carried beside it',
+       (function () {
+         const r = T.joinersOn({ faction: 'Mob', tier: 'fortress' }, MIX,
+           { order: ORDER, cap: 2 });
+         return r.offers.length === 2 && r.total === MIX.length;
+       })());
+    ok('L17 a bad call is a null answer rather than a throw',
+       T.joinersOn(null, null, null) && T.joinersOn(null, null, null).total === 0);
+    ok('L18 every word it says is an attempt, draft:true',
+       f.draft === true && Object.keys(T.JOIN_NO).length === 5
+       && Object.keys(T.JOIN_SAY).length === 3);
+
+    /* --- IT IS IN THE WALKED SURFACE --- */
+    ok('L19 the city asks the ONE organ about an outfit rather than assembling the '
+       + 'same five facts a second time -- two readings of one world is how they '
+       + 'start disagreeing',
+       /function ctAgainstFaction/.test(CITY5)
+       && /rung: null, coalition: coal/.test(CITY5));
+    ok('L20 and it hands the rung over as a FUNCTION, so a rung that moves is '
+       + 'obeyed at once instead of a frame late',
+       /rungWith: ctRungWith/.test(CITY5) && /function ctRungWith/.test(CITY5));
+    ok('L21 the people are the city\'s own residents, through the one list it '
+       + 'already keeps, with the jobs and outfits they already had',
+       /ppl = ctEveryone\(\) \|\| \[\]/.test(
+         (CITY5.match(/function ctJoinersHere[\s\S]*?\n\}/) || [''])[0]));
+    /* READ INSIDE THE CARD'S OWN FUNCTION, NEVER ACROSS THE WHOLE FILE. The
+       first cut compared two indexOf's over 4 MB and passed for the wrong
+       reason: 'WOULD COME WITH YOU FROM THIS BLOCK' is a string in the INLINED
+       towns module forty thousand lines above the card, so it was measuring the
+       module's position against the card's, which is not the claim. */
+    const STANDCARD = (CITY5.match(/function showStanding\(\)\{[\s\S]*?\n\}/) || [''])[0];
+    ok('L22 it is on the card he already opens, called WHERE YOU STAND, directly '
+       + 'under the row that names whose ground this is -- he never digs',
+       STANDCARD.length > 2000
+       && STANDCARD.indexOf('WOULD COME WITH YOU') > STANDCARD.indexOf('>THIS GROUND<')
+       && STANDCARD.indexOf('>THIS GROUND<') > 0
+       && /__WHO_WILL_JOIN_YOU__/.test(STANDCARD));
+    ok('L23 and it is on the town\'s own market card too, under the shelf that is '
+       + 'cut by the SAME rule, so the fortress-and-camp difference reads in one '
+       + 'glance',
+       /if\(h&&h\.kind==='seat'\)\{[\s\S]{0,240}ctJoinersLine\(ctJoinersHere\(\)\)/.test(CITY5));
+    ok('L24 it says WHY when the answer is nobody, because two different nobodies '
+       + 'teach two different things',
+       /esc\(_j\.say\)/.test(CITY5) && /NOBODY<\/span>/.test(CITY5));
+    ok('L25 the trade word is asked of the module that owns it, never retyped',
+       /BohemiaPeople\.ROLE_WORDS\[k\]/.test(CITY5));
+
+    /* --- AND IT REALLY RUNS THERE. A grep proves code exists. --- */
+    if (RECRUIT) {
+      ok('L26 *** ON THE WALKED SURFACE, ON THE BLOCK HE WAKES ON: ' + RECRUIT.waking.total
+         + ' of ' + RECRUIT.waking.here + ' people would come with you, off ' + RECRUIT.waking.holder
+         + ' ' + RECRUIT.waking.tier + ' ground ***',
+         RECRUIT.waking.total > 0 && RECRUIT.waking.here > 0
+         && RECRUIT.waking.holder && RECRUIT.waking.tier);
+      ok('L27 *** AND A FORTRESS REALLY DOES SPARE MORE TRADES THAN A CAMP OUT THERE: '
+         + RECRUIT.spareByTier.fortress + ' / ' + RECRUIT.spareByTier.town + ' / '
+         + RECRUIT.spareByTier.camp + ' ***',
+         RECRUIT.spareByTier.fortress > RECRUIT.spareByTier.town
+         && RECRUIT.spareByTier.town > RECRUIT.spareByTier.camp);
+      ok('L28 *** SIDING WITH THE REMNANTS PUTS THE CARTEL AT WAR WITH YOU THROUGH '
+         + 'THE GAME\'S OWN DOOR, AND THEIR GROUND THEN OFFERS NOBODY *** (was '
+         + RECRUIT.cartel.before + ', now ' + RECRUIT.cartel.after + ', ' + RECRUIT.cartel.why + ')',
+         RECRUIT.cartel.earned === true && RECRUIT.cartel.before > 5
+         && RECRUIT.cartel.after === 0 && RECRUIT.cartel.why === 'ground');
+      ok('L29 and an uninvolved faction\'s ground is untouched by it',
+         RECRUIT.other.total > 0 && !RECRUIT.other.refused);
+      ok('L30 *** DOING WHAT AN OUTFIT WANTS OPENS ITS PEOPLE, LIVE: ' + RECRUIT.church.before
+         + ' -> ' + RECRUIT.church.after + ' as the rung goes ' + RECRUIT.church.rungBefore
+         + ' -> ' + RECRUIT.church.rungAfter + ' ***',
+         RECRUIT.church.after > RECRUIT.church.before
+         && RECRUIT.church.rungBefore === 'stranger'
+         && RECRUIT.church.strangerAfter === 0);
+      ok('L31 THE CARD HE OPENS REALLY SAYS IT, on a real surface and not in a '
+         + 'string I built: ' + JSON.stringify(RECRUIT.cardBits),
+         /WOULD COME WITH YOU/.test(RECRUIT.card)
+         && /spares/.test(RECRUIT.card) && RECRUIT.card.length > 40);
+      ok('L32 and the town\'s market card carries it at a seat',
+         /WOULD COME WITH YOU FROM THIS BLOCK/.test(RECRUIT.marketCard));
+      ok('L33 no page errors while any of that ran', RECRUIT.errs === 0);
+    } else {
+      ok('L26-33 the walked surface answered', false);
+    }
+  }
+
   done();
 })();
