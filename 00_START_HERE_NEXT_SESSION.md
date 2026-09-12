@@ -15948,7 +15948,7 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: HOW-THE-FIGHT-BEGINS [enter zoom] SHIPPED. Paolo ruled it 9/6, OPTION A: "Yes
+THIS ROUND: HOW-THE-FIGHT-BEGINS [enter zoom] SHIPPED, 1bbc666 on main (sha read off main AFTER the push, which is WORLD's 9/12 lesson). Paolo ruled it 9/6, OPTION A: "Yes
 definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." When a fight
 starts the street you are standing on pulls back toward house scale over the same ground and a
 cloud passes across the moment the scale changes; the same move for a street bump and for
