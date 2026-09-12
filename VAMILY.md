@@ -193,7 +193,7 @@ STATE: RF4 on the beat, 53 bosses wired, the key ledger leaves, a 23-perk tree s
 - SHIPPED 9/5 91cbd15  [house tiles]  BB-A-TILE-IS-A-HOUSE
 - SHIPPED 9/5 0d5b24d  [fights end]  BB-NERVE-ON
 - SHIPPED 9/5 8646115  [indoor fights]  THE-INDOOR-FIGHT
-- OPEN  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
+- CLAIMED 9/12 combat-nfnki9  [loot kept]  BB-LOOT-LEAVES  (with BB-KEYS-LAND and BB-THE-FIGHT-KNOWS-THE-DAY, one pipe)
 - OPEN  [guns close]  BB-GUNS-CLOSE
 - OPEN  [rescue her]  BB-PICKUP
 - OPEN  [plates cost]  BB-THE-FIGHT-EATS-TAPE
