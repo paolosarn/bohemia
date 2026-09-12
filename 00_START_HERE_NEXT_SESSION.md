@@ -6962,6 +6962,14 @@ BOTH MATTERED:
        any tree older than six hours, free in a fresh one. Its own header says "A CHECKER THAT
        CANNOT TELL WHAT IT IS LOOKING AT IS THE BROKEN ONE."
 
+ONE OF THE 42 HAS NO BASELINE AND IS SAID SO RATHER THAN COUNTED: FACTION ARC timed out at
+880s on the main worktree twice. It read 17/1 here and has no path to a hair palette, but I
+did not prove that, so it is not on the "not mine" list.
+
+SHIPPED 64dd215, BUILD 9/12b, pages run 1600 SUCCESS on that exact sha. The live page cannot
+be fetched from this container (the proxy 403s github.io on CONNECT), so the workflow
+conclusion is the proof, not a curl.
+
 FOUND RED ON MAIN, NOT MINE, ROUTED: mandate_face_gate is 13/2 and I proved it on a clean
 worktree of origin/main before saying so. Its two failures are "the card does NOT name a
 faction as holding the ground you stand on" and "it puts NO number on the top rung". Both are
