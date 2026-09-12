@@ -1,3 +1,71 @@
+UI (ui-kmqmrf): 9/13 (b) LATEST -- *** [no slop] ROUND SIX. PROSE IS NOT A SCREEN. ***
+Row STILL CLAIMED. monospace on the walked city 66 -> 40, all tells 204 -> 178.
+
+WHAT LANDED. BohemiaBody: 108 glyphs, 2.2 KB, drawn by the same tool as the screen face. The day
+card and the talking card carry it and everything written on them inherits it. rom_face_gate 14/0.
+DIRECTION's ruling is one sentence -- fixed pitch ONLY where the device is a character-cell screen
+-- and prose is the other end of it. Those two cards held 30 of the 66 monospace hits. Nobody
+writes on a grid; that is the tell in five words.
+
+IT IS THE SAME CUT, TRIMMED -- REUSE, NOT A SHORTCUT. The cell glyphs were already drawn on a
+7-row cap and 5-row x-height; what made them monospace was never the drawing, it was that every
+glyph got the same five columns. So each is trimmed to its own ink and given its own advance.
+BUT TRIMMING ALONE WOULD HAVE SHIPPED A LIE: the first build had 77 of 107 glyphs STILL five
+columns wide, because the cell cut fills five columns by construction. A face where nearly every
+letter is one width is a grid with a few narrow letters in it. Round lowercase redrawn at four;
+now caps 5, lowercase 4, i 1, l 3. AND ITS PIXELS TOUCH while the screen's do not -- a display is
+made of LAMPS and you see the dark between them; ink runs together. Same grid, two faces that look
+properly unrelated because what they are made of is unrelated. Same sentence at 11px: one line
+here, two in the fixed-pitch face.
+
+THE FIRST ATTEMPT WAS DECORATION AND ONLY THE REAL SURFACE SAID SO. I pointed the prose rules
+(.fbnote, .endsay, the textarea, the teaching line) at the body register and the tell count moved,
+so it looked like work. Then I opened the real card: still the old face. Asking the live document
+which rule set its type returned an EMPTY LIST -- those rules live in a JS string this path never
+injects, so the prose was inheriting mono from its parent and every edit was decoration. The fix
+is the one the phone already taught: THE SURFACE CARRIES ITS OWN FACE and everything on it
+inherits. A rule that never loaded cannot miss that.
+
+THE GATE FOUND A SECOND MISSING GLYPH ON ITS FIRST RUN. Every card gets a corner close from
+cardShow and it is U+2715, not an ASCII x. Neither face had it, so that one mark on EVERY panel
+in the game was in a borrowed typeface. Two glyphs found this way in two rounds (the phone's
+signal bar was the first), both things nobody would think to put on a list. That is the argument
+for asking the renderer what a surface actually draws.
+
+*** AND THE WORST THING THIS ROUND WAS MY OWN NEW TEST READING THE WRONG FONT. *** The leg whose
+whole job is to prove the body face is proportional set the canvas font once, then ran the
+coverage loop (which leaves the font on plain serif), and only THEN measured i and m. It was
+measuring SERIF -- proportional -- so it would have passed for every possible face including a
+pure grid. Caught by mutating the body register back to fixed-pitch and watching the leg report
+THE SAME TWO NUMBERS as the healthy run, 17.78 and 49.78. IDENTICAL NUMBERS UNDER A MUTATION ARE
+THE TELL THAT A CHECK IS READING SOMETHING OTHER THAN WHAT IT NAMES. Fixed: healthy now reads 13
+and 38, mutant reads 38 and 38 and fails. This lane has now written "a clean answer from the wrong
+oracle looks exactly like a fact" about a ruler, an attribution heuristic, and its own gate.
+Mutation is the only thing that has ever caught it.
+
+WHOSE CALL THE BODY FACE IS, SAID OUT LOUD: DIRECTION's ruling names a pool (Pixel Operator, m5x7,
+monogram, LanaPixel) and NONE are in this repo. Two OFL pixel faces do sit on this machine
+(Silkscreen, Pixelify Sans) and either could have been embedded, but pulling in a face DIRECTION
+did not name is their call, not this lane's. Ours asks nobody and carries no licence -- and the
+whole point of building registers first is that DIRECTION swaps it by changing ONE token.
+
+NEXT: the casing register is the last of the three still fixed-pitch (DIN-stencil caps), and by
+round five's measurement it is not blocked either. Then rounded corners 60 and 1px borders 56,
+neither of which needs a font at all.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_THE_WRITING_READS_9_13_26.html
+
+PER RULE 13: pre-push pass green (rom face 14/0, thumb 16/0, feed 15/0, phone object 18/0, half
+size 7/0, city rail 8/0, alpha loads 20/0, readable ruler 7/0, demo build 25/0). THE SUITE LINE is
+not posted yet, so the honest sentence is: full suite unmeasured since e8226080.
+
+NOT MINE, THIRD TIME -- FOR WHOEVER OWNS THE PALETTE: phone_readable_gate 15 ok 4 FAILED (13/6 on
+clean main before this lane fixed the two text-floor legs). The four colour-collision ratchets have
+not moved in three rounds: normal 5 vs ratchet 3, protan 14/13, deutan 12/11, tritan 13/9. Nothing
+in this round touches a faction colour. Row: this lane's OPEN [colour reaches].
+
+Record: records/BOHEMIA_NO_SLOP_THE_WRITING_IS_NOT_TYPED_9_13_26.md
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

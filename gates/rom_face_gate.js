@@ -148,6 +148,66 @@ const ready = async p => { const t0 = Date.now();
      + 'where the device is a screen (' + (casing || 'nothing found') + ')',
      !!casing && casing !== regs.sFirst);
 
+  /* ==== AND PROSE IS NOT A SCREEN EITHER ======================================
+     The same ruling, applied to the other end of it. The day card and the talking card are
+     the two surfaces in this game that are pure WRITING, and a person writing does not write
+     on a grid -- that is the monospace tell in one sentence. They carried 30 of the walked
+     city's 66 monospace hits between them.
+
+     *** THE LEG THAT EARNS ITS PLACE IS "IS IT PROPORTIONAL", AND IT IS ASKED OF THE
+     RENDERER. *** The first attempt at this pointed a handful of inner rules at the body
+     register and measured as NO CHANGE AT ALL -- opening the real card and asking which
+     stylesheet rule set its type came back with an EMPTY LIST, because those rules are built
+     in a string this path never injects. Every one of those edits was decoration over a card
+     still inheriting the mono face. So the check is not "does a rule mention the register",
+     it is: open the real card, and measure whether an i and an m are the same width on it.
+     A grid cannot pass that and a stylesheet cannot fake it. */
+  const prose = await c.evaluate(async () => {
+    if (typeof cardShow !== 'function') return { err: 'no cardShow' };
+    cardShow('<h2>GATE</h2><div class="endsay">illlliiii mmmmwwww</div>');
+    const card = document.getElementById('daycardIn');
+    if (!card) return { err: 'no card' };
+    const fam = getComputedStyle(card).fontFamily.split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+    try { await document.fonts.load('16px "' + fam + '"'); } catch (_e) {}
+    const cv = document.createElement('canvas').getContext('2d');
+    /* *** MEASURE THE WIDTHS NOW, NOT IN THE RETURN. *** The first cut of this leg set
+       cv.font once here and then read w('i') and w('m') in the return statement -- AFTER the
+       coverage loop below had left cv.font on plain serif. So it was measuring SERIF, which
+       is proportional, so it passed for every possible face including a pure grid. It was
+       caught by mutating the body register back to the fixed-pitch face and watching the leg
+       report the SAME two numbers as the healthy run: 17.78 and 49.78. Identical numbers
+       under a mutation are the tell that a check is reading something other than what it
+       names. A clean answer from the wrong oracle looks exactly like a fact. */
+    cv.font = '64px "' + fam + '", serif';
+    const wI = cv.measureText('i').width, wM = cv.measureText('m').width,
+          wMM = cv.measureText('M').width;
+    const seen = new Set();
+    (function walk(n){ if (n.nodeType === 3) { for (const ch of n.nodeValue) seen.add(ch); }
+      else for (const k of n.childNodes) walk(k); })(card);
+    const chars = [...seen].filter(ch => ch.charCodeAt(0) > 31);
+    const missing = [];
+    for (const ch of chars) {
+      cv.font = '64px "' + fam + '", serif'; const a = cv.measureText(ch).width;
+      cv.font = '64px serif';                const b = cv.measureText(ch).width;
+      if (a === b) missing.push(ch + ' U+' + ch.codePointAt(0).toString(16).toUpperCase());
+    }
+    try { cardHide(); } catch (_e) {}
+    return { fam, i: +wI.toFixed(2), m: +wM.toFixed(2), M: +wMM.toFixed(2),
+             drawn: chars.length, missing };
+  });
+  ok('a card of prose could be opened to measure', !prose.err);
+  if (!prose.err) {
+    ok('the prose card is NOT drawn in the screen face -- prose is not a character-cell '
+       + 'device (' + prose.fam + ')', prose.fam !== regs.sFirst);
+    ok('and its face is really PROPORTIONAL, measured on the card itself rather than believed '
+       + 'from a stylesheet: an i is ' + prose.i + ' where an m is ' + prose.m
+       + ' -- a grid cannot pass this', prose.i > 0 && prose.m > prose.i);
+    ok('every character the prose card draws is covered by the prose face ('
+       + prose.drawn + ' distinct'
+       + (prose.missing.length ? ', MISSING: ' + prose.missing.join(' ') : ', none missing') + ')',
+       prose.missing.length === 0);
+  }
+
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close(); done();
 })();
