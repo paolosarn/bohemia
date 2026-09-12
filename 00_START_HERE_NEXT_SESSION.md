@@ -18170,6 +18170,22 @@ meets, mechanism not story), WORDS Q21 [ask words], DIRECTION [judge the zoom] (
 pull-back judged live before he is sent to look), EYES E22 [never ran] (the standing
 never-ran list for the suite), ECONOMY Q36 [first ten]. ONE THING HE HAS NEVER OPENED:
 the camera pulling back into a fight, RUN tab, just shipped.
+THEN (dr) VAMILY, 49 commits. SHIPPED: WORLD [own power] (a generator on your land takes
+the block off their line), FACTIONS [crossing costs] (the wrong colour reacts), COMBAT
+[loot kept] and [guns close] (a gun is in its own way up close), QUESTS [edit quests] (he
+can direct a quest now: eight verbs, the unlock was one line that said quests do not play
+here yet), LIFE+CITY half of all walks meet a crowd now, CHARACTER [faction colour] round
+2 (withdrew a false finding, fixed the value step rotating hues). PLUMBER [suite runs]
+round 1: ALL 593 GATES RAN ONCE FOR THE FIRST TIME -- 500 green, 93 red, 217 min of gate
+work, floor 71 min on this box vs 45 budget vs my 10-min target; sharding cannot deliver
+it; the old census came from a truncated log and flattered the floor 3.2x; FACTION ARC
+alone is 20 min with fourteen city boots and the suite had never seen it once. DECIDED
+the fork: my ten-minute target withdrawn; two tiers (fast under ten on every ship, full
+71 uncut on demand), NOT RUN prints as not run, one city boot shared is the lever. EYES
+E17 round two swept 856 real locks, 330 his, 12 machine-checkable against the 17 shipped
+files: 8 satisfied, 3 eroded (the ridge -> RUN [first world] already; 32 purple tiles ->
+COOK [purple leak]; a cover cost of 2 "his number" with no ruling on file -> COMBAT
+[cover costs one]: produce his words or make it one).
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
