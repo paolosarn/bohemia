@@ -19969,6 +19969,39 @@ four rates, the door sold at eight times). ALSO: FACTIONS [pursuit strength] (hi
 travel-map ruling, never on the board), DIRECTION [judge tracks], EYES E24 [phone latency],
 WORDS Q22 [debt words], Q23 [track words]. Board: 169 OPEN, 15 CLAIMED. Every lane at six
 or more open. The one shipped thing he has never opened: the footprints on the MAP tab.
+THEN (dv) VAMILY, 33 commits. SHIPPED: WORLD [someone lends] (a real loan: batteries arrive
+and an obligation is written beside them, one a night back, dies at the fold, lender
+stands), FACTIONS [recruit anywhere] (who will come depends on the ground, the holder and
+your standing; 46 of 61 on the waking block; no roster), COMBAT [plates cost] (the bell
+refuses a plate at zero tape; and it found the city calls neither fight reset -> COMBAT
+[third door]), CHARACTER [one colour table] (the CHARACTER tab shows his colour vs the
+worn colour on all 13 cards: 7 of 9), ANIMATION [coat follows] (skirt reaches to the
+swung leg, spill 12.2% -> 3.9%, hip pop 30.8% -> 17.9%), SOUNDS [music owned] r3 (the
+late beat on all 142 songs by one rule in playStep, 16.0 s on the street, never in a
+fight; three songs with the beat in their data are menu-only -> RULED retag, SOUNDS
+[three retagged]), LIFE+CITY [lab reds] (three red checks were broken rulers, one
+outranking his 8/26 rungs ruling; 932/0) and [more people] r10 (13 of 16 walks meet a
+crowd), PLUMBER [suite runs] r2 (FACTION ARC split, 102 checks run for the first time),
+WORDS [ask words] school (a thank you opens an account; refusals are twice prefaced),
+ECONOMY Q35 [rent riot] (a strike controls the vacancy, Glasgow 1915 -> WORLD [block
+strikes], QUESTS [strike ask], ECONOMY Q41 [who replaces you]), COOK [fortress
+buildings] r3 (the Welcome sign drawn -> EYES E25 [the sign]), RUN cold hand 7/0 four
+runs, UI [no slop] r4 (spaced caps 80 -> 0; and its own regression: the largest text
+setting did nothing to the city since 9/7, fixed).
+THE WALL THREE LANES HIT: the suite cannot finish (331 of 603 never ran in 45 min; 56 of
+372 reached were red; floor 71 min). MY SWING: records/BOHEMIA_COORDINATOR_SWING_HOW_BIG
+_SHOPS_RUN_A_SUITE_THAT_CANNOT_FINISH_9_13_26.md (Google: pre-land fast and local only,
+post-land everything on one machine and PUBLISHED; flakes quarantined, still run, never
+gate). -> FRONT-PAGE RULE 13 ("I ran the suite" = pre-push pass green + read THE SUITE
+LINE and own your reds), PLUMBER [suite line] and [pre-push pass] at the top of PLUMBER.
+Rule 8 gained: touch engine/, rebuild both derived slices (RUN [slice rebuilt]).
+DECIDED BY ME (records/BOHEMIA_RULING_THREE_DEFAULTS_DEEDS_HIRES_AND_THE_THREE_SONGS_9_13_26.md):
+a deed weighs what it cost you, no table (FACTIONS [deeds weigh]; kills the 83-row empty
+DEED_WEIGHT wait and the two red-by-design gates); taking somebody on costs one a night
+(FACTIONS [take them on]); the three late-beat songs go to the street pool. Also QUESTS
+[half now] from WORDS' school. Board: 176 OPEN. The one thing he has never opened: the
+colour chips on every card in the CHARACTER tab, "THE COLOUR YOU PICKED. 7 of 9 wear it."
+Noted, not acted: a dynasty-slug session claimed QUESTS [first ask]; the work is what counts.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
