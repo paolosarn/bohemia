@@ -2030,6 +2030,20 @@ GATES = [
      "frozen at two and may only go down. A claim that goes stale because a gate stopped "
      "carrying its check is an immediate red, not a ratchet, because that is exactly the "
      "rot E11 found in CLAUDE.md's own law index.", True),
+    ('LOCKED RATCHET', ['node', 'gates/locked_ratchet_gate.js'],
+     "EYES AND EARS lane 17, 9/12, E17 [locked ignored]: A RULING HE MARKED LOCKED THAT THE "
+     "BUILD CONTRADICTS. 1,046 lines in laws/ carry the word; 856 are a real lock, 330 of those "
+     "are HIS and not a lane locking its own mechanism, and only 35 of his name something a "
+     "machine could ever check. Twelve are checked against the 17 files the shipped game actually "
+     "loads: 8 satisfied, 3 EROSION, 1 not built yet. EROSION is the ratcheted number and it means "
+     "one thing only -- the surface disagrees with his ruling AND a search of laws/ finds no newer "
+     "ruling releasing it. DRIFT and NOT-BUILT are deliberately not ratcheted, because a law going "
+     "stale when he rules again is the system working. The sweep's counts rest on a classifier that "
+     "decides whether a line saying 'locked' is a ruling at all, so that classifier is scored "
+     "against fifty lines read by hand and only the sample read AFTER the rules were last repaired "
+     "counts; that score is floored here too. Round one's verdict table had this backwards and said "
+     "a later build retires an older ruling, which would let any lane overturn any lock by shipping "
+     "after it.", True),
     ('NO READER', ['node', 'gates/no_reader_ratchet_gate.js'],
      "EYES AND EARS lane 17, 9/6, E11 [pixels only]: A RULING NOBODY CAN READ IS A "
      "RULING THAT GETS ASKED AGAIN. The lane's school round found the corrected rule: "
