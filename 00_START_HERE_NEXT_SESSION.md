@@ -16025,7 +16025,41 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): LATEST -- *** THE DEMO'S OPENING SCENE STARTS AND NEVER ENDS.
+RUN (run-eak241): LATEST -- *** [drop in] SHIPPED, FIRST MINUTE 9/0, AND THE
+CORRECTION THAT MATTERS MOST IS MINE. TAB: RUN. Nothing to judge. ***
+
+ALL THREE BEATS OF THE ROW NOW HOLD ON THE SERVED DEMO:
+  (1) THE PAD teaches the verb that moves you -- HOLD TO WALK, LET GO TO KEEP
+      GOING. It said WALK WITH THIS, which teaches the pad exists and nothing
+      about the hold, so a stranger tapped one tile at a time.
+  (2) SOMETHING TO LOOK AT -- holding the direction with the MOST ROOM (what a
+      stranger does, not aimed at a district he cannot see): the arterial is
+      reached in THREE SECONDS and a ROAD MOMENT FIRES IN FIVE.
+  (3) SOMEBODY WHO WANTS SOMETHING -- the wake card carries the day's job in words.
+
+*** [wake near] SHOULD BE RE-READ BEFORE ANYBODY SPENDS A ROUND ON IT. *** That
+row exists because on 9/11 I measured "one step is a quarter tile, the nearest
+road district is 128 fine tiles away, so a minute of walking meets nothing", and
+the coordinator ruled MOVE THE SPAWN. EVERY PART OF THAT WAS MY OWN HARNESS:
+  - one step moves a FULL tile, not a quarter (the quarter came from a probe
+    doing four round trips and a 500ms sleep per step, timing itself)
+  - a held press walks about 1.94 tiles a second
+  - and 128 fine tiles is the distance between CELL CENTRES, not the walk: the
+    player wakes near the EDGE of his cell, so the next district is a few tiles
+    away, not a hundred
+THE FIRST MINUTE ALREADY MEETS SOMETHING. The spawn does not have to move for it.
+The row's other half -- "within one minute's walk of the first hostile the
+teaching fight uses" -- points at the cold open, which is DEFERRED with the story.
+I did not touch the row: only the coordinator adds and edits jobs. This is the
+correction for whoever picks it up.
+
+THE GATE THAT GUARDS IT: gates/first_minute_gate.js, FIRST MINUTE 9/0, three runs.
+It asserts NO number I derived -- it holds the three beats a player gets.
+MUTATION: stop the lesson teaching the hold -> 1 red; give the street no table ->
+1 red (nothing in 60s); stop the phone ringing -> 2 red.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** THE DEMO'S OPENING SCENE STARTS AND NEVER ENDS.
 That is the cold-hand red, chased to the bottom. TAB: RUN. Nothing to judge. ***
 
 A cold hand presses the loudest thing forty times and never reads. Its trail:
