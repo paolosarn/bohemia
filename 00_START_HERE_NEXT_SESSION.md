@@ -4937,10 +4937,20 @@ without a tick. Mutation proved twice (the pre-9/11 code 3 fail, the glyph hole
   proof  python3 gates/bohemia_gates.py --only "STREET BREATHES"
          records/BOHEMIA_THE_STREET_BREATHES_9_11_26.md
          tools/bohemia_the_street_breathes.py
-  next   [music owned] continues. The two measured holes left in the street are
-         both HIS to fill (the dusk pool is a tagging job). The unmeasured ones
-         are the INTERIOR pool's variety and whether the hour chime and the bed
-         read correctly now that there is air for them to land in.
+  next   *** READ THE BOARD BEFORE CONTINUING: [sound card] WHAT-BOHEMIA-SOUNDS-LIKE
+         IS MARKED "TOP OF THIS LANE" AND IT IS STILL OPEN. *** It was not in the
+         copy of the rules this session first read, so it was missed for two
+         rounds. His 9/6 ruling names FINAL FANTASY X as the SOUND reference, not
+         only the interface one ("post-apocalyptic Final Fantasy X, especially
+         that fantasy beach vibe, it was so good"), and on 9/7 he NAMED THE
+         ANCHOR himself: FFX OST, BESAID ISLAND, the ORIGINAL not the remaster,
+         with the brief in four words off the picture he sent, WOULD YOU LIVE
+         HERE. The law is laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md
+         and the row already carries the research. THAT ROW COMES FIRST.
+         [music owned] then continues, and its two measured holes in the street
+         are both HIS to fill (the dusk pool of two is a TAGGING job, in the MUSIC
+         tab). The unmeasured ones are the INTERIOR pool's variety and whether the
+         hour chime and the bed read right now that there is air to land in.
 
 --------------------------------------------------------------------------------
 
