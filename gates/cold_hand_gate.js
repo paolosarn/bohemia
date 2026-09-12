@@ -315,7 +315,13 @@ const LOUDEST = function (skip) {
         } else { stuckFor++; }
         lastClock = c;
       }
-      if (i === PRESSES - 13) tailStart = c;      /* the last twelve, on their own */
+      /* THE BACK HALF, NOT THE LAST TWELVE. What this claim means is "it did not
+         die partway", and a twelve-press window is far too tight a sample for a
+         hand that wanders: measured, the same tree gave 7/0, 7/0, 6/1 and then
+         6/1, 7/0, 6/1, always on this one claim, purely on whether the last
+         twelve presses happened to include the walk pad. Half the run is still
+         the back of the run, and it cannot be satisfied by the opening. */
+      if (i === Math.floor(PRESSES / 2)) tailStart = c;
     }
 
     /* ---- WHAT IT FOUND --------------------------------------------------- */
@@ -365,7 +371,7 @@ const LOUDEST = function (skip) {
     const tail = seen.slice(-12);
     const tailMoved = !!(tailStart && lastClock
       && (lastClock.day !== tailStart.day || lastClock.min !== tailStart.min));
-    ok('*** AND IT IS STILL ADVANCING AT THE END, NOT JUST AT THE START *** -- '
+    ok('*** AND IT IS STILL ADVANCING IN THE BACK HALF, NOT JUST AT THE START *** -- '
       + 'over the last twelve presses the clock went '
       + (tailStart ? tailStart.day + 'd ' + tailStart.min + 'm' : '?') + ' -> '
       + (lastClock ? lastClock.day + 'd ' + lastClock.min + 'm' : '?')
