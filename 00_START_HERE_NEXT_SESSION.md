@@ -366,7 +366,7 @@ STILL CARRIED, AND STILL NOBODY'S:
 
 NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
 directly on top of Q2's finding that a lie is caught by the question and never by the manner.
-=======
+--- (this line was a bare row of equals signs, which is a git conflict marker; it sat between two lanes' blocks and belonged to neither, and it made gates/nomarkers_gate.js red for every lane that ran the suite. Replaced 9/11 by QUESTS with a plain rule. Nobody's handoff text was touched.)
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -8907,6 +8907,114 @@ FILES. ***
 since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
+
+ROUND 27 [haggling works] BB-ASK-FOR-MORE, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_haggle.js        the terms, headless
+  gates/ask_for_more_gate.js      43 passed, 0 failed, REGISTERED the same round
+  slices/BOHEMIA_CITY_WORLD.html  the module inlined + 5 seams on the offer
+  BUILD 9/11p - THE JOB SAYS WHAT IT PAYS
+  records/BOHEMIA_THE_JOB_SAYS_WHAT_IT_PAYS_9_11_26.md
+
+*** THE FIRST HALF OF THIS ROW WAS NOT THE HAGGLE AND THE ROW DID NOT SAY SO. ***
+The wake card says the title, says nobody has picked it up yet, and since 9/7 says
+how long the walk is. IT HAS NEVER SAID WHAT THE JOB PAYS. You cannot ask for more
+of a thing you were never told about, so the pay line lands first, on the same side
+of the decision as the distance, for the reason the reach row learned the hard way:
+terms you find out after you agreed are not terms.
+It reads the quest's own COMPLETE endings and answers three ways rather than
+guessing: "Pays one battery" when every ending agrees, "Pays one, and which one
+depends on how you do it" when they do not (which is TRUE, and is the residual
+right the player already has), "Pays nothing. They said so up front" when none pays.
+
+THE FINDING, AND IT IS FOR ANY LANE COPYING A MECHANIC OUT OF A GAME HE NAMED:
+TAKE THE SHAPE, LEAVE THE NUMBERS, AND SAY IN THE FILE WHICH IS WHICH.
+The campaign game's haggle adds a random 3 to 6 to a hidden annoyance counter and
+throws you out at 9. The SHAPE (safe once, risky twice, nearly impossible three
+times) is worth having. The numbers are somebody else's economy, and copying them
+in would be inventing a dial nobody ruled, dressed as research.
+Ours gets the same shape out of a FACT instead of a dial:
+  - the counter is HOW MANY TIMES YOU OPENED YOUR MOUTH. Not a balance number, a
+    fact about the conversation, and the player can count it themselves.
+  - the room is THE SIZE OF THE MENU. There are exactly two things to ask for, so
+    two asks land and a third can only be repeating yourself at somebody who has
+    already said yes twice.
+  - NOTHING IS RANDOM and he is TOLD, in words, before the ask that costs him. A
+    hidden roll would mean he can never know where he stands, and this lane's own
+    [check the claim] rule already refuses that: nothing hidden decides an outcome.
+Deterministic is a real difference from the game we studied. It is the house style
+winning, not an oversight, and the file says so out loud.
+
+AND EVERYTHING COSTS ONE FORCED THE BEST PART OF THE DESIGN. You cannot ask for
+two without breaking the one locked number in the economy. So asking for more had
+to mean asking for a different SHAPE of the one, which is the study's own "payment
+shapes" finding and is a better mechanic than a bigger number:
+  A DIFFERENT ONE  -- the job pays a battery, you ask for a bag. Real, because the
+    three are not interchangeable: you cannot eat a battery and a battery will not
+    buy you what people say about you.
+  UP FRONT         -- the same one, now. A trade and not a bonus: you walk away
+    afterwards holding their thing, and that is what walking away costs.
+
+THE STANDING MARK IS NOT A NUMBER EITHER, AND THAT IS REUSE. It would be easy and
+wrong to debit a clout. In this valley work passes hand to hand and the study says
+what the enforcement actually is: "reputation and repeat trade ARE the contract."
+So pushing too far WITHDRAWS THE OFFER, and the mark is a deed row handed to
+bohemia_deeds, which already has the witness range, the grading and the feed. No
+new standing system exists. And a withdrawn offer is refused in offerAccept in
+code, not just described on a card: the whole cost of pushing is that there is now
+no job.
+
+*** THE BUG I MADE, AND WHY EVERY HEADLESS TEST WOULD HAVE PASSED ANYWAY. ***
+showWake() re-rings the offer every time it draws the card, and an ask redraws the
+card. Opening fresh terms inside offerRing() therefore WIPED THE ASK THE MOMENT IT
+WAS MADE. He would have pressed a button that did nothing, forever, and the module
+was fine the whole time. Terms are keyed on the day and the job now, so the same
+offer keeps the same conversation and a new day opens a fresh one. The gate drives
+the real button on the real surface, forces a redraw, and demands the ask is still
+there. A second one the gate caught: the card showed the settled line immediately,
+so on a morning nobody had spoken it read "One battery" instead of "Pays one
+battery" -- a statement of terms dressed as a disclosure.
+
+FOUR NEGATIVE CONTROLS, ALL CAUGHT: a smuggled threshold (ANNOYANCE_CAP = 9) ->
+1a and 1b; a third ask that costs nothing -> 2b, 4c, 4d; a settlement of two ->
+2a (5,130 bad states) and 3e; breaking the redraw survival -> 8a, R9, R10.
+The gate walks EVERY reachable sequence of asks across all 42 quests, 12,837
+states, rather than reading the code and believing it.
+AND ONE GATE CHECK WAS WRONG ABOUT AN HONEST FILE: it looked for a sentence a
+comment rewrap had split across two lines. It reads the file's prose unwrapped now,
+so a claim about what a file SAYS cannot break because somebody wrapped it at
+eighty columns.
+
+GATES: ask_for_more 43/0, inside_a_day 25/0, the_job_pays 99/0, canon_quests 843/0
+(42 files), quest_study 642/0, dayloop 59/0, alpha_loads 20/0, demo_build 25/0,
+shipped_truth 41/0, pages_publish 18/0, gate_registry 6/0, main_spine 49/0.
+
+REGISTERED THE ROUND IT WAS WRITTEN, because the lane shipped last round against a
+GATE REGISTRY red and the answer to a checker that catches drift is to stop
+drifting.
+
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is still stale and still
+refuses to write: its QUESTS list holds 5 of the 37 the city carries. Fifth round
+flagging it for the plumber.
+
+FIXED FOR EVERYBODY, NOT MINE AND ONE LINE: NO MARKERS was 4/2 red on main because
+this very file carried a bare row of equals signs at line 314 -- a git conflict
+marker, sitting between two lanes' handoff blocks, belonging to neither, arriving
+in somebody else's commit (it is on origin/main before this round; checked, not
+assumed). It made the shared handoff look like an unresolved merge and it made a
+gate red for every lane that ran the suite. Replaced with a plain rule. NOBODY'S
+HANDOFF TEXT WAS TOUCHED and no lane's block was edited. 6/0 now.
+A NOTE FOR THE NEXT LANE THAT SEPARATES TWO BLOCKS IN HERE: a row of equals signs
+is a conflict marker to every tool that reads this file. Use words.
+[STILL NOT MINE, MEASURED LAST ROUND] fps_on_a_phone's "bytes to first play" moves
+2.86 MB on an unchanged tree, so its ratchet cannot catch the size of regression it
+exists to catch.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] (still blocked, re-measured this
+round: bohemia_loop.js is inlined in neither the city nor the alpha, 0 hits each,
+and the only reader of s.advanceTerritory in the repo is bohemia_loop.js line 681 --
+SHARED's BB-LOOPLESS decision and still OPEN), [edit quests] DIRECT-COVERS-QUESTS,
+[act two] PARKED BY HIM, [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE,
+[company in asks] YOUR-PEOPLE-SHOW-UP-IN-THE-ASKING (new, from Paolo 9/11).
 
 ROUND 26 [designs playable] DESIGNS-TO-BQ, SHIPPED. QUESTS, BUILD.
   quests/bq/D001_MOTHS_AROUND_THE_LAST_LIGHT.bq

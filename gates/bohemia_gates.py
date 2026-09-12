@@ -2855,6 +2855,30 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('ASK FOR MORE',   ['node', 'gates/ask_for_more_gate.js'],
+     'QUESTS row [haggling works] BB-ASK-FOR-MORE, 9/11. REGISTERED THE ROUND IT WAS WRITTEN, '
+     'because the lane shipped the round before this one against a GATE REGISTRY red and the '
+     'answer to a checker that catches drift is to stop drifting. THE ROW: a job in this valley '
+     'had a length since 9/7 and no price and no terms, and zero hits for counter-offer, retainer '
+     'or advance pay anywhere on the walked surface (the three "haggle" hits in the alpha are an '
+     'ANIMATION CLIP NAME). THE FIRST HALF OF THE FIX IS THE DISCLOSURE, NOT THE HAGGLE: the wake '
+     'card said the title, said nobody had picked it up and said how long the walk was, and NEVER '
+     'SAID WHAT THE JOB PAID. You cannot ask for more of a thing you were never told about. '
+     'THE SECOND HALF HAS NO BALANCE NUMBER IN IT AT ALL: the campaign game he named uses a random '
+     '3-6 annoyance against a threshold of 9, and those are that game\'s numbers; ours counts how '
+     'many times you opened your mouth, which is a fact about the conversation and not a dial. Two '
+     'asks land and the third takes the job away, and you are TOLD so in words before the ask that '
+     'costs you, because a hidden roll would mean you can never know where you stand and this '
+     'valley already refuses that. EVERYTHING COSTS ONE SURVIVES IT: a haggle changes the SHAPE of '
+     'the one (a different currency, or half of it up front) and can never produce two -- proved by '
+     'walking every reachable sequence of asks across all 42 quests, 12,837 states, not by reading '
+     'the code and believing it. The standing mark goes through the deed ledger that already '
+     'exists rather than an invented clout debit, because in this valley the enforcement IS that '
+     'work stops coming your way. FOUR NEGATIVE CONTROLS, all caught: a smuggled threshold, a '
+     'third ask that costs nothing, a settlement of two, and breaking the redraw survival -- which '
+     'is the bug the author actually made, since showWake re-rings the offer every time it draws '
+     'and an ask redraws the card, so fresh terms wiped the ask the moment it was made',
+     True),
     ('INSIDE A DAY',   ['node', 'gates/inside_a_day_gate.js'],
      'QUESTS row [distance shown], shipped 9/7 (dcbe0b8) and UNREGISTERED ON ARRIVAL. Caught by '
      'GATE REGISTRY within minutes of the file existing, which is the whole point of that gate: '

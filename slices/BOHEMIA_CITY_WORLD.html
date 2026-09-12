@@ -48809,10 +48809,20 @@ function showWake(){
          /* AND HOW LONG IT IS, BEFORE HE PRESSES ANYTHING. Its own row, never
             folded into the quest's words: the offer's text is the quest's and
             this is the game's. draft:true. */
-         if(o.how) h+='<div class="sub">'+esc(o.how)+'</div>'; }
+         if(o.how) h+='<div class="sub">'+esc(o.how)+'</div>';
+         /* __ASK_FOR_MORE__ -- what it pays, then the room to argue. Both are the
+            game's words and not the quest's, same as the distance line. */
+         try{ h+=haggleHtml(o); }catch(_e){} }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
-  cardShow(h,function(){ cardHide();
+  cardShow(h,function(act){
+    /* __ASK_FOR_MORE__ -- an ask redraws the card in place; it never leaves it. */
+    if(typeof act==='string'&&act.indexOf('hg:')===0){
+      try{ haggleAsk(act.slice(3)); }catch(_e){}
+      try{ showWake(); }catch(_e){}
+      return;
+    }
+    cardHide();
     /* __THE_MORNING_MAKES_A_SOUND__ (8/22, SOUND lane) -- HIS OWN, APPROVED AND
        STRANDED. come_up is 4 of 5 from his 8/16b sweep and it was wired only in
        the RUN slice, the panel nobody opens since the RUN tab started showing
@@ -48826,6 +48836,10 @@ function showWake(){
 
 /* THE OFFER. Its words are the quest's own -- the same law the resolution buttons
    live under: nothing here is prose I wrote about the job. */
+/* __ASK_FOR_MORE__ -- the conversation about terms, kept across a redraw. Keyed
+   on day and job, so the same offer keeps the same conversation and a new day
+   opens a fresh one. */
+var HAGGLE_TERMS=null, HAGGLE_KEY=null;
 function offerRing(){
   OFFER=null; OFFER_TAKEN=false;
   var spec=DQ.specForDay(DAY.day); if(!spec)return;
@@ -48869,6 +48883,27 @@ function offerRing(){
       OFFER.how = BohemiaReach.sayIt(_far);                       /* draft:true */
     }
   } catch(_e){}
+  /* __ASK_FOR_MORE__ -- WHAT IT PAYS, AND THE ROOM TO ARGUE ABOUT IT.
+     (9/11, QUESTS [haggling works] BB-ASK-FOR-MORE.)
+     THE HALF NOBODY NOTICED WAS MISSING: this card has said the title, said
+     nobody has picked it up yet, and since 9/7 said how long the walk is. It has
+     NEVER SAID WHAT THE JOB PAYS. You cannot ask for more of a thing you were
+     never told about, so the disclosure lands first and the asking hangs off it.
+     SAME SIDE OF THE DECISION AS THE DISTANCE, and for the same reason the reach
+     row learned the hard way: terms you find out after you agreed are not terms. */
+  try {
+    OFFER.pays = BohemiaHaggle.pays(Q);
+    OFFER.paysSay = BohemiaHaggle.sayPay(OFFER.pays);             /* draft:true */
+    /* *** THE TERMS HAVE TO SURVIVE THE REDRAW, AND MY FIRST CUT LOST THEM. ***
+       showWake() re-rings the offer every time it draws the card, and an ask
+       redraws the card -- so opening fresh terms here wiped the ask the moment he
+       made it. He would have pressed a button that did nothing, forever. The
+       terms are keyed on the day and the job, so the same offer keeps the same
+       conversation and a new day starts a new one. */
+    var _hk = DAY.day + ':' + (OFFER.id || '');
+    if (HAGGLE_KEY === _hk && HAGGLE_TERMS) { OFFER.terms = HAGGLE_TERMS; }
+    else { OFFER.terms = BohemiaHaggle.open(Q); HAGGLE_KEY = _hk; HAGGLE_TERMS = OFFER.terms; }
+  } catch(_e){ OFFER.pays = null; OFFER.paysSay = null; OFFER.terms = null; }
   window.__OFFER_RANG=(window.__OFFER_RANG||0)+1;
   phoneBadge();
   /* __THE_PHONE_BUZZES__ -- HIS OWN SOUND, APPROVED AND UNUSED. He judged the ten
@@ -48882,9 +48917,65 @@ function offerRing(){
   window.__BUZZED=(window.__BUZZED||0)+1;
   phonePush(true);
 }
+/* __ASK_FOR_MORE__ -- THE TERMS, ON THE CARD, BEFORE HE PRESSES GET UP.
+   NO NEW SCREEN, which the row asks for by name: these are rows on the wake card
+   the phone already draws, in the same shape as every other row on it.
+   THE WARNING IS DRAWN BEFORE THE ASK THAT WOULD COST HIM, never after, because
+   this is deliberate and not a hidden roll. He can always see where he stands. */
+function haggleHtml(o){
+  if(!o||!o.terms||typeof BohemiaHaggle==='undefined') return '';
+  var t=o.terms, h='';
+  /* WHAT IT PAYS UNTIL SOMEBODY ARGUES, AND WHAT WAS AGREED AFTER. My first cut
+     showed the settled line straight away, so the card read "One battery" on a
+     morning nobody had said a word -- a statement of terms dressed as a
+     disclosure. The disclosure comes first and the terms replace it only once
+     they have actually moved. */
+  var line = (t.asked > 0 && BohemiaHaggle.say(t)) || o.paysSay;
+  if(line) h+='<div class="sub">'+esc(line)+'</div>';              /* draft:true */
+  if(t.withdrawn) return h;
+  var list=BohemiaHaggle.asks(t);
+  var warn=BohemiaHaggle.warning(t);
+  if(warn) h+='<div class="sub">'+esc(warn)+'</div>';              /* draft:true */
+  for(var i=0;i<list.length;i++)
+    h+='<div class="dcbtn" data-act="hg:'+esc(list[i].id)+'">'+esc(list[i].say)+'</div>';
+  if(t.said&&!t.withdrawn) h+='<div class="sub">'+esc(t.said)+'</div>';
+  return h;
+}
+/* HE ASKED. One ask, a new terms object, and the card redraws itself.
+   A WITHDRAWN OFFER IS GONE, and the mark it leaves is a real deed row handed to
+   the ledger that already exists -- no new standing system and no invented debit,
+   because in this valley the enforcement IS that work stops coming your way. */
+function haggleAsk(id){
+  if(!OFFER||!OFFER.terms||OFFER_TAKEN) return;
+  var was=OFFER.terms;
+  OFFER.terms=BohemiaHaggle.ask(was,id);
+  HAGGLE_TERMS=OFFER.terms;
+  if(OFFER.terms.withdrawn){
+    try{ ctHaggleMark(OFFER.terms.mark); }catch(_e){}
+    window.__HAGGLE_LOST=(window.__HAGGLE_LOST||0)+1;
+  } else if(OFFER.terms.asked>was.asked){
+    window.__HAGGLE_ASKED=(window.__HAGGLE_ASKED||0)+1;
+  }
+}
+/* THE MARK, THROUGH THE LEDGER THAT ALREADY EXISTS. bohemia_deeds publishes a row
+   to whoever is standing close enough to witness it, grades it by its clout tag,
+   and the feed reads it like everything else he has done. Nothing new is built
+   here and nothing is invented: the row comes out of the haggle module. */
+function ctHaggleMark(row){
+  if(!row||typeof BohemiaDeeds==='undefined') return null;
+  try{
+    return BohemiaDeeds.publish(MINDS, ctMinuteNow(), 'player', [row], hx, hy,
+      ctWhereName?ctWhereName():'', function(w){ return ctFactionOf(w); });
+  }catch(_e){ return null; }
+}
 /* he took it: NOW the quest exists, and the objective is live. */
 function offerAccept(){
   if(!OFFER||OFFER_TAKEN)return false;
+  /* __ASK_FOR_MORE__ -- A JOB THEY TOOK BACK IS NOT A JOB. Pushing past the
+     warning ends the offer, and the whole cost of pushing is that there is now
+     nothing to accept. This is the guard that makes that real rather than a
+     sentence on a card. */
+  if(OFFER.terms&&OFFER.terms.withdrawn) return false;
   OFFER_TAKEN=true;
   /* __TAKING_THE_JOB_SOUNDS_LIKE_SOMETHING__ (8/25, SOUND lane). The pivot of
      ONE GOOD DAY, and the last beat of the demo that made no sound of its own.
@@ -50783,6 +50874,19 @@ function purseBalances(){
 function payForToday(){
   PAID_TODAY=null; PAY_REFUSED=null;
   var p=purseGet(); if(!p||!DQ.rt||!DQ.rt.state.done) return null;
+  /* __ASK_FOR_MORE__ -- AND THE PURSE HONOURS WHAT WAS AGREED.
+     NO ASK, NO OVERRIDE: changed() is false when nobody haggled, so a quest that
+     was never argued over pays exactly what its own @DO pay line says and this
+     code is not in the way. When terms DID move, the runtime's reward is replaced
+     with the settled one -- still ONE, still one of his three, because the module
+     cannot produce anything else. */
+  try{
+    if(HAGGLE_TERMS&&typeof BohemiaHaggle!=='undefined'
+       &&BohemiaHaggle.changed(HAGGLE_TERMS,DQ.Q)){
+      var _st=BohemiaHaggle.settle(HAGGLE_TERMS);
+      if(_st){ DQ.rt.state.reward=_st; window.__HAGGLE_PAID=(window.__HAGGLE_PAID||0)+1; }
+    }
+  }catch(_e){}
   var r=null;
   try{ r=BohemiaPayday.payForQuest(p, DQ.rt.state, DAY.day, DQ.spec&&DQ.spec.id, DQ.Q); }
   catch(_e){ return null; }
@@ -57920,6 +58024,16 @@ try { window.ctReachOf = ctReachOf; } catch(_e){}
 /* AND THE OFFER'S OWN ANSWER, which is the one that matters: it exists BEFORE
    the job is accepted, where ctReachOf cannot. */
 try { window.ctOfferReach = function(){ try { return OFFER ? {how:OFFER.how, reach:OFFER.reach, taken:!!OFFER_TAKEN} : null; } catch(_e){ return null; } }; } catch(_e){}
+/* __ASK_FOR_MORE__ -- the seam the gate drives, on the real surface. It reads the
+   live offer and it DRIVES the real button, never a copy of the logic. */
+try { window.ctTerms = function(){ try { return OFFER ? {
+      pays: OFFER.pays, paysSay: OFFER.paysSay, terms: OFFER.terms,
+      asks: (typeof BohemiaHaggle!=='undefined'&&OFFER.terms) ? BohemiaHaggle.asks(OFFER.terms) : [],
+      warning: (typeof BohemiaHaggle!=='undefined'&&OFFER.terms) ? BohemiaHaggle.warning(OFFER.terms) : null,
+      say: (typeof BohemiaHaggle!=='undefined'&&OFFER.terms) ? BohemiaHaggle.say(OFFER.terms) : null,
+      taken: !!OFFER_TAKEN } : null; } catch(_e){ return null; } }; } catch(_e){}
+try { window.ctAskForMore = function(id){ try { haggleAsk(id); return window.ctTerms(); } catch(_e){ return null; } }; } catch(_e){}
+try { window.ctOfferAccept = function(){ try { return offerAccept(); } catch(_e){ return null; } }; } catch(_e){}
 function ctOnJobBlock(){
   var d = ctDayCast(); if (!d || !d.cast) return false;
   var here = ctBlockOf(hx, hy);
@@ -59668,6 +59782,280 @@ function ctGenSave(){
   if (HASREQ) module.exports = API; else root.BohemiaReach = API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 /* ==== /engine/bohemia_reach.js (HOW LONG THAT JOB IS) ==== */
+
+/* ==== engine/bohemia_haggle.js (ASKING FOR MORE, inlined verbatim) ==== */
+// BOHEMIA HAGGLE -- ASKING FOR MORE IS FREE ONCE AND EXPENSIVE AFTER
+// (9/11/26, QUESTS lane, [haggling works] BB-ASK-FOR-MORE)
+//
+// THE ROW, RE-MEASURED BEFORE A LINE WAS WRITTEN: zero hits for counter-offer,
+// retainer or advance pay anywhere in the walked city. The three "haggle" hits in
+// the alpha are an ANIMATION CLIP NAME, a gesture, nothing to do with money. A job
+// in this valley has a length now (BB-INSIDE-A-DAY, 9/7) and it has no price and
+// no terms.
+//
+// *** AND THE FIRST HALF OF THIS ROW IS NOT THE HAGGLE, IT IS THE DISCLOSURE. ***
+// The wake card says the title, says nobody has picked it up yet, and says how long
+// the walk is. IT HAS NEVER SAID WHAT THE JOB PAYS. You cannot ask for more of a
+// thing you were never told about, so sayPay() lands before ask() does, and the
+// study this row came from names it in the same breath: "a job saying what it pays
+// before you take it."
+//
+// ---------------------------------------------------------------------------
+// THE SHAPE, AND WHY IT IS NOT THE SHAPE OF THE GAME WE STUDIED
+// ---------------------------------------------------------------------------
+// The campaign game he named does this: every haggle adds a random 3 to 6 to a
+// hidden ANNOYANCE counter, and at 9 you are thrown out with a reputation hit. So
+// it is safe once, risky twice, nearly impossible three times. That shape is the
+// thing worth taking and our own study said so in its own words: "it needs no
+// balance number under EVERYTHING COSTS ONE."
+//
+// SO THERE IS NO ANNOYANCE COUNTER IN THIS FILE, AND NO THRESHOLD.
+//   - 3, 6 and 9 are that game's numbers. Copying them in would be inventing an
+//     economy nobody ruled, dressed up as research.
+//   - THE COUNTER IS HOW MANY TIMES YOU OPENED YOUR MOUTH. That is not a balance
+//     number, it is a fact about the conversation, and the player can count it
+//     themselves. Two asks land. The third ends it.
+//   - AND IT IS DELIBERATE, not random. A hidden roll would mean the player can
+//     never know where they stand, and this valley already refuses that: a claim
+//     is checked by going and looking, never by a roll. You are TOLD, out loud,
+//     before the ask that would cost you. Deterministic is a real difference from
+//     the game we studied and it is the house style winning, not an oversight.
+//
+// ---------------------------------------------------------------------------
+// WHAT YOU CAN ACTUALLY ASK FOR, AND WHY IT IS NEVER "MORE"
+// ---------------------------------------------------------------------------
+// EVERYTHING COSTS ONE. A job pays one. So "ask for more" cannot mean two, and
+// pretending otherwise would break the one locked number in the economy.
+// IT MEANS THE SHAPE OF THE ONE, which is exactly what the study found on the
+// other side: "PAYMENT SHAPES: more overall, all-on-completion, or per head
+// returned. Different jobs, different shapes."
+//
+//   1. A DIFFERENT ONE.  The job pays one resources; you ask for one electricity.
+//      Still one. Real, because the three are not interchangeable: you cannot eat
+//      a battery and a battery will not buy you what people say about you.
+//   2. UP FRONT.  The same one, now, instead of at the end. A real trade and not a
+//      bonus, per the study: you walk away afterwards holding their thing, and
+//      that is what walking away costs.
+//
+// There are at most three asks on any offer and the room is two, so you can change
+// the currency AND take it up front, but you cannot change it twice. That is a
+// decision with a shape, and not one number of mine is in it.
+//
+// ---------------------------------------------------------------------------
+// THE STANDING MARK IS NOT A NUMBER EITHER
+// ---------------------------------------------------------------------------
+// The row asks for a haggle that "leaves a standing mark". It would be easy and
+// wrong to debit a clout. In this valley work passes hand to hand and the study
+// says what the enforcement actually is: "it's unlikely either will do business
+// with the other in the future -- reputation and repeat trade ARE the contract."
+// So pushing too far WITHDRAWS THE OFFER, and the mark is a real deed row handed
+// to the deed ledger that already exists, witnessed by whoever is standing there,
+// carrying the clout tag the deed system already grades. No new standing system,
+// no invented debit, and the feed reads it like every other thing you did.
+//
+// WHAT IS DELIBERATELY NOT HERE
+// - NO NEW SCREEN. The row says so and it is right: this is options on the offer
+//   the wake card already shows.
+// - NO WORDS ABOUT WHO GETS ANGRY AT WHAT. That is contents and it is his. Every
+//   line below is draft:true and the module names nobody.
+// - NO SECOND CURRENCY IN ONE ANSWER. One job, one currency, one unit, always.
+// - NO TIMER. Our failure is a sentence somebody says to a face; the study
+//   refused a countdown by name and so does this.
+//
+// REUSE CHECK: cooks no pixels, opens no bank, writes no save, moves nobody, and
+// owns no standing of its own -- it hands a deed row to bohemia_deeds.js.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  /* HIS THREE, LOCKED 7/26. Not a table to grow: a fourth currency is a ruling. */
+  var CURRENCIES = ['resources', 'electricity', 'clout'];
+
+  /* THE ONLY AMOUNT. EVERYTHING COSTS ONE until he tunes it. */
+  var ONE = 1;
+
+  /* HOW MUCH ROOM THERE IS, AND IT IS NOT A BALANCE NUMBER: two asks land and the
+     third ends it, because there are exactly two things to ask for (a different
+     one, and up front) and a third ask can only be repeating yourself at somebody
+     who has already said yes twice. The room is the size of the menu. */
+  function room() { return 2; }
+
+  /* ---- 1. WHAT THE JOB PAYS, READ OFF THE QUEST ITSELF ------------------- */
+
+  /* Every COMPLETE ending of a paying quest pays exactly one currency (the job
+     pays gate holds that). Different endings may pay DIFFERENT currencies, which
+     is not a bug: it is the residual right the player already has -- the job says
+     what somebody needs, the PLAYER decides the manner, and the manner is what
+     gets recorded. So this answers honestly in three ways and never guesses. */
+  function pays(quest) {
+    var stages = (quest && quest.stages) || [];
+    var found = {}, endings = 0, i, j, m;
+    for (i = 0; i < stages.length; i++) {
+      var s = stages[i];
+      /* FOLLOW THE ARTEFACT, DO NOT ASSUME ITS SHAPE. My first cut read s.kind
+         and the parser has no such field: COMPLETE and FAIL land in s.flags. It
+         reported "the quest declares no COMPLETE ending" for every quest in the
+         corpus and would have shipped a haggle that could never find a price. */
+      if (!s || !s.flags || s.flags.indexOf('COMPLETE') < 0) continue;
+      endings++;
+      var dos = s.dos || [];
+      for (j = 0; j < dos.length; j++) {
+        m = /^pay\s+(\S+)\s+(\S+)\s*$/.exec(String(dos[j].text || '').trim());
+        if (m && CURRENCIES.indexOf(m[1]) >= 0) found[m[1]] = true;
+      }
+    }
+    var got = Object.keys(found);
+    if (!endings) return { kind: 'unknown', currency: null, why: 'the quest declares no COMPLETE ending' };
+    if (!got.length) return { kind: 'nothing', currency: null, why: 'no ending of this job pays' };
+    if (got.length === 1) return { kind: 'one', currency: got[0], why: 'every ending pays the same one' };
+    return { kind: 'depends', currency: null, currencies: got.sort(),
+             why: 'what it pays depends on how you do it' };
+  }
+
+  /* sayPay(p) -- the line the offer wears, before he presses anything.
+     draft:true, and it never invents a number: the only number it can say is ONE,
+     which is the locked one. */
+  function sayPay(p) {
+    if (!p) return null;
+    if (p.kind === 'nothing') return 'Pays nothing. They said so up front';
+    if (p.kind === 'unknown') return null;
+    if (p.kind === 'one') return 'Pays one ' + word(p.currency);
+    return 'Pays one, and which one depends on how you do it';         /* draft:true */
+  }
+
+  function word(c) {
+    /* HIS OWN THREE, IN THE WORDS THE GAME ALREADY USES. No synonyms invented. */
+    return c === 'electricity' ? 'battery'
+         : c === 'resources'   ? 'bag'
+         : c === 'clout'       ? 'favour'
+         : String(c || '');
+  }
+
+  /* ---- 2. OPENING THE TERMS --------------------------------------------- */
+
+  /* open(quest) -- the negotiation as it stands before anybody says anything.
+     asked:0, nothing changed, and the offer still on the table. */
+  function open(quest) {
+    var p = pays(quest);
+    return { pays: p, currency: p.currency, upfront: false,
+             asked: 0, open: true, withdrawn: false, said: null, mark: null };
+  }
+
+  /* asks(t) -- what is still on the table to ask for, each with its own words.
+     Derived from the offer, so there is no list of asks to tune anywhere. */
+  function asks(t) {
+    var out = [];
+    if (!t || !t.open) return out;
+    if (t.pays && t.pays.kind === 'nothing') return out;   /* nothing to divide */
+    if (t.currency) {
+      for (var i = 0; i < CURRENCIES.length; i++) {
+        var c = CURRENCIES[i];
+        if (c === t.currency) continue;
+        out.push({ id: 'swap:' + c, kind: 'swap', currency: c,
+                   say: 'Make it a ' + word(c) + ' instead' });       /* draft:true */
+      }
+    }
+    if (!t.upfront) out.push({ id: 'upfront', kind: 'upfront',
+                               say: 'Half of it now, before I go' }); /* draft:true */
+    return out;
+  }
+
+  /* warning(t) -- what he is told BEFORE the ask that would cost him, which is the
+     whole reason this is deliberate and not a hidden roll. null while there is
+     room. draft:true. */
+  function warning(t) {
+    if (!t || !t.open) return null;
+    if (t.asked < room()) return null;
+    return 'Ask again and they take the job back';                    /* draft:true */
+  }
+
+  /* ---- 3. THE ASK -------------------------------------------------------- */
+
+  /* ask(t, id) -- returns a NEW terms object. Never mutates, so a caller can show
+     the player what an ask would do before they commit to it. */
+  function ask(t, id) {
+    if (!t || !t.open) return t;
+    var n = { pays: t.pays, currency: t.currency, upfront: t.upfront,
+              asked: t.asked + 1, open: true, withdrawn: false, said: null, mark: null };
+
+    /* *** THE THIRD ASK IS THE ONE THAT ENDS IT. *** Not a roll, not a threshold
+       anybody can tune: you were told, in words, before you opened your mouth. */
+    if (t.asked >= room()) {
+      n.open = false; n.withdrawn = true;
+      n.currency = null; n.upfront = false;
+      n.said = 'They take it back. Somebody else will do it';         /* draft:true */
+      n.mark = markFor();
+      return n;
+    }
+
+    var picked = null, list = asks(t);
+    for (var i = 0; i < list.length; i++) if (list[i].id === id) picked = list[i];
+    if (!picked) { n.asked = t.asked; n.said = null; return n; }      /* asked for nothing */
+
+    if (picked.kind === 'swap') {
+      n.currency = picked.currency;
+      n.said = 'Fine. A ' + word(picked.currency) + ', then';         /* draft:true */
+    } else {
+      n.upfront = true;
+      n.said = 'Half now. And you are holding it if you walk';        /* draft:true */
+    }
+    return n;
+  }
+
+  /* ---- 4. THE MARK ------------------------------------------------------- */
+
+  /* THE ROW ASKS FOR A STANDING MARK AND THIS IS NOT A NUMBER. It is one deed row
+     in the shape bohemia_deeds.publish already takes, so the existing ledger, the
+     existing witness range and the existing feed all carry it with nothing new
+     built. #reckless is the deed system's own loudest tag and pushing a stranger
+     until they walk is exactly that. */
+  function markFor() {
+    return { kind: 'pushed_the_price', clout: 'reckless', delta: 0, faction: null };
+  }
+
+  /* ---- 5. WHAT THE PURSE IS OWED, AT THE END --------------------------- */
+
+  /* settle(t) -- what the job actually pays once the terms are settled, in the
+     shape payForQuest already reads. ONE, always, of whichever currency the
+     conversation landed on.
+     A WITHDRAWN OFFER PAYS NOTHING, and that is the whole cost: there is no job. */
+  function settle(t) {
+    if (!t || t.withdrawn) return null;
+    if (!t.currency) return null;               /* 'depends' or 'nothing': unchanged */
+    var out = {}; out[t.currency] = ONE;
+    return out;
+  }
+
+  /* changed(t) -- did the conversation actually move anything. Lets a caller keep
+     the quest's own reward untouched when nobody haggled, which is the reuse-first
+     answer: no ask, no override. */
+  function changed(t, quest) {
+    if (!t) return false;
+    if (t.withdrawn) return true;
+    if (t.upfront) return true;
+    var p = pays(quest);
+    return !!(t.currency && p.currency && t.currency !== p.currency);
+  }
+
+  /* say(t) -- the line the card wears once terms have moved. draft:true. */
+  function say(t) {
+    if (!t) return null;
+    if (t.withdrawn) return t.said;
+    if (!t.currency) return null;
+    var s = 'One ' + word(t.currency);
+    if (t.upfront) s += ', half of it up front';
+    return s;                                                          /* draft:true */
+  }
+
+  var API = {
+    CURRENCIES: CURRENCIES, ONE: ONE, room: room,
+    pays: pays, sayPay: sayPay, word: word,
+    open: open, asks: asks, warning: warning, ask: ask,
+    markFor: markFor, settle: settle, changed: changed, say: say
+  };
+  if (HASREQ) module.exports = API; else root.BohemiaHaggle = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+/* ==== /engine/bohemia_haggle.js (ASKING FOR MORE) ==== */
 
 /* ==== engine/bohemia_ladder_data.js (HIS 53 BOSSES AND 38 EDGES, inlined verbatim) ==== */
 // BOHEMIA LADDER DATA -- GENERATED, DO NOT HAND-EDIT (9/6/26, QUESTS lane)
