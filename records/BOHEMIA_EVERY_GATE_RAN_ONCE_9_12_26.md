@@ -244,3 +244,52 @@ thing that list is designed to prevent. It is one command for whoever owns it:
 **This will keep happening.** Two shipped slices inline the engine, so every lane that
 touches the engine owes a rebuild, and nothing in the workflow reminds them — only
 this gate, after the fact.
+
+
+---
+
+## ROUND 4: THE 93 REDS, AND THE EIGHTEEN THAT ARE CERTAINLY REAL
+
+The row's own words: **"a red count on a suite that cannot finish says nothing about
+anything."** Now that a complete run exists, the count can be made to say something.
+
+Of the 93 reds in the complete run, **85 have a parsed time**. One of them was
+`FACTION ARC` at exactly 600.0 s — a cap-kill that checked nothing, now split and
+green, so that red is gone.
+
+### THE CUT THAT MAKES THE REST USEFUL
+
+A gate that fails **in under a second** never opened a browser and never waited on
+anything. It cannot have failed for load, and the confirm pass has nothing to tell us
+about it. **Those are real, and they are the cheapest for a lane to act on.**
+
+There are **eighteen** of them. Pillow and numpy were both present in that run, so
+none of these is the missing-image-stack failure the runner warns about:
+
+```
+   0.1s  BATTLE BROS          0.3s  MAP TAB              0.3s  REUSE FIRST
+   0.1s  CANVAS MEMORY        0.2s  NO BULLSHIT Qs       0.8s  RIG CHECK
+   0.9s  INTERIORS            0.2s  NO CANOPIES          0.1s  SUITE FINISHES
+   0.1s  LOOK                 0.2s  PERSON LOOK          0.3s  TARGET MATCH
+   0.4s  REPO BUDGET          0.8s  TASTE                0.1s  TOP OF THE DOC
+   0.3s  VOICE                0.1s  WIRED IN A TAB       0.2s  ZOOM BUILD
+```
+
+**Six of the eighteen guard a ruling Paolo LOCKED** — BATTLE BROS, LOOK, NO BULLSHIT
+Qs, NO CANOPIES, TOP OF THE DOC, WIRED IN A TAB. Those rulings are being broken right
+now, and the reds saying so were invisible inside a suite that never finished.
+
+**And at least two are the freshness disease again**, in a new place: LOOK fails with
+"40 stale: no picture is more than six hours behind the surface it photographs", and
+WIRED IN A TAB fails on a live screenshot that is not live. Pictures of the game rot
+exactly the way bakes do.
+
+`SUITE FINISHES` is in the list and it is this lane's own — it is red because the floor
+is 71.9 min against a 45 min budget, which is the true statement it exists to make.
+
+### WHAT THIS DOES NOT CLAIM
+
+It does not say the other 75 are fake. It says the eighteen are the ones no re-run can
+excuse, so they are where a lane's next hour is best spent. The slow reds still need
+the confirm pass to separate truth from load — and that pass is only trustworthy on a
+run where the tree does not move under it, which is its own finding above.

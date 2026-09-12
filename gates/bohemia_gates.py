@@ -1425,6 +1425,20 @@ GATES = [
      'source text, the iOS meta tags, the durable-storage request, and that the seven-day '
      'sentence is true in a tab and gone on the home screen. Mutation: point the demo back at '
      'the workshop manifest -> 4 red', True),
+    ('FIRST MINUTE',   ['node', 'gates/first_minute_gate.js'],
+     'VAMILY [drop in]: what a stranger who taps the link DOES in their first sixty seconds, IN '
+     'ORDER -- the pad, then something to look at, then somebody who wants something. All three '
+     'held on the SERVED demo. *** IT EXISTS BECAUSE THIS LANE REPORTED THE MIDDLE BEAT MISSING, '
+     'WRONGLY, AND THE BOARD TURNED THAT INTO A ROW TO MOVE THE SPAWN. *** The 9/11 measurement '
+     'said "one step is a quarter tile, the nearest road district is 128 fine tiles away, a '
+     'minute of walking meets nothing". Every part was my own harness: one step moves a FULL '
+     'tile, a held press walks 1.94 tiles a second, and 128 tiles is the distance between CELL '
+     'CENTRES while the player wakes near the EDGE of his cell. MEASURED HOLDING THE DIRECTION '
+     'WITH THE MOST ROOM, which is what a stranger does: the arterial is reached in THREE '
+     'seconds and a road moment fires in FIVE. The first minute already meets something and the '
+     'spawn does not have to move for it. Asserts no number I derived -- it holds the three '
+     'beats a player gets. Mutation: stop the lesson teaching the HOLD -> 1 red; give the street '
+     'no table -> 1 red (nothing in 60s); stop the phone ringing -> 2 red', True),
     ('THIS WEEK',      ['node', 'gates/this_week_gate.js'],
      'BB-THIS-WEEK, day 18: "A GOAL YOU HAVE TO GO FIND IS NOT A GOAL." Day 7 found the DAILY '
      'motor and days 9 and 11 the HUNDRED-HOUR arc; NOBODY EVER ASKED WHAT YOU ARE WORKING ON '

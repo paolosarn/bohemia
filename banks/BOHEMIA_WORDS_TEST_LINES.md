@@ -1879,3 +1879,99 @@ BROTHER  Pass the salt.                                                [time off
 #   an encounter that opens with business instead of identity
 #   a rule stated as fresh original wording rather than a phrase everybody has
 #   and elaborate courtesy written as weakness, because it is the armour
+
+## Q21 ROUND TWO -- ASK WORDS, ARMED BY SCHOOL  (9/13/26)
+# Round one is records/BOHEMIA_WORDS_Q21_SCHOOL_THE_THANK_YOU_IS_THE_DANGEROUS_ONE_9_12_26.md
+# Three asks, three refusals, three thanks, for QUESTS [first ask].
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. A Greenlandic hunter
+#    objected to being thanked for hundreds of pounds of meat: "by gifts one makes
+#    slaves and by whips one makes dogs". So not one of the three thanks below is a
+#    warm thank you. One is refused, one is deflected to keep the account OPEN, and
+#    one is given cold precisely to CLOSE it.
+# 2. YOU HIDE THE NEED, because revealed need is pricing information. Every asker
+#    below understates, and the size of the trouble arrives sideways or not at all.
+# 3. YOU PROPOSE A SHAPE INSTEAD OF ASKING FOR TRUST. Each ask carries a different
+#    structure that makes trust unnecessary: half on delivery, a third party
+#    holding it, and going first on something small. Nobody says trust me.
+# 4. THE ASK IS THINNER THAN THE ASKER'S UNCERTAINTY. The questions and the reason
+#    are left out on purpose.
+# 5. THE PRICE IS WHERE THE RELATIONSHIP GETS DECLARED, so it is the loaded line.
+# 6. A REFUSAL IS PREFACED AND CARRIES AN ACCOUNT. Measured on 199,740 turns of real
+#    recorded speech: rejections are prefaced 26.7% against 12.7% for acceptances,
+#    and run 56% longer. Our build had essentially never written one.
+# 7. EVERY ASK GIVES THEM AN OUT. Our build has ZERO. Not to win the yes: so the no
+#    can happen without becoming a fight.
+
+### THE THREE ASKS. Each names its SHAPE and its OUT.   draft:true
+  ASK 1   Half of it is already loaded. You take it up to the ridge, I pay the rest
+  HALF    when the cart comes back empty, and if it does not come back I have still
+  LATER   lost more than you have. It is two hours. Say no now rather than at the
+          top, that is all I ask.
+# SHAPE: half on delivery, and he says out loud that his exposure is bigger.
+# OUT: "say no now rather than at the top". The need never gets named.
+
+  ASK 2   Leave it with the woman who runs the stall by the tank. She holds things
+  A THIRD for people who do not know each other, that is most of what she does.
+  PARTY   Neither of us has to be the one being clever. If you would rather not
+          have her in it, I understand that and we can stop here.
+# SHAPE: a third party who already does this, so nobody has to be trusted.
+# OUT: an explicit stop, offered before the other side has to invent one.
+
+  ASK 3   Watch. I am putting my own tin down first, y no lo toco. Now yours, if
+  I GO    you want. If you walk off with both I will have learned something about
+  FIRST   this corner and it will have been cheap. Está bien either way, primo.
+# SHAPE: going first on something small, priced so a betrayal is survivable.
+# OUT: "either way", and he has pre-paid the cost of being wrong.
+
+### THE THREE REFUSALS. Prefaced, and each carries an account.   draft:true
+  REFUSAL 1   Ah. No, look. I have got my sister's two since June and I am already
+  THE ASK     doing the water run twice. If it were April I would say yes and mean
+              it, but it is not April.
+# PREFACE "Ah. No, look." then the ACCOUNT before the refusal is even finished.
+
+  REFUSAL 2   Well, hold on. Not for that, I would not get out of bed for that. For
+  THE PRICE   the tank and a night's power I am your man tomorrow. That is not me
+              haggling at you, that is what it takes to be gone two days.
+# Refuses the PRICE and not the ask, so it is a counter-offer wearing a no.
+
+  REFUSAL 3   Mm. I cannot, no. But the man with the blue door has done it twice and
+  AND A       he will want the work. Tell him I said the ridge, not the wash, and he
+  SUBSTITUTE  will know what you mean.
+# The softest kind: refuses, accounts, and hands over something that costs him.
+
+### AND THE ONE THE MEASUREMENT SAYS WE MUST STILL ALLOW   draft:true
+# The corpus finding that kills the slogan: a bare "No." answering a QUESTION is
+# common, short and unmarked (1,374 turns, 13.3% prefaced, 1.20 words). It is only
+# REFUSING A REQUEST that gets the run-up. Both belong in the game.
+  HER   Have you been up past the fence this month?
+  HIM   No.
+# Correct, and it would be WRONG to hedge this one.
+
+### THE THREE THANKS, AND NOT ONE OF THEM IS WARM   draft:true
+  THANKS 1    HER  I do not know what to say. Thank you.
+  REFUSED     HIM  Do not do that. Say it and it is a thing that happened and it is
+                   finished. It is not finished. I will be up here again in
+                   February and I will be glad you are down there.
+# The giver REFUSES the thanks, because accepting it closes the account and he
+# wants the account open. This is the hunter's objection, in our mouth.
+
+  THANKS 2    You will get yours. Not today and probably not from me, and that is
+  DEFLECTED   how it is supposed to work. Go on.
+# Keeps the account open on purpose by aiming it at the future and at nobody.
+
+  THANKS 3    Thank you. That is me square with you. If I see you at the tank I
+  COLD, TO    will nod and we will be done.
+  CLOSE IT
+# The only plain thank you in the section, and it is the coldest line in it,
+# because he is using it to END the relationship. Same words, opposite job.
+
+### THE REFUSALS: WHAT THIS LANE WILL NOT WRITE FOR AN ASK   draft:true
+# BANNED, on the evidence in round one:
+#   "trust me", or any ask that asks to be trusted instead of offering a shape
+#   an asker who names how badly he needs it while negotiating
+#   a refusal that arrives bare, with no run-up and no account
+#   an ask with no way out in it, which forces a bare no and makes a fight
+#   a warm thank you treated as the natural end of a favour
+#   and an ask that answers questions nobody asked

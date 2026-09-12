@@ -1,4 +1,6 @@
 {
+ "code_note": "hex literals in the alpha and engine/*.js that sit in the reserved purple band. The 8/2 faction-gaps research named this hole and it stayed open six weeks, through a 9/12 pass over this very gate that added a pixel scope and still counted only pixels.",
+ "code_total": 11,
  "per_file": {
   "BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26": 3,
   "BOHEMIA_BRIDGE_SET_7_10_26": 8,

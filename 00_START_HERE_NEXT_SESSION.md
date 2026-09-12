@@ -1,4 +1,56 @@
-WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+WORDS (words-8dqrnq): 9/13 LATEST -- *** Q21 [ask words] SHIPPED WITH BOTH ROUNDS. NOT ONE OF THE
+THREE THANKS IS WARM, AND EVERY ASK HANDS OVER A STRUCTURE INSTEAD OF ASKING TO BE TRUSTED. ***
+TAB: NOT IN A TAB YET. No game code touched, ever. All draft:true in the bank.
+
+THE FINDING REWROTE A THIRD OF MY OWN JOB. The row says write three thanks. School said a thank you
+is a way of counting, and counting makes debt, so:
+  THANKS 1  REFUSED by the giver, almost in the Greenland hunter's own terms: "Say it and it is a
+            thing that happened and it is finished. It is not finished."
+  THANKS 2  DEFLECTED to keep the account open on purpose: "You will get yours. Not today and
+            probably not from me, and that is how it is supposed to work."
+  THANKS 3  the only plain thank you in the section and the COLDEST line in it, because he is using
+            it to close the account and end the relationship. Same words, opposite job.
+
+THE THREE ASKS EACH CARRY A DIFFERENT SHAPE, because you never ask to be trusted:
+  ASK 1  half on delivery, and he says out loud his own exposure is bigger
+  ASK 2  a third party who already holds things for strangers, so nobody has to be clever
+  ASK 3  going first on something small, priced so being robbed is survivable
+Nobody says trust me and the section bans it. Every ask hands over a way out, because our build had
+ZERO in 3,093 lines.
+
+THE THREE REFUSALS ARE THE ONES WE HAD NEVER WRITTEN. All prefaced ("Ah. No, look.", "Well, hold
+on.", "Mm. I cannot, no."), all carrying an account, one refusing the ASK, one refusing the PRICE
+(a counter-offer wearing a no), one refusing and handing over a substitute that costs him.
+
+AND THE SECTION PROTECTS THE BARE NO, which is the half most writers would destroy. The corpus said
+a flat "No." answering a QUESTION is common, short and unmarked. So there is a two-line exchange in
+there whose only job is to show a bare no that would be WRONG to hedge.
+
+CHECKED, by parsing the nine utterances back out of the bank:
+  asks giving an explicit out        3/3
+  asks offering a structure          3/3
+  asks saying "trust me"             0/3
+  refusals prefaced                  3/3
+  refusals carrying an account       3/3
+AND ONE NUMBER I AM NOT CLAIMING: school found refusals run 56% longer than ACCEPTANCES, and this
+section has no acceptances in it, so that finding is untested here and the refusals being shorter
+than the asks says nothing either way. Owed a test in a later round.
+
+ALSO CAUGHT MYSELF TAKING A FREE PASS. One line ended on a phrase that slips past our banned "that
+is the whole" rule by a single auxiliary verb while being the identical tic. This lane wrote that
+rule, so I rewrote the line instead of pointing at the letter of it.
+
+ROUTED. QUESTS owns [first ask], which this row exists for: THE FIRST ASK A PLAYER MEETS SHOULD HAND
+THEM A STRUCTURE, NOT A PLEA, and do not strip bare "No" out of answers while making refusals sound
+real. PEOPLE: an ask with no way out forces a bare no, so if refusing ever costs the player standing,
+the ask that produced it should have carried an out. ECONOMY, free: paying in work, in power, or in
+batteries are three different RELATIONSHIPS, not three prices.
+
+Gates all green: voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff 7/0.
+
+NEXT: Q22 [debt words], school first. Then Q23 [track words]. Q4 to Q17 still owe their school
+rounds, one row at a time.
+WORDS (words-8dqrnq): 9/12 (e) -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
@@ -7774,7 +7826,65 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
+COOK (cook-mce6r5): 9/13 LATEST -- *** [magenta piece]: HIS MAGENTA IS PURPLE BY HIS OWN
+PURPLE RESERVATION'S TEST. NOTHING COOKED, AND THAT IS THE FINDING. *** NOT IN A TAB YET.
+
+*** [PENDING Paolo] -- THE ONE RULING THAT UNBLOCKS THIS ROW AND CHARACTER'S ***
+Purple means the Amalgamation. The Anarchists' colour IS a purple. Which gives way?
+  A. The Anarchists move to a hot red-pink near 345 degrees -- still their colour to a
+     person, and it clears the law. THE REALISTIC DEFAULT: one faction's hex moves, a
+     pillar law holds.
+  B. They keep #c026a0 and the allowlist blesses faction colour as a third exception beside
+     the hatch and the agents. Purple then means Amalgamation OR Anarchists; the signal splits.
+  C. The Colorful's #e85aa0 sits in the same band with the same problem -- rule both at once.
+
+THE MEASUREMENT. #c026a0 is hue 312.5, lightness 0.451, saturation 0.670. The reserved band
+is hue 265-330, sat > 0.45, lightness 0.25-0.75. INSIDE IT, and not on the allowlist (hatch,
+network_hatch, agent_iris, neurolink). The law, from that allowlist's own header (7/10,
+LOCKED): "purple/magenta/violet is RESERVED. ONLY the door/hatch from the tunnel into the
+Network build may carry that purple." MAGENTA IS NAMED IN THE LAW BY WORD.
+
+RULE 12 LANDED THIS ROUND (a dependency on a line is a premise, not a gate) and it is exactly
+why this was caught: I measured the row's own colour before cooking a pixel.
+
+*** AND I MISSED THE MACHINE HALF OF THIS LAST ROUND. READ THIS. ***
+records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md said six weeks ago, under "reported and not
+touched": the Anarchists' magenta reads purple, so does the Colorful's pink, and "the purity
+sweep never caught either, BECAUSE THAT SWEEP ONLY EVER LOOKED AT ART PIXELS AND NEVER AT A
+COLOUR WRITTEN IN CODE." Two things in one paragraph -- one his to decide, ONE MINE. On 9/12 I
+fixed that very gate (2,232 violations, exit 0) and added a whole new scope for the shipped
+tile pools, and IT STILL ONLY COUNTED PIXELS. A hex literal is not a pixel. Three sweeps in a
+row walked past the one magenta that ends up on a walking NPC.
+
+CLOSED NOW: the purity gate sweeps colours written in code. 1,983 hex literals across the
+alpha and engine/*.js, 11 in the reserved band, 5 unique -- #c848a0 NEON NECROPOLIS and
+#b83a8a RAVE IN THE RUINS (song accents), #c81e8c a fillStyle, and #c026a0 the Anarchists in
+BOTH the alpha and engine/bohemia_dress.js. Ratcheted at 11, may only fall.
+MUTATION-TESTED WITH THE EXACT COOK THE ROW ASKED FOR: adding a three-tone magenta garment
+ramp to bohemia_dress.js takes it 11 -> 14 and the gate goes RED. The row cannot be built as
+written, and a machine says so rather than me.
+
+WHY IT IS HIS CALL: two of his own rulings collide and DATE CANNOT RESOLVE IT. PURPLE
+RESERVATION is 7/10; the fourteen faction colours were already live "for weeks" by 8/2, the
+same July. CLAUDE.md says a canon-level contradiction is flagged [PENDING Paolo], and this is
+both categories EVERYTHING IS A THUMB still sends him: identity he reserved (he picked all
+fourteen) and a fork with no defensible default, since either answer overrides a locked
+ruling of his. Cooking it anyway is finding a legal way to ship what the law forbids, which
+STOP PRODUCING names as the violation itself.
+
+CHARACTER IS NOT BLOCKED ON THE WIRING, only on the hue. The moment a colour is ruled the cook
+is one tool run: same generator, new ramp, shirt first then one leg or foot piece so the
+outfit agrees with itself at 38%.
+
+A PROBE OF MINE REPORTED A CLEAN ZERO AND MEANT NOTHING, AND THE FLAG SAVED IT. My first
+attempt to measure the wardrobe rendered every canon garment and reported "0 garments in the
+purple band" -- with drawn:0 printed beside it, because garment gen() needs a source grid I
+had not given it. ALWAYS PRINT WHETHER THE PROBE COULD SEE ITS TARGET.
+RECORD: records/BOHEMIA_COOK_HIS_MAGENTA_IS_INSIDE_HIS_OWN_RESERVED_BAND_9_13_26.md
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
 SIGN IS DRAWN. 7 UNDRAWN LANDMARKS -> 6. *** TAB: none yet; it is at cell 55,65, the south end
 of the boulevard. Nothing changes on his screen until he walks there.
 
@@ -10639,6 +10749,35 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/12 (e) LATEST -- *** CHAT 18. ROUND 20. [suite runs] CONTINUING. THE 93
+REDS NOW SAY SOMETHING. The row's own words: a red count on a suite that cannot finish says nothing
+about anything. With a complete run it can finally be cut. 85 of the 93 have a parsed time, and one
+was FACTION ARC at exactly 600.0 s -- a cap-kill that checked nothing, split last round and now
+green, so that red is gone.
+THE CUT: a gate that fails in UNDER A SECOND never opened a browser and never waited on anything, so
+it cannot have failed for load and no re-run can excuse it. EIGHTEEN of them, and Pillow and numpy
+were both present in that run so none is the missing-image-stack failure the runner warns about:
+BATTLE BROS, CANVAS MEMORY, INTERIORS, LOOK, MAP TAB, NO BULLSHIT Qs, NO CANOPIES, PERSON LOOK, REPO
+BUDGET, REUSE FIRST, RIG CHECK, SUITE FINISHES, TARGET MATCH, TASTE, TOP OF THE DOC, VOICE, WIRED IN
+A TAB, ZOOM BUILD.
+*** SIX OF THE EIGHTEEN GUARD A RULING PAOLO LOCKED: *** BATTLE BROS, LOOK, NO BULLSHIT Qs, NO
+CANOPIES, TOP OF THE DOC, WIRED IN A TAB. Those rulings are being broken right now and the reds
+saying so were invisible inside a suite that never finished. FOR THE COORDINATOR, that is the whole
+argument for this row in one line.
+AND AT LEAST TWO ARE THE FRESHNESS DISEASE IN A NEW PLACE: LOOK fails with "40 stale: no picture is
+more than six hours behind the surface it photographs", WIRED IN A TAB fails on a live screenshot
+that is not live. PICTURES OF THE GAME ROT THE WAY BAKES DO, and nothing was watching them either.
+SUITE FINISHES is in the list and it is OURS -- red because the floor is 71.9 min against a 45 min
+budget, which is the true statement it exists to make.
+IT DOES NOT CLAIM THE OTHER 75 ARE FAKE. The slow reds still need the confirm pass, and that pass is
+only trustworthy on a run where the tree does not move under it -- which is its own finding two
+rounds up.
+[THE RATCHET FIRED AGAIN, SECOND TIME IN THREE ROUNDS] Last round I named RUN_CURRENT drifting +45/-6
+and deliberately did NOT park it on the frozen list. COOK rebuilt it (58e62e8) and derived_freshness
+is green again. Naming it was enough; parking it would have buried it.
+WHAT IS LEFT ON THE ROW: re-measure the floor on a full run now that FACTION ARC is split (running as
+this round ends); the 71.9 min floor itself, which sharding cannot fix -- less browser work or more
+machines, and that is a fork, not a coding task; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/12 (d) LATEST -- *** CHAT 18. ROUND 19. [suite runs] CONTINUING. THE SPLIT
 IS DONE: 102 CHECKS THAT HAD NEVER ONCE RUN NOW RUN. FACTION ARC was green (102 passed) and needed
 1,228 s against a 600 s cap, so the suite killed it every run and filed it under the reds -- a RED
@@ -15950,7 +16089,41 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): LATEST -- *** THE DEMO'S OPENING SCENE STARTS AND NEVER ENDS.
+RUN (run-eak241): LATEST -- *** [drop in] SHIPPED, FIRST MINUTE 9/0, AND THE
+CORRECTION THAT MATTERS MOST IS MINE. TAB: RUN. Nothing to judge. ***
+
+ALL THREE BEATS OF THE ROW NOW HOLD ON THE SERVED DEMO:
+  (1) THE PAD teaches the verb that moves you -- HOLD TO WALK, LET GO TO KEEP
+      GOING. It said WALK WITH THIS, which teaches the pad exists and nothing
+      about the hold, so a stranger tapped one tile at a time.
+  (2) SOMETHING TO LOOK AT -- holding the direction with the MOST ROOM (what a
+      stranger does, not aimed at a district he cannot see): the arterial is
+      reached in THREE SECONDS and a ROAD MOMENT FIRES IN FIVE.
+  (3) SOMEBODY WHO WANTS SOMETHING -- the wake card carries the day's job in words.
+
+*** [wake near] SHOULD BE RE-READ BEFORE ANYBODY SPENDS A ROUND ON IT. *** That
+row exists because on 9/11 I measured "one step is a quarter tile, the nearest
+road district is 128 fine tiles away, so a minute of walking meets nothing", and
+the coordinator ruled MOVE THE SPAWN. EVERY PART OF THAT WAS MY OWN HARNESS:
+  - one step moves a FULL tile, not a quarter (the quarter came from a probe
+    doing four round trips and a 500ms sleep per step, timing itself)
+  - a held press walks about 1.94 tiles a second
+  - and 128 fine tiles is the distance between CELL CENTRES, not the walk: the
+    player wakes near the EDGE of his cell, so the next district is a few tiles
+    away, not a hundred
+THE FIRST MINUTE ALREADY MEETS SOMETHING. The spawn does not have to move for it.
+The row's other half -- "within one minute's walk of the first hostile the
+teaching fight uses" -- points at the cold open, which is DEFERRED with the story.
+I did not touch the row: only the coordinator adds and edits jobs. This is the
+correction for whoever picks it up.
+
+THE GATE THAT GUARDS IT: gates/first_minute_gate.js, FIRST MINUTE 9/0, three runs.
+It asserts NO number I derived -- it holds the three beats a player gets.
+MUTATION: stop the lesson teaching the hold -> 1 red; give the street no table ->
+1 red (nothing in 60s); stop the phone ringing -> 2 red.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** THE DEMO'S OPENING SCENE STARTS AND NEVER ENDS.
 That is the cold-hand red, chased to the bottom. TAB: RUN. Nothing to judge. ***
 
 A cold hand presses the loudest thing forty times and never reads. Its trail:
@@ -18345,6 +18518,26 @@ to ignore a red, which is exactly how the V206 key bug got to main. Same class a
 beat-ghost statistic this lane already replaced (three runs read 2.5, 5.0 and 31.3 against a
 threshold of 3).
 
+*** AND I TRIED TO FIX THAT COIN FLIP THIS ROUND AND FAILED, WHICH IS WRITTEN DOWN SO THE NEXT
+ROUND STARTS AHEAD OF WHERE I DID INSTEAD OF REPEATING IT. *** THE THEORY, and it is a good theory
+that is still not proven wrong: V205 made every entry zoom out over TWO BEATS, and cityHandOver
+REFUSES OUTRIGHT while a zoom is in flight (`if(FZOOMING){ return false; }`, city line 49293). The
+forced-party arms were written BEFORE the door took two beats, so an arm that fires while the
+previous arm's zoom is still running gets no handover at all -- which matches the failure text
+exactly, a road that fires and a fight that got 0 men. And this machine stalls the walked city for
+up to a second and a half, so a two-beat move can take far longer than two beats.
+THE FIX I WROTE: a doorFree() poll on fightZooming() before all five staging sites, the same shape
+that fixed enter_zoom_gate. THE RESULT: 38/5, 40/3, 40/3, then green. NOT FIXED, AND POSSIBLY
+WORSE than the one-in-five it started at. REVERTED rather than shipped, because a checker that is
+red three runs in four is worse than one that is red one in five, and because this is not the row I
+was holding. A SECOND VERSION THAT FAILED IS WHERE YOU STOP, NOT WHERE YOU WRITE A THIRD.
+WHAT THE NEXT ROUND KNOWS THAT I DID NOT: the refusal path is real and is the right place to look,
+waiting on FZOOMING alone is NOT the answer, and the flake survives the wait -- so either something
+else refuses the handover (contactClear, SF_DONE, CITY_CONTACT_POSTED, the fuse that makes one step
+make at most one fight) or the combat frame is not ready to receive when the message lands. Probe
+the REFUSAL directly: make cityHandOver report WHY it returned false, run the gate twenty times,
+and count the reasons. Do not write a third fix before that count exists.
+
 STANDING LESSON FROM THIS ROUND, AND IT IS THE MOST USEFUL THING IN THIS BLOCK: EVERY ONE OF THE
 FOUR ROWS WAS WIRING, NOT INVENTION. The pull-back, the loot in G.rc, the city's clock, the medic's
 pick-up rule -- all four were already built and nothing consumed them. MEASURE THE BLOB BEFORE
@@ -20033,6 +20226,39 @@ four rates, the door sold at eight times). ALSO: FACTIONS [pursuit strength] (hi
 travel-map ruling, never on the board), DIRECTION [judge tracks], EYES E24 [phone latency],
 WORDS Q22 [debt words], Q23 [track words]. Board: 169 OPEN, 15 CLAIMED. Every lane at six
 or more open. The one shipped thing he has never opened: the footprints on the MAP tab.
+THEN (dv) VAMILY, 33 commits. SHIPPED: WORLD [someone lends] (a real loan: batteries arrive
+and an obligation is written beside them, one a night back, dies at the fold, lender
+stands), FACTIONS [recruit anywhere] (who will come depends on the ground, the holder and
+your standing; 46 of 61 on the waking block; no roster), COMBAT [plates cost] (the bell
+refuses a plate at zero tape; and it found the city calls neither fight reset -> COMBAT
+[third door]), CHARACTER [one colour table] (the CHARACTER tab shows his colour vs the
+worn colour on all 13 cards: 7 of 9), ANIMATION [coat follows] (skirt reaches to the
+swung leg, spill 12.2% -> 3.9%, hip pop 30.8% -> 17.9%), SOUNDS [music owned] r3 (the
+late beat on all 142 songs by one rule in playStep, 16.0 s on the street, never in a
+fight; three songs with the beat in their data are menu-only -> RULED retag, SOUNDS
+[three retagged]), LIFE+CITY [lab reds] (three red checks were broken rulers, one
+outranking his 8/26 rungs ruling; 932/0) and [more people] r10 (13 of 16 walks meet a
+crowd), PLUMBER [suite runs] r2 (FACTION ARC split, 102 checks run for the first time),
+WORDS [ask words] school (a thank you opens an account; refusals are twice prefaced),
+ECONOMY Q35 [rent riot] (a strike controls the vacancy, Glasgow 1915 -> WORLD [block
+strikes], QUESTS [strike ask], ECONOMY Q41 [who replaces you]), COOK [fortress
+buildings] r3 (the Welcome sign drawn -> EYES E25 [the sign]), RUN cold hand 7/0 four
+runs, UI [no slop] r4 (spaced caps 80 -> 0; and its own regression: the largest text
+setting did nothing to the city since 9/7, fixed).
+THE WALL THREE LANES HIT: the suite cannot finish (331 of 603 never ran in 45 min; 56 of
+372 reached were red; floor 71 min). MY SWING: records/BOHEMIA_COORDINATOR_SWING_HOW_BIG
+_SHOPS_RUN_A_SUITE_THAT_CANNOT_FINISH_9_13_26.md (Google: pre-land fast and local only,
+post-land everything on one machine and PUBLISHED; flakes quarantined, still run, never
+gate). -> FRONT-PAGE RULE 13 ("I ran the suite" = pre-push pass green + read THE SUITE
+LINE and own your reds), PLUMBER [suite line] and [pre-push pass] at the top of PLUMBER.
+Rule 8 gained: touch engine/, rebuild both derived slices (RUN [slice rebuilt]).
+DECIDED BY ME (records/BOHEMIA_RULING_THREE_DEFAULTS_DEEDS_HIRES_AND_THE_THREE_SONGS_9_13_26.md):
+a deed weighs what it cost you, no table (FACTIONS [deeds weigh]; kills the 83-row empty
+DEED_WEIGHT wait and the two red-by-design gates); taking somebody on costs one a night
+(FACTIONS [take them on]); the three late-beat songs go to the street pool. Also QUESTS
+[half now] from WORDS' school. Board: 176 OPEN. The one thing he has never opened: the
+colour chips on every card in the CHARACTER tab, "THE COLOUR YOU PICKED. 7 of 9 wear it."
+Noted, not acted: a dynasty-slug session claimed QUESTS [first ask]; the work is what counts.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
@@ -26194,7 +26420,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): THE AERIAL JUDGED AT THE SEAM - FAIL on the
+ROUND LOG 9/13 (latest): [judge tracks] SHIPPED - PASS. Trails fade
+along their length with the head brightest (the red one reads direction
+at a glance), holders' inks stay thin marks, no scribble at map zoom
+(border rims do not draw there) and the keep-it-true rule is in the
+verdict: a trail is the only mark with a luminance gradient along a
+path. ROUTED CATCH for UI via the coordinator: at whole-map zoom the
+feed phone covers the north-east quarter of the valley - the one view
+meant to show everything sits under the phone; it should yield or dock
+there. NEXT: [judge the swaps] is the next OPEN judgeable line (Trades
+flannel + Mob charcoal on the walked surface).
+PREVIOUS: THE AERIAL JUDGED AT THE SEAM - FAIL on the
 card's first question, with respect for what landed: the diagram is
 gone, tiles are live, hue and grid and greyscale all pass. But 71.6% of
 the world sits below 0.43 luminance and the ground band holds 16% - the
