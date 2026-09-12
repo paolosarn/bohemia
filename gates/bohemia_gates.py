@@ -2901,6 +2901,32 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('DIRECT QUESTS',  ['node', 'gates/direct_quests_gate.js'],
+     'QUESTS row [edit quests] DIRECT-COVERS-QUESTS, 9/12, against the 8/12 law HE MUST BE ABLE '
+     'TO DIRECT IT. His words: "I CANT DIRECT QUESTS OR CUTSCENES RN WTF IS WRONG WITH YOU." The '
+     'law names eight verbs for anything ordered and one test: "where does he change this '
+     'himself? If the answer is he tells me and I edit a file, the system is not shipped yet." '
+     'MEASURED ON THE REAL ALPHA FIRST: a cutscene got all eight, a quest got five and a half. '
+     'dirWhere() opened with `if(DIR_MODE!==cutscene) return;` so a quest had NO where control at '
+     'all (1142 bytes of controls on a scene, 0 on a quest); dirPlay() said in the alpha\'s own '
+     'words "Quests do not play in here yet"; and the ADD row offered LINE, CHOICE and JOURNAL, so '
+     'the half of a quest that decides HOW IT ENDS -- COMPLETE or FAIL, how loud (his 7/21 clout '
+     'ruling), what it pays (shipped 9/11) -- was not in the tab in any form. AND THE REASON WAS '
+     'HONEST, which is why the fix is what it is: the old row reader said of itself "deliberately '
+     'not a full parser ... pretending to edit something that DOES NOT ROUND-TRIP would be worse '
+     'than not showing it." So the rows are lossless now, one per line of his file, and everything '
+     'else is allowed. THE GATE HOLDS: every quest rebuilds BYTE-IDENTICAL from its rows; a FORCED '
+     'rebuild of every line of every quest still parses and validates at zero errors and zero '
+     'warnings; and *** the forced rebuild MEANS THE SAME THING *** -- same stages, outcomes, '
+     'clout tags, effects and routes -- which is the check the negative controls earned, because '
+     'deleting COMPLETE from a stage leaves perfectly legal .bq and validity alone stayed green '
+     'while the rebuilder threw away whether the job succeeded. Plus the surface: the stage is a '
+     'control, the role condition is a quest\'s real RELOCATE, ADD covers stages and objectives, '
+     'and A QUEST PLAYS IN THE TAB through the SAME parser and the SAME runtime the city uses, '
+     'with his edit on the stage rather than the shipped line, and a quest he breaks reported in '
+     'the machine\'s own words instead of repaired. Four negative controls, all caught: lossy '
+     'rows, a dropped stage outcome, a dropped route, and PLAY running the shipped quest',
+     True),
     ('ASK FOR MORE',   ['node', 'gates/ask_for_more_gate.js'],
      'QUESTS row [haggling works] BB-ASK-FOR-MORE, 9/11. REGISTERED THE ROUND IT WAS WRITTEN, '
      'because the lane shipped the round before this one against a GATE REGISTRY red and the '

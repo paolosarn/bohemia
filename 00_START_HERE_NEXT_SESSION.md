@@ -9527,6 +9527,99 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 28 [edit quests] DIRECT-COVERS-QUESTS, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_direct_bq.js      a quest as rows he can change, and back again
+  gates/direct_quests_gate.js      37 passed, 0 failed, REGISTERED the same round
+  slices/BOHEMIA_ALPHA_0_9.html    3 modules inlined, the array carries his SOURCE,
+                                   stage + role controls, + STAGE / + OBJECTIVE, PLAY
+  BUILD 9/12h - YOU CAN DIRECT A QUEST
+  records/BOHEMIA_YOU_CAN_DIRECT_A_QUEST_9_12_26.md
+
+THE RULING THIS ANSWERS, KEPT ON THE BOARD PER THE NEW RULE 11. Paolo 8/11: "Bro
+this is the same fucking problem we had with the questing shit! I CANT DIRECT
+QUESTS OR CUTSCENES RN WTF IS WRONG WITH YOU." The 8/12 law names eight verbs for
+anything ordered and one test: "where does he change this himself? If the answer is
+he tells me and I edit a file, the system is not shipped yet."
+
+MEASURED ON THE REAL ALPHA BEFORE A LINE WAS WRITTEN. A cutscene got all eight. A
+quest got five and a half, and two of the three gaps were in the alpha's own words:
+  - dirWhere() opened `if(DIR_MODE!=='cutscene') return;` -- 1142 bytes of controls
+    on a scene, 0 on a quest
+  - dirPlay() printed "Quests do not play in here yet"
+  - and the ADD row offered LINE, CHOICE, JOURNAL, so the half of a quest that
+    decides HOW IT ENDS -- COMPLETE or FAIL, how loud (his 7/21 clout ruling), what
+    it pays (shipped 9/11) -- was not in the tab in any form
+
+*** AND THE REASON WAS HONEST, WHICH IS THE WHOLE FINDING. *** The old row reader
+said so about itself: "deliberately not a full parser -- a director does not need
+@DO effects, and pretending to edit something that DOES NOT ROUND-TRIP would be
+worse than not showing it." That was RIGHT with a lossy reader. So the fix was never
+to show more of a lossy thing:
+  A LOSSY VIEW IS NOT A SMALL VERSION OF AN EDITOR. IT IS A CEILING ON ONE, AND YOU
+  PAY FOR IT LATER IN FEATURES YOU CANNOT BUILD.
+Rows are lossless now -- one per line of his file, each carrying its own line -- and
+every verb the law asks for is then simply allowed. The array carries each quest's
+SOURCE (397 KB, against 314 KB for the generated rows it replaced) and the rows are
+parsed in the browser by one parser, so there is nothing to drift.
+
+WHAT HE CAN DO NOW: end a stage (COMPLETE / FAIL / neither); set how loud it was (a
+picker over his four canon clout words, never a free text box that could invent a
+fifth); set what it pays (one of his three or nothing -- the amount is not a control
+because EVERYTHING COSTS ONE); + STAGE and + OBJECTIVE, with the next stage number
+read off his own file so it lands at 32 and not at 5; move the role's condition,
+which is a quest's real RELOCATE (its people are @ROLEs cast at runtime, so where it
+happens IS the condition, and a room picker would have been inventing a field the
+language does not have); and PLAY IT IN THE TAB.
+
+PLAY IS THE REAL PARSER AND THE REAL RUNTIME, 32 KB inlined, deliberately. The law's
+word is IMMEDIATELY and its phrase is "the thing he built, not a preview of a plan",
+and a second player written for the tab would have been exactly that preview.
+
+TWO BUGS I MADE, BOTH FROM ASSUMING AN API INSTEAD OF READING IT:
+  1. I called load() then read view(). A runtime that has not been STARTED returns
+     {ended:true}, so his quest would have opened on "It ends here" every time and
+     the quest would have been fine. It needs start(), available(), begin().
+  2. I chose options by screen position. view() drops options whose gate does not
+     hold, so the fourth thing he SEES is often not the fourth option in the file --
+     it would have quietly pressed a different line than the one he tapped. It
+     passes the option's own index now.
+
+*** THE CHECK THE NEGATIVE CONTROLS EARNED, AND IT IS THE ONE TO COPY. *** The gate
+already held that a forced rebuild of every line of every quest still PARSES and
+VALIDATES at zero errors and zero warnings. A mutation proved that was not enough:
+deleting COMPLETE from a stage leaves perfectly legal .bq, so validity stayed green
+while the rebuilder quietly threw away whether the job succeeded, and only an
+unrelated check about the clout tag noticed.
+A REBUILDER THAT LOSES MEANING WITHOUT LOSING LEGALITY IS THE WORST FAILURE THERE
+IS: his file comes back looking fine and playing differently. The gate now parses
+the original and the rebuild and compares WHAT THEY MEAN -- same stages, outcomes,
+clout tags, effects, routes.
+Four mutations, all caught: lossy rows (1a, 0/42), a dropped stage outcome (2b), a
+dropped route (2a, 2b), and PLAY running the shipped quest instead of his (R12, R13).
+
+TWO GATE CHECKS OF MINE WERE WRONG ABOUT HONEST CODE AND WERE FIXED, NOT LOOSENED:
+one demanded that editing ONE ending's pay silently rewrite the other three; the
+other searched the raw alpha for "Quests do not play in here yet" and found it in
+the QUOTED measurement in my own module header -- prose read as code, the same bug
+this lane fixed in the pay gate on 9/11. It reads the alpha's code now.
+
+GATES: direct_quests 37/0, direct 33/0, canon_quests 843/0, quest_study 642/0,
+the_job_pays 99/0, ask_for_more 43/0, alpha_loads 20/0, demo_build 25/0,
+shipped_truth 41/0, pages_publish 18/0, gate_registry 6/0, nomarkers 6/0.
+
+[STILL NOT MINE] tools/bohemia_direct_tab_patch.py now generates a row shape the
+alpha no longer uses. It is a whole-block replace that clobbered another lane in
+round 21 and I did not run it; whoever owns it should retire its parse_bq or point
+it at engine/bohemia_direct_bq.js, which is the one parser now.
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is stale and refuses to write:
+its QUESTS list holds 5 of the 37 the city carries. Sixth round flagging it.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] (still blocked, re-measured this
+round: bohemia_loop.js inlined in neither the city nor the alpha, 0 hits each, and
+the only reader of s.advanceTerritory is bohemia_loop.js line 681 -- SHARED's
+BB-LOOPLESS, still OPEN), [act two] PARKED BY HIM, [check the claim]
+YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE, [company in asks] (Paolo 9/11).
+
 ROUND 27 [haggling works] BB-ASK-FOR-MORE, SHIPPED. QUESTS, BUILD.
   engine/bohemia_haggle.js        the terms, headless
   gates/ask_for_more_gate.js      43 passed, 0 failed, REGISTERED the same round
