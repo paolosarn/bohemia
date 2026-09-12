@@ -1,0 +1,59 @@
+{
+  "bank": "EYES E19 [slop count] -- the tells-gate spec, round one of two",
+  "date": "9/12/26",
+  "draft": true,
+  "note": "SCHOOL ROUND. Nothing counted, nothing in the game. This is the spec round two builds, with every decision traced to the finding that forced it.",
+  "school_record": "records/BOHEMIA_EYES_E19_ROUND_1_SCHOOL_THE_TELL_IS_FLUENCY_NOT_FEATURES_9_12_26.md",
+  "law": "laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md (Paolo 9/11, LOCKED)",
+  "his_words": "I need the UI to run as far away as possible from the standard look of vibe-coding with Claude right now. People can look at it and be like, yep, that was coded.",
+  "the_headline": "The gate as briefed -- count the tells, fail on any, target zero -- would red THE SKIN's phone on five tells at once, and that element was built deliberately against this law. Its own comment is the best argument in the repo: \"the bezel is padding, not a border, because a 1px line reads as a box and 5px of case reads as an object.\" The law is written in USE language (\"no 1px border AS THE WAY to draw an edge\"); the brief counts the FEATURE. Only one of those is buildable, and our own hair law already says why: a checker that cannot tell a mention from a use is the broken one.",
+  "measurements": [
+    {
+      "n": 1,
+      "name": "THE SCALE",
+      "what": "how many DIFFERENT values the shipped surface uses per property (radii, border widths, font stacks, gradients, letter-spacing, shadow recipes)",
+      "why": "this is what the trade actually enforces. stylelint-plugin-rhythmguard and stylelint-scales enforce a scale per property including border-radius, and the named rules are no-arbitrary-colors, no-arbitrary-spacing, no-arbitrary-border-radius. The question is never \"is there a radius\", it is \"is this radius one of yours\". Four radii used on purpose is a decision; forty typed radii is the statistical average of yourself.",
+      "ratcheted": true
+    },
+    {
+      "n": 2,
+      "name": "THE TELLS, ATTRIBUTED",
+      "what": "every occurrence reported with its element and split into ON THE SKIN (the value comes from a --skin-* token: reported, never a defect) and TYPED IN PLACE (a literal written at the point of use: the actionable list)",
+      "why": "the phone proves that presence alone is not the fault. Attribution is what turns the law's use-language into code.",
+      "ratcheted": "TYPED IN PLACE only"
+    },
+    {
+      "n": 3,
+      "name": "THE SPACING SURVIVAL TEST",
+      "what": "on the real surface, force letter-spacing 0.12em and word-spacing 0.16em on the chrome and report which controls overflow, overlap or lose text",
+      "why": "WCAG requires content to survive the reader widening spacing, all-caps is harder for dyslexic readers, and screen readers may spell capitalised text letter by letter. That turns a taste tell into a pass condition with no taste in it, and the tell lists do not have it.",
+      "ratcheted": false
+    }
+  ],
+  "will_not_do": [
+    "FAIL ON ANY OCCURRENCE. A gate red forever gets muted inside a week (E3 measured it), and a muted gate is worse than none because the fleet believes it is running. The brief's \"fails on any, target zero\" is that exact shape.",
+    "COUNT DARK MODE AS A TELL. The lists call it the biggest tell. This is a night-capable post-apocalyptic valley and the law says dark is a choice per act. Counting it manufactures a defect out of the setting.",
+    "DECIDE WHETHER ANYTHING LOOKS GOOD. Charter. Every row is a count and a location.",
+    "FREEZE THE RAW TELL COUNT. Moving a value onto the skin is a real fix that leaves the raw count unchanged, and a gate that cannot see a fix teaches the fleet to ignore it."
+  ],
+  "controls": [
+    "THE PHONE CONTROL: the skin's phone element must come back ON THE SKIN and must NOT be a defect. If it is, the instrument is the broken one and no number prints.",
+    "a planted literal border-radius:7px must be found and attributed TYPED IN PLACE.",
+    "a planted border-radius:var(--skin-round) must NOT be.",
+    "THE SCALE CONTROL: a synthetic sheet with three radii reports three; one with thirty reports thirty.",
+    "THE SURVIVAL CONTROL: a planted fixed-width tight-uppercase chip must overflow at 0.12em and a planted flexible one must not."
+  ],
+  "counter_findings": [
+    "THE LIST IS A MOVING TARGET, documented not speculated: purple gradients were the giveaway, then the frontend design skill shipped and the outputs still looked the same \"or at least had specific tells\". A gate frozen on the 9/11 list will one day report zero on a surface that moved to the next generic look.",
+    "ROUNDED CORNERS ARE NOT A DEFECT. People reliably prefer curved contours and the amygdala is more active for sharp-cornered everyday objects, read as implicit threat (Bar and Neta 2006/2007; moderated by expertise per Silvia 2009). BUT that gives hard edges a BETTER reason in THIS game than fashion ever did: in a post-apocalyptic valley, soft is the wrong signal. DIRECTION's call, grounded in the real.",
+    "THE TELLS ARE FRAMEWORK DEFAULTS, not properties of badness. Tailwind's creator publicly apologised for making indigo-500 the default every AI tool now copies. The look is not ugly, it is inherited.",
+    "THE FAULT IS FLUENCY, NOT FEATURES. \"AI design isn't ugly, it's fluent, and that's the problem.\" The sharpest formulation of the tell is not visual: nothing is at stake and the composition is SYMMETRICAL. Uniformity is the bridge from taste to measurement, and measurement 1 is built on it.",
+    "THE DEFENCE IS PROVENANCE, NOT ABSENCE. \"AI feedback only hurts when there is nothing underneath the work to answer it with.\" Same diagnosis as the law (\"nobody's decision\") and the same shape as the fleet's REFERENCE CHECK."
+  ],
+  "reuse_not_rebuild": [
+    "THE SKIN ALREADY EXISTS as CSS custom properties (--skin-round, --skin-bezel, --skin-case, --skin-caseedge, --skin-screenround, --skin-glow, --skin-glowr, --fmono). A scale exists; nothing has ever been checked against it.",
+    "E13's driven-control harness already finds and measures every control on the real surface, which is what measurement 3 needs."
+  ],
+  "what_this_lane_may_not_do": "decide taste. That is DIRECTION.",
+  "flag_for_the_coordinator": "the board row's brief and the law's own wording are different instruments. Round two builds the law's one, and says so out loud rather than substituting silently."
+}
