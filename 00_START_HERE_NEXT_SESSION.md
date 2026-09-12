@@ -24946,7 +24946,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/12 (latest): [eyes: purple leak] RULED AND SHIPPED - zero
+ROUND LOG 9/12 (latest): [judge the zoom] SHIPPED - the handoff half
+measured on a real encounter fired through the game's own door: the
+street body arrives at the swap at ~14px, the fight board draws ~15px,
+the person continuous within a pixel (the eye's own object), the grid
+re-derives beneath, the shade core over the centre at the swap. COMBAT's
+draft:true pull depth ruled into the transition card as 5C: depth =
+fight body px / street body px at rest - derived, recomputes, never
+retuned by eye. Combined with the [judge the turn] verdict this line's
+every ask is answered. STILL OWED: the aerial judge frame (tiles vs a
+real LV aerial by the aerial card's three questions).
+PREVIOUS: [eyes: purple leak] RULED AND SHIPPED - zero
 exceptions on the 32 purple tiles. Fantasy objects (crystals, runes,
 portal door, flames, foliage) KILL; real objects (signs, container,
 walls, concrete, lights) REPAINT by the 7/28 ramp-snap with purple
