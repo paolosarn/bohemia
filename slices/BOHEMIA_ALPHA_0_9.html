@@ -28916,7 +28916,16 @@ const BOH_FLOORPLAN=(function(){
        bathroom flood -- but they were still answering the wrong question, filling a big
        stadium with plant rooms. A bigger leisure building is more CONCOURSE; that is what
        a concourse is for. */
-    leisure:    {roles:['concourse','counter','kitchen','locker','restroom','service'],bulk:'concourse',minRoom:5},
+    /* *** AND THE DRY STORE, 9/13, [back of house]. *** bohemia_economy's header has
+       said since 7/19 that downtown matters for its "deep casino/resort dry stores --
+       THE reason downtown matters", and a casino is this zone. `leisure` was the one
+       goods-heavy zone with no store in its list: the single room the economy is built
+       around was the one room nobody laid out.
+       REUSE-FIRST, and nothing new is drawn: `stockroom` already exists, retail already
+       gets one, and bohemia_furnish already fills it wall to wall with racking and
+       pallet stacks. It sits with the kitchen because that is where a dry store is --
+       back of house, behind the floor, beside the thing it feeds. */
+    leisure:    {roles:['concourse','counter','kitchen','stockroom','locker','restroom','service'],bulk:'concourse',minRoom:5},
     'default':  {roles:['room','room','service'],bulk:'room',minRoom:4},
   };
   // union-find for the door spanning tree
