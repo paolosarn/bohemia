@@ -15055,12 +15055,36 @@ It also serves DIRECTION's own finding on that row -- TWO MODALS STACKED one tap
   it has never been: into the game, finds the card's own GO, walks, talks to a
   person.
 
-*** STILL RED, AND IT IS A DIFFERENT CAUSE NOW -- THIS IS THE NEXT THING. *** The
-clock is still 1d 360m after forty presses, but no longer because a frozen scene
-owns the screen. IT IS A TALK LOOP: cttalk > ctgo > cttalk > ctgo, twenty presses
-of opening a conversation and closing it, AND TALKING COSTS NO TIME. A person
-would read and choose; a cold hand alternates forever. Much smaller than what it
-replaced, and squarely chaseable.
+*** AND THE TALK LOOP, CHASED THE SAME WAY, WAS NOT WHAT IT LOOKED LIKE. *** The
+conversation is VERY MUCH ALIVE: standing next to a scavenger gives SCAVENGER /
+THEY ARE AGAINST YOU / YOU ARE ON THEIR BLOCK AND THEY DO NOT KNOW YOU / NAME: YOU
+HAVE NOT ASKED / USED TO BE: FIXED ENGINES, and four choices -- Ask their name,
+Show up for them, Take it, Leave them to it. AND TWO OF THEM REALLY SPEND THE DAY,
+measured: "Show up for them" and "Take it" cost 60 MINUTES EACH. Asking a name is
+free, which is right.
+I NEARLY "FIXED" A STYLING FAULT THAT DOES NOT EXIST: ctgo measured 5035px vs
+ctfavour 2691 and I read it as the exit shouting down the choices. Measured
+properly, ALL FOUR ARE THE SAME HEIGHT AND COLOUR -- the widths differ only
+because "Leave them to it" is a longer label than "Take it". The cold hand picks
+the biggest ink, so the longest sentence wins. Blunt instrument, not a bad screen.
+
+*** WHAT WAS REAL: THE FOUR MOST MEANINGFUL BUTTONS IN THE GAME WERE UNDER THE
+THUMB LAW. *** All four 31px against a 44px law, and two of them spend an hour of
+a player's day. NO CHECKER HAD EVER SEEN THEM -- none stands next to a person and
+opens a conversation, so the thumb sweep only ever measured the first screen.
+*** THAT GAP IN A GREEN GATE IS FILED FOR UI, not papered over. ***
+Held to 44px from the demo side now, height only, width left alone, same pattern
+and same reasoning as the cold-open row; the workshop keeps its 31px.
+AND THE FIRST CUT OF THAT RULE DID NOTHING: I put the style in the demo's SHELL,
+and THE CONVERSATION LIVES IN THE CITY FRAME, a different document, so a style tag
+in the page cannot reach it. It sits with the walk pad's rule inside the frame now.
+    before  ctask 146x31  ctgive 162x31  ctfavour 87x31  ctgo 162x31
+    after   ctask 146x44  ctgive 162x44  ctfavour 87x44  ctgo 162x44
+
+NEXT: the cold hand's last red is now a blunt-instrument red, not a dead end -- it
+cannot read four choices and picks the longest label forever. Either it learns to
+press a control it has not pressed before when the clock is not moving, or that
+claim gets scoped to the walked surface. Do NOT "fix" the conversation for it.
 Record: records/BOHEMIA_THE_OPENING_SCENE_NEVER_ENDS_9_12_26.md
 
 --------------------------------------------------------------------------------
