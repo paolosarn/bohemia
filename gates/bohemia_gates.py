@@ -2124,6 +2124,26 @@ GATES = [
      "frozen at two and may only go down. A claim that goes stale because a gate stopped "
      "carrying its check is an immediate red, not a ratchet, because that is exactly the "
      "rot E11 found in CLAUDE.md's own law index.", True),
+    ('SLOP COUNT', ['python3', 'tools/bohemia_eyes_slop.py', '--gate'],
+     "EYES AND EARS lane 17, 9/12, E19 [slop count]: THE UI MUST NOT LOOK VIBE-CODED "
+     "(Paolo 9/11, LOCKED: 'People can look at it and be like, yep, that was coded'). The board "
+     "row asked for a counter that fails on any tell with a target of zero. That counter would "
+     "have RED THE SKIN'S PHONE, the one element built deliberately against this law, on five "
+     "tells at once, and our own hair law already says a checker that cannot tell a mention from "
+     "a use is the broken one. So every occurrence is ATTRIBUTED instead: TOKENISED 133 (the "
+     "value comes from a custom property that is really declared), PHANTOM 15 (a var(--skin-...) "
+     "whose variable is declared NOWHERE in slices/ or engine/, so it always resolves to its own "
+     "hardcoded fallback -- a literal in a token costume, and intent without mechanism is exactly "
+     "what A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED means), and TYPED IN PLACE 693, which is "
+     "the actionable list. Plus THE SCALE, which is what the trade actually enforces: 18 distinct "
+     "radii, 5 border widths, 14 shadow recipes, 11 letter-spacings. GOOD NEWS MEASURED TOO: zero "
+     "trend fonts anywhere, the decided face BohemiaMono is embedded and loads and is first in the "
+     "stack on all 40 chrome elements, zero pictographic emoji in markup, and ZERO of 42 controls "
+     "break when a reader widens letter spacing to the WCAG 0.12em, with a planted chip proving "
+     "the test can detect breakage. This gate ratchets TYPED IN PLACE, PHANTOM and every scale, "
+     "all shrink-only, and REPORTS the raw tell count without ever freezing it, because moving a "
+     "value onto a token is a real fix that leaves the raw count unchanged and a gate that cannot "
+     "see a fix teaches the fleet to ignore it.", True),
     ('HE CAN HEAR IT', ['python3', 'tools/bohemia_eyes_hear.py', '--gate'],
      "EYES AND EARS lane 17, 9/12, E18 [he can hear it]: THE ONE SONG HE LIKES, MEASURED "
      "AGAINST THE ONE HE SENT. Both sides are named by him: THE MARKER ON THE DOOR (Paolo "

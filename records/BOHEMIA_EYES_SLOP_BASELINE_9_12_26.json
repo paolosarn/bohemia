@@ -1,0 +1,12 @@
+{
+  "frozen": "9/12/26",
+  "typed_in_place": 693,
+  "phantom_tokens": 15,
+  "scale": {
+    "border-radius": 18,
+    "border-width": 5,
+    "box-shadow": 14,
+    "letter-spacing": 11
+  },
+  "note": "TYPED IN PLACE, PHANTOM TOKENS and the distinct-value scale. All shrink-only. The RAW tell count is never frozen, because moving a value onto a token is a real fix that leaves it unchanged."
+}

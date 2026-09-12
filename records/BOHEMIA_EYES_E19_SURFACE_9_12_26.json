@@ -1,0 +1,434 @@
+{
+  "ok": true,
+  "when": "2026-09-12T22:24:18.739Z",
+  "face": "BohemiaMono",
+  "font_loaded": true,
+  "chrome_elements": 40,
+  "asks_for_face": 40,
+  "face_first_in_stack": 40,
+  "not_a_sans_fallback": 33,
+  "css_uppercase_elements": 0,
+  "caps_typed_into_the_text": 9,
+  "spacing_tested": 42,
+  "spacing_broken": 0,
+  "spacing_broken_list": [],
+  "controls": [
+    {
+      "name": "a planted fixed-width tight-uppercase chip breaks at 0.12em",
+      "pass": true,
+      "detail": "true"
+    },
+    {
+      "name": "a planted flexible chip does NOT break at 0.12em",
+      "pass": true,
+      "detail": "false"
+    },
+    {
+      "name": "the decided face is actually loaded in the browser",
+      "pass": true,
+      "detail": "true"
+    }
+  ],
+  "rows": [
+    {
+      "id": "daycardIn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "dcx",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "H2",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "sub",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "P",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "H3",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "sub",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "sub",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "sub",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "dcbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "dcbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "dcbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "dcgo",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "normal"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "[object SVGAnimatedStrin",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": true,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "sleepbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "bikebtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "modechip",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "workbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "buildbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "rungbtn",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": true,
+      "tracking": "0.4px"
+    },
+    {
+      "id": "note",
+      "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "asks_for_face": true,
+      "face_is_first": true,
+      "not_a_sans_fallback": false,
+      "css_uppercase": false,
+      "caps_in_the_text": false,
+      "tracking": "0.4px"
+    }
+  ]
+}

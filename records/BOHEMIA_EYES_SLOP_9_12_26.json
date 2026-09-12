@@ -1,0 +1,950 @@
+{
+  "what": "E19 [slop count] round two: the tells, attributed, and the scale",
+  "date": "9/12/26",
+  "law": "laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md",
+  "school": "records/BOHEMIA_EYES_E19_ROUND_1_SCHOOL_THE_TELL_IS_FLUENCY_NOT_FEATURES_9_12_26.md",
+  "surfaces": [
+    {
+      "file": "slices/BOHEMIA_CITY_WORLD.html",
+      "bytes": 4781743,
+      "declared_customs": [
+        "--acc",
+        "--ba",
+        "--battc",
+        "--battw",
+        "--bbw",
+        "--bclip",
+        "--bclipin",
+        "--bcut",
+        "--bg",
+        "--face",
+        "--face-body",
+        "--face-casing",
+        "--face-screen",
+        "--fmono",
+        "--ink",
+        "--line",
+        "--track-body",
+        "--track-casing",
+        "--track-screen"
+      ],
+      "props": {
+        "border-radius": {
+          "declarations": 63,
+          "tokenised": 0,
+          "phantom": 4,
+          "mixed": 0,
+          "typed_in_place": 59,
+          "distinct_untokenised_values": 16,
+          "values": [
+            "0",
+            "10px",
+            "12px",
+            "13px",
+            "1px",
+            "2px",
+            "3px",
+            "3px!important",
+            "4px",
+            "5px",
+            "6px",
+            "7px",
+            "8px",
+            "999px",
+            "999px!important",
+            "9px"
+          ],
+          "tokens_used": [
+            "--skin-chipround",
+            "--skin-panelround",
+            "--skin-round",
+            "--skin-screenround"
+          ]
+        },
+        "letter-spacing": {
+          "declarations": 93,
+          "tokenised": 91,
+          "phantom": 1,
+          "mixed": 0,
+          "typed_in_place": 1,
+          "distinct_untokenised_values": 2,
+          "values": [
+            ".4px",
+            "0"
+          ],
+          "tokens_used": [
+            "--skin-chiptrack",
+            "--track-casing"
+          ]
+        },
+        "box-shadow": {
+          "declarations": 12,
+          "tokenised": 2,
+          "phantom": 5,
+          "mixed": 0,
+          "typed_in_place": 5,
+          "distinct_untokenised_values": 10,
+          "values": [
+            "#0a0906",
+            "#0b0906",
+            "#4c412f",
+            "#5c4f38",
+            "0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)",
+            "0 0 0 2px rgba(0,0,0,.55),0 0 14px rgba(184,154,106,.55)",
+            "0 18px 50px rgba(0,0,0,.7)",
+            "0 18px 50px rgba(0,0,0,.85)",
+            "0 2px 10px rgba(0,0,0,.55)",
+            "rgba(226,210,160,.16"
+          ],
+          "tokens_used": [
+            "--acc",
+            "--skin-casetop",
+            "--skin-chipbase",
+            "--skin-chiptop",
+            "--skin-glow",
+            "--skin-glowr",
+            "--skin-paneltop",
+            "--skin-screenedge"
+          ]
+        },
+        "font-family": {
+          "declarations": 1,
+          "tokenised": 1,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 0,
+          "distinct_untokenised_values": 0,
+          "values": [],
+          "tokens_used": [
+            "--fmono"
+          ]
+        },
+        "border-width": {
+          "declarations": 67,
+          "tokenised": 29,
+          "phantom": 2,
+          "mixed": 0,
+          "typed_in_place": 36,
+          "distinct_untokenised_values": 5,
+          "values": [
+            "14px",
+            "1px",
+            "2px",
+            "3px",
+            "6px"
+          ],
+          "tokens_used": [
+            "--acc",
+            "--line",
+            "--skin-batt",
+            "--skin-caseedge"
+          ]
+        },
+        "gradient": {
+          "declarations": 7,
+          "tokenised": 0,
+          "phantom": 3,
+          "mixed": 0,
+          "typed_in_place": 4,
+          "distinct_untokenised_values": 7,
+          "values": [],
+          "tokens_used": []
+        }
+      },
+      "phantom_names": {
+        "--skin-chipround": 1,
+        "--skin-panelround": 1,
+        "--skin-round": 1,
+        "--skin-screenround": 1,
+        "--skin-chiptrack": 1,
+        "--skin-casetop": 1,
+        "--skin-chipbase": 1,
+        "--skin-chiptop": 1,
+        "--skin-glow": 1,
+        "--skin-glowr": 1,
+        "--skin-paneltop": 1,
+        "--skin-screenedge": 1,
+        "--skin-batt": 1,
+        "--skin-caseedge": 1
+      },
+      "tells": {
+        "trend_font_hits": 0,
+        "platform_font_hits": 0,
+        "asks_for_the_decided_face": 12,
+        "font_declarations": 36,
+        "bare_monospace_no_named_face": 13,
+        "one_pixel_borders": 59,
+        "uppercase_declarations": 2,
+        "uppercase_with_letter_spacing": 2,
+        "pictographic_emoji": 0,
+        "dingbats_and_arrows": 5,
+        "font_face_blocks": 2,
+        "embedded_font_data": 2
+      }
+    },
+    {
+      "file": "slices/BOHEMIA_ALPHA_0_9.html",
+      "bytes": 5109045,
+      "declared_customs": [
+        "--acc",
+        "--acc2",
+        "--accink",
+        "--bw",
+        "--clip",
+        "--clipin",
+        "--cliptop",
+        "--cliptopin",
+        "--cold",
+        "--coldsoft",
+        "--cut",
+        "--cutin",
+        "--fglyph",
+        "--fill",
+        "--fill-lift",
+        "--fmono",
+        "--grain",
+        "--line",
+        "--line-soft",
+        "--mono",
+        "--r",
+        "--sans",
+        "--wear"
+      ],
+      "props": {
+        "border-radius": {
+          "declarations": 79,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 79,
+          "distinct_untokenised_values": 12,
+          "values": [
+            "0",
+            "10px",
+            "12px",
+            "14px",
+            "2px",
+            "3px",
+            "4px",
+            "50%",
+            "5px",
+            "6px",
+            "8px",
+            "9px"
+          ],
+          "tokens_used": []
+        },
+        "letter-spacing": {
+          "declarations": 98,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 98,
+          "distinct_untokenised_values": 10,
+          "values": [
+            ".5px",
+            ".6px",
+            "0",
+            "1.4px",
+            "1.5px",
+            "1.6px",
+            "1px",
+            "2px",
+            "3px",
+            "4px"
+          ],
+          "tokens_used": []
+        },
+        "box-shadow": {
+          "declarations": 4,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 4,
+          "distinct_untokenised_values": 4,
+          "values": [
+            "0 0 0 1px #b39ddb inset",
+            "0 0 12px rgba(60,30,80,0.15) inset",
+            "0 12px 34px rgba(0,0,0,.8),inset 0 1px 0 rgba(226,210,160,.16)",
+            "inset 0 1px 0 rgba(226,210,160,.18),0 3px 8px rgba(0,0,0,.6)"
+          ],
+          "tokens_used": []
+        },
+        "font-family": {
+          "declarations": 3,
+          "tokenised": 3,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 0,
+          "distinct_untokenised_values": 0,
+          "values": [],
+          "tokens_used": [
+            "--fmono"
+          ]
+        },
+        "border-width": {
+          "declarations": 95,
+          "tokenised": 2,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 93,
+          "distinct_untokenised_values": 2,
+          "values": [
+            "1px",
+            "2px"
+          ],
+          "tokens_used": [
+            "--bw",
+            "--line"
+          ]
+        },
+        "gradient": {
+          "declarations": 20,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 20,
+          "distinct_untokenised_values": 14,
+          "values": [],
+          "tokens_used": []
+        }
+      },
+      "phantom_names": {},
+      "tells": {
+        "trend_font_hits": 0,
+        "platform_font_hits": 8,
+        "asks_for_the_decided_face": 4,
+        "font_declarations": 91,
+        "bare_monospace_no_named_face": 79,
+        "one_pixel_borders": 88,
+        "uppercase_declarations": 2,
+        "uppercase_with_letter_spacing": 2,
+        "pictographic_emoji": 0,
+        "dingbats_and_arrows": 0,
+        "font_face_blocks": 4,
+        "embedded_font_data": 2
+      }
+    },
+    {
+      "file": "slices/BOHEMIA_DEMO.html",
+      "bytes": 5118543,
+      "declared_customs": [
+        "--acc",
+        "--acc2",
+        "--accink",
+        "--bw",
+        "--clip",
+        "--clipin",
+        "--cliptop",
+        "--cliptopin",
+        "--cold",
+        "--coldsoft",
+        "--cut",
+        "--cutin",
+        "--fglyph",
+        "--fill",
+        "--fill-lift",
+        "--fmono",
+        "--grain",
+        "--line",
+        "--line-soft",
+        "--mono",
+        "--r",
+        "--sans",
+        "--wear"
+      ],
+      "props": {
+        "border-radius": {
+          "declarations": 79,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 79,
+          "distinct_untokenised_values": 12,
+          "values": [
+            "0",
+            "10px",
+            "12px",
+            "14px",
+            "2px",
+            "3px",
+            "4px",
+            "50%",
+            "5px",
+            "6px",
+            "8px",
+            "9px"
+          ],
+          "tokens_used": []
+        },
+        "letter-spacing": {
+          "declarations": 98,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 98,
+          "distinct_untokenised_values": 10,
+          "values": [
+            ".5px",
+            ".6px",
+            "0",
+            "1.4px",
+            "1.5px",
+            "1.6px",
+            "1px",
+            "2px",
+            "3px",
+            "4px"
+          ],
+          "tokens_used": []
+        },
+        "box-shadow": {
+          "declarations": 4,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 4,
+          "distinct_untokenised_values": 4,
+          "values": [
+            "0 0 0 1px #b39ddb inset",
+            "0 0 12px rgba(60,30,80,0.15) inset",
+            "0 12px 34px rgba(0,0,0,.8),inset 0 1px 0 rgba(226,210,160,.16)",
+            "inset 0 1px 0 rgba(226,210,160,.18),0 3px 8px rgba(0,0,0,.6)"
+          ],
+          "tokens_used": []
+        },
+        "font-family": {
+          "declarations": 3,
+          "tokenised": 3,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 0,
+          "distinct_untokenised_values": 0,
+          "values": [],
+          "tokens_used": [
+            "--fmono"
+          ]
+        },
+        "border-width": {
+          "declarations": 95,
+          "tokenised": 2,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 93,
+          "distinct_untokenised_values": 2,
+          "values": [
+            "1px",
+            "2px"
+          ],
+          "tokens_used": [
+            "--bw",
+            "--line"
+          ]
+        },
+        "gradient": {
+          "declarations": 20,
+          "tokenised": 0,
+          "phantom": 0,
+          "mixed": 0,
+          "typed_in_place": 20,
+          "distinct_untokenised_values": 14,
+          "values": [],
+          "tokens_used": []
+        }
+      },
+      "phantom_names": {},
+      "tells": {
+        "trend_font_hits": 0,
+        "platform_font_hits": 8,
+        "asks_for_the_decided_face": 4,
+        "font_declarations": 91,
+        "bare_monospace_no_named_face": 79,
+        "one_pixel_borders": 88,
+        "uppercase_declarations": 2,
+        "uppercase_with_letter_spacing": 2,
+        "pictographic_emoji": 0,
+        "dingbats_and_arrows": 0,
+        "font_face_blocks": 4,
+        "embedded_font_data": 2
+      }
+    }
+  ],
+  "headline": {
+    "typed_in_place": 693,
+    "phantom_tokens": 15,
+    "tokenised": 133,
+    "distinct_untokenised_values_per_property": {
+      "border-radius": 18,
+      "border-width": 5,
+      "box-shadow": 14,
+      "letter-spacing": 11
+    }
+  },
+  "real_surface": {
+    "ok": true,
+    "when": "2026-09-12T22:24:18.739Z",
+    "face": "BohemiaMono",
+    "font_loaded": true,
+    "chrome_elements": 40,
+    "asks_for_face": 40,
+    "face_first_in_stack": 40,
+    "not_a_sans_fallback": 33,
+    "css_uppercase_elements": 0,
+    "caps_typed_into_the_text": 9,
+    "spacing_tested": 42,
+    "spacing_broken": 0,
+    "spacing_broken_list": [],
+    "controls": [
+      {
+        "name": "a planted fixed-width tight-uppercase chip breaks at 0.12em",
+        "pass": true,
+        "detail": "true"
+      },
+      {
+        "name": "a planted flexible chip does NOT break at 0.12em",
+        "pass": true,
+        "detail": "false"
+      },
+      {
+        "name": "the decided face is actually loaded in the browser",
+        "pass": true,
+        "detail": "true"
+      }
+    ],
+    "rows": [
+      {
+        "id": "daycardIn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "dcx",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "H2",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "sub",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "P",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "H3",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "sub",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "sub",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "sub",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "dcbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "dcbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "dcbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "dcgo",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "normal"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "[object SVGAnimatedStrin",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": true,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "sleepbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "bikebtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "modechip",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "workbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "buildbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "rungbtn",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": true,
+        "tracking": "0.4px"
+      },
+      {
+        "id": "note",
+        "stack": "BohemiaMono, ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+        "asks_for_face": true,
+        "face_is_first": true,
+        "not_a_sans_fallback": false,
+        "css_uppercase": false,
+        "caps_in_the_text": false,
+        "tracking": "0.4px"
+      }
+    ]
+  },
+  "controls": [
+    {
+      "name": "C2 a literal border-radius is attributed TYPED IN PLACE",
+      "pass": true,
+      "detail": "TYPED"
+    },
+    {
+      "name": "C3 a var() whose variable IS declared is attributed TOKENISED",
+      "pass": true,
+      "detail": "TOKENISED"
+    },
+    {
+      "name": "C4 a var() whose variable is NEVER declared is attributed PHANTOM",
+      "pass": true,
+      "detail": "PHANTOM"
+    },
+    {
+      "name": "C5 the scale counter separates a small scale from a sprawl",
+      "pass": true,
+      "detail": "5 distinct in the planted sheet, 30 in the thirty-radius sheet"
+    },
+    {
+      "name": "C1 the skin phone is attributed to a token NAME, never to a bare literal",
+      "pass": true,
+      "detail": "the phone radius reads PHANTOM"
+    }
+  ],
+  "blind_spots": [
+    "this is a text scan of the shipped files. A value written by JS at runtime is invisible to it, which is why the real-surface half exists.",
+    "it counts what is DECLARED, not what is on screen: a rule that never matches an element still counts.",
+    "nothing here says whether any of it looks good. That is DIRECTION.",
+    "dark mode is deliberately not counted, per the law and round one."
+  ]
+}

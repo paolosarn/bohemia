@@ -1,0 +1,170 @@
+{
+  "bank": "EYES E19 [slop count] -- the tell count, attributed. For UI [no slop] and DIRECTION.",
+  "date": "9/12/26",
+  "draft": true,
+  "law": "laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md (Paolo 9/11, LOCKED)",
+  "school": "records/BOHEMIA_EYES_E19_ROUND_1_SCHOOL_THE_TELL_IS_FLUENCY_NOT_FEATURES_9_12_26.md",
+  "check": "records/BOHEMIA_EYES_E19_ROUND_2_A_TOKEN_WITH_NO_DECLARATION_IS_NOT_A_TOKEN_9_12_26.md",
+  "gate": "suite SLOP COUNT",
+  "note": "Every occurrence is ATTRIBUTED, never failed on. A gate that reds on a rounded corner is red forever and gets muted inside a week, and the corner might be a phone's corner.",
+  "headline": {
+    "typed_in_place": 693,
+    "phantom_tokens": 15,
+    "tokenised": 133,
+    "distinct_untokenised_values_per_property": {
+      "border-radius": 18,
+      "border-width": 5,
+      "box-shadow": 14,
+      "letter-spacing": 11
+    }
+  },
+  "real_surface": {
+    "font_loaded": true,
+    "chrome_elements": 40,
+    "asks_for_face": 40,
+    "face_first_in_stack": 40,
+    "not_a_sans_fallback": 33,
+    "css_uppercase_elements": 0,
+    "caps_typed_into_the_text": 9,
+    "spacing_tested": 42,
+    "spacing_broken": 0,
+    "spacing_broken_list": []
+  },
+  "tells_by_surface": {
+    "slices/BOHEMIA_CITY_WORLD.html": {
+      "trend_font_hits": 0,
+      "platform_font_hits": 0,
+      "asks_for_the_decided_face": 12,
+      "font_declarations": 36,
+      "bare_monospace_no_named_face": 13,
+      "one_pixel_borders": 59,
+      "uppercase_declarations": 2,
+      "uppercase_with_letter_spacing": 2,
+      "pictographic_emoji": 0,
+      "dingbats_and_arrows": 5,
+      "font_face_blocks": 2,
+      "embedded_font_data": 2
+    },
+    "slices/BOHEMIA_ALPHA_0_9.html": {
+      "trend_font_hits": 0,
+      "platform_font_hits": 8,
+      "asks_for_the_decided_face": 4,
+      "font_declarations": 91,
+      "bare_monospace_no_named_face": 79,
+      "one_pixel_borders": 88,
+      "uppercase_declarations": 2,
+      "uppercase_with_letter_spacing": 2,
+      "pictographic_emoji": 0,
+      "dingbats_and_arrows": 0,
+      "font_face_blocks": 4,
+      "embedded_font_data": 2
+    },
+    "slices/BOHEMIA_DEMO.html": {
+      "trend_font_hits": 0,
+      "platform_font_hits": 8,
+      "asks_for_the_decided_face": 4,
+      "font_declarations": 91,
+      "bare_monospace_no_named_face": 79,
+      "one_pixel_borders": 88,
+      "uppercase_declarations": 2,
+      "uppercase_with_letter_spacing": 2,
+      "pictographic_emoji": 0,
+      "dingbats_and_arrows": 0,
+      "font_face_blocks": 4,
+      "embedded_font_data": 2
+    }
+  },
+  "phantom_names": {
+    "slices/BOHEMIA_CITY_WORLD.html": {
+      "--skin-chipround": 1,
+      "--skin-panelround": 1,
+      "--skin-round": 1,
+      "--skin-screenround": 1,
+      "--skin-chiptrack": 1,
+      "--skin-casetop": 1,
+      "--skin-chipbase": 1,
+      "--skin-chiptop": 1,
+      "--skin-glow": 1,
+      "--skin-glowr": 1,
+      "--skin-paneltop": 1,
+      "--skin-screenedge": 1,
+      "--skin-batt": 1,
+      "--skin-caseedge": 1
+    }
+  },
+  "the_real_token_set": [
+    "--face-casing",
+    "--face-screen",
+    "--face-body",
+    "--track-casing",
+    "--track-screen",
+    "--track-body",
+    "--fmono",
+    "--ink",
+    "--line",
+    "--acc"
+  ],
+  "for_ui": [
+    "THE CHEAPEST WIN FIRST: 15 phantom --skin-* uses, 0 declarations. Declare them once and they become real tokens, and the act-two skin swap becomes possible. Today swapping the skin changes nothing because there is nothing to swap.",
+    "THEN THE SCALE: 18 distinct radii and 14 distinct shadow recipes. Five border widths is already a scale; those two are not. The trade's rule is that every value comes from your own short list.",
+    "693 typed-in-place values is the actionable list, and it is what the ratchet holds.",
+    "171 of 218 font declarations resolve to bare monospace. The face is decided, embedded and first in the stack on all 40 chrome elements; it is simply not asked for everywhere else.",
+    "9 of 40 chrome elements carry capitals TYPED INTO THE TEXT rather than applied with CSS. A reader cannot turn those off and a screen reader may spell them out."
+  ],
+  "good_news_measured": [
+    "ZERO trend fonts (Inter, Poppins, Space Grotesk, Geist, Roboto, DM Sans) in any of the three surfaces.",
+    "BohemiaMono is embedded as woff2 at two weights, loads in the real browser, and is FIRST in the resolved stack on all 40 chrome elements. The biggest tell on every published list is answered.",
+    "ZERO pictographic emoji in markup.",
+    "ZERO CSS text-transform:uppercase on the chrome.",
+    "ZERO of 42 controls break when a reader widens letter spacing to the WCAG 0.12em, with a planted chip proving the test can detect breakage."
+  ],
+  "controls": [
+    {
+      "name": "C2 a literal border-radius is attributed TYPED IN PLACE",
+      "pass": true,
+      "detail": "TYPED"
+    },
+    {
+      "name": "C3 a var() whose variable IS declared is attributed TOKENISED",
+      "pass": true,
+      "detail": "TOKENISED"
+    },
+    {
+      "name": "C4 a var() whose variable is NEVER declared is attributed PHANTOM",
+      "pass": true,
+      "detail": "PHANTOM"
+    },
+    {
+      "name": "C5 the scale counter separates a small scale from a sprawl",
+      "pass": true,
+      "detail": "5 distinct in the planted sheet, 30 in the thirty-radius sheet"
+    },
+    {
+      "name": "C1 the skin phone is attributed to a token NAME, never to a bare literal",
+      "pass": true,
+      "detail": "the phone radius reads PHANTOM"
+    },
+    {
+      "name": "a planted fixed-width tight-uppercase chip breaks at 0.12em",
+      "pass": true,
+      "detail": "true"
+    },
+    {
+      "name": "a planted flexible chip does NOT break at 0.12em",
+      "pass": true,
+      "detail": "false"
+    },
+    {
+      "name": "the decided face is actually loaded in the browser",
+      "pass": true,
+      "detail": "true"
+    }
+  ],
+  "what_this_lane_may_not_do": "decide whether any of it looks good. That is DIRECTION.",
+  "blind_spots": [
+    "this is a text scan of the shipped files. A value written by JS at runtime is invisible to it, which is why the real-surface half exists.",
+    "it counts what is DECLARED, not what is on screen: a rule that never matches an element still counts.",
+    "nothing here says whether any of it looks good. That is DIRECTION.",
+    "dark mode is deliberately not counted, per the law and round one."
+  ]
+}
