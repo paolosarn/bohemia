@@ -1,0 +1,155 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - FIVE CONTROLS THAT ARE NOT VIBE-CODED</title>
+<style>
+ /* THIS SHEET IS HELD TO THE SAME LIST IT IS SHOWING. No named font, no hairline as an
+    edge, no card radius as the way to group, no gradient-and-glow, no spaced caps as the
+    way to label, no emoji. The page type is a plain system stack, deliberately unstyled,
+    so nothing here competes with the five objects. */
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink);
+       font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot);
+       background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ background:#fff; margin:16px 0; border-bottom:3px solid var(--ink) }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .body{ padding:12px }
+ .say{ margin:10px 0 0; font-size:15px }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a }
+ .cost b{ color:var(--ink) }
+ .reg{ margin:6px 0 0; font-size:13px; color:#6b6355 }
+ /* THE STAGE. Chips drawn at the size they are in the game (14 px tall on his half-size
+    order) and scaled up so the edges are visible. */
+ .stage{ padding:18px 14px; background:#6b6150 }
+ .row{ transform:scale(2.4); transform-origin:top left; display:flex; flex-direction:column;
+       align-items:flex-start; gap:7px; width:132px }
+ .c{ height:14px; line-height:14px; padding:0 5px; font-size:7px; white-space:nowrap }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--rule) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:2px solid var(--rule); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border-left:5px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:0;
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>FIVE CONTROLS THAT ARE NOT VIBE-CODED</h1>
+ <div class="sub">You said people can tell when a UI was coded by a bot, and you were right about ours. Option A is in the game now. Tap a thumb. 9/11</div>
+</header>
+
+<div class="now">
+ <b>WHAT GIVES IT AWAY, AND WHAT WE HAD.</b> The research names the same short list every
+ time: a handful of default fonts, dark mode by reflex, a grey one-pixel line around every
+ card, rounded cards around everything, gradients and glow, tiny wide-spaced capital
+ labels, and emoji used as icons. I counted ours. We had all of it: 800 hits across the two
+ files that draw your screen. That number is a floor I can re-run, and it only goes down.
+ <br><br>
+ <b>THE RULE THAT REPLACES IT</b> comes from the world, not from a component kit. An edge
+ is a thing's edge: a lit rim on top, a dark base under it, never a grey hairline floating
+ on nothing. A label is painted or stamped ON something. A panel has a body you can see.
+ All five below follow that. They differ in what the object is made of.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+var WORDS=['STANDING','BUILD HERE','SCAVENGE 8H','MARKET','DROP IN'];
+
+function chips(o){
+  return '<div class="stage"><div class="row">' + WORDS.map(function(w){
+    return '<div class="c" style="'+o.css+'">'+w+'</div>';
+  }).join('') + '</div></div>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. STAMPED METAL - what is in the game now',
+   css:'background:#1a160f;color:#d8c49a;letter-spacing:.4px;border-radius:2px;'
+      +'box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55)',
+   reg:'Type register: DIN-stencil caps, the casing register ruled for act one.',
+   say:'A small dark plate with a lit top edge and a dark base. It reads as a piece of metal with a word stamped into it.',
+   cost:'<b>Costs you:</b> quiet. It does not shout at you. <b>Gets you:</b> not one thing on the tell list, and it sits in the same world as the phone and the walk ring.' },
+
+ { k:'B', t:'B. PAINTED ON THE SURFACE',
+   css:'background:transparent;color:#f2e7cc;letter-spacing:.4px;'
+      +'text-shadow:0 1px 0 rgba(0,0,0,.9), 1px 0 0 rgba(0,0,0,.55)',
+   reg:'Type register: stencil caps, painted straight onto the world.',
+   say:'No plate at all. The word is painted directly on the city, like a stencil sprayed on a wall.',
+   cost:'<b>Costs you:</b> hardest to read, and it moves with whatever is behind it. <b>Gets you:</b> the most screen back of any of the five, and it can never look like a card.' },
+
+ { k:'C', t:'C. EMBOSSED TAPE',
+   css:'background:#2c2a26;color:#efe9dd;letter-spacing:1.1px;border-radius:1px;'
+      +'box-shadow:inset 0 1px 0 rgba(255,255,255,.22), inset 0 -2px 0 rgba(0,0,0,.6), 0 1px 0 rgba(0,0,0,.5)',
+   reg:'Type register: embossed label tape, wide by the machine, not by choice.',
+   say:'A strip of label-maker tape. The letters are pressed into plastic, so they are pale and the tape is dark.',
+   cost:'<b>Costs you:</b> the wide spacing is the one thing here that looks like the tell, even though a real tape machine makes it. <b>Gets you:</b> it says a person labelled this by hand.' },
+
+ { k:'D', t:'D. LIT CELL',
+   css:'background:#0d1512;color:#8fe6c4;letter-spacing:.4px;'
+      +'box-shadow:inset 0 1px 0 #1d3a30, inset 0 -2px 0 #060a08, 0 1px 0 rgba(0,0,0,.6)',
+   reg:'Type register: character-cell screen, the one place fixed-pitch is allowed.',
+   say:'A little lit readout, like the strip on a machine that still has power. Green because that is what those screens were.',
+   cost:'<b>Costs you:</b> it says the power is on, which is a lie most of the time in this valley. <b>Gets you:</b> the easiest to read of the five, by a distance.' },
+
+ { k:'E', t:'E. CUT INTO THE PLATE',
+   css:'background:#191713;color:#8a7c62;letter-spacing:.4px;'
+      +'box-shadow:inset 0 -1px 0 #4a4133, inset 0 2px 2px rgba(0,0,0,.75)',
+   reg:'Type register: DIN-stencil caps, engraved rather than applied.',
+   say:'The word is cut down into the metal instead of sitting on it, so the light catches the bottom of the groove.',
+   cost:'<b>Costs you:</b> the dimmest of the five; engraved text has no ink in it. <b>Gets you:</b> the most expensive-looking, and it cannot be mistaken for software.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2>'+chips(o)
+    + '<div class="body"><p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p>'
+    + '<p class="reg">'+o.reg+'</p></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+/* the stage is only as tall as the scaled chips actually are */
+function fit(){
+  document.querySelectorAll('.stage').forEach(function(s){
+    var r=s.firstElementChild; if(!r) return;
+    s.style.height=(r.getBoundingClientRect().height+36)+'px';
+  });
+}
+fit(); window.addEventListener('resize',fit);
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - NO SLOP, FIVE CONTROLS - 9/11/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_NO_SLOP_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>

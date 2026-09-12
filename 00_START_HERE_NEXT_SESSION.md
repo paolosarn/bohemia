@@ -1,3 +1,60 @@
+UI (ui-kmqmrf): 9/12 LATEST -- *** [no slop] ROUND ONE. THE ROW STAYS CLAIMED ON PURPOSE. ***
+Paolo 9/11, LOCKED: "as far away as possible from the standard look of vibe-coding with Claude;
+people can tell; do the research, even down to the font." The ship test says NONE of the tells
+survive and some still do, so this is round one of the row, not the end of it.
+TAB: CITY and RUN (the chips down the left and along the top).
+RULER: tools/bohemia_count_the_tells.js   RECORD: records/BOHEMIA_NO_SLOP_THE_FIRST_COUNT_9_11_26.md
+PICTURE: slices/BOHEMIA_NO_SLOP_9_11_26.html -- five ways a control can be an object.
+
+THE MEASUREMENT, WHICH IS WHAT THE ROW ASKS FOR FIRST. A number nobody can re-run is a claim,
+not a measurement, so it is a command. It is a RULER, NOT A GATE, deliberately: the gate is EYES
+AND EARS' own [slop count] row and building it here would be doing their job.
+One ruler on both trees, clean origin/main against mine:
+    THE WALKED CITY 333 -> 278      emoji 24 -> 2, 1px borders 79 -> 62, rounded 81 -> 65
+    the alpha shell 466, UNTOUCHED -- it is RUN's surface. Quoting a total without saying that
+    would be taking credit for a file I never opened.
+
+THE RULER COUNTED THE CURE AS THE DISEASE, and it was fixed BEFORE any number was quoted, so both
+columns above are the same ruler. It matched any box-shadow carrying an rgba -- while DIRECTION's
+9/11 object language RULES that every panel must show its body with "a shadowed lower edge or a
+visible side, always". A ruler that counts the ordered fix as the tell drives the work back to the
+flat hairline. Glow is a halo with no offset or a wide coloured blur; an offset shadow is an
+object having a bottom. Separate rows now, because they are separate things.
+
+THE SKIN DRAWS EVERY CONTROL NOW, which is this lane's one owed piece of architecture doing its
+job. Nineteen chips each carried their own border:1px solid and 5px card radius in their own rule
+-- that is both the tell AND the reason it could never be changed in one place. One rule reading
+seven skin values: a lit rim above, a dark base below, the object's side under it, a 2px corner,
+a stencil's tracking. Act two is seven values, not a rewrite.
+AND THE DEAD SOURCE WENT WITH IT. The first pass left the old declarations in and overrode them at
+runtime: the screen improved and THE COUNT WENT UP BY ONE. That is the ruler working -- slop the
+skin hides is slop that grows back. Deleted, so source and screen say the same thing.
+
+EMOJI ARE OUT OF THE CONTROLS, 24 -> 2 (the two left are a judge tool's thumbs). DIRECTION's font
+ruling said what replaces them instead of leaving a hole: act one's casing register is DIN-stencil
+caps, and a stencilled label is LETTERS. Two chips were emoji only -- a floppy disk and a spanner
+-- and they say SAVE and TOOLS now.
+
+*** A COIN WAS FOUND IN OUR OWN GATE AND REPLACED RATHER THAN RE-RUN. *** thumb_gate's "no walk
+button draws a second arrow" leg ran 14/1, 15/0, 15/0, 15/0, the red naming one diagonal. It
+diffs a RECTANGLE OF THE PAGE, and the pad stopped being an opaque circle on 9/7 when it became
+one ring cut into eight wedges -- the gaps and the wedge bounding-box corners are now the live
+ANIMATING city, so two shots differ because a car moved and the gate blamed the button. Replaced
+with the exact question it was really asking (does the group hold a text glyph -- an svg group
+draws text only if it contains one), pixel diff kept for anything still drawn in html. 3 runs
+15/0, mutation-proved: put a glyph in a wedge and it names it.
+
+STILL THERE AND NOT HIDDEN: monospace 36, spaced caps 80, named fonts 14, gradients 11 in the
+walked city. Those are the feed's type, the day card, the market, the phone panel -- surfaces this
+round did not open. The font registers landing in the skin are the next round of this row.
+[PENDING Paolo] Nothing blocking.
+
+EYES AND EARS (eyes-5vql33): 9/11 (v) LATEST -- *** E16 [never opened] SHIPPED WITH BOTH ROUNDS.
+THE LINK BETWEEN HIS WORDS AND THE WORK IS NOT MISSING, IT IS DELETED. An OPEN row cites a ruling
+of his 34% of the time and a CLAIMED one 38%, but a SHIPPED row only 12%. The row gets rewritten
+as a result summary when it lands and the ruling it answered goes with it, so the link dies at the
+exact moment the work becomes history. That is why two separate attempts to compute "has he seen
+this" both came back near zero. *** TAB: NOT IN A TAB YET. No game code touched, ever.
 EYES AND EARS (eyes-5vql33): 9/12 (w) LATEST -- *** E17 [locked ignored] ROUND ONE OF TWO IS DONE:
 SCHOOL. NOTHING ON THE SHIPPED SURFACE WAS MEASURED. THE SWEEP AS WRITTEN CANNOT SEE ITS OWN
 EXAMPLE: the job says sweep "every line marked LOCKED", and the RIDGE ruling it cites is written
