@@ -549,5 +549,113 @@ const done = () => {
        && /its land makes/.test(ALPHA_TXT));
   }
 
+  /* ==========================================================================
+     THE BLOCK PAYS ITS OWNER  (9/12, VAMILY row [block rent])
+     "living or working on a faction's block costs a monthly cut in batteries paid
+     to that faction; a fortress charges more than a camp; a faction can cut a
+     block off when a block does not pay; the cut lands in the purse ledger."
+     ======================================================================== */
+  {
+    const _fs2 = require('fs');
+    const OM2 = require(path.join(ROOT, 'engine/bohemia_overmap.js'));
+    const PU = require(path.join(ROOT, 'engine/bohemia_purse.js'));
+    const CITY_TXT2 = _fs2.readFileSync(CITY, 'utf8');
+    const m3 = OM2.buildOvermap(7);
+    const seats3 = T.derive(G, T.districtsOf(m3, CE.cat), 1);
+    const tierOf = {}; seats3.forEach(s => { tierOf[s.faction] = s.tier; });
+    const fort = seats3.find(s => s.tier === 'fortress').faction;
+    const camp = seats3.find(s => s.tier === 'camp').faction;
+    const town = seats3.find(s => s.tier === 'town').faction;
+
+    ok('N1 the rent is a READING over ground he used, and it carries HIS ruling '
+       + 'rather than a price (' + T.rentOn({ [fort]: 1 }, seats3).ruling + ')',
+       /EVERYTHING COSTS ONE/.test(T.rentOn({ [fort]: 1 }, seats3).ruling));
+
+    /* *** A FORTRESS CHARGES MORE THAN A CAMP, AND IT DOES IT WITHOUT A PRICE. *** */
+    {
+      const nine = T.rentOn({ [fort]: 9, [town]: 9, [camp]: 9 }, seats3);
+      const by = {}; nine.rows.forEach(r => { by[r.faction] = r.billed; });
+      ok('N2 *** A FORTRESS CHARGES MORE THAN A CAMP *** -- nine blocks of each: '
+         + fort + '(fortress) ' + by[fort] + ', ' + town + '(town) ' + by[town]
+         + ', ' + camp + '(camp) ' + by[camp],
+         by[fort] > by[town] && by[town] > by[camp]);
+      ok('N3 and it charges more by billing MORE OF WHAT YOU USED, never a bigger '
+         + 'price -- the shares are his thirds, straight off DEPTH, the same table '
+         + 'and the same Math.ceil that goodsFor already uses',
+         by[fort] === Math.ceil(9 * T.DEPTH.fortress)
+         && by[town] === Math.ceil(9 * T.DEPTH.town)
+         && by[camp] === Math.ceil(9 * T.DEPTH.camp));
+      ok('N4 no faction is ever billed for ground it does not hold, and never for '
+         + 'more blocks than you actually used',
+         nine.rows.every(r => r.billed <= r.used && r.billed >= 1));
+      /* THE HONEST LIMIT, ASSERTED SO NOBODY LATER READS IT AS A BUG. */
+      const one = T.rentOn({ [fort]: 1, [camp]: 1 }, seats3);
+      const b1 = {}; one.rows.forEach(r => { b1[r.faction] = r.billed; });
+      ok('N5 AND AT ONE BLOCK THEY ARE EQUAL, which is the rounding and not a '
+         + 'fault: a third of one block is still one block, so the tiers only '
+         + 'separate once he has walked more of somebody\'s ground',
+         b1[fort] === 1 && b1[camp] === 1);
+    }
+
+    /* *** IT IS A TRANSFER, NOT A FIFTH VERB. *** */
+    {
+      const purse = PU.create();
+      PU.credit(purse, 'electricity', 3, 'test float', null, 1);
+      const r1 = PU.transferOut(purse, 'electricity', 1, 'rent on ' + fort + ' ground', fort, 1);
+      ok('N6 *** RENT MOVES MONEY, IT DOES NOT DRAIN IT. *** The four verbs are '
+         + 'FROZEN and each currency is spent by exactly one verb (day 23), and '
+         + 'electricity is already spent by night:power. A drain CONSUMES; rent '
+         + 'goes to somebody with a name, which is what transfer is for',
+         r1.applied === true && r1.entry.kind === 'transfer');
+      ok('N7 and the ledger names WHO received it, so a battery is never anonymous',
+         r1.entry.ref === fort && /rent on /.test(r1.entry.reason));
+      ok('N8 no fifth verb was added -- the frozen four are untouched and a fifth '
+         + 'is still refused by name',
+         Object.keys(PU.VERBS).length === 4
+         && PU.upkeep(purse, 'block:rent', null, 1).reason === 'NO_SUCH_VERB');
+      /* AND YOU CANNOT PAY WHAT YOU DO NOT HAVE. */
+      PU.transferOut(purse, 'electricity', 1, 'rent', fort, 1);
+      PU.transferOut(purse, 'electricity', 1, 'rent', fort, 1);
+      const broke = PU.transferOut(purse, 'electricity', 1, 'rent', fort, 1);
+      ok('N9 an empty purse REFUSES the rent rather than going negative, and the '
+         + 'refusal is the record the cut-off reads (' + broke.reason + ')',
+         broke.applied === false && broke.reason === 'INSUFFICIENT');
+    }
+
+    /* THE CITY REALLY DOES IT, AND IT ASKS THE RIGHT DOOR. */
+    ok('N10 the walked city bills at nightfall, after the night\'s own power bill',
+       /try\{ nightPower\(\); \}catch\(_e\)\{\}\s*[\s\S]{0,400}?try\{ blockRent\(\); \}catch\(_e\)\{\}/
+         .test(CITY_TXT2));
+    ok('N11 and it counts BLOCKS of each faction\'s ground he used, which a list '
+       + 'of names could never have given',
+       /TURF_USED\[t\.faction\]=\(TURF_USED\[t\.faction\]\|\|0\)\+1/.test(CITY_TXT2));
+    /* READ THE FUNCTIONS, NOT THE FILE. The first cut of this claim tested a
+       regex against the whole 4 MB page for "payTo ... rent", which is string
+       arithmetic that can match anything and went red while the behaviour was
+       right. The claim is about what the RENT PATH calls, so it reads exactly
+       those two function bodies. */
+    const rentBody = (CITY_TXT2.match(/function blockRent\(\)[\s\S]*?\n\}/) || [''])[0]
+                   + (CITY_TXT2.match(/function rentCutOff\([\s\S]*?\n\}/) || [''])[0];
+    ok('N12 *** WHO YOU PAY IS TURF, NOT THE GRID. *** payTo answers who owns the '
+       + 'WIRE and is null wherever there is no circuit, which is most of the '
+       + 'valley and includes the block he wakes on. The rent path asks turf and '
+       + 'never asks payTo (' + rentBody.length + ' chars read)',
+       rentBody.length > 400 && /rentOn\(TURF_USED/.test(rentBody)
+       && /turfAt\(/.test(rentBody) && rentBody.indexOf('payTo') < 0);
+    ok('N13 the cut-off is the LIGHTS, through the douse the grid already ships '
+       + 'and the save already carries, and only on THAT faction\'s own ground',
+       /function rentCutOff/.test(CITY_TXT2)
+       && /t\.faction!==faction/.test(CITY_TXT2)
+       && /POWER\.douse\(s\.id\)/.test(CITY_TXT2));
+    ok('N14 and nothing here invents a standing change: what an unpaid debt does '
+       + 'to how they FEEL about you is a weight, and weights are his',
+       !/ctDialApply|DEED_WEIGHT|rungFor/.test(
+         (CITY_TXT2.match(/function blockRent\(\)[\s\S]*?\n\}/) || [''])[0]));
+    ok('N15 the reckoning says who collected and what it cost, in words',
+       /took '\+_r\.paid/.test(CITY_TXT2) && /cut '\+_r\.short/.test(CITY_TXT2));
+    ok('N16 and the day\'s tally resets at the wake, where the day starts',
+       /TURF_USED=\{\}; TURF_SEENCELL=\{\}/.test(CITY_TXT2));
+  }
+
   done();
 })();

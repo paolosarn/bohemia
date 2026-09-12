@@ -27487,9 +27487,65 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
              makesNothing: !row };
   }
 
+  /* ==========================================================================
+     THE BLOCK PAYS ITS OWNER   (9/12, VAMILY row [block rent])
+
+     THE ROW, off the coordinator's 9/5 generator-mafia research: in Lebanon and
+     Iraq the faction that owns a neighbourhood's generator "charges every
+     household on it monthly, by the ampere, sets the price, and cuts you off
+     without warning"; it was 44% of an average family's income.
+
+     MEASURED FIRST. Every cell of this valley has belonged to somebody since
+     [who holds], and payTo() has answered "who do you pay for this block" since
+     [light owners]. IT HAD EXACTLY ONE CALLER IN THE WHOLE GAME AND IT WAS A GATE.
+     Living on somebody's ground cost nothing.
+
+     AND payTo() IS THE WRONG DOOR FOR THIS, measured on the walked surface: it
+     reads the GRID, and the grid only has status on STREET cells, so it answers
+     NULL for 1,467 of 2,304 sampled cells INCLUDING THE BLOCK THE PLAYER WAKES ON.
+     The grid says who owns the WIRE. TURF says who owns the GROUND, for 100% of
+     the valley, and rent is ground.
+
+     ---------------------------------------------------------------------------
+     A FORTRESS CHARGES MORE THAN A CAMP, WITHOUT A PRICE NOBODY RULED
+     ---------------------------------------------------------------------------
+     EVERYTHING COSTS ONE (8/15), so a fortress cannot charge a bigger number.
+     What it can do is collect on MORE OF WHAT YOU USED, which is what a bigger
+     operator really does. That scaling is HIS THIRDS, already in this file as
+     DEPTH, and it is applied exactly the way goodsFor applies it: to a COUNT,
+     through Math.ceil, never to a price.
+       fortress  bills all of the ground of theirs you used
+       town      bills two thirds of it
+       camp      bills a third
+     One battery per billed block, the same shape as the night's per-circuit bill.
+     HONEST LIMIT, stated rather than hidden: with ONE block used they all bill 1,
+     because a third of one block rounds up to one. The tiers only separate once
+     you have walked more of somebody's ground, which is when it should matter. */
+  function rentOn(used, towns) {
+    var out = { rows: [], total: 0, ruling: 'EVERYTHING COSTS ONE (8/15)' };
+    if (!used || !towns || !towns.length) return out;
+    var tier = {};
+    for (var i = 0; i < towns.length; i++) tier[towns[i].faction] = towns[i].tier;
+    var f;
+    for (f in used) {
+      if (!Object.prototype.hasOwnProperty.call(used, f)) continue;
+      var n = used[f] | 0;
+      if (n <= 0) continue;
+      var t = tier[f] || 'camp';
+      var share = Object.prototype.hasOwnProperty.call(DEPTH, t) ? DEPTH[t] : DEPTH.camp;
+      var billed = Math.max(1, Math.ceil(n * share));
+      if (billed > n) billed = n;
+      out.rows.push({ faction: f, tier: t, used: n, billed: billed });
+      out.total += billed;
+    }
+    /* stable, so the same day bills in the same order every time it is asked */
+    out.rows.sort(function (a, b) { return a.faction < b.faction ? -1 : 1; });
+    return out;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
-    MAKES: MAKES.slice(), MINE_RULING: MINE_RULING,
+    MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
@@ -48649,9 +48705,24 @@ function dayWhere(){
 var TURF_TODAY=[];
 /* what the valley lost tonight, computed at nightfall and read by the card below it */
 var VALLEY_TONIGHT=null;
+/* __THE_BLOCK_PAYS_ITS_OWNER__ (9/12, [block rent]) -- HOW MUCH of each faction's
+   ground he used today, not just whose names he crossed. A fortress collecting on
+   more of your ground than a camp needs a COUNT, and the name list cannot give one.
+   Counted in BLOCKS and deduped, so pacing up and down one street is one block,
+   which is what a landlord would bill for. Rides the call that already runs on
+   movement and already refuses to work unless the cell changed. */
+var TURF_USED={}, TURF_SEENCELL={};
 function turfNote(cx,cy){
   var t=turfAt(cx,cy); if(!t||!t.faction) return;
   if(TURF_TODAY.indexOf(t.faction)<0) TURF_TODAY.push(t.faction);
+  try{
+    var b=ctBlockOf(cx*FN, cy*FN), k=t.faction+'@'+b[0]+','+b[1];
+    if(!TURF_SEENCELL[k]){ TURF_SEENCELL[k]=1;
+      TURF_USED[t.faction]=(TURF_USED[t.faction]||0)+1; }
+  }catch(_e){
+    /* no block helper reachable from here is not a crash: the day still knows
+       whose ground he crossed, it just cannot bill by the block. */
+  }
 }
 /* is the block you are standing on dark? The world's real 12% clustered power
    grid answers this, so "an unlit block" is a place you can actually find. */
@@ -48769,6 +48840,11 @@ function showWake(){
   SPENT_TODAY=[];
   DARK_TONIGHT=[];
   TURF_TODAY=[];
+  /* __THE_BLOCK_PAYS_ITS_OWNER__ -- and the rent is a DAY's rent, so what he used
+     resets with the day. Cleared HERE for the reason the comment above already
+     gives: a buffer emptied where it is read works exactly until it has a second
+     reader, and this one has two (the bill and the card). */
+  TURF_USED={}; TURF_SEENCELL={}; RENT_TONIGHT=[]; RENT_DOUSED=[];
   /* __A_DAYS_WORK__ -- a new day is a day you have not worked yet. Cleared HERE,
      where the day starts, for the reason the spend list's own comment above
      records: a buffer emptied where it is READ works exactly until it has a
@@ -49634,6 +49710,10 @@ function onNightfall(){
   /* __WHAT_TODAY_COST__ -- THE NIGHT EATS POWER. One drain per lit circuit you
      HOLD, at nightfall, in the order the night takes them. */
   try{ nightPower(); }catch(_e){}
+  /* __THE_BLOCK_PAYS_ITS_OWNER__ -- AND THEN THE GROUND'S OWNER COLLECTS. After
+     the night's own bill, because the lights you hold are yours to pay for before
+     anybody's rent, and the order is the design. */
+  try{ blockRent(); }catch(_e){}
   try{ VALLEY_TONIGHT=mktAdvanceDay()&&valleyRunsOut(); }catch(_e){ VALLEY_TONIGHT=null; }
   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
@@ -49788,6 +49868,33 @@ function showReckoning(){
     for(var _mi=0;_mi<TURF_TODAY.length;_mi++){
       var _ml=minesLine(TURF_TODAY[_mi]);
       if(_ml) h+='<li>'+esc(TURF_TODAY[_mi])+' land makes '+esc(_ml)+'</li>';
+    }
+  }catch(_e){}
+  /* __THE_BLOCK_PAYS_ITS_OWNER__ (9/12) -- WHO COLLECTED, AND WHAT IT COST. It
+     says the tier out loud because that is WHY a fortress took more of your day
+     than a camp did, and a bill you cannot explain reads as the game taking
+     things. What you could not pay is said in the same breath as what it cost
+     you, because they are one event. draft:true. */
+  try{
+    for(var _ri=0;_ri<RENT_TONIGHT.length;_ri++){
+      var _r=RENT_TONIGHT[_ri];
+      if(!_r.billed) continue;
+      /* WHAT THEY BILLED FOR, in the fewest words that stay true. "1 of the 1
+         block" is what a machine says; a fortress billing everything you used
+         does not need the arithmetic spelled out, and a camp letting most of it
+         go is the only case where the two numbers are worth showing. */
+      var _blocks = (_r.billed===_r.used)
+        ? ('the '+_r.used+' block'+(_r.used===1?'':'s')+' of theirs you used')
+        : (_r.billed+' of the '+_r.used+' blocks of theirs you used');
+      if(_r.short>0){
+        h+='<li>'+esc(_r.faction)+' ('+esc(_r.tier)+') wanted '+_r.billed
+         + ' for '+_blocks+' and you had '+_r.paid+'</li>';
+        h+='<li style="color:#c98a5a">so the '+esc(_r.faction)+' cut '+_r.short
+         + ' of their own street'+(_r.short===1?'':'s')+' off</li>';
+      } else {
+        h+='<li>'+esc(_r.faction)+' ('+esc(_r.tier)+') took '+_r.paid
+         + (_r.paid===1?' battery':' batteries')+' for '+_blocks+'</li>';
+      }
     }
   }catch(_e){}
   if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
@@ -50851,6 +50958,75 @@ function nightPower(){
   if(doused.length) powerPersist();
   return held.length;
 }
+/* ==== __THE_BLOCK_PAYS_ITS_OWNER__ (9/12, [block rent]) ====================
+   Living or working on a faction's block costs a cut, paid to that faction.
+
+   *** IT IS A TRANSFER, NOT A FIFTH VERB, AND THAT IS THE WHOLE SHAPE OF IT. ***
+   The four verbs are FROZEN and the purse says so in its own refusal: "a fifth is
+   a design change, and design changes are Paolo's". The day-23 study is stricter
+   still -- "each resource is spent by exactly one verb, so you always know what
+   drained it" -- and electricity is already spent by night:power. So rent is not
+   a drain at all. A drain CONSUMES; rent MOVES, to somebody with a name. The purse
+   has carried transferOut for exactly that since it was built, posting kind
+   'transfer' rather than 'drain', and nothing had ever called it.
+
+   WHO YOU PAY IS TURF, NOT THE GRID. payTo() answers who owns the WIRE and returns
+   null for 1,467 of 2,304 sampled cells, the player's own waking block among them,
+   because circuits only exist on street cells. Every cell has a GROUND holder.
+
+   CUT OFF IS THE LIGHTS, which is what the research this row came from describes
+   literally -- "cuts you off without warning" -- and douse() already ships, already
+   rides the save, and is already how the night's unpaid bill is answered. Their
+   ground, their wire, their call. Nothing here invents a standing change: what an
+   unpaid debt does to how they FEEL about you is a weight, and weights are his. */
+var RENT_TONIGHT=[], RENT_DOUSED=[];
+function blockRent(){
+  RENT_TONIGHT=[]; RENT_DOUSED=[];
+  var p=purseGet(); if(!p) return 0;
+  var seats=null, bill=null;
+  try{ seats=turfSeats(); }catch(_e){ return 0; }
+  try{ bill=window.BohemiaTowns.rentOn(TURF_USED, seats); }catch(_e){ return 0; }
+  if(!bill||!bill.rows.length) return 0;
+  for(var i=0;i<bill.rows.length;i++){
+    var r=bill.rows[i], paid=0, short=0;
+    for(var n=0;n<r.billed;n++){
+      var res=null;
+      try{ res=BohemiaPurse.transferOut(p,'electricity',1,
+             'rent on '+r.faction+' ground', r.faction, DAY.day); }catch(_e){}
+      if(res&&res.applied) paid++; else short++;
+    }
+    RENT_TONIGHT.push({faction:r.faction, tier:r.tier, used:r.used,
+                       billed:r.billed, paid:paid, short:short});
+    /* AND WHAT YOU COULD NOT PAY, THEY PUT OUT. One circuit per unpaid block, on
+       THEIR ground, so a landlord darkens what a landlord controls and never a
+       street belonging to somebody you do owe. */
+    if(short>0) rentCutOff(r.faction, short);
+  }
+  window.__RENT_PAID=(window.__RENT_PAID||0)+RENT_TONIGHT.reduce(function(s,x){return s+x.paid;},0);
+  window.__RENT_SHORT=(window.__RENT_SHORT||0)+RENT_TONIGHT.reduce(function(s,x){return s+x.short;},0);
+  if(RENT_DOUSED.length) powerPersist();
+  return bill.total;
+}
+/* PUT OUT UP TO n LIT CIRCUITS ON THIS FACTION'S OWN GROUND. Walks the valley once
+   and stops as soon as it has taken what it is owed, so an unpaid battery costs one
+   light and not a district. A faction with nothing lit cannot cut anybody off, which
+   is true and is not a bug: you cannot switch off what you never ran. */
+function rentCutOff(faction, n){
+  var took=0;
+  try{
+    var N=(om&&om.n)|0;
+    for(var y=0;y<N&&took<n;y++) for(var x=0;x<N&&took<n;x++){
+      var t=null; try{ t=turfAt(x,y); }catch(_e){ continue; }
+      if(!t||t.faction!==faction) continue;
+      var s=null; try{ s=POWER.at(x,y); }catch(_e){ continue; }
+      if(!s||!s.live||!(s.id>=0)) continue;
+      var went=false; try{ went=POWER.douse(s.id); }catch(_e){}
+      if(went){ RENT_DOUSED.push({id:s.id, faction:faction, at:[x,y]}); took++; }
+    }
+  }catch(_e){}
+  return took;
+}
+
 /* WHAT WENT OUT TONIGHT, so the reckoning can say it in words rather than leaving
    him to notice a street is darker. Cleared with the day's spend list. */
 var DARK_TONIGHT=[];

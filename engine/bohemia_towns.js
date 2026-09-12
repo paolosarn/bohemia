@@ -947,9 +947,65 @@
              makesNothing: !row };
   }
 
+  /* ==========================================================================
+     THE BLOCK PAYS ITS OWNER   (9/12, VAMILY row [block rent])
+
+     THE ROW, off the coordinator's 9/5 generator-mafia research: in Lebanon and
+     Iraq the faction that owns a neighbourhood's generator "charges every
+     household on it monthly, by the ampere, sets the price, and cuts you off
+     without warning"; it was 44% of an average family's income.
+
+     MEASURED FIRST. Every cell of this valley has belonged to somebody since
+     [who holds], and payTo() has answered "who do you pay for this block" since
+     [light owners]. IT HAD EXACTLY ONE CALLER IN THE WHOLE GAME AND IT WAS A GATE.
+     Living on somebody's ground cost nothing.
+
+     AND payTo() IS THE WRONG DOOR FOR THIS, measured on the walked surface: it
+     reads the GRID, and the grid only has status on STREET cells, so it answers
+     NULL for 1,467 of 2,304 sampled cells INCLUDING THE BLOCK THE PLAYER WAKES ON.
+     The grid says who owns the WIRE. TURF says who owns the GROUND, for 100% of
+     the valley, and rent is ground.
+
+     ---------------------------------------------------------------------------
+     A FORTRESS CHARGES MORE THAN A CAMP, WITHOUT A PRICE NOBODY RULED
+     ---------------------------------------------------------------------------
+     EVERYTHING COSTS ONE (8/15), so a fortress cannot charge a bigger number.
+     What it can do is collect on MORE OF WHAT YOU USED, which is what a bigger
+     operator really does. That scaling is HIS THIRDS, already in this file as
+     DEPTH, and it is applied exactly the way goodsFor applies it: to a COUNT,
+     through Math.ceil, never to a price.
+       fortress  bills all of the ground of theirs you used
+       town      bills two thirds of it
+       camp      bills a third
+     One battery per billed block, the same shape as the night's per-circuit bill.
+     HONEST LIMIT, stated rather than hidden: with ONE block used they all bill 1,
+     because a third of one block rounds up to one. The tiers only separate once
+     you have walked more of somebody's ground, which is when it should matter. */
+  function rentOn(used, towns) {
+    var out = { rows: [], total: 0, ruling: 'EVERYTHING COSTS ONE (8/15)' };
+    if (!used || !towns || !towns.length) return out;
+    var tier = {};
+    for (var i = 0; i < towns.length; i++) tier[towns[i].faction] = towns[i].tier;
+    var f;
+    for (f in used) {
+      if (!Object.prototype.hasOwnProperty.call(used, f)) continue;
+      var n = used[f] | 0;
+      if (n <= 0) continue;
+      var t = tier[f] || 'camp';
+      var share = Object.prototype.hasOwnProperty.call(DEPTH, t) ? DEPTH[t] : DEPTH.camp;
+      var billed = Math.max(1, Math.ceil(n * share));
+      if (billed > n) billed = n;
+      out.rows.push({ faction: f, tier: t, used: n, billed: billed });
+      out.total += billed;
+    }
+    /* stable, so the same day bills in the same order every time it is asked */
+    out.rows.sort(function (a, b) { return a.faction < b.faction ? -1 : 1; });
+    return out;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
-    MAKES: MAKES.slice(), MINE_RULING: MINE_RULING,
+    MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
