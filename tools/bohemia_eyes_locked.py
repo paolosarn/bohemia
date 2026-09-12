@@ -713,6 +713,15 @@ def main():
         'school': 'records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md',
         'reader_set': files,
         'reader_bytes': len(raw),
+        # THE STALENESS ANCHOR, AND IT IS BYTES ON DISK, NOT CHARACTERS IN MEMORY.
+        # The gate dates the saved sweep by stat-ing the same 17 files. Comparing that to
+        # len(raw) compares bytes against decoded characters, which differ wherever the
+        # bundle holds a multibyte character, and this sweep read 0.7% drift on a bundle
+        # nobody had touched. Same class of bug as the one fixed in the no-reader gate the
+        # same round: a staleness check that is wrong is worse than none, because it either
+        # cries wolf or sleeps through the real move.
+        'reader_stat_bytes': sum(os.path.getsize(os.path.join(ROOT, f))
+                                 for f in files if os.path.exists(os.path.join(ROOT, f))),
         'decoded_blobs': nblobs,
         'controls': [{'name': n, 'pass': ok} for n, ok in ctrl],
         'classifier_agreement': agree,

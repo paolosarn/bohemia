@@ -21,7 +21,8 @@
     "slices/BOHEMIA_CITY_WORLD.html",
     "slices/BOHEMIA_DEMO.html"
   ],
-  "reader_bytes": 45913427,
+  "reader_bytes": 46230448,
+  "reader_stat_bytes": 46235363,
   "decoded_blobs": 14,
   "controls": [
     {
@@ -161,7 +162,7 @@
       "enforced": false,
       "gate": null,
       "release": null,
-      "detail": "190 battery mentions, 0 rival currencies declared with a value.",
+      "detail": "207 battery mentions, 0 rival currencies declared with a value.",
       "not_covered": ""
     },
     {
@@ -189,7 +190,7 @@
       "enforced": true,
       "gate": "gates/battle_brothers_gate.js",
       "release": null,
-      "detail": "1105 places in the fight name the dial, 25 of them state the no-damage rule in the code itself.",
+      "detail": "1112 places in the fight name the dial, 27 of them state the no-damage rule in the code itself.",
       "not_covered": ""
     },
     {
@@ -273,7 +274,7 @@
       "enforced": false,
       "gate": null,
       "release": null,
-      "detail": "591 border widths on the surface and gates/border_gate.js runs over them. That gate does not name its own law file anywhere in its text, which is why this row reads NO GATE: the link from the ruling to the checker is missing even though the checker is real.",
+      "detail": "599 border widths on the surface and gates/border_gate.js runs over them. That gate does not name its own law file anywhere in its text, which is why this row reads NO GATE: the link from the ruling to the checker is missing even though the checker is real.",
       "not_covered": ""
     }
   ],

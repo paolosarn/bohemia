@@ -61,7 +61,10 @@ function run(result, base) {
   //    has really moved and a green would be a green for something that no longer
   //    exists.
   const nowBytes = readerBytes(result);
-  const baseBytes = base.reader_set_stat_bytes;
+  // THE RESULT'S OWN ANCHOR WINS. Dating the bundle against the BASELINE meant a
+  //    re-run could never clear a stale flag: the sweep refreshed every count and the
+  //    anchor it was compared against stayed frozen at 9/6. The baseline freezes COUNTS.
+  const baseBytes = result.reader_set_stat_bytes || base.reader_set_stat_bytes;
   const drift = baseBytes ? Math.abs(nowBytes - baseBytes) / baseBytes : 1;
   const allThere = result.reader_set.every(r => fs.existsSync(path.join(ROOT, r)));
   ok('the saved sweep still describes the bundle on disk (drift under 1%)',
@@ -101,9 +104,14 @@ function selftest() {
   const grown = JSON.parse(JSON.stringify(result));
   grown.counts.banks_orphan = base.frozen.banks_orphan + 1;
   const a = run(grown, base).find(r => r.name === 'ratchet banks_orphan');
+  // the anchor now lives in the RESULT, so the stale case has to move with it, or the
+  // selftest proves the gate bites on a field the gate no longer reads. (9/12, E17: the
+  // selftest caught exactly that the moment the anchor moved, which is what it is for.)
+  const staleResult = JSON.parse(JSON.stringify(result));
+  staleResult.reader_set_stat_bytes = 1;
   const staleBase = JSON.parse(JSON.stringify(base));
   staleBase.reader_set_stat_bytes = 1;
-  const b = run(result, staleBase).find(r => r.name.startsWith('the saved sweep still describes'));
+  const b = run(staleResult, staleBase).find(r => r.name.startsWith('the saved sweep still describes'));
   const checks = [
     ['one more stranded data bank than the baseline goes RED', a && !a.good],
     ['a result measured against a wholly different bundle goes RED', b && !b.good],

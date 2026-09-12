@@ -1,20 +1,21 @@
 {
- "what": "EYES AND EARS -- E11 [pixels only] -- THE NO-READER RATCHET",
- "date": "9/6/26",
- "rule": "EVERY NUMBER HERE MAY ONLY EVER GO DOWN. Raising one is not allowed, ever, by anybody. If a ship makes a number grow, the ship put a ruling out of reach and the fix is the ship, not the baseline.",
- "why_a_ratchet": "E3 found that a checker which fails on absolute badness gets muted in a week. A checker that fails only on GROWTH survives, because a green means 'you did not make it worse' and that is a claim a team can keep.",
- "measured_by": "tools/bohemia_eyes_no_reader.py (run it, then this gate reads its result)",
- "frozen": {
-  "gates_broken": 1,
-  "banks_orphan": 1
- },
- "reader_set_bytes": 45563946,
- "note_on_laws_ungated": "285 is an UPPER BOUND on unenforced laws, not a count of them: a gate can enforce a law without naming its file. It is frozen anyway, because it can only be brought down by naming laws in checkers, which is the right direction whatever the true number is.",
- "reader_set_stat_bytes": 45568514,
- "reported": [
-  "engine_orphan",
-  "laws_ungated"
- ],
- "why_only_two_are_ratcheted": "engine_orphan and laws_ungated grow from honest work in progress (a module written before it is wired, a law written before anyone gates it). Ratcheting them would turn another lane's half-finished job into a red suite, and a checker that cries wolf gets muted. gates_broken and banks_orphan only grow when something real got stranded.",
- "gates_broken_should_be_zero": "frozen at 1 because it IS 1 and this lane never ships red. The one broken gate is reference_check_gate, promised by the law index for COMPARE EVERY PIECE OF ART TO THE WORLD (9/4). When the owning lane builds it, drop this to 0 and it can never come back."
+  "what": "EYES AND EARS -- E11 [pixels only] -- THE NO-READER RATCHET",
+  "date": "9/6/26",
+  "rule": "EVERY NUMBER HERE MAY ONLY EVER GO DOWN. Raising one is not allowed, ever, by anybody. If a ship makes a number grow, the ship put a ruling out of reach and the fix is the ship, not the baseline.",
+  "why_a_ratchet": "E3 found that a checker which fails on absolute badness gets muted in a week. A checker that fails only on GROWTH survives, because a green means 'you did not make it worse' and that is a claim a team can keep.",
+  "measured_by": "tools/bohemia_eyes_no_reader.py (run it, then this gate reads its result)",
+  "frozen": {
+    "gates_broken": 0,
+    "banks_orphan": 1
+  },
+  "reader_set_bytes": 45563946,
+  "note_on_laws_ungated": "285 is an UPPER BOUND on unenforced laws, not a count of them: a gate can enforce a law without naming its file. It is frozen anyway, because it can only be brought down by naming laws in checkers, which is the right direction whatever the true number is.",
+  "reader_set_stat_bytes": 45568514,
+  "reported": [
+    "engine_orphan",
+    "laws_ungated"
+  ],
+  "why_only_two_are_ratcheted": "engine_orphan and laws_ungated grow from honest work in progress (a module written before it is wired, a law written before anyone gates it). Ratcheting them would turn another lane's half-finished job into a red suite, and a checker that cries wolf gets muted. gates_broken and banks_orphan only grow when something real got stranded.",
+  "gates_broken_should_be_zero": "frozen at 1 because it IS 1 and this lane never ships red. The one broken gate is reference_check_gate, promised by the law index for COMPARE EVERY PIECE OF ART TO THE WORLD (9/4). When the owning lane builds it, drop this to 0 and it can never come back.",
+  "tightened_9_12": "gates_broken frozen at 1 on 9/6 because CLAUDE.md's law index promised reference_check_gate and no such file existed. DIRECTION built it on 9/7 (7f59b0e) and this lane's re-run measures promised 23, real 23, broken 0. A ratchet that only ever goes down is worth nothing if nobody tightens it after it does, so it is tightened to 0: the promise can never break again without the suite going red."
 }

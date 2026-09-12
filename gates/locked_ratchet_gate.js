@@ -52,7 +52,11 @@ function run(result, base) {
   const ok = (name, good, detail) => out.push({ name, good, detail });
 
   const bytes = readerBytes(result);
-  const drift = bytes < 0 ? 1 : Math.abs(bytes - result.reader_bytes) / result.reader_bytes;
+  /* stat bytes against stat bytes. The first cut compared the files on disk to
+     len(raw) -- bytes against decoded characters -- and read 0.7% drift on a bundle
+     nobody had touched, which is most of the 1% budget spent on an arithmetic mistake. */
+  const anchor = result.reader_stat_bytes || result.reader_bytes;
+  const drift = bytes < 0 ? 1 : Math.abs(bytes - anchor) / anchor;
   ok('the saved sweep still describes the game on disk',
      bytes > 0 && drift <= 0.01,
      bytes < 0 ? 'a file the game loads is gone' :
@@ -98,7 +102,10 @@ if (process.argv.includes('--selftest')) {
       const r = JSON.parse(JSON.stringify(result)); r.controls[0].pass = false; return [r, base];
     }],
     ['the saved result is stale', () => {
-      const r = JSON.parse(JSON.stringify(result)); r.reader_bytes = Math.round(r.reader_bytes * 0.5); return [r, base];
+      const r = JSON.parse(JSON.stringify(result));
+      r.reader_stat_bytes = Math.round((r.reader_stat_bytes || r.reader_bytes) * 0.5);
+      r.reader_bytes = Math.round(r.reader_bytes * 0.5);
+      return [r, base];
     }],
   ];
   let fail = 0;

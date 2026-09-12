@@ -22,7 +22,8 @@
   "slices/BOHEMIA_CITY_WORLD.html",
   "slices/BOHEMIA_DEMO.html"
  ],
- "reader_set_bytes": 45563946,
+ "reader_set_bytes": 46230448,
+ "reader_set_stat_bytes": 46235363,
  "blind_spots": [
   "a value assembled at runtime out of pieces is invisible to any text scan",
   "a module reached only on a path the bundle walk never takes",
@@ -51,8 +52,8 @@
    "file": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
    "verdict": "ORPHAN",
    "fingerprints": 8,
-   "hits": 0,
-   "bytes": 133815
+   "hits": 2,
+   "bytes": 151623
   },
   {
    "file": "engine/BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
@@ -66,14 +67,14 @@
    "verdict": "LIVE",
    "fingerprints": 8,
    "hits": 8,
-   "bytes": 16931
+   "bytes": 21684
   },
   {
    "file": "engine/bohemia_agents.js",
    "verdict": "LIVE",
    "fingerprints": 8,
    "hits": 8,
-   "bytes": 69388
+   "bytes": 69798
   },
   {
    "file": "engine/bohemia_airfield.js",
@@ -347,6 +348,13 @@
    "bytes": 15263
   },
   {
+   "file": "engine/bohemia_direct_bq.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11632
+  },
+  {
    "file": "engine/bohemia_district_kit.js",
    "verdict": "LIVE",
    "fingerprints": 8,
@@ -386,7 +394,7 @@
    "verdict": "LIVE",
    "fingerprints": 8,
    "hits": 8,
-   "bytes": 14473
+   "bytes": 19582
   },
   {
    "file": "engine/bohemia_ending.js",
@@ -400,14 +408,14 @@
    "verdict": "ORPHAN",
    "fingerprints": 8,
    "hits": 2,
-   "bytes": 281525
+   "bytes": 284845
   },
   {
    "file": "engine/bohemia_engine_graphics_7_14_26.js",
    "verdict": "ORPHAN",
    "fingerprints": 8,
-   "hits": 0,
-   "bytes": 52749
+   "hits": 1,
+   "bytes": 60976
   },
   {
    "file": "engine/bohemia_exchanges.js",
@@ -415,6 +423,13 @@
    "fingerprints": 8,
    "hits": 8,
    "bytes": 43400
+  },
+  {
+   "file": "engine/bohemia_family.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18022
   },
   {
    "file": "engine/bohemia_farm.js",
@@ -450,6 +465,13 @@
    "fingerprints": 8,
    "hits": 8,
    "bytes": 20304
+  },
+  {
+   "file": "engine/bohemia_fold.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11322
   },
   {
    "file": "engine/bohemia_freeway.js",
@@ -490,6 +512,13 @@
    "file": "engine/bohemia_graphics_tests.js",
    "verdict": "IGNORED",
    "why": "test harness, not meant to ship"
+  },
+  {
+   "file": "engine/bohemia_haggle.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 13674
   },
   {
    "file": "engine/bohemia_hazard.js",
@@ -703,6 +732,13 @@
    "bytes": 15945
   },
   {
+   "file": "engine/bohemia_obligation.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11752
+  },
+  {
    "file": "engine/bohemia_overmap.js",
    "verdict": "LIVE",
    "fingerprints": 8,
@@ -717,6 +753,13 @@
    "bytes": 6875
   },
   {
+   "file": "engine/bohemia_ownpower.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 8425
+  },
+  {
    "file": "engine/bohemia_packs.js",
    "verdict": "LIVE",
    "fingerprints": 8,
@@ -729,6 +772,13 @@
    "fingerprints": 8,
    "hits": 8,
    "bytes": 13530
+  },
+  {
+   "file": "engine/bohemia_parties.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 18177
   },
   {
    "file": "engine/bohemia_patrol.js",
@@ -780,6 +830,13 @@
    "bytes": 67140
   },
   {
+   "file": "engine/bohemia_powerbuild.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 9900
+  },
+  {
    "file": "engine/bohemia_powergrid.js",
    "verdict": "LIVE",
    "fingerprints": 8,
@@ -805,7 +862,7 @@
    "verdict": "LIVE",
    "fingerprints": 8,
    "hits": 8,
-   "bytes": 24945
+   "bytes": 26983
   },
   {
    "file": "engine/bohemia_quest_placement.js",
@@ -846,6 +903,13 @@
    "fingerprints": 8,
    "hits": 8,
    "bytes": 20002
+  },
+  {
+   "file": "engine/bohemia_reach.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 5884
   },
   {
    "file": "engine/bohemia_resolve.js",
@@ -957,7 +1021,14 @@
    "verdict": "LIVE",
    "fingerprints": 8,
    "hits": 8,
-   "bytes": 21238
+   "bytes": 31967
+  },
+  {
+   "file": "engine/bohemia_stayed.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 8996
   },
   {
    "file": "engine/bohemia_storage.js",
@@ -1053,7 +1124,7 @@
    "verdict": "LIVE",
    "fingerprints": 8,
    "hits": 8,
-   "bytes": 43612
+   "bytes": 53912
   },
   {
    "file": "engine/bohemia_trailer.js",
@@ -1154,6 +1225,13 @@
    "bytes": 13232
   },
   {
+   "file": "engine/bohemia_work.js",
+   "verdict": "LIVE",
+   "fingerprints": 8,
+   "hits": 8,
+   "bytes": 11174
+  },
+  {
    "file": "engine/bohemia_world.js",
    "verdict": "ORPHAN",
    "fingerprints": 8,
@@ -1173,7 +1251,6 @@
   "laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md",
   "laws/BOHEMIA_ADDENDUM_ACT1_AMALGAMATION_IS_A_GHOST_7_24_26.md",
   "laws/BOHEMIA_ADDENDUM_ACT1_COMPLETION_PIPELINE_7_13_26.md",
-  "laws/BOHEMIA_ADDENDUM_ACT1_PROCEDURAL_ENDING_AND_DESTROYERS_7_19_26.md",
   "laws/BOHEMIA_ADDENDUM_ACT3_MOONSHOT_STRUCTURE_7_19_26.md",
   "laws/BOHEMIA_ADDENDUM_ACT_ASSET_TIERS_7_21_26.md",
   "laws/BOHEMIA_ADDENDUM_ACT_TEXTURE_PROGRESSION_7_10_26.md",
@@ -1182,6 +1259,7 @@
   "laws/BOHEMIA_ADDENDUM_AMALGAMATION_SCOPE_GOOD_ENDING_7_18_26.md",
   "laws/BOHEMIA_ADDENDUM_AMALGAMATION_THREAT_LOGIC_7_1_26.md",
   "laws/BOHEMIA_ADDENDUM_AMBIENT_DANGER_7_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_9_7_26.md",
   "laws/BOHEMIA_ADDENDUM_ANIMATION_AND_RAGDOLL_6_29_26.md",
   "laws/BOHEMIA_ADDENDUM_ANIMATION_PIXEL_LAW_7_13_26.md",
   "laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md",
@@ -1346,6 +1424,7 @@
   "laws/BOHEMIA_ADDENDUM_TAN_WALL_LAW_AND_INTAKE_7_16_26.md",
   "laws/BOHEMIA_ADDENDUM_TEXT_ART_NETWORK_7_21_26.md",
   "laws/BOHEMIA_ADDENDUM_THERE_ARE_NO_RUNS_AND_COMBAT_IS_RF4_ON_THE_BEAT_8_26_26.md",
+  "laws/BOHEMIA_ADDENDUM_THERE_IS_NO_STORY_YET_9_11_26.md",
   "laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md",
   "laws/BOHEMIA_ADDENDUM_THE_BRAID_PROGRESSION_8_4_26.md",
   "laws/BOHEMIA_ADDENDUM_THE_CART_AND_CAMP_7_24_26.md",
@@ -1385,6 +1464,7 @@
   "laws/BOHEMIA_ADDENDUM_VERDICT_WORKFLOW_7_3_26.md",
   "laws/BOHEMIA_ADDENDUM_VERTICALITY_STAIRS_7_10_26.md",
   "laws/BOHEMIA_ADDENDUM_VR_COMPANIONS_XP_6_28_26.md",
+  "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
   "laws/BOHEMIA_ADDENDUM_WHAT_EVERY_CHAT_DOES_9_4_26.md",
   "laws/BOHEMIA_ADDENDUM_WHAT_MAKES_IT_A_RHYTHM_GAME_7_26_26.md",
   "laws/BOHEMIA_ADDENDUM_WHITELIST_CORRECTION_7_16_26.md",
@@ -1392,6 +1472,7 @@
   "laws/BOHEMIA_ADDENDUM_WORLD_BREAK_ANSWERS_7_18_26.md",
   "laws/BOHEMIA_ADDENDUM_WORLD_CLOCK_WALK_LAW_7_14_26.md",
   "laws/BOHEMIA_ADDENDUM_WORLD_MODEL_LOD_6_30_26.md",
+  "laws/BOHEMIA_ADDENDUM_YOUR_PEOPLE_DO_NOT_DIE_FOR_GOOD_9_11_26.md",
   "laws/BOHEMIA_ADDENDUM_YOU_ARE_THE_LEAD_8_28_26.md",
   "laws/BOHEMIA_AGENT_REVEAL_INTEGRATION_7_10_26.md",
   "laws/BOHEMIA_ANIM_GAP_RECONCILIATION_7_14_26.md",
@@ -1424,10 +1505,9 @@
   "laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md",
   "laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md",
   "laws/BOHEMIA_LAW_MULTIPLE_PEOPLE_FIGHT_AT_THE_SAME_TIME_8_31_26.md",
-  "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md",
   "laws/BOHEMIA_LAW_ONE_ID_ONE_WHOLE_PERSON_8_27_26.md",
   "laws/BOHEMIA_LAW_THE_BOHEMIA_LOOK_8_27_26.md",
-  "laws/BOHEMIA_LAW_THE_UI_HAS_THREE_ACTS_9_6_26.md",
+  "laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md",
   "laws/BOHEMIA_LAW_WALLS_ARE_TWO_TALL_ONE_SOLID_8_2_26.md",
   "laws/BOHEMIA_LIFE_SPEC_7_19_26.md",
   "laws/BOHEMIA_LIGHTING_INTEGRATION_7_13_26.md",
@@ -1455,7 +1535,7 @@
   "laws/BOHEMIA_WORKFLOW_HOW_PAOLO_TRAINS_ME.md",
   "laws/BOHEMIA_WORLD_MODEL_ROADMAP_7_18_26.md"
  ],
- "census_laws_total": 428,
+ "census_laws_total": 436,
  "census_banks": [
   {
    "file": "banks/BOHEMIA_SEWER_DEMO_MAP_DATA_7_10_26.json",
@@ -1518,6 +1598,71 @@
    "draft": true
   },
   {
+   "file": "banks/eyes/BOHEMIA_EYES_E12_GAP_LIST_9_6_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E12_SILENCE_SPEC_9_6_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E13_SCALE_SPEC_9_6_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E13_TAP_RESULTS_9_7_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E14_BEAT_RESULTS_9_7_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E14_BEAT_SPEC_9_7_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E15_COVERAGE_MAP_9_11_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E15_PREJUDGE_SPEC_9_7_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E16_ROTA_SPEC_9_11_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E16_SEEN_RESULTS_9_11_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E17_HAND_LABELS_9_12_26.json",
+   "verdict": "READ BY A CHECKER",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E17_LOCKED_SWEEP_SPEC_9_12_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
+   "file": "banks/eyes/BOHEMIA_EYES_E17_SWEEP_RESULT_9_12_26.json",
+   "verdict": "DRAFT",
+   "draft": true
+  },
+  {
    "file": "banks/eyes/BOHEMIA_EYES_GLITCH_TAXONOMY_9_5_26.json",
    "verdict": "DRAFT",
    "draft": true
@@ -1529,7 +1674,7 @@
   },
   {
    "file": "banks/eyes/BOHEMIA_EYES_REFERENCE_SCORE_SHEET_9_5_26.json",
-   "verdict": "DRAFT",
+   "verdict": "READ BY A CHECKER",
    "draft": true
   },
   {
@@ -1904,9 +2049,9 @@
    "verdict": "REAL"
   },
   {
-   "gate": "reference_check_gate",
-   "file": null,
-   "verdict": "PROMISED BUT MISSING"
+   "gate": "reference_check_gate.py",
+   "file": "gates/reference_check_gate.py",
+   "verdict": "REAL"
   },
   {
    "gate": "reusefirst_gate.py",
@@ -1930,14 +2075,14 @@
   }
  ],
  "counts": {
-  "engine_live": 123,
+  "engine_live": 134,
   "engine_orphan": 29,
   "engine_ignored": 14,
-  "laws_total": 428,
-  "laws_ungated": 285,
+  "laws_total": 436,
+  "laws_ungated": 287,
   "banks_orphan": 1,
-  "banks_draft": 8,
+  "banks_draft": 19,
   "gates_promised": 23,
-  "gates_broken": 1
+  "gates_broken": 0
  }
 }
