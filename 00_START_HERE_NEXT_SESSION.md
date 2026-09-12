@@ -1942,89 +1942,120 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 19) LATEST -- *** [recruit anywhere]
-WHO-WILL-JOIN-YOU-DEPENDS-ON-WHERE-YOU-STAND SHIPPED. Stand anywhere in the valley
-and the game names who on that block would come with you, and tells you why not
-when nobody would. Walk one block and it changes, because the ground changed. ***
-Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/13 (round 20) LATEST -- *** [rent visible]
+YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES SHIPPED. The block has charged you rent since
+[block rent] landed and it only ever told you at nightfall, after the day was
+spent. It tells you while you are standing on it now, and when they cut your
+lights you can see which streets went out. *** Nothing to judge.
 
-VAMILY row: [recruit anywhere], MODE: BUILD, SHIPPED 9/13 b695127e.
-Record: records/BOHEMIA_WHO_WOULD_COME_WITH_YOU_9_13_26.md
+VAMILY row: [rent visible], MODE: BUILD, SHIPPED 9/13 PENDING_SHA.
+Record: records/BOHEMIA_YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES_9_13_26.md
 
-MEASURED FIRST, AND THERE WAS NOTHING THERE. No join path, no recruit path, no
-roster, nowhere in the game. Sixty-one people stand on the block he wakes on and
-none of them could be asked anything.
+THE GAME ALREADY HAD THE WORDS AND THEY WERE IN THE WRONG PLACE. Measured before
+anything was written: forty blocks walked across six factions' ground and the
+street said NOTHING, all day. Then the reckoning card said this:
 
-HIS FOUR SENTENCES WERE EACH ALREADY ANSWERED BY SOMETHING BUILT, WHICH IS WHY
-THIS ROW HAD NO BLOCKER AND DID NOT NAME ONE.
-  the ground and its holder   turf(), every one of the 9,216 cells, since [held ground]
-  your standing there         the belonging ladder: a COUNT of the times you did
-                              what an outfit actually wanted. Not a number I picked.
-  a fortress vs a camp        goodsFor -- THE SAME CALL THAT CUTS A CAMP'S SHELF,
-                              pointed at the trades standing on the ground. Four
-                              trades through his DEPTH thirds = fortress 4, town 3,
-                              camp 2, and nobody typed any of those.
-  a faction that hates you    `refuse`, the against organ's OWN sign for will-not-
-                              deal-with-you. hostile and war carry it; cold does
-                              not; a stranger on their block does not. The line was
-                              drawn months ago; I asked for it rather than pick a rank.
+  "Blues (town) wanted 3 for 3 of the 4 blocks of theirs you used and you had 2,
+   so the Blues cut 1 of their own street off"
 
-NO LIST IS KEPT, AND THAT IS THE OTHER LANE'S RULE HONOURED. bohemia_company.js
-(9/13) says do not build the roster, because a list is a thing somebody has to
-maintain and the moment it exists it can disagree with the world. So membership is
-COMPUTED every call, nothing is written on anybody, nothing is saved, and there is
-no rule for when to forget. Same shape as coalition, roving, mines, rent and tracks.
+A perfect sentence arriving after the decision it was about. The same failure
+QUESTS found on the job offer: a walk quoted at seven hours AFTER you agreed to
+it. So nothing here changes a cost. It moves the telling earlier.
 
-A CROWD SIZE IS NOT A TIER, AND MEASURING SAVED THE DESIGN. The fortress seat has
-20 people standing on it and a camp seat has 100. How many bodies are somewhere is
-a fact about where the map put HOUSES, not about the faction, so sizing the offer by
-headcount would have inverted his own sentence. The tier cuts the KINDS, and the
-order of the kinds is itself a measured fact: commonest first, because what a piece
-of ground has to spare is what it has most of.
+WHAT ONE MORE BLOCK COSTS IS THE BILL ASKED TWICE. rentAhead calls rentOn with
+the count you have and the count you would have. There is no second formula,
+because the one thing a preview must never do is work the number out its own way
+-- a preview that disagrees with the bill is the only way this can be wrong. It
+reads the SAME billable map nightfall reads (your own generators already off the
+line), which was four lines buried inside the nightfall function and is one body
+with two callers now. Proved on the surface: the card said 14 and the night took 14.
 
-AN OUTFIT ANSWERS TO ITS OWN LADDER, NEVER THE HOLDER'S. Fifteen Church people stand
-on Mob fortress ground on the first morning; how far in you are with the Mob is
-nothing to them. And NULL IS NOT STRANGER: BohemiaBelonging answers null for an
-outfit that wants nothing, because calling you a stranger to something that is not a
-club would be a lie, so its people are judged like anybody else's.
+THE SHAPE IS FOUND, NOT WRITTEN OUT PER TIER. rentShape runs the bill up a ladder
+and looks for the smallest window that repeats:
+  fortress  1 2 3 4 5 6 7 8 9   charges for 1 block in every 1
+  town      1 2 2 3 4 4 5 6 6   charges for 2 blocks in every 3
+  camp      1 1 1 2 2 2 3 3 3   charges for 1 block in every 3
+Nobody typed any of that. It is his DEPTH thirds said back in a shape a person
+can hold, and re-cutting that table moves the words with nothing to edit. A camp
+lets you walk two blocks in three for nothing; a fortress charges for every step.
 
-DRIVEN ON THE WALKED SURFACE AND THE DEMO, IDENTICAL, NO PAGE ERRORS
-  the waking block   Mob fortress, 61 here, 46 would come, 15 held back as
-                     strangers to the Church; a fortress spares all four trades
-  all fourteen seats every fortress spares 4 trades, every town 3, every camp 2
-                     Colorful camp 45 of 100 come, spares scavenger and keeper
-  the enemy          side with the Remnants (their between-ledger's own rule) ->
-                     CARTEL hostile, war. The busiest Cartel block: 219 -> 0.
-                     An uninvolved faction's ground untouched.
-  the ladder         three acts for the Church -> rung stranger to useful ->
-                     the waking block 46 of 61 -> 61 of 61, and the card names
-                     them: CHURCH 15 · useful
-  the sweep          484 blocks walked, 484 offer somebody on day one
+*** THE SECOND HALF HAD A REAL BLOCKER AND MEASURING TWICE FOUND IT. ***
+  ONE. Of 188 cells lying on blocks a faction billed for on a real route, ZERO
+  carried a lit circuit. Circuits only run along streets, so the ground you walk
+  usually has no line on it to cut. A cut-your-block rule would have cut NOTHING,
+  every time, while every check stayed green -- the same trap [power territory]
+  found when it nearly gated the valley's output on lights.
+  TWO, and it is the row's actual blocker. Every circuit in the valley put out --
+  all 173, 358 lit cells to zero -- the aerial redrawn, and the frame came back
+  with an IDENTICAL HASH and a brightness change of ZERO.
+      THE MAP HAS NEVER DRAWN THE LIGHTS.
+  So darkness could not be noticed by anybody and no choice about WHICH street to
+  cut could have fixed it. WORLD wrote this down 9/5 and called their probe the
+  broken instrument. The probe was right.
 
-ON DAY ONE THE VALLEY IS OPEN, AND THAT IS REPORTED RATHER THAN TUNED. Three in
-four people belong to nobody and you have not yet given anybody a reason, so every
-block offers somebody. That is what a valley of strangers looks like; a threshold to
-"fix" it would be a number nobody ruled. One decision took 219 people off the table.
+SO THE MAP DRAWS THEM. Live cells in their HOLDER'S ink (the same __holderInk the
+borders and tracks use -- colour is territory, and a lit street is territory
+somebody is paying for), a cut wire cold with a ring, brighter on the night it
+happened. AND A WIRE THAT WAS NEVER LIVE IS NOT DRAWN, which the first cut got
+wrong and only looking at the screen caught: 1,500 dead feeders against 360 lit
+ones, so drawing every wire buried the lights and the frame before a cut and the
+frame after were identical to a human eye -- the exact failure the layer exists to
+end, rebuilt inside the fix for it. The cell shape is cached once (a pure function
+of the seed) because rebuilding 1,900 objects sixty times a second is how a phone
+loses its frame.
 
-TWO SURFACES. The STANDING card (◆ STANDING, reachable anywhere on foot) already
-says whose ground this is, so the answer goes under that row and behind no new
-button. It reads BY TRADE with a count, not one line per body -- forty-six
-unaffiliated scavengers are one fact about a block, not forty-six decisions -- and
-anybody who runs with an outfit gets their own grouped row, which is the half he
-named: recruiting FROM different factions. The town's MARKET card carries the one
-line at a seat, under the shelf cut by the same rule.
+AND THE CUT LANDS WHERE YOU WALKED. Their lit circuits are sorted by distance to
+the blocks they billed you for and the closest go first.
+  cut tonight 14 circuits | within six cells of you 9 | median 5 cells
+  lights near your route 18 -> 3
 
-NOT BUILT ON PURPOSE: THE ACT OF TAKING SOMEBODY ON. Nothing here adds a person to
-anything. What a hand costs is a price and prices are his, and there is no ledger
-for "I hired somebody" -- inventing one would be building the roster the company
-module had just finished refusing to build. That is [who follows], the next row.
+DRIVEN, WALKED SURFACE AND DEMO, IDENTICAL, NO PAGE ERRORS
+  day one, before anything is spent:
+    THIS GROUND Mob / WHAT IT TAKES 1 battery a night, every block /
+    A fortress charges for every block you use. / TONIGHT SO FAR 1 battery for 1
+    block / ANOTHER BLOCK OF THEIRS COSTS ONE / Due at 22:00, in batteries.
+  after a sixty-block walk: "Everybody wants 14 batteries off you tonight" (took 14)
+  standing on a cut street: "CARTEL cut this street off. You did not pay for it."
+  the map: 125 lights on a real canvas in nine factions' inks; douse them all and
+    the frame hash moves and the drawn count goes to zero
+  and it answers in CITY, not only on foot
 
-GATES  faction_towns 144/0 (was 111), thirty-three new claims, EIGHT of them driving
-       the real surface. Negative-controlled both halves: removing the hates-you gate
-       in the module turned L5+L6 red, and stopping the LIVE surface from asking the
-       holder turned L28 red on its own, which is what proves the drive is not
-       self-fulfilling. Green alongside: engine sync zero drift, demo build,
-       alpha loads, bundle, banner.
+THE MISTAKE, AND IT IS WORTH THE PARAGRAPH. An edit that replaced a paragraph
+inside a block comment carried a */ with it and closed the comment early, so four
+lines of prose became code. The page then failed to boot, the day card never
+appeared, and my first thought was that the page had got slow. A LOAD THAT TIMES
+OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE, and the check that settles it --
+load the page, count pageerror -- takes eleven seconds.
+
+AND TWO OF MY OWN NEW CHECKS WERE BROKEN RULERS, BOTH CAUGHT BY THEM GOING RED ON
+CORRECT CODE: one banned the substring "douse" in a reading that has to LOOK AT
+RENT_DOUSED to say a street was cut (reading a record is not spending, so it names
+the writers instead), and one asserted the frame gets DARKER, which measures my own
+mark rather than the mechanic -- a cut wire is drawn as a ring wider than the light
+it replaces, so total RGB can go either way. The claim is that the picture depends
+on the lights: the frame changes and the drawn count falls to zero. The number that
+made the old state a lie was ZERO, on both.
+AND THE SECOND NEGATIVE CONTROL TAUGHT THE CHECK SOMETHING: with the layer switched
+off the frame HASH still moved, because the street render changes between two draws
+anyway. The hash is proof in a controlled pair (nothing touched but the dousing,
+which is how the original zero was measured) and NOT in a live drive. The claim that
+bites out there is the count of lights painted falling to zero.
+
+GATES  faction_towns 170/0 (was 144), twenty-six new claims, eight driving the real
+       surface. TWO OF THIS LANE'S OWN EARLIER CHECKS WENT RED AND WERE FOLLOWED,
+       NOT LOOSENED: N12 reads the rent PATH, which is three functions now that the
+       billable map moved out of nightfall, and still asserts both halves (built
+       from TURF_USED, never mentions payTo); N13 keeps its claim and drops the
+       variable name from the douse call. Green alongside: engine sync zero drift,
+       bundle 16/0, banner 14/0, turf 43/0, demo build, alpha loads.
+
+ON THE WAY, AND IT IS THE SAME BOUNCE-BACK AS 9/11: editing the powergrid put
+BOH_POWERGRID into drift again -- 2 bodies across 6 carriers, the four stale ones
+being the two graphics masters (twice in one of them) and RUN_CURRENT, none of
+which the city resync tool touches. Re-inlined from canon USING THE SYNC GATE'S OWN
+EXTRACTOR so the boundaries cannot disagree with the gate that judges them, and the
+bundle's per-file md5 headers refreshed. It will happen to the next lane that edits
+that module too; the tool that fixes the city does not know those three files exist.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. *** DOES A DEBT CROSS THE FOLD? *** engine/bohemia_fold.js says it DIES and is
@@ -2040,8 +2071,8 @@ GATES  faction_towns 144/0 (was 111), thirty-three new claims, EIGHT of them dri
   5. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
      Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
-     drab factions, the gate carries three -- and the tracks made that visible on a
-     second surface, because a drab faction's trail falls back to plain gold.
+     drab factions, the gate carries three -- and the lights now paint in the same
+     inks, so a drab faction's street reads as plain gold on a third surface.
 
 *** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
 verified inherited on a clean origin/main worktree and unchanged since.
@@ -2051,29 +2082,31 @@ verified inherited on a clean origin/main worktree and unchanged since.
       a partial corpus moves every rung boundary in the game.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [rent visible]  YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES -- the coordinator's follow-on to
-    [block rent]: show what a block takes BEFORE you decide to live or work on it.
-    rentOn() already answers it; this is a surface row, not a mechanism one.
   [who follows]  WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK -- with PEOPLE [down not dead].
-    [recruit anywhere] just built the WHO-WOULD half as a reading; what is missing is
-    the act of taking somebody on and what it costs, and a price is his.
+    [recruit anywhere] built the WHO-WOULD half as a reading; what is missing is the
+    act of taking somebody on and what it costs, and a price is his. Build on
+    engine/bohemia_company.js, NO ROSTER (the board note says so and that lane paid
+    for the rule).
+  [same lender]  THE-COLLECTOR-READS-THE-FOLD'S-LIST -- RULED, and it closes the
+    [PENDING Paolo] this lane left on [collector heir]. The ruling is in
+    records/BOHEMIA_RULING_THE_BILL_DIES_THE_LENDER_STANDS_9_13_26.md.
+  [deal sticks]  THE-PROTECTOR-WAS-THE-COURTS -- harvested from ECONOMY Q34.
 
-SEVEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+EIGHT STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  SIX rows now. It has been wrong every single time. (This round's row named none.)
+  It has been wrong every time it was named -- and this round the REAL blocker was
+  something nobody had written down: the map had never drawn the lights.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
+  Three times this round, twice in checks I had just written.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
   number nobody ruled.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE THAT
   CHECKED NOTHING. Make the guard itself a claim.
-  SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT. A counter that goes up
-  proves the code ran, never that anybody saw it.
-  AND AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM. This round's
-  own gate passed for the wrong reason: the sentence it was looking for also lives in
-  the INLINED module forty thousand lines above the card, so it was measuring the
-  module's position, not the card's. Read inside the function you are making a claim
-  about.
+  SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
+  AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM: read inside the
+  function you are making a claim about.
+  AND A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
 
 --------------------------------------------------------------------------------
 

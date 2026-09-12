@@ -634,7 +634,17 @@ const done = () => {
        arithmetic that can match anything and went red while the behaviour was
        right. The claim is about what the RENT PATH calls, so it reads exactly
        those two function bodies. */
-    const rentBody = (CITY_TXT2.match(/function blockRent\(\)[\s\S]*?\n\}/) || [''])[0]
+    /* WIDENED AGAIN 9/13 BY [rent visible], AND THE CLAIM IS STILL UNCHANGED.
+       Showing him the bill before the day is spent means asking the same question
+       in the afternoon, so WHAT THEY CAN BILL YOU FOR moved out of blockRent into
+       rentBillable() -- one body, two callers, which is the whole point of it.
+       The rent PATH is therefore three functions now and this reads all three.
+       Both halves of the claim are asserted exactly as before: the path must
+       build its bill from TURF_USED and must never mention payTo. Following the
+       code is not loosening the check; reading only one of three functions and
+       calling it the path would be. */
+    const rentBody = (CITY_TXT2.match(/function rentBillable\([\s\S]*?\n\}/) || [''])[0]
+                   + (CITY_TXT2.match(/function blockRent\(\)[\s\S]*?\n\}/) || [''])[0]
                    + (CITY_TXT2.match(/function rentCutOff\([\s\S]*?\n\}/) || [''])[0];
     ok('N12 *** WHO YOU PAY IS TURF, NOT THE GRID. *** payTo answers who owns the '
        + 'WIRE and is null wherever there is no circuit, which is most of the '
@@ -658,7 +668,11 @@ const done = () => {
        + 'and the save already carries, and only on THAT faction\'s own ground',
        /function rentCutOff/.test(CITY_TXT2)
        && /t\.faction!==faction/.test(CITY_TXT2)
-       && /POWER\.douse\(s\.id\)/.test(CITY_TXT2));
+       /* the douse call keeps its claim and loses its variable name: [rent
+          visible] sorts the candidates by distance first, so the id comes off a
+          row rather than off the cell it was just read from. What matters is
+          that it goes through the grid's own douse and nothing else. */
+       && /POWER\.douse\([A-Za-z_$][\w$.\[\]]*\)/.test(rentBody));
     ok('N14 and nothing here invents a standing change: what an unpaid debt does '
        + 'to how they FEEL about you is a weight, and weights are his',
        !/ctDialApply|DEED_WEIGHT|rungFor/.test(
@@ -1112,6 +1126,256 @@ const done = () => {
       ok('L33 no page errors while any of that ran', RECRUIT.errs === 0);
     } else {
       ok('L26-33 the walked surface answered', false);
+    }
+  }
+
+  /* *** THE WALKED SURFACE, DRIVEN, FOR [rent visible]. ***
+     Opens the game, reads the ground before the day is spent, walks a real
+     route, compares the preview against the bill the night really takes, cuts
+     the lights through the real nightfall, and redraws the map. Nothing below is
+     computed here: every number comes back from the page. */
+  let RENTVIS = null;
+  try {
+    const b4 = await chromium.launch();
+    try {
+      const p4 = await b4.newPage({ viewport: { width: 390, height: 844 } });
+      const e4 = []; p4.on('pageerror', e => e4.push(e.message));
+      await p4.route(/^https?:/, r => r.abort());
+      await p4.goto('file://' + CITY, { waitUntil: 'load', timeout: 180000 });
+      for (let i = 0; i < 200; i++) { if (await p4.$('#daycardIn .dcgo')) break; await SETTLE(p4, 300); }
+      await p4.$eval('#daycardIn .dcgo', el => el.click());
+      await SETTLE(p4, 500);
+      RENTVIS = await p4.evaluate(async () => {
+        const R = {}; MODE = 'human';
+        const d1 = ctRentHere();
+        R.dayOne = d1.faction + ' ' + d1.tier + ', ' + d1.now + ' so far, next block '
+                 + (d1.free ? 'free' : 'costs one') + ', due ' + DAY.hhmm(d1.dueMin);
+        R.dayOneOk = !!(d1 && d1.faction && d1.shape && d1.dueMin != null);
+        /* a real route, in bounds */
+        TURF_USED = {}; TURF_SEENCELL = {};
+        const sx = (hx / FN) | 0, sy = (hy / FN) | 0, route = [];
+        for (let k = 0; k < 60; k++) {
+          const cx = sx + (k % 20) - 10, cy = sy + ((k / 20) | 0) * 3 - 3;
+          hx = cx * FN + (FN >> 1); hy = cy * FN + (FN >> 1);
+          turfNote(cx, cy); route.push([cx, cy]);
+        }
+        const seats = turfSeats();
+        R.preview = ctRentHere().tonight;
+        R.bill = BohemiaTowns.rentOn(rentBillable(seats), seats).total;
+        const nearLit = () => { let n = 0; const seen = {};
+          route.forEach(c => { for (let dx = -6; dx <= 6; dx++) for (let dy = -6; dy <= 6; dy++) {
+            const x = c[0] + dx, y = c[1] + dy, k = x + ',' + y; if (seen[k]) continue; seen[k] = 1;
+            try { const p = POWER.at(x, y); if (p && p.live) n++; } catch (e) {} } }); return n; };
+        R.litNearBefore = nearLit();
+        /* THE MAP, BEFORE AND AFTER, THROUGH THE REAL CAMERA */
+        try { document.getElementById('phoneclose').click(); } catch (e) {}
+        try { document.getElementById('modechip').click(); } catch (e) {}
+        await new Promise(r => setTimeout(r, 1500));
+        render(); await new Promise(r => setTimeout(r, 350));
+        const hashOf = () => { const c = document.querySelector('canvas'), g = c.getContext('2d');
+          const d = g.getImageData(0, 0, c.width, c.height).data; let h = 2166136261 >>> 0, s = 0;
+          for (let i = 0; i < d.length; i += 41) { h ^= d[i]; h = Math.imul(h, 16777619) >>> 0; }
+          for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2];
+          return [h >>> 0, s]; };
+        const h0 = hashOf();
+        R.drawnLit = (window.__GRID_DRAWN || {}).lit || 0;
+        R.inks = Object.keys((window.__GRID_DRAWN || {}).ink || {}).length;
+        /* the real nightfall, on the real route */
+        MODE = 'human'; blockRent();
+        const dd = RENT_DOUSED.map(x => x.cells);
+        R.doused = RENT_DOUSED.length;
+        R.within6 = dd.filter(x => x <= 6).length;
+        R.litNearAfter = nearLit();
+        const one = RENT_DOUSED[0];
+        if (one) { hx = one.at[0] * FN + (FN >> 1); hy = one.at[1] * FN + (FN >> 1);
+          showStanding(); R.cardOnCut = (document.getElementById('daycardIn') || {}).textContent || '';
+          try { cardHide(); } catch (e) {} }
+        /* and every circuit out, to prove the frame really depends on them */
+        MODE = 'city'; if (one) { city.x = one.at[0]; city.y = one.at[1]; }
+        const seen2 = {};
+        POWER.cells().forEach(c => { if (c.live && !seen2[c.id]) { seen2[c.id] = 1; POWER.douse(c.id); } });
+        render(); await new Promise(r => setTimeout(r, 350));
+        const h1 = hashOf();
+        R.hashMoved = h0[0] !== h1[0];
+        R.brightDrop = h0[1] - h1[1];
+        R.drawnLitAfter = (window.__GRID_DRAWN || {}).lit;
+        R.cityMode = MODE;
+        showStanding(); R.cityCard = (document.getElementById('daycardIn') || {}).textContent || '';
+        try { cardHide(); } catch (e) {}
+        return R;
+      });
+      RENTVIS.errs = e4.length;
+    } finally { await b4.close(); }
+  } catch (e) { RENTVIS = null; }
+
+  /* ==========================================================================
+     YOU CAN SEE WHAT THE BLOCK TAKES  (9/13, row [rent visible])
+     "[block rent] shipped: the block pays its owner. Now the player sees it: on
+     the walked street and in CITY, what this block takes from you and when, in
+     batteries, before you decide to live or work on it; and the moment it is cut
+     off, the block goes dark in a way you notice."
+     ======================================================================== */
+  {
+    const _fs6 = require('fs');
+    const CITY6 = _fs6.readFileSync(CITY, 'utf8');
+    const GRID = _fs6.readFileSync(path.join(ROOT, 'engine/bohemia_powergrid.js'), 'utf8');
+    const seats = [{ faction: 'Fort', tier: 'fortress' },
+                   { faction: 'Town', tier: 'town' },
+                   { faction: 'Camp', tier: 'camp' }];
+
+    /* --- WHAT THE NEXT BLOCK COSTS IS THE BILL ASKED TWICE --- */
+    ok('M1 *** THERE IS NO SECOND FORMULA. *** What one more block costs is rentOn '
+       + 'with the count you have and rentOn with the count you would have, so a '
+       + 'preview cannot disagree with the bill it is previewing',
+       (function () {
+         for (const f of ['Fort', 'Town', 'Camp'])
+           for (let n = 0; n < 10; n++) {
+             const u = {}; u[f] = n;
+             const a = T.rentAhead(u, seats, f);
+             const u2 = {}; u2[f] = n + 1;
+             if (a.next !== T.rentOn(u2, seats).total) return false;
+             if (a.now !== T.rentOn(u, seats).total) return false;
+             if (a.adds !== a.next - a.now) return false;
+           }
+         return true;
+       })());
+    ok('M2 and `free` is exactly "this one adds nothing", never a separate rule',
+       (function () {
+         for (let n = 0; n < 12; n++) {
+           const u = { Camp: n }, a = T.rentAhead(u, seats, 'Camp');
+           if (a.free !== (a.adds === 0)) return false;
+         }
+         return true;
+       })());
+
+    /* --- THE SHAPE IS FOUND, NOT WRITTEN OUT PER TIER --- */
+    const shF = T.rentShape('fortress'), shT = T.rentShape('town'), shC = T.rentShape('camp');
+    ok('M3 *** A FORTRESS CHARGES FOR EVERY BLOCK, A TOWN FOR TWO IN THREE, A CAMP '
+       + 'FOR ONE IN THREE *** -- and nobody typed any of that: it is FOUND by '
+       + 'running the bill up a ladder and looking for the window that repeats ('
+       + shF.charged + '/' + shF.per + ', ' + shT.charged + '/' + shT.per + ', '
+       + shC.charged + '/' + shC.per + ')',
+       shF.per === 1 && shF.charged === 1
+       && shT.per === 3 && shT.charged === 2
+       && shC.per === 3 && shC.charged === 1);
+    ok('M4 and the shape it found really is what the bill does, checked against '
+       + 'rentOn block by block rather than against itself',
+       ['fortress', 'town', 'camp'].every(t => {
+         const s = T.rentShape(t), f = 'X', st = [{ faction: f, tier: t }];
+         const at = (n) => { const u = {}; u[f] = n; return T.rentOn(u, st).total; };
+         for (let k = 1; k <= 4; k++) if (at(s.per * k) !== s.charged * k) return false;
+         return true;
+       }));
+    ok('M5 it is his own DEPTH thirds said back, so re-cutting that table moves the '
+       + 'words with it and there is nothing to edit here',
+       Math.abs(shT.charged / shT.per - T.DEPTH.town) < 0.0001
+       && Math.abs(shC.charged / shC.per - T.DEPTH.camp) < 0.0001
+       && shF.charged / shF.per === T.DEPTH.fortress);
+    ok('M6 the words are attempts, draft:true, and a bad call is null not a throw',
+       shF.draft === true && T.rentAhead({}, seats, 'Fort').draft === true
+       && T.rentAhead(null, null, null) === null);
+
+    /* --- ONE BODY, TWO CALLERS --- */
+    ok('M7 *** THE PREVIEW AND THE BILL TAKE THEIR NUMBERS FROM ONE PLACE. *** What '
+       + 'they can bill you for -- your own generators already off the line -- was '
+       + 'four lines inside the nightfall function. It is one body with two callers '
+       + 'now, so an early answer cannot quote a rent you do not owe',
+       /function rentBillable\(seats\)/.test(CITY6)
+       && (CITY6.split('rentBillable(').length - 1) >= 3
+       && /var billable=rentBillable\(seats\);/.test(CITY6));
+    /* THE FIRST CUT OF THIS CHECK WAS A BROKEN RULER AND IT WENT RED ON CORRECT
+       CODE: it banned the substring `douse`, and the reading has to LOOK AT
+       RENT_DOUSED to say "they cut this street off". Reading a record is not
+       spending. It names the WRITERS instead. */
+    ok('M8 and nothing in the reading spends, bills or moves anything: it asks the '
+       + 'towns module and the day clock and calls no writer',
+       !/BohemiaPurse\.|purseGet\(|transferOut\(|credit\(|debit\(|POWER\.douse\(/
+         .test((CITY6.match(/function ctRentHere[\s\S]*?\n\}/) || [''])[0]));
+
+    /* --- THE CUT LANDS WHERE YOU ARE --- */
+    ok('M9 *** THE STREET THEY CUT IS THE ONE NEAREST THE BLOCKS THEY BILLED YOU '
+       + 'FOR. *** It used to scan from (0,0) and put out the first circuit it '
+       + 'found on their ground, which on a 96-cell valley is somewhere you have '
+       + 'never been',
+       /cand\.sort\(function\(a,b\)\{ return a\.d!==b\.d \? a\.d-b\.d/.test(CITY6)
+       && /function rentBilledBlock/.test(CITY6));
+    ok('M10 and it is a DISTANCE and not a match, which is a measurement and not a '
+       + 'preference: circuits only run along streets, so the ground you walk '
+       + 'usually has no line on it to cut and a your-block-only rule would cut '
+       + 'nothing while every check stayed green',
+       /ZERO\s+of\s+them\s+carried\s+a\s+lit\s+circuit/.test(CITY6));
+
+    /* --- THE MAP HAD NEVER DRAWN THE LIGHTS --- */
+    ok('M11 the grid can be enumerated without probing the whole valley: the '
+       + 'accessor walks the cells a feeder runs down, which is hundreds, not 9,216',
+       /cells:function\(\)\{/.test(GRID) && /for\(const k in status\)/.test(GRID));
+    ok('M12 and the surface caches that shape instead of rebuilding it every frame, '
+       + 'because which cells carry a wire is a pure function of the seed and only '
+       + 'the on-or-off changes',
+       /window\.__PCELLS/.test(CITY6) && /POWER\.isDark\(__c\.id\)/.test(CITY6));
+    ok('M13 lights are drawn in their HOLDER\'S ink -- the same __holderInk the '
+       + 'borders and the tracks use -- so a lit street and the ground under it '
+       + 'read as the same people. COLOUR IS TERRITORY',
+       /__THE_MAP_HAS_NEVER_DRAWN_THE_LIGHTS__/.test(CITY6)
+       && /__holderInk\(__c\.faction, __mineL\)/.test(CITY6));
+    ok('M14 *** AND A WIRE THAT WAS NEVER LIVE IS NOT DRAWN. *** The first cut drew '
+       + 'every wire and buried 360 lights under 1,500 dark dots, so the frame '
+       + 'before a cut and the frame after were the same to a human eye -- the '
+       + 'exact failure the layer exists to end',
+       /a wire that was never on/.test(CITY6)
+       && /if \(!__rc\.live && !__rc\.doused\) continue;/.test(CITY6));
+    ok('M15 the render publishes what it really painted, the way the borders and '
+       + 'the tracks already do',
+       /window\.__GRID_DRAWN = \{ lit: __lit, off: __off, cut: __new, ink: __ink \}/.test(CITY6));
+
+    /* --- THE CARD --- */
+    const CARD6 = (CITY6.match(/function showStanding\(\)\{[\s\S]*?\n\}/) || [''])[0];
+    ok('M16 it is on the card he already opens, under the row that names the owner',
+       CARD6.length > 2000
+       && CARD6.indexOf('WHAT IT TAKES') > CARD6.indexOf('>THIS GROUND<')
+       && /__YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES__/.test(CARD6));
+    ok('M17 and it says all four things the row asks for: what it takes, what it '
+       + 'stands at, whether walking on is free, and WHEN it is due',
+       /WHAT IT TAKES/.test(CARD6) && /TONIGHT SO FAR/.test(CARD6)
+       && /COSTS ONE/.test(CARD6) && /FREE/.test(CARD6)
+       && /Due at ' \+ esc\(DAY\.hhmm\(_r\.dueMin\)\)/.test(CARD6));
+    ok('M18 standing still is never read as another charge, because the landlord '
+       + 'bills a block and he is already on it',
+       /ANOTHER BLOCK OF THEIRS/.test(CARD6) && /_r\.counted/.test(CARD6));
+
+    /* --- AND IT REALLY RUNS OUT THERE --- */
+    if (RENTVIS) {
+      ok('M19 *** ON THE WALKED SURFACE, BEFORE THE DAY IS SPENT: ' + RENTVIS.dayOne
+         + ' ***', RENTVIS.dayOneOk === true);
+      ok('M20 *** THE PREVIEW IS THE BILL, TO THE BATTERY: preview ' + RENTVIS.preview
+         + ', bill ' + RENTVIS.bill + ' ***', RENTVIS.preview === RENTVIS.bill);
+      ok('M21 *** THE MAP DRAWS THE GRID NOW, WHICH IT NEVER HAS: ' + RENTVIS.drawnLit
+         + ' lights painted on a real canvas in ' + RENTVIS.inks + ' factions\' inks ***',
+         RENTVIS.drawnLit > 0 && RENTVIS.inks > 0);
+      /* THE CLAIM IS THAT THE PICTURE DEPENDS ON THE LIGHTS, AND THAT IS A FRAME
+         THAT CHANGES AND A COUNT THAT FALLS. It is NOT that the frame gets
+         darker: a cut wire is drawn as a ring wider than the light it replaces,
+         so total RGB can go either way and measuring the direction would be
+         measuring my own mark rather than the mechanic. The number that made the
+         old test a lie was ZERO, on both. */
+      ok('M22 *** AND PUTTING THEM OUT REALLY CHANGES THE PICTURE. *** Every circuit '
+         + 'in the valley doused, the frame redrawn: hash moved ' + RENTVIS.hashMoved
+         + ', lights on the canvas ' + RENTVIS.drawnLit + ' -> ' + RENTVIS.drawnLitAfter
+         + ', brightness moved by ' + Math.abs(RENTVIS.brightDrop) + '. Before this row '
+         + 'the same test moved ZERO pixels and ZERO brightness',
+         RENTVIS.hashMoved === true && Math.abs(RENTVIS.brightDrop) > 0
+         && RENTVIS.drawnLitAfter < RENTVIS.drawnLit && RENTVIS.drawnLitAfter === 0);
+      ok('M23 *** THE DARKNESS LANDS WHERE YOU WALKED: ' + RENTVIS.within6 + ' of '
+         + RENTVIS.doused + ' cut circuits within six cells of the route, and the '
+         + 'lights near it went ' + RENTVIS.litNearBefore + ' to ' + RENTVIS.litNearAfter + ' ***',
+         RENTVIS.within6 > 0 && RENTVIS.litNearAfter < RENTVIS.litNearBefore);
+      ok('M24 stand on a street they cut and the card says who cut it and why',
+         /cut this street off/.test(RENTVIS.cardOnCut));
+      ok('M25 and the same reading answers in CITY, not only on foot',
+         RENTVIS.cityMode === 'city' && /WHAT IT TAKES/.test(RENTVIS.cityCard));
+      ok('M26 no page errors while any of that ran', RENTVIS.errs === 0);
+    } else {
+      ok('M19-26 the walked surface answered', false);
     }
   }
 

@@ -1004,6 +1004,66 @@
   }
 
   /* ==========================================================================
+     YOU CAN SEE WHAT THE BLOCK TAKES   ([rent visible], 9/13/26)
+
+     [block rent] shipped the charge and it lands at NIGHTFALL. Measured on the
+     walked surface before a line of this was written: forty blocks walked across
+     six factions' ground and the street said NOTHING, the whole day. Everything
+     the game knows about what you owe -- and it knows all of it, in good plain
+     words -- arrives after the day is spent.
+
+         "Blues (town) wanted 3 for 3 of the 4 blocks of theirs you used and you
+          had 2, so the Blues cut 1 of their own street off"
+
+     That is a perfect sentence in the wrong place. It is the same failure QUESTS
+     found on the job offer: a walk quoted at seven hours AFTER you agreed to it.
+     So nothing here changes what anything costs. It moves the telling earlier.
+
+     *** AND THERE IS NO SECOND FORMULA. *** What the next block costs is rentOn
+     asked twice, with the count you have and the count you would have. A preview
+     that computed the bill its own way is a preview that can disagree with the
+     bill, and disagreeing with the thing you are previewing is the only way this
+     can be wrong. */
+
+  /* one more block of THIS faction's ground: does tonight go up, or is it free?
+     `used` must be the SAME map the bill is taken from, discounts and all, or
+     the number he reads is not the number he pays. */
+  function rentAhead(used, towns, faction) {
+    if (!faction || !towns || !towns.length) return null;
+    var mine = {}, k;
+    for (k in (used || {})) if (Object.prototype.hasOwnProperty.call(used, k)) mine[k] = used[k] | 0;
+    var have = mine[faction] | 0;
+    var nowBill = rentOn(mine, towns);
+    mine[faction] = have + 1;
+    var nextBill = rentOn(mine, towns);
+    var row = null, nrow = null, i;
+    for (i = 0; i < nowBill.rows.length; i++) if (nowBill.rows[i].faction === faction) row = nowBill.rows[i];
+    for (i = 0; i < nextBill.rows.length; i++) if (nextBill.rows[i].faction === faction) nrow = nextBill.rows[i];
+    var nowN = row ? row.billed : 0, nextN = nrow ? nrow.billed : 0;
+    return { faction: faction, tier: nrow ? nrow.tier : null,
+             used: have, now: nowN, next: nextN, adds: nextN - nowN,
+             free: (nextN - nowN) === 0,
+             tonight: nowBill.total, tonightNext: nextBill.total, draft: true };
+  }
+
+  /* HOW THIS SIZE OF PLACE CHARGES, IN A SHAPE A PERSON CAN HOLD IN THEIR HEAD.
+     NOT A SENTENCE PER TIER: the shape is FOUND by running rentOn up a ladder and
+     looking for the smallest window that repeats, so if he ever re-cuts DEPTH the
+     words follow him with nothing to edit. A fortress comes out 1 of every 1, a
+     town 2 of every 3, a camp 1 of every 3 -- which is his own thirds, said back. */
+  function rentShape(tier, towns) {
+    var f = '__SHAPE__';
+    var seats = [{ faction: f, tier: tier }];
+    var at = function (n) { var u = {}; u[f] = n; return rentOn(u, seats).total; };
+    for (var p = 1; p <= 12; p++) {
+      var c = at(p);
+      if (at(p * 2) === c * 2 && at(p * 3) === c * 3)
+        return { tier: tier, per: p, charged: c, free: p - c, draft: true };
+    }
+    return null;   /* no window repeats: an honest no-answer, never a guess */
+  }
+
+  /* ==========================================================================
      THE LENDER VISITS THE HEIR   (9/12, VAMILY row [collector heir])
 
      THE ROW, off the 9/5 heir research: "on the first day after the fold, the
@@ -1343,6 +1403,7 @@
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
+    rentAhead: rentAhead, rentShape: rentShape,
     trackOf: trackOf, tracksAt: tracksAt,
     joinersOn: joinersOn, JOIN_NO: JOIN_NO, JOIN_SAY: JOIN_SAY, JOIN_RUNG: JOIN_RUNG,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,

@@ -536,7 +536,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 ==============================================================================
 ### FILE: bohemia_engine_graphics_7_14_26.js
-### MD5: bdd1299b1c1abe78655d9838074df6f3  | 59.6 KB
+### MD5: 2577b04f64bf7cf507feebb88eb30ae2  | 59.6 KB
 // BOHEMIA GRAPHICS ENGINE BUNDLE (7/14/26) — one import for the absorption session.
 // Contains: BOH_LIGHT (light philosophy law), BOH_DAYCYCLE, BOH_SLICE (3 clocks,
 // movers, doors, wanderers), BOH_BLOCKGEN (streets/freeway/residential/desert/
@@ -1630,6 +1630,25 @@ const BOH_POWERGRID=(()=>{
          a state and not a one-way door nobody thought about. */
       relight:function(id){ if(dark[id]){ delete dark[id]; return true; } return false; },
       isDark:(id)=>!!dark[id],
+      /* *** EVERY CELL A FEEDER RUNS DOWN, SO A SURFACE CAN DRAW THE GRID. ***
+         (9/13, [rent visible].) MEASURED before this existed: dousing all 173
+         circuits in the valley moved the aerial frame by ZERO pixels and dropped
+         its total brightness by ZERO. The map has never drawn the lights, which
+         is why "the block goes dark" could not be noticed by anybody -- there was
+         nothing on screen for the darkness to remove.
+         READ-ONLY, AND IT ENUMERATES `status`, WHICH IS ONLY THE CELLS ON A
+         CIRCUIT (a few hundred), never the 9,216 cells of the valley. A caller
+         that probed at() cell by cell to find the lights would be doing 9,216
+         lookups a frame for a layer that is 4% of the map. */
+      cells:function(){
+        const out=[], g=gridFactionNow();
+        for(const k in status){ const s=status[k];
+          const c=k.split(','), f=s.faction||(s.owner==='network'?g:null);
+          out.push({ x:c[0]|0, y:c[1]|0, id:s.id,
+                     live:!!(s.live&&!dark[s.id]), faction:f||null,
+                     ground:s.ground||null, doused:!!dark[s.id] }); }
+        return out;
+      },
       dark:()=>Object.keys(dark).map(Number),
       /* ONLY THE DOUSED SET RIDES THE SAVE. The grid is a pure function of the
          seed; saving it would let a stale copy outlive a seed change. */
@@ -2216,7 +2235,7 @@ if(typeof module!=='undefined')module.exports=BOH_PLOTGEN;
 
 ==============================================================================
 ### FILE: bohemia_powergrid.js
-### MD5: 44f7740bca377f8879d0273bd85b9bdc  | 11.7 KB
+### MD5: b47b8d713410c6da53802097827c9e5e  | 11.7 KB
 // BOHEMIA POWER GRID (7/14/26) — CLUSTERED POWER LAW as engine code.
 // Streetlights fail by CIRCUIT (feeder death + copper theft), never
 // alternating. 12% of circuits live (tunable). Every live circuit is
@@ -2404,6 +2423,25 @@ const BOH_POWERGRID=(()=>{
          a state and not a one-way door nobody thought about. */
       relight:function(id){ if(dark[id]){ delete dark[id]; return true; } return false; },
       isDark:(id)=>!!dark[id],
+      /* *** EVERY CELL A FEEDER RUNS DOWN, SO A SURFACE CAN DRAW THE GRID. ***
+         (9/13, [rent visible].) MEASURED before this existed: dousing all 173
+         circuits in the valley moved the aerial frame by ZERO pixels and dropped
+         its total brightness by ZERO. The map has never drawn the lights, which
+         is why "the block goes dark" could not be noticed by anybody -- there was
+         nothing on screen for the darkness to remove.
+         READ-ONLY, AND IT ENUMERATES `status`, WHICH IS ONLY THE CELLS ON A
+         CIRCUIT (a few hundred), never the 9,216 cells of the valley. A caller
+         that probed at() cell by cell to find the lights would be doing 9,216
+         lookups a frame for a layer that is 4% of the map. */
+      cells:function(){
+        const out=[], g=gridFactionNow();
+        for(const k in status){ const s=status[k];
+          const c=k.split(','), f=s.faction||(s.owner==='network'?g:null);
+          out.push({ x:c[0]|0, y:c[1]|0, id:s.id,
+                     live:!!(s.live&&!dark[s.id]), faction:f||null,
+                     ground:s.ground||null, doused:!!dark[s.id] }); }
+        return out;
+      },
       dark:()=>Object.keys(dark).map(Number),
       /* ONLY THE DOUSED SET RIDES THE SAVE. The grid is a pure function of the
          seed; saving it would let a stale copy outlive a seed change. */

@@ -185,6 +185,25 @@ const BOH_POWERGRID=(()=>{
          a state and not a one-way door nobody thought about. */
       relight:function(id){ if(dark[id]){ delete dark[id]; return true; } return false; },
       isDark:(id)=>!!dark[id],
+      /* *** EVERY CELL A FEEDER RUNS DOWN, SO A SURFACE CAN DRAW THE GRID. ***
+         (9/13, [rent visible].) MEASURED before this existed: dousing all 173
+         circuits in the valley moved the aerial frame by ZERO pixels and dropped
+         its total brightness by ZERO. The map has never drawn the lights, which
+         is why "the block goes dark" could not be noticed by anybody -- there was
+         nothing on screen for the darkness to remove.
+         READ-ONLY, AND IT ENUMERATES `status`, WHICH IS ONLY THE CELLS ON A
+         CIRCUIT (a few hundred), never the 9,216 cells of the valley. A caller
+         that probed at() cell by cell to find the lights would be doing 9,216
+         lookups a frame for a layer that is 4% of the map. */
+      cells:function(){
+        const out=[], g=gridFactionNow();
+        for(const k in status){ const s=status[k];
+          const c=k.split(','), f=s.faction||(s.owner==='network'?g:null);
+          out.push({ x:c[0]|0, y:c[1]|0, id:s.id,
+                     live:!!(s.live&&!dark[s.id]), faction:f||null,
+                     ground:s.ground||null, doused:!!dark[s.id] }); }
+        return out;
+      },
       dark:()=>Object.keys(dark).map(Number),
       /* ONLY THE DOUSED SET RIDES THE SAVE. The grid is a pure function of the
          seed; saving it would let a stale copy outlive a seed change. */

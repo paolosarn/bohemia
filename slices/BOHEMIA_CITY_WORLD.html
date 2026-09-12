@@ -7422,6 +7422,25 @@ const BOH_POWERGRID=(()=>{
          a state and not a one-way door nobody thought about. */
       relight:function(id){ if(dark[id]){ delete dark[id]; return true; } return false; },
       isDark:(id)=>!!dark[id],
+      /* *** EVERY CELL A FEEDER RUNS DOWN, SO A SURFACE CAN DRAW THE GRID. ***
+         (9/13, [rent visible].) MEASURED before this existed: dousing all 173
+         circuits in the valley moved the aerial frame by ZERO pixels and dropped
+         its total brightness by ZERO. The map has never drawn the lights, which
+         is why "the block goes dark" could not be noticed by anybody -- there was
+         nothing on screen for the darkness to remove.
+         READ-ONLY, AND IT ENUMERATES `status`, WHICH IS ONLY THE CELLS ON A
+         CIRCUIT (a few hundred), never the 9,216 cells of the valley. A caller
+         that probed at() cell by cell to find the lights would be doing 9,216
+         lookups a frame for a layer that is 4% of the map. */
+      cells:function(){
+        const out=[], g=gridFactionNow();
+        for(const k in status){ const s=status[k];
+          const c=k.split(','), f=s.faction||(s.owner==='network'?g:null);
+          out.push({ x:c[0]|0, y:c[1]|0, id:s.id,
+                     live:!!(s.live&&!dark[s.id]), faction:f||null,
+                     ground:s.ground||null, doused:!!dark[s.id] }); }
+        return out;
+      },
       dark:()=>Object.keys(dark).map(Number),
       /* ONLY THE DOUSED SET RIDES THE SAVE. The grid is a pure function of the
          seed; saving it would let a stale copy outlive a seed change. */
@@ -28936,6 +28955,66 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
   }
 
   /* ==========================================================================
+     YOU CAN SEE WHAT THE BLOCK TAKES   ([rent visible], 9/13/26)
+
+     [block rent] shipped the charge and it lands at NIGHTFALL. Measured on the
+     walked surface before a line of this was written: forty blocks walked across
+     six factions' ground and the street said NOTHING, the whole day. Everything
+     the game knows about what you owe -- and it knows all of it, in good plain
+     words -- arrives after the day is spent.
+
+         "Blues (town) wanted 3 for 3 of the 4 blocks of theirs you used and you
+          had 2, so the Blues cut 1 of their own street off"
+
+     That is a perfect sentence in the wrong place. It is the same failure QUESTS
+     found on the job offer: a walk quoted at seven hours AFTER you agreed to it.
+     So nothing here changes what anything costs. It moves the telling earlier.
+
+     *** AND THERE IS NO SECOND FORMULA. *** What the next block costs is rentOn
+     asked twice, with the count you have and the count you would have. A preview
+     that computed the bill its own way is a preview that can disagree with the
+     bill, and disagreeing with the thing you are previewing is the only way this
+     can be wrong. */
+
+  /* one more block of THIS faction's ground: does tonight go up, or is it free?
+     `used` must be the SAME map the bill is taken from, discounts and all, or
+     the number he reads is not the number he pays. */
+  function rentAhead(used, towns, faction) {
+    if (!faction || !towns || !towns.length) return null;
+    var mine = {}, k;
+    for (k in (used || {})) if (Object.prototype.hasOwnProperty.call(used, k)) mine[k] = used[k] | 0;
+    var have = mine[faction] | 0;
+    var nowBill = rentOn(mine, towns);
+    mine[faction] = have + 1;
+    var nextBill = rentOn(mine, towns);
+    var row = null, nrow = null, i;
+    for (i = 0; i < nowBill.rows.length; i++) if (nowBill.rows[i].faction === faction) row = nowBill.rows[i];
+    for (i = 0; i < nextBill.rows.length; i++) if (nextBill.rows[i].faction === faction) nrow = nextBill.rows[i];
+    var nowN = row ? row.billed : 0, nextN = nrow ? nrow.billed : 0;
+    return { faction: faction, tier: nrow ? nrow.tier : null,
+             used: have, now: nowN, next: nextN, adds: nextN - nowN,
+             free: (nextN - nowN) === 0,
+             tonight: nowBill.total, tonightNext: nextBill.total, draft: true };
+  }
+
+  /* HOW THIS SIZE OF PLACE CHARGES, IN A SHAPE A PERSON CAN HOLD IN THEIR HEAD.
+     NOT A SENTENCE PER TIER: the shape is FOUND by running rentOn up a ladder and
+     looking for the smallest window that repeats, so if he ever re-cuts DEPTH the
+     words follow him with nothing to edit. A fortress comes out 1 of every 1, a
+     town 2 of every 3, a camp 1 of every 3 -- which is his own thirds, said back. */
+  function rentShape(tier, towns) {
+    var f = '__SHAPE__';
+    var seats = [{ faction: f, tier: tier }];
+    var at = function (n) { var u = {}; u[f] = n; return rentOn(u, seats).total; };
+    for (var p = 1; p <= 12; p++) {
+      var c = at(p);
+      if (at(p * 2) === c * 2 && at(p * 3) === c * 3)
+        return { tier: tier, per: p, charged: c, free: p - c, draft: true };
+    }
+    return null;   /* no window repeats: an honest no-answer, never a guess */
+  }
+
+  /* ==========================================================================
      THE LENDER VISITS THE HEIR   (9/12, VAMILY row [collector heir])
 
      THE ROW, off the 9/5 heir research: "on the first day after the fold, the
@@ -29275,6 +29354,7 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
+    rentAhead: rentAhead, rentShape: rentShape,
     trackOf: trackOf, tracksAt: tracksAt,
     joinersOn: joinersOn, JOIN_NO: JOIN_NO, JOIN_SAY: JOIN_SAY, JOIN_RUNG: JOIN_RUNG,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
@@ -38725,6 +38805,107 @@ function renderCity(){
           try { window.__TRACK_INK = __tk; } catch(_e3){}
         }
       } catch(_e3){}
+
+      /* ==== __THE_MAP_HAS_NEVER_DRAWN_THE_LIGHTS__ (9/13, [rent visible]) =====
+         "the moment it is cut off, the block goes dark in a way you notice."
+
+         *** MEASURED BEFORE A LINE OF THIS WAS WRITTEN, AND IT IS THE ROW'S REAL
+         BLOCKER. *** Every circuit in the valley was put out -- all 173, 358 lit
+         cells to zero -- the aerial was redrawn, and the frame came back with an
+         IDENTICAL hash and a total brightness change of ZERO. The grid has been
+         real data since the world was built and nothing has ever drawn it. So
+         darkness could not be noticed, and no choice about WHICH street to cut
+         could have fixed that. WORLD wrote this down on 9/5 and called their
+         probe the broken instrument; the probe was right.
+
+         TWO THINGS ARE DRAWN AND BOTH ARE ALREADY A FACT SOMEWHERE ELSE:
+           a live cell   a light, in ITS HOLDER'S INK -- __holderInk, right above,
+                         the same ink as the border and the track, because colour
+                         is territory (8/26) and a lit street is territory that
+                         somebody is paying for.
+           a cut cell    a wire somebody PUT OUT. Cold, with a ring around it, so
+                         the night it happens is legible on the map.
+
+         *** AND THE WIRES THAT WERE NEVER LIVE ARE NOT DRAWN, WHICH THE FIRST CUT
+         GOT WRONG AND ONLY LOOKING AT THE SCREEN CAUGHT. *** The valley has about
+         1,500 cells with a dead feeder against 360 lit ones, so drawing every
+         wire buried the lights under four times as many dark dots and the frame
+         before a cut and the frame after were indistinguishable to a human eye --
+         the exact failure this layer exists to end, rebuilt inside the fix for it.
+         Ground that never had power has not gone dark; it was always dark.
+
+         IT COSTS ONE PASS OVER THE CIRCUITS, NOT OVER THE VALLEY. POWER.cells()
+         enumerates the few hundred cells a feeder runs down; probing at() over
+         9,216 cells a frame for a layer that covers 4% of the map is how a 120
+         BPM surface loses its frame. */
+      try {
+        if (typeof POWER !== 'undefined' && typeof POWER.cells === 'function') {
+          /* BUILT ONCE, NOT EVERY FRAME. Which cells a feeder runs down is a pure
+             function of the seed and never changes; only whether a circuit is out
+             does. Rebuilding ~1,900 objects sixty times a second for that is how
+             a phone loses its frame, so the shape is cached and only the ON/OFF
+             is asked per draw. `live || doused` recovers the built state exactly,
+             because douse() refuses a circuit that was never lit. */
+          if (!window.__PCELLS) {
+            var __raw = POWER.cells(), __cc = [];
+            for (var __ri = 0; __ri < __raw.length; __ri++) {
+              var __rc = __raw[__ri];
+              if (!__rc.live && !__rc.doused) continue;   /* a wire that was never on */
+              __cc.push({ x: __rc.x, y: __rc.y, id: __rc.id, faction: __rc.faction });
+            }
+            window.__PCELLS = __cc;
+          }
+          var __pc = window.__PCELLS;
+          if (__pc && __pc.length) {
+            /* which circuits went out TONIGHT, as opposed to some night before */
+            var __fresh = {};
+            try { for (var __fi = 0; __fi < RENT_DOUSED.length; __fi++)
+                    __fresh[RENT_DOUSED[__fi].id] = 1; } catch(_ef){}
+            g.save();
+            var __lit = 0, __off = 0, __new = 0, __ink = {};
+            for (var __li = 0; __li < __pc.length; __li++) {
+              var __c = __pc[__li];
+              var __p = iso(__c.x, __c.y, ox, oy);
+              if (__p.sx < -40 || __p.sx > cv.width + 40) continue;
+              if (__p.sy < -40 || __p.sy > cv.height + 40) continue;
+              var __cx = __p.sx, __cy = __p.sy + TH / 2;
+              var __rad = Math.max(1.5, Math.min(TW * 0.16, 3.5));
+              var __dead = false;
+              try { __dead = POWER.isDark(__c.id); } catch(_ed){}
+              if (!__dead) {
+                var __mineL = !!(__tm && __c.faction && __tn(__c.faction) === __tn(__tm));
+                var __col = __c.faction ? __holderInk(__c.faction, __mineL) : '#ffd79a';
+                /* A HALO AND A CORE. A flat dot this size vanishes into a street
+                   full of roofs; the soft ring is what makes it read as a LIGHT
+                   rather than as another piece of the ground. */
+                g.fillStyle = __col; g.globalAlpha = 0.16;
+                g.beginPath(); g.arc(__cx, __cy, __rad * 2.2, 0, 6.2832); g.fill();
+                g.globalAlpha = 0.95;
+                g.beginPath(); g.arc(__cx, __cy, __rad, 0, 6.2832); g.fill();
+                if (__c.faction) __ink[__c.faction] = g.fillStyle;
+                __lit++;
+              } else {
+                /* SOMEBODY PUT THIS ONE OUT. Only a cut wire is drawn dark: a
+                   feeder that was never live is not in this list at all. */
+                g.fillStyle = '#241a14'; g.globalAlpha = 0.9;
+                g.beginPath(); g.arc(__cx, __cy, __rad * 0.75, 0, 6.2832); g.fill();
+                g.strokeStyle = __fresh[__c.id] ? '#b04a30' : '#6b4430';
+                g.globalAlpha = __fresh[__c.id] ? 0.95 : 0.5;
+                g.lineWidth = Math.max(1, Math.min(TW * 0.06, 1.6));
+                g.beginPath(); g.arc(__cx, __cy, __rad * 1.8, 0, 6.2832); g.stroke();
+                __off++; if (__fresh[__c.id]) __new++;
+              }
+            }
+            g.restore();
+            g.globalAlpha = 1;
+            /* THE RENDER SAYS WHAT IT REALLY PAINTED, the way the borders and the
+               tracks above it already do. A grep proves the code exists; only a
+               count taken inside the draw proves a light was put on a canvas. */
+            try { window.__GRID_DRAWN = { lit: __lit, off: __off, cut: __new, ink: __ink }; }
+            catch(_e4){}
+          }
+        }
+      } catch(_e4){}
     }
   } catch(_e){}
 
@@ -53662,11 +53843,18 @@ var RENT_TONIGHT=[], RENT_DOUSED=[];
    you for. Not a new charge and not a new table -- the SAME bill with your own
    blocks taken out of it, so rentOn() is untouched and stays another lane's. */
 var OFF_LINE=null, OFF_SAVED=null;
-function blockRent(){
-  RENT_TONIGHT=[]; RENT_DOUSED=[]; OFF_LINE=null; OFF_SAVED=null;
-  var p=purseGet(); if(!p) return 0;
-  var seats=null, bill=null;
-  try{ seats=turfSeats(); }catch(_e){ return 0; }
+/* __YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES__ (9/13, [rent visible]) -- WHAT THEY CAN
+   ACTUALLY BILL YOU FOR, IN ONE PLACE.
+
+   This was four lines inside blockRent(), which runs at nightfall and nowhere
+   else. Showing him the bill BEFORE the day is spent means asking the same
+   question in the middle of the afternoon, and the one thing a preview must never
+   do is work out the number its own way -- your own generators come off the line
+   here, and a preview that forgot them would quote a rent you do not owe.
+   ONE BODY, TWO CALLERS. It also sets OFF_LINE/OFF_SAVED, which the reckoning
+   already reads, so asking early does not change what the night says. */
+function rentBillable(seats){
+  OFF_LINE=null; OFF_SAVED=null;
   var billable=TURF_USED;
   try{
     OFF_LINE=BohemiaOwnPower.offBlocks(EDITS, seats,
@@ -53676,6 +53864,14 @@ function blockRent(){
       billable=BohemiaOwnPower.discount(TURF_USED, OFF_LINE);
     }
   }catch(_e){ billable=TURF_USED; OFF_LINE=null; OFF_SAVED=null; }
+  return billable;
+}
+function blockRent(){
+  RENT_TONIGHT=[]; RENT_DOUSED=[]; OFF_LINE=null; OFF_SAVED=null;
+  var p=purseGet(); if(!p) return 0;
+  var seats=null, bill=null;
+  try{ seats=turfSeats(); }catch(_e){ return 0; }
+  var billable=rentBillable(seats);
   try{ bill=window.BohemiaTowns.rentOn(billable, seats); }catch(_e){ return 0; }
   if(!bill||!bill.rows.length) return 0;
   for(var i=0;i<bill.rows.length;i++){
@@ -53849,21 +54045,125 @@ function owedVisitMark(){
    and stops as soon as it has taken what it is owed, so an unpaid battery costs one
    light and not a district. A faction with nothing lit cannot cut anybody off, which
    is true and is not a bug: you cannot switch off what you never ran. */
+/* __YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES__ (9/13, [rent visible]) -- *** THEY CUT OFF
+   THE BLOCK THEY BILLED YOU FOR. ***
+
+   The row asks for the cut-off to land "in a way you notice". MEASURED why it did
+   not: this scanned the whole valley from (0,0) and put out the first lit circuit
+   it found on that faction's ground, which on a 96-cell map is somewhere you have
+   never been. Ten circuits went out and the screen in front of the player did not
+   change by one pixel. A landlord who darkens a street across the valley is not a
+   landlord, and nothing about it can be noticed.
+
+   A LANDLORD CUTS OFF THE TENANT. The blocks they billed you for are already
+   written down -- TURF_SEENCELL has keyed them faction@block since [block rent]
+   counted them -- so those go out FIRST, in the same block vocabulary turfNote
+   uses, and the rest of their ground is only the fallback for when they want more
+   than you gave them a reason for.
+   NOTHING ELSE CHANGES: the same count goes out, on the same ground, through the
+   same door. Only the ORDER is different, and the order is the whole point. */
+function rentBilledBlock(faction, x, y){
+  try{ var b=ctBlockOf(x*FN, y*FN);
+       return !!TURF_SEENCELL[faction+'@'+b[0]+','+b[1]]; }catch(_e){ return false; }
+}
 function rentCutOff(faction, n){
   var took=0;
   try{
     var N=(om&&om.n)|0;
-    for(var y=0;y<N&&took<n;y++) for(var x=0;x<N&&took<n;x++){
+    /* WHERE YOU ACTUALLY WERE, in overmap cells, off the same block record the
+       bill is taken from. A landlord cutting a street you have never seen is not
+       a landlord, whatever the arithmetic says. */
+    var mine=[];
+    try{
+      for(var y0=0;y0<N;y0++) for(var x0=0;x0<N;x0++){
+        var t0=turfAt(x0,y0);
+        if(t0&&t0.faction===faction&&rentBilledBlock(faction,x0,y0)) mine.push([x0,y0]);
+      }
+    }catch(_em){}
+    var near=function(x,y){
+      if(!mine.length) return 0;
+      var best=1e9;
+      for(var i=0;i<mine.length;i++){
+        var d=Math.max(Math.abs(mine[i][0]-x), Math.abs(mine[i][1]-y));
+        if(d<best) best=d;
+      }
+      return best;
+    };
+    /* every lit circuit they hold, CLOSEST TO YOU FIRST.
+       *** MEASURED, AND IT IS WHY THIS IS A DISTANCE AND NOT A MATCH. *** On a
+       real sixty-block walk, 188 cells lay on blocks they billed for and ZERO of
+       them carried a lit circuit -- circuits only run along streets, so the
+       ground you walk usually has no line on it to cut. A rule that only cut YOUR
+       block would therefore cut nothing, every time, while every check stayed
+       green. The nearest one of theirs is the honest version of the same idea and
+       it is the one that lands where you can see it. */
+    var cand=[], seenId={};
+    for(var y=0;y<N;y++) for(var x=0;x<N;x++){
       var t=null; try{ t=turfAt(x,y); }catch(_e){ continue; }
       if(!t||t.faction!==faction) continue;
       var s=null; try{ s=POWER.at(x,y); }catch(_e){ continue; }
-      if(!s||!s.live||!(s.id>=0)) continue;
-      var went=false; try{ went=POWER.douse(s.id); }catch(_e){}
-      if(went){ RENT_DOUSED.push({id:s.id, faction:faction, at:[x,y]}); took++; }
+      if(!s||!s.live||!(s.id>=0)||seenId[s.id]) continue;
+      seenId[s.id]=1;
+      cand.push({id:s.id, x:x, y:y, d:near(x,y)});
+    }
+    cand.sort(function(a,b){ return a.d!==b.d ? a.d-b.d : (a.id-b.id); });
+    for(var c=0;c<cand.length&&took<n;c++){
+      var went=false; try{ went=POWER.douse(cand[c].id); }catch(_e){}
+      if(went){ RENT_DOUSED.push({id:cand[c].id, faction:faction,
+                                  at:[cand[c].x,cand[c].y], cells:cand[c].d,
+                                  yours:cand[c].d===0}); took++; }
     }
   }catch(_e){}
   return took;
 }
+/* *** WHAT THE GROUND UNDER YOU TAKES, AND WHEN, BEFORE THE DAY IS SPENT. ***
+   [rent visible] YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES.
+
+   Every number here is asked of the bill itself (BohemiaTowns.rentAhead calls
+   rentOn twice), off the SAME billable map nightfall uses, so the preview and the
+   bill cannot disagree. Nothing is stored and nothing is charged early. */
+function ctRentHere(){
+  if(typeof window.BohemiaTowns==='undefined') return null;
+  var cx, cy, here=null;
+  try{
+    cx=(MODE==='human')?(hx/FN)|0:city.x;
+    cy=(MODE==='human')?(hy/FN)|0:city.y;
+    here=turfAt(cx,cy);
+  }catch(_e){ return null; }
+  if(!here||!here.faction) return null;
+  var seats=null; try{ seats=turfSeats(); }catch(_e){ return null; }
+  if(!seats||!seats.length) return null;
+  var billable=null; try{ billable=rentBillable(seats); }catch(_e){ billable=TURF_USED; }
+  var ahead=null, shape=null;
+  try{ ahead=window.BohemiaTowns.rentAhead(billable, seats, here.faction); }catch(_e){}
+  try{ shape=window.BohemiaTowns.rentShape(here.tier, seats); }catch(_e){}
+  if(!ahead) return null;
+  /* HAVE YOU ALREADY PAID FOR THIS PARTICULAR BLOCK TODAY? Pacing up and down one
+     street is one block to the landlord, which is what [block rent] settled, so
+     standing still must never read as another charge coming. */
+  var counted=false;
+  try{ var b=ctBlockOf(cx*FN, cy*FN);
+       counted=!!TURF_SEENCELL[here.faction+'@'+b[0]+','+b[1]]; }catch(_e){}
+  /* AND IS THIS STREET ONE THEY PUT OUT. */
+  var cut=false;
+  try{ for(var i=0;i<RENT_DOUSED.length;i++)
+         if(RENT_DOUSED[i].at[0]===cx&&RENT_DOUSED[i].at[1]===cy) cut=true; }catch(_e){}
+  return { faction:here.faction, tier:here.tier, shape:shape,
+           used:ahead.used, now:ahead.now, adds:ahead.adds, free:ahead.free,
+           tonight:ahead.tonight, counted:counted, cut:cut,
+           dueMin:(function(){ try{ return DAY.NIGHT_MIN|0; }catch(_e){ return null; } })(),
+           draft:true };
+}
+/* the one line, in his own words, for a card with room for one. draft:true. */
+function ctRentLine(r){
+  if(!r) return null;
+  var w=battWord(r.now);
+  if(!r.now) return r.faction+' have not billed you for this ground yet';
+  return r.faction+' want '+w+' tonight for the '+r.used
+       + (r.used===1?' block':' blocks')+' of theirs you have used';
+}
+try{ window.ctRentHere=ctRentHere; window.ctRentLine=ctRentLine;
+     window.rentBillable=rentBillable; }catch(_e){}
 
 /* WHAT WENT OUT TONIGHT, so the reckoning can say it in words rather than leaving
    him to notice a street is darker. Cleared with the day's spend list. */
@@ -67730,6 +68030,52 @@ function showStanding(){
          + esc(_t.faction) + '</span></div>';
     else
       h += '<div class="rpend">Nobody holds this ground yet.</div>';
+  } catch(_e) {}
+  /* __YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES__ (9/13, [rent visible]) -- AND WHAT IT
+     COSTS YOU TO BE ON IT.
+
+     MEASURED FIRST: walking forty blocks across six factions' ground said nothing
+     all day, and every word about the bill arrived at nightfall, after the day
+     was spent. The card is called WHERE YOU STAND and the row above it already
+     names the owner, so what their ground charges belongs on the next line and
+     behind no new button.
+     DISCLOSURE, NOT A CHANGE: nothing here bills anybody, moves a number, or
+     touches the purse. The night charges exactly what it charged before. */
+  try {
+    var _r = ctRentHere();
+    if (_r) {
+      h += '<div class="rrow"><span class="rk">WHAT IT TAKES</span><span class="rv">'
+         + esc(battWord(1)) + ' a night, every block</span></div>';
+      /* AND HOW MANY OF YOUR BLOCKS THEY ACTUALLY CHARGE FOR, which is the whole
+         difference between a fortress and a camp and is FOUND by running the bill
+         up a ladder rather than written out per tier. */
+      if (_r.shape && _r.shape.per > 1)
+        h += '<div class="rwhy">A ' + esc(String(_r.tier)) + ' charges for '
+           + _r.shape.charged + ' block' + (_r.shape.charged === 1 ? '' : 's')
+           + ' in every ' + _r.shape.per + '.</div>';
+      else if (_r.shape)
+        h += '<div class="rwhy">A ' + esc(String(_r.tier))
+           + ' charges for every block you use.</div>';
+      h += '<div class="rrow"><span class="rk">TONIGHT SO FAR</span><span class="rv">'
+         + esc(battWord(_r.now)) + ' for ' + _r.used
+         + (_r.used === 1 ? ' block' : ' blocks') + '</span></div>';
+      /* THE ONE THING HE CANNOT WORK OUT FOR HIMSELF, AND THE REASON THIS ROW
+         EXISTS: whether walking on is free. Standing still is never another
+         charge, because the landlord bills a block and he is already on it. */
+      h += '<div class="rrow"><span class="rk">'
+         + (_r.counted ? 'ANOTHER BLOCK OF THEIRS' : 'THIS BLOCK')
+         + '</span><span class="rv">' + (_r.free ? 'FREE' : 'COSTS ONE')
+         + '</span></div>';
+      if (_r.dueMin != null)
+        h += '<div class="rwhy">Due at ' + esc(DAY.hhmm(_r.dueMin)) + ', in batteries.'
+           + (_r.tonight > _r.now
+              ? (' Everybody wants ' + esc(battWord(_r.tonight)) + ' off you tonight.')
+              : '') + '</div>';
+      /* AND IF THEY HAVE ALREADY PUT THIS STREET OUT, SAY SO WHERE HE IS STANDING. */
+      if (_r.cut)
+        h += '<div class="rpend">' + esc(_r.faction.toUpperCase())
+           + ' cut this street off. You did not pay for it.</div>';
+    }
   } catch(_e) {}
   /* __WHO_WILL_JOIN_YOU__ (9/13, [recruit anywhere]) -- WHO WOULD COME WITH YOU
      FROM HERE.
