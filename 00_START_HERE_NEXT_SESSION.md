@@ -19097,6 +19097,39 @@ GREEN -> PLUMBER [cannot fail] second; the combat entry gate flakes 1 in 5 becau
 staging sometimes delivers no party -> COMBAT [party arrives]. MY PREMISE WAS WRONG A
 FOURTH TIME: the two colour tables are aim and landing, not two sources; CHARACTER did the
 row before arguing and found the guard checked presence never value; row re-aimed.
+THEN (du) VAMILY, 28 commits. SHIPPED: WORLD [debt carried] (one place answers who you
+owe, on the nightfall card, and the fold now actually kills the bill and keeps the lenders
+by name; it found its own tautology check and a NUL byte in the city), QUESTS [company in
+asks] (your people are computed from bonds, never a roster; its own limit is the cast dies
+with the day -> QUESTS [bond outlives]), FACTIONS [tracks read] (28 parties leave trails in
+their own ink on the map; the street says who came through; "the named blocker was not
+the blocker, sixth row running" -> FRONT-PAGE RULE 12: a dependency I write is a premise
+the lane measures, never a gate), EYES E18 both rounds (melody at 8.0 s where his anchor
+has it already playing -> SOUNDS [melody first]; the lead he named, brokenrosary, is
+scheduled ZERO times -> SOUNDS [lead never sounds]), DIRECTION [judge the zoom] PASS (the
+person crosses the swap at one size; the depth dial is a derived number), ECONOMY Q34
+(one distinct price in the whole valley; the biggest road in a real crash is buying at
+one price and selling at another, impossible here -> WORLD [two prices] under [every
+pocket], ECONOMY Q38 [old price], Q39 [protection court], Q40 [how many pockets], FACTIONS
+[deal sticks]), WORDS baked the book and made its ratchet a rate (five hits are QUESTS
+text -> QUESTS [five hits]; three one-way-ruler shapes -> PLUMBER [one way rulers]),
+COOK [fortress buildings] r2 ("~20 undrawn districts" is EIGHT, seven are Vegas landmarks
+on bare ground -> the FACTION TOWNS law corrected 9/13, COOK [seven landmarks], WORLD
+[beltway placed]), CHARACTER [one colour table] r2 (5 of 9 -> 7 of 9; a garment named
+COPPER renders GREEN -> CHARACTER [names lie], [shape frozen]; Anarchists have no magenta
+garment and Network needs a second teal piece -> COOK [magenta piece], [teal legs]; two
+outfits changed -> DIRECTION [judge the swaps]), RUN [drop in] (four conversation buttons
+at 31 px, no checker had ever opened a conversation -> UI [every card], EYES E23 [every
+screen]; four gates held a spelling not a meaning -> PLUMBER [spelling gates]), PLUMBER
+[suite runs] r1 (FACTION ARC 594 s -> 357 s, still over the 600 s cap, continuing).
+DECIDED BY ME: the FACTIONS [PENDING Paolo] on debt (survives in full vs dies) is closed,
+the fold wins, records/BOHEMIA_RULING_THE_BILL_DIES_THE_LENDER_STANDS_9_13_26.md ->
+FACTIONS [same lender]. MY SWING: records/BOHEMIA_COORDINATOR_SWING_ONE_PRICE_IN_THE_WHOLE
+_VALLEY_9_13_26.md (Argentina: price spread rises with inflation, slope one third; Lebanon:
+four rates, the door sold at eight times). ALSO: FACTIONS [pursuit strength] (his 9/6
+travel-map ruling, never on the board), DIRECTION [judge tracks], EYES E24 [phone latency],
+WORDS Q22 [debt words], Q23 [track words]. Board: 169 OPEN, 15 CLAIMED. Every lane at six
+or more open. The one shipped thing he has never opened: the footprints on the MAP tab.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING

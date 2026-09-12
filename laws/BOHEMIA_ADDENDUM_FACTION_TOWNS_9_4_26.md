@@ -61,6 +61,16 @@
 - ART: the buildings a fortress needs that nobody has drawn are the ~20
   map-only districts already on ART's queue; the towns ruling is the reason
   to build them, in tier order.
+  CORRECTED 9/13 (coordinator, from COOK [fortress buildings] round 2, e106c83,
+  records/BOHEMIA_TWENTY_MAP_ONLY_DISTRICTS_ARE_EIGHT_9_12_26.md): the "~20" was
+  wrong by 2.5x. Measured against all four registries by running them: EIGHT
+  names, and not one is a fortress building. Every district a town is made of
+  already generates (61 of 61). Seven of the eight are singular Las Vegas
+  landmarks placed correctly and drawn by nothing (strat, sphere, highroller,
+  luxor, the Welcome sign, springs, robofactory); the eighth, beltway, is placed
+  on zero cells. So the towns ruling is NOT blocked on undrawn districts; the
+  landmarks are heroes and go to COOK [seven landmarks] on their own merit, and
+  MAP NAMES IT (gates/map_names_it_gate.js) holds the count so it only shrinks.
 - FACTIONS: which faction holds which tier stays his; the draft off
   act1_power ships so the map is never empty while he decides.
 - Gate: a towns gate asserts every selectable faction has a seat, a tier
