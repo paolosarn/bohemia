@@ -16427,8 +16427,9 @@ gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-prov
 NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
 Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
 
-QUEUE STATE: [loot kept] is closed, and [guns close] BB-GUNS-CLOSE was claimed and built in the
-same round.
+QUEUE STATE: [loot kept] and [guns close] are both SHIPPED (efd64c7 carries [guns close] and the
+key-guard fix; sha read off main after the push). THE NEXT OPEN LINE IN THIS SECTION IS
+[rescue her] BB-PICKUP.
 
 [guns close]: "GUNS ARE BAD IN CLOSE. Forever, on every weapon." MEASURED FIRST AND THE BUILD WAS
 THE EXACT OPPOSITE, in its own comment: rangeT is 0 inside PT_BLANK, and the dial's pattern tier
