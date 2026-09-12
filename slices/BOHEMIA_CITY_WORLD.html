@@ -227,9 +227,14 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #keybtn{position:absolute;right:12px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
 #keybtn:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #savebtn{position:absolute;left:110px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
-#savepanel{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90%,360px);background:rgba(12,10,8,0.97);border:1px solid var(--line);border-radius:8px;padding:14px;z-index:9}
+/* *** A MODAL UNDER THE RAIL IS NOT A MODAL. *** Seen in the picture: the STANDING chip
+   and the note were drawing ON TOP of this panel's own buttons, because #blstack sits
+   at z-index 39 and this sat at 9. Same family as [rail collides] and found the same
+   way -- by opening the thing and looking at it. A panel that covers the screen has to
+   be above the furniture. */
+#savepanel{display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(90%,360px);background:rgba(12,10,8,0.97);padding:14px;z-index:60}
 #savepanel textarea{width:100%;height:70px;background:#15120d;border:1px solid var(--line);color:var(--ink);border-radius:5px;font-size:10px;margin:8px 0}
-#savepanel .sbtn{display:inline-block;padding:8px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;margin-right:8px}
+#savepanel .sbtn{display:inline-block;padding:8px 11px;background:var(--face);color:var(--acc);font-weight:600;font-size:10px;letter-spacing:1px;margin-right:8px}
 #musbtn{position:absolute;left:12px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
 #musbtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #pfbtn{position:absolute;right:236px;top:10px;padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
@@ -248,9 +253,9 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #reroll:active{color:#fff;border-color:#5a4a2a;background:#1f1a10}
 #underbtn{position:absolute;right:74px;top:10px;padding:7px 11px;background:var(--face);color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px;z-index:6}
 #underbtn.on{color:#fff;border-color:#5a4a2a;background:#1f1a10}
-#keypanel{display:none;position:absolute;right:12px;top:44px;max-height:64%;overflow-y:auto;background:rgba(12,10,8,0.95);border:1px solid var(--line);border-radius:6px;padding:9px 11px;font-size:10px;line-height:1.85;color:var(--ink);z-index:6;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;max-height:74%}
+#keypanel{display:none;position:absolute;right:12px;top:44px;max-height:64%;overflow-y:auto;background:rgba(12,10,8,0.95);padding:9px 11px;font-size:10px;line-height:1.85;color:var(--ink);z-index:60;touch-action:pan-y;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;max-height:74%}
 #keypanel .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle;border:1px solid rgba(255,255,255,0.2)}
-#keypanel .krow{padding:2px 5px;border-radius:5px;margin:1px 0;border:1px solid transparent;touch-action:pan-y}
+#keypanel .krow{padding:2px 5px;margin:1px 0;touch-action:pan-y}
 #keypanel *{touch-action:pan-y}
 #keypanel .krow:active{background:rgba(184,154,106,0.22)}
 #keypanel .krow.on{border-color:var(--acc);background:rgba(184,154,106,0.16)}
@@ -315,7 +320,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 /* ==== ZOOM-BUILD panel: the build verbs at the city zoom. Sits below the top
    toolbar and well above the DROP IN pad so it collides with neither. ==== */
 #buildpanel{position:absolute;left:8px;right:8px;top:104px;z-index:8;display:none;
-  background:rgba(12,10,8,0.95);border:1px solid var(--line);border-radius:8px;
+  background:rgba(12,10,8,0.95);
   padding:8px 10px;font:11px var(--face-body);color:var(--ink)}
 #buildpanel .cbrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:3px 0}
 #buildpanel button{padding:7px 10px;border-radius:6px;border:1px solid var(--line);
@@ -506,7 +511,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #outfitbtn:active{border-color:var(--acc);color:#fff}
 #outfitbtn.ring{background:#d8b45a;border-color:#d8b45a;color:#191308;font-weight:700}
 #outfitpanel{display:none;position:absolute;left:8px;right:8px;top:52px;bottom:64px;
-  background:var(--bg);border:1px solid var(--line);border-radius:8px;z-index:60;
+  background:var(--bg);z-index:60;
   overflow:hidden;flex-direction:column}
 #outfitpanel.on{display:flex}
 #outfitpanel .obbar{display:flex;justify-content:space-between;align-items:center;
@@ -66303,7 +66308,11 @@ window.BOHEMIA_SKIN = (function(){
         '--skin-chipunder':'rgba(0,0,0,.55)',
         '--skin-chipink':'#d8c49a',
         '--skin-chipround':'2px',
-        '--skin-chiptrack':'.4px'
+        '--skin-chiptrack':'.4px',
+        '--skin-panelround':'3px',
+        '--skin-paneltop':'#4c412f',
+        '--skin-panelbase':'#0a0806',
+        '--skin-panelunder':'rgba(0,0,0,.6)'
       }
     }
     /* ACT TWO and ACT THREE go here, as siblings. Nothing else in the file changes. */
@@ -66324,7 +66333,13 @@ window.BOHEMIA_SKIN = (function(){
     st.textContent =
        '#musbtn,#savebtn,#phonebtn,#outfitbtn,#devbtn,#rungbtn,#buildbtn,#mktbtn,'
       +'#workbtn,#fitbtn,#bikebtn,#sleepbtn,#modechip,#popbtn,#reroll,#underbtn,'
-      +'#keybtn,#walkfeel,#packbtn{'
+      +'#keybtn,#walkfeel,#packbtn,'
+      /* AND THE BUTTONS INSIDE A PANEL. Looking at the save panel after the panels got
+         their body showed four buttons still wearing the old rounded card with a
+         hairline, inside a plate that no longer does -- the inconsistency was more
+         obvious than either look on its own. They are classes, not ids, which is the
+         only reason the first rule missed them. */
+      +'#savepanel .sbtn,#keypanel .krow,#buildpanel .bvb{'
       +'border:0!important;'
       +'border-radius:var(--skin-chipround,2px)!important;'
       +'background:var(--skin-chipface,#1a160f)!important;'
@@ -66335,6 +66350,20 @@ window.BOHEMIA_SKIN = (function(){
                  +'inset 0 -2px 0 var(--skin-chipbase,#0b0906),'
                  +'0 1px 0 var(--skin-chipunder,rgba(0,0,0,.55))!important}'
       /* pressed is the object moving, not a colour swap */
+      /* *** AND THE PANELS GET THE SAME LANGUAGE, ROUND THREE. *** The tell ruler was
+         upgraded to say WHERE, and once the attribution was honest the biggest owners were
+         these: the day card, the save, key, build and outfit panels. Each carried its own
+         `border:1px solid` and its own card radius, which is the hairline-and-rounded-card
+         pair the law names twice. A panel gets a body the same way a chip does -- a lit rim
+         above, a dark base below, and the side of the thing under it -- and one rule reading
+         the skin means act two moves all of them at once. */
+      +'#savepanel,#keypanel,#buildpanel,#outfitpanel,#daycardIn,#phonewrap{'
+      +'border:0!important;'
+      +'border-radius:var(--skin-panelround,3px)!important;'
+      +'box-shadow:inset 0 2px 0 var(--skin-paneltop,#4c412f),'
+                 +'inset 0 -3px 0 var(--skin-panelbase,#0a0806),'
+                 +'0 2px 0 var(--skin-panelunder,rgba(0,0,0,.6)),'
+                 +'0 10px 26px rgba(0,0,0,.55)!important}'
       +'#musbtn:active,#savebtn:active,#phonebtn:active,#outfitbtn:active,#rungbtn:active,'
       +'#buildbtn:active,#mktbtn:active,#workbtn:active,#fitbtn:active,#bikebtn:active,'
       +'#sleepbtn:active,#modechip:active,#packbtn:active{'

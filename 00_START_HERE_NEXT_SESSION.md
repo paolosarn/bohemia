@@ -1,3 +1,47 @@
+UI (ui-kmqmrf): 9/12 (c) LATEST -- *** [no slop] ROUND THREE. THE TELLS HAVE OWNERS. ***
+TAB: CITY and RUN (the panels that pop up over the city).
+RULER: tools/bohemia_count_the_tells.js --where
+RECORD: records/BOHEMIA_NO_SLOP_WHERE_THEY_LIVE_9_12_26.md
+PICTURE: slices/BOHEMIA_THE_PANEL_IS_A_PLATE_9_12_26.html
+
+"62 HAIRLINES" IS A SCORE. "TEN IN THE DAY CARD" IS A JOB. The ruler attributes every hit to
+the panel that owns it now, which is the whole of what turned this round from tidying into work.
+
+*** AND IT LIED TWICE BEFORE IT TOLD THE TRUTH, AND THE SECOND ONE WAS NEARLY ROUTED. ***
+  1. A HEX COLOUR READ AS A PANEL. The anchor was "a hash followed by a letter", so #c9a24a --
+     a shade of gold -- was credited with six hits, and every hit after any colour literal was
+     attributed to that colour. The list of owners was partly a list of paints.
+  2. WORDS INSIDE QUEST DATA READ AS PANELS. With colours excluded, the two biggest owners came
+     back #namedbody (17 hairlines, 19 radii) and #dread (18 monospace). NEITHER EXISTS IN THE
+     STYLESHEET -- they are strings in the embedded .bq quest text. I was one step from writing
+     a routing note telling other lanes to go fix panels that do not exist.
+Caught by opening the top two names and finding no rule behind either. A CLEAN ANSWER FROM THE
+WRONG ORACLE LOOKS EXACTLY LIKE A FACT. An anchor is now exactly two things: an id in the
+markup, or an id that OPENS a css rule.
+
+THE PANELS ARE PLATES NOW. Save, key, build, outfit and the day card's box each carried their
+own border:1px solid and their own card radius. One skin rule gives them the same object
+language the chips use, and the declarations are DELETED rather than overridden, so the source
+and the screen say the same thing.
+
+TWO FAULTS THE PICTURE CAUGHT THAT NO COUNT COULD, both by opening the save panel and looking:
+  - the buttons INSIDE the panel still wore the old rounded card with a hairline, inside a
+    plate that no longer did. They are classes, not ids, which is why the first rule missed them.
+  - A MODAL WAS SITTING UNDER THE RAIL. #blstack is z-index 39 and the panel was 9, so the
+    STANDING chip and the walk note drew ON TOP of the panel's own buttons. Same family as
+    [rail collides], found the same way. The modal panels are above the furniture now.
+
+NUMBERS: walked city 272 -> 266. 1px borders 62 -> 58, rounded 65 -> 62, named fonts 0.
+UNCHANGED AND STILL THE TWO BIGGEST: monospace 44, spaced caps 80. The font debt from round two
+is exactly where it was -- the ruled faces are not in this repo. The biggest single owner left
+is the day card, and it is mostly its WRITING, not its box: a surface with an owner and a voice
+that wants its lane's eyes before mine.
+
+GATES: CITY RAIL 8/0, PHONE OBJECT 18/0, SETTINGS 18/0, TOP MENU BAR 12/0, HALF SIZE 7/0,
+THUMB 15/0, FEED 15/0, READABLE RULER 7/0, ALPHA LOADS 20/0, PAGES PUBLISH 18/0.
+[PENDING Paolo] Nothing blocking.
+
+<<<<<<< HEAD
 EYES AND EARS (eyes-5vql33): 9/12 (y) LATEST -- *** E18 [he can hear it] ROUND ONE OF TWO IS DONE: SCHOOL. NOTHING WAS MEASURED. THE ANCHOR HE NAMED HAS NO TRUSTWORTHY NUMBER ANYWHERE, AND OUR OWN SOUND LAW DESCRIBES IT BACKWARDS. *** TAB: the song he likes is in MUSIC, and it is also in the demo. NOT IN A TAB YET for the instrument; this lane never writes game code. Record: records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md. Spec bank: banks/eyes/BOHEMIA_EYES_E18_AXIS_CARD_SPEC_9_12_26.json, draft:true.
 
 BOTH SIDES OF THE COMPARISON ARE NAMED BY HIM AND BOTH WERE FOUND. The anchor: BESAID ISLAND, FINAL FANTASY X Original Soundtrack, disc 1 track 18, composed AND arranged by MASASHI HAMAUZU, the ORIGINAL not the remaster (Paolo 9/7, "look at this song bro"). The candidate: THE MARKER ON THE DOOR, tagged OVERWORLD DAY by his own hand, Paolo 8/2: "The marker on the door at full intensity is now one of my new favorite songs that you've made great job." It is a live row in the shipped music table: root 48, scale [0,2,4,7,9] which is major pentatonic, sawtooth, kick [0,4,8,11], bass [0,4,9,12], hat [2,6,10,14], lead brokenrosary, bass abyssbass, pad nightpad, kit knock and tight, swing 0.1, full intensity, batch 22. 181 song rows and 126 distinct names ship in the alpha and the demo.
@@ -20,6 +64,11 @@ SOURCE HONESTY, WRITTEN DOWN BECAUSE IT LIMITS HOW HARD THIS CAN BE LEANED ON: t
 STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists" and is wrong by eighteen instruments and five suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. Three superseded GDDs (v2, v3, v4) still live in laws/ beside v5 carrying 69 lock lines. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
 
 NEXT: E18 round two, the check. Then E19 [slop count], E20 [song length], E21 [marker sweep], E22 [never ran]. Every job is two rounds and never one. E9 is STANDING and runs every round.
+=======
+
+================================================================================
+=======
+>>>>>>> b1e31090 ([no slop] round three: the tells have owners now, and the counter lied twice getting there)
 
 WORDS (words-8dqrnq): 9/12 (c) LATEST -- *** Q20 [no law talk] SHIPPED WITH BOTH ROUNDS. ACT ONE IS
 THE MOST FORMAL OF THE THREE ERAS, AND THE FIFTEEN LINES EACH CARRY THE INSTITUTION ACT TWO WOULD
@@ -393,8 +442,36 @@ The coordinator added Q35 and Q36 since last round.
 
 
 
+<<<<<<< HEAD
 ================================================================================
 ================================================================================
+=======
+EYES AND EARS (eyes-5vql33): 9/12 (x) LATEST -- *** E17 [locked ignored] IS SHIPPED, BOTH ROUNDS. THREE RULINGS HE MARKED LOCKED ARE CONTRADICTED BY THE SHIPPED GAME. *** TAB: the three are in RUN (the title screen), CITY (the purple tiles you walk past) and COMBAT (the cover cost). The instruments themselves are NOT IN A TAB YET; this lane never writes game code.
+E17 [locked ignored] IS SHIPPED at 545fa7c, BOTH ROUNDS. School: records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md. The sweep: records/BOHEMIA_EYES_E17_ROUND_2_THE_LOCK_IS_NOT_THE_RULING_9_12_26.md. Tool tools/bohemia_eyes_locked.py plus the real-screen half tools/bohemia_eyes_locked_surface.js. Gate gates/locked_ratchet_gate.js, suite LOCKED RATCHET, proven to bite on four separate failures before it was registered.
+
+THE NUMBERS: 1,046 lines in laws/ carry the word. 856 are a real lock, 10 are the ordinary English word, 180 only talk about locking. 330 of the locks are HIS; 526 are a lane freezing its own mechanism, which is legitimate and is not his ruling. Of his 330, only 35 name anything a machine could ever check, 3 are look-and-feel and belong to DIRECTION, and 292 are intent, lore or process. Twelve are checked against the 17 files the shipped game actually loads: 8 SATISFIED, 3 EROSION, 1 NOT-BUILT, 0 DRIFT.
+
+THE THREE EROSION ROWS, EACH WITH AN OWNER:
+ 1. RUN -- THE RIDGE = THE MENU / TITLE SCREEN (locked, Paolo, 7/19). Measured on the real screen in Chromium at phone size, not read out of source: the strip above the name is ONE colour, 0.00% not flat, against 22 colours in the same strip of the walked city. No ridge is drawn. The release search found no newer ruling about the title screen anywhere in laws/. Pictures records/target/EYES_E17_SPLASH.png and EYES_E17_CITY.png.
+ 2. DIRECTION and COOK -- 32 purple tiles. Bounced back onto DIRECTION's queue as [eyes: purple leak], the one bounce-back line rule 10 allows this lane. Contact sheet records/target/EYES_E17_PURPLE_TILES.png.
+ 3. COMBAT, then the coordinator -- the fight ships RUN_COVER_COST=2 commented "his number" and NOTHING in laws/ carries that ruling. Either EVERYTHING COSTS ONE (8/15) needs the exception written into it or the constant needs to be 1. That is a decision and it is not this lane's.
+
+ROUND TWO CORRECTED ROUND ONE TWICE, OUT LOUD. (a) Round one's verdict table said a contradiction where the BUILD is newer is DRIFT, the document's defect. That is backwards: NEWEST DATE WINS settles two RULINGS, and a lane shipping later is not a ruling. If it were, any lane could overturn any lock by shipping after it. Corrected, DRIFT needs a newer RULING that releases the old line, and that release is a SEARCH of laws/, not a table somebody fills in. Under the old table the Ridge would have been filed as the document's fault. (b) The harvest needed a third answer: the word is often just the English word (a locked door, a beat-locked scrub), and those cluster in lowercase, so round one's own case-insensitive fix made that worse.
+
+A CONTROL FAILED AND CHANGED THE INSTRUMENT, WHICH IS THE ROUND'S BEST MOMENT. The title-screen measure first counted colours across the whole picture with the walked city as the positive control. The control came back WORSE than the thing it was controlling: the city 31 colours and 5% non-ground, the splash 41 and 13%, because the city at that zoom is mostly flat desert and a wordmark is busy. Fixed by measuring the strip above the name where the splash's own furniture cannot reach. The first version's number would have been a lie in this lane's own headline.
+
+THE PURPLE PROBE WAS WRONG TWICE BEFORE IT WAS RIGHT, and all three versions are in the tool's docstring. A text scan of the tile pools read a clean ZERO because every tile is a base64 PNG and there is no hex anywhere. A loose pixel threshold then flagged 61,323 pixels that turned out to be near-black shadow tints, night grading, not fantasy purple; shipping that would have been a false accusation aimed at every artist on the fleet. The right unit is the TILE, and the right question is which BANK it sits in, because purple in a hatch bank is the law being obeyed.
+
+THE CLASSIFIER IS SCORED AGAINST A HUMAN AND THE HONEST SCORE IS THE THIRD ONE. Fifty lines read by hand, deterministically sampled. Sample A (30) scores 100% and is worth nothing because the rules were written looking at it. Sample B (20) scores 100% and is ALSO worth nothing because its misses were used to repair the rules; a held-out sample stops being held out the moment you fix anything with it. Sample C (20), read after the last repair and untouched, scores 90%, and that is the number the gate floors at 85%. Both misses in C are written down.
+
+FOR THE COORDINATOR, NOT MINE TO FIX:
+ - THREE SUPERSEDED GDDs ARE STILL IN laws/. BOHEMIA_GDD_v2, v3 and v4 sit beside v5 and carry 69 lock lines between them, so 6.6% of this corpus is dead rulings reading as live. The truth hierarchy says a superseded file moves to /archive the same turn with a registry line. Nothing in this lane may move a law file.
+ - SIX OF THE TWELVE RULINGS CHECKED ARE NAMED BY NO GATE, and the rot runs both ways: gates/border_gate.js plainly checks the border law and never names it, so that ruling reads NO GATE although a real checker exists. E11 found CLAUDE.md promising gates that do not exist; this is the same break pointing the other way.
+ - STILL STANDING FROM EARLIER ROUNDS: lane 17's own STATE line still says "nothing exists" and is now wrong by eighteen instruments and five suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
+
+NEXT: E18 [he can hear it] -- the one song he likes, measured against Besaid Island on a music supervisor's axes. School first, always; every job in this lane is two rounds and never one. E9 is STANDING and runs every round.
+
+>>>>>>> b1e31090 ([no slop] round three: the tells have owners now, and the counter lied twice getting there)
 UI (ui-kmqmrf): 9/12 (b) LATEST -- *** [no slop] ROUND TWO, THE TYPE. ROW STILL CLAIMED. ***
 TAB: CITY and RUN.  RULER: tools/bohemia_count_the_tells.js
 RECORD: records/BOHEMIA_NO_SLOP_THE_REGISTERS_9_12_26.md

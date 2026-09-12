@@ -85,7 +85,55 @@ function count(file) {
   return out;
 }
 
-const rows = SURFACES.map(([name, file]) => ({ name, file, n: count(file) }));
+/* *** WHERE, NOT JUST HOW MANY (round three). *** "62 one-pixel borders" is a number
+   nobody can act on: it does not say whose panel, so it cannot be cut and it cannot be
+   routed. Every hit is attributed to the nearest CSS selector or html id above it, and the
+   hits are grouped, so the count stops being a score and starts being a list of jobs.
+   The attribution is the nearest id-ish anchor above the match, which is a heuristic and
+   is named as one -- it lands a hit inside #daycard on "#daycard" and a hit in a bare
+   `.fp .txt` rule on the last id it saw. Good enough to route by, not evidence. */
+function locate(file) {
+  const raw = fs.readFileSync(path.join(ROOT, file), 'utf8');
+  const src = strip(raw);
+  /* *** AN ANCHOR MUST BE A SELECTOR OR AN ID, NOT ANY WORD THAT STARTS WITH A HASH. ***
+     Two wrong cuts before this one, and the second nearly sent другим lanes a list of jobs
+     that did not exist:
+       1. a HEX COLOUR read as an id -- six hits attributed to "#c9a24a", a shade of gold.
+       2. a WORD INSIDE QUEST DATA read as an id -- "#namedbody" and "#dread" are strings in
+          the embedded .bq text, not panels, and they were credited with 17 borders, 19 radii
+          and 18 monospace between them. Nothing with those names exists in the stylesheet.
+     A CLEAN ANSWER FROM THE WRONG ORACLE LOOKS EXACTLY LIKE A FACT, which is why this was
+     caught by opening the top two names and finding no rule behind either.
+     So an anchor is now one of exactly two things: an id written in the MARKUP, or an id
+     that OPENS A CSS RULE (followed by a brace with no semicolon or brace in between). */
+  const anchors = [];
+  const push = (at, id) => anchors.push({ at, id });
+  let m;
+  const IDATTR = /\bid="([A-Za-z][\w-]*)"/g;
+  while ((m = IDATTR.exec(src))) push(m.index, '#' + m[1]);
+  const SEL = /(#[A-Za-z][\w-]*)(?=[^{};<>"']*\{)/g;
+  while ((m = SEL.exec(src))) push(m.index, m[1]);
+  anchors.sort((a, b) => a.at - b.at);
+
+  const where = t => {
+    const out = {};
+    const re = new RegExp(t.re.source, t.re.flags.replace('g', '') + 'g');
+    let hit;
+    while ((hit = re.exec(src))) {
+      let lo = 0, hi = anchors.length - 1, found = '(no id near it)';
+      while (lo <= hi) { const mid = (lo + hi) >> 1;
+        if (anchors[mid].at <= hit.index) { found = anchors[mid].id; lo = mid + 1; } else hi = mid - 1; }
+      out[found] = (out[found] || 0) + 1;
+      if (re.lastIndex === hit.index) re.lastIndex++;
+    }
+    return out;
+  };
+  const by = {};
+  for (const t of TELLS) by[t.key] = where(t);
+  return by;
+}
+
+const rows = SURFACES.map(([name, file]) => ({ name, file, n: count(file), by: locate(file) }));
 const totals = {};
 for (const t of TELLS) totals[t.key] = rows.reduce((a, r) => a + r.n[t.key], 0);
 const grand = Object.values(totals).reduce((a, b) => a + b, 0);
@@ -108,6 +156,21 @@ if (process.argv.includes('--json')) {
     + String(grand).padStart(9));
   console.log('\n  what each one is:');
   for (const t of TELLS) console.log('    ' + t.key.padEnd(w) + t.note);
+  /* THE TOP OWNERS, so the next round knows what it is opening and whose it is. */
+  if (process.argv.includes('--where')) {
+    for (const r of rows) {
+      console.log('\n  WHERE THEY ARE -- ' + r.name);
+      for (const t of TELLS) {
+        const e = Object.entries(r.by[t.key]).sort((a, b) => b[1] - a[1]).slice(0, 6);
+        if (!e.length) continue;
+        console.log('    ' + t.key);
+        for (const [id, n] of e) console.log('        ' + String(n).padStart(4) + '  ' + id);
+      }
+    }
+  } else {
+    console.log('\n  run with --where to see WHOSE PANEL each hit is in.');
+  }
+
   console.log('\n  IT READS THE SOURCE, NOT THE PAINTED SCREEN. A tell in a string the game');
   console.log('  never renders counts the same as one he can see, and slop nobody listed is');
   console.log('  invisible to it. A floor under the work, not a verdict on it.\n');

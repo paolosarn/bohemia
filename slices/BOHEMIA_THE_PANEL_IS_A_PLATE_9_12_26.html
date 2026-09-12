@@ -1,0 +1,152 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BOHEMIA - FIVE PANELS THAT ARE NOT CARDS</title>
+<style>
+ /* Held to the list it shows: no named font, no hairline as an edge, no card radius as the
+    way to group, no gradient-and-glow, no spaced caps as the way to label, no emoji. */
+ :root{ --ink:#141210; --paper:#f4efe6; --rule:#9c907c; --hot:#a8391d; --cool:#2f6f6a }
+ *{ box-sizing:border-box }
+ body{ margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 ui-sans-serif,system-ui,Arial }
+ header{ padding:16px 14px 12px; border-bottom:3px solid var(--ink) }
+ h1{ margin:0 0 6px; font-size:19px }
+ .sub{ font-size:14px; color:#4a443c }
+ .now{ margin:12px 14px; padding:10px 12px; border-left:5px solid var(--hot); background:#fff; font-size:14px }
+ .now b{ color:var(--hot) }
+ .wrap{ padding:8px 14px 40px }
+ .opt{ background:#fff; margin:16px 0; border-bottom:3px solid var(--ink) }
+ .opt h2{ margin:0; padding:9px 12px; font-size:16px; background:var(--ink); color:var(--paper) }
+ .stage{ padding:20px 14px; background:
+     repeating-linear-gradient(90deg,#6f6450 0 18px,#675c49 18px 36px),
+     linear-gradient(#6b6150,#48412f);
+   display:flex; justify-content:center }
+ .body{ padding:12px }
+ .say{ margin:0; font-size:15px }
+ .cost{ margin:6px 0 0; font-size:14px; color:#5b544a } .cost b{ color:var(--ink) }
+ /* the panel at the size it is in the game, scaled up so the edge is visible */
+ .hold{ width:260px }
+ .pn{ width:260px; padding:10px 11px 12px; font:8px/1.5 ui-monospace,monospace; color:#c8b681 }
+ .pn h3{ margin:0 0 6px; font:9px/1.3 ui-monospace,monospace; letter-spacing:.4px; color:#e7d8bb }
+ .pn p{ margin:0 0 8px; color:#a99e86 }
+ .pn .row{ display:flex; gap:6px }
+ .pn .b{ padding:4px 7px; font-size:7px; letter-spacing:.4px; color:#d8c49a }
+ .judge{ padding:8px 12px 14px; border-top:1px dashed var(--rule) }
+ .tb{ font-size:22px; border:2px solid var(--ink); background:var(--paper); cursor:pointer;
+      padding:2px 12px; margin-right:8px }
+ .tb.on{ background:var(--cool); color:#fff } .tb.no.on{ background:var(--hot) }
+ textarea{ width:100%; min-height:52px; font:14px ui-sans-serif,Arial; padding:6px;
+           border:2px solid var(--rule); background:#fffdf8 }
+ #foot{ margin:18px 14px 60px; padding:12px; border-left:5px solid var(--ink); background:#fff }
+ button.big{ font:16px ui-sans-serif,Arial; padding:10px 16px; border:0;
+             background:var(--ink); color:var(--paper); cursor:pointer }
+</style></head><body>
+<header>
+ <h1>FIVE PANELS THAT ARE NOT CARDS</h1>
+ <div class="sub">The panels that pop up over the city used to be rounded boxes with a grey line round them, which is two things off the bot-UI list. Option A is what is in the game now. Tap a thumb. 9/12</div>
+</header>
+
+<div class="now">
+ <b>I COUNTED WHERE THE REST OF IT LIVES THIS ROUND,</b> not just how much. That turned
+ "62 grey hairlines" into a list of which panel each one is in, which is the difference
+ between a score and a job list. The save, key, build and outfit panels are done. The
+ biggest one left is the card that ends your day, and it is mostly its writing, not its box.
+ <br><br>
+ <b>AND THE COUNTER LIED TWICE BEFORE IT TOLD THE TRUTH.</b> First it blamed a shade of
+ gold for six of them, because a colour written as #c9a24a looks exactly like a name. Then
+ it blamed two words buried in quest text. I only caught it by opening the top two names and
+ finding nothing there. A clean answer from the wrong place looks exactly like a fact.
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div id="foot">
+ <div style="font-size:15px;margin-bottom:8px"><b>ANYTHING ELSE</b></div>
+ <textarea id="all" placeholder="Say whatever. Even one word."></textarea>
+ <div style="margin-top:10px"><button class="big" id="ex">SAVE MY ANSWERS</button></div>
+</div>
+
+<script>
+function panel(o){
+  return '<div class="hold"><div class="pn" style="'+o.css+'">'
+    + '<h3>SUSPEND SAVE</h3>'
+    + '<p>saves itself as you go. one save. picks up where you left off.</p>'
+    + '<div class="row">'
+    +   '<span class="b" style="'+o.btn+'">EXPORT</span>'
+    +   '<span class="b" style="'+o.btn+'">IMPORT</span>'
+    +   '<span class="b" style="'+o.btn+'">CLOSE</span>'
+    + '</div></div></div>';
+}
+
+var OPTS=[
+ { k:'A', t:'A. THE PLATE - what is in the game now',
+   css:'background:rgba(12,10,8,.97);border-radius:3px;'
+      +'box-shadow:inset 0 2px 0 #4c412f, inset 0 -3px 0 #0a0806, 0 2px 0 rgba(0,0,0,.6), 0 10px 26px rgba(0,0,0,.55)',
+   btn:'background:#1a160f;border-radius:2px;'
+      +'box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906, 0 1px 0 rgba(0,0,0,.55)',
+   say:'A dark plate with a lit top edge and a dark base, and the buttons on it are smaller plates of the same thing.',
+   cost:'<b>Costs you:</b> quiet, and it can read as heavy when it covers the city. <b>Gets you:</b> the panel and the buttons are made of one language, so nothing on screen looks borrowed from somewhere else.' },
+
+ { k:'B', t:'B. THE HATCH - a panel with a frame around it',
+   css:'background:rgba(12,10,8,.97);border-radius:2px;padding:14px 15px 16px;'
+      +'box-shadow:inset 0 0 0 3px #3a3226, inset 0 4px 0 #55492f, inset 0 -4px 0 #090705, 0 12px 28px rgba(0,0,0,.6)',
+   btn:'background:#1a160f;border-radius:2px;'
+      +'box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906',
+   say:'The same plate with a thick frame all the way round, like a hatch bolted into a wall.',
+   cost:'<b>Costs you:</b> the frame eats space, so less fits before it scrolls. <b>Gets you:</b> the most solid of the five. It reads as built into something rather than laid on top.' },
+
+ { k:'C', t:'C. THE CLIPBOARD - paper on a backing',
+   css:'background:#d8cdb4;color:#2a2419;border-radius:1px;'
+      +'box-shadow:inset 0 2px 0 #f0e7d2, inset 0 -3px 0 #9c917a, 0 3px 0 #3b3326, 0 12px 26px rgba(0,0,0,.5)',
+   btn:'background:#2a2419;color:#e7dcc2;border-radius:1px;'
+      +'box-shadow:inset 0 1px 0 #4a4133, inset 0 -2px 0 #0b0906',
+   say:'Light instead of dark. The panel is a sheet of paper and the buttons are stamps on it.',
+   cost:'<b>Costs you:</b> a bright rectangle over a dark city is a slap in the eye at night. <b>Gets you:</b> it breaks the habit of everything being dark, which is the single most named bot-UI tell.' },
+
+ { k:'D', t:'D. THE TAPED NOTE - stuck to the glass',
+   css:'background:rgba(20,17,12,.96);border-radius:1px;'
+      +'box-shadow:inset 0 -3px 0 #0a0806, 0 2px 0 rgba(0,0,0,.55), 0 10px 24px rgba(0,0,0,.5);'
+      +'border-top:7px solid rgba(206,188,140,.32)',
+   btn:'background:transparent;box-shadow:inset 0 -1px 0 #6b5c3f',
+   say:'No frame at all. A strip of tape holds the top and the buttons are just underlined words.',
+   cost:'<b>Costs you:</b> the buttons stop looking pressable, which is a real cost on a phone. <b>Gets you:</b> the lightest of the five. The city stays visible around it.' },
+
+ { k:'E', t:'E. THE DRAWER - it slides out of the edge',
+   css:'background:rgba(12,10,8,.97);border-radius:0;'
+      +'box-shadow:inset 3px 0 0 #55492f, inset 0 -3px 0 #0a0806, 4px 0 12px rgba(0,0,0,.5)',
+   btn:'background:#1a160f;border-radius:0;'
+      +'box-shadow:inset 0 1px 0 #5c4f38, inset 0 -2px 0 #0b0906',
+   say:'Square corners and a lit edge only on the side it came from, so it reads as pulled out of the screen edge rather than dropped on top.',
+   cost:'<b>Costs you:</b> it only makes sense if it actually slides, which is animation work. <b>Gets you:</b> no rounded corner anywhere, and a reason for where it appears from.' }
+];
+
+var box=document.getElementById('opts');
+box.innerHTML = OPTS.map(function(o){
+  return '<div class="opt"><h2>'+o.t+'</h2>'
+    + '<div class="stage">'+panel(o)+'</div>'
+    + '<div class="body"><p class="say">'+o.say+'</p><p class="cost">'+o.cost+'</p></div>'
+    + '<div class="judge" data-k="'+o.k+'">'
+    + '<button class="tb yes">&#128077;</button><button class="tb no">&#128078;</button>'
+    + '<div style="margin-top:8px"><textarea placeholder="What is wrong with this one"></textarea></div>'
+    + '</div></div>';
+}).join('');
+
+box.addEventListener('click', function(e){
+  var b=e.target.closest('.tb'); if(!b) return;
+  var j=b.closest('.judge');
+  j.querySelectorAll('.tb').forEach(function(x){ x.classList.remove('on'); });
+  b.classList.add('on');
+});
+
+document.getElementById('ex').addEventListener('click', function(){
+  var out=['BOHEMIA - FIVE PANELS THAT ARE NOT CARDS - 9/12/26',''];
+  box.querySelectorAll('.judge').forEach(function(j){
+    var on=j.querySelector('.tb.on');
+    out.push(j.dataset.k+': '+(on?(on.classList.contains('yes')?'YES':'NO'):'-')
+      +'   '+(j.querySelector('textarea').value||''));
+  });
+  out.push('','ANYTHING ELSE: '+(document.getElementById('all').value||''));
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([out.join('\n')],{type:'text/plain'}));
+  a.download='BOHEMIA_FIVE_PANELS_VERDICT.txt'; a.click();
+});
+</script>
+</body></html>
