@@ -41,10 +41,26 @@ nothing, and there is deliberately nothing to fall back on."* This is not a bug 
 fix in the table.
 
 **The nearest road district is one overmap cell away, which is 128 fine tiles.**
-Measured walking rate: a minute of play covers **13 fine tiles**, and it is not my
-harness pacing — 50 back-to-back steps with 60 clear cells ahead moved the same 13
-tiles, so **one step is about a quarter of a tile**. The first road moment is
-several minutes of continuous walking away from a sixty-second row.
+
+> ### CORRECTION (same round, before this shipped anywhere)
+> The first version of this record said a minute of play covers **13 fine tiles**,
+> that one step is **about a quarter of a tile**, and that the nearest road is
+> therefore **ten minutes of walking** away. **All three were wrong, and they were
+> wrong because of my own harness.** Both measurements that produced "13" were
+> taken through a probe doing three or four round trips per iteration plus a
+> 500ms sleep, so it was timing itself, not the game.
+>
+> **Measured properly, with a real held press on the real pad and a wall clock:**
+>
+>     ONE step moves a FULL tile (dx=1, dy=-1)
+>     TEN SECONDS of held walking = 20 fine tiles = 1.94 tiles/second
+>     128 tiles, the nearest road district = about 66 SECONDS of holding
+>
+> **Walking is fine.** The world is roughly a minute away, not ten. The first
+> minute is not empty because the valley is unreachable; it is empty because
+> nothing tells a stranger that holding a direction gets them somewhere, and the
+> job on the wake card says "about four and a half hours on foot", which reads as
+> a wall rather than an invitation.
 
 **And the other two systems that could fill the gap are out of reach too:**
 `hostileProbe()` returns 0 near the spawn and the nearest at-odds base is `null`;

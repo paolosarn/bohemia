@@ -1,0 +1,295 @@
+{
+ "what": "Which engine modules the shipped game actually carries. Written by gates/engine_census_gate.js.",
+ "why": "The [dead modules] row called 29 modules dead including a 281 KB one that is LIVE. The game INLINES engine modules, so a module unreachable as a file can be running code whose canon copy is that file. Deleting one breaks ENGINE SYNC quietly.",
+ "how": "A module is LIVE if the shipped slices carry its inline marker, or if at least 65% of its body lines over 45 characters appear verbatim in the shipped text.",
+ "taken": "2026-09-12T00:02:36.922Z",
+ "counts": {
+  "modules": 173,
+  "inlinedWithMarker": 104,
+  "codePresentNoMarker": 38,
+  "absentFromGame": 31,
+  "absentButRead": 25,
+  "absentButCarried": 9,
+  "orphaned": 1
+ },
+ "kb": {
+  "modules": 3836,
+  "inlinedWithMarker": 2035,
+  "codePresentNoMarker": 1468,
+  "absentFromGame": 334,
+  "orphaned": 15
+ },
+ "inTheShippedGame": [
+  "bohemia_against.js",
+  "bohemia_agents.js",
+  "bohemia_airfield.js",
+  "bohemia_apartment.js",
+  "bohemia_arterial.js",
+  "bohemia_asking.js",
+  "bohemia_asks.js",
+  "bohemia_ballpark.js",
+  "bohemia_battery.js",
+  "bohemia_belonging.js",
+  "bohemia_between.js",
+  "bohemia_blackbox.js",
+  "bohemia_blockgen.js",
+  "bohemia_bodyvar.js",
+  "bohemia_boneyard.js",
+  "bohemia_bq.js",
+  "bohemia_campus.js",
+  "bohemia_casino.js",
+  "bohemia_cemetery.js",
+  "bohemia_century.js",
+  "bohemia_chapel.js",
+  "bohemia_cityedit.js",
+  "bohemia_cityhall.js",
+  "bohemia_claim.js",
+  "bohemia_clout.js",
+  "bohemia_coalition.js",
+  "bohemia_coldopen_set.js",
+  "bohemia_combatfloor.js",
+  "bohemia_commercial.js",
+  "bohemia_commitment.js",
+  "bohemia_conversation.js",
+  "bohemia_courthouse.js",
+  "bohemia_crypt.js",
+  "bohemia_daycycle.js",
+  "bohemia_dayloop.js",
+  "bohemia_dead.js",
+  "bohemia_deeds.js",
+  "bohemia_demoquests.js",
+  "bohemia_desert.js",
+  "bohemia_district_kit.js",
+  "bohemia_downtown.js",
+  "bohemia_dress.js",
+  "bohemia_drivein.js",
+  "bohemia_economy.js",
+  "bohemia_encounters.js",
+  "bohemia_ending.js",
+  "bohemia_engine.js",
+  "bohemia_engine_graphics_7_14_26.js",
+  "bohemia_exchanges.js",
+  "bohemia_family.js",
+  "bohemia_farm.js",
+  "bohemia_favour.js",
+  "bohemia_feedstream.js",
+  "bohemia_firestation.js",
+  "bohemia_floorplan.js",
+  "bohemia_fold.js",
+  "bohemia_freeway.js",
+  "bohemia_furnish.js",
+  "bohemia_fuse.js",
+  "bohemia_garage.js",
+  "bohemia_golf.js",
+  "bohemia_hazard.js",
+  "bohemia_hostiles.js",
+  "bohemia_housing.js",
+  "bohemia_industrial.js",
+  "bohemia_interchange.js",
+  "bohemia_interior_ground.js",
+  "bohemia_introductions.js",
+  "bohemia_jail.js",
+  "bohemia_known.js",
+  "bohemia_ladder_data.js",
+  "bohemia_ladderwalk.js",
+  "bohemia_landfill.js",
+  "bohemia_landmarks.js",
+  "bohemia_library.js",
+  "bohemia_loop.js",
+  "bohemia_mall.js",
+  "bohemia_mandate.js",
+  "bohemia_medical.js",
+  "bohemia_memory.js",
+  "bohemia_mountain.js",
+  "bohemia_obligation.js",
+  "bohemia_overmap.js",
+  "bohemia_overmap_bridge.js",
+  "bohemia_packs.js",
+  "bohemia_park.js",
+  "bohemia_parties.js",
+  "bohemia_payday.js",
+  "bohemia_people.js",
+  "bohemia_personlook.js",
+  "bohemia_policestation.js",
+  "bohemia_population.js",
+  "bohemia_powerbuild.js",
+  "bohemia_powergrid.js",
+  "bohemia_production.js",
+  "bohemia_purse.js",
+  "bohemia_quest_runtime.js",
+  "bohemia_quirk.js",
+  "bohemia_rail.js",
+  "bohemia_railyard.js",
+  "bohemia_reach.js",
+  "bohemia_resolve.js",
+  "bohemia_resort.js",
+  "bohemia_retreat.js",
+  "bohemia_rooms.js",
+  "bohemia_save.js",
+  "bohemia_scene.js",
+  "bohemia_scheduler.js",
+  "bohemia_school.js",
+  "bohemia_sfx.js",
+  "bohemia_solar.js",
+  "bohemia_speedway.js",
+  "bohemia_stadium.js",
+  "bohemia_stage.js",
+  "bohemia_standing.js",
+  "bohemia_storage.js",
+  "bohemia_story_surface.js",
+  "bohemia_strip.js",
+  "bohemia_substation.js",
+  "bohemia_suburb.js",
+  "bohemia_succession.js",
+  "bohemia_swapmeet.js",
+  "bohemia_terminal.js",
+  "bohemia_terrain_noise.js",
+  "bohemia_ties.js",
+  "bohemia_town.js",
+  "bohemia_towns.js",
+  "bohemia_trailer.js",
+  "bohemia_truckstop.js",
+  "bohemia_utility.js",
+  "bohemia_valleymap.js",
+  "bohemia_vista.js",
+  "bohemia_voice.js",
+  "bohemia_warehouse.js",
+  "bohemia_wash.js",
+  "bohemia_water.js",
+  "bohemia_waterpark.js",
+  "bohemia_watertreat.js",
+  "bohemia_weather.js",
+  "bohemia_wildlife.js",
+  "bohemia_work.js",
+  "bohemia_world.js"
+ ],
+ "absentFromGame": [
+  {
+   "module": "BOHEMIA_AGENT_LOOK_7_10_26.js",
+   "keptAliveBy": "carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "BOHEMIA_AGENT_RAGS_7_10_26.js",
+   "keptAliveBy": "carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+   "keptAliveBy": "4 gate/tool"
+  },
+  {
+   "module": "BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
+   "keptAliveBy": "carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_bq_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_brownout.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_graphics_tests.js",
+   "keptAliveBy": "2 gate/tool + carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_interior_levels.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_light_pass.js",
+   "keptAliveBy": "carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_light_registry.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_channel_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_clout_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_entities_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_faction_bridge_tests.js",
+   "keptAliveBy": "2 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_feed_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_ledger_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_profile_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_quests_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_slice_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_loop_talk_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_patrol.js",
+   "keptAliveBy": "3 gate/tool"
+  },
+  {
+   "module": "bohemia_plotgen.js",
+   "keptAliveBy": "1 gate/tool + carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_prop_scale.js",
+   "keptAliveBy": "3 gate/tool + carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_quest_placement.js",
+   "keptAliveBy": "3 gate/tool"
+  },
+  {
+   "module": "bohemia_quest_runtime_tests.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_slice_core.js",
+   "keptAliveBy": "1 gate/tool + carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_slice_engine.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_tests.js",
+   "keptAliveBy": "nothing"
+  },
+  {
+   "module": "bohemia_tilepool.js",
+   "keptAliveBy": "1 gate/tool"
+  },
+  {
+   "module": "bohemia_transitions.js",
+   "keptAliveBy": "carried whole by BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js"
+  },
+  {
+   "module": "bohemia_world_resolve.js",
+   "keptAliveBy": "2 gate/tool"
+  }
+ ],
+ "orphaned": [
+  "bohemia_tests.js"
+ ]
+}

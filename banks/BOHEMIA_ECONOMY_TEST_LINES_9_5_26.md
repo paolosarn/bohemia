@@ -2416,3 +2416,90 @@ YYYYYY3 an older one, not making a point        draft:true
 - No line states a moral about paying attention. YYYYYY3 says a year and stops.
 - Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## AAAAAAA. THE ONE WHO HAS BEEN HERE
+## (round 31: what time gives you free. Standing in front of a thing, the local
+##  and the stranger see nearly the same. Nobody here brags about knowing it.)
+
+AAAAAAA1 somebody naming a corner without looking draft:true
+         "Third one down, the one with the bent post. You'll see it. Everybody
+          sees it, it's not a clever thing to know."
+
+AAAAAAA2 somebody who cannot explain how he knows  draft:true
+         "I don't know how I know. I've walked it about four hundred times, so
+          probably that."
+
+AAAAAAA3 a stranger getting it straight away       draft:true
+         "Right, the bent post. Got it. I've got that one, I just don't have any
+          of the rest of it yet."
+
+## BBBBBBB. COMING BACK AFTER A WEEK
+## (the measured gap is not sharpness, it is absence. After a week away the
+##  stranger has nothing left and the local still has a third of it.)
+
+BBBBBBB1 somebody back after being gone            draft:true
+         "Week and a half. And I came up the wash in the dark and didn't put a
+          foot wrong, which surprised me more than it should."
+
+BBBBBBB2 somebody who was only here once           draft:true
+         "I was here in the spring. I remember a water tank. That's all I've
+          got, one tank, and I'm not sure it was this block."
+
+BBBBBBB3 somebody explaining the difference        draft:true
+         "You both saw it. Difference is in a month he'll still have it and
+          you'll have a shape, mijo."
+
+BBBBBBB4 somebody who lost a place by leaving      draft:true
+         "I used to be able to do that block with my eyes shut. Two years out
+          and I had to ask somebody. Asked a kid."
+
+## CCCCCCC. WHAT A STRANGER CANNOT BUY
+## (the finding: local knowledge is social first. Who, and what happened here
+##  before. The map is the small part and nobody in these lines says so.)
+
+CCCCCCC1 somebody who knows the street by its people draft:true
+         "It's not the road. I know whose door that is, and I know what happened
+          at it, and that's a different kind of knowing."
+
+CCCCCCC2 somebody correcting a newcomer            draft:true
+         "You've got the way in. Fine. You don't know to knock at the back, and
+          you don't know why, and that's the bit that matters."
+
+CCCCCCC3 somebody with the history                draft:true
+         "There was a fire there. Nobody's going to tell you that and nothing
+          about it looks burnt any more."
+
+CCCCCCC4 a newcomer who worked it out             draft:true
+         "Took me a year to notice nobody walks on that side. Still don't know
+          why. I just don't walk on it now either."
+
+## DDDDDDD. THE ONE WHO STUDIED IT
+## (the bought half: the whole map held at once. Years of deliberate work and
+##  half the people who try do not get there. Nobody calls it a perk.)
+
+DDDDDDD1 somebody who set out to learn all of it   draft:true
+         "I did it on purpose. Every street, on foot, with a notebook, for I
+          don't want to say how long."
+
+DDDDDDD2 somebody who gave up on it                draft:true
+         "I was doing it for two years and then I wasn't. No big moment. I just
+          stopped going out with the book."
+
+DDDDDDD3 somebody who can hold the whole thing     draft:true
+         "Ask me anywhere. Anywhere in the valley and I'll tell you what's the
+          other side of it. That took what it took, abuelo."
+
+## EEEEEEE. WHAT IS NOT HERE, ON PURPOSE (round 31)
+- No line says memory, familiarity, clarity or map. BBBBBBB3 is the whole
+  measured finding and it is said as "he'll still have it and you'll have a shape".
+- No line names a number of visits, a radius or a span of time in minutes. The
+  curve already answers how long and the answer is that there is no threshold.
+- No line has somebody unlocking anything. DDDDDDD1 went out with a notebook for
+  years and DDDDDDD2 quit, which is the real shape of the bought half.
+- No line names a street, a district or a landmark anybody could find on a map.
+  MAP LAW, and the bent post is not a place, it is a post.
+- No line has the local being better than the stranger at looking. They see the
+  same thing; the difference only shows up after being away.
+- No line states a moral about belonging. CCCCCCC4 still does not know why.
+- Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
+  does not grow the register corpus and language_gate's cap is untouched.

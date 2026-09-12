@@ -350,26 +350,50 @@ function serve() {
      which way these arrows POINT both came back confidently wrong (a bounding-box
      model inverts on a 45-degree triangle, and it reported all four diagonals exactly
      178 degrees off, which is the tell: a real bug is never that tidy). */
-  const shots = {};
+  /* *** AND THE SCREENSHOT DIFF STOPPED BEING ABLE TO ANSWER THIS, SO IT WAS REPLACED
+     RATHER THAN RE-RUN. *** Caught 9/11 by running this gate four times: 14/1, 15/0, 15/0,
+     15/0, the one red naming a single diagonal. That is a coin, not a finding.
+     WHY IT BECAME A COIN: the diff shoots a RECTANGLE OF THE PAGE at each control, and the
+     pad stopped being an opaque circle on 9/7 when it became one ring cut into eight
+     wedges. The gaps between the wedges, and the corners of every wedge's bounding box,
+     are now THE LIVE CITY -- which is animating. Two shots a moment apart differ because a
+     car moved, and the gate blames the button. The instrument was right for the control it
+     was written against and wrong for the one that is there now.
+     WHAT IT IS ACTUALLY ASKING, from its own note above: is a stray TEXT GLYPH being drawn
+     on top of the shape. For the svg ring that question has an exact answer with no
+     pixels in it -- an svg group renders text only if it contains a text node -- so ask
+     that, and keep the pixel diff for any html control that still has a ::before triangle
+     behind a glyph, which is the case it was written for. Same question, no coin. */
   const pbs = await city.evaluate(() => [...document.querySelectorAll('.pb')].map(n => {
     const r = n.getBoundingClientRect();
-    return { w: n.dataset.walk, x: r.left, y: r.top, W: r.width, H: r.height };
+    return { w: n.dataset.walk, x: r.left, y: r.top, W: r.width, H: r.height,
+             svg: n.namespaceURI === 'http://www.w3.org/2000/svg',
+             text: (n.textContent || '').replace(/\s+/g, '') };
   }));
   ok('the eight-way pad is on screen to be checked', pbs.length === 8);
-  for (const bx of pbs) shots[bx.w] = md5(await p.screenshot({
-    clip: { x: fb.x + bx.x, y: fb.y + bx.y, width: bx.W, height: bx.H } }));
-  await city.evaluate(() => {
-    const st = document.createElement('style');
-    st.textContent = '.pb{color:transparent !important;text-shadow:none !important}';
-    document.head.appendChild(st);
-  });
-  await p.waitForTimeout(400);
+
   let doubled = [];
-  for (const bx of pbs) {
-    const now = md5(await p.screenshot({
+  const drawn = pbs.filter(b => b.svg), painted = pbs.filter(b => !b.svg);
+  /* the ring: a group draws a glyph only if it holds one */
+  for (const bx of drawn) if (bx.text !== '') doubled.push(bx.w + '(glyph "' + bx.text + '")');
+  /* anything still drawn in html keeps the original pixel diff */
+  if (painted.length) {
+    const shots = {};
+    for (const bx of painted) shots[bx.w] = md5(await p.screenshot({
       clip: { x: fb.x + bx.x, y: fb.y + bx.y, width: bx.W, height: bx.H } }));
-    if (now !== shots[bx.w]) doubled.push(bx.w);
+    await city.evaluate(() => {
+      const st = document.createElement('style');
+      st.textContent = '.pb{color:transparent !important;text-shadow:none !important}';
+      document.head.appendChild(st);
+    });
+    await p.waitForTimeout(400);
+    for (const bx of painted) {
+      const now = md5(await p.screenshot({
+        clip: { x: fb.x + bx.x, y: fb.y + bx.y, width: bx.W, height: bx.H } }));
+      if (now !== shots[bx.w]) doubled.push(bx.w);
+    }
   }
+  console.log('         ' + drawn.length + ' drawn, ' + painted.length + ' painted in html');
   ok('no walk button draws a second arrow on top of its triangle'
      + (doubled.length ? ' -- ' + doubled.length + ' of ' + pbs.length + ' do: ' + doubled.join(' ') : ''),
      doubled.length === 0);

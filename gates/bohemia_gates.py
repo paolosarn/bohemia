@@ -2855,6 +2855,30 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('ASK FOR MORE',   ['node', 'gates/ask_for_more_gate.js'],
+     'QUESTS row [haggling works] BB-ASK-FOR-MORE, 9/11. REGISTERED THE ROUND IT WAS WRITTEN, '
+     'because the lane shipped the round before this one against a GATE REGISTRY red and the '
+     'answer to a checker that catches drift is to stop drifting. THE ROW: a job in this valley '
+     'had a length since 9/7 and no price and no terms, and zero hits for counter-offer, retainer '
+     'or advance pay anywhere on the walked surface (the three "haggle" hits in the alpha are an '
+     'ANIMATION CLIP NAME). THE FIRST HALF OF THE FIX IS THE DISCLOSURE, NOT THE HAGGLE: the wake '
+     'card said the title, said nobody had picked it up and said how long the walk was, and NEVER '
+     'SAID WHAT THE JOB PAID. You cannot ask for more of a thing you were never told about. '
+     'THE SECOND HALF HAS NO BALANCE NUMBER IN IT AT ALL: the campaign game he named uses a random '
+     '3-6 annoyance against a threshold of 9, and those are that game\'s numbers; ours counts how '
+     'many times you opened your mouth, which is a fact about the conversation and not a dial. Two '
+     'asks land and the third takes the job away, and you are TOLD so in words before the ask that '
+     'costs you, because a hidden roll would mean you can never know where you stand and this '
+     'valley already refuses that. EVERYTHING COSTS ONE SURVIVES IT: a haggle changes the SHAPE of '
+     'the one (a different currency, or half of it up front) and can never produce two -- proved by '
+     'walking every reachable sequence of asks across all 42 quests, 12,837 states, not by reading '
+     'the code and believing it. The standing mark goes through the deed ledger that already '
+     'exists rather than an invented clout debit, because in this valley the enforcement IS that '
+     'work stops coming your way. FOUR NEGATIVE CONTROLS, all caught: a smuggled threshold, a '
+     'third ask that costs nothing, a settlement of two, and breaking the redraw survival -- which '
+     'is the bug the author actually made, since showWake re-rings the offer every time it draws '
+     'and an ask redraws the card, so fresh terms wiped the ask the moment it was made',
+     True),
     ('INSIDE A DAY',   ['node', 'gates/inside_a_day_gate.js'],
      'QUESTS row [distance shown], shipped 9/7 (dcbe0b8) and UNREGISTERED ON ARRIVAL. Caught by '
      'GATE REGISTRY within minutes of the file existing, which is the whole point of that gate: '
@@ -2909,6 +2933,41 @@ GATES = [
      'it holds the part a machine can. Both teeth were proven to bite with throwaway files before '
      'it shipped. First run: 23 advertised, 23 on disk, 23 run',
      False),
+    ('ENGINE CENSUS', ['node', 'gates/engine_census_gate.js'],
+     'WHICH ENGINE MODULES ARE ACTUALLY IN THE SHIPPED GAME, 9/11, PLUMBER lane, row [dead '
+     'modules] TWENTY-NINE-ENGINE-MODULES-NOBODY-LOADS. THE ROW WAS WRONG AND ACTING ON IT WOULD '
+     'HAVE DELETED LIVE CODE. EYES measured the game in a browser, saw it fetch 17 files, and '
+     'concluded 29 engine modules have no reader with THE BIGGEST 281 KB. But this repo INLINES '
+     'engine modules into the slices: the file is never fetched AND is the canon copy ENGINE SYNC '
+     'compares every carrier against. "Unreachable as a file" is not "dead". MEASURED on the real '
+     'tree: of 172 modules / 3820 KB, 103 are inlined with their marker (2025 KB), 38 more have '
+     'their code in a shipped slice without one (1461 KB), and only 31 are nowhere in the game '
+     '(334 KB). THE 281 KB MODULE THE ROW CALLS THE BIGGEST DEAD ONE IS LIVE: all 1277 of its body '
+     'lines are in the shipped text word for word. And of the 31 that really are absent, 25 are '
+     'read by a gate or a tool and 9 have their whole body inside a bundle a gate checks by md5, so '
+     'archiving them turns a checker red. EXACTLY ONE MODULE, bohemia_tests.js at 15 KB, is read by '
+     'nothing and carried by nothing; this gate NAMES it instead of assuming. So the most [slim '
+     'build] could ever have saved here is 15 KB of 3820, and the row as written would have cost '
+     'the canon of a live 281 KB module. THE FIRST VERSION OF THIS GATE GOT IT WRONG TOO: it '
+     'matched ONE signature line per module, which let a 151 KB STORAGE BUNDLE pass as live because '
+     'one prose sentence inside it is also in the game. It now matches EVERY body line over 45 '
+     'characters against a Set of the shipped game\'s own lines and asks what fraction landed. The '
+     'answer is bimodal with a wide gap (live 72-100%, dead 0-20%) and a check holds that gap open, '
+     'so no threshold decides quietly. IT ALSO CAUGHT ITSELF READING ITSELF: naming the orphan in '
+     'the gate file made the reader scan find the gate, so every orphan would have read as '
+     'looked-after the moment it was written down -- green over nothing, in the gate against green '
+     'over nothing. THEN IT HAPPENED AGAIN ONE STEP REMOVED: registering it here means writing a '
+     'paragraph that NAMES the orphan, and this catalogue counted as a reader too. That one is the '
+     'MENTION-VS-USE hole reusefirst_gate closed on 8/20, in a new place: in this file a module is '
+     'read only if a row RUNS it (its name as an argv path), because nine bohemia_loop_*_tests.js '
+     'modules have this file as their ONLY reader and all nine are genuinely run by it. Both '
+     'directions proven with throwaway edits. Twice in one gate, the same defect: something written '
+     'to DESCRIBE a thing got counted as something USING it. RED ON: a module recorded as being in the shipped game that no longer exists on '
+     'disk (never delete blind, made mechanical), a NEW orphan nobody reads, a named orphan that '
+     'stopped being one (the list only shrinks), a module drifting into the half-inlined middle, or '
+     'an empty sweep of any of the three inputs. All four teeth were proven to bite with throwaway '
+     'files before it shipped. First run: 10 passed, 0 failed',
+     True),
     ('GATE REGISTRY',  ['node', 'gates/gate_registry_gate.js'],
      'A GATE THE SUITE CANNOT SEE IS A NAMED RED LINE, 9/7, PLUMBER lane, row [unregistered '
      'gates]. LAW: laws/BOHEMIA_LAW_A_GATE_THAT_NEVER_RUNS_IS_NOT_A_GATE_9_7_26.md rule 3, '

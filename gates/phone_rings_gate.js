@@ -154,12 +154,21 @@ const S01 = fs.readFileSync(path.join(ROOT, 'quests/bq/S01_THE_METER_READER.bq')
     const night = await pg.evaluate(() => {
       advance(20 * 60);                       /* walk the whole day out, job untouched */
       return { taken: window.__OFFER_TAKEN || 0, out: DQ.outcome(),
-               done: DQ.done(), txt: document.getElementById('daycardIn').textContent };
+               done: DQ.done(), txt: document.getElementById('daycardIn').textContent,
+               title: (typeof OFFER !== 'undefined' && OFFER) ? OFFER.title : null };
     });
     ok('NOT TAKING A JOB IS NOT FAILING IT -- an untaken job leaves the quest unrun',
        night.taken === 0 && night.out === null && night.done === false);
-    ok('and the reckoning says so, in as many words ("never taken")',
-       /never taken/i.test(night.txt));
+    /* *** ASSERT THE MEANING, NOT ONE PHRASING. *** This read /never taken/ and
+       sat red on main while the game was RIGHT: the card says "nobody picked it
+       up" now. A checker that retypes the words it is checking goes red every
+       time somebody improves a sentence, and a red that is lying hides every
+       real red behind it. What actually has to be true is that the reckoning
+       NAMES the job he left alone and does not score it as a failure. */
+    ok('and the reckoning NAMES the job nobody picked up ("' + night.title + '")',
+       !!night.title && night.txt.indexOf(night.title) >= 0);
+    ok('and it is not scored as a failure, because not taking a job is not failing it',
+       !/\bFAILED\b/i.test(night.txt));
     ok('the reckoning still came up', /NIGHTFALL|TURNED IN/.test(night.txt));
     await b.close();
     ok('no page error leaving a job alone' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
