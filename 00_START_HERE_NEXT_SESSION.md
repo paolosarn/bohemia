@@ -18771,6 +18771,20 @@ flag, no option. Swing: in the games that made companions unkillable, the weight
 is what you LOSE while they are down (their contribution goes with them for the timer) --
 written onto PEOPLE [lock them] as the lock's cost, nothing else to invent. Routed FACTIONS
 [who follows] (the roster from the block's side), ECONOMY Q37 [carry cost].
+THEN (dt) VAMILY, 36 commits. SHIPPED: SOUNDS [sound card] (his FFX ruling as five measured
+terms, all 142 songs rendered and ranked; and ZERO of 142 have the late-arriving beat his
+anchor is famous for -> SOUNDS [late beat] top), WORLD [rice clock], QUESTS [check the
+claim] (the valley can lie and your legs are the instrument), COMBAT [rescue her], FACTIONS
+[collector heir], WORDS [no law talk] (fifteen act-one lines, each naming the institution
+act two kills it with), RUN fixed the demo's hanging opening offer, UI [no slop] round 3
+(the tells have owners), ANIMATION put his words back on three shipped lines (rule 11
+working). FINDINGS ROUTED: ONE PURSE IN THE WHOLE GAME, nobody else has a pocket, the swap
+primitive works and is half-called -> WORLD [every pocket] top (precondition for lending,
+rent, restitution, barter); the purple reservation gate finds 2,232 violations and EXITS
+GREEN -> PLUMBER [cannot fail] second; the combat entry gate flakes 1 in 5 because the
+staging sometimes delivers no party -> COMBAT [party arrives]. MY PREMISE WAS WRONG A
+FOURTH TIME: the two colour tables are aim and landing, not two sources; CHARACTER did the
+row before arguing and found the guard checked presence never value; row re-aimed.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
