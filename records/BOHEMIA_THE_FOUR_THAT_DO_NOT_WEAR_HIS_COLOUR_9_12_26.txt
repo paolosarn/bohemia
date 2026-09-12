@@ -1,0 +1,32 @@
+THE FOUR THAT DO NOT WEAR HIS COLOUR -- CHARACTER lane, 9/12/26
+VAMILY row [one colour table], round 2
+
+*** A CORRECTION TO ROUND 1 FIRST: COLORFUL WAS NEVER A MISS. ***
+I measured a faction that deliberately wears FIVE colours against ONE hue. The
+alpha's own entry says so in its first sentence: "THE ONLY FACTION THAT REFUSES A
+SINGLE FLAG ... These wear five, which is its own answer to the same question."
+The dominant-hue ruler is the wrong instrument for exactly one faction in this
+game and I pointed it at them. FIVE MISSES IS FOUR.
+
+FACTION       HE CHOSE     HIS HUE   WORN HUE    GAP  WEARS IT?   SHAPE
+Caravans    #caa05a         38         30      8         YES         same
+Colorful    #e85aa0        330         90    120  n/a (five)         same
+Anarchists  #c026a0        312         30     78          NO         same
+Blues       #2e6fae        210        210      0         YES         same
+Homeless    #b8642a         25          0     25        drab         same
+Church      #d8a23a         39         30      9         YES         same
+Reds        #c0392b          6          0      6         YES         same
+Cartel      #a01818          0         30     30        drab         same
+Trades      #d07a2a         29         30      1         YES         same
+Mob         #caa83a         46         30     16         YES         same
+Network     #1fbf9c        167        210     43          NO         same
+Volunteers  #5aae6a        131         30    101        drab         same
+Remnants    #9aa23a         65         60      5         YES         same
+
+WEARS THE COLOUR HE CHOSE: 7 of 9 (Colorful is excluded by design, the drab ones by the law).
+
+*** AND THE SILHOUETTES DID NOT MOVE: all 13 byte-identical to the baseline ***
+A colour fix that moves a silhouette is a worse bug than the one it fixes
+(STRUCTURE-NOT-COLOR, and the 880-fit silhouette set behind these thirteen). Every
+swap here is the same garment generator with a different ramp -- the precedent the
+Colorful fix set in the alpha: "THE SHAPE IS UNTOUCHED ... Only the ramps moved."

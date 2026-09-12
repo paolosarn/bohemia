@@ -41,7 +41,7 @@
    ],
    "hue": 30,
    "drab": false,
-   "strength": 0.4786,
+   "strength": 0.4785,
    "share": 0.8969,
    "second": "neutral",
    "neutral": 0.1031,
@@ -71,7 +71,7 @@
    ],
    "hue": null,
    "drab": true,
-   "strength": 0.3086,
+   "strength": 0.3085,
    "share": 0.4401,
    "second": "0",
    "neutral": 0.4401,
@@ -123,33 +123,33 @@
    "draft": true
   },
   "Trades": {
-   "hex": "#496558",
+   "hex": "#674b34",
    "rgb": [
-    73,
-    101,
-    88
+    103,
+    75,
+    52
    ],
-   "hue": 150,
+   "hue": 30,
    "drab": false,
-   "strength": 0.3014,
-   "share": 0.4768,
-   "second": "30",
+   "strength": 0.4426,
+   "share": 0.8624,
+   "second": "neutral",
    "neutral": 0.1376,
    "draft": true
   },
   "Mob": {
-   "hex": "#572f2a",
+   "hex": "#454142",
    "rgb": [
-    87,
-    47,
-    42
+    69,
+    65,
+    66
    ],
-   "hue": 0,
-   "drab": false,
-   "strength": 0.5952,
-   "share": 0.5302,
+   "hue": null,
+   "drab": true,
+   "strength": 0.3596,
+   "share": 0.5527,
    "second": "30",
-   "neutral": 0.0516,
+   "neutral": 0.5527,
    "draft": true
   },
   "Network": {

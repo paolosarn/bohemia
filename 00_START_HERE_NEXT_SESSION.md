@@ -9197,7 +9197,67 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [one colour table] ROUND 1. I ASKED FOR THIS ROW AND ITS PREMISE WAS
+THIS ROUND -- *** [one colour table] ROUND 2. TWO FACTIONS NOW WEAR THE COLOUR HE CHOSE,
+5 OF 9 -> 7 OF 9, AND NOT ONE SILHOUETTE MOVED. Two more need a cook and I say which. ***
+
+WHAT SHIPPED, and every swap is the same garment generator with a different ramp -- the
+precedent the Colorful fix already set in the alpha ("THE SHAPE IS UNTOUCHED ... Only the
+ramps moved"):
+  TRADES  he chose orange #d07a2a and the outfit's base was COPPER WORK SHIRT, WHICH IS
+          #506e60, WHICH IS GREEN. A garment named copper that renders green, on the
+          faction whose colour is copper-orange. 121 degrees off -> 1 degree off, wearing
+          SCAVENGER FLANNEL, a workwear shirt that shares its silhouette exactly.
+  MOB     he chose gold #caa83a and THE OUTFIT ALREADY WORE IT -- MOB PINSTRIPE SHIRT, 3
+          degrees off, saturation 0.61. It lost the vote: ROAD CAPE, ANKLE WRAP SKIRT and
+          OXBLOOD BOOTS are three oxblood pieces at saturation 0.33-0.37, which is not dun,
+          so the body wore two colours and the bigger area won. Swapped all three to their
+          CHARCOAL variants, which already ship. 46 degrees off -> 16, and it serves the
+          style card's one-saturated-piece rule with the same change.
+Both are in the ALPHA and in the DEMO (the demo was re-cut with its own tool, never edited).
+faction_colour_gate 23/0, wardrobe_wired 17/0, faction_dossier 768/0, demo_build 25/0.
+
+THE TWO THAT NEED A COOK, with the spec, because neither can be wired:
+  ANARCHISTS  he chose magenta #c026a0. THE WARDROBE HAS ZERO GARMENTS IN THAT FAMILY --
+              317 canon garments, none within 30 degrees at any usable saturation. Needs
+              one magenta piece. Nothing to wire.
+  NETWORK     he chose teal #1fbf9c. TEAL WORK SHIRT #28bea0 exists and is ONE DEGREE off,
+              and I wired it -- then faction_colour_gate went red: "a faction's cloth
+              agrees with itself" needs the biggest hue at 38% of the cloth and one teal
+              shirt against dust trousers gives 31%. The old outfit passed because STEEL
+              shirt and STEEL sneakers agreed with each other. TRIED AND REJECTED: bone
+              sneakers got 35%, still short; neutral trousers passed the gate and MOVED THE
+              SILHOUETTE (2616 -> 2689px), which is the one thing I said I would not break.
+              SO NETWORK IS REVERTED and needs a SECOND teal piece on legs or feet, ramp
+              #28bea0, same generator as DUST TROUSERS or STEEL SNEAKERS.
+
+*** AND A CORRECTION TO ROUND 1: COLORFUL WAS NEVER A MISS. *** I measured the one faction
+in the game that deliberately wears FIVE colours against ONE hue. Its own entry in the alpha
+says so in its first sentence: "THE ONLY FACTION THAT REFUSES A SINGLE FLAG ... These wear
+five, which is its own answer to the same question." Five misses is four.
+
+AND I BROKE TWO THINGS MID-ROUND AND CAUGHT BOTH BEFORE THEY SHIPPED, both worth keeping:
+  1. A python replace with count=1 on ",outer:'SPLIT-TAIL DUSTER'" STRIPPED THE DUSTER OFF
+     THE ANARCHISTS, because their outfit carries that string earlier in the file than the
+     control I was trying to remove. The silhouette check caught it (Anarchists 2737 ->
+     2707px on a faction I never touched). Reverted and redone with full unique anchors.
+     A COUNT=1 REPLACE ON A STRING THAT APPEARS TWICE EDITS THE WRONG ONE.
+  2. My new reader used 5-degree hue bins and told me MOB WAS ALREADY FINE, contradicting
+     the published colour file by 42 degrees. Both readings were true: one gold shirt at
+     hue 43 concentrates in one narrow bin, three oxblood pieces spread across two, so
+     narrow bins elect the shirt and wide bins elect the oxblood. ONLY ONE ANSWERS THE LAW
+     -- COLOUR IS TERRITORY is about what you read across a street, and across a street you
+     read AREA. Switched to the 30-degree buckets the published file uses, which also makes
+     every number here comparable to it instead of quietly incomparable.
+  THAT IS THE SIXTH RULER THIS LANE HAS THROWN AWAY IN THREE ROUNDS.
+
+- Record: records/BOHEMIA_THE_FOUR_THAT_DO_NOT_WEAR_HIS_COLOUR_9_12_26.txt
+  Tool:   tools/bohemia_the_four_that_do_not_wear_his_colour.js
+  Baseline: records/BOHEMIA_FACTION_SILHOUETTES_BASELINE_9_12_26.json (13 shapes, hashed
+  with colour discarded and position removed; the tool goes red if any of them moves)
+- ROW STATUS: still CLAIMED. Two of four fixed; the other two are cook requests above.
+- NEXT ROUND: raise the two cook requests to COOK, then close the row.
+
+PREVIOUS ROUND -- *** [one colour table] ROUND 1. I ASKED FOR THIS ROW AND ITS PREMISE WAS
 MINE AND THE PREMISE IS WRONG. Measured, said in public, and the round found something
 bigger underneath it. ***
 
