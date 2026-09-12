@@ -2129,6 +2129,22 @@ GATES = [
      "nothing. Carries two NULL controls, one of them taken after the run slice "
      "loads, because a control taken under different conditions validates "
      "nothing", True),
+    ('SOUND CARD',['python3', 'gates/sound_card_gate.py'],
+     "A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, AND A CARD WITHOUT ONE IS A "
+     "MOOD BOARD. His 9/6 ruling ('post-apocalyptic Final Fantasy X, especially "
+     "that fantasy beach vibe') and his 9/7 anchor (FFX OST BESAID ISLAND, the "
+     "original not the remaster) are five measurable terms, each quoting the words "
+     "it came from, measured by RENDERING songs through the real MUS.playStep "
+     "offline rather than reading the song table. It asserts the terms still "
+     "SEPARATE the card's own named ends -- a term that stops separating is "
+     "decoration in a law file, and one of the five did exactly that, which is how "
+     "the round's finding turned up: 138 of 142 songs put the drum on BEAT ONE and "
+     "NOT ONE has a late beat, so the single trait his law names as what people "
+     "loved is absent from the whole shelf. That is written as a MEASUREMENT, so "
+     "the day somebody builds the late-beat entry this flips and the card must be "
+     "rewritten. It also pins the ranking against what renders TODAY so no lane's "
+     "song edit leaves a stale ranking standing, and holds the one CANON song that "
+     "peaks 13x the median as the ONLY one", True),
     ('CITY UI VOICE',['python3', 'gates/city_ui_voice_gate.py'],
      "DOES THE CITY INTERFACE ANSWER, AND IN THREE VOICES? On 9/11 the WHOLE "
      "city interface went silent and nothing asked: #phonebtn moved from #topbar "

@@ -65,7 +65,6 @@ STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line st
 NEXT: E18 round two, the check. Then E19 [slop count], E20 [song length], E21 [marker sweep], E22 [never ran]. Every job is two rounds and never one. E9 is STANDING and runs every round.
 
 ================================================================================
-=======
 
 WORDS (words-8dqrnq): 9/12 (c) LATEST -- *** Q20 [no law talk] SHIPPED WITH BOTH ROUNDS. ACT ONE IS
 THE MOST FORMAL OF THE THREE ERAS, AND THE FIFTEEN LINES EACH CARRY THE INSTITUTION ACT TWO WOULD
@@ -440,7 +439,6 @@ The coordinator added Q35 and Q36 since last round.
 
 
 ================================================================================
-=======
 EYES AND EARS (eyes-5vql33): 9/12 (x) LATEST -- *** E17 [locked ignored] IS SHIPPED, BOTH ROUNDS. THREE RULINGS HE MARKED LOCKED ARE CONTRADICTED BY THE SHIPPED GAME. *** TAB: the three are in RUN (the title screen), CITY (the purple tiles you walk past) and COMBAT (the cover cost). The instruments themselves are NOT IN A TAB YET; this lane never writes game code.
 E17 [locked ignored] IS SHIPPED at 545fa7c, BOTH ROUNDS. School: records/BOHEMIA_EYES_E17_ROUND_1_SCHOOL_DRIFT_IS_NOT_EROSION_9_12_26.md. The sweep: records/BOHEMIA_EYES_E17_ROUND_2_THE_LOCK_IS_NOT_THE_RULING_9_12_26.md. Tool tools/bohemia_eyes_locked.py plus the real-screen half tools/bohemia_eyes_locked_surface.js. Gate gates/locked_ratchet_gate.js, suite LOCKED RATCHET, proven to bite on four separate failures before it was registered.
 
@@ -4929,6 +4927,92 @@ NEXT IN THIS LANE (top unblocked, in order)
     and the holder's colour on the edge. Tab: MAP and CITY.
   [hidden factions]  THE-OTHER-FOUR
   [colours fixed]  COLOUR-AUDIT
+
+--------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/12 (a) LATEST -- *** THE SOUND CARD IS BUILT, AND THE ONE
+THING HIS ANCHOR IS FAMOUS FOR IS MISSING FROM ALL 142 SONGS: 138 OF 142 PUT THE
+DRUM ON BEAT ONE AND NOT ONE HAS A LATE BEAT. TAB: MUSIC (the shelf) and RUN.
+Nothing to judge -- nothing was cooked. ***
+
+Build 9/12s - THE SOUND CARD.
+
+THE ROW'S SHIP TEST WAS THREE THINGS AND ALL THREE ARE IN: his ruling turned into
+a card a cook can use, the anchor named, every song sorted by distance from it.
+records/BOHEMIA_THE_SOUND_CARD_9_12_26.md and the machine-readable card plus the
+full 141-song ranking in banks/BOHEMIA_SOUND_CARD_9_12_26.json (draft:true).
+
+THE CARD IS FIVE TERMS AND EVERY ONE QUOTES THE WORDS IT CAME FROM, so no term is
+my taste: PATIENCE ("a picked, PATIENT melody") = onsets in two bars, fewer;
+LATE BEAT ("the beat ARRIVING LATE") = seconds to the first transient, later;
+BASS UNDER ("the BASS LINE removed ... people noticed") = share under 200 Hz,
+more; WARMTH ("WARM, sunlit") = share over 3 kHz, less; HELD LINE ("you can hum
+it") = share above a fifth of its own peak, more. EQUAL WEIGHT, named rather than
+hidden, and the ranking is published WITH and WITHOUT the late-beat term so the
+weighting cannot do the deciding. TEMPO IS NOT A TERM -- the 120 BPM law fixes it;
+what carries "patient" is feel:half / mel:longs, already on 70 of 142.
+
+MEASURED BY RENDERING, NOT READING: all 142 songs through the real MUS.playStep
+into an OfflineAudioContext, two bars each, 0 failures, 0 page errors. The cook
+targets are our own shelf's numbers, closest ten vs furthest ten: onsets 6.5 vs
+14, bass share 0.86 vs 0.51, treble 0.001 vs 0.009, held 0.69 vs 0.15.
+
+*** THE FINDING, AND IT CAME OUT OF A TERM THAT DID NOT DISCRIMINATE. *** The
+first transient lands at 0.04s for 137 of 142 songs -- the late-beat term read the
+same for nearly everything, which is how I noticed. Censused on the live library:
+138 of 142 put the drum on BEAT ONE, 4 have no drum at all, ZERO have a late one.
+His law names the late beat as exactly what people loved and what the remaster
+lost. IT IS A MECHANISM GAP, NOT A TAGGING OR TASTE GAP, AND IT IS THE NEXT BUILD:
+when a song starts, HOLD THE PERCUSSION FOR THE FIRST PHRASE and let the melody
+and the bass come in alone. One engine rule, no song's data touched, and every
+song on the shelf gains the trait he named. (An earlier pass of this said 136 of
+140 -- that was a regex over the FILE and it missed two rows. A COUNT OF A FILE IS
+NOT A COUNT OF WHAT LOADED.)
+
+*** AND HIS TWO RULINGS AGREE WITHOUT KNOWING IT. *** FIVE OF THE TEN CLOSEST
+SONGS ARE ALREADY THE STREET'S CREEPERS (THE VAULT, REPO MAN, SLOW CREEP, TAPS FOR
+THE VALLEY, SLOW BLEED). His OVERWORLD PLAYLIST LAW (7/7) restricted the street to
+the creepers two months before he named the sound, and measured now the creeper
+pool IS the beach-adjacent half of the shelf. Nothing needs re-tagging for the
+street to sound like the card. And the very top of the ranking is sitting INDOORS
+because of round 1 of [music owned]: HYMN FOR RUNNING WATER (0.927), FROZEN AISLE,
+HOLLOW MASS, MOTHS AROUND THE LAST LIGHT -- the untagged songs that used to play
+nowhere. THE ROOM GOT THE BEACH.
+
+*** [PENDING Paolo] THE THREE SONGS WITH THE ANCHOR'S OWN LATE BEAT ARE MENU-ONLY,
+SO THE GAME PLAYS THEM FOR SIXTEEN SECONDS AND NEVER AGAIN. *** MENU - THE POWER
+STILL ON SOMEWHERE (CANON, top of the whole ranking), MENU - DEAD VALLEY DAWN
+(CANON), MENU - PURPLE DAWN (BURIED, stays buried). They are the closest things we
+own to the sound he named. Moving them is RE-TAGGING, which is his, in the MUSIC
+tab -- and putting them on the street would break his own 7/7 ruling. Written down
+and routed, not acted on. The coordinator carries it.
+
+*** AND A REAL DEFECT THE MEASUREMENT CAUGHT: THE GAPS IN THE HYMNAL PEAKS AT
+3.978 WHEN EVERY OTHER SONG PEAKS NEAR 0.30. *** 13.4x the median, on a song he
+thumbed CANON; voices phasedist + holdbreath + reversebloom. Pre-limiter, so a
+player does not hear 4x -- they hear it SLAM the brickwall limiter and duck the
+whole mix with it. Excluded from the ranking's scales (a 13x outlier squashes every
+percentile near it) and REPORTED NOT FIXED, because re-balancing a song he approved
+is his content, not my call.
+
+NEW gates/sound_card_gate.py, registered, 23 claims, and it is built around the
+lesson: A CARD IS ONLY HONEST IF ITS TERMS DISCRIMINATE, so it re-measures and
+asserts each term still SEPARATES the card's own named ends; a term that stops
+separating goes red instead of sitting in a law file as decoration. It also pins
+the ranking against what renders TODAY (so no lane's song edit leaves a stale
+ranking) and holds the loud defect as the ONLY one. Mutation proved three ways: a
+stale ranking 1 fail, the card claiming a verdict 1 fail, and ONE SONG GIVEN A LATE
+BEAT 1 fail -- that third one matters, because it proves the gap claim is a
+measurement and not a constant.
+
+  proof  python3 gates/bohemia_gates.py --only "SOUND CARD"
+         records/BOHEMIA_THE_SOUND_CARD_9_12_26.md
+         banks/BOHEMIA_SOUND_CARD_9_12_26.json (draft:true, 141 ranked)
+  next   THE LATE BEAT, as a mechanism: hold the percussion for the first phrase
+         when a song starts. It is the one trait his anchor is famous for and the
+         one thing no song on this shelf does. Then [music owned] resumes (paused
+         behind this row), whose own next holes are the dusk pool of two (HIS, a
+         tagging job) and the interior pool's variety.
 
 --------------------------------------------------------------------------------
 
