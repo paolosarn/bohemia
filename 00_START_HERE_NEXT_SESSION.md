@@ -16024,6 +16024,32 @@ crowd's own code and beat two is a photograph where nobody can walk at all. Rout
 reason measured: re-rendering the world through the scale change ran at fourteen frames a
 second.
 
+*** AND SIX GATES ARE RED ON MAIN AND NOT ONE OF THEM IS MINE, PROVED RATHER THAN ASSERTED.
+*** The suite ran out of its own budget this round (589 gates at 9.4 s each needs ~5509 s against
+a 2700 s cap, 198 never ran, 53 red and 32 of those never re-checked), so "53 red" says nothing
+about whose they are. The six nearest this lane's blast radius were re-run ALONE on my tree and
+then AGAIN on origin/main's slices with my patch absent, same harness, back to back:
+
+    COMBAT LAB       929 pass / 3 fail   on my tree AND on clean main, the same three by name
+    COMBAT RUNS      red on my tree      red on clean main (63s both)
+    DEMO CURRENT     red on my tree      red on clean main (74s, 74s)
+    CURRENT SLICE    red on my tree      red on clean main (1s, 1s)
+    ENEMIES EXIST    red on my tree      red on clean main (71s, 73s)
+    STRANGER OPENS   red on my tree      red on clean main (63s, 63s)
+
+COMBAT LAB's three are about the road's double-yellow median, quarter-turn tiles and a 7/3 rung
+table -- city art, nothing this row touches -- and the city slice was rewritten by 1376 lines of
+somebody else's work between my branch point and main. THE PLUMBER'S OWN NOTICE IS THE POINT:
+a gate red on arrival gets switched off by the next session that meets it. Three of these live in
+COMBAT's own gate, so they are arguably this lane's to fix, but they are not on the board and
+this chat does not add rows. FOR THE COORDINATOR.
+
+AND DO NOT CHANGE THE TREE WHILE A GATE IS RUNNING, which I did once this round and it cost a
+wasted verdict: a gate that boots the alpha reads the slices off disk mid-run, so restoring my
+files 30 seconds into a 62-second run produced a number that belonged to neither tree. The
+baseline pass is one script that swaps, measures and puts the tree back, so nothing can land in
+the middle of it.
+
 AND A MEASUREMENT FOR THE PLUMBER, NOT A ROW: in the gate harness the walked city runs at TEN
 frames a second with nothing happening and blocks for about 1.5 SECONDS at a stretch (1465,
 1475, 1493 ms across three runs, so it is one specific blocking task and not noise). The
