@@ -27912,9 +27912,88 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
     return out;
   }
 
+  /* ==========================================================================
+     THE LENDER VISITS THE HEIR   (9/12, VAMILY row [collector heir])
+
+     THE ROW, off the 9/5 heir research: "on the first day after the fold, the
+     faction your parent owed comes to you; the first line the heir hears in their
+     own life is the parent's debt, on the beat, at the door."
+
+     *** TWO LIVE BOARD ROWS CONTRADICT EACH OTHER HERE AND THE SHIPPED CODE
+     SETTLES IT. *** WORLD's [debt carried] says every debt "survives the
+     generation fold to the heir IN FULL". engine/bohemia_fold.js, shipped 9/7 and
+     marked ruled:true off the DYNASTY study, says the opposite and says why:
+
+       "a child is not personally liable for a parent's unsecured debts... YOU DO
+        NOT INHERIT A BILL, YOU INHERIT LESS AND YOU INHERIT THE PEOPLE HE OWED,
+        still standing there. That is a standing-web query, not a purse line."
+
+     That sentence IS this row. The balance dies; the CREDITOR does not. So what
+     crosses the fold is not an amount, it is the fact that this faction was
+     stiffed, and it arrives as somebody at the door rather than as a number in a
+     purse. The contradiction with WORLD's row is canon-level and goes to Paolo;
+     this build follows the ruling that has a machine gate behind it.
+
+     THERE IS EXACTLY ONE WAY TO OWE A FACTION IN THIS GAME TODAY, and it is this
+     lane's own: [block rent], shipped last round. Rent you could not pay. Nothing
+     else anywhere lends anybody anything -- WORLD's [someone lends] row says so in
+     its own first line -- so a collector built on anything else would be a pipe
+     with no water. */
+
+  /* WHO IS OWED, WORST FIRST. `book` is {faction: {nights, lastDay}}, kept by the
+     caller because a ledger of what happened is the city's to keep, not a map
+     module's to invent. NO AMOUNT IS RANKED: the nights are a COUNT of times they
+     were stiffed, which is a fact, and what a night of unpaid rent is WORTH is a
+     weight and weights are his. */
+  function owedTo(book) {
+    var out = [];
+    if (!book) return out;
+    for (var f in book) {
+      if (!Object.prototype.hasOwnProperty.call(book, f)) continue;
+      var r = book[f] || {};
+      var n = r.nights | 0;
+      if (n <= 0) continue;
+      out.push({ faction: f, nights: n, lastDay: r.lastDay | 0 });
+    }
+    /* worst first, and a tie breaks on the MORE RECENT night, then on the name --
+       never on object key order, which is not a rule anybody can argue with. */
+    out.sort(function (a, b) {
+      if (b.nights !== a.nights) return b.nights - a.nights;
+      if (b.lastDay !== a.lastDay) return b.lastDay - a.lastDay;
+      return a.faction < b.faction ? -1 : 1;
+    });
+    return out;
+  }
+
+  /* WHAT THE COLLECTOR SAYS AT THE DOOR. Attempts, draft:true, eighth grade, and
+     they are three because the row's own shape is that the heir did not do this.
+       came    the parent's generation is over and they are here anyway
+       nights  how many times, because "he owed you" is vaguer than a count
+       clear   the one thing that is NOT said: a number. The balance died with
+               him (the fold's ruling), so a collector who names a sum would be
+               collecting a bill the game has already said the heir does not owe. */
+  var COLLECTOR = {
+    came:  'SOMEBODY IS AT THE DOOR AND THEY ARE NOT HERE FOR YOU',
+    one:   'YOUR FATHER WENT A NIGHT WITHOUT PAYING THEM. THEY REMEMBER',
+    many:  'YOUR FATHER WENT SHORT WITH THEM MORE THAN ONCE. THEY REMEMBER',
+    still: 'THE DEBT DIED WITH HIM. THEY DID NOT'
+  };
+  function collectorAt(book, gen) {
+    var list = owedTo(book);
+    if (!list.length) return null;
+    var top = list[0];
+    return { faction: top.faction, nights: top.nights, gen: gen | 0,
+             others: list.length - 1,
+             came: COLLECTOR.came,
+             what: top.nights > 1 ? COLLECTOR.many : COLLECTOR.one,
+             still: COLLECTOR.still,
+             draft: true };
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
+    owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
@@ -49851,11 +49930,40 @@ function showWake(){
      parties themselves are NOT reset: they are mid-journey and a caravan does not
      restart at dawn. Only what gets reported is. */
   PARTIES_TODAY=[];
+  /* __THE_LENDER_VISITS_THE_HEIR__ (9/12, [collector heir]) -- AND ON THE HEIR'S
+     FIRST MORNING, SOMEBODY IS ALREADY THERE. Computed at the wake, before the
+     day's job is offered, because the row's words are "the FIRST line the heir
+     hears in their own life". Once per generation: owedVisitMark makes the second
+     morning quiet, which is the difference between a collector and a nag. */
+  try{ COLLECTOR_AT=owedVisitDue(); }catch(_e){ COLLECTOR_AT=null; }
   offerRing();
   updQline();
   const o=OFFER;
   let h='<h2>DAY '+DAY.day+'</h2><div class="sub">'+esc(DAY.hhmm(DAY.WAKE_MIN))
        +' \u00b7 light until '+esc(DAY.hhmm(DAY.NIGHT_MIN))+'</div>';
+  /* *** THE LENDER VISITS THE HEIR (9/12, [collector heir]) -- AND IT IS THE FIRST
+     THING ON THE CARD, WHICH IS THE ROW'S OWN SENTENCE. *** "The first line the
+     heir hears in their own life is the parent's debt."
+     IT IS PART OF THIS CARD AND NOT A SECOND ONE, MEASURED THE HARD WAY: as its
+     own card it was drawn and then buried, first by the phone offer and then by
+     the showChoice below it, because the morning ends by calling cardShow with
+     this very html. Shown, counted and never seen is the same as not built. One
+     card, and the collector is at the top of it.
+     IT ASKS FOR NOTHING, deliberately: what a collector WANTS is a price, and
+     prices are his. They came, they said what it was about, and they are there. */
+  try{
+    if(COLLECTOR_AT){
+      h+='<p><b>'+esc(COLLECTOR_AT.came)+'</b></p>'
+       + '<p>'+esc(String(COLLECTOR_AT.faction).toUpperCase())+'. '
+       + esc(COLLECTOR_AT.what)+'</p>'
+       + '<p>'+esc(COLLECTOR_AT.still)+'</p>';
+      if(COLLECTOR_AT.others>0)
+        h+='<div class="sub">'+COLLECTOR_AT.others+' other'
+         + (COLLECTOR_AT.others===1?' is':'s are')+' owed too</div>';
+      owedVisitMark();
+      try{ window.__COLLECTOR_CARD=(window.__COLLECTOR_CARD||0)+1; }catch(_e){}
+    }
+  }catch(_e){}
   /* __THE_BUILDINGS_PRODUCE__ -- the one place the wake beat's yield is a sentence
      he reads. It goes ABOVE the phone offer because it is what HIS city did while
      he slept, and it is absent entirely on a morning with nothing built, which is
@@ -52035,13 +52143,78 @@ function blockRent(){
     /* AND WHAT YOU COULD NOT PAY, THEY PUT OUT. One circuit per unpaid block, on
        THEIR ground, so a landlord darkens what a landlord controls and never a
        street belonging to somebody you do owe. */
-    if(short>0) rentCutOff(r.faction, short);
+    if(short>0){ rentCutOff(r.faction, short); owedNote(r.faction); }
   }
   window.__RENT_PAID=(window.__RENT_PAID||0)+RENT_TONIGHT.reduce(function(s,x){return s+x.paid;},0);
   window.__RENT_SHORT=(window.__RENT_SHORT||0)+RENT_TONIGHT.reduce(function(s,x){return s+x.short;},0);
   if(RENT_DOUSED.length) powerPersist();
   return bill.total;
 }
+/* ==== __THE_LENDER_VISITS_THE_HEIR__ (9/12, [collector heir]) ===============
+   WHO YOU WENT SHORT WITH, AND THEY REMEMBER IT PAST YOUR DEATH.
+
+   THE ONE WAY TO OWE ANYBODY IN THIS GAME IS RENT YOU COULD NOT PAY. WORLD's own
+   [someone lends] row says it in its first line: nothing anywhere lends anybody
+   anything, so the enforcement machine has never had a debt to enforce. A
+   collector built on anything else would be a pipe with no water.
+
+   WHAT IS KEPT IS A COUNT OF NIGHTS, NEVER A BALANCE. How many times they were
+   stiffed is a fact; what a night of unpaid rent is WORTH is a weight, and
+   weights are his. Nothing here touches standing either, for the same reason
+   [block rent] did not.
+
+   IT RIDES ITS OWN SAVE KEY, beside the doused set and for the same reason: being
+   owed is not an edit to the world, and folding it into the build delta would
+   mean a valley reset also quietly forgave everybody. */
+var OWED_LS='boh.city.owed';
+var OWED_BOOK={};
+function owedNote(faction){
+  if(!faction) return;
+  var r=OWED_BOOK[faction]||(OWED_BOOK[faction]={nights:0,lastDay:0});
+  r.nights++; try{ r.lastDay=DAY.day|0; }catch(_e){}
+  owedPersist();
+}
+function owedPersist(){
+  try{ localStorage.setItem(OWED_LS, JSON.stringify(OWED_BOOK)); }catch(_e){}
+}
+function owedRestore(){
+  try{ var v=JSON.parse(localStorage.getItem(OWED_LS)||'null');
+       if(v&&typeof v==='object') OWED_BOOK=v; }catch(_e){}
+  return OWED_BOOK;
+}
+try{ owedRestore(); }catch(_e){}
+
+/* *** THE FOLD: THE BILL DIES, THE CREDITOR DOES NOT. ***
+   engine/bohemia_fold.js rules the `debt` field DIES, ruled:true, and says why in
+   its own words: "a child is not personally liable for a parent's unsecured
+   debts... YOU DO NOT INHERIT A BILL, YOU INHERIT LESS AND YOU INHERIT THE PEOPLE
+   HE OWED, still standing there."
+   So this drops nothing and adds nothing: the book has never held an amount, only
+   a count of nights and a name, which is exactly "the people he owed". What
+   changes at the fold is that it becomes the PARENT's, so the heir is never told
+   they owe it -- they are told somebody is at the door. */
+var OWED_GEN_LS='boh.city.owed.gen';
+function owedFold(){
+  try{ localStorage.setItem(OWED_GEN_LS, String(CT_GEN|0)); }catch(_e){}
+}
+/* is this the heir's FIRST day, with somebody their parent stiffed still out
+   there? Derived from the two numbers already saved; nothing new is stored. */
+function owedVisitDue(){
+  try{
+    var at=parseInt(localStorage.getItem(OWED_GEN_LS)||'0',10)|0;
+    if(!at) return null;
+    if((CT_GEN|0)!==at) return null;          /* not the generation that just turned */
+    if(COLLECTOR_SEEN>=at) return null;       /* they came already */
+    return window.BohemiaTowns.collectorAt(OWED_BOOK, CT_GEN|0);
+  }catch(_e){ return null; }
+}
+var COLLECTOR_SEEN=0, COLLECTOR_AT=null;
+try{ COLLECTOR_SEEN=parseInt(localStorage.getItem('boh.city.collector')||'0',10)|0; }catch(_e){}
+function owedVisitMark(){
+  COLLECTOR_SEEN=CT_GEN|0;
+  try{ localStorage.setItem('boh.city.collector', String(COLLECTOR_SEEN)); }catch(_e){}
+}
+
 /* PUT OUT UP TO n LIT CIRCUITS ON THIS FACTION'S OWN GROUND. Walks the valley once
    and stops as soon as it has taken what it is owed, so an unpaid battery costs one
    light and not a district. A faction with nothing lit cannot cut anybody off, which
@@ -62662,6 +62835,12 @@ function ctFold(){
   }
   CT_GEN = (CT_GEN | 0) + 1;
   ctGenSave();
+  /* __THE_LENDER_VISITS_THE_HEIR__ -- the bill dies here and the creditor does
+     not. Nothing is dropped: the book has only ever held a name and a count of
+     nights, which is the fold's own "the people he owed, still standing there".
+     What this records is WHICH generation they are owed BY, so the heir is never
+     told they owe it. */
+  try { owedFold(); } catch(_e){}
   try { ctMindSave(); } catch(_e){}
   try { if (CT_OPEN) ctDraw(); } catch(_e){}
   /* __THE_FOLD_IN_THE_RUNTIME__ -- AND WHAT THE HEIR ACTUALLY GETS.

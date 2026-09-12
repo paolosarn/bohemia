@@ -669,5 +669,79 @@ const done = () => {
        /TURF_USED=\{\}; TURF_SEENCELL=\{\}/.test(CITY_TXT2));
   }
 
+  /* ==========================================================================
+     THE LENDER VISITS THE HEIR  (9/12, VAMILY row [collector heir])
+     "on the first day after the fold, the faction your parent owed comes to you;
+     the first line the heir hears in their own life is the parent's debt."
+     ======================================================================== */
+  {
+    const _fs3 = require('fs');
+    const CITY3 = _fs3.readFileSync(CITY, 'utf8');
+    const FOLD = _fs3.readFileSync(path.join(ROOT, 'engine/bohemia_fold.js'), 'utf8');
+
+    ok('C1 nobody is owed out of an empty book, and that is a real answer rather '
+       + 'than a throw', T.owedTo({}).length === 0 && T.collectorAt({}, 2) === null);
+
+    const book = { Mob:   { nights: 1, lastDay: 4 },
+                   Cartel:{ nights: 3, lastDay: 9 },
+                   Blues: { nights: 3, lastDay: 2 } };
+    const ranked = T.owedTo(book);
+    ok('C2 WORST FIRST, and a tie breaks on the MORE RECENT night before it breaks '
+       + 'on the name -- never on object key order, which is not a rule anybody can '
+       + 'argue with (' + ranked.map(r => r.faction + ':' + r.nights).join(' ') + ')',
+       ranked[0].faction === 'Cartel' && ranked[1].faction === 'Blues'
+       && ranked[2].faction === 'Mob');
+    ok('C3 a faction with zero nights is not owed anything',
+       T.owedTo({ Mob: { nights: 0, lastDay: 9 } }).length === 0);
+
+    const c = T.collectorAt(book, 2);
+    ok('C4 the collector is the one owed worst, and knows how many others there are',
+       c.faction === 'Cartel' && c.nights === 3 && c.others === 2);
+    ok('C5 and the words are attempts, draft:true, like every line in this repo',
+       c.draft === true && !!c.came && !!c.what && !!c.still);
+    ok('C6 one night reads differently from many, because "he owed you" is vaguer '
+       + 'than a count',
+       T.collectorAt({ A: { nights: 1, lastDay: 1 } }, 2).what !== c.what);
+
+    /* *** THE BILL DIES, THE CREDITOR DOES NOT -- AND THE SHIPPED FOLD IS WHY. *** */
+    ok('C7 *** NOT ONE NUMBER IS COLLECTED. *** engine/bohemia_fold.js rules the '
+       + 'debt field DIES, ruled:true, in his study\'s own words: a child is not '
+       + 'personally liable for a parent\'s unsecured debts. So a collector who '
+       + 'named a sum would be collecting a bill the game has already said the '
+       + 'heir does not owe',
+       /field: 'debt'[\s\S]{0,80}carries: 'dies'/.test(FOLD)
+       && /not personally liable/.test(FOLD)
+       && !/\d/.test(c.came + c.what + c.still));
+    ok('C8 and what crosses is the fold\'s own other half -- "YOU INHERIT THE '
+       + 'PEOPLE HE OWED, still standing there" -- which is a NAME and a COUNT OF '
+       + 'NIGHTS, never a balance',
+       /INHERIT THE PEOPLE HE OWED/.test(FOLD)
+       && Object.keys(book).every(f => typeof book[f].nights === 'number'));
+
+    /* THE CITY REALLY DOES IT. */
+    ok('C9 the one way to owe anybody in this game is rent you could not pay, and '
+       + 'that is where the book is written',
+       /if\(short>0\)\{ rentCutOff\(r\.faction, short\); owedNote\(r\.faction\); \}/
+         .test(CITY3));
+    ok('C10 it rides its own save key, beside the doused set, so a valley reset '
+       + 'cannot quietly forgive everybody',
+       /var OWED_LS='boh\.city\.owed'/.test(CITY3) && /function owedPersist/.test(CITY3));
+    ok('C11 the fold records WHICH generation they are owed by, so the heir is '
+       + 'never told that they owe it',
+       /function owedFold/.test(CITY3) && /try \{ owedFold\(\); \} catch/.test(CITY3));
+    ok('C12 *** AND IT IS THE FIRST THING ON THE HEIR\'S MORNING CARD. *** The row '
+       + 'says the first line the heir hears; it is built into the wake card above '
+       + 'the phone offer, not stacked on top of it as a second card',
+       /COLLECTOR_AT\.came/.test(CITY3)
+       && CITY3.indexOf('COLLECTOR_AT.came') < CITY3.indexOf('Something came in on your phone'));
+    ok('C13 once per generation, so the second morning is quiet -- the difference '
+       + 'between a collector and a nag',
+       /function owedVisitMark/.test(CITY3) && /COLLECTOR_SEEN>=at/.test(CITY3));
+    ok('C14 and nothing here touches standing: what an unpaid debt does to how they '
+       + 'FEEL about you is a weight, and weights are his',
+       !/DEED_WEIGHT|ctDialApply|rungFor/.test(
+         (CITY3.match(/function owedNote[\s\S]*?function owedVisitMark[\s\S]*?\n\}/) || [''])[0]));
+  }
+
   done();
 })();

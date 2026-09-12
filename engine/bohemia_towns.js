@@ -1003,9 +1003,88 @@
     return out;
   }
 
+  /* ==========================================================================
+     THE LENDER VISITS THE HEIR   (9/12, VAMILY row [collector heir])
+
+     THE ROW, off the 9/5 heir research: "on the first day after the fold, the
+     faction your parent owed comes to you; the first line the heir hears in their
+     own life is the parent's debt, on the beat, at the door."
+
+     *** TWO LIVE BOARD ROWS CONTRADICT EACH OTHER HERE AND THE SHIPPED CODE
+     SETTLES IT. *** WORLD's [debt carried] says every debt "survives the
+     generation fold to the heir IN FULL". engine/bohemia_fold.js, shipped 9/7 and
+     marked ruled:true off the DYNASTY study, says the opposite and says why:
+
+       "a child is not personally liable for a parent's unsecured debts... YOU DO
+        NOT INHERIT A BILL, YOU INHERIT LESS AND YOU INHERIT THE PEOPLE HE OWED,
+        still standing there. That is a standing-web query, not a purse line."
+
+     That sentence IS this row. The balance dies; the CREDITOR does not. So what
+     crosses the fold is not an amount, it is the fact that this faction was
+     stiffed, and it arrives as somebody at the door rather than as a number in a
+     purse. The contradiction with WORLD's row is canon-level and goes to Paolo;
+     this build follows the ruling that has a machine gate behind it.
+
+     THERE IS EXACTLY ONE WAY TO OWE A FACTION IN THIS GAME TODAY, and it is this
+     lane's own: [block rent], shipped last round. Rent you could not pay. Nothing
+     else anywhere lends anybody anything -- WORLD's [someone lends] row says so in
+     its own first line -- so a collector built on anything else would be a pipe
+     with no water. */
+
+  /* WHO IS OWED, WORST FIRST. `book` is {faction: {nights, lastDay}}, kept by the
+     caller because a ledger of what happened is the city's to keep, not a map
+     module's to invent. NO AMOUNT IS RANKED: the nights are a COUNT of times they
+     were stiffed, which is a fact, and what a night of unpaid rent is WORTH is a
+     weight and weights are his. */
+  function owedTo(book) {
+    var out = [];
+    if (!book) return out;
+    for (var f in book) {
+      if (!Object.prototype.hasOwnProperty.call(book, f)) continue;
+      var r = book[f] || {};
+      var n = r.nights | 0;
+      if (n <= 0) continue;
+      out.push({ faction: f, nights: n, lastDay: r.lastDay | 0 });
+    }
+    /* worst first, and a tie breaks on the MORE RECENT night, then on the name --
+       never on object key order, which is not a rule anybody can argue with. */
+    out.sort(function (a, b) {
+      if (b.nights !== a.nights) return b.nights - a.nights;
+      if (b.lastDay !== a.lastDay) return b.lastDay - a.lastDay;
+      return a.faction < b.faction ? -1 : 1;
+    });
+    return out;
+  }
+
+  /* WHAT THE COLLECTOR SAYS AT THE DOOR. Attempts, draft:true, eighth grade, and
+     they are three because the row's own shape is that the heir did not do this.
+       came    the parent's generation is over and they are here anyway
+       nights  how many times, because "he owed you" is vaguer than a count
+       clear   the one thing that is NOT said: a number. The balance died with
+               him (the fold's ruling), so a collector who names a sum would be
+               collecting a bill the game has already said the heir does not owe. */
+  var COLLECTOR = {
+    came:  'SOMEBODY IS AT THE DOOR AND THEY ARE NOT HERE FOR YOU',
+    one:   'YOUR FATHER WENT A NIGHT WITHOUT PAYING THEM. THEY REMEMBER',
+    many:  'YOUR FATHER WENT SHORT WITH THEM MORE THAN ONCE. THEY REMEMBER',
+    still: 'THE DEBT DIED WITH HIM. THEY DID NOT'
+  };
+  function collectorAt(book, gen) {
+    var list = owedTo(book);
+    if (!list.length) return null;
+    var top = list[0];
+    return { faction: top.faction, nights: top.nights, gen: gen | 0,
+             others: list.length - 1,
+             came: COLLECTOR.came,
+             what: top.nights > 1 ? COLLECTOR.many : COLLECTOR.one,
+             still: COLLECTOR.still,
+             draft: true };
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
+    owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
     districtsOf: districtsOf, derive: derive, NOT_A_TOWN: NOT_A_TOWN,
