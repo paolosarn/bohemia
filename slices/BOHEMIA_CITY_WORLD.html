@@ -40059,9 +40059,80 @@ function pplNearField() {
   taken[hx + ',' + hy] = 1;
   /* the cells of the people he can see are already spoken for */
   for (var e1 of PPL_NEAR) taken[e1[1][0] + ',' + e1[1][1]] = 1;
+  /* __A_CROWD_IS_SOMEWHERE_TO_WALK_TO__ (9/12) ==============================
+     ROUND 8 of [more people]. Round 7 put a FLOOR under the street and the empty
+     standings went from 116 of 120 to 65. What it could not do was give him a CROWD:
+     the most he ever saw at once was 2, because one borrowed body per screenful is
+     exactly what that lattice promises.
+
+     *** AND THE MEASUREMENT SAID THE CROWDS WERE ALREADY THERE. *** Standing on
+     residential ground anywhere in the valley, across four daylight hours, the peak was
+     2 (86 of 160 standings saw nobody, 70 saw one, 4 saw two). Standing ON a gathering
+     place, the same count:
+         17, 14, 11, 10, 9, 8, 8, 8
+     Round 2's places work. HE JUST NEVER ENDS UP ON ONE. A place is a single cell in a
+     valley of millions, so the crowd exists and he walks past it forever.
+
+     SO THE BORROWED PEOPLE GO WHERE THE WORLD ALREADY SAYS PEOPLE GATHER, instead of
+     being spread one to a screenful. The nearest real place to him fills up, and a
+     filled place is something he can SEE from down the street and walk into. Nothing
+     new is invented: the place is round 2's, the people are the valley's own, and how
+     many make a crowd is the population module's own HEADS.cluster rather than a number
+     picked here. Whatever is left over still spreads on the lattice, so the floor round
+     7 measured does not come back up. */
+  var __knot = 0;
+  /* *** AND THE CROWD FORMS WHERE HE IS, NOT WHERE THE MAP KEEPS ITS PLACES. *** Two cuts
+     of this filled the nearest REAL place instead, and the walk measured the same both
+     times: 16 of 16 walks met somebody, 0 OF 16 MET A CROWD, biggest group seen 3. The
+     places are a hundred cells off and a walk passes a single point by luck. Filling them
+     doubled the crowd standing at a place from 17 to 37 and changed nothing a player could
+     reach, which is round 6's lesson wearing a different hat: a mechanism that is right
+     and never happens is not a deliverable.
+     So the knot stands on the best FRONTAGE within his own five-minute reach -- the same
+     street cells the floor uses, scored by the same instrument that picks a place
+     (openness, plus a door on it), so the crowd gathers on a forecourt or a shop front
+     rather than in the middle of the road. That IS the coordinator's ruling: the people
+     whose day has them out of doors, standing where the player is. */
+  if (pool.length >= 4) {
+    /* HOW FAR A CROWD SHOULD BE, IN THE REPO'S OWN UNIT. The first cut took the best
+       frontage anywhere within the five-minute reach and put the crowd 42 cells away --
+       a real knot of twelve that a walk met 0 times in 16, because a straight walk
+       passes a single point by luck. A screenful is 2 x SEE_RANGE + 1, the same unit the
+       floor's lattice uses; a crowd within TWO screenfuls is the next thing he walks
+       into, and beyond one SEE_RANGE so nobody ever forms up inside his own view. */
+    var __SCREEN = SEE * 2 + 1;
+    var __spot = null, __sc = -1;
+    for (var __i = 0; __i < here.length; __i++) {
+      var __c = here[__i];
+      var __d = Math.max(Math.abs(__c[0] - hx), Math.abs(__c[1] - hy));
+      if (__d > __SCREEN * 2) break;
+      if (__d <= SEE) continue;
+      if (__c[2] > __sc) { __sc = __c[2]; __spot = __c; }
+    }
+    if (__spot) {
+      /* how many make a crowd is the module's own settlement size, and never more than
+         half the borrowed people -- the floor round 7 measured has to survive this */
+      var __want = Math.min(P.HEADS.cluster || 13, Math.floor(pool.length / 2));
+      for (var __r = 0; __r <= 4 && __knot < __want; __r++)
+      for (var __dy = -__r; __dy <= __r && __knot < __want; __dy++)
+      for (var __dx = -__r; __dx <= __r && __knot < __want; __dx++) {
+        if (Math.max(Math.abs(__dx), Math.abs(__dy)) !== __r) continue;
+        var __fx = __spot[0] + __dx, __fy = __spot[1] + __dy;
+        if (!pplStandable(__fx, __fy)) continue;
+        var __k = __fx + ',' + __fy;
+        if (taken[__k]) continue;
+        taken[__k] = 1;
+        var __who = pool[__knot];
+        PPL_NEAR.set(__who.id, [__fx, __fy]);
+        PPL_NEAR_LIST.push(__who);
+        __knot++;
+      }
+    }
+  }
+  /* AND THE FLOOR, from whoever is left, so round 7's number does not come back up */
   var n = Math.min(here.length, pool.length);
-  for (var s = 0; s < n; s++) {
-    var cell = here[s], who = pool[s];
+  for (var s = __knot; s < n; s++) {
+    var cell = here[s - __knot], who = pool[s];
     var kk = cell[0] + ',' + cell[1];
     if (taken[kk]) continue;
     taken[kk] = 1;

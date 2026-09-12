@@ -5604,7 +5604,58 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/11 (b) LATEST -- *** [white rings] SHIPPED, AND THREE OF THE
+LIFE + CITY (city-1eztay): 9/12 (a) LATEST -- *** [more people] ROUND 8: THE PEAKS. A WALK
+MET A CROWD 0 TIMES IN 16 AND NOW MEETS ONE 5 TIMES IN 16; THE BIGGEST GROUP HE CAN GET IN
+FRONT OF WENT FROM 3 TO 14. *** MODE: BUILD. TAB: CITY, or just walk. Nothing to judge.
+
+  WHERE ROUND 7 LEFT IT: the street is no longer empty (116 of 120 standings with nobody
+became 65, every walk meets somebody) but the most he ever saw AT ONCE was 2, because one
+borrowed body per screenful is exactly what that lattice promises.
+  *** AND THE FIRST MEASUREMENT SAID THE CROWDS WERE ALREADY BUILT. *** Standing on
+residential ground anywhere in the valley the peak was 2 (86 of 160 standings saw nobody,
+70 saw one, 4 saw two). Standing ON a gathering place: 17, 14, 11, 10, 9, 8, 8, 8. Round
+2's places WORK. HE JUST NEVER ENDS UP ON ONE -- a place is a single cell in a valley of
+millions, so the crowd exists and he walks past it forever.
+  *** TWO CUTS THEN FAILED THE SAME WAY AND A WALK CAUGHT BOTH. *** Cut one filled the
+nearest REAL place and measured NOTHING, because the places are a hundred cells off and
+the five-minute budget buys fifty-nine, so none ever qualified. Cut two dropped the budget:
+the crowd standing at a place DOUBLED, 17 to 37, and a walk still met 0 crowds in 16 with
+a biggest group of 3, because a straight walk passes a single point by luck. ROUND 6'S
+LESSON IN A NEW HAT: A MECHANISM THAT IS RIGHT AND NEVER HAPPENS IS NOT A DELIVERABLE --
+and both cuts looked fine on the way in because I was measuring by STANDING on sampled
+ground, which is not how anybody plays.
+  WHAT SHIPPED: the crowd forms on the best FRONTAGE within TWO SCREENFULS of him -- a
+screenful being the repo's own 2 x SEE_RANGE + 1, the same unit round 7's floor uses --
+and never inside one SEE_RANGE, so nobody ever forms up inside his own view. Scored by the
+same instrument that picks a place, so they gather on a forecourt or a shop front rather
+than mid-road. How many make a crowd is the module's own HEADS.cluster, capped at half the
+borrowed people so the floor survives.
+  AFTER: walks that met a crowd 0 of 16 -> 5 of 16; biggest group seen 3 -> 14; walks that
+met anybody 16 of 16, unchanged; empty standings 65 of 120, unchanged; at three in the
+morning 1, which is correct.
+  GATE: gates/a_crowd_to_walk_into_gate.js, 7/0, registered, AND IT WALKS -- because two
+cuts of this round passed a standing test while a walk met nothing. Mutation-tested two
+ways: remove the knot (B1/B2 red at 0 of 16 and biggest 3), and let the crowd stand
+anywhere within the walking budget (A2/B1/B2 red, REPRODUCING MY OWN FAILED CUT EXACTLY).
+  AND ONE OF MY OWN GATES NEEDED A CORRECTION: never_empty_gate's B6b, "nobody is moved or
+released while he can see them", went red when the crowd put more borrowed bodies in his
+view -- one of them had simply GONE HOME. alive_gate already ruled that A HOLD MUST NEVER
+OUTLIVE THE SCHEDULE, and a day ending happens to everybody. The leg now separates the
+field moving somebody in view (forbidden) from their own day ending (correct). 14/0.
+  NOT MINE, PROVED ON A CLEAN origin/main WORKTREE: fps_on_a_phone_gate is 33/2 on main
+with none of my changes, the same two legs by name -- the wake card sitting over the pad on
+boot, and BYTES TO FIRST PLAY at 45,176,644 against a 34,005,978 budget. My tree measures
+45,178,256, which is 1,612 bytes more: the size of the comment I added. Frame budget 22/0,
+main thread 31.6% of 56%, boot 21.0s.
+  RECORD: records/BOHEMIA_A_CROWD_TO_WALK_INTO_9_12_26.md
+  THE ROW STAYS CLAIMED. 5 of 16 is a real change to what the game feels like, in the
+walked surface and the demo, but it is not "he meets people without trying" yet. WHAT IS
+LEFT IS THE OTHER ELEVEN WALKS.
+  NEXT IN THIS LANE AFTER THAT: [tiles not slabs], [buildings appear], [power buildings].
+
+--- THE WHITE RINGS ROUND BELOW ---
+
+LIFE + CITY (city-1eztay): 9/11 (b) -- *** [white rings] SHIPPED, AND THREE OF THE
 FOUR RINGS IN HIS FRAME WERE THIS LANE'S OWN. THE MARK FOR "A TOWN IS HERE" WAS TWICE THE
 SIZE OF THE MARK FOR "YOU ARE HERE". *** MODE: BUILD. TAB: CITY. Nothing to judge.
 

@@ -274,16 +274,33 @@ ok('A3 the reverted travel experiment left nothing behind that nothing calls',
           before.push([id, cell[0], cell[1]]);
       T.min = 11 * 60;
       const after = pplNearField();
-      let movedInSight = 0, droppedInSight = 0;
+      /* *** A DAY ENDING IS NOT THE FIELD MOVING SOMEBODY. *** The first cut of this leg
+         counted every disappearance, and went red the moment round 8's crowd put more
+         borrowed bodies inside his view: one of them had simply gone home. alive_gate
+         already ruled that A HOLD MUST NEVER OUTLIVE THE SCHEDULE -- keeping somebody on
+         the street after their own day ends is inventing people, which B3 forbids -- and
+         it happens to everybody in the valley, borrowed or not. So a body that leaves
+         because their schedule took them indoors is the world working; only a body whose
+         day still has them OUT, and who is moved or dropped anyway, is this mechanism
+         breaking its promise. */
+      let movedInSight = 0, droppedInSight = 0, wentHome = 0;
       for (const [id, cx, cy] of before) {
+        const who = PPL_NEAR_LIST.filter(q => q.id === id)[0]
+                 || (function () { let f = null; for (let dy = -PAD; dy <= PAD; dy++)
+                       for (let dx = -PAD; dx <= PAD; dx++)
+                         for (const q of (pplPeople(n0 + dx, n1 + dy) || []))
+                           if (q.id === id) f = q;
+                     return f; })();
+        const stillOut = who ? (function () { const sc = pplAtSched(who);
+          return !(sc[0] === who.home[0] && sc[1] === who.home[1]); })() : false;
         const now = after.get(id);
-        if (!now) { droppedInSight++; continue; }
+        if (!now) { if (stillOut) droppedInSight++; else wentHome++; continue; }
         if (now[0] !== cx || now[1] !== cy) movedInSight++;
       }
 
       T.min = was[2]; hx = was[0]; hy = was[1];
       return {
-        heldInSight: before.length, movedInSight, droppedInSight,
+        heldInSight: before.length, movedInSight, droppedInSight, wentHome,
         spots: spots.length, readings: total,
         emptyStandings: zero, pctEmpty: +(100 * zero / total).toFixed(1),
         median: counts[counts.length >> 1], most: most,
@@ -371,7 +388,8 @@ ok('A3 the reverted travel experiment left nothing behind that nothing calls',
   /* B6b. THE GUARANTEE on_the_way_gate HANDED OVER. */
   ok('B6b nobody is moved or released while he can see them — of ' + m.heldInSight
      + ' borrowed bodies in sight, ' + m.movedInSight + ' moved and ' + m.droppedInSight
-     + ' vanished when the hour turned',
+     + ' vanished with their day still out (' + m.wentHome + ' simply went home, which is '
+     + 'the world working and happens to everybody)',
      !m.err && m.movedInSight === 0 && m.droppedInSight === 0);
 
   ok('B7 nothing threw' + (errs.length ? ' -> ' + errs[0] : ''), errs.length === 0);
