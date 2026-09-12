@@ -59,6 +59,30 @@ assumed -- the 7/31 "SHUFFLE FIT BUTTON DID NOT WORK BRO!!!" bug was exactly thi
 serving a stale body, and it is the reason that hash is worth reading before touching a look.
 
     python3 tools/bohemia_hair_the_body_wears_it_9_11_26.py
+
+REFERENCE CHECK (9/12, same duty and same blind spot as cooks 1 and 2).
+
+COMPARED TO: GARM-03 (the cut is one channel, the colour is another), HAIR-01 (hair is one
+mass), FACE-03 (identity at small sizes), and this repo's ONE ID, ONE WHOLE PERSON law.
+
+STRUCTURAL RULES TAKEN:
+  * GARM-03 -- if colour is its own channel, then the SAME colour has to arrive wherever that
+    person is drawn, or the channel carries two different messages about one person. That is
+    exactly the defect this cook closes: the portrait honoured the person's colour and the
+    body did not, for 92.4% of citizens.
+  * HAIR-01 -- because hair is one mass with a dark/mid/light, the fix had to hand genHair a
+    real authored RAMP and not a single tint colour. Resolving the person's rgb back to its
+    own three-tone ramp preserves the mass; multiplying a flat colour over the sprite would
+    not have.
+  * FACE-03 -- "identity at small sizes is SIZE AND SPACING, not detail." Hair colour is one
+    of the few channels that survives at 56 pixels, which is why a mismatch between the body
+    and the portrait is an IDENTITY bug and not a polish bug.
+
+WHAT CHANGED FROM THE REFERENCE: nothing. This cook adds no colour and no shape. It is a
+lookup that makes an existing per-person colour arrive at a second renderer.
+
+AND THE MEASUREMENT IS ON RENDERED PIXELS, not on the dials, because the dials agreed the
+whole time -- both halves read the same variable and one of them threw it away at draw.
 """
 import io, sys
 

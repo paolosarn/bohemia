@@ -45,6 +45,45 @@ seventy-seven garment rows holding eleven silhouettes, and the hair gates would 
 hate it. A cut is a shape. A colour is a colour. They are not the same property.
 
     python3 tools/bohemia_hair_has_colours_9_11_26.py
+
+REFERENCE CHECK (owed by the 9/4 standing duty, paid 9/12 after the gate could not see this
+tool at all -- see the note at the bottom of this block).
+
+COMPARED TO: HAIR-01 (saint11's hair and character-head tutorials), HAIR-03 (a real
+barbering chart), GARM-03 (this repo's own COLOUR IS TERRITORY + trenchcoat laws), and real
+human hair-colour distribution.
+
+STRUCTURAL RULES TAKEN:
+  * HAIR-01 -- "hair is ONE MASS with a silhouette; single-strand lines at sprite scale read
+    as scratches." That is WHY every colour here is a THREE-TONE RAMP (dk/mid/lt) and not a
+    single hex. A mass needs a dark side, a lit side and the body between, or it reads flat
+    and the silhouette does all the work alone. Every one of the eleven new ramps is built
+    on that shape, same as the seven that were already here.
+  * GARM-03 -- "the cut belongs to the register, the colour belongs to the faction; a cook
+    never spends both channels on one idea." That is the whole argument of this cook. The
+    alternative fix was eleven cuts times eighteen colours as garment rows, which spends the
+    SHAPE channel on a COLOUR idea. STRUCTURE-NOT-COLOR says the same thing from the other
+    end. So: ramps only, zero new garments, genHair untouched.
+  * GARM-03 again, on saturation -- COLOUR IS TERRITORY reserves loud colour for factions and
+    clothes. Measured against it: the loudest approved garment reaches 188, so no dye ramp
+    here exceeds that. Hair joins the runway without out-shouting it.
+  * HAIR-03 -- a barber's chart is LENGTH ON TOP x LENGTH ON SIDES x HOW IT FALLS, and
+    colour is not on that grid at all. Confirmation that colour is a separate axis from cut,
+    which is the same split the other two teach.
+
+WHAT CHANGED FROM THE REFERENCE: nothing structural. Real heads gave the natural end of the
+list (jet through white); the dye end is ours, because a collapsed valley that DRESSES LIKE A
+RUNWAY is this world and not a photograph. The dyes are held under the wardrobe's own
+measured ceiling rather than under a real-world one, which is the repo being its own ruler.
+
+AND THE GATE NEVER SAW THIS TOOL. reference_check_gate picks cooks by FILENAME
+(`'cook' in t.lower() or 'factory' in t.lower()`), and none of this round's three are named
+"cook" however many times the docstring says COOK. A FILENAME IS NOT A REGISTRY -- this lane
+lost a round to that exact sentence on the district generators, and here it is again in a
+checker. Measured 9/12: 92 tools visible to the gate, 187 that write an art surface AND deal
+in colour, so about 173 invisible (an upper bound; some of those are judges, not cooks).
+Routed to DIRECTION, whose row the KNOWN GAP already sits on. The duty is paid here anyway,
+because a gate that cannot see me is not a reason to skip it.
 """
 import io, re, sys
 

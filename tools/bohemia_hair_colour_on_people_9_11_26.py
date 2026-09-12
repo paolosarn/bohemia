@@ -64,6 +64,31 @@ what they were and the only thing that moves is hair. That is the 8/27 author's 
 I am not spending it.
 
     python3 tools/bohemia_hair_colour_on_people_9_11_26.py
+
+REFERENCE CHECK (9/12, same duty and same blind spot as cook 1).
+
+COMPARED TO: GARM-03 (COLOUR IS TERRITORY), HAIR-01 (hair is one mass), and the real
+distribution of hair colour in a mixed adult population.
+
+STRUCTURAL RULES TAKEN:
+  * GARM-03 -- colour is the channel that SIGNALS, so how OFTEN a colour appears is itself a
+    design decision, not a dice roll. That is why this cook ships weights and not a flat pick
+    over twenty-one entries. The 8/27 measurement in this file is the same lesson learned the
+    hard way: uniform over seven made the two loudest colours the two commonest heads.
+  * Real distribution -- black and brown dominate every population on earth, blonde is a
+    minority, natural red is 1-2%, and grey is age. The weights hold that shape, and natural
+    red lands at 2.1% measured over 4,000 citizens.
+  * HAIR-01 -- the crowd entries are the MIDS of the ramps cook 1 authored, read out of the
+    file rather than retyped, so the one-mass three-tone structure survives into the crowd
+    palette instead of degrading into flat hexes.
+
+WHAT CHANGED FROM THE REFERENCE: the dye share. No real street is 5.6% dyed. This one is,
+because EVERYONE DRESSES LIKE A RUNWAY is a locked law of this world, and the number is held
+under the portrait gate's cap of 8 so it stays a statement rather than a parade.
+
+NOT TAKEN: any real-world claim about WHO is grey. Age would decide that and the crowd has no
+age (measured; the file says so at :5226). Grey is flat until a citizen has an age, and that
+is written down rather than faked.
 """
 import io, re, sys
 
