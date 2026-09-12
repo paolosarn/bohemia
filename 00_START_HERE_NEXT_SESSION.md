@@ -9309,8 +9309,14 @@ claimed; what it lacked was the measurement.
 *** FACTION ARC IS NOT RED, IT IS BEING KILLED. *** 600.0 s is exactly GATE_CAP. It hit the ceiling,
 was killed, and is reported as a failure like any other, so it sits inside the 93 reds having
 verified NOTHING -- green over nothing, in red clothes, which is worse because a red sends somebody
-hunting a bug that is not there. It was 429 s in the old census, so it has grown past the cap. Cause
-is visible in its source: 15 city boots, only 12 s of declared waiting. Splitting it is the biggest
+hunting a bug that is not there. It was 429 s in the old census, so it has grown past the cap. *** AND MEASURING IT OVERTURNED MY OWN FIRST ANSWER, ALREADY PUSHED. *** I wrote that almost all
+of the 600 s was repeated city boots, read off the source. MEASURED: one boot is 8.0 s, fourteen are
+112 s, and RUN ALONE WITH THE CAP LIFTED IT IS GREEN -- 102 passed, 0 failed, 1,228 s (20.5 min). So
+it is not a slow failing gate, it is 102 WORKING CHECKS ON THE FACTION SYSTEM THE SUITE HAS NEVER
+ONCE SEEN, filed under the 93 reds the whole time -- a RED over 102 real greens, which is worse than
+green over nothing. Boots are 9%. ONE SECTION IS 48%: K, WHAT ASKING COSTS, 594 s for 3 checks, so
+splitting the gate means splitting K and K alone is already near the cap. Reading the source told me
+where the time went and was wrong by five times. TIME IS MEASURED, NEVER READ. Splitting it is the biggest
 item left and it is a gate, so it is ours. (OPENING at 438.5 s is honest by contrast: it waits for
 the opening cinematic to actually play.)
 *** THE SUITE MUTATES THE TREE IT CHECKS. *** Mid-run, a build tool ran against the LIVE repo and

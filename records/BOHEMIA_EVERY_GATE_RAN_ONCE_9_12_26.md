@@ -70,10 +70,37 @@ per-gate ceiling and was killed, then reported as a failure like any other.
 "green over nothing" disease wearing red clothes, and it is worse, because a red gets
 attention and this one will send somebody hunting for a bug that is not there.
 
-It measured 429 s in the 9/6 census, so it has grown past the cap since. And the cause
-is visible from its own source: it opens a fresh page and reloads the city **15 times**,
-while declaring only 12 seconds of waiting. Almost the entire 600 s is repeated boots.
-Splitting it is the single biggest item left in this row.
+It measured 429 s in the 9/6 census, so it has grown past the cap since.
+
+### CORRECTION, AND IT MAKES THE FINDING MUCH WORSE
+
+I first wrote here that "almost the entire 600 s is repeated boots", inferred from the
+gate's source: 14 fresh loads of a 4.4 MB city file against only 12 seconds of declared
+waiting. **That was wrong, and I measured it rather than leaving it standing.**
+
+One city boot costs **8.0 s** (four timed back to back: 11.1, 8.2, 8.1, 8.0), so fourteen
+is about 112 s. Then the gate was run alone with the cap lifted:
+
+```
+  FACTION ARC GATE: 102 passed, 0 failed       1,228 s   (20.5 min)
+    of which 14 city boots                      ~112 s   (9%)
+    of which section K alone                      594 s   (48%)
+```
+
+**The gate is GREEN. 102 checks pass.** It needs 20.5 minutes, the cap is 10, so the suite
+kills it every single run and files it among the 93 reds.
+
+So this is not a slow failing gate. It is **102 working checks on the faction system that
+the suite has never once been allowed to see**, reported as a failure the entire time.
+That is worse than the green-over-nothing this lane has been chasing: it is a RED over 102
+real greens, and it sends somebody hunting a bug that does not exist.
+
+The boots are not the problem at 9%. **One section is half the gate**: K, "WHAT ASKING
+COSTS, BEFORE HE ASKS", 594 s for 3 checks. So splitting the gate means splitting K, and K
+alone is already close to the cap.
+
+The lesson, again, and it is the same one: reading the source told me where the time went
+and the source was wrong by five times. Time is measured, never read.
 
 For contrast, the other giant is honest work: `OPENING` at 438.5 s spends its time
 waiting for the opening cinematic to actually play through, which is what it is for.
