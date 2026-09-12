@@ -67,6 +67,14 @@
   sweeping the frame as you cross the threshold — interior dark, not a
   cloud. One mechanism, two skins; the skins never mix.
 
+## 5B. THE WIND HAS ONE DIRECTION (ruled 9/12, judging the built turn)
+COMBAT built the shade travelling screen left to right and marked the
+direction draft:true because no wind exists in canon. RULED: the shade
+travels LEFT TO RIGHT, always, both skins' mechanism, everywhere the
+cloud skin is used. One direction is what makes the tenth fight read as
+weather instead of a random effect; canon may later name a prevailing
+wind and this line inherits it.
+
 ## 6. THE JUDGE'S TEST (what DIRECTION checks when it lands)
 Freeze any frame of the half second: it must still look like the walked
 street (same palette, same tiles, territory and accent reads intact),
