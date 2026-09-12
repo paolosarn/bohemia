@@ -14671,8 +14671,51 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): LATEST -- *** THE PAD TEACHES THE HOLD NOW, AND THE COLD HAND
-IS RED ON MAIN: the clock does not move under forty presses. TAB: RUN. ***
+RUN (run-eak241): LATEST -- *** THE DEMO'S OPENING SCENE STARTS AND NEVER ENDS.
+That is the cold-hand red, chased to the bottom. TAB: RUN. Nothing to judge. ***
+
+A cold hand presses the loudest thing forty times and never reads. Its trail:
+    front > openWatch > rungbtn > padring > daycardIn x20
+THE SECOND THING IT EVER PRESSES IS openWatch -- the invite's own "WATCH", under
+"DAY 1 BEGINS BEFORE THE DAY. The family, the table, ten years ago." A filled gold
+button on a dark screen, so it is the loudest thing there is, and that is correct
+design: it is the most inviting thing in the demo.
+
+*** AND WHAT IT STARTS NEVER ENDS. *** Measured on the served demo, sampling the
+cutscene's own canvas with getImageData:
+    tapped WATCH -> openWrap and openCv up, OPEN_RUNNING and OPEN_MIDFLIGHT true
+    the canvas changed ONCE in fifty seconds
+    then THE SAME PIXELS FOR EIGHTY-FIVE SECONDS
+    still OPEN_MIDFLIGHT at 128 SECONDS
+The cold open paints about one frame and freezes, holding the screen. The walked
+game is underneath it, WHICH IS WHY THE CLOCK NEVER MOVES -- it cannot. The 8/25
+dead-end signature was true and the cause was this, not the walk pad and not the
+day card. NOTHING THREW, which is why it was invisible: not a crash, a scene that
+stops advancing and never says so.
+
+A PERSON CAN GET OUT, A COLD HAND CANNOT. #openSkip exists and the cut already
+forces openWatch/openNot/openSkip to a 44px minimum, so SKIP is a real thumb
+target and it works. But it is dim grey on near-black in the corner of a frozen
+picture, the QUIETEST thing on screen, and never reading a word is exactly what
+the cold hand is for.
+
+WHAT I CHANGED: the cold hand now asserts *THE OPENING SCENE GIVES THE GAME BACK*
+and says when the scene is still mid-flight. The clock claims are untouched --
+they were never wrong, just mute about a cause four presses upstream.
+WHAT I DID NOT TOUCH: the cutscene engine. cutBoot and the scene runner are
+CUTSCENE's and the freeze is inside them. The invite and openStart are in the
+shell (mine) and neither is broken -- the invite fires, the wrapper shows, the
+canvas gets its first frame. IT STOPS AFTER THAT. *** FOR THE CUTSCENE LANE. ***
+WHAT I DID NOT REMOVE: the invite. Pulling the demo's opening beat because its
+engine hangs is a content decision and a bad trade made quietly.
+
+REPRO, whole thing: serve slices/, open BOHEMIA_DEMO.html at 390x844, tap #front,
+wait for the world, click #openWatch, sample getImageData on #openCv every 5s.
+Record: records/BOHEMIA_THE_OPENING_SCENE_NEVER_ENDS_9_12_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** THE PAD TEACHES THE HOLD NOW, AND THE COLD HAND
+IS RED ON MAIN: the clock does not move under forty presses. ***
 
 SHIPPED, and it is one string: the first-run walk lesson said WALK WITH THIS,
 which teaches that the pad exists and nothing about the verb that moves you.

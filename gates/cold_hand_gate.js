@@ -276,6 +276,28 @@ const LOUDEST = function () {
     ok('pressing the loudest thing gets a cold hand into the walked world at all',
        cityUp === true);
 
+    /* *** AND IF THE OPENING SCENE ATE THE RUN, SAY SO INSTEAD OF SAYING THE
+       CLOCK DID NOT MOVE. *** Measured 9/12 on the served demo: the loudest
+       thing on the opening screen is the invite's own "WATCH", a cold hand taps
+       it almost immediately, and the cold open then STARTS AND NEVER ENDS --
+       one frame painted, then the canvas frozen for 85 seconds while
+       OPEN_MIDFLIGHT stayed true past two minutes. The clock cannot move while
+       a cutscene owns the screen, so the old red was true and mute: it named a
+       symptom four presses downstream of the cause. This names the cause.
+       A human can still get out -- SKIP is there and the cut forces it to 44px
+       -- but it is the quietest thing on a frozen screen, which is exactly what
+       a cold hand exists to catch. */
+    const stuckOpen = await page.evaluate(() => {
+      try {
+        return (typeof OPEN_MIDFLIGHT !== 'undefined' && OPEN_MIDFLIGHT === true)
+            || (typeof OPEN_RUNNING !== 'undefined' && OPEN_RUNNING === true);
+      } catch (e) { return false; }
+    }).catch(() => false);
+    ok('*** THE OPENING SCENE GIVES THE GAME BACK *** -- a cold hand taps WATCH '
+      + 'because it is the loudest thing there is, and what it starts has to end'
+      + (stuckOpen ? ' (STILL MID-FLIGHT when the hand stopped pressing)' : ''),
+       stuckOpen === false);
+
     const moved = !!(firstClock && lastClock
       && (lastClock.day !== firstClock.day || lastClock.min !== firstClock.min));
     ok('*** THE GAME ADVANCES UNDER A COLD HAND *** -- clock '
