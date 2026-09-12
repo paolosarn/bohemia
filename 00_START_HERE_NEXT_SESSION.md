@@ -13555,7 +13555,54 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): LATEST -- *** [drop in] MEASURED TO THE BOTTOM. The first
+RUN (run-eak241): LATEST -- *** PAOLO RULED MID-ROUND AND IT CHANGED THE JOB.
+Two long-standing reds on main were LYING CHECKERS, not broken game; both fixed
+and mutation-proved. No game code changed. TAB: RUN. Nothing to judge. ***
+
+HIS RULING, 9/11: "we don't have a story yet bro so I don't have the final answer
+for you. Your job is to make sure the rest of the game is playable and fun."
+I had put the cold open's cast and place in front of him as the blocker. Those are
+STORY and there is no story yet, so the question had no answer. THE COLD OPEN IS
+SET ASIDE; nothing waits on it. A [PENDING Paolo] that turns out to be a story
+question is a hole in an unwritten story, NOT a blocker: never surface it, never
+park a row on it. Law: laws/BOHEMIA_ADDENDUM_THERE_IS_NO_STORY_YET_9_11_26.md
+(binds every lane).
+
+SO I WENT AND FIXED WHAT IS ACTUALLY BROKEN IN THE PLAYABLE DEMO. Both reds I had
+been carrying turned out to be stale instruments. A RED THAT IS LYING IS WORSE
+THAN NO GATE, because every real red behind it is invisible.
+  1. DEMO DAY "the money really left the purse (500 -> 500)", red for weeks. The
+     buy APPLIED and no money moved, which reads exactly like a broken till. It
+     was not: Paolo ruled 9/4 that batteries are the currency, the shelf moved to
+     electricity 9/5, and the gate still funded and read `resources`. NOW IT NAMES
+     NO CURRENCY AT ALL: it funds every pocket and finds the one the till actually
+     charged, so a future money ruling cannot make it lie again. Also asserts the
+     shelf refused nothing. 23/1 -> 25/0. Mutation: stop the till charging -> red.
+  2. PHONE RINGS "the reckoning says so, in as many words (never taken)". The card
+     says "nobody picked it up" now -- same meaning, better sentence, and the gate
+     had RETYPED the words it was checking. It asserts the MEANING now: the
+     reckoning NAMES the job he left alone and does not score it a failure.
+     20/1 -> 22/0. Mutation: stop the card naming the job -> red.
+
+*** AND I CORRECTED MY OWN FALSE FINDING, which was sitting in the repo as fact.
+*** Last round I wrote "13 fine tiles a minute, a quarter tile per step, ten
+minutes to the nearest road" and insisted it was not harness pacing. IT WAS: both
+readings came through a probe doing four round trips plus a 500ms sleep per step,
+so it timed itself. MEASURED WITH A REAL HELD PRESS AND A WALL CLOCK: one step
+moves a FULL tile, ten seconds of holding covers 20 tiles = 1.94 TILES A SECOND,
+and the nearest road district is ABOUT 66 SECONDS away. WALKING IS FINE.
+
+*** FOR UI, ONE WORD, AND IT IS THE BEST EFFORT-TO-EFFECT CHANGE LEFT IN THE
+FIRST MINUTE. *** Their teaching step says 'WALK WITH THIS'. NOTHING ANYWHERE IN
+THE GAME TELLS ANYBODY THEY CAN HOLD -- grepped the teaching table and every
+nudge. The walk LATCH shipped 9/6 (hold a direction long enough and you keep
+walking when you let go), and a stranger who taps gets a tile at a time while the
+world is 66 seconds of HOLDING away. One string in their STEPS table turns the
+first minute from trudging into arriving. Not touched here: their system, and
+ONE SYSTEM ONE SESSION.
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** [drop in] MEASURED TO THE BOTTOM. The first
 minute is empty for a structural reason, and THE RULED FIRST BEAT OF THE DEMO HAS
 ZERO CALLERS. Nothing built on purpose. TAB: RUN. Nothing to judge. ***
 
