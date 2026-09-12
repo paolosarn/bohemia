@@ -2327,6 +2327,20 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('PICKUP', ['node', 'gates/pickup_gate.js'],
+     'YOU CAN GO BACK FOR HER (VAMILY [rescue her] = BB-PICKUP, COMBAT 9/12). The companion went down and '
+     'stayed down forever: ALLY_DOWN_TURNS was declared and never read, with a comment admitting "picking him '
+     'up is not built yet and is not pretended", while THEIR medic has done it since V173 -- walks to a downed '
+     'man and stands him up at the health the game left him, with a scoring rule whose comment is "A BODY ON '
+     'THE FLOOR OUTRANKS HIS OWN SKIN". Why it matters: permadeath does not create attachment, it cashes in a '
+     'bond that already exists, and permadeath is ruled out, so the channel left is BEING MISSED. Built as '
+     'their rule mirrored: WALKING TO HER IS THE WHOLE INPUT, reusing PICKUP_R and the loot sweep\'s own call '
+     'site. This gate drives it for real -- she is put down by the shipped incoming fire rather than a flag, '
+     'and the player WALKS through worldShift with nothing calling the pickup by hand, because the first cut '
+     'called it directly and deleting the call from the footfall left it GREEN. Its three MUST-NOTs are the '
+     'hard part and each is checked: not a heal button (she comes up at the floor of 1 a downed body is '
+     'already left on), not invulnerable (one volley puts her back down), and no control surface at all, '
+     'which is the 8/31 no-order-menu law', True),
     ('GUNS CLOSE', ['node', 'gates/guns_close_gate.js'],
      'A GUN IS IN ITS OWN WAY UP CLOSE (VAMILY [guns close] = BB-GUNS-CLOSE, COMBAT 9/12). The row: '
      '"GUNS ARE BAD IN CLOSE. Forever, on every weapon," and its reason is history rather than taste -- '

@@ -17038,8 +17038,54 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: [loot kept] IS SHIPPED, ALL THREE OF IT: fe43746 (the two outbound) and f8fe423 (the
-inbound), both shas read off main after the push.
+THIS ROUND: FOUR ROWS SHIPPED -- [loot kept] (fe43746 and f8fe423), [guns close] plus the
+key-guard repair (efd64c7), and [rescue her] BB-PICKUP, the last one the Battle Brothers study's
+own "smallest row, highest feeling per line". Every sha read off main AFTER the push.
+
+*** [rescue her] BB-PICKUP -- YOU CAN GO BACK FOR HER. V210. ***
+THE HOLE, MEASURED IN THE DECODED BLOB AND THE ROW'S POINTER WAS EXACT: ALLY_DOWN_TURNS=99 was
+DECLARED AND NEVER READ, one hit in the whole file, with the comment "picking him up is not built
+yet and is not pretended". An honest comment on a dead constant. She already FALLS properly (hp<=0
+goes downed and never dead, the fight records when she fell, she draws red) and then nothing,
+forever. AND THEIR SIDE HAS THE WHOLE THING: medicTurn() walks a medic to a downed man inside
+MEDIC_REACH and stands him up, and the scoring above it makes a body on the floor drag him out of
+cover -- "A BODY ON THE FLOOR OUTRANKS HIS OWN SKIN, AND THAT IS THE WHOLE FIGHT WITH HIM." THAT
+IS THE FIFTH TIME THIS LANE HAS FOUND THE SAME SHAPE: the behaviour exists and it is pointed away
+from the player. The study's headline was that four systems failed this way; the cost is wiring.
+WHY IT IS WORTH MORE THAN ITS SIZE (study day 4): permadeath does not create attachment, it cashes
+in a bond that already exists, and permadeath is ruled out here. The channels left are
+interdependence (measured: 8 foes alone 0/60 rooms, with her 60%), responsiveness, marks that
+persist, and BEING MISSED. This is being missed, the cheapest of the four.
+BUILT AS THEIR RULE MIRRORED, NOTHING NEW INVENTED: you WALK TO HER and that is the whole input,
+reusing PICKUP_R (the same distance the loot already calls "you got your hands on it") off the SAME
+call site, the one whose comment reads "the world moving under him IS him walking" -- so the fight
+has ONE idea of having reached something, not two. She comes up AT THE HEALTH THE GAME LEFT HER,
+which is the medic's own bargain word for word ("revived at the hp the game left him, which is 1,
+so the medic sets no health number at all"). She comes up WINDED (stun 1), the medic's own line.
+The real cost is the ground you cross under fire, which is what V181 made you pay for loot. And the
+readout when she falls now says she can be reached, because a thing he cannot know about does not
+exist ([draft:true], WORDS owns the wording). The dead constant's comment was corrected: saying
+pick-up is not pretended was honest then and is a lie now.
+THE ROW'S THREE MUST-NOTS, EACH HELD ON THE GLASS: not a heal button (she comes up at 1 hp from 0,
+the floor a downed body is already left on, and there is no button anywhere); not invulnerable (at
+1 hp the shipped fire puts her back down in ONE volley, still downed not dead); no control surface,
+the 8/31 no-order-menu law (of 101 pressable things, ZERO order her about). Plus: she goes down
+through the SHIPPED FIRE and not by setting a flag, and NOTHING stands her up alone -- 30 turns of
+her ladder, their medic's turn and the pickup itself with you nine tiles away, still down. That
+absence is what makes it being missed rather than a wait.
+TWO INSTRUMENT BUGS IN MY OWN GATE. (1) THE STAGING WAS BACKWARDS and the gate could not fail
+honestly: acq=0 when acquired() wants acq>=ACQ_TURNS, and the men out of range -- 400 volleys
+landed nothing. (2) MUTATION A ESCAPED: I deleted allyPickup() from the footfall and the gate
+STAYED GREEN, because the arm called the function directly. AN ARM THAT CALLS THE FUNCTION PROVES
+THE FUNCTION WORKS, NOT THAT THE GAME REACHES IT -- the structurally-unreachable defect this lane
+has now found four times, living in my own checker. It drives the real worldShift(1,0) walk now and
+that mutation produces 3 reds. A third, smaller: the control arm regexed innerHTML and flagged the
+bench's pre-existing TAKE HIT / HEAL pair; it reads real controls now and names that pair as
+excluded. A MENTION IS NOT A USE.
+gates/pickup_gate.js 9/0, registered as PICKUP. Mutation-proved three ways (heal button 1 red, no
+wind 1 red, footfall forgets her 3 reds). NO DAMAGE BEFORE THE DIAL: no damage value, no hit chance
+and no roll is authored. Tab: COMBAT.
+Record: records/BOHEMIA_COMBAT_YOU_CAN_GO_BACK_FOR_HER_9_12_26.md
 
 THE THIRD ONE, BB-THE-FIGHT-KNOWS-THE-DAY: enter(G,d,env) got HP, a roster, a package id and a
 stamina max and NO hour, NO weather, NO shade, then ran cleanSlate. The walked city organises its
@@ -17066,9 +17112,18 @@ gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-prov
 NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
 Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
 
-QUEUE STATE: [loot kept] and [guns close] are both SHIPPED (efd64c7 carries [guns close] and the
-key-guard fix; sha read off main after the push). THE NEXT OPEN LINE IN THIS SECTION IS
-[rescue her] BB-PICKUP.
+QUEUE STATE: [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+[guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
+THIS SECTION IS [plates cost] BB-THE-FIGHT-EATS-TAPE, then [enemies flee] BB-THE-ROUT.
+
+STANDING LESSON FROM THIS ROUND, AND IT IS THE MOST USEFUL THING IN THIS BLOCK: EVERY ONE OF THE
+FOUR ROWS WAS WIRING, NOT INVENTION. The pull-back, the loot in G.rc, the city's clock, the medic's
+pick-up rule -- all four were already built and nothing consumed them. MEASURE THE BLOB BEFORE
+WRITING A LINE. And the second theme was BROKEN INSTRUMENTS: gates pinned to spellings, a statistic
+that was a coin flip run to run, a sampler waiting on frames a stalling machine never delivers, an
+arm that could not pass on correct code, and an arm that proved a function works rather than that
+the game reaches it. Baseline far enough back to answer the question you actually asked, measure
+with one probe instead of three theories, and never change the tree while a gate is running.
 
 [guns close]: "GUNS ARE BAD IN CLOSE. Forever, on every weapon." MEASURED FIRST AND THE BUILD WAS
 THE EXACT OPPOSITE, in its own comment: rangeT is 0 inside PT_BLANK, and the dial's pattern tier
