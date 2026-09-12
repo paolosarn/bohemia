@@ -1,6 +1,6 @@
 {
- "sources": 302,
- "total_mb": 308.7,
+ "sources": 305,
+ "total_mb": 308.8,
  "unreached_mb": 304.3,
  "rows": [
   {
@@ -1198,7 +1198,7 @@
    "samples": 32,
    "hits_shown": 2,
    "hits_loaded": 16,
-   "bytes": 133951
+   "bytes": 151771
   },
   {
    "path": "engine/BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
@@ -1655,9 +1655,9 @@
    "kind": "engine",
    "verdict": "SHOWN (part)",
    "samples": 32,
-   "hits_shown": 1,
-   "hits_loaded": 23,
-   "bytes": 52801
+   "hits_shown": 2,
+   "hits_loaded": 24,
+   "bytes": 61030
   },
   {
    "path": "engine/bohemia_exchanges.js",
@@ -1784,6 +1784,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 14116
+  },
+  {
+   "path": "engine/bohemia_haggle.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 3,
+   "hits_shown": 3,
+   "hits_loaded": 1,
+   "bytes": 13674
   },
   {
    "path": "engine/bohemia_hazard.js",
@@ -2200,12 +2209,21 @@
    "bytes": 67164
   },
   {
+   "path": "engine/bohemia_powerbuild.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 1,
+   "bytes": 9902
+  },
+  {
    "path": "engine/bohemia_powergrid.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
    "samples": 3,
    "hits_shown": 3,
-   "hits_loaded": 2,
+   "hits_loaded": 3,
    "bytes": 11979
   },
   {
@@ -2443,6 +2461,15 @@
    "bytes": 29813
   },
   {
+   "path": "engine/bohemia_stayed.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 8998
+  },
+  {
    "path": "engine/bohemia_storage.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -2566,7 +2593,7 @@
    "samples": 4,
    "hits_shown": 4,
    "hits_loaded": 1,
-   "bytes": 43614
+   "bytes": 50827
   },
   {
    "path": "engine/bohemia_trailer.js",
