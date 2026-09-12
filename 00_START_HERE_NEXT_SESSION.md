@@ -6959,7 +6959,60 @@ THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 ================================================================================
 
-COOK (cook-mce6r5): 9/11 LATEST -- *** HAIR HAS 21 COLOURS, AND THE BUG WAS A SEVEN-ENTRY
+COOK (cook-mce6r5): 9/12 LATEST -- *** [city from above] ROUND 2: 56 OF 61 -> 61 OF 61, AND
+THE FIVE I NAMED AS "A DIFFERENT MECHANISM" WERE NOT ONE. *** Nothing on his screen changed;
+the renderer is LIFE + CITY's. TAB: CITY, once they draw them. NOT IN A TAB YET otherwise.
+
+WHAT I WROTE LAST ROUND AND GOT WRONG: "convention, dam, fort, minigp and prison all carry
+mod: KIT and are authored as kit ENTRIES, a different mechanism." Naming them instead of
+rounding them away was right. Calling them different was wrong. All five register a spec with
+generate() AND palette exactly like the other 56, through bohemia_landmarks.js into the KIT'S
+OWN REGISTRY -- reached by KIT.get(name), NOT a property on the module object. My collector
+did M[k], got undefined, and I believed it. Two lines fixed it: require the registrar, then
+ask the registry before giving up.
+
+*** A FILENAME IS NOT A REGISTRY, NOW THREE WAYS IN THIS LANE. READ THIS BEFORE YOU CONCLUDE
+ANYTHING IS MISSING. *** (1) a filename -- matching kinds against engine/bohemia_<kind>.js
+gave 42 and claimed nineteen had no art, DISTGEN's mod field gave 56. (2) a module property
+-- M['convention'] undefined, KIT.get('convention') was the answer. (3) A GATE'S FILENAME
+MATCH -- reference_check_gate decides what is a cook with 'cook' in t.lower(). Every time the
+shape is identical: I asked something ADJACENT to the registry, got a clean negative, and
+believed it. A CLEAN NEGATIVE FROM THE WRONG ORACLE LOOKS EXACTLY LIKE A FACT. Ask the thing
+that OWNS the list.
+
+AND THE NUMBER CORRECTED THE EYE THIS ROUND, which is the opposite of the hair round and why
+neither one is the rule on its own. fort READ as empty tan in the rendered sheet and I nearly
+wrote down an emptiness defect. Measured: all five use the full 15-code legend and fort is
+mid-pack at 25.5% "dust yard" against minigp's 27.7% "circuit". A fort IS a walled yard.
+MEASURE AND LOOK.
+
+CB-04 WAS RE-MEASURED because it is the arm that could kill the whole method (a one-cell
+street loses the vote in a 4x4 dominant-code block): convention +0.9, dam +0.1, fort +0.2,
+prison +2.5, minigp -0.1. Worst loss a tenth of a point.
+
+BANK: 61 kinds, 32x32, median 10 colours, ALL 61 ROUND-TRIP EXACTLY. Nothing painted.
+GATES: reference_check 6/0, banklaw 8/0, district_kit 24/0, pixel_craft 30/0, art_45 16/0,
+derived_freshness 9/0; reusefirst 202/5 and banks_used 24/2 both IDENTICAL TO MAIN.
+banklaw is 7/1 on main and 8/0 here and THE DIFFERENCE IS NOT MY BANK: the gate writes
+records/BOHEMIA_BANK_LAW_INDEX.md and re-indexing picked up three rows from EYES' own
+BOHEMIA_EYES_SEEN_9_11_26.json that landed on main without it. Committed anyway -- machine
+written, clears a red, and the alternative is every lane tripping it.
+RECORD: records/BOHEMIA_COOK_CITY_FROM_ABOVE_ROUND_2_9_12_26.md
+PICTURE: records/target/COOK_CITY_FROM_ABOVE_LAST_FIVE_9_12_26.png (the five, fine and coarse)
+
+THE REFERENCE CHECK DUTY WAS OWED ON FOUR TOOLS AND IS PAID. The 9/4 standing duty on this
+lane's section says EVERY COOK CARRIES A REFERENCE CHECK. The three hair cooks and the city
+tool did not. All four now cite refs that actually governed them (HAIR-01, HAIR-03, GARM-03,
+FACE-03, CB-04, CB-05, DIST-04) with what was taken and what changed.
+-> [FOR DIRECTION] reference_check_gate cannot see any of them: it picks cooks by FILENAME.
+   Measured 9/12: 92 visible, 187 that write an art surface AND deal in colour, so about 173
+   invisible -- AN UPPER BOUND, some of those are judges not cooks. CLAUDE.md already carries
+   a KNOWN GAP on this gate (92 vs REUSE-FIRST's 170 because of tools/*_patch.py); the hole is
+   wider than that entry says. Their gate, their row; not fixed from here.
+
+================================================================================
+
+COOK (cook-mce6r5): 9/11 -- *** HAIR HAS 21 COLOURS, AND THE BUG WAS A SEVEN-ENTRY
 LIST, NOT A MISSING MECHANISM. Paolo ruled it directly this round: "The more the better I
 don't know why you're asking me if you want hair colors, bro of course add them, bro." TAB:
 CHARACTER, the NEW CROWD button, and every person in the RUN and the CITY. ***

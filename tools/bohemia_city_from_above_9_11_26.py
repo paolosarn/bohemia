@@ -41,6 +41,41 @@ looked at rather than argued about.
 
     python3 tools/bohemia_city_from_above_9_11_26.py            measure and render samples
     python3 tools/bohemia_city_from_above_9_11_26.py --write    emit the bank
+
+REFERENCE CHECK (owed by the 9/4 standing duty; paid 9/12 in round 2, and this tool is
+another the gate cannot see -- it is a cook with no "cook" in its filename).
+
+COMPARED TO: CB-04 (OpenTTD's road grain), CB-05 (Songs of Syx at far zoom), DIST-04
+(Stardew Valley's town map), and real Las Vegas aerials at this tile size.
+
+STRUCTURAL RULES TAKEN:
+  * CB-05 -- "zoomed out, a city stops being tiles and becomes COLOUR MASSES by function;
+    a district's identity must survive that switch." That is the whole test this tool has
+    to pass, and it is why the reduction is DOMINANT CODE per 4x4 block and not an average.
+    Averaging a red roof beside a grey road makes brown nothing: the mass stops being a
+    mass and the identity dies exactly where CB-05 says it must survive. (The car round had
+    to undo that same mistake from the other end.)
+  * CB-04 -- "the road grid is the first thing legible at every zoom." This is the arm that
+    could have killed the whole method, because a street ONE cell wide loses the vote inside
+    a 4x4 block. MEASURED both rounds rather than assumed. Round 1, all kinds: roads went
+    fine 18.6% -> coarse 20.3%, worst district losing 1.0 point, because a road is a wide
+    run that wins its blocks. Round 2, the last five: convention +0.9, dam +0.1, fort +0.2,
+    prison +2.5, minigp -0.1. Worst loss across the five is a tenth of a point.
+  * DIST-04 -- in 3/4 top-down a building is FRONT FACE + ROOF BAND and paths read because
+    they are continuous. Nothing here draws a new building; the point is that the coarse
+    tile is that same art reduced, so the continuity DIST-04 relies on is inherited rather
+    than re-invented. One house is the same house on both sides of the 9/7 zoom.
+
+WHAT CHANGED FROM THE REFERENCE: nothing, and that is the design. This tool authors no
+pixels at all. Every coarse tile is a district's own art reduced 4x, off that district's own
+ramp, so a district that changes at street scale changes up here in the same commit. The
+alternative -- painting 61 aerial tiles by hand -- is the thing that rots.
+
+AND THE NUMBER CORRECTED THE EYE THIS ROUND, which is worth recording because last round it
+went the other way. Looking at the five, fort read as empty tan. Measured: all five use the
+full 15-code legend, and fort's biggest single code is 25.5% "dust yard", mid-pack against
+minigp's 27.7% "circuit". A fort IS a walled yard and a circuit IS mostly track. There was no
+emptiness defect; the eye had found the art doing its job. MEASURE AND LOOK, not one of them.
 """
 import io, json, os, subprocess, sys
 from collections import Counter
@@ -69,6 +104,19 @@ const MODMAP={};
   while((mx=mre.exec(body))) MODMAP[mx[1]]=mx[2]; }
 const SHARED={ SUB:'engine/bohemia_suburb.js', UTL:'engine/bohemia_utility.js',
                KIT:'engine/bohemia_district_kit.js' };
+/* ROUND 2, AND IT IS THE SAME SENTENCE A THIRD TIME. Round 1 stopped at 56 of 61 and
+   I wrote down that the last five "carry mod: KIT and are authored as kit ENTRIES, a
+   different mechanism". THEY ARE NOT A DIFFERENT MECHANISM. convention, dam, fort,
+   minigp and prison each register a spec with generate() AND palette, exactly like the
+   other 56 -- through bohemia_landmarks.js, into the kit's own REGISTRY, which is
+   reached by KIT.get(name) and is NOT a property on the module object. So M['convention']
+   was undefined and I called the mechanism different instead of asking the registry.
+   A FILENAME IS NOT A REGISTRY (the district round). A MODULE PROPERTY IS NOT A REGISTRY
+   (this one). MEASURED, not assumed: before requiring landmarks, KIT.get('convention') is
+   false; after, all five return a spec with generate and palette. */
+const REGISTRARS=['engine/bohemia_landmarks.js'];
+for(const r of REGISTRARS){ const f=path.join(ROOT,r);
+  if(fs.existsSync(f)){ try{ require(f); }catch(e){} } }
 const out={};
 function take(k, M, host){
   if(!M||typeof M.generate!=='function'||!M.palette) return false;
@@ -87,6 +135,9 @@ for(const k of kinds){
   if(!f||!fs.existsSync(path.join(ROOT,f))) continue;
   let M=null; try{ M=require(path.join(ROOT,f)); }catch(e){ continue; }
   if(M[k]&&typeof M[k].generate==='function'){ take(k, M[k], mod+'.'+k); continue; }
+  /* ASK THE REGISTRY, not the module object. This is the line that takes 56 -> 61. */
+  if(typeof M.get==='function'){ const spec=M.get(k);
+    if(spec&&typeof spec.generate==='function'){ take(k, spec, mod+'.get('+k+')'); continue; } }
   take(k, M, mod);
 }
 process.stdout.write(JSON.stringify(out));
