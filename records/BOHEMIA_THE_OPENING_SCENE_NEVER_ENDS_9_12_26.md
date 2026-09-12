@@ -157,7 +157,45 @@ with the walk pad's rule now, inside the frame.
     before:  ctask 146x31  ctgive 162x31  ctfavour 87x31  ctgo 162x31
     after:   ctask 146x44  ctgive 162x44  ctfavour 87x44  ctgo 162x44
 
+## AND THE INSTRUMENT ITSELF, FINISHED PROPERLY
+
+The last red was the hand, not the game. **A hand that always takes the single
+loudest thing alternates forever** the moment two controls swap which of them is
+loudest. So once the clock has stopped answering for four presses, it takes the
+loudest thing it has **not** tried. **It still reads nothing** — ink and contrast
+and nothing else. It just refuses to press the same two things once the clock stops
+answering, which is the crudest thing a bored person does.
+
+**Two mistakes on the way, both caught by measuring instead of declaring victory:**
+
+- **The skip was an exile, not a nudge.** The first cut skipped the last *six*
+  controls and cleared only when the clock moved, which pushed the hand away from
+  the walk pad — the one control that actually spends the day. The gate became a
+  coin: **6/1, 7/0, 6/1**. Skipping the last **two** breaks the alternating pair
+  and the list clears after every skipped press, so nothing stays exiled.
+- **The tail window was too tight.** Even narrowed, it went **7/0, 7/0, 6/1**,
+  always on "is it still advancing at the end". Twelve presses is far too small a
+  sample for a wandering hand, and what that claim *means* is "it did not die
+  partway". It measures **the back half** now — still the back of the run, still
+  unsatisfiable by the opening, and no longer a coin. **Four runs, 7/0 each.**
+
+    THE COLD HAND 4/2 -> 7/0, four consecutive runs
+    trail: front > padring > daycardIn x2 > dcbtn > dcgo > blstack > gearbtn
+           > setclose > dcx > padring ... > cttalk > ctgo > padring ...
+    it explores, escapes two panels, and settles on walking
+
+**Mutation, the historical one:** kill the walk pad's `pointerdown` so the pad does
+nothing → **5/2**, reporting the 8/25 dead end exactly. The skip list did not make
+it toothless, because at a real dead end everything it has not tried gets tried too
+and the clock still never moves.
+
+**And one thing the SVG pad broke quietly:** an SVG element's `className` is an
+`SVGAnimatedString`, so `String()` on it gives `[object SVGAnimatedString]` — which
+showed up in the trail as a control name and, worse, went into the skip list as a
+key matching nothing. The pad has been SVG since 9/7, so that is now the common
+case. Read through `baseVal`.
+
 ## RESULT
 
-    COLD HAND 4/3 -> 5/2, the frozen opening is out of the demo, and the four
-    conversation choices meet the thumb law on the surface a friend taps
+    COLD HAND 4/2 -> 7/0 (four runs), the frozen opening is out of the demo, and
+    the four conversation choices meet the thumb law on the surface a friend taps

@@ -372,7 +372,7 @@ const LOUDEST = function (skip) {
     const tailMoved = !!(tailStart && lastClock
       && (lastClock.day !== tailStart.day || lastClock.min !== tailStart.min));
     ok('*** AND IT IS STILL ADVANCING IN THE BACK HALF, NOT JUST AT THE START *** -- '
-      + 'over the last twelve presses the clock went '
+      + 'over the back half of the run the clock went '
       + (tailStart ? tailStart.day + 'd ' + tailStart.min + 'm' : '?') + ' -> '
       + (lastClock ? lastClock.day + 'd ' + lastClock.min + 'm' : '?')
       + ' (' + new Set(tail).size + ' distinct controls, which is REPORTED not '

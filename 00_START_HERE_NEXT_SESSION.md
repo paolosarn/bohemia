@@ -15410,10 +15410,38 @@ in the page cannot reach it. It sits with the walk pad's rule inside the frame n
     before  ctask 146x31  ctgive 162x31  ctfavour 87x31  ctgo 162x31
     after   ctask 146x44  ctgive 162x44  ctfavour 87x44  ctgo 162x44
 
-NEXT: the cold hand's last red is now a blunt-instrument red, not a dead end -- it
-cannot read four choices and picks the longest label forever. Either it learns to
-press a control it has not pressed before when the clock is not moving, or that
-claim gets scoped to the walked surface. Do NOT "fix" the conversation for it.
+*** AND THE INSTRUMENT IS FINISHED: THE COLD HAND IS 7/0, FOUR RUNS RUNNING. ***
+The last red was the hand, not the game. A hand that always takes the single
+loudest thing alternates forever the moment two controls swap which is loudest, so
+once the clock stops answering for four presses it takes the loudest thing it has
+NOT tried. IT STILL READS NOTHING -- ink and contrast only. It just stops pressing
+the same two things when the clock stops answering, which is what a bored person
+does.
+TWO MISTAKES ON THE WAY, both caught by measuring instead of declaring victory:
+  1. THE SKIP WAS AN EXILE, NOT A NUDGE. The first cut skipped the last SIX
+     controls and cleared only when the clock moved, pushing the hand away from
+     the WALK PAD -- the one control that spends the day. It became a coin:
+     6/1, 7/0, 6/1. Skipping the last TWO breaks the alternating pair, and the
+     list clears after every skipped press so nothing stays exiled.
+  2. THE TAIL WINDOW WAS TOO TIGHT. Even narrowed it went 7/0, 7/0, 6/1, always on
+     "is it still advancing at the end". Twelve presses is far too small a sample
+     for a wandering hand, and what that claim MEANS is "it did not die partway".
+     It measures THE BACK HALF now -- still the back of the run, still
+     unsatisfiable by the opening. FOUR RUNS, 7/0 EACH.
+  MUTATION, the historical one: kill the pad's pointerdown -> 5/2, reporting the
+  8/25 dead end exactly. The skip list is not toothless: at a real dead end
+  everything untried gets tried too and the clock still never moves.
+  AND THE SVG PAD BROKE ONE THING QUIETLY: an SVG element's className is an
+  SVGAnimatedString, so String() gives "[object SVGAnimatedString]" -- it showed
+  in the trail as a control name and went into the skip list as a key matching
+  nothing. Read through baseVal.
+
+NEXT: [drop in]'s three beats are now pad (taught, and it teaches the HOLD),
+somebody who wants something (the wake card's job, plus people who carry four real
+choices) -- and SOMETHING TO LOOK AT is still the gap, still 66 seconds of holding
+away in a suburb with no road row. The board has moved on it without me: [wake
+near] moves the spawn and [first ask] authors the first three asks from what
+already runs. Check both before spending another round on the middle beat.
 Record: records/BOHEMIA_THE_OPENING_SCENE_NEVER_ENDS_9_12_26.md
 
 --------------------------------------------------------------------------------
