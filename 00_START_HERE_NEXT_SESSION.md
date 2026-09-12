@@ -24347,7 +24347,21 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/12 (latest): [judge the turn] RECLAIMED AND SHIPPED - COMBAT
+ROUND LOG 9/12 (latest): [eyes: purple leak] RULED AND SHIPPED - zero
+exceptions on the 32 purple tiles. Fantasy objects (crystals, runes,
+portal door, flames, foliage) KILL; real objects (signs, container,
+walls, concrete, lights) REPAINT by the 7/28 ramp-snap with purple
+banned as an accent outside Amalgamation banks; the neon argument loses
+twice (ACT ONE ONLY bans glow, the reservation strips the hue). COOK
+executes off EYES' probe dump; EYES' tile counter becomes the law's
+owed gate, red line zero. NOTE ON THE BOARD: [judge the zoom] is a new
+coordinator line that substantially duplicates my shipped [judge the
+turn] (2e3a607) - the verdict already answers the cloud-reads-as-
+weather and value-only asks on frozen live frames; the one ask it did
+not measure is size continuity at the handoff, both directions. Next
+round: measure that, then mark [judge the zoom] with the combined
+evidence rather than redo what is done.
+PREVIOUS: [judge the turn] RECLAIMED AND SHIPPED - COMBAT
 built the fight zoom to the transition card (their ship even quotes it),
 and my own instrument on frozen live frames agrees with theirs within
 half a point: core peak 48.8% vs the 60 cap, top/bottom edges 0%, one-way
