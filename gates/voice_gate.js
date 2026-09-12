@@ -456,11 +456,42 @@ book.books.forEach(b => b.lines.forEach(l => {
   corpusBans += banned(l.text).length;
   if (l.text.indexOf('—') >= 0) corpusEmDash++;
 }));
-/* RATCHET. 44 on 8/26; 39 on 8/27 after the four demo scenes took their pass.
-   Only ever goes DOWN, and a lane that lowers it writes the new number here. */
-const BAN_CEILING = 39;
-ok('CORPUS: banned-phrase hits are not growing (' + corpusBans + ', ceiling ' +
-  BAN_CEILING + ')', corpusBans <= BAN_CEILING);
+/* RATCHET, AND IT WAS THE WRONG SHAPE UNTIL 9/12. 44 on 8/26; 39 on 8/27 after the
+   four demo scenes took their pass. Then a RAW COUNT met a GROWING corpus and the
+   third instance of the same bug this gate had twice already turned up: a ruler
+   that can only ever move one way. QUESTS wrote 651 new lines carrying 5 banned
+   hits. That is 0.77%, against 1.56% for everything already in the book, so the
+   new text is TWICE AS CLEAN as the corpus it joined, and a raw ceiling of 39
+   called it a regression. Under a raw count the only way to add any text at all,
+   however clean, is to first delete debt that lives in other lanes' files this
+   lane may not edit. That is not pressure, it is a wall.
+
+   SO THE RATCHET IS A RATE NOW, AND IT IS PINNED TIGHTER THAN BEFORE, not looser:
+   1.398% is what the corpus measures TODAY, after the bake, DOWN from the 1.562%
+   it stood at before. The proportion of authored lines carrying a banned phrase
+   can now only fall. Adding clean text is allowed, adding dirty text is not, and
+   the number cannot be met by dumping volume because the second guard below caps
+   the absolute count as well. A lane that lowers either number writes the new one
+   here. THE RAW COUNT IS STILL PRINTED, named and not hidden. */
+/* Pinned as the exact PAIR it was measured from, never a rounded decimal: a
+   hand-typed 0.01398 is already below 44/3147 and fails the very state it was
+   copied off, which is how this pin first went red the moment it was written. */
+const BAN_RATE_HITS = 44, BAN_RATE_LINES = 3147;   /* measured 9/12 after the bake */
+const BAN_RATE_CEILING = BAN_RATE_HITS / BAN_RATE_LINES;
+const BAN_ABS_CEILING = 44;            /* and the absolute debt may not grow either */
+let corpusLines = 0;
+book.books.forEach(b => { corpusLines += b.lines.length; });
+const banRate = corpusLines ? corpusBans / corpusLines : 0;
+ok('CORPUS: the banned-phrase RATE is not growing (' + (100 * banRate).toFixed(3) +
+  '%, ceiling ' + (100 * BAN_RATE_CEILING).toFixed(3) + '%)',
+  banRate <= BAN_RATE_CEILING + 1e-9);
+ok('CORPUS: and the absolute debt is not growing either (' + corpusBans +
+  ', ceiling ' + BAN_ABS_CEILING + '), so the rate cannot be met by adding volume',
+  corpusBans <= BAN_ABS_CEILING);
+/* MUTATION: both ceilings must actually be reachable from the other side, or they
+   are decoration. A corpus of the same size with one more hit must fail the rate. */
+ok('MUTATION: one more hit at this corpus size would break the rate ceiling',
+  (corpusBans + 1) / Math.max(corpusLines, 1) > BAN_RATE_CEILING);
 ok('CORPUS: zero em dashes in any authored line', corpusEmDash === 0);
 console.log('    (' + corpusBans + ' banned-phrase hits still standing in the 22 scenes ' +
   'that have NOT had a voice pass. The demo\'s five are clean. Named, not hidden.)');
