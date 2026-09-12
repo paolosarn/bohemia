@@ -2,17 +2,17 @@
  "what": "Every derived file re-derived and compared. Written by gates/derived_freshness_gate.js.",
  "why": "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md names this gate by name. A bake is correct the day it is made and rots silently after.",
  "how": "Each maker runs in a throwaway git worktree (HEAD plus the working tree's own changes). The repo itself is never written to. Outputs are discovered by asking git what moved, not by reading headers, because the file most likely to be stale is the one whose header nobody wrote.",
- "taken": "2026-09-12T02:20:40.637Z",
+ "taken": "2026-09-12T06:31:49.566Z",
  "counts": {
-  "makersRun": 11,
+  "makersRun": 12,
   "makersExcluded": 3,
-  "filesRewritten": 42,
-  "compared": 42,
+  "filesRewritten": 43,
+  "compared": 43,
   "fresh": 39,
-  "drifting": 3,
-  "missingAMakerHeader": 7
+  "drifting": 4,
+  "missingAMakerHeader": 8
  },
- "secondsToRun": 7.1,
+ "secondsToRun": 5.6,
  "drifting": [
   {
    "file": "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md",
@@ -31,9 +31,16 @@
    "maker": "tools/bohemia_map_tab.py",
    "plus": 92,
    "minus": 7
+  },
+  {
+   "file": "slices/BOHEMIA_SUBURB_WALK_7_18_26.html",
+   "maker": "tools/bohemia_suburb_walk.py",
+   "plus": 124,
+   "minus": 1
   }
  ],
  "frozen": {
+  "slices/BOHEMIA_SUBURB_WALK_7_18_26.html": "FACTIONS. +124/-1 against tools/bohemia_suburb_walk.py. The committed copy is missing the lane's own 9/6 THE OTHER FOUR block (Pures, Panthers, La Familia, Triads). Found when a full suite run ran the tool against the live repo and left the tree dirty.",
   "slices/BOHEMIA_MAP_CURRENT.html": "WORLD. +92/-7 against tools/bohemia_map_tab.py, including engine md5 stamps that no longer match the engine files they name. It declares no maker header at all.",
   "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md": "WORLD. +19/-19 against tools/bohemia_surface_audit.py. It says 6 things are on the walked surface and 22 only on the one he never sees; regenerated it says 22 and 7.",
   "slices/BOHEMIA_WHICH_SURFACE_8_15_26.html": "WORLD. +1/-1, the same audit rendered as a page.",
@@ -52,6 +59,7 @@
   "slices/BOHEMIA_WHICH_SURFACE_8_15_26.html",
   "slices/BOHEMIA_MAP_CURRENT.html",
   "slices/BOHEMIA_ALPHA_0_9.html",
-  "slices/BOHEMIA_CITY_WORLD.html"
+  "slices/BOHEMIA_CITY_WORLD.html",
+  "slices/BOHEMIA_SUBURB_WALK_7_18_26.html"
  ]
 }

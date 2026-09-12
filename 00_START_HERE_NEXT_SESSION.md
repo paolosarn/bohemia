@@ -9288,6 +9288,59 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/12 (b) LATEST -- *** CHAT 18. ROUND 17. [suite runs] IN PROGRESS, NOT
+SHIPPED. ALL 593 GATES RAN IN ONE PASS FOR THE FIRST TIME, and the number that falls out is the
+whole story: 500 green, 93 red, 13,001 s of gate work, and a FLOOR OF 71 MINUTES on this four-core
+box against a 45-minute budget and the row's 10-minute target. THE SUITE CANNOT FIT ITS BUDGET HERE
+AND SHARDING CANNOT CHANGE THAT -- sharding splits one 71-minute run into several; the box time is
+the same. The levers are less browser work or more machines, and that is a fork, not a coding task.
+*** THE NUMBER WAS HIDDEN BEHIND A STALE CENSUS, AND IT IS MINE. *** suite_finishes_gate computes
+the floor from a census of a real run; the census was built 9/6 from a TRUNCATED log, so it only
+ever saw the gates fast enough to be reached. It said the floor was 1,322 s (22 min, comfortable).
+The truth is 4,261 s (71 min, 58% over). Wrong by 3.2x in the flattering direction. A census taken
+from a run that could not finish is the most biased sample available -- NOTHING IS BAKED ONCE, in
+the one file whose job is to say whether the suite is healthy. Refreshed from the complete run; the
+gate is now red for the true reason instead of red for a stale input.
+TWO OF THE ROW'S THREE CLAUSES WERE ALREADY BUILT and I checked the runner instead of trusting the
+row: --shard i/n exists, interleaved, with a gate that counts the union and the multiplicity; and
+the never-ran count already prints, names the gates, and RETURNS 1. The third (retire the dead) the
+census itself routes to [dead gates]. So this row's buildable part was mostly done before it was
+claimed; what it lacked was the measurement.
+*** FACTION ARC IS NOT RED, IT IS BEING KILLED. *** 600.0 s is exactly GATE_CAP. It hit the ceiling,
+was killed, and is reported as a failure like any other, so it sits inside the 93 reds having
+verified NOTHING -- green over nothing, in red clothes, which is worse because a red sends somebody
+hunting a bug that is not there. It was 429 s in the old census, so it has grown past the cap. Cause
+is visible in its source: 15 city boots, only 12 s of declared waiting. Splitting it is the biggest
+item left and it is a gate, so it is ours. (OPENING at 438.5 s is honest by contrast: it waits for
+the opening cinematic to actually play.)
+*** THE SUITE MUTATES THE TREE IT CHECKS. *** Mid-run, a build tool ran against the LIVE repo and
+rebuilt slices/BOHEMIA_SUBURB_WALK_7_18_26.html in place. Two consequences: the confirm pass then
+judged a different tree than the main pass (the runner's own words: green alone is "usually load,
+but a changed tree does this too"), and the rebuild exposed a SIXTH stale bake, +124/-1, missing
+FACTIONS' own 9/6 THE OTHER FOUR block. Restored, not committed -- slices are not this lane's to
+edit -- and named on FACTIONS. It is also the strongest argument for last round's design: the
+freshness gate regenerates in a throwaway worktree precisely so this cannot happen.
+AND IT FOUND A REAL HOLE IN LAST ROUND'S GATE: makers were discovered by reading headers, and that
+slice has no header, so its maker was invisible. Discovery-by-running covered outputs but not
+makers -- the same hand-kept-list weakness one level up. MEASURED AND NOW PRINTED EVERY RUN: 715
+files under tools/ write into the repo and the gate names 15 (2.1%). It cannot just run the other
+700 (most are one-shot PATCH tools that re-apply rather than re-derive), so coverage is published
+and RATCHETED: it may rise, never fall. Two more fixes to that gate, both found by the run and not
+by reasoning: it rewrote its own record on every suite pass because it stored its own runtime, and
+the missed maker is added with its drift frozen.
+THE RATCHET FIRED ON ANOTHER LANE WITHIN HOURS, which is the point of the whole design. COOK hit it
+on [hair colours] and took two files off the frozen list, leaving the reasoning in the file: the
+gate's own message named the command, BOTH SLICES INLINE THE ENGINE, and the +938/-55 was TWO WEEKS
+OF EVERY LANE'S ENGINE WORK sitting unrebuilt, not one careless bake. The list went 7 to 6 without
+this lane touching it.
+WHAT IS LEFT ON THE ROW: split FACTION ARC; decide what "every gate runs every time" can mean on one
+four-core box when the floor is 71 minutes; retire the dead ([dead gates]). ROW STAYS CLAIMED --
+ship test not met, and a half-done row marked SHIPPED is worse than an open one.
+records/BOHEMIA_EVERY_GATE_RAN_ONCE_9_12_26.md
+[CORRECTION TO MY OWN LAST NOTE] I wrote that the suite paces at two hours. That was measured while
+I was running worktree checkouts and eleven build tools on the same four cores -- I was timing my
+own interference. On a quiet box the main pass is about 2h05 for 593 gates with the budget lifted,
+and the FLOOR is 71 minutes. Do not quote the two-hour figure.
 PLUMBER (plumber-ont6t5): 9/12 LATEST -- *** CHAT 18. ROUND 16. [nothing baked] SHIPPED, AND IT
 FOUND FIVE MORE STALE BAKES ON ITS FIRST RUN, THREE OF THEM IN FILES THAT SHIP. The law NOTHING IS
 BAKED ONCE ends with the sentence "This one gets a gate: derived_freshness_gate" and nobody had

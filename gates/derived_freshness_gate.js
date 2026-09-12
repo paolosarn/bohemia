@@ -112,6 +112,12 @@ const MAKERS = [
   ['node',    'tools/build_run_slice.js',                1420],
   ['python3', 'tools/bohemia_city_from_above_9_11_26.py', 1006],
   ['python3', 'tools/bohemia_city_chunk_tile_bank.py',   2460],
+  /* NOT FOUND BY THE HEADER SWEEP, and that is the point. A full suite run on 9/12
+   * happened to run this tool against the live repo and left the slice 124 lines
+   * different from the committed copy. Its output declares no maker, so no amount of
+   * header reading would ever have reached it. Added by hand, and the coverage check
+   * below exists so the size of that blind spot is a printed number from now on. */
+  ['python3', 'tools/bohemia_suburb_walk.py',            900],
 ];
 
 const NOT_RUN = {
@@ -140,6 +146,10 @@ const VOLATILE = [
 /* KNOWN STALE, measured 9/12/26. THIS LIST MAY ONLY SHRINK. Each entry names the lane
  * that owns the file, because this lane may not edit slices/, laws/, art or features. */
 const KNOWN_STALE = {
+  'slices/BOHEMIA_SUBURB_WALK_7_18_26.html':
+    'FACTIONS. +124/-1 against tools/bohemia_suburb_walk.py. The committed copy is missing '
+    + "the lane's own 9/6 THE OTHER FOUR block (Pures, Panthers, La Familia, Triads). Found "
+    + 'when a full suite run ran the tool against the live repo and left the tree dirty.',
   /* RUN_CURRENT and CURRENT_SLICE CAME OFF THIS LIST 9/12 (COOK, [hair colours]), and the
      gate is what told me to delete them -- "a file that re-derives clean again has been
      fixed, and leaving it listed lets the next stale bake hide behind a stale excuse".
@@ -165,6 +175,10 @@ const KNOWN_STALE = {
   'records/BOHEMIA_REACHABILITY_CENSUS.md':
     'PLUMBER. +3/-3, the same census as prose.',
 };
+
+/* The number of makers this gate named on 9/12. A FLOOR, never a target: it may
+ * rise when somebody covers another tool and must never fall. */
+const COVERAGE_FLOOR = 15;
 
 let pass = 0, fail = 0;
 const ok = (c, m, got) => { if (c) { pass++; console.log('  ok   ' + m + (got ? '   [' + got + ']' : '')); }
@@ -374,6 +388,44 @@ function allPaths(dir, out) {
      healed.length ? 'FIXED, DELETE THE ENTRY: ' + healed.join(', ')
        : Object.keys(KNOWN_STALE).length + ' frozen, none healed yet');
 
+  /* ---- HOW MUCH OF THE REPO THIS GATE HAS NEVER LOOKED AT --------------
+   *
+   * MEASURED 9/12, and it is not flattering: 715 files under tools/ write into
+   * slices/, records/, engine/, banks/ or laws/, and this gate names 13 of them.
+   * That is under two per cent. It cannot simply run the other 702 -- most are
+   * ONE-SHOT PATCH tools whose second run re-applies rather than re-derives, which
+   * is a different failure with its own gate -- so the honest thing is not to
+   * pretend, but to PRINT THE NUMBER and ratchet it.
+   *
+   * The check below holds coverage as a FLOOR that can only rise. It is the same
+   * shape as every other list in this gate: a claim of completeness nobody can
+   * back is worth less than a number everybody can see going up. */
+  let writers = 0;
+  (function countWriters(dir) {
+    let names; try { names = fs.readdirSync(dir); } catch (e) { return; }
+    for (const n of names) {
+      if (n === '__pycache__') continue;
+      const f = path.join(dir, n);
+      let st; try { st = fs.statSync(f); } catch (e) { continue; }
+      if (st.isDirectory()) { countWriters(f); continue; }
+      if (!/\.(py|js)$/.test(n)) continue;
+      let src = ''; try { src = fs.readFileSync(f, 'utf8'); } catch (e) { continue; }
+      if (/(open\([^)]*['"]w|writeFileSync|write_text|\.write\()/.test(src)
+          && /(slices\/|records\/|engine\/|banks\/|laws\/)/.test(src)) writers++;
+    }
+  })('tools');
+  const named = MAKERS.length + Object.keys(NOT_RUN).length;
+  console.log('\n    COVERAGE, PRINTED BECAUSE IT IS SMALL:');
+  console.log('      ' + writers + ' file(s) under tools/ write into the repo. This gate names '
+    + named + ' of them (' + (100 * named / Math.max(1, writers)).toFixed(1) + '%).');
+  console.log('      The rest are mostly ONE-SHOT PATCH tools, which re-apply rather than '
+    + 're-derive, so running them would be a different check.');
+  ok(named >= COVERAGE_FLOOR,
+     'coverage only ever RISES. This gate looks at a small share of what writes into this repo '
+     + 'and says so out loud rather than implying it is complete; the floor stops that share '
+     + 'being quietly cut when somebody removes an awkward maker',
+     named + ' named, floor ' + COVERAGE_FLOOR + ', of ' + writers + ' writers');
+
   /* ---- THE LAW'S HEADER RULE, COUNTED ----------------------------------- */
   const uniqNoHeader = [...new Set(noHeader)];
   console.log('\n    THE LAW ALSO ASKS EVERY DERIVED FILE TO SAY WHAT MAKES IT.');
@@ -407,7 +459,11 @@ function allPaths(dir, out) {
       notRun: NOT_RUN,
       rewrittenWithoutAHeader: uniqNoHeader
     }, null, 1);
-    const strip = t => t.replace(/"taken": "[^"]*",?/, '');
+    /* `taken` and `secondsToRun` move on every run and say nothing about freshness.
+     * Leaving them in the comparison rewrote this record on EVERY suite pass, so
+     * eighteen lanes saw a modified file they never touched. Caught by a real suite
+     * run, not by reasoning. */
+    const strip = t => t.replace(/"taken": "[^"]*",?/, '').replace(/"secondsToRun": [\d.]+,?/, '');
     let had = ''; try { had = fs.readFileSync(RECORD, 'utf8'); } catch (e) {}
     if (strip(had) !== strip(body)) fs.writeFileSync(RECORD, body);
   }
