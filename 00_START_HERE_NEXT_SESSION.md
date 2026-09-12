@@ -14710,7 +14710,7 @@ RESYNC THE CITY after editing any engine module this lane's splicer does not own
 [PENDING Paolo] -- nothing new from me. The one that touches these rows is FACTIONS':
 does a debt cross the fold. Built to follow whichever way he answers.
 
-LAST SHIPPED: [back of house] <SHA>, 9/13. Before it: [someone lends] 1ffb2d2,
+LAST SHIPPED: [back of house] 3383e6d, 9/13. Before it: [someone lends] 1ffb2d2,
 [debt carried] db51665, [rice clock] 0f793c2, [own power] 38e3412,
 [century stayed] 8538cd0, [batteries mined] 6562436, [parties move] 75ac79c,
 [a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
