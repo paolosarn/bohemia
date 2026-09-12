@@ -9689,7 +9689,19 @@ function stepSfx(surface){
   var pick = ok[(Math.random()*ok.length)|0];  /* vary within what he approved */
   var v = pool[pick] || pool[0];
   if(!STEP_BUS){ try{ STEP_BUS = AC.createGain(); STEP_BUS.gain.value = STEP_GAIN;
-    STEP_BUS.connect((window.__SFXBUS) || MUS.OUT || MUS.MAST || AC.destination);  /* 8/2: through the SFX master so one slider reaches it */ }catch(_e){ STEP_BUS = null; } }
+    STEP_BUS.connect((window.__SFXBUS) || MUS.OUT || MUS.MAST || AC.destination);  /* 8/2: through the SFX master so one slider reaches it */
+    /* __THE_FOOTSTEP_BUS_IS_REACHABLE__ (9/12, SOUNDS lane) -- THE ONLY NODE
+       IN THIS GAME THAT CARRIES FOOTSTEPS AND NOTHING ELSE, exposed the same
+       way __SFXBUS, __AMB and __PULSE already are, and for the same reason.
+       WHY: sfx_wired_gate's "WALKING MADE NO SOUND" check metered MUS.MAST --
+       the MUSIC master, which footsteps never touch -- so it accused the feet
+       while watching the songs, and went red the day the street's music got
+       quieter for a phrase. Moving it to __SFXBUS was better and still not
+       enough: that bus carries EVERY effect, so silencing the feet outright
+       left it reading healthy and THE MUTATION DID NOT BITE. A BUS THAT
+       CARRIES MORE THAN ITS SUBJECT CANNOT ANSWER A QUESTION ABOUT ITS
+       SUBJECT. */
+    window.__STEPBUS = STEP_BUS; }catch(_e){ STEP_BUS = null; } }
   try{ BOH_SFX.render(v, AC, STEP_BUS || MUS.OUT || MUS.MAST || AC.destination, now + 0.01); }catch(_e){}
 }
 (function loadStepBank(){
@@ -15885,7 +15897,45 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
  RT:[0,0,2,0,3,2,0,1,0,2,3,0,1,2,0,0],
  songCtx(step){ const bar=Math.floor(step/16)%64, si=Math.floor(bar/4);
   return {sec:this.ARR[si], rs:this.RT[si], fill:(bar%4===3), barIn:bar%4, bar:bar}; },
- playStep(s,t,sc){ sc=sc||{sec:'A',rs:0,fill:false,barIn:0,bar:0}; const f=this.fac(),AC=this.AC,MAST=this.MAST,sd=this.stepDur();
+ /* __THE_BEAT_ARRIVES_LATE__ (9/12, SOUNDS lane) -- THE DRUMS COME IN A PHRASE
+    AFTER THE SONG DOES, WHICH IS THE ONE THING HIS ANCHOR IS FAMOUS FOR.
+    His law's own words about why the ORIGINAL Besaid is the one people mean:
+    "The remaster changed it (shorter, a more synthetic beat that STARTS SOONER,
+    the bass line removed) and people noticed, which tells the lane WHAT THEY
+    LOVED: the patience, the bass under it, THE BEAT ARRIVING LATE."
+    MEASURED 9/12 by rendering all 142 songs through this very function: the first
+    transient lands at 0.04s for 137 of them, and 138 of 142 put the drum on BEAT
+    ONE. Not one song on the shelf had a late beat.
+    IT IS NOT A RE-COOK, AND THAT IS WHY IT IS BUILDABLE. A song's kick array is
+    HIS content, 138 times over. But WHEN the drums arrive was never in the song
+    -- it is decided here, every step -- so one rule gives the whole shelf the
+    trait he named and touches no song's data.
+    THE 120 BPM LAW IS UNTOUCHED: the transport does not stop, the step counter
+    does not pause, nothing is rescheduled. Two drumV calls are skipped. */
+ drumsHeld(){
+   try{
+     /* A GAME SURFACE HAS TO OWN THE MUSIC. The MUSIC tab's own play never sets
+        these, and sixteen silent bars at the top of a candidate he is judging is
+        an artefact, not a song. */
+     var owned = (typeof CITYMUS!=='undefined' && CITYMUS && CITYMUS.on)
+              || (typeof INTERIORMUS!=='undefined' && INTERIORMUS && INTERIORMUS.on);
+     if(!owned) return false;
+     /* A FIGHT: NEVER. Danger is now (the 8/19 record), and the first fight
+        exists to TEACH the beat -- a beat that arrives sixteen seconds late
+        teaches nothing. */
+     if(typeof FIGHTMUS!=='undefined' && FIGHTMUS && FIGHTMUS.on) return false;
+     /* THE OPENING: NEVER. Measured, it is also a no-op -- all four songs with an
+        empty kick array are MENU songs -- but the reason belongs in the code. */
+     if(typeof MENUMUS!=='undefined' && MENUMUS && MENUMUS.on) return false;
+     /* THE FIRST PHRASE OF THE SONG. Both the street and the room reset step to 0
+        when they pick, so "the first phrase of a song" and "step under 128" are
+        the same sentence. 128 steps is the engine's own unit: 8 bars, and the
+        same one the street's rest and the opening's handoff share. */
+     return MUS.step < 128;
+   }catch(_e){ return false; }
+ },
+ playStep(s,t,sc){ sc=sc||{sec:'A',rs:0,fill:false,barIn:0,bar:0};
+  var _held = this.drumsHeld(); const f=this.fac(),AC=this.AC,MAST=this.MAST,sd=this.stepDur();
   const rootShift=f.scale[sc.rs%f.scale.length]||0;
   /* MOTION DIMENSIONS (Paolo 7/3/26: loops shared one motion). SWING delays
      the odd 16ths (downbeats untouched, 120 BPM law intact). HALF-TIME
@@ -15894,9 +15944,12 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
   if(f.swing&&(s%2===1))t=t+f.swing*sd*0.5;
   const _fsd=(f.feel==='half')?sd*2:sd;
   const _mel=f.mel||'seed8';
-  if(f.kick.includes(s)||(sc.fill&&s>=12)){ drumV((f.kit&&f.kit.k)||'punchk',AC,MAST,t); }
+  if(!_held && (f.kick.includes(s)||(sc.fill&&s>=12))){ drumV((f.kit&&f.kit.k)||'punchk',AC,MAST,t); }   /* __THE_BEAT_ARRIVES_LATE__ */
   const _hd=(f.feel==='half')?f.hat:((sc.sec==='B'||sc.sec==='D')?f.hat.concat([1,5,9,13].filter(x=>!f.hat.includes(x))):f.hat);
-  if(_hd.includes(s)&&sc.sec!=='C'){ drumV((f.kit&&f.kit.h)||'tight',AC,MAST,t); }
+  if(!_held && _hd.includes(s)&&sc.sec!=='C'){ drumV((f.kit&&f.kit.h)||'tight',AC,MAST,t); }   /* __THE_BEAT_ARRIVES_LATE__ -- both
+     drums, one lever: the law says "the beat" and the kick and the hat are
+     both the kit. Holding one and not the other is a second decision nobody
+     ruled. */
   if(f.bass.includes(s)){const semi=f.root-55+rootShift+f.scale[s%f.scale.length]+((sc.sec==='B'&&s%8>=4)?12:0);
    const _bi=(f.inst&&f.inst.b)||'osc';
    if(_bi!=='osc')synthV(_bi,AC,MAST,x=>this.noteHz(x),_fsd,semi,t,0.13);

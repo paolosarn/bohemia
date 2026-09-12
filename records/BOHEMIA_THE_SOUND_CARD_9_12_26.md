@@ -24,7 +24,7 @@ quote, and the direction comes from the quote.
 | term | his words | measured as | direction |
 |---|---|---|---|
 | **PATIENCE** | "a picked, **patient** melody" | note onsets in two bars | fewer |
-| **LATE BEAT** | "the beat **arriving late**" | when the first transient lands | later |
+| **LATE BEAT** | "the beat **arriving late**" | seconds to the first **kit hit** (corrected 9/12, see below) | later |
 | **BASS UNDER** | "the **bass line** removed ... people noticed" | share of energy under 200 Hz | more |
 | **WARMTH** | "**warm**, sunlit ... blue water in the sound" | share of energy over 3 kHz | less |
 | **HELD LINE** | "everything melodic; **you can hum it**" | share of the piece above a fifth of its own peak | more |
@@ -71,8 +71,20 @@ late"* — is the one thing this shelf does not do, anywhere, once.
 That is not a tagging gap and it is not a taste gap. It is a mechanism gap, and it
 is the next round: **when a song starts, hold the percussion for the first phrase
 and let the melody and the bass come in alone.** One rule in the engine, no song's
-data touched, and it gives every song on the shelf the trait he named. It is
-written into the handoff as the next build.
+data touched, and it gives every song on the shelf the trait he named.
+
+> **BUILT THE SAME ROUND AS THE NEXT VAMILY, AND THE TERM ABOVE HAD TO BE
+> CORRECTED TO CHECK IT.** This term was written as "when the first transient
+> lands". That was good enough to FIND the gap, because with a kick on step 0 the
+> drum always *was* the first transient. It is **not** good enough to confirm the
+> repair: the bass note on step 0 is a transient too, so with the drums provably
+> held for 128 steps REDS still measured 0.06s and BLUES 0.04s. **A TERM THAT
+> FOUND A GAP IS NOT AUTOMATICALLY A TERM THAT CAN CONFIRM ITS REPAIR.** The kit
+> is now counted at `drumV`'s own call site, which cannot be confused with
+> anything else, and measured that way the first kit hit lands at **16.00s** on
+> the street on every song tried, and at **0.00s** in a fight, in the opening and
+> in the MUSIC tab. The song data is untouched: 138 of 142 kick arrays still start
+> on step 0, because a kick array is his content.
 
 ### THE ANCHOR INSIDE OUR OWN SHELF
 

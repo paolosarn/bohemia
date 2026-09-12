@@ -107,7 +107,45 @@ const pw = pwmod();
       let onOne=0, noDrum=0, late=0, total=0;
       for (const f of lib){ const k=f.kick||[]; total++;
         if(!k.length) noDrum++; else if(+k[0]===0) onOne++; else late++; }
-      return { measured: res, census: {total, onOne, noDrum, late} };
+      /* THE LATE BEAT, COUNTED AT THE KIT'S OWN CALL SITE. */
+      async function kitTiming(idx, from){
+        const OAC = new OfflineAudioContext(1, Math.ceil(SR*(sd*160+1.2)), SR);
+        const sv = {AC:MUS.AC,MAST:MUS.MAST,OUT:MUS.OUT,cur:MUS.cur,
+                    curSlot:MUS.curSlot,layers:MUS.layers,step:MUS.step};
+        const m = OAC.createGain(); m.gain.value=1; m.connect(OAC.destination);
+        MUS.AC=OAC; MUS.MAST=m; MUS.OUT=m; MUS.cur=idx; MUS.curSlot=1; MUS.layers=0;
+        const name=(MUS.fac()||{}).n, hits=[], rd=window.drumV;
+        window.drumV=function(k,ac,ma,t){ hits.push(t); return rd.apply(this,arguments); };
+        try { for(let k=0;k<160;k++){ MUS.step=from+k;
+                MUS.playStep((from+k)%16, 0.05+k*sd, MUS.songCtx(from+k)); } }
+        catch(e){} finally { window.drumV=rd; }
+        try { await OAC.startRendering(); } catch(e){}
+        MUS.AC=sv.AC; MUS.MAST=sv.MAST; MUS.OUT=sv.OUT; MUS.cur=sv.cur;
+        MUS.curSlot=sv.curSlot; MUS.layers=sv.layers; MUS.step=sv.step;
+        return { name, hits:hits.length,
+                 firstKitAt: hits.length ? +(hits[0]-0.05).toFixed(2) : null };
+      }
+      const LB = ['REDS','BLUES','SLOW CREEP','REPO MAN'];
+      const li = {}; lib.forEach((f,i)=>{ if(LB.indexOf(f.n)>=0) li[f.n]=i; });
+      const lateBeat = { street:[], fight:[], opening:[], studio:[] };
+      /* MENUMUS'S OWN WATCHDOG SETS on=false THE INSTANT MUS.playing IS FALSE,
+         which is always so in an offline render -- it undid the setup between two
+         songs once and gave two different answers to one question. Stop it, and
+         pin the flag before every render. */
+      try{ if(MENUMUS.watch){ clearInterval(MENUMUS.watch); MENUMUS.watch=null; } }catch(e){}
+      const set = (city, fight, menu) => { try{ CITYMUS.on=city; }catch(e){}
+        try{ FIGHTMUS.on=fight; }catch(e){} try{ MENUMUS.on=menu; }catch(e){}
+        try{ if(window.INTERIORMUS) INTERIORMUS.on=false; }catch(e){} };
+      for (const n of LB) if(li[n]!==undefined){ set(true,false,false);
+        lateBeat.street.push(await kitTiming(li[n], 0)); }
+      for (const n of LB.slice(0,2)) if(li[n]!==undefined){ set(true,true,false);
+        lateBeat.fight.push(await kitTiming(li[n], 0)); }
+      for (const n of LB.slice(0,2)) if(li[n]!==undefined){ set(true,false,true);
+        lateBeat.opening.push(await kitTiming(li[n], 0)); }
+      for (const n of LB.slice(0,2)) if(li[n]!==undefined){ set(false,false,false);
+        lateBeat.studio.push(await kitTiming(li[n], 0)); }
+      set(false,false,false);
+      return { measured: res, census: {total, onOne, noDrum, late}, lateBeat };
     }, NAMES_PLACEHOLDER);
   } catch (e) { out.fatal = String(e && e.message || e); }
   out.pageErrors = errs.slice(0,5);
@@ -217,14 +255,61 @@ def main():
     c = shelf.get('census') or {}
     ok('the whole shelf was censused for where the drum lands (%s)' % c,
        (c.get('total') or 0) > 130)
-    ok('AND THE ONE TRAIT HIS LAW NAMES AS WHAT PEOPLE LOVED IS STILL ABSENT: '
-       '%s of %s songs put the drum on BEAT ONE, %s have no drum at all, and %s '
-       'have a late one. This is written as a MEASUREMENT: the day somebody '
-       'builds the late-beat entry it flips, and the card must be rewritten'
+    ok('THE SONG DATA STILL PUTS THE DRUM ON BEAT ONE AND THAT IS LEFT ALONE, '
+       'because a kick array is HIS content: %s of %s on beat one, %s with no '
+       'drum, %s with a late one. The late beat is delivered by the ENGINE '
+       'instead (claims below) -- THIS CLAIM IS ABOUT THE DATA, NOT ABOUT WHAT A '
+       'PLAYER HEARS, and its wording said otherwise until 9/12'
        % (c.get('onOne'), c.get('total'), c.get('noDrum'), c.get('late')),
        (c.get('late') or 0) == 0)
-    ok('and the card says so in its own known_gap, in the same terms',
-       'beat one' in (card.get('known_gap') or '').lower())
+    # A PROSE GREP IS A WEAK CHECK, and this one broke the moment the card was
+    # honestly rewritten -- it looked for the phrase "beat one" in a paragraph
+    # that now says "kick arrays still start on step 0". Replaced with the
+    # invariant that actually matters: the card must not DRIFT BACK to the term
+    # that could find the gap but could not confirm the repair.
+    lbt = (card.get('terms') or {}).get('late_beat') or {}
+    ok('the card\'s late-beat term measures THE KIT, not "any transient" -- the '
+       'first version could find the gap and could not confirm the fix, and it '
+       'must not drift back (%s)' % (lbt.get('measure') or '')[:60],
+       'kit' in (lbt.get('measure') or '').lower()
+       and 'transient' not in (lbt.get('measure') or '').lower())
+    ok('and it keeps the correction that says why, so the next reader does not '
+       'undo it', bool(lbt.get('corrected_9_12')))
+    ok('the card records the gap as CLOSED BY A MECHANISM, with the song data '
+       'left alone', 'CLOSED' in (card.get('known_gap') or '')
+       and 'RE-COOK' in (card.get('known_gap') or '').upper())
+
+    # ---- 2b. THE LATE BEAT, WHERE IT COUNTS: THE KIT ----------------------
+    # Measured at drumV's own call site, because the card's first version of this
+    # term ("the first transient") cannot tell a kick from the bass note beside
+    # it: with the drums provably held 128 steps, REDS still read 0.06s.
+    # A TERM THAT FOUND A GAP IS NOT AUTOMATICALLY A TERM THAT CAN CONFIRM ITS
+    # REPAIR.
+    lb = shelf.get('lateBeat') or {}
+    st = lb.get('street') or []
+    ok('the late-beat probe ran on the street (%d songs)' % len(st), len(st) >= 3)
+    late_ok = [x for x in st if x.get('firstKitAt') is not None
+               and x['firstKitAt'] >= 15.0]
+    ok('ON THE STREET THE KIT WAITS A PHRASE: first kit hit at %s, and 16s is 8 '
+       'bars at 120 BPM -- the trait his law names as what people loved, on every '
+       'song, with no song\'s data touched'
+       % ([round(x['firstKitAt'], 2) for x in st] or 'none'),
+       len(late_ok) == len(st) and st)
+    for key, label in (('fight', 'A FIGHT'), ('opening', 'THE OPENING'),
+                       ('studio', 'THE MUSIC TAB')):
+        rows = lb.get(key) or []
+        early = [x for x in rows if x.get('firstKitAt') is not None
+                 and x['firstKitAt'] < 1.0]
+        ok('AND IN %s THE KIT IS NEVER HELD (%s). %s' % (label,
+           [round(x['firstKitAt'], 2) if x.get('firstKitAt') is not None else None
+            for x in rows] or 'none',
+           {'A FIGHT': 'Danger is now, and the first fight exists to TEACH the '
+                       'beat -- one arriving 16s late teaches nothing',
+            'THE OPENING': 'It owns one phrase in total, so holding a phrase '
+                           'would silence its whole kit',
+            'THE MUSIC TAB': 'He judges candidates there, and 16 silent bars at '
+                             'the top of a candidate is an artefact, not a song'}[label]),
+           rows and len(early) == len(rows))
 
     # ---- 3. THE RANKING IS NOT STALE --------------------------------------
     drift = []

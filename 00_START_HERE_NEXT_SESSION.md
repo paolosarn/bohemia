@@ -5031,6 +5031,132 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
+SOUND (sound-xk7pjp): 9/12 (b) LATEST -- *** THE BEAT ARRIVES LATE NOW, ON ALL 142
+SONGS, WITHOUT ONE OF THEM BEING RE-CUT. The sound card's one gap is closed.
+TAB: RUN -- walk the street and a song opens on melody and bass with the drums
+sixteen seconds in. Nothing to judge, nothing was cooked. ***
+
+Build 9/12ab - THE BEAT ARRIVES LATE.
+
+HIS LAW'S OWN WORDS FOR WHY THE ORIGINAL BESAID IS THE ONE PEOPLE MEAN: "The
+remaster changed it (shorter, a more synthetic beat that STARTS SOONER, the bass
+line removed) and people noticed, which tells the lane WHAT THEY LOVED: the
+patience, the bass under it, THE BEAT ARRIVING LATE." Measured last round: 138 of
+142 songs put the drum on beat one, the other 4 have no drum, ZERO had a late beat.
+
+IT IS NOT A RE-COOK AND THAT IS THE ONLY REASON IT IS BUILDABLE. A kick array is
+HIS content, 138 times over. But WHEN the drums arrive was never in the song -- it
+is decided in playStep, every step, by two drumV calls. One rule, whole shelf, no
+song's data touched. For the first phrase after a song starts (128 steps, 8 bars,
+16s at 120 BPM, the engine's own unit shared with the rest and the handoff) the
+kick and the hat do not sound; the bass and the melody do.
+
+THE 120 BPM LAW IS UNTOUCHED AND THAT IS LOAD-BEARING: the transport does not stop,
+the step counter does not pause, nothing is rescheduled. Two drumV calls are
+skipped.
+
+EVERY EXCLUSION IS A RULING OR A MEASUREMENT, AND EVERY ONE IS PROVEN IN THE GATE:
+  * a FIGHT, never -- danger is now (8/19) and COMBAT's first fight exists to TEACH
+    the beat; one arriving 16s late teaches nothing.
+  * the OPENING, never -- it owns one phrase in total. Measured, it is also a
+    no-op: all four songs with an empty kick array are MENU songs.
+  * the MUSIC TAB, never -- he judges candidates there and 16 silent bars at the
+    top of a candidate is an artefact, not a song. The studio's play never sets
+    CITYMUS.on, which is how the rule knows.
+
+MEASURED: street 16.00s first kit on REDS, BLUES, CARTEL, SLOW CREEP, REPO MAN, THE
+VAULT (128 steps held each); mid-song 0.50s; fight 0.00s; opening 0.00s; studio
+0.00s. And in the DEMO, checked separately: street 16.00s on four, fight 0.00s.
+
+*** AND THE CARD'S OWN TERM HAD TO BE CORRECTED TO CHECK THIS. READ THIS ONE. ***
+The card measured "the beat arriving late" as WHEN THE FIRST TRANSIENT LANDS. Good
+enough to FIND the gap -- with a kick on step 0 the drum always WAS the first
+transient -- and NOT good enough to confirm the repair: with the drums provably
+held 128 steps, REDS still read 0.06s and BLUES 0.04s, because THE BASS NOTE ON
+STEP 0 IS A TRANSIENT TOO. For a minute it read exactly like a fix that failed.
+A TERM THAT FOUND A GAP IS NOT AUTOMATICALLY A TERM THAT CAN CONFIRM ITS REPAIR.
+The kit is counted at drumV's own call site now, and the same songs read 16.00s on
+the nose. The card, its json and the gate all carry the corrected term, and the
+gate asserts the card CANNOT DRIFT BACK to the version that could find the gap but
+not verify the fix. I also replaced a prose grep in that gate ('beat one' in the
+known_gap paragraph) which broke the moment the card was honestly rewritten -- A
+PROSE GREP IS A WEAK CHECK; the invariant is now that the term names THE KIT.
+
+AND ONE MORE INSTRUMENT MISTAKE, SAME CLASS AS ALWAYS: the opening exclusion test
+reported REDS excluded and BLUES HELD -- two different answers to one question in
+one loop, which is never the rule misbehaving. MENUMUS's own watchdog sets on=false
+the instant MUS.playing is false, and it is always false in an offline render, so
+the page cleared the probe's setup between the two songs and the second measured
+the street while claiming to measure the opening. The watchdog is stopped and the
+flag pinned before every render, in the probe AND in the gate.
+
+SOUND CARD is 30 claims now (was 23). Mutation proved both ways: the hold never
+fires -> street reads [0,0,0,0], 1 fail; the fight no longer excluded -> fight
+reads [16,16], 1 fail.
+
+*** AND IT TURNED UP A GATE OF MINE THAT WAS ACCUSING THE WRONG THING. READ THIS
+BEFORE YOU TRUST AN AUDIO CHECK IN THIS LANE. *** SFX WIRED went 1054/1 with
+"WALKING MADE NO SOUND, peak on the master bus 0.0042". Checked plain origin/main
+in a clean worktree first: GREEN there, so it was mine. The obvious suspect was the
+9/11 rest ducking a bus the feet sit on -- MEASURED AND WRONG: footsteps land on
+__SFXBUS at gain 1 and still render during a rest. The real cause: THAT CHECK
+CONNECTS ITS ANALYSER TO MUS.MAST, THE MUSIC MASTER, AND CALLS THE RESULT
+"WALKING". Feet never touch it. A CHECK THAT WATCHES THE WRONG BUS IS NOT A WEAK
+CHECK, IT IS A LIAR: it accuses the thing it is not looking at.
+And the music is fine with the kit held, measured against itself: 47% to 88% of its
+own rms, peaks 0.08 to 0.23, carried by bass and melody -- the law's own
+description of the intro, not near-silence.
+FIXING IT TOOK THREE GOES AND THE MUTATION IS WHY:
+  1. moved the meter to __SFXBUS, where feet really land. Better and STILL WRONG:
+     that bus carries EVERY effect. Mutation-tested by silencing the feet outright
+     and THE GATE DID NOT BITE. A bus that carries more than its subject cannot
+     answer a question about its subject.
+  2. so the footstep bus is reachable now -- window.__STEPBUS, exposed the way
+     __SFXBUS, __AMB and __PULSE already are. It carries feet and nothing else.
+  3. and the 0.02 FLOOR WENT TOO. It was tuned while the meter sat on the music
+     bus, so it never tested feet; on the real subject the honest reading is
+     0.0195, a hair under a number inherited from a different question. A DETECTOR
+     WITH A FIXED THRESHOLD MEASURES ITS THRESHOLD. The weight now sits on the
+     CONTROL THAT WAS ALREADY IN THE FILE: the same bus a moment earlier.
+Mutation proved at last: the step bus at zero reads 0.0000 and fails three claims,
+where before the fix the same mutation passed 1057/0. SFX WIRED 1057/0 clean.
+(The first attempt at that edit killed the run: I quoted an expression in BACKTICKS
+inside a JS TEMPLATE LITERAL and closed it. Same class as backticks in a shell
+heredoc, which this lane did once before.)
+
+STILL CARRIED, UNCHANGED:
+  * [PENDING Paolo] the three songs with the anchor's own late beat in their DATA
+    are MENU-only, so the game plays them 16 seconds and never again. Re-tagging is
+    his, in the MUSIC tab.
+  * THE GAPS IN THE HYMNAL peaks 13.4x the median on a CANON song. Reported, not
+    fixed: re-balancing a song he approved is his content.
+  * A FIGHT STARTING MAKES NO SOUND AT ALL -- cityFightOnEnter posts the encounter
+    with no sound call. Needs a new cook, so it belongs to [enemy heard] and
+    [fight music].
+
+*** AND THE SHIP REFUSED ITSELF ONCE, CORRECTLY. *** The push guard stopped the
+first attempt: the footstep bus was MISSING from the alpha, because I made that
+one change as a DIRECT EDIT instead of putting it in an idempotent tool -- so the
+rebase's rebuild (main's copy plus this lane's tools) had nothing to re-apply it
+with and dropped it. A CHANGE THAT IS NOT IN A TOOL CANNOT SURVIVE A REBASE, and
+on a main that moves every few minutes that is not theoretical. It is in the tool
+now -- and putting it there exposed that the tool's idempotence was ONE MARK
+GUARDING TWO CHANGES, so with the drum hold present and the bus missing it said
+"already installed, nothing to do" and repaired nothing. It repairs per CHANGE
+now. Third time this lane has learned that the already-installed branch is where
+bugs hide.
+
+  proof  python3 gates/bohemia_gates.py --only "SOUND CARD"
+         records/BOHEMIA_THE_BEAT_ARRIVES_LATE_9_12_26.md
+         tools/bohemia_the_beat_arrives_late.py
+  next   [music owned] continues. The street's own remaining holes are HIS (the
+         dusk pool is two songs, a tagging job in the MUSIC tab). The unmeasured
+         one is what the three entries now stack up to end to end -- rest, then a
+         drumless phrase, then the beat -- which is 32 seconds of ramp and nobody
+         has listened to the whole shape on a phone yet.
+
+--------------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 9/12 (a) LATEST -- *** THE SOUND CARD IS BUILT, AND THE ONE
 THING HIS ANCHOR IS FAMOUS FOR IS MISSING FROM ALL 142 SONGS: 138 OF 142 PUT THE
 DRUM ON BEAT ONE AND NOT ONE HAS A LATE BEAT. TAB: MUSIC (the shelf) and RUN.

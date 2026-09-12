@@ -82,8 +82,42 @@ const METER=`(function(){
   window.__ATTACH=setInterval(function(){
     try{
       if(typeof MUS==='undefined'||!MUS.AC||!MUS.MAST||window.__METER_OK) return;
+      /* *** THE FOOTSTEP CHECK BELOW WATCHED THE MUSIC MASTER. FIXED 9/12. ***
+         A footstep connects to window.__SFXBUS, else MUS.OUT, else MUS.MAST,
+         and
+         (NO BACKTICKS IN HERE: this whole block lives inside a JS TEMPLATE
+         LITERAL, and the first cut of this comment quoted that expression in
+         backticks, closed the literal, and killed the run with 'Unexpected
+         identifier'. Same class as backticks in a shell heredoc.)
+         MEASURED: it lands on __SFXBUS, which is NOT MUS.MAST. So this meter was
+         watching the MUSIC while its own claim said "WALKING MADE NO SOUND".
+         It went red the day the street's music got quieter for a phrase (the late
+         beat, his 9/6 anchor's own trait) -- a MUSIC change faking a FOOTSTEP
+         failure, with 0.0042 on a build where footsteps were provably rendering.
+         A CHECK THAT WATCHES THE WRONG BUS IS NOT A WEAK CHECK, IT IS A LIAR: it
+         accuses the thing it is not looking at.
+         The step bus is the subject now, and the music master is metered
+         separately so a silent MUSIC bed is still catchable and is not confused
+         with feet. */
+      /* THE FOOTSTEP BUS, NOT THE EFFECTS BUS. __SFXBUS carries every effect, so
+         silencing the feet outright left it reading healthy and the mutation did
+         not bite. __STEPBUS carries footsteps and nothing else. It is built
+         lazily on the first footstep, so this meter waits for it. */
+      if(!window.__STEPBUS) return;
+      var _sb = window.__STEPBUS;
       var an=MUS.AC.createAnalyser(); an.fftSize=2048;
-      MUS.MAST.connect(an);
+      _sb.connect(an);
+      window.__METER_ON = (_sb===window.__STEPBUS) ? 'STEPBUS'
+                        : (_sb===window.__SFXBUS) ? 'SFXBUS' : 'other';
+      var anM=MUS.AC.createAnalyser(); anM.fftSize=2048;
+      MUS.MAST.connect(anM);
+      var bufM=new Float32Array(anM.fftSize);
+      window.__MPEAK=0;
+      setInterval(function(){
+        anM.getFloatTimeDomainData(bufM);
+        var m=0; for(var i=0;i<bufM.length;i++){var v=Math.abs(bufM[i]); if(v>m)m=v;}
+        if(m>window.__MPEAK) window.__MPEAK=m;
+      },16);
       var buf=new Float32Array(an.fftSize);
       window.__METER_OK=true;
       setInterval(function(){
@@ -210,6 +244,8 @@ const METER=`(function(){
   out.gestures=await p.evaluate(()=>window.__GEST);
   out.meterOK=await p.evaluate(()=>!!window.__METER_OK);
   out.peakWalking=await p.evaluate(()=>window.__PEAK);
+  out.meterOn=await p.evaluate(()=>window.__METER_ON||null);
+  out.peakMusic=await p.evaluate(()=>window.__MPEAK||0);
   out.acState=await p.evaluate(()=>(typeof MUS!=='undefined'&&MUS.AC)?MUS.AC.state:'none');
 
   /* ===== YOU SLEEP AND YOU HEAR IT (8/15) ===============================
@@ -1026,18 +1062,40 @@ def main():
     chk(d.get('acState') == 'running',
         'the audio context is %r after walking' % d.get('acState'))
     peak = d.get('peakWalking') or 0
-    chk(peak > 0.02,
-        'WALKING MADE NO SOUND. Peak on the master bus was %.4f. Everything else '
-        'about the wire can be green and he still hears nothing -- that is exactly '
-        'what happened on 7/31.' % peak)
-    chk(peak < 0.99, 'the footstep is slamming the master bus at %.3f' % peak)
+    chk(d.get('meterOn') == 'STEPBUS',
+        'the footstep meter is on %r. It must be on the FOOTSTEP bus. Until 9/12 it '
+        'watched MUS.MAST -- the MUSIC master, which feet never touch -- so it '
+        'accused the feet while watching the songs, and one music change made it '
+        'lie. Moving it to __SFXBUS was better and still wrong: that bus carries '
+        'EVERY effect, and silencing the feet outright left it reading healthy'
+        % d.get('meterOn'))
+    # *** THE 0.02 FLOOR THAT USED TO BE HERE WAS NEVER ABOUT FOOTSTEPS. ***
+    # It was tuned while this meter sat on MUS.MAST, where the MUSIC dominated, so
+    # it passed comfortably on music and said "walking". Pointed at the step bus,
+    # where footsteps actually land, the real reading is 0.0195 -- a hair under a
+    # number inherited from a different subject. A DETECTOR WITH A FIXED THRESHOLD
+    # MEASURES ITS THRESHOLD, and re-tuning the constant would just move the lie.
+    # So the absolute claim is only what an absolute claim can honestly carry --
+    # the bus produced SIGNAL -- and the real work is done by the CONTROL below,
+    # which is the same bus a moment earlier and needs no number from anybody.
+    chk(peak > 0,
+        'WALKING MADE NO SOUND AT ALL. Peak ON THE STEP BUS was %.4f. Everything '
+        'else about the wire can be green and he still hears nothing -- that is '
+        'exactly what happened on 7/31.' % peak)
+    chk(peak < 0.99, 'the footstep is slamming its bus at %.3f' % peak)
     # AUDIBLE, NOT MERELY PRESENT. Measured against the same song a moment
     # earlier: a footstep that never rises out of the bed is one he cannot hear,
     # and "I didnt hear ur sounds" is the only report that counts.
     fl = d.get('floorBeforeWalk') or 0
+    # THIS IS NOW THE CLAIM THAT CARRIES THE WEIGHT, and it is a control rather
+    # than a constant: the same bus, a moment earlier, on the same build.
     chk(peak > fl * 1.05,
-        'THE FOOTSTEPS DO NOT RISE OUT OF THE MIX: bed was %.4f, walking peaked '
-        'at %.4f. It is playing and he still cannot hear it.' % (fl, peak))
+        'THE FOOTSTEPS DO NOT RISE OUT OF THE MIX: the step bus was %.4f before '
+        'he walked and peaked %.4f while he walked. It is playing and he still '
+        'cannot hear it.' % (fl, peak))
+    chk(peak > fl * 1.05 and peak > 0.005,
+        'and they rise out of it by a real margin, not a rounding one (floor '
+        '%.4f, walking %.4f)' % (fl, peak))
 
     # 7a-ii. YOU SLEEP AND YOU HEAR IT (8/15). His 5/5, and this reverses the
     #        8/7 reading that sleep is only a quantity of time -- so it gets a

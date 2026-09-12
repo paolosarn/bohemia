@@ -28,9 +28,10 @@
   },
   "late_beat": {
    "quote": "the beat ARRIVING LATE",
-   "measure": "seconds to the first transient",
+   "measure": "seconds to the FIRST KIT HIT, counted at drumV's own call site",
    "closer": "later",
-   "note": "1.0 for four songs and 0.0 for 137 -- a FLAG, not a spread. 136 of 140 songs put the drum on beat one."
+   "corrected_9_12": "This term first said 'seconds to the first transient'. That was good enough to FIND the gap -- with a kick on step 0 the drum always WAS the first transient -- and it CANNOT confirm the repair, because the bass note on step 0 is a transient too. Measured with the drums provably held 128 steps, REDS still read 0.06s and BLUES 0.04s. A TERM THAT FOUND A GAP IS NOT AUTOMATICALLY A TERM THAT CAN CONFIRM ITS REPAIR. The kit is counted at its own call site now, which is unambiguous.",
+   "note": "The SONG DATA still puts the drum on beat one for 138 of 142, and that is left alone: a kick array is his content. THE ENGINE holds the kit for the first phrase instead."
   },
   "bass_under": {
    "quote": "the BASS LINE removed ... people noticed",
@@ -97,7 +98,7 @@
   "room": "the card's best matches live here: fewest onsets, most held line, treble at the bottom of the shelf.",
   "fight": "THE CARD DOES NOT GOVERN THE FIGHT. A beach is not danger. The fight keeps only the 120 BPM and the hummable line so a swing on the beat still reads; anything gentler is the wrong reference in the wrong department (his 9/5 law)."
  },
- "known_gap": "138 of 142 songs put the drum on BEAT ONE, 4 have no drum at all, and NOT ONE has a late one; the first transient lands at 0.04s for 137 of 142. The one trait his law names as what people loved is absent from the whole shelf. The fix is a MECHANISM, not a re-cook: hold the percussion for the first phrase when a song starts. (Counted on the LIVE song library by the gate -- an earlier regex over the file said 136 of 140 and missed two rows.)",
+ "known_gap": "CLOSED 9/12 BY A MECHANISM, NOT A RE-COOK. The song data is unchanged -- 138 of 142 kick arrays still start on step 0, and a kick array is his content -- but playStep now holds the KICK and the HAT for the first phrase (128 steps, 16s at 120 BPM) whenever a game surface owns the music. MEASURED: the first kit hit lands at 16.00s on the street on every song tried, and at 0.00s in a fight, in the opening and in the MUSIC tab. NEVER in a fight (danger is now, and the first fight exists to teach the beat), never in the opening, never where he judges candidates.",
  "defect": {
   "song": "THE GAPS IN THE HYMNAL",
   "peak": 3.978,
