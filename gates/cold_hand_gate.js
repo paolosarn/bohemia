@@ -277,7 +277,15 @@ const LOUDEST = function (skip) {
       /* STUCK MEANS STUCK: once the clock has stopped answering for four presses
          in a row, stop taking the same loudest thing and take the loudest thing
          it has NOT tried. It still reads nothing. */
-      const skip = (stuckFor >= 4) ? tried.slice(-6) : [];
+      /* A NUDGE OUT OF A LOOP, NOT AN EXILE. The first cut skipped the last SIX
+         controls and cleared only when the clock moved, which pushed the hand
+         away from the WALK PAD -- the one control that actually spends the day --
+         and made the gate a coin: 6/1, 7/0, 6/1 over three runs, always on "is it
+         STILL advancing at the end". Skipping the last TWO breaks the alternating
+         pair that caused this, and the list is cleared after every skipped press
+         so nothing stays exiled. */
+      const skip = (stuckFor >= 4) ? tried.slice(-2) : [];
+      if (skip.length) tried.length = 0;
       const shell = await page.evaluate(LOUDEST, skip);
       let frame = null, inCity = null;
       const cf = page.frames().find(x => x.name() === 'cityFrame');
