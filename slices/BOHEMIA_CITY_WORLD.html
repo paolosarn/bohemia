@@ -65011,7 +65011,15 @@ window.BOHEMIA_FEED = (function(){
      the life of the page. Measured the hard way: it did, and it took four legs of
      this gate red with it. Ask about a button the pad actually has. */
   var STEPS=[
-    { k:'walk',  sel:'#pad',      hit:'#pad .pb', say:'WALK WITH THIS' },
+    /* __HOLD_TO_WALK__ (9/12, RUN): A TAP MOVES ONE TILE. A HOLD MOVES TWO A
+       SECOND, and the latch (9/6) keeps you going after you let go. Measured
+       with a real held press: 1.94 tiles/second, and the nearest road
+       district is 66 seconds of holding away. THE WORD 'HOLD' APPEARED
+       NOWHERE NEAR THE PAD, so a stranger tapped and the valley never
+       arrived. This line teaches the pad, the hold and the latch at once.
+       Still clears by WALKING, which a tap satisfies, so a tapper is never
+       nagged. draft:true. */
+    { k:'walk',  sel:'#pad',      hit:'#pad .pb', say:'HOLD TO WALK, LET GO TO KEEP GOING' },
     { k:'phone', sel:'#phonebtn',                 say:'THE PHONE IS HOW THEY REACH YOU' },
     { k:'drop',  sel:'#mode',                     say:'STEP BACK AND SEE THE CITY' }
   ];

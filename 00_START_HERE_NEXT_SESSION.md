@@ -14198,7 +14198,47 @@ ROUTED OUT OF THIS DAY:
 am keeping that refusal. The arithmetic to decide it: a pool of N gives 2N+1 draws before
 anything is heard a third time, and one moment every 90 seconds means 40 moments an hour.
 
-RUN (run-eak241): LATEST -- *** PAOLO RULED MID-ROUND AND IT CHANGED THE JOB.
+RUN (run-eak241): LATEST -- *** THE PAD TEACHES THE HOLD NOW, AND THE COLD HAND
+IS RED ON MAIN: the clock does not move under forty presses. TAB: RUN. ***
+
+SHIPPED, and it is one string: the first-run walk lesson said WALK WITH THIS,
+which teaches that the pad exists and nothing about the verb that moves you.
+    WALK WITH THIS  ->  HOLD TO WALK, LET GO TO KEEP GOING
+Measured with a real held press and a wall clock: A TAP MOVES ONE TILE, A HOLD
+MOVES ABOUT TWO TILES A SECOND, and the latch (9/6) keeps you going after you let
+go. THE WORD "HOLD" APPEARED NOWHERE NEAR THE PAD. Verified on the served demo:
+the lesson reads back exactly that, and a real 12-second press walks and latches
+(LATCH_DIR=1 the moment the finger lifts). Does not touch the clearing rule, so a
+tapper is never nagged; LATCH_AFTER stays 3 so a tap is still one step.
+Whose surface: UI's [first teaching], SHIPPED and closed, nobody mid-flight.
+
+*** AND THE COLD HAND IS RED ON MAIN. THE 8/25 DEAD END IS BACK. ***
+    *** THE GAME ADVANCES UNDER A COLD HAND ***  1d 360m -> 1d 360m over 40 presses
+SIX HOURS SHOULD HAVE PASSED. ZERO DID. Red on CLEAN MAIN with my change stashed,
+so it is not mine. The trail:
+    front > padring > daycardIn x3 > dcgo > openWatch > padring x6 > row x26
+  1. IT PRESSES padring SIX TIMES AND THE CLOCK DOES NOT MOVE. The pad was rebuilt
+     9/7 from an opaque circle into an SVG ring of eight wedges; THE WEDGES CARRY
+     THE HANDLERS AND THE RING DOES NOT. So the loudest part of the walk pad is
+     not the part that walks, and the pad is how you move.
+     *** NOT TOUCHED: the pad is [no slop]'s LIVE work, that row is CLAIMED right
+     now, and ONE SYSTEM ONE SESSION exists for exactly this. FOR THAT LANE. ***
+  2. THEN IT PRESSES `row` TWENTY-SIX TIMES IN THE SHELL AND NEVER ESCAPES. The
+     shell IS this lane's surface. *** THAT IS THE FIRST THING TO CHASE NEXT
+     ROUND *** -- find what `row` is, why a cold hand lands in it, and why there
+     is no way out.
+
+AND THREE TIMES THIS ROUND AN INSTRUMENT NEARLY PRODUCED A FALSE FINDING:
+  * "the latch never engages" -- read 3s after release, when the latch is SUPPOSED
+    to stop for a wall or a card. Read immediately, it engages. A late reading
+    cannot tell "never latched" from "latched and correctly stopped".
+  * "endHold never fires" -- I wrapped window.endHold AFTER the listener was bound
+    BY REFERENCE, so the wrapper could never see it. The absence was mine.
+  * "13 tiles a minute" from the round before: a probe timing itself.
+Record: records/BOHEMIA_HOLD_TO_WALK_AND_THE_COLD_HAND_IS_RED_9_12_26.md
+
+--------------------------------------------------------------------------------
+PREVIOUS ROUND -- *** PAOLO RULED MID-ROUND AND IT CHANGED THE JOB.
 Two long-standing reds on main were LYING CHECKERS, not broken game; both fixed
 and mutation-proved. No game code changed. TAB: RUN. Nothing to judge. ***
 
