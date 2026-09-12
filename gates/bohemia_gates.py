@@ -3023,6 +3023,32 @@ GATES = [
      'original path drawn twice) differs in ZERO channels, so the gate has a real zero to '
      'measure against',
      True),
+    ('COMPANY IN ASKS', ['node', 'gates/company_in_asks_gate.js'],
+     'QUESTS row [company in asks] YOUR-PEOPLE-SHOW-UP-IN-THE-ASKING, 9/13. PAOLO 9/11: "people '
+     'in your company just get incorporated into quests autonomously, that\'s very cool." AND THE '
+     'ROW\'S OWN LAST SENTENCE IS THE DESIGN: *** THEY ARE PEOPLE WITH LEDGERS, NOT A ROSTER. *** '
+     'Measured first, and PEOPLE had already measured it one round earlier in bohemia_down.js: '
+     '"There is no company roster, no companion state, no downed state." True -- and the '
+     'temptation that follows is to build the roster, which is the wrong half, because a roster is '
+     'a list somebody has to maintain and the moment it exists it can disagree with the world. So '
+     'membership is COMPUTED from records that already exist, every call, and the gate\'s spine is '
+     'that DELETING THE RECORD DELETES THE MEMBER IN THE SAME INSTANT -- a module keeping a list '
+     'passes every other check here and fails that one (proved: the roster control fails 1b-1g). '
+     'THREE LEDGERS, AND THE DIFFERENCE BETWEEN THEM IS ENFORCED RATHER THAN COMMENTED: a BOND '
+     '(the quest runtime, 44 authored @DO bond lines) and a WITNESS (the deed ledger) can NAME '
+     'somebody; the ROOF (the century household stamp, via WORLD\'s bohemia_stayed) is a COUNT PER '
+     'ACT and can never produce a person, so a count can never become a face on somebody\'s ask. A '
+     'ROLE IS NOT A PERSON EITHER: a bond with nobody cast into it names nobody rather than '
+     'reporting somebody called "lineman". LIVE ON THE WALKED SURFACE, NOTHING FAKED: take the '
+     'day\'s job, it casts real people into its roles, finish it so its own @DO bond fires, and '
+     'somebody the player actually worked with is one of theirs BY NAME off a record the game '
+     'wrote itself. THAT LIVE DRIVE FOUND THE SEAM\'S REAL BUG: ctDayCast() returns null the '
+     'moment a quest is done and the bond is earned AT the ending, so at the exact instant '
+     'somebody became yours the only thing that could turn their ROLE into a PERSON disappeared -- '
+     'measured as cast {lineman,fixer} while live, null one line later with bonds {lineman:15} '
+     'sitting there and a company of nobody. Four negative controls, all caught: a roster, a count '
+     'that names people, a role reported as a person, and the vanishing cast',
+     True),
     ('CHECK THE CLAIM', ['node', 'gates/check_the_claim_gate.js'],
      'QUESTS row [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE, 9/12. THE RESEARCH: '
      'of 158 measured deception cues 118 mean NOTHING, pauses among them, and people catch a lie '

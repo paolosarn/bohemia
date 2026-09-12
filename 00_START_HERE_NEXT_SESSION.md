@@ -10099,6 +10099,89 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 30 [company in asks] YOUR-PEOPLE-SHOW-UP-IN-THE-ASKING, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_company.js        who is yours, computed and never stored
+  gates/company_in_asks_gate.js    53 passed, 0 failed, REGISTERED the same round
+  slices/BOHEMIA_CITY_WORLD.html   the module inlined + 4 read-only seams
+  BUILD 9/13d - YOUR PEOPLE TURN UP IN THE WORK
+  records/BOHEMIA_YOUR_PEOPLE_TURN_UP_IN_THE_WORK_9_13_26.md
+
+HIS RULING, KEPT ON THE BOARD PER RULE 11. Paolo 9/11: "people in your company just
+get incorporated into quests autonomously, that's very cool." And the row's own last
+sentence is the whole design: THEY ARE PEOPLE WITH LEDGERS, NOT A ROSTER.
+
+MEASURED FIRST, AND PEOPLE HAD ALREADY MEASURED IT. bohemia_down.js, one round
+earlier: "There is no company roster, no companion state, no downed state." True.
+
+*** AND THE TEMPTATION THAT FOLLOWS IS TO BUILD THE ROSTER, WHICH IS THE WRONG
+HALF. *** A roster is a list somebody has to maintain, and the moment it exists it
+can disagree with the world. So there is no list in this module and there cannot be
+one: membership is COMPUTED from records that already exist, every call. Delete the
+record and the person stops being yours in the same instant, and the gate proves it
+by deleting it. A module keeping a list passes every other check in that gate and
+fails that one (proved -- the roster control fails 1b through 1g).
+
+THE FINDING FOR ANY LANE ASKED FOR A ROSTER, A PARTY, A CREW OR A COMPANY:
+  DO NOT BUILD THE LIST. Compute membership from the records the world already
+  keeps, every call, and disagreement becomes IMPOSSIBLE rather than unlikely.
+
+THREE LEDGERS, AND THE DIFFERENCE BETWEEN THEM IS ENFORCED RATHER THAN COMMENTED:
+  A BOND    the quest runtime, and @DO bond is authored 44 times in the corpus.
+            NAMES SOMEBODY (with the cast).
+  A WITNESS the deed ledger knows who saw what you did. NAMES SOMEBODY.
+  A ROOF    the century household stamp, via WORLD's bohemia_stayed, which already
+            answered "what is a person you kept": the people sleeping under roofs
+            you put up. But that record is a COUNT PER ACT, not a list. NAMES
+            NOBODY, and the roof ledger is refused by name if anything ever asks it
+            for a person. A COUNT CAN NEVER BECOME A FACE ON SOMEBODY'S ASK.
+AND A ROLE IS NOT A PERSON: a bond with nobody cast into it names nobody, rather
+than reporting somebody called "lineman".
+
+WHAT IT DOES TO AN ASK, which is the third question asked of one snapshot: asks
+says what somebody WANTS, claims says what somebody SAYS, this says IS THIS ONE OF
+YOURS. Two ways and they are different stories -- one of yours is asking, or a
+stranger's ask is ABOUT one of yours, which is the autonomous incorporation he
+described. The ask is not changed; the generator owns it and this hands back a tag.
+
+*** LIVE ON THE WALKED SURFACE, NOTHING FAKED. *** Take the day's job, it casts real
+people into its roles, finish it so the quest's own @DO bond fires, and
+P:city:18:14:2 -- the lineman you actually worked with -- is one of yours by name,
+off a record the game wrote itself. Nobody scripted it and no list was touched.
+
+*** AND THAT LIVE DRIVE FOUND THE SEAM'S REAL BUG, WHICH ANY SEAM READING A CAST
+WILL HIT. *** ctDayCast() returns null the moment a quest is done, and THE BOND IS
+EARNED AT THE ENDING -- so at the exact instant somebody became yours, the only
+thing that could turn their ROLE into a PERSON disappeared. Measured on the running
+city: cast {lineman, fixer} while the job is live, cast null one line later with
+bonds {lineman:15} sitting right there, and a company of nobody. The seam reads the
+RECORDED cast now, not the function.
+ITS LIMIT, SAID OUT LOUD RATHER THAN HIDDEN: that record is keyed on quest and day,
+so a bond from an earlier day loses its cast when a new one is rung. Naming somebody
+for good needs a record that outlives a day, and that is a row somebody has to
+build, not a thing to invent inside a seam.
+
+FOUR NEGATIVE CONTROLS, ALL CAUGHT: a roster (1b-1g); a count that names people
+(3c); a role reported as a person (4a); the vanishing cast put back (R10, R11, R12).
+
+GATES: company_in_asks 53/0, check_the_claim 58/0, asks_visible 38/0, direct_quests
+37/0, canon_quests 843/0, the_job_pays 99/0, ask_for_more 43/0, alpha_loads 20/0,
+demo_build 25/0, shipped_truth 41/0, pages_publish 18/0, gate_registry 6/0,
+nomarkers 6/0.
+
+[STILL NOT MINE] tools/bohemia_direct_tab_patch.py generates a row shape the alpha
+no longer uses (round 28 replaced it with engine/bohemia_direct_bq.js). Third round.
+[STILL NOT MINE] tools/bohemia_city_dayloop_patch.py is stale and refuses to write:
+its QUESTS list holds 5 of the 37 the city carries. Eighth round flagging it.
+[STILL OPEN, NAMED LAST ROUND] the one live ASK the game produces is about a circuit
+the grid reports with id:-1, a circuit that does not exist. That is [asks exist]'s
+own row; only the coordinator adds jobs, so it sits here until one is added.
+
+NEXT OPEN QUESTS ROWS, in board order: [map moves] (still blocked, re-measured
+again: bohemia_loop.js inlined in neither the city nor the alpha, 0 hits each, and
+the only reader of s.advanceTerritory is bohemia_loop.js line 681 -- SHARED's
+BB-LOOPLESS, still OPEN), [act two] PARKED BY HIM, [first ask]
+THE-FIRST-ASK-A-STRANGER-MEETS.
+
 ROUND 29 [check the claim] YOU-CATCH-A-LIAR-BY-WALKING-TO-THE-FENCE, SHIPPED. QUESTS, BUILD.
   engine/bohemia_claims.js         the same valley, read as something somebody SAYS
   gates/check_the_claim_gate.js    58 passed, 0 failed, REGISTERED the same round
