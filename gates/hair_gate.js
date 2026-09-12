@@ -45,10 +45,26 @@ const done = () => { console.log(`\n=== HAIR GATE: ${p} passed, ${f} failed ===`
 ok('genHair is in the alpha', /function genHair\(g,opt\)\{/.test(src));
 ok('hair composites UNDER headwear and OVER the body', /'hands','hair','head','face'/.test(src));
 /* the filename now carries the ROUND (8/1), so this matches the prefix rather than
-   a fixed name -- still .txt, still never .json, per the verdict workflow. */
+   a fixed name -- still .txt, still never .json, per the verdict workflow.
+
+   *** THE SECOND HALF OF THIS WAS A BROKEN RULER AND IT WENT RED ON MAIN (9/12). ***
+   It was `!/hair[^\n]*\.json/i` -- any "hair" followed by any ".json" ON THE SAME
+   PHYSICAL LINE. That was fine while the alpha was ordinary source. Then a lane
+   inlined a quest file as a single JavaScript string with ESCAPED newlines (\n, two
+   characters, not a line break), so thirty thousand characters of quest prose are one
+   physical line to a regex. That line contains "chairs pushed in" and, far away, an
+   unrelated ".json". Match. Red.
+   MEASURED: red on clean main at d52da4b with nothing of this lane's in the tree, so
+   it was never about hair at all.
+   REPOINTED, NOT LOOSENED. The law forbids ONE thing: hair verdicts leaving as json
+   instead of txt. So it now looks for exactly that -- a BOHEMIA_HAIR...json filename --
+   which is what the sentence above it has always claimed to test. It still goes red the
+   instant anybody exports a hair verdict file as json, and it no longer goes red because
+   somebody wrote the word chairs. Same family as this round's other thrown-away rulers:
+   a ruler that cannot represent the thing it measures will answer confidently anyway. */
 ok('the judge board exports .txt and never .json (the verdict workflow)',
   /BOHEMIA_HAIR_VERDICTS_R'\s*\+\s*hairRound\(\)\s*\+\s*'\.txt/.test(src)
-  && !/hair[^\n]*\.json/i.test(src));
+  && !/BOHEMIA_HAIR[A-Z0-9_]*\.json/i.test(src));
 ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
 
 /* ---- the real surface --------------------------------------------------- */
