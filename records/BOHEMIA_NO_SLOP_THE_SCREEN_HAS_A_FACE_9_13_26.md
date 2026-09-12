@@ -131,3 +131,31 @@ palette; the row it belongs to is this lane's OPEN [colour reaches].
 I stamped this build `9/13i` and `9/13i` already belonged to another lane's A CROWD ON YOUR WAY,
 which would have put two different builds under one name on his splash -- the one thing the
 build stamp exists to prevent. Bumped to `9/13j`. Read the stamp before writing it.
+
+## A GATE IN THE SUITE GOES RED FOR ANY LANE THAT DOES ITS JOB
+Found while checking this round's suite reds one by one against clean origin/main. Six of the
+seven were identical on both sides. The seventh was not, and the honest first read was "this one
+is mine":
+
+    BATTLE BROS   mine 1 failed, clean origin/main 0 failed
+    FAIL H5 LAB's diff touches NO engine module and NO slice -> slices/BOHEMIA_ALPHA_0_9.html, ...
+
+It is not about this round's content. The leg unions `git diff --name-only origin/main...HEAD`
+with staged, working-tree and untracked files and fails if ANY of them matches
+`^engine/|^slices/.*\.html$`. It is a boundary check written to keep the reference lab out of
+combat code, but it reads whatever branch it is run on, so **it fires for every lane that edits
+a slice** -- which is what nearly every lane does.
+
+REPRODUCED IN ONE LINE, on a clean `origin/main` worktree with nothing else changed:
+
+    echo "<!-- probe -->" >> slices/BOHEMIA_CITY_WORLD.html
+    node gates/battle_brothers_gate.js
+    FAIL H5 LAB's diff touches NO engine module and NO slice -> slices/BOHEMIA_CITY_WORLD.html
+
+And the lane it guards is gone: CLAUDE.md's structure section says the reference lab was retired
+9/4. So the check now costs every other lane a red and protects nobody.
+
+NOT FIXED HERE, and that is deliberate: it is another lane's gate and this lane does not reach
+into one. Named with its reproduction so whoever owns it can act in a minute rather than
+rediscover it. Until then it is a standing false red on every lane that touches a slice, and a
+red that everybody learns to expect is a red nobody reads.

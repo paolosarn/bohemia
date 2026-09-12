@@ -402,6 +402,19 @@ belonged to another lane's A CROWD ON YOUR WAY -- two different builds under one
 splash, the exact thing the stamp exists to prevent. Bumped to 9/13j. READ THE STAMP BEFORE YOU
 WRITE IT.
 
+A GATE IN THE SUITE GOES RED FOR ANY LANE THAT DOES ITS JOB -- FOR WHOEVER OWNS BATTLE BROS.
+Six of this round's seven suite reds were identical on clean origin/main. The seventh was not,
+and the honest first read was "this one is mine". It is not. BATTLE BROS leg H5 unions the branch
+diff with staged, working-tree and untracked files and fails if any match ^engine/|^slices/.*\.html
+-- a boundary written to keep the retired reference lab out of combat code, but it reads WHATEVER
+BRANCH IT RUNS ON, so it fires for every lane that edits a slice, which is nearly all of them.
+Reproduced in one line on a clean origin/main worktree with nothing else changed:
+    echo "<!-- probe -->" >> slices/BOHEMIA_CITY_WORLD.html && node gates/battle_brothers_gate.js
+    FAIL H5 ... -> slices/BOHEMIA_CITY_WORLD.html
+And CLAUDE.md says the reference lab was retired 9/4, so it costs every lane a red and protects
+nobody. NOT fixed here: another lane's gate, and this lane does not reach into one. A red everybody
+learns to expect is a red nobody reads.
+
 Record: records/BOHEMIA_NO_SLOP_THE_SCREEN_HAS_A_FACE_9_13_26.md
 
 
