@@ -13374,7 +13374,7 @@ own grep. Nine verified present this round, 0 rows invisible.
 
 [PENDING Paolo] -- nothing new from me.
 
-LAST SHIPPED: [rice clock], 9/12. Before it: [own power] 38e3412,
+LAST SHIPPED: [rice clock] 0f793c2, 9/12. Before it: [own power] 38e3412,
 [century stayed] 8538cd0, [batteries mined] 6562436, [parties move] 75ac79c,
 [a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
 [rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
