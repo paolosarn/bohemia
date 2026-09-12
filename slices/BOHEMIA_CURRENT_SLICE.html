@@ -20434,6 +20434,11 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // a SURFACE, not a district — it is in SURFACEGEN below, with the roads it belongs to.
     resort:     { mod:RES, foot:function(r){return r.footprints;},           zone:'leisure' },
     convention: { mod:KIT.get('convention'), foot:function(r){return r.footprints;}, zone:'civic', cluster:true },
+    /* __THE_WELCOME_SIGN__ -- the Welcome sign, 9/12/26, COOK. Registered here for the same
+       reason the five below it are: DISTGEN is what the world asks, and a spec that
+       lives only in the landmark file is a spec nothing can reach. ONE CELL, so no
+       cluster flag -- it is not a blob like the convention halls or the dam. */
+    sign:       { mod:KIT.get('sign'),       foot:function(r){return r.footprints;}, zone:'leisure' },
     prison:     { mod:KIT.get('prison'),     foot:function(r){return r.footprints;}, zone:'institutional', cluster:true },
     dam:        { mod:KIT.get('dam'),        foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
     minigp:     { mod:KIT.get('minigp'),     foot:function(r){return r.footprints;}, zone:'leisure', cluster:true },

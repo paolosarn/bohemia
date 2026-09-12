@@ -5,13 +5,12 @@
  "placed_undrawable": [
   "sphere",
   "highroller",
-  "sign",
   "strat",
   "springs",
   "luxor",
   "robofactory"
  ],
- "lost_cells": 10,
+ "lost_cells": 9,
  "dead_names": [
   "beltway"
  ]

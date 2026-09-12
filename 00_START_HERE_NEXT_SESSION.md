@@ -7231,7 +7231,64 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 2: "ABOUT 20 MAP-ONLY
+COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
+SIGN IS DRAWN. 7 UNDRAWN LANDMARKS -> 6. *** TAB: none yet; it is at cell 55,65, the south end
+of the boulevard. Nothing changes on his screen until he walks there.
+
+REFERENCE CHECK: DIST-02 (Learning From Las Vegas -- "a Vegas plot is SIGN + SHED + PARKING IN
+FRONT"), CB-07 ("the sign is taller than the building"), TG-05 (a lot is striped asphalt), and
+the real sign at 5100 Las Vegas Blvd S. THE WELCOME SIGN IS THAT PLOT WITH THE SHED DELETED,
+which is why it was the right first landmark rather than the hardest. CHANGED: the real sign
+is in the MEDIAN; this one fronts the boulevard because cell 55,65 has arterial down its whole
+west side. MAP LAW -- Claude never designs the map -- so it stands where the map put it. The
+3x3 was read off a generated map before a line was drawn.
+
+*** THREE THINGS THE PICTURE CAUGHT THAT THE NUMBERS CALLED FINE. *** First cut: 16 of 16
+legend codes, no dead dials, dominant ground under the monoblock ceiling. Then I rendered it
+beside fort and minigp and looked:
+  1. THE SIGN READ AS A RED BLOB. My diamond formula subtracted an extra two near the ends,
+     rounding the points off -- Betty Willis's diamond became a lens and rendered as a flying
+     saucer. THE SILHOUETTE IS THE LANDMARK. A wrong outline is not rescued by right colour.
+  2. THE SHADOW DID NOT EXIST -- three values off hardpan, so the sign floated on dirt.
+  3. THE APRON WAS A SLAB, 34 m with one-unit bay stripes that reduced to one dark block.
+     The real lot is a dozen bays at ~30x18 m with ~1.5 m stripes: SMALLER AND MORE LEGIBLE,
+     which is what usually happens when the number comes off the real thing, not the eye.
+
+AND MY OWN TOOL SHIPPED A DRIFT BUG. It edits TWO files (landmarks for the art, world for the
+registration) and the first cut WROTE the first then VALIDATED the second -- a wrong anchor
+left half the change written, exactly the drift its own guard exists to prevent. A TOOL THAT
+EDITS TWO FILES IS ALL-OR-NOTHING OR IT IS A DRIFT GENERATOR. Both validated before either is
+written now.
+
+VERIFIED ON THE REAL SURFACE, asking the world rather than my own generator:
+    w.plot(55,65) -> district 'sign', category gaming_resort, 16 legend entries, 3 buildings
+    w.plot(56,65) -> district 'suburb', 15 legend entries
+
+THE GATE FROM LAST ROUND CAUGHT ITS OWN IMPROVEMENT: map_names_it went 7 names/10 cells -> 6/9
+and printed "IT FELL. Re-freeze the baseline DOWNWARD", and I did.
+
+GATES: map_names_it 9/0, district_kit 24/0, world 29/0, landlocked 16/0, tilespec 310/0,
+alpha_loads 20/0, walked_surface 15/0, art_45 16/0, pixel_craft 30/0, purity green,
+reference_check 6/0. DISTRICT FILL 52/1 is PRE-EXISTING -- its one failure is "freeway is not
+emptier than it was on 8/2", identical to the baseline and unrelated to this cell.
+Aerial bank 61 -> 62 kinds. BOTH SLICES THAT INLINE THE ENGINE WERE REBUILT
+(build_current_slice.js, build_run_slice.js) -- the lesson from two rounds ago, unprompted.
+
+HOW TO DO THE NEXT ONE, so it takes a fraction of the time:
+  * the pattern is spec(name, category, body, palette, legend, notes, build, base) in
+    engine/bohemia_landmarks.js, PLUS a DISTGEN row in engine/bohemia_world.js. Both files
+    were last changed together in one commit, so touching both is the precedent, not a
+    boundary crossing -- I checked with git before assuming.
+  * NO cluster:true for a single-cell landmark. The five above it are blobs and copying their
+    flag because the neighbours have it is the kind of thing that ships looking fine.
+  * SPHERE IS STILL THE HARD ONE: 4 cells, needs clusterBoundsOf like the airfields.
+  * Left: highroller, strat, springs, luxor, robofactory (all single-cell), then sphere.
+RECORD: records/BOHEMIA_COOK_THE_WELCOME_SIGN_9_12_26.md
+PICTURE: records/target/COOK_THE_WELCOME_SIGN_9_12_26.png (the sign beside fort and minigp)
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [fortress buildings] ROUND 2: "ABOUT 20 MAP-ONLY
 DISTRICTS" IS EIGHT, AND SEVEN ARE VEGAS LANDMARKS. *** Nothing on his screen changed; this
 round was an audit and a gate. NOT IN A TAB YET.
 
