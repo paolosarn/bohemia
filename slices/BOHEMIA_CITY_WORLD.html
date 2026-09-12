@@ -40065,6 +40065,7 @@ function pplAtSched(p) {
 var PPL_NEAR = new Map();          /* person id -> [x,y] borrowed onto his street */
 var PPL_NEAR_LIST = [];            /* and the people themselves, for the renderer */
 var PPL_NEAR_KEY = null;
+var PPL_NEAR_AT = null;   /* where the field was built, so it follows a walk and not a grid */
 /* THE BORROWED BODIES, AS A LIST. peoplePass gathers people by asking each visible
    neighbourhood who lives there, which by construction cannot find somebody who
    lives three neighbourhoods away and is standing here. Widening that window was
@@ -40101,11 +40102,32 @@ function pplNearField() {
   var P = BohemiaPopulation, span = P.NB * FN;
   var n0 = Math.floor(hx / span), n1 = Math.floor(hy / span);
   var SEE = (typeof BohemiaStanding !== 'undefined' && BohemiaStanding.SEE_RANGE) || 9;
-  /* rebuilt when he changes neighbourhood, when the hour turns, or when the rules
-     change -- never inside a step, so nothing shuffles while he is looking at it */
-  var key = n0 + ',' + n1 + ':' + (((T.min | 0) / 60) | 0) + ':' + seed + ':'
-          + P.rulesVersion();
-  if (PPL_NEAR_KEY === key) return PPL_NEAR;
+  /* __A_CROWD_IS_NOT_ONE_CROWD__ (9/12, round 9) -- WHEN THIS REBUILDS, AND WHY IT IS
+     NOT A GRID LINE ANY MORE. Round 8 put a crowd within two screenfuls of him and a
+     walk found it 5 times in 16. The other eleven missed for a reason that had nothing
+     to do with crowds: the field rebuilt when he crossed a 512-cell NEIGHBOURHOOD
+     BOUNDARY, an arbitrary line on a grid, so a 400-step walk got one or two chances at
+     a new crowd no matter how far it went. A walk that leaves the field behind should
+     get a new one. So the field is anchored WHERE IT WAS BUILT and rebuilds when he has
+     walked further than the field's own reach -- its own number, not a grid's. Anyone
+     he can see is still held through the rebuild, so nothing shuffles in front of him. */
+  /* THE MECHANISM'S ONE BUDGET, and it stays NAMED. Hoisting this to the top of the
+     function as a bare 5 broke the leg that guards it, and the leg was right: a budget
+     that stops looking like a budget is how a dial gets smuggled in. */
+  var WALK_MIN = 5;
+  var reach = Math.round(WALK_MIN / MIN_PER_CELL);  /* the field's own five-minute reach */
+  /* *** AND THE ANCHOR IS THE CROWD, NOT HIM. *** Anchoring the rebuild to his own
+     position was measured and it was WORSE -- 4 walks in 16 against round 8's 5 -- because
+     every sixty cells it threw away the crowd he might have been walking toward and built
+     a new one somewhere else. He was chasing a mirage. Anchored to the CROWD, a crowd he
+     is approaching is never discarded: it stands there until he has genuinely left it
+     behind, and only then does the next one form. */
+  var SCREEN0 = SEE * 2 + 1;
+  var gone = PPL_NEAR_AT
+           ? Math.max(Math.abs(hx - PPL_NEAR_AT[0]), Math.abs(hy - PPL_NEAR_AT[1]))
+           : 1e9;
+  var key = (((T.min | 0) / 60) | 0) + ':' + seed + ':' + P.rulesVersion();
+  if (PPL_NEAR_KEY === key && gone <= SCREEN0 * 3) return PPL_NEAR;
   /* *** NOBODY IS TAKEN AWAY WHILE HE IS LOOKING AT THEM. *** on_the_way_gate --
      this lane's own round-5 checker, which exists because people used to cross half
      a kilometre in sixty seconds -- went red at 104 journeys finished in under a
@@ -40189,8 +40211,7 @@ function pplNearField() {
      PLAYER IS ON, so the nearest cell is filled first and frontage only breaks
      ties. The cells are cached per neighbourhood and this ordering is per standing,
      which is the whole reason the two are separate functions. */
-  var WALK_MIN = 5;
-  var reach = Math.round(WALK_MIN / MIN_PER_CELL);
+  /* `WALK_MIN` and `reach` are the same budget, named at the top of this function */
   var here = street.slice().sort(function (a, b) {
     var da = Math.max(Math.abs(a[0] - hx), Math.abs(a[1] - hy));
     var db = Math.max(Math.abs(b[0] - hx), Math.abs(b[1] - hy));
@@ -40312,10 +40333,12 @@ function pplNearField() {
         var __who = pool[__knot];
         PPL_NEAR.set(__who.id, [__fx, __fy]);
         PPL_NEAR_LIST.push(__who);
+        if (!__knot) PPL_NEAR_AT = [__fx, __fy];      /* the crowd is the anchor */
         __knot++;
       }
     }
   }
+  if (!__knot) PPL_NEAR_AT = [hx, hy];   /* no crowd to anchor on: follow him instead */
   /* AND THE FLOOR, from whoever is left, so round 7's number does not come back up */
   var n = Math.min(here.length, pool.length);
   for (var s = __knot; s < n; s++) {

@@ -5755,7 +5755,46 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/12 (a) LATEST -- *** [more people] ROUND 8: THE PEAKS. A WALK
+LIFE + CITY (city-1eztay): 9/12 (b) LATEST -- *** [more people] ROUND 9: HALF OF ALL WALKS
+NOW MEET A CROWD, 5 OF 16 -> 8 OF 16. AND THE ROUND OPENED BY FIXING MY OWN BOARD LINE
+UNDER THE NEW RULE 11. *** MODE: BUILD. TAB: CITY, or just walk. Nothing to judge.
+
+  FIRST, RULE 11, WHICH LANDED 9/12 FROM EYES E16: a SHIPPED line keeps the ruling it
+answered, because an OPEN line cites one of his rulings 34% of the time and a SHIPPED line
+only 12% -- the line gets rewritten as a result summary when it lands and his words go with
+it. THIS LANE HAD DONE EXACTLY THAT: round 8 replaced the whole [more people] line and took
+the row's own brief ("dead is not the default"; the number is his, the mechanism is ours)
+AND the coordinator's 9/7 ruling with it. Both recovered verbatim from 9a44b85 and put back,
+with the result kept as an addition. The lane's other two recent lines were checked against
+the same rule and were clean ([tap picks] still carries PAOLO 9/8, [white rings] still
+carries his frame path).
+  *** AND THE ELEVEN MISSING WALKS HAD NOTHING TO DO WITH CROWDS. *** The near field
+rebuilt when he crossed a 512-CELL NEIGHBOURHOOD BOUNDARY -- an arbitrary line on a grid --
+so a 400-step walk got one or two chances at a crowd however far it went, and the rest was
+luck.
+  THE FIRST FIX WAS WORSE AND THE WALK SAID SO: anchoring the rebuild on HIS OWN POSITION
+measured 4 of 16, DOWN from 5, because every sixty cells it threw away the crowd he might
+have been walking toward and built another somewhere else. HE WAS CHASING A MIRAGE.
+  WHAT SHIPPED: THE ANCHOR IS THE CROWD. The field rebuilds when he has left the crowd
+behind, not when he has moved. A crowd he is approaching is never discarded -- it stands
+until he has genuinely gone past it, and only then does the next one form.
+  AFTER: walks that met a crowd 5 of 16 -> 8 OF 16; biggest group seen 14, unchanged; walks
+that met anybody 16 of 16, unchanged; empty standings 65 of 120, unchanged.
+  AND ONE OF MY OWN GATES CAUGHT A SLOPPY EDIT: hoisting the walking budget to the top of
+the function turned WALK_MIN into a bare 5, and never_empty_gate's A2 went red -- "the
+comment calls it a budget instead of pretending". The leg was right: a budget that stops
+looking like a budget is how a dial gets smuggled in. Restored to its name, 14/0.
+  GATE: gates/a_crowd_to_walk_into_gate.js 7/0, RATCHETED -- B1 now demands 6 of 16 where
+it demanded 3, so round 9's result cannot quietly slip back to round 8's. Mutation-tested:
+put the anchor back on his own position and it reproduces the worse cut exactly, 4 of 16.
+  RECORD: records/BOHEMIA_A_CROWD_IS_NOT_ONE_CROWD_9_12_26.md
+  THE ROW STAYS CLAIMED. Half of all walks meeting a crowd is the closest this row has been
+to its own ship test. EIGHT WALKS IN SIXTEEN STILL FIND ONLY THE FLOOR.
+  NEXT IN THIS LANE AFTER THAT: [tiles not slabs], [buildings appear], [power buildings].
+
+--- THE ROUND-8 BLOCK BELOW ---
+
+LIFE + CITY (city-1eztay): 9/12 (a) -- *** [more people] ROUND 8: THE PEAKS. A WALK
 MET A CROWD 0 TIMES IN 16 AND NOW MEETS ONE 5 TIMES IN 16; THE BIGGEST GROUP HE CAN GET IN
 FRONT OF WENT FROM 3 TO 14. *** MODE: BUILD. TAB: CITY, or just walk. Nothing to judge.
 

@@ -28,6 +28,15 @@
    than half the borrowed people so round 7's floor survives.
 
    AFTER, ON THE WALK:  0 of 16 walks met a crowd -> 5 of 16.  Biggest group seen 3 -> 14.
+
+   ROUND 9 TOOK IT TO 8 OF 16, and the change was not about crowds at all. The field
+   rebuilt when he crossed a 512-cell NEIGHBOURHOOD BOUNDARY -- an arbitrary line on a
+   grid -- so a 400-step walk got one or two chances at a crowd however far it went.
+   Anchoring the rebuild on HIS OWN POSITION was tried first and measured WORSE, 4 of 16,
+   because every sixty cells it threw away the crowd he might have been walking toward and
+   built another somewhere else: he was chasing a mirage. ANCHORED ON THE CROWD, a crowd he
+   is approaching is never discarded -- it stands until he has genuinely left it behind,
+   and only then does the next one form. 5 of 16 -> 8 of 16, half of all walks.
    ========================================================================== */
 'use strict';
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
@@ -146,8 +155,10 @@ ok('A2 the crowd stands within two screenfuls and beyond one SEE_RANGE, in the r
   /* B1. *** THE THING ROUND 8 IS FOR. *** It was 0 of 16 before, twice, through two
      different cuts that both passed a standing test. */
   ok('B1 *** A WALK MEETS A CROWD *** — ' + m.metCrowd + ' of ' + m.walks
-     + ' walks saw ' + m.crowdIs + ' or more at once, and it was 0 of 16 before this round',
-     !m.err && m.metCrowd >= 3);
+     + ' walks saw ' + m.crowdIs + ' or more at once. It was 0 of 16 before round 8, 5 of '
+     + '16 when round 8 shipped, and 8 of 16 once the rebuild was anchored on the CROWD '
+     + 'instead of on a grid line',
+     !m.err && m.metCrowd >= 6);
 
   /* B2. AND THE BIGGEST GROUP HE CAN GET IN FRONT OF. */
   ok('B2 the biggest group seen on a walk is ' + m.peakAll + ', and it was 3',
@@ -168,7 +179,7 @@ ok('A2 the crowd stands within two screenfuls and beyond one SEE_RANGE, in the r
 
   console.log('  MEASURED BY WALKING, IN THE CUT DEMO:');
   console.log('    walks that met a crowd : ' + m.metCrowd + ' of ' + m.walks
-    + '   (0 of 16 before this round)');
+    + '   (0 of 16 before round 8, 5 of 16 at round 8)');
   console.log('    biggest group seen     : ' + m.peakAll + '   (3 before)');
   console.log('    walks that met anybody : ' + m.metAnybody + ' of ' + m.walks
     + '   (round 7\'s floor, unchanged)');
