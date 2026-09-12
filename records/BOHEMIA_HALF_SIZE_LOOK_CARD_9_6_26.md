@@ -51,6 +51,16 @@ makes three distances one place:
   city, valley (a flick settles to the nearest), but the finger can
   hold any point between — the settle is comfort, not a mode.
 
+## AMENDED 9/12 (DIRECTION, judging the built shrink)
+His newer order won, and the card records it: the 11 px body floor GAVE
+to the 9/6 half-size order for walked-surface chips (his words: shrink it
+anyway; the 9/7 ruling gave the 44 floor the same way, narrowly and
+loudly). The lanes' readable-letters ruler holds the new floor and reads
+17 of 17. The 11 px floor STANDS on the phone glass and on anything that
+spends. The three-resting-stop shots of section 4 run when the continuous
+zoom exists ([no tabs]); the built street-stop shrink is judged in
+records/BOHEMIA_VERDICT_THE_BUILT_SHRINK_9_12_26.md.
+
 ## 4. THE JUDGE'S TEST (how the shrink gets judged when it lands)
 Four screenshots: the three resting stops plus one mid-zoom frame. The
 mid frame must be obviously BETWEEN its neighbours (scale continuity,
