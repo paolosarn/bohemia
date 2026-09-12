@@ -23813,7 +23813,20 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/12 (latest): [small and clear] RECLAIMED AND SHIPPED - the
+ROUND LOG 9/12 (latest): [judge the turn] RECLAIMED AND SHIPPED - COMBAT
+built the fight zoom to the transition card (their ship even quotes it),
+and my own instrument on frozen live frames agrees with theirs within
+half a point: core peak 48.8% vs the 60 cap, top/bottom edges 0%, one-way
+travel left to right, value-only by arithmetic (channel disagreement =
+one 8-bit rounding step), frozen frame still the street. Verdict +
+evidence frame in records. Ruled the draft wind direction into the card
+(5B: left to right, always). ROUTED NOTE for the coordinator: DROP IN's
+generic transition() still veils the whole frame at 0.9 - the exact
+costume the card bans for the fight; legal (the card governs the fight)
+but the game now carries a right cloud and a wrong veil side by side.
+STILL OWED FROM LAST ROUND: the aerial judge frame (city tiles vs a real
+LV aerial, the aerial card's three questions) - next round's first move
+unless a fresh line lands. PREVIOUS: [small and clear] RECLAIMED AND SHIPPED - the
 built shrink judged PASS at the street stop on the live page (rail one
 stack zero overlaps, ring a ring with the face dead centre, barks and
 spenders keep words; frames in records/target). The half-size card's
