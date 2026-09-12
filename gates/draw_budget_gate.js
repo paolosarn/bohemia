@@ -167,6 +167,23 @@ ok('and the floor the tool measured is written into the ledger (' + L.floor_ms_p
   && feats.filter(f => !f.control && typeof f.ms_per_draw === 'number')
       .every(f => (Math.abs(f.ms_per_draw) <= L.floor_ms_per_draw) === (f.below_floor === true)));
 
+/* AND A ROW IS ALLOWED TO COST NOTHING **BY CONSTRUCTION**, ON TERMS. V205's
+   camera pull-back draws in the CITY during a handover and never inside the
+   fight, so there is nothing for the instrument to put a stopwatch on -- and a
+   row carrying a measured-looking 0.0 would be claiming the tool read zero,
+   which it never did. THE FLOOR FLAG IS ABOUT THE INSTRUMENT'S RESOLUTION and
+   says nothing about a feature that is not in the loop at all; that is a
+   different claim and it gets a different test. The terms close the obvious
+   hole, which is a lane writing "free" on a row that draws every frame: zero by
+   construction is only legal with in_loop FALSE, no per-draw number at all, and
+   the reason written down where the next lane will read it. */
+const byCon = feats.filter(f => f.zero_by_construction === true);
+console.log('  zero by construction: ' + (byCon.length ? byCon.map(f => f.name).join(', ') : 'none'));
+ok('and a row may cost nothing BY CONSTRUCTION on terms, never by assertion (' + byCon.length
+  + ' of them): it has to be OUT of the fight loop, it may not carry a per-draw number the tool never took, and it has to say in writing how it gets away with zero. A lane that wants to write "free" on something that draws every frame still has to measure it',
+  byCon.every(f => f.in_loop === false && !('ms_per_draw' in f)
+    && f.ms_per_beat === 0 && typeof f._zero_note === 'string' && f._zero_note.length > 80));
+
 const noErr = /page errors: 0/.test(ctlOut);
 ok('and opening a fight and drawing four hundred and eighty frames through it throws nothing', noErr);
 

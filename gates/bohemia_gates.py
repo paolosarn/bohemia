@@ -2261,6 +2261,17 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('ENTER ZOOM', ['node', 'gates/enter_zoom_gate.js'],
+     'HOW THE FIGHT BEGINS: THE CAMERA PULLS BACK (VAMILY [enter zoom], COMBAT 9/11). Paolo 9/6, option A: '
+     '"Yes definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." You never leave the '
+     'street: the view pulls back over the SAME ground on the beat, a cloud passes across the moment the scale '
+     'changes so it reads as weather and not a loading screen, and it comes back in when the fight ends. THE MOVE '
+     'WAS ALREADY BUILT FOR THE MAP DOOR and the fight never asked for it. This boots, puts the street on screen, '
+     'and drives the whole move: the picture changes while the camera is never touched (the first cut drove HC and '
+     'left it stranded at 1.4, a blur of dots where the street was), the handover fires on the HALF BEAT by the '
+     'clock rather than when a frame happens to arrive (the city idles at twenty frames a second and fell to three '
+     'under load, which put it at 845 ms), the cloud outlives the panel swap and can never eat a tap, and the fight '
+     'loop pays ZERO because nothing new draws inside it', True),
     ('DRAW BUDGET', ['node', 'gates/draw_budget_gate.js'],
      'EVERY NEW FIGHT VISUAL ARRIVES WITH ITS COST (VAMILY [draw budget], COMBAT 9/7). The row: the fight loop is '
      'FULL, so anything new that draws in it is designed and built but SHIPS WITH ITS COST STATED IN MILLISECONDS '

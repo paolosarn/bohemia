@@ -1327,7 +1327,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/12e - A CROWD TO WALK INTO</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/12a - THE CAMERA PULLS BACK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -9490,7 +9490,54 @@ var CITYFIGHT=false, CITYFIGHT_AT=null;
 const FIRSTFIGHT_KEY='bohemia_first_fight_v1';
 function beatTaught(){ try{ return PERSIST.backend.getItem(FIRSTFIGHT_KEY)==='1'; }catch(_e){ return false; } }
 function markBeatTaught(){ try{ PERSIST.backend.setItem(FIRSTFIGHT_KEY,'1'); }catch(_e){} }
+/* ===== V205 __ENTER_ZOOM__ -- AND THE SHADE HAS TO OUTLIVE THE SWAP ==========
+   The city's half of this move paints the shade on the CITY'S canvas, and the
+   handover REPLACES that whole panel with the fight's. So the shadow vanished at
+   the exact instant it was supposed to be over the player: you saw weather, then
+   a hard cut to a fight. The cover has to live ABOVE both documents, which means
+   it lives here, in the shell.
+   THE CARD'S NUMBERS, NOT MINE. Black at 0.22 alpha is the 0.78 core its band
+   asks for (0.75-0.85), and black-at-an-alpha multiplies every channel equally,
+   so "value only, no hue rotation, no saturation change" is arithmetic. It is a
+   SOFT-EDGED TRAVELLING SHADOW and not a full-frame dim, because the card calls
+   a full-frame dim "a fade-to-black in a costume, which is the hard cut again."
+   It keeps moving as it clears (the div slides) so the turn reads as one cloud
+   passing over both documents rather than two effects.
+   *** AND THAT MEANS THE SWAP IS NOT HIDDEN, WHICH IS THE RULING AND NOT A BUG.
+   *** An opaque cover would hide it completely and that is exactly what the card
+   forbids; what carries the continuity instead is that both pictures are the
+   same ground, in the same palette, at two scales. The card's own routing says
+   DIRECTION judges this on the real surface against its section 6.
+   IT IS ONE DIV AND IT NEVER TOUCHES THE FIGHT. pointer-events none so it can
+   never eat a tap, and it is gone inside the second beat. The draw budget says
+   anything new that draws IN THE FIGHT ships with its cost and does not enter
+   until there is room; this is one div for 200 ms during a handover, outside the
+   fight's canvas and outside its loop, so the fight pays nothing. */
+var FZ_VEIL=null;
+var FZ_VEIL_MS=200;    /* the tail of beat two, so the shade is gone by its end */
+function fightVeil(on){
+  try{
+    if(!FZ_VEIL){
+      FZ_VEIL=document.createElement('div');
+      FZ_VEIL.id='fzveil';
+      FZ_VEIL.style.cssText='position:fixed;inset:0;z-index:999998;pointer-events:none;'
+        +'opacity:0;will-change:opacity,transform;'
+        +'background:radial-gradient(46% 62% at 50% 46%, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.22) 42%, rgba(0,0,0,0) 100%)';
+      document.body.appendChild(FZ_VEIL);
+    }
+    /* the city has already brought the shade up to full and put it over the
+       middle of the frame, so this starts there and travels out as it clears */
+    if(on){ FZ_VEIL.style.transition='none';
+      FZ_VEIL.style.opacity='1'; FZ_VEIL.style.transform='translateX(0)';
+      void FZ_VEIL.offsetWidth;
+      FZ_VEIL.style.transition='opacity '+FZ_VEIL_MS+'ms linear, transform '+FZ_VEIL_MS+'ms linear';
+      setTimeout(function(){ if(FZ_VEIL){ FZ_VEIL.style.opacity='0';
+        FZ_VEIL.style.transform='translateX(18%)'; } }, 30); }
+    else { FZ_VEIL.style.opacity='0'; }
+  }catch(_e){}
+}
 function cityEncounterIn(d){
+  fightVeil(true);   /* V205 __ENTER_ZOOM__: the dust outlives the panel swap */
   CITYFIGHT=true; CITYFIGHT_AT=(d&&d.at)||null;
   const go=()=>{ const enc=startEncounter({
       packageId:(d&&d.packageId!=null)?d.packageId:1,
@@ -9513,6 +9560,7 @@ function cityEncounterIn(d){
    entrance -- that is the 7/19 law doing the work, not a second bookkeeping. */
 function cityFightHome(outcome){
   if(!CITYFIGHT)return false;
+  fightVeil(true);   /* V205 __ENTER_ZOOM__: and it covers the way back too */
   CITYFIGHT=false;
   /* THE WALKED SURFACE IS BEHIND THE **RUN** TAB. There is no data-p="city"
      tab at all -- the shell maps the RUN tab to the p-city panel

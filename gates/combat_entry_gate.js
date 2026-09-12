@@ -100,7 +100,13 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     INSIDE = __was;
     return { fired, foot: found };
   });
-  await SETTLE(page, 600);
+  /* V205: AND THIS WAITS OUT THE WHOLE MOVE NOW. The entry pulls the camera back
+     across two beats and posts at four fifths of it, so 600 ms reads as "the
+     frame is mute" on a build where the message is simply not sent yet. MEASURED
+     on top of that: this machine stalls the walked city for up to 1475 ms at a
+     stretch with nothing running, and a timer cannot fire while the thread is
+     blocked, so the wait is the move plus a stall and not the move alone. */
+  await SETTLE(page, 4000);
   posted.seen = await page.evaluate(() => window.__ENTRY_SEEN);
 
   ok('the city has the shipped trigger on it at all', !posted.missing);
@@ -123,6 +129,17 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   await page.evaluate(() => { window.__ENTRY_SEEN = null; });
   const throughDoor = await cityFrame.evaluate(() => {
     if (typeof inEnter !== 'function' || typeof inFootprint !== 'function') return { noDoor: true };
+    /* V205: THE ARM ABOVE JUST STARTED A HANDOVER. The entry pulls the camera
+       back over a beat before it posts, and it refuses to start a second one on
+       top of the first -- correctly, because a real player cannot walk through a
+       door in the middle of a fight starting. These arms run back to back in one
+       tick, so the latch is cleared here the way a beat of real time would. */
+    try{ FZOOMING = false; }catch(_e){}
+    /* AND THE DOOR IS WATCHED, not assumed: how many entries asked for a
+       handover, how many got one, and what the latch looked like after. */
+    const ho = []; const realHO = window.cityHandOver;
+    window.cityHandOver = function (m, sk) { const r = realHO.apply(this, arguments);
+      ho.push([sk || 'cloud', r]); return r; };
     const __was = (typeof INSIDE !== 'undefined') ? INSIDE : null;
     let tried = 0, entered = 0, last = null;
     for (let y = 0; y < 400 && entered < 40; y += 3) {
@@ -136,10 +153,20 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       }
     }
     INSIDE = __was;
-    return { tried, entered, last };
+    window.cityHandOver = realHO;
+    return { tried, entered, last, handovers: ho.length, first: ho[0] || null,
+      granted: ho.filter(r => r[1]).length, zooming: FZOOMING };
   });
-  await SETTLE(page, 600);
+  /* V205: THE HANDOVER IS DEFERRED BY MOST OF TWO BEATS NOW. The entry pulls the
+     camera back first and posts at four fifths of the move, so a settle shorter
+     than that reads as "the door does not start a fight". 600 ms was enough when
+     the post was synchronous and is not any more, and 1600 was not enough either:
+     MEASURED, with nothing running, this machine stalls the walked city for up to
+     1475 ms at a stretch, and a timer cannot fire while the thread is blocked. */
+  await SETTLE(page, 4000);
   const doorSeen = await page.evaluate(() => window.__ENTRY_SEEN);
+  console.log('  the door: ' + JSON.stringify(throughDoor) + '  seen: ' + !!doorSeen
+    + '  latch now: ' + JSON.stringify(await cityFrame.evaluate(() => FZOOMING)));
   ok('WALKING THROUGH A REAL DOOR, via the shipped inEnter, starts the fight -- not just calling the trigger by hand'
     + ' (' + throughDoor.entered + ' real entries out of ' + throughDoor.tried + ' footprints)',
     throughDoor.entered > 0 && !!doorSeen && doorSeen.type === 'BOHEMIA_CITY_ENCOUNTER');
@@ -364,15 +391,27 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     const hostWas = (typeof HOST_DREW !== 'undefined') ? HOST_DREW : null;
     HOST_DREW = [{ at: [hx + 1, hy], count: 3, state: 'close' }];
     SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedOnCrew = streetFightOnStep();
     SF_LAST = -9999;
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedTwiceSameCrew = streetFightOnStep();
     /* a crew that is only WATCHING has clocked you and is not coming: not a fight */
     HOST_DREW = [{ at: [hx + 4, hy], count: 3, state: 'watch' }];
     SF_LAST = -9999; SF_DONE = {};
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedOnWatching = streetFightOnStep();
     HOST_DREW = hostWas || [];
 
@@ -381,31 +420,51 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
        row lands with no second wire. */
     window.ctAdjacent = () => ({ id: 'gate_foe_1', home: [1, 1], hostile: true });
     SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedOnHostile = streetFightOnStep();
     /* HE ONLY AMBUSHES YOU ONCE */
     SF_LAST = -9999;
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedTwiceSamePerson = streetFightOnStep();
     /* A COOLDOWN, so one bad block is not a corridor of fights */
     window.ctAdjacent = () => ({ id: 'gate_foe_2', home: [2, 2], hostile: true });
     SF_LAST = SF_STEPS - 1;
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedInsideCooldown = streetFightOnStep();
     SF_LAST = SF_STEPS - SF_COOLDOWN;
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedAfterCooldown = streetFightOnStep();
     /* AND NOBODY IS JUMPED BEFORE THEY ARE OUT OF THEIR OWN STREET */
     window.ctAdjacent = () => ({ id: 'gate_foe_3', home: [3, 3], hostile: true });
     SF_STEPS = 0; SF_LAST = -9999; SF_DONE = {};
     let early = 0;
-    for (let i = 0; i < SF_GRACE - 1; i++) { try{ contactClear(); }catch(_e){}
+    for (let i = 0; i < SF_GRACE - 1; i++) { try{ contactClear(); FZOOMING=false; }catch(_e){}
       if (streetFightOnStep()) early++; }
     o.firedInGrace = early;
     /* AND A STRANGER STARTS NOTHING */
     window.ctAdjacent = () => ({ id: 'gate_stranger', home: [4, 4] });
     SF_STEPS = 9999; SF_LAST = -9999; SF_DONE = {};
-    try{ contactClear(); }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too */
+    try{ contactClear(); FZOOMING=false; }catch(_e){}   /* V203: a real step arms the fuse; a simulated one must too.
+       V205: and it clears the ZOOM LATCH for the same reason -- the entry now pulls the camera
+       back over a whole beat before it hands over, and a real step never lands inside another
+       one. Six calls in the same tick do, and every one after the first was refused by the
+       zoom rather than by the guard being tested. */
     o.firedOnStranger = streetFightOnStep();
     window.ctAdjacent = realAdj;
     return o;
@@ -526,6 +585,23 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       const box = (X, Y, R) => { const d = g.getImageData(X - R, Y - R, R * 2, R * 2).data;
         let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i] + d[i + 1] + d[i + 2];
         return s / (d.length / 4) / 3; };
+      /* AND THE SAME BOX IS ACCUMULATED PIXEL BY PIXEL, because the AVERAGE of a
+         box is diluted by however much street is in it and by how much his colour
+         happens to contrast with that street -- a different number every run.
+         Two runs of the mean read 2.5 and 5.0 on the same tree. The count of
+         pixels that MOVED does not care about contrast or dilution. */
+      const grid = { A: {}, B: {}, n: { A: 0, B: 0 }, R: 0 };
+      const accum = (into, key, X, Y, R) => {
+        const d = g.getImageData(X - R, Y - R, R * 2, R * 2).data, n = d.length / 4;
+        let a = into[key]; if (!a || a.length !== n) a = into[key] = new Float64Array(n);
+        for (let i = 0, p = 0; p < n; p++, i += 4) a[p] += (d[i] + d[i + 1] + d[i + 2]) / 3;
+      };
+      const moved = (x) => {   /* percent of pixels whose mean moved by more than 8 of 255 */
+        const a = grid.A[x], b = grid.B[x]; if (!a || !b) return null;
+        const na = grid.n.A, nb = grid.n.B; let c = 0;
+        for (let p = 0; p < a.length; p++) if (Math.abs(a[p] / na - b[p] / nb) > 8) c++;
+        return Math.round(c / a.length * 1000) / 10;
+      };
       /* HIS OWN PEEK AND FIRE WINDOWS ARE ALSO BEAT-LOCKED and they repaint the
          disc green or red, which is a far louder signal than an alpha. Sampling
          on-beat frames against off-beat ones therefore measures HIS COLOUR, not
@@ -560,13 +636,22 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
             const gx = (T.dx | 0) > cv.width / 2 ? (T.dx | 0) - 140 : (T.dx | 0) + 140;
             const out = solid ? A : B;
             out.him.push(box(T.dx | 0, T.dy | 0, R));
-            out.ground.push(box(gx, T.dy | 0, R)); }
+            out.ground.push(box(gx, T.dy | 0, R));
+            /* THE BOX GEOMETRY IS PINNED OFF THE FIRST FRAME THAT HAS HIM, so the
+               two arms accumulate the same grid of pixels even while the camera
+               is still settling and he is still walking. */
+            if (!grid.R) grid.R = R;
+            const I = solid ? 'A' : 'B';
+            accum(grid[I], 'him', T.dx | 0, T.dy | 0, grid.R);
+            accum(grid[I], 'ground', gx, T.dy | 0, grid.R);
+            grid.n[I]++; }
           if (++k >= 120) {
             window.teachAlpha = real;
             const m = a => a.length ? Math.round(a.reduce((p, q) => p + q, 0) / a.length * 10) / 10 : null;
             return res({ solidN: A.him.length, ghostN: B.him.length,
               him_solid: m(A.him), him_ghost: m(B.him), shipped: real(),
               ground_solid: m(A.ground), ground_ghost: m(B.ground),
+              movedHim: moved('him'), movedGround: moved('ground'), boxR: grid.R,
               drew: A.him.length > 0 });
           }
           tick();
@@ -662,13 +747,15 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     && (ffOn.grade === 'PERFECT' || ffOn.grade === 'GOOD') && ffOn.hp1 < ffOn.hp0);
 
   ok('V202 AND YOU CAN SEE IT WITHOUT BEING TOLD, because a text box breaks the world and the row says no text box, ever. READ OFF THE GLASS, ' + (ffTell && ffTell.ghostN)
-    + ' frames a side, interleaved frame by frame: the box he is drawn in reads ' + (ffTell && ffTell.him_solid) + ' when the ghost is held open and ' + (ffTell && ffTell.him_ghost)
-    + ' when it is held shut, while a control box of ground beside him reads ' + (ffTell && ffTell.ground_solid) + ' and ' + (ffTell && ffTell.ground_ghost)
+    + ' frames a side, interleaved frame by frame: ' + (ffTell && ffTell.movedHim)
+    + '% of the pixels in the box he is drawn in MOVE when the ghost is held shut, and ' + (ffTell && ffTell.movedGround)
+    + '% of a control box of ground beside him. (The average of the box reads ' + (ffTell && ffTell.him_solid) + ' against ' + (ffTell && ffTell.him_ghost)
+    + ', ground ' + (ffTell && ffTell.ground_solid) + ' against ' + (ffTell && ffTell.ground_ghost)
+    + ', and THAT NUMBER IS PRINTED AND NOT ASSERTED: three runs of it on one tree read 2.5, 5.0 and 31.3, because an average is diluted by however much street is in the box and by how much his colour happens to contrast with it. The COUNT of pixels that moved read 70.8, 61.1 and 72.9 against a control of 0.0 every time. A checker on the average was passing on luck against a threshold of 3.)'
     + ' -- HIS pixels move and nothing else\'s does, so the ghost is wired into the path that actually draws this man. THAT IS THE QUESTION THIS ARM EXISTS FOR, and three cuts of it were wrong first: it asked teachAlpha() what it would return, which proved nothing, because the ghost was wrapped around drawEnemySprite and that function is called every frame and RETURNS FALSE EVERY TIME on the real surface -- no look is baked for this man, so a stranger sees the fallback disc, and the tell was in the draw path nobody was on; then it sampled sixty frames of one setting followed by sixty of the other, so the answer was the camera still settling at the top of the fight; then it read the canvas in the SAME frame it set the flag, and the reader shares requestAnimationFrame with the render loop, so the pixels belonged to the previous setting and the two arms cancelled. The window is GOOD_MS on the 120 grid (' + (ff && ff.windowIsTheGradeWindow)
     + '), the same window the shot is graded by, derived and not declared, because a tell that can drift from the rule is a lie with an animation on it',
     !!ffTell && ffTell.drew === true && ffTell.ghostN > 40 && ffTell.ground_solid > 5
-    && Math.abs(ffTell.him_solid - ffTell.him_ghost) > 3
-    && Math.abs(ffTell.ground_solid - ffTell.ground_ghost) < 1
+    && ffTell.movedHim > 25 && ffTell.movedGround < 2
     && !!ff && ff.windowIsTheGradeWindow === true);
 
   ok('V202 AND THE LESSON ENDS, which is the guard that keeps the whole game from being a tutorial. It is marked learned only on a WIN, so dying or quitting in the middle leaves it standing and the fight you cannot pass without the beat comes back. Once it is learned (' + (ffShell && ffShell.before) + ' -> ' + (ffShell && ffShell.after)
@@ -868,6 +955,36 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '). Six of his twelve are people or a machine and those are the ones that fight; the rest fall through untouched',
     !!contact.animal && contact.animal.fired === true && contact.animal.posted === false
     && contact.animal.stillShowsTheCard === true);
+
+  /* ================= V205 __ENTER_ZOOM__ (source + ledger only) ========
+     PAOLO RULED IT 9/6, OPTION A: "Yes definitely, and the map will zoom out
+     nicely, maybe a cloud opacity somewhere."
+     THE DRIVEN HALF LIVES IN ITS OWN GATE, gates/enter_zoom_gate.js, and that is
+     not tidiness: this file has forty arms in front of it that leave the shell
+     showing the FIGHT panel and the city frame hidden, and a hidden document
+     gets no animation frames -- so every attempt to drive a 500 ms camera move
+     from down here waited for frames that were never coming. A gate that has to
+     unwind another gate's state to ask its own question is the wrong gate. */
+  const zoomSrc = await cityFrame.evaluate(() => {
+    const src = String(streetFightOnStep) + String(roadContactFight) + String(cityFightOnEnter);
+    return { out: typeof fightZoomOut === 'function', back: typeof fightZoomIn === 'function',
+      door: typeof cityHandOver === 'function', cloud: typeof fightShade === 'function',
+      /* RAW MEANS A POST THAT BYPASSES THE DOOR, not the word ENCOUNTER: the
+         message's own type field is there either way, so counting it counts the
+         thing both versions share and reads four out of four as raw. */
+      raw: src.split('parent.postMessage({type:').length - 1,
+      viaDoor: src.split('cityHandOver(').length - 1,
+      doorSkin: String(cityFightOnEnter).indexOf("'door')") >= 0,
+      ms: FZ_MS, beat: BEAT };
+  });
+  console.log('  V205 how the fight begins: ' + JSON.stringify(zoomSrc));
+  ok('V205 *** THE CAMERA PULLS BACK, AND ALL FOUR ENTRIES GO THROUGH ONE DOOR. *** Paolo 9/6, option A: "Yes definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." A street bump, a crew closing on you, a road contact and a door into a room used to hand over with a hard cut each; they hand over through cityHandOver now (' + zoomSrc.viaDoor
+    + ' of them, ' + zoomSrc.raw + ' still raw), so the picture is the same wherever the fight came from -- which is the row\'s own sentence, SAME MOVE for a street fight and for a room, with a room getting its own skin (' + zoomSrc.doorSkin
+    + ') because the look card says the doorway\'s shadow is not a cloud. And it lasts TWO BEATS (' + zoomSrc.ms
+    + ' against this file\'s own ' + zoomSrc.beat + '), which DIRECTION ruled on 9/6 and routed to this row: "beat one the cloud arrives, beat two the scale settles." The driven half, and every number the card asks for, is gates/enter_zoom_gate.js',
+    zoomSrc.out && zoomSrc.back && zoomSrc.door && zoomSrc.cloud
+    && zoomSrc.raw === 0 && zoomSrc.viaDoor === 4 && zoomSrc.doorSkin === true
+    && zoomSrc.ms === zoomSrc.beat * 2 && zoomSrc.beat === 500);
 
   ok('no page errors through the whole round trip', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

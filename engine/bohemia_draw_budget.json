@@ -70,14 +70,17 @@
       "below_floor": false
     },
     {
-      "name": "the camera pull-back and the cloud",
-      "row": "[enter zoom] HOW-THE-FIGHT-BEGINS, ruled by Paolo 9/6, NOT BUILT",
-      "what": "the view zooms out from person-scale to house-scale over the same ground, with a soft cloud opacity across the moment the scale changes",
+      "name": "the camera pull-back and the cloud shadow",
+      "row": "V205 [enter zoom] HOW-THE-FIGHT-BEGINS, ruled by Paolo 9/6, look card DIRECTION 9/6, SHIPPED 9/11",
+      "what": "the view zooms out from person-scale to house-scale over the same ground across TWO BEATS, with a cloud shadow (a value multiplier, 0.78 at its core) travelling across the frame over the moment the scale changes",
       "in_loop": false,
-      "ms_per_draw": null,
-      "ms_per_beat": null,
-      "measured": null,
-      "note": "CANNOT BE MEASURED UNTIL IT EXISTS, and that is the point of the row: it is designed and built, priced here, and only then does it enter the loop. This line is where that number goes."
+      "zero_by_construction": true,
+      "ms_per_beat": 0,
+      "err_ms_per_beat": 0,
+      "below_floor": false,
+      "measured": "2026-09-11",
+      "note": "SHIPPED, AND IT COSTS THE FIGHT LOOP ZERO BY CONSTRUCTION, which is why this row could ship against 2.5 ms of worst-case headroom. Nothing new draws inside the fight: the pull-back and the shade are the CITY's and the cover over the swap is the SHELL's, all of it during a HANDOVER, which is not the fight loop. The draw-surface ratchet is the proof: the combat blob is unchanged at 15 functions. MEASURED IN THE CITY, per call, on the real surface: the shade 0.1 ms, one paint of the pull-back 0.1 ms, the photograph (including its one blurred copy for the surround) 3 ms once, and the live render it sits on top of during beat one 2-3 ms, which is the render the city was already doing. AND THE THING THAT DOMINATES ALL OF THEM IS NOT OURS: this machine stalls the walked city for up to 1475 ms with nothing running at all (measured, 10 fps baseline), which is why the handover is on a clock and not on a frame count.",
+      "_zero_note": "THERE IS NO PER-DRAW NUMBER FOR THIS ROW AND THAT IS THE POINT: it never draws inside the fight, so there is nothing for the instrument to put a stopwatch on. A row that carried a measured-looking 0.0 here would be claiming the tool read zero, which it never did. The floor flag is about the INSTRUMENT's resolution and says nothing about a feature that is not in the loop at all, so the gate holds this row to a different test: zero by construction is only allowed with in_loop false and a reason written down."
     }
   ],
   "_ratchet": "THE FIGHT'S DRAW SURFACE, ratcheted. Every function in the blob whose name begins with draw is listed here. A lane that adds one is adding a new thing that draws, and the rule says it arrives with its cost -- so the gate goes red until the name is in this list AND the ledger carries a priced row for it. This is the half of the rule that cannot be talked around: a declaration nobody has to make is not a rule.",

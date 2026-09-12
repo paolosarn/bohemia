@@ -15948,7 +15948,98 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
-THIS ROUND: EVERY-NEW-FIGHT-VISUAL-ARRIVES-WITH-ITS-COST [draw budget] SHIPPED. The row
+THIS ROUND: HOW-THE-FIGHT-BEGINS [enter zoom] SHIPPED. Paolo ruled it 9/6, OPTION A: "Yes
+definitely, and the map will zoom out nicely, maybe a cloud opacity somewhere." When a fight
+starts the street you are standing on pulls back toward house scale over the same ground and a
+cloud passes across the moment the scale changes; the same move for a street bump and for
+walking through a door, both directions. Tab: RUN into COMBAT.
+
+AND THE MOVE WAS ALREADY IN THE BUILD: transition() has taken the walked street up into the
+map since long before this ruling, same easing, same curve, a veil that peaks at the swap.
+Four entries posted an encounter and all four HARD CUT. Fourth row in a row where the material
+existed and nothing consumed it.
+
+*** AND WHAT THE HALF SECOND LOOKS LIKE IS NOT THIS LANE'S. DIRECTION RULED IT 9/6 AND ROUTED
+THE CARD TO THIS ROW BY NAME (records/BOHEMIA_FIGHT_TRANSITION_LOOK_9_6_26.md: "COMBAT [enter
+zoom] and ANIMATION [zoom beat] build to this"). I BUILT THE ROW BEFORE I READ IT AND THE FIRST
+CUT BROKE FOUR OF ITS CLAUSES. *** Two beats, not one. A cloud SHADOW -- a value multiplier
+darkening to 0.75-0.85, "no white mist" -- where I had built PALE DUST, the mist it bans by
+name. Core coverage 60% of the frame max, "NEVER the whole screen", where I had a full-frame
+coat. And it TRAVELS, enters one edge and leaves the other, where mine bloomed in place. Plus:
+a door gets the DOORWAY'S shadow, not a cloud. Every visual number in the shipped move is
+quoted from that card now, and the card's own routing says DIRECTION judges the built thing on
+the real surface against its section 6.
+
+THE VALUE-ONLY PART IS ARITHMETIC, NOT AN OPINION: the shade is BLACK AT AN ALPHA, never a grey
+fill and never a blend mode, so every channel is multiplied by the same (1-A) and hue cannot
+move. MEASURED on the shipped canvas with the world held still: core x0.775 (card band
+0.75-0.85), worst channel disagreement anywhere 0.016 (with the pale mist re-injected as a
+mutation: 0.292), coverage across the move 7.9 -> 23.2 -> 38.9 -> 48.3 -> 39.2 per cent, the
+shadow's centre walking 0.093 -> 0.218 -> 0.357 -> 0.499 -> 0.635 across the width one way, and
+the door's own skin x0.616 over 43.9%. The world's weather module already dims a cloudy hour the
+same way (CLOUD_MULT [0.86,0.88,0.94]); the one difference is that it COOLS as it dims and the
+card says value only, so the turn does not cool.
+
+AND THE FIGHT LOOP PAYS ZERO, which is why this could ship against 2.5 ms of worst-case
+headroom: nothing new draws in the fight. The pull-back and the shade are the CITY's, the cover
+over the swap is the SHELL's, all of it during a HANDOVER. Draw surface unchanged at 15.
+Measured per call in the city: shade 0.1 ms, one paint 0.1 ms, the photograph 3 ms once, the
+live render under beat one 2-3 ms (the render the city was already doing).
+
+SIX THINGS WERE WRONG FIRST, ALL OFF THE REAL SURFACE: (1) the first cut drove the camera and
+re-rendered -- 11 frames in 800 ms and the camera stranded at 1.4 px a cell, because I read
+transition()'s ease as spanning the whole move when it only reaches a half; the fix is to
+PHOTOGRAPH the frame already on the glass and scale that one bitmap. (2) The photograph has to
+be of a CLEAN frame: snapshot the canvas the shade is on and the shadow is baked in and then
+scaled with it. (3) The latch was stranded forever -- the handover HIDES the city document, rAF
+stops, the second half never runs -- so both directions carry a wall-clock backstop. (4) The
+handover waited on FRAMES and landed at 845 ms instead of 250; it is on a clock now. (5) The
+shade vanished at the panel swap, so the cover lives above BOTH documents in the shell. (6) A
+letterbox is not the street: the margin is the same street, blurred once at photograph time,
+because the card's judge test is "if a frozen frame looks like a different game, the turn
+failed."
+
+*** AND THE FRAME COUNT WAS NEVER THE CLAIM. MEASURED, WITH NOTHING RUNNING AT ALL: THE WALKED
+CITY GETS TEN ANIMATION FRAMES A SECOND ON THIS MACHINE AND ITS WORST GAP BETWEEN TWO OF THEM IS
+1475 ms. *** One stall eats the whole second beat and leaves the pull-back a single frame, so an
+arm demanding four frames reports "it never happened" on a build where it happens perfectly.
+The arm asserts what is true either way: every frame it DID get was at the scale the clock says
+(worst deviation from the curve 0.000). The handover's band is early-side exact and late-side
+measured: never before the mark, late by however long the machine actually stalled. Three of
+this lane's other arms needed their settle raised from 600/1600 to 4000 ms for the same reason
+and for no other.
+
+GATES: gates/enter_zoom_gate.js 13/0, suite-registered as ENTER ZOOM, four injected defects each
+caught by the arm that owns it (one beat instead of two; the pale mist back; the door losing its
+skin). combat_entry_gate 43/0. draw_budget_gate 11/0 with a NEW ARM: a row may cost nothing BY
+CONSTRUCTION on terms -- out of the loop, no per-draw number the tool never took, and the reason
+written down -- because the old floor rule went red on a row whose zero never came from the
+instrument, and "below the floor" (too small to measure) is a different claim from "not in the
+loop at all".
+Record: records/BOHEMIA_COMBAT_HOW_THE_FIGHT_BEGINS_9_11_26.md
+
+STILL ON THE CARD AND NOT BUILT HERE: the CROWD WALKING OFF during the cloud beats (card
+section 4). Beat one is the live world so the mechanism exists, but who walks and where is the
+crowd's own code and beat two is a photograph where nobody can walk at all. Routed with the
+reason measured: re-rendering the world through the scale change ran at fourteen frames a
+second.
+
+AND A MEASUREMENT FOR THE PLUMBER, NOT A ROW: in the gate harness the walked city runs at TEN
+frames a second with nothing happening and blocks for about 1.5 SECONDS at a stretch (1465,
+1475, 1493 ms across three runs, so it is one specific blocking task and not noise). The
+pull-back therefore gets ONE frame in here, every run. Nothing in the move causes it -- the
+baseline was measured with no move running -- and every piece of the move is cheap (0.1 ms a
+paint). If that block also happens on a phone then every animation in the city is one frame
+long, which would be worth somebody's round; this lane cannot tell from in here, because a
+headless container has no GPU.
+
+FOR THE COORDINATOR, A CORRECTION TO SOMEBODY ELSE'S NOTE AND NOT A JOB: the PLUMBER's notice
+in this lane's section says gates/legend_kept_gate.js and gates/pack_gate.js shipped in COMBAT's
+d69cce4. VERIFIED IN THE HISTORY: legend_kept_gate.js was added by d017947, which declares the
+WORLD lane, and pack_gate.js by 147395c, which declares PEOPLE. Neither is this lane's and
+neither was in that commit. Routed, not fixed here.
+
+THE ROUND BEFORE: EVERY-NEW-FIGHT-VISUAL-ARRIVES-WITH-ITS-COST [draw budget] SHIPPED. The row
 says anything new that draws in the fight ships with its cost stated in MILLISECONDS PER
 BEAT and does not enter the loop until there is room. THE NUMBER THE RULE DEMANDS DID NOT
 EXIST: the PLUMBER's beat profile prices the WHOLE beat and names the systems in it, and
