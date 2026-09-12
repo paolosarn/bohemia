@@ -9426,6 +9426,26 @@ it is the arithmetic. Cut, and bohemia_down registered in the organ sweep so it
 cannot happen quietly again: BohemiaDown 4 fns, dead 0.
 [PENDING Paolo] what a long injury costs to treat (his law says "costing you";
 the length is already a number a price can key on, but the price is his).
+THE SHIP PASS, AND EVERY RED CLASSIFIED AGAINST A CLEAN MAIN WORKTREE. Stamp
+9/13r. The full suite ran twice: once on the pre-rebase tree and once on the
+merged tree after main moved 95 commits under me. DOWN NOT DEAD is 28 pass / 0
+fail inside the pack both times, and MAKE IT RIGHT 40/0, PAID MEANS PAID 25/0,
+FAMILY EVENTS and LANGUAGE green beside it. The merged tree carried SEVEN reds
+the earlier tree did not -- ANSWERED FOR, DRIVE NETWORK, ICON, INLINED FRESH,
+PARTIES MOVE, ROUND + DOORS, TOOL IDEMPOTENT -- and all seven reproduce with the
+IDENTICAL CLAIM on a clean origin/main worktree, so none is mine: five of them
+are one root cause (a district type called "sign" shipped with no map icon, 59%
+drive reach and a 45% monoblock), and the other two are the landmarks module
+being stale against its inlined copy, which makes the resync tool rewrite an
+already-patched tree. RUN BEAT and SFX WIRED were load, green alone. Main moved
+another 50 commits during that run, so the last rebase was verified by the gates
+a city/alpha/demo change can actually move: my five lane gates, plus the demo
+cut, the inline freshness, the gate registry and the pages publish list. Two red
+there, ORGAN REACH and DEMO CURRENT, both identical on clean main 7cf3945b.
+*** AND ORGAN REACH'S ONE ORPHAN IS THIS LANE'S DEBT, NOT SOMEBODY ELSE'S:
+BohemiaDeeds.sayWhy is called from nowhere. It predates this round and it is the
+same disease that bit me twice already, so it is the first thing to fix next
+round, ahead of the board. Wire it to the standing card or delete it. ***
 NEXT ROW IS [lock them], his section 3: one tap, from the first hour, no endgame
 gate. This round was section 2, the promise that holds for everybody. ***
 

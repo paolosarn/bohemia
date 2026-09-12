@@ -123,6 +123,43 @@ TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT
    His law mentions carrying slowing you down; that is a COMBAT and RUN question
    and it is not invented here.
 
+================================================================================
+THE SHIP PASS, AND WHY EVERY RED IS SOMEBODY ELSE'S
+================================================================================
+The full suite ran TWICE: once on the tree the work was built on, and once on the
+merged tree after main moved 95 commits underneath it. Build stamp 9/13r.
+
+  DOWN NOT DEAD inside the pack   28 pass / 0 fail, both runs
+  MAKE IT RIGHT                   40 / 0
+  PAID MEANS PAID                 25 / 0
+  FAMILY EVENTS, LANGUAGE         green
+
+THE MERGED TREE CARRIED SEVEN REDS THE EARLIER ONE DID NOT, and every one of them
+was run on a clean origin/main worktree and came back with the IDENTICAL CLAIM:
+  ANSWERED FOR     stub write-ups 80 against a ceiling of 75; sign 45.2% monoblock
+  DRIVE NETWORK    sign 59.0% drive reach; disconnected 12 against a ceiling of 11
+  ICON             sign has no map icon and is not on the debt list
+  ROUND + DOORS    the same missing icon, from the other side
+  PARTIES MOVE     the third agenda is not on the real map (caravan 14, patrol 14)
+  INLINED FRESH    129/130 fresh; engine/bohemia_landmarks.js stale
+  TOOL IDEMPOTENT  bohemia_city_module_resync.py rewrites a patched tree, +139/-0
+Five of those are ONE root cause (a district type called "sign" shipped without
+its icon, its drive surface or its plot mix) and the other two are a second one
+(landmarks stale against its inlined copy, which is what makes the resync tool
+non-idempotent). RUN BEAT and SFX WIRED were load: green when run alone.
+
+MAIN MOVED ANOTHER 50 COMMITS DURING THAT RUN, so the last rebase was verified by
+the gates a city/alpha/demo change can actually move rather than by a third full
+pass that could not have finished before main moved again: the five lane gates,
+the demo cut, inline freshness, the gate registry and the pages publish list.
+Two red there, ORGAN REACH and DEMO CURRENT, both identical on clean main.
+
+*** AND ONE OF THEM IS THIS LANE'S DEBT. *** ORGAN REACH's single orphan is
+BohemiaDeeds.sayWhy, called from nowhere. It predates this round, so it is not a
+regression, but it is the third dead export this lane has been shown -- and this
+record already spends a section on the other two. It is the first thing next
+round, ahead of the board: wire it to the standing card or delete it.
+
 FEEDS: COMBAT [downed body], which calls the seam. And [lock them], which sits on
 top of this: unlocked people already do not die for good, and the lock is the
 promise that this one is never even close.
