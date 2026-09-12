@@ -55,3 +55,12 @@ loading shit that you might need to do, handle it, it's so awkward looking." So 
 order gains a step before the door: ONE loading screen holds everything that loads,
 and the ridge appears only when the game is ready. Nothing pops in after the door.
 Routed RUN [loading screen], UI [loading look], PLUMBER [late loads].
+
+
+## AMENDED 9/12: THE COLD OPEN IS DEFERRED WITH THE STORY
+Paolo, to the run chat 9/11: "we don't have a story yet." The cold open needs a cast
+and a place, which are story, so it is deferred and nothing waits on it. The order is
+now: (0) the loading screen; (1) the ridge door, TAP TO ENTER; (2) the tutorial
+offered, two choices; (3) the game, waking within a minute's walk of a road district
+and the teaching fight. When the story is written, the cold open slots back in as
+step (2) and the tutorial moves to (3). Still never two questions on screen at once.

@@ -17554,6 +17554,15 @@ re-checked) -> PLUMBER [suite runs] top; five RUN gates red on main -> RUN [reds
 city-art reds -> LIFE+CITY [lab reds]; TWO live faction colour tables disagreeing on 10 of
 12 -> CHARACTER [one colour table]; PLUMBER proved EYES' "29 dead modules" wrong (engine
 modules are inlined; nothing archived, on purpose). Topped up FACTIONS, ECONOMY.
+THEN (dq) VAMILY: 8 commits, all claims, 17 jobs in flight (PLUMBER took [suite runs]).
+OWN WORK: the opening order amended for the no-story ruling (loading, the ridge door, the
+tutorial offered, then the game waking near a road district and the teaching fight; the
+cold open slots back in when the story exists) -- on the RUN [one question] line and the
+first-sixty-seconds record. Topped up QUESTS [first ask] (the first three asks a stranger
+meets, mechanism not story), WORDS Q21 [ask words], DIRECTION [judge the zoom] (the
+pull-back judged live before he is sent to look), EYES E22 [never ran] (the standing
+never-ran list for the suite), ECONOMY Q36 [first ten]. ONE THING HE HAS NEVER OPENED:
+the camera pulling back into a fight, RUN tab, just shipped.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
