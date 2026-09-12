@@ -90,6 +90,8 @@
      TIE-BREAK ORDER, so two outfits owed the same amount always read the same way
      round. */
   var KINDS = [
+    { kind: 'loan',   word: 'THEY LENT YOU BATTERIES',
+      why: 'handed you batteries on a handshake' },
     { kind: 'favour', word: 'YOU OWE THEM',
       why: 'took what they were offering' },
     { kind: 'rent',   word: 'YOU WENT SHORT ON THEM',
@@ -118,7 +120,7 @@
   function book(src) {
     var out = [], seen = {}, k;
     src = src || {};
-    var fav = src.favours || {}, rent = src.rent || {};
+    var fav = src.favours || {}, rent = src.rent || {}, loans = src.loans || {};
 
     /* ONE OUTFIT AND ONE KIND IS ONE ACCOUNT, however it was spelled.
        CAUGHT BY MEASURING, not by reading: the two books key their factions
@@ -148,6 +150,15 @@
       var r = rent[k] || {};
       add(name(k), 'rent', r.nights | 0, r.lastDay | 0);
     }
+    /* [someone lends], 9/13: a loan arrives in the same shape the rent book has
+       -- a count and a day -- so it lands on the card, dies at the fold and leaves
+       its lender standing without one line of that machinery knowing what a loan
+       is. bohemia_lend.owingRows() is what puts it in that shape. */
+    for (k in loans) {
+      if (!Object.prototype.hasOwnProperty.call(loans, k)) continue;
+      var l = loans[k] || {};
+      add(name(k), 'loan', l.nights | 0, l.lastDay | 0);
+    }
     /* WORST FIRST, then the more recent, then the kind, then the name. Every
        step is there so the list can never come back in two different orders for
        one book -- a card that reshuffles itself reads as new news every night. */
@@ -169,6 +180,9 @@
     var times = (row.n === 1) ? 'once' : (row.n === 2 ? 'twice' : (row.n + ' times'));
     if (row.kind === 'favour')
       return row.who + ' gave you something for nothing, ' + times + '. Nobody has mentioned it yet.';
+    if (row.kind === 'loan')
+      return row.who + ' lent you ' + (row.n === 1 ? 'a battery' : row.n + ' batteries')
+           + ' on a handshake. You pay one back a night.';
     return row.who + ' let you stay on their ground without paying, ' + times + '.';
   }
 

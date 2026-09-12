@@ -36,6 +36,8 @@ CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 #   [rice clock]      hunger      reads bohemia_purse.js
 #   [debt carried]    owing       reads bohemia_fold.js -- AT CALL TIME, never at
 #                                 load, which is why it may land above it
+#   [someone lends]   lend        reads nothing; the surface hands it what
+#                                 bohemia_favour already answered
 RIDERS = [
     ('bohemia_work.js', 'the work module'),
     ('bohemia_parties.js', 'the parties module'),
@@ -44,6 +46,7 @@ RIDERS = [
     ('bohemia_ownpower.js', 'the own power module'),
     ('bohemia_hunger.js', 'the hunger module'),
     ('bohemia_owing.js', 'the owing module'),
+    ('bohemia_lend.js', 'the lend module'),
 ]
 
 
