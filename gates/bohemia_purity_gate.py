@@ -112,6 +112,55 @@ def walk(node, path, out):
             else:
                 walk(v, path + '[%d]' % i, out)
 
+def ship_purple(root):
+    """THE POOLS THE WALKED CITY ACTUALLY LOADS, which this gate never swept.
+
+    Same unit as EYES E17 (records/BOHEMIA_EYES_E17_ROUND_2..., tools/bohemia_eyes_locked.py):
+    a tile counts when a THIRD or more of its opaque pixels are saturated purple, hue
+    265-330, sat over 0.45, lightness between 0.25 and 0.75. Not per pixel -- the law bans
+    purple TILES, FLOORS and DECOR, and a few dithered pixels in a 28x28 sprite is shading.
+    """
+    import colorsys, glob
+    KEY = re.compile(r'(?:TP_TILES|TP_FLOORS|TP_PROPS|TP_FORMS)\s*\[\s*"([^"]+)"\s*\]')
+    files = sorted(glob.glob(os.path.join(root, 'slices', 'BOHEMIA_CITY_TILES*.js')))
+    files += [os.path.join(root, 'slices', f) for f in
+              ('BOHEMIA_CITY_FLOORS.js', 'BOHEMIA_CITY_PROPS.js', 'BOHEMIA_CITY_TILEFORMS.js')]
+    by_cat = {}
+    tiles = 0
+    swept = 0
+    for f in files:
+        if not os.path.exists(f):
+            continue
+        t = io.open(f, encoding='utf-8', errors='replace').read()
+        keys = [(m.start(), m.group(1)) for m in KEY.finditer(t)]
+        for m in re.finditer(r'iVBOR[A-Za-z0-9+/=]+', t):
+            b = m.group(0)
+            try:
+                im = Image.open(io.BytesIO(base64.b64decode(b + '=' * (-len(b) % 4)))).convert('RGBA')
+            except Exception:
+                continue
+            swept += 1
+            n = p = 0
+            for r, g, bb, a in im.getdata():
+                if a < 32:
+                    continue
+                n += 1
+                h, l, sat = colorsys.rgb_to_hls(r / 255.0, g / 255.0, bb / 255.0)
+                d = h * 360
+                if 265 <= d <= 330 and sat > 0.45 and 0.25 < l < 0.75:
+                    p += 1
+            if n and p / float(n) >= 0.30:
+                cat = '?'
+                for pos, k in keys:
+                    if pos < m.start():
+                        cat = k
+                    else:
+                        break
+                by_cat[cat] = by_cat.get(cat, 0) + 1
+                tiles += 1
+    return {'tiles': tiles, 'by_cat': by_cat, 'swept': swept}
+
+
 def main():
     args = sys.argv[1:]
     strict = '--strict' in args
@@ -146,13 +195,13 @@ def main():
             if any(p.search(path) for p in allow):
                 skipped += 1
                 continue
-            strict, suspect, pur = check_png(b64)
-            if strict < 0:
+            lava_px, suspect, pur = check_png(b64)
+            if lava_px < 0:
                 bad += 1
                 continue
             if check_lava:
-                if strict > 0:
-                    viol += 1; fv += 1; report.append((path, 'LAVA', strict))
+                if lava_px > 0:
+                    viol += 1; fv += 1; report.append((path, 'LAVA', lava_px))
                 elif suspect > 0:
                     susp += 1; report.append((path, 'warm?', suspect))
             if pur > 0:
@@ -186,7 +235,118 @@ def main():
             for path, law, n in report:
                 fh.write('%s,%d,%s\n' % (law, n, path))
         print('\n  full list -> %s (%d rows)' % (csv, len(report)))
-    return 1 if (viol and strict) else 0
+    # ======================================================================
+    # THE VERDICT. (9/12, COOK, row [purple leak].)
+    #
+    # *** THIS LINE USED TO READ `return 1 if (viol and strict) else 0` AND IT
+    #     COULD NOT FAIL. *** `strict` is the --strict CLI FLAG, bound at the top
+    #     of main(). The per-image loop then REBOUND THE SAME NAME with the first
+    #     value out of check_png, which is a LAVA PIXEL COUNT. So by the time the
+    #     return ran, `strict` was "did the LAST png I happened to look at contain
+    #     lava" -- not "was this run strict", and not "were there violations".
+    #     Measured on main before touching it: 17,497 images checked, 2,232
+    #     VIOLATIONS printed to the screen, exit code 0. Green in the suite.
+    #     A gate that finds two thousand violations, prints them, and passes is
+    #     worse than no gate, because the law reads as enforced.
+    #
+    # WHY THIS IS A RATCHET AND NOT A HARD ZERO. Flipping it to `1 if viol else 0`
+    # is one character of honesty and a fleet-wide red on 2,232 pieces of art no
+    # lane here made. Every other ratchet in this repo works the same way: freeze
+    # what is true today, fail on anything NEW, and let the number only fall.
+    #   * a bank over its frozen count      -> RED
+    #   * a bank with no frozen entry at all -> RED (new art cannot sneak in)
+    #   * the total over the frozen total    -> RED
+    #   * everything else                    -> pass, and print the debt
+    # The baseline may only SHRINK. Re-freeze it by hand, downward, never up.
+    # ======================================================================
+    per = {}
+    for path, law, n in report:
+        if law == 'warm?':
+            continue
+        per[path.split('.')[0]] = per.get(path.split('.')[0], 0) + 1
+    # THE BASELINE IS WRITTEN BY THIS GATE, NEVER BY HAND. My first pass built it with a
+    # separate script that counted one per IMAGE while the gate counts one per violation
+    # REASON (an image can be both LAVA and PURPLE), so 2,134 vs 2,232 and every file read
+    # as a regression. Two counters for one number always drift; the hair palette round
+    # learned the same thing. One producer.
+    base = {}
+    bpath = os.path.join(root, 'gates', 'bohemia_purity_baseline.json')
+    if '--freeze' in args:
+        out = {
+            'what': 'PURITY RATCHET BASELINE -- PURPLE RESERVATION + NO VOLCANO.',
+            'why': ('Frozen by this gate itself (--freeze) on the turn it was first made able '
+                    'to fail. Before that its verdict read `return 1 if (viol and strict) else 0`, '
+                    'where `strict` is the --strict CLI FLAG, rebound inside the per-image loop '
+                    'by a lava pixel count -- so the gate passed or failed on whether the LAST '
+                    'png it happened to look at had lava in it. It printed 2,232 violations and '
+                    'exited 0, green in the suite.'),
+            'rule': ('THIS LIST MAY ONLY SHRINK. A file over its number is RED. A file carrying '
+                     'violations with no entry here is RED, so new art cannot hide behind old '
+                     'debt. When a number falls, re-freeze DOWNWARD with --freeze and say so.'),
+            'total': sum(per.values()),
+            'per_file': per,
+            'shipped_total': ship_purple(root)['tiles'],
+            'shipped_note': ('the pools slices/BOHEMIA_CITY_TILES*.js -- what the walked city '
+                             'loads. This gate never swept them until 9/12, which is why EYES '
+                             'had to find these 32 by hand. Ratcheted separately because it is '
+                             'the scope a player can reach.'),
+        }
+        io.open(bpath, 'w', encoding='utf-8').write(json.dumps(out, indent=1, sort_keys=True))
+        print('\n  FROZE %d violations across %d files -> %s'
+              % (out['total'], len(per), bpath))
+        return 0
+    if os.path.exists(bpath):
+        try:
+            base = json.load(open(bpath, encoding='utf-8'))
+        except Exception:
+            base = {}
+    frozen = base.get('per_file', {})
+    regressions = []
+    for f, n in sorted(per.items()):
+        was = frozen.get(f)
+        if was is None:
+            regressions.append('%s is NOT in the frozen baseline and carries %d' % (f, n))
+        elif n > was:
+            regressions.append('%s went %d -> %d' % (f, was, n))
+    improved = [(f, frozen[f], per.get(f, 0)) for f in frozen if per.get(f, 0) < frozen[f]]
+    # ======================================================================
+    # SECOND SCOPE: WHAT THE SHIPPED GAME ACTUALLY LOADS. (9/12, COOK.)
+    #
+    # This gate has swept banks/ since 7/10 and HAS NEVER LOOKED AT
+    # slices/BOHEMIA_CITY_TILES*.js -- the pools the walked city actually reads.
+    # That is precisely why EYES had to find the 32 by hand in E17: the gate was
+    # measuring the corpus, and the corpus is not the game. A ruler pointed at the
+    # wrong population reports a clean number about something nobody plays.
+    #
+    # This scope is counted and ratcheted SEPARATELY, because it is the one that
+    # can reach a player. 32 today, and it may only fall.
+    shipped = ship_purple(root)
+    ship_frozen = base.get('shipped_total') if base else None
+    print('\n  SHIPPED POOLS: %d tiles a third or more purple, in %s'
+          % (shipped['tiles'], ', '.join('%s %d' % kv for kv in sorted(shipped['by_cat'].items()))))
+    print('  (none of them drawn today: the tile placer ships off and nothing is placed,')
+    print('   so these are a pool the builder paints from, not purple in the world)')
+
+    print('\n  ' + '=' * 70)
+    if not base:
+        print('  NO FROZEN BASELINE. Write gates/bohemia_purity_baseline.json first.')
+        print('  Refusing to pass without one -- that is how this gate got here.')
+        return 1
+    print('  RATCHET: %d violations across %d files, frozen at %d across %d.'
+          % (sum(per.values()), len(per), base.get('total', 0), len(frozen)))
+    if improved:
+        print('  FELL (re-freeze the baseline downward): '
+              + ', '.join('%s %d->%d' % r for r in improved[:6]))
+    if ship_frozen is not None and shipped['tiles'] > ship_frozen:
+        regressions.append('THE SHIPPED POOLS went %d -> %d -- this is the scope a player '
+                           'can actually reach' % (ship_frozen, shipped['tiles']))
+    if regressions:
+        print('  *** PURITY RATCHET BROKEN ***')
+        for r in regressions[:12]:
+            print('    ' + r)
+        return 1
+    print('  the ratchet holds. The debt is real and is printed above, not hidden.')
+    return 0
 
 if __name__ == '__main__':
     sys.exit(main())

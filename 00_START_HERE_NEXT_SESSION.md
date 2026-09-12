@@ -7050,7 +7050,62 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [city from above] ROUND 2: 56 OF 61 -> 61 OF 61, AND
+COOK (cook-mce6r5): 9/12 LATEST -- *** [purple leak]: THE RESERVATION GATE EXISTS, IS
+REGISTERED IN THE SUITE AS `PURITY`, AND COULD NOT FAIL. *** Nothing on his screen changed;
+this round was a checker. NOT IN A TAB YET.
+
+RUN ON MAIN, UNTOUCHED: 17,497 images checked, 2,232 VIOLATIONS printed to the screen, EXIT
+CODE 0. The verdict read `return 1 if (viol and strict) else 0`. `strict` is the --strict CLI
+FLAG bound at the top of main(), and the per-image loop REBOUND THE SAME NAME with a lava
+pixel count -- so the gate passed or failed on whether the LAST png it happened to look at had
+lava in it. A GATE THAT FINDS TWO THOUSAND VIOLATIONS, PRINTS THEM, AND PASSES IS WORSE THAN
+NO GATE, because the law reads as enforced.
+
+AND IT WAS AIMED AT THE WRONG POPULATION. It has swept banks/ since 7/10 and NEVER looked at
+slices/BOHEMIA_CITY_TILES*.js, which is what the walked city loads. That is exactly why EYES
+had to find the 32 by hand. Same shape as the reference gate that picks cooks by filename
+(last round): A RULER AIMED AT THE WRONG POPULATION REPORTS A CLEAN NUMBER ABOUT SOMETHING
+NOBODY PLAYS.
+
+FIXED: name collision gone (the per-image value is lava_px). Verdict is a RATCHET, not a hard
+zero -- `1 if viol else 0` is one character of honesty and a fleet-wide red on 2,232 pieces of
+art no lane here made. Red on: a bank over its frozen number, a bank with violations and NO
+entry (so new art cannot hide behind old debt), no baseline at all, and the SHIPPED POOLS
+rising above 32. The gate FREEZES ITS OWN BASELINE (--freeze): my first pass used a separate
+script counting per IMAGE while the gate counts per violation REASON, 2,134 vs 2,232, every
+file reading as a regression. TWO COUNTERS FOR ONE NUMBER ALWAYS DRIFT -- one producer.
+The gate counted the shipped pools independently and got 32 with EYES' EXACT category split.
+Mutation-tested four ways, all red, restore green. 18 seconds.
+
+THE 32 ARE NOT DRAWN TODAY, measured on the real canvas: TP.on false, TP.scatter false,
+placed 0, 297,486 opaque pixels, ZERO purple. A LANDMINE, NOT A FIRE -- and the landmine is
+real: tpPatchPick is `hash % arr.length` so every tile in a drawn category is reachable, and
+one of the 32 is a CONCRETE tile at 62% purple. Concrete is the default ground for suburb,
+town, gated, school and medical.
+
+I DID NOT REPAINT AND DID NOT DELETE, and both reasons matter for the next round:
+  * at 2x they are crystal clusters, gem shards, glowing braziers and a portal arch.
+    RECOLOURING A CRYSTAL BROWN GIVES YOU A BROWN CRYSTAL. The law's sentence bans fantasy
+    decor as much as the hue, so a recolour satisfies the letter and fails the intent.
+  * TP.placed stores {cat,idx} in localStorage. Removing array entries SHIFTS EVERY INDEX A
+    BUILDER HAS ALREADY SAVED. Do not renumber those arrays.
+
+AND I ALMOST REPORTED THAT EYES UNDERCOUNTED. My sweep found 56 and their contact sheet
+renders worst[:32], which looked like a cap. It is not -- len(worst) is genuinely 32, and my
+56 came from my own wider band (hue from 252 instead of 265, lightness 0.18-0.85 instead of
+0.25-0.75). A WIDER RULER IS NOT A BIGGER FINDING. I kept their band, the one the law cites.
+
+-> [FOR DIRECTION] kill or recolour, per tile, off records/target/COOK_PURPLE_THE_32_9_12_26.png.
+   Ten are sign and light where Vegas neon is a fair argument; the other 22 are categories the
+   law names out loud. EYES routed this call to them explicitly. The gate holds 32 meanwhile,
+   and re-freeze DOWNWARD with --freeze the moment the number falls.
+RECORD: records/BOHEMIA_COOK_THE_PURITY_GATE_COULD_NOT_FAIL_9_12_26.md
+SHEETS: records/target/COOK_PURPLE_THE_32_9_12_26.png (the 32 at 2x, labelled)
+        records/target/COOK_PURPLE_WIDER_BAND_9_12_26.png (the 13 a wider band adds)
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [city from above] ROUND 2: 56 OF 61 -> 61 OF 61, AND
 THE FIVE I NAMED AS "A DIFFERENT MECHANISM" WERE NOT ONE. *** Nothing on his screen changed;
 the renderer is LIFE + CITY's. TAB: CITY, once they draw them. NOT IN A TAB YET otherwise.
 
