@@ -1,3 +1,68 @@
+WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
+TAB: NOT IN A TAB YET. No game code touched, ever.
+
+THE FINDING OVERTURNS A THIRD OF MY OWN ROW. The row asks for three thanks. The record says a plain
+thank you is the loaded move, not the warm one. A Danish explorer thanked a Greenlandic hunter who
+had left him hundreds of pounds of meat, and THE HUNTER OBJECTED TO BEING THANKED: "by gifts one
+makes slaves and by whips one makes dogs." Thanking marks help as a finished item, which opens an
+account, and an account is how one person ends up owing another. Same thing from the other side in
+the Kalahari: an anthropologist bought the biggest ox he could find as a gift and the people he
+gave it to mocked it for weeks as thin and worthless, which turned out to be the practice, and its
+job is to stop a provider turning generosity into standing. So the three thanks should be one
+REFUSED, one DEFLECTED to keep the account open, and one given coldly BECAUSE the speaker wants the
+account closed and the thing over.
+
+ASKING SOMEBODY YOU NEED AND DO NOT TRUST, three parts:
+  YOU HIDE THE NEED. The drama instinct is to raise the stakes in the line. Revealed need is
+  pricing information and handing it over is expensive. Day labour: a few minutes at a corner to
+  settle work and pay, HALF OF THOSE SURVEYED HAD WAGES STOLEN WITHIN TWO MONTHS, and no
+  enforcement. Maximum pressure, zero trust, and the right move is still to understate.
+  YOU PROPOSE A SHAPE INSTEAD OF ASKING FOR TRUST. Research on how migrants pick a smuggler finds
+  reputation checked by word of mouth and "substitutes for trust": guarantees and escrow. So a real
+  ask carries a STRUCTURE. Half now and half on delivery, a third party holding the rest, one side
+  going first, a name that vouches. "Trust me" is what somebody says who has no shape to offer.
+  THE ASK IS THINNER THAN THE ASKER'S UNCERTAINTY. The questions and the reason are left out on
+  purpose, because asking them signals suspicion and loses you the job.
+
+THE PRICE IS NOT A FINANCIAL QUESTION. Zelizer: choosing a payment system with somebody IS
+redefining the relationship with them. Paying a neighbour can insult them, refusing payment from a
+stranger is a claim on them, paying in work says a third thing. So the price is the LOADED line of
+the scene, not the dull one.
+
+THE REFUSAL HAS HARD NUMBERS AND I TESTED THEM MYSELF on 199,740 tagged turns of real recorded
+phone conversation:
+  ACCEPT   n=11,123  prefaced 12.7%  1.75 words
+  REJECT   n=344     prefaced 26.7%  2.73 words     <- twice prefaced, 56% longer
+  saying no WITHOUT the word no      prefaced 40.7%
+  NO answering a QUESTION  n=1,374   prefaced 13.3%  1.20 words
+AND THE SAME TABLE KILLS THE SLOGAN. "People never just say no" is false: answering a question with
+a bare "No." is common, short and unmarked. The marking belongs to the ACT of refusing a request.
+
+THE FAMOUS TRICK, AND I AM NOT HIDING ITS PROBLEM. "But you are free to refuse" took a street ask
+from 10% to 47.5% and a 42-study meta-analysis backed it. A later re-examination reports the recent
+studies are too weak to detect that effect at all, R-index near 9.8%. So the lane takes the MOVE and
+leaves the justification: give them an out not to win a yes, but because a request with no room in
+it forces a bare no, and a bare no to a request reads as hostility.
+
+MEASURED IN OUR OWN 3,093 LINES:
+  ZERO lines give anybody an out. Not one "you don't have to", "forget I asked", "no hard feelings".
+  12 thanks, of which 2 are about thanks NOT arriving, which is already half the finding by instinct.
+  3 lines touch taking somebody's word and ALL THREE are about it failing, which is a strength.
+  1 line checks a reputation before asking.
+  AND THE REFUSAL COUNT WAS MY OWN RULER LYING. The regex found 36 refusals, 0% prefaced, and that
+  was a damning number and a wrong one. I READ ALL 36. Almost none is a refusal: they are inability
+  statements ("I cannot tell you why"), moral declarations ("I won't choose"), narration, and TWO
+  ARE ASKS. Somebody turning down a request to their face is about THREE lines in 3,093. The real
+  finding is bigger than the fake one: WE HAVE NEVER WRITTEN THE SCENE.
+  THE RULER LESSON, NOW THREE FOR THREE THIS SESSION: A REGEX OVER WORDS CANNOT MEASURE A SPEECH
+  ACT. It counted "can't" and called it refusal. The same trap sits in the corpus table above, where
+  a bare "No." is an ANSWER and not a refusal.
+
+Gates all green: voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff 7/0.
+
+NEXT: Q21 round two, three asks, three refusals, three thanks. Then Q4 to Q17 still owe their
+school rounds, one row at a time.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -333,7 +398,7 @@ NEXT: E19 round two, the check. Then E20 [song length], E21 [marker sweep], E22 
 
 
 
-WORDS (words-8dqrnq): 9/12 (d) LATEST -- *** EVERY GATE THIS LANE OWNS IS GREEN, FIRST TIME IN SIX
+WORDS (words-8dqrnq): 9/12 (d) -- *** EVERY GATE THIS LANE OWNS IS GREEN, FIRST TIME IN SIX
 ROUNDS. voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff 7/0, pages 18/0. THREE
 BROKEN CHECKERS, ALL THE SAME BUG, ALL FIXED AND ALL PROVED TO STILL BITE. *** TAB: NOT IN A TAB
 YET. No game text changed by me, ever.
