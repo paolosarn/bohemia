@@ -461,6 +461,20 @@ GATES = [
      'and failed on 505/518/546ms samples -- the threshold was wrong, not the feed. It also '
      'prints the page\'s own clock gaps, which are whole-page freezes belonging to another '
      'lane, so they cannot hide inside this lane\'s green.', True),
+    ('SCREEN FACE',    ['node', 'gates/rom_face_gate.js'],
+     'DIRECTION ruled FIXED PITCH IS LEGAL ONLY WHERE THE IN-WORLD DEVICE IS A CHARACTER-CELL '
+     'SCREEN (records/BOHEMIA_THE_FONT_RESEARCH_9_11_26.md, sec 2-4, routed to UI\'s vibe-purge '
+     'row). All three type registers on the walked city resolved to ONE outline monospace, so '
+     'the ruling was in breach on every surface that is not a screen and nothing noticed -- a '
+     'register that resolves to one face everywhere is a name, not a system. The phone glass now '
+     'carries its own 5x8 dot-grid cut (BohemiaROM, drawn by tools/bohemia_cut_the_rom_face.py, '
+     'NOT a copy of any ROM dump). The leg that earns this gate is the one nobody would think to '
+     'write: EVERY character the glass draws must be covered by the glass\'s own face. The '
+     'signal bars are U+25AE, the first cut of the face did not have it, and that one glyph fell '
+     'back to the outline face -- an 8px status bar quietly two typefaces wide, invisible to the '
+     'eye and to every gate that reads the stylesheet instead of the renderer. Mutation-proved '
+     'two ways: collapse the registers to one face (3 red) and delete one glyph (1 red, named).',
+     False),
     ('THE THUMB',      ['node', 'gates/thumb_gate.js'],
      'THE THUMB (44px, iPhone portrait) has been a standing law with NO GATE, and the day one '
      'was written TWELVE OF THIRTEEN tappable controls on the demo\'s first city screen were '

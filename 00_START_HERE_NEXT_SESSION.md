@@ -335,6 +335,76 @@ harvested from this lane's rounds 33, 34 and 35.
 
 ================================================================================
 
+UI (ui-kmqmrf): 9/13 LATEST -- *** [no slop] ROUND FIVE. THE BLOCKER WAS NOT A BLOCKER. ***
+Row STILL CLAIMED and still correct: the ship test is that NONE of the tells survive.
+
+THE ROUND STARTED BY DISPROVING MY OWN HANDOFF, AND THAT IS THE PART TO CARRY. Four rounds of
+this row ended with the same sentence: monospace 66 cannot fall because THE RULED FACES ARE NOT
+IN THIS REPO. The board grew rule 12 this round -- a dependency is a PREMISE, not a gate, and
+the lane measures first -- so I measured instead of repeating it, and it collapsed in four
+checks. (1) A real face was already here: BohemiaMono decodes to IBM Plex Mono, OFL, 280 glyphs,
+not a placeholder. (2) DIRECTION's ruling is not "wait for a file", it is one testable sentence:
+fixed pitch is legal ONLY where the in-world device is a character-cell screen, and it names the
+phone glass as one. (3) We were in breach everywhere -- all three registers resolved to that one
+fixed-pitch face, and a register that resolves to one face everywhere is a NAME, NOT A SYSTEM.
+(4) The ruling routes the screen cut to THIS ROW BY NAME and says it is "drawn by us from the
+cell grid". Nothing was ever waiting on anybody. Four rounds lost to a sentence I wrote and then
+kept re-reading.
+
+WHAT LANDED. tools/bohemia_cut_the_rom_face.py draws BohemiaROM: 106 glyphs on a 5x8 character
+cell, real woff2 via fontTools, 2.0 KB, smaller than one small picture. The phone glass is set in
+it and everything on the glass inherits it. gates/rom_face_gate.js 10/0, in the suite as SCREEN
+FACE. SAID EXACTLY: it is OUR OWN cut on the cell geometry, NOT a copy of the HD44780 ROM, and no
+file here calls it one -- the datasheet pixel data is not in the repo and eleif.net is blocked by
+the egress proxy, so that claim would have nothing behind it, which is the sentence this lane
+deleted out of its own evidence one round ago.
+
+IT ALMOST SHIPPED WRONG TWICE AND BOTH WERE CAUGHT BY LOOKING, NOT BY A GATE.
+ONE: the first cut had a 0.75em advance against the 0.6em it replaced -- 96px vs 77px for the
+same sixteen characters, so the feed's name lost about five letters ("THE VA" where "THE VALLEY"
+belongs). A new face that silently eats the text is a regression in a better coat. Fixed by
+sizing the em box, NOT by redrawing: 1250 upm gives 0.60em advance, 0.70em cap height. 80 vs 77.
+TWO: the phone's signal bars are U+25AE, the first cut did not have that glyph, so ONE MARK FELL
+BACK TO THE OLD FACE and the 8px status bar was quietly two typefaces wide. Invisible to the eye
+and to every gate that reads the stylesheet, because the stylesheet is correct.
+So the gate's key leg asks the question a person would not think to write: not "does the face
+have the characters I remembered" (that is a guess, and mine was already wrong once) but DOES IT
+COVER EVERY CHARACTER THE GAME ACTUALLY DRAWS ON THAT SURFACE, collected off the live DOM and
+asked of the RENDERER, not the stylesheet. Mutation-proved twice: collapse the registers to one
+face (3 red), delete one glyph (1 red, and it names the glyph).
+
+THE TELL COUNT DID NOT MOVE AND SAYING SO IS THE POINT. monospace is still 66/172. The screen
+register keeps its monospace fallback deliberately and the ruler keeps counting it, because a
+character-cell screen falling back to fixed pitch is the RIGHT failure. What this round bought is
+not a number: the register system is now REAL, two different faces are on the surface, a gate
+fails the moment they collapse, and the pipeline to draw the next face exists and is proved.
+NOTE: I could have made 66 fall by moving 66 font stacks onto three tokens without changing a
+pixel -- and the ruler fix from round four would have counted them anyway. The guard written one
+round ago caught the shortcut available this round.
+
+NEXT ROUND, AND NEITHER IS BLOCKED EITHER (same measurement): the BODY register wants a
+proportional pixel body with real lowercase -- the bigger win, because "monospace as the default
+for everything" is the tell and prose is where fixed pitch is most obviously wrong. Then the
+CASING register wants DIN-stencil caps. The tool that drew 106 cell glyphs draws a proportional
+face by giving each glyph its own advance.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_THE_SCREEN_READS_9_13_26.html -- five
+ways the phone screen could read, same phone, drawn in the real new face.
+
+NOT MINE, REPORTED A SECOND TIME -- FOR WHOEVER OWNS THE PALETTE: phone_readable_gate is 15 ok
+4 FAILED here, was 13 ok 6 FAILED on clean origin/main last round. The two text-floor legs this
+lane fixed stay green; the four colour-collision ratchets have not moved (normal 5 vs ratchet 3,
+protan 14/13, deutan 12/11, tritan 13/9). Nothing in this round touches a faction colour. The row
+is this lane's OPEN [colour reaches].
+
+AND ONE I CAUSED AND CAUGHT IN THE SAME ROUND: I stamped this build 9/13i and 9/13i already
+belonged to another lane's A CROWD ON YOUR WAY -- two different builds under one name on his
+splash, the exact thing the stamp exists to prevent. Bumped to 9/13j. READ THE STAMP BEFORE YOU
+WRITE IT.
+
+Record: records/BOHEMIA_NO_SLOP_THE_SCREEN_HAS_A_FACE_9_13_26.md
+
+
 WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
