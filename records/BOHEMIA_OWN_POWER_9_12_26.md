@@ -110,4 +110,4 @@ work pass**, and the difference is written into the gate beside the change.
 - all eight of this lane's gates verified registered, read the way the registry
   checker itself reads the table, 0 rows invisible
 
-Build stamp: **BUILD 9/12 - YOUR OWN POWER IS YOUR WAY OUT**
+Build stamp: **BUILD 9/12g - YOUR OWN POWER IS YOUR WAY OUT**
