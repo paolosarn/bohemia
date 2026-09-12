@@ -41,7 +41,6 @@ GATES: CITY RAIL 8/0, PHONE OBJECT 18/0, SETTINGS 18/0, TOP MENU BAR 12/0, HALF 
 THUMB 15/0, FEED 15/0, READABLE RULER 7/0, ALPHA LOADS 20/0, PAGES PUBLISH 18/0.
 [PENDING Paolo] Nothing blocking.
 
-<<<<<<< HEAD
 EYES AND EARS (eyes-5vql33): 9/12 (y) LATEST -- *** E18 [he can hear it] ROUND ONE OF TWO IS DONE: SCHOOL. NOTHING WAS MEASURED. THE ANCHOR HE NAMED HAS NO TRUSTWORTHY NUMBER ANYWHERE, AND OUR OWN SOUND LAW DESCRIBES IT BACKWARDS. *** TAB: the song he likes is in MUSIC, and it is also in the demo. NOT IN A TAB YET for the instrument; this lane never writes game code. Record: records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md. Spec bank: banks/eyes/BOHEMIA_EYES_E18_AXIS_CARD_SPEC_9_12_26.json, draft:true.
 
 BOTH SIDES OF THE COMPARISON ARE NAMED BY HIM AND BOTH WERE FOUND. The anchor: BESAID ISLAND, FINAL FANTASY X Original Soundtrack, disc 1 track 18, composed AND arranged by MASASHI HAMAUZU, the ORIGINAL not the remaster (Paolo 9/7, "look at this song bro"). The candidate: THE MARKER ON THE DOOR, tagged OVERWORLD DAY by his own hand, Paolo 8/2: "The marker on the door at full intensity is now one of my new favorite songs that you've made great job." It is a live row in the shipped music table: root 48, scale [0,2,4,7,9] which is major pentatonic, sawtooth, kick [0,4,8,11], bass [0,4,9,12], hat [2,6,10,14], lead brokenrosary, bass abyssbass, pad nightpad, kit knock and tight, swing 0.1, full intensity, batch 22. 181 song rows and 126 distinct names ship in the alpha and the demo.
@@ -64,11 +63,9 @@ SOURCE HONESTY, WRITTEN DOWN BECAUSE IT LIMITS HOW HARD THIS CAN BE LEANED ON: t
 STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists" and is wrong by eighteen instruments and five suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. Three superseded GDDs (v2, v3, v4) still live in laws/ beside v5 carrying 69 lock lines. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
 
 NEXT: E18 round two, the check. Then E19 [slop count], E20 [song length], E21 [marker sweep], E22 [never ran]. Every job is two rounds and never one. E9 is STANDING and runs every round.
-=======
 
 ================================================================================
 =======
->>>>>>> b1e31090 ([no slop] round three: the tells have owners now, and the counter lied twice getting there)
 
 WORDS (words-8dqrnq): 9/12 (c) LATEST -- *** Q20 [no law talk] SHIPPED WITH BOTH ROUNDS. ACT ONE IS
 THE MOST FORMAL OF THE THREE ERAS, AND THE FIFTEEN LINES EACH CARRY THE INSTITUTION ACT TWO WOULD
@@ -442,8 +439,6 @@ The coordinator added Q35 and Q36 since last round.
 
 
 
-<<<<<<< HEAD
-================================================================================
 ================================================================================
 =======
 EYES AND EARS (eyes-5vql33): 9/12 (x) LATEST -- *** E17 [locked ignored] IS SHIPPED, BOTH ROUNDS. THREE RULINGS HE MARKED LOCKED ARE CONTRADICTED BY THE SHIPPED GAME. *** TAB: the three are in RUN (the title screen), CITY (the purple tiles you walk past) and COMBAT (the cover cost). The instruments themselves are NOT IN A TAB YET; this lane never writes game code.
@@ -471,7 +466,6 @@ FOR THE COORDINATOR, NOT MINE TO FIX:
 
 NEXT: E18 [he can hear it] -- the one song he likes, measured against Besaid Island on a music supervisor's axes. School first, always; every job in this lane is two rounds and never one. E9 is STANDING and runs every round.
 
->>>>>>> b1e31090 ([no slop] round three: the tells have owners now, and the counter lied twice getting there)
 UI (ui-kmqmrf): 9/12 (b) LATEST -- *** [no slop] ROUND TWO, THE TYPE. ROW STILL CLAIMED. ***
 TAB: CITY and RUN.  RULER: tools/bohemia_count_the_tells.js
 RECORD: records/BOHEMIA_NO_SLOP_THE_REGISTERS_9_12_26.md
