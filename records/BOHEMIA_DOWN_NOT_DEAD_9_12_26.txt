@@ -1,0 +1,131 @@
+BOHEMIA -- DOWN, NOT DEAD (9/12/26, PEOPLE lane)
+VAMILY job [down not dead], row YOUR-PEOPLE-DO-NOT-DIE-FOR-GOOD
+
+PAOLO 9/11, LOCKED (laws/BOHEMIA_ADDENDUM_YOUR_PEOPLE_DO_NOT_DIE_FOR_GOOD_9_11_26.md):
+  "I know from Battle Brothers a huge part of their system is that people
+   permanently die, and I don't think I want that ... I don't want anyone to
+   permanently die, or even have permanent debuffs. There could be debuffs that
+   are a lot longer than others."
+
+================================================================================
+THE LAW WAS TRUE BY ACCIDENT, WHICH IS THE WORST WAY FOR A LAW TO HOLD
+================================================================================
+Measured before a line was written, in the two files that ARE the game, with
+comments stripped:
+  a company roster        none
+  companion state         none
+  a downed state          none
+  an injury model         none
+  anything that can kill  nothing, anywhere, that can kill a person you keep
+
+So nobody you keep dies today -- not because the promise was built, but because
+there is nobody to lose. A law that holds for that reason is not enforced, it is
+merely undisturbed. The first system that can hurt a companion breaks it silently
+and no check says a word. That is what this round fixes: the promise, built, and
+a check that would notice.
+
+================================================================================
+EVERY NUMBER IS HIS OWN EXAMPLE OR A CALENDAR FACT
+================================================================================
+He named two lengths himself: "a leg that takes a SEASON, a hand that takes a
+YEAR of the valley's time". A season is about ninety days and a year is three
+hundred and sixty-five; those are facts, not dials.
+The third is a WEEK. His sentence is "debuffs that are a lot longer than others",
+and "a lot longer" needs a bottom rung to mean anything against. A week is the
+shortest thing a person calls an injury rather than a bad day.
+AND THE LADDER REALLY MEANS IT: the longest is fifty-two times the shortest.
+All three are days on the clock the city already spends, so nobody invents a
+second calendar.
+
+================================================================================
+*** THE ONE THING THE MODULE CANNOT DO IS THE POINT ***
+================================================================================
+There is no way to make a kept person dead. No flag, no option, no length that
+runs forever. fall() has exactly one outcome, takes no caller-supplied length,
+and cannot be passed permanent:true because the parameter does not exist.
+
+A LAW ENFORCED BY A MODULE THAT COULD BREAK IT IS A LAW WAITING FOR THE NEXT
+CALLER IN A HURRY. So the only honest shape is one where the bad state is
+unreachable, and the gate proves it BY ATTEMPTING THE FORBIDDEN THING rather than
+by reading a comment that says it cannot happen:
+  a fourth argument that might be a length     refused
+  an options object asking for permanence      refused
+  an invented kind called "forever"            refused
+  fall() arity                                 3, no slot to smuggle one through
+  the word Infinity in the module's code       absent
+  a dead/died/corpse flag on a kept person     absent
+
+AND BEING DOWN IS A QUESTION AGAINST THE CLOCK, NOT A STATE ANYBODY MUST
+REMEMBER TO CLEAR. Nothing ticks it and nothing clears it: "are they down" is the
+game day against a number written when they fell. A save that sat on a shelf for
+a year comes back with everybody healed and nothing to tidy up. 5000 falls across
+every kind and every day: 0 that did not heal, 0 that ran forever.
+
+Which injury it is comes off the seed the same way the heir does, so a reload
+cannot change how badly somebody was hurt.
+
+================================================================================
+THE SEAM IS ONE LINE FOR COMBAT
+================================================================================
+COMBAT's [downed body] row owns the body on the floor: out of the fight, reached,
+carried, never a corpse. ctFall(id) is what that call lands in, and it is
+deliberately the ONLY door -- a second way in is how two rules about the same
+thing start to disagree.
+
+WHO CAN FALL TODAY is the people you KEEP: the one you married and the children
+you had, because the family tree is the only roster of kept people the played
+game has. The companion joins the same seam the round COMBAT ships the downed
+body, and nothing here changes for it. That is why it is a seam and not a
+special case.
+
+================================================================================
+PROVEN ON THE REAL DEMO
+================================================================================
+  nobody down                the card says nothing at all, which is the honest
+                             empty state and not a zero
+  the seam fires             a hand that needs a year, out until day 366
+  the card he already opens  YOUR FIRSTBORN IS DOWN / A HAND THAT NEEDS A YEAR,
+                             365 DAYS, and under it "Down, not gone. Nobody you
+                             keep is lost for good."
+  the next morning           YOUR FIRSTBORN IS STILL DOWN. A HAND THAT NEEDS A
+                             YEAR, 364 DAYS
+  day 366                    nobody down, BACK ON THEIR FEET
+  and it survived the save
+
+================================================================================
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT
+================================================================================
+1. THE FIRST HEALING CHECK LIED, AND THE BUG WAS IN MY PROBE, NOT THE CODE. I set
+   T.day and called daySync(), which copies the day DOWN from the day loop and
+   quietly undid the jump -- so "they come back" read false while the code was
+   right. THE CLOCK LIVES ON DAY, NOT ON T. Worth knowing before concluding a
+   feature is broken: check the instrument first.
+2. AND THREE EXPORTS NOTHING CALLED, in a brand new module, for the second time
+   in this lane. healed() is exactly !isDown, downNow() re-walked a list the city
+   already filters by family, and hurtOf() answered a question no surface asked.
+   THEY COME BACK IS NOT A FUNCTION, IT IS THE ARITHMETIC: `until` is always
+   `from` plus a finite length, so isDown goes false on its own. Cut, and
+   bohemia_down registered in the organ sweep so it cannot happen quietly again.
+   The sweep now reads BohemiaDown 4 fns, dead 0.
+
+================================================================================
+[PENDING Paolo] -- CARRIED, NOT DECIDED HERE
+================================================================================
+1. WHAT A LONG INJURY COSTS TO TREAT. His law says a downed person is "carried
+   home, costing you" and ECONOMY has the research row for it. Nothing here
+   spends a battery, because what it costs is a magnitude and magnitudes are his.
+   The mechanism is ready for it: the length is already a number a price can key
+   on.
+2. THE LOCK IS THE NEXT ROW, [lock them], and it is his section 3: one tap, from
+   the first hour, no endgame gate. This round is section 2 -- the promise that
+   holds for everybody, locked or not.
+3. WHETHER A LONG INJURY SHOULD SLOW THE PARTY or change what a person can do.
+   His law mentions carrying slowing you down; that is a COMBAT and RUN question
+   and it is not invented here.
+
+FEEDS: COMBAT [downed body], which calls the seam. And [lock them], which sits on
+top of this: unlocked people already do not die for good, and the lock is the
+promise that this one is never even close.
+
+TAB: CITY. Open WHERE YOU STAND and anybody of yours who is hurt is listed with
+how long, right under your family.

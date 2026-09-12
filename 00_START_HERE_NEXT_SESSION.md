@@ -9391,7 +9391,45 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/12 LATEST -- *** [spanglish red] SHIPPED, AND THE ROW
+PEOPLE (people-7h9sfy): 9/12 (b) LATEST -- *** [down not dead] SHIPPED. THE LAW
+WAS TRUE BY ACCIDENT AND NOW IT IS TRUE ON PURPOSE. *** Paolo 9/11 LOCKED: nobody
+you keep permanently dies and nothing on them is a permanent debuff, but debuffs
+can be a lot longer than others. Measured first, in the two files that ARE the
+game: no company roster, no companion state, no downed state, no injury model,
+nothing anywhere that could kill a person you keep. Nobody died because there was
+NOBODY TO LOSE -- and the first system that could hurt a companion would have
+broken the law silently with no check saying a word.
+EVERY NUMBER IS HIS OWN EXAMPLE: a leg takes a season (90 days), a hand takes a
+year (365), plus a week at the bottom so "a lot longer than others" has something
+to mean -- and it does, the longest is 52x the shortest. All days on the clock the
+city already spends.
+THE CLAIM IS PROVED BY ATTEMPTING THE FORBIDDEN THING, not by reading a comment
+that says it cannot happen: a fourth argument that might be a length, an options
+object asking for permanence, an invented kind -- all refused; fall() arity 3 so
+there is no slot to smuggle one through; Infinity nowhere in the code. 5000 falls
+across every kind and day, 0 that did not heal, 0 that ran forever.
+ctFall(id) IS ONE LINE FOR COMBAT and deliberately the only door; their [downed
+body] row owns the body on the floor. Who can fall today is the family tree,
+because it is the only roster of kept people the game has; the companion joins
+the same seam with nothing here changing.
+Tab: CITY. On the real demo the card says YOUR FIRSTBORN IS DOWN / A HAND THAT
+NEEDS A YEAR, 365 DAYS and "Down, not gone. Nobody you keep is lost for good.",
+the morning says it too, and on day 366 they are BACK ON THEIR FEET.
+TWO THINGS I GOT WRONG, BOTH CAUGHT BY DRIVING IT: (1) the first healing check
+lied and the bug was in MY PROBE -- I set T.day and called daySync(), which copies
+the day DOWN from the day loop and undid the jump. THE CLOCK LIVES ON DAY, NOT ON
+T; check the instrument before concluding the feature is broken. (2) Three
+exports nothing called, in a brand new module, for the SECOND time in this lane:
+healed() is exactly !isDown, downNow() re-walked a list the city already filters,
+hurtOf() answered a question no surface asked. They come back is not a function,
+it is the arithmetic. Cut, and bohemia_down registered in the organ sweep so it
+cannot happen quietly again: BohemiaDown 4 fns, dead 0.
+[PENDING Paolo] what a long injury costs to treat (his law says "costing you";
+the length is already a number a price can key on, but the price is his).
+NEXT ROW IS [lock them], his section 3: one tap, from the first hour, no endgame
+gate. This round was section 2, the promise that holds for everybody. ***
+
+PEOPLE (people-7h9sfy): 9/12 -- *** [spanglish red] SHIPPED, AND THE ROW
 WAS STALE: THE REAL DEFECT WAS THE CHECK ITSELF. *** Measured before touching
 anything: the language gate is 81/0 GREEN on this tree AND on clean origin/main;
 all 22 quirk shapes have both spanglish lines; all 44 carry Spanish; 8000
