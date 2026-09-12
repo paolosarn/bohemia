@@ -743,5 +743,86 @@ const done = () => {
          (CITY3.match(/function owedNote[\s\S]*?function owedVisitMark[\s\S]*?\n\}/) || [''])[0]));
   }
 
+  /* ==========================================================================
+     WHOSE FOOTPRINTS ARE THESE  (9/12, VAMILY row [tracks read])
+     "every faction leaves its own tracks on the map, so a player can look at the
+     ground and know who went through and whether to follow or avoid them."
+     ======================================================================== */
+  {
+    const _fs4 = require('fs');
+    const CITY4 = _fs4.readFileSync(CITY, 'utf8');
+    const out = { from: { faction: 'Mob', x: 10, y: 10 }, to: { x: 16, y: 13 },
+                  at: { x: 14, y: 12 }, arrived: false, agenda: 'patrol' };
+    const back = { from: { faction: 'Mob', x: 10, y: 10 }, to: { x: 16, y: 13 },
+                   at: { x: 13, y: 12 }, arrived: true, agenda: 'patrol' };
+
+    const t1 = T.trackOf(out);
+    ok('K1 a track is the cells they have ALREADY covered, and it ends where they '
+       + 'are standing (' + JSON.stringify(t1) + ')',
+       t1.length > 1 && t1[t1.length - 1][0] === out.at.x
+       && t1[t1.length - 1][1] === out.at.y);
+    ok('K2 and it STARTS where this leg started, which is the seat on the way out',
+       t1[0][0] === out.from.x && t1[0][1] === out.from.y);
+    const t2 = T.trackOf(back);
+    ok('K3 *** A PARTY THAT HAS TURNED ROUND LEAVES A DIFFERENT TRAIL. *** Its leg '
+       + 'begins at the border it reached, not back at its seat, so the trail '
+       + 'points the way it is walking NOW (' + JSON.stringify(t2) + ')',
+       t2[0][0] === back.to.x && t2[0][1] === back.to.y
+       && t2[t2.length - 1][0] === back.at.x);
+    ok('K4 a party that has not moved yet has one cell and not an empty answer',
+       T.trackOf({ from: { faction: 'X', x: 5, y: 5 }, to: { x: 9, y: 9 },
+                   at: { x: 5, y: 5 }, arrived: false }).length === 1);
+    ok('K5 nothing is stored: the same party asked twice gives the same trail, and '
+       + 'no field on it is written',
+       JSON.stringify(T.trackOf(out)) === JSON.stringify(t1)
+       && out.at.x === 14 && out.at.y === 12 && !('track' in out));
+    ok('K6 the cap keeps the NEWEST cells, because the fresh end is the one you '
+       + 'read', (function () { const c = T.trackOf(out, 3);
+         return c.length === 3 && c[2][0] === out.at.x && c[2][1] === out.at.y; })());
+    ok('K7 a bad party is a null answer rather than a throw',
+       T.trackOf(null).length === 0 && T.trackOf({}).length === 0);
+
+    /* WHO WENT THROUGH A CELL */
+    ok('K8 it names who went through a cell, how long ago in steps, and which leg',
+       (function () { const w = T.tracksAt([out], 12, 12);
+         return w && w.faction === 'Mob' && w.agenda === 'patrol'
+             && w.leg === 'out' && typeof w.age === 'number'; })());
+    ok('K9 and nothing at all where nobody walked, which is most of the valley',
+       T.tracksAt([out], 99, 99) === null);
+    ok('K10 *** THE FRESHEST SET OF PRINTS WINS. *** Two parties crossing one cell '
+       + 'is one trail on top of another, and the one on top is the one you read',
+       (function () {
+         const old = { from: { faction: 'Reds', x: 0, y: 0 }, to: { x: 30, y: 30 },
+                       at: { x: 30, y: 30 }, arrived: false, agenda: 'caravan' };
+         const fresh = { from: { faction: 'Blues', x: 11, y: 11 }, to: { x: 13, y: 13 },
+                         at: { x: 12, y: 12 }, arrived: false, agenda: 'crew' };
+         return T.tracksAt([old, fresh], 12, 12).faction === 'Blues';
+       })());
+
+    /* THE SURFACES */
+    ok('K11 the map paints tracks in the SAME ink as the borders, so a faction\'s '
+       + 'track and its ground read as the same people -- no second colour decision',
+       /__WHOSE_FOOTPRINTS_ARE_THESE__/.test(CITY4)
+       && /g\.strokeStyle = __holderInk\(__who, __mineP\)/.test(CITY4));
+    ok('K12 it is a TRAIL AND NOT A DOT, and it fades toward where they set out, '
+       + 'so the bright end is the direction of travel -- which is the half that '
+       + 'answers follow or avoid',
+       /var __f = __ci \/ \(__tr\.length - 1\)/.test(CITY4)
+       && /__f \* \(__mineP \? 0\.55 : 0\.42\)/.test(CITY4));
+    ok('K13 and the render publishes what it really painted, the way the borders '
+       + 'already do -- a grep proves code exists, this proves a canvas was marked',
+       /window\.__TRACK_INK = __tk/.test(CITY4));
+    ok('K14 the street reads the ground under him and speaks only when the answer '
+       + 'CHANGES, so the shared line is never buried',
+       /function trackSay/.test(CITY4) && /if\(k===_lastTrack\) return;/.test(CITY4));
+    ok('K15 *** AND STEPPING OFF THE PRINTS CLEARS THEM, BUT ONLY ITS OWN WORDS. *** '
+       + 'The street line is shared with the pack and the road, so it is cleared '
+       + 'only while it still says exactly what this put there',
+       /l\.textContent===_trackWrote/.test(CITY4) && /_trackWrote=l\.textContent/.test(CITY4));
+    ok('K16 NO MEMORY LENGTH IS INVENTED: the trail is the leg they are walking, '
+       + 'and the only cap is named a rendering bound in its own comment',
+       /a RENDERING bound/.test(CITY4) || /a screen bound/.test(CITY4));
+  }
+
   done();
 })();
