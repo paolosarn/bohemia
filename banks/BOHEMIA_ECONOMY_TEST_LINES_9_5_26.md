@@ -2854,3 +2854,88 @@ YYYYYYY3 somebody who will not ask for it back draft:true
 - No line states a moral about solidarity. VVVVVVV2 paid and says so.
 - Spanish register: 2 of 14 lines, 14%, under the 15% he set on 8/26. This bank
   does not grow the register corpus and language_gate's cap is untouched.
+
+## AAAAAAAA. NO TAG ON IT
+## (round 36, the first sight. Venezuela 2016: the tags came off and you carried
+##  the thing to a person to find out. The counter voice, not the shelf's.)
+
+- AAAAAAAA1 `draft:true` — "Bring it here and I'll tell you." (nine words is the cap
+  and this is five. VOICE CARD: somebody asks and somebody fumbles, and the fumble
+  here is that he has to walk. Not one number.)
+- AAAAAAAA2 `draft:true` — "It had a tag Tuesday. Tuesday was a different week."
+  (the comma where you want a full stop. Names the one thing only this person would
+  name: the day the tag was still on.)
+- AAAAAAAA3 `draft:true` — "No, I'm not being cute with you. I don't know till you're
+  standing there." (nobody leads with a no, so the no is followed immediately by the
+  reason and the reason is honest. He is not hiding a price, he does not have one.)
+- AAAAAAAA4 `draft:true` — "Put it down, pick it up, ask me again. Different answer."
+  (the last sentence was cut. The line that got cut said "that's just how it is now".)
+
+## BBBBBBBB. THE DOOR THAT USED TO OPEN
+## (round 36, the second sight. Argentina 2001 shutters and the pensioners at the
+##  glass; Greece 2015, the rule said the card works and the shopkeeper said no.)
+
+- BBBBBBBB1 `draft:true` — "It opens. It just doesn't open for you." (the gap between
+  the rule and the door, in eleven words. Nobody in Bohemia is wise, so nobody
+  explains the gap.)
+- BBBBBBBB2 `draft:true` — "Mi mamá worked that door thirty years. Now I knock on it
+  like anybody." (Spanish register, two words, inside a sentence about standing.
+  Never respell an accent.)
+- BBBBBBBB3 `draft:true` — "Try the handle. Go on. I'll wait." (the line is not the
+  point. What he is really saying is: I already tried it.)
+- BBBBBBBB4 `draft:true` — "Lights on the whole street behind it. That's the part
+  that gets me." (the lit street is the sight; the speaker points at it instead of
+  at the dark. Contract it: "that's the part" is doing the work "what infuriates me
+  is" would have done badly.)
+
+## CCCCCCCC. HE GOT THE LAST ONE
+## (round 36, the third sight. The shortage-economy queue, where the line is the
+##  information. One person ahead of you, served, walking off with it.)
+
+- CCCCCCCC1 `draft:true` — "You were behind him. That's all that happened."
+  (the whole mechanic, said as nothing. No moral about fairness.)
+- CCCCCCCC2 `draft:true` — "He didn't do anything to you. He got here." (nine words
+  then two. The two are the point.)
+- CCCCCCCC3 `draft:true` — "I'd tell you to come back Thursday but so will he."
+  (somebody fumbles: the advice defeats itself inside the same sentence, which is
+  what a person actually sounds like giving useless help.)
+- CCCCCCCC4 `draft:true` — "Don't look at me like that, hermano. I sell in the order
+  people stand." (Spanish register, one word. The counter defending a rule that is
+  the only rule he has left.)
+
+## DDDDDDDD. THE TWO CHEQUES THE TABLE WROTE
+## (round 36. The cold open plants the water district hiring and the truck needing
+##  gas, and 68 beats later neither has been answered. Attempts at the answer,
+##  spoken by family, so QUESTS has words on the page instead of a blank one.)
+
+- DDDDDDDD1 `draft:true` — "The water district. You want to see the water district?"
+  (the father's line cashed. He does not say it is gone. He offers to show you, which
+  is worse and is also a quest hook.)
+- DDDDDDDD2 `draft:true` — "Gas is gas. Ten years and that's the only thing that
+  still means something." (the truck cheque. Names fuel without a number and without
+  the word price.)
+- DDDDDDDD3 `draft:true` — "I never took it Saturday. I keep thinking about that."
+  (the sibling, on the truck, ten years later. The line is not the point; the point
+  is that he remembers asking.)
+- DDDDDDDD4 `draft:true` — "They're hiring, they said. Monday, they said." (the
+  father's own words handed back to him. Put a comma where you want a full stop, and
+  the repetition is the fumble.)
+
+## EEEEEEEE. WHAT IS NOT HERE, ON PURPOSE (round 36)
+
+- No line contains a digit or a quantity. The round's own finding is that the first
+  ten minutes of this game already have 23 spoken lines and zero digits, and that
+  it is correct. A bank that broke that would be arguing against its own record.
+- No line says the word price, cost, cheap, expensive, inflation or shortage.
+  AAAAAAAA is a whole section about a price and never names one.
+- No line explains a crash, a control or an economy. Nobody in Bohemia is wise.
+- No line names a faction, a street, a town or the owner of the door. MAP LAW, and
+  BBBBBBBB4 points at a lit street without saying which one.
+- No line decides which door, which good is untagged, or who the neighbour is.
+  Those are the three things section 6 of the record refused, and the bank refuses
+  them the same way.
+- No line changes a word of the cold open. DDDDDDDD sits after the cut, answering
+  lines that already ship; it does not touch them.
+- No line has the player speaking. Every one of these is said TO him.
+- Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both are a
+  single word inside an English sentence and neither is respelled.
