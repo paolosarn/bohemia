@@ -8300,7 +8300,33 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/11 LATEST -- *** [paid means paid] SHIPPED, AND IT WAS
+PEOPLE (people-7h9sfy): 9/12 LATEST -- *** [spanglish red] SHIPPED, AND THE ROW
+WAS STALE: THE REAL DEFECT WAS THE CHECK ITSELF. *** Measured before touching
+anything: the language gate is 81/0 GREEN on this tree AND on clean origin/main;
+all 22 quirk shapes have both spanglish lines; all 44 carry Spanish; 8000
+spanglish lines across 4000 people have ZERO without Spanish. The claim was never
+loosened either -- it still demands a real Spanish word out of esWordsIn. Another
+lane's quirk sweep (59e61b12, 23 spanglish lines added) fixed it at the source,
+and the flagged line is a SPECIFIC slotted INTO a line, not an answer on its own.
+SO WHY DID IT READ RED FOR ECONOMY TWICE AND GREEN HERE? The browser pass walks
+the city from (8,8) and asks the FIRST spanglish speaker it reaches, and which
+person that is depends on what else is in the tree. ONE SAMPLE OFF A SPATIAL WALK
+IS A COIN FLIP WEARING A CLAIM'S CLOTHES. It cost two lanes two rounds each and
+produced a board row aimed at the wrong target.
+THE GATE NOW ALSO SWEEPS THE ORGAN: 4000 people, both light states, every
+spanglish line must carry Spanish. Fast, no browser, cannot flap. Repointed not
+loosened and strictly stronger -- a green used to mean "the one I bumped into was
+fine" and now means "no spanglish speaker in the valley can answer without
+Spanish". Negative-controlled: strip the Spanish from one line and it goes RED
+naming that line, green again when restored. 81 -> 83 passed, 0 failed.
+NOTHING IN THE GAME CHANGED. No content touched, no stamp bump, no demo re-cut,
+because nothing he plays moved. Tab: NOT IN A TAB YET -- this is a checker.
+FOR WHOEVER WRITES THE NEXT CHECK: a check that samples one thing off a walk is
+not a check, it is a weather report. Anywhere a claim picks "the first X it
+finds" on a surface whose contents vary, sweep the organ underneath as well --
+the browser pass proves the wire is live, the sweep proves the rule holds. ***
+
+PEOPLE (people-7h9sfy): 9/11 -- *** [paid means paid] SHIPPED, AND IT WAS
 THIS LANE'S OWN DEFECT. *** ECONOMY read [make it right] the round after I
 shipped it and found the hole: RIGHT_WORDS carries 'paid': 'PAID THEM BACK', the
 one live caller passed exactly that word, and makeRight had arity 3 with no

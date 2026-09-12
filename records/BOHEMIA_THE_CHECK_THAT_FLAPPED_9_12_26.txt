@@ -1,0 +1,84 @@
+BOHEMIA -- THE CHECK THAT FLAPPED (9/12/26, PEOPLE lane)
+VAMILY job [spanglish red], row THE-LANGUAGE-GATE-IS-RED-ON-THIS-LANE'S-LINE
+
+THE ROW: "the language gate fails 'A SPANGLISH NEIGHBOUR ANSWERS IN SPANGLISH'
+(80 passed, 1 failed) on a quirk line this lane wrote 8/31, 'keeping one light on
+for somebody', which has no Spanish word in it. One line to fix, in this lane's
+own file. A red gate nobody owns stays red; this one is yours."
+
+================================================================================
+MEASURED BEFORE TOUCHING ANYTHING, AND THE ROW IS STALE
+================================================================================
+  language_gate on this tree           81 passed, 0 failed
+  language_gate on clean origin/main   81 passed, 0 failed
+  all 22 quirk shapes                  have BOTH spanglish lines; none missing
+  all 44 authored spanglish lines      carry a Spanish word; 0 without
+  4000 people x 2 light states         8000 spanglish lines; 0 without Spanish
+  "keeping one light on for somebody"  still has no Spanish -- but it is a
+                                       SPECIFIC, a habit phrase slotted INTO a
+                                       line, and every line it lands in carries
+                                       Spanish
+
+AND THE CLAIM WAS NEVER LOOSENED, which was the first thing worth checking: it
+still demands a real Spanish word out of esWordsIn, so this is not a red that got
+argued away. The defect was fixed at the source by another lane's quirk sweep
+(59e61b12, which added 23 spanglish lines to the quirk organ).
+
+So the honest answer to the row is: nothing to fix here, it is already fixed.
+That would have been a true and completely useless round.
+
+================================================================================
+*** THE REAL DEFECT IS WHY IT READ RED FOR ONE LANE AND GREEN FOR ANOTHER ***
+================================================================================
+The browser pass walks the city from (8,8) outward and asks the FIRST spanglish
+speaker it reaches, then judges the whole law on that one answer. That is a real
+check on the real surface and it stays.
+
+BUT ONE SAMPLE OFF A SPATIAL WALK IS A COIN FLIP WEARING A CLAIM'S CLOTHES.
+Which person you reach first depends on what else is in the tree, so ECONOMY read
+this RED two rounds running and this lane reads it GREEN, on the same law, with
+nobody's content at fault. A check that answers differently depending on who is
+looking teaches nothing and gets ignored -- which is exactly what happened for
+two rounds, and is why a row got written asking a lane to fix a thing that was
+not broken.
+
+THE FIX: the gate now ALSO sweeps the quirk organ directly. 4000 people, both
+light states, and every spanglish line they can say must carry a Spanish word.
+Fast, no browser, and it cannot flap.
+
+REPOINTED, NOT LOOSENED, and strictly stronger. A green used to mean "the one I
+bumped into was fine". It now means "no spanglish speaker in the valley can
+answer without Spanish".
+
+================================================================================
+NEGATIVE-CONTROLLED, BECAUSE A CHECK THAT CANNOT FAIL PROVES NOTHING
+================================================================================
+Stripped the Spanish out of one shape's line:
+  RED   82 passed, 1 failed -- "8000 swept, 5 with no Spanish", and it PRINTS the
+        offending line so the next person does not have to hunt for it
+Restored it:
+  GREEN 83 passed, 0 failed
+
+================================================================================
+WHAT SHIPPED
+================================================================================
+gates/language_gate.js    the sweep, plus a vacuity guard (if the quirk organ is
+                          not reachable the sweep says so instead of passing on
+                          an empty loop). 81 -> 83 passed, 0 failed, green
+                          standalone and through the runner.
+
+NOTHING IN THE GAME CHANGED. No line was written, no content was touched, and
+this lane's 8/31 quirk line stands exactly as it was, because it was never the
+problem.
+
+================================================================================
+THE LESSON, FOR WHOEVER WRITES THE NEXT CHECK
+================================================================================
+A CHECK THAT SAMPLES ONE THING OFF A WALK IS NOT A CHECK, IT IS A WEATHER REPORT.
+It cost two lanes two rounds each and produced a board row aimed at the wrong
+target. Anywhere a claim picks "the first X it finds" on a surface whose contents
+vary, the claim should sweep the organ underneath as well. The browser pass
+proves the wire is live; the sweep proves the rule holds.
+
+TAB: NOT IN A TAB YET -- this is a checker, not a surface. Nothing he plays
+changed this round.
