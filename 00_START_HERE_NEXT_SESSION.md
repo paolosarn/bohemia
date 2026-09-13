@@ -6903,7 +6903,73 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/13 (b) LATEST -- *** [freeway reads] SHIPPED, THE LANE'S FIRST
+LIFE + CITY (city-1eztay): 9/13 (c) LATEST -- *** NO ROW CLAIMED: THE LANE'S FIVE-MINUTE BREAK
+IS DONE AND RULE 14(b) SAYS A BUILDING LANE WITHOUT ONE ADDS NOTHING TO THE DEMO. SO THIS ROUND
+PAID THE METHOD DEBT INSTEAD AND KILLED ONE MORE OF MY OWN HEADLINES. *** MODE: BUILD.
+TAB: none, slices/ untouched. Nothing to judge. Demo NOT re-cut (rule 14a).
+
+  WHY NO ROW: every remaining break on his list belongs to somebody else -- fast travel and
+dead cards to RUN, the streets to DIRECTION and COOK, the first fight to COMBAT, the buttons
+already shipped by UI. [freeway reads] was this lane's and it landed last round.
+
+  *** THE DEBT, AND IT WAS THE CAUSE OF BOTH MY WRONG HEADLINES. *** [tiles not slabs]: I set
+TW by hand and reported "zero images at every zoom" -- the city was already drawing 9,050.
+[freeway reads]: I set city.x and MODE and could not get a before/after picture in four tries.
+ONE CAUSE. The game recomputes TW, MODE, city.x and CZOOM every frame, so ASSIGNMENT IS NOT
+INPUT; two screenshots labelled TW=18 and TW=28 came back PIXEL-IDENTICAL and I nearly read
+them as a before/after.
+
+  BUILT: tools/bohemia_drive_the_demo.js -- boots the demo on a phone profile, clears the card,
+crosses the seam, photographs the canvas. Reusable by any lane, runs standalone. It exists
+because NOBODY IN THIS FLEET COULD LOOK AT THE DEMO THE WAY HE DOES, and rule 14 makes the
+first five minutes the only measure. FOUR TRAPS sit between a script and the glass and EVERY
+ONE FAILS SILENTLY: (1) the canvas is in an IFRAME so a rect measured inside it is
+iframe-relative and a tap lands nowhere; (2) THE CARD AT THE DOOR EATS EVERY TAP AND ITS BUTTON
+SAYS "GET UP" -- I guessed NOT NOW/SKIP/CLOSE/OK, none exist, and got a clean "nothing moved"
+from all four; (3) a text selector is not a finger, it matched a hidden copy; (4) the seam is
+crossed by a PINCH.
+
+  MEASUREMENT 1, AND IT KILLED MY HEADLINE. I was one commit from reporting "MY LANE'S ENTIRE
+SURFACE IS UNREACHABLE IN THE FIVE MINUTES", and the evidence looked strong: no CITY control is
+visible at the door, the round #mode button has an EMPTY label, tapping it leaves mode on human
+(instrumented -- pointerdown, touchstart and click all fire, so the tap really arrives), calling
+transition() directly DOES open city mode, and the #modechip CITY chip is built and deliberately
+never appended. Then I read the 8/26 note instead of stopping: "Zoom is the way in and out."
+My earlier pinch proved nothing because THE CARD WAS EATING IT. Card cleared first:
+      pinch #1   mode human -> city,  HZOOM 44 -> 11
+ONE HARD SQUEEZE AND THE DOOR OPENS. The blank inert round button is DELIBERATE (their note: a
+control that vanishes reads as broken, so it stays quiet rather than gone). Not a bug, not mine.
+
+  MEASUREMENT 2, FOR WHOEVER HOLDS "THE STREETS DON'T LOOK LIKE STREETS". Letting the game's own
+loop paint for 1.5s and watching the context on foot:
+      drawImage  144 calls  37,438,032 pixels of ART
+      fillRect  4943 calls   9,249,063 pixels of flat colour   -> only 19.8% is flat fill
+FOUR FIFTHS OF WHAT HE SEES IS ART. My eye said the opposite -- on foot it reads as flat tan and
+khaki bands and I was ready to call it a missing renderer. IT IS NOT. The pixels are there and
+the art READS flat. Do not go hunting a renderer that is not drawing; the problem is contrast
+and variety in art already on the glass.
+
+  MEASUREMENT 3: the first thing in the five minutes is a CARD, before one step -- THE METER
+READER, with a travel time, a price and three negotiations plus GET UP. RUN's [dead cards] and
+rule 14(d); noted only because it is literally minute zero and it silently ate four of my
+measurements.
+
+  *** THE STANDING NOTE, AND IT IS FOR EVERY LANE: A CLEAN "NOTHING HAPPENED" IS THE MOST
+EXPENSIVE RESULT IN THIS REPO. *** All four traps return exactly that, and it is
+indistinguishable from a real defect. I have now twice been one commit from reporting a broken
+game when the truth was a broken probe -- "drawImage 0", and "city mode is unreachable". Both
+mine. THE RULE THAT WOULD HAVE SAVED ALL OF IT: before believing a negative, PROVE THE
+INSTRUMENT CAN PRODUCE A POSITIVE. Tap something that definitely works, pinch and read the
+number back. If the harness cannot show the thing working, it cannot show it broken either.
+  Record: records/BOHEMIA_DRIVE_IT_LIKE_A_PLAYER_9_13_26.md
+
+  NEXT: no break left, so the next line is whatever the coordinator puts first. [tiles not
+slabs] is OPEN with its 1.7% on it; the rest are behind the rule 14(c) suspension. If a row
+needs a picture of the demo, the driver is there now.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/13 (b) -- *** [freeway reads] SHIPPED, THE LANE'S FIRST
 JOB UNDER RULE 14. 30 FALSE OVERPASSES AND 29 FALSE DIPS, GONE, AND EVERY REAL ONE KEPT. ***
 MODE: BUILD. TAB: CITY (it is a city-mode break, measured -- see below). Nothing to judge.
 Build stamp 9/13w. DEMO NOT RE-CUT: rule 14a, only RUN cuts the demo.
