@@ -677,8 +677,15 @@ const done = () => {
        + 'to how they FEEL about you is a weight, and weights are his',
        !/ctDialApply|DEED_WEIGHT|rungFor/.test(
          (CITY_TXT2.match(/function blockRent\(\)[\s\S]*?\n\}/) || [''])[0]));
-    ok('N15 the reckoning says who collected and what it cost, in words',
-       /took '\+_r\.paid/.test(CITY_TXT2) && /cut '\+_r\.short/.test(CITY_TXT2));
+    /* THE CARD SAYS IT IN TWO SHAPES NOW (9/13, THE FIVE MINUTES): a sentence when
+       ONE outfit billed you, and a list plus a consequence when several did -- a
+       line PER faction ran a real day's card 142 px off a phone. The claim is
+       unchanged and this asserts BOTH shapes, so it is a stronger check than the
+       one it replaces, not a looser one. */
+    ok('N15 the reckoning says who collected and what it cost, in words, whether '
+       + 'one outfit billed you or eight',
+       /took '\+_o\.paid/.test(CITY_TXT2) && /cut '\+_o\.short/.test(CITY_TXT2)
+       && /rent wanted '\+_want/.test(CITY_TXT2) && /cut '\+_dark/.test(CITY_TXT2));
     ok('N16 and the day\'s tally resets at the wake, where the day starts',
        /TURF_USED=\{\}; TURF_SEENCELL=\{\}/.test(CITY_TXT2));
   }

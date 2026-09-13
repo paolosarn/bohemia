@@ -2318,79 +2318,89 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 22) LATEST -- *** THE FIVE MINUTES. Under
-rule 14b this lane has no break of his, so [same lender] is CLAIMED AND HELD,
-nothing new was built, and the round went on his own measure: walk the demo on a
-phone and answer for what this lane put there. THE CARD DID NOT FIT. WHERE YOU
-STAND ran 195 pixels off the bottom of a phone, ten of its sixteen rows were mine,
-and the thing cut off was this lane's own answer. It fits now, with nothing
-dropped. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/13 (round 23) LATEST -- *** THE FIVE MINUTES, ROUND
+TWO. [same lender] still CLAIMED AND HELD under 14b, nothing new built. Last round
+fixed the card he can open; this round measured the card he meets at the END OF
+EVERY DAY, which nobody had measured at all. It ran 142 pixels off a phone and
+twelve of its thirty-one lines were this lane's. Mine are three lines now. *** The
+rest of the overflow is WORLD's and is handed over with the pixels. Nothing to judge.
 
 VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_THE_CARD_DID_NOT_FIT_A_PHONE_9_13_26.md
+Record: records/BOHEMIA_THE_NIGHT_CARD_DID_NOT_FIT_EITHER_9_13_26.md
+Round 22's record (the STANDING card): records/BOHEMIA_THE_CARD_DID_NOT_FIT_A_PHONE_9_13_26.md
 
-WHY HELD. None of the seven breaks he named is a faction reading: streets and
-sidewalks, the flat freeway, PRETTY MAP and DROP IN, cards that promise and do
-nothing, no fight in five minutes, no fast travel, glitches. 14(b) says a building
-lane without one holds its claim and adds nothing, so nothing new went in.
+STILL HELD, AND WHY. No break of his is a faction reading -- streets and sidewalks,
+the flat freeway, PRETTY MAP and DROP IN, cards that promise and do nothing, no
+fight in five minutes, no fast travel, glitches. 14(b) says a lane without one holds
+its claim and adds nothing, so nothing new went in for the second round running.
 
-WHAT THE WALK MEASURED, ON A PHONE, ON THE DEMO
-  card content 975 px in a 780 px window   195 px off the bottom, CLOSE included
-  rows on it 16, of which THIS LANE'S 10    348 px of the height
-  what was cut off                          WOULD FOLLOW YOU, this lane's own answer
+THE MEASUREMENT, ON A PHONE, ON THE DEMO, WITH A REAL DAY WALKED INTO IT
+  a short day (3 outfits billed)   already 7 px over the window
+  a long day (8 outfits billed)    142 px over, 31 lines, TWELVE of them this lane's
+  two lines per faction of rent, plus a line per faction of power sites
 
-THE FIX ADDS NOTHING AND DROPS NOTHING
-  rent    3 rows + 2 sentences -> 1 row + 1 sentence
-  the mix 4 rows, one per trade -> 1 line
-  spares  1 sentence -> gone, folded into the mix line (it was saying the mix again:
-          only spared trades are ever offered, so the mix line IS the spare list)
-  after   content 710, window 710, overflow 0, rows 10, mine 3. All of it on one screen.
+WHAT THIS LANE DID ABOUT ITS OWN, DROPPING NO NUMBER
+  rent        2 lines per outfit -> 1 list + 1 consequence, however many there are
+  land makes  1 line per faction -> 1 line
+  this lane   12 lines ~420 px   -> 3 lines ~100 px
+  "rent wanted 43 off you: Mob (fortress) 20, Church (town) 7 of 10, Blues (town) 5
+   of 7, Cartel (fortress) 5, Network (fortress) 2, Reds (town) 2 of 3, Colorful
+   (camp) 1 of 3, Trades (camp) 1. You had 0. / so they cut 43 of their own streets off"
+  BIGGEST FIRST, because the line wraps on a long day and the landlord who took
+  twenty should be the first thing read, not whoever sorts first alphabetically.
+  ONE OUTFIT KEEPS ITS FULL SENTENCE: a list of one is worse English than a sentence.
 
-*** TWO THINGS I NEARLY REPORTED AS BUGS AND WERE NOT, AND THE SECOND IS A LESSON. ***
-  Every control on the street is TWELVE PIXELS TALL -- SLEEP, STANDING, SCAVENGE,
-  BUILD HERE, BIKE, CITY -- against a 44 px thumb floor this repo has a law about.
-  That is PAOLO'S OWN RULING ("for the run right now make all the UI 50% smaller, I
-  don't give a fuck") with the reach kept at 44 by spreading the column: 12-tall
-  chips at a 30 px gap is a 44 pitch. AND IT WORKS: a real mouse press at the PHONE
-  button's centre opened the phone, which is the exact test the UI lane named as the
-  one that settled it. A BOX HEIGHT IS NOT A REACH, and I was one step from filing a
-  locked ruling as a defect.
-  The offer card's haggle buttons (make it a bag, make it a favour, half now) were
-  pressed one at a time with real taps: the card changes every time. Not 14(d).
+*** [FOR WORLD] THE REST OF THE OVERFLOW IS YOURS, AND HERE ARE THE PIXELS. ***
+  the card                916 px in a 780 px window, overflow 136
+  WHO YOU OWE              270 px  -- EIGHT IDENTICAL LINES, 234 px of it
+  THE DAY                  309 px  (this lane's rent line, wrapped: 72 px)
+  WHAT YOU ARE WORKING ON   54 px
+  KEEP THIS VALLEY         120 px
+WHO YOU OWE prints one line per outfit and all eight say the same sentence with a
+different name ("X let you stay on their ground without paying, once."). That block
+alone is TWICE THE OVERFLOW. Collapse the eight into one and the card fits with room
+to spare. It is [debt carried] (9/12) rendering BohemiaOwing.lines() one per row;
+this lane's OWED_BOOK is one of the three books feeding it, so the ROWS are mine and
+the SENTENCE is yours. Not touched here.
 
-WHAT I DID NOT DO, ON PURPOSE
-  NO DEMO CUT (14a) and NO ALPHA TOUCHED, which also means no build stamp this
-  round. The change is entirely in the city file, which both the workshop and the
-  demo load BY REFERENCE, so it reaches the demo without the cutter AND the demo
-  stays a byte-identical cut of an unchanged workshop -- so DEMO BUILD stays green
-  instead of red. THAT IS THE WAY PAST THE TRAP PEOPLE NAMED: a lane that changes
-  only the city never has to choose between his ruling and that gate. Worth passing
-  on to any lane that can keep its change out of the alpha.
-  AND MY OWN LAND SCRIPT WAS BREAKING 14(a) ONCE A ROUND without anybody typing it:
-  it ran the demo cutter on every land. Removed.
+GATES  faction_towns 201/0. One check went red on correct code and was FOLLOWED, NOT
+       LOOSENED: N15 pinned the per-faction variable names in the old rent sentence.
+       Its claim is unchanged and it now asserts BOTH shapes -- the one-outfit
+       sentence and the many-outfit list -- so it is a stronger check than the one it
+       replaces. RULE 13: pre-push pass green; no SUITE LINE posted yet.
 
-GATES  faction_towns 201/0. FIVE of its checks went red on correct code and were
-       FOLLOWED, NOT LOOSENED: they pinned the row labels this round collapsed
-       (WHAT IT TAKES, TONIGHT SO FAR, ANOTHER BLOCK OF THEIRS, the spares
-       sentence). Every one still asserts the same claim by the new spelling.
-       One real bug fell out of that: the first tightening always said "another
-       block of theirs", which is wrong by one on ground you have just stepped
-       onto. The counted distinction is back, as a ternary rather than a row.
-       RULE 13: pre-push pass green (faction towns, engine sync, banner, demo
-       build, alpha loads, against); no SUITE LINE posted yet.
+RULE 14 OBSERVED: no demo cut, no alpha touched, so no build stamp. The change is
+entirely in the city file, which both surfaces load BY REFERENCE, so it reaches the
+demo without the cutter and the demo stays a byte-identical cut of an unchanged
+workshop. Two rounds running now -- this is the way past the trap PEOPLE named, and
+it is worth passing on to any lane that can keep its change out of the alpha.
 
-STILL OPEN FROM LAST ROUND, UNCHANGED
+*** THE RULE-14a TRAP PEOPLE NAMED HAS NOW ACTUALLY HAPPENED ON MAIN. *** Measured
+this round in a clean origin/main worktree, so it is inherited and not mine:
+  DEMO BUILD 24/1 -- "it is a CUT OF THE CURRENT WORKSHOP, not a fork: regenerating
+  it with tools/bohemia_cut_the_demo.js changes nothing" is now FALSE, because a lane
+  has shipped an ALPHA change without re-cutting, which 14(a) tells it to do. The
+  obvious way to make that gate green is to run the cutter, which is the thing he
+  forbade. IT WILL STAY RED UNTIL RUN WALKS THE FIVE MINUTES AND CUTS, and that is
+  the design, not a defect -- but every lane's pre-push pass now carries a red it
+  must not fix, so it needs saying out loud rather than each lane rediscovering it.
+  A gate must never outrank a ruling.
+  AND THE WAY TO AVOID OWNING IT: keep the change in the city file. Both surfaces
+  load it by reference, so it reaches the demo without the cutter and the demo stays
+  a valid cut of an unchanged workshop. This lane has done that two rounds running.
+  BANNER 12/2 -- also inherited, also on clean main: engine/bohemia_ground.js is
+  inlined behind a banner the sync scanner cannot read, so it is invisible to the
+  ENGINE SYNC LAW. Not this lane's module and not this lane's banner.
+
+STILL OPEN, UNCHANGED
   [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the
   city, reproduced on clean main with a single comment line: 10/0 green, add one
-  comment, 9/1 with NEW DRIFT on the city and maker bohemia_city_chunk_tile_bank.py.
-  The +0/-0 it prints is the numstat measuring the wrong pair (git diff runs inside
-  the worktree against its own HEAD, while the real comparison is the remade file
-  against the working tree), so the line counts on a drift are always zero.
+  comment, 9/1 with NEW DRIFT on the city. The +0/-0 it prints is the numstat
+  measuring the wrong pair, so the line counts on a drift are always zero.
   [INHERITED] city_memory_gate 33/1, "nobody outside SEE_RANGE (8) ever witnessed
   anything", identical on a clean origin/main worktree.
   [FOR QUESTS] faction_between_gate 180/2 (R2 bq_a03 writes a standing delta against
-  an outfit named "NONE"; R8 loadCorpus normalises by the largest deed). And the
-  company seam defect last round fixed in the city.
+  an outfit named "NONE"; R8 loadCorpus normalises by the largest deed).
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. DOES A DEBT CROSS THE FOLD -- CLOSING: ruled 9/13, and [same lender] carries it.
@@ -2402,13 +2412,20 @@ STILL OPEN FROM LAST ROUND, UNCHANGED
      #4a8ddb beside Blues #0052db. Is the Cartel drab on purpose?
 
 NEXT IN THIS LANE
-  [same lender] is CLAIMED AND HELD. It stays held until either the coordinator gives
-  this lane one of his breaks, or he says the five minutes hold (14c). A lane that
-  builds through a hold is doing the thing 14 exists to stop.
+  [same lender] stays HELD until the coordinator gives this lane one of his breaks or
+  he says the five minutes hold (14c). While it is held, the round goes on the five
+  minutes. WHAT IS LEFT OF THIS LANE ON THAT MEASURE, IN ORDER:
+    THE MAP. This lane paints three layers on it -- turf borders, party tracks, and
+    the lights ([rent visible] drew 100+ dots). He said "the streets don't look like
+    streets" and "glitchy". Nobody has asked whether those three layers are part of
+    the mess on a phone. That is the next thing to measure.
+    THE STREET LINE. The track sentence ("Anarchists came through here just now")
+    shares #packline with the pack and the road. Walk it and watch for a line that is
+    true one cell ago and a lie now.
   If a break does land here, the queue behind it is [deal sticks], [pursuit strength],
   [deeds weigh], [take them on].
 
-TEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+ELEVEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -2418,8 +2435,10 @@ TEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM.
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
   A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS A CONFIDENT WRONG ANSWER.
-  AND A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS, not how tall the
-  control is, or you will file one of his own rulings as a bug.
+  A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS.
+  AND A LINE PER THING IS HOW A CARD STOPS FITTING A PHONE. Both cards this lane
+  writes to overflowed, both for the same reason, and neither was noticed by anybody
+  building the thing that was adding the lines. Measure the CARD, not your rows.
 
 --------------------------------------------------------------------------------
 

@@ -53564,11 +53564,19 @@ function showReckoning(){
      new row on a card that is already long, and it is SILENT for a faction whose
      land makes nothing -- which is most of them, and saying "0 a day" fourteen
      times would bury the four that matter. draft:true. */
+  /* ONE LINE FOR ALL OF THEM (9/13, THE FIVE MINUTES). It was a line per faction,
+     and a long day crosses eight: measured on a phone that card ran 142 px off the
+     window with three of the overflow lines being these. The comment above was
+     already right that saying it fourteen times would bury it -- a line EACH does
+     the same thing more slowly. Same words, same numbers, one line. */
   try{
+    var _mk=[];
     for(var _mi=0;_mi<TURF_TODAY.length;_mi++){
       var _ml=minesLine(TURF_TODAY[_mi]);
-      if(_ml) h+='<li>'+esc(TURF_TODAY[_mi])+' land makes '+esc(_ml)+'</li>';
+      if(_ml) _mk.push(TURF_TODAY[_mi]+' '+_ml);
     }
+    if(_mk.length===1) h+='<li>'+esc(_mk[0].replace(' ',' land makes '))+'</li>';
+    else if(_mk.length>1) h+='<li>their land makes: '+esc(_mk.join(', '))+'</li>';
   }catch(_e){}
   /* __THE_BLOCK_PAYS_ITS_OWNER__ (9/12) -- WHO COLLECTED, AND WHAT IT COST. It
      says the tier out loud because that is WHY a fortress took more of your day
@@ -53582,26 +53590,56 @@ function showReckoning(){
      stops there. draft:true. */
   { var _op=''; try{ _op=BohemiaOwnPower.say(OFF_LINE, OFF_SAVED); }catch(_e){ _op=''; }
     if(_op) h+='<li style="color:#9aa89a">'+esc(_op)+'</li>'; }
+  /* *** TWO LINES PER FACTION BECAME TWO LINES FOR THE WHOLE BILL (9/13, THE FIVE
+     MINUTES). *** Paolo: "nothing's complete... I would like to see [the tiny
+     parts] come more together." MEASURED on a phone, on the demo, with a real day
+     walked into it: this card was already 7 px over the window with only THREE
+     factions billed, and ten of its twenty-eight lines were this lane's. A real
+     day bills six, which is TWELVE lines of rent on a card that overflows at six.
+     NOT ONE NUMBER IS DROPPED. Who, their tier, what each wanted, the billed-out-of-
+     used split where it differs, what you paid and how many streets went dark are
+     all still here. They are a list and a consequence instead of a sentence and a
+     consequence PER FACTION, so six factions cost the same two lines as one.
+     ONE FACTION KEEPS ITS SENTENCE, because a list of one is worse English than a
+     sentence and the early game is usually one. */
   try{
+    var _bill=[], _dark=0, _paid=0, _want=0;
     for(var _ri=0;_ri<RENT_TONIGHT.length;_ri++){
       var _r=RENT_TONIGHT[_ri];
       if(!_r.billed) continue;
-      /* WHAT THEY BILLED FOR, in the fewest words that stay true. "1 of the 1
-         block" is what a machine says; a fortress billing everything you used
-         does not need the arithmetic spelled out, and a camp letting most of it
-         go is the only case where the two numbers are worth showing. */
-      var _blocks = (_r.billed===_r.used)
-        ? ('the '+_r.used+' block'+(_r.used===1?'':'s')+' of theirs you used')
-        : (_r.billed+' of the '+_r.used+' blocks of theirs you used');
-      if(_r.short>0){
-        h+='<li>'+esc(_r.faction)+' ('+esc(_r.tier)+') wanted '+_r.billed
-         + ' for '+_blocks+' and you had '+_r.paid+'</li>';
-        h+='<li style="color:#c98a5a">so the '+esc(_r.faction)+' cut '+_r.short
-         + ' of their own street'+(_r.short===1?'':'s')+' off</li>';
+      /* the billed-out-of-used split only where the two differ, which is the camp
+         case: a fortress billing everything you used does not need the arithmetic
+         spelled out, and "1 of the 1 block" is what a machine says. */
+      _bill.push({ f:_r.faction, t:_r.tier, billed:_r.billed, used:_r.used,
+                   paid:_r.paid, short:_r.short });
+      _dark+=_r.short; _paid+=_r.paid; _want+=_r.billed;
+    }
+    if(_bill.length===1){
+      var _o=_bill[0];
+      var _blocks = (_o.billed===_o.used)
+        ? ('the '+_o.used+' block'+(_o.used===1?'':'s')+' of theirs you used')
+        : (_o.billed+' of the '+_o.used+' blocks of theirs you used');
+      if(_o.short>0){
+        h+='<li>'+esc(_o.f)+' ('+esc(_o.t)+') wanted '+_o.billed
+         + ' for '+_blocks+' and you had '+_o.paid+'</li>';
+        h+='<li style="color:#c98a5a">so the '+esc(_o.f)+' cut '+_o.short
+         + ' of their own street'+(_o.short===1?'':'s')+' off</li>';
       } else {
-        h+='<li>'+esc(_r.faction)+' ('+esc(_r.tier)+') took '+_r.paid
-         + (_r.paid===1?' battery':' batteries')+' for '+_blocks+'</li>';
+        h+='<li>'+esc(_o.f)+' ('+esc(_o.t)+') took '+_o.paid
+         + (_o.paid===1?' battery':' batteries')+' for '+_blocks+'</li>';
       }
+    } else if(_bill.length>1){
+      /* BIGGEST FIRST. A long day bills eight outfits and the line wraps; the
+         landlord who took twenty should be the first thing read, not whoever
+         happens to sort first alphabetically. */
+      _bill.sort(function(a,b){ return (b.billed-a.billed) || (a.f<b.f?-1:1); });
+      var _who=_bill.map(function(o){
+        return o.f+' ('+o.t+') '+o.billed+(o.billed===o.used?'':(' of '+o.used));
+      }).join(', ');
+      h+='<li>rent wanted '+_want+' off you: '+esc(_who)+'. You had '+_paid+'.</li>';
+      if(_dark>0)
+        h+='<li style="color:#c98a5a">so they cut '+_dark
+         + ' of their own street'+(_dark===1?'':'s')+' off</li>';
     }
   }catch(_e){}
   if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
