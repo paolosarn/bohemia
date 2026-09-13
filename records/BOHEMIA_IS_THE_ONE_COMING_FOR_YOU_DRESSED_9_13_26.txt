@@ -1,0 +1,57 @@
+IS THE ONE COMING FOR YOU DRESSED? -- CHARACTER lane, 9/13/26
+VAMILY row [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION, round 1 (measurement)
+
+THE ROW SAYS: "every hostile wears its faction's colour and the runway cut, so who
+is coming for you is readable from the clothes." It asserts three things and nobody
+has checked any of them on the walked surface. Here they are.
+
+=== 1. ARE THERE HOSTILES AT ALL? (every person in a 17x17 neighbourhood block) ===
+  people probed                    3604
+  hostile to me                    162   4.5%
+
+=== 2. DOES A HOSTILE HAVE A FACTION? ===
+Hostility and allegiance are DIFFERENT FACTS and nothing says they travel together.
+  hostile AND runs with somebody   162   100.0% of hostiles
+  hostile and runs with NOBODY     0
+  THE SECOND GROUP IS NOT A MISS. A hostile with no faction is not a soldier, it is
+  somebody with a problem with YOU, and putting a flag on them would invent an
+  allegiance this game does not model.
+
+  WHO THE ARMED ONES RUN WITH:
+      Trades           70
+      Colorful         53
+      Homeless         28
+      Mob              11
+
+=== 3. IS THE HOSTILE ACTUALLY WEARING IT, on the bodies the renderer blitted? ===
+  bodies drawn this frame          202
+  of those, hostile                8
+  hostile holding its faction body 0
+  faction bodies asked for         Colorful
+  still not baked after 12s        none
+
+  *** AND AFTER THE BAKE LANDS, WHICH IS WHAT A PLAYER SEES: ***
+  bodies drawn                     202
+  of those, hostile                8
+  hostile WEARING its faction      8   100%
+  The first count above is the FIRST FRAME, when CAST_FID is empty by design --
+  ctBody keeps drawing the trade fit so the swap is a body getting more specific,
+  never a person appearing out of nothing. Reporting that frame as the answer
+  would be true for one second and false for the rest of the game.
+
+  WHO THE DRAWN BODIES RUN WITH:
+      (nobody)        194
+      Colorful          8
+  standing on cell [32,44], and this is how the valley feels about me from here:
+      Trades        null
+      Colorful      null
+      Homeless      null
+      Mob           null
+      Blues         null
+      Church        null
+
+=== WHAT THIS DOES NOT CLAIM ===
+Nothing here has been fixed. This is the measurement the row needed before anybody
+touched the picker, and it is written down first precisely because this lane has
+thrown away seven rulers in four rounds and every one of them was a number somebody
+trusted. If a count below looks impossible, suspect this tool before the game.

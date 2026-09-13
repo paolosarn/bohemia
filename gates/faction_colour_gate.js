@@ -463,6 +463,86 @@ const done = () => { console.log('\n=== FACTION COLOUR GATE: ' + pass + ' passed
     ok('*** A FACTION WITH NO OUTFIT SAYS SO OUT LOUD *** -- silence here is how a typo '
        + 'becomes a recorded fact about the world',
        cerr.some(t => /no outfit for faction/.test(t)));
+
+    /* ==== 6  AND THE ONE COMING FOR YOU IS DRESSED (9/13, [enemy dressed]) ==========
+       "every hostile wears its faction's colour and the runway cut, so WHO IS COMING FOR
+       YOU IS READABLE FROM THE CLOTHES." Measured on the walked street and it already
+       holds -- so this gate is here to stop it QUIETLY STOPPING, which is the only thing
+       standing between a working feature and a broken one nobody notices.
+       THREE THINGS THIS CHECK HAD TO LEARN, all of them the hard way:
+       (a) STAND WHERE THE HOSTILES ARE, not where the crowd is densest. The first cut
+           walked to the fullest neighbourhood, drew 183 bodies of whom ALL 183 ran with
+           nobody, and would have reported "0 hostiles wear their faction" about a street
+           with no hostile on it.
+       (b) COUNT AFTER THE BAKE, not on the first frame. ctBody's own comment: "NO HOLE
+           WHILE IT BAKES ... the swap is a body getting MORE specific, never a person
+           appearing out of nothing." On frame one CAST_FID is empty BY DESIGN, so the
+           first-frame count is 0 for a second and wrong for the rest of the game.
+       (c) COMPARE THE SPRITE, not the table. CAST_FID having an entry proves a bake
+           landed; it does not prove ctBody handed that body to the renderer. */
+    const H = await cf.evaluate(async () => {
+      const o = { drew: 0, hostile: 0, wearing: 0, fids: {} };
+      const NB = BohemiaPopulation.NB, span = NB * FN;
+      const cx0 = Math.floor(hx / span), cy0 = Math.floor(hy / span);
+      let best = null;
+      for (let ny = Math.max(0, cy0 - 6); ny <= cy0 + 6; ny++)
+      for (let nx = Math.max(0, cx0 - 6); nx <= cx0 + 6; nx++) {
+        let ppl = []; try { ppl = pplPeople(nx, ny) || []; } catch (e) { continue; }
+        if (!ppl.length) continue;
+        let hos = 0;
+        for (const q of ppl) { try { if (ctAgainstMe(q)) hos++; } catch (e) {} }
+        if (!best || hos > best.hos) best = { hos: hos, ppl: ppl };
+      }
+      if (best && best.hos) {
+        const pts = best.ppl.map(q => { try { return pplAt(q); } catch (e) { return null; } }).filter(Boolean);
+        if (pts.length) {
+          const xs = pts.map(a => a[0]).sort((a, c) => a - c), ys = pts.map(a => a[1]).sort((a, c) => a - c);
+          hx = xs[xs.length >> 1]; hy = ys[ys.length >> 1];
+        }
+      }
+      render();
+      const want = {};
+      for (let i = 0; i < BARK_DREW.length; i++) {
+        const q = BARK_DREW[i].p;
+        let h = 0, f = null;
+        try { h = ctAgainstMe(q); } catch (e) {}
+        try { f = ctFactionOf(q); } catch (e) {}
+        if (h && f) want[f] = 1;
+      }
+      Object.keys(want).forEach(f => { try { ctNeedFaction(f); } catch (e) {} });
+      for (let t = 0; t < 15; t++) {
+        await new Promise(r => setTimeout(r, 1000));
+        if (Object.keys(want).every(f => CAST_FID[f])) break;
+      }
+      render();
+      for (let i = 0; i < BARK_DREW.length; i++) {
+        const q = BARK_DREW[i].p;
+        o.drew++;
+        let h = 0, f = null;
+        try { h = ctAgainstMe(q); } catch (e) {}
+        try { f = ctFactionOf(q); } catch (e) {}
+        if (!h) continue;
+        o.hostile++;
+        o.fids[f || '(nobody)'] = (o.fids[f || '(nobody)'] || 0) + 1;
+        if (!f || !CAST_FID[f]) continue;
+        let dir = 'S'; try { dir = pplFace(q, BARK_DREW[i].at); } catch (e) {}
+        let got = null; try { got = ctBody(q, dir); } catch (e) {}
+        const set = CAST_FID[f], s2 = set && (set[dir] || set.S);
+        if (got && s2 && (got === s2.idle || (s2.breathe && s2.breathe.indexOf(got) >= 0)))
+          o.wearing++;
+      }
+      return o;
+    });
+    /* THE HARNESS FINDING NOBODY IS NOT THE GAME HAVING NOBODY, and this lane has published
+       that mistake twice. If the walk turns up no hostile at all, the check says so and
+       fails, rather than passing vacuously on an empty street. */
+    ok('*** THE WALK FINDS HOSTILES ON THE STREET AT ALL *** -- a green over an empty '
+       + 'street is the vacuous pass this lane has shipped twice (' + H.hostile
+       + ' hostile of ' + H.drew + ' drawn)', H.hostile > 0);
+    ok('*** AND EVERY ONE OF THEM IS WEARING ITS FACTION *** -- who is coming for you is '
+       + 'readable from the clothes (' + H.wearing + ' of ' + H.hostile + ', '
+       + Object.keys(H.fids).join(', ') + ')',
+       H.hostile > 0 && H.wearing === H.hostile);
   }
   await b2.close();
 
