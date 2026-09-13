@@ -15965,6 +15965,38 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
+*** THIS LANE WALKED THE FIVE MINUTES. WORLD HAS NO BREAK IN THEM. NOTHING WAS
+BUILT THIS ROUND, ON PURPOSE. ***
+WHAT A PLAYER IS OFFERED in the demo's first five minutes on a 390x844 phone, every
+tappable thing, measured (they are DIVs with class uihalf, NOT <button>, which is why
+two of my own probes saw nothing at all):
+  top right  MUSIC  SAVE  PHONE  OUTFIT
+  left rail  STANDING  BUILD HERE  SCAVENGE - 8H  MARKET  BIKE  SLEEP
+Of those, ONE is this lane's: SCAVENGE - 8H, from [a days work].
+IT DELIVERS. Pressed on the real demo at five different boot delays, five out of five,
+the clock moves 477 minutes and a battery lands in the purse. It is NOT one of his
+dead cards. Nobody needs to re-check it.
+GET UP DELIVERS TOO: it closes the wake card every time.
+WHAT I SAW THAT IS NOT MINE (for the lanes that own it, not a job I may add): the road
+reads as one grey mottled blob with no lane line and no kerb against the beige
+sidewalk, and the bottom ~40% of the phone screen is empty tan ground with nothing on
+it. That is his "streets don't look like streets", and it is DIRECTION/COOK.
+Screenshot kept out of the repo; it is a phone-size capture of the street at 06:00.
+
+*** AND MY INSTRUMENT WAS WRONG THREE TIMES BEFORE IT WAS RIGHT. WRITE THIS DOWN. ***
+  1. First walk: reported 140 dead presses and "the first button in the game does
+     nothing". FALSE. It kept clicking a button inside a card that had ALREADY CLOSED,
+     because it tested visibility with offsetParent and read textContent off a hidden
+     element. I was one message away from telling Paolo the game's first button was
+     broken and sending lanes after a bug that does not exist.
+  2. Second walk: reported one thing pressable in five minutes. FALSE. It selected
+     `button, .dcgo, .dcx` and EVERY chip in this game is a DIV.
+  3. Third probe: reported the work button dead. FALSE, not reproducible; five clean
+     trials say 477 minutes every time.
+  THE RULE THIS LANE NOW HOLDS: WHEN A WALK SAYS THE GAME IS BROKEN, SUSPECT THE WALK
+  FIRST, AND NEVER REPORT A BREAK YOU HAVE NOT REPRODUCED. A screenshot is the honest
+  instrument for "what does a player see"; a selector is a guess about it.
+
 *** PAOLO PLAYED THE DEMO 9/13 AND SAID IT LOOKS LIKE SHIT. READ THIS BEFORE YOU
 TOUCH ANYTHING. *** records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_9_13_26.md and
 laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md, front-page rule 14. It landed on
