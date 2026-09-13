@@ -1594,106 +1594,84 @@ STILL CARRIED, AND STILL NOBODY'S:
 NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
 directly on top of Q2's finding that a lie is caught by the question and never by the manner.
 --- (this line was a bare row of equals signs, which is a git conflict marker; it sat between two lanes' blocks and belonged to neither, and it made gates/nomarkers_gate.js red for every lane that ran the suite. Replaced 9/11 by QUESTS with a plain rule. Nobody's handoff text was touched.)
-ANIMATION (animation-lr9y9i): 9/13 (c) LATEST -- *** A ONE-PIXEL VECTOR HAS NO
-DIRECTION. The third time this rig was caught deciding something big with a
-measurement too small to carry it, and it was the single cause of the ten clips
-his verdict left broken. TAB: ANIMATION and CHARACTER. Build 9/13zc. ***
-(THE ROUND-ONE BLOCK BELOW WAS LOST FROM THIS FILE by somebody's rebase between
-9/13 (b) and now -- rewritten here rather than left missing. Take main's file and
-re-apply your own block; never resolve this file with --theirs.)
+ANIMATION (animation-lr9y9i): 9/13 (d) LATEST -- *** HE CAN SEE WHAT CHANGED ON
+EVERY CLIP HE KILLED. JUDGE ALL has a ONES YOU KILLED filter and a measured repair
+line on each of those 47 rows. TAB: ANIMATION, open JUDGE ALL, tap ONES YOU
+KILLED. Build 9/13zg. ***
 
-ROW STILL CLAIMED: [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED.
-SHIPPED BEFORE IT, all three of his 9/7 rig complaints: [elbows bend] 9/11,
-[coat follows] 9/12, [facing order] 9/13.
+ROW STILL CLAIMED: [redo killed]. Rounds: 1 re-analysed the 47, 2 fixed the rig
+cause of the ten that were still broken, 3 puts the answer in front of him.
+RULE 14: alpha and workshop only; the demo is RUN's to cut.
 
-RULE 14 (9/13): this lane ships to the ALPHA and the workshop and does NOT re-cut
-the demo. RUN cuts it. ANIMATION has no five-minute break on its first line, so it
-holds its claim and adds nothing to the demo -- what its own MODE line says.
-CHECKED, because it was worth knowing whether this lane even reaches his five
-minutes: the walked city has NO buildFrame and NO drawChar in it at all (zero
-references in BOHEMIA_CITY_WORLD.html). It draws people from CAST_CV, canvases the
-alpha BAKES LIVE from the rig at load and posts into the iframe (citySendCast). So
-the rig fixes DO reach the walked surface, through the bake and not the renderer.
+WHAT SHIPPED. JUDGE ALL's fourth filter, ONES YOU KILLED, and on those 47 rows and
+no others a green line: "YOU KILLED THIS. <what was wrong, what changed>". Every
+line is MEASURED, generated from one probe run twice -- the rig at b923fc3^ before
+the first of his three complaints was fixed, and the rig now -- over eight facings
+and 24 buckets. Forty of the 47 carry only one clause, because the far-arm-over-
+head defect hit every single one of them.
+  crouch-aim-1h  far arm drew over the head; hand hid behind the head with its arm
+                 in front; elbow jumped 30px a frame, now 11
+  idle           far arm drew over the head
 
-=== ROUND ONE: THE 47 WERE RE-ANALYSED AND THE REDO LIST IS TEN, NOT FORTY-SEVEN
-The board quotes the last third of what he said on 9/7. The whole thing is in
-records/BOHEMIA_CLIP_VERDICTS_9_7_26.txt: "...some of the DIRECTIONS look like dog
-shit ... WE GOTTA RE-ANALYZE A LOT OF THESE. IF I KILLED IT I DON'T WANT IT GONE."
-He named the REASON, and it is the three defects this lane has since fixed.
-Measured against the alpha at b923fc3^, all 47 x 8 facings x 24 buckets:
-  THE FACING ORDER hit EVERY ONE and all of it is gone: 144 far-arm-over-head
-  frames on every clip -> 0; 192 -> 0 hand-behind-its-own-arm on six gun clips.
-  THE ELBOW: nine clips had a joint crossing 30px in one frame; most now under 5.
-A ruler was thrown away there too: ranking by how far an elbow MOVES put
-JUMPING-JACKS top with 218 offences -- a clip that is supposed to fling its arms --
-while a real 30px flip sat below it. Distance measures speed. Record:
-records/BOHEMIA_THE_FORTY_SEVEN_RE_ANALYSED_9_13_26.md
+THREE THINGS MEASURED AND THROWN AWAY THIS ROUND. Each would have been a round of
+work aimed at nothing, and two of them were MY OWN earlier claims.
+  1 THE CROUCH-AIMS DO CROUCH. Last round's handoff (mine) said neither crouches
+    in profile. Measured against idle on the same facing: the hip drops 4px and
+    the head 5-8px on EVERY facing including E. Shallow, not absent. That sentence
+    was wrong and is corrected here.
+  2 THE LEGS SHRINK INSTEAD OF THE KNEES BENDING, AND THAT IS LEGAL. crouch-aim-1h's
+    leg measures 25.3 against idle's 39, a 35% shortening, knee at 0 degrees. It
+    looked like a defect until the WIDTH LAW turned up (7/2/26, LOCKED): "Limb
+    compression crunches pixels together ALONG the bone only ... Verified: crouch
+    leg width == idle leg width exactly; direct engine test, 40 percent
+    compression." Compression IS the crouch mechanism and he locked it. An approved
+    mechanism was one edit away from being written up as a bug. CHECK THE LAWS
+    BEFORE CALLING A MECHANISM A DEFECT.
+  3 THE KNEE ANGLE DOES NOT PREDICT HIS VERDICTS. duck, cower and take-cover bend
+    0 degrees and are all THUMBS UP; floor-rise bends 14.7 and was killed. The
+    elbow rule earned its place by agreeing with his kills 11 of 11. This agrees
+    with nothing, so it is not the defect. Do not chase it.
 
-=== ROUND TWO: THE CAUSE OF ALL TEN, IN THE RIG
-crouch-aim-1h facing E, two consecutive frames: the shoulder moved 1 pixel, the
-hand 2.2, THE ELBOW 31 -- [49,48] to [74,29], one side of the body to the other,
-on an arm whose whole reach is 32. solveIK takes a = atan2(target - shoulder) and
-puts the elbow at a + off on a 16-pixel radius, and this clip holds the hand ONE
-PIXEL from the shoulder. Frame 14 that vector is (0,+1), frame 15 it is (0,-1):
-`a` flips 180 degrees and the elbow swings the diameter of the arm. The pose did
-not change. The rounding did.
-  9/11 the elbow SIDE was a knife-edge height comparison
-  9/12 the coat's HIP was one scanline a swinging arm kept covering
-  9/13 the elbow ANGLE is a vector one pixel long
-Same shape three times. Watch for a fourth.
-FIX: below a quarter of the arm's own reach the direction blends toward the REST
-arm's direction -- what a folding arm really does, the elbow stays where the upper
-arm points instead of orbiting the shoulder. At the threshold the blend IS the
-target's direction, so nothing above a quarter reach moves by a pixel.
-crouch-aim-1h 31.4px -> 3.2px, crouch-aim-2h 27px -> 4px.
+AND THE LAST FOUR SNAPS ARE THE CLIP, NOT THE JOINT. Widening the one-pixel blend
+to 0.4 of the reach and easing the ramp measured WORSE (13.0px, crouch-aim-1h 2 ->
+4) and was reverted. Then looked at, which settled it: on crouch-aim-2h facing NW
+the arm hangs down at k2 and is out horizontal at k3 -- the clip's own key-to-key
+motion with nothing in between. The ratio ruler at 12px is measuring the animation
+now, not a fault. Stop when the ruler starts reading the work instead of the fault.
 
-TWO RULERS WERE WRONG AND THE FIX EXPOSED BOTH. This is the part to carry forward.
-  1 JOINT SNAP's floor was 4px. When the fix took the worst frame from 31.4 to
-    3.2, THE GATE REPORTED MORE SNAPPING CLIPS, NOT FEWER -- where the hand is
-    parked on the shoulder the ratio's denominator sits at its 0.5 guard and a
-    smooth 4px move scores 8x. A ruler that gets worse when the thing it measures
-    gets better is measuring the wrong thing. Floor is 8px now, half the upper
-    arm, and the three builds separate monotonically:
-        before any rig fix   11 clips  60x  36.0px
-        after the elbow rule  7 clips  14x  31.4px
-        after this fix        4 clips 4.1x  12.6px
-  2 ELBOW ONE WAY went 7 -> 9 flips and looked like my regression. It is not.
-    sideOf is the cross product against the SHOULDER-TO-HAND vector, the same
-    one-pixel vector: it called the 31.4px jump CLEAN and the 3.2px repair A FLIP.
-    Backwards. The guard was already half-written -- "a near-straight arm has no
-    meaningful side" -- and a FOLDED arm has none either. The hand must sit >4px
-    from the shoulder before its side counts. The guard skips 267 of 42,000
-    arm-frames (0.64%, ceiling 2%) and that share is a claim of its own, so it can
-    never swallow the measurement. Flips are back to the same 7 (cover-rise 3,
-    cover-drop 3, bat-arc 1) the 9/11 record already named as real sweeps.
+GATE: gates/you_killed_this_gate.js, in the suite as YOU KILLED THIS. Ten claims.
+THE LIST IS READ FROM HIS OWN PASTE (records/BOHEMIA_CLIP_VERDICTS_9_7_26.txt) and
+not copied into the gate, so the panel can never drift from what he said. Holds the
+CONTROL that not one of the 56 he KEPT gets a line, and the row-height ceiling the
+9/5 record paid for once (a wrapping note took a row to 200px and put four clips on
+a phone screen instead of ten). 3 mutations caught, including that one reproduced
+exactly at 189px.
+(The first cut of the parser read his line "CANDIDATES THUMBS DOWN (18) -- HIS
+AMENDMENT BELOW: NOT DELETED, REDONE: stagger-hit..." by stopping at the FIRST
+colon and counted his amendment as two clip names. The LAST colon is the one that
+matters.)
 
-GATES: JOINT SNAP 6/0 (new absolute ceiling: no joint crosses 15px in one frame
-while its limb stands still, against 36 before; 4 mutations caught including the
-blend threshold zeroed, which reproduces the pre-fix numbers exactly and is the
-proof the blend is what did it). ELBOW ONE WAY 10/0. NEAR HAND 6/0.
-Record: records/BOHEMIA_A_ONE_PIXEL_VECTOR_HAS_NO_DIRECTION_9_13_26.md
+REAL SURFACE, phone width: 47 rows, 47 repair lines, tallest row 88px, no page
+errors.
 
-PRE-PUSH PASS (rule 13): the 53 gates that draw a body. 44 green, 9 red. SIX are
-the standing set, each verified red on a clean checkout this round: MOTION
-VISIBLE, RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST. TWO MORE
-ARE FRESHNESS AND NOT MINE, both red on the alpha before my change: FACE THUMB
-(the face bank is 25h behind the alpha; rebake with
-tools/bohemia_face_candidates.js -- CHARACTER/COOK) and DRESS (317 banked against
-318 canon, MISSING: TEAL WORK PANTS -- whoever added that garment). The ninth was
-ELBOW ONE WAY, handled above.
+PRE-PUSH PASS (rule 13a), all green: YOU KILLED THIS, JOINT SNAP, ELBOW ONE WAY,
+NEAR HAND, ALPHA LOADS, JUDGE LIST MOVES, CLIP AUDIT, JUDGE SURFACE, THE THUMB,
+NAME THE TAB, GATE REGISTRY, NO MARKERS, SUITE HONESTY, COAT ON LEGS.
+(NAME THE TAB is a PYTHON gate -- gates/name_the_tab_gate.py. My pre-push script
+called it with node and reported a false red. Check the extension in the registry.)
 FULL SUITE: no SUITE LINE on the front page yet; PLUMBER [suite line] owns it.
 
-WHAT IS LEFT OF THE ROW. Four clips still snap and all small: crouch-aim-2h 4,
-crouch-aim-1h 2, spear-drive 2, shiv-jab 1, worst 12.6px. Those are pose problems,
-not rig problems. And the crouch-aims have a second one no joint fix can touch:
-NEITHER OF THEM CROUCHES IN PROFILE. They stand. That is the clip content, and it
-is the rest of [redo killed] along with the 37 that are clean and just need to go
-back in front of him, and the two headshots which carry HIS OWN LOCKED SPEC
-(laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md section 9, four
-beats, verbatim) and get redone to that text regardless.
-ALSO STILL OPEN, not draw order: on NE in his own frame
-(records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg) the head sits up and to
-the right of the shoulders with a visible gap. That is the pose too.
+WHAT IS LEFT OF THE ROW. The 47 are repaired and visible, so the next step is HIS:
+he re-judges them in JUDGE ALL. Still outstanding in this lane's own hands:
+  - the two headshots carry HIS OWN LOCKED SPEC
+    (laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md section 9, four
+    beats, verbatim) and get redone to that text regardless of any measurement;
+  - the pose defect no draw order can touch: on NE in his own frame
+    (records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg) the head sits up and
+    to the right of the shoulders with a visible gap;
+  - clips whose keys are too far apart to read as motion (crouch-aim-2h NW k2 to
+    k3 is arm-down to arm-out in one frame). That is POSEHOLD key density, and it
+    is the next real piece of clip work.
 
 Nothing [PENDING Paolo].
 UI (ui-kmqmrf): 9/11 LATEST -- *** [phone object] SHIPPED. THE FEED IS A PHONE YOU CAN SEE. ***
