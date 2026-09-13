@@ -96,7 +96,7 @@
 # THE HARD LIMIT, IN THE FICTION. He does not know, and nothing in this quest
 # can buy the answer, because the answer is canon nobody has ruled.
 @TALK what  speaker=kin
-  @SAY Dubai. That is the whole of it. He said the word and he said not yet and then he was going to bed. #tired
+  @SAY Dubai. That is all of it. He said the word and he said not yet and then he was going to bed. #tired
   @SAY There is a box in his room with a lock on it he never explained either. It is yours now, he wrote that down years ago.
   @OPT "Show me where he fell."     [gate: none]  -> where
   @OPT (say nothing)                [gate: none]  SILENCE -> where

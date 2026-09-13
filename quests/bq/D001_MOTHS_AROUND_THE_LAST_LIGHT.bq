@@ -132,7 +132,7 @@
 @END
 
 @TALK cells  speaker=keeper
-  @SAY Couple of nights left in them, maybe. After that it is just me and the dark out here. #tired
+  @SAY Couple of nights left in them, maybe. After that it is just me and the dark. #tired
   @DO set_flag sat_with_him
   @DO learn the_hum_went_thin
   @OPT "I can fix those."            [gate: none]  -> fix

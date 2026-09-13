@@ -92,7 +92,7 @@
 
 @TALK how  speaker=keeper
   @SAY I do not, not the way you mean. I know what my own pipe does and I know it did not do this last summer. #tired
-  @SAY That is the whole of what I have. Which is why I am asking you to go instead of arguing with me.
+  @SAY That is everything I have. Which is why I am asking you to go instead of arguing with me.
   @OPT "Then I'll go."              [gate: none]  -> walk
   @OPT "Say they are. Then what?"   [gate: none]  -> then
 @END

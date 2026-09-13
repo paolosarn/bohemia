@@ -12661,6 +12661,54 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 34 [five hits] FIVE-BANNED-PHRASES-IN-QUEST-TEXT, SHIPPED. QUESTS, BUILD.
+  quests/bq/A01, A02, A06, D001, M04   five lines, WORDS' own rewrites
+  slices/BOHEMIA_ALPHA_0_9.html        the baked copy, same five
+  slices/BOHEMIA_CITY_WORLD.html       the played copy, the four it carries
+  NO DEMO RE-CUT. Rule 14(a): only THE RUN cuts the demo.
+  TAB: RUN and WORDS (the lines are spoken in the quests themselves).
+
+*** THE TYPING WAS NOT THE JOB. THE THIRD COPY WAS. *** Every quest in this repo
+exists in THREE places -- quests/bq (the source), the alpha's BOHEMIA_QUESTS (what
+the workshop plays) and the city's DEMO_BQ (what the walked city plays). Fixing
+only the source leaves the player reading the old words, and MEASURED: all five
+old lines were still standing in all three copies after the source was clean.
+Fixed in the two this lane may ship to; the third is the demo and it is RUN's.
+This is the same three-copies trap that bit this lane in round 26, and the only
+reason it did not bite again is that it was checked instead of assumed.
+
+THE FIVE, each with the rule it tripped (WORDS named them, WORDS wrote the fixes,
+and the words are their craft so their wording was used, not mine):
+  A01  "that is the whole"        -> "That is everything I have."
+  A02  "that is the whole"        -> "Dubai. That is all of it."
+  A06  the "not an X, it is a Y"  -> "I am not calling that an excuse. It is the reason."
+  D001 "out here" as a closer     -> "After that it is just me and the dark."
+  M04  "that is the whole"        -> "...the people on it. That is the list."
+
+M04 IS NOT IN THE CITY and that is correct, not a miss: the city's DEMO_BQ does
+not carry it (measured, city=0 for M04 while alpha=1 and demo=1).
+
+THE DEMO CHECK IS RED ON CLEAN MAIN AND THAT IS RULE 14 WORKING, NOT A DEFECT.
+demo_build_gate is 24/1 on origin/main with none of my changes, because every
+lane now ships to the alpha and the demo lags until RUN cuts it. Verified on a
+clean worktree BEFORE touching anything, so this round joins an expected gap
+rather than creating one. Naming it is the point; a lane that quietly leaves a
+red for somebody else to find is the problem this repo keeps paying for.
+
+*** AND A MISS OF THIS LANE'S, RECORDED BECAUSE ANOTHER LANE HAD TO FIND IT. ***
+PEOPLE shipped b39c33cb: the first card of the game had NO WAY TO SAY YES. It
+showed the job, what it pays, how far the walk is, and THREE WAYS TO ARGUE THE
+TERMS -- and those three are this lane's haggle, from [haggling works]. Accepting
+ran through exactly one door, a postMessage from the phone, so a player who never
+found the phone could argue a price for a job he could not take.
+I did not break the accept path; it was never on the card. WHAT I DID WAS SHIP A
+HAGGLE ONTO A CARD THAT COULD NOT COMPLETE THE ACTION, prove the haggle worked in
+12,837 states, and never once ask whether the screen it lives on can finish the
+job. GATING A MECHANISM IS NOT WALKING THE SCREEN IT SITS ON. Checked this round:
+ask for more 43/0 and their gate 22/0 run green together, so there is no
+integration bug between us, and their fix correctly keeps no yes on a withdrawn
+offer, which is __ASK_FOR_MORE__'s whole cost.
+
 ROUND 33 [bond outlives] NAMING-SOMEBODY-FOR-GOOD, SHIPPED. QUESTS, BUILD.
   engine/bohemia_kept.js           the casting a bond was earned against, kept for good
   slices/BOHEMIA_CITY_WORLD.html   inlined, kept at the ending, merged into the company snapshot

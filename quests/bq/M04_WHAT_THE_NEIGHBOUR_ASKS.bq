@@ -84,7 +84,7 @@
 # =====================================================================
 @TALK ask  speaker=neighbour  entry=stage>=10
   @SAY I am sorry about your sibling. I am. And I am here about something else, and I am not going to pretend otherwise. #tired
-  @SAY There is nobody coming. Not this year and not next year. There is this block and the people on it and that is the whole list.
+  @SAY There is nobody coming. Not this year and not next year. There is this block and the people on it. That is the list.
   @SAY So I want to put something together. Us, the houses either side, the ones down by the wash. Something with a shape to it.
   @OPT "Something like what?"          [gate: none]  -> what
   @OPT "Who else has said yes?"        [gate: none]  -> who

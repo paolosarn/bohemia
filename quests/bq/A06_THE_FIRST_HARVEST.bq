@@ -108,7 +108,7 @@
 @TALK store  speaker=hand  entry=stage>=20
   @SAY You are counting. #dread
   @SAY Then you already know it is short and you already know by how much, so I am not going to stand here and do the other thing.
-  @SAY My family eats what I carry out of here. That is not an excuse, it is just the reason.
+  @SAY My family eats what I carry out of here. I am not calling that an excuse. It is the reason.
   @OPT "Put it back and we're done." [gate: none]  -> back
   @OPT "The block is going to hear this." [gate: none]  -> loud
   @OPT "Then the door gets a lock."  [gate: none]  -> lock
