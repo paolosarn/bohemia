@@ -20792,10 +20792,43 @@ NOT MINE, BASELINED THE SAME WAY: enter_zoom_gate reads 12/1 WITH AND WITHOUT V2
 somebody else's change or its own flake; it read 13/0 earlier the same round. combat_lab's other
 three reds are the long-standing city-art arms.
 
-QUEUE STATE: [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+*** [prefight save] BB-SAVE-BEFORE-THE-BELL -- A SAVE EXISTS AT THE BELL. V215. SHIPPED. ***
+THE ROW: "THE GAME HE NAMED AUTOSAVES BEFORE EVERY BATTLE. OURS IS COVERED BY ACCIDENT." Ship test
+in its own words: "a save exists at the bell WHETHER OR NOT THE FRAME BLURS."
+MEASURED TWICE BEFORE A LINE WAS WRITTEN, AND IT IS WORSE THAN THE ROW THOUGHT.
+  statically   flushState has FOUR callers in the whole walked city and all four are lifecycle
+               events -- pagehide, freeze, blur, visibilitychange. Nothing at the bell. Exactly
+               what the row said.
+  on the glass driving a fight through the shipped door and counting the save traffic that really
+               reaches the shell: 0 SAVES AND 0 BLURS, at 1.5s and again at 5.5s. The accidental
+               protection the row calls "probably saved" DID NOT FIRE ONCE, because the frame never
+               blurred.
+Stated honestly: a headless browser may not deliver blur the way a phone does, so this is NOT proof
+every player loses the moment -- IT IS PROOF THE PROTECTION DEPENDS ON AN EVENT NOBODY PROMISED,
+which is the row's whole argument and why it becomes one line of code instead of a debate.
+BUILT: one call at THE ONE DOOR, cityHandOver, beside the world stamp V207 put there and the plate
+stamp V211 put there -- the fourth thing to reuse that seam, so an entry built later is protected
+without knowing this exists. THE ORDER IS THE RIGHT WAY ROUND: the snapshot goes out BEFORE the
+encounter and postMessage is ordered, so what gets written is THE WORLD AS IT STOOD BEFORE THE
+FIGHT. It is the SAME snapshot the debounced path writes, not a second save format -- the file
+learned that one already, its own note says the emergency path used to carry a hand-copied literal
+two fields behind that "silently dropped the purse and the market". And flushState is idempotent by
+its own design, so a bell that ALSO blurs just saves twice, free and correct.
+gates/save_before_the_bell_gate.js 8/0, registered as SAVE BEFORE THE BELL. IT COUNTS REAL SAVE
+TRAFFIC rather than a function call (the shell's own bohemiaCityState messages, which is what
+CITYSAVE.save runs on) AND COUNTS BLURS ALONGSIDE, because a save that only happens when something
+blurs is the bug and not the fix. After: a save at the bell with ZERO blurs, on the wire in the
+order SAVE then ENCOUNTER, on the first bell and a second one.
+Mutation-proved two ways: the bell stops saving -> 4 red; the save lands after the encounter -> 1
+red on exactly the ordering arm.
+NOTHING ELSE MOVED: no new save format, no new key, no new timer, no change to what a snapshot
+contains, nothing about the fight. THE DEMO WAS NOT RE-CUT (rule 14a).
+Record: records/BOHEMIA_COMBAT_A_SAVE_EXISTS_AT_THE_BELL_9_14_26.md
+
+QUEUE STATE: [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
-THIS SECTION IS [prefight save] BB-SAVE-BEFORE-THE-BELL, but rule 14 may put another of his breaks
-first: re-read the front page before claiming.
+THIS SECTION IS [armour morale] ARMOUR-AND-MORALE, but rule 14 may put another of his breaks first:
+re-read the front page before claiming.
 
 *** AND THE SECOND GATE PASS AFTER THE MERGE FOUND A COIN FLIP IN THIS LANE'S OWN GATE. PICK THIS
 UP FIRST NEXT ROUND, BEFORE [plates cost]. *** combat_entry_gate read 43/0 before the rebase onto

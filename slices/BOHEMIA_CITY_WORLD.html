@@ -51468,6 +51468,25 @@ function cityPlateNow(){
 }
 /* ===== /V211 __PLATE_COSTS_TAPE__ ===== */
 function cityHandOver(msg, skin){
+  /* ===== V215 __SAVE_BEFORE_THE_BELL__ -- A SAVE EXISTS AT THE BELL ==========
+     BB-SAVE-BEFORE-THE-BELL. The game he named autosaves before EVERY battle, on
+     purpose. Ours was covered by accident: CITYSAVE.save only fires when the city
+     posts state, nothing fired it when combat opened, and the protection came from
+     the frame happening to blur.
+     MEASURED ON THE REAL SURFACE before this line existed, counting the save traffic
+     that actually reaches the shell while a fight opened through this very door:
+     ZERO SAVES AND ZERO BLURS, at 1.5 seconds and again at 5.5. The accidental
+     protection did not fire at all. A protection nobody wrote down is one nobody is
+     maintaining, and it disappears the first time the frame stops blurring.
+     HERE, AT THE ONE DOOR, because V205 routed all four ways into a fight through
+     this function and V207 and V211 already stamp the world and the plate here -- so
+     an entry built after this one is protected without knowing this exists.
+     BEFORE the encounter goes out, never after: postMessage from one window is
+     ordered, so the world AS IT STOOD BEFORE THE FIGHT is what gets written. It is
+     the same snapshot the debounced path writes, and flushState is idempotent by its
+     own design, so a bell that also blurs simply saves twice and that is free. */
+  try{ if(typeof flushState==='function') flushState(); }catch(_e){}
+  /* ===== /V215 __SAVE_BEFORE_THE_BELL__ ===== */
   /* V207 __FIGHT_KNOWS_DAY__: THE WORLD IS STAMPED ON EVERY ENTRY, IN ONE PLACE.
      All four ways into a fight already come through this door (V205), so the
      hour, the weather and the shade ride with a street bump, a crew, a road

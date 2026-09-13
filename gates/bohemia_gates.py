@@ -2547,6 +2547,22 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('SAVE BEFORE THE BELL', ['node', 'gates/save_before_the_bell_gate.js'],
+     'A SAVE EXISTS AT THE BELL (VAMILY [prefight save] = BB-SAVE-BEFORE-THE-BELL, COMBAT 9/14). The row: '
+     '"THE GAME HE NAMED AUTOSAVES BEFORE EVERY BATTLE. OURS IS COVERED BY ACCIDENT" -- in Battle Brothers the '
+     'fight is the moment worth protecting and it is protected ON PURPOSE, while here CITYSAVE.save only fires '
+     'when the city posts state and nothing fired it when combat opened; the protection came from the frame '
+     'happening to blur. MEASURED BEFORE THE FIX, counting the save traffic that actually reaches the shell '
+     'while a fight opened through the shipped door: ZERO SAVES AND ZERO BLURS at 1.5s and again at 5.5s -- '
+     'the accidental protection did not fire even once, which is worse than the row assumed. Statically, '
+     'flushState had FOUR callers and all four were lifecycle events (pagehide, freeze, blur, '
+     'visibilitychange). THE FIX IS ONE CALL AT THE ONE DOOR, beside the world stamp V207 put there and the '
+     'plate stamp V211 put there, so an entry built later is protected without knowing it exists. This gate '
+     'counts REAL save traffic rather than a function call, and counts BLURS alongside because "whether or '
+     'not the frame blurs" is the row\'s own ship test. Also held: the save goes out BEFORE the encounter '
+     '(postMessage is ordered, so what is written is the world as it stood before the fight), it is the SAME '
+     'snapshot the debounced path writes rather than a second save format, and every bell saves not just the '
+     'first. Mutation-proved two ways: the bell stops saving 4 red, the save lands late 1 red', True),
     ('FIRST FIGHT', ['node', 'gates/first_fight_gate.js'],
      'A REAL FIGHT INSIDE THE FIRST FIVE MINUTES (VAMILY [first fight], COMBAT 9/13, rule 14 THE FIVE '
      'MINUTES). *** PAOLO 9/13: "I have not experienced any combat yet... it says a car is gonna pull up on '
