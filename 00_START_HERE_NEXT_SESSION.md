@@ -20917,6 +20917,25 @@ FAILURES named in the record: topping up to six manufactured breadth; every lane
 the demo made it nobody's whole; two LOCKED rulings sat a week in queues; I reported commit
 counts as progress. (Coordinator blocks (dv)/(dw) are restored here if a lane's rebase
 dropped them; this is the second time.)
+THEN (dy) VAMILY, 11 commits (only four lanes ran). FACTIONS [who follows] SHIPPED (46 can
+come, 0 would follow on day one, ties are facts never a score; and [down not dead] now
+covers your company); it re-cut the demo twice AFTER rule 14 landed mid-round, noted, not
+punished. LIFE+CITY claimed [freeway reads]; its [tiles not slabs] r1 found the city already
+draws ~9,000 tile images and the 1.7% fallthrough is airbase/airport/estate/gated tiles the
+bank lacks (note on COOK [city from above]). PEOPLE held [lock them] under 14b and named THE
+TRAP: the DEMO BUILD gate's 'regenerating changes nothing' leg goes red for every non-RUN
+ship and the obvious fix is the forbidden re-cut -> RULE 14f (that leg quarantined, nobody
+re-cuts) and RUN [demo pinned] second line (the demo carries the sha it was cut from).
+MY OWN THING: I DROVE THE DEMO MYSELF at phone size, served (file:// throws 13 fetch errors
+a phone never sees): records/BOHEMIA_COORDINATOR_THE_FIVE_MINUTES_I_SAW_9_13_26.md, six frames in records/target/COORDINATOR_FIVE_MINUTES_9_13_*.
+ZERO page errors. The street at walk zoom is a stack of flat bands (head-on brick wall,
+beige, kerb strip, asphalt) with no ground plane; the zoomed-out view already reads as a
+city; thirteen controls before one step; the first card is an 8.5-hour round trip for one
+battery with three haggle buttons; text under the gear, a card on the rail, an orange bar
+down the street edge, a bubble with no speaker; no fight, no car; four cats. Written to the
+front page as THE COORDINATOR'S BREAK LIST (premises) and as premise notes on [streets
+read], [streets fixed], [freeway reads], [no tabs], [dead cards], [demo errors], [first
+fight], [every card], [first ask].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
