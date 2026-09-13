@@ -23,14 +23,38 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
     if(!/ERR_CONNECTION|clipboard-write|Failed to load resource/.test(t)) errs.push('CONSOLE '+t); }});
   const path=require('path');
   const TARGET=path.resolve(process.argv[2]||'slices/BOHEMIA_ALPHA_0_9.html');
-  await p.goto('file://'+TARGET,{waitUntil:'load',timeout:120000});
+  /* *** SERVED, BECAUSE file:// IS A BUILD NO PLAYER GETS. *** This opened the
+     alpha off disk and reported a wall of console errors that nothing on the real
+     site ever produces:
+         Fetch API cannot load .../BOHEMIA_CITY_TILES_03.js.
+         URL scheme "file" is not supported.
+     The city streams its tile banks with fetch(), and fetch REFUSES the file://
+     scheme outright -- so the page was never broken, the harness was standing in
+     the one place a browser will not let it work. This lane measured and wrote
+     that law down on 9/5 after the demo's whole safety layer turned out to
+     silently no-op off disk. Same fix as the ending gate: a tiny static server
+     over the repo root, so every relative path resolves exactly as in production. */
+  const http=require('http'), fs=require('fs');
+  const ROOT=path.resolve(__dirname,'..');
+  const TYPE={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png',
+              '.json':'application/json','.webmanifest':'application/manifest+json',
+              '.txt':'text/plain','.bq':'text/plain'};
+  const srv=await new Promise(res=>{ const s=http.createServer((rq,rs)=>{
+      const rel=decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/,'');
+      const f=path.join(ROOT,rel);
+      if(f.indexOf(ROOT)!==0||!fs.existsSync(f)||fs.statSync(f).isDirectory()){rs.statusCode=404;return rs.end('no');}
+      rs.setHeader('content-type',TYPE[path.extname(f)]||'application/octet-stream');
+      fs.createReadStream(f).pipe(rs);
+    }); s.listen(0,'127.0.0.1',()=>res(s)); });
+  const REL=path.relative(ROOT,TARGET).split(path.sep).join('/');
+  await p.goto('http://127.0.0.1:'+srv.address().port+'/'+REL,{waitUntil:'load',timeout:180000});
   await SETTLE(p, 9000);
   await p.mouse.click(215,450); await SETTLE(p, 2500);
   await p.mouse.click(215,450); await SETTLE(p, 2500);
   await p.evaluate(()=>{const t=document.querySelector('[data-p="combat"]');if(!t) throw new Error('that tab is not in the bar'); t.click();});
   await SETTLE(p, 7000);
   const f=p.frames().find(x=>x.name()==='combatFrame');
-  if(!f){ console.log(JSON.stringify({ok:false,why:'no combatFrame',errs})); await b.close(); return; }
+  if(!f){ console.log(JSON.stringify({ok:false,why:'no combatFrame',errs})); await b.close(); try{srv.close();}catch(_e){} return; }
   const box=await (await p.$('#p-combat')).boundingBox();
   await p.mouse.click(box.x+box.width/2,box.y+box.height/2);
   await SETTLE(p, 5000);
@@ -52,7 +76,7 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
     return O;
   });
   R.errs=errs; R.ok=errs.length===0;
-  await b.close();
+  await b.close(); try{srv.close();}catch(_e){}
   const uniq=[...new Set(errs.map(e=>e.split('\n')[0]))];
   if(errs.length){
     console.log('=== COMBAT RUNS SMOKE: FAILED ===');
