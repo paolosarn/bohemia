@@ -27146,7 +27146,23 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): [judge the swaps] SHIPPED - PASS both. Trades
+ROUND LOG 9/13 (latest): [streets read] SHIPPED under rule 14 - HE IS
+RIGHT, verdict FAIL with five liars named in coverage order, frames on
+the demo at phone size: the tan void (below the density floor), the
+roadbed with no kerb/lanes/double-yellow, the sidewalk reading as a
+garden path, the wall with no feet, and the freeway wearing a bridge's
+anatomy (pale deck, transverse joints, pier pattern) where the real
+thing is darker than its surroundings - the same polarity inversion as
+the aerial. Fix list to COOK, layering to LIFE+CITY; re-judge on the
+demo when they land. ALSO THIS ROUND: the style card gate went red
+mid-round and it was RIGHT twice - a stale bank (regenerated), then the
+share ratchet punishing COOK's LEGAL teal accent; the ruler was the
+wrong thing and the ruler got fixed (5B in the card): register never
+shrinks (132), muddy never grows - and muddy clicked DOWN 174 -> 121
+because quiet retints had landed. That 121 also means [judge the old]/
+[ratchet sixty]'s blocker is PARTIALLY moving - check the retint
+progress next round.
+PREVIOUS: [judge the swaps] SHIPPED - PASS both. Trades
 wears his copper at last (the old shirt was named copper and rendered
 green); the Mob's gold pinstripe now stands alone against charcoal and
 reads as ownership. Judged on the thirteen-outfits board (the street's
