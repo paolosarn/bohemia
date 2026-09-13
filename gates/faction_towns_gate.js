@@ -1379,5 +1379,260 @@ const done = () => {
     }
   }
 
+  /* *** THE DEMO, DRIVEN, FOR [who follows]. ***
+     This one runs on the DEMO and not the workshop on purpose: witnesses come off
+     BARK_DREW, who was really on the glass, and peoplePass draws NOBODY until the
+     player's own body has loaded. In a headless workshop load it never does, so
+     `render(); BARK_DREW.length` is 0 there and every witness claim would pass
+     for the wrong reason. The demo goes through the front splash, which is where
+     the body arrives. Measured both ways before this was written. */
+  let FOLLOW = null;
+  try {
+    const b5 = await chromium.launch({ args: ['--no-sandbox'] });
+    try {
+      const p5 = await b5.newPage({ viewport: { width: 390, height: 844 } });
+      const e5 = []; p5.on('pageerror', e => e5.push(e.message));
+      await p5.route(/^https?:/, r => r.abort());
+      await p5.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_DEMO.html'),
+                    { waitUntil: 'load', timeout: 180000 });
+      await SETTLE(p5, 15000);
+      await p5.evaluate(() => { const f = document.getElementById('fronttap')
+        || document.getElementById('front'); if (f) f.click(); });
+      await SETTLE(p5, 15000);
+      const fr5 = p5.frames().filter(x => /BOHEMIA_CITY_WORLD/.test(x.url()))[0];
+      if (fr5) {
+        await fr5.evaluate(() => { for (let q = 0; q < 8; q++) {
+          const gb = document.querySelector('#daycardIn .dcgo'); if (gb) gb.click(); }
+          try { cardHide(); } catch (e) {} });
+        FOLLOW = await fr5.evaluate(async () => {
+          const R = {}; MODE = 'human';
+          const j0 = ctJoinersHere(), f0 = ctFollowersHere(5);
+          R.crowd = j0.total; R.here = j0.here;
+          R.dayOneFollow = f0.total; R.dayOneSay = f0.say; R.dayOneNobody = f0.nobody;
+          /* A REAL DEED THROUGH THE REAL WITNESS PASS */
+          ctDialApply({ 'favour': 5 }, false);
+          render(); await new Promise(r => setTimeout(r, 300));
+          R.drawn = BARK_DREW.length;
+          R.deedN = ctDeed('favour', CT_DEED_CLOUT['favour'], null);
+          render(); await new Promise(r => setTimeout(r, 300));
+          const f1 = ctFollowersHere(5);
+          R.afterSeen = f1.total;
+          R.afterSeenWhy = f1.crew.length ? f1.crew[0].why.join('+') : null;
+          R.afterSeenHasSeen = !!(f1.crew.length && f1.crew[0].why.indexOf('seen') >= 0);
+          /* THE COMPANY CAN NAME SOMEBODY NOW */
+          R.witnesses = (ctCompanySnapshot().witnesses || []).length;
+          const ys = ctYours() || [];
+          R.yours = ys.length; R.yoursFrom = ys.length ? ys[0].from : null;
+          /* AND THE DOWN STATE HAS SOMEBODY TO PROTECT */
+          R.downBefore = ctDownMine().length;
+          if (ys.length) {
+            R.fell = !!ctFall(ys[0].who);
+            const dm = ctDownMine();
+            R.downAfter = dm.length;
+            R.downRel = dm.length ? dm[dm.length - 1].rel : null;
+            R.downName = dm.length ? ctDownName(dm[dm.length - 1]) : null;
+            R.downSay = dm.length ? ctDownSay(dm[dm.length - 1].id) : null;
+            showStanding();
+            R.card = (document.getElementById('daycardIn') || {}).textContent || '';
+            try { cardHide(); } catch (e) {}
+            const d0 = T.day; T.day = d0 + 400;
+            R.stillDownIn400Days = ctIsDown(ys[0].who);
+            T.day = d0;
+            const f2 = ctFollowersHere(6);
+            R.mineLeads = !!(f2.crew.length && f2.crew[0].mine);
+          }
+          /* CLIMBING AN OUTFIT'S LADDER GIVES ITS PEOPLE A REASON */
+          const beforeL = ctFollowersHere().total;
+          for (let d = 1; d <= 3; d++) BohemiaBelonging.record(ctBelongSave(), 'Church', d);
+          R.rungIdx = ctRungIndex('Church');
+          R.afterLadder = ctFollowersHere().total;
+          R.beforeLadder = beforeL;
+          /* A DEBT WITH AN OUTFIT IS A TIE THE READING CAN SEE */
+          R.owedBefore = ctOwedWith('Church');
+          try { BohemiaLend.take(LOAN_BOOK, 'Church', DAY.day); } catch (e) {}
+          R.owedAfter = ctOwedWith('Church');
+          return R;
+        });
+        FOLLOW.errs = e5.length;
+      }
+    } finally { await b5.close(); }
+  } catch (e) { FOLLOW = null; }
+
+  /* ==========================================================================
+     WHO WOULD FOLLOW YOU FROM THIS BLOCK  (9/13, row [who follows])
+     "on any block, the short list of people who would follow you today
+     (standing, their debt, who holds the ground), so the lock and the down state
+     finally have someone to protect."
+     ======================================================================== */
+  {
+    const _fs7 = require('fs');
+    const CITY7 = _fs7.readFileSync(CITY, 'utf8');
+    const cand = [{ who: 'a', kind: 'scav', faction: null },
+                  { who: 'b', kind: 'worker', faction: 'Church' },
+                  { who: 'c', kind: 'keeper', faction: 'Mob' },
+                  { who: 'd', kind: 'watch', faction: null }];
+
+    /* --- A FOLLOWER NEEDS A REASON --- */
+    const none = T.followersOn(cand, () => null);
+    ok('P1 *** AVAILABLE IS NOT WILLING. *** A candidate with no tie to you at all '
+       + 'is a face in a crowd, not somebody who would walk out of their own life '
+       + 'with you, so the crew is empty and the crowd is still counted',
+       none.total === 0 && none.crowd === cand.length && !!none.nobody);
+    ok('P2 and one real tie is enough, whichever of the three it is',
+       T.followersOn(cand, w => w === 'a' ? { seen: 1 } : null).total === 1
+       && T.followersOn(cand, w => w === 'b' ? { rungAt: 1 } : null).total === 1
+       && T.followersOn(cand, w => w === 'c' ? { owed: 1 } : null).total === 1);
+    ok('P3 a rung of ZERO is a stranger and is not a tie -- the ladder\'s bottom '
+       + 'rung means they have no reason to think about you',
+       T.followersOn(cand, () => ({ rungAt: 0 })).total === 0);
+    ok('P4 every follower carries the reason in words, and they are attempts',
+       (function () {
+         const r = T.followersOn(cand, () => ({ seen: 2 }));
+         return r.draft === true && r.crew.every(c => !!c.word && c.why.length > 0);
+       })());
+
+    /* --- THE ORDER IS HIS LADDER, NOT MY SCORE --- */
+    ok('P5 *** NOTHING IS MULTIPLIED AND NOTHING IS ADDED. *** The order is a sort '
+       + 'over facts in a stated order -- already yours, then how far in you are '
+       + 'with their outfit, then what they saw, then what stands between you -- '
+       + 'which is an ordering a player can be told out loud. A score would be a '
+       + 'number nobody ruled',
+       (function () {
+         const r = T.followersOn(cand, w => w === 'a' ? { owed: 9 } :
+                                            w === 'b' ? { rungAt: 1 } :
+                                            w === 'c' ? { seen: 9 } : { mine: true });
+         return r.crew.map(c => c.who).join('') === 'dbca';
+       })());
+    ok('P6 and the rung arrives as an INDEX into his ladder, so this file holds no '
+       + 'copy of it and re-cutting the rungs moves the order with them',
+       /rungAt/.test(String(T.followersOn)) && !/peripheral|stranger|counted/
+         .test(String(T.followersOn)));
+    ok('P7 somebody already yours always leads, because the question is who is with '
+       + 'you and they already are',
+       (function () {
+         const r = T.followersOn(cand, w => w === 'd' ? { mine: true } : { rungAt: 5 });
+         return r.crew[0].who === 'd' && r.crew[0].mine === true;
+       })());
+
+    /* --- NO LIST, AND NO INVENTED CAP --- */
+    ok('P8 nothing is stored: the same block asked twice gives the same answer and '
+       + 'no field is written on anybody',
+       JSON.stringify(T.followersOn(cand, () => ({ seen: 1 })))
+         === JSON.stringify(T.followersOn(cand, () => ({ seen: 1 })))
+       && cand.every(c => Object.keys(c).join(',') === 'who,kind,faction'));
+    ok('P9 the only cap is the caller\'s and it is a rendering bound, with the true '
+       + 'total and the whole crowd carried beside it',
+       (function () {
+         const r = T.followersOn(cand, () => ({ seen: 1 }), { cap: 2 });
+         return r.crew.length === 2 && r.total === 4 && r.crowd === 4;
+       })());
+    ok('P10 a bad call is an empty answer, never a throw',
+       T.followersOn(null, null, null).total === 0
+       && T.followersOn(cand, 'not a function').total === 0);
+
+    /* --- THE CITY ASKS THE RIGHT THINGS --- */
+    ok('P11 it reads the list [recruit anywhere] already builds, so a faction that '
+       + 'will not deal with you has emptied the block before anybody is ranked',
+       /ctJoinersHere\(\)/.test((CITY7.match(/function ctFollowersHere[\s\S]*?\n\}/) || [''])[0]));
+    ok('P12 the ladder and the debt are asked ONCE PER OUTFIT, not once per person: '
+       + 'sixty-one people on a block run with a handful of outfits',
+       /byFac\[f\] = \{ rungAt: ctRungIndex\(f\), owed: ctOwedWith\(f\) \}/.test(CITY7));
+    ok('P13 *** WHAT THEY SAW IS COUNTED, NEVER WEIGHED. *** None of the five deed '
+       + 'kinds this surface publishes has a weight yet, so a reading that asked '
+       + 'what a deed was WORTH would answer nothing for everybody. Eyewitness only: '
+       + 'hearing about you in a bar is not the same tie',
+       /function ctSeenMeCount/.test(CITY7) && /if \(!d\[i\]\.heard\) n\+\+/.test(CITY7));
+    ok('P14 *** BOTH DEBT LEDGERS IN THIS GAME ARE KEYED BY OUTFIT, NOT BY PERSON, '
+       + 'AND THE CODE SAYS SO RATHER THAN FAKING A PER-PERSON NUMBER ***',
+       /keyed by OUTFIT, not by\s+PERSON/.test(CITY7) || /keyed by outfit/i.test(CITY7));
+    ok('P15 and a missing dependency says so once instead of answering a confident '
+       + 'zero -- the first cut called ctOwingRows(), which does not exist, and a '
+       + 'bare catch turned that into "every outfit is square with you"',
+       /loanRows\(\) is missing/.test(CITY7)
+       && /typeof loanRows !== 'function'/.test(CITY7));
+
+    /* --- THE DOWN STATE HAS SOMEBODY TO PROTECT --- */
+    ok('P16 *** THE LAW WAS PROTECTING A LIST OF NOBODY. *** ctDownMine read the '
+       + 'family tree and nothing else, and the family tree is EMPTY on the first '
+       + 'morning. It reads your company too now, computed by the module that '
+       + 'refuses to keep a list, so anybody who becomes yours is covered with '
+       + 'nothing to edit',
+       /ctYours === 'function'/.test((CITY7.match(/function ctDownMine[\s\S]*?\n\}/) || [''])[0])
+       && /rel: 'company'/.test(CITY7));
+    ok('P17 both spellings of an id are asked, because COMBAT\'s downed-body row has '
+       + 'not shipped and which one it will hand over is not decided',
+       /P:city:/.test((CITY7.match(/function ctDownMine[\s\S]*?\n\}/) || [''])[0])
+       && /ctIsDown\(bare\)/.test(CITY7));
+    ok('P18 one naming body for both cards, so two surfaces cannot call the same '
+       + 'person two different things',
+       /function ctDownName/.test(CITY7)
+       && (CITY7.split('ctDownName(').length - 1) >= 3
+       && !/BohemiaFamily\.say\(_tt,_dwn/.test(CITY7));
+    ok('P19 and a stranger has no name to print, so it falls back to the trade the '
+       + 'world does know rather than inventing one',
+       /ctKindWord\(p\.archetype\)/.test(CITY7));
+    ok('P19b *** THE COMPANY USES TWO SPELLINGS OF AN ID AND BOTH ARE ASKED. *** A '
+       + 'member found through a BOND comes back as the cast\'s P:city: key and one '
+       + 'found through the DEED LEDGER as the raw owner id, so a single-spelling '
+       + 'lookup silently misses every witness. Only the real drive showed it',
+       /mine\[who\] \|\| mine\['P:city:' \+ who\]/.test(CITY7)
+       && /if \(String\(w\)\.indexOf\('P:city:'\) === 0\) mine\[String\(w\)\.slice\(7\)\] = 1;/.test(CITY7));
+
+    /* --- THE SEAM DEFECT THIS ROW FOUND IN A SHIPPED ONE --- */
+    ok('P20 *** THE COMPANY\'S WITNESS LEDGER COULD NEVER NAME ANYBODY. *** The '
+       + 'snapshot called becauseOf(minds, "@", "@"), and becauseOf skips every '
+       + 'mind whose OUTFIT is not the faction passed in -- nobody\'s outfit is '
+       + '"@" -- so one of the module\'s two naming ledgers returned empty every '
+       + 'time. It walks the minds directly now',
+       !/becauseOf\(minds,'@','@'/.test(CITY7)
+       && /THIS ASKED THE WRONG FUNCTION/.test(CITY7)
+       && /d\.actor!=='@'\|\|\(d\.hops\|\|0\)>0/.test(CITY7));
+
+    /* --- AND IT REALLY RUNS --- */
+    if (FOLLOW) {
+      ok('P21 *** ON THE FIRST MORNING ' + FOLLOW.crowd + ' OF ' + FOLLOW.here
+         + ' WOULD COME AND NOT ONE OF THEM WOULD FOLLOW. *** Nobody follows a '
+         + 'stranger, and a list that handed him names on day one would be lying '
+         + 'about the world',
+         FOLLOW.crowd > 0 && FOLLOW.dayOneFollow === 0 && !!FOLLOW.dayOneNobody);
+      ok('P22 *** SOMEBODY WATCHES YOU DO SOMETHING AND THEY HAVE A REASON: '
+         + FOLLOW.drawn + ' on the glass, ' + FOLLOW.deedN + ' saw it, crew '
+         + FOLLOW.dayOneFollow + ' -> ' + FOLLOW.afterSeen + ' (' + FOLLOW.afterSeenWhy + ') ***',
+      /* THE CLAIM IS THAT WATCHING YOU IS A REASON, NOT THAT IT IS THEIR ONLY
+         ONE. The first cut pinned why[0] === 'seen' and went red the moment the
+         two-spelling fix landed, because the same person is now correctly ALSO
+         recognised as already yours and `mine` leads the order by design. Which
+         reason leads is P5 and P7's claim; this one asks that `seen` is in it. */
+         FOLLOW.drawn > 0 && FOLLOW.deedN > 0 && FOLLOW.afterSeen > FOLLOW.dayOneFollow
+         && FOLLOW.afterSeenHasSeen === true);
+      ok('P23 *** AND THE COMPANY CAN NAME SOMEBODY FROM THE WALKED CITY AT LAST: '
+         + FOLLOW.witnesses + ' witness(es), ' + FOLLOW.yours + ' yours via '
+         + FOLLOW.yoursFrom + ' ***',
+         FOLLOW.witnesses > 0 && FOLLOW.yours > 0 && FOLLOW.yoursFrom === 'witness');
+      ok('P24 *** THE DOWN STATE FINALLY HAS SOMEBODY TO PROTECT: ' + FOLLOW.downBefore
+         + ' -> ' + FOLLOW.downAfter + ', "' + FOLLOW.downName + ' IS DOWN, '
+         + FOLLOW.downSay + '" ***',
+         FOLLOW.fell === true && FOLLOW.downBefore === 0 && FOLLOW.downAfter > 0
+         && FOLLOW.downRel === 'company' && !!FOLLOW.downSay);
+      ok('P25 and the card he opens really says it',
+         /IS DOWN/.test(FOLLOW.card) && /Nobody you keep is lost for good/.test(FOLLOW.card));
+      ok('P26 they come back, and it is the arithmetic rather than a promise: four '
+         + 'hundred days later they are healed',
+         FOLLOW.stillDownIn400Days === false);
+      ok('P27 somebody who is already yours leads the crew out there too',
+         FOLLOW.mineLeads === true);
+      ok('P28 *** CLIMBING AN OUTFIT\'S OWN LADDER GIVES ITS PEOPLE A REASON: rung '
+         + 'index ' + FOLLOW.rungIdx + ', crew ' + FOLLOW.beforeLadder + ' -> '
+         + FOLLOW.afterLadder + ' ***',
+         FOLLOW.rungIdx > 0 && FOLLOW.afterLadder > FOLLOW.beforeLadder);
+      ok('P29 and a debt with an outfit really reads (' + FOLLOW.owedBefore + ' -> '
+         + FOLLOW.owedAfter + '), through the loan book\'s own writer',
+         FOLLOW.owedBefore === 0 && FOLLOW.owedAfter > 0);
+      ok('P30 no page errors while any of that ran', FOLLOW.errs === 0);
+    } else {
+      ok('P21-30 the demo answered', false);
+    }
+  }
+
   done();
 })();

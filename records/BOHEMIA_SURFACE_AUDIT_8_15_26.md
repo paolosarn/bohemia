@@ -24,48 +24,48 @@ its own three rows.
 
 | | rows |
 |---|---|
-| ON THE WALKED SURFACE | **6** |
-| ONLY ON THE ONE HE NEVER SEES | **22** |
+| ON THE WALKED SURFACE | **22** |
+| ONLY ON THE ONE HE NEVER SEES | **7** |
 | ON NEITHER, BY ITS OWN EVIDENCE | **0** |
-| CANNOT TELL FROM ITS PROBE | **7** |
+| CANNOT TELL FROM ITS PROBE | **6** |
 
 ## EVERY ROW
 
 | system | status | probe | its evidence on the walked surface | row names its surface |
 |---|---|---|---|---|
-| character rig + painted regions | INTEGRATED | `cast_bridge` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |
-| wardrobe / clothing | INTEGRATED | `cast_bridge` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |
+| character rig + painted regions | INTEGRATED | `cast_bridge` | ON THE WALKED SURFACE (1/1) | **no** |
+| wardrobe / clothing | INTEGRATED | `cast_bridge` | ON THE WALKED SURFACE (1/1) | **no** |
 | face system | INTEGRATED | `portraits` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
 | walk cycle animation | INTEGRATED | `walk_frames` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
 | painter-sorted bodies | INTEGRATED | `body_sort` | ONLY ON THE ONE HE NEVER SEES (1/2) | **no** |
-| suburb block generator | INTEGRATED | `suburb_module` | ONLY ON THE ONE HE NEVER SEES (0/1) | **no** |
+| suburb block generator | INTEGRATED | `suburb_module` | ON THE WALKED SURFACE (1/1) | **no** |
 | house skins | INTEGRATED | `art_banks` | CANNOT TELL FROM ITS PROBE | **no** |
-| animated doors (2 tiles tall) | INTEGRATED | `door_anim` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |
+| animated doors (2 tiles tall) | INTEGRATED | `door_anim` | ON THE WALKED SURFACE (1/1) | **no** |
 | floorplan interiors | INTEGRATED | `floorplan_module` | ON THE WALKED SURFACE (1/1) | **no** |
 | interiors dressed (CITY's UP-only pool) | INTEGRATED | `interior_pool` | ONLY ON THE ONE HE NEVER SEES (0/5) | **no** |
-| neighbours (agents, homed + scheduled) | INTEGRATED | `agents_module` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
-| quest runtime + canon .bq | INTEGRATED | `quest_runtime` | CANNOT TELL FROM ITS PROBE | **no** |
-| clout / feed / followers | INTEGRATED | `clout_feed` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |
-| combat (Dead Eye Dial) | INTEGRATED | `combat_bridge` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
+| neighbours (agents, homed + scheduled) | INTEGRATED | `agents_module` | ON THE WALKED SURFACE (1/1) | **no** |
+| quest runtime + canon .bq | INTEGRATED | `quest_runtime` | ON THE WALKED SURFACE (1/1) | **no** |
+| clout / feed / followers | INTEGRATED | `clout_feed` | ON THE WALKED SURFACE (1/1) | **no** |
+| combat (Dead Eye Dial) | INTEGRATED | `combat_bridge` | ON THE WALKED SURFACE (1/1) | **no** |
 | factions / world bridge | INTEGRATED | `world_bridge` | ONLY ON THE ONE HE NEVER SEES (0/1) | **no** |
 | faction consequence on screen | INTEGRATED | `world_bridge_shown` | ON THE WALKED SURFACE (1/1) | **no** |
 | the sixteen introductions | INTEGRATED | `introductions_shown` | ON THE WALKED SURFACE (1/1) | yes |
 | the valley's people know each other | INTEGRATED | `ties_shown` | ON THE WALKED SURFACE (1/1) | yes |
 | what a faction wants from you | INTEGRATED | `belonging_shown` | ON THE WALKED SURFACE (1/1) | yes |
-| real valley / districts | INTEGRATED | `real_valley` | ONLY ON THE ONE HE NEVER SEES (0/6) | **no** |
+| real valley / districts | INTEGRATED | `real_valley` | ON THE WALKED SURFACE (1/1) | **no** |
 | the target screen's look (visual constitution) | INTEGRATED | `target_tiles` | ON THE WALKED SURFACE (1/1) | **no** |
-| district heroes + district art (21 types) | PARTIAL | `district_material` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |
-| music (faction pools, 120 BPM) | INTEGRATED | `music_bridge` | ONLY ON THE ONE HE NEVER SEES (0/1) | **no** |
+| district heroes + district art (21 types) | PARTIAL | `district_material` | ON THE WALKED SURFACE (1/1) | **no** |
+| music (faction pools, 120 BPM) | INTEGRATED | `music_bridge` | ON THE WALKED SURFACE (1/1) | **no** |
 | day cycle / light pass / LIGHT=TERRITORY | NOT YET | `—` | CANNOT TELL FROM ITS PROBE | **no** |
 | economy | NOT YET | `—` | CANNOT TELL FROM ITS PROBE | **no** |
 | dress-by-rank | NOT YET | `—` | CANNOT TELL FROM ITS PROBE | **no** |
 | vehicles | NOT YET | `—` | CANNOT TELL FROM ITS PROBE | **no** |
-| the sentence: one button, act, spend time, resolve | INTEGRATED | `resolver` | ONLY ON THE ONE HE NEVER SEES (0/8) | **no** |
-| walk feel, playable (lab's 3 options) | INTEGRATED | `walk_feel` | ONLY ON THE ONE HE NEVER SEES (0/4) | **no** |
-| save / load | INTEGRATED | `save_blob` | ONLY ON THE ONE HE NEVER SEES (0/8) | **no** |
-| death is a reload | INTEGRATED | `death_reload` | ONLY ON THE ONE HE NEVER SEES (0/1) | **no** |
+| the sentence: one button, act, spend time, resolve | INTEGRATED | `resolver` | ON THE WALKED SURFACE (1/1) | **no** |
+| walk feel, playable | INTEGRATED | `walk_feel` | ON THE WALKED SURFACE (1/1) | **no** |
+| save / load | INTEGRATED | `save_blob` | ON THE WALKED SURFACE (1/1) | **no** |
+| death is a reload | INTEGRATED | `death_reload` | ON THE WALKED SURFACE (1/1) | **no** |
 | the cooked perimeter wall (8/2, 11 designs approved) | INTEGRATED | `banks_used` | ONLY ON THE ONE HE NEVER SEES (0/4) | **no** |
-| music OFF really silences | INTEGRATED | `music_bridge` | ONLY ON THE ONE HE NEVER SEES (0/1) | **no** |
+| music OFF really silences | INTEGRATED | `music_bridge` | ON THE WALKED SURFACE (1/1) | **no** |
 | the d-pad is a control, not text | INTEGRATED | `touch_guard` | CANNOT TELL FROM ITS PROBE | **no** |
 | ONE VEGAS (run and city, same seed) | INTEGRATED | `one_seed` | ONLY ON THE ONE HE NEVER SEES (0/7) | **no** |
 

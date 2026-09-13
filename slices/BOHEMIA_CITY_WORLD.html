@@ -29624,12 +29624,125 @@ window.BOHEMIA_FACTION_COLOURS={"_":"MEASURED off the shipped wardrobe by tools/
     return out;
   }
 
+  /* ==========================================================================
+     WHO WOULD FOLLOW YOU FROM THIS BLOCK   ([who follows], 9/13/26)
+
+     [recruit anywhere] shipped who CAN come and measured it: 46 of the 61 people
+     on the block he wakes on. That is a crowd, not a crew, and the whole of this
+     row is the difference between them.
+
+     *** AVAILABLE IS NOT WILLING. A FOLLOWER NEEDS A REASON. ***
+
+     The row names the three the world is supposed to give: your standing, their
+     debt, and who holds the ground. Every one is a FACT this game already keeps,
+     and not one of them is a score:
+
+       THEIR OUTFIT'S LADDER   how many times you did what their outfit wanted.
+                               BohemiaBelonging's rungs are already an ORDER, his,
+                               so the ranking is his ladder and not my weighting.
+                               The caller hands the rung's INDEX in, so this file
+                               never carries a copy of that ladder.
+       THEY SAW YOU            the deed ledger knows who personally watched you do
+                               something. A count of eyewitness deeds is a fact and
+                               needs NO weight -- which matters, because none of the
+                               five deed kinds this surface publishes has one yet
+                               ([deeds weigh], this lane's own open row). Somebody
+                               who has never seen you do anything does not know you.
+       A DEBT BETWEEN YOU      the loan book and the favour ledger both name a
+                               person. Owing or being owed is a tie either way; what
+                               it is WORTH is a weight, so no direction is scored.
+       WHO HOLDS THE GROUND    already answered: this reads the list joinersOn hands
+                               back, so a faction that will not deal with you has
+                               already emptied the block before anybody is ranked.
+
+     *** ON THE FIRST MORNING THIS ANSWERS NOBODY, AND THAT IS THE POINT. ***
+     Measured: 0 of 61 people have seen the player do anything, 0 carry a debt, and
+     the rung with every outfit is `stranger`. Forty-six of them would COME and not
+     one of them has a reason to FOLLOW. Nobody follows a stranger, and a list that
+     handed him six names on day one would be lying about the world.
+
+     THERE IS NO LIST IN HERE EITHER. Same rule bohemia_company.js paid for: the
+     crew is computed from ties the world already keeps, every call. Nothing is
+     added, nothing is stored, and a tie that goes away takes its follower with it.
+
+     WHAT IS DELIBERATELY NOT HERE: the act of taking somebody on and what it
+     costs. That is ruled and it is [take them on] -- one battery a night on a
+     handshake -- and building it here would be doing another row's job with a
+     price in it. */
+
+  /* WHY SOMEBODY WOULD FOLLOW YOU, in plain words. Attempts, draft:true; every
+     reader keys off the word beside them, never off the sentence. */
+  var FOLLOW_WHY = {
+    rung: 'YOU HAVE DONE WHAT THEIR OUTFIT WANTED',
+    seen: 'THEY WATCHED YOU DO IT',
+    owed: 'THERE IS A DEBT BETWEEN YOU',
+    mine: 'THEY ARE ALREADY WITH YOU'
+  };
+  var FOLLOW_SAY = {
+    none:  'NOBODY HERE WOULD FOLLOW YOU YET',
+    some:  'WOULD FOLLOW YOU FROM THIS BLOCK',
+    crowd: 'THE REST WOULD COME. THEY HAVE NO REASON TO STAY'
+  };
+
+  /* candidates  [{ who, kind, faction, rung }]   joinersOn(...).offers
+     ties        function(who) -> { rungAt, seen, owed, mine } or null
+                   rungAt  the index of your rung on THEIR outfit's ladder, or
+                           null/0 for a stranger. An index, never a word, because
+                           the ladder is his and this file must not hold a copy.
+                   seen    how many things they personally watched you do
+                   owed    how many debts stand between you, either direction
+                   mine    already one of yours
+     opt         { cap }   a RENDERING bound and nothing else; `total` is the
+                           whole answer beside it. */
+  function followersOn(candidates, ties, opt) {
+    opt = opt || {};
+    var all = candidates || [];
+    var out = { crew: [], total: 0, crowd: all.length, say: null,
+                nobody: null, draft: true };
+    var ask = (typeof ties === 'function') ? ties : function () { return null; };
+    for (var i = 0; i < all.length; i++) {
+      var c = all[i] || {}, t = ask(c.who) || {};
+      var rungAt = (t.rungAt == null) ? 0 : (t.rungAt | 0);
+      var seen = t.seen | 0, owed = t.owed | 0, mine = !!t.mine;
+      /* NO TIE, NO FOLLOWER. A face in a crowd is not somebody who would walk
+         out of their own life with you, and a list that pretended otherwise
+         would be the filler this repo keeps deleting. */
+      if (rungAt <= 0 && seen <= 0 && owed <= 0 && !mine) continue;
+      var why = [];
+      if (mine)      why.push('mine');
+      if (rungAt > 0) why.push('rung');
+      if (seen > 0)  why.push('seen');
+      if (owed > 0)  why.push('owed');
+      out.crew.push({ who: c.who, kind: c.kind || null, faction: c.faction || null,
+                      rung: c.rung || null, rungAt: rungAt, seen: seen, owed: owed,
+                      mine: mine, why: why,
+                      word: FOLLOW_WHY[why[0]] });
+    }
+    /* HIS LADDER FIRST, THEN THE FACTS, THEN STABLE. Nothing is multiplied and
+       nothing is added: a sort over facts in a stated order is an ordering the
+       player can be told out loud, and a score is a number nobody ruled. */
+    out.crew.sort(function (a, b) {
+      if (a.mine !== b.mine) return a.mine ? -1 : 1;
+      if (b.rungAt !== a.rungAt) return b.rungAt - a.rungAt;
+      if (b.seen !== a.seen) return b.seen - a.seen;
+      if (b.owed !== a.owed) return b.owed - a.owed;
+      return String(a.who) < String(b.who) ? -1 : (String(a.who) > String(b.who) ? 1 : 0);
+    });
+    out.total = out.crew.length;
+    if (opt.cap != null && opt.cap > 0 && out.crew.length > opt.cap)
+      out.crew = out.crew.slice(0, opt.cap);
+    out.say = out.total ? FOLLOW_SAY.some : FOLLOW_SAY.none;
+    if (!out.total && out.crowd > 0) out.nobody = FOLLOW_SAY.crowd;
+    return out;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
     rentAhead: rentAhead, rentShape: rentShape,
     trackOf: trackOf, tracksAt: tracksAt,
     joinersOn: joinersOn, JOIN_NO: JOIN_NO, JOIN_SAY: JOIN_SAY, JOIN_RUNG: JOIN_RUNG,
+    followersOn: followersOn, FOLLOW_WHY: FOLLOW_WHY, FOLLOW_SAY: FOLLOW_SAY,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
@@ -52112,7 +52225,10 @@ function showWake(){
     if(_dwn.length){
       var _tt = famTree();
       for(var _dw = 0; _dw < _dwn.length; _dw++){
-        h += '<p>'+esc((BohemiaFamily.say(_tt,_dwn[_dw]) || 'ONE OF YOURS')
+        /* ONE NAMING BODY FOR BOTH CARDS ([who follows], 9/13): family comes out
+           of the family module and a companion out of the identity module, and
+           neither card gets its own opinion about what to call somebody. */
+        h += '<p>'+esc(ctDownName(_dwn[_dw])
              + ' IS STILL DOWN. ' + (ctDownSay(_dwn[_dw].id) || ''))+'</p>';
       }
     }
@@ -52702,8 +52818,65 @@ function ctDownMine(){
       if (ctIsDown(n.id)) out.push(n);
     }
   }catch(_e){}
+  /* *** AND YOUR COMPANY, WHICH IS THE HALF THAT WAS MISSING. *** ([who follows],
+     9/13.) MEASURED before this line existed: this read the family tree and
+     nothing else, and on the first morning the family tree is EMPTY -- so the
+     law "nobody you keep is lost for good" was protecting a list of nobody, and
+     [down not dead] said so itself: the promise held because there was nobody to
+     lose.
+     WHO IS YOURS IS NOT ASKED HERE. bohemia_company.js computes it from the
+     ledgers the world already keeps, so the moment anybody becomes yours -- a
+     bond off a finished job, a witness, and later the nights you paid under
+     [take them on] -- they are covered with nothing to edit and no list to keep.
+     BOTH SPELLINGS OF AN ID ARE ASKED, on purpose. The company names people as
+     'P:city:<id>' and COMBAT's [downed body] row has not shipped yet, so which
+     spelling it will hand ctFall is not decided. Asking both means a companion is
+     covered whichever one arrives, instead of a silent miss nobody would see. */
+  try{
+    var ys = (typeof ctYours === 'function') ? (ctYours() || []) : [];
+    for (var c = 0; c < ys.length; c++){
+      var w = ys[c] && ys[c].who; if (!w) continue;
+      var bare = String(w).indexOf('P:city:') === 0 ? String(w).slice(7) : null;
+      if (!ctIsDown(w) && !(bare && ctIsDown(bare))) continue;
+      var id = ctIsDown(w) ? w : bare;
+      out.push({ id: id, rel: 'company', alive: true, from: ys[c].from,
+                 name: ctPersonName(w) });
+    }
+  }catch(_e){}
   return out;
 }
+/* THE NAME ON A DOWN ROW, FOR EITHER KIND. Family comes out of the family module,
+   which knows how to say a relative; a companion is a person this city already
+   drew, so their own name is asked of the identity module rather than invented.
+   ONE BODY, BOTH CARDS: the wake card and the standing card each printed their
+   own fallback, which is how two surfaces start calling the same person two
+   different things. */
+function ctPersonName(key){
+  try{
+    var id = String(key).indexOf('P:city:') === 0 ? String(key).slice(7) : String(key);
+    var p = CT_WHO[id];
+    if (!p) {
+      var all = ctEveryone() || [];
+      for (var i = 0; i < all.length; i++) if (String(all[i].id) === id) { p = all[i]; break; }
+    }
+    if (!p) return null;
+    var who = ctPerson(p);
+    /* A NAME, IF YOU HAVE EARNED ONE. bohemia_people only gives a name once the
+       person has been ASKED -- you do not know a stranger's name -- so the
+       fallback is the thing the world DOES know about them, their trade. Nothing
+       is invented: it is the same ROLE_WORDS entry the crew list prints. */
+    if (who && who.name) return who.name;
+    return ctKindWord(p.archetype) || null;
+  }catch(_e){ return null; }
+}
+function ctDownName(row){
+  if (!row) return 'ONE OF YOURS';
+  if (row.rel === 'company') return row.name || 'ONE OF YOURS';
+  try{ return BohemiaFamily.say(famTree(), row) || 'ONE OF YOURS'; }
+  catch(_e){ return 'ONE OF YOURS'; }
+}
+try{ window.ctDownMine=ctDownMine; window.ctDownName=ctDownName;
+     window.ctPersonName=ctPersonName; }catch(_e){}
 
 /* WHO ACTUALLY WENT. The module decides; this is the write, because a pure
    module does not reach out and remove somebody from the world. */
@@ -62428,8 +62601,111 @@ function ctJoinersLine(j){
   for (var o = 0; o < ord.length; o++) bits.push(by[ord[o]] + ' ' + ctKindWord(ord[o]));
   return j.total + ' ' + j.say + ' · ' + bits.join(', ');
 }
+/* *** WHO WOULD FOLLOW YOU FROM THIS BLOCK. ***
+   [who follows] WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK.
+
+   [recruit anywhere] answers who CAN come and the number is 46 of 61 on the
+   block he wakes on. A crowd is not a crew. This asks the harder question of the
+   same people: which of them has a REASON, and the reasons are facts the world
+   already keeps rather than a score anybody invented.
+
+   *** WHAT MEASURING FOUND, AND IT SHAPED THE ROW: BOTH DEBT LEDGERS IN THIS
+   GAME ARE KEYED BY OUTFIT, NOT BY PERSON. *** BohemiaLend's book is opened with
+   a faction id and BohemiaFavour.owedOf takes one too, so "their debt" can only
+   be read as the debt standing between you and the outfit they run with. A
+   person who runs with nobody therefore has no debt tie available at all. That
+   is stated rather than papered over with a per-person number nobody keeps. */
+function ctRungIndex(fid){
+  if (typeof BohemiaBelonging === 'undefined' || !fid) return 0;
+  try {
+    var key = ctRungWith(fid);
+    if (!key) return 0;
+    var R = BohemiaBelonging.RUNGS;
+    for (var i = 0; i < R.length; i++) if (R[i].key === key) return i;
+  } catch(_e){}
+  return 0;
+}
+/* HOW MANY THINGS THEY PERSONALLY WATCHED YOU DO. Hearing about it is not the
+   same tie and the ledger already tells them apart, so only eyewitness deeds
+   count. NO WEIGHT IS NEEDED OR USED: this is a count of what happened, which is
+   why it works today while what a deed is WORTH is still unruled. */
+function ctSeenMeCount(id){
+  try {
+    var d = ctKnownDeeds(id, 12) || [], n = 0;
+    for (var i = 0; i < d.length; i++) if (!d[i].heard) n++;
+    return n;
+  } catch(_e){ return 0; }
+}
+/* WHAT STANDS BETWEEN YOU AND THEIR OUTFIT, counted and never valued. A night of
+   a loan unpaid and a favour you took are both ties; which of them weighs more
+   is a weight, and weights are his. */
+function ctOwedWith(fid){
+  if (!fid) return 0;
+  var n = 0;
+  /* THE FIRST CUT CALLED ctOwingRows() AND THERE IS NO SUCH FUNCTION -- the one
+     that reads the loan book is loanRows() -- and the bare catch below turned a
+     missing function into a confident ZERO for every outfit in the valley. Same
+     class as the swallowed TypeError that cost this lane thirteen days on
+     ctFactionOf. A dependency that is not there says so, once, in a sentence. */
+  if (typeof loanRows !== 'function') {
+    if (!ctOwedWith.__warned) { ctOwedWith.__warned = 1;
+      console.error('BOHEMIA: loanRows() is missing, so no debt can be read and '
+        + 'every outfit will look square with you. That is a bug, not a world.'); }
+  } else {
+    try {
+      var rows = loanRows() || {};
+      var want = String(fid).toUpperCase().replace(/[\s_]/g,'');
+      for (var k in rows) if (String(k).toUpperCase().replace(/[\s_]/g,'') === want)
+        n += (rows[k].nights | 0);
+    } catch(_e){}
+  }
+  try { n += (BohemiaFavour.owedOf(ctBelongSave(), fid) | 0); } catch(_e){}
+  return n;
+}
+function ctFollowersHere(cap){
+  if (typeof window.BohemiaTowns === 'undefined') return null;
+  var j = null; try { j = ctJoinersHere(); } catch(_e){}
+  if (!j) return null;
+  /* ALREADY YOURS -- AND THE COMPANY USES TWO SPELLINGS OF AN ID, WHICH ONLY THE
+     REAL DRIVE SHOWED. A member found through a BOND comes back as the cast's
+     'P:city:<id>' key; one found through the DEED LEDGER comes back as the raw
+     owner id the minds are keyed by. So a single-spelling lookup silently misses
+     every witness, which is exactly what P27 caught: the person who had just
+     become mine did not lead the crew because the map was looking for a key that
+     was never written. Both spellings go in. */
+  var mine = {};
+  try {
+    var ys = (typeof ctYours === 'function') ? (ctYours() || []) : [];
+    for (var y = 0; y < ys.length; y++) {
+      var w = ys[y] && ys[y].who; if (!w) continue;
+      mine[w] = 1;
+      if (String(w).indexOf('P:city:') === 0) mine[String(w).slice(7)] = 1;
+      else mine['P:city:' + w] = 1;
+    }
+  } catch(_e){}
+  /* one lookup per OUTFIT, not per person: sixty-one people on a block run with a
+     handful of outfits, and the rung and the debt are facts about the outfit. */
+  var byFac = {};
+  var tie = function (who) {
+    var row = null, k;
+    for (k = 0; k < j.offers.length; k++) if (j.offers[k].who === who) { row = j.offers[k]; break; }
+    if (!row) return null;
+    var f = row.faction || null, cache = f ? byFac[f] : null;
+    if (f && !cache) cache = byFac[f] = { rungAt: ctRungIndex(f), owed: ctOwedWith(f) };
+    return { rungAt: cache ? cache.rungAt : 0,
+             owed:   cache ? cache.owed   : 0,
+             seen:   ctSeenMeCount(who),
+             mine:   !!(mine[who] || mine['P:city:' + who]) };
+  };
+  var out = null;
+  try { out = window.BohemiaTowns.followersOn(j.offers, tie, { cap: cap }); } catch(_e){ return null; }
+  if (out) { out.holder = j.holder; out.tier = j.tier; out.here = j.here; }
+  return out;
+}
 try{ window.ctJoinersHere=ctJoinersHere; window.ctJoinersLine=ctJoinersLine;
-     window.ctKindWord=ctKindWord;
+     window.ctKindWord=ctKindWord; window.ctFollowersHere=ctFollowersHere;
+     window.ctRungIndex=ctRungIndex; window.ctSeenMeCount=ctSeenMeCount;
+     window.ctOwedWith=ctOwedWith;
      window.ctAgainstFaction=ctAgainstFaction; window.ctRungWith=ctRungWith; }catch(_e){}
 /* HOW FAR AN ENEMY CAN SEE YOU. BohemiaStanding's own constant, asked rather
    than copied: nine tiles, "because that is how far you can SEE it happen". */
@@ -66370,16 +66646,42 @@ function ctCompanySnapshot(){
     if(!dc&&typeof ctDayCast==='function') dc=ctDayCast();
     if(dc&&dc.cast) snap.cast=dc.cast;
   }catch(_e){}
+  /* *** THIS ASKED THE WRONG FUNCTION AND THE ANSWER WAS ALWAYS EMPTY. ***
+     (Found and fixed 9/13 by FACTIONS [who follows]; flagged to QUESTS, whose
+     row [company in asks] shipped this seam.)
+
+     It called BohemiaStanding.becauseOf(minds, '@', '@', ...). becauseOf is a
+     FACTION-shaped answer -- its first line is
+         if (factionOfOwner(m.owner) !== faction) continue;
+     -- so passing '@' as the faction asks for witnesses whose OUTFIT is '@', and
+     nobody's outfit is '@'. Every mind was skipped, every time. MEASURED: a real
+     deed published through the real witness pass, two people on the glass, one of
+     them with it in their head, and the company's witness ledger came back with
+     ZERO. One of the module's two NAMING ledgers has never named anybody on the
+     walked surface, and an empty company reads exactly like "you have nobody",
+     which is the ambiguity that row exists to end.
+
+     THE COMPANY'S QUESTION IS PERSON-SHAPED, NOT FACTION-SHAPED: who personally
+     has a deed of mine in their head. So it walks the minds it already has.
+     AND IT DOES NOT ASK WHAT THE DEED WAS WORTH. becauseOf weighs each deed and
+     drops the weightless ones, and not one of the five kinds this surface
+     publishes has a weight yet ([deeds weigh] is open). Whether they SAW you is a
+     fact; what it did to them is a weight, and weights are his. So this reads the
+     fact and stays right the day the weights land.
+     EYEWITNESS ONLY: hops>0 is a retelling, and somebody who heard about you in a
+     bar is not one of yours. */
   try{
-    if(typeof BohemiaStanding!=='undefined'&&BohemiaStanding.becauseOf){
-      var minds=ctMindsList();
-      if(minds&&minds.length){
-        var rows=BohemiaStanding.becauseOf(minds,'@','@',ctMinuteNow(),
-                                           ctFactionOfMind,8)||[];
-        for(var i=0;i<rows.length;i++)
-          if(rows[i]&&rows[i].who)
-            snap.witnesses.push({who:rows[i].who,kind:rows[i].kind,
-                                 where:rows[i].where||null});
+    var minds=ctMindsList()||[];
+    var wseen={};
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.owner||!m.deeds||!m.deeds.length) continue;
+      if(wseen[m.owner]) continue;
+      for(var j=m.deeds.length-1;j>=0;j--){
+        var d=m.deeds[j];
+        if(!d||d.actor!=='@'||(d.hops||0)>0) continue;
+        wseen[m.owner]=1;
+        snap.witnesses.push({who:m.owner, kind:d.kind, where:d.where||null});
+        break;
       }
     }
   }catch(_e){}
@@ -68619,7 +68921,7 @@ function showStanding(){
         var _dn = ctDownMine();
         for(var _di = 0; _di < _dn.length; _di++){
           h += '<div class="rrow"><span class="rk">'
-             + esc(BohemiaFamily.say(_t, _dn[_di]) || 'ONE OF YOURS')
+             + esc(ctDownName(_dn[_di]))
              + ' IS DOWN</span><span class="rv">'
              + esc(ctDownSay(_dn[_di].id) || '') + '</span></div>';
         }
@@ -68786,6 +69088,33 @@ function showStanding(){
            + '<span class="rv">NOBODY</span></div>';
         h += '<div class="rwhy">' + esc(_j.say) + '.</div>';
       }
+      /* __WHO_WOULD_FOLLOW_YOU__ (9/13, [who follows]) -- AND WHICH OF THEM HAS A
+         REASON. Available is not willing: the rows above are the crowd, this is
+         the crew. It sits directly under them because the two numbers only mean
+         anything next to each other -- forty-six would come and none of them
+         knows you is a sentence about the world, not an empty list. */
+      try {
+        var _fw = ctFollowersHere(5);
+        if (_fw) {
+          if (_fw.total) {
+            h += '<div class="rrow"><span class="rk">WOULD FOLLOW YOU</span>'
+               + '<span class="rv">' + _fw.total + ' of ' + _fw.crowd + '</span></div>';
+            for (var _fi = 0; _fi < _fw.crew.length; _fi++) {
+              var _c = _fw.crew[_fi];
+              h += '<div class="rrow"><span class="rk">'
+                 + esc(ctPersonName(_c.who) || ctKindWord(_c.kind))
+                 + '</span><span class="rv">' + esc(_c.word) + '</span></div>';
+            }
+            if (_fw.total > _fw.crew.length)
+              h += '<div class="rwhy">and ' + (_fw.total - _fw.crew.length) + ' more.</div>';
+          } else if (_fw.nobody) {
+            h += '<div class="rrow"><span class="rk">WOULD FOLLOW YOU</span>'
+               + '<span class="rv">NOBODY YET</span></div>';
+            h += '<div class="rwhy">' + esc(_fw.nobody)
+               + '. Nobody follows a stranger.</div>';
+          }
+        }
+      } catch(_e) {}
       /* WHAT THIS SIZE OF PLACE HAS TO SPARE. A fortress can let go of every
          trade standing on it and a camp cannot, off the same DEPTH table that
          decides what a camp's shelf carries. */

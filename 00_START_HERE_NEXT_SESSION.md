@@ -2048,125 +2048,129 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 20) LATEST -- *** [rent visible]
-YOU-CAN-SEE-WHAT-THE-BLOCK-TAKES SHIPPED. The block has charged you rent since
-[block rent] landed and it only ever told you at nightfall, after the day was
-spent. It tells you while you are standing on it now, and when they cut your
-lights you can see which streets went out. *** Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/13 (round 21) LATEST -- *** [who follows]
+WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK SHIPPED. Forty-six of the sixty-one people on
+the block you wake on would COME with you, and on the first morning not one of them
+would FOLLOW you. Nobody follows a stranger. And when somebody finally is yours, the
+law that says nobody you keep is lost for good finally has somebody to keep. ***
+Nothing to judge.
 
-VAMILY row: [rent visible], MODE: BUILD, SHIPPED 9/13 e60eb4a2.
-Record: records/BOHEMIA_YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES_9_13_26.md
+VAMILY row: [who follows], MODE: BUILD, SHIPPED 9/13 PENDING_SHA.
+Record: records/BOHEMIA_WHO_WOULD_FOLLOW_YOU_9_13_26.md
 
-THE GAME ALREADY HAD THE WORDS AND THEY WERE IN THE WRONG PLACE. Measured before
-anything was written: forty blocks walked across six factions' ground and the
-street said NOTHING, all day. Then the reckoning card said this:
+AVAILABLE IS NOT WILLING, AND THAT IS THE WHOLE ROW. [recruit anywhere] shipped who
+CAN come and measured it at 46 of 61. That is a crowd, not a crew. This asks the
+harder question of the same people: which of them has a REASON.
 
-  "Blues (town) wanted 3 for 3 of the 4 blocks of theirs you used and you had 2,
-   so the Blues cut 1 of their own street off"
+THE THREE TIES THE ROW NAMES ARE ALL FACTS THE GAME ALREADY KEEPS, NEVER A SCORE
+  their outfit's ladder   how many times you did what their outfit wanted. His rungs
+                          are already an ORDER, handed in as an INDEX so this file
+                          holds no copy and re-cutting them moves the order too.
+  they saw you            how many things they PERSONALLY watched you do. A count,
+                          never weighed -- which matters, because not one of the five
+                          deed kinds this surface publishes has a weight yet
+                          ([deeds weigh], still open in this lane). Eyewitness only:
+                          hearing about you in a bar is not the same tie.
+  a debt between you      the loan book and the favour ledger.
+  who holds the ground    already answered: it reads the list joinersOn hands back,
+                          so a faction that will not deal with you has emptied the
+                          block before anybody is ranked.
+NOTHING IS MULTIPLIED AND NOTHING IS ADDED. The order is a sort over facts in a
+stated order -- already yours, then the ladder, then what they saw, then what stands
+between you -- which is an ordering a player can be told out loud. A score would be
+a number nobody ruled.
 
-A perfect sentence arriving after the decision it was about. The same failure
-QUESTS found on the job offer: a walk quoted at seven hours AFTER you agreed to
-it. So nothing here changes a cost. It moves the telling earlier.
+ON THE FIRST MORNING IT ANSWERS NOBODY, AND THAT IS THE POINT. Measured: 0 of 61
+have seen the player do anything, 0 carry a debt, the rung with every outfit is
+stranger. The card says "WOULD COME WITH YOU 46 of 61 / WOULD FOLLOW YOU NOBODY YET
+/ The rest would come. They have no reason to stay. Nobody follows a stranger." A
+list that handed him six names on day one would be lying about the world.
 
-WHAT ONE MORE BLOCK COSTS IS THE BILL ASKED TWICE. rentAhead calls rentOn with
-the count you have and the count you would have. There is no second formula,
-because the one thing a preview must never do is work the number out its own way
--- a preview that disagrees with the bill is the only way this can be wrong. It
-reads the SAME billable map nightfall reads (your own generators already off the
-line), which was four lines buried inside the nightfall function and is one body
-with two callers now. Proved on the surface: the card said 14 and the night took 14.
+AND IT REALLY MOVES, THREE WAYS, ON THE DEMO
+  somebody watches you do something   crew 0 -> 1   "THEY WATCHED YOU DO IT"
+  three acts for the Church           crew 0 -> 16  rung stranger -> useful
+  a loan from an outfit               the debt reads 0 -> 1
 
-THE SHAPE IS FOUND, NOT WRITTEN OUT PER TIER. rentShape runs the bill up a ladder
-and looks for the smallest window that repeats:
-  fortress  1 2 3 4 5 6 7 8 9   charges for 1 block in every 1
-  town      1 2 2 3 4 4 5 6 6   charges for 2 blocks in every 3
-  camp      1 1 1 2 2 2 3 3 3   charges for 1 block in every 3
-Nobody typed any of that. It is his DEPTH thirds said back in a shape a person
-can hold, and re-cutting that table moves the words with nothing to edit. A camp
-lets you walk two blocks in three for nothing; a fortress charges for every step.
+ONE MEASURED LIMIT, STATED NOT FAKED: BOTH DEBT LEDGERS IN THIS GAME ARE KEYED BY
+OUTFIT, NOT BY PERSON. BohemiaLend's book is opened with a faction id and
+BohemiaFavour.owedOf takes one too. So a person who runs with nobody has no debt tie
+available at all, and a debt can DEEPEN a tie but never be the only one -- the people
+it could reach are exactly the ones joinersOn holds back until you climb their
+ladder. A per-person debt ledger would change that and nobody has built one.
 
-*** THE SECOND HALF HAD A REAL BLOCKER AND MEASURING TWICE FOUND IT. ***
-  ONE. Of 188 cells lying on blocks a faction billed for on a real route, ZERO
-  carried a lit circuit. Circuits only run along streets, so the ground you walk
-  usually has no line on it to cut. A cut-your-block rule would have cut NOTHING,
-  every time, while every check stayed green -- the same trap [power territory]
-  found when it nearly gated the valley's output on lights.
-  TWO, and it is the row's actual blocker. Every circuit in the valley put out --
-  all 173, 358 lit cells to zero -- the aerial redrawn, and the frame came back
-  with an IDENTICAL HASH and a brightness change of ZERO.
-      THE MAP HAS NEVER DRAWN THE LIGHTS.
-  So darkness could not be noticed by anybody and no choice about WHICH street to
-  cut could have fixed it. WORLD wrote this down 9/5 and called their probe the
-  broken instrument. The probe was right.
+*** THE SECOND HALF: THE LAW WAS PROTECTING A LIST OF NOBODY. *** PEOPLE's [down not
+dead] shipped the promise and said in its own file that it held BECAUSE THERE WAS
+NOBODY TO LOSE. One round later that was still true: ctDownMine read the family tree
+and nothing else, and the family tree is EMPTY on the first morning. It reads your
+COMPANY now -- the set bohemia_company.js computes from ledgers the world already
+keeps -- so anybody who becomes yours is covered with nothing to edit and no list to
+keep. BOTH SPELLINGS OF AN ID ARE ASKED, because COMBAT's [downed body] has not
+shipped and which one it will hand ctFall is undecided.
+  Driven: a real deed through the real witness pass -> the company names somebody ->
+  ctFall -> "THE WATCH IS DOWN · KNOCKED ABOUT, 7 DAYS · Down, not gone. Nobody you
+  keep is lost for good." -> 400 days later healed, by the arithmetic and not a
+  promise.
 
-SO THE MAP DRAWS THEM. Live cells in their HOLDER'S ink (the same __holderInk the
-borders and tracks use -- colour is territory, and a lit street is territory
-somebody is paying for), a cut wire cold with a ring, brighter on the night it
-happened. AND A WIRE THAT WAS NEVER LIVE IS NOT DRAWN, which the first cut got
-wrong and only looking at the screen caught: 1,500 dead feeders against 360 lit
-ones, so drawing every wire buried the lights and the frame before a cut and the
-frame after were identical to a human eye -- the exact failure the layer exists to
-end, rebuilt inside the fix for it. The cell shape is cached once (a pure function
-of the seed) because rebuilding 1,900 objects sixty times a second is how a phone
-loses its frame.
+*** A DEFECT FOUND IN A SHIPPED ROW AND FIXED. FOR QUESTS. ***
+ctCompanySnapshot called BohemiaStanding.becauseOf(minds, '@', '@', ...). becauseOf
+is a FACTION-shaped answer -- its first line is
+    if (factionOfOwner(m.owner) !== faction) continue;
+-- so passing '@' as the faction asks for witnesses whose OUTFIT is '@', and nobody's
+outfit is '@'. EVERY MIND WAS SKIPPED, EVERY TIME. One of the company module's two
+NAMING ledgers had never named anybody on the walked surface, and an empty company
+reads exactly like "you have nobody", which is the ambiguity that row exists to end.
+The seam walks the minds directly now and does NOT ask what a deed was worth, so it
+stays right the day the weights land. QUESTS owns the module; this was their seam.
 
-AND THE CUT LANDS WHERE YOU WALKED. Their lit circuits are sorted by distance to
-the blocks they billed you for and the closest go first.
-  cut tonight 14 circuits | within six cells of you 9 | median 5 cells
-  lights near your route 18 -> 3
+TWO MISTAKES OF MY OWN, BOTH CAUGHT BY MEASURING RATHER THAN BY READING
+  A MISSING FUNCTION ANSWERED A CONFIDENT ZERO. ctOwedWith called ctOwingRows(),
+  which does not exist -- the one that reads the loan book is loanRows() -- and the
+  bare catch turned that into "every outfit in the valley is square with you". Same
+  class as the swallowed TypeError that cost this lane thirteen days on ctFactionOf.
+  It says so once, in a sentence, now.
+  A PROBE THAT COULD NOT SEE WITNESSES. BARK_DREW came back empty after every
+  render() in the workshop, which would have made every witness claim pass for the
+  wrong reason. peoplePass returns immediately while the player's own body has not
+  loaded, and in a headless workshop load it never does. The demo goes through the
+  front splash, which is where the body arrives, so the witness half of the gate runs
+  THERE and the gate says why in its own comment.
+  AND THE COMPANY USES TWO SPELLINGS OF AN ID, which only the real drive showed: a
+  bond comes back as the cast's 'P:city:<id>' key and a witness as the raw owner id.
+  A single-spelling lookup silently missed every witness.
 
-DRIVEN, WALKED SURFACE AND DEMO, IDENTICAL, NO PAGE ERRORS
-  day one, before anything is spent:
-    THIS GROUND Mob / WHAT IT TAKES 1 battery a night, every block /
-    A fortress charges for every block you use. / TONIGHT SO FAR 1 battery for 1
-    block / ANOTHER BLOCK OF THEIRS COSTS ONE / Due at 22:00, in batteries.
-  after a sixty-block walk: "Everybody wants 14 batteries off you tonight" (took 14)
-  standing on a cut street: "CARTEL cut this street off. You did not pay for it."
-  the map: 125 lights on a real canvas in nine factions' inks; douse them all and
-    the frame hash moves and the drawn count goes to zero
-  and it answers in CITY, not only on foot
+GATES  faction_towns 201/0 (was 170), thirty-one new claims, TEN driving the real
+       surface. Two of my own new checks went red on correct code and were corrected
+       rather than the code: one pinned which reason LEADS (the ordering claim is
+       another check's job) and one pinned a single id spelling.
+       Green alongside: engine sync zero drift, bundle, banner, turf, demo build,
+       alpha loads.
+       RULE 13: pre-push pass green; full suite unmeasured, no SUITE LINE posted yet.
+       RULE 8 (new 9/13): the diff touches engine/, so the derived slices were rebuilt
+       in the same commit (build_current_slice, build_run_slice, the demo cut, and
+       bohemia_map_tab, whose slice carries engine md5 headers and was stale).
 
-THE MISTAKE, AND IT IS WORTH THE PARAGRAPH. An edit that replaced a paragraph
-inside a block comment carried a */ with it and closed the comment early, so four
-lines of prose became code. The page then failed to boot, the day card never
-appeared, and my first thought was that the page had got slow. A LOAD THAT TIMES
-OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE, and the check that settles it --
-load the page, count pageerror -- takes eleven seconds.
+*** [FOR PLUMBER] THE DERIVED FRESHNESS GATE GOES RED FOR ANY LANE THAT HAND-EDITS
+THE CITY, AND I REPRODUCED IT ON CLEAN MAIN. *** It reports
+    NEW DRIFT: slices/BOHEMIA_CITY_WORLD.html   +0/-0
+    maker: tools/bohemia_city_chunk_tile_bank.py
+THE EXPERIMENT, because "is it mine" is the only question worth answering first:
+a fresh worktree at plain origin/main is 10/0 green; add ONE COMMENT LINE to the
+city and nothing else, and it is 9/1 with that exact drift. So the trigger is the
+hand edit, not the content of one. Also worth noting: the +0/-0 is the numstat
+measuring the wrong pair -- git diff runs INSIDE the worktree against its own HEAD,
+while the real comparison is the remade file against the working tree, so the line
+counts printed for a drift are always zero and tell nobody anything.
+I did NOT touch the frozen list: the gate now also says four entries re-derive clean
+and should be deleted (suburb walk, map current, surface audit, which surface), and
+that list is yours.
 
-AND TWO OF MY OWN NEW CHECKS WERE BROKEN RULERS, BOTH CAUGHT BY THEM GOING RED ON
-CORRECT CODE: one banned the substring "douse" in a reading that has to LOOK AT
-RENT_DOUSED to say a street was cut (reading a record is not spending, so it names
-the writers instead), and one asserted the frame gets DARKER, which measures my own
-mark rather than the mechanic -- a cut wire is drawn as a ring wider than the light
-it replaces, so total RGB can go either way. The claim is that the picture depends
-on the lights: the frame changes and the drawn count falls to zero. The number that
-made the old state a lie was ZERO, on both.
-AND THE SECOND NEGATIVE CONTROL TAUGHT THE CHECK SOMETHING: with the layer switched
-off the frame HASH still moved, because the street render changes between two draws
-anyway. The hash is proof in a controlled pair (nothing touched but the dousing,
-which is how the original zero was measured) and NOT in a live drive. The claim that
-bites out there is the count of lights painted falling to zero.
-
-GATES  faction_towns 170/0 (was 144), twenty-six new claims, eight driving the real
-       surface. TWO OF THIS LANE'S OWN EARLIER CHECKS WENT RED AND WERE FOLLOWED,
-       NOT LOOSENED: N12 reads the rent PATH, which is three functions now that the
-       billable map moved out of nightfall, and still asserts both halves (built
-       from TURF_USED, never mentions payTo); N13 keeps its claim and drops the
-       variable name from the douse call. Green alongside: engine sync zero drift,
-       bundle 16/0, banner 14/0, turf 43/0, demo build, alpha loads.
-
-ON THE WAY, AND IT IS THE SAME BOUNCE-BACK AS 9/11: editing the powergrid put
-BOH_POWERGRID into drift again -- 2 bodies across 6 carriers, the four stale ones
-being the two graphics masters (twice in one of them) and RUN_CURRENT, none of
-which the city resync tool touches. Re-inlined from canon USING THE SYNC GATE'S OWN
-EXTRACTOR so the boundaries cannot disagree with the gate that judges them, and the
-bundle's per-file md5 headers refreshed. It will happen to the next lane that edits
-that module too; the tool that fixes the city does not know those three files exist.
+*** [INHERITED, NOT MINE] city_memory_gate 33/1, "B5 and nobody outside SEE_RANGE (8)
+ever witnessed anything", identical on a clean origin/main worktree.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
-  1. *** DOES A DEBT CROSS THE FOLD? *** engine/bohemia_fold.js says it DIES and is
-     marked ruled. WORLD's [debt carried] row says it survives IN FULL. BOTH ARE
-     LIVE. I built the shipped one ([collector heir]); the call is his.
+  1. *** DOES A DEBT CROSS THE FOLD? *** -- CLOSING: the coordinator ruled it 9/13
+     (records/BOHEMIA_RULING_THE_BILL_DIES_THE_LENDER_STANDS_9_13_26.md) and this
+     lane's [same lender] row carries the build.
   2. *** THE PLANT. *** His towns law says a fortress has "the deep dry stores, the
      kitchens and THE PLANT" while a camp has a stall. If "the plant" is a GENERATOR,
      every fortress makes power off its own seat. That would author canon about what
@@ -2176,43 +2180,37 @@ that module too; the tool that fixes the city does not know those three files ex
   4. What it COSTS to be seen with one of the four hidden factions, or taken for one.
   5. FOUR COLOUR CLASHES he can SEE on the map: Mob #db1800 beside Reds #db1900,
      Network #4a8ddb beside Blues #0052db. Blues and Reds keep theirs by name, so
-     Network and Mob are squatting. Is the Cartel drab on purpose? The law names two
-     drab factions, the gate carries three -- and the lights now paint in the same
-     inks, so a drab faction's street reads as plain gold on a third surface.
+     Network and Mob are squatting. Is the Cartel drab on purpose? The lights paint in
+     the same inks since [rent visible], so a drab faction reads plain gold on a third
+     surface now.
 
-*** [FOR QUESTS] STILL RED AND STILL NOT MINE. *** faction_between_gate 180/2,
-verified inherited on a clean origin/main worktree and unchanged since.
-  R2  quests/bq/bq_a03_the_faction_that_died writes a standing delta against an
-      outfit named "NONE", which is not one of the 18 in the faction graph.
-  R8  corpus max is 20 across 83 rows; loadCorpus normalises by the largest deed, so
-      a partial corpus moves every rung boundary in the game.
+*** [FOR QUESTS] TWO THINGS. *** faction_between_gate 180/2, verified inherited on a
+clean origin/main worktree (R2: bq_a03 writes a standing delta against an outfit named
+"NONE"; R8: loadCorpus normalises by the largest deed so a partial corpus moves every
+rung boundary). AND the company seam defect above, which this round fixed in the city.
 
 NEXT IN THIS LANE (top unblocked, in order)
-  [who follows]  WHO-WOULD-FOLLOW-YOU-FROM-THIS-BLOCK -- with PEOPLE [down not dead].
-    [recruit anywhere] built the WHO-WOULD half as a reading; what is missing is the
-    act of taking somebody on and what it costs, and a price is his. Build on
-    engine/bohemia_company.js, NO ROSTER (the board note says so and that lane paid
-    for the rule).
   [same lender]  THE-COLLECTOR-READS-THE-FOLD'S-LIST -- RULED, and it closes the
-    [PENDING Paolo] this lane left on [collector heir]. The ruling is in
-    records/BOHEMIA_RULING_THE_BILL_DIES_THE_LENDER_STANDS_9_13_26.md.
+    [PENDING Paolo] this lane left on [collector heir].
+  [take them on]  JOINING-COSTS-ONE-LIKE-EVERYTHING -- RULED: one battery a night on a
+    handshake, after rent and the loan. [who follows] just built the reading it will
+    write into; "yours means the nights you paid" slots into the same company answer.
   [deal sticks]  THE-PROTECTOR-WAS-THE-COURTS -- harvested from ECONOMY Q34.
 
-EIGHT STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+NINE STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
-  It has been wrong every time it was named -- and this round the REAL blocker was
-  something nobody had written down: the map had never drawn the lights.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
-  Three times this round, twice in checks I had just written.
+  Twice more this round, both in checks I had just written.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it with a
   number nobody ruled.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
   A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE THAT
   CHECKED NOTHING. Make the guard itself a claim.
   SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
-  AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM: read inside the
-  function you are making a claim about.
-  AND A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
+  AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM.
+  A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
+  AND A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS NOT A SAFE DEFAULT, IT IS
+  A CONFIDENT WRONG ANSWER. Third time in this lane. Name the dependency out loud.
 
 --------------------------------------------------------------------------------
 

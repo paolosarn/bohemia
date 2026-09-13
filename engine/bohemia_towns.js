@@ -1400,12 +1400,125 @@
     return out;
   }
 
+  /* ==========================================================================
+     WHO WOULD FOLLOW YOU FROM THIS BLOCK   ([who follows], 9/13/26)
+
+     [recruit anywhere] shipped who CAN come and measured it: 46 of the 61 people
+     on the block he wakes on. That is a crowd, not a crew, and the whole of this
+     row is the difference between them.
+
+     *** AVAILABLE IS NOT WILLING. A FOLLOWER NEEDS A REASON. ***
+
+     The row names the three the world is supposed to give: your standing, their
+     debt, and who holds the ground. Every one is a FACT this game already keeps,
+     and not one of them is a score:
+
+       THEIR OUTFIT'S LADDER   how many times you did what their outfit wanted.
+                               BohemiaBelonging's rungs are already an ORDER, his,
+                               so the ranking is his ladder and not my weighting.
+                               The caller hands the rung's INDEX in, so this file
+                               never carries a copy of that ladder.
+       THEY SAW YOU            the deed ledger knows who personally watched you do
+                               something. A count of eyewitness deeds is a fact and
+                               needs NO weight -- which matters, because none of the
+                               five deed kinds this surface publishes has one yet
+                               ([deeds weigh], this lane's own open row). Somebody
+                               who has never seen you do anything does not know you.
+       A DEBT BETWEEN YOU      the loan book and the favour ledger both name a
+                               person. Owing or being owed is a tie either way; what
+                               it is WORTH is a weight, so no direction is scored.
+       WHO HOLDS THE GROUND    already answered: this reads the list joinersOn hands
+                               back, so a faction that will not deal with you has
+                               already emptied the block before anybody is ranked.
+
+     *** ON THE FIRST MORNING THIS ANSWERS NOBODY, AND THAT IS THE POINT. ***
+     Measured: 0 of 61 people have seen the player do anything, 0 carry a debt, and
+     the rung with every outfit is `stranger`. Forty-six of them would COME and not
+     one of them has a reason to FOLLOW. Nobody follows a stranger, and a list that
+     handed him six names on day one would be lying about the world.
+
+     THERE IS NO LIST IN HERE EITHER. Same rule bohemia_company.js paid for: the
+     crew is computed from ties the world already keeps, every call. Nothing is
+     added, nothing is stored, and a tie that goes away takes its follower with it.
+
+     WHAT IS DELIBERATELY NOT HERE: the act of taking somebody on and what it
+     costs. That is ruled and it is [take them on] -- one battery a night on a
+     handshake -- and building it here would be doing another row's job with a
+     price in it. */
+
+  /* WHY SOMEBODY WOULD FOLLOW YOU, in plain words. Attempts, draft:true; every
+     reader keys off the word beside them, never off the sentence. */
+  var FOLLOW_WHY = {
+    rung: 'YOU HAVE DONE WHAT THEIR OUTFIT WANTED',
+    seen: 'THEY WATCHED YOU DO IT',
+    owed: 'THERE IS A DEBT BETWEEN YOU',
+    mine: 'THEY ARE ALREADY WITH YOU'
+  };
+  var FOLLOW_SAY = {
+    none:  'NOBODY HERE WOULD FOLLOW YOU YET',
+    some:  'WOULD FOLLOW YOU FROM THIS BLOCK',
+    crowd: 'THE REST WOULD COME. THEY HAVE NO REASON TO STAY'
+  };
+
+  /* candidates  [{ who, kind, faction, rung }]   joinersOn(...).offers
+     ties        function(who) -> { rungAt, seen, owed, mine } or null
+                   rungAt  the index of your rung on THEIR outfit's ladder, or
+                           null/0 for a stranger. An index, never a word, because
+                           the ladder is his and this file must not hold a copy.
+                   seen    how many things they personally watched you do
+                   owed    how many debts stand between you, either direction
+                   mine    already one of yours
+     opt         { cap }   a RENDERING bound and nothing else; `total` is the
+                           whole answer beside it. */
+  function followersOn(candidates, ties, opt) {
+    opt = opt || {};
+    var all = candidates || [];
+    var out = { crew: [], total: 0, crowd: all.length, say: null,
+                nobody: null, draft: true };
+    var ask = (typeof ties === 'function') ? ties : function () { return null; };
+    for (var i = 0; i < all.length; i++) {
+      var c = all[i] || {}, t = ask(c.who) || {};
+      var rungAt = (t.rungAt == null) ? 0 : (t.rungAt | 0);
+      var seen = t.seen | 0, owed = t.owed | 0, mine = !!t.mine;
+      /* NO TIE, NO FOLLOWER. A face in a crowd is not somebody who would walk
+         out of their own life with you, and a list that pretended otherwise
+         would be the filler this repo keeps deleting. */
+      if (rungAt <= 0 && seen <= 0 && owed <= 0 && !mine) continue;
+      var why = [];
+      if (mine)      why.push('mine');
+      if (rungAt > 0) why.push('rung');
+      if (seen > 0)  why.push('seen');
+      if (owed > 0)  why.push('owed');
+      out.crew.push({ who: c.who, kind: c.kind || null, faction: c.faction || null,
+                      rung: c.rung || null, rungAt: rungAt, seen: seen, owed: owed,
+                      mine: mine, why: why,
+                      word: FOLLOW_WHY[why[0]] });
+    }
+    /* HIS LADDER FIRST, THEN THE FACTS, THEN STABLE. Nothing is multiplied and
+       nothing is added: a sort over facts in a stated order is an ordering the
+       player can be told out loud, and a score is a number nobody ruled. */
+    out.crew.sort(function (a, b) {
+      if (a.mine !== b.mine) return a.mine ? -1 : 1;
+      if (b.rungAt !== a.rungAt) return b.rungAt - a.rungAt;
+      if (b.seen !== a.seen) return b.seen - a.seen;
+      if (b.owed !== a.owed) return b.owed - a.owed;
+      return String(a.who) < String(b.who) ? -1 : (String(a.who) > String(b.who) ? 1 : 0);
+    });
+    out.total = out.crew.length;
+    if (opt.cap != null && opt.cap > 0 && out.crew.length > opt.cap)
+      out.crew = out.crew.slice(0, opt.cap);
+    out.say = out.total ? FOLLOW_SAY.some : FOLLOW_SAY.none;
+    if (!out.total && out.crowd > 0) out.nobody = FOLLOW_SAY.crowd;
+    return out;
+  }
+
   var API = {
     TIERS: TIERS, SEATS: SEATS, TIER: TIER, DEPTH: DEPTH, REACH: REACH,
     MAKES: MAKES.slice(), MINE_RULING: MINE_RULING, rentOn: rentOn,
     rentAhead: rentAhead, rentShape: rentShape,
     trackOf: trackOf, tracksAt: tracksAt,
     joinersOn: joinersOn, JOIN_NO: JOIN_NO, JOIN_SAY: JOIN_SAY, JOIN_RUNG: JOIN_RUNG,
+    followersOn: followersOn, FOLLOW_WHY: FOLLOW_WHY, FOLLOW_SAY: FOLLOW_SAY,
     owedTo: owedTo, collectorAt: collectorAt, COLLECTOR: COLLECTOR,
     PER_SITE_PER_DAY: PER_SITE_PER_DAY, minesOf: minesOf, minesFor: minesFor,
     selectable: selectable, tiers: tiers, powerOf: powerOf,
