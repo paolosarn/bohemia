@@ -182,12 +182,20 @@ const LOOK = () => {
       const cs = getComputedStyle(e), r = e.getBoundingClientRect();
       return cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity !== 0
              && r.width > 0 && r.height > 0; };
-    return { fit: up('fitbtn'), chip: up('modechip') };
+    /* AND THE PAD FACE, because the coordinator's frame-F count listed "DROP IN on the pad
+       face" as a fourteenth place that button appears. It does not any more -- the round
+       button wears the ACTION VERB -- and the row itself rules that "the action button is
+       not a zoom button", so this pins it: whatever the pad says, it is never the crossing. */
+    const lbl = (document.getElementById('modeLbl') || {}).textContent || '';
+    return { fit: up('fitbtn'), chip: up('modechip'), lbl: lbl.trim() };
   });
   ok('WHOLE MAP and DROP IN are not on the screen at all -- zoom is the only way across the '
      + 'seam, which is what he asked for twice'
      + (gone.fit || gone.chip ? ' -- STILL THERE: ' + [gone.fit && 'fitbtn', gone.chip && 'modechip'].filter(Boolean).join(' ') : ''),
      !gone.fit && !gone.chip);
+  ok('and the round button is not a zoom button either -- the pad face wears the action verb, '
+     + 'never DROP IN or WHOLE MAP (it says "' + gone.lbl + '")',
+     !/DROP\s*IN|WHOLE\s*MAP/i.test(gone.lbl));
 
   const seam = await c.evaluate(() => {
     const m = () => (typeof MODE !== 'undefined' ? MODE : null);
