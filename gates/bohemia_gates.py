@@ -5119,6 +5119,21 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('OFFER YES',      ['node', 'gates/the_yes_goes_where_the_offer_is_gate.js'],
+     "PAOLO 9/13, five minutes on a phone: 'You offer requests just for me to see them, but nothing "
+     "happens... one button... I press it, nothing happens.' THE FIVE MINUTES rule 14d: a card that "
+     "promises and does nothing is the WORST bug in the game, because it teaches him nothing here is "
+     "real. MEASURED ON THE REAL DEMO AND IT WAS HIS COMPLAINT WORD FOR WORD: the first card of the game "
+     "showed him THE METER READER, what it pays, how long the walk is and THREE WAYS TO ARGUE THE TERMS "
+     "-- and the only acts on it were the three haggles and GET UP. *** THERE WAS NO WAY TO SAY YES. *** "
+     "Accepting went through exactly one door, a postMessage from the phone, so a player who never found "
+     "the phone could haggle over a job he could not take: he argued, the terms really moved, and the job "
+     "never started. NOTHING WAS BUILT TO FIX IT -- offerAccept() has always worked, it just had no door "
+     "on the card the offer was already on. Holds: the yes is there, pressing it makes the QUEST go live, "
+     "the card stops saying nobody has picked it up, the ways to argue are spent with it, ONE accept "
+     "function and not two, and a withdrawn offer has NO yes so arguing past the warning still costs the "
+     "job. Driven on the demo he plays, which loads the walked city in a frame -- so this reaches him "
+     "with no re-cut, which is how a held lane ships a five-minute break under rule 14a", False),
     ('CATS STAY',      ['node', 'gates/cats_stay_gate.js'],
      "PAOLO 9/13, walking the demo's five minutes: 'I do see cats running around, that's cool.' NOTES ARE "
      "RULINGS, so that IS the verdict and this is the FREEZE, because a thing frozen without a machine gate "

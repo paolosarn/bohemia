@@ -1,0 +1,136 @@
+BOHEMIA -- THE YES GOES WHERE THE OFFER IS (9/13/26, PEOPLE lane)
+A five-minute break, measured onto this lane's own card. Not a board row.
+
+PAOLO 9/13, walking the demo's first five minutes on a phone:
+  "You offer requests just for me to see them, but nothing happens... one
+   button... I press it, nothing happens."
+THE FIVE MINUTES, rule 14(d): a card that promises something and does nothing is
+the worst bug in the game, worse than a missing feature, because it teaches him
+nothing here is real. Deliver it or remove it.
+
+================================================================================
+THE LANE WAS HELD, SO THE ROUND STARTED BY MEASURING WHETHER ANY BREAK WAS OURS
+================================================================================
+Rule 14(b) holds a building lane with no five-minute break. None of his breaks was
+routed here: streets went to the city lane, the freeway to LIFE+CITY, the buttons
+to UI, the dead cards to RUN, the first fight to COMBAT.
+
+But rule 12 says a line the coordinator wrote is a PREMISE, not a gate, and the
+lane measures first. His dead-card sentence is about OFFERS, and the offer card is
+this lane's -- the haggle rows on it were wired here. So the round went looking
+rather than assuming somebody else owned it.
+
+================================================================================
+*** MEASURED ON THE REAL DEMO, AND IT IS HIS COMPLAINT WORD FOR WORD ***
+================================================================================
+Opened the demo at phone size, clicked through the splash the way a player does,
+and read the first card of the game:
+
+  THE METER READER
+  nobody has picked it up yet
+  about 4 and a half hours on foot, about 8 and a half hours there and back
+  Pays one battery
+  [ Make it a bag instead ]
+  [ Make it a favour instead ]
+  [ Half of it now, before I go ]
+  [ GET UP ]
+
+Every act on that card: close, hg:swap:resources, hg:swap:clout, hg:upfront, go.
+
+*** THERE WAS NO WAY TO SAY YES. ***
+
+The game shows him a job, tells him what it pays, tells him how long the walk is,
+and gives him THREE WAYS TO ARGUE ABOUT THE TERMS -- and no way to take it.
+Accepting went through exactly one door: a postMessage from the phone. A player
+who never found the phone could haggle a job he could not have. He argued, the
+terms really moved, the card really answered him, and the job never started.
+
+That is not "a button that does nothing". It is worse and more exact: every
+button worked, and the one that mattered was not there.
+
+================================================================================
+AND EVERYTHING ELSE ON THAT CARD ALREADY WORKED, WHICH IS WHY IT WENT UNSEEN
+================================================================================
+Pressed every button on it, one at a time, re-reading the page after each press:
+  Make it a bag instead        the terms moved, "Fine. A bag, then"
+  Make it a favour instead     the terms moved, "Fine. A favour, then"
+  Half of it now               third ask, "They take it back. Somebody else
+                               will do it", and the offer really ends
+  GET UP                       the day starts
+Four for four. A card where every visible control works is exactly the card
+nobody checks for a missing one.
+
+THE FIRST READING OF THIS WAS WRONG AND THE INSTRUMENT WAS THE REASON. A first
+sweep pressed all the buttons in one pass and reported three of them dead. They
+were not: the card REDRAWS after a press, so every handle after the first was
+pointing at an element that no longer existed. Same lesson as the healing probe
+last round -- CHECK THE INSTRUMENT BEFORE CONCLUDING THE FEATURE IS BROKEN. The
+honest version re-queries the page after every single press.
+
+================================================================================
+NOTHING WAS BUILT TO FIX IT, AND THAT IS THE PART WORTH BEING ANNOYED ABOUT
+================================================================================
+offerAccept() has always worked. Called straight, it takes the job, the quest goes
+live, the phone badge clears and the sting plays. It had no door on the card the
+offer was already on.
+
+So the fix is one row, and deliberately the SAME function the phone has always
+used. Two ways to accept a job is how two rules about one thing start to disagree.
+
+IT IS NOT SHOWN WHEN THERE IS NOTHING TO TAKE. A job already taken has no yes, and
+neither does an offer argued until they took it back -- that is __ASK_FOR_MORE__'s
+whole cost and a live button would have quietly refunded it.
+
+================================================================================
+AND IT UPDATES IN PLACE, WHICH THE FIRST CUT GOT WRONG
+================================================================================
+The first version redrew the card the way an ask does. MEASURED ON THE PAGE: the
+quest went live and the card came back still offering the job and still saying
+"nobody has picked it up yet". showWake() runs offerRing(), whose first line is
+`OFFER=null; OFFER_TAKEN=false;` -- so redrawing the morning RE-RINGS the phone
+and wipes the acceptance off the card that just took it.
+
+The road card had already solved this shape: the outcome REPLACES the options, in
+place. Leaving them up after a press lies about what just happened. Now the ways
+to argue and the yes both go, the "nobody has picked it up" line goes with them,
+and where the yes was it says: "You took it. It is yours until the day is out."
+
+Driven on the demo, end to end:
+  before   THE METER READER ... Make it a bag instead / Make it a favour instead
+           / Half of it now, before I go / I'LL TAKE IT
+  press    quest goes from nothing to bq_meter_reader
+  after    THE METER READER ... Pays one battery / You took it. It is yours until
+           the day is out. / GET UP
+  arguing  three asks, they take it back, and THEN there is no yes
+  and zero page errors while doing it
+
+================================================================================
+IT REACHES HIM WITHOUT RE-CUTTING THE DEMO, WHICH IS HOW A HELD LANE SHIPS THIS
+================================================================================
+Rule 14(a): only RUN re-cuts the demo. The demo LOADS the walked city in a frame,
+so a fix in the city is live in the demo with no cutter run at all. Measured: the
+yes is on the card on the demo itself, not only in the workshop.
+
+That is worth knowing fleet-wide. A lane that is held can still fix a five-minute
+break in the city and have him meet it, without touching RUN's cutter.
+
+LAST ROUND'S WARNING IS NOW TRUE FOR EVERYBODY, as predicted: DEMO CURRENT is red
+on clean origin/main with the demo 6,206 bytes behind the workshop. It is not this
+lane's and it is not fixable by this lane without breaking his rule.
+
+================================================================================
+THE GATE, AND IT IS NEGATIVE-CONTROLLED AGAINST THE EXACT STATE HE PLAYED
+================================================================================
+gates/the_yes_goes_where_the_offer_is_gate.js, driven on the demo:
+  the first card really is an offer he is being shown
+  it has a way to say yes
+  pressing it makes the QUEST go live, not just a flag
+  the card stops saying nobody has picked it up
+  the ways to argue are spent with it
+  ONE accept function, not two
+  a withdrawn offer has NO yes
+Take the row back off and seven claims go red, and the page returns to exactly the
+state he played: the three haggles and GET UP, quest null after the press.
+
+TAB: CITY, the first card of the game, in the demo and in the workshop. This is
+the one thing this round changed that he can see: the morning job now has a yes.

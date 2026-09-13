@@ -52425,7 +52425,32 @@ function showWake(){
          if(o.how) h+='<div class="sub">'+esc(o.how)+'</div>';
          /* __ASK_FOR_MORE__ -- what it pays, then the room to argue. Both are the
             game's words and not the quest's, same as the distance line. */
-         try{ h+=haggleHtml(o); }catch(_e){} }
+         try{ h+=haggleHtml(o); }catch(_e){}
+         /* __THE_YES_GOES_WHERE_THE_OFFER_IS__ (9/13, PEOPLE, from his five
+            minutes: "You offer requests just for me to see them, but nothing
+            happens... one button... I press it, nothing happens.")
+
+            MEASURED ON THE REAL DEMO BEFORE THIS LINE EXISTED, and it is his
+            complaint word for word. The first card of the game showed him THE
+            METER READER, what it pays, how long the walk is, and three ways to
+            argue the terms -- and the only acts on it were hg:swap, hg:upfront
+            and go. THERE WAS NO WAY TO SAY YES. Accepting went through exactly
+            one door, a postMessage from the phone, so a player who never found
+            the phone could haggle over a job he could not take. He argued the
+            terms, the terms really moved, and the job never started.
+
+            offerAccept() has always worked: called straight, it takes the job
+            and the quest goes live. NOTHING IS BUILT HERE. This is the door it
+            never had, on the card the offer is already on. A card that promises
+            and does nothing is the worst bug in the game, and the fix for this
+            one was one row, which is the part worth being annoyed about.
+
+            IT IS NOT SHOWN WHEN THERE IS NOTHING TO TAKE: a job already taken,
+            or an offer argued until they took it back, has no yes -- that is
+            __ASK_FOR_MORE__'s whole cost and a live button would undo it. */
+         try{ if(!OFFER_TAKEN && !(o.terms && o.terms.withdrawn))
+                h+='<div class="dcbtn" data-act="take">I\'LL TAKE IT</div>'; /* draft:true */
+         }catch(_e){} }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
   /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
   cardShow(h,function(act){
@@ -52434,6 +52459,50 @@ function showWake(){
       try{ haggleAsk(act.slice(3)); }catch(_e){}
       try{ showWake(); }catch(_e){}
       return;
+    }
+    /* __THE_YES_GOES_WHERE_THE_OFFER_IS__ -- he took it. The same door the phone
+       has always used, and deliberately the SAME function rather than a second
+       one: two ways to accept a job is how two rules about one thing start to
+       disagree.
+
+       *** IT UPDATES IN PLACE AND MUST NOT REDRAW. *** My first cut called
+       showWake() the way an ask does, and MEASURED ON THE REAL PAGE: the quest
+       went live but the card came back still offering the job and still saying
+       "nobody has picked it up yet". showWake runs offerRing(), whose first line
+       is `OFFER=null; OFFER_TAKEN=false;` -- so redrawing the morning RE-RINGS
+       the phone and wipes the acceptance off the card that just took it. The
+       road card already solved this shape: the outcome REPLACES the options, in
+       place. Leaving them up after a press lies about what just happened. */
+    if(act==='take'){
+      var _tk=false;
+      try{ _tk=offerAccept(); }catch(_e){}
+      if(_tk){
+        try{
+          var _in=document.getElementById('daycardIn');
+          if(_in){
+            /* the ways to argue and the yes are both spent now */
+            var _rows=_in.querySelectorAll('[data-act^="hg:"],[data-act="take"]');
+            for(var _r=0;_r<_rows.length;_r++) _rows[_r].style.display='none';
+            /* AND THE CARD STOPS SAYING NOBODY HAS PICKED IT UP, because
+               somebody just did. A line that is true until he presses and false
+               afterwards is the same lie in the other direction. */
+            var _subs=_in.querySelectorAll('.sub');
+            for(var _s=0;_s<_subs.length;_s++)
+              if(/nobody has picked it up/i.test(_subs[_s].textContent||''))
+                _subs[_s].style.display='none';
+            /* IT GOES WHERE THE YES WAS, NOT AT THE BOTTOM. Appended to the end
+               it landed UNDER "GET UP", so the card read get up first and then
+               told him what he had just done. The answer belongs where the
+               question was. */
+            var _took='<div class="sub" data-draft="true" data-took="1">'
+              + 'You took it. It is yours until the day is out.</div>';  /* draft:true */
+            var _go=_in.querySelector('.dcgo');
+            if(_go) _go.insertAdjacentHTML('beforebegin', _took);
+            else _in.insertAdjacentHTML('beforeend', _took);
+          }
+        }catch(_e){}
+        return;
+      }
     }
     cardHide();
     /* __THE_MORNING_MAKES_A_SOUND__ (8/22, SOUND lane) -- HIS OWN, APPROVED AND
