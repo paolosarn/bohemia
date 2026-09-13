@@ -9578,7 +9578,60 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/12 (b) LATEST -- *** [down not dead] SHIPPED. THE LAW
+PEOPLE (people-7h9sfy): 9/13 LATEST -- *** RULE 14 HOLDS THIS LANE, AND THE ROUND
+WENT ON THE LANE'S OWN RED INSTEAD. *** Paolo 9/13 LOCKED: the demo's first five
+minutes on a phone is the only measure, only RUN re-cuts the demo, and a building
+lane with no five-minute break holds its claim and adds nothing to the demo. None
+of the breaks he named is this lane's; they went to RUN, COMBAT, UI and WORLD. So
+[lock them] is CLAIMED AND HELD on the board, on purpose, and this round did the
+one thing a held lane should still do.
+WHAT GOT CLEARED: the promise the last round wrote down. The organ sweep's single
+orphan was BohemiaDeeds.sayWhy, called from nowhere. It was not merely unused, it
+was WRONG, and the standing card had grown a second copy of it.
+  ONE QUESTION, TWO ANSWERS. sayWhy is becauseOf plus the quest's own sentence.
+  The card walked becauseOf and looked the sentence up itself, so the published
+  engine door was reached by nothing. That is HOW the orphan happened: not nobody
+  needing it, but the surface that needed it growing its own.
+  DEFECT 1, AND IT HAS NEVER FIRED, WHICH IS THE HONEST WAY TO SAY IT.
+  `LABELS[kind] || kind` hands the player a machine id, the exact thing the
+  function's header forbids. Measured: all 83 weighted deeds in his corpus have a
+  sentence, because loadCorpus fills weight and label in ONE loop off one row. So
+  it was a hole the corpus was covering, not a live bug. IT IS REACHABLE FROM THE
+  OTHER SIDE AND THE REPO NAMES IT: bohemia_lend declares a weight placeholder for
+  'loan:short', a kind that never passes through the quest corpus, so the day that
+  number is filled the old body says "loan:short" out loud. null is the honest
+  empty now.
+  DEFECT 2. It dropped `kind`, so a caller with its own wording had to walk
+  becauseOf a second time to get it back -- precisely how the card's copy grew.
+  kind and turn ride along now, one walk serves both.
+  The watched/heard split stayed on the surface on purpose: whether an eyewitness
+  and a retelling get different sentences is a WORDS decision and the words are his.
+PROVEN ON THE REAL CARD: faction_between's Q10 drives the actual standing card and
+reads the rendered rows; it was already green through the new path and Q11 still
+reads eyewitness not hearsay, so `heard` survives. Its title said "becauseOf IS
+CALLED TOO" and now names the path it proves -- repointed, never loosened, the
+assertion untouched. The negative control is faithful rather than synthetic: it
+weighs a kind the corpus never wrote, exactly the way lend does, and puts the
+table back. Organ sweep reads BohemiaDeeds with nothing dead.
+*** AND THE NEXT LANE NEEDS THIS BEFORE IT COSTS THEM A ROUND: RULE 14 AND THE
+DEMO BUILD GATE COLLIDE. *** That gate asserts "regenerating the demo changes
+nothing". Under rule 14 the demo is deliberately a cut BEHIND the workshop between
+RUN's walks, so the first non-RUN lane to ship an alpha change turns it red for
+everybody -- and the obvious way to make it green is to run the cutter, which is
+what he just forbade. It is a trap with a green light on it. Reproduced: any alpha
+change, no cut, run it, one claim fails and the rest pass. A GATE MUST NEVER
+OUTRANK A RULING, so this shipped red on it and did NOT re-cut. Not fixed here,
+another lane owns it, but named with its reproduction. The honest repoint is that
+the demo must never be HAND-EDITED, which is what the claim was written to catch;
+a cut behind the workshop is now the design.
+Stamp 9/13w. Pre-push pass green on the gates that read this diff; CITY DEEDS
+(B11) and FACTION BETWEEN (R2/R8) red and identical claim-for-claim on a clean
+main worktree. THE SUITE LINE is still not posted, so the full suite is unmeasured
+since 635260a8.
+NEXT: [lock them] stays held until this lane is given a five-minute break or he
+says the five minutes hold. Record: records/BOHEMIA_A_STANDING_YOU_CAN_READ_9_13_26.txt ***
+
+PEOPLE (people-7h9sfy): 9/12 (b) -- *** [down not dead] SHIPPED. THE LAW
 WAS TRUE BY ACCIDENT AND NOW IT IS TRUE ON PURPOSE. *** Paolo 9/11 LOCKED: nobody
 you keep permanently dies and nothing on them is a permanent debuff, but debuffs
 can be a lot longer than others. Measured first, in the two files that ARE the

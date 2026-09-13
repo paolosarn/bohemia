@@ -1,0 +1,111 @@
+BOHEMIA -- A STANDING YOU CAN READ (9/13/26, PEOPLE lane)
+This lane's own red, cleared before the queue. Not a board row.
+
+THE PROMISE MADE LAST ROUND: "ORGAN REACH's one orphan is BohemiaDeeds.sayWhy,
+called from nowhere. It predates this round, but it is the third dead export this
+lane has been shown. First thing next round, ahead of the board."
+
+================================================================================
+THE SWEEP SAID "WIRE IT OR DELETE IT" AND NEITHER WAS RIGHT UNTIL IT WAS READ
+================================================================================
+sayWhy is becauseOf plus the quest's own @LOG sentence, and its header says why
+it exists: a standing the player cannot read is a standing they cannot play
+around.
+
+The city's standing card did exactly that, itself. ctWhyTheyThinkThat walked
+becauseOf and looked the label up on its own. So there were TWO ANSWERS TO ONE
+QUESTION and the engine's -- the published one, the one another surface would
+reach for -- was called by nothing at all.
+
+That is how the orphan happened. It is not that nobody needed it; it is that the
+surface that needed it grew its own copy.
+
+================================================================================
+TWO DEFECTS IN THE DEAD FUNCTION, BOTH FOUND BY ASKING WHAT IT WOULD DO
+================================================================================
+1. `LABELS[kind] || kind` HANDS THE PLAYER A MACHINE ID, which is the exact thing
+   the function's own header says must never happen. The fallback reads like a
+   safety net and is a hole.
+
+   MEASURED BEFORE CHANGING IT, AND THE HONEST ANSWER IS THAT IT HAS NEVER FIRED:
+     deeds with a weight in his corpus     83
+     of those with no authored sentence     0
+   loadCorpus fills DEED_WEIGHT and LABELS in ONE loop off the same row, so for a
+   quest deed the two always arrive together. This was not a live bug. It was a
+   hole the corpus happened to be covering.
+
+   IT IS REACHABLE FROM THE OTHER SIDE AND THE REPO ALREADY NAMES IT.
+   bohemia_lend.js declares DEED_WEIGHT['loan:short'] as a placeholder waiting on
+   Paolo's number: a kind that gets a WEIGHT without ever passing through the
+   quest corpus, so it has no @LOG line and never will. Fill that value and the
+   old body says "loan:short" out loud. The city card survives it because it
+   wrote its own sentence for that kind; every other surface gets the id.
+
+   NULL IS THE HONEST EMPTY. A deed nobody wrote a sentence for has no sentence,
+   and the caller drops the row or supplies its own. The module keeps its own law
+   now instead of trusting every caller to keep it.
+
+2. IT DROPPED `kind`, so a caller with its own wording for a kind it authored had
+   to walk becauseOf a SECOND time to get it back. That is precisely how the copy
+   on the card grew. kind and turn ride along now, so one walk serves both.
+
+THE WATCHED/HEARD SPLIT STAYED ON THE SURFACE ON PURPOSE. `heard` is handed back
+untouched. Whether an eyewitness and a retelling get different sentences is a
+WORDS decision and the sentences are Paolo's; the module returns what is true and
+the card says it in his voice.
+
+================================================================================
+NEGATIVE-CONTROLLED, AND THE CONTROL IS FAITHFUL RATHER THAN SYNTHETIC
+================================================================================
+The old readability claim ran on a corpus where every kind HAS a sentence, so it
+could only ever pass. The new one weighs a kind the corpus never wrote -- exactly
+the way lend does -- asks again, and puts the table back:
+  a lend-style weighted kind with no @LOG   said: null
+  it rejects the old body                   which answered with the raw kind
+  it rejects dropping the row entirely      which would hide the deed instead of
+                                            naming it unwritten
+All of that lane's self-test probes still catch.
+
+================================================================================
+PROVEN ON THE REAL CARD, NOT ONLY IN THE MODULE
+================================================================================
+faction_between's Q10 drives the actual standing card on the actual page and
+reads the rendered rows. It was already green through the new path, and Q11 still
+reads eyewitness rather than hearsay, which proves `heard` survives the rewire.
+Its TITLE said "becauseOf IS CALLED TOO" and now names the path it really proves.
+REPOINTED, NEVER LOOSENED: the assertion under it was not touched.
+
+The organ sweep now reads BohemiaDeeds with nothing dead.
+
+================================================================================
+*** RULE 14 LANDED MID-FLIGHT, AND IT COLLIDES WITH A GATE ***
+================================================================================
+PAOLO 9/13, LOCKED: only RUN re-cuts the demo. Every other lane ships to the
+alpha and the workshop and never runs the cutter again. So this ships to the
+alpha and the workshop, and the demo was put back to what main has.
+
+THE DEMO BUILD GATE ASSERTS "regenerating the demo changes nothing." Under rule
+14 the demo is DELIBERATELY a cut behind the workshop between RUN's walks, so the
+FIRST non-RUN lane to ship an alpha change turns that gate red for everybody --
+and the obvious way to make it green again is to run the cutter, which is the
+thing he just forbade. It is a trap with a green light on it.
+
+REPRODUCED: any alpha change, no cut, run the gate: it fails on that one claim
+and passes every other.
+
+A GATE MUST NEVER OUTRANK A RULING, so this ships red on it and does not re-cut.
+Not fixed here, because another lane owns that gate, but named with its
+reproduction so it costs a minute instead of a rediscovery. The honest repoint is
+that the demo must never be HAND-EDITED, which is what the claim was written to
+catch; being a cut behind the workshop is now the design, not the defect.
+
+================================================================================
+AND THE ROW IS HELD, WHICH IS THE RULE AND NOT A STALL
+================================================================================
+RULE 14b: a building lane with no five-minute break holds its claim and adds
+nothing to the demo. None of the breaks he named is this lane's -- they went to
+RUN, COMBAT, UI and WORLD. So [lock them] is CLAIMED AND HELD, and this round did
+the one thing a held lane is still supposed to do: clear its own red.
+
+TAB: CITY, on the WHERE YOU STAND card. Nothing he can see changed -- the card
+says the same sentences it said before, out of one door instead of two.
