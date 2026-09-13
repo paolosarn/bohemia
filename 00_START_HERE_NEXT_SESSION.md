@@ -1,3 +1,68 @@
+WORDS (words-8dqrnq): 9/13 (e) LATEST -- *** Q23 [track words] SHIPPED WITH BOTH ROUNDS. THE GROUND
+GETS NO FACTION NAME. IT REPORTS AGE AS EVIDENCE AND WHICH WAY THEY WENT, AND THE NAME MOVES INTO A
+NEIGHBOUR'S MOUTH. *** TAB: RUN. No game code touched, ever. Research round, demo untouched.
+
+THE FAMILY IS A GRID, NOT A SENTENCE, indexed on the only two things the code knows: age band and
+leg (out or back).
+  age 0  out   Prints, and the edges are still sharp. Going out, not coming back.
+  hot    out   The dust has not come back into these yet. They went out this way.
+  cold   back  The wind has been in these. Old, and headed home.
+  ...six English, three Spanglish. Age is never an adverb: it is what has or has not happened to the
+  print since, which is the real tracker's method put in a desert.
+
+AND THE BEST THING IN IT FELL OUT OF THE SPLIT. Once the ground and a person know different halves,
+THEY CAN DISAGREE:
+  GROUND     The dust has not come back into these yet. They went out this way.
+  NEIGHBOUR  Nobody has been up here in days. You are the first thing I have heard.
+Both honest. One wrong. Nothing on screen tells him which. That is not available at all while the
+ground is allowed to assert a name, which is what the shipped line does.
+
+THE GUESS, when the ground does name somebody, carries the doubt in the same breath: "Boots, and not
+the kind anybody round here wears. Could be {FACTION}. Could be somebody in bought boots." One
+reason, one name, one alternative. NO LINE ANYWHERE GIVES A NUMBER, because a party has no headcount
+and a number would be a lie; the neighbour says so in character: "Don't ask me how many, I went
+inside."
+
+*** AND MY OWN RULER FAILED OUR OWN SPANGLISH LAW. *** I tested the nine ground lines against the
+findings and got 8 of 9 clean. The failure was "Huellas, y los edges still sharp. Iban saliendo, no
+volviendo" -- flagged as HAVING NO DIRECTION. It has direction. It is in Spanish. MY CHECKER ONLY
+KNEW ENGLISH DIRECTION WORDS. THEY SPEAK SPANGLISH is a law, so any ruler this lane builds that
+reads only English will systematically mark the lines the law requires as broken, and would push a
+future writer to "fix" good Spanglish by adding English to it. Fourth instance this session of the
+same family of error: a ruler that measures the wrong thing and gets believed because it produced a
+number. Bilingual ruler: 0 of 9 fail.
+
+ONE TECHNICAL CONSEQUENCE, NAMED HERE BECAUSE THE WRITING CAUSES IT: the shipped code re-posts only
+when faction|agenda|hot-or-cold changes. Putting direction in the line means LEG MUST JOIN THAT KEY,
+or a party that turns round on the cell you are standing on keeps the old sentence -- the same stale
+line bug that code already fixed once for a different reason.
+
+ROUTED. FACTIONS own the track: (a) leg is already computed and the sentence throws away the most
+playable field they have, (b) if direction goes in the line, leg goes in the re-post key, (c) the
+ground should not name a faction as a fact. PEOPLE: the neighbour block needs no new system, it is a
+bark from whoever stands near a track. ALL LANES, free and cheap: A CHECKER THAT READS ONLY ENGLISH
+WILL MARK GOOD SPANGLISH AS BROKEN. If your gate counts words, count them in both languages or it is
+quietly arguing against a law.
+
+ALSO STILL TRUE AND STILL NOBODY'S: PEOPLE's [demo pinned] row was deleted by accident in ae12177
+and is still gone. It names a trap in the newest law (the DEMO BUILD gate asserts regenerating the
+demo changes nothing, so the first non-RUN alpha ship turns it red for everybody and the obvious fix
+is the forbidden re-cut). Only the coordinator adds rows. Somebody needs to.
+
+PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
+VOICE was this lane's and is fixed; no other is ours.
+
+NEXT: the queue's named rows are done through Q23. Q4 to Q17 still owe their school rounds under the
+9/6 mode, one row at a time, oldest first.
+
+A CHANGE TO THIS LANE'S OWN ROUTINE, CAUGHT BY A NEW CHECK THIS ROUND. For many rounds I have
+prepended my block AND demoted my previous "LATEST" tag, so this lane only ever showed one. The
+handoff checker now holds every "LANE (slug): date LATEST" head that the last commit carried, and
+demoting removes one, so my routine turned it red. Its own comment says the convention plainly:
+LANES ADD A HEAD EACH ROUND AND REWRITE BODIES, NEVER HEADS. No content was ever lost by my version
+(the block stayed, only the word LATEST went), but those head lines are the index of every lane's
+newest block and removing one breaks the index. STOPPED. This lane now adds a head and leaves the
+old ones alone, like everybody else, and the newest is simply the topmost.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

@@ -2070,3 +2070,83 @@ BROTHER  Pass the salt.                                                [time off
 #   the word debt, or arrears, or owing, in a header
 #   an exclamation mark, a countdown, or a colour that means danger
 #   and congratulation for an empty card
+
+## Q23 ROUND TWO -- TRACK WORDS, ARMED BY SCHOOL  (9/13/26)
+# Round one is records/BOHEMIA_WORDS_Q23_SCHOOL_THE_LINE_IS_A_CONCLUSION_WITH_NO_EVIDENCE_9_13_26.md
+# Replaces the one shipped attempt: "Anarchists came through here just now. a
+# patrol, and they are close." Tab: RUN. All draft:true.
+#
+# THIS IS STREET TEXT, NOT DIALOGUE. One short line on a shared bar, so every line
+# below is one sentence or two short ones, and none of them is a speech.
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. SEPARATE THE SEEING FROM THE MEANING. The observation comes first and any
+#    conclusion is audibly a conclusion. The shipped line delivered "they are close"
+#    in the same breath as the facts.
+# 2. AGE IS EVIDENCE, NEVER AN ADVERB. A tracker dates a print by what has happened
+#    to it since: dust blown back in, something small walked over it, the wind got
+#    into the edges. No line below says "just now".
+# 3. DIRECTION IS IN THE DATA AND UNUSED. tracksAt() already returns leg, out or
+#    back. Every ground line below carries it, because it is the one thing the
+#    player can act on.
+# 4. IDENTITY IS THE WEAKEST READING AND MUST SOUND LIKE A GUESS, the way a boot
+#    tread that does not belong is a yellow flag and not a name.
+# 5. NO NUMBER, EVER. A party has a faction, a tier and a power and no headcount, so
+#    a line that says how many would be a lie.
+# 6. THE GROUND AND A PERSON KNOW DIFFERENT HALVES. The ground gets no faction name;
+#    a neighbour gets one and is vague about everything else.
+# 7. IT SPEAKS ONLY WHEN THE ANSWER CHANGES.
+#
+# *** ONE TECHNICAL CONSEQUENCE, BECAUSE FINDING 3 CHANGES THE CACHE KEY. *** The
+# shipped code re-posts only when faction|agenda|hot-or-cold changes. Adding
+# direction means LEG MUST JOIN THAT KEY, or a party that turns round on the cell
+# you are standing on keeps the old sentence, which is the exact stale-line bug the
+# shipped code already fixed once for a different reason.
+
+### THE GROUND. No faction name anywhere in this block.   draft:true
+# Indexed by age band and by leg, which is all the code has to choose between.
+  age 0   out    Prints, and the edges are still sharp. Going out, not coming back.
+  age 0   back   Prints, still sharp. Whoever it was, they were heading home.
+  hot     out    The dust has not come back into these yet. They went out this way.
+  hot     back   Dust not back in them yet, and they point back the way they came.
+  cold    out    Something small has walked over these since. Outbound.
+  cold    back   The wind has been in these. Old, and headed home.
+# Every one is an observation and then the direction, and the direction is the half
+# a player can do something with. Nothing claims a number and nothing claims a name.
+
+### THE SPANGLISH GROUND   draft:true
+  age 0   out    Huellas, y los edges still sharp. Iban saliendo, no volviendo.
+  hot     back   El polvo no ha vuelto a llenarlas. Y apuntan back the way they came.
+  cold    out    Algo chiquito ha caminado encima. Outbound.
+
+### THE GUESS, WHICH HAS TO SOUND LIKE ONE   draft:true
+# The faction is the weakest reading off the ground, so when the game does name it
+# from sign alone, the sentence carries the reason and the doubt together.
+  Boots, and not the kind anybody round here wears. Could be {FACTION}. Could be
+  somebody in bought boots.
+# One reason, one name, one alternative. That is a yellow flag, not an answer.
+
+### THE NEIGHBOUR, WHO KNOWS THE HALF THE GROUND DOES NOT   draft:true
+# A person saw them and is certain about WHO and vague about everything else, which
+# is the mirror image of the ground and the reason the name belongs in a mouth.
+  {FACTION}. I watched them go past the tank. Don't ask me how many, I went inside.
+  That was {FACTION}. Before the wind picked up, whenever that was.
+  Somebody came through. I know the sound of a cart and that was a cart.
+# The third one is a neighbour who did not look, which is the commonest case and the
+# only line in the family that names neither who nor which way.
+
+### WHEN THE TWO HALVES DISAGREE, WHICH IS THE BEST THING HERE   draft:true
+# The ground says one thing and a person says another, and the player gets to decide
+# who to believe. This is what separating seeing from meaning buys.
+  GROUND     The dust has not come back into these yet. They went out this way.
+  NEIGHBOUR  Nobody has been up here in days. You are the first thing I have heard.
+# Both are honest. One of them is wrong. Nothing on screen tells him which.
+
+### THE REFUSALS: WHAT THIS LANE WILL NOT WRITE FOR A TRACK   draft:true
+# BANNED, on the evidence in round one:
+#   a faction named by the ground as a fact
+#   a headcount, in any wording, because the game does not have one
+#   an age given as an adverb ("just now", "recently", "a while ago")
+#   a conclusion delivered in the same breath as the observation
+#   a line that stays on screen after the player steps off the prints
+#   and any sentence that tells the player whether to follow or to avoid
