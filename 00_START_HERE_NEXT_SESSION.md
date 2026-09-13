@@ -16610,6 +16610,44 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
+*** WALKED THE FIVE MINUTES AGAIN AND FOUND THE CAUSE OF HIS DEAD BUTTONS. IT IS
+ONE LINE, IT IS IN THE DEMO CUTTER, AND IT IS RUN'S FILE TO FIX. ***
+HANDED TO RUN, not fixed here: rule 14(a) freezes the demo cut to RUN's hand and the
+cutter is their file. This lane measured it and stops.
+
+THE FINDING. tools/bohemia_cut_the_demo.js, DEMO_CITY_CSS, the thumb-floor rule:
+    #topbar>*,#blstack>*{min-height:44px !important; min-width:44px !important;
+                         display:flex !important; ...}
+The `display:flex !important` is there to CENTRE a label inside the 44px thumb box.
+But display does double duty -- it lays out AND it shows -- so that rule ALSO FORCES
+EVERY CHIP THE GAME HAS HIDDEN BACK ONTO THE SCREEN, and !important beats the game's
+own inline display:none.
+MEASURED, asked of the browser rather than guessed (the cutter's own lesson):
+    IN THE DEMO   #mktbtn inline display:none   computed: flex   <- forced visible
+                  winning rule: '#topbar > *, #blstack > *' display:flex !important,
+                  from the stylesheet named demo-cut-city
+    IN THE CITY   #mktbtn inline display:none   computed: none  <- correct
+SO THE BUG EXISTS ONLY IN THE DEMO, WHICH IS THE ONLY THING HE PLAYS. On the walked
+surface every chip behaves.
+THE VICTIM THIS LANE OWNS: the MARKET chip. mktBtnSync() already hides it correctly
+when mktAt() is null, and it already ran -- the inline style is right. Standing where
+the demo starts, the nearest market is 3 cells away, so MARKET sits on screen and
+pressing it does nothing, for ever. That is his "one button... I press it, nothing
+happens", and the chip rail's own comment already states the rule it breaks: "it is
+not offered because it exists; it is offered because it can be pressed."
+AND THE CUTTER ALREADY KNEW. Its own comment records this exact bug happening once
+before -- the thumb rule beat an earlier hide and brought the builder button back --
+and it was fixed for THAT ONE ID with a compound selector placed last. It was never
+generalised, so every other hidden chip is still forced on.
+
+WHAT THIS LANE CHECKED OF ITS OWN, ALL DELIVERING, in the demo, zero page errors:
+  SCAVENGE - 8H   477 minutes and a battery, every time
+  the nightfall card  the pumps line (ANARCHISTS hold the water, 3 running, 480 L),
+                      the valley countdown (food: 7 days left), the hunger line, the
+                      rent line (Mob took 1 battery for the 1 block you used), and
+                      "a day's work paid: 1 battery"
+  all eight of this lane's modules present on the surface
+
 *** THIS LANE WALKED THE FIVE MINUTES. WORLD HAS NO BREAK IN THEM. NOTHING WAS
 BUILT THIS ROUND, ON PURPOSE. ***
 WHAT A PLAYER IS OFFERED in the demo's first five minutes on a 390x844 phone, every
