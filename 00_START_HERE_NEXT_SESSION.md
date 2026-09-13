@@ -27840,7 +27840,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): [streets read] SHIPPED under rule 14 - HE IS
+ROUND LOG 9/13 (latest): seam PASS on COOK [streets fixed] round 2 - the
+72%-of-screen yard is crisp approved hardpan now, measured 20.6
+colours/kpx where the flat cream fill sat (floor 4.5); frame in
+records/target/DIRECTION_THE_YARD_AFTER_9_13_26.png beside the before.
+Liars 2-5 from the streets verdict stay open exactly as COOK's own
+record names them (the road's geometry, the kerb art approved-and-
+undrawn, wall base shadows, the freeway surface). CLAIMED [judge the
+redo]: all three of his named defects are shipped (elbows/coat/facing
+order) and ANIMATION's round 3 carries measured before/after on all 47
+kills - judging them in eight facings against his frame before they go
+back to him. PREVIOUS: [streets read] SHIPPED under rule 14 - HE IS
 RIGHT, verdict FAIL with five liars named in coverage order, frames on
 the demo at phone size: the tan void (below the density floor), the
 roadbed with no kerb/lanes/double-yellow, the sidewalk reading as a
