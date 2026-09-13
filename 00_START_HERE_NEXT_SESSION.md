@@ -1,3 +1,52 @@
+WORDS (words-8dqrnq): 9/13 (c) LATEST -- *** Q22 [debt words] SHIPPED WITH BOTH ROUNDS. THE HEADERS
+GO IN THE LENDER'S WORD AND THE ROWS IN THE PLAYER'S HONEST COUNT, AND THE GAP BETWEEN THEM IS THE
+CARD. *** TAB: LIFE (the card). Research round, demo untouched, per the five minutes law (c).
+
+THE ONE DESIGN DECISION THE FAMILY HANGS ON. School said a card has to pick a voice (lender, the
+player's own reckoning, or nobody) and that a lender never says debt, he says HELP. So: he reads
+PEOPLE WHO HELPED YOU OUT, and underneath it a line saying somebody gave him something for nothing
+nine times. Both true, both on screen at once. That gap is the only thing on the card doing
+emotional work, because nothing on it is allowed to tell him how to feel.
+  Replaces YOU OWE THEM / THEY LENT YOU BATTERIES / YOU WENT SHORT ON THEM, which were second
+  person, accusing, and in nobody's voice.
+
+IN THE BANK, section Q22 ROUND TWO, all draft:true: three headers in the lender's word; three kinds
+each with a FIRST row, a LATER row and a Spanglish row; the heir's first nightfall; the empty-card
+line; seven refusals.
+  ESCALATION IS SPECIFICITY, NOT VOLUME, so no later row ever raises its voice: "She brought up the
+  fence this morning. Not the nine times. The fence."
+  THE CONSEQUENCE IS NEVER STATED. "Nobody has mentioned it yet" is KEPT WORD FOR WORD from WORLD's
+  first attempt because it already is the finding and it is the best line on the card. Two new lines
+  do the same job: "Nothing was said either time" and "Just asking."
+  THE EMPTY CARD SAYS "Nobody helped you this week." Never congratulatory.
+
+CATALOGUE, applied not name-dropped: Q098.P1 (an inheritance is a debt, a reputation and an
+accusation) produced the heir's line; Q087.P3 (the opening quest is a debt owed to a faction) is why
+the faction is named every time; Q073.W5 (the harm comes back wearing your own face) is a RESTRAINT,
+so nothing on the card threatens, because the collector is not the danger, the arithmetic is.
+
+AND THE HONEST CORRECTION. Last round I wrote that the coverage hole would be closed with this
+writing. It was not. THE HOLE IS PROVEN: the card's words are in the walked city and nowhere else,
+the interface book is harvested from the demo, 0 of its 54 lines mention owing. I THEN TRIED TO SIZE
+IT CHEAPLY AND WALKED INTO THE TRAP I DOCUMENTED TWO ROUNDS AGO: a grep for uppercase labels in the
+city slice returned five candidates and every one, read by hand, is a sound label or a fragment of a
+COMMENT. A grep over source reads comments as if they were code. SO NO NUMBER IS PUBLISHED. Sizing
+it honestly needs a browser walk plus a change to the harvester, and I did not do that on purpose:
+the harvest is not lying (unlike the voice gate, it is honestly scoped in its own header, so this is
+extending coverage rather than repairing a falsehood), and the fleet is under THE FIVE MINUTES where
+research lanes continue research and do not go re-walking surfaces. THE JOB IS WRITTEN OUT in the
+round-two record so it can be taken in one round, and it stays this lane's own.
+
+ROUTED. WORLD owns the card: the lines are a family to choose from, not an instruction, and three
+things the first attempt already had right are named so a rewrite cannot lose them (the lender is
+named every time, no amount anywhere, and "Nobody has mentioned it yet" survives untouched). UI gets
+one free line: this card must never have a colour that means danger, a countdown, or an exclamation
+mark, because everything that makes it land depends on it looking like a list and not a warning.
+
+PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
+VOICE was this lane's and is fixed; no other red on that list is ours.
+
+NEXT: Q23 [track words], school first. Q4 to Q17 still owe their school rounds, one row at a time.
 EYES AND EARS (eyes-5vql33): 9/13 (ad) LATEST -- *** E26 [five minutes] ROUND ONE IS DONE: SCHOOL. NO WALK TAKEN, NOTHING MEASURED, ON PURPOSE. THE SHEET IS WRITTEN AND NEXT ROUND WALKS IT. *** TAB: the demo is what he played; the walk happens there. E20 round two is PAUSED mid-job, not dropped: his 9/13 ruling that the five minutes is the only measure outranks this lane's queue and standing duty 8 says his bugs beat it. Record: records/BOHEMIA_EYES_E26_ROUND_1_SCHOOL_THE_WATCHER_WRITES_WHAT_A_CAMERA_WOULD_9_13_26.md. THE SHEET: banks/eyes/BOHEMIA_EYES_E26_STRANGERS_SHEET_9_13_26.json, draft:true.
 
 WHY SCHOOL CAME FIRST, AND IT IS NOT A PROCEDURAL EXCUSE. The published practice has one line that settles it: you only truly get to see a player experience your game for the first time ONCE. A walk taken before the sheet exists is a walk spent inventing the sheet, and it is the only walk that can never be repeated. So this round wrote the sheet; next round walks it and writes nothing else.
@@ -594,7 +643,7 @@ learns to expect is a red nobody reads.
 Record: records/BOHEMIA_NO_SLOP_THE_SCREEN_HAS_A_FACE_9_13_26.md
 
 
-WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+WORDS (words-8dqrnq): 9/12 (e) -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
 

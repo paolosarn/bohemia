@@ -1975,3 +1975,98 @@ BROTHER  Pass the salt.                                                [time off
 #   an ask with no way out in it, which forces a bare no and makes a fight
 #   a warm thank you treated as the natural end of a favour
 #   and an ask that answers questions nobody asked
+
+## Q22 ROUND TWO -- DEBT WORDS, ARMED BY SCHOOL  (9/13/26)
+# Round one is records/BOHEMIA_WORDS_Q22_SCHOOL_THE_LENDER_CALLS_IT_HELP_9_13_26.md
+# The family of lines for the nightfall card that says WHO YOU OWE, replacing the
+# first attempt in engine/bohemia_owing.js. Tab: LIFE. All draft:true.
+#
+# THE CATALOGUE, and these are claims rather than name-drops:
+# @STUDY Q098.P1  "an inheritance is a DEBT, a REPUTATION, an ACCUSATION, and a
+#   corpse that won't go in the ground" -- applied: this card already outlives the
+#   player and hands its creditors to the heir, so the last block below is written
+#   for the morning the heir first reads it.
+# @STUDY Q087.P3  the opening quest is a DEBT with a clock, owed to a faction --
+#   applied: the card is the standing version of that, which is why it names the
+#   faction every single time and never a category.
+# @STUDY Q073.W5  THE HARM COMES BACK WEARING YOUR OWN FACE, a man catches TB from
+#   somebody he beat for a debt -- applied: nothing on this card threatens, because
+#   the collector is not the danger here, the arithmetic is.
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. THE NAME IS LOAD-BEARING, with a control group: 9,196 people, reminders
+#    carrying the person's NAME moved payment, moral appeals moved nothing. Every
+#    row opens with the lender and no row is ever collapsed into a category.
+# 2. THE MORAL APPEAL DOES NOTHING, so not one line tells the player what kind of
+#    person this makes him. There is no "people are counting on you" anywhere.
+# 3. A LENDER SAYS HELP, NEVER DEBT. So the HEADERS are in the lender's word and
+#    the ROWS are in the player's honest count, and the gap between them is on
+#    screen at the same time. That gap is the design of this card.
+# 4. THE CONSEQUENCE STAYS UNSAID. No line says what happens if he does not pay.
+# 5. ESCALATION IS SPECIFICITY, NOT VOLUME (school flagged this as its weakest
+#    finding). So every kind has a FIRST and a LATER, and the later one never
+#    raises its voice: it knows a day, a place, or a thing somebody noticed.
+# 6. A CARD HAS TO PICK A VOICE, and this one picks the player's own reckoning
+#    QUOTING the lender. Not the lender (too warm to be honest), not nobody (the
+#    scolding register the first attempt fell into).
+
+### THE HEADERS, IN THE LENDER'S WORD   draft:true
+# The first attempt was YOU OWE THEM / THEY LENT YOU BATTERIES / YOU WENT SHORT ON
+# THEM: second person, accusing, and in nobody's voice. These are what the lenders
+# would call it, which is finding 3 put where he reads first.
+  favour  PEOPLE WHO HELPED YOU OUT
+  loan    PEOPLE WHO SPOTTED YOU THE POWER
+  rent    PEOPLE WHOSE GROUND YOU SLEPT ON
+
+### THE ROWS: A FAVOUR TAKEN   draft:true
+  FIRST   {WHO} gave you something for nothing, twice. Nobody has mentioned it yet.
+  LATER   {WHO} gave you something for nothing, nine times. She brought up the
+          fence this morning. Not the nine times. The fence.
+  SPANG   {WHO} te dio algo por nada, nine times. Habló del fence esta mañana. No
+          de las nine times. Del fence.
+# "Nobody has mentioned it yet" is kept verbatim from the first attempt because it
+# IS finding 4 and it is the best line on the card. The LATER row escalates by
+# knowing a morning and a fence, and by being careful to say what was NOT said.
+
+### THE ROWS: BATTERIES LENT   draft:true
+  FIRST   {WHO} lent you three batteries on a handshake. He calls it helping you
+          out.
+  LATER   {WHO} lent you nine batteries on a handshake. He still calls it helping
+          you out. He said it twice today.
+  SPANG   {WHO} te prestó nine batteries on a handshake. Todavía le dice helping
+          you out. Lo dijo twice today.
+# Finding 3 inside a row: the player writes down the number AND the word the lender
+# uses for it. "He said it twice today" is the whole escalation, and nothing in it
+# is a threat.
+
+### THE ROWS: GROUND SLEPT ON   draft:true
+  FIRST   {WHO} let you sleep on their ground, twice. Nothing was said either time.
+  LATER   {WHO} let you sleep on their ground, six times. Somebody asked how long
+          you were staying. Just asking.
+  SPANG   {WHO} te dejó dormir en su ground, six times. Alguien preguntó how long
+          you were staying. Nomás preguntando.
+# "Just asking" is doing the same job as "Nobody has mentioned it yet": it reports
+# that the thing was not said, which is louder than saying it.
+
+### THE ONE THAT ONLY EVER READS ONCE: THE HEIR'S FIRST NIGHTFALL   draft:true
+# The card survives the fold and hands the creditors over. Q098.P1: an inheritance
+# is a debt, a reputation and an accusation.
+  These are the people your father took help from. Every one of them is still here,
+  and not one of them has said anything to you yet.
+# No amount, no instruction, no moral. It just says they are still standing there.
+
+### AND THE LINE FOR WHEN THE CARD IS EMPTY   draft:true
+  Nobody helped you this week.
+# The card is never congratulatory. An empty ledger in this valley is not a clean
+# record, it is a man nobody has offered anything to, and the line is allowed to
+# land either way depending on the week he has had.
+
+### THE REFUSALS: WHAT THIS CARD WILL NEVER SAY   draft:true
+# BANNED, on the evidence in round one:
+#   an amount, in any unit, ever (his ruling, and the register agrees with it)
+#   what happens if he does not pay, in any wording
+#   any sentence about what kind of person this makes him
+#   a lender collapsed into a category instead of named
+#   the word debt, or arrears, or owing, in a header
+#   an exclamation mark, a countdown, or a colour that means danger
+#   and congratulation for an empty card
