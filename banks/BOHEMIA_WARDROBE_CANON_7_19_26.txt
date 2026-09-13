@@ -4,7 +4,7 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 317
+# count: 318
 TEMPLE TAPER|hair|#201e1b|
 SHAG|hair|#523a26|
 ROPE LOCKS|hair|#201e1b|
@@ -206,6 +206,7 @@ VESTMENT GOLD BOOTS|feet|#ffd75c|
 MOSS GREEN SHIRT|base|#6ebe3c|
 TEAL WORK SHIRT|base|#28bea0|
 COBALT WORK PANTS|legs|#326ed2|
+TEAL WORK PANTS|legs|#28bea0|
 ROSE BANDANA|face|#dc4655|
 TEAL STRIPED TEE|base|#28bea0|stripe
 COBALT DUSTER|outer|#326ed2|

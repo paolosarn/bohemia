@@ -50,21 +50,34 @@ for ln in open(BANK, encoding='utf8'):
 nonhair = [(n, l, h) for n, l, h in rows if l != 'hair']
 reg = sum(1 for _, _, h in nonhair if hsv(h)[1] < card['cloth_sat_max'])
 
-old = base['register_count'] / base['nonhair_count']
-new = reg / len(nonhair) if nonhair else 0.0
-if new > old + 1e-9:
+# AMENDED 9/13, with the gate: two accent-immune ratchets. Register count
+# clicks UP, muddy count clicks DOWN; a legal accent moves neither.
+muddy = sum(1 for _, _, h in nonhair
+            if card['cloth_sat_max'] <= hsv(h)[1] < card['accent_sat_min'])
+old_reg = base['register_count']
+old_muddy = base.get('muddy_count', base['nonhair_count'] - base['register_count'])
+wrote = False
+if reg > old_reg:
     base['register_count'] = reg
-    base['nonhair_count'] = len(nonhair)
-    base.setdefault('clicks', []).append(
-        {'stamp': '9/5/26', 'floor': '%d/%d' % (reg, len(nonhair)),
-         'share': round(new, 4)})
-    json.dump(base, open(BASELINE, 'w', encoding='utf8'), indent=0)
-    print('RATCHET CLICKED: %.0f%% -> %.0f%% (%d/%d). The gate now holds the new floor.'
-          % (old * 100, new * 100, reg, len(nonhair)))
-elif new < old - 1e-9:
-    sys.exit('RATCHET REFUSES: measured %.0f%% is BELOW the stored floor %.0f%%. '
+    wrote = True
+if muddy < old_muddy:
+    base['muddy_count'] = muddy
+    wrote = True
+elif 'muddy_count' not in base:
+    base['muddy_count'] = old_muddy
+    wrote = True
+if reg < old_reg:
+    sys.exit('RATCHET REFUSES: register %d is BELOW the stored %d. '
              'A ratchet never moves down — fix the wardrobe, not the floor.'
-             % (new * 100, old * 100))
+             % (reg, old_reg))
+if muddy > old_muddy:
+    sys.exit('RATCHET REFUSES: muddy middle %d is ABOVE the stored %d. '
+             'Fix the wardrobe, not the floor.' % (muddy, old_muddy))
+if wrote:
+    base.setdefault('clicks', []).append(
+        {'stamp': '9/13/26', 'register': reg, 'muddy': min(muddy, old_muddy)})
+    json.dump(base, open(BASELINE, 'w', encoding='utf8'), indent=0)
+    print('RATCHET CLICKED: register %d -> %d, muddy %d -> %d. The gate holds the new floors.'
+          % (old_reg, base['register_count'], old_muddy, base['muddy_count']))
 else:
-    print('RATCHET HOLDS: measured %.0f%% equals the stored floor. Nothing written.'
-          % (new * 100))
+    print('RATCHET HOLDS: register %d, muddy %d. Nothing written.' % (reg, muddy))

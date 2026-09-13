@@ -169,6 +169,17 @@ and he made it in one frame). THE GENERAL RULE HIS KILL SETS:
 }
 ```
 
+## 5B. THE RATCHET IS ACCENT-IMMUNE (amended 9/13)
+COOK's TEAL WORK PANTS - a LEGAL accent in Paolo's own Network colour -
+dipped the old register-share ratchet by inflating its denominator: the
+ruler punished what the card legalises. Fixed in the ruler, not the
+wardrobe (the honest direction of the Goodhart guard): the ratchet is now
+two counts, REGISTER NEVER SHRINKS and THE MUDDY MIDDLE NEVER GROWS. New
+muddy garments are impossible anyway (the register-or-accent check refuses
+them), so the muddy count can only fall as the old backlog retints - it
+stood at 174 on 9/6 and reads 121 at this amendment. A legal accent moves
+neither number.
+
 ## 5A. THE GROUND FLOOR (density ruling, 9/6 — VAMILY [density ruling])
 EYES' 42-tile score sheet and texture_match_gate agree from two different
 directions: the act-1 re-cook is too clean beside the art he approved.

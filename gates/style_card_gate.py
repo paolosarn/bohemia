@@ -110,13 +110,24 @@ for n, l, h in new:
         ok('new outer %s wears runway black' % n, lo <= vv <= hi,
            'outer mid val %.2f outside %.2f-%.2f' % (vv, lo, hi))
 
-# 4. the ratchet
+# 4. the ratchet (AMENDED 9/13: accent-immune, after COOK's legal teal accent
+# dipped the old share by inflating the denominator. Check 3 already refuses
+# any NEW muddy garment, so the muddy middle can only be pre-card names -
+# the two honest ratchets are: the register never shrinks, the muddy middle
+# never grows. A legal accent moves neither.)
 nonhair = [(n, l, h) for n, l, h in bank_rows if l != 'hair']
 reg = sum(1 for _, _, h in nonhair if hsv(h)[1] < card['cloth_sat_max'])
-floor_share = base['register_count'] / base['nonhair_count']
-ok('the register share never drops below the 9/5 baseline',
-   len(nonhair) == 0 or reg / len(nonhair) >= floor_share - 1e-9,
-   '%d/%d now vs %d/%d frozen' % (reg, len(nonhair), base['register_count'], base['nonhair_count']))
+muddy = sum(1 for _, _, h in nonhair
+            if card['cloth_sat_max'] <= hsv(h)[1] < card['accent_sat_min'])
+ok('the register never shrinks below the frozen count',
+   reg >= base['register_count'],
+   '%d now vs %d frozen' % (reg, base['register_count']))
+muddy_floor = base.get('muddy_count')
+if muddy_floor is None:
+    muddy_floor = base['nonhair_count'] - base['register_count']
+ok('the muddy middle never grows past the frozen count',
+   muddy <= muddy_floor,
+   '%d now vs %d frozen' % (muddy, muddy_floor))
 
 # 5. the purple reservation
 purple = [n for n, l, h in bank_rows
