@@ -9698,7 +9698,53 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/13 LATEST -- *** RULE 14 HOLDS THIS LANE, AND THE ROUND
+PEOPLE (people-7h9sfy): 9/13 (b) LATEST -- *** [cats stay] SHIPPED dcddcf95, AND
+THERE IS NO CAT IN THIS GAME. *** Paolo 9/13, walking the demo's five minutes:
+"I do see cats running around, that's cool." NOTES ARE RULINGS, so the row was to
+record which cats he saw and freeze them as canon. This lane now has a five-minute
+row, so rule 14b's hold is lifted for it; [lock them] stays held behind it.
+WHAT THE ROUND ACTUALLY FOUND. Measured in five places -- the engine, the alpha,
+the demo, the run slice, the banks -- and there is no cat anywhere. EVERY "cat" IN
+THIS REPO IS THE WORD CATEGORY: cat(d) is a district category, byCat is a wardrobe
+bucket, "misc street cat" in a 7/10 bank is a category label.
+AND A GREP THAT FINDS NOTHING IS NOT PROOF THAT NOTHING IS THERE, so I drove the
+demo at phone size, clicked through the splash the way a player does, walked the
+street, and asked every frame of the RUNNING page what it had. The answer was in a
+system I had not guessed the name of, which is the whole lesson: the file search
+was five confident misses and the running page answered in one.
+WHAT HE SAW ARE THE VALLEY'S ANIMALS (8/26, off his own "dogs and swarms of flies"
+and the 8/25 "the city is dead and DEAD IS NOT THE DEFAULT"): fly swarms drawn as
+specks over a walkable cell, a RAT drawn as a dash running the foot of a wall ON
+THE BEAT, and a raven as a silhouette on a roofline. Ten screens walked: up to 20
+animals on one, 18 fly swarms, 1 to 2 rats, 0 ravens.
+*** THE ONLY ONE THAT RUNS IS THE RAT. *** A swarm hovers and a raven sits. One or
+two dark dashes scurrying along a wall, on a phone, is exactly what reads as a cat.
+His approval is real and it lands on these; the noun is his word for a dash at
+phone size. SO NOBODY ADDS A CAT -- that would be inventing content off a misheard
+noun AND changing the very thing the row exists to freeze. The gate refuses a
+fourth kind by the exact name it would arrive under.
+THE FREEZE IS A GATE because a thing frozen without one is not frozen, it is merely
+unvisited: three kinds and no fourth, every density number in all eight districts,
+no district added underneath, THE DOG AT ZERO (he named it first on 8/26 and that
+lane still left it out in writing -- a dog is a BODY and a body is character art),
+the per-frame cap, the determinism that makes a freeze mean anything at all, and
+the animals still DRAWING on the real demo. Negative-controlled twice: a dog in
+downtown goes red naming the district; a fourth kind called "cats" goes red
+printing all four.
+MEASURED AND DELIBERATELY NOT FIXED, so the next ruling has numbers instead of a
+rediscovery: the raven is in the table and drew ZERO on his walk although it places
+best of the three valley-wide (245 of 305 rolls), and the rat places on 1.9% of its
+rolls valley-wide (10 of 521). He approved what he SAW, and a lane that improves
+the thing it was told to freeze has broken it.
+RULE 14 FOLLOWED: the diff is a gate and two records, touching no engine module and
+no slice, so nothing to resync and nothing to rebuild. THE DEMO CUTTER WAS NOT RUN.
+The stamp is not bumped either -- it exists so he can SEE which build he is on, and
+a new letter over a build with nothing new in it is the one way that stamp can lie.
+NEXT: [lock them] is still HELD; it is not a five-minute break. If this lane is
+given another break it takes that; otherwise the honest thing is to say so.
+Record: records/BOHEMIA_CATS_STAY_9_13_26.txt ***
+
+PEOPLE (people-7h9sfy): 9/13 -- *** RULE 14 HOLDS THIS LANE, AND THE ROUND
 WENT ON THE LANE'S OWN RED INSTEAD. *** Paolo 9/13 LOCKED: the demo's first five
 minutes on a phone is the only measure, only RUN re-cuts the demo, and a building
 lane with no five-minute break holds its claim and adds nothing to the demo. None
