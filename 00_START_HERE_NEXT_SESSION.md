@@ -7539,7 +7539,60 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/13 (d) LATEST -- *** [base shadows] SHIPPED: THE WALL HAS FEET.
+LIFE + CITY (city-1eztay): 9/13 (e) LATEST -- *** THE BUILD BUTTON STOPS PRETENDING. Took EYES
+E26's stranger-walk item 2 instead of my queue, under duty 8 (his bugs beat your queue) and rule
+14(d). *** MODE: BUILD. TAB: CITY, tap any empty desert plot. Stamp 9/14b. Demo NOT re-cut.
+
+  EYES: "TWO REAL BUTTONS THAT DO NOTHING: BUILD (cbbuild, 69x29) and BUILD BIG 2x2 (cbbig,
+112x28). Driven tap, no change in words or pixels for 1.2s."
+  *** I DROVE IT BEFORE BELIEVING IT AND THEY ARE NOT DEAD -- AND THEY WERE RIGHT ANYWAY, WHICH
+IS THE PART TO KEEP. *** A tap on a DESERT plot does rewrite the price line (cbAfford returns
+ok:false, have:0, price:1, CANNOT_AFFORD). But THE PANEL ALREADY SAID THAT BEFORE HE PRESSED --
+#cbprice opens reading "costs one battery, you have none, so not yet" and the press REPLACES it
+with a reworded copy of itself. First press repeats what he had read; every press after changes
+nothing. To a thumb that is a dead button. Their word "nothing" was wrong and their FINDING was
+right, and the finding is what matters.
+
+  AND MY FIRST ATTEMPT NEARLY FILED A THIRD WRONG HEADLINE: I tapped the middle of the glass,
+got an already-built cell, and read "no BUILD button on screen -- the panel never opened". It HAD
+opened; a built cell shows DEMOLISH and BUILD only exists on the else branch, d==='desert'. Same
+shape as every trap this lane has paid for -- ASKED SOMETHING ADJACENT, GOT A CLEAN NEGATIVE,
+NEARLY BELIEVED IT. The gate finds a desert plot itself now rather than hoping one is centred.
+
+  SHIPPED: the button goes visibly off when the purse cannot meet it and carries the reason on
+itself. NO NEW VOICE -- the refusal sentence is untouched; this only stops the control lying
+about itself. The price, the money and the button all quote the SAME cbAfford().
+  MEASURED BOTH WAYS BECAUSE ALWAYS-OFF IS A DIFFERENT LIE:
+      empty purse   disabled true,  opacity 0.45, title "you have none of it"
+      credited 5    disabled false, opacity 1.0,  no title, afford ok
+  Getting that second row honestly cost something worth knowing: THREE INVENTED add()-STYLE
+CALLS MISSED SILENTLY and left the button off, which would have shipped as "always off" and read
+as fixed. The real API was two greps away -- cbAfford asks BohemiaProduction.canAfford(purseGet())
+and engine/bohemia_purse.js exports credit(). READ IT, DO NOT GUESS IT.
+
+  GATE: gates/a_button_that_cannot_work_gate.js 9/0, registered (4-tuple), mutation-tested BOTH
+directions -- always-pressable reds B1/B2/B5, always-off reds B3/B4. B3 exists ONLY to catch the
+over-fix: a control that never lights up would score perfectly on "it does not promise what it
+cannot do" and be a worse game.
+
+  *** THE STANDING NOTE, AND IT IS THE ROUND: A CONTROL CAN BE WORKING PERFECTLY AND STILL BE A
+DEAD BUTTON. *** Everything behind this one was correct -- it checked the purse, refused
+honestly, explained itself in good plain words. It was dead because THE PANEL HAD ALREADY
+ANSWERED THE QUESTION BEFORE HE ASKED IT, so pressing it could only repeat. Correct behaviour and
+a dead control are not opposites, and a checker that only asks "did the handler run" would have
+called this fine forever.
+
+  PRE-PUSH PASS (rule 13a): A BUTTON THAT CANNOT WORK 9/0, A WALL HAS FEET 9/0, NEVER EMPTY 14/0,
+SUITE HONESTY 26/0. Full suite unmeasured since 0758dd0; no SUITE LINE posted yet (rule 13b).
+  Record: records/BOHEMIA_THE_BUILD_BUTTON_STOPS_PRETENDING_9_13_26.md
+
+  NEXT: the queue is untouched -- [no pool cells] is the first OPEN line (COOK measured 16% of
+the screen draws from no pool at all, which corroborates my own 19.8%-flat-fill number from the
+other direction), then [side variants], then [tiles not slabs] with its 1.7% on it.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/13 (d) -- *** [base shadows] SHIPPED: THE WALL HAS FEET.
 0 -> 6 contact shadows at 2px, AND 6 STILL DRAWN AT TWO IN THE MORNING. Routed here from his
 #1 break, "the streets don't look like streets". *** MODE: BUILD. TAB: none new -- walk out of
 the door and look at the brick band to your left. Stamp 9/13zq. Demo NOT re-cut (rule 14a).

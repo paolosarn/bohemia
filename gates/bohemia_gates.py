@@ -6036,6 +6036,20 @@ GATES = [
      'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
      'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
      'GREEN 6/0 in the cut demo.', False),
+    ('A BUTTON THAT CANNOT WORK', ['node', 'gates/a_button_that_cannot_work_gate.js'],
+     'LIFE + CITY, answering EYES E26 stranger-walk item 2 on this lane\'s own surface: "TWO '
+     'REAL BUTTONS THAT DO NOTHING: BUILD (cbbuild, 69x29) and BUILD BIG 2x2 (cbbig, 112x28). '
+     'Driven tap, no change in words or pixels for 1.2s." DROVE IT BEFORE BELIEVING IT: they '
+     'are NOT dead -- a tap on a DESERT plot (the only kind that gets BUILD; a built cell gets '
+     'DEMOLISH, and my own first attempt tapped one and nearly filed "the button is missing") '
+     'does rewrite the price line. AND THEY WERE RIGHT ANYWAY: the panel ALREADY said it before '
+     'he pressed, so the first press repeats what he had read and every press after changes '
+     'nothing. To a thumb that is a dead button. PAOLO 9/13 rule 14(d): "a card that promises '
+     'something and does nothing is the worst bug in the game: deliver it or remove it", so the '
+     'button now goes visibly off when the purse cannot meet it and carries the reason. '
+     'MEASURED BOTH WAYS because a control that is ALWAYS off is a different lie: broke '
+     'disabled/0.45/"you have none of it", credited enabled/1.0/no title with afford ok and 5 '
+     'in hand. Mutations: always-pressable reds B1/B2/B5, always-off reds B3/B4.', False),
     ('A WALL HAS FEET', ['node', 'gates/a_wall_has_feet_gate.js'],
      'VAMILY [base shadows], LIFE + CITY. DIRECTION [streets read] judged the demo\'s spawn '
      'street at phone size and routed item 4 of the verdict here: "THE WALL WITH NO FEET. It '

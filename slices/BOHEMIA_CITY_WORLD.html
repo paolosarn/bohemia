@@ -31996,6 +31996,42 @@ function CBpanel(){
   else if(!CE.isSkeleton(d)) html+='<div class="cbrow"><span class="cbnote" id="cblives">'
     +esc(cbLivesLine(x,y))+'</span></div>';
   el.innerHTML=html;
+  /* __A_BUTTON_THAT_CANNOT_WORK_DOES_NOT_LOOK_LIKE_ONE__ (9/13, LIFE + CITY) =====
+     EYES E26's stranger walk, item 2: "TWO REAL BUTTONS THAT DO NOTHING: 'BUILD'
+     (cbbuild, 69x29) and 'BUILD BIG 2x2' (cbbig, 112x28). Driven tap, no change in
+     words or pixels for 1.2 s."
+
+     I DROVE IT BEFORE BELIEVING IT AND THEY ARE NOT DEAD -- and they were right
+     anyway, which is the part worth writing down. A driven tap on a desert plot DOES
+     change the words: cbAfford() returns {ok:false, have:0, price:1,
+     CANNOT_AFFORD} and the price line rewrites to "that costs one battery and you
+     have none. Finish a job and come back."
+     BUT THE PANEL ALREADY SAID THAT BEFORE HE PRESSED. #cbprice opens reading "costs
+     one battery, you have none, so not yet", and the press REPLACES that sentence
+     with a reworded copy of itself. So the first press says the thing he had already
+     read and every press after it changes nothing at all. To a thumb that is a dead
+     button, and their instrument was measuring the truth.
+
+     PAOLO 9/13, rule 14(d): "A card that promises something and does nothing is the
+     worst bug in the game: deliver it or remove it." A button he cannot use is not
+     delivered, so it stops LOOKING delivered: it carries its price and goes visibly
+     off when the purse cannot meet it. The refusal sentence stays exactly where it
+     was -- this adds no new voice, it only stops the control lying about itself.
+     MECHANISM MINE, CONTENTS HIS: the price and the money both come from cbAfford(),
+     the same single source the tag and the till already quote. */
+  { const _a=cbAfford(), _off=!(_a&&_a.ok);
+    for(const _id of ['#cbbuild','#cbbig']){
+      const _b=el.querySelector(_id); if(!_b) continue;
+      if(_off){
+        _b.disabled=true;
+        _b.style.opacity='0.45';
+        _b.style.cursor='default';
+        /* WHY, on the control itself, so the answer is where the thumb is going */
+        _b.title=(_a&&_a.reason==='NO_RULING')?'nobody has ruled what this costs'
+                                              :'you have '+cbHave(_a&&_a.have)+' of it';
+      }
+    }
+  }
   { const cx2=el.querySelector('#cbclose');
     if(cx2) cx2.onclick=function(){ CB.sel=null; CBpanel(); buildBtnSync(); }; }
   /* __THE_FIRST_BUILDING_IS_NOT_AN_AIRBASE__ (9/7) ========================
