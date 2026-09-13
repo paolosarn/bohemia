@@ -54,6 +54,28 @@ def times_from(log_text):
     return out
 
 
+def box_speed_from(log_text):
+    """HOW FAST WAS THE BOX WHEN THIS LOG WAS MADE (9/13, PLUMBER).
+
+    Every time in this census is a WALL CLOCK, and this machine does not run at one
+    speed: one gate read 359.6 s and later 663.4 s with no code change between, and a
+    city boot read 8.0 s and later 11.1 s while the file grew 0.7%. Old city against
+    current city, booted in the SAME window, came out identical -- so the content had
+    not moved, the box had.
+
+    A census that does not record the speed it was taken at cannot be compared to the
+    next one, and nothing says so. The runner prints BOX SPEED before any gate time;
+    this lifts it into the record so the floor carries it. A log from before that line
+    existed simply has no ratio, and that is reported rather than guessed at.
+    """
+    m = re.search(r'BOX SPEED:\s*([\d.]+)\s*ms\s*\(baseline\s*([\d.]+)\s*ms\)\s*=\s*([\d.]+)x',
+                  log_text)
+    if not m:
+        return None
+    return {'ms': float(m.group(1)), 'baselineMs': float(m.group(2)),
+            'ratio': float(m.group(3))}
+
+
 def census(log_path):
     m = load_runner()
     text = io.open(log_path, encoding='utf8', errors='replace').read()
@@ -99,6 +121,8 @@ def census(log_path):
     return {
         'takenFrom': os.path.basename(log_path),
         'observedWallSeconds': wall,
+        # WITHOUT THIS, TWO CENSUSES ARE NOT COMPARABLE AND NOTHING SAYS SO.
+        'boxSpeed': box_speed_from(text),
         'settings': {'JOBS': m.JOBS, 'BROWSER_JOBS': m.BROWSER_JOBS,
                      'SUITE_BUDGET': m.SUITE_BUDGET, 'cpus': m._CPUS},
         'targetSeconds': TARGET_S,

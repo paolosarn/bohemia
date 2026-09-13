@@ -136,6 +136,21 @@ floor = solo_s + max(browser_s_now / max(1, m.BROWSER_JOBS),
 print('  browser work %.0fs over %d slots, pure %.0fs over %d slots, solo %.0fs, '
       'longest gate %.0fs' % (browser_s_now, m.BROWSER_JOBS, pure_s_now, m.JOBS,
                               solo_s, longest))
+# HOW FAST WAS THE BOX THE CENSUS CAME OFF (9/13, PLUMBER). A floor is built from
+# WALL CLOCKS, and this machine does not run at one speed -- one gate read 359.6 s
+# and later 663.4 s with no code change, while the old and current city booted
+# identically in one window. So a floor with no speed beside it is a number about an
+# afternoon. PRINTED, NEVER ASSERTED: this lane already proved to itself that a
+# correction which can fail is a correction that gets argued with.
+_bs = C.get('boxSpeed')
+if _bs:
+    print('  the census was taken on a box running at %.2fx (%.1f ms against a %.1f ms'
+          ' baseline). A floor from a different ratio is not comparable to this one.'
+          % (_bs['ratio'], _bs['ms'], _bs['baselineMs']))
+else:
+    print('  THE CENSUS CARRIES NO BOX SPEED, so this floor cannot be compared with any'
+          ' other. Re-take it from a log made since the runner began printing BOX SPEED.')
+
 print('  FLOOR %.0fs = %.1f min   against a %ds budget and a %ds target'
       % (floor, floor / 60.0, m.SUITE_BUDGET, int(C['targetSeconds'])))
 

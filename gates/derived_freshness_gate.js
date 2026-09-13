@@ -146,6 +146,14 @@ const VOLATILE = [
 /* KNOWN STALE, measured 9/12/26. THIS LIST MAY ONLY SHRINK. Each entry names the lane
  * that owns the file, because this lane may not edit slices/, laws/, art or features. */
 const KNOWN_STALE = {
+  /* THE WORLD THREE CAME OFF 9/13, ALL AT ONCE. BOHEMIA_MAP_CURRENT.html (+99/-9,
+     engine md5 stamps that no longer matched the files they named), the 8/15 surface
+     audit (+19/-19, it said 6 things were on the walked surface when the truth was 22)
+     and the page that renders it. All three named for WORLD, never parked behind an
+     excuse, and all three re-derive clean now. Frozen list 5 -> 2, and the two left are
+     this lane's own reachability census. Six drifts closed this way now: name it,
+     refuse to freeze it quietly, and the lane that owns it fixes it. */
+
   /* SUBURB WALK CAME OFF THIS LIST 9/13, and the gate is what took it off. It was
      found stale twice -- both times by a full suite run that rebuilt it in place --
      named for FACTIONS both times and never parked behind an excuse. Somebody
@@ -168,14 +176,6 @@ const KNOWN_STALE = {
      REBUILD BOTH WHENEVER YOU TOUCH THE ENGINE:
          node tools/build_current_slice.js
          node tools/build_run_slice.js */
-  'slices/BOHEMIA_MAP_CURRENT.html':
-    'WORLD. +92/-7 against tools/bohemia_map_tab.py, including engine md5 stamps that no '
-    + 'longer match the engine files they name. It declares no maker header at all.',
-  'records/BOHEMIA_SURFACE_AUDIT_8_15_26.md':
-    'WORLD. +19/-19 against tools/bohemia_surface_audit.py. It says 6 things are on the '
-    + 'walked surface and 22 only on the one he never sees; regenerated it says 22 and 7.',
-  'slices/BOHEMIA_WHICH_SURFACE_8_15_26.html':
-    'WORLD. +1/-1, the same audit rendered as a page.',
   'records/BOHEMIA_REACHABILITY_CENSUS.json':
     'PLUMBER. +17/-8. Its maker is the 66-second one excluded above, so this gate does not '
     + 'run it; the drift was measured by hand this round and is recorded here.',

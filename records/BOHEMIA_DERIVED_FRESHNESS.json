@@ -2,41 +2,19 @@
  "what": "Every derived file re-derived and compared. Written by gates/derived_freshness_gate.js.",
  "why": "laws/BOHEMIA_LAW_NOTHING_IS_BAKED_ONCE_9_6_26.md names this gate by name. A bake is correct the day it is made and rots silently after.",
  "how": "Each maker runs in a throwaway git worktree (HEAD plus the working tree's own changes). The repo itself is never written to. Outputs are discovered by asking git what moved, not by reading headers, because the file most likely to be stale is the one whose header nobody wrote.",
- "taken": "2026-09-13T18:36:47.195Z",
+ "taken": "2026-09-13T19:09:58.971Z",
  "counts": {
   "makersRun": 12,
   "makersExcluded": 3,
   "filesRewritten": 43,
   "compared": 43,
-  "fresh": 40,
-  "drifting": 3,
+  "fresh": 43,
+  "drifting": 0,
   "missingAMakerHeader": 8
  },
- "secondsToRun": 8.1,
- "drifting": [
-  {
-   "file": "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md",
-   "maker": "tools/bohemia_surface_audit.py",
-   "plus": 19,
-   "minus": 19
-  },
-  {
-   "file": "slices/BOHEMIA_WHICH_SURFACE_8_15_26.html",
-   "maker": "tools/bohemia_surface_audit.py",
-   "plus": 1,
-   "minus": 1
-  },
-  {
-   "file": "slices/BOHEMIA_MAP_CURRENT.html",
-   "maker": "tools/bohemia_map_tab.py",
-   "plus": 99,
-   "minus": 9
-  }
- ],
+ "secondsToRun": 6.7,
+ "drifting": [],
  "frozen": {
-  "slices/BOHEMIA_MAP_CURRENT.html": "WORLD. +92/-7 against tools/bohemia_map_tab.py, including engine md5 stamps that no longer match the engine files they name. It declares no maker header at all.",
-  "records/BOHEMIA_SURFACE_AUDIT_8_15_26.md": "WORLD. +19/-19 against tools/bohemia_surface_audit.py. It says 6 things are on the walked surface and 22 only on the one he never sees; regenerated it says 22 and 7.",
-  "slices/BOHEMIA_WHICH_SURFACE_8_15_26.html": "WORLD. +1/-1, the same audit rendered as a page.",
   "records/BOHEMIA_REACHABILITY_CENSUS.json": "PLUMBER. +17/-8. Its maker is the 66-second one excluded above, so this gate does not run it; the drift was measured by hand this round and is recorded here.",
   "records/BOHEMIA_REACHABILITY_CENSUS.md": "PLUMBER. +3/-3, the same census as prose."
  },
