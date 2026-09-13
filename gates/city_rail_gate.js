@@ -207,6 +207,48 @@ const LOOK = () => {
      + 'the same transition (' + seam.a + ' -> ' + seam.b + ' -> ' + seam.c + ')',
      !seam.err && seam.a && seam.b && seam.a !== seam.b && seam.c === seam.a);
 
+  /* ==== [eyes: reach spills] -- THE REACH IS 44 AND IT STILL LANDS ==================
+     EYES reported 9/7 that savebtn reached 236x54 and swallowed five neighbours. That is
+     FIXED and the bounce-back was stale -- re-measured 9/13, every control owned its own
+     centre. What was live was the opposite: with the halving on, reach EQUALLED ink at
+     12 px, under a third of a thumb, because [half size] had to kill the 44 px box (a 44
+     box at a 22 pitch sits on the chip beneath it) and replaced it with a 30 px gap. That
+     makes the ISOLATION 44, not the reach: a finger that misses hits nothing instead of
+     the wrong thing, which is good and is a different promise from the thumb law.
+     The fix spends the same pitch differently -- 44 px chips with no gap instead of 12 px
+     chips with 30 px of dead air -- so this leg has to prove BOTH halves at once, because
+     either alone is the bug that was already shipped once:
+       (a) every chip owns 44 px, and
+       (b) a driven tap at each chip's centre still reaches THAT chip.
+     Grow the boxes without (b) and you rebuild the 9/7 overlap; keep (b) without (a) and
+     you are back to a 12 px target. */
+  const reach = await c.evaluate(() => {
+    const st = document.getElementById('blstack');
+    if (!st) return { err: 'no rail' };
+    const small = [], stolen = [];
+    for (const e of st.children) {
+      const cs = getComputedStyle(e);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity === 0) continue;
+      const r = e.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) continue;
+      const id = e.id || ('.' + (e.getAttribute('class') || e.tagName));
+      if (r.width < 44 || r.height < 44) small.push(id + ' ' + Math.round(r.width) + 'x' + Math.round(r.height));
+      const top = document.elementFromPoint(Math.round(r.left + r.width / 2),
+                                            Math.round(r.top + r.height / 2));
+      let owner = top; while (owner && !owner.id && owner.parentElement) owner = owner.parentElement;
+      if (!owner || owner.id !== e.id) stolen.push(id + ' -> ' + ((owner && owner.id) || 'nothing'));
+    }
+    return { n: st.children.length, small, stolen };
+  });
+  ok('every chip in the rail is a 44 px target EVEN WITH THE HALVING ON -- ink halves, reach '
+     + 'does not (' + (reach.n || 0) + ' chips'
+     + (reach.small && reach.small.length ? ', UNDER: ' + reach.small.join(' ') : '') + ')',
+     !reach.err && reach.small && reach.small.length === 0);
+  ok('and a tap at each chip\'s own centre still reaches THAT chip, so the 44 was not bought '
+     + 'by sitting on the neighbour -- the exact way this broke on 9/7'
+     + (reach.stolen && reach.stolen.length ? ' -- STOLEN: ' + reach.stolen.join(' ') : ''),
+     !reach.err && reach.stolen && reach.stolen.length === 0);
+
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close();
   done();

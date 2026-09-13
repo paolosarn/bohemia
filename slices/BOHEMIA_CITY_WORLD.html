@@ -71253,7 +71253,33 @@ window.BOHEMIA_HALF = (function(){
        id plus a universal beats a bare class. Matching it with id-plus-class is the
        whole fix. The floor is right and stays right: the REACH is still 44, it is
        just no longer made of a 44-tall BOX that sits on the control beneath it. */
-    +'#topbar > .uihalf, #blstack > .uihalf{ min-height:0!important; height:auto!important }'
+    /* *** AND THE COLUMN GETS ITS 44 BACK, BY MOVING THE DEAD SPACE INTO THE CONTROL.
+       [eyes: reach spills], re-measured 9/13. The note above is right about WHY the 44-tall
+       box had to go -- a 44 box at a 22 pitch sits on the chip beneath it and takes its
+       press -- and its last sentence is the one thing that is not true: "the REACH is still
+       44". IT IS NOT. Measured by asking every 4 px of the screen who gets the point:
+       savebtn and the rail chips each own a band 12 PX TALL. What is 44 is the ISOLATION,
+       not the reach. The 30 px gap means a finger that misses hits NOTHING instead of the
+       wrong thing, which is a real and good property -- and it is a different promise from
+       the one the thumb law makes.
+       SO THE FIX IS NOT A BIGGER BOX, IT IS THE SAME PITCH SPENT DIFFERENTLY. A column of
+       12 px chips separated by 30 px of dead air has a 42 px pitch. A column of 44 px chips
+       separated by nothing has a 44 px pitch. Same layout, same no-overlap guarantee (in a
+       flex column the neighbour MOVES, it cannot be sat on), and thirty pixels of dead space
+       per chip becomes live target. INK IS UNTOUCHED: font-size and padding still halve, so
+       this is his order and the thumb law at once, which is exactly how [every card] worded
+       it -- reach stays 44, ink halves.
+       THE TOP BAR IS NOT FIXED HERE AND THAT IS DELIBERATE: it is a ROW, so the same trade
+       does not exist. Measured, its four chips sit on a 31 px pitch, so four 44 px targets
+       cannot fit without overlapping -- the very thing that broke this before. That is a
+       real fork and it is written up in the record rather than guessed at. */
+    +'#topbar > .uihalf{ min-height:0!important; height:auto!important }'
+    /* and WIDTH too, which a column can give away for free: it is left-aligned inside a
+       186 px lane, so a wider chip grows into empty screen rather than onto a neighbour.
+       Measured before: sleepbtn owned 28 px across and bikebtn 24. */
+    +'#blstack > .uihalf{ min-height:44px!important; min-width:44px!important;'
+      +'height:auto!important; display:flex!important; align-items:center!important }'
+    +'#blstack.uihalf{ gap:0!important }'
     /* *** AND THE SPREAD IS THE CONTAINER'S gap, BECAUSE THE CHILDREN CANNOT BE MOVED
        AT ALL. *** Two rounds were spent pushing chips around with top and margin and
        measuring nothing. The reason is four lines above these controls in this very

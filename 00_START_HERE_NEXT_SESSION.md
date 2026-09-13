@@ -1,5 +1,58 @@
 EYES AND EARS (eyes-5vql33): 9/14 (af) LATEST -- *** E26 WALKED AGAIN. THE DEMO DID NOT CHANGE, AND THE REASON IS MEASURED: THE FIXES ARE ONE CUT AWAY FROM HIM. *** TAB: the demo is what he plays; the alpha is where the fixes landed. Record: records/BOHEMIA_EYES_E26_ROUND_3_THE_FIX_IS_ONE_CUT_AWAY_9_14_26.md. Walks: records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json and ..._WALK_ALPHA_9_14_26.json. Shots: records/eyes_e26_walk_demo/ and _alpha/. THE STRANGER'S LIST is rewritten on the front page.
 
+UI (ui-kmqmrf): 9/13 (e) LATEST -- *** [eyes: reach spills] SHIPPED. THE REACH WAS NEVER 44. ***
+[no slop] still CLAIMED and untouched: an EYES bounce-back on a shipped row beats my queue.
+
+THE THING I WAS SENT TO FIX WAS ALREADY FIXED, AND SAYING SO IS THE FIRST JOB. EYES measured 9/7
+that savebtn reached 236x54 and swallowed five neighbours, so the phone button did nothing.
+Re-measured by asking every 4px of the screen who gets the point, and by driving a real tap at
+each control's centre: savebtn reaches 28x12, and taps land 12 of 12. The giant pads went in later
+rounds. A row describing a defect that no longer exists sends the next reader hunting a ghost.
+
+WHAT IS LIVE IS THE OPPOSITE, AND EYES' OWN NOTE ALREADY CONTAINED IT. With the halving on, REACH
+EQUALS INK AT 12PX -- under a third of a thumb. And it is deliberate: [half size] HAD to kill the
+44px box, and its comment says why and is right (a 44 box at a 22 pitch sits on the chip beneath
+it -- that IS the 9/7 bug). It replaced the box with a 30px container gap and claimed "the REACH
+is still 44". *** THAT SENTENCE IS THE ONE THING THAT IS NOT TRUE. *** What is 44 is the
+ISOLATION: a 12px chip with 30px of dead air means a miss hits NOTHING rather than the wrong
+thing, which is good, and is a different promise from the thumb law. You still must be accurate
+to 12px. NOBODY RE-MEASURED IT FOR SIX ROUNDS because it was written down confidently.
+
+THE FIX IS THE SAME PITCH SPENT DIFFERENTLY.
+   before  12px chip + 30px dead gap = 42px pitch, 12px of it live
+   after   44px chip +  0px gap      = 44px pitch, all of it live
+Ink untouched (font-size and padding still halve), so it is his order and the thumb law at once --
+exactly how [every card] worded it. AND THE OVERLAP CANNOT COME BACK: a pad is an absolute box laid
+OVER the screen, min-height grows the element IN FLOW, and the rail is a flex COLUMN so the
+neighbour MOVES. Not mitigated, impossible. Measured after: every rail chip 44x44 or bigger, taps
+still land on their own control. thumb_gate's half-size exemption list dropped 42 -> 30.
+
+THE GATE PROVES BOTH HALVES BECAUSE EITHER ALONE IS A BUG THAT ALREADY SHIPPED: every chip is 44
+with the halving ON, and a tap at each centre still reaches THAT chip. Mutation-proved both ways --
+revert to 12px+30gap and the 44 leg names the chips; force 44px chips to overlap and the
+"nothing lies on anything else" leg names six pairs.
+
+THE TOP BAR IS A FORK, NOT A BUG, AND IS NOT HALF-BUILT. A column gives 44 away free because it
+grows into empty screen; a ROW cannot. Measured in the demo with the builder drawer correctly
+hidden: the bar's right-hand group is 123px and four 44px controls need 176, a 53px shortfall,
+because the left end holds HUMAN MODE, SUBURB ON FOOT and the day and time. Which thing gives is
+his call. Five ways on the sheet at the bar's real width.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html
+
+PER RULE 13: pre-push pass green -- city rail 13/0, thumb 19/0, half size 7/0, phone object 18/0,
+rom face 14/0, feed 15/0, alpha loads 20/0. THE SUITE LINE still unposted: full suite unmeasured
+since 75280da7. Rule 14(a): demo untouched, RUN cuts it.
+
+THE LESSON: a claim inside a comment is worth exactly what the measurement behind it is worth.
+"The REACH is still 44" was written by somebody who had just fixed a real bug correctly, and it
+was wrong, and it stood for six rounds because it sounded settled.
+
+NEXT: back to [no slop] -- the casing register is the last of the three still fixed-pitch.
+
+Record: records/BOHEMIA_THE_REACH_WAS_NOT_44_9_13_26.md
+
+
 TWO WALKS THIS ROUND, ON PURPOSE. Six lanes shipped against last round's list, so the question split in two: DID THE FIX WORK (the alpha) and DID IT REACH HIM (the demo). Same instrument, one new argument. Demo is stamped BUILD 9/13z, alpha BUILD 9/14a, and only THE RUN re-cuts the demo, so everything six lanes shipped is sitting behind that cut.
 
 THE FONT FIX IS REAL AND IS NOT IN WHAT HE PLAYS. Measured inside the fight's own base64 blob in each file. Alpha: 0 Space Grotesk, 0 fonts.googleapis, BohemiaMono present, 4 embedded woff files. Demo: 42 Space Grotesk, 2 fonts.googleapis links, 0 embedded. And on the walks themselves: the alpha had 0 failed requests, the demo had 1, the Google Fonts one. So the honest sentence is neither "fixed" nor "broken": FIXED WHERE IT LANDED, ONE CUT AWAY FROM HIM. COMBAT shipped it off item 3 of last round's list and their record is straight about it.
