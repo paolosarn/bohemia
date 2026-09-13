@@ -8453,7 +8453,91 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/13 LATEST -- *** [streets fixed] ROUND 1: THE STREET WAS A
+COOK (cook-mce6r5): 9/13 LATEST -- *** [streets fixed] ROUND 2: THE STREET IS 8% OF HIS
+SCREEN. THE YARD IS 72%, AND IT WAS THREE SIXTEEN-PIXEL TILES. *** TAB: RUN (the walked
+city). Three quarters of the ground he stands on changed.
+
+WHAT I DID THAT I SHOULD HAVE DONE IN ROUND 1. The row says start on the biggest lie BY
+SCREEN AREA. I never measured screen area -- I assumed the street was the street. So I asked
+the running game, in a phone-shaped browser, which pool every cell around the player draws
+from:
+
+    hyard                605 cells   72%    three tiles, 16x16
+    flat colour, no pool 138 cells   16%    no tile art at all
+    street                70 cells    8%    the 18 tiles round 1 cooked
+    side                  28 cells    3%    the 36 tiles round 1 cooked
+
+AND SIXTEEN-PIXEL TILES ARE NOT DRAWN AT SIXTEEN PIXELS. saTex bakes every tile into a 44px
+cell with drawImage(im,0,0,44,44). A 44px tile lands 1:1, lossless. A 16px tile is blown up
+x2.75 -- a non-integer scale, BANNED by this repo's own mobile render contract -- and that
+context never turns smoothing off, so it arrives bilinear-blurred. Three quarters of his
+screen was a blurred 16px tile beside a crisp 44px road. That IS "the tiny parts don't come
+together".
+
+*** AND HE ALREADY RULED ON THIS IN THESE WORDS. The comment on TPX quotes him, 8/1: "the
+pixel quality... of the terrain OF THE GROUND OF THE HOUSES... it's so bad". TPX went 22->44
+so his 44px art reaches the glass 1:1. The street art is 44 and got the benefit. THE GROUND
+OF THE HOUSES IS 16 AND NEVER DID. He named the one thing the fix did not reach. ***
+
+WHAT hyard IS: the 7/21 house-skin set, which banks_used_gate's own waiver says was
+SUPERSEDED ON 8/1 and is "kept loaded as the fallback" -- and the pool table ends
+:(_k==='water')?null:'hyard', so every cell that is not road, walk or water falls through to
+it. A superseded fallback is the default surface of the game.
+
+SHIPPED BY DRAWING NOTHING. Swapped hyard's three tiles for yard_0/1/2 out of
+banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt, whose authority line is his own
+words: "I checked it to do the other 41 mark it approved." 16x16 -> 44x44, x2.75 blurred ->
+x1.00 lossless, 89/110/108 colours -> 5/5/5. Same pool key, same three tiles, same bh%3
+picker, NO RENDERER CHANGE -- an art payload and not one line of logic. Verified on the
+walked city at phone size: the flat blurred cream field is now crisp tan hardpan with
+gravel, and the frame reads as one material family for the first time.
+Tool: tools/bohemia_the_yard_he_approved_cook_9_13_26.py
+Record: records/COOK_THE_YARD_HE_APPROVED_9_13_26.md
+
+*** THE MEASUREMENT THAT SHOULD EMBARRASS ALL OF US, AND IT IS THE NEXT SIX ROUNDS OF WORK:
+ALL FORTY-TWO TILES PAOLO APPROVED ON 7/28 ARE DRAWN BY THE WALKED CITY EXACTLY ZERO TIMES.
+Every road, walk, yard, wall, roof, door and garage tile in the set he personally signed off
+sits in a bank nobody reads. Checked by pixel hash AND by rendering them side by side and
+looking, because a hash cannot see a recolour. THAT INCLUDES walk_kerb AND road_gutter: THE
+KERB THIS ROW ASKS FOR ALREADY EXISTS, 44 PIXELS, APPROVED, UNDRAWN. ***
+
+WHERE THE KERB ACTUALLY STANDS, because round 1's handoff got this half wrong and rule 12
+caught it: the suburb has FIFTEEN cell codes and NOT ONE is a kerb. Paolo's 7/31 ruling put
+the walk hard against the kerb ("Im upset your suburbs dont have a 1 grid sidewalk next to
+the streets"), so THE KERB IS AN EDGE ON THE ROAD SIDE OF THE WALK, not its own cell. My
+round-1 handoff said the cells were "already asking for it" -- they are not, in the suburb,
+which is where his first five minutes happen. The walked city's marking pass already
+resolves oriented pools from neighbours (c.markPool, BOHEMIA_CITY_WORLD.html:40481) and
+__rotTex already exists, so the hookup is that pass plus a pool key. ART: exists, approved.
+PLACEMENT: LIFE + CITY / WORLD.
+
+STILL OPEN, THIS LANE CONTINUES:
+  1. The kerb, per the paragraph above.
+  2. EVERY HOUSE POOL IS STILL 16x16 and blurred the same way: hroof 14 tiles, hwall 4,
+     hwindow 3, hdoor 3, hboarded 3, all from the same superseded 7/21 set, and the bank has
+     44px approved wall_*, roof_*, door_*, garage_* for all of them. NOT swapped this round
+     on purpose: hroof has 14 members against the bank's 7 named hip/ridge/eave roles, so a
+     blind swap moves an index. Needs the role mapping worked out first.
+  3. 138 of 841 cells (16%) draw with NO POOL AT ALL, by flat colour through texFor. Nobody
+     has measured which materials those are.
+
+TWO REGISTRY TRAPS DODGED THIS ROUND, fifth and sixth in this lane: tf_cu in the tileform
+pools is 44px and looks exactly like a curb tile -- it is a COOLING UNIT. And the "all 42
+undrawn" result came from a pixel hash, which would say the same for art drawn in a
+RECOLOURED form, so I rendered bank and live pools side by side and looked before believing
+it. Both caught by looking, neither by a number.
+
+GATES: pre-push pass green (PIXEL CRAFT 30/0, ART 45 16/0, PURITY ratchet holds, REUSE-FIRST
+206/4, REFERENCE CHECK 11/0, CITY TAB 64/0, ALPHA LOADS 20/0, WALL CLASS 24/0, PAGES PUBLISH
+18/0, BANKS-USED 24/2). The 4 and the 2 are other lanes' files and are BYTE-IDENTICAL on
+main -- verified by stashing this diff and diffing the failure lines, not assumed. Full
+suite unmeasured since 9d0c8a4e. DID NOT re-cut the demo (rule 14a).
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
+COOK (cook-mce6r5): 9/13 -- *** [streets fixed] ROUND 1: THE STREET WAS A
 PHOTOGRAPH, ALL 74 TILES OF IT. *** TAB: RUN (the walked city). The street he walks on is
 the art that changed; nothing else moved.
 
