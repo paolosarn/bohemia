@@ -39266,8 +39266,26 @@ function renderCity(){
            proves the code exists; only this proves a border was painted in a
            faction's own colour on a real canvas. */
         __drew[__me] = g.strokeStyle;
-        g.globalAlpha = __own ? 0.9 : 0.62;
-        g.lineWidth = __own ? Math.max(1.5, Math.min(TW * 0.14, 4)) : Math.max(1, Math.min(TW * 0.10, 3));
+        /* *** "THE STREETS DON'T LOOK LIKE STREETS." (Paolo 9/13, THE FIVE
+           MINUTES.) THIS LAYER WAS A LOT OF WHY, AND IT TOOK THREE MEASUREMENTS
+           TO BE SURE OF IT. ***
+           The same CITY frame on a phone, one session, one camera, one clock, the
+           border weight the only thing moved: loud, the map is a lattice of green,
+           red and blue running along every street and the roads disappear under
+           it. Quiet, the roads read as roads, the blocks read as blocks, and the
+           lights read as lights -- and the territory is still there, still in his
+           ink, on the same seen edge.
+           AND THE CAUSE IS THIS LANE'S OWN DESIGN WORKING TOO WELL: [who holds]
+           put every border along something you can see -- a road, a freeway, a
+           rail line -- so a border IS a stripe down the middle of a street. At
+           0.62 alpha and three pixels that stops being a boundary and becomes the
+           street's paint job.
+           THE HUE IS UNTOUCHED, AND SO IS __holderInk, which the tracks share and
+           a gate pins. Only the shout comes down. Yours stays brighter than
+           theirs, which was always deliberate: "that one is mine" is the first
+           thing anybody looks for. */
+        g.globalAlpha = __own ? 0.55 : 0.26;
+        g.lineWidth = __own ? Math.max(1, Math.min(TW * 0.07, 2)) : Math.max(1, Math.min(TW * 0.05, 1.5));
         /* THE ISO EDGE, NOT A SQUARE. A cell is a diamond here, so its east side is
            the lower-right run and its south side the lower-left one; drawing a box
            would put the line through the middle of the neighbouring block. */

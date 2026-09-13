@@ -2840,89 +2840,73 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 23) LATEST -- *** THE FIVE MINUTES, ROUND
-TWO. [same lender] still CLAIMED AND HELD under 14b, nothing new built. Last round
-fixed the card he can open; this round measured the card he meets at the END OF
-EVERY DAY, which nobody had measured at all. It ran 142 pixels off a phone and
-twelve of its thirty-one lines were this lane's. Mine are three lines now. *** The
-rest of the overflow is WORLD's and is handed over with the pixels. Nothing to judge.
+FACTIONS (factions-ovkjpf): 9/13 (round 24) LATEST -- *** THE FIVE MINUTES, ROUND
+THREE. [same lender] still CLAIMED AND HELD under 14b. "The streets don't look like
+streets" -- THIS LANE WAS A LOT OF WHY. Every faction border is drawn along a road,
+because [who holds] deliberately put them there, and at full weight that is a bright
+green, red and blue stripe painted down the middle of every street in the valley.
+They are faint now. The roads read as roads and the territory is still there. ***
+Nothing to judge.
 
 VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_THE_NIGHT_CARD_DID_NOT_FIT_EITHER_9_13_26.md
-Round 22's record (the STANDING card): records/BOHEMIA_THE_CARD_DID_NOT_FIT_A_PHONE_9_13_26.md
+Record: records/BOHEMIA_THE_BORDERS_WERE_PAINTING_THE_STREETS_9_13_26.md
+Round 23: the nightfall card -- records/BOHEMIA_THE_NIGHT_CARD_DID_NOT_FIT_EITHER_9_13_26.md
+Round 22: the standing card -- records/BOHEMIA_THE_CARD_DID_NOT_FIT_A_PHONE_9_13_26.md
 
-STILL HELD, AND WHY. No break of his is a faction reading -- streets and sidewalks,
-the flat freeway, PRETTY MAP and DROP IN, cards that promise and do nothing, no
-fight in five minutes, no fast travel, glitches. 14(b) says a lane without one holds
-its claim and adds nothing, so nothing new went in for the second round running.
+ON FOOT, THIS LANE PAINTS NOTHING. Borders 0, tracks 0, lights 0 on the walked
+street. His street complaint is not this lane's layers being drawn down there.
+AND THE FIRST VERSION OF THAT PROBE SAID THE OPPOSITE -- 14 borders and 163 lights
+on a sidewalk. __TURF_INK and __GRID_DRAWN are published by the MAP pass and never
+cleared, so reading them after a STREET draw reports the last MAP draw. Cleared
+before every draw, the real answer appeared. Any lane reading those globals to prove
+what a frame contains must clear them first.
 
-THE MEASUREMENT, ON A PHONE, ON THE DEMO, WITH A REAL DAY WALKED INTO IT
-  a short day (3 outfits billed)   already 7 px over the window
-  a long day (8 outfits billed)    142 px over, 31 lines, TWELVE of them this lane's
-  two lines per faction of rent, plus a line per faction of power sites
+IN CITY, THE SAME FRAME RENDERED FOUR WAYS -- everything, borders off, lights off,
+neither. With the LIGHTS off the map is still a lattice of colour. With the BORDERS
+off the road grid appears. The borders were the noise; the lights were never the
+problem.
 
-WHAT THIS LANE DID ABOUT ITS OWN, DROPPING NO NUMBER
-  rent        2 lines per outfit -> 1 list + 1 consequence, however many there are
-  land makes  1 line per faction -> 1 line
-  this lane   12 lines ~420 px   -> 3 lines ~100 px
-  "rent wanted 43 off you: Mob (fortress) 20, Church (town) 7 of 10, Blues (town) 5
-   of 7, Cartel (fortress) 5, Network (fortress) 2, Reds (town) 2 of 3, Colorful
-   (camp) 1 of 3, Trades (camp) 1. You had 0. / so they cut 43 of their own streets off"
-  BIGGEST FIRST, because the line wraps on a long day and the landlord who took
-  twenty should be the first thing read, not whoever sorts first alphabetically.
-  ONE OUTFIT KEEPS ITS FULL SENTENCE: a list of one is worse English than a sentence.
+*** AND THE PART WORTH KEEPING: I DOUBTED THAT AND THE DOUBT WAS WRONG. *** A later
+frame came back in daylight with red roofs and no visible borders, so I assumed the
+dark neon frame had been a half-loaded screen and I REVERTED the change. Then I
+tested the assumption instead of trusting it: all 520 tile chunks are loaded at
+three seconds and the frame is unchanged at twenty-eight. The dark view is the real
+finished CITY view; the daylight one was a different zoom tier reached by FORCING
+MODE='city' instead of pressing the chip. The measurement was right and my
+second-guess was wrong, and the only reason I know which is which is that I checked.
+FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON, and it can put you in a view the
+player never sees.
 
-*** [FOR WORLD] THE REST OF THE OVERFLOW IS YOURS, AND HERE ARE THE PIXELS. ***
-  the card                916 px in a 780 px window, overflow 136
-  WHO YOU OWE              270 px  -- EIGHT IDENTICAL LINES, 234 px of it
-  THE DAY                  309 px  (this lane's rent line, wrapped: 72 px)
-  WHAT YOU ARE WORKING ON   54 px
-  KEEP THIS VALLEY         120 px
-WHO YOU OWE prints one line per outfit and all eight say the same sentence with a
-different name ("X let you stay on their ground without paying, once."). That block
-alone is TWICE THE OVERFLOW. Collapse the eight into one and the card fits with room
-to spare. It is [debt carried] (9/12) rendering BohemiaOwing.lines() one per row;
-this lane's OWED_BOOK is one of the three books feeding it, so the ROWS are mine and
-the SENTENCE is yours. Not touched here.
+THE CHANGE
+  alpha  0.62 -> 0.26 on other people's ground, 0.9 -> 0.55 on your own
+  width  up to 3 px -> 1.5 px, and 4 -> 2 for yours
+The HUE is untouched and so is __holderInk, which the tracks share and a gate pins.
+Only the shout comes down. Yours stays brighter than theirs, which was always
+deliberate. Proved with the one comparison that is not an opinion: ONE SESSION, ONE
+CAMERA, ONE CLOCK, the border weight the only thing that moved, loud/quiet/loud.
 
-GATES  faction_towns 201/0. One check went red on correct code and was FOLLOWED, NOT
-       LOOSENED: N15 pinned the per-faction variable names in the old rent sentence.
-       Its claim is unchanged and it now asserts BOTH shapes -- the one-outfit
-       sentence and the many-outfit list -- so it is a stronger check than the one it
-       replaces. RULE 13: pre-push pass green; no SUITE LINE posted yet.
+GATES  faction_towns 203/0, two new claims pinning the two things that must not come
+       back: the shout on somebody else's ground, and a line thick enough to be the
+       street's paint. Neither touches the hue, which is his.
+       RULE 13: pre-push pass green; no SUITE LINE posted yet.
 
-RULE 14 OBSERVED: no demo cut, no alpha touched, so no build stamp. The change is
-entirely in the city file, which both surfaces load BY REFERENCE, so it reaches the
-demo without the cutter and the demo stays a byte-identical cut of an unchanged
-workshop. Two rounds running now -- this is the way past the trap PEOPLE named, and
-it is worth passing on to any lane that can keep its change out of the alpha.
+RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, third round
+running. The change is in the city file, which both surfaces load by reference.
 
-*** THE RULE-14a TRAP PEOPLE NAMED HAS NOW ACTUALLY HAPPENED ON MAIN. *** Measured
-this round in a clean origin/main worktree, so it is inherited and not mine:
-  DEMO BUILD 24/1 -- "it is a CUT OF THE CURRENT WORKSHOP, not a fork: regenerating
-  it with tools/bohemia_cut_the_demo.js changes nothing" is now FALSE, because a lane
-  has shipped an ALPHA change without re-cutting, which 14(a) tells it to do. The
-  obvious way to make that gate green is to run the cutter, which is the thing he
-  forbade. IT WILL STAY RED UNTIL RUN WALKS THE FIVE MINUTES AND CUTS, and that is
-  the design, not a defect -- but every lane's pre-push pass now carries a red it
-  must not fix, so it needs saying out loud rather than each lane rediscovering it.
-  A gate must never outrank a ruling.
-  AND THE WAY TO AVOID OWNING IT: keep the change in the city file. Both surfaces
-  load it by reference, so it reaches the demo without the cutter and the demo stays
-  a valid cut of an unchanged workshop. This lane has done that two rounds running.
-  BANNER 12/2 -- also inherited, also on clean main: engine/bohemia_ground.js is
-  inlined behind a banner the sync scanner cannot read, so it is invisible to the
-  ENGINE SYNC LAW. Not this lane's module and not this lane's banner.
-
-STILL OPEN, UNCHANGED
+STILL OPEN, UNCHANGED AND NONE OF IT THIS LANE'S
+  [FOR RUN] DEMO BUILD is red on main because a lane shipped an alpha change without
+  re-cutting, which 14(a) tells it to do. It stays red until RUN walks the five
+  minutes and cuts. A gate must never outrank a ruling.
   [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the
-  city, reproduced on clean main with a single comment line: 10/0 green, add one
-  comment, 9/1 with NEW DRIFT on the city. The +0/-0 it prints is the numstat
+  city, reproduced on clean main with a single comment line. Its +0/-0 is the numstat
   measuring the wrong pair, so the line counts on a drift are always zero.
-  [INHERITED] city_memory_gate 33/1, "nobody outside SEE_RANGE (8) ever witnessed
-  anything", identical on a clean origin/main worktree.
-  [FOR QUESTS] faction_between_gate 180/2 (R2 bq_a03 writes a standing delta against
-  an outfit named "NONE"; R8 loadCorpus normalises by the largest deed).
+  [FOR PLUMBER] BANNER 12/2 on clean main: engine/bohemia_ground.js is inlined behind
+  a banner the sync scanner cannot read.
+  [INHERITED] city_memory_gate 33/1, identical on a clean origin/main worktree.
+  [FOR WORLD] the nightfall card's WHO YOU OWE prints one line per outfit, all eight
+  saying the same sentence with a different name: 270 px, twice that card's overflow.
+  Collapse them into one and it fits. Rows are this lane's book, sentence is theirs.
+  [FOR QUESTS] faction_between_gate 180/2.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
   1. DOES A DEBT CROSS THE FOLD -- CLOSING: ruled 9/13, and [same lender] carries it.
@@ -2935,19 +2919,17 @@ STILL OPEN, UNCHANGED
 
 NEXT IN THIS LANE
   [same lender] stays HELD until the coordinator gives this lane one of his breaks or
-  he says the five minutes hold (14c). While it is held, the round goes on the five
-  minutes. WHAT IS LEFT OF THIS LANE ON THAT MEASURE, IN ORDER:
-    THE MAP. This lane paints three layers on it -- turf borders, party tracks, and
-    the lights ([rent visible] drew 100+ dots). He said "the streets don't look like
-    streets" and "glitchy". Nobody has asked whether those three layers are part of
-    the mess on a phone. That is the next thing to measure.
+  he says the five minutes hold (14c). While held, the round goes on the five minutes.
+  WHAT IS LEFT OF THIS LANE ON THAT MEASURE:
     THE STREET LINE. The track sentence ("Anarchists came through here just now")
     shares #packline with the pack and the road. Walk it and watch for a line that is
     true one cell ago and a lie now.
-  If a break does land here, the queue behind it is [deal sticks], [pursuit strength],
+    THE LIGHTS AT OTHER ZOOMS. They read well at the CITY zoom measured here; nobody
+    has looked at them at the far zoom or on the whole-map view.
+  If a break lands here, the queue behind it is [deal sticks], [pursuit strength],
   [deeds weigh], [take them on].
 
-ELEVEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+THIRTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -2958,9 +2940,13 @@ ELEVEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
   A BARE CATCH AROUND A FUNCTION THAT DOES NOT EXIST IS A CONFIDENT WRONG ANSWER.
   A BOX HEIGHT IS NOT A REACH. Measure whether the press LANDS.
-  AND A LINE PER THING IS HOW A CARD STOPS FITTING A PHONE. Both cards this lane
-  writes to overflowed, both for the same reason, and neither was noticed by anybody
-  building the thing that was adding the lines. Measure the CARD, not your rows.
+  A LINE PER THING IS HOW A CARD STOPS FITTING A PHONE. Measure the CARD, not
+  your rows. Both cards this lane writes to overflowed for that reason.
+  A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW, NOT THIS
+  ONE. Clear it before you read it or it will tell you about a frame you are not
+  looking at.
+  AND FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON. It can put you in a view
+  the player never sees, which is how a correct measurement gets thrown away.
 
 --------------------------------------------------------------------------------
 

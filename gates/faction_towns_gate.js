@@ -821,6 +821,22 @@ const done = () => {
        })());
 
     /* THE SURFACES */
+    /* THE FIVE MINUTES, 9/13: the border is drawn QUIET now. Measured on a phone,
+       one session, one camera, one clock, the weight the only thing moved: loud,
+       the map is a lattice of colour running along every street and the roads
+       vanish under it; quiet, the roads read as roads and the territory is still
+       there. This pins the two things that must not come back -- the shout on
+       somebody else's ground, and a line thick enough to be the street's paint --
+       while leaving the HUE alone, which is his and which __holderInk owns. */
+    ok('K10b THE BORDER IS AN EDGE, NOT THE STREET\'S PAINT JOB: it is drawn faint '
+       + 'on ground that is not yours and never thicker than two pixels, because '
+       + '[who holds] put every border along a road and a loud one repaints the road',
+       /g\.globalAlpha = __own \? 0\.55 : 0\.26;/.test(CITY4)
+       && /Math\.min\(TW \* 0\.05, 1\.5\)/.test(CITY4)
+       && /THE STREETS DON'T LOOK LIKE STREETS/.test(CITY4));
+    ok('K10c and yours is still brighter than theirs, which was always deliberate',
+       /__own \? 0\.55 : 0\.26/.test(CITY4));
+
     ok('K11 the map paints tracks in the SAME ink as the borders, so a faction\'s '
        + 'track and its ground read as the same people -- no second colour decision',
        /__WHOSE_FOOTPRINTS_ARE_THESE__/.test(CITY4)
