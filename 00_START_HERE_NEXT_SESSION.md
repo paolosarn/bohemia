@@ -1563,85 +1563,106 @@ STILL CARRIED, AND STILL NOBODY'S:
 NEXT: Q19 [caught out] round one, school. It pairs with QUESTS [check the claim] and it sits
 directly on top of Q2's finding that a lie is caught by the question and never by the manner.
 --- (this line was a bare row of equals signs, which is a git conflict marker; it sat between two lanes' blocks and belonged to neither, and it made gates/nomarkers_gate.js red for every lane that ran the suite. Replaced 9/11 by QUESTS with a plain rule. Nobody's handoff text was touched.)
-ANIMATION (animation-lr9y9i): 9/13 LATEST -- *** ALL THREE OF HIS 9/7 RIG
-COMPLAINTS ARE ANSWERED. Elbows 9/11, the coat 9/12, the facing order now. The
-47 clips he thumbed down can be redone on a rig that no longer breaks them.
-TAB: ANIMATION and CHARACTER. Nothing to judge yet. ***
+ANIMATION (animation-lr9y9i): 9/13 (c) LATEST -- *** A ONE-PIXEL VECTOR HAS NO
+DIRECTION. The third time this rig was caught deciding something big with a
+measurement too small to carry it, and it was the single cause of the ten clips
+his verdict left broken. TAB: ANIMATION and CHARACTER. Build 9/13zc. ***
+(THE ROUND-ONE BLOCK BELOW WAS LOST FROM THIS FILE by somebody's rebase between
+9/13 (b) and now -- rewritten here rather than left missing. Take main's file and
+re-apply your own block; never resolve this file with --theirs.)
 
-TAB: ANIMATION and CHARACTER. Build 9/13l - THE NEAR HAND DRAWS IN FRONT.
+ROW STILL CLAIMED: [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED.
+SHIPPED BEFORE IT, all three of his 9/7 rig complaints: [elbows bend] 9/11,
+[coat follows] 9/12, [facing order] 9/13.
 
-ROW SHIPPED: [facing order] THE-NEAR-HAND-DRAWS-IN-FRONT.
-Paolo 9/7: "when it's facing north-east the hand was behind the head even though
-it's supposed to be in front; some of the directions look like dog shit."
+RULE 14 (9/13): this lane ships to the ALPHA and the workshop and does NOT re-cut
+the demo. RUN cuts it. ANIMATION has no five-minute break on its first line, so it
+holds its claim and adds nothing to the demo -- what its own MODE line says.
+CHECKED, because it was worth knowing whether this lane even reaches his five
+minutes: the walked city has NO buildFrame and NO drawChar in it at all (zero
+references in BOHEMIA_CITY_WORLD.html). It draws people from CAST_CV, canvases the
+alpha BAKES LIVE from the rig at load and posts into the iframe (citySendCast). So
+the rig fixes DO reach the walked surface, through the bake and not the renderer.
 
-FIRST, WHAT THE DRAW ORDER ACTUALLY IS, because two comments in the file disagree
-and one is wrong. The compositor keeps the FIRST part to claim a screen cell, so
-INDEX 0 IS NEAREST. paoloOrder(d) sorts the base list by BAKED.layerOverride[d],
-which exists for all eight facings and is his own authored export. The comment
-above the base ORDER still says "front-most last" from an older implementation;
-the sort's own comment is the true one. handOrder() rides on top and, before this
-round, changed that order for exactly two things: a clip declaring _gun, and S/N
-with _handsBack. Both once-dynamic per-pose rules are if(false&&...), retired 7/26
-because they inferred depth from a continuous signal and flipped an arm mid-swing.
+=== ROUND ONE: THE 47 WERE RE-ANALYSED AND THE REDO LIST IS TEN, NOT FORTY-SEVEN
+The board quotes the last third of what he said on 9/7. The whole thing is in
+records/BOHEMIA_CLIP_VERDICTS_9_7_26.txt: "...some of the DIRECTIONS look like dog
+shit ... WE GOTTA RE-ANALYZE A LOT OF THESE. IF I KILLED IT I DON'T WANT IT GONE."
+He named the REASON, and it is the three defects this lane has since fixed.
+Measured against the alpha at b923fc3^, all 47 x 8 facings x 24 buckets:
+  THE FACING ORDER hit EVERY ONE and all of it is gone: 144 far-arm-over-head
+  frames on every clip -> 0; 192 -> 0 hand-behind-its-own-arm on six gun clips.
+  THE ELBOW: nine clips had a joint crossing 30px in one frame; most now under 5.
+A ruler was thrown away there too: ranking by how far an elbow MOVES put
+JUMPING-JACKS top with 218 offences -- a clip that is supposed to fling its arms --
+while a real 30px flip sat below it. Distance measures speed. Record:
+records/BOHEMIA_THE_FORTY_SEVEN_RE_ANALYSED_9_13_26.md
 
-DEFECT ONE, HIS SENTENCE WORD FOR WORD. 460 frames drew a hand BEHIND the head
-while its own forearm was drawn IN FRONT of it -- a wrist cut in half by the
-skull. EVERY ONE a gun clip, 66 of them on NE, the facing he named. The GUN-UNIT
-law's own first words are "hands holding a weapon are ONE unit with it" and the
-code moved parts 7 and 8 and left 5 and 6 exactly where they were. Every depth
-move takes the PAIR now, keeping the pair's authored inside order.
+=== ROUND TWO: THE CAUSE OF ALL TEN, IN THE RIG
+crouch-aim-1h facing E, two consecutive frames: the shoulder moved 1 pixel, the
+hand 2.2, THE ELBOW 31 -- [49,48] to [74,29], one side of the body to the other,
+on an arm whose whole reach is 32. solveIK takes a = atan2(target - shoulder) and
+puts the elbow at a + off on a 16-pixel radius, and this clip holds the hand ONE
+PIXEL from the shoulder. Frame 14 that vector is (0,+1), frame 15 it is (0,-1):
+`a` flips 180 degrees and the elbow swings the diameter of the arm. The pose did
+not change. The rounding did.
+  9/11 the elbow SIDE was a knife-edge height comparison
+  9/12 the coat's HIP was one scanline a swinging arm kept covering
+  9/13 the elbow ANGLE is a vector one pixel long
+Same shape three times. Watch for a fourth.
+FIX: below a quarter of the arm's own reach the direction blends toward the REST
+arm's direction -- what a folding arm really does, the elbow stays where the upper
+arm points instead of orbiting the shoulder. At the threshold the blend IS the
+target's direction, so nothing above a quarter reach moves by a pixel.
+crouch-aim-1h 31.4px -> 3.2px, crouch-aim-2h 27px -> 4px.
 
-DEFECT TWO. The head was behind the far arm on S and SE and IN FRONT of it on the
-other six, so an arm on the far side of the body painted over a skull sitting
-between it and the camera:
-    S 0   SE 0   E 4343   NE 8228   N 2577   NW 8469   W 4217   SW 7395  = 35,229
-And N was the worst kind: the head sat BETWEEN the two arms (armL 6, handL 7,
-head 8, face 9, armR 10, handR 11), so on a HEAD-ON facing -- where neither arm is
-nearer the camera -- every two-handed grip was split down the middle. two-hand,
-deadeye, crouch-aim-2h, spear-drive, pray, floor-rise: one grip, two depths.
+TWO RULERS WERE WRONG AND THE FIX EXPOSED BOTH. This is the part to carry forward.
+  1 JOINT SNAP's floor was 4px. When the fix took the worst frame from 31.4 to
+    3.2, THE GATE REPORTED MORE SNAPPING CLIPS, NOT FEWER -- where the hand is
+    parked on the shoulder the ratio's denominator sits at its 0.5 guard and a
+    smooth 4px move scores 8x. A ruler that gets worse when the thing it measures
+    gets better is measuring the wrong thing. Floor is 8px now, half the upper
+    arm, and the three builds separate monotonically:
+        before any rig fix   11 clips  60x  36.0px
+        after the elbow rule  7 clips  14x  31.4px
+        after this fix        4 clips 4.1x  12.6px
+  2 ELBOW ONE WAY went 7 -> 9 flips and looked like my regression. It is not.
+    sideOf is the cross product against the SHOULDER-TO-HAND vector, the same
+    one-pixel vector: it called the 31.4px jump CLEAN and the 3.2px repair A FLIP.
+    Backwards. The guard was already half-written -- "a near-straight arm has no
+    meaningful side" -- and a FOLDED arm has none either. The hand must sit >4px
+    from the shoulder before its side counts. The guard skips 267 of 42,000
+    arm-frames (0.64%, ceiling 2%) and that share is a claim of its own, so it can
+    never swallow the measurement. Flips are back to the same 7 (cover-rise 3,
+    cover-drop 3, bat-arc 1) the 9/11 record already named as real sweeps.
 
-THE RULE READS NOTHING FROM THE POSE, ON PURPOSE. Near is whichever arm THE
-AUTHORED ORDER ALREADY PUTS IN FRONT OF THE TORSO, so the answer is identical on
-every frame of a clip and cannot flicker the way the 7/26 rules did. Both arms
-near (S) leaves the head alone; both far (N) puts it in front of both, which is
-also what closes the grip split. Only the far pair moves, to just behind the face.
-RIG LAW holds: BAKED.layerOverride is untouched, pipeline law only. 35,229 -> 0
-and 460 -> 0.
+GATES: JOINT SNAP 6/0 (new absolute ceiling: no joint crosses 15px in one frame
+while its limb stands still, against 36 before; 4 mutations caught including the
+blend threshold zeroed, which reproduces the pre-fix numbers exactly and is the
+proof the blend is what did it). ELBOW ONE WAY 10/0. NEAR HAND 6/0.
+Record: records/BOHEMIA_A_ONE_PIXEL_VECTOR_HAS_NO_DIRECTION_9_13_26.md
 
-GATE: gates/near_hand_draws_in_front_gate.js, in the suite as NEAR HAND. Six
-claims over 6,720 frames. 3 mutations caught: bare hands in the gun rule -> 4 red;
-head rule skipped on laterals -> 3,840 frames red; head shoved in front of BOTH
-arms -> the CONTROL red and nothing else.
-THE CONTROL IS THE ONE THAT MATTERS: facing you both arms are near, so the head
-must stay BEHIND both. Every other claim would pass a rule that just shoved the
-head forward, which would silently change the S picture he has already seen. Its
-first cut went red for a good reason: a gun aimed AWAY on S is a hand on the far
-side of the body, so that pair belongs behind the head, and counting it as a
-failure was the ruler arguing with the geometry. Declared frames are excluded;
-768 undeclared S frames hold it.
+PRE-PUSH PASS (rule 13): the 53 gates that draw a body. 44 green, 9 red. SIX are
+the standing set, each verified red on a clean checkout this round: MOTION
+VISIBLE, RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST. TWO MORE
+ARE FRESHNESS AND NOT MINE, both red on the alpha before my change: FACE THUMB
+(the face bank is 25h behind the alpha; rebake with
+tools/bohemia_face_candidates.js -- CHARACTER/COOK) and DRESS (317 banked against
+318 canon, MISSING: TEAL WORK PANTS -- whoever added that garment). The ninth was
+ELBOW ONE WAY, handled above.
+FULL SUITE: no SUITE LINE on the front page yet; PLUMBER [suite line] owns it.
 
-GATES: the 52 that can see a body were run by name again (the suite still cannot
-finish -- see below). 46 green, 6 red, and the six are the SAME six that were red
-on clean origin/main earlier this round, with the same numbers: MOTION VISIBLE,
-RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST. None of them mine.
-VALLEY BREATHES is green now -- the flake fix from the coat round held.
-
-THE SUITE STILL CANNOT FINISH and it is arithmetic, not a slow machine: it hit its
-2700s budget with 331 of 603 gates NEVER RUN, this lane's whole set among them, at
-13.5s a gate against ~8100s of work. It prints the shard command itself. PLUMBER's
-row; flagged again because every lane is shipping on a partial pass.
-
-NOT DRAW ORDER, AND STILL WRONG, FOUND BY LOOKING AT HIS OWN FRAME
-(records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg): on NE the head sits up
-and to the RIGHT of the shoulders with a visible gap, joined by a thin pale strip.
-That is the POSE, not the layering, and no order can close it. It belongs to the
-redo, and whoever takes [redo killed] should start by looking at that panel.
-
-NEXT: [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED. It is unblocked now:
-the law said not before the three rig fixes, and all three are in. Note in that
-row: the two headshot clips have HIS OWN LOCKED SPEC beside them
+WHAT IS LEFT OF THE ROW. Four clips still snap and all small: crouch-aim-2h 4,
+crouch-aim-1h 2, spear-drive 2, shiv-jab 1, worst 12.6px. Those are pose problems,
+not rig problems. And the crouch-aims have a second one no joint fix can touch:
+NEITHER OF THEM CROUCHES IN PROFILE. They stand. That is the clip content, and it
+is the rest of [redo killed] along with the 37 that are clean and just need to go
+back in front of him, and the two headshots which carry HIS OWN LOCKED SPEC
 (laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md section 9, four
-beats, verbatim) -- redo those to that text beat for beat.
+beats, verbatim) and get redone to that text regardless.
+ALSO STILL OPEN, not draw order: on NE in his own frame
+(records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg) the head sits up and to
+the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
 UI (ui-kmqmrf): 9/11 LATEST -- *** [phone object] SHIPPED. THE FEED IS A PHONE YOU CAN SEE. ***
