@@ -48,6 +48,56 @@ ALSO STILL TRUE AND STILL NOBODY'S: PEOPLE's [demo pinned] row was deleted by ac
 and is still gone. It names a trap in the newest law (the DEMO BUILD gate asserts regenerating the
 demo changes nothing, so the first non-RUN alpha ship turns it red for everybody and the obvious fix
 is the forbidden re-cut). Only the coordinator adds rows. Somebody needs to.
+WORDS (words-8dqrnq): 9/13 (d) LATEST -- *** Q23 [track words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. THE SHIPPED LINE IS A CONCLUSION WITH NO EVIDENCE, AND THE
+DIRECTION IS ALREADY IN THE DATA AND THROWN AWAY. *** TAB: RUN. No game code touched, ever.
+Research round, demo untouched, per the five minutes law (c).
+
+FIRST, A ROW OF MINE CAME BACK FROM SHIPPED TO CLAIMED AND IT WAS NOT MY DOING. ae12177 (UI [no
+slop] round 7) pushed a board file it had read before several lanes' pushes and reverted FOUR lanes'
+status words at once: WORDS [debt words], RUN [reds mine], DIRECTION [streets read], and it DELETED
+PEOPLE's [demo pinned] row outright. Three self-healed because each lane fixes its own row next time
+it reads the board. I restored mine verbatim out of git rather than retyping it.
+*** THE DELETED ROW IS STILL GONE, 12 board commits later, AND IT NAMES A TRAP IN THE NEWEST LAW:
+"the DEMO BUILD gate asserts 'regenerating the demo changes nothing', so the first non-RUN alpha
+ship turns it red for everybody and the obvious fix is the forbidden re-cut." I did not re-add it,
+because only the coordinator adds jobs. Somebody needs to. ***
+
+THE FINDING, AND IT IS DOCTRINE RATHER THAN TASTE. The army's spot report is SALUTE (size, activity,
+location, unit, time, equipment) and the instruction attached to it is that FACTS AND OPINIONS ARE
+DISTINGUISHED, because an inference passed on as an observation cannot be re-checked by whoever
+receives it. Our shipped line is "Anarchists came through here just now. a patrol, and they are
+close." Mapped onto that: unit yes, activity yes, time as an adverb, SIZE MISSING, and the
+conclusion "they are close" delivered in the same breath as the observations with nothing marking
+it as a conclusion. THE LINE HANDS OVER THE ANSWER AND HIDES THE WORKING, and the working is the
+part a player can act on or be wrong about.
+
+HOW A REAL TRACKER REPORTS, which is all working:
+  AGE IS READ FROM WHAT LIES ON TOP OF THE PRINT. Morning dew, the last rain, a beetle that walked
+  across it. Age is never asserted, it is evidenced. This is the most useful thing in the record.
+  NUMBER AND GAIT COME OFF SPACING AND SHAPE. Trackers keep footprint cards: shoe size, footwear
+  type, an idea of bodyweight, and how the person walks.
+  IDENTITY IS THE WEAKEST READING AND IS FLAGGED AS A GUESS. Small shoes suggest women or children,
+  cheap sandals the poorer end, and COMBAT BOOTS ON NEW TREAD ARE CALLED A YELLOW FLAG, meaning
+  somebody outside the usual group. A flag, not a name. Our line states the name as fact and shows
+  none of the footwear.
+
+AND THE MIRROR IMAGE, which is a design and not a flourish: THE GROUND KNOWS HOW MANY AND WHICH WAY
+AND HOW LONG AGO, AND NEVER WHO. A PERSON KNOWS WHO AND IS VAGUE ABOUT THE REST. So the faction's
+name belongs in somebody's mouth, and our line puts a person's certainty into the ground's mouth.
+
+MEASURED IN OUR 3,093 LINES: sign read as evidence, 7 hits and NOT ONE is somebody reading the
+ground (they are idioms and boots). Age given as evidence: ZERO. Nobody in this game has ever said
+how they know how old something is.
+
+AND THE DATA AUDIT, WHICH IS THE HALF THAT CHANGES THE LINE. Read out of the engine, because round
+two may only write what the game can say truthfully. A track carries faction, agenda, age in steps,
+and LEG: OUT OR BACK. *** DIRECTION IS ALREADY COMPUTED AND THE SENTENCE THROWS IT AWAY. *** Out or
+back is the difference between something moving off and something coming home, and it is the one
+thing on the list a player can act on. There is NO HEADCOUNT anywhere in a party, so any line that
+says how many would be a lie. And the engine's own comment is already the image the research
+arrived at: "two parties crossing the same cell is one set of prints on top of another, and the one
+on top is the one you read."
 
 PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
 VOICE was this lane's and is fixed; no other is ours.
@@ -63,6 +113,406 @@ LANES ADD A HEAD EACH ROUND AND REWRITE BODIES, NEVER HEADS. No content was ever
 (the block stayed, only the word LATEST went), but those head lines are the index of every lane's
 newest block and removing one breaks the index. STOPPED. This lane now adds a head and leaves the
 old ones alone, like everybody else, and the newest is simply the topmost.
+NEXT: Q23 round two, the family. Then Q4 to Q17 still owe their school rounds, one row at a time.
+COMBAT (combat-nfnki9): 9/5 (e) LATEST -- *** A COMBAT TILE IS A HOUSE NOW, ON A DIAL.
+A PISTOL IS A DAGGER AND A RIFLE IS A SPEAR. *** Nothing to judge.
+
+TAB: **COMBAT**, in DEMO SETTINGS beside SHE FIGHTS WITH YOU: two new dials,
+`TILE: A BODY / A HOUSE` and `TILE WIDTH`. The human-scale board is NOT removed --
+his row says so in those words -- so he plays both and can feel the difference.
+
+VAMILY job BB-A-TILE-IS-A-HOUSE, the first OPEN line in this lane's queue. Claimed
+before building (9f26d34), shipped 91cbd15. THE NEXT OPEN LINE IS BB-NERVE-ON.
+
+HIS RULING, 9/4: "instead of each combat tile being the size a human maybe each combat
+tile is the same size as the house and a pistol is like a dagger compared to the range
+of battle brothers and a rifle can do two tiles." Plus: "the size of the 'ground'
+changes but the player is the same size."
+
+THE ROW WROTE ITS OWN ACCEPTANCE TEST AND ALL FOUR CLAUSES ARE MEASURED:
+    the dial exists ..................... yes, two of them
+    a pistol reaches one house .......... 1  (shotgun 1, smg 1)
+    a rifle two ......................... 2  (sniper 3, [PENDING Paolo])
+    seeded boards unchanged at the old
+    setting ............................. TRUE, 25 arenas fingerprinted man by man
+                                          and rock by rock, dial flipped and flipped back
+
+THREE THINGS IT NEEDED WERE ALREADY BUILT, which is most of why it was small: the
+SPAWN BAND is already "multiples of YOUR max range" so the approach compressed for
+free; V162 already deleted PRESS_STEP so "a step is one house" needed nothing; and the
+accuracy curve is already a RATIO.
+
+AND rangeMult() IS THE WRONG DOOR -- write this down before somebody puts scale in it.
+Its own comment calls it "the ONE DOOR every reach in the game passes through", but
+isDark() is literally rangeMult()<0.999, so a house board would have told V98's dark,
+V191's LIGHT IT and the spotter's night band THAT THE SUN HAD GONE DOWN, silently, with
+every check green. THAT IS THE DARKNESS DOOR. Scale has its own: hd(n), which at body
+scale is n/1 and therefore EXACTLY n for every double.
+
+THE MAX IS HIS RULING, THE EFF IS DERIVED, and that is what keeps the curve honest: a
+house table with eff picked by hand bent it (a rifle at its own max read 0.556 against
+0.429) until each gun carried across its own body-scale eff/max. The rifle curve is now
+identical at both settings. It is also where "shotgun and SMG sit between" lives -- on a
+board of 1s and 2s there is no room between them in TILES, so they separate by
+RELIABILITY inside their one tile.
+
+TWO BROKEN INSTRUMENTS, AND THEY COST MORE THAN THE FEATURE:
+  * THE DAY IS NOT IN THE SEEDED STREAM. pickDayPhase is a bare Math.random, so ONE
+    BUILD ON ONE SEED DEALS MORNING, DUSK OR NIGHT AT RANDOM -- and night halves every
+    range. The first board comparison read "the boards changed" and was reading that.
+    PRE-EXISTING, a real hole in V88's "one number reproduces one exact fight", and
+    anybody pinning an arena should know it. Not fixed here; not this job.
+  * THE PLAY HARNESS WAS BIASED BETWEEN ITS OWN TWO ARMS, which is worse than noisy: it
+    fired any charged ability before shooting, and at house scale every verb charges
+    faster because everybody is adjacent, so the house arm never shot. It reported 70%
+    of house fights STUCK and FOUR SEPARATE "FIXES" WERE CHASED before the instrument
+    was suspected. A harness that only shoots and walks reports 0 stuck of 20.
+    The four changes were KEPT because each is a category error corrected, not a number
+    tuned: PRESS_STANDOFF 3.2, SQ_LANE 9.5, a 2.5-tile occupancy shove and the rooftop
+    placement are written in BODY-tiles, and a body-tile constant on a house board is
+    eight times too big whatever the harness says.
+
+TWENTY combat_lab anchors re-pointed and a slice harness fixed twice. THE SLICE RULE
+BIT AGAIN: a sliced function called hd() and the binding list did not have it, so the
+gate CRASHED and it read as a broken feature.
+
+WHAT COMES AFTER, IN ORDER:
+  1. BB-NERVE-ON, the next OPEN line, and it is the right one: "the mechanic that ends
+     fights early is switched off and sold as an upgrade". Everything about fight
+     LENGTH lands there.
+  2. Where a scoped rifle stops [PENDING Paolo] -- ships at 3 as an attempt.
+  3. The house-width ground tile is ART's canvas under DIRECTION's card
+     (ART COMBAT-GROUND-TILES); this shipped the geometry, not the picture.
+  4. Step onto a house tile and go INSIDE it (INTERIOR = EXTERIOR) is named in the law
+     and not built; THE-INDOOR-FIGHT is already a row.
+  5. Still open from 8/31: the companion cannot be picked back up (the enemy medic has
+     done exactly that since it was written), and the blades still only run at YOU.
+
+Record: records/BOHEMIA_COMBAT_A_TILE_IS_A_HOUSE_9_5_26.md
+Gates: fight_moves_you 160/0 (was 155/0), combat_lab 931/1 (the red is another lane's,
+pre-existing), boss_ladder 87/0, one_engine 3/0, pages_publish 18/0, 0 page errors.
+One earlier run of fight_moves_you read 159/1 and the next two read 160/0; the failing
+arm was not captured, so it is written down rather than called clean.
+
+--------------------------------------------------------------------------------
+
+UI (ui-kmqmrf): 8/30 (c) LATEST -- *** HE SAID ONE WORD, "VAMILY", WHICH IS FAMILY.
+THE DOOR TO THE FAMILY SCENE TURNED OUT TO BE 57% OF A THUMB, AND THE GATE I WROTE
+YESTERDAY HAD THE EXACT HOLE ITS OWN HEADER WARNS ABOUT. *** TAB: RUN.
+
+FAMILY IS NOT A PASSING NOTE, it is the LOCKED core theme (7/19: "NOBODY IS ANYTHING
+WITHOUT FAMILY ... you do not play a hero, you play a FAMILY across three generations")
+and the whole final choice is true family against the Amalgamation's counterfeit one.
+So the question this lane owns is where it reaches the player.
+
+THREE DEAD ENDS FIRST, AND SAYING SO because a confident negative is the expensive kind
+of wrong: there is NO family tab (19 data-p panels, none of them family); familyOf() in
+the city is NOT about kin, it is the SUBURB FAMILY from the LANDLOCKED DISTRICT LAW, a
+promising name for the wrong thing; and a runtime probe found no family globals, which
+proves nothing because the city keeps them in module closures.
+
+WHERE IT DOES REACH HIM, AND IT IS THE BEST THING IN THE DEMO: the cold open. DENISE,
+NINA, RAY and MARCO at the table, ten years ago, warm light through the shutters. The
+8/27 talking portrait is WORKING here -- visible in 40 of 60 samples, real pixels painted
+in 47 of 60.
+
+*** AND ITS TWO BUTTONS ARE 79x25. *** WATCH and NOT NOW, 25px against a 44px minimum,
+the FIRST TWO BUTTONS ANYBODY EVER TOUCHES IN THIS GAME, and WATCH is the only door to
+the one scene carrying the game's theme. A stranger who fumbles that tap gets the city
+and never meets the family at all. Raised demo-side, height only; the workshop still has
+25px and the row is filed as UI-20.
+
+*** THE GATE I WROTE YESTERDAY NEVER LOOKED AT THEM. *** thumb_gate's own header says
+scoping to the demo is "a scope, not an exemption -- an exemption written for yourself
+and stated as a principle is how a 23% sat under a green gate all morning". IT SWEPT THE
+CITY FRAME ONLY, and the opening overlay is in the OUTER document. Green the whole time
+over a 25px control, committed by that header's own author ONE TURN LATER. It sweeps
+every document now, 21 controls not 14, with a leg that fails if it ever stops looking at
+the overlay. 12 claims, mutation-proved six ways.
+THE RULE, and it is not about buttons: STATE THE SCOPE, THEN CHECK THE SCOPE STILL
+CONTAINS THE THING THAT MATTERS. Writing the warning down is not the same as obeying it.
+
+A THING I NEARLY REPORTED AND DID NOT: my probe read a caption as "DENISESit down, both
+of you" and it looked like the speaker name was jammed into the line. The markup is
+<span>DENISE</span><br>Sit down... -- a proper break. textContent concatenates children;
+THE PROBE WAS JAMMING IT, NOT THE GAME. Checked the markup and a screenshot first.
+
+NOT MINE AND FILED: opening_gate.js is RED ("Target page, context or browser has been
+closed"), twice in a row, and it reads the WORKSHOP which this lane did not touch. Proved
+pre-existing on a clean origin/main worktree AND on bb8ece6, the commit before this
+session changed anything. SHARED -20.
+
+Round 7 is still on the wall waiting for his thumb. Nothing from it has gone into the
+game. Record: records/BOHEMIA_THE_THUMB_HAS_NEVER_BEEN_CHECKED_8_30_26.md (part three)
+
+------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/5 (e) LATEST -- *** WHAT THE GAME PLAYS IS NOW A
+MEASUREMENT, NOT A GREP. NINE of 65 approved sounds, heard.
+TAB: RUN (the walked city). Nothing to judge -- nothing was cooked. ***
+
+Build 9/5ah - WHAT THE GAME ACTUALLY PLAYS.
+VAMILY: [unused sounds] THE-OTHER-51 is CLAIMED AND CONTINUING, round 1 of N.
+The census is built and green; the wiring it points at is not done. Front page
+rule 6: a half-done job marked SHIPPED is worse than an open one.
+
+THE BRIEF'S NUMBER ("51 of 65 have none") CAME FROM A GREP AND A GREP CANNOT
+ANSWER THIS. EYES E4 proved it the same round: one text search said 50 events
+are never called, a better one said 56, BOTH WRONG, because the footstep caller
+builds its name by concatenation ('step_'+surface) and a name assembled at run
+time is invisible to every grep ever written. This lane's own census in
+silent_moments_gate is the LOOSER kind and admits it: "the id appears as a
+string in the game code". An id in a table, a comment or a dead branch reads as
+called.
+
+SO THE GATE PLAYS THE GAME AND COUNTS. It wraps BOH_SFX.render (the one hook
+nothing routes around) for LIVENESS, records names at playSFX, at the bed's own
+pick(), at STING.play and at the city's messages, then drives the walk, the
+door, the phone, the bed at day/night/indoors and the clock. AND IT PROVES THE
+AUDIO ENGINE WAS RUNNING FOR EVERY SAMPLE, which is what EYES' first run could
+not, and they were right to withhold a headline without it.
+
+MEASURED, audio alive every sample, 144 renders:
+  step_dirt 115  air_day 53  air_inside 40  air_night 14  wind_gust 13
+  time_pass 6  door_drag 4  step_concrete 2  ui_tap 2
+NINE OF SIXTY-FIVE. The other 56 each carry a written reason this drive cannot
+reach them: a fight, a verb, a payday, a night slept through, a ground you
+happen not to stand on, or a sibling pool drawn from inside its parent.
+
+FOUR INSTRUMENT MISTAKES, ALL MINE, EACH A REAL DEFECT:
+ 1. THE INSTRUMENT MOVED THE THING IT WAS MEASURING. The first drive walked 200
+    blind steps and THEN sampled the bed, reporting air_inside forty times on
+    what looked like a street. The game was right: 200 steps cycling four
+    directions in a suburb walks you through a door. The bed is sampled first.
+ 2. A GATE THAT UNDER-WAITS WRITES ITS OWN EXCUSE LIST. time_pass was on the
+    "cannot drive" list because I advanced the clock and looked 1.2s later,
+    before the four-second heartbeat that carries it. It is reachable.
+ 3. A HOOK THAT MISSES A PATH IS A GATE THAT INVENTS AN EXCUSE. strikeHours
+    calls BOH_SFX.render DIRECTLY and never playSFX, so a name hook is blind to
+    the hour chime. The shell keeps a per-call ledger; the gate reads it.
+ 4. A CHECK THAT READS ITS OWN COPY OF THE ANSWER IS NOT A CHECK. Fixing the hum
+    gate's distance claim I published a SECOND function computing the same
+    distance, and a mutation changing the real one in tick() left the published
+    one agreeing with itself -- 20 PASSED on a build where every live circuit
+    sounded the same distance away. One formula now; tick() calls it; the
+    mutation goes red.
+
+AND THE HUM'S DISTANCE IS CHECKED AS A NUMBER, WITH A PRECEDENT. Four attempts
+to measure it as loudness each found a real defect: the master's brickwall
+limiter squashing both ends to one ceiling, candidate variance (placeSound draws
+a random candidate and two of his differ by more than a block does), then long
+tails bleeding across windows. The shell solved this once already for the room
+transform and says so: "measuring the room by playing playSFX twice proves
+nothing." So the computed distance is asserted exactly and AUDIBILITY IS STILL
+MEASURED ON REAL AUDIO.
+
+GATE: every_sound_is_reachable_gate.py, 10 claims. Mutations: the city stops
+posting footsteps RED (and it names them), the hour chime never strikes RED x2.
+
+NOTE ON THE SUITE: BEAT FIRST went red inside a fifteen-gate back-to-back run
+and is GREEN run alone. That is the suite's own documented behaviour (a gate
+that fails in the pack may have failed for LOAD) and it re-confirms reds alone.
+
+FILES  gates/every_sound_is_reachable_gate.py,
+       records/BOHEMIA_WHAT_THE_GAME_ACTUALLY_PLAYS_9_5_26.md,
+       tools/bohemia_a_lit_block_hums.py (one distance formula, published)
+
+NEXT IN THIS LANE: finish THE-OTHER-51 -- take the events whose moment
+demonstrably exists and wire them, write a reason for the ones whose moment does
+not. NOT a wire invented for a moment that does not exist. Then [music owned]
+THE-MUSIC-ITSELF.
+
+------------------------------------------------------------------------
+
+EYES AND EARS (eyes-5vql33): 9/12 (z) LATEST -- *** E18 [he can hear it] IS SHIPPED at fb5e8d3, BOTH ROUNDS. OUR PATIENCE IS POINTED AT THE WRONG ELEMENT, AND THE LEAD VOICE HE NAMED NEVER SOUNDS. *** TAB: MUSIC, and the song is in the demo too. The instrument is NOT IN A TAB YET; this lane never writes game code. School: records/BOHEMIA_EYES_E18_ROUND_1_SCHOOL_THE_ANCHOR_HAS_NO_NUMBER_9_12_26.md. Check: records/BOHEMIA_EYES_E18_ROUND_2_THE_MELODY_ARRIVES_AT_EIGHT_SECONDS_9_12_26.md. Card for SOUNDS: banks/eyes/BOHEMIA_EYES_E18_AXIS_CARD_9_12_26.json, draft:true. Gate: suite HE CAN HEAR IT.
+
+THE FOUR AXES, ONE NUMBER A SIDE, NO SCORE. TEMPO 120.0 BPM, step 0.125 s, four steps a beat, swing measured back at 6.25 ms against the row's 6.25; the reference is UNKNOWN and stays UNKNOWN because every public BPM for Besaid Island belongs to a cover. ENTRY drums 0.000 s, bass 0.000 s, MELODY 8.000 s. BASS 114 notes on abyssbass from 0.000 s and 77.3% of the energy under 150 Hz. MELODY 24 notes, one a second, the row's own [0,2,4,7,9] which is a major pentatonic, played from D then F#, D4 to D#5, Parsons UDUDUUDUUDUDUUDUUDUDUUD. Our loudness -31.06 dBFS rms, -7.82 peak, crest 23.24 dB. NO LOUDNESS MATCH was performed and that is a blank, not a number: the trade matches loudness before any A/B and the reference recording is not in this repo.
+
+THE HEADLINE: eight seconds of drums and bass before one melody note, where the reference is described as a melody already playing when the beat arrives. The song is not impatient, it is PATIENT BACKWARDS. Same virtue, opposite element. That is the one axis on the card where a change is possible and cheap, and which way to move it is SOUNDS' and DIRECTION's call, never this lane's.
+
+AND THE ROLE CHECK FOUND SOMETHING NOBODY WAS LOOKING FOR. Instrumentation cannot be scored (a synth patch and a violin are not two points on one ruler), so round one specified a ROLE check instead. Running it: BROKENROSARY, the lead named in the song row AND in his own 8/2 verdict ("brokenrosary is the lead he named"), IS SCHEDULED ZERO TIMES IN TWENTY-FOUR BARS. The engine's melody branch reaches the named lead only when mel is 'hymn' or the lead is 'bell'; this song is mel='longs', so the melody falls to a bare oscillator into a 2200 Hz lowpass and the named voice is never called. Whatever he liked on 8/2, it was not that voice. SOUNDS and COMBAT own the engine; this lane only measured it.
+
+HOW OURS WAS MEASURED, AND WHY IT IS THE ENGINE'S ANSWER AND NOT MINE. The song is a parameter row, so reading the row and working out what it sounds like would measure my arithmetic. Instead: the shipped alpha in real Chromium, MUS.AC and MUS.MAST pointed at an OfflineAudioContext, the engine's own playStep for every step at its own stepDur, with synthV, drumV AND createOscillator wrapped so the note list is what the engine scheduled, everything put back afterwards. Same principle tools/bohemia_sfx_instrument_measure.py states about its own first version: a clean wire is a ruler for a signal chain nobody uses. It also sidesteps round one's worst failure mode by construction, because a schedule is not an estimate and has no octave error to make.
+
+FOUR MISTAKES THIS ROUND MADE, ALL CAUGHT BEFORE A NUMBER SHIPPED. (1) The note log wrapped only synthV and drumV, logged 359 notes and NOT ONE MELODY NOTE, and the tempting read was "the melody never plays". It does; this engine makes some notes from named rack voices and others from a bare oscillator. A log blind to half the ways the engine makes a note is a log that invents silences. Now control C1b. (2) A control failed because its question was unanswerable: an onset detector finds RISES and a song starting at t=0 starts already loud. Fixed with half a second of silence in front, subtracted back out. (3) The tempo row printed 228.57 BPM, which was arithmetically right about the wrong quantity (drum-onset spacing is one STEP, not one beat) sitting in a row headed TEMPO, which is worse than no number. (4) The scale read UNRECOGNISED because pooling notes across sections unions two transposed pentatonics; per section it is one pattern moved four semitones.
+
+NINE CONTROLS, ALL PASS OR NOTHING PRINTS: render is sound not silence; the log sees every way the engine makes a note; the audio agrees with the schedule on the first onset; the render used THIS song's settings (swing measured back); the octave-error control round one made mandatory (a click train at 120 reads 120, the same train halved reads 60 and NOT 120); contour against itself reads 1.0 and against its own inversion 0.0; a planted onset at 1.25 s is found within 30 ms.
+
+WHAT THE CARD DELIBERATELY DOES NOT CONTAIN: no score, no percentage, no ranking of the 181 song rows by distance from Besaid. Two roads said so in round one. Outside, the trade calls it temp love and on Arrival the temp track beat everything the composer wrote. Inside, tools/bohemia_where_his_taste_lives.py exists because batch 25 was swept 0 for 8 by a gate that rewarded distance from the voices he had already approved.
+
+THE GATE RATCHETS NOTHING, ON PURPOSE, because the card is a description and not a defect tally, and ratcheting a description would red the fleet the first time SOUNDS legitimately changed the song. It holds three things instead: every reference value carries the source that says it; the shipped song row still matches the row that was measured (proven to bite on a changed swing); and all nine controls pass. Its first staleness cut reddened on a row that had NOT changed, because find('},') stopped inside the nested inst:{...} - the gate biting on its own parser is the system working, and the fix belonged in the parser.
+
+FLAGS FOR THE COORDINATOR, NOT MINE TO FIX: laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md describes the original-versus-remaster difference in the opposite direction to every source reachable in round one, and implies the wrong composer (Besaid Island is composed AND arranged by Masashi Hamauzu) for the one track he named. [PENDING coordinator] And brokenrosary never sounds.
+
+STILL STANDING FROM EARLIER ROUNDS: lane 17's own STATE line still says "nothing exists" and is now wrong by twenty instruments and six suite gates. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. Three superseded GDDs (v2, v3, v4) still live in laws/ beside v5 carrying 69 lock lines. E17's three erosions are routed (the ridge, the purple leak, a cover cost with no ruling behind it). E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
+
+NEXT: the first OPEN line in my section is E19 [slop count] THE-TELLS-GATE. School first, always; every job in this lane is two rounds and never one. E9 is STANDING and runs every round.
+
+PLUMBER (plumber-ont6t5): 9/13 (d) LATEST -- *** CHAT 18. ROUND 24. [suite runs] CONTINUING, AND A
+FLEET-WIDE DEFECT FOUND IN THIS VERY FILE. *** ONE COMMIT SILENTLY DELETED THREE LANES' NEWEST BLOCKS.
+I thought my own block kept vanishing in my rebases. It was not my rebases. Traced commit by commit:
+ae12177 (UI, [no slop] round 7) rewrote this file from a STALE READ -- 79 lines added, 290 removed,
+net -211 -- and took with it PLUMBER 9/13 (b), PLUMBER 9/13 (c) AND WORDS 9/13 (c). WORDS lost their
+current state and almost certainly does not know. All three are restored below, recovered with
+`git show ae12177^:00_START_HERE_NEXT_SESSION.md`.
+WHY NOTHING CAUGHT IT, checked rather than assumed: handoff_gate's fleet check compares LANE SLUGS
+against HEAD and no slug vanished (both lanes still had older blocks); its bulk check allows anything
+above 80% of HEAD's bytes and -211 lines of ~80,000 is 0.26%. So the two guards cover 'a lane
+disappeared' and 'the file was truncated', and the case between them -- a lane's CURRENT state eaten
+while its history survives -- was uncovered. That case is the one that keeps happening.
+NOW GUARDED at block granularity: every lane-block HEAD present in HEAD must still be present, with an
+archive escape built in from the start so [handoff cut] is unblocked rather than blocked.
+THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
+Re-read it immediately before you edit, and check your own block is still there after any rebase.
+
+ANIMATION (animation-lr9y9i): 9/13 (c) LATEST -- *** A ONE-PIXEL VECTOR HAS NO
+DIRECTION. The third time this rig was caught deciding something big with a
+measurement too small to carry it, and it was the single cause of the ten clips
+his verdict left broken. TAB: ANIMATION and CHARACTER. Build 9/13zc. ***
+(THE ROUND-ONE BLOCK BELOW WAS LOST FROM THIS FILE by somebody's rebase between
+9/13 (b) and now -- rewritten here rather than left missing. Take main's file and
+re-apply your own block; never resolve this file with --theirs.)
+
+ROW STILL CLAIMED: [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED.
+SHIPPED BEFORE IT, all three of his 9/7 rig complaints: [elbows bend] 9/11,
+[coat follows] 9/12, [facing order] 9/13.
+
+RULE 14 (9/13): this lane ships to the ALPHA and the workshop and does NOT re-cut
+the demo. RUN cuts it. ANIMATION has no five-minute break on its first line, so it
+holds its claim and adds nothing to the demo -- what its own MODE line says.
+CHECKED, because it was worth knowing whether this lane even reaches his five
+minutes: the walked city has NO buildFrame and NO drawChar in it at all (zero
+references in BOHEMIA_CITY_WORLD.html). It draws people from CAST_CV, canvases the
+alpha BAKES LIVE from the rig at load and posts into the iframe (citySendCast). So
+the rig fixes DO reach the walked surface, through the bake and not the renderer.
+
+=== ROUND ONE: THE 47 WERE RE-ANALYSED AND THE REDO LIST IS TEN, NOT FORTY-SEVEN
+The board quotes the last third of what he said on 9/7. The whole thing is in
+records/BOHEMIA_CLIP_VERDICTS_9_7_26.txt: "...some of the DIRECTIONS look like dog
+shit ... WE GOTTA RE-ANALYZE A LOT OF THESE. IF I KILLED IT I DON'T WANT IT GONE."
+He named the REASON, and it is the three defects this lane has since fixed.
+Measured against the alpha at b923fc3^, all 47 x 8 facings x 24 buckets:
+  THE FACING ORDER hit EVERY ONE and all of it is gone: 144 far-arm-over-head
+  frames on every clip -> 0; 192 -> 0 hand-behind-its-own-arm on six gun clips.
+  THE ELBOW: nine clips had a joint crossing 30px in one frame; most now under 5.
+A ruler was thrown away there too: ranking by how far an elbow MOVES put
+JUMPING-JACKS top with 218 offences -- a clip that is supposed to fling its arms --
+while a real 30px flip sat below it. Distance measures speed. Record:
+records/BOHEMIA_THE_FORTY_SEVEN_RE_ANALYSED_9_13_26.md
+
+=== ROUND TWO: THE CAUSE OF ALL TEN, IN THE RIG
+crouch-aim-1h facing E, two consecutive frames: the shoulder moved 1 pixel, the
+hand 2.2, THE ELBOW 31 -- [49,48] to [74,29], one side of the body to the other,
+on an arm whose whole reach is 32. solveIK takes a = atan2(target - shoulder) and
+puts the elbow at a + off on a 16-pixel radius, and this clip holds the hand ONE
+PIXEL from the shoulder. Frame 14 that vector is (0,+1), frame 15 it is (0,-1):
+`a` flips 180 degrees and the elbow swings the diameter of the arm. The pose did
+not change. The rounding did.
+  9/11 the elbow SIDE was a knife-edge height comparison
+  9/12 the coat's HIP was one scanline a swinging arm kept covering
+  9/13 the elbow ANGLE is a vector one pixel long
+Same shape three times. Watch for a fourth.
+FIX: below a quarter of the arm's own reach the direction blends toward the REST
+arm's direction -- what a folding arm really does, the elbow stays where the upper
+arm points instead of orbiting the shoulder. At the threshold the blend IS the
+target's direction, so nothing above a quarter reach moves by a pixel.
+crouch-aim-1h 31.4px -> 3.2px, crouch-aim-2h 27px -> 4px.
+
+TWO RULERS WERE WRONG AND THE FIX EXPOSED BOTH. This is the part to carry forward.
+  1 JOINT SNAP's floor was 4px. When the fix took the worst frame from 31.4 to
+    3.2, THE GATE REPORTED MORE SNAPPING CLIPS, NOT FEWER -- where the hand is
+    parked on the shoulder the ratio's denominator sits at its 0.5 guard and a
+    smooth 4px move scores 8x. A ruler that gets worse when the thing it measures
+    gets better is measuring the wrong thing. Floor is 8px now, half the upper
+    arm, and the three builds separate monotonically:
+        before any rig fix   11 clips  60x  36.0px
+        after the elbow rule  7 clips  14x  31.4px
+        after this fix        4 clips 4.1x  12.6px
+  2 ELBOW ONE WAY went 7 -> 9 flips and looked like my regression. It is not.
+    sideOf is the cross product against the SHOULDER-TO-HAND vector, the same
+    one-pixel vector: it called the 31.4px jump CLEAN and the 3.2px repair A FLIP.
+    Backwards. The guard was already half-written -- "a near-straight arm has no
+    meaningful side" -- and a FOLDED arm has none either. The hand must sit >4px
+    from the shoulder before its side counts. The guard skips 267 of 42,000
+    arm-frames (0.64%, ceiling 2%) and that share is a claim of its own, so it can
+    never swallow the measurement. Flips are back to the same 7 (cover-rise 3,
+    cover-drop 3, bat-arc 1) the 9/11 record already named as real sweeps.
+
+GATES: JOINT SNAP 6/0 (new absolute ceiling: no joint crosses 15px in one frame
+while its limb stands still, against 36 before; 4 mutations caught including the
+blend threshold zeroed, which reproduces the pre-fix numbers exactly and is the
+proof the blend is what did it). ELBOW ONE WAY 10/0. NEAR HAND 6/0.
+Record: records/BOHEMIA_A_ONE_PIXEL_VECTOR_HAS_NO_DIRECTION_9_13_26.md
+
+PRE-PUSH PASS (rule 13): the 53 gates that draw a body. 44 green, 9 red. SIX are
+the standing set, each verified red on a clean checkout this round: MOTION
+VISIBLE, RIG CHECK, FIELD SURGERY, OUTFITS 13, CAST SHAPES, CITY CAST. TWO MORE
+ARE FRESHNESS AND NOT MINE, both red on the alpha before my change: FACE THUMB
+(the face bank is 25h behind the alpha; rebake with
+tools/bohemia_face_candidates.js -- CHARACTER/COOK) and DRESS (317 banked against
+318 canon, MISSING: TEAL WORK PANTS -- whoever added that garment). The ninth was
+ELBOW ONE WAY, handled above.
+FULL SUITE: no SUITE LINE on the front page yet; PLUMBER [suite line] owns it.
+
+WHAT IS LEFT OF THE ROW. Four clips still snap and all small: crouch-aim-2h 4,
+crouch-aim-1h 2, spear-drive 2, shiv-jab 1, worst 12.6px. Those are pose problems,
+not rig problems. And the crouch-aims have a second one no joint fix can touch:
+NEITHER OF THEM CROUCHES IN PROFILE. They stand. That is the clip content, and it
+is the rest of [redo killed] along with the 37 that are clean and just need to go
+back in front of him, and the two headshots which carry HIS OWN LOCKED SPEC
+(laws/BOHEMIA_ADDENDUM_ANIMATION_REBUILD_AND_ANATOMY_7_2_26.md section 9, four
+beats, verbatim) and get redone to that text regardless.
+ALSO STILL OPEN, not draw order: on NE in his own frame
+(records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg) the head sits up and to
+the right of the shoulders with a visible gap. That is the pose too.
+
+Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 9/13 (b) LATEST -- *** [cats stay] SHIPPED dcddcf95, AND
+THERE IS NO CAT IN THIS GAME. *** Paolo 9/13, walking the demo's five minutes:
+"I do see cats running around, that's cool." NOTES ARE RULINGS, so the row was to
+record which cats he saw and freeze them as canon. This lane now has a five-minute
+row, so rule 14b's hold is lifted for it; [lock them] stays held behind it.
+WHAT THE ROUND ACTUALLY FOUND. Measured in five places -- the engine, the alpha,
+the demo, the run slice, the banks -- and there is no cat anywhere. EVERY "cat" IN
+THIS REPO IS THE WORD CATEGORY: cat(d) is a district category, byCat is a wardrobe
+bucket, "misc street cat" in a 7/10 bank is a category label.
+AND A GREP THAT FINDS NOTHING IS NOT PROOF THAT NOTHING IS THERE, so I drove the
+demo at phone size, clicked through the splash the way a player does, walked the
+street, and asked every frame of the RUNNING page what it had. The answer was in a
+system I had not guessed the name of, which is the whole lesson: the file search
+was five confident misses and the running page answered in one.
+WHAT HE SAW ARE THE VALLEY'S ANIMALS (8/26, off his own "dogs and swarms of flies"
+and the 8/25 "the city is dead and DEAD IS NOT THE DEFAULT"): fly swarms drawn as
+specks over a walkable cell, a RAT drawn as a dash running the foot of a wall ON
+THE BEAT, and a raven as a silhouette on a roofline. Ten screens walked: up to 20
+animals on one, 18 fly swarms, 1 to 2 rats, 0 ravens.
+*** THE ONLY ONE THAT RUNS IS THE RAT. *** A swarm hovers and a raven sits. One or
+two dark dashes scurrying along a wall, on a phone, is exactly what reads as a cat.
+His approval is real and it lands on these; the noun is his word for a dash at
+phone size. SO NOBODY ADDS A CAT -- that would be inventing content off a misheard
+noun AND changing the very thing the row exists to freeze. The gate refuses a
+fourth kind by the exact name it would arrive under.
+THE FREEZE IS A GATE because a thing frozen without one is not frozen, it is merely
+unvisited: three kinds and no fourth, every density number in all eight districts,
+no district added underneath, THE DOG AT ZERO (he named it first on 8/26 and that
+lane still left it out in writing -- a dog is a BODY and a body is character art),
+the per-frame cap, the determinism that makes a freeze mean anything at all, and
+the animals still DRAWING on the real demo. Negative-controlled twice: a dog in
+downtown goes red naming the district; a fourth kind called "cats" goes red
+printing all four.
+MEASURED AND DELIBERATELY NOT FIXED, so the next ruling has numbers instead of a
+rediscovery: the raven is in the table and drew ZERO on his walk although it places
+best of the three valley-wide (245 of 305 rolls), and the rat places on 1.9% of its
+rolls valley-wide (10 of 521). He approved what he SAW, and a lane that improves
+the thing it was told to freeze has broken it.
+RULE 14 FOLLOWED: the diff is a gate and two records, touching no engine module and
+no slice, so nothing to resync and nothing to rebuild. THE DEMO CUTTER WAS NOT RUN.
+The stamp is not bumped either -- it exists so he can SEE which build he is on, and
+a new letter over a build with nothing new in it is the one way that stamp can lie.
+NEXT: [lock them] is still HELD; it is not a five-minute break. If this lane is
+given another break it takes that; otherwise the honest thing is to say so.
+Record: records/BOHEMIA_CATS_STAY_9_13_26.txt ***
+
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
