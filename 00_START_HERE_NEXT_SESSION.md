@@ -7937,7 +7937,78 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
+COOK (cook-mce6r5): 9/13 LATEST -- *** [teal legs]: TEAL WORK PANTS SHIPPED, AND RULE 12
+CAUGHT THE ROW'S OWN HEADLINE NUMBER. *** TAB: CHARACTER, once CHARACTER wires it; nothing on
+his screen changes until then. Build 9/13t, demo re-cut.
+
+*** AND READ THIS FIRST, BECAUSE IT ALMOST ATE THIS BLOCK. *** Last round I wrote a handoff
+block for [magenta piece], the script printed "handoff updated", I committed and pushed, and
+the block IS NOT IN THE FILE. Nineteen lanes edit 00_START_HERE_NEXT_SESSION.md and a rebase
+silently took somebody else's copy. WRITING THE HANDOFF IS NOT THE SAME AS THE HANDOFF
+LANDING: after pushing, read the block back off origin/main before you believe it.
+
+--- [teal legs] ---
+THE ROW SAID "31% self-agreement against the 38% law". 0.31 IS NETWORK'S COLOUR STRENGTH --
+ITS SATURATION. ITS SELF-AGREEMENT IS 62%. Network was never failing that law. I misread the
+same column the same way on my first pass and only caught it by going back for the table
+header. READ THE HEADER BEFORE YOU QUOTE A COLUMN.
+
+THE DEFECT IS REAL BUT DIFFERENT: Network's cloth agrees with itself fine and AGREES ON HUE
+210, BLUE, when he chose #1fbf9c at hue 167. A FACTION CAN BE PERFECTLY COORDINATED IN A
+COLOUR THAT IS NOT ITS OWN, and a share number alone never says so.
+
+WHAT NETWORK WEARS, hand-authored in FACTION_LOOKS (not picked by the dresser -- checked):
+    hair TEMPLE TAPER · base STEEL WORK SHIRT · legs DUST TROUSERS · feet STEEL SNEAKERS
+Teal by layer before this round: base 2, legs 0, feet 0.
+
+THE PIECE: TEAL WORK PANTS = wear(genPants(g,{ramp:TEALBRT}),TEALBRT,13). Character for
+character the same call as DUST TROUSERS, same wear value 13, a DROP-IN for the exact trouser
+Network wears. TEALBRT.mid = [40,190,160] = #28bea0, 1.1 degrees off his choice. No new ramp,
+no new colour, no new geometry. "Byte-identical silhouette" MEASURED on rendered pixels:
+opaque mask dust vs teal, PIXELS MOVED 0.
+
+    today  steel + dust           strength 0.309   dominant 210 BLUE   62%
+    + teal pants                  strength 0.434   dominant 210 BLUE   61%
+    + teal pants AND teal shirt   strength 0.553   dominant 180 TEAL   62%
+THE PANTS ALONE ARE NOT ENOUGH -- the steel shirt owns more area than the trousers.
+-> FOR CHARACTER: wire BOTH. FACTION_LOOKS Network base:'TEAL WORK SHIRT',
+   legs:'TEAL WORK PANTS'. Legs alone raises saturation and leaves the faction reading blue.
+PRE-PUSH PASS (rule 13, NOT the suite): wardrobe_wired 17/0 WITH THE SHAPE RATCHET UNMOVED,
+clothes_4x 13/0, trenchcoat 12/0, attempt 15/0, faction_colour 27/0, alpha_loads 20/0,
+demo 23/0, purity exit 0. Full suite unmeasured; no SUITE LINE posted yet.
+RECORD: records/BOHEMIA_COOK_THE_NETWORK_AGREES_ON_THE_WRONG_HUE_9_13_26.md
+PICTURE: records/target/COOK_TEAL_LEGS_9_13_26.png
+
+--- [magenta piece] -- STILL STOPPED, AND THE ONE THING THAT UNBLOCKS IT ---
+*** [PENDING Paolo] Purple means the Amalgamation. The Anarchists' colour IS a purple.
+Which gives way? ***
+  A. the Anarchists move to a hot red-pink near 345 degrees -- still their colour to a person,
+     law intact. THE REALISTIC DEFAULT: one hex moves, a pillar law holds.
+  B. they keep #c026a0 and the allowlist blesses faction colour as a third exception beside
+     the hatch and the agents; the purple signal then splits.
+  C. the Colorful's #e85aa0 is in the same band with the same problem -- rule both at once.
+
+#c026a0 is hue 312.5, lightness 0.451, saturation 0.670. The reserved band is hue 265-330,
+sat > 0.45, lightness 0.25-0.75. INSIDE IT, and not on the allowlist (hatch, network_hatch,
+agent_iris, neurolink). The law, from that allowlist's own header (7/10, LOCKED):
+"purple/magenta/violet is RESERVED. ONLY the door/hatch from the tunnel into the Network build
+may carry that purple." MAGENTA IS NAMED IN THE LAW BY WORD.
+
+MUTATION-PROVEN: adding a three-tone magenta garment ramp to bohemia_dress.js takes the purity
+gate's code-colour count 11 -> 14 and the gate goes RED. The row cannot be built as written.
+
+AND THE MACHINE HALF WAS MINE AND I MISSED IT FOR A ROUND. The 8/2 faction-gaps research said
+the purity sweep "only ever looked at art pixels and never at a colour written in code". On
+9/12 I fixed that very gate (2,232 violations, exit 0) and added a scope for the shipped tile
+pools -- AND IT STILL ONLY COUNTED PIXELS. Closed 9/13: 1,983 hex literals swept across the
+alpha and engine/*.js, 11 in the band, 5 unique (#c848a0 and #b83a8a are song accents,
+#c81e8c a fillStyle, #c026a0 the Anarchists in both the alpha and bohemia_dress.js).
+Ratcheted at 11, may only fall.
+RECORD: records/BOHEMIA_COOK_HIS_MAGENTA_IS_INSIDE_HIS_OWN_RESERVED_BAND_9_13_26.md
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
 SIGN IS DRAWN. 7 UNDRAWN LANDMARKS -> 6. *** TAB: none yet; it is at cell 55,65, the south end
 of the boulevard. Nothing changes on his screen until he walks there.
 
