@@ -27574,7 +27574,17 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): [streets read] SHIPPED under rule 14 - HE IS
+ROUND LOG 9/13 (latest): seam check on [freeway reads] (the deck fix
+built off my streets verdict): the LAYERING half PASSES on the alpha -
+the false raised-deck edge and cast shadow are gone at the same spot I
+judged, a flat freeway finally sits flat (frame records/target/
+DIRECTION_THE_FREEWAY_AFTER_THE_DECK_FIX_9_13_26.png beside the before
+frame). THE SURFACE HALF STILL LIES exactly as the verdict's fix list
+says: pale transverse-jointed concrete brighter than its surroundings,
+no dashes - that is COOK's half, still owed. The demo shows none of it
+until RUN re-cuts (rule 14a). Also restored my [streets read] SHIPPED
+flip after a merge took the CLAIMED version - the verdict commit is
+d109770 on main. PREVIOUS: [streets read] SHIPPED under rule 14 - HE IS
 RIGHT, verdict FAIL with five liars named in coverage order, frames on
 the demo at phone size: the tan void (below the density floor), the
 roadbed with no kerb/lanes/double-yellow, the sidewalk reading as a
