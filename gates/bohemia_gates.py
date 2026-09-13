@@ -5905,6 +5905,22 @@ GATES = [
      'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
      'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
      'GREEN 6/0 in the cut demo.', False),
+    ('A FLAT THING READS FLAT', ['node', 'gates/a_flat_thing_reads_flat_gate.js'],
+     'VAMILY [freeway reads], LIFE + CITY\'s first job under rule 14 THE FIVE MINUTES. '
+     'PAOLO 9/13: "I thought something was an overpass over a freeway, of a regular street '
+     'crossing over the freeway section, and it was just it." He was right and the lie was in '
+     'overpassAt\'s test: it asked whether a street was NEXT TO the cell, so a freeway running '
+     'ALONGSIDE a street was jacked onto a deck with a cast shadow down its whole length while '
+     'being flat ground, and a street running parallel was sunk into a trough the whole way. '
+     'THE FIRST NUMBER WAS TOO GOOD AND WAS WRONG -- asking only about the opposite side of THIS '
+     'cell said 194 of 198 decks were false, but THE FREEWAY IS TWO CELLS WIDE (164 of 168 '
+     'bands) so a real crossing never touches this cell. Stepping the whole band: decks 198 '
+     'drawn / 168 real / 30 FALSE, dips 201 / 172 / 29 FALSE, and they pair up because they are '
+     'one defect from both sides. AFTER: 168/168/0 and 172/172/0. His 8/15 overpass ruling is '
+     'untouched -- every real deck and dip survives, and leg B3 exists because deleting them all '
+     'would make "zero false" trivially green and the game worse. Measured: the nearest freeway '
+     'is 324 walked cells from the door, 27.2 minutes, so this is a CITY MODE break and city mode '
+     'is the only caller of overpassAt in the file.', False),
     ('A CROWD TO WALK INTO', ['node', 'gates/a_crowd_to_walk_into_gate.js'],
      'ROUND 8 of VAMILY [more people] POPULATION-DEFAULT: the peaks, after round 7 built the '
      'floor. Round 7 took the empty standings from 116 of 120 to 65 and made every walk meet '

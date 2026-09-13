@@ -38696,27 +38696,83 @@ function heroFlip(d,x,y){
    freeways are grade-separated, and in the Las Vegas valley the freeway is the
    thing carried OVER: I-15 and the 215 run on structure across the arterials.
    So the freeway is the deck and the street goes under it. */
+/* __A_FLAT_THING_READS_FLAT__ (9/13, LIFE + CITY, row [freeway reads]) ===========
+   *** PAOLO 9/13: "I thought something was an overpass over a freeway, of a regular
+       street crossing over the freeway section, and it was just it." ***
+
+   HE WAS RIGHT, AND THE LIE WAS IN THIS FUNCTION'S TEST. It asked whether a street
+   was NEXT TO the cell. A freeway that merely RUNS ALONGSIDE a street has a street
+   neighbour down its whole length, so it was jacked onto a deck and given a cast
+   shadow while being perfectly flat ground. Same on the other side: a street running
+   PARALLEL to a freeway was sunk into a trough the entire way.
+
+   MEASURED ON THE SHIPPED SEED, BEFORE ANY CHANGE, AND THEN MEASURED AGAIN BECAUSE
+   THE FIRST NUMBER WAS TOO GOOD. Asking only "is a road on the opposite side of THIS
+   cell" said 194 of 198 decks were false, which would have been a much better
+   headline and was wrong: THE FREEWAY IS TWO CELLS WIDE (164 of 168 bands), so a
+   genuine crossing does not put a road against this cell at all. Stepping across the
+   whole band instead:
+       decks   198 drawn,  168 genuinely crossed,   30 FALSE
+       dips    201 drawn,  172 genuinely under,     29 FALSE
+   About one in seven of each, and they pair up -- deck (5,20) with dip (5,19), deck
+   (6,64) with dip (6,63) -- because they are one defect seen from both sides.
+
+   SO THE TEST IS NOW THE CROSSING ITSELF: step across the freeway band and ask
+   whether the ordinary street is there on BOTH far sides. That is what "a street
+   crosses the freeway" means, and nothing else is.
+
+   HIS OLDER RULING IS UNTOUCHED, which is the point -- this removes no overpass he
+   asked for. Paolo 8/15: "there has to be an intersection of when the freeway meets
+   the street you gotta look decent like you gotta be like an underpass an overpass or
+   something most of the time probably a overpass though ... and then the streets right
+   before that intersection like they gotta look like they dip a little bit." All 168
+   real decks and all 172 real dips stay exactly as they were. Only the flat ground
+   that was pretending stops pretending.
+
+   AND THE DIP NOW CHAINS TO A REAL CROSSING. A street dips because it is about to go
+   UNDER something; the old test dipped it next to anything, so 29 troughs led nowhere. */
+/* BUILT ONCE, NOT EVERY FRAME -- the same reasoning the feeder cells already carry a
+   few hundred lines down. Which cells carry a deck is a pure function of the district
+   map, and every write to t.district in this file happens during MAP GENERATION, never
+   at runtime: the builder places buildings on plots, it does not re-zone a cell. So the
+   answer is cached and the cache is thrown away if the valley is ever rerolled, which
+   makes a new om object.
+   MEASURED, because the honest thing is to say what I added before I say what I saved:
+   the old neighbour test cost 2.60 ms to sweep the whole 96x96 map and this crossing
+   test costs 4.26 ms, so I ADDED 1.66 ms of worst-case frame work -- and the cache then
+   takes all of it back after the first frame. */
+var _opCache=null, _opCacheFor=null;
 function overpassAt(x,y){
+  if(_opCacheFor!==om){ _opCache={}; _opCacheFor=om; }
+  var ck=x+','+y;
+  if(_opCache[ck]!==undefined) return _opCache[ck];
+  return (_opCache[ck]=_overpassCalc(x,y));
+}
+function _overpassCalc(x,y){
   var t=om.at(x,y); if(!t) return 0;
   var d=t.district;
+  var _fw=function(ax,ay){ var n=om.at(ax,ay); return !!(n&&FW_FAM(n.district)); };
+  var _rd=function(ax,ay){ var n=om.at(ax,ay); return !!(n&&RD[n.district]&&!FW_FAM(n.district)); };
+  var SPAN=12;                      /* no freeway band in the valley is near this wide */
   if(FW_FAM(d)){
-    /* a freeway cell is a DECK where an ordinary street runs into it */
-    for(var i=0;i<4;i++){
-      var o=[[0,-1],[0,1],[-1,0],[1,0]][i];
-      var n=om.at(x+o[0],y+o[1]);
-      if(n&&RD[n.district]&&!FW_FAM(n.district)) return 1;   // 1 = carries the deck
+    /* a freeway cell carries a DECK only where a street crosses the whole band */
+    var AX=[[0,1],[1,0]];
+    for(var i=0;i<2;i++){
+      var a=AX[i][0], b=AX[i][1];
+      var back=1; while(back<SPAN && _fw(x-a*back,y-b*back)) back++;
+      var fwd=1;  while(fwd<SPAN  && _fw(x+a*fwd, y+b*fwd))  fwd++;
+      if(_rd(x-a*back,y-b*back) && _rd(x+a*fwd,y+b*fwd)) return 1;   // 1 = carries the deck
     }
     return 0;
   }
   if(!RD[d]) return 0;
-  /* an ordinary street cell APPROACHING a freeway dips under it. "the streets
-     right before that intersection like they gotta look like they dip a little
-     bit" -- that is what a real underpass does: the cross street is lowered into
-     a trough rather than the freeway being jacked even higher. */
+  /* an ordinary street cell dips only where it REALLY goes under: follow the band
+     out from this cell and see whether the street picks up again on the far side */
   for(var j=0;j<4;j++){
     var q=[[0,-1],[0,1],[-1,0],[1,0]][j];
-    var m2=om.at(x+q[0],y+q[1]);
-    if(m2&&FW_FAM(m2.district)) return 2;                    // 2 = dips under
+    if(!_fw(x+q[0],y+q[1])) continue;
+    var k=1; while(k<SPAN && _fw(x+q[0]*k,y+q[1]*k)) k++;
+    if(_rd(x+q[0]*k,y+q[1]*k)) return 2;                    // 2 = dips under
   }
   return 0;
 }
