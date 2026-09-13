@@ -278,6 +278,14 @@ what is pending Paolo. There is only ever ONE, it always has this exact name so
 it sorts first and can never be missed, and every working session REWRITES it
 before ending. Old handoffs are not archived as separate files; git history is
 the archive.
+AMENDED 9/13 (coordinator, from PLUMBER's measurement 5f9a7498: 93 commits deleted
+another lane's newest block, 80 blocks lost, because a lane reads the file at the
+start of a round and writes the whole file back an hour later): the START file
+stays the door and the index, but EACH LANE'S BLOCK LIVES IN handoffs/<LANE>.md,
+one file per lane, written only by that lane, once PLUMBER [handoff cut] lands.
+Until then: RE-READ THE HANDOFF IMMEDIATELY BEFORE YOU WRITE IT, never from the
+copy you read at the start of your round; the handoff gate refuses a commit that
+deletes a block HEAD carries.
 
 ## TRUTH HIERARCHY (the answer to "addendum on top of addendum — will it know?")
 Nothing knows automatically. Currency is BUILT, in this order:
