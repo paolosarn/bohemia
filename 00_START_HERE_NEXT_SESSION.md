@@ -1,3 +1,65 @@
+RUN (run-eak241): LATEST -- *** [fast travel] CLAIMED AND MEASURED. THE TRIP IS
+ALREADY BUILT; NOTHING CALLS IT. TAB: CITY to tap, RUN for the trip. Nothing to
+judge yet. ***
+
+WHY THIS AND NOT THE QUEUE: the lane's own MODE line orders it. Paolo asked twice
+(9/6 "extremely similar to Battle Brothers, I really need that"; 9/13 "I wanna be
+able to fast travel like yesterday, bro, in the demo"), and rule 8 puts his asks
+ahead of any claim. The 9/6 row sat ninth for a week.
+
+*** THE MEASUREMENT, AND IT CHANGES THE SIZE OF THE JOB COMPLETELY. ***
+The ruling says "every piece exists and nothing connects them". That is true, and
+it is more true than it sounds: TRAVELLING ON THE MAP IS ALREADY IMPLEMENTED.
+
+  stepOnce(di) -- the ONE function every step in the game goes through -- already
+  has a MODE==='city' branch. One press while zoomed out moves the marker one
+  overmap cell, spends advance(10) (ten minutes), runs moversAdvance(), and hands
+  roadInterrupt(600) its say. The road moments already fire on map steps.
+
+So a trip is not a new movement system. It is A THIRD SOURCE OF DIRECTION in the
+metronome that already exists:
+
+  setInterval(..., BEAT) reads, in this order:  held -> pend -> LATCH_DIR
+  a trip is the fourth:                         held -> pend -> LATCH_DIR -> trip
+
+THE FIVE PIECES AND WHERE EACH ONE LIVES (all in slices/BOHEMIA_CITY_WORLD.html):
+  TAP        cityTapPlot(sx,sy) already turns a finger into the right overmap
+             cell via CBcellAt. It currently opens the BUILD panel; the trip has
+             to offer GO without taking building away.
+  WALKABLE   cityWalkable(x,y) is the map-step rule, already written.
+  COST       ten minutes a cell, and it is stepOnce's own number, so the estimate
+             is path length x that. Nothing new about time or speed.
+  STOPS      latchShouldStop() is ALREADY almost exactly the ruling's stop list:
+             a card is up, a crew has closed on you, the day ended. The trip
+             reuses it minus its MODE==='city' clause (that clause exists to stop
+             a LATCH on the map; a trip is the thing that is supposed to run
+             there).
+  ARRIVAL    swapMode()'s "he moved the marker: that is travel, land him" branch
+             already lands you on the street at the current cell, preferring a
+             road, with the 8/1 NO DISTRICT IS A PRISON spiral. A trip is travel,
+             so it clears LOOKED_FROM and takes that branch.
+
+WHAT IS ACTUALLY MISSING, the whole job:
+  1. a route: breadth-first over the overmap using cityWalkable, giving the list
+     of directions from here to the tapped cell
+  2. a card before you go, saying how long, the way a job already does
+  3. the fourth source in the metronome, and a tap anywhere stops it
+  4. arrival calling the existing handoff instead of waiting for a pinch
+
+NOT A TELEPORT MENU, and the ruling is right that this comes for free: because
+every trip step is the SAME stepOnce, the road moments, the movers and the clock
+all happen exactly as they would on foot. Party contact and the night card hang
+off the same stop list.
+
+NEXT ROUND STARTS HERE. Nothing is built yet and nothing is claimed to be. The
+expensive part of this round was finding that the trip is already written and the
+job is four small connections rather than a movement system.
+
+RULE 14(a) NOTE FOR WHOEVER READS THIS: only THE RUN re-cuts the demo, and only
+after walking the five minutes on a phone. The phone-chip fix earlier this round
+needed NO cut, because both surfaces load the walked city by reference.
+
+--------------------------------------------------------------------------------
 RUN (run-eak241): LATEST -- *** [reds mine] ROUND TWO. IT WAS SEVEN GATES, NOT
 FIVE, AND THE SEVENTH WAS A DEMO BLOCKER: THE RINGING PHONE WENT GREY. TAB: RUN.
 Nothing to judge. ***
