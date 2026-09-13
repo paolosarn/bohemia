@@ -8178,7 +8178,74 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/13 LATEST -- *** [teal legs]: TEAL WORK PANTS SHIPPED, AND RULE 12
+COOK (cook-mce6r5): 9/13 LATEST -- *** [streets fixed] ROUND 1: THE STREET WAS A
+PHOTOGRAPH, ALL 74 TILES OF IT. *** TAB: RUN (the walked city). The street he walks on is
+the art that changed; nothing else moved.
+
+WHAT PAOLO SAID (rule 14, THE FIVE MINUTES, LOCKED): "it looks like shit... the streets
+don't look like streets... glitchy, buggy, nothing's complete."
+
+WHAT I MEASURED. The craft law ceiling is 64 colours in one tile. SA_TILES (chunk 1 of the
+tile bank) holds every ground tile the walked city stands on, and every single one was over:
+road 18 tiles at 1,235 median colours, sidewalk 36 tiles at 1,485, lane paint 4 at 1,031,
+median 6 at 1,131, crosswalk 6 at 1,083, shoulder 4 at 248. 74 of 74 over the ceiling, the
+road 19x over and the sidewalk 23x, with a six-tone person standing on both. Same disease
+this lane cooked out of the CARS on 9/7 (3,031 -> 9), over far more of his screen.
+
+WHAT I SHIPPED. Recooked all 74 onto his approved 7/28 family ramps (asphalt / concrete /
+ground, one palette per family, out of the bank he marked approved), 7 to 9 colours a tile,
+74 -> 0 over the ceiling. A RE-COLOUR, NOT A RE-DRAW: every crack, weed, lane line,
+crosswalk stripe and rust patch is the same pixel it was. Chunk 1 went 1.8 -> 1.62 MB and
+the blocking part of the bank dropped to 1.54 MB, a load win nobody asked for. Verified on
+the walked city in a phone-shaped browser: the top three colours on that canvas are asphalt
+ramp tones, and the people now belong to the same world as the ground they stand on.
+Tool: tools/bohemia_the_street_is_a_photograph_cook_9_13_26.py. Record:
+records/COOK_THE_STREET_IS_A_PHOTOGRAPH_9_13_26.md.
+
+*** THE MISTAKE THAT NEARLY SHIPPED, AND THE FIFTH TIME THIS LANE HAS MADE IT. The first
+version measured TP_TILES["street"]: 97 tiles, 536 median colours, 100% over. Clean,
+consistent, wrong. TP_TILES["street"] is STREET FURNITURE -- the STOP sign, KEEP OUT, the
+warning triangles, the cones. The road is SA_TILES["street"], a different container in the
+same bank WITH THE SAME KEY NAME. The cook was one flag from turning every road sign in the
+game grey. Nothing caught it but rendering a before/after sheet and looking at it. A clean
+measurement from the wrong registry looks exactly like a fact. The tool now brace-matches
+and JSON-parses the container and names it in every line it prints. ***
+
+*** AND THREE ACCENT RULES IN A ROW SCORED A PERFECT 74 -> 0 WHILE LOOKING WRONG. Plain
+saturation turned every sidewalk weed BLACK. Plain RGB distance speckled the sidewalk
+WHITE. Distance-with-brightness-removed still let pure black qualify, because scaling
+(0,0,0) to any brightness stays (0,0,0). The colour count never moved once. What holds:
+that distance PLUS a chroma floor, because a grey pixel has no colour to be out of range
+in. Measure AND look, every round, or you ship a number. ***
+
+STILL OPEN ON THIS ROW, AND THIS LANE CONTINUES ON IT NEXT ROUND:
+  1. THERE IS NO KERB. The sidewalk meets the asphalt at a dead straight vertical seam, and
+     SA_TILES carries no kerb pool at all. The row names kerb. That is COOK's next round.
+  2. THE SHOULDER IS 16x16 BESIDE 44x44 ROAD -- 2.75x the pixel size of the road it borders,
+     inside one frame. Cannot be fixed by recolouring. COOK, after the kerb.
+
+ROUTED OUT (measured, not guessed): the sidewalk repeat he can see on screen -- the same
+weed sprite about ten times down one column -- is the PICKER, not the art. The pool holds
+36 DISTINCT sidewalk tiles and 18 distinct road tiles. The variety exists and is not being
+spent. LIFE + CITY / WORLD owns the walked-city variant choice.
+
+ALSO FIXED A HOLE THIS LANE WAS ABOUT TO WALK THROUGH: the REUSE-FIRST gate sweeps
+tools/*_cook*.py and tools/*_factory.py by NAME, so my tool escaped the law on its filename
+alone. Renamed it to carry _cook and gave it a real REUSE CHECK block; the gate now sees it
+and passes it (204 -> 205).
+
+GATES: pre-push pass green (PIXEL CRAFT 30/0, ART 45 16/0, PURITY ratchet holds, REUSE-FIRST
+205/4, REFERENCE CHECK 9/0, ALPHA LOADS 20/0, CITY TAB 64/0, BLOCKING CHUNK 4/0, BANKS-USED
+24/2). The 4 REUSE-FIRST reds and the 2 BANKS-USED reds are other lanes' files and are
+IDENTICAL ON MAIN -- verified by stashing this diff and re-running, not assumed. Full suite
+unmeasured since 9d0c8a4e (rule 13: PLUMBER has not posted THE SUITE LINE yet).
+DID NOT re-cut the demo (rule 14(a): only THE RUN re-cuts it).
+
+STILL PENDING PAOLO, unchanged from last round:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
+
+COOK (cook-mce6r5): 9/13 -- *** [teal legs]: TEAL WORK PANTS SHIPPED, AND RULE 12
 CAUGHT THE ROW'S OWN HEADLINE NUMBER. *** TAB: CHARACTER, once CHARACTER wires it; nothing on
 his screen changes until then. Build 9/13t, demo re-cut.
 
