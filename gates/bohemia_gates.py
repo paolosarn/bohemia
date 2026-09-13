@@ -2527,6 +2527,22 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('THE ROUT', ['node', 'gates/the_rout_gate.js'],
+     'THEY ARE RUNNING, DO I CHASE? (VAMILY [enemies flee] = BB-THE-ROUT, COMBAT 9/13). The row: "THE MOST '
+     'DECISIVE MOMENT IN A REAL BATTLE IS CURRENTLY A DESPAWN." In pre-modern battle the winners rarely lost '
+     'more than 5% and the losers averaged 10-15%, and much of that was inflicted DURING THE ROUT -- a battle '
+     'is decided by a decision to leave and the killing happens after it, so winning is cheap and losing is '
+     'expensive. MEASURED IN THE BLOB FIRST and the row was right on every count PLUS ONE IT DID NOT KNOW: a '
+     'runner walks one tile a turn and clamps at 30; he is in NO target pool because peeking() and '
+     'exposedToMe() both exclude the fleeing; and aliveEnemies() excludes him too, which FOUR end checks read, '
+     'so the win screen came up the instant the last man on his feet turned his back. THE QUESTION COULD NOT '
+     'BE ASKED. This gate breaks the room through the SHIPPED NERVE ROLL rather than setting a flag, then '
+     'holds every half: the fight waits while somebody is worth chasing, a runner in reach is somebody you may '
+     'shoot at (decided by the pool\'s own range and smoke filters, so the DIAL decides the shot), the window '
+     'is set by his distance and your gun and closes itself (a pistol gives you four turns, a rifle five), the '
+     'question is said once at the only moment it exists, letting him go is a cost you are told about once, '
+     'and catching him pays through V181\'s own body-and-loot path with not one line written for it. NO DAMAGE '
+     'BEFORE THE DIAL: applyDamage knows nothing about runners and the chase test authors no number', True),
     ('PLATE COSTS TAPE', ['node', 'gates/plate_costs_tape_gate.js'],
      'NO TAPE, NO PLATE (VAMILY [plates cost] = BB-THE-FIGHT-EATS-TAPE, COMBAT 9/12). The row: "THE PLATE '
      'YOU WEAR AT EVERY BELL IS FREE, AND IT SHOULD COST TAPE," because in the game he named the tools drain '

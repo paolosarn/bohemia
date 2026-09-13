@@ -19016,9 +19016,50 @@ gates/fight_knows_day_gate.js 11/0, registered as FIGHT KNOWS DAY, mutation-prov
 NO DAMAGE BEFORE THE DIAL: it knows the hour and does nothing with it, and the gate checks that.
 Record: records/BOHEMIA_COMBAT_THE_FIGHT_KNOWS_THE_HOUR_9_12_26.md
 
-QUEUE STATE: [plates cost] IS SHIPPED TOO. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+*** [enemies flee] BB-THE-ROUT -- THEY ARE RUNNING, DO I CHASE? V212. SHIPPED. ***
+THE ROW: "THE MOST DECISIVE MOMENT IN A REAL BATTLE IS CURRENTLY A DESPAWN." In pre-modern battle
+the winners rarely lost more than 5% and the losers averaged 10-15%, and MUCH OF THAT WAS INFLICTED
+DURING THE ROUT -- a battle is decided by a decision to leave and the killing happens after it, so
+WINNING IS CHEAP AND LOSING IS EXPENSIVE.
+MEASURED IN THE BLOB FIRST AND THE ROW WAS RIGHT ON EVERY COUNT, PLUS ONE IT DID NOT KNOW:
+  the run     e.edist=Math.min(30,...), one tile a turn straight out, never removed
+  the target  modePool filters by peeking() and exposedToMe() and BOTH exclude fleeing, so a
+              running man could not be shot AT ALL
+  *** the one the row missed *** aliveEnemies() excludes him too and FOUR end checks read it, so
+              THE FIGHT ENDED THE INSTANT THE LAST MAN ON HIS FEET TURNED HIS BACK. The question
+              was not unanswerable, IT COULD NOT BE ASKED: the win screen was already up
+  their side  medicTurn's `need` is 3 for a downed man and 1 for a broken or FLEEING one, and it
+              clears fleeing -- they talk their runners round and we could not even look at ours
+SIXTH TIME THIS LANE HAS FOUND THE SAME SHAPE, and the sharpest yet: the behaviour exists and the
+game closes before the player can reach it.
+BUILT: the fight WAITS (fightOver() = nobody can fight AND nobody is worth chasing, replacing the
+same expression at all four end checks so a fifth cannot be written against the old meaning;
+aliveEnemies() UNTOUCHED because the music ladder and the last-man rule mean what it says); HE IS A
+TARGET (a runner in reach enters the pool, and the pool's own range and smoke filters still decide,
+so THE DIAL decides the shot and a man's back is no easier to hit); THE WINDOW CLOSES BY ITSELF
+(his distance and your gun set it -- measured, a pistol gives you 4 turns and a rifle 5); AND YOU
+ARE TOLD, once when the shooting stops with men still running and once when a man you could have
+taken passes out of reach. What he was carrying leaves with him because loot only falls off a body
+(V181) -- no code at all, which is why the row called it free content.
+gates/the_rout_gate.js 10/0, registered as THE ROUT. THE ROOM BREAKS THROUGH THE SHIPPED NERVE ROLL
+and not a flag: 4 of 8 down, a man ran within 2 turns of the real turn loop.
+MUTATION-PROVED FIVE WAYS: the fight ends under you again -> 2 red; a runner is not a target -> 1
+red; nobody is told the window closed -> 2 red; the question is never asked -> 1 red; the window
+never closes -> 2 red.
+TWO STAGING BUGS IN MY OWN GATE: a THREE-MAN bench fight can never produce a runner (the rule needs
+half the room down and the LAST man surrenders instead of running), and G.numEnemies=8 IS IGNORED
+WHILE THE ENCOUNTER CURVE IS ON -- the room came back as four, under the threshold, and nothing
+broke for sixty turns.
+NOT BUILT ON PURPOSE: the payload contract is untouched. `fled` is already counted and already goes
+out per man; the outcome shape lives in the shared handoff core and a new field would make this an
+engine change instead of a combat one (V200's rule, still holds).
+NO DAMAGE BEFORE THE DIAL: no damage value, hit chance, roll or accuracy term. A runner joins the
+list of who you MAY shoot; what happens when you do is the dial that was already there.
+Record: records/BOHEMIA_COMBAT_THEY_ARE_RUNNING_DO_I_CHASE_9_13_26.md
+
+QUEUE STATE: [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
-THIS SECTION IS [enemies flee] BB-THE-ROUT, after the entry-gate coin flip.
+THIS SECTION IS [prefight save] BB-SAVE-BEFORE-THE-BELL.
 
 *** AND THE SECOND GATE PASS AFTER THE MERGE FOUND A COIN FLIP IN THIS LANE'S OWN GATE. PICK THIS
 UP FIRST NEXT ROUND, BEFORE [plates cost]. *** combat_entry_gate read 43/0 before the rebase onto
