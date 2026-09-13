@@ -10250,7 +10250,50 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [one colour table] ROUND 3. THE COORDINATOR RE-AIMED THE ROW AND ASKED
+THIS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
+ALREADY HELD, SO WHAT SHIPPED IS THE GATE THAT STOPS IT QUIETLY STOPPING. (sha 7d7b685) ***
+
+  1. ARE THERE HOSTILES?  3604 people swept, 162 hostile (4.5%).
+  2. DOES A HOSTILE HAVE A FACTION?  162 of 162, and that is CONSTRUCTION not luck:
+     ctAgainstMe derives from ctRelToMine(ctFactionOf(p)), so hostility IS a faction fact
+     here. Read, not admired. All 162 sit in four outfits: Trades 70, Colorful 53,
+     Homeless 28, Mob 11.
+  3. IS THE HOSTILE WEARING IT?  8 of 8 on the walked street, comparing THE SPRITE ctBody
+     hands the renderer against the faction set -- not a table entry.
+GATE: faction_colour 27 -> 29, both new checks mutation-proven (make ctBody ignore the
+faction body -> "0 of 8"; block the walk -> the vacuous-pass guard fires first).
+
+THREE THINGS THE CHECK HAD TO LEARN, each a wrong answer I nearly published:
+  (a) STAND WHERE THE HOSTILES ARE, NOT WHERE THE CROWD IS. First cut walked to the densest
+      neighbourhood, drew 183 bodies of whom ALL 183 ran with nobody, and would have said
+      "0 hostiles wear their faction" about a street with no hostile on it.
+  (b) COUNT AFTER THE BAKE. On frame one CAST_FID is empty BY DESIGN (ctBody: "NO HOLE
+      WHILE IT BAKES ... a body getting MORE specific, never a person appearing out of
+      nothing"). My first reading was 0 of 8: true for a second, false for the game.
+  (c) COMPARE THE SPRITE, NOT THE TABLE. A CAST_FID entry proves a bake landed, not that
+      the body reached the renderer.
+The gate carries a VACUOUS-PASS GUARD: no hostile found means FAIL, not pass. This lane
+has shipped a green over an empty street twice.
+
+HONEST LIMIT: the 8 on glass were all Colorful at one spot. The gate walks to whichever
+neighbourhood has the most hostiles so it is not pinned there, but any single run's sprite
+sample is small. The 162-across-four-factions sweep is the wide number.
+
+- Record: records/BOHEMIA_IS_THE_ONE_COMING_FOR_YOU_DRESSED_9_13_26.txt
+  Tool:   tools/bohemia_is_the_one_coming_for_you_dressed.js
+- SUITE (rule 13): pre-push pass green, faction_colour 29/0 and wardrobe_wired 17/0. Full
+  suite unmeasured; no SUITE LINE on the front page yet. Diff touches no engine/ and no
+  slice, so rule 8's derived rebuild does not apply.
+- [faction colour] STAYS CLAIMED with no work left in this lane: the dressing half works,
+  and the blocker is that the territory and the population do not overlap.
+  [PENDING coordinator] that half belongs to FACTIONS or WORLD.
+- AND MY LAST ROUND'S HANDOFF BLOCK WAS LOST IN A MERGE. This file carries three copies of
+  this lane's header and lanes overwrite each other's blocks constantly. Named for PLUMBER,
+  not worked around: I am not mass-editing other lanes' blocks to fix it.
+- NEXT ROUND: [names lie] A-GARMENT-NAMED-COPPER-RENDERS-GREEN, this lane's own finding
+  turned into a row, no dependencies.
+
+PREVIOUS ROUND -- *** [one colour table] ROUND 3. THE COORDINATOR RE-AIMED THE ROW AND ASKED
 FOR "THE AIM-TO-LANDING DISTANCE PER FACTION AS A NUMBER HE CAN READ". IT IS BUILT, IN A
 TAB, ON THE REAL SURFACE. ***
 
