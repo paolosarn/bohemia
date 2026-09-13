@@ -6794,6 +6794,23 @@ for(const _c of CANDIDATES){POSE[_c]=eval('('+CANDIDATE_SRC[_c]+')');CLIPS.push(
                      toward the chest, the last thing that moves. Then
                      stillness, then corpse.                                 */
 const FALL_YC=0.55;   /* 3/4 depth compression on the knock axis' y component [PENDING, Paolo's eyeball] */
+/* THE FRAME THE BODY HAS TO STAY INSIDE, DERIVED FROM THE CANVAS (9/13).
+   Four camera blocks in this file -- the ragdoll, the crumple, the fixed-frame
+   corpse and the tracking pan -- were written with the numbers 28, 27, 34, 50, 53
+   and 3 typed out by hand. Every one of them is a 56-row canvas. BAKED is 112x112
+   and RIG_RS is 2, and a body just STANDING spans 88 rows (head 14, feet 102), so
+   those cameras were centring a 112-space body on the middle of a 56-space frame
+   and cutting his head off. Measured on the headshot from a deterministic reset:
+   the body sat at -16 to 72 for the entire fall, sixteen rows of head above the
+   top edge. Both headshot clips are ones he thumbed down.
+   One derivation, four callers, so it cannot drift again. At 56 with RIG_RS 1
+   every number below is exactly what was typed before. */
+function rigFrame(){
+  const S=(typeof RIG_RS!=='undefined'&&RIG_RS)||1;
+  const H=(typeof BAKED!=='undefined'&&BAKED.H)||56*S;
+  const W=(typeof BAKED!=='undefined'&&BAKED.W)||56*S;
+  return {S:S, W:W, H:H, midX:W/2, midY:H/2};
+}
 const HS={key:null,p:null,v:null,t:0,GY:0,bounced:false,phase:'fall',curlT:0,frozen:false,lastMs:null,manual:false,K:[1,0],variant:1};
 const HS_JOINTS=['neck','headTop','shL','shR','elL','elR','handL','handR','waA','waB','waC','knA','knB','footA','footB'];
 const HS_BONES=[['neck','headTop'],['neck','shL'],['neck','shR'],['shL','elL'],['elL','handL'],['shR','elR'],['elR','handR'],
@@ -7085,12 +7102,32 @@ function hsPose(d){
      zoom, but panning to keep the body visible is the law's whole point).
      Per frame: shift all joints so the body bbox fits inside the canvas.
      The per-frame body span always fits (the body folds as it falls); only
-     the full-fall envelope exceeds the canvas, which is what the pan absorbs. */
-  {let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
+     the full-fall envelope exceeds the canvas, which is what the pan absorbs.
+
+     *** AND THE NUMBERS BELOW WERE STILL IN 56-SPACE WHILE THE RIG MOVED TO 112,
+     WHICH IS WHY HIS HEAD WAS CUT OFF. *** The margins 2 / 54, the centre 28 and
+     the too-big threshold 52 are all a 56-row canvas written out by hand. BAKED
+     is 112x112 and RIG_RS is 2, and a body just STANDING already spans 88 rows
+     (head 14, feet 102). 88 is greater than 52, so the first branch fired on
+     every single frame of every fall and centred the body on ROW 28 -- the middle
+     of a canvas half this one's height. Measured on the headshot from a
+     deterministic reset: the body sat at -16 to 72 for the whole fall, sixteen
+     rows of head above the top edge, and only came back inside the frame at the
+     very end. Both headshot clips are ones he thumbed down.
+     The law's own premise -- "the per-frame body span always fits" -- was false
+     for the same reason, so the pan could not absorb anything; it was clamping a
+     body that had never left the canvas.
+     Derived from the canvas now, so it cannot drift again: margin two CELLS, the
+     far edge and the centre from the height, and "too big" is the canvas minus
+     both margins. At 56 these are exactly 2 / 54 / 28 / 52, so nothing about the
+     original rig changes. */
+  {const _F=rigFrame(), _S=_F.S, _W=_F.W, _H=_F.H;
+   const _M=2*_S, _MIDX=_F.midX, _MIDY=_F.midY, _HIX=_W-_M, _HIY=_H-_M, _BIGX=_W-2*_M, _BIGY=_H-2*_M;
+   let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
    for(const j of HS_JOINTS){mnx=Math.min(mnx,sk[j][0]);mxx=Math.max(mxx,sk[j][0]);mny=Math.min(mny,sk[j][1]);mxy=Math.max(mxy,sk[j][1]);}
    let ox=0,oy=0;
-   if(mxx-mnx>52)ox=28-(mnx+mxx)/2;else{if(mnx<2)ox=2-mnx;else if(mxx>54)ox=54-mxx;}
-   if(mxy-mny>52)oy=28-(mny+mxy)/2;else{if(mny<2)oy=2-mny;else if(mxy>54)oy=54-mxy;}
+   if(mxx-mnx>_BIGX)ox=_MIDX-(mnx+mxx)/2;else{if(mnx<_M)ox=_M-mnx;else if(mxx>_HIX)ox=_HIX-mxx;}
+   if(mxy-mny>_BIGY)oy=_MIDY-(mny+mxy)/2;else{if(mny<_M)oy=_M-mny;else if(mxy>_HIY)oy=_HIY-mxy;}
    for(const j of HS_JOINTS){sk[j]=[Math.round(sk[j][0]+ox),Math.round(sk[j][1]+oy)];}}
   /* ARM NATURAL FOLD, INTEGER FINAL WORD: three joints round independently, so
      the pixel grid itself can tip a fold over the line by ~1px. Enforce on the
@@ -7424,8 +7461,9 @@ function sleepPose(d,ph){
   let mnx=1e9,mny=1e9,mxx=-1e9,mxy=-1e9;
   for(const j in sk){mnx=Math.min(mnx,sk[j][0]);mxx=Math.max(mxx,sk[j][0]);mny=Math.min(mny,sk[j][1]);mxy=Math.max(mxy,sk[j][1]);}
   let ox=0,oy=0;
-  if(mxx-mnx>50)ox=28-(mnx+mxx)/2;else{if(mnx<3)ox=3-mnx;else if(mxx>53)ox=53-mxx;}
-  if(mxy-mny>50)oy=28-(mny+mxy)/2;else{if(mny<3)oy=3-mny;else if(mxy>53)oy=53-mxy;}
+  {const _F=rigFrame(), _M=3*_F.S, _BX=_F.W-2*_M, _BY=_F.H-2*_M, _HX=_F.W-_M, _HY=_F.H-_M;
+   if(mxx-mnx>_BX)ox=_F.midX-(mnx+mxx)/2;else{if(mnx<_M)ox=_M-mnx;else if(mxx>_HX)ox=_HX-mxx;}
+   if(mxy-mny>_BY)oy=_F.midY-(mny+mxy)/2;else{if(mny<_M)oy=_M-mny;else if(mxy>_HY)oy=_HY-mxy;}}
   for(const j of ['neck','headTop','shL','shR'])sk[j][1]-=1.2*Math.max(0,br);
   for(const j in sk)sk[j]=[Math.round(sk[j][0]+ox),Math.round(sk[j][1]+oy)];
   return {sk:sk,present:{_gun:null,_fire:false,_dial:null}};
@@ -7541,7 +7579,8 @@ function crumplePose(d,ph){
      DROPS inside a locked frame instead of being re-centred every frame (that
      re-centring cancelled the fall and popped on threshold crossings). */
   const bb=[stand,corpse].reduce((a,P)=>{for(const j in P){a[0]=Math.min(a[0],P[j][0]);a[1]=Math.min(a[1],P[j][1]);a[2]=Math.max(a[2],P[j][0]);a[3]=Math.max(a[3],P[j][1]);}return a;},[1e9,1e9,-1e9,-1e9]);
-  const ox=28-(bb[0]+bb[2])/2, oy=27-(bb[1]+bb[3])/2;
+  const _F2=rigFrame();
+  const ox=_F2.midX-(bb[0]+bb[2])/2, oy=(_F2.midY-1*_F2.S)-(bb[1]+bb[3])/2;
   for(const j in sk)sk[j]=[Math.round(sk[j][0]+ox),Math.round(sk[j][1]+oy)];
   return {sk:sk,present:{_gun:null,_fire:false,_dial:null}};
 }
@@ -7714,7 +7753,8 @@ function rgPose(d){
   cx/=RG_J.length; cy/=RG_J.length;
   /* CAMERA: centre on the projected CENTROID (a vertical N/S slump would else run
      off the top/bottom of the frame). Biased low so the corpse sits on the deck. */
-  const ox=28-cx, oy=34-cy;
+  const _F3=rigFrame();
+  const ox=_F3.midX-cx, oy=(_F3.midY+6*_F3.S)-cy;   /* the low bias is SIX CELLS, not six pixels */
   for(const j of RG_J) sk[j]=[sk[j][0]+ox, sk[j][1]+oy];
   /* NO DISLOCATED ARMS (Paolo 7/18: 'I need to not see the arms get dislocated').
      The projection + fast tumble can stretch the arm bones on screen so the arm
