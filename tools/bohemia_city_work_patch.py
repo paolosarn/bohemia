@@ -40,6 +40,8 @@ CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
 #                                 bohemia_favour already answered
 #   [back of house]   backhouse   reads bohemia_furnish.js and bohemia_economy.js,
 #                                 both already in the city, AT CALL TIME
+#   [water lifted]    pumps       reads bohemia_economy.js, already in the city,
+#                                 AT CALL TIME
 RIDERS = [
     ('bohemia_work.js', 'the work module'),
     ('bohemia_parties.js', 'the parties module'),
@@ -50,6 +52,7 @@ RIDERS = [
     ('bohemia_owing.js', 'the owing module'),
     ('bohemia_lend.js', 'the lend module'),
     ('bohemia_backhouse.js', 'the back of house module'),
+    ('bohemia_pumps.js', 'the pumps module'),
 ]
 
 
