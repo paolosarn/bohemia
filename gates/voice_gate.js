@@ -476,9 +476,20 @@ book.books.forEach(b => b.lines.forEach(l => {
 /* Pinned as the exact PAIR it was measured from, never a rounded decimal: a
    hand-typed 0.01398 is already below 44/3147 and fails the very state it was
    copied off, which is how this pin first went red the moment it was written. */
-const BAN_RATE_HITS = 44, BAN_RATE_LINES = 3147;   /* measured 9/12 after the bake */
+/* RE-PINNED DOWN 9/13, AND THE MUTATION GUARD IS WHAT ASKED FOR IT. The guard below
+   asserts that one more hit would break the ceiling, which is how a ratchet says "I
+   am still tight". It went red because the debt FELL: 44 hits to 39 at the same
+   3,147 lines, so the old pin had five hits of slack in it and would have quietly
+   accepted five new banned phrases as if nothing had happened. A ratchet that does
+   not follow the work down is a ceiling, not a ratchet.
+   WHERE THE FIVE WENT: they are exactly the five this lane named for QUESTS in the
+   Q22 round-two record (A01_THE_KILLING_SUMMER, A02_THE_ELDERS_ACCIDENT,
+   A06_THE_FIRST_HARVEST, D001_MOTHS_AROUND_THE_LAST_LIGHT and
+   M04_WHAT_THE_NEIGHBOUR_ASKS). Checked one file at a time: all five read zero now.
+   The routing worked, so the floor moves. */
+const BAN_RATE_HITS = 39, BAN_RATE_LINES = 3147;   /* measured 9/13, down from 44 */
 const BAN_RATE_CEILING = BAN_RATE_HITS / BAN_RATE_LINES;
-const BAN_ABS_CEILING = 44;            /* and the absolute debt may not grow either */
+const BAN_ABS_CEILING = 39;            /* and the absolute debt may not grow either */
 let corpusLines = 0;
 book.books.forEach(b => { corpusLines += b.lines.length; });
 const banRate = corpusLines ? corpusBans / corpusLines : 0;

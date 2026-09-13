@@ -1,3 +1,64 @@
+WORDS (words-8dqrnq): 9/13 (f) LATEST -- *** Q24 [yes words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. A YES WITH AN IF IN IT IS NOT A YES, IT IS A COUNTER-OFFER. ***
+TAB: RUN, the first card. No game code touched. Research round, demo untouched, and I have NOT
+walked the glass.
+
+THE FINDING IS A RAZOR AND IT LANDS ON A BUTTON. The instinct for a hard-valley yes is to give it a
+condition: "I'll take it if it's back by dark." That sounds like a man protecting himself and it is
+the line I would have written. Under the mirror image rule IT IS NOT AN ACCEPTANCE AT ALL. An
+acceptance must be an unconditional replica of the offer, and a reply that accepts on condition of
+different terms IS A COUNTER-OFFER. The textbook example is our sentence's exact shape.
+  "I accept, if you include new tires."       -> counter-offer. The deal is back open.
+  "I accept. Could you include new tires?"    -> acceptance plus a request. The deal is CLOSED.
+THE CONDITION INSIDE THE YES RE-OPENS THE NEGOTIATION. BESIDE IT, IT CLOSES. Same words, different
+deal, and the button on the first card of the game has to be the closing kind.
+
+WHAT THEY SAY INSTEAD OF YES: THEY SAY THE TERMS BACK. Aviation studied this hardest because people
+died of it. A readback is verbatim repetition of the instruction, required for the safety-related
+part of every communication, and it exists because "roger" and "wilco" DO NOT VERIFY
+UNDERSTANDING. The error rates are the part to stare at: of readback errors in an FAA study, only
+1.74% of omissions, 18.83% of substitutions and 21.05% of transpositions were caught by the
+controller listening. Most errors survived a system built entirely to catch them.
+  AND PEOPLE ALREADY WROTE ONE WITHOUT THE RESEARCH. Their confirmation line is "You took it. It is
+  yours until the day is out." That IS a readback, it says the duration back, and it is the stronger
+  of their two attempts. Round two builds on it instead of replacing it.
+
+WHAT GETS ADDED ABOUT THE PRICE. The corner deal is negotiated over PRICE, SKILLS, LOCATION and
+DURATION, and the worker is free to accept, decline, or walk off. In a valley with no enforcement
+the words do not bind, so an acceptance that swears loyalty is writing a contract nobody can
+enforce, and one that names the first checkpoint is writing the real one. WHICH OF THE FOUR A MAN
+READS BACK IS THE CHARACTERISATION: the one who repeats the price, the one who repeats the hour and
+the one who repeats where it has to be left are three different people taking one job.
+
+MEASURED. Real recorded speech: ACCEPT, n=11,123, MEAN 1.75 WORDS, prefaced 12.7%. Social agreement
+really is fast and bare, so any urge to make every yes weighty is arguing with the data. OUR OWN 45
+acceptance-opening lines, read by hand, are ALL the social kind ("Alright. It was a fall.", "I will
+bring him home."). ONLY 4 OF 45 RESTATE ANY TERM AND ONLY 1 CARRIES AN IF. The best one already
+exists and is a price clause attached to a yes: "I'll take it for what it's worth to me, not what
+it's worth to you." So the COMMERCIAL acceptance is nearly absent from this game, exactly the way
+the refusal was when Q21 measured it.
+
+NAMED SO NOBODY CHASES IT AS MINE: the stranger's walk lists a dead row on the day card, "Half of
+it now, before I go". That is a HAGGLE row, not the take row this row is about. Whether either
+works is a matter for the glass, I have not walked it, and rule 14(g) says never report a break you
+have not reproduced there.
+
+PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
+VOICE was this lane's and is fixed; no other is ours.
+
+NEXT: Q24 round two, the family. Then Q25 [card words]. Q4 to Q17 still owe their school rounds.
+
+AND THE ROUTING FROM TWO ROUNDS AGO CAME BACK GREEN, WHICH IS THE BEST THING IN THIS ROUND.
+The words book went stale (another lane changed quest text), so I baked it, and then MY OWN MUTATION
+GUARD WENT RED. It asserts "one more banned phrase would break the ceiling", which is how a ratchet
+says it is still tight. It failed because THE DEBT FELL: 44 banned phrases down to 39 at the same
+3,147 lines. THE FIVE THAT WENT ARE EXACTLY THE FIVE I NAMED FOR QUESTS in the Q22 record, checked
+one file at a time, all five now read zero. They fixed them.
+  So the floor moves: the ratchet is re-pinned at 39/3147, 1.239%, down from 1.398%. A ratchet that
+  does not follow the work down is a ceiling with slack in it, and five hits of slack would have
+  quietly accepted five NEW banned phrases as if nothing happened. Proved in both directions: one
+  more hit fails, one fewer passes, PUTTING THE FIVE FIXED LINES BACK FAILS, a clean new batch
+  passes, a batch at 2% fails.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
