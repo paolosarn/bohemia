@@ -2055,7 +2055,7 @@ would FOLLOW you. Nobody follows a stranger. And when somebody finally is yours,
 law that says nobody you keep is lost for good finally has somebody to keep. ***
 Nothing to judge.
 
-VAMILY row: [who follows], MODE: BUILD, SHIPPED 9/13 008cecc9.
+VAMILY row: [who follows], MODE: BUILD, SHIPPED 9/13 78a64ec4.
 Record: records/BOHEMIA_WHO_WOULD_FOLLOW_YOU_9_13_26.md
 
 AVAILABLE IS NOT WILLING, AND THAT IS THE WHOLE ROW. [recruit anywhere] shipped who
@@ -2188,6 +2188,19 @@ ever witnessed anything", identical on a clean origin/main worktree.
 clean origin/main worktree (R2: bq_a03 writes a standing delta against an outfit named
 "NONE"; R8: loadCorpus normalises by the largest deed so a partial corpus moves every
 rung boundary). AND the company seam defect above, which this round fixed in the city.
+
+*** RULE 14 LANDED MID-ROUND (Paolo 9/13, THE FIVE MINUTES). *** He played the demo
+and it does not hold. Two things bind this lane from here:
+  ONLY THE RUN RE-CUTS THE DEMO. This round's commit carries a demo cut made before
+  that rule was on the page (and the land script cuts it too). From the next round
+  this lane ships to the alpha and the workshop and never runs the cutter.
+  NO GATE COUNTS OR COMMIT COUNTS IN A REPLY TO HIM, ever. Rule 14(e).
+  And 14(b): a building lane's FIRST job is a five-minute break he named. This lane's
+  section header carries no break line yet; if one is added, it comes before the rows
+  below. None of the breaks he listed (streets and sidewalks, the flat freeway, the
+  PRETTY MAP and DROP IN buttons, cards that promise and do nothing, no fight in five
+  minutes, no fast travel, glitches) is a faction reading, so the honest answer is
+  that the coordinator has not given this lane one.
 
 NEXT IN THIS LANE (top unblocked, in order)
   [same lender]  THE-COLLECTOR-READS-THE-FOLD'S-LIST -- RULED, and it closes the
