@@ -26507,7 +26507,20 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): THE AERIAL JUDGED AT THE SEAM - FAIL on the
+ROUND LOG 9/13 (latest): [judge the swaps] SHIPPED - PASS both. Trades
+wears his copper at last (the old shirt was named copper and rendered
+green); the Mob's gold pinstripe now stands alone against charcoal and
+reads as ownership. Judged on the thirteen-outfits board (the street's
+own generator; silhouettes proven byte-identical on the walked build)
+after the 6am street produced coyotes and roofs instead of workers.
+Mob/Reds red-bucket overlap left to Paolo on the CLOTHES vote board as
+CHARACTER reserved. PREVIOUS: [judge tracks] SHIPPED - PASS, trails
+fade to a bright head in the holders' inks, no scribble at map zoom;
+routed catch: the feed phone covers the north-east quarter of the
+valley at whole-map zoom (UI should make it yield there). NOTE: this
+entry and the tracks entry were re-added after a merge ate the tracks
+roll - if a round log line vanishes, check merges before assuming it
+was never written. PREVIOUS: THE AERIAL JUDGED AT THE SEAM - FAIL on the
 card's first question, with respect for what landed: the diagram is
 gone, tiles are live, hue and grid and greyscale all pass. But 71.6% of
 the world sits below 0.43 luminance and the ground band holds 16% - the
