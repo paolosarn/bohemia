@@ -1,3 +1,72 @@
+RUN (run-eak241): LATEST -- *** [reds mine] ROUND TWO. IT WAS SEVEN GATES, NOT
+FIVE, AND THE SEVENTH WAS A DEMO BLOCKER: THE RINGING PHONE WENT GREY. TAB: RUN.
+Nothing to judge. ***
+
+THE COUNT WAS WRONG AND ONLY THE MERGED TREE SAID SO. The row named five red
+gates. Running the suite on the tree I was about to push walked past two more of
+this lane's gates on the way: PAD SAYS and FIRST MORNING. A handed-over list is a
+starting point, never the boundary.
+
+  COMBAT RUNS     lying checker   file:// origin              fixed
+  DEMO CURRENT    lying checker   44px on an SVG group        fixed
+  CURRENT SLICE   already green                               nothing to do
+  ENEMIES EXIST   lying checker   arrow glyph in textContent  fixed
+  STRANGER OPENS  lying checker   both of the above           fixed
+  PAD SAYS        lying checker   SVG group again             fixed
+  FIRST MORNING   *** A REAL BUG ***                          fixed in the game
+
+SIX -- PAD SAYS, same family as the other four. It measured borderRadius, width,
+color and textContent to prove the walk pad tells you what a press will do. The
+pad became an SVG ring of eight wedges on 9/7 and NONE of those four properties
+applies to an SVG group, so it read 0px and empty strings and called the
+signifier dead. It was never dead; the rebuild kept the meaning on purpose and
+says so in its own comment. It asks the pad what it DRAWS now. ONE LEG OF THE
+ORIGINAL THREE REALLY IS GONE and the header says so instead of dropping it:
+"round thumbstick becomes a square map tile" cannot happen on a ring of wedges,
+so the third signal is a DIFFERENT real change (the wedge face cools with the
+arrow), not a softened version of the dead one. 12/0, mutation 8/4.
+
+*** SEVEN -- AND THIS ONE THE GAME REALLY WAS BROKEN. *** FIRST MORNING guards
+P0-MORNING, written 8/24 off this lane's own notes: "tapping ONLY the obvious
+primary button goes GET UP -> SLEEP -> DAY 2 and never plays anything... A TESTER
+CAN FINISH THE DEMO WITHOUT EVER MEETING THE GAME." The 8/25 fix made the
+ringing phone wear the gold fill the opening's WATCH button already teaches, and
+HID the unread dot on purpose, because the lit chip was doing the shouting.
+
+IT STOPPED GOING GOLD, SO THE PHONE HAD NO MARK AT ALL. Measured on the served
+alpha, first morning, every control scored by what its pixels do:
+    rungbtn 33 . workbtn 33 . musbtn 32 . savebtn 32 . phonebtn 32 .
+    sleepbtn 32 . bikebtn 32
+    every one of them: fill 8.8, border 17, ink 6.2. IDENTICAL.
+Seven chips separated only by how many letters the word has, and one of them is
+the game. SLEEP tied the phone exactly, which is the 8/24 defect word for word,
+and it was WORSE than the state the row was written to fix, because back then the
+phone at least had a badge.
+
+THE CAUSE, AND NOBODY DID ANYTHING WRONG. UI's 9/11 no-slop round gives every
+chip one body in one rule, which is right, and it needs !important to beat
+thirteen older per-chip rules, which is also right. The lit-phone rule carried no
+!important, so the skin stamped the gold out, and the badge stayed hidden because
+the lit class was still applied.
+
+THE FIX IS THREE WORDS AND NOTHING GREW. The lit rule is id+class, so it is MORE
+SPECIFIC than the skin's id-only rule and wins on specificity no matter which
+stylesheet loads last. The skin keeps its rim, base and under-shadow; only the
+colour comes back. AFTER: phone 74, GET UP 43, every other chip 32 or less.
+THE PHONE IS STILL 27x12 -- Paolo's 9/6 halving is untouched, which matters
+because earlier this same round I caught myself growing the walk pad to satisfy a
+different gate and had to take it straight back out. FIRST MORNING 19/0.
+
+THE LESSON, AND IT IS THE OPPOSITE OF THE OTHER SIX. Six were gates that
+hardcoded the shape of a thing instead of asking it what it is. The seventh had
+asked honestly all along, kept asking after somebody else's correct change, and
+was RIGHT. A lane that starts assuming its checkers lie will eventually ignore
+the one telling the truth. The only defence is that the question is asked fresh
+every time: measure it, THEN decide.
+
+RECORD: records/BOHEMIA_THE_RINGING_PHONE_WENT_GREY_9_13_26.md
+
+--------------------------------------------------------------------------------
 
 UI (ui-kmqmrf): 9/13 (c) LATEST -- *** [no slop] ROUND SEVEN. I PUBLISHED A WRONG DIAGNOSIS. ***
 Row STILL CLAIMED.
