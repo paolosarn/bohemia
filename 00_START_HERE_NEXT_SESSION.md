@@ -131,138 +131,105 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_39_THE_COURT_WAS_NEVER_MISSING_THE_BAILIFF_WAS_9_13_26.md (293 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections PPPPPPPP-TTTTTTTT, +16 lines, 558 draft:true total
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_40_TWO_POCKETS_AND_NEITHER_OF_THEM_IS_THE_SHOP_9_13_26.md (242 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections UUUUUUUU-XXXXXXXX, +12 lines, 570 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched. Rule 14: research
         rounds continue and never touch the demo.
 
-*** FIRST, A BOARD DEFECT, BECAUSE IT COST THIS LANE A SHIPPED LINE. ***
-ae12177 (UI [no slop] round 7) rewrote VAMILY.md from a pre-a238ff9 copy and ROLLED BACK
-16 BOARD LINES, five of them live status words: [freeway reads], [streets read], [city
-from above], [old price] (round 38, MINE) and [suite runs]. The round 38 record and all
-542 bank lines were never touched -- ONLY THE BOARD WORD, which is the one thing another
-lane reads to know what is done. Three lanes self-healed when they next ran; mine is
-restored in 6f08943, touching only ECONOMY's own two lines per rule 10. [streets read] is
-STILL showing CLAIMED on main when it had been SHIPPED and it is DIRECTION's to fix.
-Nothing anywhere checks that a commit touching the board preserves other lanes' status
-words, and the only reason this was caught is that I re-read my own line.
+THE ANSWER, FIRST, BECAUSE THE ROW ASKS A COUNTING QUESTION: TWO NEW POCKETS, FOURTEEN
+LEDGERS, AND THE SHOP IS NOT ONE OF THEM.
+  1. THE HOUSEHOLD   the player's purse       1   ALREADY BUILT
+  2. THE STATE       a faction treasury      14   the sector that is gone, in a new hat
+  3. THE FIRM        the market               0   *** NEEDS NO PURSE AT ALL ***
+The naive read of [every pocket] ("every person, shop and faction") costed on seed 7 with
+the surface's own categoriser: 14 factions + 16 markets + 478 blocks + 19,120 people (at
+the ledger's own 40 a block) + 9,216 cells = 28,844 LEDGERS. The row warns against fifty.
+THE NAIVE READ IS 577 TIMES THAT. The three-sector read builds 14 and leaves 28,814
+unbuilt.
 
-TWO FINDINGS THAT PROVE US WRONG.
- 1. *** RUSSIA HAD COURTS AND THEY WORKED. *** The row is titled "how protection became
-    the courts" and FACTIONS [deal sticks] reasons from "the valley has no courts". The
-    record: Russia's arbitration courts were "reasonably well organized and effective at
-    coming to agreements" but "much less successful at OBTAINING SETTLEMENTS AFTER
-    RULINGS", because the loser hid assets across accounts and in friends' names. THE
-    JUDGE WAS NOT MISSING, THE BAILIFF WAS. The krysha's product was never the verdict,
-    it was somebody who would make the loser pay. So "a faction rules on your dispute" is
-    the wrong mechanic and the boring one; the right one is that SOMEBODY GOES AND GETS
-    IT. Round 26 already measured wouldSquare() -- a function that answers what would
-    settle a grievance, with nothing anywhere that makes the settling happen.
- 2. YOU DO NOT GO TO YOUR PROTECTOR, YOUR PROTECTOR GOES TO THEIRS. The mechanism is a
-    STRELKA: "a form of arbitration where companies in dispute would BOTH SEND THEIR
-    KRYSHA to negotiate an agreement, which would then become BINDING FOR BOTH
-    COMPANIES... several of these meetings daily, and THE MAJORITY OF THEM ENDED
-    PEACEFULLY... success depended on EACH GANG'S REPUTATION." Three mechanics in one
-    paragraph: the player is not in the room; it binds both and is routine rather than a
-    shootout; and it is decided by whose roof is bigger, NOT BY WHO IS RIGHT. Justice is
-    not a variable in this system and pretending it is would be the unrealistic choice.
+*** THE FINDING THAT PROVES US WRONG: SIXTEEN MARKETS, ONE WAREHOUSE. ***
+mktLedger() on the walked surface opens with `if(MKT_LEDGER) return MKT_LEDGER;` and
+MKT_LEDGER is NEVER KEYED AND NEVER RESET. The hub beside it IS keyed (MKT_HUB_KEY), so
+the game knows which market you are in -- but the STOCK is created once, by whichever
+market you walked into first, sized off that market's head count, and every other market
+in the valley then shares it. Buying rice in the Mob's fortress empties the same barrel as
+a swap meet forty cells away, and the water pumps top up the same singleton for everybody.
+AND THAT IS WHY THERE IS ONE PRICE. price(ledger, good) is a pure function of stock:
+daysLeft = stocks[good] / (need * agents), price = base * scarcityMult(daysLeft). ONE
+LEDGER NECESSARILY MEANS ONE PRICE. Round 34 diagnosed the one price as price() not taking
+a hub; that is true and it is only the top half. WORLD [two prices] COULD PASS A HUB TO
+price() TOMORROW AND STILL GET ONE NUMBER OUT OF BOTH MARKETS, because both read the same
+stocks. The stock singleton is the real blocker on [two prices], it is one line (key the
+ledger the way the hub beside it is already keyed), and nobody had written it down.
 
-WHAT I MEASURED IN OUR OWN CODE FIRST:
-- THE VALLEY HAS FIVE OBLIGATION SYSTEMS AND EVERY ONE POINTS AT THE PLAYER: favour
-  owedOf(save,fid) and settle(); standing makeRight(); towns owedTo() counting nights HE
-  owes; towns collectorAt() knocking on HIS door. THERE IS NO DEAL BETWEEN TWO OTHER
-  PARTIES ANYWHERE, SO THERE IS NOTHING FOR A THIRD PARTY TO ENFORCE. Round 33's one-purse
-  wall in its ninth set of clothes.
-- AND FOUR PIECES OF THE MECHANIC ARE ALREADY IN THE FILES:
-  * commitment.js answers "what happens to the man who goes to the other protector"
-    better than the search results did. Three stages: none (ceiling 5, blocks COUNTED),
-    sided (ceiling 9, blocks INSIDE), BURNED -- "You cost yourself somewhere else to be
-    here. THIS IS THE ONE THAT CANNOT BE WALKED BACK."
-  * commitment.tertius() IS A STRELKA OUTCOME TABLE WRITTEN BEFORE ANYBODY READ ABOUT
-    STRELKAS: gaudens "YOU ARE THE ONLY ROUTE BETWEEN THEM" when the two outfits have no
-    line to each other, dolens "BOTH SIDES CAN SEE YOU" when they do.
-  * commitment.LANDING carries reputation transmission: direct (AS FACT), secondhand (AS
-    A RUMOUR), silent (NOT AT ALL). Reputation is the currency of a strelka.
-  * favour.GIVES['you-give-first'] gates asking at fromRung COUNTED -- the SAME rung round
-    38 landed on for the old-price door. COUNTED is this game's threshold for "they will
-    do something for you", arrived at twice, in two independent modules.
-- THE NUMBERS WE ALREADY CHARGE: a day of work pays 1, FAVOUR_SIZE 1, STANDING_COST 1,
-  PER_SITE_PER_DAY 1, the lights 1 a night per feeder. Everything is already one.
+THE REAL AISLE, and two traditions land on the same number from opposite directions:
+- THE ACCOUNTING ANSWER IS THREE. Godley and Lavoie's model SIM, the simplest
+  stock-flow-consistent economy there is, is closed with exactly three sectors:
+  households (wages, taxes, consumption), firms (produce, pay wages), government (buys
+  output, collects taxes). ONE ASSET: money. Everything not consumed is held as cash.
+- THE SIMULATION ANSWER IS ALSO THREE. The agent-based literature: a minimum of three
+  agent types -- households, firms, banks -- is sufficient for PRICES TO EMERGE
+  ENDOGENOUSLY, four with a government for a fuller picture. Prices "evolve from
+  interaction with neighbours following simple supply and demand rules".
+- AND THE PART THAT DECIDES OUR BUILD: FIRMS HOLD NO MONEY. In SIM "firms are not
+  modelled explicitly... total income is paid out to households... simple intermediaries
+  that don't hold independent monetary positions or accumulate net worth." The firm is a
+  PASS-THROUGH. So the minimum is three SECTORS but not three PURSES: it is TWO PURSES AND
+  A WAREHOUSE. Which is exactly our situation -- the shop already has its balance sheet
+  (ledger.stocks, moved by advanceDay, decremented by mktBuy on every purchase). The firm
+  sector here does not need a pocket, it needs its own barrel, and sixteen shops share one.
+- THE SECTOR THAT IS GONE, AND WHAT TOOK ITS PLACE. SIM makes the state load-bearing:
+  money exists because the government spends it into existence and taxes it back out. In
+  this valley that sector did not vanish, it CHANGED HATS. A faction SPENDS (buildings
+  mint one battery a day, 9/11 [batteries mined]) and a faction COLLECTS (one a night per
+  feeder, the rent, a collector at your door who remembers your father). BOTH HALVES OF
+  THE GOVERNMENT'S JOB ARE ALREADY RUNNING WITH NOWHERE FOR THE MONEY TO LAND OR COME
+  FROM. That is the treasury and it is the one genuinely missing pocket.
+- THE CAMPAIGN LAYER, thin and said plainly rather than dressed up: the searches returned
+  the company's single crown pool and a daily wage per man and NO technical account of how
+  many money pools the game tracks. What is visible is consistent with the theory -- one
+  purse for the player, towns holding goods and prices rather than money. The WHOLESALER
+  the row asks about does not appear as a pocket anywhere I could verify, so it is not
+  proposed.
 
-THE REAL AISLE, THE PRICE IN REAL NUMBERS:
-  Russia 1990s      70-80% OF FIRMS PAID, 10-20% of profits (some accounts to 30%)
-  Sicily retail     ~70% of businesses paid, EUR 457 a month flat
-  Sicily hotels     EUR 578 a month        Sicily construction EUR 2,000+ a month
-  Sicily building   2-5% of revenue PER JOB
-  Palermo alone was extorted of more than EUR 160m a year in 2008; Sicily about ten times.
-TWO STRUCTURES AND THE DIFFERENCE MATTERS MORE THAN THE RATES: Russia charged a share of
-PROFIT (needs books and an auditor), Sicily mostly a FLAT MONTHLY (needs a calendar) and
-only construction a per-job share (needs only the job). The simplest to enforce spread
-furthest.
-WHAT THE MONEY BOUGHT, and it is a small legal system: contract enforcement, debt
-collection, VETTING OF BUSINESS PARTNERS, arbitration of disputes, information gathering,
-taxation, help with bureaucracy, LOANS, and making problems for your rivals. Gambetta:
-the product "is not violence, but protection", a guarantee of safe conduct, sold because
-TRUST IS SCARCE; its inputs are intelligence and secrecy, violence, and MARKET REPUTATION,
-and reputation is TRANSFERABLE, which makes it a brand rather than a threat.
-LEBANON: generator owners "negotiate control over territorial areas with one another,
-preventing competition", unregulated micro-monopolies coordinated through a syndicate,
-with thirteen importers cartelising the diesel underneath. And the tell: TURF WARS
-INCLUDING GUN BATTLES IN TRIPOLI AND BEIRUT -- OVER CUSTOMERS, not over price. Same shape
-as our map, where all 9,216 cells are already held by fourteen factions.
-WHAT BREAKS IT: not police and not courts. Addiopizzo, 2005: young professionals in
-Palermo invented A LABEL CERTIFYING THAT A BUSINESS DOES NOT PAY, so customers could
-choose them. The counter in the record is a VISIBLE MARK OF NOT PAYING plus enough people
-who care. That is a standing mechanic, not a combat one.
-AND THE ONE THING THE RECORD WOULD NOT GIVE ME, said plainly rather than inferred: what
-happens to the firm that SWITCHES roofs is thin in the sources. Our own commitment.js
-already answers it and the strelka's structure supports that shape (a firm with no roof
-has no representative in the room), but the number is not in the record and is not
-invented here.
+THE DELIVERABLE FOR WORLD [every pocket]: BUILD TWO, NOT TWENTY-EIGHT THOUSAND, AND BUILD
+THE TREASURY FIRST. The player's purse exists; the market needs STOCK not a purse and
+already has stock; the only genuinely missing pocket is the faction treasury, fourteen of
+them, and both halves of its job already run with nothing behind them. Give it a purse on
+the existing primitive and credit/debit do the rest; the swap round 33 found built and
+half-called becomes the one way batteries move between any two holders. THEN FIX THE
+WAREHOUSE, which is smaller and is blocking more. AND DO NOT GIVE PEOPLE, BLOCKS OR CELLS
+A POCKET -- nineteen thousand households is not realism, it is 19,120 ledgers to keep
+consistent, and the record's own minimal model does not model firms explicitly and gets
+prices anyway.
+THE ORDER: (1) split MKT_LEDGER per hub -- smallest, and it unblocks [two prices], which
+several rows are stacked behind. (2) fourteen faction treasuries. (3) nothing else until
+something measured demands it.
 
-THE DELIVERABLE FOR FACTIONS [deal sticks]: THE FACTION IS NOT THE JUDGE, IT IS THE
-BAILIFF. Do not build a ruling, build a collection. A deal struck on a block a faction
-holds can be WITNESSED for ONE BATTERY, and what the battery buys is that when the other
-side does not deliver, THEY COME AFTER THE OTHER SIDE AND NOT AFTER YOU. The cut is one
-battery per deal and NEVER A PERCENTAGE: every real rate (10, 20, 30, 2, 5 per cent)
-turns a one-battery day into a fraction this game cannot say, and inverted the krysha's
-own rate reads as ONE BATTERY EVERY FIVE TO TEN DAYS OF WORK -- the right order of
-magnitude, and about a tenth of what the lights already cost. A bigger faction sells MORE
-DEALS, not a dearer one, which is the depth axis FACTION-TOWNS already uses. When two
-witnessed parties dispute the player is NOT IN THE ROOM: each side's faction meets, it
-binds both, it ends peacefully far more often than not, and whose standing is bigger
-decides it. commitment.tertius() already returns that table. Switching protector costs
-what commitment.js already charges (burned, cannot be walked back). And the counter is A
-MARK, NOT A FIGHT.
+ROUTED: WORLD [every pocket] two pockets, treasury first | WORLD [two prices] *** its
+blocker is not price()'s arguments, it is MKT_LEDGER being a singleton *** | FACTIONS the
+faction is the third sector and already mints and collects | LIFE+CITY the water pumps
+fill the same shared barrel, same defect different caller | PLUMBER a keyed cache one line
+above an unkeyed one is a gate-shaped defect | COORDINATOR nothing blocking.
 
-WHAT IS ACTUALLY BLOCKED, MEASURED RATHER THAN ASSUMED (front-page rule 12):
- - THE ENFORCEMENT IS NOT BLOCKED. Siding, refusing, remembering and the strelka's outcome
-   all run on standing, commitment and the faction graph, which exist today.
- - THE CUT IS BLOCKED. One battery must move from a person to a faction and there is one
-   purse. WORLD [every pocket] is the real dependency for the money and nothing else.
- - THE DEAL ITSELF IS BLOCKED AND NOBODY HAS SAID SO. There is no object in the game
-   representing an agreement between two parties. A protector with nothing to protect is a
-   favour, and favours are built. This is the first thing [deal sticks] needs and it is
-   smaller than either of the other two.
+GATES, rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0, attempt
+15/0, canon rot 13/0, demo blockers 22/0, language 83/0. FULL SUITE UNMEASURED SINCE
+f5a0529; THE SUITE LINE is still unposted. No red is mine.
 
-ROUTED: FACTIONS [deal sticks] the bailiff not the judge | FACTIONS/PEOPLE tertius and
-burned are already written and are being pointed at, not changed | WORLD [every pocket]
-confirmed as the blocker for the CUT only | WORLD/QUESTS the missing object is a DEAL
-BETWEEN TWO PARTIES, and half this board waits behind it without saying so | UI "they will
-come after him, not you" is a promise, and rule 14(d) says a promise must do something or
-be removed | COORDINATOR the [deal sticks] row reasons from "the valley has no courts" and
-section 0 says the courts were never the point, so the lane does not build a verdict
-screen.
+THE PROJECT-LEVEL HOLE, round 25 of naming it, and this is the clearest "two parts do not
+agree" yet: the hub is keyed per market and the stock is not, IN ADJACENT LINES OF THE
+SAME FILE, and every gate is green because each half is individually correct. A four-line
+check -- two caches of the same subject key the same way -- would have caught it, and
+instead it has silently made the whole valley one shop since markets were added.
 
-GATES, under rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0,
-attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0. FULL SUITE UNMEASURED
-SINCE d885b1f, because THE SUITE LINE is still unposted. No red is mine.
-
-THE PROJECT-LEVEL HOLE, round 24 of naming it, and this is the widest instance yet because
-it is not code at all: nothing checks that a commit touching VAMILY.md preserves every
-other lane's status words. A lane that rebases the board from a stale copy un-ships other
-people's finished work, silently, with every gate green.
+PROBES THAT WERE WRONG, KEPT ON PURPOSE. Three in a row, all signature errors, all
+returning a plausible number: derive(graph, districts, act) not derive(m, seed) -- mine
+returned [] and I nearly wrote "zero town seats"; selectable(graph) takes the faction
+graph; and blocksOf(m, cat) TAKES A CATEGORISER FUNCTION, not a category name -- a string
+threw, an identity function flooded the map and reported 14 blocks where the real answer
+is 478. The surface's own categoriser is bohemia_cityedit.cat (water/road/freeway/rail/
+mount/open/sand).
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
@@ -422,11 +389,21 @@ people's finished work, silently, with every gate green.
      business with each other while he is not looking, or a game where he is the
      only one with anything at stake.
 
-NEXT IN THIS LANE: Q40 [how many pockets], then Q41 [who replaces you].
+ 42. (new) SHOULD THE VALLEY HAVE MORE THAN ONE SHOP? Not a joke. Measured this
+     round: all sixteen markets share ONE stock ledger, created by whichever one
+     you walk into first, so buying rice in a fortress empties a swap meet forty
+     cells away, and because a price is computed from stock THAT is why there is
+     one price in the whole valley. It is a one-line fix and this lane is not
+     asking permission for it. THE QUESTION UNDER IT IS HIS: once each town has its
+     own barrel, a town can RUN OUT while the next one is full, and a player can
+     walk two hours to a place that has nothing. That is the most realistic thing
+     this game could do and it is also the most frustrating, and which of those it
+     becomes is a feel call, not a number.
+
+NEXT IN THIS LANE: Q41 [who replaces you]. Then the queue is empty.
 
 
 ================================================================================
-
 RUN (run-eak241): LATEST -- *** [fast travel] CLAIMED AND MEASURED. THE TRIP IS
 ALREADY BUILT; NOTHING CALLS IT. TAB: CITY to tap, RUN for the trip. Nothing to
 judge yet. ***

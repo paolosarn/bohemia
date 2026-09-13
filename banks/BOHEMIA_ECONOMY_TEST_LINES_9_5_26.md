@@ -3184,3 +3184,64 @@ YYYYYYY3 somebody who will not ask for it back draft:true
 - No line has the player speaking, and no line has him being told he is weak.
 - Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both a single
   word inside an English sentence, neither respelled.
+
+## UUUUUUUU. THE SAME BARREL
+## (round 40, the warehouse. Sixteen markets share one stock, so buying rice in a
+##  fortress empties a swap meet forty cells away. Said by people who notice.)
+
+- UUUUUUUU1 `draft:true` — "They had it this morning. Somebody bought it, and it
+  wasn't anybody from here." (the shared barrel, felt from inside one market. VOICE
+  CARD: name the one thing only this person would name, and it is WHO.)
+- UUUUUUUU2 `draft:true` — "You went up the hill and bought it there. I can tell.
+  I can always tell." (the second sentence is the fumble and it is also a boast.)
+- UUUUUUUU3 `draft:true` — "Feels like there's one shop in this whole valley
+  wearing different hats." (the defect said as a joke by somebody who is right.)
+- UUUUUUUU4 `draft:true` — "No, ya, we get the same delivery. Same everything."
+  (Spanish register, one word. Nobody leads with a no, and the no here is a
+  correction of an assumption nobody voiced.)
+
+## VVVVVVVV. THE OUTFIT'S OWN MONEY
+## (round 40, the missing pocket. A faction mints a battery a day and takes one a
+##  night, and neither lands anywhere. Said by people who assume it does.)
+
+- VVVVVVVV1 `draft:true` — "Where does it go, though. You ever think about that."
+  (the whole finding as an idle question at the end of a shift.)
+- VVVVVVVV2 `draft:true` — "They take it Tuesday and by Thursday they're taking it
+  again. Something in between there." (a person nearly working it out and not
+  getting there, which is what nobody-is-wise sounds like.)
+- VVVVVVVV3 `draft:true` — "That's not his. That's theirs. There's a difference and
+  he'll tell you about it." (a treasury explained without the word.)
+- VVVVVVVV4 `draft:true` — "They've got a room for it somewhere. Everybody's got a
+  room." (the pocket imagined as a place, which is how a person would picture it.)
+
+## WWWWWWWW. NOT EVERYBODY NEEDS A POCKET
+## (round 40, what we are not building. Nineteen thousand households is not
+##  realism, it is nineteen thousand things that can disagree with the world.)
+
+- WWWWWWWW1 `draft:true` — "I don't keep any. What would I keep it in." (a person
+  with no pocket, and it is not a complaint.)
+- WWWWWWWW2 `draft:true` — "It comes in Friday and it's gone Friday. That's not
+  bad, that's just Friday." (pass-through, from the inside, with the resignation
+  that makes it true.)
+- WWWWWWWW3 `draft:true` — "The block doesn't have money. The block has us."
+  (contract it: the cut version explained the difference at length.)
+- WWWWWWWW4 `draft:true` — "Ask me what I've got and I'll show you my hands."
+  (nine words, and the last three are the whole answer.)
+
+## XXXXXXXX. WHAT IS NOT HERE, ON PURPOSE (round 40)
+
+- No line contains a number, a count, a balance or a price. This round is entirely
+  a counting question and nothing counts out loud.
+- No line uses the words purse, pocket, ledger, stock, treasury, sector or market.
+  UUUUUUUU3 says "one shop wearing different hats" and VVVVVVVV4 says "a room".
+- No line explains where money comes from or goes. Nobody in Bohemia is wise.
+- No line names a faction, a town, a street or a good. MAP LAW, and UUUUUUUU1 says
+  "it" rather than naming the thing that sold out.
+- No line decides what a treasury starts with, whether a faction can go broke, or
+  how a split shelf is sized. Those are the things section 4 refused.
+- No line has the player speaking, and no line accuses him of emptying the barrel
+  even though UUUUUUUU2 comes close on purpose.
+- No line suggests people should have pockets, because the round's own finding is
+  that they should not, and a bank arguing with its record is worthless.
+- Spanish register: 1 of 12 lines, 8%, under the 15% he set on 8/26. One word
+  inside an English sentence, not respelled.
