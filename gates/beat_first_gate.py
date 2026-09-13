@@ -125,7 +125,20 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     const wait=ms=>new Promise(z=>setTimeout(z,ms));
     if(typeof MUS==='undefined'||!MUS.AC) return null;
     const AC=MUS.AC, dst=MUS.OUT||MUS.MAST||AC.destination;
-    const an=AC.createAnalyser(); an.fftSize=1024; dst.connect(an);
+    /* THE WINDOW HAS TO COVER THE STEP, OR THE METER HAS BLIND GAPS (9/13).
+       fftSize 1024 is 23ms of history at 44.1kHz, and this loop's setTimeout(12)
+       really lands nearer 50ms on a page that is also running a game -- so
+       consecutive reads left a hole of about 30ms, and a thump of about 40ms
+       could fall entirely inside one. That is why this gate has been flaky on
+       EVERY tree since it shipped: measured 9/13 over ten runs, five a tree, it
+       went red 1 of 5 on plain main and 2 of 5 on a branch with the SAME pulse,
+       while the claim that actually matters -- the song's first note landing on
+       the grid -- read 0.00ms off in 10 of 10.
+       A SAMPLER WHOSE WINDOW IS SHORTER THAN ITS OWN STEP DETECTS BY LUCK.
+       2048 is 46ms of history, which covers the real step, and 46ms of smear is
+       nothing against the 312ms lub-to-dub it has to tell apart. Both analysers
+       in this gate get it: the stall meter can lose a thump the same way. */
+    const an=AC.createAnalyser(); an.fftSize=2048; dst.connect(an);
     const buf=new Float32Array(an.fftSize);
     const read=()=>{ an.getFloatTimeDomainData(buf); let m=0;
       for(let i=0;i<buf.length;i++) if(Math.abs(buf[i])>m) m=Math.abs(buf[i]);
@@ -169,6 +182,14 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     const lubs=loud.filter(x=>x[1]>top*0.6);
     const gaps=[]; for(let i=1;i<lubs.length;i++) gaps.push(+(lubs[i][0]-lubs[i-1][0]).toFixed(3));
     const allGaps=[]; for(let i=1;i<loud.length;i++) allGaps.push(+(loud[i][0]-loud[i-1][0]).toFixed(3));
+    /* AND THE SAMPLER'S OWN RESOLUTION, REPORTED RATHER THAN ASSUMED. Nothing is
+       asserted against it -- on a loaded machine that would red for everybody and
+       say nothing about the beat -- but the next reader of a flaky run needs to
+       see whether the meter could even see what it was counting. */
+    const dts=[]; for(let i=1;i<trace.length;i++) dts.push(trace[i][0]-trace[i-1][0]);
+    dts.sort((x,y)=>x-y);
+    const sampleDt=dts.length?+dts[dts.length>>1].toFixed(4):null;
+    const windowSec=+(an.fftSize/AC.sampleRate).toFixed(4);
 
     /* AND A FOOTSTEP, SIDE BY SIDE, SAME METER, SAME BUS. "Quiet" is not an
        adjective here: it is this number against that one. */
@@ -181,7 +202,9 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     }
     return {base:+base.toFixed(5), pulsePeak:+pulsePeak.toFixed(5),
             stepPeak:+stepPeak.toFixed(5), peaks:loud.length, lubs:lubs.length,
-            gaps:gaps, allGaps:allGaps, stateWhileOn:st.on, level:s0.level};
+            gaps:gaps, allGaps:allGaps, stateWhileOn:st.on, level:s0.level,
+            sampleDt:sampleDt, windowSec:windowSec,
+            traceSpan:trace.length?+(trace[trace.length-1][0]-trace[0][0]).toFixed(2):null};
   });
 
   /* ---- IT SURVIVES A BLOCKED MAIN THREAD, which is the whole reason it is a
@@ -191,7 +214,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
     const wait=ms=>new Promise(z=>setTimeout(z,ms));
     if(typeof MUS==='undefined'||!MUS.AC) return null;
     const AC=MUS.AC, dst=MUS.OUT||MUS.MAST||AC.destination;
-    const an=AC.createAnalyser(); an.fftSize=1024; dst.connect(an);
+    const an=AC.createAnalyser(); an.fftSize=2048; dst.connect(an);   /* 46ms of history: see the note on the meter's analyser above */
     const buf=new Float32Array(an.fftSize);
     const read=()=>{ an.getFloatTimeDomainData(buf); let m=0;
       for(let i=0;i<buf.length;i++) if(Math.abs(buf[i])>m) m=Math.abs(buf[i]);
@@ -301,13 +324,30 @@ def main():
     ok('IT MAKES A SOUND: peak %s against a %s floor'
        % (m.get('pulsePeak'), m.get('base')), (m.get('pulsePeak') or 0) > 0.01)
     gaps = m.get('gaps') or []
-    beatish = [g for g in gaps if abs(g - 0.5) < 0.06]
-    ok('and the beat comes once every half second, which is 120: %d thumps, %d '
-       'of them the loud one, lub-to-lub %s, %d of %d within 60ms of half a '
-       'second (every thump: %s -- a heart has two)'
-       % (m.get('peaks') or 0, m.get('lubs') or 0, gaps[:6],
-          len(beatish), len(gaps), (m.get('allGaps') or [])[:6]),
-       len(gaps) >= 2 and len(beatish) >= max(1, int(len(gaps) * 0.6)))
+    # *** A MISSED THUMP IS NOT A WRONG TEMPO, AND THIS CLAIM USED TO CONFUSE THE
+    # TWO (9/13). It asked that 60% of consecutive lub-to-lub gaps sit within 60ms
+    # of half a second, which a meter that misses one thump can never satisfy: the
+    # gap becomes 1.0 or 1.5 and the tempo it was measuring is untouched. Measured
+    # over ten runs, five a tree, on the SAME pulse: red 1 of 5 on plain main and
+    # 2 of 5 on a branch, with gaps like [2, 0.47, 0.528] PASSING and
+    # [1.481, 0.531, 1.489, 0.99, 0.51] FAILING. A coin flip was deciding every
+    # lane's ship.
+    # THE HONEST TEST IS THAT EVERY GAP IS A WHOLE NUMBER OF HALF-SECONDS: a
+    # dropped thump lands on a multiple, a wrong rate does not. And the EXACT
+    # tempo is not softened by this -- it is proven by the two construction claims
+    # above (a 0.5s loop and a 0.3125s lub-to-dub, both to 1e-9) and by the first
+    # note landing on the grid below. This meter's job is to prove the thing is
+    # AUDIBLE and REGULAR, which is what it can honestly see. ***
+    off = [g for g in gaps if g < 0.40 or abs(g - round(g / 0.5) * 0.5) > 0.06]
+    ok('and the beat comes once every half second, which is 120: %d thumps, %d of '
+       'them the loud one, lub-to-lub %s, and EVERY gap is a whole number of half '
+       'seconds (%d off: %s). A missed thump makes a 1.0 or 1.5 gap and leaves the '
+       'tempo alone; a wrong rate does not land on the multiples. Sampled every '
+       '%sms through a %ss window across %ss (every thump: %s -- a heart has two)'
+       % (m.get('peaks') or 0, m.get('lubs') or 0, gaps[:6], len(off), off[:4],
+          round((m.get('sampleDt') or 0) * 1000, 1), m.get('windowSec'),
+          m.get('traceSpan'), (m.get('allGaps') or [])[:6]),
+       len(gaps) >= 2 and not off)
     ok('and it is QUIETER THAN A FOOTSTEP, which is the quietest thing in the '
        'game by his 8/1 ruling: pulse %s vs step %s'
        % (m.get('pulsePeak'), m.get('stepPeak')),
@@ -357,9 +397,11 @@ def main():
     # the numbers were invisible on a pass. Now they always print, so the next
     # lane can line up runs instead of guessing.
     print('  MEASURED  covered %.1fs (needs 4.0), first note %.3f beats after the '
-          'pulse and %.2fms off its grid, %s thumps of which %s loud, gaps %s'
+          'pulse and %.2fms off its grid, %s thumps of which %s loud, gaps %s, '
+          'sampled every %sms through a %ss window'
           % (covered, (lg.get('beats') or 0), (lg.get('offMs') or 0),
-             m.get('peaks'), m.get('lubs'), (m.get('gaps') or [])[:6]))
+             m.get('peaks'), m.get('lubs'), (m.get('gaps') or [])[:6],
+             round((m.get('sampleDt') or 0) * 1000, 1), m.get('windowSec')))
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
         print('  You tap it and it has a pulse, ten seconds before it has a song, '
