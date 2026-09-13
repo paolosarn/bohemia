@@ -1,0 +1,121 @@
+BOHEMIA -- THE LIFT MOVES HIM (9/13/26, PEOPLE lane)
+The other half of his dead-card break. Not a board row.
+
+PAOLO 9/13, five minutes on a phone:
+  "it says a car is gonna pull up on me and then nothing happens."
+Rule 14(d): a card that promises something and does nothing is the worst bug in
+the game, because it teaches him nothing here is real. Deliver it or remove it.
+
+Last round fixed the first half of that sentence -- the job offer he could not
+accept. This is the car.
+
+================================================================================
+*** MEASURED ON THE REAL DEMO, ON FOOT, AND IT IS HIS SENTENCE EXACTLY ***
+================================================================================
+The ghost robotaxi card fires on the walked street:
+
+  ON THE ROAD · SUBURB · DAY
+  GHOST ROBOTAXI
+  An empty cab pulls to the curb ahead and opens its door for nobody. Waits its
+  ninety seconds. Pulls off.
+  LEFT ON THE ROAD  1 KG SALVAGE
+  [ GET IN -- A LIFT ]   [ LET IT GO -- FREE ]
+
+Pressed GET IN. The card answered:
+  "The door shuts. It drives the loop it has always driven, and it is not your
+   loop."
+
+  his walked position   6205,6271  ->  6205,6271
+  the city cursor       48,48      ->  48,48
+
+HE GOT IN A CAR, WAS TOLD IT DROVE OFF, AND DID NOT MOVE ONE CELL.
+
+================================================================================
+THE CAUSE, AND IT IS THE SAME SHAPE AS LAST ROUND
+================================================================================
+roadChoose's ride only ever moved city.x,y. That is the correct position in CITY
+mode and the WRONG ONE ON FOOT -- and the road card has fired on foot since
+__ROAD_INTERRUPTS_ON_FOOT__, which is the entire demo. So the lift was a no-op on
+the surface where it mostly happens.
+
+The machinery was built, tested and right. It was pointed at the wrong surface.
+Last round: the accept worked and had no door. This round: the ride worked and
+moved a position the player was not standing in.
+
+AND IT NARRATED THE DRIVE REGARDLESS. The `say` line printed whether or not
+anything moved, so even after the movement was fixed a cab that could not start
+would still have told him it drove off. That is the same bug in words, and fixing
+only the first half would have left it.
+
+================================================================================
+NO NEW NUMBER WAS INVENTED
+================================================================================
+The table already says how far: ride 2, which is two of the map's own tiles. On
+foot a map tile is FN walked cells, FN being the game's own constant (OM.TILE_FINE).
+So the same ride is the same distance on either surface and nothing was typed.
+
+The cost is the design's and is untouched: the heading is the CAB'S, derived from
+the encounter's seq, so it is two tiles in a direction he did not choose, paid
+back in the walk. The roster's own verb is "empty cabs still crawling PICKUP
+LOOPS" -- the cab drives its loop, not his.
+
+AND IT STILL OBEYS THE MAP. The cab stops the moment the road does, which is why
+the measured rides are shorter than the full two tiles and differ by heading.
+
+================================================================================
+DRIVEN ON THE DEMO, EVERY HEADING, PLUS THE TWO CASES THAT COULD LIE
+================================================================================
+  press GET IN on foot     he moves; the card says "THAT COST 44 cells of road
+                           for nothing"
+  all eight headings       6 of 8 move him (14, 19, 38, 11, 3, 3 cells); the
+                           other 2 have no road and move him NOTHING, reporting
+                           zero rather than half a ride
+  road does not go from    "The door shuts, then opens again. The road it drives
+  where he stands          does not go from here." -- and he does not move
+  CITY MODE                untouched: still moves the city cursor, as it always
+                           did. This fixed the surface that was missing; it did
+                           not move the one that worked.
+  page errors              0
+
+NEGATIVE-CONTROLLED: put the no-op back and the gate goes red on four claims with
+"walked cells moved 0" and "0 of 8 headings moved him" -- exactly the state he
+played. The honest-words half stayed green in that control, which is the proof
+that the two halves are independent rather than one fix wearing two hats.
+
+================================================================================
+THE INSTRUMENT WAS WRONG THREE TIMES BEFORE ANY OF THIS WAS TRUE
+================================================================================
+This round spent most of its measurements on probes that lied, and every one
+returned a clean "nothing happened":
+  1. Pressed every button in one pass; three read as dead. They were not -- the
+     card REDRAWS after a press, so every handle after the first pointed at an
+     element that no longer existed.
+  2. Walked with arrow keys for 120 presses and saw no encounters. The keys do
+     not move him at all; the walk pad does.
+  3. Cleared the card with a data-act click that did not take, and walked 200
+     more presses against a card that was still eating everything.
+THE RULE THAT ENDED IT, and it is another lane's, written this same round: BEFORE
+BELIEVING A NEGATIVE, PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE. The gate does
+that first -- one tap on the pad must move him -- and only then measures.
+
+AND THE DRIVER IS THEIRS, NOT A SECOND ONE OF MINE. tools/bohemia_drive_the_demo.js
+already paid for the four traps between a script and the glass. A second demo
+driver is how two answers to one question start.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+Four road gates are red and all four are IDENTICAL claim-for-claim and
+count-for-count on a clean origin/main worktree, so none is this round's:
+  ROAD LEAVINGS    12 passed, 3 failed
+  ROAD ON FOOT     10 passed, 2 failed
+  ROAD INTERRUPTS  18 passed, 1 failed
+  ROAD DECISION    13 passed, 1 failed
+ONE OF THEM IS WORTH THE NEXT LANE'S TIME: ROAD ON FOOT fails with "0 moment(s)
+on foot", and this round measured the same thing by hand -- 220 taps of real
+walking produced ONE card. The road has its say on the walked street far more
+rarely than the gate that owns it expects. Not touched here; named so it is not
+rediscovered.
+
+TAB: CITY, the walked street. When a cab pulls up and you get in, you actually go
+somewhere now -- and when it cannot, it tells you instead of pretending.

@@ -37524,7 +37524,7 @@ function roadChoose(ev, act){
       (typeof DAY!=='undefined'&&DAY.day)?DAY.day:0); ROAD_TAKEN+=o.give; }catch(_e){}
   }
   if(o.min){ try{ advance(o.min); }catch(_e){} }
-  var rode = 0;
+  var rode = 0, r_cells = 0;
   if(o.ride){
     /* *** THE CAB DRIVES ITS LOOP, NOT HIS. *** The roster's verb is "empty cabs
        still crawling PICKUP LOOPS", so the direction is the CAB'S and he does not
@@ -37534,17 +37534,64 @@ function roadChoose(ev, act){
        seeded stream (A FEATURE THAT COSTS A SEEDED STREAM ONE DRAW REWRITES THE
        WHOLE MAP, 8/27). It still obeys the map: a cab cannot drive where there
        is no road, and it stops the moment the road does. */
+    /* *** AND IT HAS TO MOVE THE SURFACE HE IS ACTUALLY STANDING ON. *** (9/13,
+       PEOPLE, from his five minutes: "it says a car is gonna pull up on me and
+       then nothing happens.")
+
+       MEASURED ON THE REAL DEMO, ON FOOT, WHICH IS THE WHOLE FIRST FIVE MINUTES:
+       the card fired, it offered GET IN, he pressed it, the card said "The door
+       shuts. It drives the loop it has always driven" -- and hx,hy did not move
+       by one cell. Neither did city.x,y. He got in a car, was told it drove off,
+       and stood exactly where he was.
+
+       THE CAUSE IS THAT THIS ONLY EVER MOVED city.x,y. That is right in city
+       mode and it is the WRONG POSITION ON FOOT, and the road card has fired on
+       foot since __ROAD_INTERRUPTS_ON_FOOT__ -- so the lift was a no-op on the
+       surface where it mostly happens.
+
+       THE DISTANCE IS NOT A NEW NUMBER. The table already says how far: two of
+       the map's own tiles. On foot a map tile is FN walked cells, which is the
+       game's own constant, so the same ride is the same distance either way and
+       nothing here was typed. The cost is unchanged and is the design's: the
+       heading is the CAB'S, so it is two tiles in a direction he did not choose,
+       paid back in the walk. */
     try{
       var cd = ((ev.seq|0) * 2 + 1) % 8;              /* the cab's own heading */
-      for(var k=0;k<o.ride;k++){
-        var d = DIRS[cd], nx = city.x+d[0], ny = city.y+d[1];
-        if(!cityWalkable(nx,ny)) break;
-        city.x=nx; city.y=ny; rode++;
+      var dd = DIRS[cd];
+      if(typeof MODE!=='undefined' && MODE==='city'){
+        for(var k=0;k<o.ride;k++){
+          var nx = city.x+dd[0], ny = city.y+dd[1];
+          if(!cityWalkable(nx,ny)) break;
+          city.x=nx; city.y=ny; rode++;
+        }
+      } else {
+        /* ON FOOT: the same two tiles, counted in the cells he actually walks,
+           and it still obeys the map -- the cab stops the moment the road does. */
+        var want = (o.ride|0) * FN, went = 0;
+        for(var kf=0; kf<want; kf++){
+          var fx = hx+dd[0], fy = hy+dd[1], fc = null;
+          try{ fc = cellAt(fx,fy); }catch(_e2){ break; }
+          if(!fc || !fc.walk) break;
+          hx=fx; hy=fy; went++;
+        }
+        /* REPORTED IN THE TABLE'S OWN UNIT so the card can say something true
+           about a distance the player understands. A ride that could not start
+           at all reports zero, and the card says so instead of narrating a drive
+           that did not happen. */
+        rode = went ? Math.max(1, Math.round(went / FN)) : 0;
+        r_cells = went;
       }
     }catch(_e){}
   }
-  return { ok:true, act:act, say:o.say, paid:o.pay||0, mins:o.min||0,
-           got:o.give||0, rode:rode };
+  /* A RIDE THAT COULD NOT START IS NOT A RIDE, AND THE CARD MUST NOT SAY IT WAS.
+     The `say` line narrates the door shutting and the cab driving off. Printed
+     when nothing moved it is the exact lie his five minutes caught, so when the
+     road ends where he stands the card says that instead. draft:true. */
+  var _say = o.say;
+  if(o.ride && !rode)
+    _say = 'The door shuts, then opens again. The road it drives does not go from here.';
+  return { ok:true, act:act, say:_say, paid:o.pay||0, mins:o.min||0,
+           got:o.give||0, rode:rode, cells:r_cells };
 }
 
 
@@ -38004,7 +38051,12 @@ function roadCard(ev, mins, kg){
       if(r.paid) meta.push('-' + r.paid + ' salvage');
       if(r.got)  meta.push('+' + r.got + ' salvage');
       if(r.mins) meta.push(r.mins + ' min');
-      if(r.rode) meta.push('a cell of road for nothing');
+      /* WHAT THE LIFT ACTUALLY BOUGHT HIM, in the unit he is standing in. The
+         old line said "a cell of road for nothing" whatever happened, including
+         when nothing did. draft:true. */
+      if(r.rode) meta.push(r.cells
+        ? (r.cells + ' cells of road for nothing')
+        : (r.rode + (r.rode===1?' tile':' tiles') + ' of road for nothing'));
       inn.insertAdjacentHTML('beforeend',
         '<div class="rwhy" data-draft="true">' + tell + '</div>'
         + (meta.length ? '<div class="rrow"><span class="rk">THAT COST</span>'

@@ -5137,6 +5137,20 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('LIFT MOVES',     ['node', 'gates/the_lift_moves_him_gate.js'],
+     "PAOLO 9/13, five minutes on a phone: 'it says a car is gonna pull up on me and then nothing "
+     "happens.' Rule 14(d): a card that promises and does nothing is the worst bug in the game. MEASURED "
+     "ON THE REAL DEMO, ON FOOT, AND IT IS HIS SENTENCE EXACTLY: the ghost robotaxi card fired on the "
+     "walked street, offered GET IN -- A LIFT, he pressed it, the card said 'The door shuts. It drives the "
+     "loop it has always driven' -- AND HE DID NOT MOVE ONE CELL. roadChoose's ride only ever moved "
+     "city.x,y, which is the right position in CITY mode and the WRONG one on foot, and the road card has "
+     "fired on foot since __ROAD_INTERRUPTS_ON_FOOT__ -- the whole demo. So the lift was a no-op on the "
+     "surface where it mostly happens, and the card narrated a drive that never took place. NO NEW NUMBER: "
+     "the table already says two of the map's own tiles, and on foot a tile is FN walked cells, FN being "
+     "the game's own constant. Holds: the lift moves him on the demo, on every heading that has road; it "
+     "still stops the moment the road does; a cab that cannot start SAYS SO instead of narrating a drive "
+     "-- the same bug in words; and city mode is untouched. Driven through the LIFE+CITY lane's own demo "
+     "driver rather than a second one of those", False),
     ('OFFER YES',      ['node', 'gates/the_yes_goes_where_the_offer_is_gate.js'],
      "PAOLO 9/13, five minutes on a phone: 'You offer requests just for me to see them, but nothing "
      "happens... one button... I press it, nothing happens.' THE FIVE MINUTES rule 14d: a card that "
