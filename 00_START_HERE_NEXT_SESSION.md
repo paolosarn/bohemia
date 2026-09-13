@@ -8224,10 +8224,17 @@ STILL OPEN ON THIS ROW, AND THIS LANE CONTINUES ON IT NEXT ROUND:
   2. THE SHOULDER IS 16x16 BESIDE 44x44 ROAD -- 2.75x the pixel size of the road it borders,
      inside one frame. Cannot be fixed by recolouring. COOK, after the kerb.
 
-ROUTED OUT (measured, not guessed): the sidewalk repeat he can see on screen -- the same
-weed sprite about ten times down one column -- is the PICKER, not the art. The pool holds
-36 DISTINCT sidewalk tiles and 18 distinct road tiles. The variety exists and is not being
-spent. LIFE + CITY / WORLD owns the walked-city variant choice.
+ROUTED OUT, AND I FOUND THE LINE: the sidewalk repeat he can see on screen -- the same weed
+sprite about ten times down one column -- is the PICKER, not the art. The pool holds 36
+DISTINCT sidewalk tiles and 18 distinct road tiles. The walked city spends THREE of them:
+slices/BOHEMIA_CITY_WORLD.html:36538 and :36577, both "c.gArtVariant=_sw%3". Thirty-three
+tiles have never been drawn. The per-PLOT seed beside it is Paolo's DESERT DOMINANCE ruling
+(7/14) and must stay; it is the modulus that is wrong, not the seed. LIFE + CITY / WORLD.
+
+AND THE KERB HAS A LINE TOO: :36268 routes any cell named curb/kerb/gutter to the flat
+sidewalk pool. The layout already knows where the kerbs are and the renderer already knows
+a kerb is concrete -- it hands it a flat walk tile because THERE IS NO KERB ART TO HAND IT.
+That is COOK's round 2 and it is unblocked: the cells are already named and already asking.
 
 ALSO FIXED A HOLE THIS LANE WAS ABOUT TO WALK THROUGH: the REUSE-FIRST gate sweeps
 tools/*_cook*.py and tools/*_factory.py by NAME, so my tool escaped the law on its filename

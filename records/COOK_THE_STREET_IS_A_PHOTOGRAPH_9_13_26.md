@@ -141,11 +141,34 @@ Pictures: `records/target/COOK_STREET_AS_HE_SEES_IT_9_13_26.png` (before, his ph
 Looking at the same phone frame honestly, three things are still broken and **none of them
 is a palette problem**, so none of them was fixed by this cook:
 
-1. **THE SIDEWALK REPEATS.** The same weed sprite lands about ten times down one column at
-   a fixed period -- the most obviously "glitchy" thing on that screen. **Measured: the
-   pool holds 36 DISTINCT sidewalk tiles and 18 distinct road tiles.** The art has the
-   variety; the picker is not spending it. That is the walked-city renderer's variant
-   choice, not the art. **ROUTED: LIFE + CITY / WORLD.**
+1. **THE SIDEWALK REPEATS, AND I FOUND THE LINE.** The same weed sprite lands about ten
+   times down one column at a fixed period -- the most obviously "glitchy" thing on that
+   screen. **Measured: the pool holds 36 DISTINCT sidewalk tiles and 18 distinct road
+   tiles.** The art has the variety. The renderer does not spend it:
+
+   ```
+   slices/BOHEMIA_CITY_WORLD.html:36538   c.gArtPool='side'; c.gArtVariant=_sw%3;
+   slices/BOHEMIA_CITY_WORLD.html:36577   c.gArtPool='side'; c.gArtVariant=_sw%3;
+   ```
+
+   **`% 3`. The suburb sidewalk draws 3 of the 36 tiles that exist and has never touched
+   the other 33.** Every other ground variant pick in that file is `% 2`, `% 3` or
+   `% _fam[1]` (a pool length) -- only the ones that read a real pool length spend what
+   they have. The per-PLOT seed beside it is correct and must stay: that is Paolo's
+   DESERT DOMINANCE ruling (7/14, "too much diversity with the desert tiles"), and a
+   per-cell shuffle would turn a run of pavement into a checkerboard. The fix is the
+   modulus, not the seed. **ROUTED: LIFE + CITY / WORLD.** This is not a palette problem
+   and no amount of cooking touches it.
+
+   **AND A KERB CELL IS DRAWN AS FLAT SIDEWALK, ON PURPOSE, AT LINE 36268:**
+
+   ```
+   if(/\bcurbs?\b|\bkerbs?\b|gutter/.test(_nm)) _pool='side';
+   ```
+
+   The layout already knows which cells are kerb and gutter -- it names them -- and the
+   renderer correctly decides a kerb is concrete, then hands it a flat sidewalk tile
+   because **there is no kerb art to hand it**. That is COOK's, and it is round 2.
 2. **THERE IS NO KERB.** The sidewalk meets the asphalt at a dead straight vertical seam.
    `SA_TILES` has no kerb pool at all -- roof, wallface, wallwin, pocket_v, pocket_h,
    cross_ns, cross_ew, lane_h, lane_v, street, side, shoulder, median_h, median_v, and
