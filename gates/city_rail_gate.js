@@ -108,7 +108,14 @@ const LOOK = () => {
   await pg.waitForTimeout(1500);
   let mode = await c.evaluate(() => { try { return MODE; } catch(_e){ return '?'; } });
   if (mode !== 'city') {
-    await c.evaluate(() => { const m=document.getElementById('modechip'); if(m) m.click(); });
+    /* __NO_TABS__ -- GET THERE THE WAY HE SAID, NOT THE WAY THAT WAS EASY. This clicked
+       #modechip, the DROP IN / CITY button. Paolo killed that button (9/6, and again 9/13:
+       "that function should only be utilized by the zoom in, zoom out"), so a gate that
+       still reaches the city by pressing it is testing a door that no longer exists -- and
+       it would have gone red at the ruling rather than at a defect. The transition itself
+       never belonged to the button: swapMode() is what the pinch calls in both directions.
+       So the gate asks for the transition the same way the zoom does. */
+    await c.evaluate(() => { try { swapMode(); } catch (_e) {} });
     await pg.waitForTimeout(1500);
     mode = await c.evaluate(() => { try { return MODE; } catch(_e){ return '?'; } });
   }
@@ -140,11 +147,19 @@ const LOOK = () => {
   /* 3. THE ASSERTION THAT CATCHES THE *NEXT* ONE. Every chip in the rail must be laid out
         BY the rail. The moment somebody adds an element with its own top/left, this goes
         red before he has to photograph it. */
+  /* *** THE COUNT WAS >= 8 AND THAT WAS COUNTING THE FURNITURE. *** It went red the moment
+        [no tabs] removed WHOLE MAP and DROP IN -- a RULING of Paolo's, twice given, not a
+        defect. A gate that encodes how many buttons the game happens to have will go red
+        every time somebody obeys him, and this lane has now made that exact mistake twice
+        (thumb_gate demanded two buttons the demo deliberately hides).
+        WHAT THE NUMBER IS ACTUALLY FOR is stopping this leg passing vacuously on an empty
+        sweep, so it stays a FLOOR and stops being a census. The assertion that matters is
+        the strays one beside it: every chip in the rail is laid out BY the rail. */
   const strays = seen.vis.filter(v => v.inStack && v.pos !== 'static');
   ok('every chip in the rail is laid out BY the rail, so the next element added without '
-     + 'telling the column fails here instead of on his screen'
+     + 'telling the column fails here instead of on his screen (' + seen.chips.length + ' chips)'
      + (strays.length ? ' -- ' + strays.map(s => s.id + ':' + s.pos).join(' ') : ''),
-     strays.length === 0 && seen.chips.length >= 8);
+     strays.length === 0 && seen.chips.length >= 4);
 
   /* 4. AND THE CARD IS ON HIS HALF-SIZE ORDER LIKE EVERYTHING ELSE. It escaped that list
         the same way it escaped the column: 144x46 in a rail of 44x14 chips. */
@@ -154,6 +169,35 @@ const LOOK = () => {
   ok('no chip in the rail is more than twice the height of the smallest -- the card drew '
      + '144x46 beside 44x14 before it joined the half-size list (' + shortest + ' to '
      + tallest + ')', tallest <= shortest * 2);
+
+  /* ==== [no tabs] -- THE TWO BUTTONS ARE GONE, AND THE WAY ACROSS IS NOT ==================
+     PAOLO 9/13, his SECOND time (locked 9/6): "there is a button that says pretty map and
+     this button that says drop in, when that function should only be utilized by the zoom
+     in, zoom out." Deleting a control is only free if the thing it did still happens, so
+     this asks both halves: the buttons are NOT on screen, AND the seam still crosses in
+     both directions. Put either button back and the first leg goes red; break the
+     transition and the second does. */
+  const gone = await c.evaluate(() => {
+    const up = id => { const e = document.getElementById(id); if (!e) return false;
+      const cs = getComputedStyle(e), r = e.getBoundingClientRect();
+      return cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity !== 0
+             && r.width > 0 && r.height > 0; };
+    return { fit: up('fitbtn'), chip: up('modechip') };
+  });
+  ok('WHOLE MAP and DROP IN are not on the screen at all -- zoom is the only way across the '
+     + 'seam, which is what he asked for twice'
+     + (gone.fit || gone.chip ? ' -- STILL THERE: ' + [gone.fit && 'fitbtn', gone.chip && 'modechip'].filter(Boolean).join(' ') : ''),
+     !gone.fit && !gone.chip);
+
+  const seam = await c.evaluate(() => {
+    const m = () => (typeof MODE !== 'undefined' ? MODE : null);
+    const a = m(); try { swapMode(); } catch (_e) { return { err: 1 }; }
+    const b = m(); try { swapMode(); } catch (_e) { return { err: 2 }; }
+    return { a, b, c: m() };
+  });
+  ok('and the crossing the buttons used to do still happens, both ways -- the pinch calls '
+     + 'the same transition (' + seam.a + ' -> ' + seam.b + ' -> ' + seam.c + ')',
+     !seam.err && seam.a && seam.b && seam.a !== seam.b && seam.c === seam.a);
 
   ok('no page error while doing any of it' + (errs.length ? ' -- ' + errs[0] : ''), errs.length === 0);
   await b.close(); srv.close();

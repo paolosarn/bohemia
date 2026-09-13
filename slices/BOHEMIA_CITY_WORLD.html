@@ -390,7 +390,15 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
        comes off and the word carries it. Two of these were emoji ONLY -- a floppy disk and
        a spanner -- and they say SAVE and TOOLS now, which is what a stencil would have
        said in the first place. -->
-  <div id="fitbtn">⤢ WHOLE MAP</div>
+  <!-- __NO_TABS__ -- WHOLE MAP IS GONE (Paolo 9/13, his SECOND time; locked 9/6).
+       "there is a button that says pretty map and this button that says drop in, when
+       that function should only be utilized by the zoom in, zoom out."
+       MEASURED BEFORE REMOVING IT, because a button you delete is only free if the
+       thing it did still happens: the pinch path ALREADY calls the same swapMode()
+       this chip called, in BOTH directions -- pinching in past the closest zoom is
+       reading as "he is asking to walk", pinching out past the furthest as "he is
+       asking to leave the walked world". So the transition was never the button's,
+       it was always the zoom's, and the button was a second door onto one room. -->
   <div id="bikebtn">BIKE</div>
   <!-- __BUILDERS_TOOLS_IN_A_DRAWER__ -- Paolo 8/16: "Im not even trying to press re roll fr
        the run has a lot of bullshit buttons still around from the early days."
@@ -40657,7 +40665,8 @@ function blStack(){
      COLUMN. A hand-typed offset is right until the next element exists. This list is the
      one place that decides, so the fix is one name in it -- and the card sits one step
      above MARKET, which is where its own stylesheet always said it belonged. */
-  ['sleepbtn','bikebtn','fitbtn','modechip','mktbtn','workbtn','buildbtn','rungbtn','note'].forEach(function(id){
+  /* __NO_TABS__ -- fitbtn and modechip are off this list because they are off the screen. */
+  ['sleepbtn','bikebtn','mktbtn','workbtn','buildbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
     /* NEVER DETACH A HIDDEN CHIP, AND THE FIRST CUT OF THIS DID. It said "a
@@ -51352,12 +51361,21 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
       +'#mode.idle{opacity:0.62}'
       +'#mode.canact{box-shadow:0 0 0 1px var(--acc),0 6px 22px rgba(0,0,0,.6)}';
     document.head.appendChild(st);
-    (document.querySelector('.wrap')||document.body).appendChild(b);
-    b.addEventListener('click',function(){ try{ transition(); }catch(_e){} });
+    /* __NO_TABS__ -- THE CHIP IS NOT PUT ON SCREEN ANY MORE. It is still built, and
+       still labelled below, because other code reads it and a missing node is a
+       different bug from a hidden one -- but it is never appended, so there is no
+       DROP IN / CITY button. Zoom is the only way across the seam, which is what he
+       asked for twice and what the 7/1 two-scale camera lock already said. */
   }
   try{ b.textContent=(typeof MODE!=='undefined'&&MODE==='city')?'\⤓ DROP IN':'\⤒ CITY'; }catch(_e){}
 })();
-document.getElementById('fitbtn').addEventListener('click',()=>{
+/* __NO_TABS__ -- the element is gone, so this has to ASK rather than assume. The first
+   cut of this removal said in its own comment that the handler was "defensive already".
+   It was not: it dereferenced the node straight away and threw on every load, which
+   city_rail_gate caught on the first run. A claim about code in a comment is worth
+   exactly as much as the check that was run against it. */
+var _fitbtn=document.getElementById('fitbtn');
+if(_fitbtn) _fitbtn.addEventListener('click',()=>{
   if(SKY){ skyExit(); return; }   /* __ONE_ZOOM_TO_THE_MOON__: one tap back down to the valley */
   if(vistaBail()) return;         /* __EVERY_CONTROL_LEAVES_THE_VISTA__: and one tap back down off the rim */
   if(MODE!=='city')return;

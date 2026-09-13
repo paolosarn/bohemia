@@ -74,7 +74,12 @@ const ready = async (p, ms) => { const t0 = Date.now();
   await pg.waitForTimeout(1500);
   let mode = await c.evaluate(() => { try { return MODE; } catch(_e){ return '?'; } });
   if (mode !== 'city') {
-    await c.evaluate(() => { const m=document.getElementById('modechip'); if(m) m.click(); });
+    /* __NO_TABS__ -- reach CITY the way he ruled, not through a button he killed. This
+       clicked #modechip (DROP IN / CITY); Paolo removed that button twice over (9/6, and
+       again 9/13: "that function should only be utilized by the zoom in, zoom out"), so a
+       gate that presses it is testing a door that is gone. swapMode() is what the pinch
+       itself calls, so asking for it is asking the way the player now does. */
+    await c.evaluate(() => { try { swapMode(); } catch (_e) {} });
     await pg.waitForTimeout(1500);
     mode = await c.evaluate(() => { try { return MODE; } catch(_e){ return '?'; } });
   }

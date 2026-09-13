@@ -52,6 +52,47 @@ PER RULE 13: pre-push pass green (rom face 14/0, thumb 16/0, feed 15/0, half siz
 8/0, alpha loads 20/0, demo build 25/0, readable ruler 7/0). THE SUITE LINE is still unposted, so:
 full suite unmeasured since fa59649f.
 
+AND THEN RULE 14 LANDED MID-ROUND AND CHANGED THE ROUND. THE FIVE MINUTES (Paolo 9/13, LOCKED):
+he played the demo, "it looks like shit... glitchy, buggy, nothing's complete". Two parts bind
+this lane NOW. (a) ONLY RUN RE-CUTS THE DEMO -- I had already re-cut it three times this round,
+so the demo is reverted to origin/main's copy and is UNTOUCHED in what ships. (b) every building
+lane's FIRST job is a break he named, and this lane's is [no tabs], which he has said TWICE.
+
+[no tabs] SHIPPED TO THE ALPHA AND WORKSHOP. "there is a button that says pretty map and this
+button that says drop in, when that function should only be utilized by the zoom in, zoom out."
+MEASURED BEFORE DELETING ANYTHING, because a button you remove is only free if the thing it did
+still happens: the pinch path ALREADY calls the same swapMode() the chip called, in BOTH
+directions, and the file's own comments say so at the call sites. The transition never belonged
+to the buttons -- they were a second door onto one room, and the 7/1 two-scale camera lock had
+already said it. WHOLE MAP's element is deleted; the DROP IN / CITY chip is still built and
+labelled (other code reads it; a missing node is a different bug from a hidden one) but never
+appended. city_rail_gate 10/0 with two new legs, both mutation-proved: the buttons are not on
+screen, AND the crossing still happens both ways (city -> human -> city).
+
+THREE GATES HAD TO CATCH UP WITH THE RULING, AND ONE WAS COUNTING FURNITURE. city_rail_gate and
+phone_object_gate both reached CITY mode BY CLICKING THE BUTTON HE KILLED -- a gate pressing a
+door he removed is testing the door, not the room; they ask for the transition the way the pinch
+does now. city_rail_gate also required chips.length >= 8, a CENSUS of how many buttons the game
+happens to have, which went red the instant somebody obeyed him. THIS LANE HAS NOW MADE THAT
+EXACT MISTAKE TWICE (thumb_gate demanded two buttons the demo deliberately hides). It is a floor
+(>=4) now, not a count. AND I wrote in my own comment that the WHOLE MAP handler was "defensive
+already" -- it was not, it threw on every load, and the gate caught it on the first run. A claim
+about code in a comment is worth what the check run against it is worth.
+
+FOR SEVEN OTHER GATES ACROSS OTHER LANES: they press #modechip to reach city mode and need ONE
+identical line each -- swapMode() instead of the click. faction_between_gate:1169,
+faction_towns_gate:1172, looking_at_the_map_is_not_travelling_gate:151/168/172,
+human_start_gate:117, the_action_button_does_actions_gate:122, cold_hand_gate:141 (a selector
+list, not a click). NOT edited here -- other lanes' gates. The one I measured,
+looking_at_the_map_is_not_travelling_gate, is 7 passed 4 FAILED on clean origin/main and 8
+passed 3 FAILED in this tree: already red before this round, one leg better after it.
+
+AND A GATE NOW CONTRADICTS THE NEW RULE, FOR RUN AND PLUMBER: demo_build_gate asserts the demo
+"is a CUT OF THE CURRENT WORKSHOP... regenerating it changes nothing", and rule 14(a) says
+building lanes never regenerate it. Both cannot hold: the demo now lags every building lane's
+ship until RUN cuts, so that leg is red for everyone in between. Reported, not worked around --
+re-cutting to make it green is exactly what the newer locked rule forbids.
+
 Record: records/BOHEMIA_NO_SLOP_I_WAS_MEASURING_A_HALF_LOADED_CITY_9_13_26.md
 
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
