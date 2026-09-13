@@ -2345,6 +2345,26 @@ GATES = [
      "rewritten. It also pins the ranking against what renders TODAY so no lane's "
      "song edit leaves a stale ranking standing, and holds the one CANON song that "
      "peaks 13x the median as the ONLY one", True),
+    ('NAMED LEAD',['python3', 'gates/named_lead_gate.py'],
+     "DOES THE VOICE THE SONG ROW NAMES ACTUALLY PLAY? EYES E18 found that "
+     "BROKENROSARY, the lead named in THE MARKER ON THE DOOR and in his own 8/2 "
+     "verdict ('one of my new favorite songs'), is scheduled ZERO times. Censused "
+     "across the live library off the engine's own schedule it was 109 of 142 "
+     "songs, and THE TUNE WAS A BARE TRIANGLE OSCILLATOR ON 135 OF 142 -- the "
+     "melody branch reached the named lead only for mel='hymn' or a lead literally "
+     "called 'bell', so the whole shelf had one instrument on top of it. NOTES ARE "
+     "RULINGS: the row is his content and the engine ignoring it is a mechanism "
+     "bug. This holds the repair, and every note is attributed BY CALL SITE -- the "
+     "line number out of a stack trace -- because the bass, the accent and the "
+     "lead can all name the same voice. The section-A ACCENT is excluded by its "
+     "own call site: the first cut of this gate asked 'is the lead scheduled "
+     "anywhere' and passed on two of six songs WITH THE OLD BUG PUT BACK, because "
+     "a row with no `am` field has always had the accent play the lead. It also "
+     "holds the floor (an unknown voice name makes sound, not silence, where 581 "
+     "`kind===` branches used to end in nothing), that no song ran away or went "
+     "silent, and [three retagged]: the two CANON late-beat songs reach the street "
+     "at first light, keep the front door, and no BURIED song is in any overworld "
+     "pool", True),
     ('CITY UI VOICE',['python3', 'gates/city_ui_voice_gate.py'],
      "DOES THE CITY INTERFACE ANSWER, AND IN THREE VOICES? On 9/11 the WHOLE "
      "city interface went silent and nothing asked: #phonebtn moved from #topbar "

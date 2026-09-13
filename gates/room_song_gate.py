@@ -73,15 +73,33 @@ const pw = pwmod();
       const room = new Set((typeof INTERIORMUS!=='undefined'
         ? INTERIORMUS.candidates() : []).map(c => MLOOPS[c.fi-MFACTIONS.length].n));
       const fac = new Set(MFACTIONS.map(f => f.n));
+      /* ONE SONG CAN BE IN TWO PLACES, AND THIS CENSUS USED TO DENY IT.
+         Until 9/13 every song went into the FIRST bucket it matched, which was
+         fine only because no song was in two pools. [three retagged] put the two
+         CANON late-beat songs on the street WITHOUT taking the front door away
+         from them -- so they matched street first, the menu bucket fell to ZERO,
+         and this gate reported that the opening could reach no songs while
+         MENUMUS.candidates() was still returning both of them.
+         A CENSUS THAT GIVES EACH THING ONE BUCKET CANNOT COUNT A THING THAT IS IN
+         TWO. So REACH is counted per pool, independently, and the first-match
+         buckets stay only for the arithmetic that has to add up to the shelf. */
       const r = { songs: MLOOPS.length, street: 0, menu: 0, room: 0, combat: 0,
-                  buried: 0, nowhere: [] };
+                  buried: 0, nowhere: [],
+                  reach: { street: 0, menu: 0, room: 0, combat: 0 }, both: [] };
       for (const m of MLOOPS) {
         const n = m.n, cs = MUS.catsOf(n+'#1') || [];
         if (MUS.V[n+'#1'] === 0) { r.buried++; continue; }
+        const isC = cs.some(c => fac.has(c));
+        let places = 0;
+        if (street.has(n)) { r.reach.street++; places++; }
+        if (menu.has(n))   { r.reach.menu++;   places++; }
+        if (room.has(n))   { r.reach.room++;   places++; }
+        if (isC)           { r.reach.combat++; places++; }
+        if (places > 1) r.both.push(n);
         if (street.has(n)) { r.street++; continue; }
         if (menu.has(n))   { r.menu++;   continue; }
         if (room.has(n))   { r.room++;   continue; }
-        if (cs.some(c => fac.has(c))) { r.combat++; continue; }
+        if (isC) { r.combat++; continue; }
         r.nowhere.push(n);
       }
       return r;
@@ -215,11 +233,24 @@ def main():
     nowhere = c.get('nowhere') or []
     ok('the shelf was counted on the real surface (%d songs)' % c.get('songs', 0),
        c.get('songs', 0) > 100)
-    ok('the street can reach songs (%d)' % c.get('street', 0), c.get('street', 0) > 0)
-    ok('the opening can reach songs (%d)' % c.get('menu', 0), c.get('menu', 0) > 0)
-    ok('combat can reach songs (%d)' % c.get('combat', 0), c.get('combat', 0) > 0)
+    # REACH IS COUNTED PER POOL, not by first match. On 9/13 the two CANON
+    # late-beat songs were put on the street WITHOUT losing the front door, and
+    # the old first-match census reported the opening reaching ZERO songs while
+    # MENUMUS was still returning both of them. A CENSUS THAT GIVES EACH THING ONE
+    # BUCKET CANNOT COUNT A THING THAT IS IN TWO.
+    rc = c.get('reach') or {}
+    ok('the street can reach songs (%d)' % rc.get('street', 0), rc.get('street', 0) > 0)
+    ok('the opening can reach songs (%d), asked of MENUMUS itself rather than of a '
+       'bucket it might have lost to another pool' % rc.get('menu', 0),
+       rc.get('menu', 0) > 0)
+    ok('combat can reach songs (%d)' % rc.get('combat', 0), rc.get('combat', 0) > 0)
     ok('THE ROOM can reach songs (%d) -- this is the number that was zero, and '
-       'it is the whole row' % c.get('room', 0), c.get('room', 0) > 0)
+       'it is the whole row' % rc.get('room', 0), rc.get('room', 0) > 0)
+    ok('and a song is allowed to be in more than one place: %d are (%s). Nothing '
+       'here requires that, it records it, so the next reader of this census knows '
+       'the buckets below are FIRST MATCH and not membership'
+       % (len(c.get('both') or []), ', '.join((c.get('both') or [])[:4]) or 'none'),
+       isinstance(c.get('both'), list))
     ok('a song he BURIED is still buried and nothing gave it a home (%d)'
        % c.get('buried', 0), c.get('buried', 0) > 0)
     ok('EVERY SONG HE HAS NOT BURIED CAN BE HEARD SOMEWHERE: %d unreachable '

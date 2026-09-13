@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/13zd - A FLAT THING READS FLAT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/13ze - THE VOICE HE NAMED PLAYS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -14400,6 +14400,24 @@ if(kind==='blankslate'){ const f0=hz(semi),g=AC.createGain();
   if(kind==='sousaphone'){ const o=AC.createOscillator(),g=AC.createGain(),lp=AC.createBiquadFilter(); o.type='sawtooth'; o.frequency.value=hz(semi-24); lp.type='lowpass'; lp.frequency.value=450;
     g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*1,t+0.05); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*1);
     o.connect(lp);lp.connect(g);g.connect(MAST);o.start(t);o.stop(t+sd*1.2); return; }
+  /* __THE_RACK_ANSWERS_EVERY_NAME__ (9/13, SOUNDS lane) -- A NAME THIS RACK DOES
+     NOT HAVE USED TO BE SILENCE. 581 `kind===` branches above and nothing after
+     them, so synthV('typo',...) scheduled nothing and said nothing. That is a
+     trap rather than a bug today -- MEASURED: 0 of the 142 live songs name a
+     lead, a bass or an accent the rack lacks, so this fires zero times -- but the
+     melody now goes through this function by NAME, and one typo in a future song
+     row would delete that song's tune with no tell anywhere.
+     SO THE FLOOR IS THE SOUND THE MELODY BRANCH USED TO BUILD INLINE: a triangle
+     into a 2200 Hz lowpass, the same gain, the same decay. Not a new voice, not a
+     cook, not a choice -- exactly what 135 of 142 songs played before 9/13, kept
+     as the thing an unrecognised name degrades to. SCREECH LAW: no delay, no
+     convolver, nothing feeds back. */
+  { const o=AC.createOscillator(),g=AC.createGain(),lp=AC.createBiquadFilter();
+    lp.type='lowpass'; lp.frequency.value=2200;
+    o.type='triangle'; o.frequency.value=hz(semi);
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0,t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+sd*1.6);
+    o.connect(lp);lp.connect(g);g.connect(MAST);o.start(t);o.stop(t+sd*2); return; }
 }
 
 
@@ -14587,6 +14605,20 @@ const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':
    exist for exactly this reason. A cleared cache or a second device threw
    the ruling away silently. HIS VERDICTS ARE A REPO FILE, NOT A COOKIE. */
 const HERO_DEFAULTS={'CAMPFIRE CONFESSION#1':4};
+ /* __THE_LATE_BEAT_SONGS_REACH_THE_STREET__ (9/13, SOUNDS lane) -- RULED by the
+    coordinator 9/13 off round 3 of [music owned]: the songs whose own data brings
+    the drum in LATE, the trait his anchor is famous for, were MENU-only, so the
+    game played them for one phrase at the front door and never again.
+    MEASURED through the engine's own scheduler: FOUR songs, not three, first kit
+    hit 23.5s, all four with an empty kick array so the bar-11 fill is their first
+    drum. TWO are retagged. PURPLE DAWN and LIGHTS ACROSS THE VALLEY are thumbed
+    BURIED and GRAVEYARD IS FINAL -- the pool builder already refuses a buried
+    song, so the tag would be inert as well as wrong.
+    DUSK/DAWN AND NOT DAY: it is the thinnest pool on the shelf, both songs are
+    named for first light, and his 8/26 words about the second are "i liked the
+    power still on somewhere when it was calm". The MENU tag stays, so they keep
+    the front door, and `menu:true` stays on the row, so his 8/26 no-intensity
+    ruling still reads true. */
 const CAT_DEFAULTS={
  'A NAME NOT YET CHOSEN#1':['CUSTOM'],
  'BROKEN WINDOW ANTHEM#1':['ANARCHISTS'],
@@ -14597,12 +14629,12 @@ const CAT_DEFAULTS={
  'GHOST IN THE GRID#1':['OVERWORLD NIGHT'],
  'HANDS THAT STILL BUILD#1':['VOLUNTEERS'],
  'HIGHWAY 15 SOUTH#1':['CARAVANS'],
- 'MENU — DEAD VALLEY DAWN#1':['MENU'],
+ 'MENU — DEAD VALLEY DAWN#1':['MENU','OVERWORLD DUSK/DAWN'],
  'MENU — EMBER VIGIL#1':['MENU'],
  'MENU — FIRST MORNING#1':['MENU'],
  'MENU — LIGHTS ACROSS THE VALLEY#1':['MENU'],
  'MENU — PURPLE DAWN#1':['MENU'],
- 'MENU — THE POWER STILL ON SOMEWHERE#1':['MENU'],
+ 'MENU — THE POWER STILL ON SOMEWHERE#1':['MENU','OVERWORLD DUSK/DAWN'],
  'PALE RIDER#1':['OVERWORLD DAY'],
  'PARADE OF LOST BALLOONS#1':['COLORFUL'],
  'PYREFLIES RISE#1':['OVERWORLD DAY'],
@@ -15987,6 +16019,16 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
     trait he named and touches no song's data.
     THE 120 BPM LAW IS UNTOUCHED: the transport does not stop, the step counter
     does not pause, nothing is rescheduled. Two drumV calls are skipped. */
+ /* __THE_VOICE_HE_NAMED_PLAYS__ (9/13, SOUNDS lane) -- ONE PLACE THAT TURNS THE
+    LEAD NAMED IN A SONG ROW INTO A VOICE IN THE RACK.
+    'pluck', 'arp' and 'whistle' are not rack voices, they are abstract lead
+    KINDS, and the section-A accent has resolved them exactly this way since the
+    day it shipped (see `_am` in playStep). THIS MAPPING IS NOT MINE, it is that
+    line lifted into a function so the tune and the accent cannot drift apart.
+    MEASURED: resolved this way, all 142 live songs name a voice the rack has --
+    120 distinct lead voices across the shelf. */
+ leadVoice(l){ l=l||'pluck';
+   return l==='whistle'?'karp':(l==='arp'?'acid':(l==='pluck'?'bell':l)); },
  drumsHeld(){
    try{
      /* A GAME SURFACE HAS TO OWN THE MUSIC. The MUSIC tab's own play never sets
@@ -16046,11 +16088,24 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
         if(_mel==='hymn'){ const _cad=[0,3,4,0][sc.barIn%4];
           for(const ci of [0,2,4]) synthV(_li,AC,MAST,x=>this.noteHz(x),sd,f.root-31+rootShift+f.scale[(_cad+ci)%f.scale.length]+(((_cad+ci)>=f.scale.length)?12:0),t,0.055); }
         else if(_li==='bell')synthV('bell',AC,MAST,x=>this.noteHz(x),sd,semi,t,0.07);
-        else{ const o=AC.createOscillator(),g=AC.createGain(),lp=AC.createBiquadFilter();
-          lp.type='lowpass';lp.frequency.value=sc.sec==='D'?3200:2200;
-          o.type='triangle';o.frequency.value=this.noteHz(semi);
-          g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(0.07,t+0.01);g.gain.exponentialRampToValueAtTime(0.0001,t+_fsd*1.6);
-          o.connect(lp);lp.connect(g);g.connect(MAST);o.start(t);o.stop(t+sd*2); } } } }
+        /* __THE_VOICE_HE_NAMED_PLAYS__ (9/13, SOUNDS lane) -- THE TUNE IS THE
+           VOICE THE ROW NAMES. This `else` used to build a bare triangle into a
+           lowpass and throw the name away, so the branch reached the named lead
+           only for mel==='hymn' or a lead literally called 'bell'. MEASURED on
+           the live library off the engine's own schedule, with the call site read
+           from a stack trace so a note cannot be blamed on the wrong branch:
+           THE TUNE WAS A BARE OSCILLATOR ON 135 OF 142 SONGS, and 109 of 142
+           named a lead voice scheduled ZERO TIMES in twenty-four bars.
+           EYES E18 found the first one (BROKENROSARY, named in the row AND in his
+           own 8/2 verdict, "one of my new favorite songs"). NOTES ARE RULINGS: the
+           row is his content, and an engine that ignores the name in it is a
+           mechanism bug.
+           `_fsd` and not `sd`, because that is what the oscillator this replaces
+           used for its own decay -- a feel:'half' song keeps its long notes.
+           The gain stays 0.07, the number this branch already used. An unknown
+           name lands on the floor added at the tail of synthV, which is this very
+           oscillator, so nothing can go silent. */
+        else synthV(this.leadVoice(_li),AC,MAST,x=>this.noteHz(x),_fsd,semi,t,0.07); } } }
   /* ===== MENU MUSIC IS NEVER INTENSIFIED (Paolo 8/26, LOCKED) ===========
      HIS WORDS: "menu music doesnt get impacted by intensity type shit." And he
      named the casualty in the same breath: "i liked the power still on
@@ -16086,10 +16141,14 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
     if(sk>=2&&(s===2||s===6||s===10||s===14)){ synthV('stab',AC,MAST,x=>this.noteHz(x),sd,f.root-19+f.scale[(s/2)%f.scale.length],t,0.055); }
     if(sk>=4&&(s%4===2)){ drumV((f.kit&&f.kit.k)||'punchk',AC,MAST,t); } }
   else if(_kl==='melody'){
+    /* __THE_VOICE_HE_NAMED_PLAYS__ -- the same bug in two more call sites: the
+       kill-layer 'melody' style passes the RAW lead name, so an abstract kind
+       ('pluck', 'arp') hit a rack that has no such voice and the layer was
+       silent. Same resolver, so the layer blooms in the song's own voice. */
     if(sk>=2&&(s%2===0)){ const ph2=(f.n.length*7+((s/2)|0)+1);
       if(((ph2*2654435761)>>>0)%10<7){ const dg2=((ph2*40503)>>>0)%f.scale.length;
-        synthV((f.inst&&f.inst.l)||'bell',AC,MAST,x=>this.noteHz(x),sd,f.root-19+f.scale[dg2],t,0.06); } }
-    if(sk>=4&&(s%4===0)){ synthV((f.inst&&f.inst.l)||'bell',AC,MAST,x=>this.noteHz(x),sd,f.root-7+f.scale[(s/4)%f.scale.length],t,0.05); } }
+        synthV(this.leadVoice((f.inst&&f.inst.l)||'bell'),AC,MAST,x=>this.noteHz(x),sd,f.root-19+f.scale[dg2],t,0.06); } }
+    if(sk>=4&&(s%4===0)){ synthV(this.leadVoice((f.inst&&f.inst.l)||'bell'),AC,MAST,x=>this.noteHz(x),sd,f.root-7+f.scale[(s/4)%f.scale.length],t,0.05); } }
   else if(_kl==='drums'){
     if(sk>=2&&(s===3||s===7||s===11)){ synthV('taiko',AC,MAST,x=>this.noteHz(x),sd,f.root-55,t,0.1); }
     if(sk>=4&&(s===4||s===12)){ drumV('clap',AC,MAST,t); }

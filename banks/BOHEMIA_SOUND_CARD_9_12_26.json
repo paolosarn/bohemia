@@ -109,7 +109,7 @@
  "ranking": [
   {
    "rank": 1,
-   "song": "MENU \u2014 THE POWER STILL ON SOMEWHERE",
+   "song": "MENU — THE POWER STILL ON SOMEWHERE",
    "score": 0.764,
    "score_without_late_beat": 0.709,
    "verdict": "CANON",
@@ -122,7 +122,7 @@
   },
   {
    "rank": 2,
-   "song": "MENU \u2014 PURPLE DAWN",
+   "song": "MENU — PURPLE DAWN",
    "score": 0.759,
    "score_without_late_beat": 0.7,
    "verdict": "BURIED",
@@ -213,7 +213,7 @@
   },
   {
    "rank": 9,
-   "song": "MENU \u2014 DEAD VALLEY DAWN",
+   "song": "MENU — DEAD VALLEY DAWN",
    "score": 0.626,
    "score_without_late_beat": 0.532,
    "verdict": "CANON",
@@ -590,7 +590,7 @@
   },
   {
    "rank": 38,
-   "song": "REDS \u2014 INTEREST NEVER SLEEPS",
+   "song": "REDS — INTEREST NEVER SLEEPS",
    "score": 0.546,
    "score_without_late_beat": 0.682,
    "verdict": "CANON",
@@ -616,7 +616,7 @@
   },
   {
    "rank": 40,
-   "song": "MENU \u2014 LIGHTS ACROSS THE VALLEY",
+   "song": "MENU — LIGHTS ACROSS THE VALLEY",
    "score": 0.539,
    "score_without_late_beat": 0.673,
    "verdict": "BURIED",
@@ -720,7 +720,7 @@
   },
   {
    "rank": 48,
-   "song": "MENU \u2014 EMBER VIGIL",
+   "song": "MENU — EMBER VIGIL",
    "score": 0.506,
    "score_without_late_beat": 0.632,
    "verdict": "BURIED",
@@ -785,7 +785,7 @@
   },
   {
    "rank": 53,
-   "song": "REMNANTS \u2014 ASHES OF THE PARADE",
+   "song": "REMNANTS — ASHES OF THE PARADE",
    "score": 0.496,
    "score_without_late_beat": 0.62,
    "verdict": "CANON",
@@ -1006,7 +1006,7 @@
   },
   {
    "rank": 70,
-   "song": "MOB \u2014 THE HOUSE REMEMBERS",
+   "song": "MOB — THE HOUSE REMEMBERS",
    "score": 0.421,
    "score_without_late_beat": 0.527,
    "verdict": "BURIED",
@@ -1318,7 +1318,7 @@
   },
   {
    "rank": 94,
-   "song": "MENU \u2014 FIRST MORNING",
+   "song": "MENU — FIRST MORNING",
    "score": 0.327,
    "score_without_late_beat": 0.409,
    "verdict": "BURIED",
@@ -1357,7 +1357,7 @@
   },
   {
    "rank": 97,
-   "song": "NETWORK \u2014 HYMN OF THE AMALGAM",
+   "song": "NETWORK — HYMN OF THE AMALGAM",
    "score": 0.291,
    "score_without_late_beat": 0.364,
    "verdict": "CANON",
@@ -1747,7 +1747,7 @@
   },
   {
    "rank": 127,
-   "song": "MOB \u2014 BOSS WALKS IN",
+   "song": "MOB — BOSS WALKS IN",
    "score": 0.219,
    "score_without_late_beat": 0.273,
    "verdict": "CANON",
@@ -1940,5 +1940,13 @@
    "treble": 0.0122,
    "held": 0.0965
   }
- ]
+ ],
+ "voices_corrected_9_13": "THE TUNE'S INSTRUMENT CHANGED AFTER THIS CARD WAS MEASURED, and the card is left standing on purpose with this note instead of being re-scored. [lead never sounds] (9/13) found that 109 of 142 songs named a lead voice scheduled ZERO times and that the tune was ONE bare triangle oscillator on 135 of 142, so every number in this card was measured on a shelf wearing a single instrument on top. The tune now plays the voice each row names. The NAMED LEAD gate's own re-measurement, and the ranking claim in SOUND CARD GATE, both still pass inside tolerance -- the four ranking terms are dominated by the bass and the rhythm rather than by the lead's timbre -- so the ranking is not stale. But a cook reading the treble and held-line numbers should know they were taken before the voices were real. records/BOHEMIA_THE_VOICE_HE_NAMED_PLAYS_9_13_26.md",
+ "second_defect": {
+  "song": "MENU — LIGHTS ACROSS THE VALLEY",
+  "peak_before": 0.22,
+  "peak_after": 1.064,
+  "found": "9/13, by [lead never sounds]'s own before/after level measurement",
+  "note": "Over full scale PRE-LIMITER once its named lead ('farlights', used by no other song on the shelf) actually plays. Checked against my own choice first: re-rendered the whole shelf with sd instead of _fsd and it reads 1.064 either way, so it is the VOICE and not the note length. The song is thumbed BURIED, so no player reaches it. REPORTED, NOT RE-BALANCED: its voice mix is his content. The NAMED LEAD gate asserts these two are the ONLY two over full scale, so a third is news."
+ }
 }

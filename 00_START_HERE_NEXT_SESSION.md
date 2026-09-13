@@ -5628,7 +5628,121 @@ NEXT IN THIS LANE (top unblocked, in order)
 
 --------------------------------------------------------------------------------
 
-SOUND (sound-xk7pjp): 9/12 (b) LATEST -- *** THE BEAT ARRIVES LATE NOW, ON ALL 142
+SOUND (sound-xk7pjp): 9/13 (a) LATEST -- *** EVERY SONG NOW PLAYS THE INSTRUMENT ITS
+OWN ROW NAMES. 109 of 142 named a lead voice that was scheduled ZERO times, and the
+tune was one bare triangle wave on 135 of 142, so the whole shelf had the same sound
+on top of it. TAB: MUSIC for the shelf, and you hear it on the street in RUN.
+Nothing to judge, nothing was cooked. ***
+
+Build 9/13t - THE VOICE HE NAMED PLAYS.
+
+THE THREE EYES E18 BOUNCE-BACKS, ALL THREE CLOSED THIS ROUND.
+
+[lead never sounds] HIS 8/2 RULING: "one of my new favorite songs that you've made
+great job", about THE MARKER ON THE DOOR, whose row says l:'brokenrosary'. NOTES ARE
+RULINGS -- the row is his content. EYES found that voice scheduled zero times.
+CENSUSED ACROSS THE LIVE LIBRARY IT WAS 109 OF 142, and the tune was a bare triangle
+into a 2200 Hz lowpass on 135 of 142: the melody branch reached the named lead only
+for mel='hymn' or a lead literally called 'bell', and the shelf is 52 'longs', 51
+'call', 19 'seed8', 16 'drive16'. So 120 distinct cooked voices, all named by him,
+were replaced at play time by ONE. Fixed in two changes, one mark each: a FLOOR at
+the tail of synthV (581 kind=== branches and nothing after them, so an unknown name
+was SILENCE -- it now degrades to the melody's own old oscillator, and measured, 0 of
+142 songs name a voice the rack lacks, so it fires zero times today), and the tune
+playing MUS.leadVoice(the row's lead), whose mapping is the section-A accent's own
+line lifted into a function so the two cannot drift. AFTER: the tune is the named
+voice on 142 of 142, a bare oscillator on 0.
+
+[melody first] THE PREMISE WAS MEASURED ON THE WRONG SURFACE, and the number is the
+answer. On the street with round 3's drum hold on: the accent at 0.0s on all 142, THE
+TUNE AT 8.0s, THE KIT AT 16.0s, and the tune arrives after the kit on ZERO songs. The
+melody is already playing when the beat arrives, by eight seconds, on every song --
+the shape his anchor is famous for. EYES rendered with no game surface owning the
+music, which is THE MUSIC TAB, where the kit is never held on purpose. Its
+instrument and its number were right; its conclusion was about the judge page.
+NOTHING MOVED ON THIS ROW, and the number is in the gate with the street on so it
+cannot quietly stop being true.
+
+[three retagged] TWO, NOT THREE, AND THE REASON IS A LAW. Measured, FOUR songs bring
+the drum in late (empty kick array, first drum is the bar-11 fill at 23.5s), not
+three. Two of the four are thumbed BURIED and GRAVEYARD IS FINAL, so they stay
+buried -- and the pool builder already refuses a buried song, so the tag would have
+been inert as well as wrong. The two CANON ones (MENU - DEAD VALLEY DAWN, MENU - THE
+POWER STILL ON SOMEWHERE) go to OVERWORLD DUSK/DAWN: the pool goes 2 -> 4, the
+thinnest on the shelf and a hole this lane has carried since round 1. Both are named
+for first light and his own 8/26 words about the second are "i liked the power still
+on somewhere when it was calm": REALISM FIRST. NOTHING WAS TAKEN AWAY -- the MENU tag
+stays, so they keep the front door, and menu:true stays on the row, so his 8/26
+"menu music doesnt get impacted by intensity type shit" still reads true.
+
+MEASURED, NOT READ. The note log records THE LINE NUMBER OF THE CALL SITE out of a
+stack trace, because the bass, the accent and the lead can all name the same voice
+and a note attributed by its gain is a guess. Eleven call sites came back and they
+match the code exactly. VERIFIED ON THE REAL SURFACE with a control: plain
+origin/main plays TWO COINS FOR THE FERRYMAN's named lead 0 times; this build plays
+it 5; the cut demo plays it 5. Same song, same step 98, same conditions, no page
+errors. LEVELS, all 142 songs, the four bars where the tune plays, before and after:
+median peak 0.3112 -> 0.3107, nothing silent, nothing quieter, ONE song louder.
+
+ONE DEFECT REPORTED AND NOT FIXED, because it is his content: MENU - LIGHTS ACROSS
+THE VALLEY went 0.220 -> 1.064 peak, over full scale pre-limiter, on its own lead
+voice 'farlights' which no other song uses. I checked whether it was MY doing first
+-- re-rendered the whole shelf with sd instead of _fsd and it is 1.064 either way, so
+it is the voice and not the note length. The song is BURIED so no player reaches it.
+It joins THE GAPS IN THE HYMNAL (7.956, 25.6x the median, CANON) and the gate
+asserts those two are the ONLY two over full scale, so a third is news.
+
+FOUR INSTRUMENT MISTAKES THIS ROUND, ALL FOUND BEFORE ANY NUMBER SHIPPED, and three
+of them are the same mistake:
+ 1. MY FIRST RE-MEASUREMENT CONTRADICTED EYES AND EYES WAS RIGHT. It lumped every
+    call site in the lead block into one bucket and reported the melody entering at
+    0.000s on all 142 songs. The note at 0.000s is the sparse ACCENT; the tune is at
+    8.000s. A BUCKET WIDE ENOUGH TO HOLD TWO THINGS ANSWERS A QUESTION ABOUT NEITHER.
+ 2. THE GATE'S FIRST MUTATION WAS WORTHLESS AND LOOKED FINE. To prove the detector
+    bites it pointed the resolver at a name the rack lacks -- and the census read 57,
+    24, 60, 72 notes, because it compares what was scheduled against WHAT THE
+    RESOLVER ASKED FOR, and a bogus name is still a name that got scheduled. A
+    MUTATION THAT DOES NOT REPRODUCE THE DEFECT ONLY PROVES THE CHECK CAN SEE
+    SOMETHING ELSE. It now intercepts the tune's voice call by its call site and
+    builds the old bare triangle in its place.
+ 3. AND THAT MUTATION IMMEDIATELY CAUGHT A WORSE HOLE IN MY OWN GATE: with the old
+    bug fully restored, "the named lead is scheduled" STILL PASSED on two of six
+    songs, because a row with no `am` field has always had the section-A accent play
+    the lead. THE ACCENT WAS ANSWERING A QUESTION ABOUT THE TUNE. The accent's own
+    call sites are found in the file and excluded now.
+ 4. THEN THE GATE RED-FLAGGED ONE OF MY OWN SENTENCES: the claim "the melody is
+    already playing when the beat arrives ON THE STREET" was measured by a census
+    running with CITYMUS off, which is the MUSIC tab, so it read the kit at 0.0s. A
+    CLAIM ABOUT ONE SURFACE MEASURED ON ANOTHER IS NOT A WEAK CLAIM, IT IS THE WRONG
+    ONE -- the third time that showed up this round, twice in my instruments and once
+    in the bounce-back itself.
+ 5. AND THE SURFACE PROBE LIED ON ITS FIRST RUN for the oldest reason in this lane: a
+    fixed 26-second wait landed on step 62, TWO STEPS before the song's own B
+    section, and reported the lead never heard about a tune that was not due yet --
+    and the song turned over mid-wait, so the notes counted belonged to two songs. It
+    polls for the condition now and clears its log on a song change. A FIXED WAIT IS
+    NOT AN EVENT, written down for the third time.
+
+STILL CARRIED, NOT ACTED ON: a fight starting makes no sound at all (cityFightOnEnter
+posts the encounter with no sound call; it needs a new cook, so it belongs to [enemy
+heard] / [fight music]). THE GAPS IN THE HYMNAL peaks 25.6x the median on a CANON
+song, reported not re-balanced. And nobody has yet listened to the whole ramp end to
+end on a phone: the rest, then eight seconds of bass and accent, then the tune, then
+the beat at sixteen -- about thirty-two seconds of shape, every number of it
+measured, none of it heard by a person.
+
+WHAT IS OPEN IN MY SECTION: [beat teaches], [enemy heard], [fight music], [rumour
+heard], [pump hum], [eyes: bed unplayed], [scheduled beat], [quiet floor]. [music
+owned] stays CLAIMED; its remaining street holes are HIS (tagging, in the MUSIC tab).
+
+RECORDS: records/BOHEMIA_THE_VOICE_HE_NAMED_PLAYS_9_13_26.md.
+TOOLS: tools/bohemia_the_voice_he_named.py,
+tools/bohemia_the_late_beat_songs_reach_the_street.py (both idempotent, per change).
+GATE: gates/named_lead_gate.py, in the suite as NAMED LEAD, 33/0 in 35 seconds.
+
+--------------------------------------------------------------------------------
+
+SOUND (sound-xk7pjp): 9/12 (b) -- *** THE BEAT ARRIVES LATE NOW, ON ALL 142
 SONGS, WITHOUT ONE OF THEM BEING RE-CUT. The sound card's one gap is closed.
 TAB: RUN -- walk the street and a song opens on melody and bass with the drums
 sixteen seconds in. Nothing to judge, nothing was cooked. ***
