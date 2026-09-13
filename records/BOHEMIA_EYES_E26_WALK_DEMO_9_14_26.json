@@ -18,7 +18,7 @@
     {
       "at": "00:20",
       "did": "looked at the first screen without touching anything",
-      "happened": "23 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / OUTFIT / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I'LL TAKE IT / GET UP / SLEEP / BIKE",
+      "happened": "23 things with words on them, big enough to tap: \u2699 / HUMAN MODE / SUBURB \u00b7 ON FOOT / DAY 1 \u00b7 06:00 / MUSIC / SAVE / OUTFIT / \u2715 / 06:00 \u00b7 light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / I'LL TAKE IT / GET UP / SLEEP / BIKE",
       "promised": ""
     },
     {
@@ -59,9 +59,9 @@
     },
     {
       "at": "00:38",
-      "did": "tapped \"DAY 1 · 06:02\" (new on screen)",
+      "did": "tapped \"DAY 1 \u00b7 06:02\" (new on screen)",
       "happened": "the screen changed",
-      "promised": "DAY 1 · 06:02"
+      "promised": "DAY 1 \u00b7 06:02"
     },
     {
       "at": "00:39",
@@ -95,9 +95,9 @@
     },
     {
       "at": "00:46",
-      "did": "tapped \"SOUTHWEST · RIGHT AROUND HERE\" (new on screen)",
+      "did": "tapped \"SOUTHWEST \u00b7 RIGHT AROUND HERE\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "SOUTHWEST · RIGHT AROUND HERE"
+      "promised": "SOUTHWEST \u00b7 RIGHT AROUND HERE"
     },
     {
       "at": "00:47",
@@ -107,9 +107,9 @@
     },
     {
       "at": "00:48",
-      "did": "tapped \"SOUTHWEST · A LONG WAY OFF\" (new on screen)",
+      "did": "tapped \"SOUTHWEST \u00b7 A LONG WAY OFF\" (new on screen)",
       "happened": "the screen changed",
-      "promised": "SOUTHWEST · A LONG WAY OFF"
+      "promised": "SOUTHWEST \u00b7 A LONG WAY OFF"
     },
     {
       "at": "00:50",
@@ -119,9 +119,9 @@
     },
     {
       "at": "00:51",
-      "did": "tapped \"EAST · A LONG WAY OFF\" (new on screen)",
+      "did": "tapped \"EAST \u00b7 A LONG WAY OFF\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "EAST · A LONG WAY OFF"
+      "promised": "EAST \u00b7 A LONG WAY OFF"
     },
     {
       "at": "00:52",
@@ -131,9 +131,9 @@
     },
     {
       "at": "00:54",
-      "did": "tapped \"NORTH · A LONG WAY OFF\" (new on screen)",
+      "did": "tapped \"NORTH \u00b7 A LONG WAY OFF\" (new on screen)",
       "happened": "the screen changed",
-      "promised": "NORTH · A LONG WAY OFF"
+      "promised": "NORTH \u00b7 A LONG WAY OFF"
     },
     {
       "at": "00:55",
@@ -161,9 +161,9 @@
     },
     {
       "at": "01:00",
-      "did": "tapped \"NORTHWEST · THE FAR SIDE OF THE VALLEY\" (new on screen)",
+      "did": "tapped \"NORTHWEST \u00b7 THE FAR SIDE OF THE VALLEY\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "NORTHWEST · THE FAR SIDE OF THE VALLEY"
+      "promised": "NORTHWEST \u00b7 THE FAR SIDE OF THE VALLEY"
     },
     {
       "at": "01:04",
@@ -173,27 +173,27 @@
     },
     {
       "at": "01:05",
-      "did": "tapped \"✕ DEMOLISH TO DESERT\" (new on screen)",
+      "did": "tapped \"\u2715 DEMOLISH TO DESERT\" (new on screen)",
       "happened": "the screen changed",
-      "promised": "✕ DEMOLISH TO DESERT"
+      "promised": "\u2715 DEMOLISH TO DESERT"
     },
     {
       "at": "01:09",
-      "did": "tapped \"DESERT · ON FOOT\" (new on screen)",
+      "did": "tapped \"DESERT \u00b7 ON FOOT\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "DESERT · ON FOOT"
+      "promised": "DESERT \u00b7 ON FOOT"
     },
     {
       "at": "01:10",
-      "did": "tapped \"⚖ BUILD\" (new on screen)",
+      "did": "tapped \"\u2696 BUILD\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "⚖ BUILD"
+      "promised": "\u2696 BUILD"
     },
     {
       "at": "01:12",
-      "did": "tapped \"⛭ BUILD BIG 2×2\" (new on screen)",
+      "did": "tapped \"\u26ed BUILD BIG 2\u00d72\" (new on screen)",
       "happened": "NOTHING CHANGED",
-      "promised": "⛭ BUILD BIG 2×2"
+      "promised": "\u26ed BUILD BIG 2\u00d72"
     }
   ],
   "errors": [
@@ -248,7 +248,7 @@
   "dead": [
     {
       "at": "01:10",
-      "text": "⚖ BUILD",
+      "text": "\u2696 BUILD",
       "id": "cbbuild",
       "where": "frame",
       "size": "69x29",
@@ -256,7 +256,7 @@
     },
     {
       "at": "01:12",
-      "text": "⛭ BUILD BIG 2×2",
+      "text": "\u26ed BUILD BIG 2\u00d72",
       "id": "cbbig",
       "where": "frame",
       "size": "112x28",
@@ -290,7 +290,7 @@
     },
     {
       "at": "00:46",
-      "text": "SOUTHWEST · RIGHT AROUND HERE",
+      "text": "SOUTHWEST \u00b7 RIGHT AROUND HERE",
       "id": "",
       "where": "frame",
       "size": "237x14",
@@ -298,7 +298,7 @@
     },
     {
       "at": "00:51",
-      "text": "EAST · A LONG WAY OFF",
+      "text": "EAST \u00b7 A LONG WAY OFF",
       "id": "",
       "where": "frame",
       "size": "243x14",
@@ -330,7 +330,7 @@
     },
     {
       "at": "01:00",
-      "text": "NORTHWEST · THE FAR SIDE OF THE VALLEY",
+      "text": "NORTHWEST \u00b7 THE FAR SIDE OF THE VALLEY",
       "id": "",
       "where": "frame",
       "size": "283x14",
@@ -338,7 +338,7 @@
     },
     {
       "at": "01:09",
-      "text": "DESERT · ON FOOT",
+      "text": "DESERT \u00b7 ON FOOT",
       "id": "hslot",
       "where": "frame",
       "size": "64x12",
@@ -358,7 +358,7 @@
     {
       "where": "shell",
       "id": "gearbtn",
-      "text": "⚙",
+      "text": "\u2699",
       "looks_tappable_because": "pointer cursor",
       "w": 44,
       "h": 44,
@@ -378,7 +378,7 @@
     {
       "where": "frame",
       "id": "hslot",
-      "text": "SUBURB · ON FOOT",
+      "text": "SUBURB \u00b7 ON FOOT",
       "looks_tappable_because": "",
       "w": 64,
       "h": 12,
@@ -388,7 +388,7 @@
     {
       "where": "frame",
       "id": "hclock",
-      "text": "DAY 1 · 06:00",
+      "text": "DAY 1 \u00b7 06:00",
       "looks_tappable_because": "",
       "w": 54,
       "h": 12,
@@ -428,7 +428,7 @@
     {
       "where": "frame",
       "id": "",
-      "text": "✕",
+      "text": "\u2715",
       "looks_tappable_because": "pointer cursor",
       "w": 44,
       "h": 44,
@@ -438,7 +438,7 @@
     {
       "where": "frame",
       "id": "",
-      "text": "06:00 · light until 22:00",
+      "text": "06:00 \u00b7 light until 22:00",
       "looks_tappable_because": "a row inside the day card",
       "w": 320,
       "h": 15,
@@ -548,7 +548,7 @@
     {
       "where": "frame",
       "id": "workbtn",
-      "text": "SCAVENGE · 8H",
+      "text": "SCAVENGE \u00b7 8H",
       "looks_tappable_because": "pointer cursor",
       "w": 54,
       "h": 12,
@@ -568,7 +568,7 @@
     {
       "where": "frame",
       "id": "rungbtn",
-      "text": "◆ STANDING",
+      "text": "\u25c6 STANDING",
       "looks_tappable_because": "a chip in the top bar",
       "w": 44,
       "h": 12,
@@ -585,5 +585,8 @@
       "x": 57,
       "y": 569
     }
-  ]
+  ],
+  "which": "demo",
+  "file": "BOHEMIA_DEMO.html",
+  "note": "this round's demo walk, taken before the tool learned its surface argument"
 }

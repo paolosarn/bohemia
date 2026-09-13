@@ -6,7 +6,7 @@
   "surfaces": [
     {
       "file": "slices/BOHEMIA_CITY_WORLD.html",
-      "bytes": 4910456,
+      "bytes": 4945958,
       "decoded_frames": 0,
       "declared_customs": [
         "--acc",
@@ -191,7 +191,7 @@
     },
     {
       "file": "slices/BOHEMIA_ALPHA_0_9.html",
-      "bytes": 6594041,
+      "bytes": 6679185,
       "decoded_frames": 5,
       "declared_customs": [
         "--acc",
@@ -305,7 +305,7 @@
           "typed_in_place": 2,
           "distinct_untokenised_values": 2,
           "values": [
-            "space grotesk,sans-serif",
+            "bohemiabody,sans-serif",
             "ui-monospace,menlo,monospace"
           ],
           "tokens_used": [
@@ -341,7 +341,7 @@
       },
       "phantom_names": {},
       "tells": {
-        "trend_font_hits": 5,
+        "trend_font_hits": 0,
         "platform_font_hits": 9,
         "asks_for_the_decided_face": 4,
         "font_declarations": 108,
@@ -351,9 +351,9 @@
         "uppercase_with_letter_spacing": 2,
         "pictographic_emoji": 0,
         "dingbats_and_arrows": 5,
-        "font_face_blocks": 6,
-        "embedded_font_data": 4,
-        "remote_font_links": 2
+        "font_face_blocks": 10,
+        "embedded_font_data": 8,
+        "remote_font_links": 0
       }
     },
     {
@@ -532,7 +532,7 @@
       "border-radius": 18,
       "border-width": 5,
       "box-shadow": 21,
-      "font-family": 2,
+      "font-family": 3,
       "letter-spacing": 12
     }
   },

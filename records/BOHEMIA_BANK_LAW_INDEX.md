@@ -72,28 +72,30 @@ bank cannot quietly add a rule nobody checks.
 | 50 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
 | 51 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
 | 52 | `records/BOHEMIA_EYES_E26_WALK_9_13_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
-| 53 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md |
-| 54 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_9_7_26.md |
-| 55 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md |
-| 56 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md |
-| 57 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md |
-| 58 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md |
-| 59 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
-| 60 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md |
-| 61 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md |
-| 62 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_PURPLE_RESERVATION_LAW_7_10_26.md |
-| 63 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md |
-| 64 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md |
-| 65 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "ot love you for; a two-month PENDING unblocked without asking " |
-| 66 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NEVER-WRITTEN -- from the coordinator's locked-rulings sweep (records/BOHEMIA_COORDINA" |
-| 67 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NAME-THE-CIRCUIT-OWNER  (it said "needs Paolo (who holds what)" and who holds what shipped earlier the same round, so the blocker was g" |
-| 68 | `records/BOHEMIA_EYES_SLOP_9_12_26.json` | `law` | laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md |
-| 69 | `records/BOHEMIA_REFERENCE_CHECKS.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26, clause 4 |
-| 70 | `records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26 — the gate ruler |
-| 71 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
-| 72 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
-| 73 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 74 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 53 | `records/BOHEMIA_EYES_E26_WALK_ALPHA_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
+| 54 | `records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
+| 55 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md |
+| 56 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_9_7_26.md |
+| 57 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md |
+| 58 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md |
+| 59 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md |
+| 60 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md |
+| 61 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 62 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md |
+| 63 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md |
+| 64 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_PURPLE_RESERVATION_LAW_7_10_26.md |
+| 65 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md |
+| 66 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md |
+| 67 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "ot love you for; a two-month PENDING unblocked without asking " |
+| 68 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NEVER-WRITTEN -- from the coordinator's locked-rulings sweep (records/BOHEMIA_COORDINA" |
+| 69 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NAME-THE-CIRCUIT-OWNER  (it said "needs Paolo (who holds what)" and who holds what shipped earlier the same round, so the blocker was g" |
+| 70 | `records/BOHEMIA_EYES_SLOP_9_12_26.json` | `law` | laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md |
+| 71 | `records/BOHEMIA_REFERENCE_CHECKS.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26, clause 4 |
+| 72 | `records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26 — the gate ruler |
+| 73 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
+| 74 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
+| 75 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 76 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
 
-TOTAL: 74 rulings across 46 files.
+TOTAL: 76 rulings across 48 files.
 

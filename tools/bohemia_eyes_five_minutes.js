@@ -36,8 +36,14 @@
 const path = require('path');
 const fs = require('fs');
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(ROOT, 'records', 'BOHEMIA_EYES_E26_WALK_9_13_26.json');
-const SHOTS = path.join(ROOT, 'records', 'eyes_e26_walk');
+/* WHICH SURFACE. The demo is the only measure he named, so it is the default. But once
+   other lanes started shipping fixes to the ALPHA while the demo stayed one cut behind,
+   the walk had to be able to answer two different questions: DID THE FIX WORK (alpha) and
+   DID IT REACH HIM (demo). Same instrument, one argument. */
+const WHICH = (process.argv[2] === 'alpha') ? 'alpha' : 'demo';
+const FILE = WHICH === 'alpha' ? 'BOHEMIA_ALPHA_0_9.html' : 'BOHEMIA_DEMO.html';
+const OUT = path.join(ROOT, 'records', 'BOHEMIA_EYES_E26_WALK_' + WHICH.toUpperCase() + '_9_14_26.json');
+const SHOTS = path.join(ROOT, 'records', 'eyes_e26_walk_' + WHICH);
 
 function pw() {
   for (const t of ['playwright', '/opt/node22/lib/node_modules/playwright',
@@ -59,7 +65,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const ctx = await b.newContext(PHONE);          /* fresh context = no stored save */
   const page = await ctx.newPage();
 
-  const out = { ok: true, when: new Date().toISOString(), law: 'THE FIVE MINUTES (Paolo 9/13)',
+  const out = { ok: true, which: WHICH, file: FILE, when: new Date().toISOString(),
+                law: 'THE FIVE MINUTES (Paolo 9/13)',
                 lines: [], errors: [], controls: [], numbers: {}, dead: [], inert: [] };
   const err = [];
   page.on('pageerror', e => err.push({ t: null, kind: 'pageerror', msg: String(e.message).slice(0, 220) }));
@@ -119,7 +126,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   };
 
   try {
-    await page.goto('file://' + path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html'),
+    await page.goto('file://' + path.join(ROOT, 'slices', FILE),
       { waitUntil: 'domcontentloaded', timeout: 90000 });
     const first = await page.evaluate(() => performance.now());
     t0 = first;
@@ -459,7 +466,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2));
   const bad = out.controls.filter(c => !c.pass).map(c => c.name);
-  console.log(JSON.stringify({ ok: out.ok, why: out.why, controls: out.controls,
+  console.log(JSON.stringify({ which: WHICH, file: FILE, ok: out.ok, why: out.why, controls: out.controls,
     failing_controls: bad, numbers: out.numbers, lines: out.lines.length,
     dead: out.dead, inert: out.inert.length, first_screen: (out.first_screen || []).length }, null, 2));
   await b.close();

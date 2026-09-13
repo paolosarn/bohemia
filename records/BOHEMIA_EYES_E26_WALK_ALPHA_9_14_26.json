@@ -1,0 +1,741 @@
+{
+  "ok": true,
+  "which": "alpha",
+  "file": "BOHEMIA_ALPHA_0_9.html",
+  "when": "2026-09-13T23:44:12.900Z",
+  "law": "THE FIVE MINUTES (Paolo 9/13)",
+  "lines": [
+    {
+      "at": "00:03",
+      "did": "opened the link and waited",
+      "happened": "a front screen: \"POST-ECONOMIC APOCALYPSE - LAS VEGAS TAP TO ENTER BUILD 9/14a - THE FIGHT WEARS THE GAME FACE\"",
+      "promised": "TAP TO ENTER"
+    },
+    {
+      "at": "00:08",
+      "did": "tapped the front screen",
+      "happened": "the screen changed",
+      "promised": "that tapping enters the game"
+    },
+    {
+      "at": "00:18",
+      "did": "looked at the first screen without touching anything",
+      "happened": "35 things with words on them, big enough to tap: VOTE / UI / 3D / LOOK / WORDS / CUTSCENE / DIRECT / RUN / CHARACTER / DAY 1 BEGINS BEFORE THE DAY / The family, the table, ten years ago. / ▶ WATCH / NOT NOW / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE",
+      "promised": ""
+    },
+    {
+      "at": "00:19",
+      "did": "tapped \"Make it a bag instead\" (the biggest thing on screen)",
+      "happened": "the screen changed",
+      "promised": "Make it a bag instead"
+    },
+    {
+      "at": "00:21",
+      "did": "tapped \"GET UP\" (the only thing on the card that is not an offer)",
+      "happened": "the screen changed",
+      "promised": "GET UP"
+    },
+    {
+      "at": "00:25",
+      "did": "held the walk dial down for two and a half seconds",
+      "happened": "the world moved (8 arrows on the dial)",
+      "promised": ""
+    },
+    {
+      "at": "00:27",
+      "did": "tapped \"Half of it now, before I go\" (a card or offer)",
+      "happened": "NOTHING CHANGED",
+      "promised": "Half of it now, before I go"
+    },
+    {
+      "at": "00:28",
+      "did": "tapped \"I'LL TAKE IT\" (a card or offer)",
+      "happened": "the screen changed",
+      "promised": "I'LL TAKE IT"
+    },
+    {
+      "at": "00:30",
+      "did": "tapped \"OUTFIT\" (the map or the zoom)",
+      "happened": "the screen changed",
+      "promised": "OUTFIT"
+    },
+    {
+      "at": "00:34",
+      "did": "tapped \"CUTSCENES\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "CUTSCENES"
+    },
+    {
+      "at": "00:35",
+      "did": "tapped \"QUESTS\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "QUESTS"
+    },
+    {
+      "at": "00:37",
+      "did": "tapped \"STANDING\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "STANDING"
+    },
+    {
+      "at": "00:39",
+      "did": "tapped \"TOWN SIZES\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "TOWN SIZES"
+    },
+    {
+      "at": "00:40",
+      "did": "tapped \"THE MATCH-CUT OPEN\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THE MATCH-CUT OPEN"
+    },
+    {
+      "at": "00:42",
+      "did": "tapped \"THE GRIEF DINNER\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THE GRIEF DINNER"
+    },
+    {
+      "at": "00:46",
+      "did": "tapped \"THE BURIAL ON THE RIDGE\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THE BURIAL ON THE RIDGE"
+    },
+    {
+      "at": "00:47",
+      "did": "tapped \"THE LAST ROOM\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THE LAST ROOM"
+    },
+    {
+      "at": "00:49",
+      "did": "tapped \"◀ HOUSE\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "◀ HOUSE"
+    },
+    {
+      "at": "00:51",
+      "did": "tapped \"seed 7\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "seed 7"
+    },
+    {
+      "at": "00:53",
+      "did": "tapped \"HOUSE ▶\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "HOUSE ▶"
+    },
+    {
+      "at": "00:54",
+      "did": "tapped \"+ LINE\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ LINE"
+    },
+    {
+      "at": "00:56",
+      "did": "tapped \"+ YOU\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ YOU"
+    },
+    {
+      "at": "00:58",
+      "did": "tapped \"+ RAY (father)\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ RAY (father)"
+    },
+    {
+      "at": "01:00",
+      "did": "tapped \"+ DENISE (mother)\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ DENISE (mother)"
+    },
+    {
+      "at": "01:02",
+      "did": "tapped \"+ MARCO (brother)\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "+ MARCO (brother)"
+    },
+    {
+      "at": "01:04",
+      "did": "tapped \"+ NINA (sister)\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ NINA (sister)"
+    },
+    {
+      "at": "01:05",
+      "did": "tapped \"+ PAUSE\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ PAUSE"
+    },
+    {
+      "at": "01:07",
+      "did": "tapped \"+ TIME CUT\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "+ TIME CUT"
+    },
+    {
+      "at": "01:09",
+      "did": "tapped \"SET\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "SET"
+    },
+    {
+      "at": "01:10",
+      "did": "tapped \"1\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "1"
+    },
+    {
+      "at": "01:12",
+      "did": "tapped \"▲\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "▲"
+    },
+    {
+      "at": "01:14",
+      "did": "tapped \"▼\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "▼"
+    },
+    {
+      "at": "01:15",
+      "did": "tapped \"✕\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "✕"
+    },
+    {
+      "at": "01:17",
+      "did": "tapped \"CAMERA\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "CAMERA"
+    },
+    {
+      "at": "01:19",
+      "did": "tapped \"2\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "2"
+    },
+    {
+      "at": "01:20",
+      "did": "tapped \"PERSON\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "PERSON"
+    },
+    {
+      "at": "01:22",
+      "did": "tapped \"3\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "3"
+    },
+    {
+      "at": "01:26",
+      "did": "tapped \"THE GENERATION TURNS\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THE GENERATION TURNS"
+    },
+    {
+      "at": "01:28",
+      "did": "tapped \"FOLD A GENERATION\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "FOLD A GENERATION"
+    },
+    {
+      "at": "01:29",
+      "did": "tapped \"REMNANTS · strength 14\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "REMNANTS · strength 14"
+    },
+    {
+      "at": "01:31",
+      "did": "tapped \"FORTRESS\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "FORTRESS"
+    },
+    {
+      "at": "01:33",
+      "did": "tapped \"TOWN\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "TOWN"
+    },
+    {
+      "at": "01:34",
+      "did": "tapped \"CAMP\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "CAMP"
+    },
+    {
+      "at": "01:36",
+      "did": "tapped \"WORK IT OUT\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "WORK IT OUT"
+    },
+    {
+      "at": "01:38",
+      "did": "tapped \"its land makes no power\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "its land makes no power"
+    },
+    {
+      "at": "01:40",
+      "did": "tapped \"MOB · strength 13\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "MOB · strength 13"
+    },
+    {
+      "at": "01:41",
+      "did": "tapped \"CARTEL · strength 12\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "CARTEL · strength 12"
+    },
+    {
+      "at": "01:45",
+      "did": "tapped \"TAP AGAIN TO FOLD\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "TAP AGAIN TO FOLD"
+    }
+  ],
+  "errors": [
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    },
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    }
+  ],
+  "controls": [
+    {
+      "name": "COLD START: nothing in storage at first paint",
+      "pass": true,
+      "detail": "0 keys []"
+    },
+    {
+      "name": "ERROR CATCH: a planted page error is captured",
+      "pass": true,
+      "detail": "1 errors seen so far"
+    },
+    {
+      "name": "CHANGE PROBE: a deliberate change registers as a change",
+      "pass": true,
+      "detail": "text signature moved"
+    }
+  ],
+  "numbers": {
+    "time_until_something_is_tappable_s": 2.86,
+    "my_first_tap_at_s": 2.99,
+    "extra_walk_rounds": 93,
+    "time_to_first_fight_s": "NONE",
+    "walk_ended_at_s": 302.2,
+    "dead_affordances": 3,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 2,
+    "page_errors": 0,
+    "console_errors": 2,
+    "failed_requests": 0
+  },
+  "dead": [
+    {
+      "at": "00:27",
+      "text": "Half of it now, before I go",
+      "id": "",
+      "where": "frame",
+      "size": "320x44",
+      "looked_tappable_because": "a row inside the day card"
+    },
+    {
+      "at": "00:49",
+      "text": "◀ HOUSE",
+      "id": "",
+      "where": "shell",
+      "size": "68x28",
+      "looked_tappable_because": "pointer cursor"
+    },
+    {
+      "at": "01:02",
+      "text": "+ MARCO (brother)",
+      "id": "",
+      "where": "shell",
+      "size": "134x28",
+      "looked_tappable_because": "pointer cursor"
+    }
+  ],
+  "inert": [
+    {
+      "at": "01:26",
+      "text": "THE GENERATION TURNS",
+      "id": "",
+      "where": "shell",
+      "size": "374x13",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:38",
+      "text": "its land makes no power",
+      "id": "",
+      "where": "shell",
+      "size": "352x16",
+      "looked_tappable_because": "nothing said so"
+    }
+  ],
+  "shots": [
+    "records/eyes_e26_walk_alpha/00_00_splash.png",
+    "records/eyes_e26_walk_alpha/01_01_entered.png",
+    "records/eyes_e26_walk_alpha/02_02_first_tap.png",
+    "records/eyes_e26_walk_alpha/03_03_walked.png",
+    "records/eyes_e26_walk_alpha/04_04_cards.png",
+    "records/eyes_e26_walk_alpha/05_05_map.png",
+    "records/eyes_e26_walk_alpha/06_06_end.png"
+  ],
+  "first_screen": [
+    {
+      "where": "shell",
+      "id": "",
+      "text": "VOTE",
+      "looks_tappable_because": "pointer cursor",
+      "w": 41,
+      "h": 40,
+      "x": 30,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "UI",
+      "looks_tappable_because": "pointer cursor",
+      "w": 24,
+      "h": 40,
+      "x": 63,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "3D",
+      "looks_tappable_because": "pointer cursor",
+      "w": 24,
+      "h": 40,
+      "x": 87,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "LOOK",
+      "looks_tappable_because": "pointer cursor",
+      "w": 41,
+      "h": 40,
+      "x": 120,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "WORDS",
+      "looks_tappable_because": "pointer cursor",
+      "w": 49,
+      "h": 40,
+      "x": 165,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "CUTSCENE",
+      "looks_tappable_because": "pointer cursor",
+      "w": 74,
+      "h": 40,
+      "x": 226,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "DIRECT",
+      "looks_tappable_because": "pointer cursor",
+      "w": 57,
+      "h": 40,
+      "x": 292,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "RUN",
+      "looks_tappable_because": "pointer cursor",
+      "w": 33,
+      "h": 40,
+      "x": 337,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "CHARACTER",
+      "looks_tappable_because": "pointer cursor",
+      "w": 82,
+      "h": 40,
+      "x": 394,
+      "y": 20
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "DAY 1 BEGINS BEFORE THE DAY",
+      "looks_tappable_because": "",
+      "w": 366,
+      "h": 16,
+      "x": 195,
+      "y": 123
+    },
+    {
+      "where": "shell",
+      "id": "",
+      "text": "The family, the table, ten years ago.",
+      "looks_tappable_because": "",
+      "w": 366,
+      "h": 17,
+      "x": 195,
+      "y": 143
+    },
+    {
+      "where": "shell",
+      "id": "openWatch",
+      "text": "▶ WATCH",
+      "looks_tappable_because": "a button or link",
+      "w": 79,
+      "h": 25,
+      "x": 52,
+      "y": 171
+    },
+    {
+      "where": "shell",
+      "id": "openNot",
+      "text": "NOT NOW",
+      "looks_tappable_because": "a button or link",
+      "w": 79,
+      "h": 25,
+      "x": 138,
+      "y": 171
+    },
+    {
+      "where": "frame",
+      "id": "hmode",
+      "text": "HUMAN MODE",
+      "looks_tappable_because": "",
+      "w": 44,
+      "h": 12,
+      "x": 30,
+      "y": 18
+    },
+    {
+      "where": "frame",
+      "id": "hslot",
+      "text": "SUBURB · ON FOOT",
+      "looks_tappable_because": "",
+      "w": 64,
+      "h": 12,
+      "x": 92,
+      "y": 18
+    },
+    {
+      "where": "frame",
+      "id": "hclock",
+      "text": "DAY 1 · 06:00",
+      "looks_tappable_because": "",
+      "w": 54,
+      "h": 12,
+      "x": 166,
+      "y": 19
+    },
+    {
+      "where": "frame",
+      "id": "musbtn",
+      "text": "MUSIC",
+      "looks_tappable_because": "",
+      "w": 27,
+      "h": 12,
+      "x": 214,
+      "y": 18
+    },
+    {
+      "where": "frame",
+      "id": "savebtn",
+      "text": "SAVE",
+      "looks_tappable_because": "",
+      "w": 24,
+      "h": 12,
+      "x": 245,
+      "y": 18
+    },
+    {
+      "where": "frame",
+      "id": "outfitbtn",
+      "text": "OUTFIT",
+      "looks_tappable_because": "",
+      "w": 30,
+      "h": 12,
+      "x": 309,
+      "y": 18
+    },
+    {
+      "where": "frame",
+      "id": "devbtn",
+      "text": "TOOLS",
+      "looks_tappable_because": "",
+      "w": 53,
+      "h": 29,
+      "x": 356,
+      "y": 18
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "✕",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 342,
+      "y": 204
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "06:00 · light until 22:00",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 223
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "nobody has picked it up yet",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 300
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Pays one battery",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 367
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Make it a bag instead",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 406
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Make it a favour instead",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 459
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Half of it now, before I go",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 512
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "I'LL TAKE IT",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 44,
+      "x": 195,
+      "y": 565
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "GET UP",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 68,
+      "h": 44,
+      "x": 69,
+      "y": 623
+    },
+    {
+      "where": "frame",
+      "id": "sleepbtn",
+      "text": "SLEEP",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 27,
+      "h": 12,
+      "x": 27,
+      "y": 781
+    },
+    {
+      "where": "frame",
+      "id": "bikebtn",
+      "text": "BIKE",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 24,
+      "h": 12,
+      "x": 25,
+      "y": 739
+    },
+    {
+      "where": "frame",
+      "id": "workbtn",
+      "text": "SCAVENGE · 8H",
+      "looks_tappable_because": "pointer cursor",
+      "w": 54,
+      "h": 12,
+      "x": 40,
+      "y": 696
+    },
+    {
+      "where": "frame",
+      "id": "buildbtn",
+      "text": "BUILD HERE",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 654
+    },
+    {
+      "where": "frame",
+      "id": "rungbtn",
+      "text": "◆ STANDING",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 612
+    },
+    {
+      "where": "frame",
+      "id": "note",
+      "text": "walking your own block.",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 88,
+      "h": 12,
+      "x": 57,
+      "y": 570
+    }
+  ]
+}
