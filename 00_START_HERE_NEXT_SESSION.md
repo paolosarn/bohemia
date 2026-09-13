@@ -18729,6 +18729,36 @@ to ignore a red, which is exactly how the V206 key bug got to main. Same class a
 beat-ghost statistic this lane already replaced (three runs read 2.5, 5.0 and 31.3 against a
 threshold of 3).
 
+*** AND TWO ROUNDS OF WORK ON THAT COIN FLIP ARE WRITTEN DOWN HERE, BOTH OF THEM NEGATIVE RESULTS,
+BECAUSE THE NEXT ROUND SHOULD START AHEAD OF WHERE I DID INSTEAD OF REPEATING ME. ***
+(Re-added after another lane's commit dropped this paragraph out of the shared handoff.)
+ROUND ONE, THE THEORY AND THE FAILED FIX: V205 made every entry zoom out over TWO BEATS, and
+cityHandOver REFUSES OUTRIGHT while a zoom is in flight ("if(FZOOMING){ return false; }"). The
+forced-party arms were written before the door took two beats, so an arm firing while the previous
+zoom still ran would get no handover -- which matched the failure text exactly, a road that fires
+and a fight that got 0 men. THE FIX: a doorFree() poll on fightZooming() before all five staging
+sites, the same shape that fixed enter_zoom_gate. THE RESULT: 38/5, 40/3, 40/3, then green. NOT
+FIXED and possibly WORSE than the one-in-five it started at. REVERTED rather than shipped. A SECOND
+VERSION THAT FAILED IS WHERE YOU STOP, NOT WHERE YOU WRITE A THIRD.
+ROUND TWO, THE COUNT THAT KILLS THE THEORY: instrumented cityHandOver to log every call with its
+message label and every refusal with its reason, then ran the gate SEVEN times catching reds and
+greens both.
+  every refusal      FZOOMING, twelve of them, and ALL TWELVE ARE THE SAME MESSAGE ("interior") --
+                     one earlier arm hammering the interior door in a loop, which is that arm
+                     working as written and not a defect
+  the forced parties NEVER REFUSED, not once, on any run: "crazed wanderer", "toll crew", "dead
+                     casino security bot" and "toll crew" are all asked and all accepted
+  red versus green   THE ASKED LIST IS BYTE-IDENTICAL: 21 handovers, same labels, same order, on a
+                     43/0 run and on a 38/5 run alike
+SO THE DOOR IS NOT THE CAUSE. The message is posted every time, identically, and the variance is
+entirely DOWNSTREAM: in the fight that gets built from it, or in WHEN the gate reads that fight.
+The handover, the zoom, contactClear, SF_DONE and the fuse are ALL RULED OUT BY MEASUREMENT now, so
+nobody needs to look at them again.
+THE NEXT STEP, cheap now the door is eliminated: dump what the FIGHT holds (men, arch, roster,
+objective) on a red run and on a green one and diff THOSE, rather than dumping what the city sent.
+Both rounds' instruments were reverted, never shipped; the gate and the city slice on main are
+untouched.
+
 STANDING LESSON FROM THIS ROUND, AND IT IS THE MOST USEFUL THING IN THIS BLOCK: EVERY ONE OF THE
 FOUR ROWS WAS WIRING, NOT INVENTION. The pull-back, the loot in G.rc, the city's clock, the medic's
 pick-up rule -- all four were already built and nothing consumed them. MEASURE THE BLOB BEFORE
