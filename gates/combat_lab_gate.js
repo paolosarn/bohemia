@@ -1071,9 +1071,22 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
   ok('V66 NO SPLASH ON A HANDOFF: a quest-driven encounter takes over the demo start screen, so a run walks straight into the fight instead of onto TAP TO START',
     demo.includes('takeover:function(){ if(G._ctx&&(G._ctx.questId||G._ctx.encounterId)){ try{startGame();}catch(_e){} } },') &&
     demo.includes('call(env.takeover);'));
-  ok('V66 THE 13-SECOND STALL IS DEAD: the cross-origin font no longer blocks combat\'s boot (measured 12.9s cold on the real surface before this, 14ms after)',
-    demo.includes('media="print" onload="this.media=\'all\'"') &&
-    // the render-blocking form is gone from the head
+  /* V214 AMENDED THIS ARM OUT LOUD, and the claim is UNCHANGED and now stronger.
+     V66 measured a 12.9-second cold stall caused by a cross-origin font blocking the
+     fight's boot and fixed it with the media="print" onload trick, so this pinned
+     that trick's exact spelling. EYES E26 then walked the five minutes cold and
+     found the font was STILL being fetched from fonts.googleapis -- the only failed
+     request of the whole walk -- and that the 9/11 law bans it by name. V214 removed
+     the font entirely and embedded the walked city's own faces as data URIs, so
+     THERE IS NO CROSS-ORIGIN FONT LEFT TO BLOCK ANYTHING and the trick has nothing
+     to guard. Pinning the trick would fail a change that delivers everything the
+     claim asks for, which is what the note twenty lines above this warns about.
+     SO THE ARM ASKS THE CLAIM: no cross-origin font can block the boot -- satisfied
+     either because none is fetched at all (today) or because the one that is carries
+     the non-blocking form (the old shape, still accepted if it ever comes back). */
+  ok('V66 THE 13-SECOND STALL IS DEAD: the cross-origin font no longer blocks combat\'s boot (measured 12.9s cold on the real surface before this, 14ms after). AMENDED BY V214: there is now no cross-origin font at all -- EYES E26 found it still being fetched on a cold phone walk, the 9/11 law bans that face by name, and the walked city\'s own faces are embedded instead',
+    (!demo.includes('fonts.googleapis') || demo.includes('media="print" onload="this.media=\'all\'"')) &&
+    // the render-blocking form is gone from the head, whichever way the claim is met
     !/<link href="https:\/\/fonts\.googleapis\.com[^>]*" rel="stylesheet">\s*\n<style>/.test(demo));
   // v60: two big swings -- the facing fix and grenades (the movement-forcer)
   ok('V60 FACING FIX: the stance faces the SINGLE most dangerous enemy (max threatWeight), not the cancelling vector sum that pointed sideways under a flank',

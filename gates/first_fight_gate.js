@@ -19,8 +19,20 @@ const http = require('http');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const REPO = path.join(__dirname, '..');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-/* five minutes at one step per beat at 120 BPM */
-const FIVE_MIN_STEPS = 600;
+/* *** WHAT FIVE MINUTES IS WORTH, MEASURED ON THE REAL INPUT, NOT ASSUMED. ***
+   The first cut of this gate called stepOnce in a loop and converted loop
+   iterations to seconds at one step per beat (120 BPM, 2 a second), which put the
+   card at "29 seconds". THAT WAS WRONG BY ABOUT SEVEN TIMES. Driven with a thumb on
+   the real walk dial, the way EYES E26 walked it: ten two-second held presses moved
+   SIX fine cells in 22 seconds, so a five-minute walk is worth roughly EIGHTY cells,
+   not six hundred steps. (A twenty-second continuous hold moves nothing at all,
+   which is the latch letting go at a wall and is correct: "two beats with nothing to
+   show for them".)
+   So the budget below is in CELLS ACTUALLY WALKED, which is the only unit a player
+   and this harness share. 81 is the measured five-minute figure; the cap is the
+   honest one and the gate reports the margin. */
+const FIVE_MIN_CELLS = 81;
+const WALK_ATTEMPTS = 900;   /* loop room to actually cover those cells */
 
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json',
   '.css': 'text/css', '.png': 'image/png', '.webmanifest': 'application/manifest+json' };
@@ -47,7 +59,8 @@ const done = async (b) => { if (b) await b.close();
 /* walk out of the door until the card is on the glass, stopping the moment it is */
 const WALK_TO_CARD = `(STEPS) => {
   const dirs = [0, 2, 1, 3, 0, 2]; let di = 0, stuck = 0;
-  const out = { step: -1, threw: 0, moved: 0 };
+  const out = { step: -1, threw: 0, moved: 0, cellsAtCard: -1 };
+  const start = [hx, hy];
   for (let i = 0; i < STEPS; i++) {
     let okstep = false;
     try { okstep = stepOnce(dirs[di % dirs.length]); } catch (e) { out.threw++; }
@@ -56,6 +69,8 @@ const WALK_TO_CARD = `(STEPS) => {
     const dc = document.getElementById('daycard');
     if (dc && getComputedStyle(dc).display !== 'none' && dc.classList.contains('roadcard')) {
       out.step = i;
+      out.cellsAtCard = out.moved;
+      out.netAway = Math.abs(hx - start[0]) + Math.abs(hy - start[1]);
       out.inside = (typeof INSIDE !== 'undefined' && INSIDE) ? 'INSIDE' : 'outdoors';
       out.text = (dc.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 120);
       out.arms = Array.from(dc.querySelectorAll('button,[data-arm],.mrow'))
@@ -105,7 +120,7 @@ const WALK_TO_CARD = `(STEPS) => {
           window.__M.push({ label: d.label, why: d.why, street: !!d.street, room: !!d.room,
             roster: (d.roster || []).length }); }); });
 
-    const walk = await city.evaluate(eval('(' + WALK_TO_CARD + ')'), FIVE_MIN_STEPS);
+    const walk = await city.evaluate(eval('(' + WALK_TO_CARD + ')'), WALK_ATTEMPTS);
     walk.aliveAt = aliveAt;
 
     /* AND THE FIGHT COMES: press the arm that says it is a fight, like a player */
@@ -123,22 +138,25 @@ const WALK_TO_CARD = `(STEPS) => {
       msgs = await page.evaluate(() => window.__M || []);
     }
     runs.push({ walk, pressed, msgs, errors });
-    console.log('  walk ' + (n + 1) + ': card at step ' + walk.step + ' (' + Math.round(walk.step / 2)
-      + 's), ' + walk.inside + ', in the ' + walk.district
+    console.log('  walk ' + (n + 1) + ': card after ' + walk.cellsAtCard + ' CELLS WALKED (of a '
+      + FIVE_MIN_CELLS + '-cell five minutes), ' + walk.inside + ', in the ' + walk.district
       + ' [road table ' + walk.roadTableHere + ', walk table ' + walk.walkTableHere + ']'
       + ', fired ' + JSON.stringify(walk.walkFired) + ' -> ' + pressed + ' ' + JSON.stringify(msgs));
     await page.close(); SRV.close();
   }
 
   const a = runs[0], b = runs[1];
-  const secs = s => Math.round(s / 2);
+  const mins = c => (c / FIVE_MIN_CELLS * 5).toFixed(1);
 
   ok('*** A CARD SAYS A FIGHT IS COMING, INSIDE THE FIRST FIVE MINUTES, ON EVERY WALK. *** His words were "I have not experienced any combat yet... it says a car is gonna pull up on me and then nothing happens", and the stopwatch agreed: the walked street produced 0 cards and 0 fights, because the only director that can start a fight reads ROAD_TABLE, which has NO ROW for the '
     + a.walk.district + ' he wakes in, while WALK_TABLE does (' + a.walk.walkTableHere
-    + ') and its whole response was one line of text. Now the card is on the glass at step '
-    + a.walk.step + ' and ' + b.walk.step + ' of ' + FIVE_MIN_STEPS + ' -- about ' + secs(a.walk.step)
-    + ' and ' + secs(b.walk.step) + ' seconds at one step per beat',
-    a.walk.step >= 0 && b.walk.step >= 0 && a.walk.step < FIVE_MIN_STEPS && b.walk.step < FIVE_MIN_STEPS
+    + ') and its whole response was one line of text. Now the card is on the glass after '
+    + a.walk.cellsAtCard + ' and ' + b.walk.cellsAtCard + ' CELLS ACTUALLY WALKED, against the '
+    + FIVE_MIN_CELLS + ' cells a thumb covers in five minutes on the real dial -- so about '
+    + mins(a.walk.cellsAtCard) + ' minutes in, with ' + (FIVE_MIN_CELLS - a.walk.cellsAtCard)
+    + ' cells of margin. THE UNIT IS THE POINT: the first cut of this gate counted loop iterations and called it "29 seconds", which was wrong by about seven times, because a real held-press walk is far slower than one step per beat',
+    a.walk.cellsAtCard > 0 && b.walk.cellsAtCard > 0
+    && a.walk.cellsAtCard <= FIVE_MIN_CELLS && b.walk.cellsAtCard <= FIVE_MIN_CELLS
     && a.walk.roadTableHere === false && a.walk.walkTableHere === true);
 
   ok('AND IT IS A REAL CARD WITH A REAL CHOICE ON IT, not a line of text: it reads "'
@@ -154,9 +172,9 @@ const WALK_TO_CARD = `(STEPS) => {
     !!m && m.why === 'road:scavenger_shakedown' && m.street === true && m.room === false
     && m.roster >= 1 && /scavenger/i.test(m.label || ''));
 
-  ok('AND IT HAPPENS THE SAME WAY TWICE, because a first five minutes that is right once can be luck: both walks met it at step '
-    + a.walk.step + ' and ' + b.walk.step + ', both outdoors, both posting the same fingerprint',
-    a.walk.step === b.walk.step && b.walk.inside === 'outdoors'
+  ok('AND IT HAPPENS THE SAME WAY TWICE, because a first five minutes that is right once can be luck: both walks met it after '
+    + a.walk.cellsAtCard + ' and ' + b.walk.cellsAtCard + ' cells, both outdoors, both posting the same fingerprint',
+    a.walk.cellsAtCard === b.walk.cellsAtCard && b.walk.inside === 'outdoors'
     && ((b.msgs || [])[0] || {}).why === 'road:scavenger_shakedown');
 
   /* AND THE INDOORS GUARD IS TESTED DIRECTLY, because the walk above never goes

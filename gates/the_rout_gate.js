@@ -54,6 +54,12 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
   const page = await browser.newPage({ viewport: { width: 430, height: 932 } });
   const errors = [];
   page.on('pageerror', e => errors.push(String(e).slice(0, 200)));
+  /* V214: this gate already boots the alpha and opens the fight, so the font claim
+     rides along for nothing rather than paying for a whole browser of its own. */
+  const external = [], failedReq = [];
+  page.on('request', r => { const u = r.url();
+    if (!/^http:\/\/127\.0\.0\.1|^data:|^blob:|^about:/.test(u)) external.push(u.slice(0, 90)); });
+  page.on('requestfailed', r => failedReq.push(r.url().slice(0, 90)));
 
   SRV = await serve();
   const BASE = 'http://127.0.0.1:' + SRV.address().port;
@@ -255,6 +261,24 @@ const done = async (b) => { if (b) await b.close(); if (SRV) try { SRV.close(); 
     + dial.chaseAuthorsNothing + ') because it asks the same inMyRange the target pool asks, and the one-tile-a-turn run and its clamp at 30 are the shipped V35/V53 step, untouched ('
     + dial.fleeStep + '). A runner was added to the list of who you MAY shoot; what happens when you do is the dial that was already there',
     dial.dmgKnowsRunners === false && dial.chaseAuthorsNothing === true && dial.fleeStep === true);
+
+  /* ---- V214 THE FIGHT WEARS THE GAME'S OWN FACE ------------------------- */
+  const face = await cf.evaluate(() => {
+    const cs = getComputedStyle(document.body);
+    const faces = []; try { document.fonts.forEach(f => faces.push(f.family + '/' + f.status)); } catch (e) {}
+    return { body: cs.fontFamily, faces: faces,
+      links: Array.from(document.querySelectorAll('link')).map(l => l.href).filter(Boolean),
+      grotesk: document.documentElement.innerHTML.indexOf('Space Grotesk') >= 0 };
+  });
+  console.log('  the fight\'s face: ' + JSON.stringify(face) + '  external ' + JSON.stringify(external));
+  ok('*** AND THE FIGHT WEARS THE GAME\'S OWN FACE INSTEAD OF FETCHING ONE FROM GOOGLE. *** EYES E26 walked the five minutes cold and found the fight typeset in SPACE GROTESK, pulled from fonts.googleapis out of a srcdoc document -- THE ONLY FAILED REQUEST OF THE WHOLE WALK, on a phone, and a font the 9/11 vibe-coded law bans BY NAME. The body now reads "'
+    + face.body + '", the document carries ' + face.links.length + ' stylesheet links, the word Grotesk appears '
+    + face.grotesk + ', and the page made ' + external.length + ' external requests with '
+    + failedReq.length + ' failures. The faces are the WALKED CITY\'S OWN, copied verbatim with their woff2 embedded as data URIs, so no typeface was chosen here and nothing costs a request: '
+    + JSON.stringify(face.faces),
+    /BohemiaBody/.test(face.body) && face.grotesk === false && face.links.length === 0
+    && external.length === 0 && failedReq.length === 0
+    && face.faces.some(f => /BohemiaBody\/loaded/.test(f)));
 
   ok('no page errors through the whole round trip', errors.length === 0);
   if (errors.length) console.log('  errors: ' + JSON.stringify(errors.slice(0, 3)));

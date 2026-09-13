@@ -20671,6 +20671,48 @@ script block finishes parsing no director fires and no fight can start. AND FOR 
 header reads "ON THE ROAD - SUBURB - DAY" while he is walking a street, not travelling a road.
 Record: records/BOHEMIA_COMBAT_THE_WALKED_STREET_CAN_START_A_FIGHT_9_13_26.md
 
+*** V214, TWO CORRECTIONS TO THIS LANE'S OWN WORK. ***
+
+ONE: MY FIVE-MINUTE NUMBER WAS WRONG BY SEVEN TIMES AND I CORRECTED IT. Last round I wrote that
+the card arrives "at step 58, about 29 seconds". THE ERROR WAS THE UNIT: my gate called stepOnce in
+a loop and converted iterations to seconds at one step per beat. A REAL HELD-PRESS WALK IS NOTHING
+LIKE THAT FAST. Driven with a thumb on the real dial the way EYES walked it: ten two-second presses
+move SIX fine cells in 22 seconds, so five minutes is worth ABOUT 81 CELLS. (A twenty-second
+continuous hold moves ZERO -- the latch letting go at a wall, which is correct.) The card, measured
+in the same unit on three runs: 55 CELLS ACTUALLY WALKED, identical every time. So it lands ABOUT
+THREE AND A HALF MINUTES IN, not 29 seconds -- inside the five with ~26 cells of margin and no more.
+THE ROW HOLDS; THE NUMBER I PUT ON IT DID NOT. The gate now measures in cells walked against a
+measured budget and says so, so nobody reads loop iterations as seconds again.
+AND EYES' "no fight in five minutes" WAS MEASURED AT 21:56, SIX MINUTES BEFORE MY FIX LANDED AT
+22:02 -- true of the tree they walked, and worth saying rather than leaving the impression it failed.
+
+TWO: THE FIGHT WAS FETCHING ITS FONT FROM GOOGLE (EYES E26 item 3, routed to "COMBAT and UI", this
+lane's file). Space Grotesk, 42 mentions, pulled from fonts.googleapis out of a srcdoc document --
+THE ONLY FAILED REQUEST OF THE WHOLE COLD WALK -- and the 9/11 vibe-coded law bans that face BY
+NAME. THE FIX IS REUSE AND NOT A TYPEFACE DECISION, because the typeface is not this lane's to
+choose: the walked city already carries BohemiaROM, BohemiaBody and BohemiaMono as @font-face blocks
+with the woff2 EMBEDDED AS DATA URIs, so those four blocks are copied VERBATIM into the fight and
+its text points at them. Measured first: 32.5 KB of CSS, about 43 KB on the alpha.
+VERIFIED ON THE REAL SURFACE: body font BohemiaBody, 0 stylesheet links, BohemiaBody LOADED, zero
+external requests, zero failed.
+TWO MISTAKES DOING IT. (1) MY FIRST SWAP BROKE THE FIGHT: one regex wrapped every hit in quotes,
+right for CSS and wrong for canvas strings -- x.font='600 9px Space Grotesk, sans-serif' became
+x.font='600 9px 'BohemiaBody', sans-serif', a terminated JS string, and the fight STOPPED DEFINING
+G. The rout gate caught it; MY TOOL'S OWN GUARD DID NOT, because it checked only that the words were
+gone and never that the file still parsed. Quoted stays quoted, bare stays bare, and every script in
+the blob is syntax-checked now. (2) combat_lab's V66 arm was PINNED TO THE MECHANISM: it required
+the media="print" onload trick that V66 used to stop this same font stalling the boot 12.9s. Removing
+the font entirely means there is NO cross-origin font left to block anything -- everything the claim
+asks for and more -- and the arm went red anyway. The lab gate's own note twenty lines above says it:
+"a checker that fails a change preserving everything it claims is pinned to the wrong thing."
+AMENDED OUT LOUD, claim kept, history kept: no cross-origin font can block the boot, satisfied either
+because none is fetched or because the one that is carries the non-blocking form.
+Record: records/BOHEMIA_COMBAT_THE_FIGHT_WEARS_THE_GAME_FACE_9_14_26.md
+
+NOT MINE, BASELINED THE SAME WAY: enter_zoom_gate reads 12/1 WITH AND WITHOUT V214, so that red is
+somebody else's change or its own flake; it read 13/0 earlier the same round. combat_lab's other
+three reds are the long-standing city-art arms.
+
 QUEUE STATE: [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [prefight save] BB-SAVE-BEFORE-THE-BELL, but rule 14 may put another of his breaks
