@@ -1,3 +1,107 @@
+RUN (run-eak241): LATEST -- *** [reds mine] SHIPPED. FIVE OF MY GATES WERE RED ON
+MAIN AND THE GAME WAS RIGHT FIVE TIMES OUT OF FIVE. TAB: RUN. Nothing to judge. ***
+
+THE JOB: COMBAT re-ran five gates alone on a clean main -- COMBAT RUNS, DEMO
+CURRENT, CURRENT SLICE, ENEMIES EXIST, STRANGER OPENS -- found them red, and
+handed them back because every one of them is this lane's gate on this lane's
+shipped row. For each: broken game, or lying checker. Decide honestly, fix that one.
+
+*** VERDICT: ONE WAS ALREADY GREEN AND THE OTHER FOUR WERE LYING. NO GAME CODE
+CHANGED. *** Both root causes were somebody else's CORRECT work that my gates had
+hardcoded around.
+
+CAUSE ONE -- THE PAD STOPPED BEING BUTTONS. On 9/7 another lane rebuilt the walk
+pad from html buttons into an SVG ring of eight <g> wedges. ENEMIES EXIST found
+the wedge to press by matching TEXTCONTENT against an arrow glyph. The arrows are
+DRAWN now, so textContent is empty, the find() never hit, and it fell through to
+[0] -- a direction away from the crew. Sixty taps later it had reached nobody and
+reported ZERO BODIES, which reads as "the enemies were never built". They were.
+The harness was walking the wrong way. It reads dataset.walk now -- the wedge
+declaring its own direction. 26/1 -> 27/0. STRANGER OPENS carried the same lookup.
+
+CAUSE TWO -- A FLOOR HIS NEWEST WORD REMOVED. DEMO CURRENT and STRANGER OPENS both
+asserted the walk arrows measure 44px or more, as proof a served build gets the
+demo's thumb injection and a disk load does not. TWO separate things killed that:
+  (1) CSS width/height DO NOT APPLY TO AN SVG GROUP, so the cut's .pb{width:44px}
+      has been INERT since 9/7 -- served and disk read the same number, it cannot
+      tell them apart even in principle.
+  (2) PAOLO 9/6, LOCKED: "for the run right now make all the UI 50% smaller, I
+      don't give a fuck." NEWEST DATE WINS. The pad is one of the controls the
+      halving shrank and 20px is HIS NUMBER, not a defect.
+
+*** AND I ALMOST "FIXED" THE GAME TO SATISFY MY OWN GATE. *** I read 39px, called
+it a real regression on the most-used control in the game, and GREW THE WHOLE PAD
+RING on the demo from 180 to 204 to put the arrows back over 44. Then I measured:
+nav came back 90x90, wedges at 20 -- the halving, doing exactly what he asked for.
+MY CHANGE WAS FIGHTING A LOCKED RULING, and the only reason I know is that I
+measured after building instead of reporting before measuring. Taken straight out.
+
+WHAT REPLACED THE DEAD PROXY is the question his ruling has NOT answered and a
+player actually needs: the pad is ALL EIGHT WEDGES AND EVERY ONE IS THE TOPMOST
+THING AT ITS OWN CENTRE, so nothing is sitting on top of the control you walk with.
+That is the bug this lane really did ship once. MUTATION: lay a transparent overlay
+across the pad -> 8 wedges, 0 answering at their own centre. 15/1 -> 16/0, 17/1 -> 18/0.
+
+CAUSE THREE -- OFF DISK, AGAIN. COMBAT RUNS opened the alpha over file:// and
+drowned: "Fetch API cannot load BOHEMIA_CITY_TILES_03.js. URL scheme file is not
+supported." The city STREAMS ITS TILE BANKS WITH fetch(), and fetch refuses the
+file:// scheme outright. The page was never broken; the harness was standing in the
+one place a browser will not let it work. THIS LANE MEASURED AND WROTE THAT LAW
+DOWN ON 9/5. Served from the repo root now, same fix as the ending gate. 0 -> 1/0.
+
+THE PATTERN, SAID PLAINLY: every one of these four HARDCODED THE SHAPE OF A THING
+INSTEAD OF ASKING IT WHAT IT IS -- the pad's glyph, the pad's pixel size, the page's
+origin. When another lane improved the thing, the gate went red and blamed the game.
+Six such gates fixed in three rounds and THREE OF THE SIX WERE ITS OWN.
+
+RESULT, all through the real suite on this tree:
+    COMBAT RUNS 1/0 . DEMO CURRENT 16/0 . CURRENT SLICE green
+    ENEMIES EXIST 27/0 . STRANGER OPENS 18/0
+RECORD: records/BOHEMIA_FIVE_REDS_AND_FOUR_WERE_LYING_9_13_26.md
+
+*** AND MY LAST HANDOFF BLOCK WAS EATEN OFF MAIN, SECOND TIME FOR THIS LANE. ***
+The [drop in] block committed in bfa02b9 was gone from the file: another lane's
+push rewrote the handoff from a tree that predated mine. Found with git log -S,
+recovered VERBATIM from my own commit rather than retyped from memory, and it is
+restored below in its right place. WHOEVER READS THIS: a handoff rewrite that
+starts from a stale copy silently deletes whatever landed in between. Re-read the
+file immediately before writing it, and grep your own headline back out after.
+
+--------------------------------------------------------------------------------
+RECOVERED, PREVIOUS ROUND -- *** [drop in] SHIPPED, FIRST MINUTE 9/0, AND THE
+CORRECTION THAT MATTERS MOST IS MINE. TAB: RUN. Nothing to judge. ***
+
+ALL THREE BEATS OF THE ROW NOW HOLD ON THE SERVED DEMO:
+  (1) THE PAD teaches the verb that moves you -- HOLD TO WALK, LET GO TO KEEP
+      GOING. It said WALK WITH THIS, which teaches the pad exists and nothing
+      about the hold, so a stranger tapped one tile at a time.
+  (2) SOMETHING TO LOOK AT -- holding the direction with the MOST ROOM (what a
+      stranger does, not aimed at a district he cannot see): the arterial is
+      reached in THREE SECONDS and a ROAD MOMENT FIRES IN FIVE.
+  (3) SOMEBODY WHO WANTS SOMETHING -- the wake card carries the day's job in words.
+
+*** [wake near] SHOULD BE RE-READ BEFORE ANYBODY SPENDS A ROUND ON IT. *** That
+row exists because on 9/11 I measured "one step is a quarter tile, the nearest
+road district is 128 fine tiles away, so a minute of walking meets nothing", and
+the coordinator ruled MOVE THE SPAWN. EVERY PART OF THAT WAS MY OWN HARNESS:
+  - one step moves a FULL tile, not a quarter (the quarter came from a probe
+    doing four round trips and a 500ms sleep per step, timing itself)
+  - a held press walks about 1.94 tiles a second
+  - and 128 fine tiles is the distance between CELL CENTRES, not the walk: the
+    player wakes near the EDGE of his cell, so the next district is a few tiles
+    away, not a hundred
+THE FIRST MINUTE ALREADY MEETS SOMETHING. The spawn does not have to move for it.
+The row's other half -- "within one minute's walk of the first hostile the
+teaching fight uses" -- points at the cold open, which is DEFERRED with the story.
+I did not touch the row: only the coordinator adds and edits jobs. This is the
+correction for whoever picks it up.
+
+THE GATE THAT GUARDS IT: gates/first_minute_gate.js, FIRST MINUTE 9/0, three runs.
+It asserts NO number I derived -- it holds the three beats a player gets.
+MUTATION: stop the lesson teaching the hold -> 1 red; give the street no table ->
+1 red (nothing in 60s); stop the phone ringing -> 2 red.
+
+--------------------------------------------------------------------------------
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.

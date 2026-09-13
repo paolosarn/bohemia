@@ -125,8 +125,19 @@ async function worldOf(page, url) {
       const r = e.getBoundingClientRect();
       return Math.round(Math.min(r.width, r.height));
     });
+    /* REACHABLE, not big: the topmost thing at a wedge's own centre has to be
+       that wedge, or something inside it. That catches an overlay eating the
+       control you walk with, which is the failure that actually matters. */
+    let reach = 0;
+    document.querySelectorAll('#pad .pb').forEach(function (e) {
+      const r = e.getBoundingClientRect();
+      if (r.width < 1) return;
+      const t = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+      if (t && (t === e || e.contains(t))) reach++;
+    });
     return { drawerShown: g ? getComputedStyle(g).display !== 'none' : null,
-             padMin: pads.length ? Math.min(...pads) : 0, pads: pads.length };
+             padMin: pads.length ? Math.min(...pads) : 0, pads: pads.length,
+             reach: reach };
   });
   return { probe, safety, hash: sha(probe.src) };
 }
@@ -215,10 +226,31 @@ async function worldOf(page, url) {
         + 'it is sitting right there', demo.safety.drawerShown === false);
       ok('the workshop KEEPS its drawer, so the demo hid it rather than the city '
         + 'losing it', shop.safety.drawerShown === true);
-      ok('and the demo\'s walk pad is the served size, not the disk one ('
-        + demo.safety.padMin + 'px across ' + demo.safety.pads + ' buttons; a '
-        + 'file:// load reads ' + shop.safety.padMin + ')',
-         demo.safety.padMin >= 44);
+      /* *** THE 44 PROXY HERE WAS WRONG, AND IT NEARLY MADE ME FIGHT A LOCKED
+         RULING. *** This asserted the demo's walk arrows measure 44+, as proof
+         that the served build gets the safety layer and a file:// load does not.
+         TWO THINGS KILLED IT:
+           1. The pad was rebuilt on 9/7 from html buttons into an SVG ring of
+              eight <g> wedges, and CSS width/height DO NOT APPLY TO AN SVG GROUP,
+              so the cut's `.pb{width:44px}` has been inert ever since. Served and
+              disk now read the SAME number, so this can no longer tell them apart
+              even in principle.
+           2. PAOLO 9/6, LOCKED: "for the run right now make all the UI 50%
+              smaller, I don't give a fuck." NEWEST DATE WINS. The pad is one of
+              the controls the halving shrank, thumb_gate already carries that
+              exemption -- narrow, named, printed every run -- and the arrows are
+              20px BY HIS OWN WORD.
+         I grew the ring to put them back over 44 and measured it fighting him,
+         then took it out. THE CLAIM THIS LEG EXISTS FOR is that the demo gets the
+         safety layer and the workshop does not, and the drawer above proves that
+         on its own. What is kept here is the part that is still true and still
+         worth guarding: the pad is REACHABLE -- eight wedges, each one the topmost
+         thing at its own centre, so no overlay is eating the control you walk
+         with. Size is thumb_gate's question and his ruling's answer. */
+      ok('and the demo\'s walk pad is all there and reachable ('
+        + demo.safety.pads + ' wedges, ' + demo.safety.reach + ' answering at their '
+        + 'own centre; size is his 9/6 halving, not this gate\'s business)',
+         demo.safety.pads === 8 && demo.safety.reach === 8);
     }
     await browser.close();
     srv.close();

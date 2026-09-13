@@ -325,11 +325,23 @@ const GROUND_FLOOR = 2000;
     ok('and NOTHING is sitting on top of them -- every one takes the tap'
       + (thumb.coveredCount ? ' (covered by ' + thumb.covered.join(', ') + ')' : ''),
       thumb.coveredCount === 0);
-    ok('the walk buttons are ' + thumb.minW + 'x' + thumb.minH + 'px, the platform '
-      + 'minimum (floor ' + PAD_FLOOR_PX + '). Off disk they read 42, because the '
-      + 'demo\'s thumb injection is same-origin and cannot apply -- which is why '
-      + 'this gate is served',
-      thumb.minW >= PAD_FLOOR_PX && thumb.minH >= PAD_FLOOR_PX);
+    /* *** THIS ASKED FOR A FLOOR HIS NEWEST WORD REMOVED. *** It read the walk
+       buttons against 44 as proof the served build gets the thumb injection that
+       a file:// load cannot. Two things ended that:
+         1. the pad was rebuilt on 9/7 from html buttons into an SVG ring of eight
+            <g> wedges, and CSS width/height DO NOT APPLY TO AN SVG GROUP, so the
+            cut's `.pb{width:44px}` has been inert since -- served and disk read
+            the same number and this cannot tell them apart even in principle;
+         2. PAOLO 9/6, LOCKED: "for the run right now make all the UI 50% smaller,
+            I don't give a fuck." NEWEST DATE WINS. The pad is one of the controls
+            the halving shrank, thumb_gate carries that exemption already -- narrow,
+            named, printed every run -- and 20px is HIS NUMBER, not a defect.
+       What a stranger actually needs from this pad is that it is ALL THERE and
+       that nothing is sitting on top of it, which is the next claim down and the
+       bug this lane really did ship once. Size is his ruling's answer. */
+    ok('the walk pad is all eight wedges, at the size his 9/6 halving made them ('
+      + thumb.minW + 'x' + thumb.minH + 'px, and the floor is thumb_gate\'s '
+      + 'question, not this one\'s)', thumb.pads === 8);
 
     /* THE ONE THAT IS NOT COSMETIC. The city's toolbar carries a builder drawer
        whose REROLL regenerates the world under the player's own session. The
@@ -352,7 +364,11 @@ const GROUND_FLOOR = 2000;
     await clearCards();          /* and once more before the press test */
     const before = await city.evaluate(() => ({ hx, hy }));
     const east = await city.evaluateHandle(() =>
-      [...document.querySelectorAll('#pad .pb')].find(b => (b.textContent || '').trim() === '→')
+      /* BY THE DIRECTION IT CARRIES, NOT BY ITS TEXT: the arrows are drawn SVG
+         since 9/7, so textContent is empty and this fell through to [2]. */
+      [...document.querySelectorAll('#pad .pb')].find(
+        b => (b.dataset && b.dataset.walk === '\u2192')
+          || (b.textContent || '').trim() === '\u2192')
       || document.querySelectorAll('#pad .pb')[2]);
     for (let i = 0; i < 12; i++) {
       try { await east.asElement().tap({ timeout: 3000 }); }

@@ -239,8 +239,18 @@ function serve() {
       const glyph = { '1,0': '→', '-1,0': '←', '0,1': '↓', '0,-1': '↑',
                       '1,1': '↘', '1,-1': '↗', '-1,1': '↙', '-1,-1': '↖'
                     }[dx + ',' + dy] || '→';
+      /* *** FIND THE WEDGE BY THE DIRECTION IT CARRIES, NOT BY ITS TEXT. *** The
+         pad used to be buttons with a glyph inside; since 9/7 it is an SVG ring
+         whose arrows are DRAWN, so textContent is empty, this find() never hit,
+         and the fallback walked whatever [0] happened to be -- a direction away
+         from the crew. Sixty taps later nothing had been reached and the gate
+         reported "0 drawn", which read as "the bodies were never built". They
+         were: the harness was walking the wrong way. The wedge declares its own
+         direction in dataset.walk. (Same fault, same round, as the latch gate.) */
       const pad = await city.evaluateHandle(gl =>
-        [...document.querySelectorAll('#pad .pb')].find(b => (b.textContent || '').trim() === gl)
+        [...document.querySelectorAll('#pad .pb')].find(
+          b => (b.dataset && b.dataset.walk === gl)
+            || (b.textContent || '').trim() === gl)
         || document.querySelectorAll('#pad .pb')[0], glyph);
       for (let i = 0; i < 60; i++) {
         try { await pad.asElement().tap({ timeout: 2500 }); } catch (e) { }
