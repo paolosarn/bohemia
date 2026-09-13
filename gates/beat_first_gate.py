@@ -300,9 +300,27 @@ def main():
     # the song booking its first note.
     lg = d.get('landing') or {}
     covered = (lg.get('beats') or 0) * 0.5
-    ok('the pulse covered the silence: %.1f seconds of beat between the tap and '
-       'the song\'s first note, across a city build that blocks the main thread '
-       '(it was ten seconds of nothing)' % covered, covered >= 4.0)
+    # *** THIS CLAIM WAS ASSERTING HOW SLOWLY THE CITY LOADS (9/13). `covered` is
+    # the gap between the tap and the song booking its first note -- which is the
+    # 3.7 MB city iframe's PARSE TIME, not a property of the pulse. Measured across
+    # twenty runs on two trees it swings 3.0s to 15.5s: 15.0 eight times, 5.0 four
+    # times, 3.0 twice. A floor of 4.0 sits INSIDE that range, so the gate was
+    # guaranteed to flake, and it failed hardest exactly when the game loaded
+    # FASTEST. A CLAIM THAT FAILS WHEN THE GAME GETS FASTER IS ASSERTING THE LOAD,
+    # NOT THE FEATURE.
+    # What the law actually wants is: you tap, you hear a beat straight away, and
+    # you keep hearing it until the song arrives. That is carried, without any
+    # timing of the city, by FOUR claims that are already here and already exact --
+    # the pulse starts at least a beat before the song (below), the song's first
+    # note lands ON the grid (0.00ms in 20 of 20 runs), the meter hears it audible
+    # and regular, and it survives a three-second main-thread block. The LENGTH of
+    # the gap is a fact about the machine, so it is printed and not asserted.
+    ok('THE PULSE IS THERE BEFORE THE SONG IS: it ran %.1f beats before the song '
+       'booked its first note. The LENGTH of that gap is the city\'s parse time (it '
+       'measures 3.0s to 15.5s on the same code) and is reported, not asserted -- '
+       'the four claims that carry the law are the pulse starting first, the first '
+       'note landing ON the grid, the meter hearing it regular, and it surviving a '
+       'blocked thread' % (lg.get('beats') or 0), (lg.get('beats') or 0) >= 1)
     ok('and it was booked on the audio clock, not a timer (startedAt=%s, '
        'ac=%s)' % (tap.get('startedAt'), tap.get('acNow')),
        (tap.get('startedAt') or 0) > 0)
@@ -415,7 +433,8 @@ def main():
     # way to tell flake from regression was to re-run it and compare numbers, and
     # the numbers were invisible on a pass. Now they always print, so the next
     # lane can line up runs instead of guessing.
-    print('  MEASURED  covered %.1fs (needs 4.0), first note %.3f beats after the '
+    print('  MEASURED  the pulse ran %.1fs before the song (the city\'s parse '
+          'time, 3.0-15.5s on the same code, reported not asserted), first note %.3f beats after the '
           'pulse and %.2fms off its grid, %s thumps of which %s loud, gaps %s, '
           'sampled every %sms through a %ss window'
           % (covered, (lg.get('beats') or 0), (lg.get('offMs') or 0),
