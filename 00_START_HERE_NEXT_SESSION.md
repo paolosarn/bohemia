@@ -15123,6 +15123,31 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
+*** PAOLO PLAYED THE DEMO 9/13 AND SAID IT LOOKS LIKE SHIT. READ THIS BEFORE YOU
+TOUCH ANYTHING. *** records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_9_13_26.md and
+laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md, front-page rule 14. It landed on
+main WHILE THIS ROUND WAS PUSHING, so [water lifted] shipped before it and that is
+the last round this lane is allowed to work the old way.
+WHAT BINDS THIS LANE FROM NOW:
+  (a) NEVER RE-CUT THE DEMO AGAIN. Only THE RUN cuts it. Ship to the alpha and the
+      workshop. This lane re-cut it this round, legally at the time, and must not
+      again -- the lane's own MODE line on the board now says so.
+  (b) Every building lane's first job is a BREAK HE NAMED. WORLD is not on his break
+      list, so under rule 14(b) this lane HOLDS and adds nothing to the demo.
+  (c) The six-open top-up is SUSPENDED for building lanes until he says the five
+      minutes hold.
+  (d) A CARD THAT PROMISES SOMETHING AND DOES NOTHING IS THE WORST BUG IN THE GAME:
+      deliver it or remove it. This lane writes card lines every round. Before the
+      next build, WALK THE FIVE MINUTES and check every line this lane put on the
+      nightfall card is a REPORT of something that happened and never an offer that
+      goes nowhere.
+  (e) *** NEVER ANSWER HIM WITH A GATE COUNT OR A COMMIT COUNT, EVER. *** This lane
+      has been ending every reply with one. Stop. The proof line is for the record,
+      not for him.
+AND STOP PRODUCING (7/26) IS LIVE AGAIN: he is unhappy with the baseline, so surface
+nothing unasked, and a turn that says "I stopped, here is the one thing blocking
+everything" is a GOOD turn.
+
 NEXT: read the WORLD section fresh. As of this round the next OPEN line is
 [battery worth], then [fold carries], [visible change], [suburb walls],
 [full shelves].
