@@ -311,6 +311,56 @@ let quietStanding, recklessStanding;
     !readable([{ said: 'q:S17:32@BLUES' }]));
   probe('and rejects an empty explanation, which would otherwise pass every-check vacuously',
     !readable([]));
+
+  /* ---------- I2. AND IT CANNOT LEAK ONE EVEN WHEN NOBODY WROTE A LINE -------
+     9/13, PEOPLE. The claim above ran on a corpus where every kind HAS an @LOG
+     line, so it could only ever pass. The old body fell back to `LABELS[kind] ||
+     kind`, which hands the player a machine id the moment a weighted deed has no
+     sentence, and no check in this file would have noticed.
+
+     MEASURED BEFORE CHANGING IT, AND THE HONEST ANSWER IS THAT IT HAS NEVER
+     FIRED: all 83 weighted deeds in his real corpus have a sentence, because
+     loadCorpus fills DEED_WEIGHT and LABELS in ONE loop off the same row. So
+     this was not a live bug, it was a hole the corpus happened to be covering.
+
+     THE HOLE IS REACHABLE FROM THE OTHER SIDE AND THE REPO ALREADY NAMES IT.
+     bohemia_lend.js declares DEED_WEIGHT['loan:short'] as a placeholder awaiting
+     Paolo's number: a kind that gets a WEIGHT without ever passing through the
+     quest corpus, so it has no @LOG line and never will. The day that value is
+     filled, the old body answers "loan:short" out loud. The city card survives
+     that because it wrote its own sentence for those five kinds, but sayWhy is
+     the published door and every other surface gets the id.
+     SO THE TEST WEIGHS A KIND THE CORPUS NEVER WROTE, exactly the way lend does,
+     and puts the table back afterwards. */
+  const ORPHAN = 'loan:nolog:test';
+  S.DEED_WEIGHT[ORPHAN] = 1.0;
+  let blind;
+  try {
+    const witnessed = M.makeMind('NOLOG0');
+    const npos = { NOLOG0: { x: 10, y: 10 } };
+    S.witness([witnessed], 1000, 'PLAYER', ORPHAN, 10, 10, id => npos[id],
+      { range: 5, maxHops: 0, only: () => true });
+    blind = D.sayWhy([witnessed], loser, 'PLAYER', 1000, () => loser, 3);
+  } finally { delete S.DEED_WEIGHT[ORPHAN]; }
+  ok('a WEIGHTED deed nobody wrote a sentence for comes back with no sentence, never with its machine id — null is the honest empty, and the module keeps its own law instead of trusting every caller to',
+    blind.length === 1 && blind[0].said === null);
+  notes.push(`all 83 weighted deeds in the corpus have a sentence, so the old fallback never fired;`
+    + ` a lend-style weighted kind with no @LOG -> said ${JSON.stringify(blind.length ? blind[0].said : 'NO ROW')}`);
+  probe('this claim rejects the old body, which answered with the raw kind',
+    !(blind.length === 1 && blind[0].said === ORPHAN));
+  probe('and rejects a version that drops the row entirely, which would hide the deed instead of naming it unwritten',
+    !(blind.length === 0));
+
+  /* ---------- I3. ONE WALK SERVES A CALLER WITH ITS OWN WORDS ----------------
+     The city card has five kinds of its own that the quest corpus has never
+     heard of, and it phrases them itself. It could only do that by knowing the
+     KIND, and the old body dropped it -- which is why a second copy of this
+     whole function grew on that page. The kind rides along now. */
+  ok('every row carries the deed kind it came from, so a surface with its own wording for a kind needs ONE walk and not a second copy of this function',
+    why.length > 0 && why.every(e => typeof e.kind === 'string' && e.kind.length > 0));
+  probe('the one-walk claim rejects rows that dropped the kind, which is the shape that forked the city card',
+    !(why.length > 0 && why.every(e => typeof e.kind === 'string' && e.kind.length > 0)
+      && [{ said: 'x' }].every(e => typeof e.kind === 'string')));
 }
 
 /* ================= H. THE UNITS CONVERSION IS DERIVED ================= */

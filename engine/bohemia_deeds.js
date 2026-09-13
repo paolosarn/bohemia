@@ -272,12 +272,35 @@
   /* ---- WHY THEY FEEL THAT WAY, IN ENGLISH --------------------------------
      becauseOf() returns deed KINDS, which are machine ids. A standing the player
      cannot read is a standing they cannot play around, so the quest's own @LOG
-     line — already written, already in his voice — is what gets shown. */
+     line — already written, already in his voice — is what gets shown.
+
+     *** THIS WAS DEAD FOR THREE WEEKS AND IT WAS ALSO WRONG, WHICH IS WHY IT
+     GETS REPOINTED RATHER THAN DELETED (9/13, PEOPLE, from the organ sweep's one
+     orphan). Two defects, both found by asking what it would do rather than by
+     reading its header:
+
+     1. `LABELS[b.kind] || b.kind` HANDS THE PLAYER A RAW MACHINE ID the moment
+        the corpus has no line for a kind — the exact thing the paragraph above
+        says must never happen. The old fallback was a shrug that read like a
+        safety net. NULL IS THE HONEST EMPTY: a deed nobody wrote a sentence for
+        has no sentence, and a caller can drop the row or supply its own. The
+        module now cannot leak an id no matter what corpus it is handed.
+     2. IT DROPPED `kind`, so a caller with its OWN wording for a kind it
+        authored had to walk becauseOf a SECOND time to get it back. That is how
+        the city ended up with a private copy of this function: two answers to
+        one question, drifting. kind and turn ride along now, so one walk serves
+        the card and this is the only door.
+
+     THE WATCHED/HEARD SPLIT IS NOT MADE HERE and that is deliberate: `heard` is
+     handed back untouched, because whether an eyewitness and a retelling get
+     different sentences is a WORDS decision and the sentences themselves are
+     Paolo's. This returns what is true; the surface says it in his voice. */
   function sayWhy(minds, faction, actorId, now, factionOfOwner, limit) {
     return S.becauseOf(minds, faction, actorId, now, factionOfOwner, limit)
       .map(function (b) {
-        return { who: b.who, force: b.force, heard: b.heard, hops: b.hops,
-                 said: LABELS[b.kind] || b.kind };
+        return { who: b.who, kind: b.kind, turn: b.turn,
+                 force: b.force, heard: b.heard, hops: b.hops,
+                 said: LABELS[b.kind] || null };
       });
   }
 

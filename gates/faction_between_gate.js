@@ -2855,9 +2855,14 @@ async function onTheirView() {
         && /WHAT THE \w+ THINKS/.test(R.cardRuled),
       JSON.stringify(R.viewRuled));
 
-    ok('Q10 becauseOf IS CALLED TOO, AND IT SAYS WHY IN THE WORDS ALREADY '
-      + 'WRITTEN. CT_DEED_WORDS holds a draft line per kind in both voices and '
-      + 'the organ already knows which of the two a memory is',
+    ok('Q10 WHY THEY FEEL THAT WAY IS SAID IN THE WORDS ALREADY WRITTEN. '
+      + 'CT_DEED_WORDS holds a draft line per kind in both voices and the organ '
+      + 'already knows which of the two a memory is. (9/13: this used to read '
+      + '"becauseOf IS CALLED TOO" and the card walked becauseOf itself. It now '
+      + 'goes through BohemiaDeeds.sayWhy, which was the engine\'s own answer to '
+      + 'this exact question and was reached by nothing at all -- one walk, one '
+      + 'door. The claim below never changed: it drives the real card and reads '
+      + 'the real rows, so it proves the new path exactly as it proved the old.)',
       R.why.length > 0 && /watched you/.test(R.why[0].say)
         && /Somebody in the/.test(R.cardRuled),
       JSON.stringify(R.why[0] || null));

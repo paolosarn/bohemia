@@ -44955,12 +44955,35 @@ try{
   /* ---- WHY THEY FEEL THAT WAY, IN ENGLISH --------------------------------
      becauseOf() returns deed KINDS, which are machine ids. A standing the player
      cannot read is a standing they cannot play around, so the quest's own @LOG
-     line — already written, already in his voice — is what gets shown. */
+     line — already written, already in his voice — is what gets shown.
+
+     *** THIS WAS DEAD FOR THREE WEEKS AND IT WAS ALSO WRONG, WHICH IS WHY IT
+     GETS REPOINTED RATHER THAN DELETED (9/13, PEOPLE, from the organ sweep's one
+     orphan). Two defects, both found by asking what it would do rather than by
+     reading its header:
+
+     1. `LABELS[b.kind] || b.kind` HANDS THE PLAYER A RAW MACHINE ID the moment
+        the corpus has no line for a kind — the exact thing the paragraph above
+        says must never happen. The old fallback was a shrug that read like a
+        safety net. NULL IS THE HONEST EMPTY: a deed nobody wrote a sentence for
+        has no sentence, and a caller can drop the row or supply its own. The
+        module now cannot leak an id no matter what corpus it is handed.
+     2. IT DROPPED `kind`, so a caller with its OWN wording for a kind it
+        authored had to walk becauseOf a SECOND time to get it back. That is how
+        the city ended up with a private copy of this function: two answers to
+        one question, drifting. kind and turn ride along now, so one walk serves
+        the card and this is the only door.
+
+     THE WATCHED/HEARD SPLIT IS NOT MADE HERE and that is deliberate: `heard` is
+     handed back untouched, because whether an eyewitness and a retelling get
+     different sentences is a WORDS decision and the sentences themselves are
+     Paolo's. This returns what is true; the surface says it in his voice. */
   function sayWhy(minds, faction, actorId, now, factionOfOwner, limit) {
     return S.becauseOf(minds, faction, actorId, now, factionOfOwner, limit)
       .map(function (b) {
-        return { who: b.who, force: b.force, heard: b.heard, hops: b.hops,
-                 said: LABELS[b.kind] || b.kind };
+        return { who: b.who, kind: b.kind, turn: b.turn,
+                 force: b.force, heard: b.heard, hops: b.hops,
+                 said: LABELS[b.kind] || null };
       });
   }
 
@@ -66586,9 +66609,18 @@ function ctWhyTheyThinkThat(fid, limit){
   if (typeof BohemiaStanding === 'undefined' || !fid || !ctDeedsRuled()) return [];
   var minds = ctMindsList(); if (!minds.length) return [];
   var rows = [];
+  /* __CITY_SAYWHY__ (9/13) -- ONE WALK, ONE DOOR. This asked becauseOf itself
+     and then looked the sentence up itself, which is exactly what
+     BohemiaDeeds.sayWhy already does -- so there were TWO answers to "why do
+     they feel that way" and the engine's was reached by nothing at all. The
+     organ sweep called it out as this lane's one orphan. Now the module walks
+     and phrases, and this card only does the part that is its own: the
+     watched/heard split over the five kinds the CITY witnesses, which live in
+     CT_DEED_WORDS on this page and not in the quest corpus. A kind neither of
+     them can phrase is dropped, never printed as an id. */
   try {
-    rows = BohemiaStanding.becauseOf(minds, fid, '@', ctMinuteNow(),
-                                     ctFactionOfMind, limit || 3) || [];
+    rows = BohemiaDeeds.sayWhy(minds, fid, '@', ctMinuteNow(),
+                               ctFactionOfMind, limit || 3) || [];
   } catch(_e){ return []; }
   var out = [];
   for (var i = 0; i < rows.length; i++){
@@ -66607,9 +66639,13 @@ function ctWhyTheyThinkThat(fid, limit){
        line Paolo already wrote for exactly this moment, and labels() is one of
        the functions organ_reach reported as reached by NOTHING ANYWHERE.
        So no words are invented here: an authored deed is described by its
-       author's own sentence, and only the eyewitness/hearsay split is mine. */
-    var lab = null;
-    try { lab = BohemiaDeeds.labels()[rows[i].kind] || null; } catch(_e){}
+       author's own sentence, and only the eyewitness/hearsay split is mine.
+       9/13: the sentence now ARRIVES on the row out of sayWhy instead of being
+       looked up here a second time, and it is null rather than an id when the
+       corpus has no line -- so the `continue` below is the same refusal it
+       always was, just no longer the only thing standing between a machine id
+       and the player. */
+    var lab = rows[i].said || null;
     if (!lab) continue;
     out.push({ kind: rows[i].kind, force: rows[i].force, heard: rows[i].heard,
                say: (rows[i].heard ? 'heard what you did: ' : 'watched it: ') + lab });
