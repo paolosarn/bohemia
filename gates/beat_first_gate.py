@@ -338,16 +338,35 @@ def main():
     # above (a 0.5s loop and a 0.3125s lub-to-dub, both to 1e-9) and by the first
     # note landing on the grid below. This meter's job is to prove the thing is
     # AUDIBLE and REGULAR, which is what it can honestly see. ***
-    off = [g for g in gaps if g < 0.40 or abs(g - round(g / 0.5) * 0.5) > 0.06]
+    # *** AND THE TOLERANCE COMES OUT OF THE INSTRUMENT, NOT OUT OF MY HEAD.
+    # A TOLERANCE TIGHTER THAN THE INSTRUMENT'S OWN RESOLUTION MEASURES THE
+    # INSTRUMENT -- the same family as the fixed-threshold lesson two notes up.
+    # With the blind gap closed, the one red left in ten runs was a gap of 0.560,
+    # sixty milliseconds off half a second, judged against a FIXED sixty. But a
+    # peak's timestamp is only good to the window that saw it (46ms) plus the step
+    # between samples (21-41ms, measured and printed): the error bar and the
+    # tolerance were the same size, so the claim was a coin flip on its own noise.
+    # Derived instead, and it still has teeth: the mutation that renders the pulse
+    # at 0.65s while declaring 0.5 sits 121-151ms off the multiples, well outside.
+    tol = max(0.06, (m.get('sampleDt') or 0.04) + (m.get('windowSec') or 0.046))
+    off = [g for g in gaps if g < 0.40 or abs(g - round(g / 0.5) * 0.5) > tol]
     ok('and the beat comes once every half second, which is 120: %d thumps, %d of '
        'them the loud one, lub-to-lub %s, and EVERY gap is a whole number of half '
-       'seconds (%d off: %s). A missed thump makes a 1.0 or 1.5 gap and leaves the '
-       'tempo alone; a wrong rate does not land on the multiples. Sampled every '
-       '%sms through a %ss window across %ss (every thump: %s -- a heart has two)'
-       % (m.get('peaks') or 0, m.get('lubs') or 0, gaps[:6], len(off), off[:4],
-          round((m.get('sampleDt') or 0) * 1000, 1), m.get('windowSec'),
-          m.get('traceSpan'), (m.get('allGaps') or [])[:6]),
+       'seconds within %dms (%d off: %s). A missed thump makes a 1.0 or 1.5 gap and '
+       'leaves the tempo alone; a wrong rate does not land on the multiples. '
+       'Sampled every %sms through a %ss window across %ss, and THE TOLERANCE IS '
+       'THAT SUM rather than a number I picked (every thump: %s -- a heart has two)'
+       % (m.get('peaks') or 0, m.get('lubs') or 0, gaps[:6], round(tol * 1000),
+          len(off), off[:4], round((m.get('sampleDt') or 0) * 1000, 1),
+          m.get('windowSec'), m.get('traceSpan'), (m.get('allGaps') or [])[:6]),
        len(gaps) >= 2 and not off)
+    # AND IF THE MACHINE IS SO SLOW THAT THE TOLERANCE SWALLOWS A QUARTER BEAT, the
+    # claim above has stopped meaning anything and this says SO rather than passing
+    # vacuously. It accuses the machine, which is true, and never the beat.
+    ok('the meter could resolve the beat at all on this machine: a %dms tolerance '
+       'against a 500ms beat. Past 125ms the multiples stop being distinguishable '
+       'and the claim above is vacuous -- that is a statement about the sampler, '
+       'not about the pulse' % round(tol * 1000), tol < 0.125)
     ok('and it is QUIETER THAN A FOOTSTEP, which is the quietest thing in the '
        'game by his 8/1 ruling: pulse %s vs step %s'
        % (m.get('pulsePeak'), m.get('stepPeak')),
