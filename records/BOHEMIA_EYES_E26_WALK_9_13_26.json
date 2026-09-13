@@ -1,0 +1,579 @@
+{
+  "ok": true,
+  "when": "2026-09-13T21:42:33.628Z",
+  "law": "THE FIVE MINUTES (Paolo 9/13)",
+  "lines": [
+    {
+      "at": "00:03",
+      "did": "opened the link and waited",
+      "happened": "a front screen: \"POST-ECONOMIC APOCALYPSE - LAS VEGAS TAP TO ENTER DEMO - BUILD 9/13z - THEY ARE RUNNING, DO I CHASE\"",
+      "promised": "TAP TO ENTER"
+    },
+    {
+      "at": "00:08",
+      "did": "tapped the front screen",
+      "happened": "the screen changed",
+      "promised": "that tapping enters the game"
+    },
+    {
+      "at": "00:19",
+      "did": "looked at the first screen without touching anything",
+      "happened": "22 things with words on them, big enough to tap: ⚙ / HUMAN MODE / SUBURB · ON FOOT / DAY 1 · 06:00 / MUSIC / SAVE / OUTFIT / ✕ / 06:00 · light until 22:00 / nobody has picked it up yet / Pays one battery / Make it a bag instead / Make it a favour instead / Half of it now, before I go / GET UP / SLEEP / BIKE / MARKET",
+      "promised": ""
+    },
+    {
+      "at": "00:21",
+      "did": "tapped \"Make it a bag instead\" (the biggest thing on screen)",
+      "happened": "the screen changed",
+      "promised": "Make it a bag instead"
+    },
+    {
+      "at": "00:23",
+      "did": "tapped \"GET UP\" (the only thing on the card that is not an offer)",
+      "happened": "the screen changed",
+      "promised": "GET UP"
+    },
+    {
+      "at": "00:27",
+      "did": "held the walk dial down for two and a half seconds",
+      "happened": "the world moved (8 arrows on the dial)",
+      "promised": ""
+    },
+    {
+      "at": "00:29",
+      "did": "tapped \"Half of it now, before I go\" (a card or offer)",
+      "happened": "the screen changed",
+      "promised": "Half of it now, before I go"
+    },
+    {
+      "at": "00:31",
+      "did": "tapped \"OUTFIT\" (the map or the zoom)",
+      "happened": "the screen changed",
+      "promised": "OUTFIT"
+    },
+    {
+      "at": "00:35",
+      "did": "tapped \"DAY 1 · 06:01\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "DAY 1 · 06:01"
+    },
+    {
+      "at": "00:36",
+      "did": "tapped \"THE CUSTOM\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THE CUSTOM"
+    },
+    {
+      "at": "00:37",
+      "did": "tapped \"WHO WOULD VOUCH FOR YOU\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "WHO WOULD VOUCH FOR YOU"
+    },
+    {
+      "at": "00:39",
+      "did": "tapped \"NOBODY YET\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "NOBODY YET"
+    },
+    {
+      "at": "00:40",
+      "did": "tapped \"THE VALLEY\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THE VALLEY"
+    },
+    {
+      "at": "00:41",
+      "did": "tapped \"CHURCH\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "CHURCH"
+    },
+    {
+      "at": "00:43",
+      "did": "tapped \"SOUTHWEST · RIGHT AROUND HERE\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "SOUTHWEST · RIGHT AROUND HERE"
+    },
+    {
+      "at": "00:44",
+      "did": "tapped \"COLORFUL\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "COLORFUL"
+    },
+    {
+      "at": "00:45",
+      "did": "tapped \"SOUTHWEST · A LONG WAY OFF\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "SOUTHWEST · A LONG WAY OFF"
+    },
+    {
+      "at": "00:47",
+      "did": "tapped \"BLUES\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "BLUES"
+    },
+    {
+      "at": "00:48",
+      "did": "tapped \"EAST · A LONG WAY OFF\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "EAST · A LONG WAY OFF"
+    },
+    {
+      "at": "00:49",
+      "did": "tapped \"MOB\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "MOB"
+    },
+    {
+      "at": "00:51",
+      "did": "tapped \"NORTH · A LONG WAY OFF\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "NORTH · A LONG WAY OFF"
+    },
+    {
+      "at": "00:52",
+      "did": "tapped \"THEY PAY: ENFORCEMENT OF A DEAL\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "THEY PAY: ENFORCEMENT OF A DEAL"
+    },
+    {
+      "at": "00:53",
+      "did": "tapped \"REDS\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "REDS"
+    },
+    {
+      "at": "00:55",
+      "did": "tapped \"THEY PAY: CREDIT\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THEY PAY: CREDIT"
+    },
+    {
+      "at": "00:56",
+      "did": "tapped \"NETWORK\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "NETWORK"
+    },
+    {
+      "at": "00:57",
+      "did": "tapped \"NORTHWEST · THE FAR SIDE OF THE VALLEY\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "NORTHWEST · THE FAR SIDE OF THE VALLEY"
+    },
+    {
+      "at": "01:01",
+      "did": "tapped \"DAY 1 · 06:02\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "DAY 1 · 06:02"
+    },
+    {
+      "at": "01:02",
+      "did": "tapped \"THE WIND LEARNS WORDS\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "THE WIND LEARNS WORDS"
+    },
+    {
+      "at": "01:04",
+      "did": "tapped \"✕ DEMOLISH TO DESERT\" (new on screen)",
+      "happened": "the screen changed",
+      "promised": "✕ DEMOLISH TO DESERT"
+    },
+    {
+      "at": "01:07",
+      "did": "tapped \"DESERT · ON FOOT\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "DESERT · ON FOOT"
+    },
+    {
+      "at": "01:08",
+      "did": "tapped \"⚖ BUILD\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "⚖ BUILD"
+    },
+    {
+      "at": "01:10",
+      "did": "tapped \"⛭ BUILD BIG 2×2\" (new on screen)",
+      "happened": "NOTHING CHANGED",
+      "promised": "⛭ BUILD BIG 2×2"
+    }
+  ],
+  "errors": [
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    },
+    {
+      "kind": "requestfailed",
+      "msg": "https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk:wght@400;500;700&display=swap",
+      "from": "about:srcdoc",
+      "why": "net::ERR_CONNECTION_RESET"
+    },
+    {
+      "kind": "console",
+      "msg": "Failed to load resource: net::ERR_CONNECTION_RESET"
+    },
+    {
+      "kind": "console",
+      "msg": "Potential permissions policy violation: clipboard-write is not allowed in this document."
+    }
+  ],
+  "controls": [
+    {
+      "name": "COLD START: nothing in storage at first paint",
+      "pass": true,
+      "detail": "0 keys []"
+    },
+    {
+      "name": "ERROR CATCH: a planted page error is captured",
+      "pass": true,
+      "detail": "1 errors seen so far"
+    },
+    {
+      "name": "CHANGE PROBE: a deliberate change registers as a change",
+      "pass": true,
+      "detail": "text signature moved"
+    }
+  ],
+  "numbers": {
+    "time_until_something_is_tappable_s": 2.88,
+    "my_first_tap_at_s": 3.03,
+    "extra_walk_rounds": 116,
+    "time_to_first_fight_s": "NONE",
+    "walk_ended_at_s": 302,
+    "dead_affordances": 2,
+    "tapped_and_inert_but_never_claimed_to_be_a_button": 10,
+    "page_errors": 0,
+    "console_errors": 3,
+    "failed_requests": 1
+  },
+  "dead": [
+    {
+      "at": "01:08",
+      "text": "⚖ BUILD",
+      "id": "cbbuild",
+      "where": "frame",
+      "size": "69x29",
+      "looked_tappable_because": "a button or link"
+    },
+    {
+      "at": "01:10",
+      "text": "⛭ BUILD BIG 2×2",
+      "id": "cbbig",
+      "where": "frame",
+      "size": "112x28",
+      "looked_tappable_because": "a button or link"
+    }
+  ],
+  "inert": [
+    {
+      "at": "00:39",
+      "text": "NOBODY YET",
+      "id": "",
+      "where": "frame",
+      "size": "64x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:40",
+      "text": "THE VALLEY",
+      "id": "",
+      "where": "frame",
+      "size": "346x40",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:41",
+      "text": "CHURCH",
+      "id": "",
+      "where": "frame",
+      "size": "38x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:43",
+      "text": "SOUTHWEST · RIGHT AROUND HERE",
+      "id": "",
+      "where": "frame",
+      "size": "237x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:47",
+      "text": "BLUES",
+      "id": "",
+      "where": "frame",
+      "size": "32x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:48",
+      "text": "EAST · A LONG WAY OFF",
+      "id": "",
+      "where": "frame",
+      "size": "243x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:52",
+      "text": "THEY PAY: ENFORCEMENT OF A DEAL",
+      "id": "",
+      "where": "frame",
+      "size": "346x16",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:53",
+      "text": "REDS",
+      "id": "",
+      "where": "frame",
+      "size": "26x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "00:57",
+      "text": "NORTHWEST · THE FAR SIDE OF THE VALLEY",
+      "id": "",
+      "where": "frame",
+      "size": "283x14",
+      "looked_tappable_because": "nothing said so"
+    },
+    {
+      "at": "01:07",
+      "text": "DESERT · ON FOOT",
+      "id": "hslot",
+      "where": "frame",
+      "size": "64x12",
+      "looked_tappable_because": "nothing said so"
+    }
+  ],
+  "shots": [
+    "records/eyes_e26_walk/00_00_splash.png",
+    "records/eyes_e26_walk/01_01_entered.png",
+    "records/eyes_e26_walk/02_02_first_tap.png",
+    "records/eyes_e26_walk/03_03_walked.png",
+    "records/eyes_e26_walk/04_04_cards.png",
+    "records/eyes_e26_walk/05_05_map.png",
+    "records/eyes_e26_walk/06_06_end.png"
+  ],
+  "first_screen": [
+    {
+      "where": "shell",
+      "id": "gearbtn",
+      "text": "⚙",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 30,
+      "y": 63
+    },
+    {
+      "where": "frame",
+      "id": "hmode",
+      "text": "HUMAN MODE",
+      "looks_tappable_because": "",
+      "w": 44,
+      "h": 12,
+      "x": 30,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "hslot",
+      "text": "SUBURB · ON FOOT",
+      "looks_tappable_because": "",
+      "w": 64,
+      "h": 12,
+      "x": 92,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "hclock",
+      "text": "DAY 1 · 06:00",
+      "looks_tappable_because": "",
+      "w": 54,
+      "h": 12,
+      "x": 196,
+      "y": 12
+    },
+    {
+      "where": "frame",
+      "id": "musbtn",
+      "text": "MUSIC",
+      "looks_tappable_because": "",
+      "w": 27,
+      "h": 12,
+      "x": 272,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "savebtn",
+      "text": "SAVE",
+      "looks_tappable_because": "",
+      "w": 24,
+      "h": 12,
+      "x": 303,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "outfitbtn",
+      "text": "OUTFIT",
+      "looks_tappable_because": "",
+      "w": 30,
+      "h": 12,
+      "x": 367,
+      "y": 11
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "✕",
+      "looks_tappable_because": "pointer cursor",
+      "w": 44,
+      "h": 44,
+      "x": 342,
+      "y": 247
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "06:00 · light until 22:00",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 266
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "nobody has picked it up yet",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 343
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Pays one battery",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 15,
+      "x": 195,
+      "y": 409
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Make it a bag instead",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 43,
+      "x": 195,
+      "y": 448
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Make it a favour instead",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 43,
+      "x": 195,
+      "y": 500
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "Half of it now, before I go",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 43,
+      "x": 195,
+      "y": 552
+    },
+    {
+      "where": "frame",
+      "id": "",
+      "text": "GET UP",
+      "looks_tappable_because": "a row inside the day card",
+      "w": 320,
+      "h": 43,
+      "x": 195,
+      "y": 609
+    },
+    {
+      "where": "frame",
+      "id": "sleepbtn",
+      "text": "SLEEP",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 823
+    },
+    {
+      "where": "frame",
+      "id": "bikebtn",
+      "text": "BIKE",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 781
+    },
+    {
+      "where": "frame",
+      "id": "mktbtn",
+      "text": "MARKET",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 738
+    },
+    {
+      "where": "frame",
+      "id": "workbtn",
+      "text": "SCAVENGE · 8H",
+      "looks_tappable_because": "pointer cursor",
+      "w": 54,
+      "h": 12,
+      "x": 40,
+      "y": 696
+    },
+    {
+      "where": "frame",
+      "id": "buildbtn",
+      "text": "BUILD HERE",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 654
+    },
+    {
+      "where": "frame",
+      "id": "rungbtn",
+      "text": "◆ STANDING",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 44,
+      "h": 12,
+      "x": 35,
+      "y": 612
+    },
+    {
+      "where": "frame",
+      "id": "note",
+      "text": "walking your own block.",
+      "looks_tappable_because": "a chip in the top bar",
+      "w": 88,
+      "h": 12,
+      "x": 57,
+      "y": 569
+    }
+  ]
+}

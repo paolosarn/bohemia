@@ -163,6 +163,19 @@ function wav(samples, rate, out) {
           const sc = M.songCtx ? M.songCtx(s) : null;
           M.playStep(s % 16, LEADIN + s * sd, sc);
         }
+        /* A PLANTED RAW OSCILLATOR, so the log's ability to see one is tested rather than
+           inferred from the engine happening to use one. SOUNDS fixed the named-lead bug on
+           9/13 and the melody stopped being a bare oscillator, which made the old control
+           FAIL ON SOMEBODY ELSE'S CORRECT WORK -- the exact failure mode this lane keeps
+           warning other lanes about. The control now tests the INSTRUMENT. */
+        try {
+          const o = OAC.createOscillator();
+          o.frequency.value = 111.11;
+          o.connect(MASTER);
+          o.start(LEADIN + 0.0001);
+          o.stop(LEADIN + 0.002);
+        } catch (e) {}
+
         const rendered = await OAC.startRendering();
         const d = rendered.getChannelData(0);
         buf = Array.from(d);

@@ -41,6 +41,7 @@ WHAT THIS LANE MAY NOT DO: decide taste. Every row here is a count, a bucket and
 Whether a rounded corner is right is DIRECTION's.
 """
 
+import base64
 import collections
 import glob
 import io
@@ -140,10 +141,40 @@ def literal_of(value):
     return norm(m.group(1)) if m else norm(value)
 
 
+def decoded_frames(text):
+    """THE HOLE E26 FOUND IN THIS SWEEP, AND IT PUBLISHED A WRONG ZERO BECAUSE OF IT.
+
+    E19 reported "ZERO trend fonts across all three surfaces". Then the five-minute walk
+    watched the demo FETCH https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk
+    from about:srcdoc, and Space Grotesk is banned BY NAME in the 9/11 law. The fight ships as
+    a base64 srcdoc blob (COMBAT_B64, 1.35 MB decoded) carrying that link, a <noscript> copy of
+    it, and font-family:'Space Grotesk', sans-serif on html and body, 42 mentions in all.
+
+    The CSS was never in the files this sweep read; it was inside a blob. E18's render tool
+    already decodes these exact blobs, so the technique was in the lane and simply was not
+    applied here. A checker that cannot see half of what ships publishes a clean zero, which
+    is worse than no number.
+    """
+    out = []
+    for m in re.finditer(r'[A-Za-z0-9+/=]{3000,}', text):
+        s = m.group(0)
+        try:
+            d = base64.b64decode(s + '=' * (-len(s) % 4)).decode('utf-8')
+        except Exception:
+            continue
+        if d.count('<') > 20 or d.count('function') > 5:
+            out.append(d)
+    return out
+
+
 def scan(path):
     text = io.open(os.path.join(ROOT, path), encoding='utf-8', errors='replace').read()
+    frames = decoded_frames(text)
+    if frames:
+        text = text + '\n' + '\n'.join(frames)
     declared = declared_customs(text)
-    out = {'file': path, 'bytes': len(text), 'declared_customs': sorted(declared),
+    out = {'file': path, 'bytes': len(text), 'decoded_frames': len(frames),
+           'declared_customs': sorted(declared),
            'props': {}, 'phantom_names': {}, 'tells': {}}
 
     for prop, rx in PROPS.items():
@@ -227,6 +258,8 @@ def scan(path):
         'dingbats_and_arrows': len(re.findall('[\u2190-\u27bf]', body)),
         'font_face_blocks': len(re.findall(r'@font-face', text, re.I)),
         'embedded_font_data': len(re.findall(r'data:font/woff2?;base64', text, re.I)),
+        # AND WHAT THE PAGE FETCHES, which a declaration scan cannot see at all.
+        'remote_font_links': len(re.findall(r'fonts\.googleapis\.com|fonts\.gstatic\.com', text, re.I)),
     }
     return out
 

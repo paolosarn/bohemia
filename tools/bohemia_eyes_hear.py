@@ -318,8 +318,18 @@ def main():
     drums = [n for n in notes if n['kind'] == 'd']
     voices = [n for n in notes if n['kind'] == 'v']
     sched_osc = [n for n in notes if n['kind'] == 'o']          # the scheduler's own raw notes
-    mel = sorted(sched_osc, key=lambda n: n['t'])
-    mel_midi = [midi(n['hz']) for n in mel if n.get('hz')]
+    # WHERE THE MELODY IS NOW. Before 9/13 it was a bare oscillator; SOUNDS moved it onto
+    # the named lead voice, so the melody notes arrive as synthV calls with a semitone. Read
+    # whichever place actually carries them rather than assuming last round's shape.
+    lead_name = (d['row'].get('inst') or {}).get('l')
+    lead_notes = [n for n in voices if n['name'] == lead_name and n.get('semi') is not None]
+    raw_real = [n for n in sched_osc if not (n.get('hz') and abs(n['hz'] - 111.11) < 0.5)]
+    if lead_notes:
+        mel = sorted(lead_notes, key=lambda n: n['t'])
+        mel_midi = [12 * math.log2(220.0 * (2 ** (n['semi'] / 12.0)) / 440.0) + 69 for n in mel]
+    else:
+        mel = sorted(raw_real, key=lambda n: n['t'])
+        mel_midi = [midi(n['hz']) for n in mel if n.get('hz')]
     bass_notes = [n for n in voices if n['name'] == (d['row'].get('inst') or {}).get('b')]
 
     step = d['stepDur']
@@ -330,10 +340,19 @@ def main():
     ctrl = controls(rate)
     ctrl.append(('C1a the render is sound, not silence', float(np.max(np.abs(x))) > 0.001,
                  'peak %.4f' % float(np.max(np.abs(x)))))
-    ctrl.append(('C1b the note log can see EVERY way this engine makes a note',
-                 len(sched_osc) > 0 and len(voices) > 0 and len(drums) > 0,
-                 '%d raw scheduler notes, %d named-voice notes, %d drum hits'
-                 % (len(sched_osc), len(voices), len(drums))))
+    # C1b TESTS THE LOG, NOT THE ENGINE'S CURRENT SHAPE, AND THE FIRST VERSION DID THE
+    # OPPOSITE. It required raw oscillator notes, named-voice notes and drums all to be
+    # present, which was true while the melody was a bare oscillator. SOUNDS fixed the
+    # named-lead bug on 9/13, the melody became a rack voice, the raw count went to the
+    # planted one only, and the control FAILED ON SOMEBODY ELSE'S CORRECT WORK -- exactly
+    # the failure mode this lane keeps warning other lanes about. Now a raw oscillator is
+    # PLANTED during the render and the control asks whether the log caught it.
+    planted = [n for n in sched_osc if n.get('hz') and abs(n['hz'] - 111.11) < 0.5]
+    ctrl.append(('C1b the note log catches a planted raw oscillator and the named voices',
+                 len(planted) > 0 and len(voices) > 0 and len(drums) > 0,
+                 '%d planted raw note(s) caught, %d raw scheduler notes in all, '
+                 '%d named-voice notes, %d drum hits'
+                 % (len(planted), len(sched_osc), len(voices), len(drums))))
     ctrl.append(('C1c the audio agrees with the engine schedule on the first onset',
                  True, ''))   # filled in below once both are computed
 
@@ -462,8 +481,12 @@ def main():
                  'deciding taste, and deciding taste is DIRECTION\'s.',
          'scales_per_section': scales},
         {'axis': 'INSTRUMENTATION',
-         'ours': 'a triangle oscillator through a 2200 Hz lowpass carries the tune; ABYSSBASS holds '
-                 'the floor; NIGHTPAD holds the room; KNOCK and TIGHT are the kit',
+         'ours': ('%s carries the tune; %s holds the floor; %s holds the room; %s are the kit'
+                  % (('the named lead ' + str(lead_name).upper()) if lead_notes
+                     else 'a bare triangle oscillator through a lowpass',
+                     str((d['row'].get('inst') or {}).get('b', '?')).upper(),
+                     str(d['row'].get('am', '?')).upper(),
+                     ' and '.join(str(v).upper() for v in (d['row'].get('kit') or {}).values()) or '?')),
          'reference': REFERENCE['instrumentation']['value'],
          'reference_source': REFERENCE['instrumentation']['source'],
          'verdict': 'NOT COMPARABLE, ON PURPOSE',
@@ -478,9 +501,14 @@ def main():
         'lead_named_in_the_row': lead_named,
         'times_that_voice_was_scheduled': lead_played,
         'what_actually_carries_the_tune': 'a bare triangle oscillator through a lowpass',
-        'why': ("the engine's melody branch calls the named lead voice ONLY when mel is 'hymn' or "
-                "the lead is 'bell'. This song is mel='longs', so the melody falls to the raw "
-                "oscillator branch and the named lead is never reached."),
+        # DERIVED, NOT ASSERTED. This sentence was written on 9/12 when the answer was zero.
+        # SOUNDS fixed it on 9/13 and a hardcoded explanation would now be a lie in a record
+        # that is supposed to be the trustworthy one.
+        'why': (("the named lead is reached: the melody arrives as %s calls with a pitch, %d of them "
+                 "in %d bars." % (lead_name, lead_played, d['bars'])) if lead_played
+                else ("the engine's melody branch calls the named lead voice ONLY when mel is 'hymn' "
+                      "or the lead is 'bell'. This song is mel='%s', so the melody falls to the raw "
+                      "oscillator branch and the named lead is never reached." % d['row'].get('mel'))),
         'his_words_on_it': ('the batch 22 verdict records the song as "lead brokenrosary" and says '
                             '"brokenrosary is the lead he named"'),
         'not_this_lane_to_fix': True,
@@ -552,11 +580,14 @@ def main():
         print('   REFERENCE   %s' % a['reference'])
         print('   NOTE        %s' % a['note'])
         print('')
-    print('THE ROLE CHECK, AND IT FOUND SOMETHING:')
+    print('THE ROLE CHECK:')
     print('   the row names %s as the lead. It is scheduled %d times in %d bars.'
           % (roles['lead_named_in_the_row'], roles['times_that_voice_was_scheduled'], d['bars']))
     print('   %s' % roles['why'])
     print('   %s' % roles['his_words_on_it'])
+    if lead_played:
+        print('   THIS WAS ZERO ON 9/12 AND IS %d NOW. SOUNDS fixed it; this is the re-measurement.'
+              % lead_played)
 
     if gate:
         bad_gate = []

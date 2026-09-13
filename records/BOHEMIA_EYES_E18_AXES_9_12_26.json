@@ -80,21 +80,21 @@
     "rate": 44100,
     "bars": 24,
     "step_seconds": 0.125,
-    "notes_logged": 890,
-    "drums": 266,
-    "named_voice_notes": 144,
-    "raw_scheduler_notes": 24
+    "notes_logged": 1162,
+    "drums": 297,
+    "named_voice_notes": 198,
+    "raw_scheduler_notes": 1
   },
   "loudness_ours": {
-    "rms_dbfs": -31.06,
-    "peak_dbfs": -7.82,
-    "crest_db": 23.24
+    "rms_dbfs": -30.53,
+    "peak_dbfs": -0.0,
+    "crest_db": 30.53
   },
   "loudness_match": "UNKNOWN. The recording is not in this repo and is not going to be, so the loudness match the trade performs first cannot be performed at all.",
   "bands": {
-    "under_150hz": 0.7735,
-    "mid_150_800hz": 0.2167,
-    "over_800hz": 0.0098
+    "under_150hz": 0.7193,
+    "mid_150_800hz": 0.2694,
+    "over_800hz": 0.0113
   },
   "axes": [
     {
@@ -115,7 +115,7 @@
     },
     {
       "axis": "BASS",
-      "ours": "114 bass notes on the voice named ABYSSBASS, first at 0.000 s, median pitch UNKNOWN (the bass voice is not a bare oscillator, so its pitch is not in the log); 77.3% of the song's energy sits under 150 Hz",
+      "ours": "132 bass notes on the voice named ABYSSBASS, first at 0.000 s, median pitch UNKNOWN (the bass voice is not a bare oscillator, so its pitch is not in the log); 71.9% of the song's energy sits under 150 Hz",
       "reference": "a played bass line sits under the melody",
       "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
       "verdict": "PRESENT ON BOTH SIDES",
@@ -123,7 +123,7 @@
     },
     {
       "axis": "SHAPE OF THE MELODY",
-      "ours": "24 melody notes, the row's own scale [0, 2, 4, 7, 9], which is major pentatonic, played from D and then F#, from D4 to D#5, one note every 1.00 s. Parsons code UDUDUUDUUDUDUUDUUDUDUUD. Longest rise 2 steps, longest fall 1 steps.",
+      "ours": "24 melody notes, the row's own scale [0, 2, 4, 7, 9], which is major pentatonic, played from D and then F#, from D5 to D#6, one note every 1.00 s. Parsons code UDUDUUDUUDUDUUDUUDUDUUD. Longest rise 2 steps, longest fall 1 steps.",
       "reference": "a picked, patient melodic line; warm and hopeful with something sad underneath",
       "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
       "verdict": "MEASURED ON OURS, CITED ON THE REFERENCE",
@@ -157,7 +157,7 @@
     },
     {
       "axis": "INSTRUMENTATION",
-      "ours": "a triangle oscillator through a 2200 Hz lowpass carries the tune; ABYSSBASS holds the floor; NIGHTPAD holds the room; KNOCK and TIGHT are the kit",
+      "ours": "the named lead BROKENROSARY carries the tune; ABYSSBASS holds the floor; NIGHTPAD holds the room; KNOCK and TIGHT are the kit",
       "reference": "real violin, hand percussion and picked strings, played by people",
       "reference_source": "laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md",
       "verdict": "NOT COMPARABLE, ON PURPOSE",
@@ -166,9 +166,9 @@
   ],
   "role_check": {
     "lead_named_in_the_row": "brokenrosary",
-    "times_that_voice_was_scheduled": 0,
+    "times_that_voice_was_scheduled": 24,
     "what_actually_carries_the_tune": "a bare triangle oscillator through a lowpass",
-    "why": "the engine's melody branch calls the named lead voice ONLY when mel is 'hymn' or the lead is 'bell'. This song is mel='longs', so the melody falls to the raw oscillator branch and the named lead is never reached.",
+    "why": "the named lead is reached: the melody arrives as brokenrosary calls with a pitch, 24 of them in 24 bars.",
     "his_words_on_it": "the batch 22 verdict records the song as \"lead brokenrosary\" and says \"brokenrosary is the lead he named\"",
     "not_this_lane_to_fix": true
   },
@@ -201,12 +201,12 @@
     {
       "name": "C1a the render is sound, not silence",
       "pass": true,
-      "detail": "peak 0.4067"
+      "detail": "peak 1.0000"
     },
     {
-      "name": "C1b the note log can see EVERY way this engine makes a note",
+      "name": "C1b the note log catches a planted raw oscillator and the named voices",
       "pass": true,
-      "detail": "24 raw scheduler notes, 144 named-voice notes, 266 drum hits"
+      "detail": "1 planted raw note(s) caught, 1 raw scheduler notes in all, 198 named-voice notes, 297 drum hits"
     },
     {
       "name": "C1c the audio agrees with the engine schedule on the first onset",

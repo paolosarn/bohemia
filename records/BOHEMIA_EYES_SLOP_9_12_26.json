@@ -6,7 +6,8 @@
   "surfaces": [
     {
       "file": "slices/BOHEMIA_CITY_WORLD.html",
-      "bytes": 4781743,
+      "bytes": 4910456,
+      "decoded_frames": 0,
       "declared_customs": [
         "--acc",
         "--ba",
@@ -62,8 +63,8 @@
           ]
         },
         "letter-spacing": {
-          "declarations": 93,
-          "tokenised": 91,
+          "declarations": 94,
+          "tokenised": 92,
           "phantom": 1,
           "mixed": 0,
           "typed_in_place": 1,
@@ -78,12 +79,12 @@
           ]
         },
         "box-shadow": {
-          "declarations": 12,
+          "declarations": 17,
           "tokenised": 2,
-          "phantom": 5,
+          "phantom": 7,
           "mixed": 0,
-          "typed_in_place": 5,
-          "distinct_untokenised_values": 10,
+          "typed_in_place": 8,
+          "distinct_untokenised_values": 13,
           "values": [
             "#0a0906",
             "#0b0906",
@@ -94,6 +95,9 @@
             "0 18px 50px rgba(0,0,0,.7)",
             "0 18px 50px rgba(0,0,0,.85)",
             "0 2px 10px rgba(0,0,0,.55)",
+            "inset 0 1px 0 #6d5c34, inset 0 -2px 0 #17120a, 0 1px 0 rgba(0,0,0,.55)",
+            "inset 0 1px 0 #6d5c34, inset 0 -2px 0 #17120a, 0 1px 0 rgba(0,0,0,.6)",
+            "inset 0 2px 3px rgba(0,0,0,.75), inset 0 -1px 0 #4a4133",
             "rgba(226,210,160,.16"
           ],
           "tokens_used": [
@@ -108,23 +112,25 @@
           ]
         },
         "font-family": {
-          "declarations": 1,
-          "tokenised": 1,
+          "declarations": 5,
+          "tokenised": 5,
           "phantom": 0,
           "mixed": 0,
           "typed_in_place": 0,
           "distinct_untokenised_values": 0,
           "values": [],
           "tokens_used": [
+            "--face-body",
+            "--face-screen",
             "--fmono"
           ]
         },
         "border-width": {
-          "declarations": 67,
-          "tokenised": 29,
+          "declarations": 63,
+          "tokenised": 26,
           "phantom": 2,
           "mixed": 0,
-          "typed_in_place": 36,
+          "typed_in_place": 35,
           "distinct_untokenised_values": 5,
           "values": [
             "14px",
@@ -170,25 +176,28 @@
       "tells": {
         "trend_font_hits": 0,
         "platform_font_hits": 0,
-        "asks_for_the_decided_face": 12,
-        "font_declarations": 36,
-        "bare_monospace_no_named_face": 13,
-        "one_pixel_borders": 59,
+        "asks_for_the_decided_face": 9,
+        "font_declarations": 40,
+        "bare_monospace_no_named_face": 5,
+        "one_pixel_borders": 55,
         "uppercase_declarations": 2,
         "uppercase_with_letter_spacing": 2,
         "pictographic_emoji": 0,
         "dingbats_and_arrows": 5,
-        "font_face_blocks": 2,
-        "embedded_font_data": 2
+        "font_face_blocks": 4,
+        "embedded_font_data": 4,
+        "remote_font_links": 0
       }
     },
     {
       "file": "slices/BOHEMIA_ALPHA_0_9.html",
-      "bytes": 5109045,
+      "bytes": 6594041,
+      "decoded_frames": 5,
       "declared_customs": [
         "--acc",
         "--acc2",
         "--accink",
+        "--bg",
         "--bw",
         "--clip",
         "--clipin",
@@ -198,26 +207,34 @@
         "--coldsoft",
         "--cut",
         "--cutin",
+        "--dn",
+        "--face",
         "--fglyph",
         "--fill",
         "--fill-lift",
         "--fmono",
         "--grain",
+        "--ink",
         "--line",
         "--line-soft",
         "--mono",
+        "--mut",
+        "--on",
+        "--pan",
+        "--pan2",
         "--r",
         "--sans",
+        "--up",
         "--wear"
       ],
       "props": {
         "border-radius": {
-          "declarations": 79,
+          "declarations": 109,
           "tokenised": 0,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 79,
-          "distinct_untokenised_values": 12,
+          "typed_in_place": 109,
+          "distinct_untokenised_values": 14,
           "values": [
             "0",
             "10px",
@@ -229,18 +246,20 @@
             "50%",
             "5px",
             "6px",
+            "7px",
             "8px",
+            "999px",
             "9px"
           ],
           "tokens_used": []
         },
         "letter-spacing": {
-          "declarations": 98,
+          "declarations": 134,
           "tokenised": 0,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 98,
-          "distinct_untokenised_values": 10,
+          "typed_in_place": 134,
+          "distinct_untokenised_values": 11,
           "values": [
             ".5px",
             ".6px",
@@ -251,43 +270,54 @@
             "1px",
             "2px",
             "3px",
-            "4px"
+            "4px",
+            "5px"
           ],
           "tokens_used": []
         },
         "box-shadow": {
-          "declarations": 4,
-          "tokenised": 0,
+          "declarations": 10,
+          "tokenised": 1,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 4,
-          "distinct_untokenised_values": 4,
+          "typed_in_place": 9,
+          "distinct_untokenised_values": 9,
           "values": [
+            "0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)",
             "0 0 0 1px #b39ddb inset",
             "0 0 12px rgba(60,30,80,0.15) inset",
             "0 12px 34px rgba(0,0,0,.8),inset 0 1px 0 rgba(226,210,160,.16)",
+            "0 8px 30px rgba(0,0,0,0.6)",
+            "0 8px 40px rgba(0,0,0,0.8)",
+            "inset 0 0 0 1px #5fa6c4",
+            "inset 0 0 0 1px #c8341a",
             "inset 0 1px 0 rgba(226,210,160,.18),0 3px 8px rgba(0,0,0,.6)"
           ],
-          "tokens_used": []
+          "tokens_used": [
+            "--up"
+          ]
         },
         "font-family": {
-          "declarations": 3,
+          "declarations": 5,
           "tokenised": 3,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 0,
-          "distinct_untokenised_values": 0,
-          "values": [],
+          "typed_in_place": 2,
+          "distinct_untokenised_values": 2,
+          "values": [
+            "space grotesk,sans-serif",
+            "ui-monospace,menlo,monospace"
+          ],
           "tokens_used": [
             "--fmono"
           ]
         },
         "border-width": {
-          "declarations": 95,
-          "tokenised": 2,
+          "declarations": 128,
+          "tokenised": 9,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 93,
+          "typed_in_place": 119,
           "distinct_untokenised_values": 2,
           "values": [
             "1px",
@@ -299,39 +329,42 @@
           ]
         },
         "gradient": {
-          "declarations": 20,
+          "declarations": 25,
           "tokenised": 0,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 20,
-          "distinct_untokenised_values": 14,
+          "typed_in_place": 25,
+          "distinct_untokenised_values": 18,
           "values": [],
           "tokens_used": []
         }
       },
       "phantom_names": {},
       "tells": {
-        "trend_font_hits": 0,
-        "platform_font_hits": 8,
+        "trend_font_hits": 5,
+        "platform_font_hits": 9,
         "asks_for_the_decided_face": 4,
-        "font_declarations": 91,
-        "bare_monospace_no_named_face": 79,
-        "one_pixel_borders": 88,
+        "font_declarations": 108,
+        "bare_monospace_no_named_face": 86,
+        "one_pixel_borders": 120,
         "uppercase_declarations": 2,
         "uppercase_with_letter_spacing": 2,
         "pictographic_emoji": 0,
-        "dingbats_and_arrows": 0,
-        "font_face_blocks": 4,
-        "embedded_font_data": 2
+        "dingbats_and_arrows": 5,
+        "font_face_blocks": 6,
+        "embedded_font_data": 4,
+        "remote_font_links": 2
       }
     },
     {
       "file": "slices/BOHEMIA_DEMO.html",
-      "bytes": 5118543,
+      "bytes": 6598217,
+      "decoded_frames": 5,
       "declared_customs": [
         "--acc",
         "--acc2",
         "--accink",
+        "--bg",
         "--bw",
         "--clip",
         "--clipin",
@@ -341,26 +374,34 @@
         "--coldsoft",
         "--cut",
         "--cutin",
+        "--dn",
+        "--face",
         "--fglyph",
         "--fill",
         "--fill-lift",
         "--fmono",
         "--grain",
+        "--ink",
         "--line",
         "--line-soft",
         "--mono",
+        "--mut",
+        "--on",
+        "--pan",
+        "--pan2",
         "--r",
         "--sans",
+        "--up",
         "--wear"
       ],
       "props": {
         "border-radius": {
-          "declarations": 79,
+          "declarations": 109,
           "tokenised": 0,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 79,
-          "distinct_untokenised_values": 12,
+          "typed_in_place": 109,
+          "distinct_untokenised_values": 14,
           "values": [
             "0",
             "10px",
@@ -372,18 +413,20 @@
             "50%",
             "5px",
             "6px",
+            "7px",
             "8px",
+            "999px",
             "9px"
           ],
           "tokens_used": []
         },
         "letter-spacing": {
-          "declarations": 98,
+          "declarations": 134,
           "tokenised": 0,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 98,
-          "distinct_untokenised_values": 10,
+          "typed_in_place": 134,
+          "distinct_untokenised_values": 11,
           "values": [
             ".5px",
             ".6px",
@@ -394,43 +437,54 @@
             "1px",
             "2px",
             "3px",
-            "4px"
+            "4px",
+            "5px"
           ],
           "tokens_used": []
         },
         "box-shadow": {
-          "declarations": 4,
-          "tokenised": 0,
+          "declarations": 10,
+          "tokenised": 1,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 4,
-          "distinct_untokenised_values": 4,
+          "typed_in_place": 9,
+          "distinct_untokenised_values": 9,
           "values": [
+            "0 0 0 1px #4a4030,0 6px 22px rgba(0,0,0,.6)",
             "0 0 0 1px #b39ddb inset",
             "0 0 12px rgba(60,30,80,0.15) inset",
             "0 12px 34px rgba(0,0,0,.8),inset 0 1px 0 rgba(226,210,160,.16)",
+            "0 8px 30px rgba(0,0,0,0.6)",
+            "0 8px 40px rgba(0,0,0,0.8)",
+            "inset 0 0 0 1px #5fa6c4",
+            "inset 0 0 0 1px #c8341a",
             "inset 0 1px 0 rgba(226,210,160,.18),0 3px 8px rgba(0,0,0,.6)"
           ],
-          "tokens_used": []
+          "tokens_used": [
+            "--up"
+          ]
         },
         "font-family": {
-          "declarations": 3,
+          "declarations": 5,
           "tokenised": 3,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 0,
-          "distinct_untokenised_values": 0,
-          "values": [],
+          "typed_in_place": 2,
+          "distinct_untokenised_values": 2,
+          "values": [
+            "space grotesk,sans-serif",
+            "ui-monospace,menlo,monospace"
+          ],
           "tokens_used": [
             "--fmono"
           ]
         },
         "border-width": {
-          "declarations": 95,
-          "tokenised": 2,
+          "declarations": 128,
+          "tokenised": 9,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 93,
+          "typed_in_place": 119,
           "distinct_untokenised_values": 2,
           "values": [
             "1px",
@@ -442,42 +496,44 @@
           ]
         },
         "gradient": {
-          "declarations": 20,
+          "declarations": 25,
           "tokenised": 0,
           "phantom": 0,
           "mixed": 0,
-          "typed_in_place": 20,
-          "distinct_untokenised_values": 14,
+          "typed_in_place": 25,
+          "distinct_untokenised_values": 18,
           "values": [],
           "tokens_used": []
         }
       },
       "phantom_names": {},
       "tells": {
-        "trend_font_hits": 0,
-        "platform_font_hits": 8,
+        "trend_font_hits": 5,
+        "platform_font_hits": 9,
         "asks_for_the_decided_face": 4,
-        "font_declarations": 91,
-        "bare_monospace_no_named_face": 79,
-        "one_pixel_borders": 88,
+        "font_declarations": 108,
+        "bare_monospace_no_named_face": 86,
+        "one_pixel_borders": 120,
         "uppercase_declarations": 2,
         "uppercase_with_letter_spacing": 2,
         "pictographic_emoji": 0,
-        "dingbats_and_arrows": 0,
-        "font_face_blocks": 4,
-        "embedded_font_data": 2
+        "dingbats_and_arrows": 5,
+        "font_face_blocks": 6,
+        "embedded_font_data": 4,
+        "remote_font_links": 2
       }
     }
   ],
   "headline": {
-    "typed_in_place": 693,
-    "phantom_tokens": 15,
-    "tokenised": 133,
+    "typed_in_place": 903,
+    "phantom_tokens": 17,
+    "tokenised": 151,
     "distinct_untokenised_values_per_property": {
       "border-radius": 18,
       "border-width": 5,
-      "box-shadow": 14,
-      "letter-spacing": 11
+      "box-shadow": 21,
+      "font-family": 2,
+      "letter-spacing": 12
     }
   },
   "real_surface": {

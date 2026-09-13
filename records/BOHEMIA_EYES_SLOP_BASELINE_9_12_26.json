@@ -1,12 +1,25 @@
 {
-  "frozen": "9/12/26",
-  "typed_in_place": 693,
-  "phantom_tokens": 15,
+  "frozen": "9/13/26 (RE-FROZEN ON A WIDENED SCAN, not because the build got worse)",
+  "typed_in_place": 903,
+  "phantom_tokens": 17,
   "scale": {
     "border-radius": 18,
     "border-width": 5,
-    "box-shadow": 14,
-    "letter-spacing": 11
+    "box-shadow": 21,
+    "font-family": 2,
+    "letter-spacing": 12
   },
+  "previous_freeze": {
+    "date": "9/12/26",
+    "typed_in_place": 693,
+    "phantom_tokens": 15,
+    "scale": {
+      "border-radius": 18,
+      "border-width": 5,
+      "box-shadow": 14,
+      "letter-spacing": 11
+    }
+  },
+  "why_it_moved": "E26's five-minute walk caught this sweep publishing a wrong ZERO: it reported no trend fonts anywhere while the demo was FETCHING https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk from about:srcdoc. The fight ships as a base64 srcdoc blob (COMBAT_B64, 1.35 MB decoded) carrying that link, a <noscript> copy, and font-family:'Space Grotesk', sans-serif on html and body, 42 mentions in all. The CSS was never in the files this sweep read. The sweep now decodes the blobs, so every count went up because the scan got WIDER, not because anybody shipped anything worse. Re-freezing on a widened scan is honest; leaving the old freeze in place would red the fleet for a hole that was mine.",
   "note": "TYPED IN PLACE, PHANTOM TOKENS and the distinct-value scale. All shrink-only. The RAW tell count is never frozen, because moving a value onto a token is a real fix that leaves it unchanged."
 }
