@@ -5052,6 +5052,19 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('CATS STAY',      ['node', 'gates/cats_stay_gate.js'],
+     "PAOLO 9/13, walking the demo's five minutes: 'I do see cats running around, that's cool.' NOTES ARE "
+     "RULINGS, so that IS the verdict and this is the FREEZE, because a thing frozen without a machine gate "
+     "is not frozen, it is merely unvisited. *** AND WHAT HE SAW ARE NOT CATS, WHICH MATTERS MORE THAN THE "
+     "WORD: measured on the real demo before a line was written, there is no cat anywhere in this repo -- "
+     "every 'cat' in the source is the word CATEGORY. The valley has fly swarms drawn as specks, a RAT drawn "
+     "as a dash that runs the foot of a wall on the beat, and a raven on a roofline. THE ONLY ONE THAT RUNS "
+     "IS THE RAT, and one or two dark dashes on a phone is exactly what reads as a cat. His approval is real "
+     "and lands on these; the noun is his word for a dash at phone size, and nobody adds a cat off a misheard "
+     "one. *** Holds the three kinds with no fourth, every density number he walked through, the DOG AT ZERO "
+     "(left out on purpose: a dog is a body and a body is character art), the per-frame cap, the determinism "
+     "that makes a freeze mean anything, and the animals still DRAWING on the real demo -- a frozen table "
+     "over a dead draw is the loudest false green there is", False),
     ('NEGLECT COSTS',  ['node', 'gates/neglect_costs_gate.js'],
      "THE STAKES TABLE HAD BEEN EMPTY SINCE THE DAY LOOP SHIPPED and its own header said why: what a day "
      "costs to live is Paolo's ruling. That is right about a HUNGER meter, which needs a rate, and wrong "

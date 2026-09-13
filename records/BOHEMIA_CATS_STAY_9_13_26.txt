@@ -1,0 +1,126 @@
+BOHEMIA -- THE CATS STAY (9/13/26, PEOPLE lane)
+VAMILY job [cats stay], row THE-CATS-ARE-APPROVED. This lane's five-minute row.
+
+PAOLO 9/13, walking the demo's first five minutes on a phone:
+  "I do see cats running around, that's cool."
+NOTES ARE RULINGS (7/19): that IS the verdict. The row: record which cats he saw,
+freeze them as canon, nothing changes without a new ruling.
+
+================================================================================
+*** THERE IS NO CAT IN THIS GAME, AND FINDING THAT OUT IS THE ROUND ***
+================================================================================
+Measured before a line was written, and measured in five places rather than one,
+because a grep that finds nothing is not proof that nothing is there:
+
+  the engine, every module        no cat
+  the alpha                       no cat
+  the demo                        no cat
+  the run slice                   no cat
+  the art banks and the tools     no cat
+
+EVERY "cat" IN THIS REPO IS THE WORD CATEGORY. cat(d) in the city editor is the
+district category. byCat in the wardrobe is a category bucket. "misc street cat"
+in a 7/10 verdict bank is a category label. Not one of them is an animal.
+
+AND A GREP IS NOT AN ANSWER, SO I DROVE THE DEMO. Opened it at phone size, clicked
+through the splash the way a player does, walked the street, and asked every frame
+of the running page what it had. That is where the real answer was, and it was not
+in any file I had guessed the name of.
+
+================================================================================
+WHAT HE ACTUALLY SAW, MEASURED ON THE THING HE PLAYED
+================================================================================
+The valley has animals. They landed 8/26 under his own words ("maybe I wanna fuck
+around and start putting dogs and swarms of flies as low tier biome level one
+enemies") and the 8/25 dispatch ("the city is dead and DEAD IS NOT THE DEFAULT").
+They do not fight, have no health, and cost nothing to walk past. There are three:
+
+  FLIES    a swarm of specks over a cell you can walk on. Flies want a body or a
+           bin, so the thing they are on is at your feet.
+  RATS     a dash at the foot of a wall, running along that wall ON THE BEAT.
+  RAVENS   a silhouette on a roofline that flicks rather than walks.
+
+WALKED THE DEMO, TEN SCREENS, PHONE SIZE:
+  up to 20 animals on one screen
+  18 fly swarms
+  1 to 2 rats
+  0 ravens
+
+*** THE ONLY ONE THAT RUNS IS THE RAT. *** A fly swarm hovers and a raven sits.
+One or two dark dashes scurrying along the foot of a wall, on a phone, is exactly
+what reads as a cat. HIS APPROVAL IS REAL AND IT LANDS ON THESE. The noun is his
+word for a dash at phone size, and that is not a correction of him, it is the
+answer to the question the row asked: which ones did he see.
+
+SO NOBODY ADDS A CAT. CLAUDE.md: transcription garbles constantly, never take a
+garbled word literally or treat it as a new term. Adding a cat would be inventing
+content off a misheard noun AND it would be changing the exact thing this row
+exists to freeze. The gate refuses a fourth kind by name, and "cats" is the name
+it would most likely arrive under.
+
+================================================================================
+THE FREEZE, AND WHY IT IS A GATE AND NOT A SENTENCE IN A RECORD
+================================================================================
+A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. "Frozen as canon" written in a file
+is not frozen, it is merely unvisited: the next lane to tune a density never reads
+this record and nothing says a word. gates/cats_stay_gate.js holds:
+
+  the three kinds, and NO FOURTH        a new animal is a thing he has not seen
+  every density number, all 8 districts he approved what he met AT these numbers
+  no district gained a district         an addition underneath the freeze
+  THE DOG STAYS AT ZERO                 see below
+  the per-frame cap, 90                 his item 7 is performance on a phone
+  determinism                           see below
+  and they still DRAW on the real demo  a frozen table over a dead draw
+
+THE DOG IS ZERO AND THAT IS A DECISION, NOT AN OVERSIGHT. He named the dog FIRST
+back on 8/26 and the lane that built the animals still left it out, in writing: a
+dog is a BODY, a body is character art, and a lane does not invent creature pixels
+because it is in a hurry (45 DEGREE ART LAW, REUSE-FIRST). The gate keeps it at
+zero so a hurried lane cannot quietly grant it. A new ruling opens it.
+
+DETERMINISM IS WHAT MAKES A FREEZE MEAN ANYTHING. Which animal lives where is
+hashed from the seed and the cell, so the same block holds the same animals every
+time it is walked and on every device. If the valley reshuffled between visits,
+"the ones he saw" would not be a set anybody could freeze and his approval would
+attach to nothing. Nothing in the whole animal pass reaches for a random number.
+
+================================================================================
+NEGATIVE-CONTROLLED TWICE, BECAUSE A FREEZE THAT CANNOT BITE IS A COMMENT
+================================================================================
+  gave downtown a dog (dogs 0 -> 0.04)  RED, on two claims, naming the district
+  added a fourth kind called "cats"     RED, printing returns
+                                        ["flies","rats","ravens","cats"]
+  restored                              GREEN, 27 pass / 0 fail
+The second control is the one that matters: the most likely way this freeze gets
+broken is somebody reading his word and adding the animal, and the gate catches
+that case by the exact name it would arrive under.
+
+================================================================================
+MEASURED AND DELIBERATELY NOT FIXED
+================================================================================
+1. THE RAVEN IS IN THE TABLE AND DREW ZERO across the whole walk. Across 10,000
+   sampled cells of the valley the raven actually PLACES best of the three (245 of
+   305 rolls, 80%), because it wants a solid cell and the valley has roofs -- but
+   none appeared where the demo goes.
+2. THE RAT PLACES ON 1.9% OF ITS ROLLS valley-wide (10 of 521). It needs a
+   walkable cell with a solid one cardinally beside it. The code's own comment
+   says this was already tightened once for exactly this reason.
+
+NEITHER IS TOUCHED HERE AND THAT IS THE POINT. He approved what he SAW. The row
+says nothing changes without a new ruling, and a lane that "improves" the thing it
+was told to freeze has broken it. Both numbers are written down so the next ruling
+has them in front of it instead of somebody rediscovering them.
+
+================================================================================
+RULE 14, FOLLOWED
+================================================================================
+The diff is a gate and two records. It touches no engine module and no slice, so
+there is nothing to resync and nothing to rebuild. THE DEMO CUTTER WAS NOT RUN:
+only RUN re-cuts the demo now (Paolo 9/13). The build stamp is not bumped either,
+for the same reason it exists -- it is there so he can SEE which build he is on,
+and a new letter over a build with nothing new in it is the one way that stamp can
+lie to him.
+
+TAB: CITY, the walked street, and the demo. Nothing he can see changed, which is
+correct: the job was to keep it exactly as he found it.
