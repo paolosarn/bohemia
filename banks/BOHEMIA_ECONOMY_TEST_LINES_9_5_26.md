@@ -2939,3 +2939,85 @@ YYYYYYY3 somebody who will not ask for it back draft:true
 - No line has the player speaking. Every one of these is said TO him.
 - Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both are a
   single word inside an English sentence and neither is respelled.
+
+## FFFFFFFF. YOU GOT THEM ONE KILOMETRE
+## (round 37, the carry. Six fresh bearers per mile, and a party of four has
+##  four. The sentence is the distance, never the pace.)
+
+- FFFFFFFF1 `draft:true` — "That's it. That's how far we got today." (the cap said
+  as a fact, no number in it. VOICE CARD: the line is not the point, the point is
+  that everybody is looking at the same short stretch of road behind them.)
+- FFFFFFFF2 `draft:true` — "We can do this again tomorrow. I'm telling you now so
+  you hear it from me." (nine words then a second thought. Somebody fumbles: he is
+  warning them and apologising in the same breath.)
+- FFFFFFFF3 `draft:true` — "Put them down. Put them down, I said put them down."
+  (the last sentence was cut; what got cut was "before you drop them". The repeat
+  is the fumble and it is what exhaustion sounds like.)
+- FFFFFFFF4 `draft:true` — "My hands won't close, ya. Give me a minute." (Spanish
+  register, one word. Grip strength is the measured thing and this is how a person
+  would say it without knowing that.)
+
+## GGGGGGGG. THE BEARER EATS TWICE
+## (round 37, the food. Carrying is 8 METs against walking's 3.5, and everything
+##  costs one, so the extra is exactly one. Nobody says a number.)
+
+- GGGGGGGG1 `draft:true` — "I ate mine and I'm still hungry. That's new." (the
+  doubled cost, from the inside, with no arithmetic. Names the one thing only this
+  person would name: that it is NEW.)
+- GGGGGGGG2 `draft:true` — "Don't give me yours. Don't." (nobody leads with a no,
+  so the no is a refusal of charity, not of a question. Contract it: two words.)
+- GGGGGGGG3 `draft:true` — "Everybody who lifted eats again. That's the rule now,
+  and I made it up an hour ago." (the second half undercuts the first, which is
+  what an honest person sounds like inventing a rule.)
+- GGGGGGGG4 `draft:true` — "They ate. Of course they ate, what did you think."
+  (the downed person still takes a full ration and produces nothing, and nobody in
+  Bohemia is wise enough to resent it out loud.)
+
+## HHHHHHHH. THE WOUNDED WENT FIRST
+## (round 37, what gets left behind. Shenkursk 1919: the hundred worst went ahead
+##  on sleds and the men behind them finished in their socks.)
+
+- HHHHHHHH1 `draft:true` — "They go ahead of us. Everybody's fine with that."
+  (the reorder stated as settled, and the second sentence is doing a lot of work.)
+- HHHHHHHH2 `draft:true` — "I left my boots on the road about two hours back."
+  (the price paid by the person who was fine. No complaint in it, which is what
+  makes it land.)
+- HHHHHHHH3 `draft:true` — "You want the truth, we didn't decide. It just went
+  that way." (the comma where you want a full stop. Nobody in Bohemia is wise, so
+  nobody claims the plan was a plan.)
+- HHHHHHHH4 `draft:true` — "Count them when they get there. Don't count them here."
+  (the whole logistics of a retreat in eleven words, said as superstition.)
+
+## IIIIIIII. LEAVE THEM SOMEWHERE
+## (round 37, the mechanic the record actually supports. A party of four cannot
+##  carry anybody anywhere, so the real choice is where you put them down.)
+
+- IIIIIIII1 `draft:true` — "There's a roof two streets that way. That's the whole
+  plan." (the leave-them option offered without shame. "That's the whole plan" is
+  the contraction; the cut sentence explained why it is the only one.)
+- IIIIIIII2 `draft:true` — "I'll sit with them. Go on, I'll sit with them."
+  (somebody volunteering to be subtracted from the party. The repeat is the fumble
+  and the offer is the cost.)
+- IIIIIIII3 `draft:true` — "Moving is what's bad for them. Staying still is
+  nothing." (the field-versus-camp split in plain words, and it is wrong in a way
+  a person would be wrong: staying still is not nothing, it just costs elsewhere.)
+- IIIIIIII4 `draft:true` — "Mira, we come back. We come back for them." (Spanish
+  register, one word, on the promise that the whole mechanic hangs from.)
+
+## JJJJJJJJ. WHAT IS NOT HERE, ON PURPOSE (round 37)
+
+- No line contains a number, a distance, a ration count or a day count. The three
+  deliverables of this round are all numbers and not one of them is said out loud.
+- No line says stretcher, litter, evacuate, casualty or bearer. The whole section
+  is about carrying and the vocabulary is hands, boots, roofs and road.
+- No line says the person might die. NO DAMAGE BEFORE THE DIAL, and the law this
+  round serves is that nobody a player keeps ever dies.
+- No line names the injury or how long it lasts. Those three lengths are HIS words
+  and already shipped; a bank line restating them would be canon by accident.
+- No line decides whether a party of two may carry at all. Named as a question in
+  the record, refused here.
+- No line has the player speaking, and no line blames him for the fall.
+- No line makes the downed person apologise. GGGGGGGG4 is somebody else shutting
+  that down before it starts.
+- Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both a single
+  word inside an English sentence, neither respelled.

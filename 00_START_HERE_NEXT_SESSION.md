@@ -1,71 +1,3 @@
-UI (ui-kmqmrf): 9/13 (b) LATEST -- *** [no slop] ROUND SIX. PROSE IS NOT A SCREEN. ***
-Row STILL CLAIMED. monospace on the walked city 66 -> 40, all tells 204 -> 178.
-
-WHAT LANDED. BohemiaBody: 108 glyphs, 2.2 KB, drawn by the same tool as the screen face. The day
-card and the talking card carry it and everything written on them inherits it. rom_face_gate 14/0.
-DIRECTION's ruling is one sentence -- fixed pitch ONLY where the device is a character-cell screen
--- and prose is the other end of it. Those two cards held 30 of the 66 monospace hits. Nobody
-writes on a grid; that is the tell in five words.
-
-IT IS THE SAME CUT, TRIMMED -- REUSE, NOT A SHORTCUT. The cell glyphs were already drawn on a
-7-row cap and 5-row x-height; what made them monospace was never the drawing, it was that every
-glyph got the same five columns. So each is trimmed to its own ink and given its own advance.
-BUT TRIMMING ALONE WOULD HAVE SHIPPED A LIE: the first build had 77 of 107 glyphs STILL five
-columns wide, because the cell cut fills five columns by construction. A face where nearly every
-letter is one width is a grid with a few narrow letters in it. Round lowercase redrawn at four;
-now caps 5, lowercase 4, i 1, l 3. AND ITS PIXELS TOUCH while the screen's do not -- a display is
-made of LAMPS and you see the dark between them; ink runs together. Same grid, two faces that look
-properly unrelated because what they are made of is unrelated. Same sentence at 11px: one line
-here, two in the fixed-pitch face.
-
-THE FIRST ATTEMPT WAS DECORATION AND ONLY THE REAL SURFACE SAID SO. I pointed the prose rules
-(.fbnote, .endsay, the textarea, the teaching line) at the body register and the tell count moved,
-so it looked like work. Then I opened the real card: still the old face. Asking the live document
-which rule set its type returned an EMPTY LIST -- those rules live in a JS string this path never
-injects, so the prose was inheriting mono from its parent and every edit was decoration. The fix
-is the one the phone already taught: THE SURFACE CARRIES ITS OWN FACE and everything on it
-inherits. A rule that never loaded cannot miss that.
-
-THE GATE FOUND A SECOND MISSING GLYPH ON ITS FIRST RUN. Every card gets a corner close from
-cardShow and it is U+2715, not an ASCII x. Neither face had it, so that one mark on EVERY panel
-in the game was in a borrowed typeface. Two glyphs found this way in two rounds (the phone's
-signal bar was the first), both things nobody would think to put on a list. That is the argument
-for asking the renderer what a surface actually draws.
-
-*** AND THE WORST THING THIS ROUND WAS MY OWN NEW TEST READING THE WRONG FONT. *** The leg whose
-whole job is to prove the body face is proportional set the canvas font once, then ran the
-coverage loop (which leaves the font on plain serif), and only THEN measured i and m. It was
-measuring SERIF -- proportional -- so it would have passed for every possible face including a
-pure grid. Caught by mutating the body register back to fixed-pitch and watching the leg report
-THE SAME TWO NUMBERS as the healthy run, 17.78 and 49.78. IDENTICAL NUMBERS UNDER A MUTATION ARE
-THE TELL THAT A CHECK IS READING SOMETHING OTHER THAN WHAT IT NAMES. Fixed: healthy now reads 13
-and 38, mutant reads 38 and 38 and fails. This lane has now written "a clean answer from the wrong
-oracle looks exactly like a fact" about a ruler, an attribution heuristic, and its own gate.
-Mutation is the only thing that has ever caught it.
-
-WHOSE CALL THE BODY FACE IS, SAID OUT LOUD: DIRECTION's ruling names a pool (Pixel Operator, m5x7,
-monogram, LanaPixel) and NONE are in this repo. Two OFL pixel faces do sit on this machine
-(Silkscreen, Pixelify Sans) and either could have been embedded, but pulling in a face DIRECTION
-did not name is their call, not this lane's. Ours asks nobody and carries no licence -- and the
-whole point of building registers first is that DIRECTION swaps it by changing ONE token.
-
-NEXT: the casing register is the last of the three still fixed-pitch (DIN-stencil caps), and by
-round five's measurement it is not blocked either. Then rounded corners 60 and 1px borders 56,
-neither of which needs a font at all.
-
-[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_THE_WRITING_READS_9_13_26.html
-
-PER RULE 13: pre-push pass green (rom face 14/0, thumb 16/0, feed 15/0, phone object 18/0, half
-size 7/0, city rail 8/0, alpha loads 20/0, readable ruler 7/0, demo build 25/0). THE SUITE LINE is
-not posted yet, so the honest sentence is: full suite unmeasured since e8226080.
-
-NOT MINE, THIRD TIME -- FOR WHOEVER OWNS THE PALETTE: phone_readable_gate 15 ok 4 FAILED (13/6 on
-clean main before this lane fixed the two text-floor legs). The four colour-collision ratchets have
-not moved in three rounds: normal 5 vs ratchet 3, protan 14/13, deutan 12/11, tritan 13/9. Nothing
-in this round touches a faction colour. Row: this lane's OPEN [colour reaches].
-
-Record: records/BOHEMIA_NO_SLOP_THE_WRITING_IS_NOT_TYPED_9_13_26.md
-
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -134,140 +66,116 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_36_A_CRASH_DOES_NOT_START_WITH_A_PRICE_IT_STARTS_WITH_A_MISSING_PRICE_TAG_9_13_26.md (381 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections AAAAAAAA-EEEEEEEE, +16 lines, 510 draft:true total
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_37_A_SMALL_GROUP_CANNOT_CARRY_ONE_OF_ITS_OWN_9_13_26.md (306 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections FFFFFFFF-JJJJJJJJ, +16 lines, 526 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
 
 WHAT I MEASURED IN OUR OWN CODE FIRST:
-- OUR FIRST TEN MINUTES HAVE 23 SPOKEN LINES AND ZERO DIGITS, AND THAT IS CORRECT.
-  Walked the four authored scenes (COLD_OPEN 26 beats, THE_LAST_ROOM 11,
-  GRIEF_DINNER 16, RIDGE_BURIAL 15 = 68 beats), whose own last beat is named
-  and_that_is_the_tutorial. 23 say-beats, 0 containing a digit. attempt_gate.js
-  independently reports the same "23 spoken lines across 4 scene(s)". Nothing in
-  this round argues for putting a number in the opening.
-- *** THE TABLE WRITES THREE ECONOMIC CHEQUES AND ONLY ONE IS CASHED. *** Split
-  every line at the match-cut:
-      FOOD, the green ones      3 lines before | 4 after  -> ANSWERED, twice, well
-      WORK, the water district  1 line  before | 0 after  -> NEVER ANSWERED
-      FUEL, the truck           1 line  before | 0 after  -> NEVER ANSWERED
-  The father says "They're saying the water district's hiring again. I'll go down
-  Monday." The sibling says "Can I take the truck Saturday? I'll put gas in it, I
-  swear." In 68 beats after the cut, no line mentions work, a shift, being paid, the
-  truck, gas or fuel. THE PLAYER HAS BEEN TOLD WHAT HE LOST AND NEVER SHOWN IT.
-- NO CURRENCY DISPLAY EXISTS ANYWHERE. Zero HUD ids for battery/power/clout across
-  the demo, the run surface and the alpha. The purse is inlined in the run surface
-  and has exactly ONE caller, inside the buy function.
-- 74% OF THE VALLEY IS DARK AT BOOT. powerMap(overmap(7),7,{}): 1,490 circuits, 391
-  live = 26.2% lit. A closed door needs no new system; it is three cells in four.
-- A REAL BLOCK ON DAY ONE HAS TEN AND A HALF DAYS OF FOOD, priced 4.29 against a
-  base of 1.5 -- nearly three times base before the player does anything. Water
-  26.7 days, fuel 24, meds 30. The most alarming number in the game exists at boot
-  and nothing puts it on screen.
+- THE PROMISE IS BUILT AND THE PRICE IS NOT. engine/bohemia_down.js (PEOPLE, 9/12)
+  is a good module: fall() has one outcome, heal() always finishes, a kept person
+  cannot be made dead. Three lengths, all his own words: knocked 7 days, leg 90
+  ("a leg that needs a season"), hand 365 ("a hand that needs a year"). Exports are
+  HURT, KINDS, fall, isDown, daysLeft, say. THERE IS NO CARRY, NO SLOW-DOWN, NO
+  FOOD COST AND NO WEIGHT ANYWHERE IN IT. A person falls, is hurt a long time, and
+  comes back, and between those two facts they cost nothing at all.
+- AND NOTHING ELSE IN THE GAME CARRIES ANYBODY. grep across all of engine/ for
+  stretcher, litter, carrying a body, carrying a wounded or downed person, or
+  slowing a party: ZERO HITS. The gap is total, not partial.
+- THE COMPANY IS COMPUTED, NOT A ROSTER (bohemia_company.js, QUESTS 9/13):
+  membership is derived every time from a bond, a witness and a roof, and there is
+  no size cap because there is no list. So whatever this delivers has to work for a
+  party of TWO, because the game will hand you one.
+- THE MOVEMENT TABLE, re-read not remembered: 0.084 min/cell broken ground (about
+  nine metres a minute), 0.042 paved. A sixteen-hour day is 8.6 km off the roads
+  and 17.1 on them; the valley is 9.2 km corner to corner.
+- THE FOOD TABLE: food need = 1 ration per person per day, ~2000 kcal, FLAT,
+  regardless of what that person did.
 
-*** THE COLLISION NOBODY WROTE DOWN (the round's hard measurement) ***
-price() on the run surface checks PURSE.PRICES FIRST, then the scarcity sim. The
-comment above it still says "PURSE.PRICES is checked first AND IS STILL EMPTY". It
-was filled on 9/5 with eleven rows, every one 1 battery, citing 8/15 EVERYTHING
-COSTS ONE + 9/4 BATTERIES ARE THE MONEY. So:
-    goods whose sim price can never reach the shelf: 11 of 11
-    spread the sim produces on day one: 0.28 to 12 = 43x
-    spread the shelf actually shows:    1    to 1  =  1x
-NEWEST DATE WINS, so the eleven ones are RIGHT and nobody disobeyed him. But his
-8/11 answer to demo blocker 2 ("priced off the scarcity sim we already have") is
-now unreachable code, and with it the whole idea that a price moves. EVERYTHING
-COSTS ONE and A PRICE THAT MOVES cannot both be true of the same number.
+THE FINDING THAT PROVES US WRONG: the row asks for a SLOW-DOWN, and that word
+assumes the group carries the person and walks less far. Wilderness evacuation
+plans THREE TEAMS OF SIX TO EIGHT ROTATING -- eighteen to twenty-four people -- and
+the working rule is SIX WELL-RESTED BEARERS FOR EVERY ONE MILE, at one to two hours
+a mile. A litter makes about ONE MILE AN HOUR WITH FIFTEEN TO TWENTY PEOPLE.
+Bohemia's company is two, three, four. A PARTY OF FOUR DOES NOT HAVE SIX BEARERS,
+SO A PARTY OF FOUR CANNOT MAKE ONE MILE. That is not a slow-down, it is a wall.
+The physiology agrees and is measured, not modelled: a four-person team sustains a
+continuous carry for 16.9 MINUTES (two-person, 12.3), grip strength afterwards
+falls 20-42%, and by method the sustained times are hand 2.7 min, shoulder 14.5,
+hip-shoulder 25.4. A design that hands a party of four a stretcher invented a
+number the record refuses.
 
-THE FINDING THAT PROVES US WRONG: the row assumes the first sight is a PRICE. In
-every documented first day, the number is not what moved. Venezuela 2016: "Items in
-stores had no price tags on them -- instead customers would take items to the
-cashier who would calculate the price, which could be twice as much, or more, than
-an hour earlier." THE FIRST SIGHT WAS THE ABSENCE OF A NUMBER.
-AND THE REASON TURNS THIS ROUND INTO A MECHANISM: Venezuela had PRICE CONTROLS. The
-official price was pinned and could not move, so every bit of scarcity it was
-forbidden to express moved into the empty shelf, the queue, the back room, the
-second shop, the man outside. Kornai says it colder: under chronic shortage the
-binding cost is not the price, it is the HOURS IN THE LINE.
-SO HIS LAW IS NOT A SIMPLIFICATION, IT IS THE MECHANISM. EVERYTHING COSTS ONE IS A
-PRICE CONTROL, and a price control is the most documented cause of every first-day
-sight in the record. Eight rounds of this study have treated ONE as a tuning
-shortcut to route around. It is the premise, and all three sights below are its
-consequences rather than decoration beside it.
+WHAT GETS LEFT BEHIND (the row's fourth question, and the best material in it).
+Shenkursk, January 1919, forty miles over three nights at thirty to forty below:
+THE HUNDRED MOST SERIOUSLY WOUNDED LEFT FIRST, strapped to sleds and sent down the
+road ahead of everybody, and the healthy men marching behind them DISCARDED THEIR
+OWN BOOTS (leather soles, too slippery on ice) and finished in their stocking feet,
+which cost a great many frozen toes. THE GROUP DOES NOT SLOW TO THE WOUNDED MAN'S
+PACE. IT REORDERS AROUND HIM AND PAYS IN WHAT IT ABANDONS.
 
-THE REAL AISLE, four first days, none of them leading with a number:
-- ARGENTINA Dec 2001: accounts frozen, 250 pesos a WEEK at the machine. Within
-  hours, people at windows banging pots with spoons (cacerolazo). Then shutters
-  down, pensioners at the glass, supermarkets looted, sledgehammers on ATMs by late
-  December. THE FIRST SIGHT WAS A DOOR AND THE SECOND WAS A NEIGHBOUR.
-- GREECE 29 June 2015: banks shut, 60 euros a DAY, queues from the Sunday night
-  before. Card payments were NOT restricted, and "most retailers were not accepting
-  card transactions on the first morning". THE RULE SAID CARDS WORK. THE SHOPKEEPER
-  SAID NO. That gap, not the cap, is what people describe.
-- VENEZUELA 2016: no tags; long lines and empty shelves; and merchants clearing food
-  off their scales to WEIGH THE BANKNOTES, until the scales could not take the
-  weight needed to buy ham. Money measured by the kilo, goods measured by the queue.
-- WEIMAR 1923: prices doubling every ~3.7 days; workers paid TWICE A DAY, noon and
-  end of shift; wives at the factory gate with a suitcase. And the detail that beats
-  every statistic: RESTAURANTS QUOTED A PRICE THAT CHANGED BETWEEN ORDERING AND
-  PAYING.
-THE PATTERN IN ONE SENTENCE: the first sight is never "it costs more". It is always
-SOMETHING THAT USED TO WORK AND DOES NOT.
+THE GAMES AISLE: the campaign layer is the only reference with standing here and it
+DID NOT PRICE THE CARRY AT ALL. Its downed man goes in RESERVE -- travelling, out
+of the fight, and what you lose is what he was giving you. Light injuries 1-3 days,
+heavier 5-7. Two ways to heal: in the field medicine is consumed slowly, it heals
+faster while CAMPED, and the wound can turn bad WHILE YOU ARE MOVING; or at a
+temple, faster and safer. And the wiki's own advice is "better to place them in
+reserve until the injuries are resolved" -- the player benches him without being
+forced. That is exactly what the coordinator already armed [lock them] with on
+9/12. No game he has not named entered the design.
 
-THE GAMES AISLE: the campaign layer is the only reference with standing on this
-question, and its opening is not a menu of systems -- the tutorial IS a short
-contract, a real job with real steps, taught by "individual characters explaining
-things and giving their opinions", skippable after a few minutes. Pattern worth
-taking: THE FIRST ECONOMIC THING A PLAYER TOUCHES IS A JOB SOMEBODY ASKED HIM TO
-DO. (Their own dev blog is blocked by this session's egress proxy; said plainly
-rather than dressed up as a read.) No game he has not named entered this design.
+THE DELIVERABLE, three numbers each with its premise:
+ 1. THE SLOW-DOWN: 8x, AND IT IS A DISTANCE CAP, NOT A PACE. From six fresh bearers
+    per mile against our own 8.6 km day:
+        party of 2  0.54 km   6% of a day   16x
+        party of 3  0.80 km   9%            11x
+        party of 4  1.07 km  12%             8x
+        party of 6  1.61 km  19%             5x
+        party of 8  2.15 km  25%             4x
+    Ship it as a CAP. "You move at one eighth speed" invites a shrug; "you got them
+    one kilometre and that was the day" is the true sentence. The valley is 9.2 km
+    across, so a party of four carrying one of their own CANNOT CROSS IT IN A WEEK.
+    Roads do not rescue you: on pavement the ordinary day doubles, so the carrying
+    party falls to 16x behind instead of 8x.
+ 2. THE FOOD COST: ONE MORE RATION PER BEARER FOR THE DAY. Carrying heavy loads is
+    8 METs against walking's 3.5, so 2.29x; rounded it is two, and EVERYTHING COSTS
+    ONE makes the increment exactly one. The law picks the number and the
+    physiology says it is right, which is the only order those two go in.
+        a normal day        5 people, 5 rations, 8.6 km
+        a day carrying one  5 people, 9 rations, 1.07 km
+        = 1.8x the food for 12% of the distance = *** 14x THE FOOD PER KILOMETRE ***
+    And the downed person still eats his full one and produces nothing, which costs
+    nothing to build because our need table is already flat per person.
+ 3. THE ONE THAT IS ACTUALLY THE MECHANIC: YOU DO NOT HAVE TO CARRY THEM. Both
+    aisles arrive here from opposite ends -- the real record says a party of four
+    cannot carry anybody anywhere useful, and the campaign layer says the fun
+    version was never the stretcher. So: leave them somewhere (Shenkursk's answer,
+    and you pay in what you abandon), or take them and pay the cap, and MOVING IS
+    WORSE THAN BEING STILL. A locked person who falls then costs a day, a
+    kilometre, double food and their whole contribution for 7, 90 or 365 days,
+    without one hair of NO DAMAGE BEFORE THE DIAL being touched.
 
-THE DELIVERABLE -- THE THREE SIGHTS. Each is a consequence of a pinned price, has a
-real first-day source, has a piece already built here, and contains NO NUMBER:
- 1. A PRICE TAG THAT IS NOT THERE. One shelf row with no number, and a person he
-    must carry the thing to. Venezuela's tags. ALREADY BUILT AND UNREACHABLE: the
-    market card prints "unpriced" on NO_RULING, and 0 of 11 goods can reach it.
- 2. A DOOR THAT USED TO OPEN. A door he can reach, watches somebody leave, and that
-    will not open for him -- lit windows one street over. Argentina's shutters,
-    Greece's shopkeeper. ALREADY BUILT: 74% dark at boot, isDark/douse/relight all
-    answer, and day 2's quest exists because doors are walkable.
- 3. SOMEBODY AHEAD OF HIM WHO ALREADY GOT IT. One person, served first, walking away
-    with it. Not a line of forty. The shortage-economy queue, where the line is the
-    INFORMATION. ALREADY BUILT: 40 agents a block, and the card's refusal is written
-    in his money -- "that is 2 batteries and you have 1 battery".
-AND THE TWO CHEQUES, for QUESTS [first ask]: the water district is hiring, and the
-truck needs gas. He heard both in the first ninety seconds. A shift already pays
-exactly one (PAYOUT: COMPLETE -> {electricity:1}) and fuel is already a good at
-3.75 with 24 days left. Both cashable out of parts that already run.
+ONE HONEST CHECK ON OUR OWN TABLE, written down rather than acted on: walking is
+3.5 METs, so a 70 kg person over our own sixteen-hour day burns about 3,920 kcal =
+1.96 rations. OUR FLAT ONE-RATION DAY FEEDS A PERSON ABOUT HALF OF WHAT WALKING
+ACTUALLY BURNS. Not a bug and not a request -- a valley quietly on half rations is
+right for this game, and it is worth having the arithmetic on paper once.
 
-ROUTED: QUESTS [first ask] the two cheques and the job-first shape | RUN [wake near]
-wake him in sight of all three, and the frozen opening is RUN's own red | WORLD [two
-prices] the one price is CORRECT and it is a price control, so the second price
-belongs behind the closed door, which is Q38 [old price] | UI no currency display
-exists anywhere | CUTSCENE two planted strands never answered | PLUMBER a comment
-asserting a precondition that went false on 9/5 | COORDINATOR the EVERYTHING COSTS
-ONE reframe is pending 37.
+ROUTED: PEOPLE [lock them] the three numbers | PEOPLE [down not dead] everything
+attaches to fall() and needs no new state | COMBAT [downed body] the carry is where
+these land on the board | WORLD the 8x and 16x are ratios against the movement
+table on purpose | QUESTS "the wounded went first and the healthy walked home in
+their socks" needs no invention | COORDINATOR nothing blocking, one premise in the
+pendings.
 
-GATES: economy 13/0, payday 40/0, purse 28/0, attempt 15/0, canon rot 13/0, demo
-blockers 22/0, language 83/0. All green.
+GATES, under front-page rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0,
+payday 40/0, attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0. FULL
+SUITE UNMEASURED SINCE 765e8c5, because THE SUITE LINE has not been posted yet. No
+red is mine: this diff touches only records, the bank and the board.
 
-THE PROJECT-LEVEL HOLE, round 21 of naming it: these gates check that a part does
-what it says. Nothing checks that two parts agree, that a part keeps working as long
-as the game lasts, that it is the right part to have, or that the parts form a loop
-that closes. THIS ROUND'S INSTANCE IS THE SHARPEST YET AND IS FULLY MECHANICAL: a
-valve is set open (PRICE_SOURCE='economy') and is unreachable for every key in the
-table checked before it. A four-line gate -- if a valve is open, at least one input
-must be able to reach it -- would have gone red on 9/5 and stayed red. Instead the
-sim his own ruling pointed at has been dead eight days with every gate green.
-Second instance: a draft:true scene plants three strands and answers one, and
-nothing counts strands across a cut.
-
-PROBES THAT WERE WRONG, KEPT ON PURPOSE (a later round will reach for all four):
-- makeLedger() with no args builds a 0-person 0-house block, so every stock reads
-  null and every daysLeft Infinity. It looks exactly like a finding. It was my bug.
-  Signature is makeLedger(seed, nAgents, nHouses); the gates use (7, 40, 20).
-- advanceDay(ledger, agents) returns FLOWS, not the ledger, and mutates in place.
-- powerMap().circuits and .liveCircuits are NUMBERS, not collections.
-- towns.SEATS is an object, not an array, and ships EMPTY by design.
+THE PROJECT-LEVEL HOLE, round 22 of naming it: bohemia_down.js AND THE MOVEMENT
+SYSTEM HAVE NEVER MET. A person can fall and the party still walks 8.6 km that day
+exactly as if nobody had. Both parts are correct on their own, and no gate here can
+express "supposed to".
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
@@ -395,13 +303,89 @@ PROBES THAT WERE WRONG, KEPT ON PURPOSE (a later round will reach for all four):
      two lines, or leaves them hanging on purpose, is an authorship call about HIS
      scene, so a lane should not take it.
 
-NEXT IN THIS LANE: Q37 [carry cost], then Q38 [old price], Q39 [protection court],
-Q40 [how many pockets].
-The coordinator added Q38, Q39 and Q40 since last round, and all three were
-harvested from this lane's rounds 33, 34 and 35.
+ 39. (new) ONE RATION A DAY IS ABOUT HALF WHAT A WALKING DAY BURNS. Measured, not
+     argued: walking is 3.5 METs, so a 70 kg person over our own sixteen-hour day
+     burns roughly 3,920 kcal, and our food table feeds 2,000. Everyone in the
+     valley is quietly on half rations. THIS IS PROBABLY RIGHT AND THE LANE IS NOT
+     ASKING TO CHANGE IT -- a crash economy where a full day's food does not cover
+     a full day's walking is the realistic setting, and EVERYTHING COSTS ONE keeps
+     the number clean. It goes here so that nobody discovers it later as a surprise
+     and "fixes" it into something nobody ruled.
+
+NEXT IN THIS LANE: Q38 [old price], then Q39 [protection court], Q40 [how many
+pockets], Q41 [who replaces you].
+The coordinator added Q41 since last round, harvested from this lane's round 35.
 
 
 ================================================================================
+
+UI (ui-kmqmrf): 9/13 (b) LATEST -- *** [no slop] ROUND SIX. PROSE IS NOT A SCREEN. ***
+Row STILL CLAIMED. monospace on the walked city 66 -> 40, all tells 204 -> 178.
+
+WHAT LANDED. BohemiaBody: 108 glyphs, 2.2 KB, drawn by the same tool as the screen face. The day
+card and the talking card carry it and everything written on them inherits it. rom_face_gate 14/0.
+DIRECTION's ruling is one sentence -- fixed pitch ONLY where the device is a character-cell screen
+-- and prose is the other end of it. Those two cards held 30 of the 66 monospace hits. Nobody
+writes on a grid; that is the tell in five words.
+
+IT IS THE SAME CUT, TRIMMED -- REUSE, NOT A SHORTCUT. The cell glyphs were already drawn on a
+7-row cap and 5-row x-height; what made them monospace was never the drawing, it was that every
+glyph got the same five columns. So each is trimmed to its own ink and given its own advance.
+BUT TRIMMING ALONE WOULD HAVE SHIPPED A LIE: the first build had 77 of 107 glyphs STILL five
+columns wide, because the cell cut fills five columns by construction. A face where nearly every
+letter is one width is a grid with a few narrow letters in it. Round lowercase redrawn at four;
+now caps 5, lowercase 4, i 1, l 3. AND ITS PIXELS TOUCH while the screen's do not -- a display is
+made of LAMPS and you see the dark between them; ink runs together. Same grid, two faces that look
+properly unrelated because what they are made of is unrelated. Same sentence at 11px: one line
+here, two in the fixed-pitch face.
+
+THE FIRST ATTEMPT WAS DECORATION AND ONLY THE REAL SURFACE SAID SO. I pointed the prose rules
+(.fbnote, .endsay, the textarea, the teaching line) at the body register and the tell count moved,
+so it looked like work. Then I opened the real card: still the old face. Asking the live document
+which rule set its type returned an EMPTY LIST -- those rules live in a JS string this path never
+injects, so the prose was inheriting mono from its parent and every edit was decoration. The fix
+is the one the phone already taught: THE SURFACE CARRIES ITS OWN FACE and everything on it
+inherits. A rule that never loaded cannot miss that.
+
+THE GATE FOUND A SECOND MISSING GLYPH ON ITS FIRST RUN. Every card gets a corner close from
+cardShow and it is U+2715, not an ASCII x. Neither face had it, so that one mark on EVERY panel
+in the game was in a borrowed typeface. Two glyphs found this way in two rounds (the phone's
+signal bar was the first), both things nobody would think to put on a list. That is the argument
+for asking the renderer what a surface actually draws.
+
+*** AND THE WORST THING THIS ROUND WAS MY OWN NEW TEST READING THE WRONG FONT. *** The leg whose
+whole job is to prove the body face is proportional set the canvas font once, then ran the
+coverage loop (which leaves the font on plain serif), and only THEN measured i and m. It was
+measuring SERIF -- proportional -- so it would have passed for every possible face including a
+pure grid. Caught by mutating the body register back to fixed-pitch and watching the leg report
+THE SAME TWO NUMBERS as the healthy run, 17.78 and 49.78. IDENTICAL NUMBERS UNDER A MUTATION ARE
+THE TELL THAT A CHECK IS READING SOMETHING OTHER THAN WHAT IT NAMES. Fixed: healthy now reads 13
+and 38, mutant reads 38 and 38 and fails. This lane has now written "a clean answer from the wrong
+oracle looks exactly like a fact" about a ruler, an attribution heuristic, and its own gate.
+Mutation is the only thing that has ever caught it.
+
+WHOSE CALL THE BODY FACE IS, SAID OUT LOUD: DIRECTION's ruling names a pool (Pixel Operator, m5x7,
+monogram, LanaPixel) and NONE are in this repo. Two OFL pixel faces do sit on this machine
+(Silkscreen, Pixelify Sans) and either could have been embedded, but pulling in a face DIRECTION
+did not name is their call, not this lane's. Ours asks nobody and carries no licence -- and the
+whole point of building registers first is that DIRECTION swaps it by changing ONE token.
+
+NEXT: the casing register is the last of the three still fixed-pitch (DIN-stencil caps), and by
+round five's measurement it is not blocked either. Then rounded corners 60 and 1px borders 56,
+neither of which needs a font at all.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_THE_WRITING_READS_9_13_26.html
+
+PER RULE 13: pre-push pass green (rom face 14/0, thumb 16/0, feed 15/0, phone object 18/0, half
+size 7/0, city rail 8/0, alpha loads 20/0, readable ruler 7/0, demo build 25/0). THE SUITE LINE is
+not posted yet, so the honest sentence is: full suite unmeasured since e8226080.
+
+NOT MINE, THIRD TIME -- FOR WHOEVER OWNS THE PALETTE: phone_readable_gate 15 ok 4 FAILED (13/6 on
+clean main before this lane fixed the two text-floor legs). The four colour-collision ratchets have
+not moved in three rounds: normal 5 vs ratchet 3, protan 14/13, deutan 12/11, tritan 13/9. Nothing
+in this round touches a faction colour. Row: this lane's OPEN [colour reaches].
+
+Record: records/BOHEMIA_NO_SLOP_THE_WRITING_IS_NOT_TYPED_9_13_26.md
 
 UI (ui-kmqmrf): 9/13 LATEST -- *** [no slop] ROUND FIVE. THE BLOCKER WAS NOT A BLOCKER. ***
 Row STILL CLAIMED and still correct: the ship test is that NONE of the tells survive.
@@ -7953,7 +7937,78 @@ THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
 
-COOK (cook-mce6r5): 9/12 LATEST -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
+COOK (cook-mce6r5): 9/13 LATEST -- *** [teal legs]: TEAL WORK PANTS SHIPPED, AND RULE 12
+CAUGHT THE ROW'S OWN HEADLINE NUMBER. *** TAB: CHARACTER, once CHARACTER wires it; nothing on
+his screen changes until then. Build 9/13t, demo re-cut.
+
+*** AND READ THIS FIRST, BECAUSE IT ALMOST ATE THIS BLOCK. *** Last round I wrote a handoff
+block for [magenta piece], the script printed "handoff updated", I committed and pushed, and
+the block IS NOT IN THE FILE. Nineteen lanes edit 00_START_HERE_NEXT_SESSION.md and a rebase
+silently took somebody else's copy. WRITING THE HANDOFF IS NOT THE SAME AS THE HANDOFF
+LANDING: after pushing, read the block back off origin/main before you believe it.
+
+--- [teal legs] ---
+THE ROW SAID "31% self-agreement against the 38% law". 0.31 IS NETWORK'S COLOUR STRENGTH --
+ITS SATURATION. ITS SELF-AGREEMENT IS 62%. Network was never failing that law. I misread the
+same column the same way on my first pass and only caught it by going back for the table
+header. READ THE HEADER BEFORE YOU QUOTE A COLUMN.
+
+THE DEFECT IS REAL BUT DIFFERENT: Network's cloth agrees with itself fine and AGREES ON HUE
+210, BLUE, when he chose #1fbf9c at hue 167. A FACTION CAN BE PERFECTLY COORDINATED IN A
+COLOUR THAT IS NOT ITS OWN, and a share number alone never says so.
+
+WHAT NETWORK WEARS, hand-authored in FACTION_LOOKS (not picked by the dresser -- checked):
+    hair TEMPLE TAPER · base STEEL WORK SHIRT · legs DUST TROUSERS · feet STEEL SNEAKERS
+Teal by layer before this round: base 2, legs 0, feet 0.
+
+THE PIECE: TEAL WORK PANTS = wear(genPants(g,{ramp:TEALBRT}),TEALBRT,13). Character for
+character the same call as DUST TROUSERS, same wear value 13, a DROP-IN for the exact trouser
+Network wears. TEALBRT.mid = [40,190,160] = #28bea0, 1.1 degrees off his choice. No new ramp,
+no new colour, no new geometry. "Byte-identical silhouette" MEASURED on rendered pixels:
+opaque mask dust vs teal, PIXELS MOVED 0.
+
+    today  steel + dust           strength 0.309   dominant 210 BLUE   62%
+    + teal pants                  strength 0.434   dominant 210 BLUE   61%
+    + teal pants AND teal shirt   strength 0.553   dominant 180 TEAL   62%
+THE PANTS ALONE ARE NOT ENOUGH -- the steel shirt owns more area than the trousers.
+-> FOR CHARACTER: wire BOTH. FACTION_LOOKS Network base:'TEAL WORK SHIRT',
+   legs:'TEAL WORK PANTS'. Legs alone raises saturation and leaves the faction reading blue.
+PRE-PUSH PASS (rule 13, NOT the suite): wardrobe_wired 17/0 WITH THE SHAPE RATCHET UNMOVED,
+clothes_4x 13/0, trenchcoat 12/0, attempt 15/0, faction_colour 27/0, alpha_loads 20/0,
+demo 23/0, purity exit 0. Full suite unmeasured; no SUITE LINE posted yet.
+RECORD: records/BOHEMIA_COOK_THE_NETWORK_AGREES_ON_THE_WRONG_HUE_9_13_26.md
+PICTURE: records/target/COOK_TEAL_LEGS_9_13_26.png
+
+--- [magenta piece] -- STILL STOPPED, AND THE ONE THING THAT UNBLOCKS IT ---
+*** [PENDING Paolo] Purple means the Amalgamation. The Anarchists' colour IS a purple.
+Which gives way? ***
+  A. the Anarchists move to a hot red-pink near 345 degrees -- still their colour to a person,
+     law intact. THE REALISTIC DEFAULT: one hex moves, a pillar law holds.
+  B. they keep #c026a0 and the allowlist blesses faction colour as a third exception beside
+     the hatch and the agents; the purple signal then splits.
+  C. the Colorful's #e85aa0 is in the same band with the same problem -- rule both at once.
+
+#c026a0 is hue 312.5, lightness 0.451, saturation 0.670. The reserved band is hue 265-330,
+sat > 0.45, lightness 0.25-0.75. INSIDE IT, and not on the allowlist (hatch, network_hatch,
+agent_iris, neurolink). The law, from that allowlist's own header (7/10, LOCKED):
+"purple/magenta/violet is RESERVED. ONLY the door/hatch from the tunnel into the Network build
+may carry that purple." MAGENTA IS NAMED IN THE LAW BY WORD.
+
+MUTATION-PROVEN: adding a three-tone magenta garment ramp to bohemia_dress.js takes the purity
+gate's code-colour count 11 -> 14 and the gate goes RED. The row cannot be built as written.
+
+AND THE MACHINE HALF WAS MINE AND I MISSED IT FOR A ROUND. The 8/2 faction-gaps research said
+the purity sweep "only ever looked at art pixels and never at a colour written in code". On
+9/12 I fixed that very gate (2,232 violations, exit 0) and added a scope for the shipped tile
+pools -- AND IT STILL ONLY COUNTED PIXELS. Closed 9/13: 1,983 hex literals swept across the
+alpha and engine/*.js, 11 in the band, 5 unique (#c848a0 and #b83a8a are song accents,
+#c81e8c a fillStyle, #c026a0 the Anarchists in both the alpha and bohemia_dress.js).
+Ratcheted at 11, may only fall.
+RECORD: records/BOHEMIA_COOK_HIS_MAGENTA_IS_INSIDE_HIS_OWN_RESERVED_BAND_9_13_26.md
+
+================================================================================
+
+COOK (cook-mce6r5): 9/12 -- *** [fortress buildings] ROUND 3: THE WELCOME TO LAS VEGAS
 SIGN IS DRAWN. 7 UNDRAWN LANDMARKS -> 6. *** TAB: none yet; it is at cell 55,65, the south end
 of the boulevard. Nothing changes on his screen until he walks there.
 
@@ -26523,7 +26578,20 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): THE AERIAL JUDGED AT THE SEAM - FAIL on the
+ROUND LOG 9/13 (latest): [judge the swaps] SHIPPED - PASS both. Trades
+wears his copper at last (the old shirt was named copper and rendered
+green); the Mob's gold pinstripe now stands alone against charcoal and
+reads as ownership. Judged on the thirteen-outfits board (the street's
+own generator; silhouettes proven byte-identical on the walked build)
+after the 6am street produced coyotes and roofs instead of workers.
+Mob/Reds red-bucket overlap left to Paolo on the CLOTHES vote board as
+CHARACTER reserved. PREVIOUS: [judge tracks] SHIPPED - PASS, trails
+fade to a bright head in the holders' inks, no scribble at map zoom;
+routed catch: the feed phone covers the north-east quarter of the
+valley at whole-map zoom (UI should make it yield there). NOTE: this
+entry and the tracks entry were re-added after a merge ate the tracks
+roll - if a round log line vanishes, check merges before assuming it
+was never written. PREVIOUS: THE AERIAL JUDGED AT THE SEAM - FAIL on the
 card's first question, with respect for what landed: the diagram is
 gone, tiles are live, hue and grid and greyscale all pass. But 71.6% of
 the world sits below 0.43 luminance and the ground band holds 16% - the

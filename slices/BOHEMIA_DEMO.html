@@ -1339,7 +1339,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/13s - THE WRITING IS NOT TYPED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 9/13t - THE NETWORK GETS TROUSERS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -28120,6 +28120,20 @@ window.CLO=(function(){
     {n:'MOSS GREEN SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:GRASSGRN,sleeves:'long',neck:'crew'}),GRASSGRN,10);}},
     {n:'TEAL WORK SHIRT',st:'canon',fresh:true,layer:'base',gen:function(g){return wear(genTop(g,{ramp:TEALBRT,sleeves:'short',neck:'crew'}),TEALBRT,10);}},
     {n:'COBALT WORK PANTS',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:COBALT}),COBALT,10);}},
+    /* __TEAL_LEGS__ -- THE NETWORK'S TROUSERS (9/13, COOK, row [teal legs]).
+       MEASURED FIRST: the colour gate reads Network at domShare 0.31 against a 0.38 law,
+       because teal reaches TWO SHIRTS and nothing below the waist -- teal garments by layer
+       were base 2, legs 0, feet 0. familyOrStripeOutfit nudges region by region until the
+       faction's colour covers half the body and simply runs out of teal after the torso.
+       ZERO NEW GEOMETRY, which is the whole of "keeps the silhouette byte-identical":
+       genPants is the same call BLUE JEANS and COBALT WORK PANTS make, so this adds a
+       GARMENT and adds no SHAPE, and wardrobe_wired_gate's shape ratchet does not move.
+       STRUCTURE-NOT-COLOR says a recolour is never progress; the line above it in this file
+       says the rest -- "this is not progress, it is IDENTITY, which is the half his 8/26
+       ruling adds." TEALBRT.mid is [40,190,160] = #28bea0, 1.1 degrees off the #1fbf9c he
+       chose for the Network, and hue 168 is nowhere near the reserved purple band that
+       stopped the Anarchists' magenta dead last round. */
+    {n:'TEAL WORK PANTS',st:'canon',fresh:true,layer:'legs',gen:function(g){return wear(genPants(g,{ramp:TEALBRT}),TEALBRT,13);}},
     {n:'ROSE BANDANA',st:'canon',fresh:true,layer:'face',gen:function(g){return wear(genAcc(g,{ramp:ROSEBRT,kind:'bandana'}),ROSEBRT,8);}},
     /* ---- COLOUR IS TERRITORY (Paolo 8/26, LOCKED) -------------------------
        "the colorful, like, that guy was not colorful, bro. Like, that shit was

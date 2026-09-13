@@ -1,0 +1,45 @@
+{
+  "bank": "EYES E20 [song length] -- the handover spec, round one of two",
+  "date": "9/13/26",
+  "draft": true,
+  "note": "SCHOOL ROUND. Nothing measured, nothing in the game. The spec round two builds.",
+  "school_record": "records/BOHEMIA_EYES_E20_ROUND_1_SCHOOL_THE_PREMISE_ALREADY_MOVED_9_13_26.md",
+  "the_premise_moved": {
+    "the_row_says": "the next song starts on the very next beat with nothing in between, and the bed is masked forever",
+    "what_is_actually_shipped": "__THE_STREET_BREATHES__ (9/11, SOUNDS lane) is wired in the shuffle watch loop: at MUS.step>=1024 it calls CITYMUS.beginRest() and returns if the rest is taken. PHRASE:128 is 128 STEPS (eight bars), restLen() asks the engine for the one formula, it is a DUCK not a stop so the transport keeps running, the bed is on the SFX bus and untouched, the level is captured and restored rather than typed, and the rest is refused when fight, menu or interior music owns the master.",
+    "so_round_two": "does not re-find that gap. It measures whether the rest happens on the real surface, how long it really is, and whether the bed is audible inside it.",
+    "front_page_rule": "12 -- a dependency on a line is a premise, not a gate. Measure first."
+  },
+  "the_128_is_musical": {
+    "the_row_says": "the engine loop length, a number about buffers and not about music",
+    "the_engine": "ARR is 16 named sections, RT is 16 root shifts, songCtx does bar=floor(step/16)%64 and si=floor(bar/4). 16 sections x 4 bars x 2 s = 128 s. That is an arrangement.",
+    "existing_gate": "gates/combat_lab_gate.js section 15 already proves the form is 16 sections / 128s with D first landing at 0:48 and doubled at 1:36.",
+    "THE_REAL_FAULT": "ARR and RT live on MUS and ZERO song rows carry their own arrangement. All 126 distinct songs play A B B A C B D B A B C A D D B A with the key moving at the same sixteen moments and D landing at 0:48 in every one. The length is identical BECAUSE THE FORM IS IDENTICAL. Same disease E19 measured in the interface: uniformity is the tell."
+  },
+  "how_the_trade_does_it": [
+    "RADIO: dead air is the profession worst sin; the fade exists as a cue for the DJ, not as an aesthetic; a crossfade wants one to two seconds; and MusicMaster and Selector carry rules about the TRANSITION ITSELF, such as forbidding a slow fade out into a slow build in. The handover belongs to the PAIR.",
+    "GAMES: FMOD waits for the nearest full bar before transitioning and the quantisation grid can be bars, beats or smaller; transition regions crossfade so reverb tails and instrument sustain play underneath the next pass; stingers are fired on events and synchronised to the running music; and Wwise has a TRANSITION MATRIX defining a custom transition for ANY PAIR of music states. Same answer as radio, different industry.",
+    "OURS: one global rule for every pair. 126 songs is 15,750 ordered pairs and all of them get \"duck eight bars, then start the next from its beginning\". Not wrong; one rule where the trade uses a table."
+  ],
+  "how_a_place_breathes": {
+    "the_worked_example": "Breath of the Wild. The piano drifts in and out and never outstays its welcome, and the designers were explicit: \"the key here is the length of silence in between musical moments -- they are long enough so that as a listener you are no longer perceiving rhythm, and thus, no longer anticipating more music.\" The fragmentation is why it does not wear out like a looped track.",
+    "THE_NUMBER_UNDERNEATH": "synchronising to a pulse works above about 250 ms and BREAKS DOWN past roughly 2 to 3 seconds; independent experiments converge on about 2 to 3 seconds for the subjective present. 0.45 to 1.5 s is processed automatically, 1.8 to 3.6 s is already slower cognition.",
+    "the_floor": "a gap shorter than about three seconds does not stop the ear expecting the next beat. At 120 BPM that is six beats, a bar and a half. The shipped rest is eight bars, sixteen seconds: five times the floor ON PAPER. Round two measures whether it is sixteen seconds in fact."
+  },
+  "the_bed_is_not_a_defect": "Dead Cells runs a separate ALWAYS-ON ambience bed under the score and ducks the music only 4 dB for 600 ms on boss entry and death, with no ducking in ordinary combat, because the loop is the constant the player navigates by. Beds are built as long deliberately detail-free loops precisely so they can sit under other things. So \"the bed is under the music\" is correct practice. The only honest question is whether ours is AUDIBLE, which is a mix number and not a structure.",
+  "round_two_measures": [
+    "THE HANDOVER AS IT NOW IS, on the audio clock: song length, gap length, restart offset.",
+    "THE BED INSIDE THE GAP in dB against itself with music up. Reuse E12 tap and K-weighting. The answer is a difference, not a claim.",
+    "THE FORM SAMENESS: confirm ARR and RT are global and no row overrides them, and report the consequence in plain numbers.",
+    "THE GAP AGAINST THE PUBLISHED FLOOR: report it beside the ~3 second anticipation threshold with sources. If it clears, SAY SO -- a sweep that only finds faults gets muted."
+  ],
+  "controls": [
+    "A SILENCE CONTROL: a deliberately ducked master reads as ducked and an un-ducked one does not. E12 lesson: three captures at one spot spread 16.4 dB against 16.2 dB across places, and the spread was the music.",
+    "A GAP CONTROL: a planted 4-second gap is measured as 4 seconds within a beat.",
+    "A FORM CONTROL: a synthetic row carrying its own arr reads as OVERRIDING and a row without one reads as INHERITING, or the sameness claim is unfalsifiable.",
+    "THE CLOCK CONTROL: the timebase is the audio clock, not Date.now(). E14 measured them 9.6 ms apart with 0.93 ms jitter.",
+    "all pass or no number is printed."
+  ],
+  "no_ratchet": "No count here can only get worse: a form is a design and a gap is a length. What a gate CAN hold is the SHAPE -- that the rest is still wired at the end of a pass, that the bed is still on a bus the duck does not touch, and that the rest is still refused when the fight owns the music. Those three are what a later migration would quietly remove with nothing going red, and the laws master already carries that sentence about this exact music path: A FIX THAT A LATER MIGRATION UNDOES IS NOT A FIX.",
+  "what_this_lane_may_not_do": "write the arrangement, or decide what the second form should be. That is SOUNDS and DIRECTION."
+}

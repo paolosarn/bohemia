@@ -2608,6 +2608,8 @@ GATES = [
      'per-song hero beat picker: MUSIC tab UI, the bus, combat resolves + shifts the dial clock', False),
     ('OPEN COAT',      ['node', 'gates/open_coat_gate.js'],
      'jackets/coats open in front, clothes show underneath', False),
+    ('JOINT SNAP',     ['node', 'gates/a_joint_does_not_snap_gate.js'],
+     'Paolo 9/7 with his clip thumbs: "we gotta re-analyze a lot of these. IF I KILLED IT I DON\'T WANT IT GONE." MOVING A LOT IS NOT A DEFECT -- jumping-jacks is SUPPOSED to throw the elbow, and a distance ruler calls it the worst clip in the set (218 frames over 6px) while a real 30px joint flip sits below it. The signature of a broken joint is the ELBOW travelling far in one frame while THE HAND IT BELONGS TO barely moves: the limb went nowhere, the joint jumped to the other solution. So this is a RATIO, not a distance. Measured over the 47 he killed, 8 facings, 24 buckets: before the three rig fixes 11 clips snapped at up to 60x (elbow 30px, hand 0px); after them 10 clips at 14x and every pure flip gone. Both ratchets are PINNED AT THE MEASUREMENT because the first cut left slack and a mutation that inverted the elbow side walked through it. Carries two CONTROLS: the fast clips must really throw the elbow, and not one of them may be called a snap. 2 mutations caught (the historical pre-fix rig, and an inverted elbow side)', True),
     ('NEAR HAND',      ['node', 'gates/near_hand_draws_in_front_gate.js'],
      'Paolo 9/7: "when it\'s facing north-east the hand was behind the head even though it\'s supposed to be in front; some of the directions look like dog shit." TWO defects over 105 clips x 8 facings x 8 phases. ONE: 460 frames drew a hand BEHIND the head while its own forearm was IN FRONT of it, a wrist cut in half by the skull, every one a gun clip and 66 on NE -- the GUN-UNIT law says the hands are ONE unit with the weapon and the code moved parts 7 and 8 and left 5 and 6 alone. Every depth move takes the PAIR now. TWO: the head was behind the far arm on S and SE and in front of it on the other six, so a far-side arm painted over a skull between it and the camera: 35,229 cells, worst NW 8,469 and NE 8,228; and on N the head sat BETWEEN the two arms and split every two-handed grip, 2,577 cells. The head sits between the near arm-unit and the far arm-unit now, near being whichever the AUTHORED order already puts in front of the torso -- nothing read from the pose, so unlike the two rules retired on 7/26 it cannot flip mid-swing. Both to 0. Carries a CONTROL that facing you the head stays BEHIND both arms, because every other claim would pass a rule that just shoved the head forward. 3 mutations caught', True),
     ('COAT ON LEGS',   ['node', 'gates/coat_tied_to_the_legs_gate.js'],
@@ -6460,10 +6462,44 @@ def _check_table():
     return False
 
 
+def _box_speed():
+    """HOW FAST IS THIS BOX RIGHT NOW, PRINTED BEFORE ANY GATE TIME IS (9/13, PLUMBER).
+
+    EVERY TIME THIS RUNNER PRINTS IS A WALL CLOCK ON A SHARED MACHINE, and this
+    machine does not run at one speed. Measured on ONE unchanged tree: a gate took
+    359.6 s and later 663.4 s with no code change between; a city boot took 8.0 s
+    and later 11.1 s. Old city against current city, booted in the SAME window,
+    read 11.0 against 11.1 -- identical. The content had not moved. The box had.
+
+    Without this line, two runs of the same log are not comparable and nothing says
+    so. This lane learned that the expensive way: it compared gate runtimes taken
+    hours apart, reached three different wrong conclusions and pushed one of them,
+    while its OWN fps gate had carried a yardstick for exactly this since 9/5. The
+    idea was not missing. It was in a place nobody trips over.
+
+    It never fails anything. A yardstick that can go red is a budget, and a
+    correction that can fail starts getting argued with. It prints and stops.
+    """
+    try:
+        out = subprocess.run(['node', os.path.join('gates', 'bohemia_box_speed.js')],
+                             capture_output=True, text=True, timeout=60)
+        first = (out.stdout or '').strip().split('\n')[0]
+        if first:
+            print('  ' + first)
+            print('  (a time here is only comparable to one taken at the same ratio --')
+            print('   pair every before/after inside one window, or you measure the hour)')
+        else:
+            print('  BOX SPEED: unavailable, so no time in this run is comparable to another')
+    except Exception as e:
+        print('  BOX SPEED: unavailable (%s), so no time in this run is comparable to another'
+              % type(e).__name__)
+
+
 def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient=False):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
+    _box_speed()
     if not _check_table():
         return 1
     deps_check()
