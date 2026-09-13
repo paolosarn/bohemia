@@ -1,3 +1,66 @@
+WORDS (words-8dqrnq): 9/13 (b) LATEST -- *** Q22 [debt words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. A LENDER NEVER SAYS DEBT, HE SAYS HELP. AND THE DEBT CARD IS
+PLAYER-FACING TEXT THAT NO CHECKER THIS LANE OWNS HAS EVER READ. *** TAB: LIFE (the card), and the
+research itself is NOT IN A TAB. No game code touched, ever.
+
+THE FINDING HAS A CONTROL GROUP, WHICH IS RARE FOR THIS LANE. The instinct for a card listing who
+you owe is to make it mean something: people are counting on you, this is how the block holds
+together, it is only fair. That is the one thing that has been properly tested and it FAILED. A
+field experiment with a collection agency in Latvia, 9,196 people with unpaid hospital bills,
+randomised reminders: messages carrying THE PERSON'S NAME significantly improved payment, and
+messages appealing to social norms or the public good did NOTHING measurable at all.
+AND WORLD ALREADY GOT IT RIGHT WITHOUT THE STUDY. The card's own comment says "One sentence per row,
+NAMING THE LENDER, which is the whole row." That naming is the load-bearing part, not a formatting
+choice, and round two must not trade a name for a category.
+
+WHAT A LENDER NEVER SAYS, TWO THINGS:
+  HE NEVER SAYS DEBT, HE SAYS HELP. The informal-lending literature describes lenders who accept
+  the paperwork of the formal system while using the language of community help and trust in their
+  actual dealings. The ledger's word and the lender's word are different words for the same event,
+  and which one the card uses decides whose side the card is on.
+  HE NEVER NAMES THE CONSEQUENCE. A protection demand is payment for protection from unspecified
+  others, where the protector is the threat, and vagueness is the normal form. Two reasons: a named
+  threat is evidence, and a named threat is a LIMIT, because once you say what will happen you have
+  promised not to do worse. Unstated is unbounded and it is free.
+  The Lebanese side of it, from a resident: "The generator owner is a thug. Everyone knows it, but
+  there is nothing we can do. He makes his own law in full view of everyone." Nobody is quoting a
+  threat because none was made. Bills ran 300 to 1,000 dollars, 44% of average household income in
+  2023 and 88% for the poorest, and the collector is often a relative sent round.
+
+THE PART I COULD NOT SOURCE, SAID OUT LOUD: the row asks how a second reminder differs from a
+first, and I found no good evidence. It is written in the record as a DERIVATION and flagged as the
+weakest thing in it: if the first works by leaving the consequence unstated, escalation is movement
+toward SPECIFICITY, not volume. The second reminder knows a date, a place, a thing that was noticed.
+Three journal hosts were blocked from this session while chasing it.
+
+AND THE MEASUREMENT THAT MATTERS MOST IS NOT ABOUT WORDS AT ALL:
+  the words book holds 3,147 lines across 60 sources and ZERO of them are in engine/
+  ZERO of the 54 interface lines mention owing, lending, debt or being short
+  the interface book is harvested by walking the DEMO; its screens are front-splash, shell,
+    first-morning, after-get-up, sleep, rung, save, phone, mus, bike
+  the card's words are in the WALKED CITY and nowhere else: 2 hits there, 0 in the demo, 0 in the alpha
+SO THE DEBT CARD IS PLAYER-FACING TEXT THE VOICE GATE, THE BANNED-PHRASE RATCHET AND THE CATALOGUE
+GATE HAVE NEVER READ AND COULD NOT HAVE READ. Nobody was careless: the harvest is honestly scoped
+and says so in its own header. THIS LANE has been reading "every word the demo paints" as "every
+interface word in the game". It is not. That hole is mine, not another lane's, and it goes with the
+writing in round two.
+
+THE THREE SHIPPED ATTEMPTS, READ AGAINST THE FINDINGS. Most of it is already right: every row opens
+with the lender's name, there is no amount anywhere, and "Nobody has mentioned it yet" is the
+unstated consequence exactly, which makes it the best line on the card. What the findings argue
+with: the headers are second-person and scolding, and "gave you something for nothing" is the
+LEDGER'S honest word, never the lender's. So the card speaks in nobody's voice in a telling-off
+register. A card has to pick one: the lender (warm, and the warmth is the mechanism), the player's
+own reckoning, or nobody.
+
+PRE-PUSH PASS GREEN (rule 13): voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff
+7/0. FULL SUITE UNMEASURED, no suite line posted yet. Per rule 13 I name which of the census reds
+are mine: VOICE was one of the eighteen sub-second reds and it WAS this lane's; it is fixed and
+green (three rulers that could only move one way, records/BOHEMIA_WORDS_THE_VOICE_GATE_WENT_RED_ON_
+SOMEBODY_ELSES_WORK_9_12_26.md). No other red on that list is this lane's.
+
+NEXT: Q22 round two, the family of lines plus closing the coverage hole. Then Q23 [track words].
+Q4 to Q17 still owe their school rounds, one row at a time.
 EYES AND EARS (eyes-5vql33): 9/13 (ac) LATEST -- *** E20 [song length] ROUND ONE OF TWO IS DONE: SCHOOL. NOTHING MEASURED. TWO PARTS OF THE ROW'S PREMISE ARE STALE, AND THE REAL FAULT IS WORSE: ALL 126 SONGS PLAY ONE IDENTICAL SIXTEEN-SECTION FORM. *** TAB: MUSIC, and the streets in CITY are where the handover happens. The instrument is NOT IN A TAB YET; this lane never writes game code. Record: records/BOHEMIA_EYES_E20_ROUND_1_SCHOOL_THE_PREMISE_ALREADY_MOVED_9_13_26.md. Spec bank: banks/eyes/BOHEMIA_EYES_E20_HANDOVER_SPEC_9_13_26.json, draft:true.
 
 PREMISE CHECK FIRST, per front-page rule 12, and neither half is quietly rewritten. (1) THE REST IS ALREADY BUILT. __THE_STREET_BREATHES__ (9/11, SOUNDS lane) is wired in the shuffle's own watch loop: at MUS.step>=1024 it calls CITYMUS.beginRest() and returns if the rest is taken, falling through to the old hard cut only if it cannot be. PHRASE:128 is 128 STEPS -- eight bars, sixteen seconds -- not 128 seconds, and restLen() asks the engine for that one formula instead of copying it. It is a DUCK, NOT A STOP, and the comment gives the safety argument: MUS.stop() clears the scheduler, combat swaps the song in place on a running transport and never calls start(), so a fight beginning on a stopped transport would be SILENT. So the transport keeps running, only the music master ducks, the bed is on the SFX bus and is untouched, the level is CAPTURED AND RESTORED rather than typed, and the rest is refused outright when the fight, the menu or an interior owns the music. The row's "next song on the very next beat with nothing in between" describes the build before 9/11.
@@ -511,7 +574,7 @@ learns to expect is a red nobody reads.
 Record: records/BOHEMIA_NO_SLOP_THE_SCREEN_HAS_A_FACE_9_13_26.md
 
 
-WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+WORDS (words-8dqrnq): 9/12 (e) -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
