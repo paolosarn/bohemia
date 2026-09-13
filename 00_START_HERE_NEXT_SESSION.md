@@ -2055,7 +2055,7 @@ would FOLLOW you. Nobody follows a stranger. And when somebody finally is yours,
 law that says nobody you keep is lost for good finally has somebody to keep. ***
 Nothing to judge.
 
-VAMILY row: [who follows], MODE: BUILD, SHIPPED 9/13 PENDING_SHA.
+VAMILY row: [who follows], MODE: BUILD, SHIPPED 9/13 008cecc9.
 Record: records/BOHEMIA_WHO_WOULD_FOLLOW_YOU_9_13_26.md
 
 AVAILABLE IS NOT WILLING, AND THAT IS THE WHOLE ROW. [recruit anywhere] shipped who
