@@ -6712,7 +6712,70 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/13 (a) LATEST -- *** [more people] SHIPPED AFTER TEN ROUNDS.
+LIFE + CITY (city-1eztay): 9/13 (b) LATEST -- *** [freeway reads] SHIPPED, THE LANE'S FIRST
+JOB UNDER RULE 14. 30 FALSE OVERPASSES AND 29 FALSE DIPS, GONE, AND EVERY REAL ONE KEPT. ***
+MODE: BUILD. TAB: CITY (it is a city-mode break, measured -- see below). Nothing to judge.
+Build stamp 9/13w. DEMO NOT RE-CUT: rule 14a, only RUN cuts the demo.
+
+  *** PAOLO 9/13: "I thought something was an overpass over a freeway, of a regular street
+crossing over the freeway section, and it was just it." *** He was right and the lie was ONE
+WORD IN ONE TEST. overpassAt asked whether an ordinary street was NEXT TO the cell, so a
+freeway that merely RUNS ALONGSIDE a street was jacked onto a deck with a cast shadow down its
+whole length while being flat ground -- and a street running parallel was sunk into a trough
+the whole way.
+
+  MY FIRST NUMBER WAS TOO GOOD AND IT WAS WRONG, and I caught it only because it was
+suspiciously clean. Asking "is there a road on the opposite side of THIS cell" said 194 of 198
+decks were false. THE FREEWAY IS TWO CELLS WIDE (164 of 168 bands), so a real crossing never
+puts a road against the deck cell at all. Stepping the whole band:
+      BEFORE   decks 198 drawn / 168 real / 30 FALSE      dips 201 / 172 / 29 FALSE
+      AFTER    decks 168 / 168 / 0                        dips 172 / 172 / 0
+They pair up -- deck (5,20) with dip (5,19) -- because they were ONE defect from both sides.
+
+  HIS 8/15 RULING IS UNTOUCHED and that is the point: all 168 real decks and 172 real dips
+stand exactly as they were. The gate has a leg (B3) that goes RED if anyone deletes them,
+because "zero false decks" is trivially true with no overpasses at all.
+
+  COST SAID BEFORE THE SAVING: 2.60 ms before over the whole map, 4.26 ms after, so I ADDED
+1.66 ms against a 48 ms frame. Cached (districts are written only during map generation, never
+at runtime) it is 2.56 ms -- the corrected test costs what the broken one cost.
+
+  *** WHERE HE SAW IT, MEASURED RATHER THAN ASSUMED, AND IT CORRECTS THE ROW'S OWN BRIEF. ***
+Breadth-first over standable ground from the demo's door: the nearest freeway is 324 walked
+cells = 27.2 MINUTES. He cannot have met it on foot inside the five. THIS IS A CITY MODE BREAK,
+and city mode is the ONLY caller of overpassAt in the file -- so the row's brief, which points
+at "the street renderer's layering (edges, shadows, draw order, the tan wall, the kerb lip)",
+points at the wrong renderer. Worth the coordinator knowing for the other street rows.
+  (That measurement cost a coordinate-system bug first: hx,hy are FINE street cells and om.at
+takes OVERMAP cells -- om.at(floor(hx/FN)), FN=128. Mixing them reported "no freeway reachable,
+1 cell of ground".)
+
+  AND MY GATE REGISTRATION WAS MALFORMED AND ONLY SUITE HONESTY SAW IT: I added a 3-tuple to a
+table of 620 4-tuples (the fourth field is `slow?`). suite_honesty_gate went 26/0 -> 12/14 and
+NOTHING ELSE WOULD HAVE CAUGHT IT. Fixed, back to 26/0. Check that gate whenever you touch the
+table.
+
+  *** WHAT I DID NOT MANAGE, AND THE NEXT ROUND SHOULD FIX THE METHOD: a before/after PICTURE
+at a named false deck. *** Assigning TW, city.x/city.y or MODE does not survive the game's own
+loop, which recomputes them every frame -- you get one frame against a camera the game never
+has, repainted before the shutter; and at whole-map zoom the lift is about one pixel. So this
+is verified BY MEASUREMENT AND MUTATION, NOT BY EYE, and that is said plainly rather than
+implied. THE METHOD FIX: drive the camera the way a player does, a real drag and a real pinch,
+never by assignment. I have now paid for this twice -- it is the same mistake that made last
+round's headline wrong.
+
+  PRE-PUSH PASS (rule 13a): A FLAT THING READS FLAT 9/0, NEVER EMPTY 14/0, TAP PICKS 6/0, THE
+ONE THAT IS YOU 7/0, A CROWD TO WALK INTO 9/0, SUITE HONESTY 26/0. Full suite unmeasured since
+fa59649; no SUITE LINE posted yet (rule 13b).
+  Record: records/BOHEMIA_A_FLAT_THING_READS_FLAT_9_13_26.md
+
+  NEXT: the lane's five-minute break is done, so the next line is whatever the coordinator puts
+first. [tiles not slabs] is OPEN with its 1.7% measurement on it; [buildings appear], [power
+buildings], [owner shown], [bill lands], [shelves seen] are behind the rule 14(c) suspension.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/13 (a) -- *** [more people] SHIPPED AFTER TEN ROUNDS.
 [tiles not slabs] TAKEN, MEASURED, AND HANDED BACK OPEN: THE ROW'S PREMISE IS FIVE DAYS STALE.
 NOTHING SHIPPED TO THE GAME THIS ROUND, ON PURPOSE. *** MODE: BUILD. TAB: CITY. Nothing to judge.
 
