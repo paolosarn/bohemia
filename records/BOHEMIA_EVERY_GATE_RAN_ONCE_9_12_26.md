@@ -293,3 +293,97 @@ It does not say the other 75 are fake. It says the eighteen are the ones no re-r
 excuse, so they are where a lane's next hour is best spent. The slow reds still need
 the confirm pass to separate truth from load — and that pass is only trustworthy on a
 run where the tree does not move under it, which is its own finding above.
+
+
+---
+
+## ROUND 5: THREE WRONG ANSWERS, AND THE ONE THING THAT SURVIVED
+
+This round I was wrong three times about the same gate, and each time the measurement
+killed the idea. The wrong answers are worth more than the right one, so they are all
+here.
+
+### THE FACT THAT STARTED IT
+
+`FACTION ASK COST`, run **alone**, with **no code change between the two runs**:
+
+```
+    359.6 s        and hours later, the same file          663.4 s
+```
+
+Both passed 5/5. Nothing about the gate moved.
+
+### WRONG ANSWER 1: "THE SPLIT MADE BOTH HALVES FIT"
+
+Published last round. Measured alone, 529 s and 360 s, both under the 600 s cap. In the
+real suite run **both hit 600.1 s and were killed** — so the split left *two* killed
+gates where there had been one, and the 102 checks still landed nowhere.
+
+### WRONG ANSWER 2: "THEY KILL EACH OTHER"
+
+Run side by side, both took 822.4 s. That looked conclusive: two heavy browser gates on
+four cores, buying 66 s of wall clock and costing every check in both.
+
+So both were marked `__BOHEMIA_SOLO__`. Then the scheduler ran them **one at a time,
+nothing else on the box**, and they still hit 600.0 and 600.1. Contention was not it.
+
+### WRONG ANSWER 3: "THE CITY GOT HEAVIER"
+
+A city boot measured 8.0 s in the morning and 11.1 s in the evening, +39%, while the
+file grew 0.7%. That reads like startup work being added by other lanes.
+
+A first A/B seemed to confirm it dramatically — the old city booted in 0.72 s. **That
+number was garbage**: copied out of `slices/` the page cannot resolve its own chunk
+files, so it failed instantly and my wait condition accepted `readyState === 'complete'`
+as success. A broken load looks exactly like a fast one.
+
+Redone properly — both cities *in place*, and the wait requiring the world to actually be
+up (`ctEveryone` and `ctBases` defined, 14 bases found) — in a single window:
+
+```
+    OLD city, 09-12 11:16      11.5 s   10.9 s   11.0 s    [14 bases]
+    CURRENT city               11.1 s   11.0 s   11.1 s    [14 bases]
+```
+
+**Identical.** The content did not change.
+
+### WHAT SURVIVED: THE BOX IS NOT THE SAME BOX HOUR TO HOUR
+
+If the same gate takes 360 s and then 663 s, and the same city boots at 8.0 s and then
+11.1 s, and the content is provably unchanged, then the machine itself is running at
+different speeds — by up to **1.8x** across a few hours.
+
+That invalidates a great deal:
+
+- **Every wall-clock comparison I made across sessions this round is unreliable**, mine
+  included. 529 s and "600+" for FACTION ARC are very likely the same gate on a fast
+  afternoon and a slow evening.
+- The 822.4 s pair result may be contention, or may just be a slow hour. It was never
+  paired against a same-window solo control, so it cannot tell the difference.
+- **The 600 s cap is applied to a wall clock that moves 1.8x.** A gate near the cap is
+  killed or not depending on the hour, which makes "killed at the cap" a fact about the
+  afternoon rather than about the gate.
+
+This lane's own `[fight headroom]` notes already said it: *"the driven beat has a 40 ms
+noise floor between identical runs, so a single before-and-after is a coin toss; use
+alternating pairs inside one boot."* I wrote that, then spent this round comparing gate
+times taken hours apart. The rule was right and the scale was ten times worse than I
+assumed.
+
+### WHAT IS STILL TRUE
+
+- **5,112 card opens became 441.** That is a count, not a stopwatch. It does not move
+  with the box and it is the one performance claim from this row that stands.
+- The split itself is still correct work: 97 + 5 = 102 checks, proved identical by diff.
+  It did not achieve what I said it achieved, but it did not cost anything either.
+- **The solo marking has been reverted.** Its stated reason — that the two gates kill
+  each other — did not survive the scheduler running them alone. Keeping a change whose
+  justification has been disproven is exactly the rot this lane exists to find, and it
+  would have cost ten minutes of suite floor for a reason known to be wrong.
+
+### WHAT THIS MEANS FOR THE ROW
+
+Any future work on gate runtimes here has to be **paired in the same window** — run A,
+run B, run A again — or it is measuring the hour. A single timing on this box is not
+evidence. That applies to the 71.9 minute floor too: it is built from a census of one
+run, and that run happened at one particular speed.

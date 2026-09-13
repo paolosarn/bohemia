@@ -1,27 +1,4 @@
 #!/usr/bin/env node
-/* __BOHEMIA_SOLO__ -- THIS GATE IS KILLED BY COMPANY, NOT BY BEING SLOW. (PLUMBER 9/13.)
-   MEASURED, and it overturned this lane's own claim from the round before. Alone this
-   gate finishes well inside GATE_CAP. Run beside its sibling on this four-core box, BOTH
-   stretch to 822.4 s and BOTH are killed at 600, so 102 real checks land nowhere:
-
-       alone      FACTION ARC 529.1 s    FACTION ASK COST 359.6 s    888.7 s of work
-       as a pair  FACTION ARC 822.4 s    FACTION ASK COST 822.4 s    822.4 s of wall
-
-   Running the two together buys SIXTY-SIX SECONDS of wall clock, 7%, and costs every
-   check in both. Two heavy browser gates on four cores is barely faster than one after
-   the other, because each one boots a 4.4 MB city over and over and they take turns on
-   the same cores either way.
-
-   THIS EXTENDS WHAT THE SOLO TIER IS FOR, and that is deliberate rather than sloppy. It
-   was built (9/6) for gates whose SUBJECT is time, so a stopwatch would not measure the
-   box. This is the other half of the same fact: load does not only corrupt a
-   measurement, it can kill a gate outright. Both cases want the same remedy -- the box
-   to itself -- so both live in the same tier and say why in their own file.
-
-   THE PRICE IS NAMED: solo work is serial, so this moves ~889 s out of a three-slot lane
-   and into the queue that runs before it. The suite floor goes up by about ten minutes.
-   That buys 102 checks that were landing nowhere at all, on a suite whose floor is
-   already 72 minutes against a 45 minute budget and out of reach either way. */
 /*
  * FACTION ASK COST GATE -- WHAT ASKING COSTS, BEFORE HE ASKS.
  * (9/12/26, PLUMBER lane, VAMILY row [suite runs]. The checks are FACTIONS'

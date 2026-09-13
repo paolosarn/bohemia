@@ -10812,6 +10812,66 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/13 LATEST -- *** CHAT 18. ROUND 21. [suite runs] CONTINUING. I WAS WRONG
+THREE TIMES THIS ROUND ABOUT ONE GATE, AND THE THING THAT KILLED ALL THREE IS THE FINDING: *** THE BOX
+IS NOT THE SAME BOX HOUR TO HOUR, BY UP TO 1.8x. *** FACTION ASK COST, run ALONE, with NO CODE CHANGE
+between the two runs: 359.6 s, then hours later 663.4 s, both passing 5/5.
+WRONG 1 (and it was published): "the split made both halves fit". Measured ALONE at 529 s and 360 s;
+in the real suite run BOTH hit 600.1 s and were killed, so the split left TWO killed gates where there
+had been one and the 102 checks still land nowhere.
+WRONG 2: "they kill each other". Side by side both took 822.4 s, which looked conclusive, so both got
+__BOHEMIA_SOLO__. Then the scheduler ran them ONE AT A TIME, NOTHING ELSE ON THE BOX, and they still
+hit 600.0 and 600.1.
+WRONG 3: "the city got heavier". A boot read 8.0 s in the morning and 11.1 s in the evening while the
+file grew 0.7%. A first A/B seemed to confirm it spectacularly -- the old city booted in 0.72 s -- and
+THAT NUMBER WAS GARBAGE: copied out of slices/ the page cannot resolve its own chunk files, so it
+failed instantly, and my wait condition accepted readyState=complete as success. A BROKEN LOAD LOOKS
+EXACTLY LIKE A FAST ONE. Redone properly -- both cities IN PLACE, wait requiring the world actually up
+(ctEveryone and ctBases defined, 14 bases found), in ONE window: old 11.5/10.9/11.0 s, current
+11.1/11.0/11.1 s. IDENTICAL. The content did not change; the machine did.
+WHAT SURVIVES: 5,112 card opens became 441 -- a COUNT, not a stopwatch, so it does not move with the
+box, and it is the one performance claim from this row that stands. The split is still 97+5=102 proved
+identical by diff; it did not do what I claimed, but it cost nothing.
+THE SOLO MARKING IS REVERTED. Its stated reason did not survive the scheduler running them alone.
+Keeping a change whose justification is disproven is exactly the rot this lane exists to find, and it
+would have cost ten minutes of suite floor for a reason known to be wrong.
+*** THE RULE FOR WHOEVER TAKES THIS NEXT: pair every timing inside ONE window (A, B, A again) or you
+are measuring the hour, not the code. *** This lane's own [fight headroom] notes already said it about
+a 40 ms noise floor and I failed to apply it to gate times; the scale here is ten times worse. It
+applies to the 71.9 min floor too: that is a census of ONE run at ONE speed.
+[AND MY OWN ROUND 20 BLOCK VANISHED IN A REBASE] It was committed in e1dc6ff (+29 lines) and was not
+in the file afterwards. Recovered from that commit and restored below. Worth knowing that a handoff
+block can be dropped silently by a conflict resolution -- check yours is still there after any rebase
+that touches this file.
+PLUMBER (plumber-ont6t5): 9/12 (e) LATEST -- *** CHAT 18. ROUND 20. [suite runs] CONTINUING. THE 93
+REDS NOW SAY SOMETHING. The row's own words: a red count on a suite that cannot finish says nothing
+about anything. With a complete run it can finally be cut. 85 of the 93 have a parsed time, and one
+was FACTION ARC at exactly 600.0 s -- a cap-kill that checked nothing, split last round and now
+green, so that red is gone.
+THE CUT: a gate that fails in UNDER A SECOND never opened a browser and never waited on anything, so
+it cannot have failed for load and no re-run can excuse it. EIGHTEEN of them, and Pillow and numpy
+were both present in that run so none is the missing-image-stack failure the runner warns about:
+BATTLE BROS, CANVAS MEMORY, INTERIORS, LOOK, MAP TAB, NO BULLSHIT Qs, NO CANOPIES, PERSON LOOK, REPO
+BUDGET, REUSE FIRST, RIG CHECK, SUITE FINISHES, TARGET MATCH, TASTE, TOP OF THE DOC, VOICE, WIRED IN
+A TAB, ZOOM BUILD.
+*** SIX OF THE EIGHTEEN GUARD A RULING PAOLO LOCKED: *** BATTLE BROS, LOOK, NO BULLSHIT Qs, NO
+CANOPIES, TOP OF THE DOC, WIRED IN A TAB. Those rulings are being broken right now and the reds
+saying so were invisible inside a suite that never finished. FOR THE COORDINATOR, that is the whole
+argument for this row in one line.
+AND AT LEAST TWO ARE THE FRESHNESS DISEASE IN A NEW PLACE: LOOK fails with "40 stale: no picture is
+more than six hours behind the surface it photographs", WIRED IN A TAB fails on a live screenshot
+that is not live. PICTURES OF THE GAME ROT THE WAY BAKES DO, and nothing was watching them either.
+SUITE FINISHES is in the list and it is OURS -- red because the floor is 71.9 min against a 45 min
+budget, which is the true statement it exists to make.
+IT DOES NOT CLAIM THE OTHER 75 ARE FAKE. The slow reds still need the confirm pass, and that pass is
+only trustworthy on a run where the tree does not move under it -- which is its own finding two
+rounds up.
+[THE RATCHET FIRED AGAIN, SECOND TIME IN THREE ROUNDS] Last round I named RUN_CURRENT drifting +45/-6
+and deliberately did NOT park it on the frozen list. COOK rebuilt it (58e62e8) and derived_freshness
+is green again. Naming it was enough; parking it would have buried it.
+WHAT IS LEFT ON THE ROW: re-measure the floor on a full run now that FACTION ARC is split (running as
+this round ends); the 71.9 min floor itself, which sharding cannot fix -- less browser work or more
+machines, and that is a fork, not a coding task; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/12 (d) LATEST -- *** CHAT 18. ROUND 19. [suite runs] CONTINUING. THE SPLIT
 IS DONE: 102 CHECKS THAT HAD NEVER ONCE RUN NOW RUN. FACTION ARC was green (102 passed) and needed
 1,228 s against a 600 s cap, so the suite killed it every run and filed it under the reds -- a RED
