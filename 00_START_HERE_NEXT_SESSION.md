@@ -6514,7 +6514,71 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/12 (e) LATEST -- *** [more people] ROUND 10: 13 OF 16 WALKS NOW
+LIFE + CITY (city-1eztay): 9/13 (a) LATEST -- *** [more people] SHIPPED AFTER TEN ROUNDS.
+[tiles not slabs] TAKEN, MEASURED, AND HANDED BACK OPEN: THE ROW'S PREMISE IS FIVE DAYS STALE.
+NOTHING SHIPPED TO THE GAME THIS ROUND, ON PURPOSE. *** MODE: BUILD. TAB: CITY. Nothing to judge.
+
+  [more people] CLOSED. The ship test is the coordinator's own 9/7 words -- "the street a player
+is on is never empty in daylight" -- met and gated at 16 of 16 walks, empty standings 116 of 120
+-> 65. Rounds 8-10 went beyond it and bought a crowd too, 0 -> 13 of 16. Three walks in sixteen
+still find only the floor and that is written ON the row rather than rounded away.
+
+  [tiles not slabs] TAKEN on two grounds: his bugs beat my queue (Paolo 9/8, his own frame, "why
+does the city keep looking like this when I'm zoomed out, bro, come on") and COOK had already
+delivered the half it waited on, 61 of 61 coarse tiles, their row saying "the renderer is
+LIFE + CITY's and city mode still draws filled rectangles."
+
+  *** I OPENED BY MEASURING AND THEN I MEASURED WRONG, AND THAT IS THE ROUND. *** Knowing this
+lane has been burned three times counting SOURCE, I instrumented the real canvas and reported
+"drawImage 0 at every zoom, 9,314 diamond fills". I built a bank injector, an iso-blit renderer
+and a per-zoom cache on that number. IT WAS WRONG. I set TW directly instead of driving the
+game's own setZoomAt, so renderCity ran against a camera state the game never has and the loop
+repainted over it -- two screenshots labelled TW=18 and TW=28 came back PIXEL-IDENTICAL and I
+nearly read them as a before/after. Through the real control:
+      TW  3.7  drawImage 9050      TW 14.5  4539      TW 25.3  2244      TW 46.8  782
+  THE CITY WAS ALREADY DRAWING NINE THOUSAND IMAGES. It is hero art, not slabs. Same shape as the
+three before it: I ASKED SOMETHING ADJACENT TO THE REAL THING, GOT A CLEAN ANSWER, AND BELIEVED
+IT. A forced TW is not the zoom, exactly as a filename is not a registry.
+
+  AND THE FALLTHROUGH IS 1.7%, by wrapping cityCoarse itself: 152 of ~9,200 cells at TW 3.7
+(airbase 108, airport 80, estate 58, gated 40, sphere 8, strat/springs/highroller/luxor 2 each),
+14 at TW 25.3, 5 at TW 46.8. Wired in, the bank changed 50 cells at the widest zoom and ZERO at
+TW>=25 -- the fallthrough is mostly airbase and airport and COOK's bank has no tile for either.
+
+  SO I TOOK IT BACK OUT. 73 KB of bank into a 4.2 MB slice to change 1.7% of one zoom level is
+not the row, and BUILD SIZE is already over budget on main (82.83 MB against 78.85). The city
+file is byte-identical to main. tools/bohemia_city_tiles_patch.py is FINISHED and one command
+away for the round where COOK's bank grows airbase, airport and the landmarks, and its docstring
+LEADS with the correction rather than burying it.
+  IT COST A REAL BUG ON THE WAY, worth knowing: the first injector computed its end offset by
+arithmetic and landed ONE BRACE SHORT, putting a stray } in the file. That does not fail loudly
+-- it kills the parse for the whole 4.2 MB inline script, so renderCity itself stopped existing.
+A MARKER CANNOT BE OFF BY ONE; AN OFFSET CAN. The block is fenced at both ends now.
+
+  *** [PENDING coordinator] THE SECOND HALF OF THE ROW IS LIVE BUT IT IS NOT WHAT IT LOOKS LIKE.
+*** The row wants the diagram (skeleton, plots, "protected", edge lines) to become a layer, OFF
+by default. Grouping every stroke by style at the zoom he photographed: 532 #c8a558, 184 #4a8ddb,
+121 #56db00, 108 #db9400, 89 #db1900. THAT CHART IS THE FACTION TERRITORY OVERLAY -- deliberate
+and recent, each faction's own hue lifted in value and saturation so a one-pixel line survives a
+night overmap. Turning it off by default would DELETE the feature this lane's OWN [owner shown]
+row is asking for ("CITY mode shows the owner of every district in its colour"). Two live rows
+want opposite things from the same pixels. That is a fork I do not get to settle alone.
+
+  STANDING NOTE, AND IT IS FOR EVERY LANE: *** A PREMISE HANDED DOWN IS STILL A PREMISE, AND FIVE
+DAYS IS LONG ENOUGH FOR IT TO DIE. *** The row, the coordinator's correction to the row, and
+COOK's round-2 note all agreed the city drew filled rectangles -- three independent statements,
+all counting source, none counting draws, the youngest two rounds old. The fleet was unanimous
+and stale. Rule 12 says a dependency on a line is a premise; THE ROW'S OWN DESCRIPTION OF THE BUG
+IS ONE TOO. Measure the complaint before you build the fix, on the real surface, through the real
+control.
+  Record: records/BOHEMIA_THE_SLABS_WERE_ALREADY_GONE_9_13_26.md
+
+  NEXT: [buildings appear], [power buildings], [owner shown], [bill lands], [shelves seen] are
+the OPEN rows. [owner shown] should probably go first since it now owns a pixel fight.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/12 (e) -- *** [more people] ROUND 10: 13 OF 16 WALKS NOW
 MEET A CROWD (8 -> 13), AND THE ROUND OPENED BY BEING WRONG ABOUT WHY, TWICE. *** MODE: BUILD.
 TAB: CITY, or just walk in any direction. Nothing to judge.
 
