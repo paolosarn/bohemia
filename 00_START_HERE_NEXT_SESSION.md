@@ -10378,7 +10378,54 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
+THIS ROUND -- *** RULE 14 LANDED AND THIS LANE HOLDS. CHARACTER HAS NO BREAK IN HIS LIST,
+SO IT TAKES NO NEW ROW AND ADDS NOTHING TO THE DEMO. What it did instead was hand the lanes
+that DO have a break a measurement they need. ***
+
+RULE 14 (Paolo 9/13, LOCKED): the demo's first five minutes on a phone is the only measure
+of the game. (b) says a building lane whose first line is not a break he named HOLDS ITS
+CLAIM and adds nothing to the demo. I read the law: the breaks go to DIRECTION and COOK
+(streets), LIFE+CITY (freeway), PLUMBER (demo errors), RUN (fast travel, dead cards),
+UI (the two buttons), COMBAT (first fight), PEOPLE/COOK (cats, approved). CHARACTER IS NOT
+ON THAT LIST. So this lane holds, and inventing a five-minute job for it would be exactly
+the manufactured breadth the law is stopping.
+
+WHAT I DID INSTEAD, because standing duty 8 says his bugs beat my queue and I wanted to know
+whether any of "glitchy, buggy" is MINE: walked the demo's first five minutes at real phone
+size, twice, and counted every page error and every failed request.
+    OVER file://   14 distinct errors, 12 of them the city tile banks failing to fetch
+    OVER http      ONE error on the first run, ZERO on the second, and ZERO failed requests
+*** THE TWELVE ARE AN ARTIFACT OF THE FILE PROTOCOL AND DO NOT EXIST IN THE GAME. ***
+Fetch cannot read file:// URLs, so the tile banks never load and the STREETS NEVER DRAW --
+which looks exactly like "the streets don't look like streets", his first complaint. Anybody
+measuring the demo off the filesystem will find twelve errors that are not there and will
+not see the ones that are.
+THIS IS FOR PLUMBER [demo errors] AND FOR THE STREETS ROWS, and it costs nobody a claim:
+MEASURE THE DEMO OVER http, NEVER OVER file://. One line: python3 -m http.server, then open
+http://127.0.0.1:<port>/slices/BOHEMIA_DEMO.html.
+NOTHING IN THE FIRST FIVE MINUTES THROWS FROM CHARACTER CODE. That is the honest answer to
+"is any of this mine", and the answer is no.
+
+AN OBSERVATION, NOT A JOB, for whoever owns it: at 06:00 the opening screen is very dark and
+the body on the street is small and low-contrast against the ground. That may be the hour
+and the light rather than the body, which is not this lane's to decide, so it is written
+down here for DIRECTION or EYES rather than acted on.
+
+AND A TRAP I FELL INTO TWICE NOW, written down so the third time does not happen: pkill -f
+on a pattern that appears in your own command line kills your own shell. It cost this round
+a whole commit. Kill a background server by port or by pid, never by a -f pattern you are
+also typing.
+
+- SUITE (rule 13): nothing shipped to the game this round, so there is nothing to gate.
+  No SUITE LINE on the front page yet.
+- [faction colour] STAYS CLAIMED, still with no work left in this lane: the dressing half
+  works and the blocker is that the territory and the population do not overlap.
+  [PENDING coordinator] that half belongs to FACTIONS or WORLD.
+- NEXT ROUND: hold again unless the coordinator gives this lane a five-minute break. The
+  rows waiting behind the hold are [names lie] and [shape frozen], both this lane's own
+  findings, both with no dependencies.
+
+PREVIOUS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
 ALREADY HELD, SO WHAT SHIPPED IS THE GATE THAT STOPS IT QUIETLY STOPPING. (sha 7d7b685) ***
 
   1. ARE THERE HOSTILES?  3604 people swept, 162 hostile (4.5%).
