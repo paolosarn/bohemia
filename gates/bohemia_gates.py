@@ -5996,6 +5996,21 @@ GATES = [
      'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
      'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
      'GREEN 6/0 in the cut demo.', False),
+    ('A WALL HAS FEET', ['node', 'gates/a_wall_has_feet_gate.js'],
+     'VAMILY [base shadows], LIFE + CITY. DIRECTION [streets read] judged the demo\'s spawn '
+     'street at phone size and routed item 4 of the verdict here: "THE WALL WITH NO FEET. It '
+     'cuts across with no base shadow, so it reads as a TEXTURE CHANGE instead of a standing '
+     'thing -- standing structures carry a 1-2px ground shadow at their base line, ALWAYS." '
+     'THE CAST SHADOW WAS ALREADY THERE AND IS NOT THIS: 48 cast rects were drawing at the '
+     'spawn, but a cast shadow is thrown by the sun and lands a whole cell away (at 06:00 the '
+     'vector is -0.50,0.86), so nothing touched the foot. A contact shadow is the light that '
+     'cannot get into the join: it does not move with the sun and does not stop at night. '
+     'AFTER: 6 feet on the spawn screen at 2px, and 6 still drawn at two in the morning with '
+     'sunVec() null. Mutation-tested two ways, and the FIRST run exposed a hole in this gate '
+     'rather than in the code -- __CONTACT_RECTS was a plain global, so moving the pass behind '
+     'the sun\'s early return left the night leg reading LAST FRAME\'S 6 and the gate went '
+     'green on a mutation that broke the whole claim. The counter is cleared every frame now '
+     'and the same mutation reads 0. A COUNTER THAT IS NEVER RESET IS NOT A MEASUREMENT.', False),
     ('A FLAT THING READS FLAT', ['node', 'gates/a_flat_thing_reads_flat_gate.js'],
      'VAMILY [freeway reads], LIFE + CITY\'s first job under rule 14 THE FIVE MINUTES. '
      'PAOLO 9/13: "I thought something was an overpass over a freeway, of a regular street '

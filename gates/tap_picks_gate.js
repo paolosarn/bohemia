@@ -140,6 +140,14 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
     const rec = await fr.evaluate(() => {
       const out = [];
       CB_DREW.forEach((v, k) => {
+        /* *** A PRISM RECORDS NO PLATE, AND THIS CENSUS THREW ON IT. (9/13) ***
+           prism() writes {sx,sy,h} with no `im`, no dx/dy/w. The edge filter below
+           compares undefined and is quietly false, so the record slipped through and
+           cbArtRise(v.im) read .src off undefined -- THE GATE ITSELF CARRIED THE SAME
+           DEFECT IT EXISTS TO CATCH, and went red as a harness crash rather than a
+           finding. This census is about ART PLATES and where their pixels landed; a
+           drawn shape has no plate to measure, so it is not part of this count. */
+        if (!v.im) return;
         if (v.dx < 24 || v.dy < 24 || v.dx + v.w > cv.width - 24 || v.dy + v.h > cv.height - 24) return;
         const a = k.split(',').map(Number);
         out.push({ x: a[0], y: a[1], solid: cbArtRise(v.im) * v.h,

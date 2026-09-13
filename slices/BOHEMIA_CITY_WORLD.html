@@ -31696,6 +31696,21 @@ function cbArtRise(im){
   CB_RISE.set(k,out); return out;
 }
 var CB_PIX=null, CB_PIXG=null;
+/* *** A PRISM IS NOT A PLATE, AND ASKING IT PLATE QUESTIONS THREW. (9/13, and it was
+   mine.) *** prism() records {sx,sy,h} and no `im`, so both halves of the pick reached
+   through an undefined image -- cbArtRise read .src off it and cbPaintAt read
+   .naturalWidth -- and A TAP ON A TILE RAISED AN EXCEPTION instead of selecting
+   anything. It hid because when [tap picks] shipped I measured ZERO prism calls at every
+   zoom and took "never happens" for "cannot happen". Something on main draws one now.
+   SO THE HIT TEST DISPATCHES ON WHAT WAS ACTUALLY DRAWN. A plate is asked for its pixel,
+   exactly as before. A prism is asked for its GEOMETRY: it is the tile's own diamond
+   lifted by h, so the test is dia()'s own vertex walk moved up, and nothing here guesses
+   a plate's rectangle for a shape that never had one. */
+function cbHitAt(rec,px,py){
+  if(rec.im) return cbPaintAt(rec,px,py);
+  var dx=px-rec.sx, dy=py-((rec.sy-(rec.h||0))+TH/2);
+  return Math.abs(dx)/(TW/2) + Math.abs(dy)/(TH/2) <= 1;
+}
 function cbPaintAt(rec,px,py){
   /* *** THE MIRROR MOVES THE RECTANGLE, NOT JUST THE PICTURE INSIDE IT. *** The first cut
      tested [dx, dx+w] for every plate and only flipped the lookup inside it. A flipped
@@ -31769,9 +31784,18 @@ function CBcellAt(sx,sy){
        the art itself and the exact number inside it changes nothing -- which is the whole
        difference between a measured threshold and a tuned one. A first cut at 1.5 sat
        inside the building cluster and threw away every school and shop in the valley. */
-    const solid = cbArtRise(rec.im) * rec.h;
+    /* *** A PRISM RECORDS NO ART, AND THIS THREW. (fixed 9/13, and it was mine.) ***
+       prism() writes {sx,sy,h} with no `im`, so cbArtRise(rec.im) read .src off
+       undefined and the WHOLE PICKER THREW -- a tap on a tile raising an exception
+       rather than selecting anything. It sat hidden because when [tap picks] shipped
+       I measured ZERO prism calls at every zoom and took "never happens" for "cannot
+       happen"; something on main draws one now and the crash arrived.
+       A PRISM IS ALREADY A MEASURED HEIGHT. Its h is the lift in pixels the roof was
+       drawn at, which is exactly what the art measurement is trying to recover from a
+       plate -- so it is used directly rather than guessed, and no threshold moves. */
+    const solid = rec.im ? cbArtRise(rec.im) * rec.h : rec.h;
     if(solid <= TH*1.35) continue;
-    if(cbPaintAt(rec,sx,sy)){ bestK=k; best=[tx,ty]; }
+    if(cbHitAt(rec,sx,sy)){ bestK=k; best=[tx,ty]; }
   }
   return best || flat;
 }
@@ -41314,7 +41338,69 @@ function sunVec(){
   const len=Math.max(0.55,Math.min(SHADOW_MAX/3,1/Math.tan(el)));
   return {dx:Math.sin(a),dy:Math.cos(a),len:len};
 }
+/* __A_WALL_HAS_FEET__ (9/13, LIFE + CITY, row [base shadows]) ===================
+   DIRECTION [streets read] judged the demo's spawn street at phone size and routed
+   this here, item 4 of the verdict: "THE WALL WITH NO FEET. It cuts across with no
+   base shadow, so it reads as a TEXTURE CHANGE instead of a standing thing. ->
+   LIFE+CITY layering: standing structures carry a 1-2px ground shadow at their base
+   line, always."
+
+   THE CAST SHADOW WAS ALREADY THERE AND IS NOT THIS. Measured at the spawn before a
+   line was written -- 48 shadow rects drawn, 33 solid cells on screen, 23 of them
+   sitting on open ground. The pass works. But a CAST shadow is thrown by the sun and
+   lands a whole cell away: at 06:00 the sun vector is (-0.50, 0.86), so the first
+   rect is half a cell left and most of a cell down, and NOTHING TOUCHES THE FOOT.
+   That gap between the wall's bottom edge and where its shadow begins is exactly
+   what makes the brick band read as a stripe of different paint.
+
+   A CONTACT SHADOW IS NOT A CAST SHADOW. It is the light that cannot get into the
+   join, so it does not move with the sun and it does not go away at night -- which
+   is why the verdict says ALWAYS and why this runs before sunVec()'s early return.
+   A thing standing on the ground always meets the ground.
+
+   ONE FLAT VALUE, reusing SHADOW_A rather than inventing a second alpha, because the
+   line four above this one says "one flat value. NO DITHER, NO GRADIENT" and a
+   contact shadow with its own dial would be the first crack in that. */
+const CONTACT_OF_C=0.05;    /* 2px at the walk zoom's 44, 1px zoomed out: the
+                               verdict's own "1-2px", expressed as the cell it is
+                               measured against rather than a number typed twice */
+function contactPass(ox,oy,C){
+  const h=Math.max(1,Math.round(C*CONTACT_OF_C));
+  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
+  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+1);
+  let n=0;
+  g.beginPath();
+  for(let gy=gy0;gy<=gy1;gy++)for(let gx=gx0;gx<=gx1;gx++){
+    const c=cellAt(gx,gy); if(!c||!c.s)continue;
+    /* THE BASE LINE IS WHERE THE STRUCTURE MEETS OPEN GROUND, and in this view that
+       is its bottom edge. A solid cell with another solid cell below it is mid-wall
+       and has no foot there -- shading it would draw a line across the brickwork. */
+    const below=cellAt(gx,gy+1); if(below&&below.s)continue;
+    const bx=Math.round(ox+gx*C), by=Math.round(oy+gy*C);
+    g.rect(bx, by+C, C, h);                 /* on the GROUND, at the foot */
+    n++;
+  }
+  if(!n)return 0;
+  g.fillStyle='rgba(0,0,0,'+SHADOW_A+')';
+  g.fill();
+  window.__CONTACT_RECTS=n;                 /* what the gate counts */
+  return n;
+}
 function shadowPass(ox,oy,C){
+  /* *** THE COUNTER IS CLEARED EVERY FRAME, and that is not tidiness. *** The first
+     cut left it as a plain global, so when the mutation test moved contactPass behind
+     the sun's early return the night leg STILL READ 6 -- last frame's number, from a
+     pass that had not run. The gate went green on a mutation that broke the very thing
+     it exists to hold. A COUNTER THAT IS NEVER RESET IS NOT A MEASUREMENT, it is a
+     memory, and "the feet stay at night" is exactly the claim that cannot rest on one.
+     NOTED, NOT TOUCHED: window.__SHADOW_RECTS has the same staleness (it reads 48 at
+     two in the morning, from the afternoon), but another lane's gate counts it and
+     resetting it here could turn that red for a reason that has nothing to do with
+     this row. Reported on the row instead. */
+  window.__CONTACT_RECTS=0;
+  /* the feet go down FIRST and unconditionally -- before the sun is even asked,
+     because a contact shadow is not the sun's and the night still has corners */
+  contactPass(ox,oy,C);
   const S=sunVec(); if(!S)return 0;
   const sxi=Math.round(S.dx), syi=Math.round(S.dy);
   const M=SHADOW_MAX+1;

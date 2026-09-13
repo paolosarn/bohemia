@@ -7408,7 +7408,71 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/13 (c) LATEST -- *** NO ROW CLAIMED: THE LANE'S FIVE-MINUTE BREAK
+LIFE + CITY (city-1eztay): 9/13 (d) LATEST -- *** [base shadows] SHIPPED: THE WALL HAS FEET.
+0 -> 6 contact shadows at 2px, AND 6 STILL DRAWN AT TWO IN THE MORNING. Routed here from his
+#1 break, "the streets don't look like streets". *** MODE: BUILD. TAB: none new -- walk out of
+the door and look at the brick band to your left. Stamp 9/13zq. Demo NOT re-cut (rule 14a).
+
+  THE CAST SHADOW WAS ALREADY THERE AND IS NOT THIS, measured before writing a line (my new
+rule: prove the instrument can show a positive before believing a negative). 48 cast rects
+drawing, 33 solid cells on screen, 23 sitting on open ground. The pass works. But a CAST shadow
+is thrown by the sun and lands a whole cell away -- at 06:00 the vector is (-0.50, 0.86), so the
+first rect is half a cell left and most of a cell down and NOTHING TOUCHES THE FOOT. That gap
+between the wall's bottom edge and where its shadow starts is what made the brick band read as a
+stripe of different paint. A CONTACT shadow is the light that cannot get into the join: it does
+not move with the sun and does not stop at night, which is why the verdict says ALWAYS and why
+it runs BEFORE sunVec()'s early return.
+
+  SIZE AND COLOUR ARE BOTH BORROWED, NOT INVENTED: CONTACT_OF_C=0.05 gives 2px at the walk
+zoom's 44 and 1px zoomed out, which is the verdict's own "1-2px" expressed against the cell
+rather than typed twice; the alpha REUSES SHADOW_A because the line four above it says "one flat
+value. NO DITHER, NO GRADIENT".
+
+  LOOKED AT, not just counted -- before/after cropped to the same box. REAL BUT MODEST, and said
+that way on the row: the wall still reads flatter than a real one, and that remainder is the
+wall FACE having no light variation, which is COOK's half of the same verdict. NOT DONE AND
+ROUTED RATHER THAN FUDGED: the row also says "and kerb edge", but the verdict's own item 3 puts
+the 1px kerb line on COOK as art.
+
+  *** THE MUTATION TEST FOUND A HOLE IN MY OWN GATE, AND IT IS THE LESSON OF THE ROUND. ***
+Moving the pass behind the sun check left B3 -- the leg the entire "always" claim rests on --
+GREEN. __CONTACT_RECTS was a plain global, so with the pass not running the night leg read LAST
+FRAME'S 6. The gate went green on a mutation that broke the very thing it exists to hold.
+Counter cleared every frame now; the same mutation reads 0 and B3 bites.
+      A COUNTER THAT IS NEVER RESET IS NOT A MEASUREMENT, IT IS A MEMORY.
+  NOTED, NOT TOUCHED: __SHADOW_RECTS has the same staleness (48 at two in the morning, from the
+afternoon). Another lane's gate counts it and resetting it could turn that red for a reason
+unrelated to this row.
+
+  *** AND I FOUND A CRASH OF MY OWN, TWO ROUNDS OLD. *** tap_picks_gate is RED ON MAIN --
+verified identical on a clean checkout, NOT caused by this diff -- with "Cannot read properties
+of undefined (reading 'src')". It is mine: prism() records {sx,sy,h} with NO IMAGE, and both
+halves of the picker I shipped 9/11 reached through it (cbArtRise read .src, cbPaintAt read
+.naturalWidth), so A TAP ON A TILE RAISED AN EXCEPTION INSTEAD OF SELECTING ANYTHING. It hid
+because when [tap picks] shipped I measured ZERO prism calls at every zoom and took "never
+happens" for "cannot happen"; something on main draws one now. Fixed by DISPATCHING on what was
+actually drawn -- a plate is asked for its pixel, a prism for its GEOMETRY (the tile's own
+diamond lifted by h, dia()'s vertex walk moved up). AND THE GATE CARRIED THE IDENTICAL DEFECT,
+calling cbArtRise on every record including prisms: the ruler had the same bug it exists to
+catch, and went red as a crash rather than as a finding.
+  IT IS STILL RED AND I AM NOT CLAIMING OTHERWISE. It now reports an honest 0 of 0 instead of
+crashing, which is strictly more information, and the remaining cause is NAMED: that gate drives
+by MODE='city'; TW=t; render() -- ASSIGNMENT, the technique I have now twice proved wrong.
+Rebuilding it on tools/bohemia_drive_the_demo.js is its own round and should be the next thing
+this lane is given if the coordinator wants it closed.
+
+  PRE-PUSH PASS (rule 13a): A WALL HAS FEET 9/0, NEVER EMPTY 14/0, A FLAT THING READS FLAT 9/0,
+THE ONE THAT IS YOU 7/0, SUITE HONESTY 26/0. TAP PICKS red before and after, cause named above.
+Full suite unmeasured since 4a10023; no SUITE LINE posted yet (rule 13b).
+  Record: records/BOHEMIA_A_WALL_HAS_FEET_9_13_26.md
+
+  NEXT: [side variants] is the lane's other streets row (COOK found the sidewalk draws three of
+its thirty-six tiles). Then [tiles not slabs] with its 1.7% on it, and the rest behind the rule
+14(c) suspension.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/13 (c) -- *** NO ROW CLAIMED: THE LANE'S FIVE-MINUTE BREAK
 IS DONE AND RULE 14(b) SAYS A BUILDING LANE WITHOUT ONE ADDS NOTHING TO THE DEMO. SO THIS ROUND
 PAID THE METHOD DEBT INSTEAD AND KILLED ONE MORE OF MY OWN HEADLINES. *** MODE: BUILD.
 TAB: none, slices/ untouched. Nothing to judge. Demo NOT re-cut (rule 14a).
