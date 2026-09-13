@@ -11133,7 +11133,50 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
+THIS ROUND -- *** I MEASURED MY WAY TOWARD A FIVE-MINUTE BREAK, THE WAY PEOPLE DID, AND
+THERE ISN'T ONE IN THIS LANE. That is the result, not a failure to find one. ***
+
+PEOPLE set the precedent this round: a held lane may MEASURE its way to a break that is
+genuinely its own, and their commit carries the fleet-wide fact -- a fix in the walked city
+reaches the demo with NO cutter run, because the demo loads the city in a frame. So a held
+lane CAN fix a five-minute break without touching RUN's cutter. I went looking for mine.
+
+WHAT I CHECKED, on the demo over http at real phone size:
+  THE OUTFIT BUTTON. It is in the CITY frame (#outfitbtn, 60x44, a proper tap target), and
+  it WORKS: it opens YOUR OUTFIT -- the faction standings panel, "NOBODY IN THIS VALLEY HAS
+  A POSITION ON YOU YET", every faction with a bearing, a distance and what they pay. In
+  this game's vocabulary an outfit is the crew you run with, which is consistent with
+  FACTION_LOOKS. It is not a dead card and rule 14(d) does not bite on it.
+  EVERY TAPPABLE THING IN THE FIRST FIVE MINUTES: MUSIC, SAVE, PHONE, OUTFIT, SLEEP, BIKE,
+  MARKET, SCAVENGE 8H, BUILD HERE, and STANDING. All of them do something.
+  NO PAGE ERRORS FROM CHARACTER CODE. The pixels are correct (hard 3x blocks, checked last
+  round). The street is lit (luma 92.8, checked last round).
+SO THERE IS NO FIVE-MINUTE BREAK IN THIS LANE, AND I AM NOT GOING TO MANUFACTURE ONE.
+
+*** AND I NEARLY PUBLISHED A NINTH WRONG RULER, WHICH IS THE ROUND'S REAL LESSON. ***
+Dumping the panel's textContent showed a DEVELOPER COMMENT sitting in the middle of the UI
+string: "/* THE DRAWER NEVER GOT THE POSITION RESET THE TOOLBAR HAS...". A code comment on
+his screen would be a perfect example of "glitchy, buggy, nothing's complete", and I was
+one sentence from writing it down as a find.
+THEN I ASKED WHETHER IT WAS ACTUALLY ON SCREEN. Eight text nodes in that frame look like
+source code; ZERO of them have a bounding box. They are all inside <style> and <script>
+tags -- and element.textContent INCLUDES the text of style and script children. The comment
+is in the string and has never been on a pixel.
+METHOD NOTE FOR ANY LANE WALKING THE FIVE MINUTES: textContent is not what he sees. If you
+are checking for something showing on screen, ask for a rect and a computed style, or you
+will report the source of the page as the content of the page.
+
+FOR UI [no tabs], and it costs nobody a claim: OUTFIT and STANDING are two buttons in his
+first five minutes that both lead to the same faction standing. That is the same shape as
+his complaint about PRETTY MAP and DROP IN, which is UI's row, so it is handed over rather
+than acted on.
+
+- Nothing shipped to the game. No alpha change, no demo cut (rule 14a).
+- SUITE (rule 13): nothing to gate. No SUITE LINE on the front page yet.
+- [faction colour] STAYS CLAIMED, still no work left in this lane.
+- NEXT ROUND: hold again unless a break lands here. Waiting: [names lie], [shape frozen].
+
+PREVIOUS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
 ALREADY HELD, SO WHAT SHIPPED IS THE GATE THAT STOPS IT QUIETLY STOPPING. (sha 7d7b685) ***
 
   1. ARE THERE HOSTILES?  3604 people swept, 162 hostile (4.5%).
