@@ -50,3 +50,14 @@
 The demo fails at street zoom because there is no ground: it is a stack of texture bands
 under thirteen buttons, and everything he named follows from that. The zoomed-out view
 already reads as a city.
+
+## THE SECOND DRIVE, ONE ROUND LATER (frames _F2_after_round.png, _G2_after_round.png)
+Same method, same served build, after the first full round under rule 14. WHAT MOVED:
+the CITY and WHOLE MAP chips are gone from the rail (eight -> six), DROP IN is off the pad
+face, the PHONE chip is gold again (the ringing phone), the asphalt and sidewalk are on
+the bank's ramps and the person belongs to the ground. Page readyState complete at 1.4 s
+served locally (UI's 24.2 s measures when the walked city first ANSWERS, a different
+clock; RUN reconciles). WHAT DID NOT MOVE YET: the head-on brick wall still fills the top
+half; the job line still runs under the gear; the orange bar still runs down the right
+edge; the street is still stripes, cleaner stripes. Better, and not yet a street. The
+base shadow and the kerb art are the next two by screen area.

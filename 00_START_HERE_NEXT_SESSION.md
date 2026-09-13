@@ -21530,6 +21530,54 @@ FAILURES named in the record: topping up to six manufactured breadth; every lane
 the demo made it nobody's whole; two LOCKED rulings sat a week in queues; I reported commit
 counts as progress. (Coordinator blocks (dv)/(dw) are restored here if a lane's rebase
 dropped them; this is the second time.)
+THEN (dy) VAMILY, 11 commits (only four lanes ran). FACTIONS [who follows] SHIPPED (46 can
+come, 0 would follow on day one, ties are facts never a score; and [down not dead] now
+covers your company); it re-cut the demo twice AFTER rule 14 landed mid-round, noted, not
+punished. LIFE+CITY claimed [freeway reads]; its [tiles not slabs] r1 found the city already
+draws ~9,000 tile images and the 1.7% fallthrough is airbase/airport/estate/gated tiles the
+bank lacks (note on COOK [city from above]). PEOPLE held [lock them] under 14b and named THE
+TRAP: the DEMO BUILD gate's 'regenerating changes nothing' leg goes red for every non-RUN
+ship and the obvious fix is the forbidden re-cut -> RULE 14f (that leg quarantined, nobody
+re-cuts) and RUN [demo pinned] second line (the demo carries the sha it was cut from).
+MY OWN THING: I DROVE THE DEMO MYSELF at phone size, served (file:// throws 13 fetch errors
+a phone never sees): records/BOHEMIA_COORDINATOR_THE_FIVE_MINUTES_I_SAW_9_13_26.md, six frames in records/target/COORDINATOR_FIVE_MINUTES_9_13_*.
+ZERO page errors. The street at walk zoom is a stack of flat bands (head-on brick wall,
+beige, kerb strip, asphalt) with no ground plane; the zoomed-out view already reads as a
+city; thirteen controls before one step; the first card is an 8.5-hour round trip for one
+battery with three haggle buttons; text under the gear, a card on the rail, an orange bar
+down the street edge, a bubble with no speaker; no fight, no car; four cats. Written to the
+front page as THE COORDINATOR'S BREAK LIST (premises) and as premise notes on [streets
+read], [streets fixed], [freeway reads], [no tabs], [dead cards], [demo errors], [first
+fight], [every card], [first ask].
+THEN (dz) VAMILY, 36 commits, the first full round under rule 14. HIS BREAKS: DIRECTION
+[streets read] SHIPPED (five liars in coverage order: a tan void under the density floor,
+a roadbed with no kerb/lanes/yellow, a sidewalk reading as a garden path, a wall with no
+base shadow, a freeway with a bridge's anatomy; fix list to COOK, layering to LIFE+CITY);
+COOK [streets fixed] r1 (all 74 ground tiles were photographs, 1,200+ colours against a
+64 ceiling, recoloured onto his 7/28 bank, 74 -> 0; the sidewalk draws 3 of its 36 tiles
+by one modulus, the kerb is named by the generator and has no art -> LIFE+CITY [side
+variants], COOK r2 kerb); LIFE+CITY [freeway reads] SHIPPED (one word in one test made 30
+flat freeway cells decks and 29 streets dips; 0 false now; he saw it in CITY mode); UI
+[no tabs] SHIPPED (WHOLE MAP gone, DROP IN never appended; seven gates elsewhere still
+click the dead button -> PLUMBER [mode chip]); PEOPLE [cats stay] SHIPPED (THERE IS NO
+CAT: what he saw are RATS, a dash running a wall on the beat, frozen with a gate); RUN
+[reds mine] SHIPPED (six of seven lying checkers; the seventh real: the ringing phone
+stopped going gold, a tester could finish the demo without meeting the game; fixed); RUN
+[fast travel] CLAIMED and measured (map travel exists in stepOnce's city branch; four
+connections missing). ALSO: QUESTS [map moves] SHIPPED (the map moves AGAINST you, only
+when reckless); COMBAT [enemies flee] SHIPPED (the fight used to end when the last man
+turned his back; now a pistol gives four turns to chase) but it RE-CUT THE DEMO after rule
+14 (noted on its MODE line); SOUNDS three rows SHIPPED (109 of 142 songs named a lead the
+engine never played; 142 of 142 now; [melody first] closed, premise measured on the MUSIC
+tab); ECONOMY Q38 (one is the INSIDER price, the door is a person -> shape on WORLD [two
+prices]); ANIMATION [redo killed] r2 (47 -> 4 still snapping); UI [no slop] r7 measured
+the demo's walked city answers at 24.2 s on a fast machine (my own drive: readyState
+complete at 1.4 s served locally; the two numbers measure different things, RUN
+reconciles) -> RUN [loading screen] third line, PLUMBER [slim build] second; FACTIONS held
+[same lender], fixed its 975-px standing card to fit 780. RESTORED: RUN [demo pinned]
+(dropped by a lane's merge) and coordinator handoff blocks dropped by lanes' rebases
+(third time; whichever of du..dy were missing). NEW: LIFE+CITY [base shadows] first,
+[side variants]; PLUMBER [mode chip]. THE SUITE LINE still unposted.
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
