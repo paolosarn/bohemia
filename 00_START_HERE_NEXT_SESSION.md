@@ -14976,118 +14976,118 @@ MY SESSION SLUG: world-9lfjtf.
 reverted to an older round's text after a rebase once, with two shipped rounds
 missing. A resolver that re-applies only what it remembers eats everything else. ***
 
-HOLDING: nothing. [back of house] THE-CASINO-HAS-NO-BACK is SHIPPED 9/13.
-Before it this round: [someone lends] 1ffb2d2, [debt carried] db51665.
+HOLDING: nothing. [water lifted] THE-PUMPS-ARE-THE-CITY is SHIPPED 9/13.
+Before it this round: [back of house] 3383e6d, [someone lends] 1ffb2d2,
+[debt carried] db51665.
 
-*** RULE 12 ON ITS FIRST OUTING, AND THE NAMED BLOCKER WAS NOT THE BLOCKER AGAIN ***
-  The row says "needs COOK for the rooms". MEASURED: not true, and that is the
-  seventh row running where the named blocker was not what stood in the way.
-  THE ROOMS EXIST. bohemia_floorplan generates twelve zones of real rooms; a casino
-  is zone `leisure` and already laid out concourse, counter, kitchen, locker,
-  restroom and service; a shop already gets a stockroom; a warehouse a dock;
-  bohemia_furnish already fills a stockroom wall to wall with racking and pallets;
-  67 tiles declare an `enter` line and the surface reads them. ALL OF IT GENERATED
-  AND FURNISHED BY CODE, so NOT ONE PIECE OF ART was needed for this row.
+WHAT SHIPPED, AND MEASURING FOUND IT WORSE THAN THE ROW SAYS
+  The valley starts with about 10,365 L of water and drinks 4 L a head a day, and
+  *** NOTHING IN THIS GAME HAD EVER PRODUCED A SINGLE LITRE. *** advanceDay's
+  `produced` comes only from YIELD, which is salvage and food. Every worker in the
+  valley brings back salvage and food and NOBODY EVER BRINGS BACK WATER. Water was
+  the ONLY good with a need and no way to make it -- a one-way countdown with no
+  source, gone in about 65 days -- while pump stations, treatment plants and
+  reservoirs sat on the map as real districts doing nothing. bohemia_dead.js even had
+  the line already written for a dead one: "a pipe that still ran, for a while".
 
-WHAT WAS REALLY MISSING WAS TWO THINGS
-  ONE -- THE ONE ROOM THE ECONOMY ASKS FOR BY NAME WAS THE ONE ROOM IT NEVER GOT.
-  bohemia_economy's header, since 7/19: "deep casino/resort dry stores -- THE reason
-  downtown matters." `leisure` was the goods-heavy zone with no store in its list.
-  It has one now and it is the stockroom THAT ALREADY EXISTED and is ALREADY
-  FURNISHED. REUSE-FIRST: a new name would have been a new thing to draw, which is
-  the only part that would ever have needed COOK.
+THE ENERGY IS PHYSICS, NOT A DIAL, AND THAT IS THE WHOLE REASON THIS ROW IS GOOD
+      valley floor 2028 ft, Lake Mead 1040.5 ft  -> lift 987.5 ft = 301.0 m
+      one litre of water is one kilogram          (the definition of the litre)
+      E = mgh = 2,952 J = 0.00082 kWh per litre   at perfect efficiency
+      over 0.75 wire-to-water                     = 0.0011 kWh PER LITRE
+  Every number is the row's own real measurement or arithmetic on it. NONE OF IT IS
+  HIS TO RULE because none of it is a balance choice, and the gate REFUSES any number
+  in the module that is not physics, his measurement, or one NAMED display precision
+  (it caught a bare 4 in a toFixed, which is right: an unnamed number in a file whose
+  whole argument is that it has no dials looks exactly like a dial).
+  WHAT A STATION DELIVERS IS NOT A DIAL EITHER: a municipal pump station is sized to
+  the population it serves, which is the definition of the infrastructure. A running
+  one covers the need, a dark one covers nothing. No litres-per-day rating invented.
 
-  TWO, AND THIS IS THE WHOLE ROW -- NOTHING THAT PAYS YOU COULD SEE ANY ROOM AT ALL.
-      bohemia_economy.YIELD = { site:{salvage:3.0}, scav:{salvage:1.2} }
-      bohemia_work          = ZERO occurrences of room, zone or interior
-  Two flat numbers, and the room never entered the arithmetic. A sweep through the
-  back of a casino paid exactly what a sweep across a car park paid. Every interior
-  in the valley -- built, furnished, walkable -- was INVISIBLE to the only thing
-  that rewards you for being in it. That is what "every job happens in a room that
-  does not exist" really meant: not that the room is missing, but that nothing could
-  see it.
+*** AND THE FIRST CUT WAS DEAD CODE, WHICH ONLY MEASURING CAUGHT ***
+  I wrote "a pump on a live circuit runs" and it was CORRECT AND IMPOSSIBLE:
+  POWER.at on every water district's own cell returns id -1, STRUCTURALLY, because
+  circuits are contiguous STREET RUNS and a plant is not a street. Measured: 358 live
+  cells in the whole valley and every one is arterial, freeway or downtown. That
+  branch could never have executed. It would have shipped right in every detail and
+  doing nothing, which is the worst kind of green.
+  MEASURED AGAIN, and this is why the fix is a FACT and not a tuning number: ALL SIX
+  water districts touch a circuit at distance 1. Touching is what a service connection
+  IS -- the plant is wired to the street it fronts, exactly what [lights bill] already
+  means by "a plot fronts a street feeder and that feeder is his". On the real map
+  that leaves the pump station and both treatment plants running, the three reservoirs
+  dark, and THE ANARCHISTS HOLDING THE VALLEY'S WATER.
 
-AND THE FIX INVENTS NO NUMBER
-  The economy already has two kinds and already says what separates them: SITE is
-  working a real place that holds something, SCAV is sweeping, already 3.0 against
-  1.2, already untuned, already his. A DRY STORE IS A SITE. A CONCOURSE IS NOT.
-  The room wins BOTH WAYS: a dry store on a nothing block is still a site; a casino
-  concourse on a job district is still a sweep.
-  WHICH ROOMS HOLD GOODS IS DERIVED, NEVER LISTED. bohemia_furnish already says what
-  is in every room, so a room holds goods when the game already puts racking,
-  pallets or a fridge in it. The gate proves the join by EMPTYING the furniture out
-  of a stockroom and watching it stop holding goods. Six rooms qualify, none typed.
+AND THE POWER IS NOT CHARGED TWICE
+  The first cut subtracted the lift's kWh from the ledger's `power` stock and drove it
+  to -5.249 in ten days, because that stock starts at zero and NOTHING EVER FILLS IT
+  (need 0, produced by nothing). A stock that only goes down past zero is the hidden
+  debt bohemia_purse refuses by design. The power is already paid the way this game
+  pays for power: a pump runs on a live circuit and a live circuit costs its holder
+  one battery a night. The kWh is still computed and carried as a FACT the machine
+  holds, never a second charge.
 
-MEASURED INSIDE A REAL CASINO: 61 rooms; concourse, counter, locker and restroom a
-sweep; kitchen, service and stockroom a site; the button reads
-"WORK - 8H - THE DRY STORE, RACKING STILL STACKED".
+MEASURED END TO END: 6 water districts, 3 lit by the street they front, ANARCHISTS
+holding them; ten days and the water holds at 28,604 instead of falling 480 a night;
+the power stock never goes negative; then the circuits go out and it falls again and
+the card says "All 6 pump stations are dark. Nothing is being lifted."
 
-*** AND THE FIRST RUN OF THAT PROBE HAD NO DRY STORE IN IT. *** The walked surface
-carries its OWN INLINED COPY of every engine module, and the floorplan is kept fresh
-by bohemia_city_module_resync.py, NOT by this lane's splicer (which only re-inlines
-the nine modules it owns). A SOURCE EDIT IS NOT A SHIPPED EDIT ON THIS SURFACE. One
-resync and the room appeared. Remember this for any row that edits an engine module
-this lane did not write.
+NOT BUILT ON PURPOSE, AND NAMED RATHER THAN GLOSSED: the PLAYER's own thirst. "Thirst
+costs water" would be a FIFTH VERB and the four that drain the purse are frozen and
+his (day:ate, fight:plate, night:power, ask:leaned). The VALLEY's thirst is real,
+already shortfalls, and now has a source. The player's is a ruling, not a build.
 
-A GUESS AT A FIELD NAME IS NOT A READ. The first cut asked the furnisher's pieces for
-.what / .name / .piece; the real field is .id. Every piece came back null, every room
-came back empty, and every room came back a sweep -- a silent no-op that looks
-exactly like a world with nothing in it.
+PROOF: WATER LIFTED 44/0, registered, driven on the walked surface AND the demo.
+  Red FOUR ways: let a dark pump lift anyway -> 4; put a fudge factor in the physics
+  -> 2; ask the plant's own cell again -> 4 (and the failure message reads
+  28604 -> 23804, the countdown restarting); count the water and never credit it -> 1.
+  The physics is re-derived from first principles INSIDE the gate rather than copied
+  off the module, so that check is a check and not an echo.
+  records/BOHEMIA_WATER_LIFTED_9_13_26.md
 
-*** A REPAIR I MADE ON THE WAY, AND IT WAS NOT ALL MINE ***
-  My own control-character check from [debt carried] went RED ON ARRIVAL this round:
-  the walked surface had TWO CORRUPT BYTES in it.
-    - a NUL used as a map key separator (_o.faction + NUL + rung), which is the
-      EXACT mistake this lane made and fixed in its own module one round earlier,
-      made by another lane. Repaired to '::'.
-    - a backspace inside a comment where two word-boundary escapes were meant.
-  Either one stops a 4.8 MB file being a text file: grep calls it binary and every
-  gate that reads the city with a regex is one step from quietly lying about it.
-  AND MY OWN CHECK WAS WRITTEN WITH THE VERY BYTES IT FORBIDS: its regex escapes
-  landed as literal bytes, so gates/debt_carried_gate.js was ITSELF binary -- the
-  fault it exists to catch, in the file doing the catching. Built from character
-  codes now: no escapes, nothing for a writer to mangle, it says WHERE, and it
-  checks itself. DEBT CARRIED is 49/0.
+ALSO THIS ROUND, AND THE GATE TOLD ME TO DO IT: slices/BOHEMIA_SUBURB_WALK_7_18_26
+came OFF the derived-freshness KNOWN_STALE list. It was frozen at +124/-1 against its
+own maker and I did not fix it deliberately -- [back of house] changed
+engine/bohemia_floorplan.js, ENGINE SYNC went red because that module is carried by
+ELEVEN files while the city resync tool only ever fixes the city, and the new
+tools/bohemia_module_reinline.py put the canon body into all nine stale carriers, this
+slice among them. SAME LESSON TWICE NOW: a slice that inlines the engine is serving
+whatever it was last baked with, and the drift is never one bad bake, it is every
+lane's engine work since.
 
-PROOF: BACK OF HOUSE 38/0, registered, driven on the walked surface AND the demo by
-  walking into a real casino and standing in every room. Red FIVE ways: take the dry
-  store back out -> 2; make the room stop deciding -> 6; hard-code the room list
-  instead of deriving it -> 1; stop the button naming the room -> 1; count every room
-  as a store -> 5. A DAY'S WORK 37/0 and DEBT CARRIED 49/0, both unchanged by this.
-  records/BOHEMIA_BACK_OF_HOUSE_9_13_26.md
-
-STILL OWED BY THIS ROW, named rather than glossed: "and steal from". Taking goods
-that belong to somebody is an act against a faction, not a yield, and it belongs with
-the deed machinery rather than the work button.
-
-ROUTED, STILL OPEN FROM LAST ROUND: whoever owns the standing web -- the five deed
-kinds the walked city publishes (claim:met, claim:refused, commit, favour,
-loan:short) have NO WEIGHT AT ALL, because DEED_WEIGHT is derived from quest @DO
-lines and a city act is not a quest. The news travels and nobody's opinion moves.
+NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
+engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
+COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
 NEXT: read the WORLD section fresh. As of this round the next OPEN line is
-[water lifted], then [battery worth], [fold carries], [visible change],
-[suburb walls], [full shelves].
+[battery worth], then [fold carries], [visible change], [suburb walls],
+[full shelves].
+
+ROUTED, STILL OPEN: whoever owns the standing web -- the five deed kinds the walked
+city publishes (claim:met, claim:refused, commit, favour, loan:short) have NO WEIGHT
+AT ALL, because DEED_WEIGHT is derived from quest @DO lines and a city act is not a
+quest. The news travels and nobody's opinion moves.
 
 NOT MINE AND UNCHANGED: market_gate 22/10. It still expects `resources` to be the
 money and has been red since the money became batteries on 9/5.
 
-STANDING DUTIES THIS LANE HAS PAID FOR: pin the board sha by reading it off main
-AFTER the push; check gate REGISTRATION the way the registry checker reads the table;
-MUTATION-TEST EVERY CHECK even in a green gate, because a tautology passes forever;
-NEVER LET A GATE RE-IMPLEMENT WHAT IT TESTS -- press the button a player presses; and
-RESYNC THE CITY after editing any engine module this lane's splicer does not own.
+STANDING DUTIES THIS LANE HAS PAID FOR: pin the board sha by reading it off main AFTER
+the push; check gate REGISTRATION the way the registry checker reads the table;
+MUTATION-TEST EVERY CHECK even in a green gate; NEVER LET A GATE RE-IMPLEMENT WHAT IT
+TESTS; RESYNC THE CITY after editing any engine module this lane's splicer does not
+own, and RE-INLINE EVERY CARRIER (tools/bohemia_module_reinline.py), not just the
+city; and ASK WHETHER YOUR NEW BRANCH CAN EVER EXECUTE before believing it works.
 
 [PENDING Paolo] -- nothing new from me. The one that touches these rows is FACTIONS':
 does a debt cross the fold. Built to follow whichever way he answers.
 
-LAST SHIPPED: [back of house] 3383e6d, 9/13. Before it: [someone lends] 1ffb2d2,
-[debt carried] db51665, [rice clock] 0f793c2, [own power] 38e3412,
-[century stayed] 8538cd0, [batteries mined] 6562436, [parties move] 75ac79c,
-[a days work] 4f55d76, [shelves premise] 1f3d342, [enemies unite] aace2d9,
-[rung unlocks] 44dd7a1, [faster roads] ba66644, [held ground] afc3bf7,
-[faction towns] fd484b9, [lights bill] 94ca570, [living costs] 5b61303,
-[battery money] ce39270.
+LAST SHIPPED: [water lifted] <SHA>, 9/13. Before it: [back of house] 3383e6d,
+[someone lends] 1ffb2d2, [debt carried] db51665, [rice clock] 0f793c2,
+[own power] 38e3412, [century stayed] 8538cd0, [batteries mined] 6562436,
+[parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
+[enemies unite] aace2d9, [rung unlocks] 44dd7a1, [faster roads] ba66644,
+[held ground] afc3bf7, [faction towns] fd484b9, [lights bill] 94ca570,
+[living costs] 5b61303, [battery money] ce39270.
 
 
 

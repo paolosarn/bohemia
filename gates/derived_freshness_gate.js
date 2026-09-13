@@ -151,7 +151,12 @@ const KNOWN_STALE = {
      named for FACTIONS both times and never parked behind an excuse. Somebody
      rebuilt it, this check went red demanding the entry be deleted, and here it is
      deleted. Third time the ratchet has closed a drift this way: name it, refuse to
-     freeze it quietly, and the owning lane fixes it. 6 frozen -> 5. */
+     freeze it quietly, and the owning lane fixes it. 6 frozen -> 5.
+     AND THIS IS WHY IT HEALED, which the entry above could only guess at: WORLD's
+     [back of house] changed engine/bohemia_floorplan.js, ENGINE SYNC went red because
+     that module is carried by ELEVEN files while the city resync tool only ever fixes
+     the city, and tools/bohemia_module_reinline.py (new, 9/13) put the canon body into
+     all nine stale carriers -- this slice among them. Nobody set out to fix it. */
   /* RUN_CURRENT and CURRENT_SLICE CAME OFF THIS LIST 9/12 (COOK, [hair colours]), and the
      gate is what told me to delete them -- "a file that re-derives clean again has been
      fixed, and leaving it listed lets the next stale bake hide behind a stale excuse".
