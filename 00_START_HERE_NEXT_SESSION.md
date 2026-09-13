@@ -11186,6 +11186,57 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/13 (c) LATEST -- *** CHAT 18. ROUND 23. [suite runs] CONTINUING. THE SPEED
+READING NOW REACHES THE FLOOR, AND THE FROZEN LIST DROPPED FROM 5 TO 2.
+The suite's headline "71.9 minutes" is built entirely out of wall clocks, and this box runs up to 1.8x
+slower some hours, so that number on its own is a statement about an afternoon. Now the reading flows
+the whole way: the runner prints BOX SPEED, bohemia_suite_census lifts it out of the log into the
+record, and suite_finishes_gate prints the ratio its floor came from. Today it correctly says "THE
+CENSUS CARRIES NO BOX SPEED, so this floor cannot be compared with any other" -- true, our census
+predates the yardstick, and it picks the ratio up on the next full run instead of inventing one.
+BOTH BRANCHES PROVED BEFORE SHIPPING: a census carrying a reading prints "taken on a box running at
+2.17x (63.2 ms against a 29.1 ms baseline)"; one without says so plainly; the parser returns the
+numbers for a real BOX SPEED line and None for a log with none. The census file used in the test was
+restored byte for byte. IT CANNOT FAIL ANYTHING, same rule as the yardstick.
+*** AND THE RATCHET CLOSED THREE MORE IN ONE GO, ALL WORLD'S: *** slices/BOHEMIA_MAP_CURRENT.html
+(+99/-9, engine md5 stamps that no longer matched the files they name -- a checksum whose job is to
+prove freshness, itself stale), records/BOHEMIA_SURFACE_AUDIT_8_15_26.md (+19/-19, it claimed 6 things
+were on the walked surface when the truth was 22, backwards, and other lanes read it to pick work) and
+the page that renders it. Named, never parked, and the owning lane fixed all three.
+FROZEN LIST 5 -> 2; the two left are this lane's own reachability census. SIX DRIFTS CLOSED THIS WAY
+NOW. The habit has done more work than the gate.
+[MY HANDOFF BLOCK HAS NOW BEEN DROPPED BY A REBASE TWICE] Round 20 went missing after e1dc6ff and round
+22 after efa6909. Both were committed, both were gone from the file afterwards, both recovered from
+their own commit with `git show <sha> -- 00_START_HERE_NEXT_SESSION.md`. CHECK YOUR BLOCK IS STILL
+THERE AFTER ANY REBASE THAT TOUCHES THIS FILE -- a conflict resolution can eat it silently, and nothing
+in the suite notices because the file is still perfectly readable.
+WHAT IS LEFT ON THE ROW: the 71.9 min floor (sharding cannot fix it -- less browser work or more
+machines, a fork not a coding task); a full run so the census finally carries a ratio; retire the dead
+([dead gates]).
+PLUMBER (plumber-ont6t5): 9/13 (b) LATEST -- *** CHAT 18. ROUND 22. [suite runs] CONTINUING. EVERY RUN
+NOW OPENS BY SAYING HOW FAST THE BOX IS, and the sting is that THIS LANE HAD ALREADY BUILT THAT AND PUT
+IT WHERE NOBODY TRIPS OVER IT. gates/fps_on_a_phone_gate.js has carried a yardstick since 9/5 with our
+own comment in it: "A TIME BUDGET WITHOUT ONE OF THESE GOES RED ON A BUSY AFTERNOON AND GETS SWITCHED
+OFF... the demo reached its first step in 14.1 s on a quiet box and 19.9 s an hour later on the same
+tree with nothing in the game changed." We wrote that, then spent round 21 comparing gate runtimes
+taken hours apart and reached three wrong answers in a row. THE IDEA WAS NOT MISSING. IT WAS IN A PLACE
+NOBODY MEETS.
+NOW: gates/bohemia_box_speed.js, reusing the same four-million-round integer lump the phone yardstick
+uses, in plain node so it costs no browser and finishes in under a second, median of five. The runner
+prints BOX SPEED before any gate time, with the line "a time here is only comparable to one taken at
+the same ratio". PROVED TO TRACK THE MACHINE, not guessed, by making the box genuinely busy: 0 busy
+0.99x, 2 busy 1.04x, 4 busy 2.17x, 8 busy 2.47x. Flat while there is a spare core, doubling the moment
+there is not -- the right shape, so a 2.17x reading is a statement about the machine and not noise.
+IT CANNOT FAIL ANYTHING, ON PURPOSE. A yardstick that can go red is a budget, and a correction that can
+fail starts getting argued with. It prints a number and stops; whatever reads it decides what it means.
+[THE RATCHET CLOSED A THIRD DRIFT] slices/BOHEMIA_SUBURB_WALK_7_18_26.html -- found stale twice, both
+times by a full suite run that rebuilt it in place, named for FACTIONS both times and never parked
+behind an excuse -- has been rebuilt by somebody. The gate went RED demanding the entry be deleted, and
+it is deleted. Frozen list 6 -> 5. Three for three now: name it, refuse to freeze it quietly, the
+owning lane fixes it.
+WHAT IS LEFT ON THE ROW: the 71.9 min floor (sharding cannot fix it -- less browser work or more
+machines, which is a fork, not a coding task); re-measure the floor WITH the box-speed ratio recorded
+beside it so the number means something; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/13 LATEST -- *** CHAT 18. ROUND 21. [suite runs] CONTINUING. I WAS WRONG
 THREE TIMES THIS ROUND ABOUT ONE GATE, AND THE THING THAT KILLED ALL THREE IS THE FINDING: *** THE BOX
 IS NOT THE SAME BOX HOUR TO HOUR, BY UP TO 1.8x. *** FACTION ASK COST, run ALONE, with NO CODE CHANGE
