@@ -12709,6 +12709,25 @@ ask for more 43/0 and their gate 22/0 run green together, so there is no
 integration bug between us, and their fix correctly keeps no yes on a withdrawn
 offer, which is __ASK_FOR_MORE__'s whole cost.
 
+FIVE MORE OF THE SAME SHAPE, FOUND WHILE CHECKING AND NAMED RATHER THAN QUIETLY
+FIXED OR QUIETLY DROPPED. Sweeping this lane's whole corpus for the same three
+patterns turns up five files the bake did NOT count, because WORDS counted what
+the new ruler ADDS, not the standing total:
+    D013_LONG_WALK_HOME        "...and that is the whole offer."
+    S05_THE_STANDING_BOUNTY    "...ever double out here."
+    S08_THE_TOLL_ROAD          "...how it always goes out here."
+    S19_THE_MIDWIFES_HOUR      "...normal kills people out here."
+    S06_BEHIND_THE_FENCE       "...a child out here. Not until..."  (mid-line, so
+                               not the banned CLOSER shape; listed for the reader
+                               to judge, not asserted as a hit)
+The row named five and five were fixed; widening it unilaterally is how a small
+row becomes a rewrite of somebody else's craft. These are debt for WORDS and the
+coordinator to route, measured and written down so nobody has to find them again.
+
+VOICE GATE IS 115/1 AND THE RED IS NOT MINE: verified on a clean origin/main
+worktree, same count and the same failure ("the pre-pass version of the quest is
+reachable in git"), before and after this round.
+
 ROUND 33 [bond outlives] NAMING-SOMEBODY-FOR-GOOD, SHIPPED. QUESTS, BUILD.
   engine/bohemia_kept.js           the casting a bond was earned against, kept for good
   slices/BOHEMIA_CITY_WORLD.html   inlined, kept at the ending, merged into the company snapshot
