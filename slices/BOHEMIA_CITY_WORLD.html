@@ -564,7 +564,8 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
   color:var(--acc);font-weight:500;font-size:10px;
   letter-spacing:var(--track-casing,.4px)}
 #outfitbtn:active{border-color:var(--acc);color:#fff}
-#outfitbtn.ring{background:#d8b45a;border-color:#d8b45a;color:#191308;font-weight:700}
+/* the same stamping-out, same fix: this chip reuses the phone's lit look on purpose. */
+#outfitbtn.ring{background:#d8b45a !important;border-color:#d8b45a;color:#191308 !important;font-weight:700}
 #outfitpanel{display:none;position:absolute;left:8px;right:8px;top:52px;bottom:64px;
   background:var(--bg);z-index:60;
   overflow:hidden;flex-direction:column}
@@ -606,8 +607,23 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
    THIS IS NOT A NEW SIGNIFIER. It is the fill the opening's WATCH button wears,
    which is the first thing the player ever presses, so the language is already
    taught. It is worn ONLY while the call is unread and it takes itself off. */
-#phonebtn.ring{background:#d8b45a;border-color:#d8b45a;color:#191308;font-weight:700}
-#phonebtn.ring:active{background:#c8a44a;color:#0d0a04}
+/* *** AND THE LIT CHIP WAS BEING STAMPED OUT BY THE SKIN (9/13, RUN, from the
+   FIRST MORNING red). *** The no-slop skin injects one rule giving every chip the
+   same body, and it has to use !important to beat thirteen older per-chip rules:
+       #musbtn,#savebtn,#phonebtn,...{background:var(--skin-chipface)!important}
+   That beat the plain rule below, so the ringing phone stopped going gold. AND IT
+   WAS WORSE THAN JUST LOSING THE GOLD: .ring hides the unread dot on purpose,
+   because the lit chip is supposed to be doing the shouting -- so the phone ended
+   up with NO mark at all, identical to six other chips, which is worse than the
+   one-badge state the 8/25 round was written to fix. MEASURED on the served alpha:
+   seven top-bar chips, fill 8.8 border 17 ink 6.2 EVERY ONE, separated only by how
+   many pixels wide the word is.
+   THE FIX IS !important AND NOTHING ELSE. #phonebtn.ring is id+class, so it is
+   MORE SPECIFIC than the skin's #phonebtn and wins on specificity no matter which
+   stylesheet is appended last. The skin keeps its rim, base and under-shadow; only
+   the fill and the ink come back. Nothing grew, so Paolo's 9/6 halving is untouched. */
+#phonebtn.ring{background:#d8b45a !important;border-color:#d8b45a;color:#191308 !important;font-weight:700}
+#phonebtn.ring:active{background:#c8a44a !important;color:#0d0a04 !important}
 /* and the dot is redundant once the whole chip is lit: two signifiers for one
    fact is how a screen gets noisy. */
 #phonebtn.ring #phonebadge{display:none !important}
