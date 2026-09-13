@@ -28634,7 +28634,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): [judge the redo] SHIPPED - PASS, the 47 killed
+ROUND LOG 9/13 (latest): seam PASS on [base shadows] (liar 4 of the
+streets verdict, routed back and built): the wall carries a 2px contact
+shadow at its base line at the judged spot - it reads as a standing
+thing now, and their mechanism is right (contact shade runs before the
+sun's early return, so it holds at night; frame records/target/
+DIRECTION_THE_WALL_HAS_FEET_9_13_26.png). Ratchet holds register 132 /
+muddy 121. STREETS VERDICT REMAINING: liar 2 (road geometry - kerb,
+lanes, double yellow; the kerb art is approved and undrawn per COOK's
+own measurement) and liar 5's surface half (freeway paint). PREVIOUS: [judge the redo] SHIPPED - PASS, the 47 killed
 clips go back to him via the ANIMATION tab's ONES YOU KILLED board. Two
 instruments agreed: ANIMATION's twice-run probe (far-arm-over-head gone
 on all 47, elbow jumps 30px -> 4-11) and my eyes on four clips x eight
