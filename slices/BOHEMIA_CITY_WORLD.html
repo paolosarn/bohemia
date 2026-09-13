@@ -62880,7 +62880,7 @@ function ctAdjacent(){
     '#ctcard .who{font:700 15px/1.2 var(--face-body);color:var(--ink);'+
       'letter-spacing:var(--track-casing,.4px)}'+
     '#ctcard .r{display:flex;gap:10px;align-items:baseline;margin-top:7px}'+
-    '#ctcard .k{font:9px/1 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);color:#8a7a5a;'+
+    '#ctcard .k{font:9px/1 var(--face-casing);letter-spacing:var(--track-casing,.4px);color:#8a7a5a;'+
       'text-transform:uppercase;width:76px;flex:none}'+
     '#ctcard .v{font:12px/1.3 var(--face-body);color:var(--ink)}'+
     /* __CITY_CONVERSATION__ -- A SPOKEN LINE IS NOT A KEY/VALUE ROW. The card
@@ -62905,29 +62905,48 @@ function ctAdjacent(){
       'color:#c9bda2;margin-top:18px;text-transform:uppercase}'+
     '#daycardIn .fbnote{font:11px/1.5 var(--face-body);color:#8a7a5a;margin-top:8px}'+
     '#daycardIn .fbopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}'+
-    '#daycardIn .fbopt{padding:9px 11px;border:1px solid var(--line);background:var(--face);'+
-      'color:#c9bda2;font:11px/1 ui-monospace,monospace;border-radius:8px}'+
+    /* *** THE CARD'S BUTTONS SPEAK THE SAME OBJECT LANGUAGE AS EVERY OTHER CONTROL. ***
+       They were a grey hairline round a rounded box with typewriter text in it, which is
+       three separate items off the bot-UI list stacked on one element. DIRECTION's rule is
+       that an edge is a THING'S edge: a lit rim on top, a dark base under it, a side below
+       that, never a line floating on nothing. Same treatment the chips already ship on, so
+       a button on a card and a button on the street are made of one material. */
+    '#daycardIn .fbopt{padding:9px 11px;border:0;background:var(--skin-chipface,#1a160f);'+
+      'color:var(--skin-chipink,#c9bda2);font:11px/1 var(--face-casing);'+
+      'letter-spacing:var(--track-casing,.4px);border-radius:2px;'+
+      'box-shadow:inset 0 1px 0 var(--skin-chiptop,#5c4f38),'+
+                 'inset 0 -2px 0 var(--skin-chipbase,#0b0906),'+
+                 '0 1px 0 var(--skin-chipunder,rgba(0,0,0,.55))}'+
     /* THE ANSWER YOU GAVE IS THE ONLY LIT THING ON THE ROW, and it is lit the
        way this game lights a chosen thing everywhere else. */
-    '#daycardIn .fbopt.on{background:#3a3320;border-color:#c9a24a;color:#f0e4c4}'+
+    '#daycardIn .fbopt.on{background:#3a3320;color:#f0e4c4;'+
+      'box-shadow:inset 0 1px 0 #6d5c34, inset 0 -2px 0 #17120a, 0 1px 0 rgba(0,0,0,.55)}'+
+    /* a slot CUT INTO the card: the shadow falls inward, which is what a recess does */
     '#daycardIn .fbwords{width:100%;margin-top:8px;padding:8px;background:#12100c;'+
-      'border:1px solid var(--line);border-radius:8px;color:#e8e2d4;'+
+      'border:0;border-radius:2px;color:#e8e2d4;'+
+      'box-shadow:inset 0 2px 3px rgba(0,0,0,.75), inset 0 -1px 0 #4a4133;'+
       'font:12px/1.45 var(--face-body);resize:vertical}'+
-    '#daycardIn .fbgo{padding:11px 15px;border:1px solid #c9a24a;background:#3a3320;'+
-      'color:#f0e4c4;font:700 11px/1 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);'+
-      'border-radius:8px;margin-top:6px}'+
+    '#daycardIn .fbgo{padding:11px 15px;border:0;background:#3a3320;'+
+      'color:#f0e4c4;font:700 11px/1 var(--face-casing);letter-spacing:var(--track-casing,.4px);'+
+      'border-radius:2px;margin-top:6px;'+
+      'box-shadow:inset 0 1px 0 #6d5c34, inset 0 -2px 0 #17120a, 0 1px 0 rgba(0,0,0,.6)}'+
     /* AND THE DOOR UNDER THE ENDING IS THE QUIETEST THING ON THAT SCREEN. */
     '#daycardIn .fbdoor{margin-top:30px;padding:10px 0;border-top:1px solid #2a2418;'+
-      'font:10px/1.6 ui-monospace,monospace;letter-spacing:var(--track-casing,.4px);color:#7b6c50}'+
+      'font:10px/1.6 var(--face-casing);letter-spacing:var(--track-casing,.4px);color:#7b6c50}'+
 '#ctcard .say{font:13px/1.45 var(--face-body);color:var(--ink);'+
       'margin-top:9px}'+
     /* AND THE THING YOU CANNOT SAY, WHICH THE CORPUS SAYS IS THE LOUDEST PART OF
        THE SCENE. Dim, struck through, and not a button, because it is not one. */
     '#ctcard .noverb{font:italic 11px/1.35 var(--face-body);'+
       'color:#7b6c50;margin-top:9px;text-decoration:line-through;opacity:.75}'+
-    '#ctcard button{margin-top:11px;margin-right:8px;padding:9px 13px;border:1px solid var(--line);'+
-      'background:var(--face);color:var(--acc);font:700 11px/1 var(--face-body);'+
-      'letter-spacing:var(--track-casing,.4px);border-radius:8px}';
+    /* what you SAY is a button, so it is a plate like every other control, and its
+       label is the casing register -- prose is what the person says, not what you press */
+    '#ctcard button{margin-top:11px;margin-right:8px;padding:9px 13px;border:0;'+
+      'background:var(--skin-chipface,#1a160f);color:var(--acc);font:700 11px/1 var(--face-casing);'+
+      'letter-spacing:var(--track-casing,.4px);border-radius:2px;'+
+      'box-shadow:inset 0 1px 0 var(--skin-chiptop,#5c4f38),'+
+                 'inset 0 -2px 0 var(--skin-chipbase,#0b0906),'+
+                 '0 1px 0 var(--skin-chipunder,rgba(0,0,0,.55))}';
   document.head.appendChild(css);
   var b=document.createElement('button'); b.id='cttalk'; b.textContent='TALK';
   var c=document.createElement('div'); c.id='ctcard';

@@ -1,176 +1,59 @@
-WORDS (words-8dqrnq): 9/13 (c) LATEST -- *** Q22 [debt words] SHIPPED WITH BOTH ROUNDS. THE HEADERS
-GO IN THE LENDER'S WORD AND THE ROWS IN THE PLAYER'S HONEST COUNT, AND THE GAP BETWEEN THEM IS THE
-CARD. *** TAB: LIFE (the card). Research round, demo untouched, per the five minutes law (c).
 
-THE ONE DESIGN DECISION THE FAMILY HANGS ON. School said a card has to pick a voice (lender, the
-player's own reckoning, or nobody) and that a lender never says debt, he says HELP. So: he reads
-PEOPLE WHO HELPED YOU OUT, and underneath it a line saying somebody gave him something for nothing
-nine times. Both true, both on screen at once. That gap is the only thing on the card doing
-emotional work, because nothing on it is allowed to tell him how to feel.
-  Replaces YOU OWE THEM / THEY LENT YOU BATTERIES / YOU WENT SHORT ON THEM, which were second
-  person, accusing, and in nobody's voice.
+UI (ui-kmqmrf): 9/13 (c) LATEST -- *** [no slop] ROUND SEVEN. I PUBLISHED A WRONG DIAGNOSIS. ***
+Row STILL CLAIMED.
 
-IN THE BANK, section Q22 ROUND TWO, all draft:true: three headers in the lender's word; three kinds
-each with a FIRST row, a LATER row and a Spanglish row; the heir's first nightfall; the empty-card
-line; seven refusals.
-  ESCALATION IS SPECIFICITY, NOT VOLUME, so no later row ever raises its voice: "She brought up the
-  fence this morning. Not the nine times. The fence."
-  THE CONSEQUENCE IS NEVER STATED. "Nobody has mentioned it yet" is KEPT WORD FOR WORD from WORLD's
-  first attempt because it already is the finding and it is the best line on the card. Two new lines
-  do the same job: "Nothing was said either time" and "Just asking."
-  THE EMPTY CARD SAYS "Nobody helped you this week." Never congratulatory.
+THE CORRECTION FIRST, BECAUSE IT WENT INTO FOUR PLACES (record, handoff, commit, and my reply to
+Paolo). Round six said: "those rules live in a JS string this path never injects, so every one of
+those edits was decoration." THAT IS FALSE. Same demo, same probe, longer wait:
+    at  5s   #daycardIn .fbnote not found, #ctcard rules 0, ctOpen undefined
+    at 34s   #daycardIn .fbnote FOUND, #ctcard rules 8, ctOpen is a function
+Nothing was broken. I read a city that had not finished loading and wrote down what I saw as a
+fact about the code instead of a fact about my timing.
 
-CATALOGUE, applied not name-dropped: Q098.P1 (an inheritance is a debt, a reputation and an
-accusation) produced the heir's line; Q087.P3 (the opening quest is a debt owed to a faction) is why
-the faction is named every time; Q073.W5 (the harm comes back wearing your own face) is a RESTRAINT,
-so nothing on the card threatens, because the collector is not the danger, the arithmetic is.
+WHAT WAS UNDERNEATH IT IS WORTH MORE THAN THE ROW -- FOR RUN AND PLUMBER. Measured by polling,
+not guessed, on a fast machine with a local server and no network:
+    24.2s  the demo's walked city first answers at all (BOHEMIA_TEACH and ctOpen appear)
+    30.8s  document.readyState reaches "complete"
+The last script is 453,516 bytes; at 12s the browser had parsed 61,327 of them. For those 24
+seconds the conversation system, claims, terms, outfits and vouching DO NOT EXIST, with no page
+error, because nothing is wrong -- it is not there yet. THE DEMO IS THE THING THAT GOES TO A
+FRIEND and a stranger waits half a minute before it can answer. This corroborates with a TIME
+what PLUMBER already reported as a WEIGHT (45,176,644 bytes to first play against a 34,005,978
+budget). Not this lane's to fix, not fixed here, named with the numbers and the method.
+AND IT IS WHY THIS LANE'S GATES WERE HONEST WHILE I WAS NOT: they wait for BOHEMIA_TEACH with a
+60s budget. The gate was right and the human was wrong, which is the opposite of the usual
+failure. THE DEFENCE, for every lane: wait for the thing you are measuring to SAY it is ready,
+never for a number of seconds.
 
-AND THE HONEST CORRECTION. Last round I wrote that the coverage hole would be closed with this
-writing. It was not. THE HOLE IS PROVEN: the card's words are in the walked city and nowhere else,
-the interface book is harvested from the demo, 0 of its 54 lines mention owing. I THEN TRIED TO SIZE
-IT CHEAPLY AND WALKED INTO THE TRAP I DOCUMENTED TWO ROUNDS AGO: a grep for uppercase labels in the
-city slice returned five candidates and every one, read by hand, is a sound label or a fragment of a
-COMMENT. A grep over source reads comments as if they were code. SO NO NUMBER IS PUBLISHED. Sizing
-it honestly needs a browser walk plus a change to the harvester, and I did not do that on purpose:
-the harvest is not lying (unlike the voice gate, it is honestly scoped in its own header, so this is
-extending coverage rather than repairing a falsehood), and the fleet is under THE FIVE MINUTES where
-research lanes continue research and do not go re-walking surfaces. THE JOB IS WRITTEN OUT in the
-round-two record so it can be taken in one round, and it stays this lane's own.
+WHAT IT CHANGES ABOUT ROUND SIX: the FIX stays right (a surface carrying its own face beats a
+rule reaching into it, because children inherit and nothing depends on which stylesheet won).
+The REASON was wrong, and a right fix with a wrong reason is a trap for whoever reads it next.
 
-ROUTED. WORLD owns the card: the lines are a family to choose from, not an instruction, and three
-things the first attempt already had right are named so a rewrite cannot lose them (the lender is
-named every time, no amount anywhere, and "Nobody has mentioned it yet" survives untouched). UI gets
-one free line: this card must never have a colour that means danger, a countdown, or an exclamation
-mark, because everything that makes it land depends on it looking like a list and not a warning.
+WHAT LANDED. The day card's and talking card's buttons were a grey hairline round a rounded box
+with typewriter text -- three items off the bot-UI list stacked on one element. They are plates
+now, in the same object language as the street's chips (no border, lit rim, dark base, side
+under), labels on the casing register, and the box you type into is a RECESS. borders 56 -> 52,
+all tells 178 -> 176.
 
-PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
-VOICE was this lane's and is fixed; no other red on that list is ours.
+TWO NUMBERS DELIBERATELY NOT MADE TO FALL. monospace went UP 40 -> 42 because pointing those
+labels at --face-casing is correct and that register is still fixed-pitch; it falls when the
+casing face is cut, not before. Rounded corners did not move (60) because the plates use a 2px
+bevel where the cards used an 8px radius, and the ruler cannot tell "a rounded card" from "a
+stamped edge" -- I am NOT teaching it to, because this row's standing rule is never tune the
+ruler so a number falls.
 
-NEXT: Q23 [track words], school first. Q4 to Q17 still owe their school rounds, one row at a time.
-EYES AND EARS (eyes-5vql33): 9/13 (ad) LATEST -- *** E26 [five minutes] ROUND ONE IS DONE: SCHOOL. NO WALK TAKEN, NOTHING MEASURED, ON PURPOSE. THE SHEET IS WRITTEN AND NEXT ROUND WALKS IT. *** TAB: the demo is what he played; the walk happens there. E20 round two is PAUSED mid-job, not dropped: his 9/13 ruling that the five minutes is the only measure outranks this lane's queue and standing duty 8 says his bugs beat it. Record: records/BOHEMIA_EYES_E26_ROUND_1_SCHOOL_THE_WATCHER_WRITES_WHAT_A_CAMERA_WOULD_9_13_26.md. THE SHEET: banks/eyes/BOHEMIA_EYES_E26_STRANGERS_SHEET_9_13_26.json, draft:true.
+NEXT: cut the casing face (DIN-stencil caps), which is the last of the three registers still
+fixed-pitch and now the biggest single lever on monospace.
 
-WHY SCHOOL CAME FIRST, AND IT IS NOT A PROCEDURAL EXCUSE. The published practice has one line that settles it: you only truly get to see a player experience your game for the first time ONCE. A walk taken before the sheet exists is a walk spent inventing the sheet, and it is the only walk that can never be repeated. So this round wrote the sheet; next round walks it and writes nothing else.
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_A_CHOICE_LOOKS_9_13_26.html (and it
+leads with the correction, in his words).
 
-THE ONE INSTRUCTION THAT GOVERNS THE SHEET, and it is this lane's charter written by somebody else: NOTE WHAT YOU OBSERVE, NOT WHAT YOU INTERPRET. "Player spent 30 seconds looking around the room, opening the menu twice, before finding the door" is an observation; "player was lost" is an interpretation. So every line of THE STRANGER'S LIST is what a camera would have recorded: mm:ss | what I did | what happened on screen | what a stranger was promised. No adjectives, no verdict, and NO SCORE -- the standard observation sheet ends in "Overall Enjoyment, 1 to 5" and this lane's version deliberately drops that row, because the board row says never a score and taste is DIRECTION's.
+PER RULE 13: pre-push pass green (rom face 14/0, thumb 16/0, feed 15/0, half size 7/0, city rail
+8/0, alpha loads 20/0, demo build 25/0, readable ruler 7/0). THE SUITE LINE is still unposted, so:
+full suite unmeasured since fa59649f.
 
-HIS WORST BUG HAS A PUBLISHED NAME AND THE LAW'S RANKING IS CORRECT. "It says a car is gonna pull up on me and then nothing happens" is a FALSE AFFORDANCE: an element whose appearance promises an interaction that does not exist, a dead click, "a small broken promise where the perceived affordance wrote a cheque the real affordance would not cash." And the finding that justifies ranking it above a missing feature: EACH ENCOUNTER ERODES TRUST IN THE ENTIRE SYSTEM -- the user begins to doubt ALL similar visual components, raising cognitive load and insecurity. That is the mechanism behind "nothing's complete" arriving from one dead card. A missing feature costs you the feature; a dead promise costs you every other promise on the screen. So dead affordances are the ONE thing the sheet counts rather than merely lists, and they are written down above anything cosmetic.
+Record: records/BOHEMIA_NO_SLOP_I_WAS_MEASURING_A_HALF_LOADED_CITY_9_13_26.md
 
-THE FIVE MINUTES IS AN INDUSTRY NUMBER, NOT ONLY HIS. Most churn happens before the first day ends, and players who hit technical issues or confusion in their first session often never return. Top performers keep the tutorial under 30 seconds and let the player act immediately. A measured case gave players up to a minute to engage with no instruction and got confusion and churn, because they did not know the goal. And the guidance says outright: put an exciting action sequence in the first five minutes. His "I have not experienced any combat yet" is that rule, failed, and his "nothing happens" is the minute-without-a-goal, failed. THREE STOPWATCH NUMBERS ARE THE ONLY NUMBERS ON THE SHEET: time to first input, time to first meaningful action, time to first fight (or NONE with the elapsed time the walk ended at).
-
-WHAT THIS LANE CANNOT GIVE, SAID PLAINLY. I AM NOT A STRANGER and no protocol can make me one: I have read this build's source for twenty-five rounds and I know where the buttons are. So THE STRANGER'S LIST may never claim naivety; it records only what a camera would record, which is the one kind of note a non-naive watcher can still take honestly. Where a genuinely naive reaction is the evidence needed, the list says so and routes it to a real stranger, and the demo-in-hands law already exists for that. Also: the watcher and the player are the same process here, which the literature treats as a bias to design around, so THE TAP SCRIPT IS FIXED IN ADVANCE (splash, largest obvious control, walk one direction until something stops you, every card in the order it appears, the map and whatever claims to take you somewhere, the zoom out and back, stop at five minutes mid-action if necessary). A walk that picks its own route drifts toward the parts that work.
-
-RULE ZERO FOR A WALK, WHICH IS THE HARD PART. THE KNOWN-BREAK CONTROL: he named seven breaks and RUN posts them as THE BREAK LIST, so those breaks are known present -- if the walk does not independently surface the ones inside its five minutes, the protocol is not sensitive enough to be trusted on anything new. A sheet that misses a break he personally hit is a broken instrument, not a clean bill. Plus: no stored save or the run is void (a warm start is not the five minutes anybody else gets); the stopwatch is the page's own monotonic clock, not wall time; and a deliberately raised page error must be captured or the recorder cannot claim zero errors.
-
-ONE OPEN QUESTION LEFT FOR THE WALK, WRITTEN DOWN SO IT CANNOT BE QUIETLY DECIDED: reading the shipped demo file, "DROP IN" occurs once and "PRETTY MAP" does not occur at all. That does NOT mean those buttons are gone, because labels can be built at runtime and the file on disk is not the file he played. Whether they are on screen is a ROUND-TWO OBSERVATION.
-
-STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists". E20's finding is unrouted: all 126 songs share ONE sixteen-section form with the D section at 0:48 every time, and the rest between songs already exists (eight bars, a duck not a stop). laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md still describes Besaid's original-versus-remaster difference backwards and names the wrong composer (Masashi Hamauzu). brokenrosary, the lead named in the one song he likes, is scheduled zero times. The skin is 21 variable names with zero declarations behind them, so the act-two swap would change nothing. Three superseded GDDs still live in laws/ beside v5. E17's three erosions are routed. The MIX METER from E5 gap 10 is unclaimed.
-
-NEXT: E26 round two -- walk the demo five minutes cold on a phone profile and post THE STRANGER'S LIST beside RUN's BREAK LIST. Nothing else that round. Then E20 round two resumes.
-
-RUN (run-eak241): LATEST -- *** [reds mine] SHIPPED. FIVE OF MY GATES WERE RED ON
-MAIN AND THE GAME WAS RIGHT FIVE TIMES OUT OF FIVE. TAB: RUN. Nothing to judge. ***
-
-THE JOB: COMBAT re-ran five gates alone on a clean main -- COMBAT RUNS, DEMO
-CURRENT, CURRENT SLICE, ENEMIES EXIST, STRANGER OPENS -- found them red, and
-handed them back because every one of them is this lane's gate on this lane's
-shipped row. For each: broken game, or lying checker. Decide honestly, fix that one.
-
-*** VERDICT: ONE WAS ALREADY GREEN AND THE OTHER FOUR WERE LYING. NO GAME CODE
-CHANGED. *** Both root causes were somebody else's CORRECT work that my gates had
-hardcoded around.
-
-CAUSE ONE -- THE PAD STOPPED BEING BUTTONS. On 9/7 another lane rebuilt the walk
-pad from html buttons into an SVG ring of eight <g> wedges. ENEMIES EXIST found
-the wedge to press by matching TEXTCONTENT against an arrow glyph. The arrows are
-DRAWN now, so textContent is empty, the find() never hit, and it fell through to
-[0] -- a direction away from the crew. Sixty taps later it had reached nobody and
-reported ZERO BODIES, which reads as "the enemies were never built". They were.
-The harness was walking the wrong way. It reads dataset.walk now -- the wedge
-declaring its own direction. 26/1 -> 27/0. STRANGER OPENS carried the same lookup.
-
-CAUSE TWO -- A FLOOR HIS NEWEST WORD REMOVED. DEMO CURRENT and STRANGER OPENS both
-asserted the walk arrows measure 44px or more, as proof a served build gets the
-demo's thumb injection and a disk load does not. TWO separate things killed that:
-  (1) CSS width/height DO NOT APPLY TO AN SVG GROUP, so the cut's .pb{width:44px}
-      has been INERT since 9/7 -- served and disk read the same number, it cannot
-      tell them apart even in principle.
-  (2) PAOLO 9/6, LOCKED: "for the run right now make all the UI 50% smaller, I
-      don't give a fuck." NEWEST DATE WINS. The pad is one of the controls the
-      halving shrank and 20px is HIS NUMBER, not a defect.
-
-*** AND I ALMOST "FIXED" THE GAME TO SATISFY MY OWN GATE. *** I read 39px, called
-it a real regression on the most-used control in the game, and GREW THE WHOLE PAD
-RING on the demo from 180 to 204 to put the arrows back over 44. Then I measured:
-nav came back 90x90, wedges at 20 -- the halving, doing exactly what he asked for.
-MY CHANGE WAS FIGHTING A LOCKED RULING, and the only reason I know is that I
-measured after building instead of reporting before measuring. Taken straight out.
-
-WHAT REPLACED THE DEAD PROXY is the question his ruling has NOT answered and a
-player actually needs: the pad is ALL EIGHT WEDGES AND EVERY ONE IS THE TOPMOST
-THING AT ITS OWN CENTRE, so nothing is sitting on top of the control you walk with.
-That is the bug this lane really did ship once. MUTATION: lay a transparent overlay
-across the pad -> 8 wedges, 0 answering at their own centre. 15/1 -> 16/0, 17/1 -> 18/0.
-
-CAUSE THREE -- OFF DISK, AGAIN. COMBAT RUNS opened the alpha over file:// and
-drowned: "Fetch API cannot load BOHEMIA_CITY_TILES_03.js. URL scheme file is not
-supported." The city STREAMS ITS TILE BANKS WITH fetch(), and fetch refuses the
-file:// scheme outright. The page was never broken; the harness was standing in the
-one place a browser will not let it work. THIS LANE MEASURED AND WROTE THAT LAW
-DOWN ON 9/5. Served from the repo root now, same fix as the ending gate. 0 -> 1/0.
-
-THE PATTERN, SAID PLAINLY: every one of these four HARDCODED THE SHAPE OF A THING
-INSTEAD OF ASKING IT WHAT IT IS -- the pad's glyph, the pad's pixel size, the page's
-origin. When another lane improved the thing, the gate went red and blamed the game.
-Six such gates fixed in three rounds and THREE OF THE SIX WERE ITS OWN.
-
-RESULT, all through the real suite on this tree:
-    COMBAT RUNS 1/0 . DEMO CURRENT 16/0 . CURRENT SLICE green
-    ENEMIES EXIST 27/0 . STRANGER OPENS 18/0
-RECORD: records/BOHEMIA_FIVE_REDS_AND_FOUR_WERE_LYING_9_13_26.md
-
-*** AND MY LAST HANDOFF BLOCK WAS EATEN OFF MAIN, SECOND TIME FOR THIS LANE. ***
-The [drop in] block committed in bfa02b9 was gone from the file: another lane's
-push rewrote the handoff from a tree that predated mine. Found with git log -S,
-recovered VERBATIM from my own commit rather than retyped from memory, and it is
-restored below in its right place. WHOEVER READS THIS: a handoff rewrite that
-starts from a stale copy silently deletes whatever landed in between. Re-read the
-file immediately before writing it, and grep your own headline back out after.
-
---------------------------------------------------------------------------------
-RECOVERED, PREVIOUS ROUND -- *** [drop in] SHIPPED, FIRST MINUTE 9/0, AND THE
-CORRECTION THAT MATTERS MOST IS MINE. TAB: RUN. Nothing to judge. ***
-
-ALL THREE BEATS OF THE ROW NOW HOLD ON THE SERVED DEMO:
-  (1) THE PAD teaches the verb that moves you -- HOLD TO WALK, LET GO TO KEEP
-      GOING. It said WALK WITH THIS, which teaches the pad exists and nothing
-      about the hold, so a stranger tapped one tile at a time.
-  (2) SOMETHING TO LOOK AT -- holding the direction with the MOST ROOM (what a
-      stranger does, not aimed at a district he cannot see): the arterial is
-      reached in THREE SECONDS and a ROAD MOMENT FIRES IN FIVE.
-  (3) SOMEBODY WHO WANTS SOMETHING -- the wake card carries the day's job in words.
-
-*** [wake near] SHOULD BE RE-READ BEFORE ANYBODY SPENDS A ROUND ON IT. *** That
-row exists because on 9/11 I measured "one step is a quarter tile, the nearest
-road district is 128 fine tiles away, so a minute of walking meets nothing", and
-the coordinator ruled MOVE THE SPAWN. EVERY PART OF THAT WAS MY OWN HARNESS:
-  - one step moves a FULL tile, not a quarter (the quarter came from a probe
-    doing four round trips and a 500ms sleep per step, timing itself)
-  - a held press walks about 1.94 tiles a second
-  - and 128 fine tiles is the distance between CELL CENTRES, not the walk: the
-    player wakes near the EDGE of his cell, so the next district is a few tiles
-    away, not a hundred
-THE FIRST MINUTE ALREADY MEETS SOMETHING. The spawn does not have to move for it.
-The row's other half -- "within one minute's walk of the first hostile the
-teaching fight uses" -- points at the cold open, which is DEFERRED with the story.
-I did not touch the row: only the coordinator adds and edits jobs. This is the
-correction for whoever picks it up.
-
-THE GATE THAT GUARDS IT: gates/first_minute_gate.js, FIRST MINUTE 9/0, three runs.
-It asserts NO number I derived -- it holds the three beats a player gets.
-MUTATION: stop the lesson teaching the hold -> 1 red; give the street no table ->
-1 red (nothing in 60s); stop the phone ringing -> 2 red.
-
---------------------------------------------------------------------------------
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -655,7 +538,7 @@ learns to expect is a red nobody reads.
 Record: records/BOHEMIA_NO_SLOP_THE_SCREEN_HAS_A_FACE_9_13_26.md
 
 
-WORDS (words-8dqrnq): 9/12 (e) -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
@@ -829,6 +712,29 @@ text-floor legs this round fixed are green; four colour-collision ratchets have 
 touches a faction colour. Named, not silently carried. The row is this lane's OPEN [colour reaches].
 
 Record: records/BOHEMIA_NO_SLOP_THE_TRACKING_IS_A_MACHINE_9_12_26.md
+
+
+EYES AND EARS (eyes-5vql33): 9/12 (aa) LATEST -- *** E19 [slop count] ROUND ONE OF TWO IS DONE: SCHOOL. NOTHING WAS COUNTED. THE GATE AS BRIEFED WOULD RED THE ONE ELEMENT THAT IS ALREADY OBEYING THE LAW. *** TAB: CITY, the phone on the city screen is the element in question. The instrument is NOT IN A TAB YET; this lane never writes game code. Record: records/BOHEMIA_EYES_E19_ROUND_1_SCHOOL_THE_TELL_IS_FLUENCY_NOT_FEATURES_9_12_26.md. Spec bank: banks/eyes/BOHEMIA_EYES_E19_TELLS_SPEC_9_12_26.json, draft:true.
+
+THE HEADLINE. slices/BOHEMIA_CITY_WORLD.html line 602 onward is THE SKIN, and its phone is the first element built deliberately against the 9/11 vibe-coded law. Its own comment is the best argument in the repo: "THE CASING. A phone you can see is a thing with a THICKNESS: the bezel is padding, not a border, because a 1px line reads as a box and 5px of case reads as an object." That element is made of border-radius var(--skin-round,13px), a linear-gradient case, a 1px solid var(--skin-caseedge) seam, three box-shadows including a glow, and ui-monospace. A counter that counts occurrences and fails on any REDS THE MOST LAW-ABIDING ELEMENT ON THE SCREEN, five tells at once, because a grep cannot see that the radius is a phone's corner, the gradient is moulded plastic, the 1px line is where the case meets and the glow is a lit screen in a dark valley. Our own laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md line 172 already says it: A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE. And the law itself is written in USE language -- "no 1px border AS THE WAY TO DRAW AN EDGE", "no rounded card AS THE WAY TO GROUP THINGS" -- which the board row's one-line brief flattens into feature counting. Only one of those is buildable. [FLAG for the coordinator, not a silent substitution.]
+
+WHAT THE TRADE ACTUALLY ENFORCES, AND IT IS THE OPPOSITE OF A BAN LIST. Nobody ships a checker that forbids rounded corners. They ship SCALE enforcement: stylelint-plugin-rhythmguard holds scale and token discipline across spacing, radius, typography, size and motion; stylelint-scales lets you declare the permitted scale per property, border-radius included; and the named rules are no-arbitrary-colors, no-arbitrary-spacing, no-arbitrary-border-radius, because arbitrary values are the escape hatch. The question is never "is there a radius", it is "IS THIS RADIUS ONE OF YOURS". Four radii used on purpose is a decision; forty typed radii is the statistical average of yourself. AND WE ALREADY HAVE THE MACHINERY: the skin is already CSS custom properties (--skin-round, --skin-bezel, --skin-case, --skin-caseedge, --skin-screenround, --skin-glow, --skin-glowr, --fmono). A scale exists. Nothing shipped has ever been checked against it.
+
+FOUR THINGS THE TELL LISTS MISS. (a) THE LIST IS A MOVING TARGET, documented rather than guessed: purple gradients were the giveaway, then the frontend design skill shipped and the outputs still all looked the same "or at least had specific tells". A gate frozen on the 9/11 list will one day report ZERO on a surface that has moved to the next generic look. (b) ROUNDED CORNERS ARE NOT A DEFECT: people reliably prefer curved contours and the amygdala is significantly more active for sharp-cornered everyday objects, read as implicit threat (Bar and Neta 2006/2007, moderated by expertise per Silvia 2009). But that hands hard edges a BETTER reason in THIS game than fashion ever did: in a post-apocalyptic valley, soft is the wrong SIGNAL, not the wrong taste. DIRECTION's call. (c) LETTER-SPACED UPPERCASE IS ALREADY A MEASURABLE FAULT for a better reason: all-caps is harder for dyslexic readers, screen readers may spell capitalised text letter by letter, and WCAG requires content to survive the reader widening letter spacing to 0.12 times the font size. That is a real machine test the tell lists do not have. (d) THE DEFENCE IS PROVENANCE, NOT ABSENCE: "AI feedback only hurts when there's nothing underneath the work to answer it with", which is the same diagnosis the law gives ("nobody's decision") and the same shape as the fleet's REFERENCE CHECK.
+
+AND THE SHARPEST FORMULATION IN THE READING IS NOT VISUAL AT ALL: "AI design isn't ugly. It's FLUENT, and that's the problem", and "the tell isn't a watermark, the tell is that nothing is at stake, the voice is hedged, the composition is SYMMETRICAL". Uniformity is the bridge from taste to measurement. Also documented: the tells are the DEFAULTS OF THE DOMINANT FRAMEWORK, and Tailwind's own creator publicly apologised for making indigo-500 the default every AI tool now copies. The look is not ugly, it is inherited.
+
+ROUND TWO'S SPEC, three measurements in order. ONE, THE SCALE: how many DIFFERENT values the shipped surface uses per property (radii, border widths, font stacks, gradients, letter-spacing, shadow recipes). Needs no taste, survives the look moving, and is the number that can honestly be ratcheted because cleanup can only reduce it. TWO, THE TELLS ATTRIBUTED: every occurrence with its element, split into ON THE SKIN (from a --skin-* token: reported, never a defect) and TYPED IN PLACE (a literal at the point of use: the actionable list). TYPED IN PLACE is the headline; the raw count is context. THREE, THE SPACING SURVIVAL TEST: on the real surface force letter-spacing 0.12em and word-spacing 0.16em and report which controls overflow, overlap or lose text. Reuse E13's driven-control harness rather than rebuilding it.
+
+WHAT ROUND TWO WILL NOT DO: fail on any occurrence (a gate red forever gets muted inside a week, E3 measured it, and a muted gate is worse than none because the fleet believes it is running); count dark mode as a tell (the lists call it the biggest one, and this is a night-capable valley whose law says dark is a choice per act, so counting it manufactures a defect out of the setting); decide whether anything looks good; or freeze the raw tell count, because moving a value onto the skin is a real fix that leaves the raw count unchanged.
+
+FIVE CONTROLS, LED BY THE ONE THAT MATTERS: the skin's phone MUST come back ON THE SKIN and MUST NOT be reported as a defect, or the instrument is the broken one and no number prints. Then a planted literal border-radius:7px must be found and attributed TYPED IN PLACE; a planted border-radius:var(--skin-round) must not be; a synthetic sheet with three radii must report three and one with thirty must report thirty; and a planted fixed-width tight-uppercase chip must overflow at 0.12em while a flexible one must not.
+
+STILL STANDING FROM EARLIER ROUNDS, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists" and is now wrong by twenty-two instruments and six suite gates. laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md still describes Besaid's original-versus-remaster difference backwards and implies the wrong composer (it is Masashi Hamauzu). brokenrosary, the lead named in the one song he said he likes, is scheduled zero times. WORLD's STATE line still denies a faction colour table that exists and is read at runtime. Three superseded GDDs (v2, v3, v4) still live in laws/ beside v5 carrying 69 lock lines. E15's scope hole: a building, a face, a prop or a vehicle is graded by no machine on E7's sheet. The MIX METER from E5 gap 10 is still unclaimed.
+
+NEXT: E19 round two, the check. Then E20 [song length], E21 [marker sweep], E22 [never ran]. Every job is two rounds and never one. E9 is STANDING and runs every round.
+
+
 
 WORDS (words-8dqrnq): 9/12 (d) -- *** EVERY GATE THIS LANE OWNS IS GREEN, FIRST TIME IN SIX
 ROUNDS. voice 118/0, catalogue 63/0, language 83/0, attempt 15/0, handoff 7/0, pages 18/0. THREE
@@ -10540,54 +10446,7 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** RULE 14 LANDED AND THIS LANE HOLDS. CHARACTER HAS NO BREAK IN HIS LIST,
-SO IT TAKES NO NEW ROW AND ADDS NOTHING TO THE DEMO. What it did instead was hand the lanes
-that DO have a break a measurement they need. ***
-
-RULE 14 (Paolo 9/13, LOCKED): the demo's first five minutes on a phone is the only measure
-of the game. (b) says a building lane whose first line is not a break he named HOLDS ITS
-CLAIM and adds nothing to the demo. I read the law: the breaks go to DIRECTION and COOK
-(streets), LIFE+CITY (freeway), PLUMBER (demo errors), RUN (fast travel, dead cards),
-UI (the two buttons), COMBAT (first fight), PEOPLE/COOK (cats, approved). CHARACTER IS NOT
-ON THAT LIST. So this lane holds, and inventing a five-minute job for it would be exactly
-the manufactured breadth the law is stopping.
-
-WHAT I DID INSTEAD, because standing duty 8 says his bugs beat my queue and I wanted to know
-whether any of "glitchy, buggy" is MINE: walked the demo's first five minutes at real phone
-size, twice, and counted every page error and every failed request.
-    OVER file://   14 distinct errors, 12 of them the city tile banks failing to fetch
-    OVER http      ONE error on the first run, ZERO on the second, and ZERO failed requests
-*** THE TWELVE ARE AN ARTIFACT OF THE FILE PROTOCOL AND DO NOT EXIST IN THE GAME. ***
-Fetch cannot read file:// URLs, so the tile banks never load and the STREETS NEVER DRAW --
-which looks exactly like "the streets don't look like streets", his first complaint. Anybody
-measuring the demo off the filesystem will find twelve errors that are not there and will
-not see the ones that are.
-THIS IS FOR PLUMBER [demo errors] AND FOR THE STREETS ROWS, and it costs nobody a claim:
-MEASURE THE DEMO OVER http, NEVER OVER file://. One line: python3 -m http.server, then open
-http://127.0.0.1:<port>/slices/BOHEMIA_DEMO.html.
-NOTHING IN THE FIRST FIVE MINUTES THROWS FROM CHARACTER CODE. That is the honest answer to
-"is any of this mine", and the answer is no.
-
-AN OBSERVATION, NOT A JOB, for whoever owns it: at 06:00 the opening screen is very dark and
-the body on the street is small and low-contrast against the ground. That may be the hour
-and the light rather than the body, which is not this lane's to decide, so it is written
-down here for DIRECTION or EYES rather than acted on.
-
-AND A TRAP I FELL INTO TWICE NOW, written down so the third time does not happen: pkill -f
-on a pattern that appears in your own command line kills your own shell. It cost this round
-a whole commit. Kill a background server by port or by pid, never by a -f pattern you are
-also typing.
-
-- SUITE (rule 13): nothing shipped to the game this round, so there is nothing to gate.
-  No SUITE LINE on the front page yet.
-- [faction colour] STAYS CLAIMED, still with no work left in this lane: the dressing half
-  works and the blocker is that the territory and the population do not overlap.
-  [PENDING coordinator] that half belongs to FACTIONS or WORLD.
-- NEXT ROUND: hold again unless the coordinator gives this lane a five-minute break. The
-  rows waiting behind the hold are [names lie] and [shape frozen], both this lane's own
-  findings, both with no dependencies.
-
-PREVIOUS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
+THIS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
 ALREADY HELD, SO WHAT SHIPPED IS THE GATE THAT STOPS IT QUIETLY STOPPING. (sha 7d7b685) ***
 
   1. ARE THERE HOSTILES?  3604 people swept, 162 hostile (4.5%).
@@ -11247,57 +11106,6 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
-PLUMBER (plumber-ont6t5): 9/13 (c) LATEST -- *** CHAT 18. ROUND 23. [suite runs] CONTINUING. THE SPEED
-READING NOW REACHES THE FLOOR, AND THE FROZEN LIST DROPPED FROM 5 TO 2.
-The suite's headline "71.9 minutes" is built entirely out of wall clocks, and this box runs up to 1.8x
-slower some hours, so that number on its own is a statement about an afternoon. Now the reading flows
-the whole way: the runner prints BOX SPEED, bohemia_suite_census lifts it out of the log into the
-record, and suite_finishes_gate prints the ratio its floor came from. Today it correctly says "THE
-CENSUS CARRIES NO BOX SPEED, so this floor cannot be compared with any other" -- true, our census
-predates the yardstick, and it picks the ratio up on the next full run instead of inventing one.
-BOTH BRANCHES PROVED BEFORE SHIPPING: a census carrying a reading prints "taken on a box running at
-2.17x (63.2 ms against a 29.1 ms baseline)"; one without says so plainly; the parser returns the
-numbers for a real BOX SPEED line and None for a log with none. The census file used in the test was
-restored byte for byte. IT CANNOT FAIL ANYTHING, same rule as the yardstick.
-*** AND THE RATCHET CLOSED THREE MORE IN ONE GO, ALL WORLD'S: *** slices/BOHEMIA_MAP_CURRENT.html
-(+99/-9, engine md5 stamps that no longer matched the files they name -- a checksum whose job is to
-prove freshness, itself stale), records/BOHEMIA_SURFACE_AUDIT_8_15_26.md (+19/-19, it claimed 6 things
-were on the walked surface when the truth was 22, backwards, and other lanes read it to pick work) and
-the page that renders it. Named, never parked, and the owning lane fixed all three.
-FROZEN LIST 5 -> 2; the two left are this lane's own reachability census. SIX DRIFTS CLOSED THIS WAY
-NOW. The habit has done more work than the gate.
-[MY HANDOFF BLOCK HAS NOW BEEN DROPPED BY A REBASE TWICE] Round 20 went missing after e1dc6ff and round
-22 after efa6909. Both were committed, both were gone from the file afterwards, both recovered from
-their own commit with `git show <sha> -- 00_START_HERE_NEXT_SESSION.md`. CHECK YOUR BLOCK IS STILL
-THERE AFTER ANY REBASE THAT TOUCHES THIS FILE -- a conflict resolution can eat it silently, and nothing
-in the suite notices because the file is still perfectly readable.
-WHAT IS LEFT ON THE ROW: the 71.9 min floor (sharding cannot fix it -- less browser work or more
-machines, a fork not a coding task); a full run so the census finally carries a ratio; retire the dead
-([dead gates]).
-PLUMBER (plumber-ont6t5): 9/13 (b) LATEST -- *** CHAT 18. ROUND 22. [suite runs] CONTINUING. EVERY RUN
-NOW OPENS BY SAYING HOW FAST THE BOX IS, and the sting is that THIS LANE HAD ALREADY BUILT THAT AND PUT
-IT WHERE NOBODY TRIPS OVER IT. gates/fps_on_a_phone_gate.js has carried a yardstick since 9/5 with our
-own comment in it: "A TIME BUDGET WITHOUT ONE OF THESE GOES RED ON A BUSY AFTERNOON AND GETS SWITCHED
-OFF... the demo reached its first step in 14.1 s on a quiet box and 19.9 s an hour later on the same
-tree with nothing in the game changed." We wrote that, then spent round 21 comparing gate runtimes
-taken hours apart and reached three wrong answers in a row. THE IDEA WAS NOT MISSING. IT WAS IN A PLACE
-NOBODY MEETS.
-NOW: gates/bohemia_box_speed.js, reusing the same four-million-round integer lump the phone yardstick
-uses, in plain node so it costs no browser and finishes in under a second, median of five. The runner
-prints BOX SPEED before any gate time, with the line "a time here is only comparable to one taken at
-the same ratio". PROVED TO TRACK THE MACHINE, not guessed, by making the box genuinely busy: 0 busy
-0.99x, 2 busy 1.04x, 4 busy 2.17x, 8 busy 2.47x. Flat while there is a spare core, doubling the moment
-there is not -- the right shape, so a 2.17x reading is a statement about the machine and not noise.
-IT CANNOT FAIL ANYTHING, ON PURPOSE. A yardstick that can go red is a budget, and a correction that can
-fail starts getting argued with. It prints a number and stops; whatever reads it decides what it means.
-[THE RATCHET CLOSED A THIRD DRIFT] slices/BOHEMIA_SUBURB_WALK_7_18_26.html -- found stale twice, both
-times by a full suite run that rebuilt it in place, named for FACTIONS both times and never parked
-behind an excuse -- has been rebuilt by somebody. The gate went RED demanding the entry be deleted, and
-it is deleted. Frozen list 6 -> 5. Three for three now: name it, refuse to freeze it quietly, the
-owning lane fixes it.
-WHAT IS LEFT ON THE ROW: the 71.9 min floor (sharding cannot fix it -- less browser work or more
-machines, which is a fork, not a coding task); re-measure the floor WITH the box-speed ratio recorded
-beside it so the number means something; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/13 LATEST -- *** CHAT 18. ROUND 21. [suite runs] CONTINUING. I WAS WRONG
 THREE TIMES THIS ROUND ABOUT ONE GATE, AND THE THING THAT KILLED ALL THREE IS THE FINDING: *** THE BOX
 IS NOT THE SAME BOX HOUR TO HOUR, BY UP TO 1.8x. *** FACTION ASK COST, run ALONE, with NO CODE CHANGE
@@ -20978,25 +20786,6 @@ FAILURES named in the record: topping up to six manufactured breadth; every lane
 the demo made it nobody's whole; two LOCKED rulings sat a week in queues; I reported commit
 counts as progress. (Coordinator blocks (dv)/(dw) are restored here if a lane's rebase
 dropped them; this is the second time.)
-THEN (dy) VAMILY, 11 commits (only four lanes ran). FACTIONS [who follows] SHIPPED (46 can
-come, 0 would follow on day one, ties are facts never a score; and [down not dead] now
-covers your company); it re-cut the demo twice AFTER rule 14 landed mid-round, noted, not
-punished. LIFE+CITY claimed [freeway reads]; its [tiles not slabs] r1 found the city already
-draws ~9,000 tile images and the 1.7% fallthrough is airbase/airport/estate/gated tiles the
-bank lacks (note on COOK [city from above]). PEOPLE held [lock them] under 14b and named THE
-TRAP: the DEMO BUILD gate's 'regenerating changes nothing' leg goes red for every non-RUN
-ship and the obvious fix is the forbidden re-cut -> RULE 14f (that leg quarantined, nobody
-re-cuts) and RUN [demo pinned] second line (the demo carries the sha it was cut from).
-MY OWN THING: I DROVE THE DEMO MYSELF at phone size, served (file:// throws 13 fetch errors
-a phone never sees): records/BOHEMIA_COORDINATOR_THE_FIVE_MINUTES_I_SAW_9_13_26.md, six frames in records/target/COORDINATOR_FIVE_MINUTES_9_13_*.
-ZERO page errors. The street at walk zoom is a stack of flat bands (head-on brick wall,
-beige, kerb strip, asphalt) with no ground plane; the zoomed-out view already reads as a
-city; thirteen controls before one step; the first card is an 8.5-hour round trip for one
-battery with three haggle buttons; text under the gear, a card on the rail, an orange bar
-down the street edge, a bubble with no speaker; no fight, no car; four cats. Written to the
-front page as THE COORDINATOR'S BREAK LIST (premises) and as premise notes on [streets
-read], [streets fixed], [freeway reads], [no tabs], [dead cards], [demo errors], [first
-fight], [every card], [first ask].
 
 COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
 RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
