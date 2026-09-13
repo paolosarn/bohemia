@@ -10908,7 +10908,56 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
+THIS ROUND -- *** THE LANE HOLDS UNDER RULE 14, AND I TOOK BACK TWO THINGS I SAID. ***
+
+CHARACTER has no break in his five-minute list. I read the law and it is explicit: "rows
+that are not five-minute breaks simply wait." So no new row and nothing shipped to the
+game, two rounds running. What the rounds bought was measurements for the lanes that DO
+have a break.
+
+FOR PLUMBER [demo errors] AND THE STREETS ROWS -- MEASURE THE DEMO OVER http, NEVER file://
+    over file://   14 distinct errors, 12 of them the city tile banks failing to fetch
+    over http      one on the first run, ZERO on the second, zero failed requests
+Fetch cannot read file:// URLs, so the tile banks never load and THE STREETS NEVER DRAW,
+which looks exactly like his first complaint. Anybody measuring off the filesystem finds
+twelve errors that are not there and misses the ones that are.
+AND NOTHING IN THE FIRST FIVE MINUTES THROWS FROM CHARACTER CODE.
+
+*** CORRECTION 1: THE OPENING IS NOT "VERY DARK". I SAID IT WAS, THROUGH A DIM OVERLAY. ***
+I wrote down last round, as an observation for DIRECTION or EYES, that the 06:00 opening is
+very dark and the body low-contrast. That was read off a screenshot with the opening card
+ON TOP, and the card dims the scene behind it. MEASURED with the card gone, 183 bodies on
+the street: screen luma 92.8 of 255, only 7% near-black, darkest 0, brightest 232. That is
+a lit street. AN OBSERVATION TAKEN THROUGH AN OVERLAY IS AN OBSERVATION ABOUT THE OVERLAY.
+
+*** CORRECTION 2, AND I ALMOST SHIPPED IT AS A FINDING. *** The canvas backing store is
+378x815 while the phone's device pixel ratio is 3, so the game draws ONE canvas pixel per
+CSS pixel and the browser blows it up 3x. My first reaction was "the art renders at a third
+of the phone's resolution, THAT is the mushy look he means."
+THEN I CHECKED THE TWO THINGS THAT DECIDE IT: image-rendering is `pixelated`, the 2d
+context has imageSmoothingEnabled FALSE, and the scale is exactly 3, an integer. Every game
+pixel becomes a hard-edged 3x3 block with no blur. CORRECT AND DELIBERATE FOR PIXEL ART,
+NOT A BUG. Eighth ruler this lane nearly published.
+
+AND THE USEFUL FACT UNDERNEATH IT, FOR DIRECTION AND COOK, who own "the streets do not
+read" and "the tiny parts come more together": THE PIXELS ARE NOT MUSHY, THEY ARE BIG ON
+PURPOSE -- one authored pixel is a hard 3x3 block on his phone. So what he reads as
+unfinished is COMPOSITION, not resolution or blur, and rendering at higher DPR or
+sharpening anything would not touch his complaint. Worth knowing before a round is spent
+on the wrong half.
+
+- Nothing shipped to the game. No alpha change, no demo cut (rule 14a).
+- SUITE (rule 13): nothing to gate. No SUITE LINE on the front page yet.
+- [faction colour] STAYS CLAIMED, still no work left in this lane.
+  [PENDING coordinator] its remaining half belongs to FACTIONS or WORLD.
+- TWO TRAPS, both now paid for: pkill -f on a pattern that appears in your own command line
+  kills your own shell (cost a whole commit; kill by PORT, fuser -k 8771/tcp). And THIS
+  HANDOFF FILE KEEPS EATING THIS LANE'S BLOCK IN MERGES -- twice in three rounds. Named for
+  PLUMBER; I am not mass-editing other lanes' blocks to fix it.
+- NEXT ROUND: hold again unless this lane is given a five-minute break. Waiting behind the
+  hold: [names lie] and [shape frozen], both this lane's own findings, no dependencies.
+
+PREVIOUS ROUND -- *** [enemy dressed] A-HOSTILE-WEARS-ITS-FACTION. MEASURED FIRST, THE ROW
 ALREADY HELD, SO WHAT SHIPPED IS THE GATE THAT STOPS IT QUIETLY STOPPING. (sha 7d7b685) ***
 
   1. ARE THERE HOSTILES?  3604 people swept, 162 hostile (4.5%).
