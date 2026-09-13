@@ -235,7 +235,80 @@ function serve() {
   ok('and the card actually put controls on screen to measure (' + card.length + ')',
      card.length >= 1);
 
-  const ctrls = shell.concat(inCity).concat(card);
+  /* ==== [every card] -- AND THE CARDS THE PLAYER ACTUALLY TALKS THROUGH =============
+     RUN measured the conversation's four choices at 31 px against this gate's own law and
+     could only hold them from the demo side, height only -- and the demo is a cut, so that
+     fix evaporates on the next one. THIS GATE NEVER SAW THEM, and its own header already
+     admits the shape of that blind spot: it "only ever swept what happened to be on screen
+     the instant it looked". cardShow's chrome was added for that reason; the CONVERSATION
+     card is a second room it never opened, and the day card's own choices were 29 px tall
+     with one 37 px wide.
+
+     WALKED TO, NOT FABRICATED. ctOpen() asks ctAdjacent() itself, which reads ctEveryone()
+     against the player's hx/hy, so the gate stands the player on a real person the game
+     placed rather than setting a flag. A control measured on a state the game never reaches
+     is a number about nothing -- COMBAT's lane found that same trap five times. */
+  let talk = [];
+  const talkUp = await city.evaluate(() => {
+    try {
+      if (typeof ctEveryone !== 'function' || typeof ctOpen !== 'function') return 'no talk module';
+      const who = ctEveryone()[0];
+      if (!who) return 'nobody in the world';
+      const at = ctAt(who);
+      hx = at[0]; hy = at[1];
+      if (!ctAdjacent()) return 'walked there and still not adjacent';
+      ctOpen();
+      const c = document.getElementById('ctcard');
+      return (c && getComputedStyle(c).display !== 'none') ? 'up' : 'card did not open';
+    } catch (e) { return 'threw: ' + String(e).slice(0, 60); }
+  });
+  ok('a CONVERSATION could be opened by standing next to somebody the game placed, which is '
+     + 'the card his four choices live on (' + talkUp + ')', talkUp === 'up');
+  if (talkUp === 'up') {
+    /* *** A CARD THAT SCROLLS HIDES ITS OWN CONTROLS FROM THIS SWEEP, AND THAT IS WHY
+       FOUR OF THE FIVE CHOICES WERE INVISIBLE HERE. *** sweepDoc drops anything whose
+       rect is outside the viewport, which is right for the street (a chip off screen is
+       not reachable) and WRONG INSIDE A SCROLLING PANEL: #ctcard is capped at the
+       viewport with overflow-y:auto, so its later buttons sit below the fold. Measured
+       with the fix removed: the general sweep flagged ONE control, ctlend, because it
+       alone happened to be above the fold -- the other four 29 px buttons, the ones RUN
+       actually reported, were never even looked at. A CONTROL THE PLAYER CAN SCROLL TO IS
+       STILL A CONTROL, so the card's own controls are measured through the card rather
+       than through the window. Everything else about them is judged the same. */
+    talk = (await city.evaluate(() => {
+      const card = document.getElementById('ctcard');
+      if (!card) return [];
+      const out = [];
+      for (const n of card.querySelectorAll('button,[onclick],[role=button]')) {
+        const s = getComputedStyle(n);
+        if (s.display === 'none' || s.visibility === 'hidden' || +s.opacity === 0) continue;
+        const r = n.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) continue;
+        const cls = typeof n.className === 'string' ? n.className
+                  : (n.getAttribute && n.getAttribute('class')) || n.tagName || '';
+        out.push({ id: n.id || ('.' + String(cls).slice(0, 18)),
+                   t: (n.textContent || '').trim().slice(0, 14),
+                   w: Math.round(r.width), h: Math.round(r.height) });
+      }
+      return out;
+    })).map(c => ({ ...c, where: 'a conversation' }));
+    await city.evaluate(() => { try { ctClose(); } catch (_e) {} });
+  }
+  ok('and it put its choices on screen to measure (' + talk.length + ')', talk.length >= 3);
+
+  /* *** AND SWEEP THE STREET AGAIN WHILE STANDING NEXT TO SOMEBODY. *** #cttalk -- the
+     button that opens a conversation at all, the single most important control for meeting
+     anybody in this game -- measured 184x36 and NOTHING in this repo had ever seen it. Not
+     because somebody forgot it: because every sweep here looks at a fresh street where
+     nobody is adjacent, so the button does not exist to be found. A control that only
+     appears when the player is next to a person is invisible to an instrument that never
+     stands next to one. Found by accident while measuring the cards; caught on purpose from
+     now on. */
+  const beside = (await city.evaluate(sweepDoc)).map(c => ({ ...c, where: 'stood beside somebody' }));
+  ok('and the street was swept AGAIN while standing next to somebody, because some controls '
+     + 'only exist then (' + beside.length + ' found)', beside.length >= 1);
+
+  const ctrls = shell.concat(inCity).concat(card).concat(talk).concat(beside);
 
   ok('the sweep actually found the controls (it found ' + ctrls.length + ' across '
      + 'both documents; three earlier methods each confidently found zero on the city '

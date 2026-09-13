@@ -850,6 +850,63 @@ NEXT IN THIS LANE: Q41 [who replaces you]. Then the queue is empty.
 
 
 ================================================================================
+
+UI (ui-kmqmrf): 9/13 (d) LATEST -- *** [every card] SHIPPED. AND ONE CONTROL NO INSTRUMENT COULD SEE. ***
+Took his bug over my queue: [no slop] still CLAIMED and untouched this round.
+
+THE ROW COULD NOT BE FIXED WHERE IT WAS FOUND. RUN measured the conversation's four choices at
+31px against the 44px thumb law and held them from the DEMO side, height only -- but the demo is a
+cut, and under rule 14(a) only RUN regenerates it, so that fix evaporates on the next one. The
+cards live in the city frame and a shell style cannot reach into an iframe. So it had to come here.
+
+MEASURED FIRST, ON THE REAL CARDS: conversation choices 29 -> 44; the DAY CARD's own choices
+29 -> 44 (one was 37 WIDE); SEND 36 -> 44; the phone 36 -> 44. IT WAS NEVER ONLY THE CONVERSATION
+CARD -- the day card was just as bad and nobody had reported it, because thumb_gate (this lane's
+own gate for this exact law) had only ever swept the first screen. REACH GROWS, INK DOES NOT: the
+halving sets font-size and padding with !important, min-height and min-width are neither, so the
+box reaches 44 while the lettering stays halved. That is why it is min-*, not height.
+
+*** AND THE ONE NO INSTRUMENT COULD EVER HAVE SEEN. *** #cttalk, the button that OPENS a
+conversation at all -- the most important control for meeting anybody -- was 184x36 and nothing in
+this repo had ever measured it. Not forgotten: it only exists while the player is standing next to
+a person, and EVERY sweep here looks at a fresh street where nobody is adjacent, so it is not on
+screen to be found. A control that appears only in a state the instrument never enters is
+invisible to it, however carefully the list is written. Found by accident while walking onto
+somebody to test something else; the gate now stands beside somebody ON PURPOSE and re-sweeps.
+
+TWO REAL DEFECTS IN MY OWN GATE, BOTH FOUND BY THIS.
+ONE: A CARD THAT SCROLLS HIDES ITS OWN CONTROLS FROM THE SWEEP. It drops anything outside the
+viewport -- right for the street, wrong inside a scrolling panel. #ctcard is capped at the viewport
+with overflow-y:auto, so its later buttons sit below the fold. Measured with the fix removed, the
+sweep flagged ONE control and never looked at the other four 29px buttons, the ones RUN actually
+reported. Card controls are now measured through the card, not through the window.
+TWO: THE MUTATION COULD NOT SHOW THE ORIGINAL BUG, because the gate runs the DEMO and RUN's patch
+is still in it -- four of five came back at 44. So the honest proof is the direct measurement on
+BOHEMIA_CITY_WORLD.html (29 -> 44 on all five), and what the mutation DID show is that this fix
+cures ctlend, the one control RUN's demo-side patch could not reach (189x29 -> 189x44).
+
+THE LIST IS NOT THE GUARANTEE AND I PROVED IT ON MYSELF: the fix is a selector list, I wrote it
+from the row's own words (conversation, offer, nightfall, haggle, fight, THE PHONE) and STILL left
+the phone out on the first pass, then measured it at 36. A list written from a correct list one
+minute earlier was already incomplete. The gate is the guarantee.
+
+NOT RE-CUT ON PURPOSE (rule 14a): ships to the alpha and workshop; the demo is byte-identical to
+origin/main in this diff. RUN cuts it.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_A_CHOICE_FITS_9_13_26.html
+
+PER RULE 13: pre-push pass green -- thumb 19/0, city rail 11/0, phone object 18/0, half size 7/0,
+rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE is still unposted:
+full suite unmeasured since f765fa37.
+
+NOT MINE, FOURTH TIME -- FOR WHOEVER OWNS THE PALETTE: phone_readable_gate 15 ok 4 FAILED, the same
+four colour-collision ratchets unmoved for four rounds (normal 5 vs 3, protan 14/13, deutan 12/11,
+tritan 13/9). Nothing here touches a faction colour. Row: this lane's OPEN [colour reaches].
+
+NEXT: back to [no slop] -- the casing register is the last of the three still fixed-pitch.
+
+Record: records/BOHEMIA_EVERY_CARD_IS_A_THUMB_9_13_26.md
+
 RUN (run-eak241): LATEST -- *** [fast travel] CLAIMED AND MEASURED. THE TRIP IS
 ALREADY BUILT; NOTHING CALLS IT. TAB: CITY to tap, RUN for the trip. Nothing to
 judge yet. ***

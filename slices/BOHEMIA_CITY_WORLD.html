@@ -939,6 +939,50 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #daycardIn ul{list-style:none;margin-bottom:6px}
 #daycardIn li{font-size:12px;line-height:1.5;color:var(--ink);padding-left:12px;position:relative;margin-bottom:3px}
 #daycardIn li:before{content:'\00b7';position:absolute;left:2px;color:var(--acc)}
+/* ============================================================================
+   __EVERY_CARD_IS_A_THUMB__ -- EVERY CONTROL ON EVERY CARD IS 44 PX OF REACH.
+   [every card], routed here 9/13. RUN measured the conversation's four choices at
+   31 PX against the 44 px thumb law and could only hold them from the demo side,
+   height only -- and the demo is a cut, so the fix evaporates on the next one. THE
+   CARDS LIVE IN THIS FRAME. A style in the shell cannot reach into an iframe, which
+   is why it had to come here.
+
+   MEASURED BEFORE WRITING THIS, on the real card through cardShow, the system every
+   card in the game draws through: the day card's own choices were 29 PX TALL and one
+   was 37 PX WIDE, and SEND was 36. So this was never only the conversation card; it
+   was every card, and the thumb gate never saw it because it only ever swept the
+   first screen.
+
+   REACH GROWS, INK DOES NOT, which is his half-size order held exactly. The halving
+   rule sets font-size and padding with !important; min-height and min-width are
+   neither, so the box reaches 44 while the lettering stays small. That is the whole
+   trick and it is why this is min-*, not height.
+
+   AND THE LIST IS NOT THE GUARANTEE. A selector list can always miss the class
+   somebody adds next round. The guarantee is gates/city_rail_gate.js, which OPENS
+   each card and fails on ANY control under 44 -- so a new kind of card button is
+   caught by measurement, not by remembering to edit this line. */
+#daycardIn .fbopt, #daycardIn .fbgo, #daycardIn .fbdoor,
+#daycardIn .dcbtn, #daycardIn .dcgo, #daycard .dcbtn, #daycard .dcgo,
+#ctcard button, #ctcard .ctbtn, #daycardIn button, #daycardIn [role=button],
+/* the phone is a card too, and the list missed it: measured at 184x36 before this line.
+   That is the argument for the gate rather than the list -- I wrote the list from the row's
+   own words (conversation, offer, nightfall, haggle, fight, THE PHONE) and still left one out
+   on the first pass. */
+#phonewrap button, #phonewrap [onclick], #phonewrap [role=button],
+/* AND #cttalk, THE BUTTON THAT OPENS A CONVERSATION AT ALL -- 184x36 when measured.
+   It is the single most important control for meeting anybody, and NOTHING had ever
+   measured it, because it only exists while you are standing next to a person: every
+   sweep in this repo looks at a fresh street where nobody is adjacent, so the button
+   is not on screen to be found. That is not a control anybody forgot, it is a control
+   no instrument could see. Found by walking onto somebody to test a different thing. */
+#cttalk{
+  min-height:44px; min-width:44px;
+  display:inline-flex; align-items:center; justify-content:center;
+  box-sizing:border-box }
+/* the ones that are a full-width row read left, not centred: only the reach changes */
+#daycardIn .dcbtn, #daycard .dcbtn{ justify-content:flex-start; display:flex }
+
 .dcbtn{display:block;width:100%;text-align:left;margin-top:9px;padding:11px 12px;border-radius:9px;
   background:#1b1813;border:1px solid var(--line);color:var(--ink);font-size:13px;line-height:1.45}
 .dcbtn:active{border-color:var(--acc);color:#fff}
