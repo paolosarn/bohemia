@@ -28046,7 +28046,16 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): seam PASS on COOK [streets fixed] round 2 - the
+ROUND LOG 9/13 (latest): [judge the redo] SHIPPED - PASS, the 47 killed
+clips go back to him via the ANIMATION tab's ONES YOU KILLED board. Two
+instruments agreed: ANIMATION's twice-run probe (far-arm-over-head gone
+on all 47, elbow jumps 30px -> 4-11) and my eyes on four clips x eight
+facings including the worst offenders. Honest residual: a few designed
+key-to-key snaps read as intended motion; a clip-redesign row if he
+still dislikes them, not a rig row. DIRECTION queue after this: only
+the blocked pair ([judge the old]/[ratchet sixty] on retint execution -
+muddy already down 174->121 so it moves) and [first look] (RUN's
+first-sixty). PREVIOUS: seam PASS on COOK [streets fixed] round 2 - the
 72%-of-screen yard is crisp approved hardpan now, measured 20.6
 colours/kpx where the flat cream fill sat (floor 4.5); frame in
 records/target/DIRECTION_THE_YARD_AFTER_9_13_26.png beside the before.
