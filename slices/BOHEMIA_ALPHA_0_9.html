@@ -17486,6 +17486,13 @@ function buildUI(){
     function votes(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
     function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
     var JA_FILTER = 'all', jaRaf = 0, jaLast = 0;
+    /* WHAT WAS WRONG WITH THE ONE YOU KILLED, AND WHAT CHANGED (Paolo 9/7:
+       "we gotta re-analyze a lot of these. IF I KILLED IT I DON'T WANT IT GONE.").
+       These 47 are the clips he thumbed down. Every line is MEASURED, not claimed:
+       built from the same probe run twice, on the rig before his three complaints
+       were fixed and on the rig now, over all eight facings and 24 buckets. He is
+       not being asked to re-judge blind. */
+    const CLIP_FIXED={'bat-arc':'far arm drew over the head', 'cheer':'far arm drew over the head', 'chest-thump':'far arm drew over the head', 'cough':'far arm drew over the head; elbow jumped 31px a frame, now 7', 'cover-drop':'far arm drew over the head; hand hid behind the head with its arm in front; elbow jumped 30px a frame, now 4', 'cover-fire':'far arm drew over the head; hand hid behind the head with its arm in front; elbow jumped 30px a frame, now 7', 'cover-rise':'far arm drew over the head; hand hid behind the head with its arm in front; elbow jumped 30px a frame, now 4', 'crawl-dying':'far arm drew over the head; elbow jumped 36px a frame, now 3', 'crouch-aim-1h':'far arm drew over the head; hand hid behind the head with its arm in front; elbow jumped 30px a frame, now 11', 'crouch-aim-2h':'far arm drew over the head; hand hid behind the head with its arm in front; elbow jumped 32px a frame, now 13', 'deadeye':'far arm drew over the head; hand hid behind the head with its arm in front', 'dig':'far arm drew over the head', 'dizzy':'far arm drew over the head', 'drink':'far arm drew over the head', 'drunk':'far arm drew over the head', 'eat':'far arm drew over the head', 'flee-sprint':'far arm drew over the head', 'floor-rise':'far arm drew over the head', 'gun-walk':'far arm drew over the head; hand hid behind the head with its arm in front', 'hands-up':'far arm drew over the head', 'headshot':'far arm drew over the head', 'headshot-2':'far arm drew over the head', 'idle':'far arm drew over the head', 'inject':'far arm drew over the head', 'jumping-jacks':'far arm drew over the head', 'lean':'far arm drew over the head', 'lunge-stretch':'far arm drew over the head', 'nod':'far arm drew over the head', 'pistol':'far arm drew over the head; hand hid behind the head with its arm in front', 'point':'far arm drew over the head', 'pour':'far arm drew over the head', 'pray':'far arm drew over the head', 'scratch-back':'far arm drew over the head', 'search':'far arm drew over the head', 'shadowbox':'far arm drew over the head', 'shiv-jab':'far arm drew over the head', 'shiver':'far arm drew over the head', 'shout':'far arm drew over the head', 'sleep':'far arm drew over the head', 'smoke':'far arm drew over the head', 'sneak':'far arm drew over the head', 'spear-drive':'far arm drew over the head; elbow jumped 32px a frame, now 12', 'stagger-hit':'far arm drew over the head', 'taunt':'far arm drew over the head', 'throw':'far arm drew over the head', 'tweeze':'far arm drew over the head; elbow jumped 30px a frame, now 5', 'whistle':'far arm drew over the head'};
     function jaFlagged(c){ var n = CLIP_NOTE[c] || ''; return /QUIET|STATIC HOLD|ARMS carry|head-on only/.test(n); }
     function jaList(){
       /* ALPHABETICAL (Paolo 7/30, standing) -- a COPY, CLIPS keeps authoring order */
@@ -17493,6 +17500,7 @@ function buildUI(){
       var V = votes();
       if (JA_FILTER === 'unjudged') L = L.filter(function(c){ return !V[c]; });
       if (JA_FILTER === 'flagged')  L = L.filter(jaFlagged);
+      if (JA_FILTER === 'killed')   L = L.filter(function(c){ return !!CLIP_FIXED[c]; });
       return L;
     }
     function jaTick(){
@@ -17526,7 +17534,7 @@ function buildUI(){
          are a short list. UNJUDGED shrinks as he works; FLAGGED is only the clips
          the audit actually measured something wrong about. */
       var fr = document.createElement('div'); fr.className = 'row';
-      [['all','ALL'],['unjudged','UNJUDGED'],['flagged','THE AUDIT FLAGGED']].forEach(function(f){
+      [['all','ALL'],['unjudged','UNJUDGED'],['flagged','THE AUDIT FLAGGED'],['killed','ONES YOU KILLED']].forEach(function(f){
         var bt = document.createElement('button');
         bt.className = 'opt' + (JA_FILTER === f[0] ? ' on' : '');
         bt.textContent = f[1] + (f[0] === 'flagged' ? ' (' + CLIPS.filter(jaFlagged).length + ')' : '');
@@ -17579,6 +17587,16 @@ function buildUI(){
         var col = document.createElement('div');
         col.style.cssText = 'flex:1 1 auto;min-width:0';
         col.appendChild(top); col.appendChild(nt);
+        /* THE REPAIR LINE. Only the 47 he killed carry one, so a row without it is
+           a clip he never complained about. Green, because it is the answer to a
+           thumbs-down and it should read as one. */
+        if (CLIP_FIXED[c]) {
+          var fx = document.createElement('div');
+          fx.className = 'mini';
+          fx.style.cssText = 'font-size:9px;line-height:1.25;margin-top:1px;text-align:left;color:#8fd08f';
+          fx.textContent = 'YOU KILLED THIS. ' + CLIP_FIXED[c];
+          col.appendChild(fx);
+        }
         r.appendChild(cv); r.appendChild(col);
         host.appendChild(r);
       });
