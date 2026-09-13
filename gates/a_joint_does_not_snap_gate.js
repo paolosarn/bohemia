@@ -31,12 +31,24 @@ const done = () => { console.log('\nA JOINT DOES NOT SNAP GATE: ' + pass + ' pas
   process.exit(fail ? 1 : 0); };
 
 /* RATCHETS. They may fall and never rise. */
-/* PINNED AT THE MEASUREMENT, and that is not tidiness. The first cut left slack
-   (12 clips, 18x) and a mutation that inverted the elbow side walked straight
-   through it at 11 clips and 13.9x -- a ratchet with room in it is a ratchet that
-   does not bite. These are the measured numbers with one unit of rounding room. */
-const SNAP_CLIPS_MAX = 10;     /* measured 10 of 105, and 11 of the 47 before the fixes */
-const WORST_RATIO_MAX = 15;    /* measured 14.0, and 60 before the fixes */
+/* THE FLOOR MOVED FROM 4px TO 8px AND THAT IS A CORRECTION, NOT A LOOSENING.
+   At 4px this ruler could not tell a REPAIRED frame from a broken one. Where the
+   hand is parked on the shoulder the denominator sits at its 0.5 guard, so a
+   perfectly smooth 4-pixel elbow move scores 8x -- and when the one-pixel-vector
+   fix took crouch-aim-1h's worst frame from 31.4px down to 3.2px, the ruler
+   reported MORE snapping clips, not fewer. A ruler that gets worse when the thing
+   it measures gets better is measuring the wrong thing.
+   At 8px -- half the upper arm's own length on this rig -- the three builds
+   separate cleanly and monotonically:
+       before any rig fix        11 clips   60x   36.0px
+       after the elbow rule       7 clips   14x   31.4px
+       after the one-pixel fix    4 clips  4.1x   12.6px
+   PINNED AT THE MEASUREMENT, because the first cut left slack (12 clips, 18x) and
+   a mutation that inverted the elbow side walked straight through it. */
+const SNAP_FLOOR = 8;          /* px an elbow must travel before the ratio is even asked */
+const SNAP_CLIPS_MAX = 4;      /* measured 4 of 105; 11 before the rig fixes */
+const WORST_RATIO_MAX = 5;     /* measured 4.1; 60 before */
+const WORST_TRAVEL_MAX = 15;   /* measured 12.6px; 36px before */
 const FAST_CLIPS = ['jumping-jacks', 'bat-arc', 'throw', 'shadowbox'];
 
 if (!fs.existsSync(ALPHA)) { console.log('  FAIL the alpha is missing'); fail++; done(); }
@@ -48,9 +60,9 @@ if (!fs.existsSync(ALPHA)) { console.log('  FAIL the alpha is missing'); fail++;
   await pg.goto('file://' + ALPHA, { waitUntil: 'load' });
   await SETTLE(pg, 2400);
 
-  const R = await pg.evaluate(() => {
+  const R = await pg.evaluate(({ SNAP_FLOOR }) => {
     const D = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
-    const out = { clips: 0, snapClips: {}, worst: 0, worstAt: '', fastTravel: {}, threw: 0, frames: 0 };
+    const out = { clips: 0, snapClips: {}, worst: 0, worstAt: '', travel: 0, travelAt: '', fastTravel: {}, threw: 0, frames: 0 };
     out.clips = CLIPS.length;
     for (const c of CLIPS) {
       let snaps = 0, fastest = 0;
@@ -66,10 +78,12 @@ if (!fs.existsSync(ALPHA)) { console.log('  FAIL the alpha is missing'); fail++;
             const dh = Math.hypot(b[hd][0] - a[hd][0], b[hd][1] - a[hd][1]);
             const ds = Math.hypot(b[sh][0] - a[sh][0], b[sh][1] - a[sh][1]);
             if (de > fastest) fastest = de;
-            if (de < 4) continue;
+            if (de < SNAP_FLOOR) continue;
             const r = de / Math.max(Math.max(dh, ds), 0.5);
             if (r > 2.0) { snaps++;
               if (r > out.worst) { out.worst = r; out.worstAt = c + ' ' + d + ' bucket ' + k + ' ' + el +
+                ' elbow ' + de.toFixed(1) + 'px, hand ' + dh.toFixed(1) + 'px'; }
+              if (de > out.travel) { out.travel = de; out.travelAt = c + ' ' + d + ' bucket ' + k + ' ' + el +
                 ' elbow ' + de.toFixed(1) + 'px, hand ' + dh.toFixed(1) + 'px'; } }
           }
         }
@@ -78,7 +92,7 @@ if (!fs.existsSync(ALPHA)) { console.log('  FAIL the alpha is missing'); fail++;
       out.fastTravel[c] = +fastest.toFixed(1);
     }
     return out;
-  });
+  }, { SNAP_FLOOR });
 
   const names = Object.keys(R.snapClips);
   ok('every clip poses in every facing (' + R.clips + ' clips, ' + R.frames + ' frame pairs)',
@@ -90,7 +104,12 @@ if (!fs.existsSync(ALPHA)) { console.log('  FAIL the alpha is missing'); fail++;
 
   ok('and the worst one is ' + R.worst.toFixed(1) + 'x (ceiling ' + WORST_RATIO_MAX +
      '; it was 60x before -- an elbow crossing 30 pixels while the hand moved 0)', R.worst <= WORST_RATIO_MAX);
-  if (R.worstAt) console.log('     worst: ' + R.worstAt);
+  if (R.worstAt) console.log('     worst ratio:  ' + R.worstAt);
+
+  ok('AND NO JOINT CROSSES THE BODY IN ONE FRAME: the furthest any elbow travels while its limb ' +
+     'stands still is ' + R.travel.toFixed(1) + 'px (ceiling ' + WORST_TRAVEL_MAX + '; it was 36px, ' +
+     'more than half the body, before the rig fixes)', R.travel <= WORST_TRAVEL_MAX);
+  if (R.travelAt) console.log('     worst travel: ' + R.travelAt);
 
   /* THE CONTROL, and it is the reason this ruler is a ratio.
      A clip that genuinely throws its arms must NOT be flagged. If these ever

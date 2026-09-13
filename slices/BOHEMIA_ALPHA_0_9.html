@@ -5674,7 +5674,38 @@ function portraitRamp(){const r=skinTone[1];return [r[0],r[1],r[2],r[2].map(c=>c
        direct angles, so there is no joint to limit and nothing here can reach
        them. That is the clip work in [redo killed], not a rig clamp, and shipping
        a line that measured identical either way would have been a fix in name. */
+    /* *** A DIRECTION CANNOT BE TAKEN FROM A ONE-PIXEL VECTOR. ***
+       The third time this rig has been caught deciding something big with a
+       measurement too small to carry it: the elbow side was a knife-edge height
+       comparison (9/11), the coat's hip was one scanline an arm kept covering
+       (9/12), and this is the same shape again.
+       MEASURED on the ten clips his 9/7 verdict left broken after the elbow rule
+       landed. crouch-aim-1h facing E holds the hand ONE PIXEL from the shoulder
+       on an arm that reaches 32, and between two frames the elbow crossed 31
+       pixels -- [49,48] to [74,29], one side of the body to the other -- while
+       the hand moved 2.2 and the shoulder moved 1. Nothing in the pose did that.
+       `a` is the angle of the shoulder-to-target vector, and when that vector is
+       a pixel long its angle is decided by rounding; the elbow then swings on a
+       16-pixel radius at the end of it.
+       So under a quarter of the arm's own reach the direction is blended toward
+       the REST arm's direction, which is what a folding arm really does: the
+       elbow stays out where the upper arm points, it does not orbit the shoulder.
+       At the threshold the blend IS the target's own direction, so nothing above
+       a quarter reach moves by a pixel, and `sh` is the REST shoulder here (l1 is
+       measured from it), so both vectors are in the same space. */
     var a = Math.atan2(dy, dx);
+    var dmin = reach * 0.25;
+    if (dist < dmin) {
+      var rhx = restHand[0] - sh[0], rhy = restHand[1] - sh[1];
+      var rhl = Math.hypot(rhx, rhy);
+      if (rhl > 1e-6) {
+        var tt = dist / (dmin || 1e-6);
+        var dl = dist || 1e-6;
+        var bx = (dx / dl) * tt + (rhx / rhl) * (1 - tt);
+        var by = (dy / dl) * tt + (rhy / rhl) * (1 - tt);
+        if (bx || by) a = Math.atan2(by, bx);
+      }
+    }
     // law of cosines for elbow angle offset
     var cosA = (l1 * l1 + dist * dist - l2 * l2) / (2 * l1 * dist);
     cosA = Math.max(-1, Math.min(1, cosA));
