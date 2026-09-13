@@ -104,6 +104,51 @@ if (head) {
   ok('THE WHOLE FLEET IS STILL IN THE HANDOFF: ' + now.size + ' lane(s), and none '
     + 'of HEAD\'s ' + head.size + ' has vanished' + (gone.length ? ' -- LOST: ' + gone.join(', ') : ''),
     gone.length === 0);
+  /* ---- AND THE CASE BETWEEN THOSE TWO, WHICH IS THE ONE THAT KEEPS HAPPENING.
+     (9/13, PLUMBER.) A LANE'S CURRENT STATE CAN BE DELETED WHILE ITS HISTORY
+     SURVIVES, and neither check above can see it.
+
+     MEASURED, not supposed. ae12177 (UI, [no slop] round 7) rewrote this file from
+     a STALE READ: 79 lines added, 290 removed, net -211. It took PLUMBER 9/13 (b),
+     PLUMBER 9/13 (c) AND WORDS 9/13 (c) with it. WORDS lost their current state and
+     had no way to know.
+
+     The fleet check above passed because no SLUG vanished -- both lanes still had
+     older blocks. The bulk check passed because -211 lines of ~80,000 is 0.26%, and
+     it allows anything above 80%. So the two of them cover "a lane disappeared" and
+     "the file was truncated", and a lane's newest block falls straight between.
+
+     This holds the BLOCK HEADS instead: every `LANE (slug): date LATEST` line that
+     HEAD has must still be here. Lanes ADD a head each round and rewrite bodies, not
+     heads, so a legitimate edit never trips it.
+
+     THE ARCHIVE ESCAPE IS BUILT IN FROM THE START, because [handoff cut] is going to
+     remove hundreds of these on purpose and a guard that blocks the planned work gets
+     switched off. A head that is gone from here but present in archive/handoffs/ has
+     been archived, not lost, and that is fine. */
+  const HEADRE = /^[A-Z][A-Z \/]*\([a-z0-9]+(?:-[a-z0-9]+)+\):\s+\S+(?:\s+\(\w\))?\s+LATEST/gm;
+  const headsOf = (t) => new Set((t.match(HEADRE) || []).map(x => x.trim()));
+  const headNow = headsOf(text);
+  let headWas = new Set();
+  try {
+    headWas = headsOf(execFileSync('git', ['show', 'HEAD:' + NAME],
+      { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }));
+  } catch (e) { /* nothing to compare against */ }
+
+  let archived = '';
+  try {
+    const dir = path.join(ROOT, 'archive', 'handoffs');
+    for (const f of fs.readdirSync(dir)) archived += fs.readFileSync(path.join(dir, f), 'utf8');
+  } catch (e) { /* no archive yet, which is the state today */ }
+
+  const droppedHeads = [...headWas].filter(x => !headNow.has(x) && !archived.includes(x));
+  ok('NO LANE LOST ITS NEWEST BLOCK: all ' + headWas.size + ' block head(s) HEAD carries are '
+    + 'still here (or are in archive/handoffs/). One commit written from a stale read deleted '
+    + 'THREE lanes\' current state on 9/13 and neither check above could see it, because no lane '
+    + 'vanished and the loss was 0.26% of the bytes',
+    droppedHeads.length === 0,
+    droppedHeads.length ? 'LOST: ' + droppedHeads.slice(0, 6).join(' | ') : headNow.size + ' here now');
+
   /* and the blunt one, because a lane can survive as a one-line stub while the
      rest of its history is gone. 8/27's truncation was 99.9% of the bytes. */
   const wasBytes = execFileSync('git', ['show', 'HEAD:' + NAME],
