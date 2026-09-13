@@ -10251,7 +10251,54 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/13 (b) LATEST -- *** [cats stay] SHIPPED dcddcf95, AND
+PEOPLE (people-7h9sfy): 9/13 (c) LATEST -- *** THE FIRST CARD OF THE GAME HAD NO
+WAY TO SAY YES. Fixed and gated, b39c33cb. ***
+Paolo 9/13, five minutes on a phone: "You offer requests just for me to see them,
+but nothing happens... one button... I press it, nothing happens." Rule 14(d): a
+card that promises and does nothing is the worst bug in the game.
+THE LANE IS HELD AND THE ROUND STARTED BY MEASURING WHETHER ANY BREAK WAS OURS.
+None was routed here -- streets to the city lane, freeway to LIFE+CITY, buttons to
+UI, dead cards to RUN, first fight to COMBAT. But rule 12: a coordinator's line is
+a PREMISE and the lane measures first. His dead-card sentence is about OFFERS, and
+the offer card is this lane's, so the round went looking instead of assuming.
+WHAT IT FOUND, ON THE REAL DEMO, AND IT IS HIS WORDS EXACTLY. The first card:
+THE METER READER, nobody has picked it up yet, how long the walk is, what it pays,
+and THREE WAYS TO ARGUE THE TERMS. Every act on it was close, hg:swap:resources,
+hg:swap:clout, hg:upfront, go. *** THERE WAS NO WAY TO SAY YES. *** Accepting went
+through exactly one door, a postMessage from the phone, so a player who never
+found the phone could haggle over a job he could not have. He argued, the terms
+really moved, the card really answered, and the job never started.
+AND EVERY OTHER BUTTON ON THAT CARD ALREADY WORKED, which is why it went unseen
+for so long: a card where every visible control works is exactly the card nobody
+checks for a missing one.
+THE FIRST READING WAS WRONG AND THE INSTRUMENT WAS THE REASON, for the second
+round running. A sweep that pressed everything in one pass called three buttons
+dead; they were not -- the card REDRAWS after a press, so every handle after the
+first pointed at an element that no longer existed. CHECK THE INSTRUMENT BEFORE
+CONCLUDING THE FEATURE IS BROKEN. The honest version re-queries after every press.
+NOTHING WAS BUILT TO FIX IT: offerAccept() has always worked, it had no door on
+the card the offer was already on. One row, calling the SAME function the phone
+uses. No yes on a job already taken, and none on an offer argued until they took
+it back -- that is __ASK_FOR_MORE__'s whole cost and a live button would have
+refunded it silently.
+AND IT UPDATES IN PLACE, WHICH THE FIRST CUT GOT WRONG: redrawing the card the way
+an ask does made the quest go live while the card came back still offering the
+job, because showWake runs offerRing, whose first line is OFFER=null;
+OFFER_TAKEN=false. The road card had already solved that shape.
+*** AND THE THING THE WHOLE FLEET NEEDS: IT REACHES HIM WITHOUT RE-CUTTING THE
+DEMO. *** The demo LOADS the walked city in a frame, so a city fix is live in the
+demo with no cutter run -- measured on the demo itself, not only the workshop. A
+held lane can fix a five-minute break in the city and have him meet it without
+touching RUN's cutter. Also confirmed: last round's rule 14 warning is now true
+for everybody -- DEMO CURRENT is red on clean origin/main, 6,206 bytes behind.
+Stamp 9/13zp. Pre-push pass green on the gates that read this diff; DEMO CURRENT
+red and identical on clean main.
+NEXT: [lock them] is still held; it is not a five-minute break. The honest next
+move is to keep measuring his break list against this lane's surfaces rather than
+waiting for a row. Record:
+records/BOHEMIA_THE_YES_GOES_WHERE_THE_OFFER_IS_9_13_26.txt ***
+
+PEOPLE (people-7h9sfy): 9/13 (b) -- *** [cats stay] SHIPPED dcddcf95, AND
 THERE IS NO CAT IN THIS GAME. *** Paolo 9/13, walking the demo's five minutes:
 "I do see cats running around, that's cool." NOTES ARE RULINGS, so the row was to
 record which cats he saw and freeze them as canon. This lane now has a five-minute
