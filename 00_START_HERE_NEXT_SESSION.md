@@ -15081,7 +15081,7 @@ city; and ASK WHETHER YOUR NEW BRANCH CAN EVER EXECUTE before believing it works
 [PENDING Paolo] -- nothing new from me. The one that touches these rows is FACTIONS':
 does a debt cross the fold. Built to follow whichever way he answers.
 
-LAST SHIPPED: [water lifted] <SHA>, 9/13. Before it: [back of house] 3383e6d,
+LAST SHIPPED: [water lifted] f66bae30, 9/13. Before it: [back of house] 3383e6d,
 [someone lends] 1ffb2d2, [debt carried] db51665, [rice clock] 0f793c2,
 [own power] 38e3412, [century stayed] 8538cd0, [batteries mined] 6562436,
 [parties move] 75ac79c, [a days work] 4f55d76, [shelves premise] 1f3d342,
