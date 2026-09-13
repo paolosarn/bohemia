@@ -20524,9 +20524,56 @@ NO DAMAGE BEFORE THE DIAL: no damage value, hit chance, roll or accuracy term. A
 list of who you MAY shoot; what happens when you do is the dial that was already there.
 Record: records/BOHEMIA_COMBAT_THEY_ARE_RUNNING_DO_I_CHASE_9_13_26.md
 
-QUEUE STATE: [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
+*** [first fight] -- THE WALKED STREET CAN START A FIGHT. V213. SHIPPED. THIS LANE'S RULE 14 BREAK. ***
+PAOLO 9/13: "I have not experienced any combat yet... it says a car is gonna pull up on me and then
+nothing happens."
+THE STOPWATCH THE ROW ASKED FOR, BEFORE A LINE WAS WRITTEN -- three walks of five minutes (600
+steps, one per beat), driving the shipped stepOnce from the door:
+  where he wakes      suburb
+  ROAD_TABLE[suburb]  NO ROW      WALK_TABLE[suburb]  a row, four moments by day
+  cards 0             FIGHTS 0, every walk
+  what DID fire       ghost_robotaxi (ambient) and scavenger_shakedown (interactive)
+*** THE CAR THAT PULLS UP IS ghost_robotaxi: "An empty cab pulls to the curb ahead and opens its
+door for nobody. Waits its ninety seconds. Pulls off." AND THE NEXT ONE IS "somebody steps out. they
+want something." HE WAS DESCRIBING THE GAME ACCURATELY. ***
+THE CAUSE, SEVENTH TIME FOR THIS SHAPE: TWO DIRECTORS AND ONLY ONE CAN START A FIGHT. roadInterrupt
+calls V203's roadContactFight and roadCard and its director reads ROAD_TABLE, which has no row for
+the suburb; walkDirector falls back to WALK_TABLE and fires correctly, and walkInterrupt's ENTIRE
+response was walkSay() -- one line into #packline, for every kind including forced and interactive.
+The material was authored, the fight machinery was built one row over, and nothing joined them.
+BUILT, REUSING V203 AND AUTHORING NOTHING: forced starts the fight where you stand; interactive
+opens the road's own card, which already has a real fight arm; AMBIENT IS UNTOUCHED (a modal card
+for "a coyote is following you" turns set dressing into homework, and the cab's own words say it
+waits and pulls off -- honest atmosphere, not a promise); the line is still said first; and NOT
+INDOORS, because roadContactFight refuses indoors so a card in a garage would promise a fight it
+cannot deliver (rule 14d, the worst bug in the game).
+NOW: the card is on the glass at STEP 58 OF 600, about 29 SECONDS -- DESPERATE SCAVENGER SHAKEDOWN,
+with GIVE HIM SOMETHING / FACE HIM DOWN / DROP HIM (A FIGHT), and DROP HIM opens a real street fight.
+gates/first_fight_gate.js 9/0, registered as FIRST FIGHT. Mutation-proved three ways: no card 5 red,
+no indoors guard 1 red, the fight never comes 2 red.
+*** THREE TIMES MY OWN INSTRUMENT LIED AND THAT IS THE USEFUL PART. *** (1) I measured a HALF-LOADED
+WORLD: the first harness walked immediately and every step threw "ctSawCell is not defined", which
+looked like a dead script block. It is not -- THE WALKED CITY NEEDS 8 TO 11 SECONDS AFTER THE TAP
+BEFORE ONE STEP WORKS, and two runs gave different truncation lengths, which gave it away. (2) I
+PROVED THE FIGHT CAME ON A PATH I HAD NOT TESTED: the walk wandered into a garage, I pressed the arm,
+a fight opened -- and the message said room:true, roster:5, label "garage interior". IT WAS THE
+INTERIOR DOOR'S FIGHT. Every encounter is fingerprinted by why/street/room now. (3) I TESTED A COPY
+OF MY OWN CODE: the indoors arm re-implemented the if/else inside the gate, so deleting the real
+guard left it GREEN; it drives the shipped walkInterrupt now and the mutation turns it red.
+ALL THREE ARE THE SAME DEFECT: a green result produced by something other than the thing you claim
+to be testing.
+NOT MOVED ON THE WAY PAST: no minutes and no salvage are charged on the walked street (ROAD_COST and
+roadLeave are the road's rulings for the road). NO GLOBAL SPAWNS EVER holds; no table, district,
+moment or number is authored. THE DEMO WAS NOT RE-CUT -- rule 14(a), only RUN re-cuts it.
+ROUTED: the 8-to-11-second dead window after the tap belongs to RUN [loading screen]; until the last
+script block finishes parsing no director fires and no fight can start. AND FOR WORDS: the card
+header reads "ON THE ROAD - SUBURB - DAY" while he is walking a street, not travelling a road.
+Record: records/BOHEMIA_COMBAT_THE_WALKED_STREET_CAN_START_A_FIGHT_9_13_26.md
+
+QUEUE STATE: [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
-THIS SECTION IS [prefight save] BB-SAVE-BEFORE-THE-BELL.
+THIS SECTION IS [prefight save] BB-SAVE-BEFORE-THE-BELL, but rule 14 may put another of his breaks
+first: re-read the front page before claiming.
 
 *** AND THE SECOND GATE PASS AFTER THE MERGE FOUND A COIN FLIP IN THIS LANE'S OWN GATE. PICK THIS
 UP FIRST NEXT ROUND, BEFORE [plates cost]. *** combat_entry_gate read 43/0 before the rebase onto

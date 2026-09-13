@@ -37801,6 +37801,46 @@ function walkInterrupt(spentSeconds) {
     if (got.id === 'feral_dog_pack') got.pack = walkAnimalHere('dogs');
     if (got.id === 'coyote_shadow') got.pack = walkAnimalHere('coyotes');
     try { walkSay(got); } catch (_e) {}
+    /* ===== V213 __THE_WALK_IS_A_FIGHT__ -- AND THE WALKED STREET CAN FINALLY
+       START ONE. *** PAOLO 9/13: "I have not experienced any combat yet... it says a
+       car is gonna pull up on me and then nothing happens." *** MEASURED with the
+       stopwatch from the door, three walks of five minutes: 0 fights, 0 cards, and
+       the only two things that fired were ghost_robotaxi and scavenger_shakedown --
+       the car that pulls up and the man who steps out, both of which said their line
+       and stopped, because walkSay was this function's ENTIRE response.
+       THERE ARE TWO DIRECTORS AND ONLY ONE COULD START A FIGHT: roadInterrupt calls
+       V203's roadContactFight and roadCard, and its director reads ROAD_TABLE only,
+       which has no row for the suburb he wakes in. This one reads WALK_TABLE, fires
+       correctly, and had nowhere to send what it fired.
+       So the walked street routes into the SAME two paths the road already uses.
+       Nothing new is authored: no table, no district, no moment, no number. */
+    try {
+      /* AND NOT WHILE HE IS INDOORS, WHICH IS RULE 14(d) AND WAS MEASURED THE HARD
+         WAY. roadContactFight refuses indoors on purpose ("indoors is the door's
+         fight"), so a card opened in a garage would show a DROP HIM arm that does
+         NOTHING when pressed -- a card that promises and does not deliver, which he
+         called the worst bug in the game. Indoors these stay a line, exactly as they
+         are today. Found because a walk wandered into a garage and the fight I
+         measured turned out to be the door's, not the card's. */
+      var _in = (typeof INSIDE !== 'undefined' && INSIDE);
+      if (_in) { /* the line already went out above; nothing is promised */ }
+      else if (got.kind === 'forced') {
+        /* his own ruling, V203: a forced party does not ask. The fight starts where
+           you stand and there is no card to press. */
+        if (typeof roadContactFight === 'function') roadContactFight(got);
+      } else if (got.kind === 'interactive') {
+        /* the road's own card, which V203 gave a real fight arm. ZERO minutes and
+           ZERO salvage: ROAD_COST and roadLeave are the ROAD's rulings for the road,
+           and the walked branch already spends its own 0.084 minutes a cell. This row
+           is about a fight arriving, not about the day getting shorter. */
+        if (typeof roadCard === 'function') roadCard(got, 0, 0);
+      }
+      /* AMBIENT IS UNTOUCHED AND THAT IS DELIBERATE: this function's own comment is
+         right that a modal card for "a coyote is following you" turns set dressing
+         into homework. ghost_robotaxi is ambient and stays ambient -- its words say
+         the cab waits and pulls off, which is honest, not a promise. */
+    } catch (_e) {}
+    /* ===== /V213 __THE_WALK_IS_A_FIGHT__ ===== */
   }
   return got;
 }

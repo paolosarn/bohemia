@@ -2547,6 +2547,24 @@ GATES = [
      'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
      'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
      'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
+    ('FIRST FIGHT', ['node', 'gates/first_fight_gate.js'],
+     'A REAL FIGHT INSIDE THE FIRST FIVE MINUTES (VAMILY [first fight], COMBAT 9/13, rule 14 THE FIVE '
+     'MINUTES). *** PAOLO 9/13: "I have not experienced any combat yet... it says a car is gonna pull up on '
+     'me and then nothing happens." *** THIS IS A STOPWATCH: it opens the alpha, walks out of the door on the '
+     'shipped stepOnce, and counts what a player actually meets. MEASURED BEFORE THE FIX, three walks of five '
+     'minutes: 0 cards, 0 FIGHTS, and the only two things that fired were ghost_robotaxi ("an empty cab pulls '
+     'to the curb ahead and opens its door for nobody") and scavenger_shakedown ("somebody steps out. they '
+     'want something") -- he was describing the game accurately. THE CAUSE: there are TWO directors and only '
+     'one can start a fight. roadInterrupt calls V203\'s roadContactFight and roadCard, and its director reads '
+     'ROAD_TABLE, which has NO ROW for the suburb he wakes in; walkDirector falls back to WALK_TABLE and fires '
+     'correctly, and walkInterrupt\'s entire response was one line of text. Now the card is on the glass at '
+     'step 58 of 600, about 29 seconds, and pressing its fight arm posts a real street encounter. THE '
+     'ENCOUNTER IS FINGERPRINTED (why=road:scavenger_shakedown, street true, room false) because the first cut '
+     'of this gate walked into a garage, pressed, saw a fight open and called it proof -- and it was the '
+     'INTERIOR DOOR\'S fight. Also held: the indoors guard is tested by driving the shipped walkInterrupt '
+     'rather than a copy of its logic (the first cut re-implemented the if/else and the mutation stayed '
+     'green), ambient stays a line, and NO GLOBAL SPAWNS EVER -- a district with no walk row still produces '
+     'nothing. Mutation-proved three ways: no card 5 red, no indoors guard 1 red, the fight never comes 2 red', True),
     ('THE ROUT', ['node', 'gates/the_rout_gate.js'],
      'THEY ARE RUNNING, DO I CHASE? (VAMILY [enemies flee] = BB-THE-ROUT, COMBAT 9/13). The row: "THE MOST '
      'DECISIVE MOMENT IN A REAL BATTLE IS CURRENTLY A DESPAWN." In pre-modern battle the winners rarely lost '
