@@ -1,0 +1,61 @@
+{
+  "bank": "EYES E26 [five minutes] -- THE STRANGER'S SHEET. The thing round two fills in and nothing else.",
+  "date": "9/13/26",
+  "draft": true,
+  "law": "laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md (Paolo 9/13, LOCKED)",
+  "his_words": "records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_9_13_26.md",
+  "school_record": "records/BOHEMIA_EYES_E26_ROUND_1_SCHOOL_THE_WATCHER_WRITES_WHAT_A_CAMERA_WOULD_9_13_26.md",
+  "why_school_first": "The published practice settles it: you only truly get to see a player experience your game for the first time ONCE. A walk taken before the sheet exists is a walk spent inventing the sheet, and it is the only walk that can never be repeated.",
+  "the_one_instruction_that_governs_the_sheet": "Note what you OBSERVE, not what you INTERPRET. 'Player spent 30 seconds looking around, opening the menu twice, before finding the door' is an observation. 'Player was lost' is an interpretation. That is this lane's charter written by somebody else.",
+  "cold_start": {
+    "file": "slices/BOHEMIA_DEMO.html",
+    "viewport": [
+      390,
+      844
+    ],
+    "dpr": 2,
+    "touch": true,
+    "no_stored_save": true,
+    "record": "page errors and stalls as observations with timestamps; PLUMBER owns fixing them"
+  },
+  "tap_script_fixed_in_advance": [
+    "the front splash: read what it says, tap to enter",
+    "whatever is largest and most obviously tappable on the first screen, first",
+    "walk in one direction until something stops you",
+    "every card or offer that appears, in the order it appears, tapped once",
+    "the map, and from the map whatever claims to take you somewhere",
+    "the zoom, out and back in",
+    "stop at five minutes exactly, mid-action if necessary"
+  ],
+  "why_the_script_is_fixed": "the watcher and the player are the same process here, which is a known bias; a walk that decides its own route while walking drifts toward the parts that work.",
+  "line_format": "mm:ss | what I did | what happened on screen | what a stranger was promised",
+  "the_three_numbers": [
+    "time to first input",
+    "time to first meaningful action",
+    "time to first fight (or NONE, with the elapsed time the walk ended at)"
+  ],
+  "the_one_count": "dead affordances met -- things that look tappable and do nothing, or promise a thing that does not happen",
+  "why_that_count_is_first": "FALSE AFFORDANCE is the published name for his worst bug, and the research says each encounter erodes trust in the ENTIRE system: the user begins to doubt ALL similar visual components. A missing feature costs you the feature; a dead promise costs you every other promise on the screen. That is the mechanism behind 'nothing's complete' from one dead card, and it means the law's ranking is correct.",
+  "not_on_the_sheet": [
+    "a score or a 1-to-5 rating (the standard observation sheet ends in one; the board row says NEVER A SCORE and taste is DIRECTION's)",
+    "a ranking",
+    "\"this looks bad\"",
+    "a gate count",
+    "a commit count (rule 14(e) bans the last two in any answer to him)"
+  ],
+  "the_industry_numbers_behind_five_minutes": [
+    "most churn happens before the first day ends, and players who hit technical issues or confusion in their first session often never return",
+    "top performers keep the tutorial under 30 seconds and let the player act immediately",
+    "a measured case: up to a minute to engage with no instruction produced confusion and churn because players did not know the goal",
+    "the guidance says outright: put an exciting action sequence in the first five minutes"
+  ],
+  "controls": [
+    "THE KNOWN-BREAK CONTROL: he named seven breaks and RUN posts them as THE BREAK LIST. If the walk does not independently surface the ones inside its five minutes, the protocol is not sensitive enough to trust on anything new. A sheet that misses a break he personally hit is a broken instrument, not a clean bill.",
+    "THE COLD-START CONTROL: no stored save, or the run is void and restarted. A warm start is not the five minutes anybody else gets.",
+    "THE CLOCK CONTROL: the page's own monotonic clock, not wall time (E14 measured the two 9.6 ms apart with 0.93 ms jitter).",
+    "THE ERROR CONTROL: a deliberately raised page error must be captured, or the recorder cannot claim zero errors."
+  ],
+  "what_this_lane_cannot_give": "I am not a stranger and no protocol can make me one: I have read this build's source for twenty-five rounds. THE STRANGER'S LIST may never claim naivety. Where a genuinely naive reaction is the evidence needed, the list says so and routes it to a real stranger; the demo-in-hands law already exists for that.",
+  "open_question_for_round_two": "Reading the shipped demo file, 'DROP IN' occurs once and 'PRETTY MAP' does not occur at all. That does NOT mean the buttons are gone -- labels can be built at runtime and the file on disk is not the file he played. Whether they are on screen is a ROUND-TWO OBSERVATION, written down here so next round cannot quietly decide it either way.",
+  "what_this_lane_may_not_do": "decide whether any of it looks good, or fix any of it. This lane writes down what happened."
+}
