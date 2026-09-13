@@ -10759,7 +10759,47 @@ AFFILIATED_RATE (0.30) and REACH_CELLS (12) remain his.
 
 --------------------------------------------------------------------------------
 
-PEOPLE (people-7h9sfy): 9/13 (c) LATEST -- *** THE FIRST CARD OF THE GAME HAD NO
+PEOPLE (people-7h9sfy): 9/13 (d) LATEST -- *** HE GOT IN THE CAB, WAS TOLD IT
+DROVE OFF, AND DID NOT MOVE ONE CELL. Fixed and gated, aaca9718. ***
+Paolo 9/13: "it says a car is gonna pull up on me and then nothing happens." Last
+round fixed the first half of that sentence (the job offer with no way to accept).
+This is the car, and it is the SAME SHAPE for the second round running: the
+machinery was built, tested and right, and pointed at the wrong surface.
+MEASURED ON FOOT ON THE REAL DEMO. The ghost robotaxi card fires on the walked
+street and offers GET IN -- A LIFT. Press it and the card says "The door shuts. It
+drives the loop it has always driven, and it is not your loop." Walked position
+6205,6271 -> 6205,6271. City cursor 48,48 -> 48,48. Nothing moved.
+THE CAUSE: roadChoose's ride only ever moved city.x,y -- right in CITY mode, the
+WRONG POSITION on foot -- and the road card has fired on foot since
+__ROAD_INTERRUPTS_ON_FOOT__, which is the entire demo. So the lift was a no-op on
+the surface where it mostly happens. AND IT NARRATED THE DRIVE REGARDLESS, so
+fixing only the movement would have left a cab that cannot start still telling him
+it drove off. Both halves fixed; the gate proves they are independent.
+NO NEW NUMBER: the table says two of the map's own tiles, and on foot a tile is FN
+walked cells, FN being the game's own constant. The cost is the design's -- the
+heading is the CAB'S, so it is two tiles in a direction he did not choose.
+*** THE INSTRUMENT WAS WRONG THREE TIMES BEFORE ANY OF THIS WAS TRUE, and every
+one returned a clean "nothing happened": handles that went stale when the card
+redrew, arrow keys that do not move him at all (the walk pad does), and a
+card-clear that did not take so 200 more presses hit a card that ate them. THE
+RULE THAT ENDED IT IS ANOTHER LANE'S, WRITTEN THIS SAME ROUND: before believing a
+negative, PROVE THE INSTRUMENT CAN PRODUCE A POSITIVE. The gate taps the pad and
+requires him to move before it measures anything. And the driver is THEIRS,
+tools/bohemia_drive_the_demo.js, because a second demo driver is how two answers
+to one question start. ***
+FOUR ROAD GATES RED, ALL FOUR IDENTICAL claim-for-claim and count-for-count on a
+clean origin/main worktree: ROAD LEAVINGS 12/3, ROAD ON FOOT 10/2, ROAD INTERRUPTS
+18/1, ROAD DECISION 13/1. ONE IS WORTH THE NEXT LANE'S TIME: ROAD ON FOOT fails
+with "0 moment(s) on foot", and this round measured the same by hand -- 220 taps
+of real walking produced ONE card. The road has its say on the walked street far
+more rarely than the gate that owns it expects. Named, not touched.
+Stamp 9/13zw. Demo cutter not run; the change is in the city file, which the demo
+loads by reference.
+NEXT: [lock them] still held. His break list is the queue now, and the method that
+works is to measure each of his sentences against this lane's own surfaces rather
+than wait for a row. Record: records/BOHEMIA_THE_LIFT_MOVES_HIM_9_13_26.txt ***
+
+PEOPLE (people-7h9sfy): 9/13 (c) -- *** THE FIRST CARD OF THE GAME HAD NO
 WAY TO SAY YES. Fixed and gated, b39c33cb. ***
 Paolo 9/13, five minutes on a phone: "You offer requests just for me to see them,
 but nothing happens... one button... I press it, nothing happens." Rule 14(d): a
