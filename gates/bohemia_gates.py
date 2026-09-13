@@ -3505,6 +3505,28 @@ GATES = [
      'and instruments, and skipping them by pattern would let a real gate hide behind the '
      'pattern. It caught ITSELF as an orphan on its first run, which is the behaviour you want',
      False),
+    ('BOND OUTLIVES', ['node', 'gates/bond_outlives_gate.js'],
+     'QUESTS row [bond outlives], 9/13. [company in asks] shipped and named its own limit in its '
+     'own seam comment: the cast record is keyed on quest AND DAY, so a bond from an earlier day '
+     'lost its cast when a new job was rung and the person who became yours turned back into a '
+     'role. MEASURED on the walked surface through the real parser and runtime before a line was '
+     'written: the meter reader to COMPLETE gives bonds {lineman:15} and cast P:city:18:14:2, yours '
+     'today is that person, YOURS TOMORROW IS NOBODY. PAOLO 9/13 RULE 14(d): a card that promises '
+     'and does nothing is the worst bug in the game, and a game that hands you a person then takes '
+     'them back the next morning is that bug wearing a friendlier face. *** STILL NO ROSTER, WHICH '
+     'IS THE WHOLE DISCIPLINE: *** what is kept is the CASTING the world already wrote (this role, '
+     'in this quest, was played by this person), never a list of your people; membership stays '
+     'COMPUTED from bonds against that casting. The gate spine is the row own test -- delete the '
+     'record and the person must stop being yours in the same instant -- and it is PROVED to bite: '
+     'a roster the company module really reads (keyed by role, surviving forget) turns 2b red, '
+     'while a naive roster that nothing reads only trips the source check, which is how the weak '
+     'mutation got caught and replaced. Refusals with reasons: the fixer you merely MET is not '
+     'kept, a bond nobody was cast into keeps nothing (a role is not a person), and a later '
+     'casting never overwrites an earlier one (the person you became something to is the one who '
+     'was standing there then). AND A REAL BUG THE DRIVE FOUND: the seam first took the quest id '
+     'from DQ while taking the cast from CT_DAYCAST, so a casting made for one quest could be '
+     'keyed to another job; the id now comes from the same artefact as the cast. Runs 28/0',
+     True),
     ('MAP MOVES', ['node', 'gates/map_moves_gate.js'],
      'QUESTS row [map moves] BB-TERRITORY-FLAG, 9/13. THE ROW: ten quests say the map changes '
      'hands and nothing is listening. PAOLO 7/24 PACING LAW: the territory AI is never a tick, it '

@@ -11932,6 +11932,64 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 33 [bond outlives] NAMING-SOMEBODY-FOR-GOOD, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_kept.js           the casting a bond was earned against, kept for good
+  slices/BOHEMIA_CITY_WORLD.html   inlined, kept at the ending, merged into the company snapshot
+  gates/bond_outlives_gate.js      28/0, REGISTERED the same round, four mutations tried
+  NO DEMO RE-CUT AND NO BUILD STAMP. Rule 14(a): only THE RUN cuts the demo now.
+  TAB: RUN (the walked city). Mechanism; nothing draws it yet.
+
+THE ROW WAS THIS LANE'S OWN LIMIT, written into the seam by the round that hit it:
+"Naming somebody for good needs a record that outlives a day, and that is
+somebody's row to build, not a thing to invent in a seam." This is that row.
+
+MEASURED BEFORE BUILDING, on the walked surface through the real parser and the
+real runtime, driving the meter reader to its real COMPLETE ending:
+    bonds earned     { lineman: 15 }
+    cast             lineman = P:city:18:14:2,  fixer = P:city:8:7:19
+    yours today      [ P:city:18:14:2 / bond ]
+    yours tomorrow   [ ]
+The bond survives. WHO THE LINEMAN WAS does not. One slot, keyed on quest AND
+day, overwritten the moment the next job is rung. After the fix, yours tomorrow
+is that same person.
+
+*** STILL NO ROSTER, AND THAT IS THE WHOLE DISCIPLINE. *** The obvious fix is to
+start keeping a list of your people, and it is the wrong half: a list is a thing
+somebody has to maintain and the moment it exists it can disagree with the world.
+What is kept is the CASTING the world already wrote -- this role, in this quest,
+was played by this person -- and membership stays COMPUTED from bonds against it.
+
+THE SPINE IS THE ROW'S OWN TEST AND IT IS PROVED TO BITE: delete the record and
+the person stops being yours in the same instant. A roster the company module
+REALLY READS (keyed by role, surviving forget) turns check 2b red.
+
+*** AND MY FIRST ATTEMPT TO BREAK MY OWN TEST WAS TOO WEAK, WHICH IS WORTH MORE
+THAN THE FEATURE. *** Mutation 1 added a members array that nothing downstream
+read, so only the source-text check went red while the behavioural spine stayed
+green -- and a spine that a roster can walk past is not a spine. Rewritten as a
+roster under the ROLE key, which is what fromBonds actually looks up, it goes red
+on 2b. A MUTATION THAT FAILS THE WRONG CHECK IS NOT A PASSING MUTATION TEST, IT
+IS A WARNING THAT THE CHECK WAS NEVER EXERCISED.
+
+A REAL BUG THE DRIVE FOUND: the seam took the quest id from DQ while taking the
+cast from CT_DAYCAST. Two artefacts, one key -- so a casting made for one quest
+could be filed under another job. The id now comes from the same record as the
+cast. Measured on the way: DQ.rt carries no Q at all, so there is no third source.
+
+WHAT IT REFUSES, each with a reason in words:
+  - the fixer you merely MET is not kept (only what a bond was earned against;
+    keeping the whole cast is a list of everybody you stood near)
+  - a bond nobody was cast into keeps nothing (a role is not a person)
+  - a later casting never overwrites an earlier one (the person you became
+    something to is the one who was standing there THEN)
+  - two quests with the same role name are two different people
+
+[FOR THE COORDINATOR, a routing note and not a job I gave myself, rule 10] One
+break on the five-minute list is this lane's own machinery: "the offer cards
+promise and do nothing ('a car is gonna pull up')". The law routes it to RUN
+[dead cards] and COMBAT [first fight]. QUESTS owns the offer card the wake rings.
+If any part of that break is this lane's, it needs a QUESTS row.
+
 ROUND 32 [map moves] BB-TERRITORY-FLAG, SHIPPED. QUESTS, BUILD.
   engine/bohemia_ground.js         who takes ground, read off the quests' own words
   slices/BOHEMIA_CITY_WORLD.html   the module inlined, the capture behind turfGrid at()
