@@ -346,6 +346,20 @@ def main():
 
     ok('nothing threw (%s)' % (d.get('errs') or 'clean'), not d.get('errs'))
 
+    # A GATE THAT ONLY PRINTS ITS NUMBERS WHEN IT FAILS CANNOT BE COMPARED ACROSS
+    # RUNS (9/13, SOUNDS). This one is LOAD-TIMING SENSITIVE -- its coverage claim
+    # is really "when did the opening song book its first note", which moves with
+    # how fast the 3.7 MB city iframe parses on the machine of the moment. On 9/6
+    # this lane measured it red 1 of 3 on main and 2 of 3 on a branch with thumps
+    # swinging 16/20/21/22 for the SAME build, and on 9/13 it went red once in
+    # three with covered=3.0s while main went 3 of 3 green. Both times the only
+    # way to tell flake from regression was to re-run it and compare numbers, and
+    # the numbers were invisible on a pass. Now they always print, so the next
+    # lane can line up runs instead of guessing.
+    print('  MEASURED  covered %.1fs (needs 4.0), first note %.3f beats after the '
+          'pulse and %.2fms off its grid, %s thumps of which %s loud, gaps %s'
+          % (covered, (lg.get('beats') or 0), (lg.get('offMs') or 0),
+             m.get('peaks'), m.get('lubs'), (m.get('gaps') or [])[:6]))
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
         print('  You tap it and it has a pulse, ten seconds before it has a song, '
