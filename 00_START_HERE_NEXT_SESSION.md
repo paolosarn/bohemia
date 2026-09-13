@@ -11742,7 +11742,52 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** I MEASURED MY WAY TOWARD A FIVE-MINUTE BREAK, THE WAY PEOPLE DID, AND
+THIS ROUND -- *** I MEASURED MY WAY TO A FIVE-MINUTE BREAK AND IT IS IN THIS LANE:
+THE STREET IS SIX PEOPLE. ***
+
+After three rounds of finding nothing of mine in his five minutes, I asked the one question
+nobody had: at the size he actually sees them on a phone, does the crowd read as different
+people? It does not.
+    people drawn on one screen                      183
+    DIFFERENT PICTURES among them                    47
+    share of the crowd repeating somebody else      74%
+    largest group of identical people on screen      11
+    trade bodies baked for the whole valley           6
+6 bodies x 8 facings = 48, and the screen shows 47. THE WHOLE POPULATION HE WALKS THROUGH
+IS SIX PEOPLE. That is "nothing's complete" and "the tiny parts come more together", and it
+is squarely this lane's: the cast bake is mine.
+
+AND THE CONTROL IS WHAT MAKES IT WORTH READING: 114 distinct at native size against 112 at
+phone size. The shrink costs TWO pictures out of a hundred and fourteen. Sharper or bigger
+would change nothing; the bodies are genuinely the same bodies.
+
+*** TWO RULERS THROWN AWAY GETTING HERE, BOTH FLATTERING, WHICH IS THE DANGEROUS WAY. ***
+  1. The first cut INVENTED THE SIZE -- it hashed at 22px because a variable I never set
+     defaulted to it. The real size is read off the game's ladder from HC: 44px cells, 32px
+     bodies. A made-up number inside a ruler is how this lane has been wrong nine times.
+  2. The first cut COUNTED BREATHING AS VARIETY. ctBody picks a frame by the beat and the
+     person's own offset, so identical bodies hash differently mid-breath. That read 38%
+     repeats. At ONE breath phase it is 74%. The flattering reading was the wrong one.
+
+*** AND THE OBVIOUS FIX IS WRONG, MEASURED RATHER THAN ASSUMED: one more baked body costs
+530ms of frozen page, and the six already cost about 3.2 seconds. Doubling to twelve adds
+another 3.2s of freeze at boot -- which trades "nothing's complete" for "glitchy, buggy",
+another thing he named. THE FIX IS CHEAPER VARIETY, NOT MORE BAKES. ***
+That is design work with a real tradeoff, not a constant to edit, so nothing was changed.
+
+FOR CONTEXT AND FAIRNESS: six was a good decision when it was made. The city used to draw
+every resident as the PLAYER's body under a colour shift -- the whole valley was him in
+different hues -- and six real silhouettes, gated, was a large step up. It is simply not
+enough for 183 people on one screen.
+
+- Record: records/BOHEMIA_THE_STREET_IS_SIX_PEOPLE_9_14_26.txt
+- Nothing shipped to the game. No alpha change, no demo cut (rule 14a). Nothing to gate.
+- The held line on the board now carries this break, the way PEOPLE recorded theirs.
+- NEXT ROUND: the fix, if the coordinator routes it here. The shape of it is cheaper
+  variety on top of the six -- per-person differences that cost no bake -- and the number
+  to beat is 47 distinct out of 183 without adding to the 3.2s boot.
+
+PREVIOUS ROUND -- *** I MEASURED MY WAY TOWARD A FIVE-MINUTE BREAK, THE WAY PEOPLE DID, AND
 THERE ISN'T ONE IN THIS LANE. That is the result, not a failure to find one. ***
 
 PEOPLE set the precedent this round: a held lane may MEASURE its way to a break that is

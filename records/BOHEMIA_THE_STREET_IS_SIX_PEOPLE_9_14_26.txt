@@ -1,0 +1,51 @@
+THE STREET IS SIX PEOPLE -- CHARACTER lane, 9/14/26
+Measured my way to a five-minute break, the way PEOPLE did. It is in this lane.
+
+HIS WORDS THIS ANSWERS: "nothing's complete... I would like to see [the tiny parts]
+come more together." COOK measured that the yard is 72% of his screen. This is about
+WHO IS STANDING ON IT.
+
+=== WHAT HE SEES, on the demo over http at real phone size ===
+  people drawn on one screen                      183
+  DIFFERENT PICTURES among them                    47
+  share of the crowd that repeats somebody else   74%
+  largest group of identical people on screen      11
+  trade bodies baked for the whole valley           6
+  faction bodies baked                              0
+
+THE WHOLE CROWD IS SIX BODIES IN EIGHT FACINGS. 6 x 8 = 48, and 47 is what the screen
+shows. That is the entire variety of the population he walks through.
+
+=== AND IT IS NOT THE SHRINK, WHICH IS THE CONTROL THAT MAKES THIS WORTH READING ===
+  distinct at the size he sees them (32px)        112
+  distinct at native size                         114
+Two. The shrink to phone size costs two pictures out of a hundred and fourteen. The
+bodies are genuinely the same bodies; making them sharper or bigger would change nothing.
+
+=== TWO RULERS THROWN AWAY GETTING HERE, BOTH IN THE FLATTERING DIRECTION ===
+1. THE FIRST CUT INVENTED THE SIZE. It hashed bodies at 22 pixels because a variable I
+   never set defaulted to it. The real on-screen size is read off the game's own ladder
+   from HC: 44px cells, 32px bodies. A made-up number in the middle of a ruler is how
+   this lane has been wrong nine times.
+2. THE FIRST CUT COUNTED BREATHING AS VARIETY. ctBody returns a frame chosen by the beat
+   and the person's own offset, so two people wearing the IDENTICAL body hash differently
+   just because they are mid-breath at different moments. That read 112 distinct and 38%
+   repeats. Comparing everybody at ONE breath phase gives 47 distinct and 74% repeats.
+   THE FLATTERING READING WAS THE WRONG ONE, WHICH IS THE DANGEROUS DIRECTION.
+
+=== WHY THE OBVIOUS FIX IS WRONG, MEASURED RATHER THAN ASSUMED ===
+  cost of one more baked body   530 ms of frozen page
+  six bodies today              ~3.2 s
+Doubling to twelve would add another 3.2 seconds of freeze at boot, and a longer freeze
+on a phone is ITSELF one of the things he named ("glitchy, buggy"). So raising the number
+trades one of his complaints for another. THE FIX HAS TO BE CHEAPER VARIETY, NOT MORE
+BAKES, and that is design work with a real tradeoff rather than a constant to edit.
+
+WHAT THE SIX ARE, and they were a good decision when they were made: the city used to draw
+every resident as the PLAYER's body under a colour shift, so the whole valley was him in
+different hues. Six real bodies with six different silhouettes, gated by
+city_cast_silhouette_gate, was a large step up. It is simply not enough for 183 people on
+one screen.
+
+NOTHING WAS CHANGED THIS ROUND. The lane is held under rule 14b and the fix is not a
+one-liner; it is recorded here with its cost so whoever takes it starts from numbers.
