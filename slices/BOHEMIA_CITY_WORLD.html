@@ -52874,6 +52874,23 @@ function haggleHtml(o){
   var line = (t.asked > 0 && BohemiaHaggle.say(t)) || o.paysSay;
   if(line) h+='<div class="sub">'+esc(line)+'</div>';              /* draft:true */
   if(t.withdrawn) return h;
+  /* *** A ROW THE TAP WOULD REFUSE IS NEVER DRAWN. (9/13, [half now].) ***
+     EYES E26's stranger walk, item 2: "the day card's own row 'Half of it now,
+     before I go' (320x43), dead between two rows that worked." Driven straight,
+     on this tree AND on the tree before PEOPLE's card fix, that row DOES change
+     the card, so the tap is not broken -- but haggleAsk() opens with
+     `if(!OFFER||!OFFER.terms||OFFER_TAKEN) return;` while this function drew the
+     rows from the module with no such test. SO ONCE THE JOB IS TAKEN THE CARD
+     STILL OFFERED EVERY ASK AND NOT ONE OF THEM COULD DO ANYTHING.
+     That is a dead button by construction, and it is the state a walking player
+     reaches: take the job, reopen the card, tap a row, nothing.
+     PAOLO 9/13, RULE 14(d): deliver it or remove it. You cannot argue the price
+     of a job you have already taken, so the honest answer is REMOVE, and the
+     guard lives where the row is DRAWN rather than only where it is tapped --
+     two rules about one thing is how they drift apart.
+     I could not reproduce EYES' exact route and I am not claiming their
+     observation away: this closes the whole class rather than the one case. */
+  try{ if(typeof OFFER_TAKEN!=='undefined'&&OFFER_TAKEN) return h; }catch(_e){}
   var list=BohemiaHaggle.asks(t);
   var warn=BohemiaHaggle.warning(t);
   if(warn) h+='<div class="sub">'+esc(warn)+'</div>';              /* draft:true */

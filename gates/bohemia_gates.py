@@ -3543,6 +3543,28 @@ GATES = [
      'and instruments, and skipping them by pattern would let a real gate hide behind the '
      'pattern. It caught ITSELF as an orphan on its first run, which is the behaviour you want',
      False),
+    ('EVERY ROW DOES SOMETHING', ['node', 'gates/every_row_does_something_gate.js'],
+     'QUESTS row [half now], 9/13, and it is this lane five-minute break. PAOLO 9/13 RULE 14(d): '
+     '"A card that promises something and does nothing is the worst bug in the game: deliver it or '
+     'remove it", from his own five minutes ("one button... I press it, nothing happens"). EYES E26 '
+     'item 2 measured it on a phone: the day card row "Half of it now, before I go" dead between two '
+     'rows that worked -- that row is this lane haggle. MEASURED, INCLUDING THE PART THAT DISAGREES '
+     'WITH THE REPORT: driven straight on this tree AND on the tree before PEOPLE card fix, that row '
+     'DOES change the card (upfront false->true, the pay line becomes "One battery, half of it up '
+     'front"), so the tap is not broken and the exact route did not reproduce. Reading the code '
+     'instead of arguing with the measurement found a dead row BY CONSTRUCTION: haggleAsk refuses '
+     'when OFFER_TAKEN and haggleHtml drew every ask with no such test, so a taken job still offered '
+     'asks that could do nothing. Guard moved to where the row is DRAWN, not only where it is tapped. '
+     '*** AND THE GATE CAUGHT ITSELF BEING USELESS, WHICH IS THE POINT OF IT: *** a planted row '
+     'reading "A CAR IS GONNA PULL UP" with no handler left it GREEN, because cardShow closes the '
+     'card on any unrecognised tap, so a dead row HIDES THE CARD and the screen diff reads as life. '
+     'IN THIS GAME A DEAD BUTTON IS INDISTINGUISHABLE FROM A CLOSE BUTTON, which is how dead buttons '
+     'survive every screen diff. A row now counts as alive only if the card is STILL OPEN and its '
+     'words moved, and the planted button then fails by name. Two more state leaks between its own '
+     'checks were found and fixed the same way (the sweep consumes the asks; the haggle conversation '
+     'deliberately survives a redraw). Covers the DAY CARD only; the BUILD and BUILD BIG dead buttons '
+     'EYES also found are on the city build card and belong to LIFE+CITY. Runs 14/0',
+     True),
     ('BOND OUTLIVES', ['node', 'gates/bond_outlives_gate.js'],
      'QUESTS row [bond outlives], 9/13. [company in asks] shipped and named its own limit in its '
      'own seam comment: the cast record is keyed on quest AND DAY, so a bond from an earlier day '

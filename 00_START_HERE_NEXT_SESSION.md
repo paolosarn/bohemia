@@ -12912,6 +12912,65 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 35 [half now] AN-ASK-CARRIES-A-SHAPE, PART ONE SHIPPED. QUESTS, BUILD.
+  slices/BOHEMIA_CITY_WORLD.html         the guard moved to where the row is DRAWN
+  gates/every_row_does_something_gate.js 14/0, REGISTERED, two mutations bite
+  NO DEMO RE-CUT. Rule 14(a). TAB: RUN (the morning card).
+  THE SHAPES (a voucher, they go first) ARE NOT BUILT. Part two. Said plainly.
+
+*** THE MOST USEFUL THING THIS ROUND IS THAT MY OWN GATE WAS USELESS AND I FOUND
+OUT BY PLANTING HIS BUG IN IT. ***
+I wrote a gate called EVERY ROW DOES SOMETHING. To prove it worked I planted a row
+reading "A CAR IS GONNA PULL UP" with no handler -- his complaint word for word --
+and THE GATE STAYED GREEN, 14/0.
+MEASURED WHY: cardShow closes the card on any tap it does not recognise
+(__EVERY_PANEL_CLOSES__). So a dead row HIDES THE CARD, the text differs because
+there is no card any more, and a before/after screen diff reads that as life.
+    IN THIS GAME A DEAD BUTTON IS INDISTINGUISHABLE FROM A CLOSE BUTTON.
+That is how dead buttons survive every screen diff anybody writes, and it is worth
+more than the fix: any lane writing a "does this control work" check must require
+THE PANEL TO STILL BE OPEN, or it is measuring nothing. A row counts as alive here
+only if the card is still open AND its words moved; the planted button then fails
+by name.
+
+EYES E26 ITEM 2 IS THIS LANE'S, AND THE REPORT DID NOT REPRODUCE. Their walk:
+"the day card's own row 'Half of it now, before I go' (320x43), dead between two
+rows that worked." Driven straight on THIS tree and on b39c33cb^ (before PEOPLE's
+card fix), that row DOES work: terms.upfront false -> true, the pay line goes from
+"Pays one battery" to "One battery, half of it up front", the row is replaced by
+"Half now. And you are holding it if you walk". I did not claim their observation
+away; I read my own code instead and found a dead row BY CONSTRUCTION:
+    haggleAsk()  opens with  if(!OFFER||!OFFER.terms||OFFER_TAKEN) return;
+    haggleHtml() drew every ask row with no such test.
+So a TAKEN job still offered asks that could not do anything. Fixed where the row
+is DRAWN, not only where it is tapped, because two rules about one thing is how
+they drift apart, and the answer is REMOVE rather than deliver: you cannot argue
+the price of a job you have already taken.
+
+AND A STATE I COULD NOT REACH AS A PLAYER, WHICH IS SOMEBODY ELSE'S DESIGN DOING
+ITS JOB: I tried to reach "taken" by tapping TAKE and redrawing, and measured that
+it cannot be reached that way -- showWake() runs offerRing(), whose first line is
+`OFFER=null; OFFER_TAKEN=false;`, so a redraw RE-RINGS the phone. PEOPLE found
+that and their take path deliberately updates the card IN PLACE. Asserting the
+player can see it would have been this gate lying about the game, so the invariant
+is tested by forcing the state and asking the draw function, stated as forced.
+
+TWO MORE STATE LEAKS BETWEEN MY OWN CHECKS, both the check's fault and not the
+game's: the row sweep legitimately CONSUMES every ask, so a named check after it
+read the half-up-front row as "missing"; and calling showWake() does not reset the
+conversation because __ASK_FOR_MORE__ deliberately keeps it across a redraw, keyed
+on day and job. A check whose result depends on an earlier check is not measuring
+the game.
+
+NOT MINE AND SAID SO: the other two dead buttons EYES found, 'BUILD' (cbbuild) and
+'BUILD BIG 2x2' (cbbig), are on the city build card and belong to LIFE+CITY. This
+gate covers the DAY CARD. The shape of the check is reusable and they are welcome
+to it.
+
+NOT DONE: the row also asks for an ask to CARRY A SHAPE (half now, a voucher, they
+go first). Only "half now" exists. The other two shapes are part two, and this
+block says so rather than letting a half-done row read as finished.
+
 ROUND 34 [five hits] FIVE-BANNED-PHRASES-IN-QUEST-TEXT, SHIPPED. QUESTS, BUILD.
   quests/bq/A01, A02, A06, D001, M04   five lines, WORDS' own rewrites
   slices/BOHEMIA_ALPHA_0_9.html        the baked copy, same five
