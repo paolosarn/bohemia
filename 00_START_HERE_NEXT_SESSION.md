@@ -11526,6 +11526,81 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 32 [map moves] BB-TERRITORY-FLAG, SHIPPED. QUESTS, BUILD.
+  engine/bohemia_ground.js         who takes ground, read off the quests' own words
+  slices/BOHEMIA_CITY_WORLD.html   the module inlined, the capture behind turfGrid at()
+  gates/map_moves_gate.js          31/0, REGISTERED the same round, three mutations bite
+  NO BUILD STAMP AND NO DEMO RE-CUT. Rule 14(a): only THE RUN re-cuts the demo now.
+  TAB: RUN (the walked city). Nothing draws the capture yet; it is mechanism.
+
+THE ROW: ten quests say the map changes hands and nothing is listening. Now it is.
+Driven through the real runtime on the walked surface: S15 to its real COMPLETE
+ending, block 0,0 Network -> Mob, surviving a re-derive of the cached map.
+
+*** THE FINDING, AND IT IS THE OPPOSITE OF THE OBVIOUS READING. THE MAP MOVES
+AGAINST YOU, NOT FOR YOU. ***
+All ten fire the verb inside a COMPLETE stage tagged #reckless -- ten of ten, no
+exceptions -- so the map only moves when you did it LOUD. And in all four quests
+that state a posture, the faction that pushes is the one that same stage just
+ANGERED:
+    S15  faction MOB -12       posture MOB +1
+    S18  faction TRADES -8     posture TRADES +1
+    S20  faction REDS -18      posture REDS +1
+    S21  faction REMNANTS -12  posture REMNANTS +1
+Four for four. The naive version -- the faction you HELPED is rewarded with
+ground -- is not what a single one of his files says, and it would have turned a
+consequence into a prize. It is held as gate check 2a: that mutation goes red.
+This agrees with FACTIONS' own 8/7 note in bohemia_loop.js, which read posture as
+"how mobilised that faction becomes... nobody ever writes a faction calmer, only
+stirred up". Two lanes, same conclusion, arrived at separately.
+
+AND ONE OF THE TEN MOVES NOTHING, ON PURPOSE. S24's stage is `faction Blues +6`
+and `bond owner -40`: the only thing harmed is a PERSON. Nobody was crossed, so
+nobody has a claim, and the module refuses rather than handing the ground to the
+faction that gained. The gate asserts that against the real file.
+
+*** THE BUG THE FIRST LIVE DRIVE CAUGHT, AND IT WOULD HAVE BEEN SILENT. ***
+The block went from "Mob" to "MOB". The .bq files shout a faction name and the
+valley's registry is title case, so the capture moved a block from a faction TO
+ITSELF under a second spelling -- a no-op dressed as a conquest -- AND wrote into
+the map a name no other system knows, which would break colour, standing and
+everything else keyed on the registry. The same disease BB-TURF cured when the 14
+factions were seated in two places that disagreed by ninety cells.
+THE FIX IS NOT NEW: bohemia_loop.js:583 already resolved this case-insensitively
+against the real registry and returned null on an unknown name. That rule is
+reused, and an unknown name now REFUSES rather than being written.
+
+THE WIRING DECISION, AND IT IS THE WHOLE DESIGN. The capture sits behind
+turfGrid()'s at(). This file's own BB-TURF note says of the grid going dark: "The
+darkening lives inside the grid, whose status table is private, so at() is the
+only door and all ten readers of .live get it for free." Same door. PROVED on the
+surface: the border ask from round 31 re-pointed at the new owner immediately
+without knowing this feature exists. One answer, no reader opts in, none can be
+forgotten.
+
+WHAT IT WILL NOT DO:
+  - IT NEVER WRITES INTO BohemiaTowns.HOLDS. That is his AUTHORED override ("HOLDS
+    ships EMPTY and an entry in it wins"), a statement about who STARTS holding
+    what. A capture is world state a playthrough made. One box for both would let
+    a save rewrite his rulings. Gate 7a and 7b hold it.
+  - NO FACTION NAME AND NO THRESHOLD IS TYPED IN IT. "Who lost" needs no number:
+    it is the smallest one, whatever the numbers are.
+  - ONE BLOCK per resolution. EVERYTHING COSTS ONE, and there is no size dial.
+  - NO TICK. His 7/24 pacing law: it fires where a quest RESOLVES and nowhere
+    else, riding the existing pay hook rather than inventing a second trigger.
+
+A CHECK OF MINE THAT WAS WRONG, CAUGHT BY ITSELF: 6b read `indexOf('reckless')
+>= 0` as a threshold. That is a membership test. The fix names each kind of
+non-threshold comparison and removes it, and then PROVES the check still bites on
+a real threshold, because a check loosened until it passes is not a check.
+
+MEASURED AND WORTH KEEPING: with comments stripped, advanceRound and owner.set
+appear ZERO times in the walked city, the alpha and the demo. The retired
+reader's machinery is not on the surface the player walks and cannot be revived
+by calling it. Raw grep DOES hit twice and both are comments, one of them a proof
+string this lane wrote itself last round -- the fifth time prose-as-code has
+nearly bitten this lane, and the reason the check was run stripped.
+
 ROUND 31 [first ask] THE-FIRST-ASK-A-STRANGER-MEETS, SHIPPED. QUESTS, BUILD.
   slices/BOHEMIA_CITY_WORLD.html   ctAskSnapshot rewritten in map-cell space + ctFirstAsks()
   engine/bohemia_asks.js           the shelf reader also takes the SCARCEST good, not only GONE

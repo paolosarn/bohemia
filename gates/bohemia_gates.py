@@ -3485,6 +3485,29 @@ GATES = [
      'and instruments, and skipping them by pattern would let a real gate hide behind the '
      'pattern. It caught ITSELF as an orphan on its first run, which is the behaviour you want',
      False),
+    ('MAP MOVES', ['node', 'gates/map_moves_gate.js'],
+     'QUESTS row [map moves] BB-TERRITORY-FLAG, 9/13. THE ROW: ten quests say the map changes '
+     'hands and nothing is listening. PAOLO 7/24 PACING LAW: the territory AI is never a tick, it '
+     'fires when a quest resolves. PAOLO 9/13 RULE 14: "You offer requests just for me to see them, '
+     'but nothing happens" -- a card that promises and does nothing is the worst bug in the game. '
+     'MEASURED FIRST: the runtime sets s.advanceTerritory and the ONLY reader is bohemia_loop.js:681 '
+     'in the RETIRED slice; with comments stripped, advanceRound and owner.set appear ZERO times in '
+     'the walked city, the alpha and the demo, so the obvious fix is dead machinery (raw grep hits '
+     'twice and both are comments, one of them a proof string this lane wrote itself). What IS live '
+     'is the turf map, the single answer to who holds a cell since BB-TURF. *** THE FINDING, AND IT '
+     'IS THE OPPOSITE OF THE OBVIOUS READING: all ten fire inside a COMPLETE #reckless stage, so the '
+     'map only moves when you did it loud, and in all four quests stating a posture the faction that '
+     'PUSHES is the one that same stage just ANGERED. The map moves AGAINST you, not for you; the '
+     'naive reward-who-you-helped version fails check 2a. *** One of the ten (S24) harms a PERSON '
+     '(bond owner -40) and no faction, so it names no claimant and moves nothing. THE BUG THE FIRST '
+     'LIVE DRIVE CAUGHT: the block went from "Mob" to "MOB" -- files shout, the registry is title '
+     'case -- a no-op dressed as a conquest that also writes a name no other system knows; resolved '
+     'now against the valley own list using the rule bohemia_loop.js:583 already had, and an unknown '
+     'name refuses. The capture sits behind turfGrid at() so every reader gets it free and none opts '
+     'in, and it never writes into BohemiaTowns.HOLDS, which is his authored override. Three '
+     'mutations bite: reward-who-you-helped -> 2 red, a FAILED job taking ground -> 1 red, dropping '
+     'the unknown-name refusal -> 1 red. Runs 31/0',
+     True),
     ('FIRST ASK', ['node', 'gates/first_ask_gate.js'],
      'QUESTS row [first ask] THE-FIRST-ASK-A-STRANGER-MEETS, 9/13. The row: with the cold open '
      'deferred and [wake near] moving the spawn, the first thing a player meets that wants '
