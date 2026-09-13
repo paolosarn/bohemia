@@ -6460,10 +6460,44 @@ def _check_table():
     return False
 
 
+def _box_speed():
+    """HOW FAST IS THIS BOX RIGHT NOW, PRINTED BEFORE ANY GATE TIME IS (9/13, PLUMBER).
+
+    EVERY TIME THIS RUNNER PRINTS IS A WALL CLOCK ON A SHARED MACHINE, and this
+    machine does not run at one speed. Measured on ONE unchanged tree: a gate took
+    359.6 s and later 663.4 s with no code change between; a city boot took 8.0 s
+    and later 11.1 s. Old city against current city, booted in the SAME window,
+    read 11.0 against 11.1 -- identical. The content had not moved. The box had.
+
+    Without this line, two runs of the same log are not comparable and nothing says
+    so. This lane learned that the expensive way: it compared gate runtimes taken
+    hours apart, reached three different wrong conclusions and pushed one of them,
+    while its OWN fps gate had carried a yardstick for exactly this since 9/5. The
+    idea was not missing. It was in a place nobody trips over.
+
+    It never fails anything. A yardstick that can go red is a budget, and a
+    correction that can fail starts getting argued with. It prints and stops.
+    """
+    try:
+        out = subprocess.run(['node', os.path.join('gates', 'bohemia_box_speed.js')],
+                             capture_output=True, text=True, timeout=60)
+        first = (out.stdout or '').strip().split('\n')[0]
+        if first:
+            print('  ' + first)
+            print('  (a time here is only comparable to one taken at the same ratio --')
+            print('   pair every before/after inside one window, or you measure the hour)')
+        else:
+            print('  BOX SPEED: unavailable, so no time in this run is comparable to another')
+    except Exception as e:
+        print('  BOX SPEED: unavailable (%s), so no time in this run is comparable to another'
+              % type(e).__name__)
+
+
 def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient=False):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
+    _box_speed()
     if not _check_table():
         return 1
     deps_check()

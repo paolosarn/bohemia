@@ -10812,6 +10812,30 @@ flagging has not moved it. Also still red and not this lane's: engine sync
 NEXT IN THIS LANE: Q9 [trust credit], how debt works when nobody can sue.
 
 
+PLUMBER (plumber-ont6t5): 9/13 (b) LATEST -- *** CHAT 18. ROUND 22. [suite runs] CONTINUING. EVERY RUN
+NOW OPENS BY SAYING HOW FAST THE BOX IS, and the sting is that THIS LANE HAD ALREADY BUILT THAT AND PUT
+IT WHERE NOBODY TRIPS OVER IT. gates/fps_on_a_phone_gate.js has carried a yardstick since 9/5 with our
+own comment in it: "A TIME BUDGET WITHOUT ONE OF THESE GOES RED ON A BUSY AFTERNOON AND GETS SWITCHED
+OFF... the demo reached its first step in 14.1 s on a quiet box and 19.9 s an hour later on the same
+tree with nothing in the game changed." We wrote that, then spent round 21 comparing gate runtimes
+taken hours apart and reached three wrong answers in a row. THE IDEA WAS NOT MISSING. IT WAS IN A PLACE
+NOBODY MEETS.
+NOW: gates/bohemia_box_speed.js, reusing the same four-million-round integer lump the phone yardstick
+uses, in plain node so it costs no browser and finishes in under a second, median of five. The runner
+prints BOX SPEED before any gate time, with the line "a time here is only comparable to one taken at
+the same ratio". PROVED TO TRACK THE MACHINE, not guessed, by making the box genuinely busy: 0 busy
+0.99x, 2 busy 1.04x, 4 busy 2.17x, 8 busy 2.47x. Flat while there is a spare core, doubling the moment
+there is not -- the right shape, so a 2.17x reading is a statement about the machine and not noise.
+IT CANNOT FAIL ANYTHING, ON PURPOSE. A yardstick that can go red is a budget, and a correction that can
+fail starts getting argued with. It prints a number and stops; whatever reads it decides what it means.
+[THE RATCHET CLOSED A THIRD DRIFT] slices/BOHEMIA_SUBURB_WALK_7_18_26.html -- found stale twice, both
+times by a full suite run that rebuilt it in place, named for FACTIONS both times and never parked
+behind an excuse -- has been rebuilt by somebody. The gate went RED demanding the entry be deleted, and
+it is deleted. Frozen list 6 -> 5. Three for three now: name it, refuse to freeze it quietly, the
+owning lane fixes it.
+WHAT IS LEFT ON THE ROW: the 71.9 min floor (sharding cannot fix it -- less browser work or more
+machines, which is a fork, not a coding task); re-measure the floor WITH the box-speed ratio recorded
+beside it so the number means something; retire the dead ([dead gates]).
 PLUMBER (plumber-ont6t5): 9/13 LATEST -- *** CHAT 18. ROUND 21. [suite runs] CONTINUING. I WAS WRONG
 THREE TIMES THIS ROUND ABOUT ONE GATE, AND THE THING THAT KILLED ALL THREE IS THE FINDING: *** THE BOX
 IS NOT THE SAME BOX HOUR TO HOUR, BY UP TO 1.8x. *** FACTION ASK COST, run ALONE, with NO CODE CHANGE

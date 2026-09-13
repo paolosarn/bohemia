@@ -146,10 +146,12 @@ const VOLATILE = [
 /* KNOWN STALE, measured 9/12/26. THIS LIST MAY ONLY SHRINK. Each entry names the lane
  * that owns the file, because this lane may not edit slices/, laws/, art or features. */
 const KNOWN_STALE = {
-  'slices/BOHEMIA_SUBURB_WALK_7_18_26.html':
-    'FACTIONS. +124/-1 against tools/bohemia_suburb_walk.py. The committed copy is missing '
-    + "the lane's own 9/6 THE OTHER FOUR block (Pures, Panthers, La Familia, Triads). Found "
-    + 'when a full suite run ran the tool against the live repo and left the tree dirty.',
+  /* SUBURB WALK CAME OFF THIS LIST 9/13, and the gate is what took it off. It was
+     found stale twice -- both times by a full suite run that rebuilt it in place --
+     named for FACTIONS both times and never parked behind an excuse. Somebody
+     rebuilt it, this check went red demanding the entry be deleted, and here it is
+     deleted. Third time the ratchet has closed a drift this way: name it, refuse to
+     freeze it quietly, and the owning lane fixes it. 6 frozen -> 5. */
   /* RUN_CURRENT and CURRENT_SLICE CAME OFF THIS LIST 9/12 (COOK, [hair colours]), and the
      gate is what told me to delete them -- "a file that re-derives clean again has been
      fixed, and leaving it listed lets the next stale bake hide behind a stale excuse".
