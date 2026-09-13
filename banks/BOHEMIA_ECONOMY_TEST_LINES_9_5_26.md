@@ -3245,3 +3245,71 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   that they should not, and a bank arguing with its record is worthless.
 - Spanish register: 1 of 12 lines, 8%, under the 15% he set on 8/26. One word
   inside an English sentence, not respelled.
+
+## YYYYYYYY. WHAT IT COSTS TO COME BACK ON
+## (round 41, move one. Cutting you off costs the owner nothing; the money is in
+##  the fee to turn it back. The collector's side, and the street's.)
+
+- YYYYYYYY1 `draft:true` — "Turning it off was free. Turning it on is the part we
+  talk about." (the whole mechanic in fourteen words, said by the man who profits.
+  VOICE CARD: nine words then a second clause that is the point.)
+- YYYYYYYY2 `draft:true` — "He didn't even come up here to do it. Did it from
+  wherever he is." (the cut as a thing that happens to you with nobody present,
+  which is what makes it modern and what makes it cold.)
+- YYYYYYYY3 `draft:true` — "So what's it going to be. Say a number so I know."
+  (the negotiation without a number in it, and the second sentence is the fumble.)
+- YYYYYYYY4 `draft:true` — "We came back on. Don't ask me how." (a thing somebody
+  paid for and will not discuss, and the shortness is the refusal.)
+
+## ZZZZZZZZ. NOBODY WANTS YOUR ROOM
+## (round 41, move two. Replacing a tenant costs the owner thirty to a hundred
+##  times the debt, so he would rather you paid. Said by people who half know it.)
+
+- ZZZZZZZZ1 `draft:true` — "He keeps saying he'll put somebody else in. Been
+  saying it." (the threat that both of them know is expensive, worn thin by use.)
+- ZZZZZZZZ2 `draft:true` — "Who's he putting in. You seen a queue out there?"
+  (the vacancy, as a question with a look attached. Contract it: the cut sentence
+  explained the economics.)
+- ZZZZZZZZ3 `draft:true` — "An empty room pays him nothing. That's not me being
+  clever, that's just true." (nobody in Bohemia is wise, so the speaker disclaims
+  the cleverness he is showing.)
+- ZZZZZZZZ4 `draft:true` — "He'd rather have a bad tenant than a door standing
+  open. Most of them would." (the finding said plainly by somebody who has been
+  the bad tenant.)
+
+## AAAAAAAAA. ONE OF US WATCHES
+## (round 41, the counter to move four. Glasgow: one woman on watch in each
+##  tenement with a bell, and the whole close came out. Costs nothing.)
+
+- AAAAAAAAA1 `draft:true` — "You take the window till dark. Then somebody takes it
+  off you." (the rota as an instruction, and nobody explains why.)
+- AAAAAAAAA2 `draft:true` — "When you hear it, you come out. Doesn't matter what
+  you're doing, you come out." (the bell, and the repetition is the rule.)
+- AAAAAAAAA3 `draft:true` — "They won't come up a stair with people on it. They
+  never have." (the mechanic as folk knowledge, which is how it actually spread.)
+- AAAAAAAAA4 `draft:true` — "Mira, it's not a fight. It's just being there."
+  (Spanish register, one word. The cheapest mechanic in the record, and the line
+  refuses to make it heroic.)
+
+## BBBBBBBBB. WHAT IS NOT HERE, ON PURPOSE (round 41)
+
+- No line contains a number, a fee, a rent, a debt or a count of days. The round is
+  four costed moves and not one figure is spoken.
+- No line uses the words evict, eviction, landlord, tenant, rent, strike, bailiff,
+  fee or reconnection. The whole thing is said as rooms, windows, stairs and
+  coming back on.
+- No line has anybody hit anybody. Move four exists in the record and the bank
+  refuses to write it, because AAAAAAAAA is the counter and the counter is standing
+  still.
+- No line names a faction, a street, a town or the owner. MAP LAW, and the owner is
+  always "he".
+- No line says what the reconnection fee is, who the replacement tenant would be,
+  or whether the player can ever be the owner. Those are the things section 4
+  refused.
+- No line has the player speaking, and no line blames him for the block going dark.
+- No line makes the block win. ZZZZZZZZ4 is the closest and it is a shrug, not a
+  victory, because which way a strike goes is not the bank's to settle.
+- Spanish register: 1 of 12 lines, 8%, under the 15% he set on 8/26. The first draft
+  of this section had 2 of 12, which is 17% and OVER the cap; YYYYYYYY4 lost its
+  one word before this shipped. Written down rather than silently corrected,
+  because a cap nobody counts against is not a cap.
