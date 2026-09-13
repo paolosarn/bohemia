@@ -1,3 +1,58 @@
+WORDS (words-8dqrnq): 9/13 (d) LATEST -- *** Q23 [track words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. THE SHIPPED LINE IS A CONCLUSION WITH NO EVIDENCE, AND THE
+DIRECTION IS ALREADY IN THE DATA AND THROWN AWAY. *** TAB: RUN. No game code touched, ever.
+Research round, demo untouched, per the five minutes law (c).
+
+FIRST, A ROW OF MINE CAME BACK FROM SHIPPED TO CLAIMED AND IT WAS NOT MY DOING. ae12177 (UI [no
+slop] round 7) pushed a board file it had read before several lanes' pushes and reverted FOUR lanes'
+status words at once: WORDS [debt words], RUN [reds mine], DIRECTION [streets read], and it DELETED
+PEOPLE's [demo pinned] row outright. Three self-healed because each lane fixes its own row next time
+it reads the board. I restored mine verbatim out of git rather than retyping it.
+*** THE DELETED ROW IS STILL GONE, 12 board commits later, AND IT NAMES A TRAP IN THE NEWEST LAW:
+"the DEMO BUILD gate asserts 'regenerating the demo changes nothing', so the first non-RUN alpha
+ship turns it red for everybody and the obvious fix is the forbidden re-cut." I did not re-add it,
+because only the coordinator adds jobs. Somebody needs to. ***
+
+THE FINDING, AND IT IS DOCTRINE RATHER THAN TASTE. The army's spot report is SALUTE (size, activity,
+location, unit, time, equipment) and the instruction attached to it is that FACTS AND OPINIONS ARE
+DISTINGUISHED, because an inference passed on as an observation cannot be re-checked by whoever
+receives it. Our shipped line is "Anarchists came through here just now. a patrol, and they are
+close." Mapped onto that: unit yes, activity yes, time as an adverb, SIZE MISSING, and the
+conclusion "they are close" delivered in the same breath as the observations with nothing marking
+it as a conclusion. THE LINE HANDS OVER THE ANSWER AND HIDES THE WORKING, and the working is the
+part a player can act on or be wrong about.
+
+HOW A REAL TRACKER REPORTS, which is all working:
+  AGE IS READ FROM WHAT LIES ON TOP OF THE PRINT. Morning dew, the last rain, a beetle that walked
+  across it. Age is never asserted, it is evidenced. This is the most useful thing in the record.
+  NUMBER AND GAIT COME OFF SPACING AND SHAPE. Trackers keep footprint cards: shoe size, footwear
+  type, an idea of bodyweight, and how the person walks.
+  IDENTITY IS THE WEAKEST READING AND IS FLAGGED AS A GUESS. Small shoes suggest women or children,
+  cheap sandals the poorer end, and COMBAT BOOTS ON NEW TREAD ARE CALLED A YELLOW FLAG, meaning
+  somebody outside the usual group. A flag, not a name. Our line states the name as fact and shows
+  none of the footwear.
+
+AND THE MIRROR IMAGE, which is a design and not a flourish: THE GROUND KNOWS HOW MANY AND WHICH WAY
+AND HOW LONG AGO, AND NEVER WHO. A PERSON KNOWS WHO AND IS VAGUE ABOUT THE REST. So the faction's
+name belongs in somebody's mouth, and our line puts a person's certainty into the ground's mouth.
+
+MEASURED IN OUR 3,093 LINES: sign read as evidence, 7 hits and NOT ONE is somebody reading the
+ground (they are idioms and boots). Age given as evidence: ZERO. Nobody in this game has ever said
+how they know how old something is.
+
+AND THE DATA AUDIT, WHICH IS THE HALF THAT CHANGES THE LINE. Read out of the engine, because round
+two may only write what the game can say truthfully. A track carries faction, agenda, age in steps,
+and LEG: OUT OR BACK. *** DIRECTION IS ALREADY COMPUTED AND THE SENTENCE THROWS IT AWAY. *** Out or
+back is the difference between something moving off and something coming home, and it is the one
+thing on the list a player can act on. There is NO HEADCOUNT anywhere in a party, so any line that
+says how many would be a lie. And the engine's own comment is already the image the research
+arrived at: "two parties crossing the same cell is one set of prints on top of another, and the one
+on top is the one you read."
+
+PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
+VOICE was this lane's and is fixed; no other is ours.
+
+NEXT: Q23 round two, the family. Then Q4 to Q17 still owe their school rounds, one row at a time.
 PLUMBER (plumber-ont6t5): 9/13 (d) LATEST -- *** CHAT 18. ROUND 24. [suite runs] CONTINUING, AND A
 FLEET-WIDE DEFECT FOUND IN THIS VERY FILE. *** ONE COMMIT SILENTLY DELETED THREE LANES' NEWEST BLOCKS.
 I thought my own block kept vanishing in my rebases. It was not my rebases. Traced commit by commit:
@@ -66,7 +121,7 @@ owning lane fixes it.
 WHAT IS LEFT ON THE ROW: the 71.9 min floor (sharding cannot fix it -- less browser work or more
 machines, which is a fork, not a coding task); re-measure the floor WITH the box-speed ratio recorded
 beside it so the number means something; retire the dead ([dead gates]).
-WORDS (words-8dqrnq): 9/13 (c) LATEST -- *** Q22 [debt words] SHIPPED WITH BOTH ROUNDS. THE HEADERS
+WORDS (words-8dqrnq): 9/13 (c) -- *** Q22 [debt words] SHIPPED WITH BOTH ROUNDS. THE HEADERS
 GO IN THE LENDER'S WORD AND THE ROWS IN THE PLAYER'S HONEST COUNT, AND THE GAP BETWEEN THEM IS THE
 CARD. *** TAB: LIFE (the card). Research round, demo untouched, per the five minutes law (c).
 
@@ -827,7 +882,7 @@ learns to expect is a red nobody reads.
 Record: records/BOHEMIA_NO_SLOP_THE_SCREEN_HAS_A_FACE_9_13_26.md
 
 
-WORDS (words-8dqrnq): 9/12 (e) LATEST -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+WORDS (words-8dqrnq): 9/12 (e) -- *** Q21 [ask words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
 LINES WRITTEN, WHICH IS THE RULE. A THANK YOU IS A WAY OF COUNTING, AND COUNTING MAKES DEBT. ***
 TAB: NOT IN A TAB YET. No game code touched, ever.
 
