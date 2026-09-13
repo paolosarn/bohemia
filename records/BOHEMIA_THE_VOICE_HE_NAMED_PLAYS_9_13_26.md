@@ -260,3 +260,70 @@ number.
     python3 gates/bohemia_gates.py --only "NAMED LEAD"
 
 Build 9/13 - THE VOICE HE NAMED PLAYS.
+
+---
+
+## POSTSCRIPT: THE BEAT CHECKER HAD FOUR FAULTS AND THE BEAT HAD NONE
+
+The lane's pre-push pass went 10 of 12 green. One red was ROOM SONG going red for
+the work going right (above). The other was **BEAT FIRST, which guards the 120 BPM
+LAW**, so it was not going to be waved through.
+
+**FIRST, THE THING THAT WAS AT RISK, MEASURED DIRECTLY.** A bare oscillator is three
+nodes; some rack voices COMPUTE A BUFFER IN JAVASCRIPT. `playStep` runs on the main
+thread at 120 BPM, so if the named voices cost meaningfully more per note, the law
+breaks. Timed across all 142 songs, 24 bars each, both trees:
+
+| | main | this change |
+|---|---|---|
+| median cost per step | 0.1188 ms | **0.0677 ms** |
+| worst average, any song | 0.5221 ms | 0.8263 ms |
+| worst single step | 53.9 ms | 60.8 ms |
+| **any step over the 125 ms budget** | **none** | **none** |
+
+The typical step got **cheaper**, because a rack voice is often simpler than an
+oscillator plus a filter. The worst single step lands on a *different song* in each
+tree (53.9 ms on THE COUNTING ROOM on main, 4.5 ms on the same song here), which is
+what a first-call warm-up looks like, not a per-note cost. Only two songs' average
+more than doubled, to 0.227 ms, which is 0.2% of the budget.
+
+**THEN THE GATE ITSELF, FOUR TIMES OVER.** Twenty runs, ten a tree, and across every
+single one of them the claim that actually matters read the same: **the song's first
+note landed 0.00 ms off the pulse grid, 20 of 20, on both builds.**
+
+1. **A GATE THAT ONLY PRINTS ITS NUMBERS WHEN IT FAILS CANNOT BE COMPARED ACROSS
+   RUNS.** This is why 9/6 noticed the flake and could do nothing with it. Fixed
+   first, before any diagnosis: it now always prints what it measured.
+2. **A SAMPLER WHOSE WINDOW IS SHORTER THAN ITS OWN STEP DETECTS BY LUCK.** The meter
+   listened through 23 ms of history and polled every **41 ms** (measured, now
+   printed), so 18 ms of every step was unwatched and a thump could hide in the
+   hole. The window is 46 ms now and covers the step.
+3. **A MISSED THUMP IS NOT A WRONG TEMPO.** The claim wanted 60% of lub-to-lub gaps
+   within 60 ms of half a second, which a meter that drops one thump can never give:
+   the gap becomes 1.0 or 1.5 and the tempo is untouched. Gaps of `[2, 0.47, 0.528]`
+   were passing while `[1.481, 0.531, 1.489, 0.99, 0.51]` failed, on the same build.
+   Now every gap must be a whole number of half-seconds.
+4. **A TOLERANCE TIGHTER THAN THE INSTRUMENT'S OWN RESOLUTION MEASURES THE
+   INSTRUMENT.** The last red was a gap of 0.560 judged against a fixed 60 ms, by an
+   instrument whose timestamps are good to 21-46 ms. The tolerance is derived from
+   the sampler's own measured step plus window now, with a guard that says so out
+   loud if the machine ever gets too slow for the claim to mean anything.
+5. **A CLAIM THAT FAILS WHEN THE GAME GETS FASTER IS ASSERTING THE LOAD, NOT THE
+   FEATURE.** The coverage claim was really the city iframe's parse time, which
+   swings **3.0 s to 15.5 s on identical code** (15.0 eight times, 5.0 four times,
+   3.0 twice) against a floor of 4.0 sitting inside that range. It failed hardest
+   exactly when the game loaded fastest. The length is printed now; the law is
+   carried by the four exact claims that were already there.
+
+**BOTH FIXES MUTATION-PROVED, and the mutations were built to isolate the claims.**
+A pulse rendered at 0.65 s while the code still *declares* SEC 0.5 and BPM 120 — so
+every declared number passes and only the sound is wrong — is caught on 8 gaps at a
+67 ms tolerance. The pulse-start hook made a no-op reds the replacement claim first.
+The game file was mutated in place both times and restored from backup; git confirms
+nothing of either mutation remains.
+
+**AFTER: 10 of 10 green on both trees, 18 claims.** Before: 1 of 5 red on plain
+`origin/main`, 2 of 5 on this branch, same pulse.
+
+> **FOUR FAULTS IN ONE GATE, ALL FOUR IN THE INSTRUMENT, NONE IN THE BEAT** — and a
+> coin flip had been deciding every lane's ship.

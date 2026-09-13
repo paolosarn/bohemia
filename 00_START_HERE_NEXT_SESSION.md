@@ -5723,6 +5723,45 @@ of them are the same mistake:
     polls for the condition now and clears its log on a song change. A FIXED WAIT IS
     NOT AN EVENT, written down for the third time.
 
+AND THE 120 BPM CHECKER HAD FOUR FAULTS AND THE BEAT HAD NONE. The lane's pre-push
+pass went 10 of 12; one red was ROOM SONG going red for the work going right (above)
+and the other was BEAT FIRST, which guards the 120 BPM LAW, so it was not waved
+through. FIRST THE REAL RISK, MEASURED: a bare oscillator is three nodes and some
+rack voices COMPUTE A BUFFER IN JAVASCRIPT, and playStep runs on the main thread, so
+the voice swap could have broken the law. Timed across all 142 songs on both trees,
+median cost per step 0.1188ms -> 0.0677ms (CHEAPER, a rack voice is often simpler
+than an oscillator plus a filter), and NO STEP ON EITHER TREE comes near the 125ms
+budget. The scary worst-step numbers (53.9ms main, 60.8ms mine) land on a DIFFERENT
+song in each tree, which is a first-call warm-up and not a per-note cost.
+THEN THE GATE, twenty runs, ten a tree, in which THE CLAIM THAT MATTERS READ 0.00ms
+OFF THE GRID 20 OF 20 ON BOTH BUILDS. Five lessons, four of them faults:
+ 1. A GATE THAT ONLY PRINTS ITS NUMBERS WHEN IT FAILS CANNOT BE COMPARED ACROSS RUNS
+    -- which is exactly why 9/6 noticed this flake and could do nothing with it.
+    Fixed FIRST, before any diagnosis.
+ 2. A SAMPLER WHOSE WINDOW IS SHORTER THAN ITS OWN STEP DETECTS BY LUCK. It listened
+    through 23ms of history and polled every 41ms (measured, now printed), so 18ms of
+    every step was unwatched and a 40ms thump could hide in the hole. Window is 46ms.
+ 3. A MISSED THUMP IS NOT A WRONG TEMPO. It wanted 60% of gaps within 60ms of half a
+    second, which a meter that drops one thump can never give. [2, 0.47, 0.528] was
+    PASSING while [1.481, 0.531, 1.489, 0.99, 0.51] FAILED on the same build. Every
+    gap must be a whole number of half-seconds now.
+ 4. A TOLERANCE TIGHTER THAN THE INSTRUMENT'S OWN RESOLUTION MEASURES THE INSTRUMENT.
+    The last red was 0.560 against a FIXED 60ms, from timestamps good to 21-46ms.
+    Derived from the sampler's own step plus window now, with a vacuity guard that
+    accuses the MACHINE by name if it ever swallows a quarter beat.
+ 5. A CLAIM THAT FAILS WHEN THE GAME GETS FASTER IS ASSERTING THE LOAD, NOT THE
+    FEATURE. The coverage claim was the city iframe's PARSE TIME, which swings 3.0s
+    to 15.5s on identical code against a floor of 4.0 sitting inside that range, so
+    it failed hardest when the game loaded FASTEST. Printed now, not asserted; the
+    law is carried by the four exact claims already there.
+BOTH MUTATION-PROVED, and the mutations were built to isolate the claims: a pulse
+rendered at 0.65s while the code still DECLARES SEC 0.5 and BPM 120 (so every
+declared number passes and only the sound is wrong) is caught on 8 gaps at a 67ms
+tolerance; the pulse-start hook made a no-op reds the replacement claim first. The
+game file was mutated in place both times and restored, git confirms slices/ clean.
+AFTER: 10 of 10 green on both trees, 18 claims. BEFORE: 1 of 5 red on plain main,
+2 of 5 on this branch, same pulse. A COIN FLIP HAD BEEN DECIDING EVERY LANE'S SHIP.
+
 STILL CARRIED, NOT ACTED ON: a fight starting makes no sound at all (cityFightOnEnter
 posts the encounter with no sound call; it needs a new cook, so it belongs to [enemy
 heard] / [fight music]). THE GAPS IN THE HYMNAL peaks 25.6x the median on a CANON
@@ -5738,7 +5777,10 @@ owned] stays CLAIMED; its remaining street holes are HIS (tagging, in the MUSIC 
 RECORDS: records/BOHEMIA_THE_VOICE_HE_NAMED_PLAYS_9_13_26.md.
 TOOLS: tools/bohemia_the_voice_he_named.py,
 tools/bohemia_the_late_beat_songs_reach_the_street.py (both idempotent, per change).
-GATE: gates/named_lead_gate.py, in the suite as NAMED LEAD, 33/0 in 35 seconds.
+GATES: gates/named_lead_gate.py, in the suite as NAMED LEAD, 33/0 in 35 seconds.
+gates/beat_first_gate.py (four faults fixed, 18/0 ten of ten on both trees) and
+gates/room_song_gate.py (census counts reach per pool now, 34/0) -- both gate-only,
+not one byte of the game in either.
 
 --------------------------------------------------------------------------------
 
