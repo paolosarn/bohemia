@@ -2971,60 +2971,56 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 24) LATEST -- *** THE FIVE MINUTES, ROUND
-THREE. [same lender] still CLAIMED AND HELD under 14b. "The streets don't look like
-streets" -- THIS LANE WAS A LOT OF WHY. Every faction border is drawn along a road,
-because [who holds] deliberately put them there, and at full weight that is a bright
-green, red and blue stripe painted down the middle of every street in the valley.
-They are faint now. The roads read as roads and the territory is still there. ***
+FACTIONS (factions-ovkjpf): 9/13 (round 25) LATEST -- *** THE FIVE MINUTES, ROUND
+FOUR. [same lender] still CLAIMED AND HELD under 14b. A GLITCH, HIS WORD, AND IT WAS
+THIS LANE'S. One blocked step put "somebody steps into your way. they meant to." on
+the street and it was still there word for word forty blocks later with nobody near
+you. True for one step, a lie for the rest of the day. It takes its words back now,
+and it was freezing four other writers while it sat there. ***
 Nothing to judge.
 
 VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_THE_BORDERS_WERE_PAINTING_THE_STREETS_9_13_26.md
+Record: records/BOHEMIA_THE_STREET_TAKES_ITS_WORDS_BACK_9_13_26.md
+Round 24: the borders -- records/BOHEMIA_THE_BORDERS_WERE_PAINTING_THE_STREETS_9_13_26.md
 Round 23: the nightfall card -- records/BOHEMIA_THE_NIGHT_CARD_DID_NOT_FIT_EITHER_9_13_26.md
 Round 22: the standing card -- records/BOHEMIA_THE_CARD_DID_NOT_FIT_A_PHONE_9_13_26.md
 
-ON FOOT, THIS LANE PAINTS NOTHING. Borders 0, tracks 0, lights 0 on the walked
-street. His street complaint is not this lane's layers being drawn down there.
-AND THE FIRST VERSION OF THAT PROBE SAID THE OPPOSITE -- 14 borders and 163 lights
-on a sidewalk. __TURF_INK and __GRID_DRAWN are published by the MAP pass and never
-cleared, so reading them after a STREET draw reports the last MAP draw. Cleared
-before every draw, the real answer appeared. Any lane reading those globals to prove
-what a frame contains must clear them first.
+*** FIVE WRITERS SHARE ONE LINE, #packline, AND ONLY ONE OF THEM TIDIES UP. ***
+  walkSay -- the road and its encounters -- ANOTHER LANE -- does not clear
+  ctAgainstSay -- somebody steps into your way -- THIS LANE -- did not clear, now does
+  packButton and its tap -- the pack -- another lane -- clears on its own path
+  trackSay -- whose footprints these are -- this lane -- clears, OWN WORDS ONLY
+Driven on the DEMO at 390 px: say it, then walk forty real blocks across the valley
+and read the line off the page at every step. IT NEVER CHANGED ONCE.
 
-IN CITY, THE SAME FRAME RENDERED FOUR WAYS -- everything, borders off, lights off,
-neither. With the LIGHTS off the map is still a lattice of colour. With the BORDERS
-off the road grid appears. The borders were the noise; the lights were never the
-problem.
+AND IT FROZE THE WHOLE LINE, NOT JUST ITS OWN SENTENCE. This is what makes it worse
+than a stale string. trackSay clears ONLY ITS OWN WORDS -- correctly, because the
+line is shared and wiping it unconditionally would delete somebody else's sentence.
+So once this sentence sat there the track line could never clear it, and its own
+change-guard stopped it ever speaking again. ONE WRITER THAT DOES NOT TIDY UP
+SILENCES EVERY WRITER THAT DOES. Any lane that writes a shared element owes it a
+clear, and the clear must match its own text or it becomes the bug it is fixing.
 
-*** AND THE PART WORTH KEEPING: I DOUBTED THAT AND THE DOUBT WAS WRONG. *** A later
-frame came back in daylight with red roofs and no visible borders, so I assumed the
-dark neon frame had been a half-loaded screen and I REVERTED the change. Then I
-tested the assumption instead of trusting it: all 520 tile chunks are loaded at
-three seconds and the frame is unchanged at twenty-eight. The dark view is the real
-finished CITY view; the daylight one was a different zoom tier reached by FORCING
-MODE='city' instead of pressing the chip. The measurement was right and my
-second-guess was wrong, and the only reason I know which is which is that I checked.
-FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON, and it can put you in a view the
-player never sees.
+THE CHANGE  ctAgainstClear() next to ctAgainstSay, called from the movement check
+            that already runs, BEFORE the track read -- so the line is free when the
+            tracks get their chance at it. The other order leaves them silent behind
+            a sentence that is already a lie.
+              said         "somebody steps into your way. they meant to."
+              3 blocks on  ""   (was: unchanged after forty)
 
-THE CHANGE
-  alpha  0.62 -> 0.26 on other people's ground, 0.9 -> 0.55 on your own
-  width  up to 3 px -> 1.5 px, and 4 -> 2 for yours
-The HUE is untouched and so is __holderInk, which the tracks share and a gate pins.
-Only the shout comes down. Yours stays brighter than theirs, which was always
-deliberate. Proved with the one comparison that is not an opinion: ONE SESSION, ONE
-CAMERA, ONE CLOCK, the border weight the only thing that moved, loud/quiet/loud.
+GATES  against_gate 80/0, and the first of the two new claims is DRIVEN, NOT GREPPED:
+       open the demo, say it, walk, read the line off the page. The second pins that
+       it clears only its OWN words.
+       RULE 13: pre-push pass green; full suite unmeasured.
 
-GATES  faction_towns 203/0, two new claims pinning the two things that must not come
-       back: the shout on somebody else's ground, and a line thick enough to be the
-       street's paint. Neither touches the hue, which is his.
-       RULE 13: pre-push pass green; no SUITE LINE posted yet.
-
-RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, third round
+RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, fourth round
 running. The change is in the city file, which both surfaces load by reference.
 
 STILL OPEN, UNCHANGED AND NONE OF IT THIS LANE'S
+  [FOR THE ROAD LANE] walkSay HAS THE IDENTICAL DEFECT, measured in the same run:
+  walkSay('feral_dog_pack') -> "they get up when you get close." and eight blocks
+  later, the same sentence. Same shape, same consequence, same one-function fix.
+  Handed over with the reproduction rather than reached into.
   [FOR RUN] DEMO BUILD is red on main because a lane shipped an alpha change without
   re-cutting, which 14(a) tells it to do. It stays red until RUN walks the five
   minutes and cuts. A gate must never outrank a ruling.
@@ -3052,15 +3048,14 @@ NEXT IN THIS LANE
   [same lender] stays HELD until the coordinator gives this lane one of his breaks or
   he says the five minutes hold (14c). While held, the round goes on the five minutes.
   WHAT IS LEFT OF THIS LANE ON THAT MEASURE:
-    THE STREET LINE. The track sentence ("Anarchists came through here just now")
-    shares #packline with the pack and the road. Walk it and watch for a line that is
-    true one cell ago and a lie now.
-    THE LIGHTS AT OTHER ZOOMS. They read well at the CITY zoom measured here; nobody
-    has looked at them at the far zoom or on the whole-map view.
+    THE LIGHTS AT OTHER ZOOMS. They read well at the CITY zoom measured in round 24;
+    nobody has looked at them at the far zoom or on the whole-map view.
+    THE OTHER SHARED SURFACES. #packline was one element with five writers and nobody
+    owned it. Sweep for the next one before it produces the same glitch.
   If a break lands here, the queue behind it is [deal sticks], [pursuit strength],
   [deeds weigh], [take them on].
 
-THIRTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+FOURTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
@@ -3076,8 +3071,10 @@ THIRTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   A GLOBAL THE RENDERER PUBLISHES AND NEVER CLEARS REPORTS THE LAST DRAW, NOT THIS
   ONE. Clear it before you read it or it will tell you about a frame you are not
   looking at.
-  AND FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON. It can put you in a view
+  FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON. It can put you in a view
   the player never sees, which is how a correct measurement gets thrown away.
+  AND A WRITER THAT DOES NOT CLEAR AFTER ITSELF SILENCES EVERY WRITER THAT DOES.
+  On a shared element the tidy ones lose to the messy one, every time.
 
 --------------------------------------------------------------------------------
 

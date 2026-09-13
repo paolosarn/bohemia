@@ -42956,11 +42956,40 @@ function ctBlocked(cx, cy){
    valley has seven painted doors. Saying the specific thing when the general
    thing happened is how a surface starts lying quietly. */
 var CT_AGAINST_SAY = 'somebody steps into your way. they meant to.';  /* draft:true */
+var _againstWrote = '';
 function ctAgainstSay(){
   var l = document.getElementById('packline');
   if (!l) return 0;
   l.textContent = CT_AGAINST_SAY;
   l.style.display = 'block';
+  _againstWrote = l.textContent;
+  return 1;
+}
+/* *** AND IT TAKES ITS WORDS BACK WHEN NOBODY IS IN YOUR WAY ANY MORE. ***
+   (9/13, THE FIVE MINUTES. "glitchy" is on his break list and this was one.)
+
+   MEASURED ON THE DEMO, ON A PHONE: one blocked step puts "somebody steps into
+   your way. they meant to." on the line, and then FORTY BLOCKS ACROSS THE VALLEY
+   later it is still there, word for word, with nobody anywhere near you. It was
+   true for one step and a lie for the rest of the day.
+
+   AND IT FROZE THE WHOLE LINE, NOT JUST ITS OWN SENTENCE. Five writers share
+   #packline and only the tracks clear after themselves -- and they clear ONLY
+   THEIR OWN WORDS, correctly, because wiping unconditionally would delete
+   somebody else's sentence. So once this sentence sat on the line, the track
+   line could never clear it and its own change guard stopped it ever speaking
+   again. One writer that does not tidy up silences every writer that does.
+
+   THE SAME DISCIPLINE THE TRACKS ALREADY USE, and no new hook: the call that
+   already runs on movement clears it, and only while the line still says exactly
+   what this put there. */
+function ctAgainstClear(){
+  if (!_againstWrote) return 0;
+  var l = document.getElementById('packline');
+  if (l && l.textContent === _againstWrote) {
+    l.textContent = ''; l.style.display = 'none';
+  }
+  _againstWrote = '';
   return 1;
 }
 /* WHICH WAY THEY ARE FACING, and it has to be derived, not stored. Every person
@@ -52518,6 +52547,11 @@ function trackSay(){
 
 function dayDistrictCheck(){
   dayAddressTick();
+  /* THE BLOCKED-STEP SENTENCE GOES BEFORE THE TRACKS SPEAK (9/13, THE FIVE
+     MINUTES): it is cleared first so the line is free, and only then does the
+     track read get its chance at it. The other order leaves the tracks silent
+     behind a sentence that is already a lie. */
+  try{ ctAgainstClear(); }catch(_e){}
   try{ trackSay(); }catch(_e){}
   const d=dayWhere();
   if(!d||d===_lastDistrict)return;

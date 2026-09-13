@@ -880,6 +880,40 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
     }
     try { await page2.close(); } catch (_e) {}
 
+    /* *** THE BLOCKED-STEP SENTENCE TAKES ITS WORDS BACK. *** (9/13, THE FIVE
+       MINUTES; "glitchy" is on his break list and this was one.) MEASURED on the
+       demo before the fix: one blocked step put the line up and FORTY BLOCKS
+       across the valley later it was still there, word for word, with nobody
+       near. And because five writers share #packline and only the tracks clear
+       after themselves -- correctly, only their OWN words -- one writer that does
+       not tidy up silences every writer that does.
+       DRIVEN HERE, not grepped: say it, walk, and read the line off the page. */
+    try {
+      const line = await fr.evaluate(function () {
+        var out = {}; MODE = 'human';
+        var L = function () { var l = document.getElementById('packline');
+          return (l && getComputedStyle(l).display !== 'none') ? l.textContent : ''; };
+        ctAgainstSay(); out.said = L();
+        var sx = (hx / FN) | 0, sy = (hy / FN) | 0;
+        for (var k = 1; k <= 3; k++) { hx = (sx + k) * FN + (FN >> 1);
+          try { dayDistrictCheck(); } catch (e) {} }
+        out.after = L();
+        out.hasClear = (typeof ctAgainstClear === 'function');
+        return out;
+      });
+      ok('*** THE STREET TAKES ITS WORDS BACK: a blocked step says so, and three '
+        + 'blocks later the line is empty instead of still claiming somebody is in '
+        + 'your way ***',
+        !!line.said && line.after === '' && line.hasClear === true,
+        '"' + line.said + '" -> "' + line.after + '"');
+      ok('and it clears only its OWN words, the same discipline the track line '
+        + 'already uses, because the line is shared and wiping it unconditionally '
+        + 'would delete somebody else\'s sentence',
+        /l\.textContent === _againstWrote/.test(CITY));
+    } catch (e) {
+      ok('the shared street line could be driven', false, String(e.message).slice(0, 120));
+    }
+
     ok('and the page threw nothing the whole time', errs.length === 0, errs.slice(0, 3).join(' | '));
   } catch (e) {
     fail++; console.log('  FAIL the real surface   ' + String(e.message).slice(0, 200));
