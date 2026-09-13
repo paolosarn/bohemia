@@ -3021,3 +3021,84 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   that down before it starts.
 - Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both a single
   word inside an English sentence, neither respelled.
+
+## KKKKKKKK. THAT PRICE IS NOT FOR YOU
+## (round 38, the door. One battery is the insider price and the street pays a
+##  whole multiple. Nobody says a number and nobody explains the system.)
+
+- KKKKKKKK1 `draft:true` — "That's what it costs. It's not what it costs you."
+  (the whole finding in nine words, and the second sentence is the door. VOICE
+  CARD: the line is not the point, the point is how ordinary he sounds saying it.)
+- KKKKKKKK2 `draft:true` — "I'm not being funny with you. There's a price and
+  there's a price." (nobody leads with a no, so he leads with a denial of malice.
+  The repetition is the fumble and it says more than an explanation would.)
+- KKKKKKKK3 `draft:true` — "Come back when somebody knows you." (the rung as a
+  sentence. Contract it: the cut version said "when you've done something for
+  somebody around here".)
+- KKKKKKKK4 `draft:true` — "Ya, the list. Everybody asks about the list." (Spanish
+  register, one word. Names the one thing only this person would name, and the
+  boredom is the characterisation.)
+
+## LLLLLLLL. THE BACK OF THE SHOP
+## (round 38, what is behind the door. A camp sells four of eleven goods and the
+##  other seven are ABSENT, not dearer. That is what the outside feels like.)
+
+- LLLLLLLL1 `draft:true` — "We don't have that. We have that for some people."
+  (the correction mid-sentence is the whole mechanic. Put a comma where you want a
+  full stop and this is what you get.)
+- LLLLLLLL2 `draft:true` — "There's a shelf you haven't seen. I'm not showing it to
+  you, I'm telling you it's there." (honest about withholding, which is the only
+  way a shopkeeper stays likeable while doing this.)
+- LLLLLLLL3 `draft:true` — "You want the thing for the fever. Everybody wants the
+  thing for the fever." (antibiotics are the scarce link in our own goods table and
+  this never names them.)
+- LLLLLLLL4 `draft:true` — "Four things. That's what this place is, four things."
+  (the camp's own count said as resignation, with no number attached to a price.)
+
+## MMMMMMMM. THE GUARD AT THE DOOR
+## (round 38, the first leak. The goods that arrive are sold to the resellers by
+##  the guards at thirty percent off, and resold at eighty up.)
+
+- MMMMMMMM1 `draft:true` — "It never got to the shelf. It got to the door and it
+  stopped there." (the leak described by somebody who watched it and cannot prove
+  it. No accusation, which is what makes it true.)
+- MMMMMMMM2 `draft:true` — "He's not stealing. He's selling it early." (nobody in
+  Bohemia is wise, so the distinction is offered seriously and it is nonsense, and
+  the speaker half knows.)
+- MMMMMMMM3 `draft:true` — "Everybody takes a little off the top. That's not the
+  problem, the problem is he takes it first." (nine words then the real complaint.)
+- MMMMMMMM4 `draft:true` — "Don't say his name out here. Say it inside." (the
+  policing and the fear in eight words, and the line is about where, never what.)
+
+## NNNNNNNN. THE MAN WHO WALKS YOU IN
+## (round 38, the referral. Never walk into one blindly: reputation and word of
+##  mouth are the whole security model, and the risk is the walk back out.)
+
+- NNNNNNNN1 `draft:true` — "I'll walk you. You don't go in on your own, ever."
+  (the arbolito, in his own job description, and the "ever" is the warning.)
+- NNNNNNNN2 `draft:true` — "Who sent you. No, really, who sent you." (the security
+  model as two sentences. The repeat is the check.)
+- NNNNNNNN3 `draft:true` — "Count it in there. Don't count it on the street, mano."
+  (Spanish register, one word, on the robbery risk, and the advice is real.)
+- NNNNNNNN4 `draft:true` — "If it goes wrong you never met me. That's not a threat,
+  that's just the arrangement." (the second sentence undercuts the first, which is
+  how a person sounds who has said this many times.)
+
+## OOOOOOOO. WHAT IS NOT HERE, ON PURPOSE (round 38)
+
+- No line contains a number, a price, a rate, a multiple or a percentage. This is a
+  round about two prices and neither is ever said.
+- No line uses the words rung, standing, faction, counted, inside or belonging.
+  The whole mechanic is said as "somebody knows you" and "the list".
+- No line names a document, a permit, a coupon or a card. The record's own finding
+  is that a holdable door becomes the money, so the bank refuses to write one.
+- No line names a faction, a town or a tier. MAP LAW, and LLLLLLLL4 counts four
+  things without saying camp.
+- No line explains price control, arbitrage, a black market or a subsidy. Nobody
+  in Bohemia is wise.
+- No line decides which rung opens the door, what the street multiple is, or which
+  goods sit behind it. Those are the three things section 5 refused.
+- No line has the player speaking, and no line calls him poor or a nobody to his
+  face. KKKKKKKK1 is as close as it gets and it is about the price, not him.
+- Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both a single
+  word inside an English sentence, neither respelled.

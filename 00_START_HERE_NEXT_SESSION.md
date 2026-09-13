@@ -239,116 +239,119 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_37_A_SMALL_GROUP_CANNOT_CARRY_ONE_OF_ITS_OWN_9_13_26.md (306 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections FFFFFFFF-JJJJJJJJ, +16 lines, 526 draft:true total
-TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched.
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_38_ONE_IS_THE_OLD_PRICE_AND_THE_DOOR_IS_A_PERSON_9_13_26.md (321 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections KKKKKKKK-OOOOOOOO, +16 lines, 542 draft:true total
+TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched. Rule 14 (9/13):
+        research rounds continue and never touch the demo. This diff is records, the
+        bank and the board.
+
+TWO FINDINGS THAT PROVE US WRONG.
+ 1. THE ROW SAYS "HOLD OR BE" AND THE RECORD SAYS **BE**, FOUR TIMES OUT OF FIVE. Of the
+    five real doors, exactly one was an object you could hold and it was the leakiest.
+    The other four were a PERSON: an official who approved your quota, A GUARD AT THE
+    WAREHOUSE DOOR WHO SOLD YOU THE PALLET AT THIRTY PERCENT OFF, a customs relationship
+    that made you an importer, and a cueva owner who would not let you in without a
+    referral.
+ 2. *** OUR GAME ALREADY HAS THE OLD PRICE AND CALLS IT THE ONLY PRICE. *** Every real
+    spread runs 1.7x to 13.3x, and against EVERYTHING COSTS ONE every one of them turns
+    one battery into a fraction (0.22, 0.19, 0.08, 0.59, 0.39) -- NOT ONE IS A NUMBER
+    THIS GAME CAN SAY. But the ratio only breaks in one direction. Turn it over: ONE IS
+    NOT THE NORMAL PRICE WITH A DISCOUNT HANGING OFF IT, ONE IS THE INSIDER PRICE, and
+    everybody not inside pays the street. Venezuela's controlled 6.5 was not a discount
+    on 30; it was the price, and 30 is what it cost if you were nobody. This lands on
+    top of round 36 from the other end: 36 measured that EVERYTHING COSTS ONE is a PRICE
+    CONTROL, and a price control's whole story is its door. No new law, no fraction,
+    nothing of his moved.
 
 WHAT I MEASURED IN OUR OWN CODE FIRST:
-- THE PROMISE IS BUILT AND THE PRICE IS NOT. engine/bohemia_down.js (PEOPLE, 9/12)
-  is a good module: fall() has one outcome, heal() always finishes, a kept person
-  cannot be made dead. Three lengths, all his own words: knocked 7 days, leg 90
-  ("a leg that needs a season"), hand 365 ("a hand that needs a year"). Exports are
-  HURT, KINDS, fall, isDown, daysLeft, say. THERE IS NO CARRY, NO SLOW-DOWN, NO
-  FOOD COST AND NO WEIGHT ANYWHERE IN IT. A person falls, is hurt a long time, and
-  comes back, and between those two facts they cost nothing at all.
-- AND NOTHING ELSE IN THE GAME CARRIES ANYBODY. grep across all of engine/ for
-  stretcher, litter, carrying a body, carrying a wounded or downed person, or
-  slowing a party: ZERO HITS. The gap is total, not partial.
-- THE COMPANY IS COMPUTED, NOT A ROSTER (bohemia_company.js, QUESTS 9/13):
-  membership is derived every time from a bond, a witness and a roof, and there is
-  no size cap because there is no list. So whatever this delivers has to work for a
-  party of TWO, because the game will hand you one.
-- THE MOVEMENT TABLE, re-read not remembered: 0.084 min/cell broken ground (about
-  nine metres a minute), 0.042 paved. A sixteen-hour day is 8.6 km off the roads
-  and 17.1 on them; the valley is 9.2 km corner to corner.
-- THE FOOD TABLE: food need = 1 ration per person per day, ~2000 kcal, FLAT,
-  regardless of what that person did.
+- THE DOOR ALREADY EXISTS AND IT IS THE SHELF, NOT THE PRICE. goodsFor(tier, goods) cuts
+  the shelf by DEPTH: a fortress sells 11 of 11, a town 8, A CAMP 4. The camp's missing
+  seven (fuel, power, iodine, sterile water, lidocaine, tweezers, ANTIBIOTICS) are not
+  dearer there, they are ABSENT. That shipped 9/5 and nobody called it a door.
+- WHAT THE PLAYER CAN ALREADY BE: bohemia_belonging.js carries five rungs per faction --
+  stranger 0, peripheral 1, useful 3, COUNTED 6, inside 10 -- and counted's own note
+  reads "You are on whatever list they keep. That is a different thing from being liked."
+  THAT IS A CADIVI REGISTRY WRITTEN BY SOMEBODY WHO HAD NEVER HEARD OF CADIVI. Sixteen
+  factions each want a different thing and pay a different thing (MOB pays enforcement of
+  a deal, REDS pays CREDIT, CARTEL pays whatever you needed that week, KARENS pays
+  membership itself).
+- AND WHAT IS NOT WIRED: buy(purse, hubOrNull, goodId, day, ledger) TAKES A HUB AND NEVER
+  READS IT FOR PRICE -- price(purse, ledger, goodId) has no hub parameter at all. Nothing
+  anywhere reads a rung or a standing to change what a shop does.
 
-THE FINDING THAT PROVES US WRONG: the row asks for a SLOW-DOWN, and that word
-assumes the group carries the person and walks less far. Wilderness evacuation
-plans THREE TEAMS OF SIX TO EIGHT ROTATING -- eighteen to twenty-four people -- and
-the working rule is SIX WELL-RESTED BEARERS FOR EVERY ONE MILE, at one to two hours
-a mile. A litter makes about ONE MILE AN HOUR WITH FIFTEEN TO TWENTY PEOPLE.
-Bohemia's company is two, three, four. A PARTY OF FOUR DOES NOT HAVE SIX BEARERS,
-SO A PARTY OF FOUR CANNOT MAKE ONE MILE. That is not a slow-down, it is a wall.
-The physiology agrees and is measured, not modelled: a four-person team sustains a
-continuous carry for 16.9 MINUTES (two-person, 12.3), grip strength afterwards
-falls 20-42%, and by method the sustained times are hand 2.7 min, shoulder 14.5,
-hip-shoulder 25.4. A design that hands a party of four a stretcher invented a
-number the record refuses.
+THE REAL AISLE, FIVE DOORS:
+- VENEZUELA CADIVI: official 6.5 bs/$ against a black ~30, rationed per person ($2,500 a
+  year on a card, $500 cash, $400 online). The street name for working it was THE RASPAO,
+  "the scrape": take the allocation on the card, FLY OUT, take a cash advance abroad,
+  carry it home and sell it black. The door was your identity and the price of using it
+  was a plane ticket. Leaked through forged papers and ghost firms.
+- VENEZUELA'S SHELVES, the best material in the round: price controls, FIFTEEN-PLUS HOURS
+  of queueing, and a whole profession in the gap -- bachaqueros, AT LEAST 7% OF THE
+  POPULATION, ABOUT TWO MILLION PEOPLE. And they mostly did not queue: "the few goods
+  that arrive are sold to the bachaqueros BY THE GUARDS AT A 30% DISCOUNT, and resold at
+  more than 80% markup", with money to the policemen to go unnoticed. 1,000 in, up to
+  8,000 out; a bag of sugar at up to FORTY TIMES the official price. The state's answer
+  was 20,000 FINGERPRINT READERS in supermarkets in 2015, capping what one person could
+  buy a week -- which changed nothing about the price and only changed who could stand at
+  the counter.
+- LEBANON: the central bank subsidised wheat, fuel and medicine at 3,900 LBP/$ against a
+  pegged 1,507 and a black ~20,000, and the subsidy went TO TRADERS, so the door was an
+  import licence. It leaked over the Syrian border at once: subsidised medicine vanished
+  from Lebanese shelves and reappeared as smuggling revenue.
+- ARGENTINA: arbolitos ("little trees") call cambio on Calle Florida and walk you to a
+  CUEVA out of public view. The rule everybody repeats is NEVER WALK IN BLINDLY -- you go
+  on a trusted introduction, because reputation and word of mouth ARE the security model.
+  Getting it wrong costs counterfeit notes or the man outside being told you are leaving
+  with cash. (Honest end: under Milei the spread collapsed to 2-5%, so this door barely
+  pays now. A door is only a door while the gap is wide.)
+- ZIMBABWE, the only door you could hold: fuel coupons with the Reserve Bank's logo, a
+  serial number and your car's registration, redeemable at 90+ stations. US$20 per 20 L
+  of diesel on a coupon against US$34 cash; petrol 18 against 30, about 1.7x, the
+  smallest gap here. AND THEN: "schools, colleges and private businesses started
+  accepting fuel coupons to settle bills, at 1 litre of petrol = US$1.00." THE COUPON
+  STOPPED BEING ABOUT FUEL AND BECAME MONEY. That is aimed straight at us, because our
+  money is already a physical object: a transferable claim on a better price does not
+  become arbitrage, IT BECOMES THE CURRENCY, and money that buys more always wins.
 
-WHAT GETS LEFT BEHIND (the row's fourth question, and the best material in it).
-Shenkursk, January 1919, forty miles over three nights at thirty to forty below:
-THE HUNDRED MOST SERIOUSLY WOUNDED LEFT FIRST, strapped to sleds and sent down the
-road ahead of everybody, and the healthy men marching behind them DISCARDED THEIR
-OWN BOOTS (leather soles, too slippery on ice) and finished in their stocking feet,
-which cost a great many frozen toes. THE GROUP DOES NOT SLOW TO THE WOUNDED MAN'S
-PACE. IT REORDERS AROUND HIM AND PAYS IN WHAT IT ABANDONS.
+THE GAMES AISLE IS EMPTY ON PURPOSE. The row says real material only, "no game he has
+not named", and after the guard at the warehouse door there is nothing a reference could
+add. Naming one to fill a heading is the violation the law exists to stop.
 
-THE GAMES AISLE: the campaign layer is the only reference with standing here and it
-DID NOT PRICE THE CARRY AT ALL. Its downed man goes in RESERVE -- travelling, out
-of the fight, and what you lose is what he was giving you. Light injuries 1-3 days,
-heavier 5-7. Two ways to heal: in the field medicine is consumed slowly, it heals
-faster while CAMPED, and the wound can turn bad WHILE YOU ARE MOVING; or at a
-temple, faster and safer. And the wiki's own advice is "better to place them in
-reserve until the injuries are resolved" -- the player benches him without being
-forced. That is exactly what the coordinator already armed [lock them] with on
-9/12. No game he has not named entered the design.
+THE DELIVERABLE, the paragraph WORLD asked for: THE OLD PRICE IS ONE BATTERY AND IT IS
+ALREADY IN THE GAME; the door is the RUNG you hold with the faction that holds the
+market. Stranger and peripheral pay the street and are not offered the deep half of the
+shelf at all. At COUNTED you buy at one, because you are the person the controlled price
+was set for. At inside you get what the town actually has. NOTHING ABOUT THE NUMBER
+CHANGES; WHAT CHANGES IS WHO IS ALLOWED TO PAY IT. Build it as two reads the shop already
+has in reach and does not use: the hub's holder, which buy() is already handed and throws
+away, and the player's rung with that holder, which belonging already computes. Quote the
+street a WHOLE multiple, between 2 and 5, NEVER A FRACTION. And the door must never be an
+object.
+AND THE FOUR LEAKS, because a door with no leak is a wall: the guard sells it out the
+back at 30% off; the paper is faked; the border (that is round 34's arbitrage, and it
+needs [two prices] first); and the queue is sold, which is what round 36's third sight
+is for.
 
-THE DELIVERABLE, three numbers each with its premise:
- 1. THE SLOW-DOWN: 8x, AND IT IS A DISTANCE CAP, NOT A PACE. From six fresh bearers
-    per mile against our own 8.6 km day:
-        party of 2  0.54 km   6% of a day   16x
-        party of 3  0.80 km   9%            11x
-        party of 4  1.07 km  12%             8x
-        party of 6  1.61 km  19%             5x
-        party of 8  2.15 km  25%             4x
-    Ship it as a CAP. "You move at one eighth speed" invites a shrug; "you got them
-    one kilometre and that was the day" is the true sentence. The valley is 9.2 km
-    across, so a party of four carrying one of their own CANNOT CROSS IT IN A WEEK.
-    Roads do not rescue you: on pavement the ordinary day doubles, so the carrying
-    party falls to 16x behind instead of 8x.
- 2. THE FOOD COST: ONE MORE RATION PER BEARER FOR THE DAY. Carrying heavy loads is
-    8 METs against walking's 3.5, so 2.29x; rounded it is two, and EVERYTHING COSTS
-    ONE makes the increment exactly one. The law picks the number and the
-    physiology says it is right, which is the only order those two go in.
-        a normal day        5 people, 5 rations, 8.6 km
-        a day carrying one  5 people, 9 rations, 1.07 km
-        = 1.8x the food for 12% of the distance = *** 14x THE FOOD PER KILOMETRE ***
-    And the downed person still eats his full one and produces nothing, which costs
-    nothing to build because our need table is already flat per person.
- 3. THE ONE THAT IS ACTUALLY THE MECHANIC: YOU DO NOT HAVE TO CARRY THEM. Both
-    aisles arrive here from opposite ends -- the real record says a party of four
-    cannot carry anybody anywhere useful, and the campaign layer says the fun
-    version was never the stretcher. So: leave them somewhere (Shenkursk's answer,
-    and you pay in what you abandon), or take them and pay the cap, and MOVING IS
-    WORSE THAN BEING STILL. A locked person who falls then costs a day, a
-    kilometre, double food and their whole contribution for 7, 90 or 365 days,
-    without one hair of NO DAMAGE BEFORE THE DIAL being touched.
+ROUTED: WORLD [two prices] the paragraph | WORLD [old price] follow-on, a rung read not a
+new table | FACTIONS goodsFor is already a door nobody called one | PEOPLE/BELONGING
+counted's note is a registry written before anybody needed one | QUESTS [first ask] the
+guard who sells out the back | UI a row he can see and cannot buy needs different words
+from a row he cannot afford | COORDINATOR nothing blocking.
 
-ONE HONEST CHECK ON OUR OWN TABLE, written down rather than acted on: walking is
-3.5 METs, so a 70 kg person over our own sixteen-hour day burns about 3,920 kcal =
-1.96 rations. OUR FLAT ONE-RATION DAY FEEDS A PERSON ABOUT HALF OF WHAT WALKING
-ACTUALLY BURNS. Not a bug and not a request -- a valley quietly on half rations is
-right for this game, and it is worth having the arithmetic on paper once.
+GATES, under front-page rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday
+40/0, attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0. FULL SUITE
+UNMEASURED SINCE db7e535, because THE SUITE LINE is still unposted. No red is mine.
 
-ROUTED: PEOPLE [lock them] the three numbers | PEOPLE [down not dead] everything
-attaches to fall() and needs no new state | COMBAT [downed body] the carry is where
-these land on the board | WORLD the 8x and 16x are ratios against the movement
-table on purpose | QUESTS "the wounded went first and the healthy walked home in
-their socks" needs no invention | COORDINATOR nothing blocking, one premise in the
-pendings.
+THE PROJECT-LEVEL HOLE, round 23 of naming it, and this instance is a DEAD ARGUMENT
+rather than dead code, which is a new flavour: buy() accepts hubOrNull and hands it to a
+price() that has no parameter for it. A gate asking "does every argument reach a reader"
+would have gone red the day the hub was added. Measured in rounds 34 and 38 and still
+there.
 
-GATES, under front-page rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0,
-payday 40/0, attempt 15/0, canon rot 13/0, demo blockers 22/0, language 83/0. FULL
-SUITE UNMEASURED SINCE 765e8c5, because THE SUITE LINE has not been posted yet. No
-red is mine: this diff touches only records, the bank and the board.
-
-THE PROJECT-LEVEL HOLE, round 22 of naming it: bohemia_down.js AND THE MOVEMENT
-SYSTEM HAVE NEVER MET. A person can fall and the party still walks 8.6 km that day
-exactly as if nobody had. Both parts are correct on their own, and no gate here can
-express "supposed to".
+PROBE THAT WAS WRONG, KEPT ON PURPOSE: goodsFor is (tier, goods), not (goods, tier). My
+first call sliced the string 'fortress' and reported three goods named "for", "to" and
+"ca". Kept because a later round will reach for it.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   1. Valley eats its last shelves in ten in-game days. RULED PREMISE 9/5; the far
@@ -485,13 +488,22 @@ express "supposed to".
      the number clean. It goes here so that nobody discovers it later as a surprise
      and "fixes" it into something nobody ruled.
 
-NEXT IN THIS LANE: Q38 [old price], then Q39 [protection court], Q40 [how many
-pockets], Q41 [who replaces you].
-The coordinator added Q41 since last round, harvested from this lane's round 35.
+ 40. (new) IS ONE THE PRICE FOR THE PERSON WHO IS IN? This round found that
+     EVERYTHING COSTS ONE cannot be discounted (every real spread turns a battery
+     into a fraction the game cannot say) but CAN be inverted: one is what it costs
+     if the faction holding the market counts you, and everybody else pays two to
+     five. That keeps his law exactly as written and gives the game the two prices
+     the whole board is waiting on. IT IS NOT A NUMBER QUESTION, IT IS A "WHAT IS
+     THIS GAME" QUESTION -- whether being known to people is the thing that makes
+     you rich in Bohemia. Fifteen rounds of this lane say the economy here is made
+     of people you keep going back to, and this is the first one where that could
+     become the price itself.
+
+NEXT IN THIS LANE: Q39 [protection court], then Q40 [how many pockets], Q41 [who
+replaces you].
 
 
 ================================================================================
-
 UI (ui-kmqmrf): 9/13 (b) LATEST -- *** [no slop] ROUND SIX. PROSE IS NOT A SCREEN. ***
 Row STILL CLAIMED. monospace on the walked city 66 -> 40, all tells 204 -> 178.
 
