@@ -69,7 +69,8 @@ const done = () => { console.log(`\n=== AN ELBOW BENDS ONE WAY: ${p} passed, ${f
   const R = await pg.evaluate(() => {
     const D = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
     const N = (typeof FRAME_CACHE !== 'undefined' && FRAME_CACHE.buckets) || 24;
-    const out = { pairs: 0, flips: 0, worstJump: 0, flipClips: {},
+    const SIDE_SPAN = 4;   /* px the hand must sit from the shoulder before its side means anything */
+    const out = { pairs: 0, flips: 0, worstJump: 0, folded: 0, flipClips: {},
                   inconsistent: [], armFrames: 0, ikClips: 0, locked: 0 };
     const sideOf = (sh, el, hd) => {
       const rx = hd[0] - sh[0], ry = hd[1] - sh[1];
@@ -96,13 +97,26 @@ const done = () => { console.log(`\n=== AN ELBOW BENDS ONE WAY: ${p} passed, ${f
             const P = ps && ps.sk;
             if (!P || !P[s[0]]) { prev = null; continue; }
             const sh = P[s[0]], el = P[s[1]], hd = P[s[2]];
-            const cur = { side: sideOf(sh, el, hd), flex: flexOf(sh, el, hd), el: el };
+            /* AND A FOLDED ARM HAS NO MEANINGFUL SIDE EITHER, which is the mirror
+               of the guard on the line below and was missing until 9/13.
+               sideOf is the cross product of the elbow against the SHOULDER-TO-HAND
+               vector, so when the hand is folded back onto the shoulder that vector
+               is a pixel long and its sign is decided by rounding.
+               PROVED, not assumed: on crouch-aim-1h facing E the hand sits ONE pixel
+               from the shoulder, and this ruler called the build where the elbow
+               jumped 31.4px in one frame CLEAN, then called the build where the same
+               frame moves 3.2px a FLIP. It had the two backwards. A ruler that
+               passes the snap and fails the repair is reading noise. */
+            const span = Math.hypot(hd[0] - sh[0], hd[1] - sh[1]);
+            const cur = { side: sideOf(sh, el, hd), flex: flexOf(sh, el, hd), el: el, span: span };
             out.armFrames++;
+            if (span <= SIDE_SPAN) out.folded++;
             /* a REAL bend only: a near-straight arm has no meaningful side */
-            if (cur.flex > 8 && cur.side !== 0) sidesSeen[cur.side] = (sidesSeen[cur.side] || 0) + 1;
+            if (cur.flex > 8 && cur.side !== 0 && span > SIDE_SPAN) sidesSeen[cur.side] = (sidesSeen[cur.side] || 0) + 1;
             if (prev) {
               out.pairs++;
-              if (prev.flex > 8 && cur.flex > 8 && prev.side !== 0 && cur.side !== 0 && prev.side !== cur.side) {
+              if (prev.span > SIDE_SPAN && cur.span > SIDE_SPAN &&
+                  prev.flex > 8 && cur.flex > 8 && prev.side !== 0 && cur.side !== 0 && prev.side !== cur.side) {
                 out.flips++;
                 out.flipClips[c] = (out.flipClips[c] || 0) + 1;
                 const j = Math.hypot(cur.el[0] - prev.el[0], cur.el[1] - prev.el[1]);
@@ -127,6 +141,14 @@ const done = () => { console.log(`\n=== AN ELBOW BENDS ONE WAY: ${p} passed, ${f
 
   ok(`the whole set was swept (${R.armFrames} arm-frames, ${R.ikClips} clips ask for an elbow)`,
      R.armFrames > 30000 && R.ikClips >= 20);
+
+  /* THE GUARD MUST NOT SWALLOW THE MEASUREMENT. A folded-arm skip that quietly ate
+     most of the frames would turn every claim below into a formality, so the share
+     it skips is a claim of its own. Measured: 47 of 40,320 arm-frames, 0.1%. */
+  ok(`the folded-arm guard skips ${R.folded} of ${R.armFrames} arm-frames ` +
+     `(${(100 * R.folded / Math.max(1, R.armFrames)).toFixed(2)}%, ceiling 2%) -- it removes the frames ` +
+     `where a one-pixel vector decides the sign, and nothing else`,
+     R.folded / Math.max(1, R.armFrames) <= 0.02);
 
   ok(`no elbow reverses mid-clip beyond the measured floor (${R.flips} flips, floor ${FLIP_FLOOR}, was ${WAS})`,
      R.flips <= FLIP_FLOOR);
@@ -186,6 +208,8 @@ const done = () => { console.log(`\n=== AN ELBOW BENDS ONE WAY: ${p} passed, ${f
   console.log('  arm/facing runs whose OBSERVED side changed (a sweep, not a defect): ' + R.inconsistent.length);
 
   console.log('');
+  console.log('  folded-arm frames the side guard skips: ' + R.folded + ' of ' + R.armFrames +
+    '  (' + (100 * R.folded / Math.max(1, R.armFrames)).toFixed(2) + '%)');
   console.log('  clips that still flip: ' +
     (Object.keys(R.flipClips).length ? Object.entries(R.flipClips).map(x => x[0] + ':' + x[1]).join(', ') : 'none') +
     '  (arm-across-body sweeps; they were 11 clips and 36px before)');

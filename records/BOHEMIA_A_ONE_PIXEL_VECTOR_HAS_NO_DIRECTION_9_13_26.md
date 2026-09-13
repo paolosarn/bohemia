@@ -86,3 +86,32 @@ crouch-aim-2h 4, crouch-aim-1h 2, spear-drive 2, shiv-jab 1, worst 12.6px. Those
 are now pose problems, not rig problems -- and the crouch-aims have a second one a
 joint fix cannot touch: **neither of them crouches in profile.** They stand.
 That is the clip content, and it is the rest of [redo killed].
+
+## AND IT CAUGHT A SECOND RULER READING THE SAME NOISE
+The pre-push pass went red on AN ELBOW BENDS ONE WAY, this lane's own gate from
+9/11: flips 7 -> 9, both new ones on crouch-aim-1h. Checked against the alpha
+before this fix, where it is green. So it was mine, and it looked like a
+regression.
+
+It is not. `sideOf` in that gate is the cross product of the elbow against the
+SHOULDER-TO-HAND vector -- and on crouch-aim-1h facing E the hand sits ONE PIXEL
+from the shoulder, the same degenerate vector this whole round is about. So:
+
+    the build where that frame's elbow jumped 31.4px   the ruler called CLEAN
+    the build where the same frame moves 3.2px         the ruler called A FLIP
+
+It had the two backwards. A ruler that passes the snap and fails the repair is
+reading noise, and the guard it needed was already half-written in the file: the
+line above says "a REAL bend only: a near-straight arm has no meaningful side".
+A FOLDED arm has no meaningful side either, for exactly the same reason, and that
+mirror was missing. The hand must now sit more than 4px from the shoulder before
+its side counts.
+
+THE GUARD CANNOT SWALLOW THE MEASUREMENT, and that is a claim of its own now:
+it skips 267 of 42,000 arm-frames, 0.64%, against a 2% ceiling. And the historical
+mutation still bites -- the rig before the elbow rule reports 50 flips and a 36px
+teleport and takes four claims red.
+
+Flips are back to 7 (cover-rise 3, cover-drop 3, bat-arc 1), the same seven that
+stood before this round, and they are the arm-across-body sweeps the 9/11 record
+already named as real motion.
