@@ -195,7 +195,15 @@ street shuffle, real seconds, with `synthV` recording what came out:
 |---|---|---|---|
 | plain `origin/main` | TWO COINS FOR THE FERRYMAN | obolbell | **0** |
 | this change | TWO COINS FOR THE FERRYMAN | obolbell | **5** |
-| the cut demo | TWO COINS FOR THE FERRYMAN | obolbell | **5** |
+| a locally cut demo | TWO COINS FOR THE FERRYMAN | obolbell | **5** |
+
+**AND THE DEMO ROW NEEDS ITS ASTERISK, because RULE 14 LANDED MID-ROUND (Paolo
+9/13, laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md): ONLY THE RUN RE-CUTS THE
+DEMO.** That row was measured on a demo this lane cut locally, before reading the
+rule off the front page. The cutter's output has been reverted to main's copy and
+is not in this change, so the demo carries this the moment RUN next cuts it, from
+the alpha, which is where it belongs. The measurement stands as evidence that the
+cut carries the change; it is not a claim about what is in the shipped demo today.
 
 Same song, same step (98), same conditions, no page errors on any of the three.
 

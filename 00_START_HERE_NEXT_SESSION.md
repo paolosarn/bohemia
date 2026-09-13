@@ -5680,8 +5680,12 @@ stack trace, because the bass, the accent and the lead can all name the same voi
 and a note attributed by its gain is a guess. Eleven call sites came back and they
 match the code exactly. VERIFIED ON THE REAL SURFACE with a control: plain
 origin/main plays TWO COINS FOR THE FERRYMAN's named lead 0 times; this build plays
-it 5; the cut demo plays it 5. Same song, same step 98, same conditions, no page
-errors. LEVELS, all 142 songs, the four bars where the tune plays, before and after:
+it 5. Same song, same step 98, same conditions, no page
+errors. A locally cut demo played it 5 too, but RULE 14 LANDED MID-ROUND (Paolo 9/13,
+laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md): ONLY THE RUN RE-CUTS THE DEMO. The
+cutter's output was reverted to main's copy and is NOT in this change, so the demo
+carries this when RUN next cuts it from the alpha. Nothing here claims the shipped
+demo has it today. LEVELS, all 142 songs, the four bars where the tune plays, before and after:
 median peak 0.3112 -> 0.3107, nothing silent, nothing quieter, ONE song louder.
 
 ONE DEFECT REPORTED AND NOT FIXED, because it is his content: MENU - LIGHTS ACROSS
