@@ -69396,36 +69396,44 @@ function showStanding(){
      behind no new button.
      DISCLOSURE, NOT A CHANGE: nothing here bills anybody, moves a number, or
      touches the purse. The night charges exactly what it charged before. */
+  /* *** THREE ROWS AND TWO LINES BECAME ONE ROW AND ONE LINE (9/13, THE FIVE
+     MINUTES). *** Paolo played the demo: "nothing's complete... I would like to see
+     [the tiny parts] come more together." MEASURED on a phone before touching it:
+     this card was 975 px of content in a 780 px window, 195 px off the bottom, and
+     TEN of its sixteen rows were this lane's. The thing that was cut off was this
+     lane's own answer.
+     NOT ONE FACT IS DROPPED. What it costs, how much of what you use they charge
+     for, what tonight stands at, whether walking on is free and when it is due are
+     all still here; they are one row and one sentence instead of three rows and two
+     sentences. A row per fact is how a card stops fitting a phone. */
   try {
     var _r = ctRentHere();
     if (_r) {
-      h += '<div class="rrow"><span class="rk">WHAT IT TAKES</span><span class="rv">'
-         + esc(battWord(1)) + ' a night, every block</span></div>';
-      /* AND HOW MANY OF YOUR BLOCKS THEY ACTUALLY CHARGE FOR, which is the whole
-         difference between a fortress and a camp and is FOUND by running the bill
-         up a ladder rather than written out per tier. */
-      if (_r.shape && _r.shape.per > 1)
-        h += '<div class="rwhy">A ' + esc(String(_r.tier)) + ' charges for '
-           + _r.shape.charged + ' block' + (_r.shape.charged === 1 ? '' : 's')
-           + ' in every ' + _r.shape.per + '.</div>';
-      else if (_r.shape)
-        h += '<div class="rwhy">A ' + esc(String(_r.tier))
-           + ' charges for every block you use.</div>';
-      h += '<div class="rrow"><span class="rk">TONIGHT SO FAR</span><span class="rv">'
+      h += '<div class="rrow"><span class="rk">RENT TONIGHT</span><span class="rv">'
          + esc(battWord(_r.now)) + ' for ' + _r.used
          + (_r.used === 1 ? ' block' : ' blocks') + '</span></div>';
-      /* THE ONE THING HE CANNOT WORK OUT FOR HIMSELF, AND THE REASON THIS ROW
-         EXISTS: whether walking on is free. Standing still is never another
-         charge, because the landlord bills a block and he is already on it. */
-      h += '<div class="rrow"><span class="rk">'
-         + (_r.counted ? 'ANOTHER BLOCK OF THEIRS' : 'THIS BLOCK')
-         + '</span><span class="rv">' + (_r.free ? 'FREE' : 'COSTS ONE')
-         + '</span></div>';
-      if (_r.dueMin != null)
-        h += '<div class="rwhy">Due at ' + esc(DAY.hhmm(_r.dueMin)) + ', in batteries.'
-           + (_r.tonight > _r.now
-              ? (' Everybody wants ' + esc(battWord(_r.tonight)) + ' off you tonight.')
-              : '') + '</div>';
+      /* THE SHAPE OF THE CHARGE AND THE NEXT BLOCK IN ONE SENTENCE. How many of
+         your blocks they charge for is the whole difference between a fortress and
+         a camp, and it is FOUND by running the bill up a ladder rather than written
+         out per tier. Whether walking on is free is the one thing he cannot work
+         out for himself, which is why it is the half that goes first. */
+      var _rs = (_r.shape && _r.shape.per > 1)
+        ? ('a ' + String(_r.tier) + ' charges for ' + _r.shape.charged + ' block'
+           + (_r.shape.charged === 1 ? '' : 's') + ' in every ' + _r.shape.per)
+        : ('a ' + String(_r.tier) + ' charges for every block you use');
+      /* AND IT STILL KNOWS WHETHER THE BLOCK UNDER HIM IS ALREADY PAID FOR. The
+         first tightening dropped that and always said "another block of theirs",
+         which is wrong by one on ground he has just stepped onto. It is a ternary,
+         not a row: standing still is never read as another charge, because the
+         landlord bills a block and he is already on it. */
+      h += '<div class="rwhy">'
+         + (_r.counted ? 'Another block of theirs ' : 'This block ')
+         + (_r.free ? 'is FREE' : 'COSTS ONE')
+         + ' · ' + esc(_rs)
+         + (_r.dueMin != null ? (' · due ' + esc(DAY.hhmm(_r.dueMin))) : '')
+         + (_r.tonight > _r.now
+            ? (' · everybody wants ' + esc(battWord(_r.tonight)) + ' tonight') : '')
+         + '.</div>';
       /* AND IF THEY HAVE ALREADY PUT THIS STREET OUT, SAY SO WHERE HE IS STANDING. */
       if (_r.cut)
         h += '<div class="rpend">' + esc(_r.faction.toUpperCase())
@@ -69476,15 +69484,28 @@ function showStanding(){
             _fac[_fk]++;
           }
         }
+        /* *** THE MIX IS ONE LINE, NOT A ROW EACH (9/13, THE FIVE MINUTES). ***
+           Four trades meant four rows, and measured on a phone this card ran 195 px
+           off the bottom with this lane owning ten of its sixteen rows. A mix is
+           ONE fact and it reads better as one: the same four numbers, a quarter of
+           the height, nothing dropped. Same for the outfits underneath. */
+        var _mix = [];
         for (var _oi = 0; _oi < _ord.length; _oi++)
-          h += '<div class="rrow"><span class="rk">' + esc(ctKindWord(_ord[_oi]))
-             + '</span><span class="rv">' + _by[_ord[_oi]] + '</span></div>';
+          _mix.push(_by[_ord[_oi]] + ' ' + ctKindWord(_ord[_oi]).toLowerCase());
+        /* AND THE TIER RIDES THE MIX LINE. A sentence underneath used to name what
+           this size of place has to spare -- and the mix above it is ALREADY that
+           list, because only spared trades are ever offered. Two lines saying the
+           same thing is exactly the not-coming-together he means. */
+        if (_mix.length)
+          h += '<div class="rwhy">' + esc(String(_j.tier || 'place')) + ': '
+             + esc(_mix.join(' · ')) + '</div>';
+        var _fl = [];
         for (var _ni = 0; _ni < _ford.length && _ni < 4; _ni++) {
           var _fp = _ford[_ni].split('::');
-          h += '<div class="rrow"><span class="rk">' + esc(_fp[0].toUpperCase())
-             + '</span><span class="rv">' + _fac[_ford[_ni]]
-             + (_fp[1] ? (' · ' + esc(_fp[1])) : '') + '</span></div>';
+          _fl.push(_fac[_ford[_ni]] + ' ' + _fp[0] + (_fp[1] ? (' (' + _fp[1] + ')') : ''));
         }
+        if (_fl.length)
+          h += '<div class="rwhy">' + esc(_fl.join(' · ')) + '</div>';
       } else {
         h += '<div class="rrow"><span class="rk">WOULD COME WITH YOU</span>'
            + '<span class="rv">NOBODY</span></div>';
@@ -69517,21 +69538,11 @@ function showStanding(){
           }
         }
       } catch(_e) {}
-      /* WHAT THIS SIZE OF PLACE HAS TO SPARE. A fortress can let go of every
-         trade standing on it and a camp cannot, off the same DEPTH table that
-         decides what a camp's shelf carries. */
-      if (_j.spare && _j.spare.length && !_j.refused) {
-        /* SAID WITHOUT PLURALS, and that is not laziness: three of the world's
-           four trade words pluralise and WATCH does not (a watch is a clock).
-           Naming the trades the way the shelf above names its goods sidesteps a
-           special case that would have to be maintained for every trade anybody
-           ever adds. */
-        var _sw = _j.spare.map(function(k){ return ctKindWord(k).toLowerCase(); });
-        h += '<div class="rwhy">A ' + esc(String(_j.tier || 'place')) + ' spares '
-           + (_j.tier === 'fortress' ? 'every trade standing on it: ' : 'only ')
-           + esc(_sw.length > 1 ? (_sw.slice(0, -1).join(', ') + ' and ' + _sw[_sw.length - 1]) : _sw[0])
-           + '.</div>';
-      }
+      /* THE SPARE-TRADES SENTENCE USED TO BE HERE AND IS GONE (9/13, THE FIVE
+         MINUTES). It named what this size of place has to spare, and the mix line
+         above it is already that list -- only spared trades are ever offered -- so
+         it was a second sentence saying the first one again on a card that did not
+         fit a phone. The tier moved onto the mix line; nothing else was lost. */
     }
   } catch(_e) {}
   if(r.mayorOpen){

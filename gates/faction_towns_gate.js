@@ -1119,8 +1119,14 @@ const done = () => {
          && RECRUIT.church.strangerAfter === 0);
       ok('L31 THE CARD HE OPENS REALLY SAYS IT, on a real surface and not in a '
          + 'string I built: ' + JSON.stringify(RECRUIT.cardBits),
+      /* THE SENTENCE THIS PINNED WAS FOLDED INTO THE MIX LINE (9/13, THE FIVE
+         MINUTES) -- "a fortress spares every trade standing on it" said again what
+         the mix above it already listed, on a card that ran off the bottom of a
+         phone. The CLAIM is that the card really names the crowd and the trades in
+         it, and that is what is asserted; only the spelling moved. */
          /WOULD COME WITH YOU/.test(RECRUIT.card)
-         && /spares/.test(RECRUIT.card) && RECRUIT.card.length > 40);
+         && /scavenger|worker|watch|keeper/i.test(RECRUIT.card)
+         && RECRUIT.card.length > 40);
       ok('L32 and the town\'s market card carries it at a seat',
          /WOULD COME WITH YOU FROM THIS BLOCK/.test(RECRUIT.marketCard));
       ok('L33 no page errors while any of that ran', RECRUIT.errs === 0);
@@ -1332,16 +1338,22 @@ const done = () => {
     const CARD6 = (CITY6.match(/function showStanding\(\)\{[\s\S]*?\n\}/) || [''])[0];
     ok('M16 it is on the card he already opens, under the row that names the owner',
        CARD6.length > 2000
-       && CARD6.indexOf('WHAT IT TAKES') > CARD6.indexOf('>THIS GROUND<')
+       && CARD6.indexOf('RENT TONIGHT') > CARD6.indexOf('>THIS GROUND<')
        && /__YOU_CAN_SEE_WHAT_THE_BLOCK_TAKES__/.test(CARD6));
     ok('M17 and it says all four things the row asks for: what it takes, what it '
        + 'stands at, whether walking on is free, and WHEN it is due',
-       /WHAT IT TAKES/.test(CARD6) && /TONIGHT SO FAR/.test(CARD6)
-       && /COSTS ONE/.test(CARD6) && /FREE/.test(CARD6)
-       && /Due at ' \+ esc\(DAY\.hhmm\(_r\.dueMin\)\)/.test(CARD6));
+      /* THE FOUR FACTS ARE STILL ALL FOUR; THEY ARE ONE ROW AND ONE SENTENCE NOW
+         INSTEAD OF THREE ROWS AND TWO (9/13, THE FIVE MINUTES). This is a ruler
+         following a deliberate change, not a check being loosened: every one of the
+         four is still named and asserted, by the spelling the card now uses. */
+       /RENT TONIGHT/.test(CARD6) && /battWord\(_r\.now\)/.test(CARD6)
+       && /charges for/.test(CARD6)
+       && /COSTS ONE/.test(CARD6) && /is FREE/.test(CARD6)
+       && /due ' \+ esc\(DAY\.hhmm\(_r\.dueMin\)\)/.test(CARD6));
     ok('M18 standing still is never read as another charge, because the landlord '
        + 'bills a block and he is already on it',
-       /ANOTHER BLOCK OF THEIRS/.test(CARD6) && /_r\.counted/.test(CARD6));
+       /Another block of theirs/.test(CARD6) && /_r\.counted \? /.test(CARD6)
+       && /'This block '/.test(CARD6));
 
     /* --- AND IT REALLY RUNS OUT THERE --- */
     if (RENTVIS) {
@@ -1372,7 +1384,7 @@ const done = () => {
       ok('M24 stand on a street they cut and the card says who cut it and why',
          /cut this street off/.test(RENTVIS.cardOnCut));
       ok('M25 and the same reading answers in CITY, not only on foot',
-         RENTVIS.cityMode === 'city' && /WHAT IT TAKES/.test(RENTVIS.cityCard));
+         RENTVIS.cityMode === 'city' && /RENT TONIGHT/.test(RENTVIS.cityCard));
       ok('M26 no page errors while any of that ran', RENTVIS.errs === 0);
     } else {
       ok('M19-26 the walked surface answered', false);
