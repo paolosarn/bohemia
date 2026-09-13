@@ -3102,3 +3102,85 @@ YYYYYYY3 somebody who will not ask for it back draft:true
   face. KKKKKKKK1 is as close as it gets and it is about the price, not him.
 - Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both a single
   word inside an English sentence, neither respelled.
+
+## PPPPPPPP. THEY COME AFTER HIM, NOT YOU
+## (round 39, the product. Gambetta: what is sold is not violence, it is a
+##  guarantee of safe conduct. The offer, said by the seller.)
+
+- PPPPPPPP1 `draft:true` — "If he doesn't turn up, that's our problem. Not yours."
+  (the whole product in ten words. VOICE CARD: nine words then two, and the two
+  are the sale.)
+- PPPPPPPP2 `draft:true` — "We're not muscle. We're the reason you don't need any."
+  (Gambetta's distinction in a sentence a person would actually say, and it is
+  smug, which is right.)
+- PPPPPPPP3 `draft:true` — "You shake his hand in front of me or you shake it on
+  your own. Up to you." (the offer without a threat in it, which is what makes it
+  a threat.)
+- PPPPPPPP4 `draft:true` — "Claro, you can do it yourself. People do." (Spanish
+  register, one word. Nobody leads with a no, and this is a no dressed as
+  permission.)
+
+## QQQQQQQQ. THE TWO ROOFS MEET
+## (round 39, the strelka. Both sides send their protector, the result binds both,
+##  several a day, mostly peaceful, and reputation decides it, not the merits.)
+
+- QQQQQQQQ1 `draft:true` — "You're not going. Somebody's going for you." (the
+  player is not in the room, said as the correction it is.)
+- QQQQQQQQ2 `draft:true` — "They'll sit down about it Thursday. Whatever comes out
+  of that is what happened." (the binding result, and "what happened" is doing the
+  work "the verdict" would have done badly.)
+- QQQQQQQQ3 `draft:true` — "It's not about who's right. I know. I'm telling you so
+  you don't say it in there." (somebody fumbles: he agrees and warns in the same
+  breath, and the advice is about the room, not the case.)
+- QQQQQQQQ4 `draft:true` — "Most of these end with everybody going home. Most."
+  (the record's own "the majority ended peacefully", with the repeat carrying the
+  rest of it. The last sentence was cut.)
+
+## RRRRRRRR. THE ONE THAT CANNOT BE WALKED BACK
+## (round 39, changing protector. Our own commitment ladder already says it:
+##  you cost yourself somewhere else to be here.)
+
+- RRRRRRRR1 `draft:true` — "You can go to them. You can't come back from going to
+  them." (the ceiling, as a sentence, with no number in it.)
+- RRRRRRRR2 `draft:true` — "I'm not angry about it. I just won't forget it, is
+  all." (the neglect counter said by a person. Nobody in Bohemia is wise and
+  nobody here is threatening.)
+- RRRRRRRR3 `draft:true` — "Two roofs is no roof. Ask anybody who tried."
+  (contract it: the cut version explained why. This does not.)
+- RRRRRRRR4 `draft:true` — "He's got somewhere else to be now. Good for him."
+  (the defector described in his absence, and the last two words are the whole
+  characterisation.)
+
+## SSSSSSSS. THE MARK THAT SAYS HE DOESN'T PAY
+## (round 39, what breaks it. Sicily's answer was not police, it was a label on
+##  the door saying this one pays nobody, and customers who cared.)
+
+- SSSSSSSS1 `draft:true` — "There's nothing on his door. That's the point of it."
+  (an absence as a sign, which is the hardest thing to say plainly and this does.)
+- SSSSSSSS2 `draft:true` — "I go to him now. Costs me the walk." (the customer
+  choosing, and the cost is the walk, not the money.)
+- SSSSSSSS3 `draft:true` — "Somebody's going to lean on him for that. Everybody
+  knows it and everybody still goes." (both halves true at once, which is what
+  courage actually looks like from the outside.)
+- SSSSSSSS4 `draft:true` — "Mira the door. Now look at the door across the street."
+  (Spanish register, one word, and the whole mechanic is taught by pointing.)
+
+## TTTTTTTT. WHAT IS NOT HERE, ON PURPOSE (round 39)
+
+- No line contains a number, a percentage, a cut or a price. The round's cut is
+  one battery per deal and it is never said.
+- No line uses the words protection, racket, extortion, court, arbitration,
+  enforcement, contract or deal. The whole mechanic is said as turning up,
+  sitting down, and doors.
+- No line has anybody threatening violence. Gambetta's finding is that the product
+  is not violence, and a bank that wrote threats would be arguing with its own
+  record.
+- No line names a faction, a street or a town. MAP LAW.
+- No line decides what the faction does to the party who breaks a deal, whether a
+  sit-down can be lost, or what the defector's number is. Those are the things
+  section 4 refused, and the record says the defector's number is not even in the
+  real material.
+- No line explains why any of this exists. Nobody in Bohemia is wise.
+- No line has the player speaking, and no line has him being told he is weak.
+- Spanish register: 2 of 16 lines, 13%, under the 15% he set on 8/26. Both a single
+  word inside an English sentence, neither respelled.
