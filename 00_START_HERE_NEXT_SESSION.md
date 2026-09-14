@@ -12273,7 +12273,52 @@ RIGHT NOW: (a) write this whole instruction, word for word, into your own handof
 
 I will never paste anything to you again. From here on, the one word is the whole instruction.
 
-THIS ROUND -- *** I MEASURED MY WAY TOWARD A FIVE-MINUTE BREAK, THE WAY PEOPLE DID, AND
+THIS ROUND -- *** THE STREET IS TWELVE PEOPLE NOW, NOT SIX, AND THE EXTRA SIX COST 150ms
+OF BOOT INSTEAD OF 3,200. The break this lane measured its way to is fixed. ***
+
+MEASURED ON THE SAME STREET IN THE SAME RUN, six bodies against twelve:
+    repeats among the people on screen   35% -> 24%
+    largest group of identical people      4 -> 3
+
+THREE PARTS, AND THE FIRST TWO ALONE CHANGED NOTHING:
+  1. SIX MORE SILHOUETTES in the cast table. Every garment already canon; nothing cooked.
+  2. THEY ARRIVE AFTER BOOT, one at a time on idle, on the message bus the first cast
+     already uses -- `append` is the only new word in it. Timed, alternating the runs so
+     machine drift could favour neither: 5487/5426ms without the lazy pass, 5622/5612ms
+     with it. About +150ms. NOT ZERO: my first draft of that comment said "does not move at
+     all" and my own control falsified it, so the number is in the code instead of a claim.
+     Baking six more eagerly costs +3,200ms and trades "nothing's complete" for "glitchy".
+  3. THE TRADE POOLS, AND I NEARLY SHIPPED WITHOUT THIS. Twelve bodies baked, posted and
+     ARRIVED, and the street did not move one pixel: 35 distinct of 54 with six bodies and
+     35 of 54 with twelve. A person's body comes from their TRADE and each trade named
+     exactly TWO fits, so nothing anybody did could reach the other ten. A BODY THAT IS
+     BAKED, SHIPPED AND UNREACHABLE IS A BIGGER LIE THAN NO BODY AT ALL. Pools two to four.
+
+*** AND I ALMOST SHIPPED SIX LOOKS THAT MADE MY OWN LANE'S LAW WORSE. *** The silhouette
+gate measures the WIDTH PROFILE and my first six were designed by garment NAME. The cast's
+distinctness went 0.084 to 0.080 against a 0.085 floor, and my own 'apron' was the single
+most alike body on the board. I SET THE RULE BEFORE TOUCHING IT -- the cast may not end up
+less distinct than it was without me -- then re-aimed four looks at where the body is
+WIDEST rather than what it is wearing: a bell, a barrel, a wedge, a thin column. 0.086.
+THE GATE WAS RED AT 0.084 BEFORE I TOUCHED ANYTHING AND IS NOW GREEN.
+
+*** AND I INTRODUCED A FLAKE AND CAUGHT IT. *** Because the extra bodies land on idle, the
+gate measured however many had arrived, and the same tree alternated between 6 passed 0
+failed and 5 passed 1 failed. That gate's own history carries the sentence for it: a gate
+that fails intermittently is worse than no gate, because it teaches everybody to re-run
+until green. It now waits for the cast to stop growing, then measures. Three runs, 12
+residents, 6 passed 0 failed, three times.
+
+- Rule 14a: shipped to the ALPHA only. The demo is RUN's to cut and was not touched, so he
+  will meet this when RUN next cuts.
+- SUITE (rule 13): pre-push pass green -- city cast silhouette 6/0 (was RED 5/1 before this
+  round), wardrobe wired 17/0, faction colour 29/0. No SUITE LINE on the front page yet.
+- Record: records/BOHEMIA_THE_STREET_IS_SIX_PEOPLE_9_14_26.txt
+- NEXT ROUND: the same question one level down -- twelve bodies still means 24% of the
+  crowd repeats. The cheap lever left is per-person variation that costs NO bake, and the
+  number to beat is 24% without adding to the boot.
+
+PREVIOUS ROUND -- *** I MEASURED MY WAY TOWARD A FIVE-MINUTE BREAK, THE WAY PEOPLE DID, AND
 THERE ISN'T ONE IN THIS LANE. That is the result, not a failure to find one. ***
 
 PEOPLE set the precedent this round: a held lane may MEASURE its way to a break that is
