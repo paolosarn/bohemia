@@ -71722,6 +71722,27 @@ window.BOHEMIA_HALF = (function(){
        Measured before: sleepbtn owned 28 px across and bikebtn 24. */
     +'#blstack > .uihalf{ min-height:44px!important; min-width:44px!important;'
       +'height:auto!important; display:flex!important; align-items:center!important }'
+    /* *** AND THAT display:flex WAS PUTTING DEAD BUTTONS ON HIS SCREEN (9/13, RUN,
+       VAMILY [cutter flex]). *** Paolo: "one button, ready to go, I press it, nothing
+       happens." The board blamed the demo cutter's thumb floor and the demo cutter is
+       NOT the cause -- measured on the glass with the one driver, by disabling that
+       whole stylesheet at runtime and watching MARKET stay on screen anyway. THIS rule
+       is the cause, and it is in the walked city, so it was never demo-only: the alpha
+       has it too.
+       HOW IT HAPPENS: a chip with nothing to do hides ITSELF, inline, and an inline
+       declaration loses to any !important. mktBtnSync() runs
+           el.style.display = (mktAt() && DAY.phase==='awake') ? 'block' : 'none'
+       so MARKET is correctly hidden three cells from the nearest market, and the line
+       above drags it back onto the screen where it does nothing forever.
+       THE FIX RE-HIDES ONLY WHAT THE GAME ITSELF HID, by reading the element's own
+       inline style, so it can never hide a chip the game wants shown. id+class+
+       attribute out-specifies id+class, and it sits later in the same sheet, so it
+       wins both ways. Both spellings, because a browser serialises the property with
+       a space and hand-written markup may not. THE HALVING IS UNTOUCHED: every chip
+       the game shows is still exactly the size his 9/6 ruling asked for. */
+    +'#blstack > .uihalf[style*="display: none"],#blstack > .uihalf[style*="display:none"],'
+      +'#topbar > .uihalf[style*="display: none"],#topbar > .uihalf[style*="display:none"]'
+      +'{ display:none!important }'
     +'#blstack.uihalf{ gap:0!important }'
     /* *** AND THE SPREAD IS THE CONTAINER'S gap, BECAUSE THE CHILDREN CANNOT BE MOVED
        AT ALL. *** Two rounds were spent pushing chips around with top and margin and
