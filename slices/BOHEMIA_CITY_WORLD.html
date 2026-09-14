@@ -56740,7 +56740,27 @@ window.addEventListener('message',function(ev){
     } }
     if(Object.keys(set).length) out.push(set);
   }
-  if(out.length){ CAST_CV=out; CAST_ID=ids; if(MODE==='human')render(); }
+  /* __THE_STREET_IS_SIX_PEOPLE__ (9/14, CHARACTER) -- A LATER BAKE CAN ADD TO THE CAST
+     INSTEAD OF REPLACING IT.
+     MEASURED ON HIS PHONE: 183 people on one screen and 47 different pictures among them.
+     74% of the crowd is a repeat of somebody else standing right there, and eleven
+     identical people are visible at once. The whole valley is six baked bodies in eight
+     facings, because CITY_LOOKS is 6 and every body the street draws comes out of CAST_CV.
+     AND IT IS NOT THE SHRINK: 114 distinct at native against 112 at the 32px he sees, so
+     sharper or bigger changes nothing. The bodies are the same bodies.
+     THE OBVIOUS FIX IS WRONG AND THAT WAS MEASURED TOO: one more baked body costs 530ms of
+     frozen page and the six already cost about 3.2 seconds, so baking twelve at boot trades
+     "nothing's complete" for "glitchy, buggy" -- another thing he named.
+     SO THE EXTRA BODIES ARRIVE AFTER BOOT, one at a time, on the bus that already exists.
+     This is the same message the first cast uses; `append` is the only new word in it, and
+     without it the behaviour is byte-identical to what it was. */
+  if(out.length){
+    if(m.append && CAST_CV && CAST_CV.length){
+      CAST_CV = CAST_CV.concat(out);
+      CAST_ID = (CAST_ID || []).concat(ids);
+    } else { CAST_CV=out; CAST_ID=ids; }
+    if(MODE==='human')render();
+  }
 });
 /* WHICH BODY THIS PERSON WEARS. Null until the bake lands, and the people pass
    falls back to the old tinted body in that window so nobody ever vanishes
@@ -56792,11 +56812,23 @@ function ctPhase(p){
    silhouette, which reads as a uniform, not a crowd. Every trade gets two, so
    the street varies and still tells you something.
    ========================================================================== */
+/* __THE_STREET_IS_SIX_PEOPLE__ (9/14, CHARACTER) -- AND THE SECOND HALF OF THE FIX, WHICH
+   I ALMOST SHIPPED WITHOUT. Twelve bodies were baked and posted and the street did not
+   change by one pixel: measured on the same street in the same run, 35 distinct out of 54
+   with six bodies and 35 out of 54 with twelve. THE NEW ONES WERE NEVER CHOSEN, because a
+   person's body comes from their TRADE and each trade named exactly TWO fits, so nothing
+   anybody does could ever reach the other ten. A body that is baked, shipped and
+   unreachable is a bigger lie than no body at all, and it would have shipped as "twelve
+   bodies" with nothing on his screen moving.
+   So every trade's pool goes from two to four. Which shape belongs to which trade is TASTE
+   and stays his to retune, exactly as it was; these are attempts (draft:true) and the
+   fallback below is untouched, so a renamed fit still lands on a person rather than on
+   nothing. */
 var TRADE_FIT = {
-  watch:  ['longcoat', 'cape'],       /* draft:true */
-  worker: ['barearms', 'widebrim'],   /* draft:true */
-  scav:   ['pack', 'widebrim'],       /* draft:true */
-  keeper: ['skirt', 'cape']           /* draft:true */
+  watch:  ['longcoat', 'cape', 'shortcoat', 'satchel'],   /* draft:true */
+  worker: ['barearms', 'widebrim', 'apron', 'bedroll'],   /* draft:true */
+  scav:   ['pack', 'widebrim', 'bedroll', 'satchel'],     /* draft:true */
+  keeper: ['skirt', 'cape', 'poncho', 'shorts']           /* draft:true */
 };
 /* WHICH BAKED BODY THIS PERSON WEARS. Their trade picks the pair; their own
    `look` picks within it, so a body still never flickers as you watch it.

@@ -99,6 +99,25 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
      'table read out of the source', !!fr);
   if (!fr) { console.log('CITY CAST SILHOUETTE GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed'); await browser.close(); process.exit(1); }
 
+  /* __THE_STREET_IS_SIX_PEOPLE__ (9/14, CHARACTER) -- WAIT FOR THE CAST TO STOP GROWING,
+     OR THIS GATE IS A CLOCK.
+     Six more bodies now arrive AFTER boot, one at a time on idle, so whatever this gate
+     measured the instant it looked depended on how much idle time the machine happened to
+     give the page. MEASURED BY RUNNING IT: the same tree alternated between 6 passed 0
+     failed and 5 passed 1 failed, with 7 residents both times. I INTRODUCED THAT FLAKE,
+     and this gate's own history has the sentence for it -- a gate that fails intermittently
+     is worse than no gate, because it teaches everybody to re-run until green.
+     So it waits until the count stops moving, then measures. Deterministic, and it measures
+     the WHOLE shipped cast rather than however much of it arrived first. */
+  await (async () => {
+    let last = -1, still = 0;
+    for (let i = 0; i < 40 && still < 4; i++) {
+      await new Promise(r => setTimeout(r, 500));
+      const n = await fr.evaluate(() => (typeof CAST_CV !== 'undefined' && CAST_CV) ? CAST_CV.length : 0);
+      if (n === last) still++; else { still = 0; last = n; }
+    }
+  })();
+
   const R = await fr.evaluate(() => {
     if (typeof CAST_CV === 'undefined' || !CAST_CV || !CAST_CV.length) return { err: 'no CAST_CV' };
     const bodies = CAST_CV
@@ -172,7 +191,21 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     name(p.a) + '/' + name(p.b) + ' ' + p.iou.toFixed(2)).join('   '));
   console.log('  mean ' + mean.toFixed(3) + '   body sizes ' + R.px.join(','));
 
-  ok('all six residents actually arrived in the city (' + R.n + ')', R.n === 6);
+  /* __THE_STREET_IS_SIX_PEOPLE__ (9/14, CHARACTER) -- THE CAST IS NO LONGER A FIXED SIX.
+     It was, and this check said `R.n === 6`, which was right when six was all there was.
+     Measured on his phone: 183 bodies on one screen and 47 different pictures among them,
+     74% of the crowd repeating somebody standing right there. Six bodies in eight facings
+     is 48 sprites for a whole valley.
+     Six MORE now arrive AFTER boot, one at a time on idle, because baking them at boot
+     costs 530ms each and would double a 3.2s freeze he already calls glitchy. So the count
+     this gate sees depends on how much idle time the machine gave the page before it
+     looked, and pinning it to any one number makes the gate a clock rather than a check.
+     WHAT IS ACTUALLY REQUIRED, and it is not weaker: the BOOT SIX must all be there (a
+     missing one is the bug this check was written for), and the cast may never exceed the
+     table. A body that is baked but not in CITY_CAST_LOOKS would be a body from nowhere. */
+  const tableN = ids.length;
+  ok('the boot six residents all arrived in the city, and no body came from outside the '
+     + 'table (' + R.n + ' of ' + tableN + ')', R.n >= 6 && R.n <= tableN);
   ok('each of them has a real body, not an empty canvas', R.px.every(n => n > 400));
 
   const twins = sorted.filter(p => p.iou < MIN_PAIR_PROFILE);
