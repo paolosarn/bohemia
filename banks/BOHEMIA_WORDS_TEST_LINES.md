@@ -2150,3 +2150,78 @@ BROTHER  Pass the salt.                                                [time off
 #   a conclusion delivered in the same breath as the observation
 #   a line that stays on screen after the player steps off the prints
 #   and any sentence that tells the player whether to follow or to avoid
+
+## Q24 ROUND TWO -- YES WORDS, ARMED BY SCHOOL  (9/14/26)
+# Round one is records/BOHEMIA_WORDS_Q24_SCHOOL_A_YES_WITH_AN_IF_IN_IT_IS_NOT_A_YES_9_13_26.md
+# The first card of the game. Tab: RUN. All draft:true.
+#
+# THE CARD ALREADY HAS FOUR PIECES OF TEXT, read out of the code rather than guessed:
+#   the take row        I'LL TAKE IT                                  (PEOPLE, b39c33cb)
+#   the confirmation    You took it. It is yours until the day is out. (PEOPLE, b39c33cb)
+#   a haggle row        Make it a <currency> instead                   (bohemia_haggle.js)
+#   a haggle row        Half of it now, before I go                    (bohemia_haggle.js)
+#
+# WHICH FINDINGS FROM SCHOOL CHANGED THESE LINES:
+# 1. A CONDITION INSIDE THE YES RE-OPENS THE DEAL; BESIDE IT, IT CLOSES. Under the
+#    mirror image rule a reply that accepts on condition of different terms is a
+#    COUNTER-OFFER. So this card has two kinds of row and they are two different
+#    speech acts: one CLOSES and the others RE-OPEN. The family below writes them
+#    apart on purpose, because a player must be able to tell which button ends the
+#    negotiation.
+# 2. THE ACCEPTANCE THAT MEANS SOMETHING IS A READBACK. Aviation requires verbatim
+#    repetition because "roger" hides a misunderstanding. So the BUTTON stays short
+#    and THE CONFIRMATION does the reading back.
+# 3. WHICH OF THE FOUR TERMS HE READS BACK IS THE CHARACTER: price, skill, place or
+#    time. So there is one confirmation per term, not one confirmation.
+# 4. NOTHING BINDS in this valley, so no line swears loyalty; the confirmations name
+#    the first checkpoint instead, which is the thing that actually governs.
+# 5. SOCIAL YES IS FAST AND BARE, measured at 1.75 words in real recorded speech, so
+#    the button is not made weighty and PEOPLE's "I'LL TAKE IT" survives as one of
+#    the options rather than being replaced for the sake of it.
+
+### THE TAKE ROW. Short, and every one of them CLOSES.   draft:true
+  I'LL TAKE IT          <- PEOPLE's, kept: three words, closes cleanly
+  I'M YOUR MAN
+  PUT ME DOWN FOR IT
+  YO VOY                <- Spanglish, two words, same job
+# None carries an "if". A row with an "if" in it belongs in the haggle block below,
+# and putting one here would label a counter-offer as an acceptance.
+
+### THE CONFIRMATION, WHICH IS THE READBACK. One per term the job turns on.  draft:true
+  TIME    You took it. It is yours until the day is out.   <- PEOPLE's, kept verbatim
+  PLACE   You took it. It goes to the tank, not the gate.
+  PAY     You took it. One battery, on the far side, not before.
+  LOAD    You took it. Whatever fits on the cart, and one trip.
+  SPANG   Lo tomaste. Hasta que se acabe el día, y ni un minuto más.
+# Each says ONE term back. Which term the job turns on decides which line shows, and
+# a job with nothing to read back keeps PEOPLE's original, which is the safest of
+# them because a day is the one term every job has.
+
+### THE HAGGLE ROWS, WHICH MUST READ AS RE-OPENING   draft:true
+# These are COUNTER-OFFERS and the card should never let them look like a yes.
+  Make it a {CURRENCY} instead      <- kept: a demand, no yes attached to it
+  Half of it now, before I go       <- kept: names the condition, promises nothing
+  Say the hour and I will think about it
+  Not for that. For that and the tank, yes.
+# The last one is the sharpest version of finding 1: it REFUSES first and then names
+# its own terms, which is what a counter-offer actually is.
+
+### WHAT THE OTHER SIDE SAYS BACK, WHICH DOES NOT EXIST YET   draft:true
+# A haggle needs an answer or the row is a button that promises and does nothing.
+  TAKEN    Half now. Fine. Do not make me come looking.
+  TAKEN    A {CURRENCY}, then. You drive a hard bargain for a man with no cart.
+  REFUSED  Ah, no. I have got two other people who will take it as it stands, and
+           one of them is already up.
+  REFUSED  Well, no. Not because of you. Because the man I answer to counted it
+           once already.
+# The two refusals are built on this lane's Q21 finding: a refusal is prefaced and
+# carries an account, at twice the rate and half again the length of an acceptance.
+
+### THE REFUSALS: WHAT THIS CARD WILL NEVER SAY   draft:true
+# BANNED, on the evidence in round one:
+#   a take row with an "if" in it, which is a counter-offer wearing a yes
+#   a confirmation that reads back nothing, because "roger" hides a misunderstanding
+#   an acceptance that swears loyalty, since nothing here binds
+#   a haggle row phrased so it could be mistaken for accepting
+#   a haggle row with no answer written for it, which is a dead promise
+#   and a weighty ceremonial yes, because agreement is 1.75 words and always has been

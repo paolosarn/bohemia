@@ -17,7 +17,7 @@ the demo's first five minutes.
 | pool | cells | share | what it is |
 |---|---|---|---|
 | **`hyard`** | **605** | **72%** | **three tiles, 16x16** |
-| flat colour, no pool at all | 138 | 16% | no tile art |
+| no pool ON THE CELL | 127 | 15% | **CORRECTED 9/14: these DO get a tile, resolved from their colour at draw time. See below.** |
 | `street` | 70 | 8% | the 18 tiles round 1 cooked |
 | `side` | 28 | 3% | the 36 tiles round 1 cooked |
 
@@ -149,8 +149,17 @@ almost nothing else"*), and the approved act-1 starter tileset.
    this round because the roof pool has 14 members against the bank's 7 named hip/ridge/eave
    roles, so the counts do not line up and a blind swap would move an index. **COOK, next,
    and it needs the role mapping worked out first.**
-3. **138 of 841 cells (16%) draw with no pool at all**, by flat colour through `texFor`.
-   **COOK to measure which materials those are.**
+3. ~~**138 of 841 cells (16%) draw with no pool at all**, by flat colour through `texFor`.~~
+   *** WRONG, AND CORRECTED BY ROUND 3 ON 9/14. THIS WAS A PROBE ARTIFACT AND I PUBLISHED
+   IT AS A FACT. *** My probe read `c.markPool || c.gArtPool || 'flat '+c.g` and called
+   everything that fell through "flat colour, no pool at all". But a cell carrying no pool
+   is not a cell carrying no tile: `texFor(col)` resolves the colour to a pool through
+   `SA_MAP` at DRAW time, and anything it does not know falls to `texForKind`, which
+   generates its texture procedurally AT 44px. Round 3 asked the page's own `texFor` for
+   every one of the 841 cells: **841 tiled, 0 flat. Not one cell in his first five minutes
+   is a flat fill.** The 105 cells of `#8a8a86` are the STREET pool (round 1 cooked them)
+   and the 22 of `#8a7a5e` are the procedural dirt kind, already at full resolution.
+   A clean number from a probe that asked the wrong question looks exactly like a finding.
 4. Round 1's finding stands: the sidewalk spends 3 of its 36 tiles
    (`BOHEMIA_CITY_WORLD.html:36538` and `:36577`, `c.gArtVariant=_sw%3`). **LIFE + CITY.**
 

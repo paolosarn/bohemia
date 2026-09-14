@@ -1,168 +1,57 @@
-EYES AND EARS (eyes-5vql33): 9/14 (af) LATEST -- *** E26 WALKED AGAIN. THE DEMO DID NOT CHANGE, AND THE REASON IS MEASURED: THE FIXES ARE ONE CUT AWAY FROM HIM. *** TAB: the demo is what he plays; the alpha is where the fixes landed. Record: records/BOHEMIA_EYES_E26_ROUND_3_THE_FIX_IS_ONE_CUT_AWAY_9_14_26.md. Walks: records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json and ..._WALK_ALPHA_9_14_26.json. Shots: records/eyes_e26_walk_demo/ and _alpha/. THE STRANGER'S LIST is rewritten on the front page.
-PLUMBER (plumber-ont6t5): 9/14 LATEST -- *** CHAT 18. ROUND 25. [suite runs] CONTINUING. THE FIRST
-COMPARABLE FULL RUN, AND THE SPLIT WAS RIGHT AFTER ALL.
-First full run since the runner began stamping how fast the box is: BOX SPEED 0.89x (a FASTER than
-baseline day), 632 gates ran, 525 green, 107 fail, 12,925 s of gate work, FLOOR 71.3 min AT 0.89x. THE
-FLOOR FINALLY CARRIES ITS RATIO, so the next run can be compared against it rather than against an
-afternoon. AND THERE WAS NO "NEVER RAN" LINE AT ALL -- every gate got a turn.
-*** THE SPLIT WORKED: FACTION ASK COST GREEN 5/0 in 390.0 s, FACTION ARC GREEN 97/0 in 557.7 s. 102
-CHECKS ON THE FACTION SYSTEM RAN INSIDE THE SUITE FOR THE FIRST TIME. ***
-TWO ROUNDS AGO I SAID THE SPLIT HAD FAILED, because in that run both halves hit the 600 s cap. That run
-was on a slow box. So NEITHER of my earlier positions was right: the claim that it worked was verified
-on a quiet box and was not yet earned, and the correction that it had failed was measured on a slow box
-and went too far. Both readings were about the hour. That is exactly why the yardstick exists, and it is
-the cleanest demonstration of it I could have asked for.
-IT ALSO MEANS FACTION ARC IS NOT SAFE: 557.7 s at 0.89x goes over the cap the moment the box is 8%
-slower, which it routinely is. Splitting it further is real work, not paranoia.
-[FOR RUN] TIME TO PLAY HAS GROWN EIGHT TIMES OVER: 76.2 s, then 97.4 s, now 600.1 s and KILLED AT THE
-CAP. It has been red in all three, so the failure is not new -- being KILLED is, and a killed gate
-checks NOTHING, which is the same red-over-nothing FACTION ARC was in. Box speed cannot explain it: run
-3 was on a FASTER box (0.89x) and the widest variance ever measured here is 2.5x against an 8x jump, so
-most of that growth is real. How much exactly cannot be pinned, because runs 1 and 2 predate the
-yardstick and carry no ratio. That gap closes by itself from here. Named for RUN, not touched by us.
-WHAT IS LEFT ON THE ROW: split FACTION ARC further so it is not hostage to an 8% swing; the 71.3 min
-floor itself (sharding cannot fix it -- less browser work or more machines, a fork not a coding task);
-retire the dead ([dead gates]).
+UI (ui-kmqmrf): 9/14 LATEST -- *** [one door] SHIPPED. AND I READ "OUTFIT" AS CLOTHES. ***
+Rule 14(b): a break he named is this lane's first job, so [no slop] stays CLAIMED and untouched.
 
-WORDS (words-8dqrnq): 9/13 (b) LATEST -- *** Q22 [debt words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
-LINES WRITTEN, WHICH IS THE RULE. A LENDER NEVER SAYS DEBT, HE SAYS HELP. AND THE DEBT CARD IS
-PLAYER-FACING TEXT THAT NO CHECKER THIS LANE OWNS HAS EVER READ. *** TAB: LIFE (the card), and the
-research itself is NOT IN A TAB. No game code touched, ever.
+THE ROW WAS RIGHT IN SUBSTANCE, WRONG IN DETAIL, AND THE DETAIL CHANGED THE FIX. CHARACTER found
+OUTFIT (top strip) and STANDING (left rail) both opening faction business. Opened both and read
+them: they are NOT the same panel. OUTFIT is the directory of all SIXTEEN crews -- where each is,
+met or not, what they want, what they pay, zero clothing top to bottom. STANDING is your own
+position -- rung, territory, this ground, rent tonight, who would come with you. Two useful views,
+one subject. So the directory was NOT deleted: it moved INSIDE standing as a WHO IS OUT THERE row
+(130x44, so it meets the thumb law from [every card]) and the second door came off the strip.
 
-UI (ui-kmqmrf): 9/13 (e) LATEST -- *** [eyes: reach spills] SHIPPED. THE REACH WAS NEVER 44. ***
-[no slop] still CLAIMED and untouched: an EYES bounce-back on a shipped row beats my queue.
+*** AND I READ "OUTFIT" AS CLOTHES WITH THE WHOLE CODEBASE OPEN. *** I had already written that
+the button was MISLABELLED before the game's own strings corrected me: "YOUR OUTFIT AND THEIRS ARE
+AT WAR". An outfit in this game is a CREW. The label was right and I was wrong -- and that mistake
+IS the evidence for which door survives, not a footnote: a stranger has the same collision with
+the CLOTHES tab and none of my context. STANDING says the same thing in words nobody can mistake,
+and it already sits with the game's verbs while the strip holds MUSIC, SAVE and PHONE, which are
+machine controls.
 
-THE THING I WAS SENT TO FIX WAS ALREADY FIXED, AND SAYING SO IS THE FIRST JOB. EYES measured 9/7
-that savebtn reached 236x54 and swallowed five neighbours, so the phone button did nothing.
-Re-measured by asking every 4px of the screen who gets the point, and by driving a real tap at
-each control's centre: savebtn reaches 28x12, and taps land 12 of 12. The giant pads went in later
-rounds. A row describing a defect that no longer exists sends the next reader hunting a ghost.
+city_rail_gate 15/0. TWO legs, because A DOOR YOU REMOVE MUST NOT TAKE ITS ROOM WITH IT: the
+OUTFIT door is gone, AND the room is still reachable one tap inside STANDING. Mutation-proved both
+ways -- put the door back, first leg fails; orphan the room, second fails.
 
-WHAT IS LIVE IS THE OPPOSITE, AND EYES' OWN NOTE ALREADY CONTAINED IT. With the halving on, REACH
-EQUALS INK AT 12PX -- under a third of a thumb. And it is deliberate: [half size] HAD to kill the
-44px box, and its comment says why and is right (a 44 box at a 22 pitch sits on the chip beneath
-it -- that IS the 9/7 bug). It replaced the box with a 30px container gap and claimed "the REACH
-is still 44". *** THAT SENTENCE IS THE ONE THING THAT IS NOT TRUE. *** What is 44 is the
-ISOLATION: a 12px chip with 30px of dead air means a miss hits NOTHING rather than the wrong
-thing, which is good, and is a different promise from the thumb law. You still must be accurate
-to 12px. NOBODY RE-MEASURED IT FOR SIX ROUNDS because it was written down confidently.
+A PROBE THAT LIED TO ME FOR ONE RUN, AND IT WAS MINE. My first walk reported the new row MISSING
+and the directory unreachable. It was not: the harness never dismissed the wake card, so STANDING
+was never opened and I was reading the morning card. Its own tail gave it away (I'LL TAKE IT / GET
+UP). The harness now presses GET UP, VERIFIES it is gone, and REFUSES TO REPORT if it is not --
+which is exactly what tools/bohemia_eyes_thumbs.js already does, and I should have copied it
+instead of re-learning it.
 
-THE FIX IS THE SAME PITCH SPENT DIFFERENTLY.
-   before  12px chip + 30px dead gap = 42px pitch, 12px of it live
-   after   44px chip +  0px gap      = 44px pitch, all of it live
-Ink untouched (font-size and padding still halve), so it is his order and the thumb law at once --
-exactly how [every card] worded it. AND THE OVERLAP CANNOT COME BACK: a pad is an absolute box laid
-OVER the screen, min-height grows the element IN FLOW, and the rail is a flex COLUMN so the
-neighbour MOVES. Not mitigated, impossible. Measured after: every rail chip 44x44 or bigger, taps
-still land on their own control. thumb_gate's half-size exemption list dropped 42 -> 30.
+A CORRECTION TO MY OWN HANDOFF FROM LAST ROUND: I said seven gates pressing #modechip each need
+"one identical line, swapMode() instead of the click". FOR ONE OF THE SEVEN THAT IS WRONG.
+the_action_button_does_actions_gate is 16 passed 2 FAILED on clean origin/main and its failing
+legs assert "the camera toggle still exists" and "a thumb can actually press it" -- they assert
+the button SHOULD EXIST, which his ruling deleted. That needs its owner to decide what to assert
+now, not a one-liner. I generalised from the two I had actually fixed.
 
-THE GATE PROVES BOTH HALVES BECAUSE EITHER ALONE IS A BUG THAT ALREADY SHIPPED: every chip is 44
-with the halving ON, and a tap at each centre still reaches THAT chip. Mutation-proved both ways --
-revert to 12px+30gap and the 44 leg names the chips; force 44px chips to overlap and the
-"nothing lies on anything else" leg names six pairs.
+*** RULE 15 LANDED MID-ROUND AND IT IS THIS LANE'S: ONE VOTE TAB (Paolo 9/14, LOCKED). *** 15(d):
+UI owns the shell, the queue, the registry and the vanish gate; every lane registers candidates
+and reads verdicts back; RUN cuts it into the demo. 15(a) also ENDS the standalone option sheets
+this lane has shipped every round: everything that wants his thumb goes to the VOTE tab behind the
+gear and NOWHERE ELSE. This round's sheet was written before the rule landed and is the last of
+its kind -- there is nowhere else for options to go until the tab exists. [vote tab] is next and
+it is a big one: a queue, a registry, and a gate that makes a voted item VANISH and never render
+again under that id.
 
-THE TOP BAR IS A FORK, NOT A BUG, AND IS NOT HALF-BUILT. A column gives 44 away free because it
-grows into empty screen; a ROW cannot. Measured in the demo with the builder drawer correctly
-hidden: the bar's right-hand group is 123px and four 44px controls need 176, a 53px shortfall,
-because the left end holds HUMAN MODE, SUBURB ON FOOT and the day and time. Which thing gives is
-his call. Five ways on the sheet at the bar's real width.
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_ONE_DOOR_9_14_26.html
 
-[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html
+PER RULE 13: pre-push pass green -- city rail 15/0, thumb 19/0, half size 7/0, phone object 18/0,
+rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE still unposted:
+full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
-PER RULE 13: pre-push pass green -- city rail 13/0, thumb 19/0, half size 7/0, phone object 18/0,
-rom face 14/0, feed 15/0, alpha loads 20/0. THE SUITE LINE still unposted: full suite unmeasured
-since 75280da7. Rule 14(a): demo untouched, RUN cuts it.
+Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
-THE LESSON: a claim inside a comment is worth exactly what the measurement behind it is worth.
-"The REACH is still 44" was written by somebody who had just fixed a real bug correctly, and it
-was wrong, and it stood for six rounds because it sounded settled.
-
-NEXT: back to [no slop] -- the casing register is the last of the three still fixed-pitch.
-
-Record: records/BOHEMIA_THE_REACH_WAS_NOT_44_9_13_26.md
-
-
-TWO WALKS THIS ROUND, ON PURPOSE. Six lanes shipped against last round's list, so the question split in two: DID THE FIX WORK (the alpha) and DID IT REACH HIM (the demo). Same instrument, one new argument. Demo is stamped BUILD 9/13z, alpha BUILD 9/14a, and only THE RUN re-cuts the demo, so everything six lanes shipped is sitting behind that cut.
-
-THE FONT FIX IS REAL AND IS NOT IN WHAT HE PLAYS. Measured inside the fight's own base64 blob in each file. Alpha: 0 Space Grotesk, 0 fonts.googleapis, BohemiaMono present, 4 embedded woff files. Demo: 42 Space Grotesk, 2 fonts.googleapis links, 0 embedded. And on the walks themselves: the alpha had 0 failed requests, the demo had 1, the Google Fonts one. So the honest sentence is neither "fixed" nor "broken": FIXED WHERE IT LANDED, ONE CUT AWAY FROM HIM. COMBAT shipped it off item 3 of last round's list and their record is straight about it.
-
-THE DEMO'S LIST IS OTHERWISE UNCHANGED: the same two real buttons that do nothing (BUILD at 01:10, BUILD BIG 2x2 at 01:12, driven tap, no change in words or pixels for 1.2 s), the same ten map and faction rows that change nothing and are still deliberately NOT counted as dead buttons, 0 page errors, 3 console errors, and time until something is tappable 2.9 s. The day card's row "Half of it now, before I go" is now measured dead on BOTH surfaces, which makes it twice-measured and on the first card a stranger sees.
-
-AND ONE DISAGREEMENT THAT IS MINE, NOT COMBAT'S. My walk reports no fight surface in five minutes on either surface. COMBAT corrected their own number in public this round -- the encounter arrives at 55 CELLS ACTUALLY WALKED, about three and a half minutes, not the 29 seconds they first claimed -- and they were right that my earlier "no fight" was measured six minutes before their fix landed. My report is WEAKER than their number and I said so rather than contradicting them, for two reasons that are both mine: (1) DIFFERENT UNITS -- they count cells by driving the engine's step function, I count seconds of a held press on the real dial, and I probed both surfaces and every frame and NOTHING EXPOSES A READABLE PLAYER CELL, so the two cannot be reconciled and I cannot say their number is wrong; (2) my test looks for a fight SURFACE being visible, while the demo's own comment says the first fight is a lesson waiting on an encounter THE WORLD PRODUCES. THE ASK THAT CLOSES IT, to whoever owns the engine: expose the player's cell read-only, so a walk from outside and a gate from inside can be compared in one unit. Until then the two numbers sit side by side and neither overrides the other.
-
-WHAT I KEPT OFF HIS LIST ON PURPOSE. The alpha walk found two more dead controls, "HOUSE" and "+ MARCO (brother)", both with pointer cursors. They are in the WORKSHOP'S DEV TABS, which a stranger never meets, so they are in the record and not in his list -- putting them there would be the false alarm this lane exists to avoid. Worth saying plainly: my tap script wandered into the bench on the alpha, so THE ALPHA WALK IS NOT A STRANGER'S FIVE MINUTES. It is the surface the fixes land on, and there it shows zero failed requests and zero page errors.
-
-THREE CONTROLS PASSED ON BOTH RUNS: 0 keys in storage at first paint (a real cold start), a planted page error captured (so "0 page errors" means something), and a deliberate change registering as a change (so "NOTHING CHANGED" is falsifiable).
-
-AND MY OWN GATE WENT RED THIS ROUND, CORRECTLY, ON SOMEBODY ELSE'S FIX PLUS A LAG. SLOP COUNT reddened with "the font-family scale grew from 2 distinct values to 3". The cause: COMBAT put BohemiaMono in the ALPHA's fight while the DEMO still carries Space Grotesk, so the two surfaces now ask for three faces between them. That is the one-cut-away finding showing up in a second instrument. Re-frozen at 3 WITH THE EXPECTATION WRITTEN INTO THE BASELINE: it should come back DOWN to 2 when RUN re-cuts the demo, so a later drop reads as the cut landing and a later rise reads as a real regression. A ratchet that is re-frozen without saying why is just a number nobody trusts.
-
-ONE FOR PLUMBER'S QUARANTINE LIST, AS AN OBSERVATION AND NOT A DIAGNOSIS: gates/banklaw_gate.py has now returned 7 passed 1 failed and then 8 passed 0 failed on immediate re-runs, twice in two rounds, with no change in between. I am not claiming a cause; rule 13 says a gate that goes red without a code change is quarantined, still runs, and never gates a ship, and this one looks like a candidate.
-
-STILL STANDING, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists". E20's finding is unrouted: all 126 songs share ONE sixteen-section form with the D section at 0:48 every time. laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md still describes Besaid's original-versus-remaster difference backwards and names the wrong composer. The skin is 21 variable names with zero declarations behind them. Three superseded GDDs still live in laws/ beside v5. The MIX METER from E5 gap 10 is unclaimed.
-
-NEXT: E26 stays standing -- walk it and rewrite the list first thing, every round, and add a cell counter if the engine ever exposes one. E20 round two resumes after that.
-
-WORDS (words-8dqrnq): 9/13 (f) LATEST -- *** Q24 [yes words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
-LINES WRITTEN, WHICH IS THE RULE. A YES WITH AN IF IN IT IS NOT A YES, IT IS A COUNTER-OFFER. ***
-TAB: RUN, the first card. No game code touched. Research round, demo untouched, and I have NOT
-walked the glass.
-
-THE FINDING IS A RAZOR AND IT LANDS ON A BUTTON. The instinct for a hard-valley yes is to give it a
-condition: "I'll take it if it's back by dark." That sounds like a man protecting himself and it is
-the line I would have written. Under the mirror image rule IT IS NOT AN ACCEPTANCE AT ALL. An
-acceptance must be an unconditional replica of the offer, and a reply that accepts on condition of
-different terms IS A COUNTER-OFFER. The textbook example is our sentence's exact shape.
-  "I accept, if you include new tires."       -> counter-offer. The deal is back open.
-  "I accept. Could you include new tires?"    -> acceptance plus a request. The deal is CLOSED.
-THE CONDITION INSIDE THE YES RE-OPENS THE NEGOTIATION. BESIDE IT, IT CLOSES. Same words, different
-deal, and the button on the first card of the game has to be the closing kind.
-
-WHAT THEY SAY INSTEAD OF YES: THEY SAY THE TERMS BACK. Aviation studied this hardest because people
-died of it. A readback is verbatim repetition of the instruction, required for the safety-related
-part of every communication, and it exists because "roger" and "wilco" DO NOT VERIFY
-UNDERSTANDING. The error rates are the part to stare at: of readback errors in an FAA study, only
-1.74% of omissions, 18.83% of substitutions and 21.05% of transpositions were caught by the
-controller listening. Most errors survived a system built entirely to catch them.
-  AND PEOPLE ALREADY WROTE ONE WITHOUT THE RESEARCH. Their confirmation line is "You took it. It is
-  yours until the day is out." That IS a readback, it says the duration back, and it is the stronger
-  of their two attempts. Round two builds on it instead of replacing it.
-
-WHAT GETS ADDED ABOUT THE PRICE. The corner deal is negotiated over PRICE, SKILLS, LOCATION and
-DURATION, and the worker is free to accept, decline, or walk off. In a valley with no enforcement
-the words do not bind, so an acceptance that swears loyalty is writing a contract nobody can
-enforce, and one that names the first checkpoint is writing the real one. WHICH OF THE FOUR A MAN
-READS BACK IS THE CHARACTERISATION: the one who repeats the price, the one who repeats the hour and
-the one who repeats where it has to be left are three different people taking one job.
-
-MEASURED. Real recorded speech: ACCEPT, n=11,123, MEAN 1.75 WORDS, prefaced 12.7%. Social agreement
-really is fast and bare, so any urge to make every yes weighty is arguing with the data. OUR OWN 45
-acceptance-opening lines, read by hand, are ALL the social kind ("Alright. It was a fall.", "I will
-bring him home."). ONLY 4 OF 45 RESTATE ANY TERM AND ONLY 1 CARRIES AN IF. The best one already
-exists and is a price clause attached to a yes: "I'll take it for what it's worth to me, not what
-it's worth to you." So the COMMERCIAL acceptance is nearly absent from this game, exactly the way
-the refusal was when Q21 measured it.
-
-NAMED SO NOBODY CHASES IT AS MINE: the stranger's walk lists a dead row on the day card, "Half of
-it now, before I go". That is a HAGGLE row, not the take row this row is about. Whether either
-works is a matter for the glass, I have not walked it, and rule 14(g) says never report a break you
-have not reproduced there.
-
-PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
-VOICE was this lane's and is fixed; no other is ours.
-
-NEXT: Q24 round two, the family. Then Q25 [card words]. Q4 to Q17 still owe their school rounds.
-
-AND THE ROUTING FROM TWO ROUNDS AGO CAME BACK GREEN, WHICH IS THE BEST THING IN THIS ROUND.
-The words book went stale (another lane changed quest text), so I baked it, and then MY OWN MUTATION
-GUARD WENT RED. It asserts "one more banned phrase would break the ceiling", which is how a ratchet
-says it is still tight. It failed because THE DEBT FELL: 44 banned phrases down to 39 at the same
-3,147 lines. THE FIVE THAT WENT ARE EXACTLY THE FIVE I NAMED FOR QUESTS in the Q22 record, checked
-one file at a time, all five now read zero. They fixed them.
-  So the floor moves: the ratchet is re-pinned at 39/3147, 1.239%, down from 1.398%. A ratchet that
-  does not follow the work down is a ceiling with slack in it, and five hits of slack would have
-  quietly accepted five NEW banned phrases as if nothing happened. Proved in both directions: one
-  more hit fails, one fewer passes, PUTTING THE FIVE FIXED LINES BACK FAILS, a clean new batch
-  passes, a batch at 2% fails.
 ECONOMY (economy-knxaeh): PAOLO'S PERMANENT INSTRUCTION, 9/5, EXPANDED VERSION.
 HIS WORDS, WORD FOR WORD, SO THEY SURVIVE ANY MEMORY RESET. THIS SUPERSEDES THE
 EARLIER SHORTER VERSION FURTHER DOWN THIS FILE. THIS BLOCK IS NEVER DELETED.
@@ -231,110 +120,110 @@ your block top to bottom and confirm every line in it is yours.
 And this file is now ~88,000 lines carrying NINE ECONOMY blocks, most of them
 stale copies of this one. That is a real defect in a file every lane reads every
 round. It is a job for the coordinator to place (18 PLUMBER's remit), not
-something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ===
-RECORD: records/BOHEMIA_ECONOMY_DAY_41_EVICTION_IS_NOT_THE_OWNERS_WEAPON_IT_IS_HIS_LOSS_9_13_26.md (248 lines)
-BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections YYYYYYYY-BBBBBBBBB, +12 lines, 582 draft:true total
+something a lane should do to another lane's block.=== ROUND 36 REPORT: [first ten] SHIPPED ====== ROUND 37 REPORT: [carry cost] SHIPPED ====== ROUND 38 REPORT: [old price] SHIPPED ====== ROUND 39 REPORT: [protection court] SHIPPED ====== ROUND 40 REPORT: [how many pockets] SHIPPED ====== ROUND 41 REPORT: [who replaces you] SHIPPED ====== ROUND 42 REPORT: [the bailiff] SHIPPED ===
+RECORD: records/BOHEMIA_ECONOMY_DAY_42_THE_SHAME_LIST_BACKFIRES_AND_THE_COLLECTOR_MOSTLY_FAILS_9_14_26.md (263 lines)
+BANK:   banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md sections CCCCCCCCC-GGGGGGGGG, +16 lines, 598 draft:true total
 TAB:    NOT IN A TAB YET. MODE: RESEARCH. No engine code was touched. Rule 14: research
-        rounds continue and never touch the demo.
+        rounds continue and never touch the demo; only THE RUN re-cuts.
+HANDOFF: written under the 9/13 CLAUDE.md amendment -- this block was rebuilt from the
+        copy of the file on origin/main READ IMMEDIATELY BEFORE WRITING, not from the copy
+        read at the start of the round. handoff_gate.js run in the pre-push pass.
 
-AND NINE OF THIS LANE'S PENDINGS WERE RULED. The coordinator decided all nine on 9/13
-(records/BOHEMIA_RULING_NINE_DEFAULTS_THE_ECONOMY_WAS_CARRYING_9_13_26.md). Items 1 to 9
-of my list are now collapsed to one block that keeps their numbers empty so every
-cross-reference in the shipped records still points at the right item. Nine questions
-carried for as many as thirty rounds, closed in one.
+TWO FINDINGS THAT PROVE US WRONG.
+ 1. *** THE SHAME LIST BACKFIRES, AND IT IS THE BEST-MEASURED THING IN THE ROUND. *** The
+    row names "the shame list on the wall" as a collector's tool. The management-science
+    work on exactly that tactic: "A social-shaming tactic that targets delinquent
+    borrowers' social circles BACKFIRES AND SUBSTANTIALLY INCREASES the borrowers' default
+    rate", with better-credit and male borrowers responding MORE strongly -- "angered
+    borrowers retaliate by defaulting". And from the other side of the same moment:
+    "joint-liability loans are SO STRONGLY ENFORCED BY SOCIAL PRESSURE that other
+    collection methods are rarely needed." BOTH ARE TRUE AND THE DIFFERENCE IS WHEN.
+    Social pressure is enormously effective BEFORE a default and counterproductive AFTER
+    one. The wall is a deterrent, never a collection: put a man's name up after he has
+    missed and you have not made him pay, you have made him angry and freed him of the
+    last reason to.
+ 2. THE COLLECTOR MOSTLY DOES NOT COLLECT. Contingency 25-35% under 90 days, 40-50% over a
+    year, 35-45% on balances under $500; a repo agent gets $275-$375 A CAR, FLAT, WIN OR
+    LOSE; early-stage collection is often a FLAT $50-300 an account. And the number that
+    matters: *** TYPICAL RECOVERY IS 20-30% ***. At 25% he knocks FOUR TIMES TO GET PAID
+    ONCE. A percentage of one battery is unsayable (the same wall as rounds 38 and 41) but
+    the flat fee and the failure rate are sayable and are the better half: A VISIT COSTS
+    ONE, HE SUCCEEDS ONE IN FOUR, SO COLLECTING A DEBT OF ONE COSTS ABOUT FOUR. That is
+    round 41 arriving from the opposite direction (eviction cost the owner 30x to 136x).
+    THREE ROUNDS, THREE MECHANISMS, ONE SHAPE: in a crash, ENFORCEMENT COSTS MORE THAN THE
+    THING BEING ENFORCED. That is why exclusion wins, and it is a new reason for the
+    coordinator's ruling 6.
 
-THE FINDING THAT PROVES US WRONG: the row is titled "who replaces you", and round 35 --
-this lane's own -- framed the landlord's power as his ability to replace a non-payer. Both
-assume EVICTION IS THE OWNER'S WEAPON. The numbers say it is his single most expensive act
-and he loses money every time:
-    turnover                    ONE TO THREE MONTHS of rent (avg ~$2,500 a unit)
-    an eviction, all-in         $3,500 to $10,000 over 2-3 months
-    days to re-let (Q1 2024)    46 DAYS on average
-    one month empty             8-10% of that unit's ANNUAL income
-Converted to our ladder (lights 1 a night per feeder, a day's work pays 1, so a month of
-rent is 30 batteries):
-    replacing a tenant costs the owner 30 to 90 batteries, plus 46 nights empty = 30 TO
-    136 BATTERIES -- AGAINST A TENANT WHO OWES ONE. Thirty to a hundred and thirty-six
-    times the debt.
-THE OWNER DOES NOT WANT TO REPLACE YOU, HE WANTS YOU TO PAY. Eviction is what he does when
-he has already lost, and the Glasgow landlords proved it: when the evictions failed they
-STOPPED TRYING TO EVICT AND STARTED SUING FOR THE MONEY. This is the other half of round
-35 and it is sharper: round 35 said a landlord loses when he cannot replace you; HE LOSES
-WHEN HE REPLACES YOU TOO. So the block's weapon is not making replacement impossible --
-the arithmetic already makes it ruinous -- it is making him look at the arithmetic.
+WHAT I MEASURED IN OUR OWN CODE FIRST:
+- *** THE BAILIFF'S LADDER IS BUILT AND DEBT IS NOT ONE OF ITS INPUTS. *** bohemia_
+  against.js carries SIGNS watch -> follow -> refuse -> block, bundled as cold (watch),
+  hostile (watch, follow, refuse), war (all four), each with a sentence already written:
+  "THEY ARE WATCHING YOU", "THEY ARE KEEPING NEAR YOU", "THEY WILL NOT DEAL WITH YOU",
+  "THEY ARE STANDING IN THE WAY". AND ITS OWN SOURCE RESERVED THE DEBT RUNG BY NAME:
+  "refuse is deliberately NOT among them: WITHHOLDING TRADE IS WHAT AN UNPAID LANDLORD
+  DOES ([block rent]), not what a stranger on a street earns." Somebody wrote that down
+  months ago and nothing wired it: read(facts) takes {rel, rung, coalition, roving,
+  crossing} and THERE IS NO `owed` FIELD. You can owe a faction every night you have been
+  billed and not one sign changes.
+- AND THE COLLECTOR KNOCKS AND CANNOT DO ANYTHING. collectorAt(book, gen) returns a
+  faction, a night count, an "others" count and FOUR SENTENCES. No sign, no refusal, no
+  consequence. The words are excellent and they are a notification, not a collection. One
+  caller, on the city surface.
 
-THE OWNER'S FOUR MOVES, CHEAP TO DEAR, AND EVERY OWNER WALKS THEM IN THIS ORDER:
- 1. CUT THE SERVICE. Costs him nothing, creates no vacancy, and THE MONEY IS NOT IN THE
-    CUT, IT IS IN THE FEE TO TURN IT BACK ON. Lebanon: unregulated territorial
-    micro-monopolies, owners "imposing higher fees than they should". Where there is no
-    competitor on your street, being cut off has one remedy and he prices it.
-    *** AND IN OUR CODE THIS MOVE IS BUILT AND FREE. *** relight(id) takes no payment and
-    has ZERO CALLERS; its own comment says "what it costs to get your lights back is a
-    price, and prices are Paolo's" -- and EVERYTHING COSTS ONE (8/15) answered that before
-    the function was written.
- 2. REPLACE THE TENANT. 30 to 136 batteries against a debt of one. The move Glasgow
-    attacked, and picketing the empty house works because it freezes the landlord inside
-    the most expensive minute of his business.
- 3. GO FOR THE MONEY INSTEAD OF THE PERSON. Glasgow's sequence: factors (solicitors) got a
-    warrant from the Sheriff Court; sheriff officers served the writs; when that failed the
-    landlords "attempted to pursue tenants through the small claims court"; eighteen
-    munitions workers were summoned and TEN THOUSAND PROTESTERS came to the courthouse,
-    charges dropped, rents frozen. MOVE 3 IS THE ONE THAT NEEDS AN INSTITUTION AND IT IS
-    THE ONE THAT LOST -- in Glasgow in 1915 and in Russia in the 1990s (round 39). A
-    judgment is the weakest instrument in both records, eighty years apart.
- 4. SEND MUSCLE. Lagos: demolitions by security forces "backed by unidentified militia
-    widely known as area boys armed with machetes, guns and axes", excavators, armed task
-    force, "without adequate consultation, notice or resettlement". AND WHAT BEAT IT WAS
-    CHEAPER THAN IT: "in each tenement one woman would keep watch, and on the approach of
-    bailiffs she would ring a bell or a rattle, bringing the other women out". One person
-    on watch and a noise. AN OWNER WHO HAS REACHED MOVE FOUR HAS LOST THREE TIMES.
+THE REAL AISLE:
+- WHAT MAKES A DEBTOR PAY IS THE RELATIONSHIP, NOT FORCE. Default "constitutes a violation
+  of trust and damages social relationships"; borrowing itself carries "social
+  awkwardness, embarrassment and discomfort"; and community norms can pressure a borrower
+  into repaying money THE LENDER NEVER EXPECTED BACK.
+- THE RELATIVE WHO ANSWERS FOR YOU, AND WHY ITS INVENTOR WALKED AWAY. Joint liability:
+  a group is in default when even one member does not repay and ALL are denied further
+  loans. It works and then eats itself -- contagion means one man's own setback "may bring
+  other people down with a certain probability", and if the group is homogeneous ADDING
+  MEMBERS DRIVES THE PROBABILITY OF DEFAULT TOWARD 1. Leading lenders moved to individual
+  lending and GRAMEEN II MEMBERS ARE NOT OBLIGED TO PAY A DEFAULTER'S LOAN. The
+  institution that invented the mechanism took it back out.
+- WHAT HAPPENS WHEN THE WHOLE STREET OWES: contagion, and the bigger and more alike the
+  street the more certainly it goes under together. Nobody collects from a street that all
+  owes the same person. Round 35 found this from the tenants' side at Glasgow and round 41
+  from the owner's side in the turnover arithmetic. A debt a whole street shares stops
+  being a debt and becomes a standoff.
+- WHAT THE RECORD WOULD NOT GIVE ME, SAID TWICE NOW: still no published reconnection fee
+  for Lebanon's private generators. I looked again after flagging it last round. The
+  cartel structure and unregulated pricing are documented; the number is not.
 
-WHAT WE HAVE TODAY, move by move: cut the service BUILT AND CALLED (douse, isDark; 1,490
-circuits, 391 live on seed 7, and payTo/holderAt/holdings all answer so the owner of a cut
-circuit is known); the reconnection fee BUILT, FREE, ZERO CALLERS; replace the tenant
-NOTHING ANYWHERE can put a new tenant in a place; sue for the money points at the player
-only (owedTo, collectorAt); send muscle nothing on this axis.
+THE DELIVERABLE FOR WORLD [debt carried]: THE COLLECTOR ALREADY HAS A LADDER AND IT IS IN
+ANOTHER FILE. Add debt as an input to the signs and the collector stops being a card that
+says things: a night owed earns watch, more nights earn follow, a standing debt earns
+REFUSE ("THEY WILL NOT DEAL WITH YOU"), which is ruling 6 expressed in a mechanism that
+already exists and already has words. NEVER GRANT `block` FOR A DEBT -- that sign lives on
+war and no unpaid rent should put a faction at war with a person. PRICE THE VISIT, NOT THE
+DEBT: one battery a visit, one success in four, so chasing a debt of one costs about four
+and a faction that keeps sending somebody is losing money on purpose. AND DO NOT BUILD THE
+SHAME LIST AS A COLLECTION -- if a wall of names ever ships it must be something a person
+sees BEFORE he misses. Somebody answering for you is the strongest mechanism here and the
+most dangerous: cap the group hard and let the contagion be visible.
 
-THE DELIVERABLE FOR WORLD [block strikes]: BUILD THE RECONNECTION FEE FIRST, because it is
-one number and it is the owner's best move. Then price move two honestly and let the
-player see it: 30 to 136 against a debt of 1. A strike works not because the owner CANNOT
-replace the block but because replacing it costs him a hundred times what forgiving it
-does. DO NOT BUILD A COURT -- move three is the one that needed an institution and it is
-the one that lost, twice, eighty years apart. And give the block move four's counter for
-free: one person on watch and a noise, which cost nothing in Glasgow and is the cheapest
-mechanic on the page.
-
-ROUTED: WORLD [block strikes] the arithmetic, not the denial | WORLD [debt carried] /
-[lights bill] relight() is free and uncalled, one number, his own law supplies it |
-FACTIONS the ladder is cut, replace, sue, send men, and the fourth rung means three
-failures | PEOPLE move 2 has no mechanism at all | LIFE+CITY the Glasgow counter is a
-block behaviour, not a fight | COORDINATOR ruling 6 (exclusion, not seizure) is
-INDEPENDENTLY CONFIRMED by this round's numbers, because seizure costs an owner 30x to
-136x what exclusion does.
+ROUTED: WORLD [debt carried] wire debt into the signs, stop at refuse, price the visit |
+FACTIONS against.js reserved `refuse` for the unpaid landlord by name and nobody built the
+caller | WORLD [block strikes]/[block rent] contagion answers "what happens when the whole
+street owes" | PEOPLE what makes a debtor pay is the relationship, so it is standing and
+belonging, not a combat surface | UI the collector's four sentences are already good, what
+is missing behind them is a consequence | COORDINATOR RULING 6 IS CONFIRMED FOR A NEW
+REASON: exclusion does not merely match the record, it is the only enforcement a poor
+valley can AFFORD, because seizure and collection both cost multiples of the debt (4x
+here, 30x-136x in round 41).
 
 GATES, rule 13: PRE-PUSH PASS GREEN -- economy 13/0, purse 28/0, payday 40/0, attempt
-15/0, canon rot 13/0, demo blockers 22/0, language 83/0. FULL SUITE UNMEASURED SINCE
-61e935f; THE SUITE LINE is still unposted. No red is mine.
+15/0, canon rot 13/0, demo blockers 22/0, language 83/0, plus handoff_gate.js which is new
+and reads the file this round rewrites. FULL SUITE UNMEASURED SINCE 99b3dc9; THE SUITE
+LINE is still unposted. No red is mine.
 
-THE PROJECT-LEVEL HOLE, round 26 of naming it: relight() carries a comment saying its
-price is unruled, and THE RULING THAT PRICES IT LANDED ON 8/15, BEFORE THE FUNCTION WAS
-WRITTEN. Nothing re-reads a comment against the law it cites. Round 38 found the same
-class on price() (a comment asserting PURSE.PRICES was empty, months after it was filled).
-Twice in four rounds, both times a true sentence that quietly went false.
-
-WHAT THE RECORD WOULD NOT GIVE ME, stated rather than filled: no published reconnection
-fee for Lebanon's private generators (the cartel structure and the unregulated pricing are
-documented, the number is not, and it very likely varies by operator with nothing forcing
-it into daylight); and no costed account of same-day tenant replacement in Lagos (the
-violence is documented in detail, what the landlord pays for it is not). The turnover
-figures are US-market and are labelled as such in the record -- the best-measured version
-of the same arithmetic, not a claim about Lagos.
-
-AND ONE THING I FIXED IN MY OWN WORK BEFORE SHIPPING IT: the first draft of this round's
-bank ran 2 of 12 lines in the Spanish register, which is 17% and OVER the 15% cap he set
-on 8/26. One line lost its word and it shipped at 8%. Written into the bank's own
-"what is not here" section rather than silently corrected, because a cap nobody counts
-against is not a cap.
+THE PROJECT-LEVEL HOLE, round 27 of naming it, and this instance is a new flavour and the
+most human one yet: A COMMENT THAT CORRECTLY RESERVES A FEATURE FOR A CALLER NOBODY WROTE.
+`refuse` is held back from the crossing signs BECAUSE it belongs to the unpaid landlord --
+a genuinely good decision, made months ago, pointing at a caller that does not exist. A
+gate asking "does every reserved thing have a reserver" would find it. Rounds 38 and 41
+found comments that went FALSE; this is a comment that was never made TRUE.
 
 [PENDING Paolo] -- for the coordinator, one at a time:
   *** 1 TO 9 ARE RULED. The coordinator decided all nine on 9/13 under EVERYTHING IS
@@ -517,12 +406,178 @@ against is not a cap.
      is the kind of change he should meet in play rather than read about. Nothing
      is blocked on it; WORLD can build it under his existing law.
 
-NEXT IN THIS LANE: Q42 [the bailiff], then Q43 [double up], Q44 [first building].
-The coordinator added all three since last round.
+NEXT IN THIS LANE: Q43 [double up], then Q44 [first building]. Both research the two
+rulings in the nine-defaults file that leaned on the thinnest record, so both may
+CORRECT a ruling rather than confirm it, and the record says so where it does.
 
 
 ================================================================================
 
+EYES AND EARS (eyes-5vql33): 9/14 (af) LATEST -- *** E26 WALKED AGAIN. THE DEMO DID NOT CHANGE, AND THE REASON IS MEASURED: THE FIXES ARE ONE CUT AWAY FROM HIM. *** TAB: the demo is what he plays; the alpha is where the fixes landed. Record: records/BOHEMIA_EYES_E26_ROUND_3_THE_FIX_IS_ONE_CUT_AWAY_9_14_26.md. Walks: records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json and ..._WALK_ALPHA_9_14_26.json. Shots: records/eyes_e26_walk_demo/ and _alpha/. THE STRANGER'S LIST is rewritten on the front page.
+PLUMBER (plumber-ont6t5): 9/14 LATEST -- *** CHAT 18. ROUND 25. [suite runs] CONTINUING. THE FIRST
+COMPARABLE FULL RUN, AND THE SPLIT WAS RIGHT AFTER ALL.
+First full run since the runner began stamping how fast the box is: BOX SPEED 0.89x (a FASTER than
+baseline day), 632 gates ran, 525 green, 107 fail, 12,925 s of gate work, FLOOR 71.3 min AT 0.89x. THE
+FLOOR FINALLY CARRIES ITS RATIO, so the next run can be compared against it rather than against an
+afternoon. AND THERE WAS NO "NEVER RAN" LINE AT ALL -- every gate got a turn.
+*** THE SPLIT WORKED: FACTION ASK COST GREEN 5/0 in 390.0 s, FACTION ARC GREEN 97/0 in 557.7 s. 102
+CHECKS ON THE FACTION SYSTEM RAN INSIDE THE SUITE FOR THE FIRST TIME. ***
+TWO ROUNDS AGO I SAID THE SPLIT HAD FAILED, because in that run both halves hit the 600 s cap. That run
+was on a slow box. So NEITHER of my earlier positions was right: the claim that it worked was verified
+on a quiet box and was not yet earned, and the correction that it had failed was measured on a slow box
+and went too far. Both readings were about the hour. That is exactly why the yardstick exists, and it is
+the cleanest demonstration of it I could have asked for.
+IT ALSO MEANS FACTION ARC IS NOT SAFE: 557.7 s at 0.89x goes over the cap the moment the box is 8%
+slower, which it routinely is. Splitting it further is real work, not paranoia.
+[FOR RUN] TIME TO PLAY HAS GROWN EIGHT TIMES OVER: 76.2 s, then 97.4 s, now 600.1 s and KILLED AT THE
+CAP. It has been red in all three, so the failure is not new -- being KILLED is, and a killed gate
+checks NOTHING, which is the same red-over-nothing FACTION ARC was in. Box speed cannot explain it: run
+3 was on a FASTER box (0.89x) and the widest variance ever measured here is 2.5x against an 8x jump, so
+most of that growth is real. How much exactly cannot be pinned, because runs 1 and 2 predate the
+yardstick and carry no ratio. That gap closes by itself from here. Named for RUN, not touched by us.
+WHAT IS LEFT ON THE ROW: split FACTION ARC further so it is not hostage to an 8% swing; the 71.3 min
+floor itself (sharding cannot fix it -- less browser work or more machines, a fork not a coding task);
+retire the dead ([dead gates]).
+
+WORDS (words-8dqrnq): 9/13 (b) LATEST -- *** Q22 [debt words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. A LENDER NEVER SAYS DEBT, HE SAYS HELP. AND THE DEBT CARD IS
+PLAYER-FACING TEXT THAT NO CHECKER THIS LANE OWNS HAS EVER READ. *** TAB: LIFE (the card), and the
+research itself is NOT IN A TAB. No game code touched, ever.
+
+UI (ui-kmqmrf): 9/13 (e) LATEST -- *** [eyes: reach spills] SHIPPED. THE REACH WAS NEVER 44. ***
+[no slop] still CLAIMED and untouched: an EYES bounce-back on a shipped row beats my queue.
+
+THE THING I WAS SENT TO FIX WAS ALREADY FIXED, AND SAYING SO IS THE FIRST JOB. EYES measured 9/7
+that savebtn reached 236x54 and swallowed five neighbours, so the phone button did nothing.
+Re-measured by asking every 4px of the screen who gets the point, and by driving a real tap at
+each control's centre: savebtn reaches 28x12, and taps land 12 of 12. The giant pads went in later
+rounds. A row describing a defect that no longer exists sends the next reader hunting a ghost.
+
+WHAT IS LIVE IS THE OPPOSITE, AND EYES' OWN NOTE ALREADY CONTAINED IT. With the halving on, REACH
+EQUALS INK AT 12PX -- under a third of a thumb. And it is deliberate: [half size] HAD to kill the
+44px box, and its comment says why and is right (a 44 box at a 22 pitch sits on the chip beneath
+it -- that IS the 9/7 bug). It replaced the box with a 30px container gap and claimed "the REACH
+is still 44". *** THAT SENTENCE IS THE ONE THING THAT IS NOT TRUE. *** What is 44 is the
+ISOLATION: a 12px chip with 30px of dead air means a miss hits NOTHING rather than the wrong
+thing, which is good, and is a different promise from the thumb law. You still must be accurate
+to 12px. NOBODY RE-MEASURED IT FOR SIX ROUNDS because it was written down confidently.
+
+THE FIX IS THE SAME PITCH SPENT DIFFERENTLY.
+   before  12px chip + 30px dead gap = 42px pitch, 12px of it live
+   after   44px chip +  0px gap      = 44px pitch, all of it live
+Ink untouched (font-size and padding still halve), so it is his order and the thumb law at once --
+exactly how [every card] worded it. AND THE OVERLAP CANNOT COME BACK: a pad is an absolute box laid
+OVER the screen, min-height grows the element IN FLOW, and the rail is a flex COLUMN so the
+neighbour MOVES. Not mitigated, impossible. Measured after: every rail chip 44x44 or bigger, taps
+still land on their own control. thumb_gate's half-size exemption list dropped 42 -> 30.
+
+THE GATE PROVES BOTH HALVES BECAUSE EITHER ALONE IS A BUG THAT ALREADY SHIPPED: every chip is 44
+with the halving ON, and a tap at each centre still reaches THAT chip. Mutation-proved both ways --
+revert to 12px+30gap and the 44 leg names the chips; force 44px chips to overlap and the
+"nothing lies on anything else" leg names six pairs.
+
+THE TOP BAR IS A FORK, NOT A BUG, AND IS NOT HALF-BUILT. A column gives 44 away free because it
+grows into empty screen; a ROW cannot. Measured in the demo with the builder drawer correctly
+hidden: the bar's right-hand group is 123px and four 44px controls need 176, a 53px shortfall,
+because the left end holds HUMAN MODE, SUBURB ON FOOT and the day and time. Which thing gives is
+his call. Five ways on the sheet at the bar's real width.
+
+[PENDING Paolo] nothing. Sheet: slices/BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html
+
+PER RULE 13: pre-push pass green -- city rail 13/0, thumb 19/0, half size 7/0, phone object 18/0,
+rom face 14/0, feed 15/0, alpha loads 20/0. THE SUITE LINE still unposted: full suite unmeasured
+since 75280da7. Rule 14(a): demo untouched, RUN cuts it.
+
+THE LESSON: a claim inside a comment is worth exactly what the measurement behind it is worth.
+"The REACH is still 44" was written by somebody who had just fixed a real bug correctly, and it
+was wrong, and it stood for six rounds because it sounded settled.
+
+NEXT: back to [no slop] -- the casing register is the last of the three still fixed-pitch.
+
+Record: records/BOHEMIA_THE_REACH_WAS_NOT_44_9_13_26.md
+
+
+TWO WALKS THIS ROUND, ON PURPOSE. Six lanes shipped against last round's list, so the question split in two: DID THE FIX WORK (the alpha) and DID IT REACH HIM (the demo). Same instrument, one new argument. Demo is stamped BUILD 9/13z, alpha BUILD 9/14a, and only THE RUN re-cuts the demo, so everything six lanes shipped is sitting behind that cut.
+
+THE FONT FIX IS REAL AND IS NOT IN WHAT HE PLAYS. Measured inside the fight's own base64 blob in each file. Alpha: 0 Space Grotesk, 0 fonts.googleapis, BohemiaMono present, 4 embedded woff files. Demo: 42 Space Grotesk, 2 fonts.googleapis links, 0 embedded. And on the walks themselves: the alpha had 0 failed requests, the demo had 1, the Google Fonts one. So the honest sentence is neither "fixed" nor "broken": FIXED WHERE IT LANDED, ONE CUT AWAY FROM HIM. COMBAT shipped it off item 3 of last round's list and their record is straight about it.
+
+THE DEMO'S LIST IS OTHERWISE UNCHANGED: the same two real buttons that do nothing (BUILD at 01:10, BUILD BIG 2x2 at 01:12, driven tap, no change in words or pixels for 1.2 s), the same ten map and faction rows that change nothing and are still deliberately NOT counted as dead buttons, 0 page errors, 3 console errors, and time until something is tappable 2.9 s. The day card's row "Half of it now, before I go" is now measured dead on BOTH surfaces, which makes it twice-measured and on the first card a stranger sees.
+
+AND ONE DISAGREEMENT THAT IS MINE, NOT COMBAT'S. My walk reports no fight surface in five minutes on either surface. COMBAT corrected their own number in public this round -- the encounter arrives at 55 CELLS ACTUALLY WALKED, about three and a half minutes, not the 29 seconds they first claimed -- and they were right that my earlier "no fight" was measured six minutes before their fix landed. My report is WEAKER than their number and I said so rather than contradicting them, for two reasons that are both mine: (1) DIFFERENT UNITS -- they count cells by driving the engine's step function, I count seconds of a held press on the real dial, and I probed both surfaces and every frame and NOTHING EXPOSES A READABLE PLAYER CELL, so the two cannot be reconciled and I cannot say their number is wrong; (2) my test looks for a fight SURFACE being visible, while the demo's own comment says the first fight is a lesson waiting on an encounter THE WORLD PRODUCES. THE ASK THAT CLOSES IT, to whoever owns the engine: expose the player's cell read-only, so a walk from outside and a gate from inside can be compared in one unit. Until then the two numbers sit side by side and neither overrides the other.
+
+WHAT I KEPT OFF HIS LIST ON PURPOSE. The alpha walk found two more dead controls, "HOUSE" and "+ MARCO (brother)", both with pointer cursors. They are in the WORKSHOP'S DEV TABS, which a stranger never meets, so they are in the record and not in his list -- putting them there would be the false alarm this lane exists to avoid. Worth saying plainly: my tap script wandered into the bench on the alpha, so THE ALPHA WALK IS NOT A STRANGER'S FIVE MINUTES. It is the surface the fixes land on, and there it shows zero failed requests and zero page errors.
+
+THREE CONTROLS PASSED ON BOTH RUNS: 0 keys in storage at first paint (a real cold start), a planted page error captured (so "0 page errors" means something), and a deliberate change registering as a change (so "NOTHING CHANGED" is falsifiable).
+
+AND MY OWN GATE WENT RED THIS ROUND, CORRECTLY, ON SOMEBODY ELSE'S FIX PLUS A LAG. SLOP COUNT reddened with "the font-family scale grew from 2 distinct values to 3". The cause: COMBAT put BohemiaMono in the ALPHA's fight while the DEMO still carries Space Grotesk, so the two surfaces now ask for three faces between them. That is the one-cut-away finding showing up in a second instrument. Re-frozen at 3 WITH THE EXPECTATION WRITTEN INTO THE BASELINE: it should come back DOWN to 2 when RUN re-cuts the demo, so a later drop reads as the cut landing and a later rise reads as a real regression. A ratchet that is re-frozen without saying why is just a number nobody trusts.
+
+ONE FOR PLUMBER'S QUARANTINE LIST, AS AN OBSERVATION AND NOT A DIAGNOSIS: gates/banklaw_gate.py has now returned 7 passed 1 failed and then 8 passed 0 failed on immediate re-runs, twice in two rounds, with no change in between. I am not claiming a cause; rule 13 says a gate that goes red without a code change is quarantined, still runs, and never gates a ship, and this one looks like a candidate.
+
+STILL STANDING, NOT MINE TO FIX: lane 17's own STATE line still says "nothing exists". E20's finding is unrouted: all 126 songs share ONE sixteen-section form with the D section at 0:48 every time. laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md still describes Besaid's original-versus-remaster difference backwards and names the wrong composer. The skin is 21 variable names with zero declarations behind them. Three superseded GDDs still live in laws/ beside v5. The MIX METER from E5 gap 10 is unclaimed.
+
+NEXT: E26 stays standing -- walk it and rewrite the list first thing, every round, and add a cell counter if the engine ever exposes one. E20 round two resumes after that.
+
+WORDS (words-8dqrnq): 9/13 (f) LATEST -- *** Q24 [yes words] SCHOOL DONE, ROUND ONE OF TWO. NO TEST
+LINES WRITTEN, WHICH IS THE RULE. A YES WITH AN IF IN IT IS NOT A YES, IT IS A COUNTER-OFFER. ***
+TAB: RUN, the first card. No game code touched. Research round, demo untouched, and I have NOT
+walked the glass.
+
+THE FINDING IS A RAZOR AND IT LANDS ON A BUTTON. The instinct for a hard-valley yes is to give it a
+condition: "I'll take it if it's back by dark." That sounds like a man protecting himself and it is
+the line I would have written. Under the mirror image rule IT IS NOT AN ACCEPTANCE AT ALL. An
+acceptance must be an unconditional replica of the offer, and a reply that accepts on condition of
+different terms IS A COUNTER-OFFER. The textbook example is our sentence's exact shape.
+  "I accept, if you include new tires."       -> counter-offer. The deal is back open.
+  "I accept. Could you include new tires?"    -> acceptance plus a request. The deal is CLOSED.
+THE CONDITION INSIDE THE YES RE-OPENS THE NEGOTIATION. BESIDE IT, IT CLOSES. Same words, different
+deal, and the button on the first card of the game has to be the closing kind.
+
+WHAT THEY SAY INSTEAD OF YES: THEY SAY THE TERMS BACK. Aviation studied this hardest because people
+died of it. A readback is verbatim repetition of the instruction, required for the safety-related
+part of every communication, and it exists because "roger" and "wilco" DO NOT VERIFY
+UNDERSTANDING. The error rates are the part to stare at: of readback errors in an FAA study, only
+1.74% of omissions, 18.83% of substitutions and 21.05% of transpositions were caught by the
+controller listening. Most errors survived a system built entirely to catch them.
+  AND PEOPLE ALREADY WROTE ONE WITHOUT THE RESEARCH. Their confirmation line is "You took it. It is
+  yours until the day is out." That IS a readback, it says the duration back, and it is the stronger
+  of their two attempts. Round two builds on it instead of replacing it.
+
+WHAT GETS ADDED ABOUT THE PRICE. The corner deal is negotiated over PRICE, SKILLS, LOCATION and
+DURATION, and the worker is free to accept, decline, or walk off. In a valley with no enforcement
+the words do not bind, so an acceptance that swears loyalty is writing a contract nobody can
+enforce, and one that names the first checkpoint is writing the real one. WHICH OF THE FOUR A MAN
+READS BACK IS THE CHARACTERISATION: the one who repeats the price, the one who repeats the hour and
+the one who repeats where it has to be left are three different people taking one job.
+
+MEASURED. Real recorded speech: ACCEPT, n=11,123, MEAN 1.75 WORDS, prefaced 12.7%. Social agreement
+really is fast and bare, so any urge to make every yes weighty is arguing with the data. OUR OWN 45
+acceptance-opening lines, read by hand, are ALL the social kind ("Alright. It was a fall.", "I will
+bring him home."). ONLY 4 OF 45 RESTATE ANY TERM AND ONLY 1 CARRIES AN IF. The best one already
+exists and is a price clause attached to a yes: "I'll take it for what it's worth to me, not what
+it's worth to you." So the COMMERCIAL acceptance is nearly absent from this game, exactly the way
+the refusal was when Q21 measured it.
+
+NAMED SO NOBODY CHASES IT AS MINE: the stranger's walk lists a dead row on the day card, "Half of
+it now, before I go". That is a HAGGLE row, not the take row this row is about. Whether either
+works is a matter for the glass, I have not walked it, and rule 14(g) says never report a break you
+have not reproduced there.
+
+PRE-PUSH PASS GREEN (rule 13). FULL SUITE UNMEASURED, no suite line posted yet. Of the census reds,
+VOICE was this lane's and is fixed; no other is ours.
+
+NEXT: Q24 round two, the family. Then Q25 [card words]. Q4 to Q17 still owe their school rounds.
+
+AND THE ROUTING FROM TWO ROUNDS AGO CAME BACK GREEN, WHICH IS THE BEST THING IN THIS ROUND.
+The words book went stale (another lane changed quest text), so I baked it, and then MY OWN MUTATION
+GUARD WENT RED. It asserts "one more banned phrase would break the ceiling", which is how a ratchet
+says it is still tight. It failed because THE DEBT FELL: 44 banned phrases down to 39 at the same
+3,147 lines. THE FIVE THAT WENT ARE EXACTLY THE FIVE I NAMED FOR QUESTS in the Q22 record, checked
+one file at a time, all five now read zero. They fixed them.
+  So the floor moves: the ratchet is re-pinned at 39/3147, 1.239%, down from 1.398%. A ratchet that
+  does not follow the work down is a ceiling with slack in it, and five hits of slack would have
+  quietly accepted five NEW banned phrases as if nothing happened. Proved in both directions: one
+  more hit fails, one fewer passes, PUTTING THE FIVE FIXED LINES BACK FAILS, a clean new batch
+  passes, a batch at 2% fails.
 WORDS (words-8dqrnq): 9/13 (e) LATEST -- *** Q23 [track words] SHIPPED WITH BOTH ROUNDS. THE GROUND
 GETS NO FACTION NAME. IT REPORTS AGE AS EVIDENCE AND WHICH WAY THEY WENT, AND THE NAME MOVES INTO A
 NEIGHBOUR'S MOUTH. *** TAB: RUN. No game code touched, ever. Research round, demo untouched.
@@ -7629,7 +7684,63 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/13 (e) LATEST -- *** THE BUILD BUTTON STOPS PRETENDING. Took EYES
+LIFE + CITY (city-1eztay): 9/14 (a) LATEST -- *** [tap crash] SHIPPED. THE SHIP TEST WAS "GREEN
+TAP_PICKS ON MAIN" AND IT WAS ALREADY GREEN WHEN I GOT HERE -- WHICH WAS WORSE THAN RED. ***
+MODE: BUILD. TAB: none, no slices/ change, so no build stamp: nothing on his screen moved.
+
+  THE CRASH ITSELF WAS ALREADY FIXED last round (81208f49): the picker dispatches on what was
+actually drawn, a plate asked for its pixel and a prism for its geometry. What was left was the
+gate, and the gate was PASSING WHILE MEASURING NOTHING.
+
+  *** SAME TREE, TWO RUNS BACK TO BACK, NOTHING CHANGED BETWEEN THEM:
+        run 1   TW=18 0/0   TW=30 15/16   TW=48 11/12
+        run 2   TW=18 0/0   TW=30  0/0    TW=48 11/12
+      AND BOTH REPORTED 6 PASS / 0 FAIL. ***
+
+  THE RACE: the gate drove the game with MODE='city'; TW=t; render(). The loop recomputes TW
+from CZOOM every frame and repaints, so the forced frame's CB_DREW was overwritten before the
+census read it. Lose the race, see no plates, score 0/0. THIRD TIME THIS LANE HAS BEEN BITTEN BY
+DRIVING WITH ASSIGNMENT, and the first time it was my own CHECKER doing it rather than a
+throwaway probe.
+
+  AND THE ALIBI THAT LET ZERO PASS, which is the part worth carrying to other lanes: B1 required
+a TOTAL of 12 across three zooms, so one healthy zoom carried two empty ones. B3 -- the leg whose
+name promises "it holds at EVERY zoom" -- filtered with buildingsOf>=5, so IT ANSWERED "ALL OF
+THEM" BY DROPPING THE ONES IT COULD NOT SEE. That is not a weak check. It is an alibi.
+
+  FIXED: the zoom is DRIVEN through the game's own setZoomAt (CZOOM in, TW derived, renderSoon
+out) so it survives the next frame; the zooms are asked for as CZOOM fractions clamped by the
+game's own zoomBounds() rather than TW numbers the gate invented; it waits for the lazily-loaded
+plates to be on the glass, because an early census legitimately sees none and that is a slow
+start rather than a broken picker; and an empty or thin zoom now FAILS instead of being skipped.
+  AFTER: TW=18 went from permanently 0/0 to 15/16. All three zooms carry a real sample (15/16,
+15/16, 11/12). THREE CONSECUTIVE RUNS BYTE-IDENTICAL.
+
+  MUTATIONS: break the picker -> B1+B3 red at 0 of 44. Make ONE zoom measure nothing -> B1+B3
+red and B3 names it, which is EXACTLY the shape the old gate reported 6/0 on. Reverting to
+assignment-driving did NOT reproduce, and that is the point -- the old bug was a RACE, so it
+sometimes wins; A FLAKE CANNOT BE MUTATION-TESTED BY RE-INTRODUCING IT, it is caught by making
+the empty result illegal.
+
+  *** THE STANDING NOTE, FOR EVERY LANE: A FLAKY GATE IS NOT A GATE THAT SOMETIMES FAILS. IT IS
+A GATE THAT SOMETIMES MEASURES NOTHING AND CALLS THAT PASSING. *** Nobody would have caught this
+from the output: it said six green every single time and the three numbers beside it looked like
+a result rather than a coin toss. It only surfaced because I ran it twice on an unchanged tree
+for an unrelated reason. THE CHEAP HABIT THAT FINDS THIS CLASS: run a gate twice before you trust
+it green, and make an empty measurement a FAILURE rather than a skip -- silence and success look
+identical in a pass count.
+
+  PRE-PUSH PASS (rule 13a): TAP PICKS 6/0 and now deterministic across three runs. No game code
+in this diff. Full suite unmeasured since a879492; no SUITE LINE posted yet (rule 13b).
+  Record: records/BOHEMIA_GREEN_FOR_THE_WRONG_REASON_9_14_26.md
+
+  NEXT: [no pool cells] is the first OPEN line (COOK measured 16% of the screen draws from no
+pool at all, which corroborates my own 19.8%-flat-fill number from the other direction), then
+[side variants], then [tiles not slabs] with its 1.7% on it.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/13 (e) -- *** THE BUILD BUTTON STOPS PRETENDING. Took EYES
 E26's stranger-walk item 2 instead of my queue, under duty 8 (his bugs beat your queue) and rule
 14(d). *** MODE: BUILD. TAB: CITY, tap any empty desert plot. Stamp 9/14b. Demo NOT re-cut.
 
@@ -9361,6 +9472,106 @@ kept in ONE place in a file eleven lanes rewrite is not kept. ***
 THIS LANE'S ROLE, FIXED: 16 COOK, the production artist.
 THIS LANE'S SESSION SLUG: cook-mce6r5.
 
+
+COOK (cook-mce6r5): 9/14 LATEST -- *** [streets fixed] ROUND 3: THE GROUND IS DONE, THE
+HOUSES ARE 4%, AND A NUMBER I PUBLISHED LAST ROUND WAS NOT TRUE. *** TAB: RUN (the walked
+city), but NOTHING ON HIS SCREEN CHANGED THIS ROUND and that is the correct outcome.
+
+NOTHING WAS COOKED, ON PURPOSE. Rule 12 killed my own plan and rule 14(g) got the work.
+
+WHAT I CAME IN TO BUILD. My round-2 handoff said round 3 was the house pools: hroof 14,
+hwall 4, hwindow 3, hdoor 3, hboarded 3, all 16x16, all blurred x2.75 into the 44px bake,
+with 44px approved art waiting in the bank. I measured the premise first:
+
+    hyard          605 cells  72%  (fixed r2)     hroof             11 cells  1.3%
+    street pools   203 cells  24%  (fixed r1)     hwall faces        1 cell   0.1%
+    procedural dirt 22 cells  2.6%                perimeter faces   22 cells  2.6%
+
+THE HOUSES ARE 4% OF HIS FIRST FIVE MINUTES. Cooking them would have been the street
+mistake a third time: a round spent on a sliver because it was next on MY list instead of
+next on HIS screen. Not wrong, just not next. It would also have been risky for a reason
+the file names hide and a contact sheet showed in one look: the bank's wall and roof tiles
+are STRUCTURAL ROLES, not interchangeable variants (wall_base, wall_under_eave,
+wall_end_l/r, roof_ridge, roof_eave, roof_hipTL/BL/TR/BR). In a random-variant pool a hip
+corner lands in the middle of a flat wall. Only three map cleanly by name and material
+(wall_0/1/2 -> hwall, wall_window -> hwindow, wall_boarded -> hboarded), and HROOF MUST NOT
+BE SWAPPED AT ALL: the live pool carries three roof COLOURS, the bank's roofs are all
+terracotta, so the swap costs variety on top of placing corners wrong.
+
+*** A NUMBER I PUBLISHED LAST ROUND WAS NOT TRUE, AND IT REACHED A RECORD, A HANDOFF, A
+BOARD ROW AND A COMMIT MESSAGE NINETEEN LANES READ. *** Round 2 said "138 of 841 cells
+(16%) draw with no pool at all, by flat colour". THE REAL NUMBER IS ZERO.
+
+My probe read c.markPool || c.gArtPool || ('flat '+c.g) and called everything that fell
+through "no tile art". A cell carrying no POOL is not a cell carrying no TILE: texFor(col)
+resolves the colour to a pool through SA_MAP at DRAW time, and anything it does not know
+falls to texForKind, which GENERATES its texture procedurally AT 44px. I asked the cell what
+it carried; the renderer asks a different question a moment later. Asked the page's own
+texFor for all 841 cells: seen 841, tiled 841, UNTILED 0. Not one cell in his first five
+minutes is a flat fill. The 105 cells of #8a8a86 are the street pool r1 cooked; the 22 of
+#8a7a5e are the procedural dirt kind, already full resolution. There was never a 16% hole.
+The round-2 record is CORRECTED IN PLACE with the reason written out, not quietly edited.
+
+Third time in three rounds that a clean number from the wrong oracle nearly became a fact,
+and THE FIRST TIME IT GOT PAST ME. THE RULE THIS LANE NOW HOLDS: A PROBE THAT REPORTS AN
+ABSENCE MUST BE ASKED THE SAME QUESTION THE RENDERER ASKS, IN THE RENDERER'S OWN WORDS,
+BEFORE THE ABSENCE IS A FINDING.
+
+WHAT DID SHIP: THE ONE DRIVER NOW DRIVES BOTH SURFACES (tools/bohemia_drive_the_demo.js,
+extended not replaced, per rule 14g). Pointed at the ALPHA it failed on a game that boots
+perfectly, for two reasons that would each make a lane report the alpha broken:
+  1. IT GUESSED HOW LONG THE DOOR TAKES. Two blind waits, 15 s for the splash and 22 s for
+     the city frame, tuned to the demo on one machine. Both now POLL for what they were
+     waiting for, keeping the old numbers as the ceiling.
+  2. THERE ARE TWO FRONT DOORS AND ONLY ONE OPENS. The alpha carries BOTH #fronttap and
+     #front. The driver picked #fronttap with an || and clicked it; measured, the splash sat
+     there with #fronttap present and display:block for EIGHTY SECONDS while nothing
+     happened. Tapping #front opened it first try. It now taps BOTH with a real finger.
+WHY IT MATTERS BEYOND THIS ROUND: every building lane ships to the ALPHA and only THE RUN
+re-cuts the demo. EYES E26 measured it this round -- demo 9/13z, alpha 9/14a, "six lanes
+shipped against last round's list and the demo he opens is the same demo". A driver that
+can only reach the demo can only ever measure work that is at least one cut old.
+MERGED WITH SOUNDS, WHO EXTENDED THE SAME FILE THE SAME ROUND: their beforeTap hook is kept
+exactly where they put it, before the tap, and now fires after the door is SEEN rather than
+after a blind 15 s -- the same moment or earlier, never later. Regression-tested on BOTH:
+demo opens in 60 s with 23 controls and state mode human / hzoom 44 / hx 6205 / hy 6271
+unchanged; alpha opens and answers 841 cells.
+
+WHERE THE ROW STANDS: every one of the 841 cells around him is on a real tile, and all four
+pools making up 95% of them are cooked (road + sidewalk + markings r1, yard r2). THERE IS NO
+REMAINING ART LIE ON THE GROUND OF HIS FIRST FIVE MINUTES THAT THIS LANE CAN FIND BY
+MEASURING.
+
+STILL OPEN, AND NONE OF IT IS THIS LANE'S NEXT BY SCREEN AREA:
+  1. The sidewalk repeat: BOHEMIA_CITY_WORLD.html:36538 and :36577, c.gArtVariant=_sw%3.
+     36 distinct sidewalk tiles exist, three are ever drawn. The per-plot seed beside it is
+     Paolo's 7/14 desert-dominance ruling and must stay; the MODULUS is what is wrong.
+     LIFE + CITY / WORLD. Open since round 1.
+  2. walk_kerb and road_gutter: approved, 44px, undrawn. The suburb has 15 cell codes and
+     not one is a kerb, because Paolo's 7/31 ruling puts the walk HARD AGAINST the kerb, so
+     a kerb is an EDGE on the road side of the walk, not its own cell. The marking pass at
+     :40481 already resolves oriented pools from neighbours and __rotTex already exists.
+     ART: exists. PLACEMENT: LIFE + CITY / WORLD.
+  3. The house pools, per the measurement above. COOK, when 4% is the biggest thing left.
+  4. 40 of the 42 tiles Paolo approved on 7/28 are still drawn ZERO times (r2 placed the
+     three yards). That is bigger than any one row and nobody owns it.
+
+GATES: pre-push pass green (REFERENCE CHECK 11/0, REUSE-FIRST 206/4, PIXEL CRAFT 30/0, CITY
+TAB 64/0, ALPHA LOADS 20/0). The 4 are other lanes' files. Full suite unmeasured since
+9d0c8a4e. No art changed; no demo re-cut (rule 14a).
+Record: records/COOK_THE_GROUND_IS_DONE_AND_A_NUMBER_I_GOT_WRONG_9_14_26.md
+
+AND A HOUSE RULE THIS LANE BROKE TWICE WITHOUT NOTICING. The handoff gate (PLUMBER, 9/13)
+keys a block on its header ending in the word LATEST and fails any commit where a header
+HEAD carries is gone. When I prepend a new block I had been DEMOTING my old one's header
+from '9/13 LATEST' to '9/13' -- which to that gate is indistinguishable from deleting a
+lane's current state, and it went red the moment I ran it. Rounds 1 and 2 did the same and
+nobody ran the gate. NEVER EDIT AN EXISTING BLOCK HEADER. Prepend and leave every header
+below exactly as it is; the newest block is the topmost one, not the one that says LATEST.
+
+STILL PENDING PAOLO, unchanged:
+  [magenta piece] -- purple means the Amalgamation, but the Anarchists' own colour #c026a0
+  is a purple. A/B/C are on the board and below.
 
 COOK (cook-mce6r5): 9/13 LATEST -- *** [streets fixed] ROUND 2: THE STREET IS 8% OF HIS
 SCREEN. THE YARD IS 72%, AND IT WAS THREE SIXTEEN-PIXEL TILES. *** TAB: RUN (the walked
@@ -13097,6 +13308,58 @@ FILES. ***
 since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
+
+ROUND 36 [half now] PART TWO SHIPPED, THE ROW IS DONE. QUESTS, BUILD.
+  engine/bohemia_haggle.js     the three shapes, who is exposed, and the break mark
+  slices/BOHEMIA_CITY_WORLD.html  the inlined copy synced, the mark wired to resolve
+  gates/ask_for_more_gate.js   48/0, check 3c changed WITH the design, not loosened
+  NO DEMO RE-CUT. Rule 14(a). TAB: RUN (the morning card).
+
+THE THREE SHAPES ARE WORDS' AND NOT MINE, off their Q21 round two, from research
+on how migrants pick a smuggler (reputation, guarantees, escrow -- the
+"substitutes for trust"): "ASK 1 is half on delivery. ASK 2 is a third party who
+already holds things for strangers. ASK 3 is going first on something small,
+priced so that being robbed is survivable. NOBODY SAYS TRUST ME, and the section
+bans it, because it is what somebody says who has no shape to offer."
+    half of it now, before I go                           -> THEY are exposed
+    leave it with somebody who holds things for strangers -> NOBODY is exposed
+    I will go first, on something small                   -> YOU are exposed
+
+*** WHAT A SHAPE CHANGES IS WHO IS EXPOSED, NEVER WHAT IT PAYS. *** Everything
+costs one. Driven on the real card: each shape takes, names who carries the risk,
+shows its line, closes the other two (one shape per deal) and still settles at
+exactly one battery.
+
+TWO TRAPS CAUGHT, AND THE FIRST IS THE ONE WORTH KEEPING:
+1. room() -- how many asks land before the offer is withdrawn -- was documented
+   as "THE ROOM IS THE SIZE OF THE MENU". The menu just grew from three rows to
+   five. That reasoning would have SILENTLY made the offer harder to lose the
+   moment a shape was added: a rule written as a count of rows, changed by a
+   feature that adds rows. It is the number of KINDS of ask (a different one, or
+   a shape), not the row count. The number did not move; the reason it is 2 is
+   now true instead of accidentally true.
+2. breakMark() was nearly shipped with NO CALLER. A finished thing nothing calls
+   is a bug this repo keeps paying for. It fires where the quest RESOLVES now, on
+   the same hook the pay and the ground capture already use, into the deed ledger
+   that already exists.
+
+AND THE CITY CARRIES ITS OWN COPY OF THE MODULE: synced, and the live card
+verified to really offer all five rows. Last round's three-copies lesson applied
+rather than re-learned -- the gate's own live line was still printing three asks
+until the inlined copy was replaced, which is exactly how that bug hides.
+
+THE GATE CHANGED WITH THE DESIGN AND SAYS SO. Check 3c pinned "two swaps and one
+up front"; it now pins two swaps and three shapes, plus four new checks: one
+shape per deal, who is exposed per shape, that no shape moves the price, and that
+only the they-are-exposed shape can mark you. A check rewritten to match new
+behaviour is only honest if it stays as tight; this one did.
+
+HANDOFF NOTE, FROM CLAUDE.md's 9/13 amendment: my working copy of this file was
+178 insertions and THIRTY-FOUR DELETIONS against main when I went to write, which
+is the exact loss the amendment describes (read at the start of a round, written
+back an hour later). I threw my copy away, committed the code alone, rebased, and
+wrote this block onto the current file instead. The rule works; it only works if
+you actually look at the diff before writing.
 
 ROUND 35 [half now] AN-ASK-CARRIES-A-SHAPE, PART ONE SHIPPED. QUESTS, BUILD.
   slices/BOHEMIA_CITY_WORLD.html         the guard moved to where the row is DRAWN
@@ -22908,183 +23171,6 @@ touch fights, a road card stops, nightfall stops, one tap stops. Not a teleport 
 fog/sight/night map ([travel map]) follows it, not a precondition.
 (NOTE: the (dv) block above was dropped from this file by another lane's rebase at 765e8c5f
 and is restored here verbatim from 1241e42a.)
-THEN (dw) PAOLO: "I wanna be able to fast travel like yesterday, bro, in the demo, bro."
-Deciphered: URGENT (the idiom), not calendar. His SECOND ask (9/6 [travel map] said "top of
-this lane" and sat ninth for a week under another claim; my failure). Measured: no fast
-travel exists anywhere; the latch comment says NOT FAST TRAVEL in capitals; every piece
-exists (city tap picks the tile, step rule, zoom handoff, party contact, road cards, reach).
-RULED: records/BOHEMIA_RULING_FAST_TRAVEL_LIKE_YESTERDAY_9_13_26.md. RUN [fast travel] is
-the FIRST line of RUN, the MODE line tells the holder to pause its claim and take it this
-round: tap a place on the CITY view, the trip runs in game time on the beat at the world's
-speed, marker moves among tracks and parties, arrive on the street at that tile; a party
-touch fights, a road card stops, nightfall stops, one tap stops. Not a teleport menu. The
-fog/sight/night map ([travel map]) follows it, not a precondition.
-(NOTE: the (dv) block above was dropped from this file by another lane's rebase at 765e8c5f
-and is restored here verbatim from 1241e42a.)
-THEN (dx) PAOLO PLAYED THE DEMO: "it looks like shit... the streets don't look like
-streets... glitchy, buggy AI experience, nothing's complete... I would like to see [the
-tiny parts] come more together." Verbatim: records/BOHEMIA_PAOLO_PLAYED_THE_DEMO_9_13_26.md.
-LAW: laws/BOHEMIA_ADDENDUM_THE_FIVE_MINUTES_9_13_26.md, FRONT-PAGE RULE 14: the demo's
-first five minutes on a phone is the only measure; ONLY RUN re-cuts the demo (every other
-lane ships to the alpha); every building lane's first job is a break he named; the
-six-open top-up is SUSPENDED for building lanes; a card that promises and does nothing is
-the worst bug; nobody answers him with gate or commit counts. FIRST LINES: RUN [fast
-travel] then [dead cards]; UI [no tabs] (LOCKED 9/6, unshipped a week, moved to first);
-COMBAT [first fight]; DIRECTION [streets read]; COOK [streets fixed]; LIFE+CITY [freeway
-reads]; PLUMBER [demo errors]; EYES E26 [five minutes]; PEOPLE [cats stay] (NOTES ARE
-RULINGS: cats approved). THE BREAK LIST lives on the front page under rule 14. MY OWN
-FAILURES named in the record: topping up to six manufactured breadth; every lane re-cutting
-the demo made it nobody's whole; two LOCKED rulings sat a week in queues; I reported commit
-counts as progress. (Coordinator blocks (dv)/(dw) are restored here if a lane's rebase
-dropped them; this is the second time.)
-THEN (dy) VAMILY, 11 commits (only four lanes ran). FACTIONS [who follows] SHIPPED (46 can
-come, 0 would follow on day one, ties are facts never a score; and [down not dead] now
-covers your company); it re-cut the demo twice AFTER rule 14 landed mid-round, noted, not
-punished. LIFE+CITY claimed [freeway reads]; its [tiles not slabs] r1 found the city already
-draws ~9,000 tile images and the 1.7% fallthrough is airbase/airport/estate/gated tiles the
-bank lacks (note on COOK [city from above]). PEOPLE held [lock them] under 14b and named THE
-TRAP: the DEMO BUILD gate's 'regenerating changes nothing' leg goes red for every non-RUN
-ship and the obvious fix is the forbidden re-cut -> RULE 14f (that leg quarantined, nobody
-re-cuts) and RUN [demo pinned] second line (the demo carries the sha it was cut from).
-MY OWN THING: I DROVE THE DEMO MYSELF at phone size, served (file:// throws 13 fetch errors
-a phone never sees): records/BOHEMIA_COORDINATOR_THE_FIVE_MINUTES_I_SAW_9_13_26.md, six frames in records/target/COORDINATOR_FIVE_MINUTES_9_13_*.
-ZERO page errors. The street at walk zoom is a stack of flat bands (head-on brick wall,
-beige, kerb strip, asphalt) with no ground plane; the zoomed-out view already reads as a
-city; thirteen controls before one step; the first card is an 8.5-hour round trip for one
-battery with three haggle buttons; text under the gear, a card on the rail, an orange bar
-down the street edge, a bubble with no speaker; no fight, no car; four cats. Written to the
-front page as THE COORDINATOR'S BREAK LIST (premises) and as premise notes on [streets
-read], [streets fixed], [freeway reads], [no tabs], [dead cards], [demo errors], [first
-fight], [every card], [first ask].
-THEN (dz) VAMILY, 36 commits, the first full round under rule 14. HIS BREAKS: DIRECTION
-[streets read] SHIPPED (five liars in coverage order: a tan void under the density floor,
-a roadbed with no kerb/lanes/yellow, a sidewalk reading as a garden path, a wall with no
-base shadow, a freeway with a bridge's anatomy; fix list to COOK, layering to LIFE+CITY);
-COOK [streets fixed] r1 (all 74 ground tiles were photographs, 1,200+ colours against a
-64 ceiling, recoloured onto his 7/28 bank, 74 -> 0; the sidewalk draws 3 of its 36 tiles
-by one modulus, the kerb is named by the generator and has no art -> LIFE+CITY [side
-variants], COOK r2 kerb); LIFE+CITY [freeway reads] SHIPPED (one word in one test made 30
-flat freeway cells decks and 29 streets dips; 0 false now; he saw it in CITY mode); UI
-[no tabs] SHIPPED (WHOLE MAP gone, DROP IN never appended; seven gates elsewhere still
-click the dead button -> PLUMBER [mode chip]); PEOPLE [cats stay] SHIPPED (THERE IS NO
-CAT: what he saw are RATS, a dash running a wall on the beat, frozen with a gate); RUN
-[reds mine] SHIPPED (six of seven lying checkers; the seventh real: the ringing phone
-stopped going gold, a tester could finish the demo without meeting the game; fixed); RUN
-[fast travel] CLAIMED and measured (map travel exists in stepOnce's city branch; four
-connections missing). ALSO: QUESTS [map moves] SHIPPED (the map moves AGAINST you, only
-when reckless); COMBAT [enemies flee] SHIPPED (the fight used to end when the last man
-turned his back; now a pistol gives four turns to chase) but it RE-CUT THE DEMO after rule
-14 (noted on its MODE line); SOUNDS three rows SHIPPED (109 of 142 songs named a lead the
-engine never played; 142 of 142 now; [melody first] closed, premise measured on the MUSIC
-tab); ECONOMY Q38 (one is the INSIDER price, the door is a person -> shape on WORLD [two
-prices]); ANIMATION [redo killed] r2 (47 -> 4 still snapping); UI [no slop] r7 measured
-the demo's walked city answers at 24.2 s on a fast machine (my own drive: readyState
-complete at 1.4 s served locally; the two numbers measure different things, RUN
-reconciles) -> RUN [loading screen] third line, PLUMBER [slim build] second; FACTIONS held
-[same lender], fixed its 975-px standing card to fit 780. RESTORED: RUN [demo pinned]
-(dropped by a lane's merge) and coordinator handoff blocks dropped by lanes' rebases
-(third time; whichever of du..dy were missing). NEW: LIFE+CITY [base shadows] first,
-[side variants]; PLUMBER [mode chip]. THE SUITE LINE still unposted.
-THEN (dz) VAMILY, 36 commits, the first full round under rule 14. HIS BREAKS: DIRECTION
-[streets read] SHIPPED (five liars in coverage order: a tan void under the density floor,
-a roadbed with no kerb/lanes/yellow, a sidewalk reading as a garden path, a wall with no
-base shadow, a freeway with a bridge's anatomy; fix list to COOK, layering to LIFE+CITY);
-COOK [streets fixed] r1 (all 74 ground tiles were photographs, 1,200+ colours against a
-64 ceiling, recoloured onto his 7/28 bank, 74 -> 0; the sidewalk draws 3 of its 36 tiles
-by one modulus, the kerb is named by the generator and has no art -> LIFE+CITY [side
-variants], COOK r2 kerb); LIFE+CITY [freeway reads] SHIPPED (one word in one test made 30
-flat freeway cells decks and 29 streets dips; 0 false now; he saw it in CITY mode); UI
-[no tabs] SHIPPED (WHOLE MAP gone, DROP IN never appended; seven gates elsewhere still
-click the dead button -> PLUMBER [mode chip]); PEOPLE [cats stay] SHIPPED (THERE IS NO
-CAT: what he saw are RATS, a dash running a wall on the beat, frozen with a gate); RUN
-[reds mine] SHIPPED (six of seven lying checkers; the seventh real: the ringing phone
-stopped going gold, a tester could finish the demo without meeting the game; fixed); RUN
-[fast travel] CLAIMED and measured (map travel exists in stepOnce's city branch; four
-connections missing). ALSO: QUESTS [map moves] SHIPPED (the map moves AGAINST you, only
-when reckless); COMBAT [enemies flee] SHIPPED (the fight used to end when the last man
-turned his back; now a pistol gives four turns to chase) but it RE-CUT THE DEMO after rule
-14 (noted on its MODE line); SOUNDS three rows SHIPPED (109 of 142 songs named a lead the
-engine never played; 142 of 142 now; [melody first] closed, premise measured on the MUSIC
-tab); ECONOMY Q38 (one is the INSIDER price, the door is a person -> shape on WORLD [two
-prices]); ANIMATION [redo killed] r2 (47 -> 4 still snapping); UI [no slop] r7 measured
-the demo's walked city answers at 24.2 s on a fast machine (my own drive: readyState
-complete at 1.4 s served locally; the two numbers measure different things, RUN
-reconciles) -> RUN [loading screen] third line, PLUMBER [slim build] second; FACTIONS held
-[same lender], fixed its 975-px standing card to fit 780. RESTORED: RUN [demo pinned]
-(dropped by a lane's merge) and coordinator handoff blocks dropped by lanes' rebases
-(third time; whichever of du..dy were missing). NEW: LIFE+CITY [base shadows] first,
-[side variants]; PLUMBER [mode chip]. THE SUITE LINE still unposted.
-THEN (ea) VAMILY, 12 commits. SHIPPED: PEOPLE found and fixed the dead card he described
-word for word (the first card of the game, THE METER READER, had three ways to argue and
-NO WAY TO SAY YES; accepting only worked through the phone; one row now calls the same
-function); COOK [streets fixed] r2 (the street is 8% of his screen, the YARD is 72%, and
-the yard was a superseded 16-px fallback blown up 2.75x and blurred; swapped for his
-approved 44-px yard tiles; 16% of cells draw flat colour with no tile at all -> LIFE+CITY
-[no pool cells]); QUESTS [bond outlives] (the person who became yours stays yours; still
-no roster); ANIMATION [redo killed] r3 (JUDGE ALL has a filter ONES YOU KILLED with a
-measured green line on each of the 47 saying what changed; 4 left snapping and those are
-the clip); LIFE+CITY built THE ONE DRIVER (tools/bohemia_drive_the_demo.js) -> rule 14g;
-WORLD walked the five minutes with three broken instruments before a right one and found
-SCAVENGE delivers; FACTIONS fixed the night card (916 px in 780) and found WHO YOU OWE is
-eight identical lines -> WORLD [owe lines] first; ECONOMY Q39 (the bailiff, not the court;
-the strelka -> FACTIONS [deal sticks] re-aimed); WORDS Q23 school (the ground knows how
-many, which way, how long ago, never who; the name belongs in a mouth). DECIDED BY ME:
-the nine [PENDING Paolo] lines ECONOMY was carrying, records/BOHEMIA_RULING_NINE_DEFAULTS_THE
-_ECONOMY_WAS_CARRYING_9_13_26.md (pump first; money supply off the map; exclusion not
-seizure; seven-day week; barter at a camp to a stranger; a ruin holds two households).
-NEW research rows (research continues under 14c): ECONOMY Q42 [the bailiff], Q43 [double
-up], Q44 [first building]; WORDS Q24 [yes words], Q25 [card words]. Coordinator blocks
-present: all of du..dz this time. THE SUITE LINE still unposted; PLUMBER did not run.
-
-COORDINATOR: 9/5 (be) -- *** RELEASE FOLDED INTO THE
-RUN; CHAT 18 IS THE PLUMBER (small, fast, 60 fps, honest checkers); THE RUN IS BEING
-RENAMED BY PAOLO. Nothing to judge. ***
-Paolo 9/5: "Release sounds like it does the same thing I thought THE RUN did... why can't
-it be in THE RUN" -> he was right; RELEASE (one day old) is closed and its jobs are in
-RUN, HANDS-NOW first, PERFORMANCE to the PLUMBER. "I lowkey want to change the name of
-the run... it was your name not mine" -> [PENDING Paolo] the new name; offered in the
-reply; section stays RUN, chat finds itself by number 01. "we can have a permanent pipe
-fixer always working... slimmest, fastest, 60 fps" -> chat 18 is PLUMBER (his word,
-NOTES ARE RULINGS), three jobs only: small and fast on a phone with budgets and gates;
-every rule has a working checker and the suite finishes in one command; the two piles
-archived. New jobs [sixty fps] [slim build] [hot path] ahead of the gate jobs. Eighteen
-chats. Law: laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md. CLAUDE.md
-lane list updated. LAST FEEDBACK RECEIVED: this -> RELEASE folded, PLUMBER named, RUN
-rename pending.
-
-COORDINATOR: 9/5 (bd) -- *** THE DEMO GOES INTO HANDS
-NOW; GATEKEEPER EXPLAINED IN PLAIN WORDS; ITS NAME IS HIS TO PICK. Nothing to judge. ***
-Paolo 9/5: "I do want to get a demo into people's hands immediately though but there's
-so much to do." RULING RECORDED: the demo is never held for more content; what exists
-today is the demo. RELEASE got a lane rule and a new FIRST job [hands now] HANDS-NOW:
-walk today's demo on a phone, fix only what stops a stranger reaching the first fight,
-hand the link to one friend this round, write down what they did. Everything else in
-RELEASE queues behind it. GATEKEEPER: he asked what its main role is ("fucking up the
-files even more? cleaning code? the plumber of all plumbers?"). Header rewritten in
-plain words: the checker of the checkers; touches gates/ and the two pile files only;
-never engine, slices, tools, laws or art; a red gate in another lane's work becomes one
-line in that lane's section, never a fix by this chat. He asked for five other names:
-offered in the reply (INSPECTOR, REFEREE, PLUMBER, MECHANIC, WARDEN); the name is his
-and stays GATEKEEPER on the board until he says. Duplicate BB-COLD-HAND removed from
-SHARED (it lives in RELEASE). LAST FEEDBACK RECEIVED: this -> RELEASE rule + HANDS-NOW,
-GATEKEEPER plain header, names offered.
-
-COORDINATOR: 9/4 (bc) -- *** HIS BLIND SPOTS: TWO
-NEW LANES, RELEASE (18) AND GATEKEEPER (19), PLUS THREE JOBS FOLDED INTO EXISTING CHATS.
-Nothing to judge. ***
-Paolo 9/4: "are there any other angles other than quests that are completely left
-empty... what are my blind spots?" Checked every chat against the twenty pillars and
-what a shipped game needs. UNOWNED: the demo as a PRODUCT (performance, dispatch item
-7, never picked up; whether the cut is current; any way to see what a friend did; the
-friend rounds) -> RELEASE, six jobs. The CHECKING MACHINE itself (the suite cannot
-finish in budget, 82 gates never ran, no gate can say OWED) -> GATEKEEPER, which takes
-the gate jobs out of SHARED. HALF-OWNED: creatures and danger by place (dispatch 8)
--> COMBAT [what lives]; accessibility on a phone -> UI [phone readable]; the music
-itself -> SOUNDS [music owned]. Still parked by him: QUESTS, the biggest hole. LAST
-FEEDBACK RECEIVED: this -> lanes 18 and 19 and the three lines.
-
-COORDINATOR: 9/4 (bb) -- *** THE TOKEN DIET:
-CLAUDE.md folded from ~34K tokens a message to ~6K, verbatim into a laws master; the
 handoff cut is prepared and queued (the gate forbids it; the coordinator does not
 write gates). Nothing to judge. ***
 Paolo 9/4: "is there any part of the structure that's unnecessarily token heavy? can
@@ -23109,6 +23195,46 @@ archive, then swap; [backlog archive] queued behind it. A first draft put the ar
 under records/ and the canon rot gate counted its 5 MB of old citations; moved to
 archive/ (history, per the truth hierarchy) and it went green. LAST FEEDBACK
 RECEIVED: this -> the fold, the two SHARED jobs, the record.
+THEN (ec) VAMILY, 23 commits. THE HEADLINE IS EYES E26 r3: THE DEMO HE OPENS DID NOT
+CHANGE (stamped 9/13z, alpha 9/14a); six lanes' fixes sit behind RUN's cut and RUN is deep
+in [fast travel]. RULE 14a AMENDED: RUN re-cuts at the START of every RUN round, a ratchet
+(never worse than the last cut), the daily build as the model; RUN [cut now] is the first
+line, with [cutter flex] folded in; the law file amended. THE SUITE LINE POSTED by me off
+PLUMBER's first comparable run (ad23d875: box 0.89x, 632 ran, 525 green, 107 red, 0 never
+ran, floor 71.3 min; FACTION ARC 557.7 s vs 600 cap, not safe). SHIPPED: COMBAT [prefight
+save]; LIFE+CITY [eyes: dead build] (BUILD goes visibly off when you cannot afford it,
+EYES was right for a different reason); UI [eyes: reach spills] (the rail's 'reach is 44'
+was never true, 12 px chips with 30 px of dead air; 44 px chips now, ink still halved);
+QUESTS [half now] part one (a dead row on a TAKEN job removed; and the class finding: A
+DEAD BUTTON IS INDISTINGUISHABLE FROM A CLOSE BUTTON, screen diffs read a closed card as
+life -> rule 14h); FACTIONS three five-minute rounds (the against-line never cleared;
+three shipped features were NEVER ON THE GLASS because the pack pass wiped the shared
+street line every frame, 0 of 2 -> 2 of 2); PEOPLE (the cab's line outlived the car by the
+whole walk; cleared at 90 s); ANIMATION [redo killed] r5 (his four beats are fractions
+of the fall and the sim read them as seconds; arms-up converted; beat one blocked by a pin
+and a fourth attempt refused, STOP PRODUCING); DIRECTION seam PASS on [base shadows];
+WORDS Q24 school (a yes with an if in it is a counter-offer; they say the terms back);
+ECONOMY Q41 (eviction costs the owner 30 to 136 batteries against a debt of one; relight
+has zero callers and no price -> DECIDED relight costs one, note on WORLD [block strikes]).
+CHARACTER measured its way to a break: THE WHOLE POPULATION IS SIX PEOPLE (74% of a
+screen's crowd repeats, 47 pictures among 183 bodies; one more bake costs 530 ms of boot)
+-> CHARACTER [six people] first, cheaper variety by ramp. EYES: 'Half of it now' still
+dead on both surfaces; QUESTS says it works on this tree; part two still claimed. My
+duplicate handoff blocks (dw, dz) removed again (PLUMBER's restore re-added them).
+THEN (ed) PAOLO 9/14: ONE VOTE TAB AND THE PORTRAIT CHAT. Verbatim:
+records/BOHEMIA_PAOLO_ONE_VOTE_TAB_9_14_26.md. Law: laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE
+_PORTRAIT_CHAT_9_14_26.md, front-page RULE 15. Eight judge pages -> ONE VOTE TAB in the
+DEMO behind the gear; a vote CONSUMES the item (never renders again under that id;
+verdict to records/*.txt and a registry the tab reads); approved goes into the game and
+its own tab the same round; killed to the graveyard, clips redone and back as a new id
+quoting his words. UI owns the shell (UI [vote tab] first line); [into the vote tab] on
+ANIMATION, CHARACTER, SOUNDS, COOK, DIRECTION, WORDS; RUN cuts it. NEW CHAT 20 PORTRAIT
+(UNCLAIMED; a brand-new chat is PORTRAIT now; primer and CLAUDE.md amended): the HD face
+of every person matched to the body's eye colour, hair colour, haircut ("damn near the
+same"); blank is the defect; he speaks along per face through the VOTE tab; try 3-D
+(cook 3-D, eat 2-D). Lines: [blank faces] (school), [matches body], [three d look],
+[speak along], [faces first]. His "Pokémon vibe" is a description of sprite-vs-portrait
+size, NOT a reference game; written into the law. THE TWENTY CHATS.
 
 COORDINATOR: 9/4 (ba) -- *** THE MEETING HALL:
 VAMILY.md's front page now carries every rule, and every chat re-reads it every time
@@ -29196,7 +29322,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/13 (latest): [judge the redo] SHIPPED - PASS, the 47 killed
+ROUND LOG 9/14 (latest): [streets again] SHIPPED - two liars dead,
+three alive, ranked. Dead on demo 9/13z: the tan void (crisp hardpan)
+and the footless wall (contact shadow landed). Alive for COOK in
+coverage order: the roadbed with zero road geometry (kerb art approved
+and undrawn - the single biggest lie left on his screen), the freeway
+surface (pale transverse-jointed concrete; needs dark asphalt +
+longitudinal dashes), the kerbless sidewalk with weeds down the centre.
+Re-judge runs on the demo when the road geometry lands. PREVIOUS: [judge the redo] SHIPPED - PASS, the 47 killed
 clips go back to him via the ANIMATION tab's ONES YOU KILLED board. Two
 instruments agreed: ANIMATION's twice-run probe (far-arm-over-head gone
 on all 47, elbow jumps 30px -> 4-11) and my eyes on four clips x eight

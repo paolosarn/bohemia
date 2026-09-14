@@ -77,14 +77,65 @@ async function open(opts) {
 
   await page.goto('http://127.0.0.1:' + port + '/slices/'
     + (opts.file || 'BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
-  await page.waitForTimeout(opts.boot || 15000);
-  await page.evaluate(() => {
+  /* WAIT FOR THE DOOR, DO NOT GUESS HOW LONG IT TAKES (COOK 9/14, [streets fixed] r3).
+     The two waits here were blind: 15 s for the front splash, 22 s for the city frame.
+     That is tuned to the DEMO on one machine. Pointed at the ALPHA -- which is where
+     every building lane ships, and which carries whatever landed since the last cut --
+     the splash had not appeared inside 15 s, the click hit nothing, and the driver threw
+     "no city frame" on a game that boots perfectly. A lane reading that would conclude
+     the alpha is broken. So both waits now POLL for the thing they were waiting for and
+     keep the old numbers only as the ceiling. Nothing changes for the demo; the alpha
+     becomes reachable. */
+  const until = async (fn, ms) => {
+    const t0 = Date.now();
+    for (;;) {
+      try { if (await fn()) return true; } catch (_e) {}
+      if (Date.now() - t0 > ms) return false;
+      await page.waitForTimeout(250);
+    }
+  };
+  /* EXTENDED 9/14 (SOUNDS, rule 14g: every lane that walks the five minutes uses this
+     or extends it). A HOOK BEFORE THE TAP, because some instruments have to be in
+     place BEFORE the door opens or they measure the wrong five minutes. The ear is
+     the case that forced it: the front tap is the first sound in the game and the
+     song takes the beat off the pulse a moment later, so a recorder installed after
+     the tap misses the only part nobody has ever checked. It is a no-op unless a
+     caller passes it, so no existing use of this driver changes.
+     KEPT WHERE SOUNDS PUT IT, BEFORE THE TAP -- it now runs after the door is SEEN
+     rather than after a blind 15 s, which is the same moment or earlier, never later. */
+  await until(() => page.evaluate(() => {
     const f = document.getElementById('fronttap') || document.getElementById('front');
-    if (f) f.click(); });
-  await page.waitForTimeout(opts.settle || 22000);
+    return !!(f && getComputedStyle(f).display !== 'none');
+  }), opts.boot || 15000);
+  if (typeof opts.beforeTap === 'function') await opts.beforeTap(page);
+  /* TRAP 5, AND IT IS TRAP 3 WEARING A HAT: THERE ARE TWO FRONT DOORS AND ONLY ONE OF
+     THEM OPENS. The alpha carries BOTH #fronttap and #front. This picked #fronttap with
+     an || and clicked it, and on the alpha that is the wrong element: measured, the
+     splash sat there with #fronttap present and display:block for eighty seconds while
+     nothing happened, and the driver reported "no city frame" on a game that boots fine.
+     Tapping #front opened it on the first try. So TAP BOTH, with a real finger, and keep
+     click() as the belt: neither costs anything and between them every surface opens. */
+  for (const id of ['fronttap', 'front']) {
+    const b = await page.evaluate((i) => {
+      const f = document.getElementById(i);
+      if (!f || getComputedStyle(f).display === 'none') return null;
+      const r = f.getBoundingClientRect();
+      if (r.width < 4 || r.height < 4) return null;
+      return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+    }, id);
+    if (b) await page.touchscreen.tap(b.x, b.y);
+    await page.evaluate((i) => { const f = document.getElementById(i); if (f) f.click(); }, id);
+  }
 
-  const fr = page.frames().filter(f => /BOHEMIA_CITY_WORLD/.test(f.url()))[0];
+  let fr = null;
+  await until(async () => {
+    fr = page.frames().filter(f => /BOHEMIA_CITY_WORLD/.test(f.url()))[0];
+    return !!fr;
+  }, opts.settle || 22000);
   if (!fr) { await browser.close(); server.close(); throw new Error('no city frame'); }
+  /* and the frame existing is not the world being there */
+  await until(() => fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'human'
+    && document.querySelectorAll('.pb').length === 8), opts.world || 120000);
   /* TRAP 1: the frame's own box, added to every coordinate below. */
   const fb = await (await fr.frameElement()).boundingBox();
 

@@ -22,7 +22,7 @@ VAMILY and re-reads the front page of VAMILY.md every time; the rules live there
 sentence he says becomes a job there before the reply ends, two words per job. Lanes:
 run, world, life+city, combat, character, direction (the art director), cook (the
 production artist), sounds, people, factions, ui, words, economy, dynasty, animation,
-eyes-and-ears, plumber (the permanent pipe fixer: small, fast, 60 on a phone, every checker honest); quests is PARKED; the lab is retired; RUN owns the demo into a friend's hands (9/5, laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md). Laws:
+eyes-and-ears, plumber (the permanent pipe fixer: small, fast, 60 on a phone, every checker honest), portrait (20, Paolo 9/14: the HD face matched to the body, blank faces are the defect, he speaks along per face; laws/BOHEMIA_ADDENDUM_ONE_VOTE_TAB_AND_THE_PORTRAIT_CHAT_9_14_26.md, which also makes ONE VOTE TAB in the demo the only place he votes); quests is UNPARKED (9/6); the lab is retired; RUN owns the demo into a friend's hands (9/5, laws/BOHEMIA_ADDENDUM_THE_DEMO_IN_HANDS_AND_THE_PLUMBER_9_5_26.md). Laws:
 laws/BOHEMIA_ADDENDUM_THE_VAMILY_WORD_9_4_26.md, laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md,
 laws/BOHEMIA_ADDENDUM_RESEARCH_LANES_9_4_26.md, laws/BOHEMIA_ADDENDUM_EYES_AND_EARS_9_4_26.md,
 laws/BOHEMIA_ADDENDUM_THE_RUNWAY_AND_ART_AT_ALL_TIMES_9_4_26.md,
