@@ -203,3 +203,40 @@ Third ruler bug of this class this round, fourth of the session. The pattern is
 always the same shape: **a unit or a span that is not what the ruler's sentence
 claims** -- seconds read as fractions, 56-space constants on a 112 rig, two
 endpoints called a peak, and now an eighth of a fall called a fall.
+
+## WHAT W'S MASKED WHIP POINTED AT, MEASURED BEFORE LEAVING IT
+The gate prints W as the one facing whose own fall outruns the whip. Chasing that
+one line gave beat two's real diagnosis, which is NOT what "the knees do not fold"
+implies. Knee angle across his fold window, all eight facings (0 is straight, 180
+is folded double):
+
+    dir |  K (knock projection) | knee peak (at) | knee at his window end
+      N |          [0.71, 0.39] |  102  (0.26)   |   14
+     NE |         [-0.71, 0.39] |  122  (0.285)  |   22
+      E |             [-1, 0]   |  142  (0.44)   |  144
+     SE |         [-0.71,-0.39] |   80  (0.27)   |   29
+      S |          [0.71,-0.39] |   38  (0.26)   |    5
+     SW |          [0.71,-0.39] |   37  (0.275)  |    3
+      W |              [1, 0]   |  159  (0.34)   |  133
+     NW |          [0.71, 0.39] |  102  (0.275)  |   31
+
+**The knee peak tracks |K[0]| exactly.** There is ONE canonical sim projected onto
+eight knock axes, so the knee's fold in the sim is the same every time; only the
+projection differs. E and W are the pure lateral falls (|K[0]| = 1) and see the
+fold undistorted. S and SW are nearly edge-on and see almost none of it.
+
+So beat two is two opposite defects, not one:
+- **On the two lateral facings the knee folds nearly DOUBLE** (142 and 159 degrees)
+  and stays there. That is too far, not too little.
+- **On the other six it folds and then straightens back out** (102 -> 14,
+  122 -> 22, 80 -> 29, 38 -> 5, 37 -> 3, 102 -> 31).
+
+Facings sharing a K share their numbers, which is the check on this reading: N and
+NW are both [0.71, 0.39] and both peak at 102; S and SW are both [0.71, -0.39] and
+peak at 38 and 37.
+
+**The next round's question is therefore not "how do I make the knees fold".** The
+sim already folds them nearly double. It is whether a fold that reads correctly on
+E and W can survive the projection onto the other six, or whether the fold has to
+be authored per-projection. That is a real fork and it wants measuring, not a
+window change. Nothing was built on it this round.

@@ -1132,9 +1132,18 @@ my change, was triaged first, and is green on its own merits now.
 FULL SUITE: no SUITE LINE on the front page yet; PLUMBER [suite line] owns it.
 
 WHAT IS LEFT OF THE ROW, unchanged from last round except beat one:
-- BEATS TWO AND THREE need a MECHANISM, not a window. For the knees to fold the
-  waist has to drop between planted feet; for the arms to hold up the hands have
-  to resist while the torso goes. Moving their windows just trades beats.
+- BEATS TWO AND THREE need a MECHANISM, not a window. For the arms to hold up the
+  hands have to resist while the torso goes. Moving windows just trades beats.
+- BEAT TWO IS NOT WHAT THE BOARD ASSUMES, and it was measured this round before
+  being left. The knee peak tracks |K[0]| exactly, because ONE canonical sim is
+  projected onto eight knock axes: E and W (pure lateral, |K[0]|=1) fold to 142
+  and 159 degrees and STAY folded; the other six fold and straighten back out
+  (N 102->14, NE 122->22, SE 80->29, S 38->5, SW 37->3, NW 102->31). Facings
+  sharing a K share their numbers, which is the check on that reading. So the
+  sim already folds the knee nearly DOUBLE -- the question is not how to make
+  knees fold, it is whether a fold that reads on E and W can survive the
+  projection onto the other six, or must be authored per-projection. A real
+  fork, and it wants measuring. Table is in the record.
 - W IS THE ONE FACING THE SNAP DOES NOT CLEANLY HOLD and the gate prints it every
   run: the snap happens (head 20px against the waist's 5px) but W's own fall is
   the most violent of the eight and outruns the whip by the window's end. W's knee
