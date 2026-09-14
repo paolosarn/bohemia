@@ -7684,7 +7684,63 @@ walk census). Then [music owned] THE-MUSIC-ITSELF.
 
 ------------------------------------------------------------------------
 
-LIFE + CITY (city-1eztay): 9/13 (e) LATEST -- *** THE BUILD BUTTON STOPS PRETENDING. Took EYES
+LIFE + CITY (city-1eztay): 9/14 (a) LATEST -- *** [tap crash] SHIPPED. THE SHIP TEST WAS "GREEN
+TAP_PICKS ON MAIN" AND IT WAS ALREADY GREEN WHEN I GOT HERE -- WHICH WAS WORSE THAN RED. ***
+MODE: BUILD. TAB: none, no slices/ change, so no build stamp: nothing on his screen moved.
+
+  THE CRASH ITSELF WAS ALREADY FIXED last round (81208f49): the picker dispatches on what was
+actually drawn, a plate asked for its pixel and a prism for its geometry. What was left was the
+gate, and the gate was PASSING WHILE MEASURING NOTHING.
+
+  *** SAME TREE, TWO RUNS BACK TO BACK, NOTHING CHANGED BETWEEN THEM:
+        run 1   TW=18 0/0   TW=30 15/16   TW=48 11/12
+        run 2   TW=18 0/0   TW=30  0/0    TW=48 11/12
+      AND BOTH REPORTED 6 PASS / 0 FAIL. ***
+
+  THE RACE: the gate drove the game with MODE='city'; TW=t; render(). The loop recomputes TW
+from CZOOM every frame and repaints, so the forced frame's CB_DREW was overwritten before the
+census read it. Lose the race, see no plates, score 0/0. THIRD TIME THIS LANE HAS BEEN BITTEN BY
+DRIVING WITH ASSIGNMENT, and the first time it was my own CHECKER doing it rather than a
+throwaway probe.
+
+  AND THE ALIBI THAT LET ZERO PASS, which is the part worth carrying to other lanes: B1 required
+a TOTAL of 12 across three zooms, so one healthy zoom carried two empty ones. B3 -- the leg whose
+name promises "it holds at EVERY zoom" -- filtered with buildingsOf>=5, so IT ANSWERED "ALL OF
+THEM" BY DROPPING THE ONES IT COULD NOT SEE. That is not a weak check. It is an alibi.
+
+  FIXED: the zoom is DRIVEN through the game's own setZoomAt (CZOOM in, TW derived, renderSoon
+out) so it survives the next frame; the zooms are asked for as CZOOM fractions clamped by the
+game's own zoomBounds() rather than TW numbers the gate invented; it waits for the lazily-loaded
+plates to be on the glass, because an early census legitimately sees none and that is a slow
+start rather than a broken picker; and an empty or thin zoom now FAILS instead of being skipped.
+  AFTER: TW=18 went from permanently 0/0 to 15/16. All three zooms carry a real sample (15/16,
+15/16, 11/12). THREE CONSECUTIVE RUNS BYTE-IDENTICAL.
+
+  MUTATIONS: break the picker -> B1+B3 red at 0 of 44. Make ONE zoom measure nothing -> B1+B3
+red and B3 names it, which is EXACTLY the shape the old gate reported 6/0 on. Reverting to
+assignment-driving did NOT reproduce, and that is the point -- the old bug was a RACE, so it
+sometimes wins; A FLAKE CANNOT BE MUTATION-TESTED BY RE-INTRODUCING IT, it is caught by making
+the empty result illegal.
+
+  *** THE STANDING NOTE, FOR EVERY LANE: A FLAKY GATE IS NOT A GATE THAT SOMETIMES FAILS. IT IS
+A GATE THAT SOMETIMES MEASURES NOTHING AND CALLS THAT PASSING. *** Nobody would have caught this
+from the output: it said six green every single time and the three numbers beside it looked like
+a result rather than a coin toss. It only surfaced because I ran it twice on an unchanged tree
+for an unrelated reason. THE CHEAP HABIT THAT FINDS THIS CLASS: run a gate twice before you trust
+it green, and make an empty measurement a FAILURE rather than a skip -- silence and success look
+identical in a pass count.
+
+  PRE-PUSH PASS (rule 13a): TAP PICKS 6/0 and now deterministic across three runs. No game code
+in this diff. Full suite unmeasured since a879492; no SUITE LINE posted yet (rule 13b).
+  Record: records/BOHEMIA_GREEN_FOR_THE_WRONG_REASON_9_14_26.md
+
+  NEXT: [no pool cells] is the first OPEN line (COOK measured 16% of the screen draws from no
+pool at all, which corroborates my own 19.8%-flat-fill number from the other direction), then
+[side variants], then [tiles not slabs] with its 1.7% on it.
+
+------------------------------------------------------------------------
+
+LIFE + CITY (city-1eztay): 9/13 (e) -- *** THE BUILD BUTTON STOPS PRETENDING. Took EYES
 E26's stranger-walk item 2 instead of my queue, under duty 8 (his bugs beat your queue) and rule
 14(d). *** MODE: BUILD. TAB: CITY, tap any empty desert plot. Stamp 9/14b. Demo NOT re-cut.
 
