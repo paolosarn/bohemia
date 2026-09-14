@@ -2971,68 +2971,97 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
-FACTIONS (factions-ovkjpf): 9/13 (round 25) LATEST -- *** THE FIVE MINUTES, ROUND
-FOUR. [same lender] still CLAIMED AND HELD under 14b. A GLITCH, HIS WORD, AND IT WAS
-THIS LANE'S. One blocked step put "somebody steps into your way. they meant to." on
-the street and it was still there word for word forty blocks later with nobody near
-you. True for one step, a lie for the rest of the day. It takes its words back now,
-and it was freezing four other writers while it sat there. ***
+FACTIONS (factions-ovkjpf): 9/14 (round 26) LATEST -- *** THE FIVE MINUTES, ROUND
+FIVE. [same lender] still CLAIMED AND HELD under 14b. THREE SHIPPED FEATURES HAVE
+BEEN INVISIBLE TO EVERY PLAYER WHO EVER OPENED THE GAME. The tracks under his feet,
+the block that does not want him and the road's own encounter lines all write one
+shared line, and the pack pass wiped that line at the end of EVERY FRAME whenever
+nothing was warning him. On a walk out of the demo's own starting spot the street
+had something true to say on 2 of 60 steps and said it 0 times. It is 2 of 2 now. ***
 Nothing to judge.
 
 VAMILY row: [same lender], MODE: BUILD, CLAIMED AND HELD under rule 14b.
-Record: records/BOHEMIA_THE_STREET_TAKES_ITS_WORDS_BACK_9_13_26.md
+Record: records/BOHEMIA_THE_STREET_WAS_NEVER_ON_THE_GLASS_9_14_26.md
+Round 25: the street line -- records/BOHEMIA_THE_STREET_TAKES_ITS_WORDS_BACK_9_13_26.md
 Round 24: the borders -- records/BOHEMIA_THE_BORDERS_WERE_PAINTING_THE_STREETS_9_13_26.md
 Round 23: the nightfall card -- records/BOHEMIA_THE_NIGHT_CARD_DID_NOT_FIT_EITHER_9_13_26.md
-Round 22: the standing card -- records/BOHEMIA_THE_CARD_DID_NOT_FIT_A_PHONE_9_13_26.md
 
-*** FIVE WRITERS SHARE ONE LINE, #packline, AND ONLY ONE OF THEM TIDIES UP. ***
-  walkSay -- the road and its encounters -- ANOTHER LANE -- does not clear
-  ctAgainstSay -- somebody steps into your way -- THIS LANE -- did not clear, now does
-  packButton and its tap -- the pack -- another lane -- clears on its own path
-  trackSay -- whose footprints these are -- this lane -- clears, OWN WORDS ONLY
-Driven on the DEMO at 390 px: say it, then walk forty real blocks across the valley
-and read the line off the page at every step. IT NEVER CHANGED ONCE.
+THE SWEEP CAME BACK ALMOST EMPTY, WHICH IS ITSELF THE ANSWER. Of 73 elements
+written by name in the city, #packline is the only one with more than three
+writers (6). Next worst is #cbprice at 3, and nearly every remaining pair is one
+owner in two halves (an init and an update), not five strangers. So there is no
+next shared-element glitch waiting; the interesting question was the leftover one:
+IS ANYTHING WRITTEN TO THAT LINE EVER ACTUALLY SEEN?
 
-AND IT FROZE THE WHOLE LINE, NOT JUST ITS OWN SENTENCE. This is what makes it worse
-than a stale string. trackSay clears ONLY ITS OWN WORDS -- correctly, because the
-line is shared and wiping it unconditionally would delete somebody else's sentence.
-So once this sentence sat there the track line could never clear it, and its own
-change-guard stopped it ever speaking again. ONE WRITER THAT DOES NOT TIDY UP
-SILENCES EVERY WRITER THAT DOES. Any lane that writes a shared element owes it a
-clear, and the clear must match its own text or it becomes the bug it is fixing.
+IT WAS NOT, AND EVERY GATE SAID IT WAS. [tracks read]'s claims were greps, and a
+grep proves code exists. Driven on the demo reading TEXT AND WHETHER IT IS ON THE
+GLASS:
+  trackSay() alone        "Church came through here just now."   SHOWN
+  one real render() frame  the same text                          hidden
+  ten frames in a row      hidden every one
+render() opens with the street speaking and later runs the pack pass, which ends in
+packButton(), whose last branch was `else if (!near) { l.style.display='none'; }` --
+it hid the WHOLE SHARED LINE, whoever wrote it. In ordinary play PACK_DREW is 0 and
+PACK_NEAR is false, so that is almost always.
 
-THE CHANGE  ctAgainstClear() next to ctAgainstSay, called from the movement check
-            that already runs, BEFORE the track read -- so the line is free when the
-            tracks get their chance at it. The other order leaves them silent behind
-            a sentence that is already a lie.
-              said         "somebody steps into your way. they meant to."
-              3 blocks on  ""   (was: unchanged after forty)
+NEGATIVE CONTROL, SAME SESSION, SAME CAMERA, ONE THING MOVED
+  TRACKS   as shipped hidden | packButton removed SHOWN
+  CROSSING as shipped hidden | my own clear removed STILL hidden | packButton removed SHOWN
+  ROAD     as shipped hidden | packButton removed SHOWN
+Every row with packButton in is hidden; every row with it out is shown. One
+function, three features. The fix is the discipline already written in the file
+twice: IT HIDES ONLY ITS OWN WORDS, and its own sentence still goes away when
+nothing is warning you, which is the over-fix it must not become.
 
-GATES  against_gate 80/0, and the first of the two new claims is DRIVEN, NOT GREPPED:
-       open the demo, say it, walk, read the line off the page. The second pins that
-       it clears only its OWN words.
+*** AND THE NEW CHECK CAUGHT A SECOND ONE, MINE, FROM ONE ROUND AGO. ***
+  "somebody steps into your way. they meant to."  ->  ""  after ONE FRAME
+ctAgainstClear hangs off dayDistrictCheck, which opens EVERY render() -- sixty
+times a second, not once per step. Round 25 swapped a sentence that stayed forever
+for one that lived a sixtieth of a second, and BOTH SCORE "the line is not stale"
+PERFECTLY. It clears when he MOVES now, against the cell he was standing in.
+A FRAME IS NOT A STEP.
+
+AND WHAT ROUND 25 ACTUALLY FIXED, SAID STRAIGHT: that walk was driven with
+dayDistrictCheck, not render(), so the pack pass never ran and the forty-block lie
+was never on his screen either. It was real in the page and it did silence the
+track line, so the fix was right, but the headline was stronger than the
+measurement. The instrument was the weak part, not the finding.
+
+GATES  against_gate 80 -> 86/0, five new claims, all driven on the demo.
+       MUTATION-TESTED IN THREE DIRECTIONS, because two of them are the same bug
+       from opposite sides: old pack branch back 6 red (walk reads had 1,
+       readable 0); clear fires every frame again 2 red; clear never fires at all
+       2 red. One claim was itself caught measuring nothing -- the walk first ran
+       from wherever the previous sub-test left him, scored 0 OF 0 AND PASSED. It
+       walks a trail the game's own reader found now and FAILS rather than passes
+       when it finds nothing to measure.
        RULE 13: pre-push pass green; full suite unmeasured.
 
-RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, fourth round
+RULE 14 OBSERVED: no demo cut, no alpha touched, no build stamp, fifth round
 running. The change is in the city file, which both surfaces load by reference.
 
 STILL OPEN, UNCHANGED AND NONE OF IT THIS LANE'S
-  [FOR THE ROAD LANE] walkSay HAS THE IDENTICAL DEFECT, measured in the same run:
-  walkSay('feral_dog_pack') -> "they get up when you get close." and eight blocks
-  later, the same sentence. Same shape, same consequence, same one-function fix.
-  Handed over with the reproduction rather than reached into.
+  [FOR THE ROAD LANE] walkSay STILL NEVER CLEARS, AND THIS ROUND MAKES IT VISIBLE
+  FOR THE FIRST TIME: its sentence now stays on the street until another writer
+  speaks. walkSay('feral_dog_pack') -> "they get up when you get close." and eight
+  blocks later the same words. Same one-function fix as the other two. Before this
+  round it was hidden, so nobody could have seen it.
   [FOR RUN] DEMO BUILD is red on main because a lane shipped an alpha change without
-  re-cutting, which 14(a) tells it to do. It stays red until RUN walks the five
-  minutes and cuts. A gate must never outrank a ruling.
+  re-cutting, which 14(a) tells it to do. Alpha stamped 9/14, demo 9/13z. It stays
+  red until RUN walks the five minutes and cuts. A gate must never outrank a ruling.
   [FOR PLUMBER] the derived freshness gate goes red for ANY lane that hand-edits the
   city, reproduced on clean main with a single comment line. Its +0/-0 is the numstat
   measuring the wrong pair, so the line counts on a drift are always zero.
   [FOR PLUMBER] BANNER 12/2 on clean main: engine/bohemia_ground.js is inlined behind
   a banner the sync scanner cannot read.
   [INHERITED] city_memory_gate 33/1, identical on a clean origin/main worktree.
+  [INHERITED] pack_gate 46/1, "every part of it is reachable" -- BLOCKED 1,1 0,2 1,2
+  OVERLAPS mktbtn. Button geometry, nothing to do with this round's text handling;
+  reproduced on a clean origin/main worktree. Likely the 44px rail work.
   [FOR WORLD] the nightfall card's WHO YOU OWE prints one line per outfit, all eight
   saying the same sentence with a different name: 270 px, twice that card's overflow.
-  Collapse them into one and it fits. Rows are this lane's book, sentence is theirs.
+  THE COORDINATOR HAS ROUTED THIS as WORLD's [owe lines] and called it a five-minute
+  break. Rows are this lane's book, the sentence is theirs.
   [FOR QUESTS] faction_between_gate 180/2.
 
 [PENDING Paolo] -- FIVE, ALL CARRIED, NOTHING NEW
@@ -3048,19 +3077,25 @@ NEXT IN THIS LANE
   [same lender] stays HELD until the coordinator gives this lane one of his breaks or
   he says the five minutes hold (14c). While held, the round goes on the five minutes.
   WHAT IS LEFT OF THIS LANE ON THAT MEASURE:
+    HOW OFTEN THE STREET HAS ANYTHING TO SAY. The pipe is honest now and the number
+    it carries is small: 2 sentences in 60 steps. That is content density, not
+    plumbing, and it is worth measuring before anybody adds more writers.
+    EVERY OTHER GREP-ONLY CLAIM THIS LANE OWNS. [tracks read] was proved by greps
+    and was dead on the glass for a week. Go through this lane's shipped rows and
+    ask which ones have ever been READ OFF A REAL FRAME rather than matched in the
+    file. That is the same hole, in the same lane, in every other row.
     THE LIGHTS AT OTHER ZOOMS. They read well at the CITY zoom measured in round 24;
     nobody has looked at them at the far zoom or on the whole-map view.
-    THE OTHER SHARED SURFACES. #packline was one element with five writers and nobody
-    owned it. Sweep for the next one before it produces the same glitch.
   If a break lands here, the queue behind it is [deal sticks], [pursuit strength],
   [deeds weigh], [take them on].
 
-FOURTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
+SIXTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   BEFORE ASSUMING A ROW IS BLOCKED, CHECK WHETHER ITS NAMED BLOCKER IS STILL TRUE.
   WHEN A CHECK GOES RED, ASK WHETHER IT IS MEASURING THE GAME OR ITS OWN INVENTION.
   WHEN HIS SENTENCE IS FALSE ON THE MAP, REPORT IT rather than forcing it.
   WHEN A LAW BLOCKS THE OBVIOUS BUILD, IT IS USUALLY POINTING AT A BETTER ONE.
-  A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE.
+  A BLOCK OF CLAIMS BEHIND AN `if` THAT QUIETLY DOES NOT RUN IS A GREEN GATE, and
+  so is a claim whose walk found nothing to measure and passed on the empty set.
   SHOWN, COUNTED AND NEVER SEEN IS THE SAME AS NOT BUILT.
   AN indexOf COMPARISON ACROSS A 4 MB FILE IS NOT AN ORDERING CLAIM.
   A LOAD THAT TIMES OUT IS A SYNTAX ERROR UNTIL PROVEN OTHERWISE.
@@ -3073,8 +3108,13 @@ FOURTEEN STANDING LESSONS THIS LANE KEEPS RE-LEARNING
   looking at.
   FORCING A MODE VARIABLE IS NOT PRESSING THE BUTTON. It can put you in a view
   the player never sees, which is how a correct measurement gets thrown away.
-  AND A WRITER THAT DOES NOT CLEAR AFTER ITSELF SILENCES EVERY WRITER THAT DOES.
-  On a shared element the tidy ones lose to the messy one, every time.
+  A WRITER THAT DOES NOT CLEAR AFTER ITSELF SILENCES EVERY WRITER THAT DOES.
+  *** A GREP PROVES THE CODE EXISTS AND PROVES NOTHING ABOUT THE GLASS. *** A
+  shipped feature with grep-only claims was invisible for a week and every gate
+  was green. Read it off a real frame, and read DISPLAY, not just text.
+  AND A FRAME IS NOT A STEP. A fix hung off something that runs sixty times a
+  second is the same bug wearing the opposite coat: stale forever and gone
+  instantly both score "not stale" perfectly. Mutation-test BOTH directions.
 
 --------------------------------------------------------------------------------
 

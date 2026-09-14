@@ -914,6 +914,137 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
       ok('the shared street line could be driven', false, String(e.message).slice(0, 120));
     }
 
+    /* *** AND THEN THE HARDER QUESTION, WHICH THE CLAIM ABOVE DOES NOT ASK:
+       WAS ANY OF IT EVER ON THE GLASS? *** (9/14, THE FIVE MINUTES, round five.)
+       The claim above walks with dayDistrictCheck(). A PLAYER gets render(), and
+       render() also runs the pack pass, which ended with packButton() hiding the
+       whole shared line whenever no warning pack was near -- whoever had written
+       it. In ordinary play nothing is warning you (measured on the demo: PACK_DREW
+       0, PACK_NEAR false), so EVERY sentence the street spoke was blanked in the
+       same frame it was spoken, and three shipped features were invisible: the
+       tracks under his feet, the block that does not want him, and the road's own
+       encounter lines. So this asks the only question that counts: say it, run a
+       REAL FRAME, and is it still readable. */
+    try {
+      const glass = await fr.evaluate(function () {
+        var out = {}; MODE = 'human';
+        var L = function () { var l = document.getElementById('packline');
+          return (l && getComputedStyle(l).display !== 'none') ? l.textContent : ''; };
+        var blank = function () { var l = document.getElementById('packline');
+          if (l) { l.textContent = ''; l.style.display = 'none'; } };
+        for (var i = 0; i < 3; i++) { try { render(); } catch (e) {} }
+        /* WHERE THE GAME PUT HIM, kept before anything below moves him. The walk
+           at the end starts HERE, because a walk that starts wherever the last
+           sub-test happened to leave him measured 0 of 0 and passed on a vacuous
+           claim -- a block of claims that quietly has nothing to check is a green
+           gate. */
+        var SPAWN = [(hx / FN) | 0, (hy / FN) | 0];
+
+        /* stand on real prints, found by the game's own reader, nothing planted */
+        var sx = (hx / FN) | 0, sy = (hy / FN) | 0, onTracks = false, TRACKCELL = null;
+        outer:
+        for (var r = 0; r <= 60; r++)
+          for (var dx = -r; dx <= r; dx++) for (var dy = -r; dy <= r; dy++) {
+            if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
+            hx = (sx + dx) * FN + (FN >> 1); hy = (sy + dy) * FN + (FN >> 1);
+            var t = null; try { t = tracksHere(); } catch (e) {}
+            if (t) { onTracks = true; TRACKCELL = [sx + dx, sy + dy]; break outer; }
+          }
+        out.onTracks = onTracks;
+
+        var survives = function (write, reset) {
+          blank(); if (reset) { try { _lastTrack = ''; } catch (e) {} }
+          try { PACK_SAID = 0; } catch (e) {}
+          try { write(); } catch (e) { return { said: '', after: 'threw' }; }
+          var said = L();
+          try { render(); } catch (e) {}
+          return { said: said, after: L() };
+        };
+        out.tracks   = survives(function () { trackSay(); }, true);
+        out.crossing = survives(function () { ctAgainstSay(); }, false);
+        out.road     = survives(function () { walkSay({ id: 'feral_dog_pack' }); }, false);
+
+        /* AND IT STILL GOES AWAY WHEN HE MOVES, which is the glitch this lane
+           fixed one round ago and nearly un-fixed here: the first clear fired on
+           the next FRAME, so the sentence lived a sixtieth of a second. A frame
+           is not a step. */
+        blank(); try { PACK_SAID = 0; } catch (e) {}
+        try { ctAgainstSay(); } catch (e) {}
+        try { render(); } catch (e) {}
+        out.stillThereStandingStill = L();
+        var cx0 = (hx / FN) | 0, cy0 = (hy / FN) | 0;
+        for (var m = 1; m <= 3; m++) { hx = (cx0 + m) * FN + (FN >> 1);
+          try { render(); } catch (e) {} }
+        out.goneAfterMoving = L();
+
+        /* AND THE WHOLE-WALK NUMBER, which is the one that is not an anecdote:
+           over sixty real cells with real frames, how many steps had something
+           true to say, and how many of those actually said it.
+           THE LINE IS BLANKED FIRST: a check whose answer depends on an earlier
+           check is not measuring the game. The first version of this counted 60
+           of 60 readable because a sub-test above had left a sentence sitting
+           there.
+           AND THE ROUTE GOES THROUGH GROUND THAT HAS SOMETHING ON IT: walking a
+           row picked at random measured 0 of 0 twice and passed on nothing. The
+           prints are the game's own, found by its own reader above; the route is
+           chosen to cross them, which is what a player does when he follows a
+           trail. Nothing about the sentence is planted. */
+        blank(); try { PACK_SAID = 0; } catch (e) {}
+        try { _lastTrack = ''; } catch (e) {}
+        var had = 0, said2 = 0, both = 0;
+        var base = TRACKCELL || SPAWN;
+        var bx = base[0] - 5, by = base[1];
+        for (var k = 0; k < 60; k++) {
+          hx = (bx + k) * FN + (FN >> 1); hy = by * FN + (FN >> 1);
+          try { render(); } catch (e) {}
+          var tt = null; try { tt = tracksHere(); } catch (e) {}
+          var has = !!tt || !!PACK_NEAR, txt = L();
+          if (has) had++;
+          if (txt) said2++;
+          if (has && txt) both++;
+        }
+        out.had = had; out.said = said2; out.both = both;
+        return out;
+      });
+
+      ok('*** AND THE STREET IS ON THE GLASS AT ALL: the tracks under his feet '
+        + 'survive a REAL FRAME instead of being blanked by the pack pass the '
+        + 'instant they are spoken *** (this lane\'s [tracks read], shipped and '
+        + 'never once visible until now)',
+        glass.onTracks ? (!!glass.tracks.said && glass.tracks.after === glass.tracks.said) : true,
+        glass.onTracks ? ('"' + glass.tracks.said + '" -> "' + glass.tracks.after + '"')
+                       : 'no prints within 60 cells of the start, reported not forced');
+      ok('and so does the block that does not want him ([crossing costs])',
+        !!glass.crossing.said && glass.crossing.after === glass.crossing.said,
+        '"' + glass.crossing.said + '" -> "' + glass.crossing.after + '"');
+      ok('and so does the road\'s own encounter line, which is another lane\'s '
+        + 'sentence and was being eaten by the same branch',
+        !!glass.road.said && glass.road.after === glass.road.said,
+        '"' + glass.road.said + '" -> "' + glass.road.after + '"');
+      ok('OVER A WHOLE WALK, NOT AN ANECDOTE: sixty real cells with real frames, '
+        + 'along a trail the game\'s own reader found, and every step that had '
+        + 'something true to say said it (' + glass.both + ' of ' + glass.had
+        + '; the walk out of the demo\'s own start measured 0 readable of 2 with '
+        + 'the old branch in)',
+        glass.had > 0 && glass.both === glass.had,
+        'had ' + glass.had + ', readable ' + glass.said + ', both ' + glass.both
+          + (glass.had === 0 ? '  -- NOTHING TO SAY IN SIXTY CELLS, so this claim '
+             + 'measured nothing and must not pass on that' : ''));
+      ok('and the pack still hides ITS OWN sentence when nothing is warning you, '
+        + 'because the fix must not turn one glitch into the other one',
+        /_packWrote && l\.textContent === _packWrote/.test(CITY)
+        && /__THE_PACK_HIDES_ONLY_ITS_OWN_WORDS__/.test(CITY));
+      ok('*** AND A FRAME IS NOT A STEP: the sentence is still there while he '
+        + 'stands still, and gone once he has moved *** -- the first clear this '
+        + 'lane wrote fired on the next FRAME, which is sixty times a second, so '
+        + 'it swapped a permanent lie for a sentence nobody could read',
+        !!glass.stillThereStandingStill && glass.goneAfterMoving === '',
+        'standing still "' + glass.stillThereStandingStill + '" -> moved "'
+          + glass.goneAfterMoving + '"');
+    } catch (e) {
+      ok('the street could be read off a real frame', false, String(e.message).slice(0, 120));
+    }
+
     ok('and the page threw nothing the whole time', errs.length === 0, errs.slice(0, 3).join(' | '));
   } catch (e) {
     fail++; console.log('  FAIL the real surface   ' + String(e.message).slice(0, 200));

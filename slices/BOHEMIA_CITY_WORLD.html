@@ -43007,12 +43007,17 @@ function ctBlocked(cx, cy){
    thing happened is how a surface starts lying quietly. */
 var CT_AGAINST_SAY = 'somebody steps into your way. they meant to.';  /* draft:true */
 var _againstWrote = '';
+var _againstCell = null;   /* __CLEARED_WHEN_HE_MOVES_NOT_WHEN_THE_FRAME_TICKS__ */
 function ctAgainstSay(){
   var l = document.getElementById('packline');
   if (!l) return 0;
   l.textContent = CT_AGAINST_SAY;
   l.style.display = 'block';
   _againstWrote = l.textContent;
+  /* THE CELL HE WAS STANDING IN WHEN IT HAPPENED. The clear below is hung off
+     THIS and not off the frame, because the call that clears runs sixty times a
+     second and he only moves a few times a second. */
+  _againstCell = [(hx / FN) | 0, (hy / FN) | 0];
   return 1;
 }
 /* *** AND IT TAKES ITS WORDS BACK WHEN NOBODY IS IN YOUR WAY ANY MORE. ***
@@ -43032,14 +43037,24 @@ function ctAgainstSay(){
 
    THE SAME DISCIPLINE THE TRACKS ALREADY USE, and no new hook: the call that
    already runs on movement clears it, and only while the line still says exactly
-   what this put there. */
+   what this put there.
+
+   *** AND THE FIRST VERSION OF THIS WAS ITS OWN BUG, CAUGHT BY DRIVING IT.
+   (9/14) *** It cleared on the NEXT CALL, and the call it hangs off
+   (dayDistrictCheck) opens every render() -- every frame, not every step. So the
+   sentence lived about one sixtieth of a second. That is the same defect wearing
+   the opposite coat: a permanent lie became a sentence nobody can read, and both
+   score "the line is not stale" perfectly. IT CLEARS WHEN HE MOVES, measured
+   against the cell he was standing in when it happened. A FRAME IS NOT A STEP. */
 function ctAgainstClear(){
   if (!_againstWrote) return 0;
+  if (_againstCell && _againstCell[0] === ((hx / FN) | 0)
+                   && _againstCell[1] === ((hy / FN) | 0)) return 0;   /* he has not moved */
   var l = document.getElementById('packline');
   if (l && l.textContent === _againstWrote) {
     l.textContent = ''; l.style.display = 'none';
   }
-  _againstWrote = '';
+  _againstWrote = ''; _againstCell = null;
   return 1;
 }
 /* WHICH WAY THEY ARE FACING, and it has to be derived, not stored. Every person
@@ -49607,6 +49622,7 @@ function packPass(ox, oy, C) {
 /* SHOW THE BUTTON ONLY WHILE SOMETHING IS WARNING YOU, and say what it is.
    Called at the end of every pack pass, so it can never disagree with what is
    drawn: it reads PACK_DREW, which records only what landed on the glass. */
+var _packWrote = '';    /* __THE_PACK_HIDES_ONLY_ITS_OWN_WORDS__ */
 function packButton() {
   var b = document.getElementById('packbtn');
   var l = document.getElementById('packline');
@@ -49623,8 +49639,25 @@ function packButton() {
   if (l) {
     if (near && !PACK_SAID) {
       var line = BohemiaPacks.lineFor(near, 'warn');
-      if (line) { l.textContent = line; l.style.display = 'block'; }
-    } else if (!near) { l.style.display = 'none'; PACK_SAID = 0; }
+      if (line) { l.textContent = line; l.style.display = 'block'; _packWrote = line; }
+    } else if (!near) {
+      /* *** IT USED TO HIDE THE WHOLE LINE HERE, WHOEVER HAD WRITTEN IT. ***
+         This runs at the end of EVERY pack pass, inside the same render() that
+         the street speaks in, and in ordinary play nothing is warning you --
+         measured on the demo: PACK_DREW 0, PACK_NEAR false. So every sentence
+         the street said was blanked the same frame it was said, and three
+         shipped features were invisible to a player: the tracks under his feet
+         ([tracks read]), the block that does not want him ([crossing costs]),
+         and the road's own encounter lines. All three DRIVEN, both ways: with
+         this branch as it was, hidden on every frame; with it removed, shown.
+         The line is SHARED, and the discipline the tracks already use is the
+         right one for everybody: CLEAR ONLY YOUR OWN WORDS. */
+      if (_packWrote && l.textContent === _packWrote) {
+        l.textContent = ''; l.style.display = 'none';
+      }
+      _packWrote = '';
+      PACK_SAID = 0;
+    }
   }
 }
 
