@@ -1,0 +1,36 @@
+{
+ "what": "The demo's first 300 s on a phone, as four numbers. Written by tools/bohemia_five_minutes.js for VAMILY row [demo errors].",
+ "why": "PAOLO 9/13: \"it's like this glitchy, buggy AI experience where nothing's complete.\" Rule 14 makes these five minutes the only measure of the game.",
+ "taken": "2026-09-14T21:08:39.005Z",
+ "secondsWalked": 301,
+ "boxSpeed": {
+  "start": 1.04,
+  "end": 1.03,
+  "baselineMs": 29.1
+ },
+ "numbers": {
+  "pageErrors": 0,
+  "stalls": 1,
+  "deadTaps": 48,
+  "slowFrames": 10968,
+  "droppedFrames": 194,
+  "fps": 57.8
+ },
+ "of": {
+  "tapsReached": 77,
+  "tapsBlocked": 57,
+  "tapsTried": 239,
+  "frames": 17402,
+  "worstGapMs": 1550
+ },
+ "floorsFailed": [],
+ "deadByName": {
+  "SUBURB · ON FOOT": 8,
+  "DAY 1 · 13:57": 8,
+  "MUSIC": 8,
+  "SAVE": 8,
+  "PHONE1": 8,
+  "OUTFIT": 8
+ },
+ "errors": []
+}

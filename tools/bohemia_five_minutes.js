@@ -51,6 +51,7 @@ const D = require(path.join(__dirname, 'bohemia_drive_the_demo.js'));
 const SPEED = require(path.join(__dirname, '..', 'gates', 'bohemia_box_speed.js'));
 
 const ROOT = path.join(__dirname, '..');
+const NO_TAPS = process.argv.includes('--no-taps');
 const BEAT = 500;            /* 120 BPM, the law */
 const FRAME = 1000 / 60;     /* the only frame budget in the building */
 const RECORD = 'records/BOHEMIA_FIVE_MINUTES.json';
@@ -134,7 +135,14 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
        it is how an instrument reports its own confusion as the game's. */
     let reached = false;
     try {
-      ok = await d.tapEl(sel);
+      /* THE CONTROL WALK (--no-taps). The whole walk, one difference: NOBODY PRESSES
+         ANYTHING. Everything else is identical -- same order, same waits, same two
+         pictures, same arithmetic. If a walk that presses nothing reports the same
+         dead taps as a walk that presses everything, then the number is not about the
+         game and never was. This is the planted-bug test QUESTS used on its own gate
+         (e909bc5f) and it is the only honest way to ask an instrument whether it
+         measures anything. A counter with no control walk is an opinion. */
+      ok = NO_TAPS ? true : await d.tapEl(sel);
       if (ok) reached = await d.fr.evaluate((q) => {
         const el = document.querySelector(q); if (!el) return false;
         const r = el.getBoundingClientRect();
@@ -145,11 +153,33 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     await sleep(900);                       /* nearly two beats to answer */
     const post = await shot();
     const changed = pre && post ? pre !== post : null;
-    taps.push({ text: c.text, id: c.id, tapped: !!ok, reached: !!reached, changed });
+    /* RULE 14 (h) (coordinator 9/14, out of QUESTS e909bc5f): "IN THIS GAME A DEAD
+       BUTTON IS INDISTINGUISHABLE FROM A CLOSE BUTTON, because a card closes on any
+       tap it does not recognise and a screen diff reads the vanished card as life."
+       That is a direct hit on this instrument. A picture before and against a picture
+       after cannot tell "it worked" from "the card gave up and shut", so this does not
+       pretend it can. It asks one more question instead: is the thing he pressed STILL
+       ON SCREEN? Pixels moved and the control is gone means the only proved fact is
+       that something closed, which is exactly 14(h)'s case. Those are kept in their own
+       pile, so the dead number is a FLOOR, the floor plus that pile is the CEILING, and
+       neither one gets dressed up as the other. */
+    let survived = null;
+    if (reached) {
+      survived = await d.fr.evaluate((q) => {
+        const el = document.querySelector(q); if (!el) return false;
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return false;
+        const st = getComputedStyle(el);
+        return st.visibility !== 'hidden' && st.display !== 'none' && +st.opacity !== 0;
+      }, sel).catch(() => null);
+    }
+    taps.push({ text: c.text, id: c.id, tapped: !!ok, reached: !!reached, changed, survived });
     if (taps.length % 25 === 0) {
       const el = ((Date.now() - t0) / 1000).toFixed(0);
+      /* count the SAME way the report does, or the running line teaches a number the
+         bottom of the run then contradicts: only taps that reached their control. */
       console.log('    ' + el + ' s   ' + taps.length + ' taps   '
-        + taps.filter(t => t.changed === false).length + ' dead so far');
+        + taps.filter(t => t.reached && t.changed === false).length + ' dead so far');
     }
   }
 
@@ -161,15 +191,26 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   const driven = taps.filter(t => t.tapped && t.reached);
   const blocked = taps.filter(t => t.tapped && !t.reached);
   const dead = driven.filter(t => t.changed === false);
+  /* 14(h): the screen moved but the thing he pressed is gone. Could be a button doing
+     its job and closing its panel; could be a dead row and the card giving up. */
+  const shut = driven.filter(t => t.changed === true && t.survived === false);
   const secs = ((Date.now() - t0) / 1000).toFixed(0);
 
-  console.log('\n  ==================  THE FOUR NUMBERS  ==================');
+  console.log('\n  ==================  THE FOUR NUMBERS  =================='
+    + (NO_TAPS ? '\n    *** CONTROL WALK: NOTHING WAS PRESSED. Any dead tap below is the'
+      + ' instrument talking to itself. ***' : ''));
   console.log('    PAGE ERRORS   ' + String(errs.length).padStart(6));
   console.log('    STALLS        ' + String(fm.stalls).padStart(6)
     + '   gaps over one beat (' + BEAT + ' ms); worst ' + fm.worst.toFixed(0) + ' ms');
   console.log('    DEAD TAPS     ' + String(dead.length).padStart(6)
     + '   of ' + driven.length + ' taps that REACHED their control, on the glass'
     + (blocked.length ? '   (' + blocked.length + ' more were covered by something and do not count)' : ''));
+  if (shut.length) {
+    console.log('                  ' + String(shut.length).padStart(6)
+      + '   more moved the screen AND VANISHED. Rule 14(h): that is what a close looks'
+      + ' like too, so the honest count is between ' + dead.length + ' and '
+      + (dead.length + shut.length) + '.');
+  }
   /* THE RAW COUNT OVER 16.7 ms IS ALMOST ALWAYS MOST OF THEM AND NOBODY CAN ACT ON
      IT. A 60 s wiring run read 2,106 of 3,346 -- 63% -- because the average frame
      was 18.2 ms, so nearly every frame clears the line by a hair. The number he can
@@ -213,6 +254,7 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     for (const e of [...new Set(errs)].slice(0, 8)) console.log('      ' + e);
   }
 
+  if (NO_TAPS) { console.log('\n  control walk: not written to the record.'); process.exit(0); }
   fs.writeFileSync(RECORD, JSON.stringify({
     what: 'The demo\'s first ' + SECONDS + ' s on a phone, as four numbers. '
         + 'Written by tools/bohemia_five_minutes.js for VAMILY row [demo errors].',
@@ -222,9 +264,11 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
     secondsWalked: +secs,
     boxSpeed: { start: before.ratio, end: after.ratio, baselineMs: before.baselineMs },
     numbers: { pageErrors: errs.length, stalls: fm.stalls,
-               deadTaps: dead.length, slowFrames: fm.slow,
+               deadTaps: dead.length, deadTapsCeiling: dead.length + shut.length,
+               slowFrames: fm.slow,
                droppedFrames: fm.dropped, fps: +(fm.frames / (+secs || 1)).toFixed(1) },
     of: { tapsReached: driven.length, tapsBlocked: blocked.length,
+          tapsThatMovedTheScreenAndVanished: shut.length,
           tapsTried: taps.length, frames: fm.frames,
           worstGapMs: +fm.worst.toFixed(0) },
     floorsFailed: floors,

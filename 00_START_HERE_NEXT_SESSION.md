@@ -414,6 +414,58 @@ CORRECT a ruling rather than confirm it, and the record says so where it does.
 ================================================================================
 
 EYES AND EARS (eyes-5vql33): 9/14 (af) LATEST -- *** E26 WALKED AGAIN. THE DEMO DID NOT CHANGE, AND THE REASON IS MEASURED: THE FIXES ARE ONE CUT AWAY FROM HIM. *** TAB: the demo is what he plays; the alpha is where the fixes landed. Record: records/BOHEMIA_EYES_E26_ROUND_3_THE_FIX_IS_ONE_CUT_AWAY_9_14_26.md. Walks: records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json and ..._WALK_ALPHA_9_14_26.json. Shots: records/eyes_e26_walk_demo/ and _alpha/. THE STRANGER'S LIST is rewritten on the front page.
+PLUMBER (plumber-ont6t5): 9/14 (b) LATEST -- *** CHAT 18. ROUND 26. [demo errors] ROUND 1 POSTED,
+AND THE HEADLINE IS THAT I STOPPED ON THE FOURTH VERSION OF ONE NUMBER INSTEAD OF SHIPPING A FOURTH
+GUESS. ***
+THE ROW: drive the demo five minutes on a phone and post four numbers on the front page every round,
+each nonzero routed to its owner. Three of the four are up and steady across three walks an hour apart:
+  PAGE ERRORS        0      routed to nobody
+  STALLS             1      one gap over a beat in 300 s, worst 1,550 ms. MINE, this lane owns 60 on a phone
+  FRAMES UNDER 60 57.8      fps, 194 of 17,402 frames a whole frame late (1.1%). MINE, not routed
+  DEAD TAPS    NOT MEASURED YET, and that is what I posted.
+THE FOUR VERSIONS AND WHAT EACH COST: v1 passed the button's WORDS to a function wanting a SELECTOR, 0
+of 45 landed, caught by the tool's own floor. v2 read 162 dead of 230 because cycling the controls opens
+a panel that covers the next button; fixed by requiring the topmost thing at those coordinates to BE the
+control. v3 read 48 of 77 and I blamed the screenshot being clipped to the canvas while those panels
+draw in the page around it; I fixed that and RE-WALKED AND THE NUMBER DID NOT MOVE -- 48 of 77 again,
+same six names at eight each. So that diagnosis was wrong too. STOP PRODUCING 7/26: a fourth version
+means you already failed, so stop and say so. I stopped.
+*** THE FINDING IS BIGGER THAN THE NUMBER: A SCREEN DIFF IS NOT A TEST OF WHETHER A CONTROL WORKS, IN
+EITHER DIRECTION. ***
+Built the CONTROL WALK, `node tools/bohemia_five_minutes.js --no-taps`: the whole five minutes, same
+order, same waits, same two pictures, same arithmetic, PRESSING NOTHING. This is the planted-bug test
+QUESTS used on its own gate (e909bc5f) and it is the only honest way to ask an instrument whether it
+measures anything.
+  pressing everything   48 dead of 77 that reached their control
+  pressing NOTHING       0 dead of 69 that reached their control
+So the counter does not invent numbers. But the SAME run proves the demo REPAINTS CONSTANTLY -- with no
+taps at all, every pair of pictures 900 ms apart differed. So two identical pictures do not mean "the
+button did nothing"; they mean THE SURFACE STOPPED MOVING for 900 ms. And it is not a freeze either: the
+frame watcher recorded ONE stall in the tapping walk and ONE in the no-tap walk.
+THEN I REPRODUCED IT ON THE GLASS (rule 14(g)). Each of the six names pressed ALONE from a clean door,
+whole phone photographed at 120/300/900/2000 ms:
+  MUSIC #musbtn, SAVE #savebtn, PHONE1 #phonebtn, SUBURB · ON FOOT #hslot -- ALL FOUR MOVE THE SCREEN,
+  at every one of the four moments. OUTFIT and DAY 1 · 13:57 are NOT ON SCREEN AT THE DOOR.
+Two of the six are not buttons at all: the driver's controls() sweeps every div and span with short text,
+so status readouts get handed to the walk as things to press. That is a third of the 48.
+QUESTS proved a diff reads FALSE LIFE (a card closes on any tap it does not recognise). This proves it
+reads FALSE DEATH. Both halves of rule 14(h) are now measured.
+ALSO SHIPPED IN THE TOOL: the 14(h) band (a tap where the screen moved AND the control vanished goes in
+its own pile, so dead is a FLOOR and floor+pile is the CEILING, neither dressed up as the other), and the
+running "dead so far" line now counts the way the report counts -- it was including taps that never
+reached their control, so it read 157 while the bottom of the same run read 48.
+ONE LINE FOR EYES E26, not a fix by this lane (my lane may name a red, never fix it): your item 2 names
+two demo buttons dead on "no change in words or pixels for 1.2 s". That is the instrument that just
+failed here. It does not mean your buttons work; it means that evidence reads false death on this surface.
+NEXT ROUND, AND IT IS NOT A PATCH ON THIS ONE: QUESTS' shape is what settles it -- require THE PANEL TO
+STILL BE OPEN AND ITS WORDS TO HAVE MOVED. Words do not repaint on their own. It exists for the day card
+in gates/every_row_does_something_gate.js and the next cut of this instrument copies it.
+STILL OPEN IN MY SECTION: [handoff cut] (CLAUDE.md now rules each lane's block moves to handoffs/<LANE>.md
+once it lands), [suite runs] handed back OPEN (FACTION ARC 557.7 s goes over a 600 s cap on a box 8%
+slower; the 71.3 min floor is a fork: less browser work or more machines; retiring the dead is [dead gates]).
+Record: records/BOHEMIA_FIVE_MINUTES_THE_CONTROL_WALK_9_14_26.md. Raw: records/BOHEMIA_FIVE_MINUTES.json.
+[PENDING Paolo] nothing.
+
 PLUMBER (plumber-ont6t5): 9/14 LATEST -- *** CHAT 18. ROUND 25. [suite runs] CONTINUING. THE FIRST
 COMPARABLE FULL RUN, AND THE SPLIT WAS RIGHT AFTER ALL.
 First full run since the runner began stamping how fast the box is: BOX SPEED 0.89x (a FASTER than
