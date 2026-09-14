@@ -960,22 +960,38 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
           try { render(); } catch (e) {}
           return { said: said, after: L() };
         };
+        /* A BODY REALLY HOLDING A DOORWAY, WRITTEN THE WAY THE GAME'S OWN FOLLOW
+           PASS WRITES IT -- CT_FOLLOW is the game's structure and ctBlocked is the
+           same reader the STEP asks before it says anything. What is being proved
+           here is the CLEAR's rule, not the follow pass, and the cell is next to
+           him because "they only hold it while you are beside it". */
+        var BX = hx + 1, BY = hy;
+        try { CT_FOLLOW['gate:held'] = [BX, BY]; } catch (e) {}
+        out.reallyBlocked = (typeof ctBlocked === 'function') ? !!ctBlocked(BX, BY) : false;
+
         out.tracks   = survives(function () { trackSay(); }, true);
-        out.crossing = survives(function () { ctAgainstSay(); }, false);
+        out.crossing = survives(function () { ctAgainstSay(BX, BY); }, false);
         out.road     = survives(function () { walkSay({ id: 'feral_dog_pack' }); }, false);
 
-        /* AND IT STILL GOES AWAY WHEN HE MOVES, which is the glitch this lane
-           fixed one round ago and nearly un-fixed here: the first clear fired on
-           the next FRAME, so the sentence lived a sixtieth of a second. A frame
-           is not a step. */
+        /* AND IT GOES AWAY WHEN NOBODY IS IN YOUR WAY ANY MORE, which took three
+           goes to get right and only the third is the line's own sentence:
+             every frame     nobody can read it (a sixtieth of a second)
+             when he moves   stays up for a body he walked away from
+             THIS            said while somebody is there, gone once nobody is
+           The road lane named the rule and this lane had the proxy. Both halves
+           are driven through the game's own door, dayDistrictCheck, never through
+           the clear directly -- calling the clear yourself leaves the claim green
+           when the call THE GAME makes is deleted. */
         blank(); try { PACK_SAID = 0; } catch (e) {}
-        try { ctAgainstSay(); } catch (e) {}
-        try { render(); } catch (e) {}
-        out.stillThereStandingStill = L();
-        var cx0 = (hx / FN) | 0, cy0 = (hy / FN) | 0;
-        for (var m = 1; m <= 3; m++) { hx = (cx0 + m) * FN + (FN >> 1);
-          try { render(); } catch (e) {} }
-        out.goneAfterMoving = L();
+        try { CT_FOLLOW['gate:held'] = [BX, BY]; } catch (e) {}
+        try { ctAgainstSay(BX, BY); } catch (e) {}
+        for (var m0 = 0; m0 < 5; m0++) { try { dayDistrictCheck(); } catch (e) {} }
+        out.heldStillSays = L();
+        /* they let go of the doorway and go back to their day */
+        try { delete CT_FOLLOW['gate:held']; } catch (e) {}
+        out.nowClear = (typeof ctBlocked === 'function') ? !ctBlocked(BX, BY) : null;
+        try { dayDistrictCheck(); } catch (e) {}
+        out.goneOnceNobodyIs = L();
 
         /* AND THE WHOLE-WALK NUMBER, which is the one that is not an anecdote:
            over sixty real cells with real frames, how many steps had something
@@ -1034,13 +1050,17 @@ var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); 
         + 'because the fix must not turn one glitch into the other one',
         /_packWrote && l\.textContent === _packWrote/.test(CITY)
         && /__THE_PACK_HIDES_ONLY_ITS_OWN_WORDS__/.test(CITY));
-      ok('*** AND A FRAME IS NOT A STEP: the sentence is still there while he '
-        + 'stands still, and gone once he has moved *** -- the first clear this '
-        + 'lane wrote fired on the next FRAME, which is sixty times a second, so '
-        + 'it swapped a permanent lie for a sentence nobody could read',
-        !!glass.stillThereStandingStill && glass.goneAfterMoving === '',
-        'standing still "' + glass.stillThereStandingStill + '" -> moved "'
-          + glass.goneAfterMoving + '"');
+      ok('*** SAID WHILE SOMEBODY IS IN YOUR WAY, GONE ONCE NOBODY IS *** -- five '
+        + 'whole frames with the body still holding the doorway and the sentence '
+        + 'is still there, then they let go and it is gone. THREE RULES WERE TRIED '
+        + 'FOR ONE LINE: every frame (nobody can read it), when he moves (stays up '
+        + 'for a body he walked away from), and this one, which is the line\'s own '
+        + 'and which the road lane named first',
+        !!glass.heldStillSays && glass.goneOnceNobodyIs === '' && glass.nowClear === true,
+        'held "' + glass.heldStillSays + '" -> let go "' + glass.goneOnceNobodyIs + '"');
+      ok('and the body really was in the way while that was true, read through the '
+        + 'same predicate the STEP itself asks before it says anything',
+        glass.reallyBlocked === true);
     } catch (e) {
       ok('the street could be read off a real frame', false, String(e.message).slice(0, 120));
     }

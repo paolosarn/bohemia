@@ -38574,7 +38574,7 @@ function stepOnce(di){
                it while you are beside it. */
             if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
               HFACE=dirOf(dx,dy);
-              try{ ctAgainstSay(); }catch(_e){}
+              try{ ctAgainstSay(nx,ny); }catch(_e){}
               return false;
             }
             if(inEnter(nx,ny,hx,hy,false)){ HFACE=dirOf(dx,dy); return true; }
@@ -38592,7 +38592,7 @@ function stepOnce(di){
          they only hold it while they can see you. */
       if(typeof ctBlocked === 'function' && ctBlocked(nx,ny)){
         HFACE=dirOf(dx,dy);
-        try{ ctAgainstSay(); }catch(_e){}
+        try{ ctAgainstSay(nx,ny); }catch(_e){}
         break;
       }
       if(!(c&&c.walk))break;
@@ -43349,17 +43349,23 @@ function ctBlocked(cx, cy){
    thing happened is how a surface starts lying quietly. */
 var CT_AGAINST_SAY = 'somebody steps into your way. they meant to.';  /* draft:true */
 var _againstWrote = '';
-var _againstCell = null;   /* __CLEARED_WHEN_HE_MOVES_NOT_WHEN_THE_FRAME_TICKS__ */
-function ctAgainstSay(){
+var _againstCell = null;   /* __CLEARED_WHEN_THEY_STOP_HOLDING_IT__ */
+var _againstFrom = null;   /* where he stood, the fallback when no cell is named */
+function ctAgainstSay(bx, by){
   var l = document.getElementById('packline');
   if (!l) return 0;
   l.textContent = CT_AGAINST_SAY;
   l.style.display = 'block';
   _againstWrote = l.textContent;
-  /* THE CELL HE WAS STANDING IN WHEN IT HAPPENED. The clear below is hung off
-     THIS and not off the frame, because the call that clears runs sixty times a
-     second and he only moves a few times a second. */
-  _againstCell = [(hx / FN) | 0, (hy / FN) | 0];
+  /* THE CELL THEY ARE HOLDING, in the walked grid both callers already use
+     (nx = hx + dx). The clear below is hung off THIS and not off the frame,
+     because the call that clears opens every render -- sixty times a second.
+     AND WHERE HE WAS STANDING, which is the fallback when nobody names a cell:
+     a caller that does not say which body this is about still gets a sentence
+     that goes away when he walks off, never one that sits there forever. Two
+     lanes' checks drive this line and only the game names the cell. */
+  _againstCell = (bx === undefined || by === undefined) ? null : [bx, by];
+  _againstFrom = [hx, hy];
   return 1;
 }
 /* *** AND IT TAKES ITS WORDS BACK WHEN NOBODY IS IN YOUR WAY ANY MORE. ***
@@ -43386,17 +43392,34 @@ function ctAgainstSay(){
    (dayDistrictCheck) opens every render() -- every frame, not every step. So the
    sentence lived about one sixtieth of a second. That is the same defect wearing
    the opposite coat: a permanent lie became a sentence nobody can read, and both
-   score "the line is not stale" perfectly. IT CLEARS WHEN HE MOVES, measured
-   against the cell he was standing in when it happened. A FRAME IS NOT A STEP. */
+   score "the line is not stale" perfectly. A FRAME IS NOT A STEP.
+
+   *** AND THE SECOND VERSION WAS A PROXY FOR THE REAL RULE, WHICH THE ROAD LANE
+   HAD ALREADY NAMED. (9/14) *** It cleared when HE MOVED, which is nearly right
+   and not the sentence. The right rule is the one this feature's own comment two
+   thousand lines up already states: "they only hold it while you are beside it".
+   So it is true exactly while THAT BODY IS STILL HOLDING THAT CELL and he is
+   still beside it, and the game can answer both -- ctBlocked is the same
+   predicate the step itself asked before saying anything. Three rules were
+   proposed for one line and only one of them is the line's own:
+       every frame      nobody can read it
+       when he moves    stays up while a body he walked away from holds a door
+       THIS             said while somebody is in your way, gone when nobody is */
 function ctAgainstClear(){
   if (!_againstWrote) return 0;
-  if (_againstCell && _againstCell[0] === ((hx / FN) | 0)
-                   && _againstCell[1] === ((hy / FN) | 0)) return 0;   /* he has not moved */
+  if (_againstCell){
+    var _bx = _againstCell[0], _by = _againstCell[1];
+    var _held = (typeof ctBlocked === 'function') ? !!ctBlocked(_bx, _by) : false;
+    var _beside = Math.max(Math.abs(_bx - hx), Math.abs(_by - hy)) <= 1;
+    if (_held && _beside) return 0;   /* still true: they are there, he is beside it */
+  } else if (_againstFrom && _againstFrom[0] === hx && _againstFrom[1] === hy) {
+    return 0;   /* nobody named the body, so fall back to: he has not walked off yet */
+  }
   var l = document.getElementById('packline');
   if (l && l.textContent === _againstWrote) {
     l.textContent = ''; l.style.display = 'none';
   }
-  _againstWrote = ''; _againstCell = null;
+  _againstWrote = ''; _againstCell = null; _againstFrom = null;
   return 1;
 }
 /* WHICH WAY THEY ARE FACING, and it has to be derived, not stored. Every person

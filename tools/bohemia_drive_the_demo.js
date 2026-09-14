@@ -148,19 +148,47 @@ async function open(opts) {
     return true;
   };
 
-  /* TRAP 2: the card, and its button says GET UP. */
+  /* TRAP 2: the card, and its button says GET UP.
+
+     AND IT HAS TO BE PATIENT, NOT PROMPT (9/14, FACTIONS). This used to stop at the
+     first pass that found nothing -- `if (!hit) break` -- so a card that appears one
+     beat after the sweep is never cleared at all. Measured on the demo: the day card
+     was up over the whole canvas with elementFromPoint returning DIV#daycard at every
+     point a finger could land, so every pinch, tap and reading after it was taken
+     through a card. A driver that boots behind a card it cannot dismiss makes every
+     lane's five minutes wrong at once, and quietly.
+
+     IT ALSO PRESSES THE CARD'S OWN WAY OUT. The label list is a guess that has been
+     wrong before ("I guessed NOT NOW / SKIP / CLOSE / OK, none of which exist"); the
+     card's exit control carries its own mark, and that is not a guess. */
   const clearCards = async () => {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 8; i++) {
       let hit = false;
-      for (const label of ['GET UP', 'NOT NOW', 'SKIP', 'CONTINUE', 'CLOSE', 'OK']) {
+      /* the card's own way out first, because it is the card's and not mine */
+      for (const sel of ['.dcgo[data-act="go"]', '[data-act="close"]', '.dcgo']) {
+        const h = await fr.$(sel).catch(() => null);
+        if (h && await h.isVisible().catch(() => false)) {
+          const b = await h.boundingBox();
+          if (b) { await tapAt(b.x + b.width / 2, b.y + b.height / 2); hit = true; break; }
+        }
+      }
+      if (!hit) for (const label of ['GET UP', 'NOT NOW', 'SKIP', 'CONTINUE', 'CLOSE', 'OK']) {
         const h = await fr.$(`text="${label}"`).catch(() => null);
         if (h && await h.isVisible().catch(() => false)) {
           const b = await h.boundingBox();
           if (b) { await tapAt(b.x + b.width / 2, b.y + b.height / 2); hit = true; break; }
         }
       }
-      if (!hit) break;
-      await page.waitForTimeout(1400);
+      await page.waitForTimeout(hit ? 1400 : 900);
+      /* KEEP GOING EVEN WHEN A PASS FINDS NOTHING, until the glass is really clear.
+         The question is not "did I press something", it is "is the canvas reachable". */
+      const clear = await fr.evaluate(() => {
+        const c = document.querySelector('canvas'); if (!c) return false;
+        const b = c.getBoundingClientRect();
+        const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2);
+        return !!el && el.tagName === 'CANVAS';
+      }).catch(() => true);
+      if (clear) break;
     }
   };
   await clearCards();
@@ -173,14 +201,49 @@ async function open(opts) {
   const cdp = await ctx.newCDPSession(page);
 
   /* TRAP 4: the seam is crossed by a PINCH, not by assigning MODE. Fingers together
-     is zoom out is toward the city; measured, one hard squeeze does it. */
+     is zoom out is toward the city; measured, one hard squeeze does it.
+
+     TRAP 6 (9/14, FACTIONS): AND A FINGER THAT LANDS ON A BUTTON IS NOT ON THE
+     CANVAS. This pinch used to lay the two fingers left and right of centre, 150 px
+     apart. On a 390 px phone that puts the left one at x=45, and the left edge of
+     this game is a rail of controls -- elementFromPoint at that spot returns
+     DIV#rungbtn "STANDING", not the canvas. A pointerdown on a button never reaches
+     the canvas's own handler, so the canvas saw ONE finger, its two-finger branch
+     never ran, and the squeeze did nothing at all. Measured on the demo:
+
+       fingers ACROSS, 150 -> 25   mode human, HZOOM 44, unchanged, every time
+       the SAME squeeze UP/DOWN    mode CITY, HZOOM 44 -> 11, on the first try
+
+     Nothing was wrong with the game: the seam obeys Paolo's 8/2 ruling and opens on
+     the first honest squeeze. What was wrong was this instrument, and rule 14(g)
+     points every lane at it, so a lane using it could walk away certain the city
+     view was dead. IT ASKS THE PAGE WHO IS UNDER EACH FINGER NOW, and picks an axis
+     where both are really on the canvas, so a rail added tomorrow cannot silently
+     break it again. */
+  const clearAxis = async (r) => await fr.evaluate((rad) => {
+    const c = document.querySelector('canvas'); const b = c.getBoundingClientRect();
+    const cx = b.x + b.width / 2, cy = b.y + b.height / 2;
+    const onCv = (x, y) => { const el = document.elementFromPoint(x, y);
+      return !!el && el.tagName === 'CANVAS'; };
+    if (onCv(cx, cy - rad) && onCv(cx, cy + rad)) return 'v';
+    if (onCv(cx - rad, cy) && onCv(cx + rad, cy)) return 'h';
+    return null;
+  }, r);
+
   const pinch = async (from, to, steps) => {
     steps = steps || 20;
+    /* the widest spread this gesture reaches is what has to be clear */
+    const wide = Math.max(from, to);
+    let axis = await clearAxis(wide);
+    if (!axis) axis = await clearAxis(Math.round(wide * 0.7));
+    if (!axis) axis = 'v';   /* say so rather than silently doing nothing */
     for (let i = 0; i <= steps; i++) {
       const r = from + (to - from) * i / steps;
+      const pts = axis === 'v'
+        ? [{ x: CX, y: CY - r, id: 1 }, { x: CX, y: CY + r, id: 2 }]
+        : [{ x: CX - r, y: CY, id: 1 }, { x: CX + r, y: CY, id: 2 }];
       await cdp.send('Input.dispatchTouchEvent', {
-        type: i === 0 ? 'touchStart' : 'touchMove',
-        touchPoints: [{ x: CX - r, y: CY, id: 1 }, { x: CX + r, y: CY, id: 2 }] });
+        type: i === 0 ? 'touchStart' : 'touchMove', touchPoints: pts });
       await page.waitForTimeout(28);
     }
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });

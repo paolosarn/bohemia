@@ -6121,6 +6121,22 @@ GATES = [
      'EACH OTHER, which is the claim, and A1 goes red the moment the dial stops being the '
      'module\'s own GDD landmark, which is the gate noticing somebody moved it. MEASURED '
      'GREEN 6/0 in the cut demo.', False),
+    ('THE DRIVER REACHES THE CITY', ['node', 'gates/the_driver_reaches_the_city_gate.js'],
+     'FACTIONS, THE FIVE MINUTES. Rule 14(g) points EVERY lane at one instrument, '
+     'tools/bohemia_drive_the_demo.js, and four gates already load it while nothing checked the '
+     'instrument itself. IT WAS BROKEN: pinchOut (fingers together, toward the city) did '
+     'NOTHING -- mode human, HZOOM 44, unchanged -- while pinchIn worked fine. The cause was '
+     'geometry, not the game: the pinch laid its fingers 150px apart across the middle, which '
+     'on a 390px phone puts the left one at x=45, and elementFromPoint there returns '
+     'DIV#rungbtn "STANDING". A pointerdown on a button never reaches the canvas, so the canvas '
+     'saw ONE finger and its two-finger branch never ran. The same squeeze laid UP AND DOWN '
+     'crossed on the first try: mode city, HZOOM 44 -> 11. THE GAME WAS RIGHT THE WHOLE TIME '
+     'and obeys Paolo 8/2 ("i should be able to ZOOM OUT UNTIL I GET INTO THE CITY BUILDER MODE '
+     'BRO"); a lane using the broken driver could have reported the city view, the map, the '
+     'territory and the feed all dead. This is PEOPLE\'s lesson made mechanical: before '
+     'believing a negative, prove the instrument can produce a positive. The pinch now asks the '
+     'page who is under each finger and picks a clear axis, so a rail added later cannot '
+     'silently break it again. Mutation: force the old across-the-rail axis, 2 red.', False),
     ('A BUTTON THAT CANNOT WORK', ['node', 'gates/a_button_that_cannot_work_gate.js'],
      'LIFE + CITY, answering EYES E26 stranger-walk item 2 on this lane\'s own surface: "TWO '
      'REAL BUTTONS THAT DO NOTHING: BUILD (cbbuild, 69x29) and BUILD BIG 2x2 (cbbig, 112x28). '

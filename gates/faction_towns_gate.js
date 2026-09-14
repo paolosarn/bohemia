@@ -1669,5 +1669,89 @@ const done = () => {
     }
   }
 
+  /* ==========================================================================
+     Q. *** AND THE FOOTPRINTS REALLY LAND ON THE MAP. *** (9/14, THE FIVE MINUTES.)
+
+     K11 to K16 above are GREPS. A grep proves the code exists, and this lane has
+     already paid for that once: [tracks read]'s other half, the sentence on the
+     street, shipped with grep-only claims and was invisible to every player for a
+     week while every check stayed green. So the map half is asked the only
+     question that counts: cross the seam like a player, let the valley walk with
+     its own mover, and read what the render says it painted.
+
+     AND AT DAWN THE ANSWER IS HONESTLY NOTHING, which is why the day is advanced
+     first rather than the claim being written around it: at 06:00 on day one every
+     party is still standing on its own doorstep, so every trail is ONE point, and
+     a trail needs two to be a line. That is the world being young, not a bug, and
+     a gate that read dawn and cried would be lying about the game.
+     ========================================================================== */
+  {
+    let MAP = null;
+    try {
+      const DRIVE = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+      const d = await DRIVE.open();
+      try {
+        await d.pinchOut();
+        MAP = await d.fr.evaluate(() => {
+          const R = { mode: MODE };
+          const look = () => {
+            delete window.__TRACK_INK; delete window.__TURF_INK;
+            try { render(); } catch (e) {}
+            const pl = partiesAll() || [], lens = [];
+            for (const p of pl) {
+              if (!(p && p.from && p.from.faction)) continue;
+              let t = null; try { t = window.BohemiaTowns.trackOf(p, 14); } catch (e) {}
+              lens.push(t ? t.length : -1);
+            }
+            return {
+              parties: pl.length,
+              longest: lens.length ? Math.max(...lens) : 0,
+              drawable: lens.filter(n => n >= 2).length,
+              ink: window.__TRACK_INK ? Object.keys(window.__TRACK_INK).length : 0,
+              who: window.__TRACK_INK ? Object.keys(window.__TRACK_INK) : [],
+              hues: window.__TRACK_INK
+                ? Object.keys(window.__TRACK_INK).map(k => window.__TRACK_INK[k]) : [],
+              borders: window.__TURF_INK ? Object.keys(window.__TURF_INK).length : 0
+            };
+          };
+          R.dawn = look();
+          try { partiesAdvance(240); } catch (e) { R.moverErr = String(e.message).slice(0, 60); }
+          R.later = look();
+          return R;
+        });
+        MAP.errs = d.errs.length;
+      } finally { try { await d.close(); } catch (_e) {} }
+    } catch (e) { MAP = { err: String(e.message).slice(0, 140) }; }
+
+    if (!MAP || MAP.err) {
+      ok('Q1-5 the map could be driven', false, MAP && MAP.err);
+    } else {
+      ok('Q1 a player really gets to the map: one squeeze off the walked street '
+         + 'and he is in the city view, which is where every layer below is drawn',
+         MAP.mode === 'city', 'mode ' + MAP.mode);
+      ok('Q2 AT DAWN THERE ARE NO FOOTPRINTS AND THAT IS THE TRUTH, NOT A FAULT: '
+         + 'every party is still on its own doorstep, so the longest trail is one '
+         + 'cell and a line needs two. Said out loud so nobody reads this frame as '
+         + 'a dead layer (' + MAP.dawn.parties + ' parties, longest trail '
+         + MAP.dawn.longest + ', drawable ' + MAP.dawn.drawable + ')',
+         MAP.dawn.parties > 0 && MAP.dawn.longest === 1 && MAP.dawn.drawable === 0);
+      ok('Q3 *** AND ONCE THE VALLEY HAS BEEN ABOUT ITS BUSINESS, THE GROUND '
+         + 'CARRIES THEIR FOOTPRINTS: ' + MAP.later.ink + ' outfits\' tracks really '
+         + 'painted on the map *** -- read off the render, not matched in the file '
+         + '(' + MAP.later.drawable + ' of ' + MAP.later.parties + ' trails long '
+         + 'enough to draw, longest ' + MAP.later.longest + ' cells)',
+         MAP.later.ink > 0 && MAP.later.drawable > 0,
+         MAP.later.who.slice(0, 8).join(', '));
+      ok('Q4 and they are in DIFFERENT outfits\' inks, so the map answers WHO went '
+         + 'through rather than just that somebody did -- which is the whole row',
+         new Set(MAP.later.hues).size > 1,
+         new Set(MAP.later.hues).size + ' distinct hue(s) on the glass');
+      ok('Q5 and the borders are on that same frame, so the tracks are not being '
+         + 'read out of some other draw (' + MAP.later.borders + ' borders)',
+         MAP.later.borders > 0 && MAP.errs === 0,
+         'page errors ' + MAP.errs);
+    }
+  }
+
   done();
 })();
