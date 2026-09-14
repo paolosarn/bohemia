@@ -88,12 +88,15 @@ const sleep = (ms) => new Promise(r => setTimeout(r, ms));
   const d = await D.open();
   await d.fr.evaluate(WATCH);
 
+  /* THE WHOLE PHONE, NOT JUST THE CANVAS. (fixed 9/14, second wrong number.)
+     The first two walks clipped the picture to the canvas, and MUSIC, SAVE, PHONE1
+     and OUTFIT still came back dead eight times each -- after those same buttons had
+     been proved on the glass to change the screen. The reason is that what they open
+     is drawn in the PAGE around the canvas, not on it, so the instrument was
+     photographing the one part of the phone that did not move.
+     A player does not look at the canvas. He looks at the phone. */
   const shot = async () => {
-    const b = await d.page.screenshot({ clip: await d.fr.evaluate(() => {
-      const c = document.querySelector('canvas'); const r = c.getBoundingClientRect();
-      return { x: Math.max(0, r.x), y: Math.max(0, r.y),
-               width: Math.min(390, r.width), height: Math.min(844, r.height) };
-    }) }).catch(() => null);
+    const b = await d.page.screenshot().catch(() => null);
     return b ? b.toString('base64') : null;
   };
 
