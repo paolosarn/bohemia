@@ -1333,7 +1333,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/14p - DEAD BUTTONS GONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 9/14q - THE HEAD SNAPS BACK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6833,20 +6833,14 @@ function hsReset(d){
   HS.len={};for(const [a,z] of HS_BONES)HS.len[a+'|'+z]=Math.hypot(base[a][0]-base[z][0],base[a][1]-base[z][1]);
   HS.GY=Math.max(base.footA[1],base.footB[1]);
   for(const j of HS_JOINTS)HS.rest[j]=[base[j][0],base[j][1]];
-  /* BEAT ONE, THE HEAD SNAP, IS NOT BUILT AND THREE ATTEMPTS ARE WHY.
-     His spec's first beat is "head snaps back on impact (0 to 0.08)". Tried, in
-     order: an impulse on headTop and neck at frame zero (2.6px); the same on
-     headTop alone at 5.0px; and exempting the head from the horizontal speed cap
-     inside the snap window so a bigger kick could survive. ALL THREE MEASURED THE
-     SAME 5.1px OF HEAD TRAVEL AGAINST THE WAIST'S 4.1 -- identical to three
-     significant figures, and identical to the build with no kick at all. The 5.1
-     comes from the window fix below, not from any impulse.
-     Something downstream is pinning the head's angle, and it is not the speed cap
-     (removing the exemption changed nothing) and not the impulse size (2.6 and
-     5.0 are the same number on screen). Whatever it is has to be FOUND before
-     another kick is written, because a fourth attempt at the same beat is the
-     STOP PRODUCING tell. Code that measures the same with and without it does not
-     ship, so none of the three is here. */
+  /* NO HEAD KICK HERE, AND THE REASON IS MEASURED, NOT ASSUMED. Three attempts
+     at beat one were written as impulses on this joint and all three measured
+     the same 5.1px as no impulse at all. The head has EXACTLY ZERO freedom in
+     this sim -- head angle minus spine angle is 0.0000 degrees on every step of
+     every fall -- because the GLUE LAW block in hsStep rewrites headTop from the
+     spine frame every step. An impulse here is overwritten in the step it is
+     applied. Beat one is built in hsPose, at the neck joint, which this sim does
+     not model; the full measurement is written out there. Do not add a kick. */
   /* OMNIDIRECTIONAL FALL (7/2/26): ONE canonical sim, projected onto the knock
      axis. The sim always topples +u (all locked fall laws run untouched in
      fall space); the knock direction is a screen vector with 3/4 depth
@@ -6918,6 +6912,9 @@ function hsReset(d){
        B2 knee peak -> end          38 -> 1            38 -> 5        16 -> 17
        B3 hand lag behind the body  13%                17%            53%
        B4 hand closes to the chest  5.1 px             16.0 px        0.6 px
+   B1 IS NOW BUILT, at the neck joint in hsPose rather than by moving a window:
+   peak head travel 10.0px against the waist's 4.1, and beats two, three and four
+   measure identical to the pixel because the sim is not touched.
    Damping the legs across a third of the fall makes the body drop 30px instead of
    12 inside beat three, which is what lifts the lag to 53% -- and it lands the
    body in a configuration where the arms never come in at all, so his fourth beat
@@ -6927,6 +6924,11 @@ function hsReset(d){
    than moving their windows. HS_FALL is pinned at the measurement. */
 const HS_FALL=3.2;
 const HS_BEAT={snap:[0,0.08], fold:[0.10,0.45], armsUp:[0.15,0.35], armsIn:[0.72,1]};
+/* BEAT ONE'S TWO NUMBERS. The amplitude was LOOKED AT, not picked off a table:
+   at 0.6 the neck starts to read long and at 0.8 the head lifts off the collar.
+   A human neck extends about 60 degrees, so 26 is well inside anatomy. */
+const SNAP_RAD=0.45;    /* 26 degrees of neck, at the peak of the whip */
+const SNAP_PEAK=0.3;    /* the whip peaks 30% into his window and is back to glued by its end */
 function hsIn(name){const b=HS_BEAT[name];return HS.t>=b[0]*HS_FALL&&HS.t<b[1]*HS_FALL;}
 function hsStep(dt){
   if(HS.frozen)return;
@@ -7105,6 +7107,55 @@ function hsPose(d){
   const sk={};for(const j of HS_JOINTS){
     const R=HS.rest[j],du=HS.p[j][0]-R[0],dv=HS.p[j][1]-R[1];
     sk[j]=[R[0]+du*HS.K[0],R[1]+du*HS.K[1]+dv];
+  }
+  /* *** BEAT ONE: THE HEAD SNAPS BACK. AND THE PIN THAT KILLED THREE ATTEMPTS
+     IS NAMED HERE SO A FOURTH IS NEVER WRITTEN. ***
+     His spec's first beat is "head snaps back on impact (0 to 0.08)". Three
+     attempts at it all measured 5.1px of head travel against the waist's 4.1 --
+     identical to each other AND to the build with no kick at all.
+     MEASURED, AND THIS IS THE ANSWER: the head has EXACTLY ZERO freedom in the
+     sim. Head angle minus spine angle is 0.0000 degrees on every step of every
+     fall, with a 5px impulse on it and without one. The GLUE LAW block in hsStep
+     rewrites headTop from the spine frame every single step, so an impulse on
+     the head is overwritten in the same step it is applied. That is the whole
+     reason 2.6 and 5.0 were the same number on screen, and it is why the third
+     attempt (exempting the head from the horizontal speed cap) changed nothing:
+     it exempted the one joint that has no freedom to use.
+     THE SIM'S LEVER IS THE NECK, and the neck is ALREADY kicked, at 3.4 px/frame
+     -- but the horizontal speed cap clips it to 1.6 on the first integration
+     step while the waist's 1.2 passes through untouched. 3.4 against 1.2 is a
+     ratio of 2.8; after the cap it is 1.33, and the head measures 5.1 against
+     4.1, which is 1.24. That cap is why the head LEADS instead of snapping.
+     LIFTING THE CAP INSIDE HIS WINDOW DOES BUILD BEAT ONE AND IT KILLS BEAT
+     FOUR. Measured, every value, neck ceiling swept:
+         neck ceiling      0/1.6    2.2     2.8     3.4+
+         beat 1 ratio       1.24    1.73    2.22    2.73
+         beat 4 arms in     +16     -0.6    -2.9    -13.3   (his floor is 12)
+     It saturates at 3.4 because 3.4 is the kick, which proves the cap was the
+     only clip. Trading his fourth beat for his first is the same bad trade the
+     leg window offered last round and was refused for, so the cap is not touched.
+     WHAT IS BUILT INSTEAD IS THE NECK JOINT, which the sim does not model at all
+     -- it glues the head to the spine and has no neck. The glue law's own
+     sentence is "the stiffest neck: ONE WHIP with the shot, then it rides the
+     body", and this is exactly that: inside his window only, the rendered head
+     rotates about the neck by a pulse that peaks 30% in and returns to glued by
+     the window's end. After it, the head is rigid forever, as now.
+     THE SIM IS NEVER TOUCHED, so beats two, three and four are identical to the
+     pixel -- verified by measuring all four at seven amplitudes, not assumed.
+     And the RIGID LIMB LAW immediately below forces the neck bone back to its
+     exact rest length, which is why the head can never come off: the head-to-body
+     gap measures 1px on all eight facings at every amplitude out to 0.9 rad.
+     Peak head travel is 10.0px against the waist's 4.1. It snaps. */
+  if(HS.variant!==2){
+    const _sb=HS_BEAT.snap, _sw=(_sb[1]-_sb[0])*HS_FALL;
+    const _su=(HS.t-_sb[0]*HS_FALL)/(_sw||1e-6);
+    if(_su>=0&&_su<=1){
+      const _se=(_su<SNAP_PEAK)?(_su/SNAP_PEAK):(1-(_su-SNAP_PEAK)/(1-SNAP_PEAK));
+      const _sa=SNAP_RAD*Math.sin(Math.PI*0.5*_se)*Math.sign(HS.K[0]||1);
+      const _vx=sk.headTop[0]-sk.neck[0], _vy=sk.headTop[1]-sk.neck[1];
+      const _c=Math.cos(_sa), _s=Math.sin(_sa);
+      sk.headTop=[sk.neck[0]+_vx*_c-_vy*_s, sk.neck[1]+_vx*_s+_vy*_c];
+    }
   }
   /* RIGID LIMB LAW (Paolo 7/2/26, headshot only, LOCKED): the headshot is the
      one off-BPM animation, and its limbs must NEVER grow, shrink, or change

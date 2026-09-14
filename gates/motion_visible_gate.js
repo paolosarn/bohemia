@@ -132,13 +132,27 @@ const FLOOR = {
      A FALL IS MEASURED AS A SILHOUETTE THAT WIDENS AND DROPS, because a body going
      from upright to flat gets wider and its top comes down. Pose values are not
      enough -- they were moving the whole time this was broken. */
+  /* *** AND THE RULER COULD ONLY EVER SEE AN EIGHTH OF THE FALL. ***
+     hsPose clamps its step to dt=Math.min(dt,0.05) and advances the sim ONCE per
+     call, so N samples advance the ragdoll at most 0.05*N seconds no matter how
+     long you wait between them. Seven samples reached HS.t=0.4 of a 3.22 SECOND
+     fall -- the first twelve percent -- and the waiting was 1.4s of wall clock
+     for it. Measured, sample by sample: the sprite's top read 9,8,8,9,10,10,10,
+     so it scored its 2px floor on a 1px UPWARD wobble plus 1px of real drop, and
+     any change to the first quarter second could flip it either way.
+     Sampled across the WHOLE fall the same clip drops 46px and widens 61. The
+     floors below are set off that, so the claim now needs a body that actually
+     goes down instead of one that twitches. Deterministic: three trials, same
+     numbers, both on this build and the one before it. */
   const fall = await pg.evaluate(async () => {
     const out = {};
     for (const c of ['headshot', 'headshot-2', 'idle', 'walk']) {
       if (typeof HS !== 'undefined') HS.key = null;
+      if (typeof RG !== 'undefined') RG.key = null;
       const w = [], tops = [];
-      for (let i = 0; i < 7; i++) {
-        await new Promise(r => setTimeout(r, 200));
+      const N = (c === 'headshot' || c === 'headshot-2') ? 70 : 12;
+      for (let i = 0; i < N; i++) {
+        await new Promise(r => setTimeout(r, 55));
         const f = buildFrame('S', c, 0.1);
         let miny = 99, minx = 99, maxx = -1;
         for (let k = 0; k < f.px.length; k++) if (f.px[k]) {
@@ -152,10 +166,12 @@ const FLOOR = {
     return out;
   });
   for (const c of ['headshot', 'headshot-2']) {
-    ok(`${c} actually FALLS: the silhouette widens (${fall[c].grow}px) as the body goes flat`,
-      fall[c].grow >= 4);
-    ok(`${c} actually FALLS: the top of the sprite drops (${fall[c].drop}px)`,
-      fall[c].drop >= 2);
+    ok(`${c} actually FALLS: the silhouette widens (${fall[c].grow}px) as the body goes flat ` +
+      `(floor 20; measured 61 and 35 across the whole fall, where the old seven samples saw 5)`,
+      fall[c].grow >= 20);
+    ok(`${c} actually FALLS: the top of the sprite drops (${fall[c].drop}px) ` +
+      `(floor 20; measured 46 and 26, where the old seven samples saw 2)`,
+      fall[c].drop >= 20);
   }
   ok('idle does not fall over', fall.idle.grow < 4 && fall.idle.drop < 3);
   ok('walk does not fall over', fall.walk.grow < 4 && fall.walk.drop < 3);

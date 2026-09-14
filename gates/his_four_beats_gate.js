@@ -104,6 +104,8 @@ ok('CONTROL: the CRUMPLE keeps its own timings in seconds (Paolo 7/17, a separat
     let kmax = 0; for (let t = 0.10; t <= 0.45; t += 0.01) { const q = at(t); kmax = Math.max(kmax, ang(q.w, q.k, q.f)); }
     return { settle: last, fallSec: +(last / 60).toFixed(2),
              headMove: +dist(at(0.08).h, at(0).h).toFixed(1), waistMove: +dist(at(0.08).w, at(0).w).toFixed(1),
+             headPeak: (() => { let pk = 0; for (let i = 0; i <= Math.round(0.08 * last); i++)
+               pk = Math.max(pk, dist(F[i].h, F[0].h)); return +pk.toFixed(1); })(),
              kneePeak: +kmax.toFixed(0),
              bodyDrop: +(at(0.35).w[1] - at(0.15).w[1]).toFixed(1), handDrop: +(at(0.35).hd[1] - at(0.15).hd[1]).toFixed(1),
              armIn: +(dist(at(0.72).hd, at(0.72).sh) - dist(at(1).hd, at(1).sh)).toFixed(1),
@@ -117,12 +119,20 @@ ok('CONTROL: the CRUMPLE keeps its own timings in seconds (Paolo 7/17, a separat
   ok('BEAT FOUR LANDS: between ' + wLast[0] + ' and ' + wLast[1] + ' of the fall the hand closes ' +
      R.armIn + 'px toward the chest (floor 12; it was 5.1 before this round)', R.armIn >= 12);
 
+  /* BEAT ONE LANDS TOO, and it is measured at the PEAK because the old ruler here
+     could not see it. The ruler was at(0.08) minus at(0) -- two ENDPOINTS -- and a
+     snap that whips and returns to glued is invisible between them. It reported
+     "not built" for every amplitude including the ones that obviously worked. The
+     snap is owned by gates/the_head_snaps_back_gate.js; this is the beat's own row
+     so the four are scored in one place. */
+  ok('BEAT ONE LANDS: inside ' + wSnap[0] + ' to ' + wSnap[1] + ' of the fall the head peaks ' +
+     R.headPeak + 'px against the waist\'s ' + R.waistMove + 'px (floor 1.5x; it was 5.1 against 4.1, ' +
+     'which leads rather than snaps)', R.headPeak >= R.waistMove * 1.5);
+
   /* WHAT IS NOT BUILT IS PRINTED, NOT HIDDEN. Three of his four beats are still
      not met and the clip must not read as finished because a gate went green. */
   console.log('');
   console.log('  NOT BUILT, and named so the clip is not read as finished:');
-  console.log('    beat 1 head snaps back  : head ' + R.headMove + 'px against the waist\'s ' +
-              R.waistMove + 'px -- it leads, it does not snap');
   console.log('    beat 2 knees fold       : peak ' + R.kneePeak + ' degrees inside his window, and it ' +
               'straightens again by the end of it');
   console.log('    beat 3 arms hold up     : the body drops ' + R.bodyDrop + 'px and the hand ' +

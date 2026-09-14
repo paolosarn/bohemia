@@ -1053,6 +1053,103 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 9/14 (b) LATEST -- *** THE HEAD WAS WELDED TO THE
+SPINE. Beat one of his headshot spec is BUILT after defeating three attempts, and
+the reason all three failed is now measured and written into the code so a fourth
+is never tried. TAB: ANIMATION. Build 9/14p. ***
+
+ROW STILL CLAIMED: [redo killed] FORTY-SEVEN-CLIPS-ARE-REDONE-NOT-DELETED.
+RULE 14 (9/13): ships to the ALPHA only. RUN cuts the demo. No five-minute break
+on this lane's first line, so it holds its claim and adds nothing to the demo.
+
+=== THE PIN, WHICH IS THE WHOLE POINT OF THIS ROUND
+Last round's record said FIND THE PIN before writing a fourth kick. Found, and it
+is exact: THE HEAD HAS ZERO FREEDOM IN THE SIM. Head angle minus spine angle is
+0.0000 degrees on every step of every fall, with a 5px impulse on the head and
+without one. The GLUE LAW block in hsStep rewrites headTop off the spine frame
+every single step, so every impulse was overwritten in the step it was applied.
+That is why 2.6 and 5.0 measured the same number, and why attempt three failed:
+it exempted the one joint in the rig that has no freedom to use.
+The sim's lever is the NECK, already kicked at 3.4 px/frame -- and the horizontal
+speed cap clips it to 1.6 on the first step while the waist's 1.2 passes through.
+That is the whole of why the head LEADS instead of snapping.
+LIFTING THAT CAP BUILDS BEAT ONE AND KILLS BEAT FOUR, swept and measured:
+    neck ceiling      0/1.6   2.2    2.8    3.4+
+    beat 1 ratio       1.24   1.73   2.22   2.73
+    beat 4 arms in     +16    -0.6   -2.9   -13.3   (his floor is 12)
+Same bad trade the leg window offered last round. The cap is NOT touched.
+
+=== WHAT SHIPPED: THE NECK JOINT, WHICH THE SIM DOES NOT HAVE
+In hsPose, on the rendered head, inside his window only: a pulse that peaks 30%
+in and returns to glued by the end. The glue law's own sentence is "the stiffest
+neck: ONE WHIP with the shot, then it rides the body" and that is exactly this.
+THE SIM IS NEVER TOUCHED, so beats two three and four measure IDENTICAL on all
+eight facings -- verified against the previous build, not assumed. The RIGID LIMB
+LAW right below forces the neck bone back to rest length, which is why the head
+cannot come off: worst head-to-body gap 1px, eight facings, out to 0.9 rad.
+Amplitude 0.45 rad (26 deg) was LOOKED AT in a zoomed strip, not picked off a
+table: 0.6 reads long-necked, 0.8 lifts the head off the collar.
+HIS FOUR BEATS NOW: beat 1 BUILT (head peaks 10.0px against the waist's 4.1),
+beat 2 NOT BUILT, beat 3 NOT BUILT, beat 4 BUILT (hand closes 16.0px). Two of four.
+
+=== THREE RULERS WERE WRONG THIS ROUND AND ALL THREE ARE FIXED
+1. A head-attachment ruler looked DOWNWARD for the neck and called the shipped
+   glued build 19% attached with a 9-row gap. Once a body is lying down the neck
+   is BESIDE the head. Replaced with a direction-free blob distance: 1px, always.
+2. FOUR BEATS' beat-one ruler was two ENDPOINTS, at(0.08) minus at(0). A snap
+   that whips and returns is invisible between them -- it scored the same 6.1px
+   at every amplitude from 0.1 to 0.6 rad. It measures the PEAK now.
+3. MOTION VISIBLE could only ever see an EIGHTH OF THE FALL. hsPose clamps to
+   dt=0.05 and steps once per call, so its seven samples reached HS.t=0.4 of a
+   3.22s fall. Its tops read 9,8,8,9,10,10,10 -- it was scoring its 2px floor on
+   a 1px UPWARD wobble. Sampled across the whole fall the same clip drops 46px
+   and widens 61. Floors are 20 and 20 now; the gate got about TEN TIMES
+   STRONGER and still catches the frozen sprite it was born for (0px, 4 red).
+FOURTH RULER BUG OF THIS SESSION, always the same shape: a unit or a span that is
+not what the ruler's sentence claims. Seconds read as fractions, 56-space numbers
+on a 112 rig, two endpoints called a peak, an eighth of a fall called a fall.
+WORTH HUNTING A FIFTH TIME.
+
+=== ONE THING WAS BUILT AND DELETED, ON PURPOSE
+A guard stopping the head's whip from dragging the tracking camera. It measured
+IDENTICAL on every gate and every number with and without it -- the body never
+moved (0 of 40 steps) and the sprite-top change was the head's own 2px drop from
+rotating 26 degrees on an 18px bone. Written on a hypothesis the measurement had
+already disproved. Deleted rather than shipped.
+
+GATES: HEAD SNAPS 13/0 (NEW, in the suite; 7 mutations caught; the load-bearing
+claim is the WHIP -- peak head travel over the travel at the window END, because
+a head that merely leads moves monotonically and scores exactly 1.00, which is
+what the build before this scored on all eight facings). FOUR BEATS 8/0 (beat one
+left its NOT BUILT list). MOTION VISIBLE 24/0 with the stronger floors.
+Record: records/BOHEMIA_THE_HEAD_WAS_WELDED_TO_THE_SPINE_9_14_26.md
+
+PRE-PUSH PASS (rule 13): the body and rig gates plus the shared ones. All green
+except RIG CHECK and REUSE-FIRST, BOTH VERIFIED RED ON A CLEAN origin/main
+CHECKOUT THIS ROUND and neither mine (haircut-turns joint claim; a REUSE CHECK
+block missing from bohemia_there_are_enemies_patch.py). MOTION VISIBLE went red on
+my change, was triaged first, and is green on its own merits now.
+FULL SUITE: no SUITE LINE on the front page yet; PLUMBER [suite line] owns it.
+
+WHAT IS LEFT OF THE ROW, unchanged from last round except beat one:
+- BEATS TWO AND THREE need a MECHANISM, not a window. For the knees to fold the
+  waist has to drop between planted feet; for the arms to hold up the hands have
+  to resist while the torso goes. Moving their windows just trades beats.
+- W IS THE ONE FACING THE SNAP DOES NOT CLEANLY HOLD and the gate prints it every
+  run: the snap happens (head 20px against the waist's 5px) but W's own fall is
+  the most violent of the eight and outruns the whip by the window's end. W's knee
+  peaks at 159 degrees, worst of the eight. That is BEAT TWO's defect.
+- Four clips still snap, all small: crouch-aim-2h 4, crouch-aim-1h 2, spear-drive
+  2, shiv-jab 1, worst 12.6px. Pose problems, not rig problems.
+- Clips whose keys are too far apart to read as motion (crouch-aim-2h NW is
+  arm-down at k2 and arm-out at k3): POSEHOLD key density.
+- On NE in his own frame (records/target/PAOLO_THE_COAT_AND_THE_ELBOWS_9_7_26.jpg)
+  the head sits up and right of the shoulders with a visible gap. Pose too.
+- The 47 are repaired and visible in JUDGE ALL under ONES YOU KILLED. Next
+  verdict is HIS.
+
+Nothing [PENDING Paolo].
+
 ANIMATION (animation-lr9y9i): 9/13 (c) LATEST -- *** A ONE-PIXEL VECTOR HAS NO
 DIRECTION. The third time this rig was caught deciding something big with a
 measurement too small to carry it, and it was the single cause of the ten clips
