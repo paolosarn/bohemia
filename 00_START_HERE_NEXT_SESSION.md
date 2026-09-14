@@ -1,3 +1,83 @@
+RUN (run-eak241): LATEST -- *** [cutter flex] SHIPPED, THE DEMO IS LEVEL WITH THE
+WORKSHOP AGAIN, AND I TOLD PAOLO SOMETHING THAT WAS NOT TRUE. TAB: CITY for the
+button, RUN for the cut. Nothing to judge. ***
+
+1. THE DEAD BUTTON, AND THE BOARD BLAMED THE WRONG FILE. The row says one line in
+the demo cutter forces hidden chips back on screen, beating the INLINE
+display:none the game hides a useless chip with. The reasoning is right. I built
+that fix, re-cut, drove the demo -- AND MARKET WAS STILL ON SCREEN. Disabled the
+whole accused stylesheet at runtime: still on screen. Asked the page which rules
+claim display on that chip and the real one is the 9/6 halving sheet,
+#blstack > .uihalf{display:flex!important}, which lives in THE WALKED CITY. It was
+never demo-only; the alpha had it too. Fixed next to its cause by re-hiding only
+what the game itself hid, reading the element's own inline style, at a specificity
+that wins. NOTHING RESIZED, so his 9/6 halving stands. On the glass: mktbtn
+computed flex 44x44 -> none 0x0, six visible chips still clearing 44.
+
+2. *** THE CORRECTION, AND IT IS THE PART TO READ. I REPORTED THE MAP UNREACHABLE
+AND I WAS WRONG. *** I measured four hard pinches, got hzoom 44 every time, and
+told him there is no way into the map and that it blocks [fast travel]. The pinch
+works: PAD SAYS crosses the seam, hzoom 44 -> 11, two pointerdowns, 13/0.
+  THREE BROKEN INSTRUMENTS, and two were mine.
+  - A CARD OVER THE GLASS. The opening stacks cards; my probes cleared ONE. At the
+    pinch point elementFromPoint returned a DIV and the canvas got ZERO
+    pointerdowns. A pinch that never reaches the canvas is indistinguishable from
+    a dead seam.
+  - .click() IS NOT A FINGER. Eight synthetic clicks did not close the offer card;
+    real taps at the same coordinates did.
+  - THE ONE DRIVER CANNOT PINCH AT ALL: navigator.maxTouchPoints is 1 in its
+    context, so a two-point CDP touch delivers one pointer. Raising it with
+    Emulation.setTouchEmulationEnabled reports 5 and STILL yields one pointer, so
+    the fix is not one line. WHOEVER OWNS THE DRIVER: this is worth a round.
+  I even bisected with the broken ruler and blamed a CSS-only commit. I had a gate
+  that pinches and that I had watched go green hours earlier, and reached for a new
+  probe instead. WHEN AN OLD INSTRUMENT AND A NEW ONE DISAGREE, THE ONE THAT HAS
+  PASSED IS THE WITNESS.
+
+3. AND THE SAME GATE THEN TAUGHT ME THE REAL SHAPE: IT IS A RACE, NOT A STATE. It
+went green on my tree and red on the merged one with identical assertions, because
+THE PHONE RINGS ON A TIMER -- the job offer arrives seconds after the wake card is
+dismissed and lands in the gap between clearing at the door and pinching. Proved
+both ways: pinch immediately after a clear -> city, hzoom 11, 2 pointerdowns; pinch
+with the gate's own spacing -> human, 44, 0 pointerdowns. The clear is a function
+now, runs at the door AND again just before the gesture, and the gate ASSERTS THE
+GLASS IS CLEAR when the fingers land, naming what is on top. 13/0, three runs.
+
+4. THE CUT: SIX LANES' WORK REACHED HIM. EYES E26 item 0 measured the demo a day
+behind with only this lane able to close it. Walked the five minutes on the glass
+with the one driver, then cut: demo 9/13z -> 9/14p, Space Grotesk refs 42 -> 2,
+fonts.googleapis 2 -> 0, identical to the alpha. That closes EYES item 1 by cutting
+rather than by new work, and carries LIFE+CITY's build-button fix with it.
+
+*** 5. CARRIED, NOT FIXED, AND IT IS THE NEXT THING: THE GEAR IS A TRAP. *** The
+cold hand presses the loudest thing forty times and never reads. Its trail:
+    front > padring > daycardIn > daycardIn > dcbtn > dcgo > blstack > dcgo >
+    gearbtn > setclose > gearbtn > setclose > gearbtn > setclose > ...
+THIRTY-TWO OF FORTY PRESSES ARE THE SETTINGS GEAR OPENING AND CLOSING, and the
+clock does not move: 1d 360m -> 1d 360m over 40 presses. Past the cards, the
+loudest thing a stranger can reach is SETTINGS, and it is a loop that goes nowhere.
+COLD HAND was 7/0 on 9/13 and is 5/2 now. Same family as the ringing phone going
+grey a round earlier: the game's own pointing losing to a control that is merely
+bright.
+
+THE BREAK LIST, walked on the glass this round:
+  streets and sidewalks do not read     NOT RE-MEASURED
+  a flat freeway reads as an overpass   NOT RE-MEASURED
+  PRETTY MAP and DROP IN buttons exist  NOT RE-MEASURED (UI removed them in [no tabs])
+  cards promise and do nothing          one closed: MARKET is gone when there is no
+                                        market. The rest is [dead cards].
+  no fight met in five minutes          NOT RE-MEASURED
+  no fast travel from the map           THE MAP IS REACHABLE (I said otherwise and
+                                        was wrong). Fast travel still does not exist.
+  glitches                              no page errors in the walk; the gear loop above
+
+STILL CLAIMED AND NOT STARTED: [fast travel]. Its measurement stands and is two
+blocks below: stepOnce already has a MODE==='city' branch, so travelling on the map
+is implemented and the job is four connections, not a movement system.
+
+RECORD: records/BOHEMIA_THE_BOARD_BLAMED_THE_WRONG_FILE_9_14_26.md
+
+--------------------------------------------------------------------------------
 UI (ui-kmqmrf): 9/14 LATEST -- *** [one door] SHIPPED. AND I READ "OUTFIT" AS CLOTHES. ***
 Rule 14(b): a break he named is this lane's first job, so [no slop] stays CLAIMED and untouched.
 
