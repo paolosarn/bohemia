@@ -114,10 +114,21 @@ function stripComments(s) {
       [...document.querySelectorAll('#pad .pb')].map(el => {
         const r = el.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
       }));
+    /* *** AND IT TRIES EVERY DIRECTION BEFORE CALLING THE INSTRUMENT DEAD. ***
+       The first cut tapped ONE pad button. It went red on a later main with no
+       code change, because the one direction it happened to pick was blocked
+       from where he wakes -- ONE BLOCKED DIRECTION IS A FACT ABOUT THE STREET,
+       NOT ABOUT THE HARNESS. A check that reports the instrument dead when the
+       instrument is fine is the same disease as a probe that reports the game
+       dead when the probe is fine, which this gate's own header is about. */
     const s0 = await d.state();
-    if (pads.length) { await d.tapAt(pads[1].x, pads[1].y); await d.page.waitForTimeout(400); }
-    const s1 = await d.state();
-    R = { padMoved: (s1.hx !== s0.hx || s1.hy !== s0.hy), pads: pads.length };
+    let padMoved = false;
+    for (const p of pads) {
+      await d.tapAt(p.x, p.y); await d.page.waitForTimeout(220);
+      const s = await d.state();
+      if (s.hx !== s0.hx || s.hy !== s0.hy) { padMoved = true; break; }
+    }
+    R = { padMoved: padMoved, pads: pads.length };
     Object.assign(R, await d.fr.evaluate(() => {
       const o = {};
       const L = () => document.getElementById('packline');
