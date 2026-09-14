@@ -132,7 +132,18 @@ function EAR() {
       let M = null; try { M = MUS; } catch (e) {}
       const AC = M && M.AC; if (!AC) { E.errs.push('no AC'); return; }
       const tap = window.__LIMITER || window.__OUTBUS || M.OUT || M.MAST || AC.destination;
-      const an = AC.createAnalyser(); an.fftSize = 2048;
+      /* *** THE WINDOW MUST BE LONGER THAN THE POLL, OR "SILENCE" MEANS "I BLINKED".
+         The fifth fault in this instrument, and the SAME ONE this lane fixed in
+         BEAT FIRST an hour earlier: fftSize 2048 is 46 ms of history at 44.1 kHz and
+         this loop polls every 250 ms, so the ear saw 18% of the timeline and called
+         the other 82% nothing. It duly reported 50% of the five minutes silent, with
+         the quiet moments landing at step 28, 32, 36, 40 -- inside the drumless first
+         phrase, where the melody is sparse and most 46 ms slivers fall BETWEEN notes.
+         Measured against itself: the same build read 22% one run and 50% the next.
+         16384 is 372 ms, so consecutive windows OVERLAP and every millisecond of the
+         five minutes is inside one. A quiet reading now means nothing sounded anywhere
+         in the last third of a second, which is what a person would call silence. *** */
+      const an = AC.createAnalyser(); an.fftSize = 16384;
       try { tap.connect(an); } catch (e) { E.errs.push('meter could not connect'); return; }
       const buf = new Float32Array(an.fftSize);
       E.meterOn = (window.__LIMITER ? 'LIMITER' : (window.__OUTBUS ? 'OUTBUS' : 'MAST'));
@@ -141,7 +152,7 @@ function EAR() {
         let pk = 0, sq = 0;
         for (let i = 0; i < buf.length; i++) { const v = Math.abs(buf[i]); if (v > pk) pk = v; sq += v * v; }
         E.meter.push({ t: at(), pk: +pk.toFixed(5), rms: +Math.sqrt(sq / buf.length).toFixed(5),
-                       st: AC.state });
+                       st: AC.state, win: +(an.fftSize / AC.sampleRate).toFixed(3) });
       }, 250);
     } catch (e) { E.errs.push('meter threw: ' + e.message); }
   };
@@ -262,6 +273,8 @@ function EAR() {
     secondsResting: e.rest ? +(e.rest.filter(r => r.resting).length * 0.5).toFixed(1) : null,
     musicNotesSong: e.song, acState: e.acState, meterOn: e.meterOn,
     meterSamples: m.length,
+    /* the two numbers that decide whether a silence reading means anything */
+    windowSec: m.length ? m[0].win : null, pollSec: 0.25,
     longestSilenceSec: worst, longestSilenceEndedAt: worstAt,
     pageErrors: out.pageErrors, consoleErrors: out.consoleErrors, earErrs: e.errs,
     out: path.relative(path.join(__dirname, '..'), OUT)
