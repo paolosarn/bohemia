@@ -146,15 +146,25 @@ function stripComments(s) {
       o.lastUp = Math.max(...trail.filter(t => t.up).map(t => t.secs).concat([0]));
       o.firstGone = Math.min(...trail.filter(t => !t.up).map(t => t.secs).concat([99999]));
       /* C2. the body in your way, on ITS rule rather than this one. Driven
-         through the game's own clear, never through a copy of it here. */
+         through the game's own clear, never through a copy of it here -- both
+         clears live in dayDistrictCheck, so that is the door.
+
+         *** AND ITS RULE GOT SHARPER WHILE THIS WAS BEING WRITTEN, so this claim
+         follows it rather than pinning the shape it had. *** That lane's clear
+         now also requires HE HAS WALKED AWAY: it remembers the cell he was
+         standing in and refuses to clear while he is still in it. That is
+         better -- somebody standing in your doorway has not stopped being there
+         because a tick went by -- so the claim is repointed, never loosened: it
+         now asserts BOTH halves, that it stays while he has not moved and goes
+         once he has. */
       ctAgainstSay();
       o.blockUp = up(); o.blockText = L().textContent;
-      /* THROUGH THE GAME'S OWN CALL, not a copy of it. Driving ctAgainstClear
-         directly left this claim green when the call the GAME makes was deleted
-         -- the same worthless shape the moment claim above was caught in one
-         paragraph earlier. Both clears live in dayDistrictCheck, so that is the
-         door. */
       try { dayDistrictCheck(); } catch (e) { o.blockClearThrew = String(e).slice(0, 70); }
+      o.blockStaysWhileThere = up();
+      /* now walk him off that cell, the way the rule asks */
+      const _fn = (typeof FN !== 'undefined') ? FN : 128;
+      hx += _fn * 2; hy += _fn * 2;
+      try { dayDistrictCheck(); } catch (e) {}
       o.blockGone = !up();
       /* C3. somebody else's sentence is never eaten */
       walkSay({ id: 'coyote_shadow' });
@@ -188,9 +198,9 @@ function stripComments(s) {
       R.lastUp >= R.gap * 0.7 && R.firstGone <= R.gap * 1.3,
       `gap ${R.gap}s, last seen +${R.lastUp}s, gone +${R.firstGone}s`);
     notes.push('the line: ' + R.trail.map(t => `${t.secs}s:${t.up ? 'up' : 'gone'}`).join(' '));
-    ok('THE BODY IN YOUR WAY COMES DOWN TOO, on its own rule: it is said while somebody is there and gone once nobody is',
-      R.blockUp === true && R.blockGone === true,
-      JSON.stringify(R.blockText));
+    ok('THE BODY IN YOUR WAY COMES DOWN TOO, on its own rule: it STAYS while he has not moved off that cell, and is GONE once he has walked away',
+      R.blockUp === true && R.blockStaysWhileThere === true && R.blockGone === true,
+      JSON.stringify(R.blockText) + ` stays=${R.blockStaysWhileThere} gone=${R.blockGone}`);
     ok('*** AND IT ONLY EVER CLEARS ITS OWN WORDS. *** The street line is shared, and eating the tracks\' sentence would be a worse bug than the one this fixes',
       R.otherSurvives === true);
     ok('a new day rewinding the clock does not wipe a line that was just said',

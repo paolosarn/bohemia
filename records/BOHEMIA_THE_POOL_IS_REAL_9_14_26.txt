@@ -1,0 +1,123 @@
+BOHEMIA -- THE POOL IS REAL (9/14/26, PEOPLE lane)
+Fourth round on his five minutes. Not a board row.
+
+PAOLO 9/13: "nothing's complete."
+
+================================================================================
+*** FIRST: A CORRECTION, AND IT REACHED HIS SCREEN ***
+================================================================================
+Last round this lane told him: "five minutes of walking gets you almost nowhere
+and almost nothing happens", off a walk of 600 taps that covered 29 cells.
+
+THAT WAS WRONG AND THE MEASUREMENT WAS THE REASON. The taps were 25 milliseconds
+apart. THE GAME WALKS ON THE BEAT -- about one and a half to two cells a second
+at 120 BPM -- so 600 taps at that speed was FIFTEEN SECONDS OF WALKING, not five
+minutes. He moved 29 cells because that is what fifteen seconds buys. The game
+was doing exactly what it should.
+
+Measured properly this round, tapping one open direction at four different rates:
+  every 20ms   1.31 cells a second
+  every 100ms  1.87 cells a second
+  every 250ms  1.11 cells a second
+A thumb cannot go faster than the beat, and nothing was broken about that.
+
+SO THE FIVE MINUTES WAS WALKED AGAIN, FOR FIVE REAL MINUTES OF WALL CLOCK:
+  921 taps, 300 seconds
+  28 minutes of GAME time spent
+  1 line said, 0 cards, 0 fights
+
+THE CONCLUSION SURVIVED THE CORRECTION AND THE NUMBERS ARE DIFFERENT. It is not
+that he cannot move. It is that twenty-eight minutes of game time produced one
+thing. That is the round.
+
+================================================================================
+AND IT IS NOT THE GROUND EITHER
+================================================================================
+Asked the game about every neighbour of where he stands, eight directions, at six
+points along a walk: 48 of 48 OPEN. Nothing solid, no body in the way. Driven
+through the game's own stepper he walks 26 cells in one direction without a
+single refusal. The street is not a maze and nobody is blocking him.
+
+================================================================================
+*** SO THE DIRECTOR WAS ASKED DIRECTLY, AND IT FIRES TWICE IN HALF AN HOUR ***
+================================================================================
+Over 400 offers of 5.04 seconds each -- about thirty-four minutes of walking:
+  the walk director   FIRED 2   (ghost_robotaxi, scavenger_shakedown)
+  the road director   FIRED 0
+Its approved gap is ninety seconds, which would allow about twenty-two.
+
+THE CAUSE IS NOT THE PACING. IT IS THAT HALF THE POOL CANNOT FIRE.
+
+The walk director never invents an animal: an animal moment is offered only while
+that animal is actually drawn on the glass. THAT IS RIGHT AND IT IS NOT LOOSENED
+HERE -- the alternative is announcing dogs that are somewhere else. But two of
+the moments it offers wait on animals the valley does not draw, and the filter
+drops them SILENTLY, so a district that reads as four moments is really two and
+nothing anywhere says so.
+
+AND THE TWO FAIL DIFFERENTLY, WHICH IS THE PART WORTH KEEPING:
+  feral_dog_pack  waits on `dogs`, a REAL kind in the density table set to ZERO
+                  in every district ON PURPOSE and frozen as canon last round: he
+                  named the dog first and it was left out in writing, because a
+                  dog is a BODY and a body is character art.
+  coyote_shadow   waits on `coyotes`, WHICH IS NOT A KIND AT ALL. The valley
+                  draws flies, rats and ravens. Nothing can ever answer that
+                  question yes. That is a NAME, not a density.
+
+MEASURED, day moments, every walked district:
+  suburb (where he wakes)  offers 4, can fire 2   DEAD: coyote_shadow, feral_dog_pack
+  park                     offers 2, can fire 0   DEAD: both -- that district can
+                                                  never produce a walked moment
+  town                     offers 3, can fire 2   DEAD: feral_dog_pack
+  desert                   offers 2, can fire 1   DEAD: coyote_shadow
+  industrial               offers 4, can fire 3   DEAD: feral_dog_pack
+  downtown 4/4, commercial 3/3, gated 2/2, estate 1/1   whole
+  SEVEN of twenty-five day moments can never fire.
+
+AND THE ROAD DIRECTOR HAS NO SUBURB ROW AT ALL, so where he wakes it can never
+offer a card. Only the walk director speaks there, and half of what it can say is
+waiting on animals that are not coming.
+
+================================================================================
+WHAT SHIPPED, AND WHAT DELIBERATELY DID NOT
+================================================================================
+NOTHING IS AUTHORED AND NO FILTER IS LOOSENED. Adding a coyote, or lifting the
+dog off zero, is CONTENT and canon -- the dog is his, frozen, with a written
+reason. Loosening the animal filter would fix the emptiness by making the game
+lie about what is standing in front of him, which is the bug this whole five
+minutes is about.
+
+What shipped is the thing that was missing: the silent drop is now VISIBLE and
+RATCHETED. gates/the_pool_is_real_gate.js counts, per district, how many of its
+moments can actually fire, names every dead one and why, holds that the district
+he wakes in still has something left, and freezes the debt at seven so it can
+only shrink. The day somebody adds a third moment gated on an animal the valley
+does not draw, it goes red instead of quietly costing him another empty five
+minutes.
+
+NEGATIVE-CONTROLLED BOTH WAYS:
+  add a third animal-gated row to the suburb   RED, "8 unreachable, ceiling 7"
+  strip the suburb down to its two dead ones   RED twice, and the director claim
+                                               goes with it, "fired 0"
+The second control matters most: it proves the director claim is driven by the
+real game and not by the table alone.
+
+================================================================================
+AND ONE OF THIS LANE'S OWN GATES WENT RED, CORRECTLY
+================================================================================
+MOMENT ENDS, shipped last round, failed on the blocked-body claim. Not a
+regression: ANOTHER LANE SHARPENED THAT RULE while this round was running, so it
+now also requires that he has WALKED AWAY from the cell before the line clears.
+That is better -- somebody standing in your doorway has not stopped being there
+because a tick went by. The claim is REPOINTED, NEVER LOOSENED: it now asserts
+BOTH halves, that the line stays while he has not moved and goes once he has.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+ROAD ON FOOT stays red with "0 moment(s) on foot" and is IDENTICAL claim-for-claim
+and count-for-count on a clean origin/main worktree (10 passed, 2 failed). It is
+the same fact from the other side, and this round has now given it numbers.
+
+TAB: CITY, the walked street. Nothing he can see changed this round: the fix is a
+checker, and the emptiness it measures is content and canon, which are his.

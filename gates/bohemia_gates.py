@@ -5179,6 +5179,20 @@ GATES = [
      "longer' means something. Being down is a QUESTION against the clock, so a save left on a shelf comes "
      "back healed with nothing to tidy. And it is on the card he already opens, saying how long and saying "
      "the promise out loud", False),
+    ('POOL IS REAL',   ['node', 'gates/the_pool_is_real_gate.js'],
+     "PAOLO 9/13: 'nothing's complete.' WALKED FIVE REAL MINUTES OF WALL CLOCK ON THE DEMO, 921 taps: one "
+     "line, no cards, no fights, 28 minutes of game time spent. Then asked the director over 34 minutes of "
+     "its own clock and it fired TWICE, against an approved gap of ninety seconds that would allow about "
+     "twenty-two. THE CAUSE IS NOT THE PACING, IT IS THAT HALF THE POOL CANNOT FIRE: the walk director "
+     "never invents an animal, which is right and is NOT loosened here, but two of the moments it offers "
+     "wait on animals the valley does not draw and the filter drops them SILENTLY. AND THE TWO FAIL "
+     "DIFFERENTLY -- feral_dog_pack waits on `dogs`, a real kind set to zero in every district on purpose "
+     "and frozen as canon (a dog is a BODY and a body is character art); coyote_shadow waits on `coyotes`, "
+     "WHICH IS NOT A KIND AT ALL, so nothing can ever answer it yes. Measured: suburb, where he wakes, "
+     "offers 4 and TWO are unreachable; park offers 2 and BOTH are, so that district can never produce a "
+     "walked moment. NOTHING IS AUTHORED AND NO FILTER IS LOOSENED -- this makes the silent drop visible "
+     "and RATCHETED, so the day somebody adds a third dead row it goes red instead of quietly costing him "
+     "another empty five minutes", False),
     ('MOMENT ENDS',    ['node', 'gates/the_moment_ends_gate.js'],
      "PAOLO 9/13: 'it's like this glitchy, buggy AI experience where nothing's complete.' MEASURED ON THE "
      "DEMO, WALKED LIKE A PLAYER: a five-minute walk said ONE thing, 'headlights. nobody in it.', and it "
