@@ -244,6 +244,48 @@ const WALK_TO_CARD = `(STEPS) => {
     a.walk.walkTableHere === true && a.walk.roadTableHere === false);
 
   const errs = a.errors.concat(b.errors);
+  /* ---- V216 AND THE CARD SURVIVES THE NEXT STEP ------------------------- */
+  const survive = await (async () => {
+    const page = await browser.newPage({ viewport: { width: 430, height: 932 } });
+    const SRV = await serve();
+    await page.goto('http://127.0.0.1:' + SRV.address().port + '/slices/BOHEMIA_ALPHA_0_9.html',
+      { waitUntil: 'load', timeout: 120000 });
+    await sleep(9000); await page.mouse.click(215, 450); await sleep(2500); await page.mouse.click(215, 450);
+    let city = null;
+    for (let i = 0; i < 900; i++) {
+      city = page.frames().find(f => { try { return f.name() === 'cityFrame'; } catch (e) { return false; } });
+      if (city) { let al = false; try { al = await city.evaluate(() => typeof ctSawCell === 'function'); } catch (e) {}
+        if (al) break; }
+      await sleep(150);
+    }
+    const up = await city.evaluate(eval('(' + WALK_TO_CARD + ')'), WALK_ATTEMPTS);
+    const cardOn = () => city.evaluate(() => { const dc = document.getElementById('daycard');
+      return !!(dc && getComputedStyle(dc).display !== 'none' && dc.classList.contains('roadcard')); });
+    const before = await cardOn();
+    /* press the WALK DIAL itself, which is how a player moves and is the input that
+       was erasing this card */
+    const bs = city.locator('#pad .pb'); const n = await bs.count();
+    let t = bs.nth(0);
+    for (let i = 0; i < n; i++) { const d = await bs.nth(i).getAttribute('data-walk');
+      if (d === '\u2192') { t = bs.nth(i); break; } }
+    const box = await t.boundingBox();
+    await page.mouse.move(Math.round(box.x + box.width / 2), Math.round(box.y + box.height / 2));
+    await page.mouse.down(); await sleep(150); await page.mouse.up(); await sleep(400);
+    const afterOne = await cardOn();
+    await page.mouse.down(); await sleep(150); await page.mouse.up(); await sleep(400);
+    const afterTwo = await cardOn();
+    await page.close(); SRV.close();
+    return { reached: up.step >= 0, before, afterOne, afterTwo };
+  })();
+  console.log('  the card against the dial: ' + JSON.stringify(survive));
+  ok('*** AND THE CARD SURVIVES THE NEXT STEP, WHICH IS THE DEFECT V213 CREATED AND EYES FOUND. *** They walked the five minutes with a thumb, pressed this dial 117 times and reported NO FIGHT SURFACE SEEN -- while the number above says the card arrives at about press 92. It DID arrive; PRESS 93 ERASED IT. startHold calls roadBail on every press, which is right for a card shown during TRAVEL where nobody holds the walk dial, and wrong the moment V213 routed the WALKED STREET into the same card, because pressing that dial IS how you walk. Now: card up ('
+    + survive.before + '), one walk press and it is STILL THERE (' + survive.afterOne + ')',
+    survive.reached === true && survive.before === true && survive.afterOne === true);
+
+  ok('AND IT IS STILL NOT A LOCK, which is the ruling this must not break: a SECOND press is him walking away and it dismisses the card ('
+    + survive.afterTwo + '). One press of grace, and it is a COUNT rather than a clock -- the first cut gave it two beats, a real ruled duration, and measured that does NOTHING at the real cadence, because a thumb walks in two-second presses and lands long after a one-second window has closed',
+    survive.afterTwo === false);
+
   ok('no page errors through either walk', errs.length === 0);
   if (errs.length) console.log('  errors: ' + JSON.stringify(errs.slice(0, 3)));
   return done(browser);

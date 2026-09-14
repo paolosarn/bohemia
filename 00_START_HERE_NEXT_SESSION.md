@@ -21458,6 +21458,37 @@ NOTHING ELSE MOVED: no new save format, no new key, no new timer, no change to w
 contains, nothing about the fight. THE DEMO WAS NOT RE-CUT (rule 14a).
 Record: records/BOHEMIA_COMBAT_A_SAVE_EXISTS_AT_THE_BELL_9_14_26.md
 
+*** V216 -- THE CARD SURVIVES THE NEXT STEP. MY OWN DEFECT, MADE BY V213, FOUND BY EYES E26 ROUND 3,
+AND IT IS WHY HIS BREAK WAS STILL ON THE LIST WHILE MY FIX WAS REAL. ***
+EYES walked the five minutes with a thumb and reported again "NO FIGHT SURFACE SEEN IN FIVE MINUTES,
+ON EITHER SURFACE". They pressed the walk dial 117 TIMES. My own number says the card arrives after
+55 cells, ABOUT PRESS 92. SO IT DID ARRIVE FOR THEM, AND PRESS 93 ERASED IT.
+MEASURED ON THE ALPHA WITH THE REAL DIAL: card up, on screen TRUE, ONE press of the walk dial, on
+screen FALSE.
+THE CAUSE IS ONE LINE AND THE LINE IS NOT WRONG: startHold calls roadBail on EVERY press under
+__THE_ROAD_CARD_IS_NOT_A_LOCK__, which is RIGHT and stays -- walking away from an offer you are
+ignoring must dismiss it. WHAT WAS WRONG IS WHAT V213 DID TO IT: that card used to be shown during
+TRAVEL, where nobody holds the walk dial, and I routed the WALKED STREET into the same card, where
+pressing that dial IS how you walk. The input you use to move became the input that erases the card.
+THE FIX KEEPS BOTH TRUE: still not a lock (a SECOND press is him walking away and dismisses it,
+nothing swallowed, the press that spends the grace still walks you), and ONE PRESS OF GRACE so the
+card survives the first press after it opens.
+*** AND IT IS A COUNT AND NOT A CLOCK, WHICH I GOT WRONG FIRST AND MEASURED. *** My first cut gave
+it TWO BEATS -- a real ruled duration, 1000 ms under the 120 BPM law, the same two beats V205's zoom
+takes. IT DOES NOTHING AT THE REAL CADENCE: EYES walks in two-second presses, so the next press
+lands long after a one-second window closed and the card was wiped exactly as before. A millisecond
+window has to guess how fast a thumb is; a COUNT does not.
+first_fight_gate 11/0, the arm pressing the REAL walk dial: card up true, after one press STILL
+THERE, after a second press gone. Mutation-proved two ways, each on its own arm: remove the grace ->
+the survives arm red; make it never dismiss -> the not-a-lock arm red. THE TWO ARMS HOLD EACH OTHER
+HONEST, so neither a card that vanishes nor a card you cannot escape can pass.
+Record: records/BOHEMIA_COMBAT_THE_CARD_SURVIVES_THE_NEXT_STEP_9_14_26.md
+
+ROUTED, NOT MINE TO FIX: EYES item 1 measured that THE FONT FIX IS REAL AND IS NOT IN WHAT HE PLAYS
+-- the alpha carries 0 Space Grotesk and 0 Google requests with the faces embedded, the demo still
+carries 42 and 2 and none. Same for V216 and for everything six lanes shipped. Under rule 14(a) ONLY
+RUN RE-CUTS THE DEMO, so all of it is one cut away from the surface he actually opens.
+
 QUEUE STATE: [prefight save], [first fight], [enemies flee] AND [plates cost] ARE SHIPPED. [loot kept], [guns close] and [rescue her] are all SHIPPED (efd64c7 carries
 [guns close] and the key-guard fix; every sha read off main after the push). THE NEXT OPEN LINE IN
 THIS SECTION IS [armour morale] ARMOUR-AND-MORALE, but rule 14 may put another of his breaks first:
