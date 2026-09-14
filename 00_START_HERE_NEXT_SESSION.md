@@ -17436,6 +17436,31 @@ NEW FRONT-PAGE RULE 8 (added 9/13), and it binds this lane: IF YOUR DIFF TOUCHES
 engine/, REBUILD THE TWO DERIVED SLICES (the RUN slice and the demo) IN THE SAME
 COMMIT. PLUMBER found the RUN slice drifting +45/-6 behind two engine ships.
 
+HOLDING: nothing. [owe lines] THE-NIGHT-CARD-SAYS-THE-SAME-LINE-EIGHT-TIMES is
+SHIPPED 9/14. IT WAS THIS LANE'S FIRST FIVE-MINUTE BREAK UNDER RULE 14.
+
+MEASURED FIRST AND IT SHARPENED THE DIAGNOSIS. FACTIONS reported 916 px in a 780
+window with WHO YOU OWE at 270 px and EIGHT IDENTICAL LINES. Measured here with more
+accounts open: 405 px and ELEVEN items, THE BIGGEST BLOCK ON THE CARD, bigger than
+THE DAY. But NOTHING WAS DUPLICATED -- no two lines were ever byte-identical and the
+merge in book() works. The eight were eight DIFFERENT outfits saying the same long
+sentence with a different name in it.
+THE CAUSE WAS say() BEING RIGHT ABOUT THE WRONG UNIT: a full sentence per ACCOUNT,
+and one outfit can hold three (a favour, a night of rent, a loan), so the Church said
+three long sentences in a row. On a phone that reads as the same line over and over.
+THE UNIT IS NOW THE PERSON: "CHURCH: 1 battery lent, 3 taken free, 2 nights unpaid".
+Counts only, biggest first, the lender still named.
+AFTER: 405 px / 11 items -> 138 px / 6 items. 267 px off the card, twice the overflow
+FACTIONS measured. Longest line 83 chars -> 60.
+AND IT IS BOUNDED. Owing all sixteen outfits is a real state and sixteen lines is the
+floor for naming them, so it shows five and says "and 11 more you owe". THE CAP IS
+THE CARD'S OWN CONVENTION (it already caps the faction tally at four and followers at
+five), and the rest is COUNTED, never silently dropped -- the existing caps just stop,
+and a card that quietly hides who you owe is lying by omission.
+PROOF: the row's own gate extended not duplicated, 49 -> 65 checks. Red three ways:
+back to one line per account -> 7; drop the remainder silently -> 2; let a price into
+the line -> 4. records/BOHEMIA_OWE_LINES_9_14_26.md
+
 *** WALKED THE FIVE MINUTES AGAIN AND FOUND THE CAUSE OF HIS DEAD BUTTONS. IT IS
 ONE LINE, IT IS IN THE DEMO CUTTER, AND IT IS RUN'S FILE TO FIX. ***
 HANDED TO RUN, not fixed here: rule 14(a) freezes the demo cut to RUN's hand and the
