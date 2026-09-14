@@ -122,21 +122,33 @@ const done = () => {
        ITS OWN WAY -- the same trap the one driver's header names as trap 2.
        And .click() is not a finger: with the offer card up, eight synthetic clicks
        in a row did not close it while real taps at its coordinates did. */
-    for (let k = 0; k < 8; k++) {
-      const done_ = await city.evaluate(() => {
-        const c = document.getElementById('daycard');
-        if (!c || getComputedStyle(c).display === 'none') return true;
-        const b = c.querySelector('.dcgo') || c.querySelector('.dcbtn');
-        if (!b) return true;
-        const r = b.getBoundingClientRect();
-        return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
-      });
-      if (done_ === true) break;
-      const fEl = await page.$('iframe#cityFrame');
-      const fb2 = fEl ? await fEl.boundingBox() : { x: 0, y: 0 };
-      await page.mouse.click(fb2.x + done_.x, fb2.y + done_.y).catch(() => { });
-      await SETTLE(page, 900);
-    }
+    /* *** AND IT HAS TO RUN AGAIN RIGHT BEFORE THE GESTURE, NOT ONCE AT THE DOOR.
+       *** Clearing at the door and pinching a few seconds later still failed, and
+       the reason is that THE PHONE RINGS ON A TIMER: the job offer arrives seconds
+       after the wake card is dismissed, so it lands in the gap between the clear
+       and the pinch and sits on the canvas. Proved by pinching immediately after a
+       clear (mode -> city, hzoom 11, 2 pointerdowns) and then with the gate's own
+       spacing (nothing). A one-shot clear is a race the harness loses whenever the
+       game gets slightly slower or the offer slightly faster. */
+    const clearAllCards = async () => {
+      for (let k = 0; k < 8; k++) {
+        const where = await city.evaluate(() => {
+          const c = document.getElementById('daycard');
+          if (!c || getComputedStyle(c).display === 'none') return true;
+          const b = c.querySelector('.dcgo') || c.querySelector('.dcbtn');
+          if (!b) return true;
+          const r = b.getBoundingClientRect();
+          return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
+        });
+        if (where === true) return true;
+        const fEl = await page.$('iframe#cityFrame');
+        const fb2 = fEl ? await fEl.boundingBox() : { x: 0, y: 0 };
+        await page.mouse.click(fb2.x + where.x, fb2.y + where.y).catch(() => { });
+        await SETTLE(page, 900);
+      }
+      return false;
+    };
+    await clearAllCards();
     await SETTLE(page, 1600);
 
     /* WHAT HIS EYE ACTUALLY GETS, off computed style rather than off the rule I
@@ -208,6 +220,13 @@ const done = () => {
     /* *** THE WHOLE POINT IS THE SEAM. *** Setting MODE by hand would prove the
        CSS exists and prove nothing about whether his gesture reaches it. Real
        touch, because hand-made PointerEvents make setPointerCapture throw. */
+    /* the glass has to be clear AT THE MOMENT the fingers land */
+    await clearAllCards();
+    const glass = await city.evaluate(() => {
+      const e = document.elementFromPoint(innerWidth / 2, innerHeight / 2);
+      return e ? (e.id || e.tagName) : 'none'; });
+    ok('nothing is sitting on the canvas when the fingers land (' + glass + ')',
+       glass === 'cv' || glass === 'CANVAS');
     const cdp = await ctx.newCDPSession(page);
     const box = await (await city.$('#cv')).boundingBox();
     const px = box.x + box.width / 2, py = box.y + box.height / 2;
